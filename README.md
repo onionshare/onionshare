@@ -13,7 +13,7 @@ Then run onionshare.py, and pass it a filename. It will look something like this
     amnesia@amnesia:~/Persistent/code/onionshare$ sudo ./onionshare.py ~/Persistent/file_to_send.gpg
     [sudo] password for amnesia:
     Modifying torrc to configure hidden service on port 41710
-    Reloading tor daemon configuration...                                                                                                             [  DONE  ]
+    Reloading tor daemon configuration...                                                   [  DONE  ]
     Punching a hole in the firewall
     Waiting 10 seconds for hidden service to get configured...
 
@@ -35,6 +35,6 @@ Securely send the URL, username, and password to the person you are sending the 
 Once you confirm that they have downloaded the file you're sending (ask them), press Ctrl-C to shut down the server and clean up your Tails setup.
 
     Restoring original torrc
-    Reloading tor daemon configuration...                                                                                                             [  DONE  ]
+    Reloading tor daemon configuration...                                                   [  DONE  ]
     Closing hole in firewall
 
