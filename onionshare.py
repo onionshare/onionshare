@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 
-import os, sys, subprocess, time
+import os, sys, subprocess, time, hashlib
 from random import randint
 
 from functools import wraps
-from flask import Flask, request, Response
+from flask import Flask, Markup, Response, request, make_response, send_from_directory
 app = Flask(__name__)
 
-auth_username = auth_password = ''
+auth_username = auth_password = filename = filehash = filesize = ''
 
 def check_auth(username, password):
     global auth_username, auth_password
@@ -30,8 +30,17 @@ def requires_auth(f):
 
 @app.route("/")
 @requires_auth
-def hello():
-    return "Hello World!"
+def index():
+    global filename, filesize, filehash
+    return "<html><head><title>OnionShare</title><style>body { background-color: #222222; color: #ffffff; text-align: center; font-family: verdana; padding: 5em; } a { color: #ffee00; }</style></head><body><h1><a href='/download'>{0}</a></h1><p>File size: {1} bytes<br/>SHA1 checksum: {2}</p></body></html>".format(os.path.basename(filename), filesize, filehash)
+
+@app.route("/download")
+@requires_auth
+def download():
+    global filename
+    dirname = os.path.dirname(filename)
+    basename = os.path.basename(filename)
+    return send_from_directory(dirname, basename, as_attachment=True)
 
 def reload_tor():
     subprocess.call(['/usr/sbin/service', 'tor', 'reload'])
@@ -41,7 +50,6 @@ def modify_firewall(port, open_port=True):
         action = 'ACCEPT'
     else:
         action = 'REJECT'
-
     subprocess.call(['/sbin/iptables', '-I', 'OUTPUT', '-o', 'lo', '-p', 'tcp', '--dport', str(port), '-j', action])
 
 if __name__ == '__main__':
@@ -49,12 +57,22 @@ if __name__ == '__main__':
     if not os.geteuid()==0:
         sys.exit('You need to run this as root')
 
-    # arguements
+    # validate filename
     if len(sys.argv) != 2:
         sys.exit('Usage: {0} [filename]'.format(sys.argv[0]));
     filename = sys.argv[1]
     if not os.path.isfile(filename):
         sys.exit('{0} is not a file'.format(filename))
+
+    # calculate filehash, file size
+    sha1 = hashlib.sha1()
+    f = open(filename, 'rb')
+    try:
+        sha1.update(f.read())
+    finally:
+        f.close()
+    filehash = sha1.hexdigest()
+    filesize = os.path.getsize(filename)
 
     # load torrc
     torrc_path = '/etc/tor/torrc'
@@ -82,12 +100,12 @@ if __name__ == '__main__':
     modify_firewall(port)
 
     # get hidden service hostname
-    print 'Waiting 10 seconds for hidden service to get configured...'
-    time.sleep(10)
+    print 'Waiting 5 seconds for hidden service to get configured...'
+    time.sleep(5)
     onion_host = open('/var/lib/tor/hidden_service_{0}/hostname'.format(port), 'r').read().strip()
 
     # instructions
-    print '\nGive this information to the person you''re sending the file to:'
+    print '\nGive this information to the person you\'re sending the file to:'
     print 'URL: http://{0}/'.format(onion_host)
     print 'Username: {0}'.format(auth_username)
     print 'Password: {0}'.format(auth_password)
@@ -104,4 +122,3 @@ if __name__ == '__main__':
     reload_tor()
     print 'Closing hole in firewall'
     modify_firewall(port, False)
-
