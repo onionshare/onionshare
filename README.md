@@ -4,11 +4,7 @@ A program to securely share a file of any size with someone, designed to be run 
 
 ## Quick Start
 
-Boot to Tails, setting an administrator password. Clone this repository. Install the dependencies:
-
-    sudo apt-get install python-flask
-
-Then run onionshare.py, and pass it a filename. It will look something like this:
+You need to run this script as root, so make sure you set an administrator password when you boot Tails. Run onionshare.py, and pass it a filename. It will look something like this:
 
     amnesia@amnesia:~/Persistent/code/onionshare$ sudo ./onionshare.py ~/Persistent/file_to_send.gpg
     [sudo] password for amnesia:
