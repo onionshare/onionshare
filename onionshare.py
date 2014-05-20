@@ -32,7 +32,7 @@ def requires_auth(f):
 @requires_auth
 def index():
     global filename, filesize, filehash
-    return "<html><head><title>OnionShare</title><style>body { background-color: #222222; color: #ffffff; text-align: center; font-family: verdana; padding: 5em; } a { color: #ffee00; }</style></head><body><h1><a href='/download'>{0}</a></h1><p>File size: {1} bytes<br/>SHA1 checksum: {2}</p></body></html>".format(os.path.basename(filename), filesize, filehash)
+    return "<html><head><title>OnionShare</title><style>body {{ background-color: #222222; color: #ffffff; text-align: center; font-family: arial; padding: 5em; }} a {{ color: #ffee00; text-decoration: none; }} a:hover{{ text-decoration: underline; }}</style></head><body><h1><a href='/download'>{0}</a></h1><p>SHA1 checksum: <strong>{1}</strong><br/>File size: <strong>{2} bytes</strong></p></body></html>".format(os.path.basename(filename), filehash, filesize)
 
 @app.route("/download")
 @requires_auth
