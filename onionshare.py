@@ -17,7 +17,16 @@ auth_username = auth_password = filename = filehash = filesize = ''
 
 def check_auth(username, password):
     global auth_username, auth_password
-    return username == auth_username and password == auth_password
+
+    if len(username) != 16 or len(password) != 16:
+        return False
+
+    # constant time string comparison, to prevent timing attacks
+    valid = True
+    for i in range(16):
+        if username[i] != auth_username[i] or password[i] != auth_password[i]:
+            valid = False
+    return valid
 
 def authenticate():
     return Response(
