@@ -48,13 +48,19 @@ def download():
     basename = os.path.basename(filename)
     return send_from_directory(dirname, basename, as_attachment=True)
 
+def get_platform():
+    if 'ONIONSHARE_PLATFORM' in os.environ:
+        return os.environ['ONIONSHARE_PLATFORM']
+    else:
+        return 'unknown'
+
 def tails_open_port(port):
-    if os.environ['ONIONSHARE_PLATFORM'] == 'Tails':
+    if get_platform() == 'Tails':
         print 'Punching a hole in the firewall'
         subprocess.call(['/sbin/iptables', '-I', 'OUTPUT', '-o', 'lo', '-p', 'tcp', '--dport', str(port), '-j', 'ACCEPT'])
 
 def tails_close_port(port):
-    if os.environ['ONIONSHARE_PLATFORM'] == 'Tails':
+    if get_platform() == 'Tails':
         print 'Closing hole in firewall'
         subprocess.call(['/sbin/iptables', '-I', 'OUTPUT', '-o', 'lo', '-p', 'tcp', '--dport', str(port), '-j', 'REJECT'])
 
