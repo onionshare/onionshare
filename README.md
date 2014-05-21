@@ -6,7 +6,7 @@ OnionShare is a program to securely and anonymously share a file of any size wit
 
 ## Quick Start
 
-At the moment OnionShare is a command line program. It works in normal desktop GNU/Linux distributions, Tails, and Mac OS X. To get started, either git clone the onionshare repository or [download a this zip file](https://github.com/micahflee/onionshare/archive/master.zip) and extract it. Open a terminal and navigate to the  onionshare directory.
+At the moment OnionShare is a command line program. It works in normal desktop GNU/Linux distributions, Tails, and Mac OS X. To get started, either git clone the onionshare repository or [download this zip file](https://github.com/micahflee/onionshare/archive/master.zip) and extract it. Open a terminal and navigate to the  onionshare directory.
 
 OnionShare relies on Tor. You need to either have a system Tor installed (`sudo apt-get install tor`), or you can open Tor Browser so that OnionShare can use the Tor server provided there. Start Tor, and then run `onionshare.py`, passing in the file that you want to share, like this:
 
