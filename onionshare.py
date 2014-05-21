@@ -15,18 +15,21 @@ app = Flask(__name__)
 
 auth_username = auth_password = filename = filehash = filesize = ''
 
-def check_auth(username, password):
-    global auth_username, auth_password
-
-    if len(username) != 16 or len(password) != 16:
+def is_equal(a, b):
+    """Constant-time string comparison"""
+    if len(a) != len(b):
         return False
 
-    # constant time string comparison, to prevent timing attacks
-    valid = True
-    for i in range(16):
-        if username[i] != auth_username[i] or password[i] != auth_password[i]:
-            valid = False
-    return valid
+    result = 0
+    for x, y in zip(a, b):
+        result |= ord(x) ^ ord(y)
+    return result == 0
+
+def check_auth(username, password):
+    global auth_username, auth_password
+    usernames_equal = is_equal(username, auth_username)
+    passwords_equal = is_equal(password, auth_password)
+    return usernames_equal & passwords_equal
 
 def authenticate():
     return Response(
