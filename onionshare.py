@@ -7,6 +7,9 @@ from functools import wraps
 lib_path = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))+'/lib'
 sys.path.append(lib_path)
 
+from stem.control import Controller
+from stem import SocketError
+
 from flask import Flask, Markup, Response, request, make_response, send_from_directory
 app = Flask(__name__)
 
@@ -45,9 +48,6 @@ def download():
     basename = os.path.basename(filename)
     return send_from_directory(dirname, basename, as_attachment=True)
 
-def reload_tor():
-    subprocess.call(['/usr/sbin/service', 'tor', 'reload'])
-
 def modify_firewall(port, open_port=True):
     if open_port:
         action = 'ACCEPT'
@@ -77,35 +77,34 @@ if __name__ == '__main__':
     filehash = sha1.hexdigest()
     filesize = os.path.getsize(filename)
 
-    # load torrc
-    torrc_path = '/etc/tor/torrc'
-    if os.path.isfile(torrc_path):
-        torrc = open(torrc_path).read()
-    else:
-        sys.exit('Error opening {0} for reading'.format(torrc_path));
-    
-    # choose a port to listen on
+    # choose a port, username, and password
     port = randint(1025, 65535)
-
-    # choose a random username and password
     auth_username = os.urandom(8).encode('hex')
     auth_password = os.urandom(8).encode('hex')
 
+    # connect to the tor controlport
+    print 'Connecting to Tor ControlPort to set up hidden service on port {0}'.format(port)
+    controlports = [9051, 9151]
+    controller = False
+    for controlport in controlports:
+        try:
+            controller = Controller.from_port(port=controlport)
+        except SocketError:
+            pass
+    if not controller:
+        sys.exit('Cannot connect to Tor ControlPorts on ports {0}. Is Tor running?'.format(controlports))
+    controller.authenticate()
+
     # set up hidden service
-    print 'Modifying torrc to configure hidden service on port {0}'.format(port)
-    hidserv_dir = 'HiddenServiceDir /var/lib/tor/hidden_service_{0}/'.format(port)
-    hidserv_port = 'HiddenServicePort 80 127.0.0.1:{0}'.format(port)
-    open(torrc_path, 'a+').write("\n{0}\n{1}\n".format(hidserv_dir, hidserv_port))
-    reload_tor()
+    controller.set_options([
+        ('HiddenServiceDir', '/tmp/onionshare_hidden_service_{0}/'.format(port)),
+        ('HiddenServicePort', '80 127.0.0.1:{0}'.format(port))
+    ])
+    onion_host = open('/tmp/onionshare_hidden_service_{0}/hostname'.format(port), 'r').read().strip()
 
     # punch a hole in the firewall
     print 'Punching a hole in the firewall'
     modify_firewall(port)
-
-    # get hidden service hostname
-    print 'Waiting 5 seconds for hidden service to get configured...'
-    time.sleep(5)
-    onion_host = open('/var/lib/tor/hidden_service_{0}/hostname'.format(port), 'r').read().strip()
 
     # instructions
     print '\nGive this information to the person you\'re sending the file to:'
@@ -120,8 +119,5 @@ if __name__ == '__main__':
     print '\n'
 
     # shutdown
-    print 'Restoring original torrc'
-    open(torrc_path, 'w').write(torrc)
-    reload_tor()
     print 'Closing hole in firewall'
     modify_firewall(port, False)
