@@ -48,18 +48,17 @@ def download():
     basename = os.path.basename(filename)
     return send_from_directory(dirname, basename, as_attachment=True)
 
-def modify_firewall(port, open_port=True):
-    if open_port:
-        action = 'ACCEPT'
-    else:
-        action = 'REJECT'
-    subprocess.call(['/sbin/iptables', '-I', 'OUTPUT', '-o', 'lo', '-p', 'tcp', '--dport', str(port), '-j', action])
+def tails_open_port(port):
+    if os.environ['ONIONSHARE_PLATFORM'] == 'Tails':
+        print 'Punching a hole in the firewall'
+        subprocess.call(['/sbin/iptables', '-I', 'OUTPUT', '-o', 'lo', '-p', 'tcp', '--dport', str(port), '-j', 'ACCEPT'])
+
+def tails_close_port(port):
+    if os.environ['ONIONSHARE_PLATFORM'] == 'Tails':
+        print 'Closing hole in firewall'
+        subprocess.call(['/sbin/iptables', '-I', 'OUTPUT', '-o', 'lo', '-p', 'tcp', '--dport', str(port), '-j', 'REJECT'])
 
 if __name__ == '__main__':
-    # check for root
-    if not os.geteuid()==0:
-        sys.exit('You need to run this as root')
-
     # validate filename
     if len(sys.argv) != 2:
         sys.exit('Usage: {0} [filename]'.format(sys.argv[0]));
@@ -103,8 +102,7 @@ if __name__ == '__main__':
     onion_host = open('/tmp/onionshare_hidden_service_{0}/hostname'.format(port), 'r').read().strip()
 
     # punch a hole in the firewall
-    print 'Punching a hole in the firewall'
-    modify_firewall(port)
+    tails_open_port(port)
 
     # instructions
     print '\nGive this information to the person you\'re sending the file to:'
@@ -119,5 +117,4 @@ if __name__ == '__main__':
     print '\n'
 
     # shutdown
-    print 'Closing hole in firewall'
-    modify_firewall(port, False)
+    tails_close_port(port)
