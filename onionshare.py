@@ -1,9 +1,12 @@
 #!/usr/bin/env python
 
-import os, sys, subprocess, time, hashlib
+import os, sys, subprocess, time, hashlib, inspect
 from random import randint
-
 from functools import wraps
+
+lib_path = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))+'/lib'
+sys.path.append(lib_path)
+
 from flask import Flask, Markup, Response, request, make_response, send_from_directory
 app = Flask(__name__)
 
