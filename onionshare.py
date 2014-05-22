@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import os, sys, subprocess, time, hashlib, inspect
+import os, sys, subprocess, time, hashlib, inspect, platform
 from random import randint
 from functools import wraps
 
@@ -35,7 +35,21 @@ def get_platform():
     if 'ONIONSHARE_PLATFORM' in os.environ:
         return os.environ['ONIONSHARE_PLATFORM']
     else:
-        return 'unknown'
+        return platform.system()
+
+def get_hidden_service_dir(port):
+    if get_platform() == "Windows":
+        if 'Temp' in os.environ:
+            temp = os.environ['Temp'].replace('\\', '/')
+        else:
+            temp = 'C:/tmp'
+        return "{0}/onionshare_hidden_service_{1}".format(temp, port)
+    
+    return "/tmp/onionshare_hidden_service_{0}".format(port)
+
+def get_hidden_service_hostname(port):
+    hostname_file = '{0}/hostname'.format(get_hidden_service_dir(port))
+    return open(hostname_file, 'r').read().strip()
 
 def tails_open_port(port):
     if get_platform() == 'Tails':
@@ -83,10 +97,10 @@ if __name__ == '__main__':
 
     # set up hidden service
     controller.set_options([
-        ('HiddenServiceDir', '/tmp/onionshare_hidden_service_{0}/'.format(port)),
+        ('HiddenServiceDir', get_hidden_service_dir(port)),
         ('HiddenServicePort', '80 127.0.0.1:{0}'.format(port))
     ])
-    onion_host = open('/tmp/onionshare_hidden_service_{0}/hostname'.format(port), 'r').read().strip()
+    onion_host = get_hidden_service_hostname(port)
 
     # punch a hole in the firewall
     tails_open_port(port)
