@@ -9,7 +9,7 @@ sys.path.append(os.path.dirname(__file__)+'/lib')
 from stem.control import Controller
 from stem import SocketError
 
-from flask import Flask, Markup, Response, request, make_response, send_from_directory
+from flask import Flask, Markup, Response, request, make_response, send_from_directory, render_template_string
 app = Flask(__name__)
 
 # generate an unguessable string
@@ -21,7 +21,8 @@ filename = filehash = filesize = ''
 @app.route("/{0}".format(slug))
 def index():
     global filename, filesize, filehash, slug
-    return "<html><head><title>OnionShare</title><style>body {{ background-color: #222222; color: #ffffff; text-align: center; font-family: arial; padding: 5em; }} a {{ color: #ffee00; text-decoration: none; }} a:hover{{ text-decoration: underline; }}</style></head><body><h1><a href='/{0}/download'>{1}</a></h1><p>SHA1 checksum: <strong>{2}</strong><br/>File size: <strong>{3} bytes</strong></p></body></html>".format(slug, os.path.basename(filename), filehash, filesize)
+    return render_template_string(open('{0}/index.html'.format(os.path.dirname(__file__))).read(),
+        slug=slug, filename=os.path.basename(filename), filehash=filehash, filesize=filesize)
 
 @app.route("/{0}/download".format(slug))
 def download():
