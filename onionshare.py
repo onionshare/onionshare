@@ -1,11 +1,10 @@
 #!/usr/bin/env python
 
-import os, sys, subprocess, time, hashlib, inspect, platform
+import os, sys, subprocess, time, hashlib, platform
 from random import randint
 from functools import wraps
 
-lib_path = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))+'/lib'
-sys.path.append(lib_path)
+sys.path.append(os.path.dirname(__file__)+'/lib')
 
 from stem.control import Controller
 from stem import SocketError
@@ -44,7 +43,7 @@ def get_hidden_service_dir(port):
         else:
             temp = 'C:/tmp'
         return "{0}/onionshare_hidden_service_{1}".format(temp, port)
-    
+
     return "/tmp/onionshare_hidden_service_{0}".format(port)
 
 def get_hidden_service_hostname(port):
