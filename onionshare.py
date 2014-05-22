@@ -69,13 +69,15 @@ if __name__ == '__main__':
         sys.exit('{0} is not a file'.format(filename))
 
     # calculate filehash, file size
-    sha1 = hashlib.sha1()
-    f = open(filename, 'rb')
-    try:
-        sha1.update(f.read())
-    finally:
-        f.close()
-    filehash = sha1.hexdigest()
+    print 'Calculate sha1 checksum'
+    BLOCKSIZE = 65536
+    hasher = hashlib.sha1()
+    with open(filename, 'rb') as f:
+        buf = f.read(BLOCKSIZE)
+        while len(buf) > 0:
+            hasher.update(buf)
+            buf = f.read(BLOCKSIZE)
+    filehash = hasher.hexdigest()
     filesize = os.path.getsize(filename)
 
     # choose a port
