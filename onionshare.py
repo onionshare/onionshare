@@ -31,6 +31,10 @@ def download():
     basename = os.path.basename(filename)
     return send_from_directory(dirname, basename, as_attachment=True)
 
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template_string(open('{0}/404.html'.format(os.path.dirname(__file__))).read())
+
 def get_platform():
     if 'ONIONSHARE_PLATFORM' in os.environ:
         return os.environ['ONIONSHARE_PLATFORM']
