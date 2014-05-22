@@ -84,7 +84,7 @@ if __name__ == '__main__':
     port = randint(1025, 65535)
 
     # connect to the tor controlport
-    print 'Connecting to Tor ControlPort to set up hidden service on port {0}'.format(port)
+    print 'Connecting to Tor control port to set up hidden service on port {0}'.format(port)
     controlports = [9051, 9151]
     controller = False
     for controlport in controlports:
@@ -93,7 +93,7 @@ if __name__ == '__main__':
         except SocketError:
             pass
     if not controller:
-        sys.exit('Cannot connect to Tor ControlPorts on ports {0}. Is Tor running?'.format(controlports))
+        sys.exit('Cannot connect to Tor control port on ports {0}. Is Tor running?'.format(controlports))
     controller.authenticate()
 
     # set up hidden service
