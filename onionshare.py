@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import os, sys, subprocess, time, hashlib, platform, json, locale
+import os, sys, subprocess, time, hashlib, platform, json, locale, socket
 from random import randint
 from functools import wraps
 
@@ -100,8 +100,11 @@ if __name__ == '__main__':
     filehash = hasher.hexdigest()
     filesize = os.path.getsize(filename)
 
-    # choose a port
-    port = randint(1025, 65535)
+    # let the OS choose a port
+    tmpsock = socket.socket()
+    tmpsock.bind(("127.0.0.1", 0))
+    port = tmpsock.getsockname()[1]
+    tmpsock.close()
 
     # connect to the tor controlport
     print strings["connecting_ctrlport"].format(port)
