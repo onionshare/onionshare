@@ -31,4 +31,15 @@
     "not_a_file": "{0} no es un archivo.",
     "filesize": "Tamaño del archivo",
     "sha1_checksum": "Suma de verificación SHA1"
+}, "fr": {
+    "punching_a_hole": "Poinçonnage d'un trou dans le pare-feu.",
+    "closing_hole": "Trou de clôture dans le pare-feu.",
+    "calculating_sha1": "Calculer un hachage SHA-1.",
+    "connecting_ctrlport": "Connexion à réseau Tor utilisant les port {0}.",
+    "cant_connect_ctrlport": "Réseau Tor indisponible sur le port {0}. Vous utilisez Tor?",
+    "give_this_url": "Lien de téléchargement:",
+    "ctrlc_to_stop":  "Ctrl-C arrêter le serveur",
+    "not_a_file": "Ce fichier n'est pas valide {0}.",
+    "filesize": "Taille de fichier",
+    "sha1_checksum": "SHA1 hachage"
 }}
