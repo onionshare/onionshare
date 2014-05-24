@@ -73,7 +73,6 @@ def load_strings(default="en"):
     translated = json.loads(open('{0}/strings.json'.format(
         os.path.dirname(__file__))).read())
     strings = translated[default]
-    return
     lc, enc = locale.getdefaultlocale()
     if lc:
         lang = lc[:2]
