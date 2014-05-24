@@ -66,8 +66,8 @@
     <p><a class="button" href='/{{ slug }}/download'>{{ filename }} &#x25BC;</a></p>
 
         <div class="metadata">
-            <p>File size: <strong>{{ filesize }} bytes</strong></p>
-            <p>SHA1 checksum: <strong>{{ filehash }}</strong></p>
+            <p>{{strings.filesize}}: <strong>{{ filesize }} bytes</strong></p>
+            <p>{{strings.sha1_checksum}}: <strong>{{ filehash }}</strong></p>
         </div>
     </body>
 </html>
