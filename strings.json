@@ -26,7 +26,7 @@
     "calculating_sha1": "Calculando suma de verificación SHA1.",
     "connecting_ctrlport": "Conectando a puerto control de Tor para configurar servicio oculto en puerto {0}.",
     "cant_connect_ctrlport": "No se pudo conectar a puerto control de Tor en puertos {0}. ¿Está funcionando Tor?",
-    "give_this_url": "Da esta URL seguramente a la persona para enviar el archivo:"
+    "give_this_url": "Da esta URL seguramente a la persona para enviar el archivo:",
     "ctrlc_to_stop":  "Pulse Ctrl-C para detener servidor",
     "not_a_file": "{0} no es un archivo.",
     "filesize": "Tamaño del archivo",
