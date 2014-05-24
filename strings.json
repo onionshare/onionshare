@@ -20,4 +20,15 @@
     "not_a_file": "{0} er ikke en fil.",
     "filesize": "Filstørrelse",
     "sha1_checksum": "SHA1 sjekksum"
+}, "es": {
+    "punching_a_hole": "Abriendo un agujero en el cortafuegos.",
+    "closing_hole": "Cerrando el agujero en el cortafuegos.",
+    "calculating_sha1": "Calculando suma de verificación SHA1.",
+    "connecting_ctrlport": "Conectando a puerto control de Tor para configurar servicio oculto en puerto {0}.",
+    "cant_connect_ctrlport": "No se pudo conectar a puerto control de Tor en puertos {0}. ¿Está funcionando Tor?",
+    "give_this_url": "Da esta URL seguramente a la persona para enviar el archivo:"
+    "ctrlc_to_stop":  "Pulse Ctrl-C para detener servidor",
+    "not_a_file": "{0} no es un archivo.",
+    "filesize": "Tamaño del archivo",
+    "sha1_checksum": "Suma de verificación SHA1"
 }}
