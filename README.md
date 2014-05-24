@@ -1,6 +1,6 @@
 # OnionShare
 
-OnionShare lets you securely and anonymously share a file of any size with someone. It works by starting a web server, making it accessible as a Tor hidden service, and generating an unguessable URL access and download the file. It doesn't require setting up a server on the internet somewhere or using a third party filesharing service. You host the file on your own computer and use a Tor hidden service to make it temporarily accessible over the internet. The other user just needs to use Tor Browser to download the file from you.
+OnionShare lets you securely and anonymously share a file of any size with someone. It works by starting a web server, making it accessible as a Tor hidden service, and generating an unguessable URL to access and download the file. It doesn't require setting up a server on the internet somewhere or using a third party filesharing service. You host the file on your own computer and use a Tor hidden service to make it temporarily accessible over the internet. The other user just needs to use Tor Browser to download the file from you.
 
 ![Screenshot](/screenshot.png)
 
@@ -28,7 +28,7 @@ Securely send the URL to the person you are sending the file to (like by using J
 
 ## Using OnionShare in Windows
 
-OnionShare isn't properly packaged for Windows yet. This mean you'll need to install Python 2.x yourself. [Download the latest 2.x version of python](https://www.python.org/downloads/) for your architecture and install it. Your python binary should be something like `C:\Python27\python.exe`.
+OnionShare isn't properly packaged for Windows yet. This means you'll need to install Python 2.x yourself. [Download the latest 2.x version of python](https://www.python.org/downloads/) for your architecture and install it. Your python binary should be something like `C:\Python27\python.exe`.
 
 Since OnionShare is a command line program, and using it involves copying and pasting a URL from a command prompt window, it's less frusturating if you use the Windows PowerShell rather than the Command Prompt (in PowerShell, select text you want to copy and then right-click to copy it onto the clipboard). But you can use either. Open either PowerShell or a Command Prompt, cd to your onionshare folder, and run `python.exe onionshare.py` with the path to the file you want to share. For example:
 
