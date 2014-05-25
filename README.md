@@ -52,9 +52,9 @@ Since OnionShare is a command line program, and using it involves copying and pa
 
 ## Using OnionShare in Tails
 
-You need to run OnionShare as root in Tails, so make sure you set an administrator password when you boot Tails. Follow the same instructions as above, except run `onionshare-tails` instead of `onionshare`, and run it with sudo like this:
+You need to run OnionShare as root in Tails, so make sure you set an administrator password when you boot Tails. Follow the same instructions as above, except run `tails-onionshare` instead of `onionshare`, and run it with sudo like this:
 
-    amnesia@amnesia:~/Persistent/code/onionshare$ sudo bin/onionshare-tails ~/Persistent/file_to_send.pgp
+    amnesia@amnesia:~/Persistent/code/onionshare$ sudo bin/tails-onionshare ~/Persistent/file_to_send.pgp
     [sudo] password for amnesia:
     Connecting to Tor ControlPort to set up hidden service on port 16089
     Punching a hole in the firewall
