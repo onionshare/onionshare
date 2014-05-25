@@ -9,7 +9,7 @@ except ImportError:
     from distutils.core import setup
 
 if sys.argv[-1] == 'publish':
-    subprocess.call('python setup.py sdist upload --sign')
+    subprocess.call(['python', 'setup.py', 'sdist', 'upload', '--sign'])
     sys.exit()
 
 setup(
