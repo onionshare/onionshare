@@ -17,15 +17,17 @@ if sys.argv[-1] == 'publish':
 
 setup(
     name='onionshare',
-    version='1.0.0',
-    description='OnionShare lets you securely and anonymously share a file of any size with someone. It works by starting a web server, making it accessible as a Tor hidden service, and generating an unguessable URL access and download the file.',
-    long_description="""OnionShare lets you securely and anonymously share a file of any size with someone. It works by starting a web server, making it accessible as a Tor hidden service, and generating an unguessable URL access and download the file. It doesn't require setting up a server on the internet somewhere or using a third party filesharing service. You host the file on your own computer and use a Tor hidden service to make it temporarily accessible over the internet. The other user just needs to use Tor Browser to download the file from you.""",
+    version='0.1',
+    description='OnionShare lets you securely and anonymously share a file of any size with someone. It works by starting a web server, making it accessible as a Tor hidden service, and generating an unguessable URL to access and download the file.',
+    long_description="""OnionShare lets you securely and anonymously share a file of any size with someone. It works by starting a web server, making it accessible as a Tor hidden service, and generating an unguessable URL to access and download the file. It doesn't require setting up a server on the internet somewhere or using a third party filesharing service. You host the file on your own computer and use a Tor hidden service to make it temporarily accessible over the internet. The other user just needs to use Tor Browser to download the file from you.""",
     author='Micah Lee',
     author_email='micah@micahflee.com',
     url='https://github.com/micahflee/onionshare',
     py_modules = ['onionshare'],
     include_package_data=True,
     install_requires=[
+        'flask >= 0.10.1',
+        'stem >= 1.1.1'
     ],
     license="GPL v3",
     zip_safe=False,
