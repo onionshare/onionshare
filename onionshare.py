@@ -4,8 +4,6 @@ import os, sys, subprocess, time, hashlib, platform, json, locale, socket
 from random import randint
 from functools import wraps
 
-sys.path.append(os.path.dirname(__file__)+'/lib')
-
 from stem.control import Controller
 from stem import SocketError
 
