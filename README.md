@@ -12,7 +12,7 @@ You can also install onionshare by using pip or easy_install. On pip you can typ
 
 OnionShare relies on Tor. You need to either have a system Tor installed (`sudo apt-get install tor`), or you can open Tor Browser so that OnionShare can use the Tor server provided there. Start Tor, and then run `onionshare`, passing in the file that you want to share, like this:
 
-    [user@dev onionshare]$ ./onionshare ~/Desktop/secrets.pdf
+    [user@dev onionshare]$ bin/onionshare ~/Desktop/secrets.pdf
     Connecting to Tor ControlPort to set up hidden service on port 26828
 
     Give this URL to the person you're sending the file to:
@@ -34,7 +34,7 @@ OnionShare isn't properly packaged for Windows yet. This means you'll need to in
 
 Since OnionShare is a command line program, and using it involves copying and pasting a URL from a command prompt window, it's less frusturating if you use the Windows PowerShell rather than the Command Prompt (in PowerShell, select text you want to copy and then right-click to copy it onto the clipboard). But you can use either. Open either PowerShell or a Command Prompt, cd to your onionshare folder, and run `python.exe onionshare` with the path to the file you want to share. For example:
 
-    PS C:\Users\user\Desktop\onionshare> C:\Python27\python.exe onionshare C:\Users\user\Desktop\secrets.pdf
+    PS C:\Users\user\Desktop\onionshare> C:\Python27\python.exe bin\onionshare C:\Users\user\Desktop\secrets.pdf
     Connecting to Tor ControlPort to set up hidden service on port 40867
 
     Give this URL to the person you're sending the file to:
@@ -54,7 +54,7 @@ Since OnionShare is a command line program, and using it involves copying and pa
 
 You need to run OnionShare as root in Tails, so make sure you set an administrator password when you boot Tails. Follow the same instructions as above, except run `onionshare-tails` instead of `onionshare`, and run it with sudo like this:
 
-    amnesia@amnesia:~/Persistent/code/onionshare$ sudo ./onionshare-tails ~/Persistent/file_to_send.pgp
+    amnesia@amnesia:~/Persistent/code/onionshare$ sudo bin/onionshare-tails ~/Persistent/file_to_send.pgp
     [sudo] password for amnesia:
     Connecting to Tor ControlPort to set up hidden service on port 16089
     Punching a hole in the firewall
