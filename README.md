@@ -6,13 +6,17 @@ OnionShare lets you securely and anonymously share a file of any size with someo
 
 ## Quick Start
 
-At the moment OnionShare is a command line program. It works in Mac OS X, GNU/Linux, and Windows (see special Windows and Tails instructions below). To get started, either git clone the onionshare repository or [download this zip file](https://github.com/micahflee/onionshare/archive/master.zip) and extract it. Open a terminal and navigate to the  onionshare directory.
+OnionShare works in GNU/Linux, Mac OS X, and Windows. The easiest way to install it right now is by using pip:
 
-You can also install onionshare by using pip or easy_install. On pip you can type `pip install onionshare` and on easy_install your can use `easy_install onionshare`.
+    sudo pip install onionshare
+
+More detailed installation instructions for all platforms are coming soon.
+
+## How to Use
 
 OnionShare relies on Tor. You need to either have a system Tor installed (`sudo apt-get install tor`), or you can open Tor Browser so that OnionShare can use the Tor server provided there. Start Tor, and then run `onionshare`, passing in the file that you want to share, like this:
 
-    [user@dev onionshare]$ bin/onionshare ~/Desktop/secrets.pdf
+    [user@dev onionshare]$ onionshare ~/Desktop/secrets.pdf
     Connecting to Tor ControlPort to set up hidden service on port 26828
 
     Give this URL to the person you're sending the file to:
