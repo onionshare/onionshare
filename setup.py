@@ -27,18 +27,6 @@ setup(
     ],
     license="GPL v3",
     keywords='onion, share, onionshare, tor, anonymous, web server',
-    classifiers=[
-        'Development Status :: 4 - Beta',
-        'Intended Audience :: Developers',
-        'Intended Audience :: End Users/Desktop',
-        'License :: OSI Approved :: GPL License',
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.6',
-        'Programming Language :: Python :: 2.7',
-        'Operating System :: MacOS :: MacOS X',
-        'Operating System :: Microsoft :: Windows',
-        'Operating System :: POSIX',
-    ],
     packages=['onionshare'],
     scripts=['bin/onionshare', 'bin/tails-onionshare']
 )
