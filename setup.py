@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import os
-import sys
+import os, sys, subprocess
 
 try:
     from setuptools import setup
@@ -10,7 +9,7 @@ except ImportError:
     from distutils.core import setup
 
 if sys.argv[-1] == 'publish':
-    os.system('python setup.py sdist upload')
+    subprocess.call('python setup.py sdist upload --sign')
     sys.exit()
 
 setup(
