@@ -67,7 +67,6 @@ def tails_close_port(port):
         print strings["closing_hole"]
         subprocess.call(['/sbin/iptables', '-I', 'OUTPUT', '-o', 'lo', '-p', 'tcp', '--dport', str(port), '-j', 'REJECT'])
 
-
 def load_strings(default="en"):
     global strings
     translated = json.loads(open('{0}/strings.json'.format(
@@ -79,8 +78,9 @@ def load_strings(default="en"):
         if lang in translated:
             strings = translated[lang]
 
-if __name__ == '__main__':
+def main():
     load_strings()
+
     # validate filename
     if len(sys.argv) != 2:
         sys.exit('Usage: {0} [filename]'.format(sys.argv[0]));
@@ -141,3 +141,6 @@ if __name__ == '__main__':
 
     # shutdown
     tails_close_port(port)
+
+if __name__ == '__main__':
+    main()
