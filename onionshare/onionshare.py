@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 import os, sys, subprocess, time, hashlib, platform, json, locale, socket
 from random import randint
 from functools import wraps
@@ -139,6 +137,3 @@ def main():
 
     # shutdown
     tails_close_port(port)
-
-if __name__ == '__main__':
-    main()

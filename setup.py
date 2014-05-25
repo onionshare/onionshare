@@ -4,12 +4,10 @@
 import os
 import sys
 
-
 try:
     from setuptools import setup
 except ImportError:
     from distutils.core import setup
-
 
 if sys.argv[-1] == 'publish':
     os.system('python setup.py sdist upload')
@@ -23,24 +21,25 @@ setup(
     author='Micah Lee',
     author_email='micah@micahflee.com',
     url='https://github.com/micahflee/onionshare',
-    py_modules = ['onionshare'],
     include_package_data=True,
     install_requires=[
         'flask >= 0.10.1',
         'stem >= 1.1.1'
     ],
     license="GPL v3",
-    zip_safe=False,
     keywords='onion, share, onionshare, tor, anonymous, web server',
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
+        'Intended Audience :: End Users/Desktop',
         'License :: OSI Approved :: GPL License',
-        'Natural Language :: English',
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
+        'Operating System :: MacOS :: MacOS X',
+        'Operating System :: Microsoft :: Windows',
+        'Operating System :: POSIX',
     ],
-    test_suite='tests',
-    entry_points={'console_scripts': ['onionshare = onionshare:main']}
+    packages=['onionshare'],
+    scripts=['bin/onionshare', 'bin/tails-onionshare']
 )
