@@ -5,8 +5,8 @@ if [[ $EUID -ne 0 ]]; then
     exit 1
 fi
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd ../bin && pwd )"
 
 export ONIONSHARE_PLATFORM=Tails
-$DIR/onionshare.py $@
+$DIR/onionshare $@
 

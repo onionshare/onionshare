@@ -1,0 +1,67 @@
+{ "en": {
+    "punching_a_hole": "Punching a hole in the firewall.",
+    "closing_hole": "Closing hole in firewall.",
+    "calculating_sha1": "Calculating SHA1 checksum.",
+    "connecting_ctrlport": "Connecting to Tor control port to set up hidden service on port {0}.",
+    "cant_connect_ctrlport": "Cannot connect to Tor control port on ports {0}. Is Tor running?",
+    "give_this_url": "Give this URL to the person you're sending the file to:",
+    "ctrlc_to_stop":  "Press Ctrl-C to stop server",
+    "not_a_file": "{0} is not a file.",
+    "filesize": "File size",
+    "sha1_checksum": "SHA1 checksum"
+}, "no": {
+    "punching_a_hole": "√Öpner port i brannmuren.",
+    "closing_hole": "Lukker port i brannmuren.",
+    "calculating_sha1": "Kalkulerer SHA1 sjekksum.",
+    "connecting_ctrlport": "Kobler til Tors kontroll-port for √• sette opp en gjemt tjeneste p√• port {0}.",
+    "cant_connect_ctrlport": "Klarte ikke √• koble til Tors kontroll-porter {0}. Sjekk at Tor kj√∏rer.",
+    "give_this_url": "Gi personen du vil sende filen til denne URL-en:",
+    "ctrlc_to_stop":  "Trykk Ctrl+C for √• stoppe serveren.",
+    "not_a_file": "{0} er ikke en fil.",
+    "filesize": "Filst√∏rrelse",
+    "sha1_checksum": "SHA1 sjekksum"
+}, "es": {
+    "punching_a_hole": "Abriendo un agujero en el cortafuegos.",
+    "closing_hole": "Cerrando el agujero en el cortafuegos.",
+    "calculating_sha1": "Calculando suma de verificaci√≥n SHA1.",
+    "connecting_ctrlport": "Conectando a puerto control de Tor para configurar servicio oculto en puerto {0}.",
+    "cant_connect_ctrlport": "No se pudo conectar a puerto control de Tor en puertos {0}. ¬øEst√° funcionando Tor?",
+    "give_this_url": "Da esta URL seguramente a la persona para enviar el archivo:",
+    "ctrlc_to_stop":  "Pulse Ctrl-C para detener servidor",
+    "not_a_file": "{0} no es un archivo.",
+    "filesize": "Tama√±o del archivo",
+    "sha1_checksum": "Suma de verificaci√≥n SHA1"
+}, "fr": {
+    "punching_a_hole": "Poin√ßonnage d'un trou dans le pare-feu.",
+    "closing_hole": "Trou de cl√¥ture dans le pare-feu.",
+    "calculating_sha1": "Calculer un hachage SHA-1.",
+    "connecting_ctrlport": "Connexion √† r√©seau Tor utilisant les port {0}.",
+    "cant_connect_ctrlport": "R√©seau Tor indisponible sur le port {0}. Vous utilisez Tor?",
+    "give_this_url": "Lien de t√©l√©chargement:",
+    "ctrlc_to_stop":  "Ctrl-C arr√™ter le serveur",
+    "not_a_file": "Ce fichier n'est pas valide {0}.",
+    "filesize": "Taille de fichier",
+    "sha1_checksum": "SHA1 hachage"
+}, "it": {
+    "punching_a_hole": "Apertura della porta nel firewall.",
+    "closing_hole": "Chiusura della porta nel firewall.",
+    "calculating_sha1": "Calcolo della firma SHA1.",
+    "connecting_ctrlport": "Connessione alla porta di controllo di Tor per inizializzare il servizio nascosto sulla porta {0}.",
+    "cant_connect_ctrlport": "Impossibile connettere alla porta di controllo di Tor tramite le porte {0}. Tor √® stato avviato?",
+    "give_this_url": "Comunica questo URL alla persona a cui vuoi inviare il file:",
+    "ctrlc_to_stop":  "Premi Ctrl-C per fermare il server",
+    "not_a_file": "{0} non √® un file.",
+    "filesize": "Grandezza del file",
+    "sha1_checksum": "firma SHA1"
+}, "fi": {
+     "punching_a_hole": "Avataan reik‰ palomuuriin.",
+     "closing_hole": "Suljetaan palomuurin reik‰.",
+     "calculating_sha1": "Lasketaan SHA1 tarkistussumma.",
+     "connecting_ctrlport": "Luodaan piilopalvelu porttiin {0} Tor-hallintaportin avulla.",
+     "cant_connect_ctrlport": "Yhteytt‰ Tor-hallintaporttiin {0} ei voitu luoda. Onko Tor-ohjelma ajossa?",
+     "give_this_url": "Anna t‰m‰ osoite henkilˆlle jolle haluat l‰hett‰‰ tiedoston:",
+     "ctrlc_to_stop": "Paina Ctrl-C pys‰ytt‰‰ksesi palvelun",
+     "not_a_file": "{0} ei ole tiedosto.",
+     "filesize": "Tiedoston koko",
+     "sha1_checksum": "SHA1 tarkistussumma"
+}}
