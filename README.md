@@ -32,7 +32,11 @@ OnionShare relies on Tor. You need to either have a system Tor installed (`sudo 
 
 Securely send the URL to the person you are sending the file to (like by using Jabber and OTR). When they load the website in Tor Browser, they will be connecting directly to your computer to download the file. Once you confirm that they have downloaded the file you're sending (ask them if they have the file), press Ctrl-C to shut down the server.
 
-## Using OnionShare in Windows
+### Using OnionShare in Tails
+
+See [instructions here](/tails/README.md).
+
+### Using OnionShare in Windows
 
 OnionShare isn't properly packaged for Windows yet. This means you'll need to install Python 2.x yourself. [Download the latest 2.x version of python](https://www.python.org/downloads/) for your architecture and install it. Your python binary should be something like `C:\Python27\python.exe`.
 
@@ -54,13 +58,3 @@ Since OnionShare is a command line program, and using it involves copying and pa
     127.0.0.1 - - [22/May/2014 11:31:02] "GET /912d927863347b7b97f7a268a4210694/download HTTP/1.1" 200 -
     127.0.0.1 - - [22/May/2014 11:31:14] "GET /912d927863347b7b97f7a268a4210694/download HTTP/1.1" 200 -
 
-## Using OnionShare in Tails
-
-You need to run OnionShare as root in Tails, so make sure you set an administrator password when you boot Tails. Follow the same instructions as above, except run `tails-onionshare` instead of `onionshare`, and run it with sudo like this:
-
-    amnesia@amnesia:~/Persistent/code/onionshare$ sudo bin/tails-onionshare ~/Persistent/file_to_send.pgp
-    [sudo] password for amnesia:
-    Connecting to Tor ControlPort to set up hidden service on port 16089
-    Punching a hole in the firewall
-
-In case you're wondering: OnionShare needs root in Tails in order to talk to the Tor ControlPort to create a new hidden service, and also so it can punch a hole in the rigid Tails firewall so that Tor can communicate with the local web server.
