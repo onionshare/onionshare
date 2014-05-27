@@ -53,15 +53,4 @@
     "not_a_file": "{0} non Ã¨ un file.",
     "filesize": "Grandezza del file",
     "sha1_checksum": "firma SHA1"
-}, "fi": {
-     "punching_a_hole": "Avataan reikä palomuuriin.",
-     "closing_hole": "Suljetaan palomuurin reikä.",
-     "calculating_sha1": "Lasketaan SHA1 tarkistussumma.",
-     "connecting_ctrlport": "Luodaan piilopalvelu porttiin {0} Tor-hallintaportin avulla.",
-     "cant_connect_ctrlport": "Yhteyttä Tor-hallintaporttiin {0} ei voitu luoda. Onko Tor-ohjelma ajossa?",
-     "give_this_url": "Anna tämä osoite henkilölle jolle haluat lähettää tiedoston:",
-     "ctrlc_to_stop": "Paina Ctrl-C pysäyttääksesi palvelun",
-     "not_a_file": "{0} ei ole tiedosto.",
-     "filesize": "Tiedoston koko",
-     "sha1_checksum": "SHA1 tarkistussumma"
 }}
