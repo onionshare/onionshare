@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 
 import Tkinter as tk, tkFont, tkFileDialog
-import sys, os, subprocess, time
+import sys, os, time
+import onionshare
 from Queue import Queue, Empty
 from threading import Thread
 
@@ -23,15 +24,8 @@ class OnionShareGUI(object):
         self.basename = os.path.basename(self.filename)
         self.root.title('OnionShare - {0}'.format(self.basename))
 
-        # launch onionshare
-        # trying to do this https://stackoverflow.com/questions/375427/non-blocking-read-on-a-subprocess-pipe-in-python
-        self.onionshare_bin = os.path.dirname(__file__)+'/onionshare.py'
-        ON_POSIX = 'posix' in sys.builtin_module_names
-        self.p = subprocess.Popen([self.onionshare_bin, self.filename], stdout=subprocess.PIPE, bufsize=1)
-        self.q = Queue()
-        self.t = Thread(target=self.enqueue_output, args=(self.p.stdout, self.q))
-        self.t.daemon = True
-        self.t.start()
+        # todo: start onionshare here, and display web server logs in update() method
+        # this might be helpful: https://stackoverflow.com/questions/375427/non-blocking-read-on-a-subprocess-pipe-in-python
 
         # update regularly
         self.update()
@@ -63,24 +57,6 @@ class OnionShareGUI(object):
         self.quit_button.grid(padx=self.pad, pady=self.pad)
 
     def update(self):
-        """try:
-            line = self.q.get_nowait()
-        except Empty:
-            pass
-        else:
-            print line"""
-
-        # wait until the URL gets outputed
-        """self.url = None
-        while not self.url:
-            line = self.p.stdout.readline()
-            print line
-            if line[:7] == 'http://':
-                self.url = line
-                self.url_text.insert(tk.INSERT, self.url)
-            self.logs_text.insert(tk.INSERT, line)"""
-
-
         self.root.after(500, self.update)
 
     def enqueue_output(self, out, queue):

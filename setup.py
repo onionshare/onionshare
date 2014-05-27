@@ -28,5 +28,5 @@ setup(
     license="GPL v3",
     keywords='onion, share, onionshare, tor, anonymous, web server',
     packages=['onionshare'],
-    scripts=['bin/onionshare']
+    scripts=['bin/onionshare', 'bin/onionshare-gui']
 )
