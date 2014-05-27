@@ -42,4 +42,15 @@
     "not_a_file": "Ce fichier n'est pas valide {0}.",
     "filesize": "Taille de fichier",
     "sha1_checksum": "SHA1 hachage"
+}, "it": {
+    "punching_a_hole": "Apertura della porta nel firewall.",
+    "closing_hole": "Chiusura della porta nel firewall.",
+    "calculating_sha1": "Calcolo della firma SHA1.",
+    "connecting_ctrlport": "Connessione alla porta di controllo di Tor per inizializzare il servizio nascosto sulla porta {0}.",
+    "cant_connect_ctrlport": "Impossibile connettere alla porta di controllo di Tor tramite le porte {0}. Tor è stato avviato?",
+    "give_this_url": "Comunica questo URL alla persona a cui vuoi inviare il file:",
+    "ctrlc_to_stop":  "Premi Ctrl-C per fermare il server",
+    "not_a_file": "{0} non è un file.",
+    "filesize": "Grandezza del file",
+    "sha1_checksum": "firma SHA1"
 }}
