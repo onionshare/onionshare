@@ -27,7 +27,7 @@ filename = filehash = filesize = ''
 
 @app.route("/{0}".format(slug))
 def index():
-    global filename, filesize, filehash, slug
+    global filename, filesize, filehash, slug, strings
     return render_template_string(open('{0}/index.html'.format(os.path.dirname(__file__))).read(),
         slug=slug, filename=os.path.basename(filename), filehash=filehash, filesize=filesize, strings=strings)
 
@@ -78,6 +78,7 @@ def load_strings(default="en"):
             strings = translated[lang]
 
 def main():
+    global filename, filehash, filesize
     load_strings()
 
     # validate filename
@@ -140,3 +141,6 @@ def main():
 
     # shutdown
     tails_close_port(port)
+
+if __name__ == '__main__':
+    main()
