@@ -87,6 +87,8 @@ def main():
     filename = sys.argv[1]
     if not os.path.isfile(filename):
         sys.exit(strings["not_a_file"].format(filename))
+    else:
+        filename = os.path.abspath(filename)
 
     # calculate filehash, file size
     print strings["calculating_sha1"]
