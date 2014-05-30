@@ -41,6 +41,10 @@ def main():
     web_send("update('{0}')".format('Secret URL is {0}'.format(url)))
     web_send("set_url('{0}')".format(url));
 
+    # start the web server
+    # todo: start this in another thread, and send output using web_send
+    #onionshare.app.run(port=port)
+
     # main loop
     last_second = time.time()
     uptime_seconds = 1
@@ -59,17 +63,9 @@ def main():
 
         if not again:
             time.sleep(0.1)
-
-def my_quit_wrapper(fun):
-    signal.signal(signal.SIGINT, Global.set_quit)
-    def fun2(*args, **kwargs):
-        try:
-            x = fun(*args, **kwargs) # equivalent to "apply"
-        finally:
-            kill_gtk_thread()
-            Global.set_quit()
-        return x
-    return fun2
+    
+    # shutdown
+    onionshare.tails_close_port(port)
 
 if __name__ == '__main__':
     main()
