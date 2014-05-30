@@ -14,6 +14,9 @@ def main():
     if not filename:
         return
 
+    # initialize onionshare
+    onionshare.load_strings()
+
     # open the window, launching webkit browser
     webgui.start_gtk_thread()
     browser, web_recv, web_send = webgui.sync_gtk_msg(webgui.launch_window)(
@@ -23,6 +26,7 @@ def main():
     # send the browser initial data
     time.sleep(0.1)
     web_send("set_basename('{0}')".format(basename))
+    web_send("set_strings('{0}')".format(json.dumps(onionshare.strings)))
 
     # main loop
     last_second = time.time()
@@ -39,7 +43,7 @@ def main():
 
         # check msg for messages from the browser
         # use web_send() to send javascript to the browser
-        
+
         if not again:
             time.sleep(0.1)
 

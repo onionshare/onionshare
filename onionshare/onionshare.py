@@ -77,21 +77,8 @@ def load_strings(default="en"):
         if lang in translated:
             strings = translated[lang]
 
-def main():
-    global filename, filehash, filesize
-    load_strings()
-
-    # validate filename
-    if len(sys.argv) != 2:
-        sys.exit('Usage: {0} [filename]'.format(sys.argv[0]));
-    filename = sys.argv[1]
-    if not os.path.isfile(filename):
-        sys.exit(strings["not_a_file"].format(filename))
-    else:
-        filename = os.path.abspath(filename)
-
+def file_crunching(filename):
     # calculate filehash, file size
-    print strings["calculating_sha1"]
     BLOCKSIZE = 65536
     hasher = hashlib.sha1()
     with open(filename, 'rb') as f:
@@ -101,15 +88,18 @@ def main():
             buf = f.read(BLOCKSIZE)
     filehash = hasher.hexdigest()
     filesize = os.path.getsize(filename)
+    return filehash, filesize
 
+def choose_port():
     # let the OS choose a port
     tmpsock = socket.socket()
     tmpsock.bind(("127.0.0.1", 0))
     port = tmpsock.getsockname()[1]
     tmpsock.close()
+    return port
 
+def start_hidden_service(port):
     # connect to the tor controlport
-    print strings["connecting_ctrlport"].format(port)
     controlports = [9051, 9151]
     controller = False
     for controlport in controlports:
@@ -127,6 +117,27 @@ def main():
         ('HiddenServicePort', '80 127.0.0.1:{0}'.format(port))
     ])
     onion_host = get_hidden_service_hostname(port)
+    return onion_host
+
+def main():
+    global filename, filehash, filesize
+    load_strings()
+
+    # validate filename
+    if len(sys.argv) != 2:
+        sys.exit('Usage: {0} [filename]'.format(sys.argv[0]));
+    filename = sys.argv[1]
+    if not os.path.isfile(filename):
+        sys.exit(strings["not_a_file"].format(filename))
+    else:
+        filename = os.path.abspath(filename)
+
+    print strings["calculating_sha1"]
+    filehash, filesize = file_crunching(filename)
+    port = choose_port()
+
+    print strings["connecting_ctrlport"].format(port)
+    onion_host = start_hidden_service(port)
 
     # punch a hole in the firewall
     tails_open_port(port)

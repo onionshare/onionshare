@@ -1,1 +1,1 @@
-from gui import *
+from onionshare_gui import *

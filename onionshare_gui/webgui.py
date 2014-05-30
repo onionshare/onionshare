@@ -75,7 +75,7 @@ def launch_window(title='OnionShare', quit_function=None, echo=True):
     def callback_wrapper(widget, frame, title): callback(title)
     browser.connect('title-changed', callback_wrapper)
 
-    browser.open('file://'+os.getcwd()+'/index.html')
+    browser.open('file://'+os.path.abspath(os.path.dirname(__file__))+'/html/index.html')
 
     def web_recv():
         if message_queue.empty():
