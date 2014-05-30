@@ -76,6 +76,7 @@ def load_strings(default="en"):
         lang = lc[:2]
         if lang in translated:
             strings = translated[lang]
+    return strings
 
 def file_crunching(filename):
     # calculate filehash, file size

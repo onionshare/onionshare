@@ -14,19 +14,32 @@ def main():
     if not filename:
         return
 
-    # initialize onionshare
-    onionshare.load_strings()
-
     # open the window, launching webkit browser
     webgui.start_gtk_thread()
     browser, web_recv, web_send = webgui.sync_gtk_msg(webgui.launch_window)(
         title="OnionShare | {0}".format(basename),
         quit_function=Global.set_quit)
 
-    # send the browser initial data
+    # wait for window to render
     time.sleep(0.1)
-    web_send("set_basename('{0}')".format(basename))
-    web_send("set_strings('{0}')".format(json.dumps(onionshare.strings)))
+    
+    # initialize onionshare
+    strings = onionshare.load_strings()
+    web_send("init('{0}', {1});".format(basename, json.dumps(strings)))
+
+    web_send("update('{0}')".format(strings['calculating_sha1']))
+    filehash, filesize = onionshare.file_crunching(filename)
+    port = onionshare.choose_port()
+    
+    web_send("update('{0}')".format(strings['connecting_ctrlport'].format(port)))
+    onion_host = onionshare.start_hidden_service(port)
+
+    # punch a hole in the firewall
+    onionshare.tails_open_port(port)
+    
+    url = 'http://{0}/{1}'.format(onion_host, onionshare.slug)
+    web_send("update('{0}')".format('Secret URL is {0}'.format(url)))
+    web_send("set_url('{0}')".format(url));
 
     # main loop
     last_second = time.time()

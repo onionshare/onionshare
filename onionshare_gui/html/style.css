@@ -2,7 +2,8 @@ body {
     background-color: #222222;
     color: #aaffaa;
     font-family: monospace;
-    width: 400px;
+    width: 600px;
+    height: 500px;
     margin: 0 auto;
     padding: 0;
 }
@@ -33,10 +34,12 @@ h1 .skull {
 }
 #url {
     word-wrap: break-word;
-    font-size: 30px;
+    font-size: 25px;
     color: #000000;
 }
 #output {
     padding: 10px;
+    word-wrap: break-word;
+    overflow: auto;
 }
 
