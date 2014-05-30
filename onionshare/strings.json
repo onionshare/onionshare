@@ -53,4 +53,15 @@
     "not_a_file": "{0} non è un file.",
     "filesize": "Grandezza del file",
     "sha1_checksum": "firma SHA1"
+}, "nl": {
+    "punching_a_hole": "Een doorgang aan het maken in de firewall.",
+    "closing_hole": "Doorgang in de firewall sluiten.",
+    "calculating_sha1": "SHA1 controlecijfer berekenen.",
+    "connecting_ctrlport": "Verbinden met de Tor controle port om een verborgen service op te zetten op poort {0}.",
+    "cant_connect_ctrlport": "Kan niet verbinden met de Tor controle poort op poorten {0}. Draait Tor?",
+    "give_this_url": "Geef deze URL aan de persoon aan wie je dit bestand verzend:",
+    "ctrlc_to_stop":  "Druk Ctrl-C om de server te stoppen",
+    "not_a_file": "{0} is geen bestand.",
+    "filesize": "Bestandsgrootte",
+    "sha1_checksum": "SHA1 controlecijfer"
 }}
