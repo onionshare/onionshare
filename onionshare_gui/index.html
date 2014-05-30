@@ -1,34 +1,17 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <style type="text/css">
-            body {
-                margin: 0;
-                padding: 0;
-            }
-            h1 {
-                background-color: #FFC4D5;
-                color: #000000;
-                text-align: center;
-                font-size: 30px;
-                margin: 0;
-                padding: 10px;
-            }
-            h1 .skull {
-                font-size: 40px;
-                font-weight: bold;
-                color: #FF0048;
-            }
-        </style>
-        <script>
-          function send(msg) {
-            document.title = "null";
-            document.title = msg;
-          }
-        </script>
+        <link rel="stylesheet" type="text/css" media="all" href="style.css" />
     </head>
-<body>
-<h1><span class="skull">&#9760;</span> filename.zip</h1>
-<p id="uptime-value"></p>
-</body>
+    <body>
+        <h1><span class="skull">&#9760;</span> <span id="basename">...</span></h1>
+        <div id="url-wrapper">
+          <div id="url-header">Give this URL to the person you're sending the file to:</div>
+          <div id="url"></div>
+        </div>
+        <div id="output">...</div>
+
+        <script src="jquery-1.11.1.min.js"></script>
+        <script src="onionshare.js"></script>
+    </body>
 </html>

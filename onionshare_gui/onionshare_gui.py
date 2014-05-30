@@ -10,12 +10,21 @@ class Global(object):
         cls.quit = True
 
 def main():
-    if not webgui.select_file():
+    filename, basename = webgui.select_file()
+    if not filename:
         return
 
+    # open the window, launching webkit browser
     webgui.start_gtk_thread()
-    browser, web_recv, web_send = webgui.sync_gtk_msg(webgui.launch_browser)(quit_function=Global.set_quit)
+    browser, web_recv, web_send = webgui.sync_gtk_msg(webgui.launch_window)(
+        title="OnionShare | {0}".format(basename),
+        quit_function=Global.set_quit)
 
+    # send the browser initial data
+    time.sleep(0.1)
+    web_send("set_basename('{0}')".format(basename))
+
+    # main loop
     last_second = time.time()
     uptime_seconds = 1
     clicks = 0
@@ -28,27 +37,10 @@ def main():
             msg = json.loads(msg)
             again = True
 
-        if msg == "got-a-click":
-            clicks += 1
-            web_send('document.getElementById("messages").innerHTML = %s' %
-                     to_json('%d clicks so far' % clicks))
-            # If you are using jQuery, you can do this instead:
-            # web_send('$("#messages").text(%s)' %
-            #          to_json('%d clicks so far' % clicks))
-
-        if current_time - last_second >= 1.0:
-            web_send('document.getElementById("uptime-value").innerHTML = %s' %
-                     json.dumps('%d' % uptime_seconds))
-            # If you are using jQuery, you can do this instead:
-            # web_send('$("#uptime-value").text(%s)'
-            #        % to_json('%d' % uptime_seconds))
-            uptime_seconds += 1
-            last_second += 1.0
-
-
-        if again:
-            pass
-        else:
+        # check msg for messages from the browser
+        # use web_send() to send javascript to the browser
+        
+        if not again:
             time.sleep(0.1)
 
 def my_quit_wrapper(fun):

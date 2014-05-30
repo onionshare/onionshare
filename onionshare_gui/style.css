@@ -1,0 +1,42 @@
+body {
+    background-color: #222222;
+    color: #aaffaa;
+    font-family: monospace;
+    width: 400px;
+    margin: 0 auto;
+    padding: 0;
+}
+h1 {
+    background-color: #FFC4D5;
+    color: #000000;
+    text-align: center;
+    font-size: 30px;
+    margin: 0;
+    padding: 10px;
+    font-family: sans-serif;
+}
+h1 .skull {
+    font-size: 40px;
+    font-weight: bold;
+    color: #FF0048;
+}
+#url-wrapper {
+    padding: 10px;
+    background-color: #ffffff;
+    display: none;
+}
+#url-header {
+    font-size: 14px;
+    margin-bottom: 10px;
+    font-family: sans-serif;
+    color: #666666;
+}
+#url {
+    word-wrap: break-word;
+    font-size: 30px;
+    color: #000000;
+}
+#output {
+    padding: 10px;
+}
+
