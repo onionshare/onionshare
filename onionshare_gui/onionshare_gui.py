@@ -49,8 +49,15 @@ def select_file(strings):
     return filename, basename
 
 def main():
-    # load strings
     strings = onionshare.load_strings()
+
+    # try starting hidden service
+    port = onionshare.choose_port()
+    try:
+        onion_host = onionshare.start_hidden_service(port)
+    except onionshare.NoTor as e:
+        alert(e.args[0], gtk.MESSAGE_ERROR)
+        return
 
     # select file to share
     filename, basename = select_file(strings)
@@ -64,17 +71,11 @@ def main():
         quit_function=Global.set_quit)
     time.sleep(0.1)
 
+    # startup
     web_send("init('{0}', {1});".format(basename, json.dumps(strings)))
     web_send("update('{0}')".format(strings['calculating_sha1']))
     filehash, filesize = onionshare.file_crunching(filename)
-    port = onionshare.choose_port()
-
-    web_send("update('{0}')".format(strings['connecting_ctrlport'].format(port)))
-    onion_host = onionshare.start_hidden_service(port)
-
-    # punch a hole in the firewall
     onionshare.tails_open_port(port)
-
     url = 'http://{0}/{1}'.format(onion_host, onionshare.slug)
     web_send("update('{0}')".format('Secret URL is {0}'.format(url)))
     web_send("set_url('{0}')".format(url));

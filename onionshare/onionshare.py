@@ -15,6 +15,10 @@ from stem.control import Controller
 from stem import SocketError
 
 from flask import Flask, Markup, Response, request, make_response, send_from_directory, render_template_string
+
+class NoTor(Exception):
+    pass
+
 app = Flask(__name__)
 
 strings = {}
@@ -109,7 +113,7 @@ def start_hidden_service(port):
         except SocketError:
             pass
     if not controller:
-        sys.exit(strings["cant_connect_ctrlport"].format(controlports))
+        raise NoTor(strings["cant_connect_ctrlport"].format(controlports))
     controller.authenticate()
 
     # set up hidden service
@@ -124,7 +128,15 @@ def main():
     global filename, filehash, filesize
     load_strings()
 
-    # validate filename
+    # try starting hidden service
+    port = choose_port()
+    print strings["connecting_ctrlport"].format(port)
+    try:
+        onion_host = start_hidden_service(port)
+    except NoTor as e:
+        sys.exit(e.args[0])
+
+    # select file to share
     if len(sys.argv) != 2:
         sys.exit('Usage: {0} [filename]'.format(sys.argv[0]));
     filename = sys.argv[1]
@@ -133,17 +145,10 @@ def main():
     else:
         filename = os.path.abspath(filename)
 
+    # startup
     print strings["calculating_sha1"]
     filehash, filesize = file_crunching(filename)
-    port = choose_port()
-
-    print strings["connecting_ctrlport"].format(port)
-    onion_host = start_hidden_service(port)
-
-    # punch a hole in the firewall
     tails_open_port(port)
-
-    # instructions
     print '\n' + strings["give_this_url"]
     print 'http://{0}/{1}'.format(onion_host, slug)
     print ''
