@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import onionshare, webgui
-import os, sys, time, json, gtk, thread
+import os, sys, time, json, gtk, gobject, thread
 
 class Global(object):
     quit = False
@@ -69,20 +69,31 @@ def main():
     browser, web_recv, web_send = webgui.sync_gtk_msg(webgui.launch_window)(
         title="OnionShare | {0}".format(basename),
         quit_function=Global.set_quit)
-    time.sleep(0.1)
+
+    # clipboard
+    clipboard = gtk.clipboard_get(gtk.gdk.SELECTION_CLIPBOARD)
+    def set_clipboard(url):
+        clipboard.set_text(url)
+        web_send("update('{0}')".format('Copied secret URL to clipboard'))
 
     # startup
-    web_send("init('{0}', {1});".format(basename, json.dumps(strings)))
-    web_send("update('{0}')".format(strings['calculating_sha1']))
-    filehash, filesize = onionshare.file_crunching(filename)
-    onionshare.set_file_info(filename, filehash, filesize)
-    onionshare.tails_open_port(port)
-    url = 'http://{0}/{1}'.format(onion_host, onionshare.slug)
-    web_send("update('{0}')".format('Secret URL is {0}'.format(url)))
-    web_send("set_url('{0}')".format(url));
+    def startup():
+        web_send("init('{0}', {1});".format(basename, json.dumps(strings)))
+        web_send("update('{0}')".format(strings['calculating_sha1']))
+        filehash, filesize = onionshare.file_crunching(filename)
+        onionshare.set_file_info(filename, filehash, filesize)
+        onionshare.tails_open_port(port)
+        url = 'http://{0}/{1}'.format(onion_host, onionshare.slug)
+        web_send("update('{0}')".format('Secret URL is {0}'.format(url)))
 
-    # start the web server
-    web_thread = thread.start_new_thread(onionshare.app.run, (), {"port": port})
+        # clipboard needs a bit of time before copying url
+        gobject.timeout_add(1500, set_clipboard, url)
+
+        # start the web server
+        web_thread = thread.start_new_thread(onionshare.app.run, (), {"port": port})
+
+    # webview needs a bit of time before receiving data
+    gobject.timeout_add(100, startup)
 
     # main loop
     last_second = time.time()
