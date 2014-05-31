@@ -3,6 +3,8 @@
 import onionshare, webgui
 import os, sys, time, json, gtk, gobject, thread
 
+url = None
+
 class Global(object):
     quit = False
     @classmethod
@@ -49,6 +51,7 @@ def select_file(strings):
     return filename, basename
 
 def main():
+    global url
     strings = onionshare.load_strings()
 
     # try starting hidden service
@@ -72,22 +75,26 @@ def main():
 
     # clipboard
     clipboard = gtk.clipboard_get(gtk.gdk.SELECTION_CLIPBOARD)
-    def set_clipboard(url):
+    def set_clipboard():
+        global url
         clipboard.set_text(url)
-        web_send("update('{0}')".format('Copied secret URL to clipboard'))
+        web_send("update('{0}')".format('Copied secret URL to clipboard.'))
 
     # startup
     def startup():
+        global url
         web_send("init('{0}', {1});".format(basename, json.dumps(strings)))
         web_send("update('{0}')".format(strings['calculating_sha1']))
         filehash, filesize = onionshare.file_crunching(filename)
         onionshare.set_file_info(filename, filehash, filesize)
         onionshare.tails_open_port(port)
         url = 'http://{0}/{1}'.format(onion_host, onionshare.slug)
-        web_send("update('{0}')".format('Secret URL is {0}'.format(url)))
+        web_send("update('{0}')".format(strings['give_this_url'].replace('\'', '\\\'')))
+        web_send("update('<strong>{0}</strong>')".format(url))
+        web_send("url_is_set()")
 
         # clipboard needs a bit of time before copying url
-        gobject.timeout_add(1500, set_clipboard, url)
+        gobject.timeout_add(500, set_clipboard)
 
         # start the web server
         web_thread = thread.start_new_thread(onionshare.app.run, (), {"port": port})
@@ -105,11 +112,11 @@ def main():
         again = False
         msg = web_recv()
         if msg:
-            msg = json.loads(msg)
             again = True
 
         # check msg for messages from the browser
-        # use web_send() to send javascript to the browser
+        if msg == 'copy_url':
+            set_clipboard()
 
         if not again:
             time.sleep(0.1)

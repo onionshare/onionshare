@@ -44,10 +44,9 @@ def launch_window(title='OnionShare', quit_function=None, echo=True):
 
     message_queue = Queue.Queue()
 
-    def title_changed(title):
-        if title != 'null': message_queue.put(title)
-
-    def callback_wrapper(widget, frame, title): callback(title)
+    def callback_wrapper(widget, frame, title):
+        if title != 'null':
+            message_queue.put(title)
     browser.connect('title-changed', callback_wrapper)
 
     browser.open('file://'+os.path.abspath(os.path.dirname(__file__))+'/html/index.html')
