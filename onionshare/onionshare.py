@@ -8,8 +8,11 @@ def get_platform():
     else:
         return platform.system()
 
-if get_platform() == 'Tails':
+def append_lib_on_tails():
+  if get_platform() == 'Tails':
     sys.path.append(os.path.dirname(__file__)+'/../tails/lib')
+
+append_lib_on_tails()
 
 from stem.control import Controller
 from stem import SocketError
