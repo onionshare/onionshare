@@ -26,12 +26,20 @@ strings = {}
 # generate an unguessable string
 slug = os.urandom(16).encode('hex')
 
-# file information
-filename = filehash = filesize = ''
+# information about the file
+filename = filesize = filehash = None
+def set_file_info(new_filename, new_filesize, new_filehash):
+    global filename, filesize, filehash
+    filename = new_filename
+    filesize = new_filesize
+    filehash = new_filehash
 
 @app.route("/{0}".format(slug))
 def index():
     global filename, filesize, filehash, slug, strings
+    print 'filename: {0}'.format(filename)
+    print 'filehash: {0}'.format(filehash)
+    print 'filesize: {0}'.format(filesize)
     return render_template_string(open('{0}/index.html'.format(os.path.dirname(__file__))).read(),
         slug=slug, filename=os.path.basename(filename), filehash=filehash, filesize=filesize, strings=strings)
 
@@ -125,7 +133,6 @@ def start_hidden_service(port):
     return onion_host
 
 def main():
-    global filename, filehash, filesize
     load_strings()
 
     # try starting hidden service
@@ -148,6 +155,7 @@ def main():
     # startup
     print strings["calculating_sha1"]
     filehash, filesize = file_crunching(filename)
+    set_file_info(filename, filehash, filesize)
     tails_open_port(port)
     print '\n' + strings["give_this_url"]
     print 'http://{0}/{1}'.format(onion_host, slug)

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import onionshare, webgui
-import os, sys, time, json, gtk
+import os, sys, time, json, gtk, thread
 
 class Global(object):
     quit = False
@@ -75,14 +75,14 @@ def main():
     web_send("init('{0}', {1});".format(basename, json.dumps(strings)))
     web_send("update('{0}')".format(strings['calculating_sha1']))
     filehash, filesize = onionshare.file_crunching(filename)
+    onionshare.set_file_info(filename, filehash, filesize)
     onionshare.tails_open_port(port)
     url = 'http://{0}/{1}'.format(onion_host, onionshare.slug)
     web_send("update('{0}')".format('Secret URL is {0}'.format(url)))
     web_send("set_url('{0}')".format(url));
 
     # start the web server
-    # todo: start this in another thread, and send output using web_send
-    #onionshare.app.run(port=port)
+    web_thread = thread.start_new_thread(onionshare.app.run, (), {"port": port})
 
     # main loop
     last_second = time.time()
