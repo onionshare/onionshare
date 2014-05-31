@@ -72,7 +72,8 @@ def main():
     webgui.start_gtk_thread()
     browser, web_recv, web_send = webgui.sync_gtk_msg(webgui.launch_window)(
         title="OnionShare | {0}".format(basename),
-        quit_function=Global.set_quit)
+        quit_function=Global.set_quit,
+        echo=False)
 
     # clipboard
     clipboard = gtk.clipboard_get(gtk.gdk.SELECTION_CLIPBOARD)
