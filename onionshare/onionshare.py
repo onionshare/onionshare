@@ -18,6 +18,10 @@ from stem.control import Controller
 from stem import SocketError
 
 from flask import Flask, Markup, Response, request, make_response, send_from_directory, render_template_string
+
+class NoTor(Exception):
+    pass
+
 app = Flask(__name__)
 
 strings = {}
@@ -25,12 +29,20 @@ strings = {}
 # generate an unguessable string
 slug = os.urandom(16).encode('hex')
 
-# file information
-filename = filehash = filesize = ''
+# information about the file
+filename = filesize = filehash = None
+def set_file_info(new_filename, new_filehash, new_filesize):
+    global filename, filehash, filesize
+    filename = new_filename
+    filehash = new_filehash
+    filesize = new_filesize
 
 @app.route("/{0}".format(slug))
 def index():
     global filename, filesize, filehash, slug, strings
+    print 'filename: {0}'.format(filename)
+    print 'filehash: {0}'.format(filehash)
+    print 'filesize: {0}'.format(filesize)
     return render_template_string(open('{0}/index.html'.format(os.path.dirname(__file__))).read(),
         slug=slug, filename=os.path.basename(filename), filehash=filehash, filesize=filesize, strings=strings)
 
@@ -79,22 +91,10 @@ def load_strings(default="en"):
         lang = lc[:2]
         if lang in translated:
             strings = translated[lang]
+    return strings
 
-def main():
-    global filename, filehash, filesize
-    load_strings()
-
-    # validate filename
-    if len(sys.argv) != 2:
-        sys.exit('Usage: {0} [filename]'.format(sys.argv[0]));
-    filename = sys.argv[1]
-    if not os.path.isfile(filename):
-        sys.exit(strings["not_a_file"].format(filename))
-    else:
-        filename = os.path.abspath(filename)
-
+def file_crunching(filename):
     # calculate filehash, file size
-    print strings["calculating_sha1"]
     BLOCKSIZE = 65536
     hasher = hashlib.sha1()
     with open(filename, 'rb') as f:
@@ -104,15 +104,18 @@ def main():
             buf = f.read(BLOCKSIZE)
     filehash = hasher.hexdigest()
     filesize = os.path.getsize(filename)
+    return filehash, filesize
 
+def choose_port():
     # let the OS choose a port
     tmpsock = socket.socket()
     tmpsock.bind(("127.0.0.1", 0))
     port = tmpsock.getsockname()[1]
     tmpsock.close()
+    return port
 
+def start_hidden_service(port):
     # connect to the tor controlport
-    print strings["connecting_ctrlport"].format(port)
     controlports = [9051, 9151]
     controller = False
     for controlport in controlports:
@@ -121,7 +124,7 @@ def main():
         except SocketError:
             pass
     if not controller:
-        sys.exit(strings["cant_connect_ctrlport"].format(controlports))
+        raise NoTor(strings["cant_connect_ctrlport"].format(controlports))
     controller.authenticate()
 
     # set up hidden service
@@ -130,11 +133,33 @@ def main():
         ('HiddenServicePort', '80 127.0.0.1:{0}'.format(port))
     ])
     onion_host = get_hidden_service_hostname(port)
+    return onion_host
 
-    # punch a hole in the firewall
+def main():
+    load_strings()
+
+    # try starting hidden service
+    port = choose_port()
+    print strings["connecting_ctrlport"].format(port)
+    try:
+        onion_host = start_hidden_service(port)
+    except NoTor as e:
+        sys.exit(e.args[0])
+
+    # select file to share
+    if len(sys.argv) != 2:
+        sys.exit('Usage: {0} [filename]'.format(sys.argv[0]));
+    filename = sys.argv[1]
+    if not os.path.isfile(filename):
+        sys.exit(strings["not_a_file"].format(filename))
+    else:
+        filename = os.path.abspath(filename)
+
+    # startup
+    print strings["calculating_sha1"]
+    filehash, filesize = file_crunching(filename)
+    set_file_info(filename, filehash, filesize)
     tails_open_port(port)
-
-    # instructions
     print '\n' + strings["give_this_url"]
     print 'http://{0}/{1}'.format(onion_host, slug)
     print ''
