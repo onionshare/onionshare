@@ -1,31 +1,6 @@
 #!/usr/bin/env python
 
-import time, Queue, thread, gtk, gobject, os, sys, webkit
-
-def select_file():
-    # was a filename passed in as an argument?
-    if len(sys.argv) >= 2:
-        filename = sys.argv[1]
-        basename = os.path.basename(filename)
-        return filename, basename
-
-    # choose a file
-    canceled = False
-    chooser = gtk.FileChooserDialog(
-        title="Choose a file to share",
-        action=gtk.FILE_CHOOSER_ACTION_OPEN,
-        buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OPEN, gtk.RESPONSE_OK))
-    response = chooser.run()
-    if response == gtk.RESPONSE_OK:
-        filename = chooser.get_filename()
-        basename = os.path.basename(filename)
-    elif response == gtk.RESPONSE_CANCEL:
-        canceled = True
-    chooser.destroy()
-
-    if canceled:
-        return False, False
-    return filename, basename
+import time, Queue, thread, gtk, gobject, os, webkit
 
 def async_gtk_msg(fun):
     def worker((function, args, kwargs)):

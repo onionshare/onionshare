@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import onionshare, webgui
-import signal, os, time, json
+import os, sys, time, json, gtk
 
 class Global(object):
     quit = False
@@ -9,8 +9,51 @@ class Global(object):
     def set_quit(cls, *args, **kwargs):
         cls.quit = True
 
+def alert(msg, type=gtk.MESSAGE_INFO):
+    dialog = gtk.MessageDialog(
+        parent=None,
+        flags=gtk.DIALOG_MODAL,
+        type=type,
+        buttons=gtk.BUTTONS_OK,
+        message_format=msg)
+    response = dialog.run()
+    dialog.destroy()
+
+def select_file(strings):
+    # get filename, either from argument or file chooser dialog
+    if len(sys.argv) == 2:
+        filename = sys.argv[1]
+    else:
+        canceled = False
+        chooser = gtk.FileChooserDialog(
+            title="Choose a file to share",
+            action=gtk.FILE_CHOOSER_ACTION_OPEN,
+            buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OPEN, gtk.RESPONSE_OK))
+        response = chooser.run()
+        if response == gtk.RESPONSE_OK:
+            filename = chooser.get_filename()
+        elif response == gtk.RESPONSE_CANCEL:
+            canceled = True
+        chooser.destroy()
+
+        if canceled:
+            return False, False
+
+    # validate filename
+    if not os.path.isfile(filename):
+        alert(strings["not_a_file"].format(filename), gtk.MESSAGE_ERROR)
+        return False, False
+
+    filename = os.path.abspath(filename)
+    basename = os.path.basename(filename)
+    return filename, basename
+
 def main():
-    filename, basename = webgui.select_file()
+    # load strings
+    strings = onionshare.load_strings()
+
+    # select file to share
+    filename, basename = select_file(strings)
     if not filename:
         return
 
@@ -19,24 +62,19 @@ def main():
     browser, web_recv, web_send = webgui.sync_gtk_msg(webgui.launch_window)(
         title="OnionShare | {0}".format(basename),
         quit_function=Global.set_quit)
-
-    # wait for window to render
     time.sleep(0.1)
-    
-    # initialize onionshare
-    strings = onionshare.load_strings()
-    web_send("init('{0}', {1});".format(basename, json.dumps(strings)))
 
+    web_send("init('{0}', {1});".format(basename, json.dumps(strings)))
     web_send("update('{0}')".format(strings['calculating_sha1']))
     filehash, filesize = onionshare.file_crunching(filename)
     port = onionshare.choose_port()
-    
+
     web_send("update('{0}')".format(strings['connecting_ctrlport'].format(port)))
     onion_host = onionshare.start_hidden_service(port)
 
     # punch a hole in the firewall
     onionshare.tails_open_port(port)
-    
+
     url = 'http://{0}/{1}'.format(onion_host, onionshare.slug)
     web_send("update('{0}')".format('Secret URL is {0}'.format(url)))
     web_send("set_url('{0}')".format(url));
@@ -63,7 +101,7 @@ def main():
 
         if not again:
             time.sleep(0.1)
-    
+
     # shutdown
     onionshare.tails_close_port(port)
 
