@@ -1,23 +1,24 @@
 function send(msg) {
-    document.title = "null";
-    document.title = msg;
+  document.title = "null";
+  document.title = msg;
 }
 
 function init(basename, strings) {
-    $('#basename').html(basename);
+  $('#basename').html(basename).show();
 }
 
 function url_is_set() {
-    $('#copy-button')
-        .click(function(){
-            send('copy_url');
-        })
-        .show();
+  $('#copy-button')
+    .click(function(){
+      send('copy_url');
+    })
+    .show();
 }
 
 function update(msg) {
-    $('#output').append($('<p></p>').html(msg))
-    
-    // scroll to bottom
-    $('#output').scrollTop($('#output').height());
+  var $line = $('<p></p>').append(msg);
+  $('#output').append($line);
+  
+  // scroll to bottom
+  $('#output').scrollTop($('#output').height());
 }

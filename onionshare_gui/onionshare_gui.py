@@ -61,6 +61,7 @@ def main():
     except onionshare.NoTor as e:
         alert(e.args[0], gtk.MESSAGE_ERROR)
         return
+    onionshare.tails_open_port(port)
 
     # select file to share
     filename, basename = select_file(strings)
@@ -80,14 +81,11 @@ def main():
         clipboard.set_text(url)
         web_send("update('{0}')".format('Copied secret URL to clipboard.'))
 
-    # startup
-    def startup():
+    # the async nature of things requires startup to be split into multiple functions
+    def startup_async():
         global url
-        web_send("init('{0}', {1});".format(basename, json.dumps(strings)))
-        web_send("update('{0}')".format(strings['calculating_sha1']))
         filehash, filesize = onionshare.file_crunching(filename)
         onionshare.set_file_info(filename, filehash, filesize)
-        onionshare.tails_open_port(port)
         url = 'http://{0}/{1}'.format(onion_host, onionshare.slug)
         web_send("update('{0}')".format(strings['give_this_url'].replace('\'', '\\\'')))
         web_send("update('<strong>{0}</strong>')".format(url))
@@ -96,11 +94,17 @@ def main():
         # clipboard needs a bit of time before copying url
         gobject.timeout_add(500, set_clipboard)
 
-        # start the web server
-        web_thread = thread.start_new_thread(onionshare.app.run, (), {"port": port})
+    def startup_sync():
+        web_send("init('{0}', {1});".format(basename, json.dumps(strings)))
+        web_send("update('{0}')".format(strings['calculating_sha1']))
 
-    # webview needs a bit of time before receiving data
-    gobject.timeout_add(100, startup)
+        # run other startup in the background
+        thread_crunch = thread.start_new_thread(startup_async, ())
+
+        # start the web server
+        thread_web = thread.start_new_thread(onionshare.app.run, (), {"port": port})
+
+    gobject.timeout_add(100, startup_sync)
 
     # main loop
     last_second = time.time()

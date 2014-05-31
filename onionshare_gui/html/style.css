@@ -2,7 +2,7 @@ body {
   background-color: #ffffff;
   color: #000000;
   font-family: arial;
-  width: 650px;
+  width: 550px;
   height: 300px;
   margin: 0 auto;
   padding: 0;
@@ -28,6 +28,7 @@ p {
   word-wrap: break-word;
   height: 260px;
   overflow: auto;
+  font-family: monospace;
 }
 
 .button {
@@ -74,4 +75,12 @@ p {
   position: absolute;
   right: 20px;
   bottom: 10px;
+}
+
+.loader {
+  width: 21px;
+  height: 20px;
+  background-image: url('loader.gif');
+  background-position: top left;
+  background-repeat: no-repeat;
 }
