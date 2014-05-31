@@ -28,11 +28,11 @@ slug = os.urandom(16).encode('hex')
 
 # information about the file
 filename = filesize = filehash = None
-def set_file_info(new_filename, new_filesize, new_filehash):
-    global filename, filesize, filehash
+def set_file_info(new_filename, new_filehash, new_filesize):
+    global filename, filehash, filesize
     filename = new_filename
-    filesize = new_filesize
     filehash = new_filehash
+    filesize = new_filesize
 
 @app.route("/{0}".format(slug))
 def index():
