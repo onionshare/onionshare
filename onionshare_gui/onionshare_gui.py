@@ -105,7 +105,7 @@ def main():
         # start the web server
         thread_web = thread.start_new_thread(onionshare.app.run, (), {"port": port})
 
-    gobject.timeout_add(100, startup_sync)
+    gobject.timeout_add(500, startup_sync)
 
     # main loop
     last_second = time.time()
