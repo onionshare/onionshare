@@ -58,3 +58,18 @@ Since OnionShare is a command line program, and using it involves copying and pa
     127.0.0.1 - - [22/May/2014 11:31:02] "GET /912d927863347b7b97f7a268a4210694/download HTTP/1.1" 200 -
     127.0.0.1 - - [22/May/2014 11:31:14] "GET /912d927863347b7b97f7a268a4210694/download HTTP/1.1" 200 -
 
+## Tests
+
+Onionshare includes [nose](https://nose.readthedocs.org/en/latest/) unit tests. First,
+
+```sh
+sudo pip install nose
+```
+
+Then run
+
+```sh
+nosetests test
+```
+
+in the onionshare project directory to run them.
