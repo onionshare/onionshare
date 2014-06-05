@@ -1,4 +1,4 @@
-import os, sys, subprocess, time, hashlib, platform, json, locale, socket
+import os, sys, subprocess, time, hashlib, platform, json, locale, socket, re, argparse
 from random import randint
 from functools import wraps
 
@@ -15,6 +15,7 @@ from stem.control import Controller
 from stem import SocketError
 
 from flask import Flask, Markup, Response, request, make_response, send_from_directory, render_template_string
+
 app = Flask(__name__)
 
 strings = {}
@@ -25,6 +26,44 @@ slug = os.urandom(16).encode('hex')
 # file information
 filename = filehash = filesize = ''
 
+@app.after_request
+def after_request(response):
+    response.headers.add('Accept-Ranges', 'bytes')
+    return response
+
+def send_file_partial(range_header):
+    global filename
+
+    dirname = os.path.dirname(filename)
+    basename = os.path.basename(filename)
+
+    size = os.path.getsize(filename)
+    byte1, byte2 = 0, None
+    
+    m = re.search('(\d+)-(\d*)', range_header)
+    g = m.groups()
+    
+    if g[0]: byte1 = int(g[0])
+    if g[1]: byte2 = int(g[1])
+
+    length = size - byte1
+    if byte2 is not None:
+        length = (byte2 - byte1) + 1
+    
+    data = None
+    with open(filename, 'rb') as f:
+        f.seek(byte1)
+        data = f.read(length)
+
+    rv = Response(data,
+        206,
+        # mimetype=mimetypes.guess_type(path)[0],
+        direct_passthrough=True)
+    rv.headers.add('Content-Range', 'bytes {0}-{1}/{2}'.format(byte1, byte1 + length - 1, size))
+
+    return rv
+
+
 @app.route("/{0}".format(slug))
 def index():
     global filename, filesize, filehash, slug, strings
@@ -34,6 +73,11 @@ def index():
 @app.route("/{0}/download".format(slug))
 def download():
     global filename
+
+    range_header = request.headers.get('Range', None)
+    if range_header:
+        return send_file_partial(range_header)
+    
     dirname = os.path.dirname(filename)
     basename = os.path.basename(filename)
     return send_from_directory(dirname, basename, as_attachment=True)
@@ -81,14 +125,16 @@ def main():
     global filename, filehash, filesize
     load_strings()
 
-    # validate filename
-    if len(sys.argv) != 2:
-        sys.exit('Usage: {0} [filename]'.format(sys.argv[0]));
-    filename = sys.argv[1]
-    if not os.path.isfile(filename):
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--local-only', action='store_true', dest='local_only', help='Do not attempt to use tor: for development only')
+    parser.add_argument('filename', nargs=1)
+    args = parser.parse_args()
+    
+    filename = os.path.abspath(args.filename[0])
+    local_only = args.local_only
+    
+    if not (filename and os.path.isfile(filename)):
         sys.exit(strings["not_a_file"].format(filename))
-    else:
-        filename = os.path.abspath(filename)
 
     # calculate filehash, file size
     print strings["calculating_sha1"]
@@ -108,41 +154,51 @@ def main():
     port = tmpsock.getsockname()[1]
     tmpsock.close()
 
-    # connect to the tor controlport
-    print strings["connecting_ctrlport"].format(port)
-    controlports = [9051, 9151]
-    controller = False
-    for controlport in controlports:
-        try:
-            controller = Controller.from_port(port=controlport)
-        except SocketError:
-            pass
-    if not controller:
-        sys.exit(strings["cant_connect_ctrlport"].format(controlports))
-    controller.authenticate()
+    local_host = "127.0.0.1:{0}".format(port)
 
-    # set up hidden service
-    controller.set_options([
-        ('HiddenServiceDir', get_hidden_service_dir(port)),
-        ('HiddenServicePort', '80 127.0.0.1:{0}'.format(port))
-    ])
-    onion_host = get_hidden_service_hostname(port)
+    if not local_only:
+        # connect to the tor controlport
+        print strings["connecting_ctrlport"].format(port)
+        controlports = [9051, 9151]
+        controller = False
 
-    # punch a hole in the firewall
-    tails_open_port(port)
+        for controlport in controlports:
+            try:
+                if not controller:
+                    controller = Controller.from_port(port=controlport)
+            except SocketError:
+                pass
 
+        if not controller:
+            sys.exit(strings["cant_connect_ctrlport"].format(controlports))
+
+        controller.authenticate()
+            
+        # set up hidden service
+        controller.set_options([
+            ('HiddenServiceDir', get_hidden_service_dir(port)),
+            ('HiddenServicePort', '80 127.0.0.1:{0}'.format(port))
+        ])
+        onion_host = get_hidden_service_hostname(port)
+        
+        # punch a hole in the firewall
+        tails_open_port(port)
+                    
     # instructions
     print '\n' + strings["give_this_url"]
-    print 'http://{0}/{1}'.format(onion_host, slug)
+    if local_only:
+        print 'http://{0}/{1}'.format(local_host, slug)
+    else:
+        print 'http://{0}/{1}'.format(onion_host, slug)
     print ''
     print strings["ctrlc_to_stop"]
-
+                    
     # start the web server
-    app.run(port=port)
+    app.run(port=port, debug=True)
     print '\n'
-
+    
     # shutdown
     tails_close_port(port)
-
-if __name__ == '__main__':
-    main()
+    
+    if __name__ == '__main__':
+        main()
