@@ -1,4 +1,4 @@
-import os, sys, subprocess, time, hashlib, platform, json, locale, socket, re, argparse
+import os, sys, subprocess, time, hashlib, platform, json, locale, socket, argparse
 from random import randint
 from functools import wraps
 
@@ -8,13 +8,19 @@ def get_platform():
     else:
         return platform.system()
 
-if get_platform() == 'Tails':
+def append_lib_on_tails():
+  if get_platform() == 'Tails':
     sys.path.append(os.path.dirname(__file__)+'/../tails/lib')
+
+append_lib_on_tails()
 
 from stem.control import Controller
 from stem import SocketError
 
 from flask import Flask, Markup, Response, request, make_response, send_from_directory, render_template_string
+
+class NoTor(Exception):
+    pass
 
 app = Flask(__name__)
 
@@ -23,61 +29,26 @@ strings = {}
 # generate an unguessable string
 slug = os.urandom(16).encode('hex')
 
-# file information
-filename = filehash = filesize = ''
-
-@app.after_request
-def after_request(response):
-    response.headers.add('Accept-Ranges', 'bytes')
-    return response
-
-def send_file_partial(range_header):
-    global filename
-
-    dirname = os.path.dirname(filename)
-    basename = os.path.basename(filename)
-
-    size = os.path.getsize(filename)
-    byte1, byte2 = 0, None
-    
-    m = re.search('(\d+)-(\d*)', range_header)
-    g = m.groups()
-    
-    if g[0]: byte1 = int(g[0])
-    if g[1]: byte2 = int(g[1])
-
-    length = size - byte1
-    if byte2 is not None:
-        length = (byte2 - byte1) + 1
-    
-    data = None
-    with open(filename, 'rb') as f:
-        f.seek(byte1)
-        data = f.read(length)
-
-    rv = Response(data,
-        206,
-        # mimetype=mimetypes.guess_type(path)[0],
-        direct_passthrough=True)
-    rv.headers.add('Content-Range', 'bytes {0}-{1}/{2}'.format(byte1, byte1 + length - 1, size))
-
-    return rv
-
+# information about the file
+filename = filesize = filehash = None
+def set_file_info(new_filename, new_filehash, new_filesize):
+    global filename, filehash, filesize
+    filename = new_filename
+    filehash = new_filehash
+    filesize = new_filesize
 
 @app.route("/{0}".format(slug))
 def index():
     global filename, filesize, filehash, slug, strings
+    print 'filename: {0}'.format(filename)
+    print 'filehash: {0}'.format(filehash)
+    print 'filesize: {0}'.format(filesize)
     return render_template_string(open('{0}/index.html'.format(os.path.dirname(__file__))).read(),
         slug=slug, filename=os.path.basename(filename), filehash=filehash, filesize=filesize, strings=strings)
 
 @app.route("/{0}/download".format(slug))
 def download():
     global filename
-
-    range_header = request.headers.get('Range', None)
-    if range_header:
-        return send_file_partial(range_header)
-    
     dirname = os.path.dirname(filename)
     basename = os.path.basename(filename)
     return send_from_directory(dirname, basename, as_attachment=True)
@@ -120,24 +91,10 @@ def load_strings(default="en"):
         lang = lc[:2]
         if lang in translated:
             strings = translated[lang]
+    return strings
 
-def main():
-    global filename, filehash, filesize
-    load_strings()
-
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--local-only', action='store_true', dest='local_only', help='Do not attempt to use tor: for development only')
-    parser.add_argument('filename', nargs=1)
-    args = parser.parse_args()
-    
-    filename = os.path.abspath(args.filename[0])
-    local_only = args.local_only
-    
-    if not (filename and os.path.isfile(filename)):
-        sys.exit(strings["not_a_file"].format(filename))
-
+def file_crunching(filename):
     # calculate filehash, file size
-    print strings["calculating_sha1"]
     BLOCKSIZE = 65536
     hasher = hashlib.sha1()
     with open(filename, 'rb') as f:
@@ -147,44 +104,72 @@ def main():
             buf = f.read(BLOCKSIZE)
     filehash = hasher.hexdigest()
     filesize = os.path.getsize(filename)
+    return filehash, filesize
 
+def choose_port():
     # let the OS choose a port
     tmpsock = socket.socket()
     tmpsock.bind(("127.0.0.1", 0))
     port = tmpsock.getsockname()[1]
     tmpsock.close()
+    return port
 
+def start_hidden_service(port):
+    # connect to the tor controlport
+    controlports = [9051, 9151]
+    controller = False
+
+    for controlport in controlports:
+        try:
+            controller = Controller.from_port(port=controlport)
+        except SocketError:
+            pass
+
+    if not controller:
+        raise NoTor(strings["cant_connect_ctrlport"].format(controlports))
+
+    controller.authenticate()
+
+    # set up hidden service
+    controller.set_options([
+        ('HiddenServiceDir', get_hidden_service_dir(port)),
+        ('HiddenServicePort', '80 127.0.0.1:{0}'.format(port))
+    ])
+
+    onion_host = get_hidden_service_hostname(port)
+    return onion_host
+
+def main():
+    load_strings()
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--local-only', action='store_true', dest='local_only', help='Do not attempt to use tor: for development only')
+    parser.add_argument('filename', nargs=1)
+    args = parser.parse_args()
+
+    filename = os.path.abspath(args.filename[0])
+    local_only = args.local_only
+
+    if not (filename and os.path.isfile(filename)):
+        sys.exit(strings["not_a_file"].format(filename))
+    filename = os.path.abspath(filename)
+
+    port = choose_port()
     local_host = "127.0.0.1:{0}".format(port)
 
     if not local_only:
-        # connect to the tor controlport
+        # try starting hidden service
         print strings["connecting_ctrlport"].format(port)
-        controlports = [9051, 9151]
-        controller = False
-
-        for controlport in controlports:
-            try:
-                if not controller:
-                    controller = Controller.from_port(port=controlport)
-            except SocketError:
-                pass
-
-        if not controller:
-            sys.exit(strings["cant_connect_ctrlport"].format(controlports))
-
-        controller.authenticate()
+        try:
+            onion_host = start_hidden_service(port)
+        except NoTor as e:
+            sys.exit(e.args[0])
             
-        # set up hidden service
-        controller.set_options([
-            ('HiddenServiceDir', get_hidden_service_dir(port)),
-            ('HiddenServicePort', '80 127.0.0.1:{0}'.format(port))
-        ])
-        onion_host = get_hidden_service_hostname(port)
-        
-        # punch a hole in the firewall
-        tails_open_port(port)
-                    
-    # instructions
+    # startup
+    print strings["calculating_sha1"]
+    filehash, filesize = file_crunching(filename)
+    set_file_info(filename, filehash, filesize)
+    tails_open_port(port)
     print '\n' + strings["give_this_url"]
     if local_only:
         print 'http://{0}/{1}'.format(local_host, slug)
@@ -192,13 +177,13 @@ def main():
         print 'http://{0}/{1}'.format(onion_host, slug)
     print ''
     print strings["ctrlc_to_stop"]
-                    
+
     # start the web server
-    app.run(port=port, debug=True)
+    app.run(port=port)
     print '\n'
-    
+
     # shutdown
     tails_close_port(port)
-    
-    if __name__ == '__main__':
-        main()
+
+if __name__ == '__main__':
+    main()
