@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 import time, Queue, thread, gtk, gobject, os, webkit
 
 def async_gtk_msg(fun):

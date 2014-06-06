@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 import onionshare, webgui
 import os, sys, time, json, gtk, gobject, thread
 
