@@ -40,9 +40,6 @@ def set_file_info(new_filename, new_filehash, new_filesize):
 @app.route("/{0}".format(slug))
 def index():
     global filename, filesize, filehash, slug, strings
-    print 'filename: {0}'.format(filename)
-    print 'filehash: {0}'.format(filehash)
-    print 'filesize: {0}'.format(filesize)
     return render_template_string(open('{0}/index.html'.format(os.path.dirname(__file__))).read(),
         slug=slug, filename=os.path.basename(filename), filehash=filehash, filesize=filesize, strings=strings)
 
@@ -164,7 +161,7 @@ def main():
             onion_host = start_hidden_service(port)
         except NoTor as e:
             sys.exit(e.args[0])
-            
+
     # startup
     print strings["calculating_sha1"]
     filehash, filesize = file_crunching(filename)
