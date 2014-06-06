@@ -1,4 +1,4 @@
-import os, sys, subprocess, time, hashlib, platform, json, locale, socket
+import os, sys, subprocess, time, hashlib, platform, json, locale, socket, argparse
 from random import randint
 from functools import wraps
 
@@ -40,9 +40,6 @@ def set_file_info(new_filename, new_filehash, new_filesize):
 @app.route("/{0}".format(slug))
 def index():
     global filename, filesize, filehash, slug, strings
-    print 'filename: {0}'.format(filename)
-    print 'filehash: {0}'.format(filehash)
-    print 'filesize: {0}'.format(filesize)
     return render_template_string(open('{0}/index.html'.format(os.path.dirname(__file__))).read(),
         slug=slug, filename=os.path.basename(filename), filehash=filehash, filesize=filesize, strings=strings)
 
@@ -118,13 +115,16 @@ def start_hidden_service(port):
     # connect to the tor controlport
     controlports = [9051, 9151]
     controller = False
+
     for controlport in controlports:
         try:
             controller = Controller.from_port(port=controlport)
         except SocketError:
             pass
+
     if not controller:
         raise NoTor(strings["cant_connect_ctrlport"].format(controlports))
+
     controller.authenticate()
 
     # set up hidden service
@@ -132,28 +132,35 @@ def start_hidden_service(port):
         ('HiddenServiceDir', get_hidden_service_dir(port)),
         ('HiddenServicePort', '80 127.0.0.1:{0}'.format(port))
     ])
+
     onion_host = get_hidden_service_hostname(port)
     return onion_host
 
 def main():
     load_strings()
 
-    # try starting hidden service
-    port = choose_port()
-    print strings["connecting_ctrlport"].format(port)
-    try:
-        onion_host = start_hidden_service(port)
-    except NoTor as e:
-        sys.exit(e.args[0])
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--local-only', action='store_true', dest='local_only', help='Do not attempt to use tor: for development only')
+    parser.add_argument('filename', nargs=1)
+    args = parser.parse_args()
 
-    # select file to share
-    if len(sys.argv) != 2:
-        sys.exit('Usage: {0} [filename]'.format(sys.argv[0]));
-    filename = sys.argv[1]
-    if not os.path.isfile(filename):
+    filename = os.path.abspath(args.filename[0])
+    local_only = args.local_only
+
+    if not (filename and os.path.isfile(filename)):
         sys.exit(strings["not_a_file"].format(filename))
-    else:
-        filename = os.path.abspath(filename)
+    filename = os.path.abspath(filename)
+
+    port = choose_port()
+    local_host = "127.0.0.1:{0}".format(port)
+
+    if not local_only:
+        # try starting hidden service
+        print strings["connecting_ctrlport"].format(port)
+        try:
+            onion_host = start_hidden_service(port)
+        except NoTor as e:
+            sys.exit(e.args[0])
 
     # startup
     print strings["calculating_sha1"]
@@ -161,7 +168,10 @@ def main():
     set_file_info(filename, filehash, filesize)
     tails_open_port(port)
     print '\n' + strings["give_this_url"]
-    print 'http://{0}/{1}'.format(onion_host, slug)
+    if local_only:
+        print 'http://{0}/{1}'.format(local_host, slug)
+    else:
+        print 'http://{0}/{1}'.format(onion_host, slug)
     print ''
     print strings["ctrlc_to_stop"]
 

@@ -3,13 +3,13 @@
     <head>
         <title>OnionShare</title>
         <style type="text/css">
-            body { 
-                background-color: #222222; 
-                color: #ffffff; 
-                text-align: center; 
-                font-family: arial; 
+            body {
+                background-color: #222222;
+                color: #ffffff;
+                text-align: center;
+                font-family: arial;
                 padding: 5em 1em;
-            } 
+            }
             .metadata {
                 position: absolute;
                 bottom: 0;
@@ -61,6 +61,9 @@
                 top:1px;
             }
         </style>
+        <meta name="onionshare-filename" content="{{ filename }}">
+        <meta name="onionshare-filesize" content="{{ filesize }}">
+        <meta name="onionshare-filehash" content="{{ filehash }}">
     </head>
     <body>
     <p><a class="button" href='/{{ slug }}/download'>{{ filename }} &#x25BC;</a></p>
