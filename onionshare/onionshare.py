@@ -1,4 +1,4 @@
-import os, sys, subprocess, time, hashlib, platform, json, locale, socket, argparse
+import os, sys, subprocess, time, hashlib, platform, json, locale, socket, argparse, Queue
 from random import randint
 from functools import wraps
 
@@ -37,21 +37,37 @@ def set_file_info(new_filename, new_filehash, new_filesize):
     filehash = new_filehash
     filesize = new_filesize
 
+REQUEST_LOAD = 0
+REQUEST_DOWNLOAD = 1
+REQUEST_OTHER = 2
+request_q = Queue.Queue()
+
+def add_request(type):
+    global request_q
+    request_q.put({
+      'type': type,
+      'path': request.path
+    })
+
 @app.route("/{0}".format(slug))
 def index():
-    global filename, filesize, filehash, slug, strings
+    global filename, filesize, filehash, slug, strings, REQUEST_LOAD
+    add_request(REQUEST_LOAD)
     return render_template_string(open('{0}/index.html'.format(os.path.dirname(__file__))).read(),
         slug=slug, filename=os.path.basename(filename), filehash=filehash, filesize=filesize, strings=strings)
 
 @app.route("/{0}/download".format(slug))
 def download():
-    global filename
+    global filename, request_q, REQUEST_DOWNLOAD
+    add_request(REQUEST_DOWNLOAD)
     dirname = os.path.dirname(filename)
     basename = os.path.basename(filename)
     return send_from_directory(dirname, basename, as_attachment=True)
 
 @app.errorhandler(404)
 def page_not_found(e):
+    global REQUEST_OTHER
+    add_request(REQUEST_OTHER)
     return render_template_string(open('{0}/404.html'.format(os.path.dirname(__file__))).read())
 
 def get_hidden_service_dir(port):

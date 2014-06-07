@@ -20,7 +20,7 @@ h1 {
 
 p {
   padding: 0;
-  margin: 0 0 .3em 0;
+  margin: 0 0 .5em 0;
 }
 
 #output {
@@ -29,6 +29,16 @@ p {
   height: 260px;
   overflow: auto;
   font-family: monospace;
+}
+
+#output .weblog {
+  color: #009900;
+  font-weight: bold;
+}
+
+#output .weblog-error {
+  color: #990000;
+  font-weight: bold;
 }
 
 .button {
@@ -75,14 +85,6 @@ p {
   position: absolute;
   right: 20px;
   bottom: 10px;
-}
-
-.loader {
-  width: 21px;
-  height: 20px;
-  background-image: url('loader.gif');
-  background-position: top left;
-  background-repeat: no-repeat;
 }
 
 #loading {
