@@ -103,7 +103,10 @@ def load_strings(default="en"):
     if lc:
         lang = lc[:2]
         if lang in translated:
-            strings = translated[lang]
+            # if a string doesn't exist, fallback to English
+            for key in translated[default]:
+                if key in translated[lang]:
+                    strings[key] = translated[lang][key]
     return strings
 
 def file_crunching(filename):
