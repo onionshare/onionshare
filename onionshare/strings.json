@@ -8,7 +8,12 @@
     "ctrlc_to_stop":  "Press Ctrl-C to stop server",
     "not_a_file": "{0} is not a file.",
     "filesize": "File size",
-    "sha1_checksum": "SHA1 checksum"
+    "sha1_checksum": "SHA1 checksum",
+    "copied_url": "Copied URL to clipboard",
+    "download_page_loaded": "Download page loaded",
+    "download_started": "Download started",
+    "download_finished": "Download finished",
+    "other_page_loaded": "Other page has been loaded"
 }, "no": {
     "punching_a_hole": "Åpner port i brannmuren.",
     "closing_hole": "Lukker port i brannmuren.",

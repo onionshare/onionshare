@@ -17,7 +17,7 @@ $(function(){
     $.ajax({
       url: '/copy_url',
       success: function(data, textStatus, jqXHR){
-        update('Copied secret URL to clipboard');
+        update(onionshare.strings['copied_url']);
       }
     });
   }
@@ -33,12 +33,12 @@ $(function(){
         if(data != '') {
           var r = JSON.parse(data);
           if(r.type == REQUEST_LOAD) {
-            update($('<span>').addClass('weblog').html('Download page loaded'));
+            update($('<span>').addClass('weblog').html(onionshare.strings['download_page_loaded']));
           } else if(r.type == REQUEST_DOWNLOAD) {
-            update($('<span>').addClass('weblog').html('Download started'));
+            update($('<span>').addClass('weblog').html(onionshare.strings['download_started']));
           } else {
             if(r.path != '/favicon.ico')
-              update($('<span>').addClass('weblog-error').html('Other page has been loaded: {0}'.replace('{0}', r.path)));
+              update($('<span>').addClass('weblog-error').html(onionshare.strings['other_page_loaded']+': '+r.path));
           }
         }
 
@@ -54,8 +54,7 @@ $(function(){
       onionshare = JSON.parse(data);
 
       $('#basename').html(onionshare.basename);
-      update("Sharing file: "+onionshare.basename+" ("+onionshare.filesize+" bytes)");
-      update("SHA1 checksum: "+onionshare.filehash);
+      update(onionshare.strings['sha1_checksum']+": "+onionshare.filehash);
       linebreak();
       update(onionshare.strings['give_this_url']);
       update($('<strong>').html(onionshare.url));
