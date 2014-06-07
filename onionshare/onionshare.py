@@ -2,6 +2,7 @@ import os, sys, subprocess, time, hashlib, platform, json, locale, socket, argpa
 from random import randint
 from functools import wraps
 
+
 def get_platform():
     if 'ONIONSHARE_PLATFORM' in os.environ:
         return os.environ['ONIONSHARE_PLATFORM']
@@ -96,8 +97,10 @@ def tails_close_port(port):
 
 def load_strings(default="en"):
     global strings
-    translated = json.loads(open('{0}/strings.json'.format(
-        os.path.dirname(__file__))).read())
+    try:
+        translated = json.loads(open('{0}/strings.json'.format(os.getcwd())).read())
+    except IOError:
+        translated = json.loads(open('{0}/strings.json'.format(os.path.dirname(__file__))).read())
     strings = translated[default]
     lc, enc = locale.getdefaultlocale()
     if lc:
