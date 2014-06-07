@@ -84,3 +84,18 @@ p {
   background-position: top left;
   background-repeat: no-repeat;
 }
+
+#loading {
+  width: 550px;
+  height: 300px;
+  background-color: #333333;
+  background-image: url('/static/loader_large.gif');
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+#content {
+  width: 550px;
+  height: 300px;
+  display: none;
+}

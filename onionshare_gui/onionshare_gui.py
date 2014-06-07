@@ -1,13 +1,5 @@
-import onionshare, webgui
-import os, sys, time, json, gtk, gobject, thread
-
-url = None
-
-class Global(object):
-    quit = False
-    @classmethod
-    def set_quit(cls, *args, **kwargs):
-        cls.quit = True
+import onionshare, webapp
+import threading, gtk, gobject, webkit, os, sys
 
 def alert(msg, type=gtk.MESSAGE_INFO):
     dialog = gtk.MessageDialog(
@@ -48,84 +40,67 @@ def select_file(strings):
     basename = os.path.basename(filename)
     return filename, basename
 
+def start_webapp(webapp_port, onionshare_port, filename, onion_host):
+    webapp.onionshare = onionshare
+    webapp.onionshare_port = onionshare_port
+    webapp.filename = filename
+    webapp.onion_host = onion_host
+    webapp.app.run(port=webapp_port)
+
+def launch_window(webapp_port, onionshare_port):
+    def on_destroy(widget, data=None):
+        onionshare.tails_close_port(onionshare_port)
+        gtk.main_quit()
+
+    window = gtk.Window()
+    window.set_title('OnionShare')
+    window.resize(550, 300)
+    window.set_resizable(False)
+    window.connect('destroy', on_destroy)
+
+    box = gtk.VBox(homogeneous=False, spacing=0)
+    window.add(box)
+
+    browser = webkit.WebView()
+    box.pack_start(browser, expand=True, fill=True, padding=0)
+
+    window.show_all()
+
+    # wait half a second for server to start
+    gobject.timeout_add(500, browser.open, 'http://127.0.0.1:{0}/'.format(webapp_port))
+
+    gtk.main()
+
 def main():
-    global url
-    strings = onionshare.load_strings()
+    onionshare.strings = onionshare.load_strings()
 
     # try starting hidden service
-    port = onionshare.choose_port()
+    onionshare_port = onionshare.choose_port()
     try:
-        onion_host = onionshare.start_hidden_service(port)
+        onion_host = onionshare.start_hidden_service(onionshare_port)
     except onionshare.NoTor as e:
         alert(e.args[0], gtk.MESSAGE_ERROR)
         return
-    onionshare.tails_open_port(port)
+    onionshare.tails_open_port(onionshare_port)
 
     # select file to share
-    filename, basename = select_file(strings)
+    filename, basename = select_file(onionshare.strings)
     if not filename:
         return
 
-    # open the window, launching webkit browser
-    webgui.start_gtk_thread()
-    browser, web_recv, web_send = webgui.sync_gtk_msg(webgui.launch_window)(
-        title="OnionShare | {0}".format(basename),
-        quit_function=Global.set_quit,
-        echo=False)
+    # start the gui web server
+    webapp_port = onionshare.choose_port()
+    t = threading.Thread(target=start_webapp, kwargs={
+        'webapp_port': webapp_port,
+        'onionshare_port': onionshare_port,
+        'filename': filename,
+        'onion_host': onion_host
+    })
+    t.daemon = True
+    t.start()
 
-    # clipboard
-    clipboard = gtk.clipboard_get(gtk.gdk.SELECTION_CLIPBOARD)
-    def set_clipboard():
-        global url
-        clipboard.set_text(url)
-        web_send("update('{0}')".format('Copied secret URL to clipboard.'))
-
-    # the async nature of things requires startup to be split into multiple functions
-    def startup_async():
-        global url
-        filehash, filesize = onionshare.file_crunching(filename)
-        onionshare.set_file_info(filename, filehash, filesize)
-        url = 'http://{0}/{1}'.format(onion_host, onionshare.slug)
-        web_send("update('{0}')".format(strings['give_this_url'].replace('\'', '\\\'')))
-        web_send("update('<strong>{0}</strong>')".format(url))
-        web_send("url_is_set()")
-
-        # clipboard needs a bit of time before copying url
-        gobject.timeout_add(500, set_clipboard)
-
-    def startup_sync():
-        web_send("init('{0}', {1});".format(basename, json.dumps(strings)))
-        web_send("update('{0}')".format(strings['calculating_sha1']))
-
-        # run other startup in the background
-        thread_crunch = thread.start_new_thread(startup_async, ())
-
-        # start the web server
-        thread_web = thread.start_new_thread(onionshare.app.run, (), {"port": port})
-
-    gobject.timeout_add(500, startup_sync)
-
-    # main loop
-    last_second = time.time()
-    uptime_seconds = 1
-    clicks = 0
-    while not Global.quit:
-
-        current_time = time.time()
-        again = False
-        msg = web_recv()
-        if msg:
-            again = True
-
-        # check msg for messages from the browser
-        if msg == 'copy_url':
-            set_clipboard()
-
-        if not again:
-            time.sleep(0.1)
-
-    # shutdown
-    onionshare.tails_close_port(port)
+    # launch the window
+    launch_window(webapp_port, onionshare_port)
 
 if __name__ == '__main__':
     main()
