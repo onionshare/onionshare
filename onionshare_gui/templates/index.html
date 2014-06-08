@@ -1,17 +1,23 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" type="text/css" media="all" href="static/style.css" />
-    </head>
-    <body>
-        <div id="loading"></div>
-        <div id="content">
-          <h1><span id="basename"></span></h1>
-          <div id="output"></div>
-          <button class="button" id="copy-button">Copy URL</button>-
+  <head>
+    <link rel="stylesheet" type="text/css" media="all" href="static/style.css" />
+  </head>
+  <body>
+    <div id="wrapper">
+      <div id="metadata">
+        <img src="static/logo.png" />
+        <p id="basename"></p>
+        <p id="filesize"></p>
+        <p id="filehash"></p>
+        <div id="button-wrapper">
+          <button class="button" id="copy-button">Copy URL</button>
         </div>
+      </div>
 
-        <script src="static/jquery-1.11.1.min.js"></script>
-        <script src="static/onionshare.js"></script>
-    </body>
+      <ul id="log"></ul>
+    </div>
+    <script src="static/jquery-1.11.1.min.js"></script>
+    <script src="static/onionshare.js"></script>
+  </body>
 </html>

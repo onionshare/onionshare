@@ -2,15 +2,11 @@ $(function(){
   var onionshare = {}
 
   function update($msg) {
-    var $line = $('<p></p>').append($msg);
-    $('#output').append($line);
+    var $line = $('<li>').append($msg);
+    $('#log').append($line);
     
     // scroll to bottom
-    $('#output').scrollTop($('#output').height());
-  }
-
-  function linebreak() {
-    update($('<hr>'));
+    $('#log').scrollTop($('#log').height());
   }
 
   function copy_to_clipboard() {
@@ -54,18 +50,13 @@ $(function(){
       onionshare = JSON.parse(data);
 
       $('#basename').html(onionshare.basename);
-      update(onionshare.strings['sha1_checksum']+": "+onionshare.filehash);
-      linebreak();
+      //update(onionshare.strings['sha1_checksum']+": "+onionshare.filehash);
       update(onionshare.strings['give_this_url']);
       update($('<strong>').html(onionshare.url));
-      linebreak();
       copy_to_clipboard();
       $('#copy-button').show();
 
       setTimeout(check_for_requests, 1000);
-
-      $('#loading').hide();
-      $('#content').show();
     }
   });
 

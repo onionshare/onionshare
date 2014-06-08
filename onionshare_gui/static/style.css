@@ -2,41 +2,56 @@ body {
   background-color: #ffffff;
   color: #000000;
   font-family: arial;
-  width: 550px;
-  height: 300px;
-  margin: 0 auto;
-  padding: 0;
-}
-
-h1 {
-  background-color: #222222;
-  color: #ffffff;
-  text-align: center;
-  font-size: 20px;
+  width: 520px;
+  height: 400px;
   margin: 0;
-  padding: 10px;
-  height: 20px;
-}
-
-p {
   padding: 0;
-  margin: 0 0 .5em 0;
 }
 
-#output {
+#wrapper {
+  width: 520px;
+  height: 400px;
+}
+
+#metadata {
+  float: left;
+  width: 200px;
+  height: 400px;
   padding: 10px;
+}
+#metadata #basename {
+  font-family: sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 10px 0;
+  color: #000000;
+  text-align: center;
   word-wrap: break-word;
-  height: 260px;
+}
+
+ul#log {
+  float: left;
+  width: 300px;
+  height: 400px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background-color: #e0e0e0;
   overflow: auto;
+  word-wrap: break-word;
   font-family: monospace;
 }
-
-#output .weblog {
+ul#log li {
+  margin: 0;
+  padding: 10px;
+  border-bottom: 1px solid #aaaaaa;
+}
+ul#log .weblog {
   color: #009900;
   font-weight: bold;
 }
 
-#output .weblog-error {
+ul#log .weblog-error {
   color: #990000;
   font-weight: bold;
 }
@@ -80,11 +95,11 @@ p {
   background-color:#ce0100;
 }
 
+#button-wrapper {
+  text-align: center;
+}
 #copy-button {
   display: none;
-  position: absolute;
-  right: 20px;
-  bottom: 10px;
 }
 
 #loading {
@@ -94,10 +109,4 @@ p {
   background-image: url('/static/loader_large.gif');
   background-repeat: no-repeat;
   background-position: center center;
-}
-
-#content {
-  width: 550px;
-  height: 300px;
-  display: none;
 }

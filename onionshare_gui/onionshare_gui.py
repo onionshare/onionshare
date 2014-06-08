@@ -54,7 +54,7 @@ def launch_window(webapp_port, onionshare_port):
 
     window = gtk.Window()
     window.set_title('OnionShare')
-    window.resize(550, 300)
+    window.resize(520, 400)
     window.set_resizable(False)
     window.connect('destroy', on_destroy)
 
