@@ -1,21 +1,24 @@
 # Running OnionShare in Tails
 
-It's tricky to get all of the correct python dependencies in [Tails](https://tails.boum.org/). Until OnionShare is properly packaged in Debian (and their dependencies, flask and stem, are also packaged in the version of Debian that Tails is based on) and can just be [auto-installed on boot](https://tails.boum.org/doc/first_steps/persistence/configure/index.en.html#index13h2), this is a hack to get it working.
+Until OnionShare gets included in Debian, it will be annoying to install it in Tails so that it persists reboots. For now, you'll need to run a build script the first time, and then run a setup script after each boot. The OnionShare GUI works in Tails 1.1 and later.
 
-Run the `tails-onionshare` binary in this folder as root, and OnionShare will use the libraries in the lib folder so they don't have to be installed system-wide.
+### Building for Tails
 
-    amnesia@amnesia:~/Persistent/onionshare/tails$ sudo ./tails-onionshare /home/amnesia/Persistent/secrets.pdf
-    [sudo] password for amnesia:
-    Calculating SHA1 checksum.
-    Connecting to Tor control port to set up hidden service on port 39465.
-    Punching a hole in the firewall.
+Start by booting to Tails. Mount your persistent volume and set an administrator password. Once you login and connect to the Tor network, open a terminal and type:
 
-    Give this URL to the person you're sending the file to:
-    http://sq64tkg4fxoscwns.onion/42b60c759a1ae438337dc797e910b60e
+    cd ~/Persistent
+    git clone https://github.com/micahflee/onionshare.git
+    cd onionshare
+    sudo tails/build.sh
 
-    Press Ctrl-C to stop server
-     * Running on http://127.0.0.1:39465/
-    127.0.0.1 - - [27/May/2014 21:05:32] "GET /42b60c759a1ae438337dc797e910b60e HTTP/1.1" 200 -
-    127.0.0.1 - - [27/May/2014 21:05:36] "GET /favicon.ico HTTP/1.1" 200 -
-    127.0.0.1 - - [27/May/2014 21:05:36] "GET /favicon.ico HTTP/1.1" 200 -
+You only need to do that once each time you want to build a new verison of OnionShare.
+
+### Installing in Tails
+
+In order to actually use it though, each time you boot Tails you'll need to enable your persistent volume, set an administrator password, and run this:
+
+    cd ~/Persistent/onionshare
+    sudo tails/setup.sh
+
+After running that, OnionShare will appear in the menu under Applications > Internet.
 

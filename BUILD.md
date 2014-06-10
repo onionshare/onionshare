@@ -9,7 +9,7 @@ Start by getting a copy of the source code:
 
 *For .deb-based distros (like Debian, Ubuntu, Linux Mint):*
 
-    sudo apt-get install -y python-all python-stdeb python-flask python-stem python-webkit
+    sudo apt-get install -y build-essential fakeroot python-all python-stdeb python-flask python-stem python-webkit
     ./build_deb.sh
     sudo dpkg -i deb_dist/onionshare_*.deb
 
@@ -34,3 +34,4 @@ Then use pip to install py2app:
 ## Windows
 
 *Note: Haven't started figuring this out yet.*
+

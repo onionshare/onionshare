@@ -2,19 +2,6 @@ import os, sys, subprocess, time, hashlib, platform, json, locale, socket, argpa
 from random import randint
 from functools import wraps
 
-
-def get_platform():
-    if 'ONIONSHARE_PLATFORM' in os.environ:
-        return os.environ['ONIONSHARE_PLATFORM']
-    else:
-        return platform.system()
-
-def append_lib_on_tails():
-  if get_platform() == 'Tails':
-    sys.path.append(os.path.dirname(__file__)+'/../tails/lib')
-
-append_lib_on_tails()
-
 from stem.control import Controller
 from stem import SocketError
 
@@ -70,6 +57,12 @@ def page_not_found(e):
     global REQUEST_OTHER
     add_request(REQUEST_OTHER)
     return render_template_string(open('{0}/404.html'.format(os.path.dirname(__file__))).read())
+
+def get_platform():
+    p = platform.system()
+    if p == 'Linux' and platform.uname()[0:2] == ('Linux', 'amnesia'):
+        p = 'Tails'
+    return p
 
 def get_hidden_service_dir(port):
     if get_platform() == "Windows":
