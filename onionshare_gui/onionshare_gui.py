@@ -52,6 +52,7 @@ def start_webapp(webapp_port, onionshare_port, filename, onion_host):
 def launch_window(webapp_port, onionshare_port):
     def on_destroy(widget, data=None):
         onionshare.tails_close_port(onionshare_port)
+        onionshare.tails_close_port(webapp_port)
         gtk.main_quit()
 
     window = gtk.Window()
@@ -105,6 +106,7 @@ def main():
     })
     t.daemon = True
     t.start()
+    onionshare.tails_open_port(webapp_port)
 
     # launch the window
     launch_window(webapp_port, onionshare_port)
