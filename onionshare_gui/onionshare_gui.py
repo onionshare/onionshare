@@ -1,5 +1,5 @@
 import onionshare, webapp
-import threading, gtk, gobject, webkit, os, sys
+import threading, gtk, gobject, webkit, os, sys, subprocess
 
 def alert(msg, type=gtk.MESSAGE_INFO):
     dialog = gtk.MessageDialog(
@@ -21,6 +21,8 @@ def select_file(strings):
             title="Choose a file to share",
             action=gtk.FILE_CHOOSER_ACTION_OPEN,
             buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OPEN, gtk.RESPONSE_OK))
+        if onionshare.get_platform() == 'Tails':
+            chooser.set_current_folder('/home/amnesia/')
         response = chooser.run()
         if response == gtk.RESPONSE_OK:
             filename = chooser.get_filename()
@@ -73,6 +75,11 @@ def launch_window(webapp_port, onionshare_port):
 
 def main():
     onionshare.strings = onionshare.load_strings()
+
+    # check for root in Tails
+    if onionshare.get_platform() == 'Tails' and not onionshare.is_root():
+        subprocess.call(['/usr/bin/gksudo']+sys.argv)
+        return
 
     # try starting hidden service
     onionshare_port = onionshare.choose_port()
