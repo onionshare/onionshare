@@ -43,21 +43,40 @@ $(function(){
     });
   }
 
-  // start onionshare
+  // initialize
   $.ajax({
-    url: '/start_onionshare',
+    url: '/init_info',
     success: function(data, textStatus, jqXHR){
       onionshare = JSON.parse(data);
 
       $('#basename').html(onionshare.basename);
-      //update(onionshare.strings['sha1_checksum']+": "+onionshare.filehash);
-      update(onionshare.strings['give_this_url']);
-      update($('<strong>').html(onionshare.url));
-      copy_to_clipboard();
-      $('#copy-button').show();
+      $('#filesize .label').html(onionshare.strings['filesize']+':');
+      $('#filehash .label').html(onionshare.strings['sha1_checksum']+':');
+      $('#loading .calculating').html(onionshare.strings['calculating_sha1']);
+      
+      // after getting the initial info, start the onionshare server
+      $.ajax({
+        url: '/start_onionshare',
+        success: function(data, textStatus, jqXHR){
+          var data_obj = JSON.parse(data);
+          onionshare.filehash = data_obj.filehash;
+          onionshare.filesize = data_obj.filesize;
+          onionshare.url = data_obj.url;
 
-      setTimeout(check_for_requests, 1000);
+          $('#loading').remove();
+
+          $('#filesize .value').html(onionshare.filesize+' bytes');
+          $('#filehash .value').html(onionshare.filehash);
+          $('#filesize').show(500);
+          $('#filehash').show(500);
+
+          update('<span>'+onionshare.strings['give_this_url']+'</span><br/><strong>'+onionshare.url+'</strong>');
+          copy_to_clipboard();
+          $('#copy-button').show();
+
+          setTimeout(check_for_requests, 1000);
+        }
+      });
     }
   });
-
 });

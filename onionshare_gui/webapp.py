@@ -15,13 +15,22 @@ app = Flask(__name__, template_folder='./templates')
 def index():
     return render_template('index.html')
 
+@app.route("/init_info")
+def init_info():
+    global onionshare, filename
+    basename = os.path.basename(filename)
+
+    return json.dumps({
+        'strings': onionshare.strings,
+        'basename': basename
+    })
+
 @app.route("/start_onionshare")
 def start_onionshare():
     global onionshare, onionshare_port, filename, onion_host, url
 
     url = 'http://{0}/{1}'.format(onion_host, onionshare.slug)
 
-    basename = os.path.basename(filename)
     filehash, filesize = onionshare.file_crunching(filename)
     onionshare.set_file_info(filename, filehash, filesize)
 
@@ -31,8 +40,6 @@ def start_onionshare():
     t.start()
 
     return json.dumps({
-        'strings': onionshare.strings,
-        'basename': basename,
         'filehash': filehash,
         'filesize': filesize,
         'url': url

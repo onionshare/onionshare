@@ -6,17 +6,28 @@
   <body>
     <div id="wrapper">
       <div id="metadata">
-        <img src="static/logo.png" />
-        <p id="basename"></p>
-        <p id="filesize"></p>
-        <p id="filehash"></p>
+        <img id="logo" src="static/logo.png" />
+        <div id="basename"></div>
+        <div id="filesize">
+          <span class="label"></span>
+          <span class="value"></span>
+        </div>
+        <div id="filehash">
+          <span class="label"></span>
+          <span class="value"></span>
+        </div>
         <div id="button-wrapper">
           <button class="button" id="copy-button">Copy URL</button>
         </div>
       </div>
 
-      <ul id="log"></ul>
-    </div>
+      <ul id="log">
+        <li id="loading">
+          <img src="static/loader.gif" />
+          <p class="calculating"></p>
+        </li>
+      </ul>
+    </ul>
     <script src="static/jquery-1.11.1.min.js"></script>
     <script src="static/onionshare.js"></script>
   </body>
