@@ -23,3 +23,5 @@ cp /var/cache/apt/archives/python-markupsafe_*.deb tails
 cp /var/cache/apt/archives/python-stem_*.deb tails
 cp /var/cache/apt/archives/python-werkzeug_*.deb tails
 
+# fix permissions
+chown -R amnesia:amnesia deb_dist tails/*.deb
