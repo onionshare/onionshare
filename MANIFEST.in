@@ -10,3 +10,5 @@ include onionshare_gui/static/onionshare.js
 include onionshare_gui/static/style.css
 include onionshare_gui/static/loader.gif
 include onionshare_gui/static/logo.png
+include setup/onionshare.desktop
+include setup/onionshare80.xpm
