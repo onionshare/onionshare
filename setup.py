@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import os, sys, subprocess
+import os, sys, subprocess, platform
 
 try:
     from setuptools import setup
@@ -11,6 +11,14 @@ except ImportError:
 if sys.argv[-1] == 'publish':
     subprocess.call(['python', 'setup.py', 'sdist', 'upload', '--sign'])
     sys.exit()
+
+def get_data_files():
+    if platform.system == 'Linux':
+        print 'linux oh yeah'
+        return [('/usr/share/applications', 'setup/onionshare.desktop'),
+                ('/usr/share/pixmaps', 'setup/onionshare80.xpm')]
+    else:
+        return None
 
 setup(
     name='onionshare',
@@ -28,5 +36,6 @@ setup(
     license="GPL v3",
     keywords='onion, share, onionshare, tor, anonymous, web server',
     packages=['onionshare', 'onionshare_gui'],
-    scripts=['bin/onionshare', 'bin/onionshare-gui']
+    scripts=['bin/onionshare', 'bin/onionshare-gui'],
+    data_files=get_data_files()
 )

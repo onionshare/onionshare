@@ -4,3 +4,4 @@ include onionshare/*.html
 include onionshare/strings.json
 include onionshare_gui/templates/*
 include onionshare_gui/static/*
+include setup/*
