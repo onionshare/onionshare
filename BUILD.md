@@ -1,21 +1,22 @@
 # Building OnionShare
 
-For GNU/Linux and OSX, get a copy of the source code:
+## GNU/Linux
+
+Start by getting a copy of the source code:
 
     git clone https://github.com/micahflee/onionshare.git
     cd onionshare
 
-## Debian-based GNU/Linux
+*For .deb-based distros (like Debian, Ubuntu, Linux Mint):*
 
-## Red Hat-based GNU/Linux
+    sudo apt-get install -y python-all python-stdeb python-flask python-stem python-webkit
+    ./build_deb.sh
+    sudo dpkg -i deb_dist/onionshare_*.deb
 
-Install dependencies and build the RPM:
+*For .rpm-based distros (Red Hat, Fedora, CentOS):*
 
     sudo yum install -y rpm-build python-flask python-stem pywebkitgtk
     ./build_rpm.sh
-
-The RPM will end up in your dist folder. You can install it like this:
-
     sudo yum install -y dist/onionshare-*.rpm
 
 ## Mac OS X
@@ -30,4 +31,6 @@ Then use pip to install py2app:
 
     sudo pip install py2app
 
+## Windows
 
+*Note: Haven't started figuring this out yet.*
