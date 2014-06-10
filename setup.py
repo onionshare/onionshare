@@ -46,8 +46,8 @@ setup(
     url='https://github.com/micahflee/onionshare',
     include_package_data=True,
     install_requires=[
-        'flask >= 0.10.1',
-        'stem >= 1.1.1'
+        'flask >= 0.8',
+        'stem >= 1.1.0'
     ],
     license="GPL v3",
     keywords='onion, share, onionshare, tor, anonymous, web server',
