@@ -14,12 +14,27 @@ if sys.argv[-1] == 'publish':
 
 version = open('version').read().strip()
 
-def get_data_files():
-    if platform.system == 'Linux':
-        return [('/usr/share/applications', ['setup/onionshare.desktop']),
-                ('/usr/share/pixmaps', ['setup/onionshare80.xpm'])]
-    else:
-        return None
+APP = None
+DATA_FILES = [
+    ('/usr/share/applications', ['setup/onionshare.desktop']),
+    ('/usr/share/pixmaps', ['setup/onionshare80.xpm'])
+]
+OPTIONS = None
+
+if platform.system() == 'Darwin':
+    APP = ['setup/onionshare_osx.py']
+    DATA_FILES = ['LICENSE', 'README.md', 'BUILD.md', 'version', 'onionshare', 'onionshare_gui']
+    OPTIONS = {
+        'py2app': {
+            'argv_emulation': True,
+            #'iconfile': 'setup/onionshare.icns',
+            'packages': ['flask', 'stem'],
+            'site_packages': True,
+            'plist': {
+                'CFBundleName': 'OnionShare',
+            }
+        }
+    }
 
 setup(
     name='onionshare',
@@ -38,6 +53,7 @@ setup(
     keywords='onion, share, onionshare, tor, anonymous, web server',
     packages=['onionshare', 'onionshare_gui'],
     scripts=['bin/onionshare', 'bin/onionshare-gui'],
-    data_files=[('/usr/share/applications', ['setup/onionshare.desktop']),
-                ('/usr/share/pixmaps', ['setup/onionshare80.xpm'])]
+    data_files=DATA_FILES,
+    app=APP,
+    options=OPTIONS
 )
