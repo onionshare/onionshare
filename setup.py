@@ -16,9 +16,8 @@ version = open('version').read().strip()
 
 def get_data_files():
     if platform.system == 'Linux':
-        print 'linux oh yeah'
-        return [('/usr/share/applications', 'setup/onionshare.desktop'),
-                ('/usr/share/pixmaps', 'setup/onionshare80.xpm')]
+        return [('/usr/share/applications', ['setup/onionshare.desktop']),
+                ('/usr/share/pixmaps', ['setup/onionshare80.xpm'])]
     else:
         return None
 
@@ -39,5 +38,6 @@ setup(
     keywords='onion, share, onionshare, tor, anonymous, web server',
     packages=['onionshare', 'onionshare_gui'],
     scripts=['bin/onionshare', 'bin/onionshare-gui'],
-    data_files=get_data_files()
+    data_files=[('/usr/share/applications', ['setup/onionshare.desktop']),
+                ('/usr/share/pixmaps', ['setup/onionshare80.xpm'])]
 )
