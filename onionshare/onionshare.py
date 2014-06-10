@@ -64,6 +64,9 @@ def get_platform():
         p = 'Tails'
     return p
 
+def is_root():
+    return os.geteuid() == 0
+
 def get_hidden_service_dir(port):
     if get_platform() == "Windows":
         if 'Temp' in os.environ:
@@ -154,6 +157,11 @@ def start_hidden_service(port):
 def main():
     load_strings()
 
+    # check for root in Tails
+    if get_platform() == 'Tails' and not is_root():
+        sys.exit(strings["tails_requires_root"])
+
+    # parse arguments
     parser = argparse.ArgumentParser()
     parser.add_argument('--local-only', action='store_true', dest='local_only', help='Do not attempt to use tor: for development only')
     parser.add_argument('filename', nargs=1)

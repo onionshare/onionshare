@@ -13,7 +13,8 @@
     "download_page_loaded": "Download page loaded",
     "download_started": "Download started",
     "download_finished": "Download finished",
-    "other_page_loaded": "Other page has been loaded"
+    "other_page_loaded": "Other page has been loaded",
+    "tails_requires_root": "You must run OnionShare as root in Tails"
 }, "no": {
     "punching_a_hole": "Åpner port i brannmuren.",
     "closing_hole": "Lukker port i brannmuren.",
