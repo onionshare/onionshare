@@ -3,6 +3,7 @@ include README.md
 include BUILD.md
 include version
 include onionshare/index.html
+include onionshare/404.html
 include onionshare/strings.json
 include onionshare_gui/templates/index.html
 include onionshare_gui/static/jquery-1.11.1.min.js
