@@ -27,7 +27,7 @@ if platform.system() == 'Darwin':
     OPTIONS = {
         'py2app': {
             'argv_emulation': True,
-            #'iconfile': 'setup/onionshare.icns',
+            'iconfile': 'setup/onionshare.icns',
             'packages': ['flask', 'stem'],
             'site_packages': True,
             'plist': {
