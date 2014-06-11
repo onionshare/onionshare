@@ -21,15 +21,22 @@ Start by getting a copy of the source code:
 
 ## Mac OS X
 
-*Note: These instructions are a work-in-progress. The OnionShare GUI doesn't yet work in Mac OS X.*
+*Note: This is a work-in-progress. The OnionShare GUI doesn't yet work in Mac OS X. See https://github.com/micahflee/onionshare/issues/43 for progress.*
 
-If you don't already have pip installed, install it like this:
+Get a copy of the source code:
 
-    sudo easy_install pip
+    git clone https://github.com/micahflee/onionshare.git
+    cd onionshare
 
-Then use pip to install py2app:
+Install py2app (if you don't have pip installed, you can `sudo easy_install pip`):
 
     sudo pip install py2app
+
+Then build the .app:
+
+    python setup.py py2app
+
+Now you'll see `dist/OnionShare.app` with a nice icon. However, it won't run yet.
 
 ## Windows
 
