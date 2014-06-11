@@ -25,24 +25,28 @@ $(function(){
   var REQUEST_OTHER = 3;
   function check_for_requests() {
     $.ajax({
-      url: '/check_for_requests',
+      url: '/heartbeat',
       success: function(data, textStatus, jqXHR){
         if(data != '') {
-          var r = JSON.parse(data);
-          if(r.type == REQUEST_LOAD) {
-            update($('<span>').addClass('weblog').html(onionshare.strings['download_page_loaded']));
-          } else if(r.type == REQUEST_DOWNLOAD) {
-            var $download = $('<span>')
-              .attr('id', 'download-'+r.data.id)
-              .addClass('weblog').html(onionshare.strings['download_started'])
-              .append($('<span>').addClass('progress'));
-            update($download);
-          } else if(r.type == REQUEST_PROGRESS) {
-              var percent = Math.floor((r.data.bytes / onionshare.filesize) * 100);
-              $('#download-'+r.data.id+' .progress').html(' '+human_readable_filesize(r.data.bytes)+', '+percent+'%');
-          } else {
-            if(r.path != '/favicon.ico')
-              update($('<span>').addClass('weblog-error').html(onionshare.strings['other_page_loaded']+': '+r.path));
+          var events = JSON.parse(data);
+          for(var i=0; i<events.length; i++) {
+            var r = events[i];
+
+            if(r.type == REQUEST_LOAD) {
+              update($('<span>').addClass('weblog').html(onionshare.strings['download_page_loaded']));
+            } else if(r.type == REQUEST_DOWNLOAD) {
+              var $download = $('<span>')
+                .attr('id', 'download-'+r.data.id)
+                .addClass('weblog').html(onionshare.strings['download_started'])
+                .append($('<span>').addClass('progress'));
+              update($download);
+            } else if(r.type == REQUEST_PROGRESS) {
+                var percent = Math.floor((r.data.bytes / onionshare.filesize) * 100);
+                $('#download-'+r.data.id+' .progress').html(' '+human_readable_filesize(r.data.bytes)+', '+percent+'%');
+            } else {
+              if(r.path != '/favicon.ico')
+                update($('<span>').addClass('weblog-error').html(onionshare.strings['other_page_loaded']+': '+r.path));
+            }
           }
         }
 

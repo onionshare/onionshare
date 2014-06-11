@@ -29,13 +29,13 @@ REQUEST_LOAD = 0
 REQUEST_DOWNLOAD = 1
 REQUEST_PROGRESS = 2
 REQUEST_OTHER = 3
-request_q = Queue.Queue()
+q = Queue.Queue()
 
 download_count = 0
 
 def add_request(type, path, data=None):
-    global request_q
-    request_q.put({
+    global q
+    q.put({
       'type': type,
       'path': path,
       'data': data
@@ -50,7 +50,7 @@ def index():
 
 @app.route("/{0}/download".format(slug))
 def download():
-    global filename, filesize, request_q, download_count
+    global filename, filesize, q, download_count
     global REQUEST_DOWNLOAD, REQUEST_PROGRESS
 
     # each download has a unique id

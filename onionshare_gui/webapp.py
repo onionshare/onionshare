@@ -51,12 +51,18 @@ def copy_url():
     clipboard.set_text(url)
     return ''
 
-@app.route("/check_for_requests")
+@app.route("/heartbeat")
 def check_for_requests():
     global onionshare
-    try:
-        r = onionshare.request_q.get(False)
-        return json.dumps(r)
-    except onionshare.Queue.Empty:
-        return ''
+    events = []
+
+    done = False
+    while not done:
+        try:
+            r = onionshare.q.get(False)
+            events.append(r)
+        except onionshare.Queue.Empty:
+            done = True
+
+    return json.dumps(events)
 
