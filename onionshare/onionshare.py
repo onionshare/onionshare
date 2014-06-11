@@ -27,30 +27,62 @@ def set_file_info(new_filename, new_filehash, new_filesize):
 
 REQUEST_LOAD = 0
 REQUEST_DOWNLOAD = 1
-REQUEST_OTHER = 2
+REQUEST_PROGRESS = 2
+REQUEST_OTHER = 3
 request_q = Queue.Queue()
 
-def add_request(type):
+download_count = 0
+
+def add_request(type, path, data=None):
     global request_q
     request_q.put({
       'type': type,
-      'path': request.path
+      'path': path,
+      'data': data
     })
 
 @app.route("/{0}".format(slug))
 def index():
     global filename, filesize, filehash, slug, strings, REQUEST_LOAD
-    add_request(REQUEST_LOAD)
+    add_request(REQUEST_LOAD, request.path)
     return render_template_string(open('{0}/index.html'.format(os.path.dirname(__file__))).read(),
         slug=slug, filename=os.path.basename(filename), filehash=filehash, filesize=filesize, strings=strings)
 
 @app.route("/{0}/download".format(slug))
 def download():
-    global filename, request_q, REQUEST_DOWNLOAD
-    add_request(REQUEST_DOWNLOAD)
+    global filename, filesize, request_q, download_count
+    global REQUEST_DOWNLOAD, REQUEST_PROGRESS
+
+    # each download has a unique id
+    download_id = download_count
+    download_count += 1
+
+    # tell GUI the download started
+    path = request.path
+    add_request(REQUEST_DOWNLOAD, path, { 'id':download_id })
+
     dirname = os.path.dirname(filename)
     basename = os.path.basename(filename)
-    return send_from_directory(dirname, basename, as_attachment=True)
+
+    def generate():
+        chunk_size = 102400 # 100kb
+
+        fp = open(filename, 'rb')
+        done = False
+        while not done:
+            chunk = fp.read(102400)
+            if chunk == '':
+                done = True
+            yield chunk
+            
+            # tell GUI the progress
+            add_request(REQUEST_PROGRESS, path, { 'id':download_id, 'bytes':fp.tell() })
+        fp.close()
+
+    r = Response(generate())
+    r.headers.add('Content-Length', filesize)
+    r.headers.add('Content-Disposition', 'attachment', filename=basename)
+    return r
 
 @app.errorhandler(404)
 def page_not_found(e):

@@ -21,7 +21,8 @@ $(function(){
 
   var REQUEST_LOAD = 0;
   var REQUEST_DOWNLOAD = 1;
-  var REQUEST_OTHER = 2;
+  var REQUEST_PROGRESS = 2;
+  var REQUEST_OTHER = 3;
   function check_for_requests() {
     $.ajax({
       url: '/check_for_requests',
@@ -31,7 +32,14 @@ $(function(){
           if(r.type == REQUEST_LOAD) {
             update($('<span>').addClass('weblog').html(onionshare.strings['download_page_loaded']));
           } else if(r.type == REQUEST_DOWNLOAD) {
-            update($('<span>').addClass('weblog').html(onionshare.strings['download_started']));
+            var $download = $('<span>')
+              .attr('id', 'download-'+r.data.id)
+              .addClass('weblog').html(onionshare.strings['download_started'])
+              .append($('<span>').addClass('progress'));
+            update($download);
+          } else if(r.type == REQUEST_PROGRESS) {
+              var percent = Math.floor((r.data.bytes / onionshare.filesize) * 100);
+              $('#download-'+r.data.id+' .progress').html(' '+human_readable_filesize(r.data.bytes)+', '+percent+'%');
           } else {
             if(r.path != '/favicon.ico')
               update($('<span>').addClass('weblog-error').html(onionshare.strings['other_page_loaded']+': '+r.path));
@@ -65,7 +73,7 @@ $(function(){
 
           $('#loading').remove();
 
-          $('#filesize .value').html(onionshare.filesize+' bytes');
+          $('#filesize .value').html(human_readable_filesize(onionshare.filesize));
           $('#filehash .value').html(onionshare.filehash);
           $('#filesize').show(500);
           $('#filehash').show(500);
