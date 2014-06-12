@@ -53,14 +53,14 @@ def start_webapp(webapp_port, onionshare_port, filename, onion_host):
     webapp.window = window
     webapp.app.run(port=webapp_port)
 
-def launch_window(webapp_port, onionshare_port):
+def launch_window(webapp_port, onionshare_port, basename):
     def on_destroy(widget, data=None):
         onionshare.tails_close_port(onionshare_port)
         onionshare.tails_close_port(webapp_port)
         gtk.main_quit()
 
     global window
-    window.set_title('OnionShare')
+    window.set_title('{0} | OnionShare'.format(basename))
     window.resize(520, 400)
     window.set_resizable(False)
     window.connect('destroy', on_destroy)
@@ -113,7 +113,7 @@ def main():
     onionshare.tails_open_port(webapp_port)
 
     # launch the window
-    launch_window(webapp_port, onionshare_port)
+    launch_window(webapp_port, onionshare_port, basename)
 
 if __name__ == '__main__':
     main()
