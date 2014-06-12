@@ -13,18 +13,12 @@ if sys.argv[-1] == 'publish':
     sys.exit()
 
 version = open('version').read().strip()
-
-APP = None
-DATA_FILES = [
-    ('/usr/share/applications', ['setup/onionshare.desktop']),
-    ('/usr/share/pixmaps', ['setup/onionshare80.xpm'])
-]
-OPTIONS = None
+args = {}
 
 if platform.system() == 'Darwin':
-    APP = ['setup/onionshare_osx.py']
-    DATA_FILES = ['LICENSE', 'README.md', 'BUILD.md', 'version', 'onionshare', 'onionshare_gui']
-    OPTIONS = {
+    args['data_files'] = ['LICENSE', 'README.md', 'BUILD.md', 'version', 'onionshare', 'onionshare_gui']
+    args['app'] = ['setup/onionshare_osx.py']
+    args['options'] = {
         'py2app': {
             'argv_emulation': True,
             'iconfile': 'setup/onionshare.icns',
@@ -36,6 +30,16 @@ if platform.system() == 'Darwin':
         }
     }
 
+elif platform.system() == 'Windows':
+    pass
+    
+else:
+    args['data_files'] = [
+        ('/usr/share/applications', ['setup/onionshare.desktop']),
+        ('/usr/share/pixmaps', ['setup/onionshare80.xpm'])
+    ]
+    args['scripts'] = ['bin/onionshare', 'bin/onionshare-gui']
+
 setup(
     name='onionshare',
     version=version,
@@ -44,16 +48,13 @@ setup(
     author='Micah Lee',
     author_email='micah@micahflee.com',
     url='https://github.com/micahflee/onionshare',
+    license="GPL v3",
+    keywords='onion, share, onionshare, tor, anonymous, web server',
     include_package_data=True,
     install_requires=[
         'flask >= 0.8',
         'stem >= 1.1.0'
     ],
-    license="GPL v3",
-    keywords='onion, share, onionshare, tor, anonymous, web server',
     packages=['onionshare', 'onionshare_gui'],
-    scripts=['bin/onionshare', 'bin/onionshare-gui'],
-    data_files=DATA_FILES,
-    app=APP,
-    options=OPTIONS
+    **args
 )
