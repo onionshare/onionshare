@@ -5,23 +5,18 @@
   </head>
   <body>
     <div id="wrapper">
-      <div id="metadata">
+      <div id="header">
         <img id="logo" src="static/logo.png" />
-        <div id="basename"></div>
-        <div id="filesize">
-          <span class="label"></span>
-          <span class="value"></span>
-        </div>
-        <div id="filehash">
-          <span class="label"></span>
-          <span class="value"></span>
-        </div>
-        <div id="close-on-finish-wrapper">
-          <input type="checkbox" id="close-on-finish" name="close-on-finish" checked />
-          <label for="close-on-finish"></span>
-        </div>
-        <div id="button-wrapper">
-          <button class="button" id="copy-button">Copy URL</button>
+        <div id="header-content">
+          <div id="basename"></div>
+          <div id="filehash">
+            <span class="label"></span>
+            <span class="value"></span>
+          </div>
+          <div id="filesize">
+            <span class="label"></span>
+            <span class="value"></span>
+          </div>
         </div>
       </div>
 
@@ -31,7 +26,19 @@
           <p class="calculating"></p>
         </li>
       </ul>
+
+      <div id="footer">
+        <div id="close-on-finish-wrapper">
+          <input type="checkbox" id="close-on-finish" name="close-on-finish" checked />
+          <label for="close-on-finish"></span>
+        </div>
+        <div id="copy-button-wrapper">
+          <button class="button" id="copy-button">Copy URL</button>
+        </div>
+
+      </div>
     </ul>
+
     <script src="static/jquery-1.11.1.min.js"></script>
     <script src="static/helpers.js"></script>
     <script src="static/onionshare.js"></script>

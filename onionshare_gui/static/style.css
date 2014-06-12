@@ -1,66 +1,59 @@
 body {
   color: #000000;
   font-family: arial;
-  width: 520px;
+  width: 550px;
   height: 400px;
   margin: 0;
   padding: 0;
 }
 
 #wrapper {
-  width: 520px;
+  width: 550px;
   height: 400px;
 }
 
-#metadata {
-  float: left;
-  width: 200px;
-  height: 380px;
+#header {
+  height: 80px;
   padding: 10px;
   background-color: #ffffff;
-  text-align: center;
 }
-#metadata #basename {
+#header #logo {
+  float: left;
+  width: 80px;
+  height: 80px;
+  margin-right: 10px;
+}
+#header #header-content {
+  float: left;
+  width: 440px;
+  height: 80px;
+}
+#header #header-content #basename {
   font-family: sans-serif;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: bold;
-  margin: 10px 0;
-  padding: 5px;
   color: #000000;
-  word-break: break-all;
-  background-color: #f9f9f9;
-  border: 1px solid #f0f0f0;
+  white-space: nowrap;
+  overflow: hidden;
 }
-#metadata #filesize,
-#metadata #filehash {
-  margin-bottom: 10px;
+#header #header-content #filesize,
+#header #header-content #filehash {
+  margin-top: 5px;
   word-break: break-all;
   text-align: left;
   color: #666666;
   display: none;
 }
-#metadata .label {
+#header #header-content .label {
   font-size: 12px;
 }
-#metadata .value {
+#header #header-content .value {
   font-weight: bold;
-  font-size: 12px;
-}
-#metadata #close-on-finish-wrapper {
-  margin-bottom: 10px;
-}
-#metadata #close-on-finish-wrapper input {
-  cursor: pointer;
-}
-#metadata #close-on-finish-wrapper label {
-  cursor: pointer;
   font-size: 12px;
 }
 
 ul#log {
-  float: left;
-  width: 299px;
-  height: 400px;
+  height: 258px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -68,12 +61,13 @@ ul#log {
   overflow: auto;
   word-wrap: break-word;
   font-family: monospace;
-  border-left: 1px solid #000000;
+  border-top: 1px solid #000000;
+  border-bottom: 1px solid #000000;
 }
 ul#log li {
-  margin: 10px;
+  margin: 0 10px;
   padding: 10px;
-  border-bottom: 1px solid #aaaaaa;
+  border-bottom: 1px solid #cccccc;
 }
 ul#log .weblog {
   color: #009900;
@@ -101,6 +95,29 @@ ul#log li#loading .calculating {
 ul#log #close-countdown {
   font-weight: bold;
   font-style: italic;
+}
+
+#footer {
+  height: 20px;
+  padding: 10px;
+  background-color: #ffffff;
+}
+#footer #close-on-finish-wrapper {
+  float: left;
+}
+#footer #close-on-finish-wrapper input {
+  cursor: pointer;
+}
+#footer #close-on-finish-wrapper label {
+  cursor: pointer;
+  font-size: 12px;
+}
+
+#footer #copy-button-wrapper {
+  float: right;
+}
+#footer #copy-button {
+  display: none;
 }
 
 .button {
@@ -140,12 +157,5 @@ ul#log #close-countdown {
   background:-moz-linear-gradient( center top, #7c16cb 5%, #a53df6 100% );
   filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#7c16cb', endColorstr='#a53df6');
   background-color:#7c16cb;
-}
-
-#button-wrapper {
-  text-align: center;
-}
-#copy-button {
-  display: none;
 }
 
