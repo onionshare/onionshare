@@ -1,10 +1,11 @@
 from flask import Flask, render_template
-import threading, json, os, gtk
+import threading, json, os, gtk, gobject
 
 onionshare = None
 onionshare_port = None
 filename = None
 onion_host = None
+window = None
 
 clipboard = gtk.clipboard_get(gtk.gdk.SELECTION_CLIPBOARD)
 url = None
@@ -65,4 +66,10 @@ def check_for_requests():
             done = True
 
     return json.dumps(events)
+
+@app.route("/close")
+def close():
+    global window
+    gobject.timeout_add(1000, window.destroy)
+    return ''
 

@@ -73,10 +73,11 @@ def download():
             chunk = fp.read(102400)
             if chunk == '':
                 done = True
-            yield chunk
-            
-            # tell GUI the progress
-            add_request(REQUEST_PROGRESS, path, { 'id':download_id, 'bytes':fp.tell() })
+            else:
+                yield chunk
+                
+                # tell GUI the progress
+                add_request(REQUEST_PROGRESS, path, { 'id':download_id, 'bytes':fp.tell() })
         fp.close()
 
     r = Response(generate())

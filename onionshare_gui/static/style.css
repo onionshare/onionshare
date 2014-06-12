@@ -46,6 +46,16 @@ body {
   font-weight: bold;
   font-size: 12px;
 }
+#metadata #close-on-finish-wrapper {
+  margin-bottom: 10px;
+}
+#metadata #close-on-finish-wrapper input {
+  cursor: pointer;
+}
+#metadata #close-on-finish-wrapper label {
+  cursor: pointer;
+  font-size: 12px;
+}
 
 ul#log {
   float: left;
@@ -87,6 +97,10 @@ ul#log li#loading .calculating {
   color: #666666;
   font-style: italic;
   font-size: 12px;
+}
+ul#log #close-countdown {
+  font-weight: bold;
+  font-style: italic;
 }
 
 .button {

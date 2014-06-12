@@ -44,6 +44,22 @@ $(function(){
               // is the download complete?
               if(r.data.bytes == onionshare.filesize) {
                 $('#download-'+r.data.id).html(onionshare.strings['download_finished']);
+
+                // close on finish?
+                if($('#close-on-finish').is(':checked')) {
+                  function close_countdown(i) {
+                    $('#close-countdown').html(onionshare.strings['close_countdown'].replace('{0}', i));
+                    if(i == 0) {
+                      // close program
+                      $.ajax({ url: '/close' });
+                    } else {
+                      // continue countdown
+                      setTimeout(function(){ close_countdown(i-1) }, 1000);
+                    }
+                  }
+                  update($('<span>').attr('id', 'close-countdown'));
+                  close_countdown(3);
+                }
               }
               // still in progress
               else {
@@ -71,6 +87,7 @@ $(function(){
       $('#basename').html(onionshare.basename);
       $('#filesize .label').html(onionshare.strings['filesize']+':');
       $('#filehash .label').html(onionshare.strings['sha1_checksum']+':');
+      $('#close-on-finish-wrapper label').html(onionshare.strings['close_on_finish']);
       $('#loading .calculating').html(onionshare.strings['calculating_sha1']);
       
       // after getting the initial info, start the onionshare server

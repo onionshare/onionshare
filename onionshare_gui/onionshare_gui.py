@@ -1,6 +1,8 @@
 import onionshare, webapp
 import threading, gtk, gobject, webkit, os, sys, subprocess
 
+window = gtk.Window()
+
 def alert(msg, type=gtk.MESSAGE_INFO):
     dialog = gtk.MessageDialog(
         parent=None,
@@ -43,10 +45,12 @@ def select_file(strings):
     return filename, basename
 
 def start_webapp(webapp_port, onionshare_port, filename, onion_host):
+    global window
     webapp.onionshare = onionshare
     webapp.onionshare_port = onionshare_port
     webapp.filename = filename
     webapp.onion_host = onion_host
+    webapp.window = window
     webapp.app.run(port=webapp_port)
 
 def launch_window(webapp_port, onionshare_port):
@@ -55,7 +59,7 @@ def launch_window(webapp_port, onionshare_port):
         onionshare.tails_close_port(webapp_port)
         gtk.main_quit()
 
-    window = gtk.Window()
+    global window
     window.set_title('OnionShare')
     window.resize(520, 400)
     window.set_resizable(False)
