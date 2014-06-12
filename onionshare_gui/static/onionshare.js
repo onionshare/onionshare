@@ -41,8 +41,15 @@ $(function(){
                 .append($('<span>').addClass('progress'));
               update($download);
             } else if(r.type == REQUEST_PROGRESS) {
+              // is the download complete?
+              if(r.data.bytes == onionshare.filesize) {
+                $('#download-'+r.data.id).html(onionshare.strings['download_finished']);
+              }
+              // still in progress
+              else {
                 var percent = Math.floor((r.data.bytes / onionshare.filesize) * 100);
                 $('#download-'+r.data.id+' .progress').html(' '+human_readable_filesize(r.data.bytes)+', '+percent+'%');
+              }
             } else {
               if(r.path != '/favicon.ico')
                 update($('<span>').addClass('weblog-error').html(onionshare.strings['other_page_loaded']+': '+r.path));
