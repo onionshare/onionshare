@@ -87,7 +87,7 @@ def download():
 @app.errorhandler(404)
 def page_not_found(e):
     global REQUEST_OTHER
-    add_request(REQUEST_OTHER)
+    add_request(REQUEST_OTHER, request.path)
     return render_template_string(open('{0}/404.html'.format(onionshare_dir)).read())
 
 def get_platform():
