@@ -1,4 +1,4 @@
-import os, sys, subprocess, time, hashlib, platform, json, locale, socket, argparse, Queue
+import os, sys, subprocess, time, hashlib, platform, json, locale, socket, argparse, Queue, inspect
 from random import randint
 from functools import wraps
 
@@ -13,8 +13,7 @@ class NoTor(Exception):
 app = Flask(__name__)
 
 strings = {}
-
-# generate an unguessable string
+onionshare_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 slug = os.urandom(16).encode('hex')
 
 # information about the file
@@ -45,7 +44,7 @@ def add_request(type, path, data=None):
 def index():
     global filename, filesize, filehash, slug, strings, REQUEST_LOAD
     add_request(REQUEST_LOAD, request.path)
-    return render_template_string(open('{0}/index.html'.format(os.path.dirname(__file__))).read(),
+    return render_template_string(open('{0}/index.html'.format(onionshare_dir)).read(),
         slug=slug, filename=os.path.basename(filename), filehash=filehash, filesize=filesize, strings=strings)
 
 @app.route("/{0}/download".format(slug))
@@ -89,7 +88,7 @@ def download():
 def page_not_found(e):
     global REQUEST_OTHER
     add_request(REQUEST_OTHER)
-    return render_template_string(open('{0}/404.html'.format(os.path.dirname(__file__))).read())
+    return render_template_string(open('{0}/404.html'.format(onionshare_dir)).read())
 
 def get_platform():
     p = platform.system()
@@ -129,7 +128,7 @@ def load_strings(default="en"):
     try:
         translated = json.loads(open('{0}/strings.json'.format(os.getcwd())).read())
     except IOError:
-        translated = json.loads(open('{0}/strings.json'.format(os.path.dirname(__file__))).read())
+        translated = json.loads(open('{0}/strings.json'.format(onionshare_dir)).read())
     strings = translated[default]
     lc, enc = locale.getdefaultlocale()
     if lc:
