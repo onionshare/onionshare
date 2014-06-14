@@ -8,6 +8,6 @@ fi
 PERSISTENT=/home/amnesia/Persistent
 INSTALL_DIR=$PERSISTENT/.onionshare_install
 
-dpkg -i $INSTALL_DIR/*.deb
+/usr/bin/dpkg -i $INSTALL_DIR/*.deb
 
 /usr/bin/sudo -u amnesia /usr/bin/notify-send "OnionShare Installed" "Open with Applications > Internet > OnionShare"
