@@ -24,22 +24,15 @@ def select_file(strings):
     if len(sys.argv) == 2:
         filename = sys.argv[1]
     else:
-        canceled = False
-        chooser = gtk.FileChooserDialog(
-            title="Choose a file to share",
-            action=gtk.FILE_CHOOSER_ACTION_OPEN,
-            buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OPEN, gtk.RESPONSE_OK))
+        args = {}
         if onionshare.get_platform() == 'Tails':
-            chooser.set_current_folder('/home/amnesia/')
-        response = chooser.run()
-        if response == gtk.RESPONSE_OK:
-            filename = chooser.get_filename()
-        elif response == gtk.RESPONSE_CANCEL:
-            canceled = True
-        chooser.destroy()
+            args['directory'] = '/home/amnesia'
 
-        if canceled:
+        filename = QFileDialog.getOpenFileName(caption=strings['choose_file'], options=QFileDialog.ReadOnly, **args)
+        if not filename:
             return False, False
+
+        filename = str(filename)
 
     # validate filename
     if not os.path.isfile(filename):
