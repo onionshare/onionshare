@@ -1,23 +1,17 @@
 import onionshare, webapp
 import threading, os, sys, subprocess
 
-import gtk
-
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyQt4.QtWebKit import *
 
 qtapp = QApplication(sys.argv)
 
-def alert(msg, type=gtk.MESSAGE_INFO):
-    dialog = gtk.MessageDialog(
-        parent=None,
-        flags=gtk.DIALOG_MODAL,
-        type=type,
-        buttons=gtk.BUTTONS_OK,
-        message_format=msg)
-    response = dialog.run()
-    dialog.destroy()
+def alert(msg, icon=QMessageBox.NoIcon):
+    dialog = QMessageBox()
+    dialog.setText(msg)
+    dialog.setIcon(icon)
+    dialog.exec_()
 
 def select_file(strings):
     # get filename, either from argument or file chooser dialog
@@ -36,7 +30,7 @@ def select_file(strings):
 
     # validate filename
     if not os.path.isfile(filename):
-        alert(strings["not_a_file"].format(filename), gtk.MESSAGE_ERROR)
+        alert(strings["not_a_file"].format(filename), QMessageBox.Warning)
         return False, False
 
     filename = os.path.abspath(filename)
@@ -84,7 +78,7 @@ def main():
     try:
         onion_host = onionshare.start_hidden_service(onionshare_port)
     except onionshare.NoTor as e:
-        alert(e.args[0], gtk.MESSAGE_ERROR)
+        alert(e.args[0], QMessageBox.Warning)
         return
     onionshare.tails_open_port(onionshare_port)
 
