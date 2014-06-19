@@ -1,15 +1,20 @@
+html, body {
+  height: 100%;
+}
+
 body {
   color: #000000;
   font-family: arial;
-  width: 550px;
-  height: 400px;
   margin: 0;
   padding: 0;
+  background-color: #f0f0f0;
+  min-width: 550px;
+  min-height: 300px;
 }
 
 #wrapper {
-  width: 550px;
-  height: 400px;
+  position: relative;
+  height: 100%;
 }
 
 #header {
@@ -53,15 +58,12 @@ body {
 }
 
 ul#log {
-  height: 258px;
   margin: 0;
   padding: 0;
   list-style: none;
-  background-color: #f0f0f0;
   overflow: auto;
   word-wrap: break-word;
   font-family: monospace;
-  border-top: 1px solid #000000;
   border-bottom: 1px solid #000000;
 }
 ul#log li {
@@ -98,12 +100,17 @@ ul#log #close-countdown {
 }
 
 #footer {
+  position: absolute;
+  bottom: 0;
   height: 20px;
-  padding: 10px;
   background-color: #ffffff;
+  padding: 10px 0;
+  width: 100%;
+  border-top: 1px solid #000000;
 }
 #footer #close-on-finish-wrapper {
   float: left;
+  margin-left: 5px;
 }
 #footer #close-on-finish-wrapper input {
   cursor: pointer;
@@ -115,6 +122,8 @@ ul#log #close-countdown {
 
 #footer #copy-button-wrapper {
   float: right;
+  margin-right: 5px;
+  margin-top: -3px;
 }
 #footer #copy-button {
   display: none;
@@ -159,3 +168,6 @@ ul#log #close-countdown {
   background-color:#7c16cb;
 }
 
+.clear {
+  clear: both;
+}

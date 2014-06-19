@@ -52,7 +52,6 @@ def start_webapp(webapp_port, onionshare_port, filename, onion_host):
 
 def launch_window(webapp_port, onionshare_port, basename):
     def shutdown():
-        print 'shutting down'
         onionshare.tails_close_port(onionshare_port)
         onionshare.tails_close_port(webapp_port)
 
