@@ -1,7 +1,13 @@
 import onionshare, webapp
-import threading, gtk, gobject, webkit, os, sys, subprocess
+import threading, os, sys, subprocess
 
-window = gtk.Window()
+import gtk
+
+from PyQt4.QtCore import *
+from PyQt4.QtGui import *
+from PyQt4.QtWebKit import *
+
+qtapp = QApplication(sys.argv)
 
 def alert(msg, type=gtk.MESSAGE_INFO):
     dialog = gtk.MessageDialog(
@@ -45,38 +51,32 @@ def select_file(strings):
     return filename, basename
 
 def start_webapp(webapp_port, onionshare_port, filename, onion_host):
-    global window
+    global qtapp
+
     webapp.onionshare = onionshare
     webapp.onionshare_port = onionshare_port
     webapp.filename = filename
     webapp.onion_host = onion_host
-    webapp.window = window
+
+    webapp.qtapp = qtapp
+    webapp.clipboard = qtapp.clipboard()
+
     webapp.app.run(port=webapp_port)
 
 def launch_window(webapp_port, onionshare_port, basename):
-    def on_destroy(widget, data=None):
+    def shutdown():
+        print 'shutting down'
         onionshare.tails_close_port(onionshare_port)
         onionshare.tails_close_port(webapp_port)
-        gtk.main_quit()
 
-    global window
-    window.set_title('{0} | OnionShare'.format(basename))
-    window.resize(520, 400)
-    window.set_resizable(False)
-    window.connect('destroy', on_destroy)
+    global qtapp
+    qtapp.connect(qtapp, SIGNAL("aboutToQuit()"), shutdown)
+    web = QWebView()
+    web.load(QUrl("http://127.0.0.1:{0}".format(webapp_port)))
+    web.show()
+    sys.exit(qtapp.exec_())
 
-    box = gtk.VBox(homogeneous=False, spacing=0)
-    window.add(box)
-
-    browser = webkit.WebView()
-    box.pack_start(browser, expand=True, fill=True, padding=0)
-
-    window.show_all()
-
-    # wait half a second for server to start
-    gobject.timeout_add(500, browser.open, 'http://127.0.0.1:{0}/'.format(webapp_port))
-
-    gtk.main()
+    # todo: set window title, and do resizable stuff
 
 def main():
     onionshare.strings = onionshare.load_strings()

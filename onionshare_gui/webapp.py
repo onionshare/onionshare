@@ -1,13 +1,13 @@
 from flask import Flask, render_template
-import threading, json, os, gtk, gobject
+import threading, json, os, time
 
 onionshare = None
 onionshare_port = None
 filename = None
 onion_host = None
-window = None
+qtapp = None
+clipboard = None
 
-clipboard = gtk.clipboard_get(gtk.gdk.SELECTION_CLIPBOARD)
 url = None
 
 app = Flask(__name__, template_folder='./templates')
@@ -49,7 +49,7 @@ def start_onionshare():
 @app.route("/copy_url")
 def copy_url():
     global clipboard
-    clipboard.set_text(url)
+    clipboard.setText(url)
     return ''
 
 @app.route("/heartbeat")
@@ -69,7 +69,8 @@ def check_for_requests():
 
 @app.route("/close")
 def close():
-    global window
-    gobject.timeout_add(1000, window.destroy)
+    global qtapp
+    time.sleep(1)
+    qtapp.closeAllWindows()
     return ''
 
