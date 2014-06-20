@@ -60,7 +60,7 @@ ul#log {
   word-wrap: break-word;
   font-family: arial;
   font-size: 14px;
-  border-bottom: 1px solid #000000;
+  border-top: 1px solid #000000;
   width: 100%;
 }
 ul#log li {
