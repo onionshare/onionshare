@@ -38,11 +38,13 @@ elif platform.system() == 'Windows':
     pass
 
 else:
+    args['packages'] = ['onionshare', 'onionshare_gui']
+    args['include_package_data'] = True
+    args['scripts'] = ['bin/onionshare', 'bin/onionshare-gui']
     args['data_files'] = [
         ('/usr/share/applications', ['setup/onionshare.desktop']),
         ('/usr/share/pixmaps', ['setup/onionshare80.xpm'])
     ]
-    args['scripts'] = ['bin/onionshare', 'bin/onionshare-gui']
 
 setup(
     name='onionshare',
@@ -54,12 +56,6 @@ setup(
     url='https://github.com/micahflee/onionshare',
     license="GPL v3",
     keywords='onion, share, onionshare, tor, anonymous, web server',
-    include_package_data=True,
-    install_requires=[
-        'flask >= 0.8',
-        'stem >= 1.1.0'
-    ],
-    packages=['onionshare', 'onionshare_gui'],
     **args
 )
 
