@@ -9,6 +9,13 @@ try:
 except ImportError:
     from distutils.core import setup
 
+def file_list(path):
+    files = []
+    for filename in os.listdir(path):
+        if os.path.isfile(path+'/'+filename):
+            files.append(path+'/'+filename)
+    return files
+
 version = open('version').read().strip()
 args = {}
 
