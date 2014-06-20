@@ -6,7 +6,7 @@ VERSION=`cat version`
 rm -r build dist
 
 # build binary package
-python setup.py bdist_rpm --requires="python-flask, python-stem, pywebkitgtk"
+python setup.py bdist_rpm --requires="python-flask, python-stem, pyqt4"
 
 # install it
 echo ""
