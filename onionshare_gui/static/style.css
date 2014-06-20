@@ -112,10 +112,12 @@ ul#log #close-countdown {
 }
 #footer #close-on-finish-wrapper input {
   cursor: pointer;
+  vertical-align: middle;
 }
 #footer #close-on-finish-wrapper label {
   cursor: pointer;
   font-size: 12px;
+  vertical-align: middle;
 }
 
 #footer #copy-button-wrapper {
