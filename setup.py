@@ -38,7 +38,22 @@ if platform.system() == 'Darwin':
     args['setup_requires'] = 'py2app'
 
 elif platform.system() == 'Windows':
-    pass
+    import py2exe
+    args['windows'] = [{'script':'setup/onionshare-launcher.py'}]
+    args['data_files'] = [
+        ('', ['LICENSE', 'README.md', 'version']),
+        ('onionshare', ['onionshare/index.html', 'onionshare/404.html', 'onionshare/strings.json']),
+        ('onionshare_gui/templates', glob('onionshare_gui/templates/*')),
+        ('onionshare_gui/static', glob('onionshare_gui/static/*'))
+    ]
+    args['options'] = {
+        'py2exe': {
+            'includes': ['sip', 'PyQt4', 'PyQt4.QtNetwork'],
+            'dll_excludes': ['MSVCP90.dll'],
+            'packages': ['jinja2', 'flask', 'stem'],
+            'skip_archive': True
+        }
+    }
 
 else:
     args['packages'] = ['onionshare', 'onionshare_gui']

@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-import threading, json, os, time, platform
+import threading, json, os, time, platform, sys
 
 onionshare = None
 onionshare_port = None

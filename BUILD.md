@@ -46,5 +46,17 @@ Now you should have `dist/OnionShare.app`.
 
 ## Windows
 
-*Coming soon.*
+The first time you're setting up your dev environment:
 
+* Download and install the latest python 2.7 from https://www.python.org/downloads/ -- make sure you install the 32-bit version.
+* Right click on Computer, go to Properties. Click "Advanced system settings". Click Environment Variables. Under "System variables" double-click on Path to edit it. Add `;C:\Python27;C:\Python27\Scripts` to the end. Now you can just type `python` to run python scripts in the command prompt.
+* Go to https://pip.pypa.io/en/latest/installing.html. Right-click on `get-pip.py` and Save Link As, and save it to your home folder.
+* Open `cmd.exe` as an administrator. Type: `python get-pip.py`. Now you can use `pip` to install packages.
+* Go to http://www.riverbankcomputing.com/software/pyqt/download and download the latest PyQt4 for Windows for python 2.7, 32-bit (I downloaded `PyQt4-4.11-gpl-Py2.7-Qt4.8.6-x32.exe`), then install it.
+* Go to http://www.py2exe.org/ and download the latest py2exe for python 2.7, 32-bit (I downloaded `py2exe-0.6.9.win32-py2.7.exe`), then install it.
+* Open a command prompt and type: `pip install flask stem`
+* Go to `C:\Python27\Lib\site-packages\flask\` and delete the folder `testsuite`. This is necessary to work around a py2exe bug.
+
+To make an exe:
+
+* Open a command prompt, cd to the onionshare folder, and type: `python setup.py py2exe`. This will create a ton of files in `dist`, including `onionshare.exe`.
