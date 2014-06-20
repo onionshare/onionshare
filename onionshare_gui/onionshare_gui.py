@@ -5,6 +5,14 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyQt4.QtWebKit import *
 
+class Application(QApplication):
+    def __init__(self):
+        platform = onionshare.get_platform()
+        if platform == 'Tails' or platform == 'Linux':
+            self.setAttribute(Qt.AA_X11InitThreads, True)
+
+        QApplication.__init__(self, sys.argv)
+
 class WebAppThread(QThread):
     def __init__(self, webapp_port):
         QThread.__init__(self)
@@ -80,7 +88,7 @@ def main():
         onionshare.tails_close_port(onionshare_port)
         onionshare.tails_close_port(webapp_port)
 
-    app = QApplication(sys.argv)
+    app = Application()
     app.connect(app, SIGNAL("aboutToQuit()"), shutdown)
 
     # initialize the web app
