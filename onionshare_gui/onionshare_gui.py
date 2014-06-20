@@ -17,11 +17,10 @@ class Window(QWebView):
     def __init__(self, basename, webapp_port):
         QWebView.__init__(self)
         self.setWindowTitle("{0} | OnionShare".format(basename))
-        self.resize(550, 350)
-        self.setMinimumSize(550, 300)
-        self.setMaximumSize(550, 900)
+        self.resize(580, 400)
+        self.setMinimumSize(580, 400)
+        self.setMaximumSize(580, 400)
         self.load(QUrl("http://127.0.0.1:{0}".format(webapp_port)))
-        self.frame = self.page().currentFrame()
 
 def alert(msg, icon=QMessageBox.NoIcon):
     dialog = QMessageBox()

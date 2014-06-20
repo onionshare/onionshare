@@ -4,10 +4,6 @@ $(function(){
   function update($msg) {
     var $line = $('<li>').append($msg);
     $('#log').append($line);
-    
-    // scroll to bottom
-    set_log_height();
-    $('#log').scrollTop($('#log').height());
   }
 
   function copy_to_clipboard() {
@@ -116,12 +112,4 @@ $(function(){
       });
     }
   });
-
-  // make sure the log always has a height set, so it will have its own scrollbar
-  function set_log_height() {
-    var new_height = $(document).height() - 140; // header = 100, footer = 40
-    $('#log').css('height', new_height);
-  }
-  set_log_height();
-  $.resize(set_log_height);
 });
