@@ -9,6 +9,7 @@ qtapp = QApplication(sys.argv)
 
 def alert(msg, icon=QMessageBox.NoIcon):
     dialog = QMessageBox()
+    dialog.setWindowTitle("OnionShare")
     dialog.setText(msg)
     dialog.setIcon(icon)
     dialog.exec_()
@@ -58,11 +59,13 @@ def launch_window(webapp_port, onionshare_port, basename):
     global qtapp
     qtapp.connect(qtapp, SIGNAL("aboutToQuit()"), shutdown)
     web = QWebView()
+    web.setWindowTitle("{0} | OnionShare".format(basename))
+    web.resize(550, 350)
+    web.setMinimumSize(550, 300)
+    web.setMaximumSize(550, 900)
     web.load(QUrl("http://127.0.0.1:{0}".format(webapp_port)))
     web.show()
     sys.exit(qtapp.exec_())
-
-    # todo: set window title, and do resizable stuff
 
 def main():
     onionshare.strings = onionshare.load_strings()
