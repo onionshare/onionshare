@@ -15,7 +15,7 @@ mkdir -p $INSTALL_DIR
 
 # install dependencies
 apt-get update
-apt-get install -y build-essential fakeroot python-all python-stdeb python-flask python-stem python-webkit
+apt-get install -y build-essential fakeroot python-all python-stdeb python-flask python-stem python-qt4
 ./build_deb.sh
 
 # copy files
@@ -28,9 +28,9 @@ cp /var/cache/apt/archives/python-stem_*.deb $INSTALL_DIR
 cp /var/cache/apt/archives/python-werkzeug_*.deb $INSTALL_DIR
 cp setup/onionshare80.xpm $INSTALL_DIR
 cp tails/install.sh $INSTALL_DIR
-cp tails/Install\ OnionShare.desktop $PERSISTENT
+cp tails/onionshare-install.desktop $PERSISTENT
 
 # fix permissions
 chown -R amnesia:amnesia deb_dist $INSTALL_DIR
-chown amnesia:amnesia $PERSISTENT/Install\ OnionShare.desktop
-chmod 700 $PERSISTENT/Install\ OnionShare.desktop
+chown amnesia:amnesia $PERSISTENT/onionshare-install.desktop
+chmod 700 $PERSISTENT/onionshare-install.desktop
