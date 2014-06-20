@@ -23,6 +23,8 @@ Note that python-stem appears in Debian wheezy and newer (so by extension Tails 
 
 ## Mac OS X
 
+To install the right dependencies, you need homebrew and pip installed on your Mac. Follow instructions at http://brew.sh/ to install homebrew, and run `sudo easy_install pip` to install pip.
+
 The first time you're setting up your dev environment:
 
     echo export PYTHONPATH=\$PYTHONPATH:/usr/local/lib/python2.7/site-packages/ >> ~/.profile
