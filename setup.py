@@ -20,19 +20,22 @@ version = open('version').read().strip()
 args = {}
 
 if platform.system() == 'Darwin':
-    args['data_files'] = ['LICENSE', 'README.md', 'BUILD.md', 'version', 'onionshare', 'onionshare_gui']
-    args['app'] = ['setup/onionshare_osx.py']
+    args['data_files'] = ['LICENSE', 'README.md', 'version']
+    args['app'] = ['setup/onionshare-launcher.py']
     args['options'] = {
         'py2app': {
             'argv_emulation': True,
+            'packages': ['flask', 'stem', 'jinja2', 'onionshare_gui', 'onionshare'],
+            'includes': ['PyQt4'],
+            'excludes': ['PyQt4.QtDesigner', 'PyQt4.QtOpenGL', 'PyQt4.QtScript', 'PyQt4.QtSql', 'PyQt4.QtTest', 'PyQt4.QtXml', 'PyQt4.phonon'],
             'iconfile': 'setup/onionshare.icns',
-            'packages': ['flask', 'stem'],
             'site_packages': True,
             'plist': {
                 'CFBundleName': 'OnionShare',
             }
         }
     }
+    args['setup_requires'] = 'py2app'
 
 elif platform.system() == 'Windows':
     pass

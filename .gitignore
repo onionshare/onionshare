@@ -16,6 +16,7 @@ sdist
 develop-eggs
 .installed.cfg
 MANIFEST
+env
 
 # Installer logs
 pip-log.txt

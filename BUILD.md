@@ -23,24 +23,28 @@ Note that python-stem appears in Debian wheezy and newer (so by extension Tails 
 
 ## Mac OS X
 
-*Note: This is a work-in-progress. The OnionShare GUI doesn't yet work in Mac OS X. See https://github.com/micahflee/onionshare/issues/43 for progress.*
+The first time you're setting up your dev environment:
 
-Get a copy of the source code:
+    echo export PYTHONPATH=\$PYTHONPATH:/usr/local/lib/python2.7/site-packages/ >> ~/.profile
+    source ~/.profile
+    brew install qt4 pyqt
+    virtualenv env
+    . env/bin/activate
+    pip install flask stem py2app
+    # fixes a silly bug https://bitbucket.org/ronaldoussoren/py2app/issue/143/resulting-app-mistakenly-looks-for-pyside
+    patch env/lib/python2.7/site-packages/py2app/util.py < setup/py2app.patch
 
-    git clone https://github.com/micahflee/onionshare.git
-    cd onionshare
+Each time you start work:
 
-Install py2app (if you don't have pip installed, you can `sudo easy_install pip`):
+    . env/bin/activate
 
-    sudo pip install py2app
-
-Then build the .app:
+Build the .app:
 
     python setup.py py2app
 
-Now you'll see `dist/OnionShare.app` with a nice icon. However, it won't run yet.
+Now you should have `dist/OnionShare.app`.
 
 ## Windows
 
-*Note: Haven't started figuring this out yet.*
+*Coming soon.*
 
