@@ -5,23 +5,23 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyQt4.QtWebKit import *
 
-qtapp = QApplication(sys.argv)
-
 class WebAppThread(QThread):
-    def __init__(self, webapp_port, onionshare_port, filename, onion_host):
+    def __init__(self, webapp_port):
         QThread.__init__(self)
         self.webapp_port = webapp_port
 
-        global qtapp
-        webapp.onionshare = onionshare
-        webapp.onionshare_port = onionshare_port
-        webapp.filename = filename
-        webapp.onion_host = onion_host
-        webapp.qtapp = qtapp
-        webapp.clipboard = qtapp.clipboard()
-
     def run(self):
         webapp.app.run(port=self.webapp_port)
+
+class Window(QWebView):
+    def __init__(self, basename, webapp_port):
+        QWebView.__init__(self)
+        self.setWindowTitle("{0} | OnionShare".format(basename))
+        self.resize(550, 350)
+        self.setMinimumSize(550, 300)
+        self.setMaximumSize(550, 900)
+        self.load(QUrl("http://127.0.0.1:{0}".format(webapp_port)))
+        self.frame = self.page().currentFrame()
 
 def alert(msg, icon=QMessageBox.NoIcon):
     dialog = QMessageBox()
@@ -54,22 +54,6 @@ def select_file(strings):
     basename = os.path.basename(filename)
     return filename, basename
 
-def launch_window(webapp_port, onionshare_port, basename):
-    def shutdown():
-        onionshare.tails_close_port(onionshare_port)
-        onionshare.tails_close_port(webapp_port)
-
-    global qtapp
-    qtapp.connect(qtapp, SIGNAL("aboutToQuit()"), shutdown)
-    web = QWebView()
-    web.setWindowTitle("{0} | OnionShare".format(basename))
-    web.resize(550, 350)
-    web.setMinimumSize(550, 300)
-    web.setMaximumSize(550, 900)
-    web.load(QUrl("http://127.0.0.1:{0}".format(webapp_port)))
-    web.show()
-    sys.exit(qtapp.exec_())
-
 def main():
     onionshare.strings = onionshare.load_strings()
 
@@ -92,14 +76,34 @@ def main():
     if not filename:
         return
 
-    # start the gui web server
+    # start the Qt app
+    def shutdown():
+        onionshare.tails_close_port(onionshare_port)
+        onionshare.tails_close_port(webapp_port)
+
+    app = QApplication(sys.argv)
+    app.connect(app, SIGNAL("aboutToQuit()"), shutdown)
+
+    # initialize the web app
+    webapp.onionshare = onionshare
+    webapp.onionshare_port = onionshare_port
+    webapp.filename = filename
+    webapp.onion_host = onion_host
+    webapp.qtapp = app
+    webapp.clipboard = app.clipboard()
+
+    # run the web app in a new thread
     webapp_port = onionshare.choose_port()
-    webapp_thread = WebAppThread(webapp_port, onionshare_port, filename, onion_host)
-    webapp_thread.start()
     onionshare.tails_open_port(webapp_port)
+    webapp_thread = WebAppThread(webapp_port)
+    webapp_thread.start()
 
     # launch the window
-    launch_window(webapp_port, onionshare_port, basename)
+    web = Window(basename, webapp_port)
+    web.show()
+
+    # all done
+    sys.exit(app.exec_())
 
 if __name__ == '__main__':
     main()
