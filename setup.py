@@ -1,16 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import os, sys, subprocess, platform
+import os, sys, platform
+from glob import glob
 
 try:
     from setuptools import setup
 except ImportError:
     from distutils.core import setup
-
-if sys.argv[-1] == 'publish':
-    subprocess.call(['python', 'setup.py', 'sdist', 'upload', '--sign'])
-    sys.exit()
 
 version = open('version').read().strip()
 args = {}
@@ -32,7 +29,7 @@ if platform.system() == 'Darwin':
 
 elif platform.system() == 'Windows':
     pass
-    
+
 else:
     args['data_files'] = [
         ('/usr/share/applications', ['setup/onionshare.desktop']),
@@ -58,3 +55,4 @@ setup(
     packages=['onionshare', 'onionshare_gui'],
     **args
 )
+
