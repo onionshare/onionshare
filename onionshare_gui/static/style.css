@@ -30,7 +30,7 @@ body {
 }
 #header #header-content #basename {
   font-family: sans-serif;
-  font-size: 20px;
+  font-size: 22px;
   font-weight: bold;
   color: #000000;
   white-space: nowrap;
@@ -38,18 +38,18 @@ body {
 }
 #header #header-content #filesize,
 #header #header-content #filehash {
-  margin-top: 5px;
+  margin-top: 3px;
   word-break: break-all;
   text-align: left;
   color: #666666;
   display: none;
 }
 #header #header-content .label {
-  font-size: 12px;
+  font-size: 14px;
 }
 #header #header-content .value {
   font-weight: bold;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 ul#log {
@@ -58,7 +58,8 @@ ul#log {
   list-style: none;
   overflow: auto;
   word-wrap: break-word;
-  font-family: monospace;
+  font-family: arial;
+  font-size: 14px;
   border-bottom: 1px solid #000000;
   width: 100%;
 }
