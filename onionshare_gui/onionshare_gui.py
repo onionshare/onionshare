@@ -64,6 +64,9 @@ def select_file(strings):
 def main():
     onionshare.strings = onionshare.load_strings()
 
+    # start the Qt app
+    app = Application()
+
     # check for root in Tails
     if onionshare.get_platform() == 'Tails' and not onionshare.is_root():
         subprocess.call(['/usr/bin/gksudo']+sys.argv)
@@ -83,14 +86,6 @@ def main():
     if not filename:
         return
 
-    # start the Qt app
-    def shutdown():
-        onionshare.tails_close_port(onionshare_port)
-        onionshare.tails_close_port(webapp_port)
-
-    app = Application()
-    app.connect(app, SIGNAL("aboutToQuit()"), shutdown)
-
     # initialize the web app
     webapp.onionshare = onionshare
     webapp.onionshare_port = onionshare_port
@@ -104,6 +99,12 @@ def main():
     onionshare.tails_open_port(webapp_port)
     webapp_thread = WebAppThread(webapp_port)
     webapp_thread.start()
+
+    # clean up when app quits
+    def shutdown():
+        onionshare.tails_close_port(onionshare_port)
+        onionshare.tails_close_port(webapp_port)
+    app.connect(app, SIGNAL("aboutToQuit()"), shutdown)
 
     # launch the window
     web = Window(basename, webapp_port)
