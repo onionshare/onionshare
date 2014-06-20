@@ -1,11 +1,27 @@
 import onionshare, webapp
-import threading, os, sys, subprocess
+import os, sys, subprocess
 
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyQt4.QtWebKit import *
 
 qtapp = QApplication(sys.argv)
+
+class WebAppThread(QThread):
+    def __init__(self, webapp_port, onionshare_port, filename, onion_host):
+        QThread.__init__(self)
+        self.webapp_port = webapp_port
+
+        global qtapp
+        webapp.onionshare = onionshare
+        webapp.onionshare_port = onionshare_port
+        webapp.filename = filename
+        webapp.onion_host = onion_host
+        webapp.qtapp = qtapp
+        webapp.clipboard = qtapp.clipboard()
+
+    def run(self):
+        webapp.app.run(port=self.webapp_port)
 
 def alert(msg, icon=QMessageBox.NoIcon):
     dialog = QMessageBox()
@@ -37,19 +53,6 @@ def select_file(strings):
     filename = os.path.abspath(filename)
     basename = os.path.basename(filename)
     return filename, basename
-
-def start_webapp(webapp_port, onionshare_port, filename, onion_host):
-    global qtapp
-
-    webapp.onionshare = onionshare
-    webapp.onionshare_port = onionshare_port
-    webapp.filename = filename
-    webapp.onion_host = onion_host
-
-    webapp.qtapp = qtapp
-    webapp.clipboard = qtapp.clipboard()
-
-    webapp.app.run(port=webapp_port)
 
 def launch_window(webapp_port, onionshare_port, basename):
     def shutdown():
@@ -91,14 +94,8 @@ def main():
 
     # start the gui web server
     webapp_port = onionshare.choose_port()
-    t = threading.Thread(target=start_webapp, kwargs={
-        'webapp_port': webapp_port,
-        'onionshare_port': onionshare_port,
-        'filename': filename,
-        'onion_host': onion_host
-    })
-    t.daemon = True
-    t.start()
+    webapp_thread = WebAppThread(webapp_port, onionshare_port, filename, onion_host)
+    webapp_thread.start()
     onionshare.tails_open_port(webapp_port)
 
     # launch the window
