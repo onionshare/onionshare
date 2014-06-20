@@ -27,9 +27,12 @@ To install the right dependencies, you need homebrew and pip installed on your M
 
 The first time you're setting up your dev environment:
 
+    git clone https://github.com/micahflee/onionshare.git
+    cd onionshare
     echo export PYTHONPATH=\$PYTHONPATH:/usr/local/lib/python2.7/site-packages/ >> ~/.profile
     source ~/.profile
     brew install qt4 pyqt
+    sudo pip install virtualenv
     virtualenv env
     . env/bin/activate
     pip install flask stem py2app
