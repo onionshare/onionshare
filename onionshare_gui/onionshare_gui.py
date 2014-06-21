@@ -1,9 +1,11 @@
 import onionshare, webapp
-import os, sys, subprocess
+import os, sys, subprocess, inspect
 
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyQt4.QtWebKit import *
+
+window_icon = None
 
 class Application(QApplication):
     def __init__(self):
@@ -23,18 +25,20 @@ class WebAppThread(QThread):
 
 class Window(QWebView):
     def __init__(self, basename, webapp_port):
+        global window_icon
         QWebView.__init__(self)
         self.setWindowTitle("{0} | OnionShare".format(basename))
         self.resize(580, 400)
         self.setMinimumSize(580, 400)
         self.setMaximumSize(580, 400)
-        self.setWindowIcon(QIcon("onionshare-icon.png"))
+        self.setWindowIcon(window_icon)
         self.load(QUrl("http://127.0.0.1:{0}".format(webapp_port)))
 
 def alert(msg, icon=QMessageBox.NoIcon):
+    global window_icon
     dialog = QMessageBox()
     dialog.setWindowTitle("OnionShare")
-    self.setWindowIcon(QIcon("onionshare-icon.png"))
+    dialog.setWindowIcon(window_icon)
     dialog.setText(msg)
     dialog.setIcon(icon)
     dialog.exec_()
@@ -73,6 +77,11 @@ def main():
     if onionshare.get_platform() == 'Tails' and not onionshare.is_root():
         subprocess.call(['/usr/bin/gksudo']+sys.argv)
         return
+
+    # create the onionshare icon
+    global window_icon
+    onionshare_gui_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+    window_icon = QIcon("{0}/onionshare-icon.png".format(onionshare_gui_dir))
 
     # try starting hidden service
     onionshare_port = onionshare.choose_port()
