@@ -65,3 +65,13 @@ The first time you're setting up your dev environment:
 To make an exe:
 
 * Open a command prompt, cd to the onionshare folder, and type: `python setup.py py2exe`. This will create a ton of files in `dist`, including `onionshare.exe`.
+
+## Tests
+
+OnionShare includes [nose](https://nose.readthedocs.org/en/latest/) unit tests. First,
+
+    sudo pip install nose
+
+To run the tests:
+
+    nosetests test

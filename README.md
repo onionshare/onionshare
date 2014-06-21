@@ -4,72 +4,25 @@ OnionShare lets you securely and anonymously share a file of any size with someo
 
 ![Screenshot](/screenshot.png)
 
+OnionShare 0.3 is under active development and will be released soon. Features include:
+
+* A user-friendly GUI interface that works in Windows, Mac OS X, and Linux
+* Automatically copies the unguessable URL to your clipboard
+* Displays log of all requests, so you can see when someone is accessing your OnionShare service, or if someone is trying to guess your secret URL
+* Shows you the progress of the file transfer
+* When file is done transferring, automatically closes OnionShare to reduce the attack surface
+
 ## Quick Start
 
-OnionShare works in GNU/Linux, Mac OS X, and Windows. The easiest way to install it right now is by using pip:
+You can install OnionShare 0.3dev right now by following [these instructions](/BUILD.md). You can install OnionShare 0.3 in your Tails persistent volume by following [these instructions](/tails/README.md) (requires Tails 1.1 or later).
 
-    sudo pip install onionshare
-
-More detailed installation instructions for all platforms are coming soon.
+You can also install the command-line only version using pip: `sudo pip install onionshare`. When 0.3 is released the pip version will no longer be updated.
 
 ## How to Use
 
-OnionShare relies on Tor. You need to either have a system Tor installed (`sudo apt-get install tor`), or you can open Tor Browser so that OnionShare can use the Tor server provided there. Start Tor, and then run `onionshare`, passing in the file that you want to share, like this:
+Before you can share a file, you need to open [Tor Browser](https://www.torproject.org/) in the background. This will provide the Tor service that OnionShare uses to start the hidden service.
 
-    [user@dev onionshare]$ onionshare ~/Desktop/secrets.pdf
-    Connecting to Tor ControlPort to set up hidden service on port 26828
+Open OnionShare and browse to find the file you wish to share. It will show you a long, random-looking URL such as `http://v645bzpxmdtclpv3.onion/73b44511983c08bf29df40d0b1d00a69` and copy it to your clipboard. This is the secret URL that can be used to download the file you're sharing. If you'd like multiple people to be able to download this file, uncheck the "close automatically" checkbox in the corner.
 
-    Give this URL to the person you're sending the file to:
-    http://v645bzpxmdtclpv3.onion/73b44511983c08bf29df40d0b1d00a69
+Send this URL to the person you're trying to send the file to. If the file you're sending isn't very secret, you can use use normal means of sending the URL: emailing it, posting it to Facebook or Twitter, etc. If you're trying to send a secret file then it's important to send this URL secrely. I recommend you use [Off-the-Record encrypted chat](https://pressfreedomfoundation.org/encryption-works#otr) to send the URL.
 
-    Press Ctrl-C to stop server
-
-     * Running on http://127.0.0.1:26828/
-    127.0.0.1 - - [21/May/2014 21:52:42] "GET /73b44511983c08bf29df40d0b1d00a69 HTTP/1.1" 200 -
-    127.0.0.1 - - [21/May/2014 21:52:43] "GET /favicon.ico HTTP/1.1" 404 -
-    127.0.0.1 - - [21/May/2014 21:52:44] "GET /favicon.ico HTTP/1.1" 404 -
-    127.0.0.1 - - [21/May/2014 21:52:46] "GET /73b44511983c08bf29df40d0b1d00a69/download HTTP/1.1" 200 -
-
-Securely send the URL to the person you are sending the file to (like by using Jabber and OTR). When they load the website in Tor Browser, they will be connecting directly to your computer to download the file. Once you confirm that they have downloaded the file you're sending (ask them if they have the file), press Ctrl-C to shut down the server.
-
-### Using OnionShare in Tails
-
-See [instructions here](/tails/README.md).
-
-### Using OnionShare in Windows
-
-OnionShare isn't properly packaged for Windows yet. This means you'll need to install Python 2.x yourself. [Download the latest 2.x version of python](https://www.python.org/downloads/) for your architecture and install it. Your python binary should be something like `C:\Python27\python.exe`.
-
-Since OnionShare is a command line program, and using it involves copying and pasting a URL from a command prompt window, it's less frusturating if you use the Windows PowerShell rather than the Command Prompt (in PowerShell, select text you want to copy and then right-click to copy it onto the clipboard). But you can use either. Open either PowerShell or a Command Prompt, cd to your onionshare folder, and run `python.exe onionshare` with the path to the file you want to share. For example:
-
-    PS C:\Users\user\Desktop\onionshare> C:\Python27\python.exe bin\onionshare C:\Users\user\Desktop\secrets.pdf
-    Connecting to Tor ControlPort to set up hidden service on port 40867
-
-    Give this URL to the person you're sending the file to:
-    http://nkcdw6bgokit3tcn.onion/912d927863347b7b97f7a268a4210694
-
-    Press Ctrl-C to stop server
-
-     * Running on http://127.0.0.1:40867/
-    127.0.0.1 - - [22/May/2014 11:30:55] "GET /912d927863347b7b97f7a268a4210694 HTTP/1.1" 200 -
-    127.0.0.1 - - [22/May/2014 11:30:57] "GET /favicon.ico HTTP/1.1" 404 -
-    127.0.0.1 - - [22/May/2014 11:30:57] "GET /favicon.ico HTTP/1.1" 404 -
-    127.0.0.1 - - [22/May/2014 11:30:59] "GET /favicon.ico HTTP/1.1" 404 -
-    127.0.0.1 - - [22/May/2014 11:31:02] "GET /912d927863347b7b97f7a268a4210694/download HTTP/1.1" 200 -
-    127.0.0.1 - - [22/May/2014 11:31:14] "GET /912d927863347b7b97f7a268a4210694/download HTTP/1.1" 200 -
-
-## Tests
-
-Onionshare includes [nose](https://nose.readthedocs.org/en/latest/) unit tests. First,
-
-```sh
-sudo pip install nose
-```
-
-Then run
-
-```sh
-nosetests test
-```
-
-in the onionshare project directory to run them.
