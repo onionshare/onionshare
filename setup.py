@@ -29,6 +29,7 @@ if platform.system() == 'Darwin':
             'includes': ['PyQt4'],
             'excludes': ['PyQt4.QtDesigner', 'PyQt4.QtOpenGL', 'PyQt4.QtScript', 'PyQt4.QtSql', 'PyQt4.QtTest', 'PyQt4.QtXml', 'PyQt4.phonon'],
             'iconfile': 'setup/onionshare.icns',
+            'qt_plugins': 'imageformats',
             'site_packages': True,
             'plist': {
                 'CFBundleName': 'OnionShare',
