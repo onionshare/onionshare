@@ -24,5 +24,6 @@ Before you can share a file, you need to open [Tor Browser](https://www.torproje
 
 Open OnionShare and browse to find the file you wish to share. It will show you a long, random-looking URL such as `http://v645bzpxmdtclpv3.onion/73b44511983c08bf29df40d0b1d00a69` and copy it to your clipboard. This is the secret URL that can be used to download the file you're sharing. If you'd like multiple people to be able to download this file, uncheck the "close automatically" checkbox in the corner.
 
-Send this URL to the person you're trying to send the file to. If the file you're sending isn't very secret, you can use use normal means of sending the URL: emailing it, posting it to Facebook or Twitter, etc. If you're trying to send a secret file then it's important to send this URL secrely. I recommend you use [Off-the-Record encrypted chat](https://pressfreedomfoundation.org/encryption-works#otr) to send the URL.
+Send this URL to the person you're trying to send the file to. If the file you're sending isn't very secret, you can use normal means of sending the URL: emailing it, posting it to Facebook or Twitter, etc. If you're trying to send a secret file then it's important to send this URL secrely. I recommend you use [Off-the-Record encrypted chat](https://pressfreedomfoundation.org/encryption-works#otr) to send the URL.
 
+The person who is receiving the file doesn't need OnionShare. All they need is to open the URL you send them in Tor Browser to be able to download the file.
