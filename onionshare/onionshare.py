@@ -74,7 +74,7 @@ def download():
                 done = True
             else:
                 yield chunk
-                
+
                 # tell GUI the progress
                 add_request(REQUEST_PROGRESS, path, { 'id':download_id, 'bytes':fp.tell() })
         fp.close()
@@ -98,20 +98,6 @@ def get_platform():
 
 def is_root():
     return os.geteuid() == 0
-
-def get_hidden_service_dir(port):
-    if get_platform() == "Windows":
-        if 'Temp' in os.environ:
-            temp = os.environ['Temp'].replace('\\', '/')
-        else:
-            temp = 'C:/tmp'
-        return "{0}/onionshare_hidden_service_{1}".format(temp, port)
-
-    return "/tmp/onionshare_hidden_service_{0}".format(port)
-
-def get_hidden_service_hostname(port):
-    hostname_file = '{0}/hostname'.format(get_hidden_service_dir(port))
-    return open(hostname_file, 'r').read().strip()
 
 def tails_open_port(port):
     if get_platform() == 'Tails':
@@ -162,28 +148,39 @@ def choose_port():
     return port
 
 def start_hidden_service(port):
+    # come up with a hidden service directory name
+    hidserv_dir_rand = os.urandom(8).encode('hex')
+    if get_platform() == "Windows":
+        if 'Temp' in os.environ:
+            temp = os.environ['Temp'].replace('\\', '/')
+        else:
+            temp = 'C:/tmp'
+        hidserv_dir = "{0}/onionshare_{1}".format(temp, hidserv_dir_rand)
+    else:
+        hidserv_dir = "/tmp/onionshare_{0}".format(hidserv_dir_rand)
+
     # connect to the tor controlport
     controlports = [9051, 9151]
     controller = False
-
     for controlport in controlports:
         try:
             controller = Controller.from_port(port=controlport)
         except SocketError:
             pass
-
     if not controller:
         raise NoTor(strings["cant_connect_ctrlport"].format(controlports))
-
     controller.authenticate()
 
     # set up hidden service
     controller.set_options([
-        ('HiddenServiceDir', get_hidden_service_dir(port)),
+        ('HiddenServiceDir', hidserv_dir),
         ('HiddenServicePort', '80 127.0.0.1:{0}'.format(port))
     ])
 
-    onion_host = get_hidden_service_hostname(port)
+    # figure out the .onion hostname
+    hostname_file = '{0}/hostname'.format(hidserv_dir)
+    onion_host = open(hostname_file, 'r').read().strip()
+
     return onion_host
 
 def main():

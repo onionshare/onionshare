@@ -11,26 +11,6 @@ def test_get_platform_returns_platform_system():
     onionshare.platform.system = lambda: 'Sega Saturn'
     assert get_platform() == 'Sega Saturn'
 
-def test_get_hidden_service_dir_windows_with_temp():
-    "get_hidden_service_dir() uses a directory from the Windows environment when defined"
-    onionshare.platform.system = lambda: 'Windows'
-    os.environ['Temp'] = "C:\Internet Explorer\Secrets"
-    expected_path = "C:/Internet Explorer/Secrets/onionshare_hidden_service_port"
-    assert get_hidden_service_dir('port') == expected_path
-
-def test_get_hidden_service_dir_windows_default():
-    "get_hidden_service_dir() uses C:/tmp by default on Windows"
-    onionshare.get_platform = lambda: 'Windows'
-    os.environ.pop('Temp', None)
-    expected_path = "C:/tmp/onionshare_hidden_service_port"
-    assert get_hidden_service_dir('port') == expected_path
-
-def test_get_hidden_service_dir_posix():
-    "get_hidden_service_dir() uses /tmp by default on POSIX"
-    onionshare.get_platform = lambda: 'Not Windows'
-    expected_path = "/tmp/onionshare_hidden_service_port"
-    assert get_hidden_service_dir('port') == expected_path
-
 class MockSubprocess():
   def __init__(self):
       self.last_call = None
