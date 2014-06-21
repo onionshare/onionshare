@@ -43,6 +43,7 @@ elif platform.system() == 'Windows':
     args['data_files'] = [
         ('', ['LICENSE', 'README.md', 'version']),
         ('onionshare', ['onionshare/index.html', 'onionshare/404.html', 'onionshare/strings.json']),
+        ('onionshare_gui', ['onionshare_gui/onionshare-icon.png']),
         ('onionshare_gui/templates', glob('onionshare_gui/templates/*')),
         ('onionshare_gui/static', glob('onionshare_gui/static/*'))
     ]

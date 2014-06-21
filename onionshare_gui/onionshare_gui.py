@@ -28,11 +28,13 @@ class Window(QWebView):
         self.resize(580, 400)
         self.setMinimumSize(580, 400)
         self.setMaximumSize(580, 400)
+        self.setWindowIcon(QIcon("onionshare-icon.png"))
         self.load(QUrl("http://127.0.0.1:{0}".format(webapp_port)))
 
 def alert(msg, icon=QMessageBox.NoIcon):
     dialog = QMessageBox()
     dialog.setWindowTitle("OnionShare")
+    self.setWindowIcon(QIcon("onionshare-icon.png"))
     dialog.setText(msg)
     dialog.setIcon(icon)
     dialog.exec_()
