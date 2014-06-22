@@ -14,7 +14,7 @@ OnionShare 0.3 is under active development and will be released soon. Features i
 
 ## Quick Start
 
-You can install OnionShare 0.3dev right now by following [these instructions](/BUILD.md). You can install OnionShare 0.3 in your Tails persistent volume by following [these instructions](/tails/README.md) (requires Tails 1.1 or later).
+You can install OnionShare 0.3dev right now by following [these instructions](/BUILD.md). You can install OnionShare 0.3 in your Tails persistent volume by following [these instructions](/tails/README.md) (requires Tails 1.0.1 or later).
 
 You can also install the command-line only version using pip: `sudo pip install onionshare`. When 0.3 is released the pip version will no longer be updated.
 
