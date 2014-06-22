@@ -1,9 +1,11 @@
-import onionshare, webapp
 import os, sys, subprocess, inspect
-
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyQt4.QtWebKit import *
+
+from os import path
+sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
+import onionshare, webapp
 
 window_icon = None
 
