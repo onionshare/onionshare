@@ -1,9 +1,17 @@
-import onionshare, webapp
 import os, sys, subprocess, inspect
-
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyQt4.QtWebKit import *
+
+onionshare_gui_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+
+try:
+    import onionshare
+except ImportError:
+    sys.path.append(os.path.abspath(onionshare_gui_dir+"/.."))
+    import onionshare
+
+import webapp
 
 window_icon = None
 
@@ -79,8 +87,7 @@ def main():
         return
 
     # create the onionshare icon
-    global window_icon
-    onionshare_gui_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+    global window_icon, onionshare_gui_dir
     window_icon = QIcon("{0}/onionshare-icon.png".format(onionshare_gui_dir))
 
     # try starting hidden service
