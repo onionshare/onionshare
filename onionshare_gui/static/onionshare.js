@@ -3,7 +3,7 @@ $(function(){
 
   function update($msg) {
     var $line = $('<li>').append($msg);
-    $('#log').append($line);
+    $('#log').prepend($line);
   }
 
   function copy_to_clipboard() {
