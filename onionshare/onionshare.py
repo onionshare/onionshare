@@ -1,4 +1,4 @@
-import os, sys, subprocess, time, hashlib, platform, json, locale, socket, argparse, Queue, inspect
+import os, sys, subprocess, time, hashlib, platform, json, locale, socket, argparse, Queue, inspect, base64
 from random import randint
 from functools import wraps
 
@@ -10,11 +10,9 @@ from flask import Flask, Markup, Response, request, make_response, send_from_dir
 class NoTor(Exception):
     pass
 
-app = Flask(__name__)
-
-strings = {}
-onionshare_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
-slug = os.urandom(16).encode('hex')
+def random_string(num_bytes):
+    b = os.urandom(num_bytes)
+    return base64.b32encode(b).lower().replace('=','')
 
 # information about the file
 filename = filesize = filehash = None
@@ -24,13 +22,18 @@ def set_file_info(new_filename, new_filehash, new_filesize):
     filehash = new_filehash
     filesize = new_filesize
 
+app = Flask(__name__)
+
+strings = {}
+onionshare_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+slug = random_string(16)
+download_count = 0
+
 REQUEST_LOAD = 0
 REQUEST_DOWNLOAD = 1
 REQUEST_PROGRESS = 2
 REQUEST_OTHER = 3
 q = Queue.Queue()
-
-download_count = 0
 
 def add_request(type, path, data=None):
     global q
@@ -149,7 +152,7 @@ def choose_port():
 
 def start_hidden_service(port):
     # come up with a hidden service directory name
-    hidserv_dir_rand = os.urandom(8).encode('hex')
+    hidserv_dir_rand = random_string(8)
     if get_platform() == "Windows":
         if 'Temp' in os.environ:
             temp = os.environ['Temp'].replace('\\', '/')
