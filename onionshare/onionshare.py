@@ -43,12 +43,31 @@ def add_request(type, path, data=None):
       'data': data
     })
 
+def human_readable_filesize(b):
+    thresh = 1024.0
+    if b < thresh:
+        return '{0} B'.format(b)
+    units = ['KiB','MiB','GiB','TiB','PiB','EiB','ZiB','YiB']
+    u = 0
+    b /= thresh
+    while b >= thresh:
+        b /= thresh
+        u += 1
+    return '{0} {1}'.format(round(b, 1), units[u])
+
 @app.route("/{0}".format(slug))
 def index():
     global filename, filesize, filehash, slug, strings, REQUEST_LOAD
     add_request(REQUEST_LOAD, request.path)
-    return render_template_string(open('{0}/index.html'.format(onionshare_dir)).read(),
-        slug=slug, filename=os.path.basename(filename), filehash=filehash, filesize=filesize, strings=strings)
+    return render_template_string(
+        open('{0}/index.html'.format(onionshare_dir)).read(),
+        slug=slug,
+        filename=os.path.basename(filename),
+        filehash=filehash,
+        filesize=filesize,
+        filesize_human=human_readable_filesize(filesize),
+        strings=strings
+    )
 
 @app.route("/{0}/download".format(slug))
 def download():
@@ -79,8 +98,14 @@ def download():
                 yield chunk
 
                 # tell GUI the progress
-                add_request(REQUEST_PROGRESS, path, { 'id':download_id, 'bytes':fp.tell() })
+                downloaded_bytes = fp.tell()
+                percent = round((1.0 * downloaded_bytes / filesize) * 100, 2);
+                sys.stdout.write("\r{0}, {1}%          ".format(human_readable_filesize(downloaded_bytes), percent))
+                sys.stdout.flush()
+                add_request(REQUEST_PROGRESS, path, { 'id':download_id, 'bytes':downloaded_bytes })
+
         fp.close()
+        sys.stdout.write("\n")
 
     r = Response(generate())
     r.headers.add('Content-Length', filesize)
