@@ -73,4 +73,24 @@
     "not_a_file": "{0} is geen bestand.",
     "filesize": "Bestandsgrootte",
     "sha1_checksum": "SHA1 controlecijfer"
+}, "pt": {
+    "punching_a_hole": "Abrindo um buraco no firewall.",
+    "closing_hole": "Fechando buraco no firewall.",
+    "calculating_sha1": "Calculando checksum SHA1.",
+    "connecting_ctrlport": "Conectando-se à porta de controle Tor para configurar serviço escondido na porta {0}.",
+    "cant_connect_ctrlport": "Não pode conectar à porta de controle Tor na porta {0}. O Tor está rodando?",
+    "give_this_url": "Passe este URL para a pessoa que deve receber o arquivo:",
+    "ctrlc_to_stop":  "Pressione Ctrl-C para parar o servidor",
+    "not_a_file": "{0} não é um arquivo.",
+    "filesize": "Tamanho de arquivo",
+    "sha1_checksum": "Checksum SHA1",
+    "copied_url": "URL foi copiado para área de transferência",
+    "download_page_loaded": "Página de download carregada",
+    "download_started": "Começou o download",
+    "download_finished": "Terminou o download",
+    "other_page_loaded": "Outra página tem sido carregada",
+    "tails_requires_root": "Tem que rodar o OnionShare como root no Tails",
+    "close_on_finish": "Fechar automaticamente",
+    "close_countdown": "Fechando em {0} segundos...",
+    "choose_file": "Escolhe um arquivo para compartilhar"
 }}
