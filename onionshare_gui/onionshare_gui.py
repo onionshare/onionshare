@@ -2,11 +2,6 @@ import os, sys, subprocess, inspect
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyQt4.QtWebKit import *
-from os import path
-print "after path import"
-print "after path change"
-import onionshare
-import webapp
 
 onionshare_gui_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 
@@ -17,7 +12,6 @@ except ImportError:
     import onionshare
 
 import webapp
-
 window_icon = None
 
 class Application(QApplication):
@@ -81,7 +75,6 @@ def select_file(strings):
     return filename, basename
 
 def main():
-    print "start main"
     onionshare.strings = onionshare.load_strings()
 
     # start the Qt app
@@ -123,7 +116,6 @@ def main():
     onionshare.tails_open_port(webapp_port)
     webapp_thread = WebAppThread(webapp_port)
     webapp_thread.start()
-    print "after webapp functs"
 
     # clean up when app quits
     def shutdown():
@@ -134,7 +126,7 @@ def main():
     # launch the window
     web = Window(basename, webapp_port)
     web.show()
-    print "after show happens"
+
     # all done
     sys.exit(app.exec_())
 

@@ -42,8 +42,10 @@ def add_request(type, path, data=None):
 
 @app.route("/{0}".format(slug))
 def index():
-    global filename, filesize, filehash, slug, strings, REQUEST_LOAD
+    global filename, filesize, filehash, slug, strings, REQUEST_LOAD, onionshare_dir
     add_request(REQUEST_LOAD, request.path)
+    if getattr(sys, "frozen", False):
+        onionshare_dir = os.path.dirname(sys.executable)
     return render_template_string(open('{0}/index.html'.format(onionshare_dir)).read(),
         slug=slug, filename=os.path.basename(filename), filehash=filehash, filesize=filesize, strings=strings)
 
