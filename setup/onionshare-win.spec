@@ -19,6 +19,7 @@ coll = COLLECT(exe,
     a.datas,
     Tree('onionshare', prefix='onionshare'),
     Tree('onionshare_gui', prefix='onionshare_gui'),
+    [('LICENSE', 'LICENSE', 'DATA')],
     strip=False,
     upx=True,
     name='onionshare')
