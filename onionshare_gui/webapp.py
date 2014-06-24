@@ -26,17 +26,7 @@ import logging
 log_handler = logging.FileHandler('{0}/onionshare.web.log'.format(temp_dir))
 log_handler.setLevel(logging.WARNING)
 
-template_folder = './templates'
-if platform.system() == 'Windows':
-    # pyinstaller sets sys.frozen=1 on run
-    application_path = ""
-    if getattr(sys, "frozen", False):
-        application_path = os.path.dirname(sys.executable)
-    elif __file__:
-        application_path = os.path.dirname(__file__)
-    template_path = os.path.join(application_path, "templates")
-
-app = Flask(__name__, template_folder=template_path)
+app = Flask(__name__, template_folder='./templates')
 app.logger.addHandler(log_handler)
 
 @app.route("/")
