@@ -28,6 +28,7 @@ strings = {}
 onionshare_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 slug = random_string(16)
 download_count = 0
+stay_open = False
 
 REQUEST_LOAD = 0
 REQUEST_DOWNLOAD = 1
@@ -78,8 +79,12 @@ def download():
     download_id = download_count
     download_count += 1
 
-    # tell GUI the download started
+    # prepare some variables to use inside generate() function below
+    # which is outsie of the request context
+    shutdown_func = request.environ.get('werkzeug.server.shutdown')
     path = request.path
+
+    # tell GUI the download started
     add_request(REQUEST_DOWNLOAD, path, { 'id':download_id })
 
     dirname = os.path.dirname(filename)
@@ -106,6 +111,13 @@ def download():
 
         fp.close()
         sys.stdout.write("\n")
+
+        # download is finished, close the server
+        global stay_open
+        if not stay_open:
+            if shutdown_func is None:
+                raise RuntimeError('Not running with the Werkzeug Server')
+            shutdown_func()
 
     r = Response(generate())
     r.headers.add('Content-Length', filesize)
@@ -221,11 +233,15 @@ def main():
     # parse arguments
     parser = argparse.ArgumentParser()
     parser.add_argument('--local-only', action='store_true', dest='local_only', help='Do not attempt to use tor: for development only')
+    parser.add_argument('--stay-open', action='store_true', dest='stay_open', help='Keep hidden service running after download has finished')
     parser.add_argument('filename', nargs=1)
     args = parser.parse_args()
 
     filename = os.path.abspath(args.filename[0])
     local_only = args.local_only
+    
+    global stay_open
+    stay_open = args.stay_open
 
     if not (filename and os.path.isfile(filename)):
         sys.exit(strings["not_a_file"].format(filename))
