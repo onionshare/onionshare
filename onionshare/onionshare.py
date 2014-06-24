@@ -58,7 +58,7 @@ def human_readable_filesize(b):
 
 @app.route("/{0}".format(slug))
 def index():
-    global filename, filesize, filehash, slug, strings, REQUEST_LOAD
+    global filename, filesize, filehash, slug, strings, REQUEST_LOAD, onionshare_dir
     add_request(REQUEST_LOAD, request.path)
     return render_template_string(
         open('{0}/index.html'.format(onionshare_dir)).read(),
@@ -126,7 +126,7 @@ def download():
 
 @app.errorhandler(404)
 def page_not_found(e):
-    global REQUEST_OTHER
+    global REQUEST_OTHER, onionshare_dir
     add_request(REQUEST_OTHER, request.path)
     return render_template_string(open('{0}/404.html'.format(onionshare_dir)).read())
 
@@ -239,7 +239,7 @@ def main():
 
     filename = os.path.abspath(args.filename[0])
     local_only = args.local_only
-    
+
     global stay_open
     stay_open = args.stay_open
 
