@@ -12,7 +12,6 @@ except ImportError:
     import onionshare
 
 import webapp
-
 window_icon = None
 
 class Application(QApplication):
