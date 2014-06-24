@@ -4,22 +4,28 @@
 
 Start by getting a copy of the source code:
 
-    git clone https://github.com/micahflee/onionshare.git
-    cd onionshare
+```sh
+git clone https://github.com/micahflee/onionshare.git
+cd onionshare
+```
 
 *For .deb-based distros (like Debian, Ubuntu, Linux Mint):*
 
 Note that python-stem appears in Debian wheezy and newer (so by extension Tails 1.1 and newer), and it appears in Ubuntu 13.10 and newer. Older versions of Debian and Ubuntu aren't supported.
 
-    sudo apt-get install -y build-essential fakeroot python-all python-stdeb python-flask python-stem python-qt4
-    ./build_deb.sh
-    sudo dpkg -i deb_dist/onionshare_*.deb
+```sh
+sudo apt-get install -y build-essential fakeroot python-all python-stdeb python-flask python-stem python-qt4
+./build_deb.sh
+sudo dpkg -i deb_dist/onionshare_*.deb
+```
 
 *For .rpm-based distros (Red Hat, Fedora, CentOS):*
 
-    sudo yum install -y rpm-build python-flask python-stem pyqt4
-    ./build_rpm.sh
-    sudo yum install -y dist/onionshare-*.rpm
+```sh
+sudo yum install -y rpm-build python-flask python-stem pyqt4
+./build_rpm.sh
+sudo yum install -y dist/onionshare-*.rpm
+```
 
 ## Mac OS X
 
@@ -27,25 +33,31 @@ To install the right dependencies, you need homebrew and pip installed on your M
 
 The first time you're setting up your dev environment:
 
-    git clone https://github.com/micahflee/onionshare.git
-    cd onionshare
-    echo export PYTHONPATH=\$PYTHONPATH:/usr/local/lib/python2.7/site-packages/ >> ~/.profile
-    source ~/.profile
-    brew install qt4 pyqt
-    sudo pip install virtualenv
-    virtualenv env
-    . env/bin/activate
-    pip install flask stem py2app
-    # fixes a silly bug https://bitbucket.org/ronaldoussoren/py2app/issue/143/resulting-app-mistakenly-looks-for-pyside
-    patch env/lib/python2.7/site-packages/py2app/util.py < setup/py2app.patch
+```sh
+git clone https://github.com/micahflee/onionshare.git
+cd onionshare
+echo export PYTHONPATH=\$PYTHONPATH:/usr/local/lib/python2.7/site-packages/ >> ~/.profile
+source ~/.profile
+brew install qt4 pyqt
+sudo pip install virtualenv
+virtualenv env
+. env/bin/activate
+pip install flask stem py2app
+# fixes a silly bug https://bitbucket.org/ronaldoussoren/py2app/issue/143/resulting-app-mistakenly-looks-for-pyside
+patch env/lib/python2.7/site-packages/py2app/util.py < setup/py2app.patch
+```
 
 Each time you start work:
 
-    . env/bin/activate
+```sh
+. env/bin/activate
+```
 
 Build the .app:
 
-    python setup.py py2app
+```sh
+python setup.py py2app
+```
 
 Now you should have `dist/OnionShare.app`.
 
@@ -70,8 +82,12 @@ To make an exe:
 
 OnionShare includes [nose](https://nose.readthedocs.org/en/latest/) unit tests. First,
 
-    sudo pip install nose
+```sh
+sudo pip install nose
+```
 
 To run the tests:
 
-    nosetests test
+```sh
+nosetests test
+```
