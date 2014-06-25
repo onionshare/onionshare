@@ -14,6 +14,12 @@ def random_string(num_bytes):
     b = os.urandom(num_bytes)
     return base64.b32encode(b).lower().replace('=','')
 
+def get_platform():
+    p = platform.system()
+    if p == 'Linux' and platform.uname()[0:2] == ('Linux', 'amnesia'):
+        p = 'Tails'
+    return p
+
 # information about the file
 filename = filesize = filehash = None
 def set_file_info(new_filename, new_filehash, new_filesize):
@@ -24,8 +30,13 @@ def set_file_info(new_filename, new_filehash, new_filesize):
 
 app = Flask(__name__)
 
+# get path of onioshare directory
+if get_platform() == 'Darwin':
+    onionshare_dir = os.path.dirname(__file__)
+else:
+    onionshare_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+
 strings = {}
-onionshare_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 slug = random_string(16)
 download_count = 0
 stay_open = False
@@ -129,12 +140,6 @@ def page_not_found(e):
     global REQUEST_OTHER, onionshare_dir
     add_request(REQUEST_OTHER, request.path)
     return render_template_string(open('{0}/404.html'.format(onionshare_dir)).read())
-
-def get_platform():
-    p = platform.system()
-    if p == 'Linux' and platform.uname()[0:2] == ('Linux', 'amnesia'):
-        p = 'Tails'
-    return p
 
 def is_root():
     return os.geteuid() == 0

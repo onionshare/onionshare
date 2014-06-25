@@ -42,9 +42,7 @@ brew install qt4 pyqt
 sudo pip install virtualenv
 virtualenv env
 . env/bin/activate
-pip install flask stem py2app
-# fixes a silly bug https://bitbucket.org/ronaldoussoren/py2app/issue/143/resulting-app-mistakenly-looks-for-pyside
-patch env/lib/python2.7/site-packages/py2app/util.py < setup/py2app.patch
+pip install flask stem pyinstaller
 ```
 
 Each time you start work:
@@ -56,7 +54,7 @@ Each time you start work:
 Build the .app:
 
 ```sh
-python setup.py py2app
+pyinstaller -w -y setup/onionshare-osx.spec
 ```
 
 Now you should have `dist/OnionShare.app`.
