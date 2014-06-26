@@ -133,6 +133,7 @@ def main():
     webapp.qtapp = app
     webapp.clipboard = app.clipboard()
     webapp.stay_open = stay_open
+    webapp.debug = debug
 
     # run the web app in a new thread
     webapp_port = onionshare.choose_port()

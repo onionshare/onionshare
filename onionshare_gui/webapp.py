@@ -8,6 +8,7 @@ onion_host = None
 qtapp = None
 clipboard = None
 stay_open = None
+debug = None
 
 url = None
 
