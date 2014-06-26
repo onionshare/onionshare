@@ -28,7 +28,16 @@
     "ctrlc_to_stop":  "Trykk Ctrl+C for å stoppe serveren.",
     "not_a_file": "{0} er ikke en fil.",
     "filesize": "Filstørrelse",
-    "sha1_checksum": "SHA1 sjekksum"
+    "sha1_checksum": "SHA1 sjekksum",
+    "copied_url": "Kopierte URL-en til utklippstavlen",
+    "download_page_loaded": "Nedlastingsside lastet",
+    "download_started": "Nedlasting startet",
+    "download_finished": "Nedlasting fullført",
+    "other_page_loaded": "En annen side har blitt lastet",
+    "tails_requires_root": "OnionShare kan må kjøres som administrator i Tails",
+    "close_on_finish": "Lukk automatisk",
+    "close_countdown": "Lukker om {0} sekunder",
+    "choose_file": "Velg en fil å dele"
 }, "es": {
     "punching_a_hole": "Abriendo un agujero en el cortafuegos.",
     "closing_hole": "Cerrando el agujero en el cortafuegos.",
