@@ -98,7 +98,7 @@ def main():
     filename = args.filename
     local_only = args.local_only
     stay_open = bool(args.stay_open)
-    debug = args.debug
+    debug = bool(args.debug)
 
     onionshare.set_stay_open(stay_open)
 
@@ -126,14 +126,15 @@ def main():
     webapp.onionshare = onionshare
     webapp.onionshare_port = onionshare_port
     webapp.filename = filename
+    webapp.qtapp = app
+    webapp.clipboard = app.clipboard()
+    webapp.stay_open = stay_open
     if not local_only:
         webapp.onion_host = onion_host
     else:
         webapp.onion_host = local_host
-    webapp.qtapp = app
-    webapp.clipboard = app.clipboard()
-    webapp.stay_open = stay_open
-    webapp.debug = debug
+    if debug:
+        webapp.debug_mode()
 
     # run the web app in a new thread
     webapp_port = onionshare.choose_port()
