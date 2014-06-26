@@ -51,13 +51,19 @@ Each time you start work:
 . env/bin/activate
 ```
 
-Build the .app:
+To build the .app:
 
 ```sh
 pyinstaller -w -y setup/onionshare-osx.spec
 ```
 
 Now you should have `dist/OnionShare.app`.
+
+To build a .dmg (this script builds the .app for you):
+
+```sh
+setup/build_dmg.sh
+```
 
 ## Windows
 
