@@ -13,7 +13,7 @@ try:
 except ImportError:
     sys.path.append(os.path.abspath(onionshare_gui_dir+"/.."))
     import onionshare
-
+from onionshare import translated
 import webapp
 
 window_icon = None
@@ -63,7 +63,7 @@ def select_file(strings):
         if onionshare.get_platform() == 'Tails':
             args['directory'] = '/home/amnesia'
 
-        filename = QFileDialog.getOpenFileName(caption=strings['choose_file'], options=QFileDialog.ReadOnly, **args)
+        filename = QFileDialog.getOpenFileName(caption=translated('choose_file'), options=QFileDialog.ReadOnly, **args)
         if not filename:
             return False, False
 
@@ -71,7 +71,7 @@ def select_file(strings):
 
     # validate filename
     if not os.path.isfile(filename):
-        alert(strings["not_a_file"].format(filename), QMessageBox.Warning)
+        alert(translated("not_a_file").format(filename), QMessageBox.Warning)
         return False, False
 
     filename = os.path.abspath(filename)
