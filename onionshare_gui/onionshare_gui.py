@@ -97,8 +97,10 @@ def main():
 
     filename = args.filename
     local_only = args.local_only
-    stay_open = args.stay_open
+    stay_open = bool(args.stay_open)
     debug = args.debug
+
+    onionshare.set_stay_open(stay_open)
 
     # create the onionshare icon
     global window_icon, onionshare_gui_dir
@@ -130,7 +132,7 @@ def main():
         webapp.onion_host = local_host
     webapp.qtapp = app
     webapp.clipboard = app.clipboard()
-    webapp.stay_open = bool(stay_open)
+    webapp.stay_open = stay_open
 
     # run the web app in a new thread
     webapp_port = onionshare.choose_port()

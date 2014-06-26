@@ -85,6 +85,16 @@ def copy_url():
         clipboard.setText(url)
     return ''
 
+@app.route("/stay_open_true")
+def stay_open_true():
+    global onionshare
+    onionshare.set_stay_open(True)
+
+@app.route("/stay_open_false")
+def stay_open_false():
+    global onionshare
+    onionshare.set_stay_open(False)
+
 @app.route("/heartbeat")
 def check_for_requests():
     global onionshare

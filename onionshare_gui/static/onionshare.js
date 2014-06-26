@@ -75,6 +75,14 @@ $(function(){
     });
   }
 
+  $('#close-on-finish').change(function(){
+    if($('#close-on-finish').is(':checked')) {
+      $.ajax({ url: '/stay_open_false' });
+    } else {
+      $.ajax({ url: '/stay_open_true' });
+    }
+  });
+
   // initialize
   $.ajax({
     url: '/init_info',
