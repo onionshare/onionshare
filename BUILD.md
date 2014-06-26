@@ -76,6 +76,7 @@ The first time you're setting up your dev environment:
 * Open a command prompt and type: `pip install flask stem pyinstaller`
 * Go to http://www.riverbankcomputing.com/software/pyqt/download and download the latest PyQt4 for Windows for python 2.7, 32-bit (I downloaded `PyQt4-4.11-gpl-Py2.7-Qt4.8.6-x32.exe`), then install it.
 * Go to http://sourceforge.net/projects/pywin32/ and download and install the latest 32-bit pywin32 binary for python 2.7. I downloaded `pywin32-219.win32-py2.7.exe`.
+* Download and install the [Microsoft Visual C++ 2008 Redistributable Package (x86)](http://www.microsoft.com/en-us/download/details.aspx?id=29).
 
 To make a .exe:
 
@@ -88,7 +89,7 @@ If you want to build the installer:
 
 To build the installer:
 
-* Follow the steps above until to make the .exe. You should have a folder called `dist\onionshare` with a bunch of files inside of it, including `onionshare.exe`.
+* Follow the steps above until to make the .exe. You should have a folder called `dist\onionshare` with a bunch of files inside of it, including `onionshare.exe`. Run `onionshare.exe` once before you build the installer, to compile all the `.py` files into `.pyc` files.
 * Open a command prompt, cd into the onionshare directory, and type: `makensisw setup\onionshare.nsi`. You'll find the installer, `OnionShare_Setup.exe`, inside the `dist` folder.
 
 ## Tests

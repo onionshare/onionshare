@@ -29,6 +29,12 @@ def set_file_info(new_filename, new_filehash, new_filesize):
     filehash = new_filehash
     filesize = new_filesize
 
+# automatically close
+stay_open = False
+def set_stay_open(new_stay_open):
+    global stay_open
+    stay_open = new_stay_open
+
 app = Flask(__name__)
 
 # get path of onioshare directory
@@ -40,7 +46,6 @@ else:
 strings = {}
 slug = random_string(16)
 download_count = 0
-stay_open = False
 
 REQUEST_LOAD = 0
 REQUEST_DOWNLOAD = 1
@@ -127,6 +132,7 @@ def download():
         # download is finished, close the server
         global stay_open
         if not stay_open:
+            print "Closing automatically because download finished"
             if shutdown_func is None:
                 raise RuntimeError('Not running with the Werkzeug Server')
             shutdown_func()
@@ -243,7 +249,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--local-only', action='store_true', dest='local_only', help='Do not attempt to use tor: for development only')
     parser.add_argument('--stay-open', action='store_true', dest='stay_open', help='Keep hidden service running after download has finished')
-    parser.add_argument('filename', nargs=1)
+    parser.add_argument('filename', nargs=1, help='File to share')
     args = parser.parse_args()
 
     filename = os.path.abspath(args.filename[0])

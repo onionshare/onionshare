@@ -1,4 +1,4 @@
-import os, sys, subprocess, inspect, platform
+import os, sys, subprocess, inspect, platform, argparse
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyQt4.QtWebKit import *
@@ -54,11 +54,9 @@ def alert(msg, icon=QMessageBox.NoIcon):
     dialog.setIcon(icon)
     dialog.exec_()
 
-def select_file(strings):
+def select_file(strings, filename=None):
     # get filename, either from argument or file chooser dialog
-    if len(sys.argv) == 2:
-        filename = sys.argv[1]
-    else:
+    if not filename:
         args = {}
         if onionshare.get_platform() == 'Tails':
             args['directory'] = '/home/amnesia'
@@ -89,21 +87,38 @@ def main():
         subprocess.call(['/usr/bin/gksudo']+sys.argv)
         return
 
+    # parse arguments
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--local-only', action='store_true', dest='local_only', help='Do not attempt to use tor: for development only')
+    parser.add_argument('--stay-open', action='store_true', dest='stay_open', help='Keep hidden service running after download has finished')
+    parser.add_argument('--debug', action='store_true', dest='debug', help='Log errors to disk')
+    parser.add_argument('filename', nargs='?', help='File to share')
+    args = parser.parse_args()
+
+    filename = args.filename
+    local_only = args.local_only
+    stay_open = bool(args.stay_open)
+    debug = args.debug
+
+    onionshare.set_stay_open(stay_open)
+
     # create the onionshare icon
     global window_icon, onionshare_gui_dir
     window_icon = QIcon("{0}/onionshare-icon.png".format(onionshare_gui_dir))
 
     # try starting hidden service
     onionshare_port = onionshare.choose_port()
-    try:
-        onion_host = onionshare.start_hidden_service(onionshare_port)
-    except onionshare.NoTor as e:
-        alert(e.args[0], QMessageBox.Warning)
-        return
+    local_host = "127.0.0.1:{0}".format(onionshare_port)
+    if not local_only:
+        try:
+            onion_host = onionshare.start_hidden_service(onionshare_port)
+        except onionshare.NoTor as e:
+            alert(e.args[0], QMessageBox.Warning)
+            return
     onionshare.tails_open_port(onionshare_port)
 
     # select file to share
-    filename, basename = select_file(onionshare.strings)
+    filename, basename = select_file(onionshare.strings, filename)
     if not filename:
         return
 
@@ -111,9 +126,14 @@ def main():
     webapp.onionshare = onionshare
     webapp.onionshare_port = onionshare_port
     webapp.filename = filename
-    webapp.onion_host = onion_host
+    if not local_only:
+        webapp.onion_host = onion_host
+    else:
+        webapp.onion_host = local_host
     webapp.qtapp = app
     webapp.clipboard = app.clipboard()
+    webapp.stay_open = stay_open
+    webapp.debug = debug
 
     # run the web app in a new thread
     webapp_port = onionshare.choose_port()

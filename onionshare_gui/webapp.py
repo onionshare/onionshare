@@ -7,6 +7,8 @@ filename = None
 onion_host = None
 qtapp = None
 clipboard = None
+stay_open = None
+debug = None
 
 url = None
 
@@ -35,12 +37,13 @@ def index():
 
 @app.route("/init_info")
 def init_info():
-    global onionshare, filename
+    global onionshare, filename, stay_open
     basename = os.path.basename(filename)
 
     return json.dumps({
         'strings': onionshare.strings,
-        'basename': basename
+        'basename': basename,
+        'stay_open': stay_open
     })
 
 @app.route("/start_onionshare")
@@ -82,6 +85,16 @@ def copy_url():
         global clipboard
         clipboard.setText(url)
     return ''
+
+@app.route("/stay_open_true")
+def stay_open_true():
+    global onionshare
+    onionshare.set_stay_open(True)
+
+@app.route("/stay_open_false")
+def stay_open_false():
+    global onionshare
+    onionshare.set_stay_open(False)
 
 @app.route("/heartbeat")
 def check_for_requests():
