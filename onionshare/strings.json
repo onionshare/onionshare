@@ -61,7 +61,16 @@
     "ctrlc_to_stop":  "Premi Ctrl-C per fermare il server",
     "not_a_file": "{0} non è un file.",
     "filesize": "Grandezza del file",
-    "sha1_checksum": "firma SHA1"
+    "sha1_checksum": "Firma SHA1",
+    "copied_url": "URL copiato negli appunti",
+    "download_page_loaded": "Pagina di download caricata",
+    "download_started": "Download iniziato",
+    "download_finished": "Download finito",
+    "other_page_loaded": "Un altra pagina é stata caricata",
+    "tails_requires_root": "Con Tails devi avviare OnionShare come utente root",
+    "close_on_finish": "Chiudi automaticamente",
+    "close_countdown": "Chiusura in {0} secondi...",
+    "choose_file": "Scegli un file da condividere"
 }, "nl": {
     "punching_a_hole": "Een doorgang aan het maken in de firewall.",
     "closing_hole": "Doorgang in de firewall sluiten.",
