@@ -17,16 +17,6 @@ def file_list(path):
     return files
 
 version = open('version').read().strip()
-args = {}
-
-else:
-    args['packages'] = ['onionshare', 'onionshare_gui']
-    args['include_package_data'] = True
-    args['scripts'] = ['bin/onionshare', 'bin/onionshare-gui']
-    args['data_files'] = [
-        ('/usr/share/applications', ['setup/onionshare.desktop']),
-        ('/usr/share/pixmaps', ['setup/onionshare80.xpm'])
-    ]
 
 setup(
     name='onionshare',
@@ -38,6 +28,12 @@ setup(
     url='https://github.com/micahflee/onionshare',
     license="GPL v3",
     keywords='onion, share, onionshare, tor, anonymous, web server',
-    **args
+    packages=['onionshare', 'onionshare_gui'],
+    include_package_data=True,
+    scripts=['bin/onionshare', 'bin/onionshare-gui'],
+    data_files=[
+        ('/usr/share/applications', ['setup/onionshare.desktop']),
+        ('/usr/share/pixmaps', ['setup/onionshare80.xpm'])
+    ]
 )
 
