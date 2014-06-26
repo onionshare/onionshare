@@ -168,7 +168,7 @@ def load_strings(default="en"):
             # if a string doesn't exist, fallback to English
             for key in translated[default]:
                 if key in translated[lang]:
-                    strings[key] = translated[lang][key]
+                    strings[key] = translated[lang][key].encode("utf-8")
     return strings
 
 def file_crunching(filename):
