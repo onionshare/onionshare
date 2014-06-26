@@ -81,6 +81,16 @@ To make a .exe:
 
 * Open a command prompt, cd into the onionshare directory, and type: `pyinstaller -y setup\onionshare-win.spec`. Inside the `dist` folder there will be a folder called `onionshare` with `onionshare.exe` in it.
 
+If you want to build the installer:
+
+* Go to http://nsis.sourceforge.net/Download and download the latest NSIS. I downloaded `nsis-3.0b0-setup.exe`.
+* Right click on Computer, go to Properties. Click "Advanced system settings". Click Environment Variables. Under "System variables" double-click on Path to edit it. Add `;C:\Program Files (x86)\NSIS` to the end. Now you can just type `makensisw [script]` to build an installer.
+
+To build the installer:
+
+* Follow the steps above until to make the .exe. You should have a folder called `dist\onionshare` with a bunch of files inside of it, including `onionshare.exe`.
+* Open a command prompt, cd into the onionshare directory, and type: `makensisw setup\onionshare.nsi`. You'll find the installer, `OnionShare_Setup.exe`, inside the `dist` folder.
+
 ## Tests
 
 OnionShare includes [nose](https://nose.readthedocs.org/en/latest/) unit tests. First,
