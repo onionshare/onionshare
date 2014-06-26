@@ -62,8 +62,10 @@ Now you should have `dist/OnionShare.app`.
 To build a .dmg (this script builds the .app for you):
 
 ```sh
-setup/build_dmg.sh
+./build_dmg.sh
 ```
+
+Now you should have `dist/OnionShare.dmg`.
 
 ## Windows
 
@@ -89,8 +91,11 @@ If you want to build the installer:
 
 To build the installer:
 
-* Follow the steps above until to make the .exe. You should have a folder called `dist\onionshare` with a bunch of files inside of it, including `onionshare.exe`. Run `onionshare.exe` once before you build the installer, to compile all the `.py` files into `.pyc` files.
-* Open a command prompt, cd into the onionshare directory, and type: `makensisw setup\onionshare.nsi`. You'll find the installer, `OnionShare_Setup.exe`, inside the `dist` folder.
+* Open a command prompt, cd to the onionshare directory, and type:
+
+`build_exe.bat`
+
+A NSIS window will pop up, and once it's done you will have `dist\OnionShare_Setup.exe`.
 
 ## Tests
 
