@@ -106,11 +106,13 @@ def main():
 
     # try starting hidden service
     onionshare_port = onionshare.choose_port()
-    try:
-        onion_host = onionshare.start_hidden_service(onionshare_port)
-    except onionshare.NoTor as e:
-        alert(e.args[0], QMessageBox.Warning)
-        return
+    local_host = "127.0.0.1:{0}".format(onionshare_port)
+    if not local_only:
+        try:
+            onion_host = onionshare.start_hidden_service(onionshare_port)
+        except onionshare.NoTor as e:
+            alert(e.args[0], QMessageBox.Warning)
+            return
     onionshare.tails_open_port(onionshare_port)
 
     # select file to share
@@ -122,7 +124,10 @@ def main():
     webapp.onionshare = onionshare
     webapp.onionshare_port = onionshare_port
     webapp.filename = filename
-    webapp.onion_host = onion_host
+    if not local_only:
+        webapp.onion_host = onion_host
+    else:
+        webapp.onion_host = local_host
     webapp.qtapp = app
     webapp.clipboard = app.clipboard()
 
