@@ -7,6 +7,7 @@ filename = None
 onion_host = None
 qtapp = None
 clipboard = None
+stay_open = None
 
 url = None
 
@@ -35,12 +36,13 @@ def index():
 
 @app.route("/init_info")
 def init_info():
-    global onionshare, filename
+    global onionshare, filename, stay_open
     basename = os.path.basename(filename)
 
     return json.dumps({
         'strings': onionshare.strings,
-        'basename': basename
+        'basename': basename,
+        'stay_open': stay_open
     })
 
 @app.route("/start_onionshare")

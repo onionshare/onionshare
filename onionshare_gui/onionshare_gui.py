@@ -130,6 +130,7 @@ def main():
         webapp.onion_host = local_host
     webapp.qtapp = app
     webapp.clipboard = app.clipboard()
+    webapp.stay_open = bool(stay_open)
 
     # run the web app in a new thread
     webapp_port = onionshare.choose_port()
