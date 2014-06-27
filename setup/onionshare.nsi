@@ -10,6 +10,9 @@
 
 RequestExecutionLevel admin
 
+SetCompressor /FINAL /SOLID lzma
+SetCompressorDictSize 64
+
 Name "OnionShare"
 InstallDir "$PROGRAMFILES\${APPNAME}"
 LicenseData "license.txt"
