@@ -3,7 +3,7 @@
     "closing_hole": "Closing hole in firewall.",
     "calculating_sha1": "Calculating SHA1 checksum.",
     "connecting_ctrlport": "Connecting to Tor control port to set up hidden service on port {0}.",
-    "cant_connect_ctrlport": "Cannot connect to Tor control port on ports {0}. Is Tor running?",
+    "cant_connect_ctrlport": "Cannot connect to Tor control port on port {0}. Is Tor running?",
     "give_this_url": "Give this URL to the person you're sending the file to:",
     "ctrlc_to_stop":  "Press Ctrl-C to stop server",
     "not_a_file": "{0} is not a file.",
@@ -48,8 +48,17 @@
     "ctrlc_to_stop":  "Pulse Ctrl-C para detener servidor",
     "not_a_file": "{0} no es un archivo.",
     "filesize": "Tamaño del archivo",
-    "sha1_checksum": "Suma de verificación SHA1"
-}, "fr": {
+    "sha1_checksum": "Suma de verificación SHA1",
+    "copied_url": "Copiar URL en el portapapeles",
+    "download_page_loaded": "Descargar página cargada.",
+    "download_started": "Descarga comenzó",
+    "download_finished": "Descarga terminado",
+    "other_page_loaded": "Otra página se ha cargado",
+    "tails_requires_root": "Debe ejecutar OnionShare como root en Tails",
+    "close_on_finish": "Cerrar automáticamente.",
+    "close_countdown": "Cierre en {0} segundos...",
+    "choose_file": "Elija un archivo para compartir"
+ }, "fr": {
     "punching_a_hole": "Poinçonnage d'un trou dans le pare-feu.",
     "closing_hole": "Trou de clôture dans le pare-feu.",
     "calculating_sha1": "Calculer un hachage SHA-1.",
