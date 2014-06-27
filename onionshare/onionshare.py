@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import os, sys, subprocess, time, hashlib, platform, json, locale, socket, argparse, Queue, inspect, base64
 from random import randint
 from functools import wraps
@@ -152,12 +153,12 @@ def is_root():
 
 def tails_open_port(port):
     if get_platform() == 'Tails':
-        print strings["punching_a_hole"]
+        print translated("punching_a_hole")
         subprocess.call(['/sbin/iptables', '-I', 'OUTPUT', '-o', 'lo', '-p', 'tcp', '--dport', str(port), '-j', 'ACCEPT'])
 
 def tails_close_port(port):
     if get_platform() == 'Tails':
-        print strings["closing_hole"]
+        print translated("closing_hole")
         subprocess.call(['/sbin/iptables', '-I', 'OUTPUT', '-o', 'lo', '-p', 'tcp', '--dport', str(port), '-j', 'REJECT'])
 
 def load_strings(default="en"):
@@ -176,6 +177,9 @@ def load_strings(default="en"):
                 if key in translated[lang]:
                     strings[key] = translated[lang][key]
     return strings
+
+def translated(k):
+    return strings[k].encode("utf-8")
 
 def file_crunching(filename):
     # calculate filehash, file size
@@ -219,7 +223,7 @@ def start_hidden_service(port):
         except SocketError:
             pass
     if not controller:
-        raise NoTor(strings["cant_connect_ctrlport"].format(controlports))
+        raise NoTor(translated("cant_connect_ctrlport").format(controlports))
     controller.authenticate()
 
     # set up hidden service
@@ -239,7 +243,7 @@ def main():
 
     # check for root in Tails
     if get_platform() == 'Tails' and not is_root():
-        sys.exit(strings["tails_requires_root"])
+        sys.exit(translated("tails_requires_root"))
 
     # parse arguments
     parser = argparse.ArgumentParser()
@@ -255,7 +259,7 @@ def main():
     stay_open = args.stay_open
 
     if not (filename and os.path.isfile(filename)):
-        sys.exit(strings["not_a_file"].format(filename))
+        sys.exit(translated("not_a_file").format(filename))
     filename = os.path.abspath(filename)
 
     port = choose_port()
@@ -263,24 +267,24 @@ def main():
 
     if not local_only:
         # try starting hidden service
-        print strings["connecting_ctrlport"].format(port)
+        print translated("connecting_ctrlport").format(port)
         try:
             onion_host = start_hidden_service(port)
         except NoTor as e:
             sys.exit(e.args[0])
 
     # startup
-    print strings["calculating_sha1"]
+    print translated("calculating_sha1")
     filehash, filesize = file_crunching(filename)
     set_file_info(filename, filehash, filesize)
     tails_open_port(port)
-    print '\n' + strings["give_this_url"]
+    print '\n' + translated("give_this_url")
     if local_only:
         print 'http://{0}/{1}'.format(local_host, slug)
     else:
         print 'http://{0}/{1}'.format(onion_host, slug)
     print ''
-    print strings["ctrlc_to_stop"]
+    print translated("ctrlc_to_stop")
 
     # start the web server
     app.run(port=port)
