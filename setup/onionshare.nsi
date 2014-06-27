@@ -43,16 +43,21 @@ Section "install"
 	File "onionshare.ico"
     File "${BINPATH}\onionshare.exe"
     File "${BINPATH}\LICENSE"
-    SetOutPath "$INSTDIR\onionshare"    
+    SetOutPath "$INSTDIR\onionshare"
     File "${BINPATH}\onionshare\404.html"
+    File "${BINPATH}\onionshare\__init__.py"
     File "${BINPATH}\onionshare\__init__.pyc"
     File "${BINPATH}\onionshare\index.html"
+    File "${BINPATH}\onionshare\onionshare.py"
     File "${BINPATH}\onionshare\onionshare.pyc"
     File "${BINPATH}\onionshare\strings.json"
     SetOutPath "$INSTDIR\onionshare_gui"
+    File "${BINPATH}\onionshare_gui\onionshare_gui.py"
     File "${BINPATH}\onionshare_gui\onionshare_gui.pyc"
+    File "${BINPATH}\onionshare_gui\webapp.py"
     File "${BINPATH}\onionshare_gui\webapp.pyc"
     File "${BINPATH}\onionshare_gui\onionshare-icon.png"
+    File "${BINPATH}\onionshare_gui\__init__.py"
     File "${BINPATH}\onionshare_gui\__init__.pyc"
     SetOutPath "$INSTDIR\onionshare_gui\templates"
     File "${BINPATH}\onionshare_gui\templates\index.html"
@@ -63,7 +68,7 @@ Section "install"
     File "${BINPATH}\onionshare_gui\static\style.css"
     File "${BINPATH}\onionshare_gui\static\loader.gif"
     File "${BINPATH}\onionshare_gui\static\helpers.js"
-    
+
     # dependencies
     SetOutPath $INSTDIR
     File "${BINPATH}\LIBEAY32.dll"
@@ -122,13 +127,13 @@ Section "install"
     File "${BINPATH}\qt4_plugins\imageformats\qtiff4.dll"
     SetOutPath "$INSTDIR\Include"
     File "${BINPATH}\Include\pyconfig.h"
-    
+
 	# uninstaller
 	WriteUninstaller "$INSTDIR\uninstall.exe"
- 
+
 	# start menu
 	CreateShortCut "$SMPROGRAMS\${APPNAME}.lnk" "$INSTDIR\onionshare.exe" "" "$INSTDIR\onionshare.ico"
- 
+
 	# registry information for add/remove programs
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "DisplayName" "${APPNAME}"
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "UninstallString" "$\"$INSTDIR\uninstall.exe$\""
@@ -145,31 +150,34 @@ Section "install"
 	# set the INSTALLSIZE constant (!defined at the top of this script) so Add/Remove Programs can accurately report the size
 	WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "EstimatedSize" ${INSTALLSIZE}
 SectionEnd
- 
+
 # uninstaller
 Function un.onInit
 	SetShellVarContext all
- 
+
 	#Verify the uninstaller - last chance to back out
 	MessageBox MB_OKCANCEL "Uninstall ${APPNAME}?" IDOK next
 		Abort
 	next:
 	!insertmacro VerifyUserIsAdmin
 FunctionEnd
- 
+
 Section "uninstall"
 	Delete "$SMPROGRAMS\${APPNAME}.lnk"
-    
+
 	# remove files
     Delete "$INSTDIR\onionshare.exe"
     Delete "$INSTDIR\LICENSE"
     Delete "$INSTDIR\onionshare.ico"
     Delete "$INSTDIR\uninstall.exe"
     Delete "$INSTDIR\onionshare\404.html"
+    Delete "$INSTDIR\onionshare\__init__.py"
     Delete "$INSTDIR\onionshare\__init__.pyc"
     Delete "$INSTDIR\onionshare\index.html"
+    Delete "$INSTDIR\onionshare\onionshare.py"
     Delete "$INSTDIR\onionshare\onionshare.pyc"
     Delete "$INSTDIR\onionshare\strings.json"
+    Delete "$INSTDIR\onionshare_gui\__init__.py"
     Delete "$INSTDIR\onionshare_gui\__init__.pyc"
     Delete "$INSTDIR\onionshare_gui\templates"
     Delete "$INSTDIR\onionshare_gui\templates\index.html"
@@ -180,7 +188,9 @@ Section "uninstall"
     Delete "$INSTDIR\onionshare_gui\static\style.css"
     Delete "$INSTDIR\onionshare_gui\static\loader.gif"
     Delete "$INSTDIR\onionshare_gui\static\helpers.js"
+    Delete "$INSTDIR\onionshare_gui\onionshare_gui.py"
     Delete "$INSTDIR\onionshare_gui\onionshare_gui.pyc"
+    Delete "$INSTDIR\onionshare_gui\webapp.py"
     Delete "$INSTDIR\onionshare_gui\webapp.pyc"
     Delete "$INSTDIR\onionshare_gui\onionshare-icon.png"
     Delete "$INSTDIR\qt4_plugins\accessible\qtaccessiblewidgets4.dll"
@@ -232,7 +242,7 @@ Section "uninstall"
     Delete "$INSTDIR\_ssl.pyd"
     Delete "$INSTDIR\_socket.pyd"
     Delete "$INSTDIR\QtXml4.dll"
- 
+
 	rmDir "$INSTDIR\onionshare"
     rmDir "$INSTDIR\onionshare_gui\templates"
     rmDir "$INSTDIR\onionshare_gui\static"
@@ -246,7 +256,7 @@ Section "uninstall"
     rmDir "$INSTDIR\qt4_plugins\imageformats"
     rmDir "$INSTDIR\qt4_plugins"
     rmDir "$INSTDIR"
- 
+
 	# remove uninstaller information from the registry
 	DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}"
 SectionEnd
