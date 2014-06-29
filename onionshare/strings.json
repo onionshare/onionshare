@@ -120,4 +120,24 @@
     "close_on_finish": "Fechar automaticamente",
     "close_countdown": "Fechando em {0} segundos...",
     "choose_file": "Escolhe um arquivo para compartilhar"
+}, "de": {
+    "punching_a_hole": "Schlage ein Loch in die Firewall.",
+    "closing_hole": "Schließe Loch in der Firewall.",
+    "calculating_sha1": "Kalkuliere SHA1 Checksumme.",
+    "connecting_ctrlport": "Verbinde zum Tor-Kontrollport um den versteckten Dienst auf Port {0} laufen zu lassen.",
+    "cant_connect_ctrlport": "Konnte keine Verbindung zum Tor-Kontrollport auf Port {0} aufbauen. Läuft Tor?",
+    "give_this_url": "Gebe diese URL an die Person der du die Datei zusenden möchtest:",
+    "ctrlc_to_stop":  "Drücke Strg+C um den Server anzuhalten",
+    "not_a_file": "{0} ist keine Datei.",
+    "filesize": "Dateigröße",
+    "sha1_checksum": "SHA1 Checksumme",
+    "copied_url": "URL in die Zwischenablage kopiert",
+    "download_page_loaded": "Download-Seite geladen",
+    "download_started": "Download gestartet",
+    "download_finished": "Download abgeschlossen",
+    "other_page_loaded": "Andere Seite wurde geladen",
+    "tails_requires_root": "Du musst Onionshare in Tails als root ausführen",
+    "close_on_finish": "Beende automatisch",
+    "close_countdown": "Beende in {0} Sekunden...",
+    "choose_file": "Wähle eine Datei zum teilen aus"
 }}
