@@ -19,6 +19,7 @@
     "close_countdown": "Closing in {0} seconds...",
     "choose_file": "Choose a file to share",
     "copy_url": "Copy URL"
+	"context_menu" : "Send to OnionShare"
 }, "no": {
     "punching_a_hole": "Åpner port i brannmuren.",
     "closing_hole": "Lukker port i brannmuren.",
@@ -59,6 +60,7 @@
     "close_on_finish": "Cerrar automáticamente.",
     "close_countdown": "Cierre en {0} segundos...",
     "choose_file": "Elija un archivo para compartir"
+	"context_menu" : "Send to OnionShare"
  }, "fr": {
     "punching_a_hole": "Poinçonnage d'un trou dans le pare-feu.",
     "closing_hole": "Trou de clôture dans le pare-feu.",
