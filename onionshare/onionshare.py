@@ -37,10 +37,11 @@ def add_windows_context(path):
 	if p == 'Windows':
 		if winkey_exists() == False:
 			try:
-				_winreg.CreateKey(_winreg.HKEY_CLASSES_ROOT, WIN_REG_PATH)
-				tmpKey = _winreg.CreateKey(_winreg.HKEY_CLASSES_ROOT, WIN_REG_PATH + r"\command")
-				_winreg.SetValue(tmpKey, "@", _winreg.REG_SZ, "\"" + path + r"\onionshare.exe\" \"%1\"")
-				_winreg.CloseKey(tmpKey)
+				rootKey = _winreg.CreateKey(_winreg.HKEY_CLASSES_ROOT, WIN_REG_PATH)
+				subkey = _winreg.CreateKey(rootKey, 'command')
+				_winreg.SetValue(subkey, '@', _winreg.REG_SZ, '"' + path + '"\onionshare.exe" "%1"')
+				_winreg.CloseKey(subkey)
+				_winreg.CloseKey(rootKey)
 				return True
 			except WindowsError:
 				return False
