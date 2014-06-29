@@ -94,6 +94,7 @@ $(function(){
       $('#filehash .label').html(onionshare.strings['sha1_checksum']+':');
       $('#close-on-finish-wrapper label').html(onionshare.strings['close_on_finish']);
       $('#loading .calculating').html(onionshare.strings['calculating_sha1']);
+      $('#copy-button').html(onionshare.strings['copy_url']);
 
       if(onionshare.stay_open) {
         $('#close-on-finish').removeAttr('checked');

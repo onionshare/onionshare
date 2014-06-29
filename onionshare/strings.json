@@ -17,7 +17,8 @@
     "tails_requires_root": "You must run OnionShare as root in Tails",
     "close_on_finish": "Close automatically",
     "close_countdown": "Closing in {0} seconds...",
-    "choose_file": "Choose a file to share"
+    "choose_file": "Choose a file to share",
+    "copy_url": "Copy URL"
 }, "no": {
     "punching_a_hole": "Åpner port i brannmuren.",
     "closing_hole": "Lukker port i brannmuren.",
@@ -120,4 +121,25 @@
     "close_on_finish": "Fechar automaticamente",
     "close_countdown": "Fechando em {0} segundos...",
     "choose_file": "Escolhe um arquivo para compartilhar"
+}, "ru": {
+    "punching_a_hole": "Открытие порта в межсетевом экране.",
+    "closing_hole": "Закрытие порта в межсетевом экране.",
+    "calculating_sha1": "Вычисляется SHA1 хешсумма.",
+    "connecting_ctrlport": "Соединяемся с контрольным портом Tor для создания скрытого сервиса на порту {0}.",
+    "cant_connect_ctrlport": "Невозможно соединиться с контрольным портом Tor на порту {0}. Tor запущен?",
+    "give_this_url": "Отправьте эту ссылку тому человеку, которому вы хотите передать файл:",
+    "ctrlc_to_stop":  "Нажмите Ctrl-C чтобы остановить сервер",
+    "not_a_file": "{0} не является файлом.",
+    "filesize": "Размер файла",
+    "sha1_checksum": "SHA1 хешсумма",
+    "copied_url": "Ссылка скопирована в буфер обмена",
+    "download_page_loaded": "Страница закачки загружена",
+    "download_started": "Загрузка начата",
+    "download_finished": "Загрузка закончена",
+    "other_page_loaded": "Другая страница была загружена",
+    "tails_requires_root": "Вы должны запустить OnionShare с правами root в Tails",
+    "close_on_finish": "Закрыть автоматически",
+    "close_countdown": "Закроется через {0} секунд...",
+    "choose_file": "Выберите файл",
+    "copy_url": "Скопировать ссылку"
 }}
