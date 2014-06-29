@@ -333,7 +333,7 @@ def main():
 	
 	# Remove platform menu contexts at shutdown
 	if get_platform() == 'Windows' and is_root():
-		remove_windows_context(onionshare_dir)
+		remove_windows_context()
 
 if __name__ == '__main__':
     main()
