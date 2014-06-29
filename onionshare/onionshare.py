@@ -39,7 +39,7 @@ def add_windows_context(path):
 			try:
 				rootKey = _winreg.CreateKey(_winreg.HKEY_CLASSES_ROOT, WIN_REG_PATH)
 				subkey = _winreg.CreateKey(rootKey, 'command')
-				_winreg.SetValue(subkey, '@', _winreg.REG_SZ, '"' + path + '"\onionshare.exe" "%1"')
+				_winreg.SetValue(subkey, '@', _winreg.REG_SZ, '"' + path + '\onionshare.exe" "%1"')
 				_winreg.CloseKey(subkey)
 				_winreg.CloseKey(rootKey)
 				return True
@@ -282,7 +282,7 @@ def main():
 	
 	# Add platform menu contexts at start up
 	if get_platform() == 'Windows' and is_root():
-		add_windows_context(onionshare_dir)
+		add_windows_context(os.path.abspath(os.path.join(onionshare_dir, os.pardir)))  #Get parent directory, where onionshare.exe actually is.
 
     # parse arguments
     parser = argparse.ArgumentParser()
