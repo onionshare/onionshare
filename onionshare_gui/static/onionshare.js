@@ -75,6 +75,14 @@ $(function(){
     });
   }
 
+  $('#close-on-finish').change(function(){
+    if($('#close-on-finish').is(':checked')) {
+      $.ajax({ url: '/stay_open_false' });
+    } else {
+      $.ajax({ url: '/stay_open_true' });
+    }
+  });
+
   // initialize
   $.ajax({
     url: '/init_info',
@@ -86,6 +94,11 @@ $(function(){
       $('#filehash .label').html(onionshare.strings['sha1_checksum']+':');
       $('#close-on-finish-wrapper label').html(onionshare.strings['close_on_finish']);
       $('#loading .calculating').html(onionshare.strings['calculating_sha1']);
+      $('#copy-button').html(onionshare.strings['copy_url']);
+
+      if(onionshare.stay_open) {
+        $('#close-on-finish').removeAttr('checked');
+      }
       
       // after getting the initial info, start the onionshare server
       $.ajax({

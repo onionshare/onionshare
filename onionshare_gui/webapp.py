@@ -7,27 +7,24 @@ filename = None
 onion_host = None
 qtapp = None
 clipboard = None
+stay_open = None
 
 url = None
 
-# figure out this platform's temp dir
-if platform.system() == 'Windows':
-    temp_dir = os.environ['Temp'].replace('\\', '/')
-else:
-    temp_dir = '/tmp/'
-
-# suppress output in windows
-if platform.system() == 'Windows':
-    sys.stdout = open('{0}/onionshare.stdout.log'.format(temp_dir), 'w')
-    sys.stderr = open('{0}/onionshare.stderr.log'.format(temp_dir), 'w')
-
-# log web errors to file
-import logging
-log_handler = logging.FileHandler('{0}/onionshare.web.log'.format(temp_dir))
-log_handler.setLevel(logging.WARNING)
-
 app = Flask(__name__, template_folder='./templates')
-app.logger.addHandler(log_handler)
+
+def debug_mode():
+    import logging
+    global app
+
+    if platform.system() == 'Windows':
+        temp_dir = os.environ['Temp'].replace('\\', '/')
+    else:
+        temp_dir = '/tmp/'
+
+    log_handler = logging.FileHandler('{0}/onionshare.web.log'.format(temp_dir))
+    log_handler.setLevel(logging.WARNING)
+    app.logger.addHandler(log_handler)
 
 @app.route("/")
 def index():
@@ -35,12 +32,13 @@ def index():
 
 @app.route("/init_info")
 def init_info():
-    global onionshare, filename
+    global onionshare, filename, stay_open
     basename = os.path.basename(filename)
 
     return json.dumps({
         'strings': onionshare.strings,
-        'basename': basename
+        'basename': basename,
+        'stay_open': stay_open
     })
 
 @app.route("/start_onionshare")
@@ -82,6 +80,16 @@ def copy_url():
         global clipboard
         clipboard.setText(url)
     return ''
+
+@app.route("/stay_open_true")
+def stay_open_true():
+    global onionshare
+    onionshare.set_stay_open(True)
+
+@app.route("/stay_open_false")
+def stay_open_false():
+    global onionshare
+    onionshare.set_stay_open(False)
 
 @app.route("/heartbeat")
 def check_for_requests():

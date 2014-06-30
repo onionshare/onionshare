@@ -1,4 +1,5 @@
-import os, sys, subprocess, time, hashlib, platform, json, locale, socket, argparse, Queue, inspect
+# -*- coding: utf-8 -*-
+import os, sys, subprocess, time, hashlib, platform, json, locale, socket, argparse, Queue, inspect, base64
 from random import randint
 from functools import wraps
 
@@ -10,11 +11,15 @@ from flask import Flask, Markup, Response, request, make_response, send_from_dir
 class NoTor(Exception):
     pass
 
-app = Flask(__name__)
+def random_string(num_bytes):
+    b = os.urandom(num_bytes)
+    return base64.b32encode(b).lower().replace('=','')
 
-strings = {}
-onionshare_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
-slug = os.urandom(16).encode('hex')
+def get_platform():
+    p = platform.system()
+    if p == 'Linux' and platform.uname()[0:2] == ('Linux', 'amnesia'):
+        p = 'Tails'
+    return p
 
 # information about the file
 filename = filesize = filehash = None
@@ -24,13 +29,29 @@ def set_file_info(new_filename, new_filehash, new_filesize):
     filehash = new_filehash
     filesize = new_filesize
 
+# automatically close
+stay_open = False
+def set_stay_open(new_stay_open):
+    global stay_open
+    stay_open = new_stay_open
+
+app = Flask(__name__)
+
+# get path of onioshare directory
+if get_platform() == 'Darwin':
+    onionshare_dir = os.path.dirname(__file__)
+else:
+    onionshare_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+
+strings = {}
+slug = random_string(16)
+download_count = 0
+
 REQUEST_LOAD = 0
 REQUEST_DOWNLOAD = 1
 REQUEST_PROGRESS = 2
 REQUEST_OTHER = 3
 q = Queue.Queue()
-
-download_count = 0
 
 def add_request(type, path, data=None):
     global q
@@ -40,12 +61,31 @@ def add_request(type, path, data=None):
       'data': data
     })
 
+def human_readable_filesize(b):
+    thresh = 1024.0
+    if b < thresh:
+        return '{0} B'.format(b)
+    units = ['KiB','MiB','GiB','TiB','PiB','EiB','ZiB','YiB']
+    u = 0
+    b /= thresh
+    while b >= thresh:
+        b /= thresh
+        u += 1
+    return '{0} {1}'.format(round(b, 1), units[u])
+
 @app.route("/{0}".format(slug))
 def index():
-    global filename, filesize, filehash, slug, strings, REQUEST_LOAD
+    global filename, filesize, filehash, slug, strings, REQUEST_LOAD, onionshare_dir
     add_request(REQUEST_LOAD, request.path)
-    return render_template_string(open('{0}/index.html'.format(onionshare_dir)).read(),
-        slug=slug, filename=os.path.basename(filename), filehash=filehash, filesize=filesize, strings=strings)
+    return render_template_string(
+        open('{0}/index.html'.format(onionshare_dir)).read(),
+        slug=slug,
+        filename=os.path.basename(filename),
+        filehash=filehash,
+        filesize=filesize,
+        filesize_human=human_readable_filesize(filesize),
+        strings=strings
+    )
 
 @app.route("/{0}/download".format(slug))
 def download():
@@ -56,8 +96,12 @@ def download():
     download_id = download_count
     download_count += 1
 
-    # tell GUI the download started
+    # prepare some variables to use inside generate() function below
+    # which is outsie of the request context
+    shutdown_func = request.environ.get('werkzeug.server.shutdown')
     path = request.path
+
+    # tell GUI the download started
     add_request(REQUEST_DOWNLOAD, path, { 'id':download_id })
 
     dirname = os.path.dirname(filename)
@@ -76,8 +120,22 @@ def download():
                 yield chunk
 
                 # tell GUI the progress
-                add_request(REQUEST_PROGRESS, path, { 'id':download_id, 'bytes':fp.tell() })
+                downloaded_bytes = fp.tell()
+                percent = round((1.0 * downloaded_bytes / filesize) * 100, 2);
+                sys.stdout.write("\r{0}, {1}%          ".format(human_readable_filesize(downloaded_bytes), percent))
+                sys.stdout.flush()
+                add_request(REQUEST_PROGRESS, path, { 'id':download_id, 'bytes':downloaded_bytes })
+
         fp.close()
+        sys.stdout.write("\n")
+
+        # download is finished, close the server
+        global stay_open
+        if not stay_open:
+            print "Closing automatically because download finished"
+            if shutdown_func is None:
+                raise RuntimeError('Not running with the Werkzeug Server')
+            shutdown_func()
 
     r = Response(generate())
     r.headers.add('Content-Length', filesize)
@@ -86,27 +144,21 @@ def download():
 
 @app.errorhandler(404)
 def page_not_found(e):
-    global REQUEST_OTHER
+    global REQUEST_OTHER, onionshare_dir
     add_request(REQUEST_OTHER, request.path)
     return render_template_string(open('{0}/404.html'.format(onionshare_dir)).read())
-
-def get_platform():
-    p = platform.system()
-    if p == 'Linux' and platform.uname()[0:2] == ('Linux', 'amnesia'):
-        p = 'Tails'
-    return p
 
 def is_root():
     return os.geteuid() == 0
 
 def tails_open_port(port):
     if get_platform() == 'Tails':
-        print strings["punching_a_hole"]
+        print translated("punching_a_hole")
         subprocess.call(['/sbin/iptables', '-I', 'OUTPUT', '-o', 'lo', '-p', 'tcp', '--dport', str(port), '-j', 'ACCEPT'])
 
 def tails_close_port(port):
     if get_platform() == 'Tails':
-        print strings["closing_hole"]
+        print translated("closing_hole")
         subprocess.call(['/sbin/iptables', '-I', 'OUTPUT', '-o', 'lo', '-p', 'tcp', '--dport', str(port), '-j', 'REJECT'])
 
 def load_strings(default="en"):
@@ -125,6 +177,9 @@ def load_strings(default="en"):
                 if key in translated[lang]:
                     strings[key] = translated[lang][key]
     return strings
+
+def translated(k):
+    return strings[k].encode("utf-8")
 
 def file_crunching(filename):
     # calculate filehash, file size
@@ -149,7 +204,7 @@ def choose_port():
 
 def start_hidden_service(port):
     # come up with a hidden service directory name
-    hidserv_dir_rand = os.urandom(8).encode('hex')
+    hidserv_dir_rand = random_string(8)
     if get_platform() == "Windows":
         if 'Temp' in os.environ:
             temp = os.environ['Temp'].replace('\\', '/')
@@ -168,7 +223,7 @@ def start_hidden_service(port):
         except SocketError:
             pass
     if not controller:
-        raise NoTor(strings["cant_connect_ctrlport"].format(controlports))
+        raise NoTor(translated("cant_connect_ctrlport").format(controlports))
     controller.authenticate()
 
     # set up hidden service
@@ -188,19 +243,23 @@ def main():
 
     # check for root in Tails
     if get_platform() == 'Tails' and not is_root():
-        sys.exit(strings["tails_requires_root"])
+        sys.exit(translated("tails_requires_root"))
 
     # parse arguments
     parser = argparse.ArgumentParser()
     parser.add_argument('--local-only', action='store_true', dest='local_only', help='Do not attempt to use tor: for development only')
-    parser.add_argument('filename', nargs=1)
+    parser.add_argument('--stay-open', action='store_true', dest='stay_open', help='Keep hidden service running after download has finished')
+    parser.add_argument('filename', nargs=1, help='File to share')
     args = parser.parse_args()
 
     filename = os.path.abspath(args.filename[0])
     local_only = args.local_only
 
+    global stay_open
+    stay_open = args.stay_open
+
     if not (filename and os.path.isfile(filename)):
-        sys.exit(strings["not_a_file"].format(filename))
+        sys.exit(translated("not_a_file").format(filename))
     filename = os.path.abspath(filename)
 
     port = choose_port()
@@ -208,24 +267,24 @@ def main():
 
     if not local_only:
         # try starting hidden service
-        print strings["connecting_ctrlport"].format(port)
+        print translated("connecting_ctrlport").format(port)
         try:
             onion_host = start_hidden_service(port)
         except NoTor as e:
             sys.exit(e.args[0])
 
     # startup
-    print strings["calculating_sha1"]
+    print translated("calculating_sha1")
     filehash, filesize = file_crunching(filename)
     set_file_info(filename, filehash, filesize)
     tails_open_port(port)
-    print '\n' + strings["give_this_url"]
+    print '\n' + translated("give_this_url")
     if local_only:
         print 'http://{0}/{1}'.format(local_host, slug)
     else:
         print 'http://{0}/{1}'.format(onion_host, slug)
     print ''
-    print strings["ctrlc_to_stop"]
+    print translated("ctrlc_to_stop")
 
     # start the web server
     app.run(port=port)

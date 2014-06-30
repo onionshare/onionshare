@@ -68,17 +68,17 @@ def test_load_strings_loads_other_languages():
     assert onionshare.strings['calculating_sha1'] == "Calculer un hachage SHA-1."
 
 def test_generate_slug_length():
-    "generates a 32-character slug"
-    assert len(slug) == 32
+    "generates a 26-character slug"
+    assert len(slug) == 26
 
 def test_generate_slug_characters():
-    "generates a hex slug"
+    "generates a base32-encoded slug"
 
-    def is_hex(string):
-        hex_alphabet = "01234556789abcdef"
-        return all(char in hex_alphabet for char in string)
+    def is_b32(string):
+        b32_alphabet = "01234556789abcdefghijklmnopqrstuvwxyz"
+        return all(char in b32_alphabet for char in string)
 
-    assert is_hex(slug)
+    assert is_b32(slug)
 
 def test_starts_with_empty_strings():
     "creates an empty strings dict by default"

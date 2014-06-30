@@ -17,54 +17,6 @@ def file_list(path):
     return files
 
 version = open('version').read().strip()
-args = {}
-
-if platform.system() == 'Darwin':
-    args['data_files'] = ['LICENSE', 'README.md', 'version']
-    args['app'] = ['setup/onionshare-launcher.py']
-    args['options'] = {
-        'py2app': {
-            'argv_emulation': True,
-            'packages': ['flask', 'stem', 'jinja2', 'onionshare_gui', 'onionshare'],
-            'includes': ['PyQt4'],
-            'excludes': ['PyQt4.QtDesigner', 'PyQt4.QtOpenGL', 'PyQt4.QtScript', 'PyQt4.QtSql', 'PyQt4.QtTest', 'PyQt4.QtXml', 'PyQt4.phonon'],
-            'iconfile': 'setup/onionshare.icns',
-            'qt_plugins': 'imageformats',
-            'site_packages': True,
-            'plist': {
-                'CFBundleName': 'OnionShare',
-            }
-        }
-    }
-    args['setup_requires'] = 'py2app'
-
-elif platform.system() == 'Windows':
-    import py2exe
-    args['windows'] = [{'script':'setup/onionshare-launcher.py'}]
-    args['data_files'] = [
-        ('', ['LICENSE', 'README.md', 'version']),
-        ('onionshare', ['onionshare/index.html', 'onionshare/404.html', 'onionshare/strings.json']),
-        ('onionshare_gui', ['onionshare_gui/onionshare-icon.png']),
-        ('onionshare_gui/templates', glob('onionshare_gui/templates/*')),
-        ('onionshare_gui/static', glob('onionshare_gui/static/*'))
-    ]
-    args['options'] = {
-        'py2exe': {
-            'includes': ['sip', 'PyQt4', 'PyQt4.QtNetwork'],
-            'dll_excludes': ['MSVCP90.dll'],
-            'packages': ['jinja2', 'flask', 'stem'],
-            'skip_archive': True
-        }
-    }
-
-else:
-    args['packages'] = ['onionshare', 'onionshare_gui']
-    args['include_package_data'] = True
-    args['scripts'] = ['bin/onionshare', 'bin/onionshare-gui']
-    args['data_files'] = [
-        ('/usr/share/applications', ['setup/onionshare.desktop']),
-        ('/usr/share/pixmaps', ['setup/onionshare80.xpm'])
-    ]
 
 setup(
     name='onionshare',
@@ -76,6 +28,12 @@ setup(
     url='https://github.com/micahflee/onionshare',
     license="GPL v3",
     keywords='onion, share, onionshare, tor, anonymous, web server',
-    **args
+    packages=['onionshare', 'onionshare_gui'],
+    include_package_data=True,
+    scripts=['bin/onionshare', 'bin/onionshare-gui'],
+    data_files=[
+        ('/usr/share/applications', ['setup/onionshare.desktop']),
+        ('/usr/share/pixmaps', ['setup/onionshare80.xpm'])
+    ]
 )
 
