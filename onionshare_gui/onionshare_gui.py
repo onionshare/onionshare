@@ -3,8 +3,6 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyQt4.QtWebKit import *
 
-<<<<<<< HEAD
-=======
 onionshare_gui_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 
 try:
@@ -14,7 +12,6 @@ except ImportError:
     import onionshare
 
 import webapp
->>>>>>> 272092f877ade0ada63fc1b7b43f7837e73adede
 
 window_icon = None
 
