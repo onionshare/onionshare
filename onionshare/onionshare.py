@@ -223,7 +223,18 @@ def start_hidden_service(port):
         except SocketError:
             pass
     if not controller:
-        raise NoTor(translated("cant_connect_ctrlport").format(controlports))
+        if sys.platform == 'win32' or sys.platform == 'darwin':
+            additional_instructions = "If Tor is installed, please make sure that it is running and try launching" \
+                                      " Onionshare again.\nIf Tor is not installed, please download and " \
+                                      "install it from www.torproject.com"
+            raise NoTor(translated("cant_connect_ctrlport").format(controlports, additional_instructions))
+        elif sys.platform == 'linux2':
+            def start_torbrowser_launcher():
+                """will attempt to start package with a try/except block, if an exception is raised, will
+                instruct to download tor browser bundle."""
+                pass
+            raise NoTor(translated("cant_connect_ctrlport").format(controlports, "is Tor running?"))
+
     controller.authenticate()
 
     # set up hidden service
