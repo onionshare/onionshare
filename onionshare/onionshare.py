@@ -159,7 +159,7 @@ def tails_open_port(port):
 def tails_close_port(port):
     if get_platform() == 'Tails':
         print translated("closing_hole")
-        subprocess.call(['/sbin/iptables', '-I', 'OUTPUT', '-o', 'lo', '-p', 'tcp', '--dport', str(port), '-j', 'REJECT'])
+        subprocess.call(['/sbin/iptables', '-D', 'OUTPUT', '-o', 'lo', '-p', 'tcp', '--dport', str(port), '-j', 'ACCEPT'])
 
 def load_strings(default="en"):
     global strings
