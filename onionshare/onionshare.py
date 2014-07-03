@@ -6,7 +6,12 @@ from functools import wraps
 from stem.control import Controller
 from stem import SocketError
 
-from flask import Flask, Markup, Response, request, make_response, send_from_directory, render_template_string
+from flask import Flask, Markup, Response, request, make_response, send_from_directory, render_template_string, abort
+
+# Flask depends on itsdangerous, which needs constant time string comparison
+# for the HMAC values in secure cookies. Since we know itsdangerous is
+# available, we just use its function.
+from itsdangerous import constant_time_compare
 
 class NoTor(Exception):
     pass
@@ -73,9 +78,13 @@ def human_readable_filesize(b):
         u += 1
     return '{0} {1}'.format(round(b, 1), units[u])
 
-@app.route("/{0}".format(slug))
-def index():
+@app.route("/<slug_candidate>")
+def index(slug_candidate):
     global filename, filesize, filehash, slug, strings, REQUEST_LOAD, onionshare_dir
+
+    if not constant_time_compare(slug, slug_candidate):
+        abort(404)
+
     add_request(REQUEST_LOAD, request.path)
     return render_template_string(
         open('{0}/index.html'.format(onionshare_dir)).read(),
@@ -87,10 +96,13 @@ def index():
         strings=strings
     )
 
-@app.route("/{0}/download".format(slug))
-def download():
+@app.route("/<slug_candidate>/download")
+def download(slug_candidate):
     global filename, filesize, q, download_count
     global REQUEST_DOWNLOAD, REQUEST_PROGRESS
+
+    if not constant_time_compare(slug, slug_candidate):
+        abort(404)
 
     # each download has a unique id
     download_id = download_count
