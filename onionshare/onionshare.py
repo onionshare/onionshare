@@ -42,6 +42,19 @@ def set_stay_open(new_stay_open):
 
 app = Flask(__name__)
 
+def debug_mode():
+    import logging
+    global app
+
+    if platform.system() == 'Windows':
+        temp_dir = os.environ['Temp'].replace('\\', '/')
+    else:
+        temp_dir = '/tmp/'
+
+    log_handler = logging.FileHandler('{0}/onionshare_server.log'.format(temp_dir))
+    log_handler.setLevel(logging.WARNING)
+    app.logger.addHandler(log_handler)
+
 # get path of onioshare directory
 if get_platform() == 'Darwin':
     onionshare_dir = os.path.dirname(__file__)
@@ -82,7 +95,7 @@ def human_readable_filesize(b):
 def index(slug_candidate):
     global filename, filesize, filehash, slug, strings, REQUEST_LOAD, onionshare_dir
 
-    if not constant_time_compare(slug, slug_candidate):
+    if not constant_time_compare(slug.encode('ascii'), slug_candidate.encode('ascii')):
         abort(404)
 
     add_request(REQUEST_LOAD, request.path)
@@ -101,7 +114,7 @@ def download(slug_candidate):
     global filename, filesize, q, download_count
     global REQUEST_DOWNLOAD, REQUEST_PROGRESS
 
-    if not constant_time_compare(slug, slug_candidate):
+    if not constant_time_compare(slug.encode('ascii'), slug_candidate.encode('ascii')):
         abort(404)
 
     # each download has a unique id
@@ -261,14 +274,19 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--local-only', action='store_true', dest='local_only', help='Do not attempt to use tor: for development only')
     parser.add_argument('--stay-open', action='store_true', dest='stay_open', help='Keep hidden service running after download has finished')
+    parser.add_argument('--debug', action='store_true', dest='debug', help='Log errors to disk')
     parser.add_argument('filename', nargs=1, help='File to share')
     args = parser.parse_args()
 
     filename = os.path.abspath(args.filename[0])
-    local_only = args.local_only
+    local_only = bool(args.local_only)
+    debug = bool(args.debug)
+
+    if debug:
+        debug_mode()
 
     global stay_open
-    stay_open = args.stay_open
+    stay_open = bool(args.stay_open)
 
     if not (filename and os.path.isfile(filename)):
         sys.exit(translated("not_a_file").format(filename))

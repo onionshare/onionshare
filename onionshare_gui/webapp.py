@@ -22,7 +22,7 @@ def debug_mode():
     else:
         temp_dir = '/tmp/'
 
-    log_handler = logging.FileHandler('{0}/onionshare.web.log'.format(temp_dir))
+    log_handler = logging.FileHandler('{0}/onionshare_gui.log'.format(temp_dir))
     log_handler.setLevel(logging.WARNING)
     app.logger.addHandler(log_handler)
 

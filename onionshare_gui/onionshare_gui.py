@@ -96,7 +96,7 @@ def main():
     args = parser.parse_args()
 
     filename = args.filename
-    local_only = args.local_only
+    local_only = bool(args.local_only)
     stay_open = bool(args.stay_open)
     debug = bool(args.debug)
 
@@ -134,6 +134,7 @@ def main():
     else:
         webapp.onion_host = local_host
     if debug:
+        onionshare.debug_mode()
         webapp.debug_mode()
 
     # run the web app in a new thread
