@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import os, sys, subprocess, time, hashlib, platform, json, locale, socket, argparse, Queue, inspect, base64
+import os, sys, subprocess, time, hashlib, platform, json, locale, socket, argparse, Queue, inspect, base64, _winreg
 from random import randint
 from functools import wraps
 
@@ -26,7 +26,42 @@ def get_platform():
     if p == 'Linux' and platform.uname()[0:2] == ('Linux', 'amnesia'):
         p = 'Tails'
     return p
+	
+	
+#Add right click to context menus
+WIN_REG_PATH = r"*\shell\Send with OnionShare"
+def winkey_exists():
+	try:
+		testKey = _winreg.OpenKey(_winreg.HKEY_CLASSES_ROOT, WIN_REG_PATH)
+		_winreg.QueryValueEx(testKey, '')
+		return True
+	except EnvironmentError:
+		return False
 
+def add_windows_context(path):
+	p = platform.system()
+	if p == 'Windows':
+		if winkey_exists() == False:
+			try:
+				rootKey = _winreg.CreateKey(_winreg.HKEY_CLASSES_ROOT, WIN_REG_PATH)
+				subkey = _winreg.CreateKey(rootKey, 'command')
+				_winreg.SetValue(subkey, '@', _winreg.REG_SZ, '"' + path + '\onionshare.exe" "%1"')
+				_winreg.CloseKey(subkey)
+				_winreg.CloseKey(rootKey)
+				return True
+			except WindowsError:
+				return False
+
+def remove_windows_context():
+	p = platform.system()
+	if p == 'Windows':
+		if winkey_exists() == False:
+			try:
+				_winreg.DeleteKey(_winreg.HKEY_CLASSES_ROOT, WIN_REG_PATH)
+				return True
+			except WindowsError:
+				return False
+			
 # information about the file
 filename = filesize = filehash = None
 def set_file_info(new_filename, new_filehash, new_filesize):
@@ -270,6 +305,10 @@ def main():
     # check for root in Tails
     if get_platform() == 'Tails' and not is_root():
         sys.exit(translated("tails_requires_root"))
+	
+	# Add platform menu contexts at start up
+	if get_platform() == 'Windows' and is_root():
+		add_windows_context(os.path.abspath(os.path.join(onionshare_dir, os.pardir)))  #Get parent directory, where onionshare.exe actually is.
 
     # parse arguments
     parser = argparse.ArgumentParser()
@@ -323,6 +362,10 @@ def main():
 
     # shutdown
     tails_close_port(port)
+	
+	# Remove platform menu contexts at shutdown
+	if get_platform() == 'Windows' and is_root():
+		remove_windows_context()
 
 if __name__ == '__main__':
     main()

@@ -19,6 +19,7 @@
     "close_countdown": "Closing in {0} seconds...",
     "choose_file": "Choose a file to share",
     "copy_url": "Copy URL"
+	"context_menu" : "Send to OnionShare"
 }, "no": {
     "punching_a_hole": "Åpner port i brannmuren.",
     "closing_hole": "Lukker port i brannmuren.",
