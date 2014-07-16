@@ -18,7 +18,8 @@ class NoTor(Exception):
 
 def random_string(num_bytes):
     b = os.urandom(num_bytes)
-    return base64.b32encode(b).lower().replace('=','')
+    h = hashlib.sha256(b).digest()[:16]
+    return base64.b32encode(h).lower().replace('=','')
 
 def get_platform():
     p = platform.system()
