@@ -65,7 +65,7 @@ $(function(){
               }
             } else {
               if(r.path != '/favicon.ico')
-                update($('<span>').addClass('weblog-error').html(onionshare.strings['other_page_loaded']+': '+r.path));
+                update($('<span>').addClass('weblog-error').html(onionshare.strings['other_page_loaded']+': '+htmlspecialchars(r.path)));
             }
           }
         }
