@@ -1,4 +1,5 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, make_response
+from functools import wraps
 import threading, json, os, time, platform, sys
 
 onionshare = None
@@ -22,15 +23,40 @@ def debug_mode():
     else:
         temp_dir = '/tmp/'
 
-    log_handler = logging.FileHandler('{0}/onionshare.web.log'.format(temp_dir))
+    log_handler = logging.FileHandler('{0}/onionshare_gui.log'.format(temp_dir))
     log_handler.setLevel(logging.WARNING)
     app.logger.addHandler(log_handler)
 
+def add_response_headers(headers={}):
+    def decorator(f):
+        @wraps(f)
+        def decorated_function(*args, **kwargs):
+            resp = make_response(f(*args, **kwargs))
+            h = resp.headers
+            for header, value in headers.items():
+                h[header] = value
+            return resp
+        return decorated_function
+    return decorator
+
+def csp(f):
+    @wraps(f)
+    # disable inline js, external js
+    @add_response_headers({'Content-Security-Policy': "default-src 'self'; connect-src 'self'"})
+    # ugh, webkit embedded in Qt4 is stupid old
+    # TODO: remove webkit, build GUI with normal Qt widgets
+    @add_response_headers({'X-WebKit-CSP': "default-src 'self'; connect-src 'self'"})
+    def decorated_function(*args, **kwargs):
+        return f(*args, **kwargs)
+    return decorated_function
+
 @app.route("/")
+@csp
 def index():
     return render_template('index.html')
 
 @app.route("/init_info")
+@csp
 def init_info():
     global onionshare, filename, stay_open
     basename = os.path.basename(filename)
@@ -42,6 +68,7 @@ def init_info():
     })
 
 @app.route("/start_onionshare")
+@csp
 def start_onionshare():
     global onionshare, onionshare_port, filename, onion_host, url
 
@@ -62,6 +89,7 @@ def start_onionshare():
     })
 
 @app.route("/copy_url")
+@csp
 def copy_url():
     if platform.system() == 'Windows':
         # Qt's QClipboard isn't working in Windows
@@ -82,16 +110,19 @@ def copy_url():
     return ''
 
 @app.route("/stay_open_true")
+@csp
 def stay_open_true():
     global onionshare
     onionshare.set_stay_open(True)
 
 @app.route("/stay_open_false")
+@csp
 def stay_open_false():
     global onionshare
     onionshare.set_stay_open(False)
 
 @app.route("/heartbeat")
+@csp
 def check_for_requests():
     global onionshare
     events = []
@@ -107,6 +138,7 @@ def check_for_requests():
     return json.dumps(events)
 
 @app.route("/close")
+@csp
 def close():
     global qtapp
     time.sleep(1)

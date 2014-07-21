@@ -100,7 +100,17 @@
     "ctrlc_to_stop":  "Druk Ctrl-C om de server te stoppen",
     "not_a_file": "{0} is geen bestand.",
     "filesize": "Bestandsgrootte",
-    "sha1_checksum": "SHA1 controlecijfer"
+    "sha1_checksum": "SHA1 controlecijfer",
+    "copied_url": "URL gekopieerd naar klembord",
+    "download_page_loaded": "Download pagina geladen",
+    "download_started": "Download gestart",
+    "download_finished": "Download voltooid",
+    "other_page_loaded": "Andere pagina is geladen",
+    "tails_requires_root": "Je moet OnionShare als root draaien in Tails",
+    "close_on_finish": "Sluit automatisch",
+    "close_countdown": "Sluit in {0} seconden...",
+    "choose_file": "Kies betsand om te delen",
+    "copy_url": "Kopieer URL"
 }, "pt": {
     "punching_a_hole": "Abrindo um buraco no firewall.",
     "closing_hole": "Fechando buraco no firewall.",

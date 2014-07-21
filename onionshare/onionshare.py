@@ -6,14 +6,20 @@ from functools import wraps
 from stem.control import Controller
 from stem import SocketError
 
-from flask import Flask, Markup, Response, request, make_response, send_from_directory, render_template_string
+from flask import Flask, Markup, Response, request, make_response, send_from_directory, render_template_string, abort
+
+# Flask depends on itsdangerous, which needs constant time string comparison
+# for the HMAC values in secure cookies. Since we know itsdangerous is
+# available, we just use its function.
+from itsdangerous import constant_time_compare
 
 class NoTor(Exception):
     pass
 
 def random_string(num_bytes):
     b = os.urandom(num_bytes)
-    return base64.b32encode(b).lower().replace('=','')
+    h = hashlib.sha256(b).digest()[:16]
+    return base64.b32encode(h).lower().replace('=','')
 
 def get_platform():
     p = platform.system()
@@ -36,6 +42,19 @@ def set_stay_open(new_stay_open):
     stay_open = new_stay_open
 
 app = Flask(__name__)
+
+def debug_mode():
+    import logging
+    global app
+
+    if platform.system() == 'Windows':
+        temp_dir = os.environ['Temp'].replace('\\', '/')
+    else:
+        temp_dir = '/tmp/'
+
+    log_handler = logging.FileHandler('{0}/onionshare_server.log'.format(temp_dir))
+    log_handler.setLevel(logging.WARNING)
+    app.logger.addHandler(log_handler)
 
 # get path of onioshare directory
 if get_platform() == 'Darwin':
@@ -73,9 +92,13 @@ def human_readable_filesize(b):
         u += 1
     return '{0} {1}'.format(round(b, 1), units[u])
 
-@app.route("/{0}".format(slug))
-def index():
+@app.route("/<slug_candidate>")
+def index(slug_candidate):
     global filename, filesize, filehash, slug, strings, REQUEST_LOAD, onionshare_dir
+
+    if not constant_time_compare(slug.encode('ascii'), slug_candidate.encode('ascii')):
+        abort(404)
+
     add_request(REQUEST_LOAD, request.path)
     return render_template_string(
         open('{0}/index.html'.format(onionshare_dir)).read(),
@@ -87,10 +110,13 @@ def index():
         strings=strings
     )
 
-@app.route("/{0}/download".format(slug))
-def download():
+@app.route("/<slug_candidate>/download")
+def download(slug_candidate):
     global filename, filesize, q, download_count
     global REQUEST_DOWNLOAD, REQUEST_PROGRESS
+
+    if not constant_time_compare(slug.encode('ascii'), slug_candidate.encode('ascii')):
+        abort(404)
 
     # each download has a unique id
     download_id = download_count
@@ -159,7 +185,7 @@ def tails_open_port(port):
 def tails_close_port(port):
     if get_platform() == 'Tails':
         print translated("closing_hole")
-        subprocess.call(['/sbin/iptables', '-I', 'OUTPUT', '-o', 'lo', '-p', 'tcp', '--dport', str(port), '-j', 'REJECT'])
+        subprocess.call(['/sbin/iptables', '-D', 'OUTPUT', '-o', 'lo', '-p', 'tcp', '--dport', str(port), '-j', 'ACCEPT'])
 
 def load_strings(default="en"):
     global strings
@@ -260,14 +286,19 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--local-only', action='store_true', dest='local_only', help='Do not attempt to use tor: for development only')
     parser.add_argument('--stay-open', action='store_true', dest='stay_open', help='Keep hidden service running after download has finished')
+    parser.add_argument('--debug', action='store_true', dest='debug', help='Log errors to disk')
     parser.add_argument('filename', nargs=1, help='File to share')
     args = parser.parse_args()
 
     filename = os.path.abspath(args.filename[0])
-    local_only = args.local_only
+    local_only = bool(args.local_only)
+    debug = bool(args.debug)
+
+    if debug:
+        debug_mode()
 
     global stay_open
-    stay_open = args.stay_open
+    stay_open = bool(args.stay_open)
 
     if not (filename and os.path.isfile(filename)):
         sys.exit(translated("not_a_file").format(filename))
