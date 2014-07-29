@@ -170,7 +170,7 @@ def download(slug_candidate):
     return r
 
 receive_allowed = False
-@app.route("/send", methods=['GET', 'POST'])
+@app.route("/send/function", methods=['GET', 'POST'])
 def receive_file(allowed):
     if request.method == 'POST' and allowed:
         file = request.files['file']
@@ -178,7 +178,10 @@ def receive_file(allowed):
         # TODO: make destination customizable
         file.save(os.path.join("C:/users/"+os.environ.get("USERNAME")+"/Desktop/", filename))
 
-
+@app.route("/send")
+def serve_send_index():
+    global onionshare_dir
+    return render_template_string(open('{0}/receive_mode.html'.format(onionshare_dir)).read())
 
 @app.errorhandler(404)
 def page_not_found(e):
@@ -261,17 +264,7 @@ def start_hidden_service(port):
         except SocketError:
             pass
     if not controller:
-        if sys.platform == 'win32' or sys.platform == 'darwin':
-            additional_instructions = "If Tor is installed, please make sure that it is running and try launching" \
-                                      " Onionshare again.\nIf Tor is not installed, please download and " \
-                                      "install it from www.torproject.com"
-            raise NoTor(translated("cant_connect_ctrlport").format(controlports, additional_instructions))
-        elif sys.platform == 'linux2':
-            def start_torbrowser_launcher():
-                """will attempt to start package with a try/except block, if an exception is raised, will
-                instruct to download tor browser bundle."""
-                pass
-            raise NoTor(translated("cant_connect_ctrlport").format(controlports, "is Tor running?"))
+        raise NoTor(translated("cant_connect_ctrlport").format(controlports, "is Tor running?"))
 
     controller.authenticate()
 
@@ -299,11 +292,12 @@ def main():
     parser.add_argument('--local-only', action='store_true', dest='local_only', help='Do not attempt to use tor: for development only')
     parser.add_argument('--stay-open', action='store_true', dest='stay_open', help='Keep hidden service running after download has finished')
     parser.add_argument('--debug', action='store_true', dest='debug', help='Log errors to disk')
-    parser.add_argument('--recive', action='store_true', dest='receive', help='Allows the user of Onionshare to receive files from non-users')
-    parser.add_argument('filename', nargs=1, help='File to share')
+    required = parser.add_mutually_exclusive_group(required=True)
+    required.add_argument('--receive', action='store_true', help='Allows the user of Onionshare to receive files from non-users')
+    required.add_argument('--filename', nargs=1, help='File to share')
     args = parser.parse_args()
 
-    filename = os.path.abspath(args.filename[0])
+    filename = ''
     local_only = bool(args.local_only)
     debug = bool(args.debug)
     receiver_mode = bool(args.receive)
@@ -311,6 +305,8 @@ def main():
     if receiver_mode:
         global receive_allowed
         receive_allowed = True
+    else:
+        filename = os.path.abspath(args.filename[0])
 
     if debug:
         debug_mode()
@@ -318,9 +314,10 @@ def main():
     global stay_open
     stay_open = bool(args.stay_open)
 
-    if not (filename and os.path.isfile(filename)):
+    if not (filename and os.path.isfile(filename)) and not receiver_mode:
         sys.exit(translated("not_a_file").format(filename))
-    filename = os.path.abspath(filename)
+    if not receiver_mode:
+        filename = os.path.abspath(filename)
 
     port = choose_port()
     local_host = "127.0.0.1:{0}".format(port)
@@ -334,15 +331,18 @@ def main():
             sys.exit(e.args[0])
 
     # startup
-    print translated("calculating_sha1")
-    filehash, filesize = file_crunching(filename)
-    set_file_info(filename, filehash, filesize)
+    if not receiver_mode:
+        print translated("calculating_sha1")
+        filehash, filesize = file_crunching(filename)
+        set_file_info(filename, filehash, filesize)
     tails_open_port(port)
     print '\n' + translated("give_this_url")
     if local_only:
         print 'http://{0}/{1}'.format(local_host, slug)
-    else:
+    elif not receiver_mode:
         print 'http://{0}/{1}'.format(onion_host, slug)
+    else:
+        print 'http://{0}/'.format(onion_host)
     print ''
     print translated("ctrlc_to_stop")
 
