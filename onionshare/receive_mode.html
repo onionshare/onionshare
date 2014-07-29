@@ -61,15 +61,11 @@
                 top:1px;
             }
         </style>
-        <meta name="onionshare-filename" content="{{ filename }}">
-        <meta name="onionshare-filesize" content="{{ filesize }}">
-        <meta name="onionshare-filehash" content="{{ filehash }}">
     </head>
     <body>
     <form enctype="multipart/form-data" action="/send/function" method="post">
-        <p>The upload function will not do anything if the host has not enabled Onionshare to receive files.
-        <p><input type=file name=file>
-           <input class="button" type=submit value=Upload>
+        <p>{{info}}
+        <p>{{button_code}}
         </form>
         </div>
     </body>

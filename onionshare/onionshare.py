@@ -170,18 +170,32 @@ def download(slug_candidate):
     return r
 
 receive_allowed = False
-@app.route("/send/function", methods=['GET', 'POST'])
-def receive_file(allowed):
-    if request.method == 'POST' and allowed:
-        file = request.files['file']
-        filename = secure_filename(file)
-        # TODO: make destination customizable
-        file.save(os.path.join("C:/users/"+os.environ.get("USERNAME")+"/Desktop/", filename))
+@app.route("/send/function", methods=['POST'])
+def receive_file():
+    global receive_allowed
+    if request.method == 'POST' and receive_allowed:
+        try:
+            file = request.files['file']
+            filename = secure_filename(file.filename)
+            # TODO: make destination customizable
+            file.save(os.path.join("C:/users/"+os.environ.get("USERNAME")+"/Desktop/", filename))
+        except Exception as e:
+            print e
+        finally:
+            return serve_send_index(True)
+    return serve_send_index(True)
 
 @app.route("/send")
-def serve_send_index():
+def serve_send_index(second_render=False):
     global onionshare_dir
-    return render_template_string(open('{0}/receive_mode.html'.format(onionshare_dir)).read())
+    if second_render:
+        return render_template_string(open('{0}/receive_mode.html'.format(onionshare_dir)).read(),
+                                      info="The file should now be transferring",
+                                      button_code="")
+    return render_template_string(open('{0}/receive_mode.html'.format(onionshare_dir)).read(),
+                                      info="The upload function will not do anything if the host has not enabled Onionshare to receive files.",
+                                      button_code=("<input type=file name=file>\n"
+                                                   "<input class=\"button\" type=submit value=Upload>"))
 
 @app.errorhandler(404)
 def page_not_found(e):
