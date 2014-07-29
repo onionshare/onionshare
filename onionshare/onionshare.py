@@ -8,6 +8,7 @@ from stem import SocketError
 
 from flask import Flask, Markup, Response, request, make_response, send_from_directory, render_template_string, abort
 
+from werkzeug.utils import secure_filename
 # Flask depends on itsdangerous, which needs constant time string comparison
 # for the HMAC values in secure cookies. Since we know itsdangerous is
 # available, we just use its function.
@@ -168,6 +169,17 @@ def download(slug_candidate):
     r.headers.add('Content-Disposition', 'attachment', filename=basename)
     return r
 
+receive_allowed = False
+@app.route("/send", methods=['GET', 'POST'])
+def receive_file(allowed):
+    if request.method == 'POST' and allowed:
+        file = request.files['file']
+        filename = secure_filename(file)
+        # TODO: make destination customizable
+        file.save(os.path.join("C:/users/"+os.environ.get("USERNAME")+"/Desktop/", filename))
+
+
+
 @app.errorhandler(404)
 def page_not_found(e):
     global REQUEST_OTHER, onionshare_dir
@@ -287,12 +299,18 @@ def main():
     parser.add_argument('--local-only', action='store_true', dest='local_only', help='Do not attempt to use tor: for development only')
     parser.add_argument('--stay-open', action='store_true', dest='stay_open', help='Keep hidden service running after download has finished')
     parser.add_argument('--debug', action='store_true', dest='debug', help='Log errors to disk')
+    parser.add_argument('--recive', action='store_true', dest='receive', help='Allows the user of Onionshare to receive files from non-users')
     parser.add_argument('filename', nargs=1, help='File to share')
     args = parser.parse_args()
 
     filename = os.path.abspath(args.filename[0])
     local_only = bool(args.local_only)
     debug = bool(args.debug)
+    receiver_mode = bool(args.receive)
+
+    if receiver_mode:
+        global receive_allowed
+        receive_allowed = True
 
     if debug:
         debug_mode()
