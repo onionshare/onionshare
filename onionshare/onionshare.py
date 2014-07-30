@@ -176,26 +176,31 @@ file_destination = ''
 def receive_file():
     global receive_allowed, file_destination
     if request.method == 'POST' and receive_allowed:
+        user_submited_hash = ''
         try:
+            # TODO: check when download is finished and close app unless stay_open is True
             file = request.files['file']
+            user_submited_hash = request.form['SHA1']
             filename = secure_filename(file.filename)
             file.save(os.path.join(file_destination, filename))
+            print "According to the submitter, the SHA1 hash should be:\n\n" \
+                  + user_submited_hash+"\n\nPlease verify this hash before opening the file."
         except Exception as e:
             print e
         finally:
-            return serve_send_index(True)
-    return serve_send_index(True)
+            return serve_send_index(True, user_submited_hash)
 
 @app.route("/send")
-def serve_send_index(second_render=False):
+def serve_send_index(second_render=False, user_submitted_hash=''):
     global onionshare_dir
     if second_render:
         return render_template_string(open('{0}/receive_mode.html'.format(onionshare_dir)).read(),
                                       info="The file should now be transferring",
-                                      button_code="")
+                                      button_code='The hash you submitted was: '+user_submitted_hash)
     return render_template_string(open('{0}/receive_mode.html'.format(onionshare_dir)).read(),
                                       info="The upload function will not do anything if the host has not enabled Onionshare to receive files.",
-                                      button_code=("<input type=file name=file>\n"
+                                      button_code=("<input type=text name=SHA1 placeholder=\"SHA1 Hash\">\n"
+                                                   "<p><input type=file name=file>\n"
                                                    "<input class=\"button\" type=submit value=Upload>"))
 
 @app.errorhandler(404)
