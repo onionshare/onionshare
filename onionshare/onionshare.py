@@ -170,15 +170,16 @@ def download(slug_candidate):
     return r
 
 receive_allowed = False
+# Fox only, No items,
+file_destination = ''
 @app.route("/send/function", methods=['POST'])
 def receive_file():
-    global receive_allowed
+    global receive_allowed, file_destination
     if request.method == 'POST' and receive_allowed:
         try:
             file = request.files['file']
             filename = secure_filename(file.filename)
-            # TODO: make destination customizable
-            file.save(os.path.join("C:/users/"+os.environ.get("USERNAME")+"/Desktop/", filename))
+            file.save(os.path.join(file_destination, filename))
         except Exception as e:
             print e
         finally:
@@ -307,19 +308,21 @@ def main():
     parser.add_argument('--stay-open', action='store_true', dest='stay_open', help='Keep hidden service running after download has finished')
     parser.add_argument('--debug', action='store_true', dest='debug', help='Log errors to disk')
     required = parser.add_mutually_exclusive_group(required=True)
-    required.add_argument('--receive', action='store_true', help='Allows the user of Onionshare to receive files from non-users')
+    required.add_argument('--receive', nargs=1, help='Path to director that received file should be saved in')
     required.add_argument('--filename', nargs=1, help='File to share')
     args = parser.parse_args()
 
     filename = ''
     local_only = bool(args.local_only)
     debug = bool(args.debug)
-    receiver_mode = bool(args.receive)
+    receiver_mode = False
 
-    if receiver_mode:
-        global receive_allowed
+    try:
+        global receive_allowed, file_destination
         receive_allowed = True
-    else:
+        receiver_mode = True
+        file_destination = args.receive[0]
+    except TypeError:
         filename = os.path.abspath(args.filename[0])
 
     if debug:
