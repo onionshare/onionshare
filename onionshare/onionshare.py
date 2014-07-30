@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 import os, sys, subprocess, time, hashlib, platform, json, locale, socket, argparse, Queue, inspect, base64
-from random import randint
+from random import randint, choice
 from functools import wraps
+from string import ascii_uppercase, digits
 
 from stem.control import Controller
 from stem import SocketError
@@ -172,31 +173,73 @@ def download(slug_candidate):
 receive_allowed = False
 # Fox only, No items,
 file_destination = ''
+upload_count = 0
 @app.route("/send/function", methods=['POST'])
 def receive_file():
-    global receive_allowed, file_destination
-    if request.method == 'POST' and receive_allowed:
+    # This method doesn't allow upload from plugged in phones (Galaxy S)
+    # I'm pretty sure this has to do with Samsung messing around with their phones.
+    global receive_allowed, stay_open, file_destination, upload_count
+    if request.method == 'POST' and receive_allowed and stay_open:
+        user_submited_hash = ''
         try:
+            print "File Transferring..."
             file = request.files['file']
+            user_submited_hash = request.form['SHA1']
             filename = secure_filename(file.filename)
-            file.save(os.path.join(file_destination, filename))
+            file_temp_loc = file.stream
+            with open(os.path.join(file_destination, filename), "w") as var:
+                var.write(file_temp_loc.read())
+            print "According to the submitter, the SHA1 hash for " + filename + "should be:\n\n" \
+                  + user_submited_hash+"\n\nPlease verify this hash before opening the file."
         except Exception as e:
             print e
-        finally:
-            return serve_send_index(True)
-    return serve_send_index(True)
+        return serve_send_index(True, user_submited_hash)
+    elif request.method == 'POST' and receive_allowed and upload_count == 0:
+        upload_count += 1
+        user_submited_hash = ''
+        try:
+            print "File Transferring..."
+            file = request.files['file']
+            user_submited_hash = request.form['SHA1']
+            filename = secure_filename(file.filename)
+            file_temp_loc = file.stream
+            with open(os.path.join(file_destination, filename), "w") as var:
+                var.write(file_temp_loc.read())
+            print "According to the submitter, the SHA1 hash for" + filename + " should be:\n\n" \
+                  + user_submited_hash+"\n\nPlease verify this hash before opening the file."
+        except Exception as e:
+            print e
+        return serve_send_index(True, user_submited_hash)
 
 @app.route("/send")
-def serve_send_index(second_render=False):
-    global onionshare_dir
-    if second_render:
+def serve_send_index(second_render=False, user_submitted_hash=''):
+    global onionshare_dir, stay_open
+    if second_render and stay_open:
         return render_template_string(open('{0}/receive_mode.html'.format(onionshare_dir)).read(),
-                                      info="The file should now be transferring",
-                                      button_code="")
+                                      info="The file should be fully transferred.",
+                                      button_code='The hash you submitted was: '+user_submitted_hash)
+    elif second_render and not stay_open:
+        return render_template_string(open('{0}/receive_mode.html'.format(onionshare_dir)).read(),
+                                      info="The file should be fully transferred.",
+                                      button_code='The hash you submitted was: '+user_submitted_hash)
     return render_template_string(open('{0}/receive_mode.html'.format(onionshare_dir)).read(),
-                                      info="The upload function will not do anything if the host has not enabled Onionshare to receive files.",
-                                      button_code=("<input type=file name=file>\n"
+                                      info="<b>WARNING:</b>This is not reccomended for large files (IE more than a few GiB's)"
+                                           "<p>The upload function will not do anything if the host has not enabled Onionshare to receive files."
+                                           "<p>Do not close your browser until it loads the next page, this will take a while depending on the size of the file"
+                                           " and both partners' internet speed.",
+                                      button_code=("<input type=text name=SHA1 placeholder=\"SHA1 Hash\">\n"
+                                                   "<p><input type=file name=file>\n"
                                                    "<input class=\"button\" type=submit value=Upload>"))
+
+generated_close_key = ''
+@app.route("/send/close/<secret_key>")
+def close_app_from_browser(secret_key):
+    global generated_close_key
+    if secret_key == generated_close_key:
+        shutdown = request.environ.get('werkzeug.server.shutdown')
+        shutdown()
+    else:
+        abort(404)
 
 @app.errorhandler(404)
 def page_not_found(e):
@@ -317,6 +360,10 @@ def main():
     debug = bool(args.debug)
     receiver_mode = False
 
+    # this could be longer if you want to make brute force guessing harder
+    global generated_close_key
+    generated_close_key = ''.join(choice(ascii_uppercase + digits) for _ in range(0, 6))
+
     try:
         global receive_allowed, file_destination
         receive_allowed = True
@@ -353,13 +400,15 @@ def main():
         filehash, filesize = file_crunching(filename)
         set_file_info(filename, filehash, filesize)
     tails_open_port(port)
-    print '\n' + translated("give_this_url")
     if local_only:
+        print '\n' + translated("give_this_url")
         print 'http://{0}/{1}'.format(local_host, slug)
     elif not receiver_mode:
+        print '\n' + translated("give_this_url")
         print 'http://{0}/{1}'.format(onion_host, slug)
     else:
-        print 'http://{0}/'.format(onion_host)
+        print '\nGive this URL to the person sending the file.'  # TODO: get translated strings
+        print 'http://{0}/send\n\nGo to http://{0}/send/close/{1} to stop Onionshare'.format(onion_host, generated_close_key)
     print ''
     print translated("ctrlc_to_stop")
 
