@@ -103,7 +103,7 @@ def index(slug_candidate):
     return render_template_string(
         open('{0}/index.html'.format(onionshare_dir)).read(),
         slug=slug,
-        filename=os.path.basename(filename),
+        filename=os.path.basename(filename).decode("utf-8"),
         filehash=filehash,
         filesize=filesize,
         filesize_human=human_readable_filesize(filesize),
