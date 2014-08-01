@@ -172,4 +172,25 @@
     "close_on_finish": "Beende automatisch",
     "close_countdown": "Beende in {0} Sekunden...",
     "choose_file": "Wähle eine Datei zum teilen aus"
+},"tr": {
+    "punching_a_hole": "Güvenlik duvarında bir yol açılıyor.",
+    "closing_hole": "Güvenlik duvarındaki yol kapanıyor.",
+    "calculating_sha1": "SHA1 özeti hesaplanıyor.",
+    "connecting_ctrlport": "{0} portundaki gizli servis kurulumu için Tor kontrol portuna bağlanıyor.",
+    "cant_connect_ctrlport": "Tor kontrol {0} portuna bağlanamıyor. Tor çalışıyor mu?",
+    "give_this_url": "Dosyayı gönderdiğin kişiye bu URL'i verin:",
+    "ctrlc_to_stop":  "Sunucuyu durdurmak için, Ctrl-C basın",
+    "not_a_file": "{0} dosya değil.",
+    "filesize": "Dosya boyutu",
+    "sha1_checksum": "SHA1 özeti",
+    "copied_url": "Panoya kopyalanan URL",
+    "download_page_loaded": "İndirme sayfası yüklendi",
+    "download_started": "İndirme başladı",
+    "download_finished": "İndirme bitti",
+    "other_page_loaded": "Diğer sayfa yüklendi",
+    "tails_requires_root": "Tails'da OnionShare root olarak çalışır",
+    "close_on_finish": "Kendiliğinden kapan",
+    "close_countdown": "Kapanıyor {0} saniye...",
+    "choose_file": "Paylaşım için bir dosya seç",
+    "copy_url": "URL Kopyala"
 }}
