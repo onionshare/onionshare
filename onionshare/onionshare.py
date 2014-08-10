@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import os, sys, subprocess, time, hashlib, platform, json, locale, socket, argparse, Queue, inspect, base64
+import os, sys, subprocess, time, hashlib, platform, json, locale, socket, argparse, Queue, inspect, base64, mimetypes
 from random import randint
 from functools import wraps
 
@@ -166,6 +166,10 @@ def download(slug_candidate):
     r = Response(generate())
     r.headers.add('Content-Length', filesize)
     r.headers.add('Content-Disposition', 'attachment', filename=basename)
+    # guess content type
+    (content_type, _) = mimetypes.guess_type(basename, strict=False)
+    if content_type is not None:
+        r.headers.add('Content-Type', content_type)
     return r
 
 @app.errorhandler(404)
