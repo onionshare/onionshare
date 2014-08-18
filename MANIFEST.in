@@ -5,12 +5,6 @@ include version
 include onionshare/index.html
 include onionshare/404.html
 include onionshare/strings.json
-include onionshare_gui/onionshare-icon.png
-include onionshare_gui/templates/index.html
-include onionshare_gui/static/jquery-1.11.1.min.js
-include onionshare_gui/static/helpers.js
-include onionshare_gui/static/onionshare.js
-include onionshare_gui/static/style.css
 include onionshare_gui/static/loader.gif
 include onionshare_gui/static/logo.png
 include setup/onionshare.desktop

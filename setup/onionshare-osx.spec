@@ -8,14 +8,8 @@ a.datas += [
     ('onionshare/strings.json', 'onionshare/strings.json', 'DATA'),
     ('onionshare/index.html', 'onionshare/index.html', 'DATA'),
     ('onionshare/404.html', 'onionshare/404.html', 'DATA'),
-    ('onionshare_gui/onionshare-icon.png', 'onionshare_gui/onionshare-icon.png', 'DATA'),
-    ('onionshare_gui/static/jquery-1.11.1.min.js', 'onionshare_gui/static/jquery-1.11.1.min.js', 'DATA'),
-    ('onionshare_gui/static/helpers.js', 'onionshare_gui/static/helpers.js', 'DATA'),
-    ('onionshare_gui/static/onionshare.js', 'onionshare_gui/static/onionshare.js', 'DATA'),
-    ('onionshare_gui/static/style.css', 'onionshare_gui/static/style.css', 'DATA'),
     ('onionshare_gui/static/loader.gif', 'onionshare_gui/static/loader.gif', 'DATA'),
     ('onionshare_gui/static/logo.png', 'onionshare_gui/static/logo.png', 'DATA'),
-    ('onionshare_gui/templates/index.html', 'onionshare_gui/templates/index.html', 'DATA'),
 ]
 pyz = PYZ(a.pure)
 exe = EXE(pyz,

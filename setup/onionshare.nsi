@@ -5,8 +5,8 @@
 # change these with each release
 !define INSTALLSIZE 46124
 !define VERSIONMAJOR 0
-!define VERSIONMINOR 4
-!define VERSIONSTRING "0.4"
+!define VERSIONMINOR 5
+!define VERSIONSTRING "0.5dev"
 
 RequestExecutionLevel admin
 
@@ -59,18 +59,11 @@ Section "install"
     File "${BINPATH}\onionshare_gui\onionshare_gui.pyc"
     File "${BINPATH}\onionshare_gui\webapp.py"
     File "${BINPATH}\onionshare_gui\webapp.pyc"
-    File "${BINPATH}\onionshare_gui\onionshare-icon.png"
     File "${BINPATH}\onionshare_gui\__init__.py"
     File "${BINPATH}\onionshare_gui\__init__.pyc"
-    SetOutPath "$INSTDIR\onionshare_gui\templates"
-    File "${BINPATH}\onionshare_gui\templates\index.html"
     SetOutPath "$INSTDIR\onionshare_gui\static"
     File "${BINPATH}\onionshare_gui\static\logo.png"
-    File "${BINPATH}\onionshare_gui\static\jquery-1.11.1.min.js"
-    File "${BINPATH}\onionshare_gui\static\onionshare.js"
-    File "${BINPATH}\onionshare_gui\static\style.css"
     File "${BINPATH}\onionshare_gui\static\loader.gif"
-    File "${BINPATH}\onionshare_gui\static\helpers.js"
 
     # dependencies
     SetOutPath $INSTDIR
@@ -182,20 +175,13 @@ Section "uninstall"
     Delete "$INSTDIR\onionshare\strings.json"
     Delete "$INSTDIR\onionshare_gui\__init__.py"
     Delete "$INSTDIR\onionshare_gui\__init__.pyc"
-    Delete "$INSTDIR\onionshare_gui\templates"
-    Delete "$INSTDIR\onionshare_gui\templates\index.html"
     Delete "$INSTDIR\onionshare_gui\static"
     Delete "$INSTDIR\onionshare_gui\static\logo.png"
-    Delete "$INSTDIR\onionshare_gui\static\jquery-1.11.1.min.js"
-    Delete "$INSTDIR\onionshare_gui\static\onionshare.js"
-    Delete "$INSTDIR\onionshare_gui\static\style.css"
     Delete "$INSTDIR\onionshare_gui\static\loader.gif"
-    Delete "$INSTDIR\onionshare_gui\static\helpers.js"
     Delete "$INSTDIR\onionshare_gui\onionshare_gui.py"
     Delete "$INSTDIR\onionshare_gui\onionshare_gui.pyc"
     Delete "$INSTDIR\onionshare_gui\webapp.py"
     Delete "$INSTDIR\onionshare_gui\webapp.pyc"
-    Delete "$INSTDIR\onionshare_gui\onionshare-icon.png"
     Delete "$INSTDIR\qt4_plugins\accessible\qtaccessiblewidgets4.dll"
     Delete "$INSTDIR\qt4_plugins\graphicssystems\qglgraphicssystem4.dll"
     Delete "$INSTDIR\qt4_plugins\bearer\qnativewifibearer4.dll"
@@ -247,7 +233,6 @@ Section "uninstall"
     Delete "$INSTDIR\QtXml4.dll"
 
 	rmDir "$INSTDIR\onionshare"
-    rmDir "$INSTDIR\onionshare_gui\templates"
     rmDir "$INSTDIR\onionshare_gui\static"
     rmDir "$INSTDIR\onionshare_gui"
     rmDir "$INSTDIR\Include"
