@@ -16,7 +16,16 @@ def file_list(path):
             files.append(path+'/'+filename)
     return files
 
+def get_platform():
+    p = platform.system()
+    if p == 'Linux' and platform.uname()[0:2] == ('Linux', 'amnesia'):
+        p = 'Tails'
+    return p
+
 version = open('version').read().strip()
+packages = ['onionshare', 'onionshare_gui']
+if get_platform() == 'Tails':
+    packages.append('itsdangerous')
 
 setup(
     name='onionshare',
@@ -28,7 +37,7 @@ setup(
     url='https://github.com/micahflee/onionshare',
     license="GPL v3",
     keywords='onion, share, onionshare, tor, anonymous, web server',
-    packages=['onionshare', 'onionshare_gui'],
+    packages=packages,
     include_package_data=True,
     scripts=['bin/onionshare', 'bin/onionshare-gui'],
     data_files=[
