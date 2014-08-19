@@ -17,6 +17,8 @@ def file_list(path):
     return files
 
 packages = ['onionshare', 'onionshare_gui']
+
+sys.path.remove(os.getcwd())
 try:
     import itsdangerous
 except ImportError:
