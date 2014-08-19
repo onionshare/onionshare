@@ -16,16 +16,13 @@ def file_list(path):
             files.append(path+'/'+filename)
     return files
 
-def get_platform():
-    p = platform.system()
-    if p == 'Linux' and platform.uname()[0:2] == ('Linux', 'amnesia'):
-        p = 'Tails'
-    return p
+packages = ['onionshare', 'onionshare_gui']
+try:
+    import itsdangerous
+except ImportError:
+    packages.append('itsdangerous')
 
 version = open('version').read().strip()
-packages = ['onionshare', 'onionshare_gui']
-if get_platform() == 'Tails':
-    packages.append('itsdangerous')
 
 setup(
     name='onionshare',
