@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
-import os, sys, subprocess, time, hashlib, platform, json, locale, socket, argparse, Queue, inspect, base64, mimetypes
+import os, sys, subprocess, time, hashlib, platform, json, locale, socket, argparse, Queue, inspect, base64, mimetypes, hmac
 from random import randint
 from functools import wraps
+from itertools import izip
 
 from stem.control import Controller
 from stem import SocketError
@@ -14,6 +15,7 @@ def constant_time_compare(val1, val2):
     _builtin_constant_time_compare = getattr(hmac, 'compare_digest', None)
     if _builtin_constant_time_compare is not None:
         return _builtin_constant_time_compare(val1, val2)
+
     len_eq = len(val1) == len(val2)
     if len_eq:
         result = 0
