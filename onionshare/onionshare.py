@@ -169,7 +169,7 @@ def download(slug_candidate):
         # download is finished, close the server
         global stay_open
         if not stay_open:
-            print "Closing automatically because download finished"
+            print translated("closing_automatically")
             if shutdown_func is None:
                 raise RuntimeError('Not running with the Werkzeug Server')
             shutdown_func()
@@ -273,13 +273,13 @@ def tails_root():
     # if running in Tails and as root, do only the things that require root
     if get_platform() == 'Tails' and is_root():
         parser = argparse.ArgumentParser()
-        parser.add_argument('port', nargs=1, help='Tails only: port for opening firewall, starting hidden service')
+        parser.add_argument('port', nargs=1, help=translated("help_tails_port"))
         args = parser.parse_args()
 
         try:
             port = int(args.port[0])
         except ValueError:
-            sys.stderr.write('Invalid value, port must be an integer\n')
+            sys.stderr.write('{0}\n'.format(translated("error_tails_invalid_port")))
             sys.exit(-1)
 
         # open hole in firewall
@@ -308,10 +308,10 @@ def main():
 
     # parse arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument('--local-only', action='store_true', dest='local_only', help='Do not attempt to use tor: for development only')
-    parser.add_argument('--stay-open', action='store_true', dest='stay_open', help='Keep hidden service running after download has finished')
-    parser.add_argument('--debug', action='store_true', dest='debug', help='Log errors to disk')
-    parser.add_argument('filename', nargs=1, help='File to share')
+    parser.add_argument('--local-only', action='store_true', dest='local_only', help=translated("help_local_only"))
+    parser.add_argument('--stay-open', action='store_true', dest='stay_open', help=translated("help_stay_open"))
+    parser.add_argument('--debug', action='store_true', dest='debug', help=translated("help_debug"))
+    parser.add_argument('filename', nargs=1, help=translated("help_filename"))
     args = parser.parse_args()
 
     filename = os.path.abspath(args.filename[0])
@@ -343,7 +343,7 @@ def main():
             if root_p.poll() == -1:
                 sys.exit(root_p.stderr.read())
             else:
-                sys.exit('Unknown error with Tails root process')
+                sys.exit(translated("error_tails_unknown_root"))
     else:
         # if not tails, start hidden service normally
         if not local_only:

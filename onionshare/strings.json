@@ -16,7 +16,15 @@
     "close_on_finish": "Close automatically",
     "close_countdown": "Closing in {0} seconds...",
     "choose_file": "Choose a file to share",
-    "copy_url": "Copy URL"
+    "copy_url": "Copy URL",
+    "closing_automatically": "Closing automatically because download finished",
+    "error_tails_invalid_port": "Invalid value, port must be an integer",
+    "error_tails_unknown_root": "Unknown error with Tails root process",
+    "help_tails_port": "Tails only: port for opening firewall, starting hidden service",
+    "help_local_only": "Do not attempt to use tor: for development only",
+    "help_stay_open": "Keep hidden service running after download has finished",
+    "help_debug": "Log errors to disk",
+    "help_filename": "File to share"
 }, "no": {
     "calculating_sha1": "Kalkulerer SHA1 sjekksum.",
     "connecting_ctrlport": "Kobler til Tors kontroll-port for å sette opp en gjemt tjeneste på port {0}.",

@@ -315,10 +315,10 @@ def main():
 
     # parse arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument('--local-only', action='store_true', dest='local_only', help='Do not attempt to use tor: for development only')
-    parser.add_argument('--stay-open', action='store_true', dest='stay_open', help='Keep hidden service running after download has finished')
-    parser.add_argument('--debug', action='store_true', dest='debug', help='Log errors to disk')
-    parser.add_argument('filename', nargs='?', help='File to share')
+    parser.add_argument('--local-only', action='store_true', dest='local_only', help=translated("help_local_only"))
+    parser.add_argument('--stay-open', action='store_true', dest='stay_open', help=translated("help_stay_open"))
+    parser.add_argument('--debug', action='store_true', dest='debug', help=translated("help_debug"))
+    parser.add_argument('filename', nargs='?', help=translated("help_filename"))
     args = parser.parse_args()
 
     filename = args.filename
@@ -352,7 +352,7 @@ def main():
                 alert(root_p.stderr.read())
                 return
             else:
-                alert('Unknown error with Tails root process')
+                alert(translated("error_tails_unknown_root"))
                 return
     else:
         # if not tails, start hidden service normally
