@@ -17,7 +17,7 @@ from onionshare import translated
 app = None
 window_icon = None
 onion_host = None
-onionshare_port = None
+port = None
 progress = None
 
 # request types
@@ -152,7 +152,7 @@ class OnionShareGui(QtGui.QWidget):
         onionshare.filesize = filesize
 
         # start onionshare service in new thread
-        t = threading.Thread(target=onionshare.app.run, kwargs={'port': onionshare_port})
+        t = threading.Thread(target=onionshare.app.run, kwargs={'port': port})
         t.daemon = True
         t.start()
 
@@ -290,11 +290,7 @@ def alert(msg, icon=QtGui.QMessageBox.NoIcon):
 def select_file(strings, filename=None):
     # get filename, either from argument or file chooser dialog
     if not filename:
-        args = {}
-        if onionshare.get_platform() == 'Tails':
-            args['directory'] = '/home/amnesia'
-
-        filename = QtGui.QFileDialog.getOpenFileName(caption=translated('choose_file'), options=QtGui.QFileDialog.ReadOnly, **args)
+        filename = QtGui.QFileDialog.getOpenFileName(caption=translated('choose_file'), options=QtGui.QFileDialog.ReadOnly)
         if not filename:
             return False, False
 
@@ -310,17 +306,12 @@ def select_file(strings, filename=None):
     return filename, basename
 
 def main():
-    global onionshare_port
+    global port
     onionshare.strings = onionshare.load_strings()
 
     # start the Qt app
     global app
     app = Application()
-
-    # check for root in Tails
-    if onionshare.get_platform() == 'Tails' and not onionshare.is_root():
-        subprocess.call(['/usr/bin/gksudo']+sys.argv)
-        return
 
     # parse arguments
     parser = argparse.ArgumentParser()
@@ -335,6 +326,9 @@ def main():
     stay_open = bool(args.stay_open)
     debug = bool(args.debug)
 
+    if debug:
+        onionshare.debug_mode()
+
     onionshare.set_stay_open(stay_open)
 
     # create the onionshare icon
@@ -343,15 +337,31 @@ def main():
 
     # try starting hidden service
     global onion_host
-    onionshare_port = onionshare.choose_port()
-    local_host = "127.0.0.1:{0}".format(onionshare_port)
-    if not local_only:
-        try:
-            onion_host = onionshare.start_hidden_service(onionshare_port)
-        except onionshare.NoTor as e:
-            alert(e.args[0], QtGui.QMessageBox.Warning)
-            return
-    onionshare.tails_open_port(onionshare_port)
+    port = onionshare.choose_port()
+    local_host = "127.0.0.1:{0}".format(port)
+
+    if onionshare.get_platform() == 'Tails':
+        # if this is tails, start the root process
+        root_p = subprocess.Popen(['/usr/bin/gksudo', '-D', 'OnionShare', '--', '/usr/bin/onionshare', str(port)], stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+        stdout = root_p.stdout.read(22) # .onion URLs are 22 chars long
+
+        if stdout:
+            onion_host = stdout
+        else:
+            if root_p.poll() == -1:
+                alert(root_p.stderr.read())
+                return
+            else:
+                alert('Unknown error with Tails root process')
+                return
+    else:
+        # if not tails, start hidden service normally
+        if not local_only:
+            try:
+                onion_host = onionshare.start_hidden_service(port)
+            except onionshare.NoTor as e:
+                alert(e.args[0], QtGui.QMessageBox.Warning)
+                return
 
     # select file to share
     filename, basename = select_file(onionshare.strings, filename)
@@ -360,7 +370,7 @@ def main():
 
     # clean up when app quits
     def shutdown():
-        onionshare.tails_close_port(onionshare_port)
+        pass
     app.connect(app, QtCore.SIGNAL("aboutToQuit()"), shutdown)
 
     # launch the gui
