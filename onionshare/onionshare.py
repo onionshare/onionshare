@@ -190,16 +190,6 @@ def page_not_found(e):
 def is_root():
     return os.geteuid() == 0
 
-def tails_open_port(port):
-    if get_platform() == 'Tails':
-        print translated("punching_a_hole")
-        subprocess.call(['/sbin/iptables', '-I', 'OUTPUT', '-o', 'lo', '-p', 'tcp', '--dport', str(port), '-j', 'ACCEPT'])
-
-def tails_close_port(port):
-    if get_platform() == 'Tails':
-        print translated("closing_hole")
-        subprocess.call(['/sbin/iptables', '-D', 'OUTPUT', '-o', 'lo', '-p', 'tcp', '--dport', str(port), '-j', 'ACCEPT'])
-
 def load_strings(default="en"):
     global strings
     try:
@@ -277,12 +267,42 @@ def start_hidden_service(port):
 
     return onion_host
 
+def tails_root():
+    # if running in Tails and as root, do only the things that require root
+    if get_platform() == 'Tails' and is_root():
+        parser = argparse.ArgumentParser()
+        parser.add_argument('port', nargs=1, help='Tails only: port for opening firewall, starting hidden service')
+        args = parser.parse_args()
+
+        try:
+            port = int(args.port[0])
+        except ValueError:
+            sys.stderr.write('Invalid value, port must be an integer\n')
+            sys.exit(-1)
+
+        # open hole in firewall
+        subprocess.call(['/sbin/iptables', '-I', 'OUTPUT', '-o', 'lo', '-p', 'tcp', '--dport', str(port), '-j', 'ACCEPT'])
+
+        # start hidden service
+        onion_host = start_hidden_service(port)
+        sys.stdout.write(onion_host)
+        sys.stdout.flush()
+
+        # close hole in firewall on shutdown
+        import signal
+        def handler(signum = None, frame = None):
+            subprocess.call(['/sbin/iptables', '-D', 'OUTPUT', '-o', 'lo', '-p', 'tcp', '--dport', str(port), '-j', 'ACCEPT'])
+            sys.exit()
+        for sig in [signal.SIGTERM, signal.SIGINT, signal.SIGHUP, signal.SIGQUIT]:
+            signal.signal(sig, handler)
+
+        # stay open until killed
+        while True:
+            time.sleep(1)
+
 def main():
     load_strings()
-
-    # check for root in Tails
-    if get_platform() == 'Tails' and not is_root():
-        sys.exit(translated("tails_requires_root"))
+    tails_root()
 
     # parse arguments
     parser = argparse.ArgumentParser()
@@ -309,19 +329,33 @@ def main():
     port = choose_port()
     local_host = "127.0.0.1:{0}".format(port)
 
-    if not local_only:
-        # try starting hidden service
-        print translated("connecting_ctrlport").format(port)
-        try:
-            onion_host = start_hidden_service(port)
-        except NoTor as e:
-            sys.exit(e.args[0])
+    if get_platform() == 'Tails':
+        # if this is tails, start the root process
+        #root_p = subprocess.Popen(['/usr/bin/gksudo', '-D', 'OnionShare', '--', '/usr/bin/onionshare', str(port)], stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+        root_p = subprocess.Popen(['/usr/bin/sudo', '--', '/usr/bin/onionshare', str(port)], stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+        stdout = root_p.stdout.read(22) # .onion URLs are 22 chars long
+
+        if stdout:
+            onion_host = stdout
+        else:
+            if root_p.poll() == -1:
+                sys.exit(root_p.stderr.read())
+            else:
+                sys.exit('Unknown error with Tails root process')
+    else:
+        # if not tails, start hidden service normally
+        if not local_only:
+            # try starting hidden service
+            print translated("connecting_ctrlport").format(port)
+            try:
+                onion_host = start_hidden_service(port)
+            except NoTor as e:
+                sys.exit(e.args[0])
 
     # startup
     print translated("calculating_sha1")
     filehash, filesize = file_crunching(filename)
     set_file_info(filename, filehash, filesize)
-    tails_open_port(port)
     print '\n' + translated("give_this_url")
     if local_only:
         print 'http://{0}/{1}'.format(local_host, slug)
@@ -333,9 +367,6 @@ def main():
     # start the web server
     app.run(port=port)
     print '\n'
-
-    # shutdown
-    tails_close_port(port)
 
 if __name__ == '__main__':
     main()
