@@ -18,12 +18,6 @@ def file_list(path):
 
 packages = ['onionshare', 'onionshare_gui']
 
-sys.path.remove(os.getcwd())
-try:
-    import itsdangerous
-except ImportError:
-    packages.append('itsdangerous')
-
 version = open('version').read().strip()
 
 setup(

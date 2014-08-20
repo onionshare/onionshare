@@ -8,13 +8,22 @@ from stem import SocketError
 
 from flask import Flask, Markup, Response, request, make_response, send_from_directory, render_template_string, abort
 
-# Flask depends on itsdangerous, which needs constant time string comparison
-# for the HMAC values in secure cookies. Since we know itsdangerous is
-# available, we just use its function.
-from itsdangerous import constant_time_compare
+class NoTor(Exception): pass
 
-class NoTor(Exception):
-    pass
+def constant_time_compare(val1, val2):
+    _builtin_constant_time_compare = getattr(hmac, 'compare_digest', None)
+    if _builtin_constant_time_compare is not None:
+        return _builtin_constant_time_compare(val1, val2)
+    len_eq = len(val1) == len(val2)
+    if len_eq:
+        result = 0
+        left = val1
+    else:
+        result = 1
+        left = val2
+    for x, y in izip(bytearray(left), bytearray(val2)):
+        result |= x ^ y
+    return result == 0
 
 def random_string(num_bytes):
     b = os.urandom(num_bytes)
