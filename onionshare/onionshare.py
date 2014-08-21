@@ -208,8 +208,8 @@ def receive_file():
                 var.write(file_temp_loc.read())
             add_request(REQUEST_UPLOAD_DONE, request.path, {'filename': filename,
                                                             'hash': user_submitted_hash})
-            print "According to the submitter, the SHA1 hash for " + filename + "should be:\n\n" \
-                  + user_submitted_hash+"\n\nPlease verify this hash before opening the file."
+            print translated("submitted_filename") + filename + "\n\n" \
+                  + translated("submitted_sha1_checksum") + user_submitted_hash+"\n\nPlease verify this hash before opening the file."
         except Exception as e:
             print e
         return serve_send_index(True, user_submitted_hash)
@@ -226,8 +226,8 @@ def receive_file():
                 var.write(file_temp_loc.read())
             add_request(REQUEST_UPLOAD_DONE, request.path, {'filename': filename,
                                                             'hash': user_submitted_hash})
-            print "According to the submitter, the SHA1 hash for" + filename + " should be:\n\n" \
-                  + user_submitted_hash+"\n\nPlease verify this hash before opening the file."
+            print translated("submitted_filename") + filename + "\n\n" \
+                  + translated("submitted_sha1_checksum")+user_submitted_hash+"\n\nPlease verify this hash before opening the file."
         except Exception as e:
             print e
         return serve_send_index(True, user_submitted_hash)
@@ -448,7 +448,7 @@ def main():
         print '\n' + translated("give_this_url")
         print 'http://{0}/{1}'.format(onion_host, slug)
     else:
-        print '\nGive this URL to the person sending the file.'  # TODO: get translated strings
+        print '\n' + translated("give_this_upload_url")
         print 'http://{0}/send\n\nGo to http://{0}/send/close/{1} to stop Onionshare'.format(onion_host, generated_close_key)
     print ''
     print translated("ctrlc_to_stop")

@@ -178,7 +178,7 @@ class OnionShareGui(QtGui.QWidget):
         if not onionshare.onionshare.receive_allowed:
             loaded = QtGui.QLabel(translated("give_this_url") + "<br /><strong>" + url + "</strong>")
         else:
-            loaded = QtGui.QLabel("Give this URL to the person sending the file.<br /><strong>"+url+"</strong>")
+            loaded = QtGui.QLabel(translated("give_this_upload_url")+"<br /><strong>"+url+"</strong>")
         loaded.setStyleSheet("color: #000000; font-size: 14px; padding: 5px 10px; border-bottom: 1px solid #cccccc;")
         loaded.setTextInteractionFlags(QtCore.Qt.TextSelectableByMouse)
         self.log.addWidget(loaded)
@@ -190,7 +190,7 @@ class OnionShareGui(QtGui.QWidget):
             self.filesizeLabel.setText(translated("filesize") + ": <strong>" + onionshare.human_readable_filesize(filesize) + "</strong>")
             self.closeAutomatically.setText(translated("close_on_finish"))
         else:
-            self.closeAutomatically.setText("Only Accept One Upload")
+            self.closeAutomatically.setText(translated("accept_one_upload"))
         self.copyURL.setText(translated("copy_url"))
 
         # show dialog
@@ -217,8 +217,8 @@ class OnionShareGui(QtGui.QWidget):
         elif event["type"] == REQUEST_UPLOAD_DONE:
             filename = event["data"]["filename"]
             user_submitted_hash = event["data"]["hash"]
-            filename_label = QtGui.QLabel("The name of the file is: "+filename)
-            hash_label = QtGui.QLabel("The uploader submitted this SHA1 hash : "+user_submitted_hash)
+            filename_label = QtGui.QLabel(translated("submitted_filename")+filename)
+            hash_label = QtGui.QLabel(translated("submitted_sha1_checksum")+user_submitted_hash)
             self.log.addWidget(filename_label)
             self.log.addWidget(hash_label)
         elif event["path"] != '/favicon.ico':
@@ -229,7 +229,7 @@ class OnionShareGui(QtGui.QWidget):
         return
 
     def send_or_receive(self):
-        prompt = "Would you like to set Onionshare to receive files instead of send them?"
+        prompt = translated("start_receiver_mode")
         response = QtGui.QMessageBox.question(self, "Startup", prompt, QtGui.QMessageBox.Yes,
                                             QtGui.QMessageBox.No)
 
@@ -284,7 +284,7 @@ class OnionShareGui(QtGui.QWidget):
                 self.update_log(event, '')
             elif event["path"] != '/favicon.ico':
                 if event["path"] == '/send':
-                    self.update_log(event, "Upload page has been loaded")  #TODO load from strings.json
+                    self.update_log(event, translated("upload_page_loaded"))
                 else:
                     self.update_log(event, translated("other_page_loaded"))
 
