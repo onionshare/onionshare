@@ -1,0 +1,12 @@
+language: python
+python:
+  - "2.6"
+  - "2.7"
+  - "3.2"
+  - "3.3"
+# command to install dependencies
+before_install: "sudo apt-get install -y build-essential fakeroot python-all python-stdeb python-flask python-stem python-qt4"
+install: "pip install -r requirements.txt"
+# command to run tests
+script: nosetests test
+
