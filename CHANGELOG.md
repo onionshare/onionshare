@@ -1,5 +1,14 @@
 # OnionShare Changelog
 
+## 0.4
+
+* Fixed critical XSS bug that could deanonymize user
+  https://micahflee.com/2014/07/security-advisory-upgrade-to-onionshare-0-4-immediately/
+* Added CSP headers in GUI to prevent any future XSS bugs from working
+* Hash urandom data before using it, to avoid leaking state of entropy
+* Constant time compare the slug to avoid timing attacks
+* Cleaned up Tails firewall code
+
 ## 0.3
 
 * Built a simple, featureful cross-platform GUI
