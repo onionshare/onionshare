@@ -19,12 +19,14 @@ window_icon = None
 onion_host = None
 port = None
 progress = None
+gui = None
 
 # request types
 REQUEST_LOAD = 0
 REQUEST_DOWNLOAD = 1
-REQUEST_PROGRESS = 2
-REQUEST_OTHER = 3
+REQUEST_UPLOAD_DONE = 3
+REQUEST_UPLOAD = 4
+REQUEST_OTHER = 5
 
 class Application(QtGui.QApplication):
     def __init__(self):
@@ -34,10 +36,22 @@ class Application(QtGui.QApplication):
         QtGui.QApplication.__init__(self, sys.argv)
 
 class OnionShareGui(QtGui.QWidget):
-    def __init__(self, filename, basename):
+    def __init__(self):
         super(OnionShareGui, self).__init__()
         # initialize ui
-        self.init_ui(filename, basename)
+        # choose file or to receive
+        self.filename = None
+        self.save_dir = None
+        self.basename = None
+        self.send_or_receive()
+        if not onionshare.onionshare.receive_allowed:
+            self.filename, self.basename = select_file(onionshare.strings)
+        else:
+            self.save_dir = str(QtGui.QFileDialog.getExistingDirectory(self, "Select Directory"))
+            onionshare.onionshare.file_destination = self.save_dir
+        onionshare_target = self.filename or self.save_dir
+        basename = self.basename or "Receiver Mode"
+        self.init_ui(onionshare_target, basename)
         # check for requests every 1000ms
         self.timer = QtCore.QTimer()
         QtCore.QObject.connect(self.timer, QtCore.SIGNAL("timeout()"), self.check_for_requests)
@@ -145,11 +159,14 @@ class OnionShareGui(QtGui.QWidget):
         self.footer.addWidget(self.copyURL)
         self.wrapper.addLayout(self.footer)
 
-        url = 'http://{0}/{1}'.format(onion_host, onionshare.slug)
+        if not onionshare.onionshare.receive_allowed:
+            url = 'http://{0}/{1}'.format(onion_host, onionshare.slug)
+            filehash, filesize = onionshare.file_crunching(filename)
+            onionshare.set_file_info(filename, filehash, filesize)
+            onionshare.filesize = filesize
+        else:
+            url = 'http://{0}/send'.format(onion_host)
 
-        filehash, filesize = onionshare.file_crunching(filename)
-        onionshare.set_file_info(filename, filehash, filesize)
-        onionshare.filesize = filesize
 
         # start onionshare service in new thread
         t = threading.Thread(target=onionshare.app.run, kwargs={'port': port})
@@ -157,16 +174,22 @@ class OnionShareGui(QtGui.QWidget):
         t.start()
 
         # show url to share
-        loaded = QtGui.QLabel(translated("give_this_url") + "<br /><strong>" + url + "</strong>")
+        if not onionshare.onionshare.receive_allowed:
+            loaded = QtGui.QLabel(translated("give_this_url") + "<br /><strong>" + url + "</strong>")
+        else:
+            loaded = QtGui.QLabel(translated("give_this_upload_url")+"<br /><strong>"+url+"</strong>")
         loaded.setStyleSheet("color: #000000; font-size: 14px; padding: 5px 10px; border-bottom: 1px solid #cccccc;")
         loaded.setTextInteractionFlags(QtCore.Qt.TextSelectableByMouse)
         self.log.addWidget(loaded)
 
         # translate
-        self.filenameLabel.setText(basename)
-        self.checksumLabel.setText(translated("sha1_checksum") + ": <strong>" + filehash + "</strong>")
-        self.filesizeLabel.setText(translated("filesize") + ": <strong>" + onionshare.human_readable_filesize(filesize) + "</strong>")
-        self.closeAutomatically.setText(translated("close_on_finish"))
+        if not onionshare.onionshare.receive_allowed:
+            self.filenameLabel.setText(basename)
+            self.checksumLabel.setText(translated("sha1_checksum") + ": <strong>" + filehash + "</strong>")
+            self.filesizeLabel.setText(translated("filesize") + ": <strong>" + onionshare.human_readable_filesize(filesize) + "</strong>")
+            self.closeAutomatically.setText(translated("close_on_finish"))
+        else:
+            self.closeAutomatically.setText(translated("accept_one_upload"))
         self.copyURL.setText(translated("copy_url"))
 
         # show dialog
@@ -190,12 +213,27 @@ class OnionShareGui(QtGui.QWidget):
             self.log.addWidget(progress)
         elif event["type"] == REQUEST_PROGRESS:
             progress.setText(msg)
+        elif event["type"] == REQUEST_UPLOAD_DONE:
+            filename = event["data"]["filename"]
+            user_submitted_hash = event["data"]["hash"]
+            filename_label = QtGui.QLabel(translated("submitted_filename")+filename)
+            hash_label = QtGui.QLabel(translated("submitted_sha1_checksum")+user_submitted_hash)
+            self.log.addWidget(filename_label)
+            self.log.addWidget(hash_label)
         elif event["path"] != '/favicon.ico':
             other = QtGui.QLabel(msg)
             other.setStyleSheet("color: #009900; font-weight: bold; font-size: 14px; padding: 5px 10px; border-bottom: 1px solid #cccccc;")
             other.setTextInteractionFlags(QtCore.Qt.TextSelectableByMouse)
             self.log.addWidget(other)
         return
+
+    def send_or_receive(self):
+        prompt = translated("start_receiver_mode")
+        response = QtGui.QMessageBox.question(self, "Startup", prompt, QtGui.QMessageBox.Yes,
+                                            QtGui.QMessageBox.No)
+
+        if response == QtGui.QMessageBox.Yes:
+            onionshare.onionshare.receive_allowed = True
 
     def check_for_requests(self):
         events = []
@@ -241,13 +279,20 @@ class OnionShareGui(QtGui.QWidget):
                 else:
                     percent = math.floor((event["data"]["bytes"] / onionshare.filesize) * 100)
                     self.update_log(event, " " + onionshare.human_readable_filesize(event["data"]["bytes"]) + ', ' + str(percent) +'%')
-
+            elif event["type"] == REQUEST_UPLOAD_DONE:
+                self.update_log(event, '')
             elif event["path"] != '/favicon.ico':
-                self.update_log(event, translated("other_page_loaded"))
+                if event["path"] == '/send':
+                    self.update_log(event, translated("upload_page_loaded"))
+                else:
+                    self.update_log(event, translated("other_page_loaded"))
 
     def copy_to_clipboard(self):
         global onion_host
-        url = 'http://{0}/{1}'.format(onion_host, onionshare.slug)
+        if not onionshare.onionshare.receive_allowed:
+            url = 'http://{0}/{1}'.format(onion_host, onionshare.slug)
+        else:
+            url = 'http://{0}/send'.format(onion_host)
 
         if platform.system() == 'Windows':
             # Qt's QClipboard isn't working in Windows
@@ -318,7 +363,7 @@ def main():
     parser.add_argument('--local-only', action='store_true', dest='local_only', help=translated("help_local_only"))
     parser.add_argument('--stay-open', action='store_true', dest='stay_open', help=translated("help_stay_open"))
     parser.add_argument('--debug', action='store_true', dest='debug', help=translated("help_debug"))
-    parser.add_argument('filename', nargs='?', help=translated("help_filename"))
+    parser.add_argument('filename', nargs="?", help=translated("help_filename"))
     args = parser.parse_args()
 
     filename = args.filename
@@ -363,10 +408,6 @@ def main():
                 alert(e.args[0], QtGui.QMessageBox.Warning)
                 return
 
-    # select file to share
-    filename, basename = select_file(onionshare.strings, filename)
-    if not filename:
-        return
 
     # clean up when app quits
     def shutdown():
@@ -374,7 +415,8 @@ def main():
     app.connect(app, QtCore.SIGNAL("aboutToQuit()"), shutdown)
 
     # launch the gui
-    gui = OnionShareGui(filename, basename)
+    global gui
+    gui = OnionShareGui()
 
     # all done
     sys.exit(app.exec_())
