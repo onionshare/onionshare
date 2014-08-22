@@ -362,6 +362,8 @@ def main():
             except onionshare.NoTor as e:
                 alert(e.args[0], QtGui.QMessageBox.Warning)
                 return
+        else:
+            onion_host = local_host
 
     # select file to share
     filename, basename = select_file(onionshare.strings, filename)
