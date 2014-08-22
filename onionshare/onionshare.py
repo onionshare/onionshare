@@ -235,6 +235,7 @@ def receive_file():
 @app.route("/send")
 def serve_send_index(second_render=False, user_submitted_hash=''):
     global REQUEST_UPLOAD_DONE
+
     global onionshare_dir, stay_open
     if second_render and stay_open:
         return render_template_string(open('{0}/receive_mode.html'.format(onionshare_dir)).read(),
