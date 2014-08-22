@@ -106,7 +106,15 @@
     "close_on_finish": "Sluit automatisch",
     "close_countdown": "Sluit in {0} seconden...",
     "choose_file": "Kies betsand om te delen",
-    "copy_url": "Kopieer URL"
+    "copy_url": "Kopieer URL",
+    "closing_automatically": "Sluit nu automatisch omdat download gereed is",
+    "error_tails_invalid_port": "Ongeldige waarde, poort moet een integer zijn",
+    "error_tails_unknown_root": "Onbekende fout met het Tails root proces",
+    "help_tails_port": "Alleen Tails: poort voor het openen van firewall, starten verborgen service",
+    "help_local_only": "Maak geen gebruik van Tor, alleen voor ontwikkeling",
+    "help_stay_open": "Laat verborgen service draaien nadat download gereed is",
+    "help_debug": "Log fouten naar harde schrijf",
+    "help_filename": "Bestand om te delen"
 }, "pt": {
     "calculating_sha1": "Calculando checksum SHA1.",
     "connecting_ctrlport": "Conectando-se à porta de controle Tor para configurar serviço escondido na porta {0}.",
