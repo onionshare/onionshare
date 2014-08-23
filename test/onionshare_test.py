@@ -21,40 +21,6 @@ class MockSubprocess():
   def last_call_args(self):
       return self.last_call
 
-def test_tails_open_port():
-    "tails_open_port() calls iptables with ACCEPT arg"
-    onionshare.get_platform = lambda: 'Tails'
-    onionshare.strings = {'punching_a_hole': ''}
-
-    mock_subprocess = MockSubprocess()
-    onionshare.subprocess = mock_subprocess
-    onionshare.tails_open_port('port')
-
-    expected_call = [
-        '/sbin/iptables', '-I', 'OUTPUT',
-        '-o', 'lo', '-p',
-        'tcp', '--dport', 'port', '-j', 'ACCEPT'
-        ]
-    actual_call = mock_subprocess.last_call_args()
-    assert actual_call == expected_call
-
-def test_tails_close_port():
-    "tails_close_port() calls iptables with REJECT arg"
-    onionshare.get_platform = lambda: 'Tails'
-    onionshare.strings = {'closing_hole': ''}
-
-    mock_subprocess = MockSubprocess()
-    onionshare.subprocess = mock_subprocess
-    onionshare.tails_close_port('port')
-
-    expected_call = [
-        '/sbin/iptables', '-I', 'OUTPUT',
-        '-o', 'lo', '-p',
-        'tcp', '--dport', 'port', '-j', 'REJECT'
-        ]
-    actual_call = mock_subprocess.last_call_args()
-    assert actual_call == expected_call
-
 def test_load_strings_defaults_to_english():
     "load_strings() loads English by default"
     locale.getdefaultlocale = lambda: ('en_US', 'UTF-8')
