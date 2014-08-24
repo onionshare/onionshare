@@ -306,8 +306,9 @@ def tails_root():
 
 def register_cleanup_handler(directory):
     import signal
+    import shutil
     def handler(signum = None, frame = None):
-        subprocess.call(['rm','-r',directory])
+        shutil.rmtree(directory)
         sys.exit()
     for sig in [signal.SIGTERM, signal.SIGINT, signal.SIGHUP, signal.SIGQUIT]:
         signal.signal(sig, handler)
