@@ -1,13 +1,11 @@
 # -*- coding: utf-8 -*-
 import os, sys, subprocess, time, hashlib, platform, json, locale, socket, argparse, Queue, inspect, base64, mimetypes, hmac
-from random import randint
-from functools import wraps
 from itertools import izip
 
 from stem.control import Controller
 from stem import SocketError
 
-from flask import Flask, Markup, Response, request, make_response, send_from_directory, render_template_string, abort
+from flask import Flask, Response, request, render_template_string, abort
 
 class NoTor(Exception): pass
 
@@ -51,6 +49,9 @@ stay_open = False
 def set_stay_open(new_stay_open):
     global stay_open
     stay_open = new_stay_open
+
+def get_stay_open():
+    return stay_open
 
 app = Flask(__name__)
 

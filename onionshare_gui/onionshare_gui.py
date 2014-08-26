@@ -127,7 +127,7 @@ class OnionShareGui(QtGui.QWidget):
         # close automatically checkbox
         self.closeAutomatically = QtGui.QCheckBox(self.widget)
         self.closeAutomatically.setCheckState(QtCore.Qt.Checked)
-        if onionshare.stay_open:
+        if onionshare.get_stay_open():
             self.closeAutomatically.setCheckState(QtCore.Qt.Unchecked)
 
         self.closeAutomatically.setStyleSheet("font-size: 12px")
@@ -218,7 +218,7 @@ class OnionShareGui(QtGui.QWidget):
                 if event["data"]["bytes"] == onionshare.filesize:
                     self.update_log(event, translated("download_finished"))
                     # close on finish?
-                    if not onionshare.stay_open:
+                    if not onionshare.get_stay_open():
                         time.sleep(1)
                         def close_countdown(i):
                             if i > 0:
@@ -275,7 +275,8 @@ class OnionShareGui(QtGui.QWidget):
     def stay_open_changed(self, state):
         if state > 0:
             onionshare.set_stay_open(False)
-        onionshare.set_stay_open(True)
+        else:
+            onionshare.set_stay_open(True)
         return
 
 def alert(msg, icon=QtGui.QMessageBox.NoIcon):
@@ -326,10 +327,10 @@ def main():
     stay_open = bool(args.stay_open)
     debug = bool(args.debug)
 
+    onionshare.set_stay_open(stay_open)
+
     if debug:
         onionshare.debug_mode()
-
-    onionshare.set_stay_open(stay_open)
 
     # create the onionshare icon
     global window_icon, onionshare_gui_dir
@@ -362,6 +363,8 @@ def main():
             except onionshare.NoTor as e:
                 alert(e.args[0], QtGui.QMessageBox.Warning)
                 return
+        else:
+            onion_host = local_host
 
     # select file to share
     filename, basename = select_file(onionshare.strings, filename)
