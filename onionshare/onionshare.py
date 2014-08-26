@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import os, sys, subprocess, time, hashlib, platform, json, locale, socket, argparse, Queue, inspect, base64, mimetypes, hmac
+import os, sys, subprocess, time, hashlib, platform, json, locale, socket, argparse, Queue, inspect, base64, mimetypes, hmac, shutil
 from itertools import izip
 
 from stem.control import Controller
@@ -91,6 +91,22 @@ def add_request(type, path, data=None):
       'path': path,
       'data': data
     })
+
+cleanup_q = Queue.Queue()
+def register_cleanup_handler(directory):
+    global cleanup_q
+    def handler(signum = None, frame = None):
+        shutil.rmtree(directory)
+    cleanup_q.put(handler)
+
+def execute_cleanup_handlers():
+    global cleanup_q
+    try:
+        while True:
+            handler = cleanup_q.get(False)
+            handler()
+    except Queue.Empty:
+        pass
 
 def human_readable_filesize(b):
     thresh = 1024.0
@@ -305,16 +321,6 @@ def tails_root():
         while True:
             time.sleep(1)
 
-def register_cleanup_handler(directory):
-    import signal
-    import shutil
-    def handler(signum = None, frame = None):
-        shutil.rmtree(directory)
-        sys.exit()
-    for sig in [signal.SIGTERM, signal.SIGINT, signal.SIGHUP, signal.SIGQUIT]:
-        signal.signal(sig, handler)
-
-
 def main():
     load_strings()
     tails_root()
@@ -382,6 +388,9 @@ def main():
     # start the web server
     app.run(port=port)
     print '\n'
+
+    # shutdown
+    execute_cleanup_handlers()
 
 if __name__ == '__main__':
     main()

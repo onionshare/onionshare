@@ -373,7 +373,7 @@ def main():
 
     # clean up when app quits
     def shutdown():
-        pass
+        onionshare.execute_cleanup_handlers()
     app.connect(app, QtCore.SIGNAL("aboutToQuit()"), shutdown)
 
     # launch the gui
