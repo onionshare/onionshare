@@ -246,6 +246,8 @@ def start_hidden_service(port):
     else:
         hidserv_dir = "/tmp/onionshare_{0}".format(hidserv_dir_rand)
 
+    register_cleanup_handler(hidserv_dir)
+
     # connect to the tor controlport
     controlports = [9051, 9151]
     controller = False
@@ -302,6 +304,16 @@ def tails_root():
         # stay open until killed
         while True:
             time.sleep(1)
+
+def register_cleanup_handler(directory):
+    import signal
+    import shutil
+    def handler(signum = None, frame = None):
+        shutil.rmtree(directory)
+        sys.exit()
+    for sig in [signal.SIGTERM, signal.SIGINT, signal.SIGHUP, signal.SIGQUIT]:
+        signal.signal(sig, handler)
+
 
 def main():
     load_strings()
