@@ -52,6 +52,9 @@ def set_stay_open(new_stay_open):
     global stay_open
     stay_open = new_stay_open
 
+def get_stay_open():
+    return stay_open
+
 app = Flask(__name__)
 
 def debug_mode():
