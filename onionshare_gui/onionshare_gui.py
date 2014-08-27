@@ -14,6 +14,7 @@ from onionshare import strings, helpers, web
 from file_selection import FileSelection
 from server_status import ServerStatus
 from downloads import Downloads
+from options import Options
 
 class Application(QtGui.QApplication):
     def __init__(self):
@@ -44,11 +45,15 @@ class OnionShareGui(QtGui.QWidget):
         # downloads
         downloads = Downloads()
 
+        # options
+        options = Options()
+
         # main layout
         self.layout = QtGui.QVBoxLayout()
         self.layout.addLayout(file_selection)
         self.layout.addLayout(server_status)
         self.layout.addLayout(downloads)
+        self.layout.addLayout(options)
         self.setLayout(self.layout)
         self.show()
 
