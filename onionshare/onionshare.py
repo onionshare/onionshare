@@ -352,7 +352,6 @@ def main():
 
     if get_platform() == 'Tails':
         # if this is tails, start the root process
-        #root_p = subprocess.Popen(['/usr/bin/gksudo', '-D', 'OnionShare', '--', '/usr/bin/onionshare', str(port)], stderr=subprocess.PIPE, stdout=subprocess.PIPE)
         root_p = subprocess.Popen(['/usr/bin/sudo', '--', '/usr/bin/onionshare', str(port)], stderr=subprocess.PIPE, stdout=subprocess.PIPE)
         stdout = root_p.stdout.read(22) # .onion URLs are 22 chars long
 
