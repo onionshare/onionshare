@@ -34,7 +34,8 @@
     "gui_choose_folder": "Choose folder",
     "gui_start_server": "Start Server",
     "gui_stop_server": "Stop Server",
-    "gui_copy_url": "Copy URL"
+    "gui_copy_url": "Copy URL",
+    "gui_downloads": "Downloads:"
 }, "no": {
     "calculating_sha1": "Kalkulerer SHA1 sjekksum.",
     "connecting_ctrlport": "Kobler til Tors kontroll-port for å sette opp en gjemt tjeneste på port {0}.",
