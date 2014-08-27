@@ -39,10 +39,14 @@ class OnionShare(object):
         self.port = tmpsock.getsockname()[1]
         tmpsock.close()
 
-    def start_hidden_service(self):
+    def start_hidden_service(self, gui=False):
         if helpers.get_platform() == 'Tails':
             # in Tails, start the hidden service in a root process
-            p = subprocess.Popen(['/usr/bin/sudo', '--', '/usr/bin/onionshare', str(app.port)], stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+            if gui:
+                args = ['/usr/bin/gksudo', '-D', 'OnionShare', '--', '/usr/bin/onionshare']
+            else:
+                args = ['/usr/bin/sudo', '--', '/usr/bin/onionshare']
+            p = subprocess.Popen(args+[str(app.port)], stderr=subprocess.PIPE, stdout=subprocess.PIPE)
             stdout = p.stdout.read(22) # .onion URLs are 22 chars long
 
             if stdout:

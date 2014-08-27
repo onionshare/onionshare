@@ -1,41 +1,33 @@
 from __future__ import division
-import os, sys, subprocess, inspect, platform, argparse, threading, time, math
+import os, sys, subprocess, inspect, platform, argparse, threading, time, math, inspect, platform
 from PyQt4 import QtCore, QtGui
 
-if platform.system() == 'Darwin':
-    onionshare_gui_dir = os.path.dirname(__file__)
-else:
-    onionshare_gui_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+def get_onionshare_gui_dir():
+    if platform.system() == 'Darwin':
+        onionshare_gui_dir = os.path.dirname(__file__)
+    else:
+        onionshare_gui_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+    return onionshare_gui_dir
 
 try:
     import onionshare
 except ImportError:
-    sys.path.append(os.path.abspath(onionshare_gui_dir+"/.."))
+    sys.path.append(os.path.abspath(__file__+"/.."))
     import onionshare
-from onionshare import translated
-
-app = None
-window_icon = None
-onion_host = None
-port = None
-progress = None
-
-# request types
-REQUEST_LOAD = 0
-REQUEST_DOWNLOAD = 1
-REQUEST_PROGRESS = 2
-REQUEST_OTHER = 3
+from onionshare import strings, helpers, web
 
 class Application(QtGui.QApplication):
     def __init__(self):
-        platform = onionshare.get_platform()
+        platform = helpers.get_platform()
         if platform == 'Tails' or platform == 'Linux':
             self.setAttribute(QtCore.Qt.AA_X11InitThreads, True)
         QtGui.QApplication.__init__(self, sys.argv)
 
 class OnionShareGui(QtGui.QWidget):
-    def __init__(self, filename, basename):
+    def __init__(self, app, filename, basename):
         super(OnionShareGui, self).__init__()
+        self.app = app
+
         # initialize ui
         self.init_ui(filename, basename)
         # check for requests every 1000ms
@@ -72,7 +64,7 @@ class OnionShareGui(QtGui.QWidget):
 
         # logo
         self.logoLabel = QtGui.QLabel(self.widget)
-        self.logo = QtGui.QPixmap("{0}/static/logo.png".format(onionshare_gui_dir))
+        self.logo = QtGui.QPixmap("{0}/static/logo.png".format(get_onionshare_gui_dir()))
         self.logoLabel.setPixmap(self.logo)
         self.header.addWidget(self.logoLabel)
 
@@ -127,7 +119,7 @@ class OnionShareGui(QtGui.QWidget):
         # close automatically checkbox
         self.closeAutomatically = QtGui.QCheckBox(self.widget)
         self.closeAutomatically.setCheckState(QtCore.Qt.Checked)
-        if onionshare.get_stay_open():
+        if web.get_stay_open():
             self.closeAutomatically.setCheckState(QtCore.Qt.Unchecked)
 
         self.closeAutomatically.setStyleSheet("font-size: 12px")
@@ -145,41 +137,40 @@ class OnionShareGui(QtGui.QWidget):
         self.footer.addWidget(self.copyURL)
         self.wrapper.addLayout(self.footer)
 
-        url = 'http://{0}/{1}'.format(onion_host, onionshare.slug)
+        url = 'http://{0}/{1}'.format(self.app.onion_host, web.slug)
 
-        filehash, filesize = onionshare.file_crunching(filename)
-        onionshare.set_file_info(filename, filehash, filesize)
-        onionshare.filesize = filesize
+        filehash, filesize = helpers.file_crunching(filename)
+        web.set_file_info(filename, filehash, filesize)
 
         # start onionshare service in new thread
-        t = threading.Thread(target=onionshare.app.run, kwargs={'port': port})
+        t = threading.Thread(target=web.start, args=(self.app.port, self.app.stay_open))
         t.daemon = True
         t.start()
 
         # show url to share
-        loaded = QtGui.QLabel(translated("give_this_url") + "<br /><strong>" + url + "</strong>")
+        loaded = QtGui.QLabel(strings._("give_this_url") + "<br /><strong>" + url + "</strong>")
         loaded.setStyleSheet("color: #000000; font-size: 14px; padding: 5px 10px; border-bottom: 1px solid #cccccc;")
         loaded.setTextInteractionFlags(QtCore.Qt.TextSelectableByMouse)
         self.log.addWidget(loaded)
 
         # translate
         self.filenameLabel.setText(basename)
-        self.checksumLabel.setText(translated("sha1_checksum") + ": <strong>" + filehash + "</strong>")
-        self.filesizeLabel.setText(translated("filesize") + ": <strong>" + onionshare.human_readable_filesize(filesize) + "</strong>")
-        self.closeAutomatically.setText(translated("close_on_finish"))
-        self.copyURL.setText(translated("copy_url"))
+        self.checksumLabel.setText(strings._("sha1_checksum") + ": <strong>" + filehash + "</strong>")
+        self.filesizeLabel.setText(strings._("filesize") + ": <strong>" + helpers.human_readable_filesize(filesize) + "</strong>")
+        self.closeAutomatically.setText(strings._("close_on_finish"))
+        self.copyURL.setText(strings._("copy_url"))
 
         # show dialog
         self.show()
 
     def update_log(self, event, msg):
         global progress
-        if event["type"] == REQUEST_LOAD:
+        if event["type"] == web.REQUEST_LOAD:
             label = QtGui.QLabel(msg)
             label.setStyleSheet("color: #009900; font-weight: bold; font-size: 14px; padding: 5px 10px; border-bottom: 1px solid #cccccc;")
             label.setTextInteractionFlags(QtCore.Qt.TextSelectableByMouse)
             self.log.addWidget(label)
-        elif event["type"] == REQUEST_DOWNLOAD:
+        elif event["type"] == web.REQUEST_DOWNLOAD:
             download = QtGui.QLabel(msg)
             download.setStyleSheet("color: #009900; font-weight: bold; font-size: 14px; padding: 5px 10px; border-bottom: 1px solid #cccccc;")
             download.setTextInteractionFlags(QtCore.Qt.TextSelectableByMouse)
@@ -188,7 +179,7 @@ class OnionShareGui(QtGui.QWidget):
             progress.setStyleSheet("color: #0000cc; font-weight: bold; font-size: 14px; padding: 5px 10px; border-bottom: 1px solid #cccccc;")
             progress.setTextInteractionFlags(QtCore.Qt.TextSelectableByMouse)
             self.log.addWidget(progress)
-        elif event["type"] == REQUEST_PROGRESS:
+        elif event["type"] == web.REQUEST_PROGRESS:
             progress.setText(msg)
         elif event["path"] != '/favicon.ico':
             other = QtGui.QLabel(msg)
@@ -203,22 +194,22 @@ class OnionShareGui(QtGui.QWidget):
         done = False
         while not done:
             try:
-                r = onionshare.q.get(False)
+                r = web.q.get(False)
                 events.append(r)
-            except onionshare.Queue.Empty:
+            except web.Queue.Empty:
                 done = True
 
         for event in events:
-            if event["type"] == REQUEST_LOAD:
-                self.update_log(event, translated("download_page_loaded"))
-            elif event["type"] == REQUEST_DOWNLOAD:
-                self.update_log(event, translated("download_started"))
-            elif event["type"] == REQUEST_PROGRESS:
+            if event["type"] == web.REQUEST_LOAD:
+                self.update_log(event, strings._("download_page_loaded"))
+            elif event["type"] == web.REQUEST_DOWNLOAD:
+                self.update_log(event, strings._("download_started"))
+            elif event["type"] == web.REQUEST_PROGRESS:
                 # is the download complete?
-                if event["data"]["bytes"] == onionshare.filesize:
-                    self.update_log(event, translated("download_finished"))
+                if event["data"]["bytes"] == web.filesize:
+                    self.update_log(event, strings._("download_finished"))
                     # close on finish?
-                    if not onionshare.get_stay_open():
+                    if not web.get_stay_open():
                         time.sleep(1)
                         def close_countdown(i):
                             if i > 0:
@@ -226,28 +217,27 @@ class OnionShareGui(QtGui.QWidget):
                             else:
                                 time.sleep(1)
                                 i -= 1
-                                closing.setText(translated("close_countdown").format(str(i)))
-                                print translated("close_countdown").format(str(i))
+                                closing.setText(strings._("close_countdown").format(str(i)))
+                                print strings._("close_countdown").format(str(i))
                                 close_countdown(i)
 
                         closing = QtGui.QLabel(self.widget)
                         closing.setStyleSheet("font-weight: bold; font-style: italic; font-size: 14px; padding: 5px 10px; border-bottom: 1px solid #cccccc;")
-                        closing.setText(translated("close_countdown").format("3"))
+                        closing.setText(strings._("close_countdown").format("3"))
                         closing.setTextInteractionFlags(QtCore.Qt.TextSelectableByMouse)
                         self.log.addWidget(closing)
                         close_countdown(3)
 
                 # still in progress
                 else:
-                    percent = math.floor((event["data"]["bytes"] / onionshare.filesize) * 100)
-                    self.update_log(event, " " + onionshare.human_readable_filesize(event["data"]["bytes"]) + ', ' + str(percent) +'%')
+                    percent = math.floor((event["data"]["bytes"] / web.filesize) * 100)
+                    self.update_log(event, " " + helpers.human_readable_filesize(event["data"]["bytes"]) + ', ' + str(percent) +'%')
 
             elif event["path"] != '/favicon.ico':
-                self.update_log(event, translated("other_page_loaded"))
+                self.update_log(event, strings._("other_page_loaded"))
 
     def copy_to_clipboard(self):
-        global onion_host
-        url = 'http://{0}/{1}'.format(onion_host, onionshare.slug)
+        url = 'http://{0}/{1}'.format(self.app.onion_host, web.slug)
 
         if platform.system() == 'Windows':
             # Qt's QClipboard isn't working in Windows
@@ -263,10 +253,10 @@ class OnionShareGui(QtGui.QWidget):
             ctypes.windll.user32.SetClipboardData(1, hcd)
             ctypes.windll.user32.CloseClipboard()
         else:
-            clipboard = app.clipboard()
+            clipboard = qtapp.clipboard()
             clipboard.setText(url)
 
-        copied = QtGui.QLabel(translated("copied_url"))
+        copied = QtGui.QLabel(strings._("copied_url"))
         copied.setStyleSheet("font-size: 14px; padding: 5px 10px; border-bottom: 1px solid #cccccc;")
         copied.setTextInteractionFlags(QtCore.Qt.TextSelectableByMouse)
         self.log.addWidget(copied)
@@ -274,13 +264,12 @@ class OnionShareGui(QtGui.QWidget):
 
     def stay_open_changed(self, state):
         if state > 0:
-            onionshare.set_stay_open(False)
+            web.set_stay_open(False)
         else:
-            onionshare.set_stay_open(True)
+            web.set_stay_open(True)
         return
 
 def alert(msg, icon=QtGui.QMessageBox.NoIcon):
-    global window_icon
     dialog = QtGui.QMessageBox()
     dialog.setWindowTitle("OnionShare")
     dialog.setWindowIcon(window_icon)
@@ -288,10 +277,10 @@ def alert(msg, icon=QtGui.QMessageBox.NoIcon):
     dialog.setIcon(icon)
     dialog.exec_()
 
-def select_file(strings, filename=None):
+def select_file(filename=None):
     # get filename, either from argument or file chooser dialog
     if not filename:
-        filename = QtGui.QFileDialog.getOpenFileName(caption=translated('choose_file'), options=QtGui.QFileDialog.ReadOnly)
+        filename = QtGui.QFileDialog.getOpenFileName(caption=strings._('choose_file'), options=QtGui.QFileDialog.ReadOnly)
         if not filename:
             return False, False
 
@@ -299,7 +288,7 @@ def select_file(strings, filename=None):
 
     # validate filename
     if not os.path.isfile(filename):
-        alert(translated("not_a_file").format(filename), QtGui.QMessageBox.Warning)
+        alert(strings._("not_a_file").format(filename), QtGui.QMessageBox.Warning)
         return False, False
 
     filename = os.path.abspath(filename)
@@ -307,19 +296,18 @@ def select_file(strings, filename=None):
     return filename, basename
 
 def main():
-    global port
-    onionshare.strings = onionshare.load_strings()
+    strings.load_strings()
 
     # start the Qt app
-    global app
-    app = Application()
+    global qtapp
+    qtapp = Application()
 
     # parse arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument('--local-only', action='store_true', dest='local_only', help=translated("help_local_only"))
-    parser.add_argument('--stay-open', action='store_true', dest='stay_open', help=translated("help_stay_open"))
-    parser.add_argument('--debug', action='store_true', dest='debug', help=translated("help_debug"))
-    parser.add_argument('filename', nargs='?', help=translated("help_filename"))
+    parser.add_argument('--local-only', action='store_true', dest='local_only', help=strings._("help_local_only"))
+    parser.add_argument('--stay-open', action='store_true', dest='stay_open', help=strings._("help_stay_open"))
+    parser.add_argument('--debug', action='store_true', dest='debug', help=strings._("help_debug"))
+    parser.add_argument('filename', nargs='?', help=strings._("help_filename"))
     args = parser.parse_args()
 
     filename = args.filename
@@ -327,60 +315,38 @@ def main():
     stay_open = bool(args.stay_open)
     debug = bool(args.debug)
 
-    onionshare.set_stay_open(stay_open)
-
-    if debug:
-        onionshare.debug_mode()
+    web.set_stay_open(stay_open)
 
     # create the onionshare icon
-    global window_icon, onionshare_gui_dir
-    window_icon = QtGui.QIcon("{0}/static/logo.png".format(onionshare_gui_dir))
+    global window_icon
+    window_icon = QtGui.QIcon("{0}/static/logo.png".format(get_onionshare_gui_dir()))
 
-    # try starting hidden service
-    global onion_host
-    port = onionshare.choose_port()
-    local_host = "127.0.0.1:{0}".format(port)
-
-    if onionshare.get_platform() == 'Tails':
-        # if this is tails, start the root process
-        root_p = subprocess.Popen(['/usr/bin/gksudo', '-D', 'OnionShare', '--', '/usr/bin/onionshare', str(port)], stderr=subprocess.PIPE, stdout=subprocess.PIPE)
-        stdout = root_p.stdout.read(22) # .onion URLs are 22 chars long
-
-        if stdout:
-            onion_host = stdout
-        else:
-            if root_p.poll() == -1:
-                alert(root_p.stderr.read())
-                return
-            else:
-                alert(translated("error_tails_unknown_root"))
-                return
-    else:
-        # if not tails, start hidden service normally
-        if not local_only:
-            try:
-                onion_host = onionshare.start_hidden_service(port)
-            except onionshare.NoTor as e:
-                alert(e.args[0], QtGui.QMessageBox.Warning)
-                return
-        else:
-            onion_host = local_host
+    # start the onionshare app
+    try:
+        app = onionshare.OnionShare(debug, local_only, stay_open)
+        app.start_hidden_service(gui=True)
+    except onionshare.NoTor as e:
+        alert(e.args[0], QtGui.QMessageBox.Warning)
+        sys.exit()
+    except onionshare.TailsError as e:
+        alert(e.args[0], QtGui.QMessageBox.Warning)
+        sys.exit()
 
     # select file to share
-    filename, basename = select_file(onionshare.strings, filename)
+    filename, basename = select_file(filename)
     if not filename:
         return
 
     # clean up when app quits
     def shutdown():
-        onionshare.execute_cleanup_handlers()
-    app.connect(app, QtCore.SIGNAL("aboutToQuit()"), shutdown)
+        app.cleanup()
+    qtapp.connect(qtapp, QtCore.SIGNAL("aboutToQuit()"), shutdown)
 
     # launch the gui
-    gui = OnionShareGui(filename, basename)
+    gui = OnionShareGui(app, filename, basename)
 
     # all done
-    sys.exit(app.exec_())
+    sys.exit(qtapp.exec_())
 
 if __name__ == '__main__':
     main()
