@@ -18,7 +18,6 @@
     "close_on_finish": "Close automatically",
     "close_countdown": "Closing in {0} seconds...",
     "choose_file": "Choose a file to share",
-    "copy_url": "Copy URL",
     "closing_automatically": "Closing automatically because download finished",
     "error_tails_invalid_port": "Invalid value, port must be an integer",
     "error_tails_unknown_root": "Unknown error with Tails root process",
@@ -32,7 +31,10 @@
     "gui_add_folder": "Add Folder",
     "gui_delete": "Delete",
     "gui_choose_files": "Choose files",
-    "gui_choose_folder": "Choose folder"
+    "gui_choose_folder": "Choose folder",
+    "gui_start_server": "Start Server",
+    "gui_stop_server": "Stop Server",
+    "gui_copy_url": "Copy URL"
 }, "no": {
     "calculating_sha1": "Kalkulerer SHA1 sjekksum.",
     "connecting_ctrlport": "Kobler til Tors kontroll-port for å sette opp en gjemt tjeneste på port {0}.",
@@ -114,7 +116,7 @@
     "close_on_finish": "Sluit automatisch",
     "close_countdown": "Sluit in {0} seconden...",
     "choose_file": "Kies betsand om te delen",
-    "copy_url": "Kopieer URL",
+    "gui_copy_url": "Kopieer URL",
     "closing_automatically": "Sluit nu automatisch omdat download gereed is",
     "error_tails_invalid_port": "Ongeldige waarde, poort moet een integer zijn",
     "error_tails_unknown_root": "Onbekende fout met het Tails root proces",
@@ -159,7 +161,7 @@
     "close_on_finish": "Закрыть автоматически",
     "close_countdown": "Закроется через {0} секунд...",
     "choose_file": "Выберите файл",
-    "copy_url": "Скопировать ссылку"
+    "gui_copy_url": "Скопировать ссылку"
 }, "de": {
     "calculating_sha1": "Kalkuliere SHA1 Checksumme.",
     "connecting_ctrlport": "Verbinde zum Tor-Kontrollport um den versteckten Dienst auf Port {0} laufen zu lassen.",
@@ -198,5 +200,5 @@
     "close_on_finish": "Kendiliğinden kapan",
     "close_countdown": "Kapanıyor {0} saniye...",
     "choose_file": "Paylaşım için bir dosya seç",
-    "copy_url": "URL Kopyala"
+    "gui_copy_url": "URL Kopyala"
 }}

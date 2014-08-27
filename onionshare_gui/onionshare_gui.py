@@ -12,6 +12,7 @@ except ImportError:
 from onionshare import strings, helpers, web
 
 from file_selection import FileSelection
+from server_status import ServerStatus
 
 class Application(QtGui.QApplication):
     def __init__(self):
@@ -36,9 +37,13 @@ class OnionShareGui(QtGui.QWidget):
             for filename in self.filenames:
                 file_selection.file_list.add_file(filename)
 
+        # server status
+        server_status = ServerStatus()
+
         # main layout
         self.layout = QtGui.QVBoxLayout()
         self.layout.addLayout(file_selection)
+        self.layout.addLayout(server_status)
         self.setLayout(self.layout)
         self.show()
 
