@@ -8,8 +8,7 @@ a.datas += [
     ('onionshare/strings.json', 'onionshare/strings.json', 'DATA'),
     ('onionshare/index.html', 'onionshare/index.html', 'DATA'),
     ('onionshare/404.html', 'onionshare/404.html', 'DATA'),
-    ('onionshare_gui/static/loader.gif', 'onionshare_gui/static/loader.gif', 'DATA'),
-    ('onionshare_gui/static/logo.png', 'onionshare_gui/static/logo.png', 'DATA'),
+    ('onionshare_gui/logo.png', 'onionshare_gui/logo.png', 'DATA'),
 ]
 pyz = PYZ(a.pure)
 exe = EXE(pyz,
