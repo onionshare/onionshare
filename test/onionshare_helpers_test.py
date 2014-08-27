@@ -13,23 +13,3 @@ def test_get_platform_returns_platform_system():
     helpers.platform.system = lambda: 'Sega Saturn'
     assert helpers.get_platform() == 'Sega Saturn'
 
-def test_filehash_returns_correct_hash():
-    "file_crunching() returns correct hash"
-
-    text = """
-           If you want a picture of the future, imagine a boot stamping on an
-           encrypted, redundant, distributed filesystem -- forever.
-           """
-    tempfile = test_helpers.write_tempfile(text)
-    filehash, _ = helpers.file_crunching(tempfile)
-
-    assert filehash == 'bc004fe72e6530a545570b4c6ce76bcb78ea526b'
-
-def test_filehash_returns_correct_size():
-    "file_crunching() returns correct size"
-
-    text = "AUSCANNZUKUS has always been at war with Eastasia."
-    tempfile = test_helpers.write_tempfile(text)
-    _, filesize = helpers.file_crunching(tempfile)
-
-    assert filesize == 50
