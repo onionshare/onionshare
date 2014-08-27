@@ -9,6 +9,7 @@ a.datas += [
     ('onionshare/index.html', 'onionshare/index.html', 'DATA'),
     ('onionshare/404.html', 'onionshare/404.html', 'DATA'),
     ('onionshare_gui/logo.png', 'onionshare_gui/logo.png', 'DATA'),
+    ('onionshare_gui/drop_files.png', 'onionshare_gui/drop_files.png', 'DATA'),
 ]
 pyz = PYZ(a.pure)
 exe = EXE(pyz,

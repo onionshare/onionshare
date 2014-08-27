@@ -59,6 +59,7 @@ Section "install"
     File "${BINPATH}\onionshare_gui\__init__.py"
     File "${BINPATH}\onionshare_gui\__init__.pyc"
     File "${BINPATH}\onionshare_gui\logo.png"
+    File "${BINPATH}\onionshare_gui\drop_files.png"
 
     # dependencies
     SetOutPath $INSTDIR
@@ -162,6 +163,7 @@ Section "uninstall"
     Delete "$INSTDIR\onionshare_gui\__init__.py"
     Delete "$INSTDIR\onionshare_gui\__init__.pyc"
     Delete "$INSTDIR\onionshare_gui\logo.png"
+    Delete "$INSTDIR\onionshare_gui\drop_files.png"
     Delete "$INSTDIR\onionshare_gui\onionshare_gui.py"
     Delete "$INSTDIR\onionshare_gui\onionshare_gui.pyc"
     Delete "$INSTDIR\qt4_plugins\accessible\qtaccessiblewidgets4.dll"

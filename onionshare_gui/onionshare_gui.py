@@ -2,19 +2,16 @@ from __future__ import division
 import os, sys, subprocess, inspect, platform, argparse, threading, time, math, inspect, platform
 from PyQt4 import QtCore, QtGui
 
-def get_onionshare_gui_dir():
-    if platform.system() == 'Darwin':
-        onionshare_gui_dir = os.path.dirname(__file__)
-    else:
-        onionshare_gui_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
-    return onionshare_gui_dir
+import common
 
 try:
     import onionshare
 except ImportError:
-    sys.path.append(os.path.abspath(__file__+"/.."))
+    sys.path.append(os.path.abspath(common.onionshare_gui_dir+"/.."))
     import onionshare
 from onionshare import strings, helpers, web
+
+from file_selection import FileSelection
 
 class Application(QtGui.QApplication):
     def __init__(self):
@@ -24,10 +21,28 @@ class Application(QtGui.QApplication):
         QtGui.QApplication.__init__(self, sys.argv)
 
 class OnionShareGui(QtGui.QWidget):
-    def __init__(self, app, filename, basename):
+    def __init__(self, app, filenames=None):
         super(OnionShareGui, self).__init__()
         self.app = app
+        self.filenames = filenames
 
+        self.setWindowTitle('OnionShare')
+        self.setWindowIcon(window_icon)
+
+    def start_send(self):
+        # file selection
+        file_selection = FileSelection()
+        if self.filenames:
+            for filename in self.filenames:
+                file_selection.file_list.add_file(filename)
+
+        # main layout
+        self.layout = QtGui.QVBoxLayout()
+        self.layout.addLayout(file_selection)
+        self.setLayout(self.layout)
+        self.show()
+
+"""
         # initialize ui
         self.init_ui(filename, basename)
         # check for requests every 1000ms
@@ -64,7 +79,7 @@ class OnionShareGui(QtGui.QWidget):
 
         # logo
         self.logoLabel = QtGui.QLabel(self.widget)
-        self.logo = QtGui.QPixmap("{0}/static/logo.png".format(get_onionshare_gui_dir()))
+        self.logo = QtGui.QPixmap("{0}/static/logo.png".format(common.onionshare_gui_dir))
         self.logoLabel.setPixmap(self.logo)
         self.header.addWidget(self.logoLabel)
 
@@ -268,6 +283,7 @@ class OnionShareGui(QtGui.QWidget):
         else:
             web.set_stay_open(True)
         return
+"""
 
 def alert(msg, icon=QtGui.QMessageBox.NoIcon):
     dialog = QtGui.QMessageBox()
@@ -276,24 +292,6 @@ def alert(msg, icon=QtGui.QMessageBox.NoIcon):
     dialog.setText(msg)
     dialog.setIcon(icon)
     dialog.exec_()
-
-def select_file(filename=None):
-    # get filename, either from argument or file chooser dialog
-    if not filename:
-        filename = QtGui.QFileDialog.getOpenFileName(caption=strings._('choose_file'), options=QtGui.QFileDialog.ReadOnly)
-        if not filename:
-            return False, False
-
-        filename = str(unicode(filename).encode("utf-8"))
-
-    # validate filename
-    if not os.path.isfile(filename):
-        alert(strings._("not_a_file").format(filename), QtGui.QMessageBox.Warning)
-        return False, False
-
-    filename = os.path.abspath(filename)
-    basename = os.path.basename(filename)
-    return filename, basename
 
 def main():
     strings.load_strings()
@@ -307,23 +305,37 @@ def main():
     parser.add_argument('--local-only', action='store_true', dest='local_only', help=strings._("help_local_only"))
     parser.add_argument('--stay-open', action='store_true', dest='stay_open', help=strings._("help_stay_open"))
     parser.add_argument('--debug', action='store_true', dest='debug', help=strings._("help_debug"))
-    parser.add_argument('filename', nargs='?', help=strings._("help_filename"))
+    parser.add_argument('--filenames', metavar='filenames', nargs='+', help=strings._('help_filename'))
     args = parser.parse_args()
 
-    filename = args.filename
+    filenames = args.filenames
+    if filenames:
+        for i in range(len(filenames)):
+            filenames[i] = os.path.abspath(filenames[i])
+
     local_only = bool(args.local_only)
     stay_open = bool(args.stay_open)
     debug = bool(args.debug)
 
-    web.set_stay_open(stay_open)
+    # validation
+    if filenames:
+        valid = True
+        for filename in filenames:
+            if not os.path.exists(filename):
+                alert(strings._("not_a_file").format(filename))
+                valid = False
+        if not valid:
+            sys.exit()
 
     # create the onionshare icon
     global window_icon
-    window_icon = QtGui.QIcon("{0}/static/logo.png".format(get_onionshare_gui_dir()))
+    window_icon = QtGui.QIcon("{0}/static/logo.png".format(common.onionshare_gui_dir))
 
     # start the onionshare app
-    try:
-        app = onionshare.OnionShare(debug, local_only, stay_open)
+    web.set_stay_open(stay_open)
+    app = onionshare.OnionShare(debug, local_only, stay_open)
+
+    """try:
         app.start_hidden_service(gui=True)
     except onionshare.NoTor as e:
         alert(e.args[0], QtGui.QMessageBox.Warning)
@@ -331,11 +343,7 @@ def main():
     except onionshare.TailsError as e:
         alert(e.args[0], QtGui.QMessageBox.Warning)
         sys.exit()
-
-    # select file to share
-    filename, basename = select_file(filename)
-    if not filename:
-        return
+    """
 
     # clean up when app quits
     def shutdown():
@@ -343,7 +351,8 @@ def main():
     qtapp.connect(qtapp, QtCore.SIGNAL("aboutToQuit()"), shutdown)
 
     # launch the gui
-    gui = OnionShareGui(app, filename, basename)
+    gui = OnionShareGui(app, filenames)
+    gui.start_send()
 
     # all done
     sys.exit(qtapp.exec_())
