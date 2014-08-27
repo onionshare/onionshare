@@ -21,16 +21,19 @@ class OnionShare(object):
         # automatically close when download is finished
         self.stay_open = stay_open
 
-        # list of hidden service dirs to cleanup
-        self.hidserv_dirs = []
+        # files and dirs to delete on shutdown
+        self.cleanup_filenames = []
 
         # choose a random port
         self.choose_port()
         self.local_host = "127.0.0.1:{0}".format(self.port)
 
     def cleanup(self):
-        for d in self.hidserv_dirs:
-            shutil.rmtree(d)
+        for filename in self.cleanup_filenames:
+            if os.path.isfile(filename):
+                os.remove(filename)
+            elif os.path.isdir(filename):
+                shutil.rmtree(filename)
 
     def choose_port(self):
         # let the OS choose a port
@@ -65,17 +68,8 @@ class OnionShare(object):
                 print strings._("connecting_ctrlport").format(self.port)
 
                 # come up with a hidden service directory name
-                hidserv_dir_rand = helpers.random_string(8)
-                if helpers.get_platform() == "Windows":
-                    if 'Temp' in os.environ:
-                        temp = os.environ['Temp'].replace('\\', '/')
-                    else:
-                        temp = 'C:/tmp'
-                    hidserv_dir = "{0}/onionshare_{1}".format(temp, hidserv_dir_rand)
-                else:
-                    hidserv_dir = "/tmp/onionshare_{0}".format(hidserv_dir_rand)
-
-                self.hidserv_dirs.append(hidserv_dir)
+                hidserv_dir = '{0}/onionshare_{1}'.format(helpers.get_tmp_dir(), helpers.random_string(8))
+                self.cleanup_filenames.append(hidserv_dir)
 
                 # connect to the tor controlport
                 controlports = [9051, 9151]
@@ -141,17 +135,25 @@ def main():
     parser.add_argument('--local-only', action='store_true', dest='local_only', help=strings._("help_local_only"))
     parser.add_argument('--stay-open', action='store_true', dest='stay_open', help=strings._("help_stay_open"))
     parser.add_argument('--debug', action='store_true', dest='debug', help=strings._("help_debug"))
-    parser.add_argument('filename', nargs=1, help=strings._("help_filename"))
+    parser.add_argument('filename', metavar='filename', nargs='+', help=strings._('help_filename'))
     args = parser.parse_args()
 
-    filename = os.path.abspath(args.filename[0])
+    filenames = args.filename
+    for i in range(len(filenames)):
+        filenames[i] = os.path.abspath(filenames[i])
+
     local_only = bool(args.local_only)
     debug = bool(args.debug)
     stay_open = bool(args.stay_open)
 
-    if not (filename and os.path.isfile(filename)):
-        sys.exit(strings._("not_a_file").format(filename))
-    filename = os.path.abspath(filename)
+    # validation
+    valid = True
+    for filename in filenames:
+        if not os.path.exists(filename):
+            print(strings._("not_a_file").format(filename))
+            valid = False
+    if not valid:
+        sys.exit()
 
     # start the onionshare app
     try:
@@ -163,10 +165,9 @@ def main():
         sys.exit(e.args[0])
 
     # startup
-    print strings._("calculating_sha1")
-    filehash, filesize = helpers.file_crunching(filename)
-    web.set_file_info(filename, filehash, filesize)
-    print '\n' + strings._("give_this_url")
+    web.set_file_info(filenames)
+    app.cleanup_filenames.append(web.zip_filename)
+    print strings._("give_this_url")
     print 'http://{0}/{1}'.format(app.onion_host, web.slug)
     print ''
     print strings._("ctrlc_to_stop")

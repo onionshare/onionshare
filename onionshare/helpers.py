@@ -1,4 +1,4 @@
-import os, inspect, hashlib, base64, hmac, platform
+import os, inspect, hashlib, base64, hmac, platform, zipfile
 from itertools import izip
 
 def get_platform():
@@ -30,10 +30,13 @@ def constant_time_compare(val1, val2):
         result |= x ^ y
     return result == 0
 
-def random_string(num_bytes):
+def random_string(num_bytes, output_len=None):
     b = os.urandom(num_bytes)
     h = hashlib.sha256(b).digest()[:16]
-    return base64.b32encode(h).lower().replace('=','')
+    s = base64.b32encode(h).lower().replace('=','')
+    if not output_len:
+        return s
+    return s[:output_len]
 
 def human_readable_filesize(b):
     thresh = 1024.0
@@ -50,17 +53,46 @@ def human_readable_filesize(b):
 def is_root():
     return os.geteuid() == 0
 
-def file_crunching(filename):
-    # calculate filehash, file size
-    BLOCKSIZE = 65536
-    hasher = hashlib.sha1()
-    with open(filename, 'rb') as f:
-        buf = f.read(BLOCKSIZE)
-        while len(buf) > 0:
-            hasher.update(buf)
-            buf = f.read(BLOCKSIZE)
-    filehash = hasher.hexdigest()
-    filesize = os.path.getsize(filename)
-    return filehash, filesize
+def dir_size(start_path):
+    total_size = 0
+    for dirpath, dirnames, filenames in os.walk(start_path):
+        for f in filenames:
+            fp = os.path.join(dirpath, f)
+            if not os.path.islink(fp):
+                total_size += os.path.getsize(fp)
+    return total_size
 
+def get_tmp_dir():
+    if get_platform() == "Windows":
+        if 'Temp' in os.environ:
+            temp = os.environ['Temp'].replace('\\', '/')
+        else:
+            temp = 'C:/tmp'
+    else:
+        temp = '/tmp'
+    return temp
+
+class ZipWriter(object):
+    def __init__(self, zip_filename=None):
+        if zip_filename:
+            self.zip_filename = zip_filename
+        else:
+            self.zip_filename = '{0}/onionshare_{1}.zip'.format(get_tmp_dir(), random_string(4, 6))
+
+        self.z = zipfile.ZipFile(self.zip_filename, 'w')
+
+    def add_file(self, filename):
+        self.z.write(filename, os.path.basename(filename), zipfile.ZIP_DEFLATED)
+
+    def add_dir(self, filename):
+        dir_to_strip = os.path.dirname(filename)+'/'
+        for dirpath, dirnames, filenames in os.walk(filename):
+            for f in filenames:
+                full_filename = os.path.join(dirpath, f)
+                if not os.path.islink(full_filename):
+                    arc_filename = full_filename[len(dir_to_strip):]
+                    self.z.write(full_filename, arc_filename, zipfile.ZIP_DEFLATED)
+
+    def close(self):
+        self.z.close()
 

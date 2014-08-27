@@ -1,4 +1,4 @@
-import Queue, mimetypes, platform, os, sys
+import Queue, mimetypes, platform, os, sys, zipfile
 from flask import Flask, Response, request, render_template_string, abort
 
 import strings, helpers
@@ -6,12 +6,37 @@ import strings, helpers
 app = Flask(__name__)
 
 # information about the file
-filename = filesize = filehash = None
-def set_file_info(new_filename, new_filehash, new_filesize):
-    global filename, filehash, filesize
-    filename = new_filename
-    filehash = new_filehash
-    filesize = new_filesize
+file_info = []
+zip_filename = None
+zip_filesize = None
+def set_file_info(filenames):
+    global file_info, zip_filename, zip_filesize
+
+    # build file info list
+    file_info = {'files':[], 'dirs':[]}
+    for filename in filenames:
+        info = {
+            'filename': filename,
+            'basename': os.path.basename(filename)
+        }
+        if os.path.isfile(filename):
+            info['size'] = os.path.getsize(filename)
+            info['size_human'] = helpers.human_readable_filesize(info['size'])
+            file_info['files'].append(info)
+        if os.path.isdir(filename):
+            info['size'] = helpers.dir_size(filename)
+            info['size_human'] = helpers.human_readable_filesize(info['size'])
+            file_info['dirs'].append(info)
+
+    # zip up the files and folders
+    z = helpers.ZipWriter()
+    for info in file_info['files']:
+        z.add_file(info['filename'])
+    for info in file_info['dirs']:
+        z.add_dir(info['filename'])
+    z.close()
+    zip_filename = z.zip_filename
+    zip_filesize = os.path.getsize(zip_filename)
 
 REQUEST_LOAD = 0
 REQUEST_DOWNLOAD = 1
@@ -58,10 +83,10 @@ def index(slug_candidate):
     return render_template_string(
         open('{0}/index.html'.format(helpers.get_onionshare_dir())).read(),
         slug=slug,
-        filename=os.path.basename(filename).decode("utf-8"),
-        filehash=filehash,
-        filesize=filesize,
-        filesize_human=helpers.human_readable_filesize(filesize),
+        file_info=file_info,
+        filename=os.path.basename(zip_filename).decode("utf-8"),
+        filesize=zip_filesize,
+        filesize_human=helpers.human_readable_filesize(zip_filesize),
         strings=strings.strings
     )
 
@@ -83,13 +108,13 @@ def download(slug_candidate):
     # tell GUI the download started
     add_request(REQUEST_DOWNLOAD, path, { 'id':download_id })
 
-    dirname = os.path.dirname(filename)
-    basename = os.path.basename(filename)
+    dirname = os.path.dirname(zip_filename)
+    basename = os.path.basename(zip_filename)
 
     def generate():
         chunk_size = 102400 # 100kb
 
-        fp = open(filename, 'rb')
+        fp = open(zip_filename, 'rb')
         done = False
         while not done:
             chunk = fp.read(102400)
@@ -100,7 +125,7 @@ def download(slug_candidate):
 
                 # tell GUI the progress
                 downloaded_bytes = fp.tell()
-                percent = round((1.0 * downloaded_bytes / filesize) * 100, 2);
+                percent = round((1.0 * downloaded_bytes / zip_filesize) * 100, 2);
                 sys.stdout.write("\r{0}, {1}%          ".format(helpers.human_readable_filesize(downloaded_bytes), percent))
                 sys.stdout.flush()
                 add_request(REQUEST_PROGRESS, path, { 'id':download_id, 'bytes':downloaded_bytes })
@@ -116,7 +141,7 @@ def download(slug_candidate):
             shutdown_func()
 
     r = Response(generate())
-    r.headers.add('Content-Length', filesize)
+    r.headers.add('Content-Length', zip_filesize)
     r.headers.add('Content-Disposition', 'attachment', filename=basename)
     # guess content type
     (content_type, _) = mimetypes.guess_type(basename, strict=False)

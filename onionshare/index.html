@@ -1,76 +1,103 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>OnionShare</title>
-        <style type="text/css">
-            body {
-                background-color: #222222;
-                color: #ffffff;
-                text-align: center;
-                font-family: arial;
-                padding: 5em 1em;
-            }
-            .metadata {
-                position: absolute;
-                bottom: 0;
-                color: #999999;
-                text-align: left;
-            }
-            .button {
-                -moz-box-shadow:inset 0px 1px 0px 0px #cae3fc;
-                -webkit-box-shadow:inset 0px 1px 0px 0px #cae3fc;
-                box-shadow:inset 0px 1px 0px 0px #cae3fc;
-                background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #79bbff), color-stop(1, #4197ee) );
-                background:-moz-linear-gradient( center top, #79bbff 5%, #4197ee 100% );
-                filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#79bbff', endColorstr='#4197ee');
-                background-color:#79bbff;
-                -webkit-border-top-left-radius:12px;
-                -moz-border-radius-topleft:12px;
-                border-top-left-radius:12px;
-                -webkit-border-top-right-radius:12px;
-                -moz-border-radius-topright:12px;
-                border-top-right-radius:12px;
-                -webkit-border-bottom-right-radius:12px;
-                -moz-border-radius-bottomright:12px;
-                border-bottom-right-radius:12px;
-                -webkit-border-bottom-left-radius:12px;
-                -moz-border-radius-bottomleft:12px;
-                border-bottom-left-radius:12px;
-                text-indent:0;
-                border:1px solid #469df5;
-                display:inline-block;
-                color:#ffffff;
-                font-family:Arial;
-                font-size:29px;
-                font-weight:bold;
-                font-style:normal;
-                height:50px;
-                line-height:50px;
-                text-decoration:none;
-                text-align:center;
-                text-shadow:1px 1px 0px #287ace;
-                padding: 0 20px;
-            }
-            .button:hover {
-                background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #4197ee), color-stop(1, #79bbff) );
-                background:-moz-linear-gradient( center top, #4197ee 5%, #79bbff 100% );
-                filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#4197ee', endColorstr='#79bbff');
-                background-color:#4197ee;
-            }.button:active {
-                position:relative;
-                top:1px;
-            }
-        </style>
-        <meta name="onionshare-filename" content="{{ filename }}">
-        <meta name="onionshare-filesize" content="{{ filesize }}">
-        <meta name="onionshare-filehash" content="{{ filehash }}">
-    </head>
-    <body>
-    <p><a class="button" href='/{{ slug }}/download'>{{ filename }} &#x25BC;</a></p>
+  <head>
+    <title>OnionShare</title>
+    <style type="text/css">
+      body {
+        background-color: #222222;
+        color: #ffffff;
+        text-align: center;
+        font-family: sans-serif;
+        padding: 5em 1em;
+      }
+      .button {
+        -moz-box-shadow:inset 0px 1px 0px 0px #cae3fc;
+        -webkit-box-shadow:inset 0px 1px 0px 0px #cae3fc;
+        box-shadow:inset 0px 1px 0px 0px #cae3fc;
+        background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #79bbff), color-stop(1, #4197ee) );
+        background:-moz-linear-gradient( center top, #79bbff 5%, #4197ee 100% );
+        filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#79bbff', endColorstr='#4197ee');
+        background-color:#79bbff;
+        -webkit-border-top-left-radius:12px;
+        -moz-border-radius-topleft:12px;
+        border-top-left-radius:12px;
+        -webkit-border-top-right-radius:12px;
+        -moz-border-radius-topright:12px;
+        border-top-right-radius:12px;
+        -webkit-border-bottom-right-radius:12px;
+        -moz-border-radius-bottomright:12px;
+        border-bottom-right-radius:12px;
+        -webkit-border-bottom-left-radius:12px;
+        -moz-border-radius-bottomleft:12px;
+        border-bottom-left-radius:12px;
+        text-indent:0;
+        border:1px solid #469df5;
+        display:inline-block;
+        color:#ffffff;
+        font-size:29px;
+        font-weight:bold;
+        font-style:normal;
+        height:50px;
+        line-height:50px;
+        text-decoration:none;
+        text-align:center;
+        text-shadow:1px 1px 0px #287ace;
+        padding: 0 20px;
+      }
+      .button:hover {
+        background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #4197ee), color-stop(1, #79bbff) );
+        background:-moz-linear-gradient( center top, #4197ee 5%, #79bbff 100% );
+        filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#4197ee', endColorstr='#79bbff');
+        background-color:#4197ee;
+      }.button:active {
+        position:relative;
+        top:1px;
+      }
 
-        <div class="metadata">
-            <p>{{strings.filesize}}: <strong title="{{ filesize }} bytes">{{ filesize_human }}</strong></p>
-            <p>{{strings.sha1_checksum}}: <strong>{{ filehash }}</strong></p>
-        </div>
-    </body>
+      .download-size {
+        color: #999999;
+      }
+
+      .file-list {
+        margin: 50px auto 0 auto;
+        padding: 10px;
+        text-align: left;
+        background-color: #333333;
+      }
+      .file-list th {
+        padding: 5px;
+        font-weight: bold;
+      }
+      .file-list td {
+        padding: 5px;
+      }
+    </style>
+    <meta name="onionshare-filename" content="{{ filename }}">
+    <meta name="onionshare-filesize" content="{{ filesize }}">
+  </head>
+  <body>
+    <p><a class="button" href='/{{ slug }}/download'>{{ filename }} &#x25BC;</a></p>
+    <p class="download-size">{{strings.download_size}}: <strong title="{{ filesize }} bytes">{{ filesize_human }}</strong></p>
+    <table class="file-list">
+      <tr>
+        <th></th>
+        <th>{{strings.filename}}</th>
+        <th>{{strings.size}}</th>
+      </tr>
+      {% for info in file_info.dirs %}
+      <tr>
+        <td><img width="30" height="30" title="" alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAB3RJTUUH3ggbFCQXOpwjbQAAAM5JREFUSMftlksOwyAMRDFCbNjkDL1kz9K75Cq9AZF3kYIM7oqoP/KpcFK1mRUrnsbW2Fbq0N+JiPhZRMS1OZAfzLzocwCAGmC9V2Vhjduarj8CzynGqIwxsDl4SXV267E4uFTN33X8deCxDyV1XXeRYJo1UUDEa9M0pxoRK+b4HiqRcz3nVAJKRK+TSxqaGbrkNKUkBn0oNSK2+T0MA1dau9NzO4QwuvPen1lAxQtEsq/vNpSWhvZ9v/3IRMTWOQezkyuEoKy14tfHoU11A6Mr5AxrpuMVAAAAAElFTkSuQmCC" /></td>
+        <td>{{ info.basename }}</td>
+        <td>{{ info.size_human }}</td>
+      </tr>
+      {% endfor %}
+      {% for info in file_info.files %}
+      <tr>
+        <td><img width="30" height="30" title="" alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAB3RJTUUH3ggbFCQqYvRvfAAAAJFJREFUSMftlUkOwCAIAEWJ//+uIUivtYmtG7VN8KYHRhlA5zYtuB6klCTG2BcEAHrBeN4ws3jvX3lxQZmFiogMgVesVrhKXlvgakKf4KqVdAdXL+Ea3O8aILh0GnUMEhjtw9mLbUv1tx33fgItynBVoN+k2hybY3Nsjg08Bs45q4GYuQ4OIQARLYcSkUPEoiUP4j5IFasKOnUAAAAASUVORK5CYII=" /></td>
+        <td>{{ info.basename }}</td>
+        <td>{{ info.size_human }}</td>
+      </tr>
+      {% endfor %}
+    <table>
+  </body>
 </html>
