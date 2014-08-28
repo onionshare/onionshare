@@ -47,7 +47,6 @@ class ServerStatus(QtGui.QVBoxLayout):
         self.url_label.setFont(url_font)
         self.url_label.setWordWrap(True)
         self.url_label.setAlignment(QtCore.Qt.AlignCenter)
-        self.url_label.setMargin(3)
         self.copy_url_button = QtGui.QPushButton(strings._('gui_copy_url'))
         self.copy_url_button.clicked.connect(self.copy_url)
         url_layout = QtGui.QHBoxLayout()
@@ -97,6 +96,7 @@ class ServerStatus(QtGui.QVBoxLayout):
 
     def start_server_finished(self):
         self.status = self.STATUS_STARTED
+        self.copy_url()
         self.update()
 
     def stop_server(self):

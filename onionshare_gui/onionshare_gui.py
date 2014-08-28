@@ -48,19 +48,24 @@ class OnionShareGui(QtGui.QWidget):
         self.file_selection.file_list.files_updated.connect(self.server_status.update)
 
         # downloads
-        downloads = Downloads()
+        self.downloads = Downloads()
 
         # options
-        options = Options(web.stay_open)
+        self.options = Options(web)
 
         # main layout
         self.layout = QtGui.QVBoxLayout()
         self.layout.addLayout(self.file_selection)
         self.layout.addLayout(self.server_status)
-        self.layout.addLayout(downloads)
-        self.layout.addLayout(options)
+        self.layout.addLayout(self.downloads)
+        self.layout.addLayout(self.options)
         self.setLayout(self.layout)
         self.show()
+
+        # check for requests frequently
+        self.timer = QtCore.QTimer()
+        QtCore.QObject.connect(self.timer, QtCore.SIGNAL("timeout()"), self.check_for_requests)
+        self.timer.start(500)
 
     def start_server(self):
         # start the hidden service
@@ -76,7 +81,7 @@ class OnionShareGui(QtGui.QWidget):
             return
 
         # start onionshare service in new thread
-        t = threading.Thread(target=web.start, args=(self.app.port, self.app.stay_open))
+        t = threading.Thread(target=web.start, args=(self.app.port, self.app.stay_open, True))
         t.daemon = True
         t.start()
 
@@ -92,6 +97,40 @@ class OnionShareGui(QtGui.QWidget):
         self.app.cleanup()
 
         self.server_status.stop_server_finished()
+
+    def check_for_requests(self):
+        self.update()
+        # only check for requests if the server is running
+        if self.server_status.status != self.server_status.STATUS_STARTED:
+            return
+
+        events = []
+
+        done = False
+        while not done:
+            try:
+                r = web.q.get(False)
+                events.append(r)
+            except web.Queue.Empty:
+                done = True
+
+        for event in events:
+            #if event["path"] != '/favicon.ico':
+            #    pass
+            #if event["type"] == web.REQUEST_LOAD:
+            #    pass
+
+            if event["type"] == web.REQUEST_DOWNLOAD:
+                self.downloads.add_download(event["data"]["id"], web.zip_filesize)
+
+            elif event["type"] == web.REQUEST_PROGRESS:
+                self.downloads.update_download(event["data"]["id"], web.zip_filesize, event["data"]["bytes"])
+
+                # is the download complete?
+                if event["data"]["bytes"] == web.zip_filesize:
+                    # close on finish?
+                    if not web.get_stay_open():
+                        self.server_status.stop_server()
 
 def alert(msg, icon=QtGui.QMessageBox.NoIcon):
     dialog = QtGui.QMessageBox()

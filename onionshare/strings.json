@@ -14,8 +14,7 @@
     "download_finished": "Download finished",
     "other_page_loaded": "Other page has been loaded",
     "tails_requires_root": "You must run OnionShare as root in Tails",
-    "close_on_finish": "Close automatically",
-    "close_countdown": "Closing in {0} seconds...",
+    "close_on_finish": "Stop server automatically",
     "choose_file": "Choose a file to share",
     "closing_automatically": "Closing automatically because download finished",
     "error_tails_invalid_port": "Invalid value, port must be an integer",
@@ -52,7 +51,6 @@
     "other_page_loaded": "En annen side har blitt lastet",
     "tails_requires_root": "OnionShare kan må kjøres som administrator i Tails",
     "close_on_finish": "Lukk automatisk",
-    "close_countdown": "Lukker om {0} sekunder",
     "choose_file": "Velg en fil å dele"
 }, "es": {
     "calculating_sha1": "Calculando suma de verificación SHA1.",
@@ -70,7 +68,6 @@
     "other_page_loaded": "Otra página se ha cargado",
     "tails_requires_root": "Debe ejecutar OnionShare como root en Tails",
     "close_on_finish": "Cerrar automáticamente.",
-    "close_countdown": "Cierre en {0} segundos...",
     "choose_file": "Elija un archivo para compartir"
  }, "fr": {
     "calculating_sha1": "Calculer un hachage SHA-1.",
@@ -97,7 +94,6 @@
     "other_page_loaded": "Un altra pagina é stata caricata",
     "tails_requires_root": "Con Tails devi avviare OnionShare come utente root",
     "close_on_finish": "Chiudi automaticamente",
-    "close_countdown": "Chiusura in {0} secondi...",
     "choose_file": "Scegli un file da condividere"
 }, "nl": {
     "calculating_sha1": "SHA1 controlecijfer berekenen.",
@@ -115,7 +111,6 @@
     "other_page_loaded": "Andere pagina is geladen",
     "tails_requires_root": "Je moet OnionShare als root draaien in Tails",
     "close_on_finish": "Sluit automatisch",
-    "close_countdown": "Sluit in {0} seconden...",
     "choose_file": "Kies betsand om te delen",
     "gui_copy_url": "Kopieer URL",
     "closing_automatically": "Sluit nu automatisch omdat download gereed is",
@@ -142,7 +137,6 @@
     "other_page_loaded": "Outra página tem sido carregada",
     "tails_requires_root": "Tem que rodar o OnionShare como root no Tails",
     "close_on_finish": "Fechar automaticamente",
-    "close_countdown": "Fechando em {0} segundos...",
     "choose_file": "Escolhe um arquivo para compartilhar"
 }, "ru": {
     "calculating_sha1": "Вычисляется SHA1 хешсумма.",
@@ -160,7 +154,6 @@
     "other_page_loaded": "Другая страница была загружена",
     "tails_requires_root": "Вы должны запустить OnionShare с правами root в Tails",
     "close_on_finish": "Закрыть автоматически",
-    "close_countdown": "Закроется через {0} секунд...",
     "choose_file": "Выберите файл",
     "gui_copy_url": "Скопировать ссылку"
 }, "de": {
@@ -179,7 +172,6 @@
     "other_page_loaded": "Andere Seite wurde geladen",
     "tails_requires_root": "Du musst Onionshare in Tails als root ausführen",
     "close_on_finish": "Beende automatisch",
-    "close_countdown": "Beende in {0} Sekunden...",
     "choose_file": "Wähle eine Datei zum teilen aus"
 },"tr": {
     "punching_a_hole": "Güvenlik duvarında bir yol açılıyor.",
@@ -199,7 +191,6 @@
     "other_page_loaded": "Diğer sayfa yüklendi",
     "tails_requires_root": "Tails'da OnionShare root olarak çalışır",
     "close_on_finish": "Kendiliğinden kapan",
-    "close_countdown": "Kapanıyor {0} saniye...",
     "choose_file": "Paylaşım için bir dosya seç",
     "gui_copy_url": "URL Kopyala"
 }}
