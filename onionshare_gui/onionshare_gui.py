@@ -93,7 +93,10 @@ class OnionShareGui(QtGui.QWidget):
 
     def stop_server(self):
         # to stop flask, load http://127.0.0.1:<port>/<shutdown_slug>/shutdown
-        urllib2.urlopen('http://127.0.0.1:{0}/{1}/shutdown'.format(self.app.port, web.shutdown_slug)).read()
+        try:
+            urllib2.urlopen('http://127.0.0.1:{0}/{1}/shutdown'.format(self.app.port, web.shutdown_slug)).read()
+        except:
+            pass
         self.app.cleanup()
 
         self.server_status.stop_server_finished()
