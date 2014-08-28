@@ -154,6 +154,22 @@ def page_not_found(e):
     add_request(REQUEST_OTHER, request.path)
     return render_template_string(open('{0}/404.html'.format(helpers.get_onionshare_dir())).read())
 
+# shutting down the server only works within the context of flask, so the easiest way to do it is over http
+shutdown_slug = helpers.random_string(16)
+@app.route("/<shutdown_slug_candidate>/shutdown")
+def shutdown(shutdown_slug_candidate):
+    if not helpers.constant_time_compare(shutdown_slug.encode('ascii'), shutdown_slug_candidate.encode('ascii')):
+        abort(404)
+    
+    # shutdown the flask service
+    func = request.environ.get('werkzeug.server.shutdown')
+    if func is None:
+        raise RuntimeError('Not running with the Werkzeug Server')
+    func()
+
+    return ""
+
 def start(port, stay_open=False):
     set_stay_open(stay_open)
     app.run(port=port)
+
