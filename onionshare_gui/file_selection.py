@@ -12,6 +12,7 @@ class FileList(QtGui.QListWidget):
         super(FileList, self).__init__(parent)
         self.setAcceptDrops(True)
         self.setIconSize(QtCore.QSize(32, 32))
+        self.setSortingEnabled(True)
 
         # drag and drop label
         self.drop_label = QtGui.QLabel(QtCore.QString(strings._('gui_drag_and_drop')), parent=self)

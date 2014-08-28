@@ -27,6 +27,8 @@ def set_file_info(filenames):
             info['size'] = helpers.dir_size(filename)
             info['size_human'] = helpers.human_readable_filesize(info['size'])
             file_info['dirs'].append(info)
+    file_info['files'] = sorted(file_info['files'], key=lambda k: k['basename'])
+    file_info['dirs'] = sorted(file_info['dirs'], key=lambda k: k['basename'])
 
     # zip up the files and folders
     z = helpers.ZipWriter()
