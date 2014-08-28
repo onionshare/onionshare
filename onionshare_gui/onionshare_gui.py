@@ -24,6 +24,9 @@ class Application(QtGui.QApplication):
         QtGui.QApplication.__init__(self, sys.argv)
 
 class OnionShareGui(QtGui.QWidget):
+    start_server_finished = QtCore.pyqtSignal()
+    stop_server_finished = QtCore.pyqtSignal()
+
     def __init__(self, qtapp, app):
         super(OnionShareGui, self).__init__()
         self.qtapp = qtapp
@@ -45,6 +48,8 @@ class OnionShareGui(QtGui.QWidget):
         self.server_status.server_started.connect(self.start_server)
         self.server_status.server_stopped.connect(self.file_selection.server_stopped)
         self.server_status.server_stopped.connect(self.stop_server)
+        self.start_server_finished.connect(self.server_status.start_server_finished)
+        self.stop_server_finished.connect(self.server_status.stop_server_finished)
         self.file_selection.file_list.files_updated.connect(self.server_status.update)
 
         # downloads
@@ -85,11 +90,15 @@ class OnionShareGui(QtGui.QWidget):
         t.daemon = True
         t.start()
 
-        # prepare the files for sending
-        web.set_file_info(self.file_selection.file_list.filenames)
-        self.app.cleanup_filenames.append(web.zip_filename)
+        # prepare the files for sending in a new thread
+        def finish_starting_server(self):
+            web.set_file_info(self.file_selection.file_list.filenames)
+            self.app.cleanup_filenames.append(web.zip_filename)
+            self.start_server_finished.emit()
 
-        self.server_status.start_server_finished()
+        t = threading.Thread(target=finish_starting_server, kwargs={'self':self})
+        t.daemon = True
+        t.start()
 
     def stop_server(self):
         # to stop flask, load http://127.0.0.1:<port>/<shutdown_slug>/shutdown
@@ -98,8 +107,7 @@ class OnionShareGui(QtGui.QWidget):
         except:
             pass
         self.app.cleanup()
-
-        self.server_status.stop_server_finished()
+        self.stop_server_finished.emit()
 
     def check_for_requests(self):
         self.update()
