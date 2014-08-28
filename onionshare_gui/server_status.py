@@ -1,3 +1,4 @@
+import platform
 from PyQt4 import QtCore, QtGui
 
 import common
@@ -11,12 +12,18 @@ class ServerStatus(QtGui.QVBoxLayout):
     STATUS_WORKING = 1
     STATUS_STARTED = 2
 
-    def __init__(self, file_selection):
+    def __init__(self, qtapp, app, web, file_selection):
         super(ServerStatus, self).__init__()
         self.status = self.STATUS_STOPPED
         self.addSpacing(10)
 
+        self.qtapp = qtapp
+        self.app = app
+        self.web = web
         self.file_selection = file_selection
+
+        # system tray icon (for notifications)
+        self.systray = QtGui.QSystemTrayIcon()
 
         # server layout
         self.status_image_stopped = QtGui.QImage('{0}/server_stopped.png'.format(common.onionshare_gui_dir))
@@ -46,9 +53,6 @@ class ServerStatus(QtGui.QVBoxLayout):
         url_layout = QtGui.QHBoxLayout()
         url_layout.addWidget(self.url_label)
         url_layout.addWidget(self.copy_url_button)
-        # url fields start hidden, until there's a URL
-        self.url_label.hide()
-        self.copy_url_button.hide()
 
         # add the widgets
         self.addLayout(server_layout)
@@ -64,6 +68,15 @@ class ServerStatus(QtGui.QVBoxLayout):
             self.status_image_label.setPixmap(QtGui.QPixmap.fromImage(self.status_image_working))
         elif self.status == self.STATUS_STARTED:
             self.status_image_label.setPixmap(QtGui.QPixmap.fromImage(self.status_image_started))
+
+        # set the URL fields
+        if self.status == self.STATUS_STARTED:
+            self.url_label.setText('http://{0}/ {1}'.format(self.app.onion_host, self.web.slug))
+            self.url_label.show()
+            self.copy_url_button.show()
+        else:
+            self.url_label.hide()
+            self.copy_url_button.hide()
 
         # buttons enabled
         if self.file_selection.get_num_files() == 0:
@@ -82,11 +95,39 @@ class ServerStatus(QtGui.QVBoxLayout):
         self.update()
         self.server_started.emit()
 
+    def start_server_finished(self):
+        self.status = self.STATUS_STARTED
+        self.update()
+
     def stop_server(self):
-        self.status = self.STATUS_STOPPED
+        self.status = self.STATUS_WORKING
         self.update()
         self.server_stopped.emit()
 
+    def stop_server_finished(self):
+        self.status = self.STATUS_STOPPED
+        self.update()
+
     def copy_url(self):
-        pass
+        url = 'http://{0}/{1}'.format(self.app.onion_host, self.web.slug)
+
+        if platform.system() == 'Windows':
+            # Qt's QClipboard isn't working in Windows
+            # https://github.com/micahflee/onionshare/issues/46
+            import ctypes
+            GMEM_DDESHARE = 0x2000
+            ctypes.windll.user32.OpenClipboard(None)
+            ctypes.windll.user32.EmptyClipboard()
+            hcd = ctypes.windll.kernel32.GlobalAlloc(GMEM_DDESHARE, len(bytes(url))+1)
+            pch_data = ctypes.windll.kernel32.GlobalLock(hcd)
+            ctypes.cdll.msvcrt.strcpy(ctypes.c_char_p(pch_data), bytes(url))
+            ctypes.windll.kernel32.GlobalUnlock(hcd)
+            ctypes.windll.user32.SetClipboardData(1, hcd)
+            ctypes.windll.user32.CloseClipboard()
+        else:
+            clipboard = self.qtapp.clipboard()
+            clipboard.setText(url)
+
+        # todo: make this systray popup work
+        self.systray.showMessage(QtCore.QString("OnionShare"), QtCore.QString(strings._('gui_copied_url')))
 

@@ -24,8 +24,9 @@ class Application(QtGui.QApplication):
         QtGui.QApplication.__init__(self, sys.argv)
 
 class OnionShareGui(QtGui.QWidget):
-    def __init__(self, app):
+    def __init__(self, qtapp, app):
         super(OnionShareGui, self).__init__()
+        self.qtapp = qtapp
         self.app = app
 
         self.setWindowTitle('OnionShare')
@@ -33,18 +34,18 @@ class OnionShareGui(QtGui.QWidget):
 
     def send_files(self, filenames=None):
         # file selection
-        file_selection = FileSelection()
+        self.file_selection = FileSelection()
         if filenames:
             for filename in filenames:
-                file_selection.file_list.add_file(filename)
+                self.file_selection.file_list.add_file(filename)
 
         # server status
-        self.server_status = ServerStatus(file_selection)
-        self.server_status.server_started.connect(file_selection.server_started)
+        self.server_status = ServerStatus(self.qtapp, self.app, web, self.file_selection)
+        self.server_status.server_started.connect(self.file_selection.server_started)
         self.server_status.server_started.connect(self.start_server)
-        self.server_status.server_stopped.connect(file_selection.server_stopped)
+        self.server_status.server_stopped.connect(self.file_selection.server_stopped)
         self.server_status.server_stopped.connect(self.stop_server)
-        file_selection.file_list.files_updated.connect(self.server_status.update)
+        self.file_selection.file_list.files_updated.connect(self.server_status.update)
 
         # downloads
         downloads = Downloads()
@@ -54,7 +55,7 @@ class OnionShareGui(QtGui.QWidget):
 
         # main layout
         self.layout = QtGui.QVBoxLayout()
-        self.layout.addLayout(file_selection)
+        self.layout.addLayout(self.file_selection)
         self.layout.addLayout(self.server_status)
         self.layout.addLayout(downloads)
         self.layout.addLayout(options)
@@ -79,9 +80,18 @@ class OnionShareGui(QtGui.QWidget):
         t.daemon = True
         t.start()
 
+        # prepare the files for sending
+        web.set_file_info(self.file_selection.file_list.filenames)
+        self.app.cleanup_filenames.append(web.zip_filename)
+
+        self.server_status.start_server_finished()
+
     def stop_server(self):
         # to stop flask, load http://127.0.0.1:<port>/<shutdown_slug>/shutdown
         urllib2.urlopen('http://127.0.0.1:{0}/{1}/shutdown'.format(self.app.port, web.shutdown_slug)).read()
+        self.app.cleanup()
+
+        self.server_status.stop_server_finished()
 
 def alert(msg, icon=QtGui.QMessageBox.NoIcon):
     dialog = QtGui.QMessageBox()
@@ -139,7 +149,7 @@ def main():
     qtapp.connect(qtapp, QtCore.SIGNAL("aboutToQuit()"), shutdown)
 
     # launch the gui
-    gui = OnionShareGui(app)
+    gui = OnionShareGui(qtapp, app)
     gui.send_files(filenames)
 
     # all done

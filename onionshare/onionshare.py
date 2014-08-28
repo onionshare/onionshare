@@ -34,6 +34,7 @@ class OnionShare(object):
                 os.remove(filename)
             elif os.path.isdir(filename):
                 shutil.rmtree(filename)
+        self.cleanup_filenames = []
 
     def choose_port(self):
         # let the OS choose a port
