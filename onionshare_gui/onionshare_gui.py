@@ -24,23 +24,25 @@ class Application(QtGui.QApplication):
         QtGui.QApplication.__init__(self, sys.argv)
 
 class OnionShareGui(QtGui.QWidget):
-    def __init__(self, app, filenames=None):
+    def __init__(self, app):
         super(OnionShareGui, self).__init__()
         self.app = app
-        self.filenames = filenames
 
         self.setWindowTitle('OnionShare')
         self.setWindowIcon(window_icon)
 
-    def start_send(self):
+    def start_send(self, filenames=None):
         # file selection
         file_selection = FileSelection()
-        if self.filenames:
-            for filename in self.filenames:
+        if filenames:
+            for filename in filenames:
                 file_selection.file_list.add_file(filename)
 
         # server status
-        server_status = ServerStatus()
+        server_status = ServerStatus(file_selection)
+        server_status.server_started.connect(file_selection.server_started)
+        server_status.server_stopped.connect(file_selection.server_stopped)
+        file_selection.file_list.files_updated.connect(server_status.update)
 
         # downloads
         downloads = Downloads()
@@ -366,8 +368,8 @@ def main():
     qtapp.connect(qtapp, QtCore.SIGNAL("aboutToQuit()"), shutdown)
 
     # launch the gui
-    gui = OnionShareGui(app, filenames)
-    gui.start_send()
+    gui = OnionShareGui(app)
+    gui.start_send(filenames)
 
     # all done
     sys.exit(qtapp.exec_())

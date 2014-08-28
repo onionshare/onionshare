@@ -6,6 +6,7 @@ from onionshare import strings, helpers
 
 class FileList(QtGui.QListWidget):
     files_dropped = QtCore.pyqtSignal()
+    files_updated = QtCore.pyqtSignal()
 
     def __init__(self, parent=None):
         super(FileList, self).__init__(parent)
@@ -74,6 +75,8 @@ class FileList(QtGui.QListWidget):
             item.setIcon(icon)
             self.addItem(item)
 
+            self.files_updated.emit()
+
     def human_readable_filesize(self, b):
         thresh = 1024.0
         if b < thresh:
@@ -89,6 +92,7 @@ class FileList(QtGui.QListWidget):
 class FileSelection(QtGui.QVBoxLayout):
     def __init__(self):
         super(FileSelection, self).__init__()
+        self.server_on = False
 
         # file list
         self.file_list = FileList()
@@ -114,12 +118,21 @@ class FileSelection(QtGui.QVBoxLayout):
         self.update()
 
     def update(self):
-        # delete button should be disabled if item isn't selected
-        current_item = self.file_list.currentItem()
-        if not current_item:
+        # all buttons should be disabled if the server is on
+        if self.server_on:
+            self.add_files_button.setEnabled(False)
+            self.add_dir_button.setEnabled(False)
             self.delete_button.setEnabled(False)
         else:
-            self.delete_button.setEnabled(True)
+            self.add_files_button.setEnabled(True)
+            self.add_dir_button.setEnabled(True)
+
+            # delete button should be disabled if item isn't selected
+            current_item = self.file_list.currentItem()
+            if not current_item:
+                self.delete_button.setEnabled(False)
+            else:
+                self.delete_button.setEnabled(True)
 
         # update the file list
         self.file_list.update()
@@ -142,4 +155,17 @@ class FileSelection(QtGui.QVBoxLayout):
         self.file_list.filenames.pop(current_row)
         self.file_list.takeItem(current_row)
         self.update()
+
+    def server_started(self):
+        self.server_on = True
+        self.file_list.setAcceptDrops(False)
+        self.update()
+    
+    def server_stopped(self):
+        self.server_on = False
+        self.file_list.setAcceptDrops(True)
+        self.update()
+
+    def get_num_files(self):
+        return len(self.file_list.filenames)
 
