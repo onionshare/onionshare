@@ -48,7 +48,7 @@ class OnionShareGui(QtGui.QWidget):
         downloads = Downloads()
 
         # options
-        options = Options()
+        options = Options(web.stay_open)
 
         # main layout
         self.layout = QtGui.QVBoxLayout()
