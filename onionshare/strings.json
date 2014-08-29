@@ -15,7 +15,7 @@
     "size": "Size",
     "sha1_checksum": "SHA1 checksum",
     "download_page_loaded": "Download page loaded",
-    "other_page_loaded": "Other page has been loaded",
+    "other_page_loaded": "URL loaded",
     "tails_requires_root": "You must run OnionShare as root in Tails",
     "close_on_finish": "Stop server automatically",
     "choose_file": "Choose a file to share",
