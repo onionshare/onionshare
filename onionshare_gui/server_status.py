@@ -7,6 +7,7 @@ from onionshare import strings, helpers
 class ServerStatus(QtGui.QVBoxLayout):
     server_started = QtCore.pyqtSignal()
     server_stopped = QtCore.pyqtSignal()
+    url_copied = QtCore.pyqtSignal()
 
     STATUS_STOPPED = 0
     STATUS_WORKING = 1
@@ -21,9 +22,6 @@ class ServerStatus(QtGui.QVBoxLayout):
         self.app = app
         self.web = web
         self.file_selection = file_selection
-
-        # system tray icon (for notifications)
-        self.systray = QtGui.QSystemTrayIcon()
 
         # server layout
         self.status_image_stopped = QtGui.QImage('{0}/server_stopped.png'.format(common.onionshare_gui_dir))
@@ -128,6 +126,5 @@ class ServerStatus(QtGui.QVBoxLayout):
             clipboard = self.qtapp.clipboard()
             clipboard.setText(url)
 
-        # todo: make this systray popup work
-        self.systray.showMessage(QtCore.QString("OnionShare"), QtCore.QString(strings._('gui_copied_url')))
+        self.url_copied.emit()
 

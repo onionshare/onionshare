@@ -48,9 +48,11 @@ class OnionShareGui(QtGui.QWidget):
         self.server_status.server_started.connect(self.start_server)
         self.server_status.server_stopped.connect(self.file_selection.server_stopped)
         self.server_status.server_stopped.connect(self.stop_server)
+        self.start_server_finished.connect(self.clear_message)
         self.start_server_finished.connect(self.server_status.start_server_finished)
         self.stop_server_finished.connect(self.server_status.stop_server_finished)
         self.file_selection.file_list.files_updated.connect(self.server_status.update)
+        self.server_status.url_copied.connect(self.copy_url)
 
         # downloads
         self.downloads = Downloads()
@@ -58,12 +60,17 @@ class OnionShareGui(QtGui.QWidget):
         # options
         self.options = Options(web)
 
+        # status bar
+        self.status_bar = QtGui.QStatusBar()
+        self.status_bar.setSizeGripEnabled(False)
+
         # main layout
         self.layout = QtGui.QVBoxLayout()
         self.layout.addLayout(self.file_selection)
         self.layout.addLayout(self.server_status)
         self.layout.addLayout(self.downloads)
         self.layout.addLayout(self.options)
+        self.layout.addWidget(self.status_bar)
         self.setLayout(self.layout)
         self.show()
 
@@ -74,15 +81,18 @@ class OnionShareGui(QtGui.QWidget):
 
     def start_server(self):
         # start the hidden service
+        self.status_bar.showMessage(strings._('gui_starting_server').format(self.app.port))
         try:
             self.app.start_hidden_service(gui=True)
         except onionshare.NoTor as e:
             alert(e.args[0], QtGui.QMessageBox.Warning)
             self.server_status.stop_server()
+            self.status_bar.clearMessage()
             return
         except onionshare.TailsError as e:
             alert(e.args[0], QtGui.QMessageBox.Warning)
             self.server_status.stop_server()
+            self.status_bar.clearMessage()
             return
 
         # start onionshare service in new thread
@@ -128,12 +138,10 @@ class OnionShareGui(QtGui.QWidget):
                 done = True
 
         for event in events:
-            #if event["path"] != '/favicon.ico':
-            #    pass
-            #if event["type"] == web.REQUEST_LOAD:
-            #    pass
+            if event["type"] == web.REQUEST_LOAD:
+                self.status_bar.showMessage(strings._('download_page_loaded'), 2000)
 
-            if event["type"] == web.REQUEST_DOWNLOAD:
+            elif event["type"] == web.REQUEST_DOWNLOAD:
                 self.downloads.add_download(event["data"]["id"], web.zip_filesize)
 
             elif event["type"] == web.REQUEST_PROGRESS:
@@ -144,6 +152,15 @@ class OnionShareGui(QtGui.QWidget):
                     # close on finish?
                     if not web.get_stay_open():
                         self.server_status.stop_server()
+            
+            elif event["path"] != '/favicon.ico':
+                self.status_bar.showMessage('{0}: {1}'.format(strings._('other_page_loaded'), event["path"]), 2000)
+
+    def copy_url(self):
+        self.status_bar.showMessage(strings._('gui_copied_url'), 2000)
+
+    def clear_message(self):
+        self.status_bar.clearMessage()
 
 def alert(msg, icon=QtGui.QMessageBox.NoIcon):
     dialog = QtGui.QMessageBox()

@@ -107,6 +107,7 @@ class OnionShare(object):
                 s.setproxy(socks.PROXY_TYPE_SOCKS5, '127.0.0.1', 9150)
                 s.connect((self.onion_host, 80))
                 ready = True
+
                 sys.stdout.write('{0}\n'.format(strings._('wait_for_hs_yup')))
             except TypeError as e:
                 sys.stdout.write('{0}\n'.format(strings._('wait_for_hs_nope')))
@@ -184,6 +185,7 @@ def main():
         sys.exit(e.args[0])
 
     # prepare files to share
+    print strings._("preparing_files")
     web.set_file_info(filenames)
     app.cleanup_filenames.append(web.zip_filename)
 
