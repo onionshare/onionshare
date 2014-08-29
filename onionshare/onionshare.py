@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import os, sys, subprocess, time, argparse, inspect, shutil, socket
+import os, sys, subprocess, time, argparse, inspect, shutil, socks, socket, threading
 
 from stem.control import Controller
 from stem import SocketError
@@ -94,6 +94,24 @@ class OnionShare(object):
                 hostname_file = '{0}/hostname'.format(hidserv_dir)
                 self.onion_host = open(hostname_file, 'r').read().strip()
 
+    def wait_for_hs(self):
+        print strings._('wait_for_hs')
+
+        ready = False
+        while not ready:
+            try:
+                sys.stdout.write('{0} '.format(strings._('wait_for_hs_trying')))
+                sys.stdout.flush()
+
+                s = socks.socksocket()
+                s.setproxy(socks.PROXY_TYPE_SOCKS5, '127.0.0.1', 9150)
+                s.connect((self.onion_host, 80))
+                ready = True
+                sys.stdout.write('{0}\n'.format(strings._('wait_for_hs_yup')))
+            except TypeError as e:
+                sys.stdout.write('{0}\n'.format(strings._('wait_for_hs_nope')))
+                sys.stdout.flush()
+
 def tails_root():
     # if running in Tails and as root, do only the things that require root
     if helpers.get_platform() == 'Tails' and helpers.is_root():
@@ -165,17 +183,30 @@ def main():
     except TailsError as e:
         sys.exit(e.args[0])
 
-    # startup
+    # prepare files to share
     web.set_file_info(filenames)
     app.cleanup_filenames.append(web.zip_filename)
+
+    # start onionshare service in new thread
+    t = threading.Thread(target=web.start, args=(app.port, app.stay_open))
+    t.daemon = True
+    t.start()
+
+    # wait for hs
+    app.wait_for_hs()
     print strings._("give_this_url")
     print 'http://{0}/{1}'.format(app.onion_host, web.slug)
     print ''
     print strings._("ctrlc_to_stop")
 
-    # start the web server
-    web.start(app.port, app.stay_open)
-    print '\n'
+    # wait for app to close
+    running = True
+    while running:
+        try:
+            time.sleep(0.5)
+        except KeyboardInterrupt:
+            running = False
+            web.stop()
 
     # shutdown
     app.cleanup()

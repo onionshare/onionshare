@@ -1,5 +1,5 @@
 from __future__ import division
-import os, sys, subprocess, inspect, platform, argparse, threading, time, math, inspect, platform, urllib2
+import os, sys, subprocess, inspect, platform, argparse, threading, time, math, inspect, platform
 from PyQt4 import QtCore, QtGui
 
 import common
@@ -101,11 +101,7 @@ class OnionShareGui(QtGui.QWidget):
         t.start()
 
     def stop_server(self):
-        # to stop flask, load http://127.0.0.1:<port>/<shutdown_slug>/shutdown
-        try:
-            urllib2.urlopen('http://127.0.0.1:{0}/{1}/shutdown'.format(self.app.port, web.shutdown_slug)).read()
-        except:
-            pass
+        web.stop()
         self.app.cleanup()
         self.stop_server_finished.emit()
 

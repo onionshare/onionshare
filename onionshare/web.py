@@ -1,4 +1,4 @@
-import Queue, mimetypes, platform, os, sys, zipfile
+import Queue, mimetypes, platform, os, sys, zipfile, urllib2
 from flask import Flask, Response, request, render_template_string, abort
 
 import strings, helpers
@@ -187,3 +187,9 @@ def start(port, stay_open=False, gui_mode=False):
     set_gui_mode(gui_mode)
     app.run(port=port)
 
+def stop():
+    # to stop flask, load http://127.0.0.1:<port>/<shutdown_slug>/shutdown
+    try:
+        urllib2.urlopen('http://127.0.0.1:{0}/{1}/shutdown'.format(app.port, shutdown_slug)).read()
+    except:
+        pass
