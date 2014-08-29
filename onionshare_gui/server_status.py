@@ -83,9 +83,12 @@ class ServerStatus(QtGui.QVBoxLayout):
             if self.status == self.STATUS_STOPPED:
                 self.start_server_button.setEnabled(True)
                 self.stop_server_button.setEnabled(False)
-            else:
+            elif self.status == self.STATUS_STARTED:
                 self.start_server_button.setEnabled(False)
                 self.stop_server_button.setEnabled(True)
+            else:
+                self.start_server_button.setEnabled(False)
+                self.stop_server_button.setEnabled(False)
 
     def start_server(self):
         self.status = self.STATUS_WORKING
