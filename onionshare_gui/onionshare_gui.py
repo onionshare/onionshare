@@ -139,7 +139,7 @@ class OnionShareGui(QtGui.QWidget):
 
         for event in events:
             if event["type"] == web.REQUEST_LOAD:
-                self.status_bar.showMessage(strings._('download_page_loaded'), 2000)
+                self.status_bar.showMessage(strings._('download_page_loaded'))
 
             elif event["type"] == web.REQUEST_DOWNLOAD:
                 self.downloads.add_download(event["data"]["id"], web.zip_filesize)
@@ -154,7 +154,7 @@ class OnionShareGui(QtGui.QWidget):
                         self.server_status.stop_server()
             
             elif event["path"] != '/favicon.ico':
-                self.status_bar.showMessage('{0}: {1}'.format(strings._('other_page_loaded'), event["path"]), 2000)
+                self.status_bar.showMessage('{0}: {1}'.format(strings._('other_page_loaded'), event["path"]))
 
     def copy_url(self):
         self.status_bar.showMessage(strings._('gui_copied_url'), 2000)
