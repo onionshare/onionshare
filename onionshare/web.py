@@ -64,15 +64,6 @@ def set_stay_open(new_stay_open):
 def get_stay_open():
     return stay_open
 
-gui_mode = False
-def set_gui_mode(new_gui_mode):
-    global gui_mode
-    gui_mode = new_gui_mode
-def get_gui_mode():
-    return gui_mode
-
-
-
 def debug_mode():
     import logging
 
@@ -146,11 +137,10 @@ def download(slug_candidate):
 
         # download is finished, close the server
         if not stay_open:
-            if not gui_mode:
-                print strings._("closing_automatically")
-                if shutdown_func is None:
-                    raise RuntimeError('Not running with the Werkzeug Server')
-                shutdown_func()
+            print strings._("closing_automatically")
+            if shutdown_func is None:
+                raise RuntimeError('Not running with the Werkzeug Server')
+            shutdown_func()
 
     r = Response(generate())
     r.headers.add('Content-Length', zip_filesize)
@@ -182,9 +172,8 @@ def shutdown(shutdown_slug_candidate):
 
     return ""
 
-def start(port, stay_open=False, gui_mode=False):
+def start(port, stay_open=False):
     set_stay_open(stay_open)
-    set_gui_mode(gui_mode)
     app.run(port=port)
 
 def stop():

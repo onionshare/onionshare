@@ -96,7 +96,7 @@ class OnionShareGui(QtGui.QWidget):
             return
 
         # start onionshare service in new thread
-        t = threading.Thread(target=web.start, args=(self.app.port, self.app.stay_open, True))
+        t = threading.Thread(target=web.start, args=(self.app.port, self.app.stay_open))
         t.daemon = True
         t.start()
 
