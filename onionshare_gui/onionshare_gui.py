@@ -92,8 +92,14 @@ class OnionShareGui(QtGui.QWidget):
 
         # prepare the files for sending in a new thread
         def finish_starting_server(self):
+            # prepare files to share
             web.set_file_info(self.file_selection.file_list.filenames)
             self.app.cleanup_filenames.append(web.zip_filename)
+
+            # wait for hs
+            self.app.wait_for_hs()
+
+            # done
             self.start_server_finished.emit()
 
         t = threading.Thread(target=finish_starting_server, kwargs={'self':self})
