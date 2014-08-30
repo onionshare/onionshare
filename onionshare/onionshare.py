@@ -43,20 +43,20 @@ class OnionShare(object):
         self.port = tmpsock.getsockname()[1]
         tmpsock.close()
 
-    def start_hidden_service(self, gui=False):
-        if helpers.get_platform() == 'Tails':
+    def start_hidden_service(self, gui=False, tails_root=False):
+        if helpers.get_platform() == 'Tails' and not tails_root:
             # in Tails, start the hidden service in a root process
             if gui:
                 args = ['/usr/bin/gksudo', '-D', 'OnionShare', '--', '/usr/bin/onionshare']
             else:
                 args = ['/usr/bin/sudo', '--', '/usr/bin/onionshare']
-            p = subprocess.Popen(args+[str(app.port)], stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+            p = subprocess.Popen(args+[str(self.port)], stderr=subprocess.PIPE, stdout=subprocess.PIPE)
             stdout = p.stdout.read(22) # .onion URLs are 22 chars long
 
             if stdout:
                 self.onion_host = stdout
             else:
-                if root_p.poll() == -1:
+                if p.poll() == -1:
                     raise TailsError(o.stderr.read())
                 else:
                     raise TailsError(strings._("error_tails_unknown_root"))
@@ -66,8 +66,6 @@ class OnionShare(object):
                 self.onion_host = '127.0.0.1:{0}'.format(self.port)
 
             else:
-                print strings._("connecting_ctrlport").format(self.port)
-
                 # come up with a hidden service directory name
                 hidserv_dir = '{0}/onionshare_{1}'.format(helpers.get_tmp_dir(), helpers.random_string(8))
                 self.cleanup_filenames.append(hidserv_dir)
@@ -97,19 +95,27 @@ class OnionShare(object):
     def wait_for_hs(self):
         print strings._('wait_for_hs')
 
+        if helpers.get_platform() == 'Tails':
+            import urllib2
+
         ready = False
         while not ready:
             try:
                 sys.stdout.write('{0} '.format(strings._('wait_for_hs_trying')))
                 sys.stdout.flush()
 
-                s = socks.socksocket()
-                s.setproxy(socks.PROXY_TYPE_SOCKS5, '127.0.0.1', 9150)
-                s.connect((self.onion_host, 80))
+                if helpers.get_platform() == 'Tails':
+                    # in Tails everything is proxies over Tor already
+                    # so no need to set the socks5 proxy
+                    urllib2.urlopen('http://{0}'.format(self.onion_host))
+                else:
+                    s = socks.socksocket()
+                    s.setproxy(socks.PROXY_TYPE_SOCKS5, '127.0.0.1', 9150)
+                    s.connect((self.onion_host, 80))
                 ready = True
 
                 sys.stdout.write('{0}\n'.format(strings._('wait_for_hs_yup')))
-            except TypeError as e:
+            except:
                 sys.stdout.write('{0}\n'.format(strings._('wait_for_hs_nope')))
                 sys.stdout.flush()
 
@@ -130,8 +136,10 @@ def tails_root():
         subprocess.call(['/sbin/iptables', '-I', 'OUTPUT', '-o', 'lo', '-p', 'tcp', '--dport', str(port), '-j', 'ACCEPT'])
 
         # start hidden service
-        onion_host = start_hidden_service(port)
-        sys.stdout.write(onion_host)
+        app = OnionShare()
+        app.port = port
+        app.start_hidden_service(False, True)
+        sys.stdout.write(app.onion_host)
         sys.stdout.flush()
 
         # close hole in firewall on shutdown
@@ -178,6 +186,7 @@ def main():
     # start the onionshare app
     try:
         app = OnionShare(debug, local_only, stay_open)
+        print strings._("connecting_ctrlport").format(app.port)
         app.start_hidden_service()
     except NoTor as e:
         sys.exit(e.args[0])
