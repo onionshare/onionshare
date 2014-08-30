@@ -83,6 +83,7 @@ class OnionShareGui(QtGui.QWidget):
         # start the hidden service
         self.status_bar.showMessage(strings._('gui_starting_server').format(self.app.port))
         try:
+            self.app.choose_port()
             print strings._("connecting_ctrlport").format(self.app.port)
             self.app.start_hidden_service(gui=True)
         except onionshare.NoTor as e:

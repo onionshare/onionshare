@@ -11,6 +11,8 @@ class TailsError(Exception): pass
 
 class OnionShare(object):
     def __init__(self, debug=False, local_only=False, stay_open=False):
+        self.port = None
+
         # debug mode
         if debug:
             web.debug_mode()
@@ -23,10 +25,6 @@ class OnionShare(object):
 
         # files and dirs to delete on shutdown
         self.cleanup_filenames = []
-
-        # choose a random port
-        self.choose_port()
-        self.local_host = "127.0.0.1:{0}".format(self.port)
 
     def cleanup(self):
         for filename in self.cleanup_filenames:
@@ -44,6 +42,9 @@ class OnionShare(object):
         tmpsock.close()
 
     def start_hidden_service(self, gui=False, tails_root=False):
+        if not self.port:
+            self.choose_port()
+
         if helpers.get_platform() == 'Tails' and not tails_root:
             # in Tails, start the hidden service in a root process
             if gui:
@@ -115,9 +116,15 @@ class OnionShare(object):
                 ready = True
 
                 sys.stdout.write('{0}\n'.format(strings._('wait_for_hs_yup')))
-            except:
+            except TypeError: # non-Tails error
                 sys.stdout.write('{0}\n'.format(strings._('wait_for_hs_nope')))
                 sys.stdout.flush()
+            except urllib2.HTTPError: # Tails error
+                sys.stdout.write('{0}\n'.format(strings._('wait_for_hs_nope')))
+                sys.stdout.flush()
+            except KeyboardInterrupt:
+                return False
+        return True
 
 def tails_root():
     # if running in Tails and as root, do only the things that require root
@@ -137,6 +144,7 @@ def tails_root():
 
         # start hidden service
         app = OnionShare()
+        app.choose_port()
         app.port = port
         app.start_hidden_service(False, True)
         sys.stdout.write(app.onion_host)
@@ -186,6 +194,7 @@ def main():
     # start the onionshare app
     try:
         app = OnionShare(debug, local_only, stay_open)
+        app.choose_port()
         print strings._("connecting_ctrlport").format(app.port)
         app.start_hidden_service()
     except NoTor as e:
@@ -204,7 +213,10 @@ def main():
     t.start()
 
     # wait for hs
-    app.wait_for_hs()
+    ready = app.wait_for_hs()
+    if not ready:
+        sys.exit()
+
     print strings._("give_this_url")
     print 'http://{0}/{1}'.format(app.onion_host, web.slug)
     print ''

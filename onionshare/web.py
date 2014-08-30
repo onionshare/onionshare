@@ -179,6 +179,14 @@ def start(port, stay_open=False):
 def stop():
     # to stop flask, load http://127.0.0.1:<port>/<shutdown_slug>/shutdown
     try:
-        urllib2.urlopen('http://127.0.0.1:{0}/{1}/shutdown'.format(app.port, shutdown_slug)).read()
+        if helpers.get_platform() == 'Tails':
+            # in Tails everything is proxies over Tor, so we need to get lower level
+            # to connect not over the proxy
+            import socket
+            s = socket.socket()
+            s.connect(('127.0.0.1', app.port))
+            s.sendall('GET /{0}/shutdown HTTP/1.1\r\n\r\n'.format(shutdown_slug))
+        else:
+            urllib2.urlopen('http://127.0.0.1:{0}/{1}/shutdown'.format(app.port, shutdown_slug)).read()
     except:
         pass
