@@ -5,6 +5,7 @@ from nose import with_setup
 def test_choose_port_returns_a_port_number():
     "choose_port() returns a port number"
     app = OnionShare()
+    app.choose_port()
     assert  1024 <= app.port <= 65535
 
 def test_choose_port_returns_an_open_port():
