@@ -14,7 +14,7 @@ cd onionshare
 Note that python-stem appears in Debian wheezy and newer (so by extension Tails 1.1 and newer), and it appears in Ubuntu 13.10 and newer. Older versions of Debian and Ubuntu aren't supported.
 
 ```sh
-sudo apt-get install -y build-essential fakeroot python-all python-stdeb python-flask python-stem python-qt4
+sudo apt-get install -y build-essential fakeroot python-all python-stdeb python-flask python-central python-socksipy python-stem python-qt4
 ./build_deb.sh
 sudo dpkg -i deb_dist/onionshare_*.deb
 ```
