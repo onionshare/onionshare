@@ -91,15 +91,16 @@ class OnionShare(object):
                 self.cleanup_filenames.append(hidserv_dir)
 
                 # connect to the tor controlport
-                controlports = [9051, 9151]
                 controller = False
-                for controlport in controlports:
+                tor_control_ports = [9051, 9151]
+                for tor_control_port in tor_control_ports:
                     try:
-                        controller = Controller.from_port(port=controlport)
+                        controller = Controller.from_port(port=tor_control_port)
+                        break
                     except SocketError:
                         pass
                 if not controller:
-                    raise NoTor(strings._("cant_connect_ctrlport").format(controlports))
+                    raise NoTor(strings._("cant_connect_ctrlport").format(tor_control_ports))
                 controller.authenticate()
 
                 # set up hidden service
@@ -129,11 +130,20 @@ class OnionShare(object):
                     # so no need to set the socks5 proxy
                     urllib2.urlopen('http://{0}'.format(self.onion_host))
                 else:
-                    s = socks.socksocket()
-                    s.setproxy(socks.PROXY_TYPE_SOCKS5, '127.0.0.1', 9150)
-                    s.connect((self.onion_host, 80))
-                    #s.sendall('GET / HTTP/1.1\r\n\r\n')
-                    s.close()
+                    tor_exists = False
+                    tor_socks_ports = [9050, 9150]
+                    for tor_socks_port in tor_socks_ports:
+                        try:
+                            s = socks.socksocket()
+                            s.setproxy(socks.PROXY_TYPE_SOCKS5, '127.0.0.1', tor_socks_port)
+                            s.connect((self.onion_host, 80))
+                            s.close()
+                            tor_exists = True
+                            break
+                        except socks.ProxyConnectionError:
+                            pass
+                    if not tor_exists:
+                        raise NoTor(strings._("cant_connect_socksport").format(tor_socks_ports))
                 ready = True
 
                 sys.stdout.write('{0}\n'.format(strings._('wait_for_hs_yup')))
