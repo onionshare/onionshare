@@ -16,7 +16,8 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-import os, sys, subprocess, time, argparse, inspect, shutil, socks, socket, threading
+import os, sys, subprocess, time, argparse, inspect, shutil, socket, threading, urllib2
+import socks
 
 from stem.control import Controller
 from stem import SocketError
@@ -113,9 +114,6 @@ class OnionShare(object):
     def wait_for_hs(self):
         print strings._('wait_for_hs')
 
-        if helpers.get_platform() == 'Tails':
-            import urllib2
-
         ready = False
         while not ready:
             try:
@@ -133,7 +131,7 @@ class OnionShare(object):
                 ready = True
 
                 sys.stdout.write('{0}\n'.format(strings._('wait_for_hs_yup')))
-            except TypeError: # non-Tails error
+            except socks.SOCKS5Error: # non-Tails error
                 sys.stdout.write('{0}\n'.format(strings._('wait_for_hs_nope')))
                 sys.stdout.flush()
             except urllib2.HTTPError: # Tails error

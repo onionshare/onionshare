@@ -4,7 +4,7 @@ python:
   - "2.7"
 # command to install dependencies
 before_install: "sudo apt-get install -y build-essential fakeroot python-all python-stdeb python-qt4"
-install: "pip install nose flask stem pysocks"
+install: "pip install nose flask stem"
 # command to run tests
 script: nosetests test
 
