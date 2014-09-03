@@ -138,7 +138,7 @@ class OnionShareGui(QtGui.QWidget):
         t.start()
 
     def stop_server(self):
-        web.stop()
+        web.stop(self.app.port)
         self.app.cleanup()
         self.stop_server_finished.emit()
 
