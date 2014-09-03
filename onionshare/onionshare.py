@@ -132,6 +132,8 @@ class OnionShare(object):
                     s = socks.socksocket()
                     s.setproxy(socks.PROXY_TYPE_SOCKS5, '127.0.0.1', 9150)
                     s.connect((self.onion_host, 80))
+                    #s.sendall('GET / HTTP/1.1\r\n\r\n')
+                    s.close()
                 ready = True
 
                 sys.stdout.write('{0}\n'.format(strings._('wait_for_hs_yup')))
