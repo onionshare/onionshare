@@ -112,6 +112,9 @@ class OnionShare(object):
                 self.onion_host = open(hostname_file, 'r').read().strip()
 
     def wait_for_hs(self):
+        if self.local_only:
+            return True
+
         print strings._('wait_for_hs')
 
         ready = False
