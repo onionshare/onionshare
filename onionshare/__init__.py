@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 OnionShare | https://onionshare.org/
 
