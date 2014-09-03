@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 OnionShare | https://onionshare.org/
 
@@ -34,6 +35,5 @@ def test_load_strings_loads_other_languages():
     "load_strings() loads other languages in different locales"
     locale.getdefaultlocale = lambda: ('fr_FR', 'UTF-8')
     strings.load_strings("fr")
-    assert strings._('calculating_sha1') == "Calculer un hachage SHA-1."
-
+    assert strings._('calculating_sha1') == "Calculer une somme de contrôle SHA-1."
 
