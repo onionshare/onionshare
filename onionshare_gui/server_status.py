@@ -43,9 +43,9 @@ class ServerStatus(QtGui.QVBoxLayout):
         self.file_selection = file_selection
 
         # server layout
-        self.status_image_stopped = QtGui.QImage('{0}/images/server_stopped.png'.format(common.onionshare_gui_dir))
-        self.status_image_working = QtGui.QImage('{0}/images/server_working.png'.format(common.onionshare_gui_dir))
-        self.status_image_started = QtGui.QImage('{0}/images/server_started.png'.format(common.onionshare_gui_dir))
+        self.status_image_stopped = QtGui.QImage(common.get_image_path('server_stopped.png'))
+        self.status_image_working = QtGui.QImage(common.get_image_path('server_working.png'))
+        self.status_image_started = QtGui.QImage(common.get_image_path('server_started.png'))
         self.status_image_label = QtGui.QLabel()
         self.status_image_label.setFixedWidth(30)
         self.start_server_button = QtGui.QPushButton(strings._('gui_start_server'))

@@ -59,11 +59,11 @@ Section "install"
     File "${BINPATH}\onionshare_gui\__init__.py"
     File "${BINPATH}\onionshare_gui\__init__.pyc"
     SetOutPath "$INSTDIR\onionshare_gui\images"
-    File "${BINPATH}\onionshare_gui\images\logo.png"
-    File "${BINPATH}\onionshare_gui\images\drop_files.png"
-    File "${BINPATH}\onionshare_gui\images\server_stopped.png"
-    File "${BINPATH}\onionshare_gui\images\server_started.png"
-    File "${BINPATH}\onionshare_gui\images\server_working.png"
+    File "${BINPATH}\images\logo.png"
+    File "${BINPATH}\images\drop_files.png"
+    File "${BINPATH}\images\server_stopped.png"
+    File "${BINPATH}\images\server_started.png"
+    File "${BINPATH}\images\server_working.png"
 
     # dependencies
     SetOutPath $INSTDIR

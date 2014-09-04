@@ -36,7 +36,7 @@ class FileList(QtGui.QListWidget):
         # drag and drop label
         self.drop_label = QtGui.QLabel(QtCore.QString(strings._('gui_drag_and_drop')), parent=self)
         self.drop_label.setAlignment(QtCore.Qt.AlignCenter)
-        self.drop_label.setStyleSheet('background: url({0}/images/drop_files.png) no-repeat center center; color: #999999;'.format(common.onionshare_gui_dir))
+        self.drop_label.setStyleSheet('background: url({0}) no-repeat center center; color: #999999;'.format(common.get_image_path('drop_files.png')))
         self.drop_label.hide()
 
         self.filenames = []

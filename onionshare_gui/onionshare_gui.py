@@ -227,7 +227,7 @@ def main():
 
     # create the onionshare icon
     global window_icon
-    window_icon = QtGui.QIcon("{0}/images/logo.png".format(common.onionshare_gui_dir))
+    window_icon = QtGui.QIcon(common.get_image_path('logo.png'))
 
     # start the onionshare app
     web.set_stay_open(stay_open)
