@@ -32,5 +32,5 @@ def get_image_path(filename):
     if platform.system() == 'Linux':
         prefix = os.path.join(sys.prefix, 'share/onionshare/images')
     else:
-        prefix = os.path.join(get_onionshare_gui_dir(), 'images')
+        prefix = os.path.join(os.path.dirname(get_onionshare_gui_dir()), 'images')
     return os.path.join(prefix, filename)

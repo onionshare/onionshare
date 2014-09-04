@@ -3,6 +3,13 @@ a = Analysis(['setup/onionshare-launcher.py'],
     hiddenimports=['onionshare', 'onionshare_gui'],
     hookspath=None,
     runtime_hooks=None)
+a.datas += [
+    ('images/logo.png', 'images/logo.png', 'DATA'),
+    ('images/drop_files.png', 'images/drop_files.png', 'DATA'),
+    ('images/server_stopped.png', 'images/server_stopped.png', 'DATA'),
+    ('images/server_started.png', 'images/server_started.png', 'DATA'),
+    ('images/server_working.png', 'images/server_working.png', 'DATA'),
+]
 pyz = PYZ(a.pure)
 exe = EXE(pyz,
     a.scripts,
