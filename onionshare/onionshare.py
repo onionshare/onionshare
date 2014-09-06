@@ -260,7 +260,7 @@ def main():
             time.sleep(0.5)
         except KeyboardInterrupt:
             running = False
-            web.stop()
+            web.stop(app.port)
 
     # shutdown
     app.cleanup()
