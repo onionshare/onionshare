@@ -254,16 +254,13 @@ def main():
     print strings._("ctrlc_to_stop")
 
     # wait for app to close
-    running = True
-    while running:
-        try:
-            time.sleep(0.5)
-        except KeyboardInterrupt:
-            running = False
-            web.stop()
-
-    # shutdown
-    app.cleanup()
+    try:
+        t.join()
+    except KeyboardInterrupt:
+        web.stop(app.port)
+    finally:
+        # shutdown
+        app.cleanup()
 
 if __name__ == '__main__':
     main()
