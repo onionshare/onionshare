@@ -78,10 +78,13 @@ class FileList(QtGui.QListWidget):
 
     def add_file(self, filename):
         if filename not in self.filenames:
+            # make filenames unicode-safe for Qt (#141)
+            filename = filename.encode('utf-8').decode('utf-8', 'replace')
+
             self.filenames.append(filename)
 
-            basename = os.path.basename(filename)
             fileinfo = QtCore.QFileInfo(filename)
+            basename = os.path.basename(filename)
             ip = QtGui.QFileIconProvider()
             icon = ip.icon(fileinfo)
 
@@ -89,7 +92,8 @@ class FileList(QtGui.QListWidget):
                 size = self.human_readable_filesize(fileinfo.size())
             else:
                 size = self.human_readable_filesize(helpers.dir_size(filename))
-            item = QtGui.QListWidgetItem('{0} ({1})'.format(basename, size))
+            item_name = unicode('{0} ({1})'.format(basename, size))
+            item = QtGui.QListWidgetItem(item_name)
             item.setToolTip(QtCore.QString(size))
 
             item.setIcon(icon)
