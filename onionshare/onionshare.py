@@ -255,7 +255,8 @@ def main():
 
     # wait for app to close
     try:
-        t.join()
+        while True:
+            time.sleep(0.5)
     except KeyboardInterrupt:
         web.stop(app.port)
     finally:
