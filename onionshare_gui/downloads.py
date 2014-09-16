@@ -30,7 +30,7 @@ class Downloads(QtGui.QVBoxLayout):
         self.progress_bars = {}
 
         # downloads label
-        self.downloads_label = QtGui.QLabel(strings._('gui_downloads'))
+        self.downloads_label = QtGui.QLabel(strings._('gui_downloads', True))
         self.downloads_label.hide()
 
         # add the widgets

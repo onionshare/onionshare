@@ -35,7 +35,7 @@ class Options(QtGui.QHBoxLayout):
             self.close_automatically.setCheckState(QtCore.Qt.Unchecked)
         else:
             self.close_automatically.setCheckState(QtCore.Qt.Checked)
-        self.close_automatically.setText(strings._("close_on_finish"))
+        self.close_automatically.setText(strings._("close_on_finish", True))
         self.connect(self.close_automatically, QtCore.SIGNAL('stateChanged(int)'), self.stay_open_changed)
 
         # add the widgets

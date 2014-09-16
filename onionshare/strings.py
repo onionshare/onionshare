@@ -35,7 +35,10 @@ def load_strings(default="en"):
                 if key in translated[lang]:
                     strings[key] = translated[lang][key]
 
-def translated(k):
-    return strings[k].encode("utf-8").decode('utf-8', 'replace')
+def translated(k, gui=False):
+    if gui:
+        return strings[k].encode("utf-8").decode('utf-8', 'replace')
+    else:
+        return strings[k].encode("utf-8")
 
 _ = translated
