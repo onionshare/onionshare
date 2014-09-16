@@ -20,6 +20,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import os, inspect, hashlib, base64, hmac, platform, zipfile
 from itertools import izip
 
+# hack to make unicode filenames work (#141)
+import sys
+reload(sys)
+sys.setdefaultencoding("utf-8")
+
+
 def get_platform():
     p = platform.system()
     if p == 'Linux' and platform.uname()[0:2] == ('Linux', 'amnesia'):
