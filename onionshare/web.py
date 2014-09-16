@@ -164,7 +164,7 @@ def download(slug_candidate):
     r = Response(generate())
     r.headers.add('Content-Length', zip_filesize)
     r.headers.add('Content-Disposition', 'attachment', filename=basename)
-    
+
     # guess content type
     (content_type, _) = mimetypes.guess_type(basename, strict=False)
     if content_type is not None:
@@ -182,7 +182,7 @@ shutdown_slug = helpers.random_string(16)
 def shutdown(shutdown_slug_candidate):
     if not helpers.constant_time_compare(shutdown_slug.encode('ascii'), shutdown_slug_candidate.encode('ascii')):
         abort(404)
-    
+
     # shutdown the flask service
     func = request.environ.get('werkzeug.server.shutdown')
     if func is None:

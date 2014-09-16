@@ -91,7 +91,7 @@ class FileList(QtGui.QListWidget):
                 size = self.human_readable_filesize(helpers.dir_size(filename))
             item = QtGui.QListWidgetItem('{0} ({1})'.format(basename, size))
             item.setToolTip(QtCore.QString(size))
-            
+
             item.setIcon(icon)
             self.addItem(item)
 
@@ -180,7 +180,7 @@ class FileSelection(QtGui.QVBoxLayout):
         self.server_on = True
         self.file_list.setAcceptDrops(False)
         self.update()
-    
+
     def server_stopped(self):
         self.server_on = False
         self.file_list.setAcceptDrops(True)
