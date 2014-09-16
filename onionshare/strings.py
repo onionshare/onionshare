@@ -36,6 +36,6 @@ def load_strings(default="en"):
                     strings[key] = translated[lang][key]
 
 def translated(k):
-    return strings[k].encode("utf-8")
+    return strings[k].encode("utf-8").decode('utf-8', 'replace')
 
 _ = translated
