@@ -33,11 +33,28 @@ class FileList(QtGui.QListWidget):
         self.setIconSize(QtCore.QSize(32, 32))
         self.setSortingEnabled(True)
 
-        # drag and drop label
-        self.drop_label = QtGui.QLabel(QtCore.QString(strings._('gui_drag_and_drop', True)), parent=self)
-        self.drop_label.setAlignment(QtCore.Qt.AlignCenter)
-        self.drop_label.setStyleSheet('background: url({0}) no-repeat center center; color: #999999;'.format(common.get_image_path('drop_files.png')))
-        self.drop_label.hide()
+        class DropHereLabel(QtGui.QLabel):
+            def __init__(self, parent, image=False):
+                self.parent = parent
+                super(DropHereLabel, self).__init__(parent=parent)
+                self.setAcceptDrops(True)
+                self.setAlignment(QtCore.Qt.AlignCenter)
+
+                if image:
+                    self.setPixmap(QtGui.QPixmap.fromImage(QtGui.QImage(common.get_image_path('drop_files.png'))))
+                else:
+                    self.setText(QtCore.QString(strings._('gui_drag_and_drop', True)))
+                    self.setStyleSheet('color: #999999;')
+
+                self.hide()
+
+            def dragEnterEvent(self, event):
+                self.parent.drop_here_image.hide()
+                self.parent.drop_here_text.hide()
+                event.ignore()
+
+        self.drop_here_image = DropHereLabel(self, True)
+        self.drop_here_text = DropHereLabel(self, False)
 
         self.filenames = []
         self.update()
@@ -45,18 +62,25 @@ class FileList(QtGui.QListWidget):
     def update(self):
         # file list should have a background image if empty
         if len(self.filenames) == 0:
-            self.drop_label.show()
+            self.drop_here_image.show()
+            self.drop_here_text.show()
         else:
-            self.drop_label.hide()
+            self.drop_here_image.hide()
+            self.drop_here_text.hide()
 
     def resizeEvent(self, event):
-        self.drop_label.setGeometry(0, 0, self.width(), self.height())
+        self.drop_here_image.setGeometry(0, 0, self.width(), self.height())
+        self.drop_here_text.setGeometry(0, 0, self.width(), self.height())
 
     def dragEnterEvent(self, event):
         if event.mimeData().hasUrls:
             event.accept()
         else:
             event.ignore()
+
+    def dragLeaveEvent(self, event):
+        event.accept()
+        self.update()
 
     def dragMoveEvent(self, event):
         if event.mimeData().hasUrls:
