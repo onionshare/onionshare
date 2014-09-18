@@ -162,6 +162,7 @@ class FileSelection(QtGui.QVBoxLayout):
         # add the widgets
         self.addWidget(self.file_list)
         self.addLayout(button_layout)
+        self.addWidget(self.filesize_warning)
 
         self.update()
 

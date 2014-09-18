@@ -29,11 +29,11 @@ def test_load_strings_defaults_to_english():
     "load_strings() loads English by default"
     locale.getdefaultlocale = lambda: ('en_US', 'UTF-8')
     strings.load_strings()
-    assert strings._('calculating_sha1') == "Calculating SHA1 checksum."
+    assert strings._('wait_for_hs') == "Waiting for HS to be ready:"
 
 def test_load_strings_loads_other_languages():
     "load_strings() loads other languages in different locales"
     locale.getdefaultlocale = lambda: ('fr_FR', 'UTF-8')
     strings.load_strings("fr")
-    assert strings._('calculating_sha1') == "Calculer une somme de contrôle SHA-1."
+    assert strings._('wait_for_hs') == "En attente du HS:"
 
