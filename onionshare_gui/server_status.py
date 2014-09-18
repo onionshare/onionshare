@@ -35,7 +35,6 @@ class ServerStatus(QtGui.QVBoxLayout):
     def __init__(self, qtapp, app, web, file_selection):
         super(ServerStatus, self).__init__()
         self.status = self.STATUS_STOPPED
-        self.addSpacing(10)
 
         self.qtapp = qtapp
         self.app = app

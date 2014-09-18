@@ -25,7 +25,6 @@ from onionshare import strings, helpers
 class Downloads(QtGui.QVBoxLayout):
     def __init__(self):
         super(Downloads, self).__init__()
-        self.addSpacing(10)
 
         self.progress_bars = {}
 

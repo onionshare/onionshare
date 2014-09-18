@@ -25,7 +25,6 @@ from onionshare import strings, helpers
 class Options(QtGui.QHBoxLayout):
     def __init__(self, web):
         super(Options, self).__init__()
-        self.addSpacing(10)
 
         self.web = web
         

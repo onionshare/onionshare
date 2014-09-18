@@ -239,9 +239,9 @@ def main():
     app.cleanup_filenames.append(web.zip_filename)
 
     # warn about sending large files over Tor
-    if web.zip_filesize >= 209715200: # 200mb
+    if web.zip_filesize >= 157286400: # 150mb
         print ''
-        print strings._("large_filesize").format(helpers.human_readable_filesize(web.zip_filesize))
+        print strings._("large_filesize")
         print ''
 
     # start onionshare service in new thread
