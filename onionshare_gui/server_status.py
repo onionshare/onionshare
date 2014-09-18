@@ -48,14 +48,11 @@ class ServerStatus(QtGui.QVBoxLayout):
         self.status_image_started = QtGui.QImage(common.get_image_path('server_started.png'))
         self.status_image_label = QtGui.QLabel()
         self.status_image_label.setFixedWidth(30)
-        self.start_server_button = QtGui.QPushButton(strings._('gui_start_server', True))
-        self.start_server_button.clicked.connect(self.start_server)
-        self.stop_server_button = QtGui.QPushButton(strings._('gui_stop_server', True))
-        self.stop_server_button.clicked.connect(self.stop_server)
+        self.server_button = QtGui.QPushButton()
+        self.server_button.clicked.connect(self.server_button_clicked)
         server_layout = QtGui.QHBoxLayout()
         server_layout.addWidget(self.status_image_label)
-        server_layout.addWidget(self.start_server_button)
-        server_layout.addWidget(self.stop_server_button)
+        server_layout.addWidget(self.server_button)
 
         # url layout
         url_font = QtGui.QFont()
@@ -94,20 +91,26 @@ class ServerStatus(QtGui.QVBoxLayout):
             self.url_label.hide()
             self.copy_url_button.hide()
 
-        # buttons enabled
+        # button
         if self.file_selection.get_num_files() == 0:
-            self.start_server_button.setEnabled(False)
-            self.stop_server_button.setEnabled(False)
+            self.server_button.setEnabled(False)
+            self.server_button.setText(strings._('gui_start_server', True))
         else:
             if self.status == self.STATUS_STOPPED:
-                self.start_server_button.setEnabled(True)
-                self.stop_server_button.setEnabled(False)
+                self.server_button.setEnabled(True)
+                self.server_button.setText(strings._('gui_start_server', True))
             elif self.status == self.STATUS_STARTED:
-                self.start_server_button.setEnabled(False)
-                self.stop_server_button.setEnabled(True)
+                self.server_button.setEnabled(True)
+                self.server_button.setText(strings._('gui_stop_server', True))
             else:
-                self.start_server_button.setEnabled(False)
-                self.stop_server_button.setEnabled(False)
+                self.server_button.setEnabled(False)
+                self.server_button.setText(strings._('gui_please_wait'))
+
+    def server_button_clicked(self):
+        if self.status == self.STATUS_STOPPED:
+            self.start_server()
+        elif self.status == self.STATUS_STARTED:
+            self.stop_server()
 
     def start_server(self):
         self.status = self.STATUS_WORKING
