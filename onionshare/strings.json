@@ -21,6 +21,7 @@
     "close_on_finish": "Stop server automatically",
     "choose_file": "Choose a file to share",
     "closing_automatically": "Closing automatically because download finished",
+    "large_filesize": "You are sending a total of {0}. Transferring large files using OnionShare might take hours.",
     "error_tails_invalid_port": "Invalid value, port must be an integer",
     "error_tails_unknown_root": "Unknown error with Tails root process",
     "help_tails_port": "Tails only: port for opening firewall, starting hidden service",
