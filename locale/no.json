@@ -1,0 +1,12 @@
+{
+    "connecting_ctrlport": "Kobler til Tors kontroll-port for å sette opp en gjemt tjeneste på port {0}.",
+    "cant_connect_ctrlport": "Klarte ikke å koble til Tors kontroll-porter {0}. Sjekk at Tor kjører.",
+    "give_this_url": "Gi personen du vil sende filen til denne URL-en:",
+    "ctrlc_to_stop":  "Trykk Ctrl+C for å stoppe serveren.",
+    "not_a_file": "{0} er ikke en fil.",
+    "gui_copied_url": "Kopierte URL-en til utklippstavlen",
+    "download_page_loaded": "Nedlastingsside lastet",
+    "other_page_loaded": "En annen side har blitt lastet",
+    "close_on_finish": "Lukk automatisk",
+    "choose_file": "Velg en fil å dele"
+}

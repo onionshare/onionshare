@@ -59,6 +59,18 @@ setup(
             'images/server_stopped.png',
             'images/server_started.png',
             'images/server_working.png'
+        ]),
+        (os.path.join(sys.prefix, 'share/onionshare/locale'), [
+            'locale/de.json',
+            'locale/en.json',
+            'locale/es.json',
+            'locale/fr.json',
+            'locale/it.json',
+            'locale/nl.json',
+            'locale/no.json',
+            'locale/pt.json',
+            'locale/ru.json',
+            'locale/tr.json'
         ])
     ]
 )

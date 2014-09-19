@@ -17,14 +17,28 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-import json, locale
+import json, locale, sys, platform, os
 import helpers
 
 strings = {}
 
 def load_strings(default="en"):
     global strings
-    translated = json.loads(open('{0}/strings.json'.format(helpers.get_onionshare_dir())).read())
+
+    # find locale dir
+    if platform.system() == 'Linux':
+        locale_dir = os.path.join(sys.prefix, 'share/onionshare/locale')
+    else:
+        locale_dir = os.path.join(os.path.dirname(helpers.get_onionshare_dir()), 'locale')
+
+    # load all translations
+    translated = {}
+    for filename in os.listdir(locale_dir):
+        abs_filename = os.path.join(locale_dir, filename)
+        lang, ext = os.path.splitext(filename)
+        if abs_filename.endswith('.json'):
+            translated[lang] = json.loads(open(abs_filename).read())
+
     strings = translated[default]
     lc, enc = locale.getdefaultlocale()
     if lc:

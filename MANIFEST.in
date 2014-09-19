@@ -8,3 +8,4 @@ include onionshare/strings.json
 include setup/onionshare.desktop
 include setup/onionshare80.xpm
 include images/*.png
+include locale/*.json
