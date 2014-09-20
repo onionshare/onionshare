@@ -64,6 +64,7 @@ setup(
             'locale/de.json',
             'locale/en.json',
             'locale/es.json',
+            'locale/fi.json',
             'locale/fr.json',
             'locale/it.json',
             'locale/nl.json',
