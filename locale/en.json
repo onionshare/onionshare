@@ -36,6 +36,7 @@
     "gui_stop_server": "Stop Server",
     "gui_copy_url": "Copy URL",
     "gui_downloads": "Downloads:",
+    "gui_canceled": "Canceled",
     "gui_copied_url": "Copied URL to clipboard",
     "gui_starting_server1": "Starting Tor hidden service...",
     "gui_starting_server2": "Crunching files...",

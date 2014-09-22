@@ -63,6 +63,7 @@ REQUEST_LOAD = 0
 REQUEST_DOWNLOAD = 1
 REQUEST_PROGRESS = 2
 REQUEST_OTHER = 3
+REQUEST_CANCELED = 4
 q = Queue.Queue()
 
 def add_request(type, path, data=None):
@@ -137,25 +138,34 @@ def download(slug_candidate):
 
         fp = open(zip_filename, 'rb')
         done = False
+        canceled = False
         while not done:
             chunk = fp.read(102400)
             if chunk == '':
                 done = True
             else:
-                yield chunk
+                try:
+                    yield chunk
 
-                # tell GUI the progress
-                downloaded_bytes = fp.tell()
-                percent = round((1.0 * downloaded_bytes / zip_filesize) * 100, 2);
-                sys.stdout.write("\r{0}, {1}%          ".format(helpers.human_readable_filesize(downloaded_bytes), percent))
-                sys.stdout.flush()
-                add_request(REQUEST_PROGRESS, path, { 'id':download_id, 'bytes':downloaded_bytes })
+                    # tell GUI the progress
+                    downloaded_bytes = fp.tell()
+                    percent = round((1.0 * downloaded_bytes / zip_filesize) * 100, 2);
+                    sys.stdout.write("\r{0}, {1}%          ".format(helpers.human_readable_filesize(downloaded_bytes), percent))
+                    sys.stdout.flush()
+                    add_request(REQUEST_PROGRESS, path, { 'id':download_id, 'bytes':downloaded_bytes })
+                except:
+                    # looks like the download was canceled
+                    done = True
+                    canceled = True
+
+                    # tell the GUI the download has canceled
+                    add_request(REQUEST_CANCELED, path, { 'id':download_id })
 
         fp.close()
         sys.stdout.write("\n")
 
         # download is finished, close the server
-        if not stay_open:
+        if not stay_open and not canceled:
             print strings._("closing_automatically")
             if shutdown_func is None:
                 raise RuntimeError('Not running with the Werkzeug Server')

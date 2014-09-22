@@ -194,6 +194,9 @@ class OnionShareGui(QtGui.QWidget):
                     if not web.get_stay_open():
                         self.server_status.stop_server()
 
+            elif event["type"] == web.REQUEST_CANCELED:
+                self.downloads.cancel_download(event["data"]["id"])
+
             elif event["path"] != '/favicon.ico':
                 self.status_bar.showMessage('{0}: {1}'.format(strings._('other_page_loaded', True), event["path"]))
 

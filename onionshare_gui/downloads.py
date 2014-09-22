@@ -66,3 +66,6 @@ class Downloads(QtGui.QVBoxLayout):
         else:
             pb.setFormat("{0}, %p%".format(helpers.human_readable_filesize(downloaded_bytes)))
 
+    def cancel_download(self, download_id):
+        pb = self.progress_bars[download_id]
+        pb.setFormat(strings._('gui_canceled'))
