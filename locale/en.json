@@ -37,6 +37,8 @@
     "gui_copy_url": "Copy URL",
     "gui_downloads": "Downloads:",
     "gui_copied_url": "Copied URL to clipboard",
-    "gui_starting_server": "Please wait, starting server...",
+    "gui_starting_server1": "Starting Tor hidden service...",
+    "gui_starting_server2": "Crunching files...",
+    "gui_starting_server3": "Waiting for Tor hidden service...",
     "gui_please_wait": "Please wait..."
 }

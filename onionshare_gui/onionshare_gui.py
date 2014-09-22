@@ -45,7 +45,7 @@ class Application(QtGui.QApplication):
 class OnionShareGui(QtGui.QWidget):
     start_server_finished = QtCore.pyqtSignal()
     stop_server_finished = QtCore.pyqtSignal()
-    server_starting = QtCore.pyqtSignal()
+    starting_server_step2 = QtCore.pyqtSignal()
 
     def __init__(self, qtapp, app):
         super(OnionShareGui, self).__init__()
@@ -73,12 +73,12 @@ class OnionShareGui(QtGui.QWidget):
         self.stop_server_finished.connect(self.server_status.stop_server_finished)
         self.file_selection.file_list.files_updated.connect(self.server_status.update)
         self.server_status.url_copied.connect(self.copy_url)
+        self.starting_server_step2.connect(self.start_server_step2)
 
         # filesize warning
         self.filesize_warning = QtGui.QLabel()
         self.filesize_warning.setStyleSheet('padding: 10px 0; font-weight: bold; color: #333333;')
         self.filesize_warning.hide()
-        self.server_starting.connect(self.server_start_update)
 
         # downloads
         self.downloads = Downloads()
@@ -106,7 +106,9 @@ class OnionShareGui(QtGui.QWidget):
         QtCore.QObject.connect(self.timer, QtCore.SIGNAL("timeout()"), self.check_for_requests)
         self.timer.start(500)
 
-    def server_start_update(self):
+    def start_server_step2(self):
+        self.status_bar.showMessage(strings._('gui_starting_server3', True))
+
         # warn about sending large files over Tor
         if web.zip_filesize >= 157286400: # 150mb
             self.filesize_warning.setText(strings._("large_filesize", True))
@@ -114,7 +116,7 @@ class OnionShareGui(QtGui.QWidget):
 
     def start_server(self):
         # start the hidden service
-        self.status_bar.showMessage(strings._('gui_starting_server', True).format(self.app.port))
+        self.status_bar.showMessage(strings._('gui_starting_server1', True))
         try:
             self.app.choose_port()
             print strings._("connecting_ctrlport").format(self.app.port)
@@ -140,7 +142,7 @@ class OnionShareGui(QtGui.QWidget):
             # prepare files to share
             web.set_file_info(self.file_selection.file_list.filenames)
             self.app.cleanup_filenames.append(web.zip_filename)
-            self.server_starting.emit()
+            self.starting_server_step2.emit()
 
             # wait for hs
             self.app.wait_for_hs()
@@ -148,6 +150,7 @@ class OnionShareGui(QtGui.QWidget):
             # done
             self.start_server_finished.emit()
 
+        self.status_bar.showMessage(strings._('gui_starting_server2', True))
         t = threading.Thread(target=finish_starting_server, kwargs={'self':self})
         t.daemon = True
         t.start()
@@ -190,7 +193,7 @@ class OnionShareGui(QtGui.QWidget):
                     # close on finish?
                     if not web.get_stay_open():
                         self.server_status.stop_server()
-            
+
             elif event["path"] != '/favicon.ico':
                 self.status_bar.showMessage('{0}: {1}'.format(strings._('other_page_loaded', True), event["path"]))
 
