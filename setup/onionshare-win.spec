@@ -9,6 +9,17 @@ a.datas += [
     ('images/server_stopped.png', 'images/server_stopped.png', 'DATA'),
     ('images/server_started.png', 'images/server_started.png', 'DATA'),
     ('images/server_working.png', 'images/server_working.png', 'DATA'),
+    ('locale/de.json', 'locale/de.json', 'DATA'),
+    ('locale/en.json', 'locale/en.json', 'DATA'),
+    ('locale/es.json', 'locale/es.json', 'DATA'),
+    ('locale/fi.json', 'locale/fi.json', 'DATA'),
+    ('locale/fr.json', 'locale/fr.json', 'DATA'),
+    ('locale/it.json', 'locale/it.json', 'DATA'),
+    ('locale/nl.json', 'locale/nl.json', 'DATA'),
+    ('locale/no.json', 'locale/no.json', 'DATA'),
+    ('locale/pt.json', 'locale/pt.json', 'DATA'),
+    ('locale/ru.json', 'locale/ru.json', 'DATA'),
+    ('locale/tr.json', 'locale/tr.json', 'DATA'),
 ]
 pyz = PYZ(a.pure)
 exe = EXE(pyz,
