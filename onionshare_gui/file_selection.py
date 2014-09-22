@@ -108,7 +108,7 @@ class FileList(QtGui.QListWidget):
             self.filenames.append(filename)
 
             fileinfo = QtCore.QFileInfo(filename)
-            basename = os.path.basename(filename)
+            basename = os.path.basename(filename.rstrip('/'))
             ip = QtGui.QFileIconProvider()
             icon = ip.icon(fileinfo)
 
