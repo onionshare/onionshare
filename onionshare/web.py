@@ -193,7 +193,7 @@ def shutdown(shutdown_slug_candidate):
 
 def start(port, stay_open=False):
     set_stay_open(stay_open)
-    app.run(port=port)
+    app.run(port=port, threaded=True)
 
 def stop(port):
     # to stop flask, load http://127.0.0.1:<port>/<shutdown_slug>/shutdown
