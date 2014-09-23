@@ -1,5 +1,20 @@
 # OnionShare Changelog
 
+## 0.6
+
+* Brand new drag-and-drop GUI with ability to start and stop server
+* Much cleaner code split into several files
+* Support for sharing multiple files and folders at once, and automatically zips files before sharing
+* Redesigned receiver HTML interface
+* Waits for hidden service to be available before displaying URL
+* Cleans up hidden service directory on exit
+* Continuous integration with Travis
+* Support for multiple downloads at once
+* Fixed unicode-related filename and display bugs
+* Warns that large files could take hours to send
+* New translations
+* Several misc. bugfixes
+
 ## 0.5
 
 * Removed webkit GUI altogether, and refactored GUI with native Qt widget
