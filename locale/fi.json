@@ -38,7 +38,7 @@
     "gui_downloads": "Lataukset:",
     "gui_canceled": "Peruutettu",
     "gui_copied_url": "URL-osoite kopioitu leikepöydälle",
-    "gui_starting_server1": "Odota, palvelin käynnistyy...",
+    "gui_starting_server1": "Käynnistetään Tor piilopalvelu...",
     "gui_starting_server2": "Tiivistän tiedostoja...",
     "gui_starting_server3": "Odotetaan Tor piilopalvelua...",
     "gui_please_wait": "Odota..."
