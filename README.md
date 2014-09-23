@@ -4,9 +4,6 @@
 
 OnionShare lets you securely and anonymously share files of any size. It works by starting a web server, making it accessible as a Tor hidden service, and generating an unguessable URL to access and download the files. It doesn't require setting up a server on the internet somewhere or using a third party filesharing service. You host the file on your own computer and use a Tor hidden service to make it temporarily accessible over the internet. The other user just needs to use Tor Browser to download the file from you.
 
-![Sender Screenshot](/screenshot_sender.png)
-![Receiver Screenshot](/screenshot_receiver.png)
-
 Features include:
 
 * A user-friendly drag-and-drop graphical user interface that works in Windows, Mac OS X, and Linux
@@ -17,6 +14,9 @@ Features include:
 * When file is done transferring, automatically closes OnionShare to reduce the attack surface
 * Localized into several languages, and supports international unicode filenames
 * Designed to work in [Tails](https://tails.boum.org/), for high risk users
+
+![Sender Screenshot](/screenshot_sender.png)
+![Receiver Screenshot](/screenshot_receiver.png)
 
 ## Quick Start
 
