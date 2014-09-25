@@ -14,6 +14,7 @@
 * Warns that large files could take hours to send
 * New translations
 * Several misc. bugfixes
+* Added code signing for Windows with Authenticode
 
 ## 0.5
 
