@@ -16,7 +16,6 @@
     "download_page_loaded": "Downloadpagina geladen",
     "other_page_loaded": "URL geladen",
     "close_on_finish": "Stop server automatisch",
-    "choose_file": "Kies een bestand om te delen",
     "closing_automatically": "Sluit nu automatisch omdat download gereed is",
     "large_filesize": "Waarschuwing: Versturen van grote bestanden kan uren duren",
     "error_tails_invalid_port": "Ongeldige waarde, poort moet een integer zijn",

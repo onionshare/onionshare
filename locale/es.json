@@ -16,7 +16,6 @@
     "download_page_loaded": "La página de descarga está lista.",
     "other_page_loaded": "La URL está lista.",
     "close_on_finish": "Apagar el servidor automáticamente.",
-    "choose_file": "Elija un archivo para compartir",
     "closing_automatically": "Apagando automáticamente porque la descarga finalizó",
     "error_tails_invalid_port": "Valor inválido, el puerto debe ser un entero",
     "error_tails_unknown_root": "Error desconocido en el proceso de Tails corriendo como root",
@@ -35,6 +34,5 @@
     "gui_stop_server": "Detener el Servidor",
     "gui_copy_url": "Copiar URL",
     "gui_downloads": "Descargas:",
-    "gui_copied_url": "Se copió la URL en el portapapeles",
-    "gui_starting_server": "Por favor espere, levantando el servidor..."
+    "gui_copied_url": "Se copió la URL en el portapapeles"
 }

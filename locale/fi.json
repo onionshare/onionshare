@@ -16,7 +16,6 @@
     "download_page_loaded": "Lataussivu ladattu",
     "other_page_loaded": "URL-osoite ladattu",
     "close_on_finish": "Pysäytä palvelin automaattisesti",
-    "choose_file": "Valitse jaettava tiedosto",
     "closing_automatically": "Lataus valmis. Suljetaan automaattisesti",
     "large_filesize": "Varoitus: Isojen tiedostojen lähetys saattaa kestää tunteja",
     "error_tails_invalid_port": "Väärä arvo, portti pitää olla koknaisluku",
