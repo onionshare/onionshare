@@ -36,7 +36,7 @@ def set_file_info(filenames):
     for filename in filenames:
         info = {
             'filename': filename,
-            'basename': os.path.basename(filename)
+            'basename': os.path.basename(filename.rstrip('/'))
         }
         if os.path.isfile(filename):
             info['size'] = os.path.getsize(filename)

@@ -110,7 +110,7 @@ class ZipWriter(object):
         self.z.write(filename, os.path.basename(filename), zipfile.ZIP_DEFLATED)
 
     def add_dir(self, filename):
-        dir_to_strip = os.path.dirname(filename)+'/'
+        dir_to_strip = os.path.dirname(filename.rstrip('/'))+'/'
         for dirpath, dirnames, filenames in os.walk(filename):
             for f in filenames:
                 full_filename = os.path.join(dirpath, f)
