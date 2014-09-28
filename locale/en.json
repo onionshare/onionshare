@@ -16,7 +16,6 @@
     "download_page_loaded": "Download page loaded",
     "other_page_loaded": "URL loaded",
     "close_on_finish": "Stop server automatically",
-    "choose_file": "Choose a file to share",
     "closing_automatically": "Closing automatically because download finished",
     "large_filesize": "Warning: Sending large files could take hours",
     "error_tails_invalid_port": "Invalid value, port must be an integer",
