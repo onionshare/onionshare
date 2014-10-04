@@ -261,8 +261,9 @@ def main():
 
     # wait for app to close
     try:
-        while True:
-            time.sleep(0.5)
+        while t.is_alive():
+            # t.join() can't catch KeyboradInterrupt in such as Ubuntu
+            t.join(0.5)
     except KeyboardInterrupt:
         web.stop(app.port)
     finally:
