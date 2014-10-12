@@ -109,7 +109,7 @@ class OnionShare(object):
                     authed = False
                     while not authed:
                         try:
-                            controller.authenticate(getpass('Tor control password: '))
+                            controller.authenticate(getpass('{0}: '.format(strings._('tor_control_password'))))
                             authed = True
                         except AuthenticationFailure:
                             pass

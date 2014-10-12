@@ -40,5 +40,6 @@
     "gui_starting_server1": "Starting Tor hidden service...",
     "gui_starting_server2": "Crunching files...",
     "gui_starting_server3": "Waiting for Tor hidden service...",
-    "gui_please_wait": "Please wait..."
+    "gui_please_wait": "Please wait...",
+    "tor_control_password":"Tor control password"
 }
