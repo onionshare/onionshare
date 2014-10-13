@@ -118,7 +118,7 @@ class OnionShare(object):
                         pass
                 if not self.controller:
                     raise NoTor(strings._("cant_connect_ctrlport").format(tor_control_ports))
-                controller.authenticate()
+                self.controller.authenticate()
 
                 # set up hidden service
                 self.original_hs = self.controller.get_conf_map('HiddenServiceOptions') or {
