@@ -124,7 +124,6 @@ class OnionShare(object):
                 self.original_hs = self.controller.get_conf_map('HiddenServiceOptions') or {
                     'HiddenServiceDir': [], 'HiddenServicePort': []
                 }
-                print hsdic2list(self.original_hs)
                 new_hs = self.original_hs.copy()
                 if not hidserv_dir in new_hs['HiddenServiceDir']:
                     # Unless another instance has opened
@@ -134,7 +133,6 @@ class OnionShare(object):
                         '80 127.0.0.1:{0}'.format(self.port))
 
                 self.controller.set_options(hsdic2list(new_hs))
-                print self.controller.get_conf_map('HiddenServiceOptions')
 
                 # figure out the .onion hostname
                 hostname_file = '{0}/hostname'.format(hidserv_dir)
