@@ -10,7 +10,7 @@ Start by booting to Tails. Mount your persistent volume and set an administrator
     git clone https://github.com/micahflee/onionshare.git
     sudo onionshare/tails/install_in_persistent_volume.sh
 
-You only need to do that once each time you want to build a new verison of OnionShare.
+You only need to do that once each time you want to build a new version of OnionShare.
 
 ### Installing in Tails
 

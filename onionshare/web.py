@@ -123,7 +123,7 @@ def download(slug_candidate):
     download_count += 1
 
     # prepare some variables to use inside generate() function below
-    # which is outsie of the request context
+    # which is outside of the request context
     shutdown_func = request.environ.get('werkzeug.server.shutdown')
     path = request.path
 
@@ -149,7 +149,7 @@ def download(slug_candidate):
 
                     # tell GUI the progress
                     downloaded_bytes = fp.tell()
-                    percent = round((1.0 * downloaded_bytes / zip_filesize) * 100, 2);
+                    percent = round((1.0 * downloaded_bytes / zip_filesize) * 100, 2)
                     sys.stdout.write("\r{0}, {1}%          ".format(helpers.human_readable_filesize(downloaded_bytes), percent))
                     sys.stdout.flush()
                     add_request(REQUEST_PROGRESS, path, { 'id':download_id, 'bytes':downloaded_bytes })
