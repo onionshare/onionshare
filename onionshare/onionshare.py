@@ -104,10 +104,11 @@ class OnionShare(object):
                 controller.authenticate()
 
                 # set up hidden service
-                controller.set_options([
-                    ('HiddenServiceDir', hidserv_dir),
-                    ('HiddenServicePort', '80 127.0.0.1:{0}'.format(self.port))
-                ])
+                controller.create_hidden_service(
+                    hidserv_dir,
+                    80
+                    '127.0.0.1:{0}'.format(self.port)
+                )
 
                 # figure out the .onion hostname
                 hostname_file = '{0}/hostname'.format(hidserv_dir)
