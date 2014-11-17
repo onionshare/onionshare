@@ -28,9 +28,20 @@ import strings, helpers, web
 class NoTor(Exception): pass
 class TailsError(Exception): pass
 
+def hsdic2list(dic):
+    "Convert what we get from get_conf_map to what we need for set_options"
+    return [
+        pair for pairs in [
+            [('HiddenServiceDir',vals[0]),('HiddenServicePort',vals[1])]
+            for vals in zip(dic.get('HiddenServiceDir',[]),dic.get('HiddenServicePort',[]))
+        ] for pair in pairs
+    ]
+
 class OnionShare(object):
     def __init__(self, debug=False, local_only=False, stay_open=False):
         self.port = None
+        self.controller = None
+        self.hidserv_dir = None
 
         # debug mode
         if debug:
@@ -45,7 +56,21 @@ class OnionShare(object):
         # files and dirs to delete on shutdown
         self.cleanup_filenames = []
 
+
     def cleanup(self):
+        if self.controller:
+            # Get fresh hidden services (maybe changed since last time)
+            # and remove ourselves
+            hsdic = self.controller.get_conf_map('HiddenServiceOptions') or {
+                'HiddenServiceDir': [], 'HiddenServicePort': []
+            }
+            if self.hidserv_dir and self.hidserv_dir in hsdic.get('HiddenServiceDir',[]):
+                dropme = hsdic['HiddenServiceDir'].index(self.hidserv_dir)
+                del hsdic['HiddenServiceDir'][dropme]
+                del hsdic['HiddenServicePort'][dropme]
+                self.controller.set_options(hsdic2list(hsdic))
+            # Politely close the controller
+            self.controller.close()
         for filename in self.cleanup_filenames:
             if os.path.isfile(filename):
                 os.remove(filename)
@@ -87,30 +112,39 @@ class OnionShare(object):
 
             else:
                 # come up with a hidden service directory name
-                hidserv_dir = '{0}/onionshare_{1}'.format(helpers.get_tmp_dir(), helpers.random_string(8))
-                self.cleanup_filenames.append(hidserv_dir)
+                self.hidserv_dir = '{0}/onionshare_{1}'.format(helpers.get_tmp_dir(), helpers.random_string(8))
+                self.cleanup_filenames.append(self.hidserv_dir)
 
                 # connect to the tor controlport
-                controller = False
+                self.controller = None
                 tor_control_ports = [9051, 9151]
                 for tor_control_port in tor_control_ports:
                     try:
-                        controller = Controller.from_port(port=tor_control_port)
+                        self.controller = Controller.from_port(port=tor_control_port)
                         break
                     except SocketError:
                         pass
-                if not controller:
+                if not self.controller:
                     raise NoTor(strings._("cant_connect_ctrlport").format(tor_control_ports))
-                controller.authenticate()
+                self.controller.authenticate()
 
                 # set up hidden service
-                controller.set_options([
-                    ('HiddenServiceDir', hidserv_dir),
-                    ('HiddenServicePort', '80 127.0.0.1:{0}'.format(self.port))
-                ])
+                hsdic = self.controller.get_conf_map('HiddenServiceOptions') or {
+                    'HiddenServiceDir': [], 'HiddenServicePort': []
+                }
+                if self.hidserv_dir in hsdic.get('HiddenServiceDir',[]):
+                    # Maybe a stale service with the wrong local port
+                    dropme = hsdic['HiddenServiceDir'].index(self.hidserv_dir)
+                    del hsdic['HiddenServiceDir'][dropme]
+                    del hsdic['HiddenServicePort'][dropme]
+                hsdic['HiddenServiceDir'] = hsdic.get('HiddenServiceDir',[])+[self.hidserv_dir]
+                hsdic['HiddenServicePort'] = hsdic.get('HiddenServicePort',[])+[
+                    '80 127.0.0.1:{0}'.format(self.port) ]
+
+                self.controller.set_options(hsdic2list(hsdic))
 
                 # figure out the .onion hostname
-                hostname_file = '{0}/hostname'.format(hidserv_dir)
+                hostname_file = '{0}/hostname'.format(self.hidserv_dir)
                 self.onion_host = open(hostname_file, 'r').read().strip()
 
     def wait_for_hs(self):
@@ -249,20 +283,20 @@ def main():
     t.daemon = True
     t.start()
 
-    # wait for hs
-    ready = app.wait_for_hs()
-    if not ready:
-        sys.exit()
+    try: # Trap Ctrl-C
+        # wait for hs
+        ready = app.wait_for_hs()
+        if not ready:
+            sys.exit()
 
-    print strings._("give_this_url")
-    print 'http://{0}/{1}'.format(app.onion_host, web.slug)
-    print ''
-    print strings._("ctrlc_to_stop")
+        print strings._("give_this_url")
+        print 'http://{0}/{1}'.format(app.onion_host, web.slug)
+        print ''
+        print strings._("ctrlc_to_stop")
 
-    # wait for app to close
-    try:
+        # wait for app to close
         while t.is_alive():
-            # t.join() can't catch KeyboradInterrupt in such as Ubuntu
+            # t.join() can't catch KeyboardInterrupt in such as Ubuntu
             t.join(0.5)
     except KeyboardInterrupt:
         web.stop(app.port)
