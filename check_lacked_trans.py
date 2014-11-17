@@ -5,7 +5,7 @@
 Check translation lacked or disused.
 
 Example:
-in OninShare directory
+in OnionShare directory
 $ check_lacked_trans.py
 de disused choose_file
 de disused gui_starting_server

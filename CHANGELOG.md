@@ -42,4 +42,4 @@
 * Shows download progress
 * Limited suite of tests
 * If a localized string doesn't exist, falls back to English
-* New translations: Dutch, Portuguese, German, Russian, and updated translations: Norweigan, Spanish, French, Italian
+* New translations: Dutch, Portuguese, German, Russian, and updated translations: Norwegian, Spanish, French, Italian
