@@ -145,7 +145,7 @@ class OnionShare(object):
                     del hsdic['HiddenServicePort'][dropme]
                 hsdic['HiddenServiceDir'] = hsdic.get('HiddenServiceDir', [])+[self.hidserv_dir]
                 hsdic['HiddenServicePort'] = hsdic.get('HiddenServicePort', [])+[
-                    '80 127.0.0.1:{0}'.format(self.port) ]
+                    '80 127.0.0.1:{0}'.format(self.port)]
 
                 self.controller.set_options(hsdic2list(hsdic))
 

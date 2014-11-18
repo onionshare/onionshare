@@ -105,25 +105,28 @@ class HTTPError(ProxyError):
     pass
 
 
-SOCKS4_ERRORS = { 0x5B: "Request rejected or failed",
-                  0x5C: "Request rejected because SOCKS server cannot connect to identd on the client",
-                  0x5D: "Request rejected because the client program and identd report different user-ids"
-                }
+SOCKS4_ERRORS = {
+    0x5B: "Request rejected or failed",
+    0x5C: "Request rejected because SOCKS server cannot connect to identd on the client",
+    0x5D: "Request rejected because the client program and identd report different user-ids",
+}
 
-SOCKS5_ERRORS = { 0x01: "General SOCKS server failure",
-                  0x02: "Connection not allowed by ruleset",
-                  0x03: "Network unreachable",
-                  0x04: "Host unreachable",
-                  0x05: "Connection refused",
-                  0x06: "TTL expired",
-                  0x07: "Command not supported, or protocol error",
-                  0x08: "Address type not supported"
-                }
+SOCKS5_ERRORS = {
+    0x01: "General SOCKS server failure",
+    0x02: "Connection not allowed by ruleset",
+    0x03: "Network unreachable",
+    0x04: "Host unreachable",
+    0x05: "Connection refused",
+    0x06: "TTL expired",
+    0x07: "Command not supported, or protocol error",
+    0x08: "Address type not supported",
+}
 
-DEFAULT_PORTS = { SOCKS4: 1080,
-                  SOCKS5: 1080,
-                  HTTP: 8080
-                }
+DEFAULT_PORTS = {
+    SOCKS4: 1080,
+    SOCKS5: 1080,
+    HTTP: 8080,
+}
 
 
 def set_default_proxy(proxy_type=None, addr=None, port=None, rdns=True, username=None, password=None):
@@ -205,10 +208,11 @@ class socksocket(socket.socket):
         self.proxy_sockname = None
         self.proxy_peername = None
 
-        self.proxy_negotiators = { SOCKS4: self._negotiate_SOCKS4,
-                                   SOCKS5: self._negotiate_SOCKS5,
-                                   HTTP: self._negotiate_HTTP
-                                 }
+        self.proxy_negotiators = {
+            SOCKS4: self._negotiate_SOCKS4,
+            SOCKS5: self._negotiate_SOCKS5,
+            HTTP: self._negotiate_HTTP,
+        }
 
     def _recvall(self, count):
         """
