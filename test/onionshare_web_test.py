@@ -19,9 +19,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from onionshare import web
 from nose import with_setup
 
+
 def test_generate_slug_length():
     """generates a 26-character slug"""
     assert len(web.slug) == 26
+
 
 def test_generate_slug_characters():
     """generates a base32-encoded slug"""

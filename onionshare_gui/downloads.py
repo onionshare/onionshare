@@ -22,6 +22,7 @@ from PyQt4 import QtCore, QtGui
 import common
 from onionshare import strings, helpers
 
+
 class Downloads(QtGui.QVBoxLayout):
     def __init__(self):
         super(Downloads, self).__init__()

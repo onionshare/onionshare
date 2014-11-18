@@ -27,6 +27,7 @@ try:
 except ImportError:
     from distutils.core import setup
 
+
 def file_list(path):
     files = []
     for filename in os.listdir(path):

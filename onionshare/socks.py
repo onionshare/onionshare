@@ -65,6 +65,7 @@ PRINTABLE_PROXY_TYPES = {SOCKS4: "SOCKS4", SOCKS5: "SOCKS5", HTTP: "HTTP"}
 
 _orgsocket = _orig_socket = socket.socket
 
+
 class ProxyError(IOError):
     """
     socket_err contains original socket.error exception.
@@ -79,12 +80,30 @@ class ProxyError(IOError):
     def __str__(self):
         return self.msg
 
-class GeneralProxyError(ProxyError): pass
-class ProxyConnectionError(ProxyError): pass
-class SOCKS5AuthError(ProxyError): pass
-class SOCKS5Error(ProxyError): pass
-class SOCKS4Error(ProxyError): pass
-class HTTPError(ProxyError): pass
+
+class GeneralProxyError(ProxyError):
+    pass
+
+
+class ProxyConnectionError(ProxyError):
+    pass
+
+
+class SOCKS5AuthError(ProxyError):
+    pass
+
+
+class SOCKS5Error(ProxyError):
+    pass
+
+
+class SOCKS4Error(ProxyError):
+    pass
+
+
+class HTTPError(ProxyError):
+    pass
+
 
 SOCKS4_ERRORS = { 0x5B: "Request rejected or failed",
                   0x5C: "Request rejected because SOCKS server cannot connect to identd on the client",
@@ -106,6 +125,7 @@ DEFAULT_PORTS = { SOCKS4: 1080,
                   HTTP: 8080
                 }
 
+
 def set_default_proxy(proxy_type=None, addr=None, port=None, rdns=True, username=None, password=None):
     """
     set_default_proxy(proxy_type, addr[, port[, rdns[, username, password]]])
@@ -119,6 +139,7 @@ def set_default_proxy(proxy_type=None, addr=None, port=None, rdns=True, username
 
 setdefaultproxy = set_default_proxy
 
+
 def get_default_proxy():
     """
     Returns the default proxy, set by set_default_proxy.
@@ -126,6 +147,7 @@ def get_default_proxy():
     return socksocket.default_proxy
 
 getdefaultproxy = get_default_proxy
+
 
 def wrap_module(module):
     """
@@ -141,7 +163,8 @@ def wrap_module(module):
 
 wrapmodule = wrap_module
 
-def create_connection(dest_pair, proxy_type=None, proxy_addr=None, 
+
+def create_connection(dest_pair, proxy_type=None, proxy_addr=None,
                       proxy_port=None, proxy_username=None,
                       proxy_password=None, timeout=None):
     """create_connection(dest_pair, **proxy_args) -> socket object
@@ -160,6 +183,7 @@ def create_connection(dest_pair, proxy_type=None, proxy_addr=None,
                    proxy_username, proxy_password)
     sock.connect(dest_pair)
     return sock
+
 
 class socksocket(socket.socket):
     """socksocket([family[, type[, proto]]]) -> socket object
@@ -446,7 +470,6 @@ class socksocket(socket.socket):
         self.proxy_sockname = (b"0.0.0.0", 0)
         self.proxy_peername = addr, dest_port
 
-
     def connect(self, dest_pair):
         """        
         Connects to the specified destination through a proxy.
@@ -464,7 +487,6 @@ class socksocket(socket.socket):
                 or not isinstance(dest_addr, type(""))
                 or not isinstance(dest_port, int)):
             raise GeneralProxyError("Invalid destination-connection (host, port) pair")
-
 
         if proxy_type is None:
             # Treat like regular socket object

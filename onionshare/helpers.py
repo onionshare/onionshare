@@ -32,12 +32,14 @@ def get_platform():
         p = 'Tails'
     return p
 
+
 def get_onionshare_dir():
     if get_platform() == 'Darwin':
         onionshare_dir = os.path.dirname(__file__)
     else:
         onionshare_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
     return onionshare_dir
+
 
 def constant_time_compare(val1, val2):
     _builtin_constant_time_compare = getattr(hmac, 'compare_digest', None)
@@ -55,6 +57,7 @@ def constant_time_compare(val1, val2):
         result |= x ^ y
     return result == 0
 
+
 def random_string(num_bytes, output_len=None):
     b = os.urandom(num_bytes)
     h = hashlib.sha256(b).digest()[:16]
@@ -62,6 +65,7 @@ def random_string(num_bytes, output_len=None):
     if not output_len:
         return s
     return s[:output_len]
+
 
 def human_readable_filesize(b):
     thresh = 1024.0
@@ -75,8 +79,10 @@ def human_readable_filesize(b):
         u += 1
     return '{0} {1}'.format(round(b, 1), units[u])
 
+
 def is_root():
     return os.geteuid() == 0
+
 
 def dir_size(start_path):
     total_size = 0
@@ -87,6 +93,7 @@ def dir_size(start_path):
                 total_size += os.path.getsize(fp)
     return total_size
 
+
 def get_tmp_dir():
     if get_platform() == "Windows":
         if 'Temp' in os.environ:
@@ -96,6 +103,7 @@ def get_tmp_dir():
     else:
         temp = '/tmp'
     return temp
+
 
 class ZipWriter(object):
     def __init__(self, zip_filename=None):
@@ -120,4 +128,3 @@ class ZipWriter(object):
 
     def close(self):
         self.z.close()
-

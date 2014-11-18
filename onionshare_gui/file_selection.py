@@ -23,6 +23,7 @@ from PyQt4 import QtCore, QtGui
 import common
 from onionshare import strings, helpers
 
+
 class FileList(QtGui.QListWidget):
     files_dropped = QtCore.pyqtSignal()
     files_updated = QtCore.pyqtSignal()
@@ -136,6 +137,7 @@ class FileList(QtGui.QListWidget):
             b /= thresh
             u += 1
         return '{0} {1}'.format(round(b, 1), units[u])
+
 
 class FileSelection(QtGui.QVBoxLayout):
     def __init__(self):

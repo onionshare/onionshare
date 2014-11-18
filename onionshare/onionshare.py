@@ -25,8 +25,14 @@ from stem import SocketError
 
 import strings, helpers, web
 
-class NoTor(Exception): pass
-class TailsError(Exception): pass
+
+class NoTor(Exception):
+    pass
+
+
+class TailsError(Exception):
+    pass
+
 
 def hsdic2list(dic):
     """Convert what we get from get_conf_map to what we need for set_options"""
@@ -36,6 +42,7 @@ def hsdic2list(dic):
             for vals in zip(dic.get('HiddenServiceDir',[]),dic.get('HiddenServicePort',[]))
         ] for pair in pairs
     ]
+
 
 class OnionShare(object):
     def __init__(self, debug=False, local_only=False, stay_open=False):
@@ -55,7 +62,6 @@ class OnionShare(object):
 
         # files and dirs to delete on shutdown
         self.cleanup_filenames = []
-
 
     def cleanup(self):
         if self.controller:
@@ -191,6 +197,7 @@ class OnionShare(object):
                 return False
         return True
 
+
 def tails_root():
     # if running in Tails and as root, do only the things that require root
     if helpers.get_platform() == 'Tails' and helpers.is_root():
@@ -217,6 +224,7 @@ def tails_root():
 
         # close hole in firewall on shutdown
         import signal
+
         def handler(signum = None, frame = None):
             subprocess.call(['/sbin/iptables', '-D', 'OUTPUT', '-o', 'lo', '-p', 'tcp', '--dport', str(port), '-j', 'ACCEPT'])
             sys.exit()
@@ -226,6 +234,7 @@ def tails_root():
         # stay open until killed
         while True:
             time.sleep(1)
+
 
 def main():
     strings.load_strings()

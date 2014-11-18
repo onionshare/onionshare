@@ -75,12 +75,10 @@ def main():
             key = m.group(1)
             translate_keys.add(key)
 
-
     if args.show_all_keys:
         for k in sorted(translate_keys):
             print k
         sys.exit()
-
 
     locale_files = [f for f in files_in(dir, 'locale') if f.endswith('.json')]
     for locale_file in locale_files:
