@@ -61,7 +61,7 @@ def constant_time_compare(val1, val2):
 def random_string(num_bytes, output_len=None):
     b = os.urandom(num_bytes)
     h = hashlib.sha256(b).digest()[:16]
-    s = base64.b32encode(h).lower().replace('=','')
+    s = base64.b32encode(h).lower().replace('=', '')
     if not output_len:
         return s
     return s[:output_len]
@@ -71,7 +71,7 @@ def human_readable_filesize(b):
     thresh = 1024.0
     if b < thresh:
         return '{0} B'.format(b)
-    units = ['KiB','MiB','GiB','TiB','PiB','EiB','ZiB','YiB']
+    units = ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB']
     u = 0
     b /= thresh
     while b >= thresh:

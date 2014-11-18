@@ -153,7 +153,7 @@ class OnionShareGui(QtGui.QWidget):
             self.start_server_finished.emit()
 
         self.status_bar.showMessage(strings._('gui_starting_server2', True))
-        t = threading.Thread(target=finish_starting_server, kwargs={'self':self})
+        t = threading.Thread(target=finish_starting_server, kwargs={'self': self})
         t.daemon = True
         t.start()
 

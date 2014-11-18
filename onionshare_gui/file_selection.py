@@ -130,7 +130,7 @@ class FileList(QtGui.QListWidget):
         thresh = 1024.0
         if b < thresh:
             return '{0} B'.format(b)
-        units = ['KiB','MiB','GiB','TiB','PiB','EiB','ZiB','YiB']
+        units = ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB']
         u = 0
         b /= thresh
         while b >= thresh:

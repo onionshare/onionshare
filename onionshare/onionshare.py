@@ -38,8 +38,8 @@ def hsdic2list(dic):
     """Convert what we get from get_conf_map to what we need for set_options"""
     return [
         pair for pairs in [
-            [('HiddenServiceDir',vals[0]),('HiddenServicePort',vals[1])]
-            for vals in zip(dic.get('HiddenServiceDir',[]),dic.get('HiddenServicePort',[]))
+            [('HiddenServiceDir', vals[0]), ('HiddenServicePort', vals[1])]
+            for vals in zip(dic.get('HiddenServiceDir', []), dic.get('HiddenServicePort', []))
         ] for pair in pairs
     ]
 
@@ -70,7 +70,7 @@ class OnionShare(object):
             hsdic = self.controller.get_conf_map('HiddenServiceOptions') or {
                 'HiddenServiceDir': [], 'HiddenServicePort': []
             }
-            if self.hidserv_dir and self.hidserv_dir in hsdic.get('HiddenServiceDir',[]):
+            if self.hidserv_dir and self.hidserv_dir in hsdic.get('HiddenServiceDir', []):
                 dropme = hsdic['HiddenServiceDir'].index(self.hidserv_dir)
                 del hsdic['HiddenServiceDir'][dropme]
                 del hsdic['HiddenServicePort'][dropme]
@@ -138,13 +138,13 @@ class OnionShare(object):
                 hsdic = self.controller.get_conf_map('HiddenServiceOptions') or {
                     'HiddenServiceDir': [], 'HiddenServicePort': []
                 }
-                if self.hidserv_dir in hsdic.get('HiddenServiceDir',[]):
+                if self.hidserv_dir in hsdic.get('HiddenServiceDir', []):
                     # Maybe a stale service with the wrong local port
                     dropme = hsdic['HiddenServiceDir'].index(self.hidserv_dir)
                     del hsdic['HiddenServiceDir'][dropme]
                     del hsdic['HiddenServicePort'][dropme]
-                hsdic['HiddenServiceDir'] = hsdic.get('HiddenServiceDir',[])+[self.hidserv_dir]
-                hsdic['HiddenServicePort'] = hsdic.get('HiddenServicePort',[])+[
+                hsdic['HiddenServiceDir'] = hsdic.get('HiddenServiceDir', [])+[self.hidserv_dir]
+                hsdic['HiddenServicePort'] = hsdic.get('HiddenServicePort', [])+[
                     '80 127.0.0.1:{0}'.format(self.port) ]
 
                 self.controller.set_options(hsdic2list(hsdic))
