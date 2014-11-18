@@ -102,7 +102,7 @@ class OnionShare(object):
             else:
                 args = ['/usr/bin/sudo', '--', '/usr/bin/onionshare']
             p = subprocess.Popen(args+[str(self.port)], stderr=subprocess.PIPE, stdout=subprocess.PIPE)
-            stdout = p.stdout.read(22) # .onion URLs are 22 chars long
+            stdout = p.stdout.read(22)  # .onion URLs are 22 chars long
 
             if stdout:
                 self.onion_host = stdout
@@ -187,10 +187,10 @@ class OnionShare(object):
                 ready = True
 
                 sys.stdout.write('{0}\n'.format(strings._('wait_for_hs_yup')))
-            except socks.SOCKS5Error: # non-Tails error
+            except socks.SOCKS5Error:  # non-Tails error
                 sys.stdout.write('{0}\n'.format(strings._('wait_for_hs_nope')))
                 sys.stdout.flush()
-            except urllib2.HTTPError: # Tails error
+            except urllib2.HTTPError:  # Tails error
                 sys.stdout.write('{0}\n'.format(strings._('wait_for_hs_nope')))
                 sys.stdout.flush()
             except KeyboardInterrupt:
@@ -282,7 +282,7 @@ def main():
     app.cleanup_filenames.append(web.zip_filename)
 
     # warn about sending large files over Tor
-    if web.zip_filesize >= 157286400: # 150mb
+    if web.zip_filesize >= 157286400:  # 150mb
         print ''
         print strings._("large_filesize")
         print ''
@@ -292,7 +292,7 @@ def main():
     t.daemon = True
     t.start()
 
-    try: # Trap Ctrl-C
+    try:  # Trap Ctrl-C
         # wait for hs
         ready = app.wait_for_hs()
         if not ready:

@@ -112,7 +112,7 @@ class OnionShareGui(QtGui.QWidget):
         self.status_bar.showMessage(strings._('gui_starting_server3', True))
 
         # warn about sending large files over Tor
-        if web.zip_filesize >= 157286400: # 150mb
+        if web.zip_filesize >= 157286400:  # 150mb
             self.filesize_warning.setText(strings._("large_filesize", True))
             self.filesize_warning.show()
 
