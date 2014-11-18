@@ -18,7 +18,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 from __future__ import division
-import os, sys, subprocess, time, hashlib, platform, json, locale, socket, argparse, Queue, inspect, base64, random, functools, logging, ctypes, hmac, shutil
+import os, sys, subprocess, time, hashlib, platform, json, locale, socket
+import argparse, Queue, inspect, base64, random, functools, logging, ctypes
+import hmac, shutil
 from itertools import izip
 import stem, stem.control, flask
 from PyQt4 import QtCore, QtGui

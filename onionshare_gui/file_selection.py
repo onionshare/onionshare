@@ -188,14 +188,16 @@ class FileSelection(QtGui.QVBoxLayout):
         self.file_list.update()
 
     def add_files(self):
-        filenames = QtGui.QFileDialog.getOpenFileNames(caption=strings._('gui_choose_files', True), options=QtGui.QFileDialog.ReadOnly)
+        filenames = QtGui.QFileDialog.getOpenFileNames(
+            caption=strings._('gui_choose_files', True), options=QtGui.QFileDialog.ReadOnly)
         if filenames:
             for filename in filenames:
                 self.file_list.add_file(str(filename))
         self.update()
 
     def add_dir(self):
-        filename = QtGui.QFileDialog.getExistingDirectory(caption=strings._('gui_choose_folder', True), options=QtGui.QFileDialog.ReadOnly)
+        filename = QtGui.QFileDialog.getExistingDirectory(
+            caption=strings._('gui_choose_folder', True), options=QtGui.QFileDialog.ReadOnly)
         if filename:
             self.file_list.add_file(str(filename))
         self.update()

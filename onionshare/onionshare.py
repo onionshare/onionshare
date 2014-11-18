@@ -212,7 +212,8 @@ def tails_root():
             sys.exit(-1)
 
         # open hole in firewall
-        subprocess.call(['/sbin/iptables', '-I', 'OUTPUT', '-o', 'lo', '-p', 'tcp', '--dport', str(port), '-j', 'ACCEPT'])
+        subprocess.call(['/sbin/iptables', '-I', 'OUTPUT', '-o', 'lo',
+                         '-p', 'tcp', '--dport', str(port), '-j', 'ACCEPT'])
 
         # start hidden service
         app = OnionShare()
@@ -226,7 +227,8 @@ def tails_root():
         import signal
 
         def handler(signum=None, frame=None):
-            subprocess.call(['/sbin/iptables', '-D', 'OUTPUT', '-o', 'lo', '-p', 'tcp', '--dport', str(port), '-j', 'ACCEPT'])
+            subprocess.call(['/sbin/iptables', '-D', 'OUTPUT', '-o', 'lo',
+                             '-p', 'tcp', '--dport', str(port), '-j', 'ACCEPT'])
             sys.exit()
         for sig in [signal.SIGTERM, signal.SIGINT, signal.SIGHUP, signal.SIGQUIT]:
             signal.signal(sig, handler)
