@@ -33,4 +33,3 @@ def test_get_platform_returns_platform_system():
     """get_platform() returns platform.system() when ONIONSHARE_PLATFORM is not defined"""
     helpers.platform.system = lambda: 'Sega Saturn'
     assert helpers.get_platform() == 'Sega Saturn'
-

@@ -39,4 +39,3 @@ def test_load_strings_loads_other_languages():
     locale.getdefaultlocale = lambda: ('fr_FR', 'UTF-8')
     strings.load_strings("fr")
     assert strings._('wait_for_hs') == "En attente du HS:"
-

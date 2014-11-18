@@ -33,5 +33,3 @@ def test_generate_slug_characters():
         return all(char in b32_alphabet for char in string)
 
     assert is_b32(web.slug)
-
-

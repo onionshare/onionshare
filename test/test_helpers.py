@@ -37,5 +37,3 @@ def write_tempfile(text):
         f.write(text)
         f.close()
     return path
-
-
