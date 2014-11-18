@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-'''
+"""
 Check translation lacked or disused.
 
 Example:
@@ -24,7 +24,7 @@ es disused gui_starting_server
 2. load translation key from locale/*.json.
 3. compare these.
 
-'''
+"""
 
 
 import fileinput, argparse, re, os, codecs, json, sys

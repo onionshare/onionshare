@@ -29,7 +29,7 @@ class NoTor(Exception): pass
 class TailsError(Exception): pass
 
 def hsdic2list(dic):
-    "Convert what we get from get_conf_map to what we need for set_options"
+    """Convert what we get from get_conf_map to what we need for set_options"""
     return [
         pair for pairs in [
             [('HiddenServiceDir',vals[0]),('HiddenServicePort',vals[1])]
