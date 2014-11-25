@@ -35,12 +35,14 @@ from server_status import ServerStatus
 from downloads import Downloads
 from options import Options
 
+
 class Application(QtGui.QApplication):
     def __init__(self):
         platform = helpers.get_platform()
         if platform == 'Tails' or platform == 'Linux':
             self.setAttribute(QtCore.Qt.AA_X11InitThreads, True)
         QtGui.QApplication.__init__(self, sys.argv)
+
 
 class OnionShareGui(QtGui.QWidget):
     start_server_finished = QtCore.pyqtSignal()
@@ -110,7 +112,7 @@ class OnionShareGui(QtGui.QWidget):
         self.status_bar.showMessage(strings._('gui_starting_server3', True))
 
         # warn about sending large files over Tor
-        if web.zip_filesize >= 157286400: # 150mb
+        if web.zip_filesize >= 157286400:  # 150mb
             self.filesize_warning.setText(strings._("large_filesize", True))
             self.filesize_warning.show()
 
@@ -151,7 +153,7 @@ class OnionShareGui(QtGui.QWidget):
             self.start_server_finished.emit()
 
         self.status_bar.showMessage(strings._('gui_starting_server2', True))
-        t = threading.Thread(target=finish_starting_server, kwargs={'self':self})
+        t = threading.Thread(target=finish_starting_server, kwargs={'self': self})
         t.daemon = True
         t.start()
 
@@ -206,6 +208,7 @@ class OnionShareGui(QtGui.QWidget):
     def clear_message(self):
         self.status_bar.clearMessage()
 
+
 def alert(msg, icon=QtGui.QMessageBox.NoIcon):
     dialog = QtGui.QMessageBox()
     dialog.setWindowTitle("OnionShare")
@@ -213,6 +216,7 @@ def alert(msg, icon=QtGui.QMessageBox.NoIcon):
     dialog.setText(msg)
     dialog.setIcon(icon)
     dialog.exec_()
+
 
 def main():
     strings.load_strings()

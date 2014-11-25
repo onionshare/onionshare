@@ -19,17 +19,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from onionshare import web
 from nose import with_setup
 
+
 def test_generate_slug_length():
-    "generates a 26-character slug"
+    """generates a 26-character slug"""
     assert len(web.slug) == 26
 
+
 def test_generate_slug_characters():
-    "generates a base32-encoded slug"
+    """generates a base32-encoded slug"""
 
     def is_b32(string):
         b32_alphabet = "01234556789abcdefghijklmnopqrstuvwxyz"
         return all(char in b32_alphabet for char in string)
 
     assert is_b32(web.slug)
-
-

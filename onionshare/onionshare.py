@@ -25,17 +25,24 @@ from stem import SocketError
 
 import strings, helpers, web
 
-class NoTor(Exception): pass
-class TailsError(Exception): pass
+
+class NoTor(Exception):
+    pass
+
+
+class TailsError(Exception):
+    pass
+
 
 def hsdic2list(dic):
-    "Convert what we get from get_conf_map to what we need for set_options"
+    """Convert what we get from get_conf_map to what we need for set_options"""
     return [
         pair for pairs in [
-            [('HiddenServiceDir',vals[0]),('HiddenServicePort',vals[1])]
-            for vals in zip(dic.get('HiddenServiceDir',[]),dic.get('HiddenServicePort',[]))
+            [('HiddenServiceDir', vals[0]), ('HiddenServicePort', vals[1])]
+            for vals in zip(dic.get('HiddenServiceDir', []), dic.get('HiddenServicePort', []))
         ] for pair in pairs
     ]
+
 
 class OnionShare(object):
     def __init__(self, debug=False, local_only=False, stay_open=False):
@@ -56,7 +63,6 @@ class OnionShare(object):
         # files and dirs to delete on shutdown
         self.cleanup_filenames = []
 
-
     def cleanup(self):
         if self.controller:
             # Get fresh hidden services (maybe changed since last time)
@@ -64,7 +70,7 @@ class OnionShare(object):
             hsdic = self.controller.get_conf_map('HiddenServiceOptions') or {
                 'HiddenServiceDir': [], 'HiddenServicePort': []
             }
-            if self.hidserv_dir and self.hidserv_dir in hsdic.get('HiddenServiceDir',[]):
+            if self.hidserv_dir and self.hidserv_dir in hsdic.get('HiddenServiceDir', []):
                 dropme = hsdic['HiddenServiceDir'].index(self.hidserv_dir)
                 del hsdic['HiddenServiceDir'][dropme]
                 del hsdic['HiddenServicePort'][dropme]
@@ -96,7 +102,7 @@ class OnionShare(object):
             else:
                 args = ['/usr/bin/sudo', '--', '/usr/bin/onionshare']
             p = subprocess.Popen(args+[str(self.port)], stderr=subprocess.PIPE, stdout=subprocess.PIPE)
-            stdout = p.stdout.read(22) # .onion URLs are 22 chars long
+            stdout = p.stdout.read(22)  # .onion URLs are 22 chars long
 
             if stdout:
                 self.onion_host = stdout
@@ -132,14 +138,14 @@ class OnionShare(object):
                 hsdic = self.controller.get_conf_map('HiddenServiceOptions') or {
                     'HiddenServiceDir': [], 'HiddenServicePort': []
                 }
-                if self.hidserv_dir in hsdic.get('HiddenServiceDir',[]):
+                if self.hidserv_dir in hsdic.get('HiddenServiceDir', []):
                     # Maybe a stale service with the wrong local port
                     dropme = hsdic['HiddenServiceDir'].index(self.hidserv_dir)
                     del hsdic['HiddenServiceDir'][dropme]
                     del hsdic['HiddenServicePort'][dropme]
-                hsdic['HiddenServiceDir'] = hsdic.get('HiddenServiceDir',[])+[self.hidserv_dir]
-                hsdic['HiddenServicePort'] = hsdic.get('HiddenServicePort',[])+[
-                    '80 127.0.0.1:{0}'.format(self.port) ]
+                hsdic['HiddenServiceDir'] = hsdic.get('HiddenServiceDir', [])+[self.hidserv_dir]
+                hsdic['HiddenServicePort'] = hsdic.get('HiddenServicePort', [])+[
+                    '80 127.0.0.1:{0}'.format(self.port)]
 
                 self.controller.set_options(hsdic2list(hsdic))
 
@@ -181,15 +187,16 @@ class OnionShare(object):
                 ready = True
 
                 sys.stdout.write('{0}\n'.format(strings._('wait_for_hs_yup')))
-            except socks.SOCKS5Error: # non-Tails error
+            except socks.SOCKS5Error:  # non-Tails error
                 sys.stdout.write('{0}\n'.format(strings._('wait_for_hs_nope')))
                 sys.stdout.flush()
-            except urllib2.HTTPError: # Tails error
+            except urllib2.HTTPError:  # Tails error
                 sys.stdout.write('{0}\n'.format(strings._('wait_for_hs_nope')))
                 sys.stdout.flush()
             except KeyboardInterrupt:
                 return False
         return True
+
 
 def tails_root():
     # if running in Tails and as root, do only the things that require root
@@ -205,7 +212,8 @@ def tails_root():
             sys.exit(-1)
 
         # open hole in firewall
-        subprocess.call(['/sbin/iptables', '-I', 'OUTPUT', '-o', 'lo', '-p', 'tcp', '--dport', str(port), '-j', 'ACCEPT'])
+        subprocess.call(['/sbin/iptables', '-I', 'OUTPUT', '-o', 'lo',
+                         '-p', 'tcp', '--dport', str(port), '-j', 'ACCEPT'])
 
         # start hidden service
         app = OnionShare()
@@ -217,8 +225,10 @@ def tails_root():
 
         # close hole in firewall on shutdown
         import signal
-        def handler(signum = None, frame = None):
-            subprocess.call(['/sbin/iptables', '-D', 'OUTPUT', '-o', 'lo', '-p', 'tcp', '--dport', str(port), '-j', 'ACCEPT'])
+
+        def handler(signum=None, frame=None):
+            subprocess.call(['/sbin/iptables', '-D', 'OUTPUT', '-o', 'lo',
+                             '-p', 'tcp', '--dport', str(port), '-j', 'ACCEPT'])
             sys.exit()
         for sig in [signal.SIGTERM, signal.SIGINT, signal.SIGHUP, signal.SIGQUIT]:
             signal.signal(sig, handler)
@@ -226,6 +236,7 @@ def tails_root():
         # stay open until killed
         while True:
             time.sleep(1)
+
 
 def main():
     strings.load_strings()
@@ -273,7 +284,7 @@ def main():
     app.cleanup_filenames.append(web.zip_filename)
 
     # warn about sending large files over Tor
-    if web.zip_filesize >= 157286400: # 150mb
+    if web.zip_filesize >= 157286400:  # 150mb
         print ''
         print strings._("large_filesize")
         print ''
@@ -283,7 +294,7 @@ def main():
     t.daemon = True
     t.start()
 
-    try: # Trap Ctrl-C
+    try:  # Trap Ctrl-C
         # wait for hs
         ready = app.wait_for_hs()
         if not ready:

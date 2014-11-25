@@ -23,6 +23,7 @@ from PyQt4 import QtCore, QtGui
 import common
 from onionshare import strings, helpers
 
+
 class ServerStatus(QtGui.QVBoxLayout):
     server_started = QtCore.pyqtSignal()
     server_stopped = QtCore.pyqtSignal()

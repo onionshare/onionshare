@@ -22,6 +22,7 @@ import helpers
 
 strings = {}
 
+
 def load_strings(default="en"):
     global strings
 
@@ -48,6 +49,7 @@ def load_strings(default="en"):
             for key in translated[default]:
                 if key in translated[lang]:
                     strings[key] = translated[lang][key]
+
 
 def translated(k, gui=False):
     if gui:

@@ -22,6 +22,7 @@ from PyQt4 import QtCore, QtGui
 import common
 from onionshare import strings, helpers
 
+
 class Options(QtGui.QHBoxLayout):
     def __init__(self, web):
         super(Options, self).__init__()

@@ -23,6 +23,7 @@ from PyQt4 import QtCore, QtGui
 import common
 from onionshare import strings, helpers
 
+
 class FileList(QtGui.QListWidget):
     files_dropped = QtCore.pyqtSignal()
     files_updated = QtCore.pyqtSignal()
@@ -129,13 +130,14 @@ class FileList(QtGui.QListWidget):
         thresh = 1024.0
         if b < thresh:
             return '{0} B'.format(b)
-        units = ['KiB','MiB','GiB','TiB','PiB','EiB','ZiB','YiB']
+        units = ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB']
         u = 0
         b /= thresh
         while b >= thresh:
             b /= thresh
             u += 1
         return '{0} {1}'.format(round(b, 1), units[u])
+
 
 class FileSelection(QtGui.QVBoxLayout):
     def __init__(self):
@@ -186,14 +188,16 @@ class FileSelection(QtGui.QVBoxLayout):
         self.file_list.update()
 
     def add_files(self):
-        filenames = QtGui.QFileDialog.getOpenFileNames(caption=strings._('gui_choose_files', True), options=QtGui.QFileDialog.ReadOnly)
+        filenames = QtGui.QFileDialog.getOpenFileNames(
+            caption=strings._('gui_choose_files', True), options=QtGui.QFileDialog.ReadOnly)
         if filenames:
             for filename in filenames:
                 self.file_list.add_file(str(filename))
         self.update()
 
     def add_dir(self):
-        filename = QtGui.QFileDialog.getExistingDirectory(caption=strings._('gui_choose_folder', True), options=QtGui.QFileDialog.ReadOnly)
+        filename = QtGui.QFileDialog.getExistingDirectory(
+            caption=strings._('gui_choose_folder', True), options=QtGui.QFileDialog.ReadOnly)
         if filename:
             self.file_list.add_file(str(filename))
         self.update()
