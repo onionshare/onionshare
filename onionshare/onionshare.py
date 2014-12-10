@@ -148,6 +148,8 @@ class OnionShare(object):
                 self.controller.authenticate()
 
                 # set up hidden service
+                if helpers.get_platform() == 'Windows':
+                    self.hidserv_dir = self.hidserv_dir.replace('\\', '/')
                 hsdic = self.controller.get_conf_map('HiddenServiceOptions') or {
                     'HiddenServiceDir': [], 'HiddenServicePort': []
                 }
