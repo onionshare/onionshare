@@ -17,7 +17,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-import os, inspect, hashlib, base64, hmac, platform, zipfile
+import os, inspect, hashlib, base64, hmac, platform, zipfile, tempfile
 from itertools import izip
 
 # hack to make unicode filenames work (#141)
@@ -94,23 +94,12 @@ def dir_size(start_path):
     return total_size
 
 
-def get_tmp_dir():
-    if get_platform() == "Windows":
-        if 'Temp' in os.environ:
-            temp = os.environ['Temp'].replace('\\', '/')
-        else:
-            temp = 'C:/tmp'
-    else:
-        temp = '/tmp'
-    return temp
-
-
 class ZipWriter(object):
     def __init__(self, zip_filename=None):
         if zip_filename:
             self.zip_filename = zip_filename
         else:
-            self.zip_filename = '{0}/onionshare_{1}.zip'.format(get_tmp_dir(), random_string(4, 6))
+            self.zip_filename = '{0}/onionshare_{1}.zip'.format(tempfile.mkdtemp(), random_string(4, 6))
 
         self.z = zipfile.ZipFile(self.zip_filename, 'w')
 

@@ -17,7 +17,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-import os, sys, subprocess, time, argparse, inspect, shutil, socket, threading, urllib2
+import os, sys, subprocess, time, argparse, inspect, shutil, socket, threading, urllib2, tempfile
 import socks
 
 from stem.control import Controller
@@ -118,7 +118,7 @@ class OnionShare(object):
 
             else:
                 # come up with a hidden service directory name
-                self.hidserv_dir = '{0}/onionshare_{1}'.format(helpers.get_tmp_dir(), helpers.random_string(8))
+                self.hidserv_dir = tempfile.mkdtemp()
                 self.cleanup_filenames.append(self.hidserv_dir)
 
                 # connect to the tor controlport
