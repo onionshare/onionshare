@@ -101,11 +101,13 @@ class OnionShare(object):
                 args = ['/usr/bin/gksudo', '-D', 'OnionShare', '--', '/usr/bin/onionshare']
             else:
                 args = ['/usr/bin/sudo', '--', '/usr/bin/onionshare']
+            print "Executing: {0}".format(args+[str(self.port)])
             p = subprocess.Popen(args+[str(self.port)], stderr=subprocess.PIPE, stdout=subprocess.PIPE)
-            stdout = p.stdout.read(22)  # .onion URLs are 22 chars long
+            stdout = p.stdout.read(22) # .onion URLs are 22 chars long
 
             if stdout:
                 self.onion_host = stdout
+                print 'Got onion_host: {0}'.format(self.onion_host)
             else:
                 if p.poll() == -1:
                     raise TailsError(o.stderr.read())
@@ -118,7 +120,18 @@ class OnionShare(object):
 
             else:
                 # come up with a hidden service directory name
-                self.hidserv_dir = tempfile.mkdtemp()
+                if helpers.get_platform() == 'Tails':
+                    # need to create HS directory in /var/lib/tor because of AppArmor rules included in Tails
+                    self.hidserv_dir = tempfile.mkdtemp(dir='/var/lib/tor')
+
+                    # change owner to debian-tor
+                    import pwd
+                    import grp
+                    uid = pwd.getpwnam("debian-tor").pw_uid
+                    gid = grp.getgrnam("debian-tor").gr_gid
+                    os.chown(self.hidserv_dir, uid, gid)
+                else:
+                    self.hidserv_dir = tempfile.mkdtemp()
                 self.cleanup_filenames.append(self.hidserv_dir)
 
                 # connect to the tor controlport
