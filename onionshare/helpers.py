@@ -101,7 +101,7 @@ class ZipWriter(object):
         else:
             self.zip_filename = '{0}/onionshare_{1}.zip'.format(tempfile.mkdtemp(), random_string(4, 6))
 
-        self.z = zipfile.ZipFile(self.zip_filename, 'w')
+        self.z = zipfile.ZipFile(self.zip_filename, 'w', allowZip64=True)
 
     def add_file(self, filename):
         self.z.write(filename, os.path.basename(filename), zipfile.ZIP_DEFLATED)
