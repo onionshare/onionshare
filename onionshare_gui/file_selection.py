@@ -114,9 +114,9 @@ class FileList(QtGui.QListWidget):
             icon = ip.icon(fileinfo)
 
             if os.path.isfile(filename):
-                size = self.human_readable_filesize(fileinfo.size())
+                size = helpers.human_readable_filesize(fileinfo.size())
             else:
-                size = self.human_readable_filesize(helpers.dir_size(filename))
+                size = helpers.human_readable_filesize(helpers.dir_size(filename))
             item_name = unicode('{0} ({1})'.format(basename, size))
             item = QtGui.QListWidgetItem(item_name)
             item.setToolTip(QtCore.QString(size))
@@ -125,18 +125,6 @@ class FileList(QtGui.QListWidget):
             self.addItem(item)
 
             self.files_updated.emit()
-
-    def human_readable_filesize(self, b):
-        thresh = 1024.0
-        if b < thresh:
-            return '{0} B'.format(b)
-        units = ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB']
-        u = 0
-        b /= thresh
-        while b >= thresh:
-            b /= thresh
-            u += 1
-        return '{0} {1}'.format(round(b, 1), units[u])
 
 
 class FileSelection(QtGui.QVBoxLayout):
@@ -220,4 +208,3 @@ class FileSelection(QtGui.QVBoxLayout):
 
     def get_num_files(self):
         return len(self.file_list.filenames)
-
