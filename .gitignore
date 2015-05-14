@@ -17,6 +17,7 @@ develop-eggs
 .installed.cfg
 MANIFEST
 env
+onionshare-*.tar.gz
 
 # Installer logs
 pip-log.txt
