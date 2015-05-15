@@ -102,7 +102,7 @@ def debug_mode():
     else:
         temp_dir = '/tmp/'
 
-    log_handler = logging.FileHandler('{0}/onionshare_server.log'.format(temp_dir))
+    log_handler = logging.FileHandler('{0:s}/onionshare_server.log'.format(temp_dir))
     log_handler.setLevel(logging.WARNING)
     app.logger.addHandler(log_handler)
 
@@ -114,7 +114,7 @@ def index(slug_candidate):
 
     add_request(REQUEST_LOAD, request.path)
     return render_template_string(
-        open('{0}/index.html'.format(helpers.get_onionshare_dir())).read(),
+        open('{0:s}/index.html'.format(helpers.get_onionshare_dir())).read(),
         slug=slug,
         file_info=file_info,
         filename=os.path.basename(zip_filename).decode("utf-8"),
@@ -161,9 +161,9 @@ def download(slug_candidate):
 
                     # tell GUI the progress
                     downloaded_bytes = fp.tell()
-                    percent = round((1.0 * downloaded_bytes / zip_filesize) * 100, 2)
+                    percent = (1.0 * downloaded_bytes / zip_filesize) * 100
                     sys.stdout.write(
-                        "\r{0}, {1}%          ".format(helpers.human_readable_filesize(downloaded_bytes), percent))
+                        "\r{0:s}, {1:.2f}%          ".format(helpers.human_readable_filesize(downloaded_bytes), percent))
                     sys.stdout.flush()
                     add_request(REQUEST_PROGRESS, path, {'id': download_id, 'bytes': downloaded_bytes})
                 except:
@@ -198,7 +198,7 @@ def download(slug_candidate):
 @app.errorhandler(404)
 def page_not_found(e):
     add_request(REQUEST_OTHER, request.path)
-    return render_template_string(open('{0}/404.html'.format(helpers.get_onionshare_dir())).read())
+    return render_template_string(open('{0:s}/404.html'.format(helpers.get_onionshare_dir())).read())
 
 # shutting down the server only works within the context of flask, so the easiest way to do it is over http
 shutdown_slug = helpers.random_string(16)
@@ -232,6 +232,6 @@ def stop(port):
 
         s = socket.socket()
         s.connect(('127.0.0.1', port))
-        s.sendall('GET /{0}/shutdown HTTP/1.1\r\n\r\n'.format(shutdown_slug))
+        s.sendall('GET /{0:s}/shutdown HTTP/1.1\r\n\r\n'.format(shutdown_slug))
     else:
-        urllib2.urlopen('http://127.0.0.1:{0}/{1}/shutdown'.format(port, shutdown_slug)).read()
+        urllib2.urlopen('http://127.0.0.1:{0:d}/{1:s}/shutdown'.format(port, shutdown_slug)).read()

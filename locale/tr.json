@@ -1,9 +1,9 @@
 {
-    "connecting_ctrlport": "{0} portundaki gizli servis kurulumu için Tor kontrol portuna bağlanıyor.",
-    "cant_connect_ctrlport": "Tor kontrol {0} portuna bağlanamıyor. Tor çalışıyor mu?",
+    "connecting_ctrlport": "{0:d} portundaki gizli servis kurulumu için Tor kontrol portuna bağlanıyor.",
+    "cant_connect_ctrlport": "Tor kontrol {0:d} portuna bağlanamıyor. Tor çalışıyor mu?",
     "give_this_url": "Dosyayı gönderdiğin kişiye bu URL'i verin:",
     "ctrlc_to_stop":  "Sunucuyu durdurmak için, Ctrl-C basın",
-    "not_a_file": "{0} dosya değil.",
+    "not_a_file": "{0:s} dosya değil.",
     "gui_copied_url": "Panoya kopyalanan URL",
     "download_page_loaded": "İndirme sayfası yüklendi",
     "other_page_loaded": "Diğer sayfa yüklendi",

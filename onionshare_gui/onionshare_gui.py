@@ -200,7 +200,7 @@ class OnionShareGui(QtGui.QWidget):
                 self.downloads.cancel_download(event["data"]["id"])
 
             elif event["path"] != '/favicon.ico':
-                self.status_bar.showMessage('{0}: {1}'.format(strings._('other_page_loaded', True), event["path"]))
+                self.status_bar.showMessage('{0:s}: {1:s}'.format(strings._('other_page_loaded', True), event["path"]))
 
     def copy_url(self):
         self.status_bar.showMessage(strings._('gui_copied_url', True), 2000)

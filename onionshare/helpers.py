@@ -70,14 +70,14 @@ def random_string(num_bytes, output_len=None):
 def human_readable_filesize(b):
     thresh = 1024.0
     if b < thresh:
-        return '{0} B'.format(b)
+        return '{0:.1f} B'.format(b)
     units = ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB']
     u = 0
     b /= thresh
     while b >= thresh:
         b /= thresh
         u += 1
-    return '{0} {1}'.format(round(b, 1), units[u])
+    return '{0:.1f} {1:s}'.format(round(b, 1), units[u])
 
 
 def is_root():
@@ -99,7 +99,7 @@ class ZipWriter(object):
         if zip_filename:
             self.zip_filename = zip_filename
         else:
-            self.zip_filename = '{0}/onionshare_{1}.zip'.format(tempfile.mkdtemp(), random_string(4, 6))
+            self.zip_filename = '{0:s}/onionshare_{1:s}.zip'.format(tempfile.mkdtemp(), random_string(4, 6))
 
         self.z = zipfile.ZipFile(self.zip_filename, 'w', allowZip64=True)
 

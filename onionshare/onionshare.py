@@ -101,13 +101,13 @@ class OnionShare(object):
                 args = ['/usr/bin/gksudo', '-D', 'OnionShare', '--', '/usr/bin/onionshare']
             else:
                 args = ['/usr/bin/sudo', '--', '/usr/bin/onionshare']
-            print "Executing: {0}".format(args+[str(self.port)])
+            print "Executing: {0:s}".format(args+[str(self.port)])
             p = subprocess.Popen(args+[str(self.port)], stderr=subprocess.PIPE, stdout=subprocess.PIPE)
             stdout = p.stdout.read(22) # .onion URLs are 22 chars long
 
             if stdout:
                 self.onion_host = stdout
-                print 'Got onion_host: {0}'.format(self.onion_host)
+                print 'Got onion_host: {0:s}'.format(self.onion_host)
             else:
                 if p.poll() == -1:
                     raise TailsError(o.stderr.read())
@@ -116,7 +116,7 @@ class OnionShare(object):
 
         else:
             if self.local_only:
-                self.onion_host = '127.0.0.1:{0}'.format(self.port)
+                self.onion_host = '127.0.0.1:{0:d}'.format(self.port)
 
             else:
                 # come up with a hidden service directory name
@@ -160,12 +160,12 @@ class OnionShare(object):
                     del hsdic['HiddenServicePort'][dropme]
                 hsdic['HiddenServiceDir'] = hsdic.get('HiddenServiceDir', [])+[self.hidserv_dir]
                 hsdic['HiddenServicePort'] = hsdic.get('HiddenServicePort', [])+[
-                    '80 127.0.0.1:{0}'.format(self.port)]
+                    '80 127.0.0.1:{0:d}'.format(self.port)]
 
                 self.controller.set_options(hsdic2list(hsdic))
 
                 # figure out the .onion hostname
-                hostname_file = '{0}/hostname'.format(self.hidserv_dir)
+                hostname_file = '{0:s}/hostname'.format(self.hidserv_dir)
                 self.onion_host = open(hostname_file, 'r').read().strip()
 
     def wait_for_hs(self):
@@ -177,13 +177,13 @@ class OnionShare(object):
         ready = False
         while not ready:
             try:
-                sys.stdout.write('{0} '.format(strings._('wait_for_hs_trying')))
+                sys.stdout.write('{0:s} '.format(strings._('wait_for_hs_trying')))
                 sys.stdout.flush()
 
                 if helpers.get_platform() == 'Tails':
                     # in Tails everything is proxies over Tor already
                     # so no need to set the socks5 proxy
-                    urllib2.urlopen('http://{0}'.format(self.onion_host))
+                    urllib2.urlopen('http://{0:s}'.format(self.onion_host))
                 else:
                     tor_exists = False
                     tor_socks_ports = [9050, 9150]
@@ -201,12 +201,12 @@ class OnionShare(object):
                         raise NoTor(strings._("cant_connect_socksport").format(tor_socks_ports))
                 ready = True
 
-                sys.stdout.write('{0}\n'.format(strings._('wait_for_hs_yup')))
+                sys.stdout.write('{0:s}\n'.format(strings._('wait_for_hs_yup')))
             except socks.SOCKS5Error:  # non-Tails error
-                sys.stdout.write('{0}\n'.format(strings._('wait_for_hs_nope')))
+                sys.stdout.write('{0:s}\n'.format(strings._('wait_for_hs_nope')))
                 sys.stdout.flush()
             except urllib2.HTTPError:  # Tails error
-                sys.stdout.write('{0}\n'.format(strings._('wait_for_hs_nope')))
+                sys.stdout.write('{0:s}\n'.format(strings._('wait_for_hs_nope')))
                 sys.stdout.flush()
             except KeyboardInterrupt:
                 return False
@@ -223,7 +223,7 @@ def tails_root():
         try:
             port = int(args.port[0])
         except ValueError:
-            sys.stderr.write('{0}\n'.format(strings._("error_tails_invalid_port")))
+            sys.stderr.write('{0:s}\n'.format(strings._("error_tails_invalid_port")))
             sys.exit(-1)
 
         # open hole in firewall
@@ -316,7 +316,7 @@ def main():
             sys.exit()
 
         print strings._("give_this_url")
-        print 'http://{0}/{1}'.format(app.onion_host, web.slug)
+        print 'http://{0:s}/{1:s}'.format(app.onion_host, web.slug)
         print ''
         print strings._("ctrlc_to_stop")
 

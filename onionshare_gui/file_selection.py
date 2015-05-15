@@ -117,7 +117,7 @@ class FileList(QtGui.QListWidget):
                 size = helpers.human_readable_filesize(fileinfo.size())
             else:
                 size = helpers.human_readable_filesize(helpers.dir_size(filename))
-            item_name = unicode('{0} ({1})'.format(basename, size))
+            item_name = unicode('{0:s} ({1:s})'.format(basename, size))
             item = QtGui.QListWidgetItem(item_name)
             item.setToolTip(QtCore.QString(size))
 

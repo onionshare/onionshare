@@ -84,7 +84,7 @@ class ServerStatus(QtGui.QVBoxLayout):
 
         # set the URL fields
         if self.status == self.STATUS_STARTED:
-            self.url_label.setText('http://{0}/ {1}'.format(self.app.onion_host, self.web.slug))
+            self.url_label.setText('http://{0:s}/ {1:s}'.format(self.app.onion_host, self.web.slug))
             self.url_label.show()
             self.copy_url_button.show()
         else:
@@ -132,7 +132,7 @@ class ServerStatus(QtGui.QVBoxLayout):
         self.update()
 
     def copy_url(self):
-        url = 'http://{0}/{1}'.format(self.app.onion_host, self.web.slug)
+        url = 'http://{0:s}/{1:s}'.format(self.app.onion_host, self.web.slug)
 
         if platform.system() == 'Windows':
             # Qt's QClipboard isn't working in Windows
@@ -152,4 +152,3 @@ class ServerStatus(QtGui.QVBoxLayout):
             clipboard.setText(url)
 
         self.url_copied.emit()
-
