@@ -26,7 +26,7 @@ cp /var/cache/apt/archives/python-jinja2_*.deb $INSTALL_DIR
 cp /var/cache/apt/archives/python-markupsafe_*.deb $INSTALL_DIR
 cp /var/cache/apt/archives/python-stem_*.deb $INSTALL_DIR
 cp /var/cache/apt/archives/python-werkzeug_*.deb $INSTALL_DIR
-cp setup/onionshare80.xpm $INSTALL_DIR
+cp install/onionshare80.xpm $INSTALL_DIR
 cp tails/install.sh $INSTALL_DIR
 cp tails/onionshare-install.desktop $PERSISTENT
 
