@@ -1,6 +1,6 @@
 {
     "connecting_ctrlport": "{0:d} portundaki gizli servis kurulumu için Tor kontrol portuna bağlanıyor.",
-    "cant_connect_ctrlport": "Tor kontrol {0:d} portuna bağlanamıyor. Tor çalışıyor mu?",
+    "cant_connect_ctrlport": "Tor kontrol {0:s} portuna bağlanamıyor. Tor çalışıyor mu?",
     "give_this_url": "Dosyayı gönderdiğin kişiye bu URL'i verin:",
     "ctrlc_to_stop":  "Sunucuyu durdurmak için, Ctrl-C basın",
     "not_a_file": "{0:s} dosya değil.",

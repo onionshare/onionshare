@@ -1,6 +1,6 @@
 {
     "connecting_ctrlport": "Connessione alla porta di controllo di Tor per inizializzare il servizio nascosto sulla porta {0:d}.",
-    "cant_connect_ctrlport": "Impossibile connettere alla porta di controllo di Tor tramite le porte {0:d}. Tor è stato avviato?",
+    "cant_connect_ctrlport": "Impossibile connettere alla porta di controllo di Tor tramite le porte {0:s}. Tor è stato avviato?",
     "give_this_url": "Comunica questo URL alla persona a cui vuoi inviare il file:",
     "ctrlc_to_stop":  "Premi Ctrl-C per fermare il server",
     "not_a_file": "{0:s} non è un file.",

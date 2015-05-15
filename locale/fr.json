@@ -1,6 +1,6 @@
 {
     "connecting_ctrlport": "Connexion au réseau Tor pour mettre en place un Hidden Service sur le port {0:d}.",
-    "cant_connect_ctrlport": "Impossible de se connecter au port de contrôle Tor sur le port {0:d}. Est-ce que Tor tourne ?",
+    "cant_connect_ctrlport": "Impossible de se connecter au port de contrôle Tor sur le port {0:s}. Est-ce que Tor tourne ?",
     "preparing_files": "Préparation des fichiers à partager.",
     "wait_for_hs": "En attente du HS:",
     "wait_for_hs_trying": "Tentative...",

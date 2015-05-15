@@ -1,6 +1,6 @@
 {
     "connecting_ctrlport": "Conectando-se à porta de controle Tor para configurar serviço escondido na porta {0:d}.",
-    "cant_connect_ctrlport": "Não pode conectar à porta de controle Tor na porta {0:d}. O Tor está rodando?",
+    "cant_connect_ctrlport": "Não pode conectar à porta de controle Tor na porta {0:s}. O Tor está rodando?",
     "give_this_url": "Passe este URL para a pessoa que deve receber o arquivo:",
     "ctrlc_to_stop":  "Pressione Ctrl-C para parar o servidor",
     "not_a_file": "{0:s} não é um arquivo.",

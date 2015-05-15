@@ -1,7 +1,7 @@
 {
     "connecting_ctrlport": "Conectando a puerto control de Tor para configurar servicio oculto en puerto {0:d}.",
-    "cant_connect_ctrlport": "No se pudo conectar a puerto control de Tor en puertos {0:d}. ¿Está funcionando Tor?",
-    "cant_connect_socksport": "No se pudo conectar al servidor SOCKS5 de Tor en el puerto {0:d}. ¿Está funcionando Tor?",
+    "cant_connect_ctrlport": "No se pudo conectar a puerto control de Tor en puertos {0:s}. ¿Está funcionando Tor?",
+    "cant_connect_socksport": "No se pudo conectar al servidor SOCKS5 de Tor en el puerto {0:s}. ¿Está funcionando Tor?",
     "preparing_files": "Preparando los archivos para compartir.",
     "wait_for_hs": "Esperando a que HS esté listo:",
     "wait_for_hs_trying": "Probando...",

@@ -1,7 +1,7 @@
 {
     "connecting_ctrlport": "Verbinde zum Tor-Kontrollport um den versteckten Dienst auf Port {0:d} laufen zu lassen.",
-    "cant_connect_ctrlport": "Konnte keine Verbindung zum Tor-Kontrollport auf Port {0:d} aufbauen. Läuft Tor?",
-    "cant_connect_socksport": "Konnte keine Verbindung zum Tor SOCKS5 Server auf Port {0:d} herstellen.  OnionShare setzt voraus dass Tor Browser im Hintergrund läuft. Wenn du noch ihn noch noch nicht hast kannst du ihn unter https://www.torproject.org/ herunterladen.",
+    "cant_connect_ctrlport": "Konnte keine Verbindung zum Tor-Kontrollport auf Port {0:s} aufbauen. Läuft Tor?",
+    "cant_connect_socksport": "Konnte keine Verbindung zum Tor SOCKS5 Server auf Port {0:s} herstellen.  OnionShare setzt voraus dass Tor Browser im Hintergrund läuft. Wenn du noch ihn noch noch nicht hast kannst du ihn unter https://www.torproject.org/ herunterladen.",
     "preparing_files": "Dateien werden vorbereitet.",
     "wait_for_hs": "Warte auf HS:",
     "wait_for_hs_trying": "Verbindungsversuch...",
