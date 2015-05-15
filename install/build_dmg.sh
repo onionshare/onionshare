@@ -15,7 +15,7 @@ rm -rf $ROOT/dist &>/dev/null 2>&1
 
 # build the .app
 echo Building OnionShare.app
-pyinstaller -w -y $ROOT/setup/onionshare-osx.spec
+pyinstaller -w -y $ROOT/install/onionshare-osx.spec
 
 # create the .dmg
 echo Creating DMG
@@ -29,7 +29,7 @@ echo Setting up DMG
 cp -r $ROOT/dist/OnionShare.app $VOLUME
 ln -s /Applications $VOLUME/Applications
 mkdir $VOLUME/.background
-cp $ROOT/setup/dmg_background.png $VOLUME/.background/background.png
+cp $ROOT/install/dmg_background.png $VOLUME/.background/background.png
 echo '
    tell application "Finder"
      tell disk "'${TITLE}'"
