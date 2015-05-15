@@ -5,7 +5,7 @@ include version
 include onionshare/index.html
 include onionshare/404.html
 include onionshare/strings.json
-include setup/onionshare.desktop
-include setup/onionshare80.xpm
+include install/onionshare.desktop
+include install/onionshare80.xpm
 include images/*.png
 include locale/*.json
