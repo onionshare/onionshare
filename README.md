@@ -15,8 +15,8 @@ Features include:
 * Localized into several languages, and supports international unicode filenames
 * Designed to work in [Tails](https://tails.boum.org/), for high risk users
 
-![Sender Screenshot](/screenshot_sender.png) ![Sender Screenshot OSX](/screenshot_sender_osx.png) 
-![Receiver Screenshot](/screenshot_receiver.png)
+![Sender Screenshot](/screenshots/sender_win.png) ![Sender Screenshot OSX](/screenshots/sender_osx.png)
+![Receiver Screenshot](/screenshots/receiver.png)
 
 ## Quick Start
 
