@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # This script pushes updates to my Ubuntu PPA: https://launchpad.net/~micahflee/+archive/ppa
 # If you want to use it, you'll need your own ~/.dput.cf and ssh key.
