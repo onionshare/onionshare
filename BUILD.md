@@ -15,7 +15,7 @@ Note that python-stem appears in Debian wheezy and newer (so by extension Tails 
 
 ```sh
 sudo apt-get install -y build-essential fakeroot python-all python-stdeb python-flask python-stem python-qt4
-./build_deb.sh
+./install/build_deb.sh
 sudo dpkg -i deb_dist/onionshare_*.deb
 ```
 
@@ -23,7 +23,7 @@ sudo dpkg -i deb_dist/onionshare_*.deb
 
 ```sh
 sudo yum install -y rpm-build python-flask python-stem pyqt4
-./build_rpm.sh
+./install/build_rpm.sh
 sudo yum install -y dist/onionshare-*.rpm
 ```
 
@@ -54,7 +54,7 @@ Each time you start work:
 To build the .app:
 
 ```sh
-pyinstaller -w -y setup/onionshare-osx.spec
+pyinstaller -w -y install/onionshare-osx.spec
 ```
 
 Now you should have `dist/OnionShare.app`.
@@ -62,7 +62,7 @@ Now you should have `dist/OnionShare.app`.
 To build a .dmg (this script builds the .app for you):
 
 ```sh
-./build_dmg.sh
+./install/build_dmg.sh
 ```
 
 Now you should have `dist/OnionShare.dmg`.
@@ -95,13 +95,13 @@ If you want to sign binaries with Authenticode:
 
 ### To make a .exe:
 
-* Open a command prompt, cd into the onionshare directory, and type: `pyinstaller -y setup\onionshare-win.spec`. Inside the `dist` folder there will be a folder called `onionshare` with `onionshare.exe` in it.
+* Open a command prompt, cd into the onionshare directory, and type: `pyinstaller -y install\onionshare-win.spec`. Inside the `dist` folder there will be a folder called `onionshare` with `onionshare.exe` in it.
 
 ### To build the installer:
 
-Note that you must have a code signing certificate installed in order to use the `build_exe.bat` script, because it tries code signing both `onionshare.exe` and `OnionShare_Setup.exe`.
+Note that you must have a code signing certificate installed in order to use the `install\build_exe.bat` script, because it tries code signing both `onionshare.exe` and `OnionShare_Setup.exe`.
 
-Open a command prompt, cd to the onionshare directory, and type: `build_exe.bat`
+Open a command prompt, cd to the onionshare directory, and type: `install\build_exe.bat`
 
 A NSIS window will pop up, and once it's done you will have `dist\OnionShare_Setup.exe`.
 

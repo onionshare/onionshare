@@ -1,5 +1,5 @@
 # -*- mode: python -*-
-a = Analysis(['setup/onionshare-launcher.py'],
+a = Analysis(['install/onionshare-launcher.py'],
     hiddenimports=['onionshare', 'onionshare_gui'],
     hookspath=None,
     runtime_hooks=None)
@@ -29,7 +29,7 @@ exe = EXE(pyz,
     debug=False,
     strip=False,
     upx=True,
-    icon='setup/onionshare.ico',
+    icon='install/onionshare.ico',
     console=False )
 coll = COLLECT(exe,
     a.binaries,

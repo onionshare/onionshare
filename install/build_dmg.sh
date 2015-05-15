@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )"
 DMG_DIR=$ROOT/dist/dmg
 DMG_TMP_NAME=$ROOT/dist/tmp.dmg
 DMG_NAME=$ROOT/dist/OnionShare.dmg
@@ -14,7 +14,7 @@ echo Deleting dist folder
 rm -rf $ROOT/dist &>/dev/null 2>&1
 
 # build the .app
-echo Building OnionShare.app 
+echo Building OnionShare.app
 pyinstaller -w -y $ROOT/setup/onionshare-osx.spec
 
 # create the .dmg

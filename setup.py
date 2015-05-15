@@ -64,8 +64,8 @@ setup(
     include_package_data=True,
     scripts=['bin/onionshare', 'bin/onionshare-gui'],
     data_files=[
-        (os.path.join(sys.prefix, 'share/applications'), ['setup/onionshare.desktop']),
-        (os.path.join(sys.prefix, 'share/pixmaps'), ['setup/onionshare80.xpm']),
+        (os.path.join(sys.prefix, 'share/applications'), ['install/onionshare.desktop']),
+        (os.path.join(sys.prefix, 'share/pixmaps'), ['install/onionshare80.xpm']),
         (os.path.join(sys.prefix, 'share/onionshare/images'), [
             'images/logo.png',
             'images/drop_files.png',
@@ -88,4 +88,3 @@ setup(
         ])
     ]
 )
-

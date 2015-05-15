@@ -1,5 +1,5 @@
 # -*- mode: python -*-
-a = Analysis(['setup/onionshare-launcher.py'],
+a = Analysis(['install/onionshare-launcher.py'],
     pathex=['.'],
     hiddenimports=['onionshare', 'onionshare_gui'],
     hookspath=None,
@@ -48,5 +48,5 @@ app = BUNDLE(exe,
     upx=True,
     name='OnionShare.app',
     appname='OnionShare',
-    icon='setup/onionshare.icns',
+    icon='install/onionshare.icns',
     version=open('version').read().strip())
