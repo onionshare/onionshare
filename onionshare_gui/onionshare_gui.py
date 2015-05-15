@@ -121,7 +121,7 @@ class OnionShareGui(QtGui.QWidget):
         self.status_bar.showMessage(strings._('gui_starting_server1', True))
         try:
             self.app.choose_port()
-            print strings._("connecting_ctrlport").format(self.app.port)
+            print strings._("connecting_ctrlport").format(int(self.app.port))
             self.app.start_hidden_service(gui=True)
         except onionshare.NoTor as e:
             alert(e.args[0], QtGui.QMessageBox.Warning)

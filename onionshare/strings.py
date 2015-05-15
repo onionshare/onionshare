@@ -17,7 +17,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-import json, locale, sys, platform, os
+import json, locale, sys, os, inspect
 import helpers
 
 strings = {}
@@ -25,10 +25,13 @@ strings = {}
 
 def load_strings(default="en"):
     global strings
+    p = helpers.get_platform()
 
     # find locale dir
-    if platform.system() == 'Linux':
+    if p == 'Linux' or p == 'Tails':
         locale_dir = os.path.join(sys.prefix, 'share/onionshare/locale')
+    elif p == 'Darwin':
+        locale_dir = os.path.join(helpers.get_osx_resources_dir(), 'locale')
     else:
         locale_dir = os.path.join(os.path.dirname(helpers.get_onionshare_dir()), 'locale')
 

@@ -41,6 +41,12 @@ def get_onionshare_dir():
     return onionshare_dir
 
 
+def get_osx_resources_dir():
+    # this is hacky, but in it ultimate ends up returning the absolute path to
+    # OnionShare.app/Contents/Resources
+    return os.path.dirname(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))))
+
+
 def constant_time_compare(val1, val2):
     _builtin_constant_time_compare = getattr(hmac, 'compare_digest', None)
     if _builtin_constant_time_compare is not None:

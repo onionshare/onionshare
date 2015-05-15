@@ -286,7 +286,7 @@ def main():
     try:
         app = OnionShare(debug, local_only, stay_open)
         app.choose_port()
-        print strings._("connecting_ctrlport").format(app.port)
+        print strings._("connecting_ctrlport").format(int(app.port))
         app.start_hidden_service()
     except NoTor as e:
         sys.exit(e.args[0])

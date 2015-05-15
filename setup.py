@@ -20,13 +20,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 import os, sys, platform
-from glob import glob
 
 try:
     from setuptools import setup
 except ImportError:
     from distutils.core import setup
-
 
 def file_list(path):
     files = []
@@ -35,7 +33,7 @@ def file_list(path):
             files.append(path+'/'+filename)
     return files
 
-
+system = platform.system()
 version = open('version').read().strip()
 
 description = (
@@ -50,41 +48,68 @@ long_description = description + " " + (
     """just needs to use Tor Browser to download the file from you."""
 )
 
-setup(
-    name='onionshare',
-    version=version,
-    description=description,
-    long_description=long_description,
-    author='Micah Lee',
-    author_email='micah@micahflee.com',
-    url='https://github.com/micahflee/onionshare',
-    license="GPL v3",
-    keywords='onion, share, onionshare, tor, anonymous, web server',
-    packages=['onionshare', 'onionshare_gui'],
-    include_package_data=True,
-    scripts=['bin/onionshare', 'bin/onionshare-gui'],
-    data_files=[
-        (os.path.join(sys.prefix, 'share/applications'), ['install/onionshare.desktop']),
-        (os.path.join(sys.prefix, 'share/pixmaps'), ['install/onionshare80.xpm']),
-        (os.path.join(sys.prefix, 'share/onionshare/images'), [
-            'images/logo.png',
-            'images/drop_files.png',
-            'images/server_stopped.png',
-            'images/server_started.png',
-            'images/server_working.png'
-        ]),
-        (os.path.join(sys.prefix, 'share/onionshare/locale'), [
-            'locale/de.json',
-            'locale/en.json',
-            'locale/es.json',
-            'locale/fi.json',
-            'locale/fr.json',
-            'locale/it.json',
-            'locale/nl.json',
-            'locale/no.json',
-            'locale/pt.json',
-            'locale/ru.json',
-            'locale/tr.json'
-        ])
-    ]
-)
+images = [
+    'images/logo.png',
+    'images/drop_files.png',
+    'images/server_stopped.png',
+    'images/server_started.png',
+    'images/server_working.png'
+]
+
+locale = [
+    'locale/de.json',
+    'locale/en.json',
+    'locale/es.json',
+    'locale/fi.json',
+    'locale/fr.json',
+    'locale/it.json',
+    'locale/nl.json',
+    'locale/no.json',
+    'locale/pt.json',
+    'locale/ru.json',
+    'locale/tr.json'
+]
+
+if system == 'Linux':
+    setup(
+        name='onionshare',
+        version=version,
+        description=description,
+        long_description=long_description,
+        author='Micah Lee',
+        author_email='micah@micahflee.com',
+        url='https://github.com/micahflee/onionshare',
+        license="GPL v3",
+        keywords='onion, share, onionshare, tor, anonymous, web server',
+        packages=['onionshare', 'onionshare_gui'],
+        include_package_data=True,
+        scripts=['bin/onionshare', 'bin/onionshare-gui'],
+        data_files=[
+            (os.path.join(sys.prefix, 'share/applications'), ['install/onionshare.desktop']),
+            (os.path.join(sys.prefix, 'share/pixmaps'), ['install/onionshare80.xpm']),
+            (os.path.join(sys.prefix, 'share/onionshare/images'), images),
+            (os.path.join(sys.prefix, 'share/onionshare/locale'), locale)
+        ]
+    )
+
+elif system == 'Darwin':
+    setup(
+        name='OnionShare',
+        version=version,
+        description=description,
+        long_description=long_description,
+        app=['install/onionshare-launcher.py'],
+        data_files=[
+            ('images', images),
+            ('locale', locale)
+        ],
+        options={
+            'py2app': {
+                'argv_emulation': True,
+                'iconfile':'install/onionshare.icns',
+                'includes': ['pip', 'PyQt4', 'PyQt4.QtCore', 'PyQt4.QtGui'],
+                'excludes': ['PyQt4.QtDesigner', 'PyQt4.QtNetwork', 'PyQt4.QtOpenGL', 'PyQt4.QtScript', 'PyQt4.QtSql', 'PyQt4.QtTest', 'PyQt4.QtWebKit', 'PyQt4.QtXml', 'PyQt4.phonon']
+            }
+        },
+        setup_requires=['py2app'],
+    )

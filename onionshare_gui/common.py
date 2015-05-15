@@ -18,10 +18,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import os, sys, inspect, platform
-
+from onionshare import helpers
 
 def get_onionshare_gui_dir():
-    if platform.system() == 'Darwin':
+    p = helpers.get_platform()
+    if p == 'Darwin':
         onionshare_gui_dir = os.path.dirname(__file__)
     else:
         onionshare_gui_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
@@ -31,8 +32,11 @@ onionshare_gui_dir = get_onionshare_gui_dir()
 
 
 def get_image_path(filename):
-    if platform.system() == 'Linux':
+    p = helpers.get_platform()
+    if p == 'Linux' or p == 'Tails':
         prefix = os.path.join(sys.prefix, 'share/onionshare/images')
+    elif p == 'Darwin':
+        prefix = os.path.join(helpers.get_osx_resources_dir(), 'images')
     else:
         prefix = os.path.join(os.path.dirname(get_onionshare_gui_dir()), 'images')
     return os.path.join(prefix, filename)

@@ -39,33 +39,24 @@ cd onionshare
 echo export PYTHONPATH=\$PYTHONPATH:/usr/local/lib/python2.7/site-packages/ >> ~/.profile
 source ~/.profile
 brew install qt4 pyqt
-sudo pip install virtualenv
-virtualenv env
-. env/bin/activate
-pip install flask stem pyinstaller
-```
-
-Each time you start work:
-
-```sh
-. env/bin/activate
+sudo pip install py2app flask stem
 ```
 
 To build the .app:
 
 ```sh
-pyinstaller -w -y install/onionshare-osx.spec
+python setup.py py2app
 ```
 
 Now you should have `dist/OnionShare.app`.
 
-To build a .dmg (this script builds the .app for you):
+To codesign and build a .pkg for distribution:
 
 ```sh
-./install/build_dmg.sh
+./install/build_osx.sh
 ```
 
-Now you should have `dist/OnionShare.dmg`.
+Now you should have `dist/OnionShare.pkg`.
 
 ## Windows
 
