@@ -19,8 +19,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import zipimport, os, inspect
-cwd = os.path.dirname(os.path.realpath(os.path.abspath(inspect.getfile(inspect.currentframe()))))
-os.chdir(cwd)
+
+original_cwd = os.getcwd()
+new_cwd = os.path.dirname(os.path.realpath(os.path.abspath(inspect.getfile(inspect.currentframe()))))
+os.chdir(new_cwd)
+
 zi = zipimport.zipimporter('lib/python2.7/site-packages.zip')
 onionshare = zi.load_module('onionshare')
-onionshare.main()
+
+onionshare.main(original_cwd)

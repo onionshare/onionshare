@@ -253,8 +253,14 @@ def tails_root():
             time.sleep(1)
 
 
-def main():
+def main(cwd=None):
     strings.load_strings()
+
+    # onionshare CLI in OSX needs to change current working directory (#132)
+    if helpers.get_platform() == 'Darwin':
+        if cwd:
+            os.chdir(cwd)
+
     tails_root()
 
     # parse arguments
