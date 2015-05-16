@@ -83,7 +83,7 @@ if system == 'Linux':
         keywords='onion, share, onionshare, tor, anonymous, web server',
         packages=['onionshare', 'onionshare_gui'],
         include_package_data=True,
-        scripts=['bin/onionshare', 'bin/onionshare-gui'],
+        scripts=['install/linux_scripts/onionshare', 'install/linux_scripts/onionshare-gui'],
         data_files=[
             (os.path.join(sys.prefix, 'share/applications'), ['install/onionshare.desktop']),
             (os.path.join(sys.prefix, 'share/pixmaps'), ['install/onionshare80.xpm']),
@@ -98,7 +98,7 @@ elif system == 'Darwin':
         version=version,
         description=description,
         long_description=long_description,
-        app=['install/onionshare-launcher.py'],
+        app=['install/osx_scripts/onionshare-gui'],
         data_files=[
             ('images', images),
             ('locale', locale),
@@ -107,7 +107,8 @@ elif system == 'Darwin':
         options={
             'py2app': {
                 'argv_emulation': True,
-                'iconfile':'install/onionshare.icns',
+                'iconfile': 'install/onionshare.icns',
+                'extra_scripts': ['install/osx_scripts/onionshare'],
                 'includes': [
                     'PyQt4', 'PyQt4.QtCore', 'PyQt4.QtGui',
                     'jinja2', 'jinja2.ext', 'jinja2.ext.autoescape'],

@@ -33,3 +33,11 @@ Open OnionShare and drag and drop files and folders you wish to share, and start
 Send this URL to the person you're trying to send the files to. If the files you're sending aren't secret, you can use normal means of sending the URL: emailing it, posting it to Facebook or Twitter, etc. If you're trying to send secret files then it's important to send this URL securely. I recommend you use [Off-the-Record encrypted chat](https://pressfreedomfoundation.org/encryption-works#otr) to send the URL.
 
 The person who is receiving the files doesn't need OnionShare. All they need is to open the URL you send them in Tor Browser to be able to download the file.
+
+## Using Command Line in Mac OS X
+
+If you'd like to use the command-line version of OnionShare in Mac OS X, after installing open a terminal and type:
+
+`ln -s /Applications/OnionShare.app/Contents/Resources/onionshare /usr/local/bin/onionshare`
+
+From that point on you can just call `onionshare`, like: `onionshare --help`

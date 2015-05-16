@@ -42,10 +42,12 @@ def get_onionshare_dir():
 
 
 def get_osx_resources_dir():
-    # this is hacky, but in it ultimate ends up returning the absolute path to
-    # OnionShare.app/Contents/Resources
-    return os.path.dirname(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))))
+    if get_platform() == 'Darwin':
+        # this is hacky, but in it ultimate ends up returning the absolute path to
+        # OnionShare.app/Contents/Resources, based on the location of helpers.py
+        return os.path.dirname(os.path.dirname(os.path.realpath(os.path.abspath(inspect.getfile(inspect.currentframe())))))
 
+    return None
 
 def get_html_path(filename):
     p = platform.system()
