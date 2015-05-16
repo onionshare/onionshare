@@ -34,10 +34,12 @@ Send this URL to the person you're trying to send the files to. If the files you
 
 The person who is receiving the files doesn't need OnionShare. All they need is to open the URL you send them in Tor Browser to be able to download the file.
 
-## Using Command Line in Mac OS X
+### Using Command Line in Mac OS X
 
 If you'd like to use the command-line version of OnionShare in Mac OS X, after installing open a terminal and type:
 
-`ln -s /Applications/OnionShare.app/Contents/Resources/onionshare /usr/local/bin/onionshare`
+```sh
+ln -s /Applications/OnionShare.app/Contents/Resources/onionshare /usr/local/bin/onionshare
+```
 
 From that point on you can just call `onionshare`, like: `onionshare --help`
