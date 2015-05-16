@@ -43,9 +43,11 @@ def get_onionshare_dir():
 
 def get_osx_resources_dir():
     if get_platform() == 'Darwin':
-        # this is hacky, but in it ultimate ends up returning the absolute path to
+        # this is hacky, but it ultimate ends up returning the absolute path to
         # OnionShare.app/Contents/Resources, based on the location of helpers.py
-        return os.path.dirname(os.path.dirname(os.path.realpath(os.path.abspath(inspect.getfile(inspect.currentframe())))))
+        helpers_path = os.path.realpath(os.path.abspath(inspect.getfile(inspect.currentframe())))
+        osx_resources_dir = os.path.dirname(os.path.dirname(helpers_path))
+        return osx_resources_dir
 
     return None
 
