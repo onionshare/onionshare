@@ -47,6 +47,15 @@ def get_osx_resources_dir():
     return os.path.dirname(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))))
 
 
+def get_html_path(filename):
+    p = platform.system()
+    if p == 'Darwin':
+        prefix = os.path.join(get_osx_resources_dir(), 'html')
+    else:
+        prefix = get_onionshare_dir()
+    return os.path.join(prefix, filename)
+
+
 def constant_time_compare(val1, val2):
     _builtin_constant_time_compare = getattr(hmac, 'compare_digest', None)
     if _builtin_constant_time_compare is not None:

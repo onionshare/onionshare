@@ -114,7 +114,7 @@ def index(slug_candidate):
 
     add_request(REQUEST_LOAD, request.path)
     return render_template_string(
-        open('{0:s}/index.html'.format(helpers.get_onionshare_dir())).read(),
+        open(helpers.get_html_path('index.html')).read(),
         slug=slug,
         file_info=file_info,
         filename=os.path.basename(zip_filename).decode("utf-8"),
@@ -198,7 +198,7 @@ def download(slug_candidate):
 @app.errorhandler(404)
 def page_not_found(e):
     add_request(REQUEST_OTHER, request.path)
-    return render_template_string(open('{0:s}/404.html'.format(helpers.get_onionshare_dir())).read())
+    return render_template_string(open(helpers.get_html_path('404.html')).read())
 
 # shutting down the server only works within the context of flask, so the easiest way to do it is over http
 shutdown_slug = helpers.random_string(16)

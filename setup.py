@@ -101,13 +101,14 @@ elif system == 'Darwin':
         app=['install/onionshare-launcher.py'],
         data_files=[
             ('images', images),
-            ('locale', locale)
+            ('locale', locale),
+            ('html', ['onionshare/index.html', 'onionshare/404.html'])
         ],
         options={
             'py2app': {
                 'argv_emulation': True,
                 'iconfile':'install/onionshare.icns',
-                'includes': ['pip', 'PyQt4', 'PyQt4.QtCore', 'PyQt4.QtGui'],
+                'includes': ['pip', 'PyQt4', 'PyQt4.QtCore', 'PyQt4.QtGui', 'jinja2', 'jinja2.ext', 'jinja2.ext.autoescape'],
                 'excludes': ['PyQt4.QtDesigner', 'PyQt4.QtNetwork', 'PyQt4.QtOpenGL', 'PyQt4.QtScript', 'PyQt4.QtSql', 'PyQt4.QtTest', 'PyQt4.QtWebKit', 'PyQt4.QtXml', 'PyQt4.phonon']
             }
         },
