@@ -56,7 +56,6 @@ class ServerStatus(QtGui.QVBoxLayout):
 
         # url layout
         url_font = QtGui.QFont()
-        url_font.setPointSize(8)
         self.url_label = QtGui.QLabel()
         self.url_label.setFont(url_font)
         self.url_label.setWordWrap(True)
@@ -87,6 +86,10 @@ class ServerStatus(QtGui.QVBoxLayout):
             self.url_label.setText('http://{0:s}/ {1:s}'.format(self.app.onion_host, self.web.slug))
             self.url_label.show()
             self.copy_url_button.show()
+
+            # resize parent widget
+            p = self.parentWidget()
+            p.resize(p.sizeHint())
         else:
             self.url_label.hide()
             self.copy_url_button.hide()
