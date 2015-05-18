@@ -1,5 +1,13 @@
 # OnionShare Changelog
 
+## 0.7
+
+* Added code signing for Mac OS X
+* Does not disable existing hidden services
+* Uses allowZip64 to allow compressing files >5gb
+* Sets HS dir to be in /var/lib/tor in Tails, to obey AppArmor rules
+* Misc. minor code cleanup
+
 ## 0.6
 
 * Brand new drag-and-drop GUI with ability to start and stop server
