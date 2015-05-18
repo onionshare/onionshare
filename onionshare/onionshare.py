@@ -17,7 +17,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-import os, sys, subprocess, time, argparse, inspect, shutil, socket, threading, urllib2, tempfile
+import os, sys, subprocess, time, argparse, inspect, shutil, socket, threading, urllib2, httplib, tempfile
 import socks
 
 from stem.control import Controller
@@ -206,6 +206,9 @@ class OnionShare(object):
                 sys.stdout.write('{0:s}\n'.format(strings._('wait_for_hs_nope')))
                 sys.stdout.flush()
             except urllib2.HTTPError:  # Tails error
+                sys.stdout.write('{0:s}\n'.format(strings._('wait_for_hs_nope')))
+                sys.stdout.flush()
+            except httplib.BadStatusLine: # Tails (with bridge) error
                 sys.stdout.write('{0:s}\n'.format(strings._('wait_for_hs_nope')))
                 sys.stdout.flush()
             except KeyboardInterrupt:
