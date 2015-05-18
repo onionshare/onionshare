@@ -16,7 +16,7 @@ mkdir -p $INSTALL_DIR
 # install dependencies
 apt-get update
 apt-get install -y build-essential fakeroot python-all python-stdeb python-flask python-stem python-qt4 python-socksipy
-./build_deb.sh
+./install/build_deb.sh
 
 # copy files
 cp deb_dist/onionshare_*.deb $INSTALL_DIR
