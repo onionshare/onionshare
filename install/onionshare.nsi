@@ -6,7 +6,7 @@
 !define INSTALLSIZE 31187
 !define VERSIONMAJOR 0
 !define VERSIONMINOR 7
-!define VERSIONSTRING "0.7dev"
+!define VERSIONSTRING "0.7"
 
 RequestExecutionLevel admin
 
