@@ -21,7 +21,6 @@ import os, sys, subprocess, time, argparse, inspect, shutil, socket, threading, 
 import socks
 
 from stem.control import Controller
-from stem import SocketError
 
 import strings, helpers, web
 
@@ -31,6 +30,10 @@ class NoTor(Exception):
 
 
 class TailsError(Exception):
+    pass
+
+
+class HSDirError(Exception):
     pass
 
 
@@ -131,7 +134,17 @@ class OnionShare(object):
                     gid = grp.getgrnam("debian-tor").gr_gid
                     os.chown(self.hidserv_dir, uid, gid)
                 else:
-                    self.hidserv_dir = tempfile.mkdtemp()
+                    # in non-Tails linux, onionshare will create HS dir in /tmp/onionshare/*
+                    path = '/tmp/onionshare'
+                    try:
+                        if not os.path.exists(path):
+                            os.makedirs(path, 0700)
+                    except:
+                        raise HSDirError(strings._("error_hs_dir_cannot_create").format(path))
+                    if not os.access(path, os.W_OK):
+                        raise HSDirError(strings._("error_hs_dir_not_writable").format(path))
+
+                    self.hidserv_dir = tempfile.mkdtemp(dir=path)
                 self.cleanup_filenames.append(self.hidserv_dir)
 
                 # connect to the tor controlport
@@ -140,12 +153,12 @@ class OnionShare(object):
                 for tor_control_port in tor_control_ports:
                     try:
                         self.controller = Controller.from_port(port=tor_control_port)
+                        self.controller.authenticate()
                         break
-                    except SocketError:
+                    except:
                         pass
                 if not self.controller:
                     raise NoTor(strings._("cant_connect_ctrlport").format(tor_control_ports))
-                self.controller.authenticate()
 
                 # set up hidden service
                 if helpers.get_platform() == 'Windows':
@@ -300,6 +313,8 @@ def main(cwd=None):
     except NoTor as e:
         sys.exit(e.args[0])
     except TailsError as e:
+        sys.exit(e.args[0])
+    except HSDirError as e:
         sys.exit(e.args[0])
 
     # prepare files to share
