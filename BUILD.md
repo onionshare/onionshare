@@ -29,23 +29,30 @@ sudo yum install -y dist/onionshare-*.rpm
 
 ## Mac OS X
 
+Install the [latest python 2.x](https://www.python.org/downloads/) from python.org. If you use the built-in version of python that comes with OS X, your .app might not run on other people's computers.
+
 To install the right dependencies, you need homebrew and pip installed on your Mac. Follow instructions at http://brew.sh/ to install homebrew, and run `sudo easy_install pip` to install pip.
 
 The first time you're setting up your dev environment:
 
 ```sh
-git clone https://github.com/micahflee/onionshare.git
-cd onionshare
 echo export PYTHONPATH=\$PYTHONPATH:/usr/local/lib/python2.7/site-packages/ >> ~/.profile
 source ~/.profile
 brew install qt4 pyqt
 sudo pip install py2app flask stem
 ```
 
+Get the source code:
+
+```sh
+git clone https://github.com/micahflee/onionshare.git
+cd onionshare
+```
+
 To build the .app:
 
 ```sh
-python setup.py py2app
+install/build_osx.sh
 ```
 
 Now you should have `dist/OnionShare.app`.
@@ -53,7 +60,7 @@ Now you should have `dist/OnionShare.app`.
 To codesign and build a .pkg for distribution:
 
 ```sh
-./install/build_osx.sh
+install/build_osx.sh --sign
 ```
 
 Now you should have `dist/OnionShare.pkg`.
