@@ -1,5 +1,12 @@
 # OnionShare Changelog
 
+## 0.7.1
+
+* Fixed critical bug in OS X binaries that caused crashes on some computers
+* Added Security Design document
+* Minor bug fix with Windows code signing timestamp server
+* Linux version uses HS dir that is allowed by Tor Browser Launcher's AppArmor profiles
+
 ## 0.7
 
 * Added code signing for Mac OS X
