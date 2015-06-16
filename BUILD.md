@@ -27,6 +27,10 @@ sudo yum install -y rpm-build python-flask python-stem pyqt4
 sudo yum install -y dist/onionshare-*.rpm
 ```
 
+*For ArchLinux:*
+
+There is a PKBUILD available [here](https://aur.archlinux.org/packages/onionshare/) that can be used to install onionshare
+
 ## Mac OS X
 
 Install the [latest python 2.x](https://www.python.org/downloads/) from python.org. If you use the built-in version of python that comes with OS X, your .app might not run on other people's computers.
