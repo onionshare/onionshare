@@ -242,6 +242,10 @@ def main():
     stay_open = bool(args.stay_open)
     debug = bool(args.debug)
 
+    # create the onionshare icon
+    global window_icon
+    window_icon = QtGui.QIcon(common.get_image_path('logo.png'))
+
     # validation
     if filenames:
         valid = True
@@ -251,10 +255,6 @@ def main():
                 valid = False
         if not valid:
             sys.exit()
-
-    # create the onionshare icon
-    global window_icon
-    window_icon = QtGui.QIcon(common.get_image_path('logo.png'))
 
     # start the onionshare app
     web.set_stay_open(stay_open)
