@@ -15,10 +15,10 @@ Features include:
 * Localized into several languages, and supports international unicode filenames
 * Designed to work in [Tails](https://tails.boum.org/), for high risk users
 
-If you're interested in exactly what OnionShare does and does not protect against, read the [Security Design Document](/SECURITY.md). 
+If you're interested in exactly what OnionShare does and does not protect against, read the [Security Design Document](/SECURITY.md).
 
-![Sender Screenshot](/screenshots/sender_win.png) ![Sender Screenshot OSX](/screenshots/sender_osx.png)
-![Receiver Screenshot](/screenshots/receiver.png)
+![Client Screenshot](/screenshots/client.png)
+![Server Screenshot](/screenshots/server.png)
 
 ## Quick Start
 
