@@ -146,13 +146,13 @@ def download(slug_candidate):
     basename = os.path.basename(zip_filename)
 
     def generate():
-        chunk_size = 102400  # 100kb
+        chunk_size = 102400 # 100kb
 
         fp = open(zip_filename, 'rb')
         done = False
         canceled = False
         while not done:
-            chunk = fp.read(102400)
+            chunk = fp.read(chunk_size)
             if chunk == '':
                 done = True
             else:
@@ -162,9 +162,13 @@ def download(slug_candidate):
                     # tell GUI the progress
                     downloaded_bytes = fp.tell()
                     percent = (1.0 * downloaded_bytes / zip_filesize) * 100
-                    sys.stdout.write(
-                        "\r{0:s}, {1:.2f}%          ".format(helpers.human_readable_filesize(downloaded_bytes), percent))
-                    sys.stdout.flush()
+
+                    # suppress stdout platform on OSX (#203)
+                    if helpers.get_platform() != 'Darwin':
+                        sys.stdout.write(
+                            "\r{0:s}, {1:.2f}%          ".format(helpers.human_readable_filesize(downloaded_bytes), percent))
+                        sys.stdout.flush()
+
                     add_request(REQUEST_PROGRESS, path, {'id': download_id, 'bytes': downloaded_bytes})
                 except:
                     # looks like the download was canceled
@@ -175,7 +179,9 @@ def download(slug_candidate):
                     add_request(REQUEST_CANCELED, path, {'id': download_id})
 
         fp.close()
-        sys.stdout.write("\n")
+
+        if helpers.get_platform() != 'Darwin':
+            sys.stdout.write("\n")
 
         # download is finished, close the server
         if not stay_open and not canceled:
