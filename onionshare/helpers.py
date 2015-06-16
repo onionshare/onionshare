@@ -32,6 +32,13 @@ def get_platform():
         p = 'Tails'
     return p
 
+if get_platform() == 'Darwin':
+    # this is hacky, but it ultimate ends up returning the absolute path to
+    # OnionShare.app/Contents/Resources, based on the location of helpers.py
+    helpers_path = os.path.realpath(os.path.abspath(inspect.getfile(inspect.currentframe())))
+    osx_resources_dir = os.path.dirname(os.path.dirname(helpers_path))
+else:
+    osx_resources_dir = None
 
 def get_onionshare_dir():
     if get_platform() == 'Darwin':
@@ -40,21 +47,10 @@ def get_onionshare_dir():
         onionshare_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
     return onionshare_dir
 
-
-def get_osx_resources_dir():
-    if get_platform() == 'Darwin':
-        # this is hacky, but it ultimate ends up returning the absolute path to
-        # OnionShare.app/Contents/Resources, based on the location of helpers.py
-        helpers_path = os.path.realpath(os.path.abspath(inspect.getfile(inspect.currentframe())))
-        osx_resources_dir = os.path.dirname(os.path.dirname(helpers_path))
-        return osx_resources_dir
-
-    return None
-
 def get_html_path(filename):
     p = platform.system()
     if p == 'Darwin':
-        prefix = os.path.join(get_osx_resources_dir(), 'html')
+        prefix = os.path.join(osx_resources_dir, 'html')
     else:
         prefix = get_onionshare_dir()
     return os.path.join(prefix, filename)
