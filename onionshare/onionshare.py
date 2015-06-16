@@ -67,19 +67,25 @@ class OnionShare(object):
         self.cleanup_filenames = []
 
     def cleanup(self):
-        if self.controller:
-            # Get fresh hidden services (maybe changed since last time)
-            # and remove ourselves
-            hsdic = self.controller.get_conf_map('HiddenServiceOptions') or {
-                'HiddenServiceDir': [], 'HiddenServicePort': []
-            }
-            if self.hidserv_dir and self.hidserv_dir in hsdic.get('HiddenServiceDir', []):
-                dropme = hsdic['HiddenServiceDir'].index(self.hidserv_dir)
-                del hsdic['HiddenServiceDir'][dropme]
-                del hsdic['HiddenServicePort'][dropme]
-                self.controller.set_options(hsdic2list(hsdic))
-            # Politely close the controller
-            self.controller.close()
+        # cleanup hidden service
+        try:
+            if self.controller:
+                # Get fresh hidden services (maybe changed since last time)
+                # and remove ourselves
+                hsdic = self.controller.get_conf_map('HiddenServiceOptions') or {
+                    'HiddenServiceDir': [], 'HiddenServicePort': []
+                }
+                if self.hidserv_dir and self.hidserv_dir in hsdic.get('HiddenServiceDir', []):
+                    dropme = hsdic['HiddenServiceDir'].index(self.hidserv_dir)
+                    del hsdic['HiddenServiceDir'][dropme]
+                    del hsdic['HiddenServicePort'][dropme]
+                    self.controller.set_options(hsdic2list(hsdic))
+                # Politely close the controller
+                self.controller.close()
+        except:
+            pass
+
+        # cleanup files
         for filename in self.cleanup_filenames:
             if os.path.isfile(filename):
                 os.remove(filename)
