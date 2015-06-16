@@ -29,8 +29,8 @@ except ImportError:
 def file_list(path):
     files = []
     for filename in os.listdir(path):
-        if os.path.isfile(path+'/'+filename):
-            files.append(path+'/'+filename)
+        if os.path.isfile(os.path.join(path, filename)):
+            files.append(os.path.join(path, filename))
     return files
 
 system = platform.system()
