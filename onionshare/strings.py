@@ -24,6 +24,10 @@ strings = {}
 
 
 def load_strings(default="en"):
+    """
+    Loads translated strings and fallback to English
+    if the translation does not exist.
+    """
     global strings
     p = helpers.get_platform()
 
@@ -55,6 +59,9 @@ def load_strings(default="en"):
 
 
 def translated(k, gui=False):
+    """
+    Returns a translated string.
+    """
     if gui:
         return strings[k].encode("utf-8").decode('utf-8', 'replace')
     else:

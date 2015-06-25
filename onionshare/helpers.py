@@ -27,6 +27,9 @@ sys.setdefaultencoding("utf-8")
 
 
 def get_platform():
+    """
+    Returns the platform OnionShare is running on.
+    """
     p = platform.system()
     if p == 'Linux' and platform.uname()[0:2] == ('Linux', 'amnesia'):
         p = 'Tails'
@@ -40,14 +43,22 @@ if get_platform() == 'Darwin':
 else:
     osx_resources_dir = None
 
+
 def get_onionshare_dir():
+    """
+    Returns the OnionShare directory.
+    """
     if get_platform() == 'Darwin':
         onionshare_dir = os.path.dirname(__file__)
     else:
         onionshare_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
     return onionshare_dir
 
+
 def get_html_path(filename):
+    """
+    Returns the path of the html files.
+    """
     p = platform.system()
     if p == 'Darwin':
         prefix = os.path.join(osx_resources_dir, 'html')
@@ -57,6 +68,9 @@ def get_html_path(filename):
 
 
 def constant_time_compare(val1, val2):
+    """
+    Compares two values in constant time.
+    """
     _builtin_constant_time_compare = getattr(hmac, 'compare_digest', None)
     if _builtin_constant_time_compare is not None:
         return _builtin_constant_time_compare(val1, val2)
@@ -74,6 +88,9 @@ def constant_time_compare(val1, val2):
 
 
 def random_string(num_bytes, output_len=None):
+    """
+    Returns a random string with a specified number of bytes.
+    """
     b = os.urandom(num_bytes)
     h = hashlib.sha256(b).digest()[:16]
     s = base64.b32encode(h).lower().replace('=', '')
@@ -83,6 +100,9 @@ def random_string(num_bytes, output_len=None):
 
 
 def human_readable_filesize(b):
+    """
+    Returns filesize in a human readable format.
+    """
     thresh = 1024.0
     if b < thresh:
         return '{0:.1f} B'.format(b)
@@ -96,6 +116,9 @@ def human_readable_filesize(b):
 
 
 def is_root():
+    """
+    Returns if user is root.
+    """
     return os.geteuid() == 0
 
 
