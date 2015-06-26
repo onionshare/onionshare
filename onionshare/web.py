@@ -146,7 +146,7 @@ def download(slug_candidate):
     basename = os.path.basename(zip_filename)
 
     def generate():
-        chunk_size = 102400 # 100kb
+        chunk_size = 102400  # 100kb
 
         fp = open(zip_filename, 'rb')
         done = False

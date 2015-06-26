@@ -26,7 +26,7 @@ import common
 try:
     import onionshare
 except ImportError:
-    sys.path.append(os.path.abspath(common.onionshare_gui_dir+"/.."))
+    sys.path.append(os.path.abspath(common.onionshare_gui_dir + "/.."))
     import onionshare
 from onionshare import strings, helpers, web
 
