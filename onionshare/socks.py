@@ -198,8 +198,8 @@ class socksocket(socket.socket):
 
     default_proxy = None
 
-    def __init__(self, family=socket.AF_INET, type=socket.SOCK_STREAM, proto=0, _sock=None):
-        _orig_socket.__init__(self, family, type, proto, _sock)
+    def __init__(self, family=socket.AF_INET, socket_type=socket.SOCK_STREAM, proto=0, _sock=None):
+        _orig_socket.__init__(self, family, socket_type, proto, _sock)
         
         if self.default_proxy:
             self.proxy = self.default_proxy

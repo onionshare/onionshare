@@ -17,7 +17,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-import Queue, mimetypes, platform, os, sys, zipfile, urllib2
+import Queue, mimetypes, platform, os, sys, urllib2
 from flask import Flask, Response, request, render_template_string, abort
 
 import strings, helpers
@@ -70,10 +70,10 @@ REQUEST_CANCELED = 4
 q = Queue.Queue()
 
 
-def add_request(type, path, data=None):
+def add_request(request_type, path, data=None):
     global q
     q.put({
-        'type': type,
+        'type': request_type,
         'path': path,
         'data': data
     })
@@ -146,7 +146,7 @@ def download(slug_candidate):
     basename = os.path.basename(zip_filename)
 
     def generate():
-        chunk_size = 102400 # 100kb
+        chunk_size = 102400  # 100kb
 
         fp = open(zip_filename, 'rb')
         done = False
