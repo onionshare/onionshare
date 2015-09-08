@@ -27,10 +27,7 @@ sys.setdefaultencoding("utf-8")
 
 
 def get_platform():
-    p = platform.system()
-    if p == 'Linux' and platform.uname()[0:2] == ('Linux', 'amnesia'):
-        p = 'Tails'
-    return p
+    return platform.system()
 
 if get_platform() == 'Darwin':
     # this is hacky, but it ultimate ends up returning the absolute path to

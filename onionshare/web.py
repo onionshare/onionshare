@@ -83,16 +83,18 @@ slug = helpers.random_string(16)
 download_count = 0
 
 stay_open = False
-
-
 def set_stay_open(new_stay_open):
     global stay_open
     stay_open = new_stay_open
-
-
 def get_stay_open():
     return stay_open
 
+transparent_torification = False
+def set_transparent_torification(new_transparent_torification):
+    global transparent_torification
+    stay_open = new_transparent_torification
+def get_transparent_torification():
+    return transparent_torification
 
 def debug_mode():
     import logging
@@ -224,16 +226,15 @@ def shutdown(shutdown_slug_candidate):
     return ""
 
 
-def start(port, stay_open=False):
+def start(port, stay_open=False, transparent_torification=False):
     set_stay_open(stay_open)
+    set_transparent_torification(transparent_torification)
     app.run(port=port, threaded=True)
 
 
 def stop(port):
     # to stop flask, load http://127.0.0.1:<port>/<shutdown_slug>/shutdown
-    if helpers.get_platform() == 'Tails':
-        # in Tails everything is proxies over Tor, so we need to get lower level
-        # to connect not over the proxy
+    if transparent_torification:
         import socket
 
         s = socket.socket()

@@ -28,7 +28,7 @@ def load_strings(default="en"):
     p = helpers.get_platform()
 
     # find locale dir
-    if p == 'Linux' or p == 'Tails':
+    if p == 'Linux':
         locale_dir = os.path.join(sys.prefix, 'share/onionshare/locale')
     elif p == 'Darwin':
         locale_dir = os.path.join(helpers.osx_resources_dir, 'locale')

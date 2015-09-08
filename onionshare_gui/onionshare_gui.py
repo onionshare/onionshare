@@ -39,7 +39,7 @@ from options import Options
 class Application(QtGui.QApplication):
     def __init__(self):
         platform = helpers.get_platform()
-        if platform == 'Tails' or platform == 'Linux':
+        if platform == 'Linux':
             self.setAttribute(QtCore.Qt.AA_X11InitThreads, True)
         QtGui.QApplication.__init__(self, sys.argv)
 
@@ -124,11 +124,6 @@ class OnionShareGui(QtGui.QWidget):
             print strings._("connecting_ctrlport").format(int(self.app.port))
             self.app.start_hidden_service(gui=True)
         except onionshare.NoTor as e:
-            alert(e.args[0], QtGui.QMessageBox.Warning)
-            self.server_status.stop_server()
-            self.status_bar.clearMessage()
-            return
-        except onionshare.TailsError as e:
             alert(e.args[0], QtGui.QMessageBox.Warning)
             self.server_status.stop_server()
             self.status_bar.clearMessage()

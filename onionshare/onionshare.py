@@ -29,10 +29,6 @@ class NoTor(Exception):
     pass
 
 
-class TailsError(Exception):
-    pass
-
-
 class HSDirError(Exception):
     pass
 
@@ -48,7 +44,7 @@ def hsdic2list(dic):
 
 
 class OnionShare(object):
-    def __init__(self, debug=False, local_only=False, stay_open=False):
+    def __init__(self, debug=False, local_only=False, stay_open=False, transparent_torification=False):
         self.port = None
         self.controller = None
         self.hidserv_dir = None
@@ -62,6 +58,9 @@ class OnionShare(object):
 
         # automatically close when download is finished
         self.stay_open = stay_open
+
+        # traffic automatically goes through Tor
+        self.transparent_torification = transparent_torification
 
         # files and dirs to delete on shutdown
         self.cleanup_filenames = []
@@ -100,92 +99,62 @@ class OnionShare(object):
         self.port = tmpsock.getsockname()[1]
         tmpsock.close()
 
-    def start_hidden_service(self, gui=False, tails_root=False):
+    def start_hidden_service(self, gui=False):
         if not self.port:
             self.choose_port()
 
-        if helpers.get_platform() == 'Tails' and not tails_root:
-            # in Tails, start the hidden service in a root process
-            if gui:
-                args = ['/usr/bin/gksudo', '-D', 'OnionShare', '--', '/usr/bin/onionshare']
-            else:
-                args = ['/usr/bin/sudo', '--', '/usr/bin/onionshare']
-            print "Executing: {0:s}".format(args+[str(self.port)])
-            p = subprocess.Popen(args+[str(self.port)], stderr=subprocess.PIPE, stdout=subprocess.PIPE)
-            stdout = p.stdout.read(22) # .onion URLs are 22 chars long
+        if self.local_only:
+            self.onion_host = '127.0.0.1:{0:d}'.format(self.port)
+            return
 
-            if stdout:
-                self.onion_host = stdout
-                print 'Got onion_host: {0:s}'.format(self.onion_host)
-            else:
-                if p.poll() == -1:
-                    raise TailsError(o.stderr.read())
-                else:
-                    raise TailsError(strings._("error_tails_unknown_root"))
-
+        # come up with a hidden service directory name
+        if helpers.get_platform() == 'Windows':
+            path = '{0:s}/onionshare'.format(os.environ['Temp'].replace('\\', '/'))
         else:
-            if self.local_only:
-                self.onion_host = '127.0.0.1:{0:d}'.format(self.port)
+            path = '/tmp/onionshare'
 
-            else:
-                # come up with a hidden service directory name
-                if helpers.get_platform() == 'Tails':
-                    # need to create HS directory in /var/lib/tor because of AppArmor rules included in Tails
-                    self.hidserv_dir = tempfile.mkdtemp(dir='/var/lib/tor')
+        try:
+            if not os.path.exists(path):
+                os.makedirs(path, 0700)
+        except:
+            raise HSDirError(strings._("error_hs_dir_cannot_create").format(path))
+        if not os.access(path, os.W_OK):
+            raise HSDirError(strings._("error_hs_dir_not_writable").format(path))
 
-                    # change owner to debian-tor
-                    import pwd
-                    import grp
-                    uid = pwd.getpwnam("debian-tor").pw_uid
-                    gid = grp.getgrnam("debian-tor").gr_gid
-                    os.chown(self.hidserv_dir, uid, gid)
-                else:
-                    # in non-Tails linux, onionshare will create HS dir in /tmp/onionshare/*
-                    path = '/tmp/onionshare'
-                    try:
-                        if not os.path.exists(path):
-                            os.makedirs(path, 0700)
-                    except:
-                        raise HSDirError(strings._("error_hs_dir_cannot_create").format(path))
-                    if not os.access(path, os.W_OK):
-                        raise HSDirError(strings._("error_hs_dir_not_writable").format(path))
+        self.hidserv_dir = tempfile.mkdtemp(dir=path)
+        self.cleanup_filenames.append(self.hidserv_dir)
 
-                    self.hidserv_dir = tempfile.mkdtemp(dir=path)
-                self.cleanup_filenames.append(self.hidserv_dir)
+        # connect to the tor controlport
+        self.controller = None
+        tor_control_ports = [9051, 9151]
+        for tor_control_port in tor_control_ports:
+            try:
+                self.controller = Controller.from_port(port=tor_control_port)
+                self.controller.authenticate()
+                break
+            except:
+                pass
+        if not self.controller:
+            raise NoTor(strings._("cant_connect_ctrlport").format(tor_control_ports))
 
-                # connect to the tor controlport
-                self.controller = None
-                tor_control_ports = [9051, 9151]
-                for tor_control_port in tor_control_ports:
-                    try:
-                        self.controller = Controller.from_port(port=tor_control_port)
-                        self.controller.authenticate()
-                        break
-                    except:
-                        pass
-                if not self.controller:
-                    raise NoTor(strings._("cant_connect_ctrlport").format(tor_control_ports))
+        # set up hidden service
+        hsdic = self.controller.get_conf_map('HiddenServiceOptions') or {
+            'HiddenServiceDir': [], 'HiddenServicePort': []
+        }
+        if self.hidserv_dir in hsdic.get('HiddenServiceDir', []):
+            # Maybe a stale service with the wrong local port
+            dropme = hsdic['HiddenServiceDir'].index(self.hidserv_dir)
+            del hsdic['HiddenServiceDir'][dropme]
+            del hsdic['HiddenServicePort'][dropme]
+        hsdic['HiddenServiceDir'] = hsdic.get('HiddenServiceDir', [])+[self.hidserv_dir]
+        hsdic['HiddenServicePort'] = hsdic.get('HiddenServicePort', [])+[
+            '80 127.0.0.1:{0:d}'.format(self.port)]
 
-                # set up hidden service
-                if helpers.get_platform() == 'Windows':
-                    self.hidserv_dir = self.hidserv_dir.replace('\\', '/')
-                hsdic = self.controller.get_conf_map('HiddenServiceOptions') or {
-                    'HiddenServiceDir': [], 'HiddenServicePort': []
-                }
-                if self.hidserv_dir in hsdic.get('HiddenServiceDir', []):
-                    # Maybe a stale service with the wrong local port
-                    dropme = hsdic['HiddenServiceDir'].index(self.hidserv_dir)
-                    del hsdic['HiddenServiceDir'][dropme]
-                    del hsdic['HiddenServicePort'][dropme]
-                hsdic['HiddenServiceDir'] = hsdic.get('HiddenServiceDir', [])+[self.hidserv_dir]
-                hsdic['HiddenServicePort'] = hsdic.get('HiddenServicePort', [])+[
-                    '80 127.0.0.1:{0:d}'.format(self.port)]
+        self.controller.set_options(hsdic2list(hsdic))
 
-                self.controller.set_options(hsdic2list(hsdic))
-
-                # figure out the .onion hostname
-                hostname_file = '{0:s}/hostname'.format(self.hidserv_dir)
-                self.onion_host = open(hostname_file, 'r').read().strip()
+        # figure out the .onion hostname
+        hostname_file = '{0:s}/hostname'.format(self.hidserv_dir)
+        self.onion_host = open(hostname_file, 'r').read().strip()
 
     def wait_for_hs(self):
         if self.local_only:
@@ -199,9 +168,8 @@ class OnionShare(object):
                 sys.stdout.write('{0:s} '.format(strings._('wait_for_hs_trying')))
                 sys.stdout.flush()
 
-                if helpers.get_platform() == 'Tails':
-                    # in Tails everything is proxies over Tor already
-                    # so no need to set the socks5 proxy
+                if self.transparent_torification:
+                    # no need to set the socks5 proxy
                     urllib2.urlopen('http://{0:s}'.format(self.onion_host))
                 else:
                     tor_exists = False
@@ -221,58 +189,18 @@ class OnionShare(object):
                 ready = True
 
                 sys.stdout.write('{0:s}\n'.format(strings._('wait_for_hs_yup')))
-            except socks.SOCKS5Error:  # non-Tails error
+            except socks.SOCKS5Error:
                 sys.stdout.write('{0:s}\n'.format(strings._('wait_for_hs_nope')))
                 sys.stdout.flush()
-            except urllib2.HTTPError:  # Tails error
+            except urllib2.HTTPError:  # torification error
                 sys.stdout.write('{0:s}\n'.format(strings._('wait_for_hs_nope')))
                 sys.stdout.flush()
-            except httplib.BadStatusLine: # Tails (with bridge) error
+            except httplib.BadStatusLine: # torification (with bridge) error
                 sys.stdout.write('{0:s}\n'.format(strings._('wait_for_hs_nope')))
                 sys.stdout.flush()
             except KeyboardInterrupt:
                 return False
         return True
-
-
-def tails_root():
-    # if running in Tails and as root, do only the things that require root
-    if helpers.get_platform() == 'Tails' and helpers.is_root():
-        parser = argparse.ArgumentParser()
-        parser.add_argument('port', nargs=1, help=strings._("help_tails_port"))
-        args = parser.parse_args()
-
-        try:
-            port = int(args.port[0])
-        except ValueError:
-            sys.stderr.write('{0:s}\n'.format(strings._("error_tails_invalid_port")))
-            sys.exit(-1)
-
-        # open hole in firewall
-        subprocess.call(['/sbin/iptables', '-I', 'OUTPUT', '-o', 'lo',
-                         '-p', 'tcp', '--dport', str(port), '-j', 'ACCEPT'])
-
-        # start hidden service
-        app = OnionShare()
-        app.choose_port()
-        app.port = port
-        app.start_hidden_service(False, True)
-        sys.stdout.write(app.onion_host)
-        sys.stdout.flush()
-
-        # close hole in firewall on shutdown
-        import signal
-
-        def handler(signum=None, frame=None):
-            subprocess.call(['/sbin/iptables', '-D', 'OUTPUT', '-o', 'lo',
-                             '-p', 'tcp', '--dport', str(port), '-j', 'ACCEPT'])
-            sys.exit()
-        for sig in [signal.SIGTERM, signal.SIGINT, signal.SIGHUP, signal.SIGQUIT]:
-            signal.signal(sig, handler)
-
-        # stay open until killed
-        while True:
-            time.sleep(1)
 
 
 def main(cwd=None):
@@ -283,12 +211,11 @@ def main(cwd=None):
         if cwd:
             os.chdir(cwd)
 
-    tails_root()
-
     # parse arguments
     parser = argparse.ArgumentParser()
     parser.add_argument('--local-only', action='store_true', dest='local_only', help=strings._("help_local_only"))
     parser.add_argument('--stay-open', action='store_true', dest='stay_open', help=strings._("help_stay_open"))
+    parser.add_argument('--transparent', action='store_true', dest='transparent_torification', help=strings._("help_transparent_torification"))
     parser.add_argument('--debug', action='store_true', dest='debug', help=strings._("help_debug"))
     parser.add_argument('filename', metavar='filename', nargs='+', help=strings._('help_filename'))
     args = parser.parse_args()
@@ -300,6 +227,7 @@ def main(cwd=None):
     local_only = bool(args.local_only)
     debug = bool(args.debug)
     stay_open = bool(args.stay_open)
+    transparent_torification = bool(args.transparent_torification)
 
     # validation
     valid = True
@@ -312,13 +240,11 @@ def main(cwd=None):
 
     # start the onionshare app
     try:
-        app = OnionShare(debug, local_only, stay_open)
+        app = OnionShare(debug, local_only, stay_open, transparent_torification)
         app.choose_port()
         print strings._("connecting_ctrlport").format(int(app.port))
         app.start_hidden_service()
     except NoTor as e:
-        sys.exit(e.args[0])
-    except TailsError as e:
         sys.exit(e.args[0])
     except HSDirError as e:
         sys.exit(e.args[0])
@@ -335,7 +261,7 @@ def main(cwd=None):
         print ''
 
     # start onionshare service in new thread
-    t = threading.Thread(target=web.start, args=(app.port, app.stay_open))
+    t = threading.Thread(target=web.start, args=(app.port, app.stay_open, app.transparent_torification))
     t.daemon = True
     t.start()
 
