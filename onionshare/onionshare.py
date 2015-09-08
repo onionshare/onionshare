@@ -17,37 +17,19 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-import os, sys, subprocess, time, argparse, inspect, shutil, socket, threading, urllib2, httplib, tempfile
+import os, sys, subprocess, time, argparse, inspect, shutil, socket, threading, urllib2, httplib
 import socks
 
-from stem.control import Controller
-
-import strings, helpers, web
-
-
-class NoTor(Exception):
-    pass
-
-
-class HSDirError(Exception):
-    pass
-
-
-def hsdic2list(dic):
-    """Convert what we get from get_conf_map to what we need for set_options"""
-    return [
-        pair for pairs in [
-            [('HiddenServiceDir', vals[0]), ('HiddenServicePort', vals[1])]
-            for vals in zip(dic.get('HiddenServiceDir', []), dic.get('HiddenServicePort', []))
-        ] for pair in pairs
-    ]
-
+import strings, helpers, web, hs
 
 class OnionShare(object):
     def __init__(self, debug=False, local_only=False, stay_open=False, transparent_torification=False):
         self.port = None
-        self.controller = None
+        self.hs = None
         self.hidserv_dir = None
+
+        # files and dirs to delete on shutdown
+        self.cleanup_filenames = []
 
         # debug mode
         if debug:
@@ -61,36 +43,6 @@ class OnionShare(object):
 
         # traffic automatically goes through Tor
         self.transparent_torification = transparent_torification
-
-        # files and dirs to delete on shutdown
-        self.cleanup_filenames = []
-
-    def cleanup(self):
-        # cleanup hidden service
-        try:
-            if self.controller:
-                # Get fresh hidden services (maybe changed since last time)
-                # and remove ourselves
-                hsdic = self.controller.get_conf_map('HiddenServiceOptions') or {
-                    'HiddenServiceDir': [], 'HiddenServicePort': []
-                }
-                if self.hidserv_dir and self.hidserv_dir in hsdic.get('HiddenServiceDir', []):
-                    dropme = hsdic['HiddenServiceDir'].index(self.hidserv_dir)
-                    del hsdic['HiddenServiceDir'][dropme]
-                    del hsdic['HiddenServicePort'][dropme]
-                    self.controller.set_options(hsdic2list(hsdic))
-                # Politely close the controller
-                self.controller.close()
-        except:
-            pass
-
-        # cleanup files
-        for filename in self.cleanup_filenames:
-            if os.path.isfile(filename):
-                os.remove(filename)
-            elif os.path.isdir(filename):
-                shutil.rmtree(filename)
-        self.cleanup_filenames = []
 
     def choose_port(self):
         # let the OS choose a port
@@ -107,54 +59,10 @@ class OnionShare(object):
             self.onion_host = '127.0.0.1:{0:d}'.format(self.port)
             return
 
-        # come up with a hidden service directory name
-        if helpers.get_platform() == 'Windows':
-            path = '{0:s}/onionshare'.format(os.environ['Temp'].replace('\\', '/'))
-        else:
-            path = '/tmp/onionshare'
+        if not self.hs:
+            self.hs = hs.HS(self.transparent_torification)
 
-        try:
-            if not os.path.exists(path):
-                os.makedirs(path, 0700)
-        except:
-            raise HSDirError(strings._("error_hs_dir_cannot_create").format(path))
-        if not os.access(path, os.W_OK):
-            raise HSDirError(strings._("error_hs_dir_not_writable").format(path))
-
-        self.hidserv_dir = tempfile.mkdtemp(dir=path)
-        self.cleanup_filenames.append(self.hidserv_dir)
-
-        # connect to the tor controlport
-        self.controller = None
-        tor_control_ports = [9051, 9151]
-        for tor_control_port in tor_control_ports:
-            try:
-                self.controller = Controller.from_port(port=tor_control_port)
-                self.controller.authenticate()
-                break
-            except:
-                pass
-        if not self.controller:
-            raise NoTor(strings._("cant_connect_ctrlport").format(tor_control_ports))
-
-        # set up hidden service
-        hsdic = self.controller.get_conf_map('HiddenServiceOptions') or {
-            'HiddenServiceDir': [], 'HiddenServicePort': []
-        }
-        if self.hidserv_dir in hsdic.get('HiddenServiceDir', []):
-            # Maybe a stale service with the wrong local port
-            dropme = hsdic['HiddenServiceDir'].index(self.hidserv_dir)
-            del hsdic['HiddenServiceDir'][dropme]
-            del hsdic['HiddenServicePort'][dropme]
-        hsdic['HiddenServiceDir'] = hsdic.get('HiddenServiceDir', [])+[self.hidserv_dir]
-        hsdic['HiddenServicePort'] = hsdic.get('HiddenServicePort', [])+[
-            '80 127.0.0.1:{0:d}'.format(self.port)]
-
-        self.controller.set_options(hsdic2list(hsdic))
-
-        # figure out the .onion hostname
-        hostname_file = '{0:s}/hostname'.format(self.hidserv_dir)
-        self.onion_host = open(hostname_file, 'r').read().strip()
+        self.onion_host = self.hs.start(self.port)
 
     def wait_for_hs(self):
         if self.local_only:
@@ -173,11 +81,11 @@ class OnionShare(object):
                     urllib2.urlopen('http://{0:s}'.format(self.onion_host))
                 else:
                     tor_exists = False
-                    tor_socks_ports = [9050, 9150]
-                    for tor_socks_port in tor_socks_ports:
+                    ports = [9050, 9150]
+                    for port in ports:
                         try:
                             s = socks.socksocket()
-                            s.setproxy(socks.PROXY_TYPE_SOCKS5, '127.0.0.1', tor_socks_port)
+                            s.setproxy(socks.PROXY_TYPE_SOCKS5, '127.0.0.1', port)
                             s.connect((self.onion_host, 80))
                             s.close()
                             tor_exists = True
@@ -201,6 +109,18 @@ class OnionShare(object):
             except KeyboardInterrupt:
                 return False
         return True
+
+    def cleanup(self):
+        # cleanup files
+        for filename in self.cleanup_filenames:
+            if os.path.isfile(filename):
+                os.remove(filename)
+            elif os.path.isdir(filename):
+                shutil.rmtree(filename)
+        self.cleanup_filenames = []
+
+        # call hs's cleanup
+        self.hs.cleanup()
 
 
 def main(cwd=None):
@@ -244,9 +164,9 @@ def main(cwd=None):
         app.choose_port()
         print strings._("connecting_ctrlport").format(int(app.port))
         app.start_hidden_service()
-    except NoTor as e:
+    except hs.NoTor as e:
         sys.exit(e.args[0])
-    except HSDirError as e:
+    except hs.HSDirError as e:
         sys.exit(e.args[0])
 
     # prepare files to share
