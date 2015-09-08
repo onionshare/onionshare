@@ -2,7 +2,7 @@
 """
 OnionShare | https://onionshare.org/
 
-Copyright (C) 2014 Micah Lee <micah@micahflee.com>
+Copyright (C) 2015 Micah Lee <micah@micahflee.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -28,7 +28,7 @@ class Options(QtGui.QHBoxLayout):
         super(Options, self).__init__()
 
         self.web = web
-        
+
         # close automatically
         self.close_automatically = QtGui.QCheckBox()
         if self.web.stay_open:
@@ -46,4 +46,3 @@ class Options(QtGui.QHBoxLayout):
             self.web.set_stay_open(False)
         else:
             self.web.set_stay_open(True)
-
