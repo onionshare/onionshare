@@ -73,7 +73,8 @@ class OnionShare(object):
         self.cleanup_filenames = []
 
         # call hs's cleanup
-        self.hs.cleanup()
+        if self.hs:
+            self.hs.cleanup()
 
 
 def main(cwd=None):

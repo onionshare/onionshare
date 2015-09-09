@@ -109,8 +109,6 @@ class OnionShareGui(QtGui.QWidget):
         self.timer.start(500)
 
     def start_server_step2(self):
-        self.status_bar.showMessage(strings._('gui_starting_server3', True))
-
         # warn about sending large files over Tor
         if web.zip_filesize >= 157286400:  # 150mb
             self.filesize_warning.setText(strings._("large_filesize", True))
@@ -119,18 +117,18 @@ class OnionShareGui(QtGui.QWidget):
     def start_server(self):
         # start the hidden service
         self.status_bar.showMessage(strings._('gui_starting_server1', True))
+        self.app.choose_port()
         try:
-            self.app.choose_port()
-            print strings._("connecting_ctrlport").format(int(self.app.port))
+            self.status_bar.showMessage(strings._('gui_starting_server1', True))
             self.app.start_hidden_service(gui=True)
-        except onionshare.NoTor as e:
+        except onionshare.hs.NoTor as e:
             alert(e.args[0], QtGui.QMessageBox.Warning)
             self.server_status.stop_server()
             self.status_bar.clearMessage()
             return
 
         # start onionshare service in new thread
-        t = threading.Thread(target=web.start, args=(self.app.port, self.app.stay_open))
+        t = threading.Thread(target=web.start, args=(self.app.port, self.app.stay_open, self.app.transparent_torification))
         t.daemon = True
         t.start()
 
@@ -142,7 +140,10 @@ class OnionShareGui(QtGui.QWidget):
             self.starting_server_step2.emit()
 
             # wait for hs
-            self.app.wait_for_hs()
+            if not self.app.hs.supports_ephemeral:
+                if not self.app.local_only:
+                    self.status_bar.showMessage(strings._('gui_starting_server3', True))
+                    self.app.hs.wait_for_hs(self.app.onion_host)
 
             # done
             self.start_server_finished.emit()
@@ -225,6 +226,7 @@ def main():
     parser.add_argument('--local-only', action='store_true', dest='local_only', help=strings._("help_local_only"))
     parser.add_argument('--stay-open', action='store_true', dest='stay_open', help=strings._("help_stay_open"))
     parser.add_argument('--debug', action='store_true', dest='debug', help=strings._("help_debug"))
+    parser.add_argument('--transparent', action='store_true', dest='transparent_torification', help=strings._("help_transparent_torification"))
     parser.add_argument('--filenames', metavar='filenames', nargs='+', help=strings._('help_filename'))
     args = parser.parse_args()
 
@@ -236,6 +238,7 @@ def main():
     local_only = bool(args.local_only)
     stay_open = bool(args.stay_open)
     debug = bool(args.debug)
+    transparent_torification = bool(args.transparent_torification)
 
     # create the onionshare icon
     global window_icon
@@ -253,7 +256,8 @@ def main():
 
     # start the onionshare app
     web.set_stay_open(stay_open)
-    app = onionshare.OnionShare(debug, local_only, stay_open)
+    web.set_transparent_torification(transparent_torification)
+    app = onionshare.OnionShare(debug, local_only, stay_open, transparent_torification)
 
     # clean up when app quits
     def shutdown():
