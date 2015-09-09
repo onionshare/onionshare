@@ -19,7 +19,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 from stem.control import Controller
-import os, tempfile, shutil
+import os, sys, tempfile, shutil, urllib2, httplib
+import socks
 
 import helpers, strings
 
@@ -99,6 +100,50 @@ class HS(object):
             hostname_file = '{0:s}/hostname'.format(hidserv_dir)
             onion_host = open(hostname_file, 'r').read().strip()
             return onion_host
+
+    def wait_for_hs(self, onion_host, transparent_torification):
+        # legacy only, this function is no longer required with ephemeral hidden services
+        print strings._('wait_for_hs')
+
+        ready = False
+        while not ready:
+            try:
+                sys.stdout.write('{0:s} '.format(strings._('wait_for_hs_trying')))
+                sys.stdout.flush()
+
+                if transparent_torification:
+                    # no need to set the socks5 proxy
+                    urllib2.urlopen('http://{0:s}'.format(onion_host))
+                else:
+                    tor_exists = False
+                    ports = [9050, 9150]
+                    for port in ports:
+                        try:
+                            s = socks.socksocket()
+                            s.setproxy(socks.PROXY_TYPE_SOCKS5, '127.0.0.1', port)
+                            s.connect((onion_host, 80))
+                            s.close()
+                            tor_exists = True
+                            break
+                        except socks.ProxyConnectionError:
+                            pass
+                    if not tor_exists:
+                        raise NoTor(strings._("cant_connect_socksport").format(tor_socks_ports))
+                ready = True
+
+                sys.stdout.write('{0:s}\n'.format(strings._('wait_for_hs_yup')))
+            except socks.SOCKS5Error:
+                sys.stdout.write('{0:s}\n'.format(strings._('wait_for_hs_nope')))
+                sys.stdout.flush()
+            except urllib2.HTTPError:  # torification error
+                sys.stdout.write('{0:s}\n'.format(strings._('wait_for_hs_nope')))
+                sys.stdout.flush()
+            except httplib.BadStatusLine: # torification (with bridge) error
+                sys.stdout.write('{0:s}\n'.format(strings._('wait_for_hs_nope')))
+                sys.stdout.flush()
+            except KeyboardInterrupt:
+                return False
+        return True
 
     def cleanup(self):
         if self.supports_ephemeral:

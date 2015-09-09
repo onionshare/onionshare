@@ -17,9 +17,8 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-import os, sys, subprocess, time, argparse, inspect, shutil, socket, threading, urllib2, httplib
-import socks
 
+import os, sys, subprocess, time, argparse, inspect, shutil, socket, threading
 import strings, helpers, web, hs
 
 class OnionShare(object):
@@ -63,53 +62,6 @@ class OnionShare(object):
             self.hs = hs.HS(self.transparent_torification)
 
         self.onion_host = self.hs.start(self.port)
-
-    def wait_for_hs(self):
-        # legacy only, this function is no longer required with ephemeral hidden services
-        if self.local_only:
-            return True
-
-        print strings._('wait_for_hs')
-
-        ready = False
-        while not ready:
-            try:
-                sys.stdout.write('{0:s} '.format(strings._('wait_for_hs_trying')))
-                sys.stdout.flush()
-
-                if self.transparent_torification:
-                    # no need to set the socks5 proxy
-                    urllib2.urlopen('http://{0:s}'.format(self.onion_host))
-                else:
-                    tor_exists = False
-                    ports = [9050, 9150]
-                    for port in ports:
-                        try:
-                            s = socks.socksocket()
-                            s.setproxy(socks.PROXY_TYPE_SOCKS5, '127.0.0.1', port)
-                            s.connect((self.onion_host, 80))
-                            s.close()
-                            tor_exists = True
-                            break
-                        except socks.ProxyConnectionError:
-                            pass
-                    if not tor_exists:
-                        raise NoTor(strings._("cant_connect_socksport").format(tor_socks_ports))
-                ready = True
-
-                sys.stdout.write('{0:s}\n'.format(strings._('wait_for_hs_yup')))
-            except socks.SOCKS5Error:
-                sys.stdout.write('{0:s}\n'.format(strings._('wait_for_hs_nope')))
-                sys.stdout.flush()
-            except urllib2.HTTPError:  # torification error
-                sys.stdout.write('{0:s}\n'.format(strings._('wait_for_hs_nope')))
-                sys.stdout.flush()
-            except httplib.BadStatusLine: # torification (with bridge) error
-                sys.stdout.write('{0:s}\n'.format(strings._('wait_for_hs_nope')))
-                sys.stdout.flush()
-            except KeyboardInterrupt:
-                return False
-        return True
 
     def cleanup(self):
         # cleanup files
@@ -186,11 +138,12 @@ def main(cwd=None):
     t.start()
 
     try:  # Trap Ctrl-C
-        # wait for hs
+        # wait for hs, only if using old version of tor
         if not app.hs.supports_ephemeral:
-            ready = app.wait_for_hs()
-            if not ready:
-                sys.exit()
+            if not app.local_only:
+                ready = app.hs.wait_for_hs(app.onion_host, app.transparent_torification)
+                if not ready:
+                    sys.exit()
 
         print strings._("give_this_url")
         print 'http://{0:s}/{1:s}'.format(app.onion_host, web.slug)
