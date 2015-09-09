@@ -65,6 +65,7 @@ class OnionShare(object):
         self.onion_host = self.hs.start(self.port)
 
     def wait_for_hs(self):
+        # legacy only, this function is no longer required with ephemeral hidden services
         if self.local_only:
             return True
 
@@ -162,7 +163,6 @@ def main(cwd=None):
     try:
         app = OnionShare(debug, local_only, stay_open, transparent_torification)
         app.choose_port()
-        print strings._("connecting_ctrlport").format(int(app.port))
         app.start_hidden_service()
     except hs.NoTor as e:
         sys.exit(e.args[0])
@@ -187,9 +187,10 @@ def main(cwd=None):
 
     try:  # Trap Ctrl-C
         # wait for hs
-        ready = app.wait_for_hs()
-        if not ready:
-            sys.exit()
+        if not app.hs.supports_ephemeral:
+            ready = app.wait_for_hs()
+            if not ready:
+                sys.exit()
 
         print strings._("give_this_url")
         print 'http://{0:s}/{1:s}'.format(app.onion_host, web.slug)

@@ -55,9 +55,10 @@ class HS(object):
         self.supports_ephemeral = callable(list_ephemeral_hidden_services) and tor_version >= '0.2.7.1'
 
     def start(self, port):
+        print strings._("connecting_ctrlport").format(int(port))
         if self.supports_ephemeral:
             print strings._('using_ephemeral')
-            res = self.c.create_ephemeral_hidden_service(port)
+            res = self.c.create_ephemeral_hidden_service({ 80: port }, await_publication = True)
             onion_host = res.content()[0][2].split('=')[1] + '.onion'
             return onion_host
 
