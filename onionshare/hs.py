@@ -101,7 +101,7 @@ class HS(object):
             onion_host = open(hostname_file, 'r').read().strip()
             return onion_host
 
-    def wait_for_hs(self, onion_host, transparent_torification):
+    def wait_for_hs(self, onion_host):
         # legacy only, this function is no longer required with ephemeral hidden services
         print strings._('wait_for_hs')
 
@@ -111,7 +111,7 @@ class HS(object):
                 sys.stdout.write('{0:s} '.format(strings._('wait_for_hs_trying')))
                 sys.stdout.flush()
 
-                if transparent_torification:
+                if self.transparent_torification:
                     # no need to set the socks5 proxy
                     urllib2.urlopen('http://{0:s}'.format(onion_host))
                 else:
