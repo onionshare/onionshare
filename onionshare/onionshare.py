@@ -112,7 +112,7 @@ class OnionShare(object):
                 args = ['/usr/bin/sudo', '--', '/usr/bin/onionshare']
             print "Executing: {0:s}".format(args+[str(self.port)])
             p = subprocess.Popen(args+[str(self.port)], stderr=subprocess.PIPE, stdout=subprocess.PIPE)
-            stdout = p.stdout.read(22) # .onion URLs are 22 chars long
+            stdout = p.stdout.read(22)  # .onion URLs are 22 chars long
 
             if stdout:
                 self.onion_host = stdout
@@ -227,7 +227,7 @@ class OnionShare(object):
             except urllib2.HTTPError:  # Tails error
                 sys.stdout.write('{0:s}\n'.format(strings._('wait_for_hs_nope')))
                 sys.stdout.flush()
-            except httplib.BadStatusLine: # Tails (with bridge) error
+            except httplib.BadStatusLine:  # Tails (with bridge) error
                 sys.stdout.write('{0:s}\n'.format(strings._('wait_for_hs_nope')))
                 sys.stdout.flush()
             except KeyboardInterrupt:

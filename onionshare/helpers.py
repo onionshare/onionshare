@@ -40,12 +40,14 @@ if get_platform() == 'Darwin':
 else:
     osx_resources_dir = None
 
+
 def get_onionshare_dir():
     if get_platform() == 'Darwin':
         onionshare_dir = os.path.dirname(__file__)
     else:
         onionshare_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
     return onionshare_dir
+
 
 def get_html_path(filename):
     p = platform.system()

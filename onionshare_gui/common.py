@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import os, sys, inspect, platform
 from onionshare import helpers
 
+
 def get_onionshare_gui_dir():
     p = helpers.get_platform()
     if p == 'Darwin':
