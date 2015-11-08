@@ -17,7 +17,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-import os, sys, subprocess, time, argparse, inspect, shutil, socket, threading, urllib2, httplib, tempfile
+import os, sys, subprocess, time, argparse, shutil, socket, threading, urllib2, httplib, tempfile
 import socks
 
 from stem.control import Controller
@@ -52,6 +52,7 @@ class OnionShare(object):
         self.port = None
         self.controller = None
         self.hidserv_dir = None
+        self.onion_host = None
 
         # debug mode
         if debug:
@@ -119,7 +120,7 @@ class OnionShare(object):
                 print 'Got onion_host: {0:s}'.format(self.onion_host)
             else:
                 if p.poll() == -1:
-                    raise TailsError(o.stderr.read())
+                    raise TailsError(sys.stderr.read())
                 else:
                     raise TailsError(strings._("error_tails_unknown_root"))
 

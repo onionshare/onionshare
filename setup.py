@@ -123,5 +123,5 @@ elif system == 'Darwin':
                     'PyQt4.QtSvg', 'PyQt4.QtXmlPatterns']
             }
         },
-        setup_requires=['py2app'],
+        setup_requires=['py2app', 'flask', 'stem'],
     )
