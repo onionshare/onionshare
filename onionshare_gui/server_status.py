@@ -144,7 +144,7 @@ class ServerStatus(QtGui.QVBoxLayout):
             GMEM_DDESHARE = 0x2000
             ctypes.windll.user32.OpenClipboard(None)
             ctypes.windll.user32.EmptyClipboard()
-            hcd = ctypes.windll.kernel32.GlobalAlloc(GMEM_DDESHARE, len(bytes(url))+1)
+            hcd = ctypes.windll.kernel32.GlobalAlloc(GMEM_DDESHARE, len(bytes(url)) + 1)
             pch_data = ctypes.windll.kernel32.GlobalLock(hcd)
             ctypes.cdll.msvcrt.strcpy(ctypes.c_char_p(pch_data), bytes(url))
             ctypes.windll.kernel32.GlobalUnlock(hcd)

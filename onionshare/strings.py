@@ -17,13 +17,17 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-import json, locale, sys, os, inspect
+import json, locale, sys, os
 import helpers
 
 strings = {}
 
 
 def load_strings(default="en"):
+    """
+    Loads translated strings and fallback to English
+    if the translation does not exist.
+    """
     global strings
     p = helpers.get_platform()
 
@@ -36,25 +40,28 @@ def load_strings(default="en"):
         locale_dir = os.path.join(os.path.dirname(helpers.get_onionshare_dir()), 'locale')
 
     # load all translations
-    translated = {}
+    translations = {}
     for filename in os.listdir(locale_dir):
         abs_filename = os.path.join(locale_dir, filename)
         lang, ext = os.path.splitext(filename)
         if abs_filename.endswith('.json'):
-            translated[lang] = json.loads(open(abs_filename).read())
+            translations[lang] = json.loads(open(abs_filename).read())
 
-    strings = translated[default]
+    strings = translations[default]
     lc, enc = locale.getdefaultlocale()
     if lc:
         lang = lc[:2]
-        if lang in translated:
+        if lang in translations:
             # if a string doesn't exist, fallback to English
-            for key in translated[default]:
-                if key in translated[lang]:
-                    strings[key] = translated[lang][key]
+            for key in translations[default]:
+                if key in translations[lang]:
+                    strings[key] = translations[lang][key]
 
 
 def translated(k, gui=False):
+    """
+    Returns a translated string.
+    """
     if gui:
         return strings[k].encode("utf-8").decode('utf-8', 'replace')
     else:

@@ -26,7 +26,7 @@ import common
 try:
     import onionshare
 except ImportError:
-    sys.path.append(os.path.abspath(common.onionshare_gui_dir+"/.."))
+    sys.path.append(os.path.abspath(common.onionshare_gui_dir + "/.."))
     import onionshare
 from onionshare import strings, helpers, web
 
@@ -42,6 +42,14 @@ class Application(QtGui.QApplication):
         if platform == 'Linux':
             self.setAttribute(QtCore.Qt.AA_X11InitThreads, True)
         QtGui.QApplication.__init__(self, sys.argv)
+        self.installEventFilter(self)
+
+    def eventFilter(self, obj, event):
+        if (event.type() == QtCore.QEvent.KeyPress and
+            event.key() == QtCore.Qt.Key_Q and
+            event.modifiers() == QtCore.Qt.ControlModifier):
+                self.quit()
+        return False
 
 
 class OnionShareGui(QtGui.QWidget):

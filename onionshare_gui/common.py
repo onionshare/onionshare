@@ -20,7 +20,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import os, sys, inspect, platform
 from onionshare import helpers
 
+
 def get_onionshare_gui_dir():
+    """
+    Returns the OnionShare gui directory.
+    """
     p = helpers.get_platform()
     if p == 'Darwin':
         onionshare_gui_dir = os.path.dirname(__file__)
@@ -32,6 +36,9 @@ onionshare_gui_dir = get_onionshare_gui_dir()
 
 
 def get_image_path(filename):
+    """
+    Returns the OnionShare image path.
+    """
     p = helpers.get_platform()
     if p == 'Linux' or p == 'Tails':
         prefix = os.path.join(sys.prefix, 'share/onionshare/images')

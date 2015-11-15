@@ -26,6 +26,7 @@ class OnionShare(object):
         self.port = None
         self.hs = None
         self.hidserv_dir = None
+        self.onion_host = None
 
         # files and dirs to delete on shutdown
         self.cleanup_filenames = []
