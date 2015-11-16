@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import Queue, mimetypes, platform, os, sys, urllib2
 from flask import Flask, Response, request, render_template_string, abort
-
+from functools import wraps
 import strings, helpers
 
 app = Flask(__name__)
@@ -131,15 +131,23 @@ def debug_mode():
     log_handler.setLevel(logging.WARNING)
     app.logger.addHandler(log_handler)
 
+def check_slug_candidate(slug):
+    def slug_dec(f):
+        @wraps(f)
+        def slug_wrapper(slug_candidate, *args, **kwargs):
+            if not helpers.constant_time_compare(slug.encode('ascii'),slug_candidate.encode('ascii')):
+                abort(404)
+            return f(*args, **kwargs)
+        return slug_wrapper
+    return slug_dec
+
 
 @app.route("/<slug_candidate>")
-def index(slug_candidate):
+@check_slug_candidate(slug)
+def index():
     """
     Render the template for the onionshare landing page.
     """
-    if not helpers.constant_time_compare(slug.encode('ascii'), slug_candidate.encode('ascii')):
-        abort(404)
-
     add_request(REQUEST_LOAD, request.path)
     return render_template_string(
         open(helpers.get_html_path('index.html')).read(),
@@ -153,13 +161,12 @@ def index(slug_candidate):
 
 
 @app.route("/<slug_candidate>/download")
-def download(slug_candidate):
+@check_slug_candidate(slug)
+def download():
     """
     Download the zip file.
     """
     global download_count
-    if not helpers.constant_time_compare(slug.encode('ascii'), slug_candidate.encode('ascii')):
-        abort(404)
 
     # each download has a unique id
     download_id = download_count
@@ -245,13 +252,11 @@ shutdown_slug = helpers.random_string(16)
 
 
 @app.route("/<shutdown_slug_candidate>/shutdown")
-def shutdown(shutdown_slug_candidate):
+@check_slug_candidate(shutdown_slug)
+def shutdown():
     """
     Stop the flask web server.
     """
-    if not helpers.constant_time_compare(shutdown_slug.encode('ascii'), shutdown_slug_candidate.encode('ascii')):
-        abort(404)
-
     # shutdown the flask service
     func = request.environ.get('werkzeug.server.shutdown')
     if func is None:
