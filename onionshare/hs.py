@@ -36,6 +36,7 @@ class HS(object):
 
         # files and dirs to delete on shutdown
         self.cleanup_filenames = []
+        self.service_id = None
 
         # connect to the tor controlport
         self.c = None
@@ -60,6 +61,7 @@ class HS(object):
         if self.supports_ephemeral:
             print strings._('using_ephemeral')
             res = self.c.create_ephemeral_hidden_service({ 80: port }, await_publication = True)
+            self.service_id = res.content()[0][2].split('=')[1]
             onion_host = res.content()[0][2].split('=')[1] + '.onion'
             return onion_host
 
@@ -147,8 +149,11 @@ class HS(object):
 
     def cleanup(self):
         if self.supports_ephemeral:
-            # todo: cleanup the ephemeral hidden service
-            pass
+            # cleanup the ephemeral hidden service
+            if self.service_id:
+                self.c.remove_ephemeral_hidden_service(self.service_id)
+                self.service_id = None
+
         else:
             # cleanup hidden service
             try:
