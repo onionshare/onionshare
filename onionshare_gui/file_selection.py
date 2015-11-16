@@ -25,6 +25,9 @@ from onionshare import strings, helpers
 
 
 class FileList(QtGui.QListWidget):
+    """
+    The list of files and folders in the GUI.
+    """
     files_dropped = QtCore.pyqtSignal()
     files_updated = QtCore.pyqtSignal()
 
@@ -35,6 +38,10 @@ class FileList(QtGui.QListWidget):
         self.setSortingEnabled(True)
 
         class DropHereLabel(QtGui.QLabel):
+            """
+            When there are no files or folders in the FileList yet, display the
+            'drop files here' message and graphic.
+            """
             def __init__(self, parent, image=False):
                 self.parent = parent
                 super(DropHereLabel, self).__init__(parent=parent)
@@ -61,6 +68,9 @@ class FileList(QtGui.QListWidget):
         self.update()
 
     def update(self):
+        """
+        Update the GUI elements based on the current state.
+        """
         # file list should have a background image if empty
         if len(self.filenames) == 0:
             self.drop_here_image.show()
@@ -70,20 +80,32 @@ class FileList(QtGui.QListWidget):
             self.drop_here_text.hide()
 
     def resizeEvent(self, event):
+        """
+        When the widget is resized, resize the drop files image and text.
+        """
         self.drop_here_image.setGeometry(0, 0, self.width(), self.height())
         self.drop_here_text.setGeometry(0, 0, self.width(), self.height())
 
     def dragEnterEvent(self, event):
+        """
+        dragEnterEvent for dragging files and directories into the widget.
+        """
         if event.mimeData().hasUrls:
             event.accept()
         else:
             event.ignore()
 
     def dragLeaveEvent(self, event):
+        """
+        dragLeaveEvent for dragging files and directories into the widget.
+        """
         event.accept()
         self.update()
 
     def dragMoveEvent(self, event):
+        """
+        dragMoveEvent for dragging files and directories into the widget.
+        """
         if event.mimeData().hasUrls:
             event.setDropAction(QtCore.Qt.CopyAction)
             event.accept()
@@ -91,6 +113,9 @@ class FileList(QtGui.QListWidget):
             event.ignore()
 
     def dropEvent(self, event):
+        """
+        dropEvent for dragging files and directories into the widget.
+        """
         if event.mimeData().hasUrls:
             event.setDropAction(QtCore.Qt.CopyAction)
             event.accept()
@@ -102,6 +127,9 @@ class FileList(QtGui.QListWidget):
         self.files_dropped.emit()
 
     def add_file(self, filename):
+        """
+        Add a file or directory to this widget.
+        """
         if filename not in self.filenames:
             # make filenames unicode-safe for Qt (#141)
             filename = filename.encode('utf-8').decode('utf-8', 'replace')
@@ -128,6 +156,10 @@ class FileList(QtGui.QListWidget):
 
 
 class FileSelection(QtGui.QVBoxLayout):
+    """
+    The list of files and folders in the GUI, as well as buttons to add and
+    delete the files and folders.
+    """
     def __init__(self):
         super(FileSelection, self).__init__()
         self.server_on = False
@@ -156,6 +188,9 @@ class FileSelection(QtGui.QVBoxLayout):
         self.update()
 
     def update(self):
+        """
+        Update the GUI elements based on the current state.
+        """
         # all buttons should be disabled if the server is on
         if self.server_on:
             self.add_files_button.setEnabled(False)
@@ -176,6 +211,9 @@ class FileSelection(QtGui.QVBoxLayout):
         self.file_list.update()
 
     def add_files(self):
+        """
+        Add files button clicked.
+        """
         filenames = QtGui.QFileDialog.getOpenFileNames(
             caption=strings._('gui_choose_files', True), options=QtGui.QFileDialog.ReadOnly)
         if filenames:
@@ -184,6 +222,9 @@ class FileSelection(QtGui.QVBoxLayout):
         self.update()
 
     def add_dir(self):
+        """
+        Add folder button clicked.
+        """
         filename = QtGui.QFileDialog.getExistingDirectory(
             caption=strings._('gui_choose_folder', True), options=QtGui.QFileDialog.ReadOnly)
         if filename:
@@ -191,20 +232,32 @@ class FileSelection(QtGui.QVBoxLayout):
         self.update()
 
     def delete_file(self):
+        """
+        Delete button clicked
+        """
         current_row = self.file_list.currentRow()
         self.file_list.filenames.pop(current_row)
         self.file_list.takeItem(current_row)
         self.update()
 
     def server_started(self):
+        """
+        Gets called when the server starts.
+        """
         self.server_on = True
         self.file_list.setAcceptDrops(False)
         self.update()
 
     def server_stopped(self):
+        """
+        Gets called when the server stops.
+        """
         self.server_on = False
         self.file_list.setAcceptDrops(True)
         self.update()
 
     def get_num_files(self):
+        """
+        Returns the total number of files and folders in the list.
+        """
         return len(self.file_list.filenames)

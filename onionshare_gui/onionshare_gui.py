@@ -37,6 +37,10 @@ from options import Options
 
 
 class Application(QtGui.QApplication):
+    """
+    This is Qt's QApplication class. It has been overridden to support threads
+    and the quick keyboard shortcut.
+    """
     def __init__(self):
         platform = helpers.get_platform()
         if platform == 'Linux':
@@ -53,6 +57,10 @@ class Application(QtGui.QApplication):
 
 
 class OnionShareGui(QtGui.QWidget):
+    """
+    OnionShareGui is the main window for the GUI that contains all of the
+    GUI elements.
+    """
     start_server_finished = QtCore.pyqtSignal()
     stop_server_finished = QtCore.pyqtSignal()
     starting_server_step2 = QtCore.pyqtSignal()
@@ -66,6 +74,10 @@ class OnionShareGui(QtGui.QWidget):
         self.setWindowIcon(window_icon)
 
     def send_files(self, filenames=None):
+        """
+        Build the GUI in send files mode.
+        Note that this is the only mode currently implemented.
+        """
         # file selection
         self.file_selection = FileSelection()
         if filenames:
@@ -117,12 +129,20 @@ class OnionShareGui(QtGui.QWidget):
         self.timer.start(500)
 
     def start_server_step2(self):
+        """
+        Step 2 in starting the onionshare server. This displays the large filesize
+        warning, if applicable.
+        """
         # warn about sending large files over Tor
         if web.zip_filesize >= 157286400:  # 150mb
             self.filesize_warning.setText(strings._("large_filesize", True))
             self.filesize_warning.show()
 
     def start_server(self):
+        """
+        Start the onionshare server. This uses multiple threads to start the Tor hidden
+        server and the web app.
+        """
         # start the hidden service
         self.status_bar.showMessage(strings._('gui_starting_server1', True))
         self.app.choose_port()
@@ -162,6 +182,9 @@ class OnionShareGui(QtGui.QWidget):
         t.start()
 
     def stop_server(self):
+        """
+        Stop the onionshare server.
+        """
         if self.server_status.status == self.server_status.STATUS_STARTED:
             web.stop(self.app.port)
         self.app.cleanup()
@@ -169,6 +192,9 @@ class OnionShareGui(QtGui.QWidget):
         self.stop_server_finished.emit()
 
     def check_for_requests(self):
+        """
+        Check for messages communicated from the web app, and update the GUI accordingly.
+        """
         self.update()
         # only check for requests if the server is running
         if self.server_status.status != self.server_status.STATUS_STARTED:
@@ -207,13 +233,22 @@ class OnionShareGui(QtGui.QWidget):
                 self.status_bar.showMessage('{0:s}: {1:s}'.format(strings._('other_page_loaded', True), event["path"]))
 
     def copy_url(self):
+        """
+        When the URL gets copied to the clipboard, display this in the status bar.
+        """
         self.status_bar.showMessage(strings._('gui_copied_url', True), 2000)
 
     def clear_message(self):
+        """
+        Clear messages from the status bar.
+        """
         self.status_bar.clearMessage()
 
 
 def alert(msg, icon=QtGui.QMessageBox.NoIcon):
+    """
+    Pop up a message in a dialog window.
+    """
     dialog = QtGui.QMessageBox()
     dialog.setWindowTitle("OnionShare")
     dialog.setWindowIcon(window_icon)
@@ -223,6 +258,9 @@ def alert(msg, icon=QtGui.QMessageBox.NoIcon):
 
 
 def main():
+    """
+    The main() function implements all of the logic that the GUI version of onionshare uses.
+    """
     strings.load_strings()
 
     # start the Qt app

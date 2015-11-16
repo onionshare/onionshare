@@ -24,6 +24,10 @@ from onionshare import strings, helpers
 
 
 class Downloads(QtGui.QVBoxLayout):
+    """
+    The downloads chunk of the GUI. This lists all of the active download
+    progress bars.
+    """
     def __init__(self):
         super(Downloads, self).__init__()
 
@@ -37,6 +41,9 @@ class Downloads(QtGui.QVBoxLayout):
         self.addWidget(self.downloads_label)
 
     def add_download(self, download_id, total_bytes):
+        """
+        Add a new download progress bar.
+        """
         self.downloads_label.show()
 
         # make a new progress bar
@@ -57,6 +64,9 @@ class Downloads(QtGui.QVBoxLayout):
         self.update_download(download_id, total_bytes, 0)
 
     def update_download(self, download_id, total_bytes, downloaded_bytes):
+        """
+        Update the progress of a download progress bar.
+        """
         if download_id not in self.progress_bars:
             self.add_download(download_id, total_bytes)
 
@@ -68,5 +78,8 @@ class Downloads(QtGui.QVBoxLayout):
             pb.setFormat("{0:s}, %p%".format(helpers.human_readable_filesize(downloaded_bytes)))
 
     def cancel_download(self, download_id):
+        """
+        Update a download progress bar to show that it has been canceled.
+        """
         pb = self.progress_bars[download_id]
         pb.setFormat(strings._('gui_canceled'))

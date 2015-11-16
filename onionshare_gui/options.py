@@ -24,6 +24,9 @@ from onionshare import strings, helpers
 
 
 class Options(QtGui.QHBoxLayout):
+    """
+    The extra onionshare options in the GUI.
+    """
     def __init__(self, web):
         super(Options, self).__init__()
 
@@ -42,6 +45,9 @@ class Options(QtGui.QHBoxLayout):
         self.addWidget(self.close_automatically)
 
     def stay_open_changed(self, state):
+        """
+        When the 'close automatically' checkbox is toggled, let the web app know.
+        """
         if state > 0:
             self.web.set_stay_open(False)
         else:

@@ -31,6 +31,11 @@ zip_filesize = None
 
 
 def set_file_info(filenames):
+    """
+    Using the list of filenames being shared, fill in details that the web
+    page will need to display. This includes zipping up the file in order to
+    get the zip file's name and size.
+    """
     global file_info, zip_filename, zip_filesize
 
     # build file info list
@@ -71,6 +76,9 @@ q = Queue.Queue()
 
 
 def add_request(request_type, path, data=None):
+    """
+    Add a request to the queue, to communicate with the GUI.
+    """
     global q
     q.put({
         'type': request_type,
@@ -84,19 +92,34 @@ download_count = 0
 
 stay_open = False
 def set_stay_open(new_stay_open):
+    """
+    Set stay_open variable.
+    """
     global stay_open
     stay_open = new_stay_open
 def get_stay_open():
+    """
+    Get stay_open variable.
+    """
     return stay_open
 
 transparent_torification = False
 def set_transparent_torification(new_transparent_torification):
+    """
+    Set transparent_torification variable.
+    """
     global transparent_torification
     stay_open = new_transparent_torification
 def get_transparent_torification():
+    """
+    Get transparent_torification variable."
+    """
     return transparent_torification
 
 def debug_mode():
+    """
+    Turn on debugging mode, which will log flask errors to a debug file.
+    """
     import logging
 
     if platform.system() == 'Windows':
@@ -111,6 +134,9 @@ def debug_mode():
 
 @app.route("/<slug_candidate>")
 def index(slug_candidate):
+    """
+    Render the template for the onionshare landing page.
+    """
     if not helpers.constant_time_compare(slug.encode('ascii'), slug_candidate.encode('ascii')):
         abort(404)
 
@@ -128,6 +154,9 @@ def index(slug_candidate):
 
 @app.route("/<slug_candidate>/download")
 def download(slug_candidate):
+    """
+    Download the zip file.
+    """
     global download_count
     if not helpers.constant_time_compare(slug.encode('ascii'), slug_candidate.encode('ascii')):
         abort(404)
@@ -205,6 +234,9 @@ def download(slug_candidate):
 
 @app.errorhandler(404)
 def page_not_found(e):
+    """
+    404 error page.
+    """
     add_request(REQUEST_OTHER, request.path)
     return render_template_string(open(helpers.get_html_path('404.html')).read())
 
@@ -214,6 +246,9 @@ shutdown_slug = helpers.random_string(16)
 
 @app.route("/<shutdown_slug_candidate>/shutdown")
 def shutdown(shutdown_slug_candidate):
+    """
+    Stop the flask web server.
+    """
     if not helpers.constant_time_compare(shutdown_slug.encode('ascii'), shutdown_slug_candidate.encode('ascii')):
         abort(404)
 
@@ -227,12 +262,18 @@ def shutdown(shutdown_slug_candidate):
 
 
 def start(port, stay_open=False, transparent_torification=False):
+    """
+    Start the flask web server.
+    """
     set_stay_open(stay_open)
     set_transparent_torification(transparent_torification)
     app.run(port=port, threaded=True)
 
 
 def stop(port):
+    """
+    Stop the flask web server by loading /shutdown.
+    """
     # to stop flask, load http://127.0.0.1:<port>/<shutdown_slug>/shutdown
     if transparent_torification:
         import socket

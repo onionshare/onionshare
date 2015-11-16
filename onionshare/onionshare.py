@@ -22,6 +22,10 @@ import os, sys, subprocess, time, argparse, inspect, shutil, socket, threading
 import strings, helpers, web, hs
 
 class OnionShare(object):
+    """
+    OnionShare is the main application class. Pass in options and run
+    start_hidden_service and it will do the magic.
+    """
     def __init__(self, debug=False, local_only=False, stay_open=False, transparent_torification=False):
         self.port = None
         self.hs = None
@@ -45,6 +49,9 @@ class OnionShare(object):
         self.transparent_torification = transparent_torification
 
     def choose_port(self):
+        """
+        Pick an un-used port to bind to.
+        """
         # let the OS choose a port
         tmpsock = socket.socket()
         tmpsock.bind(("127.0.0.1", 0))
@@ -52,6 +59,9 @@ class OnionShare(object):
         tmpsock.close()
 
     def start_hidden_service(self, gui=False):
+        """
+        Start the onionshare hidden service.
+        """
         if not self.port:
             self.choose_port()
 
@@ -65,6 +75,9 @@ class OnionShare(object):
         self.onion_host = self.hs.start(self.port)
 
     def cleanup(self):
+        """
+        Shut everything down and clean up temporary files, etc.
+        """
         # cleanup files
         for filename in self.cleanup_filenames:
             if os.path.isfile(filename):
@@ -79,6 +92,10 @@ class OnionShare(object):
 
 
 def main(cwd=None):
+    """
+    The main() function implements all of the logic that the command-line version of
+    onionshare uses.
+    """
     strings.load_strings()
 
     # onionshare CLI in OSX needs to change current working directory (#132)

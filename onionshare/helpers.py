@@ -120,6 +120,9 @@ def is_root():
 
 
 def dir_size(start_path):
+    """
+    Calculates the total size, in bytes, of all of the files in a directory.
+    """
     total_size = 0
     for dirpath, dirnames, filenames in os.walk(start_path):
         for f in filenames:
@@ -130,6 +133,11 @@ def dir_size(start_path):
 
 
 class ZipWriter(object):
+    """
+    ZipWriter accepts files and directories and compresses them into a zip file
+    with. If a zip_filename is not passed in, it will use the default onionshare
+    filename.
+    """
     def __init__(self, zip_filename=None):
         if zip_filename:
             self.zip_filename = zip_filename
@@ -139,9 +147,15 @@ class ZipWriter(object):
         self.z = zipfile.ZipFile(self.zip_filename, 'w', allowZip64=True)
 
     def add_file(self, filename):
+        """
+        Add a file to the zip archive.
+        """
         self.z.write(filename, os.path.basename(filename), zipfile.ZIP_DEFLATED)
 
     def add_dir(self, filename):
+        """
+        Add a directory, and all of its children, to the zip archive.
+        """
         dir_to_strip = os.path.dirname(filename.rstrip('/'))+'/'
         for dirpath, dirnames, filenames in os.walk(filename):
             for f in filenames:
@@ -151,4 +165,7 @@ class ZipWriter(object):
                     self.z.write(full_filename, arc_filename, zipfile.ZIP_DEFLATED)
 
     def close(self):
+        """
+        Close the zip archive.
+        """
         self.z.close()

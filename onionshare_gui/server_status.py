@@ -25,6 +25,9 @@ from onionshare import strings, helpers
 
 
 class ServerStatus(QtGui.QVBoxLayout):
+    """
+    The server status chunk of the GUI.
+    """
     server_started = QtCore.pyqtSignal()
     server_stopped = QtCore.pyqtSignal()
     url_copied = QtCore.pyqtSignal()
@@ -73,6 +76,9 @@ class ServerStatus(QtGui.QVBoxLayout):
         self.update()
 
     def update(self):
+        """
+        Update the GUI elements based on the current state.
+        """
         # set the status image
         if self.status == self.STATUS_STOPPED:
             self.status_image_label.setPixmap(QtGui.QPixmap.fromImage(self.status_image_stopped))
@@ -110,31 +116,49 @@ class ServerStatus(QtGui.QVBoxLayout):
                 self.server_button.setText(strings._('gui_please_wait'))
 
     def server_button_clicked(self):
+        """
+        Toggle starting or stopping the server.
+        """
         if self.status == self.STATUS_STOPPED:
             self.start_server()
         elif self.status == self.STATUS_STARTED:
             self.stop_server()
 
     def start_server(self):
+        """
+        Start the server.
+        """
         self.status = self.STATUS_WORKING
         self.update()
         self.server_started.emit()
 
     def start_server_finished(self):
+        """
+        The server has finished starting.
+        """
         self.status = self.STATUS_STARTED
         self.copy_url()
         self.update()
 
     def stop_server(self):
+        """
+        Stop the server.
+        """
         self.status = self.STATUS_WORKING
         self.update()
         self.server_stopped.emit()
 
     def stop_server_finished(self):
+        """
+        The server has finished stopping.
+        """
         self.status = self.STATUS_STOPPED
         self.update()
 
     def copy_url(self):
+        """
+        Copy the onionshare URL to the clipboard.
+        """
         url = 'http://{0:s}/{1:s}'.format(self.app.onion_host, self.web.slug)
 
         if platform.system() == 'Windows':

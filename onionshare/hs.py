@@ -25,12 +25,35 @@ import socks
 import helpers, strings
 
 class NoTor(Exception):
+    """
+    This exception is raised if onionshare can't find a Tor control port
+    to connect to, or if it can't find a Tor socks5 proxy to proxy though.
+    """
     pass
 
 class HSDirError(Exception):
+    """
+    This exception is raised when onionshare tries create a non-ephemeral
+    hidden service and does not have permission to create or write to
+    the hidden service directory.
+    """
     pass
 
 class HS(object):
+    """
+    HS is an abstraction layer for connecting to the Tor control port and
+    creating hidden services. Onionshare supports creating hidden services
+    using two methods:
+
+    - Modifying the Tor configuration through the control port is the old
+      method, and will be deprecated in favor of ephemeral hidden services.
+    - Using the control port to create ephemeral hidden servers is the
+      preferred method.
+
+    This class detects the versions of Tor and stem to determine if ephemeral
+    hidden services are supported. If not, it falls back to modifying the
+    Tor configuration.
+    """
     def __init__(self, transparent_torification=False):
         self.transparent_torification = transparent_torification
 
@@ -57,6 +80,10 @@ class HS(object):
         self.supports_ephemeral = callable(list_ephemeral_hidden_services) and tor_version >= '0.2.7.1'
 
     def start(self, port):
+        """
+        Start a hidden service on port 80, pointing to the given port, and
+        return the onion hostname.
+        """
         print strings._("connecting_ctrlport").format(int(port))
         if self.supports_ephemeral:
             print strings._('using_ephemeral')
@@ -104,6 +131,11 @@ class HS(object):
             return onion_host
 
     def wait_for_hs(self, onion_host):
+        """
+        This function is only required when using non-ephemeral hidden services. After
+        creating a hidden service, continually attempt to connect to it until it
+        successfully connects..
+        """
         # legacy only, this function is no longer required with ephemeral hidden services
         print strings._('wait_for_hs')
 
@@ -148,6 +180,10 @@ class HS(object):
         return True
 
     def cleanup(self):
+        """
+        Stop hidden services that were created earlier, and delete any temporary
+        files that were created.
+        """
         if self.supports_ephemeral:
             # cleanup the ephemeral hidden service
             if self.service_id:
