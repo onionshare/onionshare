@@ -23,6 +23,7 @@
     "help_tails_port": "Vain Tails: portti palomuurin läpi, käynnistetään salainen palvelin",
     "help_local_only": "Älä käytä Toria: vain ohjelmakehitykseen",
     "help_stay_open": "Pidä piilopalvelu käynnissä latauksen jälkeen.",
+    "help_transparent_torification": "Järjestelmäni käyttää Toria läpinäkyvästi",
     "help_debug": "Tallentaa virheet levylle",
     "help_filename": "Luettele jaettavat tiedostot tai kansiot",
     "gui_drag_and_drop": "Vedä ja pudota\ntiedostot tänne",
@@ -40,5 +41,8 @@
     "gui_starting_server1": "Käynnistetään Tor piilopalvelu...",
     "gui_starting_server2": "Tiivistän tiedostoja...",
     "gui_starting_server3": "Odotetaan Tor piilopalvelua...",
-    "gui_please_wait": "Odota..."
+    "gui_please_wait": "Odota...",
+    "error_hs_dir_cannot_create": "Piilopalvelulle ei pystytty luomaan hakemistoa {0:s}",
+    "error_hs_dir_not_writable": "Piilopalvelun hakemistoon {0:s} ei voi kirjoittaa",
+    "using_ephemeral": "Käynnistetään lyhytaikainen Tor piilopalvelu ja odotetaan julkaisua"
 }
