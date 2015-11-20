@@ -63,7 +63,7 @@ class HS(object):
 
         # connect to the tor controlport
         self.c = None
-        ports = [9051, 9151]
+        ports = [9151, 9153, 9051]
         for port in ports:
             try:
                 self.c = Controller.from_port(port=port)
@@ -150,7 +150,7 @@ class HS(object):
                     urllib2.urlopen('http://{0:s}'.format(onion_host))
                 else:
                     tor_exists = False
-                    ports = [9050, 9150]
+                    ports = [9150, 9152, 9050]
                     for port in ports:
                         try:
                             s = socks.socksocket()
