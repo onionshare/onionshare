@@ -106,7 +106,7 @@ class OnionShareGui(QtGui.QWidget):
         self.downloads = Downloads()
 
         # options
-        self.options = Options(web)
+        self.options = Options(web, self.app)
 
         # status bar
         self.status_bar = QtGui.QStatusBar()

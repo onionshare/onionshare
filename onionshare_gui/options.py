@@ -27,10 +27,11 @@ class Options(QtGui.QHBoxLayout):
     """
     The extra onionshare options in the GUI.
     """
-    def __init__(self, web):
+    def __init__(self, web, app):
         super(Options, self).__init__()
 
         self.web = web
+        self.app = app
 
         # close automatically
         self.close_automatically = QtGui.QCheckBox()
@@ -50,5 +51,7 @@ class Options(QtGui.QHBoxLayout):
         """
         if state > 0:
             self.web.set_stay_open(False)
+            self.app.stay_open = False
         else:
             self.web.set_stay_open(True)
+            self.app.stay_open = True
