@@ -218,10 +218,32 @@ class HS(object):
         self.cleanup_filenames = []
 
     def _hsdic2list(self, dic):
-        """Convert what we get from get_conf_map to what we need for set_options"""
-        return [
-            pair for pairs in [
-                [('HiddenServiceDir', vals[0]), ('HiddenServicePort', vals[1])]
-                for vals in zip(dic.get('HiddenServiceDir', []), dic.get('HiddenServicePort', []))
-            ] for pair in pairs
+        """
+        Convert what we get from get_conf_map to what we need for set_options.
+
+        For example, if input looks like this:
+        {
+            'HiddenServicePort': [
+                '80 127.0.0.1:47906',
+                '80 127.0.0.1:33302'
+            ],
+            'HiddenServiceDir': [
+                '/tmp/onionshare/tmplTfZZu',
+                '/tmp/onionshare/tmpchDai3'
+            ]
+        }
+
+
+        Output will look like this:
+        [
+            ('HiddenServiceDir', '/tmp/onionshare/tmplTfZZu'),
+            ('HiddenServicePort', '80 127.0.0.1:47906'),
+            ('HiddenServiceDir', '/tmp/onionshare/tmpchDai3'),
+            ('HiddenServicePort', '80 127.0.0.1:33302')
         ]
+        """
+        l = []
+        for i in range(len(dic['HiddenServiceDir'])):
+            l.append(('HiddenServiceDir', dic['HiddenServiceDir'][i]))
+            l.append(('HiddenServicePort', dic['HiddenServicePort'][i]))
+        return l
