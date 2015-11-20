@@ -6,6 +6,7 @@ include onionshare/index.html
 include onionshare/404.html
 include onionshare/strings.json
 include install/onionshare.desktop
+include install/onionshare.appdata.xml
 include install/onionshare80.xpm
 include images/*.png
 include locale/*.json

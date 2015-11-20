@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2015 Micah Lee <micah@micahflee.com> -->
+<component type="desktop">
+    <id>onionshare.desktop</id>
+    <metadata_license>CC0-1.0</metadata_license>
+    <project_license>GPL-3.0</project_license>
+    <name>OnionShare</name>
+    <summary>Securely and anonymously share a file of any size</summary>
+    <description>
+        <p>
+            OnionShare lets you securely and anonymously share a file of any size with someone. It works
+            by starting a web server, making it accessible as a Tor hidden service, and generating an
+            unguessable URL to access and download the file.
+        </p>
+        <p>
+            It doesn't require setting up a server on the internet somewhere or using a third party
+            filesharing service. You host the file on your own computer and use a Tor hidden service to
+            make it temporarily accessible over the internet. The other user just needs to use Tor Browser
+            to download the file from you.
+        </p>
+    </description>
+    <screenshots>
+        <screenshot type="default">
+            <image>https://raw.githubusercontent.com/micahflee/onionshare/master/screenshots/appdata-server.png</image>
+            <caption>Sender sharing files with OnionShare</caption>
+        </screenshot>
+        <screenshot>
+            <image>https://raw.githubusercontent.com/micahflee/onionshare/master/screenshots/appdata-client.png</image>
+            <caption>Receiver downloading files with Tor Browser</caption>
+        </screenshot>
+    </screenshots>
+    <url type="homepage">https://onionshare.org/</url>
+    <updatecontact>micah@micahflee.com</updatecontact>
+</component>
+

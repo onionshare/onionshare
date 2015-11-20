@@ -86,6 +86,7 @@ if system == 'Linux':
         scripts=['install/linux_scripts/onionshare', 'install/linux_scripts/onionshare-gui'],
         data_files=[
             (os.path.join(sys.prefix, 'share/applications'), ['install/onionshare.desktop']),
+            (os.path.join(sys.prefix, 'share/appdata'), ['install/onionshare.appdata.xml']),
             (os.path.join(sys.prefix, 'share/pixmaps'), ['install/onionshare80.xpm']),
             (os.path.join(sys.prefix, 'share/onionshare/images'), images),
             (os.path.join(sys.prefix, 'share/onionshare/locale'), locale)
