@@ -57,6 +57,7 @@ images = [
 ]
 
 locale = [
+    'locale/cs.json',
     'locale/de.json',
     'locale/en.json',
     'locale/es.json',
