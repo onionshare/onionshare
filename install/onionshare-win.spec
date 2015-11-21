@@ -1,5 +1,5 @@
 # -*- mode: python -*-
-a = Analysis(['install/onionshare-launcher.py'],
+a = Analysis(['onionshare-launcher.py'],
     hiddenimports=['onionshare', 'onionshare_gui'],
     hookspath=None,
     runtime_hooks=None)
