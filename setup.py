@@ -60,6 +60,7 @@ locale = [
     'locale/cs.json',
     'locale/de.json',
     'locale/en.json',
+    'locale/eo.json',
     'locale/es.json',
     'locale/fi.json',
     'locale/fr.json',
