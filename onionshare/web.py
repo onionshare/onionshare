@@ -147,8 +147,7 @@ def index(slug_candidate):
         file_info=file_info,
         filename=os.path.basename(zip_filename).decode("utf-8"),
         filesize=zip_filesize,
-        filesize_human=helpers.human_readable_filesize(zip_filesize),
-        strings=strings.strings
+        filesize_human=helpers.human_readable_filesize(zip_filesize)
     )
 
 

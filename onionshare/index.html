@@ -77,13 +77,8 @@
   </head>
   <body>
     <p><a class="button" href='/{{ slug }}/download'>{{ filename }} &#x25BC;</a></p>
-    <p class="download-size">{{strings.download_size}}: <strong title="{{ filesize }} bytes">{{ filesize_human }}</strong></p>
+    <p class="download-size"><strong title="{{ filesize }} bytes">{{ filesize_human }}</strong></p>
     <table class="file-list">
-      <tr>
-        <th></th>
-        <th>{{strings.filename}}</th>
-        <th>{{strings.size}}</th>
-      </tr>
       {% for info in file_info.dirs %}
       <tr>
         <td><img width="30" height="30" title="" alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAB3RJTUUH3ggbFCQXOpwjbQAAAM5JREFUSMftlksOwyAMRDFCbNjkDL1kz9K75Cq9AZF3kYIM7oqoP/KpcFK1mRUrnsbW2Fbq0N+JiPhZRMS1OZAfzLzocwCAGmC9V2Vhjduarj8CzynGqIwxsDl4SXV267E4uFTN33X8deCxDyV1XXeRYJo1UUDEa9M0pxoRK+b4HiqRcz3nVAJKRK+TSxqaGbrkNKUkBn0oNSK2+T0MA1dau9NzO4QwuvPen1lAxQtEsq/vNpSWhvZ9v/3IRMTWOQezkyuEoKy14tfHoU11A6Mr5AxrpuMVAAAAAElFTkSuQmCC" /></td>
