@@ -185,7 +185,7 @@ class OnionShareGui(QtGui.QWidget):
         """
         Stop the onionshare server.
         """
-        if self.server_status.status == self.server_status.STATUS_STARTED:
+        if self.server_status.status != self.server_status.STATUS_STOPPED:
             web.stop(self.app.port)
         self.app.cleanup()
         self.filesize_warning.hide()

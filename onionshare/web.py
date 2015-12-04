@@ -250,7 +250,7 @@ def page_not_found(e):
 shutdown_slug = helpers.random_string(16)
 
 
-@app.route("/<shutdown_slug_candidate>/shutdown")
+@app.route("/<slug_candidate>/shutdown")
 @check_slug_candidate(shutdown_slug)
 def shutdown():
     """
