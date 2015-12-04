@@ -158,8 +158,8 @@ def main(cwd=None):
 
     try:  # Trap Ctrl-C
         # wait for hs, only if using old version of tor
-        if not app.hs.supports_ephemeral:
-            if not app.local_only:
+        if not app.local_only:
+            if not app.hs.supports_ephemeral:
                 ready = app.hs.wait_for_hs(app.onion_host)
                 if not ready:
                     sys.exit()
