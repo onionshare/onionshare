@@ -1,5 +1,12 @@
 # OnionShare Changelog
 
+## 0.8
+
+* Add support for ephemeral hidden services
+* Stopped leaking sender's locale on download page
+* Add support for Tor Messenger as provider of Tor service
+* Minor bugfixes, code cleanup, and refactoring
+
 ## 0.7.1
 
 * Fixed critical bug in OS X binaries that caused crashes on some computers

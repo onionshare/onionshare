@@ -5,8 +5,8 @@
 # change these with each release
 !define INSTALLSIZE 31616
 !define VERSIONMAJOR 0
-!define VERSIONMINOR 7
-!define VERSIONSTRING "0.7.1"
+!define VERSIONMINOR 8
+!define VERSIONSTRING "0.8"
 
 RequestExecutionLevel admin
 
@@ -91,6 +91,7 @@ Section "install"
     SetOutPath "$INSTDIR\locale"
     File "${BINPATH}\locale\de.json"
     File "${BINPATH}\locale\en.json"
+    File "${BINPATH}\locale\eo.json"
     File "${BINPATH}\locale\es.json"
     File "${BINPATH}\locale\fi.json"
     File "${BINPATH}\locale\fr.json"
@@ -220,6 +221,7 @@ FunctionEnd
         Delete "$INSTDIR\images\server_working.png"
         Delete "$INSTDIR\locale\de.json"
         Delete "$INSTDIR\locale\en.json"
+        Delete "$INSTDIR\locale\eo.json"
         Delete "$INSTDIR\locale\es.json"
         Delete "$INSTDIR\locale\fi.json"
         Delete "$INSTDIR\locale\fr.json"
