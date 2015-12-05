@@ -2,13 +2,10 @@ REM use pyinstaller to builder a folder with onionshare.exe
 pyinstaller -y install\onionshare-win.spec
 
 REM sign onionshare.exe
-signtool.exe sign /v /d "OnionShare" /a /tr http://timestamp.globalsign.com/scripts/timstamp.dll dist\onionshare\onionshare.exe
-
-REM run onionshare once, to compile the .py files into .pyc
-dist\onionshare\onionshare.exe --help
+signtool.exe sign /v /d "OnionShare" /a /tr http://timestamp.globalsign.com/scripts/timstamp.dll /fd sha256 dist\onionshare\onionshare.exe
 
 REM build an installer, dist\OnionShare_Setup.exe
-makensisw install\onionshare.nsi
+makensis.exe install\onionshare.nsi
 
 REM sign OnionShare_Setup.exe
-signtool.exe sign /v /d "OnionShare" /a /tr http://timestamp.globalsign.com/scripts/timstamp.dll dist\OnionShare_Setup.exe
+signtool.exe sign /v /d "OnionShare" /a /tr http://timestamp.globalsign.com/scripts/timstamp.dll /fd sha256 dist\OnionShare_Setup.exe

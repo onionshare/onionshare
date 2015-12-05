@@ -1,6 +1,7 @@
 # -*- mode: python -*-
 a = Analysis(['onionshare-launcher.py'],
     hiddenimports=['onionshare', 'onionshare_gui'],
+    excludes=['_tkinter'],
     hookspath=None,
     runtime_hooks=None)
 a.datas += [

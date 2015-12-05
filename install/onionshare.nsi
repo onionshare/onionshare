@@ -1,9 +1,9 @@
 !define APPNAME "OnionShare"
 !define BINPATH "..\dist\onionshare"
-!define ABOUTURL "https://onionshare.org/"
+!define ABOUTURL "https:\\onionshare.org\"
 
 # change these with each release
-!define INSTALLSIZE 31187
+!define INSTALLSIZE 31616
 !define VERSIONMAJOR 0
 !define VERSIONMINOR 7
 !define VERSIONSTRING "0.7.1"
@@ -32,16 +32,16 @@ ${EndIf}
 !macroend
 
 # in order to code sign uninstall.exe, we need to do some hacky stuff outlined
-# here: http://nsis.sourceforge.net/Signing_an_Uninstaller
+# here: http:\\nsis.sourceforge.net\Signing_an_Uninstaller
 !ifdef INNER
     !echo "Creating uninstall.exe"
     OutFile "$%TEMP%\tempinstaller.exe"
     SetCompress off
 !else
     !echo "Creating normal installer"
-    !system "$\"${NSISDIR}\makensis$\" /DINNER onionshare.nsi" = 0
+    !system "makensis.exe /DINNER onionshare.nsi" = 0
     !system "$%TEMP%\tempinstaller.exe" = 2
-    !system "signtool.exe sign /v /d $\"Uninstall OnionShare$\" /a /tr http://timestamp.globalsign.com/scripts/timstamp.dll $%TEMP%\uninstall.exe" = 0
+    !system "signtool.exe sign /v /d $\"Uninstall OnionShare$\" /a /tr http://timestamp.globalsign.com/scripts/timstamp.dll /fd sha256 $%TEMP%\uninstall.exe" = 0
 
     # all done, now we can build the real installer
     OutFile "..\dist\OnionShare_Setup.exe"
@@ -63,37 +63,25 @@ Section "install"
     SetOutPath "$INSTDIR"
     File "onionshare.ico"
     File "${BINPATH}\onionshare.exe"
-    File "${BINPATH}\LICENSE"
+    File "${BINPATH}\license"
     SetOutPath "$INSTDIR\onionshare"
     File "${BINPATH}\onionshare\__init__.py"
-    File "${BINPATH}\onionshare\__init__.pyc"
     File "${BINPATH}\onionshare\404.html"
     File "${BINPATH}\onionshare\helpers.py"
-    File "${BINPATH}\onionshare\helpers.pyc"
+    File "${BINPATH}\onionshare\hs.py"
     File "${BINPATH}\onionshare\index.html"
     File "${BINPATH}\onionshare\onionshare.py"
-    File "${BINPATH}\onionshare\onionshare.pyc"
     File "${BINPATH}\onionshare\socks.py"
-    File "${BINPATH}\onionshare\socks.pyc"
     File "${BINPATH}\onionshare\strings.py"
-    File "${BINPATH}\onionshare\strings.pyc"
     File "${BINPATH}\onionshare\web.py"
-    File "${BINPATH}\onionshare\web.pyc"
     SetOutPath "$INSTDIR\onionshare_gui"
     File "${BINPATH}\onionshare_gui\__init__.py"
-    File "${BINPATH}\onionshare_gui\__init__.pyc"
     File "${BINPATH}\onionshare_gui\common.py"
-    File "${BINPATH}\onionshare_gui\common.pyc"
     File "${BINPATH}\onionshare_gui\downloads.py"
-    File "${BINPATH}\onionshare_gui\downloads.pyc"
     File "${BINPATH}\onionshare_gui\file_selection.py"
-    File "${BINPATH}\onionshare_gui\file_selection.pyc"
     File "${BINPATH}\onionshare_gui\onionshare_gui.py"
-    File "${BINPATH}\onionshare_gui\onionshare_gui.pyc"
     File "${BINPATH}\onionshare_gui\options.py"
-    File "${BINPATH}\onionshare_gui\options.pyc"
     File "${BINPATH}\onionshare_gui\server_status.py"
-    File "${BINPATH}\onionshare_gui\server_status.pyc"
     SetOutPath "$INSTDIR\images"
     File "${BINPATH}\images\logo.png"
     File "${BINPATH}\images\drop_files.png"
@@ -120,7 +108,7 @@ Section "install"
     File "${BINPATH}\_socket.pyd"
     File "${BINPATH}\_ssl.pyd"
     File "${BINPATH}\bz2.pyd"
-    File "${BINPATH}\Microsoft.VC90.CRT.manifest"
+    File "${BINPATH}\microsoft.vc90.crt.manifest"
     File "${BINPATH}\msvcm90.dll"
     File "${BINPATH}\msvcp90.dll"
     File "${BINPATH}\msvcr90.dll"
@@ -130,11 +118,11 @@ Section "install"
     File "${BINPATH}\PyQt4.QtGui.pyd"
     File "${BINPATH}\python27.dll"
     File "${BINPATH}\pywintypes27.dll"
-    File "${BINPATH}\QtCore4.dll"
-    File "${BINPATH}\QtGui4.dll"
-    File "${BINPATH}\QtOpenGL4.dll"
-    File "${BINPATH}\QtSvg4.dll"
-    File "${BINPATH}\QtXml4.dll"
+    File "${BINPATH}\qtcore4.dll"
+    File "${BINPATH}\qtgui4.dll"
+    File "${BINPATH}\qtopengl4.dll"
+    File "${BINPATH}\qtsvg4.dll"
+    File "${BINPATH}\qtxml4.dll"
     File "${BINPATH}\select.pyd"
     File "${BINPATH}\sip.pyd"
     File "${BINPATH}\unicodedata.pyd"
@@ -160,7 +148,7 @@ Section "install"
     File "${BINPATH}\qt4_plugins\imageformats\qsvg4.dll"
     File "${BINPATH}\qt4_plugins\imageformats\qtga4.dll"
     File "${BINPATH}\qt4_plugins\imageformats\qtiff4.dll"
-    SetOutPath "$INSTDIR\Include"
+    SetOutPath "$INSTDIR\include"
     File "${BINPATH}\Include\pyconfig.h"
 
     # uninstaller
@@ -172,10 +160,10 @@ Section "install"
     # start menu
     CreateShortCut "$SMPROGRAMS\${APPNAME}.lnk" "$INSTDIR\onionshare.exe" "" "$INSTDIR\onionshare.ico"
 
-    # registry information for add/remove programs
+    # registry information for add\remove programs
     WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "DisplayName" "${APPNAME}"
     WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "UninstallString" "$\"$INSTDIR\uninstall.exe$\""
-    WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "QuietUninstallString" "$\"$INSTDIR\uninstall.exe$\" /S"
+    WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "QuietUninstallString" "$\"$INSTDIR\uninstall.exe$\" \S"
     WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "InstallLocation" "$\"$INSTDIR$\""
     WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "DisplayIcon" "$\"$INSTDIR\onionshare.ico$\""
     WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "URLInfoAbout" "$\"${ABOUTURL}$\""
@@ -185,7 +173,7 @@ Section "install"
     # there is no option for modifying or repairing the install
     WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "NoModify" 1
     WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "NoRepair" 1
-    # set the INSTALLSIZE constant (!defined at the top of this script) so Add/Remove Programs can accurately report the size
+    # set the INSTALLSIZE constant (!defined at the top of this script) so Add\Remove Programs can accurately report the size
     WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "EstimatedSize" ${INSTALLSIZE}
 SectionEnd
 
@@ -210,33 +198,21 @@ FunctionEnd
         Delete "$INSTDIR\onionshare.ico"
         Delete "$INSTDIR\uninstall.exe"
         Delete "$INSTDIR\onionshare\__init__.py"
-        Delete "$INSTDIR\onionshare\__init__.pyc"
         Delete "$INSTDIR\onionshare\404.html"
         Delete "$INSTDIR\onionshare\helpers.py"
-        Delete "$INSTDIR\onionshare\helpers.pyc"
+        Delete "$INSTDIR\onionshare\hs.py"
         Delete "$INSTDIR\onionshare\index.html"
         Delete "$INSTDIR\onionshare\onionshare.py"
-        Delete "$INSTDIR\onionshare\onionshare.pyc"
         Delete "$INSTDIR\onionshare\socks.py"
-        Delete "$INSTDIR\onionshare\socks.pyc"
         Delete "$INSTDIR\onionshare\strings.py"
-        Delete "$INSTDIR\onionshare\strings.pyc"
         Delete "$INSTDIR\onionshare\web.py"
-        Delete "$INSTDIR\onionshare\web.pyc"
         Delete "$INSTDIR\onionshare_gui\__init__.py"
-        Delete "$INSTDIR\onionshare_gui\__init__.pyc"
         Delete "$INSTDIR\onionshare_gui\common.py"
-        Delete "$INSTDIR\onionshare_gui\common.pyc"
         Delete "$INSTDIR\onionshare_gui\downloads.py"
-        Delete "$INSTDIR\onionshare_gui\downloads.pyc"
         Delete "$INSTDIR\onionshare_gui\file_selection.py"
-        Delete "$INSTDIR\onionshare_gui\file_selection.pyc"
         Delete "$INSTDIR\onionshare_gui\onionshare_gui.py"
-        Delete "$INSTDIR\onionshare_gui\onionshare_gui.pyc"
         Delete "$INSTDIR\onionshare_gui\options.py"
-        Delete "$INSTDIR\onionshare_gui\options.pyc"
         Delete "$INSTDIR\onionshare_gui\server_status.py"
-        Delete "$INSTDIR\onionshare_gui\server_status.pyc"
         Delete "$INSTDIR\images\logo.png"
         Delete "$INSTDIR\images\drop_files.png"
         Delete "$INSTDIR\images\server_stopped.png"
