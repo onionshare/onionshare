@@ -6,7 +6,7 @@ cd $DIR
 VERSION=`cat version`
 
 # clean up from last build
-rm -r deb_dist >/dev/null 2>&1
+rm -r ../deb_dist >/dev/null 2>&1
 
 # build binary package
 python setup.py --command-packages=stdeb.command bdist_deb
