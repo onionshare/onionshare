@@ -107,18 +107,26 @@ class HS(object):
             if not os.access(path, os.W_OK):
                 raise HSDirError(strings._("error_hs_dir_not_writable").format(path))
 
-            self.hidserv_dir = tempfile.mkdtemp(dir=path)
-            self.cleanup_filenames.append(self.hidserv_dir)
+            hidserv_dir = tempfile.mkdtemp(dir=path)
+            self.cleanup_filenames.append(hidserv_dir)
 
             # set up hidden service
-            hs_conf = self.c.get_hidden_service_conf()
-            if self.hidserv_dir in hs_conf:
-                del hs_conf[self.hidserv_dir]
-            hs_conf[self.hidserv_dir] = {'HiddenServicePort': [(80, '127.0.0.1', port)]}
-            self.c.set_hidden_service_conf(hs_conf)
+            hsdic = self.c.get_conf_map('HiddenServiceOptions') or {
+                'HiddenServiceDir': [], 'HiddenServicePort': []
+            }
+            if hidserv_dir in hsdic.get('HiddenServiceDir', []):
+                # Maybe a stale service with the wrong local port
+                dropme = hsdic['HiddenServiceDir'].index(hidserv_dir)
+                del hsdic['HiddenServiceDir'][dropme]
+                del hsdic['HiddenServicePort'][dropme]
+            hsdic['HiddenServiceDir'] = hsdic.get('HiddenServiceDir', [])+[hidserv_dir]
+            hsdic['HiddenServicePort'] = hsdic.get('HiddenServicePort', [])+[
+                '80 127.0.0.1:{0:d}'.format(port)]
+
+            self.c.set_options(self._hsdic2list(hsdic))
 
             # figure out the .onion hostname
-            hostname_file = '{0:s}/hostname'.format(self.hidserv_dir)
+            hostname_file = '{0:s}/hostname'.format(hidserv_dir)
             onion_host = open(hostname_file, 'r').read().strip()
             return onion_host
 
@@ -185,14 +193,19 @@ class HS(object):
         else:
             # cleanup hidden service
             try:
-                if self.c:
+                if self.controller:
                     # Get fresh hidden services (maybe changed since last time)
                     # and remove ourselves
-                    hs_conf = self.c.get_hidden_service_conf()
-                    if self.hidserv_dir in hs_conf:
-                        del hs_conf[self.hidserv_dir]
-                    self.c.set_hidden_service_conf(hs_conf)
-                    self.c.close()
+                    hsdic = self.controller.get_conf_map('HiddenServiceOptions') or {
+                        'HiddenServiceDir': [], 'HiddenServicePort': []
+                    }
+                    if self.hidserv_dir and self.hidserv_dir in hsdic.get('HiddenServiceDir', []):
+                        dropme = hsdic['HiddenServiceDir'].index(self.hidserv_dir)
+                        del hsdic['HiddenServiceDir'][dropme]
+                        del hsdic['HiddenServicePort'][dropme]
+                        self.controller.set_options(self._hsdic2list(hsdic))
+                    # Politely close the controller
+                    self.controller.close()
             except:
                 pass
 
@@ -203,3 +216,34 @@ class HS(object):
             elif os.path.isdir(filename):
                 shutil.rmtree(filename)
         self.cleanup_filenames = []
+
+    def _hsdic2list(self, dic):
+        """
+        Convert what we get from get_conf_map to what we need for set_options.
+
+        For example, if input looks like this:
+        {
+            'HiddenServicePort': [
+                '80 127.0.0.1:47906',
+                '80 127.0.0.1:33302'
+            ],
+            'HiddenServiceDir': [
+                '/tmp/onionshare/tmplTfZZu',
+                '/tmp/onionshare/tmpchDai3'
+            ]
+        }
+
+
+        Output will look like this:
+        [
+            ('HiddenServiceDir', '/tmp/onionshare/tmplTfZZu'),
+            ('HiddenServicePort', '80 127.0.0.1:47906'),
+            ('HiddenServiceDir', '/tmp/onionshare/tmpchDai3'),
+            ('HiddenServicePort', '80 127.0.0.1:33302')
+        ]
+        """
+        l = []
+        for i in range(len(dic['HiddenServiceDir'])):
+            l.append(('HiddenServiceDir', dic['HiddenServiceDir'][i]))
+            l.append(('HiddenServicePort', dic['HiddenServicePort'][i]))
+        return l
