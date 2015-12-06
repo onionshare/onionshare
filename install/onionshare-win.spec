@@ -12,6 +12,7 @@ a.datas += [
     ('images/server_working.png', 'images/server_working.png', 'DATA'),
     ('locale/de.json', 'locale/de.json', 'DATA'),
     ('locale/en.json', 'locale/en.json', 'DATA'),
+    ('locale/eo.json', 'locale/eo.json', 'DATA'),
     ('locale/es.json', 'locale/es.json', 'DATA'),
     ('locale/fi.json', 'locale/fi.json', 'DATA'),
     ('locale/fr.json', 'locale/fr.json', 'DATA'),
