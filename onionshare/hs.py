@@ -107,26 +107,26 @@ class HS(object):
             if not os.access(path, os.W_OK):
                 raise HSDirError(strings._("error_hs_dir_not_writable").format(path))
 
-            hidserv_dir = tempfile.mkdtemp(dir=path)
-            self.cleanup_filenames.append(hidserv_dir)
+            self.hidserv_dir = tempfile.mkdtemp(dir=path)
+            self.cleanup_filenames.append(self.hidserv_dir)
 
             # set up hidden service
             hsdic = self.c.get_conf_map('HiddenServiceOptions') or {
                 'HiddenServiceDir': [], 'HiddenServicePort': []
             }
-            if hidserv_dir in hsdic.get('HiddenServiceDir', []):
+            if self.hidserv_dir in hsdic.get('HiddenServiceDir', []):
                 # Maybe a stale service with the wrong local port
-                dropme = hsdic['HiddenServiceDir'].index(hidserv_dir)
+                dropme = hsdic['HiddenServiceDir'].index(self.hidserv_dir)
                 del hsdic['HiddenServiceDir'][dropme]
                 del hsdic['HiddenServicePort'][dropme]
-            hsdic['HiddenServiceDir'] = hsdic.get('HiddenServiceDir', [])+[hidserv_dir]
+            hsdic['HiddenServiceDir'] = hsdic.get('HiddenServiceDir', [])+[self.hidserv_dir]
             hsdic['HiddenServicePort'] = hsdic.get('HiddenServicePort', [])+[
                 '80 127.0.0.1:{0:d}'.format(port)]
 
             self.c.set_options(self._hsdic2list(hsdic))
 
             # figure out the .onion hostname
-            hostname_file = '{0:s}/hostname'.format(hidserv_dir)
+            hostname_file = '{0:s}/hostname'.format(self.hidserv_dir)
             onion_host = open(hostname_file, 'r').read().strip()
             return onion_host
 
@@ -243,7 +243,7 @@ class HS(object):
         ]
         """
         l = []
-        for i in range(len(dic['HiddenServiceDir'])):
-            l.append(('HiddenServiceDir', dic['HiddenServiceDir'][i]))
-            l.append(('HiddenServicePort', dic['HiddenServicePort'][i]))
+        for dir, port in zip(dic['HiddenServiceDir'], dic['HiddenServicePort']):
+            l.append(('HiddenServiceDir', dir))
+            l.append(('HiddenServicePort', port))
         return l
