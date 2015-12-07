@@ -279,11 +279,14 @@ def stop(port):
     Stop the flask web server by loading /shutdown.
     """
     # to stop flask, load http://127.0.0.1:<port>/<shutdown_slug>/shutdown
-    if transparent_torification:
-        import socket
+    try:
+        if transparent_torification:
+            import socket
 
-        s = socket.socket()
-        s.connect(('127.0.0.1', port))
-        s.sendall('GET /{0:s}/shutdown HTTP/1.1\r\n\r\n'.format(shutdown_slug))
-    else:
-        urllib2.urlopen('http://127.0.0.1:{0:d}/{1:s}/shutdown'.format(port, shutdown_slug)).read()
+            s = socket.socket()
+            s.connect(('127.0.0.1', port))
+            s.sendall('GET /{0:s}/shutdown HTTP/1.1\r\n\r\n'.format(shutdown_slug))
+        else:
+            urllib2.urlopen('http://127.0.0.1:{0:d}/{1:s}/shutdown'.format(port, shutdown_slug)).read()
+    except:
+        pass
