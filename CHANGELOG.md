@@ -1,5 +1,11 @@
 # OnionShare Changelog
 
+## 0.8.1
+
+* Fixed crash in Windows 7
+* Fixed crash related to non-ephemeral hidden services in Linux
+* Fixed minor bugs
+
 ## 0.8
 
 * Add support for ephemeral hidden services
