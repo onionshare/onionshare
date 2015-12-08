@@ -95,19 +95,21 @@ class HS(object):
         else:
             # come up with a hidden service directory name
             if helpers.get_platform() == 'Windows':
-                path = '{0:s}/onionshare'.format(os.environ['Temp'].replace('\\', '/'))
+                self.hidserv_dir = tempfile.mkdtemp()
+                self.hidserv_dir = self.hidserv_dir.replace('\\', '/')
+
             else:
                 path = '/tmp/onionshare'
+                try:
+                    if not os.path.exists(path):
+                        os.makedirs(path, 0700)
+                except:
+                    raise HSDirError(strings._("error_hs_dir_cannot_create").format(path))
+                if not os.access(path, os.W_OK):
+                    raise HSDirError(strings._("error_hs_dir_not_writable").format(path))
 
-            try:
-                if not os.path.exists(path):
-                    os.makedirs(path, 0700)
-            except:
-                raise HSDirError(strings._("error_hs_dir_cannot_create").format(path))
-            if not os.access(path, os.W_OK):
-                raise HSDirError(strings._("error_hs_dir_not_writable").format(path))
+                self.hidserv_dir = tempfile.mkdtemp(dir=path)
 
-            self.hidserv_dir = tempfile.mkdtemp(dir=path)
             self.cleanup_filenames.append(self.hidserv_dir)
 
             # set up hidden service
