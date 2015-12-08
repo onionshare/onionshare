@@ -71,8 +71,6 @@ Now you should have `dist/OnionShare.pkg`.
 
 ## Windows
 
-These instructions assume you're running Windows 10. They should work for other versions of Windows too, except for perhaps installing the Windows SDK which is required if you want to sign binaries with Authenticode.
-
 ### Setting up your dev environment
 
 * Download and install the latest python 2.7 from https://www.python.org/downloads/ -- make sure you install the 32-bit version.
@@ -91,10 +89,15 @@ If you want to build the installer:
 
 If you want to sign binaries with Authenticode:
 
-* Go to https://dev.windows.com/en-us/downloads/windows-10-sdk and install the standalone Windows 10 SDK. Note that you may not need this if you already have Visual Studio.
-* Go to Start and type "advanced system settings", and open "View advanced system settings" in the Control Panel. Click Environment Variables. Under "System variables" double-click on Path, and add `C:\Program Files (x86)\Windows Kits\10\bin\x86`.
-* You'll also, of course, need a code signing certificate. I roughly followed [this guide](http://blog.assarbad.net/20110513/startssl-code-signing-certificate/) to make one using my StartSSL account.
+* You'll need a code signing certificate. I roughly followed [this guide](http://blog.assarbad.net/20110513/startssl-code-signing-certificate/) to make one using my StartSSL account.
 * Once you get a code signing key and certificate and covert it to a pfx file, import it into your certificate store.
+* Windows 7:
+  * Go to http://msdn.microsoft.com/en-us/vstudio/aa496123 and install the latest .NET Framework. I installed `.NET Framework 4.6`.
+  * Go to http://www.microsoft.com/en-us/download/confirmation.aspx?id=8279 and install the Windows SDK.
+  * Right click on Computer, go to Properties. Click "Advanced system settings". Click Environment Variables. Under "System variables" double-click on Path and add `C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin` to the end.
+* Windows 10:
+  * Go to https://dev.windows.com/en-us/downloads/windows-10-sdk and install the standalone Windows 10 SDK. Note that you may not need this if you already have Visual Studio.
+  * Go to Start and type "advanced system settings", and open "View advanced system settings" in the Control Panel. Click Environment Variables. Under "System variables" double-click on Path, and add `C:\Program Files (x86)\Windows Kits\10\bin\x86`.
 
 ### To make a .exe:
 
