@@ -218,7 +218,7 @@ class OnionShareGui(QtGui.QWidget):
                 self.downloads.add_download(event["data"]["id"], web.zip_filesize)
 
             elif event["type"] == web.REQUEST_PROGRESS:
-                self.downloads.update_download(event["data"]["id"], web.zip_filesize, event["data"]["bytes"])
+                self.downloads.update_download(event["data"]["id"], event["data"]["bytes"])
 
                 # is the download complete?
                 if event["data"]["bytes"] == web.zip_filesize:

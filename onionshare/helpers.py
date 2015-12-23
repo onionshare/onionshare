@@ -19,6 +19,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import os, inspect, hashlib, base64, hmac, platform, zipfile, tempfile
 from itertools import izip
+import math
+import time
 
 # hack to make unicode filenames work (#141)
 import sys
@@ -110,6 +112,44 @@ def human_readable_filesize(b):
         b /= thresh
         u += 1
     return '{0:.1f} {1:s}'.format(round(b, 1), units[u])
+
+
+def format_seconds(seconds):
+    """Return a human-readable string of the format 1d2h3m4s"""
+    seconds_in_a_minute = 60
+    seconds_in_an_hour = seconds_in_a_minute * 60
+    seconds_in_a_day = seconds_in_an_hour * 24
+
+    days = math.floor(seconds / seconds_in_a_day)
+
+    hour_seconds = seconds % seconds_in_a_day
+    hours = math.floor(hour_seconds / seconds_in_an_hour)
+
+    minute_seconds = hour_seconds % seconds_in_an_hour
+    minutes = math.floor(minute_seconds / seconds_in_a_minute)
+
+    remaining_seconds = minute_seconds % seconds_in_a_minute
+    seconds = math.ceil(remaining_seconds)
+
+    human_readable = []
+    if days > 0:
+        human_readable.append("{}d".format(int(days)))
+    if hours > 0:
+        human_readable.append("{}h".format(int(hours)))
+    if minutes > 0:
+        human_readable.append("{}m".format(int(minutes)))
+    if seconds > 0:
+        human_readable.append("{}s".format(int(seconds)))
+    return ''.join(human_readable)
+
+
+def estimated_time_remaining(bytes_downloaded, total_bytes, started):
+    now = time.time()
+    time_elapsed = now - started  # in seconds
+    download_rate = bytes_downloaded / time_elapsed
+    remaining_bytes = total_bytes - bytes_downloaded
+    eta = remaining_bytes / download_rate
+    return format_seconds(eta)
 
 
 def is_root():
