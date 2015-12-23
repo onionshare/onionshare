@@ -52,7 +52,8 @@ class Download(object):
 
         self.progress_bar.setValue(downloaded_bytes)
         if downloaded_bytes == self.progress_bar.total_bytes:
-            pb_fmt = "%p%"
+            pb_fmt = "%p%, Time Elapsed: {0:s}".format(
+                helpers.format_seconds(time.time() - self.started))
         else:
             elapsed = time.time() - self.started
             if elapsed < 10:
