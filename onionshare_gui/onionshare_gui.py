@@ -168,9 +168,8 @@ class OnionShareGui(QtGui.QWidget):
 
             # wait for hs
             if not self.app.local_only:
-                if not self.app.hs.supports_ephemeral:
-                    self.status_bar.showMessage(strings._('gui_starting_server3', True))
-                    self.app.hs.wait_for_hs(self.app.onion_host)
+                self.status_bar.showMessage(strings._('gui_starting_server3', True))
+                self.app.hs.wait_for_hs(self.app.onion_host)
 
             # done
             self.start_server_finished.emit()
