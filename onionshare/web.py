@@ -87,7 +87,11 @@ def add_request(request_type, path, data=None):
     })
 
 
-slug = helpers.random_string(16)
+slug = None
+def generate_slug():
+    global slug
+    slug = helpers.random_string(16)
+
 download_count = 0
 
 stay_open = False
@@ -131,23 +135,20 @@ def debug_mode():
     log_handler.setLevel(logging.WARNING)
     app.logger.addHandler(log_handler)
 
-def check_slug_candidate(slug):
-    def slug_dec(f):
-        @wraps(f)
-        def slug_wrapper(slug_candidate, *args, **kwargs):
-            if not helpers.constant_time_compare(slug.encode('ascii'),slug_candidate.encode('ascii')):
-                abort(404)
-            return f(*args, **kwargs)
-        return slug_wrapper
-    return slug_dec
-
+def check_slug_candidate(slug_candidate, slug_compare = None):
+    global slug
+    if not slug_compare:
+        slug_compare = slug
+    if not helpers.constant_time_compare(slug_compare.encode('ascii'), slug_candidate.encode('ascii')):
+        abort(404)
 
 @app.route("/<slug_candidate>")
-@check_slug_candidate(slug)
-def index():
+def index(slug_candidate):
     """
     Render the template for the onionshare landing page.
     """
+    check_slug_candidate(slug_candidate)
+
     add_request(REQUEST_LOAD, request.path)
     return render_template_string(
         open(helpers.get_html_path('index.html')).read(),
@@ -160,11 +161,12 @@ def index():
 
 
 @app.route("/<slug_candidate>/download")
-@check_slug_candidate(slug)
-def download():
+def download(slug_candidate):
     """
     Download the zip file.
     """
+    check_slug_candidate(slug_candidate)
+
     global download_count
 
     # each download has a unique id
@@ -251,11 +253,12 @@ shutdown_slug = helpers.random_string(16)
 
 
 @app.route("/<slug_candidate>/shutdown")
-@check_slug_candidate(shutdown_slug)
-def shutdown():
+def shutdown(slug_candidate):
     """
     Stop the flask web server.
     """
+    check_slug_candidate(slug_candidate, shutdown_slug)
+
     # shutdown the flask service
     func = request.environ.get('werkzeug.server.shutdown')
     if func is None:
@@ -269,6 +272,8 @@ def start(port, stay_open=False, transparent_torification=False):
     """
     Start the flask web server.
     """
+    generate_slug()
+
     set_stay_open(stay_open)
     set_transparent_torification(transparent_torification)
     app.run(port=port, threaded=True)
