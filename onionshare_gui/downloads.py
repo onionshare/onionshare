@@ -17,10 +17,66 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
+import time
+
 from PyQt4 import QtCore, QtGui
 
 import common
 from onionshare import strings, helpers
+
+
+class Download(object):
+
+    def __init__(self, download_id, total_bytes):
+        self.download_id = download_id
+        self.started = time.time()
+        self.total_bytes = total_bytes
+        self.downloaded_bytes = 0
+
+        # make a new progress bar
+        self.progress_bar = QtGui.QProgressBar()
+        self.progress_bar.setTextVisible(True)
+        self.progress_bar.setAlignment(QtCore.Qt.AlignHCenter)
+        self.progress_bar.setMinimum(0)
+        self.progress_bar.setMaximum(total_bytes)
+        self.progress_bar.setValue(0)
+        self.progress_bar.setStyleSheet(
+            "QProgressBar::chunk { background-color: #05B8CC; }")
+        self.progress_bar.total_bytes = total_bytes
+
+        # start at 0
+        self.update(0)
+
+    def update(self, downloaded_bytes):
+        self.downloaded_bytes = downloaded_bytes
+
+        self.progress_bar.setValue(downloaded_bytes)
+        if downloaded_bytes == self.progress_bar.total_bytes:
+            pb_fmt = strings._('gui_download_progress_complete').format(
+                helpers.format_seconds(time.time() - self.started))
+        else:
+            elapsed = time.time() - self.started
+            if elapsed < 10:
+                # Wait a couple of seconds for the download rate to stabilize.
+                # This prevents an "Windows copy dialog"-esque experience at
+                # the beginning of the download.
+                pb_fmt = strings._('gui_download_progress_starting').format(
+                    helpers.human_readable_filesize(downloaded_bytes))
+            else:
+                pb_fmt = strings._('gui_download_progress_eta').format(
+                    helpers.human_readable_filesize(downloaded_bytes),
+                    self.estimated_time_remaining)
+
+        self.progress_bar.setFormat(pb_fmt)
+
+    def cancel(self):
+        self.progress_bar.setFormat(strings._('gui_canceled'))
+
+    @property
+    def estimated_time_remaining(self):
+        return helpers.estimated_time_remaining(self.downloaded_bytes,
+                                                self.total_bytes,
+                                                self.started)
 
 
 class Downloads(QtGui.QVBoxLayout):
@@ -31,7 +87,7 @@ class Downloads(QtGui.QVBoxLayout):
     def __init__(self):
         super(Downloads, self).__init__()
 
-        self.progress_bars = {}
+        self.downloads = {}
 
         # downloads label
         self.downloads_label = QtGui.QLabel(strings._('gui_downloads', True))
@@ -46,40 +102,19 @@ class Downloads(QtGui.QVBoxLayout):
         """
         self.downloads_label.show()
 
-        # make a new progress bar
-        pb = QtGui.QProgressBar()
-        pb.setTextVisible(True)
-        pb.setAlignment(QtCore.Qt.AlignHCenter)
-        pb.setMinimum(0)
-        pb.setMaximum(total_bytes)
-        pb.setValue(0)
-        pb.setStyleSheet("QProgressBar::chunk { background-color: #05B8CC; }")
-        pb.total_bytes = total_bytes
-
         # add it to the list
-        self.progress_bars[download_id] = pb
-        self.addWidget(pb)
+        download = Download(download_id, total_bytes)
+        self.downloads[download_id] = download
+        self.addWidget(download.progress_bar)
 
-        # start at 0
-        self.update_download(download_id, total_bytes, 0)
-
-    def update_download(self, download_id, total_bytes, downloaded_bytes):
+    def update_download(self, download_id, downloaded_bytes):
         """
         Update the progress of a download progress bar.
         """
-        if download_id not in self.progress_bars:
-            self.add_download(download_id, total_bytes)
-
-        pb = self.progress_bars[download_id]
-        pb.setValue(downloaded_bytes)
-        if downloaded_bytes == pb.total_bytes:
-            pb.setFormat("%p%")
-        else:
-            pb.setFormat("{0:s}, %p%".format(helpers.human_readable_filesize(downloaded_bytes)))
+        self.downloads[download_id].update(downloaded_bytes)
 
     def cancel_download(self, download_id):
         """
         Update a download progress bar to show that it has been canceled.
         """
-        pb = self.progress_bars[download_id]
-        pb.setFormat(strings._('gui_canceled'))
+        self.downloads[download_id].cancel()
