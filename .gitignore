@@ -6,6 +6,7 @@
 # Packages
 *.egg
 *.egg-info
+*.eggs
 dist
 deb_dist
 build

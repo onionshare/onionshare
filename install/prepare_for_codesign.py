@@ -10,11 +10,11 @@ import shutil
 path_to_app = "dist/OnionShare.app"
 
 def move_func(file):
-    print "moving %s to %s " % (os.path.join(dir_name, file), os.path.join(dir_name, 'Versions', "Current"))
+    print("moving %s to %s " % (os.path.join(dir_name, file), os.path.join(dir_name, 'Versions', "Current")))
     try:
         shutil.move(os.path.join(dir_name, file), os.path.join(dir_name, 'Versions', "Current"))
     except Exception as e:
-        print e
+        print(e)
     return file
 
 def filter_func(x):
@@ -29,7 +29,7 @@ for dir_name, subdir_list, file_list in os.walk(dir):
 
     if p.match(dir_name_short):
         print('Found directory: %s' % dir_name_short)
-        print file_list
+        print(file_list)
         if os.path.islink(os.path.join(dir_name, file_list[0])):
             os.unlink(os.path.join(dir_name, file_list[0]))
         list(map(move_func, file_list[1:]))

@@ -23,11 +23,7 @@ from PyQt5 import QtCore, QtWidgets, QtGui
 
 from . import common
 
-try:
-    import onionshare
-except ImportError:
-    sys.path.append(os.path.abspath(common.onionshare_gui_dir + "/.."))
-    import onionshare
+import onionshare
 from onionshare import strings, helpers, web
 
 from .file_selection import FileSelection
@@ -56,7 +52,7 @@ class Application(QtWidgets.QApplication):
         return False
 
 
-class OnionShareGui(QtWidgets.QWidget):
+class OnionShareGui(QtWidgets.QMainWindow):
     """
     OnionShareGui is the main window for the GUI that contains all of the
     GUI elements.
@@ -112,8 +108,9 @@ class OnionShareGui(QtWidgets.QWidget):
         self.status_bar = QtWidgets.QStatusBar()
         self.status_bar.setSizeGripEnabled(False)
         version_label = QtWidgets.QLabel('v{0:s}'.format(helpers.get_version()))
-        version_label.setStyleSheet('color: #666666;')
+        version_label.setStyleSheet('color: #666666; padding: 0 10px;')
         self.status_bar.addPermanentWidget(version_label)
+        self.setStatusBar(self.status_bar)
 
         # main layout
         self.layout = QtWidgets.QVBoxLayout()
@@ -122,8 +119,9 @@ class OnionShareGui(QtWidgets.QWidget):
         self.layout.addWidget(self.filesize_warning)
         self.layout.addLayout(self.downloads)
         self.layout.addLayout(self.options)
-        self.layout.addWidget(self.status_bar)
-        self.setLayout(self.layout)
+        central_widget = QtWidgets.QWidget()
+        central_widget.setLayout(self.layout)
+        self.setCentralWidget(central_widget)
         self.show()
 
         # check for requests frequently

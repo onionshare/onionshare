@@ -33,18 +33,42 @@ There is a PKBUILD available [here](https://aur.archlinux.org/packages/onionshar
 
 ## Mac OS X
 
-Install the [latest python 2.x](https://www.python.org/downloads/) from python.org. If you use the built-in version of python that comes with OS X, your .app might not run on other people's computers.
+Install Xcode from the Mac App Store. Once it's installed, run it for the first time to set it up.
 
-To install the right dependencies, you need homebrew and pip installed on your Mac. Follow instructions at http://brew.sh/ to install homebrew, and run `sudo easy_install pip` to install pip.
+Install the [latest Python 3.x from python.org](https://www.python.org/downloads/). If you use the built-in version of python that comes with OS X, your .app might not run on other people's computers.
 
-The first time you're setting up your dev environment:
+Download and install Qt5 from https://www.qt.io/download-open-source/. I downloaded `qt-unified-mac-x64-2.0.2-2-online.dmg`. There's no need to login to a Qt account during installation. Make sure you install the latest Qt 5.x for clang.
+
+Download the source code for [SIP](http://www.riverbankcomputing.co.uk/software/sip/download) and [PyQt](http://www.riverbankcomputing.co.uk/software/pyqt/download5). I downloaded `sip-4.17.tar.gz` and `PyQt-gpl-5.5.1.tar.gz`.
+
+Now extract the source code:
 
 ```sh
-echo export PYTHONPATH=\$PYTHONPATH:/usr/local/lib/python2.7/site-packages/ >> ~/.profile
-source ~/.profile
-brew install qt4 pyqt
-sudo pip install py2app flask stem
+tar xvf sip-4.17.tar.gz
+tar xvf PyQt-gpl-5.5.1.tar.gz
 ```
+
+Compile SIP:
+
+```sh
+cd sip-4.17
+python3 configure.py --arch x86_64
+make
+sudo make install
+sudo make clean
+```
+
+Compile PyQt:
+
+```sh
+cd ../PyQt-gpl-5.5.1
+python3 configure.py --qmake ~/Qt/5.5/clang_64/bin/qmake --sip /Library/Frameworks/Python.framework/Versions/3.5/bin/sip --disable=QtPositioning
+make
+sudo make install
+sudo make clean
+```
+
+Finally, install some dependencies using pip3: `sudo pip3 install py2app flask stem`
 
 Get the source code:
 

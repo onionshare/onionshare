@@ -9,14 +9,14 @@ rm -rf $ROOT/dist &>/dev/null 2>&1
 
 # build the .app
 echo Building OnionShare.app
-python setup.py py2app
+python3 setup.py py2app
 
 if [ "$1" = "--sign" ]; then
   SIGNING_IDENTITY_APP="Developer ID Application: Micah Lee"
   SIGNING_IDENTITY_INSTALLER="Developer ID Installer: Micah Lee"
 
   # codesign the .app
-  python $ROOT/install/prepare_for_codesign.py
+  python3 $ROOT/install/prepare_for_codesign.py
   cd dist
 
   # for some reason --deep fails, so sign each binary individually

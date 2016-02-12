@@ -66,9 +66,9 @@ def get_version():
     if p == 'Linux':
         version_filename = os.path.join(sys.prefix, 'share/onionshare/version')
     elif p == 'Darwin':
-        version_filename = os.path.join(helpers.osx_resources_dir, 'version')
+        version_filename = os.path.join(osx_resources_dir, 'version')
     else:
-        version_filename = os.path.join(os.path.dirname(helpers.get_onionshare_dir()), 'version')
+        version_filename = os.path.join(os.path.dirname(get_onionshare_dir()), 'version')
     return open(version_filename).read().strip()
 
 

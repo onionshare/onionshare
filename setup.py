@@ -106,7 +106,8 @@ elif system == 'Darwin':
         data_files=[
             ('images', images),
             ('locale', locale),
-            ('html', ['onionshare/index.html', 'onionshare/404.html'])
+            ('html', ['onionshare/index.html', 'onionshare/404.html']),
+            ('', ['version'])
         ],
         options={
             'py2app': {
@@ -114,17 +115,8 @@ elif system == 'Darwin':
                 'iconfile': 'install/onionshare.icns',
                 'extra_scripts': ['install/osx_scripts/onionshare'],
                 'includes': [
-                    'PyQt4', 'PyQt4.QtCore', 'PyQt4.QtGui',
-                    'jinja2', 'jinja2.ext', 'jinja2.ext.autoescape'],
-                'excludes': [
-                    'PyQt4.QtDesigner', 'PyQt4.QtNetwork',
-                    'PyQt4.QtOpenGL', 'PyQt4.QtScript',
-                    'PyQt4.QtSql', 'PyQt4.QtTest',
-                    'PyQt4.QtWebKit', 'PyQt4.QtXml',
-                    'PyQt4.phonon', 'PyQt4.QtDeclarative',
-                    'PyQt4.QtHelp', 'PyQt4.QtMultimedia',
-                    'PyQt4.QtScript', 'PyQt4.QtScriptTools',
-                    'PyQt4.QtSvg', 'PyQt4.QtXmlPatterns']
+                    'PyQt5', 'PyQt5.QtCore', 'PyQt5.QtGui', 'PyQt5.QtWidgets',
+                    'jinja2', 'jinja2.ext', 'jinja2.ext.autoescape', 'sip']
             }
         },
         setup_requires=['py2app', 'flask', 'stem'],
