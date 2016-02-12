@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 OnionShare | https://onionshare.org/
@@ -83,9 +83,11 @@ if system == 'Linux':
         url='https://github.com/micahflee/onionshare',
         license="GPL v3",
         keywords='onion, share, onionshare, tor, anonymous, web server',
-        packages=['onionshare', 'onionshare_gui'],
+        #packages=['onionshare', 'onionshare_gui'],
+        packages=['onionshare'],
         include_package_data=True,
-        scripts=['install/linux_scripts/onionshare', 'install/linux_scripts/onionshare-gui'],
+        #scripts=['install/linux_scripts/onionshare', 'install/linux_scripts/onionshare-gui'],
+        scripts=['install/linux_scripts/onionshare'],
         data_files=[
             (os.path.join(sys.prefix, 'share/applications'), ['install/onionshare.desktop']),
             (os.path.join(sys.prefix, 'share/appdata'), ['install/onionshare.appdata.xml']),

@@ -19,7 +19,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 import os, sys, subprocess, time, argparse, inspect, shutil, socket, threading
-import strings, helpers, web, hs
+
+from . import strings, helpers, web, hs
 
 class OnionShare(object):
     """
@@ -97,7 +98,7 @@ def main(cwd=None):
     onionshare uses.
     """
     strings.load_strings()
-    print strings._('version_string').format(helpers.get_version())
+    print(strings._('version_string').format(helpers.get_version()))
 
     # onionshare CLI in OSX needs to change current working directory (#132)
     if helpers.get_platform() == 'Darwin':
@@ -142,15 +143,15 @@ def main(cwd=None):
         sys.exit(e.args[0])
 
     # prepare files to share
-    print strings._("preparing_files")
+    print(strings._("preparing_files"))
     web.set_file_info(filenames)
     app.cleanup_filenames.append(web.zip_filename)
 
     # warn about sending large files over Tor
     if web.zip_filesize >= 157286400:  # 150mb
-        print ''
-        print strings._("large_filesize")
-        print ''
+        print('')
+        print(strings._("large_filesize"))
+        print('')
 
     # start onionshare service in new thread
     t = threading.Thread(target=web.start, args=(app.port, app.stay_open, app.transparent_torification))
@@ -164,10 +165,10 @@ def main(cwd=None):
             if not ready:
                 sys.exit()
 
-        print strings._("give_this_url")
-        print 'http://{0:s}/{1:s}'.format(app.onion_host, web.slug)
-        print ''
-        print strings._("ctrlc_to_stop")
+        print(strings._("give_this_url"))
+        print('http://{0:s}/{1:s}'.format(app.onion_host, web.slug))
+        print('')
+        print(strings._("ctrlc_to_stop"))
 
         # wait for app to close
         while t.is_alive():

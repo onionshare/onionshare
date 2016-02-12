@@ -17,15 +17,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-import os, inspect, hashlib, base64, hmac, platform, zipfile, tempfile
-from itertools import izip
-import math
-import time
-
-# hack to make unicode filenames work (#141)
-import sys
-reload(sys)
-sys.setdefaultencoding("utf-8")
+import sys, os, inspect, hashlib, base64, hmac, platform, zipfile, tempfile, math, time
 
 
 def get_platform():
@@ -82,20 +74,20 @@ def get_version():
 
 def constant_time_compare(val1, val2):
     """
-    Compares two values in constant time.
-    """
-    _builtin_constant_time_compare = getattr(hmac, 'compare_digest', None)
-    if _builtin_constant_time_compare is not None:
-        return _builtin_constant_time_compare(val1, val2)
+    Returns True if the two strings are equal, False otherwise.
 
-    len_eq = len(val1) == len(val2)
-    if len_eq:
-        result = 0
-        left = val1
-    else:
-        result = 1
-        left = val2
-    for x, y in izip(bytearray(left), bytearray(val2)):
+    The time taken is independent of the number of characters that match.
+
+    For the sake of simplicity, this function executes in constant time only
+    when the two strings have the same length. It short-circuits when they
+    have different lengths.
+
+    From: http://www.levigross.com/2014/02/07/constant-time-comparison-functions-in...-python-haskell-clojure-and-java/
+    """
+    if len(val1) != len(val2):
+        return False
+    result = 0
+    for x, y in zip(val1, val2):
         result |= x ^ y
     return result == 0
 
@@ -106,7 +98,7 @@ def random_string(num_bytes, output_len=None):
     """
     b = os.urandom(num_bytes)
     h = hashlib.sha256(b).digest()[:16]
-    s = base64.b32encode(h).lower().replace('=', '')
+    s = base64.b32encode(h).lower().replace(b'=', b'').decode('utf-8')
     if not output_len:
         return s
     return s[:output_len]

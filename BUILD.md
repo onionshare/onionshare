@@ -11,10 +11,10 @@ cd onionshare
 
 *For .deb-based distros (like Debian, Ubuntu, Linux Mint):*
 
-Note that python-stem appears in Debian wheezy and newer, and it appears in Ubuntu 13.10 and newer. Older versions of Debian and Ubuntu aren't supported.
+Note that python3-stem appears in Debian wheezy and newer, and it appears in Ubuntu 13.10 and newer. Older versions of Debian and Ubuntu aren't supported.
 
 ```sh
-sudo apt-get install -y build-essential fakeroot python-all python-stdeb python-flask python-stem python-qt4 dh-python
+sudo apt-get install -y build-essential fakeroot python3-all python3-stdeb python3-flask python3-stem python3-pyqt5 dh-python
 ./install/build_deb.sh
 sudo dpkg -i deb_dist/onionshare_*.deb
 ```

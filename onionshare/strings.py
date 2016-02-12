@@ -18,7 +18,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import json, locale, sys, os
-import helpers
+
+from . import helpers
 
 strings = {}
 
@@ -62,9 +63,6 @@ def translated(k, gui=False):
     """
     Returns a translated string.
     """
-    if gui:
-        return strings[k].encode("utf-8").decode('utf-8', 'replace')
-    else:
-        return strings[k].encode("utf-8")
+    return strings[k]
 
 _ = translated

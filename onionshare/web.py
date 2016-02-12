@@ -17,10 +17,12 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-import Queue, mimetypes, platform, os, sys, urllib2
+import queue, mimetypes, platform, os, sys
+from urllib.request import urlopen
 from flask import Flask, Response, request, render_template_string, abort
 from functools import wraps
-import strings, helpers
+
+from . import strings, helpers
 
 app = Flask(__name__)
 
@@ -72,7 +74,7 @@ REQUEST_DOWNLOAD = 1
 REQUEST_PROGRESS = 2
 REQUEST_OTHER = 3
 REQUEST_CANCELED = 4
-q = Queue.Queue()
+q = queue.Queue()
 
 
 def add_request(request_type, path, data=None):
@@ -154,7 +156,7 @@ def index(slug_candidate):
         open(helpers.get_html_path('index.html')).read(),
         slug=slug,
         file_info=file_info,
-        filename=os.path.basename(zip_filename).decode("utf-8"),
+        filename=os.path.basename(zip_filename),
         filesize=zip_filesize,
         filesize_human=helpers.human_readable_filesize(zip_filesize)
     )
@@ -192,7 +194,7 @@ def download(slug_candidate):
         canceled = False
         while not done:
             chunk = fp.read(chunk_size)
-            if chunk == '':
+            if chunk == b'':
                 done = True
             else:
                 try:
@@ -224,7 +226,7 @@ def download(slug_candidate):
 
         # download is finished, close the server
         if not stay_open and not canceled:
-            print strings._("closing_automatically")
+            print(strings._("closing_automatically"))
             if shutdown_func is None:
                 raise RuntimeError('Not running with the Werkzeug Server')
             shutdown_func()
@@ -292,6 +294,6 @@ def stop(port):
             s.connect(('127.0.0.1', port))
             s.sendall('GET /{0:s}/shutdown HTTP/1.1\r\n\r\n'.format(shutdown_slug))
         else:
-            urllib2.urlopen('http://127.0.0.1:{0:d}/{1:s}/shutdown'.format(port, shutdown_slug)).read()
+            urlopen('http://127.0.0.1:{0:d}/{1:s}/shutdown'.format(port, shutdown_slug)).read()
     except:
         pass
