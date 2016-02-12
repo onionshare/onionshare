@@ -24,7 +24,7 @@ If you're interested in exactly what OnionShare does and does not protect agains
 
 You can download OnionShare to install on your computer from <https://onionshare.org/>.
 
-You can set up your development environment to build OnionShare yourself by following [these instructions](/BUILD.md). You can also install OnionShare in your Tails persistent volume by following [these instructions](/tails/README.md).
+You can set up your development environment to build OnionShare yourself by following [these instructions](/BUILD.md).
 
 ## How to Use
 

@@ -40,7 +40,7 @@ def get_image_path(filename):
     Returns the OnionShare image path.
     """
     p = helpers.get_platform()
-    if p == 'Linux' or p == 'Tails':
+    if p == 'Linux':
         prefix = os.path.join(sys.prefix, 'share/onionshare/images')
     elif p == 'Darwin':
         prefix = os.path.join(helpers.osx_resources_dir, 'images')
