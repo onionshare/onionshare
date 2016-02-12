@@ -52,7 +52,7 @@ class Download(object):
 
         self.progress_bar.setValue(downloaded_bytes)
         if downloaded_bytes == self.progress_bar.total_bytes:
-            pb_fmt = "%p%, Time Elapsed: {0:s}".format(
+            pb_fmt = strings._('gui_download_progress_complete').format(
                 helpers.format_seconds(time.time() - self.started))
         else:
             elapsed = time.time() - self.started
@@ -60,10 +60,10 @@ class Download(object):
                 # Wait a couple of seconds for the download rate to stabilize.
                 # This prevents an "Windows copy dialog"-esque experience at
                 # the beginning of the download.
-                pb_fmt = "{0:s}, %p% (Computing ETA)".format(
+                pb_fmt = strings._('gui_download_progress_starting').format(
                     helpers.human_readable_filesize(downloaded_bytes))
             else:
-                pb_fmt = "{0:s}, ETA: {1:s}, %p%".format(
+                pb_fmt = strings._('gui_download_progress_eta').format(
                     helpers.human_readable_filesize(downloaded_bytes),
                     self.estimated_time_remaining)
 
