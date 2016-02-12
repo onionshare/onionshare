@@ -19,9 +19,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 from __future__ import division
 import os, sys, subprocess, inspect, platform, argparse, threading, time, math, inspect, platform
-from PyQt4 import QtCore, QtGui
+from PyQt5 import QtCore, QtWidgets, QtGui
 
-import common
+from . import common
 
 try:
     import onionshare
@@ -30,13 +30,13 @@ except ImportError:
     import onionshare
 from onionshare import strings, helpers, web
 
-from file_selection import FileSelection
-from server_status import ServerStatus
-from downloads import Downloads
-from options import Options
+from .file_selection import FileSelection
+from .server_status import ServerStatus
+from .downloads import Downloads
+from .options import Options
 
 
-class Application(QtGui.QApplication):
+class Application(QtWidgets.QApplication):
     """
     This is Qt's QApplication class. It has been overridden to support threads
     and the quick keyboard shortcut.
@@ -45,7 +45,7 @@ class Application(QtGui.QApplication):
         platform = helpers.get_platform()
         if platform == 'Linux':
             self.setAttribute(QtCore.Qt.AA_X11InitThreads, True)
-        QtGui.QApplication.__init__(self, sys.argv)
+        QtWidgets.QApplication.__init__(self, sys.argv)
         self.installEventFilter(self)
 
     def eventFilter(self, obj, event):
@@ -56,7 +56,7 @@ class Application(QtGui.QApplication):
         return False
 
 
-class OnionShareGui(QtGui.QWidget):
+class OnionShareGui(QtWidgets.QWidget):
     """
     OnionShareGui is the main window for the GUI that contains all of the
     GUI elements.
@@ -98,7 +98,7 @@ class OnionShareGui(QtGui.QWidget):
         self.starting_server_step2.connect(self.start_server_step2)
 
         # filesize warning
-        self.filesize_warning = QtGui.QLabel()
+        self.filesize_warning = QtWidgets.QLabel()
         self.filesize_warning.setStyleSheet('padding: 10px 0; font-weight: bold; color: #333333;')
         self.filesize_warning.hide()
 
@@ -109,14 +109,14 @@ class OnionShareGui(QtGui.QWidget):
         self.options = Options(web, self.app)
 
         # status bar
-        self.status_bar = QtGui.QStatusBar()
+        self.status_bar = QtWidgets.QStatusBar()
         self.status_bar.setSizeGripEnabled(False)
-        version_label = QtGui.QLabel('v{0:s}'.format(helpers.get_version()))
+        version_label = QtWidgets.QLabel('v{0:s}'.format(helpers.get_version()))
         version_label.setStyleSheet('color: #666666;')
         self.status_bar.addPermanentWidget(version_label)
 
         # main layout
-        self.layout = QtGui.QVBoxLayout()
+        self.layout = QtWidgets.QVBoxLayout()
         self.layout.addLayout(self.file_selection)
         self.layout.addLayout(self.server_status)
         self.layout.addWidget(self.filesize_warning)
@@ -128,7 +128,7 @@ class OnionShareGui(QtGui.QWidget):
 
         # check for requests frequently
         self.timer = QtCore.QTimer()
-        QtCore.QObject.connect(self.timer, QtCore.SIGNAL("timeout()"), self.check_for_requests)
+        self.timer.timeout.connect(self.check_for_requests)
         self.timer.start(500)
 
     def start_server_step2(self):
@@ -152,7 +152,7 @@ class OnionShareGui(QtGui.QWidget):
         try:
             self.app.start_hidden_service(gui=True)
         except onionshare.hs.NoTor as e:
-            alert(e.args[0], QtGui.QMessageBox.Warning)
+            alert(e.args[0], QtWidgets.QMessageBox.Warning)
             self.server_status.stop_server()
             self.status_bar.clearMessage()
             return
@@ -208,7 +208,7 @@ class OnionShareGui(QtGui.QWidget):
             try:
                 r = web.q.get(False)
                 events.append(r)
-            except web.Queue.Empty:
+            except web.queue.Empty:
                 done = True
 
         for event in events:
@@ -246,11 +246,11 @@ class OnionShareGui(QtGui.QWidget):
         self.status_bar.clearMessage()
 
 
-def alert(msg, icon=QtGui.QMessageBox.NoIcon):
+def alert(msg, icon=QtWidgets.QMessageBox.NoIcon):
     """
     Pop up a message in a dialog window.
     """
-    dialog = QtGui.QMessageBox()
+    dialog = QtWidgets.QMessageBox()
     dialog.setWindowTitle("OnionShare")
     dialog.setWindowIcon(window_icon)
     dialog.setText(msg)
@@ -263,7 +263,7 @@ def main():
     The main() function implements all of the logic that the GUI version of onionshare uses.
     """
     strings.load_strings()
-    print strings._('version_string').format(helpers.get_version())
+    print(strings._('version_string').format(helpers.get_version()))
 
     # start the Qt app
     global qtapp
@@ -310,7 +310,7 @@ def main():
     # clean up when app quits
     def shutdown():
         app.cleanup()
-    qtapp.connect(qtapp, QtCore.SIGNAL("aboutToQuit()"), shutdown)
+    qtapp.aboutToQuit.connect(shutdown)
 
     # launch the gui
     gui = OnionShareGui(qtapp, app)

@@ -19,11 +19,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import time
 
-from PyQt4 import QtCore, QtGui
+from PyQt5 import QtCore, QtWidgets
 
-import common
 from onionshare import strings, helpers
 
+from . import common
 
 class Download(object):
 
@@ -34,7 +34,7 @@ class Download(object):
         self.downloaded_bytes = 0
 
         # make a new progress bar
-        self.progress_bar = QtGui.QProgressBar()
+        self.progress_bar = QtWidgets.QProgressBar()
         self.progress_bar.setTextVisible(True)
         self.progress_bar.setAlignment(QtCore.Qt.AlignHCenter)
         self.progress_bar.setMinimum(0)
@@ -79,7 +79,7 @@ class Download(object):
                                                 self.started)
 
 
-class Downloads(QtGui.QVBoxLayout):
+class Downloads(QtWidgets.QVBoxLayout):
     """
     The downloads chunk of the GUI. This lists all of the active download
     progress bars.
@@ -90,7 +90,7 @@ class Downloads(QtGui.QVBoxLayout):
         self.downloads = {}
 
         # downloads label
-        self.downloads_label = QtGui.QLabel(strings._('gui_downloads', True))
+        self.downloads_label = QtWidgets.QLabel(strings._('gui_downloads', True))
         self.downloads_label.hide()
 
         # add the widgets

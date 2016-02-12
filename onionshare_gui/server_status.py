@@ -18,13 +18,13 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import platform
-from PyQt4 import QtCore, QtGui
+from PyQt5 import QtCore, QtWidgets, QtGui
 
-import common
 from onionshare import strings, helpers
 
+from . import common
 
-class ServerStatus(QtGui.QVBoxLayout):
+class ServerStatus(QtWidgets.QVBoxLayout):
     """
     The server status chunk of the GUI.
     """
@@ -49,23 +49,23 @@ class ServerStatus(QtGui.QVBoxLayout):
         self.status_image_stopped = QtGui.QImage(common.get_image_path('server_stopped.png'))
         self.status_image_working = QtGui.QImage(common.get_image_path('server_working.png'))
         self.status_image_started = QtGui.QImage(common.get_image_path('server_started.png'))
-        self.status_image_label = QtGui.QLabel()
+        self.status_image_label = QtWidgets.QLabel()
         self.status_image_label.setFixedWidth(30)
-        self.server_button = QtGui.QPushButton()
+        self.server_button = QtWidgets.QPushButton()
         self.server_button.clicked.connect(self.server_button_clicked)
-        server_layout = QtGui.QHBoxLayout()
+        server_layout = QtWidgets.QHBoxLayout()
         server_layout.addWidget(self.status_image_label)
         server_layout.addWidget(self.server_button)
 
         # url layout
         url_font = QtGui.QFont()
-        self.url_label = QtGui.QLabel()
+        self.url_label = QtWidgets.QLabel()
         self.url_label.setFont(url_font)
         self.url_label.setWordWrap(True)
         self.url_label.setAlignment(QtCore.Qt.AlignCenter)
-        self.copy_url_button = QtGui.QPushButton(strings._('gui_copy_url', True))
+        self.copy_url_button = QtWidgets.QPushButton(strings._('gui_copy_url', True))
         self.copy_url_button.clicked.connect(self.copy_url)
-        url_layout = QtGui.QHBoxLayout()
+        url_layout = QtWidgets.QHBoxLayout()
         url_layout.addWidget(self.url_label)
         url_layout.addWidget(self.copy_url_button)
 

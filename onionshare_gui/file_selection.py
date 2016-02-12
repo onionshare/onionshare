@@ -18,13 +18,13 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import os
-from PyQt4 import QtCore, QtGui
+from PyQt5 import QtCore, QtWidgets, QtGui
 
-import common
 from onionshare import strings, helpers
 
+from . import common
 
-class FileList(QtGui.QListWidget):
+class FileList(QtWidgets.QListWidget):
     """
     The list of files and folders in the GUI.
     """
@@ -37,7 +37,7 @@ class FileList(QtGui.QListWidget):
         self.setIconSize(QtCore.QSize(32, 32))
         self.setSortingEnabled(True)
 
-        class DropHereLabel(QtGui.QLabel):
+        class DropHereLabel(QtWidgets.QLabel):
             """
             When there are no files or folders in the FileList yet, display the
             'drop files here' message and graphic.
@@ -51,7 +51,7 @@ class FileList(QtGui.QListWidget):
                 if image:
                     self.setPixmap(QtGui.QPixmap.fromImage(QtGui.QImage(common.get_image_path('drop_files.png'))))
                 else:
-                    self.setText(QtCore.QString(strings._('gui_drag_and_drop', True)))
+                    self.setText(strings._('gui_drag_and_drop', True))
                     self.setStyleSheet('color: #999999;')
 
                 self.hide()
@@ -131,23 +131,20 @@ class FileList(QtGui.QListWidget):
         Add a file or directory to this widget.
         """
         if filename not in self.filenames:
-            # make filenames unicode-safe for Qt (#141)
-            filename = filename.encode('utf-8').decode('utf-8', 'replace')
-
             self.filenames.append(filename)
 
             fileinfo = QtCore.QFileInfo(filename)
             basename = os.path.basename(filename.rstrip('/'))
-            ip = QtGui.QFileIconProvider()
+            ip = QtWidgets.QFileIconProvider()
             icon = ip.icon(fileinfo)
 
             if os.path.isfile(filename):
                 size = helpers.human_readable_filesize(fileinfo.size())
             else:
                 size = helpers.human_readable_filesize(helpers.dir_size(filename))
-            item_name = unicode('{0:s} ({1:s})'.format(basename, size))
-            item = QtGui.QListWidgetItem(item_name)
-            item.setToolTip(QtCore.QString(size))
+            item_name = '{0:s} ({1:s})'.format(basename, size)
+            item = QtWidgets.QListWidgetItem(item_name)
+            item.setToolTip(size)
 
             item.setIcon(icon)
             self.addItem(item)
@@ -155,7 +152,7 @@ class FileList(QtGui.QListWidget):
             self.files_updated.emit()
 
 
-class FileSelection(QtGui.QVBoxLayout):
+class FileSelection(QtWidgets.QVBoxLayout):
     """
     The list of files and folders in the GUI, as well as buttons to add and
     delete the files and folders.
@@ -170,13 +167,13 @@ class FileSelection(QtGui.QVBoxLayout):
         self.file_list.files_dropped.connect(self.update)
 
         # buttons
-        self.add_files_button = QtGui.QPushButton(strings._('gui_add_files', True))
+        self.add_files_button = QtWidgets.QPushButton(strings._('gui_add_files', True))
         self.add_files_button.clicked.connect(self.add_files)
-        self.add_dir_button = QtGui.QPushButton(strings._('gui_add_folder', True))
+        self.add_dir_button = QtWidgets.QPushButton(strings._('gui_add_folder', True))
         self.add_dir_button.clicked.connect(self.add_dir)
-        self.delete_button = QtGui.QPushButton(strings._('gui_delete', True))
+        self.delete_button = QtWidgets.QPushButton(strings._('gui_delete', True))
         self.delete_button.clicked.connect(self.delete_file)
-        button_layout = QtGui.QHBoxLayout()
+        button_layout = QtWidgets.QHBoxLayout()
         button_layout.addWidget(self.add_files_button)
         button_layout.addWidget(self.add_dir_button)
         button_layout.addWidget(self.delete_button)
@@ -214,19 +211,19 @@ class FileSelection(QtGui.QVBoxLayout):
         """
         Add files button clicked.
         """
-        filenames = QtGui.QFileDialog.getOpenFileNames(
-            caption=strings._('gui_choose_files', True), options=QtGui.QFileDialog.ReadOnly)
+        filenames = QtWidgets.QFileDialog.getOpenFileNames(
+            caption=strings._('gui_choose_files', True), options=QtWidgets.QFileDialog.ReadOnly)
         if filenames:
-            for filename in filenames:
-                self.file_list.add_file(str(filename))
+            for filename in filenames[0]:
+                self.file_list.add_file(filename)
         self.update()
 
     def add_dir(self):
         """
         Add folder button clicked.
         """
-        filename = QtGui.QFileDialog.getExistingDirectory(
-            caption=strings._('gui_choose_folder', True), options=QtGui.QFileDialog.ReadOnly)
+        filename = QtWidgets.QFileDialog.getExistingDirectory(
+            caption=strings._('gui_choose_folder', True), options=QtWidgets.QFileDialog.ReadOnly)
         if filename:
             self.file_list.add_file(str(filename))
         self.update()

@@ -17,13 +17,13 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-from PyQt4 import QtCore, QtGui
+from PyQt5 import QtCore, QtWidgets
 
-import common
 from onionshare import strings, helpers
 
+from . import common
 
-class Options(QtGui.QHBoxLayout):
+class Options(QtWidgets.QHBoxLayout):
     """
     The extra onionshare options in the GUI.
     """
@@ -34,13 +34,13 @@ class Options(QtGui.QHBoxLayout):
         self.app = app
 
         # close automatically
-        self.close_automatically = QtGui.QCheckBox()
+        self.close_automatically = QtWidgets.QCheckBox()
         if self.web.stay_open:
             self.close_automatically.setCheckState(QtCore.Qt.Unchecked)
         else:
             self.close_automatically.setCheckState(QtCore.Qt.Checked)
         self.close_automatically.setText(strings._("close_on_finish", True))
-        self.connect(self.close_automatically, QtCore.SIGNAL('stateChanged(int)'), self.stay_open_changed)
+        self.close_automatically.stateChanged.connect(self.stay_open_changed)
 
         # add the widgets
         self.addWidget(self.close_automatically)
