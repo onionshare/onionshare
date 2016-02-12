@@ -1,5 +1,4 @@
 [Desktop Entry]
-Encoding=UTF-8
 Name=OnionShare
 Comment=Share a file securely and anonymously over Tor
 Exec=/usr/bin/onionshare-gui
@@ -7,3 +6,4 @@ Terminal=false
 Type=Application
 Icon=/usr/share/pixmaps/onionshare80.xpm
 Categories=Network;
+Keywords=tor;anonymity;privacy;onion service;file sharing;file hosting;
