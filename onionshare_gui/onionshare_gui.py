@@ -111,6 +111,9 @@ class OnionShareGui(QtGui.QWidget):
         # status bar
         self.status_bar = QtGui.QStatusBar()
         self.status_bar.setSizeGripEnabled(False)
+        version_label = QtGui.QLabel('v{0:s}'.format(helpers.get_version()))
+        version_label.setStyleSheet('color: #666666;')
+        self.status_bar.addPermanentWidget(version_label)
 
         # main layout
         self.layout = QtGui.QVBoxLayout()
@@ -260,6 +263,7 @@ def main():
     The main() function implements all of the logic that the GUI version of onionshare uses.
     """
     strings.load_strings()
+    print strings._('version_string').format(helpers.get_version())
 
     # start the Qt app
     global qtapp

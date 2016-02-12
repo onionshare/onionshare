@@ -44,5 +44,6 @@
     "using_ephemeral": "Staring ephemeral Tor hidden service and awaiting publication",
     "gui_download_progress_complete": "%p%, Time Elapsed: {0:s}",
     "gui_download_progress_starting": "{0:s}, %p% (Computing ETA)",
-    "gui_download_progress_eta": "{0:s}, ETA: {1:s}, %p%"
+    "gui_download_progress_eta": "{0:s}, ETA: {1:s}, %p%",
+    "version_string": "Onionshare {0:s} | https://onionshare.org/"
 }

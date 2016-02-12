@@ -58,12 +58,26 @@ def get_html_path(filename):
     """
     Returns the path of the html files.
     """
-    p = platform.system()
+    p = get_platform()
     if p == 'Darwin':
         prefix = os.path.join(osx_resources_dir, 'html')
     else:
         prefix = get_onionshare_dir()
     return os.path.join(prefix, filename)
+
+
+def get_version():
+    """
+    Returns the version of OnionShare that is running.
+    """
+    p = get_platform()
+    if p == 'Linux':
+        version_filename = os.path.join(sys.prefix, 'share/onionshare/version')
+    elif p == 'Darwin':
+        version_filename = os.path.join(helpers.osx_resources_dir, 'version')
+    else:
+        version_filename = os.path.join(os.path.dirname(helpers.get_onionshare_dir()), 'version')
+    return open(version_filename).read().strip()
 
 
 def constant_time_compare(val1, val2):

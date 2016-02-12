@@ -97,6 +97,7 @@ def main(cwd=None):
     onionshare uses.
     """
     strings.load_strings()
+    print strings._('version_string').format(helpers.get_version())
 
     # onionshare CLI in OSX needs to change current working directory (#132)
     if helpers.get_platform() == 'Darwin':
