@@ -18,6 +18,7 @@ sudo apt-get install -y build-essential fakeroot python3-all python3-stdeb pytho
 ./install/build_deb.sh
 sudo dpkg -i deb_dist/onionshare_*.deb
 ```
+Note that OnionShare uses stdeb to generate Debian packages, and `python3-stdeb` is not available in Ubuntu 14.04 (Trusty). Because of this, you can't use the `build_install.sh` script to build the .deb file in versions of Ubuntu 14.04 and earlier. However, .deb files you build in later versions of Ubuntu will install and work fine in 14.04.
 
 *For .rpm-based distros (Red Hat, Fedora, CentOS):*
 
