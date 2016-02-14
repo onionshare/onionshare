@@ -100,14 +100,19 @@ Now you should have `dist/OnionShare.pkg`.
 
 ### Setting up your dev environment
 
-* Download and install the latest python 2.7 from https://www.python.org/downloads/ -- make sure you install the 32-bit version.
-* Go to Start and type "advanced system settings", and open "View advanced system settings" in the Control Panel. Click Environment Variables. Under "System variables" double-click on Path, and add `C:\Python27` and `C:\Python27\Scripts`. Now you can just type `python` to run python scripts in the command prompt.
-* Go to https://pip.pypa.io/en/latest/installing.html. Right-click on `get-pip.py` and Save Link As, and save it to your home folder.
-* Open a command prompt and type: `python get-pip.py`. Now you can use `pip` to install packages.
-* Open a command prompt and type: `pip install flask stem pyinstaller`
-* Go to http://www.riverbankcomputing.com/software/pyqt/download and download the latest PyQt4 for Windows for python 2.7, 32-bit (I downloaded `PyQt4-4.11-gpl-Py2.7-Qt4.8.6-x32.exe`), then install it.
-* Go to http://sourceforge.net/projects/pywin32/ and download and install the latest 32-bit pywin32 binary for python 2.7. I downloaded `pywin32-219.win32-py2.7.exe`.
-* Download and install the [Microsoft Visual C++ 2008 Redistributable Package (x86)](http://www.microsoft.com/en-us/download/details.aspx?id=29).
+TODO: Still need to make this working in Windows with Python3.
+
+Install the [latest Python 3.x from python.org](https://www.python.org/downloads/). While installing, check the box "Add Python 3.x to PATH".
+
+Open a command prompt and install some dependencies with pip: `pip install flask stem pyinstaller`
+
+Download and install Qt5 from https://www.qt.io/download-open-source/. I downloaded `qt-unified-windows-x86-2.0.2-2-online.exe`. There's no need to login to a Qt account during installation. Make sure you install the latest Qt 5.x.
+
+Download and install the latest PyQt5 for 32-bit Windows from https://www.riverbankcomputing.com/software/pyqt/download5. I downloaded `PyQt5-5.5.1-gpl-Py3.4-Qt5.5.1-x32.exe`. Make sure to install it to the location where you installed Python (in my case, `C:\Users\micah\AppData\Local\Programs\Python\Python35-32\`).
+
+Download and install the latest 32-bit pywin32 binary for Python 3.5 from http://sourceforge.net/projects/pywin32/. I downloaded `pywin32-220.win32-py3.5.exe`.
+
+Download and install the [Microsoft Visual C++ 2008 Redistributable Package (x86)](http://www.microsoft.com/en-us/download/details.aspx?id=29).
 
 If you want to build the installer:
 
