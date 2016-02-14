@@ -23,14 +23,16 @@ Note that OnionShare uses stdeb to generate Debian packages, and `python3-stdeb`
 *For .rpm-based distros (Red Hat, Fedora, CentOS):*
 
 ```sh
-sudo yum install -y rpm-build python-flask python-stem pyqt4
+sudo sudo dnf install -y rpm-build python3-flask python3-stem python3-qt5
 ./install/build_rpm.sh
 sudo yum install -y dist/onionshare-*.rpm
 ```
 
+Depending on your distribution, you may need to use `yum` instead of `dnf`.
+
 *For ArchLinux:*
 
-There is a PKBUILD available [here](https://aur.archlinux.org/packages/onionshare/) that can be used to install onionshare
+There is a PKBUILD available [here](https://aur.archlinux.org/packages/onionshare/) that can be used to install OnionShare.
 
 ## Mac OS X
 

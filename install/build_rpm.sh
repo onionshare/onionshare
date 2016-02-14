@@ -9,9 +9,9 @@ VERSION=`cat version`
 rm -r build dist >/dev/null 2>&1
 
 # build binary package
-python setup.py bdist_rpm --requires="python-flask, python-stem, pyqt4"
+python3 setup.py bdist_rpm --requires="python3-flask, python3-stem, python3-qt5"
 
 # install it
 echo ""
 echo "To install, run:"
-echo "sudo yum install dist/onionshare-$VERSION-1.noarch.rpm"
+echo "sudo dnf install dist/onionshare-$VERSION-1.noarch.rpm"
