@@ -22,6 +22,7 @@ from nose import with_setup
 
 def test_generate_slug_length():
     """generates a 26-character slug"""
+    web.generate_slug()
     assert len(web.slug) == 26
 
 

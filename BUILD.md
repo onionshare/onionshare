@@ -145,14 +145,10 @@ This will prompt you to codesign three binaries and execute one unsigned binary.
 
 ## Tests
 
-OnionShare includes [nose](https://nose.readthedocs.org/en/latest/) unit tests. First,
-
-```sh
-sudo pip install nose
-```
+OnionShare includes [nose](https://nose.readthedocs.org/en/latest/) unit tests. First, `sudo apt-get install python3-nose` or `sudo pip3 install nose`.
 
 To run the tests:
 
 ```sh
-nosetests test
+nosetests3 test
 ```
