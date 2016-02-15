@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 a = Analysis(['onionshare-launcher.py'],
-    hiddenimports=['onionshare', 'onionshare_gui'],
-    excludes=['_tkinter'],
+    #hiddenimports=['onionshare', 'onionshare_gui'],
+    #excludes=['_tkinter'],
     hookspath=None,
     runtime_hooks=None)
 a.datas += [
@@ -22,6 +22,7 @@ a.datas += [
     ('locale/pt.json', 'locale/pt.json', 'DATA'),
     ('locale/ru.json', 'locale/ru.json', 'DATA'),
     ('locale/tr.json', 'locale/tr.json', 'DATA'),
+    ('version', 'version', 'DATA'),
 ]
 pyz = PYZ(a.pure)
 exe = EXE(pyz,
@@ -32,7 +33,7 @@ exe = EXE(pyz,
     strip=False,
     upx=True,
     icon='install/onionshare.ico',
-    console=False )
+    console=False)
 coll = COLLECT(exe,
     a.binaries,
     a.zipfiles,

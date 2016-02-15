@@ -161,21 +161,7 @@ class ServerStatus(QtWidgets.QVBoxLayout):
         """
         url = 'http://{0:s}/{1:s}'.format(self.app.onion_host, self.web.slug)
 
-        if platform.system() == 'Windows':
-            # Qt's QClipboard isn't working in Windows
-            # https://github.com/micahflee/onionshare/issues/46
-            import ctypes
-            GMEM_DDESHARE = 0x2000
-            ctypes.windll.user32.OpenClipboard(None)
-            ctypes.windll.user32.EmptyClipboard()
-            hcd = ctypes.windll.kernel32.GlobalAlloc(GMEM_DDESHARE, len(bytes(url)) + 1)
-            pch_data = ctypes.windll.kernel32.GlobalLock(hcd)
-            ctypes.cdll.msvcrt.strcpy(ctypes.c_char_p(pch_data), bytes(url))
-            ctypes.windll.kernel32.GlobalUnlock(hcd)
-            ctypes.windll.user32.SetClipboardData(1, hcd)
-            ctypes.windll.user32.CloseClipboard()
-        else:
-            clipboard = self.qtapp.clipboard()
-            clipboard.setText(url)
+        clipboard = self.qtapp.clipboard()
+        clipboard.setText(url)
 
         self.url_copied.emit()

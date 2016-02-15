@@ -19,11 +19,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 from __future__ import division
 import os, sys, subprocess, time, hashlib, platform, json, locale, socket
-import argparse, Queue, inspect, base64, random, functools, logging, ctypes
+import argparse, queue, inspect, base64, random, functools, logging, ctypes
 import hmac, shutil
-from itertools import izip
 import stem, stem.control, flask
-from PyQt4 import QtCore, QtGui
+from PyQt5 import QtCore, QtWidgets, QtGui
 
 import onionshare, onionshare_gui
 
