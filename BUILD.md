@@ -104,7 +104,7 @@ These instructions include adding folders to the path in Windows. To do this, go
 
 First, download and install the 32-bit (x86) version of Python 3.4.x from https://www.python.org/downloads/windows/. You need 3.4 instead of 3.5 because PyQt5 was built with 3.4. Add `C:\Python34` and `C:\Python34\Scripts` to the path.
 
-Open a command prompt and install some dependencies with pip: `pip install flask stem pyinstaller`
+Open a command prompt and install some dependencies with pip: `pip install flask stem py2exe`
 
 Download and install Qt5 from https://www.qt.io/download-open-source/. I downloaded `qt-unified-windows-x86-2.0.2-2-online.exe`. There's no need to login to a Qt account during installation. Make sure you install the latest Qt 5.x.
 
@@ -133,12 +133,12 @@ If you want to sign binaries with Authenticode:
 
 ### To make a .exe:
 
-* Open a command prompt, cd into the onionshare directory, and type: `pyinstaller -y install\onionshare-win.spec`. Inside the `dist` folder there will be a folder called `onionshare` with `onionshare.exe` in it.
+* Open a command prompt, cd into the onionshare directory, and type: `python setup.py py2exe`. `onionshare.exe` and all of its supporting files will get created inside the `dist` folder.
 
 ### To build the installer:
 
 Note that you must have a codesigning certificate installed in order to use the `install\build_exe.bat` script, because it codesigns `onionshare.exe`, `uninstall.exe`, and `OnionShare_Setup.exe`.
-s
+
 Open a command prompt, cd to the onionshare directory, and type: `install\build_exe.bat`
 
 This will prompt you to codesign three binaries and execute one unsigned binary. When you're done clicking through everything you will have `dist\OnionShare_Setup.exe`.

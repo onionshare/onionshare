@@ -18,12 +18,20 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 from __future__ import division
-import os, sys, subprocess, time, hashlib, platform, json, locale, socket
+import os, subprocess, time, hashlib, platform, json, locale, socket
 import argparse, queue, inspect, base64, random, functools, logging, ctypes
 import hmac, shutil
 import stem, stem.control, flask
 from PyQt5 import QtCore, QtWidgets, QtGui
 
 import onionshare, onionshare_gui
+
+# Disable py2exe logging in Windows. Comment these if you need logs. See:
+# http://www.py2exe.org/index.cgi/StderrLog
+# http://stackoverflow.com/questions/20549843/py2exe-generate-log-file
+import sys
+f = open(os.devnull, 'w')
+sys.stdout = f
+sys.stderr = f
 
 onionshare_gui.main()

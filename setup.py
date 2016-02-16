@@ -121,3 +121,28 @@ elif system == 'Darwin':
         },
         setup_requires=['py2app', 'flask', 'stem'],
     )
+
+elif system == 'Windows':
+    import py2exe
+    setup(
+        name='OnionShare',
+        version=version,
+        description=description,
+        long_description=long_description,
+        data_files=[
+            ('images', images),
+            ('locale', locale),
+            ('html', ['onionshare/index.html', 'onionshare/404.html']),
+            ('', ['version', 'install/license.txt', 'install/onionshare.ico']),
+            ('platforms', ['C:\\Python34\\Lib\\site-packages\\PyQt5\\plugins\\platforms\\qwindows.dll'])
+        ],
+        windows=['install/windows_scripts/onionshare.py'],
+        options={
+            'py2exe': {
+                'includes': [
+                    'PyQt5', 'PyQt5.QtCore', 'PyQt5.QtGui', 'PyQt5.QtWidgets',
+                    'jinja2', 'jinja2.ext', 'sip']
+            }
+        },
+        setup_requires=['py2exe', 'flask', 'stem'],
+    )
