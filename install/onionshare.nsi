@@ -212,6 +212,8 @@ FunctionEnd
         Delete "$INSTDIR\unicodedata.pyd"
         Delete "$INSTDIR\win32wnet.pyd"
 
+        Delete "$INSTDIR\uninstall.exe"
+
         rmDir "$INSTDIR\html"
         rmDir "$INSTDIR\images"
         rmDir "$INSTDIR\locale"
