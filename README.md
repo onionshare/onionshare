@@ -13,7 +13,6 @@ Features include:
 * Shows you the progress of file transfers
 * When file is done transferring, automatically closes OnionShare to reduce the attack surface
 * Localized into several languages, and supports international unicode filenames
-* Designed to work in [Tails](https://tails.boum.org/), for high risk users
 
 If you're interested in exactly what OnionShare does and does not protect against, read the [Security Design Document](/SECURITY.md).
 
