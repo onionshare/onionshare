@@ -51,11 +51,16 @@ class OnionShare(object):
 
     def choose_port(self):
         """
-        Pick an un-used port to bind to.
+        Pick an un-used port in the range 17600-17650 to bind to.
         """
         # let the OS choose a port
         tmpsock = socket.socket()
-        tmpsock.bind(("127.0.0.1", 0))
+        for port in range(17600, 17650):
+            try:
+                tmpsock.bind(("127.0.0.1", port))
+                break
+            except OSError:
+                pass
         self.port = tmpsock.getsockname()[1]
         tmpsock.close()
 
