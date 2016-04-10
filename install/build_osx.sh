@@ -12,21 +12,12 @@ echo Building OnionShare.app
 pyinstaller install/pyinstaller-osx.spec
 
 if [ "$1" = "--sign" ]; then
-  SIGNING_IDENTITY_APP="Developer ID Application: Micah Lee"
-  SIGNING_IDENTITY_INSTALLER="Developer ID Installer: Micah Lee"
+  SIGNING_IDENTITY_APP="3rd Party Mac Developer Application: Micah Lee"
+  SIGNING_IDENTITY_INSTALLER="3rd Party Mac Developer Installer: Micah Lee"
 
   # codesign the .app
-  python3 $ROOT/install/prepare_for_codesign.py
-  cd dist
+  codesign -vvvv --deep -s "$SIGNING_IDENTITY_APP" dist/OnionShare.app
 
-  # for some reason --deep fails, so sign each binary individually
-  codesign -vvvv -s "Developer ID Application: Micah Lee" OnionShare.app/Contents/Frameworks/QtCore.framework
-  codesign -vvvv -s "Developer ID Application: Micah Lee" OnionShare.app/Contents/Frameworks/QtGui.framework
-  codesign -vvvv -s "Developer ID Application: Micah Lee" OnionShare.app/Contents/Frameworks/Python.framework
-  codesign -vvvv -s "Developer ID Application: Micah Lee" OnionShare.app/Contents/Frameworks/libssl.1.0.0.dylib
-  codesign -vvvv -s "Developer ID Application: Micah Lee" OnionShare.app/Contents/Frameworks/libcrypto.1.0.0.dylib
-  codesign -vvvv -s "Developer ID Application: Micah Lee" OnionShare.app/Contents/MacOS/python
-  codesign -vvvv -s "Developer ID Application: Micah Lee" OnionShare.app
-
-  productbuild --component OnionShare.app /Applications OnionShare.pkg --sign "$SIGNING_IDENTITY_INSTALLER"
+  # build .pkg
+  productbuild --component dist/OnionShare.app /Applications dist/OnionShare.pkg --sign "$SIGNING_IDENTITY_INSTALLER"
 fi
