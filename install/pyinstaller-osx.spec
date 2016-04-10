@@ -28,7 +28,7 @@ exe = EXE(
     pyz,
     a.scripts,
     exclude_binaries=True,
-    name='onionshare_gui',
+    name='onionshare-gui',
     debug=False,
     strip=False,
     upx=True,
@@ -41,7 +41,7 @@ coll = COLLECT(
     a.datas,
     strip=False,
     upx=True,
-    name='onionshare_gui')
+    name='onionshare-gui')
 
 app = BUNDLE(
     coll,
