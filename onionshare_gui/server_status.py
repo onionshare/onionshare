@@ -61,7 +61,7 @@ class ServerStatus(QtWidgets.QVBoxLayout):
         url_font = QtGui.QFont()
         self.url_label = QtWidgets.QLabel()
         self.url_label.setFont(url_font)
-        self.url_label.setWordWrap(True)
+        self.url_label.setWordWrap(False)
         self.url_label.setAlignment(QtCore.Qt.AlignCenter)
         self.copy_url_button = QtWidgets.QPushButton(strings._('gui_copy_url', True))
         self.copy_url_button.clicked.connect(self.copy_url)
@@ -89,7 +89,7 @@ class ServerStatus(QtWidgets.QVBoxLayout):
 
         # set the URL fields
         if self.status == self.STATUS_STARTED:
-            self.url_label.setText('http://{0:s}/ {1:s}'.format(self.app.onion_host, self.web.slug))
+            self.url_label.setText('http://{0:s}/{1:s}'.format(self.app.onion_host, self.web.slug))
             self.url_label.show()
             self.copy_url_button.show()
 
