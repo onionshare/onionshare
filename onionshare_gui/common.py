@@ -44,7 +44,7 @@ def get_image_path(filename):
     if p == 'Linux':
         prefix = os.path.join(sys.prefix, 'share/onionshare/images')
     elif p == 'Darwin':
-        prefix = os.path.join(helpers.osx_resources_dir, 'images')
+        prefix = locale_dir = helpers.get_osx_resource_path('images')
     else:
         prefix = os.path.join(os.path.dirname(get_onionshare_gui_dir()), 'images')
     return os.path.join(prefix, filename)

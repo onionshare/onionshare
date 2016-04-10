@@ -96,32 +96,6 @@ if system == 'Linux':
         ]
     )
 
-elif system == 'Darwin':
-    setup(
-        name='OnionShare',
-        version=version,
-        description=description,
-        long_description=long_description,
-        app=['install/osx_scripts/onionshare-gui'],
-        data_files=[
-            ('images', images),
-            ('locale', locale),
-            ('html', ['onionshare/index.html', 'onionshare/404.html']),
-            ('', ['version'])
-        ],
-        options={
-            'py2app': {
-                'argv_emulation': True,
-                'iconfile': 'install/onionshare.icns',
-                'extra_scripts': ['install/osx_scripts/onionshare'],
-                'includes': [
-                    'PyQt5', 'PyQt5.QtCore', 'PyQt5.QtGui', 'PyQt5.QtWidgets',
-                    'jinja2', 'jinja2.ext', 'jinja2.ext.autoescape', 'sip']
-            }
-        },
-        setup_requires=['py2app', 'flask', 'stem'],
-    )
-
 elif system == 'Windows':
     import py2exe
     setup(

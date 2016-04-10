@@ -9,7 +9,7 @@ rm -rf $ROOT/dist &>/dev/null 2>&1
 
 # build the .app
 echo Building OnionShare.app
-python3 setup.py py2app
+pyinstaller install/pyinstaller-osx.spec
 
 if [ "$1" = "--sign" ]; then
   SIGNING_IDENTITY_APP="Developer ID Application: Micah Lee"

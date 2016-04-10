@@ -36,7 +36,7 @@ def load_strings(default="en"):
     if p == 'Linux':
         locale_dir = os.path.join(sys.prefix, 'share/onionshare/locale')
     elif p == 'Darwin':
-        locale_dir = os.path.join(helpers.osx_resources_dir, 'locale')
+        locale_dir = helpers.get_osx_resource_path('locale')
     else:
         locale_dir = os.path.join(os.path.dirname(helpers.get_onionshare_dir()), 'locale')
 

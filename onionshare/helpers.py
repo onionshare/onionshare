@@ -26,15 +26,6 @@ def get_platform():
     """
     return platform.system()
 
-if get_platform() == 'Darwin':
-    # this is hacky, but it ultimate ends up returning the absolute path to
-    # OnionShare.app/Contents/Resources, based on the location of helpers.py
-    helpers_path = os.path.realpath(os.path.abspath(inspect.getfile(inspect.currentframe())))
-    osx_resources_dir = os.path.dirname(os.path.dirname(helpers_path))
-else:
-    osx_resources_dir = None
-
-
 def get_onionshare_dir():
     """
     Returns the OnionShare directory.
@@ -45,6 +36,14 @@ def get_onionshare_dir():
         onionshare_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
     return onionshare_dir
 
+def get_osx_resource_path(filename):
+    """
+    Returns the path a resource file in a frozen PyInstall app
+    """
+    if get_platform() == 'Darwin':
+        # Resource path from frozen PyInstaller app
+        # https://pythonhosted.org/PyInstaller/#run-time-information
+        return os.path.join(os.path.join(os.path.dirname(sys._MEIPASS), 'Resources'), filename)
 
 def get_html_path(filename):
     """
@@ -52,7 +51,7 @@ def get_html_path(filename):
     """
     p = get_platform()
     if p == 'Darwin':
-        prefix = os.path.join(osx_resources_dir, 'html')
+        prefix = get_osx_resource_path('html')
     else:
         prefix = get_onionshare_dir()
     return os.path.join(prefix, filename)
@@ -66,7 +65,7 @@ def get_version():
     if p == 'Linux':
         version_filename = os.path.join(sys.prefix, 'share/onionshare/version')
     elif p == 'Darwin':
-        version_filename = os.path.join(osx_resources_dir, 'version')
+        version_filename = get_osx_resource_path('version')
     else:
         version_filename = os.path.join(os.path.dirname(get_onionshare_dir()), 'version')
     return open(version_filename).read().strip()
