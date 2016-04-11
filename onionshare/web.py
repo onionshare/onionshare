@@ -161,6 +161,10 @@ def index(slug_candidate):
         filesize_human=helpers.human_readable_filesize(zip_filesize)
     )
 
+# If the client closes the OnionShare window while a download is in progress,
+# it should immediately stop serving the file. The client_cancel global is
+# used to tell the download function that the client is canceling the download.
+client_cancel = False
 
 @app.route("/<slug_candidate>/download")
 def download(slug_candidate):
@@ -187,12 +191,21 @@ def download(slug_candidate):
     basename = os.path.basename(zip_filename)
 
     def generate():
+        # The user hasn't canceled the download
+        global client_cancel
+        client_cancel = False
+
         chunk_size = 102400  # 100kb
 
         fp = open(zip_filename, 'rb')
         done = False
         canceled = False
         while not done:
+            # The user has canceled the download, so stop serving the file
+            if client_cancel:
+                add_request(REQUEST_CANCELED, path, {'id': download_id})
+                break;
+
             chunk = fp.read(chunk_size)
             if chunk == b'':
                 done = True
@@ -285,6 +298,12 @@ def stop(port):
     """
     Stop the flask web server by loading /shutdown.
     """
+
+    # If the user cancels the download, let the download function know to stop
+    # serving the file
+    global client_cancel
+    client_cancel = True
+
     # to stop flask, load http://127.0.0.1:<port>/<shutdown_slug>/shutdown
     try:
         if transparent_torification:

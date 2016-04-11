@@ -243,6 +243,9 @@ class OnionShareGui(QtWidgets.QMainWindow):
         """
         self.status_bar.clearMessage()
 
+    def closeEvent(self, e):
+        self.stop_server()
+
 
 def alert(msg, icon=QtWidgets.QMessageBox.NoIcon):
     """
