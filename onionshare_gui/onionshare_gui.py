@@ -244,7 +244,23 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.status_bar.clearMessage()
 
     def closeEvent(self, e):
-        self.stop_server()
+        if self.server_status.status != self.server_status.STATUS_STOPPED:
+            dialog = QtWidgets.QMessageBox()
+            dialog.setText(strings._('gui_quit_warning', True))
+            quit_button = dialog.addButton("Quit", QtWidgets.QMessageBox.YesRole)
+            dont_quit_button = dialog.addButton("Don't Quit", QtWidgets.QMessageBox.NoRole)
+            #dialog.setStandardButtons(QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
+            dialog.setDefaultButton(dont_quit_button)
+            reply = dialog.exec_()
+            print("reply: {}".format(reply))
+
+            # Quit
+            if reply == 0:
+                self.stop_server()
+                e.accept()
+            # Don't Quit
+            else:
+                e.ignore()
 
 
 def alert(msg, icon=QtWidgets.QMessageBox.NoIcon):
