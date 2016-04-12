@@ -1,12 +1,10 @@
 include LICENSE
 include README.md
 include BUILD.md
-include version.txt
-include onionshare/index.html
-include onionshare/404.html
-include onionshare/strings.json
+include resources/*
+include resources/images/*
+include resources/locale/*
+include resources/html/*
 include install/onionshare.desktop
 include install/onionshare.appdata.xml
 include install/onionshare80.xpm
-include images/*.png
-include locale/*.json

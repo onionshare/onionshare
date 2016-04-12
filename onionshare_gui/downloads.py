@@ -23,8 +23,6 @@ from PyQt5 import QtCore, QtWidgets
 
 from onionshare import strings, helpers
 
-from . import common
-
 class Download(object):
 
     def __init__(self, download_id, total_bytes):

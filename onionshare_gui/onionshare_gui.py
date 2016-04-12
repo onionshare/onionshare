@@ -21,8 +21,6 @@ from __future__ import division
 import os, sys, subprocess, inspect, platform, argparse, threading, time, math, inspect, platform
 from PyQt5 import QtCore, QtWidgets, QtGui
 
-from . import common
-
 import onionshare
 from onionshare import strings, helpers, web
 
@@ -306,7 +304,7 @@ def main():
 
     # create the onionshare icon
     global window_icon
-    window_icon = QtGui.QIcon(common.get_image_path('logo.png'))
+    window_icon = QtGui.QIcon(helpers.get_resource_path('images/logo.png'))
 
     # validation
     if filenames:

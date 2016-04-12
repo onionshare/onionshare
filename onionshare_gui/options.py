@@ -21,8 +21,6 @@ from PyQt5 import QtCore, QtWidgets
 
 from onionshare import strings, helpers
 
-from . import common
-
 class Options(QtWidgets.QHBoxLayout):
     """
     The extra onionshare options in the GUI.

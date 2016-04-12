@@ -153,7 +153,7 @@ def index(slug_candidate):
 
     add_request(REQUEST_LOAD, request.path)
     return render_template_string(
-        open(helpers.get_html_path('index.html')).read(),
+        open(helpers.get_resource_path('html/index.html')).read(),
         slug=slug,
         file_info=file_info,
         filename=os.path.basename(zip_filename),
@@ -261,7 +261,7 @@ def page_not_found(e):
     404 error page.
     """
     add_request(REQUEST_OTHER, request.path)
-    return render_template_string(open(helpers.get_html_path('404.html')).read())
+    return render_template_string(open(helpers.get_resource_path('html/404.html')).read())
 
 # shutting down the server only works within the context of flask, so the easiest way to do it is over http
 shutdown_slug = helpers.random_string(16)

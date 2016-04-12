@@ -33,7 +33,7 @@ def file_list(path):
             files.append(os.path.join(path, filename))
     return files
 
-version = open('version.txt').read().strip()
+version = open('resources/version.txt').read().strip()
 
 description = (
     """OnionShare lets you securely and anonymously share a file of any size with someone. """
@@ -48,27 +48,32 @@ long_description = description + " " + (
 )
 
 images = [
-    'images/logo.png',
-    'images/drop_files.png',
-    'images/server_stopped.png',
-    'images/server_started.png',
-    'images/server_working.png'
+    'resources/images/logo.png',
+    'resources/images/drop_files.png',
+    'resources/images/server_stopped.png',
+    'resources/images/server_started.png',
+    'resources/images/server_working.png'
 ]
 
 locale = [
-    'locale/cs.json',
-    'locale/de.json',
-    'locale/en.json',
-    'locale/eo.json',
-    'locale/es.json',
-    'locale/fi.json',
-    'locale/fr.json',
-    'locale/it.json',
-    'locale/nl.json',
-    'locale/no.json',
-    'locale/pt.json',
-    'locale/ru.json',
-    'locale/tr.json'
+    'resources/locale/cs.json',
+    'resources/locale/de.json',
+    'resources/locale/en.json',
+    'resources/locale/eo.json',
+    'resources/locale/es.json',
+    'resources/locale/fi.json',
+    'resources/locale/fr.json',
+    'resources/locale/it.json',
+    'resources/locale/nl.json',
+    'resources/locale/no.json',
+    'resources/locale/pt.json',
+    'resources/locale/ru.json',
+    'resources/locale/tr.json'
+]
+
+html = [
+    'resources/html/index.html',
+    'resources/html/404.html',
 ]
 
 setup(
@@ -88,8 +93,9 @@ setup(
         (os.path.join(sys.prefix, 'share/applications'), ['install/onionshare.desktop']),
         (os.path.join(sys.prefix, 'share/appdata'), ['install/onionshare.appdata.xml']),
         (os.path.join(sys.prefix, 'share/pixmaps'), ['install/onionshare80.xpm']),
-        (os.path.join(sys.prefix, 'share/onionshare'), ['version.txt']),
+        (os.path.join(sys.prefix, 'share/onionshare'), ['resources/version.txt']),
         (os.path.join(sys.prefix, 'share/onionshare/images'), images),
-        (os.path.join(sys.prefix, 'share/onionshare/locale'), locale)
+        (os.path.join(sys.prefix, 'share/onionshare/locale'), locale),
+        (os.path.join(sys.prefix, 'share/onionshare/html'), html)
     ]
 )

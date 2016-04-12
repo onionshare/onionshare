@@ -22,8 +22,6 @@ from PyQt5 import QtCore, QtWidgets, QtGui
 
 from onionshare import strings, helpers
 
-from . import common
-
 class FileList(QtWidgets.QListWidget):
     """
     The list of files and folders in the GUI.
@@ -49,7 +47,7 @@ class FileList(QtWidgets.QListWidget):
                 self.setAlignment(QtCore.Qt.AlignCenter)
 
                 if image:
-                    self.setPixmap(QtGui.QPixmap.fromImage(QtGui.QImage(common.get_image_path('drop_files.png'))))
+                    self.setPixmap(QtGui.QPixmap.fromImage(QtGui.QImage(helpers.get_resource_path('images/drop_files.png'))))
                 else:
                     self.setText(strings._('gui_drag_and_drop', True))
                     self.setStyleSheet('color: #999999;')

@@ -33,12 +33,7 @@ def load_strings(default="en"):
     p = helpers.get_platform()
 
     # find locale dir
-    if p == 'Linux':
-        locale_dir = os.path.join(sys.prefix, 'share/onionshare/locale')
-    elif p == 'Darwin' or p == 'Windows':
-        locale_dir = helpers.get_pyinstaller_resource_path('locale')
-    else:
-        locale_dir = ''
+    locale_dir = helpers.get_resource_path('locale')
 
     # load all translations
     translations = {}

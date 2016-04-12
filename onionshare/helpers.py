@@ -26,51 +26,34 @@ def get_platform():
     """
     return platform.system()
 
-def get_onionshare_dir():
+def get_resource_path(filename):
     """
-    Returns the OnionShare directory.
-    """
-    return os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
-
-def get_pyinstaller_resource_path(filename):
-    """
-    Returns the path a resource file in a frozen PyInstall app
-    """
-    # Check if app is "frozen" with pyinstaller
-    # https://pythonhosted.org/PyInstaller/#run-time-information
-    if getattr(sys, 'frozen', False):
-        p = get_platform()
-        if p == 'Darwin':
-            return os.path.join(os.path.join(os.path.dirname(sys._MEIPASS), 'Resources'), filename)
-        elif p == 'Windows':
-            return os.path.join(sys._MEIPASS, filename)
-    else:
-        return os.path.join(os.path.dirname(os.path.dirname(__file__)), filename)
-
-def get_html_path(filename):
-    """
-    Returns the path of the html files.
+    Returns the absolute path of a resource, regardless of whether OnionShare is installed
+    systemwide, and whether regardless of platform
     """
     p = get_platform()
-    if p == 'Darwin' or p == 'Windows':
-        prefix = get_pyinstaller_resource_path('html')
+    if p == 'Linux':
+        # OnionShare is installed systemwide in Linux
+        if len(sys.argv) > 0 and sys.argv[0].startswith('/usr/bin/onionshare'):
+            resources_dir = os.path.join(sys.prefix, 'share/onionshare')
+        # Look for resources directory relative to python file
+        else:
+            resources_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))), 'resources')
     else:
-        prefix = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
-    return os.path.join(prefix, filename)
+        # Check if app is "frozen" with pyinstaller
+        # https://pythonhosted.org/pyinstaller/#run-time-information
+        if getattr(sys, 'frozen', false):
+            resources_dir = sys._meipass
+        else:
+            resources_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))), 'resources')
 
+    return os.path.join(resources_dir, filename)
 
 def get_version():
     """
     Returns the version of OnionShare that is running.
     """
-    p = get_platform()
-    if p == 'Linux':
-        version_filename = os.path.join(sys.prefix, 'share/onionshare/version.txt')
-    elif p == 'Darwin' or p == 'Windows':
-        version_filename = get_pyinstaller_resource_path('version.txt')
-    else:
-        return None
-    return open(version_filename).read().strip()
+    return open(get_resource_path('version.txt')).read().strip()
 
 
 def constant_time_compare(val1, val2):
