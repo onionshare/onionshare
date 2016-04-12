@@ -142,6 +142,10 @@ class OnionShareGui(QtWidgets.QMainWindow):
         Start the onionshare server. This uses multiple threads to start the Tor hidden
         server and the web app.
         """
+        # Reset web counters
+        web.download_count = 0
+        web.error404_count = 0
+
         # start the hidden service
         self.status_bar.showMessage(strings._('gui_starting_server1', True))
         self.app.choose_port()
@@ -214,6 +218,10 @@ class OnionShareGui(QtWidgets.QMainWindow):
             elif event["type"] == web.REQUEST_DOWNLOAD:
                 self.downloads.add_download(event["data"]["id"], web.zip_filesize)
 
+            elif event["type"] == web.REQUEST_RATE_LIMIT:
+                self.stop_server()
+                alert(strings._('error_rate_limit'), QtWidgets.QMessageBox.Critical)
+
             elif event["type"] == web.REQUEST_PROGRESS:
                 self.downloads.update_download(event["data"]["id"], event["data"]["bytes"])
 
@@ -227,7 +235,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
                 self.downloads.cancel_download(event["data"]["id"])
 
             elif event["path"] != '/favicon.ico':
-                self.status_bar.showMessage('{0:s}: {1:s}'.format(strings._('other_page_loaded', True), event["path"]))
+                self.status_bar.showMessage('[#{0:d}] {1:s}: {2:s}'.format(web.error404_count, strings._('other_page_loaded', True), event["path"]))
 
     def copy_url(self):
         """

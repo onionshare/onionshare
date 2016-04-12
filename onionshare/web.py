@@ -74,6 +74,7 @@ REQUEST_DOWNLOAD = 1
 REQUEST_PROGRESS = 2
 REQUEST_OTHER = 3
 REQUEST_CANCELED = 4
+REQUEST_RATE_LIMIT = 4
 q = queue.Queue()
 
 
@@ -95,6 +96,7 @@ def generate_slug():
     slug = helpers.build_slug()
 
 download_count = 0
+error404_count = 0
 
 stay_open = False
 def set_stay_open(new_stay_open):
@@ -290,6 +292,20 @@ def page_not_found(e):
     404 error page.
     """
     add_request(REQUEST_OTHER, request.path)
+
+    global error404_count
+    if request.path != '/favicon.ico':
+        error404_count += 1
+        if error404_count == 20:
+            add_request(REQUEST_RATE_LIMIT, request.path)
+
+            # Learn the port the Flask app is running on, to stop it
+            # http://stackoverflow.com/questions/5085656/how-to-get-the-current-port-number-in-flask
+            port = int(request.host.split(':')[1])
+            stop(port)
+
+            print(strings._('error_rate_limit'))
+
     return render_template_string(open(helpers.get_resource_path('html/404.html')).read())
 
 # shutting down the server only works within the context of flask, so the easiest way to do it is over http
