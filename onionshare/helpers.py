@@ -41,9 +41,9 @@ def get_resource_path(filename):
             resources_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))), 'resources')
     else:
         # Check if app is "frozen" with pyinstaller
-        # https://pythonhosted.org/pyinstaller/#run-time-information
-        if getattr(sys, 'frozen', false):
-            resources_dir = sys._meipass
+        # https://pythonhosted.org/PyInstaller/#run-time-information
+        if getattr(sys, 'frozen', False):
+            resources_dir = sys._MEIPASS
         else:
             resources_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))), 'resources')
 

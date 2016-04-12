@@ -10,10 +10,10 @@ a = Analysis(
     pathex=['.'],
     binaries=None,
     datas=[
-        ('../images/*', 'images'),
-        ('../locale/*', 'locale'),
-        ('../onionshare/*.html', 'html'),
-        ('../version.txt', '.')
+        ('../resources/images/*', 'images'),
+        ('../resources/locale/*', 'locale'),
+        ('../resources/html/*', 'html'),
+        ('../resources/version.txt', '.')
     ],
     hiddenimports=[],
     hookspath=[],
