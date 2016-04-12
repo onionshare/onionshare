@@ -94,7 +94,10 @@ setup(
         (os.path.join(sys.prefix, 'share/applications'), ['install/onionshare.desktop']),
         (os.path.join(sys.prefix, 'share/appdata'), ['install/onionshare.appdata.xml']),
         (os.path.join(sys.prefix, 'share/pixmaps'), ['install/onionshare80.xpm']),
-        (os.path.join(sys.prefix, 'share/onionshare'), ['resources/version.txt']),
+        (os.path.join(sys.prefix, 'share/onionshare'), [
+            'resources/version.txt',
+            'resources/wordlist.txt'
+        ]),
         (os.path.join(sys.prefix, 'share/onionshare/images'), images),
         (os.path.join(sys.prefix, 'share/onionshare/locale'), locale),
         (os.path.join(sys.prefix, 'share/onionshare/html'), html)
