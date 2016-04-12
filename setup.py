@@ -83,7 +83,7 @@ setup(
     keywords='onion, share, onionshare, tor, anonymous, web server',
     packages=['onionshare', 'onionshare_gui'],
     include_package_data=True,
-    scripts=['install/linux_scripts/onionshare', 'install/linux_scripts/onionshare-gui'],
+    scripts=['install/scripts/onionshare', 'install/scripts/onionshare-gui'],
     data_files=[
         (os.path.join(sys.prefix, 'share/applications'), ['install/onionshare.desktop']),
         (os.path.join(sys.prefix, 'share/appdata'), ['install/onionshare.appdata.xml']),

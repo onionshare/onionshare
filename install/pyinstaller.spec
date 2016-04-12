@@ -6,7 +6,7 @@ system = platform.system()
 block_cipher = None
 
 a = Analysis(
-    ['linux_scripts/onionshare-gui'],
+    ['scripts/onionshare-gui'],
     pathex=['.'],
     binaries=None,
     datas=[
