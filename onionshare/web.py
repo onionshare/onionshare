@@ -92,7 +92,7 @@ def add_request(request_type, path, data=None):
 slug = None
 def generate_slug():
     global slug
-    slug = helpers.random_string(16)
+    slug = helpers.build_slug()
 
 download_count = 0
 

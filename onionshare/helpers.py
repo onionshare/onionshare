@@ -18,6 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import sys, os, inspect, hashlib, base64, hmac, platform, zipfile, tempfile, math, time
+from random import SystemRandom
 
 
 def get_platform():
@@ -25,6 +26,7 @@ def get_platform():
     Returns the platform OnionShare is running on.
     """
     return platform.system()
+
 
 def get_resource_path(filename):
     """
@@ -48,6 +50,7 @@ def get_resource_path(filename):
             resources_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))), 'resources')
 
     return os.path.join(resources_dir, filename)
+
 
 def get_version():
     """
@@ -86,6 +89,17 @@ def random_string(num_bytes, output_len=None):
     if not output_len:
         return s
     return s[:output_len]
+
+
+def build_slug():
+    """
+    Returns a random string made from two words from the wordlist, such as "deter-trig".
+    """
+    wordlist = open(get_resource_path('wordlist.txt')).read().split('\n')
+    wordlist.remove('')
+
+    r = SystemRandom()
+    return '-'.join(r.choice(wordlist) for x in range(2))
 
 
 def human_readable_filesize(b):

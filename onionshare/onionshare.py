@@ -169,6 +169,9 @@ def main(cwd=None):
             ready = app.hs.wait_for_hs(app.onion_host)
             if not ready:
                 sys.exit()
+        else:
+            # Wait for web.generate_slug() to finish running
+            time.sleep(0.2)
 
         print(strings._("give_this_url"))
         print('http://{0:s}/{1:s}'.format(app.onion_host, web.slug))
