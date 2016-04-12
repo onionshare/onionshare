@@ -36,13 +36,16 @@ def get_pyinstaller_resource_path(filename):
     """
     Returns the path a resource file in a frozen PyInstall app
     """
-    # Resource path from frozen PyInstaller app
+    # Check if app is "frozen" with pyinstaller
     # https://pythonhosted.org/PyInstaller/#run-time-information
-    p = get_platform()
-    if p == 'Darwin':
-        return os.path.join(os.path.join(os.path.dirname(sys._MEIPASS), 'Resources'), filename)
-    elif p == 'Windows':
-        return os.path.join(sys._MEIPASS, filename)
+    if getattr(sys, 'frozen', False):
+        p = get_platform()
+        if p == 'Darwin':
+            return os.path.join(os.path.join(os.path.dirname(sys._MEIPASS), 'Resources'), filename)
+        elif p == 'Windows':
+            return os.path.join(sys._MEIPASS, filename)
+    else:
+        return os.path.join(os.path.dirname(os.path.dirname(__file__)), filename)
 
 def get_html_path(filename):
     """
