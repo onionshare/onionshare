@@ -144,6 +144,11 @@ def check_slug_candidate(slug_candidate, slug_compare = None):
     if not helpers.constant_time_compare(slug_compare.encode('ascii'), slug_candidate.encode('ascii')):
         abort(404)
 
+
+# If "Stop sharing automatically" is checked (stay_open == False), only allow
+# one download at a time.
+download_in_progress = False
+
 @app.route("/<slug_candidate>")
 def index(slug_candidate):
     """
@@ -152,14 +157,22 @@ def index(slug_candidate):
     check_slug_candidate(slug_candidate)
 
     add_request(REQUEST_LOAD, request.path)
+
+    # Deny new downloads if "Stop sharing automatically" is checked and there is
+    # currently a download
+    global stay_open, download_in_progress
+    deny_download = not stay_open and download_in_progress
+    if deny_download:
+        return render_template_string(open(helpers.get_resource_path('html/denied.html')).read())
+
+    # If download is allowed to continue, serve download page
     return render_template_string(
         open(helpers.get_resource_path('html/index.html')).read(),
         slug=slug,
         file_info=file_info,
         filename=os.path.basename(zip_filename),
         filesize=zip_filesize,
-        filesize_human=helpers.human_readable_filesize(zip_filesize)
-    )
+        filesize_human=helpers.human_readable_filesize(zip_filesize))
 
 # If the client closes the OnionShare window while a download is in progress,
 # it should immediately stop serving the file. The client_cancel global is
@@ -172,6 +185,13 @@ def download(slug_candidate):
     Download the zip file.
     """
     check_slug_candidate(slug_candidate)
+
+    # Deny new downloads if "Stop sharing automatically" is checked and there is
+    # currently a download
+    global stay_open, download_in_progress
+    deny_download = not stay_open and download_in_progress
+    if deny_download:
+        return render_template_string(open(helpers.get_resource_path('html/denied.html')).read())
 
     global download_count
 
@@ -194,6 +214,11 @@ def download(slug_candidate):
         # The user hasn't canceled the download
         global client_cancel
         client_cancel = False
+
+        # Starting a new download
+        global stay_open, download_in_progress
+        if not stay_open:
+            download_in_progress = True
 
         chunk_size = 102400  # 100kb
 
@@ -237,7 +262,11 @@ def download(slug_candidate):
         if helpers.get_platform() != 'Darwin':
             sys.stdout.write("\n")
 
-        # download is finished, close the server
+        # Download is finished
+        if not stay_open:
+            download_in_progress = False
+
+        # Close the server, if necessary
         if not stay_open and not canceled:
             print(strings._("closing_automatically"))
             if shutdown_func is None:

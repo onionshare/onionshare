@@ -73,7 +73,8 @@ locale = [
 
 html = [
     'resources/html/index.html',
-    'resources/html/404.html',
+    'resources/html/denied.html',
+    'resources/html/404.html'
 ]
 
 setup(
