@@ -19,7 +19,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-import os, sys, platform
+import os, sys
 
 try:
     from setuptools import setup
@@ -33,8 +33,7 @@ def file_list(path):
             files.append(os.path.join(path, filename))
     return files
 
-system = platform.system()
-version = open('version').read().strip()
+version = open('version.txt').read().strip()
 
 description = (
     """OnionShare lets you securely and anonymously share a file of any size with someone. """
@@ -72,51 +71,25 @@ locale = [
     'locale/tr.json'
 ]
 
-if system == 'Linux':
-    setup(
-        name='onionshare',
-        version=version,
-        description=description,
-        long_description=long_description,
-        author='Micah Lee',
-        author_email='micah@micahflee.com',
-        url='https://github.com/micahflee/onionshare',
-        license="GPL v3",
-        keywords='onion, share, onionshare, tor, anonymous, web server',
-        packages=['onionshare', 'onionshare_gui'],
-        include_package_data=True,
-        scripts=['install/linux_scripts/onionshare', 'install/linux_scripts/onionshare-gui'],
-        data_files=[
-            (os.path.join(sys.prefix, 'share/applications'), ['install/onionshare.desktop']),
-            (os.path.join(sys.prefix, 'share/appdata'), ['install/onionshare.appdata.xml']),
-            (os.path.join(sys.prefix, 'share/pixmaps'), ['install/onionshare80.xpm']),
-            (os.path.join(sys.prefix, 'share/onionshare'), ['version']),
-            (os.path.join(sys.prefix, 'share/onionshare/images'), images),
-            (os.path.join(sys.prefix, 'share/onionshare/locale'), locale)
-        ]
-    )
-
-elif system == 'Windows':
-    import py2exe
-    setup(
-        name='OnionShare',
-        version=version,
-        description=description,
-        long_description=long_description,
-        data_files=[
-            ('images', images),
-            ('locale', locale),
-            ('html', ['onionshare/index.html', 'onionshare/404.html']),
-            ('', ['version', 'install/license.txt', 'install/onionshare.ico']),
-            ('platforms', ['C:\\Python34\\Lib\\site-packages\\PyQt5\\plugins\\platforms\\qwindows.dll'])
-        ],
-        windows=['install/windows_scripts/onionshare.py'],
-        options={
-            'py2exe': {
-                'includes': [
-                    'PyQt5', 'PyQt5.QtCore', 'PyQt5.QtGui', 'PyQt5.QtWidgets',
-                    'jinja2', 'jinja2.ext', 'sip']
-            }
-        },
-        setup_requires=['py2exe', 'flask', 'stem'],
-    )
+setup(
+    name='onionshare',
+    version=version,
+    description=description,
+    long_description=long_description,
+    author='Micah Lee',
+    author_email='micah@micahflee.com',
+    url='https://github.com/micahflee/onionshare',
+    license="GPL v3",
+    keywords='onion, share, onionshare, tor, anonymous, web server',
+    packages=['onionshare', 'onionshare_gui'],
+    include_package_data=True,
+    scripts=['install/linux_scripts/onionshare', 'install/linux_scripts/onionshare-gui'],
+    data_files=[
+        (os.path.join(sys.prefix, 'share/applications'), ['install/onionshare.desktop']),
+        (os.path.join(sys.prefix, 'share/appdata'), ['install/onionshare.appdata.xml']),
+        (os.path.join(sys.prefix, 'share/pixmaps'), ['install/onionshare80.xpm']),
+        (os.path.join(sys.prefix, 'share/onionshare'), ['version']),
+        (os.path.join(sys.prefix, 'share/onionshare/images'), images),
+        (os.path.join(sys.prefix, 'share/onionshare/locale'), locale)
+    ]
+)

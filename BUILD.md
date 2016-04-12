@@ -83,13 +83,11 @@ These instructions include adding folders to the path in Windows. To do this, go
 
 First, download and install the 32-bit (x86) version of Python 3.4.x from https://www.python.org/downloads/windows/. You need 3.4 instead of 3.5 because PyQt5 was built with 3.4. Add `C:\Python34` and `C:\Python34\Scripts` to the path.
 
-Open a command prompt and install some dependencies with pip: `pip install flask stem py2exe`
+Open a command prompt and install some dependencies with pip: `pip3 install pyinstaller pypiwin32 flask stem`
 
 Download and install Qt5 from https://www.qt.io/download-open-source/. I downloaded `qt-unified-windows-x86-2.0.2-2-online.exe`. There's no need to login to a Qt account during installation. Make sure you install the latest Qt 5.x.
 
 Download and install the latest PyQt5 for 32-bit Windows from https://www.riverbankcomputing.com/software/pyqt/download5. I downloaded `PyQt5-5.5.1-gpl-Py3.4-Qt5.5.1-x32.exe`.
-
-Download and install the latest 32-bit pywin32 binary for Python 3.4 from http://sourceforge.net/projects/pywin32/. I downloaded `pywin32-220.win32-py3.4.exe`.
 
 Download and install the [Microsoft Visual C++ 2008 Redistributable Package (x86)](http://www.microsoft.com/en-us/download/details.aspx?id=29).
 

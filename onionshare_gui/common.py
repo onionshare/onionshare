@@ -43,8 +43,8 @@ def get_image_path(filename):
     p = helpers.get_platform()
     if p == 'Linux':
         prefix = os.path.join(sys.prefix, 'share/onionshare/images')
-    elif p == 'Darwin':
-        prefix = locale_dir = helpers.get_osx_resource_path('images')
+    elif p == 'Darwin' or p == 'Windows':
+        prefix = locale_dir = helpers.get_pyinstaller_resource_path('images')
     else:
-        prefix = os.path.join(os.path.dirname(get_onionshare_gui_dir()), 'images')
+        return None
     return os.path.join(prefix, filename)

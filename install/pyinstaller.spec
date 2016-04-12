@@ -1,16 +1,19 @@
 # -*- mode: python -*-
 
+import platform
+system = platform.system()
+
 block_cipher = None
 
 a = Analysis(
-    ['osx_scripts/onionshare-gui'],
+    ['linux_scripts/onionshare-gui'],
     pathex=['.'],
     binaries=None,
     datas=[
-      ('../images/*', 'images'),
-      ('../locale/*', 'locale'),
-      ('../onionshare/*.html', 'html'),
-      ('../version', '.')
+        ('../images/*', 'images'),
+        ('../locale/*', 'locale'),
+        ('../onionshare/*.html', 'html'),
+        ('../version.txt', '.')
     ],
     hiddenimports=[],
     hookspath=[],
@@ -28,11 +31,11 @@ exe = EXE(
     pyz,
     a.scripts,
     exclude_binaries=True,
-    name='onionshare-gui',
+    name='onionshare',
     debug=False,
     strip=False,
     upx=True,
-    console=False)
+    console=True)
 
 coll = COLLECT(
     exe,
@@ -41,13 +44,15 @@ coll = COLLECT(
     a.datas,
     strip=False,
     upx=True,
-    name='onionshare-gui')
+    name='onionshare')
 
-app = BUNDLE(
-    coll,
-    name='OnionShare.app',
-    icon='install/onionshare.icns',
-    bundle_identifier='com.micahflee.onionshare',
-    info_plist={
-        'NSHighResolutionCapable': 'True'
-    })
+if system == 'Darwin':
+    app = BUNDLE(
+        coll,
+        name='OnionShare.app',
+        icon='install/onionshare.icns',
+        bundle_identifier='com.micahflee.onionshare',
+        info_plist={
+            'NSHighResolutionCapable': 'True'
+        }
+    )

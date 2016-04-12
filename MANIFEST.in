@@ -1,7 +1,7 @@
 include LICENSE
 include README.md
 include BUILD.md
-include version
+include version.txt
 include onionshare/index.html
 include onionshare/404.html
 include onionshare/strings.json

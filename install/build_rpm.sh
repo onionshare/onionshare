@@ -3,7 +3,7 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )"
 cd $DIR
 
-VERSION=`cat version`
+VERSION=`cat version.txt`
 
 # clean up from last build
 rm -r build dist >/dev/null 2>&1

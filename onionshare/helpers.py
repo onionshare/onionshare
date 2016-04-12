@@ -30,30 +30,29 @@ def get_onionshare_dir():
     """
     Returns the OnionShare directory.
     """
-    if get_platform() == 'Darwin':
-        onionshare_dir = os.path.dirname(__file__)
-    else:
-        onionshare_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
-    return onionshare_dir
+    return os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 
-def get_osx_resource_path(filename):
+def get_pyinstaller_resource_path(filename):
     """
     Returns the path a resource file in a frozen PyInstall app
     """
-    if get_platform() == 'Darwin':
-        # Resource path from frozen PyInstaller app
-        # https://pythonhosted.org/PyInstaller/#run-time-information
+    # Resource path from frozen PyInstaller app
+    # https://pythonhosted.org/PyInstaller/#run-time-information
+    p = get_platform()
+    if p == 'Darwin':
         return os.path.join(os.path.join(os.path.dirname(sys._MEIPASS), 'Resources'), filename)
+    elif p == 'Windows':
+        return os.path.join(sys._MEIPASS, filename)
 
 def get_html_path(filename):
     """
     Returns the path of the html files.
     """
     p = get_platform()
-    if p == 'Darwin':
-        prefix = get_osx_resource_path('html')
+    if p == 'Darwin' or p == 'Windows':
+        prefix = get_pyinstaller_resource_path('html')
     else:
-        prefix = get_onionshare_dir()
+        prefix = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
     return os.path.join(prefix, filename)
 
 
@@ -63,11 +62,11 @@ def get_version():
     """
     p = get_platform()
     if p == 'Linux':
-        version_filename = os.path.join(sys.prefix, 'share/onionshare/version')
-    elif p == 'Darwin':
-        version_filename = get_osx_resource_path('version')
+        version_filename = os.path.join(sys.prefix, 'share/onionshare/version.txt')
+    elif p == 'Darwin' or p == 'Windows':
+        version_filename = get_pyinstaller_resource_path('version.txt')
     else:
-        version_filename = os.path.join(os.path.dirname(get_onionshare_dir()), 'version')
+        return None
     return open(version_filename).read().strip()
 
 

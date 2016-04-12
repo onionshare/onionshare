@@ -9,7 +9,7 @@ rm -rf $ROOT/dist &>/dev/null 2>&1
 
 # build the .app
 echo Building OnionShare.app
-pyinstaller install/pyinstaller-osx.spec
+pyinstaller install/pyinstaller.spec
 
 if [ "$1" = "--sign" ]; then
   SIGNING_IDENTITY_APP="3rd Party Mac Developer Application: Micah Lee"

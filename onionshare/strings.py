@@ -35,10 +35,10 @@ def load_strings(default="en"):
     # find locale dir
     if p == 'Linux':
         locale_dir = os.path.join(sys.prefix, 'share/onionshare/locale')
-    elif p == 'Darwin':
-        locale_dir = helpers.get_osx_resource_path('locale')
+    elif p == 'Darwin' or p == 'Windows':
+        locale_dir = helpers.get_pyinstaller_resource_path('locale')
     else:
-        locale_dir = os.path.join(os.path.dirname(helpers.get_onionshare_dir()), 'locale')
+        locale_dir = ''
 
     # load all translations
     translations = {}
