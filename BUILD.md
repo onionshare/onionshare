@@ -110,7 +110,7 @@ If you want to sign binaries with Authenticode:
 
 ### To make a .exe:
 
-* Open a command prompt, cd into the onionshare directory, and type: `python setup.py py2exe`. `onionshare.exe` and all of its supporting files will get created inside the `dist` folder.
+* Open a command prompt, cd into the onionshare directory, and type: `pyinstaller install\pyinstaller.spec -y`. `onionshare.exe` and all of its supporting files will get created inside the `dist\onionshare` folder.
 
 ### To build the installer:
 
