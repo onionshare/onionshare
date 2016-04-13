@@ -13,7 +13,8 @@ a = Analysis(
         ('../resources/images/*', 'images'),
         ('../resources/locale/*', 'locale'),
         ('../resources/html/*', 'html'),
-        ('../resources/version.txt', '.')
+        ('../resources/version.txt', '.'),
+        ('../resources/wordlist.txt', '.')
     ],
     hiddenimports=[],
     hookspath=[],
