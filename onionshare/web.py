@@ -298,12 +298,7 @@ def page_not_found(e):
         error404_count += 1
         if error404_count == 20:
             add_request(REQUEST_RATE_LIMIT, request.path)
-
-            # Learn the port the Flask app is running on, to stop it
-            # http://stackoverflow.com/questions/5085656/how-to-get-the-current-port-number-in-flask
-            port = int(request.host.split(':')[1])
-            stop(port)
-
+            force_shutdown()
             print(strings._('error_rate_limit'))
 
     return render_template_string(open(helpers.get_resource_path('html/404.html')).read())
@@ -315,17 +310,22 @@ shutdown_slug = helpers.random_string(16)
 @app.route("/<slug_candidate>/shutdown")
 def shutdown(slug_candidate):
     """
-    Stop the flask web server.
+    Stop the flask web server, from the context of an http request.
     """
     check_slug_candidate(slug_candidate, shutdown_slug)
+    force_shutdown()
+    return ""
 
+
+def force_shutdown():
+    """
+    Stop the flask web server, from the context of the flask app.
+    """
     # shutdown the flask service
     func = request.environ.get('werkzeug.server.shutdown')
     if func is None:
         raise RuntimeError('Not running with the Werkzeug Server')
     func()
-
-    return ""
 
 
 def start(port, stay_open=False, transparent_torification=False):
