@@ -2,8 +2,10 @@
 
 ## 0.9
 
-* Slugs are now shorter and human-readable, with rate limiting to URL guessing
+* Slugs are now shorter and human-readable, with rate limiting to prevent URL guessing
 * Uses a new slug each time the server restarts
+* "Stop sharing automatically" enforces only one download
+* Users get asked if they're sure they want to close OnionShare while server is running
 * Added estimated time remaining progress indicator
 * Fixed frozen window while waiting for hidden service to start
 * Displays version number in both GUI and CLI
