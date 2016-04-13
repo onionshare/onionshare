@@ -5,8 +5,8 @@
 # change these with each release
 !define INSTALLSIZE 60866
 !define VERSIONMAJOR 0
-!define VERSIONMINOR 8
-!define VERSIONSTRING "0.8.1"
+!define VERSIONMINOR 9
+!define VERSIONSTRING "0.9"
 
 RequestExecutionLevel admin
 

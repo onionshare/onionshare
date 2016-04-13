@@ -1,5 +1,18 @@
 # OnionShare Changelog
 
+## 0.9
+
+* Slugs are now shorter and human-readable, with rate limiting to URL guessing
+* Uses a new slug each time the server restarts
+* Added estimated time remaining progress indicator
+* Fixed frozen window while waiting for hidden service to start
+* Displays version number in both GUI and CLI
+* Closing window causes downloads to stop immediately
+* Web server listens in ports 17600-17650, for future Tails support
+* Updated translations
+* Ported from Python 2 to Python 3 and from Qt4 to Qt5
+* Ported from py2app and py2exe to PyInstaller
+
 ## 0.8.1
 
 * Fixed crash in Windows 7
