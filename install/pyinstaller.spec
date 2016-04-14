@@ -3,6 +3,8 @@
 import platform
 system = platform.system()
 
+version = open('resources/version.txt').read().strip()
+
 block_cipher = None
 
 a = Analysis(
@@ -54,6 +56,7 @@ if system == 'Darwin':
         icon='install/onionshare.icns',
         bundle_identifier='com.micahflee.onionshare',
         info_plist={
+            'CFBundleShortVersionString': version,
             'NSHighResolutionCapable': 'True'
         }
     )
