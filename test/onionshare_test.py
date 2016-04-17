@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import socket
 from onionshare import OnionShare
-from nose import with_setup
 
 
 def test_choose_port_returns_a_port_number():

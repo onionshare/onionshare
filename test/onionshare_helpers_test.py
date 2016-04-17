@@ -17,9 +17,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 from onionshare import helpers
-from nose import with_setup
 
-import test_helpers
 
 def test_get_platform_returns_platform_system():
     """get_platform() returns platform.system() when ONIONSHARE_PLATFORM is not defined"""

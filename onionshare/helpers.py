@@ -17,7 +17,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-import sys, os, inspect, hashlib, base64, hmac, platform, zipfile, tempfile, math, time
+import sys, os, inspect, hashlib, base64, platform, zipfile, tempfile, math, time
 from random import SystemRandom
 
 
