@@ -29,7 +29,7 @@ You can set up your development environment to build OnionShare yourself by foll
 
 Before you can share files, you need to open [Tor Browser](https://www.torproject.org/) in the background. This will provide the Tor service that OnionShare uses to start the hidden service.
 
-Open OnionShare and drag and drop files and folders you wish to share, and click Start Sharing. It will show you .onion URL such as `http://asxmi4q6i7pajg2b.onion/egg-cain` and copy it to your clipboard. This is the secret URL that can be used to download the file you're sharing. If you'd like multiple people to be able to download this file, uncheck the "close automatically" checkbox.
+Open OnionShare and drag and drop files and folders you wish to share, and click Start Sharing. It will show you a .onion URL such as `http://asxmi4q6i7pajg2b.onion/egg-cain` and copy it to your clipboard. This is the secret URL that can be used to download the file you're sharing. If you'd like multiple people to be able to download this file, uncheck the "close automatically" checkbox.
 
 Send this URL to the person you're trying to send the files to. If the files you're sending aren't secret, you can use normal means of sending the URL: emailing it, posting it to Facebook or Twitter, etc. If you're trying to send secret files then it's important to send this URL securely.
 
