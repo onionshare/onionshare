@@ -49,7 +49,7 @@ brew install python3 pyqt5 qt5
 Install some dependencies using pip3:
 
 ```sh
-sudo pip3 install pyinstaller flask stem
+sudo pip3 install pyinstaller==3.1.1 flask stem
 ```
 
 Get the source code:
@@ -83,7 +83,7 @@ These instructions include adding folders to the path in Windows. To do this, go
 
 First, download and install the 32-bit (x86) version of Python 3.4.x from https://www.python.org/downloads/windows/. You need 3.4 instead of 3.5 because PyQt5 was built with 3.4. Add `C:\Python34` and `C:\Python34\Scripts` to the path.
 
-Open a command prompt and install some dependencies with pip: `pip3 install pyinstaller pypiwin32 flask stem`
+Open a command prompt and install some dependencies with pip: `pip3 install pyinstaller==3.1.1 pypiwin32 flask stem`
 
 Download and install Qt5 from https://www.qt.io/download-open-source/. I downloaded `qt-unified-windows-x86-2.0.2-2-online.exe`. There's no need to login to a Qt account during installation. Make sure you install the latest Qt 5.x.
 
