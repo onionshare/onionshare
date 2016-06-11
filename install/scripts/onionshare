@@ -23,7 +23,7 @@ import sys, os
 try:
     import onionshare
 except ImportError:
-    sys.path.append(os.path.abspath(os.path.dirname(__file__)+'/..'))
+    sys.path.append(os.path.abspath(os.path.dirname(__file__)+'/../..'))
     import onionshare
 
 onionshare.main()
