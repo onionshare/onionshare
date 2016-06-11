@@ -11,10 +11,23 @@ cd onionshare
 
 *For .deb-based distros (like Debian, Ubuntu, Linux Mint):*
 
-Note that python3-stem appears in Debian wheezy and newer, and it appears in Ubuntu 13.10 and newer. Older versions of Debian and Ubuntu aren't supported.
+Then install the needed dependencies:
 
 ```sh
-sudo apt-get install -y build-essential fakeroot python3-all python3-stdeb python3-flask python3-stem python3-pyqt5 dh-python
+sudo apt-get install -y python3-flask python3-stem python3-pyqt5
+```
+
+After that you can try both the CLI and the GUI version of OnionShare:
+
+```sh
+./install/scripts/onionshare
+./install/scripts/onionshare-gui
+```
+
+A script to build a .deb package and install OnionShare easily is also provided for your convenience:
+
+```sh
+sudo apt-get install -y build-essential fakeroot python3-all python3-stdeb dh-python
 ./install/build_deb.sh
 sudo dpkg -i deb_dist/onionshare_*.deb
 ```
