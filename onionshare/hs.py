@@ -102,16 +102,7 @@ class HS(object):
                 self.hidserv_dir = self.hidserv_dir.replace('\\', '/')
 
             else:
-                path = '/tmp/onionshare'
-                try:
-                    if not os.path.exists(path):
-                        os.makedirs(path, 0o700)
-                except:
-                    raise HSDirError(strings._("error_hs_dir_cannot_create").format(path))
-                if not os.access(path, os.W_OK):
-                    raise HSDirError(strings._("error_hs_dir_not_writable").format(path))
-
-                self.hidserv_dir = tempfile.mkdtemp(dir=path)
+                self.hidserv_dir = tempfile.mkdtemp(suffix='onionshare',dir='/tmp')
 
             self.cleanup_filenames.append(self.hidserv_dir)
 
@@ -233,17 +224,17 @@ class HS(object):
                 '80 127.0.0.1:33302'
             ],
             'HiddenServiceDir': [
-                '/tmp/onionshare/tmplTfZZu',
-                '/tmp/onionshare/tmpchDai3'
+                '/tmp/onionsharelTfZZu',
+                '/tmp/onionsharechDai3'
             ]
         }
 
 
         Output will look like this:
         [
-            ('HiddenServiceDir', '/tmp/onionshare/tmplTfZZu'),
+            ('HiddenServiceDir', '/tmp/onionsharelTfZZu'),
             ('HiddenServicePort', '80 127.0.0.1:47906'),
-            ('HiddenServiceDir', '/tmp/onionshare/tmpchDai3'),
+            ('HiddenServiceDir', '/tmp/onionsharechDai3'),
             ('HiddenServicePort', '80 127.0.0.1:33302')
         ]
         """
