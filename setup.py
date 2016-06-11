@@ -100,6 +100,7 @@ setup(
         ]),
         (os.path.join(sys.prefix, 'share/onionshare/images'), images),
         (os.path.join(sys.prefix, 'share/onionshare/locale'), locale),
-        (os.path.join(sys.prefix, 'share/onionshare/html'), html)
+        (os.path.join(sys.prefix, 'share/onionshare/html'), html),
+        ('/usr/share/nautilus-python/extensions/', ['install/scripts/onionshare-nautilus.py']),
     ]
 )
