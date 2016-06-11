@@ -18,7 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-import os, sys, subprocess, time, argparse, inspect, shutil, socket, threading
+import os, sys, time, argparse, shutil, socket, threading
 
 from . import strings, helpers, web, hs
 
