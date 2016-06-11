@@ -14,7 +14,7 @@ cd onionshare
 Then install the needed dependencies:
 
 ```sh
-sudo apt-get install -y python3-flask python3-stem python3-pyqt5
+sudo apt-get install -y python3-flask python3-stem python3-pyqt5 python-nautilus
 ```
 
 After that you can try both the CLI and the GUI version of OnionShare:
@@ -27,7 +27,7 @@ After that you can try both the CLI and the GUI version of OnionShare:
 A script to build a .deb package and install OnionShare easily is also provided for your convenience:
 
 ```sh
-sudo apt-get install -y build-essential fakeroot python3-all python3-stdeb dh-python
+sudo apt-get install -y build-essential fakeroot python3-all python3-stdeb dh-python python-nautilus
 ./install/build_deb.sh
 sudo dpkg -i deb_dist/onionshare_*.deb
 ```
@@ -36,7 +36,7 @@ Note that OnionShare uses stdeb to generate Debian packages, and `python3-stdeb`
 *For .rpm-based distros (Red Hat, Fedora, CentOS):*
 
 ```sh
-sudo sudo dnf install -y rpm-build python3-flask python3-stem python3-qt5
+sudo sudo dnf install -y rpm-build python3-flask python3-stem python3-qt5 nautilus-python
 ./install/build_rpm.sh
 sudo yum install -y dist/onionshare-*.rpm
 ```
