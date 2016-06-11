@@ -130,7 +130,7 @@ class HS(object):
         """
         This function is only required when using non-ephemeral hidden services. After
         creating a hidden service, continually attempt to connect to it until it
-        successfully connects..
+        successfully connects.
         """
         # legacy only, this function is no longer required with ephemeral hidden services
         print(strings._('wait_for_hs'))
