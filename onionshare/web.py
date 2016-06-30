@@ -97,7 +97,7 @@ def generate_slug():
 download_count = 0
 error404_count = 0
 
-stay_open = False
+stay_open = 0
 def set_stay_open(new_stay_open):
     """
     Set stay_open variable.
@@ -162,7 +162,7 @@ def index(slug_candidate):
     # Deny new downloads if "Stop sharing automatically" is checked and there is
     # currently a download
     global stay_open, download_in_progress
-    deny_download = not stay_open and download_in_progress
+    deny_download = (stay_open == 0) and download_in_progress
     if deny_download:
         return render_template_string(open(helpers.get_resource_path('html/denied.html')).read())
 
@@ -268,7 +268,7 @@ def download(slug_candidate):
             download_in_progress = False
 
         # Close the server, if necessary
-        if not stay_open and not canceled:
+        if (stay_open == 0) and not canceled:
             print(strings._("closing_automatically"))
             if shutdown_func is None:
                 raise RuntimeError('Not running with the Werkzeug Server')
@@ -327,7 +327,7 @@ def force_shutdown():
     func()
 
 
-def start(port, stay_open=False, transparent_torification=False):
+def start(port, stay_open=0, transparent_torification=False):
     """
     Start the flask web server.
     """

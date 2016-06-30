@@ -27,7 +27,7 @@ class OnionShare(object):
     OnionShare is the main application class. Pass in options and run
     start_hidden_service and it will do the magic.
     """
-    def __init__(self, debug=False, local_only=False, stay_open=False, transparent_torification=False):
+    def __init__(self, debug=False, local_only=False, stay_open=0, transparent_torification=False):
         self.port = None
         self.hs = None
         self.hidserv_dir = None
@@ -113,7 +113,7 @@ def main(cwd=None):
     # parse arguments
     parser = argparse.ArgumentParser()
     parser.add_argument('--local-only', action='store_true', dest='local_only', help=strings._("help_local_only"))
-    parser.add_argument('--stay-open', action='store_true', dest='stay_open', help=strings._("help_stay_open"))
+    parser.add_argument('--stay-open', dest='stay_open', default=0, type=int, help=strings._("help_stay_open"))
     parser.add_argument('--transparent', action='store_true', dest='transparent_torification', help=strings._("help_transparent_torification"))
     parser.add_argument('--debug', action='store_true', dest='debug', help=strings._("help_debug"))
     parser.add_argument('filename', metavar='filename', nargs='+', help=strings._('help_filename'))
@@ -122,12 +122,12 @@ def main(cwd=None):
     filenames = args.filename
     for i in range(len(filenames)):
         filenames[i] = os.path.abspath(filenames[i])
-
+    
     local_only = bool(args.local_only)
     debug = bool(args.debug)
-    stay_open = bool(args.stay_open)
+    stay_open = int(args.stay_open)
     transparent_torification = bool(args.transparent_torification)
-
+   
     # validation
     valid = True
     for filename in filenames:
