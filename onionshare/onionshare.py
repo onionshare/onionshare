@@ -163,6 +163,10 @@ def main(cwd=None):
     t.daemon = True
     t.start()
 
+    if app.stay_open > 0:
+        cas = helpers.close_after_seconds(app.stay_open) # start timing thread
+        cas.start()            
+
     try:  # Trap Ctrl-C
         # wait for hs, only if using old version of tor
         if not app.local_only:
@@ -178,8 +182,11 @@ def main(cwd=None):
         print('')
         print(strings._("ctrlc_to_stop"))
 
-        # wait for app to close
+        # wait for app to close or time to run out
         while t.is_alive():
+            if not cas.is_alive():
+                print(strings._("close_on_timeout"))
+                break 
             # t.join() can't catch KeyboardInterrupt in such as Ubuntu
             t.join(0.5)
     except KeyboardInterrupt:

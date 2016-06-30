@@ -17,7 +17,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-import sys, os, inspect, hashlib, base64, platform, zipfile, tempfile, math, time
+import sys, os, inspect, hashlib, base64, platform, zipfile, tempfile, math, time, threading
 from random import SystemRandom
 
 
@@ -207,3 +207,13 @@ class ZipWriter(object):
         Close the zip archive.
         """
         self.z.close()
+
+class close_after_seconds(threading.Thread):
+    def __init__(self, time):
+        threading.Thread.__init__(self)
+        self.setDaemon(True)
+        self.time = time
+    
+    def run(self):
+        time.sleep(self.time)
+        return 1
