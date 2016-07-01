@@ -215,5 +215,5 @@ class close_after_seconds(threading.Thread):
         self.time = time
     
     def run(self):
-        time.sleep(self.time)
+        time.sleep(3600*self.time) # seconds -> hours
         return 1

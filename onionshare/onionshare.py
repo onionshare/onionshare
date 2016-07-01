@@ -159,13 +159,9 @@ def main(cwd=None):
         print('')
 
     # start onionshare service in new thread
-    t = threading.Thread(target=web.start, args=(app.port, app.stay_open, app.transparent_torification))
-    t.daemon = True
-    t.start()
-
-    if app.stay_open > 0:
-        cas = helpers.close_after_seconds(app.stay_open) # start timing thread
-        cas.start()            
+    t_web = threading.Thread(target=web.start, args=(app.port, app.stay_open, app.transparent_torification))
+    t_web.daemon = True
+    t_web.start()
 
     try:  # Trap Ctrl-C
         # wait for hs, only if using old version of tor
@@ -177,18 +173,22 @@ def main(cwd=None):
             # Wait for web.generate_slug() to finish running
             time.sleep(0.2)
 
+        if app.stay_open > 0:
+            t_cas = helpers.close_after_seconds(app.stay_open) # start timing thread
+            t_cas.start()
+
         print(strings._("give_this_url"))
         print('http://{0:s}/{1:s}'.format(app.onion_host, web.slug))
         print('')
         print(strings._("ctrlc_to_stop"))
 
         # wait for app to close or time to run out
-        while t.is_alive():
-            if not cas.is_alive():
+        while t_web.is_alive():
+            if not t_cas.is_alive():
                 print(strings._("close_on_timeout"))
                 break 
             # t.join() can't catch KeyboardInterrupt in such as Ubuntu
-            t.join(0.5)
+            t_web.join(0.5)
     except KeyboardInterrupt:
         web.stop(app.port)
     finally:
