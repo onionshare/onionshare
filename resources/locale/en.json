@@ -20,7 +20,7 @@
     "error_tails_unknown_root": "Unknown error with Tails root process",
     "help_tails_port": "Tails only: port for opening firewall, starting hidden service",
     "help_local_only": "Do not attempt to use tor: for development only",
-    "help_stay_open": "Keep hidden service running after download has finished",
+    "help_stay_open": "Keep hidden service running after download has finished (default infty hours)",
     "help_transparent_torification": "My system is transparently torified",
     "help_debug": "Log errors to disk",
     "help_filename": "List of files or folders to share",
