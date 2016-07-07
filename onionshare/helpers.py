@@ -209,6 +209,9 @@ class ZipWriter(object):
         self.z.close()
 
 class close_after_seconds(threading.Thread):
+    """
+    Background thread sleeps t hours and returns.
+    """
     def __init__(self, time):
         threading.Thread.__init__(self)
         self.setDaemon(True)

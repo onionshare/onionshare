@@ -30,7 +30,6 @@ class Options(QtWidgets.QHBoxLayout):
 
         self.web = web
         self.app = app
-        self.hours = 0
 
         # close automatically
         self.close_automatically = QtWidgets.QCheckBox()
@@ -65,12 +64,16 @@ class Options(QtWidgets.QHBoxLayout):
             self.app.stay_open = self.hours
 
     def on_text_changed(self,state):
-        h = self.timer_field.text()
+        """
+        When the state of the QLineBox is altered, let the web app know.
+        """
+        text = self.timer_field.text()
+        h = text if text != "" else 999999 # if field empty, no bound to timer.
         try:
-            self.hours = int(h)
-            self.web.set_stay_open(self.hours)
-            self.app.stay_open = self.hours
-            self.app.t_cas = helpers.close_after_seconds(self.hours)
+            hours = int(h)
+            self.web.set_stay_open(hours)
+            self.app.stay_open = hours
+            self.app.t_cas = helpers.close_after_seconds(hours)
         except Exception:
             # warn input here
             print('Input restricted to positive integer values')
