@@ -40,10 +40,10 @@ class Options(QtWidgets.QHBoxLayout):
 
         if self.web.stay_open:
             self.close_automatically.setCheckState(QtCore.Qt.Unchecked)
-            self.timer_field.setReadOnly(True)
+            self.timer_field.setReadOnly(False)
         else:
             self.close_automatically.setCheckState(QtCore.Qt.Checked)
-            self.timer_field.setReadOnly(False)
+            self.timer_field.setReadOnly(True)
         self.close_automatically.setText(strings._("close_on_finish", True))
         self.close_automatically.stateChanged.connect(self.stay_open_changed)
         self.timer_field.textChanged.connect(self.on_text_changed)
@@ -56,21 +56,22 @@ class Options(QtWidgets.QHBoxLayout):
         When the 'close automatically' checkbox is toggled, let the web app know.
         """
         if state > 0:
-            self.timer_field.setReadOnly(False)
-            self.web.set_stay_open(False)
-            self.app.stay_open = False
-        else:
             self.timer_field.setReadOnly(True)
-            self.web.set_stay_open(True)
-            self.app.stay_open = True
+            self.web.set_stay_open(0)
+            self.app.stay_open = 0
+        else:
+            self.timer_field.setReadOnly(False)
+            self.web.set_stay_open(self.hours)
+            self.app.stay_open = self.hours
 
     def on_text_changed(self,state):
         h = self.timer_field.text()
         try:
             self.hours = int(h)
-            self.web.set_stay_open(True)
-            self.app.stay_open = True
+            self.web.set_stay_open(self.hours)
+            self.app.stay_open = self.hours
+            self.app.t_cas = helpers.close_after_seconds(self.hours)
         except Exception:
             # warn input here
-            # print('Input restricted to integer values')
+            print('Input restricted to positive integer values')
             pass

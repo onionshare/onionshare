@@ -156,7 +156,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
             self.server_status.stop_server()
             self.status_bar.clearMessage()
             return
-
+        
         # start onionshare service in new thread
         t = threading.Thread(target=web.start, args=(self.app.port, self.app.stay_open, self.app.transparent_torification))
         t.daemon = True
@@ -168,7 +168,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
             web.set_file_info(self.file_selection.file_list.filenames)
             self.app.cleanup_filenames.append(web.zip_filename)
             self.starting_server_step2.emit()
-
+            
             # wait for hs
             if not self.app.local_only:
                 self.status_bar.showMessage(strings._('gui_starting_server3', True))
@@ -181,7 +181,10 @@ class OnionShareGui(QtWidgets.QMainWindow):
         t = threading.Thread(target=finish_starting_server, kwargs={'self': self})
         t.daemon = True
         t.start()
-
+       
+        if self.app.stay_open > 0:
+            self.app.t_cas.start()
+        
     def stop_server(self):
         """
         Stop the onionshare server.
@@ -196,10 +199,15 @@ class OnionShareGui(QtWidgets.QMainWindow):
         """
         Check for messages communicated from the web app, and update the GUI accordingly.
         """
+        
         self.update()
         # only check for requests if the server is running
         if self.server_status.status != self.server_status.STATUS_STARTED:
             return
+        if self.app.stay_open > 0:
+            if not self.app.t_cas.is_alive():
+                self.server_status.stop_server()
+                self.status_bar.showMessage(strings._('close_on_timeout',True))
 
         events = []
 
@@ -306,7 +314,7 @@ def main():
             filenames[i] = os.path.abspath(filenames[i])
 
     local_only = bool(args.local_only)
-    stay_open = bool(args.stay_open)
+    stay_open = int(args.stay_open)
     debug = bool(args.debug)
     transparent_torification = bool(args.transparent_torification)
 

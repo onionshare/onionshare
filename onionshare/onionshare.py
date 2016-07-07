@@ -46,6 +46,9 @@ class OnionShare(object):
         # automatically close when download is finished
         self.stay_open = stay_open
 
+        # init timing thread
+        self.t_cas = None
+
         # traffic automatically goes through Tor
         self.transparent_torification = transparent_torification
 
@@ -173,9 +176,9 @@ def main(cwd=None):
             # Wait for web.generate_slug() to finish running
             time.sleep(0.2)
 
+        # start timing thread
         if app.stay_open > 0:
-            t_cas = helpers.close_after_seconds(app.stay_open) # start timing thread
-            t_cas.start()
+            app.t_cas.start()
 
         print(strings._("give_this_url"))
         print('http://{0:s}/{1:s}'.format(app.onion_host, web.slug))
@@ -184,9 +187,10 @@ def main(cwd=None):
 
         # wait for app to close or time to run out
         while t_web.is_alive():
-            if not t_cas.is_alive():
-                print(strings._("close_on_timeout"))
-                break 
+            if app.stay_open > 0:
+                if not app.t_cas.is_alive():
+                    print(strings._("close_on_timeout"))
+                    break 
             # t.join() can't catch KeyboardInterrupt in such as Ubuntu
             t_web.join(0.5)
     except KeyboardInterrupt:
