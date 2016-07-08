@@ -36,6 +36,7 @@ class Options(QtWidgets.QHBoxLayout):
         self.timer_field = QtWidgets.QLineEdit()
         self.timer_field.setPlaceholderText("leave blank for no limit (hours)")
         self.timer_field.setMaxLength(5)
+        self.hours = 0
 
         if self.web.stay_open:
             self.close_automatically.setCheckState(QtCore.Qt.Unchecked)
@@ -60,8 +61,12 @@ class Options(QtWidgets.QHBoxLayout):
             self.app.stay_open = 0
         else:
             self.timer_field.setReadOnly(False)
+            if self.timer_field.text() == "":
+                self.hours = 999999
+            print(self.hours)
             self.web.set_stay_open(self.hours)
             self.app.stay_open = self.hours
+            self.app.t_cas = helpers.close_after_seconds(self.hours)
 
     def on_text_changed(self,state):
         """
@@ -70,10 +75,10 @@ class Options(QtWidgets.QHBoxLayout):
         text = self.timer_field.text()
         h = text if text != "" else 999999 # if field empty, no bound to timer.
         try:
-            hours = int(h)
-            self.web.set_stay_open(hours)
-            self.app.stay_open = hours
-            self.app.t_cas = helpers.close_after_seconds(hours)
+            self.hours = int(h)
+            self.web.set_stay_open(self.hours)
+            self.app.stay_open = self.hours
+            self.app.t_cas = helpers.close_after_seconds(self.hours)
         except Exception:
             # warn input here
             print('Input restricted to positive integer values')
