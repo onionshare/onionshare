@@ -112,10 +112,19 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         # main layout
         self.layout = QtWidgets.QVBoxLayout()
+        
+        self.downloads_layout = QtWidgets.QGroupBox()
+        self.downloads_layout.setLayout(self.downloads)
+        self.downloads_layout_container = QtWidgets.QScrollArea()
+        self.downloads_layout_container.setWidget(self.downloads_layout)
+        self.downloads_layout_container.setWidgetResizable(True)
+        self.downloads_layout_container.setFixedHeight(80)
+        self.vbar = self.downloads_layout_container.verticalScrollBar()
+
         self.layout.addLayout(self.file_selection)
         self.layout.addLayout(self.server_status)
         self.layout.addWidget(self.filesize_warning)
-        self.layout.addLayout(self.downloads)
+        self.layout.addWidget(self.downloads_layout_container)
         self.layout.addLayout(self.options)
         central_widget = QtWidgets.QWidget()
         central_widget.setLayout(self.layout)
@@ -210,7 +219,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
                 events.append(r)
             except web.queue.Empty:
                 done = True
-
+        self.vbar.setValue(self.vbar.maximum())
         for event in events:
             if event["type"] == web.REQUEST_LOAD:
                 self.status_bar.showMessage(strings._('download_page_loaded', True))
