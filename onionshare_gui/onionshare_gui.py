@@ -98,6 +98,13 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         # downloads
         self.downloads = Downloads()
+        self.downloads_layout = QtWidgets.QGroupBox()
+        self.downloads_layout.setLayout(self.downloads)
+        self.downloads_layout_container = QtWidgets.QScrollArea()
+        self.downloads_layout_container.setWidget(self.downloads_layout)
+        self.downloads_layout_container.setWidgetResizable(True)
+        self.downloads_layout_container.setFixedHeight(80)
+        self.vbar = self.downloads_layout_container.verticalScrollBar()
 
         # options
         self.options = Options(web, self.app)
@@ -108,19 +115,10 @@ class OnionShareGui(QtWidgets.QMainWindow):
         version_label = QtWidgets.QLabel('v{0:s}'.format(helpers.get_version()))
         version_label.setStyleSheet('color: #666666; padding: 0 10px;')
         self.status_bar.addPermanentWidget(version_label)
-        self.setStatusBar(self.status_bar)
+        self.setStatusBar(self.status_bar) 
 
         # main layout
         self.layout = QtWidgets.QVBoxLayout()
-        
-        self.downloads_layout = QtWidgets.QGroupBox()
-        self.downloads_layout.setLayout(self.downloads)
-        self.downloads_layout_container = QtWidgets.QScrollArea()
-        self.downloads_layout_container.setWidget(self.downloads_layout)
-        self.downloads_layout_container.setWidgetResizable(True)
-        self.downloads_layout_container.setFixedHeight(80)
-        self.vbar = self.downloads_layout_container.verticalScrollBar()
-
         self.layout.addLayout(self.file_selection)
         self.layout.addLayout(self.server_status)
         self.layout.addWidget(self.filesize_warning)
@@ -219,7 +217,10 @@ class OnionShareGui(QtWidgets.QMainWindow):
                 events.append(r)
             except web.queue.Empty:
                 done = True
+
+        # scroll to the bottom of the dl progress bar log pane
         self.vbar.setValue(self.vbar.maximum())
+
         for event in events:
             if event["type"] == web.REQUEST_LOAD:
                 self.status_bar.showMessage(strings._('download_page_loaded', True))

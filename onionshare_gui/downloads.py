@@ -56,7 +56,7 @@ class Download(object):
             elapsed = time.time() - self.started
             if elapsed < 10:
                 # Wait a couple of seconds for the download rate to stabilize.
-                # This prevents an "Windows copy dialog"-esque experience at
+                # This prevents a "Windows copy dialog"-esque experience at
                 # the beginning of the download.
                 pb_fmt = strings._('gui_download_progress_starting').format(
                     helpers.human_readable_filesize(downloaded_bytes))
