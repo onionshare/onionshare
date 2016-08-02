@@ -103,7 +103,7 @@ class Downloads(QtWidgets.QVBoxLayout):
         # add it to the list
         download = Download(download_id, total_bytes)
         self.downloads[download_id] = download
-        self.addWidget(download.progress_bar)
+        self.insertWidget(-1, download.progress_bar)
 
     def update_download(self, download_id, downloaded_bytes):
         """
