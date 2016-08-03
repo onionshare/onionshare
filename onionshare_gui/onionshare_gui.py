@@ -105,6 +105,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.downloads_layout_container.setWidgetResizable(True)
         self.downloads_layout_container.setFixedHeight(80)
         self.vbar = self.downloads_layout_container.verticalScrollBar()
+        self.new_download = False
 
         # options
         self.options = Options(web, self.app)
@@ -202,8 +203,13 @@ class OnionShareGui(QtWidgets.QMainWindow):
     def check_for_requests(self):
         """
         Check for messages communicated from the web app, and update the GUI accordingly.
-        """
+        """ 
         self.update()
+        # scroll to the bottom of the dl progress bar log pane
+        # if a new download has been added
+        if self.new_download:
+            self.vbar.setValue(self.vbar.maximum())
+            self.new_download = False
         # only check for requests if the server is running
         if self.server_status.status != self.server_status.STATUS_STARTED:
             return
@@ -218,15 +224,13 @@ class OnionShareGui(QtWidgets.QMainWindow):
             except web.queue.Empty:
                 done = True
 
-        # scroll to the bottom of the dl progress bar log pane
-        self.vbar.setValue(self.vbar.maximum())
-
         for event in events:
             if event["type"] == web.REQUEST_LOAD:
                 self.status_bar.showMessage(strings._('download_page_loaded', True))
 
             elif event["type"] == web.REQUEST_DOWNLOAD:
                 self.downloads.add_download(event["data"]["id"], web.zip_filesize)
+                self.new_download = True
 
             elif event["type"] == web.REQUEST_RATE_LIMIT:
                 self.stop_server()
@@ -234,7 +238,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
             elif event["type"] == web.REQUEST_PROGRESS:
                 self.downloads.update_download(event["data"]["id"], event["data"]["bytes"])
-
+               
                 # is the download complete?
                 if event["data"]["bytes"] == web.zip_filesize:
                     # close on finish?
