@@ -7,3 +7,4 @@ ADD . /usr/src/app/
 WORKDIR /usr/src/app/
 
 ENTRYPOINT [ "./install/scripts/onionshare" ]
+CMD [ "--help" ]
