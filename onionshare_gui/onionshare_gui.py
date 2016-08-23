@@ -110,6 +110,9 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.status_bar.addPermanentWidget(version_label)
         self.setStatusBar(self.status_bar)
 
+        # status bar, zip progress bar
+        self._zip_progress_bar = None
+
         # main layout
         self.layout = QtWidgets.QVBoxLayout()
         self.layout.addLayout(self.file_selection)
@@ -132,6 +135,9 @@ class OnionShareGui(QtWidgets.QMainWindow):
         Step 2 in starting the onionshare server. This displays the large filesize
         warning, if applicable.
         """
+        if self._zip_progress_bar is not None:
+            self.status_bar.removeWidget(self._zip_progress_bar)
+            self._zip_progress_bar = None
         # warn about sending large files over Tor
         if web.zip_filesize >= 157286400:  # 150mb
             self.filesize_warning.setText(strings._("large_filesize", True))
@@ -162,10 +168,22 @@ class OnionShareGui(QtWidgets.QMainWindow):
         t.daemon = True
         t.start()
 
+        self._zip_progress_bar = ZipProgressBar(0)
+        self.status_bar.clearMessage()
+        self.status_bar.insertWidget(0, self._zip_progress_bar)
+
         # prepare the files for sending in a new thread
         def finish_starting_server(self):
             # prepare files to share
-            web.set_file_info(self.file_selection.file_list.filenames)
+            progress_bar = self._zip_progress_bar
+            progress_bar.total_files_size = OnionShareGui._compute_total_size(
+                self.file_selection.file_list.filenames)
+
+            def _set_processed_size(x):
+                progress_bar.processed_size = x
+
+            web.set_file_info(self.file_selection.file_list.filenames, processed_size_callback=_set_processed_size)
+
             self.app.cleanup_filenames.append(web.zip_filename)
             self.starting_server_step2.emit()
 
@@ -177,10 +195,19 @@ class OnionShareGui(QtWidgets.QMainWindow):
             # done
             self.start_server_finished.emit()
 
-        self.status_bar.showMessage(strings._('gui_starting_server2', True))
         t = threading.Thread(target=finish_starting_server, kwargs={'self': self})
         t.daemon = True
         t.start()
+
+    @staticmethod
+    def _compute_total_size(filenames):
+        total_size = 0
+        for filename in filenames:
+            if os.path.isfile(filename):
+                total_size += os.path.getsize(filename)
+            if os.path.isdir(filename):
+                total_size += helpers.dir_size(filename)
+        return total_size
 
     def stop_server(self):
         """
@@ -266,6 +293,41 @@ class OnionShareGui(QtWidgets.QMainWindow):
             # Don't Quit
             else:
                 e.ignore()
+
+
+class ZipProgressBar(QtWidgets.QProgressBar):
+    def __init__(self, total_files_size):
+        super(ZipProgressBar, self).__init__()
+        self.setMaximumHeight(15)
+        self.setValue(0)
+        self.setFormat(strings._('zip_progress_bar_format'))
+        self.setStyleSheet(
+            "QProgressBar::chunk { background-color: #05B8CC; }")
+
+        self._total_files_size = total_files_size
+        self._processed_size = 0
+
+    @property
+    def total_files_size(self):
+        return self._total_files_size
+
+    @total_files_size.setter
+    def total_files_size(self, val):
+        self._total_files_size = val
+
+    @property
+    def processed_size(self):
+        return self._processed_size
+
+    @processed_size.setter
+    def processed_size(self, val):
+        self._processed_size = val
+        if self.processed_size < self.total_files_size:
+            self.setValue(int((self.processed_size * 100) / self.total_files_size))
+        elif self.total_files_size != 0:
+            self.setValue(100)
+        else:
+            self.setValue(0)
 
 
 def alert(msg, icon=QtWidgets.QMessageBox.NoIcon):

@@ -41,5 +41,6 @@
     "gui_please_wait": "Prosím čekejte...",
     "error_hs_dir_cannot_create": "Nejde vytvořit složka {0:s} pro hidden service",
     "error_hs_dir_not_writable": "Nejde zapisovat do složky {0:s} pro hidden service",
-    "using_ephemeral": "Staring ephemeral Tor hidden service and awaiting publication"
+    "using_ephemeral": "Staring ephemeral Tor hidden service and awaiting publication",
+    "zip_progress_bar_format": "Crunching files: %p%"
 }
