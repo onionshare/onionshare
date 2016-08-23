@@ -168,20 +168,19 @@ class OnionShareGui(QtWidgets.QMainWindow):
         t.daemon = True
         t.start()
 
+        # add progress bar to the status bar, indicating the crunching of files.
         self._zip_progress_bar = ZipProgressBar(0)
+        self._zip_progress_bar.total_files_size = OnionShareGui._compute_total_size(
+            self.file_selection.file_list.filenames)
         self.status_bar.clearMessage()
         self.status_bar.insertWidget(0, self._zip_progress_bar)
 
         # prepare the files for sending in a new thread
         def finish_starting_server(self):
-            # prepare files to share
-            progress_bar = self._zip_progress_bar
-            progress_bar.total_files_size = OnionShareGui._compute_total_size(
-                self.file_selection.file_list.filenames)
-
             def _set_processed_size(x):
-                progress_bar.processed_size = x
+                self._zip_progress_bar.processed_size = x
 
+            # prepare files to share
             web.set_file_info(self.file_selection.file_list.filenames, processed_size_callback=_set_processed_size)
 
             self.app.cleanup_filenames.append(web.zip_filename)
