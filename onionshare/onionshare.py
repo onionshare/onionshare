@@ -102,7 +102,7 @@ def main(cwd=None):
     The main() function implements all of the logic that the command-line version of
     onionshare uses.
     """
-    strings.load_strings()
+    strings.load_strings(helpers)
     print(strings._('version_string').format(helpers.get_version()))
 
     # onionshare CLI in OSX needs to change current working directory (#132)
