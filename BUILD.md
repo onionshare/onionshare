@@ -98,17 +98,17 @@ Download the latest Python 3.5.x, 32-bit (x86) from https://www.python.org/downl
 
 Download and install Qt5 from https://www.qt.io/download-open-source/. I downloaded `qt-unified-windows-x86-2.0.3-1-online.exe`. There's no need to login to a Qt account during installation. Make sure you install the latest Qt 5.x.
 
-Installing cx_Freeze with support for python 3.5 is annoying. Here are the steps (thanks https://github.com/sekrause/cx_Freeze-Wheels):
+Open a command prompt and install dependencies with pip: `pip install pypiwin32 flask stem PyQt5`
+
+Download and install the [Microsoft Visual C++ 2008 Redistributable Package (x86)](http://www.microsoft.com/en-us/download/details.aspx?id=29).
+
+Installing cx_Freeze with support for Python 3.5 is annoying. Here are the steps (thanks https://github.com/sekrause/cx_Freeze-Wheels):
 
 * Download and install the Visual C++ Build Tools 2005 from http://go.microsoft.com/fwlink/?LinkId=691126. I downloaded `visualcppbuildtools_full.exe`.
 * Install the python wheel package: `pip install wheel`
 * Download a [snapshot](https://bitbucket.org/anthony_tuininga/cx_freeze/downloads) of the latest development version of cx_Freeze, extract it, and cd into the folder you extracted it to
 * Build the package: `python setup.py bdist_wheel`
 * Install it with pip: `pip install dist\cx_Freeze-5.0-cp35-cp35m-win32.whl`
-
-Open a command prompt and install dependencies with pip: `pip install pypiwin32 flask stem PyQt5`
-
-Download and install the [Microsoft Visual C++ 2008 Redistributable Package (x86)](http://www.microsoft.com/en-us/download/details.aspx?id=29).
 
 If you want to build the installer:
 
@@ -129,7 +129,7 @@ If you want to sign binaries with Authenticode:
 
 ### To make a .exe:
 
-* Open a command prompt, cd into the onionshare directory, and type: `pyinstaller install\pyinstaller.spec -y`. `onionshare.exe` and all of its supporting files will get created inside the `dist\onionshare` folder.
+* Open a command prompt, cd into the onionshare directory, and type: `python setup.py build`. `onionshare.exe`, `onionshare-gui.exe`, and all of their supporting files will get created inside the `build\exe.win32-3.5` folder.
 
 ### To build the installer:
 
