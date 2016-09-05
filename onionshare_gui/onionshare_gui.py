@@ -284,7 +284,7 @@ def main():
     """
     The main() function implements all of the logic that the GUI version of onionshare uses.
     """
-    strings.load_strings()
+    strings.load_strings(helpers)
     print(strings._('version_string').format(helpers.get_version()))
 
     # start the Qt app

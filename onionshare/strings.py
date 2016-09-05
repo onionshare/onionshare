@@ -19,12 +19,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import json, locale, os
 
-from . import helpers
-
 strings = {}
 
-
-def load_strings(default="en"):
+def load_strings(helpers, default="en"):
     """
     Loads translated strings and fallback to English
     if the translation does not exist.
