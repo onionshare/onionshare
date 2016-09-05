@@ -62,8 +62,14 @@ brew install python3 pyqt5 qt5
 Install some dependencies using pip3:
 
 ```sh
-sudo pip3 install pyinstaller flask stem
+sudo pip3 install flask stem
 ```
+
+Install the latest development version of cx_Freeze:
+
+* Download a [snapshot](https://bitbucket.org/anthony_tuininga/cx_freeze/downloads) of the latest development version of cx_Freeze, extract it, and cd into the folder you extracted it to
+* Build the package: `python3 setup.py bdist_wheel`
+* Install it with pip: `sudo pip3 install dist/cx_Freeze-5.0-cp35-cp35m-macosx_10_11_x86_64.whl`
 
 Get the source code:
 
@@ -83,7 +89,7 @@ Now you should have `dist/OnionShare.app`.
 To codesign and build a .pkg for distribution:
 
 ```sh
-install/build_osx.sh --sign
+install/build_osx.sh --release
 ```
 
 Now you should have `dist/OnionShare.pkg`.
