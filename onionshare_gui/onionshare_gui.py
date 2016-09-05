@@ -139,18 +139,18 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
     def start_server(self):
         """
-        Start the onionshare server. This uses multiple threads to start the Tor hidden
+        Start the onionshare server. This uses multiple threads to start the Tor onion
         server and the web app.
         """
         # Reset web counters
         web.download_count = 0
         web.error404_count = 0
 
-        # start the hidden service
+        # start the onion service
         self.status_bar.showMessage(strings._('gui_starting_server1', True))
         self.app.choose_port()
         try:
-            self.app.start_hidden_service(gui=True)
+            self.app.start_onion_service(gui=True)
         except onionshare.hs.NoTor as e:
             alert(e.args[0], QtWidgets.QMessageBox.Warning)
             self.server_status.stop_server()

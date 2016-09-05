@@ -35,11 +35,11 @@
     "gui_downloads": "Downloads:",
     "gui_canceled": "Afgebroken",
     "gui_copied_url": "URL gekopieerd naar klembord",
-    "gui_starting_server1": "Tor hidden service wordt gestart...",
+    "gui_starting_server1": "Tor onion service wordt gestart...",
     "gui_starting_server2": "Bestanden verwerken...",
-    "gui_starting_server3": "Wachten op Tor hidden service...",
+    "gui_starting_server3": "Wachten op Tor onion service...",
     "gui_please_wait": "Moment geduld...",
     "error_hs_dir_cannot_create": "Kan verborgen service map {0:s} niet aanmaken",
     "error_hs_dir_not_writable": "Verborgen service map {0:s} is niet schrijfbaar",
-    "using_ephemeral": "Kortstondige Tor hidden service gestart en in afwachting van publicatie"
+    "using_ephemeral": "Kortstondige Tor onion service gestart en in afwachting van publicatie"
 }
