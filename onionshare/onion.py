@@ -90,9 +90,9 @@ class Onion(object):
         print(strings._("connecting_ctrlport").format(int(port)))
         if self.supports_ephemeral:
             print(strings._('using_ephemeral'))
-            res = self.c.create_ephemeral_hidden_service({ 80: port }, await_publication = False)
+            res = self.c.create_ephemeral_hidden_service({ 80: port }, await_publication = True)
             self.service_id = res.content()[0][2].split('=')[1]
-            onion_host = res.content()[0][2].split('=')[1] + '.onion'
+            onion_host = self.service_id + '.onion'
             return onion_host
 
         else:
