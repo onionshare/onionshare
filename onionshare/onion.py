@@ -40,10 +40,10 @@ class HSDirError(Exception):
     """
     pass
 
-class HS(object):
+class Onion(object):
     """
-    HS is an abstraction layer for connecting to the Tor control port and
-    creating onion services. Onionshare supports creating onion services
+    Onion is an abstraction layer for connecting to the Tor control port and
+    creating onion services. OnionShare supports creating onion services
     using two methods:
 
     - Modifying the Tor configuration through the control port is the old

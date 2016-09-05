@@ -151,7 +151,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.app.choose_port()
         try:
             self.app.start_onion_service(gui=True)
-        except onionshare.hs.NoTor as e:
+        except onionshare.onion.NoTor as e:
             alert(e.args[0], QtWidgets.QMessageBox.Warning)
             self.server_status.stop_server()
             self.status_bar.clearMessage()
@@ -172,7 +172,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
             # wait for hs
             if not self.app.local_only:
                 self.status_bar.showMessage(strings._('gui_starting_server3', True))
-                self.app.hs.wait_for_hs(self.app.onion_host)
+                self.app.onion.wait_for_hs(self.app.onion_host)
 
             # done
             self.start_server_finished.emit()

@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import os, sys, time, argparse, shutil, socket, threading
 
-from . import strings, helpers, web, hs
+from . import strings, helpers, web, onion
 
 class OnionShare(object):
     """
@@ -29,7 +29,7 @@ class OnionShare(object):
     """
     def __init__(self, debug=False, local_only=False, stay_open=False, transparent_torification=False):
         self.port = None
-        self.hs = None
+        self.onion = None
         self.hidserv_dir = None
         self.onion_host = None
 
@@ -75,10 +75,10 @@ class OnionShare(object):
             self.onion_host = '127.0.0.1:{0:d}'.format(self.port)
             return
 
-        if not self.hs:
-            self.hs = hs.HS(self.transparent_torification)
+        if not self.onion:
+            self.onion = onion.Onion(self.transparent_torification)
 
-        self.onion_host = self.hs.start(self.port)
+        self.onion_host = self.onion.start(self.port)
 
     def cleanup(self):
         """
@@ -92,9 +92,9 @@ class OnionShare(object):
                 shutil.rmtree(filename)
         self.cleanup_filenames = []
 
-        # call hs's cleanup
-        if self.hs:
-            self.hs.cleanup()
+        # cleanup the onion
+        if self.onion:
+            self.onion.cleanup()
 
 
 def main(cwd=None):
@@ -142,9 +142,9 @@ def main(cwd=None):
         app = OnionShare(debug, local_only, stay_open, transparent_torification)
         app.choose_port()
         app.start_onion_service()
-    except hs.NoTor as e:
+    except onion.NoTor as e:
         sys.exit(e.args[0])
-    except hs.HSDirError as e:
+    except onion.HSDirError as e:
         sys.exit(e.args[0])
 
     # prepare files to share
@@ -166,7 +166,7 @@ def main(cwd=None):
     try:  # Trap Ctrl-C
         # wait for hs, only if using old version of tor
         if not app.local_only:
-            ready = app.hs.wait_for_hs(app.onion_host)
+            ready = app.onion.wait_for_hs(app.onion_host)
             if not ready:
                 sys.exit()
         else:
