@@ -19,12 +19,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-import os, sys
-
-try:
-    from setuptools import setup
-except ImportError:
-    from distutils.core import setup
+import os, sys, platform
 
 def file_list(path):
     files = []
@@ -77,30 +72,55 @@ html = [
     'resources/html/404.html'
 ]
 
-setup(
-    name='onionshare',
-    version=version,
-    description=description,
-    long_description=long_description,
-    author='Micah Lee',
-    author_email='micah@micahflee.com',
-    url='https://github.com/micahflee/onionshare',
-    license="GPL v3",
-    keywords='onion, share, onionshare, tor, anonymous, web server',
-    packages=['onionshare', 'onionshare_gui'],
-    include_package_data=True,
-    scripts=['install/scripts/onionshare', 'install/scripts/onionshare-gui'],
-    data_files=[
-        (os.path.join(sys.prefix, 'share/applications'), ['install/onionshare.desktop']),
-        (os.path.join(sys.prefix, 'share/appdata'), ['install/onionshare.appdata.xml']),
-        (os.path.join(sys.prefix, 'share/pixmaps'), ['install/onionshare80.xpm']),
-        (os.path.join(sys.prefix, 'share/onionshare'), [
-            'resources/version.txt',
-            'resources/wordlist.txt'
-        ]),
-        (os.path.join(sys.prefix, 'share/onionshare/images'), images),
-        (os.path.join(sys.prefix, 'share/onionshare/locale'), locale),
-        (os.path.join(sys.prefix, 'share/onionshare/html'), html),
-        ('/usr/share/nautilus-python/extensions/', ['install/scripts/onionshare-nautilus.py']),
-    ]
-)
+os = platform.system()
+
+if os == 'Windows':
+	from cx_Freeze import setup, Executable
+	#base = "Win32GUI"
+	base = None
+	setup( 
+		name="onionshare",
+        version=version,
+        description=description,
+		long_description=long_description,
+        options={
+			"build_exe": {
+				"packages": [],
+				"excludes": []
+			}
+		},
+        executables=[
+			Executable("install/scripts/onionshare", base=base),
+			Executable("install/scripts/onionshare-gui", base=base)
+		]
+	)
+	
+else:
+	from setuptools import setup
+	setup(
+		name='onionshare',
+		version=version,
+		description=description,
+		long_description=long_description,
+		author='Micah Lee',
+		author_email='micah@micahflee.com',
+		url='https://github.com/micahflee/onionshare',
+		license="GPL v3",
+		keywords='onion, share, onionshare, tor, anonymous, web server',
+		packages=['onionshare', 'onionshare_gui'],
+		include_package_data=True,
+		scripts=['install/scripts/onionshare', 'install/scripts/onionshare-gui'],
+		data_files=[
+			(os.path.join(sys.prefix, 'share/applications'), ['install/onionshare.desktop']),
+			(os.path.join(sys.prefix, 'share/appdata'), ['install/onionshare.appdata.xml']),
+			(os.path.join(sys.prefix, 'share/pixmaps'), ['install/onionshare80.xpm']),
+			(os.path.join(sys.prefix, 'share/onionshare'), [
+				'resources/version.txt',
+				'resources/wordlist.txt'
+			]),
+			(os.path.join(sys.prefix, 'share/onionshare/images'), images),
+			(os.path.join(sys.prefix, 'share/onionshare/locale'), locale),
+			(os.path.join(sys.prefix, 'share/onionshare/html'), html),
+			('/usr/share/nautilus-python/extensions/', ['install/scripts/onionshare-nautilus.py']),
+		]
+	)
