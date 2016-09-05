@@ -150,14 +150,14 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.status_bar.showMessage(strings._('gui_starting_server1', True))
         self.app.choose_port()
         try:
-            self.app.start_onion_service(gui=True)
+            self.app.start_onion_service()
         except onionshare.onion.NoTor as e:
             alert(e.args[0], QtWidgets.QMessageBox.Warning)
             self.server_status.stop_server()
             self.status_bar.clearMessage()
             return
 
-        # start onionshare service in new thread
+        # start onionshare http service in new thread
         t = threading.Thread(target=web.start, args=(self.app.port, self.app.stay_open, self.app.transparent_torification))
         t.daemon = True
         t.start()
@@ -170,7 +170,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
             self.starting_server_step2.emit()
 
             # wait for hs
-            if not self.app.local_only:
+            if not self.app.local_only and not self.app.onion.supports_ephemeral:
                 self.status_bar.showMessage(strings._('gui_starting_server3', True))
                 self.app.onion.wait_for_hs(self.app.onion_host)
 
