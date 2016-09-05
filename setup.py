@@ -86,7 +86,8 @@ if os == 'Windows':
         options={
 			"build_exe": {
 				"packages": [],
-				"excludes": []
+				"excludes": [],
+				"include_files": ['resources']
 			}
 		},
         executables=[
