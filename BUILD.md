@@ -94,19 +94,17 @@ Now you should have `dist/OnionShare.pkg`.
 
 These instructions include adding folders to the path in Windows. To do this, go to Start and type "advanced system settings", and open "View advanced system settings" in the Control Panel. Click Environment Variables. Under "System variables" double-click on Path. From there you can add and remove folders that are available in the PATH.
 
-First, download and install the 32-bit (x86) version of Python 3.4.x from https://www.python.org/downloads/windows/. You need 3.4 instead of 3.5 because PyQt5 was built with 3.4. Add `C:\Python34` and `C:\Python34\Scripts` to the path.
+Download the latest Python 3.5.x, 32-bit (x86) from https://www.python.org/downloads/. I downloaded `python-3.5.2.exe`. When installing it, make sure to check the "Add Python 3.5 to PATH" checkbox on the first page of the installer.
 
-Open a command prompt and install some dependencies with pip: `pip3 install pyinstaller pypiwin32 flask stem`
+Download and install Qt5 from https://www.qt.io/download-open-source/. I downloaded `qt-unified-windows-x86-2.0.3-1-online.exe`. There's no need to login to a Qt account during installation. Make sure you install the latest Qt 5.x.
 
-Download and install Qt5 from https://www.qt.io/download-open-source/. I downloaded `qt-unified-windows-x86-2.0.2-2-online.exe`. There's no need to login to a Qt account during installation. Make sure you install the latest Qt 5.x.
-
-Download and install the latest PyQt5 for 32-bit Windows from https://www.riverbankcomputing.com/software/pyqt/download5. I downloaded `PyQt5-5.5.1-gpl-Py3.4-Qt5.5.1-x32.exe`.
+Open a command prompt and install some dependencies with pip: `pip install pyinstaller==3.1.1 pypiwin32 flask stem PyQt5`
 
 Download and install the [Microsoft Visual C++ 2008 Redistributable Package (x86)](http://www.microsoft.com/en-us/download/details.aspx?id=29).
 
 If you want to build the installer:
 
-* Go to http://nsis.sourceforge.net/Download and download the latest NSIS. I downloaded `nsis-3.0b0-setup.exe`.
+* Go to http://nsis.sourceforge.net/Download and download the latest NSIS. I downloaded `nsis-3.0-setup.exe`.
 * Add `C:\Program Files (x86)\NSIS` to the path.
 
 If you want to sign binaries with Authenticode:
