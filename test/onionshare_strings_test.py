@@ -17,9 +17,15 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-import locale
+import locale, os
 from onionshare import helpers, strings
 
+# Stub get_resource_path so it finds the correct path while running tests
+def get_resource_path(filename):
+    resources_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'resources')
+    path = os.path.join(resources_dir, filename)
+    return path
+helpers.get_resource_path = get_resource_path
 
 def test_starts_with_empty_strings():
     """creates an empty strings dict by default"""
