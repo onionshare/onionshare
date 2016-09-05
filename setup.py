@@ -76,8 +76,6 @@ os = platform.system()
 
 if os == 'Windows':
 	from cx_Freeze import setup, Executable
-	#base = "Win32GUI"
-	base = None
 	setup( 
 		name="onionshare",
         version=version,
@@ -91,8 +89,8 @@ if os == 'Windows':
 			}
 		},
         executables=[
-			Executable("install/scripts/onionshare", base=base),
-			Executable("install/scripts/onionshare-gui", base=base)
+			Executable("install/scripts/onionshare", base=None),
+			Executable("install/scripts/onionshare-gui", base="Win32GUI")
 		]
 	)
 	
