@@ -45,13 +45,13 @@ url = 'https://github.com/micahflee/onionshare'
 license = 'GPL v3'
 keywords = 'onion, share, onionshare, tor, anonymous, web server'
 
-os = platform.system()
+p = platform.system()
 
 # Windows and Mac
-if os == 'Windows' or os == 'Darwin':
+if p == 'Windows' or p == 'Darwin':
     from cx_Freeze import setup, Executable
 
-    if os == 'Windows':
+    if p == 'Windows':
         executables = [
             Executable('install/scripts/onionshare',
                 icon='install/onionshare.ico',
@@ -64,7 +64,7 @@ if os == 'Windows' or os == 'Darwin':
         ]
         custom_info_plist = ''
 
-    elif os == 'Darwin':
+    elif p == 'Darwin':
         executables = [
             Executable('install/scripts/onionshare-gui'),
             Executable('install/scripts/onionshare')
