@@ -158,14 +158,14 @@ def main(cwd=None):
         print(strings._("large_filesize"))
         print('')
 
-    # start onionshare service in new thread
+    # start onionshare http service in new thread
     t = threading.Thread(target=web.start, args=(app.port, app.stay_open, app.transparent_torification))
     t.daemon = True
     t.start()
 
     try:  # Trap Ctrl-C
         # wait for hs, only if using old version of tor
-        if not app.local_only:
+        if not app.local_only and not app.onion.supports_ephemeral:
             ready = app.onion.wait_for_hs(app.onion_host)
             if not ready:
                 sys.exit()
