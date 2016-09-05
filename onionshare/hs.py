@@ -35,24 +35,24 @@ class NoTor(Exception):
 class HSDirError(Exception):
     """
     This exception is raised when onionshare tries create a non-ephemeral
-    hidden service and does not have permission to create or write to
-    the hidden service directory.
+    onion service and does not have permission to create or write to
+    the onion service directory.
     """
     pass
 
 class HS(object):
     """
     HS is an abstraction layer for connecting to the Tor control port and
-    creating hidden services. Onionshare supports creating hidden services
+    creating onion services. Onionshare supports creating onion services
     using two methods:
 
     - Modifying the Tor configuration through the control port is the old
-      method, and will be deprecated in favor of ephemeral hidden services.
-    - Using the control port to create ephemeral hidden servers is the
+      method, and will be deprecated in favor of ephemeral onion services.
+    - Using the control port to create ephemeral onion servers is the
       preferred method.
 
     This class detects the versions of Tor and stem to determine if ephemeral
-    hidden services are supported. If not, it falls back to modifying the
+    onion services are supported. If not, it falls back to modifying the
     Tor configuration.
     """
     def __init__(self, transparent_torification=False):
@@ -77,14 +77,14 @@ class HS(object):
         if not found_tor:
             raise NoTor(strings._("cant_connect_ctrlport").format(str(ports)))
 
-        # do the versions of stem and tor that I'm using support ephemeral hidden services?
+        # do the versions of stem and tor that I'm using support ephemeral onion services?
         tor_version = self.c.get_version().version_str
         list_ephemeral_hidden_services = getattr(self.c, "list_ephemeral_hidden_services", None)
         self.supports_ephemeral = callable(list_ephemeral_hidden_services) and tor_version >= '0.2.7.1'
 
     def start(self, port):
         """
-        Start a hidden service on port 80, pointing to the given port, and
+        Start a onion service on port 80, pointing to the given port, and
         return the onion hostname.
         """
         print(strings._("connecting_ctrlport").format(int(port)))
@@ -96,7 +96,7 @@ class HS(object):
             return onion_host
 
         else:
-            # come up with a hidden service directory name
+            # come up with a onion service directory name
             if helpers.get_platform() == 'Windows':
                 self.hidserv_dir = tempfile.mkdtemp()
                 self.hidserv_dir = self.hidserv_dir.replace('\\', '/')
@@ -106,7 +106,7 @@ class HS(object):
 
             self.cleanup_filenames.append(self.hidserv_dir)
 
-            # set up hidden service
+            # set up onion service
             hsdic = self.c.get_conf_map('HiddenServiceOptions') or {
                 'HiddenServiceDir': [], 'HiddenServicePort': []
             }
@@ -128,11 +128,11 @@ class HS(object):
 
     def wait_for_hs(self, onion_host):
         """
-        This function is only required when using non-ephemeral hidden services. After
-        creating a hidden service, continually attempt to connect to it until it
+        This function is only required when using non-ephemeral onion services. After
+        creating a onion service, continually attempt to connect to it until it
         successfully connects.
         """
-        # legacy only, this function is no longer required with ephemeral hidden services
+        # legacy only, this function is no longer required with ephemeral onion services
         print(strings._('wait_for_hs'))
 
         ready = False
@@ -177,20 +177,20 @@ class HS(object):
 
     def cleanup(self):
         """
-        Stop hidden services that were created earlier, and delete any temporary
+        Stop onion services that were created earlier, and delete any temporary
         files that were created.
         """
         if self.supports_ephemeral:
-            # cleanup the ephemeral hidden service
+            # cleanup the ephemeral onion service
             if self.service_id:
                 self.c.remove_ephemeral_hidden_service(self.service_id)
                 self.service_id = None
 
         else:
-            # cleanup hidden service
+            # cleanup onion service
             try:
                 if self.controller:
-                    # Get fresh hidden services (maybe changed since last time)
+                    # Get fresh onion services (maybe changed since last time)
                     # and remove ourselves
                     hsdic = self.controller.get_conf_map('HiddenServiceOptions') or {
                         'HiddenServiceDir': [], 'HiddenServicePort': []
