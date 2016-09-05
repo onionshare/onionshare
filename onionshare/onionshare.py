@@ -64,7 +64,7 @@ class OnionShare(object):
         self.port = tmpsock.getsockname()[1]
         tmpsock.close()
 
-    def start_onion_service(self, gui=False):
+    def start_onion_service(self):
         """
         Start the onionshare onion service.
         """
@@ -143,8 +143,6 @@ def main(cwd=None):
         app.choose_port()
         app.start_onion_service()
     except onion.NoTor as e:
-        sys.exit(e.args[0])
-    except onion.HSDirError as e:
         sys.exit(e.args[0])
 
     # prepare files to share

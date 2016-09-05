@@ -32,14 +32,6 @@ class NoTor(Exception):
     """
     pass
 
-class HSDirError(Exception):
-    """
-    This exception is raised when onionshare tries create a non-ephemeral
-    onion service and does not have permission to create or write to
-    the onion service directory.
-    """
-    pass
-
 class Onion(object):
     """
     Onion is an abstraction layer for connecting to the Tor control port and
