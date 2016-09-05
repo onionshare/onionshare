@@ -25,7 +25,7 @@ from . import strings, helpers, web, hs
 class OnionShare(object):
     """
     OnionShare is the main application class. Pass in options and run
-    start_hidden_service and it will do the magic.
+    start_onion_service and it will do the magic.
     """
     def __init__(self, debug=False, local_only=False, stay_open=False, transparent_torification=False):
         self.port = None
@@ -64,9 +64,9 @@ class OnionShare(object):
         self.port = tmpsock.getsockname()[1]
         tmpsock.close()
 
-    def start_hidden_service(self, gui=False):
+    def start_onion_service(self, gui=False):
         """
-        Start the onionshare hidden service.
+        Start the onionshare onion service.
         """
         if not self.port:
             self.choose_port()
@@ -141,7 +141,7 @@ def main(cwd=None):
     try:
         app = OnionShare(debug, local_only, stay_open, transparent_torification)
         app.choose_port()
-        app.start_hidden_service()
+        app.start_onion_service()
     except hs.NoTor as e:
         sys.exit(e.args[0])
     except hs.HSDirError as e:
