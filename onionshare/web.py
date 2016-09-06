@@ -123,6 +123,15 @@ def get_transparent_torification():
     """
     return transparent_torification
 
+# Are we running in GUI mode?
+gui_mode = False
+def set_gui_mode():
+    """
+    Tell the web service that we're running in GUI mode
+    """
+    global gui_mode
+    gui_mode = True
+
 def debug_mode():
     """
     Turn on debugging mode, which will log flask errors to a debug file.
@@ -213,7 +222,7 @@ def download(slug_candidate):
 
     def generate():
         # The user hasn't canceled the download
-        global client_cancel
+        global client_cancel, gui_mode
         client_cancel = False
 
         # Starting a new download
@@ -243,8 +252,8 @@ def download(slug_candidate):
                     downloaded_bytes = fp.tell()
                     percent = (1.0 * downloaded_bytes / zip_filesize) * 100
 
-                    # only output to stdout in Linux (#203, #304)
-                    if helpers.get_platform() == 'Linux':
+                    # only output to stdout if running onionshare in CLI mode, or if using Linux (#203, #304)
+                    if not gui_mode or helpers.get_platform() == 'Linux':
                         sys.stdout.write(
                             "\r{0:s}, {1:.2f}%          ".format(helpers.human_readable_filesize(downloaded_bytes), percent))
                         sys.stdout.flush()
