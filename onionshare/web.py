@@ -17,7 +17,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-import queue, mimetypes, platform, os, sys
+import queue, mimetypes, platform, os, sys, socket, logging
 from urllib.request import urlopen
 from flask import Flask, Response, request, render_template_string, abort
 
@@ -136,8 +136,6 @@ def debug_mode():
     """
     Turn on debugging mode, which will log flask errors to a debug file.
     """
-    import logging
-
     if platform.system() == 'Windows':
         temp_dir = os.environ['Temp'].replace('\\', '/')
     else:
@@ -360,8 +358,6 @@ def stop(port):
     # to stop flask, load http://127.0.0.1:<port>/<shutdown_slug>/shutdown
     try:
         if transparent_torification:
-            import socket
-
             s = socket.socket()
             s.connect(('127.0.0.1', port))
             s.sendall('GET /{0:s}/shutdown HTTP/1.1\r\n\r\n'.format(shutdown_slug))
