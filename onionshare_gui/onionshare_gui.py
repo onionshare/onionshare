@@ -144,6 +144,13 @@ class OnionShareGui(QtWidgets.QMainWindow):
         # pick an available local port for the http service to listen on
         self.app.choose_port()
 
+        # start onionshare http service in new thread
+        t = threading.Thread(target=web.start, args=(self.app.port, self.app.stay_open, self.app.transparent_torification))
+        t.daemon = True
+        t.start()
+        # wait for modules in thread to load, preventing a thread-related cx_Freeze crash
+        time.sleep(0.2)
+
         # start the onion service in a new thread
         def start_onion_service(self):
             self.status_bar.showMessage(strings._('gui_starting_server1', True))
@@ -155,14 +162,9 @@ class OnionShareGui(QtWidgets.QMainWindow):
                 self.starting_server_error.emit(e.args[0])
                 return
 
-        t1 = threading.Thread(target=start_onion_service, kwargs={'self': self})
-        t1.daemon = True
-        t1.start()
-
-        # start onionshare http service in new thread
-        t2 = threading.Thread(target=web.start, args=(self.app.port, self.app.stay_open, self.app.transparent_torification))
-        t2.daemon = True
-        t2.start()
+        t = threading.Thread(target=start_onion_service, kwargs={'self': self})
+        t.daemon = True
+        t.start()
 
     def start_server_step2(self):
         """
