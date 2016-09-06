@@ -139,6 +139,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         # Reset web counters
         web.download_count = 0
         web.error404_count = 0
+        web.set_gui_mode()
 
         # pick an available local port for the http service to listen on
         self.app.choose_port()
