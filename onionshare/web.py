@@ -20,7 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import queue, mimetypes, platform, os, sys
 from urllib.request import urlopen
 from flask import Flask, Response, request, render_template_string, abort
-from functools import wraps
 
 from . import strings, helpers
 
@@ -231,7 +230,7 @@ def download(slug_candidate):
             # The user has canceled the download, so stop serving the file
             if client_cancel:
                 add_request(REQUEST_CANCELED, path, {'id': download_id})
-                break;
+                break
 
             chunk = fp.read(chunk_size)
             if chunk == b'':

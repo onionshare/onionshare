@@ -11,10 +11,23 @@ cd onionshare
 
 *For .deb-based distros (like Debian, Ubuntu, Linux Mint):*
 
-Note that python3-stem appears in Debian wheezy and newer, and it appears in Ubuntu 13.10 and newer. Older versions of Debian and Ubuntu aren't supported.
+Then install the needed dependencies:
 
 ```sh
-sudo apt-get install -y build-essential fakeroot python3-all python3-stdeb python3-flask python3-stem python3-pyqt5 dh-python
+sudo apt-get install -y python3-flask python3-stem python3-pyqt5 python-nautilus
+```
+
+After that you can try both the CLI and the GUI version of OnionShare:
+
+```sh
+./install/scripts/onionshare
+./install/scripts/onionshare-gui
+```
+
+A script to build a .deb package and install OnionShare easily is also provided for your convenience:
+
+```sh
+sudo apt-get install -y build-essential fakeroot python3-all python3-stdeb dh-python python-nautilus
 ./install/build_deb.sh
 sudo dpkg -i deb_dist/onionshare_*.deb
 ```
@@ -23,7 +36,7 @@ Note that OnionShare uses stdeb to generate Debian packages, and `python3-stdeb`
 *For .rpm-based distros (Red Hat, Fedora, CentOS):*
 
 ```sh
-sudo sudo dnf install -y rpm-build python3-flask python3-stem python3-qt5
+sudo sudo dnf install -y rpm-build python3-flask python3-stem python3-qt5 nautilus-python
 ./install/build_rpm.sh
 sudo yum install -y dist/onionshare-*.rpm
 ```
@@ -49,8 +62,14 @@ brew install python3 pyqt5 qt5
 Install some dependencies using pip3:
 
 ```sh
-sudo pip3 install pyinstaller flask stem
+sudo pip3 install flask stem
 ```
+
+Install the latest development version of cx_Freeze:
+
+* Download a [snapshot](https://bitbucket.org/anthony_tuininga/cx_freeze/downloads) of the latest development version of cx_Freeze, extract it, and cd into the folder you extracted it to
+* Build the package: `python3 setup.py bdist_wheel`
+* Install it with pip: `sudo pip3 install dist/cx_Freeze-5.0-cp35-cp35m-macosx_10_11_x86_64.whl`
 
 Get the source code:
 
@@ -70,7 +89,7 @@ Now you should have `dist/OnionShare.app`.
 To codesign and build a .pkg for distribution:
 
 ```sh
-install/build_osx.sh --sign
+install/build_osx.sh --release
 ```
 
 Now you should have `dist/OnionShare.pkg`.
@@ -81,19 +100,25 @@ Now you should have `dist/OnionShare.pkg`.
 
 These instructions include adding folders to the path in Windows. To do this, go to Start and type "advanced system settings", and open "View advanced system settings" in the Control Panel. Click Environment Variables. Under "System variables" double-click on Path. From there you can add and remove folders that are available in the PATH.
 
-First, download and install the 32-bit (x86) version of Python 3.4.x from https://www.python.org/downloads/windows/. You need 3.4 instead of 3.5 because PyQt5 was built with 3.4. Add `C:\Python34` and `C:\Python34\Scripts` to the path.
+Download the latest Python 3.5.x, 32-bit (x86) from https://www.python.org/downloads/. I downloaded `python-3.5.2.exe`. When installing it, make sure to check the "Add Python 3.5 to PATH" checkbox on the first page of the installer.
 
-Open a command prompt and install some dependencies with pip: `pip3 install pyinstaller pypiwin32 flask stem`
+Download and install Qt5 from https://www.qt.io/download-open-source/. I downloaded `qt-unified-windows-x86-2.0.3-1-online.exe`. There's no need to login to a Qt account during installation. Make sure you install the latest Qt 5.x.
 
-Download and install Qt5 from https://www.qt.io/download-open-source/. I downloaded `qt-unified-windows-x86-2.0.2-2-online.exe`. There's no need to login to a Qt account during installation. Make sure you install the latest Qt 5.x.
-
-Download and install the latest PyQt5 for 32-bit Windows from https://www.riverbankcomputing.com/software/pyqt/download5. I downloaded `PyQt5-5.5.1-gpl-Py3.4-Qt5.5.1-x32.exe`.
+Open a command prompt and install dependencies with pip: `pip install pypiwin32 flask stem PyQt5`
 
 Download and install the [Microsoft Visual C++ 2008 Redistributable Package (x86)](http://www.microsoft.com/en-us/download/details.aspx?id=29).
 
+Installing cx_Freeze with support for Python 3.5 is annoying. Here are the steps (thanks https://github.com/sekrause/cx_Freeze-Wheels):
+
+* Download and install the Visual C++ Build Tools 2005 from http://go.microsoft.com/fwlink/?LinkId=691126. I downloaded `visualcppbuildtools_full.exe`.
+* Install the python wheel package: `pip install wheel`
+* Download a [snapshot](https://bitbucket.org/anthony_tuininga/cx_freeze/downloads) of the latest development version of cx_Freeze, extract it, and cd into the folder you extracted it to
+* Build the package: `python setup.py bdist_wheel`
+* Install it with pip: `pip install dist\cx_Freeze-5.0-cp35-cp35m-win32.whl`
+
 If you want to build the installer:
 
-* Go to http://nsis.sourceforge.net/Download and download the latest NSIS. I downloaded `nsis-3.0b0-setup.exe`.
+* Go to http://nsis.sourceforge.net/Download and download the latest NSIS. I downloaded `nsis-3.0-setup.exe`.
 * Add `C:\Program Files (x86)\NSIS` to the path.
 
 If you want to sign binaries with Authenticode:
@@ -110,7 +135,7 @@ If you want to sign binaries with Authenticode:
 
 ### To make a .exe:
 
-* Open a command prompt, cd into the onionshare directory, and type: `pyinstaller install\pyinstaller.spec -y`. `onionshare.exe` and all of its supporting files will get created inside the `dist\onionshare` folder.
+* Open a command prompt, cd into the onionshare directory, and type: `python setup.py build`. `onionshare.exe`, `onionshare-gui.exe`, and all of their supporting files will get created inside the `build\exe.win32-3.5` folder.
 
 ### To build the installer:
 

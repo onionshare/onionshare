@@ -17,7 +17,7 @@
     "large_filesize": "Uyarı: Büyük dosyaların gönderimi saatler sürebilir",
     "error_tails_invalid_port": "Geçersiz değer, port sayı olmalıdır",
     "error_tails_unknown_root": "Tails ana işlemi ile ilgili bilinmeyen hata",
-    "help_tails_port": "Sadece Tails: port for opening firewall, starting hidden service",
+    "help_tails_port": "Sadece Tails: port for opening firewall, starting onion service",
     "help_local_only": "Tor kullanmaya kalkışmayın: sadece geliştirme için",
     "help_stay_open": "İndirme tamamlandıktan sonra gizli hizmeti çalıştırmaya devam et",
     "help_transparent_torification": "Sistemim apaçık torlu",
