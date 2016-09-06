@@ -18,18 +18,18 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-import os, sys, subprocess, time, argparse, inspect, shutil, socket, threading
+import os, sys, time, argparse, shutil, socket, threading
 
-from . import strings, helpers, web, hs
+from . import strings, helpers, web, onion
 
 class OnionShare(object):
     """
     OnionShare is the main application class. Pass in options and run
-    start_hidden_service and it will do the magic.
+    start_onion_service and it will do the magic.
     """
     def __init__(self, debug=False, local_only=False, stay_open=False, transparent_torification=False):
         self.port = None
-        self.hs = None
+        self.onion = None
         self.hidserv_dir = None
         self.onion_host = None
 
@@ -64,9 +64,9 @@ class OnionShare(object):
         self.port = tmpsock.getsockname()[1]
         tmpsock.close()
 
-    def start_hidden_service(self, gui=False):
+    def start_onion_service(self):
         """
-        Start the onionshare hidden service.
+        Start the onionshare onion service.
         """
         if not self.port:
             self.choose_port()
@@ -75,10 +75,10 @@ class OnionShare(object):
             self.onion_host = '127.0.0.1:{0:d}'.format(self.port)
             return
 
-        if not self.hs:
-            self.hs = hs.HS(self.transparent_torification)
+        if not self.onion:
+            self.onion = onion.Onion(self.transparent_torification)
 
-        self.onion_host = self.hs.start(self.port)
+        self.onion_host = self.onion.start(self.port)
 
     def cleanup(self):
         """
@@ -92,9 +92,9 @@ class OnionShare(object):
                 shutil.rmtree(filename)
         self.cleanup_filenames = []
 
-        # call hs's cleanup
-        if self.hs:
-            self.hs.cleanup()
+        # cleanup the onion
+        if self.onion:
+            self.onion.cleanup()
 
 
 def main(cwd=None):
@@ -102,7 +102,7 @@ def main(cwd=None):
     The main() function implements all of the logic that the command-line version of
     onionshare uses.
     """
-    strings.load_strings()
+    strings.load_strings(helpers)
     print(strings._('version_string').format(helpers.get_version()))
 
     # onionshare CLI in OSX needs to change current working directory (#132)
@@ -141,10 +141,8 @@ def main(cwd=None):
     try:
         app = OnionShare(debug, local_only, stay_open, transparent_torification)
         app.choose_port()
-        app.start_hidden_service()
-    except hs.NoTor as e:
-        sys.exit(e.args[0])
-    except hs.HSDirError as e:
+        app.start_onion_service()
+    except onion.NoTor as e:
         sys.exit(e.args[0])
 
     # prepare files to share
@@ -158,15 +156,15 @@ def main(cwd=None):
         print(strings._("large_filesize"))
         print('')
 
-    # start onionshare service in new thread
+    # start onionshare http service in new thread
     t = threading.Thread(target=web.start, args=(app.port, app.stay_open, app.transparent_torification))
     t.daemon = True
     t.start()
 
     try:  # Trap Ctrl-C
         # wait for hs, only if using old version of tor
-        if not app.local_only:
-            ready = app.hs.wait_for_hs(app.onion_host)
+        if not app.local_only and not app.onion.supports_ephemeral:
+            ready = app.onion.wait_for_hs(app.onion_host)
             if not ready:
                 sys.exit()
         else:

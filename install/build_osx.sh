@@ -5,19 +5,27 @@ cd $ROOT
 
 # deleting dist
 echo Deleting dist folder
-rm -rf $ROOT/dist &>/dev/null 2>&1
+rm -rf $ROOT/build $ROOT/dist &>/dev/null 2>&1
 
 # build the .app
 echo Building OnionShare.app
-pyinstaller install/pyinstaller.spec
+python3 setup.py bdist_mac
 
-if [ "$1" = "--sign" ]; then
-  SIGNING_IDENTITY_APP="3rd Party Mac Developer Application: Micah Lee"
-  SIGNING_IDENTITY_INSTALLER="3rd Party Mac Developer Installer: Micah Lee"
+if [ "$1" = "--release" ]; then
+  mkdir -p dist
+  APP_PATH="build/OnionShare.app"
+  PKG_PATH="dist/OnionShare.pkg"
+  IDENTITY_NAME_APPLICATION="Developer ID Application: Micah Lee"
+  IDENTITY_NAME_INSTALLER="Developer ID Installer: Micah Lee"
 
-  # codesign the .app
-  codesign -vvvv --deep -s "$SIGNING_IDENTITY_APP" dist/OnionShare.app
+  echo "Codesigning the app bundle"
+  codesign --deep -s "$IDENTITY_NAME_APPLICATION" "$APP_PATH"
 
-  # build .pkg
-  productbuild --component dist/OnionShare.app /Applications dist/OnionShare.pkg --sign "$SIGNING_IDENTITY_INSTALLER"
+  echo "Creating an installer"
+  productbuild --sign "$IDENTITY_NAME_INSTALLER" --component "$APP_PATH" /Applications "$PKG_PATH"
+
+  echo "Cleaning up"
+  rm -rf "$APP_PATH"
+
+  echo "All done, your installer is in: $PKG_PATH"
 fi

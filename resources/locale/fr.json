@@ -1,5 +1,5 @@
 {
-    "connecting_ctrlport": "Connexion au réseau Tor pour mettre en place un Hidden Service sur le port {0:d}.",
+    "connecting_ctrlport": "Connexion au réseau Tor pour mettre en place un onion service sur le port {0:d}.",
     "cant_connect_ctrlport": "Impossible de se connecter au port de contrôle Tor sur le port {0:s}. Est-ce que Tor tourne ?",
     "preparing_files": "Préparation des fichiers à partager.",
     "wait_for_hs": "En attente du HS:",
@@ -15,9 +15,9 @@
     "closing_automatically": "Fermeture automatique car le téléchargement est fini",
     "error_tails_invalid_port": "Valeur invalide, le port doit être un nombre entier",
     "error_tails_unknown_root": "Erreur inconnue avec un processus root sur Tails",
-    "help_tails_port": "Seulement sur Tails: port pour ouvrir le firewall, démarrage du Hidden Service",
+    "help_tails_port": "Seulement sur Tails: port pour ouvrir le firewall, démarrage du onion service",
     "help_local_only": "Ne tentez pas d'utiliser Tor, uniquement pour développement",
-    "help_stay_open": "Laisser tourner le Hidden Service après que le téléchargment soit fini",
+    "help_stay_open": "Laisser tourner le onion service après que le téléchargment soit fini",
     "help_debug": "Enregistrer les erreurs sur le disque",
     "help_filename": "Liste des fichiers ou dossiers à partager",
     "gui_drag_and_drop": "Glissez déposez\nles fichiers ici",

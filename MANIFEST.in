@@ -8,3 +8,4 @@ include resources/html/*
 include install/onionshare.desktop
 include install/onionshare.appdata.xml
 include install/onionshare80.xpm
+include install/scripts/onionshare-nautilus.py

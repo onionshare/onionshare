@@ -17,6 +17,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import tempfile
+import os
 
 
 class MockSubprocess():
@@ -31,9 +32,7 @@ class MockSubprocess():
 
 
 def write_tempfile(text):
-    tempdir = tempfile.mkdtemp()
-    path = tempdir + "/test-file.txt"
+    path = os.path.join(tempfile.mkdtemp(), "/test-file.txt")
     with open(path, "w") as f:
         f.write(text)
-        f.close()
     return path

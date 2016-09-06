@@ -17,7 +17,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-import sys, os, inspect, hashlib, base64, hmac, platform, zipfile, tempfile, math, time
+import sys, os, inspect, hashlib, base64, platform, zipfile, tempfile, math, time
 from random import SystemRandom
 
 
@@ -34,20 +34,14 @@ def get_resource_path(filename):
     systemwide, and whether regardless of platform
     """
     p = get_platform()
-    if p == 'Linux':
+    if p == 'Linux' and sys.argv and sys.argv[0].startswith('/usr/bin/onionshare'):
         # OnionShare is installed systemwide in Linux
-        if len(sys.argv) > 0 and sys.argv[0].startswith('/usr/bin/onionshare'):
-            resources_dir = os.path.join(sys.prefix, 'share/onionshare')
-        # Look for resources directory relative to python file
-        else:
-            resources_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))), 'resources')
-    else:
-        # Check if app is "frozen" with pyinstaller
-        # https://pythonhosted.org/PyInstaller/#run-time-information
-        if getattr(sys, 'frozen', False):
-            resources_dir = sys._MEIPASS
-        else:
-            resources_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))), 'resources')
+        resources_dir = os.path.join(sys.prefix, 'share/onionshare')
+    elif getattr(sys, 'frozen', False): # Check if app is "frozen" with cx_Freeze
+        # http://cx-freeze.readthedocs.io/en/latest/faq.html#using-data-files
+        resources_dir = os.path.join(os.path.dirname(sys.executable), 'resources')
+    else:  # Look for resources directory relative to python file
+        resources_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))), 'resources')
 
     return os.path.join(resources_dir, filename)
 

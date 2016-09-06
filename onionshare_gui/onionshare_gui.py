@@ -58,6 +58,8 @@ class OnionShareGui(QtWidgets.QMainWindow):
     start_server_finished = QtCore.pyqtSignal()
     stop_server_finished = QtCore.pyqtSignal()
     starting_server_step2 = QtCore.pyqtSignal()
+    starting_server_step3 = QtCore.pyqtSignal()
+    starting_server_error = QtCore.pyqtSignal(str)
 
     def __init__(self, qtapp, app):
         super(OnionShareGui, self).__init__()
@@ -90,6 +92,8 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.file_selection.file_list.files_updated.connect(self.server_status.update)
         self.server_status.url_copied.connect(self.copy_url)
         self.starting_server_step2.connect(self.start_server_step2)
+        self.starting_server_step3.connect(self.start_server_step3)
+        self.starting_server_error.connect(self.start_server_error)
 
         # filesize warning
         self.filesize_warning = QtWidgets.QLabel()
@@ -127,52 +131,53 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.timer.timeout.connect(self.check_for_requests)
         self.timer.start(500)
 
-    def start_server_step2(self):
-        """
-        Step 2 in starting the onionshare server. This displays the large filesize
-        warning, if applicable.
-        """
-        # warn about sending large files over Tor
-        if web.zip_filesize >= 157286400:  # 150mb
-            self.filesize_warning.setText(strings._("large_filesize", True))
-            self.filesize_warning.show()
-
     def start_server(self):
         """
-        Start the onionshare server. This uses multiple threads to start the Tor hidden
+        Start the onionshare server. This uses multiple threads to start the Tor onion
         server and the web app.
         """
         # Reset web counters
         web.download_count = 0
         web.error404_count = 0
 
-        # start the hidden service
-        self.status_bar.showMessage(strings._('gui_starting_server1', True))
+        # pick an available local port for the http service to listen on
         self.app.choose_port()
-        try:
-            self.app.start_hidden_service(gui=True)
-        except onionshare.hs.NoTor as e:
-            alert(e.args[0], QtWidgets.QMessageBox.Warning)
-            self.server_status.stop_server()
-            self.status_bar.clearMessage()
-            return
 
-        # start onionshare service in new thread
-        t = threading.Thread(target=web.start, args=(self.app.port, self.app.stay_open, self.app.transparent_torification))
-        t.daemon = True
-        t.start()
+        # start the onion service in a new thread
+        def start_onion_service(self):
+            self.status_bar.showMessage(strings._('gui_starting_server1', True))
+            try:
+                self.app.start_onion_service()
+                self.starting_server_step2.emit()
 
+            except onionshare.onion.NoTor as e:
+                self.starting_server_error.emit(e.args[0])
+                return
+
+        t1 = threading.Thread(target=start_onion_service, kwargs={'self': self})
+        t1.daemon = True
+        t1.start()
+
+        # start onionshare http service in new thread
+        t2 = threading.Thread(target=web.start, args=(self.app.port, self.app.stay_open, self.app.transparent_torification))
+        t2.daemon = True
+        t2.start()
+
+    def start_server_step2(self):
+        """
+        Step 2 in starting the onionshare server. Prepare files for serving.
+        """
         # prepare the files for sending in a new thread
         def finish_starting_server(self):
             # prepare files to share
             web.set_file_info(self.file_selection.file_list.filenames)
             self.app.cleanup_filenames.append(web.zip_filename)
-            self.starting_server_step2.emit()
+            self.starting_server_step3.emit()
 
             # wait for hs
-            if not self.app.local_only:
+            if not self.app.local_only and not self.app.onion.supports_ephemeral:
                 self.status_bar.showMessage(strings._('gui_starting_server3', True))
-                self.app.hs.wait_for_hs(self.app.onion_host)
+                self.app.onion.wait_for_hs(self.app.onion_host)
 
             # done
             self.start_server_finished.emit()
@@ -181,6 +186,24 @@ class OnionShareGui(QtWidgets.QMainWindow):
         t = threading.Thread(target=finish_starting_server, kwargs={'self': self})
         t.daemon = True
         t.start()
+
+    def start_server_step3(self):
+        """
+        Step 3 in starting the onionshare server. This displays the large filesize
+        warning, if applicable.
+        """
+        # warn about sending large files over Tor
+        if web.zip_filesize >= 157286400:  # 150mb
+            self.filesize_warning.setText(strings._("large_filesize", True))
+            self.filesize_warning.show()
+
+    def start_server_error(self, error):
+        """
+        If there's an error when trying to start the onion service
+        """
+        alert(error, QtWidgets.QMessageBox.Warning)
+        self.server_status.stop_server()
+        self.status_bar.clearMessage()
 
     def stop_server(self):
         """
@@ -284,7 +307,7 @@ def main():
     """
     The main() function implements all of the logic that the GUI version of onionshare uses.
     """
-    strings.load_strings()
+    strings.load_strings(helpers)
     print(strings._('version_string').format(helpers.get_version()))
 
     # start the Qt app

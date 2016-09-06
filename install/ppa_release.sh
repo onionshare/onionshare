@@ -7,10 +7,10 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )"
 cd $DIR
 
-VERSION=`cat version`
+VERSION=`cat resources/version.txt`
 
 rm -rf deb_dist >/dev/null 2>&1
-python setup.py --command-packages=stdeb.command sdist_dsc
+python3 setup.py --command-packages=stdeb.command sdist_dsc
 cd deb_dist/onionshare-$VERSION
 dpkg-buildpackage -S
 cd ..
