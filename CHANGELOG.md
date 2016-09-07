@@ -1,5 +1,13 @@
 # OnionShare Changelog
 
+## 0.9.1
+
+* Added Nautilus extension, so you can right-click on a file and choose "Share via OnionShare", thanks to Subgraph developers
+* Switch to using the term "onion service" rather than "hidden service"
+* Fix CVE-2016-5026, minor security issue related to use of /tmp directory
+* Switch from PyInstaller to cx_Freeze for Windows and OSX packaging
+* Support CLI in Windows and OSX
+
 ## 0.9
 
 * Slugs are now shorter and human-readable, with rate limiting to prevent URL guessing
