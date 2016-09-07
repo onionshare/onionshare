@@ -243,8 +243,8 @@ def download(slug_candidate):
                     downloaded_bytes = fp.tell()
                     percent = (1.0 * downloaded_bytes / zip_filesize) * 100
 
-                    # suppress stdout platform on OSX (#203)
-                    if helpers.get_platform() != 'Darwin':
+                    # only output to stdout in Linux (#203, #304)
+                    if helpers.get_platform() == 'Linux':
                         sys.stdout.write(
                             "\r{0:s}, {1:.2f}%          ".format(helpers.human_readable_filesize(downloaded_bytes), percent))
                         sys.stdout.flush()
