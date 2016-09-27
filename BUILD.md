@@ -27,7 +27,7 @@ After that you can try both the CLI and the GUI version of OnionShare:
 A script to build a .deb package and install OnionShare easily is also provided for your convenience:
 
 ```sh
-sudo apt-get install -y build-essential fakeroot python3-all python3-stdeb dh-python python-nautilus
+sudo apt-get install -y build-essential fakeroot python3-all python3-stdeb dh-python python-nautilus python3-nose
 ./install/build_deb.sh
 sudo dpkg -i deb_dist/onionshare_*.deb
 ```
