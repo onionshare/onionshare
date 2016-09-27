@@ -57,7 +57,11 @@ class Onion(object):
         # connect to the tor controlport
         found_tor = False
         self.c = None
-        ports = [9151, 9153, 9051]
+        env_port = os.environ.get('TOR_CONTROL_PORT')
+        if env_port:
+            ports = [int(env_port)]
+        else:
+            ports = [9151, 9153, 9051]
         for port in ports:
             try:
                 self.c = Controller.from_port(port=port)
