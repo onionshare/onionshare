@@ -8,7 +8,7 @@
   /usr/bin/ r,
   /usr/bin/onionshare-gui r,
   /proc/*/cmdline r,
-  /usr/share/icons/Adwaita/index.theme rwk,
+  /usr/share/icons/Adwaita/index.theme r,
 
   # Why do these still emit audit journal entries?
   owner @{HOME}/.config/ibus/bus/ rw,
