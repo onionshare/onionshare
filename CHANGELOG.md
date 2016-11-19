@@ -1,5 +1,10 @@
 # OnionShare Changelog
 
+## 0.9.2 (Linux only)
+
+* Looks for `TOR_CONTROL_PORT` environment variable, to help Tails integration
+* Change how OnionShare checks to see if it's installed system-wide, to help Subgraph OS integration
+
 ## 0.9.1
 
 * Added Nautilus extension, so you can right-click on a file and choose "Share via OnionShare", thanks to Subgraph developers
