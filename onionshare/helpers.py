@@ -34,7 +34,7 @@ def get_resource_path(filename):
     systemwide, and whether regardless of platform
     """
     p = get_platform()
-    if p == 'Linux' and sys.argv and sys.argv[0].startswith('/usr/bin/onionshare'):
+    if p == 'Linux' and sys.argv and sys.argv[0].startswith(sys.prefix):
         # OnionShare is installed systemwide in Linux
         resources_dir = os.path.join(sys.prefix, 'share/onionshare')
     elif getattr(sys, 'frozen', False): # Check if app is "frozen" with cx_Freeze
