@@ -25,6 +25,8 @@ You can download OnionShare to install on your computer from <https://onionshare
 
 You can set up your development environment to build OnionShare yourself by following [these instructions](/BUILD.md).
 
+Version 0.9 is the last to support OSX 10.10.x, 0.9.1 and further releases require 10.11.x or higher.
+
 ## How to Use
 
 Before you can share files, you need to open [Tor Browser](https://www.torproject.org/) in the background. This will provide the Tor service that OnionShare uses to start the onion service.
