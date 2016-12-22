@@ -102,6 +102,14 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         # downloads
         self.downloads = Downloads()
+        self.downloads_layout = QtWidgets.QGroupBox()
+        self.downloads_layout.setLayout(self.downloads)
+        self.downloads_layout_container = QtWidgets.QScrollArea()
+        self.downloads_layout_container.setWidget(self.downloads_layout)
+        self.downloads_layout_container.setWidgetResizable(True)
+        self.downloads_layout_container.setFixedHeight(80)
+        self.vbar = self.downloads_layout_container.verticalScrollBar()
+        self.new_download = False
 
         # options
         self.options = Options(web, self.app)
@@ -112,14 +120,14 @@ class OnionShareGui(QtWidgets.QMainWindow):
         version_label = QtWidgets.QLabel('v{0:s}'.format(helpers.get_version()))
         version_label.setStyleSheet('color: #666666; padding: 0 10px;')
         self.status_bar.addPermanentWidget(version_label)
-        self.setStatusBar(self.status_bar)
+        self.setStatusBar(self.status_bar) 
 
         # main layout
         self.layout = QtWidgets.QVBoxLayout()
         self.layout.addLayout(self.file_selection)
         self.layout.addLayout(self.server_status)
         self.layout.addWidget(self.filesize_warning)
-        self.layout.addLayout(self.downloads)
+        self.layout.addWidget(self.downloads_layout_container)
         self.layout.addLayout(self.options)
         central_widget = QtWidgets.QWidget()
         central_widget.setLayout(self.layout)
@@ -221,8 +229,13 @@ class OnionShareGui(QtWidgets.QMainWindow):
     def check_for_requests(self):
         """
         Check for messages communicated from the web app, and update the GUI accordingly.
-        """
+        """ 
         self.update()
+        # scroll to the bottom of the dl progress bar log pane
+        # if a new download has been added
+        if self.new_download:
+            self.vbar.setValue(self.vbar.maximum())
+            self.new_download = False
         # only check for requests if the server is running
         if self.server_status.status != self.server_status.STATUS_STARTED:
             return
@@ -243,6 +256,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
             elif event["type"] == web.REQUEST_DOWNLOAD:
                 self.downloads.add_download(event["data"]["id"], web.zip_filesize)
+                self.new_download = True
 
             elif event["type"] == web.REQUEST_RATE_LIMIT:
                 self.stop_server()
@@ -250,7 +264,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
             elif event["type"] == web.REQUEST_PROGRESS:
                 self.downloads.update_download(event["data"]["id"], event["data"]["bytes"])
-
+               
                 # is the download complete?
                 if event["data"]["bytes"] == web.zip_filesize:
                     # close on finish?
