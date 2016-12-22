@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from stem.control import Controller
 from stem import SocketError
+from stem.connection import MissingPassword, UnreadableCookieFile
 import os, sys, tempfile, shutil, urllib
 
 from . import socks
@@ -54,22 +55,32 @@ class Onion(object):
         self.cleanup_filenames = []
         self.service_id = None
 
-        # connect to the tor controlport
-        found_tor = False
-        self.c = None
+        # if the TOR_CONTROL_PORT environment variable is set, use that
+        # otherwise, default to Tor Browser, Tor Messenger, and system tor ports
         env_port = os.environ.get('TOR_CONTROL_PORT')
         if env_port:
             ports = [int(env_port)]
         else:
             ports = [9151, 9153, 9051]
+
+        # if the TOR_AUTHENTICATION_PASSWORD is set, use that to authenticate
+        password = os.environ.get('TOR_AUTHENTICATION_PASSWORD')
+
+        # connect to the tor controlport
+        found_tor = False
+        self.c = None
         for port in ports:
             try:
                 self.c = Controller.from_port(port=port)
-                self.c.authenticate()
+                self.c.authenticate(password)
                 found_tor = True
                 break
             except SocketError:
                 pass
+            except MissingPassword:
+                raise NoTor(strings._("ctrlport_missing_password").format(str(ports)))
+            except UnreadableCookieFile:
+                raise NoTor(strings._("ctrlport_unreadable_cookie").format(str(ports)))
         if not found_tor:
             raise NoTor(strings._("cant_connect_ctrlport").format(str(ports)))
 

@@ -2,6 +2,8 @@
     "connecting_ctrlport": "Connecting to Tor control port to set up onion service on port {0:d}.",
     "cant_connect_ctrlport": "Can't connect to Tor control port on port {0:s}. OnionShare requires Tor Browser to be running in the background to work. If you don't have it you can get it from https://www.torproject.org/.",
     "cant_connect_socksport": "Can't connect to Tor SOCKS5 server on port {0:s}. OnionShare requires Tor Browser to be running in the background to work. If you don't have it you can get it from https://www.torproject.org/.",
+    "ctrlport_missing_password": "Connected to Tor control port on port {0:s}, but you require a password. You must have the TOR_AUTHENTICATION_PASSWORD environment variable set. Or just open Tor Browser in the background.",
+    "ctrlport_unreadable_cookie": "Connected to Tor control port on port {0:s}, but your user does not have permission to authenticate. You might want to add a HashedControlPassword to your torrc, and set the TOR_AUTHENTICATION_PASSWORD environment variable. Or just open Tor Browser in the background.",
     "preparing_files": "Preparing files to share.",
     "wait_for_hs": "Waiting for HS to be ready:",
     "wait_for_hs_trying": "Trying...",
