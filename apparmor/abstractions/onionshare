@@ -1,0 +1,31 @@
+#include <abstractions/base>
+#include <abstractions/nameservice>
+#include <abstractions/python>
+
+# Why are these not in abstractions/python?
+/usr/lib{,32,64}/python{2,3}.[0-9]/__pycache__/ rw,
+/usr/lib{,32,64}/python{2,3}.[0-9]/__pycache__/* rw,
+/usr/lib{,32,64}/python{2,3}.[0-9]/**/__pycache__/ rw,
+/usr/lib{,32,64}/python{2,3}.[0-9]/**/__pycache__/* rw,
+/usr/lib{,32,64}/python{2,3}/**/__pycache__/ rw,
+/usr/lib{,32,64}/python{2,3}/**/__pycache__/* rw,
+
+/bin/dash rix,
+/proc/*/mounts r,
+/proc/*/fd/ r,
+/sbin/ldconfig rix,
+/sbin/ldconfig.real rix,
+/bin/uname rix,
+/{,lib/live/mount/rootfs/filesystem.squashfs/}etc/mime.types r,
+/{,lib/live/mount/rootfs/filesystem.squashfs/}usr/share/onionshare/ r,
+/{,lib/live/mount/rootfs/filesystem.squashfs/}usr/share/onionshare/** r,
+/tmp/ rw,
+/tmp/** rw,
+
+# Allow all user data except .gnupg, .ssh and other potential
+# places for critically sensitive application data.
+audit deny @{HOME}/.* mrwkl,
+audit deny @{HOME}/.*/ mrwkl,
+audit deny @{HOME}/.*/** mrwkl,
+owner @{HOME}/ r,
+owner @{HOME}/** r,

@@ -179,7 +179,10 @@ class Onion(object):
         if self.supports_ephemeral:
             # cleanup the ephemeral onion service
             if self.service_id:
-                self.c.remove_ephemeral_hidden_service(self.service_id)
+                try:
+                    self.c.remove_ephemeral_hidden_service(self.service_id)
+                except:
+                    pass
                 self.service_id = None
 
         else:
