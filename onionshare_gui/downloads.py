@@ -77,33 +77,27 @@ class Download(object):
                                                 self.started)
 
 
-class Downloads(QtWidgets.QVBoxLayout):
+class Downloads(QtWidgets.QWidget):
     """
     The downloads chunk of the GUI. This lists all of the active download
     progress bars.
     """
     def __init__(self):
         super(Downloads, self).__init__()
-
         self.downloads = {}
-
-        # downloads label
-        self.downloads_label = QtWidgets.QLabel(strings._('gui_downloads', True))
-        self.downloads_label.hide()
-
-        # add the widgets
-        self.addWidget(self.downloads_label)
+        self.layout = QtWidgets.QVBoxLayout()
+        self.setLayout(self.layout)
 
     def add_download(self, download_id, total_bytes):
         """
         Add a new download progress bar.
         """
-        self.downloads_label.show()
+        self.parent().show()
 
         # add it to the list
         download = Download(download_id, total_bytes)
         self.downloads[download_id] = download
-        self.insertWidget(-1, download.progress_bar)
+        self.layout.insertWidget(-1, download.progress_bar)
 
     def update_download(self, download_id, downloaded_bytes):
         """
