@@ -17,7 +17,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-import queue, mimetypes, platform, os, sys, socket, logging, re
+import queue, mimetypes, platform, os, sys, socket, logging, html
 from urllib.request import urlopen
 from flask import Flask, Response, request, render_template_string, abort
 
@@ -29,18 +29,6 @@ app = Flask(__name__)
 file_info = []
 zip_filename = None
 zip_filesize = None
-
-def sanitize_html(basename):
-    """
-    Takes a string, called basename, and removes any HTML that could be in the
-    string. If the resulting string is empty, return the string 'file', which
-    is not ideal, but better than embedded HTML that could run JS.
-    """
-    html_regex = re.compile('<.*?>')
-    sanitized_name = re.sub(html_regex , '', basename)
-    if sanitized_name == '':
-        sanitized_name = 'file'
-    return sanitized_name
 
 def set_file_info(filenames):
     """
@@ -54,7 +42,7 @@ def set_file_info(filenames):
     file_info = {'files': [], 'dirs': []}
     for filename in filenames:
         # strips trailing '/' and sanitizes filename
-        basename = sanitize_html(os.path.basename(filename.rstrip('/')))
+        basename = html.escape(os.path.basename(filename.rstrip('/')))
         info = {
             'filename': filename,
             'basename': basename
