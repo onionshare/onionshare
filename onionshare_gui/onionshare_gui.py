@@ -102,6 +102,13 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         # downloads
         self.downloads = Downloads()
+        self.downloads_container = QtWidgets.QScrollArea()
+        self.downloads_container.setWidget(self.downloads)
+        self.downloads_container.setWidgetResizable(True)
+        self.downloads_container.setMaximumHeight(200)
+        self.vbar = self.downloads_container.verticalScrollBar()
+        self.downloads_container.hide() # downloads start out hidden
+        self.new_download = False
 
         # options
         self.options = Options(web, self.app)
@@ -119,7 +126,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.layout.addLayout(self.file_selection)
         self.layout.addLayout(self.server_status)
         self.layout.addWidget(self.filesize_warning)
-        self.layout.addLayout(self.downloads)
+        self.layout.addWidget(self.downloads_container)
         self.layout.addLayout(self.options)
         central_widget = QtWidgets.QWidget()
         central_widget.setLayout(self.layout)
@@ -223,6 +230,11 @@ class OnionShareGui(QtWidgets.QMainWindow):
         Check for messages communicated from the web app, and update the GUI accordingly.
         """
         self.update()
+        # scroll to the bottom of the dl progress bar log pane
+        # if a new download has been added
+        if self.new_download:
+            self.vbar.setValue(self.vbar.maximum())
+            self.new_download = False
         # only check for requests if the server is running
         if self.server_status.status != self.server_status.STATUS_STARTED:
             return
@@ -242,7 +254,9 @@ class OnionShareGui(QtWidgets.QMainWindow):
                 self.status_bar.showMessage(strings._('download_page_loaded', True))
 
             elif event["type"] == web.REQUEST_DOWNLOAD:
+                self.downloads_container.show() # show the downloads layout
                 self.downloads.add_download(event["data"]["id"], web.zip_filesize)
+                self.new_download = True
 
             elif event["type"] == web.REQUEST_RATE_LIMIT:
                 self.stop_server()
