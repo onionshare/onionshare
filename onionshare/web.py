@@ -17,7 +17,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-import queue, mimetypes, platform, os, sys, socket, logging
+import queue, mimetypes, platform, os, sys, socket, logging, re
 from urllib.request import urlopen
 from flask import Flask, Response, request, render_template_string, abort
 
@@ -30,6 +30,17 @@ file_info = []
 zip_filename = None
 zip_filesize = None
 
+def sanitize_html(basename):
+    """
+    Takes a string, called basename, and removes any HTML that could be in the
+    string. If the resulting string is empty, return the string 'file', which
+    is not ideal, but better than embedded HTML that could run JS.
+    """
+    html_regex = re.compile('<.*?>')
+    sanitized_name = re.sub(html_regex , '', basename)
+    if sanitized_name == '':
+        sanitized_name = 'file'
+    return sanitized_name
 
 def set_file_info(filenames):
     """
@@ -42,9 +53,11 @@ def set_file_info(filenames):
     # build file info list
     file_info = {'files': [], 'dirs': []}
     for filename in filenames:
+        # strips trailing '/' and sanitizes filename
+        basename = sanitize_html(os.path.basename(filename.rstrip('/')))
         info = {
             'filename': filename,
-            'basename': os.path.basename(filename.rstrip('/'))
+            'basename': basename
         }
         if os.path.isfile(filename):
             info['size'] = os.path.getsize(filename)
@@ -54,6 +67,8 @@ def set_file_info(filenames):
             info['size'] = helpers.dir_size(filename)
             info['size_human'] = helpers.human_readable_filesize(info['size'])
             file_info['dirs'].append(info)
+
+    # sort list of files and directories by basename
     file_info['files'] = sorted(file_info['files'], key=lambda k: k['basename'])
     file_info['dirs'] = sorted(file_info['dirs'], key=lambda k: k['basename'])
 
