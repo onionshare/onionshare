@@ -30,7 +30,7 @@ file_info = []
 zip_filename = None
 zip_filesize = None
 
-def set_file_info(filenames):
+def set_file_info(filenames, processed_size_callback=None):
     """
     Using the list of filenames being shared, fill in details that the web
     page will need to display. This includes zipping up the file in order to
@@ -61,7 +61,7 @@ def set_file_info(filenames):
     file_info['dirs'] = sorted(file_info['dirs'], key=lambda k: k['basename'])
 
     # zip up the files and folders
-    z = helpers.ZipWriter()
+    z = helpers.ZipWriter(processed_size_callback=processed_size_callback)
     for info in file_info['files']:
         z.add_file(info['filename'])
     for info in file_info['dirs']:
