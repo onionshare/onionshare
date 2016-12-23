@@ -91,6 +91,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.stop_server_finished.connect(self.server_status.stop_server_finished)
         self.file_selection.file_list.files_updated.connect(self.server_status.update)
         self.server_status.url_copied.connect(self.copy_url)
+        self.server_status.hidservauth_copied.connect(self.copy_hidservauth)
         self.starting_server_step2.connect(self.start_server_step2)
         self.starting_server_step3.connect(self.start_server_step3)
         self.starting_server_error.connect(self.start_server_error)
@@ -153,6 +154,9 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         # pick an available local port for the http service to listen on
         self.app.choose_port()
+
+        # disable the stealth option
+        self.options.set_stealth_enabled(False)
 
         # start onionshare http service in new thread
         t = threading.Thread(target=web.start, args=(self.app.port, self.app.stay_open, self.app.transparent_torification))
@@ -240,6 +244,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
             web.stop(self.app.port)
         self.app.cleanup()
         self.filesize_warning.hide()
+        self.options.set_stealth_enabled(True)
         self.stop_server_finished.emit()
 
     @staticmethod
@@ -309,6 +314,12 @@ class OnionShareGui(QtWidgets.QMainWindow):
         When the URL gets copied to the clipboard, display this in the status bar.
         """
         self.status_bar.showMessage(strings._('gui_copied_url', True), 2000)
+
+    def copy_hidservauth(self):
+        """
+        When the stealth onion service HidServAuth gets copied to the clipboard, display this in the status bar.
+        """
+        self.status_bar.showMessage(strings._('gui_copied_hidservauth', True), 2000)
 
     def clear_message(self):
         """

@@ -21,7 +21,7 @@ from PyQt5 import QtCore, QtWidgets
 
 from onionshare import strings, helpers
 
-class Options(QtWidgets.QHBoxLayout):
+class Options(QtWidgets.QVBoxLayout):
     """
     The extra onionshare options in the GUI.
     """
@@ -40,8 +40,15 @@ class Options(QtWidgets.QHBoxLayout):
         self.close_automatically.setText(strings._("close_on_finish", True))
         self.close_automatically.stateChanged.connect(self.stay_open_changed)
 
+        # stealth
+        self.stealth = QtWidgets.QCheckBox()
+        self.stealth.setCheckState(QtCore.Qt.Unchecked)
+        self.stealth.setText(strings._("create_stealth", True))
+        self.stealth.stateChanged.connect(self.stealth_changed)
+
         # add the widgets
         self.addWidget(self.close_automatically)
+        self.addWidget(self.stealth)
 
     def stay_open_changed(self, state):
         """
@@ -53,3 +60,19 @@ class Options(QtWidgets.QHBoxLayout):
         else:
             self.web.set_stay_open(True)
             self.app.stay_open = True
+
+    def stealth_changed(self, state):
+        """
+        When the 'stealth' checkbox is toggled, let the onionshare app know.
+        """
+        if state == 2:
+            self.app.stealth = True
+        else:
+            self.app.stealth = False
+
+    def set_stealth_enabled(self, enabled):
+        """
+        You cannot toggle stealth after an onion service has started. This method
+        disables and re-enabled the stealth checkbox.
+        """
+        self.stealth.setEnabled(enabled)
