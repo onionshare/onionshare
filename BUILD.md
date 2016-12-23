@@ -20,8 +20,8 @@ sudo apt-get install -y python3-flask python3-stem python3-pyqt5 python-nautilus
 After that you can try both the CLI and the GUI version of OnionShare:
 
 ```sh
-./install/scripts/onionshare
-./install/scripts/onionshare-gui
+./dev_scripts/onionshare
+./dev_scripts/onionshare-gui
 ```
 
 A script to build a .deb package and install OnionShare easily is also provided for your convenience:
