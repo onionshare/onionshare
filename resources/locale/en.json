@@ -35,9 +35,11 @@
     "gui_start_server": "Start Sharing",
     "gui_stop_server": "Stop Sharing",
     "gui_copy_url": "Copy URL",
+    "gui_copy_hidservauth": "Copy HidServAuth",
     "gui_downloads": "Downloads:",
     "gui_canceled": "Canceled",
     "gui_copied_url": "Copied URL to clipboard",
+    "gui_copied_hidservauth": "Copied HidServAuth line to clipboard",
     "gui_starting_server1": "Starting Tor onion service...",
     "gui_starting_server2": "Crunching files...",
     "gui_starting_server3": "Waiting for Tor onion service...",
@@ -54,5 +56,6 @@
     "gui_quit_warning_dont_quit": "Don't Quit",
     "error_rate_limit": "An attacker might be trying to guess your URL. To prevent this, OnionShare has automatically stopped the server. To share the files you must start it again and share the new URL.",
     "zip_progress_bar_format": "Crunching files: %p%",
-    "error_stealth_not_supported": "Your versions of tor or stem are too old. You need to upgrade them to create stealth onion services."
+    "error_stealth_not_supported": "Your versions of tor or stem are too old. You need to upgrade them to create stealth onion services.",
+    "create_stealth": "Create stealth onion service (advanced)"
 }
