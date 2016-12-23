@@ -99,12 +99,16 @@ class Onion(object):
         self.supports_ephemeral = callable(list_ephemeral_hidden_services) and tor_version >= '0.2.7.1'
 
         # do the versions of stem and tor that I'm using support stealth onion services?
+        if self.stealth:
+            self.check_for_stealth_support()
+
+    def check_for_stealth_support(self):
         try:
             res = self.c.create_ephemeral_hidden_service({1:1}, basic_auth={'onionshare':None}, await_publication=False)
             tmp_service_id = res.content()[0][2].split('=')[1]
             self.c.remove_ephemeral_hidden_service(tmp_service_id)
             self.supports_stealth = True
-        except TypeError:
+        except:
             # ephemeral stealth onion services are not supported
             self.supports_stealth = False
 
