@@ -33,6 +33,14 @@ class NoTor(Exception):
     """
     pass
 
+class TorTooOld(Exception):
+    """
+    This exception is raised if onionshare needs to use a feature of Tor or stem
+    (like stealth ephemeral onion services) but the version you have installed
+    is too old.
+    """
+    pass
+
 class Onion(object):
     """
     Onion is an abstraction layer for connecting to the Tor control port and
@@ -48,8 +56,9 @@ class Onion(object):
     onion services are supported. If not, it falls back to modifying the
     Tor configuration.
     """
-    def __init__(self, transparent_torification=False):
+    def __init__(self, transparent_torification=False, stealth=False):
         self.transparent_torification = transparent_torification
+        self.stealth = stealth
 
         # files and dirs to delete on shutdown
         self.cleanup_filenames = []
@@ -89,17 +98,42 @@ class Onion(object):
         list_ephemeral_hidden_services = getattr(self.c, "list_ephemeral_hidden_services", None)
         self.supports_ephemeral = callable(list_ephemeral_hidden_services) and tor_version >= '0.2.7.1'
 
+        # do the versions of stem and tor that I'm using support stealth onion services?
+        try:
+            res = self.c.create_ephemeral_hidden_service({1:1}, basic_auth={'onionshare':None}, await_publication=False)
+            tmp_service_id = res.content()[0][2].split('=')[1]
+            self.c.remove_ephemeral_hidden_service(tmp_service_id)
+            self.supports_stealth = True
+        except TypeError:
+            # ephemeral stealth onion services are not supported
+            self.supports_stealth = False
+
     def start(self, port):
         """
         Start a onion service on port 80, pointing to the given port, and
         return the onion hostname.
         """
-        print(strings._("connecting_ctrlport").format(int(port)))
+        self.auth_string = None
+        if self.stealth and not self.supports_stealth:
+            raise TorTooOld(strings._('error_stealth_not_supported'))
+
+        print(strings._("config_onion_service").format(int(port)))
         if self.supports_ephemeral:
             print(strings._('using_ephemeral'))
-            res = self.c.create_ephemeral_hidden_service({ 80: port }, await_publication = True)
+
+            if self.stealth:
+                basic_auth = {'onionshare':None}
+            else:
+                basic_auth = None
+
+            res = self.c.create_ephemeral_hidden_service({ 80: port }, await_publication=True, basic_auth=basic_auth)
             self.service_id = res.content()[0][2].split('=')[1]
             onion_host = self.service_id + '.onion'
+
+            if self.stealth:
+                auth_cookie = res.content()[2][2].split('=')[1].split(':')[1]
+                self.auth_string = 'HidServAuth {} {}'.format(onion_host, auth_cookie)
+
             return onion_host
 
         else:
