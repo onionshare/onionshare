@@ -27,7 +27,7 @@ class OnionShare(object):
     OnionShare is the main application class. Pass in options and run
     start_onion_service and it will do the magic.
     """
-    def __init__(self, debug=False, local_only=False, stay_open=False, transparent_torification=False):
+    def __init__(self, debug=False, local_only=False, stay_open=False, transparent_torification=False, stealth=False):
         self.port = None
         self.onion = None
         self.hidserv_dir = None
@@ -48,6 +48,9 @@ class OnionShare(object):
 
         # traffic automatically goes through Tor
         self.transparent_torification = transparent_torification
+
+        # use stealth onion service
+        self.stealth = stealth
 
     def choose_port(self):
         """
@@ -76,9 +79,12 @@ class OnionShare(object):
             return
 
         if not self.onion:
-            self.onion = onion.Onion(self.transparent_torification)
+            self.onion = onion.Onion(self.transparent_torification, self.stealth)
 
         self.onion_host = self.onion.start(self.port)
+
+        if self.stealth:
+            self.auth_string = self.onion.auth_string
 
     def cleanup(self):
         """
@@ -115,6 +121,7 @@ def main(cwd=None):
     parser.add_argument('--local-only', action='store_true', dest='local_only', help=strings._("help_local_only"))
     parser.add_argument('--stay-open', action='store_true', dest='stay_open', help=strings._("help_stay_open"))
     parser.add_argument('--transparent', action='store_true', dest='transparent_torification', help=strings._("help_transparent_torification"))
+    parser.add_argument('--stealth', action='store_true', dest='stealth', help=strings._("help_stealth"))
     parser.add_argument('--debug', action='store_true', dest='debug', help=strings._("help_debug"))
     parser.add_argument('filename', metavar='filename', nargs='+', help=strings._('help_filename'))
     args = parser.parse_args()
@@ -127,6 +134,7 @@ def main(cwd=None):
     debug = bool(args.debug)
     stay_open = bool(args.stay_open)
     transparent_torification = bool(args.transparent_torification)
+    stealth = bool(args.stealth)
 
     # validation
     valid = True
@@ -139,10 +147,12 @@ def main(cwd=None):
 
     # start the onionshare app
     try:
-        app = OnionShare(debug, local_only, stay_open, transparent_torification)
+        app = OnionShare(debug, local_only, stay_open, transparent_torification, stealth)
         app.choose_port()
         app.start_onion_service()
     except onion.NoTor as e:
+        sys.exit(e.args[0])
+    except onion.TorTooOld as e:
         sys.exit(e.args[0])
 
     # prepare files to share
@@ -171,8 +181,13 @@ def main(cwd=None):
             # Wait for web.generate_slug() to finish running
             time.sleep(0.2)
 
-        print(strings._("give_this_url"))
-        print('http://{0:s}/{1:s}'.format(app.onion_host, web.slug))
+        if(stealth):
+            print(strings._("give_this_url_stealth"))
+            print('http://{0:s}/{1:s}'.format(app.onion_host, web.slug))
+            print(app.auth_string)
+        else:
+            print(strings._("give_this_url"))
+            print('http://{0:s}/{1:s}'.format(app.onion_host, web.slug))
         print('')
         print(strings._("ctrlc_to_stop"))
 
