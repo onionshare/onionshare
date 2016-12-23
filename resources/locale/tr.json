@@ -41,5 +41,6 @@
     "gui_please_wait": "Lütfen bekleyin...",
     "error_hs_dir_cannot_create": "Gizli hizmet klasörü {0:s} oluşturulamıyor",
     "error_hs_dir_not_writable": "Gizle hizmet klasörü {0:s} yazılabilir değil",
-    "using_ephemeral": "Geçici Tor gizli hizmetine bakılıyor ve yayımı bekleniyor"
+    "using_ephemeral": "Geçici Tor gizli hizmetine bakılıyor ve yayımı bekleniyor",
+    "zip_progress_bar_format": "Dosyalar hazırlanıyor: %p%"
 }
