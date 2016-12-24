@@ -66,9 +66,9 @@ class Options(QtWidgets.QVBoxLayout):
         When the 'stealth' checkbox is toggled, let the onionshare app know.
         """
         if state == 2:
-            self.app.stealth = True
+            self.app.set_stealth(True)
         else:
-            self.app.stealth = False
+            self.app.set_stealth(False)
 
     def set_stealth_enabled(self, enabled):
         """
