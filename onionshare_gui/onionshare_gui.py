@@ -176,6 +176,10 @@ class OnionShareGui(QtWidgets.QMainWindow):
                 self.starting_server_error.emit(e.args[0])
                 return
 
+            except onionshare.onion.TorTooOld as e:
+                self.starting_server_error.emit(e.args[0])
+                return
+
         t = threading.Thread(target=start_onion_service, kwargs={'self': self})
         t.daemon = True
         t.start()

@@ -50,7 +50,12 @@ class OnionShare(object):
         self.transparent_torification = transparent_torification
 
         # use stealth onion service
+        self.set_stealth(stealth)
+
+    def set_stealth(self, stealth):
         self.stealth = stealth
+        if self.onion:
+            self.onion.stealth = stealth
 
     def choose_port(self):
         """
