@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from __future__ import division
 import os, sys, subprocess, inspect, platform, argparse, threading, time, math, inspect, platform
 from PyQt5 import QtCore, QtWidgets, QtGui
+from PyQt5.QtCore import pyqtSlot
 
 import onionshare
 from onionshare import strings, helpers, web
@@ -199,7 +200,8 @@ class OnionShareGui(QtWidgets.QMainWindow):
         def finish_starting_server(self):
             # prepare files to share
             def _set_processed_size(x):
-                self._zip_progress_bar.processed_size = x
+                if self._zip_progress_bar != None:
+                    self._zip_progress_bar.update_processed_size_signal.emit(x)
             web.set_file_info(self.file_selection.file_list.filenames, processed_size_callback=_set_processed_size)
             self.app.cleanup_filenames.append(web.zip_filename)
             self.starting_server_step3.emit()
@@ -351,6 +353,8 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
 
 class ZipProgressBar(QtWidgets.QProgressBar):
+    update_processed_size_signal = QtCore.pyqtSignal(int)
+
     def __init__(self, total_files_size):
         super(ZipProgressBar, self).__init__()
         self.setMaximumHeight(15)
@@ -363,6 +367,8 @@ class ZipProgressBar(QtWidgets.QProgressBar):
 
         self._total_files_size = total_files_size
         self._processed_size = 0
+
+        self.update_processed_size_signal.connect(self.update_processed_size)
 
     @property
     def total_files_size(self):
@@ -378,6 +384,9 @@ class ZipProgressBar(QtWidgets.QProgressBar):
 
     @processed_size.setter
     def processed_size(self, val):
+        self.update_processed_size(val)
+
+    def update_processed_size(self, val):
         self._processed_size = val
         if self.processed_size < self.total_files_size:
             self.setValue(int((self.processed_size * 100) / self.total_files_size))
