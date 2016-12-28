@@ -51,6 +51,7 @@ class Options(QtWidgets.QVBoxLayout):
         advanced_group.setCheckable(True)
         advanced_group.setChecked(False)
         advanced_group.setFlat(True)
+        advanced_group.toggled.connect(self.advanced_options_changed)
         advanced_group_layout = QtWidgets.QVBoxLayout()
         advanced_group_layout.addWidget(self.stealth)
         advanced_group.setLayout(advanced_group_layout)
@@ -63,12 +64,21 @@ class Options(QtWidgets.QVBoxLayout):
         """
         When the 'close automatically' checkbox is toggled, let the web app know.
         """
-        if state > 0:
-            self.web.set_stay_open(False)
-            self.app.stay_open = False
-        else:
+        if state == 0:
             self.web.set_stay_open(True)
             self.app.stay_open = True
+        else:
+            self.web.set_stay_open(False)
+            self.app.stay_open = False
+
+    def advanced_options_changed(self, checked):
+        """
+        When the 'advanced options' checkbox is unchecked, uncheck all advanced
+        options, and let the onionshare app know.
+        """
+        if not checked:
+            self.stealth.setChecked(False)
+            self.app.set_stealth(False)
 
     def stealth_changed(self, state):
         """
