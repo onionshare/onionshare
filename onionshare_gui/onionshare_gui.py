@@ -25,6 +25,7 @@ from PyQt5.QtCore import pyqtSlot
 import onionshare
 from onionshare import strings, helpers, web
 
+from .menu import Menu
 from .file_selection import FileSelection
 from .server_status import ServerStatus
 from .downloads import Downloads
@@ -69,6 +70,9 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         self.setWindowTitle('OnionShare')
         self.setWindowIcon(window_icon)
+
+        # the menu bar
+        self.setMenuBar(Menu())
 
     def send_files(self, filenames=None):
         """

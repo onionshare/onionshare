@@ -58,5 +58,8 @@
     "zip_progress_bar_format": "Crunching files: %p%",
     "error_stealth_not_supported": "To create stealth onion services, you need at least Tor 0.2.9.1-alpha (or Tor Browser 6.5) and at least python3-stem 1.5.0.",
     "gui_advanced_options": "Advanced options",
-    "gui_create_stealth": "Create stealth onion service"
+    "gui_create_stealth": "Create stealth onion service",
+    "gui_menu_file_menu": "&File",
+    "gui_menu_settings_action": "&Settings",
+    "gui_menu_quit_action": "&Quit"
 }
