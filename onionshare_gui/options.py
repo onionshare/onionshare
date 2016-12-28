@@ -43,12 +43,21 @@ class Options(QtWidgets.QVBoxLayout):
         # stealth
         self.stealth = QtWidgets.QCheckBox()
         self.stealth.setCheckState(QtCore.Qt.Unchecked)
-        self.stealth.setText(strings._("create_stealth", True))
+        self.stealth.setText(strings._("gui_create_stealth", True))
         self.stealth.stateChanged.connect(self.stealth_changed)
+
+        # advanced options group
+        advanced_group = QtWidgets.QGroupBox(strings._("gui_advanced_options", True))
+        advanced_group.setCheckable(True)
+        advanced_group.setChecked(False)
+        advanced_group.setFlat(True)
+        advanced_group_layout = QtWidgets.QVBoxLayout()
+        advanced_group_layout.addWidget(self.stealth)
+        advanced_group.setLayout(advanced_group_layout)
 
         # add the widgets
         self.addWidget(self.close_automatically)
-        self.addWidget(self.stealth)
+        self.addWidget(advanced_group)
 
     def stay_open_changed(self, state):
         """
