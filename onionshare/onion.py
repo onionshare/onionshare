@@ -130,7 +130,12 @@ class Onion(object):
             else:
                 basic_auth = None
 
-            res = self.c.create_ephemeral_hidden_service({ 80: port }, await_publication=True, basic_auth=basic_auth)
+            if basic_auth != None :
+                res = self.c.create_ephemeral_hidden_service({ 80: port }, await_publication=True, basic_auth=basic_auth)
+            else :
+                # if the stem interface is older than 1.5.0, basic_auth isn't a valid keyword arg
+                res = self.c.create_ephemeral_hidden_service({ 80: port }, await_publication=True)
+
             self.service_id = res.content()[0][2].split('=')[1]
             onion_host = self.service_id + '.onion'
 
