@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from stem.control import Controller
 from stem import SocketError
 from stem.connection import MissingPassword, UnreadableCookieFile
-import os, sys, tempfile, shutil, urllib
+import os, sys, tempfile, shutil, urllib, platform
 
 from . import socks
 from . import helpers, strings
@@ -109,28 +109,46 @@ class Onion(object):
         if self.settings.get('connection_type') == 'automatic':
             # Automatically try to guess the right way to connect to Tor Browser
 
-            # Try connecting
-            try:
-                # If the TOR_CONTROL_PORT environment variable is set, use that
-                env_port = os.environ.get('TOR_CONTROL_PORT')
-                if env_port:
-                    self.c = Controller.from_port(port=int(env_port))
+            # Try connecting to control port
+            found_tor = False
 
-                else:
-                    # Otherwise, try default ports for Tor Browser, Tor Messenger, and system tor
-                    found_tor = False
-                    try:
-                        ports = [9151, 9153, 9051]
-                        for port in ports:
-                            self.c = Controller.from_port(port=port)
-                            found_tor = True
-                    except:
-                        pass
-                    if not found_tor:
+            # If the TOR_CONTROL_PORT environment variable is set, use that
+            env_port = os.environ.get('TOR_CONTROL_PORT')
+            if env_port:
+                try:
+                    self.c = Controller.from_port(port=int(env_port))
+                    found_tor = True
+                except:
+                    pass
+
+            else:
+                # Otherwise, try default ports for Tor Browser, Tor Messenger, and system tor
+                try:
+                    ports = [9151, 9153, 9051]
+                    for port in ports:
+                        self.c = Controller.from_port(port=port)
+                        found_tor = True
+                except:
+                    pass
+
+            # If connecting to default control ports failed, so let's try
+            # guessing the socket file name next
+            if not found_tor:
+                try:
+                    p = platform.system()
+                    if p == 'Linux':
+                        socket_file_path = '/run/user/{}/Tor/control.socket'.format(os.geteuid())
+                    elif p == 'Darwin':
+                        # TODO: figure out the unix socket path in OS X
+                        socket_file_path = '/run/user/{}/Tor/control.socket'.format(os.geteuid())
+                    elif p == 'Windows':
+                        # Windows doesn't support unix sockets
                         raise TorErrorAutomatic(strings._('settings_error_automatic'))
 
-            except TorErrorAutomatic:
-                raise TorErrorAutomatic(strings._('settings_error_automatic'))
+                    self.c = Controller.from_socket_file(path=socket_file_path)
+
+                except:
+                    raise TorErrorAutomatic(strings._('settings_error_automatic'))
 
             # Try authenticating
             try:
