@@ -47,18 +47,18 @@ class Options(QtWidgets.QVBoxLayout):
         self.stealth.stateChanged.connect(self.stealth_changed)
 
         # advanced options group
-        advanced_group = QtWidgets.QGroupBox(strings._("gui_advanced_options", True))
-        advanced_group.setCheckable(True)
-        advanced_group.setChecked(False)
-        advanced_group.setFlat(True)
-        advanced_group.toggled.connect(self.advanced_options_changed)
+        self.advanced_group = QtWidgets.QGroupBox(strings._("gui_advanced_options", True))
+        self.advanced_group.setCheckable(True)
+        self.advanced_group.setChecked(False)
+        self.advanced_group.setFlat(True)
+        self.advanced_group.toggled.connect(self.advanced_options_changed)
         advanced_group_layout = QtWidgets.QVBoxLayout()
         advanced_group_layout.addWidget(self.stealth)
-        advanced_group.setLayout(advanced_group_layout)
+        self.advanced_group.setLayout(advanced_group_layout)
 
         # add the widgets
         self.addWidget(self.close_automatically)
-        self.addWidget(advanced_group)
+        self.addWidget(self.advanced_group)
 
     def stay_open_changed(self, state):
         """
@@ -89,9 +89,10 @@ class Options(QtWidgets.QVBoxLayout):
         else:
             self.app.set_stealth(False)
 
-    def set_stealth_enabled(self, enabled):
+    def set_advanced_enabled(self, enabled):
         """
         You cannot toggle stealth after an onion service has started. This method
-        disables and re-enabled the stealth checkbox.
+        disables and re-enabled the advanced options group, including the stealth
+        checkbox.
         """
-        self.stealth.setEnabled(enabled)
+        self.advanced_group.setEnabled(enabled)

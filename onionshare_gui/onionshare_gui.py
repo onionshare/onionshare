@@ -161,7 +161,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.app.choose_port()
 
         # disable the stealth option
-        self.options.set_stealth_enabled(False)
+        self.options.set_advanced_enabled(False)
 
         # start onionshare http service in new thread
         t = threading.Thread(target=web.start, args=(self.app.port, self.app.stay_open, self.app.transparent_torification))
@@ -250,7 +250,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
             web.stop(self.app.port)
         self.app.cleanup()
         self.filesize_warning.hide()
-        self.options.set_stealth_enabled(True)
+        self.options.set_advanced_enabled(True)
         self.stop_server_finished.emit()
 
     @staticmethod
