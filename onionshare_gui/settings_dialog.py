@@ -214,9 +214,10 @@ class SettingsDialog(QtWidgets.QDialog):
             onion = Onion(settings=settings)
 
             # If an exception hasn't been raised yet, the Tor settings work
+            Alert(strings._('settings_test_success', True).format(onion.tor_version, onion.supports_ephemeral, onion.supports_stealth))
 
         except (TorErrorInvalidSetting, TorErrorSocketPort, TorErrorSocketFile, TorErrorMissingPassword, TorErrorUnreadableCookieFile) as e:
-            Alert(e.args[0])
+            Alert(e.args[0], QtWidgets.QMessageBox.Warning)
 
     def save_clicked(self):
         """
