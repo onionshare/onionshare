@@ -61,5 +61,21 @@
     "gui_create_stealth": "Create stealth onion service",
     "gui_menu_file_menu": "&File",
     "gui_menu_settings_action": "&Settings",
-    "gui_menu_quit_action": "&Quit"
+    "gui_menu_quit_action": "&Quit",
+    "gui_settings_window_title": "Settings",
+    "gui_settings_connection_type_label": "How should OnionShare connect to Tor?",
+    "gui_settings_connection_type_automatic_option": "Attempt automatic configuration with Tor Browser",
+    "gui_settings_connection_type_control_port_option": "Connect using control port",
+    "gui_settings_connection_type_socket_file_option": "Connect using socket file",
+    "gui_settings_control_port_label": "Control port",
+    "gui_settings_socket_file_label": "Socket file",
+    "gui_settings_authenticate_label": "Tor authentication options",
+    "gui_settings_authenticate_no_auth_option": "No authentication",
+    "gui_settings_authenticate_password_option": "Password",
+    "gui_settings_authenticate_cookie_option": "Cookie",
+    "gui_settings_password_label": "Password",
+    "gui_settings_cookie_label": "Cookie path",
+    "gui_settings_button_test": "Test Settings",
+    "gui_settings_button_save": "Save",
+    "gui_settings_button_cancel": "Cancel"
 }

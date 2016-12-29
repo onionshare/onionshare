@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from PyQt5 import QtCore, QtWidgets
 
 from onionshare import strings
+from .settings_dialog import SettingsDialog
 
 class Menu(QtWidgets.QMenuBar):
     """
@@ -39,7 +40,7 @@ class Menu(QtWidgets.QMenuBar):
         """
         Settings action triggered.
         """
-        print("Settings clicked")
+        SettingsDialog()
 
     def quit(self):
         """
