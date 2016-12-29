@@ -57,11 +57,16 @@ class Onion(object):
     onion services are supported. If not, it falls back to modifying the
     Tor configuration.
     """
-    def __init__(self, transparent_torification=False, stealth=False):
+    def __init__(self, transparent_torification=False, stealth=False, settings=False):
         self.transparent_torification = transparent_torification
         self.stealth = stealth
 
-        self.settings = Settings()
+        # Either use settings that are passed in, or load them from disk
+        if settings:
+            self.settings = settings
+        else:
+            self.settings = Settings()
+            self.settings.load()
 
         # files and dirs to delete on shutdown
         self.cleanup_filenames = []

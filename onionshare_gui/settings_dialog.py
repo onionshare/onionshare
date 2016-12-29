@@ -21,6 +21,7 @@ from PyQt5 import QtCore, QtWidgets, QtGui
 
 from onionshare import strings
 from onionshare.settings import Settings
+from onionshare.onion import Onion
 
 class SettingsDialog(QtWidgets.QDialog):
     """
@@ -146,26 +147,28 @@ class SettingsDialog(QtWidgets.QDialog):
 
 
         # Load settings, and fill them in
-        self.settings = Settings()
-        connection_type = self.settings.get('connection_type')
+        settings = Settings()
+        settings.load()
+
+        connection_type = settings.get('connection_type')
         if connection_type == 'automatic':
             self.connection_type_automatic_radio.setChecked(True)
         elif connection_type == 'control_port':
             self.connection_type_control_port_radio.setChecked(True)
         elif connection_type == 'socket_file':
             self.connection_type_socket_file_radio.setChecked(True)
-        self.connection_type_control_port_extras_address.setText(self.settings.get('control_port_address'))
-        self.connection_type_control_port_extras_port.setText(self.settings.get('control_port_port'))
-        self.connection_type_socket_file_extras_path.setText(self.settings.get('socket_file_path'))
-        auth_type = self.settings.get('auth_type')
+        self.connection_type_control_port_extras_address.setText(settings.get('control_port_address'))
+        self.connection_type_control_port_extras_port.setText(settings.get('control_port_port'))
+        self.connection_type_socket_file_extras_path.setText(settings.get('socket_file_path'))
+        auth_type = settings.get('auth_type')
         if auth_type == 'no_auth':
             self.authenticate_no_auth_radio.setChecked(True)
         elif auth_type == 'password':
             self.authenticate_password_radio.setChecked(True)
         elif auth_type == 'cookie':
             self.authenticate_cookie_radio.setChecked(True)
-        self.authenticate_password_extras_password.setText(self.settings.get('auth_password'))
-        self.authenticate_cookie_extras_cookie_path.setText(self.settings.get('auth_cookie_path'))
+        self.authenticate_password_extras_password.setText(settings.get('auth_password'))
+        self.authenticate_cookie_extras_cookie_path.setText(settings.get('auth_cookie_path'))
 
         # Show the dialog
         self.exec_()
@@ -232,34 +235,16 @@ class SettingsDialog(QtWidgets.QDialog):
         Test Settings button clicked. With the given settings, see if we can
         successfully connect and authenticate to Tor.
         """
-        pass
+        print("Testing settings")
+        settings = self.settings_from_fields()
+        onion = Onion(settings=settings)
 
     def save_clicked(self):
         """
         Save button clicked. Save current settings to disk.
         """
-        if self.connection_type_automatic_radio.isChecked():
-            self.settings.set('connection_type', 'automatic')
-        if self.connection_type_control_port_radio.isChecked():
-            self.settings.set('connection_type', 'control_port')
-        if self.connection_type_socket_file_radio.isChecked():
-            self.settings.set('connection_type', 'socket_file')
-
-        self.settings.set('control_port_address', self.connection_type_control_port_extras_address.text())
-        self.settings.set('control_port_port', self.connection_type_control_port_extras_port.text())
-        self.settings.set('socket_file_path', self.connection_type_socket_file_extras_path.text())
-
-        if self.authenticate_no_auth_radio.isChecked():
-            self.settings.set('auth_type', 'no_auth')
-        if self.authenticate_password_radio.isChecked():
-            self.settings.set('auth_type', 'password')
-        if self.authenticate_cookie_radio.isChecked():
-            self.settings.set('auth_type', 'cookie')
-
-        self.settings.set('auth_password', self.authenticate_password_extras_password.text())
-        self.settings.set('auth_cookie_path', self.authenticate_cookie_extras_cookie_path.text())
-
-        self.settings.save()
+        settings = self.settings_from_fields()
+        settings.save()
         self.close()
 
     def cancel_clicked(self):
@@ -267,3 +252,32 @@ class SettingsDialog(QtWidgets.QDialog):
         Cancel button clicked.
         """
         self.close()
+
+    def settings_from_fields(self):
+        """
+        Return a Settings object that's full of values from the settings dialog.
+        """
+        settings = Settings()
+
+        if self.connection_type_automatic_radio.isChecked():
+            settings.set('connection_type', 'automatic')
+        if self.connection_type_control_port_radio.isChecked():
+            settings.set('connection_type', 'control_port')
+        if self.connection_type_socket_file_radio.isChecked():
+            settings.set('connection_type', 'socket_file')
+
+        settings.set('control_port_address', self.connection_type_control_port_extras_address.text())
+        settings.set('control_port_port', self.connection_type_control_port_extras_port.text())
+        settings.set('socket_file_path', self.connection_type_socket_file_extras_path.text())
+
+        if self.authenticate_no_auth_radio.isChecked():
+            settings.set('auth_type', 'no_auth')
+        if self.authenticate_password_radio.isChecked():
+            settings.set('auth_type', 'password')
+        if self.authenticate_cookie_radio.isChecked():
+            settings.set('auth_type', 'cookie')
+
+        settings.set('auth_password', self.authenticate_password_extras_password.text())
+        settings.set('auth_cookie_path', self.authenticate_cookie_extras_cookie_path.text())
+
+        return settings
