@@ -77,5 +77,6 @@
     "gui_settings_cookie_label": "Cookie path",
     "gui_settings_button_test": "Test Settings",
     "gui_settings_button_save": "Save",
-    "gui_settings_button_cancel": "Cancel"
+    "gui_settings_button_cancel": "Cancel",
+    "settings_saved": "Settings saved to {}"
 }

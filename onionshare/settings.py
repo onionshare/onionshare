@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import platform, os, json
 
-from . import helpers
+from . import strings, helpers
 
 class Settings(object):
     """
@@ -77,8 +77,12 @@ class Settings(object):
         """
         Save settings to file.
         """
-        os.mkdirs(os.path.dirname(self.filename))
+        try:
+            os.makedirs(os.path.dirname(self.filename))
+        except:
+            pass
         open(self.filename, 'w').write(json.dumps(self._settings))
+        print(strings._('settings_saved').format(self.filename))
 
     def get(self, key):
         return self._settings[key]
