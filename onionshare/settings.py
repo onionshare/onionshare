@@ -37,11 +37,10 @@ class Settings(object):
             'version': helpers.get_version(),
             'connection_type': 'automatic',
             'control_port_address': '127.0.0.1',
-            'control_port_port': '9051',
+            'control_port_port': 9051,
             'socket_file_path': '/var/run/tor/control',
             'auth_type': 'no_auth',
-            'auth_password': '',
-            'auth_cookie_path': '/var/run/tor/control.authcookie'
+            'auth_password': ''
         }
 
     def build_filename(self):

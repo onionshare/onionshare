@@ -21,7 +21,9 @@ from PyQt5 import QtCore, QtWidgets, QtGui
 
 from onionshare import strings
 from onionshare.settings import Settings
-from onionshare.onion import Onion
+from onionshare.onion import Onion, TorErrorInvalidSetting, TorErrorSocketPort, TorErrorSocketFile, TorErrorMissingPassword, TorErrorUnreadableCookieFile
+
+from .alert import Alert
 
 class SettingsDialog(QtWidgets.QDialog):
     """
@@ -100,27 +102,11 @@ class SettingsDialog(QtWidgets.QDialog):
         self.authenticate_password_extras.setLayout(authenticate_password_extras_layout)
         self.authenticate_password_extras.hide()
 
-        # Cookie
-        self.authenticate_cookie_radio = QtWidgets.QRadioButton(strings._('gui_settings_authenticate_cookie_option', True))
-        self.authenticate_cookie_radio.toggled.connect(self.authenticate_cookie_toggled)
-
-        authenticate_cookie_extras_label = QtWidgets.QLabel(strings._('gui_settings_cookie_label', True))
-        self.authenticate_cookie_extras_cookie_path = QtWidgets.QLineEdit()
-        authenticate_cookie_extras_layout = QtWidgets.QHBoxLayout()
-        authenticate_cookie_extras_layout.addWidget(authenticate_cookie_extras_label)
-        authenticate_cookie_extras_layout.addWidget(self.authenticate_cookie_extras_cookie_path)
-
-        self.authenticate_cookie_extras = QtWidgets.QWidget()
-        self.authenticate_cookie_extras.setLayout(authenticate_cookie_extras_layout)
-        self.authenticate_cookie_extras.hide()
-
         # Authentication options layout
         authenticate_group_layout = QtWidgets.QVBoxLayout()
         authenticate_group_layout.addWidget(self.authenticate_no_auth_radio)
         authenticate_group_layout.addWidget(self.authenticate_password_radio)
-        authenticate_group_layout.addWidget(self.authenticate_cookie_radio)
         authenticate_group_layout.addWidget(self.authenticate_password_extras)
-        authenticate_group_layout.addWidget(self.authenticate_cookie_extras)
         self.authenticate_group = QtWidgets.QGroupBox(strings._("gui_settings_authenticate_label", True))
         self.authenticate_group.setLayout(authenticate_group_layout)
 
@@ -158,17 +144,14 @@ class SettingsDialog(QtWidgets.QDialog):
         elif connection_type == 'socket_file':
             self.connection_type_socket_file_radio.setChecked(True)
         self.connection_type_control_port_extras_address.setText(settings.get('control_port_address'))
-        self.connection_type_control_port_extras_port.setText(settings.get('control_port_port'))
+        self.connection_type_control_port_extras_port.setText(str(settings.get('control_port_port')))
         self.connection_type_socket_file_extras_path.setText(settings.get('socket_file_path'))
         auth_type = settings.get('auth_type')
         if auth_type == 'no_auth':
             self.authenticate_no_auth_radio.setChecked(True)
         elif auth_type == 'password':
             self.authenticate_password_radio.setChecked(True)
-        elif auth_type == 'cookie':
-            self.authenticate_cookie_radio.setChecked(True)
         self.authenticate_password_extras_password.setText(settings.get('auth_password'))
-        self.authenticate_cookie_extras_cookie_path.setText(settings.get('auth_cookie_path'))
 
         # Show the dialog
         self.exec_()
@@ -220,24 +203,20 @@ class SettingsDialog(QtWidgets.QDialog):
         else:
             self.authenticate_password_extras.hide()
 
-    def authenticate_cookie_toggled(self, checked):
-        """
-        Authentication option cookie was toggled. If checked, show extra fields
-        for cookie auth. If unchecked, hide those extra fields.
-        """
-        if checked:
-            self.authenticate_cookie_extras.show()
-        else:
-            self.authenticate_cookie_extras.hide()
-
     def test_clicked(self):
         """
         Test Settings button clicked. With the given settings, see if we can
         successfully connect and authenticate to Tor.
         """
-        print("Testing settings")
         settings = self.settings_from_fields()
-        onion = Onion(settings=settings)
+
+        try:
+            onion = Onion(settings=settings)
+
+            # If an exception hasn't been raised yet, the Tor settings work
+
+        except (TorErrorInvalidSetting, TorErrorSocketPort, TorErrorSocketFile, TorErrorMissingPassword, TorErrorUnreadableCookieFile) as e:
+            Alert(e.args[0])
 
     def save_clicked(self):
         """
@@ -267,17 +246,14 @@ class SettingsDialog(QtWidgets.QDialog):
             settings.set('connection_type', 'socket_file')
 
         settings.set('control_port_address', self.connection_type_control_port_extras_address.text())
-        settings.set('control_port_port', self.connection_type_control_port_extras_port.text())
+        settings.set('control_port_port', int(self.connection_type_control_port_extras_port.text()))
         settings.set('socket_file_path', self.connection_type_socket_file_extras_path.text())
 
         if self.authenticate_no_auth_radio.isChecked():
             settings.set('auth_type', 'no_auth')
         if self.authenticate_password_radio.isChecked():
             settings.set('auth_type', 'password')
-        if self.authenticate_cookie_radio.isChecked():
-            settings.set('auth_type', 'cookie')
 
         settings.set('auth_password', self.authenticate_password_extras_password.text())
-        settings.set('auth_cookie_path', self.authenticate_cookie_extras_cookie_path.text())
 
         return settings

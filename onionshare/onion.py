@@ -27,6 +27,38 @@ from . import socks
 from . import helpers, strings
 from .settings import Settings
 
+class TorErrorInvalidSetting(Exception):
+    """
+    This exception is raised if the settings just don't make sense.
+    """
+    pass
+
+class TorErrorSocketPort(Exception):
+    """
+    OnionShare can't connect to the Tor controller using the supplied address and port.
+    """
+    pass
+
+class TorErrorSocketFile(Exception):
+    """
+    OnionShare can't connect to the Tor controller using the supplied socket file.
+    """
+    pass
+
+class TorErrorMissingPassword(Exception):
+    """
+    OnionShare connected to the Tor controller, but it requires a password.
+    """
+    pass
+
+class TorErrorUnreadableCookieFile(Exception):
+    """
+    OnionShare connected to the Tor controller, but your user does not have permission
+    to access the cookie file.
+    """
+    pass
+
+
 class NoTor(Exception):
     """
     This exception is raised if onionshare can't find a Tor control port
@@ -72,34 +104,69 @@ class Onion(object):
         self.cleanup_filenames = []
         self.service_id = None
 
-        # if the TOR_CONTROL_PORT environment variable is set, use that
-        # otherwise, default to Tor Browser, Tor Messenger, and system tor ports
-        env_port = os.environ.get('TOR_CONTROL_PORT')
-        if env_port:
-            ports = [int(env_port)]
-        else:
-            ports = [9151, 9153, 9051]
-
-        # if the TOR_AUTHENTICATION_PASSWORD is set, use that to authenticate
-        password = os.environ.get('TOR_AUTHENTICATION_PASSWORD')
-
-        # connect to the tor controlport
-        found_tor = False
+        # Try to connect to Tor
         self.c = None
-        for port in ports:
+
+        if self.settings.get('connection_type') == 'automatic':
+            # Automatically try to guess the right way to connect to Tor Browser
+
+            # if the TOR_CONTROL_PORT environment variable is set, use that
+            # otherwise, default to Tor Browser, Tor Messenger, and system tor ports
+            env_port = os.environ.get('TOR_CONTROL_PORT')
+            if env_port:
+                ports = [int(env_port)]
+            else:
+                ports = [9151, 9153, 9051]
+
+            # connect to the tor controlport
+            found_tor = False
+            for port in ports:
+                try:
+                    self.c = Controller.from_port(port=port)
+                    self.c.authenticate()
+                    found_tor = True
+                    break
+                except SocketError:
+                    pass
+                except MissingPassword:
+                    raise NoTor(strings._("ctrlport_missing_password").format(str(ports)))
+                except UnreadableCookieFile:
+                    raise NoTor(strings._("ctrlport_unreadable_cookie").format(str(ports)))
+            if not found_tor:
+                raise NoTor(strings._("cant_connect_ctrlport").format(str(ports)))
+
+        else:
+            # Use specific settings to connect to tor
+
+            # Try connecting
             try:
-                self.c = Controller.from_port(port=port)
-                self.c.authenticate(password)
-                found_tor = True
-                break
+                if self.settings.get('connection_type') == 'control_port':
+                    self.c = Controller.from_port(address=self.settings.get('control_port_address'), port=self.settings.get('control_port_port'))
+                elif self.settings.get('connection_type') == 'socket_file':
+                    self.c = Controller.from_socket_file(path=self.settings.get('socket_file_path'))
+                else:
+                    raise TorErrorInvalidSetting(strings._("settings_error_unknown"))
+
             except SocketError:
-                pass
+                if self.settings.get('connection_type') == 'control_port':
+                    raise TorErrorSocketPort(strings._("settings_error_socket_port").format(self.settings.get('control_port_address'), self.settings.get('control_port_port')))
+                else:
+                    raise TorErrorSocketFile(strings._("settings_error_socket_file").format(self.settings.get('socket_file_path')))
+
+            # Try authenticating
+            try:
+                if self.settings.get('auth_type') == 'no_auth':
+                    self.c.authenticate()
+                elif self.settings.get('auth_type') == 'password':
+                    self.c.authenticate(self.settings.get('auth_password'))
+                else:
+                    raise TorErrorInvalidSetting(strings._("settings_error_unknown"))
+
             except MissingPassword:
-                raise NoTor(strings._("ctrlport_missing_password").format(str(ports)))
+                raise TorErrorMissingPassword(strings._('settings_error_missing_password'))
             except UnreadableCookieFile:
-                raise NoTor(strings._("ctrlport_unreadable_cookie").format(str(ports)))
-        if not found_tor:
-            raise NoTor(strings._("cant_connect_ctrlport").format(str(ports)))
+                raise TorErrorUnreadableCookieFile(strings._('settings_error_unreadable_cookie_file'))
+
 
         # do the versions of stem and tor that I'm using support ephemeral onion services?
         tor_version = self.c.get_version().version_str
@@ -107,8 +174,7 @@ class Onion(object):
         self.supports_ephemeral = callable(list_ephemeral_hidden_services) and tor_version >= '0.2.7.1'
 
         # do the versions of stem and tor that I'm using support stealth onion services?
-        if self.stealth:
-            self.check_for_stealth_support()
+        self.check_for_stealth_support()
 
     def check_for_stealth_support(self):
         try:
