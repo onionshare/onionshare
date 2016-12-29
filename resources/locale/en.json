@@ -83,5 +83,6 @@
     "settings_error_socket_port": "Can't connect to Tor controller on address {} with port {}.",
     "settings_error_socket_file": "Can't connect to Tor controller using socket file {}.",
     "settings_error_missing_password": "Connected to Tor controller, but it requires a password to authenticate.",
-    "settings_error_unreadable_cookie_file": "Connected to Tor controller, but can't authenticate because your password may be wrong, and your user doesn't have permission to read the cookie file."
+    "settings_error_unreadable_cookie_file": "Connected to Tor controller, but can't authenticate because your password may be wrong, and your user doesn't have permission to read the cookie file.",
+    "settings_test_success": "Congratulations, OnionShare can connect to the Tor controller.\n\nTor version: {}\nSupports ephemeral onion services: {}\nSupports stealth onion services: {}"
 }
