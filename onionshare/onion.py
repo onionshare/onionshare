@@ -27,6 +27,13 @@ from . import socks
 from . import helpers, strings
 from .settings import Settings
 
+class TorErrorAutomatic(Exception):
+    """
+    OnionShare is failing to connect and authenticate to the Tor controller,
+    using automatic settings that should work with Tor Browser.
+    """
+    pass
+
 class TorErrorInvalidSetting(Exception):
     """
     This exception is raised if the settings just don't make sense.
@@ -55,13 +62,6 @@ class TorErrorUnreadableCookieFile(Exception):
     """
     OnionShare connected to the Tor controller, but your user does not have permission
     to access the cookie file.
-    """
-    pass
-
-class NoTor(Exception):
-    """
-    This exception is raised if onionshare can't find a Tor control port
-    to connect to, or if it can't find a Tor socks5 proxy to proxy though.
     """
     pass
 
@@ -109,30 +109,34 @@ class Onion(object):
         if self.settings.get('connection_type') == 'automatic':
             # Automatically try to guess the right way to connect to Tor Browser
 
-            # if the TOR_CONTROL_PORT environment variable is set, use that
-            # otherwise, default to Tor Browser, Tor Messenger, and system tor ports
-            env_port = os.environ.get('TOR_CONTROL_PORT')
-            if env_port:
-                ports = [int(env_port)]
-            else:
-                ports = [9151, 9153, 9051]
+            # Try connecting
+            try:
+                # If the TOR_CONTROL_PORT environment variable is set, use that
+                env_port = os.environ.get('TOR_CONTROL_PORT')
+                if env_port:
+                    self.c = Controller.from_port(port=int(env_port))
 
-            # connect to the tor controlport
-            found_tor = False
-            for port in ports:
-                try:
-                    self.c = Controller.from_port(port=port)
-                    self.c.authenticate()
-                    found_tor = True
-                    break
-                except SocketError:
-                    pass
-                except MissingPassword:
-                    raise NoTor(strings._("ctrlport_missing_password").format(str(ports)))
-                except UnreadableCookieFile:
-                    raise NoTor(strings._("ctrlport_unreadable_cookie").format(str(ports)))
-            if not found_tor:
-                raise NoTor(strings._("cant_connect_ctrlport").format(str(ports)))
+                else:
+                    # Otherwise, try default ports for Tor Browser, Tor Messenger, and system tor
+                    found_tor = False
+                    try:
+                        ports = [9151, 9153, 9051]
+                        for port in ports:
+                            self.c = Controller.from_port(port=port)
+                            found_tor = True
+                    except:
+                        pass
+                    if not found_tor:
+                        raise TorErrorAutomatic(strings._('settings_error_automatic'))
+
+            except TorErrorAutomatic:
+                raise TorErrorAutomatic(strings._('settings_error_automatic'))
+
+            # Try authenticating
+            try:
+                self.c.authenticate()
+            except:
+                raise TorErrorAutomatic(strings._('settings_error_automatic'))
 
         else:
             # Use specific settings to connect to tor
