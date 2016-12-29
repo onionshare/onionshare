@@ -25,6 +25,7 @@ import os, sys, tempfile, shutil, urllib
 
 from . import socks
 from . import helpers, strings
+from .settings import Settings
 
 class NoTor(Exception):
     """
@@ -59,6 +60,8 @@ class Onion(object):
     def __init__(self, transparent_torification=False, stealth=False):
         self.transparent_torification = transparent_torification
         self.stealth = stealth
+
+        self.settings = Settings()
 
         # files and dirs to delete on shutdown
         self.cleanup_filenames = []

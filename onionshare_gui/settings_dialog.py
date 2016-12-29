@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from PyQt5 import QtCore, QtWidgets, QtGui
 
 from onionshare import strings
+from onionshare.settings import Settings
 
 class SettingsDialog(QtWidgets.QDialog):
     """
@@ -42,8 +43,8 @@ class SettingsDialog(QtWidgets.QDialog):
         self.connection_type_control_port_radio.toggled.connect(self.connection_type_control_port_toggled)
 
         connection_type_control_port_extras_label = QtWidgets.QLabel(strings._('gui_settings_control_port_label', True))
-        self.connection_type_control_port_extras_address = QtWidgets.QLineEdit('127.0.0.1')
-        self.connection_type_control_port_extras_port = QtWidgets.QLineEdit('9051')
+        self.connection_type_control_port_extras_address = QtWidgets.QLineEdit()
+        self.connection_type_control_port_extras_port = QtWidgets.QLineEdit()
         connection_type_control_port_extras_layout = QtWidgets.QHBoxLayout()
         connection_type_control_port_extras_layout.addWidget(connection_type_control_port_extras_label)
         connection_type_control_port_extras_layout.addWidget(self.connection_type_control_port_extras_address)
@@ -58,7 +59,7 @@ class SettingsDialog(QtWidgets.QDialog):
         self.connection_type_socket_file_radio.toggled.connect(self.connection_type_socket_file_toggled)
 
         connection_type_socket_file_extras_label = QtWidgets.QLabel(strings._('gui_settings_socket_file_label', True))
-        self.connection_type_socket_file_extras_path = QtWidgets.QLineEdit('/var/run/tor/control')
+        self.connection_type_socket_file_extras_path = QtWidgets.QLineEdit()
         connection_type_socket_file_extras_layout = QtWidgets.QHBoxLayout()
         connection_type_socket_file_extras_layout.addWidget(connection_type_socket_file_extras_label)
         connection_type_socket_file_extras_layout.addWidget(self.connection_type_socket_file_extras_path)
@@ -103,7 +104,7 @@ class SettingsDialog(QtWidgets.QDialog):
         self.authenticate_cookie_radio.toggled.connect(self.authenticate_cookie_toggled)
 
         authenticate_cookie_extras_label = QtWidgets.QLabel(strings._('gui_settings_cookie_label', True))
-        self.authenticate_cookie_extras_cookie_path = QtWidgets.QLineEdit('/var/run/tor/control.authcookie')
+        self.authenticate_cookie_extras_cookie_path = QtWidgets.QLineEdit()
         authenticate_cookie_extras_layout = QtWidgets.QHBoxLayout()
         authenticate_cookie_extras_layout.addWidget(authenticate_cookie_extras_label)
         authenticate_cookie_extras_layout.addWidget(self.authenticate_cookie_extras_cookie_path)
@@ -143,9 +144,28 @@ class SettingsDialog(QtWidgets.QDialog):
         layout.addLayout(buttons_layout)
         self.setLayout(layout)
 
-        # Set default option
-        self.connection_type_automatic_radio.setChecked(True)
-        self.authenticate_no_auth_radio.setChecked(True)
+
+        # Load settings, and fill them in
+        self.settings = Settings()
+        connection_type = self.settings.get('connection_type')
+        if connection_type == 'automatic':
+            self.connection_type_automatic_radio.setChecked(True)
+        elif connection_type == 'control_port':
+            self.connect_type_control_port_radio.setChecked(True)
+        elif connection_type == 'socket_file':
+            self.connection_type_socket_file_radio.setChecked(True)
+        self.connection_type_control_port_extras_address.setText(self.settings.get('control_port_address'))
+        self.connection_type_control_port_extras_port.setText(self.settings.get('control_port_port'))
+        self.connection_type_socket_file_extras_path.setText(self.settings.get('socket_file_path'))
+        auth_type = self.settings.get('auth_type')
+        if auth_type == 'no_auth':
+            self.authenticate_no_auth_radio.setChecked(True)
+        elif auth_type == 'password':
+            self.authenticate_password_radio.setChecked(True)
+        elif auth_type == 'cookie':
+            self.authenticate_cookie_radio.setChecked(True)
+        self.authenticate_password_extras_password.setText(self.settings.get('auth_password'))
+        self.authenticate_cookie_extras_cookie_path.setText(self.settings.get('auth_cookie_path'))
 
         # Show the dialog
         self.exec_()
