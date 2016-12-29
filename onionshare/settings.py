@@ -31,7 +31,18 @@ class Settings(object):
     """
     def __init__(self):
         self.filename = self.build_filename()
-        self.load()
+
+        # These are the default settings. They will get overwritten when loading from disk
+        self._settings = {
+            'version': helpers.get_version(),
+            'connection_type': 'automatic',
+            'control_port_address': '127.0.0.1',
+            'control_port_port': '9051',
+            'socket_file_path': '/var/run/tor/control',
+            'auth_type': 'no_auth',
+            'auth_password': '',
+            'auth_cookie_path': '/var/run/tor/control.authcookie'
+        }
 
     def build_filename(self):
         """
@@ -50,28 +61,12 @@ class Settings(object):
         """
         Load the settings from file.
         """
-        default_settings = {
-            'version': helpers.get_version(),
-            'connection_type': 'automatic',
-            'control_port_address': '127.0.0.1',
-            'control_port_port': '9051',
-            'socket_file_path': '/var/run/tor/control',
-            'auth_type': 'no_auth',
-            'auth_password': '',
-            'auth_cookie_path': '/var/run/tor/control.authcookie'
-        }
-
+        # If the settings file exists, load it
         if os.path.exists(self.filename):
-            # If the settings file exists, load it
             try:
                 self._settings = json.loads(open(self.filename, 'r').read())
             except:
-                # If the settings don't work, use default ones instead
-                self._settings = default_settings
-
-        else:
-            # Otherwise, use default settings
-            self._settings = default_settings
+                pass
 
     def save(self):
         """
