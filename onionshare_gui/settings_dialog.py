@@ -151,7 +151,7 @@ class SettingsDialog(QtWidgets.QDialog):
         if connection_type == 'automatic':
             self.connection_type_automatic_radio.setChecked(True)
         elif connection_type == 'control_port':
-            self.connect_type_control_port_radio.setChecked(True)
+            self.connection_type_control_port_radio.setChecked(True)
         elif connection_type == 'socket_file':
             self.connection_type_socket_file_radio.setChecked(True)
         self.connection_type_control_port_extras_address.setText(self.settings.get('control_port_address'))
@@ -238,7 +238,29 @@ class SettingsDialog(QtWidgets.QDialog):
         """
         Save button clicked. Save current settings to disk.
         """
-        pass
+        if self.connection_type_automatic_radio.isChecked():
+            self.settings.set('connection_type', 'automatic')
+        if self.connection_type_control_port_radio.isChecked():
+            self.settings.set('connection_type', 'control_port')
+        if self.connection_type_socket_file_radio.isChecked():
+            self.settings.set('connection_type', 'socket_file')
+
+        self.settings.set('control_port_address', self.connection_type_control_port_extras_address.text())
+        self.settings.set('control_port_port', self.connection_type_control_port_extras_port.text())
+        self.settings.set('socket_file_path', self.connection_type_socket_file_extras_path.text())
+
+        if self.authenticate_no_auth_radio.isChecked():
+            self.settings.set('auth_type', 'no_auth')
+        if self.authenticate_password_radio.isChecked():
+            self.settings.set('auth_type', 'password')
+        if self.authenticate_cookie_radio.isChecked():
+            self.settings.set('auth_type', 'cookie')
+
+        self.settings.set('auth_password', self.authenticate_password_extras_password.text())
+        self.settings.set('auth_cookie_path', self.authenticate_cookie_extras_cookie_path.text())
+
+        self.settings.save()
+        self.close()
 
     def cancel_clicked(self):
         """
