@@ -155,10 +155,11 @@ def main(cwd=None):
         app = OnionShare(debug, local_only, stay_open, transparent_torification, stealth)
         app.choose_port()
         app.start_onion_service()
-    except onion.NoTor as e:
+    except (onion.NoTor, onion.TorTooOld, onion.TorErrorInvalidSetting, onion.TorErrorSocketPort, onion.TorErrorSocketFile, onion.TorErrorMissingPassword, onion.TorErrorUnreadableCookieFile) as e:
         sys.exit(e.args[0])
-    except onion.TorTooOld as e:
-        sys.exit(e.args[0])
+    except KeyboardInterrupt:
+        print("")
+        sys.exit()
 
     # prepare files to share
     print(strings._("preparing_files"))

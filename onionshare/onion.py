@@ -58,7 +58,6 @@ class TorErrorUnreadableCookieFile(Exception):
     """
     pass
 
-
 class NoTor(Exception):
     """
     This exception is raised if onionshare can't find a Tor control port
