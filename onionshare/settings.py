@@ -81,9 +81,6 @@ class Settings(object):
         open(self.filename, 'w').write(json.dumps(self._settings))
 
     def get(self, key):
-        """
-        Set a setting.
-        """
         return self._settings[key]
 
     def set(self, key, val):
