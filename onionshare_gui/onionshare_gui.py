@@ -444,12 +444,8 @@ def main():
 
     # validation
     if filenames:
-        valid = True
-        for filename in filenames:
-            if not os.path.exists(filename):
-                alert(strings._("not_a_file", True).format(filename))
-                valid = False
-        if not valid:
+        if any(not os.path.isfile(filename) for filename in filenames)
+            alert(strings._("not_a_file", True).format(filename))
             sys.exit()
 
     # start the onionshare app
