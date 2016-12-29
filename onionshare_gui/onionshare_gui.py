@@ -30,7 +30,7 @@ from .file_selection import FileSelection
 from .server_status import ServerStatus
 from .downloads import Downloads
 from .options import Options
-
+from .alert import Alert
 
 class Application(QtWidgets.QApplication):
     """
@@ -238,7 +238,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         """
         If there's an error when trying to start the onion service
         """
-        alert(error, QtWidgets.QMessageBox.Warning)
+        Alert(error, QtWidgets.QMessageBox.Warning)
         self.server_status.stop_server()
         self.status_bar.clearMessage()
 
@@ -298,7 +298,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
             elif event["type"] == web.REQUEST_RATE_LIMIT:
                 self.stop_server()
-                alert(strings._('error_rate_limit'), QtWidgets.QMessageBox.Critical)
+                Alert(strings._('error_rate_limit'), QtWidgets.QMessageBox.Critical)
 
             elif event["type"] == web.REQUEST_PROGRESS:
                 self.downloads.update_download(event["data"]["id"], event["data"]["bytes"])
@@ -396,18 +396,6 @@ class ZipProgressBar(QtWidgets.QProgressBar):
             self.setValue(0)
 
 
-def alert(msg, icon=QtWidgets.QMessageBox.NoIcon):
-    """
-    Pop up a message in a dialog window.
-    """
-    dialog = QtWidgets.QMessageBox()
-    dialog.setWindowTitle("OnionShare")
-    dialog.setWindowIcon(window_icon)
-    dialog.setText(msg)
-    dialog.setIcon(icon)
-    dialog.exec_()
-
-
 def main():
     """
     The main() function implements all of the logic that the GUI version of onionshare uses.
@@ -447,7 +435,7 @@ def main():
         valid = True
         for filename in filenames:
             if not os.path.exists(filename):
-                alert(strings._("not_a_file", True).format(filename))
+                Alert(strings._("not_a_file", True).format(filename))
                 valid = False
         if not valid:
             sys.exit()
