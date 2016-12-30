@@ -17,11 +17,28 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
+from distutils.version import StrictVersion as Version
 import queue, mimetypes, platform, os, sys, socket, logging
 from urllib.request import urlopen
+
 from flask import Flask, Response, request, render_template_string, abort
+from flask import __version__ as flask_version
 
 from . import strings, helpers
+
+
+def _safe_select_jinja_autoescape(self, filename):
+    if filename is None:
+        return True
+    return filename.endswith(('.html', '.htm', '.xml', '.xhtml'))
+
+# Starting in Flask 0.11, render_template_string autoescapes template variables
+# by default. To prevent content injection through template variables in
+# earlier versions of Flask, we force autoescaping in the Jinja2 template
+# engine if we detect a Flask version with insecure default behavior.
+if Version(flask_version) < Version('0.11'):
+    # Monkey-patch in the fix from https://github.com/pallets/flask/commit/99c99c4c16b1327288fd76c44bc8635a1de452bc
+    Flask.select_jinja_autoescape = _safe_select_jinja_autoescape
 
 app = Flask(__name__)
 
