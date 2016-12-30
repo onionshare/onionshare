@@ -17,7 +17,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-import queue, mimetypes, platform, os, sys, socket, logging, re
+import queue, mimetypes, platform, os, sys, socket, logging
 from urllib.request import urlopen
 from flask import Flask, Response, request, render_template_string, abort
 
@@ -41,11 +41,9 @@ def set_file_info(filenames, processed_size_callback=None):
     # build file info list
     file_info = {'files': [], 'dirs': []}
     for filename in filenames:
-        # strips trailing '/' and sanitizes filename
-        basename = sanitize_html(os.path.basename(filename.rstrip('/')))
         info = {
             'filename': filename,
-            'basename': basename
+            'basename': os.path.basename(filename.rstrip('/'))
         }
         if os.path.isfile(filename):
             info['size'] = os.path.getsize(filename)
@@ -55,8 +53,6 @@ def set_file_info(filenames, processed_size_callback=None):
             info['size'] = helpers.dir_size(filename)
             info['size_human'] = helpers.human_readable_filesize(info['size'])
             file_info['dirs'].append(info)
-
-    # sort list of files and directories by basename
     file_info['files'] = sorted(file_info['files'], key=lambda k: k['basename'])
     file_info['dirs'] = sorted(file_info['dirs'], key=lambda k: k['basename'])
 
