@@ -17,7 +17,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-import queue, mimetypes, platform, os, sys, socket, logging, html
+import queue, mimetypes, platform, os, sys, socket, logging, re
 from urllib.request import urlopen
 from flask import Flask, Response, request, render_template_string, abort
 
@@ -42,7 +42,7 @@ def set_file_info(filenames, processed_size_callback=None):
     file_info = {'files': [], 'dirs': []}
     for filename in filenames:
         # strips trailing '/' and sanitizes filename
-        basename = html.escape(os.path.basename(filename.rstrip('/')))
+        basename = sanitize_html(os.path.basename(filename.rstrip('/')))
         info = {
             'filename': filename,
             'basename': basename
