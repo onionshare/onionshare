@@ -17,6 +17,11 @@ Then install the needed dependencies:
 sudo apt-get install -y python3-flask python3-stem python3-pyqt5 python-nautilus
 ```
 
+If you want to run tests (see below), also install:
+```sh
+sudo apt-get install -y python3-nose
+```
+
 After that you can try both the CLI and the GUI version of OnionShare:
 
 ```sh
