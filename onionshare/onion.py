@@ -108,6 +108,7 @@ class Onion(object):
 
         if self.settings.get('connection_type') == 'automatic':
             # Automatically try to guess the right way to connect to Tor Browser
+            p = platform.system()
 
             # Try connecting to control port
             found_tor = False
@@ -131,11 +132,19 @@ class Onion(object):
                 except:
                     pass
 
+                # If this still didn't work, try guessing the default socket file path
+                socket_file_path = ''
+                if not found_tor:
+                    if p == 'Darwin':
+                        socket_file_path = os.path.expanduser('~/Library/Application Support/TorBrowser-Data/Tor/control.socket')
+
+                    self.c = Controller.from_socket_file(path=socket_file_path)
+                    found_tor = True
+
             # If connecting to default control ports failed, so let's try
             # guessing the socket file name next
             if not found_tor:
                 try:
-                    p = platform.system()
                     if p == 'Linux':
                         socket_file_path = '/run/user/{}/Tor/control.socket'.format(os.geteuid())
                     elif p == 'Darwin':
