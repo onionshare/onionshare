@@ -135,11 +135,14 @@ class Onion(object):
                 # If this still didn't work, try guessing the default socket file path
                 socket_file_path = ''
                 if not found_tor:
-                    if p == 'Darwin':
-                        socket_file_path = os.path.expanduser('~/Library/Application Support/TorBrowser-Data/Tor/control.socket')
+                    try:
+                        if p == 'Darwin':
+                            socket_file_path = os.path.expanduser('~/Library/Application Support/TorBrowser-Data/Tor/control.socket')
 
-                    self.c = Controller.from_socket_file(path=socket_file_path)
-                    found_tor = True
+                        self.c = Controller.from_socket_file(path=socket_file_path)
+                        found_tor = True
+                    except:
+                        pass
 
             # If connecting to default control ports failed, so let's try
             # guessing the socket file name next
