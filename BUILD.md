@@ -7,7 +7,7 @@ git clone https://github.com/micahflee/onionshare.git
 cd onionshare
 ```
 
-## GNU/Linux
+## Linux
 
 Install the needed dependencies:
 
