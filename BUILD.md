@@ -1,21 +1,19 @@
 # Building OnionShare
 
-## GNU/Linux
-
-Start by getting a copy of the source code:
+Start by getting the source code:
 
 ```sh
 git clone https://github.com/micahflee/onionshare.git
 cd onionshare
 ```
 
-*For .deb-based distros (like Debian, Ubuntu, Linux Mint):*
+## GNU/Linux
 
-Then install the needed dependencies:
+Install the needed dependencies:
 
-```sh
-sudo apt-get install -y python3-flask python3-stem python3-pyqt5 python-nautilus
-```
+For Debian-like distros: `apt install -y build-essential fakeroot python3-all python3-stdeb dh-python  python3-flask python3-stem python3-pyqt5 python-nautilus python3-nose`
+
+For Fedora-like distros: `dnf install -y rpm-build python3-flask python3-stem python3-qt5 nautilus-python`
 
 After that you can try both the CLI and the GUI version of OnionShare:
 
@@ -24,28 +22,13 @@ After that you can try both the CLI and the GUI version of OnionShare:
 ./dev_scripts/onionshare-gui
 ```
 
-A script to build a .deb package and install OnionShare easily is also provided for your convenience:
+You can also build OnionShare packages to install:
 
-```sh
-sudo apt-get install -y build-essential fakeroot python3-all python3-stdeb dh-python python-nautilus python3-nose
-./install/build_deb.sh
-sudo dpkg -i deb_dist/onionshare_*.deb
-```
-Note that OnionShare uses stdeb to generate Debian packages, and `python3-stdeb` is not available in Ubuntu 14.04 (Trusty). Because of this, you can't use the `build_install.sh` script to build the .deb file in versions of Ubuntu 14.04 and earlier. However, .deb files you build in later versions of Ubuntu will install and work fine in 14.04.
+Create a .deb on Debian-like distros: `./install/build_deb.sh`
 
-*For .rpm-based distros (Red Hat, Fedora, CentOS):*
+Create a .rpm on Fedora-like distros: `./install/build_rpm.sh`
 
-```sh
-sudo sudo dnf install -y rpm-build python3-flask python3-stem python3-qt5 nautilus-python
-./install/build_rpm.sh
-sudo yum install -y dist/onionshare-*.rpm
-```
-
-Depending on your distribution, you may need to use `yum` instead of `dnf`.
-
-*For ArchLinux:*
-
-There is a PKBUILD available [here](https://aur.archlinux.org/packages/onionshare/) that can be used to install OnionShare.
+For ArchLinux: There is a PKBUILD available [here](https://aur.archlinux.org/packages/onionshare/) that can be used to install OnionShare.
 
 ## Mac OS X
 
@@ -65,20 +48,22 @@ Install some dependencies using pip3:
 sudo pip3 install flask stem
 ```
 
+After that you can try both the CLI and the GUI version of OnionShare:
+
+```sh
+./dev_scripts/onionshare
+./dev_scripts/onionshare-gui
+```
+
+If you want to build a Mac OS X app bundle:
+
 Install the latest development version of cx_Freeze:
 
 * Download a [snapshot](https://bitbucket.org/anthony_tuininga/cx_freeze/downloads) of the latest development version of cx_Freeze, extract it, and cd into the folder you extracted it to
 * Build the package: `python3 setup.py bdist_wheel`
 * Install it with pip: `sudo pip3 install dist/cx_Freeze-5.0-cp35-cp35m-macosx_10_11_x86_64.whl`
 
-Get the source code:
-
-```sh
-git clone https://github.com/micahflee/onionshare.git
-cd onionshare
-```
-
-To build the .app:
+To build the app bundle:
 
 ```sh
 install/build_osx.sh
@@ -86,7 +71,7 @@ install/build_osx.sh
 
 Now you should have `dist/OnionShare.app`.
 
-To codesign and build a .pkg for distribution:
+To codesign and build a pkg for distribution:
 
 ```sh
 install/build_osx.sh --release
@@ -98,13 +83,22 @@ Now you should have `dist/OnionShare.pkg`.
 
 ### Setting up your dev environment
 
+Download the latest Python 3.6.x, 32-bit (x86) from https://www.python.org/downloads/. I downloaded `python-3.6.0.exe`. When installing it, make sure to check the "Add Python 3.6 to PATH" checkbox on the first page of the installer.
+
+Open a command prompt and install dependencies with pip: `pip install flask stem PyQt5`
+
+Download and install Qt5 from https://www.qt.io/download-open-source/. I downloaded `qt-unified-windows-x86-2.0.4-online.exe`. There's no need to login to a Qt account during installation. Make sure you install the latest Qt 5.x. I installed Qt 5.7.
+
+After that you can try both the CLI and the GUI version of OnionShare:
+
+```
+python dev_scripts\onionshare
+python dev_scripts\onionshare-gui
+```
+
+If you want to build an .exe:
+
 These instructions include adding folders to the path in Windows. To do this, go to Start and type "advanced system settings", and open "View advanced system settings" in the Control Panel. Click Environment Variables. Under "System variables" double-click on Path. From there you can add and remove folders that are available in the PATH.
-
-Download the latest Python 3.5.x, 32-bit (x86) from https://www.python.org/downloads/. I downloaded `python-3.5.2.exe`. When installing it, make sure to check the "Add Python 3.5 to PATH" checkbox on the first page of the installer.
-
-Download and install Qt5 from https://www.qt.io/download-open-source/. I downloaded `qt-unified-windows-x86-2.0.3-1-online.exe`. There's no need to login to a Qt account during installation. Make sure you install the latest Qt 5.x.
-
-Open a command prompt and install dependencies with pip: `pip install pypiwin32 flask stem PyQt5`
 
 Download and install the [Microsoft Visual C++ 2008 Redistributable Package (x86)](http://www.microsoft.com/en-us/download/details.aspx?id=29).
 
