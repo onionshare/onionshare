@@ -45,7 +45,7 @@ brew install python3 pyqt5 qt5
 Install some dependencies using pip3:
 
 ```sh
-sudo pip3 install flask stem
+sudo pip3 install flask stem pyinstaller
 ```
 
 After that you can try both the CLI and the GUI version of OnionShare:
@@ -54,14 +54,6 @@ After that you can try both the CLI and the GUI version of OnionShare:
 ./dev_scripts/onionshare
 ./dev_scripts/onionshare-gui
 ```
-
-If you want to build a Mac OS X app bundle:
-
-Install the latest development version of cx_Freeze:
-
-* Download a [snapshot](https://bitbucket.org/anthony_tuininga/cx_freeze/downloads) of the latest development version of cx_Freeze, extract it, and cd into the folder you extracted it to
-* Build the package: `python3 setup.py bdist_wheel`
-* Install it with pip: `sudo pip3 install dist/cx_Freeze-5.0-cp35-cp35m-macosx_10_11_x86_64.whl`
 
 To build the app bundle:
 
@@ -85,7 +77,7 @@ Now you should have `dist/OnionShare.pkg`.
 
 Download the latest Python 3.6.x, 32-bit (x86) from https://www.python.org/downloads/. I downloaded `python-3.6.0.exe`. When installing it, make sure to check the "Add Python 3.6 to PATH" checkbox on the first page of the installer.
 
-Open a command prompt and install dependencies with pip: `pip install flask stem PyQt5`
+Open a command prompt and install dependencies with pip: `pip install flask stem PyQt5 pyinstaller`
 
 Download and install Qt5 from https://www.qt.io/download-open-source/. I downloaded `qt-unified-windows-x86-2.0.4-online.exe`. There's no need to login to a Qt account during installation. Make sure you install the latest Qt 5.x. I installed Qt 5.7.
 
@@ -96,19 +88,11 @@ python dev_scripts\onionshare
 python dev_scripts\onionshare-gui
 ```
 
-If you want to build an .exe:
+If you want to build a .exe:
 
 These instructions include adding folders to the path in Windows. To do this, go to Start and type "advanced system settings", and open "View advanced system settings" in the Control Panel. Click Environment Variables. Under "System variables" double-click on Path. From there you can add and remove folders that are available in the PATH.
 
 Download and install the [Microsoft Visual C++ 2008 Redistributable Package (x86)](http://www.microsoft.com/en-us/download/details.aspx?id=29).
-
-Installing cx_Freeze with support for Python 3.5 is annoying. Here are the steps (thanks https://github.com/sekrause/cx_Freeze-Wheels):
-
-* Download and install the Visual C++ Build Tools 2005 from http://go.microsoft.com/fwlink/?LinkId=691126. I downloaded `visualcppbuildtools_full.exe`.
-* Install the python wheel package: `pip install wheel`
-* Download a [snapshot](https://bitbucket.org/anthony_tuininga/cx_freeze/downloads) of the latest development version of cx_Freeze, extract it, and cd into the folder you extracted it to
-* Build the package: `python setup.py bdist_wheel`
-* Install it with pip: `pip install dist\cx_Freeze-5.0-cp35-cp35m-win32.whl`
 
 If you want to build the installer:
 
