@@ -77,8 +77,9 @@
     "settings_saved": "Settings saved to {}",
     "settings_error_unknown": "Can't connect to Tor controller because the settings don't make sense.",
     "settings_error_automatic": "Can't connect to Tor controller. Is Tor Browser running in the background? If you don't have it you can get it from:\nhttps://www.torproject.org/.",
-    "settings_error_socket_port": "Can't connect to Tor controller on address {} with port {}.",
+    "settings_error_socket_port": "Can't connect to Tor controller on {}:{}.",
     "settings_error_socket_file": "Can't connect to Tor controller using socket file {}.",
+    "settings_error_auth": "Connected to {}:{}, but can't authenticate. Maybe this isn't a Tor controller?",
     "settings_error_missing_password": "Connected to Tor controller, but it requires a password to authenticate.",
     "settings_error_unreadable_cookie_file": "Connected to Tor controller, but can't authenticate because your password may be wrong, and your user doesn't have permission to read the cookie file.",
     "settings_test_success": "Congratulations, OnionShare can connect to the Tor controller.\n\nTor version: {}\nSupports ephemeral onion services: {}\nSupports stealth onion services: {}"

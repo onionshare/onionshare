@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from stem.control import Controller
 from stem import SocketError
-from stem.connection import MissingPassword, UnreadableCookieFile
+from stem.connection import MissingPassword, UnreadableCookieFile, AuthenticationFailure
 import os, sys, tempfile, shutil, urllib, platform
 
 from . import socks
@@ -62,6 +62,13 @@ class TorErrorUnreadableCookieFile(Exception):
     """
     OnionShare connected to the Tor controller, but your user does not have permission
     to access the cookie file.
+    """
+    pass
+
+class TorErrorAuthError(Exception):
+    """
+    OnionShare connected to the address and port, but can't authenticate. It's possible
+    that a Tor controller isn't listening on this port.
     """
     pass
 
@@ -180,11 +187,12 @@ class Onion(object):
                 else:
                     raise TorErrorInvalidSetting(strings._("settings_error_unknown"))
 
-            except SocketError:
+            except:
                 if self.settings.get('connection_type') == 'control_port':
                     raise TorErrorSocketPort(strings._("settings_error_socket_port").format(self.settings.get('control_port_address'), self.settings.get('control_port_port')))
                 else:
                     raise TorErrorSocketFile(strings._("settings_error_socket_file").format(self.settings.get('socket_file_path')))
+
 
             # Try authenticating
             try:
@@ -199,6 +207,8 @@ class Onion(object):
                 raise TorErrorMissingPassword(strings._('settings_error_missing_password'))
             except UnreadableCookieFile:
                 raise TorErrorUnreadableCookieFile(strings._('settings_error_unreadable_cookie_file'))
+            except AuthenticationFailure:
+                raise TorErrorAuthError(strings._('settings_error_auth').format(self.settings.get('control_port_address'), self.settings.get('control_port_port')))
 
         # get the tor version
         self.tor_version = self.c.get_version().version_str
