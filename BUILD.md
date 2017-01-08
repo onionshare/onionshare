@@ -42,6 +42,14 @@ Install some dependencies using Homebrew:
 brew install python3 pyqt5 qt5
 ```
 
+Set up a virtual env (`sudo pip3 install virtualenv` if you don't have it installed):
+
+```sh
+$ virtualenv env
+$ . env/bin/activate
+(env) pip3 install -r install/requirements.txt
+```
+
 Install some dependencies using pip3:
 
 ```sh
@@ -77,7 +85,12 @@ Now you should have `dist/OnionShare.pkg`.
 
 Download the latest Python 3.6.x, 32-bit (x86) from https://www.python.org/downloads/. I downloaded `python-3.6.0.exe`. When installing it, make sure to check the "Add Python 3.6 to PATH" checkbox on the first page of the installer.
 
-Open a command prompt and install dependencies with pip: `pip install flask stem PyQt5 pyinstaller`
+Open a command prompt and install dependencies with pip:
+
+```cmd
+pip install -r install\requirements.txt
+pip install -r install\requirements-windows.txt
+```
 
 Download and install Qt5 from https://www.qt.io/download-open-source/. I downloaded `qt-unified-windows-x86-2.0.4-online.exe`. There's no need to login to a Qt account during installation. Make sure you install the latest Qt 5.x. I installed Qt 5.7.
 
