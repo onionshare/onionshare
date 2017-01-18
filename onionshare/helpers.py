@@ -2,7 +2,7 @@
 """
 OnionShare | https://onionshare.org/
 
-Copyright (C) 2016 Micah Lee <micah@micahflee.com>
+Copyright (C) 2017 Micah Lee <micah@micahflee.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -34,14 +34,17 @@ def get_resource_path(filename):
     systemwide, and whether regardless of platform
     """
     p = get_platform()
-    if p == 'Linux' and sys.argv and sys.argv[0].startswith(sys.prefix):
+
+    if getattr(sys, 'onionshare_dev_mode', False):
+        # Look for resources directory relative to python file
+        resources_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))), 'resources')
+
+    elif p == 'Linux' and sys.argv and sys.argv[0].startswith(sys.prefix):
         # OnionShare is installed systemwide in Linux
         resources_dir = os.path.join(sys.prefix, 'share/onionshare')
     elif getattr(sys, 'frozen', False): # Check if app is "frozen" with cx_Freeze
         # http://cx-freeze.readthedocs.io/en/latest/faq.html#using-data-files
         resources_dir = os.path.join(os.path.dirname(sys.executable), 'resources')
-    else:  # Look for resources directory relative to python file
-        resources_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))), 'resources')
 
     return os.path.join(resources_dir, filename)
 
@@ -176,19 +179,26 @@ class ZipWriter(object):
     with. If a zip_filename is not passed in, it will use the default onionshare
     filename.
     """
-    def __init__(self, zip_filename=None):
+    def __init__(self, zip_filename=None, processed_size_callback=None):
         if zip_filename:
             self.zip_filename = zip_filename
         else:
             self.zip_filename = '{0:s}/onionshare_{1:s}.zip'.format(tempfile.mkdtemp(), random_string(4, 6))
 
         self.z = zipfile.ZipFile(self.zip_filename, 'w', allowZip64=True)
+        self.processed_size_callback = processed_size_callback
+        if self.processed_size_callback is None:
+            self.processed_size_callback = lambda _: None
+        self._size = 0
+        self.processed_size_callback(self._size)
 
     def add_file(self, filename):
         """
         Add a file to the zip archive.
         """
         self.z.write(filename, os.path.basename(filename), zipfile.ZIP_DEFLATED)
+        self._size += os.path.getsize(filename)
+        self.processed_size_callback(self._size)
 
     def add_dir(self, filename):
         """
@@ -201,6 +211,8 @@ class ZipWriter(object):
                 if not os.path.islink(full_filename):
                     arc_filename = full_filename[len(dir_to_strip):]
                     self.z.write(full_filename, arc_filename, zipfile.ZIP_DEFLATED)
+                    self._size += os.path.getsize(full_filename)
+                    self.processed_size_callback(self._size)
 
     def close(self):
         """

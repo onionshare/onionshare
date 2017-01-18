@@ -2,7 +2,7 @@
 """
 OnionShare | https://onionshare.org/
 
-Copyright (C) 2016 Micah Lee <micah@micahflee.com>
+Copyright (C) 2017 Micah Lee <micah@micahflee.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -56,7 +56,7 @@ class Download(object):
             elapsed = time.time() - self.started
             if elapsed < 10:
                 # Wait a couple of seconds for the download rate to stabilize.
-                # This prevents an "Windows copy dialog"-esque experience at
+                # This prevents a "Windows copy dialog"-esque experience at
                 # the beginning of the download.
                 pb_fmt = strings._('gui_download_progress_starting').format(
                     helpers.human_readable_filesize(downloaded_bytes))
@@ -77,33 +77,27 @@ class Download(object):
                                                 self.started)
 
 
-class Downloads(QtWidgets.QVBoxLayout):
+class Downloads(QtWidgets.QWidget):
     """
     The downloads chunk of the GUI. This lists all of the active download
     progress bars.
     """
     def __init__(self):
         super(Downloads, self).__init__()
-
         self.downloads = {}
-
-        # downloads label
-        self.downloads_label = QtWidgets.QLabel(strings._('gui_downloads', True))
-        self.downloads_label.hide()
-
-        # add the widgets
-        self.addWidget(self.downloads_label)
+        self.layout = QtWidgets.QVBoxLayout()
+        self.setLayout(self.layout)
 
     def add_download(self, download_id, total_bytes):
         """
         Add a new download progress bar.
         """
-        self.downloads_label.show()
+        self.parent().show()
 
         # add it to the list
         download = Download(download_id, total_bytes)
         self.downloads[download_id] = download
-        self.addWidget(download.progress_bar)
+        self.layout.insertWidget(-1, download.progress_bar)
 
     def update_download(self, download_id, downloaded_bytes):
         """

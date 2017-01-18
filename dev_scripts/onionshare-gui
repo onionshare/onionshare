@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
 OnionShare | https://onionshare.org/
 
@@ -16,23 +18,11 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-import tempfile
-import os
 
+# Load onionshare module and resources from the source code tree
+import os, sys
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.onionshare_dev_mode = True
 
-class MockSubprocess():
-    def __init__(self):
-        self.last_call = None
-
-    def call(self, args):
-        self.last_call = args
-
-    def last_call_args(self):
-        return self.last_call
-
-
-def write_tempfile(text):
-    path = os.path.join(tempfile.mkdtemp(), "/test-file.txt")
-    with open(path, "w") as f:
-        f.write(text)
-    return path
+import onionshare_gui
+onionshare_gui.main()
