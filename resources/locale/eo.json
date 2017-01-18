@@ -41,5 +41,6 @@
     "gui_please_wait": "Bonvolu atendi...",
     "error_hs_dir_cannot_create": "Ne eblas krei hidden-service-dosierujon {0:s}",
     "error_hs_dir_not_writable": "Ne eblas konservi dosierojn en hidden-service-dosierujo {0:s}",
-    "using_ephemeral": "Staring ephemeral Tor onion service and awaiting publication"
+    "using_ephemeral": "Staring ephemeral Tor hidden service and awaiting publication",
+    "zip_progress_bar_format": "Crunching files: %p%"
 }

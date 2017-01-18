@@ -41,5 +41,6 @@
     "gui_please_wait": "Odota...",
     "error_hs_dir_cannot_create": "Piilopalvelulle ei pystytty luomaan hakemistoa {0:s}",
     "error_hs_dir_not_writable": "Piilopalvelun hakemistoon {0:s} ei voi kirjoittaa",
-    "using_ephemeral": "Käynnistetään lyhytaikainen Tor piilopalvelu ja odotetaan julkaisua"
+    "using_ephemeral": "Käynnistetään lyhytaikainen Tor piilopalvelu ja odotetaan julkaisua",
+    "zip_progress_bar_format": "Tiivistän tiedostoja: %p%"
 }

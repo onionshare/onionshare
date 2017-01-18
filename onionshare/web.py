@@ -2,7 +2,7 @@
 """
 OnionShare | https://onionshare.org/
 
-Copyright (C) 2016 Micah Lee <micah@micahflee.com>
+Copyright (C) 2017 Micah Lee <micah@micahflee.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -17,11 +17,28 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-import queue, mimetypes, platform, os, sys, socket, logging, html
+from distutils.version import StrictVersion as Version
+import queue, mimetypes, platform, os, sys, socket, logging
 from urllib.request import urlopen
+
 from flask import Flask, Response, request, render_template_string, abort
+from flask import __version__ as flask_version
 
 from . import strings, helpers
+
+
+def _safe_select_jinja_autoescape(self, filename):
+    if filename is None:
+        return True
+    return filename.endswith(('.html', '.htm', '.xml', '.xhtml'))
+
+# Starting in Flask 0.11, render_template_string autoescapes template variables
+# by default. To prevent content injection through template variables in
+# earlier versions of Flask, we force autoescaping in the Jinja2 template
+# engine if we detect a Flask version with insecure default behavior.
+if Version(flask_version) < Version('0.11'):
+    # Monkey-patch in the fix from https://github.com/pallets/flask/commit/99c99c4c16b1327288fd76c44bc8635a1de452bc
+    Flask.select_jinja_autoescape = _safe_select_jinja_autoescape
 
 app = Flask(__name__)
 
@@ -30,7 +47,7 @@ file_info = []
 zip_filename = None
 zip_filesize = None
 
-def set_file_info(filenames):
+def set_file_info(filenames, processed_size_callback=None):
     """
     Using the list of filenames being shared, fill in details that the web
     page will need to display. This includes zipping up the file in order to
@@ -41,11 +58,9 @@ def set_file_info(filenames):
     # build file info list
     file_info = {'files': [], 'dirs': []}
     for filename in filenames:
-        # strips trailing '/' and sanitizes filename
-        basename = html.escape(os.path.basename(filename.rstrip('/')))
         info = {
             'filename': filename,
-            'basename': basename
+            'basename': os.path.basename(filename.rstrip('/'))
         }
         if os.path.isfile(filename):
             info['size'] = os.path.getsize(filename)
@@ -55,13 +70,11 @@ def set_file_info(filenames):
             info['size'] = helpers.dir_size(filename)
             info['size_human'] = helpers.human_readable_filesize(info['size'])
             file_info['dirs'].append(info)
-
-    # sort list of files and directories by basename
     file_info['files'] = sorted(file_info['files'], key=lambda k: k['basename'])
     file_info['dirs'] = sorted(file_info['dirs'], key=lambda k: k['basename'])
 
     # zip up the files and folders
-    z = helpers.ZipWriter()
+    z = helpers.ZipWriter(processed_size_callback=processed_size_callback)
     for info in file_info['files']:
         z.add_file(info['filename'])
     for info in file_info['dirs']:

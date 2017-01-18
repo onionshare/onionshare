@@ -2,7 +2,7 @@
 """
 OnionShare | https://onionshare.org/
 
-Copyright (C) 2016 Micah Lee <micah@micahflee.com>
+Copyright (C) 2017 Micah Lee <micah@micahflee.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -29,6 +29,7 @@ class ServerStatus(QtWidgets.QVBoxLayout):
     server_started = QtCore.pyqtSignal()
     server_stopped = QtCore.pyqtSignal()
     url_copied = QtCore.pyqtSignal()
+    hidservauth_copied = QtCore.pyqtSignal()
 
     STATUS_STOPPED = 0
     STATUS_WORKING = 1
@@ -63,9 +64,12 @@ class ServerStatus(QtWidgets.QVBoxLayout):
         self.url_label.setAlignment(QtCore.Qt.AlignCenter)
         self.copy_url_button = QtWidgets.QPushButton(strings._('gui_copy_url', True))
         self.copy_url_button.clicked.connect(self.copy_url)
+        self.copy_hidservauth_button = QtWidgets.QPushButton(strings._('gui_copy_hidservauth', True))
+        self.copy_hidservauth_button.clicked.connect(self.copy_hidservauth)
         url_layout = QtWidgets.QHBoxLayout()
         url_layout.addWidget(self.url_label)
         url_layout.addWidget(self.copy_url_button)
+        url_layout.addWidget(self.copy_hidservauth_button)
 
         # add the widgets
         self.addLayout(server_layout)
@@ -91,12 +95,18 @@ class ServerStatus(QtWidgets.QVBoxLayout):
             self.url_label.show()
             self.copy_url_button.show()
 
+            if self.app.stealth:
+                self.copy_hidservauth_button.show()
+            else:
+                self.copy_hidservauth_button.hide()
+
             # resize parent widget
             p = self.parentWidget()
             p.resize(p.sizeHint())
         else:
             self.url_label.hide()
             self.copy_url_button.hide()
+            self.copy_hidservauth_button.hide()
 
         # button
         if self.file_selection.get_num_files() == 0:
@@ -163,3 +173,12 @@ class ServerStatus(QtWidgets.QVBoxLayout):
         clipboard.setText(url)
 
         self.url_copied.emit()
+
+    def copy_hidservauth(self):
+        """
+        Copy the HidServAuth line to the clipboard.
+        """
+        clipboard = self.qtapp.clipboard()
+        clipboard.setText(self.app.auth_string)
+
+        self.hidservauth_copied.emit()

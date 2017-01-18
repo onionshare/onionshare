@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 OnionShare | https://onionshare.org/
 
@@ -16,23 +17,18 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-import tempfile
-import os
+from PyQt5 import QtCore, QtWidgets, QtGui
 
+from onionshare import helpers
 
-class MockSubprocess():
-    def __init__(self):
-        self.last_call = None
-
-    def call(self, args):
-        self.last_call = args
-
-    def last_call_args(self):
-        return self.last_call
-
-
-def write_tempfile(text):
-    path = os.path.join(tempfile.mkdtemp(), "/test-file.txt")
-    with open(path, "w") as f:
-        f.write(text)
-    return path
+class Alert(QtWidgets.QMessageBox):
+    """
+    An alert box dialog.
+    """
+    def __init__(self, message, icon=QtWidgets.QMessageBox.NoIcon):
+        super(Alert, self).__init__(None)
+        self.setWindowTitle("OnionShare")
+        self.setWindowIcon(QtGui.QIcon(helpers.get_resource_path('images/logo.png')))
+        self.setText(message)
+        self.setIcon(icon)
+        self.exec_()
