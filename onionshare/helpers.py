@@ -42,9 +42,14 @@ def get_resource_path(filename):
     elif p == 'Linux' and sys.argv and sys.argv[0].startswith(sys.prefix):
         # OnionShare is installed systemwide in Linux
         resources_dir = os.path.join(sys.prefix, 'share/onionshare')
-    elif getattr(sys, 'frozen', False): # Check if app is "frozen" with cx_Freeze
-        # http://cx-freeze.readthedocs.io/en/latest/faq.html#using-data-files
-        resources_dir = os.path.join(os.path.dirname(sys.executable), 'resources')
+
+    elif getattr(sys, 'frozen', False):
+        # Check if app is "frozen"
+        # https://pythonhosted.org/PyInstaller/#run-time-information
+        if p == 'Darwin':
+            resources_dir = sys._MEIPASS
+        elif p == 'Windows':
+            resources_dir = os.path.join(os.path.dirname(sys.executable), 'resources')
 
     return os.path.join(resources_dir, filename)
 
