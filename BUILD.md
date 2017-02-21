@@ -34,29 +34,17 @@ For ArchLinux: There is a PKBUILD available [here](https://aur.archlinux.org/pac
 
 Install Xcode from the Mac App Store. Once it's installed, run it for the first time to set it up.
 
-If you don't already have it installed, install [Homebrew](http://brew.sh/).
+Download and install Python 3.5.2 from https://www.python.org/downloads/release/python-352/ (note that a pyinstaller bug prevents you from using Python 3.6). I downloaded `python-3.5.2-macosx10.6.pkg`.
 
-Install some dependencies using Homebrew:
+Download and install Qt 5.7.1 for macOS offline installer from https://www.qt.io/download-open-source/. I downloaded `qt-opensource-mac-x64-clang-5.7.1.dmg`. (You can skip making an account in the installer.)
 
-```sh
-brew install python3 pyqt5 qt5
-```
-
-Set up a virtual env (`sudo pip3 install virtualenv` if you don't have it installed):
+Now install some python dependencies with pip (note, there's issues building a .app if you install this in a virtualenv):
 
 ```sh
-$ virtualenv env
-$ . env/bin/activate
-(env) pip3 install -r install/requirements.txt
+sudo pip3 install -r install/requirements.txt
 ```
 
-Install some dependencies using pip3:
-
-```sh
-sudo pip3 install flask stem pyinstaller
-```
-
-After that you can try both the CLI and the GUI version of OnionShare:
+You can run both the CLI and GUI versions of OnionShare without building an bundle:
 
 ```sh
 ./dev_scripts/onionshare

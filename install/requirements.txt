@@ -4,5 +4,7 @@ itsdangerous==0.24
 Jinja2==2.9.2
 MarkupSafe==0.23
 PyInstaller==3.2
+PyQt5==5.7.1
+sip==4.19
 stem==1.5.4
 Werkzeug==0.11.15
