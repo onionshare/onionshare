@@ -1,9 +1,9 @@
 click==6.7
 Flask==0.12
 itsdangerous==0.24
-Jinja2==2.9.2
+Jinja2==2.9.5
 MarkupSafe==0.23
-PyInstaller==3.2
+PyInstaller==3.2.1
 PyQt5==5.7.1
 sip==4.19
 stem==1.5.4
