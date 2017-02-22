@@ -12,10 +12,10 @@ a = Analysis(
     datas=[
         ('../share/license.txt', 'share'),
         ('../share/version.txt', 'share'),
-        ('../share/wordlist.txt', 'share')
+        ('../share/wordlist.txt', 'share'),
         ('../share/images/*', 'share/images'),
         ('../share/locale/*', 'share/locale'),
-        ('../share/html/*', 'share/html'),
+        ('../share/html/*', 'share/html')
     ],
     hiddenimports=[],
     hookspath=[],
