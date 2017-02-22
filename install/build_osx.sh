@@ -9,12 +9,17 @@ rm -rf $ROOT/build $ROOT/dist &>/dev/null 2>&1
 
 # build the .app
 echo Building OnionShare.app
-pyinstaller install/pyinstaller.spec
+pyinstaller $ROOT/install/pyinstaller.spec
+
+# create a symlink of onionshare-gui called onionshare, for the CLI version
+cd $ROOT/dist/OnionShare.app/Contents/MacOS
+ln -s onionshare-gui onionshare
+cd $ROOT
 
 if [ "$1" = "--release" ]; then
   mkdir -p dist
-  APP_PATH="build/OnionShare.app"
-  PKG_PATH="dist/OnionShare.pkg"
+  APP_PATH="$ROOT/dist/OnionShare.app"
+  PKG_PATH="$ROOT/dist/OnionShare.pkg"
   IDENTITY_NAME_APPLICATION="Developer ID Application: Micah Lee"
   IDENTITY_NAME_INSTALLER="Developer ID Installer: Micah Lee"
 
