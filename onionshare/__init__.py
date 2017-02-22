@@ -84,7 +84,7 @@ class OnionShare(object):
             return
 
         if not self.onion:
-            self.onion = onion.Onion(self.transparent_torification, self.stealth)
+            self.onion = onion.Onion(self.stealth)
 
         self.onion_host = self.onion.start(self.port)
 
@@ -178,14 +178,8 @@ def main(cwd=None):
     t.start()
 
     try:  # Trap Ctrl-C
-        # wait for hs, only if using old version of tor
-        if not app.local_only and not app.onion.supports_ephemeral:
-            ready = app.onion.wait_for_hs(app.onion_host)
-            if not ready:
-                sys.exit()
-        else:
-            # Wait for web.generate_slug() to finish running
-            time.sleep(0.2)
+        # Wait for web.generate_slug() to finish running
+        time.sleep(0.2)
 
         if(stealth):
             print(strings._("give_this_url_stealth"))

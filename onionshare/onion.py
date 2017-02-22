@@ -83,21 +83,12 @@ class TorTooOld(Exception):
 class Onion(object):
     """
     Onion is an abstraction layer for connecting to the Tor control port and
-    creating onion services. OnionShare supports creating onion services
-    using two methods:
-
-    - Modifying the Tor configuration through the control port is the old
-      method, and will be deprecated in favor of ephemeral onion services.
-    - Using the control port to create ephemeral onion servers is the
-      preferred method.
-
-    This class detects the versions of Tor and stem to determine if ephemeral
-    onion services are supported. If not, it falls back to modifying the
-    Tor configuration.
+    creating onion services. OnionShare supports creating onion services by
+    connecting to the Tor controller and using ADD_ONION, DEL_ONION.
     """
-    def __init__(self, transparent_torification=False, stealth=False, settings=False):
-        self.transparent_torification = transparent_torification
+    def __init__(self, stealth=False, settings=False):
         self.stealth = stealth
+        self.service_id = None
 
         # Either use settings that are passed in, or load them from disk
         if settings:
@@ -105,10 +96,6 @@ class Onion(object):
         else:
             self.settings = Settings()
             self.settings.load()
-
-        # files and dirs to delete on shutdown
-        self.cleanup_filenames = []
-        self.service_id = None
 
         # Try to connect to Tor
         self.c = None
@@ -210,14 +197,14 @@ class Onion(object):
             except AuthenticationFailure:
                 raise TorErrorAuthError(strings._('settings_error_auth').format(self.settings.get('control_port_address'), self.settings.get('control_port_port')))
 
-        # get the tor version
+        # Get the tor version
         self.tor_version = self.c.get_version().version_str
 
-        # do the versions of stem and tor that I'm using support ephemeral onion services?
+        # Do the versions of stem and tor that I'm using support ephemeral onion services?
         list_ephemeral_hidden_services = getattr(self.c, "list_ephemeral_hidden_services", None)
         self.supports_ephemeral = callable(list_ephemeral_hidden_services) and self.tor_version >= '0.2.7.1'
 
-        # do the versions of stem and tor that I'm using support stealth onion services?
+        # Do the versions of stem and tor that I'm using support stealth onion services?
         try:
             res = self.c.create_ephemeral_hidden_service({1:1}, basic_auth={'onionshare':None}, await_publication=False)
             tmp_service_id = res.content()[0][2].split('=')[1]
@@ -233,181 +220,42 @@ class Onion(object):
         return the onion hostname.
         """
         self.auth_string = None
+        if not self.supports_ephemeral:
+            raise TorTooOld(strings._('error_ephemeral_not_supported'))
         if self.stealth and not self.supports_stealth:
             raise TorTooOld(strings._('error_stealth_not_supported'))
 
         print(strings._("config_onion_service").format(int(port)))
-        if self.supports_ephemeral:
-            print(strings._('using_ephemeral'))
+        print(strings._('using_ephemeral'))
 
-            if self.stealth:
-                basic_auth = {'onionshare':None}
-            else:
-                basic_auth = None
-
-            if basic_auth != None :
-                res = self.c.create_ephemeral_hidden_service({ 80: port }, await_publication=True, basic_auth=basic_auth)
-            else :
-                # if the stem interface is older than 1.5.0, basic_auth isn't a valid keyword arg
-                res = self.c.create_ephemeral_hidden_service({ 80: port }, await_publication=True)
-
-            self.service_id = res.content()[0][2].split('=')[1]
-            onion_host = self.service_id + '.onion'
-
-            if self.stealth:
-                auth_cookie = res.content()[2][2].split('=')[1].split(':')[1]
-                self.auth_string = 'HidServAuth {} {}'.format(onion_host, auth_cookie)
-
-            return onion_host
-
+        if self.stealth:
+            basic_auth = {'onionshare':None}
         else:
-            # come up with a onion service directory name
-            if helpers.get_platform() == 'Windows':
-                self.hidserv_dir = tempfile.mkdtemp()
-                self.hidserv_dir = self.hidserv_dir.replace('\\', '/')
+            basic_auth = None
 
-            else:
-                self.hidserv_dir = tempfile.mkdtemp(suffix='onionshare',dir='/tmp')
+        if basic_auth != None :
+            res = self.c.create_ephemeral_hidden_service({ 80: port }, await_publication=True, basic_auth=basic_auth)
+        else :
+            # if the stem interface is older than 1.5.0, basic_auth isn't a valid keyword arg
+            res = self.c.create_ephemeral_hidden_service({ 80: port }, await_publication=True)
 
-            self.cleanup_filenames.append(self.hidserv_dir)
+        self.service_id = res.content()[0][2].split('=')[1]
+        onion_host = self.service_id + '.onion'
 
-            # set up onion service
-            hsdic = self.c.get_conf_map('HiddenServiceOptions') or {
-                'HiddenServiceDir': [], 'HiddenServicePort': []
-            }
-            if self.hidserv_dir in hsdic.get('HiddenServiceDir', []):
-                # Maybe a stale service with the wrong local port
-                dropme = hsdic['HiddenServiceDir'].index(self.hidserv_dir)
-                del hsdic['HiddenServiceDir'][dropme]
-                del hsdic['HiddenServicePort'][dropme]
-            hsdic['HiddenServiceDir'] = hsdic.get('HiddenServiceDir', [])+[self.hidserv_dir]
-            hsdic['HiddenServicePort'] = hsdic.get('HiddenServicePort', [])+[
-                '80 127.0.0.1:{0:d}'.format(port)]
+        if self.stealth:
+            auth_cookie = res.content()[2][2].split('=')[1].split(':')[1]
+            self.auth_string = 'HidServAuth {} {}'.format(onion_host, auth_cookie)
 
-            self.c.set_options(self._hsdic2list(hsdic))
-
-            # figure out the .onion hostname
-            hostname_file = '{0:s}/hostname'.format(self.hidserv_dir)
-            onion_host = open(hostname_file, 'r').read().strip()
-            return onion_host
-
-    def wait_for_hs(self, onion_host):
-        """
-        This function is only required when using non-ephemeral onion services. After
-        creating a onion service, continually attempt to connect to it until it
-        successfully connects.
-        """
-        # legacy only, this function is no longer required with ephemeral onion services
-        print(strings._('wait_for_hs'))
-
-        ready = False
-        while not ready:
-            try:
-                sys.stdout.write('{0:s} '.format(strings._('wait_for_hs_trying')))
-                sys.stdout.flush()
-
-                if self.transparent_torification:
-                    # no need to set the socks5 proxy
-                    urllib.request.urlopen('http://{0:s}'.format(onion_host))
-                else:
-                    tor_exists = False
-                    ports = [9150, 9152, 9050]
-                    for port in ports:
-                        try:
-                            s = socks.socksocket()
-                            s.setproxy(socks.PROXY_TYPE_SOCKS5, '127.0.0.1', port)
-                            s.connect((onion_host, 80))
-                            s.close()
-                            tor_exists = True
-                            break
-                        except socks.ProxyConnectionError:
-                            pass
-                    if not tor_exists:
-                        raise NoTor(strings._("cant_connect_socksport").format(str(ports)))
-                ready = True
-
-                sys.stdout.write('{0:s}\n'.format(strings._('wait_for_hs_yup')))
-            except socks.GeneralProxyError:
-                sys.stdout.write('{0:s}\n'.format(strings._('wait_for_hs_nope')))
-                sys.stdout.flush()
-            except socks.SOCKS5Error:
-                sys.stdout.write('{0:s}\n'.format(strings._('wait_for_hs_nope')))
-                sys.stdout.flush()
-            except urllib.error.HTTPError:  # torification error
-                sys.stdout.write('{0:s}\n'.format(strings._('wait_for_hs_nope')))
-                sys.stdout.flush()
-            except KeyboardInterrupt:
-                return False
-        return True
+        return onion_host
 
     def cleanup(self):
         """
-        Stop onion services that were created earlier, and delete any temporary
-        files that were created.
+        Stop onion services that were created earlier.
         """
-        if self.supports_ephemeral:
-            # cleanup the ephemeral onion service
-            if self.service_id:
-                try:
-                    self.c.remove_ephemeral_hidden_service(self.service_id)
-                except:
-                    pass
-                self.service_id = None
-
-        else:
-            # cleanup onion service
+        # cleanup the ephemeral onion service
+        if self.service_id:
             try:
-                if self.controller:
-                    # Get fresh onion services (maybe changed since last time)
-                    # and remove ourselves
-                    hsdic = self.controller.get_conf_map('HiddenServiceOptions') or {
-                        'HiddenServiceDir': [], 'HiddenServicePort': []
-                    }
-                    if self.hidserv_dir and self.hidserv_dir in hsdic.get('HiddenServiceDir', []):
-                        dropme = hsdic['HiddenServiceDir'].index(self.hidserv_dir)
-                        del hsdic['HiddenServiceDir'][dropme]
-                        del hsdic['HiddenServicePort'][dropme]
-                        self.controller.set_options(self._hsdic2list(hsdic))
-                    # Politely close the controller
-                    self.controller.close()
+                self.c.remove_ephemeral_hidden_service(self.service_id)
             except:
                 pass
-
-        # cleanup files
-        for filename in self.cleanup_filenames:
-            if os.path.isfile(filename):
-                os.remove(filename)
-            elif os.path.isdir(filename):
-                shutil.rmtree(filename)
-        self.cleanup_filenames = []
-
-    def _hsdic2list(self, dic):
-        """
-        Convert what we get from get_conf_map to what we need for set_options.
-
-        For example, if input looks like this:
-        {
-            'HiddenServicePort': [
-                '80 127.0.0.1:47906',
-                '80 127.0.0.1:33302'
-            ],
-            'HiddenServiceDir': [
-                '/tmp/onionsharelTfZZu',
-                '/tmp/onionsharechDai3'
-            ]
-        }
-
-
-        Output will look like this:
-        [
-            ('HiddenServiceDir', '/tmp/onionsharelTfZZu'),
-            ('HiddenServicePort', '80 127.0.0.1:47906'),
-            ('HiddenServiceDir', '/tmp/onionsharechDai3'),
-            ('HiddenServicePort', '80 127.0.0.1:33302')
-        ]
-        """
-        l = []
-        for dir, port in zip(dic['HiddenServiceDir'], dic['HiddenServicePort']):
-            l.append(('HiddenServiceDir', dir))
-            l.append(('HiddenServicePort', port))
-        return l
+            self.service_id = None
