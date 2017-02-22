@@ -22,7 +22,7 @@ from onionshare import helpers, strings
 
 # Stub get_resource_path so it finds the correct path while running tests
 def get_resource_path(filename):
-    resources_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'resources')
+    resources_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'share')
     path = os.path.join(resources_dir, filename)
     return path
 helpers.get_resource_path = get_resource_path
