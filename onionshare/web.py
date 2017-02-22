@@ -169,7 +169,7 @@ def check_slug_candidate(slug_candidate, slug_compare = None):
         abort(404)
 
 
-# If "Stop sharing automatically" is checked (stay_open == False), only allow
+# If "Stop After First Download" is checked (stay_open == False), only allow
 # one download at a time.
 download_in_progress = False
 
@@ -182,7 +182,7 @@ def index(slug_candidate):
 
     add_request(REQUEST_LOAD, request.path)
 
-    # Deny new downloads if "Stop sharing automatically" is checked and there is
+    # Deny new downloads if "Stop After First Download" is checked and there is
     # currently a download
     global stay_open, download_in_progress
     deny_download = not stay_open and download_in_progress
@@ -210,7 +210,7 @@ def download(slug_candidate):
     """
     check_slug_candidate(slug_candidate)
 
-    # Deny new downloads if "Stop sharing automatically" is checked and there is
+    # Deny new downloads if "Stop After First Download" is checked and there is
     # currently a download
     global stay_open, download_in_progress
     deny_download = not stay_open and download_in_progress
