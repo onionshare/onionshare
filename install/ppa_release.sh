@@ -7,7 +7,7 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )"
 cd $DIR
 
-VERSION=`cat resources/version.txt`
+VERSION=`cat share/version.txt`
 
 rm -rf deb_dist >/dev/null 2>&1
 python3 setup.py --command-packages=stdeb.command sdist_dsc
