@@ -9,7 +9,7 @@ rm -rf $ROOT/build $ROOT/dist &>/dev/null 2>&1
 
 # build the .app
 echo Building OnionShare.app
-python3 setup.py bdist_mac
+pyinstaller install/pyinstaller.spec
 
 if [ "$1" = "--release" ]; then
   mkdir -p dist
