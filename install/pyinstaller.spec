@@ -6,7 +6,7 @@ p = platform.system()
 version = open('share/version.txt').read().strip()
 
 a = Analysis(
-    ['scripts/onionshare-gui'],
+    ['scripts/onionshare-pyinstaller'],
     pathex=['.'],
     binaries=None,
     datas=[
@@ -33,7 +33,7 @@ exe = EXE(
     pyz,
     a.scripts,
     exclude_binaries=True,
-    name='onionshare',
+    name='onionshare-gui',
     debug=False,
     strip=False,
     upx=True,
@@ -46,7 +46,7 @@ coll = COLLECT(
     a.datas,
     strip=False,
     upx=True,
-    name='onionshare')
+    name='onionshare-gui')
 
 if p == 'Darwin':
     app = BUNDLE(
