@@ -199,8 +199,10 @@ def main(cwd=None):
 
         # wait for app to close
         while t.is_alive():
-            # t.join() can't catch KeyboardInterrupt in such as Ubuntu
-            t.join(0.5)
+            t.join()
+            # allow KeyboardInterrupt exception to be handled with threads
+            # https://stackoverflow.com/questions/3788208/python-threading-ignores-keyboardinterrupt-exception
+            time.sleep(100)
     except KeyboardInterrupt:
         web.stop(app.port)
     finally:
