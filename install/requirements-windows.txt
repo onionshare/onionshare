@@ -2,12 +2,12 @@ click==6.7
 Flask==0.12
 future==0.16.0
 itsdangerous==0.24
-Jinja2==2.9.2
+Jinja2==2.9.5
 MarkupSafe==0.23
 pefile==2016.3.28
-PyInstaller==3.2
+PyInstaller==3.2.1
 pypiwin32==219
-PyQt5==5.7.1
-sip==4.19
+PyQt5==5.8
+sip==4.19.1
 stem==1.5.4
 Werkzeug==0.11.15
