@@ -92,7 +92,13 @@ If you want to build a .exe:
 
 These instructions include adding folders to the path in Windows. To do this, go to Start and type "advanced system settings", and open "View advanced system settings" in the Control Panel. Click Environment Variables. Under "System variables" double-click on Path. From there you can add and remove folders that are available in the PATH.
 
-Download and install the [Microsoft Visual C++ 2010 Redistributable Package (x86)](https://www.microsoft.com/en-us/download/details.aspx?id=5555).
+Download and install the 32-bit [Visual C++ Redistributable for Visual Studio 2015](https://www.microsoft.com/en-US/download/details.aspx?id=48145). I downloaded `vc_redist.x86.exe`.
+
+Download and install the standalone [Windows 10 SDK](https://dev.windows.com/en-us/downloads/windows-10-sdk). Note that you may not need this if you already have Visual Studio. Add the following directories to the path:
+
+* `C:\Program Files (x86)\Windows Kits\10\bin\x86`
+* `C:\Program Files (x86)\Windows Kits\10\Redist\ucrt\DLLs\x86`
+* `C:\Users\user\AppData\Local\Programs\Python\Python35-32\Lib\site-packages\PyQt5\Qt\bin`
 
 If you want to build the installer:
 
@@ -103,9 +109,6 @@ If you want to sign binaries with Authenticode:
 
 * You'll need a code signing certificate. I roughly followed [this guide](http://blog.assarbad.net/20110513/startssl-code-signing-certificate/) to make one using my StartSSL account.
 * Once you get a code signing key and certificate and covert it to a pfx file, import it into your certificate store.
-* Windows 10:
-  * Go to https://dev.windows.com/en-us/downloads/windows-10-sdk and install the standalone Windows 10 SDK. Note that you may not need this if you already have Visual Studio.
-  * Add `C:\Program Files (x86)\Windows Kits\10\bin\x86` to the path.
 
 ### To make a .exe:
 
