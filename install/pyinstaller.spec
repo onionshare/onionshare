@@ -3,19 +3,19 @@
 import platform
 p = platform.system()
 
-version = open('resources/version.txt').read().strip()
+version = open('share/version.txt').read().strip()
 
 a = Analysis(
     ['scripts/onionshare-gui'],
     pathex=['.'],
     binaries=None,
     datas=[
-        ('../resources/images/*', 'images'),
-        ('../resources/locale/*', 'locale'),
-        ('../resources/html/*', 'html'),
-        ('../resources/license.txt', '.'),
-        ('../resources/version.txt', '.'),
-        ('../resources/wordlist.txt', '.')
+        ('../share/license.txt', 'share'),
+        ('../share/version.txt', 'share'),
+        ('../share/wordlist.txt', 'share')
+        ('../share/images/*', 'share/images'),
+        ('../share/locale/*', 'share/locale'),
+        ('../share/html/*', 'share/html'),
     ],
     hiddenimports=[],
     hookspath=[],

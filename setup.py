@@ -29,7 +29,7 @@ def file_list(path):
             files.append(os.path.join(path, filename))
     return files
 
-version = open('resources/version.txt').read().strip()
+version = open('share/version.txt').read().strip()
 description = (
     """OnionShare lets you securely and anonymously share a file of any size with someone. """
     """It works by starting a web server, making it accessible as a Tor hidden service, """
@@ -58,10 +58,10 @@ setup(
         (os.path.join(sys.prefix, 'share/applications'), ['install/onionshare.desktop']),
         (os.path.join(sys.prefix, 'share/appdata'), ['install/onionshare.appdata.xml']),
         (os.path.join(sys.prefix, 'share/pixmaps'), ['install/onionshare80.xpm']),
-        (os.path.join(sys.prefix, 'share/onionshare'), file_list('resources')),
-        (os.path.join(sys.prefix, 'share/onionshare/images'), file_list('resources/images')),
-        (os.path.join(sys.prefix, 'share/onionshare/locale'), file_list('resources/locale')),
-        (os.path.join(sys.prefix, 'share/onionshare/html'), file_list('resources/html')),
+        (os.path.join(sys.prefix, 'share/onionshare'), file_list('share')),
+        (os.path.join(sys.prefix, 'share/onionshare/images'), file_list('share/images')),
+        (os.path.join(sys.prefix, 'share/onionshare/locale'), file_list('share/locale')),
+        (os.path.join(sys.prefix, 'share/onionshare/html'), file_list('share/html')),
         ('/usr/share/nautilus-python/extensions/', ['install/scripts/onionshare-nautilus.py'])
     ]
 )
