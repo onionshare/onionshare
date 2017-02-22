@@ -46,7 +46,7 @@ coll = COLLECT(
     a.datas,
     strip=False,
     upx=True,
-    name='onionshare-gui')
+    name='onionshare')
 
 if p == 'Darwin':
     app = BUNDLE(
