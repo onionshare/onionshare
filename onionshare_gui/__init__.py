@@ -206,11 +206,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
             self.app.cleanup_filenames.append(web.zip_filename)
             self.starting_server_step3.emit()
 
-            # wait for hs
-            if not self.app.local_only and not self.app.onion.supports_ephemeral:
-                self.status_bar.showMessage(strings._('gui_starting_server3', True))
-                self.app.onion.wait_for_hs(self.app.onion_host)
-
             # done
             self.start_server_finished.emit()
 
