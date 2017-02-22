@@ -1,6 +1,6 @@
 #include <tunables/global>
 
-/usr/bin/onionshare flags=(complain) {
+/usr/bin/onionshare {
   #include <abstractions/onionshare>
 
   /usr/bin/ r,
