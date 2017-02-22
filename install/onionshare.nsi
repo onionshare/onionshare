@@ -12,12 +12,10 @@ RequestExecutionLevel admin
 
 Name "OnionShare"
 InstallDir "$PROGRAMFILES\${APPNAME}"
-LicenseData "..\share\license.txt"
 Icon "onionshare.ico"
 
 !include LogicLib.nsh
 
-Page license
 Page directory
 Page instfiles
 
