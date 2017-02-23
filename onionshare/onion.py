@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 from stem.control import Controller
-from stem import SocketError
+from stem import ProtocolError
 from stem.connection import MissingPassword, UnreadableCookieFile, AuthenticationFailure
 import os, sys, tempfile, shutil, urllib, platform
 
@@ -69,6 +69,13 @@ class TorErrorAuthError(Exception):
     """
     OnionShare connected to the address and port, but can't authenticate. It's possible
     that a Tor controller isn't listening on this port.
+    """
+    pass
+
+class TorErrorProtocolError(Exception):
+    """
+    This exception is raised if onionshare connects to the Tor controller, but it
+    isn't acting like a Tor controller (such as in Whonix).
     """
     pass
 
@@ -233,11 +240,15 @@ class Onion(object):
         else:
             basic_auth = None
 
-        if basic_auth != None :
-            res = self.c.create_ephemeral_hidden_service({ 80: port }, await_publication=True, basic_auth=basic_auth)
-        else :
-            # if the stem interface is older than 1.5.0, basic_auth isn't a valid keyword arg
-            res = self.c.create_ephemeral_hidden_service({ 80: port }, await_publication=True)
+        try:
+            if basic_auth != None :
+                res = self.c.create_ephemeral_hidden_service({ 80: port }, await_publication=True, basic_auth=basic_auth)
+            else :
+                # if the stem interface is older than 1.5.0, basic_auth isn't a valid keyword arg
+                res = self.c.create_ephemeral_hidden_service({ 80: port }, await_publication=True)
+
+        except ProtocolError:
+            raise TorErrorProtocolError(strings._('error_tor_protocol_error'))
 
         self.service_id = res.content()[0][2].split('=')[1]
         onion_host = self.service_id + '.onion'

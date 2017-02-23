@@ -21,7 +21,7 @@ from PyQt5 import QtCore, QtWidgets, QtGui
 
 from onionshare import strings
 from onionshare.settings import Settings
-from onionshare.onion import Onion, TorErrorInvalidSetting, TorErrorAutomatic, TorErrorSocketPort, TorErrorSocketFile, TorErrorMissingPassword, TorErrorUnreadableCookieFile, TorErrorAuthError
+from onionshare.onion import Onion, TorErrorInvalidSetting, TorErrorAutomatic, TorErrorSocketPort, TorErrorSocketFile, TorErrorMissingPassword, TorErrorUnreadableCookieFile, TorErrorAuthError, TorErrorProtocolError
 
 from .alert import Alert
 
@@ -216,7 +216,7 @@ class SettingsDialog(QtWidgets.QDialog):
             # If an exception hasn't been raised yet, the Tor settings work
             Alert(strings._('settings_test_success', True).format(onion.tor_version, onion.supports_ephemeral, onion.supports_stealth))
 
-        except (TorErrorInvalidSetting, TorErrorAutomatic, TorErrorSocketPort, TorErrorSocketFile, TorErrorMissingPassword, TorErrorUnreadableCookieFile, TorErrorAuthError) as e:
+        except (TorErrorInvalidSetting, TorErrorAutomatic, TorErrorSocketPort, TorErrorSocketFile, TorErrorMissingPassword, TorErrorUnreadableCookieFile, TorErrorAuthError, TorErrorProtocolError) as e:
             Alert(e.args[0], QtWidgets.QMessageBox.Warning)
 
     def save_clicked(self):
