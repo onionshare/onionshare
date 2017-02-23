@@ -82,5 +82,6 @@
     "settings_error_auth": "Connected to {}:{}, but can't authenticate. Maybe this isn't a Tor controller?",
     "settings_error_missing_password": "Connected to Tor controller, but it requires a password to authenticate.",
     "settings_error_unreadable_cookie_file": "Connected to Tor controller, but can't authenticate because your password may be wrong, and your user doesn't have permission to read the cookie file.",
-    "settings_test_success": "Congratulations, OnionShare can connect to the Tor controller.\n\nTor version: {}\nSupports ephemeral onion services: {}\nSupports stealth onion services: {}"
+    "settings_test_success": "Congratulations, OnionShare can connect to the Tor controller.\n\nTor version: {}\nSupports ephemeral onion services: {}\nSupports stealth onion services: {}",
+    "error_tor_protocol_error": "Error talking to the Tor controller.\nIf you're using Whonix, check out https://www.whonix.org/wiki/onionshare to make OnionShare work."
 }
