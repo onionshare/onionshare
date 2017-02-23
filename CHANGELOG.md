@@ -1,5 +1,18 @@
 # OnionShare Changelog
 
+## 1.0
+
+* Fixed long-standing macOS X bug that caused OnionShare to crash on older Macs (!)
+* Added settings dialog to configure connecting to Tor, including support for system Tor
+* Added support for stealth onion services (advanced option)
+* Added support for Whonix
+* Improved AppArmor profiles
+* Added progress bar for zipping up files
+* Improved the look of download progress bars
+* Allows developers to launch OnionShare from source tree, without building a package
+* Deleted legacy code, and made OnionShare purely use ephemeral Tor onion services
+* Switched to EFF's diceware wordlist for slugs
+
 ## 0.9.2 (Linux only)
 
 * Looks for `TOR_CONTROL_PORT` environment variable, to help Tails integration
