@@ -358,7 +358,14 @@ def start(port, stay_open=False, transparent_torification=False):
 
     set_stay_open(stay_open)
     set_transparent_torification(transparent_torification)
-    app.run(port=port, threaded=True)
+
+    # In Whonix, listen on 0.0.0.0 instead of 127.0.0.1 (#220)
+    if os.path.exists('/usr/share/anon-ws-base-files/workstation'):
+        host = '0.0.0.0'
+    else:
+        host = '127.0.0.1'
+
+    app.run(host=host, port=port, threaded=True)
 
 
 def stop(port):
