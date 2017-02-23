@@ -177,7 +177,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
                 self.app.start_onion_service()
                 self.starting_server_step2.emit()
 
-            except (onionshare.onion.TorTooOld, onionshare.onion.TorErrorInvalidSetting, onionshare.onion.TorErrorAutomatic, onionshare.onion.TorErrorSocketPort, onionshare.onion.TorErrorSocketFile, onionshare.onion.TorErrorMissingPassword, onionshare.onion.TorErrorUnreadableCookieFile, onionshare.onion.TorErrorAuthError) as e:
+            except (onionshare.onion.TorTooOld, onionshare.onion.TorErrorInvalidSetting, onionshare.onion.TorErrorAutomatic, onionshare.onion.TorErrorSocketPort, onionshare.onion.TorErrorSocketFile, onionshare.onion.TorErrorMissingPassword, onionshare.onion.TorErrorUnreadableCookieFile, onionshare.onion.TorErrorAuthError, onionshare.onion.TorErrorProtocolError) as e:
                 self.starting_server_error.emit(e.args[0])
                 return
 
