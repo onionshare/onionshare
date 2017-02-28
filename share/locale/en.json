@@ -41,7 +41,7 @@
     "gui_please_wait": "Please wait...",
     "error_hs_dir_cannot_create": "Cannot create onion service dir {0:s}",
     "error_hs_dir_not_writable": "onion service dir {0:s} is not writable",
-    "using_ephemeral": "Staring ephemeral Tor onion service and awaiting publication",
+    "using_ephemeral": "Starting ephemeral Tor onion service and awaiting publication",
     "gui_download_progress_complete": "%p%, Time Elapsed: {0:s}",
     "gui_download_progress_starting": "{0:s}, %p% (Computing ETA)",
     "gui_download_progress_eta": "{0:s}, ETA: {1:s}, %p%",
