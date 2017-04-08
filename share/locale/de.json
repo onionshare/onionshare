@@ -12,7 +12,6 @@
     "not_a_file": "{0:s} ist keine Datei.",
     "download_page_loaded": "Seite geladen",
     "other_page_loaded": "URL geladen",
-    "close_on_finish": "Den Server automatisch anhalten",
     "closing_automatically": "Halte automatisch an, da der Download beendet wurde",
     "large_filesize": "Warnung: Das Senden von großen Dateien kann Stunden dauern",
     "error_tails_invalid_port": "Ungültiger Wert, Port muss eine ganze Zahl sein",

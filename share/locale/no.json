@@ -6,6 +6,5 @@
     "not_a_file": "{0:s} er ikke en fil.",
     "gui_copied_url": "Kopierte URL-en til utklippstavlen",
     "download_page_loaded": "Nedlastingsside lastet",
-    "other_page_loaded": "En annen side har blitt lastet",
-    "close_on_finish": "Lukk automatisk"
+    "other_page_loaded": "En annen side har blitt lastet"
 }

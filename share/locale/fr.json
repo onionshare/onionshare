@@ -11,7 +11,6 @@
     "not_a_file": "{0:s} n'est pas un fichier.",
     "download_page_loaded": "Page de téléchargement chargée",
     "other_page_loaded": "URL chargée",
-    "close_on_finish": "Arrêter le serveur automatiquement",
     "closing_automatically": "Fermeture automatique car le téléchargement est fini",
     "error_tails_invalid_port": "Valeur invalide, le port doit être un nombre entier",
     "error_tails_unknown_root": "Erreur inconnue avec un processus root sur Tails",

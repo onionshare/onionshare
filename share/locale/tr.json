@@ -12,7 +12,6 @@
     "not_a_file": "{0:s} dosya değil.",
     "download_page_loaded": "İndirme sayfası yüklendi",
     "other_page_loaded": "Diğer sayfa yüklendi",
-    "close_on_finish": "Paylaşımı kendiliğinden durdur",
     "closing_automatically": "İndirme işlemi tamamlandığı için kendiliğinden durduruluyor",
     "large_filesize": "Uyarı: Büyük dosyaların gönderimi saatler sürebilir",
     "error_tails_invalid_port": "Geçersiz değer, port sayı olmalıdır",
