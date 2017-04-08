@@ -12,7 +12,6 @@
     "not_a_file": "{0:s} no es un archivo.",
     "download_page_loaded": "La página de descarga está lista.",
     "other_page_loaded": "La URL está lista.",
-    "close_on_finish": "Apagar el servidor automáticamente.",
     "closing_automatically": "Apagando automáticamente porque la descarga finalizó",
     "error_tails_invalid_port": "Valor inválido, el puerto debe ser un entero",
     "error_tails_unknown_root": "Error desconocido en el proceso de Tails ejecutando como roo",

@@ -6,6 +6,5 @@
     "not_a_file": "{0:s} não é um arquivo.",
     "gui_copied_url": "URL foi copiado para área de transferência",
     "download_page_loaded": "Página de download carregada",
-    "other_page_loaded": "Outra página tem sido carregada",
-    "close_on_finish": "Fechar automaticamente"
+    "other_page_loaded": "Outra página tem sido carregada"
 }

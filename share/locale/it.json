@@ -12,7 +12,6 @@
     "not_a_file": "{0:s} non è un file.",
     "download_page_loaded": "Pagina di Download caricata",
     "other_page_loaded": "URL caricato",
-    "close_on_finish": "Ferma la condivisione automaticamente",
     "closing_automatically": "Chiusura automatica dopo aver finito il download",
     "large_filesize": "Attenzione: Inviare file di grandi dimensioni può richiedere ore",
     "error_tails_invalid_port": "Valore non valido, la porta deve essere un numero intero",
