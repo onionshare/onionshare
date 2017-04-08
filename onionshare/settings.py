@@ -33,15 +33,28 @@ class Settings(object):
         self.filename = self.build_filename()
 
         # These are the default settings. They will get overwritten when loading from disk
-        self._settings = {
+        self.default_settings = {
             'version': helpers.get_version(),
             'connection_type': 'automatic',
             'control_port_address': '127.0.0.1',
             'control_port_port': 9051,
             'socket_file_path': '/var/run/tor/control',
             'auth_type': 'no_auth',
-            'auth_password': ''
+            'auth_password': '',
+            'close_after_first_download': True,
+            'use_stealth': False
         }
+        self._settings = {}
+        self.fill_in_defaults()
+
+    def fill_in_defaults(self):
+        """
+        If there are any missing settings from self._settings, replace them with
+        their default values.
+        """
+        for key in self.default_settings:
+            if key not in self._settings:
+                self._settings[key] = self.default_settings[key]
 
     def build_filename(self):
         """
@@ -64,6 +77,7 @@ class Settings(object):
         if os.path.exists(self.filename):
             try:
                 self._settings = json.loads(open(self.filename, 'r').read())
+                self.fill_in_defaults()
             except:
                 pass
 
