@@ -24,6 +24,7 @@ from PyQt5.QtCore import pyqtSlot
 
 import onionshare
 from onionshare import strings, helpers, web
+from onionshare.settings import Settings
 
 from .menu import Menu
 from .file_selection import FileSelection
@@ -147,6 +148,12 @@ class OnionShareGui(QtWidgets.QMainWindow):
         Start the onionshare server. This uses multiple threads to start the Tor onion
         server and the web app.
         """
+        # First, load settings and configure
+        settings = Settings()
+        settings.load()
+        self.app.set_stealth(settings.get('use_stealth'))
+        web.set_stay_open(not settings.get('close_after_first_download'))
+
         # Reset web counters
         web.download_count = 0
         web.error404_count = 0
