@@ -29,7 +29,6 @@ from .menu import Menu
 from .file_selection import FileSelection
 from .server_status import ServerStatus
 from .downloads import Downloads
-from .options import Options
 from .alert import Alert
 
 class Application(QtWidgets.QApplication):
@@ -116,9 +115,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.downloads_container.hide() # downloads start out hidden
         self.new_download = False
 
-        # options
-        self.options = Options(web, self.app)
-
         # status bar
         self.status_bar = QtWidgets.QStatusBar()
         self.status_bar.setSizeGripEnabled(False)
@@ -136,7 +132,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.layout.addLayout(self.server_status)
         self.layout.addWidget(self.filesize_warning)
         self.layout.addWidget(self.downloads_container)
-        self.layout.addLayout(self.options)
         central_widget = QtWidgets.QWidget()
         central_widget.setLayout(self.layout)
         self.setCentralWidget(central_widget)
@@ -159,9 +154,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         # pick an available local port for the http service to listen on
         self.app.choose_port()
-
-        # disable the stealth option
-        self.options.set_advanced_enabled(False)
 
         # start onionshare http service in new thread
         t = threading.Thread(target=web.start, args=(self.app.port, self.app.stay_open, self.app.transparent_torification))
@@ -245,7 +237,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
             web.stop(self.app.port)
         self.app.cleanup()
         self.filesize_warning.hide()
-        self.options.set_advanced_enabled(True)
         self.stop_server_finished.emit()
 
     @staticmethod
