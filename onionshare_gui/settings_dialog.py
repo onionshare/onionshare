@@ -35,6 +35,37 @@ class SettingsDialog(QtWidgets.QDialog):
         self.setModal(True)
         self.setWindowTitle(strings._('gui_settings_window_title', True))
 
+        # Sharing options
+
+        # Close after first download
+        self.close_after_first_download_checkbox = QtWidgets.QCheckBox()
+        self.close_after_first_download_checkbox.setCheckState(QtCore.Qt.Checked)
+        self.close_after_first_download_checkbox.setText(strings._("gui_settings_close_after_first_download_option", True))
+
+        # Sharing options layout
+        sharing_group_layout = QtWidgets.QVBoxLayout()
+        sharing_group_layout.addWidget(self.close_after_first_download_checkbox)
+        sharing_group = QtWidgets.QGroupBox(strings._("gui_settings_sharing_label", True))
+        sharing_group.setLayout(sharing_group_layout)
+
+
+        # Stealth options
+
+        # Stealth
+        stealth_details = QtWidgets.QLabel(strings._("gui_settings_stealth_option_details", True))
+        stealth_details.setWordWrap(True)
+        self.stealth_checkbox = QtWidgets.QCheckBox()
+        self.stealth_checkbox.setCheckState(QtCore.Qt.Unchecked)
+        self.stealth_checkbox.setText(strings._("gui_settings_stealth_option", True))
+
+        # Stealth options layout
+        stealth_group_layout = QtWidgets.QVBoxLayout()
+        stealth_group_layout.addWidget(stealth_details)
+        stealth_group_layout.addWidget(self.stealth_checkbox)
+        stealth_group = QtWidgets.QGroupBox(strings._("gui_settings_stealth_label", True))
+        stealth_group.setLayout(stealth_group_layout)
+
+
         # Connection type: either automatic, control port, or socket file
 
         # Automatic
@@ -125,6 +156,8 @@ class SettingsDialog(QtWidgets.QDialog):
 
         # Layout
         layout = QtWidgets.QVBoxLayout()
+        layout.addWidget(sharing_group)
+        layout.addWidget(stealth_group)
         layout.addWidget(connection_type_group)
         layout.addWidget(self.authenticate_group)
         layout.addStretch()
@@ -135,6 +168,18 @@ class SettingsDialog(QtWidgets.QDialog):
         # Load settings, and fill them in
         settings = Settings()
         settings.load()
+
+        close_after_first_download = settings.get('close_after_first_download')
+        if close_after_first_download:
+            self.close_after_first_download_checkbox.setCheckState(QtCore.Qt.Checked)
+        else:
+            self.close_after_first_download_checkbox.setCheckState(QtCore.Qt.Unchecked)
+
+        use_stealth = settings.get('use_stealth')
+        if use_stealth:
+            self.stealth_checkbox.setCheckState(QtCore.Qt.Checked)
+        else:
+            self.stealth_checkbox.setCheckState(QtCore.Qt.Unchecked)
 
         connection_type = settings.get('connection_type')
         if connection_type == 'automatic':
@@ -162,9 +207,9 @@ class SettingsDialog(QtWidgets.QDialog):
         fields. If unchecked, enable all other fields.
         """
         if checked:
-            self.authenticate_group.setEnabled(False)
+            self.authenticate_group.hide()
         else:
-            self.authenticate_group.setEnabled(True)
+            self.authenticate_group.show()
 
     def connection_type_control_port_toggled(self, checked):
         """
@@ -238,6 +283,9 @@ class SettingsDialog(QtWidgets.QDialog):
         Return a Settings object that's full of values from the settings dialog.
         """
         settings = Settings()
+
+        settings.set('close_after_first_download', self.close_after_first_download_checkbox.isChecked())
+        settings.set('use_stealth', self.stealth_checkbox.isChecked())
 
         if self.connection_type_automatic_radio.isChecked():
             settings.set('connection_type', 'automatic')
