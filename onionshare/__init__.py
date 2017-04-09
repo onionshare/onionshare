@@ -20,7 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import os, sys, time, argparse, shutil, socket, threading
 
-from . import strings, helpers, web, onion
+from . import strings, helpers, web
+from .onion import *
 
 class OnionShare(object):
     """
@@ -84,7 +85,7 @@ class OnionShare(object):
             return
 
         if not self.onion:
-            self.onion = onion.Onion(self.stealth)
+            self.onion = Onion(self.stealth)
 
         self.onion_host = self.onion.start(self.port)
 
@@ -155,7 +156,7 @@ def main(cwd=None):
         app = OnionShare(debug, local_only, stay_open, transparent_torification, stealth)
         app.choose_port()
         app.start_onion_service()
-    except (onion.TorTooOld, onion.TorErrorInvalidSetting, onion.TorErrorAutomatic, onion.TorErrorSocketPort, onion.TorErrorSocketFile, onion.TorErrorMissingPassword, onion.TorErrorUnreadableCookieFile, onion.TorErrorAuthError, onion.TorErrorProtocolError) as e:
+    except (TorTooOld, TorErrorInvalidSetting, TorErrorAutomatic, TorErrorSocketPort, TorErrorSocketFile, TorErrorMissingPassword, TorErrorUnreadableCookieFile, TorErrorAuthError, TorErrorProtocolError, BundledTorNotSupported) as e:
         sys.exit(e.args[0])
     except KeyboardInterrupt:
         print("")
