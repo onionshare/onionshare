@@ -18,6 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 from PyQt5 import QtCore, QtWidgets, QtGui
+import sys, platform
 
 from onionshare import strings
 from onionshare.settings import Settings
@@ -68,6 +69,21 @@ class SettingsDialog(QtWidgets.QDialog):
 
         # Connection type: either automatic, control port, or socket file
 
+        # Bundled Tor
+        self.connection_type_bundled_radio = QtWidgets.QRadioButton(strings._('gui_settings_connection_type_bundled_option', True))
+        self.connection_type_bundled_radio.toggled.connect(self.connection_type_bundled_toggled)
+
+        # Bundled Tor only works in Windows and Mac
+        p = platform.system()
+        if (p == 'Windows' or p == 'Darwin'):
+            # Bundled Tor doesn't work on dev mode
+            if getattr(sys, 'onionshare_dev_mode', False):
+                self.connection_type_bundled_radio.setEnabled(False)
+        else:
+            # If not using Windows or Mac, disable and hide bundled Tor
+            self.connection_type_bundled_radio.setEnabled(False)
+            self.connection_type_bundled_radio.hide()
+
         # Automatic
         self.connection_type_automatic_radio = QtWidgets.QRadioButton(strings._('gui_settings_connection_type_automatic_option', True))
         self.connection_type_automatic_radio.toggled.connect(self.connection_type_automatic_toggled)
@@ -104,6 +120,7 @@ class SettingsDialog(QtWidgets.QDialog):
 
         # Connection type layout
         connection_type_group_layout = QtWidgets.QVBoxLayout()
+        connection_type_group_layout.addWidget(self.connection_type_bundled_radio)
         connection_type_group_layout.addWidget(self.connection_type_automatic_radio)
         connection_type_group_layout.addWidget(self.connection_type_control_port_radio)
         connection_type_group_layout.addWidget(self.connection_type_socket_file_radio)
@@ -182,7 +199,13 @@ class SettingsDialog(QtWidgets.QDialog):
             self.stealth_checkbox.setCheckState(QtCore.Qt.Unchecked)
 
         connection_type = settings.get('connection_type')
-        if connection_type == 'automatic':
+        if connection_type == 'bundled':
+            if self.connection_type_bundled_radio.isEnabled():
+                self.connection_type_bundled_radio.setChecked(True)
+            else:
+                # If bundled tor is disabled, fallback to automatic
+                self.connection_type_automatic_radio.setChecked(True)
+        elif connection_type == 'automatic':
             self.connection_type_automatic_radio.setChecked(True)
         elif connection_type == 'control_port':
             self.connection_type_control_port_radio.setChecked(True)
@@ -201,15 +224,19 @@ class SettingsDialog(QtWidgets.QDialog):
         # Show the dialog
         self.exec_()
 
-    def connection_type_automatic_toggled(self, checked):
+    def connection_type_bundled_toggled(self, checked):
         """
-        Connection type automatic was toggled. If checked, disable all other
-        fields. If unchecked, enable all other fields.
+        Connection type bundled was toggled. If checked, hide authentication fields.
         """
         if checked:
             self.authenticate_group.hide()
-        else:
-            self.authenticate_group.show()
+
+    def connection_type_automatic_toggled(self, checked):
+        """
+        Connection type automatic was toggled. If checked, hide authentication fields.
+        """
+        if checked:
+            self.authenticate_group.hide()
 
     def connection_type_control_port_toggled(self, checked):
         """
@@ -217,6 +244,7 @@ class SettingsDialog(QtWidgets.QDialog):
         for Tor control address and port. If unchecked, hide those extra fields.
         """
         if checked:
+            self.authenticate_group.show()
             self.connection_type_control_port_extras.show()
         else:
             self.connection_type_control_port_extras.hide()
@@ -228,6 +256,7 @@ class SettingsDialog(QtWidgets.QDialog):
         for socket file. If unchecked, hide those extra fields.
         """
         if checked:
+            self.authenticate_group.show()
             self.connection_type_socket_file_extras.show()
         else:
             self.connection_type_socket_file_extras.hide()
@@ -287,6 +316,8 @@ class SettingsDialog(QtWidgets.QDialog):
         settings.set('close_after_first_download', self.close_after_first_download_checkbox.isChecked())
         settings.set('use_stealth', self.stealth_checkbox.isChecked())
 
+        if self.connection_type_bundled_radio.isChecked():
+            settings.set('connection_type', 'bundled')
         if self.connection_type_automatic_radio.isChecked():
             settings.set('connection_type', 'automatic')
         if self.connection_type_control_port_radio.isChecked():

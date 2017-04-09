@@ -62,6 +62,7 @@
     "gui_settings_sharing_label": "Sharing options",
     "gui_settings_close_after_first_download_option": "Stop sharing after first download",
     "gui_settings_connection_type_label": "How should OnionShare connect to Tor?",
+    "gui_settings_connection_type_bundled_option": "Use Tor that is bundled with OnionShare",
     "gui_settings_connection_type_automatic_option": "Attempt automatic configuration with Tor Browser",
     "gui_settings_connection_type_control_port_option": "Connect using control port",
     "gui_settings_connection_type_socket_file_option": "Connect using socket file",
