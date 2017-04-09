@@ -87,6 +87,12 @@ class TorTooOld(Exception):
     """
     pass
 
+class BundledTorNotSupported(Exception):
+    """
+    This exception is raised if onionshare is set to use the bundled Tor binary,
+    but it's not supported on that platform, or in dev mode.
+    """
+
 class Onion(object):
     """
     Onion is an abstraction layer for connecting to the Tor control port and
@@ -106,6 +112,15 @@ class Onion(object):
 
         # Try to connect to Tor
         self.c = None
+
+        if self.settings.get('connection_type') == 'bundled':
+            dev_mode = getattr(sys, 'onionshare_dev_mode', False)
+            p = platform.system()
+
+            if (p != 'Windows' and p != 'Darwin') or dev_mode:
+                raise BundledTorNotSupported(strings._('settings_error_bundled_tor_not_supported'))
+
+            # TODO: actually implement bundled Tor
 
         if self.settings.get('connection_type') == 'automatic':
             # Automatically try to guess the right way to connect to Tor Browser
