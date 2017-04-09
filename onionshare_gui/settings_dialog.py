@@ -25,6 +25,7 @@ from onionshare.settings import Settings
 from onionshare.onion import *
 
 from .alert import Alert
+from .tor_dialog import TorDialog
 
 class SettingsDialog(QtWidgets.QDialog):
     """
@@ -284,14 +285,20 @@ class SettingsDialog(QtWidgets.QDialog):
         """
         settings = self.settings_from_fields()
 
-        try:
-            onion = Onion(settings=settings)
+        # If using bundled Tor, first connect to Tor
+        if settings.get('connection_type') == 'bundled':
+            tor_dialog = TorDialog()
+            tor_dialog.start()
 
-            # If an exception hasn't been raised yet, the Tor settings work
-            Alert(strings._('settings_test_success', True).format(onion.tor_version, onion.supports_ephemeral, onion.supports_stealth))
+        else:
+            try:
+                onion = Onion(settings=settings)
 
-        except (TorErrorInvalidSetting, TorErrorAutomatic, TorErrorSocketPort, TorErrorSocketFile, TorErrorMissingPassword, TorErrorUnreadableCookieFile, TorErrorAuthError, TorErrorProtocolError, BundledTorNotSupported) as e:
-            Alert(e.args[0], QtWidgets.QMessageBox.Warning)
+                # If an exception hasn't been raised yet, the Tor settings work
+                Alert(strings._('settings_test_success', True).format(onion.tor_version, onion.supports_ephemeral, onion.supports_stealth))
+
+            except (TorErrorInvalidSetting, TorErrorAutomatic, TorErrorSocketPort, TorErrorSocketFile, TorErrorMissingPassword, TorErrorUnreadableCookieFile, TorErrorAuthError, TorErrorProtocolError, BundledTorNotSupported) as e:
+                Alert(e.args[0], QtWidgets.QMessageBox.Warning)
 
     def save_clicked(self):
         """
