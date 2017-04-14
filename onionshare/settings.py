@@ -35,7 +35,7 @@ class Settings(object):
         # These are the default settings. They will get overwritten when loading from disk
         self.default_settings = {
             'version': helpers.get_version(),
-            'connection_type': 'automatic',
+            'connection_type': 'bundled',
             'control_port_address': '127.0.0.1',
             'control_port_port': 9051,
             'socket_file_path': '/var/run/tor/control',
