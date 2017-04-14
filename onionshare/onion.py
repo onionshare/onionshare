@@ -98,8 +98,16 @@ class Onion(object):
     Onion is an abstraction layer for connecting to the Tor control port and
     creating onion services. OnionShare supports creating onion services by
     connecting to the Tor controller and using ADD_ONION, DEL_ONION.
+
+    stealth: Should the onion service be stealth?
+
+    settings: A Settings object. If it's not passed in, load from disk.
+
+    bundled_connection_func: If the tor connection type is bundled, optionally
+    call this function and pass in a status string while connecting to tor. This
+    is necessary for status updates to reach the GUI.
     """
-    def __init__(self, stealth=False, settings=False):
+    def __init__(self, stealth=False, settings=False, bundled_tor_func=None):
         self.stealth = stealth
         self.service_id = None
 
@@ -172,6 +180,11 @@ class Onion(object):
 
                 # "\033[K" clears the rest of the line
                 print("{}: {}% - {}{}".format(strings._('connecting_to_tor'), progress, summary, "\033[K"), end="\r")
+
+                if callable(bundled_tor_func):
+                    status_string = "{}% - {}".format(progress, summary)
+                    bundled_tor_func(status_string)
+
                 if summary == 'Done':
                     print("")
                     break
