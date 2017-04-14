@@ -30,8 +30,9 @@ class SettingsDialog(QtWidgets.QDialog):
     """
     Settings dialog.
     """
-    def __init__(self, parent=None):
-        super(SettingsDialog, self).__init__(parent)
+    def __init__(self, qtapp):
+        super(SettingsDialog, self).__init__()
+        self.qtapp = qtapp
 
         self.setModal(True)
         self.setWindowTitle(strings._('gui_settings_window_title', True))
@@ -154,16 +155,21 @@ class SettingsDialog(QtWidgets.QDialog):
 
 
         # Buttons
-        test_button = QtWidgets.QPushButton(strings._('gui_settings_button_test', True))
-        test_button.clicked.connect(self.test_clicked)
-        save_button = QtWidgets.QPushButton(strings._('gui_settings_button_save', True))
-        save_button.clicked.connect(self.save_clicked)
-        cancel_button = QtWidgets.QPushButton(strings._('gui_settings_button_cancel', True))
-        cancel_button.clicked.connect(self.cancel_clicked)
+        self.test_button = QtWidgets.QPushButton(strings._('gui_settings_button_test', True))
+        self.test_button.clicked.connect(self.test_clicked)
+        self.save_button = QtWidgets.QPushButton(strings._('gui_settings_button_save', True))
+        self.save_button.clicked.connect(self.save_clicked)
+        self.cancel_button = QtWidgets.QPushButton(strings._('gui_settings_button_cancel', True))
+        self.cancel_button.clicked.connect(self.cancel_clicked)
         buttons_layout = QtWidgets.QHBoxLayout()
-        buttons_layout.addWidget(test_button)
-        buttons_layout.addWidget(save_button)
-        buttons_layout.addWidget(cancel_button)
+        buttons_layout.addWidget(self.test_button)
+        buttons_layout.addWidget(self.save_button)
+        buttons_layout.addWidget(self.cancel_button)
+
+        # Tor networkconnection status
+        self.tor_status = QtWidgets.QLabel()
+        self.tor_status.setStyleSheet('color: #ff0000; padding-top: 10px')
+        self.tor_status.hide()
 
         # Layout
         layout = QtWidgets.QVBoxLayout()
@@ -173,6 +179,7 @@ class SettingsDialog(QtWidgets.QDialog):
         layout.addWidget(self.authenticate_group)
         layout.addStretch()
         layout.addLayout(buttons_layout)
+        layout.addWidget(self.tor_status)
         self.setLayout(layout)
 
 
@@ -279,7 +286,24 @@ class SettingsDialog(QtWidgets.QDialog):
         settings = self.settings_from_fields()
 
         try:
-            onion = Onion(settings=settings)
+            # Create dialog for showing Tor connection status
+            if settings.get('connection_type') == 'bundled':
+                self.tor_status.show()
+                self.test_button.setEnabled(False)
+                self.save_button.setEnabled(False)
+                self.cancel_button.setEnabled(False)
+                def bundled_tor_func(message):
+                    self.tor_status.setText('<strong>{}</strong><br>{}'.format(strings._('connecting_to_tor'), message))
+                    self.qtapp.processEvents()
+                    if 'Done' in message:
+                        self.tor_status.hide()
+                        self.test_button.setEnabled(True)
+                        self.save_button.setEnabled(True)
+                        self.cancel_button.setEnabled(True)
+            else:
+                bundled_tor_func = None
+
+            onion = Onion(settings=settings, bundled_tor_func=bundled_tor_func)
 
             # If an exception hasn't been raised yet, the Tor settings work
             Alert(strings._('settings_test_success', True).format(onion.tor_version, onion.supports_ephemeral, onion.supports_stealth))

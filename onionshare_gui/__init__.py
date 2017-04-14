@@ -72,7 +72,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.setWindowIcon(window_icon)
 
         # the menu bar
-        self.setMenuBar(Menu())
+        self.setMenuBar(Menu(self.qtapp))
 
     def send_files(self, filenames=None):
         """

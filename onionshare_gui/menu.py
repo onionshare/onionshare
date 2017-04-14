@@ -26,8 +26,9 @@ class Menu(QtWidgets.QMenuBar):
     """
     OnionShare's menu bar.
     """
-    def __init__(self, parent=None):
-        super(Menu, self).__init__(parent)
+    def __init__(self, qtapp):
+        super(Menu, self).__init__()
+        self.qtapp = qtapp
 
         file_menu = self.addMenu(strings._('gui_menu_file_menu', True))
 
@@ -40,7 +41,7 @@ class Menu(QtWidgets.QMenuBar):
         """
         Settings action triggered.
         """
-        SettingsDialog()
+        SettingsDialog(self.qtapp)
 
     def quit(self):
         """
