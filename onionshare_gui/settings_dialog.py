@@ -285,21 +285,27 @@ class SettingsDialog(QtWidgets.QDialog):
         """
         settings = self.settings_from_fields()
 
+        def bundled_setup():
+            self.tor_status.show()
+            self.test_button.setEnabled(False)
+            self.save_button.setEnabled(False)
+            self.cancel_button.setEnabled(False)
+
+        def bundled_cleanup():
+            self.tor_status.hide()
+            self.test_button.setEnabled(True)
+            self.save_button.setEnabled(True)
+            self.cancel_button.setEnabled(True)
+
         try:
             # Show Tor connection status if connection type is bundled tor
             if settings.get('connection_type') == 'bundled':
-                self.tor_status.show()
-                self.test_button.setEnabled(False)
-                self.save_button.setEnabled(False)
-                self.cancel_button.setEnabled(False)
+                bundled_setup()
                 def bundled_tor_func(message):
                     self.tor_status.setText('<strong>{}</strong><br>{}'.format(strings._('connecting_to_tor', True), message))
                     self.qtapp.processEvents()
                     if 'Done' in message:
-                        self.tor_status.hide()
-                        self.test_button.setEnabled(True)
-                        self.save_button.setEnabled(True)
-                        self.cancel_button.setEnabled(True)
+                        bundled_cleanup()
             else:
                 bundled_tor_func = None
 
@@ -308,8 +314,13 @@ class SettingsDialog(QtWidgets.QDialog):
             # If an exception hasn't been raised yet, the Tor settings work
             Alert(strings._('settings_test_success', True).format(onion.tor_version, onion.supports_ephemeral, onion.supports_stealth))
 
-        except (TorErrorInvalidSetting, TorErrorAutomatic, TorErrorSocketPort, TorErrorSocketFile, TorErrorMissingPassword, TorErrorUnreadableCookieFile, TorErrorAuthError, TorErrorProtocolError, BundledTorNotSupported) as e:
+            # Clean up
+            onion.cleanup()
+
+        except (TorErrorInvalidSetting, TorErrorAutomatic, TorErrorSocketPort, TorErrorSocketFile, TorErrorMissingPassword, TorErrorUnreadableCookieFile, TorErrorAuthError, TorErrorProtocolError, BundledTorNotSupported, BundledTorTimeout) as e:
             Alert(e.args[0], QtWidgets.QMessageBox.Warning)
+            if settings.get('connection_type') == 'bundled':
+                bundled_cleanup()
 
     def save_clicked(self):
         """
