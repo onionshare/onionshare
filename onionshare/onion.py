@@ -93,6 +93,12 @@ class BundledTorNotSupported(Exception):
     but it's not supported on that platform, or in dev mode.
     """
 
+class BundledTorTimeout(Exception):
+    """
+    This exception is raised if onionshare is set to use the bundled Tor binary,
+    but Tor doesn't finish connecting promptly.
+    """
+
 class Onion(object):
     """
     Onion is an abstraction layer for connecting to the Tor control port and
@@ -165,6 +171,7 @@ class Onion(object):
             open(self.tor_torrc, 'w').write(torrc_template)
 
             # Open tor in a subprocess, wait for the controller to start
+            start_ts = time.time()
             self.tor_proc = subprocess.Popen([self.tor_path, '-f', self.tor_torrc], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             time.sleep(0.2)
 
@@ -189,6 +196,12 @@ class Onion(object):
                     print("")
                     break
                 time.sleep(0.2)
+
+                # Timeout after 10 seconds
+                if time.time() - start_ts > 10:
+                    print("")
+                    self.tor_proc.terminate()
+                    raise BundledTorTimeout(strings._('settings_error_bundled_tor_timeout'))
 
         elif self.settings.get('connection_type') == 'automatic':
             # Automatically try to guess the right way to connect to Tor Browser

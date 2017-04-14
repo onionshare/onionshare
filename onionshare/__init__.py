@@ -156,7 +156,7 @@ def main(cwd=None):
         app = OnionShare(debug, local_only, stay_open, transparent_torification, stealth)
         app.choose_port()
         app.start_onion_service()
-    except (TorTooOld, TorErrorInvalidSetting, TorErrorAutomatic, TorErrorSocketPort, TorErrorSocketFile, TorErrorMissingPassword, TorErrorUnreadableCookieFile, TorErrorAuthError, TorErrorProtocolError, BundledTorNotSupported) as e:
+    except (TorTooOld, TorErrorInvalidSetting, TorErrorAutomatic, TorErrorSocketPort, TorErrorSocketFile, TorErrorMissingPassword, TorErrorUnreadableCookieFile, TorErrorAuthError, TorErrorProtocolError, BundledTorNotSupported, BundledTorTimeout) as e:
         sys.exit(e.args[0])
     except KeyboardInterrupt:
         print("")
