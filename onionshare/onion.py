@@ -197,8 +197,8 @@ class Onion(object):
                     break
                 time.sleep(0.2)
 
-                # Timeout after 10 seconds
-                if time.time() - start_ts > 10:
+                # Timeout after 30 seconds
+                if time.time() - start_ts > 30:
                     print("")
                     self.tor_proc.terminate()
                     raise BundledTorTimeout(strings._('settings_error_bundled_tor_timeout'))
