@@ -356,3 +356,4 @@ class Onion(object):
         # Stop tor process
         if self.tor_proc:
             self.tor_proc.terminate()
+            self.tor_proc = None

@@ -171,9 +171,18 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         # start the onion service in a new thread
         def start_onion_service(self):
-            self.status_bar.showMessage(strings._('gui_starting_server1', True))
             try:
-                self.app.start_onion_service()
+                # Show Tor connection status if connection type is bundled tor
+                if settings.get('connection_type') == 'bundled':
+                    def bundled_tor_func(message):
+                        self.status_bar.showMessage(message)
+                        if 'Done' in message:
+                            self.status_bar.showMessage(strings._('gui_starting_server1', True))
+                else:
+                    self.status_bar.showMessage(strings._('gui_starting_server1', True))
+                    bundled_tor_func = None
+
+                self.app.start_onion_service(bundled_tor_func)
                 self.starting_server_step2.emit()
 
             except (onionshare.onion.TorTooOld, onionshare.onion.TorErrorInvalidSetting, onionshare.onion.TorErrorAutomatic, onionshare.onion.TorErrorSocketPort, onionshare.onion.TorErrorSocketFile, onionshare.onion.TorErrorMissingPassword, onionshare.onion.TorErrorUnreadableCookieFile, onionshare.onion.TorErrorAuthError, onionshare.onion.TorErrorProtocolError) as e:

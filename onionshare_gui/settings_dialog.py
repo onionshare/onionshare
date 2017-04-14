@@ -286,14 +286,14 @@ class SettingsDialog(QtWidgets.QDialog):
         settings = self.settings_from_fields()
 
         try:
-            # Create dialog for showing Tor connection status
+            # Show Tor connection status if connection type is bundled tor
             if settings.get('connection_type') == 'bundled':
                 self.tor_status.show()
                 self.test_button.setEnabled(False)
                 self.save_button.setEnabled(False)
                 self.cancel_button.setEnabled(False)
                 def bundled_tor_func(message):
-                    self.tor_status.setText('<strong>{}</strong><br>{}'.format(strings._('connecting_to_tor'), message))
+                    self.tor_status.setText('<strong>{}</strong><br>{}'.format(strings._('connecting_to_tor', True), message))
                     self.qtapp.processEvents()
                     if 'Done' in message:
                         self.tor_status.hide()
