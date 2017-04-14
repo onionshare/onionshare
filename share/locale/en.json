@@ -90,5 +90,6 @@
     "error_tor_protocol_error": "Error talking to the Tor controller.\nIf you're using Whonix, check out https://www.whonix.org/wiki/onionshare to make OnionShare work.",
     "gui_tor_window_title": "Tor Connection",
     "gui_tor_button_close": "Close",
-    "gui_tor_button_restart": "Restart Tor"
+    "gui_tor_button_restart": "Restart Tor",
+    "connecting_to_tor": "Connecting to the Tor network"
 }

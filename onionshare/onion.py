@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from stem.control import Controller
 from stem import ProtocolError
 from stem.connection import MissingPassword, UnreadableCookieFile, AuthenticationFailure
-import os, sys, tempfile, shutil, urllib, platform
+import os, sys, tempfile, shutil, urllib, platform, subprocess, time, shlex
 
 from . import socks
 from . import helpers, strings
@@ -103,6 +103,8 @@ class Onion(object):
         self.stealth = stealth
         self.service_id = None
 
+        system = platform.system()
+
         # Either use settings that are passed in, or load them from disk
         if settings:
             self.settings = settings
@@ -110,21 +112,73 @@ class Onion(object):
             self.settings = Settings()
             self.settings.load()
 
+        # Is bundled tor supported?
+        if (system == 'Windows' or system == 'Darwin') and getattr(sys, 'onionshare_dev_mode', False):
+            bundle_tor_supported = False
+        else:
+            bundle_tor_supported = True
+
+        # Set the path of the tor binary, for bundled tor
+        if system == 'Linux':
+            self.tor_path = '/usr/bin/tor'
+            self.tor_geo_ip_file_path = '/usr/share/tor/geoip'
+            self.tor_geo_ipv6_file_path = '/usr/share/tor/geoip6'
+        elif system == 'Windows':
+            # TODO: implement
+            pass
+        elif system == 'Darwin':
+            # TODO: implement
+            pass
+
+        # The tor process
+        self.tor_p = None
+
         # Try to connect to Tor
         self.c = None
 
         if self.settings.get('connection_type') == 'bundled':
-            dev_mode = getattr(sys, 'onionshare_dev_mode', False)
-            p = platform.system()
-
-            if (p != 'Windows' and p != 'Darwin') or dev_mode:
+            if not bundle_tor_supported:
                 raise BundledTorNotSupported(strings._('settings_error_bundled_tor_not_supported'))
 
-            # TODO: actually implement bundled Tor
+            # Create a torrc for this session
+            self.tor_data_directory = tempfile.TemporaryDirectory()
+            self.tor_control_socket = os.path.join(self.tor_data_directory.name, 'control_socket')
+            self.tor_cookie_auth_file = os.path.join(self.tor_data_directory.name, 'cookie')
+            self.tor_socks_port_file = os.path.join(self.tor_data_directory.name, 'socks_socket')
+            self.tor_socks_port = 'unix:{}'.format(self.tor_socks_port_file)
+            self.tor_torrc = os.path.join(self.tor_data_directory.name, 'torrc')
+            torrc_template = open(helpers.get_resource_path('torrc_template')).read()
+            torrc_template = torrc_template.replace('{{data_directory}}',   self.tor_data_directory.name)
+            torrc_template = torrc_template.replace('{{control_socket}}',   self.tor_control_socket)
+            torrc_template = torrc_template.replace('{{cookie_auth_file}}', self.tor_cookie_auth_file)
+            torrc_template = torrc_template.replace('{{geo_ip_file}}',      self.tor_geo_ip_file_path)
+            torrc_template = torrc_template.replace('{{geo_ipv6_file}}',    self.tor_geo_ipv6_file_path)
+            torrc_template = torrc_template.replace('{{socks_port}}',       self.tor_socks_port)
+            open(self.tor_torrc, 'w').write(torrc_template)
 
-        if self.settings.get('connection_type') == 'automatic':
+            # Open tor in a subprocess, wait for the controller to start
+            self.tor_proc = subprocess.Popen([self.tor_path, '-f', self.tor_torrc], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            time.sleep(0.2)
+
+            # Connect to the controller
+            self.c = Controller.from_socket_file(path=self.tor_control_socket)
+            self.c.authenticate()
+
+            while True:
+                res = self.c.get_info("status/bootstrap-phase")
+                res_parts = shlex.split(res)
+                progress = res_parts[2].split('=')[1]
+                summary = res_parts[4].split('=')[1]
+
+                # "\033[K" clears the rest of the line
+                print("{}: {}% - {}{}".format(strings._('connecting_to_tor'), progress, summary, "\033[K"), end="\r")
+                if summary == 'Done':
+                    print("")
+                    break
+                time.sleep(0.2)
+
+        elif self.settings.get('connection_type') == 'automatic':
             # Automatically try to guess the right way to connect to Tor Browser
-            p = platform.system()
 
             # Try connecting to control port
             found_tor = False
@@ -152,7 +206,7 @@ class Onion(object):
                 socket_file_path = ''
                 if not found_tor:
                     try:
-                        if p == 'Darwin':
+                        if system == 'Darwin':
                             socket_file_path = os.path.expanduser('~/Library/Application Support/TorBrowser-Data/Tor/control.socket')
 
                         self.c = Controller.from_socket_file(path=socket_file_path)
@@ -164,12 +218,12 @@ class Onion(object):
             # guessing the socket file name next
             if not found_tor:
                 try:
-                    if p == 'Linux':
+                    if system == 'Linux':
                         socket_file_path = '/run/user/{}/Tor/control.socket'.format(os.geteuid())
-                    elif p == 'Darwin':
+                    elif system == 'Darwin':
                         # TODO: figure out the unix socket path in OS X
                         socket_file_path = '/run/user/{}/Tor/control.socket'.format(os.geteuid())
-                    elif p == 'Windows':
+                    elif system == 'Windows':
                         # Windows doesn't support unix sockets
                         raise TorErrorAutomatic(strings._('settings_error_automatic'))
 
@@ -276,12 +330,16 @@ class Onion(object):
 
     def cleanup(self):
         """
-        Stop onion services that were created earlier.
+        Stop onion services that were created earlier. If there's a tor subprocess running, kill it.
         """
-        # cleanup the ephemeral onion service
+        # Cleanup the ephemeral onion service
         if self.service_id:
             try:
                 self.c.remove_ephemeral_hidden_service(self.service_id)
             except:
                 pass
             self.service_id = None
+
+        # Stop tor process
+        if self.tor_proc:
+            self.tor_proc.terminate()
