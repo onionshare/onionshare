@@ -73,7 +73,7 @@ class OnionShare(object):
         self.port = tmpsock.getsockname()[1]
         tmpsock.close()
 
-    def start_onion_service(self):
+    def start_onion_service(self, bundled_tor_func=None):
         """
         Start the onionshare onion service.
         """
@@ -85,7 +85,7 @@ class OnionShare(object):
             return
 
         if not self.onion:
-            self.onion = Onion(self.stealth)
+            self.onion = Onion(self.stealth, bundled_tor_func=bundled_tor_func)
 
         self.onion_host = self.onion.start(self.port)
 
