@@ -11,9 +11,9 @@ cd onionshare
 
 Install the needed dependencies:
 
-For Debian-like distros: `apt install -y build-essential fakeroot python3-all python3-stdeb dh-python  python3-flask python3-stem python3-pyqt5 python-nautilus python3-nose`
+For Debian-like distros: `apt install -y build-essential fakeroot python3-all python3-stdeb dh-python  python3-flask python3-stem python3-pyqt5 python-nautilus python3-nose tor`
 
-For Fedora-like distros: `dnf install -y rpm-build python3-flask python3-stem python3-qt5 nautilus-python`
+For Fedora-like distros: `dnf install -y rpm-build python3-flask python3-stem python3-qt5 nautilus-python tor`
 
 After that you can try both the CLI and the GUI version of OnionShare:
 
