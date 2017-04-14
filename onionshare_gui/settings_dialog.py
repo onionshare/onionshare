@@ -25,7 +25,6 @@ from onionshare.settings import Settings
 from onionshare.onion import *
 
 from .alert import Alert
-from .tor_dialog import TorDialog
 
 class SettingsDialog(QtWidgets.QDialog):
     """
@@ -74,16 +73,10 @@ class SettingsDialog(QtWidgets.QDialog):
         self.connection_type_bundled_radio = QtWidgets.QRadioButton(strings._('gui_settings_connection_type_bundled_option', True))
         self.connection_type_bundled_radio.toggled.connect(self.connection_type_bundled_toggled)
 
-        # Bundled Tor only works in Windows and Mac
+        # Bundled Tor doesn't work on dev mode in Windows or Mac
         p = platform.system()
-        if (p == 'Windows' or p == 'Darwin'):
-            # Bundled Tor doesn't work on dev mode
-            if getattr(sys, 'onionshare_dev_mode', False):
-                self.connection_type_bundled_radio.setEnabled(False)
-        else:
-            # If not using Windows or Mac, disable and hide bundled Tor
+        if (p == 'Windows' or p == 'Darwin') and getattr(sys, 'onionshare_dev_mode', False):
             self.connection_type_bundled_radio.setEnabled(False)
-            self.connection_type_bundled_radio.hide()
 
         # Automatic
         self.connection_type_automatic_radio = QtWidgets.QRadioButton(strings._('gui_settings_connection_type_automatic_option', True))
@@ -285,20 +278,14 @@ class SettingsDialog(QtWidgets.QDialog):
         """
         settings = self.settings_from_fields()
 
-        # If using bundled Tor, first connect to Tor
-        if settings.get('connection_type') == 'bundled':
-            tor_dialog = TorDialog()
-            tor_dialog.start()
+        try:
+            onion = Onion(settings=settings)
 
-        else:
-            try:
-                onion = Onion(settings=settings)
+            # If an exception hasn't been raised yet, the Tor settings work
+            Alert(strings._('settings_test_success', True).format(onion.tor_version, onion.supports_ephemeral, onion.supports_stealth))
 
-                # If an exception hasn't been raised yet, the Tor settings work
-                Alert(strings._('settings_test_success', True).format(onion.tor_version, onion.supports_ephemeral, onion.supports_stealth))
-
-            except (TorErrorInvalidSetting, TorErrorAutomatic, TorErrorSocketPort, TorErrorSocketFile, TorErrorMissingPassword, TorErrorUnreadableCookieFile, TorErrorAuthError, TorErrorProtocolError, BundledTorNotSupported) as e:
-                Alert(e.args[0], QtWidgets.QMessageBox.Warning)
+        except (TorErrorInvalidSetting, TorErrorAutomatic, TorErrorSocketPort, TorErrorSocketFile, TorErrorMissingPassword, TorErrorUnreadableCookieFile, TorErrorAuthError, TorErrorProtocolError, BundledTorNotSupported) as e:
+            Alert(e.args[0], QtWidgets.QMessageBox.Warning)
 
     def save_clicked(self):
         """
