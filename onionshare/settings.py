@@ -38,6 +38,8 @@ class Settings(object):
             'connection_type': 'bundled',
             'control_port_address': '127.0.0.1',
             'control_port_port': 9051,
+            'socks_address': '127.0.0.1',
+            'socks_port': 9050,
             'socket_file_path': '/var/run/tor/control',
             'auth_type': 'no_auth',
             'auth_password': '',
@@ -98,4 +100,14 @@ class Settings(object):
         return self._settings[key]
 
     def set(self, key, val):
+        # If typecasting int values fails, fallback to default values
+        if key == 'control_port_port' or key == 'socks_port':
+            try:
+                val = int(val)
+            except:
+                if key == 'control_port_port':
+                    val = self.default_settings['control_port_port']
+                elif key == 'socks_port':
+                    val = self.default_settings['socks_port']
+
         self._settings[key] = val
