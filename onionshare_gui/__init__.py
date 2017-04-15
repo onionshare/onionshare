@@ -69,7 +69,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.app = app
 
         self.setWindowTitle('OnionShare')
-        self.setWindowIcon(window_icon)
+        self.setWindowIcon(QtGui.QIcon(helpers.get_resource_path('images/logo.png')))
 
         # the menu bar
         self.setMenuBar(Menu(self.qtapp))
@@ -427,10 +427,6 @@ def main():
     stay_open = bool(args.stay_open)
     debug = bool(args.debug)
     transparent_torification = bool(args.transparent_torification)
-
-    # create the onionshare icon
-    global window_icon
-    window_icon = QtGui.QIcon(helpers.get_resource_path('images/logo.png'))
 
     # validation
     if filenames:
