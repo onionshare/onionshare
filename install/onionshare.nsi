@@ -39,7 +39,7 @@ ${EndIf}
     !echo "Creating normal installer"
     !system "makensis.exe /DINNER onionshare.nsi" = 0
     !system "$%TEMP%\tempinstaller.exe" = 2
-    !system "signtool.exe sign /v /d $\"Uninstall OnionShare$\" /a /tr http://timestamp.globalsign.com/scripts/timstamp.dll /fd sha256 $%TEMP%\uninstall.exe" = 0
+    #!system "signtool.exe sign /v /d $\"Uninstall OnionShare$\" /a /tr http://timestamp.globalsign.com/scripts/timstamp.dll /fd sha256 $%TEMP%\uninstall.exe" = 0
 
     # all done, now we can build the real installer
     OutFile "..\dist\OnionShare_Setup.exe"
@@ -145,6 +145,7 @@ Section "install"
     File "${BINPATH}\share\license.txt"
     File "${BINPATH}\share\version.txt"
     File "${BINPATH}\share\wordlist.txt"
+    File "${BINPATH}\share\torrc_template-windows"
 
     SetOutPath "$INSTDIR\share\html"
     File "${BINPATH}\share\html\404.html"
@@ -194,6 +195,21 @@ Section "install"
 
     SetOutPath "$INSTDIR\qt5_plugins\printsupport"
     File "${BINPATH}\qt5_plugins\printsupport\windowsprintersupport.dll"
+
+    SetOutPath "$INSTDIR\tor\Data\Tor"
+    File "${BINPATH}\tor\Data\Tor\geoip"
+    File "${BINPATH}\tor\Data\Tor\geoip6"
+
+    SetOutPath "$INSTDIR\tor\Tor"
+    File "${BINPATH}\tor\Tor\libeay32.dll"
+    File "${BINPATH}\tor\Tor\libevent_core-2-0-5.dll"
+    File "${BINPATH}\tor\Tor\libevent_extra-2-0-5.dll"
+    File "${BINPATH}\tor\Tor\libevent-2-0-5.dll"
+    File "${BINPATH}\tor\Tor\libgcc_s_sjlj-1.dll"
+    File "${BINPATH}\tor\Tor\libssp-0.dll"
+    File "${BINPATH}\tor\Tor\ssleay32.dll"
+    File "${BINPATH}\tor\Tor\tor.exe"
+    File "${BINPATH}\tor\Tor\zlib1.dll"
 
     # uninstaller
     !ifndef INNER
@@ -317,6 +333,7 @@ FunctionEnd
         Delete "$INSTDIR\share\license.txt"
         Delete "$INSTDIR\share\version.txt"
         Delete "$INSTDIR\share\wordlist.txt"
+        Delete "$INSTDIR\share\torrc_template-windows"
         Delete "$INSTDIR\share\html\404.html"
         Delete "$INSTDIR\share\html\denied.html"
         Delete "$INSTDIR\share\html\index.html"
@@ -352,21 +369,36 @@ FunctionEnd
         Delete "$INSTDIR\qt5_plugins\platforms\qoffscreen.dll"
         Delete "$INSTDIR\qt5_plugins\platforms\qwindows.dll"
         Delete "$INSTDIR\qt5_plugins\printsupport\windowsprintersupport.dll"
+        Delete "$INSTDIR\tor\Data\Tor\geoip"
+        Delete "$INSTDIR\tor\Data\Tor\geoip6"
+        Delete "$INSTDIR\tor\Tor\libeay32.dll"
+        Delete "$INSTDIR\tor\Tor\libevent_core-2-0-5.dll"
+        Delete "$INSTDIR\tor\Tor\libevent_extra-2-0-5.dll"
+        Delete "$INSTDIR\tor\Tor\libevent-2-0-5.dll"
+        Delete "$INSTDIR\tor\Tor\libgcc_s_sjlj-1.dll"
+        Delete "$INSTDIR\tor\Tor\libssp-0.dll"
+        Delete "$INSTDIR\tor\Tor\ssleay32.dll"
+        Delete "$INSTDIR\tor\Tor\tor.exe"
+        Delete "$INSTDIR\tor\Tor\zlib1.dll"
 
         Delete "$INSTDIR\onionshare.ico"
         Delete "$INSTDIR\uninstall.exe"
 
         rmDir "$INSTDIR\Include"
         rmDir "$INSTDIR\lib2to3"
-        rmDir "$INSTDIR\share"
         rmDir "$INSTDIR\share\html"
         rmDir "$INSTDIR\share\images"
         rmDir "$INSTDIR\share\locale"
+        rmDir "$INSTDIR\share"
         rmDir "$INSTDIR\qt5_plugins\iconengines"
         rmDir "$INSTDIR\qt5_plugins\imageformats"
         rmDir "$INSTDIR\qt5_plugins\platforms"
         rmDir "$INSTDIR\qt5_plugins\printsupport"
         rmDir "$INSTDIR\qt5_plugins"
+        rmDir "$INSTDIR\tor\Data\Tor"
+        rmDir "$INSTDIR\tor\Data"
+        rmDir "$INSTDIR\tor\Tor"
+        rmDir "$INSTDIR\tor"
         rmDir "$INSTDIR"
 
         # remove uninstaller information from the registry
