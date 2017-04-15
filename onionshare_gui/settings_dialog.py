@@ -169,7 +169,7 @@ class SettingsDialog(QtWidgets.QDialog):
 
         # Tor networkconnection status
         self.tor_status = QtWidgets.QLabel()
-        self.tor_status.setStyleSheet('color: #ff0000; padding-top: 10px')
+        self.tor_status.setStyleSheet('color: #666666; padding-top: 10px')
         self.tor_status.hide()
 
         # Layout
