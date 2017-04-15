@@ -136,7 +136,7 @@ class Onion(object):
         (self.tor_path, self.tor_geo_ip_file_path, self.tor_geo_ipv6_file_path) = helpers.get_tor_paths()
 
         # The tor process
-        self.tor_p = None
+        self.tor_proc = None
 
         # Try to connect to Tor
         self.c = None
@@ -215,8 +215,8 @@ class Onion(object):
                     break
                 time.sleep(0.2)
 
-                # Timeout after 30 seconds
-                if time.time() - start_ts > 30:
+                # Timeout after 45 seconds
+                if time.time() - start_ts > 45:
                     print("")
                     self.tor_proc.terminate()
                     raise BundledTorTimeout(strings._('settings_error_bundled_tor_timeout'))
@@ -387,6 +387,9 @@ class Onion(object):
         # Stop tor process
         if self.tor_proc:
             self.tor_proc.terminate()
+            time.sleep(0.2)
+            if not self.tor_proc.poll():
+                self.tor_proc.kill()
             self.tor_proc = None
 
     def _get_available_port(self):
