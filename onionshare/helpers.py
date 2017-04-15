@@ -53,6 +53,22 @@ def get_resource_path(filename):
 
     return os.path.join(prefix, filename)
 
+def get_tor_paths():
+    p = get_platform()
+    if p == 'Linux':
+        tor_path = '/usr/bin/tor'
+        tor_geo_ip_file_path = '/usr/share/tor/geoip'
+        tor_geo_ipv6_file_path = '/usr/share/tor/geoip6'
+    elif p == 'Windows':
+        base_path = os.path.join(os.path.dirname(os.path.dirname(get_resource_path(''))), 'tor')
+        tor_path               = os.path.join(os.path.join(base_path, 'Tor'), "tor.exe")
+        tor_geo_ip_file_path   = os.path.join(os.path.join(os.path.join(base_path, 'Data'), 'Tor'), 'geoip')
+        tor_geo_ipv6_file_path = os.path.join(os.path.join(os.path.join(base_path, 'Data'), 'Tor'), 'geoip6')
+    elif p == 'Darwin':
+        # TODO: implement
+        pass
+
+    return (tor_path, tor_geo_ip_file_path, tor_geo_ipv6_file_path)
 
 def get_version():
     """

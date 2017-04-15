@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from stem.control import Controller
 from stem import ProtocolError
 from stem.connection import MissingPassword, UnreadableCookieFile, AuthenticationFailure
-import os, sys, tempfile, shutil, urllib, platform, subprocess, time, shlex
+import os, sys, tempfile, shutil, urllib, platform, subprocess, time, shlex, socket, random
 
 from . import socks
 from . import helpers, strings
@@ -133,16 +133,7 @@ class Onion(object):
             bundle_tor_supported = True
 
         # Set the path of the tor binary, for bundled tor
-        if system == 'Linux':
-            self.tor_path = '/usr/bin/tor'
-            self.tor_geo_ip_file_path = '/usr/share/tor/geoip'
-            self.tor_geo_ipv6_file_path = '/usr/share/tor/geoip6'
-        elif system == 'Windows':
-            # TODO: implement
-            pass
-        elif system == 'Darwin':
-            # TODO: implement
-            pass
+        (self.tor_path, self.tor_geo_ip_file_path, self.tor_geo_ipv6_file_path) = helpers.get_tor_paths()
 
         # The tor process
         self.tor_p = None
@@ -156,28 +147,47 @@ class Onion(object):
 
             # Create a torrc for this session
             self.tor_data_directory = tempfile.TemporaryDirectory()
-            self.tor_control_socket = os.path.join(self.tor_data_directory.name, 'control_socket')
-            self.tor_cookie_auth_file = os.path.join(self.tor_data_directory.name, 'cookie')
-            self.tor_socks_port_file = os.path.join(self.tor_data_directory.name, 'socks_socket')
-            self.tor_socks_port = 'unix:{}'.format(self.tor_socks_port_file)
-            self.tor_torrc = os.path.join(self.tor_data_directory.name, 'torrc')
-            torrc_template = open(helpers.get_resource_path('torrc_template')).read()
+
+            if system == 'Windows':
+                # Windows needs to use network ports, doesn't support unix sockets
+                torrc_template = open(helpers.get_resource_path('torrc_template-windows')).read()
+                self.tor_control_port = self._get_available_port()
+                self.tor_control_socket = None
+                self.tor_cookie_auth_file = os.path.join(self.tor_data_directory.name, 'cookie')
+                self.tor_socks_port_file = None
+                self.tor_socks_port = self._get_available_port()
+                self.tor_torrc = os.path.join(self.tor_data_directory.name, 'torrc')
+            else:
+                # Linux and Mac can use unix sockets
+                torrc_template = open(helpers.get_resource_path('torrc_template')).read()
+                self.tor_control_port = None
+                self.tor_control_socket = os.path.join(self.tor_data_directory.name, 'control_socket')
+                self.tor_cookie_auth_file = os.path.join(self.tor_data_directory.name, 'cookie')
+                self.tor_socks_port_file = os.path.join(self.tor_data_directory.name, 'socks_socket')
+                self.tor_socks_port = 'unix:{}'.format(self.tor_socks_port_file)
+                self.tor_torrc = os.path.join(self.tor_data_directory.name, 'torrc')
+
             torrc_template = torrc_template.replace('{{data_directory}}',   self.tor_data_directory.name)
-            torrc_template = torrc_template.replace('{{control_socket}}',   self.tor_control_socket)
+            torrc_template = torrc_template.replace('{{control_port}}',     str(self.tor_control_port))
+            torrc_template = torrc_template.replace('{{control_socket}}',   str(self.tor_control_socket))
             torrc_template = torrc_template.replace('{{cookie_auth_file}}', self.tor_cookie_auth_file)
             torrc_template = torrc_template.replace('{{geo_ip_file}}',      self.tor_geo_ip_file_path)
             torrc_template = torrc_template.replace('{{geo_ipv6_file}}',    self.tor_geo_ipv6_file_path)
-            torrc_template = torrc_template.replace('{{socks_port}}',       self.tor_socks_port)
+            torrc_template = torrc_template.replace('{{socks_port}}',       str(self.tor_socks_port))
             open(self.tor_torrc, 'w').write(torrc_template)
 
             # Open tor in a subprocess, wait for the controller to start
             start_ts = time.time()
-            self.tor_proc = subprocess.Popen([self.tor_path, '-f', self.tor_torrc], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            self.tor_proc = subprocess.Popen([self.tor_path, '-f', self.tor_torrc], stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
             time.sleep(0.2)
 
             # Connect to the controller
-            self.c = Controller.from_socket_file(path=self.tor_control_socket)
-            self.c.authenticate()
+            if system == 'Windows':
+                self.c = Controller.from_port(port=self.tor_control_port)
+                self.c.authenticate()
+            else:
+                elf.c = Controller.from_socket_file(path=self.tor_control_socket)
+                self.c.authenticate()
 
             while True:
                 res = self.c.get_info("status/bootstrap-phase")
@@ -370,3 +380,19 @@ class Onion(object):
         if self.tor_proc:
             self.tor_proc.terminate()
             self.tor_proc = None
+
+    def _get_available_port(self):
+        """
+        Find a random available port
+        """
+        tmpsock = socket.socket()
+        while True:
+            try:
+                tmpsock.bind(("127.0.0.1", random.randint(1000, 65535)))
+                break
+            except OSError:
+                pass
+        port = tmpsock.getsockname()[1]
+        tmpsock.close()
+
+        return port
