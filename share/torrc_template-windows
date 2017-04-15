@@ -1,0 +1,9 @@
+DataDirectory {{data_directory}}
+SocksPort {{socks_port}}
+ControlPort {{control_port}}
+CookieAuthentication 1
+CookieAuthFile {{cookie_auth_file}}
+AvoidDiskWrites 1
+Log notice stdout
+GeoIPFile {{geo_ip_file}}
+GeoIPv6File {{geo_ipv6_file}}
