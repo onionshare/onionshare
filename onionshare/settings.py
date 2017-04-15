@@ -42,7 +42,9 @@ class Settings(object):
             'auth_type': 'no_auth',
             'auth_password': '',
             'close_after_first_download': True,
-            'use_stealth': False
+            'use_stealth': False,
+            'use_autoupdate': True,
+            'autoupdate_timestamp': None
         }
         self._settings = {}
         self.fill_in_defaults()

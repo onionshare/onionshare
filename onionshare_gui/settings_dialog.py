@@ -38,6 +38,8 @@ class SettingsDialog(QtWidgets.QDialog):
         self.setWindowTitle(strings._('gui_settings_window_title', True))
         self.setWindowIcon(QtGui.QIcon(helpers.get_resource_path('images/logo.png')))
 
+        system = platform.system()
+
         # Sharing options
 
         # Close after first download
@@ -67,6 +69,32 @@ class SettingsDialog(QtWidgets.QDialog):
         stealth_group = QtWidgets.QGroupBox(strings._("gui_settings_stealth_label", True))
         stealth_group.setLayout(stealth_group_layout)
 
+        # Automatic updates options
+
+        # Autoupdate
+        self.autoupdate_checkbox = QtWidgets.QCheckBox()
+        self.autoupdate_checkbox.setCheckState(QtCore.Qt.Unchecked)
+        self.autoupdate_checkbox.setText(strings._("gui_settings_autoupdate_option", True))
+
+        # Last update time
+        self.autoupdate_timestamp = QtWidgets.QLabel()
+
+        # Check for updates button
+        self.check_for_updates_button = QtWidgets.QPushButton(strings._('gui_settings_autoupdate_check_button', True))
+        self.check_for_updates_button.clicked.connect(self.check_for_updates)
+
+        # Autoupdate options layout
+        autoupdate_group_layout = QtWidgets.QVBoxLayout()
+        autoupdate_group_layout.addWidget(self.autoupdate_checkbox)
+        autoupdate_group_layout.addWidget(self.autoupdate_timestamp)
+        autoupdate_group_layout.addWidget(self.check_for_updates_button)
+        autoupdate_group = QtWidgets.QGroupBox(strings._("gui_settings_autoupdate_label", True))
+        autoupdate_group.setLayout(autoupdate_group_layout)
+
+        # Autoupdate is only available for Windows and Mac (Linux updates using package manager)
+        if system != 'Windows' and system != 'Darwin':
+            autoupdate_group.hide()
+
         # Connection type: either automatic, control port, or socket file
 
         # Bundled Tor
@@ -74,8 +102,7 @@ class SettingsDialog(QtWidgets.QDialog):
         self.connection_type_bundled_radio.toggled.connect(self.connection_type_bundled_toggled)
 
         # Bundled Tor doesn't work on dev mode in Windows or Mac
-        p = platform.system()
-        if (p == 'Windows' or p == 'Darwin') and getattr(sys, 'onionshare_dev_mode', False):
+        if (system == 'Windows' or system == 'Darwin') and getattr(sys, 'onionshare_dev_mode', False):
             self.connection_type_bundled_radio.setEnabled(False)
 
         # Automatic
@@ -140,11 +167,6 @@ class SettingsDialog(QtWidgets.QDialog):
         self.authenticate_group = QtWidgets.QGroupBox(strings._("gui_settings_authenticate_label", True))
         self.authenticate_group.setLayout(authenticate_group_layout)
 
-        # Tor networkconnection status
-        self.tor_status = QtWidgets.QLabel()
-        self.tor_status.setStyleSheet('color: #666666; padding-top: 10px')
-        self.tor_status.hide()
-
         # Test tor settings button
         self.connection_type_test_button = QtWidgets.QPushButton(strings._('gui_settings_connection_type_test_button', True))
         self.connection_type_test_button.clicked.connect(self.test_tor_clicked)
@@ -158,7 +180,6 @@ class SettingsDialog(QtWidgets.QDialog):
         connection_type_group_layout.addWidget(self.connection_type_control_port_extras)
         connection_type_group_layout.addWidget(self.connection_type_socket_file_extras)
         connection_type_group_layout.addWidget(self.authenticate_group)
-        connection_type_group_layout.addWidget(self.tor_status)
         connection_type_group_layout.addWidget(self.connection_type_test_button)
         connection_type_group = QtWidgets.QGroupBox(strings._("gui_settings_connection_type_label", True))
         connection_type_group.setLayout(connection_type_group_layout)
@@ -172,15 +193,22 @@ class SettingsDialog(QtWidgets.QDialog):
         buttons_layout.addWidget(self.save_button)
         buttons_layout.addWidget(self.cancel_button)
 
+        # Tor network connection status
+        self.tor_status = QtWidgets.QLabel()
+        self.tor_status.setStyleSheet('background-color: #ffffff; color: #000000; padding: 10px')
+        self.tor_status.hide()
+
         # Layout
         layout = QtWidgets.QVBoxLayout()
         layout.addWidget(sharing_group)
         layout.addWidget(stealth_group)
+        layout.addWidget(autoupdate_group)
         layout.addWidget(connection_type_group)
         layout.addStretch()
         layout.addLayout(buttons_layout)
+        layout.addWidget(self.tor_status)
         self.setLayout(layout)
-
+        self.cancel_button.setFocus()
 
         # Load settings, and fill them in
         settings = Settings()
@@ -197,6 +225,20 @@ class SettingsDialog(QtWidgets.QDialog):
             self.stealth_checkbox.setCheckState(QtCore.Qt.Checked)
         else:
             self.stealth_checkbox.setCheckState(QtCore.Qt.Unchecked)
+
+        use_autoupdate = settings.get('use_autoupdate')
+        if use_autoupdate:
+            self.autoupdate_checkbox.setCheckState(QtCore.Qt.Checked)
+        else:
+            self.autoupdate_checkbox.setCheckState(QtCore.Qt.Unchecked)
+
+        autoupdate_timestamp = settings.get('autoupdate_timestamp')
+        if autoupdate_timestamp:
+            dt = datetime.datetime.fromtimestamp(autoupdate_timestamp)
+            last_checked = dt.strftime('%B %d, %Y %H:%M')
+        else:
+            last_checked = strings._('gui_settings_autoupdate_timestamp_never', True)
+        self.autoupdate_timestamp.setText(strings._('gui_settings_autoupdate_timestamp', True).format(last_checked))
 
         connection_type = settings.get('connection_type')
         if connection_type == 'bundled':
@@ -279,7 +321,7 @@ class SettingsDialog(QtWidgets.QDialog):
 
     def test_tor_clicked(self):
         """
-        Test Settings button clicked. With the given settings, see if we can
+        Test Tor Settings button clicked. With the given settings, see if we can
         successfully connect and authenticate to Tor.
         """
         settings = self.settings_from_fields()
@@ -320,6 +362,12 @@ class SettingsDialog(QtWidgets.QDialog):
             Alert(e.args[0], QtWidgets.QMessageBox.Warning)
             if settings.get('connection_type') == 'bundled':
                 bundled_cleanup()
+
+    def check_for_updates(self):
+        """
+        Check for Updates button clicked. Manually force an update check.
+        """
+        pass
 
     def save_clicked(self):
         """
