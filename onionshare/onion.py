@@ -176,9 +176,17 @@ class Onion(object):
             torrc_template = torrc_template.replace('{{socks_port}}',       str(self.tor_socks_port))
             open(self.tor_torrc, 'w').write(torrc_template)
 
-            # Open tor in a subprocess, wait for the controller to start
+            # Execute a tor subprocess
             start_ts = time.time()
-            self.tor_proc = subprocess.Popen([self.tor_path, '-f', self.tor_torrc], stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+            if system == 'Windows':
+                # In Windows, hide console window when opening tor.exe subprocess
+                startupinfo = subprocess.STARTUPINFO()
+                startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+                self.tor_proc = subprocess.Popen([self.tor_path, '-f', self.tor_torrc], stdout=subprocess.PIPE, stderr=subprocess.PIPE, startupinfo=startupinfo)
+            else:
+                self.tor_proc = subprocess.Popen([self.tor_path, '-f', self.tor_torrc], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+            # Wait for the tor controller to start
             time.sleep(0.2)
 
             # Connect to the controller
