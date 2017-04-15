@@ -154,7 +154,6 @@ class Onion(object):
                 self.tor_control_port = self._get_available_port()
                 self.tor_control_socket = None
                 self.tor_cookie_auth_file = os.path.join(self.tor_data_directory.name, 'cookie')
-                self.tor_socks_port_file = None
                 self.tor_socks_port = self._get_available_port()
                 self.tor_torrc = os.path.join(self.tor_data_directory.name, 'torrc')
             else:
@@ -163,8 +162,7 @@ class Onion(object):
                 self.tor_control_port = None
                 self.tor_control_socket = os.path.join(self.tor_data_directory.name, 'control_socket')
                 self.tor_cookie_auth_file = os.path.join(self.tor_data_directory.name, 'cookie')
-                self.tor_socks_port_file = os.path.join(self.tor_data_directory.name, 'socks_socket')
-                self.tor_socks_port = 'unix:{}'.format(self.tor_socks_port_file)
+                self.tor_socks_port = self._get_available_port()
                 self.tor_torrc = os.path.join(self.tor_data_directory.name, 'torrc')
 
             torrc_template = torrc_template.replace('{{data_directory}}',   self.tor_data_directory.name)
@@ -391,6 +389,17 @@ class Onion(object):
             if not self.tor_proc.poll():
                 self.tor_proc.kill()
             self.tor_proc = None
+
+    def get_tor_socks_port(self):
+        """
+        Returns a (address, port) tuple for the Tor SOCKS port
+        """
+        if self.settings.get('connection_type') == 'bundled':
+            return ('127.0.0.1', self.tor_socks_port)
+        elif self.settings.get('connection_type') == 'automatic':
+            return ('127.0.0.1', 9150)
+        else:
+            return (self.settings.get('socks_address'), self.settings.get('socks_port'))
 
     def _get_available_port(self):
         """

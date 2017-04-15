@@ -18,7 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 from PyQt5 import QtCore, QtWidgets, QtGui
-import sys, platform
+import sys, platform, datetime
 
 from onionshare import strings, helpers
 from onionshare.settings import Settings
@@ -139,6 +139,19 @@ class SettingsDialog(QtWidgets.QDialog):
         self.connection_type_socket_file_extras.setLayout(connection_type_socket_file_extras_layout)
         self.connection_type_socket_file_extras.hide()
 
+        # Tor SOCKS address and port
+        gui_settings_socks_label = QtWidgets.QLabel(strings._('gui_settings_socks_label', True))
+        self.connection_type_socks_address = QtWidgets.QLineEdit()
+        self.connection_type_socks_port = QtWidgets.QLineEdit()
+        connection_type_socks_layout = QtWidgets.QHBoxLayout()
+        connection_type_socks_layout.addWidget(gui_settings_socks_label)
+        connection_type_socks_layout.addWidget(self.connection_type_socks_address)
+        connection_type_socks_layout.addWidget(self.connection_type_socks_port)
+
+        self.connection_type_socks = QtWidgets.QWidget()
+        self.connection_type_socks.setLayout(connection_type_socks_layout)
+        self.connection_type_socks.hide()
+
         # Authentication options
 
         # No authentication
@@ -179,6 +192,7 @@ class SettingsDialog(QtWidgets.QDialog):
         connection_type_group_layout.addWidget(self.connection_type_socket_file_radio)
         connection_type_group_layout.addWidget(self.connection_type_control_port_extras)
         connection_type_group_layout.addWidget(self.connection_type_socket_file_extras)
+        connection_type_group_layout.addWidget(self.connection_type_socks)
         connection_type_group_layout.addWidget(self.authenticate_group)
         connection_type_group_layout.addWidget(self.connection_type_test_button)
         connection_type_group = QtWidgets.QGroupBox(strings._("gui_settings_connection_type_label", True))
@@ -256,6 +270,8 @@ class SettingsDialog(QtWidgets.QDialog):
         self.connection_type_control_port_extras_address.setText(settings.get('control_port_address'))
         self.connection_type_control_port_extras_port.setText(str(settings.get('control_port_port')))
         self.connection_type_socket_file_extras_path.setText(settings.get('socket_file_path'))
+        self.connection_type_socks_address.setText(settings.get('socks_address'))
+        self.connection_type_socks_port.setText(str(settings.get('socks_port')))
         auth_type = settings.get('auth_type')
         if auth_type == 'no_auth':
             self.authenticate_no_auth_radio.setChecked(True)
@@ -272,6 +288,7 @@ class SettingsDialog(QtWidgets.QDialog):
         """
         if checked:
             self.authenticate_group.hide()
+            self.connection_type_socks.hide()
 
     def connection_type_automatic_toggled(self, checked):
         """
@@ -279,6 +296,7 @@ class SettingsDialog(QtWidgets.QDialog):
         """
         if checked:
             self.authenticate_group.hide()
+            self.connection_type_socks.hide()
 
     def connection_type_control_port_toggled(self, checked):
         """
@@ -288,6 +306,7 @@ class SettingsDialog(QtWidgets.QDialog):
         if checked:
             self.authenticate_group.show()
             self.connection_type_control_port_extras.show()
+            self.connection_type_socks.show()
         else:
             self.connection_type_control_port_extras.hide()
 
@@ -300,6 +319,7 @@ class SettingsDialog(QtWidgets.QDialog):
         if checked:
             self.authenticate_group.show()
             self.connection_type_socket_file_extras.show()
+            self.connection_type_socks.show()
         else:
             self.connection_type_socket_file_extras.hide()
 
@@ -402,8 +422,11 @@ class SettingsDialog(QtWidgets.QDialog):
             settings.set('connection_type', 'socket_file')
 
         settings.set('control_port_address', self.connection_type_control_port_extras_address.text())
-        settings.set('control_port_port', int(self.connection_type_control_port_extras_port.text()))
+        settings.set('control_port_port', self.connection_type_control_port_extras_port.text())
         settings.set('socket_file_path', self.connection_type_socket_file_extras_path.text())
+
+        settings.set('socks_address', self.connection_type_socks_address.text())
+        settings.set('socks_port', self.connection_type_socks_port.text())
 
         if self.authenticate_no_auth_radio.isChecked():
             settings.set('auth_type', 'no_auth')
