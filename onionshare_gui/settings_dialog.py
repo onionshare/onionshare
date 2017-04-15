@@ -51,7 +51,6 @@ class SettingsDialog(QtWidgets.QDialog):
         sharing_group = QtWidgets.QGroupBox(strings._("gui_settings_sharing_label", True))
         sharing_group.setLayout(sharing_group_layout)
 
-
         # Stealth options
 
         # Stealth
@@ -67,7 +66,6 @@ class SettingsDialog(QtWidgets.QDialog):
         stealth_group_layout.addWidget(self.stealth_checkbox)
         stealth_group = QtWidgets.QGroupBox(strings._("gui_settings_stealth_label", True))
         stealth_group.setLayout(stealth_group_layout)
-
 
         # Connection type: either automatic, control port, or socket file
 
@@ -114,18 +112,6 @@ class SettingsDialog(QtWidgets.QDialog):
         self.connection_type_socket_file_extras.setLayout(connection_type_socket_file_extras_layout)
         self.connection_type_socket_file_extras.hide()
 
-        # Connection type layout
-        connection_type_group_layout = QtWidgets.QVBoxLayout()
-        connection_type_group_layout.addWidget(self.connection_type_bundled_radio)
-        connection_type_group_layout.addWidget(self.connection_type_automatic_radio)
-        connection_type_group_layout.addWidget(self.connection_type_control_port_radio)
-        connection_type_group_layout.addWidget(self.connection_type_socket_file_radio)
-        connection_type_group_layout.addWidget(self.connection_type_control_port_extras)
-        connection_type_group_layout.addWidget(self.connection_type_socket_file_extras)
-        connection_type_group = QtWidgets.QGroupBox(strings._("gui_settings_connection_type_label", True))
-        connection_type_group.setLayout(connection_type_group_layout)
-
-
         # Authentication options
 
         # No authentication
@@ -154,33 +140,45 @@ class SettingsDialog(QtWidgets.QDialog):
         self.authenticate_group = QtWidgets.QGroupBox(strings._("gui_settings_authenticate_label", True))
         self.authenticate_group.setLayout(authenticate_group_layout)
 
+        # Tor networkconnection status
+        self.tor_status = QtWidgets.QLabel()
+        self.tor_status.setStyleSheet('color: #666666; padding-top: 10px')
+        self.tor_status.hide()
+
+        # Test tor settings button
+        self.connection_type_test_button = QtWidgets.QPushButton(strings._('gui_settings_connection_type_test_button', True))
+        self.connection_type_test_button.clicked.connect(self.test_tor_clicked)
+
+        # Connection type layout
+        connection_type_group_layout = QtWidgets.QVBoxLayout()
+        connection_type_group_layout.addWidget(self.connection_type_bundled_radio)
+        connection_type_group_layout.addWidget(self.connection_type_automatic_radio)
+        connection_type_group_layout.addWidget(self.connection_type_control_port_radio)
+        connection_type_group_layout.addWidget(self.connection_type_socket_file_radio)
+        connection_type_group_layout.addWidget(self.connection_type_control_port_extras)
+        connection_type_group_layout.addWidget(self.connection_type_socket_file_extras)
+        connection_type_group_layout.addWidget(self.authenticate_group)
+        connection_type_group_layout.addWidget(self.tor_status)
+        connection_type_group_layout.addWidget(self.connection_type_test_button)
+        connection_type_group = QtWidgets.QGroupBox(strings._("gui_settings_connection_type_label", True))
+        connection_type_group.setLayout(connection_type_group_layout)
 
         # Buttons
-        self.test_button = QtWidgets.QPushButton(strings._('gui_settings_button_test', True))
-        self.test_button.clicked.connect(self.test_clicked)
         self.save_button = QtWidgets.QPushButton(strings._('gui_settings_button_save', True))
         self.save_button.clicked.connect(self.save_clicked)
         self.cancel_button = QtWidgets.QPushButton(strings._('gui_settings_button_cancel', True))
         self.cancel_button.clicked.connect(self.cancel_clicked)
         buttons_layout = QtWidgets.QHBoxLayout()
-        buttons_layout.addWidget(self.test_button)
         buttons_layout.addWidget(self.save_button)
         buttons_layout.addWidget(self.cancel_button)
-
-        # Tor networkconnection status
-        self.tor_status = QtWidgets.QLabel()
-        self.tor_status.setStyleSheet('color: #666666; padding-top: 10px')
-        self.tor_status.hide()
 
         # Layout
         layout = QtWidgets.QVBoxLayout()
         layout.addWidget(sharing_group)
         layout.addWidget(stealth_group)
         layout.addWidget(connection_type_group)
-        layout.addWidget(self.authenticate_group)
         layout.addStretch()
         layout.addLayout(buttons_layout)
-        layout.addWidget(self.tor_status)
         self.setLayout(layout)
 
 
@@ -279,7 +277,7 @@ class SettingsDialog(QtWidgets.QDialog):
         else:
             self.authenticate_password_extras.hide()
 
-    def test_clicked(self):
+    def test_tor_clicked(self):
         """
         Test Settings button clicked. With the given settings, see if we can
         successfully connect and authenticate to Tor.
@@ -288,13 +286,13 @@ class SettingsDialog(QtWidgets.QDialog):
 
         def bundled_setup():
             self.tor_status.show()
-            self.test_button.setEnabled(False)
+            self.connection_type_test_button.setEnabled(False)
             self.save_button.setEnabled(False)
             self.cancel_button.setEnabled(False)
 
         def bundled_cleanup():
             self.tor_status.hide()
-            self.test_button.setEnabled(True)
+            self.connection_type_test_button.setEnabled(True)
             self.save_button.setEnabled(True)
             self.cancel_button.setEnabled(True)
 
