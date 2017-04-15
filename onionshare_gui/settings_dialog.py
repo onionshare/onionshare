@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from PyQt5 import QtCore, QtWidgets, QtGui
 import sys, platform
 
-from onionshare import strings
+from onionshare import strings, helpers
 from onionshare.settings import Settings
 from onionshare.onion import *
 
@@ -36,6 +36,7 @@ class SettingsDialog(QtWidgets.QDialog):
 
         self.setModal(True)
         self.setWindowTitle(strings._('gui_settings_window_title', True))
+        self.setWindowIcon(QtGui.QIcon(helpers.get_resource_path('images/logo.png')))
 
         # Sharing options
 
