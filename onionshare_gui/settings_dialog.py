@@ -381,9 +381,17 @@ class SettingsDialog(QtWidgets.QDialog):
             bundled_tor_func = None
 
         # Check for updates
+        def update_available(update_url, installed_version, latest_version):
+            Alert(strings._("update_available", True).format(update_url, installed_version, latest_version))
+        def update_not_available():
+            Alert(strings._('update_not_available', True))
+
+        u = UpdateChecker()
+        u.update_available.connect(update_available)
+        u.update_not_available.connect(update_not_available)
+
         try:
-            if not check_for_updates(force=True, bundled_tor_func=bundled_tor_func):
-                Alert(strings._('update_not_available', True))
+            u.check(force=True, bundled_tor_func=bundled_tor_func)
         except UpdateCheckerTorError:
             Alert(strings._('update_error_tor', True), QtWidgets.QMessageBox.Warning)
         except UpdateCheckerSOCKSHTTPError:
