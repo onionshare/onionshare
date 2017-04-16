@@ -78,32 +78,32 @@ def check_for_updates(force=False, bundled_tor_func=None):
             raise UpdateCheckerTorError
 
         # Download the latest-version file over Tor
-        #try:
-        (socks_address, socks_port) = onion.get_tor_socks_port()
-        socks.set_default_proxy(socks.SOCKS5, socks_address, socks_port)
+        try:
+            (socks_address, socks_port) = onion.get_tor_socks_port()
+            socks.set_default_proxy(socks.SOCKS5, socks_address, socks_port)
 
-        s = socks.socksocket()
-        s.connect(('elx57ue5uyfplgva.onion', 80))
+            s = socks.socksocket()
+            s.connect(('elx57ue5uyfplgva.onion', 80))
 
-        http_request = 'GET /latest-version.txt HTTP/1.0\r\n'
-        http_request += 'Host: elx57ue5uyfplgva.onion\r\n'
-        http_request += 'User-Agent: OnionShare {}, {}\r\n'.format(helpers.get_version(), platform.system())
-        http_request += '\r\n'
-        s.sendall(http_request.encode('utf-8'))
+            http_request = 'GET /latest-version.txt HTTP/1.0\r\n'
+            http_request += 'Host: elx57ue5uyfplgva.onion\r\n'
+            http_request += 'User-Agent: OnionShare {}, {}\r\n'.format(helpers.get_version(), platform.system())
+            http_request += '\r\n'
+            s.sendall(http_request.encode('utf-8'))
 
-        http_response = s.recv(1024)
-        latest_version = http_response[http_response.find(b'\r\n\r\n'):].strip().decode('utf-8')
+            http_response = s.recv(1024)
+            latest_version = http_response[http_response.find(b'\r\n\r\n'):].strip().decode('utf-8')
 
-        # Clean up from Onion
-        onion.cleanup()
-        #except:
-        #    raise UpdateCheckerSOCKSHTTPError
+            # Clean up from Onion
+            onion.cleanup()
+        except:
+            raise UpdateCheckerSOCKSHTTPError
 
         # Validate that latest_version looks like a version string
         # This regex is: 1-3 dot-separated numeric components
         version_re = r"^(\d+\.)?(\d+\.)?(\d+)$"
         if not re.match(version_re, latest_version):
-            raise UpdateCheckerInvalidLatestVersion
+            raise UpdateCheckerInvalidLatestVersion(latest_version)
 
         # Update the last checked timestamp (dropping the seconds and milliseconds)
         timestamp = datetime.datetime.now().replace(microsecond=0).replace(second=0).timestamp()
