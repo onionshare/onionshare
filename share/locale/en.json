@@ -59,7 +59,7 @@
     "gui_settings_stealth_label": "Stealth (advanced)",
     "gui_settings_stealth_option": "Create stealth onion services",
     "gui_settings_stealth_option_details": "This makes OnionShare more secure, but also more difficult for the recipient to connect to it.<br><a href=\"https://github.com/micahflee/onionshare/wiki/Stealth-Onion-Services\">More information</a>.",
-    "gui_settings_autoupdate_label": "Automatic updates",
+    "gui_settings_autoupdate_label": "Check for updates",
     "gui_settings_autoupdate_option": "Notify me when updates are available",
     "gui_settings_autoupdate_timestamp": "Last checked: {}",
     "gui_settings_autoupdate_timestamp_never": "Never",
@@ -95,5 +95,10 @@
     "settings_error_bundled_tor_timeout": "Connecting to Tor is taking too long. Make sure you're online and your clock is accurate, then try again.",
     "settings_test_success": "Congratulations, OnionShare can connect to the Tor controller.\n\nTor version: {}\nSupports ephemeral onion services: {}\nSupports stealth onion services: {}",
     "error_tor_protocol_error": "Error talking to the Tor controller.\nIf you're using Whonix, check out https://www.whonix.org/wiki/onionshare to make OnionShare work.",
-    "connecting_to_tor": "Connecting to the Tor network"
+    "connecting_to_tor": "Connecting to the Tor network",
+    "update_available": "There is an OnionShare update available. <a href='{}'>Click here</a> to download it.<br><br>Installed version: {}<br>Latest version: {}",
+    "update_error_tor": "Error checking for updates: Can't connect to Tor.\nCheck your Tor connection settings.",
+    "update_error_sockshttp": "Error checking for updates: Connected to Tor, but can't load the update HTTP request.",
+    "update_error_invalid_latest_version": "Error checking for updates: The OnionShare website responded saying the latest version is '{}', but that doesn't appear to be a valid version string.",
+    "update_not_available": "You are running the latest version of OnionShare."
 }
