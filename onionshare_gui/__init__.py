@@ -18,7 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 from __future__ import division
-import os, sys, subprocess, inspect, platform, argparse, threading, time, math, inspect, platform
+import os, sys, subprocess, inspect, platform, argparse, threading, time, math, inspect
 from PyQt5 import QtCore, QtWidgets, QtGui
 from PyQt5.QtCore import pyqtSlot
 
@@ -31,6 +31,7 @@ from .file_selection import FileSelection
 from .server_status import ServerStatus
 from .downloads import Downloads
 from .alert import Alert
+from .update_checker import UpdateThread
 
 class Application(QtWidgets.QApplication):
     """
@@ -38,8 +39,8 @@ class Application(QtWidgets.QApplication):
     and the quick keyboard shortcut.
     """
     def __init__(self):
-        platform = helpers.get_platform()
-        if platform == 'Linux':
+        system = platform.system()
+        if system == 'Linux':
             self.setAttribute(QtCore.Qt.AA_X11InitThreads, True)
         QtWidgets.QApplication.__init__(self, sys.argv)
         self.installEventFilter(self)
@@ -71,8 +72,19 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.setWindowTitle('OnionShare')
         self.setWindowIcon(QtGui.QIcon(helpers.get_resource_path('images/logo.png')))
 
-        # the menu bar
+        # Menu bar
         self.setMenuBar(Menu(self.qtapp))
+
+        # Check for updates in a new thread, if enabled
+        system = platform.system()
+        if system == 'Windows' or system == 'Darwin':
+            settings = Settings()
+            settings.load()
+            if settings.get('use_autoupdate'):
+                # TODO: make updates actually work
+                print("Updating in another thread")
+                #t = UpdateThread()
+                #t.start()
 
     def send_files(self, filenames=None):
         """

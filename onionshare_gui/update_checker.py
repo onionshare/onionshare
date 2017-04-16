@@ -20,9 +20,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from PyQt5 import QtCore
 import datetime, time, socks, socket, re, platform
 
-from . import strings, helpers
 from onionshare.settings import Settings
 from onionshare.onion import Onion
+
+from . import strings, helpers
+from .alert import Alert
 
 class UpdateCheckerTorError(Exception):
     """
@@ -127,3 +129,19 @@ class UpdateChecker(QtCore.QObject):
 
             # No updates are available
             self.update_not_available.emit()
+
+class UpdateThread(QtCore.QThread):
+    def __init__(self):
+        super(UpdateThread, self).__init__()
+
+    def run(self):
+        u = UpdateChecker()
+        u.update_available.connect(self.update_available)
+        try:
+            u.check()
+        except:
+            # If update check fails, silently ignore
+            pass
+
+    def update_available(update_url, installed_version, latest_version):
+        Alert(strings._("update_available", True).format(update_url, installed_version, latest_version))
