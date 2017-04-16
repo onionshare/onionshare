@@ -25,6 +25,7 @@ from onionshare.settings import Settings
 from onionshare.onion import *
 
 from .alert import Alert
+from .update_checker import *
 
 class SettingsDialog(QtWidgets.QDialog):
     """
@@ -247,12 +248,7 @@ class SettingsDialog(QtWidgets.QDialog):
             self.autoupdate_checkbox.setCheckState(QtCore.Qt.Unchecked)
 
         autoupdate_timestamp = settings.get('autoupdate_timestamp')
-        if autoupdate_timestamp:
-            dt = datetime.datetime.fromtimestamp(autoupdate_timestamp)
-            last_checked = dt.strftime('%B %d, %Y %H:%M')
-        else:
-            last_checked = strings._('gui_settings_autoupdate_timestamp_never', True)
-        self.autoupdate_timestamp.setText(strings._('gui_settings_autoupdate_timestamp', True).format(last_checked))
+        self._update_autoupdate_timestamp(autoupdate_timestamp)
 
         connection_type = settings.get('connection_type')
         if connection_type == 'bundled':
@@ -346,27 +342,12 @@ class SettingsDialog(QtWidgets.QDialog):
         """
         settings = self.settings_from_fields()
 
-        def bundled_setup():
-            self.tor_status.show()
-            self.connection_type_test_button.setEnabled(False)
-            self.save_button.setEnabled(False)
-            self.cancel_button.setEnabled(False)
-
-        def bundled_cleanup():
-            self.tor_status.hide()
-            self.connection_type_test_button.setEnabled(True)
-            self.save_button.setEnabled(True)
-            self.cancel_button.setEnabled(True)
-
         try:
             # Show Tor connection status if connection type is bundled tor
             if settings.get('connection_type') == 'bundled':
-                bundled_setup()
-                def bundled_tor_func(message):
-                    self.tor_status.setText('<strong>{}</strong><br>{}'.format(strings._('connecting_to_tor', True), message))
-                    self.qtapp.processEvents()
-                    if 'Done' in message:
-                        bundled_cleanup()
+                self.tor_status.show()
+                self._disable_buttons()
+                bundled_tor_func = self._bundled_tor_func
             else:
                 bundled_tor_func = None
 
@@ -381,13 +362,44 @@ class SettingsDialog(QtWidgets.QDialog):
         except (TorErrorInvalidSetting, TorErrorAutomatic, TorErrorSocketPort, TorErrorSocketFile, TorErrorMissingPassword, TorErrorUnreadableCookieFile, TorErrorAuthError, TorErrorProtocolError, BundledTorNotSupported, BundledTorTimeout) as e:
             Alert(e.args[0], QtWidgets.QMessageBox.Warning)
             if settings.get('connection_type') == 'bundled':
-                bundled_cleanup()
+                self.tor_status.hide()
+                self._enable_buttons()
 
     def check_for_updates(self):
         """
         Check for Updates button clicked. Manually force an update check.
         """
-        pass
+        settings = Settings()
+        settings.load()
+
+        # Show Tor connection status if connection type is bundled tor
+        if settings.get('connection_type') == 'bundled':
+            self.tor_status.show()
+            self._disable_buttons()
+            bundled_tor_func = self._bundled_tor_func
+        else:
+            bundled_tor_func = None
+
+        # Check for updates
+        try:
+            if not check_for_updates(force=True, bundled_tor_func=bundled_tor_func):
+                Alert(strings._('update_not_available', True))
+        except UpdateCheckerTorError:
+            Alert(strings._('update_error_tor', True), QtWidgets.QMessageBox.Warning)
+        except UpdateCheckerSOCKSHTTPError:
+            Alert(strings._('update_error_sockshttp', True), QtWidgets.QMessageBox.Warning)
+        except UpdateCheckerInvalidLatestVersion as e:
+            Alert(strings._('update_error_invalid_latest_version', True).format(e.latest_version), QtWidgets.QMessageBox.Warning)
+
+        # Clean up afterwards
+        if settings.get('connection_type') == 'bundled':
+            self.tor_status.hide()
+            self._enable_buttons()
+
+        # Update the last checked label
+        settings.load()
+        autoupdate_timestamp = settings.get('autoupdate_timestamp')
+        self._update_autoupdate_timestamp(autoupdate_timestamp)
 
     def save_clicked(self):
         """
@@ -408,6 +420,7 @@ class SettingsDialog(QtWidgets.QDialog):
         Return a Settings object that's full of values from the settings dialog.
         """
         settings = Settings()
+        settings.load() # To get the last update timestamp
 
         settings.set('close_after_first_download', self.close_after_first_download_checkbox.isChecked())
         settings.set('use_stealth', self.stealth_checkbox.isChecked())
@@ -436,3 +449,30 @@ class SettingsDialog(QtWidgets.QDialog):
         settings.set('auth_password', self.authenticate_password_extras_password.text())
 
         return settings
+
+    def _update_autoupdate_timestamp(self, autoupdate_timestamp):
+        if autoupdate_timestamp:
+            dt = datetime.datetime.fromtimestamp(autoupdate_timestamp)
+            last_checked = dt.strftime('%B %d, %Y %H:%M')
+        else:
+            last_checked = strings._('gui_settings_autoupdate_timestamp_never', True)
+        self.autoupdate_timestamp.setText(strings._('gui_settings_autoupdate_timestamp', True).format(last_checked))
+
+    def _bundled_tor_func(self, message):
+        self.tor_status.setText('<strong>{}</strong><br>{}'.format(strings._('connecting_to_tor', True), message))
+        self.qtapp.processEvents()
+        if 'Done' in message:
+            self.tor_status.hide()
+            self._enable_buttons()
+
+    def _disable_buttons(self):
+        self.check_for_updates_button.setEnabled(False)
+        self.connection_type_test_button.setEnabled(False)
+        self.save_button.setEnabled(False)
+        self.cancel_button.setEnabled(False)
+
+    def _enable_buttons(self):
+        self.check_for_updates_button.setEnabled(True)
+        self.connection_type_test_button.setEnabled(True)
+        self.save_button.setEnabled(True)
+        self.cancel_button.setEnabled(True)
