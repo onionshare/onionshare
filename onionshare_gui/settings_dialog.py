@@ -347,7 +347,7 @@ class SettingsDialog(QtWidgets.QDialog):
             if settings.get('connection_type') == 'bundled':
                 self.tor_status.show()
                 self._disable_buttons()
-                bundled_tor_func = self._bundled_tor_func
+                bundled_tor_func = self._tor_status_update
             else:
                 bundled_tor_func = None
 
@@ -372,14 +372,6 @@ class SettingsDialog(QtWidgets.QDialog):
         settings = Settings()
         settings.load()
 
-        # Show Tor connection status if connection type is bundled tor
-        if settings.get('connection_type') == 'bundled':
-            self.tor_status.show()
-            self._disable_buttons()
-            bundled_tor_func = self._bundled_tor_func
-        else:
-            bundled_tor_func = None
-
         # Check for updates
         def update_available(update_url, installed_version, latest_version):
             Alert(strings._("update_available", True).format(update_url, installed_version, latest_version))
@@ -390,8 +382,14 @@ class SettingsDialog(QtWidgets.QDialog):
         u.update_available.connect(update_available)
         u.update_not_available.connect(update_not_available)
 
+        # Show Tor connection status if connection type is bundled tor
+        if settings.get('connection_type') == 'bundled':
+            self.tor_status.show()
+            self._disable_buttons()
+            u.tor_status_update.connect(self._tor_status_update)
+
         try:
-            u.check(force=True, bundled_tor_func=bundled_tor_func)
+            u.check(force=True)
         except UpdateCheckerTorError:
             Alert(strings._('update_error_tor', True), QtWidgets.QMessageBox.Warning)
         except UpdateCheckerSOCKSHTTPError:
@@ -466,7 +464,7 @@ class SettingsDialog(QtWidgets.QDialog):
             last_checked = strings._('gui_settings_autoupdate_timestamp_never', True)
         self.autoupdate_timestamp.setText(strings._('gui_settings_autoupdate_timestamp', True).format(last_checked))
 
-    def _bundled_tor_func(self, message):
+    def _tor_status_update(self, message):
         self.tor_status.setText('<strong>{}</strong><br>{}'.format(strings._('connecting_to_tor', True), message))
         self.qtapp.processEvents()
         if 'Done' in message:
