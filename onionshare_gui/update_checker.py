@@ -56,17 +56,23 @@ class UpdateChecker(QtCore.QObject):
     """
     update_available = QtCore.pyqtSignal(str, str, str)
     update_not_available = QtCore.pyqtSignal()
+    tor_status_update = QtCore.pyqtSignal(str)
 
     def __init__(self):
         super(UpdateChecker, self).__init__()
 
-    def check(self, force=False, bundled_tor_func=None):
+    def check(self, force=False):
         # Load the settings
         settings = Settings()
         settings.load()
 
-        # See if it's been 1 day since the last check, and if so set force to True
-        if not force:
+        # If force=True, then definitely check
+        if force:
+            check_for_updates = True
+        else:
+            check_for_updates = False
+
+            # See if it's been 1 day since the last check
             autoupdate_timestamp = settings.get('autoupdate_timestamp')
             if autoupdate_timestamp:
                 last_checked = datetime.datetime.fromtimestamp(autoupdate_timestamp)
@@ -74,20 +80,29 @@ class UpdateChecker(QtCore.QObject):
 
                 one_day = datetime.timedelta(days=1)
                 if now - last_checked > one_day:
-                    force = True
+                    check_for_updates = True
             else:
-                force = True
+                check_for_updates = True
 
         # Check for updates
-        if force:
+        if check_for_updates:
             # Create an Onion object, for checking for updates over tor
             try:
-                onion = Onion(settings=settings, bundled_tor_func=bundled_tor_func)
+                onion = Onion(settings=settings, bundled_tor_func=self._bundled_tor_func)
             except:
                 raise UpdateCheckerTorError
 
             # Download the latest-version file over Tor
             try:
+                # User agent string includes OnionShare version and platform
+                user_agent = 'OnionShare {}, {}'.format(helpers.get_version(), platform.system())
+
+                # If the update is forced, add '?force=1' to the URL, to more
+                # accurately measure daily users
+                path = '/latest-version.txt'
+                if force:
+                    path += '?force=1'
+
                 (socks_address, socks_port) = onion.get_tor_socks_port()
                 socks.set_default_proxy(socks.SOCKS5, socks_address, socks_port)
 
@@ -95,9 +110,9 @@ class UpdateChecker(QtCore.QObject):
                 s.settimeout(15) # 15 second timeout
                 s.connect(('elx57ue5uyfplgva.onion', 80))
 
-                http_request = 'GET /latest-version.txt HTTP/1.0\r\n'
+                http_request = 'GET {} HTTP/1.0\r\n'.format(path)
                 http_request += 'Host: elx57ue5uyfplgva.onion\r\n'
-                http_request += 'User-Agent: OnionShare {}, {}\r\n'.format(helpers.get_version(), platform.system())
+                http_request += 'User-Agent: {}\r\n'.format(user_agent)
                 http_request += '\r\n'
                 s.sendall(http_request.encode('utf-8'))
 
@@ -129,6 +144,9 @@ class UpdateChecker(QtCore.QObject):
 
             # No updates are available
             self.update_not_available.emit()
+
+    def _bundled_tor_func(self, message):
+        self.tor_status_update.emit(message)
 
 class UpdateThread(QtCore.QThread):
     def __init__(self):
