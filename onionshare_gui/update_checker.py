@@ -24,7 +24,6 @@ from onionshare.settings import Settings
 from onionshare.onion import Onion
 
 from . import strings, helpers
-from .alert import Alert
 
 class UpdateCheckerTorError(Exception):
     """
@@ -149,17 +148,24 @@ class UpdateChecker(QtCore.QObject):
         self.tor_status_update.emit(message)
 
 class UpdateThread(QtCore.QThread):
+    update_available = QtCore.pyqtSignal(str, str, str)
+    tor_status_update = QtCore.pyqtSignal(str)
+
     def __init__(self):
         super(UpdateThread, self).__init__()
 
     def run(self):
         u = UpdateChecker()
-        u.update_available.connect(self.update_available)
+        u.update_available.connect(self._update_available)
+        u.tor_status_update.connect(self._tor_status_update)
         try:
             u.check()
         except:
             # If update check fails, silently ignore
             pass
 
-    def update_available(update_url, installed_version, latest_version):
-        Alert(strings._("update_available", True).format(update_url, installed_version, latest_version))
+    def _update_available(self, update_url, installed_version, latest_version):
+        self.update_available.emit(update_url, installed_version, latest_version)
+
+    def _tor_status_update(self, message):
+        self.tor_status_update.emit(message)

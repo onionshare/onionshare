@@ -64,7 +64,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
     starting_server_step3 = QtCore.pyqtSignal()
     starting_server_error = QtCore.pyqtSignal(str)
 
-    def __init__(self, qtapp, app):
+    def __init__(self, qtapp, app, filenames):
         super(OnionShareGui, self).__init__()
         self.qtapp = qtapp
         self.app = app
@@ -81,23 +81,20 @@ class OnionShareGui(QtWidgets.QMainWindow):
             settings = Settings()
             settings.load()
             if settings.get('use_autoupdate'):
-                # TODO: make updates actually work
-                print("Updating in another thread")
-                #t = UpdateThread()
-                #t.start()
+                def update_available(update_url, installed_version, latest_version):
+                    Alert(strings._("update_available", True).format(update_url, installed_version, latest_version))
 
-    def send_files(self, filenames=None):
-        """
-        Build the GUI in send files mode.
-        Note that this is the only mode currently implemented.
-        """
-        # file selection
+                t = UpdateThread()
+                t.update_available.connect(update_available)
+                t.start()
+
+        # File selection
         self.file_selection = FileSelection()
         if filenames:
             for filename in filenames:
                 self.file_selection.file_list.add_file(filename)
 
-        # server status
+        # Server status
         self.server_status = ServerStatus(self.qtapp, self.app, web, self.file_selection)
         self.server_status.server_started.connect(self.file_selection.server_started)
         self.server_status.server_started.connect(self.start_server)
@@ -113,12 +110,12 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.starting_server_step3.connect(self.start_server_step3)
         self.starting_server_error.connect(self.start_server_error)
 
-        # filesize warning
+        # Filesize warning
         self.filesize_warning = QtWidgets.QLabel()
         self.filesize_warning.setStyleSheet('padding: 10px 0; font-weight: bold; color: #333333;')
         self.filesize_warning.hide()
 
-        # downloads
+        # Downloads
         self.downloads = Downloads()
         self.downloads_container = QtWidgets.QScrollArea()
         self.downloads_container.setWidget(self.downloads)
@@ -128,7 +125,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.downloads_container.hide() # downloads start out hidden
         self.new_download = False
 
-        # status bar
+        # Status bar
         self.status_bar = QtWidgets.QStatusBar()
         self.status_bar.setSizeGripEnabled(False)
         version_label = QtWidgets.QLabel('v{0:s}'.format(helpers.get_version()))
@@ -136,10 +133,10 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.status_bar.addPermanentWidget(version_label)
         self.setStatusBar(self.status_bar)
 
-        # status bar, zip progress bar
+        # Status bar, zip progress bar
         self._zip_progress_bar = None
 
-        # main layout
+        # Main layout
         self.layout = QtWidgets.QVBoxLayout()
         self.layout.addLayout(self.file_selection)
         self.layout.addLayout(self.server_status)
@@ -461,8 +458,7 @@ def main():
     qtapp.aboutToQuit.connect(shutdown)
 
     # launch the gui
-    gui = OnionShareGui(qtapp, app)
-    gui.send_files(filenames)
+    gui = OnionShareGui(qtapp, app, filenames)
 
     # all done
     sys.exit(qtapp.exec_())
