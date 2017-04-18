@@ -53,11 +53,11 @@ def main():
     strings.load_strings(helpers)
     print(strings._('version_string').format(helpers.get_version()))
 
-    # start the Qt app
+    # Start the Qt app
     global qtapp
     qtapp = Application()
 
-    # parse arguments
+    # Parse arguments
     parser = argparse.ArgumentParser()
     parser.add_argument('--local-only', action='store_true', dest='local_only', help=strings._("help_local_only"))
     parser.add_argument('--stay-open', action='store_true', dest='stay_open', help=strings._("help_stay_open"))
@@ -74,7 +74,7 @@ def main():
     stay_open = bool(args.stay_open)
     debug = bool(args.debug)
 
-    # validation
+    # Validation
     if filenames:
         valid = True
         for filename in filenames:
@@ -84,19 +84,19 @@ def main():
         if not valid:
             sys.exit()
 
-    # start the onionshare app
+    # Start the OnionShare app
     web.set_stay_open(stay_open)
     app = OnionShare(debug, local_only, stay_open)
 
-    # clean up when app quits
+    # Clean up when app quits
     def shutdown():
         app.cleanup()
     qtapp.aboutToQuit.connect(shutdown)
 
-    # launch the gui
+    # Launch the gui
     gui = OnionShareGui(qtapp, app, filenames)
 
-    # all done
+    # All done
     sys.exit(qtapp.exec_())
 
 if __name__ == '__main__':
