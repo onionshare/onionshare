@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from stem.control import Controller
 from stem import ProtocolError
 from stem.connection import MissingPassword, UnreadableCookieFile, AuthenticationFailure
-import os, sys, tempfile, shutil, urllib, platform, subprocess, time, shlex, socket, random
+import os, sys, tempfile, shutil, urllib, platform, subprocess, time, shlex
 
 from . import socks
 from . import helpers, strings
@@ -113,24 +113,17 @@ class Onion(object):
     call this function and pass in a status string while connecting to tor. This
     is necessary for status updates to reach the GUI.
     """
-    def __init__(self, stealth=False, settings=False, bundled_tor_func=None):
-        self.stealth = stealth
+    def __init__(self):
+        self.stealth = False
         self.service_id = None
 
-        system = platform.system()
-
-        # Either use settings that are passed in, or load them from disk
-        if settings:
-            self.settings = settings
-        else:
-            self.settings = Settings()
-            self.settings.load()
+        self.system = platform.system()
 
         # Is bundled tor supported?
-        if (system == 'Windows' or system == 'Darwin') and getattr(sys, 'onionshare_dev_mode', False):
-            bundle_tor_supported = False
+        if (self.system == 'Windows' or self.system == 'Darwin') and getattr(sys, 'onionshare_dev_mode', False):
+            self.bundle_tor_supported = False
         else:
-            bundle_tor_supported = True
+            self.bundle_tor_supported = True
 
         # Set the path of the tor binary, for bundled tor
         (self.tor_path, self.tor_geo_ip_file_path, self.tor_geo_ipv6_file_path) = helpers.get_tor_paths()
@@ -138,23 +131,31 @@ class Onion(object):
         # The tor process
         self.tor_proc = None
 
-        # Try to connect to Tor
+    def connect(self, settings=False, bundled_tor_func=None):
+        # Either use settings that are passed in, or load them from disk
+        if settings:
+            self.settings = settings
+        else:
+            self.settings = Settings()
+            self.settings.load()
+
+        # The Tor controller
         self.c = None
 
         if self.settings.get('connection_type') == 'bundled':
-            if not bundle_tor_supported:
+            if not self.bundle_tor_supported:
                 raise BundledTorNotSupported(strings._('settings_error_bundled_tor_not_supported'))
 
             # Create a torrc for this session
             self.tor_data_directory = tempfile.TemporaryDirectory()
 
-            if system == 'Windows':
+            if self.system == 'Windows':
                 # Windows needs to use network ports, doesn't support unix sockets
                 torrc_template = open(helpers.get_resource_path('torrc_template-windows')).read()
-                self.tor_control_port = self._get_available_port()
+                self.tor_control_port = helpers.get_available_port(1000, 65535)
                 self.tor_control_socket = None
                 self.tor_cookie_auth_file = os.path.join(self.tor_data_directory.name, 'cookie')
-                self.tor_socks_port = self._get_available_port()
+                self.tor_socks_port = helpers.get_available_port(1000, 65535)
                 self.tor_torrc = os.path.join(self.tor_data_directory.name, 'torrc')
             else:
                 # Linux and Mac can use unix sockets
@@ -162,7 +163,7 @@ class Onion(object):
                 self.tor_control_port = None
                 self.tor_control_socket = os.path.join(self.tor_data_directory.name, 'control_socket')
                 self.tor_cookie_auth_file = os.path.join(self.tor_data_directory.name, 'cookie')
-                self.tor_socks_port = self._get_available_port()
+                self.tor_socks_port = helpers.get_available_port(1000, 65535)
                 self.tor_torrc = os.path.join(self.tor_data_directory.name, 'torrc')
 
             torrc_template = torrc_template.replace('{{data_directory}}',   self.tor_data_directory.name)
@@ -176,7 +177,7 @@ class Onion(object):
 
             # Execute a tor subprocess
             start_ts = time.time()
-            if system == 'Windows':
+            if self.system == 'Windows':
                 # In Windows, hide console window when opening tor.exe subprocess
                 startupinfo = subprocess.STARTUPINFO()
                 startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
@@ -188,7 +189,7 @@ class Onion(object):
             time.sleep(0.2)
 
             # Connect to the controller
-            if system == 'Windows':
+            if self.system == 'Windows':
                 self.c = Controller.from_port(port=self.tor_control_port)
                 self.c.authenticate()
             else:
@@ -248,7 +249,7 @@ class Onion(object):
                 socket_file_path = ''
                 if not found_tor:
                     try:
-                        if system == 'Darwin':
+                        if self.system == 'Darwin':
                             socket_file_path = os.path.expanduser('~/Library/Application Support/TorBrowser-Data/Tor/control.socket')
 
                         self.c = Controller.from_socket_file(path=socket_file_path)
@@ -260,12 +261,11 @@ class Onion(object):
             # guessing the socket file name next
             if not found_tor:
                 try:
-                    if system == 'Linux':
+                    if self.system == 'Linux':
                         socket_file_path = '/run/user/{}/Tor/control.socket'.format(os.geteuid())
-                    elif system == 'Darwin':
-                        # TODO: figure out the unix socket path in OS X
+                    elif self.system == 'Darwin':
                         socket_file_path = '/run/user/{}/Tor/control.socket'.format(os.geteuid())
-                    elif system == 'Windows':
+                    elif self.system == 'Windows':
                         # Windows doesn't support unix sockets
                         raise TorErrorAutomatic(strings._('settings_error_automatic'))
 
@@ -400,19 +400,3 @@ class Onion(object):
             return ('127.0.0.1', 9150)
         else:
             return (self.settings.get('socks_address'), self.settings.get('socks_port'))
-
-    def _get_available_port(self):
-        """
-        Find a random available port
-        """
-        tmpsock = socket.socket()
-        while True:
-            try:
-                tmpsock.bind(("127.0.0.1", random.randint(1000, 65535)))
-                break
-            except OSError:
-                pass
-        port = tmpsock.getsockname()[1]
-        tmpsock.close()
-
-        return port

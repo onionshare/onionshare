@@ -53,36 +53,17 @@ class OnionShare(object):
         self.stealth = stealth
         self.onion.stealth = stealth
 
-    def choose_port(self):
-        """
-        Pick an un-used port in the range 17600-17650 to bind to.
-        """
-        # let the OS choose a port
-        tmpsock = socket.socket()
-        for port in range(17600, 17650):
-            try:
-                tmpsock.bind(("127.0.0.1", port))
-                break
-            except OSError:
-                pass
-        self.port = tmpsock.getsockname()[1]
-        tmpsock.close()
-
-    def start_onion_service(self, bundled_tor_func=None):
+    def start_onion_service(self):
         """
         Start the onionshare onion service.
         """
-        if not self.port:
-            self.choose_port()
+        self.port = helpers.get_available_port(17600, 17650)
 
         if self.local_only:
             self.onion_host = '127.0.0.1:{0:d}'.format(self.port)
             return
 
-        if not self.onion:
-            self.onion = Onion(self.stealth, bundled_tor_func=bundled_tor_func)
-
-        self.onion_host = self.onion.start(self.port)
+        self.onion_host = self.onion.start_onion_service(self.port)
 
         if self.stealth:
             self.auth_string = self.onion.auth_string
