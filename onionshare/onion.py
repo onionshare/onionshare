@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 from stem.control import Controller
-from stem import ProtocolError
+from stem import ProtocolError, SocketClosed
 from stem.connection import MissingPassword, UnreadableCookieFile, AuthenticationFailure
 import os, sys, tempfile, shutil, urllib, platform, subprocess, time, shlex
 
@@ -97,6 +97,12 @@ class BundledTorTimeout(Exception):
     """
     This exception is raised if onionshare is set to use the bundled Tor binary,
     but Tor doesn't finish connecting promptly.
+    """
+
+class BundledTorCanceled(Exception):
+    """
+    This exception is raised if onionshare is set to use the bundled Tor binary,
+    and the user cancels connecting to Tor
     """
 
 class Onion(object):
@@ -197,7 +203,11 @@ class Onion(object):
                 self.c.authenticate()
 
             while True:
-                res = self.c.get_info("status/bootstrap-phase")
+                try:
+                    res = self.c.get_info("status/bootstrap-phase")
+                except SocketClosed:
+                    raise BundledTorCanceled()
+
                 res_parts = shlex.split(res)
                 progress = res_parts[2].split('=')[1]
                 summary = res_parts[4].split('=')[1]
