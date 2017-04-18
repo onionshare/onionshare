@@ -17,7 +17,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-import sys, os, inspect, hashlib, base64, platform, zipfile, tempfile, math, time
+import sys, os, inspect, hashlib, base64, platform, zipfile, tempfile, math, time, socket, random
 from random import SystemRandom
 
 
@@ -174,11 +174,21 @@ def estimated_time_remaining(bytes_downloaded, total_bytes, started):
     return format_seconds(eta)
 
 
-def is_root():
+def get_available_port(min_port, max_port):
     """
-    Returns if user is root.
+    Find a random available port within the given range.
     """
-    return os.geteuid() == 0
+    tmpsock = socket.socket()
+    while True:
+        try:
+            tmpsock.bind(("127.0.0.1", random.randint(min_port, max_port)))
+            break
+        except OSError:
+            pass
+    port = tmpsock.getsockname()[1]
+    tmpsock.close()
+
+    return port
 
 
 def dir_size(start_path):
