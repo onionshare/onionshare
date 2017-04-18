@@ -100,5 +100,6 @@
     "update_error_tor": "Error checking for updates: Can't connect to Tor.\nCheck your Tor connection settings.",
     "update_error_sockshttp": "Error checking for updates: Connected to Tor, but can't load the update HTTP request.",
     "update_error_invalid_latest_version": "Error checking for updates: The OnionShare website responded saying the latest version is '{}', but that doesn't appear to be a valid version string.",
-    "update_not_available": "You are running the latest version of OnionShare."
+    "update_not_available": "You are running the latest version of OnionShare.",
+    "gui_tor_connection_exit": "Exit"
 }
