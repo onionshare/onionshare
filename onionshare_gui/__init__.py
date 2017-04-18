@@ -22,7 +22,7 @@ import os, sys, platform, argparse
 from PyQt5 import QtCore, QtWidgets
 
 from onionshare import strings, helpers, web
-from onionshare.onion import *
+from onionshare.onion import Onion
 from onionshare.onionshare import OnionShare
 from onionshare.settings import Settings
 
@@ -93,7 +93,15 @@ def main():
 
     # Start the Onion
     onion = Onion()
+
+    def exit_early():
+        # Wait for tor to exit
+        onion.cleanup()
+        sys.exit()
+
     tor_con = TorConnectionDialog(settings, onion)
+    tor_con.canceled.connect(exit_early)
+    tor_con.start()
 
     # Start the OnionShare app
     web.set_stay_open(stay_open)
