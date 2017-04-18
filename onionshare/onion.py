@@ -131,7 +131,7 @@ class Onion(object):
         # The tor process
         self.tor_proc = None
 
-    def connect(self, settings=False, bundled_tor_func=None):
+    def connect(self, settings=False, tor_status_update_func=None):
         # Either use settings that are passed in, or load them from disk
         if settings:
             self.settings = settings
@@ -205,9 +205,8 @@ class Onion(object):
                 # "\033[K" clears the rest of the line
                 print("{}: {}% - {}{}".format(strings._('connecting_to_tor'), progress, summary, "\033[K"), end="\r")
 
-                if callable(bundled_tor_func):
-                    status_string = "{}% - {}".format(progress, summary)
-                    bundled_tor_func(status_string)
+                if callable(tor_status_update_func):
+                    tor_status_update_func(progress, summary)
 
                 if summary == 'Done':
                     print("")

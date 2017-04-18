@@ -22,9 +22,12 @@ import os, sys, platform, argparse
 from PyQt5 import QtCore, QtWidgets
 
 from onionshare import strings, helpers, web
+from onionshare.onion import *
 from onionshare.onionshare import OnionShare
+from onionshare.settings import Settings
 
 from .onionshare_gui import OnionShareGui
+from .tor_connection_dialog import TorConnectionDialog
 
 class Application(QtWidgets.QApplication):
     """
@@ -84,12 +87,21 @@ def main():
         if not valid:
             sys.exit()
 
+    # Load settings
+    settings = Settings()
+    settings.load()
+
+    # Start the Onion
+    onion = Onion()
+    tor_con = TorConnectionDialog(settings, onion)
+
     # Start the OnionShare app
     web.set_stay_open(stay_open)
     app = OnionShare(debug, local_only, stay_open)
 
     # Clean up when app quits
     def shutdown():
+        onion.cleanup()
         app.cleanup()
     qtapp.aboutToQuit.connect(shutdown)
 
