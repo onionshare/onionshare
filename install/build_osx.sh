@@ -5,11 +5,12 @@ cd $ROOT
 
 # deleting dist
 echo Deleting dist folder
-rm -rf $ROOT/build $ROOT/dist &>/dev/null 2>&1
+rm -rf $ROOT/dist &>/dev/null 2>&1
 
 # build the .app
 echo Building OnionShare.app
 pyinstaller $ROOT/install/pyinstaller.spec
+python3 $ROOT/install/get-tor-osx.py
 
 # create a symlink of onionshare-gui called onionshare, for the CLI version
 cd $ROOT/dist/OnionShare.app/Contents/MacOS

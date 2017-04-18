@@ -199,7 +199,7 @@ class Onion(object):
                 self.c = Controller.from_port(port=self.tor_control_port)
                 self.c.authenticate()
             else:
-                elf.c = Controller.from_socket_file(path=self.tor_control_socket)
+                self.c = Controller.from_socket_file(path=self.tor_control_socket)
                 self.c.authenticate()
 
             while True:
