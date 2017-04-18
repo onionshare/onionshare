@@ -176,7 +176,6 @@ def main(cwd=None):
 
         # Wait for app to close
         while t.is_alive():
-            t.join()
             # Allow KeyboardInterrupt exception to be handled with threads
             # https://stackoverflow.com/questions/3788208/python-threading-ignores-keyboardinterrupt-exception
             time.sleep(100)
