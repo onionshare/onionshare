@@ -28,11 +28,13 @@ class OnionShare(object):
     OnionShare is the main application class. Pass in options and run
     start_onion_service and it will do the magic.
     """
-    def __init__(self, debug=False, local_only=False, stay_open=False, transparent_torification=False, stealth=False):
-        self.port = None
-        self.onion = None
+    def __init__(self, onion, debug=False, local_only=False, stay_open=False):
+        # The Onion object
+        self.onion = onion
+
         self.hidserv_dir = None
         self.onion_host = None
+        self.stealth = None
 
         # files and dirs to delete on shutdown
         self.cleanup_filenames = []
@@ -47,16 +49,9 @@ class OnionShare(object):
         # automatically close when download is finished
         self.stay_open = stay_open
 
-        # traffic automatically goes through Tor
-        self.transparent_torification = transparent_torification
-
-        # use stealth onion service
-        self.set_stealth(stealth)
-
     def set_stealth(self, stealth):
         self.stealth = stealth
-        if self.onion:
-            self.onion.stealth = stealth
+        self.onion.stealth = stealth
 
     def choose_port(self):
         """
@@ -117,16 +112,15 @@ def main(cwd=None):
     strings.load_strings(helpers)
     print(strings._('version_string').format(helpers.get_version()))
 
-    # onionshare CLI in OSX needs to change current working directory (#132)
+    # OnionShare CLI in OSX needs to change current working directory (#132)
     if helpers.get_platform() == 'Darwin':
         if cwd:
             os.chdir(cwd)
 
-    # parse arguments
+    # Parse arguments
     parser = argparse.ArgumentParser()
     parser.add_argument('--local-only', action='store_true', dest='local_only', help=strings._("help_local_only"))
     parser.add_argument('--stay-open', action='store_true', dest='stay_open', help=strings._("help_stay_open"))
-    parser.add_argument('--transparent', action='store_true', dest='transparent_torification', help=strings._("help_transparent_torification"))
     parser.add_argument('--stealth', action='store_true', dest='stealth', help=strings._("help_stealth"))
     parser.add_argument('--debug', action='store_true', dest='debug', help=strings._("help_debug"))
     parser.add_argument('filename', metavar='filename', nargs='+', help=strings._('help_filename'))
@@ -139,10 +133,9 @@ def main(cwd=None):
     local_only = bool(args.local_only)
     debug = bool(args.debug)
     stay_open = bool(args.stay_open)
-    transparent_torification = bool(args.transparent_torification)
     stealth = bool(args.stealth)
 
-    # validation
+    # Validation
     valid = True
     for filename in filenames:
         if not os.path.exists(filename):
@@ -151,30 +144,38 @@ def main(cwd=None):
     if not valid:
         sys.exit()
 
-    # start the onionshare app
+    # Start the Onion object
+    onion = Onion()
     try:
-        app = OnionShare(debug, local_only, stay_open, transparent_torification, stealth)
-        app.choose_port()
-        app.start_onion_service()
+        onion.connect()
     except (TorTooOld, TorErrorInvalidSetting, TorErrorAutomatic, TorErrorSocketPort, TorErrorSocketFile, TorErrorMissingPassword, TorErrorUnreadableCookieFile, TorErrorAuthError, TorErrorProtocolError, BundledTorNotSupported, BundledTorTimeout) as e:
         sys.exit(e.args[0])
     except KeyboardInterrupt:
         print("")
         sys.exit()
 
-    # prepare files to share
+    # Start the onionshare app
+    try:
+        app = OnionShare(onion, debug, local_only, stay_open)
+        app.set_stealth(stealth)
+        app.start_onion_service()
+    except KeyboardInterrupt:
+        print("")
+        sys.exit()
+
+    # Prepare files to share
     print(strings._("preparing_files"))
     web.set_file_info(filenames)
     app.cleanup_filenames.append(web.zip_filename)
 
-    # warn about sending large files over Tor
+    # Warn about sending large files over Tor
     if web.zip_filesize >= 157286400:  # 150mb
         print('')
         print(strings._("large_filesize"))
         print('')
 
-    # start onionshare http service in new thread
-    t = threading.Thread(target=web.start, args=(app.port, app.stay_open, app.transparent_torification))
+    # Start OnionShare http service in new thread
+    t = threading.Thread(target=web.start, args=(app.port, app.stay_open))
     t.daemon = True
     t.start()
 
@@ -192,16 +193,16 @@ def main(cwd=None):
         print('')
         print(strings._("ctrlc_to_stop"))
 
-        # wait for app to close
+        # Wait for app to close
         while t.is_alive():
             t.join()
-            # allow KeyboardInterrupt exception to be handled with threads
+            # Allow KeyboardInterrupt exception to be handled with threads
             # https://stackoverflow.com/questions/3788208/python-threading-ignores-keyboardinterrupt-exception
             time.sleep(100)
     except KeyboardInterrupt:
         web.stop(app.port)
     finally:
-        # shutdown
+        # Shutdown
         app.cleanup()
 
 if __name__ == '__main__':

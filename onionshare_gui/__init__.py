@@ -172,7 +172,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.app.choose_port()
 
         # start onionshare http service in new thread
-        t = threading.Thread(target=web.start, args=(self.app.port, self.app.stay_open, self.app.transparent_torification))
+        t = threading.Thread(target=web.start, args=(self.app.port, self.app.stay_open))
         t.daemon = True
         t.start()
         # wait for modules in thread to load, preventing a thread-related cx_Freeze crash
@@ -423,7 +423,6 @@ def main():
     parser.add_argument('--local-only', action='store_true', dest='local_only', help=strings._("help_local_only"))
     parser.add_argument('--stay-open', action='store_true', dest='stay_open', help=strings._("help_stay_open"))
     parser.add_argument('--debug', action='store_true', dest='debug', help=strings._("help_debug"))
-    parser.add_argument('--transparent', action='store_true', dest='transparent_torification', help=strings._("help_transparent_torification"))
     parser.add_argument('--filenames', metavar='filenames', nargs='+', help=strings._('help_filename'))
     args = parser.parse_args()
 
@@ -435,7 +434,6 @@ def main():
     local_only = bool(args.local_only)
     stay_open = bool(args.stay_open)
     debug = bool(args.debug)
-    transparent_torification = bool(args.transparent_torification)
 
     # validation
     if filenames:
@@ -449,8 +447,7 @@ def main():
 
     # start the onionshare app
     web.set_stay_open(stay_open)
-    web.set_transparent_torification(transparent_torification)
-    app = onionshare.OnionShare(debug, local_only, stay_open, transparent_torification)
+    app = onionshare.OnionShare(debug, local_only, stay_open)
 
     # clean up when app quits
     def shutdown():

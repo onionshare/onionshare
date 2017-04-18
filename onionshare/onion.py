@@ -332,7 +332,7 @@ class Onion(object):
             # ephemeral stealth onion services are not supported
             self.supports_stealth = False
 
-    def start(self, port):
+    def start_onion_service(self, port):
         """
         Start a onion service on port 80, pointing to the given port, and
         return the onion hostname.

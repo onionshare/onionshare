@@ -126,18 +126,6 @@ def get_stay_open():
     """
     return stay_open
 
-transparent_torification = False
-def set_transparent_torification(new_transparent_torification):
-    """
-    Set transparent_torification variable.
-    """
-    global transparent_torification
-    stay_open = new_transparent_torification
-def get_transparent_torification():
-    """
-    Get transparent_torification variable."
-    """
-    return transparent_torification
 
 # Are we running in GUI mode?
 gui_mode = False
@@ -350,14 +338,13 @@ def force_shutdown():
     func()
 
 
-def start(port, stay_open=False, transparent_torification=False):
+def start(port, stay_open=False):
     """
     Start the flask web server.
     """
     generate_slug()
 
     set_stay_open(stay_open)
-    set_transparent_torification(transparent_torification)
 
     # In Whonix, listen on 0.0.0.0 instead of 127.0.0.1 (#220)
     if os.path.exists('/usr/share/anon-ws-base-files/workstation'):
@@ -380,11 +367,8 @@ def stop(port):
 
     # to stop flask, load http://127.0.0.1:<port>/<shutdown_slug>/shutdown
     try:
-        if transparent_torification:
-            s = socket.socket()
-            s.connect(('127.0.0.1', port))
-            s.sendall('GET /{0:s}/shutdown HTTP/1.1\r\n\r\n'.format(shutdown_slug))
-        else:
-            urlopen('http://127.0.0.1:{0:d}/{1:s}/shutdown'.format(port, shutdown_slug)).read()
+        s = socket.socket()
+        s.connect(('127.0.0.1', port))
+        s.sendall('GET /{0:s}/shutdown HTTP/1.1\r\n\r\n'.format(shutdown_slug))
     except:
         pass
