@@ -16,20 +16,3 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-import socket
-from onionshare import OnionShare
-
-
-def test_choose_port_returns_a_port_number():
-    """choose_port() returns a port number"""
-    app = OnionShare()
-    app.choose_port()
-    assert 1024 <= app.port <= 65535
-
-
-def test_choose_port_returns_an_open_port():
-    """choose_port() returns an open port"""
-    app = OnionShare()
-    # choose a new port
-    app.choose_port()
-    socket.socket().bind(("127.0.0.1", app.port))
