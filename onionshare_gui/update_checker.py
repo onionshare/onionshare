@@ -18,8 +18,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 from PyQt5 import QtCore
-import datetime, time, socks, socket, re, platform
+import datetime, time, socket, re, platform
 
+from onionshare import socks
 from onionshare.settings import Settings
 from onionshare.onion import Onion
 
