@@ -18,5 +18,24 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-import onionshare_gui
+try:
+    # try to use module installed on system first
+    import onionshare_gui
+except ImportError:
+    # use module provided by source repository
+    import os, sys, inspect
+    # path used to call the executable
+    relative_exec_path = inspect.getfile(inspect.currentframe())
+    # split off path to executable
+    path_to_executable = os.path.split(relative_exec_path)[0]
+    # make sure no symlinks fool the procedure
+    real_path = os.path.realpath(os.path.abspath(path_to_executable))
+    # strip out the install/scripts part
+    module_folder = path_to_executable.replace('/install/scripts', '')
+    # insert module into path
+    if module_folder not in sys.path:
+        sys.path.insert(0, module_folder)
+    # try importing again
+    import onionshare_gui
+
 onionshare_gui.main()
