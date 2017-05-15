@@ -347,11 +347,14 @@ class SettingsDialog(QtWidgets.QDialog):
             if settings.get('connection_type') == 'bundled':
                 self.tor_status.show()
                 self._disable_buttons()
-                bundled_tor_func = self._tor_status_update
-            else:
-                bundled_tor_func = None
 
-            onion = Onion(settings=settings, bundled_tor_func=bundled_tor_func)
+                def tor_status_update_func(progress, summary):
+                    self._tor_status_update(progress, summary)
+            else:
+                tor_status_update_func = None
+
+            onion = Onion()
+            onion.connect(settings=settings, tor_status_update_func=tor_status_update_func)
 
             # If an exception hasn't been raised yet, the Tor settings work
             Alert(strings._('settings_test_success', True).format(onion.tor_version, onion.supports_ephemeral, onion.supports_stealth))
