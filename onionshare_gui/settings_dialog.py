@@ -31,8 +31,9 @@ class SettingsDialog(QtWidgets.QDialog):
     """
     Settings dialog.
     """
-    def __init__(self, qtapp):
+    def __init__(self, onion, qtapp):
         super(SettingsDialog, self).__init__()
+        self.onion = onion
         self.qtapp = qtapp
 
         self.setModal(True)
@@ -373,8 +374,9 @@ class SettingsDialog(QtWidgets.QDialog):
         """
         Check for Updates button clicked. Manually force an update check.
         """
-        settings = Settings()
-        settings.load()
+        # Disable buttons
+        self._disable_buttons()
+        self.qtapp.processEvents()
 
         # Check for updates
         def update_available(update_url, installed_version, latest_version):
@@ -382,31 +384,22 @@ class SettingsDialog(QtWidgets.QDialog):
         def update_not_available():
             Alert(strings._('update_not_available', True))
 
-        u = UpdateChecker()
+        u = UpdateChecker(self.onion)
         u.update_available.connect(update_available)
         u.update_not_available.connect(update_not_available)
 
-        # Show Tor connection status if connection type is bundled tor
-        if settings.get('connection_type') == 'bundled':
-            self.tor_status.show()
-            self._disable_buttons()
-            u.tor_status_update.connect(self._tor_status_update)
-
         try:
             u.check(force=True)
-        except UpdateCheckerTorError:
-            Alert(strings._('update_error_tor', True), QtWidgets.QMessageBox.Warning)
-        except UpdateCheckerSOCKSHTTPError:
-            Alert(strings._('update_error_sockshttp', True), QtWidgets.QMessageBox.Warning)
+        except UpdateCheckerCheckError:
+            Alert(strings._('update_error_check_error', True), QtWidgets.QMessageBox.Warning)
         except UpdateCheckerInvalidLatestVersion as e:
             Alert(strings._('update_error_invalid_latest_version', True).format(e.latest_version), QtWidgets.QMessageBox.Warning)
 
-        # Clean up afterwards
-        if settings.get('connection_type') == 'bundled':
-            self.tor_status.hide()
-            self._enable_buttons()
+        # Enable buttons
+        self._enable_buttons()
 
         # Update the last checked label
+        settings = Settings()
         settings.load()
         autoupdate_timestamp = settings.get('autoupdate_timestamp')
         self._update_autoupdate_timestamp(autoupdate_timestamp)
