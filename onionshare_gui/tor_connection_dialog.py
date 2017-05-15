@@ -42,7 +42,6 @@ class TorConnectionDialog(QtWidgets.QProgressDialog):
 
         # Label
         self.setLabelText(strings._('connecting_to_tor', True))
-        self.setCancelButtonText(strings._('gui_tor_connection_exit', True))
 
         # Progress bar ticks from 0 to 100
         self.setRange(0, 100)
@@ -72,7 +71,7 @@ class TorConnectionDialog(QtWidgets.QProgressDialog):
             self.cancel()
 
             # Display the exception in an alert box
-            Alert("{}\n\nTry adjusting how OnionShare connects to the Tor network in Settings.".format(e.args[0]), QtWidgets.QMessageBox.Warning)
+            Alert("{}\n\n{}".format(e.args[0], strings._('gui_tor_connection_error_settings', True)), QtWidgets.QMessageBox.Warning)
 
             # Open settings
             self.open_settings.emit()
