@@ -27,7 +27,6 @@ from onionshare.onionshare import OnionShare
 from onionshare.settings import Settings
 
 from .onionshare_gui import OnionShareGui
-from .tor_connection_dialog import TorConnectionDialog
 
 class Application(QtWidgets.QApplication):
     """
@@ -87,34 +86,21 @@ def main():
         if not valid:
             sys.exit()
 
-    # Load settings
-    settings = Settings()
-    settings.load()
-
     # Start the Onion
     onion = Onion()
-
-    def exit_early():
-        # Wait for tor to exit
-        onion.cleanup()
-        sys.exit()
-
-    tor_con = TorConnectionDialog(settings, onion)
-    tor_con.canceled.connect(exit_early)
-    tor_con.start()
 
     # Start the OnionShare app
     web.set_stay_open(stay_open)
     app = OnionShare(onion, debug, local_only, stay_open)
+
+    # Launch the gui
+    gui = OnionShareGui(onion, qtapp, app, filenames)
 
     # Clean up when app quits
     def shutdown():
         onion.cleanup()
         app.cleanup()
     qtapp.aboutToQuit.connect(shutdown)
-
-    # Launch the gui
-    gui = OnionShareGui(qtapp, app, filenames)
 
     # All done
     sys.exit(qtapp.exec_())
