@@ -350,6 +350,7 @@ class SettingsDialog(QtWidgets.QDialog):
 
                 def tor_status_update_func(progress, summary):
                     self._tor_status_update(progress, summary)
+                    return True
             else:
                 tor_status_update_func = None
 
@@ -467,10 +468,10 @@ class SettingsDialog(QtWidgets.QDialog):
             last_checked = strings._('gui_settings_autoupdate_timestamp_never', True)
         self.autoupdate_timestamp.setText(strings._('gui_settings_autoupdate_timestamp', True).format(last_checked))
 
-    def _tor_status_update(self, message):
-        self.tor_status.setText('<strong>{}</strong><br>{}'.format(strings._('connecting_to_tor', True), message))
+    def _tor_status_update(self, progress, summary):
+        self.tor_status.setText('<strong>{}</strong><br>{}'.format(strings._('connecting_to_tor', True), summary))
         self.qtapp.processEvents()
-        if 'Done' in message:
+        if 'Done' in summary:
             self.tor_status.hide()
             self._enable_buttons()
 
