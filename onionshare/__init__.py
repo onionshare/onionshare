@@ -128,6 +128,7 @@ def main(cwd=None):
     finally:
         # Shutdown
         app.cleanup()
+        onion.cleanup()
 
 if __name__ == '__main__':
     main()

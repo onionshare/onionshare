@@ -52,6 +52,7 @@ class OnionShare(object):
         """
         Start the onionshare onion service.
         """
+        # Choose a random port
         self.port = helpers.get_available_port(17600, 17650)
 
         if self.local_only:
@@ -74,7 +75,3 @@ class OnionShare(object):
             elif os.path.isdir(filename):
                 shutil.rmtree(filename)
         self.cleanup_filenames = []
-
-        # cleanup the onion
-        if self.onion:
-            self.onion.cleanup()
