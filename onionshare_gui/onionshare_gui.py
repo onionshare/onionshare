@@ -143,13 +143,25 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
     def _tor_connection_canceled(self):
         """
-        If the user cancels before Tor finishes connecting, quit.
+        If the user cancels before Tor finishes connecting, ask if they want to
+        quit, or open settings.
         """
-        def quit():
-            self.qtapp.quit()
+        def quit_settings_dialog():
+            a = Alert("Would you like to open OnionShare settings to troubleshoot connecting to Tor?", QtWidgets.QMessageBox.Question, buttons=QtWidgets.QMessageBox.NoButton, autostart=False)
+            settings_button = QtWidgets.QPushButton("Open Settings")
+            quit_button = QtWidgets.QPushButton("Quit")
+            a.addButton(settings_button, QtWidgets.QMessageBox.AcceptRole)
+            a.addButton(quit_button, QtWidgets.QMessageBox.RejectRole)
+            a.setDefaultButton(settings_button)
+            a.exec_()
+
+            if a.clickedButton() == settings_button:
+                SettingsDialog(self.qtapp)
+            else:
+                self.qtapp.quit()
 
         # Wait 1ms for the event loop to finish closing the TorConnectionDialog
-        QtCore.QTimer.singleShot(1, quit)
+        QtCore.QTimer.singleShot(1, quit_settings_dialog)
 
     def _tor_connection_open_settings(self):
         """

@@ -25,10 +25,13 @@ class Alert(QtWidgets.QMessageBox):
     """
     An alert box dialog.
     """
-    def __init__(self, message, icon=QtWidgets.QMessageBox.NoIcon):
+    def __init__(self, message, icon=QtWidgets.QMessageBox.NoIcon, buttons=QtWidgets.QMessageBox.Ok, autostart=True):
         super(Alert, self).__init__(None)
         self.setWindowTitle("OnionShare")
         self.setWindowIcon(QtGui.QIcon(helpers.get_resource_path('images/logo.png')))
         self.setText(message)
         self.setIcon(icon)
-        self.exec_()
+        self.setStandardButtons(buttons)
+
+        if autostart:
+            self.exec_()
