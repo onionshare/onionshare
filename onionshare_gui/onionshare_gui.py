@@ -25,6 +25,7 @@ from onionshare.settings import Settings
 from onionshare.onion import *
 
 from .tor_connection_dialog import TorConnectionDialog
+from .settings_dialog import SettingsDialog
 from .menu import Menu
 from .file_selection import FileSelection
 from .server_status import ServerStatus
@@ -59,6 +60,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         # Start the "Connecting to Tor" dialog, which calls onion.connect()
         tor_con = TorConnectionDialog(self.settings, self.onion)
         tor_con.canceled.connect(self._tor_connection_canceled)
+        tor_con.open_settings.connect(self._tor_connection_open_settings)
         tor_con.start()
 
         # Menu bar
@@ -146,8 +148,18 @@ class OnionShareGui(QtWidgets.QMainWindow):
         def quit():
             self.qtapp.quit()
 
-        # Wait 1ms for the event loop to finish closing the TorConnectionDialog before quitting
+        # Wait 1ms for the event loop to finish closing the TorConnectionDialog
         QtCore.QTimer.singleShot(1, quit)
+
+    def _tor_connection_open_settings(self):
+        """
+        The TorConnectionDialog wants to open the Settings dialog
+        """
+        def open_settings():
+            SettingsDialog(self.qtapp)
+
+        # Wait 1ms for the event loop to finish closing the TorConnectionDialog
+        QtCore.QTimer.singleShot(1, open_settings)
 
     def start_server(self):
         """
