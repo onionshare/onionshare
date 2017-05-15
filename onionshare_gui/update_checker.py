@@ -26,15 +26,10 @@ from onionshare.onion import Onion
 
 from . import strings, helpers
 
-class UpdateCheckerTorError(Exception):
+class UpdateCheckerCheckError(Exception):
     """
-    Error checking for updates because of some Tor connection issue.
-    """
-    pass
-
-class UpdateCheckerSOCKSHTTPError(Exception):
-    """
-    Error checking for updates because of some SOCKS proxy or HTTP request issue.
+    Error checking for updates because of some Tor connection issue, or because
+    the OnionShare website is down.
     """
     pass
 
@@ -58,8 +53,9 @@ class UpdateChecker(QtCore.QObject):
     update_not_available = QtCore.pyqtSignal()
     tor_status_update = QtCore.pyqtSignal(str)
 
-    def __init__(self):
+    def __init__(self, onion):
         super(UpdateChecker, self).__init__()
+        self.onion = onion
 
     def check(self, force=False):
         # Load the settings
@@ -86,12 +82,6 @@ class UpdateChecker(QtCore.QObject):
 
         # Check for updates
         if check_for_updates:
-            # Create an Onion object, for checking for updates over tor
-            try:
-                onion = Onion(settings=settings, bundled_tor_func=self._bundled_tor_func)
-            except:
-                raise UpdateCheckerTorError
-
             # Download the latest-version file over Tor
             try:
                 # User agent string includes OnionShare version and platform
@@ -103,7 +93,7 @@ class UpdateChecker(QtCore.QObject):
                 if force:
                     path += '?force=1'
 
-                (socks_address, socks_port) = onion.get_tor_socks_port()
+                (socks_address, socks_port) = self.onion.get_tor_socks_port()
                 socks.set_default_proxy(socks.SOCKS5, socks_address, socks_port)
 
                 s = socks.socksocket()
@@ -118,11 +108,8 @@ class UpdateChecker(QtCore.QObject):
 
                 http_response = s.recv(1024)
                 latest_version = http_response[http_response.find(b'\r\n\r\n'):].strip().decode('utf-8')
-
-                # Clean up from Onion
-                onion.cleanup()
             except:
-                raise UpdateCheckerSOCKSHTTPError
+                raise UpdateCheckerCheckError
 
             # Validate that latest_version looks like a version string
             # This regex is: 1-3 dot-separated numeric components
@@ -145,19 +132,19 @@ class UpdateChecker(QtCore.QObject):
             # No updates are available
             self.update_not_available.emit()
 
-    def _bundled_tor_func(self, message):
-        self.tor_status_update.emit(message)
-
 class UpdateThread(QtCore.QThread):
     update_available = QtCore.pyqtSignal(str, str, str)
+    update_not_available = QtCore.pyqtSignal()
     tor_status_update = QtCore.pyqtSignal(str)
 
-    def __init__(self):
+    def __init__(self, onion):
         super(UpdateThread, self).__init__()
+        self.onion = onion
 
     def run(self):
-        u = UpdateChecker()
+        u = UpdateChecker(self.onion)
         u.update_available.connect(self._update_available)
+        u.update_not_available.connect(self._update_not_available)
         u.tor_status_update.connect(self._tor_status_update)
         try:
             u.check()
@@ -167,6 +154,9 @@ class UpdateThread(QtCore.QThread):
 
     def _update_available(self, update_url, installed_version, latest_version):
         self.update_available.emit(update_url, installed_version, latest_version)
+
+    def _update_not_available(self):
+        self.update_not_available.emit()
 
     def _tor_status_update(self, message):
         self.tor_status_update.emit(message)

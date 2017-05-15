@@ -64,7 +64,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         tor_con.start()
 
         # Menu bar
-        self.setMenuBar(Menu(self.qtapp))
+        self.setMenuBar(Menu(self.onion, self.qtapp))
 
         # Check for updates in a new thread, if enabled
         system = platform.system()
@@ -73,7 +73,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
                 def update_available(update_url, installed_version, latest_version):
                     Alert(strings._("update_available", True).format(update_url, installed_version, latest_version))
 
-                t = UpdateThread()
+                t = UpdateThread(self.onion)
                 t.update_available.connect(update_available)
                 t.start()
 
@@ -156,7 +156,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
             a.exec_()
 
             if a.clickedButton() == settings_button:
-                SettingsDialog(self.qtapp)
+                SettingsDialog(self.onion, self.qtapp)
             else:
                 self.qtapp.quit()
 
@@ -168,7 +168,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         The TorConnectionDialog wants to open the Settings dialog
         """
         def open_settings():
-            SettingsDialog(self.qtapp)
+            SettingsDialog(self.onion, self.qtapp)
 
         # Wait 1ms for the event loop to finish closing the TorConnectionDialog
         QtCore.QTimer.singleShot(1, open_settings)
