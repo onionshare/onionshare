@@ -22,10 +22,14 @@ from PyQt5 import QtCore, QtWidgets, QtGui
 from onionshare import strings, helpers
 from onionshare.onion import *
 
+from .alert import Alert
+
 class TorConnectionDialog(QtWidgets.QProgressDialog):
     """
     Connecting to Tor dialog.
     """
+    open_settings = QtCore.pyqtSignal()
+
     def __init__(self, settings, onion):
         super(TorConnectionDialog, self).__init__(None)
         self.settings = settings
@@ -62,10 +66,16 @@ class TorConnectionDialog(QtWidgets.QProgressDialog):
 
         except BundledTorCanceled as e:
             self.cancel()
+
         except Exception as e:
-            print(e.args[0])
-            # TODO: Open settings to connect to Tor properly
-            sys.exit()
+            # Cancel connecting to Tor
+            self.cancel()
+
+            # Display the exception in an alert box
+            Alert("{}\n\nTry adjusting how OnionShare connects to the Tor network in Settings.".format(e.args[0]), QtWidgets.QMessageBox.Warning)
+
+            # Open settings
+            self.open_settings.emit()
 
     def tor_status_update(self, progress, summary):
         self.setValue(int(progress))
