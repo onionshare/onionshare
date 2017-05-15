@@ -216,7 +216,10 @@ class Onion(object):
                 print("{}: {}% - {}{}".format(strings._('connecting_to_tor'), progress, summary, "\033[K"), end="\r")
 
                 if callable(tor_status_update_func):
-                    tor_status_update_func(progress, summary)
+                    if not tor_status_update_func(progress, summary):
+                        # If the dialog was canceled, stop connecting to Tor
+                        print()
+                        return False
 
                 if summary == 'Done':
                     print("")

@@ -24,6 +24,7 @@ from onionshare import strings, helpers, web
 from onionshare.settings import Settings
 from onionshare.onion import *
 
+from .tor_connection_dialog import TorConnectionDialog
 from .menu import Menu
 from .file_selection import FileSelection
 from .server_status import ServerStatus
@@ -42,13 +43,23 @@ class OnionShareGui(QtWidgets.QMainWindow):
     starting_server_step3 = QtCore.pyqtSignal()
     starting_server_error = QtCore.pyqtSignal(str)
 
-    def __init__(self, qtapp, app, filenames):
+    def __init__(self, onion, qtapp, app, filenames):
         super(OnionShareGui, self).__init__()
+        self.onion = onion
         self.qtapp = qtapp
         self.app = app
 
         self.setWindowTitle('OnionShare')
         self.setWindowIcon(QtGui.QIcon(helpers.get_resource_path('images/logo.png')))
+
+        # Load settings
+        self.settings = Settings()
+        self.settings.load()
+
+        # Start the "Connecting to Tor" dialog, which calls onion.connect()
+        tor_con = TorConnectionDialog(self.settings, self.onion)
+        tor_con.canceled.connect(self._tor_connection_canceled)
+        tor_con.start()
 
         # Menu bar
         self.setMenuBar(Menu(self.qtapp))
@@ -56,9 +67,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         # Check for updates in a new thread, if enabled
         system = platform.system()
         if system == 'Windows' or system == 'Darwin':
-            settings = Settings()
-            settings.load()
-            if settings.get('use_autoupdate'):
+            if self.settings.get('use_autoupdate'):
                 def update_available(update_url, installed_version, latest_version):
                     Alert(strings._("update_available", True).format(update_url, installed_version, latest_version))
 
@@ -129,6 +138,16 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.timer = QtCore.QTimer()
         self.timer.timeout.connect(self.check_for_requests)
         self.timer.start(500)
+
+    def _tor_connection_canceled(self):
+        """
+        If the user cancels before Tor finishes connecting, quit.
+        """
+        def quit():
+            self.qtapp.quit()
+
+        # Wait 1ms for the event loop to finish closing the TorConnectionDialog before quitting
+        QtCore.QTimer.singleShot(1, quit)
 
     def start_server(self):
         """
@@ -310,22 +329,26 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.status_bar.clearMessage()
 
     def closeEvent(self, e):
-        if self.server_status.status != self.server_status.STATUS_STOPPED:
-            dialog = QtWidgets.QMessageBox()
-            dialog.setWindowTitle("OnionShare")
-            dialog.setText(strings._('gui_quit_warning', True))
-            quit_button = dialog.addButton(strings._('gui_quit_warning_quit', True), QtWidgets.QMessageBox.YesRole)
-            dont_quit_button = dialog.addButton(strings._('gui_quit_warning_dont_quit', True), QtWidgets.QMessageBox.NoRole)
-            dialog.setDefaultButton(dont_quit_button)
-            reply = dialog.exec_()
+        try:
+            if self.server_status.status != self.server_status.STATUS_STOPPED:
+                dialog = QtWidgets.QMessageBox()
+                dialog.setWindowTitle("OnionShare")
+                dialog.setText(strings._('gui_quit_warning', True))
+                quit_button = dialog.addButton(strings._('gui_quit_warning_quit', True), QtWidgets.QMessageBox.YesRole)
+                dont_quit_button = dialog.addButton(strings._('gui_quit_warning_dont_quit', True), QtWidgets.QMessageBox.NoRole)
+                dialog.setDefaultButton(dont_quit_button)
+                reply = dialog.exec_()
 
-            # Quit
-            if reply == 0:
-                self.stop_server()
-                e.accept()
-            # Don't Quit
-            else:
-                e.ignore()
+                # Quit
+                if reply == 0:
+                    self.stop_server()
+                    e.accept()
+                # Don't Quit
+                else:
+                    e.ignore()
+
+        except:
+            e.accept()
 
 
 class ZipProgressBar(QtWidgets.QProgressBar):

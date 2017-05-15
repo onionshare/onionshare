@@ -56,8 +56,12 @@ class TorConnectionDialog(QtWidgets.QProgressDialog):
         self.setValue(0)
         try:
             self.onion.connect(self.settings, tor_status_update)
+
+            # Close the dialog after connecting
+            self.setValue(self.maximum())
+
         except BundledTorCanceled as e:
-            self.close()
+            self.cancel()
         except Exception as e:
             print(e.args[0])
             # TODO: Open settings to connect to Tor properly
@@ -66,3 +70,6 @@ class TorConnectionDialog(QtWidgets.QProgressDialog):
     def tor_status_update(self, progress, summary):
         self.setValue(int(progress))
         self.setLabelText("<strong>{}</strong><br>{}".format(strings._('connecting_to_tor', True), summary))
+
+        # Return False if the dialog was canceled
+        return not self.wasCanceled()
