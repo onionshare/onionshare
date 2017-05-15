@@ -22,6 +22,7 @@ from PyQt5 import QtCore, QtWidgets, QtGui
 
 from onionshare import strings, helpers, web
 from onionshare.settings import Settings
+from onionshare.onion import *
 
 from .menu import Menu
 from .file_selection import FileSelection
@@ -145,35 +146,22 @@ class OnionShareGui(QtWidgets.QMainWindow):
         web.error404_count = 0
         web.set_gui_mode()
 
-        # pick an available local port for the http service to listen on
-        self.app.choose_port()
-
-        # start onionshare http service in new thread
-        t = threading.Thread(target=web.start, args=(self.app.port, self.app.stay_open))
-        t.daemon = True
-        t.start()
-        # wait for modules in thread to load, preventing a thread-related cx_Freeze crash
-        time.sleep(0.2)
-
         # start the onion service in a new thread
         def start_onion_service(self):
             try:
-                # Show Tor connection status if connection type is bundled tor
-                if settings.get('connection_type') == 'bundled':
-                    def bundled_tor_func(message):
-                        self.status_bar.showMessage(message)
-                        if 'Done' in message:
-                            self.status_bar.showMessage(strings._('gui_starting_server1', True))
-                else:
-                    self.status_bar.showMessage(strings._('gui_starting_server1', True))
-                    bundled_tor_func = None
-
-                self.app.start_onion_service(bundled_tor_func)
+                self.app.start_onion_service()
                 self.starting_server_step2.emit()
 
-            except (onionshare.onion.TorTooOld, onionshare.onion.TorErrorInvalidSetting, onionshare.onion.TorErrorAutomatic, onionshare.onion.TorErrorSocketPort, onionshare.onion.TorErrorSocketFile, onionshare.onion.TorErrorMissingPassword, onionshare.onion.TorErrorUnreadableCookieFile, onionshare.onion.TorErrorAuthError, onionshare.onion.TorErrorProtocolError, onionshare.onion.BundledTorTimeout) as e:
+            except (TorTooOld, TorErrorInvalidSetting, TorErrorAutomatic, TorErrorSocketPort, TorErrorSocketFile, TorErrorMissingPassword, TorErrorUnreadableCookieFile, TorErrorAuthError, TorErrorProtocolError, BundledTorTimeout) as e:
                 self.starting_server_error.emit(e.args[0])
                 return
+
+            # start onionshare http service in new thread
+            t = threading.Thread(target=web.start, args=(self.app.port, self.app.stay_open))
+            t.daemon = True
+            t.start()
+            # wait for modules in thread to load, preventing a thread-related cx_Freeze crash
+            time.sleep(0.2)
 
         t = threading.Thread(target=start_onion_service, kwargs={'self': self})
         t.daemon = True

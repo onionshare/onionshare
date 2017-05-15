@@ -105,7 +105,7 @@ def main():
 
     # Start the OnionShare app
     web.set_stay_open(stay_open)
-    app = OnionShare(debug, local_only, stay_open)
+    app = OnionShare(onion, debug, local_only, stay_open)
 
     # Clean up when app quits
     def shutdown():
