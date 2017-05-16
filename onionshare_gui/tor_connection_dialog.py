@@ -32,6 +32,8 @@ class TorConnectionDialog(QtWidgets.QProgressDialog):
 
     def __init__(self, settings, onion):
         super(TorConnectionDialog, self).__init__(None)
+        common.log('TorConnectionDialog', '__init__')
+
         self.settings = settings
         self.onion = onion
 
@@ -49,6 +51,8 @@ class TorConnectionDialog(QtWidgets.QProgressDialog):
         self.setMinimumDuration(100)
 
     def start(self):
+        common.log('TorConnectionDialog', 'start')
+
         # If bundled tor, prepare to display Tor connection status
         if self.settings.get('connection_type') == 'bundled':
             tor_status_update = self.tor_status_update
