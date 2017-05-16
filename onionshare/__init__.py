@@ -66,7 +66,7 @@ def main(cwd=None):
         sys.exit()
 
     # Start the Onion object
-    onion = Onion()
+    onion = Onion(debug)
     try:
         onion.connect()
     except (TorTooOld, TorErrorInvalidSetting, TorErrorAutomatic, TorErrorSocketPort, TorErrorSocketFile, TorErrorMissingPassword, TorErrorUnreadableCookieFile, TorErrorAuthError, TorErrorProtocolError, BundledTorNotSupported, BundledTorTimeout) as e:

@@ -87,14 +87,14 @@ def main():
             sys.exit()
 
     # Start the Onion
-    onion = Onion()
+    onion = Onion(debug)
 
     # Start the OnionShare app
     web.set_stay_open(stay_open)
     app = OnionShare(onion, debug, local_only, stay_open)
 
     # Launch the gui
-    gui = OnionShareGui(onion, qtapp, app, filenames)
+    gui = OnionShareGui(onion, debug, qtapp, app, filenames)
 
     # Clean up when app quits
     def shutdown():
