@@ -26,7 +26,6 @@ from onionshare.onion import *
 
 from .tor_connection_dialog import TorConnectionDialog
 from .settings_dialog import SettingsDialog
-from .menu import Menu
 from .file_selection import FileSelection
 from .server_status import ServerStatus
 from .downloads import Downloads
@@ -65,9 +64,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
         tor_con.canceled.connect(self._tor_connection_canceled)
         tor_con.open_settings.connect(self._tor_connection_open_settings)
         tor_con.start()
-
-        # Menu bar
-        self.setMenuBar(Menu(self.onion, self.qtapp))
 
         # Check for updates in a new thread, if enabled
         system = platform.system()
@@ -121,8 +117,13 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.status_bar = QtWidgets.QStatusBar()
         self.status_bar.setSizeGripEnabled(False)
         version_label = QtWidgets.QLabel('v{0:s}'.format(common.get_version()))
-        version_label.setStyleSheet('color: #666666; padding: 0 10px;')
+        version_label.setStyleSheet('color: #666666')
+        settings_button = QtWidgets.QPushButton()
+        settings_button.setDefault(False)
+        settings_button.setIcon( QtGui.QIcon(common.get_resource_path('images/settings.png')) )
+        settings_button.clicked.connect(self.open_settings)
         self.status_bar.addPermanentWidget(version_label)
+        self.status_bar.addPermanentWidget(settings_button)
         self.setStatusBar(self.status_bar)
 
         # Status bar, zip progress bar
@@ -139,10 +140,13 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.setCentralWidget(central_widget)
         self.show()
 
-        # check for requests frequently
+        # Check for requests frequently
         self.timer = QtCore.QTimer()
         self.timer.timeout.connect(self.check_for_requests)
         self.timer.start(500)
+
+        # Always start with focus on file selection
+        self.file_selection.setFocus()
 
     def _tor_connection_canceled(self):
         """
@@ -161,7 +165,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
             a.exec_()
 
             if a.clickedButton() == settings_button:
-                SettingsDialog(self.onion, self.qtapp)
+                self.open_settings()
             else:
                 self.qtapp.quit()
 
@@ -174,11 +178,14 @@ class OnionShareGui(QtWidgets.QMainWindow):
         """
         common.log('OnionShareGui', '_tor_connection_open_settings')
 
-        def open_settings():
-            SettingsDialog(self.onion, self.qtapp)
-
         # Wait 1ms for the event loop to finish closing the TorConnectionDialog
-        QtCore.QTimer.singleShot(1, open_settings)
+        QtCore.QTimer.singleShot(1, self.open_settings)
+
+    def open_settings(self):
+        """
+        Open the SettingsDialog.
+        """
+        SettingsDialog(self.onion, self.qtapp)
 
     def start_server(self):
         """

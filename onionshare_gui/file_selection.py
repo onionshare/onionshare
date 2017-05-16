@@ -256,3 +256,9 @@ class FileSelection(QtWidgets.QVBoxLayout):
         Returns the total number of files and folders in the list.
         """
         return len(self.file_list.filenames)
+
+    def setFocus(self):
+        """
+        Set the Qt app focus on the file selection box.
+        """
+        self.file_list.setFocus()
