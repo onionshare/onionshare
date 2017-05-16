@@ -26,6 +26,7 @@ from onionshare.onion import *
 
 from .alert import Alert
 from .update_checker import *
+from .tor_connection_dialog import TorConnectionDialog
 
 class SettingsDialog(QtWidgets.QDialog):
     """
@@ -229,31 +230,31 @@ class SettingsDialog(QtWidgets.QDialog):
         self.cancel_button.setFocus()
 
         # Load settings, and fill them in
-        settings = Settings()
-        settings.load()
+        self.old_settings = Settings()
+        self.old_settings.load()
 
-        close_after_first_download = settings.get('close_after_first_download')
+        close_after_first_download = self.old_settings.get('close_after_first_download')
         if close_after_first_download:
             self.close_after_first_download_checkbox.setCheckState(QtCore.Qt.Checked)
         else:
             self.close_after_first_download_checkbox.setCheckState(QtCore.Qt.Unchecked)
 
-        use_stealth = settings.get('use_stealth')
+        use_stealth = self.old_settings.get('use_stealth')
         if use_stealth:
             self.stealth_checkbox.setCheckState(QtCore.Qt.Checked)
         else:
             self.stealth_checkbox.setCheckState(QtCore.Qt.Unchecked)
 
-        use_autoupdate = settings.get('use_autoupdate')
+        use_autoupdate = self.old_settings.get('use_autoupdate')
         if use_autoupdate:
             self.autoupdate_checkbox.setCheckState(QtCore.Qt.Checked)
         else:
             self.autoupdate_checkbox.setCheckState(QtCore.Qt.Unchecked)
 
-        autoupdate_timestamp = settings.get('autoupdate_timestamp')
+        autoupdate_timestamp = self.old_settings.get('autoupdate_timestamp')
         self._update_autoupdate_timestamp(autoupdate_timestamp)
 
-        connection_type = settings.get('connection_type')
+        connection_type = self.old_settings.get('connection_type')
         if connection_type == 'bundled':
             if self.connection_type_bundled_radio.isEnabled():
                 self.connection_type_bundled_radio.setChecked(True)
@@ -266,17 +267,17 @@ class SettingsDialog(QtWidgets.QDialog):
             self.connection_type_control_port_radio.setChecked(True)
         elif connection_type == 'socket_file':
             self.connection_type_socket_file_radio.setChecked(True)
-        self.connection_type_control_port_extras_address.setText(settings.get('control_port_address'))
-        self.connection_type_control_port_extras_port.setText(str(settings.get('control_port_port')))
-        self.connection_type_socket_file_extras_path.setText(settings.get('socket_file_path'))
-        self.connection_type_socks_address.setText(settings.get('socks_address'))
-        self.connection_type_socks_port.setText(str(settings.get('socks_port')))
-        auth_type = settings.get('auth_type')
+        self.connection_type_control_port_extras_address.setText(self.old_settings.get('control_port_address'))
+        self.connection_type_control_port_extras_port.setText(str(self.old_settings.get('control_port_port')))
+        self.connection_type_socket_file_extras_path.setText(self.old_settings.get('socket_file_path'))
+        self.connection_type_socks_address.setText(self.old_settings.get('socks_address'))
+        self.connection_type_socks_port.setText(str(self.old_settings.get('socks_port')))
+        auth_type = self.old_settings.get('auth_type')
         if auth_type == 'no_auth':
             self.authenticate_no_auth_radio.setChecked(True)
         elif auth_type == 'password':
             self.authenticate_password_radio.setChecked(True)
-        self.authenticate_password_extras_password.setText(settings.get('auth_password'))
+        self.authenticate_password_extras_password.setText(self.old_settings.get('auth_password'))
 
         # Show the dialog
         self.exec_()
@@ -421,7 +422,48 @@ class SettingsDialog(QtWidgets.QDialog):
 
         settings = self.settings_from_fields()
         settings.save()
-        self.close()
+
+        # If Tor isn't connected, or if Tor settings have changed, Reinitialize
+        # the Onion object
+        reboot_onion = False
+        if self.onion.connected_to_tor:
+            def changed(s1, s2, keys):
+                """
+                Compare the Settings objects s1 and s2 and return true if any values
+                have changed for the given keys.
+                """
+                for key in keys:
+                    if s1.get(key) != s2.get(key):
+                        return True
+                return False
+
+            if changed(settings, self.old_settings, [
+                'connection_type', 'control_port_address',
+                'control_port_port', 'socks_address', 'socks_port',
+                'socket_file_path', 'auth_type', 'auth_password']):
+
+                reboot_onion = True
+
+        else:
+            # Tor isn't connected, so try connecting
+            reboot_onion = True
+
+        # Do we need to reinitialize Tor?
+        if reboot_onion:
+            # Reinitialize the Onion object
+            common.log('SettingsDialog', 'save_clicked', 'rebooting the Onion')
+            self.onion.cleanup()
+
+            tor_con = TorConnectionDialog(self.qtapp, settings, self.onion)
+            tor_con.start()
+
+            common.log('SettingsDialog', 'save_clicked', 'Onion done rebooting, connected to Tor: {}'.format(self.onion.connected_to_tor))
+
+            if self.onion.connected_to_tor and not tor_con.wasCanceled():
+                self.close()
+
+        else:
+            self.close()
 
     def cancel_clicked(self):
         """
@@ -465,6 +507,16 @@ class SettingsDialog(QtWidgets.QDialog):
         settings.set('auth_password', self.authenticate_password_extras_password.text())
 
         return settings
+
+    def closeEvent(self, e):
+        common.log('SettingsDialog', 'closeEvent')
+
+        # On close, if Tor isn't connected, then quit OnionShare altogether
+        if not self.onion.connected_to_tor:
+            common.log('SettingsDialog', 'closeEvent', 'Closing while not connected to Tor')
+
+            # Wait 1ms for the event loop to finish, then quit
+            QtCore.QTimer.singleShot(1, self.qtapp.quit)
 
     def _update_autoupdate_timestamp(self, autoupdate_timestamp):
         common.log('SettingsDialog', '_update_autoupdate_timestamp')

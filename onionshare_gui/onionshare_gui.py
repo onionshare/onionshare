@@ -59,12 +59,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.settings = Settings()
         self.settings.load()
 
-        # Start the "Connecting to Tor" dialog, which calls onion.connect()
-        tor_con = TorConnectionDialog(self.qtapp, self.settings, self.onion)
-        tor_con.canceled.connect(self._tor_connection_canceled)
-        tor_con.open_settings.connect(self._tor_connection_open_settings)
-        tor_con.start()
-
         # Check for updates in a new thread, if enabled
         system = platform.system()
         if system == 'Windows' or system == 'Darwin':
@@ -151,6 +145,12 @@ class OnionShareGui(QtWidgets.QMainWindow):
         # The server isn't active yet
         self.set_server_active(False)
 
+        # Start the "Connecting to Tor" dialog, which calls onion.connect()
+        tor_con = TorConnectionDialog(self.qtapp, self.settings, self.onion)
+        tor_con.canceled.connect(self._tor_connection_canceled)
+        tor_con.open_settings.connect(self._tor_connection_open_settings)
+        tor_con.start()
+
     def _tor_connection_canceled(self):
         """
         If the user cancels before Tor finishes connecting, ask if they want to
@@ -158,22 +158,29 @@ class OnionShareGui(QtWidgets.QMainWindow):
         """
         common.log('OnionShareGui', '_tor_connection_canceled')
 
-        def quit_settings_dialog():
-            a = Alert("Would you like to open OnionShare settings to troubleshoot connecting to Tor?", QtWidgets.QMessageBox.Question, buttons=QtWidgets.QMessageBox.NoButton, autostart=False)
-            settings_button = QtWidgets.QPushButton("Open Settings")
-            quit_button = QtWidgets.QPushButton("Quit")
+        def ask():
+            a = Alert(strings._('gui_tor_connection_ask', True), QtWidgets.QMessageBox.Question, buttons=QtWidgets.QMessageBox.NoButton, autostart=False)
+            settings_button = QtWidgets.QPushButton(strings._('gui_tor_connection_ask_open_settings', True))
+            quit_button = QtWidgets.QPushButton(strings._('gui_tor_connection_ask_quit', True))
             a.addButton(settings_button, QtWidgets.QMessageBox.AcceptRole)
             a.addButton(quit_button, QtWidgets.QMessageBox.RejectRole)
             a.setDefaultButton(settings_button)
             a.exec_()
 
             if a.clickedButton() == settings_button:
+                # Open settings
+                common.log('OnionShareGui', '_tor_connection_canceled', 'Settings button clicked')
                 self.open_settings()
-            else:
-                self.qtapp.quit()
 
-        # Wait 1ms for the event loop to finish closing the TorConnectionDialog
-        QtCore.QTimer.singleShot(1, quit_settings_dialog)
+            if a.clickedButton() == quit_button:
+                # Quit
+                common.log('OnionShareGui', '_tor_connection_canceled', 'Quit button clicked')
+
+                # Wait 1ms for the event loop to finish, then quit
+                QtCore.QTimer.singleShot(1, self.qtapp.quit)
+
+        # Wait 100ms before asking
+        QtCore.QTimer.singleShot(100, ask)
 
     def _tor_connection_open_settings(self):
         """
