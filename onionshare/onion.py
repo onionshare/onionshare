@@ -229,7 +229,7 @@ class Onion(object):
                 if summary == 'Done':
                     print("")
                     break
-                time.sleep(0.05)
+                time.sleep(0.2)
 
                 # Timeout after 45 seconds
                 if time.time() - start_ts > 45:
