@@ -50,39 +50,82 @@ class TorConnectionDialog(QtWidgets.QProgressDialog):
         # Don't show if connection takes less than 100ms (for non-bundled tor)
         self.setMinimumDuration(100)
 
+        # Start displaying the status at 0
+        self.tor_status_update(0, '')
+
     def start(self):
         common.log('TorConnectionDialog', 'start')
 
-        # If bundled tor, prepare to display Tor connection status
-        if self.settings.get('connection_type') == 'bundled':
-            tor_status_update = self.tor_status_update
-        else:
-            tor_status_update = None
+        t = TorConnectionThread(self, self.settings, self.onion)
+        t.tor_status_update.connect(self.tor_status_update)
+        t.connected_to_tor.connect(self.connected_to_tor)
+        t.canceled_connecting_to_tor.connect(self.canceled_connecting_to_tor)
+        t.error_connection_to_tor.connect(self.error_connection_to_tor)
+        t.start()
 
-        # Connect to the Onion
-        self.setValue(0)
-        try:
-            self.onion.connect(self.settings, tor_status_update)
-
-            # Close the dialog after connecting
-            self.setValue(self.maximum())
-
-        except BundledTorCanceled as e:
-            self.cancel()
-
-        except Exception as e:
-            # Cancel connecting to Tor
-            self.cancel()
-
-            # Display the exception in an alert box
-            Alert("{}\n\n{}".format(e.args[0], strings._('gui_tor_connection_error_settings', True)), QtWidgets.QMessageBox.Warning)
-
-            # Open settings
-            self.open_settings.emit()
+        # Wait for the thread to start
+        time.sleep(0.1)
 
     def tor_status_update(self, progress, summary):
         self.setValue(int(progress))
         self.setLabelText("<strong>{}</strong><br>{}".format(strings._('connecting_to_tor', True), summary))
 
+    def connected_to_tor(self):
+        common.log('TorConnectionDialog', 'connected_to_tor')
+
+        # Close the dialog after connecting
+        self.setValue(self.maximum())
+
+    def canceled_connecting_to_tor(self):
+        common.log('TorConnectionDialog', 'canceled_connecting_to_tor')
+
+        # Cancel connecting to Tor
+        self.cancel()
+
+    def error_connection_to_tor(self):
+        common.log('TorConnectionDialog', 'error_connection_to_tor')
+
+        # Cancel connecting to Tor
+        self.cancel()
+
+        # Display the exception in an alert box
+        Alert("{}\n\n{}".format(e.args[0], strings._('gui_tor_connection_error_settings', True)), QtWidgets.QMessageBox.Warning)
+
+        # Open settings
+        self.open_settings.emit()
+
+class TorConnectionThread(QtCore.QThread):
+    tor_status_update = QtCore.pyqtSignal(str, str)
+    connected_to_tor = QtCore.pyqtSignal()
+    canceled_connecting_to_tor = QtCore.pyqtSignal()
+    error_connection_to_tor = QtCore.pyqtSignal(str)
+
+    def __init__(self, dialog, settings, onion):
+        super(TorConnectionThread, self).__init__()
+        common.log('TorConnectionThread', '__init__')
+
+        self.dialog = dialog
+        self.settings = settings
+        self.onion = onion
+
+    def run(self):
+        common.log('TorConnectionThread', 'run')
+
+        # Connect to the Onion
+        try:
+            common.log('TorConnectionThread', 'run', 'about to run onion.connect')
+            self.onion.connect(self.settings, self._tor_status_update)
+            common.log('TorConnectionThread', 'run', 'onion.connect succeeded')
+            self.connected_to_tor.emit()
+
+        except BundledTorCanceled as e:
+            self.canceled_connecting_to_tor.emit()
+
+        except Exception as e:
+            self.error_connection_to_tor.emit(e.args[0])
+
+    def _tor_status_update(self, progress, summary):
+        self.tor_status_update.emit(progress, summary)
+
         # Return False if the dialog was canceled
-        return not self.wasCanceled()
+        return not self.dialog.wasCanceled()
