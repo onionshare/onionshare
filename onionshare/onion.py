@@ -119,7 +119,9 @@ class Onion(object):
     call this function and pass in a status string while connecting to tor. This
     is necessary for status updates to reach the GUI.
     """
-    def __init__(self):
+    def __init__(self, debug):
+        self.debug = debug
+
         self.stealth = False
         self.service_id = None
 
