@@ -21,13 +21,18 @@ import sys, os, inspect, hashlib, base64, platform, zipfile, tempfile, math, tim
 from random import SystemRandom
 
 debug = False
-def log(module, func, msg):
+def log(module, func, msg=None):
     """
     If debug mode is on, log error messages to stdout
     """
     global debug
     if debug:
-        print("[{}.{}] {}".format(module, func, msg))
+        timestamp = time.strftime("%b %d %Y %X")
+
+        final_msg = "[{}] {}.{}".format(timestamp, module, func)
+        if msg:
+            final_msg = '{}: {}'.format(final_msg, msg)
+        print(final_msg)
 
 def set_debug(new_debug):
     global debug

@@ -82,7 +82,7 @@ def main(cwd=None):
 
     # Start the onionshare app
     try:
-        app = OnionShare(onion, debug, local_only, stay_open)
+        app = OnionShare(onion, local_only, stay_open)
         app.set_stealth(stealth)
         app.start_onion_service()
     except KeyboardInterrupt:

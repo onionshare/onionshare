@@ -120,6 +120,8 @@ class Onion(object):
     is necessary for status updates to reach the GUI.
     """
     def __init__(self):
+        common.log('Onion', '__init__')
+
         self.stealth = False
         self.service_id = None
 
@@ -138,6 +140,8 @@ class Onion(object):
         self.tor_proc = None
 
     def connect(self, settings=False, tor_status_update_func=None):
+        common.log('Onion', 'connect')
+
         # Either use settings that are passed in, or load them from disk
         if settings:
             self.settings = settings
@@ -349,6 +353,8 @@ class Onion(object):
         Start a onion service on port 80, pointing to the given port, and
         return the onion hostname.
         """
+        common.log('Onion', 'start_onion_service')
+
         self.auth_string = None
         if not self.supports_ephemeral:
             raise TorTooOld(strings._('error_ephemeral_not_supported'))
@@ -386,6 +392,8 @@ class Onion(object):
         """
         Stop onion services that were created earlier. If there's a tor subprocess running, kill it.
         """
+        common.log('Onion', 'cleanup')
+
         # Cleanup the ephemeral onion service
         if self.service_id:
             try:
@@ -406,6 +414,8 @@ class Onion(object):
         """
         Returns a (address, port) tuple for the Tor SOCKS port
         """
+        common.log('Onion', 'get_tor_socks_port')
+        
         if self.settings.get('connection_type') == 'bundled':
             return ('127.0.0.1', self.tor_socks_port)
         elif self.settings.get('connection_type') == 'automatic':
