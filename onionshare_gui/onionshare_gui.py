@@ -118,12 +118,12 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.status_bar.setSizeGripEnabled(False)
         version_label = QtWidgets.QLabel('v{0:s}'.format(common.get_version()))
         version_label.setStyleSheet('color: #666666')
-        settings_button = QtWidgets.QPushButton()
-        settings_button.setDefault(False)
-        settings_button.setIcon( QtGui.QIcon(common.get_resource_path('images/settings.png')) )
-        settings_button.clicked.connect(self.open_settings)
+        self.settings_button = QtWidgets.QPushButton()
+        self.settings_button.setDefault(False)
+        self.settings_button.setIcon( QtGui.QIcon(common.get_resource_path('images/settings.png')) )
+        self.settings_button.clicked.connect(self.open_settings)
         self.status_bar.addPermanentWidget(version_label)
-        self.status_bar.addPermanentWidget(settings_button)
+        self.status_bar.addPermanentWidget(self.settings_button)
         self.setStatusBar(self.status_bar)
 
         # Status bar, zip progress bar
@@ -147,6 +147,9 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         # Always start with focus on file selection
         self.file_selection.setFocus()
+
+        # The server isn't active yet
+        self.set_server_active(False)
 
     def _tor_connection_canceled(self):
         """
@@ -193,6 +196,8 @@ class OnionShareGui(QtWidgets.QMainWindow):
         server and the web app.
         """
         common.log('OnionShareGui', 'start_server')
+
+        self.set_server_active(True)
 
         # First, load settings and configure
         settings = Settings()
@@ -280,6 +285,8 @@ class OnionShareGui(QtWidgets.QMainWindow):
         """
         common.log('OnionShareGui', 'start_server_error')
 
+        self.set_server_active(False)
+
         Alert(error, QtWidgets.QMessageBox.Warning)
         self.server_status.stop_server()
         self.status_bar.clearMessage()
@@ -295,6 +302,8 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.app.cleanup()
         self.filesize_warning.hide()
         self.stop_server_finished.emit()
+
+        self.set_server_active(False)
 
     @staticmethod
     def _compute_total_size(filenames):
@@ -377,6 +386,12 @@ class OnionShareGui(QtWidgets.QMainWindow):
         Clear messages from the status bar.
         """
         self.status_bar.clearMessage()
+
+    def set_server_active(self, active):
+        """
+        Disable the Settings button while an OnionShare server is active.
+        """
+        self.settings_button.setEnabled(not active)
 
     def closeEvent(self, e):
         common.log('OnionShareGui', 'closeEvent')
