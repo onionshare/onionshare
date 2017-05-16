@@ -33,6 +33,8 @@ class SettingsDialog(QtWidgets.QDialog):
     """
     def __init__(self, onion, qtapp):
         super(SettingsDialog, self).__init__()
+        common.log('SettingsDialog', '__init__')
+
         self.onion = onion
         self.qtapp = qtapp
 
@@ -283,6 +285,7 @@ class SettingsDialog(QtWidgets.QDialog):
         """
         Connection type bundled was toggled. If checked, hide authentication fields.
         """
+        common.log('SettingsDialog', 'connection_type_bundled_toggled')
         if checked:
             self.authenticate_group.hide()
             self.connection_type_socks.hide()
@@ -291,6 +294,7 @@ class SettingsDialog(QtWidgets.QDialog):
         """
         Connection type automatic was toggled. If checked, hide authentication fields.
         """
+        common.log('SettingsDialog', 'connection_type_automatic_toggled')
         if checked:
             self.authenticate_group.hide()
             self.connection_type_socks.hide()
@@ -300,6 +304,7 @@ class SettingsDialog(QtWidgets.QDialog):
         Connection type control port was toggled. If checked, show extra fields
         for Tor control address and port. If unchecked, hide those extra fields.
         """
+        common.log('SettingsDialog', 'connection_type_control_port_toggled')
         if checked:
             self.authenticate_group.show()
             self.connection_type_control_port_extras.show()
@@ -313,6 +318,7 @@ class SettingsDialog(QtWidgets.QDialog):
         Connection type socket file was toggled. If checked, show extra fields
         for socket file. If unchecked, hide those extra fields.
         """
+        common.log('SettingsDialog', 'connection_type_socket_file_toggled')
         if checked:
             self.authenticate_group.show()
             self.connection_type_socket_file_extras.show()
@@ -324,13 +330,14 @@ class SettingsDialog(QtWidgets.QDialog):
         """
         Authentication option no authentication was toggled.
         """
-        pass
+        common.log('SettingsDialog', 'authenticate_no_auth_toggled')
 
     def authenticate_password_toggled(self, checked):
         """
         Authentication option password was toggled. If checked, show extra fields
         for password auth. If unchecked, hide those extra fields.
         """
+        common.log('SettingsDialog', 'authenticate_password_toggled')
         if checked:
             self.authenticate_password_extras.show()
         else:
@@ -341,6 +348,7 @@ class SettingsDialog(QtWidgets.QDialog):
         Test Tor Settings button clicked. With the given settings, see if we can
         successfully connect and authenticate to Tor.
         """
+        common.log('SettingsDialog', 'test_tor_clicked')
         settings = self.settings_from_fields()
 
         try:
@@ -374,6 +382,7 @@ class SettingsDialog(QtWidgets.QDialog):
         """
         Check for Updates button clicked. Manually force an update check.
         """
+        common.log('SettingsDialog', 'check_for_updates')
         # Disable buttons
         self._disable_buttons()
         self.qtapp.processEvents()
@@ -408,6 +417,8 @@ class SettingsDialog(QtWidgets.QDialog):
         """
         Save button clicked. Save current settings to disk.
         """
+        common.log('SettingsDialog', 'save_clicked')
+
         settings = self.settings_from_fields()
         settings.save()
         self.close()
@@ -416,12 +427,14 @@ class SettingsDialog(QtWidgets.QDialog):
         """
         Cancel button clicked.
         """
+        common.log('SettingsDialog', 'cancel_clicked')
         self.close()
 
     def settings_from_fields(self):
         """
         Return a Settings object that's full of values from the settings dialog.
         """
+        common.log('SettingsDialog', 'settings_from_fields')
         settings = Settings()
         settings.load() # To get the last update timestamp
 
@@ -454,6 +467,8 @@ class SettingsDialog(QtWidgets.QDialog):
         return settings
 
     def _update_autoupdate_timestamp(self, autoupdate_timestamp):
+        common.log('SettingsDialog', '_update_autoupdate_timestamp')
+
         if autoupdate_timestamp:
             dt = datetime.datetime.fromtimestamp(autoupdate_timestamp)
             last_checked = dt.strftime('%B %d, %Y %H:%M')
@@ -469,12 +484,16 @@ class SettingsDialog(QtWidgets.QDialog):
             self._enable_buttons()
 
     def _disable_buttons(self):
+        common.log('SettingsDialog', '_disable_buttons')
+
         self.check_for_updates_button.setEnabled(False)
         self.connection_type_test_button.setEnabled(False)
         self.save_button.setEnabled(False)
         self.cancel_button.setEnabled(False)
 
     def _enable_buttons(self):
+        common.log('SettingsDialog', '_enable_buttons')
+
         self.check_for_updates_button.setEnabled(True)
         self.connection_type_test_button.setEnabled(True)
         self.save_button.setEnabled(True)

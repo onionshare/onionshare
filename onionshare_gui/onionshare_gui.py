@@ -46,6 +46,9 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
     def __init__(self, onion, qtapp, app, filenames):
         super(OnionShareGui, self).__init__()
+
+        common.log('OnionShareGui', '__init__')
+
         self.onion = onion
         self.qtapp = qtapp
         self.app = app
@@ -146,6 +149,8 @@ class OnionShareGui(QtWidgets.QMainWindow):
         If the user cancels before Tor finishes connecting, ask if they want to
         quit, or open settings.
         """
+        common.log('OnionShareGui', '_tor_connection_canceled')
+
         def quit_settings_dialog():
             a = Alert("Would you like to open OnionShare settings to troubleshoot connecting to Tor?", QtWidgets.QMessageBox.Question, buttons=QtWidgets.QMessageBox.NoButton, autostart=False)
             settings_button = QtWidgets.QPushButton("Open Settings")
@@ -167,6 +172,8 @@ class OnionShareGui(QtWidgets.QMainWindow):
         """
         The TorConnectionDialog wants to open the Settings dialog
         """
+        common.log('OnionShareGui', '_tor_connection_open_settings')
+
         def open_settings():
             SettingsDialog(self.onion, self.qtapp)
 
@@ -178,6 +185,8 @@ class OnionShareGui(QtWidgets.QMainWindow):
         Start the onionshare server. This uses multiple threads to start the Tor onion
         server and the web app.
         """
+        common.log('OnionShareGui', 'start_server')
+
         # First, load settings and configure
         settings = Settings()
         settings.load()
@@ -214,6 +223,8 @@ class OnionShareGui(QtWidgets.QMainWindow):
         """
         Step 2 in starting the onionshare server. Zipping up files.
         """
+        common.log('OnionShareGui', 'start_server_step2')
+
         # add progress bar to the status bar, indicating the crunching of files.
         self._zip_progress_bar = ZipProgressBar(0)
         self._zip_progress_bar.total_files_size = OnionShareGui._compute_total_size(
@@ -244,6 +255,8 @@ class OnionShareGui(QtWidgets.QMainWindow):
         Step 3 in starting the onionshare server. This displays the large filesize
         warning, if applicable.
         """
+        common.log('OnionShareGui', 'start_server_step3')
+
         # Remove zip progress bar
         if self._zip_progress_bar is not None:
             self.status_bar.removeWidget(self._zip_progress_bar)
@@ -258,6 +271,8 @@ class OnionShareGui(QtWidgets.QMainWindow):
         """
         If there's an error when trying to start the onion service
         """
+        common.log('OnionShareGui', 'start_server_error')
+
         Alert(error, QtWidgets.QMessageBox.Warning)
         self.server_status.stop_server()
         self.status_bar.clearMessage()
@@ -266,6 +281,8 @@ class OnionShareGui(QtWidgets.QMainWindow):
         """
         Stop the onionshare server.
         """
+        common.log('OnionShareGui', 'stop_server')
+
         if self.server_status.status != self.server_status.STATUS_STOPPED:
             web.stop(self.app.port)
         self.app.cleanup()
@@ -338,12 +355,14 @@ class OnionShareGui(QtWidgets.QMainWindow):
         """
         When the URL gets copied to the clipboard, display this in the status bar.
         """
+        common.log('OnionShareGui', 'copy_url')
         self.status_bar.showMessage(strings._('gui_copied_url', True), 2000)
 
     def copy_hidservauth(self):
         """
         When the stealth onion service HidServAuth gets copied to the clipboard, display this in the status bar.
         """
+        common.log('OnionShareGui', 'copy_hidservauth')
         self.status_bar.showMessage(strings._('gui_copied_hidservauth', True), 2000)
 
     def clear_message(self):
@@ -353,6 +372,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.status_bar.clearMessage()
 
     def closeEvent(self, e):
+        common.log('OnionShareGui', 'closeEvent')
         try:
             if self.server_status.status != self.server_status.STATUS_STOPPED:
                 dialog = QtWidgets.QMessageBox()

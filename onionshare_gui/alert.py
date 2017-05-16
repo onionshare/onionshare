@@ -27,6 +27,8 @@ class Alert(QtWidgets.QMessageBox):
     """
     def __init__(self, message, icon=QtWidgets.QMessageBox.NoIcon, buttons=QtWidgets.QMessageBox.Ok, autostart=True):
         super(Alert, self).__init__(None)
+        common.log('Alert', '__init__')
+
         self.setWindowTitle("OnionShare")
         self.setWindowIcon(QtGui.QIcon(common.get_resource_path('images/logo.png')))
         self.setText(message)
