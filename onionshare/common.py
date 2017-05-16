@@ -20,6 +20,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import sys, os, inspect, hashlib, base64, platform, zipfile, tempfile, math, time, socket, random
 from random import SystemRandom
 
+debug = False
+def log(module, func, msg):
+    """
+    If debug mode is on, log error messages to stdout
+    """
+    global debug
+    if debug:
+        print("[{}.{}] {}".format(module, func, msg))
+
+def set_debug(new_debug):
+    global debug
+    debug = new_debug
+
 
 def get_platform():
     """

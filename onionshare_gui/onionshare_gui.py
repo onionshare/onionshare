@@ -44,10 +44,9 @@ class OnionShareGui(QtWidgets.QMainWindow):
     starting_server_step3 = QtCore.pyqtSignal()
     starting_server_error = QtCore.pyqtSignal(str)
 
-    def __init__(self, onion, debug, qtapp, app, filenames):
+    def __init__(self, onion, qtapp, app, filenames):
         super(OnionShareGui, self).__init__()
         self.onion = onion
-        self.debug = debug
         self.qtapp = qtapp
         self.app = app
 

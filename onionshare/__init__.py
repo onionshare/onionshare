@@ -56,6 +56,11 @@ def main(cwd=None):
     stay_open = bool(args.stay_open)
     stealth = bool(args.stealth)
 
+    # Debug mode?
+    if debug:
+        common.set_debug(debug)
+        web.debug_mode()
+
     # Validation
     valid = True
     for filename in filenames:
@@ -66,7 +71,7 @@ def main(cwd=None):
         sys.exit()
 
     # Start the Onion object
-    onion = Onion(debug)
+    onion = Onion()
     try:
         onion.connect()
     except (TorTooOld, TorErrorInvalidSetting, TorErrorAutomatic, TorErrorSocketPort, TorErrorSocketFile, TorErrorMissingPassword, TorErrorUnreadableCookieFile, TorErrorAuthError, TorErrorProtocolError, BundledTorNotSupported, BundledTorTimeout) as e:
@@ -83,10 +88,6 @@ def main(cwd=None):
     except KeyboardInterrupt:
         print("")
         sys.exit()
-
-    # Debug mode?
-    if debug:
-        web.debug_mode()
 
     # Prepare files to share
     print(strings._("preparing_files"))

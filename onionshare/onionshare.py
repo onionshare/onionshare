@@ -27,7 +27,7 @@ class OnionShare(object):
     OnionShare is the main application class. Pass in options and run
     start_onion_service and it will do the magic.
     """
-    def __init__(self, onion, debug=False, local_only=False, stay_open=False):
+    def __init__(self, onion, local_only=False, stay_open=False):
         # The Onion object
         self.onion = onion
 
