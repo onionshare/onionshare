@@ -60,7 +60,7 @@ class TorConnectionDialog(QtWidgets.QProgressDialog):
         t.tor_status_update.connect(self.tor_status_update)
         t.connected_to_tor.connect(self.connected_to_tor)
         t.canceled_connecting_to_tor.connect(self.canceled_connecting_to_tor)
-        t.error_connection_to_tor.connect(self.error_connection_to_tor)
+        t.error_connecting_to_tor.connect(self.error_connecting_to_tor)
         t.start()
 
         # Wait for the thread to start
@@ -82,8 +82,8 @@ class TorConnectionDialog(QtWidgets.QProgressDialog):
         # Cancel connecting to Tor
         self.cancel()
 
-    def error_connection_to_tor(self):
-        common.log('TorConnectionDialog', 'error_connection_to_tor')
+    def error_connecting_to_tor(self):
+        common.log('TorConnectionDialog', 'error_connecting_to_tor')
 
         # Cancel connecting to Tor
         self.cancel()
@@ -98,7 +98,7 @@ class TorConnectionThread(QtCore.QThread):
     tor_status_update = QtCore.pyqtSignal(str, str)
     connected_to_tor = QtCore.pyqtSignal()
     canceled_connecting_to_tor = QtCore.pyqtSignal()
-    error_connection_to_tor = QtCore.pyqtSignal(str)
+    error_connecting_to_tor = QtCore.pyqtSignal(str)
 
     def __init__(self, dialog, settings, onion):
         super(TorConnectionThread, self).__init__()
@@ -122,7 +122,7 @@ class TorConnectionThread(QtCore.QThread):
             self.canceled_connecting_to_tor.emit()
 
         except Exception as e:
-            self.error_connection_to_tor.emit(e.args[0])
+            self.error_connecting_to_tor.emit(e.args[0])
 
     def _tor_status_update(self, progress, summary):
         self.tor_status_update.emit(progress, summary)
