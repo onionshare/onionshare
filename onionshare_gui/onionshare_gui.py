@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import os, platform, threading, time
 from PyQt5 import QtCore, QtWidgets, QtGui
 
-from onionshare import strings, helpers, web
+from onionshare import strings, common, web
 from onionshare.settings import Settings
 from onionshare.onion import *
 
@@ -52,7 +52,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.app = app
 
         self.setWindowTitle('OnionShare')
-        self.setWindowIcon(QtGui.QIcon(helpers.get_resource_path('images/logo.png')))
+        self.setWindowIcon(QtGui.QIcon(common.get_resource_path('images/logo.png')))
 
         # Load settings
         self.settings = Settings()
@@ -118,7 +118,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         # Status bar
         self.status_bar = QtWidgets.QStatusBar()
         self.status_bar.setSizeGripEnabled(False)
-        version_label = QtWidgets.QLabel('v{0:s}'.format(helpers.get_version()))
+        version_label = QtWidgets.QLabel('v{0:s}'.format(common.get_version()))
         version_label.setStyleSheet('color: #666666; padding: 0 10px;')
         self.status_bar.addPermanentWidget(version_label)
         self.setStatusBar(self.status_bar)
@@ -280,7 +280,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
             if os.path.isfile(filename):
                 total_size += os.path.getsize(filename)
             if os.path.isdir(filename):
-                total_size += helpers.dir_size(filename)
+                total_size += common.dir_size(filename)
         return total_size
 
     def check_for_requests(self):

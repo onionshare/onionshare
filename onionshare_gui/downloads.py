@@ -21,7 +21,7 @@ import time
 
 from PyQt5 import QtCore, QtWidgets
 
-from onionshare import strings, helpers
+from onionshare import strings, common
 
 class Download(object):
 
@@ -51,7 +51,7 @@ class Download(object):
         self.progress_bar.setValue(downloaded_bytes)
         if downloaded_bytes == self.progress_bar.total_bytes:
             pb_fmt = strings._('gui_download_progress_complete').format(
-                helpers.format_seconds(time.time() - self.started))
+                common.format_seconds(time.time() - self.started))
         else:
             elapsed = time.time() - self.started
             if elapsed < 10:
@@ -59,10 +59,10 @@ class Download(object):
                 # This prevents a "Windows copy dialog"-esque experience at
                 # the beginning of the download.
                 pb_fmt = strings._('gui_download_progress_starting').format(
-                    helpers.human_readable_filesize(downloaded_bytes))
+                    common.human_readable_filesize(downloaded_bytes))
             else:
                 pb_fmt = strings._('gui_download_progress_eta').format(
-                    helpers.human_readable_filesize(downloaded_bytes),
+                    common.human_readable_filesize(downloaded_bytes),
                     self.estimated_time_remaining)
 
         self.progress_bar.setFormat(pb_fmt)
@@ -72,7 +72,7 @@ class Download(object):
 
     @property
     def estimated_time_remaining(self):
-        return helpers.estimated_time_remaining(self.downloaded_bytes,
+        return common.estimated_time_remaining(self.downloaded_bytes,
                                                 self.total_bytes,
                                                 self.started)
 

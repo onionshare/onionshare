@@ -24,7 +24,7 @@ from urllib.request import urlopen
 from flask import Flask, Response, request, render_template_string, abort
 from flask import __version__ as flask_version
 
-from . import strings, helpers
+from . import strings, common
 
 
 def _safe_select_jinja_autoescape(self, filename):
@@ -64,17 +64,17 @@ def set_file_info(filenames, processed_size_callback=None):
         }
         if os.path.isfile(filename):
             info['size'] = os.path.getsize(filename)
-            info['size_human'] = helpers.human_readable_filesize(info['size'])
+            info['size_human'] = common.human_readable_filesize(info['size'])
             file_info['files'].append(info)
         if os.path.isdir(filename):
-            info['size'] = helpers.dir_size(filename)
-            info['size_human'] = helpers.human_readable_filesize(info['size'])
+            info['size'] = common.dir_size(filename)
+            info['size_human'] = common.human_readable_filesize(info['size'])
             file_info['dirs'].append(info)
     file_info['files'] = sorted(file_info['files'], key=lambda k: k['basename'])
     file_info['dirs'] = sorted(file_info['dirs'], key=lambda k: k['basename'])
 
     # zip up the files and folders
-    z = helpers.ZipWriter(processed_size_callback=processed_size_callback)
+    z = common.ZipWriter(processed_size_callback=processed_size_callback)
     for info in file_info['files']:
         z.add_file(info['filename'])
     for info in file_info['dirs']:
@@ -108,7 +108,7 @@ def add_request(request_type, path, data=None):
 slug = None
 def generate_slug():
     global slug
-    slug = helpers.build_slug()
+    slug = common.build_slug()
 
 download_count = 0
 error404_count = 0
@@ -153,7 +153,7 @@ def check_slug_candidate(slug_candidate, slug_compare = None):
     global slug
     if not slug_compare:
         slug_compare = slug
-    if not helpers.constant_time_compare(slug_compare.encode('ascii'), slug_candidate.encode('ascii')):
+    if not common.constant_time_compare(slug_compare.encode('ascii'), slug_candidate.encode('ascii')):
         abort(404)
 
 
@@ -175,16 +175,16 @@ def index(slug_candidate):
     global stay_open, download_in_progress
     deny_download = not stay_open and download_in_progress
     if deny_download:
-        return render_template_string(open(helpers.get_resource_path('html/denied.html')).read())
+        return render_template_string(open(common.get_resource_path('html/denied.html')).read())
 
     # If download is allowed to continue, serve download page
     return render_template_string(
-        open(helpers.get_resource_path('html/index.html')).read(),
+        open(common.get_resource_path('html/index.html')).read(),
         slug=slug,
         file_info=file_info,
         filename=os.path.basename(zip_filename),
         filesize=zip_filesize,
-        filesize_human=helpers.human_readable_filesize(zip_filesize))
+        filesize_human=common.human_readable_filesize(zip_filesize))
 
 # If the client closes the OnionShare window while a download is in progress,
 # it should immediately stop serving the file. The client_cancel global is
@@ -203,7 +203,7 @@ def download(slug_candidate):
     global stay_open, download_in_progress
     deny_download = not stay_open and download_in_progress
     if deny_download:
-        return render_template_string(open(helpers.get_resource_path('html/denied.html')).read())
+        return render_template_string(open(common.get_resource_path('html/denied.html')).read())
 
     global download_count
 
@@ -255,9 +255,9 @@ def download(slug_candidate):
                     percent = (1.0 * downloaded_bytes / zip_filesize) * 100
 
                     # only output to stdout if running onionshare in CLI mode, or if using Linux (#203, #304)
-                    if not gui_mode or helpers.get_platform() == 'Linux':
+                    if not gui_mode or common.get_platform() == 'Linux':
                         sys.stdout.write(
-                            "\r{0:s}, {1:.2f}%          ".format(helpers.human_readable_filesize(downloaded_bytes), percent))
+                            "\r{0:s}, {1:.2f}%          ".format(common.human_readable_filesize(downloaded_bytes), percent))
                         sys.stdout.flush()
 
                     add_request(REQUEST_PROGRESS, path, {'id': download_id, 'bytes': downloaded_bytes})
@@ -271,7 +271,7 @@ def download(slug_candidate):
 
         fp.close()
 
-        if helpers.get_platform() != 'Darwin':
+        if common.get_platform() != 'Darwin':
             sys.stdout.write("\n")
 
         # Download is finished
@@ -311,10 +311,10 @@ def page_not_found(e):
             force_shutdown()
             print(strings._('error_rate_limit'))
 
-    return render_template_string(open(helpers.get_resource_path('html/404.html')).read())
+    return render_template_string(open(common.get_resource_path('html/404.html')).read())
 
 # shutting down the server only works within the context of flask, so the easiest way to do it is over http
-shutdown_slug = helpers.random_string(16)
+shutdown_slug = common.random_string(16)
 
 
 @app.route("/<slug_candidate>/shutdown")

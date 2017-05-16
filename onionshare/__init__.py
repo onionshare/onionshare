@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import os, sys, time, argparse, threading
 
-from . import strings, helpers, web
+from . import strings, common, web
 from .onion import *
 from .onionshare import OnionShare
 
@@ -30,11 +30,11 @@ def main(cwd=None):
     The main() function implements all of the logic that the command-line version of
     onionshare uses.
     """
-    strings.load_strings(helpers)
-    print(strings._('version_string').format(helpers.get_version()))
+    strings.load_strings(common)
+    print(strings._('version_string').format(common.get_version()))
 
     # OnionShare CLI in OSX needs to change current working directory (#132)
-    if helpers.get_platform() == 'Darwin':
+    if common.get_platform() == 'Darwin':
         if cwd:
             os.chdir(cwd)
 

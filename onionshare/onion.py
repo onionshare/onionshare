@@ -24,7 +24,7 @@ from stem.connection import MissingPassword, UnreadableCookieFile, Authenticatio
 import os, sys, tempfile, shutil, urllib, platform, subprocess, time, shlex
 
 from . import socks
-from . import helpers, strings
+from . import common, strings
 from .settings import Settings
 
 class TorErrorAutomatic(Exception):
@@ -134,7 +134,7 @@ class Onion(object):
             self.bundle_tor_supported = True
 
         # Set the path of the tor binary, for bundled tor
-        (self.tor_path, self.tor_geo_ip_file_path, self.tor_geo_ipv6_file_path) = helpers.get_tor_paths()
+        (self.tor_path, self.tor_geo_ip_file_path, self.tor_geo_ipv6_file_path) = common.get_tor_paths()
 
         # The tor process
         self.tor_proc = None
@@ -159,19 +159,19 @@ class Onion(object):
 
             if self.system == 'Windows':
                 # Windows needs to use network ports, doesn't support unix sockets
-                torrc_template = open(helpers.get_resource_path('torrc_template-windows')).read()
-                self.tor_control_port = helpers.get_available_port(1000, 65535)
+                torrc_template = open(common.get_resource_path('torrc_template-windows')).read()
+                self.tor_control_port = common.get_available_port(1000, 65535)
                 self.tor_control_socket = None
                 self.tor_cookie_auth_file = os.path.join(self.tor_data_directory.name, 'cookie')
-                self.tor_socks_port = helpers.get_available_port(1000, 65535)
+                self.tor_socks_port = common.get_available_port(1000, 65535)
                 self.tor_torrc = os.path.join(self.tor_data_directory.name, 'torrc')
             else:
                 # Linux and Mac can use unix sockets
-                torrc_template = open(helpers.get_resource_path('torrc_template')).read()
+                torrc_template = open(common.get_resource_path('torrc_template')).read()
                 self.tor_control_port = None
                 self.tor_control_socket = os.path.join(self.tor_data_directory.name, 'control_socket')
                 self.tor_cookie_auth_file = os.path.join(self.tor_data_directory.name, 'cookie')
-                self.tor_socks_port = helpers.get_available_port(1000, 65535)
+                self.tor_socks_port = common.get_available_port(1000, 65535)
                 self.tor_torrc = os.path.join(self.tor_data_directory.name, 'torrc')
 
             torrc_template = torrc_template.replace('{{data_directory}}',   self.tor_data_directory.name)

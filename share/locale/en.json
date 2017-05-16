@@ -19,7 +19,7 @@
     "help_stay_open": "Keep onion service running after download has finished",
     "help_transparent_torification": "My system is transparently torified",
     "help_stealth": "Create stealth onion service (advanced)",
-    "help_debug": "Log errors to disk",
+    "help_debug": "Log application errors to stdout, and log web errors to disk",
     "help_filename": "List of files or folders to share",
     "gui_drag_and_drop": "Drag and drop\nfiles here",
     "gui_add_files": "Add Files",

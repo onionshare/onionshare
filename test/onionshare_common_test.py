@@ -17,20 +17,19 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import socket
-from onionshare import helpers
+from onionshare import common
 
 
 def test_get_platform_returns_platform_system():
     """get_platform() returns platform.system() when ONIONSHARE_PLATFORM is not defined"""
-    p = helpers.platform.system
-    helpers.platform.system = lambda: 'Sega Saturn'
-    assert helpers.get_platform() == 'Sega Saturn'
-    helpers.platform.system = p
+    p = common.platform.system
+    common.platform.system = lambda: 'Sega Saturn'
+    assert common.get_platform() == 'Sega Saturn'
+    common.platform.system = p
 
 def test_get_available_port_returns_an_open_port():
     """get_available_port() should return an open port within the range"""
     for i in range(100):
-        port = helpers.get_available_port(1024, 2048)
+        port = common.get_available_port(1024, 2048)
         assert 1024 <= port <= 2048
         socket.socket().bind(("127.0.0.1", port))
-

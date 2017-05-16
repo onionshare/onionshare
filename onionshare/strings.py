@@ -21,16 +21,16 @@ import json, locale, os
 
 strings = {}
 
-def load_strings(helpers, default="en"):
+def load_strings(common, default="en"):
     """
     Loads translated strings and fallback to English
     if the translation does not exist.
     """
     global strings
-    p = helpers.get_platform()
+    p = common.get_platform()
 
     # find locale dir
-    locale_dir = helpers.get_resource_path('locale')
+    locale_dir = common.get_resource_path('locale')
 
     # load all translations
     translations = {}

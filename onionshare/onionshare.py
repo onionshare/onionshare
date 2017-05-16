@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import os, shutil
 
-from . import helpers
+from . import common
 
 class OnionShare(object):
     """
@@ -53,7 +53,7 @@ class OnionShare(object):
         Start the onionshare onion service.
         """
         # Choose a random port
-        self.port = helpers.get_available_port(17600, 17650)
+        self.port = common.get_available_port(17600, 17650)
 
         if self.local_only:
             self.onion_host = '127.0.0.1:{0:d}'.format(self.port)
