@@ -139,6 +139,9 @@ class Onion(object):
         # The tor process
         self.tor_proc = None
 
+        # Start out not connected to Tor
+        self.connected_to_tor = False
+
     def connect(self, settings=False, tor_status_update_func=None):
         common.log('Onion', 'connect')
 
@@ -331,6 +334,9 @@ class Onion(object):
                 raise TorErrorUnreadableCookieFile(strings._('settings_error_unreadable_cookie_file'))
             except AuthenticationFailure:
                 raise TorErrorAuthError(strings._('settings_error_auth').format(self.settings.get('control_port_address'), self.settings.get('control_port_port')))
+
+        # If we made it this far, we should be connected to Tor
+        self.connected_to_tor = True
 
         # Get the tor version
         self.tor_version = self.c.get_version().version_str

@@ -61,7 +61,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.settings.load()
 
         # Start the "Connecting to Tor" dialog, which calls onion.connect()
-        tor_con = TorConnectionDialog(self.settings, self.onion)
+        tor_con = TorConnectionDialog(self.qtapp, self.settings, self.onion)
         tor_con.canceled.connect(self._tor_connection_canceled)
         tor_con.open_settings.connect(self._tor_connection_open_settings)
         tor_con.start()
