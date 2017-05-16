@@ -38,7 +38,7 @@ class TorConnectionDialog(QtWidgets.QProgressDialog):
         self.settings = settings
         self.onion = onion
 
-        self.setWindowTitle("OnionShare")
+        self.setWindowTitle("OnionShare TOR")
         self.setWindowIcon(QtGui.QIcon(common.get_resource_path('images/logo.png')))
         self.setModal(True)
         self.setFixedSize(400, 150)
@@ -88,20 +88,23 @@ class TorConnectionDialog(QtWidgets.QProgressDialog):
         self.active = False
 
         # Cancel connecting to Tor
-        self.cancel()
+        QtCore.QTimer.singleShot(1, self.cancel)
 
     def _error_connecting_to_tor(self, msg):
         common.log('TorConnectionDialog', '_error_connecting_to_tor')
         self.active = False
 
+        def alert_and_open_settings():
+            # Display the exception in an alert box
+            Alert("{}\n\n{}".format(msg, strings._('gui_tor_connection_error_settings', True)), QtWidgets.QMessageBox.Warning)
+
+            # Open settings
+            self.open_settings.emit()
+
+        QtCore.QTimer.singleShot(1, alert_and_open_settings)
+
         # Cancel connecting to Tor
-        self.cancel()
-
-        # Display the exception in an alert box
-        Alert("{}\n\n{}".format(msg, strings._('gui_tor_connection_error_settings', True)), QtWidgets.QMessageBox.Warning)
-
-        # Open settings
-        self.open_settings.emit()
+        QtCore.QTimer.singleShot(1, self.cancel)
 
 class TorConnectionThread(QtCore.QThread):
     tor_status_update = QtCore.pyqtSignal(str, str)
@@ -126,11 +129,11 @@ class TorConnectionThread(QtCore.QThread):
             if self.onion.connected_to_tor:
                 self.connected_to_tor.emit()
             else:
-                self.error_connecting_to_tor.emit(strings._('settings_error_unknown_error', True))
+                self.canceled_connecting_to_tor.emit()
 
         except BundledTorCanceled as e:
             common.log('TorConnectionThread', 'run', 'caught exception: BundledTorCanceled')
-            self.canceled_connecting_to_tor.emit(strings._('settings_error_bundled_tor_canceled'))
+            self.canceled_connecting_to_tor.emit()
 
         except Exception as e:
             common.log('TorConnectionThread', 'run', 'caught exception: {}'.format(e.args[0]))

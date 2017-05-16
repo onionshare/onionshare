@@ -417,6 +417,11 @@ class Onion(object):
                 self.tor_proc.kill()
             self.tor_proc = None
 
+        # Reset other Onion settings
+        self.connected_to_tor = False
+        self.stealth = False
+        self.service_id = None
+
     def get_tor_socks_port(self):
         """
         Returns a (address, port) tuple for the Tor SOCKS port
