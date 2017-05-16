@@ -30,6 +30,8 @@ class Settings(object):
     settings.
     """
     def __init__(self):
+        common.log('Settings', '__init__')
+
         self.filename = self.build_filename()
 
         # These are the default settings. They will get overwritten when loading from disk
@@ -56,6 +58,8 @@ class Settings(object):
         If there are any missing settings from self._settings, replace them with
         their default values.
         """
+        common.log('Settings', 'fill_in_defaults')
+
         for key in self.default_settings:
             if key not in self._settings:
                 self._settings[key] = self.default_settings[key]
@@ -64,6 +68,8 @@ class Settings(object):
         """
         Returns the path of the settings file.
         """
+        common.log('Settings', 'build_filename')
+
         p = platform.system()
         if p == 'Windows':
             appdata = os.environ['APPDATA']
@@ -77,6 +83,8 @@ class Settings(object):
         """
         Load the settings from file.
         """
+        common.log('Settings', 'load')
+
         # If the settings file exists, load it
         if os.path.exists(self.filename):
             try:
@@ -89,6 +97,8 @@ class Settings(object):
         """
         Save settings to file.
         """
+        common.log('Settings', 'save')
+
         try:
             os.makedirs(os.path.dirname(self.filename))
         except:
@@ -97,9 +107,12 @@ class Settings(object):
         print(strings._('settings_saved').format(self.filename))
 
     def get(self, key):
+        common.log('Settings', 'get', 'key={} (val={})'.format(key, self._settings[key]))
         return self._settings[key]
 
     def set(self, key, val):
+        common.log('Settings', 'set', 'key={}, val={}'.format(key, val))
+
         # If typecasting int values fails, fallback to default values
         if key == 'control_port_port' or key == 'socks_port':
             try:

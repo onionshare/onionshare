@@ -28,6 +28,8 @@ class OnionShare(object):
     start_onion_service and it will do the magic.
     """
     def __init__(self, onion, local_only=False, stay_open=False):
+        common.log('OnionShare', '__init__')
+
         # The Onion object
         self.onion = onion
 
@@ -45,6 +47,8 @@ class OnionShare(object):
         self.stay_open = stay_open
 
     def set_stealth(self, stealth):
+        common.log('OnionShare', 'set_stealth', 'stealth={}'.format(stealth))
+
         self.stealth = stealth
         self.onion.stealth = stealth
 
@@ -52,6 +56,8 @@ class OnionShare(object):
         """
         Start the onionshare onion service.
         """
+        common.log('OnionShare', 'start_onion_service')
+
         # Choose a random port
         self.port = common.get_available_port(17600, 17650)
 
@@ -68,6 +74,8 @@ class OnionShare(object):
         """
         Shut everything down and clean up temporary files, etc.
         """
+        common.log('OnionShare', 'cleanup')
+
         # cleanup files
         for filename in self.cleanup_filenames:
             if os.path.isfile(filename):
