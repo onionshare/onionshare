@@ -76,6 +76,11 @@ def main():
     stay_open = bool(args.stay_open)
     debug = bool(args.debug)
 
+    # Debug mode?
+    if debug:
+        common.set_debug(debug)
+        web.debug_mode()
+
     # Validation
     if filenames:
         valid = True
@@ -87,14 +92,14 @@ def main():
             sys.exit()
 
     # Start the Onion
-    onion = Onion(debug)
+    onion = Onion()
 
     # Start the OnionShare app
     web.set_stay_open(stay_open)
-    app = OnionShare(onion, debug, local_only, stay_open)
+    app = OnionShare(onion, local_only, stay_open)
 
     # Launch the gui
-    gui = OnionShareGui(onion, debug, qtapp, app, filenames)
+    gui = OnionShareGui(onion, qtapp, app, filenames)
 
     # Clean up when app quits
     def shutdown():
