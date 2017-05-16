@@ -222,6 +222,7 @@ class Onion(object):
                 if callable(tor_status_update_func):
                     if not tor_status_update_func(progress, summary):
                         # If the dialog was canceled, stop connecting to Tor
+                        common.log('Onion', 'connect', 'tor_status_update_func returned false, canceling connecting to Tor')
                         print()
                         return False
 
@@ -415,7 +416,7 @@ class Onion(object):
         Returns a (address, port) tuple for the Tor SOCKS port
         """
         common.log('Onion', 'get_tor_socks_port')
-        
+
         if self.settings.get('connection_type') == 'bundled':
             return ('127.0.0.1', self.tor_socks_port)
         elif self.settings.get('connection_type') == 'automatic':
