@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import os
 from PyQt5 import QtCore, QtWidgets, QtGui
 
-from onionshare import strings, helpers
+from onionshare import strings, common
 
 class FileList(QtWidgets.QListWidget):
     """
@@ -47,7 +47,7 @@ class FileList(QtWidgets.QListWidget):
                 self.setAlignment(QtCore.Qt.AlignCenter)
 
                 if image:
-                    self.setPixmap(QtGui.QPixmap.fromImage(QtGui.QImage(helpers.get_resource_path('images/drop_files.png'))))
+                    self.setPixmap(QtGui.QPixmap.fromImage(QtGui.QImage(common.get_resource_path('images/drop_files.png'))))
                 else:
                     self.setText(strings._('gui_drag_and_drop', True))
                     self.setStyleSheet('color: #999999;')
@@ -137,9 +137,9 @@ class FileList(QtWidgets.QListWidget):
             icon = ip.icon(fileinfo)
 
             if os.path.isfile(filename):
-                size = helpers.human_readable_filesize(fileinfo.size())
+                size = common.human_readable_filesize(fileinfo.size())
             else:
-                size = helpers.human_readable_filesize(helpers.dir_size(filename))
+                size = common.human_readable_filesize(common.dir_size(filename))
             item_name = '{0:s} ({1:s})'.format(basename, size)
             item = QtWidgets.QListWidgetItem(item_name)
             item.setToolTip(size)

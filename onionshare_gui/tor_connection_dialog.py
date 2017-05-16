@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 from PyQt5 import QtCore, QtWidgets, QtGui
 
-from onionshare import strings, helpers
+from onionshare import strings, common
 from onionshare.onion import *
 
 from .alert import Alert
@@ -36,7 +36,7 @@ class TorConnectionDialog(QtWidgets.QProgressDialog):
         self.onion = onion
 
         self.setWindowTitle("OnionShare")
-        self.setWindowIcon(QtGui.QIcon(helpers.get_resource_path('images/logo.png')))
+        self.setWindowIcon(QtGui.QIcon(common.get_resource_path('images/logo.png')))
         self.setModal(True)
         self.setFixedSize(400, 150)
 

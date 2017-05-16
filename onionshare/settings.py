@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import platform, os, json
 
-from . import strings, helpers
+from . import strings, common
 
 class Settings(object):
     """
@@ -34,7 +34,7 @@ class Settings(object):
 
         # These are the default settings. They will get overwritten when loading from disk
         self.default_settings = {
-            'version': helpers.get_version(),
+            'version': common.get_version(),
             'connection_type': 'bundled',
             'control_port_address': '127.0.0.1',
             'control_port_port': 9051,

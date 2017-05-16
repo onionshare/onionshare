@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import platform
 from PyQt5 import QtCore, QtWidgets, QtGui
 
-from onionshare import strings, helpers
+from onionshare import strings, common
 
 class ServerStatus(QtWidgets.QVBoxLayout):
     """
@@ -45,9 +45,9 @@ class ServerStatus(QtWidgets.QVBoxLayout):
         self.file_selection = file_selection
 
         # server layout
-        self.status_image_stopped = QtGui.QImage(helpers.get_resource_path('images/server_stopped.png'))
-        self.status_image_working = QtGui.QImage(helpers.get_resource_path('images/server_working.png'))
-        self.status_image_started = QtGui.QImage(helpers.get_resource_path('images/server_started.png'))
+        self.status_image_stopped = QtGui.QImage(common.get_resource_path('images/server_stopped.png'))
+        self.status_image_working = QtGui.QImage(common.get_resource_path('images/server_working.png'))
+        self.status_image_started = QtGui.QImage(common.get_resource_path('images/server_started.png'))
         self.status_image_label = QtWidgets.QLabel()
         self.status_image_label.setFixedWidth(30)
         self.server_button = QtWidgets.QPushButton()

@@ -24,7 +24,7 @@ from onionshare import socks
 from onionshare.settings import Settings
 from onionshare.onion import Onion
 
-from . import strings, helpers
+from . import strings, common
 
 class UpdateCheckerCheckError(Exception):
     """
@@ -85,7 +85,7 @@ class UpdateChecker(QtCore.QObject):
             # Download the latest-version file over Tor
             try:
                 # User agent string includes OnionShare version and platform
-                user_agent = 'OnionShare {}, {}'.format(helpers.get_version(), platform.system())
+                user_agent = 'OnionShare {}, {}'.format(common.get_version(), platform.system())
 
                 # If the update is forced, add '?force=1' to the URL, to more
                 # accurately measure daily users
@@ -124,7 +124,7 @@ class UpdateChecker(QtCore.QObject):
 
             # Do we need to update?
             update_url = 'https://github.com/micahflee/onionshare/releases/tag/v{}'.format(latest_version)
-            installed_version = helpers.get_version()
+            installed_version = common.get_version()
             if installed_version < latest_version:
                 self.update_available.emit(update_url, installed_version, latest_version)
                 return

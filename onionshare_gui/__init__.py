@@ -21,7 +21,7 @@ from __future__ import division
 import os, sys, platform, argparse
 from PyQt5 import QtCore, QtWidgets
 
-from onionshare import strings, helpers, web
+from onionshare import strings, common, web
 from onionshare.onion import Onion
 from onionshare.onionshare import OnionShare
 from onionshare.settings import Settings
@@ -52,8 +52,8 @@ def main():
     """
     The main() function implements all of the logic that the GUI version of onionshare uses.
     """
-    strings.load_strings(helpers)
-    print(strings._('version_string').format(helpers.get_version()))
+    strings.load_strings(common)
+    print(strings._('version_string').format(common.get_version()))
 
     # Start the Qt app
     global qtapp
