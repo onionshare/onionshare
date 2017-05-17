@@ -51,13 +51,14 @@ class UpdateChecker(QtCore.QObject):
     """
     update_available = QtCore.pyqtSignal(str, str, str)
     update_not_available = QtCore.pyqtSignal()
-    tor_status_update = QtCore.pyqtSignal(str)
 
     def __init__(self, onion):
         super(UpdateChecker, self).__init__()
+        common.log('UpdateChecker', '__init__')
         self.onion = onion
 
     def check(self, force=False):
+        common.log('UpdateChecker', 'check', 'force={}'.format(force))
         # Load the settings
         settings = Settings()
         settings.load()
@@ -82,6 +83,7 @@ class UpdateChecker(QtCore.QObject):
 
         # Check for updates
         if check_for_updates:
+            common.log('UpdateChecker', 'check', 'checking for updates')
             # Download the latest-version file over Tor
             try:
                 # User agent string includes OnionShare version and platform
@@ -93,22 +95,30 @@ class UpdateChecker(QtCore.QObject):
                 if force:
                     path += '?force=1'
 
+                onion_domain = 'elx57ue5uyfplgva.onion'
+
+                common.log('UpdateChecker', 'check', 'loading http://{}/{}'.format(onion_domain, path))
+
                 (socks_address, socks_port) = self.onion.get_tor_socks_port()
                 socks.set_default_proxy(socks.SOCKS5, socks_address, socks_port)
 
                 s = socks.socksocket()
                 s.settimeout(15) # 15 second timeout
-                s.connect(('elx57ue5uyfplgva.onion', 80))
+                s.connect((onion_domain, 80))
 
                 http_request = 'GET {} HTTP/1.0\r\n'.format(path)
-                http_request += 'Host: elx57ue5uyfplgva.onion\r\n'
+                http_request += 'Host: {}\r\n'.format(onion_domain)
                 http_request += 'User-Agent: {}\r\n'.format(user_agent)
                 http_request += '\r\n'
                 s.sendall(http_request.encode('utf-8'))
 
                 http_response = s.recv(1024)
                 latest_version = http_response[http_response.find(b'\r\n\r\n'):].strip().decode('utf-8')
-            except:
+
+                common.log('UpdateChecker', 'check', 'latest OnionShare version: {}'.format(latest_version))
+
+            except Exception as e:
+                common.log('UpdateChecker', 'check', '{}'.format(e))
                 raise UpdateCheckerCheckError
 
             # Validate that latest_version looks like a version string
@@ -135,28 +145,32 @@ class UpdateChecker(QtCore.QObject):
 class UpdateThread(QtCore.QThread):
     update_available = QtCore.pyqtSignal(str, str, str)
     update_not_available = QtCore.pyqtSignal()
-    tor_status_update = QtCore.pyqtSignal(str)
 
     def __init__(self, onion):
         super(UpdateThread, self).__init__()
+        common.log('UpdateThread', '__init__')
         self.onion = onion
 
     def run(self):
+        common.log('UpdateThread', 'run')
+
         u = UpdateChecker(self.onion)
         u.update_available.connect(self._update_available)
         u.update_not_available.connect(self._update_not_available)
-        u.tor_status_update.connect(self._tor_status_update)
+
         try:
             u.check()
-        except:
+        except Exception as e:
             # If update check fails, silently ignore
+            common.log('UpdateThread', 'run', '{}'.format(e))
             pass
 
     def _update_available(self, update_url, installed_version, latest_version):
+        common.log('UpdateThread', '_update_available')
+        self.active = False
         self.update_available.emit(update_url, installed_version, latest_version)
 
     def _update_not_available(self):
+        common.log('UpdateThread', '_update_not_available')
+        self.active = False
         self.update_not_available.emit()
-
-    def _tor_status_update(self, message):
-        self.tor_status_update.emit(message)

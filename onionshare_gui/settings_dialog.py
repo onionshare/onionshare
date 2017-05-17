@@ -209,6 +209,7 @@ class SettingsDialog(QtWidgets.QDialog):
         self.cancel_button = QtWidgets.QPushButton(strings._('gui_settings_button_cancel', True))
         self.cancel_button.clicked.connect(self.cancel_clicked)
         buttons_layout = QtWidgets.QHBoxLayout()
+        buttons_layout.addStretch()
         buttons_layout.addWidget(self.save_button)
         buttons_layout.addWidget(self.cancel_button)
 
