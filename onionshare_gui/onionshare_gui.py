@@ -103,6 +103,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         version_label.setStyleSheet('color: #666666')
         self.settings_button = QtWidgets.QPushButton()
         self.settings_button.setDefault(False)
+        self.settings_button.setFlat(True)
         self.settings_button.setIcon( QtGui.QIcon(common.get_resource_path('images/settings.png')) )
         self.settings_button.clicked.connect(self.open_settings)
         self.status_bar.addPermanentWidget(version_label)
