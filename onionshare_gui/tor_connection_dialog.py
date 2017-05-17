@@ -137,7 +137,7 @@ class TorConnectionThread(QtCore.QThread):
 
         except Exception as e:
             common.log('TorConnectionThread', 'run', 'caught exception: {}'.format(e.args[0]))
-            self.error_connecting_to_tor.emit(e.args[0])
+            self.error_connecting_to_tor.emit(str(e.args[0]))
 
     def _tor_status_update(self, progress, summary):
         self.tor_status_update.emit(progress, summary)
