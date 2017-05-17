@@ -17,7 +17,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-import os, platform, threading, time
+import os, threading, time
 from PyQt5 import QtCore, QtWidgets, QtGui
 
 from onionshare import strings, common, web
@@ -58,17 +58,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
         # Load settings
         self.settings = Settings()
         self.settings.load()
-
-        # Check for updates in a new thread, if enabled
-        system = platform.system()
-        if system == 'Windows' or system == 'Darwin':
-            if self.settings.get('use_autoupdate'):
-                def update_available(update_url, installed_version, latest_version):
-                    Alert(strings._("update_available", True).format(update_url, installed_version, latest_version))
-
-                t = UpdateThread(self.onion)
-                t.update_available.connect(update_available)
-                t.start()
 
         # File selection
         self.file_selection = FileSelection()
@@ -150,6 +139,9 @@ class OnionShareGui(QtWidgets.QMainWindow):
         tor_con.canceled.connect(self._tor_connection_canceled)
         tor_con.open_settings.connect(self._tor_connection_open_settings)
         tor_con.start()
+
+        # After connecting to Tor, check for updates
+        self.check_for_updates()
 
     def _tor_connection_canceled(self):
         """
@@ -311,6 +303,20 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.stop_server_finished.emit()
 
         self.set_server_active(False)
+
+    def check_for_updates(self):
+        """
+        Check for updates in a new thread, if enabled.
+        """
+        system = common.get_platform()
+        if system == 'Windows' or system == 'Darwin':
+            if self.settings.get('use_autoupdate'):
+                def update_available(update_url, installed_version, latest_version):
+                    Alert(strings._("update_available", True).format(update_url, installed_version, latest_version))
+
+                self.update_thread = UpdateThread(self.onion)
+                self.update_thread.update_available.connect(update_available)
+                self.update_thread.start()
 
     @staticmethod
     def _compute_total_size(filenames):
