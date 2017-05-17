@@ -218,14 +218,25 @@ class SettingsDialog(QtWidgets.QDialog):
         self.tor_status.hide()
 
         # Layout
+        left_col_layout = QtWidgets.QVBoxLayout()
+        left_col_layout.addWidget(sharing_group)
+        left_col_layout.addWidget(stealth_group)
+        left_col_layout.addWidget(autoupdate_group)
+        left_col_layout.addStretch()
+
+        right_col_layout = QtWidgets.QVBoxLayout()
+        right_col_layout.addWidget(connection_type_group)
+        right_col_layout.addWidget(self.tor_status)
+        right_col_layout.addStretch()
+
+        col_layout = QtWidgets.QHBoxLayout()
+        col_layout.addLayout(left_col_layout)
+        col_layout.addLayout(right_col_layout)
+
         layout = QtWidgets.QVBoxLayout()
-        layout.addWidget(sharing_group)
-        layout.addWidget(stealth_group)
-        layout.addWidget(autoupdate_group)
-        layout.addWidget(connection_type_group)
-        layout.addStretch()
+        layout.addLayout(col_layout)
         layout.addLayout(buttons_layout)
-        layout.addWidget(self.tor_status)
+
         self.setLayout(layout)
         self.cancel_button.setFocus()
 
