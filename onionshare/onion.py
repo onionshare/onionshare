@@ -105,6 +105,12 @@ class BundledTorCanceled(Exception):
     and the user cancels connecting to Tor
     """
 
+class BundledTorBroken(Exception):
+    """
+    This exception is raised if onionshare is set to use the bundled Tor binary,
+    but the process seems to fail to run.
+    """
+
 class Onion(object):
     """
     Onion is an abstraction layer for connecting to the Tor control port and
@@ -202,12 +208,15 @@ class Onion(object):
             time.sleep(0.2)
 
             # Connect to the controller
-            if self.system == 'Windows':
-                self.c = Controller.from_port(port=self.tor_control_port)
-                self.c.authenticate()
-            else:
-                self.c = Controller.from_socket_file(path=self.tor_control_socket)
-                self.c.authenticate()
+            try:
+                if self.system == 'Windows':
+                    self.c = Controller.from_port(port=self.tor_control_port)
+                    self.c.authenticate()
+                else:
+                    self.c = Controller.from_socket_file(path=self.tor_control_socket)
+                    self.c.authenticate()
+            except Exception as e:
+                raise BundledTorBroken(strings._('settings_error_bundled_tor_broken', True).format(e.args[0]))
 
             while True:
                 try:
