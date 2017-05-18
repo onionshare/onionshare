@@ -189,18 +189,23 @@ class SettingsDialog(QtWidgets.QDialog):
         self.connection_type_test_button = QtWidgets.QPushButton(strings._('gui_settings_connection_type_test_button', True))
         self.connection_type_test_button.clicked.connect(self.test_tor_clicked)
 
+        # Put the radios into their own group so they are exclusive
+        connection_type_radio_group_layout = QtWidgets.QVBoxLayout()
+        connection_type_radio_group_layout.addWidget(self.connection_type_bundled_radio)
+        connection_type_radio_group_layout.addWidget(self.connection_type_automatic_radio)
+        connection_type_radio_group_layout.addWidget(self.connection_type_control_port_radio)
+        connection_type_radio_group_layout.addWidget(self.connection_type_socket_file_radio)
+        connection_type_radio_group = QtWidgets.QGroupBox(strings._("gui_settings_connection_type_label", True))
+        connection_type_radio_group.setLayout(connection_type_radio_group_layout)
+
         # Connection type layout
         connection_type_group_layout = QtWidgets.QVBoxLayout()
-        connection_type_group_layout.addWidget(self.connection_type_bundled_radio)
-        connection_type_group_layout.addWidget(self.connection_type_automatic_radio)
-        connection_type_group_layout.addWidget(self.connection_type_control_port_radio)
-        connection_type_group_layout.addWidget(self.connection_type_socket_file_radio)
         connection_type_group_layout.addWidget(self.connection_type_control_port_extras)
         connection_type_group_layout.addWidget(self.connection_type_socket_file_extras)
         connection_type_group_layout.addWidget(self.connection_type_socks)
         connection_type_group_layout.addWidget(self.authenticate_group)
         connection_type_group_layout.addWidget(self.connection_type_test_button)
-        connection_type_group = QtWidgets.QGroupBox(strings._("gui_settings_connection_type_label", True))
+        connection_type_group = QtWidgets.QGroupBox()
         connection_type_group.setLayout(connection_type_group_layout)
 
         # Buttons
@@ -226,6 +231,7 @@ class SettingsDialog(QtWidgets.QDialog):
         left_col_layout.addStretch()
 
         right_col_layout = QtWidgets.QVBoxLayout()
+        right_col_layout.addWidget(connection_type_radio_group)
         right_col_layout.addWidget(connection_type_group)
         right_col_layout.addWidget(self.tor_status)
         right_col_layout.addStretch()
