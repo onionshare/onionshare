@@ -9,6 +9,7 @@
     "give_this_url_stealth": "Give this URL and HidServAuth line to the person you're sending the file to:",
     "ctrlc_to_stop":  "Press Ctrl-C to stop server",
     "not_a_file": "{0:s} is not a file.",
+    "not_a_readable_file": "{0:s} is not a readable file.",
     "download_page_loaded": "Download page loaded",
     "other_page_loaded": "URL loaded",
     "closing_automatically": "Closing automatically because download finished",
