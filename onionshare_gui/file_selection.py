@@ -130,6 +130,10 @@ class FileList(QtWidgets.QListWidget):
         Add a file or directory to this widget.
         """
         if filename not in self.filenames:
+            if not os.access(filename, os.R_OK):
+                Alert(strings._("not_a_readable_file", True).format(filename))
+                return
+
             self.filenames.append(filename)
 
             fileinfo = QtCore.QFileInfo(filename)
@@ -214,10 +218,7 @@ class FileSelection(QtWidgets.QVBoxLayout):
             caption=strings._('gui_choose_files', True), options=QtWidgets.QFileDialog.ReadOnly)
         if filenames:
             for filename in filenames[0]:
-                if not os.access(filename, os.R_OK):
-                    Alert(strings._("not_a_readable_file", True).format(filename))
-                else:
-                    self.file_list.add_file(filename)
+                self.file_list.add_file(filename)
         self.update()
 
     def add_dir(self):
