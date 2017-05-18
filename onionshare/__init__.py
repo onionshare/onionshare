@@ -67,6 +67,9 @@ def main(cwd=None):
         if not os.path.exists(filename):
             print(strings._("not_a_file").format(filename))
             valid = False
+        if not os.access(filename, os.R_OK):
+            print(strings._("not_a_readable_file").format(filename))
+            valid = False
     if not valid:
         sys.exit()
 
