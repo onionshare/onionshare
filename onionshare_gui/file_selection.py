@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import os
 from PyQt5 import QtCore, QtWidgets, QtGui
+from .alert import Alert
 
 from onionshare import strings, common
 
@@ -213,7 +214,10 @@ class FileSelection(QtWidgets.QVBoxLayout):
             caption=strings._('gui_choose_files', True), options=QtWidgets.QFileDialog.ReadOnly)
         if filenames:
             for filename in filenames[0]:
-                self.file_list.add_file(filename)
+                if not os.access(filename, os.R_OK):
+                    Alert(strings._("not_a_readable_file", True).format(filename))
+                else:
+                    self.file_list.add_file(filename)
         self.update()
 
     def add_dir(self):
