@@ -84,9 +84,9 @@ def get_tor_paths():
         tor_geo_ipv6_file_path = os.path.join(os.path.join(os.path.join(base_path, 'Data'), 'Tor'), 'geoip6')
     elif p == 'Darwin':
         base_path = os.path.dirname(os.path.dirname(os.path.dirname(get_resource_path(''))))
-        tor_path               = os.path.join(base_path, 'MacOS', 'tor')
-        tor_geo_ip_file_path   = os.path.join(base_path, 'Resources', 'tor', 'geoip')
-        tor_geo_ipv6_file_path = os.path.join(base_path, 'Resources', 'tor', 'geoip6')
+        tor_path               = os.path.join(base_path, 'Resources', 'Tor', 'tor')
+        tor_geo_ip_file_path   = os.path.join(base_path, 'Resources', 'Tor', 'geoip')
+        tor_geo_ipv6_file_path = os.path.join(base_path, 'Resources', 'Tor', 'geoip6')
 
     return (tor_path, tor_geo_ip_file_path, tor_geo_ipv6_file_path)
 

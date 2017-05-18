@@ -28,9 +28,9 @@ import inspect, os, sys, hashlib, zipfile, io, shutil, subprocess
 import urllib.request
 
 def main():
-    dmg_url = 'https://www.torproject.org/dist/torbrowser/6.5.1/TorBrowser-6.5.1-osx64_en-US.dmg'
-    dmg_filename = 'TorBrowser-6.5.1-osx64_en-US.dmg'
-    expected_dmg_sha256 = '4155633dd51db9c805e8a81a9fd180e7235077f15023b5f002648f1c2a8bef92'
+    dmg_url = 'https://www.torproject.org/dist/torbrowser/6.5.2/TorBrowser-6.5.2-osx64_en-US.dmg'
+    dmg_filename = 'TorBrowser-6.5.2-osx64_en-US.dmg'
+    expected_dmg_sha256 = '0b11d12f9ff0d82ceb2a9a4dba9c4ba234da47640c8e25e76e4092a7d3a90ef6'
 
     # Build paths
     root_path = os.path.dirname(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))))
@@ -65,15 +65,25 @@ def main():
     subprocess.call(['hdiutil', 'attach', dmg_path])
 
     # Make sure Resources/tor exists before copying files
-    if os.path.exists(os.path.join(dist_path, 'Resources', 'tor')):
-        shutil.rmtree(os.path.join(dist_path, 'Resources', 'tor'))
-    os.makedirs(os.path.join(dist_path, 'Resources', 'tor'))
+    if os.path.exists(os.path.join(dist_path, 'Resources', 'Tor')):
+        shutil.rmtree(os.path.join(dist_path, 'Resources', 'Tor'))
+    os.makedirs(os.path.join(dist_path, 'Resources', 'Tor'))
+    if os.path.exists(os.path.join(dist_path, 'MacOS', 'Tor')):
+        shutil.rmtree(os.path.join(dist_path, 'MacOS', 'Tor'))
+    os.makedirs(os.path.join(dist_path, 'MacOS', 'Tor'))
+
+    # Modify the tor script to adjust the path
+    tor_script = open(os.path.join(dmg_tor_path, 'Resources', 'TorBrowser', 'Tor', 'tor'), 'r').read()
+    tor_script = tor_script.replace('../../../MacOS/Tor', '../../MacOS/Tor')
+    open(os.path.join(dist_path, 'Resources', 'Tor', 'tor'), 'w').write(tor_script)
 
     # Copy into dist
-    shutil.copyfile(os.path.join(dmg_tor_path, 'Resources', 'TorBrowser', 'Tor', 'geoip'), os.path.join(dist_path, 'Resources', 'tor', 'geoip'))
-    shutil.copyfile(os.path.join(dmg_tor_path, 'Resources', 'TorBrowser', 'Tor', 'geoip6'), os.path.join(dist_path, 'Resources', 'tor', 'geoip6'))
-    shutil.copyfile(os.path.join(dmg_tor_path, 'MacOS', 'Tor', 'tor.real'), os.path.join(dist_path, 'MacOS', 'tor'))
-    os.chmod(os.path.join(dist_path, 'MacOS', 'tor'), 0o755)
+    shutil.copyfile(os.path.join(dmg_tor_path, 'Resources', 'TorBrowser', 'Tor', 'geoip'), os.path.join(dist_path, 'Resources', 'Tor', 'geoip'))
+    shutil.copyfile(os.path.join(dmg_tor_path, 'Resources', 'TorBrowser', 'Tor', 'geoip6'), os.path.join(dist_path, 'Resources', 'Tor', 'geoip6'))
+    os.chmod(os.path.join(dist_path, 'Resources', 'Tor', 'tor'), 0o755)
+    shutil.copyfile(os.path.join(dmg_tor_path, 'MacOS', 'Tor', 'tor.real'), os.path.join(dist_path, 'MacOS', 'Tor', 'tor.real'))
+    shutil.copyfile(os.path.join(dmg_tor_path, 'MacOS', 'Tor', 'libevent-2.0.5.dylib'), os.path.join(dist_path, 'MacOS', 'Tor', 'libevent-2.0.5.dylib'))
+    os.chmod(os.path.join(dist_path, 'MacOS', 'Tor', 'tor.real'), 0o755)
 
     # Unmount dmg
     subprocess.call(['diskutil', 'unmount', '/Volumes/Tor Browser'])
