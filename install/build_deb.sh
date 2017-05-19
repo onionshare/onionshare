@@ -21,4 +21,5 @@ if [[ $? -eq 0 ]]; then
 	echo "sudo dpkg -i deb_dist/onionshare_$VERSION-1_all.deb"
 else
 	echo "OnionShare failed to build!"
+	exit 1
 fi
