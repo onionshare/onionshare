@@ -205,7 +205,7 @@ class Onion(object):
                 self.tor_proc = subprocess.Popen([self.tor_path, '-f', self.tor_torrc], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
             # Wait for the tor controller to start
-            time.sleep(1)
+            time.sleep(2)
 
             # Connect to the controller
             try:
