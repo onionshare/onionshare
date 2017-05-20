@@ -18,7 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 from PyQt5 import QtCore, QtWidgets, QtGui
-import sys, platform, datetime
+import os, sys, platform, datetime, webbrowser
 
 from onionshare import strings, common
 from onionshare.settings import Settings
@@ -213,10 +213,13 @@ class SettingsDialog(QtWidgets.QDialog):
         self.save_button.clicked.connect(self.save_clicked)
         self.cancel_button = QtWidgets.QPushButton(strings._('gui_settings_button_cancel', True))
         self.cancel_button.clicked.connect(self.cancel_clicked)
+        self.help_button = QtWidgets.QPushButton(strings._('gui_settings_button_help', True))
+        self.help_button.clicked.connect(self.help_clicked)
         buttons_layout = QtWidgets.QHBoxLayout()
         buttons_layout.addStretch()
         buttons_layout.addWidget(self.save_button)
         buttons_layout.addWidget(self.cancel_button)
+        buttons_layout.addWidget(self.help_button)
 
         # Tor network connection status
         self.tor_status = QtWidgets.QLabel()
@@ -489,6 +492,20 @@ class SettingsDialog(QtWidgets.QDialog):
         """
         common.log('SettingsDialog', 'cancel_clicked')
         self.close()
+
+    def help_clicked(self):
+        """
+        Help button clicked.
+        """
+        common.log('SettingsDialog', 'help_clicked')
+        help_site = 'https://github.com/micahflee/onionshare/wiki'
+        system = platform.system()
+        if system == 'Darwin':
+            # Work around bug in webbrowser on OS X
+            # see http://bugs.python.org/issue30392
+            os.system('open {}'.format(help_site))
+        else:
+            webbrowser.open(help_site)
 
     def settings_from_fields(self):
         """
