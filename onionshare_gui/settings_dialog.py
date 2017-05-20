@@ -216,10 +216,10 @@ class SettingsDialog(QtWidgets.QDialog):
         self.help_button = QtWidgets.QPushButton(strings._('gui_settings_button_help', True))
         self.help_button.clicked.connect(self.help_clicked)
         buttons_layout = QtWidgets.QHBoxLayout()
+        buttons_layout.addWidget(self.help_button)
         buttons_layout.addStretch()
         buttons_layout.addWidget(self.save_button)
         buttons_layout.addWidget(self.cancel_button)
-        buttons_layout.addWidget(self.help_button)
 
         # Tor network connection status
         self.tor_status = QtWidgets.QLabel()
