@@ -25,7 +25,6 @@ from PyQt5 import QtCore, QtWidgets
 from onionshare import strings, common, web
 from onionshare.onion import Onion
 from onionshare.onionshare import OnionShare
-from onionshare.settings import Settings
 
 from .onionshare_gui import OnionShareGui
 

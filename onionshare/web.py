@@ -19,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 from distutils.version import StrictVersion as Version
 import queue, mimetypes, platform, os, sys, socket, logging
-from urllib.request import urlopen
 
 from flask import Flask, Response, request, render_template_string, abort
 from flask import __version__ as flask_version
@@ -219,7 +218,6 @@ def download(slug_candidate):
     # tell GUI the download started
     add_request(REQUEST_DOWNLOAD, path, {'id': download_id})
 
-    dirname = os.path.dirname(zip_filename)
     basename = os.path.basename(zip_filename)
 
     def generate():

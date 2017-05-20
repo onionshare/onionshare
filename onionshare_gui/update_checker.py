@@ -18,13 +18,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 from PyQt5 import QtCore
-import datetime, time, socket, re, platform
+import datetime, re, platform
 
 from onionshare import socks
 from onionshare.settings import Settings
-from onionshare.onion import Onion
 
-from . import strings, common
+from . import common
 
 class UpdateCheckerCheckError(Exception):
     """

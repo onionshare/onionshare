@@ -27,7 +27,6 @@ def load_strings(common, default="en"):
     if the translation does not exist.
     """
     global strings
-    p = common.get_platform()
 
     # find locale dir
     locale_dir = common.get_resource_path('locale')
