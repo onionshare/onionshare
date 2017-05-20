@@ -203,7 +203,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
         settings = Settings()
         settings.load()
         self.app.set_stealth(settings.get('use_stealth'))
-        web.set_stay_open(not settings.get('close_after_first_download'))
 
         # Reset web counters
         web.download_count = 0
@@ -221,6 +220,11 @@ class OnionShareGui(QtWidgets.QMainWindow):
                 return
 
             # start onionshare http service in new thread
+            # First, load settings and configure
+            settings = Settings()
+            settings.load()
+            self.app.stay_open = not settings.get('close_after_first_download')
+            common.log('OnionShareGUI', 'stay_open', 'stay_open={}'.format(self.app.stay_open))
             t = threading.Thread(target=web.start, args=(self.app.port, self.app.stay_open))
             t.daemon = True
             t.start()
