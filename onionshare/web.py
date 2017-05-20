@@ -21,7 +21,7 @@ from distutils.version import StrictVersion as Version
 import queue, mimetypes, platform, os, sys, socket, logging
 from urllib.request import urlopen
 
-from flask import Flask, Response, request, render_template_string, abort
+from flask import Flask, Response, request, render_template_string, abort, make_response
 from flask import __version__ as flask_version
 
 from . import strings, common
@@ -175,16 +175,31 @@ def index(slug_candidate):
     global stay_open, download_in_progress
     deny_download = not stay_open and download_in_progress
     if deny_download:
-        return render_template_string(open(common.get_resource_path('html/denied.html')).read())
+        r = make_response(render_template_string(open(common.get_resource_path('html/denied.html')).read()))
+        r.headers.set('Content-Security-Policy', 'default-src \'self\'; style-src \'unsafe-inline\'; img-src \'self\' data:;')
+        r.headers.set('X-Frame-Options', 'DENY')
+        r.headers.set('X-Xss-Protection', '1; mode=block')
+        r.headers.set('X-Content-Type-Options', 'nosniff')
+        r.headers.set('Referrer-Policy', 'no-referrer')
+        r.headers.set('Server', 'Onion')
+        return r
 
     # If download is allowed to continue, serve download page
-    return render_template_string(
+
+    r = make_response(render_template_string(
         open(common.get_resource_path('html/index.html')).read(),
         slug=slug,
         file_info=file_info,
         filename=os.path.basename(zip_filename),
         filesize=zip_filesize,
-        filesize_human=common.human_readable_filesize(zip_filesize))
+        filesize_human=common.human_readable_filesize(zip_filesize)))
+    r.headers.set('Content-Security-Policy', 'default-src \'self\'; style-src \'unsafe-inline\'; img-src \'unsafe-inline\' data:;')
+    r.headers.set('X-Frame-Options', 'DENY')
+    r.headers.set('X-Xss-Protection', '1; mode=block')
+    r.headers.set('X-Content-Type-Options', 'nosniff')
+    r.headers.set('Referrer-Policy', 'no-referrer')
+    r.headers.set('Server', 'Onion')
+    return r
 
 # If the client closes the OnionShare window while a download is in progress,
 # it should immediately stop serving the file. The client_cancel global is
@@ -203,7 +218,14 @@ def download(slug_candidate):
     global stay_open, download_in_progress
     deny_download = not stay_open and download_in_progress
     if deny_download:
-        return render_template_string(open(common.get_resource_path('html/denied.html')).read())
+        r = make_response(render_template_string(open(common.get_resource_path('html/denied.html')).read()))
+        r.headers.set('Content-Security-Policy', 'default-src \'self\'; style-src \'unsafe-inline\'; img-src \'unsafe-inline\' data:;')
+        r.headers.set('X-Frame-Options', 'DENY')
+        r.headers.set('X-Xss-Protection', '1; mode=block')
+        r.headers.set('X-Content-Type-Options', 'nosniff')
+        r.headers.set('Referrer-Policy', 'no-referrer')
+        r.headers.set('Server', 'Onion')
+        return r
 
     global download_count
 
@@ -286,13 +308,19 @@ def download(slug_candidate):
             shutdown_func()
 
     r = Response(generate())
-    r.headers.add('Content-Length', zip_filesize)
-    r.headers.add('Content-Disposition', 'attachment', filename=basename)
+    r.headers.set('Content-Length', zip_filesize)
+    r.headers.set('Content-Disposition', 'attachment', filename=basename)
+    r.headers.set('Content-Security-Policy', 'default-src \'self\'; style-src \'unsafe-inline\'; img-src \'unsafe-inline\' data:;')
+    r.headers.set('X-Frame-Options', 'DENY')
+    r.headers.set('X-Xss-Protection', '1; mode=block')
+    r.headers.set('X-Content-Type-Options', 'nosniff')
+    r.headers.set('Referrer-Policy', 'no-referrer')
+    r.headers.set('Server', 'Onion')
 
     # guess content type
     (content_type, _) = mimetypes.guess_type(basename, strict=False)
     if content_type is not None:
-        r.headers.add('Content-Type', content_type)
+        r.headers.set('Content-Type', content_type)
     return r
 
 
@@ -311,7 +339,14 @@ def page_not_found(e):
             force_shutdown()
             print(strings._('error_rate_limit'))
 
-    return render_template_string(open(common.get_resource_path('html/404.html')).read())
+    r = make_response(render_template_string(open(common.get_resource_path('html/404.html')).read()))
+    r.headers.set('Content-Security-Policy', 'default-src \'self\'; style-src \'unsafe-inline\'; img-src \'unsafe-inline\' data:;')
+    r.headers.set('X-Frame-Options', 'DENY')
+    r.headers.set('X-Xss-Protection', '1; mode=block')
+    r.headers.set('X-Content-Type-Options', 'nosniff')
+    r.headers.set('Referrer-Policy', 'no-referrer')
+    r.headers.set('Server', 'Onion')
+    return r
 
 # shutting down the server only works within the context of flask, so the easiest way to do it is over http
 shutdown_slug = common.random_string(16)
