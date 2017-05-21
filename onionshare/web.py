@@ -47,14 +47,14 @@ file_info = []
 zip_filename = None
 zip_filesize = None
 
-
+strings.load_strings(common)
 security_headers = [
     ('Content-Security-Policy', 'default-src \'self\'; style-src \'unsafe-inline\'; img-src \'self\' data:;'),
     ('X-Frame-Options', 'DENY'),
     ('X-Xss-Protection', '1; mode=block'),
     ('X-Content-Type-Options', 'nosniff'),
     ('Referrer-Policy', 'no-referrer'),
-    ('Server', 'Onion')
+    ('Server', strings._('version_string').format(common.get_version()))
 ]
 
 def set_file_info(filenames, processed_size_callback=None):
