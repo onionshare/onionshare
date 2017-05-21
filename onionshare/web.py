@@ -47,6 +47,16 @@ file_info = []
 zip_filename = None
 zip_filesize = None
 
+
+security_headers = [
+    ('Content-Security-Policy', 'default-src \'self\'; style-src \'unsafe-inline\'; img-src \'self\' data:;'),
+    ('X-Frame-Options', 'DENY'),
+    ('X-Xss-Protection', '1; mode=block'),
+    ('X-Content-Type-Options', 'nosniff'),
+    ('Referrer-Policy', 'no-referrer'),
+    ('Server', 'Onion')
+]
+
 def set_file_info(filenames, processed_size_callback=None):
     """
     Using the list of filenames being shared, fill in details that the web
@@ -176,12 +186,8 @@ def index(slug_candidate):
     deny_download = not stay_open and download_in_progress
     if deny_download:
         r = make_response(render_template_string(open(common.get_resource_path('html/denied.html')).read()))
-        r.headers.set('Content-Security-Policy', 'default-src \'self\'; style-src \'unsafe-inline\'; img-src \'self\' data:;')
-        r.headers.set('X-Frame-Options', 'DENY')
-        r.headers.set('X-Xss-Protection', '1; mode=block')
-        r.headers.set('X-Content-Type-Options', 'nosniff')
-        r.headers.set('Referrer-Policy', 'no-referrer')
-        r.headers.set('Server', 'Onion')
+        for header,value in security_headers:
+            r.headers.set(header, value)
         return r
 
     # If download is allowed to continue, serve download page
@@ -193,12 +199,8 @@ def index(slug_candidate):
         filename=os.path.basename(zip_filename),
         filesize=zip_filesize,
         filesize_human=common.human_readable_filesize(zip_filesize)))
-    r.headers.set('Content-Security-Policy', 'default-src \'self\'; style-src \'unsafe-inline\'; img-src \'unsafe-inline\' data:;')
-    r.headers.set('X-Frame-Options', 'DENY')
-    r.headers.set('X-Xss-Protection', '1; mode=block')
-    r.headers.set('X-Content-Type-Options', 'nosniff')
-    r.headers.set('Referrer-Policy', 'no-referrer')
-    r.headers.set('Server', 'Onion')
+    for header,value in security_headers:
+        r.headers.set(header, value)
     return r
 
 # If the client closes the OnionShare window while a download is in progress,
@@ -219,12 +221,8 @@ def download(slug_candidate):
     deny_download = not stay_open and download_in_progress
     if deny_download:
         r = make_response(render_template_string(open(common.get_resource_path('html/denied.html')).read()))
-        r.headers.set('Content-Security-Policy', 'default-src \'self\'; style-src \'unsafe-inline\'; img-src \'unsafe-inline\' data:;')
-        r.headers.set('X-Frame-Options', 'DENY')
-        r.headers.set('X-Xss-Protection', '1; mode=block')
-        r.headers.set('X-Content-Type-Options', 'nosniff')
-        r.headers.set('Referrer-Policy', 'no-referrer')
-        r.headers.set('Server', 'Onion')
+        for header,value in security_headers:
+            r.headers.set(header, value)
         return r
 
     global download_count
@@ -310,13 +308,8 @@ def download(slug_candidate):
     r = Response(generate())
     r.headers.set('Content-Length', zip_filesize)
     r.headers.set('Content-Disposition', 'attachment', filename=basename)
-    r.headers.set('Content-Security-Policy', 'default-src \'self\'; style-src \'unsafe-inline\'; img-src \'unsafe-inline\' data:;')
-    r.headers.set('X-Frame-Options', 'DENY')
-    r.headers.set('X-Xss-Protection', '1; mode=block')
-    r.headers.set('X-Content-Type-Options', 'nosniff')
-    r.headers.set('Referrer-Policy', 'no-referrer')
-    r.headers.set('Server', 'Onion')
-
+    for header,value in security_headers:
+        r.headers.set(header, value)
     # guess content type
     (content_type, _) = mimetypes.guess_type(basename, strict=False)
     if content_type is not None:
@@ -340,12 +333,8 @@ def page_not_found(e):
             print(strings._('error_rate_limit'))
 
     r = make_response(render_template_string(open(common.get_resource_path('html/404.html')).read()))
-    r.headers.set('Content-Security-Policy', 'default-src \'self\'; style-src \'unsafe-inline\'; img-src \'unsafe-inline\' data:;')
-    r.headers.set('X-Frame-Options', 'DENY')
-    r.headers.set('X-Xss-Protection', '1; mode=block')
-    r.headers.set('X-Content-Type-Options', 'nosniff')
-    r.headers.set('Referrer-Policy', 'no-referrer')
-    r.headers.set('Server', 'Onion')
+    for header,value in security_headers:
+        r.headers.set(header, value)
     return r
 
 # shutting down the server only works within the context of flask, so the easiest way to do it is over http
