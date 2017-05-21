@@ -24,7 +24,7 @@
     "gui_add_folder": "Ajouter des dossiers",
     "gui_delete": "Supprimer",
     "gui_choose_files": "Sélectionnez des fichiers",
-    "gui_choose_folder": "Sélectionnez un dossier",
+    "gui_choose_folder": "Sélectionnez des dossiers",
     "gui_start_server": "Démarrer le serveur",
     "gui_stop_server": "Arrêter le serveur",
     "gui_copy_url": "Copier URL",
