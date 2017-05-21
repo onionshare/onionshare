@@ -27,7 +27,7 @@
     "gui_add_folder": "Add Folders",
     "gui_delete": "Delete",
     "gui_choose_files": "Choose files",
-    "gui_choose_folder": "Choose folder",
+    "gui_choose_folder": "Choose folders",
     "gui_start_server": "Start Sharing",
     "gui_stop_server": "Stop Sharing",
     "gui_copy_url": "Copy URL",
