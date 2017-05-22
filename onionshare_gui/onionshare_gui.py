@@ -46,6 +46,8 @@ class OnionShareGui(QtWidgets.QMainWindow):
     def __init__(self, onion, qtapp, app, filenames):
         super(OnionShareGui, self).__init__()
 
+        self._initSystemTray()
+
         common.log('OnionShareGui', '__init__')
 
         self.onion = onion
@@ -143,6 +145,16 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         # After connecting to Tor, check for updates
         self.check_for_updates()
+
+    def _initSystemTray(self):
+        menu = QtWidgets.QMenu()
+        exitAction = menu.addAction(strings._('systray_menu_exit', True))
+        exitAction.triggered.connect(sys.exit)
+
+        self.systemTray = QtWidgets.QSystemTrayIcon(self)
+        self.systemTray.setIcon(QtGui.QIcon(common.get_resource_path('images/logo.png')))
+        self.systemTray.setContextMenu(menu)
+        self.systemTray.show()
 
     def _tor_connection_canceled(self):
         """
@@ -361,6 +373,8 @@ class OnionShareGui(QtWidgets.QMainWindow):
                 self.downloads_container.show() # show the downloads layout
                 self.downloads.add_download(event["data"]["id"], web.zip_filesize)
                 self.new_download = True
+                if self.systemTray.supportsMessages() and self.settings.get('systray_notifications'):
+                    self.systemTray.showMessage(strings._('systray_download_started_title', True), strings._('systray_download_started_message', True))
 
             elif event["type"] == web.REQUEST_RATE_LIMIT:
                 self.stop_server()
@@ -371,12 +385,16 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
                 # is the download complete?
                 if event["data"]["bytes"] == web.zip_filesize:
+                    if self.systemTray.supportsMessages() and self.settings.get('systray_notifications'):
+                        self.systemTray.showMessage(strings._('systray_download_completed_title', True), strings._('systray_download_completed_message', True))
                     # close on finish?
                     if not web.get_stay_open():
                         self.server_status.stop_server()
 
             elif event["type"] == web.REQUEST_CANCELED:
                 self.downloads.cancel_download(event["data"]["id"])
+                if self.systemTray.supportsMessages() and self.settings.get('systray_notifications'):
+                    self.systemTray.showMessage(strings._('systray_download_canceled_title', True), strings._('systray_download_canceled_message', True))
 
             elif event["path"] != '/favicon.ico':
                 self.status_bar.showMessage('[#{0:d}] {1:s}: {2:s}'.format(web.error404_count, strings._('other_page_loaded', True), event["path"]))
