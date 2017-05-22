@@ -219,7 +219,10 @@ class SettingsDialog(QtWidgets.QDialog):
         self.save_button.clicked.connect(self.save_clicked)
         self.cancel_button = QtWidgets.QPushButton(strings._('gui_settings_button_cancel', True))
         self.cancel_button.clicked.connect(self.cancel_clicked)
+        self.help_button = QtWidgets.QPushButton(strings._('gui_settings_button_help', True))
+        self.help_button.clicked.connect(self.help_clicked)
         buttons_layout = QtWidgets.QHBoxLayout()
+        buttons_layout.addWidget(self.help_button)
         buttons_layout.addStretch()
         buttons_layout.addWidget(self.save_button)
         buttons_layout.addWidget(self.cancel_button)
@@ -501,6 +504,14 @@ class SettingsDialog(QtWidgets.QDialog):
         """
         common.log('SettingsDialog', 'cancel_clicked')
         self.close()
+
+    def help_clicked(self):
+        """
+        Help button clicked.
+        """
+        common.log('SettingsDialog', 'help_clicked')
+        help_site = 'https://github.com/micahflee/onionshare/wiki'
+        QtGui.QDesktopServices.openUrl(QtCore.QUrl(help_site))
 
     def settings_from_fields(self):
         """
