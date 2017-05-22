@@ -149,7 +149,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
     def _initSystemTray(self):
         menu = QtWidgets.QMenu()
         exitAction = menu.addAction(strings._('systray_menu_exit', True))
-        exitAction.triggered.connect(sys.exit)
+        exitAction.triggered.connect(self.close)
 
         self.systemTray = QtWidgets.QSystemTrayIcon(self)
         self.systemTray.setIcon(QtGui.QIcon(common.get_resource_path('images/logo.png')))
