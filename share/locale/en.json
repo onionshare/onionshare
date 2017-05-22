@@ -89,6 +89,7 @@
     "gui_settings_cookie_label": "Cookie path",
     "gui_settings_button_save": "Save",
     "gui_settings_button_cancel": "Cancel",
+    "gui_settings_button_help": "Help",
     "settings_saved": "Settings saved to {}",
     "settings_error_unknown": "Can't connect to Tor controller because the settings don't make sense.",
     "settings_error_automatic": "Can't connect to Tor controller. Is Tor Browser running in the background? If you don't have it you can get it from:\nhttps://www.torproject.org/.",
