@@ -54,7 +54,7 @@ security_headers = [
     ('X-Xss-Protection', '1; mode=block'),
     ('X-Content-Type-Options', 'nosniff'),
     ('Referrer-Policy', 'no-referrer'),
-    ('Server', strings._('version_string').format(common.get_version()))
+    ('Server', 'OnionShare')
 ]
 
 def set_file_info(filenames, processed_size_callback=None):
