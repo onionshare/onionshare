@@ -147,12 +147,18 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.check_for_updates()
 
     def _initSystemTray(self):
+        system = common.get_platform()
+
         menu = QtWidgets.QMenu()
         exitAction = menu.addAction(strings._('systray_menu_exit', True))
         exitAction.triggered.connect(self.close)
 
         self.systemTray = QtWidgets.QSystemTrayIcon(self)
-        self.systemTray.setIcon(QtGui.QIcon(common.get_resource_path('images/logo.png')))
+        # The convention is Mac systray icons are always grayscale
+        if system == 'Darwin':
+            self.systemTray.setIcon(QtGui.QIcon(common.get_resource_path('images/logo_grayscale.png')))
+        else:
+            self.systemTray.setIcon(QtGui.QIcon(common.get_resource_path('images/logo.png')))
         self.systemTray.setContextMenu(menu)
         self.systemTray.show()
 
