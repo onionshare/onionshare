@@ -214,11 +214,19 @@ class FileSelection(QtWidgets.QVBoxLayout):
         """
         Add files button clicked.
         """
-        filenames = QtWidgets.QFileDialog.getOpenFileNames(
-            caption=strings._('gui_choose_files', True), options=QtWidgets.QFileDialog.ReadOnly)
-        if filenames:
-            for filename in filenames[0]:
-                self.file_list.add_file(filename)
+        file_dialog = QtWidgets.QFileDialog(caption=strings._('gui_choose_files', True))
+        file_dialog.setFileMode(QtWidgets.QFileDialog.ExistingFiles)
+        file_dialog.setOption(QtWidgets.QFileDialog.DontUseNativeDialog, True)
+        file_dialog.setOption(QtWidgets.QFileDialog.ReadOnly, True)
+        tree_view = file_dialog.findChild(QtWidgets.QTreeView)
+        tree_view.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
+        list_view = file_dialog.findChild(QtWidgets.QListView, "listView")
+        list_view.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
+
+        if file_dialog.exec_() == QtWidgets.QDialog.Accepted:
+          for filename in file_dialog.selectedFiles():
+              self.file_list.add_file(filename)
+
         self.update()
 
     def add_dir(self):
