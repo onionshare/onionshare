@@ -97,7 +97,7 @@ class UpdateChecker(QtCore.QObject):
 
                 onion_domain = 'elx57ue5uyfplgva.onion'
 
-                common.log('UpdateChecker', 'check', 'loading http://{}/{}'.format(onion_domain, path))
+                common.log('UpdateChecker', 'check', 'loading http://{}{}'.format(onion_domain, path))
 
                 (socks_address, socks_port) = self.onion.get_tor_socks_port()
                 socks.set_default_proxy(socks.SOCKS5, socks_address, socks_port)
