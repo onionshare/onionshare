@@ -47,7 +47,6 @@ file_info = []
 zip_filename = None
 zip_filesize = None
 
-strings.load_strings(common)
 security_headers = [
     ('Content-Security-Policy', 'default-src \'self\'; style-src \'unsafe-inline\'; img-src \'self\' data:;'),
     ('X-Frame-Options', 'DENY'),
