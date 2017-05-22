@@ -18,7 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 from PyQt5 import QtCore, QtWidgets, QtGui
-import os, sys, platform, datetime, webbrowser
+import sys, platform, datetime
 
 from onionshare import strings, common
 from onionshare.settings import Settings
@@ -499,13 +499,7 @@ class SettingsDialog(QtWidgets.QDialog):
         """
         common.log('SettingsDialog', 'help_clicked')
         help_site = 'https://github.com/micahflee/onionshare/wiki'
-        system = platform.system()
-        if system == 'Darwin':
-            # Work around bug in webbrowser on OS X
-            # see http://bugs.python.org/issue30392
-            os.system('open {}'.format(help_site))
-        else:
-            webbrowser.open(help_site)
+        QtGui.QDesktopServices.openUrl(QtCore.QUrl(help_site))
 
     def settings_from_fields(self):
         """
