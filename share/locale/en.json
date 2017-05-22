@@ -71,7 +71,7 @@
     "gui_settings_autoupdate_check_button": "Check For Updates",
     "gui_settings_sharing_label": "Sharing options",
     "gui_settings_close_after_first_download_option": "Stop sharing after first download",
-    "gui_settings_systray_notifications": "Show notifications when a download commences or completes",
+    "gui_settings_systray_notifications": "Show desktop notifications",
     "gui_settings_connection_type_label": "How should OnionShare connect to Tor?",
     "gui_settings_connection_type_bundled_option": "Use Tor that is bundled with OnionShare",
     "gui_settings_connection_type_automatic_option": "Attempt automatic configuration with Tor Browser",
