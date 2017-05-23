@@ -178,7 +178,8 @@ class Onion(object):
                 self.tor_torrc = os.path.join(self.tor_data_directory.name, 'torrc')
             else:
                 # Linux and Mac can use unix sockets
-                torrc_template = open(common.get_resource_path('torrc_template')).read()
+                with open(common.get_resource_path('torrc_template')) as f:
+                    torrc_template = f.read()
                 self.tor_control_port = None
                 self.tor_control_socket = os.path.join(self.tor_data_directory.name, 'control_socket')
                 self.tor_cookie_auth_file = os.path.join(self.tor_data_directory.name, 'cookie')
@@ -192,7 +193,8 @@ class Onion(object):
             torrc_template = torrc_template.replace('{{geo_ip_file}}',      self.tor_geo_ip_file_path)
             torrc_template = torrc_template.replace('{{geo_ipv6_file}}',    self.tor_geo_ipv6_file_path)
             torrc_template = torrc_template.replace('{{socks_port}}',       str(self.tor_socks_port))
-            open(self.tor_torrc, 'w').write(torrc_template)
+            with open(self.tor_torrc, 'w') as f:
+                f.write(torrc_template)
 
             # Execute a tor subprocess
             start_ts = time.time()

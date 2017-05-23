@@ -85,8 +85,9 @@ class Settings(object):
         # If the settings file exists, load it
         if os.path.exists(self.filename):
             try:
-                self._settings = json.loads(open(self.filename, 'r').read())
-                self.fill_in_defaults()
+                with open(self.filename, 'r') as f:
+                    self._settings = json.loads(f.read())
+                    self.fill_in_defaults()
             except:
                 pass
 
