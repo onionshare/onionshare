@@ -5,6 +5,7 @@
 * OnionShare connects to Tor itself now, so opening Tor Browser in the background isn't required
 * In Windows and macOS, OnionShare alerts users about updates
 * Removed the menu bar, and adding a Settings button
+* Added desktop notifications
 
 ## 1.0
 
