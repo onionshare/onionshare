@@ -39,8 +39,8 @@ def load_strings(common, default="en"):
         lang, ext = os.path.splitext(filename)
         if abs_filename.endswith('.json'):
             with open(abs_filename, encoding='utf-8') as f:
-              lang_json = f.read()
-              translations[lang] = json.loads(lang_json)
+                lang_json = f.read()
+                translations[lang] = json.loads(lang_json)
 
     strings = translations[default]
     lc, enc = locale.getdefaultlocale()
