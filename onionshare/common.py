@@ -94,7 +94,9 @@ def get_version():
     """
     Returns the version of OnionShare that is running.
     """
-    return open(get_resource_path('version.txt')).read().strip()
+    with open(get_resource_path('version.txt')) as f:
+      version = f.read().strip()
+      return version
 
 
 def constant_time_compare(val1, val2):
@@ -133,8 +135,9 @@ def build_slug():
     """
     Returns a random string made from two words from the wordlist, such as "deter-trig".
     """
-    wordlist = open(get_resource_path('wordlist.txt')).read().split('\n')
-    wordlist.remove('')
+    with open(get_resource_path('wordlist.txt')) as f:
+      wordlist = f.read().split('\n')
+      wordlist.remove('')
 
     r = SystemRandom()
     return '-'.join(r.choice(wordlist) for x in range(2))
