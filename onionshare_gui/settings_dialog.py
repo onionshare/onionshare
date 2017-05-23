@@ -32,6 +32,8 @@ class SettingsDialog(QtWidgets.QDialog):
     """
     Settings dialog.
     """
+    settings_saved = QtCore.pyqtSignal()
+
     def __init__(self, onion, qtapp):
         super(SettingsDialog, self).__init__()
         common.log('SettingsDialog', '__init__')
@@ -312,9 +314,6 @@ class SettingsDialog(QtWidgets.QDialog):
             self.authenticate_password_radio.setChecked(True)
         self.authenticate_password_extras_password.setText(self.old_settings.get('auth_password'))
 
-        # Show the dialog
-        self.exec_()
-
     def connection_type_bundled_toggled(self, checked):
         """
         Connection type bundled was toggled. If checked, hide authentication fields.
@@ -493,9 +492,11 @@ class SettingsDialog(QtWidgets.QDialog):
             common.log('SettingsDialog', 'save_clicked', 'Onion done rebooting, connected to Tor: {}'.format(self.onion.connected_to_tor))
 
             if self.onion.connected_to_tor and not tor_con.wasCanceled():
+                self.settings_saved.emit()
                 self.close()
 
         else:
+            self.settings_saved.emit()
             self.close()
 
     def cancel_clicked(self):

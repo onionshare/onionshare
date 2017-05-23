@@ -206,7 +206,15 @@ class OnionShareGui(QtWidgets.QMainWindow):
         """
         Open the SettingsDialog.
         """
-        SettingsDialog(self.onion, self.qtapp)
+        common.log('OnionShareGui', 'open_settings')
+
+        def reload_settings():
+            common.log('OnionShareGui', 'open_settings', 'settings have changed, reloading')
+            self.settings.load()
+
+        d = SettingsDialog(self.onion, self.qtapp)
+        d.settings_saved.connect(reload_settings)
+        d.exec_()
 
     def start_server(self):
         """
