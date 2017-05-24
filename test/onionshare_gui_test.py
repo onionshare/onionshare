@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import os, sys, unittest, inspect, time
+import os, sys, unittest, inspect, socket
 from PyQt5 import QtCore, QtWidgets, QtGui, QtTest
 
 sys.path.append('../onionshare')
@@ -70,17 +70,37 @@ class OnionShareGuiTest(unittest.TestCase):
 
     def test_startButtonPress(self):
         '''
-        Test that we can start the service by clicking on the start button,
-        the add_files button is now disabled while the service starts up,
-        and that we can get a valid .onion address and slug returned once 
-        it's ready
+        Test the following:
+        1. we can start the service by clicking on the start button,
+        2. the server status is now in mode 'working'
+        3. we can't add files to the dialog while working/running
+        4. the server finally completes starting up and is in mode 'running'
+        5. we have a valid onion address in terms of regex and length
+        6. we have a valid web slug
+        7. the copy to clipboard button is available
         '''
         QtTest.QTest.mouseClick(self.gui.server_status.server_button, QtCore.Qt.LeftButton)
         self.assertEqual(self.gui.server_status.status, 1)
         self.assertFalse(self.gui.file_selection.add_files_button.isEnabled())
-        time.sleep(60)
-        self.assertRegex(self.gui.app.onion_host, r'[a-z0-9].onion')
+        QtTest.QTest.qWait(60000)
+        self.assertEqual(self.gui.server_status.status, 2)
+        self.assertRegex(self.gui.app.onion_host, r'[a-z2-7].onion')
+        self.assertEqual(len(self.gui.app.onion_host), 22)
         self.assertRegex(self.gui.server_status.web.slug, r'(\w+)-(\w+)')
+        self.assertTrue(self.gui.server_status.copy_url_button.isVisible())
+
+    def test_stopButtonPress(self):
+        '''Test that we can stop the server'''
+        QtTest.QTest.mouseClick(self.gui.server_status.server_button, QtCore.Qt.LeftButton)
+        self.assertEqual(self.gui.server_status.status, 0)
+
+        # Give the Flask server time to shut down
+        QtTest.QTest.qWait(2000)
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+        # We should be closed by now. Fail if not!
+        self.assertNotEqual(sock.connect_ex(('127.0.0.1',self.gui.app.port)), 0)
+
 
 if __name__ == "__main__":
     unittest.main()
