@@ -394,4 +394,7 @@ def stop(port):
         s.connect(('127.0.0.1', port))
         s.sendall('GET /{0:s}/shutdown HTTP/1.1\r\n\r\n'.format(shutdown_slug))
     except:
-        pass
+        try:
+            urlopen('http://127.0.0.1:{0:d}/{1:s}/shutdown'.format(port, shutdown_slug)).read()
+        except:
+            pass
