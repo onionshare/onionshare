@@ -62,6 +62,8 @@ class OnionShareGuiTest(unittest.TestCase):
         # Cheap and nasty request to the .onion to save messing with SOCKS proxies and the like
         self.assertEqual(os.system('torify curl {0:s}'.format(url)), 0)
 
+        QtTest.QTest.qWait(3000)
+
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
         # We should be closed by now. Fail if not!
