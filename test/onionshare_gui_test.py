@@ -5,6 +5,8 @@ from PyQt5 import QtCore, QtWidgets, QtGui, QtTest
 sys.path.append('../onionshare')
 sys.path.append('../onionshare_gui')
 
+setattr(sys, 'onionshare_dev_mode', True)
+
 from onionshare import onion, strings, common
 from onionshare_gui import *
 
