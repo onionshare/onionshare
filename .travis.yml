@@ -12,7 +12,7 @@ python:
 before_install: "sudo apt-get update; sudo apt-get install -y python3-nose python3-flask python3-stem python3-pyqt5 xvfbz"
 install: ""
 # command to run tests
-script
+script:
 - xvfb-run python3 test/onionshare_gui_test.py  | egrep -v "QWidget|QPainter"
 - xvfb-run python3 test/onionshare_settings_test.py  | egrep -v "QWidget|QPainter"
 - nosetests test/onionshare_common_test.py
