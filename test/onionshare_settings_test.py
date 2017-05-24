@@ -12,14 +12,12 @@ from onionshare_gui import *
 
 app = QtWidgets.QApplication(sys.argv)
 
-class OnionShareGuiTest(unittest.TestCase):
-    '''Test the OnionShare GUI'''
+class OnionShareSettingsTest(unittest.TestCase):
+    '''Test the OnionShare Settings Dialog'''
     @classmethod
     def setUpClass(cls):
         '''Create the GUI'''
 
-        # Wipe settings
-        os.remove(os.path.expanduser('~/.config/onionshare/onionshare.json'))
         # Start the Onion
         strings.load_strings(common)
 
