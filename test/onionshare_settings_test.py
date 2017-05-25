@@ -2,11 +2,6 @@
 import os, sys, unittest, inspect, json
 from PyQt5 import QtCore, QtWidgets, QtGui, QtTest
 
-sys.path.append('../onionshare')
-sys.path.append('../onionshare_gui')
-
-setattr(sys, 'onionshare_dev_mode', True)
-
 from onionshare import onion, strings, common
 from onionshare_gui import *
 
@@ -47,7 +42,7 @@ class OnionShareSettingsTest(unittest.TestCase):
         self.assertFalse(config['close_after_first_download'])
 
         self.assertTrue(self.gui.onion.connected_to_tor)
-         
+
 
 if __name__ == "__main__":
     unittest.main()
