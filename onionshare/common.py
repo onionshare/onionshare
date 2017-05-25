@@ -160,30 +160,19 @@ def human_readable_filesize(b):
 
 def format_seconds(seconds):
     """Return a human-readable string of the format 1d2h3m4s"""
-    seconds_in_a_minute = 60
-    seconds_in_an_hour = seconds_in_a_minute * 60
-    seconds_in_a_day = seconds_in_an_hour * 24
-
-    days = math.floor(seconds / seconds_in_a_day)
-
-    hour_seconds = seconds % seconds_in_a_day
-    hours = math.floor(hour_seconds / seconds_in_an_hour)
-
-    minute_seconds = hour_seconds % seconds_in_an_hour
-    minutes = math.floor(minute_seconds / seconds_in_a_minute)
-
-    remaining_seconds = minute_seconds % seconds_in_a_minute
-    seconds = math.ceil(remaining_seconds)
+    days, seconds = divmod(seconds, 86400)
+    hours, seconds = divmod(seconds, 3600)
+    minutes, seconds = divmod(seconds, 60)
 
     human_readable = []
-    if days > 0:
-        human_readable.append("{}d".format(int(days)))
-    if hours > 0:
-        human_readable.append("{}h".format(int(hours)))
-    if minutes > 0:
-        human_readable.append("{}m".format(int(minutes)))
-    if seconds > 0:
-        human_readable.append("{}s".format(int(seconds)))
+    if days:
+        human_readable.append("{}d".format(days))
+    if hours:
+        human_readable.append("{}h".format(hours))
+    if minutes:
+        human_readable.append("{}m".format(minutes))
+    if seconds or not human_readable:
+        human_readable.append("{:.0f}s".format(seconds))
     return ''.join(human_readable)
 
 
