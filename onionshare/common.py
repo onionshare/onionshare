@@ -17,10 +17,22 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-import sys, os, inspect, hashlib, base64, platform, zipfile, tempfile, math, time, socket, random
-from random import SystemRandom
+import base64
+import hashlib
+import inspect
+import math
+import os
+import platform
+import random
+import socket
+import sys
+import tempfile
+import time
+import zipfile
 
 debug = False
+
+
 def log(module, func, msg=None):
     """
     If debug mode is on, log error messages to stdout
@@ -33,6 +45,7 @@ def log(module, func, msg=None):
         if msg:
             final_msg = '{}: {}'.format(final_msg, msg)
         print(final_msg)
+
 
 def set_debug(new_debug):
     global debug
@@ -71,6 +84,7 @@ def get_resource_path(filename):
 
     return os.path.join(prefix, filename)
 
+
 def get_tor_paths():
     p = get_platform()
     if p == 'Linux':
@@ -89,6 +103,7 @@ def get_tor_paths():
         tor_geo_ipv6_file_path = os.path.join(base_path, 'Resources', 'Tor', 'geoip6')
 
     return (tor_path, tor_geo_ip_file_path, tor_geo_ipv6_file_path)
+
 
 def get_version():
     """
@@ -138,7 +153,7 @@ def build_slug():
     with open(get_resource_path('wordlist.txt')) as f:
         wordlist = f.read().split()
 
-    r = SystemRandom()
+    r = random.SystemRandom()
     return '-'.join(r.choice(wordlist) for _ in range(2))
 
 
@@ -200,16 +215,14 @@ def get_available_port(min_port, max_port):
     """
     Find a random available port within the given range.
     """
-    tmpsock = socket.socket()
-    while True:
-        try:
-            tmpsock.bind(("127.0.0.1", random.randint(min_port, max_port)))
-            break
-        except OSError:
-            pass
-    port = tmpsock.getsockname()[1]
-    tmpsock.close()
-
+    with socket.socket() as tmpsock:
+        while True:
+            try:
+                tmpsock.bind(("127.0.0.1", random.randint(min_port, max_port)))
+                break
+            except OSError:
+                pass
+        _, port = tmpsock.getsockname()
     return port
 
 
