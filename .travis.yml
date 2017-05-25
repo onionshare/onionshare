@@ -17,4 +17,4 @@ before_install:
 - sudo pip3 install stem
 install: ""
 # command to run tests
-script: xvfb-run nosetests3
+script: ./dev_scripts/tests
