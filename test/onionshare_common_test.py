@@ -27,13 +27,30 @@ import time
 
 import pytest
 
-from onionshare import common
+from onionshare.onionshare import common
 
 RANDOM_STR_REGEX = re.compile(r'^[a-z2-7]+$')
 SLUG_REGEX = re.compile(r'^([a-z]+)(-[a-z]+)?-([a-z]+)(-[a-z]+)?$')
+ZIPWRITER_FILENAME_REGEX = re.compile(r'onionshare_[a-z2-7]{6}.zip$')
 
 
 # FIXTURES
+@pytest.fixture(scope='session')
+def custom_zw():
+    zw = common.ZipWriter(zip_filename=common.random_string(4, 6))
+    yield zw
+    zw.close()
+    os.remove(zw.zip_filename)
+
+
+@pytest.fixture(scope='session')
+def default_zw():
+    zw = common.ZipWriter()
+    yield zw
+    zw.close()
+    os.remove(zw.zip_filename)
+
+
 @pytest.fixture
 def platform_darwin(monkeypatch):
     monkeypatch.setattr(platform, 'system', lambda: 'Darwin')
@@ -141,9 +158,9 @@ def test_dir_size(directory_size):
 @pytest.mark.parametrize('test_input,expected', (
     ((2, 676, 12), '8h14m16s'),
     ((14, 1049, 30), '1h26m15s'),
-    ((21, 450, 1), '33m43s'),
-    ((31, 1115, 80), '11m40s'),
-    ((336, 989, 32), '2m13s'),
+    ((21, 450, 1), '33m42s'),
+    ((31, 1115, 80), '11m39s'),
+    ((336, 989, 32), '2m12s'),
     ((603, 949, 38), '36s'),
     ((971, 1009, 83), '1s')
 ))
@@ -153,7 +170,7 @@ def test_estimated_time_remaining(test_input, expected):
 
 @pytest.mark.usefixtures('one_hundred_time')
 def test_estimated_time_remaining_time_elapsed_zero():
-    """ estimated_time_remaining() raises a  ZeroDivisionError if
+    """ estimated_time_remaining() raises a ZeroDivisionError if
     `time_elapsed` == 0
     """
 
@@ -178,11 +195,17 @@ def test_estimated_time_remaining_download_rate_zero():
     # (0, '0s'),
     (26, '26s'),
     (60, '1m'),
+    (947.35, '15m47s'),
     (1847, '30m47s'),
+    (2193.94, '36m34s'),
     (3600, '1h'),
+    (13426.83, '3h43m47s'),
     (16293, '4h31m33s'),
+    (18392.14, '5h6m32s'),
     (86400, '1d'),
+    (18392.14, '5h6m32s'),
     (129674, '1d12h1m14s'),
+    (56404.12, '15h40m4s'),
 ])
 def test_format_seconds(test_input, expected):
     assert common.format_seconds(test_input) == expected
@@ -286,7 +309,56 @@ def test_random_string_regex(test_input, expected):
 
 # def test_set_debug():
 #     pass
-#
-#
-# def test_zip_writer():
-#     pass
+
+
+class TestDefaultZipWriter:
+    def test_filename(self, default_zw):
+        assert bool(ZIPWRITER_FILENAME_REGEX.search(default_zw.zip_filename))
+
+    def test_callback(self, default_zw):
+        assert default_zw.processed_size_callback(None) is None
+
+    def test_add_file(self, default_zw):
+        file_size = 1000
+        with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
+            tmp_file.write(b'*' * file_size)
+        current_size = default_zw._size
+        default_zw.add_file(tmp_file.name)
+
+        assert default_zw._size == current_size + file_size
+        os.remove(tmp_file.name)
+
+    def test_add_directory(self, default_zw):
+        directory_size = 1000
+        tmp_dir = create_temporary_directory(directory_size)
+        current_size = default_zw._size
+        default_zw.add_dir(tmp_dir)
+
+        assert default_zw._size == current_size + directory_size
+        shutil.rmtree(tmp_dir)
+
+
+def test_zip_writer_custom_filename(custom_zw):
+    assert bool(RANDOM_STR_REGEX.match(custom_zw.zip_filename))
+
+
+def create_temporary_directory(directory_size):
+    """ Create a temporary directory with a single file of a
+    particular size. Return directory path as a string
+    """
+
+    tmp_dir = tempfile.mkdtemp()
+    # create_temporary_file(directory=tmp_dir)
+
+    with tempfile.NamedTemporaryFile(dir=tmp_dir, delete=False) as tmp_file:
+        tmp_file.write(b'*' * directory_size)
+
+    return tmp_dir
+
+
+# def create_temporary_file(directory=None, delete=False, file_size=100):
+#     if file_size <= 0:
+#         file_size = 100
+#     with tempfile.NamedTemporaryFile(dir=directory, delete=delete) as tmp_file:
+#         tmp_file.write(b'*' * file_size)
+#     return tmp_file.name
