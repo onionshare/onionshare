@@ -166,11 +166,11 @@ def format_seconds(seconds):
 
     human_readable = []
     if days:
-        human_readable.append("{}d".format(days))
+        human_readable.append("{:.0f}d".format(days))
     if hours:
-        human_readable.append("{}h".format(hours))
+        human_readable.append("{:.0f}h".format(hours))
     if minutes:
-        human_readable.append("{}m".format(minutes))
+        human_readable.append("{:.0f}m".format(minutes))
     if seconds or not human_readable:
         human_readable.append("{:.0f}s".format(seconds))
     return ''.join(human_readable)
