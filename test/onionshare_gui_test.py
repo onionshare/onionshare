@@ -19,7 +19,7 @@ class OnionShareGuiTest(unittest.TestCase):
             pass
 
         # Create our test file
-        testfile = open('/tmp/test/test.txt', 'w')
+        testfile = open('/tmp/test.txt', 'w')
         testfile.write('onionshare')
         testfile.close()
 
@@ -30,12 +30,12 @@ class OnionShareGuiTest(unittest.TestCase):
         global qtapp
         qtapp = Application()
         app = OnionShare(testonion, 0, 0)
-        cls.gui = OnionShareGui(testonion, qtapp, app, ['/tmp/test/test.txt'])
+        cls.gui = OnionShareGui(testonion, qtapp, app, ['/tmp/test.txt'])
 
     @classmethod
     def tearDownClass(cls):
         '''Clean up after tests'''
-        os.remove('/tmp/test/test.txt')
+        os.remove('/tmp/test.txt')
 
     def test_guiLoaded(self):
         '''Test that the GUI actually is shown'''
