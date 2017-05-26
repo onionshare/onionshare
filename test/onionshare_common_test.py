@@ -27,7 +27,7 @@ import time
 
 import pytest
 
-from onionshare.onionshare import common
+from onionshare import common
 
 RANDOM_STR_REGEX = re.compile(r'^[a-z2-7]+$')
 SLUG_REGEX = re.compile(r'^([a-z]+)(-[a-z]+)?-([a-z]+)(-[a-z]+)?$')
