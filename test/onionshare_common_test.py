@@ -158,9 +158,9 @@ def test_dir_size(directory_size):
 @pytest.mark.parametrize('test_input,expected', (
     ((2, 676, 12), '8h14m16s'),
     ((14, 1049, 30), '1h26m15s'),
-    ((21, 450, 1), '33m42s'),
-    ((31, 1115, 80), '11m39s'),
-    ((336, 989, 32), '2m12s'),
+    ((21, 450, 1), '33m43s'),
+    ((31, 1115, 80), '11m40s'),
+    ((336, 989, 32), '2m13s'),
     ((603, 949, 38), '36s'),
     ((971, 1009, 83), '1s')
 ))
@@ -189,23 +189,24 @@ def test_estimated_time_remaining_download_rate_zero():
 
 
 @pytest.mark.parametrize('test_input,expected', [
+    (0, ''),
     # currently `common.format_seconds` returns '' when given `0`
     # this first test depends if @micahflee approves of change made in #414
     # to `compress.format_seconds` to return '0s' instead of ''
     # (0, '0s'),
     (26, '26s'),
     (60, '1m'),
-    (947.35, '15m47s'),
+    (947.35, '15m48s'),
     (1847, '30m47s'),
     (2193.94, '36m34s'),
     (3600, '1h'),
     (13426.83, '3h43m47s'),
     (16293, '4h31m33s'),
-    (18392.14, '5h6m32s'),
+    (18392.14, '5h6m33s'),
     (86400, '1d'),
-    (18392.14, '5h6m32s'),
+    (18392.14, '5h6m33s'),
     (129674, '1d12h1m14s'),
-    (56404.12, '15h40m4s'),
+    (56404.12, '15h40m5s'),
 ])
 def test_format_seconds(test_input, expected):
     assert common.format_seconds(test_input) == expected
