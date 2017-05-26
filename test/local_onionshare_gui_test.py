@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import os, sys, unittest, inspect, socket, pytest
+import os, sys, unittest, inspect, socket
 from PyQt5 import QtCore, QtWidgets, QtGui, QtTest
 
 from onionshare import onion, strings, common
@@ -7,8 +7,7 @@ from onionshare_gui import *
 
 app = QtWidgets.QApplication(sys.argv)
 
-@pytest.mark.skipif(os.environ['TRAVIS'] == 'true', reason="Skipping tor-based tests in Travis")
-class OnionShareGuiTest(unittest.TestCase):
+class LocalOnionShareGuiTest(unittest.TestCase):
     '''Test the OnionShare GUI'''
     @classmethod
     def setUpClass(cls):
@@ -30,7 +29,7 @@ class OnionShareGuiTest(unittest.TestCase):
         testonion = onion.Onion()
         global qtapp
         qtapp = Application()
-        app = OnionShare(testonion, 0, 0)
+        app = OnionShare(testonion, True, 0)
         cls.gui = OnionShareGui(testonion, qtapp, app, ['/tmp/test.txt'])
 
     @classmethod
@@ -74,10 +73,10 @@ class OnionShareGuiTest(unittest.TestCase):
         QtTest.QTest.mouseClick(self.gui.server_status.server_button, QtCore.Qt.LeftButton)
         self.assertEqual(self.gui.server_status.status, 1)
         self.assertFalse(self.gui.file_selection.add_files_button.isEnabled())
-        QtTest.QTest.qWait(60000)
+        QtTest.QTest.qWait(1000)
         self.assertEqual(self.gui.server_status.status, 2)
-        self.assertRegex(self.gui.app.onion_host, r'[a-z2-7].onion')
-        self.assertEqual(len(self.gui.app.onion_host), 22)
+        #self.assertRegex(self.gui.app.onion_host, r'[a-z2-7].onion')
+        #self.assertEqual(len(self.gui.app.onion_host), 22)
         self.assertRegex(self.gui.server_status.web.slug, r'(\w+)-(\w+)')
         self.assertTrue(self.gui.server_status.copy_url_button.isVisible())
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import os, sys, unittest, inspect, socket
+import os, sys, unittest, inspect, socket, pytest
 from PyQt5 import QtCore, QtWidgets, QtGui, QtTest
 
 from onionshare import onion, strings, common
@@ -7,6 +7,7 @@ from onionshare_gui import *
 
 app = QtWidgets.QApplication(sys.argv)
 
+@pytest.mark.skipif(os.environ['TRAVIS'] == 'true', reason="Skipping tor-based tests in Travis")
 class OnionShareGuiTest(unittest.TestCase):
     '''Test the OnionShare GUI'''
     @classmethod
