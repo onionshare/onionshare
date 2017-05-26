@@ -148,7 +148,7 @@ def test_dir_size(directory_size):
     ((971, 1009, 83), '1s')
 ))
 def test_estimated_time_remaining(test_input, expected):
-    assert (common.estimated_time_remaining(*test_input) == expected)
+    assert common.estimated_time_remaining(*test_input) == expected
 
 
 @pytest.mark.usefixtures('one_hundred_time')
