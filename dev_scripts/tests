@@ -5,11 +5,11 @@
 if [[ $1 = "--headless" ]]; then
   # Run via XVFB and silence a lot of noise
   xvfb-run py.test-3 -k 'not test_starts_with_empty_strings' | egrep -v "QPainter|QWidget"
+  if [ ${PIPESTATUS[0]} -ne 0 ]; then
+    exit 1
+  else
+    exit 0
+  fi
 else
   py.test-3 -k 'not test_starts_with_empty_strings'
-fi
-if [ ${PIPESTATUS[0]} -ne 0 ]; then
-  exit 1
-else
-  exit 0
 fi
