@@ -16,6 +16,8 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
+import contextlib
+import io
 import os
 import platform
 import random
@@ -29,6 +31,7 @@ import pytest
 
 from onionshare import common
 
+LOG_MSG_REGEX = re.compile(r'^\[Jun 06 2013 11:05:00\] TestModule\.<function test_log\.<locals>\.test_func at 0x[a-f0-9]+>(: TEST_MSG)?$')
 RANDOM_STR_REGEX = re.compile(r'^[a-z2-7]+$')
 SLUG_REGEX = re.compile(r'^([a-z]+)(-[a-z]+)?-([a-z]+)(-[a-z]+)?$')
 ZIPWRITER_FILENAME_REGEX = re.compile(r'onionshare_[a-z2-7]{6}.zip$')
@@ -67,8 +70,13 @@ def platform_windows(monkeypatch):
 
 
 @pytest.fixture
-def one_hundred_time(monkeypatch):
+def time_100(monkeypatch):
     monkeypatch.setattr(time, 'time', lambda: 100)
+
+
+@pytest.fixture
+def time_strftime(monkeypatch):
+    monkeypatch.setattr(time, 'strftime', lambda _: 'Jun 06 2013 11:05:00')
 
 
 # TESTS
@@ -154,7 +162,7 @@ def test_dir_size(directory_size):
     shutil.rmtree(tmp_dir)
 
 
-@pytest.mark.usefixtures('one_hundred_time')
+@pytest.mark.usefixtures('time_100')
 @pytest.mark.parametrize('test_input,expected', (
     ((2, 676, 12), '8h14m16s'),
     ((14, 1049, 30), '1h26m15s'),
@@ -168,7 +176,7 @@ def test_estimated_time_remaining(test_input, expected):
     assert common.estimated_time_remaining(*test_input) == expected
 
 
-@pytest.mark.usefixtures('one_hundred_time')
+@pytest.mark.usefixtures('time_100')
 def test_estimated_time_remaining_time_elapsed_zero():
     """ estimated_time_remaining() raises a ZeroDivisionError if
     `time_elapsed` == 0
@@ -178,7 +186,7 @@ def test_estimated_time_remaining_time_elapsed_zero():
         common.estimated_time_remaining(10, 20, 100)
 
 
-@pytest.mark.usefixtures('one_hundred_time')
+@pytest.mark.usefixtures('time_100')
 def test_estimated_time_remaining_download_rate_zero():
     """ estimated_time_remaining() raises a ZeroDivision error if
     `download_rate` == 0
@@ -294,8 +302,24 @@ def test_human_readable_filesize(test_input, expected):
     assert common.human_readable_filesize(test_input) == expected
 
 
-# def test_log():
-#     pass
+@pytest.mark.usefixtures('time_strftime')
+def test_log():
+    def test_func():
+        pass
+
+    common.set_debug(True)
+
+    # From: https://stackoverflow.com/questions/1218933
+    with io.StringIO() as buf, contextlib.redirect_stdout(buf):
+        common.log('TestModule', test_func)
+        common.log('TestModule', test_func, 'TEST_MSG')
+        output = buf.getvalue()
+
+    common.set_debug(False)
+
+    line_one, line_two, _ = output.split('\n')
+    assert LOG_MSG_REGEX.match(line_one)
+    assert LOG_MSG_REGEX.match(line_two)
 
 
 @pytest.mark.parametrize('test_input,expected', (
@@ -308,8 +332,14 @@ def test_random_string_regex(test_input, expected):
     assert bool(RANDOM_STR_REGEX.match(test_input)) == expected
 
 
-# def test_set_debug():
-#     pass
+def test_set_debug_true():
+    common.set_debug(True)
+    assert common.debug is True
+
+
+def test_set_debug_false():
+    common.set_debug(False)
+    assert common.debug is False
 
 
 class TestDefaultZipWriter:
