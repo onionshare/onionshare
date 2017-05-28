@@ -467,18 +467,19 @@ class ZipProgressBar(QtWidgets.QProgressBar):
 
     def __init__(self, total_files_size):
         super(ZipProgressBar, self).__init__()
-        self.setMaximumHeight(15)
+        self.setMaximumHeight(20)
         self.setMinimumWidth(200)
         self.setValue(0)
         self.setFormat(strings._('zip_progress_bar_format'))
         cssStyleData ="""
         QProgressBar {
-            border: 2px solid grey;
-            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.0) !important;
+            border: 0px;
             text-align: center;
         }
 
         QProgressBar::chunk {
+            border: 0px;
             background: qlineargradient(x1: 0.5, y1: 0, x2: 0.5, y2: 1, stop: 0 #b366ff, stop: 1 #d9b3ff);
             width: 10px;
         }"""
