@@ -170,15 +170,12 @@ class FileSelection(QtWidgets.QVBoxLayout):
         self.file_list.files_dropped.connect(self.update)
 
         # buttons
-        self.add_files_button = QtWidgets.QPushButton(strings._('gui_add_files', True))
-        self.add_files_button.clicked.connect(self.add_files)
-        self.add_dir_button = QtWidgets.QPushButton(strings._('gui_add_folder', True))
-        self.add_dir_button.clicked.connect(self.add_dir)
+        self.add_button = QtWidgets.QPushButton(strings._('gui_add', True))
+        self.add_button.clicked.connect(self.add)
         self.delete_button = QtWidgets.QPushButton(strings._('gui_delete', True))
-        self.delete_button.clicked.connect(self.delete_file)
+        self.delete_button.clicked.connect(self.delete)
         button_layout = QtWidgets.QHBoxLayout()
-        button_layout.addWidget(self.add_files_button)
-        button_layout.addWidget(self.add_dir_button)
+        button_layout.addWidget(self.add_button)
         button_layout.addWidget(self.delete_button)
 
         # add the widgets
@@ -193,12 +190,10 @@ class FileSelection(QtWidgets.QVBoxLayout):
         """
         # all buttons should be disabled if the server is on
         if self.server_on:
-            self.add_files_button.setEnabled(False)
-            self.add_dir_button.setEnabled(False)
+            self.add_button.setEnabled(False)
             self.delete_button.setEnabled(False)
         else:
-            self.add_files_button.setEnabled(True)
-            self.add_dir_button.setEnabled(True)
+            self.add_button.setEnabled(True)
 
             # delete button should be disabled if item isn't selected
             current_item = self.file_list.currentItem()
@@ -210,34 +205,15 @@ class FileSelection(QtWidgets.QVBoxLayout):
         # update the file list
         self.file_list.update()
 
-    def add_files(self):
+    def add(self):
         """
-        Add files button clicked.
+        Add button clicked.
         """
-        file_dialog = QtWidgets.QFileDialog(caption=strings._('gui_choose_files', True))
-        file_dialog.setFileMode(QtWidgets.QFileDialog.ExistingFiles)
-        file_dialog.setOption(QtWidgets.QFileDialog.DontUseNativeDialog, True)
-        file_dialog.setOption(QtWidgets.QFileDialog.ReadOnly, True)
-        tree_view = file_dialog.findChild(QtWidgets.QTreeView)
-        tree_view.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
-        list_view = file_dialog.findChild(QtWidgets.QListView, "listView")
-        list_view.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
-
-        if file_dialog.exec_() == QtWidgets.QDialog.Accepted:
-          for filename in file_dialog.selectedFiles():
-              self.file_list.add_file(filename)
-
-        self.update()
-
-    def add_dir(self):
-        """
-        Add folder button clicked.
-        """
-        file_dialog = QtWidgets.QFileDialog(caption=strings._('gui_choose_folder', True))
+        file_dialog = QtWidgets.QFileDialog(caption=strings._('gui_choose_items', True))
         file_dialog.setFileMode(QtWidgets.QFileDialog.Directory)
         file_dialog.setOption(QtWidgets.QFileDialog.DontUseNativeDialog, True)
         file_dialog.setOption(QtWidgets.QFileDialog.ReadOnly, True)
-        file_dialog.setOption(QtWidgets.QFileDialog.ShowDirsOnly, True)
+        file_dialog.setOption(QtWidgets.QFileDialog.ShowDirsOnly, False)
         tree_view = file_dialog.findChild(QtWidgets.QTreeView)
         tree_view.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
         list_view = file_dialog.findChild(QtWidgets.QListView, "listView")
@@ -249,7 +225,7 @@ class FileSelection(QtWidgets.QVBoxLayout):
 
         self.update()
 
-    def delete_file(self):
+    def delete(self):
         """
         Delete button clicked
         """
