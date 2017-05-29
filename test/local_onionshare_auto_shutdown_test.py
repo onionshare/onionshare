@@ -29,7 +29,7 @@ class LocalOnionShareGuiTest(unittest.TestCase):
         testonion = onion.Onion()
         global qtapp
         qtapp = Application()
-        app = OnionShare(testonion, 0, 0)
+        app = OnionShare(testonion, True, 0)
         cls.gui = OnionShareGui(testonion, qtapp, app, ['/tmp/test.txt'])
 
     @classmethod
@@ -42,7 +42,7 @@ class LocalOnionShareGuiTest(unittest.TestCase):
         QtTest.QTest.mouseClick(self.gui.server_status.server_button, QtCore.Qt.LeftButton)
         self.assertEqual(self.gui.server_status.status, 1)
         self.assertFalse(self.gui.file_selection.add_files_button.isEnabled())
-        QtTest.QTest.qWait(3000)
+        QtTest.QTest.qWait(5000)
         self.assertEqual(self.gui.server_status.status, 2)
         self.assertRegex(self.gui.server_status.web.slug, r'(\w+)-(\w+)')
 
