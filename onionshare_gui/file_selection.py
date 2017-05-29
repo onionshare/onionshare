@@ -209,7 +209,7 @@ class FileSelection(QtWidgets.QVBoxLayout):
         """
         Add button clicked.
         """
-        file_dialog = FileDialog() #caption=strings._('gui_choose_items', True))
+        file_dialog = FileDialog(caption=strings._('gui_choose_items', True))
         if file_dialog.exec_() == QtWidgets.QDialog.Accepted:
             for filename in file_dialog.selectedFiles():
                 self.file_list.add_file(filename)
@@ -258,8 +258,8 @@ class FileDialog(QtWidgets.QFileDialog):
     Overridden version of QFileDialog which allows us to select
     folders as well as, or instead of, files.
     """
-    def __init__(self, *args):
-        QtWidgets.QFileDialog.__init__(self, *args)
+    def __init__(self, *args, **kwargs):
+        QtWidgets.QFileDialog.__init__(self, *args, **kwargs)
         self.setOption(self.DontUseNativeDialog, True)
         self.setOption(self.ReadOnly, True)
         self.setOption(self.ShowDirsOnly, False)
