@@ -43,6 +43,19 @@ class TorConnectionDialog(QtWidgets.QProgressDialog):
         self.setModal(True)
         self.setFixedSize(400, 150)
 
+        cssStyleData ="""
+        QProgressBar {
+            border: 2px solid grey;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        QProgressBar::chunk {
+            background: qlineargradient(x1: 0.5, y1: 0, x2: 0.5, y2: 1, stop: 0 #b366ff, stop: 1 #d9b3ff);
+            width: 10px;
+        }"""
+        self.setStyleSheet(cssStyleData)
+
         # Label
         self.setLabelText(strings._('connecting_to_tor', True))
 
