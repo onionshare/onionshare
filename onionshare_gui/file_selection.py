@@ -209,19 +209,10 @@ class FileSelection(QtWidgets.QVBoxLayout):
         """
         Add button clicked.
         """
-        file_dialog = QtWidgets.QFileDialog(caption=strings._('gui_choose_items', True))
-        file_dialog.setFileMode(QtWidgets.QFileDialog.Directory)
-        file_dialog.setOption(QtWidgets.QFileDialog.DontUseNativeDialog, True)
-        file_dialog.setOption(QtWidgets.QFileDialog.ReadOnly, True)
-        file_dialog.setOption(QtWidgets.QFileDialog.ShowDirsOnly, False)
-        tree_view = file_dialog.findChild(QtWidgets.QTreeView)
-        tree_view.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
-        list_view = file_dialog.findChild(QtWidgets.QListView, "listView")
-        list_view.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
-
+        file_dialog = FileDialog() #caption=strings._('gui_choose_items', True))
         if file_dialog.exec_() == QtWidgets.QDialog.Accepted:
-          for filename in file_dialog.selectedFiles():
-              self.file_list.add_file(filename)
+            for filename in file_dialog.selectedFiles():
+                self.file_list.add_file(filename)
 
         self.update()
 
@@ -261,3 +252,22 @@ class FileSelection(QtWidgets.QVBoxLayout):
         Set the Qt app focus on the file selection box.
         """
         self.file_list.setFocus()
+
+class FileDialog(QtWidgets.QFileDialog):
+    """
+    Overridden version of QFileDialog which allows us to select
+    folders as well as, or instead of, files.
+    """
+    def __init__(self, *args):
+        QtWidgets.QFileDialog.__init__(self, *args)
+        self.setOption(self.DontUseNativeDialog, True)
+        self.setOption(self.ReadOnly, True)
+        self.setOption(self.ShowDirsOnly, False)
+        self.setFileMode(self.ExistingFiles)
+        tree_view = self.findChild(QtWidgets.QTreeView)
+        tree_view.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
+        list_view = self.findChild(QtWidgets.QListView, "listView")
+        list_view.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
+
+    def accept(self):
+        QtWidgets.QDialog.accept(self)
