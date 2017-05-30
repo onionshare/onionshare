@@ -34,10 +34,13 @@ class ServerStatus(QtWidgets.QVBoxLayout):
     STATUS_STOPPED = 0
     STATUS_WORKING = 1
     STATUS_STARTED = 2
+    URL_CONCEALED = 0
+    URL_REVEALED = 1
 
     def __init__(self, qtapp, app, web, file_selection):
         super(ServerStatus, self).__init__()
         self.status = self.STATUS_STOPPED
+        self.url_shown = self.URL_CONCEALED
 
         self.qtapp = qtapp
         self.app = app
@@ -58,8 +61,7 @@ class ServerStatus(QtWidgets.QVBoxLayout):
 
         # url layout
         self.reveal_url_button = QtWidgets.QPushButton(strings._('gui_reveal_url', True))
-        self.reveal_url_button.setCheckable(True)
-        self.reveal_url_button.toggled.connect(self.reveal_url_toggled)
+        self.reveal_url_button.clicked.connect(self.reveal_url_button_clicked)
         self.copy_url_button = QtWidgets.QPushButton(strings._('gui_copy_url', True))
         self.copy_url_button.clicked.connect(self.copy_url)
         self.copy_hidservauth_button = QtWidgets.QPushButton(strings._('gui_copy_hidservauth', True))
@@ -105,7 +107,7 @@ class ServerStatus(QtWidgets.QVBoxLayout):
             self.copy_url_button.hide()
             self.copy_hidservauth_button.hide()
 
-        # button
+        # server status button
         if self.file_selection.get_num_files() == 0:
             self.server_button.setEnabled(False)
             self.server_button.setText(strings._('gui_start_server', True))
@@ -119,6 +121,12 @@ class ServerStatus(QtWidgets.QVBoxLayout):
             else:
                 self.server_button.setEnabled(False)
                 self.server_button.setText(strings._('gui_please_wait'))
+
+        # reveal button
+        if self.revealed == self.URL_REVEALED:
+            self.reveal_url_button.setText('http://{0:s}/{1:s}'.format(self.app.onion_host, self.web.slug))
+        else:
+            self.reveal_url_button.setText(strings._('gui_reveal_url', True))
 
     def server_button_clicked(self):
         """
@@ -160,16 +168,18 @@ class ServerStatus(QtWidgets.QVBoxLayout):
         self.status = self.STATUS_STOPPED
         self.update()
 
-    def reveal_url_toggled(self, checked):
+    def reveal_url_button_clicked(self):
         """
         Toggle the 'Reveal URL' button to either
         show the Onion URL or hide it
         """
         common.log('OnionShareGui', 'reveal_url_toggled', 'URL reveal button was clicked')
-        if checked:
-            self.reveal_url_button.setText('http://{0:s}/{1:s}'.format(self.app.onion_host, self.web.slug))
+        if self.revealed == self.URL_CONCEALED:
+            self.revealed = self.URL_REVEALED
         else:
-            self.reveal_url_button.setText(strings._('gui_reveal_url', True))
+            self.revealed = self.URL_CONCEALED
+
+        self.update()
 
     def copy_url(self):
         """
