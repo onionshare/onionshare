@@ -262,6 +262,9 @@ class OnionShareGui(QtWidgets.QMainWindow):
         """
         common.log('OnionShareGui', 'start_server_step2')
 
+        # Refresh the file list in case it has been modified since last share
+        self.file_selection.file_list.update()
+
         # add progress bar to the status bar, indicating the crunching of files.
         self._zip_progress_bar = ZipProgressBar(0)
         self._zip_progress_bar.total_files_size = OnionShareGui._compute_total_size(
