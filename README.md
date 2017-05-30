@@ -10,5 +10,5 @@ OnionShare lets you securely and anonymously share files of any size. It works b
 
 You can set up your development environment to build OnionShare yourself by following [these instructions](/BUILD.md).
 
--![Client Screenshot](/screenshots/client.png)
--![Server Screenshot](/screenshots/server.png)
+![Server Screenshot](/screenshots/server.png)
+![Client Screenshot](/screenshots/client.png)
