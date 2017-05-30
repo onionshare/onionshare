@@ -101,6 +101,8 @@ class OnionShareGui(QtWidgets.QMainWindow):
         # Status bar
         self.status_bar = QtWidgets.QStatusBar()
         self.status_bar.setSizeGripEnabled(False)
+        self.status_bar.setStyleSheet(
+            "QStatusBar::item { border: 0px; }")
         version_label = QtWidgets.QLabel('v{0:s}'.format(common.get_version()))
         version_label.setStyleSheet('color: #666666')
         self.settings_button = QtWidgets.QPushButton()
