@@ -6,6 +6,10 @@
 * In Windows and macOS, OnionShare alerts users about updates
 * Removed the menu bar, and adding a Settings button
 * Added desktop notifications
+* Ability to add multiple folders at once via the 'Add Folders' button
+* Hardened some response headers sent from the web server
+* Minor clarity improvements to the contents of the share's web page
+* Alert the user rather than share an empty archive if a file was unreadable
 
 ## 1.0
 
