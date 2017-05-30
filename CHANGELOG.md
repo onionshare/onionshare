@@ -5,11 +5,13 @@
 * OnionShare connects to Tor itself now, so opening Tor Browser in the background isn't required
 * In Windows and macOS, OnionShare alerts users about updates
 * Removed the menu bar, and adding a Settings button
-* Added desktop notifications
-* Ability to add multiple folders at once via the 'Add Folders' button
+* Added desktop notifications, and a system tray icon
+* Ability to add multiple files and folders with a single "Add" button
+* Ability to delete multiple files and folders at once with the "Delete" button
 * Hardened some response headers sent from the web server
 * Minor clarity improvements to the contents of the share's web page
 * Alert the user rather than share an empty archive if a file was unreadable
+* Prettier progress bars
 
 ## 1.0
 
