@@ -35,6 +35,7 @@ class FileList(QtWidgets.QListWidget):
         self.setAcceptDrops(True)
         self.setIconSize(QtCore.QSize(32, 32))
         self.setSortingEnabled(True)
+        self.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
 
         class DropHereLabel(QtWidgets.QLabel):
             """
@@ -253,9 +254,11 @@ class FileSelection(QtWidgets.QVBoxLayout):
         """
         Delete button clicked
         """
-        current_row = self.file_list.currentRow()
-        self.file_list.filenames.pop(current_row)
-        self.file_list.takeItem(current_row)
+        selected = self.file_list.selectedItems()
+        for item in selected:
+            itemrow = self.file_list.row(item)
+            self.file_list.filenames.pop(itemrow)
+            self.file_list.takeItem(itemrow)
         self.update()
 
     def server_started(self):
