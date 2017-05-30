@@ -173,11 +173,12 @@ class ServerStatus(QtWidgets.QVBoxLayout):
         Toggle the 'Reveal URL' button to either
         show the Onion URL or hide it
         """
-        common.log('OnionShareGui', 'reveal_url_toggled', 'URL reveal button was clicked')
         if self.url_shown == self.URL_CONCEALED:
             self.url_shown = self.URL_REVEALED
+            common.log('ServerStatus', 'reveal_url_button_clicked', 'URL was revealed over button')
         else:
             self.url_shown = self.URL_CONCEALED
+            common.log('ServerStatus', 'reveal_url_button_clicked', 'URL was concealed behind button')
 
         self.update()
 
