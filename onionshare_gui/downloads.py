@@ -32,14 +32,24 @@ class Download(object):
         self.downloaded_bytes = 0
 
         # make a new progress bar
+        cssStyleData ="""
+        QProgressBar {
+            border: 2px solid grey;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        QProgressBar::chunk {
+            background: qlineargradient(x1: 0.5, y1: 0, x2: 0.5, y2: 1, stop: 0 #b366ff, stop: 1 #d9b3ff);
+            width: 10px;
+        }"""
         self.progress_bar = QtWidgets.QProgressBar()
         self.progress_bar.setTextVisible(True)
         self.progress_bar.setAlignment(QtCore.Qt.AlignHCenter)
         self.progress_bar.setMinimum(0)
         self.progress_bar.setMaximum(total_bytes)
         self.progress_bar.setValue(0)
-        self.progress_bar.setStyleSheet(
-            "QProgressBar::chunk { background-color: #05B8CC; }")
+        self.progress_bar.setStyleSheet(cssStyleData)
         self.progress_bar.total_bytes = total_bytes
 
         # start at 0
