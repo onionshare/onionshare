@@ -18,7 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 from distutils.version import StrictVersion as Version
-import queue, mimetypes, platform, os, sys, socket, logging
+import queue, mimetypes, platform, os, sys, socket, logging, hmac
 from urllib.request import urlopen
 
 from flask import Flask, Response, request, render_template_string, abort, make_response
@@ -162,7 +162,7 @@ def check_slug_candidate(slug_candidate, slug_compare = None):
     global slug
     if not slug_compare:
         slug_compare = slug
-    if not common.constant_time_compare(slug_compare.encode('ascii'), slug_candidate.encode('ascii')):
+    if not hmac.compare_digest(slug_compare, slug_candidate):
         abort(404)
 
 
