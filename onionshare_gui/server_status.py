@@ -123,7 +123,7 @@ class ServerStatus(QtWidgets.QVBoxLayout):
                 self.server_button.setText(strings._('gui_please_wait'))
 
         # reveal button
-        if self.revealed == self.URL_REVEALED:
+        if self.url_shown == self.URL_REVEALED:
             self.reveal_url_button.setText('http://{0:s}/{1:s}'.format(self.app.onion_host, self.web.slug))
         else:
             self.reveal_url_button.setText(strings._('gui_reveal_url', True))
@@ -174,10 +174,10 @@ class ServerStatus(QtWidgets.QVBoxLayout):
         show the Onion URL or hide it
         """
         common.log('OnionShareGui', 'reveal_url_toggled', 'URL reveal button was clicked')
-        if self.revealed == self.URL_CONCEALED:
-            self.revealed = self.URL_REVEALED
+        if self.url_shown == self.URL_CONCEALED:
+            self.url_shown = self.URL_REVEALED
         else:
-            self.revealed = self.URL_CONCEALED
+            self.url_shown = self.URL_CONCEALED
 
         self.update()
 
