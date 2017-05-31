@@ -412,7 +412,6 @@ class TestDefaultZipWriter(object):
         zipfile_info = default_zw.z.getinfo(os.path.basename(tmp_file_path))
         assert zipfile_info.compress_type == zipfile.ZIP_DEFLATED
         assert zipfile_info.file_size == tmp_file_size
-        assert zipfile_info.is_dir() is False
 
         os.remove(tmp_file_path)
         assert os.path.exists(tmp_file_path) is False
