@@ -45,6 +45,7 @@ class Download(object):
         }"""
         self.progress_bar = QtWidgets.QProgressBar()
         self.progress_bar.setTextVisible(True)
+        self.progress_bar.setAttribute(QtCore.Qt.WA_DeleteOnClose)
         self.progress_bar.setAlignment(QtCore.Qt.AlignHCenter)
         self.progress_bar.setMinimum(0)
         self.progress_bar.setMaximum(total_bytes)
@@ -120,3 +121,12 @@ class Downloads(QtWidgets.QWidget):
         Update a download progress bar to show that it has been canceled.
         """
         self.downloads[download_id].cancel()
+
+    def reset_downloads(self):
+        """
+        Reset the downloads back to zero
+        """
+        for download in self.downloads.values():
+            self.layout.removeWidget(download.progress_bar)
+            download.progress_bar.close() # = None
+        self.downloads = {}
