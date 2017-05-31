@@ -128,5 +128,5 @@ class Downloads(QtWidgets.QWidget):
         """
         for download in self.downloads.values():
             self.layout.removeWidget(download.progress_bar)
-            download.progress_bar.close() # = None
+            download.progress_bar.close()
         self.downloads = {}
