@@ -14,5 +14,5 @@ install:
   - pip install Flask==0.12 stem==1.5.4 pytest-cov coveralls
 # command to run tests
 script: pytest --cov=onionshare test/
-# after_success:
-#   - coveralls
+after_success:
+  - coveralls
