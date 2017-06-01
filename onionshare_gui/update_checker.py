@@ -52,15 +52,16 @@ class UpdateChecker(QtCore.QObject):
     update_available = QtCore.pyqtSignal(str, str, str)
     update_not_available = QtCore.pyqtSignal()
 
-    def __init__(self, onion):
+    def __init__(self, onion, config=False):
         super(UpdateChecker, self).__init__()
         common.log('UpdateChecker', '__init__')
         self.onion = onion
+        self.config = config
 
-    def check(self, force=False):
+    def check(self, force=False, config=False):
         common.log('UpdateChecker', 'check', 'force={}'.format(force))
         # Load the settings
-        settings = Settings()
+        settings = Settings(config)
         settings.load()
 
         # If force=True, then definitely check
@@ -146,20 +147,21 @@ class UpdateThread(QtCore.QThread):
     update_available = QtCore.pyqtSignal(str, str, str)
     update_not_available = QtCore.pyqtSignal()
 
-    def __init__(self, onion):
+    def __init__(self, onion, config=False):
         super(UpdateThread, self).__init__()
         common.log('UpdateThread', '__init__')
         self.onion = onion
+        self.config = config
 
     def run(self):
         common.log('UpdateThread', 'run')
 
-        u = UpdateChecker(self.onion)
+        u = UpdateChecker(self.onion, self.config)
         u.update_available.connect(self._update_available)
         u.update_not_available.connect(self._update_not_available)
 
         try:
-            u.check()
+            u.check(config=self.config)
         except Exception as e:
             # If update check fails, silently ignore
             common.log('UpdateThread', 'run', '{}'.format(e))
