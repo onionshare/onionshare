@@ -66,12 +66,15 @@ def main():
     parser.add_argument('--stay-open', action='store_true', dest='stay_open', help=strings._("help_stay_open"))
     parser.add_argument('--debug', action='store_true', dest='debug', help=strings._("help_debug"))
     parser.add_argument('--filenames', metavar='filenames', nargs='+', help=strings._('help_filename'))
+    parser.add_argument('--config', metavar='config', default=False, help=strings._('help_config'))
     args = parser.parse_args()
 
     filenames = args.filenames
     if filenames:
         for i in range(len(filenames)):
             filenames[i] = os.path.abspath(filenames[i])
+
+    config = args.config
 
     local_only = bool(args.local_only)
     stay_open = bool(args.stay_open)
@@ -103,7 +106,7 @@ def main():
     app = OnionShare(onion, local_only, stay_open)
 
     # Launch the gui
-    gui = OnionShareGui(onion, qtapp, app, filenames)
+    gui = OnionShareGui(onion, qtapp, app, filenames, config)
 
     # Clean up when app quits
     def shutdown():

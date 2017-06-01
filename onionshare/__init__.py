@@ -44,6 +44,7 @@ def main(cwd=None):
     parser.add_argument('--stay-open', action='store_true', dest='stay_open', help=strings._("help_stay_open"))
     parser.add_argument('--stealth', action='store_true', dest='stealth', help=strings._("help_stealth"))
     parser.add_argument('--debug', action='store_true', dest='debug', help=strings._("help_debug"))
+    parser.add_argument('--config', metavar='config', default=False, help=strings._('help_config'))
     parser.add_argument('filename', metavar='filename', nargs='+', help=strings._('help_filename'))
     args = parser.parse_args()
 
@@ -55,6 +56,7 @@ def main(cwd=None):
     debug = bool(args.debug)
     stay_open = bool(args.stay_open)
     stealth = bool(args.stealth)
+    config = args.config
 
     # Debug mode?
     if debug:
@@ -76,7 +78,7 @@ def main(cwd=None):
     # Start the Onion object
     onion = Onion()
     try:
-        onion.connect()
+        onion.connect(settings=False, config=config)
     except (TorTooOld, TorErrorInvalidSetting, TorErrorAutomatic, TorErrorSocketPort, TorErrorSocketFile, TorErrorMissingPassword, TorErrorUnreadableCookieFile, TorErrorAuthError, TorErrorProtocolError, BundledTorNotSupported, BundledTorTimeout) as e:
         sys.exit(e.args[0])
     except KeyboardInterrupt:

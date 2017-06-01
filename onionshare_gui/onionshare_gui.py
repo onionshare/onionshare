@@ -43,7 +43,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
     starting_server_step3 = QtCore.pyqtSignal()
     starting_server_error = QtCore.pyqtSignal(str)
 
-    def __init__(self, onion, qtapp, app, filenames):
+    def __init__(self, onion, qtapp, app, filenames, config=False):
         super(OnionShareGui, self).__init__()
 
         self._initSystemTray()
@@ -58,7 +58,8 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.setWindowIcon(QtGui.QIcon(common.get_resource_path('images/logo.png')))
 
         # Load settings
-        self.settings = Settings()
+        self.config = config
+        self.settings = Settings(self.config)
         self.settings.load()
 
         # File selection
@@ -218,7 +219,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
             common.log('OnionShareGui', 'open_settings', 'settings have changed, reloading')
             self.settings.load()
 
-        d = SettingsDialog(self.onion, self.qtapp)
+        d = SettingsDialog(self.onion, self.qtapp, self.config)
         d.settings_saved.connect(reload_settings)
         d.exec_()
 
@@ -346,7 +347,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
                 def update_available(update_url, installed_version, latest_version):
                     Alert(strings._("update_available", True).format(update_url, installed_version, latest_version))
 
-                self.update_thread = UpdateThread(self.onion)
+                self.update_thread = UpdateThread(self.onion, self.config)
                 self.update_thread.update_available.connect(update_available)
                 self.update_thread.start()
 

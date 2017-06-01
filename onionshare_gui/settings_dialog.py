@@ -34,12 +34,13 @@ class SettingsDialog(QtWidgets.QDialog):
     """
     settings_saved = QtCore.pyqtSignal()
 
-    def __init__(self, onion, qtapp):
+    def __init__(self, onion, qtapp, config=False):
         super(SettingsDialog, self).__init__()
         common.log('SettingsDialog', '__init__')
 
         self.onion = onion
         self.qtapp = qtapp
+        self.config = config
 
         self.setModal(True)
         self.setWindowTitle(strings._('gui_settings_window_title', True))
@@ -259,7 +260,7 @@ class SettingsDialog(QtWidgets.QDialog):
         self.cancel_button.setFocus()
 
         # Load settings, and fill them in
-        self.old_settings = Settings()
+        self.old_settings = Settings(self.config)
         self.old_settings.load()
 
         close_after_first_download = self.old_settings.get('close_after_first_download')
@@ -397,7 +398,7 @@ class SettingsDialog(QtWidgets.QDialog):
                 tor_status_update_func = None
 
             onion = Onion()
-            onion.connect(settings=settings, tor_status_update_func=tor_status_update_func)
+            onion.connect(settings=settings, config=self.config, tor_status_update_func=tor_status_update_func)
 
             # If an exception hasn't been raised yet, the Tor settings work
             Alert(strings._('settings_test_success', True).format(onion.tor_version, onion.supports_ephemeral, onion.supports_stealth))
@@ -441,7 +442,7 @@ class SettingsDialog(QtWidgets.QDialog):
         self._enable_buttons()
 
         # Update the last checked label
-        settings = Settings()
+        settings = Settings(self.config)
         settings.load()
         autoupdate_timestamp = settings.get('autoupdate_timestamp')
         self._update_autoupdate_timestamp(autoupdate_timestamp)
@@ -519,7 +520,7 @@ class SettingsDialog(QtWidgets.QDialog):
         Return a Settings object that's full of values from the settings dialog.
         """
         common.log('SettingsDialog', 'settings_from_fields')
-        settings = Settings()
+        settings = Settings(self.config)
         settings.load() # To get the last update timestamp
 
         settings.set('close_after_first_download', self.close_after_first_download_checkbox.isChecked())
