@@ -9,7 +9,8 @@ python:
   - "3.7-dev"
   - "nightly"
 # command to install dependencies
-before_install: "sudo apt-get update; sudo apt-get install -y python3-nose python3-flask python3-stem python3-pyqt5"
-install: ""
+# before_install: "sudo apt-get update; sudo apt-get install -y python3-pytest python3-flask python3-stem python3-pyqt5"
+install:
+  - pip3 install Flask==0.12 stem==1.5.4
 # command to run tests
-script: nosetests3
+script: pytest
