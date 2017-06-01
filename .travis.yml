@@ -9,7 +9,12 @@ python:
   - "3.7-dev"
   - "nightly"
 # command to install dependencies
-before_install: "sudo apt-get update; sudo apt-get install -y python3-nose python3-flask python3-stem python3-pyqt5"
+before_install:
+- echo "deb http://deb.torproject.org/torproject.org trusty main" | sudo tee -a /etc/apt/sources.list.d/torproject.list
+- gpg --keyserver keys.gnupg.net --recv A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89
+- gpg --export A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89 | sudo apt-key add -
+- sudo apt-get update; sudo apt-get install -y python3-nose python3-flask python3-pyqt5 python3-pip xvfb tor
+- sudo pip3 install stem
 install: ""
 # command to run tests
-script: nosetests3
+script: ./dev_scripts/tests
