@@ -443,7 +443,8 @@ class OnionShareGui(QtWidgets.QMainWindow):
         Disable the Settings button while an OnionShare server is active.
         """
         self.settings_button.setEnabled(not active)
-        self.settings_button.setIcon( QtGui.QIcon(common.get_resource_path('images/settings_inactive.png')) )
+        if active:
+            self.settings_button.setIcon( QtGui.QIcon(common.get_resource_path('images/settings_inactive.png')) )
 
     def closeEvent(self, e):
         common.log('OnionShareGui', 'closeEvent')
