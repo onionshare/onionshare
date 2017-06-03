@@ -445,6 +445,8 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.settings_button.setEnabled(not active)
         if active:
             self.settings_button.setIcon( QtGui.QIcon(common.get_resource_path('images/settings_inactive.png')) )
+        else:
+            self.settings_button.setIcon( QtGui.QIcon(common.get_resource_path('images/settings.png')) )
 
     def closeEvent(self, e):
         common.log('OnionShareGui', 'closeEvent')
