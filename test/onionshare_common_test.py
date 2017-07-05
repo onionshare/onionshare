@@ -50,18 +50,18 @@ SLUG_REGEX = re.compile(r'^([a-z]+)(-[a-z]+)?-([a-z]+)(-[a-z]+)?$')
 # TODO: comment fixtures properly
 
 
-@pytest.fixture(scope='session')
+# pytest > 2.9 only needs @pytest.fixture
+@pytest.yield_fixture(scope='session')
 def custom_zw():
-    # TODO: revert to old style setup/teardown instead of yield
     zw = common.ZipWriter(zip_filename=common.random_string(4, 6))
     yield zw
     zw.close()
     os.remove(zw.zip_filename)
 
 
-@pytest.fixture(scope='session')
+# pytest > 2.9 only needs @pytest.fixture
+@pytest.yield_fixture(scope='session')
 def default_zw():
-    # TODO: revert to old style setup/teardown instead of yield
     zw = common.ZipWriter()
     yield zw
     zw.close()
@@ -70,27 +70,37 @@ def default_zw():
 
 @pytest.fixture
 def platform_darwin(monkeypatch):
-    monkeypatch.setattr(platform, 'system', lambda: 'Darwin')
+    monkeypatch.setattr('platform.system', lambda: 'Darwin')
 
 
 @pytest.fixture
 def platform_linux(monkeypatch):
-    monkeypatch.setattr(platform, 'system', lambda: 'Linux')
+    monkeypatch.setattr('platform.system', lambda: 'Linux')
 
 
 @pytest.fixture
 def platform_windows(monkeypatch):
-    monkeypatch.setattr(platform, 'system', lambda: 'Windows')
+    monkeypatch.setattr('platform.system', lambda: 'Windows')
+
+
+@pytest.fixture
+def set_debug_false(monkeypatch):
+    monkeypatch.setattr('onionshare.common.debug', False)
+
+
+@pytest.fixture
+def set_debug_true(monkeypatch):
+    monkeypatch.setattr('onionshare.common.debug', True)
 
 
 @pytest.fixture
 def sys_argv_sys_prefix(monkeypatch):
-    monkeypatch.setattr(sys, 'argv', [sys.prefix])
+    monkeypatch.setattr('sys.argv', [sys.prefix])
 
 
 @pytest.fixture
 def sys_frozen(monkeypatch):
-    monkeypatch.setattr(sys, 'frozen', True, raising=False)
+    monkeypatch.setattr('sys.frozen', True, raising=False)
 
 
 @pytest.fixture
@@ -106,12 +116,12 @@ def sys_onionshare_dev_mode(monkeypatch):
 
 @pytest.fixture
 def time_100(monkeypatch):
-    monkeypatch.setattr(time, 'time', lambda: 100)
+    monkeypatch.setattr('time.time', lambda: 100)
 
 
 @pytest.fixture
 def time_strftime(monkeypatch):
-    monkeypatch.setattr(time, 'strftime', lambda _: 'Jun 06 2013 11:05:00')
+    monkeypatch.setattr('time.strftime', lambda _: 'Jun 06 2013 11:05:00')
 
 
 # #################################################
@@ -119,8 +129,8 @@ def time_strftime(monkeypatch):
 # #################################################
 
 
-class TestBuildSlug(object):
-    @pytest.mark.parametrize('test_input,expected', [
+class TestBuildSlug:
+    @pytest.mark.parametrize('test_input,expected', (
         # VALID, two lowercase words, separated by a hyphen
         ('syrup-enzyme', True),
         ('caution-friday', True),
@@ -139,7 +149,7 @@ class TestBuildSlug(object):
         ('digits-123', False),
         ('too-many-hyphens-', False),
         ('symbols-!@#$%', False)
-    ])
+    ))
     def test_build_slug_regex(self, test_input, expected):
         """ Test that `SLUG_REGEX` accounts for the following patterns
 
@@ -158,7 +168,8 @@ class TestBuildSlug(object):
 
         assert bool(SLUG_REGEX.match(test_input)) == expected
 
-    def test_build_slug_unique(self):
+    def test_build_slug_unique(self, sys_onionshare_dev_mode):
+        # fixture for common.get_resource???
         assert common.build_slug() != common.build_slug()
 
 
@@ -182,7 +193,7 @@ def test_dir_size(directory_size):
     shutil.rmtree(tmp_dir)
 
 
-class TestEstimatedTimeRemaining(object):
+class TestEstimatedTimeRemaining:
     @pytest.mark.parametrize('test_input,expected', (
         ((2, 676, 12), '8h14m16s'),
         ((14, 1049, 30), '1h26m15s'),
@@ -195,7 +206,8 @@ class TestEstimatedTimeRemaining(object):
     def test_estimated_time_remaining(self, test_input, expected, time_100):
         assert common.estimated_time_remaining(*test_input) == expected
 
-    def test_estimated_time_remaining_time_elapsed_zero(self, time_100):
+    # TODO: merge these two? parametrize?
+    def test_raises_zero_division_error(self, time_100):
         """ estimated_time_remaining() raises a ZeroDivisionError if
         `time_elapsed` == 0
         """
@@ -203,7 +215,7 @@ class TestEstimatedTimeRemaining(object):
         with pytest.raises(ZeroDivisionError):
             common.estimated_time_remaining(10, 20, 100)
 
-    def test_estimated_time_remaining_download_rate_zero(self, time_100):
+    def test_raises_zero_division_error_2(self, time_100):
         """ estimated_time_remaining() raises a ZeroDivision error if
         `download_rate` == 0
         """
@@ -212,7 +224,8 @@ class TestEstimatedTimeRemaining(object):
             common.estimated_time_remaining(0, 37, 99)
 
 
-@pytest.mark.parametrize('test_input,expected', [
+class TestFormatSeconds:
+    @pytest.mark.parametrize('test_input,expected', [
     (0, '0s'),
     (26, '26s'),
     (60, '1m'),
@@ -227,13 +240,21 @@ class TestEstimatedTimeRemaining(object):
     (129674, '1d12h1m14s'),
     (56404.12, '15h40m4s'),
 ])
-def test_format_seconds(test_input, expected):
-    assert common.format_seconds(test_input) == expected
+    def test_format_seconds(self, test_input, expected):
+        assert common.format_seconds(test_input) == expected
+
+    # TODO: test negative numbers?
+    @pytest.mark.parametrize('test_input', (
+        'string', lambda: None, [], {}, set()
+    ))
+    def test_invalid_input_types(self, test_input):
+        with pytest.raises(TypeError):
+            common.format_seconds(test_input)
 
 
 @pytest.mark.parametrize('port_min,port_max', (
     (random.randint(1024, 1500),
-     random.randint(1800, 2048)) for _ in range(100)
+     random.randint(1800, 2048)) for _ in range(50)
 ))
 def test_get_available_port_returns_an_open_port(port_min, port_max):
     """ get_available_port() should return an open port within the range """
@@ -245,7 +266,7 @@ def test_get_available_port_returns_an_open_port(port_min, port_max):
 
 
 # TODO: is there a way to parametrize (fixture, expected)?
-class TestGetPlatform(object):
+class TestGetPlatform:
     def test_darwin(self, platform_darwin):
         assert common.get_platform() == 'Darwin'
 
@@ -257,7 +278,7 @@ class TestGetPlatform(object):
 
 
 # TODO: double-check these tests
-class TestGetResourcePath(object):
+class TestGetResourcePath:
     def test_onionshare_dev_mode(self, sys_onionshare_dev_mode):
         prefix = os.path.join(
             os.path.dirname(
@@ -288,9 +309,10 @@ class TestGetResourcePath(object):
             os.path.join(prefix, 'test_filename'))
 
 
-class TestGetTorPaths(object):
+# @pytest.mark.usefixtures('platform_darwin', 'platform_linux', 'platform_windows')
+class TestGetTorPaths:
     # @pytest.mark.skipif(sys.platform != 'Darwin', reason='requires MacOS') ?
-    def test_get_tor_paths_darwin(self, platform_darwin):
+    def test_get_tor_paths_darwin(self, platform_darwin, sys_frozen, sys_meipass):
         base_path = os.path.dirname(os.path.dirname(
             os.path.dirname(common.get_resource_path(''))))
         tor_path = os.path.join(base_path, 'Resources', 'Tor', 'tor')
@@ -307,7 +329,7 @@ class TestGetTorPaths(object):
                 ('/usr/bin/tor', '/usr/share/tor/geoip', '/usr/share/tor/geoip6'))
 
     # @pytest.mark.skipif(sys.platform != 'Windows', reason='requires Windows') ?
-    def test_get_tor_paths_windows(self, platform_windows):
+    def test_get_tor_paths_windows(self, platform_windows, sys_frozen):
         base_path = os.path.join(
             os.path.dirname(os.path.dirname(common.get_resource_path(''))), 'tor')
         tor_path = os.path.join(os.path.join(base_path, 'Tor'), "tor.exe")
@@ -319,7 +341,7 @@ class TestGetTorPaths(object):
                 (tor_path, tor_geo_ip_file_path, tor_geo_ipv6_file_path))
 
 
-def test_get_version():
+def test_get_version(sys_onionshare_dev_mode):
     with open(common.get_resource_path('version.txt')) as f:
         version = f.read().strip()
 
@@ -341,12 +363,9 @@ def test_human_readable_filesize(test_input, expected):
     assert common.human_readable_filesize(test_input) == expected
 
 
-def test_log(time_strftime):
+def test_log(set_debug_true, time_strftime):
     def test_func():
         pass
-
-    # TODO: create and use `set_debug` fixture instead?
-    common.set_debug(True)
 
     # From: https://stackoverflow.com/questions/1218933
     with io.StringIO() as buf, contextlib.redirect_stdout(buf):
@@ -354,36 +373,32 @@ def test_log(time_strftime):
         common.log('TestModule', test_func, 'TEST_MSG')
         output = buf.getvalue()
 
-    common.set_debug(False)
-
     line_one, line_two, _ = output.split('\n')
     assert LOG_MSG_REGEX.match(line_one)
     assert LOG_MSG_REGEX.match(line_two)
 
 
 @pytest.mark.parametrize('test_input,expected', (
-    (common.random_string(
-        random.randint(2, 50),
-        random.choice((None, random.randint(2, 50)))),
-     True) for _ in range(50)
+    (common.random_string(random.randint(2, 50),
+                          random.choice((None, random.randint(2, 50)))
+                          ), True) for _ in range(50)
 ))
 def test_random_string_regex(test_input, expected):
     assert bool(RANDOM_STR_REGEX.match(test_input)) == expected
 
 
-# TODO: create and use `set_debug` fixture instead?
-class TestSetDebug(object):
-    def test_set_debug_true(self):
+class TestSetDebug:
+    def test_debug_true(self, set_debug_false):
         common.set_debug(True)
         assert common.debug is True
 
-    def test_set_debug_false(self):
+    def test_debug_false(self, set_debug_true):
         common.set_debug(False)
         assert common.debug is False
 
 
 # TODO: ZipWriter doesn't enforce the `.zip` extension with custom filename
-class TestDefaultZipWriter(object):
+class TestDefaultZipWriter:
     def test_zw_filename(self, default_zw):
         zw_filename = os.path.basename(default_zw.zip_filename)
         assert bool(DEFAULT_ZW_FILENAME_REGEX.match(zw_filename))
