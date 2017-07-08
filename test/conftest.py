@@ -10,11 +10,24 @@ from onionshare import common
 
 # pytest > 2.9 only needs @pytest.fixture
 @pytest.yield_fixture()
-def temp_dir_1024_delete():
+def temp_dir_1024():
+    """ Create a temporary directory that has a single file of a
+    particular size (1024 bytes).
     """
-    Create a temporary directory that has a single file of a particular
-    size (1024 bytes). The temporary directory (and file inside) will
-    be deleted after fixture usage.
+
+    tmp_dir = tempfile.mkdtemp()
+    tmp_file, tmp_file_path = tempfile.mkstemp(dir=tmp_dir)
+    with open(tmp_file, 'wb') as f:
+        f.write(b'*' * 1024)
+    yield tmp_dir
+
+
+# pytest > 2.9 only needs @pytest.fixture
+@pytest.yield_fixture()
+def temp_dir_1024_delete():
+    """ Create a temporary directory that has a single file of a
+    particular size (1024 bytes). The temporary directory (including
+    the file inside) will be deleted after fixture usage.
     """
 
     with tempfile.TemporaryDirectory() as tmp_dir:
@@ -22,6 +35,16 @@ def temp_dir_1024_delete():
         with open(tmp_file, 'wb') as f:
             f.write(b'*' * 1024)
         yield tmp_dir
+
+
+# pytest > 2.9 only needs @pytest.fixture
+@pytest.yield_fixture()
+def temp_file_1024():
+    """ Create a temporary file of a particular size (1024 bytes). """
+
+    with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
+        tmp_file.write(b'*' * 1024)
+    yield tmp_file.name
 
 
 # pytest > 2.9 only needs @pytest.fixture
