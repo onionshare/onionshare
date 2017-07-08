@@ -16,6 +16,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
+import os
 
 import pytest
 
@@ -32,7 +33,6 @@ class MyOnion:
         return 'test_service_id.onion'
 
 
-# pytest > 2.9 only needs pytest.fixture
 @pytest.fixture()
 def onionshare_obj():
     return onionshare.OnionShare(MyOnion())
@@ -40,7 +40,6 @@ def onionshare_obj():
 
 class TestOnionShare:
     def test_init(self, onionshare_obj):
-        # test onion? own fixture?
         assert onionshare_obj.hidserv_dir is None
         assert onionshare_obj.onion_host is None
         assert onionshare_obj.stealth is None
@@ -75,9 +74,10 @@ class TestOnionShare:
         assert onionshare_obj.onion_host == '127.0.0.1:{}'.format(
             onionshare_obj.port)
 
-    def test_cleanup(self, onionshare_obj):
-        # create temporary files/directories and then remove them
-        # use helper function from other file (use conftest.py???)
-        onionshare_obj.cleanup_filenames = []  # add temporary filenames & dirs
-        # remove the files & dirs
+    def test_cleanup(self, onionshare_obj, temp_dir_1024, temp_file_1024):
+        onionshare_obj.cleanup_filenames = [temp_dir_1024, temp_file_1024]
+        onionshare_obj.cleanup()
+
+        assert os.path.exists(temp_dir_1024) is False
+        assert os.path.exists(temp_dir_1024) is False
         assert onionshare_obj.cleanup_filenames == []
