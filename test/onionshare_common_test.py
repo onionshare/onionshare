@@ -25,11 +25,9 @@ import random
 import re
 import socket
 import sys
-import tempfile
 import zipfile
 
 import pytest
-import shutil
 
 from onionshare import common
 
@@ -40,125 +38,6 @@ LOG_MSG_REGEX = re.compile(r"""
     \ at\ 0x[a-f0-9]+>(:\ TEST_MSG)?$""", re.VERBOSE)
 RANDOM_STR_REGEX = re.compile(r'^[a-z2-7]+$')
 SLUG_REGEX = re.compile(r'^([a-z]+)(-[a-z]+)?-([a-z]+)(-[a-z]+)?$')
-
-
-# #################################################
-# FIXTURES
-# #################################################
-
-# TODO: separate fixtures into a separate file: conftest.py ?
-# TODO: comment fixtures properly
-
-
-@pytest.yield_fixture()
-def temp_dir_1024_delete():
-    """
-    Create a temporary directory that has a single file of a particular
-    size (1024 bytes). The temporary directory (and file inside) will
-    be deleted after fixture usage.
-    """
-
-    with tempfile.TemporaryDirectory() as tmp_dir:
-        tmp_file, tmp_file_path = tempfile.mkstemp(dir=tmp_dir)
-        with open(tmp_file, 'wb') as f:
-            f.write(b'*' * 1024)
-        yield tmp_dir
-
-
-@pytest.yield_fixture()
-def temp_file_1024_delete():
-    """
-    Create a temporary file of a particular size (1024 bytes).
-    The temporary file will be deleted after fixture usage.
-    """
-
-    with tempfile.NamedTemporaryFile() as tmp_file:
-        tmp_file.write(b'*' * 1024)
-        tmp_file.flush()
-        yield tmp_file.name
-
-
-# pytest > 2.9 only needs @pytest.fixture
-@pytest.yield_fixture(scope='session')
-def custom_zw():
-    zw = common.ZipWriter(
-        zip_filename=common.random_string(4, 6),
-        processed_size_callback=lambda _: 'custom_callback'
-    )
-    yield zw
-    zw.close()
-    os.remove(zw.zip_filename)
-
-
-# pytest > 2.9 only needs @pytest.fixture
-@pytest.yield_fixture(scope='session')
-def default_zw():
-    zw = common.ZipWriter()
-    yield zw
-    zw.close()
-    tmp_dir = os.path.dirname(zw.zip_filename)
-    shutil.rmtree(tmp_dir)
-
-
-@pytest.fixture
-def platform_darwin(monkeypatch):
-    monkeypatch.setattr('platform.system', lambda: 'Darwin')
-
-
-@pytest.fixture
-def platform_linux(monkeypatch):
-    monkeypatch.setattr('platform.system', lambda: 'Linux')
-
-
-@pytest.fixture
-def platform_windows(monkeypatch):
-    monkeypatch.setattr('platform.system', lambda: 'Windows')
-
-
-@pytest.fixture
-def set_debug_false(monkeypatch):
-    monkeypatch.setattr('onionshare.common.debug', False)
-
-
-@pytest.fixture
-def set_debug_true(monkeypatch):
-    monkeypatch.setattr('onionshare.common.debug', True)
-
-
-@pytest.fixture
-def sys_argv_sys_prefix(monkeypatch):
-    monkeypatch.setattr('sys.argv', [sys.prefix])
-
-
-@pytest.fixture
-def sys_frozen(monkeypatch):
-    monkeypatch.setattr('sys.frozen', True, raising=False)
-
-
-@pytest.fixture
-def sys_meipass(monkeypatch):
-    monkeypatch.setattr(
-        'sys._MEIPASS', os.path.expanduser('~'), raising=False)
-
-
-@pytest.fixture
-def sys_onionshare_dev_mode(monkeypatch):
-    monkeypatch.setattr('sys.onionshare_dev_mode', True, raising=False)
-
-
-@pytest.fixture
-def time_time_100(monkeypatch):
-    monkeypatch.setattr('time.time', lambda: 100)
-
-
-@pytest.fixture
-def time_strftime(monkeypatch):
-    monkeypatch.setattr('time.strftime', lambda _: 'Jun 06 2013 11:05:00')
-
-
-# #################################################
-# TESTS
-# #################################################
 
 
 class TestBuildSlug:
@@ -223,7 +102,8 @@ class TestEstimatedTimeRemaining:
         ((603, 949, 38), '36s'),
         ((971, 1009, 83), '1s')
     ))
-    def test_estimated_time_remaining(self, test_input, expected, time_time_100):
+    def test_estimated_time_remaining(
+            self, test_input, expected, time_time_100):
         assert common.estimated_time_remaining(*test_input) == expected
 
     @pytest.mark.parametrize('test_input', (
@@ -236,21 +116,21 @@ class TestEstimatedTimeRemaining:
 
 
 class TestFormatSeconds:
-    @pytest.mark.parametrize('test_input,expected', [
-    (0, '0s'),
-    (26, '26s'),
-    (60, '1m'),
-    (947.35, '15m47s'),
-    (1847, '30m47s'),
-    (2193.94, '36m34s'),
-    (3600, '1h'),
-    (13426.83, '3h43m47s'),
-    (16293, '4h31m33s'),
-    (18392.14, '5h6m32s'),
-    (86400, '1d'),
-    (129674, '1d12h1m14s'),
-    (56404.12, '15h40m4s'),
-])
+    @pytest.mark.parametrize('test_input,expected', (
+        (0, '0s'),
+        (26, '26s'),
+        (60, '1m'),
+        (947.35, '15m47s'),
+        (1847, '30m47s'),
+        (2193.94, '36m34s'),
+        (3600, '1h'),
+        (13426.83, '3h43m47s'),
+        (16293, '4h31m33s'),
+        (18392.14, '5h6m32s'),
+        (86400, '1d'),
+        (129674, '1d12h1m14s'),
+        (56404.12, '15h40m4s')
+    ))
     def test_format_seconds(self, test_input, expected):
         assert common.format_seconds(test_input) == expected
 
@@ -323,9 +203,12 @@ class TestGetResourcePath:
 class TestGetTorPaths:
     # @pytest.mark.skipif(sys.platform != 'Darwin', reason='requires MacOS') ?
     def test_get_tor_paths_darwin(self, platform_darwin, sys_frozen, sys_meipass):
-        base_path = os.path.dirname(os.path.dirname(
-            os.path.dirname(common.get_resource_path(''))))
-        tor_path = os.path.join(base_path, 'Resources', 'Tor', 'tor')
+        base_path = os.path.dirname(
+            os.path.dirname(
+                os.path.dirname(
+                    common.get_resource_path(''))))
+        tor_path = os.path.join(
+            base_path, 'Resources', 'Tor', 'tor')
         tor_geo_ip_file_path = os.path.join(
             base_path, 'Resources', 'Tor', 'geoip')
         tor_geo_ipv6_file_path = os.path.join(
@@ -341,12 +224,17 @@ class TestGetTorPaths:
     # @pytest.mark.skipif(sys.platform != 'Windows', reason='requires Windows') ?
     def test_get_tor_paths_windows(self, platform_windows, sys_frozen):
         base_path = os.path.join(
-            os.path.dirname(os.path.dirname(common.get_resource_path(''))), 'tor')
-        tor_path = os.path.join(os.path.join(base_path, 'Tor'), "tor.exe")
+            os.path.dirname(
+                os.path.dirname(
+                    common.get_resource_path(''))), 'tor')
+        tor_path = os.path.join(
+            os.path.join(base_path, 'Tor'), "tor.exe")
         tor_geo_ip_file_path = os.path.join(
-            os.path.join(os.path.join(base_path, 'Data'), 'Tor'), 'geoip')
+            os.path.join(
+                os.path.join(base_path, 'Data'), 'Tor'), 'geoip')
         tor_geo_ipv6_file_path = os.path.join(
-            os.path.join(os.path.join(base_path, 'Data'), 'Tor'), 'geoip6')
+            os.path.join(
+                os.path.join(base_path, 'Data'), 'Tor'), 'geoip6')
         assert (common.get_tor_paths() ==
                 (tor_path, tor_geo_ip_file_path, tor_geo_ipv6_file_path))
 
@@ -415,14 +303,11 @@ class TestSetDebug:
 class TestZipWriterDefault:
     @pytest.mark.parametrize('test_input', (
         'onionshare_{}.zip'.format(''.join(
-            random.choice('abcdefghijklmnopqrstuvwxyz234567') for _ in range(6))
-        ) for _ in range(50)
+            random.choice('abcdefghijklmnopqrstuvwxyz234567') for _ in range(6)
+        )) for _ in range(50)
     ))
     def test_default_zw_filename_regex(self, test_input):
         assert bool(DEFAULT_ZW_FILENAME_REGEX.match(test_input))
-
-    def test_init(self, default_zw):
-        pass  # TODO:
 
     def test_zw_filename(self, default_zw):
         zw_filename = os.path.basename(default_zw.zip_filename)
