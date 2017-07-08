@@ -16,11 +16,12 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
+
 import os
 
 import pytest
 
-from onionshare import onionshare
+from onionshare import OnionShare
 
 
 class MyOnion:
@@ -33,9 +34,9 @@ class MyOnion:
         return 'test_service_id.onion'
 
 
-@pytest.fixture()
+@pytest.fixture
 def onionshare_obj():
-    return onionshare.OnionShare(MyOnion())
+    return OnionShare(MyOnion())
 
 
 class TestOnionShare:
