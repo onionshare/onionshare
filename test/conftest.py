@@ -84,6 +84,26 @@ def default_zw():
 
 
 @pytest.fixture
+def locale_en(monkeypatch):
+    monkeypatch.setattr('locale.getdefaultlocale', lambda: ('en_US', 'UTF-8'))
+
+
+@pytest.fixture
+def locale_fr(monkeypatch):
+    monkeypatch.setattr('locale.getdefaultlocale', lambda: ('fr_FR', 'UTF-8'))
+
+
+@pytest.fixture
+def locale_invalid(monkeypatch):
+    monkeypatch.setattr('locale.getdefaultlocale', lambda: ('xx_XX', 'UTF-8'))
+
+
+@pytest.fixture
+def locale_ru(monkeypatch):
+    monkeypatch.setattr('locale.getdefaultlocale', lambda: ('ru_RU', 'UTF-8'))
+
+
+@pytest.fixture
 def platform_darwin(monkeypatch):
     monkeypatch.setattr('platform.system', lambda: 'Darwin')
 
