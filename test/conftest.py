@@ -8,8 +8,7 @@ import pytest
 from onionshare import common
 
 
-# pytest > 2.9 only needs @pytest.fixture
-@pytest.yield_fixture()
+@pytest.fixture
 def temp_dir_1024():
     """ Create a temporary directory that has a single file of a
     particular size (1024 bytes).
@@ -19,11 +18,11 @@ def temp_dir_1024():
     tmp_file, tmp_file_path = tempfile.mkstemp(dir=tmp_dir)
     with open(tmp_file, 'wb') as f:
         f.write(b'*' * 1024)
-    yield tmp_dir
+    return tmp_dir
 
 
 # pytest > 2.9 only needs @pytest.fixture
-@pytest.yield_fixture()
+@pytest.yield_fixture
 def temp_dir_1024_delete():
     """ Create a temporary directory that has a single file of a
     particular size (1024 bytes). The temporary directory (including
@@ -37,18 +36,17 @@ def temp_dir_1024_delete():
         yield tmp_dir
 
 
-# pytest > 2.9 only needs @pytest.fixture
-@pytest.yield_fixture()
+@pytest.fixture
 def temp_file_1024():
     """ Create a temporary file of a particular size (1024 bytes). """
 
     with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
         tmp_file.write(b'*' * 1024)
-    yield tmp_file.name
+    return tmp_file.name
 
 
 # pytest > 2.9 only needs @pytest.fixture
-@pytest.yield_fixture()
+@pytest.yield_fixture
 def temp_file_1024_delete():
     """
     Create a temporary file of a particular size (1024 bytes).
@@ -108,7 +106,7 @@ def platform_darwin(monkeypatch):
     monkeypatch.setattr('platform.system', lambda: 'Darwin')
 
 
-@pytest.fixture
+@pytest.fixture  # (scope="session")
 def platform_linux(monkeypatch):
     monkeypatch.setattr('platform.system', lambda: 'Linux')
 
@@ -144,7 +142,7 @@ def sys_meipass(monkeypatch):
         'sys._MEIPASS', os.path.expanduser('~'), raising=False)
 
 
-@pytest.fixture
+@pytest.fixture  # (scope="session")
 def sys_onionshare_dev_mode(monkeypatch):
     monkeypatch.setattr('sys.onionshare_dev_mode', True, raising=False)
 
