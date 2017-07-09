@@ -11,9 +11,9 @@ cd onionshare
 
 Install the needed dependencies:
 
-For Debian-like distros: `apt install -y build-essential fakeroot python3-all python3-stdeb dh-python  python3-flask python3-stem python3-pyqt5 python-nautilus python3-nose tor`
+For Debian-like distros: `apt install -y build-essential fakeroot python3-all python3-stdeb dh-python  python3-flask python3-stem python3-pyqt5 python-nautilus python3-pytest tor`
 
-For Fedora-like distros: `dnf install -y rpm-build python3-flask python3-stem python3-qt5 nautilus-python tor`
+For Fedora-like distros: `dnf install -y rpm-build python3-flask python3-stem python3-qt5 python3-pytest nautilus-python tor`
 
 After that you can try both the CLI and the GUI version of OnionShare:
 
@@ -126,10 +126,8 @@ This will prompt you to codesign three binaries and execute one unsigned binary.
 
 ## Tests
 
-OnionShare includes [nose](https://nose.readthedocs.org/en/latest/) unit tests. First, `sudo apt-get install python3-nose` or `sudo pip3 install nose`.
-
-To run the tests:
+OnionShare includes PyTest unit tests. To run the tests:
 
 ```sh
-nosetests3 test
+pytest test/
 ```

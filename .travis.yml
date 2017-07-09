@@ -1,5 +1,5 @@
 language: python
-sudo: required
+# sudo: required
 dist: trusty
 python:
   - "3.4"
@@ -9,7 +9,9 @@ python:
   - "3.7-dev"
   - "nightly"
 # command to install dependencies
-before_install: "sudo apt-get update; sudo apt-get install -y python3-nose python3-flask python3-stem python3-pyqt5"
-install: ""
+install:
+  - pip install Flask==0.12 stem==1.5.4 pytest-cov coveralls
 # command to run tests
-script: nosetests3
+script: pytest --cov=onionshare test/
+after_success:
+  - coveralls
