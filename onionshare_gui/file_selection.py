@@ -136,6 +136,8 @@ class FileList(QtWidgets.QListWidget):
                 return
 
             self.filenames.append(filename)
+            # Re-sort the list internally
+            self.filenames.sort()
 
             fileinfo = QtCore.QFileInfo(filename)
             basename = os.path.basename(filename.rstrip('/'))
