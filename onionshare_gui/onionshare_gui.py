@@ -154,12 +154,12 @@ class OnionShareGui(QtWidgets.QMainWindow):
         system = common.get_platform()
 
         menu = QtWidgets.QMenu()
-        settingsAction = menu.addAction(strings._('gui_settings_window_title', True))
-        settingsAction.triggered.connect(self.open_settings)
-        helpAction = menu.addAction(strings._('gui_settings_button_help', True))
-        helpAction.triggered.connect(SettingsDialog.help_clicked)
-        exitAction = menu.addAction(strings._('systray_menu_exit', True))
-        exitAction.triggered.connect(self.close)
+        self.settingsAction = menu.addAction(strings._('gui_settings_window_title', True))
+        self.settingsAction.triggered.connect(self.open_settings)
+        self.helpAction = menu.addAction(strings._('gui_settings_button_help', True))
+        self.helpAction.triggered.connect(SettingsDialog.help_clicked)
+        self.exitAction = menu.addAction(strings._('systray_menu_exit', True))
+        self.exitAction.triggered.connect(self.close)
 
         self.systemTray = QtWidgets.QSystemTrayIcon(self)
         # The convention is Mac systray icons are always grayscale
@@ -453,6 +453,9 @@ class OnionShareGui(QtWidgets.QMainWindow):
             self.settings_button.setIcon( QtGui.QIcon(common.get_resource_path('images/settings_inactive.png')) )
         else:
             self.settings_button.setIcon( QtGui.QIcon(common.get_resource_path('images/settings.png')) )
+
+        # Disable settings menu action when server is active
+        self.settingsAction.setEnabled(not active)
 
     def closeEvent(self, e):
         common.log('OnionShareGui', 'closeEvent')
