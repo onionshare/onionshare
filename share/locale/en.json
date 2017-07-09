@@ -29,6 +29,7 @@
     "help_stealth": "Create stealth onion service (advanced)",
     "help_debug": "Log application errors to stdout, and log web errors to disk",
     "help_filename": "List of files or folders to share",
+    "help_config": "Path to a custom JSON config file (optional)",
     "gui_drag_and_drop": "Drag and drop\nfiles here",
     "gui_add": "Add",
     "gui_delete": "Delete",

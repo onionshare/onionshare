@@ -29,10 +29,18 @@ class Settings(object):
     which is to attempt to connect automatically using default Tor Browser
     settings.
     """
-    def __init__(self):
+    def __init__(self, config=False):
         common.log('Settings', '__init__')
 
+        # Default config
         self.filename = self.build_filename()
+
+        # If a readable config file was provided, use that instead
+        if config:
+            if os.path.isfile(config):
+                self.filename = config
+            else:
+                common.log('Settings', '__init__', 'Supplied config does not exist or is unreadable. Falling back to default location')
 
         # These are the default settings. They will get overwritten when loading from disk
         self.default_settings = {
@@ -85,6 +93,7 @@ class Settings(object):
         # If the settings file exists, load it
         if os.path.exists(self.filename):
             try:
+                common.log('Settings', 'load', 'Trying to load {}'.format(self.filename))
                 with open(self.filename, 'r') as f:
                     self._settings = json.loads(f.read())
                     self.fill_in_defaults()
