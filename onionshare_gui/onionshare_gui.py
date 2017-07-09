@@ -94,6 +94,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.downloads_container.setWidget(self.downloads)
         self.downloads_container.setWidgetResizable(True)
         self.downloads_container.setMaximumHeight(200)
+        self.downloads_container.setMinimumHeight(75)
         self.vbar = self.downloads_container.verticalScrollBar()
         self.downloads_container.hide() # downloads start out hidden
         self.new_download = False
@@ -232,6 +233,10 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.set_server_active(True)
 
         self.app.set_stealth(self.settings.get('use_stealth'))
+
+        # Hide and reset the downloads if we have previously shared
+        self.downloads_container.hide()
+        self.downloads.reset_downloads()
 
         # Reset web counters
         web.download_count = 0
