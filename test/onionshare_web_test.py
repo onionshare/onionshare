@@ -195,8 +195,8 @@ class TestSetFileInfo:
             self,
             mock_common_dir_size,
             mock_common_human_readable_filesize,
-            mock_os_path,
             mock_common_zipwriter,
+            mock_os_path,
             monkeypatch):
 
         file_info = zip_filename = zip_filesize = None
@@ -221,8 +221,8 @@ class TestSetFileInfo:
 
         web.set_file_info(filenames, None)
 
-        mock_common_zipwriter.assert_called_once_with(
-            processed_size_callback=None)
+        (mock_common_zipwriter.
+         assert_called_once_with(processed_size_callback=None))
 
         (mock_common_zipwriter.
          return_value.
@@ -241,8 +241,8 @@ class TestSetFileInfo:
             self,
             mock_common_dir_size,
             mock_common_human_readable_filesize,
-            mock_os_path,
             mock_common_zipwriter,
+            mock_os_path,
             monkeypatch):
 
         file_info = zip_filename = zip_filesize = None
@@ -267,8 +267,8 @@ class TestSetFileInfo:
 
         web.set_file_info(directory_names, None)
 
-        mock_common_zipwriter.assert_called_once_with(
-            processed_size_callback=None)
+        (mock_common_zipwriter.
+         assert_called_once_with(processed_size_callback=None))
 
         (mock_common_zipwriter.
          return_value.
@@ -409,8 +409,8 @@ class TestCheckSlugCandidate:
 
         web.check_slug_candidate('GLOBAL_SLUG', slug_compare=None)
 
-        mock_hmac_compare_digest.assert_called_once_with(
-            'GLOBAL_SLUG', 'GLOBAL_SLUG')
+        (mock_hmac_compare_digest.
+         assert_called_once_with('GLOBAL_SLUG', 'GLOBAL_SLUG'))
 
     def test_slug_compare_is_equal(
             self,
@@ -419,8 +419,8 @@ class TestCheckSlugCandidate:
 
         web.check_slug_candidate('TEST_SLUG', slug_compare='TEST_SLUG')
 
-        mock_hmac_compare_digest.assert_called_once_with(
-            'TEST_SLUG', 'TEST_SLUG')
+        (mock_hmac_compare_digest.
+         assert_called_once_with('TEST_SLUG', 'TEST_SLUG'))
 
     def test_slug_compare_not_equal(
             self,
@@ -432,8 +432,9 @@ class TestCheckSlugCandidate:
         web.check_slug_candidate('TEST_SLUG', slug_compare='CUSTOM_SLUG')
 
         mock_abort.assert_called_once_with(404)
-        mock_hmac_compare_digest.assert_called_once_with(
-            'CUSTOM_SLUG', 'TEST_SLUG')
+
+        (mock_hmac_compare_digest.
+         assert_called_once_with('CUSTOM_SLUG', 'TEST_SLUG'))
 
 
 class TestForceShutdown:
@@ -442,8 +443,11 @@ class TestForceShutdown:
 
         with pytest.raises(RuntimeError):
             web.force_shutdown()
-            mock_request.environ.get.assert_called_once_with(
-                'werkzeug.server.shutdown')
+
+            (mock_request.
+             environ.
+             get.
+             assert_called_once_with('werkzeug.server.shutdown'))
 
     def test_func_is_not_none(self, mock_request):
         web.force_shutdown()
@@ -480,9 +484,12 @@ class TestStart:
         web.start(port, stay_open)
 
         mock_generate_slug.assert_called_once_with()
+
         mock_set_stay_open.assert_called_once_with(stay_open)
-        mock_os_path.exists.assert_called_once_with(
-            '/usr/share/anon-ws-base-files/workstation')
+
+        (mock_os_path.
+         exists.
+         assert_called_once_with('/usr/share/anon-ws-base-files/workstation'))
 
         (mock_app.
          run.
@@ -511,9 +518,12 @@ class TestStart:
         web.start(port, stay_open)
 
         mock_generate_slug.assert_called_once_with()
+
         mock_set_stay_open.assert_called_once_with(stay_open)
-        mock_os_path.exists.assert_called_once_with(
-            '/usr/share/anon-ws-base-files/workstation')
+
+        (mock_os_path.
+         exists.
+         assert_called_once_with('/usr/share/anon-ws-base-files/workstation'))
 
         (mock_app.
          run.
@@ -565,10 +575,11 @@ class TestStop:
 
         web.stop(port)
 
-        mock_web_urlopen.assert_called_once_with(
-            'http://127.0.0.1:{0:d}/{1:s}/shutdown'.format(
-                port, shutdown_slug
-        ))
+        (mock_web_urlopen.
+         assert_called_once_with(
+             'http://127.0.0.1:{0:d}/{1:s}/shutdown'.format(
+                 port, shutdown_slug)
+         ))
 
         (mock_web_urlopen.
          return_value.
@@ -590,7 +601,8 @@ class TestStop:
 
         web.stop(port)
 
-        mock_web_urlopen.assert_called_once_with(
-            'http://127.0.0.1:{0:d}/{1:s}/shutdown'.format(
-                port, shutdown_slug
-        ))
+        (mock_web_urlopen.
+         assert_called_once_with(
+             'http://127.0.0.1:{0:d}/{1:s}/shutdown'.format(
+                 port, shutdown_slug)
+         ))
