@@ -17,9 +17,12 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-import json, locale, os
+import json
+import locale
+import os
 
 strings = {}
+
 
 def load_strings(common, default="en"):
     """
@@ -27,7 +30,6 @@ def load_strings(common, default="en"):
     if the translation does not exist.
     """
     global strings
-    p = common.get_platform()
 
     # find locale dir
     locale_dir = common.get_resource_path('locale')
@@ -37,10 +39,9 @@ def load_strings(common, default="en"):
     for filename in os.listdir(locale_dir):
         abs_filename = os.path.join(locale_dir, filename)
         lang, ext = os.path.splitext(filename)
-        if abs_filename.endswith('.json'):
+        if ext == '.json':
             with open(abs_filename, encoding='utf-8') as f:
-                lang_json = f.read()
-                translations[lang] = json.loads(lang_json)
+                translations[lang] = json.load(f)
 
     strings = translations[default]
     lc, enc = locale.getdefaultlocale()
