@@ -20,7 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import base64
 import hashlib
 import inspect
-import math
 import os
 import platform
 import random
@@ -143,14 +142,14 @@ def human_readable_filesize(b):
     """
     thresh = 1024.0
     if b < thresh:
-        return '{0:.1f} B'.format(b)
-    units = ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB']
+        return '{:.1f} B'.format(b)
+    units = ('KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB')
     u = 0
     b /= thresh
     while b >= thresh:
         b /= thresh
         u += 1
-    return '{0:.1f} {1:s}'.format(round(b, 1), units[u])
+    return '{:.1f} {}'.format(b, units[u])
 
 
 def format_seconds(seconds):
