@@ -17,12 +17,22 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
+
+import hmac
+import logging
+import mimetypes
+import os
+import queue
+import socket
+import sys
+import tempfile
 from distutils.version import StrictVersion as Version
-import queue, mimetypes, platform, os, sys, socket, logging, hmac
 from urllib.request import urlopen
 
-from flask import Flask, Response, request, render_template_string, abort, make_response
-from flask import __version__ as flask_version
+from flask import (
+    Flask, Response, request, render_template_string, abort, make_response,
+    __version__ as flask_version
+)
 
 from . import strings, common
 
@@ -55,6 +65,7 @@ security_headers = [
     ('Referrer-Policy', 'no-referrer'),
     ('Server', 'OnionShare')
 ]
+
 
 def set_file_info(filenames, processed_size_callback=None):
     """
@@ -115,6 +126,8 @@ def add_request(request_type, path, data=None):
 
 
 slug = None
+
+
 def generate_slug():
     global slug
     slug = common.build_slug()
@@ -123,12 +136,16 @@ download_count = 0
 error404_count = 0
 
 stay_open = False
+
+
 def set_stay_open(new_stay_open):
     """
     Set stay_open variable.
     """
     global stay_open
     stay_open = new_stay_open
+
+
 def get_stay_open():
     """
     Get stay_open variable.
@@ -138,6 +155,8 @@ def get_stay_open():
 
 # Are we running in GUI mode?
 gui_mode = False
+
+
 def set_gui_mode():
     """
     Tell the web service that we're running in GUI mode
@@ -145,21 +164,19 @@ def set_gui_mode():
     global gui_mode
     gui_mode = True
 
+
 def debug_mode():
     """
     Turn on debugging mode, which will log flask errors to a debug file.
     """
-    if platform.system() == 'Windows':
-        temp_dir = os.environ['Temp'].replace('\\', '/')
-    else:
-        temp_dir = '/tmp/'
-
-    log_handler = logging.FileHandler('{0:s}/onionshare_server.log'.format(temp_dir))
+    temp_dir = tempfile.gettempdir()
+    log_handler = logging.FileHandler(
+        os.path.join(temp_dir, 'onionshare_server.log'))
     log_handler.setLevel(logging.WARNING)
     app.logger.addHandler(log_handler)
 
-def check_slug_candidate(slug_candidate, slug_compare = None):
-    global slug
+
+def check_slug_candidate(slug_candidate, slug_compare=None):
     if not slug_compare:
         slug_compare = slug
     if not hmac.compare_digest(slug_compare, slug_candidate):
@@ -169,6 +186,7 @@ def check_slug_candidate(slug_candidate, slug_compare = None):
 # If "Stop After First Download" is checked (stay_open == False), only allow
 # one download at a time.
 download_in_progress = False
+
 
 @app.route("/<slug_candidate>")
 def index(slug_candidate):
@@ -185,7 +203,7 @@ def index(slug_candidate):
     deny_download = not stay_open and download_in_progress
     if deny_download:
         r = make_response(render_template_string(open(common.get_resource_path('html/denied.html')).read()))
-        for header,value in security_headers:
+        for header, value in security_headers:
             r.headers.set(header, value)
         return r
 
@@ -198,14 +216,16 @@ def index(slug_candidate):
         filename=os.path.basename(zip_filename),
         filesize=zip_filesize,
         filesize_human=common.human_readable_filesize(zip_filesize)))
-    for header,value in security_headers:
+    for header, value in security_headers:
         r.headers.set(header, value)
     return r
+
 
 # If the client closes the OnionShare window while a download is in progress,
 # it should immediately stop serving the file. The client_cancel global is
 # used to tell the download function that the client is canceling the download.
 client_cancel = False
+
 
 @app.route("/<slug_candidate>/download")
 def download(slug_candidate):
@@ -332,9 +352,10 @@ def page_not_found(e):
             print(strings._('error_rate_limit'))
 
     r = make_response(render_template_string(open(common.get_resource_path('html/404.html')).read()))
-    for header,value in security_headers:
+    for header, value in security_headers:
         r.headers.set(header, value)
     return r
+
 
 # shutting down the server only works within the context of flask, so the easiest way to do it is over http
 shutdown_slug = common.random_string(16)
