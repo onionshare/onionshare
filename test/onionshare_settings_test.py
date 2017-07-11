@@ -170,8 +170,14 @@ class TestSettings:
         with open(tmp_file, 'w') as f:
             f.write(bad_json)
 
-        # raise JSONDecodeError when trying to load JSON config file
-        mock_json_loads.side_effect = json.JSONDecodeError
+        try:
+            # Python 3.5+
+            # raise JSONDecodeError when trying to load JSON config file
+            mock_json_loads.side_effect = json.JSONDecodeError
+        except AttributeError:
+            # Python 3.4 doesn't have json.JSONDecodeError
+            # it uses a ValueError in this case
+            mock_json_loads.side_effect = ValueError
 
         # create a new Settings instance with custom config file
         settings_obj = settings.Settings(config=tmp_file_path)
