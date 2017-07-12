@@ -27,7 +27,7 @@ import time
 
 import onionshare
 from onionshare import (
-    main, common, Onion, OnionShare, web, TorErrorInvalidSetting
+    Onion, OnionShare, TorErrorInvalidSetting, common, main, strings, web
 )
 
 
@@ -128,6 +128,11 @@ def mock_web_stop(monkeypatch):
 
 
 @pytest.fixture
+def strings_strings(monkeypatch):
+    monkeypatch.setattr(strings, 'strings', {})
+
+
+@pytest.fixture
 def sys_argv_filename_only(monkeypatch):
     monkeypatch.setattr('sys.argv', ['', '/TEST_FILENAME.txt'])
 
@@ -162,6 +167,7 @@ class TestMain:
             common_get_version,
             mock_os_chdir,
             platform_darwin,
+            strings_strings,
             sys_onionshare_dev_mode):
 
         test_path = '/path/to/config.json'
@@ -179,6 +185,7 @@ class TestMain:
             common_get_version,
             mock_argparse_argument_parser,
             platform_linux,
+            strings_strings,
             sys_onionshare_dev_mode):
 
         (mock_argparse_argument_parser.
@@ -213,6 +220,7 @@ class TestMain:
             mock_web_debug_mode,
             monkeypatch,
             platform_linux,
+            strings_strings,
             sys_onionshare_dev_mode):
 
         monkeypatch.setattr('sys.argv', [
@@ -246,6 +254,7 @@ class TestMain:
             mock_os_path_exists,
             monkeypatch,
             platform_linux,
+            strings_strings,
             sys_argv_filename_only,
             sys_onionshare_dev_mode):
 
@@ -275,6 +284,7 @@ class TestMain:
             mock_sys_exit,
             monkeypatch,
             platform_linux,
+            strings_strings,
             sys_argv_filename_only,
             sys_onionshare_dev_mode):
 
@@ -310,6 +320,7 @@ class TestMain:
             mock_sys_exit,
             monkeypatch,
             platform_linux,
+            strings_strings,
             sys_argv_filename_only,
             sys_onionshare_dev_mode):
 
@@ -346,6 +357,7 @@ class TestMain:
             mock_sys_exit,
             monkeypatch,
             platform_linux,
+            strings_strings,
             sys_argv_filename_only,
             sys_onionshare_dev_mode):
 
@@ -396,6 +408,7 @@ class TestMain:
             mock_web_stop,
             monkeypatch,
             platform_linux,
+            strings_strings,
             sys_argv_filename_only,
             sys_onionshare_dev_mode,
             web_start,
@@ -482,6 +495,7 @@ class TestMain:
             mock_web_stop,
             monkeypatch,
             platform_linux,
+            strings_strings,
             sys_argv_filename_only,
             sys_onionshare_dev_mode,
             web_start,
@@ -490,6 +504,7 @@ class TestMain:
             web_zip_filesize):
         """
         Exact same test as above except for the `stealth` flag
+        TODO: figure out a way to get rid of the repetition
         """
 
         monkeypatch.setattr('sys.argv', ['', '--stealth', '/TEST_FILENAME.txt'])
