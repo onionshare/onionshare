@@ -20,10 +20,10 @@ import argparse
 import os
 import sys
 import threading
+import time
 from unittest.mock import Mock, call
 
 import pytest
-import time
 
 import onionshare
 from onionshare import (
