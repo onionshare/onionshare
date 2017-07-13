@@ -22,7 +22,7 @@ import subprocess
 import tempfile
 import textwrap
 import time
-from unittest.mock import MagicMock, Mock, call, mock_open
+from unittest.mock import MagicMock, Mock, call
 
 import pytest
 
@@ -43,6 +43,20 @@ def common_get_tor_paths(monkeypatch):
 
 
 @pytest.fixture
+def mock_common_get_available_port(monkeypatch):
+    m = Mock(spec=common.get_available_port)
+    monkeypatch.setattr(common, 'get_available_port', m)
+    return m
+
+
+@pytest.fixture
+def mock_common_get_resource_path(monkeypatch):
+    m = Mock(spec=common.get_resource_path)
+    monkeypatch.setattr(common, 'get_resource_path', m)
+    return m
+
+
+@pytest.fixture
 def mock_common_log(monkeypatch):
     m = Mock(spec=common.log)
     monkeypatch.setattr(common, 'log', m)
@@ -50,9 +64,30 @@ def mock_common_log(monkeypatch):
 
 
 @pytest.fixture
+def mock_onion_controller(monkeypatch):
+    m = Mock(spec=onion.Controller)
+    monkeypatch.setattr(onion, 'Controller', m)
+    return m
+
+
+@pytest.fixture
 def mock_strings_(monkeypatch):
     m = Mock()
     monkeypatch.setattr(strings, '_', m)
+    return m
+
+
+@pytest.fixture
+def mock_subprocess_popen(monkeypatch):
+    m = Mock(spec=subprocess.Popen)
+    monkeypatch.setattr('subprocess.Popen', m)
+    return m
+
+
+@pytest.fixture
+def mock_subprocess_startupinfo(monkeypatch):
+    m = MagicMock()
+    monkeypatch.setattr('subprocess.STARTUPINFO', m, raising=False)
     return m
 
 
@@ -71,38 +106,24 @@ def mock_time_time(monkeypatch):
 
 
 @pytest.fixture
-def mock_onion_controller(monkeypatch):
-    m = Mock(spec=onion.Controller)
-    monkeypatch.setattr(onion, 'Controller', m)
+def mock_os_geteuid(monkeypatch):
+    m = Mock(spec=os.geteuid)
+    monkeypatch.setattr('os.geteuid', m)
     return m
 
 
 @pytest.fixture
-def mock_common_get_resource_path(monkeypatch):
-    m = Mock(spec=common.get_resource_path)
-    monkeypatch.setattr(common, 'get_resource_path', m)
+def mock_os_path(monkeypatch):
+    m = Mock(spec=os.path)
+    monkeypatch.setattr('os.path', m)
     return m
 
 
 @pytest.fixture
-def mock_common_get_available_port(monkeypatch):
-    m = Mock(spec=common.get_available_port)
-    monkeypatch.setattr(common, 'get_available_port', m)
+def mock_os_path_expanduser(monkeypatch):
+    m = Mock(spec=os.path.expanduser)
+    monkeypatch.setattr('os.path.expanduser', m)
     return m
-
-
-@pytest.fixture
-def mock_onion_open(monkeypatch):
-    m = mock_open()
-    monkeypatch.setattr(onion, 'open', m)
-    return m
-
-
-# @pytest.fixture
-# def mock_tempfile_temporary_directory(monkeypatch):
-#     m = Mock(spec=tempfile.TemporaryDirectory)
-#     monkeypatch.setattr('tempfile.TemporaryDirectory', m)
-#     return m
 
 
 # pytest > 2.9 only needs @pytest.fixture
@@ -130,21 +151,272 @@ def temp_torrc_template(monkeypatch):
 
 
 @pytest.fixture
-def mock_subprocess_popen(monkeypatch):
-    m = Mock(spec=subprocess.Popen)
-    monkeypatch.setattr('subprocess.Popen', m)
-    return m
-
-
-@pytest.fixture
-def mock_subprocess_startupinfo(monkeypatch):
-    m = MagicMock()
-    monkeypatch.setattr('subprocess.STARTUPINFO', m, raising=False)
-    return m
+def tor_control_port(monkeypatch):
+    monkeypatch.setenv('TOR_CONTROL_PORT', 9999)
 
 
 class TestOnionConnectConnectionTypeAutomatic:
-    pass
+    def test_env_port_linux(
+            self,
+            common_get_tor_paths,
+            mock_common_log,
+            mock_onion_controller,
+            mock_strings_,
+            monkeypatch,
+            platform_linux,
+            tor_control_port):
+
+        (mock_onion_controller.
+         from_port.
+         return_value.
+         authenticate.
+         side_effect) = Exception
+        mock_settings = Mock()
+        mock_settings.return_value.get.return_value = 'automatic'
+        monkeypatch.setattr(onion, 'Settings', mock_settings)
+        onion_obj = Onion()
+
+        with pytest.raises(onion.TorErrorAutomatic):
+            onion_obj.connect()
+        mock_common_log.assert_has_calls((
+            call('Onion', '__init__'),
+            call('Onion', 'connect')
+        ))
+        assert (mock_onion_controller.
+               from_port.
+               call_count) == 1
+        mock_strings_.assert_called_once_with('settings_error_automatic')
+
+    def test_env_port_error_linux(
+            self,
+            common_get_tor_paths,
+            mock_common_log,
+            mock_onion_controller,
+            mock_strings_,
+            monkeypatch,
+            platform_linux,
+            tor_control_port):
+
+        (mock_onion_controller.
+         from_port.
+         side_effect) = Exception
+        (mock_onion_controller.
+         from_socket_file.
+         return_value.
+         authenticate.
+         side_effect) = Exception
+        mock_settings = Mock()
+        mock_settings.return_value.get.return_value = 'automatic'
+        monkeypatch.setattr(onion, 'Settings', mock_settings)
+        onion_obj = Onion()
+
+        with pytest.raises(onion.TorErrorAutomatic):
+            onion_obj.connect()
+        mock_common_log.assert_has_calls((
+            call('Onion', '__init__'),
+            call('Onion', 'connect')
+        ))
+        assert (mock_onion_controller.
+               from_port.
+               call_count) == 1
+        mock_strings_.assert_called_once_with('settings_error_automatic')
+
+    def test_found_default_port_linux(
+            self,
+            common_get_tor_paths,
+            mock_common_log,
+            mock_onion_controller,
+            mock_strings_,
+            monkeypatch,
+            platform_linux):
+
+        (mock_onion_controller.
+         from_port.
+         return_value.
+         authenticate.
+         side_effect) = Exception
+        mock_settings = Mock()
+        mock_settings.return_value.get.return_value = 'automatic'
+        monkeypatch.setattr(onion, 'Settings', mock_settings)
+        onion_obj = Onion()
+
+        with pytest.raises(onion.TorErrorAutomatic):
+            onion_obj.connect()
+
+        mock_common_log.assert_has_calls((
+            call('Onion', '__init__'),
+            call('Onion', 'connect')
+        ))
+        (mock_onion_controller.
+         from_port.
+         assert_has_calls((
+             call(port=9151),
+             call(port=9153),
+             call(port=9051)
+         )))
+        mock_strings_.assert_called_once_with('settings_error_automatic')
+
+    def test_found_default_socket_file_darwin(
+            self,
+            common_get_tor_paths,
+            mock_common_log,
+            mock_onion_controller,
+            mock_os_path_expanduser,
+            mock_strings_,
+            monkeypatch,
+            platform_darwin):
+
+        (mock_onion_controller.
+         from_port.
+         side_effect) = Exception
+        (mock_onion_controller.
+         from_socket_file.
+         return_value.
+         authenticate.
+         side_effect) = Exception
+        mock_settings = Mock()
+        mock_settings.return_value.get.return_value = 'automatic'
+        monkeypatch.setattr(onion, 'Settings', mock_settings)
+        onion_obj = Onion()
+        test_socket_file_path = '~/Library/Application Support/TorBrowser-Data/Tor/control.socket'
+
+        with pytest.raises(onion.TorErrorAutomatic):
+            onion_obj.connect()
+
+        mock_common_log.assert_has_calls((
+            call('Onion', '__init__'),
+            call('Onion', 'connect')
+        ))
+        (mock_onion_controller.
+         from_port.
+         assert_called_once_with(port=9151))
+        assert (mock_onion_controller.
+                from_socket_file.
+                call_count) == 1
+        (mock_os_path_expanduser.
+         assert_called_once_with(
+             test_socket_file_path
+         ))
+        mock_strings_.assert_called_once_with('settings_error_automatic')
+
+    def test_guess_socket_file_darwin(
+            self,
+            common_get_tor_paths,
+            mock_common_log,
+            mock_onion_controller,
+            mock_os_path_expanduser,
+            mock_strings_,
+            monkeypatch,
+            platform_darwin):
+
+        (mock_onion_controller.
+         from_port.
+         side_effect) = Exception
+        (mock_onion_controller.
+         from_socket_file.
+         side_effect) = Exception
+        mock_settings = Mock()
+        mock_settings.return_value.get.return_value = 'automatic'
+        monkeypatch.setattr(onion, 'Settings', mock_settings)
+        onion_obj = Onion()
+        test_socket_file_path = '~/Library/Application Support/TorBrowser-Data/Tor/control.socket'
+
+        with pytest.raises(onion.TorErrorAutomatic):
+            onion_obj.connect()
+
+        mock_common_log.assert_has_calls((
+            call('Onion', '__init__'),
+            call('Onion', 'connect')
+        ))
+        (mock_onion_controller.
+         from_port.
+         assert_called_once_with(port=9151))
+        assert (mock_onion_controller.
+                from_socket_file.
+                call_count) == 2
+        (mock_os_path_expanduser.
+         assert_called_once_with(
+             test_socket_file_path
+         ))
+        mock_strings_.assert_called_once_with('settings_error_automatic')
+
+    def test_guess_socket_file_linux(
+            self,
+            common_get_tor_paths,
+            mock_common_log,
+            mock_onion_controller,
+            mock_os_geteuid,
+            mock_os_path_expanduser,
+            mock_strings_,
+            monkeypatch,
+            platform_linux):
+
+        (mock_onion_controller.
+         from_port.
+         side_effect) = Exception
+        (mock_onion_controller.
+         from_socket_file.
+         side_effect) = Exception
+        mock_os_geteuid.return_value = 1000
+        mock_settings = Mock()
+        mock_settings.return_value.get.return_value = 'automatic'
+        monkeypatch.setattr(onion, 'Settings', mock_settings)
+        onion_obj = Onion()
+
+        with pytest.raises(onion.TorErrorAutomatic):
+            onion_obj.connect()
+        mock_common_log.assert_has_calls((
+            call('Onion', '__init__'),
+            call('Onion', 'connect')
+        ))
+        (mock_onion_controller.
+         from_port.
+         assert_called_once_with(port=9151))
+        assert (mock_onion_controller.
+                from_socket_file.
+                call_count) == 2
+        mock_strings_.assert_called_once_with('settings_error_automatic')
+
+    def test_guess_socket_file_windows(
+            self,
+            common_get_tor_paths,
+            mock_common_log,
+            mock_onion_controller,
+            mock_os_geteuid,
+            mock_os_path_expanduser,
+            mock_strings_,
+            monkeypatch,
+            platform_windows,
+            sys_onionshare_dev_mode):
+
+        (mock_onion_controller.
+         from_port.
+         side_effect) = Exception
+        (mock_onion_controller.
+         from_socket_file.
+         side_effect) = Exception
+        mock_os_geteuid.return_value = 1000
+        mock_settings = Mock()
+        mock_settings.return_value.get.return_value = 'automatic'
+        monkeypatch.setattr(onion, 'Settings', mock_settings)
+        onion_obj = Onion()
+
+        with pytest.raises(onion.TorErrorAutomatic):
+            onion_obj.connect()
+        mock_common_log.assert_has_calls((
+            call('Onion', '__init__'),
+            call('Onion', 'connect')
+        ))
+        (mock_onion_controller.
+         from_port.
+         assert_called_once_with(port=9151))
+        assert (mock_onion_controller.
+                from_socket_file.
+                call_count) == 1
+        mock_strings_.assert_has_calls((
+            call('settings_error_automatic'),
+            call('settings_error_automatic')
+        ))
 
 
 class TestOnionConnectConnectionTypeBundled:
@@ -1179,7 +1451,7 @@ class TestOnionStartOnionService:
         (onion_obj.
          c.
          create_ephemeral_hidden_service.
-         side_effect) = onion.TorErrorProtocolError
+         side_effect) = onion.ProtocolError
         test_port = 9999
 
         with pytest.raises(onion.TorErrorProtocolError):
