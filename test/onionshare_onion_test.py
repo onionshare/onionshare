@@ -17,8 +17,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
+import os
+import subprocess
+import tempfile
+import textwrap
 import time
-from unittest.mock import Mock, call
+from unittest.mock import MagicMock, Mock, call, mock_open
 
 import pytest
 
@@ -60,9 +64,82 @@ def mock_time_sleep(monkeypatch):
 
 
 @pytest.fixture
+def mock_time_time(monkeypatch):
+    m = Mock(spec=time.time)
+    monkeypatch.setattr('time.time', m)
+    return m
+
+
+@pytest.fixture
 def mock_onion_controller(monkeypatch):
     m = Mock(spec=onion.Controller)
     monkeypatch.setattr(onion, 'Controller', m)
+    return m
+
+
+@pytest.fixture
+def mock_common_get_resource_path(monkeypatch):
+    m = Mock(spec=common.get_resource_path)
+    monkeypatch.setattr(common, 'get_resource_path', m)
+    return m
+
+
+@pytest.fixture
+def mock_common_get_available_port(monkeypatch):
+    m = Mock(spec=common.get_available_port)
+    monkeypatch.setattr(common, 'get_available_port', m)
+    return m
+
+
+@pytest.fixture
+def mock_onion_open(monkeypatch):
+    m = mock_open()
+    monkeypatch.setattr(onion, 'open', m)
+    return m
+
+
+# @pytest.fixture
+# def mock_tempfile_temporary_directory(monkeypatch):
+#     m = Mock(spec=tempfile.TemporaryDirectory)
+#     monkeypatch.setattr('tempfile.TemporaryDirectory', m)
+#     return m
+
+
+# pytest > 2.9 only needs @pytest.fixture
+@pytest.yield_fixture
+def temp_torrc_template(monkeypatch):
+    """
+    Create a temporary file of a particular size (1024 bytes).
+    The temporary file will be deleted after fixture usage.
+    """
+
+    with tempfile.NamedTemporaryFile('w') as tmp_file:
+        tmp_file.write(textwrap.dedent("""\
+            DataDirectory {{data_directory}}
+            SocksPort {{socks_port}}
+            ControlSocket {{control_socket}}
+            CookieAuthentication 1
+            CookieAuthFile {{cookie_auth_file}}
+            AvoidDiskWrites 1
+            Log notice stdout
+            GeoIPFile {{geo_ip_file}}
+            GeoIPv6File {{geo_ipv6_file}}
+            """))
+        tmp_file.flush()
+        yield tmp_file.name
+
+
+@pytest.fixture
+def mock_subprocess_popen(monkeypatch):
+    m = Mock(spec=subprocess.Popen)
+    monkeypatch.setattr('subprocess.Popen', m)
+    return m
+
+
+@pytest.fixture
+def mock_subprocess_startupinfo(monkeypatch):
+    m = MagicMock()
+    monkeypatch.setattr('subprocess.STARTUPINFO', m, raising=False)
     return m
 
 
@@ -71,7 +148,623 @@ class TestOnionConnectConnectionTypeAutomatic:
 
 
 class TestOnionConnectConnectionTypeBundled:
-    pass
+    def test_no_bundled_tor_support(
+            self,
+            common_get_tor_paths,
+            mock_common_log,
+            mock_strings_,
+            monkeypatch,
+            platform_linux):
+
+        mock_settings = Mock()
+        mock_settings.return_value.get.return_value = 'bundled'
+        monkeypatch.setattr(onion, 'Settings', mock_settings)
+        onion_obj = Onion()
+        onion_obj.bundle_tor_supported = False
+
+        with pytest.raises(onion.BundledTorNotSupported):
+            onion_obj.connect()
+        mock_common_log.assert_has_calls((
+            call('Onion', '__init__'),
+            call('Onion', 'connect')
+        ))
+        mock_settings.assert_called_once_with(False)
+        (mock_settings.
+         return_value.
+         load.
+         assert_called_once_with())
+        (mock_settings.
+         return_value.
+         get.
+         assert_called_once_with('connection_type'))
+        mock_strings_.assert_called_once_with(
+            'settings_error_bundled_tor_not_supported')
+        assert onion_obj.c is None
+
+    def test_bundled_tor_broken_linux(
+            self,
+            common_get_tor_paths,
+            mock_common_get_available_port,
+            mock_common_get_resource_path,
+            mock_common_log,
+            mock_onion_controller,
+            mock_strings_,
+            mock_subprocess_popen,
+            mock_time_sleep,
+            mock_time_time,
+            platform_linux,
+            temp_torrc_template):
+
+        test_available_port = 9999
+        mock_common_get_available_port.return_value = test_available_port
+        mock_common_get_resource_path.return_value = temp_torrc_template
+        test_exception_msg = 'Authentication Error!'
+        (mock_onion_controller.
+         from_socket_file.
+         return_value.
+         authenticate.
+         side_effect) = Exception(test_exception_msg)
+        mock_settings = Mock()
+        mock_settings.get.return_value = 'bundled'
+        onion_obj = Onion()
+
+        with pytest.raises(onion.BundledTorBroken):
+            onion_obj.connect(mock_settings)
+        mock_common_get_available_port.assert_called_once_with(1000, 65535)
+        mock_common_get_resource_path.assert_called_once_with('torrc_template')
+        mock_common_log.assert_has_calls((
+            call('Onion', '__init__'),
+            call('Onion', 'connect')
+        ))
+        (mock_onion_controller.
+         from_socket_file.
+         assert_called_once_with(
+             path=onion_obj.tor_control_socket))
+        (mock_onion_controller.
+         from_socket_file.
+         return_value.
+         authenticate.
+         assert_called_once_with())
+        mock_strings_.assert_called_once_with(
+            'settings_error_bundled_tor_broken', True)
+        mock_subprocess_popen.assert_called_once_with(
+            [onion_obj.tor_path,
+             '-f',
+             onion_obj.tor_torrc],
+            stderr=-1,
+            stdout=-1
+        )
+        mock_time_time.assert_called_once_with()
+        mock_time_sleep.assert_called_once_with(2)
+        assert onion_obj.tor_control_port is None
+        assert onion_obj.tor_control_socket == os.path.join(
+            onion_obj.tor_data_directory.name, 'control_socket')
+        assert onion_obj.tor_cookie_auth_file == os.path.join(
+            onion_obj.tor_data_directory.name, 'cookie')
+        assert onion_obj.tor_socks_port == test_available_port
+        assert onion_obj.tor_torrc == os.path.join(
+            onion_obj.tor_data_directory.name, 'torrc')
+
+        # not needed if added to Onion.cleanup method
+        onion_obj.tor_data_directory.cleanup()
+
+    def test_bundled_tor_broken_windows(
+            self,
+            common_get_tor_paths,
+            mock_common_get_available_port,
+            mock_common_get_resource_path,
+            mock_common_log,
+            mock_onion_controller,
+            mock_strings_,
+            mock_subprocess_popen,
+            mock_subprocess_startupinfo,
+            mock_time_sleep,
+            mock_time_time,
+            monkeypatch,
+            platform_windows,
+            temp_torrc_template):
+
+        test_tor_control_port = 7777
+        test_tor_socks_port = 8888
+        test_available_ports = (test_tor_control_port, test_tor_socks_port)
+        mock_common_get_available_port.side_effect = test_available_ports
+        mock_common_get_resource_path.return_value = temp_torrc_template
+        test_exception_msg = 'Authentication Error!'
+        (mock_onion_controller.
+         from_port.
+         return_value.
+         authenticate.
+         side_effect) = Exception(test_exception_msg)
+        mock_settings = Mock()
+        mock_settings.get.return_value = 'bundled'
+        test_startup_info = 999
+        monkeypatch.setattr(
+            target=subprocess,
+            name='STARTF_USESHOWWINDOW',
+            value=test_startup_info,
+            raising=False
+        )
+
+        onion_obj = Onion()
+
+        with pytest.raises(onion.BundledTorBroken):
+            onion_obj.connect(mock_settings)
+        mock_common_get_available_port.assert_has_calls((
+            call(1000, 65535), call(1000, 65535)
+        ))
+        (mock_common_get_resource_path.
+         assert_called_once_with('torrc_template-windows'))
+        mock_common_log.assert_has_calls((
+            call('Onion', '__init__'),
+            call('Onion', 'connect')
+        ))
+        (mock_onion_controller.
+         from_port.
+         assert_called_once_with(
+             port=onion_obj.tor_control_port))
+        (mock_onion_controller.
+         from_port.
+         return_value.
+         authenticate.
+         assert_called_once_with())
+        mock_strings_.assert_called_once_with(
+            'settings_error_bundled_tor_broken', True)
+        assert mock_subprocess_popen.call_count == 1
+        (mock_subprocess_startupinfo.
+         assert_called_once_with())
+        mock_time_time.assert_called_once_with()
+        mock_time_sleep.assert_called_once_with(2)
+        assert onion_obj.tor_control_port == test_tor_control_port
+        assert onion_obj.tor_control_socket is None
+        assert onion_obj.tor_cookie_auth_file == os.path.join(
+            onion_obj.tor_data_directory.name, 'cookie')
+        assert onion_obj.tor_socks_port == test_tor_socks_port
+        assert onion_obj.tor_torrc == os.path.join(
+            onion_obj.tor_data_directory.name, 'torrc')
+
+        # not needed if added to Onion.cleanup method
+        onion_obj.tor_data_directory.cleanup()
+
+    def test_bundled_tor_canceled_linux(
+            self,
+            common_get_tor_paths,
+            mock_common_get_available_port,
+            mock_common_get_resource_path,
+            mock_common_log,
+            mock_onion_controller,
+            mock_subprocess_popen,
+            mock_time_sleep,
+            mock_time_time,
+            platform_linux,
+            temp_torrc_template):
+
+        test_available_port = 9999
+        mock_common_get_available_port.return_value = test_available_port
+        mock_common_get_resource_path.return_value = temp_torrc_template
+        (mock_onion_controller.
+         from_socket_file.
+         return_value.
+         get_info.
+         side_effect) = onion.SocketClosed
+        mock_settings = Mock()
+        mock_settings.get.return_value = 'bundled'
+        onion_obj = Onion()
+
+        with pytest.raises(onion.BundledTorCanceled):
+            onion_obj.connect(mock_settings)
+        mock_common_get_available_port.assert_called_once_with(1000, 65535)
+        mock_common_get_resource_path.assert_called_once_with('torrc_template')
+        mock_common_log.assert_has_calls((
+            call('Onion', '__init__'),
+            call('Onion', 'connect')
+        ))
+        (mock_onion_controller.
+         from_socket_file.
+         assert_called_once_with(
+             path=onion_obj.tor_control_socket))
+        (mock_onion_controller.
+         from_socket_file.
+         return_value.
+         authenticate.
+         assert_called_once_with())
+        (mock_onion_controller.
+         from_socket_file.
+         return_value.
+         get_info.
+         assert_called_once_with('status/bootstrap-phase'))
+        mock_subprocess_popen.assert_called_once_with(
+            [onion_obj.tor_path,
+             '-f',
+             onion_obj.tor_torrc],
+            stderr=-1,
+            stdout=-1
+        )
+        mock_time_time.assert_called_once_with()
+        mock_time_sleep.assert_called_once_with(2)
+        assert onion_obj.tor_control_port is None
+        assert onion_obj.tor_control_socket == os.path.join(
+            onion_obj.tor_data_directory.name, 'control_socket')
+        assert onion_obj.tor_cookie_auth_file == os.path.join(
+            onion_obj.tor_data_directory.name, 'cookie')
+        assert onion_obj.tor_socks_port == test_available_port
+        assert onion_obj.tor_torrc == os.path.join(
+            onion_obj.tor_data_directory.name, 'torrc')
+
+        # not needed if added to Onion.cleanup method
+        onion_obj.tor_data_directory.cleanup()
+
+    def test_bundled_tor_status_update_false_linux(
+            self,
+            common_get_tor_paths,
+            mock_common_get_available_port,
+            mock_common_get_resource_path,
+            mock_common_log,
+            mock_onion_controller,
+            mock_strings_,
+            mock_subprocess_popen,
+            mock_time_sleep,
+            mock_time_time,
+            platform_linux,
+            temp_torrc_template):
+
+        test_available_port = 9999
+        test_progress = 'TEST_PROGRESS'
+        test_summary = 'TEST_SUMMARY'
+        test_res = '. . .={} . .={}'.format(test_progress, test_summary)
+        mock_common_get_available_port.return_value = test_available_port
+        mock_common_get_resource_path.return_value = temp_torrc_template
+        (mock_onion_controller.
+         from_socket_file.
+         return_value.
+         get_info.
+         return_value) = test_res
+        mock_settings = Mock()
+        mock_settings.get.return_value = 'bundled'
+        onion_obj = Onion()
+
+        assert onion_obj.connect(
+            settings=mock_settings,
+            tor_status_update_func=lambda progress, summary: False
+        ) is False
+        mock_common_get_available_port.assert_called_once_with(1000, 65535)
+        mock_common_get_resource_path.assert_called_once_with('torrc_template')
+        mock_common_log.assert_has_calls((
+            call('Onion', '__init__'),
+            call('Onion', 'connect'),
+            call('Onion', 'connect', 'tor_status_update_func returned false, canceling connecting to Tor')
+        ))
+        (mock_onion_controller.
+         from_socket_file.
+         assert_called_once_with(
+             path=onion_obj.tor_control_socket))
+        (mock_onion_controller.
+         from_socket_file.
+         return_value.
+         authenticate.
+         assert_called_once_with())
+        (mock_onion_controller.
+         from_socket_file.
+         return_value.
+         get_info.
+         assert_called_once_with('status/bootstrap-phase'))
+        mock_strings_.assert_called_once_with('connecting_to_tor')
+        mock_subprocess_popen.assert_called_once_with(
+            [onion_obj.tor_path,
+             '-f',
+             onion_obj.tor_torrc],
+            stderr=-1,
+            stdout=-1
+        )
+        mock_time_time.assert_called_once_with()
+        mock_time_sleep.assert_called_once_with(2)
+        assert onion_obj.tor_control_port is None
+        assert onion_obj.tor_control_socket == os.path.join(
+            onion_obj.tor_data_directory.name, 'control_socket')
+        assert onion_obj.tor_cookie_auth_file == os.path.join(
+            onion_obj.tor_data_directory.name, 'cookie')
+        assert onion_obj.tor_socks_port == test_available_port
+        assert onion_obj.tor_torrc == os.path.join(
+            onion_obj.tor_data_directory.name, 'torrc')
+
+        # not needed if added to Onion.cleanup method
+        onion_obj.tor_data_directory.cleanup()
+
+    def test_bundled_tor_timeout_linux(
+            self,
+            common_get_tor_paths,
+            mock_common_get_available_port,
+            mock_common_get_resource_path,
+            mock_common_log,
+            mock_onion_controller,
+            mock_strings_,
+            mock_subprocess_popen,
+            mock_time_sleep,
+            mock_time_time,
+            platform_linux,
+            temp_torrc_template):
+
+        test_available_port = 9999
+        test_progress = 'TEST_PROGRESS'
+        test_summary = 'TEST_SUMMARY'
+        test_res = '. . .={} . .={}'.format(test_progress, test_summary)
+        mock_common_get_available_port.return_value = test_available_port
+        mock_common_get_resource_path.return_value = temp_torrc_template
+        (mock_onion_controller.
+         from_socket_file.
+         return_value.
+         get_info.
+         return_value) = test_res
+        mock_settings = Mock()
+        mock_settings.get.return_value = 'bundled'
+        mock_time_time.side_effect = (1, 50)
+        onion_obj = Onion()
+
+        with pytest.raises(onion.BundledTorTimeout):
+            onion_obj.connect(settings=mock_settings)
+        mock_common_get_available_port.assert_called_once_with(1000, 65535)
+        mock_common_get_resource_path.assert_called_once_with('torrc_template')
+        mock_common_log.assert_has_calls((
+            call('Onion', '__init__'),
+            call('Onion', 'connect')
+        ))
+        (mock_onion_controller.
+         from_socket_file.
+         assert_called_once_with(
+             path=onion_obj.tor_control_socket))
+        (mock_onion_controller.
+         from_socket_file.
+         return_value.
+         authenticate.
+         assert_called_once_with())
+        (mock_onion_controller.
+         from_socket_file.
+         return_value.
+         get_info.
+         assert_called_once_with('status/bootstrap-phase'))
+        mock_strings_.assert_has_calls((
+            call('connecting_to_tor'),
+            call('settings_error_bundled_tor_timeout')
+        ))
+        mock_subprocess_popen.assert_called_once_with(
+            [onion_obj.tor_path, '-f', onion_obj.tor_torrc],
+            stderr=-1,
+            stdout=-1
+        )
+        (mock_subprocess_popen.
+         return_value.
+         terminate.
+         assert_called_once_with())
+        mock_time_time.assert_has_calls((
+            call(),
+            call()
+        ))
+        mock_time_sleep.assert_has_calls((
+            call(2),
+            call(0.2)
+        ))
+        assert onion_obj.tor_control_port is None
+        assert onion_obj.tor_control_socket == os.path.join(
+            onion_obj.tor_data_directory.name, 'control_socket')
+        assert onion_obj.tor_cookie_auth_file == os.path.join(
+            onion_obj.tor_data_directory.name, 'cookie')
+        assert onion_obj.tor_socks_port == test_available_port
+        assert onion_obj.tor_torrc == os.path.join(
+            onion_obj.tor_data_directory.name, 'torrc')
+
+        # not needed if added to Onion.cleanup method
+        onion_obj.tor_data_directory.cleanup()
+
+    def test_bundled_tor_connected_no_stealth_linux(
+            self,
+            common_get_tor_paths,
+            mock_common_get_available_port,
+            mock_common_get_resource_path,
+            mock_common_log,
+            mock_onion_controller,
+            mock_strings_,
+            mock_subprocess_popen,
+            mock_time_sleep,
+            mock_time_time,
+            platform_linux,
+            temp_torrc_template):
+
+        test_available_port = 9999
+        test_progress = 'TEST_PROGRESS'
+        test_summary = 'Done'
+        test_res = '. . .={} . .={}'.format(test_progress, test_summary)
+        test_tor_version = '0.0.0.0'
+        mock_common_get_available_port.return_value = test_available_port
+        mock_common_get_resource_path.return_value = temp_torrc_template
+        (mock_onion_controller.
+         from_socket_file.
+         return_value.
+         get_info.
+         return_value) = test_res
+        (mock_onion_controller.
+         from_socket_file.
+         return_value.
+         list_ephemeral_hidden_services) = None
+        (mock_onion_controller.
+         from_socket_file.
+         return_value.
+         get_version.
+         return_value.
+         version_str) = test_tor_version
+        (mock_onion_controller.
+         from_socket_file.
+         return_value.
+         create_ephemeral_hidden_service.
+         side_effect) = Exception
+        mock_settings = Mock()
+        mock_settings.get.return_value = 'bundled'
+        onion_obj = Onion()
+
+        onion_obj.connect(settings=mock_settings)
+
+        mock_common_get_available_port.assert_called_once_with(1000, 65535)
+        mock_common_get_resource_path.assert_called_once_with('torrc_template')
+        mock_common_log.assert_has_calls((
+            call('Onion', '__init__'),
+            call('Onion', 'connect'),
+        ))
+        (mock_onion_controller.
+         from_socket_file.
+         assert_called_once_with(
+             path=onion_obj.tor_control_socket))
+        (mock_onion_controller.
+         from_socket_file.
+         return_value.
+         authenticate.
+         assert_called_once_with())
+        (mock_onion_controller.
+         from_socket_file.
+         return_value.
+         get_info.
+         assert_called_once_with('status/bootstrap-phase'))
+        (mock_onion_controller.
+         from_socket_file.
+         return_value.
+         create_ephemeral_hidden_service.
+         assert_called_once_with(
+            {1: 1},
+            basic_auth={'onionshare': None},
+            await_publication=False
+        ))
+        mock_strings_.assert_called_once_with('connecting_to_tor')
+        mock_subprocess_popen.assert_called_once_with(
+            [onion_obj.tor_path, '-f', onion_obj.tor_torrc],
+            stderr=-1,
+            stdout=-1
+        )
+        mock_time_time.assert_called_once_with()
+        mock_time_sleep.assert_called_once_with(2)
+        assert onion_obj.tor_control_port is None
+        assert onion_obj.tor_control_socket == os.path.join(
+            onion_obj.tor_data_directory.name, 'control_socket')
+        assert onion_obj.tor_cookie_auth_file == os.path.join(
+            onion_obj.tor_data_directory.name, 'cookie')
+        assert onion_obj.tor_socks_port == test_available_port
+        assert onion_obj.tor_torrc == os.path.join(
+            onion_obj.tor_data_directory.name, 'torrc')
+        # If we made it this far, we should be connected to Tor
+        assert onion_obj.connected_to_tor is True
+        assert onion_obj.tor_version == test_tor_version
+        assert onion_obj.supports_ephemeral is False
+        assert onion_obj.supports_stealth is False
+
+        # not needed if added to Onion.cleanup method
+        onion_obj.tor_data_directory.cleanup()
+
+    def test_bundled_tor_connected_supports_stealth_linux(
+            self,
+            common_get_tor_paths,
+            mock_common_get_available_port,
+            mock_common_get_resource_path,
+            mock_common_log,
+            mock_onion_controller,
+            mock_strings_,
+            mock_subprocess_popen,
+            mock_time_sleep,
+            mock_time_time,
+            platform_linux,
+            temp_torrc_template):
+
+        test_available_port = 9999
+        test_progress = 'TEST_PROGRESS'
+        test_service_id = 'TEST_SERVICE_ID'
+        test_summary = 'Done'
+        test_res = '. . .={} . .={}'.format(test_progress, test_summary)
+        test_tor_version = '0.0.0.0'
+        mock_common_get_available_port.return_value = test_available_port
+        mock_common_get_resource_path.return_value = temp_torrc_template
+        (mock_onion_controller.
+         from_socket_file.
+         return_value.
+         get_info.
+         return_value) = test_res
+        (mock_onion_controller.
+         from_socket_file.
+         return_value.
+         list_ephemeral_hidden_services) = None
+        (mock_onion_controller.
+         from_socket_file.
+         return_value.
+         get_version.
+         return_value.
+         version_str) = test_tor_version
+        (mock_onion_controller.
+         from_socket_file.
+         return_value.
+         create_ephemeral_hidden_service.
+         return_value.
+         content.
+         return_value) = (('', '', '={}'.format(test_service_id)),)
+        mock_settings = Mock()
+        mock_settings.get.return_value = 'bundled'
+        onion_obj = Onion()
+
+        onion_obj.connect(settings=mock_settings)
+
+        mock_common_get_available_port.assert_called_once_with(1000, 65535)
+        mock_common_get_resource_path.assert_called_once_with('torrc_template')
+        mock_common_log.assert_has_calls((
+            call('Onion', '__init__'),
+            call('Onion', 'connect'),
+        ))
+        (mock_onion_controller.
+         from_socket_file.
+         assert_called_once_with(
+             path=onion_obj.tor_control_socket))
+        (mock_onion_controller.
+         from_socket_file.
+         return_value.
+         authenticate.
+         assert_called_once_with())
+        (mock_onion_controller.
+         from_socket_file.
+         return_value.
+         get_info.
+         assert_called_once_with('status/bootstrap-phase'))
+        (mock_onion_controller.
+         from_socket_file.
+         return_value.
+         create_ephemeral_hidden_service.
+         assert_called_once_with(
+            {1: 1},
+            basic_auth={'onionshare': None},
+            await_publication=False
+        ))
+        (mock_onion_controller.
+         from_socket_file.
+         return_value.
+         remove_ephemeral_hidden_service.
+         assert_called_once_with(
+             test_service_id
+         ))
+        mock_strings_.assert_called_once_with('connecting_to_tor')
+        mock_subprocess_popen.assert_called_once_with(
+            [onion_obj.tor_path, '-f', onion_obj.tor_torrc],
+            stderr=-1,
+            stdout=-1
+        )
+        mock_time_sleep.assert_called_once_with(2)
+        mock_time_time.assert_called_once_with()
+        assert onion_obj.tor_control_port is None
+        assert onion_obj.tor_control_socket == os.path.join(
+            onion_obj.tor_data_directory.name, 'control_socket')
+        assert onion_obj.tor_cookie_auth_file == os.path.join(
+            onion_obj.tor_data_directory.name, 'cookie')
+        assert onion_obj.tor_socks_port == test_available_port
+        assert onion_obj.tor_torrc == os.path.join(
+            onion_obj.tor_data_directory.name, 'torrc')
+        # If we made it this far, we should be connected to Tor
+        assert onion_obj.connected_to_tor is True
+        assert onion_obj.tor_version == test_tor_version
+        assert onion_obj.supports_ephemeral is False
+        assert onion_obj.supports_stealth is True
+
+        # not needed if added to Onion.cleanup method
+        onion_obj.tor_data_directory.cleanup()
 
 
 class TestOnionConnectConnectionTypeElse:
