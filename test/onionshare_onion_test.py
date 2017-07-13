@@ -66,6 +66,14 @@ def mock_onion_controller(monkeypatch):
     return m
 
 
+class TestOnionConnectConnectionTypeAutomatic:
+    pass
+
+
+class TestOnionConnectConnectionTypeBundled:
+    pass
+
+
 class TestOnionConnectConnectionTypeElse:
     # Try connecting
     def test_connection_type_else_raises_socket_file(
@@ -365,7 +373,7 @@ class TestOnionConnectConnectionTypeElse:
         mock_strings_.assert_called_once_with('settings_error_unknown')
 
 
-class TestOnion:
+class TestOnionInit:
     def test_init_darwin(
             self,
             common_get_tor_paths,
@@ -426,9 +434,8 @@ class TestOnion:
         assert onion_windows.tor_proc is None
         assert onion_windows.connected_to_tor is False
 
-    def test_connect(self):
-        pass
 
+class TestOnionStartOnionService:
     def test_start_onion_service_no_ephemeral(
             self,
             mock_common_log,
@@ -586,6 +593,8 @@ class TestOnion:
          content.
          assert_called_once_with())
 
+
+class TestOnionCleanup:
     def test_cleanup(
             self,
             mock_common_log,
@@ -622,6 +631,8 @@ class TestOnion:
         assert onion_obj.connected_to_tor is False
         assert onion_obj.stealth is False
 
+
+class TestOnionGetTorSocksPort:
     def test_get_tor_socks_port_bundled(
             self,
             mock_common_log,
