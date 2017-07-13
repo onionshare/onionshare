@@ -59,6 +59,312 @@ def mock_time_sleep(monkeypatch):
     return m
 
 
+@pytest.fixture
+def mock_onion_controller(monkeypatch):
+    m = Mock(spec=onion.Controller)
+    monkeypatch.setattr(onion, 'Controller', m)
+    return m
+
+
+class TestOnionConnectConnectionTypeElse:
+    # Try connecting
+    def test_connection_type_else_raises_socket_file(
+            self,
+            common_get_tor_paths,
+            mock_common_log,
+            mock_strings_,
+            platform_linux):
+
+        onion_obj = Onion()
+        mock_settings = Mock()
+
+        with pytest.raises(onion.TorErrorSocketFile):
+            onion_obj.connect(mock_settings)
+        mock_common_log.assert_has_calls((
+            call('Onion', '__init__'),
+            call('Onion', 'connect')
+        ))
+        mock_settings.assert_has_calls((
+            call.get('connection_type'),
+            call.get('connection_type'),
+            call.get('connection_type'),
+            call.get('connection_type'),
+            call.get('connection_type'),
+            call.get('socket_file_path')
+        ))
+        mock_strings_.assert_has_calls((
+            call('settings_error_unknown'),
+            call('settings_error_socket_file')
+        ))
+
+    def test_connection_type_control_port_raises_socket_port(
+            self,
+            common_get_tor_paths,
+            mock_common_log,
+            mock_onion_controller,
+            mock_strings_,
+            platform_linux):
+
+        onion_obj = Onion()
+        mock_settings = Mock()
+        mock_settings.get.return_value = 'control_port'
+        mock_onion_controller.from_port.side_effect = Exception
+
+        with pytest.raises(onion.TorErrorSocketPort):
+            onion_obj.connect(mock_settings)
+        mock_common_log.assert_has_calls((
+            call('Onion', '__init__'),
+            call('Onion', 'connect')
+        ))
+        (mock_onion_controller.
+         from_port.
+         assert_called_once_with(
+             address='control_port',
+             port='control_port'
+         ))
+        mock_settings.get.assert_has_calls((
+            call('connection_type'),
+            call('connection_type'),
+            call('connection_type'),
+            call('control_port_address'),
+            call('control_port_port'),
+            call('connection_type'),
+            call('control_port_address'),
+            call('control_port_port')
+        ))
+        mock_strings_.assert_called_once_with('settings_error_socket_port')
+
+    def test_connection_type_socket_file_raises_socket_file(
+            self,
+            common_get_tor_paths,
+            mock_common_log,
+            mock_onion_controller,
+            mock_strings_,
+            platform_linux):
+
+        onion_obj = Onion()
+        mock_settings = Mock()
+        (mock_settings.
+         get.
+         return_value) = 'socket_file'
+        (mock_onion_controller.
+         from_socket_file.
+         side_effect) = Exception
+
+        with pytest.raises(onion.TorErrorSocketFile):
+            onion_obj.connect(mock_settings)
+        mock_common_log.assert_has_calls((
+            call('Onion', '__init__'),
+            call('Onion', 'connect')
+        ))
+        (mock_onion_controller.
+         from_socket_file.
+         assert_called_once_with(path='socket_file'))
+        mock_settings.get.assert_has_calls((
+            call('connection_type'),
+            call('connection_type'),
+            call('connection_type'),
+            call('connection_type'),
+            call('socket_file_path'),
+            call('connection_type'),
+            call('socket_file_path')
+        ))
+        mock_strings_.assert_called_once_with('settings_error_socket_file')
+
+    # Try authenticating
+    def test_auth_type_no_auth_raises_missing_password(
+            self,
+            common_get_tor_paths,
+            mock_common_log,
+            mock_onion_controller,
+            mock_strings_,
+            platform_linux):
+        onion_obj = Onion()
+        mock_settings = Mock()
+        (mock_settings.
+         get.
+         side_effect) = (
+            'NOT_BUNDLED',
+            'NOT_AUTOMATIC',
+            'control_port',
+            'control_port_address',
+            'control_port_port',
+            'no_auth'
+        )
+        (mock_onion_controller.
+         from_port.
+         return_value.
+         authenticate.
+         side_effect) = onion.MissingPassword('Missing Password')
+
+        with pytest.raises(onion.TorErrorMissingPassword):
+            onion_obj.connect(mock_settings)
+        mock_common_log.assert_has_calls((
+            call('Onion', '__init__'),
+            call('Onion', 'connect')
+        ))
+        (mock_onion_controller.
+         from_port.
+         return_value.
+         authenticate.
+         assert_called_once_with())
+        (mock_settings.
+         get.
+         assert_has_calls((
+             call('connection_type'),
+             call('connection_type'),
+             call('connection_type'),
+             call('control_port_address'),
+             call('control_port_port'),
+             call('auth_type')
+         )))
+        mock_strings_.assert_called_once_with(
+            'settings_error_missing_password')
+
+    def test_auth_type_password_raises_unreadable_cookie(
+            self,
+            common_get_tor_paths,
+            mock_common_log,
+            mock_onion_controller,
+            mock_strings_,
+            platform_linux):
+        onion_obj = Onion()
+        mock_settings = Mock()
+        mock_settings.get.side_effect = (
+            'NOT_BUNDLED',
+            'NOT_AUTOMATIC',
+            'control_port',
+            'control_port_address',
+            'control_port_port',
+            'NOT_NO_AUTH',
+            'password',
+            'auth_password'
+        )
+        (mock_onion_controller.
+         from_port.
+         return_value.
+         authenticate.
+         side_effect) = onion.UnreadableCookieFile(
+            'Unreadable Cookie File', '/', False)
+
+        with pytest.raises(onion.TorErrorUnreadableCookieFile):
+            onion_obj.connect(mock_settings)
+        mock_common_log.assert_has_calls((
+            call('Onion', '__init__'),
+            call('Onion', 'connect')
+        ))
+        (mock_onion_controller.
+         from_port.
+         return_value.
+         authenticate.
+         assert_called_once_with('auth_password'))
+        (mock_settings.
+         get.
+         assert_has_calls((
+             call('connection_type'),
+             call('connection_type'),
+             call('connection_type'),
+             call('control_port_address'),
+             call('control_port_port'),
+             call('auth_type'),
+             call('auth_type'),
+             call('auth_password')
+         )))
+        mock_strings_.assert_called_once_with(
+            'settings_error_unreadable_cookie_file')
+
+    def test_auth_type_password_raises_auth_error(
+            self,
+            common_get_tor_paths,
+            mock_common_log,
+            mock_onion_controller,
+            mock_strings_,
+            platform_linux):
+        onion_obj = Onion()
+        mock_settings = Mock()
+        mock_settings.get.side_effect = (
+            'NOT_BUNDLED',
+            'NOT_AUTOMATIC',
+            'control_port',
+            'control_port_address',
+            'control_port_port',
+            'NOT_NO_AUTH',
+            'password',
+            'auth_password',
+            'control_port_address',
+            'control_port_port'
+        )
+        (mock_onion_controller.
+         from_port.
+         return_value.
+         authenticate.
+         side_effect) = onion.AuthenticationFailure('Authentication Failure')
+
+        with pytest.raises(onion.TorErrorAuthError):
+            onion_obj.connect(mock_settings)
+        mock_common_log.assert_has_calls((
+            call('Onion', '__init__'),
+            call('Onion', 'connect')
+        ))
+        (mock_onion_controller.
+         from_port.
+         return_value.
+         authenticate.
+         assert_called_once_with('auth_password'))
+        (mock_settings.
+         get.
+         assert_has_calls((
+             call('connection_type'),
+             call('connection_type'),
+             call('connection_type'),
+             call('control_port_address'),
+             call('control_port_port'),
+             call('auth_type'),
+             call('auth_type'),
+             call('auth_password')
+         )))
+        mock_strings_.assert_called_once_with('settings_error_auth')
+
+
+    def test_auth_type_else_raises_invalid_setting(
+            self,
+            common_get_tor_paths,
+            mock_common_log,
+            mock_onion_controller,
+            mock_strings_,
+            platform_linux):
+        onion_obj = Onion()
+        mock_settings = Mock()
+        mock_settings.get.side_effect = (
+            'NOT_BUNDLED',
+            'NOT_AUTOMATIC',
+            'control_port',
+            'control_port_address',
+            'control_port_port',
+            'NOT_NO_AUTH',
+            'NOT_PASSWORD',
+        )
+
+        with pytest.raises(onion.TorErrorInvalidSetting):
+            onion_obj.connect(mock_settings)
+        mock_common_log.assert_has_calls((
+            call('Onion', '__init__'),
+            call('Onion', 'connect')
+        ))
+        (mock_settings.
+         get.
+         assert_has_calls((
+             call('connection_type'),
+             call('connection_type'),
+             call('connection_type'),
+             call('control_port_address'),
+             call('control_port_port'),
+             call('auth_type'),
+             call('auth_type'),
+         )))
+        mock_strings_.assert_called_once_with('settings_error_unknown')
+
+
 class TestOnion:
     def test_init_darwin(
             self,
