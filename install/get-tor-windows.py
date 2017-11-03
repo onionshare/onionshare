@@ -28,9 +28,9 @@ import inspect, os, sys, hashlib, zipfile, io, shutil
 import urllib.request
 
 def main():
-    zip_url = 'https://www.torproject.org/dist/torbrowser/6.5.1/tor-win32-0.2.9.10.zip'
-    zip_filename = 'tor-win32-0.2.9.10.zip'
-    expected_zip_sha256 = '56e639cd73c48f383fd638568e01ca07750211fca79c87e668cf8baccbf9d38a'
+    zip_url = 'https://dist.torproject.org/torbrowser/7.0.8/tor-win32-0.3.1.7.zip'
+    zip_filename = 'tor-win32-0.3.1.7.zip'
+    expected_zip_sha256 = 'fb4c330361d8a7449ed4b9a30848bdad47616166af64f7ace4c71ead83464780'
 
     # Build paths
     root_path = os.path.dirname(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))))
