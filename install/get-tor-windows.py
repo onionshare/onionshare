@@ -28,7 +28,7 @@ import inspect, os, sys, hashlib, zipfile, io, shutil
 import urllib.request
 
 def main():
-    zip_url = 'https://dist.torproject.org/torbrowser/7.0.8/tor-win32-0.3.1.7.zip'
+    zip_url = 'https://archive.torproject.org/tor-package-archive/torbrowser/7.0.8/tor-win32-0.3.1.7.zip'
     zip_filename = 'tor-win32-0.3.1.7.zip'
     expected_zip_sha256 = 'fb4c330361d8a7449ed4b9a30848bdad47616166af64f7ace4c71ead83464780'
 

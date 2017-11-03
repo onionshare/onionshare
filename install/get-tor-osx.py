@@ -28,7 +28,7 @@ import inspect, os, sys, hashlib, zipfile, io, shutil, subprocess
 import urllib.request
 
 def main():
-    dmg_url = 'https://dist.torproject.org/torbrowser/7.0.8/TorBrowser-7.0.8-osx64_en-US.dmg'
+    dmg_url = 'https://archive.torproject.org/tor-package-archive/torbrowser/7.0.8/TorBrowser-7.0.8-osx64_en-US.dmg'
     dmg_filename = 'TorBrowser-7.0.8-osx64_en-US.dmg'
     expected_dmg_sha256 = '11ad9163a5bfb82c5c3985b6c7c5f258b9677b4ae1ccfa3a5aee6dfc12e09d80'
 
