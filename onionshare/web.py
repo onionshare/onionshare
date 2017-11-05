@@ -17,7 +17,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-from distutils.version import StrictVersion as Version
+from distutils.version import LooseVersion as Version
 import queue, mimetypes, platform, os, sys, socket, logging, hmac
 from urllib.request import urlopen
 
