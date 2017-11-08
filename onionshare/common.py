@@ -27,6 +27,7 @@ import random
 import socket
 import sys
 import tempfile
+import threading
 import time
 import zipfile
 
@@ -254,3 +255,18 @@ class ZipWriter(object):
         Close the zip archive.
         """
         self.z.close()
+
+
+class close_after_seconds(threading.Thread):
+    """
+    Background thread sleeps t hours and returns.
+    """
+    def __init__(self, time):
+        threading.Thread.__init__(self)
+        self.setDaemon(True)
+        self.time = time
+
+    def run(self):
+        log('Shutdown Timer', 'Server will shut down after {} seconds'.format(3600 * self.time))
+        time.sleep(3600 * self.time) # seconds -> hours
+        return 1

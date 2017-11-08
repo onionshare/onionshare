@@ -258,7 +258,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
             self.app.stay_open = not self.settings.get('close_after_first_download')
 
             # start onionshare http service in new thread
-            t = threading.Thread(target=web.start, args=(self.app.port, self.app.stay_open))
+            t = threading.Thread(target=web.start, args=(self.app.port, self.app.stay_open, self.app.shutdown_timeout))
             t.daemon = True
             t.start()
             # wait for modules in thread to load, preventing a thread-related cx_Freeze crash
@@ -371,6 +371,14 @@ class OnionShareGui(QtWidgets.QMainWindow):
         Check for messages communicated from the web app, and update the GUI accordingly.
         """
         self.update()
+
+        # If the auto-shutdown timer has stopped, stop the server
+        if self.server_status.status == self.server_status.STATUS_STARTED:
+            if self.app.shutdown_timer and self.server_status.server_shutdown_timeout.value() > 0:
+                if not self.app.shutdown_timer.is_alive():
+                    self.server_status.stop_server()
+                    self.status_bar.showMessage(strings._('close_on_timeout',True))
+
         # scroll to the bottom of the dl progress bar log pane
         # if a new download has been added
         if self.new_download:

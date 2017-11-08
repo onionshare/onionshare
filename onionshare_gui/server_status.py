@@ -44,6 +44,20 @@ class ServerStatus(QtWidgets.QVBoxLayout):
         self.web = web
         self.file_selection = file_selection
 
+        # shutdown timeout layout
+        self.server_shutdown_timeout_checkbox = QtWidgets.QCheckBox()
+        self.server_shutdown_timeout_checkbox.setCheckState(QtCore.Qt.Unchecked)
+        self.server_shutdown_timeout_checkbox.toggled.connect(self.shutdown_timeout_toggled)
+        self.server_shutdown_timeout_checkbox.setText(strings._("gui_settings_shutdown_timeout_choice", True))
+        self.server_shutdown_timeout_label = QtWidgets.QLabel(strings._('gui_settings_shutdown_timeout', True))
+        self.server_shutdown_timeout = QtWidgets.QDoubleSpinBox()
+        self.server_shutdown_timeout.setRange(0,100)
+        self.server_shutdown_timeout_label.hide()
+        self.server_shutdown_timeout.hide()
+        shutdown_timeout_layout_group = QtWidgets.QHBoxLayout()
+        shutdown_timeout_layout_group.addWidget(self.server_shutdown_timeout_checkbox)
+        shutdown_timeout_layout_group.addWidget(self.server_shutdown_timeout_label)
+        shutdown_timeout_layout_group.addWidget(self.server_shutdown_timeout)
         # server layout
         self.status_image_stopped = QtGui.QImage(common.get_resource_path('images/server_stopped.png'))
         self.status_image_working = QtGui.QImage(common.get_resource_path('images/server_working.png'))
@@ -72,10 +86,24 @@ class ServerStatus(QtWidgets.QVBoxLayout):
         url_layout.addWidget(self.copy_hidservauth_button)
 
         # add the widgets
+        self.addLayout(shutdown_timeout_layout_group)
         self.addLayout(server_layout)
         self.addLayout(url_layout)
 
         self.update()
+
+    def shutdown_timeout_toggled(self, checked):
+        """
+        Shutdown timer option was toggled. If checked, hide the option and show the timer settings.
+        """
+        if checked:
+            self.server_shutdown_timeout_checkbox.hide()
+            self.server_shutdown_timeout_label.show()
+            self.server_shutdown_timeout.show()
+        else:
+            self.server_shutdown_timeout_checkbox.show()
+            self.server_shutdown_timeout_label.hide()
+            self.server_shutdown_timeout.hide()
 
     def update(self):
         """
@@ -116,12 +144,16 @@ class ServerStatus(QtWidgets.QVBoxLayout):
             if self.status == self.STATUS_STOPPED:
                 self.server_button.setEnabled(True)
                 self.server_button.setText(strings._('gui_start_server', True))
+                self.server_shutdown_timeout.setEnabled(True)
+                self.server_shutdown_timeout_checkbox.setCheckState(QtCore.Qt.Unchecked)
             elif self.status == self.STATUS_STARTED:
                 self.server_button.setEnabled(True)
                 self.server_button.setText(strings._('gui_stop_server', True))
+                self.server_shutdown_timeout.setEnabled(False)
             else:
                 self.server_button.setEnabled(False)
                 self.server_button.setText(strings._('gui_please_wait'))
+                self.server_shutdown_timeout.setEnabled(False)
 
     def server_button_clicked(self):
         """
@@ -145,6 +177,10 @@ class ServerStatus(QtWidgets.QVBoxLayout):
         The server has finished starting.
         """
         self.status = self.STATUS_STARTED
+        # Set the shutdown timeout value
+        if self.server_shutdown_timeout.value() > 0:
+            self.app.shutdown_timer = common.close_after_seconds(self.server_shutdown_timeout.value())
+            self.app.shutdown_timer.start()
         self.copy_url()
         self.update()
 

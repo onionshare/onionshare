@@ -135,6 +135,13 @@ def get_stay_open():
     """
     return stay_open
 
+shutdown_timeout = 0
+def set_shutdown_timeout(new_shutdown_timeout):
+    """
+    Set shutdown_timeout variable.
+    """
+    global shutdown_timeout
+    shutdown_timeout = new_shutdown_timeout
 
 # Are we running in GUI mode?
 gui_mode = False
@@ -361,13 +368,14 @@ def force_shutdown():
     func()
 
 
-def start(port, stay_open=False):
+def start(port, stay_open=False, shutdown_timeout=0):
     """
     Start the flask web server.
     """
     generate_slug()
 
     set_stay_open(stay_open)
+    set_shutdown_timeout(shutdown_timeout)
 
     # In Whonix, listen on 0.0.0.0 instead of 127.0.0.1 (#220)
     if os.path.exists('/usr/share/anon-ws-base-files/workstation'):

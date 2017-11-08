@@ -42,6 +42,7 @@ def main(cwd=None):
     parser = argparse.ArgumentParser()
     parser.add_argument('--local-only', action='store_true', dest='local_only', help=strings._("help_local_only"))
     parser.add_argument('--stay-open', action='store_true', dest='stay_open', help=strings._("help_stay_open"))
+    parser.add_argument('--shutdown-timeout', metavar='shutdown_timeout', dest='shutdown_timeout', help=strings._("help_shutdown_timeout"))
     parser.add_argument('--stealth', action='store_true', dest='stealth', help=strings._("help_stealth"))
     parser.add_argument('--debug', action='store_true', dest='debug', help=strings._("help_debug"))
     parser.add_argument('--config', metavar='config', default=False, help=strings._('help_config'))
@@ -55,6 +56,7 @@ def main(cwd=None):
     local_only = bool(args.local_only)
     debug = bool(args.debug)
     stay_open = bool(args.stay_open)
+    shutdown_timeout = float(args.shutdown_timeout)
     stealth = bool(args.stealth)
     config = args.config
 
@@ -87,7 +89,7 @@ def main(cwd=None):
 
     # Start the onionshare app
     try:
-        app = OnionShare(onion, local_only, stay_open)
+        app = OnionShare(onion, local_only, stay_open, shutdown_timeout)
         app.set_stealth(stealth)
         app.start_onion_service()
     except KeyboardInterrupt:
@@ -106,13 +108,17 @@ def main(cwd=None):
         print('')
 
     # Start OnionShare http service in new thread
-    t = threading.Thread(target=web.start, args=(app.port, app.stay_open))
+    t = threading.Thread(target=web.start, args=(app.port, app.stay_open, app.shutdown_timeout))
     t.daemon = True
     t.start()
 
     try:  # Trap Ctrl-C
         # Wait for web.generate_slug() to finish running
         time.sleep(0.2)
+
+        # start shutdown timer thread
+        if app.shutdown_timeout > 0:
+            app.shutdown_timer.start()
 
         if(stealth):
             print(strings._("give_this_url_stealth"))
@@ -126,9 +132,15 @@ def main(cwd=None):
 
         # Wait for app to close
         while t.is_alive():
+            if app.shutdown_timeout > 0:
+                # if the shutdown timer was set and has run out, stop the server
+                if not app.shutdown_timer.is_alive():
+                    print(strings._("close_on_timeout"))
+                    web.stop(app.port)
+                    break
             # Allow KeyboardInterrupt exception to be handled with threads
             # https://stackoverflow.com/questions/3788208/python-threading-ignores-keyboardinterrupt-exception
-            time.sleep(100)
+            time.sleep(0.2)
     except KeyboardInterrupt:
         web.stop(app.port)
     finally:
