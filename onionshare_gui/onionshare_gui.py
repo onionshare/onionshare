@@ -258,7 +258,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
             self.app.stay_open = not self.settings.get('close_after_first_download')
 
             # start onionshare http service in new thread
-            t = threading.Thread(target=web.start, args=(self.app.port, self.app.stay_open, self.app.shutdown_timeout))
+            t = threading.Thread(target=web.start, args=(self.app.port, self.app.stay_open))
             t.daemon = True
             t.start()
             # wait for modules in thread to load, preventing a thread-related cx_Freeze crash

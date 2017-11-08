@@ -108,7 +108,7 @@ def main(cwd=None):
         print('')
 
     # Start OnionShare http service in new thread
-    t = threading.Thread(target=web.start, args=(app.port, app.stay_open, app.shutdown_timeout))
+    t = threading.Thread(target=web.start, args=(app.port, app.stay_open))
     t.daemon = True
     t.start()
 
