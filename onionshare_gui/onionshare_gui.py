@@ -387,11 +387,12 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         # If the auto-shutdown timer has stopped, stop the server
         if self.server_status.status == self.server_status.STATUS_STARTED:
-            if self.app.shutdown_timer and self.server_status.timer_enabled and self.timeout > 0:
-                if not self.app.shutdown_timer.is_alive():
-                    self.stop_server()
-                    self.status_bar.showMessage(strings._('close_on_timeout',True))
-                    self.server_status.shutdown_timeout_reset()
+            if self.app.shutdown_timer and self.server_status.timer_enabled:
+                if self.timeout > 0:
+                    if not self.app.shutdown_timer.is_alive():
+                        self.stop_server()
+                        self.status_bar.showMessage(strings._('close_on_timeout',True))
+                        self.server_status.shutdown_timeout_reset()
 
         # scroll to the bottom of the dl progress bar log pane
         # if a new download has been added
