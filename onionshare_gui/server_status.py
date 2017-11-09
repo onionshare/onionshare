@@ -152,6 +152,12 @@ class ServerStatus(QtWidgets.QVBoxLayout):
                 self.server_button.setEnabled(True)
                 self.server_button.setText(strings._('gui_stop_server', True))
                 self.server_shutdown_timeout.setEnabled(False)
+                self.server_shutdown_timeout_checkbox.hide()
+            elif self.status == self.STATUS_WORKING:
+                self.server_button.setEnabled(False)
+                self.server_button.setText(strings._('gui_please_wait'))
+                self.server_shutdown_timeout.setEnabled(False)
+                self.server_shutdown_timeout_checkbox.hide()
             else:
                 self.server_button.setEnabled(False)
                 self.server_button.setText(strings._('gui_please_wait'))
@@ -179,13 +185,14 @@ class ServerStatus(QtWidgets.QVBoxLayout):
         The server has finished starting.
         """
         self.status = self.STATUS_STARTED
-        # Convert the date value to seconds between now and then
-        now = QtCore.QDateTime.currentDateTime()
-        self.timeout = now.secsTo(self.server_shutdown_timeout.dateTime())
-        # Set the shutdown timeout value
-        if self.timeout > 0:
-            self.app.shutdown_timer = common.close_after_seconds(self.timeout)
-            self.app.shutdown_timer.start()
+        if self.server_shutdown_timeout_checkbox.isChecked():
+            # Convert the date value to seconds between now and then
+            now = QtCore.QDateTime.currentDateTime()
+            self.timeout = now.secsTo(self.server_shutdown_timeout.dateTime())
+            # Set the shutdown timeout value
+            if self.timeout > 0:
+                self.app.shutdown_timer = common.close_after_seconds(self.timeout)
+                self.app.shutdown_timer.start()
         self.copy_url()
         self.update()
 
