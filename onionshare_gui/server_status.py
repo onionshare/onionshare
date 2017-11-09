@@ -186,11 +186,14 @@ class ServerStatus(QtWidgets.QVBoxLayout):
         Toggle starting or stopping the server.
         """
         if self.status == self.STATUS_STOPPED:
-            # Get the timeout chosen, stripped of its seconds. This prevents confusion if the share stops at (say) 37 seconds past the minute chosen
-            self.timeout = self.server_shutdown_timeout.dateTime().toPyDateTime().replace(second=0, microsecond=0)
-            # If the timeout has actually passed already before the user hit Start, refuse to start the server.
-            if QtCore.QDateTime.currentDateTime().toPyDateTime() > self.timeout:
-                Alert(strings._('gui_server_timeout_expired', QtWidgets.QMessageBox.Warning))
+            if self.timer_enabled:
+                # Get the timeout chosen, stripped of its seconds. This prevents confusion if the share stops at (say) 37 seconds past the minute chosen
+                self.timeout = self.server_shutdown_timeout.dateTime().toPyDateTime().replace(second=0, microsecond=0)
+                # If the timeout has actually passed already before the user hit Start, refuse to start the server.
+                if QtCore.QDateTime.currentDateTime().toPyDateTime() > self.timeout:
+                    Alert(strings._('gui_server_timeout_expired', QtWidgets.QMessageBox.Warning))
+                else:
+                    self.start_server()
             else:
                 self.start_server()
         elif self.status == self.STATUS_STARTED:
