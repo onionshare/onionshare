@@ -316,6 +316,15 @@ class OnionShareGui(QtWidgets.QMainWindow):
             self.filesize_warning.setText(strings._("large_filesize", True))
             self.filesize_warning.show()
 
+        if self.server_status.server_shutdown_timeout_checkbox.isChecked():
+            # Convert the date value to seconds between now and then
+            now = QtCore.QDateTime.currentDateTime()
+            self.timeout = now.secsTo(self.server_status.server_shutdown_timeout.dateTime())
+            # Set the shutdown timeout value
+            if self.timeout > 0:
+                self.app.shutdown_timer = common.close_after_seconds(self.timeout)
+                self.app.shutdown_timer.start()
+
     def start_server_error(self, error):
         """
         If there's an error when trying to start the onion service
@@ -374,9 +383,9 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         # If the auto-shutdown timer has stopped, stop the server
         if self.server_status.status == self.server_status.STATUS_STARTED:
-            if self.app.shutdown_timer and self.server_status.timeout > 0:
+            if self.app.shutdown_timer and self.timeout > 0:
                 if not self.app.shutdown_timer.is_alive():
-                    self.server_status.stop_server()
+                    self.stop_server()
                     self.status_bar.showMessage(strings._('close_on_timeout',True))
 
         # scroll to the bottom of the dl progress bar log pane
