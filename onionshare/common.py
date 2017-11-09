@@ -267,6 +267,6 @@ class close_after_seconds(threading.Thread):
         self.time = time
 
     def run(self):
-        log('Shutdown Timer', 'Server will shut down after {} seconds'.format(3600 * self.time))
-        time.sleep(3600 * self.time) # seconds -> hours
+        log('Shutdown Timer', 'Server will shut down after {} seconds'.format(self.time))
+        time.sleep(self.time)
         return 1
