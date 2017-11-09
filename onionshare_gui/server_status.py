@@ -147,6 +147,7 @@ class ServerStatus(QtWidgets.QVBoxLayout):
                 self.server_button.setEnabled(True)
                 self.server_button.setText(strings._('gui_start_server', True))
                 self.server_shutdown_timeout.setEnabled(True)
+                self.server_shutdown_timeout_checkbox.show()
                 self.server_shutdown_timeout_checkbox.setCheckState(QtCore.Qt.Unchecked)
             elif self.status == self.STATUS_STARTED:
                 self.server_button.setEnabled(True)
