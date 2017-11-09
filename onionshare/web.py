@@ -135,6 +135,7 @@ def get_stay_open():
     """
     return stay_open
 
+
 # Are we running in GUI mode?
 gui_mode = False
 def set_gui_mode():
