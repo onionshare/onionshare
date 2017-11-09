@@ -316,14 +316,18 @@ class OnionShareGui(QtWidgets.QMainWindow):
             self.filesize_warning.setText(strings._("large_filesize", True))
             self.filesize_warning.show()
 
-        if self.server_status.server_shutdown_timeout_checkbox.isChecked():
+        if self.server_status.timer_enabled:
             # Convert the date value to seconds between now and then
             now = QtCore.QDateTime.currentDateTime()
-            self.timeout = now.secsTo(self.server_status.server_shutdown_timeout.dateTime())
+            self.timeout = now.secsTo(self.server_status.timeout)
             # Set the shutdown timeout value
             if self.timeout > 0:
                 self.app.shutdown_timer = common.close_after_seconds(self.timeout)
                 self.app.shutdown_timer.start()
+            # The timeout has actually already passed since the user clicked Start. Probably the Onion service took too long to start.
+            else:
+                self.stop_server()
+                self.start_server_error(strings._('gui_server_started_after_timeout'))
 
     def start_server_error(self, error):
         """
@@ -383,10 +387,11 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         # If the auto-shutdown timer has stopped, stop the server
         if self.server_status.status == self.server_status.STATUS_STARTED:
-            if self.app.shutdown_timer and self.timeout > 0:
+            if self.app.shutdown_timer and self.server_status.timer_enabled and self.timeout > 0:
                 if not self.app.shutdown_timer.is_alive():
                     self.stop_server()
                     self.status_bar.showMessage(strings._('close_on_timeout',True))
+                    self.server_status.shutdown_timeout_reset()
 
         # scroll to the bottom of the dl progress bar log pane
         # if a new download has been added
@@ -432,6 +437,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
                     # close on finish?
                     if not web.get_stay_open():
                         self.server_status.stop_server()
+                        self.server_status.shutdown_timeout_reset()
 
             elif event["type"] == web.REQUEST_CANCELED:
                 self.downloads.cancel_download(event["data"]["id"])
