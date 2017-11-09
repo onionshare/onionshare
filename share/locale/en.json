@@ -26,7 +26,7 @@
     "systray_download_canceled_message": "The user canceled the download",
     "help_local_only": "Do not attempt to use tor: for development only",
     "help_stay_open": "Keep onion service running after download has finished",
-    "help_shutdown_timeout": "Shut down the onion service after N hours",
+    "help_shutdown_timeout": "Shut down the onion service after N seconds",
     "help_transparent_torification": "My system is transparently torified",
     "help_stealth": "Create stealth onion service (advanced)",
     "help_debug": "Log application errors to stdout, and log web errors to disk",

@@ -79,7 +79,7 @@ def main():
 
     local_only = bool(args.local_only)
     stay_open = bool(args.stay_open)
-    shutdown_timeout = float(args.shutdown_timeout)
+    shutdown_timeout = int(args.shutdown_timeout)
     debug = bool(args.debug)
 
     # Debug mode?
