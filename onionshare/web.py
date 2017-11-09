@@ -331,7 +331,7 @@ def page_not_found(e):
             force_shutdown()
             print(strings._('error_rate_limit'))
 
-    r = make_response(render_template_string(open(common.get_resource_path('html/404.html')).read()))
+    r = make_response(render_template_string(open(common.get_resource_path('html/404.html')).read()), 404)
     for header,value in security_headers:
         r.headers.set(header, value)
     return r
