@@ -374,7 +374,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         # If the auto-shutdown timer has stopped, stop the server
         if self.server_status.status == self.server_status.STATUS_STARTED:
-            if self.app.shutdown_timer and self.server_status.server_shutdown_timeout.value() > 0:
+            if self.app.shutdown_timer and self.server_status.timeout > 0:
                 if not self.app.shutdown_timer.is_alive():
                     self.server_status.stop_server()
                     self.status_bar.showMessage(strings._('close_on_timeout',True))

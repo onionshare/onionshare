@@ -50,8 +50,9 @@ class ServerStatus(QtWidgets.QVBoxLayout):
         self.server_shutdown_timeout_checkbox.toggled.connect(self.shutdown_timeout_toggled)
         self.server_shutdown_timeout_checkbox.setText(strings._("gui_settings_shutdown_timeout_choice", True))
         self.server_shutdown_timeout_label = QtWidgets.QLabel(strings._('gui_settings_shutdown_timeout', True))
-        self.server_shutdown_timeout = QtWidgets.QDoubleSpinBox()
-        self.server_shutdown_timeout.setRange(0,100)
+        self.server_shutdown_timeout = QtWidgets.QDateTimeEdit()
+        self.server_shutdown_timeout.setDateTime(QtCore.QDateTime.currentDateTime())
+        self.server_shutdown_timeout.setCurrentSectionIndex(4)
         self.server_shutdown_timeout_label.hide()
         self.server_shutdown_timeout.hide()
         shutdown_timeout_layout_group = QtWidgets.QHBoxLayout()
@@ -177,9 +178,12 @@ class ServerStatus(QtWidgets.QVBoxLayout):
         The server has finished starting.
         """
         self.status = self.STATUS_STARTED
+        # Convert the date value to seconds between now and then
+        now = QtCore.QDateTime.currentDateTime()
+        self.timeout = now.secsTo(self.server_shutdown_timeout.dateTime())
         # Set the shutdown timeout value
-        if self.server_shutdown_timeout.value() > 0:
-            self.app.shutdown_timer = common.close_after_seconds(self.server_shutdown_timeout.value())
+        if self.timeout > 0:
+            self.app.shutdown_timer = common.close_after_seconds(self.timeout)
             self.app.shutdown_timer.start()
         self.copy_url()
         self.update()
