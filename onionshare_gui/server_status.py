@@ -52,6 +52,7 @@ class ServerStatus(QtWidgets.QVBoxLayout):
         self.server_shutdown_timeout_label = QtWidgets.QLabel(strings._('gui_settings_shutdown_timeout', True))
         self.server_shutdown_timeout = QtWidgets.QDateTimeEdit()
         self.server_shutdown_timeout.setDateTime(QtCore.QDateTime.currentDateTime())
+        self.server_shutdown_timeout.setMinimumDateTime(QtCore.QDateTime.currentDateTime())
         self.server_shutdown_timeout.setCurrentSectionIndex(4)
         self.server_shutdown_timeout_label.hide()
         self.server_shutdown_timeout.hide()
