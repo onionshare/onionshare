@@ -101,6 +101,8 @@ class ServerStatus(QtWidgets.QVBoxLayout):
         if checked:
             self.server_shutdown_timeout_checkbox.hide()
             self.server_shutdown_timeout_label.show()
+            # Reset the default timer to 5 minutes into the future after toggling the option on
+            self.server_shutdown_timeout.setDateTime(QtCore.QDateTime.currentDateTime().addSecs(300))
             self.server_shutdown_timeout.show()
         else:
             self.server_shutdown_timeout_checkbox.show()
