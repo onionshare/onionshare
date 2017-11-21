@@ -69,6 +69,9 @@ def get_resource_path(filename):
     if getattr(sys, 'onionshare_dev_mode', False):
         # Look for resources directory relative to python file
         prefix = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))), 'share')
+        if not os.path.exists(prefix):
+            # While running tests during stdeb bdist_deb, look 3 directories up for the share folder
+            prefix = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(prefix)))), 'share')
 
     elif p == 'Linux' and sys.argv and sys.argv[0].startswith(sys.prefix):
         # OnionShare is installed systemwide in Linux
