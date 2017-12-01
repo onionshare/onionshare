@@ -46,7 +46,7 @@ def _safe_select_jinja_autoescape(self, filename):
 # by default. To prevent content injection through template variables in
 # earlier versions of Flask, we force autoescaping in the Jinja2 template
 # engine if we detect a Flask version with insecure default behavior.
-if Version(flask_version) < Version('0.11'):
+if Version(flask_version.replace('-dev','')) < Version('0.11'):
     # Monkey-patch in the fix from https://github.com/pallets/flask/commit/99c99c4c16b1327288fd76c44bc8635a1de452bc
     Flask.select_jinja_autoescape = _safe_select_jinja_autoescape
 
