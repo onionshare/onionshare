@@ -376,9 +376,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
         if self.new_download:
             self.vbar.setValue(self.vbar.maximum())
             self.new_download = False
-        # only check for requests if the server is running
-        if self.server_status.status != self.server_status.STATUS_STARTED:
-            return
 
         events = []
 
@@ -415,6 +412,9 @@ class OnionShareGui(QtWidgets.QMainWindow):
                     # close on finish?
                     if not web.get_stay_open():
                         self.server_status.stop_server()
+                else:
+                    if self.server_status.status == self.server_status.STATUS_STOPPED:
+                        self.downloads.cancel_download(event["data"]["id"])
 
             elif event["type"] == web.REQUEST_CANCELED:
                 self.downloads.cancel_download(event["data"]["id"])
