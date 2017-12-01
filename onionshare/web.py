@@ -26,7 +26,7 @@ import queue
 import socket
 import sys
 import tempfile
-from distutils.version import StrictVersion as Version
+from distutils.version import LooseVersion as Version
 from urllib.request import urlopen
 
 from flask import (
