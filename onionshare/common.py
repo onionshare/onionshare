@@ -72,8 +72,8 @@ def get_resource_path(filename):
             # While running tests during stdeb bdist_deb, look 3 directories up for the share folder
             prefix = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(prefix)))), 'share')
 
-    elif p == 'Linux' and sys.argv and sys.argv[0].startswith(sys.prefix):
-        # OnionShare is installed systemwide in Linux
+    elif p == 'Linux':
+        # Assume OnionShare is installed systemwide in Linux, since we're not running in dev mode
         prefix = os.path.join(sys.prefix, 'share/onionshare')
 
     elif getattr(sys, 'frozen', False):
