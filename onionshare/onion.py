@@ -433,6 +433,13 @@ class Onion(object):
         self.stealth = False
         self.service_id = None
 
+        try:
+            # Delete the temporary tor data directory
+            self.tor_data_directory.cleanup()
+        except AttributeError:
+            # Skip if cleanup was somehow run before connect
+            pass
+
     def get_tor_socks_port(self):
         """
         Returns a (address, port) tuple for the Tor SOCKS port
