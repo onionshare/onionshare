@@ -106,14 +106,12 @@ class ServerStatus(QtWidgets.QVBoxLayout):
         if checked:
             self.timer_enabled = True
             # Hide the checkbox, show the options
-            self.server_shutdown_timeout_checkbox.hide()
             self.server_shutdown_timeout_label.show()
             # Reset the default timer to 5 minutes into the future after toggling the option on
             self.server_shutdown_timeout.setDateTime(QtCore.QDateTime.currentDateTime().addSecs(300))
             self.server_shutdown_timeout.show()
         else:
             self.timer_enabled = False
-            self.server_shutdown_timeout_checkbox.show()
             self.server_shutdown_timeout_label.hide()
             self.server_shutdown_timeout.hide()
 
@@ -164,22 +162,23 @@ class ServerStatus(QtWidgets.QVBoxLayout):
                 self.server_button.setEnabled(True)
                 self.server_button.setText(strings._('gui_start_server', True))
                 self.server_shutdown_timeout.setEnabled(True)
-                self.server_shutdown_timeout_checkbox.show()
+                self.server_shutdown_timeout_checkbox.setEnabled(True)
                 self.server_shutdown_timeout_checkbox.setCheckState(QtCore.Qt.Unchecked)
             elif self.status == self.STATUS_STARTED:
                 self.server_button.setEnabled(True)
                 self.server_button.setText(strings._('gui_stop_server', True))
                 self.server_shutdown_timeout.setEnabled(False)
-                self.server_shutdown_timeout_checkbox.hide()
+                self.server_shutdown_timeout_checkbox.setEnabled(False)
             elif self.status == self.STATUS_WORKING:
                 self.server_button.setEnabled(False)
                 self.server_button.setText(strings._('gui_please_wait'))
                 self.server_shutdown_timeout.setEnabled(False)
-                self.server_shutdown_timeout_checkbox.hide()
+                self.server_shutdown_timeout_checkbox.setEnabled(False)
             else:
                 self.server_button.setEnabled(False)
                 self.server_button.setText(strings._('gui_please_wait'))
                 self.server_shutdown_timeout.setEnabled(False)
+                self.server_shutdown_timeout_checkbox.setEnabled(False)
 
     def server_button_clicked(self):
         """
