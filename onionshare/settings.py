@@ -18,9 +18,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-import platform, os, json
+import json
+import os
+import platform
 
 from . import strings, common
+
 
 class Settings(object):
     """
@@ -95,7 +98,7 @@ class Settings(object):
             try:
                 common.log('Settings', 'load', 'Trying to load {}'.format(self.filename))
                 with open(self.filename, 'r') as f:
-                    self._settings = json.loads(f.read())
+                    self._settings = json.load(f)
                     self.fill_in_defaults()
             except:
                 pass

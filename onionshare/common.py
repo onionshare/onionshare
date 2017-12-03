@@ -20,7 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import base64
 import hashlib
 import inspect
-import math
 import os
 import platform
 import random
@@ -70,9 +69,12 @@ def get_resource_path(filename):
     if getattr(sys, 'onionshare_dev_mode', False):
         # Look for resources directory relative to python file
         prefix = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))), 'share')
+        if not os.path.exists(prefix):
+            # While running tests during stdeb bdist_deb, look 3 directories up for the share folder
+            prefix = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(prefix)))), 'share')
 
-    elif p == 'Linux' and sys.argv and sys.argv[0].startswith(sys.prefix):
-        # OnionShare is installed systemwide in Linux
+    elif p == 'Linux':
+        # Assume OnionShare is installed systemwide in Linux, since we're not running in dev mode
         prefix = os.path.join(sys.prefix, 'share/onionshare')
 
     elif getattr(sys, 'frozen', False):
@@ -144,14 +146,14 @@ def human_readable_filesize(b):
     """
     thresh = 1024.0
     if b < thresh:
-        return '{0:.1f} B'.format(b)
-    units = ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB']
+        return '{:.1f} B'.format(b)
+    units = ('KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB')
     u = 0
     b /= thresh
     while b >= thresh:
         b /= thresh
         u += 1
-    return '{0:.1f} {1:s}'.format(round(b, 1), units[u])
+    return '{:.1f} {}'.format(b, units[u])
 
 
 def format_seconds(seconds):

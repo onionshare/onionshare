@@ -1,6 +1,7 @@
-#!/usr/bin/env python
-
 import os
+import sys
+import json
+import locale
 import subprocess
 import urllib
 import gi
@@ -12,7 +13,55 @@ from gi.repository import GObject
 # Put me in /usr/share/nautilus-python/extensions/
 class OnionShareExtension(GObject.GObject, Nautilus.MenuProvider):
     def __init__(self):
-        pass
+        # Get the localized string for "Share via OnionShare" label
+        self.label = None
+        default_label = 'Share via OnionShare'
+
+        try:
+            # Re-implement localization in python2
+            default_locale = 'en'
+            locale_dir = os.path.join(sys.prefix, 'share/onionshare/locale')
+            if os.path.exists(locale_dir):
+                # Load all translations
+                strings = {}
+                translations = {}
+                for filename in os.listdir(locale_dir):
+                    abs_filename = os.path.join(locale_dir, filename)
+                    lang, ext = os.path.splitext(filename)
+                    if ext == '.json':
+                        with open(abs_filename) as f:
+                            translations[lang] = json.load(f)
+
+                strings = translations[default_locale]
+                lc, enc = locale.getdefaultlocale()
+                if lc:
+                    lang = lc[:2]
+                    if lang in translations:
+                        # if a string doesn't exist, fallback to English
+                        for key in translations[default_locale]:
+                            if key in translations[lang]:
+                                strings[key] = translations[lang][key]
+
+                self.label = strings['share_via_onionshare']
+
+        except:
+            self.label = default_label
+
+        if not self.label:
+            self.label = default_label
+
+        """
+        # This more elegant solution will only work if nautilus is using python3, and onionshare is installed system-wide.
+        # But nautilus is using python2, so this is commented out.
+        try:
+            import onionshare
+            onionshare.strings.load_strings(onionshare.common)
+            self.label = onionshare.strings._('share_via_onionshare')
+        except:
+            import sys
+            print('python version: {}').format(sys.version)
+            self.label = 'Share via OnionShare'
+        """
 
     def url2path(self,url):
 	file_uri = url.get_activation_uri()
@@ -31,7 +80,7 @@ class OnionShareExtension(GObject.GObject, Nautilus.MenuProvider):
 
     def get_file_items(self, window, files):
         menuitem = Nautilus.MenuItem(name='OnionShare::Nautilus',
-                                         label='Share via OnionShare',
+                                         label=self.label,
                                          tip='',
                                          icon='')
         menu = Nautilus.Menu()
