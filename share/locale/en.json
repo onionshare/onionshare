@@ -118,5 +118,6 @@
     "gui_tor_connection_ask_quit": "Quit",
     "gui_tor_connection_error_settings": "Try adjusting how OnionShare connects to the Tor network in Settings.",
     "gui_server_started_after_timeout": "The server started after your chosen auto-timeout.\nPlease start a new share.",
-    "gui_server_timeout_expired": "The chosen timeout has already expired.\nPlease update the timeout and then you may start sharing."
+    "gui_server_timeout_expired": "The chosen timeout has already expired.\nPlease update the timeout and then you may start sharing.",
+    "share_via_onionshare": "Share via OnionShare"
 }

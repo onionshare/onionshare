@@ -434,6 +434,9 @@ class OnionShareGui(QtWidgets.QMainWindow):
                     if not web.get_stay_open():
                         self.server_status.stop_server()
                         self.server_status.shutdown_timeout_reset()
+                else:
+                    if self.server_status.status == self.server_status.STATUS_STOPPED:
+                        self.downloads.cancel_download(event["data"]["id"])
 
             elif event["type"] == web.REQUEST_CANCELED:
                 download_in_progress = False

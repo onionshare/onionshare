@@ -125,7 +125,7 @@ class TorConnectionThread(QtCore.QThread):
 
         # Connect to the Onion
         try:
-            self.onion.connect(self.settings, self._tor_status_update)
+            self.onion.connect(self.settings, False, self._tor_status_update)
             if self.onion.connected_to_tor:
                 self.connected_to_tor.emit()
             else:
