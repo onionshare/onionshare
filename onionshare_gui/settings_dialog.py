@@ -505,7 +505,11 @@ class SettingsDialog(QtWidgets.QDialog):
         Cancel button clicked.
         """
         common.log('SettingsDialog', 'cancel_clicked')
-        self.close()
+        if not self.onion.connected_to_tor:
+            Alert(strings._('gui_tor_connection_canceled', True), QtWidgets.QMessageBox.Warning)
+            sys.exit()
+        else:
+            self.close()
 
     def help_clicked(self):
         """
