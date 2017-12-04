@@ -35,6 +35,7 @@ class FileList(QtWidgets.QListWidget):
         self.setAcceptDrops(True)
         self.setIconSize(QtCore.QSize(32, 32))
         self.setSortingEnabled(True)
+        self.setMinimumHeight(200)
         self.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
 
         class DropHereLabel(QtWidgets.QLabel):
