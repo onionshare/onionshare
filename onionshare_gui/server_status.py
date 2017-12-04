@@ -101,7 +101,7 @@ class ServerStatus(QtWidgets.QVBoxLayout):
 
     def shutdown_timeout_toggled(self, checked):
         """
-        Shutdown timer option was toggled. If checked, hide the option and show the timer settings.
+        Shutdown timer option was toggled. If checked, show the timer settings.
         """
         if checked:
             self.timer_enabled = True
