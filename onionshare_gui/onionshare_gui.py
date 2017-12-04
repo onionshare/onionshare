@@ -384,11 +384,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
         Check for messages communicated from the web app, and update the GUI accordingly.
         """
         self.update()
-        global download_in_progress
-        try:
-           download_in_progress
-        except NameError:
-           download_in_progress = False
 
         # scroll to the bottom of the dl progress bar log pane
         # if a new download has been added
@@ -423,23 +418,21 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
             elif event["type"] == web.REQUEST_PROGRESS:
                 self.downloads.update_download(event["data"]["id"], event["data"]["bytes"])
-                download_in_progress = True
 
                 # is the download complete?
                 if event["data"]["bytes"] == web.zip_filesize:
-                    download_in_progress = False
                     if self.systemTray.supportsMessages() and self.settings.get('systray_notifications'):
                         self.systemTray.showMessage(strings._('systray_download_completed_title', True), strings._('systray_download_completed_message', True))
                     # close on finish?
                     if not web.get_stay_open():
                         self.server_status.stop_server()
                         self.server_status.shutdown_timeout_reset()
+                        self.status_bar.showMessage(strings._('closing_automatically',True))
                 else:
                     if self.server_status.status == self.server_status.STATUS_STOPPED:
                         self.downloads.cancel_download(event["data"]["id"])
 
             elif event["type"] == web.REQUEST_CANCELED:
-                download_in_progress = False
                 self.downloads.cancel_download(event["data"]["id"])
                 if self.systemTray.supportsMessages() and self.settings.get('systray_notifications'):
                     self.systemTray.showMessage(strings._('systray_download_canceled_title', True), strings._('systray_download_canceled_message', True))
@@ -452,7 +445,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
             if self.app.shutdown_timer and self.server_status.timer_enabled:
                 if self.timeout > 0:
                     if not self.app.shutdown_timer.is_alive():
-                        if not download_in_progress:
+                        if web.done:
                             self.server_status.stop_server()
                             self.status_bar.showMessage(strings._('close_on_timeout',True))
                             self.server_status.shutdown_timeout_reset()

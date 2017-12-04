@@ -134,7 +134,7 @@ def main(cwd=None):
         while t.is_alive():
             if app.shutdown_timeout > 0:
                 # if the shutdown timer was set and has run out, stop the server
-                if not app.shutdown_timer.is_alive():
+                if not app.shutdown_timer.is_alive() and web.done:
                     print(strings._("close_on_timeout"))
                     web.stop(app.port)
                     break

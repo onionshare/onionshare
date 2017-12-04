@@ -187,6 +187,7 @@ def check_slug_candidate(slug_candidate, slug_compare=None):
 # one download at a time.
 download_in_progress = False
 
+done = False
 
 @app.route("/<slug_candidate>")
 def index(slug_candidate):
@@ -236,7 +237,7 @@ def download(slug_candidate):
 
     # Deny new downloads if "Stop After First Download" is checked and there is
     # currently a download
-    global stay_open, download_in_progress
+    global stay_open, download_in_progress, done
     deny_download = not stay_open and download_in_progress
     if deny_download:
         r = make_response(render_template_string(open(common.get_resource_path('html/denied.html')).read()))
@@ -267,7 +268,7 @@ def download(slug_candidate):
         client_cancel = False
 
         # Starting a new download
-        global stay_open, download_in_progress
+        global stay_open, download_in_progress, done
         if not stay_open:
             download_in_progress = True
 
