@@ -134,10 +134,12 @@ def main(cwd=None):
         while t.is_alive():
             if app.shutdown_timeout > 0:
                 # if the shutdown timer was set and has run out, stop the server
-                if not app.shutdown_timer.is_alive() and web.done:
-                    print(strings._("close_on_timeout"))
-                    web.stop(app.port)
-                    break
+                if not app.shutdown_timer.is_alive():
+                    # If there were no attempts to download the share, or all downloads are done, we can stop
+                    if web.download_count == 0 or web.done:
+                        print(strings._("close_on_timeout"))
+                        web.stop(app.port)
+                        break
             # Allow KeyboardInterrupt exception to be handled with threads
             # https://stackoverflow.com/questions/3788208/python-threading-ignores-keyboardinterrupt-exception
             time.sleep(0.2)
