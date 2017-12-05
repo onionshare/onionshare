@@ -258,7 +258,6 @@ def download(slug_candidate):
     # tell GUI the download started
     add_request(REQUEST_DOWNLOAD, path, {'id': download_id})
 
-    dirname = os.path.dirname(zip_filename)
     basename = os.path.basename(zip_filename)
 
     def generate():

@@ -21,9 +21,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from stem.control import Controller
 from stem import ProtocolError, SocketClosed
 from stem.connection import MissingPassword, UnreadableCookieFile, AuthenticationFailure
-import os, sys, tempfile, shutil, urllib, platform, subprocess, time, shlex
+import os, sys, tempfile, platform, subprocess, time, shlex
 
-from . import socks
 from . import common, strings
 from .settings import Settings
 
