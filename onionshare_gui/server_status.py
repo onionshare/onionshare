@@ -18,6 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import platform
+from .alert import Alert
 from PyQt5 import QtCore, QtWidgets, QtGui
 
 from onionshare import strings, common
@@ -44,6 +45,26 @@ class ServerStatus(QtWidgets.QVBoxLayout):
         self.web = web
         self.file_selection = file_selection
 
+        # Helper boolean as this is used in a few places
+        self.timer_enabled = False
+        # Shutdown timeout layout
+        self.server_shutdown_timeout_checkbox = QtWidgets.QCheckBox()
+        self.server_shutdown_timeout_checkbox.setCheckState(QtCore.Qt.Unchecked)
+        self.server_shutdown_timeout_checkbox.toggled.connect(self.shutdown_timeout_toggled)
+        self.server_shutdown_timeout_checkbox.setText(strings._("gui_settings_shutdown_timeout_choice", True))
+        self.server_shutdown_timeout_label = QtWidgets.QLabel(strings._('gui_settings_shutdown_timeout', True))
+        self.server_shutdown_timeout = QtWidgets.QDateTimeEdit()
+        # Set proposed timeout to be 5 minutes into the future
+        self.server_shutdown_timeout.setDateTime(QtCore.QDateTime.currentDateTime().addSecs(300))
+        # Onion services can take a little while to start, so reduce the risk of it expiring too soon by setting the minimum to 2 min from now
+        self.server_shutdown_timeout.setMinimumDateTime(QtCore.QDateTime.currentDateTime().addSecs(120))
+        self.server_shutdown_timeout.setCurrentSectionIndex(4)
+        self.server_shutdown_timeout_label.hide()
+        self.server_shutdown_timeout.hide()
+        shutdown_timeout_layout_group = QtWidgets.QHBoxLayout()
+        shutdown_timeout_layout_group.addWidget(self.server_shutdown_timeout_checkbox)
+        shutdown_timeout_layout_group.addWidget(self.server_shutdown_timeout_label)
+        shutdown_timeout_layout_group.addWidget(self.server_shutdown_timeout)
         # server layout
         self.status_image_stopped = QtGui.QImage(common.get_resource_path('images/server_stopped.png'))
         self.status_image_working = QtGui.QImage(common.get_resource_path('images/server_working.png'))
@@ -72,10 +93,34 @@ class ServerStatus(QtWidgets.QVBoxLayout):
         url_layout.addWidget(self.copy_hidservauth_button)
 
         # add the widgets
+        self.addLayout(shutdown_timeout_layout_group)
         self.addLayout(server_layout)
         self.addLayout(url_layout)
 
         self.update()
+
+    def shutdown_timeout_toggled(self, checked):
+        """
+        Shutdown timer option was toggled. If checked, show the timer settings.
+        """
+        if checked:
+            self.timer_enabled = True
+            # Hide the checkbox, show the options
+            self.server_shutdown_timeout_label.show()
+            # Reset the default timer to 5 minutes into the future after toggling the option on
+            self.server_shutdown_timeout.setDateTime(QtCore.QDateTime.currentDateTime().addSecs(300))
+            self.server_shutdown_timeout.show()
+        else:
+            self.timer_enabled = False
+            self.server_shutdown_timeout_label.hide()
+            self.server_shutdown_timeout.hide()
+
+    def shutdown_timeout_reset(self):
+        """
+        Reset the timeout in the UI after stopping a share
+        """
+        self.server_shutdown_timeout.setDateTime(QtCore.QDateTime.currentDateTime().addSecs(300))
+        self.server_shutdown_timeout.setMinimumDateTime(QtCore.QDateTime.currentDateTime().addSecs(120))
 
     def update(self):
         """
@@ -116,21 +161,43 @@ class ServerStatus(QtWidgets.QVBoxLayout):
             if self.status == self.STATUS_STOPPED:
                 self.server_button.setEnabled(True)
                 self.server_button.setText(strings._('gui_start_server', True))
+                self.server_shutdown_timeout.setEnabled(True)
+                self.server_shutdown_timeout_checkbox.setEnabled(True)
+                self.server_shutdown_timeout_checkbox.setCheckState(QtCore.Qt.Unchecked)
             elif self.status == self.STATUS_STARTED:
                 self.server_button.setEnabled(True)
                 self.server_button.setText(strings._('gui_stop_server', True))
+                self.server_shutdown_timeout.setEnabled(False)
+                self.server_shutdown_timeout_checkbox.setEnabled(False)
+            elif self.status == self.STATUS_WORKING:
+                self.server_button.setEnabled(False)
+                self.server_button.setText(strings._('gui_please_wait'))
+                self.server_shutdown_timeout.setEnabled(False)
+                self.server_shutdown_timeout_checkbox.setEnabled(False)
             else:
                 self.server_button.setEnabled(False)
                 self.server_button.setText(strings._('gui_please_wait'))
+                self.server_shutdown_timeout.setEnabled(False)
+                self.server_shutdown_timeout_checkbox.setEnabled(False)
 
     def server_button_clicked(self):
         """
         Toggle starting or stopping the server.
         """
         if self.status == self.STATUS_STOPPED:
-            self.start_server()
+            if self.timer_enabled:
+                # Get the timeout chosen, stripped of its seconds. This prevents confusion if the share stops at (say) 37 seconds past the minute chosen
+                self.timeout = self.server_shutdown_timeout.dateTime().toPyDateTime().replace(second=0, microsecond=0)
+                # If the timeout has actually passed already before the user hit Start, refuse to start the server.
+                if QtCore.QDateTime.currentDateTime().toPyDateTime() > self.timeout:
+                    Alert(strings._('gui_server_timeout_expired', QtWidgets.QMessageBox.Warning))
+                else:
+                    self.start_server()
+            else:
+                self.start_server()
         elif self.status == self.STATUS_STARTED:
             self.stop_server()
+            self.shutdown_timeout_reset()
 
     def start_server(self):
         """

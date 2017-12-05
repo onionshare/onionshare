@@ -316,6 +316,19 @@ class OnionShareGui(QtWidgets.QMainWindow):
             self.filesize_warning.setText(strings._("large_filesize", True))
             self.filesize_warning.show()
 
+        if self.server_status.timer_enabled:
+            # Convert the date value to seconds between now and then
+            now = QtCore.QDateTime.currentDateTime()
+            self.timeout = now.secsTo(self.server_status.timeout)
+            # Set the shutdown timeout value
+            if self.timeout > 0:
+                self.app.shutdown_timer = common.close_after_seconds(self.timeout)
+                self.app.shutdown_timer.start()
+            # The timeout has actually already passed since the user clicked Start. Probably the Onion service took too long to start.
+            else:
+                self.stop_server()
+                self.start_server_error(strings._('gui_server_started_after_timeout'))
+
     def start_server_error(self, error):
         """
         If there's an error when trying to start the onion service
@@ -371,6 +384,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         Check for messages communicated from the web app, and update the GUI accordingly.
         """
         self.update()
+
         # scroll to the bottom of the dl progress bar log pane
         # if a new download has been added
         if self.new_download:
@@ -412,6 +426,8 @@ class OnionShareGui(QtWidgets.QMainWindow):
                     # close on finish?
                     if not web.get_stay_open():
                         self.server_status.stop_server()
+                        self.server_status.shutdown_timeout_reset()
+                        self.status_bar.showMessage(strings._('closing_automatically', True))
                 else:
                     if self.server_status.status == self.server_status.STATUS_STOPPED:
                         self.downloads.cancel_download(event["data"]["id"])
@@ -423,6 +439,20 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
             elif event["path"] != '/favicon.ico':
                 self.status_bar.showMessage('[#{0:d}] {1:s}: {2:s}'.format(web.error404_count, strings._('other_page_loaded', True), event["path"]))
+
+        # If the auto-shutdown timer has stopped, stop the server
+        if self.server_status.status == self.server_status.STATUS_STARTED:
+            if self.app.shutdown_timer and self.server_status.timer_enabled:
+                if self.timeout > 0:
+                    if not self.app.shutdown_timer.is_alive():
+                        # If there were no attempts to download the share, or all downloads are done, we can stop
+                        if web.download_count == 0 or web.done:
+                            self.server_status.stop_server()
+                            self.status_bar.showMessage(strings._('close_on_timeout', True))
+                            self.server_status.shutdown_timeout_reset()
+                        # A download is probably still running - hold off on stopping the share
+                        else:
+                            self.status_bar.showMessage(strings._('timeout_download_still_running', True))
 
     def copy_url(self):
         """
