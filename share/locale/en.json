@@ -112,6 +112,6 @@
     "gui_tor_connection_ask_open_settings": "Open Settings",
     "gui_tor_connection_ask_quit": "Quit",
     "gui_tor_connection_error_settings": "Try adjusting how OnionShare connects to the Tor network in Settings.",
-    "gui_tor_connection_canceled": "OnionShare is disconnected from Tor.\n\nPlease re-open OnionShare and configure the Tor connection.",
+    "gui_tor_connection_canceled": "OnionShare cannot connect to Tor.\n\nMake sure you're connected to the internet, then re-open OnionShare to configure the Tor connection.",
     "share_via_onionshare": "Share via OnionShare"
 }
