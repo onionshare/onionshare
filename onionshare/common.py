@@ -104,6 +104,10 @@ def get_tor_paths():
         tor_path               = os.path.join(base_path, 'Resources', 'Tor', 'tor')
         tor_geo_ip_file_path   = os.path.join(base_path, 'Resources', 'Tor', 'geoip')
         tor_geo_ipv6_file_path = os.path.join(base_path, 'Resources', 'Tor', 'geoip6')
+    elif p == 'OpenBSD':
+        tor_path = '/usr/local/bin/tor'
+        tor_geo_ip_file_path = '/usr/local/share/tor/geoip'
+        tor_geo_ipv6_file_path = '/usr/local/share/tor/geoip6'
 
     return (tor_path, tor_geo_ip_file_path, tor_geo_ipv6_file_path)
 
