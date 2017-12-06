@@ -10,6 +10,7 @@
     "ctrlc_to_stop":  "Press Ctrl-C to stop server",
     "not_a_file": "{0:s} is not a file.",
     "not_a_readable_file": "{0:s} is not a readable file.",
+    "no_available_port": "Could not start the Onion service as we found no available port",
     "download_page_loaded": "Download page loaded",
     "other_page_loaded": "URL loaded",
     "close_on_timeout": "Closing automatically because timeout was reached",
