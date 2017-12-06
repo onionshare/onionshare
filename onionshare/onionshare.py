@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import os, shutil
 
-from . import common
+from . import common, strings
 
 class OnionShare(object):
     """
@@ -64,7 +64,10 @@ class OnionShare(object):
         common.log('OnionShare', 'start_onion_service')
 
         # Choose a random port
-        self.port = common.get_available_port(17600, 17650)
+        try:
+            self.port = common.get_available_port(17600, 17650)
+        except:
+            raise OSError(strings._('no_available_port'))
 
         if self.local_only:
             self.onion_host = '127.0.0.1:{0:d}'.format(self.port)
@@ -72,6 +75,7 @@ class OnionShare(object):
 
         if self.shutdown_timeout > 0:
             self.shutdown_timer = common.close_after_seconds(self.shutdown_timeout)
+
         self.onion_host = self.onion.start_onion_service(self.port)
 
         if self.stealth:

@@ -250,7 +250,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
                 self.app.start_onion_service()
                 self.starting_server_step2.emit()
 
-            except (TorTooOld, TorErrorInvalidSetting, TorErrorAutomatic, TorErrorSocketPort, TorErrorSocketFile, TorErrorMissingPassword, TorErrorUnreadableCookieFile, TorErrorAuthError, TorErrorProtocolError, BundledTorTimeout) as e:
+            except (TorTooOld, TorErrorInvalidSetting, TorErrorAutomatic, TorErrorSocketPort, TorErrorSocketFile, TorErrorMissingPassword, TorErrorUnreadableCookieFile, TorErrorAuthError, TorErrorProtocolError, BundledTorTimeout, OSError) as e:
                 self.starting_server_error.emit(e.args[0])
                 return
 
@@ -348,7 +348,11 @@ class OnionShareGui(QtWidgets.QMainWindow):
         common.log('OnionShareGui', 'stop_server')
 
         if self.server_status.status != self.server_status.STATUS_STOPPED:
-            web.stop(self.app.port)
+            try:
+                web.stop(self.app.port)
+            except:
+                # Probably we had no port to begin with (Onion service didn't start)
+                pass
         self.app.cleanup()
         self.filesize_warning.hide()
         self.stop_server_finished.emit()
