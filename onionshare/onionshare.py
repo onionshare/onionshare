@@ -76,7 +76,9 @@ class OnionShare(object):
         if self.shutdown_timeout > 0:
             self.shutdown_timer = common.close_after_seconds(self.shutdown_timeout)
 
-        self.onion_host, self.private_key = self.onion.start_onion_service(self.port)
+        self.onion_host = self.onion.start_onion_service(self.port)
+
+        self.private_key = self.onion.private_key
 
         if self.stealth:
             self.auth_string = self.onion.auth_string
