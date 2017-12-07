@@ -301,7 +301,7 @@ class Onion(object):
             # guessing the socket file name next
             if not found_tor:
                 try:
-                    if self.system == 'Linux':
+                    if common.platform_is_unixy():
                         socket_file_path = '/run/user/{}/Tor/control.socket'.format(os.geteuid())
                     elif self.system == 'Darwin':
                         socket_file_path = '/run/user/{}/Tor/control.socket'.format(os.geteuid())

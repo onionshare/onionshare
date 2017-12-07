@@ -23,6 +23,7 @@ import inspect
 import os
 import platform
 import random
+import re
 import socket
 import sys
 import tempfile
@@ -58,6 +59,11 @@ def get_platform():
     """
     return platform.system()
 
+def platform_is_unixy():
+    """
+    Returns true if the platform we're running on is Linux or BSD
+    """
+    return True if re.match('^(Linux|.*BSD)$', get_platform()) else False
 
 def get_resource_path(filename):
     """
@@ -73,8 +79,8 @@ def get_resource_path(filename):
             # While running tests during stdeb bdist_deb, look 3 directories up for the share folder
             prefix = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(prefix)))), 'share')
 
-    elif p == 'Linux':
-        # Assume OnionShare is installed systemwide in Linux, since we're not running in dev mode
+    elif platform_is_unixy():
+        # Assume OnionShare is installed systemwide in Unix, since we're not running in dev mode
         prefix = os.path.join(sys.prefix, 'share/onionshare')
 
     elif getattr(sys, 'frozen', False):
@@ -94,6 +100,10 @@ def get_tor_paths():
         tor_path = '/usr/bin/tor'
         tor_geo_ip_file_path = '/usr/share/tor/geoip'
         tor_geo_ipv6_file_path = '/usr/share/tor/geoip6'
+    elif p == 'OpenBSD':
+        tor_path = '/usr/local/bin/tor'
+        tor_geo_ip_file_path = '/usr/local/share/tor/geoip'
+        tor_geo_ipv6_file_path = '/usr/local/share/tor/geoip6'
     elif p == 'Windows':
         base_path = os.path.join(os.path.dirname(os.path.dirname(get_resource_path(''))), 'tor')
         tor_path               = os.path.join(os.path.join(base_path, 'Tor'), "tor.exe")
