@@ -119,6 +119,7 @@ class ServerStatus(QtWidgets.QVBoxLayout):
         """
         Reset the timeout in the UI after stopping a share
         """
+        self.server_shutdown_timeout_checkbox.setCheckState(QtCore.Qt.Unchecked)
         self.server_shutdown_timeout.setDateTime(QtCore.QDateTime.currentDateTime().addSecs(300))
         self.server_shutdown_timeout.setMinimumDateTime(QtCore.QDateTime.currentDateTime().addSecs(120))
 
@@ -163,7 +164,6 @@ class ServerStatus(QtWidgets.QVBoxLayout):
                 self.server_button.setText(strings._('gui_start_server', True))
                 self.server_shutdown_timeout.setEnabled(True)
                 self.server_shutdown_timeout_checkbox.setEnabled(True)
-                self.server_shutdown_timeout_checkbox.setCheckState(QtCore.Qt.Unchecked)
             elif self.status == self.STATUS_STARTED:
                 self.server_button.setEnabled(True)
                 self.server_button.setText(strings._('gui_stop_server', True))
@@ -197,7 +197,6 @@ class ServerStatus(QtWidgets.QVBoxLayout):
                 self.start_server()
         elif self.status == self.STATUS_STARTED:
             self.stop_server()
-            self.shutdown_timeout_reset()
 
     def start_server(self):
         """
@@ -220,6 +219,7 @@ class ServerStatus(QtWidgets.QVBoxLayout):
         Stop the server.
         """
         self.status = self.STATUS_WORKING
+        self.shutdown_timeout_reset()
         self.update()
         self.server_stopped.emit()
 
