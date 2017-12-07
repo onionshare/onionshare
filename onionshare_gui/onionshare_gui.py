@@ -69,7 +69,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
                 self.file_selection.file_list.add_file(filename)
 
         # Server status
-        self.server_status = ServerStatus(self.qtapp, self.app, web, self.file_selection)
+        self.server_status = ServerStatus(self.qtapp, self.app, web, self.file_selection, self.settings)
         self.server_status.server_started.connect(self.file_selection.server_started)
         self.server_status.server_started.connect(self.start_server)
         self.server_status.server_stopped.connect(self.file_selection.server_stopped)

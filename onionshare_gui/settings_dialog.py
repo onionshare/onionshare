@@ -60,10 +60,16 @@ class SettingsDialog(QtWidgets.QDialog):
         self.systray_notifications_checkbox.setCheckState(QtCore.Qt.Checked)
         self.systray_notifications_checkbox.setText(strings._("gui_settings_systray_notifications", True))
 
+        # Whether or not to save the Onion private key for reuse
+        self.save_private_key_checkbox = QtWidgets.QCheckBox()
+        self.save_private_key_checkbox.setCheckState(QtCore.Qt.Unchecked)
+        self.save_private_key_checkbox.setText(strings._("gui_save_private_key_checkbox", True))
+
         # Sharing options layout
         sharing_group_layout = QtWidgets.QVBoxLayout()
         sharing_group_layout.addWidget(self.close_after_first_download_checkbox)
         sharing_group_layout.addWidget(self.systray_notifications_checkbox)
+        sharing_group_layout.addWidget(self.save_private_key_checkbox)
         sharing_group = QtWidgets.QGroupBox(strings._("gui_settings_sharing_label", True))
         sharing_group.setLayout(sharing_group_layout)
 
@@ -274,6 +280,13 @@ class SettingsDialog(QtWidgets.QDialog):
             self.systray_notifications_checkbox.setCheckState(QtCore.Qt.Checked)
         else:
             self.systray_notifications_checkbox.setCheckState(QtCore.Qt.Unchecked)
+
+        save_private_key = self.old_settings.get('private_key')
+        if save_private_key:
+            self.save_private_key_checkbox.setCheckState(QtCore.Qt.Checked)
+        else:
+            self.save_private_key_checkbox.setCheckState(QtCore.Qt.Unchecked)
+            self.save_private_key_checkbox.hide()
 
         use_stealth = self.old_settings.get('use_stealth')
         if use_stealth:
@@ -529,6 +542,10 @@ class SettingsDialog(QtWidgets.QDialog):
 
         settings.set('close_after_first_download', self.close_after_first_download_checkbox.isChecked())
         settings.set('systray_notifications', self.systray_notifications_checkbox.isChecked())
+        if self.save_private_key_checkbox.isChecked():
+            settings.set('private_key', settings.get('private_key'))
+        else:
+            settings.set('private_key', '')
         settings.set('use_stealth', self.stealth_checkbox.isChecked())
 
         if self.connection_type_bundled_radio.isChecked():
