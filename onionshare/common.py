@@ -196,8 +196,8 @@ def get_available_port(min_port, max_port):
             try:
                 tmpsock.bind(("127.0.0.1", random.randint(min_port, max_port)))
                 break
-            except OSError:
-                pass
+            except OSError as e:
+                raise OSError(e)
         _, port = tmpsock.getsockname()
     return port
 

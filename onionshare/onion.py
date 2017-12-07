@@ -171,10 +171,16 @@ class Onion(object):
             if self.system == 'Windows':
                 # Windows needs to use network ports, doesn't support unix sockets
                 torrc_template = open(common.get_resource_path('torrc_template-windows')).read()
-                self.tor_control_port = common.get_available_port(1000, 65535)
+                try:
+                    self.tor_control_port = common.get_available_port(1000, 65535)
+                except:
+                    raise OSError(strings._('no_available_port'))
                 self.tor_control_socket = None
                 self.tor_cookie_auth_file = os.path.join(self.tor_data_directory.name, 'cookie')
-                self.tor_socks_port = common.get_available_port(1000, 65535)
+                try:
+                    self.tor_socks_port = common.get_available_port(1000, 65535)
+                except:
+                    raise OSError(strings._('no_available_port'))
                 self.tor_torrc = os.path.join(self.tor_data_directory.name, 'torrc')
             else:
                 # Linux and Mac can use unix sockets
@@ -183,7 +189,10 @@ class Onion(object):
                 self.tor_control_port = None
                 self.tor_control_socket = os.path.join(self.tor_data_directory.name, 'control_socket')
                 self.tor_cookie_auth_file = os.path.join(self.tor_data_directory.name, 'cookie')
-                self.tor_socks_port = common.get_available_port(1000, 65535)
+                try:
+                    self.tor_socks_port = common.get_available_port(1000, 65535)
+                except:
+                    raise OSError(strings._('no_available_port'))
                 self.tor_torrc = os.path.join(self.tor_data_directory.name, 'torrc')
 
             torrc_template = torrc_template.replace('{{data_directory}}',   self.tor_data_directory.name)
