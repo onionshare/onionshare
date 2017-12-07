@@ -396,24 +396,31 @@ class Onion(object):
         else:
             basic_auth = None
 
+        if self.settings.get('private_key'):
+            key_type = "RSA1024"
+            key_content = self.settings.get('private_key')
+        else:
+            key_type = "NEW"
+            key_content = "RSA1024"
         try:
             if basic_auth != None :
-                res = self.c.create_ephemeral_hidden_service({ 80: port }, await_publication=True, basic_auth=basic_auth)
+                res = self.c.create_ephemeral_hidden_service({ 80: port }, await_publication=True, basic_auth=basic_auth, key_type = key_type, key_content=key_content)
             else :
                 # if the stem interface is older than 1.5.0, basic_auth isn't a valid keyword arg
-                res = self.c.create_ephemeral_hidden_service({ 80: port }, await_publication=True)
+                res = self.c.create_ephemeral_hidden_service({ 80: port }, await_publication=True, key_type = key_type, key_content=key_content)
 
         except ProtocolError:
             raise TorErrorProtocolError(strings._('error_tor_protocol_error'))
 
         self.service_id = res.content()[0][2].split('=')[1]
         onion_host = self.service_id + '.onion'
+        private_key = res.private_key
 
         if self.stealth:
             auth_cookie = res.content()[2][2].split('=')[1].split(':')[1]
             self.auth_string = 'HidServAuth {} {}'.format(onion_host, auth_cookie)
 
-        return onion_host
+        return (onion_host, private_key)
 
     def cleanup(self):
         """
