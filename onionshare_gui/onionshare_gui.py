@@ -426,7 +426,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
                     # close on finish?
                     if not web.get_stay_open():
                         self.server_status.stop_server()
-                        self.server_status.shutdown_timeout_reset()
                         self.status_bar.showMessage(strings._('closing_automatically', True))
                 else:
                     if self.server_status.status == self.server_status.STATUS_STOPPED:
@@ -449,7 +448,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
                         if web.download_count == 0 or web.done:
                             self.server_status.stop_server()
                             self.status_bar.showMessage(strings._('close_on_timeout', True))
-                            self.server_status.shutdown_timeout_reset()
                         # A download is probably still running - hold off on stopping the share
                         else:
                             self.status_bar.showMessage(strings._('timeout_download_still_running', True))
