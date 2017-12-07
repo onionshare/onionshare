@@ -414,13 +414,13 @@ class Onion(object):
 
         self.service_id = res.content()[0][2].split('=')[1]
         onion_host = self.service_id + '.onion'
-        private_key = res.private_key
+        self.private_key = res.private_key
 
         if self.stealth:
             auth_cookie = res.content()[2][2].split('=')[1].split(':')[1]
             self.auth_string = 'HidServAuth {} {}'.format(onion_host, auth_cookie)
 
-        return (onion_host, private_key)
+        return onion_host
 
     def cleanup(self):
         """
