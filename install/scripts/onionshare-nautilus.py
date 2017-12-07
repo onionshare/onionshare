@@ -93,3 +93,7 @@ class OnionShareExtension(GObject.GObject, Nautilus.MenuProvider):
         for file in files:
             file_list.append(self.url2path(file))
         self.exec_onionshare(file_list)
+
+    # Workaround https://bugzilla.gnome.org/show_bug.cgi?id=784278
+    def get_background_items(self, window, file):
+        return None
