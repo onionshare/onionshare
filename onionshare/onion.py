@@ -425,6 +425,8 @@ class Onion(object):
         # A new private key was generated and is in the Control port response.
         if not self.settings.get('private_key'):
             self.private_key = res.private_key
+        else:
+            self.private_key = ''
 
         if self.stealth:
             # Similar to the PrivateKey, the Control port only returns the ClientAuth
