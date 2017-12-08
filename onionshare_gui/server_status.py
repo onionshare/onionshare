@@ -148,6 +148,7 @@ class ServerStatus(QtWidgets.QVBoxLayout):
             self.copy_url_button.show()
             if not self.settings.get('private_key'):
                 self.save_private_key_button.show()
+                self.save_private_key_button.setEnabled(True)
 
             if self.app.stealth:
                 self.copy_hidservauth_button.show()
