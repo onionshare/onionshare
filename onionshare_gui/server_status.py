@@ -265,6 +265,9 @@ class ServerStatus(QtWidgets.QVBoxLayout):
         """
         self.save_private_key_button.setEnabled(False)
         self.settings.set('private_key', self.app.private_key)
+        if self.app.stealth:
+            self.settings.set('hidservauth_string', self.app.auth_string)
         self.settings.save()
+        self.settings.load()
 
         self.private_key_saved.emit()

@@ -82,10 +82,20 @@ class SettingsDialog(QtWidgets.QDialog):
         self.stealth_checkbox.setCheckState(QtCore.Qt.Unchecked)
         self.stealth_checkbox.setText(strings._("gui_settings_stealth_option", True))
 
+        hidservauth_details = QtWidgets.QLabel(strings._('gui_settings_stealth_hidservauth_string', True))
+        hidservauth_details.setWordWrap(True)
+        hidservauth_details.hide()
+
+        self.hidservauth_copy_button = QtWidgets.QPushButton(strings._('gui_copy_hidservauth', True))
+        self.hidservauth_copy_button.clicked.connect(self.hidservauth_copy_button_clicked)
+        self.hidservauth_copy_button.hide()
+
         # Stealth options layout
         stealth_group_layout = QtWidgets.QVBoxLayout()
         stealth_group_layout.addWidget(stealth_details)
         stealth_group_layout.addWidget(self.stealth_checkbox)
+        stealth_group_layout.addWidget(hidservauth_details)
+        stealth_group_layout.addWidget(self.hidservauth_copy_button)
         stealth_group = QtWidgets.QGroupBox(strings._("gui_settings_stealth_label", True))
         stealth_group.setLayout(stealth_group_layout)
 
@@ -291,6 +301,9 @@ class SettingsDialog(QtWidgets.QDialog):
         use_stealth = self.old_settings.get('use_stealth')
         if use_stealth:
             self.stealth_checkbox.setCheckState(QtCore.Qt.Checked)
+            if save_private_key:
+                hidservauth_details.show()
+                self.hidservauth_copy_button.show()
         else:
             self.stealth_checkbox.setCheckState(QtCore.Qt.Unchecked)
 
@@ -389,6 +402,15 @@ class SettingsDialog(QtWidgets.QDialog):
             self.authenticate_password_extras.show()
         else:
             self.authenticate_password_extras.hide()
+
+    def hidservauth_copy_button_clicked(self):
+        """
+        Toggle the 'Copy HidServAuth' button
+        to copy the saved HidServAuth to clipboard.
+        """
+        common.log('SettingsDialog', 'hidservauth_copy_button_clicked', 'HidServAuth was copied to clipboard')
+        clipboard = self.qtapp.clipboard()
+        clipboard.setText(self.old_settings.get('hidservauth_string'))
 
     def test_tor_clicked(self):
         """
@@ -546,7 +568,12 @@ class SettingsDialog(QtWidgets.QDialog):
             settings.set('private_key', settings.get('private_key'))
         else:
             settings.set('private_key', '')
+            # Also unset the HidServAuth if we are removing our reusable private key
+            settings.set('hidservauth_string', '')
         settings.set('use_stealth', self.stealth_checkbox.isChecked())
+        # Always unset the HidServAuth if Stealth mode is unset
+        if not self.stealth_checkbox.isChecked():
+            settings.set('hidservauth_string', '')
 
         if self.connection_type_bundled_radio.isChecked():
             settings.set('connection_type', 'bundled')
