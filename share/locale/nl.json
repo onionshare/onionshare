@@ -109,7 +109,7 @@
     "settings_error_bundled_tor_canceled": "Het Tor is afgesloten voordat het kon verbinden.",
     "settings_error_bundled_tor_broken": "OnionShare kan niet verbinden met Tor op de achtergrond:\n{}",
     "settings_test_success": "Gefeliciteerd, OnionShare kan verbinden met de Tor controller.\n\nTor version: {}\nOndersteunt kortstondige onion services: {}\nOndersteunt geheime onion services: {}",
-    "error_tor_protocol_error": "Fout bij praten met de Tor controller.\nAls je Whonix gebruikt, kijk dan hier https://www.whonix.org/wiki/onionshare om OnionShare werkend te krijgen."
+    "error_tor_protocol_error": "Fout bij praten met de Tor controller.\nAls je Whonix gebruikt, kijk dan hier https://www.whonix.org/wiki/onionshare om OnionShare werkend te krijgen.",
     "connecting_to_tor": "Verbinden met het Tor network",
     "update_available": "Er is een OnionShare update beschikbaar. <a href='{}'>Klik hier</a> om te downloaden.<br><br>Geinstalleerde versie: {}<br>Laatste versie: {}",
     "update_error_check_error": "Fout bij controleren voor updates: Misschien ben je niet verbonden met Tor, of misschien is de OnionShare website down.",
