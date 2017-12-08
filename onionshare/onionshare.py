@@ -78,7 +78,8 @@ class OnionShare(object):
 
         self.onion_host = self.onion.start_onion_service(self.port)
 
-        self.private_key = self.onion.private_key
+        if self.onion.private_key:
+            self.private_key = self.onion.private_key
 
         if self.stealth:
             self.auth_string = self.onion.auth_string
