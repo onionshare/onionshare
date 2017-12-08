@@ -68,6 +68,7 @@
     "gui_settings_stealth_label": "Stealth (advanced)",
     "gui_settings_stealth_option": "Create stealth onion services",
     "gui_settings_stealth_option_details": "This makes OnionShare more secure, but also more difficult for the recipient to connect to it.<br><a href=\"https://github.com/micahflee/onionshare/wiki/Stealth-Onion-Services\">More information</a>.",
+    "gui_settings_stealth_hidservauth_string": "You have saved the private key for reuse, so your HidServAuth string is also reused.\nClick below to copy the HidServAuth.",
     "gui_settings_autoupdate_label": "Check for updates",
     "gui_settings_autoupdate_option": "Notify me when updates are available",
     "gui_settings_autoupdate_timestamp": "Last checked: {}",
