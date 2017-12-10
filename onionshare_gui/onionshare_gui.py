@@ -219,6 +219,15 @@ class OnionShareGui(QtWidgets.QMainWindow):
         def reload_settings():
             common.log('OnionShareGui', 'open_settings', 'settings have changed, reloading')
             self.settings.load()
+            # Check if we're not yet connected to Tor (user might've opened Tor Browser
+            # whilst the SettingsDialog was opened). If not, try and connect once more.
+            # If we still can't connect, abort entirely.
+            if not self.onion.is_authenticated():
+                try:
+                    self.onion.connect(self.settings, False)
+                 except:
+                    Alert(strings._('gui_tor_connection_canceled', True), QtWidgets.QMessageBox.Warning)
+                    sys.exit()
 
         d = SettingsDialog(self.onion, self.qtapp, self.config)
         d.settings_saved.connect(reload_settings)
@@ -234,7 +243,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         # Check we're still connected to Tor
         if not self.onion.is_authenticated():
             self.start_server_error(strings._('error_tor_protocol_error'))
-            sys.exit()
+            self._tor_connection_canceled()
 
         self.set_server_active(True)
 
