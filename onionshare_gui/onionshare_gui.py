@@ -231,6 +231,11 @@ class OnionShareGui(QtWidgets.QMainWindow):
         """
         common.log('OnionShareGui', 'start_server')
 
+        # Check we're still connected to Tor
+        if not self.onion.is_authenticated():
+            self.start_server_error(strings._('error_tor_protocol_error'))
+            sys.exit()
+
         self.set_server_active(True)
 
         self.app.set_stealth(self.settings.get('use_stealth'))
