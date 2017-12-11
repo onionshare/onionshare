@@ -204,7 +204,12 @@ class SettingsDialog(QtWidgets.QDialog):
 
         self.tor_bridges_use_custom_textbox = QtWidgets.QPlainTextEdit()
         self.tor_bridges_use_custom_textbox.setPlaceholderText('Bridge [address:port] [identifier]')
-        self.tor_bridges_use_custom_textbox.hide()
+        tor_bridges_use_custom_textbox_options_layout = QtWidgets.QHBoxLayout()
+        tor_bridges_use_custom_textbox_options_layout.addWidget(self.tor_bridges_use_custom_textbox)
+        self.tor_bridges_use_custom_textbox_options = QtWidgets.QWidget()
+        self.tor_bridges_use_custom_textbox_options.setLayout(tor_bridges_use_custom_textbox_options_layout)
+        self.tor_bridges_use_custom_textbox_options.hide()
+        self.tor_bridges_use_custom_textbox_options.adjustSize()
 
         # Test tor settings button
         self.connection_type_test_button = QtWidgets.QPushButton(strings._('gui_settings_connection_type_test_button', True))
@@ -233,7 +238,7 @@ class SettingsDialog(QtWidgets.QDialog):
         connection_type_bridges_radio_group_layout.addWidget(self.tor_bridges_no_bridges_radio)
         connection_type_bridges_radio_group_layout.addWidget(self.tor_bridges_use_obfs4_radio)
         connection_type_bridges_radio_group_layout.addWidget(self.tor_bridges_use_custom_radio)
-        connection_type_bridges_radio_group_layout.addWidget(self.tor_bridges_use_custom_textbox)
+        connection_type_bridges_radio_group_layout.addWidget(self.tor_bridges_use_custom_textbox_options)
         connection_type_bridges_radio_group_layout.addWidget(self.connection_type_test_button)
         connection_type_bridges_radio_group = QtWidgets.QGroupBox(strings._("gui_settings_tor_bridges", True))
         connection_type_bridges_radio_group.setLayout(connection_type_bridges_radio_group_layout)
@@ -364,7 +369,7 @@ class SettingsDialog(QtWidgets.QDialog):
         if checked:
             self.tor_bridges_use_obfs4_radio.setEnabled(True)
             self.tor_bridges_use_custom_radio.setEnabled(True)
-            self.tor_bridges_use_custom_textbox.hide()
+            self.tor_bridges_use_custom_textbox_options.hide()
 
     def tor_bridges_use_obfs4_radio_toggled(self, checked):
         """
@@ -372,7 +377,7 @@ class SettingsDialog(QtWidgets.QDialog):
         """
         if checked:
             self.tor_bridges_use_custom_radio.setEnabled(False)
-            self.tor_bridges_use_custom_textbox.hide()
+            self.tor_bridges_use_custom_textbox_options.hide()
 
     def tor_bridges_use_custom_radio_toggled(self, checked):
         """
@@ -380,7 +385,7 @@ class SettingsDialog(QtWidgets.QDialog):
         """
         if checked:
             self.tor_bridges_use_obfs4_radio.setEnabled(False)
-            self.tor_bridges_use_custom_textbox.show()
+            self.tor_bridges_use_custom_textbox_options.show()
 
     def connection_type_automatic_toggled(self, checked):
         """
