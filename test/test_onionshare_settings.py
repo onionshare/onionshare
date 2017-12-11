@@ -57,7 +57,10 @@ class TestSettings:
             'systray_notifications': True,
             'use_stealth': False,
             'use_autoupdate': True,
-            'autoupdate_timestamp': None
+            'autoupdate_timestamp': None,
+            'no_bridges': True,
+            'tor_bridges_use_obfs4': False,
+            'tor_bridges_use_custom_bridges': ''
         }
 
     def test_fill_in_defaults(self, settings_obj):
@@ -115,6 +118,11 @@ class TestSettings:
         assert settings_obj.get('use_stealth') is False
         assert settings_obj.get('use_autoupdate') is True
         assert settings_obj.get('autoupdate_timestamp') is None
+        assert settings_obj.get('autoupdate_timestamp') is None
+        assert settings_obj.get('no_bridges') is True
+        assert settings_obj.get('tor_bridges_use_obfs4') is False
+        assert settings_obj.get('tor_bridges_use_custom_bridges') == ''
+
 
     def test_set_version(self, settings_obj):
         settings_obj.set('version', 'CUSTOM_VERSION')
@@ -161,3 +169,7 @@ class TestSettings:
         monkeypatch.setenv('APPDATA', 'C:')
         obj = settings.Settings()
         assert obj.filename == 'C:\\OnionShare\\onionshare.json'
+
+    def test_set_custom_bridge(self, settings_obj):
+        settings_obj.set('tor_bridges_use_custom_bridges', 'Bridge 45.3.20.65:9050 21300AD88890A49C429A6CB9959CFD44490A8F6E')
+        assert settings_obj._settings['tor_bridges_use_custom_bridges'] == 'Bridge 45.3.20.65:9050 21300AD88890A49C429A6CB9959CFD44490A8F6E'
