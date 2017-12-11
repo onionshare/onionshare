@@ -194,6 +194,18 @@ class SettingsDialog(QtWidgets.QDialog):
         self.authenticate_group = QtWidgets.QGroupBox(strings._("gui_settings_authenticate_label", True))
         self.authenticate_group.setLayout(authenticate_group_layout)
 
+        # Bridges support
+        self.tor_bridges_no_bridges_radio = QtWidgets.QRadioButton(strings._('gui_settings_tor_bridges_no_bridges_radio_option', True))
+        self.tor_bridges_no_bridges_radio.toggled.connect(self.tor_bridges_no_bridges_radio_toggled)
+
+        self.tor_bridges_use_obfs4_radio = QtWidgets.QRadioButton(strings._('gui_settings_tor_bridges_obfs4_radio_option', True))
+        self.tor_bridges_use_custom_radio = QtWidgets.QRadioButton(strings._('gui_settings_tor_bridges_custom_radio_option', True))
+        self.tor_bridges_use_custom_radio.toggled.connect(self.tor_bridges_use_custom_radio_toggled)
+
+        self.tor_bridges_use_custom_textbox = QtWidgets.QPlainTextEdit()
+        self.tor_bridges_use_custom_textbox.setPlaceholderText('Bridge [address:port] [identifier]')
+        self.tor_bridges_use_custom_textbox.hide()
+
         # Test tor settings button
         self.connection_type_test_button = QtWidgets.QPushButton(strings._('gui_settings_connection_type_test_button', True))
         self.connection_type_test_button.clicked.connect(self.test_tor_clicked)
@@ -213,9 +225,18 @@ class SettingsDialog(QtWidgets.QDialog):
         connection_type_group_layout.addWidget(self.connection_type_socket_file_extras)
         connection_type_group_layout.addWidget(self.connection_type_socks)
         connection_type_group_layout.addWidget(self.authenticate_group)
-        connection_type_group_layout.addWidget(self.connection_type_test_button)
         connection_type_group = QtWidgets.QGroupBox()
         connection_type_group.setLayout(connection_type_group_layout)
+
+        # The Bridges options are not exclusive (enabling Bridges offers obfs4 or custom bridges)
+        connection_type_bridges_radio_group_layout = QtWidgets.QVBoxLayout()
+        connection_type_bridges_radio_group_layout.addWidget(self.tor_bridges_no_bridges_radio)
+        connection_type_bridges_radio_group_layout.addWidget(self.tor_bridges_use_obfs4_radio)
+        connection_type_bridges_radio_group_layout.addWidget(self.tor_bridges_use_custom_radio)
+        connection_type_bridges_radio_group_layout.addWidget(self.tor_bridges_use_custom_textbox)
+        connection_type_bridges_radio_group_layout.addWidget(self.connection_type_test_button)
+        connection_type_bridges_radio_group = QtWidgets.QGroupBox(strings._("gui_settings_tor_bridges", True))
+        connection_type_bridges_radio_group.setLayout(connection_type_bridges_radio_group_layout)
 
         # Buttons
         self.save_button = QtWidgets.QPushButton(strings._('gui_settings_button_save', True))
@@ -245,6 +266,7 @@ class SettingsDialog(QtWidgets.QDialog):
         right_col_layout = QtWidgets.QVBoxLayout()
         right_col_layout.addWidget(connection_type_radio_group)
         right_col_layout.addWidget(connection_type_group)
+        right_col_layout.addWidget(connection_type_bridges_radio_group)
         right_col_layout.addWidget(self.tor_status)
         right_col_layout.addStretch()
 
@@ -315,6 +337,17 @@ class SettingsDialog(QtWidgets.QDialog):
             self.authenticate_password_radio.setChecked(True)
         self.authenticate_password_extras_password.setText(self.old_settings.get('auth_password'))
 
+        if self.old_settings.get('no_bridges'):
+            self.tor_bridges_no_bridges_radio.setChecked(True)
+            self.tor_bridges_use_obfs4_radio.setChecked(False)
+            self.tor_bridges_use_custom_radio.setChecked(False)
+        else:
+            self.tor_bridges_no_bridges_radio.setChecked(False)
+            self.tor_bridges_use_obfs4_radio.setChecked(self.old_settings.get('tor_bridges_use_obfs4'))
+            if self.old_settings.get('tor_bridges_use_custom_bridges'):
+                self.tor_bridges_use_custom_radio.setChecked(True)
+                self.tor_bridges_use_custom_textbox.setPlainText(self.old_settings.get('tor_bridges_use_custom_bridges'))
+
     def connection_type_bundled_toggled(self, checked):
         """
         Connection type bundled was toggled. If checked, hide authentication fields.
@@ -323,6 +356,31 @@ class SettingsDialog(QtWidgets.QDialog):
         if checked:
             self.authenticate_group.hide()
             self.connection_type_socks.hide()
+
+    def tor_bridges_no_bridges_radio_toggled(self, checked):
+        """
+        'No bridges' option was toggled. If checked, enable other bridge options.
+        """
+        if checked:
+            self.tor_bridges_use_obfs4_radio.setEnabled(True)
+            self.tor_bridges_use_custom_radio.setEnabled(True)
+            self.tor_bridges_use_custom_textbox.hide()
+
+    def tor_bridges_use_obfs4_radio_toggled(self, checked):
+        """
+        obfs4 bridges option was toggled. If checked, disable custom bridge options.
+        """
+        if checked:
+            self.tor_bridges_use_custom_radio.setEnabled(False)
+            self.tor_bridges_use_custom_textbox.hide()
+
+    def tor_bridges_use_custom_radio_toggled(self, checked):
+        """
+        Custom bridges option was toggled. If checked, show custom bridge options.
+        """
+        if checked:
+            self.tor_bridges_use_obfs4_radio.setEnabled(False)
+            self.tor_bridges_use_custom_textbox.show()
 
     def connection_type_automatic_toggled(self, checked):
         """
@@ -473,7 +531,9 @@ class SettingsDialog(QtWidgets.QDialog):
             if changed(settings, self.old_settings, [
                 'connection_type', 'control_port_address',
                 'control_port_port', 'socks_address', 'socks_port',
-                'socket_file_path', 'auth_type', 'auth_password']):
+                'socket_file_path', 'auth_type', 'auth_password',
+                'no_bridges', 'tor_bridges_use_obfs4',
+                'tor_bridges_use_custom_bridges']):
 
                 reboot_onion = True
 
@@ -553,6 +613,20 @@ class SettingsDialog(QtWidgets.QDialog):
             settings.set('auth_type', 'password')
 
         settings.set('auth_password', self.authenticate_password_extras_password.text())
+
+        # Whether we use bridges
+        if self.tor_bridges_no_bridges_radio.isChecked():
+            settings.set('no_bridges', True)
+            settings.set('tor_bridges_use_obfs4', False)
+            settings.set('tor_bridges_use_custom_bridges', '')
+        if self.tor_bridges_use_obfs4_radio.isChecked():
+            settings.set('no_bridges', False)
+            settings.set('tor_bridges_use_obfs4', True)
+            settings.set('tor_bridges_use_custom_bridges', '')
+        if self.tor_bridges_use_custom_radio.isChecked():
+            settings.set('no_bridges', False)
+            settings.set('tor_bridges_use_obfs4', False)
+            settings.set('tor_bridges_use_custom_bridges', self.tor_bridges_use_custom_textbox.toPlainText())
 
         return settings
 
