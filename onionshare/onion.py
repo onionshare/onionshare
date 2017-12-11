@@ -213,6 +213,7 @@ class Onion(object):
                             f.write(line)
                 if self.settings.get('tor_bridges_use_custom_bridges'):
                     f.write(self.settings.get('tor_bridges_use_custom_bridges'))
+                    f.write('\nUseBridges 1')
 
             # Execute a tor subprocess
             start_ts = time.time()
