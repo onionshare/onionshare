@@ -205,6 +205,15 @@ class Onion(object):
             with open(self.tor_torrc, 'w') as f:
                 f.write(torrc_template)
 
+                # Bridge support
+                if self.settings.get('tor_bridges_use_obfs4'):
+                    f.write('\n')
+                    with open(common.get_resource_path('torrc_template-obfs4')) as o:
+                        for line in o:
+                            f.write(line)
+                if self.settings.get('tor_bridges_use_custom_bridges'):
+                    f.write(self.settings.get('tor_bridges_use_custom_bridges'))
+
             # Execute a tor subprocess
             start_ts = time.time()
             if self.system == 'Windows':
