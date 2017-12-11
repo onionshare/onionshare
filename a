@@ -1,0 +1,32 @@
+Old Settings
+
+
+
++                # Remove the 'Bridge' lines at the start of each bridge.
++                # They are added automatically to provide compatibility with
++                # copying/pasting bridges provided from https://bridges.torproject.org
++                new_bridges = []
++                bridges = self.old_settings.get('tor_bridges_use_custom_bridges').split('Bridge ')
++                for bridge in bridges:
++                    new_bridges.append(bridge)
++                new_bridges = ''.join(new_bridges)
++                self.tor_bridges_use_custom_textbox.setPlainText(new_bridges)
+
+
+
+
++            # Insert a 'Bridge' line at the start of each bridge.
++            # This makes it easier to copy/paste a set of bridges
++            # provided from https://bridges.torproject.org
++            new_bridges = []
++            bridges = self.tor_bridges_use_custom_textbox.toPlainText().split('\n')
++            for bridge in bridges:
++                if bridge != '':
++                    new_bridges.append(''.join(['Bridge ', bridge, '\n']))
++            new_bridges = ''.join(new_bridges)
++            settings.set('tor_bridges_use_custom_bridges', new_bridges)
+
+
+
++    "gui_settings_tor_bridges_custom_label": "You can obtain bridges from <a href=\"https://bridges.torproject.org/bridges\">https://bridges.torproject.org</a>",
+
