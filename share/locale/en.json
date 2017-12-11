@@ -94,7 +94,7 @@
     "gui_settings_tor_bridges_no_bridges_radio_option": "Don't use bridges",
     "gui_settings_tor_bridges_obfs4_radio_option": "Use obfs4 pluggable transports",
     "gui_settings_tor_bridges_custom_radio_option": "Use custom bridges",
-    "gui_settings_tor_bridges_custom_label": "You can obtain bridges from <a href=\"https://bridges.torproject.org/bridges\">https://bridges.torproject.org</a>",
+    "gui_settings_tor_bridges_custom_label": "You can get bridges from <a href=\"https://bridges.torproject.org/bridges\">https://bridges.torproject.org</a>",
     "gui_settings_button_save": "Save",
     "gui_settings_button_cancel": "Cancel",
     "gui_settings_button_help": "Help",
