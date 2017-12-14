@@ -264,8 +264,13 @@ class Onion(object):
                     break
                 time.sleep(0.2)
 
-                # Timeout after 45 seconds
-                if time.time() - start_ts > 45:
+                # If using bridges, it might take a bit longer to connect to Tor
+                if self.settings.get('tor_bridges_use_custom_bridges') or self.settings.get('tor_bridges_use_obfs4'):
+                    connect_timeout = 60
+                else:
+                    # Timeout after 45 seconds
+                    connect_timeout = 45
+                if time.time() - start_ts > connect_timeout:
                     print("")
                     self.tor_proc.terminate()
                     raise BundledTorTimeout(strings._('settings_error_bundled_tor_timeout'))
