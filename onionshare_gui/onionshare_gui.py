@@ -238,6 +238,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         # Hide and reset the downloads if we have previously shared
         self.downloads_container.hide()
         self.downloads.reset_downloads()
+        self.status_bar.clearMessage()
 
         # Reset web counters
         web.download_count = 0
@@ -278,7 +279,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self._zip_progress_bar = ZipProgressBar(0)
         self._zip_progress_bar.total_files_size = OnionShareGui._compute_total_size(
             self.file_selection.file_list.filenames)
-        self.status_bar.clearMessage()
         self.status_bar.insertWidget(0, self._zip_progress_bar)
 
         # prepare the files for sending in a new thread
