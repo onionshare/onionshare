@@ -459,26 +459,31 @@ class SettingsDialog(QtWidgets.QDialog):
         # If Tor isn't connected, or if Tor settings have changed, Reinitialize
         # the Onion object
         reboot_onion = False
-        if self.onion.connected_to_tor:
-            def changed(s1, s2, keys):
-                """
-                Compare the Settings objects s1 and s2 and return true if any values
-                have changed for the given keys.
-                """
-                for key in keys:
-                    if s1.get(key) != s2.get(key):
-                        return True
-                return False
+        try:
+            self.onion
+            if self.onion.is_authenticated():
+                def changed(s1, s2, keys):
+                    """
+                    Compare the Settings objects s1 and s2 and return true if any values
+                    have changed for the given keys.
+                    """
+                    for key in keys:
+                        if s1.get(key) != s2.get(key):
+                            return True
+                    return False
 
-            if changed(settings, self.old_settings, [
-                'connection_type', 'control_port_address',
-                'control_port_port', 'socks_address', 'socks_port',
-                'socket_file_path', 'auth_type', 'auth_password']):
+                if changed(settings, self.old_settings, [
+                    'connection_type', 'control_port_address',
+                    'control_port_port', 'socks_address', 'socks_port',
+                    'socket_file_path', 'auth_type', 'auth_password']):
 
+                    reboot_onion = True
+
+            else:
+                # Tor isn't connected, so try connecting
                 reboot_onion = True
-
-        else:
-            # Tor isn't connected, so try connecting
+        except:
+            # We definitely aren't connected, as the onion object had no attribute is_authenticated()
             reboot_onion = True
 
         # Do we need to reinitialize Tor?
