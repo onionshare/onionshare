@@ -219,6 +219,19 @@ class OnionShareGui(QtWidgets.QMainWindow):
         def reload_settings():
             common.log('OnionShareGui', 'open_settings', 'settings have changed, reloading')
             self.settings.load()
+            # Check if we're not yet connected to Tor (user might've opened Tor Browser
+            # whilst the SettingsDialog was opened). If not, try and connect once more.
+            # If we still can't connect, abort entirely.
+            if not self.onion.is_authenticated():
+                try:
+                    self.onion.connect(self.settings, False)
+                    # The timer may have been stopped if Tor connectivity was lost during a running share.
+                    # Start it back up again
+                    if not self.timer.isActive():
+                        self.timer.start()
+                except:
+                    Alert(strings._('gui_tor_connection_canceled', True), QtWidgets.QMessageBox.Warning)
+                    sys.exit()
 
         d = SettingsDialog(self.onion, self.qtapp, self.config)
         d.settings_saved.connect(reload_settings)
@@ -388,6 +401,18 @@ class OnionShareGui(QtWidgets.QMainWindow):
         Check for messages communicated from the web app, and update the GUI accordingly.
         """
         self.update()
+
+        # Have we lost connection to Tor somehow?
+        try:
+            # Tor Browser may not even have been open when we started OnionShare,
+            # in which case onion.is_authenticated() throws a NoneType error
+            self.onion
+            if not self.onion.is_authenticated():
+                self.timer.stop()
+                self.start_server_error(strings._('error_tor_protocol_error'))
+                self._tor_connection_canceled()
+        except:
+            pass
 
         # scroll to the bottom of the dl progress bar log pane
         # if a new download has been added
