@@ -225,7 +225,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
             if not self.onion.is_authenticated():
                 try:
                     self.onion.connect(self.settings, False)
-                 except:
+                except:
                     Alert(strings._('gui_tor_connection_canceled', True), QtWidgets.QMessageBox.Warning)
                     sys.exit()
 
