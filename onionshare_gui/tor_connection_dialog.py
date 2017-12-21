@@ -86,6 +86,7 @@ class TorConnectionDialog(QtWidgets.QProgressDialog):
     def _canceled_connecting_to_tor(self):
         common.log('TorConnectionDialog', '_canceled_connecting_to_tor')
         self.active = False
+        self.onion.cleanup()
 
         # Cancel connecting to Tor
         QtCore.QTimer.singleShot(1, self.cancel)
@@ -126,7 +127,7 @@ class TorConnectionThread(QtCore.QThread):
         # Connect to the Onion
         try:
             self.onion.connect(self.settings, False, self._tor_status_update)
-            if self.onion.is_authenticated():
+            if self.onion.connected_to_tor:
                 self.connected_to_tor.emit()
             else:
                 self.canceled_connecting_to_tor.emit()

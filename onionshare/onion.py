@@ -380,7 +380,7 @@ class Onion(object):
         """
         Returns True if the Tor connection is still working, or False otherwise.
         """
-        if self.c:
+        if self.c is not None:
             return self.c.is_authenticated()
         else:
             return False
