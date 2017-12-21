@@ -459,31 +459,26 @@ class SettingsDialog(QtWidgets.QDialog):
         # If Tor isn't connected, or if Tor settings have changed, Reinitialize
         # the Onion object
         reboot_onion = False
-        try:
-            self.onion
-            if self.onion.is_authenticated():
-                def changed(s1, s2, keys):
-                    """
-                    Compare the Settings objects s1 and s2 and return true if any values
-                    have changed for the given keys.
-                    """
-                    for key in keys:
-                        if s1.get(key) != s2.get(key):
-                            return True
-                    return False
+        if self.onion.is_authenticated():
+            def changed(s1, s2, keys):
+                """
+                Compare the Settings objects s1 and s2 and return true if any values
+                have changed for the given keys.
+                """
+                for key in keys:
+                    if s1.get(key) != s2.get(key):
+                        return True
+                return False
 
-                if changed(settings, self.old_settings, [
-                    'connection_type', 'control_port_address',
-                    'control_port_port', 'socks_address', 'socks_port',
-                    'socket_file_path', 'auth_type', 'auth_password']):
+            if changed(settings, self.old_settings, [
+                'connection_type', 'control_port_address',
+                'control_port_port', 'socks_address', 'socks_port',
+                'socket_file_path', 'auth_type', 'auth_password']):
 
-                    reboot_onion = True
-
-            else:
-                # Tor isn't connected, so try connecting
                 reboot_onion = True
-        except:
-            # We definitely aren't connected, as the onion object had no attribute is_authenticated()
+
+        else:
+            # Tor isn't connected, so try connecting
             reboot_onion = True
 
         # Do we need to reinitialize Tor?
@@ -497,7 +492,7 @@ class SettingsDialog(QtWidgets.QDialog):
 
             common.log('SettingsDialog', 'save_clicked', 'Onion done rebooting, connected to Tor: {}'.format(self.onion.connected_to_tor))
 
-            if self.onion.connected_to_tor and not tor_con.wasCanceled():
+            if self.onion.is_authenticated() and not tor_con.wasCanceled():
                 self.settings_saved.emit()
                 self.close()
 
@@ -510,7 +505,7 @@ class SettingsDialog(QtWidgets.QDialog):
         Cancel button clicked.
         """
         common.log('SettingsDialog', 'cancel_clicked')
-        if not self.onion.connected_to_tor:
+        if not self.onion.is_authenticated():
             Alert(strings._('gui_tor_connection_canceled', True), QtWidgets.QMessageBox.Warning)
             sys.exit()
         else:
@@ -565,7 +560,7 @@ class SettingsDialog(QtWidgets.QDialog):
         common.log('SettingsDialog', 'closeEvent')
 
         # On close, if Tor isn't connected, then quit OnionShare altogether
-        if not self.onion.connected_to_tor:
+        if not self.onion.is_authenticated():
             common.log('SettingsDialog', 'closeEvent', 'Closing while not connected to Tor')
 
             # Wait 1ms for the event loop to finish, then quit

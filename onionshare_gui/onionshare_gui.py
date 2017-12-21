@@ -142,10 +142,10 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.set_server_active(False)
 
         # Start the "Connecting to Tor" dialog, which calls onion.connect()
-        tor_con = TorConnectionDialog(self.qtapp, self.settings, self.onion)
-        tor_con.canceled.connect(self._tor_connection_canceled)
-        tor_con.open_settings.connect(self._tor_connection_open_settings)
-        tor_con.start()
+        self.tor_con = TorConnectionDialog(self.qtapp, self.settings, self.onion)
+        self.tor_con.canceled.connect(self._tor_connection_canceled)
+        self.tor_con.open_settings.connect(self._tor_connection_open_settings)
+        self.tor_con.start()
 
         # After connecting to Tor, check for updates
         self.check_for_updates()
@@ -394,17 +394,11 @@ class OnionShareGui(QtWidgets.QMainWindow):
         """
         self.update()
 
-        # Have we lost connection to Tor somehow?
-        try:
-            # Tor Browser may not even have been open when we started OnionShare,
-            # in which case onion.is_authenticated() throws a NoneType error
-            self.onion
-            if not self.onion.is_authenticated():
-                self.timer.stop()
-                self.start_server_error(strings._('error_tor_protocol_error'))
-                self._tor_connection_canceled()
-        except:
-            pass
+        # Has the Tor Connection dialog finished, but we've since lost connection to Tor somehow?
+        if not self.onion.is_authenticated() and self.tor_con.t.isFinished():
+            self.timer.stop()
+            self.start_server_error(strings._('error_tor_protocol_error'))
+            self._tor_connection_canceled()
 
         # scroll to the bottom of the dl progress bar log pane
         # if a new download has been added

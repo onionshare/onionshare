@@ -375,11 +375,16 @@ class Onion(object):
             # ephemeral stealth onion services are not supported
             self.supports_stealth = False
 
+
     def is_authenticated(self):
         """
         Returns True if the Tor connection is still working, or False otherwise.
         """
-        return self.c.is_authenticated()
+        if self.c:
+            return self.c.is_authenticated()
+        else:
+            return False
+
 
     def start_onion_service(self, port):
         """
