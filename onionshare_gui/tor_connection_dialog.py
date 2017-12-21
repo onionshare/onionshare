@@ -57,12 +57,12 @@ class TorConnectionDialog(QtWidgets.QProgressDialog):
     def start(self):
         common.log('TorConnectionDialog', 'start')
 
-        t = TorConnectionThread(self, self.settings, self.onion)
-        t.tor_status_update.connect(self._tor_status_update)
-        t.connected_to_tor.connect(self._connected_to_tor)
-        t.canceled_connecting_to_tor.connect(self._canceled_connecting_to_tor)
-        t.error_connecting_to_tor.connect(self._error_connecting_to_tor)
-        t.start()
+        self.t = TorConnectionThread(self, self.settings, self.onion)
+        self.t.tor_status_update.connect(self._tor_status_update)
+        self.t.connected_to_tor.connect(self._connected_to_tor)
+        self.t.canceled_connecting_to_tor.connect(self._canceled_connecting_to_tor)
+        self.t.error_connecting_to_tor.connect(self._error_connecting_to_tor)
+        self.t.start()
 
         # The main thread needs to remain active, and checkign for Qt events,
         # until the thread is finished. Otherwise it won't be able to handle
@@ -126,7 +126,7 @@ class TorConnectionThread(QtCore.QThread):
         # Connect to the Onion
         try:
             self.onion.connect(self.settings, False, self._tor_status_update)
-            if self.onion.connected_to_tor:
+            if self.onion.is_authenticated():
                 self.connected_to_tor.emit()
             else:
                 self.canceled_connecting_to_tor.emit()
