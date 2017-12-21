@@ -460,6 +460,7 @@ class SettingsDialog(QtWidgets.QDialog):
         # the Onion object
         reboot_onion = False
         if self.onion.is_authenticated():
+            common.log('SettingsDialog', 'save_clicked', 'Connected to Tor')
             def changed(s1, s2, keys):
                 """
                 Compare the Settings objects s1 and s2 and return true if any values
@@ -478,6 +479,7 @@ class SettingsDialog(QtWidgets.QDialog):
                 reboot_onion = True
 
         else:
+            common.log('SettingsDialog', 'save_clicked', 'Not connected to Tor')
             # Tor isn't connected, so try connecting
             reboot_onion = True
 
