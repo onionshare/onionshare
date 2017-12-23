@@ -114,11 +114,12 @@
     "update_error_check_error": "Error checking for updates: Maybe you're not connected to Tor, or maybe the OnionShare website is down.",
     "update_error_invalid_latest_version": "Error checking for updates: The OnionShare website responded saying the latest version is '{}', but that doesn't appear to be a valid version string.",
     "update_not_available": "You are running the latest version of OnionShare.",
-    "gui_tor_connection_ask": "Tor isn't running.\n\nWould you like to open OnionShare settings to troubleshoot connecting to Tor?",
+    "gui_tor_connection_ask": "Would you like to open OnionShare settings to troubleshoot connecting to Tor?",
     "gui_tor_connection_ask_open_settings": "Open Settings",
     "gui_tor_connection_ask_quit": "Quit",
     "gui_tor_connection_error_settings": "Try adjusting how OnionShare connects to the Tor network in Settings.",
     "gui_tor_connection_canceled": "OnionShare cannot connect to Tor.\n\nMake sure you're connected to the internet, then re-open OnionShare to configure the Tor connection.",
+    "gui_tor_connection_lost": "Disconnected from Tor.",
     "gui_server_started_after_timeout": "The server started after your chosen auto-timeout.\nPlease start a new share.",
     "gui_server_timeout_expired": "The chosen timeout has already expired.\nPlease update the timeout and then you may start sharing.",
     "share_via_onionshare": "Share via OnionShare"
