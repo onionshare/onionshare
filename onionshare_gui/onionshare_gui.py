@@ -176,7 +176,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
         quit, or open settings.
         """
         common.log('OnionShareGui', '_tor_connection_canceled')
-        self.timer.stop()
 
         def ask():
             a = Alert(strings._('gui_tor_connection_ask', True), QtWidgets.QMessageBox.Question, buttons=QtWidgets.QMessageBox.NoButton, autostart=False)
@@ -223,8 +222,10 @@ class OnionShareGui(QtWidgets.QMainWindow):
             # We might've stopped the main requests timer if a Tor connection failed.
             # If we've reloaded settings, we probably succeeded in obtaining a new
             # connection. If so, restart the timer.
-            if not self.timer.isActive():
-                self.timer.start()
+            if self.onion.is_authenticated():
+                if not self.timer.isActive():
+                    self.timer.start()
+                    self.status_bar.clearMessage()
 
         d = SettingsDialog(self.onion, self.qtapp, self.config)
         d.settings_saved.connect(reload_settings)
@@ -401,8 +402,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
                 self.timer.stop()
                 if self.server_status.status != self.server_status.STATUS_STOPPED:
                     self.server_status.stop_server()
-                    self.status_bar.clearMessage()
-                self._tor_connection_canceled()
+                self.status_bar.showMessage(strings._('gui_tor_connection_lost', True))
 
         # scroll to the bottom of the dl progress bar log pane
         # if a new download has been added
