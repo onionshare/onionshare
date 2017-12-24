@@ -225,7 +225,11 @@ class OnionShareGui(QtWidgets.QMainWindow):
             if self.onion.is_authenticated():
                 if not self.timer.isActive():
                     self.timer.start()
-                    self.status_bar.clearMessage()
+                # If there were some files listed for sharing, we should be ok to
+                # re-enable the 'Start Sharing' button now.
+                if self.server_status.file_selection.get_num_files() > 0:
+                    self.server_status.server_button.setEnabled(True)
+                self.status_bar.clearMessage()
 
         d = SettingsDialog(self.onion, self.qtapp, self.config)
         d.settings_saved.connect(reload_settings)
@@ -402,6 +406,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
                 self.timer.stop()
                 if self.server_status.status != self.server_status.STATUS_STOPPED:
                     self.server_status.stop_server()
+                self.server_status.server_button.setEnabled(False)
                 self.status_bar.showMessage(strings._('gui_tor_connection_lost', True))
 
         # scroll to the bottom of the dl progress bar log pane
