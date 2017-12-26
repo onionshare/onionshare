@@ -408,6 +408,8 @@ class OnionShareGui(QtWidgets.QMainWindow):
                     self.server_status.stop_server()
                 self.server_status.server_button.setEnabled(False)
                 self.status_bar.showMessage(strings._('gui_tor_connection_lost', True))
+                if self.systemTray.supportsMessages() and self.settings.get('systray_notifications'):
+                    self.systemTray.showMessage(strings._('gui_tor_connection_lost', True), strings._('gui_tor_connection_error_settings', True))
 
         # scroll to the bottom of the dl progress bar log pane
         # if a new download has been added
