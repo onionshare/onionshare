@@ -72,6 +72,8 @@ class SettingsDialog(QtWidgets.QDialog):
         # Stealth
         stealth_details = QtWidgets.QLabel(strings._("gui_settings_stealth_option_details", True))
         stealth_details.setWordWrap(True)
+        stealth_details.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
+        stealth_details.setOpenExternalLinks(True)
         self.stealth_checkbox = QtWidgets.QCheckBox()
         self.stealth_checkbox.setCheckState(QtCore.Qt.Unchecked)
         self.stealth_checkbox.setText(strings._("gui_settings_stealth_option", True))
