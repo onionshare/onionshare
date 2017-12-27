@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import json
 import os
 import platform
+import sys
 
 from . import strings, common
 
@@ -60,7 +61,8 @@ class Settings(object):
             'systray_notifications': True,
             'use_stealth': False,
             'use_autoupdate': True,
-            'autoupdate_timestamp': None
+            'autoupdate_timestamp': None,
+            'different_temporary_folder': None
         }
         self._settings = {}
         self.fill_in_defaults()
@@ -80,8 +82,13 @@ class Settings(object):
         """
         p = platform.system()
         if p == 'Windows':
-            appdata = os.environ['APPDATA']
-            return '{}\\OnionShare\\onionshare.json'.format(appdata)
+            if os.path.exists(os.path.dirname(sys.argv[0])+'\\onionshare.json'):
+                return os.path.dirname(sys.argv[0])+'\\onionshare.json'
+            else:
+                appdata = os.environ['APPDATA']
+                return '{}\\OnionShare\\onionshare.json'.format(appdata)
+        elif os.path.exists(os.path.dirname(sys.argv[0])+'/onionshare.json'):
+            return os.path.dirname(sys.argv[0])+'/onionshare.json'
         elif p == 'Darwin':
             return os.path.expanduser('~/Library/Application Support/OnionShare/onionshare.json')
         else:
