@@ -98,7 +98,7 @@ def main(cwd=None):
 
     # Prepare files to share
     print(strings._("preparing_files"))
-    web.set_file_info(filenames)
+    web.set_file_info(filenames, tmpdir=onion.settings.get('different_temporary_folder'))
     app.cleanup_filenames.append(web.zip_filename)
 
     # Warn about sending large files over Tor
