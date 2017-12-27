@@ -221,11 +221,11 @@ class ZipWriter(object):
     with. If a zip_filename is not passed in, it will use the default onionshare
     filename.
     """
-    def __init__(self, zip_filename=None, processed_size_callback=None):
+    def __init__(self, zip_filename=None, processed_size_callback=None, tmpdir=None):
         if zip_filename:
             self.zip_filename = zip_filename
         else:
-            self.zip_filename = '{0:s}/onionshare_{1:s}.zip'.format(tempfile.mkdtemp(), random_string(4, 6))
+            self.zip_filename = '{0:s}/onionshare_{1:s}.zip'.format(tempfile.mkdtemp(dir=tmpdir), random_string(4, 6))
 
         self.z = zipfile.ZipFile(self.zip_filename, 'w', allowZip64=True)
         self.processed_size_callback = processed_size_callback
