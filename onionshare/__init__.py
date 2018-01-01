@@ -68,11 +68,14 @@ def main(cwd=None):
     # Validation
     valid = True
     for filename in filenames:
-        if not os.path.exists(filename):
+        if not os.path.isfile(filename) and not os.path.isdir(filename):
             print(strings._("not_a_file").format(filename))
             valid = False
         if not os.access(filename, os.R_OK):
             print(strings._("not_a_readable_file").format(filename))
+            valid = False
+        if os.path.isdir(filename) and os.path.getsize(filename) < 4096:
+            print(strings._("not_a_file").format(filename))
             valid = False
     if not valid:
         sys.exit()
