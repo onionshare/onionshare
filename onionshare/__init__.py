@@ -74,9 +74,6 @@ def main(cwd=None):
         if not os.access(filename, os.R_OK):
             print(strings._("not_a_readable_file").format(filename))
             valid = False
-        if os.path.isdir(filename) and os.path.getsize(filename) < 4096:
-            print(strings._("not_a_file").format(filename))
-            valid = False
     if not valid:
         sys.exit()
 
