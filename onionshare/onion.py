@@ -413,7 +413,10 @@ class Onion(object):
             auth_cookie = res.content()[2][2].split('=')[1].split(':')[1]
             self.auth_string = 'HidServAuth {} {}'.format(onion_host, auth_cookie)
 
-        return onion_host
+        if onion_host is not None:
+            return onion_host
+        else:
+            raise TorErrorProtocolError(strings._('error_tor_protocol_error'))
 
     def cleanup(self):
         """
