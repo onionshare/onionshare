@@ -596,8 +596,11 @@ class SettingsDialog(QtWidgets.QDialog):
 
     def _enable_buttons(self):
         common.log('SettingsDialog', '_enable_buttons')
-
-        self.check_for_updates_button.setEnabled(True)
+        # We can't check for updates if we're still not connected to Tor
+        if not self.onion.connected_to_tor:
+            self.check_for_updates_button.setEnabled(False)
+        else:
+            self.check_for_updates_button.setEnabled(True)
         self.connection_type_test_button.setEnabled(True)
         self.save_button.setEnabled(True)
         self.cancel_button.setEnabled(True)
