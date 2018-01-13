@@ -287,12 +287,16 @@ class OnionShareGui(QtWidgets.QMainWindow):
             def _set_processed_size(x):
                 if self._zip_progress_bar != None:
                     self._zip_progress_bar.update_processed_size_signal.emit(x)
-            web.set_file_info(self.file_selection.file_list.filenames, processed_size_callback=_set_processed_size)
-            self.app.cleanup_filenames.append(web.zip_filename)
-            self.starting_server_step3.emit()
+            try:
+                web.set_file_info(self.file_selection.file_list.filenames, processed_size_callback=_set_processed_size)
+                self.app.cleanup_filenames.append(web.zip_filename)
+                self.starting_server_step3.emit()
 
-            # done
-            self.start_server_finished.emit()
+                # done
+                self.start_server_finished.emit()
+            except OSError as e:
+                self.starting_server_error.emit(e.strerror)
+                return
 
         #self.status_bar.showMessage(strings._('gui_starting_server2', True))
         t = threading.Thread(target=finish_starting_server, kwargs={'self': self})
@@ -339,6 +343,9 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         Alert(error, QtWidgets.QMessageBox.Warning)
         self.server_status.stop_server()
+        if self._zip_progress_bar is not None:
+            self.status_bar.removeWidget(self._zip_progress_bar)
+            self._zip_progress_bar = None
         self.status_bar.clearMessage()
 
     def stop_server(self):
