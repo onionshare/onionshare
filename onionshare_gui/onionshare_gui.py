@@ -354,6 +354,8 @@ class OnionShareGui(QtWidgets.QMainWindow):
                 # Probably we had no port to begin with (Onion service didn't start)
                 pass
         self.app.cleanup()
+        # Remove ephemeral service, but don't disconnect from Tor
+        self.onion.cleanup(stop_tor=False)
         self.filesize_warning.hide()
         self.stop_server_finished.emit()
 
