@@ -291,12 +291,11 @@ class SettingsDialog(QtWidgets.QDialog):
         else:
             self.systray_notifications_checkbox.setCheckState(QtCore.Qt.Unchecked)
 
-        save_private_key = self.old_settings.get('private_key')
+        save_private_key = self.old_settings.get('save_private_key')
         if save_private_key:
             self.save_private_key_checkbox.setCheckState(QtCore.Qt.Checked)
         else:
             self.save_private_key_checkbox.setCheckState(QtCore.Qt.Unchecked)
-            self.save_private_key_checkbox.hide()
 
         use_stealth = self.old_settings.get('use_stealth')
         if use_stealth:
@@ -565,9 +564,11 @@ class SettingsDialog(QtWidgets.QDialog):
         settings.set('close_after_first_download', self.close_after_first_download_checkbox.isChecked())
         settings.set('systray_notifications', self.systray_notifications_checkbox.isChecked())
         if self.save_private_key_checkbox.isChecked():
+            settings.set('save_private_key', True)
             settings.set('private_key', self.old_settings.get('private_key'))
             settings.set('hidservauth_string', self.old_settings.get('hidservauth_string'))
         else:
+            settings.set('save_private_key', False)
             settings.set('private_key', '')
             # Also unset the HidServAuth if we are removing our reusable private key
             settings.set('hidservauth_string', '')

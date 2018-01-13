@@ -32,7 +32,6 @@ class ServerStatus(QtWidgets.QVBoxLayout):
     server_stopped = QtCore.pyqtSignal()
     url_copied = QtCore.pyqtSignal()
     hidservauth_copied = QtCore.pyqtSignal()
-    private_key_saved = QtCore.pyqtSignal()
 
     STATUS_STOPPED = 0
     STATUS_WORKING = 1
@@ -90,13 +89,10 @@ class ServerStatus(QtWidgets.QVBoxLayout):
         self.copy_url_button.clicked.connect(self.copy_url)
         self.copy_hidservauth_button = QtWidgets.QPushButton(strings._('gui_copy_hidservauth', True))
         self.copy_hidservauth_button.clicked.connect(self.copy_hidservauth)
-        self.save_private_key_button = QtWidgets.QPushButton(strings._('gui_save_private_key', True))
-        self.save_private_key_button.clicked.connect(self.save_private_key)
         url_layout = QtWidgets.QHBoxLayout()
         url_layout.addWidget(self.url_label)
         url_layout.addWidget(self.copy_url_button)
         url_layout.addWidget(self.copy_hidservauth_button)
-        url_layout.addWidget(self.save_private_key_button)
 
         # add the widgets
         self.addLayout(shutdown_timeout_layout_group)
@@ -146,9 +142,8 @@ class ServerStatus(QtWidgets.QVBoxLayout):
             self.url_label.setText('http://{0:s}/{1:s}'.format(self.app.onion_host, self.web.slug))
             self.url_label.show()
             self.copy_url_button.show()
-            if not self.settings.get('private_key'):
-                self.save_private_key_button.show()
-                self.save_private_key_button.setEnabled(True)
+            if self.settings.get('save_private_key'):
+                common.log('ServerStatus', 'update', '@TODO need to show a "persistent URL in use" label')
 
             if self.app.stealth:
                 self.copy_hidservauth_button.show()
@@ -162,7 +157,6 @@ class ServerStatus(QtWidgets.QVBoxLayout):
             self.url_label.hide()
             self.copy_url_button.hide()
             self.copy_hidservauth_button.hide()
-            self.save_private_key_button.hide()
 
         # button
         if self.file_selection.get_num_files() == 0:
@@ -259,16 +253,3 @@ class ServerStatus(QtWidgets.QVBoxLayout):
         clipboard.setText(self.app.auth_string)
 
         self.hidservauth_copied.emit()
-
-    def save_private_key(self):
-        """
-        Save the Onion private key to settings, so the Onion URL can be re-used.
-        """
-        self.save_private_key_button.setEnabled(False)
-        self.settings.set('private_key', self.app.private_key)
-        if self.app.stealth:
-            self.settings.set('hidservauth_string', self.app.auth_string)
-        self.settings.save()
-        self.settings.load()
-
-        self.private_key_saved.emit()
