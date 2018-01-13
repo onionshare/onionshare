@@ -80,7 +80,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.file_selection.file_list.files_updated.connect(self.server_status.update)
         self.server_status.url_copied.connect(self.copy_url)
         self.server_status.hidservauth_copied.connect(self.copy_hidservauth)
-        self.server_status.private_key_saved.connect(self.private_key_saved)
         self.starting_server_step2.connect(self.start_server_step2)
         self.starting_server_step3.connect(self.start_server_step3)
         self.starting_server_error.connect(self.start_server_error)
@@ -472,13 +471,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
         """
         common.log('OnionShareGui', 'copy_hidservauth')
         self.status_bar.showMessage(strings._('gui_copied_hidservauth', True), 2000)
-
-    def private_key_saved(self):
-        """
-        When the private key gets saved, display this in the status bar.
-        """
-        common.log('OnionShareGui', 'private_key_saved')
-        self.status_bar.showMessage(strings._('gui_private_key_saved', True), 2000)
 
     def clear_message(self):
         """

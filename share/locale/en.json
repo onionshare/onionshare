@@ -46,7 +46,6 @@
     "gui_canceled": "Canceled",
     "gui_copied_url": "Copied URL to clipboard",
     "gui_copied_hidservauth": "Copied HidServAuth line to clipboard",
-    "gui_private_key_saved": "Private key saved to settings",
     "gui_starting_server1": "Starting Tor onion service...",
     "gui_starting_server2": "Crunching files...",
     "gui_please_wait": "Please wait...",
@@ -124,6 +123,5 @@
     "gui_server_started_after_timeout": "The server started after your chosen auto-timeout.\nPlease start a new share.",
     "gui_server_timeout_expired": "The chosen timeout has already expired.\nPlease update the timeout and then you may start sharing.",
     "share_via_onionshare": "Share via OnionShare",
-    "gui_save_private_key": "Save private key",
-    "gui_save_private_key_checkbox": "Should the private key be saved for re-use?\nThis makes the Onion share URL persistent.\nUnchecking will remove the private key from settings."
+    "gui_save_private_key_checkbox": "Use a persistent URL\n(unchecking will delete any saved URL)"
 }

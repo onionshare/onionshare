@@ -423,10 +423,9 @@ class Onion(object):
         onion_host = self.service_id + '.onion'
 
         # A new private key was generated and is in the Control port response.
-        if not self.settings.get('private_key'):
-            self.private_key = res.private_key
-        else:
-            self.private_key = ''
+        if self.settings.get('save_private_key'):
+            if not self.settings.get('private_key'):
+                self.settings.set('private_key', res.private_key)
 
         if self.stealth:
             # Similar to the PrivateKey, the Control port only returns the ClientAuth
@@ -434,12 +433,18 @@ class Onion(object):
             # in the first place.
             # If we sent the basic_auth (due to a saved hidservauth_string in the settings),
             # there is no response here, so use the saved value from settings.
-            if self.settings.get('hidservauth_string'):
-                self.auth_string = self.settings.get('hidservauth_string')
+            if self.settings.get('save_private_key'):
+                if self.settings.get('hidservauth_string'):
+                    self.auth_string = self.settings.get('hidservauth_string')
+                else:
+                    auth_cookie = list(res.client_auth.values())[0]
+                    self.auth_string = 'HidServAuth {} {}'.format(onion_host, auth_cookie)
+                    self.settings.set('hidservauth_string', self.auth_string)
             else:
                 auth_cookie = list(res.client_auth.values())[0]
                 self.auth_string = 'HidServAuth {} {}'.format(onion_host, auth_cookie)
 
+        self.settings.save()
         return onion_host
 
     def cleanup(self, stop_tor=True):
