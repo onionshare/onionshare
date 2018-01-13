@@ -415,7 +415,7 @@ class Onion(object):
 
         return onion_host
 
-    def cleanup(self):
+    def cleanup(self, stop_tor=True):
         """
         Stop onion services that were created earlier. If there's a tor subprocess running, kill it.
         """
@@ -429,25 +429,28 @@ class Onion(object):
                 pass
             self.service_id = None
 
-        # Stop tor process
-        if self.tor_proc:
-            self.tor_proc.terminate()
-            time.sleep(0.2)
-            if not self.tor_proc.poll():
-                self.tor_proc.kill()
-            self.tor_proc = None
+        if stop_tor:
+            # Stop tor process
+            if self.tor_proc:
+                self.tor_proc.terminate()
+                time.sleep(0.2)
+                if not self.tor_proc.poll():
+                    try:
+                        self.tor_proc.kill()
+                    except:
+                        pass
+                self.tor_proc = None
 
-        # Reset other Onion settings
-        self.connected_to_tor = False
-        self.stealth = False
-        self.service_id = None
+            # Reset other Onion settings
+            self.connected_to_tor = False
+            self.stealth = False
 
-        try:
-            # Delete the temporary tor data directory
-            self.tor_data_directory.cleanup()
-        except AttributeError:
-            # Skip if cleanup was somehow run before connect
-            pass
+            try:
+                # Delete the temporary tor data directory
+                self.tor_data_directory.cleanup()
+            except AttributeError:
+                # Skip if cleanup was somehow run before connect
+                pass
 
     def get_tor_socks_port(self):
         """
