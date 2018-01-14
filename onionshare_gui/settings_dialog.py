@@ -459,7 +459,8 @@ class SettingsDialog(QtWidgets.QDialog):
         # If Tor isn't connected, or if Tor settings have changed, Reinitialize
         # the Onion object
         reboot_onion = False
-        if self.onion.connected_to_tor:
+        if self.onion.is_authenticated():
+            common.log('SettingsDialog', 'save_clicked', 'Connected to Tor')
             def changed(s1, s2, keys):
                 """
                 Compare the Settings objects s1 and s2 and return true if any values
@@ -478,6 +479,7 @@ class SettingsDialog(QtWidgets.QDialog):
                 reboot_onion = True
 
         else:
+            common.log('SettingsDialog', 'save_clicked', 'Not connected to Tor')
             # Tor isn't connected, so try connecting
             reboot_onion = True
 
@@ -492,7 +494,7 @@ class SettingsDialog(QtWidgets.QDialog):
 
             common.log('SettingsDialog', 'save_clicked', 'Onion done rebooting, connected to Tor: {}'.format(self.onion.connected_to_tor))
 
-            if self.onion.connected_to_tor and not tor_con.wasCanceled():
+            if self.onion.is_authenticated() and not tor_con.wasCanceled():
                 self.settings_saved.emit()
                 self.close()
 
@@ -505,7 +507,7 @@ class SettingsDialog(QtWidgets.QDialog):
         Cancel button clicked.
         """
         common.log('SettingsDialog', 'cancel_clicked')
-        if not self.onion.connected_to_tor:
+        if not self.onion.is_authenticated():
             Alert(strings._('gui_tor_connection_canceled', True), QtWidgets.QMessageBox.Warning)
             sys.exit()
         else:
@@ -560,7 +562,7 @@ class SettingsDialog(QtWidgets.QDialog):
         common.log('SettingsDialog', 'closeEvent')
 
         # On close, if Tor isn't connected, then quit OnionShare altogether
-        if not self.onion.connected_to_tor:
+        if not self.onion.is_authenticated():
             common.log('SettingsDialog', 'closeEvent', 'Closing while not connected to Tor')
 
             # Wait 1ms for the event loop to finish, then quit
