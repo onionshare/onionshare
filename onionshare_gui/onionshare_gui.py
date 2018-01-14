@@ -130,11 +130,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.setCentralWidget(central_widget)
         self.show()
 
-        # Check for requests frequently
-        self.timer = QtCore.QTimer()
-        self.timer.timeout.connect(self.check_for_requests)
-        self.timer.start(500)
-
         # Always start with focus on file selection
         self.file_selection.setFocus()
 
@@ -142,10 +137,15 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.set_server_active(False)
 
         # Start the "Connecting to Tor" dialog, which calls onion.connect()
-        self.tor_con = TorConnectionDialog(self.qtapp, self.settings, self.onion)
-        self.tor_con.canceled.connect(self._tor_connection_canceled)
-        self.tor_con.open_settings.connect(self._tor_connection_open_settings)
-        self.tor_con.start()
+        tor_con = TorConnectionDialog(self.qtapp, self.settings, self.onion)
+        tor_con.canceled.connect(self._tor_connection_canceled)
+        tor_con.open_settings.connect(self._tor_connection_open_settings)
+        tor_con.start()
+
+        # Check for requests frequently
+        self.timer = QtCore.QTimer()
+        self.timer.timeout.connect(self.check_for_requests)
+        self.timer.start(500)
 
         # After connecting to Tor, check for updates
         self.check_for_updates()
@@ -410,15 +410,14 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.update()
 
         # Have we lost connection to Tor somehow?
-        if self.tor_con.t.isFinished():
-            if not self.onion.is_authenticated():
-                self.timer.stop()
-                if self.server_status.status != self.server_status.STATUS_STOPPED:
-                    self.server_status.stop_server()
-                self.server_status.server_button.setEnabled(False)
-                self.status_bar.showMessage(strings._('gui_tor_connection_lost', True))
-                if self.systemTray.supportsMessages() and self.settings.get('systray_notifications'):
-                    self.systemTray.showMessage(strings._('gui_tor_connection_lost', True), strings._('gui_tor_connection_error_settings', True))
+        if not self.onion.is_authenticated():
+            self.timer.stop()
+            if self.server_status.status != self.server_status.STATUS_STOPPED:
+                self.server_status.stop_server()
+            self.server_status.server_button.setEnabled(False)
+            self.status_bar.showMessage(strings._('gui_tor_connection_lost', True))
+            if self.systemTray.supportsMessages() and self.settings.get('systray_notifications'):
+                self.systemTray.showMessage(strings._('gui_tor_connection_lost', True), strings._('gui_tor_connection_error_settings', True))
 
         # scroll to the bottom of the dl progress bar log pane
         # if a new download has been added
