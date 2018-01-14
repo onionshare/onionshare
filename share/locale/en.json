@@ -123,5 +123,6 @@
     "gui_server_started_after_timeout": "The server started after your chosen auto-timeout.\nPlease start a new share.",
     "gui_server_timeout_expired": "The chosen timeout has already expired.\nPlease update the timeout and then you may start sharing.",
     "share_via_onionshare": "Share via OnionShare",
-    "gui_save_private_key_checkbox": "Use a persistent URL\n(unchecking will delete any saved URL)"
+    "gui_save_private_key_checkbox": "Use a persistent URL\n(unchecking will delete any saved URL)",
+    "persistent_url_in_use": "This share is using a persistent URL"
 }
