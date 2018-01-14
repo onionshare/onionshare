@@ -254,8 +254,8 @@ class Onion(object):
                     break
                 time.sleep(0.2)
 
-                # Timeout after 45 seconds
-                if time.time() - start_ts > 45:
+                # Timeout after 90 seconds
+                if time.time() - start_ts > 90:
                     print("")
                     self.tor_proc.terminate()
                     raise BundledTorTimeout(strings._('settings_error_bundled_tor_timeout'))
@@ -375,6 +375,17 @@ class Onion(object):
             # ephemeral stealth onion services are not supported
             self.supports_stealth = False
 
+
+    def is_authenticated(self):
+        """
+        Returns True if the Tor connection is still working, or False otherwise.
+        """
+        if self.c is not None:
+            return self.c.is_authenticated()
+        else:
+            return False
+
+
     def start_onion_service(self, port):
         """
         Start a onion service on port 80, pointing to the given port, and
@@ -406,16 +417,19 @@ class Onion(object):
         except ProtocolError:
             raise TorErrorProtocolError(strings._('error_tor_protocol_error'))
 
-        self.service_id = res.content()[0][2].split('=')[1]
+        self.service_id = res.service_id
         onion_host = self.service_id + '.onion'
 
         if self.stealth:
             auth_cookie = res.content()[2][2].split('=')[1].split(':')[1]
             self.auth_string = 'HidServAuth {} {}'.format(onion_host, auth_cookie)
 
-        return onion_host
+        if onion_host is not None:
+            return onion_host
+        else:
+            raise TorErrorProtocolError(strings._('error_tor_protocol_error'))
 
-    def cleanup(self):
+    def cleanup(self, stop_tor=True):
         """
         Stop onion services that were created earlier. If there's a tor subprocess running, kill it.
         """
@@ -429,25 +443,28 @@ class Onion(object):
                 pass
             self.service_id = None
 
-        # Stop tor process
-        if self.tor_proc:
-            self.tor_proc.terminate()
-            time.sleep(0.2)
-            if not self.tor_proc.poll():
-                self.tor_proc.kill()
-            self.tor_proc = None
+        if stop_tor:
+            # Stop tor process
+            if self.tor_proc:
+                self.tor_proc.terminate()
+                time.sleep(0.2)
+                if not self.tor_proc.poll():
+                    try:
+                        self.tor_proc.kill()
+                    except:
+                        pass
+                self.tor_proc = None
 
-        # Reset other Onion settings
-        self.connected_to_tor = False
-        self.stealth = False
-        self.service_id = None
+            # Reset other Onion settings
+            self.connected_to_tor = False
+            self.stealth = False
 
-        try:
-            # Delete the temporary tor data directory
-            self.tor_data_directory.cleanup()
-        except AttributeError:
-            # Skip if cleanup was somehow run before connect
-            pass
+            try:
+                # Delete the temporary tor data directory
+                self.tor_data_directory.cleanup()
+            except AttributeError:
+                # Skip if cleanup was somehow run before connect
+                pass
 
     def get_tor_socks_port(self):
         """
