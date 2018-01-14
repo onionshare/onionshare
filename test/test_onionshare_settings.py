@@ -60,6 +60,7 @@ class TestSettings:
             'autoupdate_timestamp': None,
             'save_private_key': False,
             'private_key': '',
+            'slug': '',
             'hidservauth_string': ''
         }
 

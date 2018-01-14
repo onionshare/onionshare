@@ -23,7 +23,7 @@ import os, sys, time, argparse, threading
 from . import strings, common, web
 from .onion import *
 from .onionshare import OnionShare
-
+from .settings import Settings
 
 def main(cwd=None):
     """
@@ -77,6 +77,10 @@ def main(cwd=None):
     if not valid:
         sys.exit()
 
+
+    settings = Settings(config)
+    settings.load()
+
     # Start the Onion object
     onion = Onion()
     try:
@@ -108,7 +112,7 @@ def main(cwd=None):
         print('')
 
     # Start OnionShare http service in new thread
-    t = threading.Thread(target=web.start, args=(app.port, app.stay_open))
+    t = threading.Thread(target=web.start, args=(app.port, app.stay_open, settings.get('slug')))
     t.daemon = True
     t.start()
 
@@ -119,6 +123,12 @@ def main(cwd=None):
         # start shutdown timer thread
         if app.shutdown_timeout > 0:
             app.shutdown_timer.start()
+
+        # Save the web slug if we are using a persistent private key
+        if settings.get('save_private_key'):
+            if not settings.get('slug'):
+                settings.set('slug', web.slug)
+                settings.save()
 
         if(stealth):
             print(strings._("give_this_url_stealth"))
