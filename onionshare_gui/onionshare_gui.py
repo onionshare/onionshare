@@ -136,15 +136,17 @@ class OnionShareGui(QtWidgets.QMainWindow):
         # The server isn't active yet
         self.set_server_active(False)
 
+        # Create the timer
+        self.timer = QtCore.QTimer()
+        self.timer.timeout.connect(self.check_for_requests)
+
         # Start the "Connecting to Tor" dialog, which calls onion.connect()
         tor_con = TorConnectionDialog(self.qtapp, self.settings, self.onion)
         tor_con.canceled.connect(self._tor_connection_canceled)
         tor_con.open_settings.connect(self._tor_connection_open_settings)
         tor_con.start()
 
-        # Check for requests frequently
-        self.timer = QtCore.QTimer()
-        self.timer.timeout.connect(self.check_for_requests)
+        # Start the timer
         self.timer.start(500)
 
         # After connecting to Tor, check for updates
@@ -224,7 +226,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
             # connection. If so, restart the timer.
             if self.onion.is_authenticated():
                 if not self.timer.isActive():
-                    self.timer.start()
+                    self.timer.start(500)
                 # If there were some files listed for sharing, we should be ok to
                 # re-enable the 'Start Sharing' button now.
                 if self.server_status.file_selection.get_num_files() > 0:
