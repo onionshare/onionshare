@@ -445,7 +445,10 @@ class Onion(object):
                 self.auth_string = 'HidServAuth {} {}'.format(onion_host, auth_cookie)
 
         self.settings.save()
-        return onion_host
+        if onion_host is not None:
+            return onion_host
+        else:
+            raise TorErrorProtocolError(strings._('error_tor_protocol_error'))
 
     def cleanup(self, stop_tor=True):
         """
