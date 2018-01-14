@@ -98,8 +98,12 @@ def main(cwd=None):
 
     # Prepare files to share
     print(strings._("preparing_files"))
-    web.set_file_info(filenames)
-    app.cleanup_filenames.append(web.zip_filename)
+    try:
+        web.set_file_info(filenames)
+        app.cleanup_filenames.append(web.zip_filename)
+    except OSError as e:
+        print(e.strerror)
+        sys.exit(1)
 
     # Warn about sending large files over Tor
     if web.zip_filesize >= 157286400:  # 150mb
