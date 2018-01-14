@@ -138,6 +138,7 @@ class SettingsDialog(QtWidgets.QDialog):
         self.tor_bridges_use_custom_label.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
         self.tor_bridges_use_custom_label.setOpenExternalLinks(True)
         self.tor_bridges_use_custom_textbox = QtWidgets.QPlainTextEdit()
+        self.tor_bridges_use_custom_textbox.setMaximumHeight(200)
         self.tor_bridges_use_custom_textbox.setPlaceholderText('[address:port] [identifier]')
 
         tor_bridges_use_custom_textbox_options_layout = QtWidgets.QVBoxLayout()
@@ -236,10 +237,6 @@ class SettingsDialog(QtWidgets.QDialog):
         # Test tor settings button
         self.connection_type_test_button = QtWidgets.QPushButton(strings._('gui_settings_connection_type_test_button', True))
         self.connection_type_test_button.clicked.connect(self.test_tor_clicked)
-        connection_type_test_button_layout = QtWidgets.QHBoxLayout()
-        connection_type_test_button_layout.addWidget(self.connection_type_test_button)
-        connection_type_test_button_group = QtWidgets.QGroupBox()
-        connection_type_test_button_group.setLayout(connection_type_test_button_layout)
 
         # Put the radios into their own group so they are exclusive
         connection_type_radio_group_layout = QtWidgets.QVBoxLayout()
@@ -256,6 +253,7 @@ class SettingsDialog(QtWidgets.QDialog):
         connection_type_group_layout.addWidget(self.connection_type_socket_file_extras)
         connection_type_group_layout.addWidget(self.connection_type_socks)
         connection_type_group_layout.addWidget(self.authenticate_group)
+        connection_type_group_layout.addWidget(self.connection_type_test_button)
         connection_type_group = QtWidgets.QGroupBox()
         connection_type_group.setLayout(connection_type_group_layout)
 
@@ -295,7 +293,6 @@ class SettingsDialog(QtWidgets.QDialog):
         right_col_layout.addWidget(connection_type_radio_group)
         right_col_layout.addWidget(connection_type_group)
         right_col_layout.addWidget(self.connection_type_bridges_radio_group)
-        right_col_layout.addWidget(connection_type_test_button_group)
         right_col_layout.addWidget(self.tor_status)
         right_col_layout.addStretch()
 
@@ -394,8 +391,6 @@ class SettingsDialog(QtWidgets.QDialog):
             self.authenticate_group.hide()
             self.connection_type_socks.hide()
             self.connection_type_bridges_radio_group.show()
-            self.connection_type_bridges_radio_group.adjustSize()
-            self.adjustSize()
 
     def tor_bridges_no_bridges_radio_toggled(self, checked):
         """
@@ -405,8 +400,6 @@ class SettingsDialog(QtWidgets.QDialog):
             self.tor_bridges_use_obfs4_radio.setEnabled(True)
             self.tor_bridges_use_custom_radio.setEnabled(True)
             self.tor_bridges_use_custom_textbox_options.hide()
-            self.connection_type_bridges_radio_group.adjustSize()
-            self.adjustSize()
 
     def tor_bridges_use_obfs4_radio_toggled(self, checked):
         """
@@ -415,8 +408,6 @@ class SettingsDialog(QtWidgets.QDialog):
         if checked:
             self.tor_bridges_use_custom_radio.setEnabled(False)
             self.tor_bridges_use_custom_textbox_options.hide()
-            self.connection_type_bridges_radio_group.adjustSize()
-            self.adjustSize()
 
     def tor_bridges_use_custom_radio_toggled(self, checked):
         """
@@ -425,8 +416,6 @@ class SettingsDialog(QtWidgets.QDialog):
         if checked:
             self.tor_bridges_use_obfs4_radio.setEnabled(False)
             self.tor_bridges_use_custom_textbox_options.show()
-            self.connection_type_bridges_radio_group.adjustSize()
-            self.adjustSize()
 
     def connection_type_automatic_toggled(self, checked):
         """
@@ -436,9 +425,7 @@ class SettingsDialog(QtWidgets.QDialog):
         if checked:
             self.authenticate_group.hide()
             self.connection_type_socks.hide()
-            self.connection_type_bridges_radio_group.adjustSize()
             self.connection_type_bridges_radio_group.hide()
-            self.adjustSize()
 
     def connection_type_control_port_toggled(self, checked):
         """
@@ -450,9 +437,7 @@ class SettingsDialog(QtWidgets.QDialog):
             self.authenticate_group.show()
             self.connection_type_control_port_extras.show()
             self.connection_type_socks.show()
-            self.connection_type_bridges_radio_group.adjustSize()
             self.connection_type_bridges_radio_group.hide()
-            self.adjustSize()
         else:
             self.connection_type_control_port_extras.hide()
 
@@ -467,9 +452,7 @@ class SettingsDialog(QtWidgets.QDialog):
             self.authenticate_group.show()
             self.connection_type_socket_file_extras.show()
             self.connection_type_socks.show()
-            self.connection_type_bridges_radio_group.adjustSize()
             self.connection_type_bridges_radio_group.hide()
-            self.adjustSize()
         else:
             self.connection_type_socket_file_extras.hide()
 
