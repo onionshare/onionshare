@@ -44,6 +44,7 @@
     "gui_copy_hidservauth": "Copy HidServAuth",
     "gui_downloads": "Downloads:",
     "gui_canceled": "Canceled",
+    "gui_reveal_url": "Reveal URL",
     "gui_copied_url": "Copied URL to clipboard",
     "gui_copied_hidservauth": "Copied HidServAuth line to clipboard",
     "gui_starting_server1": "Starting Tor onion service...",

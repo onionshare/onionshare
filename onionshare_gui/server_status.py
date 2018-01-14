@@ -35,10 +35,13 @@ class ServerStatus(QtWidgets.QVBoxLayout):
     STATUS_STOPPED = 0
     STATUS_WORKING = 1
     STATUS_STARTED = 2
+    URL_CONCEALED = 0
+    URL_REVEALED = 1
 
     def __init__(self, qtapp, app, web, file_selection):
         super(ServerStatus, self).__init__()
         self.status = self.STATUS_STOPPED
+        self.url_shown = self.URL_CONCEALED
 
         self.qtapp = qtapp
         self.app = app
@@ -78,17 +81,14 @@ class ServerStatus(QtWidgets.QVBoxLayout):
         server_layout.addWidget(self.server_button)
 
         # url layout
-        url_font = QtGui.QFont()
-        self.url_label = QtWidgets.QLabel()
-        self.url_label.setFont(url_font)
-        self.url_label.setWordWrap(False)
-        self.url_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.reveal_url_button = QtWidgets.QPushButton(strings._('gui_reveal_url', True))
+        self.reveal_url_button.clicked.connect(self.reveal_url_button_clicked)
         self.copy_url_button = QtWidgets.QPushButton(strings._('gui_copy_url', True))
         self.copy_url_button.clicked.connect(self.copy_url)
         self.copy_hidservauth_button = QtWidgets.QPushButton(strings._('gui_copy_hidservauth', True))
         self.copy_hidservauth_button.clicked.connect(self.copy_hidservauth)
         url_layout = QtWidgets.QHBoxLayout()
-        url_layout.addWidget(self.url_label)
+        url_layout.addWidget(self.reveal_url_button)
         url_layout.addWidget(self.copy_url_button)
         url_layout.addWidget(self.copy_hidservauth_button)
 
@@ -137,8 +137,7 @@ class ServerStatus(QtWidgets.QVBoxLayout):
 
         # set the URL fields
         if self.status == self.STATUS_STARTED:
-            self.url_label.setText('http://{0:s}/{1:s}'.format(self.app.onion_host, self.web.slug))
-            self.url_label.show()
+            self.reveal_url_button.show()
             self.copy_url_button.show()
 
             if self.app.stealth:
@@ -150,11 +149,11 @@ class ServerStatus(QtWidgets.QVBoxLayout):
             p = self.parentWidget()
             p.resize(p.sizeHint())
         else:
-            self.url_label.hide()
+            self.reveal_url_button.hide()
             self.copy_url_button.hide()
             self.copy_hidservauth_button.hide()
 
-        # button
+        # server status button
         if self.file_selection.get_num_files() == 0:
             self.server_button.setEnabled(False)
             self.server_button.setText(strings._('gui_start_server', True))
@@ -179,6 +178,12 @@ class ServerStatus(QtWidgets.QVBoxLayout):
                 self.server_button.setText(strings._('gui_please_wait'))
                 self.server_shutdown_timeout.setEnabled(False)
                 self.server_shutdown_timeout_checkbox.setEnabled(False)
+
+        # reveal button
+        if self.url_shown == self.URL_REVEALED:
+            self.reveal_url_button.setText('http://{0:s}/{1:s}'.format(self.app.onion_host, self.web.slug))
+        else:
+            self.reveal_url_button.setText(strings._('gui_reveal_url', True))
 
     def server_button_clicked(self):
         """
@@ -228,6 +233,20 @@ class ServerStatus(QtWidgets.QVBoxLayout):
         The server has finished stopping.
         """
         self.status = self.STATUS_STOPPED
+        self.update()
+
+    def reveal_url_button_clicked(self):
+        """
+        Toggle the 'Reveal URL' button to either
+        show the Onion URL or hide it
+        """
+        if self.url_shown == self.URL_CONCEALED:
+            self.url_shown = self.URL_REVEALED
+            common.log('ServerStatus', 'reveal_url_button_clicked', 'URL was revealed over button')
+        else:
+            self.url_shown = self.URL_CONCEALED
+            common.log('ServerStatus', 'reveal_url_button_clicked', 'URL was concealed behind button')
+
         self.update()
 
     def copy_url(self):
