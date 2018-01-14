@@ -130,22 +130,24 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.setCentralWidget(central_widget)
         self.show()
 
-        # Check for requests frequently
-        self.timer = QtCore.QTimer()
-        self.timer.timeout.connect(self.check_for_requests)
-        self.timer.start(500)
-
         # Always start with focus on file selection
         self.file_selection.setFocus()
 
         # The server isn't active yet
         self.set_server_active(False)
 
+        # Create the timer
+        self.timer = QtCore.QTimer()
+        self.timer.timeout.connect(self.check_for_requests)
+
         # Start the "Connecting to Tor" dialog, which calls onion.connect()
         tor_con = TorConnectionDialog(self.qtapp, self.settings, self.onion)
         tor_con.canceled.connect(self._tor_connection_canceled)
         tor_con.open_settings.connect(self._tor_connection_open_settings)
         tor_con.start()
+
+        # Start the timer
+        self.timer.start(500)
 
         # After connecting to Tor, check for updates
         self.check_for_updates()
@@ -219,6 +221,17 @@ class OnionShareGui(QtWidgets.QMainWindow):
         def reload_settings():
             common.log('OnionShareGui', 'open_settings', 'settings have changed, reloading')
             self.settings.load()
+            # We might've stopped the main requests timer if a Tor connection failed.
+            # If we've reloaded settings, we probably succeeded in obtaining a new
+            # connection. If so, restart the timer.
+            if self.onion.is_authenticated():
+                if not self.timer.isActive():
+                    self.timer.start(500)
+                # If there were some files listed for sharing, we should be ok to
+                # re-enable the 'Start Sharing' button now.
+                if self.server_status.file_selection.get_num_files() > 0:
+                    self.server_status.server_button.setEnabled(True)
+                self.status_bar.clearMessage()
 
         d = SettingsDialog(self.onion, self.qtapp, self.config)
         d.settings_saved.connect(reload_settings)
@@ -397,6 +410,16 @@ class OnionShareGui(QtWidgets.QMainWindow):
         Check for messages communicated from the web app, and update the GUI accordingly.
         """
         self.update()
+
+        # Have we lost connection to Tor somehow?
+        if not self.onion.is_authenticated():
+            self.timer.stop()
+            if self.server_status.status != self.server_status.STATUS_STOPPED:
+                self.server_status.stop_server()
+            self.server_status.server_button.setEnabled(False)
+            self.status_bar.showMessage(strings._('gui_tor_connection_lost', True))
+            if self.systemTray.supportsMessages() and self.settings.get('systray_notifications'):
+                self.systemTray.showMessage(strings._('gui_tor_connection_lost', True), strings._('gui_tor_connection_error_settings', True))
 
         # scroll to the bottom of the dl progress bar log pane
         # if a new download has been added
