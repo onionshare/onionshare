@@ -18,7 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 from PyQt5 import QtCore, QtWidgets, QtGui
-import sys, platform, datetime
+import sys, platform, datetime, re
 
 from onionshare import strings, common
 from onionshare.settings import Settings
@@ -688,11 +688,20 @@ class SettingsDialog(QtWidgets.QDialog):
             # provided from https://bridges.torproject.org
             new_bridges = []
             bridges = self.tor_bridges_use_custom_textbox.toPlainText().split('\n')
+            bridges_valid = False
             for bridge in bridges:
                 if bridge != '':
-                    new_bridges.append(''.join(['Bridge ', bridge, '\n']))
-            new_bridges = ''.join(new_bridges)
-            settings.set('tor_bridges_use_custom_bridges', new_bridges)
+                    # Check the syntax of the custom bridge to make sure it looks legitimate
+                    pattern = re.compile("[0-9.]+:[0-9]+\s[A-Z0-9]+$")
+                    if pattern.match(bridge):
+                        new_bridges.append(''.join(['Bridge ', bridge, '\n']))
+                        bridges_valid = True
+            if bridges_valid:
+                new_bridges = ''.join(new_bridges)
+                settings.set('tor_bridges_use_custom_bridges', new_bridges)
+            else:
+                Alert(strings._('gui_settings_tor_bridges_invalid', True))
+                settings.set('no_bridges', True)
 
         return settings
 
