@@ -135,6 +135,8 @@ class SettingsDialog(QtWidgets.QDialog):
         self.tor_bridges_use_custom_radio.toggled.connect(self.tor_bridges_use_custom_radio_toggled)
 
         self.tor_bridges_use_custom_label = QtWidgets.QLabel(strings._('gui_settings_tor_bridges_custom_label', True))
+        self.tor_bridges_use_custom_label.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
+        self.tor_bridges_use_custom_label.setOpenExternalLinks(True)
         self.tor_bridges_use_custom_textbox = QtWidgets.QPlainTextEdit()
         self.tor_bridges_use_custom_textbox.setPlaceholderText('[address:port] [identifier]')
 
