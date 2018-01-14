@@ -254,8 +254,8 @@ class Onion(object):
                     break
                 time.sleep(0.2)
 
-                # Timeout after 45 seconds
-                if time.time() - start_ts > 45:
+                # Timeout after 90 seconds
+                if time.time() - start_ts > 90:
                     print("")
                     self.tor_proc.terminate()
                     raise BundledTorTimeout(strings._('settings_error_bundled_tor_timeout'))
@@ -375,6 +375,17 @@ class Onion(object):
             # ephemeral stealth onion services are not supported
             self.supports_stealth = False
 
+
+    def is_authenticated(self):
+        """
+        Returns True if the Tor connection is still working, or False otherwise.
+        """
+        if self.c is not None:
+            return self.c.is_authenticated()
+        else:
+            return False
+
+
     def start_onion_service(self, port):
         """
         Start a onion service on port 80, pointing to the given port, and
@@ -419,7 +430,7 @@ class Onion(object):
         except ProtocolError:
             raise TorErrorProtocolError(strings._('error_tor_protocol_error'))
 
-        self.service_id = res.content()[0][2].split('=')[1]
+        self.service_id = res.service_id
         onion_host = self.service_id + '.onion'
 
         # A new private key was generated and is in the Control port response.

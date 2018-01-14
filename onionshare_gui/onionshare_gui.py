@@ -136,22 +136,24 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.setCentralWidget(central_widget)
         self.show()
 
-        # Check for requests frequently
-        self.timer = QtCore.QTimer()
-        self.timer.timeout.connect(self.check_for_requests)
-        self.timer.start(500)
-
         # Always start with focus on file selection
         self.file_selection.setFocus()
 
         # The server isn't active yet
         self.set_server_active(False)
 
+        # Create the timer
+        self.timer = QtCore.QTimer()
+        self.timer.timeout.connect(self.check_for_requests)
+
         # Start the "Connecting to Tor" dialog, which calls onion.connect()
         tor_con = TorConnectionDialog(self.qtapp, self.settings, self.onion)
         tor_con.canceled.connect(self._tor_connection_canceled)
         tor_con.open_settings.connect(self._tor_connection_open_settings)
         tor_con.start()
+
+        # Start the timer
+        self.timer.start(500)
 
         # After connecting to Tor, check for updates
         self.check_for_updates()
@@ -225,6 +227,17 @@ class OnionShareGui(QtWidgets.QMainWindow):
         def reload_settings():
             common.log('OnionShareGui', 'open_settings', 'settings have changed, reloading')
             self.settings.load()
+            # We might've stopped the main requests timer if a Tor connection failed.
+            # If we've reloaded settings, we probably succeeded in obtaining a new
+            # connection. If so, restart the timer.
+            if self.onion.is_authenticated():
+                if not self.timer.isActive():
+                    self.timer.start(500)
+                # If there were some files listed for sharing, we should be ok to
+                # re-enable the 'Start Sharing' button now.
+                if self.server_status.file_selection.get_num_files() > 0:
+                    self.server_status.server_button.setEnabled(True)
+                self.status_bar.clearMessage()
 
         d = SettingsDialog(self.onion, self.qtapp, self.config)
         d.settings_saved.connect(reload_settings)
@@ -244,6 +257,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         # Hide and reset the downloads if we have previously shared
         self.downloads_container.hide()
         self.downloads.reset_downloads()
+        self.status_bar.clearMessage()
 
         # Reset web counters
         web.download_count = 0
@@ -284,7 +298,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self._zip_progress_bar = ZipProgressBar(0)
         self._zip_progress_bar.total_files_size = OnionShareGui._compute_total_size(
             self.file_selection.file_list.filenames)
-        self.status_bar.clearMessage()
         self.status_bar.insertWidget(0, self._zip_progress_bar)
 
         # prepare the files for sending in a new thread
@@ -293,12 +306,16 @@ class OnionShareGui(QtWidgets.QMainWindow):
             def _set_processed_size(x):
                 if self._zip_progress_bar != None:
                     self._zip_progress_bar.update_processed_size_signal.emit(x)
-            web.set_file_info(self.file_selection.file_list.filenames, processed_size_callback=_set_processed_size)
-            self.app.cleanup_filenames.append(web.zip_filename)
-            self.starting_server_step3.emit()
+            try:
+                web.set_file_info(self.file_selection.file_list.filenames, processed_size_callback=_set_processed_size)
+                self.app.cleanup_filenames.append(web.zip_filename)
+                self.starting_server_step3.emit()
 
-            # done
-            self.start_server_finished.emit()
+                # done
+                self.start_server_finished.emit()
+            except OSError as e:
+                self.starting_server_error.emit(e.strerror)
+                return
 
         #self.status_bar.showMessage(strings._('gui_starting_server2', True))
         t = threading.Thread(target=finish_starting_server, kwargs={'self': self})
@@ -348,6 +365,9 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         Alert(error, QtWidgets.QMessageBox.Warning)
         self.server_status.stop_server()
+        if self._zip_progress_bar is not None:
+            self.status_bar.removeWidget(self._zip_progress_bar)
+            self._zip_progress_bar = None
         self.status_bar.clearMessage()
 
     def stop_server(self):
@@ -400,6 +420,16 @@ class OnionShareGui(QtWidgets.QMainWindow):
         Check for messages communicated from the web app, and update the GUI accordingly.
         """
         self.update()
+
+        # Have we lost connection to Tor somehow?
+        if not self.onion.is_authenticated():
+            self.timer.stop()
+            if self.server_status.status != self.server_status.STATUS_STOPPED:
+                self.server_status.stop_server()
+            self.server_status.server_button.setEnabled(False)
+            self.status_bar.showMessage(strings._('gui_tor_connection_lost', True))
+            if self.systemTray.supportsMessages() and self.settings.get('systray_notifications'):
+                self.systemTray.showMessage(strings._('gui_tor_connection_lost', True), strings._('gui_tor_connection_error_settings', True))
 
         # scroll to the bottom of the dl progress bar log pane
         # if a new download has been added
