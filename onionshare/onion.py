@@ -406,7 +406,7 @@ class Onion(object):
         except ProtocolError:
             raise TorErrorProtocolError(strings._('error_tor_protocol_error'))
 
-        self.service_id = res.content()[0][2].split('=')[1]
+        self.service_id = res.service_id
         onion_host = self.service_id + '.onion'
 
         if self.stealth:
