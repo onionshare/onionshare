@@ -229,6 +229,7 @@ class FileSelection(QtWidgets.QVBoxLayout):
             itemrow = self.file_list.row(item)
             self.file_list.filenames.pop(itemrow)
             self.file_list.takeItem(itemrow)
+        self.file_list.files_updated.emit()
         self.update()
 
     def server_started(self):
