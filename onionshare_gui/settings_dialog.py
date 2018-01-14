@@ -60,10 +60,29 @@ class SettingsDialog(QtWidgets.QDialog):
         self.systray_notifications_checkbox.setCheckState(QtCore.Qt.Checked)
         self.systray_notifications_checkbox.setText(strings._("gui_settings_systray_notifications", True))
 
+        # Whether or not to use different temporary folder
+        self.different_temporary_folder_checkbox = QtWidgets.QCheckBox()
+        self.different_temporary_folder_checkbox.setCheckState(QtCore.Qt.Checked)
+        self.different_temporary_folder_checkbox.setText(strings._("gui_settings_different_temporary_folder", True))
+        self.different_temporary_folder_checkbox.stateChanged.connect(self.different_temporary_folder_checkbox_stateChanged)
+        self.different_temporary_folder_label = QtWidgets.QLabel()
+        self.different_temporary_folder_button = QtWidgets.QPushButton(strings._('gui_settings_different_temporary_folder_button', True))
+        self.different_temporary_folder_button.clicked.connect(self.different_temporary_folder_button_clicked)
+        
+        # Temporary folder layout
+        temporary_folder_layout = QtWidgets.QHBoxLayout()
+        temporary_folder_layout.addWidget(self.different_temporary_folder_button)
+        temporary_folder_layout.addWidget(self.different_temporary_folder_label)
+        self.temporary_folder_widget = QtWidgets.QWidget()
+        self.temporary_folder_widget.setLayout(temporary_folder_layout)
+        self.temporary_folder_widget.hide()
+
         # Sharing options layout
         sharing_group_layout = QtWidgets.QVBoxLayout()
         sharing_group_layout.addWidget(self.close_after_first_download_checkbox)
         sharing_group_layout.addWidget(self.systray_notifications_checkbox)
+        sharing_group_layout.addWidget(self.different_temporary_folder_checkbox)
+        sharing_group_layout.addWidget(self.temporary_folder_widget)
         sharing_group = QtWidgets.QGroupBox(strings._("gui_settings_sharing_label", True))
         sharing_group.setLayout(sharing_group_layout)
 
@@ -277,6 +296,15 @@ class SettingsDialog(QtWidgets.QDialog):
         else:
             self.systray_notifications_checkbox.setCheckState(QtCore.Qt.Unchecked)
 
+        different_temporary_folder = self.old_settings.get('different_temporary_folder')
+        if different_temporary_folder:
+            self.different_temporary_folder_label.setText(different_temporary_folder)
+            self.different_temporary_folder_checkbox.setCheckState(QtCore.Qt.Checked)
+            self.temporary_folder_widget.show()
+        else:
+            self.different_temporary_folder_checkbox.setCheckState(QtCore.Qt.Unchecked)
+        self._update_different_temporary_folder = different_temporary_folder
+
         use_stealth = self.old_settings.get('use_stealth')
         if use_stealth:
             self.stealth_checkbox.setCheckState(QtCore.Qt.Checked)
@@ -316,6 +344,31 @@ class SettingsDialog(QtWidgets.QDialog):
         elif auth_type == 'password':
             self.authenticate_password_radio.setChecked(True)
         self.authenticate_password_extras_password.setText(self.old_settings.get('auth_password'))
+
+    def different_temporary_folder_checkbox_stateChanged(self, state):
+        """
+        Different temporary folder checkbox was toggled. If checked, show controls for changing temporary folder.
+        If unchecked, hide them.
+        """
+        common.log('SettingsDialog', 'different_temporary_folder_checkbox_stateChanged')
+        if state:
+            self.temporary_folder_widget.show()
+            if not self.different_temporary_folder_label.text():
+                self.different_temporary_folder_button_clicked()
+        else:
+            self.temporary_folder_widget.hide()
+
+    def different_temporary_folder_button_clicked(self):
+        """
+        Different temporary folder button was clicked. Show dialog for selecting temporary folder.
+        """
+        tmpdir = str(QtWidgets.QFileDialog.getExistingDirectory(self,"Select Directory"))
+        self.different_temporary_folder_label.setText(tmpdir)
+        if not tmpdir:
+            self.different_temporary_folder_checkbox.setCheckState(QtCore.Qt.Unchecked)
+            self._update_different_temporary_folder = None
+        else:
+            self._update_different_temporary_folder = tmpdir
 
     def connection_type_bundled_toggled(self, checked):
         """
@@ -533,6 +586,7 @@ class SettingsDialog(QtWidgets.QDialog):
 
         settings.set('close_after_first_download', self.close_after_first_download_checkbox.isChecked())
         settings.set('systray_notifications', self.systray_notifications_checkbox.isChecked())
+        settings.set('different_temporary_folder', self._update_different_temporary_folder)
         settings.set('use_stealth', self.stealth_checkbox.isChecked())
 
         if self.connection_type_bundled_radio.isChecked():

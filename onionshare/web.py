@@ -67,7 +67,7 @@ security_headers = [
 ]
 
 
-def set_file_info(filenames, processed_size_callback=None):
+def set_file_info(filenames, processed_size_callback=None, tmpdir=None):
     """
     Using the list of filenames being shared, fill in details that the web
     page will need to display. This includes zipping up the file in order to
@@ -94,7 +94,7 @@ def set_file_info(filenames, processed_size_callback=None):
     file_info['dirs'] = sorted(file_info['dirs'], key=lambda k: k['basename'])
 
     # zip up the files and folders
-    z = common.ZipWriter(processed_size_callback=processed_size_callback)
+    z = common.ZipWriter(processed_size_callback=processed_size_callback, tmpdir=tmpdir)
     for info in file_info['files']:
         z.add_file(info['filename'])
     for info in file_info['dirs']:

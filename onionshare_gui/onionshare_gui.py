@@ -301,7 +301,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
                 if self._zip_progress_bar != None:
                     self._zip_progress_bar.update_processed_size_signal.emit(x)
             try:
-                web.set_file_info(self.file_selection.file_list.filenames, processed_size_callback=_set_processed_size)
+                web.set_file_info(self.file_selection.file_list.filenames, processed_size_callback=_set_processed_size, tmpdir=self.onion.settings.get('different_temporary_folder'))
                 self.app.cleanup_filenames.append(web.zip_filename)
                 self.starting_server_step3.emit()
 

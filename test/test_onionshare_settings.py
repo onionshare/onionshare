@@ -57,7 +57,8 @@ class TestSettings:
             'systray_notifications': True,
             'use_stealth': False,
             'use_autoupdate': True,
-            'autoupdate_timestamp': None
+            'autoupdate_timestamp': None,
+            'different_temporary_folder': None
         }
 
     def test_fill_in_defaults(self, settings_obj):
