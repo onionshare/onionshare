@@ -570,10 +570,12 @@ class SettingsDialog(QtWidgets.QDialog):
         if self.save_private_key_checkbox.isChecked():
             settings.set('save_private_key', True)
             settings.set('private_key', self.old_settings.get('private_key'))
+            settings.set('slug', self.old_settings.get('slug'))
             settings.set('hidservauth_string', self.old_settings.get('hidservauth_string'))
         else:
             settings.set('save_private_key', False)
             settings.set('private_key', '')
+            settings.set('slug', '')
             # Also unset the HidServAuth if we are removing our reusable private key
             settings.set('hidservauth_string', '')
         settings.set('use_stealth', self.stealth_checkbox.isChecked())
