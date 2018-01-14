@@ -64,7 +64,7 @@ class TorConnectionDialog(QtWidgets.QProgressDialog):
         t.error_connecting_to_tor.connect(self._error_connecting_to_tor)
         t.start()
 
-        # The main thread needs to remain active, and checkign for Qt events,
+        # The main thread needs to remain active, and checking for Qt events,
         # until the thread is finished. Otherwise it won't be able to handle
         # accepting signals.
         self.active = True
@@ -86,6 +86,7 @@ class TorConnectionDialog(QtWidgets.QProgressDialog):
     def _canceled_connecting_to_tor(self):
         common.log('TorConnectionDialog', '_canceled_connecting_to_tor')
         self.active = False
+        self.onion.cleanup()
 
         # Cancel connecting to Tor
         QtCore.QTimer.singleShot(1, self.cancel)
