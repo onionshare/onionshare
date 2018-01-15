@@ -1,10 +1,11 @@
 FROM python:3
 
+ADD ./install/requirements.txt /usr/src/app/install/requirements.txt
+WORKDIR /usr/src/app/
 RUN \
-  pip3 install pyinstaller flask stem
+  pip3 install -r ./install/requirements.txt
 
 ADD . /usr/src/app/
-WORKDIR /usr/src/app/
 
-ENTRYPOINT [ "./install/scripts/onionshare" ]
+ENTRYPOINT [ "./dev_scripts/onionshare" ]
 CMD [ "--help" ]
