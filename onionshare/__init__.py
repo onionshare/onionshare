@@ -68,7 +68,7 @@ def main(cwd=None):
     # Validation
     valid = True
     for filename in filenames:
-        if not os.path.exists(filename):
+        if not os.path.isfile(filename) and not os.path.isdir(filename):
             print(strings._("not_a_file").format(filename))
             valid = False
         if not os.access(filename, os.R_OK):
@@ -102,8 +102,12 @@ def main(cwd=None):
 
     # Prepare files to share
     print(strings._("preparing_files"))
-    web.set_file_info(filenames)
-    app.cleanup_filenames.append(web.zip_filename)
+    try:
+        web.set_file_info(filenames)
+        app.cleanup_filenames.append(web.zip_filename)
+    except OSError as e:
+        print(e.strerror)
+        sys.exit(1)
 
     # Warn about sending large files over Tor
     if web.zip_filesize >= 157286400:  # 150mb
