@@ -129,6 +129,7 @@ class SettingsDialog(QtWidgets.QDialog):
 
         # OBFS4 option radio
         self.tor_bridges_use_obfs4_radio = QtWidgets.QRadioButton(strings._('gui_settings_tor_bridges_obfs4_radio_option', True))
+        self.tor_bridges_use_obfs4_radio.toggled.connect(self.tor_bridges_use_obfs4_radio_toggled)
 
         # Custom bridges radio and textbox
         self.tor_bridges_use_custom_radio = QtWidgets.QRadioButton(strings._('gui_settings_tor_bridges_custom_radio_option', True))
@@ -397,8 +398,6 @@ class SettingsDialog(QtWidgets.QDialog):
         'No bridges' option was toggled. If checked, enable other bridge options.
         """
         if checked:
-            self.tor_bridges_use_obfs4_radio.setEnabled(True)
-            self.tor_bridges_use_custom_radio.setEnabled(True)
             self.tor_bridges_use_custom_textbox_options.hide()
 
     def tor_bridges_use_obfs4_radio_toggled(self, checked):
@@ -406,7 +405,6 @@ class SettingsDialog(QtWidgets.QDialog):
         obfs4 bridges option was toggled. If checked, disable custom bridge options.
         """
         if checked:
-            self.tor_bridges_use_custom_radio.setEnabled(False)
             self.tor_bridges_use_custom_textbox_options.hide()
 
     def tor_bridges_use_custom_radio_toggled(self, checked):
@@ -414,7 +412,6 @@ class SettingsDialog(QtWidgets.QDialog):
         Custom bridges option was toggled. If checked, show custom bridge options.
         """
         if checked:
-            self.tor_bridges_use_obfs4_radio.setEnabled(False)
             self.tor_bridges_use_custom_textbox_options.show()
 
     def connection_type_automatic_toggled(self, checked):
