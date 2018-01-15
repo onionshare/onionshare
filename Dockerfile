@@ -8,4 +8,3 @@ RUN \
 ADD . /usr/src/app/
 
 ENTRYPOINT [ "./dev_scripts/onionshare" ]
-CMD [ "--help" ]
