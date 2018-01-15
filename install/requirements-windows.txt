@@ -5,7 +5,7 @@ itsdangerous==0.24
 Jinja2==2.9.5
 MarkupSafe==0.23
 pefile==2016.3.28
-PyInstaller==3.2.1
+PyInstaller==3.3.1
 pypiwin32==219
 PyQt5==5.8
 PySocks==1.6.7
