@@ -114,6 +114,9 @@ class SettingsDialog(QtWidgets.QDialog):
         # Check for updates button
         self.check_for_updates_button = QtWidgets.QPushButton(strings._('gui_settings_autoupdate_check_button', True))
         self.check_for_updates_button.clicked.connect(self.check_for_updates)
+        # We can't check for updates if not connected to Tor
+        if not self.onion.connected_to_tor:
+            self.check_for_updates_button.setEnabled(False)
 
         # Autoupdate options layout
         autoupdate_group_layout = QtWidgets.QVBoxLayout()
@@ -645,8 +648,11 @@ class SettingsDialog(QtWidgets.QDialog):
 
     def _enable_buttons(self):
         common.log('SettingsDialog', '_enable_buttons')
-
-        self.check_for_updates_button.setEnabled(True)
+        # We can't check for updates if we're still not connected to Tor
+        if not self.onion.connected_to_tor:
+            self.check_for_updates_button.setEnabled(False)
+        else:
+            self.check_for_updates_button.setEnabled(True)
         self.connection_type_test_button.setEnabled(True)
         self.save_button.setEnabled(True)
         self.cancel_button.setEnabled(True)
