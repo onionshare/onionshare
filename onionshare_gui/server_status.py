@@ -21,7 +21,7 @@ import platform
 from .alert import Alert
 from PyQt5 import QtCore, QtWidgets, QtGui
 
-from onionshare import strings, common
+from onionshare import strings, common, settings
 
 class ServerStatus(QtWidgets.QVBoxLayout):
     """
@@ -36,7 +36,7 @@ class ServerStatus(QtWidgets.QVBoxLayout):
     STATUS_WORKING = 1
     STATUS_STARTED = 2
 
-    def __init__(self, qtapp, app, web, file_selection):
+    def __init__(self, qtapp, app, web, file_selection, settings):
         super(ServerStatus, self).__init__()
         self.status = self.STATUS_STOPPED
 
@@ -44,6 +44,8 @@ class ServerStatus(QtWidgets.QVBoxLayout):
         self.app = app
         self.web = web
         self.file_selection = file_selection
+
+        self.settings = settings
 
         # Helper boolean as this is used in a few places
         self.timer_enabled = False
@@ -140,6 +142,11 @@ class ServerStatus(QtWidgets.QVBoxLayout):
             self.url_label.setText('http://{0:s}/{1:s}'.format(self.app.onion_host, self.web.slug))
             self.url_label.show()
             self.copy_url_button.show()
+
+            if self.settings.get('save_private_key'):
+                if not self.settings.get('slug'):
+                    self.settings.set('slug', self.web.slug)
+                    self.settings.save()
 
             if self.app.stealth:
                 self.copy_hidservauth_button.show()

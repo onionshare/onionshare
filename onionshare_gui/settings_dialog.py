@@ -60,10 +60,16 @@ class SettingsDialog(QtWidgets.QDialog):
         self.systray_notifications_checkbox.setCheckState(QtCore.Qt.Checked)
         self.systray_notifications_checkbox.setText(strings._("gui_settings_systray_notifications", True))
 
+        # Whether or not to save the Onion private key for reuse
+        self.save_private_key_checkbox = QtWidgets.QCheckBox()
+        self.save_private_key_checkbox.setCheckState(QtCore.Qt.Unchecked)
+        self.save_private_key_checkbox.setText(strings._("gui_save_private_key_checkbox", True))
+
         # Sharing options layout
         sharing_group_layout = QtWidgets.QVBoxLayout()
         sharing_group_layout.addWidget(self.close_after_first_download_checkbox)
         sharing_group_layout.addWidget(self.systray_notifications_checkbox)
+        sharing_group_layout.addWidget(self.save_private_key_checkbox)
         sharing_group = QtWidgets.QGroupBox(strings._("gui_settings_sharing_label", True))
         sharing_group.setLayout(sharing_group_layout)
 
@@ -78,10 +84,20 @@ class SettingsDialog(QtWidgets.QDialog):
         self.stealth_checkbox.setCheckState(QtCore.Qt.Unchecked)
         self.stealth_checkbox.setText(strings._("gui_settings_stealth_option", True))
 
+        hidservauth_details = QtWidgets.QLabel(strings._('gui_settings_stealth_hidservauth_string', True))
+        hidservauth_details.setWordWrap(True)
+        hidservauth_details.hide()
+
+        self.hidservauth_copy_button = QtWidgets.QPushButton(strings._('gui_copy_hidservauth', True))
+        self.hidservauth_copy_button.clicked.connect(self.hidservauth_copy_button_clicked)
+        self.hidservauth_copy_button.hide()
+
         # Stealth options layout
         stealth_group_layout = QtWidgets.QVBoxLayout()
         stealth_group_layout.addWidget(stealth_details)
         stealth_group_layout.addWidget(self.stealth_checkbox)
+        stealth_group_layout.addWidget(hidservauth_details)
+        stealth_group_layout.addWidget(self.hidservauth_copy_button)
         stealth_group = QtWidgets.QGroupBox(strings._("gui_settings_stealth_label", True))
         stealth_group.setLayout(stealth_group_layout)
 
@@ -277,9 +293,18 @@ class SettingsDialog(QtWidgets.QDialog):
         else:
             self.systray_notifications_checkbox.setCheckState(QtCore.Qt.Unchecked)
 
+        save_private_key = self.old_settings.get('save_private_key')
+        if save_private_key:
+            self.save_private_key_checkbox.setCheckState(QtCore.Qt.Checked)
+        else:
+            self.save_private_key_checkbox.setCheckState(QtCore.Qt.Unchecked)
+
         use_stealth = self.old_settings.get('use_stealth')
         if use_stealth:
             self.stealth_checkbox.setCheckState(QtCore.Qt.Checked)
+            if save_private_key:
+                hidservauth_details.show()
+                self.hidservauth_copy_button.show()
         else:
             self.stealth_checkbox.setCheckState(QtCore.Qt.Unchecked)
 
@@ -378,6 +403,15 @@ class SettingsDialog(QtWidgets.QDialog):
             self.authenticate_password_extras.show()
         else:
             self.authenticate_password_extras.hide()
+
+    def hidservauth_copy_button_clicked(self):
+        """
+        Toggle the 'Copy HidServAuth' button
+        to copy the saved HidServAuth to clipboard.
+        """
+        common.log('SettingsDialog', 'hidservauth_copy_button_clicked', 'HidServAuth was copied to clipboard')
+        clipboard = self.qtapp.clipboard()
+        clipboard.setText(self.old_settings.get('hidservauth_string'))
 
     def test_tor_clicked(self):
         """
@@ -533,7 +567,21 @@ class SettingsDialog(QtWidgets.QDialog):
 
         settings.set('close_after_first_download', self.close_after_first_download_checkbox.isChecked())
         settings.set('systray_notifications', self.systray_notifications_checkbox.isChecked())
+        if self.save_private_key_checkbox.isChecked():
+            settings.set('save_private_key', True)
+            settings.set('private_key', self.old_settings.get('private_key'))
+            settings.set('slug', self.old_settings.get('slug'))
+            settings.set('hidservauth_string', self.old_settings.get('hidservauth_string'))
+        else:
+            settings.set('save_private_key', False)
+            settings.set('private_key', '')
+            settings.set('slug', '')
+            # Also unset the HidServAuth if we are removing our reusable private key
+            settings.set('hidservauth_string', '')
         settings.set('use_stealth', self.stealth_checkbox.isChecked())
+        # Always unset the HidServAuth if Stealth mode is unset
+        if not self.stealth_checkbox.isChecked():
+            settings.set('hidservauth_string', '')
 
         if self.connection_type_bundled_radio.isChecked():
             settings.set('connection_type', 'bundled')

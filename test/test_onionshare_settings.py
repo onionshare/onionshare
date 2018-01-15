@@ -57,7 +57,11 @@ class TestSettings:
             'systray_notifications': True,
             'use_stealth': False,
             'use_autoupdate': True,
-            'autoupdate_timestamp': None
+            'autoupdate_timestamp': None,
+            'save_private_key': False,
+            'private_key': '',
+            'slug': '',
+            'hidservauth_string': ''
         }
 
     def test_fill_in_defaults(self, settings_obj):

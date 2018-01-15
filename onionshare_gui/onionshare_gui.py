@@ -69,7 +69,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
                 self.file_selection.file_list.add_file(filename)
 
         # Server status
-        self.server_status = ServerStatus(self.qtapp, self.app, web, self.file_selection)
+        self.server_status = ServerStatus(self.qtapp, self.app, web, self.file_selection, self.settings)
         self.server_status.server_started.connect(self.file_selection.server_started)
         self.server_status.server_started.connect(self.start_server)
         self.server_status.server_stopped.connect(self.file_selection.server_stopped)
@@ -119,11 +119,17 @@ class OnionShareGui(QtWidgets.QMainWindow):
         # Status bar, zip progress bar
         self._zip_progress_bar = None
 
+        # Persistent URL notification
+        self.persistent_url_label = QtWidgets.QLabel(strings._('persistent_url_in_use', True))
+        self.persistent_url_label.setStyleSheet('padding: 10px 0; font-weight: bold; color: #333333;')
+        self.persistent_url_label.hide()
+
         # Main layout
         self.layout = QtWidgets.QVBoxLayout()
         self.layout.addLayout(self.file_selection)
         self.layout.addLayout(self.server_status)
         self.layout.addWidget(self.filesize_warning)
+        self.layout.addWidget(self.persistent_url_label)
         self.layout.addWidget(self.downloads_container)
         central_widget = QtWidgets.QWidget()
         central_widget.setLayout(self.layout)
@@ -272,7 +278,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
             self.app.stay_open = not self.settings.get('close_after_first_download')
 
             # start onionshare http service in new thread
-            t = threading.Thread(target=web.start, args=(self.app.port, self.app.stay_open))
+            t = threading.Thread(target=web.start, args=(self.app.port, self.app.stay_open, self.settings.get('slug')))
             t.daemon = True
             t.start()
             # wait for modules in thread to load, preventing a thread-related cx_Freeze crash
@@ -346,6 +352,9 @@ class OnionShareGui(QtWidgets.QMainWindow):
                 self.stop_server()
                 self.start_server_error(strings._('gui_server_started_after_timeout'))
 
+        if self.settings.get('save_private_key'):
+            self.persistent_url_label.show()
+
     def start_server_error(self, error):
         """
         If there's an error when trying to start the onion service
@@ -377,6 +386,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         # Remove ephemeral service, but don't disconnect from Tor
         self.onion.cleanup(stop_tor=False)
         self.filesize_warning.hide()
+        self.persistent_url_label.hide()
         self.stop_server_finished.emit()
 
         self.set_server_active(False)
