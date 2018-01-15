@@ -140,7 +140,7 @@ class Onion(object):
             self.bundle_tor_supported = True
 
         # Set the path of the tor binary, for bundled tor
-        (self.tor_path, self.tor_geo_ip_file_path, self.tor_geo_ipv6_file_path) = common.get_tor_paths()
+        (self.tor_path, self.tor_geo_ip_file_path, self.tor_geo_ipv6_file_path, self.obfs4proxy_file_path) = common.get_tor_paths()
 
         # The tor process
         self.tor_proc = None
@@ -207,7 +207,7 @@ class Onion(object):
 
                 # Bridge support
                 if self.settings.get('tor_bridges_use_obfs4'):
-                    f.write('\n')
+                    f.write('ClientTransportPlugin obfs4 exec {}\n'.format(self.obfs4proxy_file_path))
                     with open(common.get_resource_path('torrc_template-obfs4')) as o:
                         for line in o:
                             f.write(line)
