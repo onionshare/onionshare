@@ -67,6 +67,7 @@
     "gui_settings_stealth_label": "Stealth (advanced)",
     "gui_settings_stealth_option": "Create stealth onion services",
     "gui_settings_stealth_option_details": "This makes OnionShare more secure, but also more difficult for the recipient to connect to it.<br><a href=\"https://github.com/micahflee/onionshare/wiki/Stealth-Onion-Services\">More information</a>.",
+    "gui_settings_stealth_hidservauth_string": "You have saved the private key for reuse, so your HidServAuth string is also reused.\nClick below to copy the HidServAuth.",
     "gui_settings_autoupdate_label": "Check for updates",
     "gui_settings_autoupdate_option": "Notify me when updates are available",
     "gui_settings_autoupdate_timestamp": "Last checked: {}",
@@ -122,5 +123,7 @@
     "gui_tor_connection_lost": "Disconnected from Tor.",
     "gui_server_started_after_timeout": "The server started after your chosen auto-timeout.\nPlease start a new share.",
     "gui_server_timeout_expired": "The chosen timeout has already expired.\nPlease update the timeout and then you may start sharing.",
-    "share_via_onionshare": "Share via OnionShare"
+    "share_via_onionshare": "Share via OnionShare",
+    "gui_save_private_key_checkbox": "Use a persistent URL\n(unchecking will delete any saved URL)",
+    "persistent_url_in_use": "This share is using a persistent URL"
 }
