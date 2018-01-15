@@ -42,7 +42,7 @@ ${EndIf}
     !system "signtool.exe sign /v /d $\"Uninstall OnionShare$\" /a /tr http://timestamp.globalsign.com/scripts/timstamp.dll /fd sha256 $%TEMP%\uninstall.exe" = 0
 
     # all done, now we can build the real installer
-    OutFile "..\dist\OnionShare_Setup.exe"
+    OutFile "..\dist\onionshare-setup.exe"
     SetCompressor /FINAL /SOLID lzma
 !endif
 

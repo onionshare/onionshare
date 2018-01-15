@@ -79,7 +79,7 @@ Open a command prompt, cd to the onionshare folder, and install dependencies wit
 pip3 install -r install\requirements-windows.txt
 ```
 
-Download and install Qt5 from https://www.qt.io/download-open-source/. I downloaded `qt-unified-windows-x86-2.0.4-online.exe`. There's no need to login to a Qt account during installation. Make sure you install the latest Qt 5.x. I installed Qt 5.7.
+Download and install Qt5 from https://www.qt.io/download-open-source/. I downloaded `qt-unified-windows-x86-3.0.2-online.exe`. There's no need to login to a Qt account during installation. Make sure you install the latest Qt 5.x. I installed Qt 5.10.0.
 
 After that you can try both the CLI and the GUI version of OnionShare:
 
@@ -102,12 +102,12 @@ Download and install the standalone [Windows 10 SDK](https://dev.windows.com/en-
 
 If you want to build the installer:
 
-* Go to http://nsis.sourceforge.net/Download and download the latest NSIS. I downloaded `nsis-3.01-setup.exe`.
+* Go to http://nsis.sourceforge.net/Download and download the latest NSIS. I downloaded `nsis-3.02.1-setup.exe`.
 * Add `C:\Program Files (x86)\NSIS` to the path.
 
 If you want to sign binaries with Authenticode:
 
-* You'll need a code signing certificate. I roughly followed [this guide](http://blog.assarbad.net/20110513/startssl-code-signing-certificate/) to make one using my StartSSL account.
+* You'll need a code signing certificate. I got an open source code signing certificate from [Certum](https://www.certum.eu/certum/cert,offer_en_open_source_cs.xml).
 * Once you get a code signing key and certificate and covert it to a pfx file, import it into your certificate store.
 
 ### To make a .exe:
@@ -118,11 +118,11 @@ For PyInstaller to work, you might need to edit `Scripts\pyinstaller-script.py` 
 
 ### To build the installer:
 
-Note that you must have a codesigning certificate installed in order to use the `install\build_exe.bat` script, because it codesigns `onionshare-gui.exe`, `uninstall.exe`, and `OnionShare_Setup.exe`.
+Note that you must have a codesigning certificate installed in order to use the `install\build_exe.bat` script, because it codesigns `onionshare-gui.exe`, `uninstall.exe`, and `onionshare-setup.exe`.
 
 Open a command prompt, cd to the onionshare directory, and type: `install\build_exe.bat`
 
-This will prompt you to codesign three binaries and execute one unsigned binary. When you're done clicking through everything you will have `dist\OnionShare_Setup.exe`.
+This will prompt you to codesign three binaries and execute one unsigned binary. When you're done clicking through everything you will have `dist\onionshare-setup.exe`.
 
 ## Tests
 
