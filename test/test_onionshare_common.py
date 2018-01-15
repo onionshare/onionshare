@@ -213,13 +213,15 @@ class TestGetTorPaths:
             base_path, 'Resources', 'Tor', 'geoip')
         tor_geo_ipv6_file_path = os.path.join(
             base_path, 'Resources', 'Tor', 'geoip6')
+        obfs4proxy_file_path = os.path.join(
+            base_path, 'Resources', 'Tor', 'obfs4proxy')
         assert (common.get_tor_paths() ==
-                (tor_path, tor_geo_ip_file_path, tor_geo_ipv6_file_path))
+                (tor_path, tor_geo_ip_file_path, tor_geo_ipv6_file_path, obfs4proxy_file_path))
 
     # @pytest.mark.skipif(sys.platform != 'Linux', reason='requires Linux') ?
     def test_get_tor_paths_linux(self, platform_linux):
         assert (common.get_tor_paths() ==
-                ('/usr/bin/tor', '/usr/share/tor/geoip', '/usr/share/tor/geoip6'))
+                ('/usr/bin/tor', '/usr/share/tor/geoip', '/usr/share/tor/geoip6', '/usr/bin/obfs4proxy'))
 
     # @pytest.mark.skipif(sys.platform != 'Windows', reason='requires Windows') ?
     def test_get_tor_paths_windows(self, platform_windows, sys_frozen):
@@ -235,8 +237,10 @@ class TestGetTorPaths:
         tor_geo_ipv6_file_path = os.path.join(
             os.path.join(
                 os.path.join(base_path, 'Data'), 'Tor'), 'geoip6')
+        obfs4proxy_file_path = os.path.join(
+            base_path, 'Data', 'Tor', 'obfs4proxy')
         assert (common.get_tor_paths() ==
-                (tor_path, tor_geo_ip_file_path, tor_geo_ipv6_file_path))
+                (tor_path, tor_geo_ip_file_path, tor_geo_ipv6_file_path, obfs4proxy_file_path))
 
 
 class TestGetVersion:
