@@ -27,6 +27,7 @@ from onionshare import OnionShare
 class MyOnion:
     def __init__(self, stealth=False):
         self.auth_string = 'TestHidServAuth'
+        self.private_key = ''
         self.stealth = stealth
 
     @staticmethod

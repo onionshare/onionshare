@@ -368,7 +368,7 @@ class Onion(object):
         # Do the versions of stem and tor that I'm using support stealth onion services?
         try:
             res = self.c.create_ephemeral_hidden_service({1:1}, basic_auth={'onionshare':None}, await_publication=False)
-            tmp_service_id = res.content()[0][2].split('=')[1]
+            tmp_service_id = res.service_id
             self.c.remove_ephemeral_hidden_service(tmp_service_id)
             self.supports_stealth = True
         except:
@@ -403,16 +403,29 @@ class Onion(object):
         print(strings._('using_ephemeral'))
 
         if self.stealth:
-            basic_auth = {'onionshare':None}
+            if self.settings.get('hidservauth_string'):
+                hidservauth_string = self.settings.get('hidservauth_string').split()[2]
+                basic_auth = {'onionshare':hidservauth_string}
+            else:
+                basic_auth = {'onionshare':None}
         else:
             basic_auth = None
 
+        if self.settings.get('private_key'):
+            key_type = "RSA1024"
+            key_content = self.settings.get('private_key')
+            common.log('Onion', 'Starting a hidden service with a saved private key')
+        else:
+            key_type = "NEW"
+            key_content = "RSA1024"
+            common.log('Onion', 'Starting a hidden service with a new private key')
+
         try:
-            if basic_auth != None :
-                res = self.c.create_ephemeral_hidden_service({ 80: port }, await_publication=True, basic_auth=basic_auth)
-            else :
+            if basic_auth != None:
+                res = self.c.create_ephemeral_hidden_service({ 80: port }, await_publication=True, basic_auth=basic_auth, key_type = key_type, key_content=key_content)
+            else:
                 # if the stem interface is older than 1.5.0, basic_auth isn't a valid keyword arg
-                res = self.c.create_ephemeral_hidden_service({ 80: port }, await_publication=True)
+                res = self.c.create_ephemeral_hidden_service({ 80: port }, await_publication=True, key_type = key_type, key_content=key_content)
 
         except ProtocolError:
             raise TorErrorProtocolError(strings._('error_tor_protocol_error'))
@@ -420,10 +433,29 @@ class Onion(object):
         self.service_id = res.service_id
         onion_host = self.service_id + '.onion'
 
-        if self.stealth:
-            auth_cookie = res.content()[2][2].split('=')[1].split(':')[1]
-            self.auth_string = 'HidServAuth {} {}'.format(onion_host, auth_cookie)
+        # A new private key was generated and is in the Control port response.
+        if self.settings.get('save_private_key'):
+            if not self.settings.get('private_key'):
+                self.settings.set('private_key', res.private_key)
 
+        if self.stealth:
+            # Similar to the PrivateKey, the Control port only returns the ClientAuth
+            # in the response if it was responsible for creating the basic_auth password
+            # in the first place.
+            # If we sent the basic_auth (due to a saved hidservauth_string in the settings),
+            # there is no response here, so use the saved value from settings.
+            if self.settings.get('save_private_key'):
+                if self.settings.get('hidservauth_string'):
+                    self.auth_string = self.settings.get('hidservauth_string')
+                else:
+                    auth_cookie = list(res.client_auth.values())[0]
+                    self.auth_string = 'HidServAuth {} {}'.format(onion_host, auth_cookie)
+                    self.settings.set('hidservauth_string', self.auth_string)
+            else:
+                auth_cookie = list(res.client_auth.values())[0]
+                self.auth_string = 'HidServAuth {} {}'.format(onion_host, auth_cookie)
+
+        self.settings.save()
         if onion_host is not None:
             return onion_host
         else:
