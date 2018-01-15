@@ -9,15 +9,29 @@ rm -rf $ROOT/dist &>/dev/null 2>&1
 
 # build the .app
 echo Building OnionShare.app
-pyinstaller install/pyinstaller.spec
+pyinstaller $ROOT/install/pyinstaller.spec
+python3 $ROOT/install/get-tor-osx.py
 
-if [ "$1" = "--sign" ]; then
-  SIGNING_IDENTITY_APP="3rd Party Mac Developer Application: Micah Lee"
-  SIGNING_IDENTITY_INSTALLER="3rd Party Mac Developer Installer: Micah Lee"
+# create a symlink of onionshare-gui called onionshare, for the CLI version
+cd $ROOT/dist/OnionShare.app/Contents/MacOS
+ln -s onionshare-gui onionshare
+cd $ROOT
 
-  # codesign the .app
-  codesign -vvvv --deep -s "$SIGNING_IDENTITY_APP" dist/OnionShare.app
+if [ "$1" = "--release" ]; then
+  mkdir -p dist
+  APP_PATH="$ROOT/dist/OnionShare.app"
+  PKG_PATH="$ROOT/dist/OnionShare.pkg"
+  IDENTITY_NAME_APPLICATION="Developer ID Application: Micah Lee"
+  IDENTITY_NAME_INSTALLER="Developer ID Installer: Micah Lee"
 
-  # build .pkg
-  productbuild --component dist/OnionShare.app /Applications dist/OnionShare.pkg --sign "$SIGNING_IDENTITY_INSTALLER"
+  echo "Codesigning the app bundle"
+  codesign --deep -s "$IDENTITY_NAME_APPLICATION" "$APP_PATH"
+
+  echo "Creating an installer"
+  productbuild --sign "$IDENTITY_NAME_INSTALLER" --component "$APP_PATH" /Applications "$PKG_PATH"
+
+  echo "Cleaning up"
+  rm -rf "$APP_PATH"
+
+  echo "All done, your installer is in: $PKG_PATH"
 fi

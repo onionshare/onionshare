@@ -1,8 +1,14 @@
-REM use PyInstaller to builder a folder with onionshare.exe
+REM delete old dist files
+rmdir /s /q dist
+
+REM build onionshare-gui.exe
 pyinstaller install\pyinstaller.spec -y
 
-REM sign onionshare.exe
-signtool.exe sign /v /d "OnionShare" /a /tr http://timestamp.globalsign.com/scripts/timstamp.dll /fd sha256 dist\onionshare\onionshare.exe
+REM download tor
+python install\get-tor-windows.py
+
+REM sign onionshare-gui.exe
+signtool.exe sign /v /d "OnionShare" /a /tr http://timestamp.globalsign.com/scripts/timstamp.dll /fd sha256 dist\onionshare\onionshare-gui.exe
 
 REM build an installer, dist\OnionShare_Setup.exe
 makensis.exe install\onionshare.nsi

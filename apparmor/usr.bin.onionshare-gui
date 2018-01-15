@@ -1,0 +1,28 @@
+#include <tunables/global>
+
+/usr/bin/onionshare-gui {
+  #include <abstractions/gnome>
+  #include <abstractions/ibus>
+  #include <abstractions/onionshare>
+
+  /usr/bin/ r,
+  /usr/bin/onionshare-gui r,
+  /proc/*/cmdline r,
+
+  # The freedesktop.org abstraction doesn't allow `k`
+  /usr/share/icons/*/index.theme k,
+
+  # Why do these still emit audit journal entries?
+  owner @{HOME}/.config/ibus/bus/ rw,
+  owner @{HOME}/.config/ibus/bus/* rw,
+  deny @{HOME}/.ICEauthority r,
+
+  deny /etc/machine-id r,
+  deny /var/lib/dbus/machine-id.* rw,
+
+  # Accessibility support
+  owner /{,var/}run/user/*/at-spi2-*/ rw,
+  owner /{,var/}run/user/*/at-spi2-*/** rw,
+
+  #include <local/usr.bin.onionshare-gui>
+}

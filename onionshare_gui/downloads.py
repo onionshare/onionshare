@@ -2,7 +2,7 @@
 """
 OnionShare | https://onionshare.org/
 
-Copyright (C) 2016 Micah Lee <micah@micahflee.com>
+Copyright (C) 2017 Micah Lee <micah@micahflee.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@ import time
 
 from PyQt5 import QtCore, QtWidgets
 
-from onionshare import strings, helpers
+from onionshare import strings, common
 
 class Download(object):
 
@@ -32,14 +32,25 @@ class Download(object):
         self.downloaded_bytes = 0
 
         # make a new progress bar
+        cssStyleData ="""
+        QProgressBar {
+            border: 2px solid grey;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        QProgressBar::chunk {
+            background: qlineargradient(x1: 0.5, y1: 0, x2: 0.5, y2: 1, stop: 0 #b366ff, stop: 1 #d9b3ff);
+            width: 10px;
+        }"""
         self.progress_bar = QtWidgets.QProgressBar()
         self.progress_bar.setTextVisible(True)
+        self.progress_bar.setAttribute(QtCore.Qt.WA_DeleteOnClose)
         self.progress_bar.setAlignment(QtCore.Qt.AlignHCenter)
         self.progress_bar.setMinimum(0)
         self.progress_bar.setMaximum(total_bytes)
         self.progress_bar.setValue(0)
-        self.progress_bar.setStyleSheet(
-            "QProgressBar::chunk { background-color: #05B8CC; }")
+        self.progress_bar.setStyleSheet(cssStyleData)
         self.progress_bar.total_bytes = total_bytes
 
         # start at 0
@@ -51,18 +62,18 @@ class Download(object):
         self.progress_bar.setValue(downloaded_bytes)
         if downloaded_bytes == self.progress_bar.total_bytes:
             pb_fmt = strings._('gui_download_progress_complete').format(
-                helpers.format_seconds(time.time() - self.started))
+                common.format_seconds(time.time() - self.started))
         else:
             elapsed = time.time() - self.started
             if elapsed < 10:
                 # Wait a couple of seconds for the download rate to stabilize.
-                # This prevents an "Windows copy dialog"-esque experience at
+                # This prevents a "Windows copy dialog"-esque experience at
                 # the beginning of the download.
                 pb_fmt = strings._('gui_download_progress_starting').format(
-                    helpers.human_readable_filesize(downloaded_bytes))
+                    common.human_readable_filesize(downloaded_bytes))
             else:
                 pb_fmt = strings._('gui_download_progress_eta').format(
-                    helpers.human_readable_filesize(downloaded_bytes),
+                    common.human_readable_filesize(downloaded_bytes),
                     self.estimated_time_remaining)
 
         self.progress_bar.setFormat(pb_fmt)
@@ -72,38 +83,32 @@ class Download(object):
 
     @property
     def estimated_time_remaining(self):
-        return helpers.estimated_time_remaining(self.downloaded_bytes,
+        return common.estimated_time_remaining(self.downloaded_bytes,
                                                 self.total_bytes,
                                                 self.started)
 
 
-class Downloads(QtWidgets.QVBoxLayout):
+class Downloads(QtWidgets.QWidget):
     """
     The downloads chunk of the GUI. This lists all of the active download
     progress bars.
     """
     def __init__(self):
         super(Downloads, self).__init__()
-
         self.downloads = {}
-
-        # downloads label
-        self.downloads_label = QtWidgets.QLabel(strings._('gui_downloads', True))
-        self.downloads_label.hide()
-
-        # add the widgets
-        self.addWidget(self.downloads_label)
+        self.layout = QtWidgets.QVBoxLayout()
+        self.setLayout(self.layout)
 
     def add_download(self, download_id, total_bytes):
         """
         Add a new download progress bar.
         """
-        self.downloads_label.show()
+        self.parent().show()
 
         # add it to the list
         download = Download(download_id, total_bytes)
         self.downloads[download_id] = download
-        self.addWidget(download.progress_bar)
+        self.layout.insertWidget(-1, download.progress_bar)
 
     def update_download(self, download_id, downloaded_bytes):
         """
@@ -116,3 +121,12 @@ class Downloads(QtWidgets.QVBoxLayout):
         Update a download progress bar to show that it has been canceled.
         """
         self.downloads[download_id].cancel()
+
+    def reset_downloads(self):
+        """
+        Reset the downloads back to zero
+        """
+        for download in self.downloads.values():
+            self.layout.removeWidget(download.progress_bar)
+            download.progress_bar.close()
+        self.downloads = {}

@@ -1,40 +1,41 @@
 # -*- mode: python -*-
 
 import platform
-system = platform.system()
+p = platform.system()
 
-version = open('resources/version.txt').read().strip()
-
-block_cipher = None
+version = open('share/version.txt').read().strip()
 
 a = Analysis(
-    ['scripts/onionshare-gui'],
+    ['scripts/onionshare-pyinstaller'],
     pathex=['.'],
     binaries=None,
     datas=[
-        ('../resources/images/*', 'images'),
-        ('../resources/locale/*', 'locale'),
-        ('../resources/html/*', 'html'),
-        ('../resources/version.txt', '.'),
-        ('../resources/wordlist.txt', '.')
+        ('../share/license.txt', 'share'),
+        ('../share/version.txt', 'share'),
+        ('../share/wordlist.txt', 'share'),
+        ('../share/torrc_template', 'share'),
+        ('../share/torrc_template-windows', 'share'),
+        ('../share/images/*', 'share/images'),
+        ('../share/locale/*', 'share/locale'),
+        ('../share/html/*', 'share/html')
     ],
     hiddenimports=[],
     hookspath=[],
     runtime_hooks=[],
-    excludes=[],
+    excludes=['jinja2.asyncsupport'],
     win_no_prefer_redirects=False,
     win_private_assemblies=False,
-    cipher=block_cipher)
+    cipher=None)
 
 pyz = PYZ(
     a.pure, a.zipped_data,
-    cipher=block_cipher)
+    cipher=None)
 
 exe = EXE(
     pyz,
     a.scripts,
     exclude_binaries=True,
-    name='onionshare',
+    name='onionshare-gui',
     debug=False,
     strip=False,
     upx=True,
@@ -49,7 +50,7 @@ coll = COLLECT(
     upx=True,
     name='onionshare')
 
-if system == 'Darwin':
+if p == 'Darwin':
     app = BUNDLE(
         coll,
         name='OnionShare.app',

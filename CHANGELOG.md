@@ -1,5 +1,44 @@
 # OnionShare Changelog
 
+## 1.1
+
+* OnionShare connects to Tor itself now, so opening Tor Browser in the background isn't required
+* In Windows and macOS, OnionShare alerts users about updates
+* Removed the menu bar, and adding a Settings button
+* Added desktop notifications, and a system tray icon
+* Ability to add multiple files and folders with a single "Add" button
+* Ability to delete multiple files and folders at once with the "Delete" button
+* Hardened some response headers sent from the web server
+* Minor clarity improvements to the contents of the share's web page
+* Alert the user rather than share an empty archive if a file was unreadable
+* Prettier progress bars
+
+## 1.0
+
+* Fixed long-standing macOS X bug that caused OnionShare to crash on older Macs (!)
+* Added settings dialog to configure connecting to Tor, including support for system Tor
+* Added support for stealth onion services (advanced option)
+* Added support for Whonix
+* Improved AppArmor profiles
+* Added progress bar for zipping up files
+* Improved the look of download progress bars
+* Allows developers to launch OnionShare from source tree, without building a package
+* Deleted legacy code, and made OnionShare purely use ephemeral Tor onion services
+* Switched to EFF's diceware wordlist for slugs
+
+## 0.9.2 (Linux only)
+
+* Looks for `TOR_CONTROL_PORT` environment variable, to help Tails integration
+* Change how OnionShare checks to see if it's installed system-wide, to help Subgraph OS integration
+
+## 0.9.1
+
+* Added Nautilus extension, so you can right-click on a file and choose "Share via OnionShare", thanks to Subgraph developers
+* Switch to using the term "onion service" rather than "hidden service"
+* Fix CVE-2016-5026, minor security issue related to use of /tmp directory
+* Switch from PyInstaller to cx_Freeze for Windows and OSX packaging
+* Support CLI in Windows and OSX
+
 ## 0.9
 
 * Slugs are now shorter and human-readable, with rate limiting to prevent URL guessing

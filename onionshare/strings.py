@@ -2,7 +2,7 @@
 """
 OnionShare | https://onionshare.org/
 
-Copyright (C) 2016 Micah Lee <micah@micahflee.com>
+Copyright (C) 2017 Micah Lee <micah@micahflee.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -17,32 +17,31 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-import json, locale, os
-
-from . import helpers
+import json
+import locale
+import os
 
 strings = {}
 
 
-def load_strings(default="en"):
+def load_strings(common, default="en"):
     """
     Loads translated strings and fallback to English
     if the translation does not exist.
     """
     global strings
-    p = helpers.get_platform()
 
     # find locale dir
-    locale_dir = helpers.get_resource_path('locale')
+    locale_dir = common.get_resource_path('locale')
 
     # load all translations
     translations = {}
     for filename in os.listdir(locale_dir):
         abs_filename = os.path.join(locale_dir, filename)
         lang, ext = os.path.splitext(filename)
-        if abs_filename.endswith('.json'):
-            lang_json = open(abs_filename, encoding='utf-8').read()
-            translations[lang] = json.loads(lang_json)
+        if ext == '.json':
+            with open(abs_filename, encoding='utf-8') as f:
+                translations[lang] = json.load(f)
 
     strings = translations[default]
     lc, enc = locale.getdefaultlocale()

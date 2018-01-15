@@ -1,0 +1,29 @@
+#include <abstractions/base>
+#include <abstractions/nameservice>
+#include <abstractions/private-files-strict>
+#include <abstractions/python>
+
+# Why are these not in abstractions/python?
+/usr/lib{,32,64}/python{2,3}.[0-9]/__pycache__/ rw,
+/usr/lib{,32,64}/python{2,3}.[0-9]/__pycache__/* rw,
+/usr/lib{,32,64}/python{2,3}.[0-9]/**/__pycache__/ rw,
+/usr/lib{,32,64}/python{2,3}.[0-9]/**/__pycache__/* rw,
+/usr/lib{,32,64}/python{2,3}/**/__pycache__/ rw,
+/usr/lib{,32,64}/python{2,3}/**/__pycache__/* rw,
+
+/bin/dash rix,
+/proc/*/mounts r,
+/proc/*/fd/ r,
+/sbin/ldconfig rix,
+/sbin/ldconfig.real rix,
+/bin/uname rix,
+/etc/mime.types r,
+/usr/share/onionshare/ r,
+/usr/share/onionshare/** r,
+/tmp/ rw,
+/tmp/** rw,
+
+# Allow read on almost anything in @{HOME}. Lenient, but
+# private-files-strict is in effect.
+owner @{HOME}/         r,
+owner @{HOME}/[^.]**   r,

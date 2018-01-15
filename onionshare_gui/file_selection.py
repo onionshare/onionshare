@@ -2,7 +2,7 @@
 """
 OnionShare | https://onionshare.org/
 
-Copyright (C) 2016 Micah Lee <micah@micahflee.com>
+Copyright (C) 2017 Micah Lee <micah@micahflee.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -19,8 +19,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import os
 from PyQt5 import QtCore, QtWidgets, QtGui
+from .alert import Alert
 
-from onionshare import strings, helpers
+from onionshare import strings, common
 
 class FileList(QtWidgets.QListWidget):
     """
@@ -34,6 +35,8 @@ class FileList(QtWidgets.QListWidget):
         self.setAcceptDrops(True)
         self.setIconSize(QtCore.QSize(32, 32))
         self.setSortingEnabled(True)
+        self.setMinimumHeight(200)
+        self.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
 
         class DropHereLabel(QtWidgets.QLabel):
             """
@@ -47,7 +50,7 @@ class FileList(QtWidgets.QListWidget):
                 self.setAlignment(QtCore.Qt.AlignCenter)
 
                 if image:
-                    self.setPixmap(QtGui.QPixmap.fromImage(QtGui.QImage(helpers.get_resource_path('images/drop_files.png'))))
+                    self.setPixmap(QtGui.QPixmap.fromImage(QtGui.QImage(common.get_resource_path('images/drop_files.png'))))
                 else:
                     self.setText(strings._('gui_drag_and_drop', True))
                     self.setStyleSheet('color: #999999;')
@@ -129,7 +132,13 @@ class FileList(QtWidgets.QListWidget):
         Add a file or directory to this widget.
         """
         if filename not in self.filenames:
+            if not os.access(filename, os.R_OK):
+                Alert(strings._("not_a_readable_file", True).format(filename))
+                return
+
             self.filenames.append(filename)
+            # Re-sort the list internally
+            self.filenames.sort()
 
             fileinfo = QtCore.QFileInfo(filename)
             basename = os.path.basename(filename.rstrip('/'))
@@ -137,9 +146,9 @@ class FileList(QtWidgets.QListWidget):
             icon = ip.icon(fileinfo)
 
             if os.path.isfile(filename):
-                size = helpers.human_readable_filesize(fileinfo.size())
+                size = common.human_readable_filesize(fileinfo.size())
             else:
-                size = helpers.human_readable_filesize(helpers.dir_size(filename))
+                size = common.human_readable_filesize(common.dir_size(filename))
             item_name = '{0:s} ({1:s})'.format(basename, size)
             item = QtWidgets.QListWidgetItem(item_name)
             item.setToolTip(size)
@@ -165,15 +174,12 @@ class FileSelection(QtWidgets.QVBoxLayout):
         self.file_list.files_dropped.connect(self.update)
 
         # buttons
-        self.add_files_button = QtWidgets.QPushButton(strings._('gui_add_files', True))
-        self.add_files_button.clicked.connect(self.add_files)
-        self.add_dir_button = QtWidgets.QPushButton(strings._('gui_add_folder', True))
-        self.add_dir_button.clicked.connect(self.add_dir)
+        self.add_button = QtWidgets.QPushButton(strings._('gui_add', True))
+        self.add_button.clicked.connect(self.add)
         self.delete_button = QtWidgets.QPushButton(strings._('gui_delete', True))
-        self.delete_button.clicked.connect(self.delete_file)
+        self.delete_button.clicked.connect(self.delete)
         button_layout = QtWidgets.QHBoxLayout()
-        button_layout.addWidget(self.add_files_button)
-        button_layout.addWidget(self.add_dir_button)
+        button_layout.addWidget(self.add_button)
         button_layout.addWidget(self.delete_button)
 
         # add the widgets
@@ -188,12 +194,10 @@ class FileSelection(QtWidgets.QVBoxLayout):
         """
         # all buttons should be disabled if the server is on
         if self.server_on:
-            self.add_files_button.setEnabled(False)
-            self.add_dir_button.setEnabled(False)
+            self.add_button.setEnabled(False)
             self.delete_button.setEnabled(False)
         else:
-            self.add_files_button.setEnabled(True)
-            self.add_dir_button.setEnabled(True)
+            self.add_button.setEnabled(True)
 
             # delete button should be disabled if item isn't selected
             current_item = self.file_list.currentItem()
@@ -205,34 +209,27 @@ class FileSelection(QtWidgets.QVBoxLayout):
         # update the file list
         self.file_list.update()
 
-    def add_files(self):
+    def add(self):
         """
-        Add files button clicked.
+        Add button clicked.
         """
-        filenames = QtWidgets.QFileDialog.getOpenFileNames(
-            caption=strings._('gui_choose_files', True), options=QtWidgets.QFileDialog.ReadOnly)
-        if filenames:
-            for filename in filenames[0]:
+        file_dialog = FileDialog(caption=strings._('gui_choose_items', True))
+        if file_dialog.exec_() == QtWidgets.QDialog.Accepted:
+            for filename in file_dialog.selectedFiles():
                 self.file_list.add_file(filename)
+
         self.update()
 
-    def add_dir(self):
-        """
-        Add folder button clicked.
-        """
-        filename = QtWidgets.QFileDialog.getExistingDirectory(
-            caption=strings._('gui_choose_folder', True), options=QtWidgets.QFileDialog.ReadOnly)
-        if filename:
-            self.file_list.add_file(str(filename))
-        self.update()
-
-    def delete_file(self):
+    def delete(self):
         """
         Delete button clicked
         """
-        current_row = self.file_list.currentRow()
-        self.file_list.filenames.pop(current_row)
-        self.file_list.takeItem(current_row)
+        selected = self.file_list.selectedItems()
+        for item in selected:
+            itemrow = self.file_list.row(item)
+            self.file_list.filenames.pop(itemrow)
+            self.file_list.takeItem(itemrow)
+        self.file_list.files_updated.emit()
         self.update()
 
     def server_started(self):
@@ -256,3 +253,28 @@ class FileSelection(QtWidgets.QVBoxLayout):
         Returns the total number of files and folders in the list.
         """
         return len(self.file_list.filenames)
+
+    def setFocus(self):
+        """
+        Set the Qt app focus on the file selection box.
+        """
+        self.file_list.setFocus()
+
+class FileDialog(QtWidgets.QFileDialog):
+    """
+    Overridden version of QFileDialog which allows us to select
+    folders as well as, or instead of, files.
+    """
+    def __init__(self, *args, **kwargs):
+        QtWidgets.QFileDialog.__init__(self, *args, **kwargs)
+        self.setOption(self.DontUseNativeDialog, True)
+        self.setOption(self.ReadOnly, True)
+        self.setOption(self.ShowDirsOnly, False)
+        self.setFileMode(self.ExistingFiles)
+        tree_view = self.findChild(QtWidgets.QTreeView)
+        tree_view.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
+        list_view = self.findChild(QtWidgets.QListView, "listView")
+        list_view.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
+
+    def accept(self):
+        QtWidgets.QDialog.accept(self)

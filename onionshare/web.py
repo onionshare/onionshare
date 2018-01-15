@@ -2,7 +2,7 @@
 """
 OnionShare | https://onionshare.org/
 
-Copyright (C) 2016 Micah Lee <micah@micahflee.com>
+Copyright (C) 2017 Micah Lee <micah@micahflee.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -17,11 +17,38 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-import queue, mimetypes, platform, os, sys
-from urllib.request import urlopen
-from flask import Flask, Response, request, render_template_string, abort
 
-from . import strings, helpers
+import hmac
+import logging
+import mimetypes
+import os
+import queue
+import socket
+import sys
+import tempfile
+from distutils.version import LooseVersion as Version
+from urllib.request import urlopen
+
+from flask import (
+    Flask, Response, request, render_template_string, abort, make_response,
+    __version__ as flask_version
+)
+
+from . import strings, common
+
+
+def _safe_select_jinja_autoescape(self, filename):
+    if filename is None:
+        return True
+    return filename.endswith(('.html', '.htm', '.xml', '.xhtml'))
+
+# Starting in Flask 0.11, render_template_string autoescapes template variables
+# by default. To prevent content injection through template variables in
+# earlier versions of Flask, we force autoescaping in the Jinja2 template
+# engine if we detect a Flask version with insecure default behavior.
+if Version(flask_version) < Version('0.11'):
+    # Monkey-patch in the fix from https://github.com/pallets/flask/commit/99c99c4c16b1327288fd76c44bc8635a1de452bc
+    Flask.select_jinja_autoescape = _safe_select_jinja_autoescape
 
 app = Flask(__name__)
 
@@ -30,8 +57,17 @@ file_info = []
 zip_filename = None
 zip_filesize = None
 
+security_headers = [
+    ('Content-Security-Policy', 'default-src \'self\'; style-src \'unsafe-inline\'; img-src \'self\' data:;'),
+    ('X-Frame-Options', 'DENY'),
+    ('X-Xss-Protection', '1; mode=block'),
+    ('X-Content-Type-Options', 'nosniff'),
+    ('Referrer-Policy', 'no-referrer'),
+    ('Server', 'OnionShare')
+]
 
-def set_file_info(filenames):
+
+def set_file_info(filenames, processed_size_callback=None):
     """
     Using the list of filenames being shared, fill in details that the web
     page will need to display. This includes zipping up the file in order to
@@ -48,17 +84,17 @@ def set_file_info(filenames):
         }
         if os.path.isfile(filename):
             info['size'] = os.path.getsize(filename)
-            info['size_human'] = helpers.human_readable_filesize(info['size'])
+            info['size_human'] = common.human_readable_filesize(info['size'])
             file_info['files'].append(info)
         if os.path.isdir(filename):
-            info['size'] = helpers.dir_size(filename)
-            info['size_human'] = helpers.human_readable_filesize(info['size'])
+            info['size'] = common.dir_size(filename)
+            info['size_human'] = common.human_readable_filesize(info['size'])
             file_info['dirs'].append(info)
     file_info['files'] = sorted(file_info['files'], key=lambda k: k['basename'])
     file_info['dirs'] = sorted(file_info['dirs'], key=lambda k: k['basename'])
 
     # zip up the files and folders
-    z = helpers.ZipWriter()
+    z = common.ZipWriter(processed_size_callback=processed_size_callback)
     for info in file_info['files']:
         z.add_file(info['filename'])
     for info in file_info['dirs']:
@@ -73,7 +109,7 @@ REQUEST_DOWNLOAD = 1
 REQUEST_PROGRESS = 2
 REQUEST_OTHER = 3
 REQUEST_CANCELED = 4
-REQUEST_RATE_LIMIT = 4
+REQUEST_RATE_LIMIT = 5
 q = queue.Queue()
 
 
@@ -90,65 +126,71 @@ def add_request(request_type, path, data=None):
 
 
 slug = None
-def generate_slug():
+
+
+def generate_slug(persistent_slug=''):
     global slug
-    slug = helpers.build_slug()
+    if persistent_slug:
+        slug = persistent_slug
+    else:
+        slug = common.build_slug()
 
 download_count = 0
 error404_count = 0
 
 stay_open = False
+
+
 def set_stay_open(new_stay_open):
     """
     Set stay_open variable.
     """
     global stay_open
     stay_open = new_stay_open
+
+
 def get_stay_open():
     """
     Get stay_open variable.
     """
     return stay_open
 
-transparent_torification = False
-def set_transparent_torification(new_transparent_torification):
+
+# Are we running in GUI mode?
+gui_mode = False
+
+
+def set_gui_mode():
     """
-    Set transparent_torification variable.
+    Tell the web service that we're running in GUI mode
     """
-    global transparent_torification
-    stay_open = new_transparent_torification
-def get_transparent_torification():
-    """
-    Get transparent_torification variable."
-    """
-    return transparent_torification
+    global gui_mode
+    gui_mode = True
+
 
 def debug_mode():
     """
     Turn on debugging mode, which will log flask errors to a debug file.
     """
-    import logging
-
-    if platform.system() == 'Windows':
-        temp_dir = os.environ['Temp'].replace('\\', '/')
-    else:
-        temp_dir = '/tmp/'
-
-    log_handler = logging.FileHandler('{0:s}/onionshare_server.log'.format(temp_dir))
+    temp_dir = tempfile.gettempdir()
+    log_handler = logging.FileHandler(
+        os.path.join(temp_dir, 'onionshare_server.log'))
     log_handler.setLevel(logging.WARNING)
     app.logger.addHandler(log_handler)
 
-def check_slug_candidate(slug_candidate, slug_compare = None):
-    global slug
+
+def check_slug_candidate(slug_candidate, slug_compare=None):
     if not slug_compare:
         slug_compare = slug
-    if not helpers.constant_time_compare(slug_compare.encode('ascii'), slug_candidate.encode('ascii')):
+    if not hmac.compare_digest(slug_compare, slug_candidate):
         abort(404)
 
 
-# If "Stop sharing automatically" is checked (stay_open == False), only allow
+# If "Stop After First Download" is checked (stay_open == False), only allow
 # one download at a time.
 download_in_progress = False
+
+done = False
 
 @app.route("/<slug_candidate>")
 def index(slug_candidate):
@@ -159,26 +201,35 @@ def index(slug_candidate):
 
     add_request(REQUEST_LOAD, request.path)
 
-    # Deny new downloads if "Stop sharing automatically" is checked and there is
+    # Deny new downloads if "Stop After First Download" is checked and there is
     # currently a download
     global stay_open, download_in_progress
     deny_download = not stay_open and download_in_progress
     if deny_download:
-        return render_template_string(open(helpers.get_resource_path('html/denied.html')).read())
+        r = make_response(render_template_string(open(common.get_resource_path('html/denied.html')).read()))
+        for header, value in security_headers:
+            r.headers.set(header, value)
+        return r
 
     # If download is allowed to continue, serve download page
-    return render_template_string(
-        open(helpers.get_resource_path('html/index.html')).read(),
+
+    r = make_response(render_template_string(
+        open(common.get_resource_path('html/index.html')).read(),
         slug=slug,
         file_info=file_info,
         filename=os.path.basename(zip_filename),
         filesize=zip_filesize,
-        filesize_human=helpers.human_readable_filesize(zip_filesize))
+        filesize_human=common.human_readable_filesize(zip_filesize)))
+    for header, value in security_headers:
+        r.headers.set(header, value)
+    return r
+
 
 # If the client closes the OnionShare window while a download is in progress,
 # it should immediately stop serving the file. The client_cancel global is
 # used to tell the download function that the client is canceling the download.
 client_cancel = False
+
 
 @app.route("/<slug_candidate>/download")
 def download(slug_candidate):
@@ -187,12 +238,15 @@ def download(slug_candidate):
     """
     check_slug_candidate(slug_candidate)
 
-    # Deny new downloads if "Stop sharing automatically" is checked and there is
+    # Deny new downloads if "Stop After First Download" is checked and there is
     # currently a download
-    global stay_open, download_in_progress
+    global stay_open, download_in_progress, done
     deny_download = not stay_open and download_in_progress
     if deny_download:
-        return render_template_string(open(helpers.get_resource_path('html/denied.html')).read())
+        r = make_response(render_template_string(open(common.get_resource_path('html/denied.html')).read()))
+        for header,value in security_headers:
+            r.headers.set(header, value)
+        return r
 
     global download_count
 
@@ -213,11 +267,11 @@ def download(slug_candidate):
 
     def generate():
         # The user hasn't canceled the download
-        global client_cancel
+        global client_cancel, gui_mode
         client_cancel = False
 
         # Starting a new download
-        global stay_open, download_in_progress
+        global stay_open, download_in_progress, done
         if not stay_open:
             download_in_progress = True
 
@@ -243,10 +297,10 @@ def download(slug_candidate):
                     downloaded_bytes = fp.tell()
                     percent = (1.0 * downloaded_bytes / zip_filesize) * 100
 
-                    # suppress stdout platform on OSX (#203)
-                    if helpers.get_platform() != 'Darwin':
+                    # only output to stdout if running onionshare in CLI mode, or if using Linux (#203, #304)
+                    if not gui_mode or common.get_platform() == 'Linux':
                         sys.stdout.write(
-                            "\r{0:s}, {1:.2f}%          ".format(helpers.human_readable_filesize(downloaded_bytes), percent))
+                            "\r{0:s}, {1:.2f}%          ".format(common.human_readable_filesize(downloaded_bytes), percent))
                         sys.stdout.flush()
 
                     add_request(REQUEST_PROGRESS, path, {'id': download_id, 'bytes': downloaded_bytes})
@@ -260,7 +314,7 @@ def download(slug_candidate):
 
         fp.close()
 
-        if helpers.get_platform() != 'Darwin':
+        if common.get_platform() != 'Darwin':
             sys.stdout.write("\n")
 
         # Download is finished
@@ -275,13 +329,14 @@ def download(slug_candidate):
             shutdown_func()
 
     r = Response(generate())
-    r.headers.add('Content-Length', zip_filesize)
-    r.headers.add('Content-Disposition', 'attachment', filename=basename)
-
+    r.headers.set('Content-Length', zip_filesize)
+    r.headers.set('Content-Disposition', 'attachment', filename=basename)
+    for header,value in security_headers:
+        r.headers.set(header, value)
     # guess content type
     (content_type, _) = mimetypes.guess_type(basename, strict=False)
     if content_type is not None:
-        r.headers.add('Content-Type', content_type)
+        r.headers.set('Content-Type', content_type)
     return r
 
 
@@ -300,10 +355,14 @@ def page_not_found(e):
             force_shutdown()
             print(strings._('error_rate_limit'))
 
-    return render_template_string(open(helpers.get_resource_path('html/404.html')).read())
+    r = make_response(render_template_string(open(common.get_resource_path('html/404.html')).read()), 404)
+    for header, value in security_headers:
+        r.headers.set(header, value)
+    return r
+
 
 # shutting down the server only works within the context of flask, so the easiest way to do it is over http
-shutdown_slug = helpers.random_string(16)
+shutdown_slug = common.random_string(16)
 
 
 @app.route("/<slug_candidate>/shutdown")
@@ -327,15 +386,21 @@ def force_shutdown():
     func()
 
 
-def start(port, stay_open=False, transparent_torification=False):
+def start(port, stay_open=False, persistent_slug=''):
     """
     Start the flask web server.
     """
-    generate_slug()
+    generate_slug(persistent_slug)
 
     set_stay_open(stay_open)
-    set_transparent_torification(transparent_torification)
-    app.run(port=port, threaded=True)
+
+    # In Whonix, listen on 0.0.0.0 instead of 127.0.0.1 (#220)
+    if os.path.exists('/usr/share/anon-ws-base-files/workstation'):
+        host = '0.0.0.0'
+    else:
+        host = '127.0.0.1'
+
+    app.run(host=host, port=port, threaded=True)
 
 
 def stop(port):
@@ -350,13 +415,11 @@ def stop(port):
 
     # to stop flask, load http://127.0.0.1:<port>/<shutdown_slug>/shutdown
     try:
-        if transparent_torification:
-            import socket
-
-            s = socket.socket()
-            s.connect(('127.0.0.1', port))
-            s.sendall('GET /{0:s}/shutdown HTTP/1.1\r\n\r\n'.format(shutdown_slug))
-        else:
-            urlopen('http://127.0.0.1:{0:d}/{1:s}/shutdown'.format(port, shutdown_slug)).read()
+        s = socket.socket()
+        s.connect(('127.0.0.1', port))
+        s.sendall('GET /{0:s}/shutdown HTTP/1.1\r\n\r\n'.format(shutdown_slug))
     except:
-        pass
+        try:
+            urlopen('http://127.0.0.1:{0:d}/{1:s}/shutdown'.format(port, shutdown_slug)).read()
+        except:
+            pass
