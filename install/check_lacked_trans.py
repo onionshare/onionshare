@@ -78,7 +78,7 @@ def main():
     if lang_code == 'all':
         locale_files = [f for f in files_in(dir, 'share/locale') if f.endswith('.json')]
     else:
-      locale_files = [f for f in files_in(dir, 'share/locale') if f.endswith('%s.json' % lang_code)]
+        locale_files = [f for f in files_in(dir, 'share/locale') if f.endswith('%s.json' % lang_code)]
     for locale_file in locale_files:
         with codecs.open(locale_file, 'r', encoding='utf-8') as f:
             trans = json.load(f)
