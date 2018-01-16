@@ -63,7 +63,11 @@ class Settings(object):
             'autoupdate_timestamp': None,
             'no_bridges': True,
             'tor_bridges_use_obfs4': False,
-            'tor_bridges_use_custom_bridges': ''
+            'tor_bridges_use_custom_bridges': '',
+            'save_private_key': False,
+            'private_key': '',
+            'slug': '',
+            'hidservauth_string': ''
         }
         self._settings = {}
         self.fill_in_defaults()

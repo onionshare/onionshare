@@ -28,9 +28,9 @@ import inspect, os, sys, hashlib, zipfile, io, shutil, subprocess
 import urllib.request
 
 def main():
-    dmg_url = 'https://archive.torproject.org/tor-package-archive/torbrowser/7.0.10/TorBrowser-7.0.10-osx64_en-US.dmg'
-    dmg_filename = 'TorBrowser-7.0.10-osx64_en-US.dmg'
-    expected_dmg_sha256 = '2de32de962d14ecb55f8008078875f3d0b0875dba4a140726714e67ce329fe9a'
+    dmg_url = 'https://archive.torproject.org/tor-package-archive/torbrowser/7.0.11/TorBrowser-7.0.11-osx64_en-US.dmg'
+    dmg_filename = 'TorBrowser-7.0.11-osx64_en-US.dmg'
+    expected_dmg_sha256 = '5143e4a2141a69f66869be13eef4bcaac4e6c27c78383fc8a4c38b334759f3a2'
 
     # Build paths
     root_path = os.path.dirname(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))))
