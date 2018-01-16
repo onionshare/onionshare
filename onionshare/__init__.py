@@ -23,7 +23,7 @@ import os, sys, time, argparse, threading
 from . import strings, common, web
 from .onion import *
 from .onionshare import OnionShare
-
+from .settings import Settings
 
 def main(cwd=None):
     """
@@ -68,7 +68,7 @@ def main(cwd=None):
     # Validation
     valid = True
     for filename in filenames:
-        if not os.path.exists(filename):
+        if not os.path.isfile(filename) and not os.path.isdir(filename):
             print(strings._("not_a_file").format(filename))
             valid = False
         if not os.access(filename, os.R_OK):
@@ -76,6 +76,10 @@ def main(cwd=None):
             valid = False
     if not valid:
         sys.exit()
+
+
+    settings = Settings(config)
+    settings.load()
 
     # Start the Onion object
     onion = Onion()
@@ -98,8 +102,12 @@ def main(cwd=None):
 
     # Prepare files to share
     print(strings._("preparing_files"))
-    web.set_file_info(filenames)
-    app.cleanup_filenames.append(web.zip_filename)
+    try:
+        web.set_file_info(filenames)
+        app.cleanup_filenames.append(web.zip_filename)
+    except OSError as e:
+        print(e.strerror)
+        sys.exit(1)
 
     # Warn about sending large files over Tor
     if web.zip_filesize >= 157286400:  # 150mb
@@ -108,7 +116,7 @@ def main(cwd=None):
         print('')
 
     # Start OnionShare http service in new thread
-    t = threading.Thread(target=web.start, args=(app.port, app.stay_open))
+    t = threading.Thread(target=web.start, args=(app.port, app.stay_open, settings.get('slug')))
     t.daemon = True
     t.start()
 
@@ -119,6 +127,12 @@ def main(cwd=None):
         # start shutdown timer thread
         if app.shutdown_timeout > 0:
             app.shutdown_timer.start()
+
+        # Save the web slug if we are using a persistent private key
+        if settings.get('save_private_key'):
+            if not settings.get('slug'):
+                settings.set('slug', web.slug)
+                settings.save()
 
         if(stealth):
             print(strings._("give_this_url_stealth"))

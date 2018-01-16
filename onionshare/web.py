@@ -128,9 +128,12 @@ def add_request(request_type, path, data=None):
 slug = None
 
 
-def generate_slug():
+def generate_slug(persistent_slug=''):
     global slug
-    slug = common.build_slug()
+    if persistent_slug:
+        slug = persistent_slug
+    else:
+        slug = common.build_slug()
 
 download_count = 0
 error404_count = 0
@@ -383,11 +386,11 @@ def force_shutdown():
     func()
 
 
-def start(port, stay_open=False):
+def start(port, stay_open=False, persistent_slug=''):
     """
     Start the flask web server.
     """
-    generate_slug()
+    generate_slug(persistent_slug)
 
     set_stay_open(stay_open)
 

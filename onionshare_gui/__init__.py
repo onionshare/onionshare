@@ -91,7 +91,7 @@ def main():
     if filenames:
         valid = True
         for filename in filenames:
-            if not os.path.exists(filename):
+            if not os.path.isfile(filename) and not os.path.isdir(filename):
                 Alert(strings._("not_a_file", True).format(filename))
                 valid = False
             if not os.access(filename, os.R_OK):
