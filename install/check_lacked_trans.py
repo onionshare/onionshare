@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 """
@@ -54,7 +54,6 @@ def main():
 
     src = files_in(dir, 'onionshare') + files_in(dir, 'onionshare_gui')
     pysrc = [p for p in src if p.endswith('.py')]
-    htmlsrc = [p for p in src if p.endswith('.html')]
 
     translate_keys = set()
     # load translate key from python source
@@ -67,20 +66,12 @@ def main():
             key = arg.split(',')[0].strip('''"' ''')
             translate_keys.add(key)
 
-    # load translate key from html source
-    for line in fileinput.input(htmlsrc, openhook=fileinput.hook_encoded('utf-8')):
-        # search `{{strings.translate_key}}`
-        m = re.search(r'{{.*strings\.([-a-zA-Z0-9_]+).*}}', line)
-        if m:
-            key = m.group(1)
-            translate_keys.add(key)
-
     if args.show_all_keys:
         for k in sorted(translate_keys):
-            print k
+            print(k)
         sys.exit()
 
-    locale_files = [f for f in files_in(dir, 'locale') if f.endswith('.json')]
+    locale_files = [f for f in files_in(dir, 'share/locale') if f.endswith('.json')]
     for locale_file in locale_files:
         with codecs.open(locale_file, 'r', encoding='utf-8') as f:
             trans = json.load(f)
@@ -92,10 +83,10 @@ def main():
 
         locale, ext = os.path.splitext(os.path.basename(locale_file))
         for k in sorted(disused):
-            print locale, 'disused', k
+            print(locale, 'disused', k)
 
         for k in sorted(lacked):
-            print locale, 'lacked', k
+            print(locale, 'lacked', k)
 
 
 if __name__ == '__main__':
