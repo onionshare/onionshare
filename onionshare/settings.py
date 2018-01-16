@@ -61,6 +61,8 @@ class Settings(object):
             'use_stealth': False,
             'use_autoupdate': True,
             'autoupdate_timestamp': None,
+            'no_bridges': True,
+            'tor_bridges_use_custom_bridges': '',
             'save_private_key': False,
             'private_key': '',
             'slug': '',
