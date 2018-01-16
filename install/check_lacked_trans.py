@@ -36,7 +36,9 @@ def arg_parser():
     p.add_argument('-d', default='.', help='onionshare directory',
                    metavar='ONIONSHARE_DIR', dest='onionshare_dir')
     p.add_argument('--show-all-keys', action='store_true',
-                   help='show translation key in source and exit')
+                   help='show translation key in source and exit'),
+    p.add_argument('-l', default='all', help='language code (default: all)',
+                   metavar='LANG_CODE', dest='lang_code')
     return p
 
 
@@ -55,6 +57,8 @@ def main():
     src = files_in(dir, 'onionshare') + files_in(dir, 'onionshare_gui')
     pysrc = [p for p in src if p.endswith('.py')]
 
+    lang_code = args.lang_code
+
     translate_keys = set()
     # load translate key from python source
     for line in fileinput.input(pysrc, openhook=fileinput.hook_encoded('utf-8')):
@@ -71,7 +75,10 @@ def main():
             print(k)
         sys.exit()
 
-    locale_files = [f for f in files_in(dir, 'share/locale') if f.endswith('.json')]
+    if lang_code == 'all':
+        locale_files = [f for f in files_in(dir, 'share/locale') if f.endswith('.json')]
+    else:
+        locale_files = [f for f in files_in(dir, 'share/locale') if f.endswith('.json') and lang_code in f]
     for locale_file in locale_files:
         with codecs.open(locale_file, 'r', encoding='utf-8') as f:
             trans = json.load(f)
