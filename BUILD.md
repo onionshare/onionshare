@@ -71,7 +71,7 @@ Now you should have `dist/OnionShare.pkg`.
 
 ### Setting up your dev environment
 
-Download Python 3.6.4, 32-bit (x86) from https://www.python.org/downloads/release/python-364/. I downloaded `python-3.6.4.exe`. When installing it, make sure to check the "Add Python 3.5 to PATH" checkbox on the first page of the installer.
+Download Python 3.6.4, 32-bit (x86) from https://www.python.org/downloads/release/python-364/. I downloaded `python-3.6.4.exe`. When installing it, make sure to check the "Add Python 3.6 to PATH" checkbox on the first page of the installer.
 
 Open a command prompt, cd to the onionshare folder, and install dependencies with pip:
 
@@ -113,8 +113,6 @@ If you want to sign binaries with Authenticode:
 * Once you get a code signing key and certificate and covert it to a pfx file, import it into your certificate store.
 
 ### To make a .exe:
-
-For PyInstaller to work, you might need to edit `Scripts\pyinstaller-script.py` in your Python 3.5 folder, to work around [this bug](https://stackoverflow.com/questions/31808180/installing-pyinstaller-via-pip-leads-to-failed-to-create-process) in pip.
 
 * Open a command prompt, cd into the onionshare directory, and type: `pyinstaller install\pyinstaller.spec`. `onionshare-gui.exe` and all of their supporting files will get created inside the `dist` folder.
 
