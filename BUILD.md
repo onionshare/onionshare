@@ -100,7 +100,7 @@ Download and install the standalone [Windows 10 SDK](https://dev.windows.com/en-
 
 * `C:\Program Files (x86)\Windows Kits\10\bin\x86`
 * `C:\Program Files (x86)\Windows Kits\10\Redist\ucrt\DLLs\x86`
-* `C:\Users\user\AppData\Local\Programs\Python\Python35-32\Lib\site-packages\PyQt5\Qt\bin`
+* `C:\Users\user\AppData\Local\Programs\Python\Python36-32\Lib\site-packages\PyQt5\Qt\bin`
 
 If you want to build the installer:
 
