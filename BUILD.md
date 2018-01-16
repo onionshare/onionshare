@@ -32,11 +32,11 @@ For ArchLinux: There is a PKBUILD available [here](https://aur.archlinux.org/pac
 
 ## Mac OS X
 
-Install Xcode from the Mac App Store. Once it's installed, run it for the first time to set it up.
+Install Xcode from the Mac App Store. Once it's installed, run it for the first time to set it up. Also, run this to make sure command line tools are installed: `xcode-select --install`. And finally, open Xcode, go to Preferences > Locations, and make sure under Command Line Tools you select an installed version from the dropdown. (This is required for installing Qt5.)
 
-Download and install Python 3.5.2 from https://www.python.org/downloads/release/python-352/ (note that a pyinstaller bug prevents you from using Python 3.6). I downloaded `python-3.5.2-macosx10.6.pkg`.
+Download and install Python 3.6.4 from https://www.python.org/downloads/release/python-364/. I downloaded `python-3.6.4-macosx10.6.pkg`.
 
-Download and install Qt 5.7.1 for macOS offline installer from https://www.qt.io/download-open-source/. I downloaded `qt-opensource-mac-x64-clang-5.7.1.dmg`. (You can skip making an account in the installer.)
+Download and install Qt5 from https://www.qt.io/download-open-source/. I downloaded `qt-unified-mac-x64-3.0.2-online.dmg`. There's no need to login to a Qt account during installation. Make sure you install the latest Qt 5.x. I installed Qt 5.10.0 -- all you need is to check `Qt > Qt 5.10.0 > macOS`.
 
 Now install some python dependencies with pip (note, there's issues building a .app if you install this in a virtualenv):
 
