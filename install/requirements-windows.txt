@@ -6,7 +6,6 @@ Jinja2==2.10
 MarkupSafe==1.0
 pefile==2017.11.5
 PyInstaller==3.3.1
-pypiwin32==219
 PyQt5==5.9.2
 PySocks==1.6.7
 sip==4.19.6
