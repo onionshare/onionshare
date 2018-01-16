@@ -298,7 +298,7 @@ def download(slug_candidate):
                     percent = (1.0 * downloaded_bytes / zip_filesize) * 100
 
                     # only output to stdout if running onionshare in CLI mode, or if using Linux (#203, #304)
-                    if not gui_mode or common.get_platform() == 'Linux':
+                    if not gui_mode or common.platform_is_unixy():
                         sys.stdout.write(
                             "\r{0:s}, {1:.2f}%          ".format(common.human_readable_filesize(downloaded_bytes), percent))
                         sys.stdout.flush()
