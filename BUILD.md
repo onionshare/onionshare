@@ -30,13 +30,15 @@ Create a .rpm on Fedora-like distros: `./install/build_rpm.sh`
 
 For ArchLinux: There is a PKBUILD available [here](https://aur.archlinux.org/packages/onionshare/) that can be used to install OnionShare.
 
+If you find that these instructions don't work for your Linux distribution or version, consult the [Linux Distribution Support wiki guide](https://github.com/micahflee/onionshare/wiki/Linux-Distribution-Support), which might contain extra instructions.
+
 ## Mac OS X
 
-Install Xcode from the Mac App Store. Once it's installed, run it for the first time to set it up.
+Install Xcode from the Mac App Store. Once it's installed, run it for the first time to set it up. Also, run this to make sure command line tools are installed: `xcode-select --install`. And finally, open Xcode, go to Preferences > Locations, and make sure under Command Line Tools you select an installed version from the dropdown. (This is required for installing Qt5.)
 
-Download and install Python 3.5.2 from https://www.python.org/downloads/release/python-352/ (note that a pyinstaller bug prevents you from using Python 3.6). I downloaded `python-3.5.2-macosx10.6.pkg`.
+Download and install Python 3.6.4 from https://www.python.org/downloads/release/python-364/. I downloaded `python-3.6.4-macosx10.6.pkg`.
 
-Download and install Qt 5.7.1 for macOS offline installer from https://www.qt.io/download-open-source/. I downloaded `qt-opensource-mac-x64-clang-5.7.1.dmg`. (You can skip making an account in the installer.)
+Download and install Qt5 from https://www.qt.io/download-open-source/. I downloaded `qt-unified-mac-x64-3.0.2-online.dmg`. There's no need to login to a Qt account during installation. Make sure you install the latest Qt 5.x. I installed Qt 5.10.0 -- all you need is to check `Qt > Qt 5.10.0 > macOS`.
 
 Now install some python dependencies with pip (note, there's issues building a .app if you install this in a virtualenv):
 
@@ -71,7 +73,7 @@ Now you should have `dist/OnionShare.pkg`.
 
 ### Setting up your dev environment
 
-Download the latest Python 3.5.2, 32-bit (x86) from https://www.python.org/downloads/release/python-352/ (note that there's a pyinstaller/pywin32 bug that prevents 3.6.x from working). I downloaded `python-3.5.2.exe`. When installing it, make sure to check the "Add Python 3.5 to PATH" checkbox on the first page of the installer.
+Download Python 3.6.4, 32-bit (x86) from https://www.python.org/downloads/release/python-364/. I downloaded `python-3.6.4.exe`. When installing it, make sure to check the "Add Python 3.6 to PATH" checkbox on the first page of the installer.
 
 Open a command prompt, cd to the onionshare folder, and install dependencies with pip:
 
@@ -79,7 +81,9 @@ Open a command prompt, cd to the onionshare folder, and install dependencies wit
 pip3 install -r install\requirements-windows.txt
 ```
 
-Download and install Qt5 from https://www.qt.io/download-open-source/. I downloaded `qt-unified-windows-x86-2.0.4-online.exe`. There's no need to login to a Qt account during installation. Make sure you install the latest Qt 5.x. I installed Qt 5.7.
+Download and install pywin32 (build 221, x86, for python 3.6) from https://sourceforge.net/projects/pywin32/files/pywin32/Build%20221/. I downloaded `pywin32-221.win32-py3.6.exe`.
+
+Download and install Qt5 from https://www.qt.io/download-open-source/. I downloaded `qt-unified-windows-x86-3.0.2-online.exe`. There's no need to login to a Qt account during installation. Make sure you install the latest Qt 5.x. I installed Qt 5.10.0.
 
 After that you can try both the CLI and the GUI version of OnionShare:
 
@@ -102,32 +106,30 @@ Add the following directories to the path:
 
 * `C:\Program Files (x86)\Windows Kits\10\bin\x86`
 * `C:\Program Files (x86)\Windows Kits\10\Redist\ucrt\DLLs\x86`
-* `C:\Users\user\AppData\Local\Programs\Python\Python35-32\Lib\site-packages\PyQt5\Qt\bin`
+* `C:\Users\user\AppData\Local\Programs\Python\Python36-32\Lib\site-packages\PyQt5\Qt\bin`
 * `C:\Program Files (x86)\7-Zip`
 
 If you want to build the installer:
 
-* Go to http://nsis.sourceforge.net/Download and download the latest NSIS. I downloaded `nsis-3.01-setup.exe`.
+* Go to http://nsis.sourceforge.net/Download and download the latest NSIS. I downloaded `nsis-3.02.1-setup.exe`.
 * Add `C:\Program Files (x86)\NSIS` to the path.
 
 If you want to sign binaries with Authenticode:
 
-* You'll need a code signing certificate. I roughly followed [this guide](http://blog.assarbad.net/20110513/startssl-code-signing-certificate/) to make one using my StartSSL account.
+* You'll need a code signing certificate. I got an open source code signing certificate from [Certum](https://www.certum.eu/certum/cert,offer_en_open_source_cs.xml).
 * Once you get a code signing key and certificate and covert it to a pfx file, import it into your certificate store.
 
 ### To make a .exe:
-
-For PyInstaller to work, you might need to edit `Scripts\pyinstaller-script.py` in your Python 3.5 folder, to work around [this bug](https://stackoverflow.com/questions/31808180/installing-pyinstaller-via-pip-leads-to-failed-to-create-process) in pip.
 
 * Open a command prompt, cd into the onionshare directory, and type: `pyinstaller install\pyinstaller.spec`. `onionshare-gui.exe` and all of their supporting files will get created inside the `dist` folder.
 
 ### To build the installer:
 
-Note that you must have a codesigning certificate installed in order to use the `install\build_exe.bat` script, because it codesigns `onionshare-gui.exe`, `uninstall.exe`, and `OnionShare_Setup.exe`.
+Note that you must have a codesigning certificate installed in order to use the `install\build_exe.bat` script, because it codesigns `onionshare-gui.exe`, `uninstall.exe`, and `onionshare-setup.exe`.
 
 Open a command prompt, cd to the onionshare directory, and type: `install\build_exe.bat`
 
-This will prompt you to codesign three binaries and execute one unsigned binary. When you're done clicking through everything you will have `dist\OnionShare_Setup.exe`.
+This will prompt you to codesign three binaries and execute one unsigned binary. When you're done clicking through everything you will have `dist\onionshare-setup.exe`.
 
 ## Tests
 
