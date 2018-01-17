@@ -230,15 +230,15 @@ class TestGetTorPaths:
                 os.path.dirname(
                     common.get_resource_path(''))), 'tor')
         tor_path = os.path.join(
-            os.path.join(base_path, 'Tor'), "tor.exe")
+            os.path.join(base_path, 'Tor'), 'tor.exe')
+        obfs4proxy_file_path = os.path.join(
+            os.path.join(base_path, 'Tor'), 'obfs4proxy.exe')
         tor_geo_ip_file_path = os.path.join(
             os.path.join(
                 os.path.join(base_path, 'Data'), 'Tor'), 'geoip')
         tor_geo_ipv6_file_path = os.path.join(
             os.path.join(
                 os.path.join(base_path, 'Data'), 'Tor'), 'geoip6')
-        obfs4proxy_file_path = os.path.join(
-            base_path, 'Data', 'Tor', 'obfs4proxy')
         assert (common.get_tor_paths() ==
                 (tor_path, tor_geo_ip_file_path, tor_geo_ipv6_file_path, obfs4proxy_file_path))
 
