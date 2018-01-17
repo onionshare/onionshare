@@ -146,14 +146,15 @@ class SettingsDialog(QtWidgets.QDialog):
         self.tor_bridges_no_bridges_radio = QtWidgets.QRadioButton(strings._('gui_settings_tor_bridges_no_bridges_radio_option', True))
         self.tor_bridges_no_bridges_radio.toggled.connect(self.tor_bridges_no_bridges_radio_toggled)
 
-        # OBFS4 option radio
-        self.tor_bridges_use_obfs4_radio = QtWidgets.QRadioButton(strings._('gui_settings_tor_bridges_obfs4_radio_option', True))
-        self.tor_bridges_use_obfs4_radio.toggled.connect(self.tor_bridges_use_obfs4_radio_toggled)
+        # obfs4 option radio
         # if the obfs4proxy binary is missing, we can't use obfs4 transports
-        if system != 'Windows' and system != 'Darwin':
-            (self.tor_path, self.tor_geo_ip_file_path, self.tor_geo_ipv6_file_path, self.obfs4proxy_file_path) = common.get_tor_paths()
-            if not os.path.isfile(self.obfs4proxy_file_path):
-                self.tor_bridges_use_obfs4_radio.setEnabled(False)
+        (self.tor_path, self.tor_geo_ip_file_path, self.tor_geo_ipv6_file_path, self.obfs4proxy_file_path) = common.get_tor_paths()
+        if not os.path.isfile(self.obfs4proxy_file_path):
+            self.tor_bridges_use_obfs4_radio = QtWidgets.QRadioButton(strings._('gui_settings_tor_bridges_obfs4_radio_option_no_obfs4proxy', True))
+            self.tor_bridges_use_obfs4_radio.setEnabled(False)
+        else:
+            self.tor_bridges_use_obfs4_radio = QtWidgets.QRadioButton(strings._('gui_settings_tor_bridges_obfs4_radio_option', True))
+        self.tor_bridges_use_obfs4_radio.toggled.connect(self.tor_bridges_use_obfs4_radio_toggled)
 
         # Custom bridges radio and textbox
         self.tor_bridges_use_custom_radio = QtWidgets.QRadioButton(strings._('gui_settings_tor_bridges_custom_radio_option', True))
