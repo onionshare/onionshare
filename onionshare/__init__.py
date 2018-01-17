@@ -79,7 +79,6 @@ def main(cwd=None):
 
 
     settings = Settings(config)
-    settings.load()
 
     # Start the Onion object
     onion = Onion()
@@ -129,6 +128,7 @@ def main(cwd=None):
             app.shutdown_timer.start()
 
         # Save the web slug if we are using a persistent private key
+        settings.load()
         if settings.get('save_private_key'):
             if not settings.get('slug'):
                 settings.set('slug', web.slug)
