@@ -130,6 +130,8 @@ class UpdateChecker(QtCore.QObject):
 
             # Update the last checked timestamp (dropping the seconds and milliseconds)
             timestamp = datetime.datetime.now().replace(microsecond=0).replace(second=0).timestamp()
+            # Re-load the settings first before saving, just in case they've changed since we started our thread
+            settings.load()
             settings.set('autoupdate_timestamp', timestamp)
             settings.save()
 
