@@ -93,7 +93,7 @@
     "gui_settings_cookie_label": "Cookie path",
     "gui_settings_tor_bridges": "Tor Bridge support",
     "gui_settings_tor_bridges_no_bridges_radio_option": "Don't use bridges",
-    "gui_settings_tor_bridges_custom_radio_option": "Use custom bridges",
+    "gui_settings_tor_bridges_custom_radio_option": "Use custom bridges (non-pluggable transports)",
     "gui_settings_tor_bridges_custom_label": "You can get bridges from <a href=\"https://bridges.torproject.org/bridges\">https://bridges.torproject.org</a>",
     "gui_settings_tor_bridges_invalid": "None of the bridges you supplied seem to be valid, so they've been ignored.\nPlease try again with valid bridges.",
     "gui_settings_button_save": "Save",
