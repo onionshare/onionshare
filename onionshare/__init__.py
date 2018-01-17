@@ -129,10 +129,11 @@ def main(cwd=None):
             app.shutdown_timer.start()
 
         # Save the web slug if we are using a persistent private key
-        if settings.get('save_private_key'):
-            if not settings.get('slug'):
-                settings.set('slug', web.slug)
-                settings.save()
+        if common.get_platform() != 'Windows':
+            if settings.get('save_private_key'):
+                if not settings.get('slug'):
+                    settings.set('slug', web.slug)
+                    settings.save()
 
         if(stealth):
             print(strings._("give_this_url_stealth"))
