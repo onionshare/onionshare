@@ -512,6 +512,18 @@ class Onion(object):
             self.connected_to_tor = False
             self.stealth = False
 
+            try:
+                # Delete the temporary tor directory
+                self.tor_tmp_directory.cleanup()
+            except AttributeError:
+                # Skip if cleanup was somehow run before connect
+                pass
+            except PermissionError:
+                # Skip if the directory is still open (#550)
+                # TODO: find a better solution
+                pass
+
+
     def get_tor_socks_port(self):
         """
         Returns a (address, port) tuple for the Tor SOCKS port
