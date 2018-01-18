@@ -384,7 +384,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
                 pass
         self.app.cleanup()
         # Remove ephemeral service, but don't disconnect from Tor
-        self.onion.cleanup(stop_tor=False,clear_state_dir=self.settings.get('clear_state_dir'))
+        self.onion.cleanup(stop_tor=False,clear_state_dir=False)
         self.filesize_warning.hide()
         self.persistent_url_label.hide()
         self.stop_server_finished.emit()
