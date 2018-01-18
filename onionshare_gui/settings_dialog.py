@@ -18,7 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 from PyQt5 import QtCore, QtWidgets, QtGui
-import sys, platform, datetime
+import sys, platform, datetime, re
 
 from onionshare import strings, common
 from onionshare.settings import Settings
@@ -140,6 +140,40 @@ class SettingsDialog(QtWidgets.QDialog):
         if (system == 'Windows' or system == 'Darwin') and getattr(sys, 'onionshare_dev_mode', False):
             self.connection_type_bundled_radio.setEnabled(False)
 
+        # Bridge options for bundled tor
+
+        # No bridges option radio
+        self.tor_bridges_no_bridges_radio = QtWidgets.QRadioButton(strings._('gui_settings_tor_bridges_no_bridges_radio_option', True))
+        self.tor_bridges_no_bridges_radio.toggled.connect(self.tor_bridges_no_bridges_radio_toggled)
+
+        # Custom bridges radio and textbox
+        self.tor_bridges_use_custom_radio = QtWidgets.QRadioButton(strings._('gui_settings_tor_bridges_custom_radio_option', True))
+        self.tor_bridges_use_custom_radio.toggled.connect(self.tor_bridges_use_custom_radio_toggled)
+
+        self.tor_bridges_use_custom_label = QtWidgets.QLabel(strings._('gui_settings_tor_bridges_custom_label', True))
+        self.tor_bridges_use_custom_label.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
+        self.tor_bridges_use_custom_label.setOpenExternalLinks(True)
+        self.tor_bridges_use_custom_textbox = QtWidgets.QPlainTextEdit()
+        self.tor_bridges_use_custom_textbox.setMaximumHeight(200)
+        self.tor_bridges_use_custom_textbox.setPlaceholderText('[address:port] [identifier]')
+
+        tor_bridges_use_custom_textbox_options_layout = QtWidgets.QVBoxLayout()
+        tor_bridges_use_custom_textbox_options_layout.addWidget(self.tor_bridges_use_custom_label)
+        tor_bridges_use_custom_textbox_options_layout.addWidget(self.tor_bridges_use_custom_textbox)
+
+        self.tor_bridges_use_custom_textbox_options = QtWidgets.QWidget()
+        self.tor_bridges_use_custom_textbox_options.setLayout(tor_bridges_use_custom_textbox_options_layout)
+        self.tor_bridges_use_custom_textbox_options.hide()
+
+        # Bridges layout/widget
+        bridges_layout = QtWidgets.QVBoxLayout()
+        bridges_layout.addWidget(self.tor_bridges_no_bridges_radio)
+        bridges_layout.addWidget(self.tor_bridges_use_custom_radio)
+        bridges_layout.addWidget(self.tor_bridges_use_custom_textbox_options)
+
+        self.bridges = QtWidgets.QWidget()
+        self.bridges.setLayout(bridges_layout)
+
         # Automatic
         self.connection_type_automatic_radio = QtWidgets.QRadioButton(strings._('gui_settings_connection_type_automatic_option', True))
         self.connection_type_automatic_radio.toggled.connect(self.connection_type_automatic_toggled)
@@ -238,6 +272,13 @@ class SettingsDialog(QtWidgets.QDialog):
         connection_type_group = QtWidgets.QGroupBox()
         connection_type_group.setLayout(connection_type_group_layout)
 
+        # The Bridges options are not exclusive (enabling Bridges offers custom bridges)
+        connection_type_bridges_radio_group_layout = QtWidgets.QVBoxLayout()
+        connection_type_bridges_radio_group_layout.addWidget(self.bridges)
+        self.connection_type_bridges_radio_group = QtWidgets.QGroupBox(strings._("gui_settings_tor_bridges", True))
+        self.connection_type_bridges_radio_group.setLayout(connection_type_bridges_radio_group_layout)
+        self.connection_type_bridges_radio_group.hide()
+
         # Buttons
         self.save_button = QtWidgets.QPushButton(strings._('gui_settings_button_save', True))
         self.save_button.clicked.connect(self.save_clicked)
@@ -266,6 +307,7 @@ class SettingsDialog(QtWidgets.QDialog):
         right_col_layout = QtWidgets.QVBoxLayout()
         right_col_layout.addWidget(connection_type_radio_group)
         right_col_layout.addWidget(connection_type_group)
+        right_col_layout.addWidget(self.connection_type_bridges_radio_group)
         right_col_layout.addWidget(self.tor_status)
         right_col_layout.addStretch()
 
@@ -345,6 +387,23 @@ class SettingsDialog(QtWidgets.QDialog):
             self.authenticate_password_radio.setChecked(True)
         self.authenticate_password_extras_password.setText(self.old_settings.get('auth_password'))
 
+        if self.old_settings.get('no_bridges'):
+            self.tor_bridges_no_bridges_radio.setChecked(True)
+            self.tor_bridges_use_custom_radio.setChecked(False)
+        else:
+            self.tor_bridges_no_bridges_radio.setChecked(False)
+            if self.old_settings.get('tor_bridges_use_custom_bridges'):
+                self.tor_bridges_use_custom_radio.setChecked(True)
+                # Remove the 'Bridge' lines at the start of each bridge.
+                # They are added automatically to provide compatibility with
+                # copying/pasting bridges provided from https://bridges.torproject.org
+                new_bridges = []
+                bridges = self.old_settings.get('tor_bridges_use_custom_bridges').split('Bridge ')
+                for bridge in bridges:
+                    new_bridges.append(bridge)
+                new_bridges = ''.join(new_bridges)
+                self.tor_bridges_use_custom_textbox.setPlainText(new_bridges)
+
     def connection_type_bundled_toggled(self, checked):
         """
         Connection type bundled was toggled. If checked, hide authentication fields.
@@ -353,6 +412,21 @@ class SettingsDialog(QtWidgets.QDialog):
         if checked:
             self.authenticate_group.hide()
             self.connection_type_socks.hide()
+            self.connection_type_bridges_radio_group.show()
+
+    def tor_bridges_no_bridges_radio_toggled(self, checked):
+        """
+        'No bridges' option was toggled. If checked, enable other bridge options.
+        """
+        if checked:
+            self.tor_bridges_use_custom_textbox_options.hide()
+
+    def tor_bridges_use_custom_radio_toggled(self, checked):
+        """
+        Custom bridges option was toggled. If checked, show custom bridge options.
+        """
+        if checked:
+            self.tor_bridges_use_custom_textbox_options.show()
 
     def connection_type_automatic_toggled(self, checked):
         """
@@ -362,6 +436,7 @@ class SettingsDialog(QtWidgets.QDialog):
         if checked:
             self.authenticate_group.hide()
             self.connection_type_socks.hide()
+            self.connection_type_bridges_radio_group.hide()
 
     def connection_type_control_port_toggled(self, checked):
         """
@@ -373,6 +448,7 @@ class SettingsDialog(QtWidgets.QDialog):
             self.authenticate_group.show()
             self.connection_type_control_port_extras.show()
             self.connection_type_socks.show()
+            self.connection_type_bridges_radio_group.hide()
         else:
             self.connection_type_control_port_extras.hide()
 
@@ -387,6 +463,7 @@ class SettingsDialog(QtWidgets.QDialog):
             self.authenticate_group.show()
             self.connection_type_socket_file_extras.show()
             self.connection_type_socks.show()
+            self.connection_type_bridges_radio_group.hide()
         else:
             self.connection_type_socket_file_extras.hide()
 
@@ -513,7 +590,8 @@ class SettingsDialog(QtWidgets.QDialog):
             if changed(settings, self.old_settings, [
                 'connection_type', 'control_port_address',
                 'control_port_port', 'socks_address', 'socks_port',
-                'socket_file_path', 'auth_type', 'auth_password']):
+                'socket_file_path', 'auth_type', 'auth_password',
+                'no_bridges', 'tor_bridges_use_custom_bridges']):
 
                 reboot_onion = True
 
@@ -613,6 +691,32 @@ class SettingsDialog(QtWidgets.QDialog):
             settings.set('auth_type', 'password')
 
         settings.set('auth_password', self.authenticate_password_extras_password.text())
+
+        # Whether we use bridges
+        if self.tor_bridges_no_bridges_radio.isChecked():
+            settings.set('no_bridges', True)
+            settings.set('tor_bridges_use_custom_bridges', '')
+        if self.tor_bridges_use_custom_radio.isChecked():
+            settings.set('no_bridges', False)
+            # Insert a 'Bridge' line at the start of each bridge.
+            # This makes it easier to copy/paste a set of bridges
+            # provided from https://bridges.torproject.org
+            new_bridges = []
+            bridges = self.tor_bridges_use_custom_textbox.toPlainText().split('\n')
+            bridges_valid = False
+            for bridge in bridges:
+                if bridge != '':
+                    # Check the syntax of the custom bridge to make sure it looks legitimate
+                    pattern = re.compile("[0-9.]+:[0-9]+\s[A-Z0-9]+$")
+                    if pattern.match(bridge):
+                        new_bridges.append(''.join(['Bridge ', bridge, '\n']))
+                        bridges_valid = True
+            if bridges_valid:
+                new_bridges = ''.join(new_bridges)
+                settings.set('tor_bridges_use_custom_bridges', new_bridges)
+            else:
+                Alert(strings._('gui_settings_tor_bridges_invalid', True))
+                settings.set('no_bridges', True)
 
         return settings
 
