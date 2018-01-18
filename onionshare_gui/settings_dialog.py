@@ -595,6 +595,11 @@ class SettingsDialog(QtWidgets.QDialog):
         if self.connection_type_socket_file_radio.isChecked():
             settings.set('connection_type', 'socket_file')
 
+        if self.autoupdate_checkbox.isChecked():
+            settings.set('use_autoupdate', True)
+        else:
+            settings.set('use_autoupdate', False)
+
         settings.set('control_port_address', self.connection_type_control_port_extras_address.text())
         settings.set('control_port_port', self.connection_type_control_port_extras_port.text())
         settings.set('socket_file_path', self.connection_type_socket_file_extras_path.text())
