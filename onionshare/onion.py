@@ -140,7 +140,7 @@ class Onion(object):
             self.bundle_tor_supported = True
 
         # Set the path of the tor binary, for bundled tor
-        (self.tor_path, self.tor_geo_ip_file_path, self.tor_geo_ipv6_file_path) = common.get_tor_paths()
+        (self.tor_path, self.tor_geo_ip_file_path, self.tor_geo_ipv6_file_path, self.obfs4proxy_file_path) = common.get_tor_paths()
 
         # The tor process
         self.tor_proc = None
@@ -205,6 +205,16 @@ class Onion(object):
             with open(self.tor_torrc, 'w') as f:
                 f.write(torrc_template)
 
+                # Bridge support
+                if self.settings.get('tor_bridges_use_obfs4'):
+                    f.write('ClientTransportPlugin obfs4 exec {}\n'.format(self.obfs4proxy_file_path))
+                    with open(common.get_resource_path('torrc_template-obfs4')) as o:
+                        for line in o:
+                            f.write(line)
+                if self.settings.get('tor_bridges_use_custom_bridges'):
+                    f.write(self.settings.get('tor_bridges_use_custom_bridges'))
+                    f.write('\nUseBridges 1')
+
             # Execute a tor subprocess
             start_ts = time.time()
             if self.system == 'Windows':
@@ -254,8 +264,13 @@ class Onion(object):
                     break
                 time.sleep(0.2)
 
-                # Timeout after 90 seconds
-                if time.time() - start_ts > 90:
+                # If using bridges, it might take a bit longer to connect to Tor
+                if self.settings.get('tor_bridges_use_custom_bridges') or self.settings.get('tor_bridges_use_obfs4'):
+                    connect_timeout = 150
+                else:
+                    # Timeout after 120 seconds
+                    connect_timeout = 120
+                if time.time() - start_ts > connect_timeout:
                     print("")
                     self.tor_proc.terminate()
                     raise BundledTorTimeout(strings._('settings_error_bundled_tor_timeout'))

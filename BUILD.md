@@ -11,9 +11,9 @@ cd onionshare
 
 Install the needed dependencies:
 
-For Debian-like distros: `apt install -y build-essential fakeroot python3-all python3-stdeb dh-python  python3-flask python3-stem python3-pyqt5 python-nautilus python3-pytest tor`
+For Debian-like distros: `apt install -y build-essential fakeroot python3-all python3-stdeb dh-python  python3-flask python3-stem python3-pyqt5 python-nautilus python3-pytest tor obfs4proxy`
 
-For Fedora-like distros: `dnf install -y rpm-build python3-flask python3-stem python3-qt5 python3-pytest nautilus-python tor`
+For Fedora-like distros: `dnf install -y rpm-build python3-flask python3-stem python3-qt5 python3-pytest nautilus-python tor obfs4`
 
 After that you can try both the CLI and the GUI version of OnionShare:
 
@@ -98,11 +98,16 @@ These instructions include adding folders to the path in Windows. To do this, go
 
 Download and install the 32-bit [Visual C++ Redistributable for Visual Studio 2015](https://www.microsoft.com/en-US/download/details.aspx?id=48145). I downloaded `vc_redist.x86.exe`.
 
-Download and install the standalone [Windows 10 SDK](https://dev.windows.com/en-us/downloads/windows-10-sdk). Note that you may not need this if you already have Visual Studio. Add the following directories to the path:
+Download and install 7-Zip from http://70zip.org/download.html. I downloaded 7z1800.exe.
+
+Download and install the standalone [Windows 10 SDK](https://dev.windows.com/en-us/downloads/windows-10-sdk). Note that you may not need this if you already have Visual Studio.
+
+Add the following directories to the path:
 
 * `C:\Program Files (x86)\Windows Kits\10\bin\10.0.16299.0\x86`
 * `C:\Program Files (x86)\Windows Kits\10\Redist\ucrt\DLLs\x86`
 * `C:\Users\user\AppData\Local\Programs\Python\Python36-32\Lib\site-packages\PyQt5\Qt\bin`
+* `C:\Program Files (x86)\7-Zip`
 
 If you want to build the installer:
 

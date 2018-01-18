@@ -84,6 +84,9 @@ def main():
     shutil.copyfile(os.path.join(dmg_tor_path, 'MacOS', 'Tor', 'tor.real'), os.path.join(dist_path, 'MacOS', 'Tor', 'tor.real'))
     shutil.copyfile(os.path.join(dmg_tor_path, 'MacOS', 'Tor', 'libevent-2.0.5.dylib'), os.path.join(dist_path, 'MacOS', 'Tor', 'libevent-2.0.5.dylib'))
     os.chmod(os.path.join(dist_path, 'MacOS', 'Tor', 'tor.real'), 0o755)
+    # obfs4proxy binary
+    shutil.copyfile(os.path.join(dmg_tor_path, 'MacOS', 'Tor', 'PluggableTransports', 'obfs4proxy'), os.path.join(dist_path, 'Resources', 'Tor', 'obfs4proxy'))
+    os.chmod(os.path.join(dist_path, 'Resources', 'Tor', 'obfs4proxy'), 0o755)
 
     # Unmount dmg
     subprocess.call(['diskutil', 'unmount', '/Volumes/Tor Browser'])

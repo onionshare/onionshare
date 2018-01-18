@@ -94,9 +94,11 @@ def get_tor_paths():
         tor_path = '/usr/bin/tor'
         tor_geo_ip_file_path = '/usr/share/tor/geoip'
         tor_geo_ipv6_file_path = '/usr/share/tor/geoip6'
+        obfs4proxy_file_path = '/usr/bin/obfs4proxy'
     elif p == 'Windows':
         base_path = os.path.join(os.path.dirname(os.path.dirname(get_resource_path(''))), 'tor')
-        tor_path               = os.path.join(os.path.join(base_path, 'Tor'), "tor.exe")
+        tor_path               = os.path.join(os.path.join(base_path, 'Tor'), 'tor.exe')
+        obfs4proxy_file_path   = os.path.join(os.path.join(base_path, 'Tor'), 'obfs4proxy.exe')
         tor_geo_ip_file_path   = os.path.join(os.path.join(os.path.join(base_path, 'Data'), 'Tor'), 'geoip')
         tor_geo_ipv6_file_path = os.path.join(os.path.join(os.path.join(base_path, 'Data'), 'Tor'), 'geoip6')
     elif p == 'Darwin':
@@ -104,12 +106,14 @@ def get_tor_paths():
         tor_path               = os.path.join(base_path, 'Resources', 'Tor', 'tor')
         tor_geo_ip_file_path   = os.path.join(base_path, 'Resources', 'Tor', 'geoip')
         tor_geo_ipv6_file_path = os.path.join(base_path, 'Resources', 'Tor', 'geoip6')
+        obfs4proxy_file_path   = os.path.join(base_path, 'Resources', 'Tor', 'obfs4proxy')
     elif p == 'OpenBSD' or p == 'FreeBSD':
         tor_path = '/usr/local/bin/tor'
         tor_geo_ip_file_path = '/usr/local/share/tor/geoip'
         tor_geo_ipv6_file_path = '/usr/local/share/tor/geoip6'
+        obfs4proxy_file_path = '/usr/local/bin/obfs4proxy'
 
-    return (tor_path, tor_geo_ip_file_path, tor_geo_ipv6_file_path)
+    return (tor_path, tor_geo_ip_file_path, tor_geo_ipv6_file_path, obfs4proxy_file_path)
 
 
 def get_version():
