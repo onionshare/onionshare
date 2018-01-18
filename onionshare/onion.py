@@ -165,14 +165,14 @@ class Onion(object):
             if not self.bundle_tor_supported:
                 raise BundledTorNotSupported(strings._('settings_error_bundled_tor_not_supported'))
 
+            self.tor_tmp_directory = tempfile.TemporaryDirectory()
             self.tor_data_directory = self.settings.build_state_dir()
             if not os.path.exists(self.tor_data_directory):
                 try:
                     os.makedirs(self.tor_data_directory, mode=0o700)
                 except:
                     # Fall back to tmp dir
-                    self.make_temp_tor_data_directory = tempfile.TemporaryDirectory()
-                    self.tor_data_directory = self.make_temp_tor_data_directory.name
+                    self.tor_data_directory = self.tor_tmp_directory.name
 
             if self.system == 'Windows':
                 # Windows needs to use network ports, doesn't support unix sockets
@@ -193,7 +193,7 @@ class Onion(object):
                 with open(common.get_resource_path('torrc_template')) as f:
                     torrc_template = f.read()
                 self.tor_control_port = None
-                self.tor_control_socket = os.path.join(self.tor_data_directory, 'control_socket')
+                self.tor_control_socket = os.path.join(self.tor_tmp_directory.name, 'control_socket')
                 self.tor_cookie_auth_file = os.path.join(self.tor_data_directory, 'cookie')
                 try:
                     self.tor_socks_port = common.get_available_port(1000, 65535)
