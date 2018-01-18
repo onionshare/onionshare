@@ -68,7 +68,7 @@ class Settings(object):
             'private_key': '',
             'slug': '',
             'hidservauth_string': '',
-            'clear_state_dir': ''
+            'clear_state_dir': False
         }
         self._settings = {}
         self.fill_in_defaults()
