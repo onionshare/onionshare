@@ -68,7 +68,6 @@
     "gui_settings_stealth_label": "Stealth (geavanceerd)",
     "gui_settings_stealth_option": "Maak stealth onion services",
     "gui_settings_stealth_option_details": "Dit maakt OnionShare veiliger, maar ook lastiger voor de ontvanger om te verbinden.<br><a href=\"https://github.com/micahflee/onionshare/wiki/Stealth-Onion-Services\">Meer informatie</a>.",
-    "gui_settings_autoupdate_label": "Controleer voor updates",
     "gui_settings_autoupdate_option": "Notificeer me als er updates beschikbaar zijn",
     "gui_settings_autoupdate_timestamp": "Laatste controle: {}",
     "gui_settings_autoupdate_timestamp_never": "Nooit",
