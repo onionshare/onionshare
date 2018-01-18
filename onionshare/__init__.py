@@ -115,6 +115,7 @@ def main(cwd=None):
         print('')
 
     # Start OnionShare http service in new thread
+    settings.load()
     t = threading.Thread(target=web.start, args=(app.port, app.stay_open, settings.get('slug')))
     t.daemon = True
     t.start()
@@ -128,7 +129,6 @@ def main(cwd=None):
             app.shutdown_timer.start()
 
         # Save the web slug if we are using a persistent private key
-        settings.load()
         if settings.get('save_private_key'):
             if not settings.get('slug'):
                 settings.set('slug', web.slug)
