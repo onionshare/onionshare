@@ -482,7 +482,7 @@ class Onion(object):
         else:
             raise TorErrorProtocolError(strings._('error_tor_protocol_error'))
 
-    def cleanup(self, stop_tor=True):
+    def cleanup(self, stop_tor=True, clear_state_dir=False):
         """
         Stop onion services that were created earlier. If there's a tor subprocess running, kill it.
         """
@@ -515,6 +515,16 @@ class Onion(object):
             try:
                 # Delete the temporary tor directory
                 self.tor_tmp_directory.cleanup()
+            except AttributeError:
+                # Skip if cleanup was somehow run before connect
+                pass
+            except PermissionError:
+                # Skip if the directory is still open (#550)
+                # TODO: find a better solution
+                pass
+        if clear_state_dir:
+            try:
+                shutil.rmtree(self.tor_data_directory)
             except AttributeError:
                 # Skip if cleanup was somehow run before connect
                 pass

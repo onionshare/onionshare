@@ -384,12 +384,21 @@ class OnionShareGui(QtWidgets.QMainWindow):
                 pass
         self.app.cleanup()
         # Remove ephemeral service, but don't disconnect from Tor
-        self.onion.cleanup(stop_tor=False)
+        self.onion.cleanup(stop_tor=False,clear_state_dir=self.settings.get('clear_state_dir'))
         self.filesize_warning.hide()
         self.persistent_url_label.hide()
         self.stop_server_finished.emit()
 
         self.set_server_active(False)
+
+    def clear_data(self):
+        """
+        Clear the cache Tor data
+        """
+        if self.onion.is_authenticated():
+            self.onion.cleanup(stop_tor=True, clear_state_dir=True)
+        else:
+            self.onion.cleanup(stop_tor=False, clear_state_dir=True)
 
     def check_for_updates(self):
         """
@@ -550,6 +559,9 @@ class OnionShareGui(QtWidgets.QMainWindow):
                 # Don't Quit
                 else:
                     e.ignore()
+            if self.settings.get('clear_state_dir'):
+                self.clear_data()
+                e.accept()
 
         except:
             e.accept()

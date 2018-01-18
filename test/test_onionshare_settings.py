@@ -64,7 +64,8 @@ class TestSettings:
             'save_private_key': False,
             'private_key': '',
             'slug': '',
-            'hidservauth_string': ''
+            'hidservauth_string': '',
+            'clear_state_dir': False
         }
 
     def test_fill_in_defaults(self, settings_obj):
@@ -126,6 +127,7 @@ class TestSettings:
         assert settings_obj.get('no_bridges') is True
         assert settings_obj.get('tor_bridges_use_obfs4') is False
         assert settings_obj.get('tor_bridges_use_custom_bridges') == ''
+        assert settings_obj.get('clear_state_dir') is False
 
 
     def test_set_version(self, settings_obj):

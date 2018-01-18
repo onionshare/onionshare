@@ -101,7 +101,10 @@ class SettingsDialog(QtWidgets.QDialog):
         stealth_group = QtWidgets.QGroupBox(strings._("gui_settings_stealth_label", True))
         stealth_group.setLayout(stealth_group_layout)
 
-        # Automatic updates options
+        # Application options
+        self.clear_cache_on_exit_checkbox = QtWidgets.QCheckBox()
+        self.clear_cache_on_exit_checkbox.setCheckState(QtCore.Qt.Unchecked)
+        self.clear_cache_on_exit_checkbox.setText(strings._("gui_settings_clear_cache_on_exit", True))
 
         # Autoupdate
         self.autoupdate_checkbox = QtWidgets.QCheckBox()
@@ -118,17 +121,20 @@ class SettingsDialog(QtWidgets.QDialog):
         if not self.onion.connected_to_tor:
             self.check_for_updates_button.setEnabled(False)
 
-        # Autoupdate options layout
-        autoupdate_group_layout = QtWidgets.QVBoxLayout()
-        autoupdate_group_layout.addWidget(self.autoupdate_checkbox)
-        autoupdate_group_layout.addWidget(self.autoupdate_timestamp)
-        autoupdate_group_layout.addWidget(self.check_for_updates_button)
-        autoupdate_group = QtWidgets.QGroupBox(strings._("gui_settings_autoupdate_label", True))
-        autoupdate_group.setLayout(autoupdate_group_layout)
+        # Application options layout
+        application_options_group_layout = QtWidgets.QVBoxLayout()
+        application_options_group_layout.addWidget(self.clear_cache_on_exit_checkbox)
+        application_options_group_layout.addWidget(self.autoupdate_checkbox)
+        application_options_group_layout.addWidget(self.autoupdate_timestamp)
+        application_options_group_layout.addWidget(self.check_for_updates_button)
+        application_options_group = QtWidgets.QGroupBox(strings._("gui_settings_application_options_label", True))
+        application_options_group.setLayout(application_options_group_layout)
 
         # Autoupdate is only available for Windows and Mac (Linux updates using package manager)
         if system != 'Windows' and system != 'Darwin':
-            autoupdate_group.hide()
+            self.autoupdate_checkbox.hide()
+            self.autoupdate_timestamp.hide()
+            self.check_for_updates_button.hide()
 
         # Connection type: either automatic, control port, or socket file
 
@@ -312,7 +318,7 @@ class SettingsDialog(QtWidgets.QDialog):
         left_col_layout = QtWidgets.QVBoxLayout()
         left_col_layout.addWidget(sharing_group)
         left_col_layout.addWidget(stealth_group)
-        left_col_layout.addWidget(autoupdate_group)
+        left_col_layout.addWidget(application_options_group)
         left_col_layout.addStretch()
 
         right_col_layout = QtWidgets.QVBoxLayout()
@@ -354,6 +360,12 @@ class SettingsDialog(QtWidgets.QDialog):
             self.save_private_key_checkbox.setCheckState(QtCore.Qt.Checked)
         else:
             self.save_private_key_checkbox.setCheckState(QtCore.Qt.Unchecked)
+
+        clear_state_dir = self.old_settings.get('clear_state_dir')
+        if clear_state_dir:
+            self.clear_cache_on_exit_checkbox.setCheckState(QtCore.Qt.Checked)
+        else:
+            self.clear_cache_on_exit_checkbox.setCheckState(QtCore.Qt.Unchecked)
 
         use_stealth = self.old_settings.get('use_stealth')
         if use_stealth:
@@ -680,6 +692,12 @@ class SettingsDialog(QtWidgets.QDialog):
             settings.set('slug', '')
             # Also unset the HidServAuth if we are removing our reusable private key
             settings.set('hidservauth_string', '')
+
+        if self.clear_cache_on_exit_checkbox.isChecked():
+            settings.set('clear_state_dir', True)
+        else:
+            settings.set('clear_state_dir', False)
+
         settings.set('use_stealth', self.stealth_checkbox.isChecked())
         # Always unset the HidServAuth if Stealth mode is unset
         if not self.stealth_checkbox.isChecked():
