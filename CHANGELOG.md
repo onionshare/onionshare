@@ -8,7 +8,10 @@
 * New feature: Get notification when Tor connection dies
 * Updated versions of python, Qt, tor, and other dependencies that are bundled
 * Added ability to supply a custom settings file as a command line arg
-* Fixed various small user interface issues
+* Added support for FreeBSD
+* Fixed small user interface issues
+* Fixed minor bugs
+* New translations for Dutch
 
 ## 1.1
 
