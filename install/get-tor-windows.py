@@ -60,8 +60,8 @@ def main():
         sys.exit(-1)
 
     # Extract the bits we need from the exe
-    cmd = ['7z', 'e', exe_path, 'Browser\TorBrowser\Tor', '-o%s' % os.path.join(working_path, 'Tor')]
-    cmd2 = ['7z', 'e', exe_path, 'Browser\TorBrowser\Data\Tor\geoip*', '-o%s' % os.path.join(working_path, 'Data')]
+    cmd = ['7z', 'e', '-y', exe_path, 'Browser\TorBrowser\Tor', '-o%s' % os.path.join(working_path, 'Tor')]
+    cmd2 = ['7z', 'e', '-y', exe_path, 'Browser\TorBrowser\Data\Tor\geoip*', '-o%s' % os.path.join(working_path, 'Data')]
     subprocess.Popen(cmd).wait()
     subprocess.Popen(cmd2).wait()
 
