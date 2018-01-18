@@ -512,6 +512,10 @@ class Onion(object):
             except AttributeError:
                 # Skip if cleanup was somehow run before connect
                 pass
+            except PermissionError:
+                # Skip if the directory is still open (#550)
+                # TODO: find a better solution
+                pass
 
     def get_tor_socks_port(self):
         """
