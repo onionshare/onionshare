@@ -81,6 +81,19 @@ class Settings(object):
             if key not in self._settings:
                 self._settings[key] = self.default_settings[key]
 
+    def build_state_dir(self):
+        """
+        Returns the path of the directory that holds Tor state/cache data.
+        """
+        p = platform.system()
+        if p == 'Windows':
+            appdata = os.environ['APPDATA']
+            return '{}\\OnionShare\\tor'.format(appdata)
+        elif p == 'Darwin':
+            return os.path.expanduser('~/Library/Application Support/OnionShare/tor')
+        else:
+            return os.path.expanduser('~/.config/onionshare/tor')
+
     def build_filename(self):
         """
         Returns the path of the settings file.

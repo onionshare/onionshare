@@ -165,8 +165,14 @@ class Onion(object):
             if not self.bundle_tor_supported:
                 raise BundledTorNotSupported(strings._('settings_error_bundled_tor_not_supported'))
 
-            # Create a torrc for this session
-            self.tor_data_directory = tempfile.TemporaryDirectory()
+            self.tor_data_directory = self.settings.build_state_dir()
+            if not os.path.exists(self.tor_data_directory):
+                try:
+                    os.makedirs(self.tor_data_directory, mode=0o700)
+                except:
+                    # Fall back to tmp dir
+                    self.make_temp_tor_data_directory = tempfile.TemporaryDirectory()
+                    self.tor_data_directory = self.make_temp_tor_data_directory.name
 
             if self.system == 'Windows':
                 # Windows needs to use network ports, doesn't support unix sockets
@@ -176,26 +182,26 @@ class Onion(object):
                 except:
                     raise OSError(strings._('no_available_port'))
                 self.tor_control_socket = None
-                self.tor_cookie_auth_file = os.path.join(self.tor_data_directory.name, 'cookie')
+                self.tor_cookie_auth_file = os.path.join(self.tor_data_directory, 'cookie')
                 try:
                     self.tor_socks_port = common.get_available_port(1000, 65535)
                 except:
                     raise OSError(strings._('no_available_port'))
-                self.tor_torrc = os.path.join(self.tor_data_directory.name, 'torrc')
+                self.tor_torrc = os.path.join(self.tor_data_directory, 'torrc')
             else:
                 # Linux and Mac can use unix sockets
                 with open(common.get_resource_path('torrc_template')) as f:
                     torrc_template = f.read()
                 self.tor_control_port = None
-                self.tor_control_socket = os.path.join(self.tor_data_directory.name, 'control_socket')
-                self.tor_cookie_auth_file = os.path.join(self.tor_data_directory.name, 'cookie')
+                self.tor_control_socket = os.path.join(self.tor_data_directory, 'control_socket')
+                self.tor_cookie_auth_file = os.path.join(self.tor_data_directory, 'cookie')
                 try:
                     self.tor_socks_port = common.get_available_port(1000, 65535)
                 except:
                     raise OSError(strings._('no_available_port'))
-                self.tor_torrc = os.path.join(self.tor_data_directory.name, 'torrc')
+                self.tor_torrc = os.path.join(self.tor_data_directory, 'torrc')
 
-            torrc_template = torrc_template.replace('{{data_directory}}',   self.tor_data_directory.name)
+            torrc_template = torrc_template.replace('{{data_directory}}',   self.tor_data_directory)
             torrc_template = torrc_template.replace('{{control_port}}',     str(self.tor_control_port))
             torrc_template = torrc_template.replace('{{control_socket}}',   str(self.tor_control_socket))
             torrc_template = torrc_template.replace('{{cookie_auth_file}}', self.tor_cookie_auth_file)
@@ -505,17 +511,6 @@ class Onion(object):
             # Reset other Onion settings
             self.connected_to_tor = False
             self.stealth = False
-
-            try:
-                # Delete the temporary tor data directory
-                self.tor_data_directory.cleanup()
-            except AttributeError:
-                # Skip if cleanup was somehow run before connect
-                pass
-            except PermissionError:
-                # Skip if the directory is still open (#550)
-                # TODO: find a better solution
-                pass
 
     def get_tor_socks_port(self):
         """
