@@ -98,7 +98,7 @@ These instructions include adding folders to the path in Windows. To do this, go
 
 Download and install the 32-bit [Visual C++ Redistributable for Visual Studio 2015](https://www.microsoft.com/en-US/download/details.aspx?id=48145). I downloaded `vc_redist.x86.exe`.
 
-Download and install 7-Zip from http://70zip.org/download.html. I downloaded 7z1800.exe.
+Download and install 7-Zip from http://www.7-zip.org/download.html. I downloaded `7z1800.exe`.
 
 Download and install the standalone [Windows 10 SDK](https://dev.windows.com/en-us/downloads/windows-10-sdk). Note that you may not need this if you already have Visual Studio.
 
