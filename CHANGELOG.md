@@ -1,5 +1,15 @@
 # OnionShare Changelog
 
+## 1.2
+
+* New feature: Support for Tor bridges, including obfs4proxy
+* New feature: Ability to use a persistent URL
+* New feature: Auto-stop timer, to stop OnionShare at a specified time
+* New feature: Get notification when Tor connection dies
+* Updated versions of python, Qt, tor, and other dependencies that are bundled
+* Added ability to supply a custom settings file as a command line arg
+* Fixed various small user interface issues
+
 ## 1.1
 
 * OnionShare connects to Tor itself now, so opening Tor Browser in the background isn't required
