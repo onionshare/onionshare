@@ -212,6 +212,8 @@ class Onion(object):
                         for line in o:
                             f.write(line)
                 if self.settings.get('tor_bridges_use_custom_bridges'):
+                    if 'obfs4' in self.settings.get('tor_bridges_use_custom_bridges'):
+                        f.write('ClientTransportPlugin obfs4 exec {}\n'.format(self.obfs4proxy_file_path))
                     f.write(self.settings.get('tor_bridges_use_custom_bridges'))
                     f.write('\nUseBridges 1')
 
