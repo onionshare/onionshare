@@ -89,7 +89,7 @@ def main():
     os.chmod(os.path.join(dist_path, 'Resources', 'Tor', 'obfs4proxy'), 0o755)
 
     # Unmount dmg
-    subprocess.call(['diskutil', 'unmount', '/Volumes/Tor Browser'])
+    subprocess.call(['diskutil', 'eject', '/Volumes/Tor Browser'])
 
 if __name__ == '__main__':
     main()
