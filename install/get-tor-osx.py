@@ -88,7 +88,7 @@ def main():
     shutil.copyfile(os.path.join(dmg_tor_path, 'MacOS', 'Tor', 'PluggableTransports', 'obfs4proxy'), os.path.join(dist_path, 'Resources', 'Tor', 'obfs4proxy'))
     os.chmod(os.path.join(dist_path, 'Resources', 'Tor', 'obfs4proxy'), 0o755)
 
-    # Unmount dmg
+    # Eject dmg
     subprocess.call(['diskutil', 'eject', '/Volumes/Tor Browser'])
 
 if __name__ == '__main__':
