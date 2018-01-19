@@ -734,7 +734,7 @@ class SettingsDialog(QtWidgets.QDialog):
             for bridge in bridges:
                 if bridge != '':
                     # Check the syntax of the custom bridge to make sure it looks legitimate
-                    pattern = re.compile("[0-9.]+:[0-9]+\s[A-Z0-9]+$")
+                    pattern = re.compile("(obfs4\s)?[0-9.]+:[0-9]+\s[A-Z0-9]+(.+)?$")
                     if pattern.match(bridge):
                         new_bridges.append(''.join(['Bridge ', bridge, '\n']))
                         bridges_valid = True
