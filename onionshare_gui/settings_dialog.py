@@ -734,8 +734,9 @@ class SettingsDialog(QtWidgets.QDialog):
             for bridge in bridges:
                 if bridge != '':
                     # Check the syntax of the custom bridge to make sure it looks legitimate
-                    pattern = re.compile("(obfs4\s)?[0-9.]+:[0-9]+\s[A-Z0-9]+(.+)?$")
-                    if pattern.match(bridge):
+                    ipv4_pattern = re.compile("(obfs4\s)?(?:(?:[0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}(?:[0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]):[0-9]+\s[A-Z0-9]+(.+)?$")
+                    ipv6_pattern = re.compile("(obfs4\s)?\[(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))\]:[0-9]+\s[A-Z0-9]+(.+)?$")
+                    if ipv4_pattern.match(bridge) or ipv6_pattern.match(bridge):
                         new_bridges.append(''.join(['Bridge ', bridge, '\n']))
                         bridges_valid = True
             if bridges_valid:
