@@ -127,6 +127,24 @@ class FileList(QtWidgets.QListWidget):
             event.ignore()
         self.files_dropped.emit()
 
+    def keyPressEvent(self, event):
+        """
+        Allows deleting of items in the file list via the Delete key.
+        """
+        if event.key() == QtCore.Qt.Key_Delete:
+            self.delete_file()
+
+    def delete_file(self):
+        """
+        Delete a file or directory from the widget.
+        """
+        selected = self.selectedItems()
+        for item in selected:
+            itemrow = self.row(item)
+            self.filenames.pop(itemrow)
+            self.takeItem(itemrow)
+            self.files_updated.emit()
+
     def add_file(self, filename):
         """
         Add a file or directory to this widget.
