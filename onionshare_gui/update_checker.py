@@ -149,11 +149,12 @@ class UpdateThread(QtCore.QThread):
     update_available = QtCore.pyqtSignal(str, str, str)
     update_not_available = QtCore.pyqtSignal()
 
-    def __init__(self, onion, config=False):
+    def __init__(self, onion, config=False, force=False):
         super(UpdateThread, self).__init__()
         common.log('UpdateThread', '__init__')
         self.onion = onion
         self.config = config
+        self.force = force
 
     def run(self):
         common.log('UpdateThread', 'run')
@@ -163,7 +164,7 @@ class UpdateThread(QtCore.QThread):
         u.update_not_available.connect(self._update_not_available)
 
         try:
-            u.check(config=self.config)
+            u.check(config=self.config,force=self.force)
         except Exception as e:
             # If update check fails, silently ignore
             common.log('UpdateThread', 'run', '{}'.format(e))
