@@ -51,6 +51,8 @@ class UpdateChecker(QtCore.QObject):
     """
     update_available = QtCore.pyqtSignal(str, str, str)
     update_not_available = QtCore.pyqtSignal()
+    update_error = QtCore.pyqtSignal()
+    update_invalid_version = QtCore.pyqtSignal()
 
     def __init__(self, onion, config=False):
         super(UpdateChecker, self).__init__()
@@ -120,12 +122,14 @@ class UpdateChecker(QtCore.QObject):
 
             except Exception as e:
                 common.log('UpdateChecker', 'check', '{}'.format(e))
+                self.update_error.emit()
                 raise UpdateCheckerCheckError
 
             # Validate that latest_version looks like a version string
             # This regex is: 1-3 dot-separated numeric components
             version_re = r"^(\d+\.)?(\d+\.)?(\d+)$"
             if not re.match(version_re, latest_version):
+                self.update_invalid_version.emit()
                 raise UpdateCheckerInvalidLatestVersion(latest_version)
 
             # Update the last checked timestamp (dropping the seconds and milliseconds)
@@ -148,6 +152,8 @@ class UpdateChecker(QtCore.QObject):
 class UpdateThread(QtCore.QThread):
     update_available = QtCore.pyqtSignal(str, str, str)
     update_not_available = QtCore.pyqtSignal()
+    update_error = QtCore.pyqtSignal()
+    update_invalid_version = QtCore.pyqtSignal()
 
     def __init__(self, onion, config=False, force=False):
         super(UpdateThread, self).__init__()
@@ -162,6 +168,8 @@ class UpdateThread(QtCore.QThread):
         u = UpdateChecker(self.onion, self.config)
         u.update_available.connect(self._update_available)
         u.update_not_available.connect(self._update_not_available)
+        u.update_error.connect(self._update_error)
+        u.update_invalid_version.connect(self._update_invalid_version)
 
         try:
             u.check(config=self.config,force=self.force)
@@ -179,3 +187,13 @@ class UpdateThread(QtCore.QThread):
         common.log('UpdateThread', '_update_not_available')
         self.active = False
         self.update_not_available.emit()
+
+    def _update_error(self):
+        common.log('UpdateThread', '_update_error')
+        self.active = False
+        self.update_error.emit()
+
+    def _update_invalid_version(self):
+        common.log('UpdateThread', '_update_invalid_version')
+        self.active = False
+        self.update_invalid_version.emit()
