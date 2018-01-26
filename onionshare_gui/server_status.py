@@ -65,18 +65,16 @@ class ServerStatus(QtWidgets.QVBoxLayout):
         self.server_startup_timer_checkbox.setText(strings._("gui_settings_startup_timer_choice", True))
         self.server_startup_timer_checkbox.hide()
 
-        self.server_startup_timer_label = QtWidgets.QLabel(strings._('gui_settings_startup_timer', True))
         self.server_startup_timer = QtWidgets.QDateTimeEdit()
         # Set proposed timer to be 5 minutes into the future
         self.server_startup_timer.setDateTime(QtCore.QDateTime.currentDateTime().addSecs(300))
         self.server_startup_timer.setMinimumDateTime(QtCore.QDateTime.currentDateTime())
         self.server_startup_timer.setCurrentSectionIndex(4)
-        self.server_startup_timer_label.hide()
+        self.server_startup_timer.setEnabled(False)
         self.server_startup_timer.hide()
 
         startup_timer_layout_group = QtWidgets.QHBoxLayout()
         startup_timer_layout_group.addWidget(self.server_startup_timer_checkbox)
-        startup_timer_layout_group.addWidget(self.server_startup_timer_label)
         startup_timer_layout_group.addWidget(self.server_startup_timer)
 
         # Shutdown timeout layout
@@ -88,19 +86,17 @@ class ServerStatus(QtWidgets.QVBoxLayout):
         self.server_shutdown_timeout_checkbox.setText(strings._("gui_settings_shutdown_timeout_choice", True))
         self.server_shutdown_timeout_checkbox.hide()
 
-        self.server_shutdown_timeout_label = QtWidgets.QLabel(strings._('gui_settings_shutdown_timeout', True))
         self.server_shutdown_timeout = QtWidgets.QDateTimeEdit()
         # Set proposed timeout to be 5 minutes into the future
         self.server_shutdown_timeout.setDateTime(QtCore.QDateTime.currentDateTime().addSecs(300))
         # Onion services can take a little while to start, so reduce the risk of it expiring too soon by setting the minimum to 2 min from now
         self.server_shutdown_timeout.setMinimumDateTime(QtCore.QDateTime.currentDateTime().addSecs(120))
         self.server_shutdown_timeout.setCurrentSectionIndex(4)
-        self.server_shutdown_timeout_label.hide()
+        self.server_shutdown_timeout.setEnabled(False)
         self.server_shutdown_timeout.hide()
 
         shutdown_timer_layout_group = QtWidgets.QHBoxLayout()
         shutdown_timer_layout_group.addWidget(self.server_shutdown_timeout_checkbox)
-        shutdown_timer_layout_group.addWidget(self.server_shutdown_timeout_label)
         shutdown_timer_layout_group.addWidget(self.server_shutdown_timeout)
 
         # server layout
@@ -145,16 +141,16 @@ class ServerStatus(QtWidgets.QVBoxLayout):
         """
         if checked:
             self.server_startup_timer_checkbox.show()
+            self.server_startup_timer.show()
             self.server_shutdown_timeout_checkbox.show()
+            self.server_shutdown_timeout.show()
         else:
             self.server_startup_timer_checkbox.hide()
             self.startup_timer_enabled = False
-            self.server_startup_timer_label.hide()
             self.server_startup_timer.hide()
 
             self.server_shutdown_timeout_checkbox.hide()
             self.shutdown_timer_enabled = False
-            self.server_shutdown_timeout_label.hide()
             self.server_shutdown_timeout.hide()
 
     def startup_timer_toggled(self, checked):
@@ -163,15 +159,12 @@ class ServerStatus(QtWidgets.QVBoxLayout):
         """
         if checked:
             self.startup_timer_enabled = True
-            # Hide the checkbox, show the options
-            self.server_startup_timer_label.show()
             # Reset the default timer to 5 minutes into the future after toggling the option on
             self.server_startup_timer.setDateTime(QtCore.QDateTime.currentDateTime().addSecs(300))
-            self.server_startup_timer.show()
+            self.server_startup_timer.setEnabled(True)
         else:
             self.startup_timer_enabled = False
-            self.server_startup_timer_label.hide()
-            self.server_startup_timer.hide()
+            self.server_startup_timer.setEnabled(False)
 
     def startup_timer_reset(self):
         """
@@ -187,8 +180,7 @@ class ServerStatus(QtWidgets.QVBoxLayout):
         """
         if checked:
             self.shutdown_timer_enabled = True
-            # Hide the checkbox, show the options
-            self.server_shutdown_timeout_label.show()
+            self.server_shutdown_timeout.setEnabled(True)
             # If there is a startup timer set, forward-set the default shutdown time to 5 minutes after that
             # and also make sure the minimum time is 1 minute after the startup timer so we can't stop before we start.
             if self.startup_timer_enabled:
@@ -198,11 +190,9 @@ class ServerStatus(QtWidgets.QVBoxLayout):
                 # Reset the default timer to 5 minutes into the future after toggling the option on
                 self.server_shutdown_timeout.setDateTime(QtCore.QDateTime.currentDateTime().addSecs(300))
                 self.server_shutdown_timeout.setMinimumDateTime(QtCore.QDateTime.currentDateTime().addSecs(120))
-            self.server_shutdown_timeout.show()
         else:
             self.shutdown_timer_enabled = False
-            self.server_shutdown_timeout_label.hide()
-            self.server_shutdown_timeout.hide()
+            self.server_shutdown_timeout.setEnabled(False)
 
     def shutdown_timeout_reset(self):
         """
@@ -257,9 +247,7 @@ class ServerStatus(QtWidgets.QVBoxLayout):
                 self.server_button.setEnabled(True)
                 self.server_button.setText(strings._('gui_start_server', True))
                 self.timers_option_checkbox.setEnabled(True)
-                self.server_startup_timer.setEnabled(True)
                 self.server_startup_timer_checkbox.setEnabled(True)
-                self.server_shutdown_timeout.setEnabled(True)
                 self.server_shutdown_timeout_checkbox.setEnabled(True)
             elif self.status == self.STATUS_STARTED:
                 self.server_button.setEnabled(True)
