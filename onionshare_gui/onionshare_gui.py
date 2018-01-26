@@ -68,6 +68,10 @@ class OnionShareGui(QtWidgets.QMainWindow):
             for filename in filenames:
                 self.file_selection.file_list.add_file(filename)
 
+        # Used in case the server is somehow stopped/canceled before the onion service starts
+        # (e.g due to a delay caused by a startup timer)
+        server_stopped = False
+
         # Server status
         self.server_status = ServerStatus(self.qtapp, self.app, web, self.file_selection, self.settings)
         self.server_status.server_started.connect(self.file_selection.server_started)
@@ -267,6 +271,23 @@ class OnionShareGui(QtWidgets.QMainWindow):
         # start the onion service in a new thread
         def start_onion_service(self):
             try:
+                # Delay starting the share until the startup timer has finished.
+                if self.server_status.startup_timer_enabled:
+                    # Convert the date value to seconds between now and then
+                    now = QtCore.QDateTime.currentDateTime()
+                    self.startup_timer = now.secsTo(self.server_status.startup_timer)
+                    # Wait until it's that time before starting.
+                    if self.startup_timer > 0:
+                        common.log('OnionShareGui', 'start_onion_service', 'Waiting for startup timer to finish')
+                        time.sleep(self.startup_timer)
+
+                if server_stopped:
+                    return
+                else:
+                    # Update the button to show that we are now working instead of waiting
+                    self.server_status.server_button.setText(strings._('gui_please_wait'))
+                    self.server_status.server_button.setEnabled(False)
+
                 self.app.start_onion_service()
                 self.starting_server_step2.emit()
 
@@ -339,15 +360,15 @@ class OnionShareGui(QtWidgets.QMainWindow):
             self.filesize_warning.setText(strings._("large_filesize", True))
             self.filesize_warning.show()
 
-        if self.server_status.timer_enabled:
+        if self.server_status.shutdown_timer_enabled:
             # Convert the date value to seconds between now and then
             now = QtCore.QDateTime.currentDateTime()
-            self.timeout = now.secsTo(self.server_status.timeout)
+            self.shutdown_timeout = now.secsTo(self.server_status.shutdown_timeout)
             # Set the shutdown timeout value
-            if self.timeout > 0:
-                self.app.shutdown_timer = common.close_after_seconds(self.timeout)
+            if self.shutdown_timeout > 0:
+                self.app.shutdown_timer = common.close_after_seconds(self.shutdown_timeout)
                 self.app.shutdown_timer.start()
-            # The timeout has actually already passed since the user clicked Start. Probably the Onion service took too long to start.
+            # The shutdown timeout has actually already passed since the user clicked Start. Probably the Onion service took too long to start.
             else:
                 self.stop_server()
                 self.start_server_error(strings._('gui_server_started_after_timeout'))
@@ -375,6 +396,8 @@ class OnionShareGui(QtWidgets.QMainWindow):
         Stop the onionshare server.
         """
         common.log('OnionShareGui', 'stop_server')
+        global server_stopped
+        server_stopped = True
 
         if self.server_status.status != self.server_status.STATUS_STOPPED:
             try:
@@ -487,8 +510,8 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         # If the auto-shutdown timer has stopped, stop the server
         if self.server_status.status == self.server_status.STATUS_STARTED:
-            if self.app.shutdown_timer and self.server_status.timer_enabled:
-                if self.timeout > 0:
+            if self.app.shutdown_timer and self.server_status.shutdown_timer_enabled:
+                if self.shutdown_timeout > 0:
                     if not self.app.shutdown_timer.is_alive():
                         # If there were no attempts to download the share, or all downloads are done, we can stop
                         if web.download_count == 0 or web.done:
@@ -530,6 +553,9 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         # Disable settings menu action when server is active
         self.settingsAction.setEnabled(not active)
+        if active:
+            global server_stopped
+            server_stopped = False
 
     def closeEvent(self, e):
         common.log('OnionShareGui', 'closeEvent')
