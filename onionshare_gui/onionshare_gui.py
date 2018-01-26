@@ -68,6 +68,10 @@ class OnionShareGui(QtWidgets.QMainWindow):
             for filename in filenames:
                 self.file_selection.file_list.add_file(filename)
 
+        # Used in case the server is somehow stopped/canceled before the onion service starts
+        # (e.g due to a delay caused by a startup timer)
+        server_stopped = False
+
         # Server status
         self.server_status = ServerStatus(self.qtapp, self.app, web, self.file_selection, self.settings)
         self.server_status.server_started.connect(self.file_selection.server_started)
@@ -277,6 +281,9 @@ class OnionShareGui(QtWidgets.QMainWindow):
                         common.log('OnionShareGui', 'start_onion_service', 'Waiting for startup timer to finish')
                         time.sleep(self.startup_timer)
 
+                if server_stopped:
+                    return
+                else:
                     # Update the button to show that we are now working instead of waiting
                     self.server_status.server_button.setText(strings._('gui_please_wait'))
                     self.server_status.server_button.setEnabled(False)
@@ -389,6 +396,8 @@ class OnionShareGui(QtWidgets.QMainWindow):
         Stop the onionshare server.
         """
         common.log('OnionShareGui', 'stop_server')
+        global server_stopped
+        server_stopped = True
 
         if self.server_status.status != self.server_status.STATUS_STOPPED:
             try:
@@ -544,6 +553,9 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         # Disable settings menu action when server is active
         self.settingsAction.setEnabled(not active)
+        if active:
+            global server_stopped
+            server_stopped = False
 
     def closeEvent(self, e):
         common.log('OnionShareGui', 'closeEvent')
