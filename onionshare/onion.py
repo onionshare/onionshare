@@ -427,12 +427,12 @@ class Onion(object):
             basic_auth = None
 
         if self.settings.get('private_key'):
-            key_type = "RSA1024"
+            key_type = "ED25519-V3"
             key_content = self.settings.get('private_key')
             common.log('Onion', 'Starting a hidden service with a saved private key')
         else:
             key_type = "NEW"
-            key_content = "RSA1024"
+            key_content = "ED25519-V3"
             common.log('Onion', 'Starting a hidden service with a new private key')
 
         try:
