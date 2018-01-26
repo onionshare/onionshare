@@ -42,6 +42,7 @@ def main(cwd=None):
     parser = argparse.ArgumentParser(formatter_class=lambda prog: argparse.HelpFormatter(prog,max_help_position=28))
     parser.add_argument('--local-only', action='store_true', dest='local_only', help=strings._("help_local_only"))
     parser.add_argument('--stay-open', action='store_true', dest='stay_open', help=strings._("help_stay_open"))
+    parser.add_argument('--startup-timer', metavar='<int>', dest='startup_timer', default=0, help=strings._("help_startup_timer"))
     parser.add_argument('--shutdown-timeout', metavar='<int>', dest='shutdown_timeout', default=0, help=strings._("help_shutdown_timeout"))
     parser.add_argument('--stealth', action='store_true', dest='stealth', help=strings._("help_stealth"))
     parser.add_argument('--debug', action='store_true', dest='debug', help=strings._("help_debug"))
@@ -56,6 +57,7 @@ def main(cwd=None):
     local_only = bool(args.local_only)
     debug = bool(args.debug)
     stay_open = bool(args.stay_open)
+    startup_timer = int(args.startup_timer)
     shutdown_timeout = int(args.shutdown_timeout)
     stealth = bool(args.stealth)
     config = args.config
@@ -94,6 +96,10 @@ def main(cwd=None):
     try:
         app = OnionShare(onion, local_only, stay_open, shutdown_timeout)
         app.set_stealth(stealth)
+        # Delay the startup if a startup timer was set
+        if startup_timer > 0:
+            print(strings._("waiting_for_startup_timer"))
+            time.sleep(startup_timer)
         app.start_onion_service()
     except KeyboardInterrupt:
         print("")
