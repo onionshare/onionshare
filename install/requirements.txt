@@ -6,6 +6,7 @@ MarkupSafe==1.0
 PyInstaller==3.3.1
 PyQt5==5.9.2
 PySocks==1.6.7
+pycrypto==2.6.1
 sip==4.19.6
 stem==1.6.0
 Werkzeug==0.14.1

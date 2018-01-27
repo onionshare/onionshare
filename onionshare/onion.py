@@ -21,6 +21,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from stem.control import Controller
 from stem import ProtocolError, SocketClosed
 from stem.connection import MissingPassword, UnreadableCookieFile, AuthenticationFailure
+from Crypto.PublicKey import RSA
+from base64 import b64decode
+from distutils.version import LooseVersion as Version
 import os, sys, tempfile, shutil, urllib, platform, subprocess, time, shlex
 
 from . import socks
@@ -427,13 +430,32 @@ class Onion(object):
             basic_auth = None
 
         if self.settings.get('private_key'):
-            key_type = "RSA1024"
+            # Decode the key
+            key_decoded = b64decode(self.settings.get('private_key'))
+            # Import the key
+            key = RSA.importKey(key_decoded)
+            # Is this a v2 Onion key? (1024 bits)
+            if key.n.bit_length() == 1024:
+                key_type = "RSA1024"
+            else:
+                # Assume it was a v3 key
+                key_type = "ED25519-V3"
             key_content = self.settings.get('private_key')
             common.log('Onion', 'Starting a hidden service with a saved private key')
         else:
             key_type = "NEW"
-            key_content = "RSA1024"
+            # Work out if we can support v3 onion services
+            if Version(self.onion.tor_version) >= Version('0.3.3'):
+                key_content = "ED25519-V3"
+            else:
+                # fall back to v2 onion services
+                key_content = "RSA1024"
             common.log('Onion', 'Starting a hidden service with a new private key')
+
+        # v3 onions don't yet support basic auth
+        if key_type == "ED25519-V3" or key_content == "ED25519-V3":
+            basic_auth = None
+            self.stealth = False
 
         try:
             if basic_auth != None:
