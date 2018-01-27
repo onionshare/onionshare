@@ -430,14 +430,15 @@ class Onion(object):
             basic_auth = None
 
         if self.settings.get('private_key'):
-            # Decode the key
-            key_decoded = b64decode(self.settings.get('private_key'))
-            # Import the key
-            key = RSA.importKey(key_decoded)
-            # Is this a v2 Onion key? (1024 bits)
-            if key.n.bit_length() == 1024:
-                key_type = "RSA1024"
-            else:
+            try:
+                # Decode the key
+                key_decoded = b64decode(self.settings.get('private_key'))
+                # Import the key
+                key = RSA.importKey(key_decoded)
+                # Is this a v2 Onion key? (1024 bits)
+                if key.n.bit_length() == 1024:
+                    key_type = "RSA1024"
+            except:
                 # Assume it was a v3 key
                 key_type = "ED25519-V3"
             key_content = self.settings.get('private_key')
@@ -445,7 +446,7 @@ class Onion(object):
         else:
             key_type = "NEW"
             # Work out if we can support v3 onion services
-            if Version(self.onion.tor_version) >= Version('0.3.3'):
+            if Version(self.tor_version) >= Version('0.3.3'):
                 key_content = "ED25519-V3"
             else:
                 # fall back to v2 onion services
@@ -459,10 +460,10 @@ class Onion(object):
 
         try:
             if basic_auth != None:
-                res = self.c.create_ephemeral_hidden_service({ 80: port }, await_publication=True, basic_auth=basic_auth, key_type = key_type, key_content=key_content)
+                res = self.c.create_ephemeral_hidden_service({ 80: port }, await_publication=True, basic_auth=basic_auth, key_type=key_type, key_content=key_content)
             else:
                 # if the stem interface is older than 1.5.0, basic_auth isn't a valid keyword arg
-                res = self.c.create_ephemeral_hidden_service({ 80: port }, await_publication=True, key_type = key_type, key_content=key_content)
+                res = self.c.create_ephemeral_hidden_service({ 80: port }, await_publication=True, key_type=key_type, key_content=key_content)
 
         except ProtocolError:
             raise TorErrorProtocolError(strings._('error_tor_protocol_error'))
