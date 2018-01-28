@@ -21,10 +21,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from stem.control import Controller
 from stem import ProtocolError, SocketClosed
 from stem.connection import MissingPassword, UnreadableCookieFile, AuthenticationFailure
-import os, sys, tempfile, shutil, urllib, platform, subprocess, time, shlex
+from distutils.version import LooseVersion as Version
+import base64, os, sys, tempfile, shutil, urllib, platform, subprocess, time, shlex
 
 from . import socks
 from . import common, strings
+from . import onionkey
 from .settings import Settings
 
 class TorErrorAutomatic(Exception):
@@ -422,25 +424,47 @@ class Onion(object):
                 hidservauth_string = self.settings.get('hidservauth_string').split()[2]
                 basic_auth = {'onionshare':hidservauth_string}
             else:
-                basic_auth = {'onionshare':None}
+                # Generate Stem-compatible HidServAuth cookie for stealth services
+                auth_cookie = base64.b64encode(os.urandom(16)).decode().strip('=')
+                basic_auth = {'onionshare':auth_cookie}
         else:
             basic_auth = None
 
         if self.settings.get('private_key'):
-            key_type = "RSA1024"
-            key_content = self.settings.get('private_key')
+            try:
+                # is the key a v2 key?
+                key = onionkey.is_v2_key(self.settings.get('private_key'))
+                key_type = "RSA1024"
+                key_content = self.settings.get('private_key')
+            except:
+                # Assume it was a v3 key
+                key_type = "ED25519-V3"
+                key_content = self.settings.get('private_key')
             common.log('Onion', 'Starting a hidden service with a saved private key')
         else:
-            key_type = "NEW"
-            key_content = "RSA1024"
+            # Work out if we can support v3 onion services
+            if Version(self.tor_version) >= Version('0.3.3'):
+                key_type = "ED25519-V3"
+                key_content = onionkey.generate_v3_secret_key()[0]
+
+            else:
+                # fall back to v2 onion services
+                key_type = "RSA1024"
+                key_content = onionkey.generate_v2_secret_key()[0]
+
             common.log('Onion', 'Starting a hidden service with a new private key')
+
+        # v3 onions don't yet support basic auth
+        if key_type == "ED25519-V3":
+            basic_auth = None
+            self.stealth = False
 
         try:
             if basic_auth != None:
-                res = self.c.create_ephemeral_hidden_service({ 80: port }, await_publication=True, basic_auth=basic_auth, key_type = key_type, key_content=key_content)
+                res = self.c.create_ephemeral_hidden_service({ 80: port }, await_publication=True, basic_auth=basic_auth, key_type=key_type, key_content=key_content)
             else:
                 # if the stem interface is older than 1.5.0, basic_auth isn't a valid keyword arg
-                res = self.c.create_ephemeral_hidden_service({ 80: port }, await_publication=True, key_type = key_type, key_content=key_content)
+                res = self.c.create_ephemeral_hidden_service({ 80: port }, await_publication=True, key_type=key_type, key_content=key_content)
 
         except ProtocolError:
             raise TorErrorProtocolError(strings._('error_tor_protocol_error'))
@@ -451,7 +475,7 @@ class Onion(object):
         # A new private key was generated and is in the Control port response.
         if self.settings.get('save_private_key'):
             if not self.settings.get('private_key'):
-                self.settings.set('private_key', res.private_key)
+                self.settings.set('private_key', key_content)
 
         if self.stealth:
             # Similar to the PrivateKey, the Control port only returns the ClientAuth
@@ -463,7 +487,6 @@ class Onion(object):
                 if self.settings.get('hidservauth_string'):
                     self.auth_string = self.settings.get('hidservauth_string')
                 else:
-                    auth_cookie = list(res.client_auth.values())[0]
                     self.auth_string = 'HidServAuth {} {}'.format(onion_host, auth_cookie)
                     self.settings.set('hidservauth_string', self.auth_string)
             else:
