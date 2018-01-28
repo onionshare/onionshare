@@ -21,7 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from stem.control import Controller
 from stem import ProtocolError, SocketClosed
 from stem.connection import MissingPassword, UnreadableCookieFile, AuthenticationFailure
-from Crypto.PublicKey import RSA
 from distutils.version import LooseVersion as Version
 import base64, os, sys, tempfile, shutil, urllib, platform, subprocess, time, shlex
 
@@ -433,14 +432,10 @@ class Onion(object):
 
         if self.settings.get('private_key'):
             try:
-                # Decode the key
-                key_decoded = base64.b64decode(self.settings.get('private_key'))
-                # Import the key
-                key = RSA.importKey(key_decoded)
-                # Is this a v2 Onion key? (1024 bits) If so, we should keep using it.
-                if key.n.bit_length() == 1024:
-                    key_type = "RSA1024"
-                    key_content = self.settings.get('private_key')
+                # is the key a v2 key?
+                key = onionkey.is_v2_key(self.settings.get('private_key'))
+                key_type = "RSA1024"
+                key_content = self.settings.get('private_key')
             except:
                 # Assume it was a v3 key
                 key_type = "ED25519-V3"
@@ -492,7 +487,6 @@ class Onion(object):
                 if self.settings.get('hidservauth_string'):
                     self.auth_string = self.settings.get('hidservauth_string')
                 else:
-                    auth_cookie = list(res.client_auth.values())[0]
                     self.auth_string = 'HidServAuth {} {}'.format(onion_host, auth_cookie)
                     self.settings.set('hidservauth_string', self.auth_string)
             else:

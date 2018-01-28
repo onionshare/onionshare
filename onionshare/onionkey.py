@@ -24,6 +24,8 @@ import os
 
 import nacl.signing
 
+from Crypto.PublicKey import RSA
+
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import rsa
@@ -88,3 +90,18 @@ def generate_v2_secret_key():
     serialized_key = ''.join(pem_format.decode().split('\n')[1:-2])
 
     return (serialized_key, onion_url)
+
+def is_v2_key(key):
+    """
+    Helper function for determining if a key is RSA1024 (v2) or not.
+    """
+    try:
+        # Import the key
+        key = RSA.importKey(base64.b64decode(key))
+        # Is this a v2 Onion key? (1024 bits) If so, we should keep using it.
+        if key.n.bit_length() == 1024:
+            return True
+        else:
+            return False
+    except:
+        return False

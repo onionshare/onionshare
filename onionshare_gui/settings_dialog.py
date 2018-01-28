@@ -19,8 +19,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 from PyQt5 import QtCore, QtWidgets, QtGui
 import sys, platform, datetime, re
+from distutils.version import LooseVersion as Version
 
-from onionshare import strings, common
+from onionshare import strings, common, onionkey
 from onionshare.settings import Settings
 from onionshare.onion import *
 
@@ -64,12 +65,15 @@ class SettingsDialog(QtWidgets.QDialog):
         self.save_private_key_checkbox = QtWidgets.QCheckBox()
         self.save_private_key_checkbox.setCheckState(QtCore.Qt.Unchecked)
         self.save_private_key_checkbox.setText(strings._("gui_save_private_key_checkbox", True))
+        self.private_key_is_v2_label = QtWidgets.QLabel(strings._("gui_private_key_is_v2", True))
+        self.private_key_is_v2_label.hide()
 
         # Sharing options layout
         sharing_group_layout = QtWidgets.QVBoxLayout()
         sharing_group_layout.addWidget(self.close_after_first_download_checkbox)
         sharing_group_layout.addWidget(self.systray_notifications_checkbox)
         sharing_group_layout.addWidget(self.save_private_key_checkbox)
+        sharing_group_layout.addWidget(self.private_key_is_v2_label)
         sharing_group = QtWidgets.QGroupBox(strings._("gui_settings_sharing_label", True))
         sharing_group.setLayout(sharing_group_layout)
 
@@ -352,6 +356,9 @@ class SettingsDialog(QtWidgets.QDialog):
         save_private_key = self.old_settings.get('save_private_key')
         if save_private_key:
             self.save_private_key_checkbox.setCheckState(QtCore.Qt.Checked)
+            if self.onion.is_authenticated() and self.old_settings.get('private_key'):
+                if onionkey.is_v2_key(self.old_settings.get('private_key')) and Version(self.onion.tor_version) >= Version('0.3.3'):
+                    self.private_key_is_v2_label.show()
         else:
             self.save_private_key_checkbox.setCheckState(QtCore.Qt.Unchecked)
 
