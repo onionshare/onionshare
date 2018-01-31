@@ -28,9 +28,9 @@ import inspect, os, sys, hashlib, shutil, subprocess
 import urllib.request
 
 def main():
-    exe_url = 'https://archive.torproject.org/tor-package-archive/torbrowser/7.0.11/torbrowser-install-7.0.11_en-US.exe'
-    exe_filename = 'torbrowser-install-7.0.11_en-US.exe'
-    expected_exe_sha256 = 'a033eb9b9ed2ad389169b36a90946a8af8f05bd0c7bbd3e37678041331096624'
+    exe_url = 'https://archive.torproject.org/tor-package-archive/torbrowser/7.5/torbrowser-install-7.5_en-US.exe'
+    exe_filename = 'torbrowser-install-7.5_en-US.exe'
+    expected_exe_sha256 = '81ccb9456118cf8fa755a3eafb5c514665fc69599cdd41e9eb36baa335ebe233'
     # Build paths
     root_path = os.path.dirname(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))))
     working_path = os.path.join(os.path.join(root_path, 'build'), 'tor')
