@@ -557,31 +557,43 @@ class SettingsDialog(QtWidgets.QDialog):
         self._disable_buttons()
         self.qtapp.processEvents()
 
+        def update_timestamp():
+            # Update the last checked label
+            settings = Settings(self.config)
+            settings.load()
+            autoupdate_timestamp = settings.get('autoupdate_timestamp')
+            self._update_autoupdate_timestamp(autoupdate_timestamp)
+
+        def close_forced_update_thread():
+            forced_update_thread.quit()
+            # Enable buttons
+            self._enable_buttons()
+            # Update timestamp
+            update_timestamp()
+
         # Check for updates
         def update_available(update_url, installed_version, latest_version):
             Alert(strings._("update_available", True).format(update_url, installed_version, latest_version))
+            close_forced_update_thread()
+
         def update_not_available():
             Alert(strings._('update_not_available', True))
+            close_forced_update_thread()
 
-        u = UpdateChecker(self.onion)
-        u.update_available.connect(update_available)
-        u.update_not_available.connect(update_not_available)
-
-        try:
-            u.check(force=True)
-        except UpdateCheckerCheckError:
+        def update_error():
             Alert(strings._('update_error_check_error', True), QtWidgets.QMessageBox.Warning)
-        except UpdateCheckerInvalidLatestVersion as e:
+            close_forced_update_thread()
+
+        def update_invalid_version():
             Alert(strings._('update_error_invalid_latest_version', True).format(e.latest_version), QtWidgets.QMessageBox.Warning)
+            close_forced_update_thread()
 
-        # Enable buttons
-        self._enable_buttons()
-
-        # Update the last checked label
-        settings = Settings(self.config)
-        settings.load()
-        autoupdate_timestamp = settings.get('autoupdate_timestamp')
-        self._update_autoupdate_timestamp(autoupdate_timestamp)
+        forced_update_thread = UpdateThread(self.onion, self.config, force=True)
+        forced_update_thread.update_available.connect(update_available)
+        forced_update_thread.update_not_available.connect(update_not_available)
+        forced_update_thread.update_error.connect(update_error)
+        forced_update_thread.update_invalid_version.connect(update_invalid_version)
+        forced_update_thread.start()
 
     def save_clicked(self):
         """
