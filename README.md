@@ -14,7 +14,7 @@ You can download OnionShare for Windows and macOS from the [OnionShare website](
 
 ## Developing OnionShare
 
-You can set up your development environment to build OnionShare yourself by following [these instructions](/BUILD.md).
+You can set up your development environment to build OnionShare yourself by following [these instructions](/BUILD.md). You may also subscribe to our developers mailing list [here](https://lists.riseup.net/www/info/onionshare-dev).
 
 # Screenshots 
 
