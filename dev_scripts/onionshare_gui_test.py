@@ -102,7 +102,7 @@ class OnionShareGuiTest(unittest.TestCase):
         '''Test that the web server has started'''
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-        # We should be closed by now. Fail if not!
+        # We should have an open socket for the web server. Fail if not!
         self.assertEqual(sock.connect_ex(('127.0.0.1',self.gui.app.port)), 0)
 
     @pytest.mark.run(order=13)
@@ -151,12 +151,11 @@ class OnionShareGuiTest(unittest.TestCase):
         QtTest.QTest.qWait(4000)
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-        # We should be closed by now. Fail if not!
+        # Web server should be closed by now. Fail if not!
         self.assertNotEqual(sock.connect_ex(('127.0.0.1',self.gui.app.port)), 0)
 
     @pytest.mark.run(order=21)
     def test_add_button_enabled_again(self):
-        # Add button should be enabled again
         self.assertTrue(self.gui.file_selection.add_button.isEnabled())
 
 
