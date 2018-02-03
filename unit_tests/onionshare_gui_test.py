@@ -142,6 +142,7 @@ class OnionShareGuiTest(unittest.TestCase):
     def test_server_is_stopped(self):
         '''Test that we can stop the server'''
         QtTest.QTest.mouseClick(self.gui.server_status.server_button, QtCore.Qt.LeftButton)
+        QtTest.QTest.qWait(1000)
         self.assertEqual(self.gui.server_status.status, 0)
 
     @pytest.mark.run(order=20)
