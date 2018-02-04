@@ -64,23 +64,28 @@ class SettingsDialogTest(unittest.TestCase):
         self.assertEqual(self.gui.windowTitle(), strings._('gui_settings_window_title', True))
 
     @pytest.mark.run(order=2)
+    def test_check_for_updates_button_is_hidden(self):
+        '''Test that the check_for_updates button is hidden because this is a Linux machine'''
+        self.assertFalse(self.gui.check_for_updates_button.isVisible())
+
+    @pytest.mark.run(order=3)
     def test_server_stay_open_checkbox_is_unchecked(self):
         '''Test that the Close Automatically setting is not Checked'''
         self.assertFalse(self.gui.close_after_first_download_checkbox.isChecked())
 
-    @pytest.mark.run(order=3)
+    @pytest.mark.run(order=4)
     def test_server_stay_open_checkbox_button_pressed(self):
         '''Test we can check the Close Automatically checkbox'''
         QtTest.QTest.mouseClick(self.gui.close_after_first_download_checkbox, QtCore.Qt.LeftButton, pos=QtCore.QPoint(2,self.gui.close_after_first_download_checkbox.height()/2))
         self.assertTrue(self.gui.close_after_first_download_checkbox.isChecked())
 
-    @pytest.mark.run(order=4)
+    @pytest.mark.run(order=5)
     def test_save_settings(self):
         '''Test that the Settings Dialog can save the settings and close itself'''
         QtTest.QTest.mouseClick(self.gui.save_button, QtCore.Qt.LeftButton)
         self.assertFalse(self.gui.isVisible())
 
-    @pytest.mark.run(order=5)
+    @pytest.mark.run(order=6)
     def test_stay_open_setting_found_in_json(self):
         '''Test that the Close Automatically setting is now set to true in the settings json'''
         self.assertTrue('"close_after_first_download": true' in open('/tmp/stay_open.json').read())
