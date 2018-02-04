@@ -50,7 +50,7 @@ class FileList(QtWidgets.QListWidget):
                 self.setAlignment(QtCore.Qt.AlignCenter)
 
                 if image:
-                    self.setPixmap(QtGui.QPixmap.fromImage(QtGui.QImage(common.get_resource_path('images/drop_files.png'))))
+                    self.setPixmap(QtGui.QPixmap.fromImage(QtGui.QImage(common.get_resource_path('images/logo_transparent.png'))))
                 else:
                     self.setText(strings._('gui_drag_and_drop', True))
                     self.setStyleSheet('color: #999999;')
@@ -64,6 +64,7 @@ class FileList(QtWidgets.QListWidget):
 
         self.drop_here_image = DropHereLabel(self, True)
         self.drop_here_text = DropHereLabel(self, False)
+        self.resizeEvent(None)
 
         self.filenames = []
         self.update()
@@ -84,8 +85,9 @@ class FileList(QtWidgets.QListWidget):
         """
         When the widget is resized, resize the drop files image and text.
         """
-        self.drop_here_image.setGeometry(0, 0, self.width(), self.height())
-        self.drop_here_text.setGeometry(0, 0, self.width(), self.height())
+        offset = 70
+        self.drop_here_image.setGeometry(0, 0, self.width(), self.height() - offset)
+        self.drop_here_text.setGeometry(0, offset, self.width(), self.height() - offset)
 
     def dragEnterEvent(self, event):
         """
