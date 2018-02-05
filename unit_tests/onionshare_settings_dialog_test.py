@@ -12,10 +12,6 @@ class SettingsDialogTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         '''Create the GUI'''
-        # Create our test file
-        testfile = open('/tmp/test.txt', 'w')
-        testfile.write('onionshare')
-        testfile.close()
 
         # Start the Onion
         strings.load_strings(common)
@@ -56,7 +52,7 @@ class SettingsDialogTest(unittest.TestCase):
     @classmethod
     def tearDownClass(cls):
         '''Clean up after tests'''
-        os.remove('/tmp/test.txt')
+        os.remove('/tmp/settings.json')
 
     @pytest.mark.run(order=1)
     def test_settings_dialog_clicked(self):

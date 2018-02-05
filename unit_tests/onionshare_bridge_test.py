@@ -59,6 +59,7 @@ class OnionShareGuiTest(unittest.TestCase):
     def tearDownClass(cls):
         '''Clean up after tests'''
         os.remove('/tmp/test.txt')
+        os.remove('/tmp/bridges.json')
 
     @pytest.mark.run(order=1)
     def test_gui_loaded_and_tor_bootstrapped(self):
