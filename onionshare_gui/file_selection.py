@@ -23,6 +23,50 @@ from .alert import Alert
 
 from onionshare import strings, common
 
+class DropHereLabel(QtWidgets.QLabel):
+    """
+    When there are no files or folders in the FileList yet, display the
+    'drop files here' message and graphic.
+    """
+    def __init__(self, parent, image=False):
+        self.parent = parent
+        super(DropHereLabel, self).__init__(parent=parent)
+        self.setAcceptDrops(True)
+        self.setAlignment(QtCore.Qt.AlignCenter)
+
+        if image:
+            self.setPixmap(QtGui.QPixmap.fromImage(QtGui.QImage(common.get_resource_path('images/logo_transparent.png'))))
+        else:
+            self.setText(strings._('gui_drag_and_drop', True))
+            self.setStyleSheet('color: #999999;')
+
+        self.hide()
+
+    def dragEnterEvent(self, event):
+        self.parent.drop_here_image.hide()
+        self.parent.drop_here_text.hide()
+        event.accept()
+
+
+class DropCountLabel(QtWidgets.QLabel):
+    """
+    While dragging files over the FileList, this counter displays the
+    number of files you're dragging.
+    """
+    def __init__(self, parent):
+        self.parent = parent
+        super(DropCountLabel, self).__init__(parent=parent)
+        self.setAcceptDrops(True)
+        self.setAlignment(QtCore.Qt.AlignCenter)
+        self.setText(strings._('gui_drag_and_drop', True))
+        self.setStyleSheet('color: #ffffff; background-color: #f44449; font-weight: bold; padding: 5px 10px; border-radius: 10px;')
+        self.hide()
+
+    def dragLeaveEvent(self, event):
+        self.hide()
+        event.accept()
+
+
 class FileList(QtWidgets.QListWidget):
     """
     The list of files and folders in the GUI.
@@ -39,48 +83,6 @@ class FileList(QtWidgets.QListWidget):
         self.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
 
         self.filenames = []
-
-        class DropHereLabel(QtWidgets.QLabel):
-            """
-            When there are no files or folders in the FileList yet, display the
-            'drop files here' message and graphic.
-            """
-            def __init__(self, parent, image=False):
-                self.parent = parent
-                super(DropHereLabel, self).__init__(parent=parent)
-                self.setAcceptDrops(True)
-                self.setAlignment(QtCore.Qt.AlignCenter)
-
-                if image:
-                    self.setPixmap(QtGui.QPixmap.fromImage(QtGui.QImage(common.get_resource_path('images/logo_transparent.png'))))
-                else:
-                    self.setText(strings._('gui_drag_and_drop', True))
-                    self.setStyleSheet('color: #999999;')
-
-                self.hide()
-
-            def dragEnterEvent(self, event):
-                self.parent.drop_here_image.hide()
-                self.parent.drop_here_text.hide()
-                event.accept()
-
-        class DropCountLabel(QtWidgets.QLabel):
-            """
-            While dragging files over the FileList, this counter displays the
-            number of files you're dragging.
-            """
-            def __init__(self, parent):
-                self.parent = parent
-                super(DropCountLabel, self).__init__(parent=parent)
-                self.setAcceptDrops(True)
-                self.setAlignment(QtCore.Qt.AlignCenter)
-                self.setText(strings._('gui_drag_and_drop', True))
-                self.setStyleSheet('color: #ffffff; background-color: #f44449; font-weight: bold; padding: 5px 10px; border-radius: 10px;')
-                self.hide()
-
-            def dragLeaveEvent(self, event):
-                self.hide()
-                event.accept()
 
         self.drop_here_image = DropHereLabel(self, True)
         self.drop_here_text = DropHereLabel(self, False)
