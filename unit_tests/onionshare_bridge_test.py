@@ -86,6 +86,7 @@ class OnionShareGuiTest(unittest.TestCase):
     def test_using_bridges(self):
         '''Test that Bridges are in the torrc'''
         self.assertTrue('UseBridges' in open(self.gui.app.onion.tor_torrc).read())
+        self.assertTrue('ClientTransportPlugin obfs4 exec' in open(self.gui.app.onion.tor_torrc).read())
 
     @pytest.mark.run(order=5)
     def test_server_is_stopped(self):
