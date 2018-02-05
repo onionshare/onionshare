@@ -80,7 +80,7 @@ class FileList(QtWidgets.QListWidget):
         self.setIconSize(QtCore.QSize(32, 32))
         self.setSortingEnabled(True)
         self.setMinimumHeight(200)
-        self.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
+        self.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
 
         self.filenames = []
 
@@ -204,7 +204,6 @@ class FileList(QtWidgets.QListWidget):
                 self.filenames.pop(itemrow)
                 self.takeItem(itemrow)
                 self.files_updated.emit()
-                self.update()
 
             item_button = QtWidgets.QPushButton()
             item_button.setDefault(False)
@@ -227,7 +226,8 @@ class FileList(QtWidgets.QListWidget):
 
 class FileSelection(QtWidgets.QVBoxLayout):
     """
-    The list of files and folders in the GUI, as well as button to add files and folders.
+    The list of files and folders in the GUI, as well as buttons to add and
+    delete the files and folders.
     """
     def __init__(self):
         super(FileSelection, self).__init__()
@@ -241,9 +241,12 @@ class FileSelection(QtWidgets.QVBoxLayout):
         # buttons
         self.add_button = QtWidgets.QPushButton(strings._('gui_add', True))
         self.add_button.clicked.connect(self.add)
+        self.delete_button = QtWidgets.QPushButton(strings._('gui_delete', True))
+        self.delete_button.clicked.connect(self.delete)
         button_layout = QtWidgets.QHBoxLayout()
         button_layout.addStretch()
         button_layout.addWidget(self.add_button)
+        button_layout.addWidget(self.delete_button)
 
         # add the widgets
         self.addWidget(self.file_list)
@@ -255,13 +258,22 @@ class FileSelection(QtWidgets.QVBoxLayout):
         """
         Update the GUI elements based on the current state.
         """
-        # all buttons should be disabled if the server is on
+        # All buttons should be hidden if the server is on
         if self.server_on:
-            self.add_button.setEnabled(False)
+            self.add_button.hide()
+            self.delete_button.hide()
         else:
-            self.add_button.setEnabled(True)
+            self.add_button.show()
 
-        # update the file list
+            # Delete button should be hidden if item isn't selected
+            current_item = self.file_list.currentItem()
+            common.log('FileSelection', 'current_item: {}'.format(current_item))
+            if not current_item:
+                self.delete_button.hide()
+            else:
+                self.delete_button.show()
+
+        # Update the file list
         self.file_list.update()
 
     def add(self):
@@ -273,6 +285,21 @@ class FileSelection(QtWidgets.QVBoxLayout):
             for filename in file_dialog.selectedFiles():
                 self.file_list.add_file(filename)
 
+        self.file_list.setCurrentItem(None)
+        self.update()
+
+    def delete(self):
+        """
+        Delete button clicked
+        """
+        selected = self.file_list.selectedItems()
+        for item in selected:
+            itemrow = self.file_list.row(item)
+            self.file_list.filenames.pop(itemrow)
+            self.file_list.takeItem(itemrow)
+        self.file_list.files_updated.emit()
+        
+        self.file_list.setCurrentItem(None)
         self.update()
 
     def server_started(self):
