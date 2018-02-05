@@ -134,6 +134,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.primary_action = QtWidgets.QWidget()
         self.primary_action.setLayout(primary_action_layout)
         self.primary_action.hide()
+        self.update_primary_action()
 
         # Main layout
         self.layout = QtWidgets.QVBoxLayout()
