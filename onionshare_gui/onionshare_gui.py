@@ -56,7 +56,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         self.setWindowTitle('OnionShare')
         self.setWindowIcon(QtGui.QIcon(common.get_resource_path('images/logo.png')))
-        self.setMinimumWidth(300)
+        self.setMinimumWidth(400)
 
         # Load settings
         self.config = config
