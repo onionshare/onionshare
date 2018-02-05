@@ -38,6 +38,8 @@ class FileList(QtWidgets.QListWidget):
         self.setMinimumHeight(200)
         self.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
 
+        self.filenames = []
+
         class DropHereLabel(QtWidgets.QLabel):
             """
             When there are no files or folders in the FileList yet, display the
@@ -85,9 +87,6 @@ class FileList(QtWidgets.QListWidget):
         self.drop_count = DropCountLabel(self)
         self.resizeEvent(None)
 
-        self.filenames = []
-        self.update()
-
     def update(self):
         """
         Update the GUI elements based on the current state.
@@ -107,6 +106,13 @@ class FileList(QtWidgets.QListWidget):
         offset = 70
         self.drop_here_image.setGeometry(0, 0, self.width(), self.height() - offset)
         self.drop_here_text.setGeometry(0, offset, self.width(), self.height() - offset)
+
+        # Add and delete an empty item, to force all items to get redrawn
+        # This is ugly, but the only way I could figure out how to proceed
+        item = QtWidgets.QListWidgetItem('fake item')
+        self.addItem(item)
+        self.takeItem(self.row(item))
+        self.update()
 
     def dragEnterEvent(self, event):
         """
@@ -183,11 +189,22 @@ class FileList(QtWidgets.QListWidget):
             else:
                 size = common.human_readable_filesize(common.dir_size(filename))
             item_name = '{0:s} ({1:s})'.format(basename, size)
+
+            # Create a new item
             item = QtWidgets.QListWidgetItem(item_name)
             item.setToolTip(size)
-
             item.setIcon(icon)
+
+            # Create an item widget to display on the item
+            item_button = QtWidgets.QPushButton('x')
+            item_widget_layout = QtWidgets.QHBoxLayout()
+            item_widget_layout.addStretch()
+            item_widget_layout.addWidget(item_button)
+            item_widget = QtWidgets.QWidget()
+            item_widget.setLayout(item_widget_layout)
+
             self.addItem(item)
+            self.setItemWidget(item, item_widget)
 
             self.files_updated.emit()
 
