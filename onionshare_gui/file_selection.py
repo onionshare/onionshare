@@ -60,10 +60,29 @@ class FileList(QtWidgets.QListWidget):
             def dragEnterEvent(self, event):
                 self.parent.drop_here_image.hide()
                 self.parent.drop_here_text.hide()
-                event.ignore()
+                event.accept()
+
+        class DropCountLabel(QtWidgets.QLabel):
+            """
+            While dragging files over the FileList, this counter displays the
+            number of files you're dragging.
+            """
+            def __init__(self, parent):
+                self.parent = parent
+                super(DropCountLabel, self).__init__(parent=parent)
+                self.setAcceptDrops(True)
+                self.setAlignment(QtCore.Qt.AlignCenter)
+                self.setText(strings._('gui_drag_and_drop', True))
+                self.setStyleSheet('color: #ffffff; background-color: #f44449; font-weight: bold; padding: 5px 10px; border-radius: 10px;')
+                self.hide()
+
+            def dragLeaveEvent(self, event):
+                self.hide()
+                event.accept()
 
         self.drop_here_image = DropHereLabel(self, True)
         self.drop_here_text = DropHereLabel(self, False)
+        self.drop_count = DropCountLabel(self)
         self.resizeEvent(None)
 
         self.filenames = []
@@ -94,6 +113,12 @@ class FileList(QtWidgets.QListWidget):
         dragEnterEvent for dragging files and directories into the widget.
         """
         if event.mimeData().hasUrls:
+            self.setStyleSheet('FileList { border: 3px solid #538ad0; }')
+            count = len(event.mimeData().urls())
+            self.drop_count.setText('+{}'.format(count))
+
+            self.drop_count.setGeometry(self.width() - 60, self.height() - 40, 50, 30)
+            self.drop_count.show()
             event.accept()
         else:
             event.ignore()
@@ -102,6 +127,8 @@ class FileList(QtWidgets.QListWidget):
         """
         dragLeaveEvent for dragging files and directories into the widget.
         """
+        self.setStyleSheet('FileList { border: none; }')
+        self.drop_count.hide()
         event.accept()
         self.update()
 
@@ -127,6 +154,10 @@ class FileList(QtWidgets.QListWidget):
                 self.add_file(filename)
         else:
             event.ignore()
+
+        self.setStyleSheet('border: none;')
+        self.drop_count.hide()
+
         self.files_dropped.emit()
 
     def add_file(self, filename):
