@@ -49,6 +49,7 @@ class ServerStatus(QtWidgets.QVBoxLayout):
 
         # Helper boolean as this is used in a few places
         self.timer_enabled = False
+
         # Shutdown timeout layout
         self.server_shutdown_timeout_checkbox = QtWidgets.QCheckBox()
         self.server_shutdown_timeout_checkbox.setCheckState(QtCore.Qt.Unchecked)
@@ -56,8 +57,10 @@ class ServerStatus(QtWidgets.QVBoxLayout):
         self.server_shutdown_timeout_checkbox.setText(strings._("gui_settings_shutdown_timeout_choice", True))
         self.server_shutdown_timeout_label = QtWidgets.QLabel(strings._('gui_settings_shutdown_timeout', True))
         self.server_shutdown_timeout = QtWidgets.QDateTimeEdit()
+
         # Set proposed timeout to be 5 minutes into the future
         self.server_shutdown_timeout.setDateTime(QtCore.QDateTime.currentDateTime().addSecs(300))
+
         # Onion services can take a little while to start, so reduce the risk of it expiring too soon by setting the minimum to 2 min from now
         self.server_shutdown_timeout.setMinimumDateTime(QtCore.QDateTime.currentDateTime().addSecs(120))
         self.server_shutdown_timeout.setCurrentSectionIndex(4)
@@ -67,7 +70,8 @@ class ServerStatus(QtWidgets.QVBoxLayout):
         shutdown_timeout_layout_group.addWidget(self.server_shutdown_timeout_checkbox)
         shutdown_timeout_layout_group.addWidget(self.server_shutdown_timeout_label)
         shutdown_timeout_layout_group.addWidget(self.server_shutdown_timeout)
-        # server layout
+
+        # Server layout
         self.status_image_stopped = QtGui.QImage(common.get_resource_path('images/server_stopped.png'))
         self.status_image_working = QtGui.QImage(common.get_resource_path('images/server_working.png'))
         self.status_image_started = QtGui.QImage(common.get_resource_path('images/server_started.png'))
@@ -79,7 +83,7 @@ class ServerStatus(QtWidgets.QVBoxLayout):
         server_layout.addWidget(self.status_image_label)
         server_layout.addWidget(self.server_button)
 
-        # url layout
+        # URL layout
         url_font = QtGui.QFont()
         self.url_label = QtWidgets.QLabel()
         self.url_label.setFont(url_font)
@@ -94,10 +98,10 @@ class ServerStatus(QtWidgets.QVBoxLayout):
         url_layout.addWidget(self.copy_url_button)
         url_layout.addWidget(self.copy_hidservauth_button)
 
-        # add the widgets
-        self.addLayout(shutdown_timeout_layout_group)
+        # Add the widgets
         self.addLayout(server_layout)
         self.addLayout(url_layout)
+        self.addLayout(shutdown_timeout_layout_group)
 
         self.update()
 
