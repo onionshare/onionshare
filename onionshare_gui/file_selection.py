@@ -62,7 +62,7 @@ class DropCountLabel(QtWidgets.QLabel):
         self.setStyleSheet('color: #ffffff; background-color: #f44449; font-weight: bold; padding: 5px 10px; border-radius: 10px;')
         self.hide()
 
-    def dragLeaveEvent(self, event):
+    def dragEnterEvent(self, event):
         self.hide()
         event.accept()
 
@@ -109,12 +109,13 @@ class FileList(QtWidgets.QListWidget):
         self.drop_here_image.setGeometry(0, 0, self.width(), self.height() - offset)
         self.drop_here_text.setGeometry(0, offset, self.width(), self.height() - offset)
 
-        # Add and delete an empty item, to force all items to get redrawn
-        # This is ugly, but the only way I could figure out how to proceed
-        item = QtWidgets.QListWidgetItem('fake item')
-        self.addItem(item)
-        self.takeItem(self.row(item))
-        self.update()
+        if self.count() > 0:
+            # Add and delete an empty item, to force all items to get redrawn
+            # This is ugly, but the only way I could figure out how to proceed
+            item = QtWidgets.QListWidgetItem('fake item')
+            self.addItem(item)
+            self.takeItem(self.row(item))
+            self.update()
 
     def dragEnterEvent(self, event):
         """
