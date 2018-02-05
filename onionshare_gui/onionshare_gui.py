@@ -56,6 +56,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         self.setWindowTitle('OnionShare')
         self.setWindowIcon(QtGui.QIcon(common.get_resource_path('images/logo.png')))
+        self.setMinimumWidth(300)
 
         # Load settings
         self.config = config
@@ -168,6 +169,10 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.check_for_updates()
 
     def update_primary_action(self):
+        # Resize window
+        self.resize(self.sizeHint())
+
+        # Show or hide primary action layout
         if self.file_selection.file_list.count() > 0:
             self.primary_action.show()
         else:
