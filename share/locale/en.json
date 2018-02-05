@@ -62,7 +62,7 @@
     "error_rate_limit": "An attacker might be trying to guess your URL. To prevent this, OnionShare has automatically stopped the server. To share the files you must start it again and share the new URL.",
     "zip_progress_bar_format": "Crunching files: %p%",
     "error_stealth_not_supported": "To create stealth onion services, you need at least Tor 0.2.9.1-alpha (or Tor Browser 6.5) and at least python3-stem 1.5.0.",
-    "error_ephemeral_not_supported": "OnionShare requires at least at least Tor 0.2.7.1 and at least python3-stem 1.4.0.",
+    "error_ephemeral_not_supported": "OnionShare requires at least Tor 0.2.7.1 and at least python3-stem 1.4.0.",
     "gui_settings_window_title": "Settings",
     "gui_settings_stealth_label": "Stealth (advanced)",
     "gui_settings_stealth_option": "Create stealth onion services",
