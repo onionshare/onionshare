@@ -133,7 +133,7 @@ class ServerStatus(QtWidgets.QVBoxLayout):
         """
         Update the GUI elements based on the current state.
         """
-        # set the status image
+        # Set the status image
         if self.status == self.STATUS_STOPPED:
             self.status_image_label.setPixmap(QtGui.QPixmap.fromImage(self.status_image_stopped))
         elif self.status == self.STATUS_WORKING:
@@ -141,7 +141,7 @@ class ServerStatus(QtWidgets.QVBoxLayout):
         elif self.status == self.STATUS_STARTED:
             self.status_image_label.setPixmap(QtGui.QPixmap.fromImage(self.status_image_started))
 
-        # set the URL fields
+        # Set the URL fields
         if self.status == self.STATUS_STARTED:
             self.url_label.setText('http://{0:s}/{1:s}'.format(self.app.onion_host, self.web.slug))
             self.url_label.show()
@@ -157,7 +157,7 @@ class ServerStatus(QtWidgets.QVBoxLayout):
             else:
                 self.copy_hidservauth_button.hide()
 
-            # resize parent widget
+            # Resize parent widget
             p = self.parentWidget()
             p.resize(p.sizeHint())
         else:
@@ -165,27 +165,34 @@ class ServerStatus(QtWidgets.QVBoxLayout):
             self.copy_url_button.hide()
             self.copy_hidservauth_button.hide()
 
-        # button
+        # Button
+        button_stopped_style = 'QPushButton { background-color: #5fa416; color: #ffffff; padding: 10px; border: 0; }'
+        button_working_style = 'QPushButton { background-color: #4c8211; color: #ffffff; padding: 10px; border: 0; font-style: italic; }'
+        button_started_style = 'QPushButton { background-color: #d0011b; color: #ffffff; padding: 10px; border: 0; }'
         if self.file_selection.get_num_files() == 0:
-            self.server_button.setEnabled(False)
-            self.server_button.setText(strings._('gui_start_server', True))
+            self.server_button.hide()
         else:
+            self.server_button.show()
             if self.status == self.STATUS_STOPPED:
+                self.server_button.setStyleSheet(button_stopped_style)
                 self.server_button.setEnabled(True)
                 self.server_button.setText(strings._('gui_start_server', True))
                 self.server_shutdown_timeout.setEnabled(True)
                 self.server_shutdown_timeout_checkbox.setEnabled(True)
             elif self.status == self.STATUS_STARTED:
+                self.server_button.setStyleSheet(button_started_style)
                 self.server_button.setEnabled(True)
                 self.server_button.setText(strings._('gui_stop_server', True))
                 self.server_shutdown_timeout.setEnabled(False)
                 self.server_shutdown_timeout_checkbox.setEnabled(False)
             elif self.status == self.STATUS_WORKING:
+                self.server_button.setStyleSheet(button_working_style)
                 self.server_button.setEnabled(False)
                 self.server_button.setText(strings._('gui_please_wait'))
                 self.server_shutdown_timeout.setEnabled(False)
                 self.server_shutdown_timeout_checkbox.setEnabled(False)
             else:
+                self.server_button.setStyleSheet(button_working_style)
                 self.server_button.setEnabled(False)
                 self.server_button.setText(strings._('gui_please_wait'))
                 self.server_shutdown_timeout.setEnabled(False)
