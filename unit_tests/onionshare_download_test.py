@@ -80,7 +80,7 @@ class OnionShareGuiTest(unittest.TestCase):
         socks.set_default_proxy(socks.SOCKS5, socks_address, socks_port)
 
         s = socks.socksocket()
-        s.settimeout(15) # 15 second timeout
+        s.settimeout(45)
         s.connect((self.gui.app.onion_host, 80))
 
         http_request = 'GET {}/download HTTP/1.0\r\n'.format(self.gui.server_status.web.slug)
