@@ -80,7 +80,7 @@ class FileList(QtWidgets.QListWidget):
         self.setIconSize(QtCore.QSize(32, 32))
         self.setSortingEnabled(True)
         self.setMinimumHeight(200)
-        self.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
+        self.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
 
         self.filenames = []
 
@@ -198,8 +198,21 @@ class FileList(QtWidgets.QListWidget):
             item.setToolTip(size)
             item.setIcon(icon)
 
+            # Item's delete button
+            def delete_item():
+                itemrow = self.row(item)
+                self.filenames.pop(itemrow)
+                self.takeItem(itemrow)
+                self.files_updated.emit()
+                self.update()
+
+            item_button = QtWidgets.QPushButton()
+            item_button.setDefault(False)
+            item_button.setFlat(True)
+            item_button.setIcon( QtGui.QIcon(common.get_resource_path('images/file_delete.png')) )
+            item_button.clicked.connect(delete_item)
+
             # Create an item widget to display on the item
-            item_button = QtWidgets.QPushButton('x')
             item_widget_layout = QtWidgets.QHBoxLayout()
             item_widget_layout.addStretch()
             item_widget_layout.addWidget(item_button)
@@ -214,8 +227,7 @@ class FileList(QtWidgets.QListWidget):
 
 class FileSelection(QtWidgets.QVBoxLayout):
     """
-    The list of files and folders in the GUI, as well as buttons to add and
-    delete the files and folders.
+    The list of files and folders in the GUI, as well as button to add files and folders.
     """
     def __init__(self):
         super(FileSelection, self).__init__()
@@ -229,11 +241,9 @@ class FileSelection(QtWidgets.QVBoxLayout):
         # buttons
         self.add_button = QtWidgets.QPushButton(strings._('gui_add', True))
         self.add_button.clicked.connect(self.add)
-        self.delete_button = QtWidgets.QPushButton(strings._('gui_delete', True))
-        self.delete_button.clicked.connect(self.delete)
         button_layout = QtWidgets.QHBoxLayout()
+        button_layout.addStretch()
         button_layout.addWidget(self.add_button)
-        button_layout.addWidget(self.delete_button)
 
         # add the widgets
         self.addWidget(self.file_list)
@@ -248,16 +258,8 @@ class FileSelection(QtWidgets.QVBoxLayout):
         # all buttons should be disabled if the server is on
         if self.server_on:
             self.add_button.setEnabled(False)
-            self.delete_button.setEnabled(False)
         else:
             self.add_button.setEnabled(True)
-
-            # delete button should be disabled if item isn't selected
-            current_item = self.file_list.currentItem()
-            if not current_item:
-                self.delete_button.setEnabled(False)
-            else:
-                self.delete_button.setEnabled(True)
 
         # update the file list
         self.file_list.update()
@@ -271,18 +273,6 @@ class FileSelection(QtWidgets.QVBoxLayout):
             for filename in file_dialog.selectedFiles():
                 self.file_list.add_file(filename)
 
-        self.update()
-
-    def delete(self):
-        """
-        Delete button clicked
-        """
-        selected = self.file_list.selectedItems()
-        for item in selected:
-            itemrow = self.file_list.row(item)
-            self.file_list.filenames.pop(itemrow)
-            self.file_list.takeItem(itemrow)
-        self.file_list.files_updated.emit()
         self.update()
 
     def server_started(self):
