@@ -78,6 +78,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.start_server_finished.connect(self.server_status.start_server_finished)
         self.stop_server_finished.connect(self.server_status.stop_server_finished)
         self.file_selection.file_list.files_updated.connect(self.server_status.update)
+        self.file_selection.file_list.files_updated.connect(self.update_primary_action)
         self.server_status.url_copied.connect(self.copy_url)
         self.server_status.hidservauth_copied.connect(self.copy_hidservauth)
         self.starting_server_step2.connect(self.start_server_step2)
@@ -124,13 +125,20 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.persistent_url_label.setStyleSheet('padding: 10px 0; font-weight: bold; color: #333333;')
         self.persistent_url_label.hide()
 
+        # Primary action layout
+        primary_action_layout = QtWidgets.QVBoxLayout()
+        primary_action_layout.addLayout(self.server_status)
+        primary_action_layout.addWidget(self.filesize_warning)
+        primary_action_layout.addWidget(self.persistent_url_label)
+        primary_action_layout.addWidget(self.downloads_container)
+        self.primary_action = QtWidgets.QWidget()
+        self.primary_action.setLayout(primary_action_layout)
+        self.primary_action.hide()
+
         # Main layout
         self.layout = QtWidgets.QVBoxLayout()
         self.layout.addLayout(self.file_selection)
-        self.layout.addLayout(self.server_status)
-        self.layout.addWidget(self.filesize_warning)
-        self.layout.addWidget(self.persistent_url_label)
-        self.layout.addWidget(self.downloads_container)
+        self.layout.addWidget(self.primary_action)
         central_widget = QtWidgets.QWidget()
         central_widget.setLayout(self.layout)
         self.setCentralWidget(central_widget)
@@ -157,6 +165,12 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         # After connecting to Tor, check for updates
         self.check_for_updates()
+
+    def update_primary_action(self):
+        if self.file_selection.file_list.count() > 0:
+            self.primary_action.show()
+        else:
+            self.primary_action.hide()
 
     def _initSystemTray(self):
         system = common.get_platform()
