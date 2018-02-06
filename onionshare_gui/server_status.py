@@ -66,10 +66,16 @@ class ServerStatus(QtWidgets.QVBoxLayout):
         self.server_shutdown_timeout.setCurrentSectionIndex(4)
         self.server_shutdown_timeout_label.hide()
         self.server_shutdown_timeout.hide()
-        shutdown_timeout_layout_group = QtWidgets.QHBoxLayout()
-        shutdown_timeout_layout_group.addWidget(self.server_shutdown_timeout_checkbox)
-        shutdown_timeout_layout_group.addWidget(self.server_shutdown_timeout_label)
-        shutdown_timeout_layout_group.addWidget(self.server_shutdown_timeout)
+        shutdown_timeout_layout = QtWidgets.QHBoxLayout()
+        shutdown_timeout_layout.addWidget(self.server_shutdown_timeout_label)
+        shutdown_timeout_layout.addWidget(self.server_shutdown_timeout)
+
+        # Shutdown timeout container, so it can all be hidden and shown as a group
+        shutdown_timeout_container_layout = QtWidgets.QVBoxLayout()
+        shutdown_timeout_container_layout.addWidget(self.server_shutdown_timeout_checkbox)
+        shutdown_timeout_container_layout.addLayout(shutdown_timeout_layout)
+        self.server_shutdown_timeout_container = QtWidgets.QWidget()
+        self.server_shutdown_timeout_container.setLayout(shutdown_timeout_container_layout)
 
         # Server layout
         self.status_image_stopped = QtGui.QImage(common.get_resource_path('images/server_stopped.png'))
@@ -101,7 +107,7 @@ class ServerStatus(QtWidgets.QVBoxLayout):
         # Add the widgets
         self.addLayout(server_layout)
         self.addLayout(url_layout)
-        self.addLayout(shutdown_timeout_layout_group)
+        self.addWidget(self.server_shutdown_timeout_container)
 
         self.update()
 
@@ -173,6 +179,17 @@ class ServerStatus(QtWidgets.QVBoxLayout):
             self.server_button.hide()
         else:
             self.server_button.show()
+
+            if self.status == self.STATUS_STOPPED:
+                self.server_shutdown_timeout_checkbox.show()
+                self.server_shutdown_timeout_container.show()
+            else:
+                self.server_shutdown_timeout_checkbox.hide()
+                if self.server_shutdown_timeout_checkbox.isChecked():
+                    self.server_shutdown_timeout_container.show()
+                else:
+                    self.server_shutdown_timeout_container.hide()
+
             if self.status == self.STATUS_STOPPED:
                 self.server_button.setStyleSheet(button_stopped_style)
                 self.server_button.setEnabled(True)
