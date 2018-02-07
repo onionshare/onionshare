@@ -178,6 +178,12 @@ class ServerStatus(QtWidgets.QWidget):
             self.copy_url_button.hide()
             self.copy_hidservauth_button.hide()
 
+        # Set the File List widget to readonly while running, so items can't be deleted mid-share
+        if self.status == self.STATUS_STARTED or self.status == self.STATUS_WORKING:
+            self.file_selection.file_list.setEnabled(False)
+        else:
+            self.file_selection.file_list.setEnabled(True)
+
         # Button
         button_stopped_style = 'QPushButton { background-color: #5fa416; color: #ffffff; padding: 10px; border: 0; border-radius: 5px; }'
         button_working_style = 'QPushButton { background-color: #4c8211; color: #ffffff; padding: 10px; border: 0; border-radius: 5px; font-style: italic; }'
