@@ -123,7 +123,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         # Persistent URL notification
         self.persistent_url_label = QtWidgets.QLabel(strings._('persistent_url_in_use', True))
-        self.persistent_url_label.setStyleSheet('padding: 10px 0; font-weight: bold; color: #333333;')
+        self.persistent_url_label.setStyleSheet('font-weight: bold; color: #333333;')
         self.persistent_url_label.hide()
 
         # Primary action layout
