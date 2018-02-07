@@ -92,12 +92,10 @@ class ServerStatus(QtWidgets.QWidget):
         # URL layout
         url_font = QtGui.QFont()
         self.url_description = QtWidgets.QLabel(strings._('gui_url_description', True))
-        self.url_description.setWordWrap(True)
         self.url_label = QtWidgets.QLabel()
         self.url_label.setStyleSheet('QLabel { color: #666666; font-size: 12px; }')
         self.url = QtWidgets.QLabel()
         self.url.setFont(url_font)
-        self.url.setWordWrap(True)
         self.url.setStyleSheet('QLabel { background-color: #ffffff; color: #000000; padding: 10px; border: 1px solid #666666; }')
 
         url_buttons_style = 'QPushButton { color: #3f7fcf; }'
@@ -189,10 +187,6 @@ class ServerStatus(QtWidgets.QWidget):
                 self.copy_hidservauth_button.show()
             else:
                 self.copy_hidservauth_button.hide()
-
-            # Resize parent widget
-            p = self.parentWidget()
-            p.resize(p.sizeHint())
         else:
             self.url_description.hide()
             self.url_label.hide()
