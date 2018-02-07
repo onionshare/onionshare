@@ -586,14 +586,15 @@ class ZipProgressBar(QtWidgets.QProgressBar):
         self.setFormat(strings._('zip_progress_bar_format'))
         cssStyleData ="""
         QProgressBar {
-            background-color: rgba(255, 255, 255, 0.0) !important;
-            border: 0px;
+            border: 1px solid #4e064f;
+            background-color: #ffffff !important;
             text-align: center;
+            color: #9b9b9b;
         }
 
         QProgressBar::chunk {
             border: 0px;
-            background: qlineargradient(x1: 0.5, y1: 0, x2: 0.5, y2: 1, stop: 0 #b366ff, stop: 1 #d9b3ff);
+            background-color: #4e064f;
             width: 10px;
         }"""
         self.setStyleSheet(cssStyleData)

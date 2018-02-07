@@ -34,13 +34,15 @@ class Download(object):
         # make a new progress bar
         cssStyleData ="""
         QProgressBar {
-            border: 2px solid grey;
-            border-radius: 5px;
+            border: 1px solid #4e064f;
+            background-color: #ffffff !important;
             text-align: center;
+            color: #9b9b9b;
+            font-size: 12px;
         }
 
         QProgressBar::chunk {
-            background: qlineargradient(x1: 0.5, y1: 0, x2: 0.5, y2: 1, stop: 0 #b366ff, stop: 1 #d9b3ff);
+            background-color: #4e064f;
             width: 10px;
         }"""
         self.progress_bar = QtWidgets.QProgressBar()
