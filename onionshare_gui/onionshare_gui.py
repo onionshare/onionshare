@@ -102,19 +102,17 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.downloads_container.hide() # downloads start out hidden
         self.new_download = False
 
-        # Status bar
-        self.status_bar = QtWidgets.QStatusBar()
-        self.status_bar.setSizeGripEnabled(False)
-        self.status_bar.setStyleSheet(
-            "QStatusBar::item { border: 0px; }")
-        version_label = QtWidgets.QLabel('v{0:s}'.format(common.get_version()))
-        version_label.setStyleSheet('color: #666666')
+        # Settings button on the status bar
         self.settings_button = QtWidgets.QPushButton()
         self.settings_button.setDefault(False)
         self.settings_button.setFlat(True)
         self.settings_button.setIcon( QtGui.QIcon(common.get_resource_path('images/settings.png')) )
         self.settings_button.clicked.connect(self.open_settings)
-        self.status_bar.addPermanentWidget(version_label)
+
+        # Status bar
+        self.status_bar = QtWidgets.QStatusBar()
+        self.status_bar.setSizeGripEnabled(False)
+        self.status_bar.setStyleSheet("QStatusBar::item { border: 0px; }")
         self.status_bar.addPermanentWidget(self.settings_button)
         self.setStatusBar(self.status_bar)
 
