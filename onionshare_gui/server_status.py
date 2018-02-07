@@ -78,16 +78,8 @@ class ServerStatus(QtWidgets.QWidget):
         self.server_shutdown_timeout_container.setLayout(shutdown_timeout_container_layout)
 
         # Server layout
-        self.status_image_stopped = QtGui.QImage(common.get_resource_path('images/server_stopped.png'))
-        self.status_image_working = QtGui.QImage(common.get_resource_path('images/server_working.png'))
-        self.status_image_started = QtGui.QImage(common.get_resource_path('images/server_started.png'))
-        self.status_image_label = QtWidgets.QLabel()
-        self.status_image_label.setFixedWidth(30)
         self.server_button = QtWidgets.QPushButton()
         self.server_button.clicked.connect(self.server_button_clicked)
-        server_layout = QtWidgets.QHBoxLayout()
-        server_layout.addWidget(self.status_image_label)
-        server_layout.addWidget(self.server_button)
 
         # URL layout
         url_font = QtGui.QFont()
@@ -120,7 +112,7 @@ class ServerStatus(QtWidgets.QWidget):
 
         # Add the widgets
         layout = QtWidgets.QVBoxLayout()
-        layout.addLayout(server_layout)
+        layout.addWidget(self.server_button)
         layout.addLayout(url_layout)
         layout.addWidget(self.server_shutdown_timeout_container)
         self.setLayout(layout)
@@ -155,14 +147,6 @@ class ServerStatus(QtWidgets.QWidget):
         """
         Update the GUI elements based on the current state.
         """
-        # Set the status image
-        if self.status == self.STATUS_STOPPED:
-            self.status_image_label.setPixmap(QtGui.QPixmap.fromImage(self.status_image_stopped))
-        elif self.status == self.STATUS_WORKING:
-            self.status_image_label.setPixmap(QtGui.QPixmap.fromImage(self.status_image_working))
-        elif self.status == self.STATUS_STARTED:
-            self.status_image_label.setPixmap(QtGui.QPixmap.fromImage(self.status_image_started))
-
         # Set the URL fields
         if self.status == self.STATUS_STARTED:
             self.url_description.show()
