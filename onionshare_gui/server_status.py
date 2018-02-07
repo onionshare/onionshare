@@ -23,7 +23,7 @@ from PyQt5 import QtCore, QtWidgets, QtGui
 
 from onionshare import strings, common, settings
 
-class ServerStatus(QtWidgets.QVBoxLayout):
+class ServerStatus(QtWidgets.QWidget):
     """
     The server status chunk of the GUI.
     """
@@ -91,23 +91,41 @@ class ServerStatus(QtWidgets.QVBoxLayout):
 
         # URL layout
         url_font = QtGui.QFont()
+        self.url_description = QtWidgets.QLabel(strings._('gui_url_description', True))
+        self.url_description.setWordWrap(True)
         self.url_label = QtWidgets.QLabel()
-        self.url_label.setFont(url_font)
-        self.url_label.setWordWrap(False)
-        self.url_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.url_label.setStyleSheet('QLabel { color: #666666; font-size: 12px; }')
+        self.url = QtWidgets.QLabel()
+        self.url.setFont(url_font)
+        self.url.setWordWrap(True)
+        self.url.setStyleSheet('QLabel { background-color: #ffffff; color: #000000; padding: 10px; border: 1px solid #666666; }')
+
+        url_buttons_style = 'QPushButton { color: #3f7fcf; }'
         self.copy_url_button = QtWidgets.QPushButton(strings._('gui_copy_url', True))
+        self.copy_url_button.setFlat(True)
+        self.copy_url_button.setStyleSheet(url_buttons_style)
         self.copy_url_button.clicked.connect(self.copy_url)
         self.copy_hidservauth_button = QtWidgets.QPushButton(strings._('gui_copy_hidservauth', True))
+        self.copy_hidservauth_button.setFlat(True)
+        self.copy_hidservauth_button.setStyleSheet(url_buttons_style)
         self.copy_hidservauth_button.clicked.connect(self.copy_hidservauth)
-        url_layout = QtWidgets.QHBoxLayout()
+        url_buttons_layout = QtWidgets.QHBoxLayout()
+        url_buttons_layout.addWidget(self.copy_url_button)
+        url_buttons_layout.addWidget(self.copy_hidservauth_button)
+        url_buttons_layout.addStretch()
+
+        url_layout = QtWidgets.QVBoxLayout()
+        url_layout.addWidget(self.url_description)
         url_layout.addWidget(self.url_label)
-        url_layout.addWidget(self.copy_url_button)
-        url_layout.addWidget(self.copy_hidservauth_button)
+        url_layout.addWidget(self.url)
+        url_layout.addLayout(url_buttons_layout)
 
         # Add the widgets
-        self.addLayout(server_layout)
-        self.addLayout(url_layout)
-        self.addWidget(self.server_shutdown_timeout_container)
+        layout = QtWidgets.QVBoxLayout()
+        layout.addLayout(server_layout)
+        layout.addLayout(url_layout)
+        layout.addWidget(self.server_shutdown_timeout_container)
+        self.setLayout(layout)
 
         self.update()
 
@@ -149,8 +167,17 @@ class ServerStatus(QtWidgets.QVBoxLayout):
 
         # Set the URL fields
         if self.status == self.STATUS_STARTED:
-            self.url_label.setText('http://{0:s}/{1:s}'.format(self.app.onion_host, self.web.slug))
+            self.url_description.show()
+
+            if self.settings.get('close_after_first_download'):
+                self.url_label.setText(strings._('gui_url_label_one_time', True))
+            else:
+                self.url_label.setText(strings._('gui_url_label', True))
             self.url_label.show()
+
+            self.url.setText('http://{0:s}/{1:s}'.format(self.app.onion_host, self.web.slug))
+            self.url.show()
+
             self.copy_url_button.show()
 
             if self.settings.get('save_private_key'):
@@ -167,7 +194,9 @@ class ServerStatus(QtWidgets.QVBoxLayout):
             p = self.parentWidget()
             p.resize(p.sizeHint())
         else:
+            self.url_description.hide()
             self.url_label.hide()
+            self.url.hide()
             self.copy_url_button.hide()
             self.copy_hidservauth_button.hide()
 
