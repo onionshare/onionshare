@@ -205,16 +205,16 @@ class FileList(QtWidgets.QListWidget):
                 self.takeItem(itemrow)
                 self.files_updated.emit()
 
-            item_button = QtWidgets.QPushButton()
-            item_button.setDefault(False)
-            item_button.setFlat(True)
-            item_button.setIcon( QtGui.QIcon(common.get_resource_path('images/file_delete.png')) )
-            item_button.clicked.connect(delete_item)
+            item.item_button = QtWidgets.QPushButton()
+            item.item_button.setDefault(False)
+            item.item_button.setFlat(True)
+            item.item_button.setIcon( QtGui.QIcon(common.get_resource_path('images/file_delete.png')) )
+            item.item_button.clicked.connect(delete_item)
 
             # Create an item widget to display on the item
             item_widget_layout = QtWidgets.QHBoxLayout()
             item_widget_layout.addStretch()
-            item_widget_layout.addWidget(item_button)
+            item_widget_layout.addWidget(item.item_button)
             item_widget = QtWidgets.QWidget()
             item_widget.setLayout(item_widget_layout)
 
