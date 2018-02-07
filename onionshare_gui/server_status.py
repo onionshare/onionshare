@@ -180,9 +180,11 @@ class ServerStatus(QtWidgets.QWidget):
 
         # Set the File List widget to readonly while running, so items can't be deleted mid-share
         if self.status == self.STATUS_STARTED or self.status == self.STATUS_WORKING:
-            self.file_selection.file_list.setEnabled(False)
+            for index in range(self.file_selection.file_list.count()):
+                self.file_selection.file_list.item(index).item_button.hide()
         else:
-            self.file_selection.file_list.setEnabled(True)
+            for index in range(self.file_selection.file_list.count()):
+                self.file_selection.file_list.item(index).item_button.show()
 
         # Button
         button_stopped_style = 'QPushButton { background-color: #5fa416; color: #ffffff; padding: 10px; border: 0; border-radius: 5px; }'
