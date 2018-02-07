@@ -74,6 +74,14 @@
       .file-list td {
         padding: 5px;
       }
+
+      .sort-by a, a:visited {
+        color: #ffffff;
+      }
+
+      .sort-by a:active, a:hover {
+        color: #a7a7a7;
+      }
     </style>
     <meta name="onionshare-filename" content="{{ filename }}">
     <meta name="onionshare-filesize" content="{{ filesize }}">
@@ -88,14 +96,14 @@
         <th>Name</th>
         <th>Size</th>
       </tr>
-      {% for info in file_info.dirs %}
+      {% for info in file_info.dirs | sort(attribute=sort_by, reverse=reverse_sort) %}
       <tr>
         <td><img width="30" height="30" title="" alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAB3RJTUUH3ggbFCQXOpwjbQAAAM5JREFUSMftlksOwyAMRDFCbNjkDL1kz9K75Cq9AZF3kYIM7oqoP/KpcFK1mRUrnsbW2Fbq0N+JiPhZRMS1OZAfzLzocwCAGmC9V2Vhjduarj8CzynGqIwxsDl4SXV267E4uFTN33X8deCxDyV1XXeRYJo1UUDEa9M0pxoRK+b4HiqRcz3nVAJKRK+TSxqaGbrkNKUkBn0oNSK2+T0MA1dau9NzO4QwuvPen1lAxQtEsq/vNpSWhvZ9v/3IRMTWOQezkyuEoKy14tfHoU11A6Mr5AxrpuMVAAAAAElFTkSuQmCC" /></td>
         <td>{{ info.basename }}</td>
         <td>{{ info.size_human }}</td>
       </tr>
       {% endfor %}
-      {% for info in file_info.files %}
+      {% for info in file_info.files | sort(attribute=sort_by, reverse=reverse_sort) %}
       <tr>
         <td><img width="30" height="30" title="" alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAB3RJTUUH3ggbFCQqYvRvfAAAAJFJREFUSMftlUkOwCAIAEWJ//+uIUivtYmtG7VN8KYHRhlA5zYtuB6klCTG2BcEAHrBeN4ws3jvX3lxQZmFiogMgVesVrhKXlvgakKf4KqVdAdXL+Ea3O8aILh0GnUMEhjtw9mLbUv1tx33fgItynBVoN+k2hybY3Nsjg08Bs45q4GYuQ4OIQARLYcSkUPEoiUP4j5IFasKOnUAAAAASUVORK5CYII=" /></td>
         <td>{{ info.basename }}</td>
@@ -103,5 +111,17 @@
       </tr>
       {% endfor %}
     </table>
+    <p class="sort-by">Sort by
+      {% if sort_by == 'basename' and not reverse_sort %}
+        <a href='/{{ slug }}?sortby=basename&amp;sortmethod=desc'>Name</a>
+      {% else %}
+        <a href='/{{ slug }}'>Name</a>
+      {% endif %}
+      {% if sort_by == 'size_human' and not reverse_sort %}
+        <a href='/{{ slug }}?sortby=size_human&amp;sortmethod=desc'>Size</a>
+      {% else %}
+        <a href='/{{ slug }}?sortby=size_human&amp;sortmethod=asc'>Size</a>
+      {% endif %}
+    </p>
   </body>
 </html>

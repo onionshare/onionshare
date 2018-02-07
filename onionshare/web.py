@@ -211,15 +211,28 @@ def index(slug_candidate):
             r.headers.set(header, value)
         return r
 
-    # If download is allowed to continue, serve download page
+    # Allow the user to sort based on the file parameters and
+    # default to searching by ascending basename if the user
+    # hasn't chosen an optionTest
+    valid_sorts = ['basename', 'size_human']
+    sort_by = request.args.get('sortby', 'basename')
+    if not sort_by in valid_sorts:
+        sort_by = 'basename'
+    sort_method = request.args.get('sortmethod', 'asc')
+    reverse_sort = False
+    if sort_method == 'desc':
+        reverse_sort = True
 
+    # If download is allowed to continue, serve download page
     r = make_response(render_template_string(
         open(common.get_resource_path('html/index.html')).read(),
         slug=slug,
         file_info=file_info,
         filename=os.path.basename(zip_filename),
         filesize=zip_filesize,
-        filesize_human=common.human_readable_filesize(zip_filesize)))
+        filesize_human=common.human_readable_filesize(zip_filesize),
+        sort_by=sort_by,
+        reverse_sort=reverse_sort))
     for header, value in security_headers:
         r.headers.set(header, value)
     return r
