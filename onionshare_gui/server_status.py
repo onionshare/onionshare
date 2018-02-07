@@ -182,14 +182,6 @@ class ServerStatus(QtWidgets.QWidget):
             self.copy_url_button.hide()
             self.copy_hidservauth_button.hide()
 
-        # Hide the FileList delete buttons when a share is running
-        if self.status == self.STATUS_STARTED or self.status == self.STATUS_WORKING:
-            for index in range(self.file_selection.file_list.count()):
-                self.file_selection.file_list.item(index).item_button.hide()
-        else:
-            for index in range(self.file_selection.file_list.count()):
-                self.file_selection.file_list.item(index).item_button.show()
-
         # Button
         button_stopped_style = 'QPushButton { background-color: #5fa416; color: #ffffff; padding: 10px; border: 0; border-radius: 5px; }'
         button_working_style = 'QPushButton { background-color: #4c8211; color: #ffffff; padding: 10px; border: 0; border-radius: 5px; font-style: italic; }'
