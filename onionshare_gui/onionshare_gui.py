@@ -73,11 +73,15 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.server_status = ServerStatus(self.qtapp, self.app, web, self.file_selection, self.settings)
         self.server_status.server_started.connect(self.file_selection.server_started)
         self.server_status.server_started.connect(self.start_server)
+        self.server_status.server_started.connect(self.update_server_status_indicator)
         self.server_status.server_stopped.connect(self.file_selection.server_stopped)
         self.server_status.server_stopped.connect(self.stop_server)
+        self.server_status.server_stopped.connect(self.update_server_status_indicator)
         self.start_server_finished.connect(self.clear_message)
         self.start_server_finished.connect(self.server_status.start_server_finished)
+        self.start_server_finished.connect(self.update_server_status_indicator)
         self.stop_server_finished.connect(self.server_status.stop_server_finished)
+        self.stop_server_finished.connect(self.update_server_status_indicator)
         self.file_selection.file_list.files_updated.connect(self.server_status.update)
         self.file_selection.file_list.files_updated.connect(self.update_primary_action)
         self.server_status.url_copied.connect(self.copy_url)
@@ -109,10 +113,26 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.settings_button.setIcon( QtGui.QIcon(common.get_resource_path('images/settings.png')) )
         self.settings_button.clicked.connect(self.open_settings)
 
+        # Server status indicator on the status bar
+        self.server_status_image_stopped = QtGui.QImage(common.get_resource_path('images/server_stopped.png'))
+        self.server_status_image_working = QtGui.QImage(common.get_resource_path('images/server_working.png'))
+        self.server_status_image_started = QtGui.QImage(common.get_resource_path('images/server_started.png'))
+        self.server_status_image_label = QtWidgets.QLabel()
+        self.server_status_image_label.setFixedWidth(20)
+        self.server_status_label = QtWidgets.QLabel()
+        self.server_status_label.setStyleSheet('QLabel { font-style: italic; color: #666666; }')
+        server_status_indicator_layout = QtWidgets.QHBoxLayout()
+        server_status_indicator_layout.addWidget(self.server_status_image_label)
+        server_status_indicator_layout.addWidget(self.server_status_label)
+        self.server_status_indicator = QtWidgets.QWidget()
+        self.server_status_indicator.setLayout(server_status_indicator_layout)
+        self.update_server_status_indicator()
+
         # Status bar
         self.status_bar = QtWidgets.QStatusBar()
         self.status_bar.setSizeGripEnabled(False)
         self.status_bar.setStyleSheet("QStatusBar::item { border: 0px; }")
+        self.status_bar.addPermanentWidget(self.server_status_indicator)
         self.status_bar.addPermanentWidget(self.settings_button)
         self.setStatusBar(self.status_bar)
 
@@ -167,6 +187,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.check_for_updates()
 
     def update_primary_action(self):
+        common.log('OnionShareGui', 'update_primary_action')
         # Resize window
         self.adjustSize()
 
@@ -175,6 +196,20 @@ class OnionShareGui(QtWidgets.QMainWindow):
             self.primary_action.show()
         else:
             self.primary_action.hide()
+
+    def update_server_status_indicator(self):
+        common.log('OnionShareGui', 'update_server_status_indicator')
+
+        # Set the status image
+        if self.server_status.status == self.server_status.STATUS_STOPPED:
+            self.server_status_image_label.setPixmap(QtGui.QPixmap.fromImage(self.server_status_image_stopped))
+            self.server_status_label.setText(strings._('gui_status_indicator_stopped', True))
+        elif self.server_status.status == self.server_status.STATUS_WORKING:
+            self.server_status_image_label.setPixmap(QtGui.QPixmap.fromImage(self.server_status_image_working))
+            self.server_status_label.setText(strings._('gui_status_indicator_working', True))
+        elif self.server_status.status == self.server_status.STATUS_STARTED:
+            self.server_status_image_label.setPixmap(QtGui.QPixmap.fromImage(self.server_status_image_started))
+            self.server_status_label.setText(strings._('gui_status_indicator_started', True))
 
     def _initSystemTray(self):
         system = common.get_platform()
