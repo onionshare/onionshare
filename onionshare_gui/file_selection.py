@@ -115,7 +115,7 @@ class FileList(QtWidgets.QListWidget):
         """
         Update the GUI when the server stops, by showing delete buttons.
         """
-        self.file_list.setAcceptDrops(True)
+        self.setAcceptDrops(True)
         self.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
         for index in range(self.count()):
             self.item(index).item_button.show()
