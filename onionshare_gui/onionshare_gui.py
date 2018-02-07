@@ -555,9 +555,11 @@ class OnionShareGui(QtWidgets.QMainWindow):
         common.log('OnionShareGui', 'closeEvent')
         try:
             if self.server_status.status != self.server_status.STATUS_STOPPED:
+                common.log('OnionShareGui', 'closeEvent, opening warning dialog')
                 dialog = QtWidgets.QMessageBox()
-                dialog.setWindowTitle("OnionShare")
+                dialog.setWindowTitle(strings._('gui_quit_title', True))
                 dialog.setText(strings._('gui_quit_warning', True))
+                dialog.setIcon(QtWidgets.QMessageBox.Critical)
                 quit_button = dialog.addButton(strings._('gui_quit_warning_quit', True), QtWidgets.QMessageBox.YesRole)
                 dont_quit_button = dialog.addButton(strings._('gui_quit_warning_dont_quit', True), QtWidgets.QMessageBox.NoRole)
                 dialog.setDefaultButton(dont_quit_button)
