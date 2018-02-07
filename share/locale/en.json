@@ -137,7 +137,7 @@
     "gui_url_description": "<b>Anyone</b> with this link can <b>download</b> your files using <b>Tor Browser</b>:",
     "gui_url_label": "Your Download Address",
     "gui_url_label_one_time": "Your One-Time Download Address",
-    "gui_status_indicator_stopped": "Stopped",
-    "gui_status_indicator_working": "Working...",
-    "gui_status_indicator_started": "Running"
+    "gui_status_indicator_stopped": "Ready to Share",
+    "gui_status_indicator_working": "Starting...",
+    "gui_status_indicator_started": "Sharing"
 }
