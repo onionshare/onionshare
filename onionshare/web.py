@@ -214,7 +214,7 @@ def index(slug_candidate):
     # Allow the user to sort based on the file parameters and
     # default to searching by ascending basename if the user
     # hasn't chosen an optionTest
-    valid_sorts = ['basename', 'size_human']
+    valid_sorts = ['basename', 'size']
     sort_by = request.args.get('sortby', 'basename')
     if not sort_by in valid_sorts:
         sort_by = 'basename'

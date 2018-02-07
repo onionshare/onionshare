@@ -117,10 +117,10 @@
       {% else %}
         <a href='/{{ slug }}'>Name</a>
       {% endif %}
-      {% if sort_by == 'size_human' and not reverse_sort %}
-        <a href='/{{ slug }}?sortby=size_human&amp;sortmethod=desc'>Size</a>
+      {% if sort_by == 'size' and not reverse_sort %}
+        <a href='/{{ slug }}?sortby=size&amp;sortmethod=desc'>Size</a>
       {% else %}
-        <a href='/{{ slug }}?sortby=size_human&amp;sortmethod=asc'>Size</a>
+        <a href='/{{ slug }}?sortby=size&amp;sortmethod=asc'>Size</a>
       {% endif %}
     </p>
   </body>
