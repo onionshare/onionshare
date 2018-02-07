@@ -101,6 +101,25 @@ class FileList(QtWidgets.QListWidget):
             self.drop_here_image.hide()
             self.drop_here_text.hide()
 
+    def server_started(self):
+        """
+        Update the GUI when the server starts, by hiding delete buttons.
+        """
+        self.setAcceptDrops(False)
+        self.setCurrentItem(None)
+        self.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
+        for index in range(self.count()):
+            self.item(index).item_button.hide()
+
+    def server_stopped(self):
+        """
+        Update the GUI when the server stops, by showing delete buttons.
+        """
+        self.file_list.setAcceptDrops(True)
+        self.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
+        for index in range(self.count()):
+            self.item(index).item_button.show()
+
     def resizeEvent(self, event):
         """
         When the widget is resized, resize the drop files image and text.
@@ -205,16 +224,16 @@ class FileList(QtWidgets.QListWidget):
                 self.takeItem(itemrow)
                 self.files_updated.emit()
 
-            item_button = QtWidgets.QPushButton()
-            item_button.setDefault(False)
-            item_button.setFlat(True)
-            item_button.setIcon( QtGui.QIcon(common.get_resource_path('images/file_delete.png')) )
-            item_button.clicked.connect(delete_item)
+            item.item_button = QtWidgets.QPushButton()
+            item.item_button.setDefault(False)
+            item.item_button.setFlat(True)
+            item.item_button.setIcon( QtGui.QIcon(common.get_resource_path('images/file_delete.png')) )
+            item.item_button.clicked.connect(delete_item)
 
             # Create an item widget to display on the item
             item_widget_layout = QtWidgets.QHBoxLayout()
             item_widget_layout.addStretch()
-            item_widget_layout.addWidget(item_button)
+            item_widget_layout.addWidget(item.item_button)
             item_widget = QtWidgets.QWidget()
             item_widget.setLayout(item_widget_layout)
 
@@ -267,7 +286,6 @@ class FileSelection(QtWidgets.QVBoxLayout):
 
             # Delete button should be hidden if item isn't selected
             current_item = self.file_list.currentItem()
-            common.log('FileSelection', 'current_item: {}'.format(current_item))
             if not current_item:
                 self.delete_button.hide()
             else:
@@ -298,7 +316,7 @@ class FileSelection(QtWidgets.QVBoxLayout):
             self.file_list.filenames.pop(itemrow)
             self.file_list.takeItem(itemrow)
         self.file_list.files_updated.emit()
-        
+
         self.file_list.setCurrentItem(None)
         self.update()
 
@@ -307,7 +325,7 @@ class FileSelection(QtWidgets.QVBoxLayout):
         Gets called when the server starts.
         """
         self.server_on = True
-        self.file_list.setAcceptDrops(False)
+        self.file_list.server_started()
         self.update()
 
     def server_stopped(self):
@@ -315,7 +333,7 @@ class FileSelection(QtWidgets.QVBoxLayout):
         Gets called when the server stops.
         """
         self.server_on = False
-        self.file_list.setAcceptDrops(True)
+        self.file_list.server_stopped()
         self.update()
 
     def get_num_files(self):
