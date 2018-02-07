@@ -297,6 +297,9 @@ class OnionShareGui(QtWidgets.QMainWindow):
         d.settings_saved.connect(reload_settings)
         d.exec_()
 
+        # When settings close, refresh the server status UI
+        self.server_status.update()
+
     def start_server(self):
         """
         Start the onionshare server. This uses multiple threads to start the Tor onion

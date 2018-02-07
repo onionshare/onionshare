@@ -60,6 +60,11 @@ class SettingsDialog(QtWidgets.QDialog):
         self.systray_notifications_checkbox.setCheckState(QtCore.Qt.Checked)
         self.systray_notifications_checkbox.setText(strings._("gui_settings_systray_notifications", True))
 
+        # Whether or not to use a shutdown timer
+        self.shutdown_timeout_checkbox = QtWidgets.QCheckBox()
+        self.shutdown_timeout_checkbox.setCheckState(QtCore.Qt.Checked)
+        self.shutdown_timeout_checkbox.setText(strings._("gui_settings_shutdown_timeout_checkbox", True))
+
         # Whether or not to save the Onion private key for reuse
         self.save_private_key_checkbox = QtWidgets.QCheckBox()
         self.save_private_key_checkbox.setCheckState(QtCore.Qt.Unchecked)
@@ -69,6 +74,7 @@ class SettingsDialog(QtWidgets.QDialog):
         sharing_group_layout = QtWidgets.QVBoxLayout()
         sharing_group_layout.addWidget(self.close_after_first_download_checkbox)
         sharing_group_layout.addWidget(self.systray_notifications_checkbox)
+        sharing_group_layout.addWidget(self.shutdown_timeout_checkbox)
         sharing_group_layout.addWidget(self.save_private_key_checkbox)
         sharing_group = QtWidgets.QGroupBox(strings._("gui_settings_sharing_label", True))
         sharing_group.setLayout(sharing_group_layout)
@@ -351,6 +357,12 @@ class SettingsDialog(QtWidgets.QDialog):
             self.systray_notifications_checkbox.setCheckState(QtCore.Qt.Checked)
         else:
             self.systray_notifications_checkbox.setCheckState(QtCore.Qt.Unchecked)
+
+        shutdown_timeout = self.old_settings.get('shutdown_timeout')
+        if shutdown_timeout:
+            self.shutdown_timeout_checkbox.setCheckState(QtCore.Qt.Checked)
+        else:
+            self.shutdown_timeout_checkbox.setCheckState(QtCore.Qt.Unchecked)
 
         save_private_key = self.old_settings.get('save_private_key')
         if save_private_key:
@@ -684,6 +696,7 @@ class SettingsDialog(QtWidgets.QDialog):
 
         settings.set('close_after_first_download', self.close_after_first_download_checkbox.isChecked())
         settings.set('systray_notifications', self.systray_notifications_checkbox.isChecked())
+        settings.set('shutdown_timeout', self.shutdown_timeout_checkbox.isChecked())
         if self.save_private_key_checkbox.isChecked():
             settings.set('save_private_key', True)
             settings.set('private_key', self.old_settings.get('private_key'))

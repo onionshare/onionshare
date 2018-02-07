@@ -102,7 +102,7 @@
     "gui_settings_button_save": "Save",
     "gui_settings_button_cancel": "Cancel",
     "gui_settings_button_help": "Help",
-    "gui_settings_shutdown_timeout_choice": "Set auto-stop timer?",
+    "gui_settings_shutdown_timeout_checkbox": "Use auto-stop timer",
     "gui_settings_shutdown_timeout": "Stop the share at:",
     "settings_saved": "Settings saved to {}",
     "settings_error_unknown": "Can't connect to Tor controller because the settings don't make sense.",

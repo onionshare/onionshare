@@ -51,31 +51,22 @@ class ServerStatus(QtWidgets.QWidget):
         self.timer_enabled = False
 
         # Shutdown timeout layout
-        self.server_shutdown_timeout_checkbox = QtWidgets.QCheckBox()
-        self.server_shutdown_timeout_checkbox.setCheckState(QtCore.Qt.Unchecked)
-        self.server_shutdown_timeout_checkbox.toggled.connect(self.shutdown_timeout_toggled)
-        self.server_shutdown_timeout_checkbox.setText(strings._("gui_settings_shutdown_timeout_choice", True))
-        self.server_shutdown_timeout_label = QtWidgets.QLabel(strings._('gui_settings_shutdown_timeout', True))
-        self.server_shutdown_timeout = QtWidgets.QDateTimeEdit()
-
+        self.shutdown_timeout_label = QtWidgets.QLabel(strings._('gui_settings_shutdown_timeout', True))
+        self.shutdown_timeout = QtWidgets.QDateTimeEdit()
         # Set proposed timeout to be 5 minutes into the future
-        self.server_shutdown_timeout.setDateTime(QtCore.QDateTime.currentDateTime().addSecs(300))
-
+        self.shutdown_timeout.setDateTime(QtCore.QDateTime.currentDateTime().addSecs(300))
         # Onion services can take a little while to start, so reduce the risk of it expiring too soon by setting the minimum to 2 min from now
-        self.server_shutdown_timeout.setMinimumDateTime(QtCore.QDateTime.currentDateTime().addSecs(120))
-        self.server_shutdown_timeout.setCurrentSectionIndex(4)
-        self.server_shutdown_timeout_label.hide()
-        self.server_shutdown_timeout.hide()
+        self.shutdown_timeout.setMinimumDateTime(QtCore.QDateTime.currentDateTime().addSecs(120))
+        self.shutdown_timeout.setCurrentSectionIndex(4)
         shutdown_timeout_layout = QtWidgets.QHBoxLayout()
-        shutdown_timeout_layout.addWidget(self.server_shutdown_timeout_label)
-        shutdown_timeout_layout.addWidget(self.server_shutdown_timeout)
+        shutdown_timeout_layout.addWidget(self.shutdown_timeout_label)
+        shutdown_timeout_layout.addWidget(self.shutdown_timeout)
 
         # Shutdown timeout container, so it can all be hidden and shown as a group
         shutdown_timeout_container_layout = QtWidgets.QVBoxLayout()
-        shutdown_timeout_container_layout.addWidget(self.server_shutdown_timeout_checkbox)
         shutdown_timeout_container_layout.addLayout(shutdown_timeout_layout)
-        self.server_shutdown_timeout_container = QtWidgets.QWidget()
-        self.server_shutdown_timeout_container.setLayout(shutdown_timeout_container_layout)
+        self.shutdown_timeout_container = QtWidgets.QWidget()
+        self.shutdown_timeout_container.setLayout(shutdown_timeout_container_layout)
 
         # Server layout
         self.server_button = QtWidgets.QPushButton()
@@ -118,7 +109,7 @@ class ServerStatus(QtWidgets.QWidget):
         layout = QtWidgets.QVBoxLayout()
         layout.addWidget(self.server_button)
         layout.addLayout(url_layout)
-        layout.addWidget(self.server_shutdown_timeout_container)
+        layout.addWidget(self.shutdown_timeout_container)
         self.setLayout(layout)
 
         self.update()
@@ -130,22 +121,21 @@ class ServerStatus(QtWidgets.QWidget):
         if checked:
             self.timer_enabled = True
             # Hide the checkbox, show the options
-            self.server_shutdown_timeout_label.show()
+            self.shutdown_timeout_label.show()
             # Reset the default timer to 5 minutes into the future after toggling the option on
-            self.server_shutdown_timeout.setDateTime(QtCore.QDateTime.currentDateTime().addSecs(300))
-            self.server_shutdown_timeout.show()
+            self.shutdown_timeout.setDateTime(QtCore.QDateTime.currentDateTime().addSecs(300))
+            self.shutdown_timeout.show()
         else:
             self.timer_enabled = False
-            self.server_shutdown_timeout_label.hide()
-            self.server_shutdown_timeout.hide()
+            self.shutdown_timeout_label.hide()
+            self.shutdown_timeout.hide()
 
     def shutdown_timeout_reset(self):
         """
         Reset the timeout in the UI after stopping a share
         """
-        self.server_shutdown_timeout_checkbox.setCheckState(QtCore.Qt.Unchecked)
-        self.server_shutdown_timeout.setDateTime(QtCore.QDateTime.currentDateTime().addSecs(300))
-        self.server_shutdown_timeout.setMinimumDateTime(QtCore.QDateTime.currentDateTime().addSecs(120))
+        self.shutdown_timeout.setDateTime(QtCore.QDateTime.currentDateTime().addSecs(300))
+        self.shutdown_timeout.setMinimumDateTime(QtCore.QDateTime.currentDateTime().addSecs(120))
 
     def update(self):
         """
@@ -191,40 +181,31 @@ class ServerStatus(QtWidgets.QWidget):
         else:
             self.server_button.show()
 
-            if self.status == self.STATUS_STOPPED:
-                self.server_shutdown_timeout_checkbox.show()
-                self.server_shutdown_timeout_container.show()
+            if self.settings.get('shutdown_timeout'):
+                self.shutdown_timeout_container.show()
             else:
-                self.server_shutdown_timeout_checkbox.hide()
-                if self.server_shutdown_timeout_checkbox.isChecked():
-                    self.server_shutdown_timeout_container.show()
-                else:
-                    self.server_shutdown_timeout_container.hide()
+                self.shutdown_timeout_container.hide()
 
             if self.status == self.STATUS_STOPPED:
                 self.server_button.setStyleSheet(button_stopped_style)
                 self.server_button.setEnabled(True)
                 self.server_button.setText(strings._('gui_start_server', True))
-                self.server_shutdown_timeout.setEnabled(True)
-                self.server_shutdown_timeout_checkbox.setEnabled(True)
+                self.shutdown_timeout.setEnabled(True)
             elif self.status == self.STATUS_STARTED:
                 self.server_button.setStyleSheet(button_started_style)
                 self.server_button.setEnabled(True)
                 self.server_button.setText(strings._('gui_stop_server', True))
-                self.server_shutdown_timeout.setEnabled(False)
-                self.server_shutdown_timeout_checkbox.setEnabled(False)
+                self.shutdown_timeout.setEnabled(False)
             elif self.status == self.STATUS_WORKING:
                 self.server_button.setStyleSheet(button_working_style)
                 self.server_button.setEnabled(False)
                 self.server_button.setText(strings._('gui_please_wait'))
-                self.server_shutdown_timeout.setEnabled(False)
-                self.server_shutdown_timeout_checkbox.setEnabled(False)
+                self.shutdown_timeout.setEnabled(False)
             else:
                 self.server_button.setStyleSheet(button_working_style)
                 self.server_button.setEnabled(False)
                 self.server_button.setText(strings._('gui_please_wait'))
-                self.server_shutdown_timeout.setEnabled(False)
-                self.server_shutdown_timeout_checkbox.setEnabled(False)
+                self.shutdown_timeout.setEnabled(False)
 
     def server_button_clicked(self):
         """
@@ -233,7 +214,7 @@ class ServerStatus(QtWidgets.QWidget):
         if self.status == self.STATUS_STOPPED:
             if self.timer_enabled:
                 # Get the timeout chosen, stripped of its seconds. This prevents confusion if the share stops at (say) 37 seconds past the minute chosen
-                self.timeout = self.server_shutdown_timeout.dateTime().toPyDateTime().replace(second=0, microsecond=0)
+                self.timeout = self.shutdown_timeout.dateTime().toPyDateTime().replace(second=0, microsecond=0)
                 # If the timeout has actually passed already before the user hit Start, refuse to start the server.
                 if QtCore.QDateTime.currentDateTime().toPyDateTime() > self.timeout:
                     Alert(strings._('gui_server_timeout_expired', QtWidgets.QMessageBox.Warning))
