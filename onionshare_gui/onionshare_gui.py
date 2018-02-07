@@ -128,7 +128,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         # Primary action layout
         primary_action_layout = QtWidgets.QVBoxLayout()
-        primary_action_layout.addLayout(self.server_status)
+        primary_action_layout.addWidget(self.server_status)
         primary_action_layout.addWidget(self.filesize_warning)
         primary_action_layout.addWidget(self.persistent_url_label)
         primary_action_layout.addWidget(self.downloads_container)
