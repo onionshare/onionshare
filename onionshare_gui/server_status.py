@@ -178,7 +178,7 @@ class ServerStatus(QtWidgets.QWidget):
             self.copy_url_button.hide()
             self.copy_hidservauth_button.hide()
 
-        # Set the File List widget to readonly while running, so items can't be deleted mid-share
+        # Hide the FileList delete buttons when a share is running
         if self.status == self.STATUS_STARTED or self.status == self.STATUS_WORKING:
             for index in range(self.file_selection.file_list.count()):
                 self.file_selection.file_list.item(index).item_button.hide()
