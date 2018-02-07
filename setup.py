@@ -45,6 +45,17 @@ author_email = 'micah@micahflee.com'
 url = 'https://github.com/micahflee/onionshare'
 license = 'GPL v3'
 keywords = 'onion, share, onionshare, tor, anonymous, web server'
+data_files=[
+        (os.path.join(sys.prefix, 'share/applications'), ['install/onionshare.desktop']),
+        (os.path.join(sys.prefix, 'share/appdata'), ['install/onionshare.appdata.xml']),
+        (os.path.join(sys.prefix, 'share/pixmaps'), ['install/onionshare80.xpm']),
+        (os.path.join(sys.prefix, 'share/onionshare'), file_list('share')),
+        (os.path.join(sys.prefix, 'share/onionshare/images'), file_list('share/images')),
+        (os.path.join(sys.prefix, 'share/onionshare/locale'), file_list('share/locale')),
+        (os.path.join(sys.prefix, 'share/onionshare/html'), file_list('share/html')),
+    ]
+if platform.system() != 'OpenBSD':
+    data_files.append(('/usr/share/nautilus-python/extensions/', ['install/scripts/onionshare-nautilus.py']))
 
 setup(
     name='onionshare', version=version,
@@ -54,14 +65,5 @@ setup(
     packages=['onionshare', 'onionshare_gui'],
     include_package_data=True,
     scripts=['install/scripts/onionshare', 'install/scripts/onionshare-gui'],
-    data_files=[
-        (os.path.join(sys.prefix, 'share/applications'), ['install/onionshare.desktop']),
-        (os.path.join(sys.prefix, 'share/appdata'), ['install/onionshare.appdata.xml']),
-        (os.path.join(sys.prefix, 'share/pixmaps'), ['install/onionshare80.xpm']),
-        (os.path.join(sys.prefix, 'share/onionshare'), file_list('share')),
-        (os.path.join(sys.prefix, 'share/onionshare/images'), file_list('share/images')),
-        (os.path.join(sys.prefix, 'share/onionshare/locale'), file_list('share/locale')),
-        (os.path.join(sys.prefix, 'share/onionshare/html'), file_list('share/html')),
-        ('/usr/share/nautilus-python/extensions/', ['install/scripts/onionshare-nautilus.py'])
-    ]
+    data_files=data_files
 )
