@@ -132,7 +132,17 @@ class OnionShareGui(QtWidgets.QMainWindow):
         # Status bar
         self.status_bar = QtWidgets.QStatusBar()
         self.status_bar.setSizeGripEnabled(False)
-        self.status_bar.setStyleSheet("QStatusBar::item { border: 0px; }")
+        statusBar_cssStyleData ="""
+        QStatusBar {
+            font-style: italic;
+            color: #666666;
+        }
+
+        QStatusBar::item {
+            border: 0px;
+        }"""
+
+        self.status_bar.setStyleSheet(statusBar_cssStyleData)
         self.status_bar.addPermanentWidget(self.server_status_indicator)
         self.status_bar.addPermanentWidget(self.settings_button)
         self.setStatusBar(self.status_bar)
@@ -545,6 +555,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
                         self.server_status.stop_server()
                         self._closing_automatically_label = QtWidgets.QLabel(strings._('closing_automatically', True))
                         self._closing_automatically_label.setWordWrap(True)
+                        self._closing_automatically_label.setStyleSheet('QLabel { font-style: italic; color: #666666; padding: 2px; }')
                         self.status_bar.clearMessage()
                         self.status_bar.insertWidget(0, self._closing_automatically_label)
                 else:
@@ -568,12 +579,14 @@ class OnionShareGui(QtWidgets.QMainWindow):
                         if web.download_count == 0 or web.done:
                             self.server_status.stop_server()
                             self._close_on_timeout_label = QtWidgets.QLabel(strings._('close_on_timeout', True))
+                            self._close_on_timeout_label.setStyleSheet('QLabel { font-style: italic; color: #666666; padding: 2px; }')
                             self._close_on_timeout_label.setWordWrap(True)
                             self.status_bar.clearMessage()
                             self.status_bar.insertWidget(0, self._close_on_timeout_label)
                         # A download is probably still running - hold off on stopping the share
                         else:
                             self._timeout_download_still_running_label = QtWidgets.QLabel(strings._('timeout_download_still_running', True))
+                            self._timeout_download_still_running_label.setStyleSheet('QLabel { font-style: italic; color: #666666; padding: 2px; }')
                             self._timeout_download_still_running_label.setWordWrap(True)
                             self.status_bar.clearMessage()
                             self.status_bar.insertWidget(0, self._timeout_download_still_running_label)
