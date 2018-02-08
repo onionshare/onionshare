@@ -133,10 +133,11 @@
     "gui_server_timeout_expired": "The chosen timeout has already expired.\nPlease update the timeout and then you may start sharing.",
     "share_via_onionshare": "Share via OnionShare",
     "gui_save_private_key_checkbox": "Use a persistent address\n(unchecking will delete any saved address)",
-    "persistent_url_in_use": "This share is using a persistent address",
     "gui_url_description": "<b>Anyone</b> with this link can <b>download</b> your files using <b>Tor Browser</b>:",
     "gui_url_label": "Your Download Address",
+    "gui_url_label_persistent": "Your <strong>Persistent</strong> Download Address <em>(what's this?)</em>",
     "gui_url_label_one_time": "Your One-Time Download Address",
+    "gui_url_persistence_warning": "Every share will have the same URL.<br><br>If you want to go back to using one-time URLs, turn off persistence in the Settings.",
     "gui_status_indicator_stopped": "Ready to Share",
     "gui_status_indicator_working": "Starting...",
     "gui_status_indicator_started": "Sharing"
