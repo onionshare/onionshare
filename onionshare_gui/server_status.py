@@ -47,9 +47,6 @@ class ServerStatus(QtWidgets.QWidget):
 
         self.settings = settings
 
-        # Helper boolean as this is used in a few places
-        self.timer_enabled = False
-
         # Shutdown timeout layout
         self.shutdown_timeout_label = QtWidgets.QLabel(strings._('gui_settings_shutdown_timeout', True))
         self.shutdown_timeout = QtWidgets.QDateTimeEdit()
@@ -113,22 +110,6 @@ class ServerStatus(QtWidgets.QWidget):
         self.setLayout(layout)
 
         self.update()
-
-    def shutdown_timeout_toggled(self, checked):
-        """
-        Shutdown timer option was toggled. If checked, show the timer settings.
-        """
-        if checked:
-            self.timer_enabled = True
-            # Hide the checkbox, show the options
-            self.shutdown_timeout_label.show()
-            # Reset the default timer to 5 minutes into the future after toggling the option on
-            self.shutdown_timeout.setDateTime(QtCore.QDateTime.currentDateTime().addSecs(300))
-            self.shutdown_timeout.show()
-        else:
-            self.timer_enabled = False
-            self.shutdown_timeout_label.hide()
-            self.shutdown_timeout.hide()
 
     def shutdown_timeout_reset(self):
         """
@@ -212,7 +193,7 @@ class ServerStatus(QtWidgets.QWidget):
         Toggle starting or stopping the server.
         """
         if self.status == self.STATUS_STOPPED:
-            if self.timer_enabled:
+            if self.settings.get('shutdown_timeout'):
                 # Get the timeout chosen, stripped of its seconds. This prevents confusion if the share stops at (say) 37 seconds past the minute chosen
                 self.timeout = self.shutdown_timeout.dateTime().toPyDateTime().replace(second=0, microsecond=0)
                 # If the timeout has actually passed already before the user hit Start, refuse to start the server.
