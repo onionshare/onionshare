@@ -139,6 +139,10 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         # Status bar, zip progress bar
         self._zip_progress_bar = None
+        # Status bar, other larger messages
+        self._close_on_timeout_label = None
+        self._closing_automatically_label = None
+        self._timeout_download_still_running_label = None
 
         # Persistent URL notification
         self.persistent_url_label = QtWidgets.QLabel(strings._('persistent_url_in_use', True))
@@ -315,6 +319,16 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.downloads_container.hide()
         self.downloads.reset_downloads()
         self.status_bar.clearMessage()
+        # Remove any other widgets from the statusBar
+        if self._close_on_timeout_label is not None:
+            self.status_bar.removeWidget(self._close_on_timeout_label)
+            self._close_on_timeout_label = None
+        if self._closing_automatically_label is not None:
+            self.status_bar.removeWidget(self._closing_automatically_label)
+            self._closing_automatically_label = None
+        if self._timeout_download_still_running_label is not None:
+            self.status_bar.removeWidget(self._timeout_download_still_running_label)
+            self._timeout_download_still_running_label = None
 
         # Reset web counters
         web.download_count = 0
@@ -396,7 +410,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
             self.filesize_warning.setText(strings._("large_filesize", True))
             self.filesize_warning.show()
 
-        if self.server_status.timer_enabled:
+        if self.settings.get('shutdown_timeout'):
             # Convert the date value to seconds between now and then
             now = QtCore.QDateTime.currentDateTime()
             self.timeout = now.secsTo(self.server_status.timeout)
@@ -529,7 +543,10 @@ class OnionShareGui(QtWidgets.QMainWindow):
                     # close on finish?
                     if not web.get_stay_open():
                         self.server_status.stop_server()
-                        self.status_bar.showMessage(strings._('closing_automatically', True))
+                        self._closing_automatically_label = QtWidgets.QLabel(strings._('closing_automatically', True))
+                        self._closing_automatically_label.setWordWrap(True)
+                        self.status_bar.clearMessage()
+                        self.status_bar.insertWidget(0, self._closing_automatically_label)
                 else:
                     if self.server_status.status == self.server_status.STATUS_STOPPED:
                         self.downloads.cancel_download(event["data"]["id"])
@@ -544,16 +561,22 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         # If the auto-shutdown timer has stopped, stop the server
         if self.server_status.status == self.server_status.STATUS_STARTED:
-            if self.app.shutdown_timer and self.server_status.timer_enabled:
+            if self.app.shutdown_timer and self.settings.get('shutdown_timeout'):
                 if self.timeout > 0:
                     if not self.app.shutdown_timer.is_alive():
                         # If there were no attempts to download the share, or all downloads are done, we can stop
                         if web.download_count == 0 or web.done:
                             self.server_status.stop_server()
-                            self.status_bar.showMessage(strings._('close_on_timeout', True))
+                            self._close_on_timeout_label = QtWidgets.QLabel(strings._('close_on_timeout', True))
+                            self._close_on_timeout_label.setWordWrap(True)
+                            self.status_bar.clearMessage()
+                            self.status_bar.insertWidget(0, self._close_on_timeout_label)
                         # A download is probably still running - hold off on stopping the share
                         else:
-                            self.status_bar.showMessage(strings._('timeout_download_still_running', True))
+                            self._timeout_download_still_running_label = QtWidgets.QLabel(strings._('timeout_download_still_running', True))
+                            self._timeout_download_still_running_label.setWordWrap(True)
+                            self.status_bar.clearMessage()
+                            self.status_bar.insertWidget(0, self._timeout_download_still_running_label)
 
     def copy_url(self):
         """

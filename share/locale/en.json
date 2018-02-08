@@ -15,7 +15,7 @@
     "other_page_loaded": "Address loaded",
     "close_on_timeout": "Closing automatically because timeout was reached",
     "closing_automatically": "Closing automatically because download finished",
-    "timeout_download_still_running": "Waiting for download to complete before auto-stopping",
+    "timeout_download_still_running": "Waiting for download to complete before stopping",
     "large_filesize": "Warning: Sending large files could take hours",
     "error_tails_invalid_port": "Invalid value, port must be an integer",
     "error_tails_unknown_root": "Unknown error with Tails root process",
