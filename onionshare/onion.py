@@ -472,8 +472,8 @@ class Onion(object):
                 auth_cookie = list(res.client_auth.values())[0]
                 self.auth_string = 'HidServAuth {} {}'.format(onion_host, auth_cookie)
 
-        self.settings.save()
         if onion_host is not None:
+            self.settings.save()
             return onion_host
         else:
             raise TorErrorProtocolError(strings._('error_tor_protocol_error'))
@@ -484,13 +484,17 @@ class Onion(object):
         """
         common.log('Onion', 'cleanup')
 
-        # Cleanup the ephemeral onion service
-        if self.service_id:
-            try:
-                self.c.remove_ephemeral_hidden_service(self.service_id)
-            except:
-                pass
-            self.service_id = None
+        # Cleanup the ephemeral onion services, if we have any
+        try:
+            onions = self.c.list_ephemeral_hidden_services()
+            for onion in onions:
+                try:
+                    self.c.delete_ephemeral_hidden_service(service_id)
+                except:
+                    pass
+        except:
+            pass
+        self.service_id = None
 
         if stop_tor:
             # Stop tor process

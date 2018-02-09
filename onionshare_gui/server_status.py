@@ -29,6 +29,7 @@ class ServerStatus(QtWidgets.QWidget):
     """
     server_started = QtCore.pyqtSignal()
     server_stopped = QtCore.pyqtSignal()
+    server_canceled = QtCore.pyqtSignal()
     url_copied = QtCore.pyqtSignal()
     hidservauth_copied = QtCore.pyqtSignal()
 
@@ -198,7 +199,7 @@ class ServerStatus(QtWidgets.QWidget):
                 self.shutdown_timeout.setEnabled(False)
             elif self.status == self.STATUS_WORKING:
                 self.server_button.setStyleSheet(button_working_style)
-                self.server_button.setEnabled(False)
+                self.server_button.setEnabled(True)
                 self.server_button.setText(strings._('gui_please_wait'))
                 self.shutdown_timeout.setEnabled(False)
             else:
@@ -224,6 +225,8 @@ class ServerStatus(QtWidgets.QWidget):
                 self.start_server()
         elif self.status == self.STATUS_STARTED:
             self.stop_server()
+        elif self.status == self.STATUS_WORKING:
+            self.cancel_server()
 
     def start_server(self):
         """
@@ -249,6 +252,16 @@ class ServerStatus(QtWidgets.QWidget):
         self.shutdown_timeout_reset()
         self.update()
         self.server_stopped.emit()
+
+    def cancel_server(self):
+        """
+        Cancel the server.
+        """
+        common.log('ServerStatus', 'cancel_server', 'Canceling the server mid-startup')
+        self.status = self.STATUS_WORKING
+        self.shutdown_timeout_reset()
+        self.update()
+        self.server_canceled.emit()
 
     def stop_server_finished(self):
         """
