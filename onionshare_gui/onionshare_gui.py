@@ -93,6 +93,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         # Filesize warning
         self.filesize_warning = QtWidgets.QLabel()
+        self.filesize_warning.setWordWrap(True)
         self.filesize_warning.setStyleSheet('padding: 10px 0; font-weight: bold; color: #333333;')
         self.filesize_warning.hide()
 
@@ -149,10 +150,11 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         # Status bar, zip progress bar
         self._zip_progress_bar = None
-        # Status bar, other larger messages
-        self._close_on_timeout_label = None
-        self._closing_automatically_label = None
-        self._timeout_download_still_running_label = None
+        # Status bar, sharing messages
+        self.server_share_status_label = QtWidgets.QLabel('')
+        self.server_share_status_label.setWordWrap(True)
+        self.server_share_status_label.setStyleSheet('QLabel { font-style: italic; color: #666666; padding: 2px; }')
+        self.status_bar.insertWidget(0, self.server_share_status_label)
 
         # Persistent URL notification
         self.persistent_url_label = QtWidgets.QLabel(strings._('persistent_url_in_use', True))
@@ -329,16 +331,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.downloads_container.hide()
         self.downloads.reset_downloads()
         self.status_bar.clearMessage()
-        # Remove any other widgets from the statusBar
-        if self._close_on_timeout_label is not None:
-            self.status_bar.removeWidget(self._close_on_timeout_label)
-            self._close_on_timeout_label = None
-        if self._closing_automatically_label is not None:
-            self.status_bar.removeWidget(self._closing_automatically_label)
-            self._closing_automatically_label = None
-        if self._timeout_download_still_running_label is not None:
-            self.status_bar.removeWidget(self._timeout_download_still_running_label)
-            self._timeout_download_still_running_label = None
+        self.server_share_status_label.setText('')
 
         # Reset web counters
         web.download_count = 0
@@ -553,11 +546,8 @@ class OnionShareGui(QtWidgets.QMainWindow):
                     # close on finish?
                     if not web.get_stay_open():
                         self.server_status.stop_server()
-                        self._closing_automatically_label = QtWidgets.QLabel(strings._('closing_automatically', True))
-                        self._closing_automatically_label.setWordWrap(True)
-                        self._closing_automatically_label.setStyleSheet('QLabel { font-style: italic; color: #666666; padding: 2px; }')
                         self.status_bar.clearMessage()
-                        self.status_bar.insertWidget(0, self._closing_automatically_label)
+                        self.server_share_status_label.setText(strings._('closing_automatically', True))
                 else:
                     if self.server_status.status == self.server_status.STATUS_STOPPED:
                         self.downloads.cancel_download(event["data"]["id"])
@@ -578,18 +568,12 @@ class OnionShareGui(QtWidgets.QMainWindow):
                         # If there were no attempts to download the share, or all downloads are done, we can stop
                         if web.download_count == 0 or web.done:
                             self.server_status.stop_server()
-                            self._close_on_timeout_label = QtWidgets.QLabel(strings._('close_on_timeout', True))
-                            self._close_on_timeout_label.setStyleSheet('QLabel { font-style: italic; color: #666666; padding: 2px; }')
-                            self._close_on_timeout_label.setWordWrap(True)
                             self.status_bar.clearMessage()
-                            self.status_bar.insertWidget(0, self._close_on_timeout_label)
+                            self.server_share_status_label.setText(strings._('close_on_timeout', True))
                         # A download is probably still running - hold off on stopping the share
                         else:
-                            self._timeout_download_still_running_label = QtWidgets.QLabel(strings._('timeout_download_still_running', True))
-                            self._timeout_download_still_running_label.setStyleSheet('QLabel { font-style: italic; color: #666666; padding: 2px; }')
-                            self._timeout_download_still_running_label.setWordWrap(True)
                             self.status_bar.clearMessage()
-                            self.status_bar.insertWidget(0, self._timeout_download_still_running_label)
+                            self.server_share_status_label.setText(strings._('timeout_download_still_running', True))
 
     def copy_url(self):
         """
