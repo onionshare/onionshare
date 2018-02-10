@@ -182,7 +182,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.check_for_updates()
 
     def update_primary_action(self):
-        common.log('OnionShareGui', 'update_primary_action')
         # Resize window
         self.adjustSize()
 

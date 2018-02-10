@@ -140,5 +140,6 @@
     "gui_url_persistence_warning": "Every share will have the same URL.<br><br>If you want to go back to using one-time URLs, turn off persistence in the Settings.",
     "gui_status_indicator_stopped": "Ready to Share",
     "gui_status_indicator_working": "Starting...",
-    "gui_status_indicator_started": "Sharing"
+    "gui_status_indicator_started": "Sharing",
+    "gui_file_info": "{} Files, {}"
 }
