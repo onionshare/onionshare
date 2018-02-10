@@ -86,12 +86,14 @@ class SettingsDialog(QtWidgets.QDialog):
         stealth_details.setWordWrap(True)
         stealth_details.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
         stealth_details.setOpenExternalLinks(True)
+        stealth_details.setMinimumSize(stealth_details.sizeHint())
         self.stealth_checkbox = QtWidgets.QCheckBox()
         self.stealth_checkbox.setCheckState(QtCore.Qt.Unchecked)
         self.stealth_checkbox.setText(strings._("gui_settings_stealth_option", True))
 
         hidservauth_details = QtWidgets.QLabel(strings._('gui_settings_stealth_hidservauth_string', True))
         hidservauth_details.setWordWrap(True)
+        hidservauth_details.setMinimumSize(hidservauth_details.sizeHint())
         hidservauth_details.hide()
 
         self.hidservauth_copy_button = QtWidgets.QPushButton(strings._('gui_copy_hidservauth', True))
