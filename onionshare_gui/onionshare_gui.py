@@ -549,7 +549,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         """
         common.log('OnionShareGui', 'copy_url')
         if self.systemTray.supportsMessages() and self.settings.get('systray_notifications'):
-            self.status_bar.showMessage(strings._('gui_copied_url', True), 2000)
+            self.systemTray.showMessage(strings._('gui_copied_url_title', True), strings._('gui_copied_url', True))
 
     def copy_hidservauth(self):
         """
@@ -557,7 +557,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         """
         common.log('OnionShareGui', 'copy_hidservauth')
         if self.systemTray.supportsMessages() and self.settings.get('systray_notifications'):
-            self.status_bar.showMessage(strings._('gui_copied_hidservauth', True), 2000)
+            self.systemTray.showMessage(strings._('gui_copied_hidservauth_title', True), strings._('gui_copied_hidservauth', True))
 
     def clear_message(self):
         """
