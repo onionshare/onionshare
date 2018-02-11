@@ -81,6 +81,7 @@ class ServerStatus(QtWidgets.QWidget):
         self.url.setFont(url_font)
         self.url.setWordWrap(True)
         self.url.setMinimumHeight(60)
+        self.url.setMinimumSize(self.url.sizeHint())
         self.url.setStyleSheet('QLabel { background-color: #ffffff; color: #000000; padding: 10px; border: 1px solid #666666; }')
 
         url_buttons_style = 'QPushButton { color: #3f7fcf; }'

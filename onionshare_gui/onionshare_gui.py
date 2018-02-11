@@ -56,7 +56,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         self.setWindowTitle('OnionShare')
         self.setWindowIcon(QtGui.QIcon(common.get_resource_path('images/logo.png')))
-        self.setMinimumWidth(350)
+        self.setMinimumWidth(430)
 
         # Load settings
         self.config = config
@@ -152,7 +152,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self._zip_progress_bar = None
         # Status bar, sharing messages
         self.server_share_status_label = QtWidgets.QLabel('')
-        self.server_share_status_label.setWordWrap(True)
         self.server_share_status_label.setStyleSheet('QLabel { font-style: italic; color: #666666; padding: 2px; }')
         self.status_bar.insertWidget(0, self.server_share_status_label)
 
@@ -198,14 +197,14 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.check_for_updates()
 
     def update_primary_action(self):
-        # Resize window
-        self.adjustSize()
-
         # Show or hide primary action layout
         if self.file_selection.file_list.count() > 0:
             self.primary_action.show()
         else:
             self.primary_action.hide()
+
+        # Resize window
+        self.adjustSize()
 
     def update_server_status_indicator(self):
         common.log('OnionShareGui', 'update_server_status_indicator')
@@ -450,9 +449,10 @@ class OnionShareGui(QtWidgets.QMainWindow):
         # Remove ephemeral service, but don't disconnect from Tor
         self.onion.cleanup(stop_tor=False)
         self.filesize_warning.hide()
-        self.stop_server_finished.emit()
+        self.file_selection.file_list.adjustSize()
 
         self.set_server_active(False)
+        self.stop_server_finished.emit()
 
     def check_for_updates(self):
         """

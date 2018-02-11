@@ -13,7 +13,7 @@
     "no_available_port": "Could not start the Onion service as there was no available port.",
     "download_page_loaded": "Download page loaded",
     "other_page_loaded": "Address loaded",
-    "close_on_timeout": "Stopped because timeout was reached",
+    "close_on_timeout": "Stopped because timer expired",
     "closing_automatically": "Stopped because download finished",
     "timeout_download_still_running": "Waiting for download to complete",
     "large_filesize": "Warning: Sending large files could take hours",
@@ -141,5 +141,6 @@
     "gui_status_indicator_stopped": "Ready to Share",
     "gui_status_indicator_working": "Starting...",
     "gui_status_indicator_started": "Sharing",
-    "gui_file_info": "{} Files, {}"
+    "gui_file_info": "{} Files, {}",
+    "gui_file_info_single": "{} File, {}"
 }
