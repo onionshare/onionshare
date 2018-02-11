@@ -89,8 +89,8 @@
       margin-right: 0.5rem;
     }
 
-    table.file-list td:first-child, table.file-list td:last-child {
-      width: 50%;
+    table.file-list td:last-child {
+      width: 100%;
     }
     </style>
     <meta name="onionshare-filename" content="{{ filename }}">
@@ -111,14 +111,12 @@
 
     <table class="file-list">
       <tr>
-        <th></th>
         <th>Filename</th>
         <th>Size</th>
         <th></th>
       </tr>
       {% for info in file_info.dirs %}
       <tr>
-        <td></td>
         <td>
           <img width="30" height="30" title="" alt="" src="data:image/png;base64,{{ folder_b64 }}" />
           {{ info.basename }}
@@ -129,7 +127,6 @@
       {% endfor %}
       {% for info in file_info.files %}
       <tr>
-        <td></td>
         <td>
           <img width="30" height="30" title="" alt="" src="data:image/png;base64,{{ file_b64 }}" />
           {{ info.basename }}
