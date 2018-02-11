@@ -126,8 +126,11 @@ def add_request(request_type, path, data=None):
     })
 
 
-# Load favicon.ico and base64 encode it, to pass into templates
+# Load and base64 encode images to pass into templates
 favicon_b64 = base64.b64encode(open(common.get_resource_path('images/favicon.ico'), 'rb').read()).decode()
+logo_b64 = base64.b64encode(open(common.get_resource_path('images/logo.png'), 'rb').read()).decode()
+folder_b64 = base64.b64encode(open(common.get_resource_path('images/web_folder.png'), 'rb').read()).decode()
+file_b64 = base64.b64encode(open(common.get_resource_path('images/web_file.png'), 'rb').read()).decode()
 
 slug = None
 
@@ -223,6 +226,9 @@ def index(slug_candidate):
     r = make_response(render_template_string(
         open(common.get_resource_path('html/index.html')).read(),
         favicon_b64=favicon_b64,
+        logo_b64=logo_b64,
+        folder_b64=folder_b64,
+        file_b64=file_b64,
         slug=slug,
         file_info=file_info,
         filename=os.path.basename(zip_filename),
