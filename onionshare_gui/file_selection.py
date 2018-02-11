@@ -212,13 +212,19 @@ class FileList(QtWidgets.QListWidget):
             else:
                 size_bytes = common.dir_size(filename)
                 size_readable = common.human_readable_filesize(size_bytes)
-            item_name = '{0:s} ({1:s})'.format(basename, size_readable)
 
             # Create a new item
-            item = QtWidgets.QListWidgetItem(item_name)
-            item.setToolTip(size_readable)
+            item = QtWidgets.QListWidgetItem()
             item.setIcon(icon)
             item.size_bytes = size_bytes
+
+            # Item's name and size labels
+            item_name = QtWidgets.QLabel(basename)
+            item_name.setWordWrap(False)
+            item_name.setSizePolicy(QtWidgets.QSizePolicy.Ignored, QtWidgets.QSizePolicy.Fixed)
+            item_name.setStyleSheet('QLabel { color: #000000; font-size: 13px; }')
+            item_size = QtWidgets.QLabel(size_readable)
+            item_size.setStyleSheet('QLabel { color: #666666; font-size: 11px; }')
 
             # Item's delete button
             def delete_item():
@@ -232,16 +238,22 @@ class FileList(QtWidgets.QListWidget):
             item.item_button.setFlat(True)
             item.item_button.setIcon( QtGui.QIcon(common.get_resource_path('images/file_delete.png')) )
             item.item_button.clicked.connect(delete_item)
+            item.item_button.setSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
 
-            # Create an item widget to display on the item
-            item_widget_layout = QtWidgets.QHBoxLayout()
-            item_widget_layout.addStretch()
-            item_widget_layout.addWidget(item.item_button)
-            item_widget = QtWidgets.QWidget()
-            item_widget.setLayout(item_widget_layout)
+            # Create the item's widget and layouts
+            item_vlayout = QtWidgets.QVBoxLayout()
+            item_vlayout.addWidget(item_name)
+            item_vlayout.addWidget(item_size)
+            item_hlayout = QtWidgets.QHBoxLayout()
+            item_hlayout.addLayout(item_vlayout)
+            item_hlayout.addWidget(item.item_button)
+            widget = QtWidgets.QWidget()
+            widget.setLayout(item_hlayout)
+
+            item.setSizeHint(widget.sizeHint())
 
             self.addItem(item)
-            self.setItemWidget(item, item_widget)
+            self.setItemWidget(item, widget)
 
             self.files_updated.emit()
 
