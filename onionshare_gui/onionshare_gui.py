@@ -90,6 +90,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.starting_server_step2.connect(self.start_server_step2)
         self.starting_server_step3.connect(self.start_server_step3)
         self.starting_server_error.connect(self.start_server_error)
+        self.server_status.button_clicked.connect(self.clear_message)
 
         # Filesize warning
         self.filesize_warning = QtWidgets.QLabel()
