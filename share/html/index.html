@@ -4,103 +4,138 @@
     <title>OnionShare</title>
     <link href="data:image/x-icon;base64,{{favicon_b64}}" rel="icon" type="image/x-icon" />
     <style type="text/css">
-      body {
-        background-color: #222222;
-        color: #ffffff;
-        text-align: center;
-        font-family: sans-serif;
-        padding: 5em 1em;
-      }
-      .button {
-        -moz-box-shadow:inset 0px 1px 0px 0px #cae3fc;
-        -webkit-box-shadow:inset 0px 1px 0px 0px #cae3fc;
-        box-shadow:inset 0px 1px 0px 0px #cae3fc;
-        background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #79bbff), color-stop(1, #4197ee) );
-        background:-moz-linear-gradient( center top, #79bbff 5%, #4197ee 100% );
-        filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#79bbff', endColorstr='#4197ee');
-        background-color:#79bbff;
-        -webkit-border-top-left-radius:12px;
-        -moz-border-radius-topleft:12px;
-        border-top-left-radius:12px;
-        -webkit-border-top-right-radius:12px;
-        -moz-border-radius-topright:12px;
-        border-top-right-radius:12px;
-        -webkit-border-bottom-right-radius:12px;
-        -moz-border-radius-bottomright:12px;
-        border-bottom-right-radius:12px;
-        -webkit-border-bottom-left-radius:12px;
-        -moz-border-radius-bottomleft:12px;
-        border-bottom-left-radius:12px;
-        text-indent:0;
-        border:1px solid #469df5;
-        display:inline-block;
-        color:#ffffff;
-        font-size:29px;
-        font-weight:bold;
-        font-style:normal;
-        height:50px;
-        line-height:50px;
-        text-decoration:none;
-        text-align:center;
-        text-shadow:1px 1px 0px #287ace;
-        padding: 0 20px;
-      }
-      .button:hover {
-        background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #4197ee), color-stop(1, #79bbff) );
-        background:-moz-linear-gradient( center top, #4197ee 5%, #79bbff 100% );
-        filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#4197ee', endColorstr='#79bbff');
-        background-color:#4197ee;
-      }.button:active {
-        position:relative;
-        top:1px;
-      }
+    .clearfix:after {
+        content: ".";
+        display: block;
+        clear: both;
+        visibility: hidden;
+        line-height: 0;
+        height: 0;
+    }
 
-      .download-size {
-        color: #999999;
-      }
-      .download-description {
-        padding: 10px;
-      }
-      .file-list {
-        margin: 50px auto 0 auto;
-        padding: 10px;
-        text-align: left;
-        background-color: #333333;
-      }
-      .file-list th {
-        padding: 5px;
-        font-weight: bold;
-        color: #999999;
-      }
-      .file-list td {
-        padding: 5px;
-      }
+    body {
+      margin: 0;
+      font-family: Helvetica;
+    }
+
+    header {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      background: #fcfcfc;
+      background: -webkit-linear-gradient(top, #fcfcfc 0%, #f2f2f2 100%);
+      padding: 0.8rem;
+    }
+
+    header .logo {
+      vertical-align: middle;
+      width: 45px;
+      height: 45px;
+    }
+
+    header h1 {
+      display: inline-block;
+      margin: 0 0 0 0.5rem;
+      vertical-align: middle;
+      font-weight: normal;
+      font-size: 1.5rem;
+      color: #666666;
+    }
+
+    header .right {
+      float: right;
+      font-size: .75rem;
+    }
+
+    header .right ul li {
+      display: inline;
+      margin: 0 0 0 .5rem;
+      font-size: 1rem;
+    }
+
+    header .button {
+      color: #ffffff;
+      background-color: #4e064f;
+      padding: 10px;
+      border-radius: 5px;
+      text-decoration: none;
+      margin-left: 1rem;
+      cursor: pointer;
+    }
+
+    table.file-list {
+      width: 100%;
+      margin: 0 auto;
+      border-collapse: collapse;
+    }
+
+    table.file-list th {
+      text-align: left;
+      text-transform: uppercase;
+      font-weight: normal;
+      color: #666666;
+      padding: 0.5rem;
+    }
+
+    table.file-list tr {
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    table.file-list td {
+      white-space: nowrap;
+      padding: 0.5rem 10rem 0.5rem 0.5rem;
+    }
+
+    table.file-list td img {
+      vertical-align: middle;
+      margin-right: 0.5rem;
+    }
+
+    table.file-list td:first-child, table.file-list td:last-child {
+      width: 50%;
+    }
     </style>
     <meta name="onionshare-filename" content="{{ filename }}">
     <meta name="onionshare-filesize" content="{{ filesize }}">
   </head>
   <body>
-    <p><a class="button" href='/{{ slug }}/download'>{{ filename }} &#x25BC;</a></p>
-    <p class="download-size"><strong title="{{ filesize }} bytes">{{ filesize_human }} (compressed)</strong></p>
-    <p class="download-description">This zip file contains the following contents:</p>
+
+    <header class="clearfix">
+        <div class="right">
+            <ul>
+                <li>Total size: <strong>{{ filesize_human }}</strong> (compressed)</li>
+                <li><a class="button" href='/{{ slug }}/download'>Download Files</a></li>
+            </ul>
+        </div>
+        <img class="logo" src="data:image/png;base64,{{logo_b64}}" title="OnionShare">
+        <h1>OnionShare</h1>
+    </header>
+
     <table class="file-list">
       <tr>
-	<th>Type</th>
-        <th>Name</th>
+        <th></th>
+        <th>Filename</th>
         <th>Size</th>
+        <th></th>
       </tr>
       {% for info in file_info.dirs %}
       <tr>
-        <td><img width="30" height="30" title="" alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAB3RJTUUH3ggbFCQXOpwjbQAAAM5JREFUSMftlksOwyAMRDFCbNjkDL1kz9K75Cq9AZF3kYIM7oqoP/KpcFK1mRUrnsbW2Fbq0N+JiPhZRMS1OZAfzLzocwCAGmC9V2Vhjduarj8CzynGqIwxsDl4SXV267E4uFTN33X8deCxDyV1XXeRYJo1UUDEa9M0pxoRK+b4HiqRcz3nVAJKRK+TSxqaGbrkNKUkBn0oNSK2+T0MA1dau9NzO4QwuvPen1lAxQtEsq/vNpSWhvZ9v/3IRMTWOQezkyuEoKy14tfHoU11A6Mr5AxrpuMVAAAAAElFTkSuQmCC" /></td>
-        <td>{{ info.basename }}</td>
+        <td></td>
+        <td>
+          <img width="30" height="30" title="" alt="" src="data:image/png;base64,{{ folder_b64 }}" />
+          {{ info.basename }}
+        </td>
         <td>{{ info.size_human }}</td>
+        <td></td>
       </tr>
       {% endfor %}
       {% for info in file_info.files %}
       <tr>
-        <td><img width="30" height="30" title="" alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAB3RJTUUH3ggbFCQqYvRvfAAAAJFJREFUSMftlUkOwCAIAEWJ//+uIUivtYmtG7VN8KYHRhlA5zYtuB6klCTG2BcEAHrBeN4ws3jvX3lxQZmFiogMgVesVrhKXlvgakKf4KqVdAdXL+Ea3O8aILh0GnUMEhjtw9mLbUv1tx33fgItynBVoN+k2hybY3Nsjg08Bs45q4GYuQ4OIQARLYcSkUPEoiUP4j5IFasKOnUAAAAASUVORK5CYII=" /></td>
-        <td>{{ info.basename }}</td>
+        <td></td>
+        <td>
+          <img width="30" height="30" title="" alt="" src="data:image/png;base64,{{ file_b64 }}" />
+          {{ info.basename }}
+        </td>
         <td>{{ info.size_human }}</td>
+        <td></td>
       </tr>
       {% endfor %}
     </table>
