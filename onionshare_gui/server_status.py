@@ -127,10 +127,15 @@ class ServerStatus(QtWidgets.QWidget):
         if self.status == self.STATUS_STARTED:
             self.url_description.show()
 
-            if self.settings.get('close_after_first_download'):
+            if self.settings.get('save_private_key'):
+                self.url_label.setText(strings._('gui_url_label_persistent', True))
+                self.url_label.setToolTip(strings._('gui_url_persistence_warning', True))
+            elif self.settings.get('close_after_first_download'):
                 self.url_label.setText(strings._('gui_url_label_one_time', True))
+                self.url_label.setToolTip('')
             else:
                 self.url_label.setText(strings._('gui_url_label', True))
+                self.url_label.setToolTip('')
             self.url_label.show()
 
             self.url.setText('http://{0:s}/{1:s}'.format(self.app.onion_host, self.web.slug))
