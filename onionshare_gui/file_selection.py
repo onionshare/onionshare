@@ -145,7 +145,8 @@ class FileList(QtWidgets.QListWidget):
             count = len(event.mimeData().urls())
             self.drop_count.setText('+{}'.format(count))
 
-            self.drop_count.setGeometry(self.width() - 60, self.height() - 40, 50, 30)
+            size_hint = self.drop_count.sizeHint()
+            self.drop_count.setGeometry(self.width() - size_hint.width() - 10, self.height() - size_hint.height() - 10, size_hint.width(), size_hint.height())
             self.drop_count.show()
             event.accept()
         else:
