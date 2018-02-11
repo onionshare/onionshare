@@ -26,6 +26,7 @@ import queue
 import socket
 import sys
 import tempfile
+import base64
 from distutils.version import LooseVersion as Version
 from urllib.request import urlopen
 
@@ -125,6 +126,12 @@ def add_request(request_type, path, data=None):
     })
 
 
+# Load and base64 encode images to pass into templates
+favicon_b64 = base64.b64encode(open(common.get_resource_path('images/favicon.ico'), 'rb').read()).decode()
+logo_b64 = base64.b64encode(open(common.get_resource_path('images/logo.png'), 'rb').read()).decode()
+folder_b64 = base64.b64encode(open(common.get_resource_path('images/web_folder.png'), 'rb').read()).decode()
+file_b64 = base64.b64encode(open(common.get_resource_path('images/web_file.png'), 'rb').read()).decode()
+
 slug = None
 
 
@@ -206,7 +213,10 @@ def index(slug_candidate):
     global stay_open, download_in_progress
     deny_download = not stay_open and download_in_progress
     if deny_download:
-        r = make_response(render_template_string(open(common.get_resource_path('html/denied.html')).read()))
+        r = make_response(render_template_string(
+            open(common.get_resource_path('html/denied.html')).read(),
+            favicon_b64=favicon_b64
+        ))
         for header, value in security_headers:
             r.headers.set(header, value)
         return r
@@ -215,6 +225,10 @@ def index(slug_candidate):
 
     r = make_response(render_template_string(
         open(common.get_resource_path('html/index.html')).read(),
+        favicon_b64=favicon_b64,
+        logo_b64=logo_b64,
+        folder_b64=folder_b64,
+        file_b64=file_b64,
         slug=slug,
         file_info=file_info,
         filename=os.path.basename(zip_filename),
@@ -243,7 +257,10 @@ def download(slug_candidate):
     global stay_open, download_in_progress, done
     deny_download = not stay_open and download_in_progress
     if deny_download:
-        r = make_response(render_template_string(open(common.get_resource_path('html/denied.html')).read()))
+        r = make_response(render_template_string(
+            open(common.get_resource_path('html/denied.html')).read(),
+            favicon_b64=favicon_b64
+        ))
         for header,value in security_headers:
             r.headers.set(header, value)
         return r
@@ -355,7 +372,10 @@ def page_not_found(e):
             force_shutdown()
             print(strings._('error_rate_limit'))
 
-    r = make_response(render_template_string(open(common.get_resource_path('html/404.html')).read()), 404)
+    r = make_response(render_template_string(
+        open(common.get_resource_path('html/404.html')).read(),
+        favicon_b64=favicon_b64
+    ), 404)
     for header, value in security_headers:
         r.headers.set(header, value)
     return r

@@ -156,16 +156,10 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.server_share_status_label.setStyleSheet('QLabel { font-style: italic; color: #666666; padding: 2px; }')
         self.status_bar.insertWidget(0, self.server_share_status_label)
 
-        # Persistent URL notification
-        self.persistent_url_label = QtWidgets.QLabel(strings._('persistent_url_in_use', True))
-        self.persistent_url_label.setStyleSheet('font-weight: bold; color: #333333;')
-        self.persistent_url_label.hide()
-
         # Primary action layout
         primary_action_layout = QtWidgets.QVBoxLayout()
         primary_action_layout.addWidget(self.server_status)
         primary_action_layout.addWidget(self.filesize_warning)
-        primary_action_layout.addWidget(self.persistent_url_label)
         primary_action_layout.addWidget(self.downloads_container)
         self.primary_action = QtWidgets.QWidget()
         self.primary_action.setLayout(primary_action_layout)
@@ -204,7 +198,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.check_for_updates()
 
     def update_primary_action(self):
-        common.log('OnionShareGui', 'update_primary_action')
         # Resize window
         self.adjustSize()
 
@@ -426,9 +419,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
                 self.stop_server()
                 self.start_server_error(strings._('gui_server_started_after_timeout'))
 
-        if self.settings.get('save_private_key'):
-            self.persistent_url_label.show()
-
     def start_server_error(self, error):
         """
         If there's an error when trying to start the onion service
@@ -460,7 +450,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
         # Remove ephemeral service, but don't disconnect from Tor
         self.onion.cleanup(stop_tor=False)
         self.filesize_warning.hide()
-        self.persistent_url_label.hide()
         self.stop_server_finished.emit()
 
         self.set_server_active(False)
@@ -599,11 +588,10 @@ class OnionShareGui(QtWidgets.QMainWindow):
         """
         Disable the Settings button while an OnionShare server is active.
         """
-        self.settings_button.setEnabled(not active)
         if active:
-            self.settings_button.setIcon( QtGui.QIcon(common.get_resource_path('images/settings_inactive.png')) )
+            self.settings_button.hide()
         else:
-            self.settings_button.setIcon( QtGui.QIcon(common.get_resource_path('images/settings.png')) )
+            self.settings_button.show()
 
         # Disable settings menu action when server is active
         self.settingsAction.setEnabled(not active)
