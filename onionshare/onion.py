@@ -489,7 +489,7 @@ class Onion(object):
             onions = self.c.list_ephemeral_hidden_services()
             for onion in onions:
                 try:
-                    self.c.delete_ephemeral_hidden_service(service_id)
+                    self.c.remove_ephemeral_hidden_service(service_id)
                 except:
                     pass
         except:
