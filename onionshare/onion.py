@@ -489,8 +489,10 @@ class Onion(object):
             onions = self.c.list_ephemeral_hidden_services()
             for onion in onions:
                 try:
-                    self.c.remove_ephemeral_hidden_service(service_id)
+                    common.log('Onion', 'cleanup', 'trying to remove onion {}'.format(onion))
+                    self.c.remove_ephemeral_hidden_service(onion)
                 except:
+                    common.log('Onion', 'cleanup', 'could not remove onion {}.. moving on anyway'.format(onion))
                     pass
         except:
             pass
