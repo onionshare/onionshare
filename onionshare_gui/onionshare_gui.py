@@ -383,7 +383,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
                 self.starting_server_error.emit(e.strerror)
                 return
 
-        #self.status_bar.showMessage(strings._('gui_starting_server2', True))
         t = threading.Thread(target=finish_starting_server, kwargs={'self': self})
         t.daemon = True
         t.start()
@@ -569,14 +568,16 @@ class OnionShareGui(QtWidgets.QMainWindow):
         When the URL gets copied to the clipboard, display this in the status bar.
         """
         common.log('OnionShareGui', 'copy_url')
-        self.status_bar.showMessage(strings._('gui_copied_url', True), 2000)
+        if self.systemTray.supportsMessages() and self.settings.get('systray_notifications'):
+            self.systemTray.showMessage(strings._('gui_copied_url_title', True), strings._('gui_copied_url', True))
 
     def copy_hidservauth(self):
         """
         When the stealth onion service HidServAuth gets copied to the clipboard, display this in the status bar.
         """
         common.log('OnionShareGui', 'copy_hidservauth')
-        self.status_bar.showMessage(strings._('gui_copied_hidservauth', True), 2000)
+        if self.systemTray.supportsMessages() and self.settings.get('systray_notifications'):
+            self.systemTray.showMessage(strings._('gui_copied_hidservauth_title', True), strings._('gui_copied_hidservauth', True))
 
     def clear_message(self):
         """
