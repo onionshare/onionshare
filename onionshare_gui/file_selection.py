@@ -339,7 +339,9 @@ class FileSelection(QtWidgets.QVBoxLayout):
         """
         file_dialog = FileDialog(caption=strings._('gui_choose_items', True))
         if file_dialog.exec_() == QtWidgets.QDialog.Accepted:
-            for filename in file_dialog.selectedFiles():
+            selected_files = file_dialog.selectedFiles()
+            selected_files.sort(reverse=True)
+            for filename in selected_files:
                 self.file_list.add_file(filename)
 
         self.file_list.setCurrentItem(None)
