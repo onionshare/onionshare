@@ -129,15 +129,19 @@ class ServerStatus(QtWidgets.QWidget):
         if self.status == self.STATUS_STARTED:
             self.url_description.show()
 
+            info_image = common.get_resource_path('images/info.png')
+            self.url_label.setText(strings._('gui_url_label', True).format(info_image))
+            # Show a Tool Tip explaining the lifecycle of this URL
             if self.settings.get('save_private_key'):
-                self.url_label.setText(strings._('gui_url_label_persistent', True))
-                self.url_label.setToolTip(strings._('gui_url_persistence_warning', True))
-            elif self.settings.get('close_after_first_download'):
-                self.url_label.setText(strings._('gui_url_label_one_time', True))
-                self.url_label.setToolTip('')
+                if self.settings.get('close_after_first_download'):
+                    self.url_label.setToolTip(strings._('gui_url_label_onetime_and_persistent', True))
+                else:
+                    self.url_label.setToolTip(strings._('gui_url_label_persistent', True))
             else:
-                self.url_label.setText(strings._('gui_url_label', True))
-                self.url_label.setToolTip('')
+                if self.settings.get('close_after_first_download'):
+                    self.url_label.setToolTip(strings._('gui_url_label_onetime', True))
+                else:
+                    self.url_label.setToolTip(strings._('gui_url_label_stay_open', True))
             self.url_label.show()
 
             self.url.setText('http://{0:s}/{1:s}'.format(self.app.onion_host, self.web.slug))
