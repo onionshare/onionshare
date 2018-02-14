@@ -29,6 +29,7 @@ class ServerStatus(QtWidgets.QWidget):
     """
     server_started = QtCore.pyqtSignal()
     server_stopped = QtCore.pyqtSignal()
+    button_clicked = QtCore.pyqtSignal()
     url_copied = QtCore.pyqtSignal()
     hidservauth_copied = QtCore.pyqtSignal()
 
@@ -212,6 +213,7 @@ class ServerStatus(QtWidgets.QWidget):
                 self.start_server()
         elif self.status == self.STATUS_STARTED:
             self.stop_server()
+        self.button_clicked.emit()
 
     def start_server(self):
         """
