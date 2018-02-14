@@ -310,7 +310,10 @@ class FileSelection(QtWidgets.QVBoxLayout):
                 total_size_bytes += item.size_bytes
             total_size_readable = common.human_readable_filesize(total_size_bytes)
 
-            self.info_label.setText(strings._('gui_file_info', True).format(file_count, total_size_readable))
+            if file_count > 1:
+                self.info_label.setText(strings._('gui_file_info', True).format(file_count, total_size_readable))
+            else:
+                self.info_label.setText(strings._('gui_file_info_single', True).format(file_count, total_size_readable))
             self.info_label.show()
 
         # All buttons should be hidden if the server is on
