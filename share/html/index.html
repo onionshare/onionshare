@@ -139,7 +139,7 @@
     <script>
       // Function to convert human-readable sizes back to bytes, for sorting
       function unhumanize(text) {
-        var powers = {'k': 1, 'm': 2, 'g': 3, 't': 4};
+        var powers = {'b': 0, 'k': 1, 'm': 2, 'g': 3, 't': 4};
         var regex = /(\d+(?:\.\d+)?)\s?(B|K|M|G|T)?/i;
         var res = regex.exec(text);
         if(res[2] === undefined) {
