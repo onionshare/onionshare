@@ -51,7 +51,7 @@ class ServerStatus(QtWidgets.QWidget):
         self.shutdown_timeout_label = QtWidgets.QLabel(strings._('gui_settings_shutdown_timeout', True))
         self.shutdown_timeout = QtWidgets.QDateTimeEdit()
         # Set proposed timeout to be 5 minutes into the future
-        self.shutdown_timeout.setDisplayFormat("HH:mm A MMM d, yy")
+        self.shutdown_timeout.setDisplayFormat("hh:mm A MMM d, yy")
         self.shutdown_timeout.setDateTime(QtCore.QDateTime.currentDateTime().addSecs(300))
         # Onion services can take a little while to start, so reduce the risk of it expiring too soon by setting the minimum to 2 min from now
         self.shutdown_timeout.setMinimumDateTime(QtCore.QDateTime.currentDateTime().addSecs(120))
