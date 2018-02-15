@@ -156,6 +156,26 @@ class SettingsDialog(QtWidgets.QDialog):
             self.tor_bridges_use_obfs4_radio = QtWidgets.QRadioButton(strings._('gui_settings_tor_bridges_obfs4_radio_option', True))
         self.tor_bridges_use_obfs4_radio.toggled.connect(self.tor_bridges_use_obfs4_radio_toggled)
 
+        # meek_lite-amazon option radio
+        # if the obfs4proxy binary is missing, we can't use meek_lite-amazon transports
+        (self.tor_path, self.tor_geo_ip_file_path, self.tor_geo_ipv6_file_path, self.obfs4proxy_file_path) = common.get_tor_paths()
+        if not os.path.isfile(self.obfs4proxy_file_path):
+            self.tor_bridges_use_meek_lite_amazon_radio = QtWidgets.QRadioButton(strings._('gui_settings_tor_bridges_meek_lite_amazon_radio_option_no_obfs4proxy', True))
+            self.tor_bridges_use_meel_lite_amazon_radio.setEnabled(False)
+        else:
+            self.tor_bridges_use_meek_lite_amazon_radio = QtWidgets.QRadioButton(strings._('gui_settings_tor_bridges_meek_lite_amazon_radio_option', True))
+        self.tor_bridges_use_meek_lite_amazon_radio.toggled.connect(self.tor_bridges_use_meek_lite_amazon_radio_toggled)
+
+        # meek_lite-azure option radio
+        # if the obfs4proxy binary is missing, we can't use meek_lite-azure transports
+        (self.tor_path, self.tor_geo_ip_file_path, self.tor_geo_ipv6_file_path, self.obfs4proxy_file_path) = common.get_tor_paths()
+        if not os.path.isfile(self.obfs4proxy_file_path):
+            self.tor_bridges_use_meek_lite_azure_radio = QtWidgets.QRadioButton(strings._('gui_settings_tor_bridges_meek_lite_azure_radio_option_no_obfs4proxy', True))
+            self.tor_bridges_use_meel_lite_azure_radio.setEnabled(False)
+        else:
+            self.tor_bridges_use_meek_lite_azure_radio = QtWidgets.QRadioButton(strings._('gui_settings_tor_bridges_meek_lite_azure_radio_option', True))
+        self.tor_bridges_use_meek_lite_azure_radio.toggled.connect(self.tor_bridges_use_meek_lite_azure_radio_toggled)
+
         # Custom bridges radio and textbox
         self.tor_bridges_use_custom_radio = QtWidgets.QRadioButton(strings._('gui_settings_tor_bridges_custom_radio_option', True))
         self.tor_bridges_use_custom_radio.toggled.connect(self.tor_bridges_use_custom_radio_toggled)
@@ -179,6 +199,8 @@ class SettingsDialog(QtWidgets.QDialog):
         bridges_layout = QtWidgets.QVBoxLayout()
         bridges_layout.addWidget(self.tor_bridges_no_bridges_radio)
         bridges_layout.addWidget(self.tor_bridges_use_obfs4_radio)
+        bridges_layout.addWidget(self.tor_bridges_use_meek_lite_amazon_radio)
+        bridges_layout.addWidget(self.tor_bridges_use_meek_lite_azure_radio)
         bridges_layout.addWidget(self.tor_bridges_use_custom_radio)
         bridges_layout.addWidget(self.tor_bridges_use_custom_textbox_options)
 
@@ -401,10 +423,15 @@ class SettingsDialog(QtWidgets.QDialog):
         if self.old_settings.get('no_bridges'):
             self.tor_bridges_no_bridges_radio.setChecked(True)
             self.tor_bridges_use_obfs4_radio.setChecked(False)
+            self.tor_bridges_use_meek_lite_amazon_radio.setChecked(False)
+            self.tor_bridges_use_meek_lite_azure_radio.setChecked(False)
             self.tor_bridges_use_custom_radio.setChecked(False)
         else:
             self.tor_bridges_no_bridges_radio.setChecked(False)
             self.tor_bridges_use_obfs4_radio.setChecked(self.old_settings.get('tor_bridges_use_obfs4'))
+            self.tor_bridges_use_meek_lite_amazon_radio.setChecked(self.old_settings.get('tor_bridges_use_meek_lite_amazon'))
+            self.tor_bridges_use_meek_lite_azure_radio.setChecked(self.old_settings.get('tor_bridges_use_meek_lite_azure'))
+
             if self.old_settings.get('tor_bridges_use_custom_bridges'):
                 self.tor_bridges_use_custom_radio.setChecked(True)
                 # Remove the 'Bridge' lines at the start of each bridge.
@@ -437,6 +464,20 @@ class SettingsDialog(QtWidgets.QDialog):
     def tor_bridges_use_obfs4_radio_toggled(self, checked):
         """
         obfs4 bridges option was toggled. If checked, disable custom bridge options.
+        """
+        if checked:
+            self.tor_bridges_use_custom_textbox_options.hide()
+
+    def tor_bridges_use_meek_lite_amazon_radio_toggled(self, checked):
+        """
+        meek_lite-amazon bridges option was toggled. If checked, disable custom bridge options.
+        """
+        if checked:
+            self.tor_bridges_use_custom_textbox_options.hide()
+
+    def tor_bridges_use_meek_lite_azure_radio_toggled(self, checked):
+        """
+        meel_lite_azure bridges option was toggled. If checked, disable custom bridge options.
         """
         if checked:
             self.tor_bridges_use_custom_textbox_options.hide()
@@ -624,6 +665,7 @@ class SettingsDialog(QtWidgets.QDialog):
                 'control_port_port', 'socks_address', 'socks_port',
                 'socket_file_path', 'auth_type', 'auth_password',
                 'no_bridges', 'tor_bridges_use_obfs4',
+                'tor_bridges_use_meek_lite_amazon', 'tor_bridges_use_meek_lite_azure',
                 'tor_bridges_use_custom_bridges']):
 
                 reboot_onion = True
@@ -729,14 +771,33 @@ class SettingsDialog(QtWidgets.QDialog):
         if self.tor_bridges_no_bridges_radio.isChecked():
             settings.set('no_bridges', True)
             settings.set('tor_bridges_use_obfs4', False)
+            settings.set('tor_bridges_use_meek_lite_amazon', False)
+            settings.set('tor_bridges_use_meek_lite_azure', False)
             settings.set('tor_bridges_use_custom_bridges', '')
         if self.tor_bridges_use_obfs4_radio.isChecked():
             settings.set('no_bridges', False)
             settings.set('tor_bridges_use_obfs4', True)
+            settings.set('tor_bridges_use_meek_lite_amazon', False)
+            settings.set('tor_bridges_use_meek_lite_azure', False)
+            settings.set('tor_bridges_use_custom_bridges', '')
+        if self.tor_bridges_use_meek_lite_amazon_radio.isChecked():
+            settings.set('no_bridges', False)
+            settings.set('tor_bridges_use_obfs4', False)
+            settings.set('tor_bridges_use_meek_lite_amazon', True)
+            settings.set('tor_bridges_use_meek_lite_azure', False)
+            settings.set('tor_bridges_use_custom_bridges', '')
+        if self.tor_bridges_use_meek_lite_azure_radio.isChecked():
+            settings.set('no_bridges', False)
+            settings.set('tor_bridges_use_obfs4', False)
+            settings.set('tor_bridges_use_meek_lite_amazon', False)
+            settings.set('tor_bridges_use_meek_lite_azure', True)
             settings.set('tor_bridges_use_custom_bridges', '')
         if self.tor_bridges_use_custom_radio.isChecked():
             settings.set('no_bridges', False)
             settings.set('tor_bridges_use_obfs4', False)
+            settings.set('tor_bridges_use_meek_lite_amazon', False)
+            settings.set('tor_bridges_use_meek_lite_azure', False)
+
             # Insert a 'Bridge' line at the start of each bridge.
             # This makes it easier to copy/paste a set of bridges
             # provided from https://bridges.torproject.org
