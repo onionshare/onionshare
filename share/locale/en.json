@@ -145,5 +145,7 @@
     "gui_status_indicator_working": "Starting...",
     "gui_status_indicator_started": "Sharing",
     "gui_file_info": "{} Files, {}",
-    "gui_file_info_single": "{} File, {}"
+    "gui_file_info_single": "{} File, {}",
+    "info_in_progress_downloads_tooltip": "{} download(s) in progress",
+    "info_completed_downloads_tooltip": "{} download(s) completed"
 }
