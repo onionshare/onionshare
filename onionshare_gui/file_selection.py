@@ -268,10 +268,6 @@ class FileSelection(QtWidgets.QVBoxLayout):
         super(FileSelection, self).__init__()
         self.server_on = False
 
-        # Info label
-        self.info_label = QtWidgets.QLabel()
-        self.info_label.setStyleSheet('QLabel { font-size: 12px; color: #666666; }')
-
         # File list
         self.file_list = FileList()
         self.file_list.currentItemChanged.connect(self.update)
@@ -289,7 +285,6 @@ class FileSelection(QtWidgets.QVBoxLayout):
         button_layout.addWidget(self.delete_button)
 
         # Add the widgets
-        self.addWidget(self.info_label)
         self.addWidget(self.file_list)
         self.addLayout(button_layout)
 
@@ -299,23 +294,6 @@ class FileSelection(QtWidgets.QVBoxLayout):
         """
         Update the GUI elements based on the current state.
         """
-        # Update the info label
-        file_count = self.file_list.count()
-        if file_count == 0:
-            self.info_label.hide()
-        else:
-            total_size_bytes = 0
-            for index in range(self.file_list.count()):
-                item = self.file_list.item(index)
-                total_size_bytes += item.size_bytes
-            total_size_readable = common.human_readable_filesize(total_size_bytes)
-
-            if file_count > 1:
-                self.info_label.setText(strings._('gui_file_info', True).format(file_count, total_size_readable))
-            else:
-                self.info_label.setText(strings._('gui_file_info_single', True).format(file_count, total_size_readable))
-            self.info_label.show()
-
         # All buttons should be hidden if the server is on
         if self.server_on:
             self.add_button.hide()
