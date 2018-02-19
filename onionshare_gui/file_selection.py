@@ -145,7 +145,8 @@ class FileList(QtWidgets.QListWidget):
             count = len(event.mimeData().urls())
             self.drop_count.setText('+{}'.format(count))
 
-            self.drop_count.setGeometry(self.width() - 60, self.height() - 40, 50, 30)
+            size_hint = self.drop_count.sizeHint()
+            self.drop_count.setGeometry(self.width() - size_hint.width() - 10, self.height() - size_hint.height() - 10, size_hint.width(), size_hint.height())
             self.drop_count.show()
             event.accept()
         else:
@@ -207,15 +208,24 @@ class FileList(QtWidgets.QListWidget):
             icon = ip.icon(fileinfo)
 
             if os.path.isfile(filename):
-                size = common.human_readable_filesize(fileinfo.size())
+                size_bytes = fileinfo.size()
+                size_readable = common.human_readable_filesize(size_bytes)
             else:
-                size = common.human_readable_filesize(common.dir_size(filename))
-            item_name = '{0:s} ({1:s})'.format(basename, size)
+                size_bytes = common.dir_size(filename)
+                size_readable = common.human_readable_filesize(size_bytes)
 
             # Create a new item
-            item = QtWidgets.QListWidgetItem(item_name)
-            item.setToolTip(size)
+            item = QtWidgets.QListWidgetItem()
             item.setIcon(icon)
+            item.size_bytes = size_bytes
+
+            # Item's name and size labels
+            item_name = QtWidgets.QLabel(basename)
+            item_name.setWordWrap(False)
+            item_name.setSizePolicy(QtWidgets.QSizePolicy.Ignored, QtWidgets.QSizePolicy.Fixed)
+            item_name.setStyleSheet('QLabel { color: #000000; font-size: 13px; }')
+            item_size = QtWidgets.QLabel(size_readable)
+            item_size.setStyleSheet('QLabel { color: #666666; font-size: 11px; }')
 
             # Item's delete button
             def delete_item():
@@ -229,16 +239,22 @@ class FileList(QtWidgets.QListWidget):
             item.item_button.setFlat(True)
             item.item_button.setIcon( QtGui.QIcon(common.get_resource_path('images/file_delete.png')) )
             item.item_button.clicked.connect(delete_item)
+            item.item_button.setSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
 
-            # Create an item widget to display on the item
-            item_widget_layout = QtWidgets.QHBoxLayout()
-            item_widget_layout.addStretch()
-            item_widget_layout.addWidget(item.item_button)
-            item_widget = QtWidgets.QWidget()
-            item_widget.setLayout(item_widget_layout)
+            # Create the item's widget and layouts
+            item_vlayout = QtWidgets.QVBoxLayout()
+            item_vlayout.addWidget(item_name)
+            item_vlayout.addWidget(item_size)
+            item_hlayout = QtWidgets.QHBoxLayout()
+            item_hlayout.addLayout(item_vlayout)
+            item_hlayout.addWidget(item.item_button)
+            widget = QtWidgets.QWidget()
+            widget.setLayout(item_hlayout)
+
+            item.setSizeHint(widget.sizeHint())
 
             self.addItem(item)
-            self.setItemWidget(item, item_widget)
+            self.setItemWidget(item, widget)
 
             self.files_updated.emit()
 
@@ -252,12 +268,17 @@ class FileSelection(QtWidgets.QVBoxLayout):
         super(FileSelection, self).__init__()
         self.server_on = False
 
-        # file list
+        # Info label
+        self.info_label = QtWidgets.QLabel()
+        self.info_label.setStyleSheet('QLabel { font-size: 12px; color: #666666; }')
+
+        # File list
         self.file_list = FileList()
         self.file_list.currentItemChanged.connect(self.update)
         self.file_list.files_dropped.connect(self.update)
+        self.file_list.files_updated.connect(self.update)
 
-        # buttons
+        # Buttons
         self.add_button = QtWidgets.QPushButton(strings._('gui_add', True))
         self.add_button.clicked.connect(self.add)
         self.delete_button = QtWidgets.QPushButton(strings._('gui_delete', True))
@@ -267,7 +288,8 @@ class FileSelection(QtWidgets.QVBoxLayout):
         button_layout.addWidget(self.add_button)
         button_layout.addWidget(self.delete_button)
 
-        # add the widgets
+        # Add the widgets
+        self.addWidget(self.info_label)
         self.addWidget(self.file_list)
         self.addLayout(button_layout)
 
@@ -277,6 +299,23 @@ class FileSelection(QtWidgets.QVBoxLayout):
         """
         Update the GUI elements based on the current state.
         """
+        # Update the info label
+        file_count = self.file_list.count()
+        if file_count == 0:
+            self.info_label.hide()
+        else:
+            total_size_bytes = 0
+            for index in range(self.file_list.count()):
+                item = self.file_list.item(index)
+                total_size_bytes += item.size_bytes
+            total_size_readable = common.human_readable_filesize(total_size_bytes)
+
+            if file_count > 1:
+                self.info_label.setText(strings._('gui_file_info', True).format(file_count, total_size_readable))
+            else:
+                self.info_label.setText(strings._('gui_file_info_single', True).format(file_count, total_size_readable))
+            self.info_label.show()
+
         # All buttons should be hidden if the server is on
         if self.server_on:
             self.add_button.hide()
