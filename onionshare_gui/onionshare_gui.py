@@ -56,7 +56,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         self.setWindowTitle('OnionShare')
         self.setWindowIcon(QtGui.QIcon(common.get_resource_path('images/logo.png')))
-        self.setMinimumWidth(350)
+        self.setMinimumWidth(430)
 
         # Load settings
         self.config = config
@@ -91,9 +91,11 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.starting_server_step2.connect(self.start_server_step2)
         self.starting_server_step3.connect(self.start_server_step3)
         self.starting_server_error.connect(self.start_server_error)
+        self.server_status.button_clicked.connect(self.clear_message)
 
         # Filesize warning
         self.filesize_warning = QtWidgets.QLabel()
+        self.filesize_warning.setWordWrap(True)
         self.filesize_warning.setStyleSheet('padding: 10px 0; font-weight: bold; color: #333333;')
         self.filesize_warning.hide()
 
@@ -133,24 +135,32 @@ class OnionShareGui(QtWidgets.QMainWindow):
         # Status bar
         self.status_bar = QtWidgets.QStatusBar()
         self.status_bar.setSizeGripEnabled(False)
-        self.status_bar.setStyleSheet("QStatusBar::item { border: 0px; }")
+        statusBar_cssStyleData ="""
+        QStatusBar {
+            font-style: italic;
+            color: #666666;
+        }
+
+        QStatusBar::item {
+            border: 0px;
+        }"""
+
+        self.status_bar.setStyleSheet(statusBar_cssStyleData)
         self.status_bar.addPermanentWidget(self.server_status_indicator)
         self.status_bar.addPermanentWidget(self.settings_button)
         self.setStatusBar(self.status_bar)
 
         # Status bar, zip progress bar
         self._zip_progress_bar = None
-
-        # Persistent URL notification
-        self.persistent_url_label = QtWidgets.QLabel(strings._('persistent_url_in_use', True))
-        self.persistent_url_label.setStyleSheet('font-weight: bold; color: #333333;')
-        self.persistent_url_label.hide()
+        # Status bar, sharing messages
+        self.server_share_status_label = QtWidgets.QLabel('')
+        self.server_share_status_label.setStyleSheet('QLabel { font-style: italic; color: #666666; padding: 2px; }')
+        self.status_bar.insertWidget(0, self.server_share_status_label)
 
         # Primary action layout
         primary_action_layout = QtWidgets.QVBoxLayout()
         primary_action_layout.addWidget(self.server_status)
         primary_action_layout.addWidget(self.filesize_warning)
-        primary_action_layout.addWidget(self.persistent_url_label)
         primary_action_layout.addWidget(self.downloads_container)
         self.primary_action = QtWidgets.QWidget()
         self.primary_action.setLayout(primary_action_layout)
@@ -189,15 +199,14 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.check_for_updates()
 
     def update_primary_action(self):
-        common.log('OnionShareGui', 'update_primary_action')
-        # Resize window
-        self.adjustSize()
-
         # Show or hide primary action layout
         if self.file_selection.file_list.count() > 0:
             self.primary_action.show()
         else:
             self.primary_action.hide()
+
+        # Resize window
+        self.adjustSize()
 
     def update_server_status_indicator(self):
         common.log('OnionShareGui', 'update_server_status_indicator')
@@ -316,6 +325,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.downloads_container.hide()
         self.downloads.reset_downloads()
         self.status_bar.clearMessage()
+        self.server_share_status_label.setText('')
 
         # Reset web counters
         web.download_count = 0
@@ -376,7 +386,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
                 self.starting_server_error.emit(e.strerror)
                 return
 
-        #self.status_bar.showMessage(strings._('gui_starting_server2', True))
         t = threading.Thread(target=finish_starting_server, kwargs={'self': self})
         t.daemon = True
         t.start()
@@ -398,7 +407,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
             self.filesize_warning.setText(strings._("large_filesize", True))
             self.filesize_warning.show()
 
-        if self.server_status.timer_enabled:
+        if self.settings.get('shutdown_timeout'):
             # Convert the date value to seconds between now and then
             now = QtCore.QDateTime.currentDateTime()
             self.timeout = now.secsTo(self.server_status.timeout)
@@ -410,9 +419,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
             else:
                 self.stop_server()
                 self.start_server_error(strings._('gui_server_started_after_timeout'))
-
-        if self.settings.get('save_private_key'):
-            self.persistent_url_label.show()
 
     def start_server_error(self, error):
         """
@@ -453,10 +459,10 @@ class OnionShareGui(QtWidgets.QMainWindow):
         # Remove ephemeral service, but don't disconnect from Tor
         self.onion.cleanup(stop_tor=False)
         self.filesize_warning.hide()
-        self.persistent_url_label.hide()
-        self.stop_server_finished.emit()
+        self.file_selection.file_list.adjustSize()
 
         self.set_server_active(False)
+        self.stop_server_finished.emit()
 
     def check_for_updates(self):
         """
@@ -539,7 +545,8 @@ class OnionShareGui(QtWidgets.QMainWindow):
                     # close on finish?
                     if not web.get_stay_open():
                         self.server_status.stop_server()
-                        self.status_bar.showMessage(strings._('closing_automatically', True))
+                        self.status_bar.clearMessage()
+                        self.server_share_status_label.setText(strings._('closing_automatically', True))
                 else:
                     if self.server_status.status == self.server_status.STATUS_STOPPED:
                         self.downloads.cancel_download(event["data"]["id"])
@@ -554,30 +561,34 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         # If the auto-shutdown timer has stopped, stop the server
         if self.server_status.status == self.server_status.STATUS_STARTED:
-            if self.app.shutdown_timer and self.server_status.timer_enabled:
+            if self.app.shutdown_timer and self.settings.get('shutdown_timeout'):
                 if self.timeout > 0:
                     if not self.app.shutdown_timer.is_alive():
                         # If there were no attempts to download the share, or all downloads are done, we can stop
                         if web.download_count == 0 or web.done:
                             self.server_status.stop_server()
-                            self.status_bar.showMessage(strings._('close_on_timeout', True))
+                            self.status_bar.clearMessage()
+                            self.server_share_status_label.setText(strings._('close_on_timeout', True))
                         # A download is probably still running - hold off on stopping the share
                         else:
-                            self.status_bar.showMessage(strings._('timeout_download_still_running', True))
+                            self.status_bar.clearMessage()
+                            self.server_share_status_label.setText(strings._('timeout_download_still_running', True))
 
     def copy_url(self):
         """
         When the URL gets copied to the clipboard, display this in the status bar.
         """
         common.log('OnionShareGui', 'copy_url')
-        self.status_bar.showMessage(strings._('gui_copied_url', True), 2000)
+        if self.systemTray.supportsMessages() and self.settings.get('systray_notifications'):
+            self.systemTray.showMessage(strings._('gui_copied_url_title', True), strings._('gui_copied_url', True))
 
     def copy_hidservauth(self):
         """
         When the stealth onion service HidServAuth gets copied to the clipboard, display this in the status bar.
         """
         common.log('OnionShareGui', 'copy_hidservauth')
-        self.status_bar.showMessage(strings._('gui_copied_hidservauth', True), 2000)
+        if self.systemTray.supportsMessages() and self.settings.get('systray_notifications'):
+            self.systemTray.showMessage(strings._('gui_copied_hidservauth_title', True), strings._('gui_copied_hidservauth', True))
 
     def clear_message(self):
         """
@@ -589,11 +600,10 @@ class OnionShareGui(QtWidgets.QMainWindow):
         """
         Disable the Settings button while an OnionShare server is active.
         """
-        self.settings_button.setEnabled(not active)
         if active:
-            self.settings_button.setIcon( QtGui.QIcon(common.get_resource_path('images/settings_inactive.png')) )
+            self.settings_button.hide()
         else:
-            self.settings_button.setIcon( QtGui.QIcon(common.get_resource_path('images/settings.png')) )
+            self.settings_button.show()
 
         # Disable settings menu action when server is active
         self.settingsAction.setEnabled(not active)
