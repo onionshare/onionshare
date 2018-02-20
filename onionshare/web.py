@@ -305,6 +305,7 @@ def download(slug_candidate):
                         sys.stdout.flush()
 
                     add_request(REQUEST_PROGRESS, path, {'id': download_id, 'bytes': downloaded_bytes})
+                    done = False
                 except:
                     # looks like the download was canceled
                     done = True
