@@ -35,8 +35,8 @@ class Application(QtWidgets.QApplication):
     and the quick keyboard shortcut.
     """
     def __init__(self):
-        system = platform.system()
-        if system == 'Linux':
+        system = common.get_platform()
+        if system == 'Linux' or system == 'BSD':
             self.setAttribute(QtCore.Qt.AA_X11InitThreads, True)
         QtWidgets.QApplication.__init__(self, sys.argv)
         self.installEventFilter(self)
