@@ -59,7 +59,7 @@ zip_filename = None
 zip_filesize = None
 
 security_headers = [
-    ('Content-Security-Policy', 'default-src \'self\'; style-src \'unsafe-inline\'; img-src \'self\' data:;'),
+    ('Content-Security-Policy', 'default-src \'self\'; style-src \'unsafe-inline\'; script-src \'unsafe-inline\'; img-src \'self\' data:;'),
     ('X-Frame-Options', 'DENY'),
     ('X-Xss-Protection', '1; mode=block'),
     ('X-Content-Type-Options', 'nosniff'),
