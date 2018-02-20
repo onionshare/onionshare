@@ -131,7 +131,7 @@ class Onion(object):
         self.stealth = False
         self.service_id = None
 
-        self.system = platform.system()
+        self.system = common.get_platform()
 
         # Is bundled tor supported?
         if (self.system == 'Windows' or self.system == 'Darwin') and getattr(sys, 'onionshare_dev_mode', False):
@@ -183,7 +183,7 @@ class Onion(object):
                     raise OSError(strings._('no_available_port'))
                 self.tor_torrc = os.path.join(self.tor_data_directory.name, 'torrc')
             else:
-                # Linux and Mac can use unix sockets
+                # Linux, Mac and BSD can use unix sockets
                 with open(common.get_resource_path('torrc_template')) as f:
                     torrc_template = f.read()
                 self.tor_control_port = None
@@ -318,7 +318,7 @@ class Onion(object):
             # guessing the socket file name next
             if not found_tor:
                 try:
-                    if self.system == 'Linux':
+                    if self.system == 'Linux' or self.system == 'BSD':
                         socket_file_path = '/run/user/{}/Tor/control.socket'.format(os.geteuid())
                     elif self.system == 'Darwin':
                         socket_file_path = '/run/user/{}/Tor/control.socket'.format(os.geteuid())

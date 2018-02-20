@@ -315,12 +315,14 @@ def download(slug_candidate):
                     percent = (1.0 * downloaded_bytes / zip_filesize) * 100
 
                     # only output to stdout if running onionshare in CLI mode, or if using Linux (#203, #304)
-                    if not gui_mode or common.get_platform() == 'Linux':
+                    plat = common.get_platform()
+                    if not gui_mode or plat == 'Linux' or plat == 'BSD':
                         sys.stdout.write(
                             "\r{0:s}, {1:.2f}%          ".format(common.human_readable_filesize(downloaded_bytes), percent))
                         sys.stdout.flush()
 
                     add_request(REQUEST_PROGRESS, path, {'id': download_id, 'bytes': downloaded_bytes})
+                    done = False
                 except:
                     # looks like the download was canceled
                     done = True
