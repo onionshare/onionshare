@@ -109,6 +109,30 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.vbar = self.downloads_container.verticalScrollBar()
         self.downloads_container.hide() # downloads start out hidden
         self.new_download = False
+        self.downloads_in_progress = 0
+        self.downloads_completed = 0
+
+        # Info label along top of screen
+        self.info_layout = QtWidgets.QHBoxLayout()
+        self.info_label = QtWidgets.QLabel()
+        self.info_label.setStyleSheet('QLabel { font-size: 12px; color: #666666; }')
+
+        self.info_in_progress_download_count = QtWidgets.QLabel()
+        self.info_in_progress_download_count.setStyleSheet('QLabel { font-size: 12px; color: #666666; }')
+        self.info_in_progress_download_count.hide()
+
+        self.info_completed_downloads_count = QtWidgets.QLabel()
+        self.info_completed_downloads_count.setStyleSheet('QLabel { font-size: 12px; color: #666666; }')
+        self.info_completed_downloads_count.hide()
+
+        self.info_layout.addWidget(self.info_label)
+        self.info_layout.addStretch()
+        self.info_layout.addWidget(self.info_in_progress_download_count)
+        self.info_layout.addWidget(self.info_completed_downloads_count)
+
+        self.info_widget = QtWidgets.QWidget()
+        self.info_widget.setLayout(self.info_layout)
+        self.info_widget.hide()
 
         # Settings button on the status bar
         self.settings_button = QtWidgets.QPushButton()
@@ -169,6 +193,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         # Main layout
         self.layout = QtWidgets.QVBoxLayout()
+        self.layout.addWidget(self.info_widget)
         self.layout.addLayout(self.file_selection)
         self.layout.addWidget(self.primary_action)
         central_widget = QtWidgets.QWidget()
@@ -200,10 +225,26 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
     def update_primary_action(self):
         # Show or hide primary action layout
-        if self.file_selection.file_list.count() > 0:
+        file_count = self.file_selection.file_list.count()
+        if file_count > 0:
             self.primary_action.show()
+
+            # Update the file count in the info label
+            total_size_bytes = 0
+            for index in range(self.file_selection.file_list.count()):
+                item = self.file_selection.file_list.item(index)
+                total_size_bytes += item.size_bytes
+            total_size_readable = common.human_readable_filesize(total_size_bytes)
+
+            if file_count > 1:
+                self.info_label.setText(strings._('gui_file_info', True).format(file_count, total_size_readable))
+            else:
+                self.info_label.setText(strings._('gui_file_info_single', True).format(file_count, total_size_readable))
+            self.info_widget.show()
+
         else:
             self.primary_action.hide()
+            self.info_widget.hide()
 
         # Resize window
         self.adjustSize()
@@ -324,6 +365,9 @@ class OnionShareGui(QtWidgets.QMainWindow):
         # Hide and reset the downloads if we have previously shared
         self.downloads_container.hide()
         self.downloads.reset_downloads()
+        self.reset_info_counters()
+        self.info_in_progress_download_count.show()
+        self.info_completed_downloads_count.show()
         self.status_bar.clearMessage()
         self.server_share_status_label.setText('')
 
@@ -459,6 +503,9 @@ class OnionShareGui(QtWidgets.QMainWindow):
         # Remove ephemeral service, but don't disconnect from Tor
         self.onion.cleanup(stop_tor=False)
         self.filesize_warning.hide()
+        self.downloads_in_progress = 0
+        self.downloads_completed = 0
+        self.update_downloads_in_progress(0)
         self.file_selection.file_list.adjustSize()
 
         self.set_server_active(False)
@@ -528,6 +575,8 @@ class OnionShareGui(QtWidgets.QMainWindow):
                 self.downloads_container.show() # show the downloads layout
                 self.downloads.add_download(event["data"]["id"], web.zip_filesize)
                 self.new_download = True
+                self.downloads_in_progress += 1
+                self.update_downloads_in_progress(self.downloads_in_progress)
                 if self.systemTray.supportsMessages() and self.settings.get('systray_notifications'):
                     self.systemTray.showMessage(strings._('systray_download_started_title', True), strings._('systray_download_started_message', True))
 
@@ -542,6 +591,13 @@ class OnionShareGui(QtWidgets.QMainWindow):
                 if event["data"]["bytes"] == web.zip_filesize:
                     if self.systemTray.supportsMessages() and self.settings.get('systray_notifications'):
                         self.systemTray.showMessage(strings._('systray_download_completed_title', True), strings._('systray_download_completed_message', True))
+                    # Update the total 'completed downloads' info
+                    self.downloads_completed += 1
+                    self.update_downloads_completed(self.downloads_completed)
+                    # Update the 'in progress downloads' info
+                    self.downloads_in_progress -= 1
+                    self.update_downloads_in_progress(self.downloads_in_progress)
+
                     # close on finish?
                     if not web.get_stay_open():
                         self.server_status.stop_server()
@@ -550,9 +606,15 @@ class OnionShareGui(QtWidgets.QMainWindow):
                 else:
                     if self.server_status.status == self.server_status.STATUS_STOPPED:
                         self.downloads.cancel_download(event["data"]["id"])
+                        self.downloads_in_progress = 0
+                        self.update_downloads_in_progress(self.downloads_in_progress)
+
 
             elif event["type"] == web.REQUEST_CANCELED:
                 self.downloads.cancel_download(event["data"]["id"])
+                # Update the 'in progress downloads' info
+                self.downloads_in_progress -= 1
+                self.update_downloads_in_progress(self.downloads_in_progress)
                 if self.systemTray.supportsMessages() and self.settings.get('systray_notifications'):
                     self.systemTray.showMessage(strings._('systray_download_canceled_title', True), strings._('systray_download_canceled_message', True))
 
@@ -607,6 +669,37 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         # Disable settings menu action when server is active
         self.settingsAction.setEnabled(not active)
+
+    def reset_info_counters(self):
+        """
+        Set the info counters back to zero.
+        """
+        self.update_downloads_completed(0)
+        self.update_downloads_in_progress(0)
+        self.info_in_progress_download_count.show()
+        self.info_completed_downloads_count.show()
+
+    def update_downloads_completed(self, count):
+        """
+        Update the 'Downloads completed' info widget.
+        """
+        if count == 0:
+            self.info_completed_downloads_image = common.get_resource_path('images/download_completed_none.png')
+        else:
+            self.info_completed_downloads_image = common.get_resource_path('images/download_completed.png')
+        self.info_completed_downloads_count.setText('<img src={0:s} /> {1:d}'.format(self.info_completed_downloads_image, count))
+        self.info_completed_downloads_count.setToolTip(strings._('info_completed_downloads_tooltip', True).format(count))
+
+    def update_downloads_in_progress(self, count):
+        """
+        Update the 'Downloads in progress' info widget.
+        """
+        if count == 0:
+            self.info_in_progress_download_image = common.get_resource_path('images/download_in_progress_none.png')
+        else:
+            self.info_in_progress_download_image = common.get_resource_path('images/download_in_progress.png')
+        self.info_in_progress_download_count.setText('<img src={0:s} /> {1:d}'.format(self.info_in_progress_download_image, count))
+        self.info_in_progress_download_count.setToolTip(strings._('info_in_progress_downloads_tooltip', True).format(count))
 
     def closeEvent(self, e):
         common.log('OnionShareGui', 'closeEvent')
