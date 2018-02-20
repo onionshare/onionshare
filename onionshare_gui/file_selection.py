@@ -79,7 +79,7 @@ class FileList(QtWidgets.QListWidget):
         self.setAcceptDrops(True)
         self.setIconSize(QtCore.QSize(32, 32))
         self.setSortingEnabled(True)
-        self.setMinimumHeight(200)
+        self.setMinimumHeight(205)
         self.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
 
         self.filenames = []
