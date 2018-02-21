@@ -121,11 +121,12 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         self.info_in_progress_download_count = QtWidgets.QLabel()
         self.info_in_progress_download_count.setStyleSheet('QLabel { font-size: 12px; color: #666666; }')
-        self.info_in_progress_download_count.hide()
 
         self.info_completed_downloads_count = QtWidgets.QLabel()
         self.info_completed_downloads_count.setStyleSheet('QLabel { font-size: 12px; color: #666666; }')
-        self.info_completed_downloads_count.hide()
+
+        self.update_downloads_completed(self.downloads_in_progress)
+        self.update_downloads_in_progress(self.downloads_in_progress)
 
         self.info_layout.addWidget(self.info_label)
         self.info_layout.addStretch()
@@ -230,6 +231,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         file_count = self.file_selection.file_list.count()
         if file_count > 0:
             self.primary_action.show()
+            self.info_widget.show()
 
             # Update the file count in the info label
             total_size_bytes = 0
@@ -242,7 +244,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
                 self.info_label.setText(strings._('gui_file_info', True).format(file_count, total_size_readable))
             else:
                 self.info_label.setText(strings._('gui_file_info_single', True).format(file_count, total_size_readable))
-            self.info_widget.show()
 
         else:
             self.primary_action.hide()
@@ -368,8 +369,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.downloads_container.hide()
         self.downloads.reset_downloads()
         self.reset_info_counters()
-        self.info_in_progress_download_count.show()
-        self.info_completed_downloads_count.show()
         self.status_bar.clearMessage()
         self.server_share_status_label.setText('')
 
@@ -678,8 +677,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
         """
         self.update_downloads_completed(0)
         self.update_downloads_in_progress(0)
-        self.info_in_progress_download_count.show()
-        self.info_completed_downloads_count.show()
 
     def update_downloads_completed(self, count):
         """
