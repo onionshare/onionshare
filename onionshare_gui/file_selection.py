@@ -82,8 +82,6 @@ class FileList(QtWidgets.QListWidget):
         self.setMinimumHeight(205)
         self.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
 
-        self.filenames = []
-
         self.drop_here_image = DropHereLabel(self, True)
         self.drop_here_text = DropHereLabel(self, False)
         self.drop_count = DropCountLabel(self)
@@ -194,9 +192,9 @@ class FileList(QtWidgets.QListWidget):
         Add a file or directory to this widget.
         """
         for index in range(self.count()):
-            self.filenames.append(self.item(index))
+            filenames.append(self.item(index).filename)
 
-        if filename not in self.filenames:
+        if filename not in filenames:
             if not os.access(filename, os.R_OK):
                 Alert(strings._("not_a_readable_file", True).format(filename))
                 return
