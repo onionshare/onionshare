@@ -191,6 +191,7 @@ class FileList(QtWidgets.QListWidget):
         """
         Add a file or directory to this widget.
         """
+        filenames = []
         for index in range(self.count()):
             filenames.append(self.item(index).filename)
 
