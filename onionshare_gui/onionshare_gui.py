@@ -79,6 +79,8 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.server_status.server_stopped.connect(self.update_server_status_indicator)
         self.server_status.server_stopped.connect(self.update_primary_action)
         self.server_status.server_canceled.connect(self.cancel_server)
+        self.server_status.server_canceled.connect(self.file_selection.server_stopped)
+        self.server_status.server_canceled.connect(self.update_primary_action)
         self.start_server_finished.connect(self.clear_message)
         self.start_server_finished.connect(self.server_status.start_server_finished)
         self.start_server_finished.connect(self.update_server_status_indicator)
