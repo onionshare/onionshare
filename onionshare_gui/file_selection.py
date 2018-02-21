@@ -94,7 +94,7 @@ class FileList(QtWidgets.QListWidget):
         Update the GUI elements based on the current state.
         """
         # file list should have a background image if empty
-        if len(self.filenames) == 0:
+        if self.count() == 0:
             self.drop_here_image.show()
             self.drop_here_text.show()
         else:
@@ -193,14 +193,13 @@ class FileList(QtWidgets.QListWidget):
         """
         Add a file or directory to this widget.
         """
+        for index in range(self.count()):
+            self.filenames.append(self.item(index))
+
         if filename not in self.filenames:
             if not os.access(filename, os.R_OK):
                 Alert(strings._("not_a_readable_file", True).format(filename))
                 return
-
-            self.filenames.append(filename)
-            # Re-sort the list internally
-            self.filenames.sort()
 
             fileinfo = QtCore.QFileInfo(filename)
             basename = os.path.basename(filename.rstrip('/'))
@@ -221,16 +220,22 @@ class FileList(QtWidgets.QListWidget):
 
             # Item's name and size labels
             item_name = QtWidgets.QLabel(basename)
+            item.filename = filename
             item_name.setWordWrap(False)
             item_name.setSizePolicy(QtWidgets.QSizePolicy.Ignored, QtWidgets.QSizePolicy.Fixed)
             item_name.setStyleSheet('QLabel { color: #000000; font-size: 13px; }')
             item_size = QtWidgets.QLabel(size_readable)
             item_size.setStyleSheet('QLabel { color: #666666; font-size: 11px; }')
 
+            # Use the basename as the method with which to sort the list
+            item.setData(QtCore.Qt.DisplayRole, basename)
+            # But we don't want to *display* the QString (we have our own QLabel), so paint over it.
+            item.brush = QtGui.QBrush(QtGui.QColor('white'))
+            item.setForeground(item.brush)
+
             # Item's delete button
             def delete_item():
                 itemrow = self.row(item)
-                self.filenames.pop(itemrow)
                 self.takeItem(itemrow)
                 self.files_updated.emit()
 
@@ -330,7 +335,6 @@ class FileSelection(QtWidgets.QVBoxLayout):
         selected = self.file_list.selectedItems()
         for item in selected:
             itemrow = self.file_list.row(item)
-            self.file_list.filenames.pop(itemrow)
             self.file_list.takeItem(itemrow)
         self.file_list.files_updated.emit()
 
@@ -357,7 +361,7 @@ class FileSelection(QtWidgets.QVBoxLayout):
         """
         Returns the total number of files and folders in the list.
         """
-        return len(self.file_list.filenames)
+        return len(range(self.count()))
 
     def setFocus(self):
         """
