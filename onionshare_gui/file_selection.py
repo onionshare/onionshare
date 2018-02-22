@@ -86,6 +86,7 @@ class FileList(QtWidgets.QListWidget):
         self.drop_here_text = DropHereLabel(self, False)
         self.drop_count = DropCountLabel(self)
         self.resizeEvent(None)
+        self.setStyleSheet('QListWidget::item { color: #000000; font-size: 13px; }')
 
     def update(self):
         """
@@ -202,6 +203,8 @@ class FileList(QtWidgets.QListWidget):
 
             fileinfo = QtCore.QFileInfo(filename)
             basename = os.path.basename(filename.rstrip('/'))
+            if len(basename) > 35:
+                basename = basename[:35] + '...'
             ip = QtWidgets.QFileIconProvider()
             icon = ip.icon(fileinfo)
 
@@ -217,20 +220,13 @@ class FileList(QtWidgets.QListWidget):
             item.setIcon(icon)
             item.size_bytes = size_bytes
 
-            # Item's name and size labels
-            item_name = QtWidgets.QLabel(basename)
+            # Item's filename attribute and size labels
             item.filename = filename
-            item_name.setWordWrap(False)
-            item_name.setSizePolicy(QtWidgets.QSizePolicy.Ignored, QtWidgets.QSizePolicy.Fixed)
-            item_name.setStyleSheet('QLabel { color: #000000; font-size: 13px; }')
             item_size = QtWidgets.QLabel(size_readable)
             item_size.setStyleSheet('QLabel { color: #666666; font-size: 11px; }')
 
             # Use the basename as the method with which to sort the list
             item.setData(QtCore.Qt.DisplayRole, basename)
-            # But we don't want to *display* the QString (we have our own QLabel), so paint over it.
-            item.brush = QtGui.QBrush(QtGui.QColor('white'))
-            item.setForeground(item.brush)
 
             # Item's delete button
             def delete_item():
@@ -246,11 +242,9 @@ class FileList(QtWidgets.QListWidget):
             item.item_button.setSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
 
             # Create the item's widget and layouts
-            item_vlayout = QtWidgets.QVBoxLayout()
-            item_vlayout.addWidget(item_name)
-            item_vlayout.addWidget(item_size)
             item_hlayout = QtWidgets.QHBoxLayout()
-            item_hlayout.addLayout(item_vlayout)
+            item_hlayout.addStretch()
+            item_hlayout.addWidget(item_size)
             item_hlayout.addWidget(item.item_button)
             widget = QtWidgets.QWidget()
             widget.setLayout(item_hlayout)
