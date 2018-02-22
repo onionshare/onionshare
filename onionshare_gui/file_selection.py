@@ -90,7 +90,7 @@ class FileList(QtWidgets.QListWidget):
             """
             QListWidget::item { background-color: #ffffff; color: #000000; font-size: 13px; }
             QListWidget::item:selected { background-color: #ddddff; }
-            QWidget#item-info { background-color: #ffffff; }
+            QWidget#item-info { background-color: #fbfbfb; border: 1px solid #f0f0f0; border-radius: 5px; }
             """
         )
 
