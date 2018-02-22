@@ -81,13 +81,18 @@ class FileList(QtWidgets.QListWidget):
         self.setSortingEnabled(True)
         self.setMinimumHeight(205)
         self.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
-
         self.drop_here_image = DropHereLabel(self, True)
         self.drop_here_text = DropHereLabel(self, False)
         self.drop_count = DropCountLabel(self)
         self.resizeEvent(None)
         self.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
-        self.setStyleSheet('QListWidget::item { color: #000000; font-size: 13px; }')
+        self.setStyleSheet(
+            """
+            QListWidget::item { background-color: #ffffff; color: #000000; font-size: 13px; }
+            QListWidget::item:selected { background-color: #ddddff; }
+            QWidget#item-info { background-color: #ffffff; }
+            """
+        )
 
     def update(self):
         """
@@ -204,8 +209,6 @@ class FileList(QtWidgets.QListWidget):
 
             fileinfo = QtCore.QFileInfo(filename)
             basename = os.path.basename(filename.rstrip('/'))
-            if len(basename) > 35:
-                basename = basename[:35] + '...'
             ip = QtWidgets.QFileIconProvider()
             icon = ip.icon(fileinfo)
 
@@ -242,11 +245,18 @@ class FileList(QtWidgets.QListWidget):
             item.item_button.clicked.connect(delete_item)
             item.item_button.setSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
 
+            # Item info widget, with a white background
+            item_info_layout = QtWidgets.QHBoxLayout()
+            item_info_layout.addWidget(item_size)
+            item_info_layout.addWidget(item.item_button)
+            item_info = QtWidgets.QWidget()
+            item_info.setObjectName('item-info')
+            item_info.setLayout(item_info_layout)
+
             # Create the item's widget and layouts
             item_hlayout = QtWidgets.QHBoxLayout()
             item_hlayout.addStretch()
-            item_hlayout.addWidget(item_size)
-            item_hlayout.addWidget(item.item_button)
+            item_hlayout.addWidget(item_info)
             widget = QtWidgets.QWidget()
             widget.setLayout(item_hlayout)
 
