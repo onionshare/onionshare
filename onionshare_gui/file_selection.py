@@ -86,13 +86,6 @@ class FileList(QtWidgets.QListWidget):
         self.drop_count = DropCountLabel(self)
         self.resizeEvent(None)
         self.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
-        self.setStyleSheet(
-            """
-            QListWidget::item { background-color: #ffffff; color: #000000; font-size: 13px; }
-            QListWidget::item:selected { background-color: #ddddff; }
-            QWidget#item-info { background-color: #fbfbfb; border: 1px solid #f0f0f0; border-radius: 5px; }
-            """
-        )
 
     def update(self):
         """
@@ -140,6 +133,15 @@ class FileList(QtWidgets.QListWidget):
             self.addItem(item)
             self.takeItem(self.row(item))
             self.update()
+
+            # Extend any filenames that were truncated to fit the window
+            # We use 200 as a rough guess at how wide the 'file size + delete button' widget is
+            # and extend based on the overall width minus that amount.
+            for index in range(self.count()):
+                metrics = QtGui.QFontMetrics(self.item(index).font())
+                elided = metrics.elidedText(self.item(index).basename, QtCore.Qt.ElideRight, self.width() - 200)
+                self.item(index).setText(elided)
+
 
     def dragEnterEvent(self, event):
         """
@@ -208,7 +210,6 @@ class FileList(QtWidgets.QListWidget):
                 return
 
             fileinfo = QtCore.QFileInfo(filename)
-            basename = os.path.basename(filename.rstrip('/'))
             ip = QtWidgets.QFileIconProvider()
             icon = ip.icon(fileinfo)
 
@@ -229,8 +230,11 @@ class FileList(QtWidgets.QListWidget):
             item_size = QtWidgets.QLabel(size_readable)
             item_size.setStyleSheet('QLabel { color: #666666; font-size: 11px; }')
 
+            item.basename = os.path.basename(filename.rstrip('/'))
             # Use the basename as the method with which to sort the list
-            item.setData(QtCore.Qt.DisplayRole, basename)
+            metrics = QtGui.QFontMetrics(item.font())
+            elided = metrics.elidedText(item.basename, QtCore.Qt.ElideRight, self.sizeHint().width())
+            item.setData(QtCore.Qt.DisplayRole, elided)
 
             # Item's delete button
             def delete_item():
