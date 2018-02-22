@@ -86,6 +86,7 @@ class FileList(QtWidgets.QListWidget):
         self.drop_here_text = DropHereLabel(self, False)
         self.drop_count = DropCountLabel(self)
         self.resizeEvent(None)
+        self.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
         self.setStyleSheet('QListWidget::item { color: #000000; font-size: 13px; }')
 
     def update(self):
