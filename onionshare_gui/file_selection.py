@@ -369,7 +369,7 @@ class FileSelection(QtWidgets.QVBoxLayout):
         """
         Returns the total number of files and folders in the list.
         """
-        return len(range(self.count()))
+        return len(range(self.file_list.count()))
 
     def setFocus(self):
         """
