@@ -15,6 +15,8 @@ a = Analysis(
         ('../share/wordlist.txt', 'share'),
         ('../share/torrc_template', 'share'),
         ('../share/torrc_template-obfs4', 'share'),
+        ('../share/torrc_template-meek_lite_amazon', 'share'),
+        ('../share/torrc_template-meek_lite_azure', 'share'),
         ('../share/torrc_template-windows', 'share'),
         ('../share/images/*', 'share/images'),
         ('../share/locale/*', 'share/locale'),
