@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 from PyQt5 import QtCore
 import datetime, time, socket, re, platform
+from distutils.version import LooseVersion as Version
 
 from onionshare import socks
 from onionshare.settings import Settings
@@ -98,7 +99,10 @@ class UpdateChecker(QtCore.QObject):
                 if force:
                     path += '?force=1'
 
-                onion_domain = 'elx57ue5uyfplgva.onion'
+                if Version(self.onion.tor_version) >= Version('0.3.2.9'):
+                    onion_domain = 'lldan5gahapx5k7iafb3s4ikijc4ni7gx5iywdflkba5y2ezyg6sjgyd.onion'
+                else:
+                    onion_domain = 'elx57ue5uyfplgva.onion'
 
                 common.log('UpdateChecker', 'check', 'loading http://{}{}'.format(onion_domain, path))
 
