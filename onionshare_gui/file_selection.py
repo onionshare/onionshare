@@ -283,7 +283,7 @@ class FileSelection(QtWidgets.QVBoxLayout):
 
         # File list
         self.file_list = FileList()
-        self.file_list.currentItemChanged.connect(self.update)
+        self.file_list.itemSelectionChanged.connect(self.update)
         self.file_list.files_dropped.connect(self.update)
         self.file_list.files_updated.connect(self.update)
 
@@ -315,8 +315,7 @@ class FileSelection(QtWidgets.QVBoxLayout):
             self.add_button.show()
 
             # Delete button should be hidden if item isn't selected
-            current_item = self.file_list.currentItem()
-            if not current_item:
+            if len(self.file_list.selectedItems()) == 0:
                 self.delete_button.hide()
             else:
                 self.delete_button.show()
