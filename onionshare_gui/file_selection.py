@@ -81,20 +81,18 @@ class FileList(QtWidgets.QListWidget):
         self.setSortingEnabled(True)
         self.setMinimumHeight(205)
         self.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
-
-        self.filenames = []
-
         self.drop_here_image = DropHereLabel(self, True)
         self.drop_here_text = DropHereLabel(self, False)
         self.drop_count = DropCountLabel(self)
         self.resizeEvent(None)
+        self.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
 
     def update(self):
         """
         Update the GUI elements based on the current state.
         """
         # file list should have a background image if empty
-        if len(self.filenames) == 0:
+        if self.count() == 0:
             self.drop_here_image.show()
             self.drop_here_text.show()
         else:
@@ -135,6 +133,15 @@ class FileList(QtWidgets.QListWidget):
             self.addItem(item)
             self.takeItem(self.row(item))
             self.update()
+
+            # Extend any filenames that were truncated to fit the window
+            # We use 200 as a rough guess at how wide the 'file size + delete button' widget is
+            # and extend based on the overall width minus that amount.
+            for index in range(self.count()):
+                metrics = QtGui.QFontMetrics(self.item(index).font())
+                elided = metrics.elidedText(self.item(index).basename, QtCore.Qt.ElideRight, self.width() - 200)
+                self.item(index).setText(elided)
+
 
     def dragEnterEvent(self, event):
         """
@@ -193,17 +200,16 @@ class FileList(QtWidgets.QListWidget):
         """
         Add a file or directory to this widget.
         """
-        if filename not in self.filenames:
+        filenames = []
+        for index in range(self.count()):
+            filenames.append(self.item(index).filename)
+
+        if filename not in filenames:
             if not os.access(filename, os.R_OK):
                 Alert(strings._("not_a_readable_file", True).format(filename))
                 return
 
-            self.filenames.append(filename)
-            # Re-sort the list internally
-            self.filenames.sort()
-
             fileinfo = QtCore.QFileInfo(filename)
-            basename = os.path.basename(filename.rstrip('/'))
             ip = QtWidgets.QFileIconProvider()
             icon = ip.icon(fileinfo)
 
@@ -219,18 +225,20 @@ class FileList(QtWidgets.QListWidget):
             item.setIcon(icon)
             item.size_bytes = size_bytes
 
-            # Item's name and size labels
-            item_name = QtWidgets.QLabel(basename)
-            item_name.setWordWrap(False)
-            item_name.setSizePolicy(QtWidgets.QSizePolicy.Ignored, QtWidgets.QSizePolicy.Fixed)
-            item_name.setStyleSheet('QLabel { color: #000000; font-size: 13px; }')
+            # Item's filename attribute and size labels
+            item.filename = filename
             item_size = QtWidgets.QLabel(size_readable)
             item_size.setStyleSheet('QLabel { color: #666666; font-size: 11px; }')
+
+            item.basename = os.path.basename(filename.rstrip('/'))
+            # Use the basename as the method with which to sort the list
+            metrics = QtGui.QFontMetrics(item.font())
+            elided = metrics.elidedText(item.basename, QtCore.Qt.ElideRight, self.sizeHint().width())
+            item.setData(QtCore.Qt.DisplayRole, elided)
 
             # Item's delete button
             def delete_item():
                 itemrow = self.row(item)
-                self.filenames.pop(itemrow)
                 self.takeItem(itemrow)
                 self.files_updated.emit()
 
@@ -241,13 +249,18 @@ class FileList(QtWidgets.QListWidget):
             item.item_button.clicked.connect(delete_item)
             item.item_button.setSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
 
+            # Item info widget, with a white background
+            item_info_layout = QtWidgets.QHBoxLayout()
+            item_info_layout.addWidget(item_size)
+            item_info_layout.addWidget(item.item_button)
+            item_info = QtWidgets.QWidget()
+            item_info.setObjectName('item-info')
+            item_info.setLayout(item_info_layout)
+
             # Create the item's widget and layouts
-            item_vlayout = QtWidgets.QVBoxLayout()
-            item_vlayout.addWidget(item_name)
-            item_vlayout.addWidget(item_size)
             item_hlayout = QtWidgets.QHBoxLayout()
-            item_hlayout.addLayout(item_vlayout)
-            item_hlayout.addWidget(item.item_button)
+            item_hlayout.addStretch()
+            item_hlayout.addWidget(item_info)
             widget = QtWidgets.QWidget()
             widget.setLayout(item_hlayout)
 
@@ -330,7 +343,6 @@ class FileSelection(QtWidgets.QVBoxLayout):
         selected = self.file_list.selectedItems()
         for item in selected:
             itemrow = self.file_list.row(item)
-            self.file_list.filenames.pop(itemrow)
             self.file_list.takeItem(itemrow)
         self.file_list.files_updated.emit()
 
@@ -357,7 +369,7 @@ class FileSelection(QtWidgets.QVBoxLayout):
         """
         Returns the total number of files and folders in the list.
         """
-        return len(self.file_list.filenames)
+        return len(range(self.count()))
 
     def setFocus(self):
         """
