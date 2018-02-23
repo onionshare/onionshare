@@ -211,9 +211,22 @@ class Onion(object):
                     with open(common.get_resource_path('torrc_template-obfs4')) as o:
                         for line in o:
                             f.write(line)
+                elif self.settings.get('tor_bridges_use_meek_lite_amazon'):
+                    f.write('ClientTransportPlugin meek_lite exec {}\n'.format(self.obfs4proxy_file_path))
+                    with open(common.get_resource_path('torrc_template-meek_lite_amazon')) as o:
+                        for line in o:
+                            f.write(line)
+                elif self.settings.get('tor_bridges_use_meek_lite_azure'):
+                    f.write('ClientTransportPlugin meek_lite exec {}\n'.format(self.obfs4proxy_file_path))
+                    with open(common.get_resource_path('torrc_template-meek_lite_azure')) as o:
+                        for line in o:
+                            f.write(line)
+
                 if self.settings.get('tor_bridges_use_custom_bridges'):
                     if 'obfs4' in self.settings.get('tor_bridges_use_custom_bridges'):
                         f.write('ClientTransportPlugin obfs4 exec {}\n'.format(self.obfs4proxy_file_path))
+                    elif 'meek_lite' in self.settings.get('tor_bridges_use_custom_bridges'):
+                        f.write('ClientTransportPlugin meek_lite exec {}\n'.format(self.obfs4proxy_file_path))
                     f.write(self.settings.get('tor_bridges_use_custom_bridges'))
                     f.write('\nUseBridges 1')
 
@@ -267,7 +280,10 @@ class Onion(object):
                 time.sleep(0.2)
 
                 # If using bridges, it might take a bit longer to connect to Tor
-                if self.settings.get('tor_bridges_use_custom_bridges') or self.settings.get('tor_bridges_use_obfs4'):
+                if self.settings.get('tor_bridges_use_custom_bridges') or \
+                   self.settings.get('tor_bridges_use_obfs4') or \
+                   self.settings.get('tor_bridges_use_meek_lite_amazon') or \
+                   self.settings.get('tor_bridges_use_meek_lite_azure'):
                     connect_timeout = 150
                 else:
                     # Timeout after 120 seconds
