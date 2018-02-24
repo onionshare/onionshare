@@ -141,6 +141,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.settings_button = QtWidgets.QPushButton()
         self.settings_button.setDefault(False)
         self.settings_button.setFlat(True)
+        self.settings_button.setFixedWidth(40)
         self.settings_button.setIcon( QtGui.QIcon(common.get_resource_path('images/settings.png')) )
         self.settings_button.clicked.connect(self.open_settings)
 
