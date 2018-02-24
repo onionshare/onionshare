@@ -67,6 +67,8 @@ class ServerStatus(QtWidgets.QWidget):
         shutdown_timeout_container_layout.addLayout(shutdown_timeout_layout)
         self.shutdown_timeout_container = QtWidgets.QWidget()
         self.shutdown_timeout_container.setLayout(shutdown_timeout_container_layout)
+        self.shutdown_timeout_container.hide()
+
 
         # Server layout
         self.server_button = QtWidgets.QPushButton()
@@ -77,8 +79,6 @@ class ServerStatus(QtWidgets.QWidget):
         self.url_description = QtWidgets.QLabel(strings._('gui_url_description', True))
         self.url_description.setWordWrap(True)
         self.url_description.setMinimumHeight(50)
-        self.url_label = QtWidgets.QLabel()
-        self.url_label.setStyleSheet('QLabel { color: #666666; font-size: 12px; }')
         self.url = QtWidgets.QLabel()
         self.url.setFont(url_font)
         self.url.setWordWrap(True)
@@ -102,7 +102,6 @@ class ServerStatus(QtWidgets.QWidget):
 
         url_layout = QtWidgets.QVBoxLayout()
         url_layout.addWidget(self.url_description)
-        url_layout.addWidget(self.url_label)
         url_layout.addWidget(self.url)
         url_layout.addLayout(url_buttons_layout)
 
@@ -131,19 +130,18 @@ class ServerStatus(QtWidgets.QWidget):
             self.url_description.show()
 
             info_image = common.get_resource_path('images/info.png')
-            self.url_label.setText(strings._('gui_url_label', True).format(info_image))
+            self.url_description.setText(strings._('gui_url_description', True).format(info_image))
             # Show a Tool Tip explaining the lifecycle of this URL
             if self.settings.get('save_private_key'):
                 if self.settings.get('close_after_first_download'):
-                    self.url_label.setToolTip(strings._('gui_url_label_onetime_and_persistent', True))
+                    self.url_description.setToolTip(strings._('gui_url_label_onetime_and_persistent', True))
                 else:
-                    self.url_label.setToolTip(strings._('gui_url_label_persistent', True))
+                    self.url_description.setToolTip(strings._('gui_url_label_persistent', True))
             else:
                 if self.settings.get('close_after_first_download'):
-                    self.url_label.setToolTip(strings._('gui_url_label_onetime', True))
+                    self.url_description.setToolTip(strings._('gui_url_label_onetime', True))
                 else:
-                    self.url_label.setToolTip(strings._('gui_url_label_stay_open', True))
-            self.url_label.show()
+                    self.url_description.setToolTip(strings._('gui_url_label_stay_open', True))
 
             self.url.setText('http://{0:s}/{1:s}'.format(self.app.onion_host, self.web.slug))
             self.url.show()
@@ -155,13 +153,15 @@ class ServerStatus(QtWidgets.QWidget):
                     self.settings.set('slug', self.web.slug)
                     self.settings.save()
 
+            if self.settings.get('shutdown_timeout'):
+                self.shutdown_timeout_container.hide()
+
             if self.app.stealth:
                 self.copy_hidservauth_button.show()
             else:
                 self.copy_hidservauth_button.hide()
         else:
             self.url_description.hide()
-            self.url_label.hide()
             self.url.hide()
             self.copy_url_button.hide()
             self.copy_hidservauth_button.hide()
@@ -175,31 +175,32 @@ class ServerStatus(QtWidgets.QWidget):
         else:
             self.server_button.show()
 
-            if self.settings.get('shutdown_timeout'):
-                self.shutdown_timeout_container.show()
-            else:
-                self.shutdown_timeout_container.hide()
-
             if self.status == self.STATUS_STOPPED:
                 self.server_button.setStyleSheet(button_stopped_style)
                 self.server_button.setEnabled(True)
                 self.server_button.setText(strings._('gui_start_server', True))
-                self.shutdown_timeout.setEnabled(True)
+                self.server_button.setToolTip('')
+                if self.settings.get('shutdown_timeout'):
+                    self.shutdown_timeout_container.show()
             elif self.status == self.STATUS_STARTED:
                 self.server_button.setStyleSheet(button_started_style)
                 self.server_button.setEnabled(True)
                 self.server_button.setText(strings._('gui_stop_server', True))
-                self.shutdown_timeout.setEnabled(False)
+                if self.settings.get('shutdown_timeout'):
+                    self.shutdown_timeout_container.hide()
+                    self.server_button.setToolTip(strings._('gui_stop_server_shutdown_timeout_tooltip', True).format(self.timeout))
             elif self.status == self.STATUS_WORKING:
                 self.server_button.setStyleSheet(button_working_style)
                 self.server_button.setEnabled(True)
                 self.server_button.setText(strings._('gui_please_wait'))
-                self.shutdown_timeout.setEnabled(False)
+                if self.settings.get('shutdown_timeout'):
+                    self.shutdown_timeout_container.hide()
             else:
                 self.server_button.setStyleSheet(button_working_style)
                 self.server_button.setEnabled(False)
                 self.server_button.setText(strings._('gui_please_wait'))
-                self.shutdown_timeout.setEnabled(False)
+                if self.settings.get('shutdown_timeout'):
+                    self.shutdown_timeout_container.hide()
 
     def server_button_clicked(self):
         """
