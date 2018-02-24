@@ -3,10 +3,10 @@
 !define ABOUTURL "https:\\onionshare.org\"
 
 # change these with each release
-!define INSTALLSIZE 66525
+!define INSTALLSIZE 66537
 !define VERSIONMAJOR 1
-!define VERSIONMINOR 2
-!define VERSIONSTRING "1.2"
+!define VERSIONMINOR 3
+!define VERSIONSTRING "1.3"
 
 RequestExecutionLevel admin
 
