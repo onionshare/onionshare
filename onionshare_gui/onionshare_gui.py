@@ -346,6 +346,9 @@ class OnionShareGui(QtWidgets.QMainWindow):
                 if self.server_status.file_selection.get_num_files() > 0:
                     self.server_status.server_button.setEnabled(True)
                 self.status_bar.clearMessage()
+            # If we switched off the shutdown timeout setting, ensure the widget is hidden.
+            if not self.settings.get('shutdown_timeout'):
+                self.server_status.shutdown_timeout_container.hide()
 
         d = SettingsDialog(self.onion, self.qtapp, self.config)
         d.settings_saved.connect(reload_settings)
@@ -629,6 +632,9 @@ class OnionShareGui(QtWidgets.QMainWindow):
         if self.server_status.status == self.server_status.STATUS_STARTED:
             if self.app.shutdown_timer and self.settings.get('shutdown_timeout'):
                 if self.timeout > 0:
+                    now = QtCore.QDateTime.currentDateTime()
+                    seconds_remaining = now.secsTo(self.server_status.timeout)
+                    self.server_status.server_button.setText(strings._('gui_stop_server_shutdown_timeout', True).format(seconds_remaining))
                     if not self.app.shutdown_timer.is_alive():
                         # If there were no attempts to download the share, or all downloads are done, we can stop
                         if web.download_count == 0 or web.done:
