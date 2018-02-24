@@ -23,6 +23,50 @@ from .alert import Alert
 
 from onionshare import strings, common
 
+class DropHereLabel(QtWidgets.QLabel):
+    """
+    When there are no files or folders in the FileList yet, display the
+    'drop files here' message and graphic.
+    """
+    def __init__(self, parent, image=False):
+        self.parent = parent
+        super(DropHereLabel, self).__init__(parent=parent)
+        self.setAcceptDrops(True)
+        self.setAlignment(QtCore.Qt.AlignCenter)
+
+        if image:
+            self.setPixmap(QtGui.QPixmap.fromImage(QtGui.QImage(common.get_resource_path('images/logo_transparent.png'))))
+        else:
+            self.setText(strings._('gui_drag_and_drop', True))
+            self.setStyleSheet('color: #999999;')
+
+        self.hide()
+
+    def dragEnterEvent(self, event):
+        self.parent.drop_here_image.hide()
+        self.parent.drop_here_text.hide()
+        event.accept()
+
+
+class DropCountLabel(QtWidgets.QLabel):
+    """
+    While dragging files over the FileList, this counter displays the
+    number of files you're dragging.
+    """
+    def __init__(self, parent):
+        self.parent = parent
+        super(DropCountLabel, self).__init__(parent=parent)
+        self.setAcceptDrops(True)
+        self.setAlignment(QtCore.Qt.AlignCenter)
+        self.setText(strings._('gui_drag_and_drop', True))
+        self.setStyleSheet('color: #ffffff; background-color: #f44449; font-weight: bold; padding: 5px 10px; border-radius: 10px;')
+        self.hide()
+
+    def dragEnterEvent(self, event):
+        self.hide()
+        event.accept()
+
+
 class FileList(QtWidgets.QListWidget):
     """
     The list of files and folders in the GUI.
@@ -35,63 +79,82 @@ class FileList(QtWidgets.QListWidget):
         self.setAcceptDrops(True)
         self.setIconSize(QtCore.QSize(32, 32))
         self.setSortingEnabled(True)
-        self.setMinimumHeight(200)
+        self.setMinimumHeight(205)
         self.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
-
-        class DropHereLabel(QtWidgets.QLabel):
-            """
-            When there are no files or folders in the FileList yet, display the
-            'drop files here' message and graphic.
-            """
-            def __init__(self, parent, image=False):
-                self.parent = parent
-                super(DropHereLabel, self).__init__(parent=parent)
-                self.setAcceptDrops(True)
-                self.setAlignment(QtCore.Qt.AlignCenter)
-
-                if image:
-                    self.setPixmap(QtGui.QPixmap.fromImage(QtGui.QImage(common.get_resource_path('images/drop_files.png'))))
-                else:
-                    self.setText(strings._('gui_drag_and_drop', True))
-                    self.setStyleSheet('color: #999999;')
-
-                self.hide()
-
-            def dragEnterEvent(self, event):
-                self.parent.drop_here_image.hide()
-                self.parent.drop_here_text.hide()
-                event.ignore()
-
         self.drop_here_image = DropHereLabel(self, True)
         self.drop_here_text = DropHereLabel(self, False)
-
-        self.filenames = []
-        self.update()
+        self.drop_count = DropCountLabel(self)
+        self.resizeEvent(None)
+        self.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
 
     def update(self):
         """
         Update the GUI elements based on the current state.
         """
         # file list should have a background image if empty
-        if len(self.filenames) == 0:
+        if self.count() == 0:
             self.drop_here_image.show()
             self.drop_here_text.show()
         else:
             self.drop_here_image.hide()
             self.drop_here_text.hide()
 
+    def server_started(self):
+        """
+        Update the GUI when the server starts, by hiding delete buttons.
+        """
+        self.setAcceptDrops(False)
+        self.setCurrentItem(None)
+        self.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
+        for index in range(self.count()):
+            self.item(index).item_button.hide()
+
+    def server_stopped(self):
+        """
+        Update the GUI when the server stops, by showing delete buttons.
+        """
+        self.setAcceptDrops(True)
+        self.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
+        for index in range(self.count()):
+            self.item(index).item_button.show()
+
     def resizeEvent(self, event):
         """
         When the widget is resized, resize the drop files image and text.
         """
-        self.drop_here_image.setGeometry(0, 0, self.width(), self.height())
-        self.drop_here_text.setGeometry(0, 0, self.width(), self.height())
+        offset = 70
+        self.drop_here_image.setGeometry(0, 0, self.width(), self.height() - offset)
+        self.drop_here_text.setGeometry(0, offset, self.width(), self.height() - offset)
+
+        if self.count() > 0:
+            # Add and delete an empty item, to force all items to get redrawn
+            # This is ugly, but the only way I could figure out how to proceed
+            item = QtWidgets.QListWidgetItem('fake item')
+            self.addItem(item)
+            self.takeItem(self.row(item))
+            self.update()
+
+            # Extend any filenames that were truncated to fit the window
+            # We use 200 as a rough guess at how wide the 'file size + delete button' widget is
+            # and extend based on the overall width minus that amount.
+            for index in range(self.count()):
+                metrics = QtGui.QFontMetrics(self.item(index).font())
+                elided = metrics.elidedText(self.item(index).basename, QtCore.Qt.ElideRight, self.width() - 200)
+                self.item(index).setText(elided)
+
 
     def dragEnterEvent(self, event):
         """
         dragEnterEvent for dragging files and directories into the widget.
         """
         if event.mimeData().hasUrls:
+            self.setStyleSheet('FileList { border: 3px solid #538ad0; }')
+            count = len(event.mimeData().urls())
+            self.drop_count.setText('+{}'.format(count))
+
+            size_hint = self.drop_count.sizeHint()
+            self.drop_count.setGeometry(self.width() - size_hint.width() - 10, self.height() - size_hint.height() - 10, size_hint.width(), size_hint.height())
+            self.drop_count.show()
             event.accept()
         else:
             event.ignore()
@@ -100,6 +163,8 @@ class FileList(QtWidgets.QListWidget):
         """
         dragLeaveEvent for dragging files and directories into the widget.
         """
+        self.setStyleSheet('FileList { border: none; }')
+        self.drop_count.hide()
         event.accept()
         self.update()
 
@@ -125,36 +190,84 @@ class FileList(QtWidgets.QListWidget):
                 self.add_file(filename)
         else:
             event.ignore()
+
+        self.setStyleSheet('border: none;')
+        self.drop_count.hide()
+
         self.files_dropped.emit()
 
     def add_file(self, filename):
         """
         Add a file or directory to this widget.
         """
-        if filename not in self.filenames:
+        filenames = []
+        for index in range(self.count()):
+            filenames.append(self.item(index).filename)
+
+        if filename not in filenames:
             if not os.access(filename, os.R_OK):
                 Alert(strings._("not_a_readable_file", True).format(filename))
                 return
 
-            self.filenames.append(filename)
-            # Re-sort the list internally
-            self.filenames.sort()
-
             fileinfo = QtCore.QFileInfo(filename)
-            basename = os.path.basename(filename.rstrip('/'))
             ip = QtWidgets.QFileIconProvider()
             icon = ip.icon(fileinfo)
 
             if os.path.isfile(filename):
-                size = common.human_readable_filesize(fileinfo.size())
+                size_bytes = fileinfo.size()
+                size_readable = common.human_readable_filesize(size_bytes)
             else:
-                size = common.human_readable_filesize(common.dir_size(filename))
-            item_name = '{0:s} ({1:s})'.format(basename, size)
-            item = QtWidgets.QListWidgetItem(item_name)
-            item.setToolTip(size)
+                size_bytes = common.dir_size(filename)
+                size_readable = common.human_readable_filesize(size_bytes)
 
+            # Create a new item
+            item = QtWidgets.QListWidgetItem()
             item.setIcon(icon)
+            item.size_bytes = size_bytes
+
+            # Item's filename attribute and size labels
+            item.filename = filename
+            item_size = QtWidgets.QLabel(size_readable)
+            item_size.setStyleSheet('QLabel { color: #666666; font-size: 11px; }')
+
+            item.basename = os.path.basename(filename.rstrip('/'))
+            # Use the basename as the method with which to sort the list
+            metrics = QtGui.QFontMetrics(item.font())
+            elided = metrics.elidedText(item.basename, QtCore.Qt.ElideRight, self.sizeHint().width())
+            item.setData(QtCore.Qt.DisplayRole, elided)
+
+            # Item's delete button
+            def delete_item():
+                itemrow = self.row(item)
+                self.takeItem(itemrow)
+                self.files_updated.emit()
+
+            item.item_button = QtWidgets.QPushButton()
+            item.item_button.setDefault(False)
+            item.item_button.setFlat(True)
+            item.item_button.setIcon( QtGui.QIcon(common.get_resource_path('images/file_delete.png')) )
+            item.item_button.clicked.connect(delete_item)
+            item.item_button.setSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+
+            # Item info widget, with a white background
+            item_info_layout = QtWidgets.QHBoxLayout()
+            item_info_layout.addWidget(item_size)
+            item_info_layout.addWidget(item.item_button)
+            item_info = QtWidgets.QWidget()
+            item_info.setObjectName('item-info')
+            item_info.setLayout(item_info_layout)
+
+            # Create the item's widget and layouts
+            item_hlayout = QtWidgets.QHBoxLayout()
+            item_hlayout.addStretch()
+            item_hlayout.addWidget(item_info)
+            widget = QtWidgets.QWidget()
+            widget.setLayout(item_hlayout)
+
+            item.setSizeHint(widget.sizeHint())
+
             self.addItem(item)
+            self.setItemWidget(item, widget)
 
             self.files_updated.emit()
 
@@ -168,21 +281,23 @@ class FileSelection(QtWidgets.QVBoxLayout):
         super(FileSelection, self).__init__()
         self.server_on = False
 
-        # file list
+        # File list
         self.file_list = FileList()
-        self.file_list.currentItemChanged.connect(self.update)
+        self.file_list.itemSelectionChanged.connect(self.update)
         self.file_list.files_dropped.connect(self.update)
+        self.file_list.files_updated.connect(self.update)
 
-        # buttons
+        # Buttons
         self.add_button = QtWidgets.QPushButton(strings._('gui_add', True))
         self.add_button.clicked.connect(self.add)
         self.delete_button = QtWidgets.QPushButton(strings._('gui_delete', True))
         self.delete_button.clicked.connect(self.delete)
         button_layout = QtWidgets.QHBoxLayout()
+        button_layout.addStretch()
         button_layout.addWidget(self.add_button)
         button_layout.addWidget(self.delete_button)
 
-        # add the widgets
+        # Add the widgets
         self.addWidget(self.file_list)
         self.addLayout(button_layout)
 
@@ -192,21 +307,20 @@ class FileSelection(QtWidgets.QVBoxLayout):
         """
         Update the GUI elements based on the current state.
         """
-        # all buttons should be disabled if the server is on
+        # All buttons should be hidden if the server is on
         if self.server_on:
-            self.add_button.setEnabled(False)
-            self.delete_button.setEnabled(False)
+            self.add_button.hide()
+            self.delete_button.hide()
         else:
-            self.add_button.setEnabled(True)
+            self.add_button.show()
 
-            # delete button should be disabled if item isn't selected
-            current_item = self.file_list.currentItem()
-            if not current_item:
-                self.delete_button.setEnabled(False)
+            # Delete button should be hidden if item isn't selected
+            if len(self.file_list.selectedItems()) == 0:
+                self.delete_button.hide()
             else:
-                self.delete_button.setEnabled(True)
+                self.delete_button.show()
 
-        # update the file list
+        # Update the file list
         self.file_list.update()
 
     def add(self):
@@ -218,6 +332,7 @@ class FileSelection(QtWidgets.QVBoxLayout):
             for filename in file_dialog.selectedFiles():
                 self.file_list.add_file(filename)
 
+        self.file_list.setCurrentItem(None)
         self.update()
 
     def delete(self):
@@ -227,9 +342,10 @@ class FileSelection(QtWidgets.QVBoxLayout):
         selected = self.file_list.selectedItems()
         for item in selected:
             itemrow = self.file_list.row(item)
-            self.file_list.filenames.pop(itemrow)
             self.file_list.takeItem(itemrow)
         self.file_list.files_updated.emit()
+
+        self.file_list.setCurrentItem(None)
         self.update()
 
     def server_started(self):
@@ -237,7 +353,7 @@ class FileSelection(QtWidgets.QVBoxLayout):
         Gets called when the server starts.
         """
         self.server_on = True
-        self.file_list.setAcceptDrops(False)
+        self.file_list.server_started()
         self.update()
 
     def server_stopped(self):
@@ -245,14 +361,14 @@ class FileSelection(QtWidgets.QVBoxLayout):
         Gets called when the server stops.
         """
         self.server_on = False
-        self.file_list.setAcceptDrops(True)
+        self.file_list.server_stopped()
         self.update()
 
     def get_num_files(self):
         """
         Returns the total number of files and folders in the list.
         """
-        return len(self.file_list.filenames)
+        return len(range(self.file_list.count()))
 
     def setFocus(self):
         """
