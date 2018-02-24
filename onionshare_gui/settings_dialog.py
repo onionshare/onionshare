@@ -169,7 +169,7 @@ class SettingsDialog(QtWidgets.QDialog):
         (self.tor_path, self.tor_geo_ip_file_path, self.tor_geo_ipv6_file_path, self.obfs4proxy_file_path) = common.get_tor_paths()
         if not os.path.isfile(self.obfs4proxy_file_path):
             self.tor_bridges_use_meek_lite_amazon_radio = QtWidgets.QRadioButton(strings._('gui_settings_tor_bridges_meek_lite_amazon_radio_option_no_obfs4proxy', True))
-            self.tor_bridges_use_meel_lite_amazon_radio.setEnabled(False)
+            self.tor_bridges_use_meek_lite_amazon_radio.setEnabled(False)
         else:
             self.tor_bridges_use_meek_lite_amazon_radio = QtWidgets.QRadioButton(strings._('gui_settings_tor_bridges_meek_lite_amazon_radio_option', True))
         self.tor_bridges_use_meek_lite_amazon_radio.toggled.connect(self.tor_bridges_use_meek_lite_amazon_radio_toggled)
@@ -179,7 +179,7 @@ class SettingsDialog(QtWidgets.QDialog):
         (self.tor_path, self.tor_geo_ip_file_path, self.tor_geo_ipv6_file_path, self.obfs4proxy_file_path) = common.get_tor_paths()
         if not os.path.isfile(self.obfs4proxy_file_path):
             self.tor_bridges_use_meek_lite_azure_radio = QtWidgets.QRadioButton(strings._('gui_settings_tor_bridges_meek_lite_azure_radio_option_no_obfs4proxy', True))
-            self.tor_bridges_use_meel_lite_azure_radio.setEnabled(False)
+            self.tor_bridges_use_meek_lite_azure_radio.setEnabled(False)
         else:
             self.tor_bridges_use_meek_lite_azure_radio = QtWidgets.QRadioButton(strings._('gui_settings_tor_bridges_meek_lite_azure_radio_option', True))
         self.tor_bridges_use_meek_lite_azure_radio.toggled.connect(self.tor_bridges_use_meek_lite_azure_radio_toggled)
@@ -494,7 +494,7 @@ class SettingsDialog(QtWidgets.QDialog):
 
     def tor_bridges_use_meek_lite_azure_radio_toggled(self, checked):
         """
-        meel_lite_azure bridges option was toggled. If checked, disable custom bridge options.
+        meek_lite_azure bridges option was toggled. If checked, disable custom bridge options.
         """
         if checked:
             self.tor_bridges_use_custom_textbox_options.hide()
