@@ -23,7 +23,6 @@ import inspect
 import os
 import platform
 import random
-import re
 import socket
 import sys
 import tempfile
@@ -58,9 +57,10 @@ def get_platform():
     Returns the platform OnionShare is running on.
     """
     plat = platform.system()
-    if re.match('^.*BSD$', plat):
+    if plat.endswith('BSD'):
         plat = 'BSD'
     return plat
+
 
 def get_resource_path(filename):
     """
