@@ -193,12 +193,6 @@ class TestGetResourcePath:
             common.get_resource_path(os.path.join(prefix, 'test_filename')) ==
             os.path.join(prefix, 'test_filename'))
 
-    def test_frozen_windows(self, platform_windows, sys_frozen):
-        prefix = os.path.join(os.path.dirname(sys.executable), 'share')
-        assert (
-            common.get_resource_path(os.path.join(prefix, 'test_filename')) ==
-            os.path.join(prefix, 'test_filename'))
-
 
 class TestGetTorPaths:
     # @pytest.mark.skipif(sys.platform != 'Darwin', reason='requires MacOS') ?
