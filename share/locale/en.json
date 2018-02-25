@@ -52,7 +52,7 @@
     "gui_copied_hidservauth": "The HidServAuth line has been copied to clipboard",
     "gui_starting_server1": "Starting Tor onion service...",
     "gui_starting_server2": "Crunching files...",
-    "gui_please_wait": "Please wait...",
+    "gui_please_wait": "Starting... Click to cancel",
     "error_hs_dir_cannot_create": "Cannot create onion service dir {0:s}",
     "error_hs_dir_not_writable": "onion service dir {0:s} is not writable",
     "using_ephemeral": "Starting ephemeral Tor onion service and awaiting publication",
