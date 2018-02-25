@@ -56,7 +56,7 @@ def get_platform():
     """
     Returns the platform OnionShare is running on.
     """
-    plat = platform.system() 
+    plat = platform.system()
     if plat.endswith('BSD'):
         plat = 'BSD'
     return plat
@@ -68,6 +68,10 @@ def get_resource_path(filename):
     systemwide, and whether regardless of platform
     """
     p = get_platform()
+
+    # On Windows, and in Windows dev mode, switch slashes in incoming filename to backslackes
+    if p == 'Windows':
+        filename = filename.replace('/', '\\')
 
     if getattr(sys, 'onionshare_dev_mode', False):
         # Look for resources directory relative to python file
