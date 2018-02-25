@@ -684,7 +684,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
             self.info_completed_downloads_image = common.get_resource_path('images/download_completed_none.png')
         else:
             self.info_completed_downloads_image = common.get_resource_path('images/download_completed.png')
-        self.info_completed_downloads_count.setText('<img src={0:s} /> {1:d}'.format(self.info_completed_downloads_image, count))
+        self.info_completed_downloads_count.setText('<img src="{0:s}" /> {1:d}'.format(self.info_completed_downloads_image, count))
         self.info_completed_downloads_count.setToolTip(strings._('info_completed_downloads_tooltip', True).format(count))
 
     def update_downloads_in_progress(self, count):
@@ -695,7 +695,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
             self.info_in_progress_downloads_image = common.get_resource_path('images/download_in_progress_none.png')
         else:
             self.info_in_progress_downloads_image = common.get_resource_path('images/download_in_progress.png')
-        self.info_in_progress_downloads_count.setText('<img src={0:s} /> {1:d}'.format(self.info_in_progress_downloads_image, count))
+        self.info_in_progress_downloads_count.setText('<img src="{0:s}" /> {1:d}'.format(self.info_in_progress_downloads_image, count))
         self.info_in_progress_downloads_count.setToolTip(strings._('info_in_progress_downloads_tooltip', True).format(count))
 
     def closeEvent(self, e):
