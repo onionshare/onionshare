@@ -184,6 +184,11 @@ class SettingsDialog(QtWidgets.QDialog):
             self.tor_bridges_use_meek_lite_azure_radio = QtWidgets.QRadioButton(strings._('gui_settings_tor_bridges_meek_lite_azure_radio_option', True))
         self.tor_bridges_use_meek_lite_azure_radio.toggled.connect(self.tor_bridges_use_meek_lite_azure_radio_toggled)
 
+        # meek_lite currently not supported on the version of obfs4proxy bundled with TorBrowser
+        if system == 'Windows' or system == 'Darwin':
+            self.tor_bridges_use_meek_lite_amazon_radio.hide()
+            self.tor_bridges_use_meek_lite_azure_radio.hide()
+
         # Custom bridges radio and textbox
         self.tor_bridges_use_custom_radio = QtWidgets.QRadioButton(strings._('gui_settings_tor_bridges_custom_radio_option', True))
         self.tor_bridges_use_custom_radio.toggled.connect(self.tor_bridges_use_custom_radio_toggled)
@@ -830,10 +835,13 @@ class SettingsDialog(QtWidgets.QDialog):
                     ipv6_pattern = re.compile("(obfs4\s+)?\[(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))\]:[0-9]+\s+[A-Z0-9]+(.+)$")
                     meek_lite_pattern = re.compile("(meek_lite)(\s)+([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+:[0-9]+)(\s)+([0-9A-Z]+)(\s)+url=(.+)(\s)+front=(.+)")
                     if ipv4_pattern.match(bridge) or \
-                       ipv6_pattern.match(bridge) or \
-                       meek_lite_pattern.match(bridge):
+                       ipv6_pattern.match(bridge):
                         new_bridges.append(''.join(['Bridge ', bridge, '\n']))
                         bridges_valid = True
+                    if system != 'Windows' and system != 'Darwin' and meek_lite_pattern.match(bridge):
+                        new_bridges.append(''.join(['Bridge ', bridge, '\n']))
+                        bridges_valid = True
+
             if bridges_valid:
                 new_bridges = ''.join(new_bridges)
                 settings.set('tor_bridges_use_custom_bridges', new_bridges)
