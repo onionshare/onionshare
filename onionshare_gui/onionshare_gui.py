@@ -78,6 +78,9 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.server_status.server_stopped.connect(self.stop_server)
         self.server_status.server_stopped.connect(self.update_server_status_indicator)
         self.server_status.server_stopped.connect(self.update_primary_action)
+        self.server_status.server_canceled.connect(self.cancel_server)
+        self.server_status.server_canceled.connect(self.file_selection.server_stopped)
+        self.server_status.server_canceled.connect(self.update_primary_action)
         self.start_server_finished.connect(self.clear_message)
         self.start_server_finished.connect(self.server_status.start_server_finished)
         self.start_server_finished.connect(self.update_server_status_indicator)
@@ -398,9 +401,10 @@ class OnionShareGui(QtWidgets.QMainWindow):
             # wait for modules in thread to load, preventing a thread-related cx_Freeze crash
             time.sleep(0.2)
 
-        t = threading.Thread(target=start_onion_service, kwargs={'self': self})
-        t.daemon = True
-        t.start()
+        common.log('OnionshareGui', 'start_server', 'Starting an onion thread')
+        self.t = OnionThread(function=start_onion_service, kwargs={'self': self})
+        self.t.daemon = True
+        self.t.start()
 
     def start_server_step2(self):
         """
@@ -482,6 +486,14 @@ class OnionShareGui(QtWidgets.QMainWindow):
             self.status_bar.removeWidget(self._zip_progress_bar)
             self._zip_progress_bar = None
         self.status_bar.clearMessage()
+
+    def cancel_server(self):
+        """
+        Cancel the server while it is preparing to start
+        """
+        if self.t:
+            self.t.quit()
+        self.stop_server()
 
     def stop_server(self):
         """
@@ -777,3 +789,26 @@ class ZipProgressBar(QtWidgets.QProgressBar):
             self.setValue(100)
         else:
             self.setValue(0)
+
+
+class OnionThread(QtCore.QThread):
+    """
+    A QThread for starting our Onion Service.
+    By using QThread rather than threading.Thread, we are able
+    to call quit() or terminate() on the startup if the user
+    decided to cancel (in which case do not proceed with obtaining
+    the Onion address and starting the web server).
+    """
+    def __init__(self, function, kwargs=None):
+        super(OnionThread, self).__init__()
+        common.log('OnionThread', '__init__')
+        self.function = function
+        if not kwargs:
+            self.kwargs = {}
+        else:
+            self.kwargs = kwargs
+
+    def run(self):
+        common.log('OnionThread', 'run')
+
+        self.function(**self.kwargs)
