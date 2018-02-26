@@ -46,7 +46,7 @@ class SettingsDialog(QtWidgets.QDialog):
         self.setWindowTitle(strings._('gui_settings_window_title', True))
         self.setWindowIcon(QtGui.QIcon(common.get_resource_path('images/logo.png')))
 
-        system = platform.system()
+        self.system = platform.system()
 
         # Sharing options
 
@@ -135,7 +135,7 @@ class SettingsDialog(QtWidgets.QDialog):
         autoupdate_group.setLayout(autoupdate_group_layout)
 
         # Autoupdate is only available for Windows and Mac (Linux updates using package manager)
-        if system != 'Windows' and system != 'Darwin':
+        if self.system != 'Windows' and self.system != 'Darwin':
             autoupdate_group.hide()
 
         # Connection type: either automatic, control port, or socket file
@@ -145,7 +145,7 @@ class SettingsDialog(QtWidgets.QDialog):
         self.connection_type_bundled_radio.toggled.connect(self.connection_type_bundled_toggled)
 
         # Bundled Tor doesn't work on dev mode in Windows or Mac
-        if (system == 'Windows' or system == 'Darwin') and getattr(sys, 'onionshare_dev_mode', False):
+        if (self.system == 'Windows' or self.system == 'Darwin') and getattr(sys, 'onionshare_dev_mode', False):
             self.connection_type_bundled_radio.setEnabled(False)
 
         # Bridge options for bundled tor
@@ -185,7 +185,7 @@ class SettingsDialog(QtWidgets.QDialog):
         self.tor_bridges_use_meek_lite_azure_radio.toggled.connect(self.tor_bridges_use_meek_lite_azure_radio_toggled)
 
         # meek_lite currently not supported on the version of obfs4proxy bundled with TorBrowser
-        if system == 'Windows' or system == 'Darwin':
+        if self.system == 'Windows' or self.system == 'Darwin':
             self.tor_bridges_use_meek_lite_amazon_radio.hide()
             self.tor_bridges_use_meek_lite_azure_radio.hide()
 
@@ -838,7 +838,7 @@ class SettingsDialog(QtWidgets.QDialog):
                        ipv6_pattern.match(bridge):
                         new_bridges.append(''.join(['Bridge ', bridge, '\n']))
                         bridges_valid = True
-                    if system != 'Windows' and system != 'Darwin' and meek_lite_pattern.match(bridge):
+                    if self.system != 'Windows' and self.system != 'Darwin' and meek_lite_pattern.match(bridge):
                         new_bridges.append(''.join(['Bridge ', bridge, '\n']))
                         bridges_valid = True
 
