@@ -660,56 +660,57 @@ class SettingsDialog(QtWidgets.QDialog):
         common.log('SettingsDialog', 'save_clicked')
 
         settings = self.settings_from_fields()
-        settings.save()
+        if settings:
+            settings.save()
 
-        # If Tor isn't connected, or if Tor settings have changed, Reinitialize
-        # the Onion object
-        reboot_onion = False
-        if self.onion.is_authenticated():
-            common.log('SettingsDialog', 'save_clicked', 'Connected to Tor')
-            def changed(s1, s2, keys):
-                """
-                Compare the Settings objects s1 and s2 and return true if any values
-                have changed for the given keys.
-                """
-                for key in keys:
-                    if s1.get(key) != s2.get(key):
-                        return True
-                return False
+            # If Tor isn't connected, or if Tor settings have changed, Reinitialize
+            # the Onion object
+            reboot_onion = False
+            if self.onion.is_authenticated():
+                common.log('SettingsDialog', 'save_clicked', 'Connected to Tor')
+                def changed(s1, s2, keys):
+                    """
+                    Compare the Settings objects s1 and s2 and return true if any values
+                    have changed for the given keys.
+                    """
+                    for key in keys:
+                        if s1.get(key) != s2.get(key):
+                            return True
+                    return False
 
-            if changed(settings, self.old_settings, [
-                'connection_type', 'control_port_address',
-                'control_port_port', 'socks_address', 'socks_port',
-                'socket_file_path', 'auth_type', 'auth_password',
-                'no_bridges', 'tor_bridges_use_obfs4',
-                'tor_bridges_use_meek_lite_amazon', 'tor_bridges_use_meek_lite_azure',
-                'tor_bridges_use_custom_bridges']):
+                if changed(settings, self.old_settings, [
+                    'connection_type', 'control_port_address',
+                    'control_port_port', 'socks_address', 'socks_port',
+                    'socket_file_path', 'auth_type', 'auth_password',
+                    'no_bridges', 'tor_bridges_use_obfs4',
+                    'tor_bridges_use_meek_lite_amazon', 'tor_bridges_use_meek_lite_azure',
+                    'tor_bridges_use_custom_bridges']):
 
+                    reboot_onion = True
+
+            else:
+                common.log('SettingsDialog', 'save_clicked', 'Not connected to Tor')
+                # Tor isn't connected, so try connecting
                 reboot_onion = True
 
-        else:
-            common.log('SettingsDialog', 'save_clicked', 'Not connected to Tor')
-            # Tor isn't connected, so try connecting
-            reboot_onion = True
+            # Do we need to reinitialize Tor?
+            if reboot_onion:
+                # Reinitialize the Onion object
+                common.log('SettingsDialog', 'save_clicked', 'rebooting the Onion')
+                self.onion.cleanup()
 
-        # Do we need to reinitialize Tor?
-        if reboot_onion:
-            # Reinitialize the Onion object
-            common.log('SettingsDialog', 'save_clicked', 'rebooting the Onion')
-            self.onion.cleanup()
+                tor_con = TorConnectionDialog(self.qtapp, settings, self.onion)
+                tor_con.start()
 
-            tor_con = TorConnectionDialog(self.qtapp, settings, self.onion)
-            tor_con.start()
+                common.log('SettingsDialog', 'save_clicked', 'Onion done rebooting, connected to Tor: {}'.format(self.onion.connected_to_tor))
 
-            common.log('SettingsDialog', 'save_clicked', 'Onion done rebooting, connected to Tor: {}'.format(self.onion.connected_to_tor))
+                if self.onion.is_authenticated() and not tor_con.wasCanceled():
+                    self.settings_saved.emit()
+                    self.close()
 
-            if self.onion.is_authenticated() and not tor_con.wasCanceled():
+            else:
                 self.settings_saved.emit()
                 self.close()
-
-        else:
-            self.settings_saved.emit()
-            self.close()
 
     def cancel_clicked(self):
         """
@@ -839,6 +840,7 @@ class SettingsDialog(QtWidgets.QDialog):
             else:
                 Alert(strings._('gui_settings_tor_bridges_invalid', True))
                 settings.set('no_bridges', True)
+                return False
 
         return settings
 
