@@ -26,6 +26,7 @@ import queue
 import socket
 import sys
 import tempfile
+import base64
 from distutils.version import LooseVersion as Version
 from urllib.request import urlopen
 
@@ -58,7 +59,7 @@ zip_filename = None
 zip_filesize = None
 
 security_headers = [
-    ('Content-Security-Policy', 'default-src \'self\'; style-src \'unsafe-inline\'; img-src \'self\' data:;'),
+    ('Content-Security-Policy', 'default-src \'self\'; style-src \'unsafe-inline\'; script-src \'unsafe-inline\'; img-src \'self\' data:;'),
     ('X-Frame-Options', 'DENY'),
     ('X-Xss-Protection', '1; mode=block'),
     ('X-Content-Type-Options', 'nosniff'),
@@ -124,6 +125,12 @@ def add_request(request_type, path, data=None):
         'data': data
     })
 
+
+# Load and base64 encode images to pass into templates
+favicon_b64 = base64.b64encode(open(common.get_resource_path('images/favicon.ico'), 'rb').read()).decode()
+logo_b64 = base64.b64encode(open(common.get_resource_path('images/logo.png'), 'rb').read()).decode()
+folder_b64 = base64.b64encode(open(common.get_resource_path('images/web_folder.png'), 'rb').read()).decode()
+file_b64 = base64.b64encode(open(common.get_resource_path('images/web_file.png'), 'rb').read()).decode()
 
 slug = None
 
@@ -206,7 +213,10 @@ def index(slug_candidate):
     global stay_open, download_in_progress
     deny_download = not stay_open and download_in_progress
     if deny_download:
-        r = make_response(render_template_string(open(common.get_resource_path('html/denied.html')).read()))
+        r = make_response(render_template_string(
+            open(common.get_resource_path('html/denied.html')).read(),
+            favicon_b64=favicon_b64
+        ))
         for header, value in security_headers:
             r.headers.set(header, value)
         return r
@@ -215,6 +225,10 @@ def index(slug_candidate):
 
     r = make_response(render_template_string(
         open(common.get_resource_path('html/index.html')).read(),
+        favicon_b64=favicon_b64,
+        logo_b64=logo_b64,
+        folder_b64=folder_b64,
+        file_b64=file_b64,
         slug=slug,
         file_info=file_info,
         filename=os.path.basename(zip_filename),
@@ -243,7 +257,10 @@ def download(slug_candidate):
     global stay_open, download_in_progress, done
     deny_download = not stay_open and download_in_progress
     if deny_download:
-        r = make_response(render_template_string(open(common.get_resource_path('html/denied.html')).read()))
+        r = make_response(render_template_string(
+            open(common.get_resource_path('html/denied.html')).read(),
+            favicon_b64=favicon_b64
+        ))
         for header,value in security_headers:
             r.headers.set(header, value)
         return r
@@ -298,12 +315,14 @@ def download(slug_candidate):
                     percent = (1.0 * downloaded_bytes / zip_filesize) * 100
 
                     # only output to stdout if running onionshare in CLI mode, or if using Linux (#203, #304)
-                    if not gui_mode or common.get_platform() == 'Linux':
+                    plat = common.get_platform()
+                    if not gui_mode or plat == 'Linux' or plat == 'BSD':
                         sys.stdout.write(
                             "\r{0:s}, {1:.2f}%          ".format(common.human_readable_filesize(downloaded_bytes), percent))
                         sys.stdout.flush()
 
                     add_request(REQUEST_PROGRESS, path, {'id': download_id, 'bytes': downloaded_bytes})
+                    done = False
                 except:
                     # looks like the download was canceled
                     done = True
@@ -355,7 +374,10 @@ def page_not_found(e):
             force_shutdown()
             print(strings._('error_rate_limit'))
 
-    r = make_response(render_template_string(open(common.get_resource_path('html/404.html')).read()), 404)
+    r = make_response(render_template_string(
+        open(common.get_resource_path('html/404.html')).read(),
+        favicon_b64=favicon_b64
+    ), 404)
     for header, value in security_headers:
         r.headers.set(header, value)
     return r

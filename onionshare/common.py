@@ -56,7 +56,10 @@ def get_platform():
     """
     Returns the platform OnionShare is running on.
     """
-    return platform.system()
+    plat = platform.system()
+    if plat.endswith('BSD'):
+        plat = 'BSD'
+    return plat
 
 
 def get_resource_path(filename):
@@ -66,6 +69,10 @@ def get_resource_path(filename):
     """
     p = get_platform()
 
+    # On Windows, and in Windows dev mode, switch slashes in incoming filename to backslackes
+    if p == 'Windows':
+        filename = filename.replace('/', '\\')
+
     if getattr(sys, 'onionshare_dev_mode', False):
         # Look for resources directory relative to python file
         prefix = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))), 'share')
@@ -73,7 +80,7 @@ def get_resource_path(filename):
             # While running tests during stdeb bdist_deb, look 3 directories up for the share folder
             prefix = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(prefix)))), 'share')
 
-    elif p == 'Linux':
+    elif p == 'BSD' or p == 'Linux':
         # Assume OnionShare is installed systemwide in Linux, since we're not running in dev mode
         prefix = os.path.join(sys.prefix, 'share/onionshare')
 
@@ -107,7 +114,7 @@ def get_tor_paths():
         tor_geo_ip_file_path   = os.path.join(base_path, 'Resources', 'Tor', 'geoip')
         tor_geo_ipv6_file_path = os.path.join(base_path, 'Resources', 'Tor', 'geoip6')
         obfs4proxy_file_path   = os.path.join(base_path, 'Resources', 'Tor', 'obfs4proxy')
-    elif p == 'OpenBSD' or p == 'FreeBSD':
+    elif p == 'BSD':
         tor_path = '/usr/local/bin/tor'
         tor_geo_ip_file_path = '/usr/local/share/tor/geoip'
         tor_geo_ipv6_file_path = '/usr/local/share/tor/geoip6'

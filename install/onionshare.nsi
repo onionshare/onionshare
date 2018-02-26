@@ -3,10 +3,10 @@
 !define ABOUTURL "https:\\onionshare.org\"
 
 # change these with each release
-!define INSTALLSIZE 66525
+!define INSTALLSIZE 66537
 !define VERSIONMAJOR 1
-!define VERSIONMINOR 2
-!define VERSIONSTRING "1.2"
+!define VERSIONMINOR 3
+!define VERSIONSTRING "1.3"
 
 RequestExecutionLevel admin
 
@@ -192,6 +192,8 @@ Section "install"
     File "${BINPATH}\share\torrc_template"
     File "${BINPATH}\share\torrc_template-windows"
     File "${BINPATH}\share\torrc_template-obfs4"
+    File "${BINPATH}\share\torrc_template-meek_lite_amazon"
+    File "${BINPATH}\share\torrc_template-meek_lite_azure"
     File "${BINPATH}\share\version.txt"
     File "${BINPATH}\share\wordlist.txt"
 
@@ -201,14 +203,22 @@ Section "install"
     File "${BINPATH}\share\html\index.html"
 
     SetOutPath "$INSTDIR\share\images"
-    File "${BINPATH}\share\images\drop_files.png"
+    File "${BINPATH}\share\images\download_completed.png"
+    File "${BINPATH}\share\images\download_completed_none.png"
+    File "${BINPATH}\share\images\download_in_progress.png"
+    File "${BINPATH}\share\images\download_in_progress_none.png"
+    File "${BINPATH}\share\images\favicon.ico"
+    File "${BINPATH}\share\images\file_delete.png"
+    File "${BINPATH}\share\images\info.png"
     File "${BINPATH}\share\images\logo.png"
+    File "${BINPATH}\share\images\logo_transparent.png"
     File "${BINPATH}\share\images\logo_grayscale.png"
     File "${BINPATH}\share\images\server_started.png"
     File "${BINPATH}\share\images\server_stopped.png"
     File "${BINPATH}\share\images\server_working.png"
     File "${BINPATH}\share\images\settings.png"
-    File "${BINPATH}\share\images\settings_inactive.png"
+    File "${BINPATH}\share\images\web_file.png"
+    File "${BINPATH}\share\images\web_folder.png"
 
     SetOutPath "$INSTDIR\share\locale"
     File "${BINPATH}\share\locale\cs.json"
@@ -379,14 +389,22 @@ FunctionEnd
         Delete "$INSTDIR\share\html\404.html"
         Delete "$INSTDIR\share\html\denied.html"
         Delete "$INSTDIR\share\html\index.html"
-        Delete "$INSTDIR\share\images\drop_files.png"
+        Delete "$INSTDIR\share\images\download_completed.png"
+        Delete "$INSTDIR\share\images\download_completed_none.png"
+        Delete "$INSTDIR\share\images\download_in_progress.png"
+        Delete "$INSTDIR\share\images\download_in_progress_none.png"
+        Delete "$INSTDIR\share\images\favicon.ico"
+        Delete "$INSTDIR\share\images\file_delete.png"
+        Delete "$INSTDIR\share\images\info.png"
         Delete "$INSTDIR\share\images\logo.png"
+        Delete "$INSTDIR\share\images\logo_transparent.png"
         Delete "$INSTDIR\share\images\logo_grayscale.png"
         Delete "$INSTDIR\share\images\server_started.png"
         Delete "$INSTDIR\share\images\server_stopped.png"
         Delete "$INSTDIR\share\images\server_working.png"
         Delete "$INSTDIR\share\images\settings.png"
-        Delete "$INSTDIR\share\images\settings_inactive.png"
+        Delete "$INSTDIR\share\images\web_file.png"
+        Delete "$INSTDIR\share\images\web_folder.png"
         Delete "$INSTDIR\share\license.txt"
         Delete "$INSTDIR\share\locale\cs.json"
         Delete "$INSTDIR\share\locale\de.json"
@@ -404,6 +422,8 @@ FunctionEnd
         Delete "$INSTDIR\share\torrc_template"
         Delete "$INSTDIR\share\torrc_template-windows"
         Delete "$INSTDIR\share\torrc_template-obfs4"
+        Delete "$INSTDIR\share\torrc_template-meek_lite_amazon"
+        Delete "$INSTDIR\share\torrc_template-meek_lite_azure"
         Delete "$INSTDIR\share\version.txt"
         Delete "$INSTDIR\share\wordlist.txt"
         Delete "$INSTDIR\sip.pyd"

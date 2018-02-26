@@ -55,11 +55,14 @@ class TestSettings:
             'auth_password': '',
             'close_after_first_download': True,
             'systray_notifications': True,
+            'shutdown_timeout': False,
             'use_stealth': False,
             'use_autoupdate': True,
             'autoupdate_timestamp': None,
             'no_bridges': True,
             'tor_bridges_use_obfs4': False,
+            'tor_bridges_use_meek_lite_amazon': False,
+            'tor_bridges_use_meek_lite_azure': False,
             'tor_bridges_use_custom_bridges': '',
             'save_private_key': False,
             'private_key': '',
@@ -125,6 +128,8 @@ class TestSettings:
         assert settings_obj.get('autoupdate_timestamp') is None
         assert settings_obj.get('no_bridges') is True
         assert settings_obj.get('tor_bridges_use_obfs4') is False
+        assert settings_obj.get('tor_bridges_use_meek_lite_amazon') is False
+        assert settings_obj.get('tor_bridges_use_meek_lite_azure') is False
         assert settings_obj.get('tor_bridges_use_custom_bridges') == ''
 
 

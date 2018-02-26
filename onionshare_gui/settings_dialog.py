@@ -60,6 +60,11 @@ class SettingsDialog(QtWidgets.QDialog):
         self.systray_notifications_checkbox.setCheckState(QtCore.Qt.Checked)
         self.systray_notifications_checkbox.setText(strings._("gui_settings_systray_notifications", True))
 
+        # Whether or not to use a shutdown timer
+        self.shutdown_timeout_checkbox = QtWidgets.QCheckBox()
+        self.shutdown_timeout_checkbox.setCheckState(QtCore.Qt.Checked)
+        self.shutdown_timeout_checkbox.setText(strings._("gui_settings_shutdown_timeout_checkbox", True))
+
         # Whether or not to save the Onion private key for reuse
         self.save_private_key_checkbox = QtWidgets.QCheckBox()
         self.save_private_key_checkbox.setCheckState(QtCore.Qt.Unchecked)
@@ -69,6 +74,7 @@ class SettingsDialog(QtWidgets.QDialog):
         sharing_group_layout = QtWidgets.QVBoxLayout()
         sharing_group_layout.addWidget(self.close_after_first_download_checkbox)
         sharing_group_layout.addWidget(self.systray_notifications_checkbox)
+        sharing_group_layout.addWidget(self.shutdown_timeout_checkbox)
         sharing_group_layout.addWidget(self.save_private_key_checkbox)
         sharing_group = QtWidgets.QGroupBox(strings._("gui_settings_sharing_label", True))
         sharing_group.setLayout(sharing_group_layout)
@@ -80,12 +86,14 @@ class SettingsDialog(QtWidgets.QDialog):
         stealth_details.setWordWrap(True)
         stealth_details.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
         stealth_details.setOpenExternalLinks(True)
+        stealth_details.setMinimumSize(stealth_details.sizeHint())
         self.stealth_checkbox = QtWidgets.QCheckBox()
         self.stealth_checkbox.setCheckState(QtCore.Qt.Unchecked)
         self.stealth_checkbox.setText(strings._("gui_settings_stealth_option", True))
 
         hidservauth_details = QtWidgets.QLabel(strings._('gui_settings_stealth_hidservauth_string', True))
         hidservauth_details.setWordWrap(True)
+        hidservauth_details.setMinimumSize(hidservauth_details.sizeHint())
         hidservauth_details.hide()
 
         self.hidservauth_copy_button = QtWidgets.QPushButton(strings._('gui_copy_hidservauth', True))
@@ -156,6 +164,26 @@ class SettingsDialog(QtWidgets.QDialog):
             self.tor_bridges_use_obfs4_radio = QtWidgets.QRadioButton(strings._('gui_settings_tor_bridges_obfs4_radio_option', True))
         self.tor_bridges_use_obfs4_radio.toggled.connect(self.tor_bridges_use_obfs4_radio_toggled)
 
+        # meek_lite-amazon option radio
+        # if the obfs4proxy binary is missing, we can't use meek_lite-amazon transports
+        (self.tor_path, self.tor_geo_ip_file_path, self.tor_geo_ipv6_file_path, self.obfs4proxy_file_path) = common.get_tor_paths()
+        if not os.path.isfile(self.obfs4proxy_file_path):
+            self.tor_bridges_use_meek_lite_amazon_radio = QtWidgets.QRadioButton(strings._('gui_settings_tor_bridges_meek_lite_amazon_radio_option_no_obfs4proxy', True))
+            self.tor_bridges_use_meek_lite_amazon_radio.setEnabled(False)
+        else:
+            self.tor_bridges_use_meek_lite_amazon_radio = QtWidgets.QRadioButton(strings._('gui_settings_tor_bridges_meek_lite_amazon_radio_option', True))
+        self.tor_bridges_use_meek_lite_amazon_radio.toggled.connect(self.tor_bridges_use_meek_lite_amazon_radio_toggled)
+
+        # meek_lite-azure option radio
+        # if the obfs4proxy binary is missing, we can't use meek_lite-azure transports
+        (self.tor_path, self.tor_geo_ip_file_path, self.tor_geo_ipv6_file_path, self.obfs4proxy_file_path) = common.get_tor_paths()
+        if not os.path.isfile(self.obfs4proxy_file_path):
+            self.tor_bridges_use_meek_lite_azure_radio = QtWidgets.QRadioButton(strings._('gui_settings_tor_bridges_meek_lite_azure_radio_option_no_obfs4proxy', True))
+            self.tor_bridges_use_meek_lite_azure_radio.setEnabled(False)
+        else:
+            self.tor_bridges_use_meek_lite_azure_radio = QtWidgets.QRadioButton(strings._('gui_settings_tor_bridges_meek_lite_azure_radio_option', True))
+        self.tor_bridges_use_meek_lite_azure_radio.toggled.connect(self.tor_bridges_use_meek_lite_azure_radio_toggled)
+
         # Custom bridges radio and textbox
         self.tor_bridges_use_custom_radio = QtWidgets.QRadioButton(strings._('gui_settings_tor_bridges_custom_radio_option', True))
         self.tor_bridges_use_custom_radio.toggled.connect(self.tor_bridges_use_custom_radio_toggled)
@@ -179,6 +207,8 @@ class SettingsDialog(QtWidgets.QDialog):
         bridges_layout = QtWidgets.QVBoxLayout()
         bridges_layout.addWidget(self.tor_bridges_no_bridges_radio)
         bridges_layout.addWidget(self.tor_bridges_use_obfs4_radio)
+        bridges_layout.addWidget(self.tor_bridges_use_meek_lite_amazon_radio)
+        bridges_layout.addWidget(self.tor_bridges_use_meek_lite_azure_radio)
         bridges_layout.addWidget(self.tor_bridges_use_custom_radio)
         bridges_layout.addWidget(self.tor_bridges_use_custom_textbox_options)
 
@@ -295,9 +325,12 @@ class SettingsDialog(QtWidgets.QDialog):
         self.save_button.clicked.connect(self.save_clicked)
         self.cancel_button = QtWidgets.QPushButton(strings._('gui_settings_button_cancel', True))
         self.cancel_button.clicked.connect(self.cancel_clicked)
+        version_label = QtWidgets.QLabel('OnionShare {0:s}'.format(common.get_version()))
+        version_label.setStyleSheet('color: #666666')
         self.help_button = QtWidgets.QPushButton(strings._('gui_settings_button_help', True))
         self.help_button.clicked.connect(self.help_clicked)
         buttons_layout = QtWidgets.QHBoxLayout()
+        buttons_layout.addWidget(version_label)
         buttons_layout.addWidget(self.help_button)
         buttons_layout.addStretch()
         buttons_layout.addWidget(self.save_button)
@@ -348,6 +381,12 @@ class SettingsDialog(QtWidgets.QDialog):
             self.systray_notifications_checkbox.setCheckState(QtCore.Qt.Checked)
         else:
             self.systray_notifications_checkbox.setCheckState(QtCore.Qt.Unchecked)
+
+        shutdown_timeout = self.old_settings.get('shutdown_timeout')
+        if shutdown_timeout:
+            self.shutdown_timeout_checkbox.setCheckState(QtCore.Qt.Checked)
+        else:
+            self.shutdown_timeout_checkbox.setCheckState(QtCore.Qt.Unchecked)
 
         save_private_key = self.old_settings.get('save_private_key')
         if save_private_key:
@@ -401,10 +440,15 @@ class SettingsDialog(QtWidgets.QDialog):
         if self.old_settings.get('no_bridges'):
             self.tor_bridges_no_bridges_radio.setChecked(True)
             self.tor_bridges_use_obfs4_radio.setChecked(False)
+            self.tor_bridges_use_meek_lite_amazon_radio.setChecked(False)
+            self.tor_bridges_use_meek_lite_azure_radio.setChecked(False)
             self.tor_bridges_use_custom_radio.setChecked(False)
         else:
             self.tor_bridges_no_bridges_radio.setChecked(False)
             self.tor_bridges_use_obfs4_radio.setChecked(self.old_settings.get('tor_bridges_use_obfs4'))
+            self.tor_bridges_use_meek_lite_amazon_radio.setChecked(self.old_settings.get('tor_bridges_use_meek_lite_amazon'))
+            self.tor_bridges_use_meek_lite_azure_radio.setChecked(self.old_settings.get('tor_bridges_use_meek_lite_azure'))
+
             if self.old_settings.get('tor_bridges_use_custom_bridges'):
                 self.tor_bridges_use_custom_radio.setChecked(True)
                 # Remove the 'Bridge' lines at the start of each bridge.
@@ -437,6 +481,20 @@ class SettingsDialog(QtWidgets.QDialog):
     def tor_bridges_use_obfs4_radio_toggled(self, checked):
         """
         obfs4 bridges option was toggled. If checked, disable custom bridge options.
+        """
+        if checked:
+            self.tor_bridges_use_custom_textbox_options.hide()
+
+    def tor_bridges_use_meek_lite_amazon_radio_toggled(self, checked):
+        """
+        meek_lite-amazon bridges option was toggled. If checked, disable custom bridge options.
+        """
+        if checked:
+            self.tor_bridges_use_custom_textbox_options.hide()
+
+    def tor_bridges_use_meek_lite_azure_radio_toggled(self, checked):
+        """
+        meek_lite_azure bridges option was toggled. If checked, disable custom bridge options.
         """
         if checked:
             self.tor_bridges_use_custom_textbox_options.hide()
@@ -557,31 +615,43 @@ class SettingsDialog(QtWidgets.QDialog):
         self._disable_buttons()
         self.qtapp.processEvents()
 
+        def update_timestamp():
+            # Update the last checked label
+            settings = Settings(self.config)
+            settings.load()
+            autoupdate_timestamp = settings.get('autoupdate_timestamp')
+            self._update_autoupdate_timestamp(autoupdate_timestamp)
+
+        def close_forced_update_thread():
+            forced_update_thread.quit()
+            # Enable buttons
+            self._enable_buttons()
+            # Update timestamp
+            update_timestamp()
+
         # Check for updates
         def update_available(update_url, installed_version, latest_version):
             Alert(strings._("update_available", True).format(update_url, installed_version, latest_version))
+            close_forced_update_thread()
+
         def update_not_available():
             Alert(strings._('update_not_available', True))
+            close_forced_update_thread()
 
-        u = UpdateChecker(self.onion)
-        u.update_available.connect(update_available)
-        u.update_not_available.connect(update_not_available)
-
-        try:
-            u.check(force=True)
-        except UpdateCheckerCheckError:
+        def update_error():
             Alert(strings._('update_error_check_error', True), QtWidgets.QMessageBox.Warning)
-        except UpdateCheckerInvalidLatestVersion as e:
+            close_forced_update_thread()
+
+        def update_invalid_version():
             Alert(strings._('update_error_invalid_latest_version', True).format(e.latest_version), QtWidgets.QMessageBox.Warning)
+            close_forced_update_thread()
 
-        # Enable buttons
-        self._enable_buttons()
-
-        # Update the last checked label
-        settings = Settings(self.config)
-        settings.load()
-        autoupdate_timestamp = settings.get('autoupdate_timestamp')
-        self._update_autoupdate_timestamp(autoupdate_timestamp)
+        forced_update_thread = UpdateThread(self.onion, self.config, force=True)
+        forced_update_thread.update_available.connect(update_available)
+        forced_update_thread.update_not_available.connect(update_not_available)
+        forced_update_thread.update_error.connect(update_error)
+        forced_update_thread.update_invalid_version.connect(update_invalid_version)
+        forced_update_thread.start()
 
     def save_clicked(self):
         """
@@ -590,55 +660,57 @@ class SettingsDialog(QtWidgets.QDialog):
         common.log('SettingsDialog', 'save_clicked')
 
         settings = self.settings_from_fields()
-        settings.save()
+        if settings:
+            settings.save()
 
-        # If Tor isn't connected, or if Tor settings have changed, Reinitialize
-        # the Onion object
-        reboot_onion = False
-        if self.onion.is_authenticated():
-            common.log('SettingsDialog', 'save_clicked', 'Connected to Tor')
-            def changed(s1, s2, keys):
-                """
-                Compare the Settings objects s1 and s2 and return true if any values
-                have changed for the given keys.
-                """
-                for key in keys:
-                    if s1.get(key) != s2.get(key):
-                        return True
-                return False
+            # If Tor isn't connected, or if Tor settings have changed, Reinitialize
+            # the Onion object
+            reboot_onion = False
+            if self.onion.is_authenticated():
+                common.log('SettingsDialog', 'save_clicked', 'Connected to Tor')
+                def changed(s1, s2, keys):
+                    """
+                    Compare the Settings objects s1 and s2 and return true if any values
+                    have changed for the given keys.
+                    """
+                    for key in keys:
+                        if s1.get(key) != s2.get(key):
+                            return True
+                    return False
 
-            if changed(settings, self.old_settings, [
-                'connection_type', 'control_port_address',
-                'control_port_port', 'socks_address', 'socks_port',
-                'socket_file_path', 'auth_type', 'auth_password',
-                'no_bridges', 'tor_bridges_use_obfs4',
-                'tor_bridges_use_custom_bridges']):
+                if changed(settings, self.old_settings, [
+                    'connection_type', 'control_port_address',
+                    'control_port_port', 'socks_address', 'socks_port',
+                    'socket_file_path', 'auth_type', 'auth_password',
+                    'no_bridges', 'tor_bridges_use_obfs4',
+                    'tor_bridges_use_meek_lite_amazon', 'tor_bridges_use_meek_lite_azure',
+                    'tor_bridges_use_custom_bridges']):
 
+                    reboot_onion = True
+
+            else:
+                common.log('SettingsDialog', 'save_clicked', 'Not connected to Tor')
+                # Tor isn't connected, so try connecting
                 reboot_onion = True
 
-        else:
-            common.log('SettingsDialog', 'save_clicked', 'Not connected to Tor')
-            # Tor isn't connected, so try connecting
-            reboot_onion = True
+            # Do we need to reinitialize Tor?
+            if reboot_onion:
+                # Reinitialize the Onion object
+                common.log('SettingsDialog', 'save_clicked', 'rebooting the Onion')
+                self.onion.cleanup()
 
-        # Do we need to reinitialize Tor?
-        if reboot_onion:
-            # Reinitialize the Onion object
-            common.log('SettingsDialog', 'save_clicked', 'rebooting the Onion')
-            self.onion.cleanup()
+                tor_con = TorConnectionDialog(self.qtapp, settings, self.onion)
+                tor_con.start()
 
-            tor_con = TorConnectionDialog(self.qtapp, settings, self.onion)
-            tor_con.start()
+                common.log('SettingsDialog', 'save_clicked', 'Onion done rebooting, connected to Tor: {}'.format(self.onion.connected_to_tor))
 
-            common.log('SettingsDialog', 'save_clicked', 'Onion done rebooting, connected to Tor: {}'.format(self.onion.connected_to_tor))
+                if self.onion.is_authenticated() and not tor_con.wasCanceled():
+                    self.settings_saved.emit()
+                    self.close()
 
-            if self.onion.is_authenticated() and not tor_con.wasCanceled():
+            else:
                 self.settings_saved.emit()
                 self.close()
-
-        else:
-            self.settings_saved.emit()
-            self.close()
 
     def cancel_clicked(self):
         """
@@ -669,6 +741,7 @@ class SettingsDialog(QtWidgets.QDialog):
 
         settings.set('close_after_first_download', self.close_after_first_download_checkbox.isChecked())
         settings.set('systray_notifications', self.systray_notifications_checkbox.isChecked())
+        settings.set('shutdown_timeout', self.shutdown_timeout_checkbox.isChecked())
         if self.save_private_key_checkbox.isChecked():
             settings.set('save_private_key', True)
             settings.set('private_key', self.old_settings.get('private_key'))
@@ -717,14 +790,33 @@ class SettingsDialog(QtWidgets.QDialog):
         if self.tor_bridges_no_bridges_radio.isChecked():
             settings.set('no_bridges', True)
             settings.set('tor_bridges_use_obfs4', False)
+            settings.set('tor_bridges_use_meek_lite_amazon', False)
+            settings.set('tor_bridges_use_meek_lite_azure', False)
             settings.set('tor_bridges_use_custom_bridges', '')
         if self.tor_bridges_use_obfs4_radio.isChecked():
             settings.set('no_bridges', False)
             settings.set('tor_bridges_use_obfs4', True)
+            settings.set('tor_bridges_use_meek_lite_amazon', False)
+            settings.set('tor_bridges_use_meek_lite_azure', False)
+            settings.set('tor_bridges_use_custom_bridges', '')
+        if self.tor_bridges_use_meek_lite_amazon_radio.isChecked():
+            settings.set('no_bridges', False)
+            settings.set('tor_bridges_use_obfs4', False)
+            settings.set('tor_bridges_use_meek_lite_amazon', True)
+            settings.set('tor_bridges_use_meek_lite_azure', False)
+            settings.set('tor_bridges_use_custom_bridges', '')
+        if self.tor_bridges_use_meek_lite_azure_radio.isChecked():
+            settings.set('no_bridges', False)
+            settings.set('tor_bridges_use_obfs4', False)
+            settings.set('tor_bridges_use_meek_lite_amazon', False)
+            settings.set('tor_bridges_use_meek_lite_azure', True)
             settings.set('tor_bridges_use_custom_bridges', '')
         if self.tor_bridges_use_custom_radio.isChecked():
             settings.set('no_bridges', False)
             settings.set('tor_bridges_use_obfs4', False)
+            settings.set('tor_bridges_use_meek_lite_amazon', False)
+            settings.set('tor_bridges_use_meek_lite_azure', False)
+
             # Insert a 'Bridge' line at the start of each bridge.
             # This makes it easier to copy/paste a set of bridges
             # provided from https://bridges.torproject.org
@@ -734,8 +826,12 @@ class SettingsDialog(QtWidgets.QDialog):
             for bridge in bridges:
                 if bridge != '':
                     # Check the syntax of the custom bridge to make sure it looks legitimate
-                    pattern = re.compile("[0-9.]+:[0-9]+\s[A-Z0-9]+$")
-                    if pattern.match(bridge):
+                    ipv4_pattern = re.compile("(obfs4\s+)?(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]):([0-9]+)(\s+)([A-Z0-9]+)(.+)$")
+                    ipv6_pattern = re.compile("(obfs4\s+)?\[(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))\]:[0-9]+\s+[A-Z0-9]+(.+)$")
+                    meek_lite_pattern = re.compile("(meek_lite)(\s)+([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+:[0-9]+)(\s)+([0-9A-Z]+)(\s)+url=(.+)(\s)+front=(.+)")
+                    if ipv4_pattern.match(bridge) or \
+                       ipv6_pattern.match(bridge) or \
+                       meek_lite_pattern.match(bridge):
                         new_bridges.append(''.join(['Bridge ', bridge, '\n']))
                         bridges_valid = True
             if bridges_valid:
@@ -744,6 +840,7 @@ class SettingsDialog(QtWidgets.QDialog):
             else:
                 Alert(strings._('gui_settings_tor_bridges_invalid', True))
                 settings.set('no_bridges', True)
+                return False
 
         return settings
 

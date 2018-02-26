@@ -64,7 +64,6 @@
     "error_stealth_not_supported": "Om een geheime onion service te maken heb je minstens Tor 0.2.9.1-alpha (of Tor Browser 6.5) en minstens python3-stem 1.5.0 nodig.",
     "error_ephemeral_not_supported": "OnionShare vereist minstens Tor 0.2.7.1 en minstens python3-stem 1.4.0.",
     "gui_settings_window_title": "Instellingen",
-    "gui_settings_window_title": "Instellingen",
     "gui_settings_stealth_label": "Stealth (geavanceerd)",
     "gui_settings_stealth_option": "Maak stealth onion services",
     "gui_settings_stealth_option_details": "Dit maakt OnionShare veiliger, maar ook lastiger voor de ontvanger om te verbinden.<br><a href=\"https://github.com/micahflee/onionshare/wiki/Stealth-Onion-Services\">Meer informatie</a>.",
