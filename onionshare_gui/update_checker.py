@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 from PyQt5 import QtCore
 import datetime, time, socket, re, platform
+from distutils.version import LooseVersion as Version
 
 from onionshare import socks
 from onionshare.settings import Settings
@@ -51,6 +52,8 @@ class UpdateChecker(QtCore.QObject):
     """
     update_available = QtCore.pyqtSignal(str, str, str)
     update_not_available = QtCore.pyqtSignal()
+    update_error = QtCore.pyqtSignal()
+    update_invalid_version = QtCore.pyqtSignal()
 
     def __init__(self, onion, config=False):
         super(UpdateChecker, self).__init__()
@@ -96,7 +99,10 @@ class UpdateChecker(QtCore.QObject):
                 if force:
                     path += '?force=1'
 
-                onion_domain = 'elx57ue5uyfplgva.onion'
+                if Version(self.onion.tor_version) >= Version('0.3.2.9'):
+                    onion_domain = 'lldan5gahapx5k7iafb3s4ikijc4ni7gx5iywdflkba5y2ezyg6sjgyd.onion'
+                else:
+                    onion_domain = 'elx57ue5uyfplgva.onion'
 
                 common.log('UpdateChecker', 'check', 'loading http://{}{}'.format(onion_domain, path))
 
@@ -120,12 +126,14 @@ class UpdateChecker(QtCore.QObject):
 
             except Exception as e:
                 common.log('UpdateChecker', 'check', '{}'.format(e))
+                self.update_error.emit()
                 raise UpdateCheckerCheckError
 
             # Validate that latest_version looks like a version string
             # This regex is: 1-3 dot-separated numeric components
             version_re = r"^(\d+\.)?(\d+\.)?(\d+)$"
             if not re.match(version_re, latest_version):
+                self.update_invalid_version.emit()
                 raise UpdateCheckerInvalidLatestVersion(latest_version)
 
             # Update the last checked timestamp (dropping the seconds and milliseconds)
@@ -148,12 +156,15 @@ class UpdateChecker(QtCore.QObject):
 class UpdateThread(QtCore.QThread):
     update_available = QtCore.pyqtSignal(str, str, str)
     update_not_available = QtCore.pyqtSignal()
+    update_error = QtCore.pyqtSignal()
+    update_invalid_version = QtCore.pyqtSignal()
 
-    def __init__(self, onion, config=False):
+    def __init__(self, onion, config=False, force=False):
         super(UpdateThread, self).__init__()
         common.log('UpdateThread', '__init__')
         self.onion = onion
         self.config = config
+        self.force = force
 
     def run(self):
         common.log('UpdateThread', 'run')
@@ -161,9 +172,11 @@ class UpdateThread(QtCore.QThread):
         u = UpdateChecker(self.onion, self.config)
         u.update_available.connect(self._update_available)
         u.update_not_available.connect(self._update_not_available)
+        u.update_error.connect(self._update_error)
+        u.update_invalid_version.connect(self._update_invalid_version)
 
         try:
-            u.check(config=self.config)
+            u.check(config=self.config,force=self.force)
         except Exception as e:
             # If update check fails, silently ignore
             common.log('UpdateThread', 'run', '{}'.format(e))
@@ -178,3 +191,13 @@ class UpdateThread(QtCore.QThread):
         common.log('UpdateThread', '_update_not_available')
         self.active = False
         self.update_not_available.emit()
+
+    def _update_error(self):
+        common.log('UpdateThread', '_update_error')
+        self.active = False
+        self.update_error.emit()
+
+    def _update_invalid_version(self):
+        common.log('UpdateThread', '_update_invalid_version')
+        self.active = False
+        self.update_invalid_version.emit()

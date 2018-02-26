@@ -1,5 +1,20 @@
 # OnionShare Changelog
 
+## 1.3
+
+* Major UI redesign, introducing many UX improvements
+* Client-side web interfact redesigned
+* New feature: Support for meek_lite pluggable transports (Amazon and Azure)
+* New feature: Support for custom obfs4 and meek-lite bridges
+* New feature: ability to cancel share before it starts
+* Bug fix: the UpdateChecker no longer blocks the UI when checking
+* Bug fix: simultaneous downloads (broken in 1.2)
+* Update Tor to 0.2.3.9
+* Improved support for BSD
+* Updated French and Danish translations
+* Minor build script and build documentation fixes
+* Add flake8 tests
+
 ## 1.2
 
 * New feature: Support for Tor bridges, including obfs4proxy

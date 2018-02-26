@@ -64,7 +64,7 @@ class OnionShareExtension(GObject.GObject, Nautilus.MenuProvider):
         """
 
     def url2path(self,url):
-	file_uri = url.get_activation_uri()
+        file_uri = url.get_activation_uri()
         arg_uri = file_uri[7:]
         path = urllib.url2pathname(arg_uri)
         return path

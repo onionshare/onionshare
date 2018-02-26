@@ -1,12 +1,14 @@
+import sys
+# Force tests to look for resources in the source code tree
+sys.onionshare_dev_mode = True
+
 import os
 import shutil
-import sys
 import tempfile
 
 import pytest
 
 from onionshare import common
-
 
 @pytest.fixture
 def temp_dir_1024():

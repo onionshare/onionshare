@@ -131,7 +131,7 @@ class Onion(object):
         self.stealth = False
         self.service_id = None
 
-        self.system = platform.system()
+        self.system = common.get_platform()
 
         # Is bundled tor supported?
         if (self.system == 'Windows' or self.system == 'Darwin') and getattr(sys, 'onionshare_dev_mode', False):
@@ -183,7 +183,7 @@ class Onion(object):
                     raise OSError(strings._('no_available_port'))
                 self.tor_torrc = os.path.join(self.tor_data_directory.name, 'torrc')
             else:
-                # Linux and Mac can use unix sockets
+                # Linux, Mac and BSD can use unix sockets
                 with open(common.get_resource_path('torrc_template')) as f:
                     torrc_template = f.read()
                 self.tor_control_port = None
@@ -211,7 +211,22 @@ class Onion(object):
                     with open(common.get_resource_path('torrc_template-obfs4')) as o:
                         for line in o:
                             f.write(line)
+                elif self.settings.get('tor_bridges_use_meek_lite_amazon'):
+                    f.write('ClientTransportPlugin meek_lite exec {}\n'.format(self.obfs4proxy_file_path))
+                    with open(common.get_resource_path('torrc_template-meek_lite_amazon')) as o:
+                        for line in o:
+                            f.write(line)
+                elif self.settings.get('tor_bridges_use_meek_lite_azure'):
+                    f.write('ClientTransportPlugin meek_lite exec {}\n'.format(self.obfs4proxy_file_path))
+                    with open(common.get_resource_path('torrc_template-meek_lite_azure')) as o:
+                        for line in o:
+                            f.write(line)
+
                 if self.settings.get('tor_bridges_use_custom_bridges'):
+                    if 'obfs4' in self.settings.get('tor_bridges_use_custom_bridges'):
+                        f.write('ClientTransportPlugin obfs4 exec {}\n'.format(self.obfs4proxy_file_path))
+                    elif 'meek_lite' in self.settings.get('tor_bridges_use_custom_bridges'):
+                        f.write('ClientTransportPlugin meek_lite exec {}\n'.format(self.obfs4proxy_file_path))
                     f.write(self.settings.get('tor_bridges_use_custom_bridges'))
                     f.write('\nUseBridges 1')
 
@@ -265,7 +280,10 @@ class Onion(object):
                 time.sleep(0.2)
 
                 # If using bridges, it might take a bit longer to connect to Tor
-                if self.settings.get('tor_bridges_use_custom_bridges') or self.settings.get('tor_bridges_use_obfs4'):
+                if self.settings.get('tor_bridges_use_custom_bridges') or \
+                   self.settings.get('tor_bridges_use_obfs4') or \
+                   self.settings.get('tor_bridges_use_meek_lite_amazon') or \
+                   self.settings.get('tor_bridges_use_meek_lite_azure'):
                     connect_timeout = 150
                 else:
                     # Timeout after 120 seconds
@@ -316,7 +334,7 @@ class Onion(object):
             # guessing the socket file name next
             if not found_tor:
                 try:
-                    if self.system == 'Linux':
+                    if self.system == 'Linux' or self.system == 'BSD':
                         socket_file_path = '/run/user/{}/Tor/control.socket'.format(os.geteuid())
                     elif self.system == 'Darwin':
                         socket_file_path = '/run/user/{}/Tor/control.socket'.format(os.geteuid())
@@ -470,8 +488,8 @@ class Onion(object):
                 auth_cookie = list(res.client_auth.values())[0]
                 self.auth_string = 'HidServAuth {} {}'.format(onion_host, auth_cookie)
 
-        self.settings.save()
         if onion_host is not None:
+            self.settings.save()
             return onion_host
         else:
             raise TorErrorProtocolError(strings._('error_tor_protocol_error'))
@@ -482,13 +500,19 @@ class Onion(object):
         """
         common.log('Onion', 'cleanup')
 
-        # Cleanup the ephemeral onion service
-        if self.service_id:
-            try:
-                self.c.remove_ephemeral_hidden_service(self.service_id)
-            except:
-                pass
-            self.service_id = None
+        # Cleanup the ephemeral onion services, if we have any
+        try:
+            onions = self.c.list_ephemeral_hidden_services()
+            for onion in onions:
+                try:
+                    common.log('Onion', 'cleanup', 'trying to remove onion {}'.format(onion))
+                    self.c.remove_ephemeral_hidden_service(onion)
+                except:
+                    common.log('Onion', 'cleanup', 'could not remove onion {}.. moving on anyway'.format(onion))
+                    pass
+        except:
+            pass
+        self.service_id = None
 
         if stop_tor:
             # Stop tor process

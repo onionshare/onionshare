@@ -38,6 +38,8 @@ Install Xcode from the Mac App Store. Once it's installed, run it for the first 
 
 Download and install Python 3.6.4 from https://www.python.org/downloads/release/python-364/. I downloaded `python-3.6.4-macosx10.6.pkg`.
 
+You may also need to run the command `/Applications/Python\ 3.6/Install\ Certificates.command` to update Python 3.6's internal certificate store. Otherwise, you may find that fetching the Tor Browser .dmg file fails later due to a certificate validation error.
+
 Download and install Qt5 from https://www.qt.io/download-open-source/. I downloaded `qt-unified-mac-x64-3.0.2-online.dmg`. There's no need to login to a Qt account during installation. Make sure you install the latest Qt 5.x. I installed Qt 5.10.0 -- all you need is to check `Qt > Qt 5.10.0 > macOS`.
 
 Now install some python dependencies with pip (note, there's issues building a .app if you install this in a virtualenv):
