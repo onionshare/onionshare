@@ -4,8 +4,8 @@
 
 * Major UI redesign, introducing many UX improvements
 * Client-side web interfact redesigned
-* New feature: Support for meek_lite pluggable transports (Amazon and Azure)
-* New feature: Support for custom obfs4 and meek-lite bridges
+* New feature: Support for meek_lite pluggable transports (Amazon and Azure) - not yet ready for Windows or Mac, sorry
+* New feature: Support for custom obfs4 and meek_lite bridges (again, meek_lite not available on Windows/Mac yet)
 * New feature: ability to cancel share before it starts
 * Bug fix: the UpdateChecker no longer blocks the UI when checking
 * Bug fix: simultaneous downloads (broken in 1.2)
