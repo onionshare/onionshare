@@ -98,24 +98,32 @@ class Downloads(QtWidgets.QWidget):
     def __init__(self):
         super(Downloads, self).__init__()
         self.downloads = {}
+
+        self.downloads_container = QtWidgets.QScrollArea()
+        self.downloads_container.setWidget(self)
+        self.downloads_container.setWindowTitle(strings._('gui_downloads', True))
+        self.downloads_container.setWidgetResizable(True)
+        self.downloads_container.setMaximumHeight(600)
+        self.downloads_container.setMinimumHeight(150)
+        self.downloads_container.setMinimumWidth(350)
+        self.downloads_container.setWindowIcon(QtGui.QIcon(common.get_resource_path('images/logo.png')))
+        self.downloads_container.setWindowFlags(QtCore.Qt.Sheet | QtCore.Qt.WindowTitleHint | QtCore.Qt.WindowSystemMenuHint | QtCore.Qt.CustomizeWindowHint)
+        self.downloads_container.vbar = self.downloads_container.verticalScrollBar()
+
         self.downloads_label = QtWidgets.QLabel(strings._('gui_downloads', True))
         self.downloads_label.setStyleSheet('QLabel { font-weight: bold; font-size 14px; text-align: center; }')
         self.no_downloads_label = QtWidgets.QLabel(strings._('gui_no_downloads', True))
+
         self.layout = QtWidgets.QVBoxLayout()
         self.layout.addWidget(self.downloads_label)
         self.layout.addWidget(self.no_downloads_label)
         self.setLayout(self.layout)
-        self.setWindowTitle(strings._('gui_downloads', True))
-        self.setMinimumWidth(350)
-        self.setWindowIcon(QtGui.QIcon(common.get_resource_path('images/logo.png')))
-        self.setWindowFlags(QtCore.Qt.Sheet | QtCore.Qt.WindowTitleHint | QtCore.Qt.WindowSystemMenuHint | QtCore.Qt.CustomizeWindowHint)
 
     def add_download(self, download_id, total_bytes):
         """
         Add a new download progress bar.
         """
         # add it to the list
-        self.no_downloads_label.hide()
         download = Download(download_id, total_bytes)
         self.downloads[download_id] = download
         self.layout.addWidget(download.progress_bar)
