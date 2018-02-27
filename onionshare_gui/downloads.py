@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import time
 
-from PyQt5 import QtCore, QtWidgets
+from PyQt5 import QtCore, QtWidgets, QtGui
 
 from onionshare import strings, common
 
@@ -98,19 +98,27 @@ class Downloads(QtWidgets.QWidget):
     def __init__(self):
         super(Downloads, self).__init__()
         self.downloads = {}
+        self.downloads_label = QtWidgets.QLabel(strings._('gui_downloads', True))
+        self.downloads_label.setStyleSheet('QLabel { font-weight: bold; font-size 14px; text-align: center; }')
+        self.no_downloads_label = QtWidgets.QLabel(strings._('gui_no_downloads', True))
         self.layout = QtWidgets.QVBoxLayout()
+        self.layout.addWidget(self.downloads_label)
+        self.layout.addWidget(self.no_downloads_label)
         self.setLayout(self.layout)
+        self.setWindowTitle(strings._('gui_downloads', True))
+        self.setMinimumWidth(350)
+        self.setWindowIcon(QtGui.QIcon(common.get_resource_path('images/logo.png')))
+        self.setWindowFlags(QtCore.Qt.Sheet | QtCore.Qt.WindowTitleHint | QtCore.Qt.WindowSystemMenuHint | QtCore.Qt.CustomizeWindowHint)
 
     def add_download(self, download_id, total_bytes):
         """
         Add a new download progress bar.
         """
-        self.parent().show()
-
         # add it to the list
+        self.no_downloads_label.hide()
         download = Download(download_id, total_bytes)
         self.downloads[download_id] = download
-        self.layout.insertWidget(-1, download.progress_bar)
+        self.layout.addWidget(download.progress_bar)
 
     def update_download(self, download_id, downloaded_bytes):
         """
