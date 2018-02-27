@@ -694,6 +694,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.update_downloads_completed(0)
         self.update_downloads_in_progress(0)
         self.info_show_downloads.setIcon(QtGui.QIcon(common.get_resource_path('images/download_window_gray.png')))
+        self.downloads.no_downloads_label.show()
 
     def update_downloads_completed(self, count):
         """
