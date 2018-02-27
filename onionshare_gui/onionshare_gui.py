@@ -560,6 +560,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         # scroll to the bottom of the dl progress bar log pane
         # if a new download has been added
         if self.new_download:
+            self.downloads.downloads_container.vbar.setValue(self.downloads.downloads_container.vbar.maximum())
             self.new_download = False
 
         events = []
@@ -577,6 +578,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
                 self.status_bar.showMessage(strings._('download_page_loaded', True))
 
             elif event["type"] == web.REQUEST_DOWNLOAD:
+                self.downloads.no_downloads_label.hide()
                 self.downloads.add_download(event["data"]["id"], web.zip_filesize)
                 self.new_download = True
                 self.downloads_in_progress += 1
@@ -649,9 +651,9 @@ class OnionShareGui(QtWidgets.QMainWindow):
         """
         common.log('OnionShareGui', 'toggle_downloads')
         if checked:
-            self.downloads.show()
+            self.downloads.downloads_container.show()
         else:
-            self.downloads.hide()
+            self.downloads.downloads_container.hide()
 
     def copy_url(self):
         """
@@ -695,6 +697,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.update_downloads_in_progress(0)
         self.info_show_downloads.setIcon(QtGui.QIcon(common.get_resource_path('images/download_window_gray.png')))
         self.downloads.no_downloads_label.show()
+        self.downloads.downloads_container.resize(self.downloads.downloads_container.sizeHint())
 
     def update_downloads_completed(self, count):
         """
