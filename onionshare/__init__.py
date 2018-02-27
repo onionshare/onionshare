@@ -18,12 +18,30 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-import os, sys, time, argparse, threading
+import argparse
+import os
+import sys
+import threading
+import time
 
 from . import strings, common, web
-from .onion import *
+from .onion import (
+    BundledTorNotSupported,
+    BundledTorTimeout,
+    Onion,
+    TorErrorAuthError,
+    TorErrorAutomatic,
+    TorErrorInvalidSetting,
+    TorErrorMissingPassword,
+    TorErrorProtocolError,
+    TorErrorSocketFile,
+    TorErrorSocketPort,
+    TorErrorUnreadableCookieFile,
+    TorTooOld
+)
 from .onionshare import OnionShare
 from .settings import Settings
+
 
 def main(cwd=None):
     """
@@ -39,7 +57,7 @@ def main(cwd=None):
             os.chdir(cwd)
 
     # Parse arguments
-    parser = argparse.ArgumentParser(formatter_class=lambda prog: argparse.HelpFormatter(prog,max_help_position=28))
+    parser = argparse.ArgumentParser(formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=28))
     parser.add_argument('--local-only', action='store_true', dest='local_only', help=strings._("help_local_only"))
     parser.add_argument('--stay-open', action='store_true', dest='stay_open', help=strings._("help_stay_open"))
     parser.add_argument('--shutdown-timeout', metavar='<int>', dest='shutdown_timeout', default=0, help=strings._("help_shutdown_timeout"))
@@ -76,7 +94,6 @@ def main(cwd=None):
             valid = False
     if not valid:
         sys.exit()
-
 
     settings = Settings(config)
 
@@ -134,7 +151,7 @@ def main(cwd=None):
                 settings.set('slug', web.slug)
                 settings.save()
 
-        if(stealth):
+        if stealth:
             print(strings._("give_this_url_stealth"))
             print('http://{0:s}/{1:s}'.format(app.onion_host, web.slug))
             print(app.auth_string)
@@ -163,6 +180,7 @@ def main(cwd=None):
         # Shutdown
         app.cleanup()
         onion.cleanup()
+
 
 if __name__ == '__main__':
     main()
