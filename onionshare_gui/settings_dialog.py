@@ -48,6 +48,16 @@ class SettingsDialog(QtWidgets.QDialog):
 
         self.system = platform.system()
 
+        # General app settings
+        self.minimize_to_tray_on_close_checkbox = QtWidgets.QCheckBox()
+        self.minimize_to_tray_on_close_checkbox.setText(strings._("gui_settings_minimize_to_tray_on_close_option", True))
+
+        # General app settings layout
+        general_app_settings_group_layout = QtWidgets.QVBoxLayout()
+        general_app_settings_group_layout.addWidget(self.minimize_to_tray_on_close_checkbox)
+        general_group = QtWidgets.QGroupBox(strings._("gui_settings_general_label", True))
+        general_group.setLayout(general_app_settings_group_layout)
+
         # Sharing options
 
         # Close after first download
@@ -351,6 +361,7 @@ class SettingsDialog(QtWidgets.QDialog):
         left_col_layout.addWidget(sharing_group)
         left_col_layout.addWidget(stealth_group)
         left_col_layout.addWidget(autoupdate_group)
+        left_col_layout.addWidget(general_group)
         left_col_layout.addStretch()
 
         right_col_layout = QtWidgets.QVBoxLayout()
@@ -374,6 +385,12 @@ class SettingsDialog(QtWidgets.QDialog):
         # Load settings, and fill them in
         self.old_settings = Settings(self.config)
         self.old_settings.load()
+
+        minimize_to_tray_on_close = self.old_settings.get('minimize_to_tray_on_close')
+        if minimize_to_tray_on_close:
+            self.minimize_to_tray_on_close_checkbox.setCheckState(QtCore.Qt.Checked)
+        else:
+            self.minimize_to_tray_on_close_checkbox.setCheckState(QtCore.Qt.Unchecked)
 
         close_after_first_download = self.old_settings.get('close_after_first_download')
         if close_after_first_download:
@@ -744,6 +761,7 @@ class SettingsDialog(QtWidgets.QDialog):
         settings = Settings(self.config)
         settings.load() # To get the last update timestamp
 
+        settings.set('minimize_to_tray_on_close', self.minimize_to_tray_on_close_checkbox.isChecked())
         settings.set('close_after_first_download', self.close_after_first_download_checkbox.isChecked())
         settings.set('systray_notifications', self.systray_notifications_checkbox.isChecked())
         settings.set('shutdown_timeout', self.shutdown_timeout_checkbox.isChecked())
