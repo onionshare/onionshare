@@ -18,17 +18,62 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-import os, sys, time, argparse, threading
+import os
+import sys
+import threading
+import time
+from argparse import ArgumentParser, FileType, HelpFormatter
 
 from . import strings, common, web
-from .onion import *
+from .onion import (
+    BundledTorNotSupported,
+    BundledTorTimeout,
+    Onion,
+    TorErrorAuthError,
+    TorErrorAutomatic,
+    TorErrorInvalidSetting,
+    TorErrorMissingPassword,
+    TorErrorProtocolError,
+    TorErrorSocketFile,
+    TorErrorSocketPort,
+    TorErrorUnreadableCookieFile,
+    TorTooOld
+)
 from .onionshare import OnionShare
 from .settings import Settings
 
+
+def _parse_cmdline_args():
+    parser = ArgumentParser(
+        formatter_class=lambda prog: HelpFormatter(prog, max_help_position=28))
+    parser.add_argument(
+        '--local-only', action='store_true',
+        help=strings._("help_local_only"))
+    parser.add_argument(
+        '--stay-open', action='store_true',
+        help=strings._("help_stay_open"))
+    parser.add_argument(
+        '--shutdown-timeout', metavar='<int>', default=0, type=int,
+        help=strings._("help_shutdown_timeout"))
+    parser.add_argument(
+        '--stealth', action='store_true',
+        help=strings._("help_stealth"))
+    parser.add_argument(
+        '--debug', action='store_true',
+        help=strings._("help_debug"))
+    parser.add_argument(
+        '--config', metavar='config', default=False, type=FileType('r'),
+        help=strings._('help_config'))
+    parser.add_argument(
+        'filename', metavar='filename', nargs='+', type=FileType('r'),
+        help=strings._('help_filename'))
+    return parser.parse_args()
+
+
 def main(cwd=None):
     """
-    The main() function implements all of the logic that the command-line version of
-    onionshare uses.
+    The main() function implements all of the logic that the
+    command-line version of onionshare uses.
     """
     strings.load_strings(common)
     print(strings._('version_string').format(common.get_version()))
@@ -38,53 +83,39 @@ def main(cwd=None):
         if cwd:
             os.chdir(cwd)
 
-    # Parse arguments
-    parser = argparse.ArgumentParser(formatter_class=lambda prog: argparse.HelpFormatter(prog,max_help_position=28))
-    parser.add_argument('--local-only', action='store_true', dest='local_only', help=strings._("help_local_only"))
-    parser.add_argument('--stay-open', action='store_true', dest='stay_open', help=strings._("help_stay_open"))
-    parser.add_argument('--shutdown-timeout', metavar='<int>', dest='shutdown_timeout', default=0, help=strings._("help_shutdown_timeout"))
-    parser.add_argument('--stealth', action='store_true', dest='stealth', help=strings._("help_stealth"))
-    parser.add_argument('--debug', action='store_true', dest='debug', help=strings._("help_debug"))
-    parser.add_argument('--config', metavar='config', default=False, help=strings._('help_config'))
-    parser.add_argument('filename', metavar='filename', nargs='+', help=strings._('help_filename'))
-    args = parser.parse_args()
+    args = _parse_cmdline_args()
 
-    filenames = args.filename
-    for i in range(len(filenames)):
-        filenames[i] = os.path.abspath(filenames[i])
+    filenames = []
+    for f in args.filename:
+        filenames.append(os.path.abspath(f.name))
+        f.close()
 
-    local_only = bool(args.local_only)
-    debug = bool(args.debug)
-    stay_open = bool(args.stay_open)
-    shutdown_timeout = int(args.shutdown_timeout)
-    stealth = bool(args.stealth)
-    config = args.config
+    if args.config:
+        args.config.close()
+        args.config = args.config.name
 
     # Debug mode?
-    if debug:
-        common.set_debug(debug)
+    if args.debug:
+        common.set_debug(True)
         web.debug_mode()
 
-    # Validation
-    valid = True
-    for filename in filenames:
-        if not os.path.isfile(filename) and not os.path.isdir(filename):
-            print(strings._("not_a_file").format(filename))
-            valid = False
-        if not os.access(filename, os.R_OK):
-            print(strings._("not_a_readable_file").format(filename))
-            valid = False
-    if not valid:
-        sys.exit()
-
-
-    settings = Settings(config)
+    settings = Settings(args.config)
 
     # Start the Onion object
     onion = Onion()
     try:
-        onion.connect(settings=False, config=config)
-    except (TorTooOld, TorErrorInvalidSetting, TorErrorAutomatic, TorErrorSocketPort, TorErrorSocketFile, TorErrorMissingPassword, TorErrorUnreadableCookieFile, TorErrorAuthError, TorErrorProtocolError, BundledTorNotSupported, BundledTorTimeout) as e:
+        onion.connect(settings=False, config=args.config)
+    except (BundledTorNotSupported,
+            BundledTorTimeout,
+            TorErrorAuthError,
+            TorErrorAutomatic,
+            TorErrorInvalidSetting,
+            TorErrorMissingPassword,
+            TorErrorProtocolError,
+            TorErrorSocketFile,
+            TorErrorSocketPort,
+            TorErrorUnreadableCookieFile,
+            TorTooOld) as e:
         sys.exit(e.args[0])
     except KeyboardInterrupt:
         print("")
@@ -92,8 +123,12 @@ def main(cwd=None):
 
     # Start the onionshare app
     try:
-        app = OnionShare(onion, local_only, stay_open, shutdown_timeout)
-        app.set_stealth(stealth)
+        app = OnionShare(
+            onion,
+            args.local_only,
+            args.stay_open,
+            args.shutdown_timeout)
+        app.set_stealth(args.stealth)
         app.start_onion_service()
     except KeyboardInterrupt:
         print("")
@@ -116,7 +151,9 @@ def main(cwd=None):
 
     # Start OnionShare http service in new thread
     settings.load()
-    t = threading.Thread(target=web.start, args=(app.port, app.stay_open, settings.get('slug')))
+    t = threading.Thread(
+        target=web.start,
+        args=(app.port, app.stay_open, settings.get('slug')))
     t.daemon = True
     t.start()
 
@@ -134,7 +171,7 @@ def main(cwd=None):
                 settings.set('slug', web.slug)
                 settings.save()
 
-        if(stealth):
+        if args.stealth:
             print(strings._("give_this_url_stealth"))
             print('http://{0:s}/{1:s}'.format(app.onion_host, web.slug))
             print(app.auth_string)
@@ -163,6 +200,7 @@ def main(cwd=None):
         # Shutdown
         app.cleanup()
         onion.cleanup()
+
 
 if __name__ == '__main__':
     main()
