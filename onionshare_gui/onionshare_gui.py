@@ -275,10 +275,13 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.settingsAction.triggered.connect(self.open_settings)
         self.helpAction = menu.addAction(strings._('gui_settings_button_help', True))
         self.helpAction.triggered.connect(SettingsDialog.help_clicked)
+        self.hideAction = menu.addAction(strings._('gui_settings_hide_to_tray', True))
+        self.hideAction.triggered.connect(self.hide)
         self.exitAction = menu.addAction(strings._('systray_menu_exit', True))
-        self.exitAction.triggered.connect(self.close)
+        self.exitAction.triggered.connect(self.close_from_systray)
 
         self.systemTray = QtWidgets.QSystemTrayIcon(self)
+        self.systemTray.activated.connect(self._show_main_window)
         # The convention is Mac systray icons are always grayscale
         if system == 'Darwin':
             self.systemTray.setIcon(QtGui.QIcon(common.get_resource_path('images/logo_grayscale.png')))
@@ -286,6 +289,13 @@ class OnionShareGui(QtWidgets.QMainWindow):
             self.systemTray.setIcon(QtGui.QIcon(common.get_resource_path('images/logo.png')))
         self.systemTray.setContextMenu(menu)
         self.systemTray.show()
+
+    def _show_main_window(self):
+        """
+        Show the main window if it was previously hidden and the the systray was clicked on.
+        """
+        if not self.isVisible():
+            self.show()
 
     def _tor_connection_canceled(self):
         """
@@ -712,29 +722,56 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
     def closeEvent(self, e):
         common.log('OnionShareGui', 'closeEvent')
-        try:
-            if self.server_status.status != self.server_status.STATUS_STOPPED:
-                common.log('OnionShareGui', 'closeEvent, opening warning dialog')
-                dialog = QtWidgets.QMessageBox()
-                dialog.setWindowTitle(strings._('gui_quit_title', True))
-                dialog.setText(strings._('gui_quit_warning', True))
-                dialog.setIcon(QtWidgets.QMessageBox.Critical)
-                quit_button = dialog.addButton(strings._('gui_quit_warning_quit', True), QtWidgets.QMessageBox.YesRole)
-                dont_quit_button = dialog.addButton(strings._('gui_quit_warning_dont_quit', True), QtWidgets.QMessageBox.NoRole)
-                dialog.setDefaultButton(dont_quit_button)
-                reply = dialog.exec_()
+        if not self.settings.get('minimize_to_tray_on_close'):
+            try:
+                if self.server_status.status != self.server_status.STATUS_STOPPED:
+                    common.log('OnionShareGui', 'closeEvent, opening warning dialog')
+                    dialog = QtWidgets.QMessageBox()
+                    dialog.setWindowTitle(strings._('gui_quit_title', True))
+                    dialog.setText(strings._('gui_quit_warning', True))
+                    dialog.setIcon(QtWidgets.QMessageBox.Critical)
+                    quit_button = dialog.addButton(strings._('gui_quit_warning_quit', True), QtWidgets.QMessageBox.YesRole)
+                    dont_quit_button = dialog.addButton(strings._('gui_quit_warning_dont_quit', True), QtWidgets.QMessageBox.NoRole)
+                    dialog.setDefaultButton(dont_quit_button)
+                    reply = dialog.exec_()
 
-                # Quit
-                if reply == 0:
-                    self.stop_server()
-                    e.accept()
-                # Don't Quit
-                else:
-                    e.ignore()
+                    # Quit
+                    if reply == 0:
+                        self.stop_server()
+                        e.accept()
+                    # Don't Quit
+                    else:
+                        e.ignore()
 
-        except:
-            e.accept()
+            except:
+                e.accept()
+        else:
+            common.log('OnionShareGui', 'closeEvent', 'Minimizing to system tray')
+            self.hide()
+            e.ignore()
 
+    def close_from_systray(self, e):
+        # Still warn if there is an active share
+        if self.server_status.status != self.server_status.STATUS_STOPPED:
+            common.log('OnionShareGui', 'close_from_systray, opening warning dialog')
+            dialog = QtWidgets.QMessageBox()
+            dialog.setWindowTitle(strings._('gui_quit_title', True))
+            dialog.setText(strings._('gui_quit_warning', True))
+            dialog.setIcon(QtWidgets.QMessageBox.Critical)
+            quit_button = dialog.addButton(strings._('gui_quit_warning_quit', True), QtWidgets.QMessageBox.YesRole)
+            dont_quit_button = dialog.addButton(strings._('gui_quit_warning_dont_quit', True), QtWidgets.QMessageBox.NoRole)
+            dialog.setDefaultButton(dont_quit_button)
+            reply = dialog.exec_()
+
+            # Quit
+            if reply == 0:
+                self.stop_server()
+                sys.exit()
+            # Don't Quit
+            else:
+                pass
+        else:
+            sys.exit()
 
 class ZipProgressBar(QtWidgets.QProgressBar):
     update_processed_size_signal = QtCore.pyqtSignal(int)

@@ -53,6 +53,7 @@ class TestSettings:
             'socket_file_path': '/var/run/tor/control',
             'auth_type': 'no_auth',
             'auth_password': '',
+            'minimize_to_tray_on_close': False,
             'close_after_first_download': True,
             'systray_notifications': True,
             'shutdown_timeout': False,
@@ -120,6 +121,7 @@ class TestSettings:
         assert settings_obj.get('socket_file_path') == '/var/run/tor/control'
         assert settings_obj.get('auth_type') == 'no_auth'
         assert settings_obj.get('auth_password') == ''
+        assert settings_obj.get('minimize_to_tray_on_close') is False
         assert settings_obj.get('close_after_first_download') is True
         assert settings_obj.get('systray_notifications') is True
         assert settings_obj.get('use_stealth') is False
