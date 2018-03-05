@@ -67,7 +67,8 @@ class TestSettings:
             'save_private_key': False,
             'private_key': '',
             'slug': '',
-            'hidservauth_string': ''
+            'hidservauth_string': '',
+            'downloads_dir': os.path.expanduser('~/Downloads')
         }
 
     def test_fill_in_defaults(self, settings_obj):
