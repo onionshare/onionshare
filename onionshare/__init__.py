@@ -20,7 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import os, sys, time, argparse, threading
 
-from . import strings, common, web
+from . import strings, common
+from .web import Web
 from .onion import *
 from .onionshare import OnionShare
 from .settings import Settings
@@ -67,14 +68,9 @@ def main(cwd=None):
         print(strings._('no_filenames'))
         sys.exit()
 
-    # Tell web if receive mode is enabled
-    if receive:
-        web.set_receive_mode()
-
     # Debug mode?
     if debug:
         common.set_debug(debug)
-        web.debug_mode()
 
     # Validation
     valid = True
@@ -88,9 +84,12 @@ def main(cwd=None):
     if not valid:
         sys.exit()
 
-
+    # Load settings
     settings = Settings(config)
     settings.load()
+
+    # Create the Web object
+    web = Web(debug, stay_open, False, receive)
 
     # Start the Onion object
     onion = Onion()
