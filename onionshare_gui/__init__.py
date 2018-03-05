@@ -22,7 +22,8 @@ import os, sys, platform, argparse
 from .alert import Alert
 from PyQt5 import QtCore, QtWidgets
 
-from onionshare import strings, common, web
+from onionshare import strings, common
+from .web import Web
 from onionshare.onion import Onion
 from onionshare.onionshare import OnionShare
 from onionshare.settings import Settings
