@@ -175,6 +175,19 @@ def set_gui_mode():
     gui_mode = True
 
 
+# Are we using receive mode?
+receive_mode = False
+
+
+def set_receive_mode():
+    """
+    Tell the web service that we're running in GUI mode
+    """
+    global receive_mode
+    receive_mode = True
+    print('receive mode enabled')
+
+
 def debug_mode():
     """
     Turn on debugging mode, which will log flask errors to a debug file.
