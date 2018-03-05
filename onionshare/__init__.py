@@ -44,9 +44,10 @@ def main(cwd=None):
     parser.add_argument('--stay-open', action='store_true', dest='stay_open', help=strings._("help_stay_open"))
     parser.add_argument('--shutdown-timeout', metavar='<int>', dest='shutdown_timeout', default=0, help=strings._("help_shutdown_timeout"))
     parser.add_argument('--stealth', action='store_true', dest='stealth', help=strings._("help_stealth"))
-    parser.add_argument('--debug', action='store_true', dest='debug', help=strings._("help_debug"))
+    parser.add_argument('--receive', action='store_true', dest='receive', help=strings._("help_receive"))
     parser.add_argument('--config', metavar='config', default=False, help=strings._('help_config'))
-    parser.add_argument('filename', metavar='filename', nargs='+', help=strings._('help_filename'))
+    parser.add_argument('--debug', action='store_true', dest='debug', help=strings._("help_debug"))
+    parser.add_argument('filename', metavar='filename', nargs='*', help=strings._('help_filename'))
     args = parser.parse_args()
 
     filenames = args.filename
@@ -58,7 +59,13 @@ def main(cwd=None):
     stay_open = bool(args.stay_open)
     shutdown_timeout = int(args.shutdown_timeout)
     stealth = bool(args.stealth)
+    receive = bool(args.receive)
     config = args.config
+
+    # Make sure filenames given if not using receiver mode
+    if not receive and len(filenames) == 0:
+        print(strings._('no_filenames'))
+        sys.exit()
 
     # Debug mode?
     if debug:
@@ -92,7 +99,7 @@ def main(cwd=None):
 
     # Start the onionshare app
     try:
-        app = OnionShare(onion, local_only, stay_open, shutdown_timeout)
+        app = OnionShare(onion, receive, local_only, stay_open, shutdown_timeout)
         app.set_stealth(stealth)
         app.start_onion_service()
     except KeyboardInterrupt:
