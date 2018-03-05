@@ -27,7 +27,7 @@ class OnionShare(object):
     OnionShare is the main application class. Pass in options and run
     start_onion_service and it will do the magic.
     """
-    def __init__(self, onion, local_only=False, stay_open=False, shutdown_timeout=0):
+    def __init__(self, onion, receive, local_only=False, stay_open=False, shutdown_timeout=0):
         common.log('OnionShare', '__init__')
 
         # The Onion object
@@ -36,6 +36,9 @@ class OnionShare(object):
         self.hidserv_dir = None
         self.onion_host = None
         self.stealth = None
+
+        # Receiver mode
+        self.receive = receive
 
         # files and dirs to delete on shutdown
         self.cleanup_filenames = []
