@@ -67,6 +67,10 @@ def main(cwd=None):
         print(strings._('no_filenames'))
         sys.exit()
 
+    # Tell web if receive mode is enabled
+    if receive:
+        web.set_receive_mode()
+
     # Debug mode?
     if debug:
         common.set_debug(debug)
@@ -100,7 +104,7 @@ def main(cwd=None):
 
     # Start the onionshare app
     try:
-        app = OnionShare(onion, receive, local_only, stay_open, shutdown_timeout)
+        app = OnionShare(onion, local_only, stay_open, shutdown_timeout)
         app.set_stealth(stealth)
         app.start_onion_service()
     except KeyboardInterrupt:

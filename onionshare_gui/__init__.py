@@ -105,7 +105,7 @@ def main():
 
     # Start the OnionShare app
     web.set_stay_open(stay_open)
-    app = OnionShare(onion, False, local_only, stay_open, shutdown_timeout)
+    app = OnionShare(onion, local_only, stay_open, shutdown_timeout)
 
     # Launch the gui
     gui = OnionShareGui(onion, qtapp, app, filenames, config)
