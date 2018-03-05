@@ -70,7 +70,8 @@ class Settings(object):
             'save_private_key': False,
             'private_key': '',
             'slug': '',
-            'hidservauth_string': ''
+            'hidservauth_string': '',
+            'downloads_dir': self.build_default_downloads_dir()
         }
         self._settings = {}
         self.fill_in_defaults()
@@ -96,6 +97,14 @@ class Settings(object):
             return os.path.expanduser('~/Library/Application Support/OnionShare/onionshare.json')
         else:
             return os.path.expanduser('~/.config/onionshare/onionshare.json')
+
+    def build_default_downloads_dir(self):
+        """
+        Returns the path of the default Downloads directory for receive mode.
+        """
+        # TODO: Test in Windows, though it looks like it should work
+        # https://docs.python.org/3/library/os.path.html#os.path.expanduser
+        return os.path.expanduser('~/Downloads')
 
     def load(self):
         """

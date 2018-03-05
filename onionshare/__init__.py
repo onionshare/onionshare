@@ -86,6 +86,7 @@ def main(cwd=None):
 
 
     settings = Settings(config)
+    settings.load()
 
     # Start the Onion object
     onion = Onion()
@@ -122,7 +123,6 @@ def main(cwd=None):
         print('')
 
     # Start OnionShare http service in new thread
-    settings.load()
     t = threading.Thread(target=web.start, args=(app.port, app.stay_open, settings.get('slug')))
     t.daemon = True
     t.start()
