@@ -147,7 +147,7 @@ class Web(object):
 
             # If download is allowed to continue, serve download page
             r = make_response(render_template_string(
-                open(common.get_resource_path('html/index.html')).read(),
+                open(common.get_resource_path('html/send.html')).read(),
                 favicon_b64=self.favicon_b64,
                 logo_b64=self.logo_b64,
                 folder_b64=self.folder_b64,
@@ -275,7 +275,17 @@ class Web(object):
         """
         @self.app.route("/<slug_candidate>")
         def index(slug_candidate):
-            return "Receive Mode"
+            self.check_slug_candidate(slug_candidate)
+
+            # If download is allowed to continue, serve download page
+            r = make_response(render_template_string(
+                open(common.get_resource_path('html/receive.html')).read(),
+                favicon_b64=self.favicon_b64,
+                logo_b64=self.logo_b64,
+                slug=self.slug))
+            for header, value in self.security_headers:
+                r.headers.set(header, value)
+            return r
 
 
     def common_routes(self):
@@ -293,7 +303,7 @@ class Web(object):
                 self.error404_count += 1
                 if self.error404_count == 20:
                     self.add_request(self.REQUEST_RATE_LIMIT, request.path)
-                    force_shutdown()
+                    self.force_shutdown()
                     print(strings._('error_rate_limit'))
 
             r = make_response(render_template_string(
@@ -309,8 +319,8 @@ class Web(object):
             """
             Stop the flask web server, from the context of an http request.
             """
-            check_slug_candidate(slug_candidate, shutdown_slug)
-            force_shutdown()
+            self.check_slug_candidate(slug_candidate, shutdown_slug)
+            self.force_shutdown()
             return ""
 
     def set_file_info(self, filenames, processed_size_callback=None):
