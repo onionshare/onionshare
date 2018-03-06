@@ -104,7 +104,7 @@ class Settings(object):
         """
         # TODO: Test in Windows, though it looks like it should work
         # https://docs.python.org/3/library/os.path.html#os.path.expanduser
-        return os.path.expanduser('~/Downloads')
+        return os.path.expanduser('~/OnionShare')
 
     def load(self):
         """
