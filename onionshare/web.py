@@ -113,6 +113,17 @@ class Web(object):
         # shutting down the server only works within the context of flask, so the easiest way to do it is over http
         self.shutdown_slug = common.random_string(16)
 
+        # Define the ewb app routes
+        self.common_routes()
+        if self.receive_mode:
+            self.receive_routes()
+        else:
+            self.send_routes()
+
+    def send_routes(self):
+        """
+        The web app routes for sharing files
+        """
         @self.app.route("/<slug_candidate>")
         def index(slug_candidate):
             """
@@ -258,6 +269,19 @@ class Web(object):
                 r.headers.set('Content-Type', content_type)
             return r
 
+    def receive_routes(self):
+        """
+        The web app routes for sharing files
+        """
+        @self.app.route("/<slug_candidate>")
+        def index(slug_candidate):
+            return "Receive Mode"
+
+
+    def common_routes(self):
+        """
+        Common web app routes between sending and receiving
+        """
         @self.app.errorhandler(404)
         def page_not_found(e):
             """
