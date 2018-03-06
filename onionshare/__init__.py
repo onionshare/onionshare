@@ -144,13 +144,23 @@ def main(cwd=None):
                 settings.set('slug', web.slug)
                 settings.save()
 
-        if(stealth):
-            print(strings._("give_this_url_stealth"))
-            print('http://{0:s}/{1:s}'.format(app.onion_host, web.slug))
-            print(app.auth_string)
+        print('')
+        if receive:
+            if stealth:
+                print(strings._("give_this_url_receive_stealth"))
+                print('http://{0:s}/{1:s}'.format(app.onion_host, web.slug))
+                print(app.auth_string)
+            else:
+                print(strings._("give_this_url_receive"))
+                print('http://{0:s}/{1:s}'.format(app.onion_host, web.slug))
         else:
-            print(strings._("give_this_url"))
-            print('http://{0:s}/{1:s}'.format(app.onion_host, web.slug))
+            if stealth:
+                print(strings._("give_this_url_stealth"))
+                print('http://{0:s}/{1:s}'.format(app.onion_host, web.slug))
+                print(app.auth_string)
+            else:
+                print(strings._("give_this_url"))
+                print('http://{0:s}/{1:s}'.format(app.onion_host, web.slug))
         print('')
         print(strings._("ctrlc_to_stop"))
 
