@@ -72,21 +72,37 @@ def main(cwd=None):
     if debug:
         common.set_debug(debug)
 
-    # Validation
-    valid = True
-    for filename in filenames:
-        if not os.path.isfile(filename) and not os.path.isdir(filename):
-            print(strings._("not_a_file").format(filename))
-            valid = False
-        if not os.access(filename, os.R_OK):
-            print(strings._("not_a_readable_file").format(filename))
-            valid = False
-    if not valid:
-        sys.exit()
+    # Validate filenames
+    if not receive:
+        valid = True
+        for filename in filenames:
+            if not os.path.isfile(filename) and not os.path.isdir(filename):
+                print(strings._("not_a_file").format(filename))
+                valid = False
+            if not os.access(filename, os.R_OK):
+                print(strings._("not_a_readable_file").format(filename))
+                valid = False
+        if not valid:
+            sys.exit()
 
     # Load settings
     settings = Settings(config)
     settings.load()
+
+    # In receive mode, validate downloads dir
+    if receive:
+        valid = True
+        if not os.path.isdir(settings.get('downloads_dir')):
+            try:
+                os.mkdir(settings.get('downloads_dir'), 0o700)
+            except:
+                print(strings._('error_cannot_create_downloads_dir').format(settings.get('downloads_dir')))
+                valid = False
+        if valid and not os.access(settings.get('downloads_dir'), os.W_OK):
+            print(strings._('error_downloads_dir_not_writable').format(settings.get('downloads_dir')))
+            valid = False
+    if not valid:
+        sys.exit()
 
     # Create the Web object
     web = Web(debug, stay_open, False, receive)
