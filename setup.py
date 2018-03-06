@@ -52,7 +52,8 @@ data_files=[
         (os.path.join(sys.prefix, 'share/onionshare'), file_list('share')),
         (os.path.join(sys.prefix, 'share/onionshare/images'), file_list('share/images')),
         (os.path.join(sys.prefix, 'share/onionshare/locale'), file_list('share/locale')),
-        (os.path.join(sys.prefix, 'share/onionshare/html'), file_list('share/html')),
+        (os.path.join(sys.prefix, 'share/onionshare/templates'), file_list('share/templates')),
+        (os.path.join(sys.prefix, 'share/onionshare/static'), file_list('share/static'))
     ]
 if platform.system() != 'OpenBSD':
     data_files.append(('/usr/share/nautilus-python/extensions/', ['install/scripts/onionshare-nautilus.py']))
