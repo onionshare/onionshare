@@ -26,12 +26,11 @@ import queue
 import socket
 import sys
 import tempfile
-import base64
 from distutils.version import LooseVersion as Version
 from urllib.request import urlopen
 
 from flask import (
-    Flask, Response, request, render_template_string, abort, make_response,
+    Flask, Response, request, render_template, abort, make_response,
     __version__ as flask_version
 )
 
@@ -43,7 +42,9 @@ class Web(object):
     """
     def __init__(self, debug, stay_open, gui_mode, receive_mode=False):
         # The flask app
-        self.app = Flask(__name__)
+        self.app = Flask(__name__,
+                         static_folder=common.get_resource_path('static'),
+                         template_folder=common.get_resource_path('templates'))
 
         # Debug mode?
         if debug:
@@ -88,12 +89,6 @@ class Web(object):
         self.REQUEST_RATE_LIMIT = 5
         self.q = queue.Queue()
 
-        # Load and base64 encode images to pass into templates
-        self.favicon_b64 = self.base64_image('favicon.ico')
-        self.logo_b64 = self.base64_image('logo.png')
-        self.folder_b64 = self.base64_image('web_folder.png')
-        self.file_b64 = self.base64_image('web_file.png')
-
         self.slug = None
 
         self.download_count = 0
@@ -137,29 +132,18 @@ class Web(object):
             # currently a download
             deny_download = not self.stay_open and self.download_in_progress
             if deny_download:
-                r = make_response(render_template_string(
-                    open(common.get_resource_path('html/denied.html')).read(),
-                    favicon_b64=self.favicon_b64
-                ))
-                for header, value in self.security_headers:
-                    r.headers.set(header, value)
-                return r
+                r = make_response(render_template('denied.html'))
+                return self.add_security_headers(r)
 
             # If download is allowed to continue, serve download page
-            r = make_response(render_template_string(
-                open(common.get_resource_path('html/send.html')).read(),
-                favicon_b64=self.favicon_b64,
-                logo_b64=self.logo_b64,
-                folder_b64=self.folder_b64,
-                file_b64=self.file_b64,
+            r = make_response(render_template(
+                'send.html',
                 slug=self.slug,
                 file_info=self.file_info,
                 filename=os.path.basename(self.zip_filename),
                 filesize=self.zip_filesize,
                 filesize_human=common.human_readable_filesize(self.zip_filesize)))
-            for header, value in self.security_headers:
-                r.headers.set(header, value)
-            return r
+            return self.add_security_headers(r)
 
         @self.app.route("/<slug_candidate>/download")
         def download(slug_candidate):
@@ -172,13 +156,8 @@ class Web(object):
             # currently a download
             deny_download = not self.stay_open and self.download_in_progress
             if deny_download:
-                r = make_response(render_template_string(
-                    open(common.get_resource_path('html/denied.html')).read(),
-                    favicon_b64=self.favicon_b64
-                ))
-                for header,value in self.security_headers:
-                    r.headers.set(header, value)
-                return r
+                r = make_response(render_template('denied.html'))
+                return self.add_security_headers(r)
 
             # each download has a unique id
             download_id = self.download_count
@@ -261,8 +240,7 @@ class Web(object):
             r = Response(generate())
             r.headers.set('Content-Length', self.zip_filesize)
             r.headers.set('Content-Disposition', 'attachment', filename=basename)
-            for header,value in self.security_headers:
-                r.headers.set(header, value)
+            r = self.add_security_headers(r)
             # guess content type
             (content_type, _) = mimetypes.guess_type(basename, strict=False)
             if content_type is not None:
@@ -278,15 +256,10 @@ class Web(object):
             self.check_slug_candidate(slug_candidate)
 
             # If download is allowed to continue, serve download page
-            r = make_response(render_template_string(
-                open(common.get_resource_path('html/receive.html')).read(),
-                favicon_b64=self.favicon_b64,
-                logo_b64=self.logo_b64,
+            r = make_response(render_template(
+                'receive.html',
                 slug=self.slug))
-            for header, value in self.security_headers:
-                r.headers.set(header, value)
-            return r
-
+            return self.add_security_headers(r)
 
     def common_routes(self):
         """
@@ -306,13 +279,8 @@ class Web(object):
                     self.force_shutdown()
                     print(strings._('error_rate_limit'))
 
-            r = make_response(render_template_string(
-                open(common.get_resource_path('html/404.html')).read(),
-                favicon_b64=self.favicon_b64
-            ), 404)
-            for header, value in self.security_headers:
-                r.headers.set(header, value)
-            return r
+            r = make_response(render_template('404.html'), 404)
+            return self.add_security_headers(r)
 
         @self.app.route("/<slug_candidate>/shutdown")
         def shutdown(slug_candidate):
@@ -322,6 +290,14 @@ class Web(object):
             self.check_slug_candidate(slug_candidate, shutdown_slug)
             self.force_shutdown()
             return ""
+
+    def add_security_headers(self, r):
+        """
+        Add security headers to a request
+        """
+        for header, value in self.security_headers:
+            r.headers.set(header, value)
+        return r
 
     def set_file_info(self, filenames, processed_size_callback=None):
         """
@@ -361,12 +337,6 @@ class Web(object):
         if filename is None:
             return True
         return filename.endswith(('.html', '.htm', '.xml', '.xhtml'))
-
-    def base64_image(self, filename):
-        """
-        Base64-encode an image file to use data URIs in the web app
-        """
-        return base64.b64encode(open(common.get_resource_path('images/{}'.format(filename)), 'rb').read()).decode()
 
     def add_request(self, request_type, path, data=None):
         """
