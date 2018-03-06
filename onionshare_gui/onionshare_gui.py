@@ -17,10 +17,13 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-import os, threading, time
+import os
+import threading
+import time
+import queue
 from PyQt5 import QtCore, QtWidgets, QtGui
 
-from onionshare import strings, common, web
+from onionshare import strings, common
 from onionshare.settings import Settings
 from onionshare.onion import *
 
@@ -43,13 +46,14 @@ class OnionShareGui(QtWidgets.QMainWindow):
     starting_server_step3 = QtCore.pyqtSignal()
     starting_server_error = QtCore.pyqtSignal(str)
 
-    def __init__(self, onion, qtapp, app, filenames, config=False):
+    def __init__(self, web, onion, qtapp, app, filenames, config=False):
         super(OnionShareGui, self).__init__()
 
         self._initSystemTray()
 
         common.log('OnionShareGui', '__init__')
 
+        self.web = web
         self.onion = onion
         self.qtapp = qtapp
         self.app = app
@@ -70,7 +74,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
                 self.file_selection.file_list.add_file(filename)
 
         # Server status
-        self.server_status = ServerStatus(self.qtapp, self.app, web, self.file_selection, self.settings)
+        self.server_status = ServerStatus(self.qtapp, self.app, self.web, self.file_selection, self.settings)
         self.server_status.server_started.connect(self.file_selection.server_started)
         self.server_status.server_started.connect(self.start_server)
         self.server_status.server_started.connect(self.update_server_status_indicator)
@@ -377,9 +381,8 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.server_share_status_label.setText('')
 
         # Reset web counters
-        web.download_count = 0
-        web.error404_count = 0
-        web.set_gui_mode()
+        self.web.download_count = 0
+        self.web.error404_count = 0
 
         # start the onion service in a new thread
         def start_onion_service(self):
@@ -395,7 +398,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
             self.app.stay_open = not self.settings.get('close_after_first_download')
 
             # start onionshare http service in new thread
-            t = threading.Thread(target=web.start, args=(self.app.port, self.app.stay_open, self.settings.get('slug')))
+            t = threading.Thread(target=self.web.start, args=(self.app.port, self.app.stay_open, self.settings.get('slug')))
             t.daemon = True
             t.start()
             # wait for modules in thread to load, preventing a thread-related cx_Freeze crash
@@ -428,8 +431,8 @@ class OnionShareGui(QtWidgets.QMainWindow):
                 if self._zip_progress_bar != None:
                     self._zip_progress_bar.update_processed_size_signal.emit(x)
             try:
-                web.set_file_info(self.filenames, processed_size_callback=_set_processed_size)
-                self.app.cleanup_filenames.append(web.zip_filename)
+                self.web.set_file_info(self.filenames, processed_size_callback=_set_processed_size)
+                self.app.cleanup_filenames.append(self.web.zip_filename)
                 self.starting_server_step3.emit()
 
                 # done
@@ -455,7 +458,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
             self._zip_progress_bar = None
 
         # warn about sending large files over Tor
-        if web.zip_filesize >= 157286400:  # 150mb
+        if self.web.zip_filesize >= 157286400:  # 150mb
             self.filesize_warning.setText(strings._("large_filesize", True))
             self.filesize_warning.show()
 
@@ -503,7 +506,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         if self.server_status.status != self.server_status.STATUS_STOPPED:
             try:
-                web.stop(self.app.port)
+                self.web.stop(self.app.port)
             except:
                 # Probably we had no port to begin with (Onion service didn't start)
                 pass
@@ -570,33 +573,33 @@ class OnionShareGui(QtWidgets.QMainWindow):
         done = False
         while not done:
             try:
-                r = web.q.get(False)
+                r = self.web.q.get(False)
                 events.append(r)
-            except web.queue.Empty:
+            except queue.Empty:
                 done = True
 
         for event in events:
-            if event["type"] == web.REQUEST_LOAD:
+            if event["type"] == self.web.REQUEST_LOAD:
                 self.status_bar.showMessage(strings._('download_page_loaded', True))
 
-            elif event["type"] == web.REQUEST_DOWNLOAD:
+            elif event["type"] == self.web.REQUEST_DOWNLOAD:
                 self.downloads_container.show() # show the downloads layout
-                self.downloads.add_download(event["data"]["id"], web.zip_filesize)
+                self.downloads.add_download(event["data"]["id"], self.web.zip_filesize)
                 self.new_download = True
                 self.downloads_in_progress += 1
                 self.update_downloads_in_progress(self.downloads_in_progress)
                 if self.systemTray.supportsMessages() and self.settings.get('systray_notifications'):
                     self.systemTray.showMessage(strings._('systray_download_started_title', True), strings._('systray_download_started_message', True))
 
-            elif event["type"] == web.REQUEST_RATE_LIMIT:
+            elif event["type"] == self.web.REQUEST_RATE_LIMIT:
                 self.stop_server()
                 Alert(strings._('error_rate_limit'), QtWidgets.QMessageBox.Critical)
 
-            elif event["type"] == web.REQUEST_PROGRESS:
+            elif event["type"] == self.web.REQUEST_PROGRESS:
                 self.downloads.update_download(event["data"]["id"], event["data"]["bytes"])
 
                 # is the download complete?
-                if event["data"]["bytes"] == web.zip_filesize:
+                if event["data"]["bytes"] == self.web.zip_filesize:
                     if self.systemTray.supportsMessages() and self.settings.get('systray_notifications'):
                         self.systemTray.showMessage(strings._('systray_download_completed_title', True), strings._('systray_download_completed_message', True))
                     # Update the total 'completed downloads' info
@@ -607,7 +610,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
                     self.update_downloads_in_progress(self.downloads_in_progress)
 
                     # close on finish?
-                    if not web.get_stay_open():
+                    if not self.web.stay_open:
                         self.server_status.stop_server()
                         self.status_bar.clearMessage()
                         self.server_share_status_label.setText(strings._('closing_automatically', True))
@@ -618,7 +621,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
                         self.update_downloads_in_progress(self.downloads_in_progress)
 
 
-            elif event["type"] == web.REQUEST_CANCELED:
+            elif event["type"] == self.web.REQUEST_CANCELED:
                 self.downloads.cancel_download(event["data"]["id"])
                 # Update the 'in progress downloads' info
                 self.downloads_in_progress -= 1
@@ -627,7 +630,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
                     self.systemTray.showMessage(strings._('systray_download_canceled_title', True), strings._('systray_download_canceled_message', True))
 
             elif event["path"] != '/favicon.ico':
-                self.status_bar.showMessage('[#{0:d}] {1:s}: {2:s}'.format(web.error404_count, strings._('other_page_loaded', True), event["path"]))
+                self.status_bar.showMessage('[#{0:d}] {1:s}: {2:s}'.format(self.web.error404_count, strings._('other_page_loaded', True), event["path"]))
 
         # If the auto-shutdown timer has stopped, stop the server
         if self.server_status.status == self.server_status.STATUS_STARTED:
@@ -638,7 +641,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
                     self.server_status.server_button.setText(strings._('gui_stop_server_shutdown_timeout', True).format(seconds_remaining))
                     if not self.app.shutdown_timer.is_alive():
                         # If there were no attempts to download the share, or all downloads are done, we can stop
-                        if web.download_count == 0 or web.done:
+                        if self.web.download_count == 0 or self.web.done:
                             self.server_status.stop_server()
                             self.status_bar.clearMessage()
                             self.server_share_status_label.setText(strings._('close_on_timeout', True))

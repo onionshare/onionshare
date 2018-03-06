@@ -41,7 +41,7 @@ class Web(object):
     """
     The Web object is the OnionShare web server, powered by flask
     """
-    def __init__(self, debug, stay_open, gui_mode, receive_mode):
+    def __init__(self, debug, stay_open, gui_mode, receive_mode=False):
         # The flask app
         self.app = Flask(__name__)
 
@@ -50,14 +50,13 @@ class Web(object):
             self.debug_mode()
 
         # Stay open after the first download?
-        self.stay_open = False
+        self.stay_open = stay_open
 
         # Are we running in GUI mode?
-        self.gui_mode = False
+        self.gui_mode = gui_mode
 
         # Are we using receive mode?
-        self.receive_mode = False
-
+        self.receive_mode = receive_mode
 
         # Starting in Flask 0.11, render_template_string autoescapes template variables
         # by default. To prevent content injection through template variables in

@@ -23,7 +23,7 @@ from .alert import Alert
 from PyQt5 import QtCore, QtWidgets
 
 from onionshare import strings, common
-from .web import Web
+from onionshare.web import Web
 from onionshare.onion import Onion
 from onionshare.onionshare import OnionShare
 from onionshare.settings import Settings
@@ -86,7 +86,6 @@ def main():
     # Debug mode?
     if debug:
         common.set_debug(debug)
-        web.debug_mode()
 
     # Validation
     if filenames:
@@ -101,15 +100,18 @@ def main():
         if not valid:
             sys.exit()
 
+    # Create the Web object
+    web = Web(debug, stay_open, True)
+
     # Start the Onion
     onion = Onion()
 
     # Start the OnionShare app
-    web.set_stay_open(stay_open)
     app = OnionShare(onion, local_only, stay_open, shutdown_timeout)
 
     # Launch the gui
-    gui = OnionShareGui(onion, qtapp, app, filenames, config)
+    web.stay_open = stay_open
+    gui = OnionShareGui(web, onion, qtapp, app, filenames, config)
 
     # Clean up when app quits
     def shutdown():
