@@ -2,97 +2,8 @@
 <html>
  <head>
     <title>OnionShare</title>
-    <link href="/static/favicon.ico" rel="icon" type="image/x-icon" />
-    <style type="text/css">
-    .clearfix:after {
-        content: ".";
-        display: block;
-        clear: both;
-        visibility: hidden;
-        line-height: 0;
-        height: 0;
-    }
-
-    body {
-      margin: 0;
-      font-family: Helvetica;
-    }
-
-    header {
-      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-      background: #fcfcfc;
-      background: -webkit-linear-gradient(top, #fcfcfc 0%, #f2f2f2 100%);
-      padding: 0.8rem;
-    }
-
-    header .logo {
-      vertical-align: middle;
-      width: 45px;
-      height: 45px;
-    }
-
-    header h1 {
-      display: inline-block;
-      margin: 0 0 0 0.5rem;
-      vertical-align: middle;
-      font-weight: normal;
-      font-size: 1.5rem;
-      color: #666666;
-    }
-
-    header .right {
-      float: right;
-      font-size: .75rem;
-    }
-
-    header .right ul li {
-      display: inline;
-      margin: 0 0 0 .5rem;
-      font-size: 1rem;
-    }
-
-    header .button {
-      color: #ffffff;
-      background-color: #4e064f;
-      padding: 10px;
-      border-radius: 5px;
-      text-decoration: none;
-      margin-left: 1rem;
-      cursor: pointer;
-    }
-
-    table.file-list {
-      width: 100%;
-      margin: 0 auto;
-      border-collapse: collapse;
-    }
-
-    table.file-list th {
-      text-align: left;
-      text-transform: uppercase;
-      font-weight: normal;
-      color: #666666;
-      padding: 0.5rem;
-    }
-
-    table.file-list tr {
-      border-bottom: 1px solid #e0e0e0;
-    }
-
-    table.file-list td {
-      white-space: nowrap;
-      padding: 0.5rem 10rem 0.5rem 0.8rem;
-    }
-
-    table.file-list td img {
-      vertical-align: middle;
-      margin-right: 0.5rem;
-    }
-
-    table.file-list td:last-child {
-      width: 100%;
-    }
-    </style>
+    <link href="/static/img/favicon.ico" rel="icon" type="image/x-icon" />
+    <link href="/static/css/style.css" rel="stylesheet" type="text/css" />
     <meta name="onionshare-filename" content="{{ filename }}">
     <meta name="onionshare-filesize" content="{{ filesize }}">
   </head>
@@ -105,7 +16,7 @@
                 <li><a class="button" href='/{{ slug }}/download'>Download Files</a></li>
             </ul>
         </div>
-        <img class="logo" src="/static/logo.png" title="OnionShare">
+        <img class="logo" src="/static/img/logo.png" title="OnionShare">
         <h1>OnionShare</h1>
     </header>
 
@@ -118,7 +29,7 @@
       {% for info in file_info.dirs %}
       <tr>
         <td>
-          <img width="30" height="30" title="" alt="" src="/static/web_folder.png" />
+          <img width="30" height="30" title="" alt="" src="/static/img/web_folder.png" />
           {{ info.basename }}
         </td>
         <td>{{ info.size_human }}</td>
@@ -128,7 +39,7 @@
       {% for info in file_info.files %}
       <tr>
         <td>
-          <img width="30" height="30" title="" alt="" src="/static/web_file.png" />
+          <img width="30" height="30" title="" alt="" src="/static/img/web_file.png" />
           {{ info.basename }}
         </td>
         <td>{{ info.size_human }}</td>
