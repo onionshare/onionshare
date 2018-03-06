@@ -156,5 +156,7 @@
     "gui_file_info": "{} Files, {}",
     "gui_file_info_single": "{} File, {}",
     "info_in_progress_downloads_tooltip": "{} download(s) in progress",
-    "info_completed_downloads_tooltip": "{} download(s) completed"
+    "info_completed_downloads_tooltip": "{} download(s) completed",
+    "error_cannot_create_downloads_dir": "Error creating downloads folder: {}",
+    "error_downloads_dir_not_writable": "The downloads folder isn't writable: {}"
 }
