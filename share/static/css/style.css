@@ -45,10 +45,11 @@ header .right ul li {
   font-size: 1rem;
 }
 
-header .button {
+.button {
   color: #ffffff;
   background-color: #4e064f;
   padding: 10px;
+  border: 0;
   border-radius: 5px;
   text-decoration: none;
   margin-left: 1rem;
@@ -85,4 +86,32 @@ table.file-list td img {
 
 table.file-list td:last-child {
   width: 100%;
+}
+
+.upload-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+}
+
+.upload {
+  text-align: center;
+}
+
+.upload img {
+  width: 120px;
+  height: 120px;
+}
+
+.upload .upload-header {
+  font-size: 30px;
+  font-weight: normal;
+  color: #666666;
+  margin: 0 0 10px 0;
+}
+
+.upload .upload-description {
+  color: #666666;
+  margin: 0 0 20px 0;
 }
