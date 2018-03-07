@@ -43,7 +43,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
     starting_server_step3 = QtCore.pyqtSignal()
     starting_server_error = QtCore.pyqtSignal(str)
 
-    def __init__(self, onion, qtapp, app, filenames, config=False):
+    def __init__(self, onion, qtapp, app, filenames, config=False, local_only=False):
         super(OnionShareGui, self).__init__()
 
         self._initSystemTray()
@@ -53,6 +53,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.onion = onion
         self.qtapp = qtapp
         self.app = app
+        self.local_only = local_only
 
         self.setWindowTitle('OnionShare')
         self.setWindowIcon(QtGui.QIcon(common.get_resource_path('images/logo.png')))
@@ -219,7 +220,8 @@ class OnionShareGui(QtWidgets.QMainWindow):
         tor_con = TorConnectionDialog(self.qtapp, self.settings, self.onion)
         tor_con.canceled.connect(self._tor_connection_canceled)
         tor_con.open_settings.connect(self._tor_connection_open_settings)
-        tor_con.start()
+        if not self.local_only:
+            tor_con.start()
 
         # Start the timer
         self.timer.start(500)
@@ -339,19 +341,20 @@ class OnionShareGui(QtWidgets.QMainWindow):
             # We might've stopped the main requests timer if a Tor connection failed.
             # If we've reloaded settings, we probably succeeded in obtaining a new
             # connection. If so, restart the timer.
-            if self.onion.is_authenticated():
-                if not self.timer.isActive():
-                    self.timer.start(500)
-                # If there were some files listed for sharing, we should be ok to
-                # re-enable the 'Start Sharing' button now.
-                if self.server_status.file_selection.get_num_files() > 0:
-                    self.server_status.server_button.setEnabled(True)
-                self.status_bar.clearMessage()
+            if not self.local_only:
+                if self.onion.is_authenticated():
+                    if not self.timer.isActive():
+                        self.timer.start(500)
+                    # If there were some files listed for sharing, we should be ok to
+                    # re-enable the 'Start Sharing' button now.
+                    if self.server_status.file_selection.get_num_files() > 0:
+                        self.server_status.server_button.setEnabled(True)
+                    self.status_bar.clearMessage()
             # If we switched off the shutdown timeout setting, ensure the widget is hidden.
             if not self.settings.get('shutdown_timeout'):
                 self.server_status.shutdown_timeout_container.hide()
 
-        d = SettingsDialog(self.onion, self.qtapp, self.config)
+        d = SettingsDialog(self.onion, self.qtapp, self.config, self.local_only)
         d.settings_saved.connect(reload_settings)
         d.exec_()
 
@@ -549,15 +552,16 @@ class OnionShareGui(QtWidgets.QMainWindow):
         """
         self.update()
 
-        # Have we lost connection to Tor somehow?
-        if not self.onion.is_authenticated():
-            self.timer.stop()
-            if self.server_status.status != self.server_status.STATUS_STOPPED:
-                self.server_status.stop_server()
-            self.server_status.server_button.setEnabled(False)
-            self.status_bar.showMessage(strings._('gui_tor_connection_lost', True))
-            if self.systemTray.supportsMessages() and self.settings.get('systray_notifications'):
-                self.systemTray.showMessage(strings._('gui_tor_connection_lost', True), strings._('gui_tor_connection_error_settings', True))
+        if not self.local_only:
+            # Have we lost connection to Tor somehow?
+            if not self.onion.is_authenticated():
+                self.timer.stop()
+                if self.server_status.status != self.server_status.STATUS_STOPPED:
+                    self.server_status.stop_server()
+                self.server_status.server_button.setEnabled(False)
+                self.status_bar.showMessage(strings._('gui_tor_connection_lost', True))
+                if self.systemTray.supportsMessages() and self.settings.get('systray_notifications'):
+                    self.systemTray.showMessage(strings._('gui_tor_connection_lost', True), strings._('gui_tor_connection_error_settings', True))
 
         # scroll to the bottom of the dl progress bar log pane
         # if a new download has been added
