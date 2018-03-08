@@ -24,7 +24,7 @@ import queue
 from PyQt5 import QtCore, QtWidgets, QtGui
 
 from onionshare import strings, common
-from onionshare.common import ShutdownTimer
+from onionshare.common import Common, ShutdownTimer
 from onionshare.settings import Settings
 from onionshare.onion import *
 
@@ -47,12 +47,13 @@ class OnionShareGui(QtWidgets.QMainWindow):
     starting_server_step3 = QtCore.pyqtSignal()
     starting_server_error = QtCore.pyqtSignal(str)
 
-    def __init__(self, web, onion, qtapp, app, filenames, config=False):
+    def __init__(self, common, web, onion, qtapp, app, filenames, config=False):
         super(OnionShareGui, self).__init__()
 
-        self._initSystemTray()
+        self.common = common
+        self.common.log('OnionShareGui', '__init__')
 
-        common.log('OnionShareGui', '__init__')
+        self._initSystemTray()
 
         self.web = web
         self.onion = onion
@@ -60,22 +61,22 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.app = app
 
         self.setWindowTitle('OnionShare')
-        self.setWindowIcon(QtGui.QIcon(common.get_resource_path('images/logo.png')))
+        self.setWindowIcon(QtGui.QIcon(self.common.get_resource_path('images/logo.png')))
         self.setMinimumWidth(430)
 
         # Load settings
         self.config = config
-        self.settings = Settings(self.config)
+        self.settings = Settings(self.common, self.config)
         self.settings.load()
 
         # File selection
-        self.file_selection = FileSelection()
+        self.file_selection = FileSelection(self.common)
         if filenames:
             for filename in filenames:
                 self.file_selection.file_list.add_file(filename)
 
         # Server status
-        self.server_status = ServerStatus(self.qtapp, self.app, self.web, self.file_selection, self.settings)
+        self.server_status = ServerStatus(self.common, self.qtapp, self.app, self.web, self.file_selection, self.settings)
         self.server_status.server_started.connect(self.file_selection.server_started)
         self.server_status.server_started.connect(self.start_server)
         self.server_status.server_started.connect(self.update_server_status_indicator)
@@ -107,7 +108,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.filesize_warning.hide()
 
         # Downloads
-        self.downloads = Downloads()
+        self.downloads = Downloads(self.common)
         self.downloads_container = QtWidgets.QScrollArea()
         self.downloads_container.setWidget(self.downloads)
         self.downloads_container.setWidgetResizable(True)
@@ -147,13 +148,13 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.settings_button.setDefault(False)
         self.settings_button.setFlat(True)
         self.settings_button.setFixedWidth(40)
-        self.settings_button.setIcon( QtGui.QIcon(common.get_resource_path('images/settings.png')) )
+        self.settings_button.setIcon( QtGui.QIcon(self.common.get_resource_path('images/settings.png')) )
         self.settings_button.clicked.connect(self.open_settings)
 
         # Server status indicator on the status bar
-        self.server_status_image_stopped = QtGui.QImage(common.get_resource_path('images/server_stopped.png'))
-        self.server_status_image_working = QtGui.QImage(common.get_resource_path('images/server_working.png'))
-        self.server_status_image_started = QtGui.QImage(common.get_resource_path('images/server_started.png'))
+        self.server_status_image_stopped = QtGui.QImage(self.common.get_resource_path('images/server_stopped.png'))
+        self.server_status_image_working = QtGui.QImage(self.common.get_resource_path('images/server_working.png'))
+        self.server_status_image_started = QtGui.QImage(self.common.get_resource_path('images/server_started.png'))
         self.server_status_image_label = QtWidgets.QLabel()
         self.server_status_image_label.setFixedWidth(20)
         self.server_status_label = QtWidgets.QLabel()
@@ -221,7 +222,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.timer.timeout.connect(self.check_for_requests)
 
         # Start the "Connecting to Tor" dialog, which calls onion.connect()
-        tor_con = TorConnectionDialog(self.qtapp, self.settings, self.onion)
+        tor_con = TorConnectionDialog(self.common, self.qtapp, self.settings, self.onion)
         tor_con.canceled.connect(self._tor_connection_canceled)
         tor_con.open_settings.connect(self._tor_connection_open_settings)
         tor_con.start()
@@ -244,7 +245,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
             for index in range(self.file_selection.file_list.count()):
                 item = self.file_selection.file_list.item(index)
                 total_size_bytes += item.size_bytes
-            total_size_readable = common.human_readable_filesize(total_size_bytes)
+            total_size_readable = self.common.human_readable_filesize(total_size_bytes)
 
             if file_count > 1:
                 self.info_label.setText(strings._('gui_file_info', True).format(file_count, total_size_readable))
@@ -259,7 +260,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.adjustSize()
 
     def update_server_status_indicator(self):
-        common.log('OnionShareGui', 'update_server_status_indicator')
+        self.common.log('OnionShareGui', 'update_server_status_indicator')
 
         # Set the status image
         if self.server_status.status == self.server_status.STATUS_STOPPED:
@@ -273,8 +274,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
             self.server_status_label.setText(strings._('gui_status_indicator_started', True))
 
     def _initSystemTray(self):
-        system = common.get_platform()
-
         menu = QtWidgets.QMenu()
         self.settingsAction = menu.addAction(strings._('gui_settings_window_title', True))
         self.settingsAction.triggered.connect(self.open_settings)
@@ -285,10 +284,10 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         self.systemTray = QtWidgets.QSystemTrayIcon(self)
         # The convention is Mac systray icons are always grayscale
-        if system == 'Darwin':
-            self.systemTray.setIcon(QtGui.QIcon(common.get_resource_path('images/logo_grayscale.png')))
+        if self.common.platform == 'Darwin':
+            self.systemTray.setIcon(QtGui.QIcon(self.common.get_resource_path('images/logo_grayscale.png')))
         else:
-            self.systemTray.setIcon(QtGui.QIcon(common.get_resource_path('images/logo.png')))
+            self.systemTray.setIcon(QtGui.QIcon(self.common.get_resource_path('images/logo.png')))
         self.systemTray.setContextMenu(menu)
         self.systemTray.show()
 
@@ -297,10 +296,10 @@ class OnionShareGui(QtWidgets.QMainWindow):
         If the user cancels before Tor finishes connecting, ask if they want to
         quit, or open settings.
         """
-        common.log('OnionShareGui', '_tor_connection_canceled')
+        self.common.log('OnionShareGui', '_tor_connection_canceled')
 
         def ask():
-            a = Alert(strings._('gui_tor_connection_ask', True), QtWidgets.QMessageBox.Question, buttons=QtWidgets.QMessageBox.NoButton, autostart=False)
+            a = Alert(self.common, strings._('gui_tor_connection_ask', True), QtWidgets.QMessageBox.Question, buttons=QtWidgets.QMessageBox.NoButton, autostart=False)
             settings_button = QtWidgets.QPushButton(strings._('gui_tor_connection_ask_open_settings', True))
             quit_button = QtWidgets.QPushButton(strings._('gui_tor_connection_ask_quit', True))
             a.addButton(settings_button, QtWidgets.QMessageBox.AcceptRole)
@@ -310,12 +309,12 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
             if a.clickedButton() == settings_button:
                 # Open settings
-                common.log('OnionShareGui', '_tor_connection_canceled', 'Settings button clicked')
+                self.common.log('OnionShareGui', '_tor_connection_canceled', 'Settings button clicked')
                 self.open_settings()
 
             if a.clickedButton() == quit_button:
                 # Quit
-                common.log('OnionShareGui', '_tor_connection_canceled', 'Quit button clicked')
+                self.common.log('OnionShareGui', '_tor_connection_canceled', 'Quit button clicked')
 
                 # Wait 1ms for the event loop to finish, then quit
                 QtCore.QTimer.singleShot(1, self.qtapp.quit)
@@ -327,7 +326,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         """
         The TorConnectionDialog wants to open the Settings dialog
         """
-        common.log('OnionShareGui', '_tor_connection_open_settings')
+        self.common.log('OnionShareGui', '_tor_connection_open_settings')
 
         # Wait 1ms for the event loop to finish closing the TorConnectionDialog
         QtCore.QTimer.singleShot(1, self.open_settings)
@@ -336,10 +335,10 @@ class OnionShareGui(QtWidgets.QMainWindow):
         """
         Open the SettingsDialog.
         """
-        common.log('OnionShareGui', 'open_settings')
+        self.common.log('OnionShareGui', 'open_settings')
 
         def reload_settings():
-            common.log('OnionShareGui', 'open_settings', 'settings have changed, reloading')
+            self.common.log('OnionShareGui', 'open_settings', 'settings have changed, reloading')
             self.settings.load()
             # We might've stopped the main requests timer if a Tor connection failed.
             # If we've reloaded settings, we probably succeeded in obtaining a new
@@ -356,7 +355,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
             if not self.settings.get('shutdown_timeout'):
                 self.server_status.shutdown_timeout_container.hide()
 
-        d = SettingsDialog(self.onion, self.qtapp, self.config)
+        d = SettingsDialog(self.common, self.onion, self.qtapp, self.config)
         d.settings_saved.connect(reload_settings)
         d.exec_()
 
@@ -368,7 +367,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         Start the onionshare server. This uses multiple threads to start the Tor onion
         server and the web app.
         """
-        common.log('OnionShareGui', 'start_server')
+        self.common.log('OnionShareGui', 'start_server')
 
         self.set_server_active(True)
 
@@ -405,8 +404,8 @@ class OnionShareGui(QtWidgets.QMainWindow):
             # wait for modules in thread to load, preventing a thread-related cx_Freeze crash
             time.sleep(0.2)
 
-        common.log('OnionshareGui', 'start_server', 'Starting an onion thread')
-        self.t = OnionThread(function=start_onion_service, kwargs={'self': self})
+        self.common.log('OnionshareGui', 'start_server', 'Starting an onion thread')
+        self.t = OnionThread(self.common, function=start_onion_service, kwargs={'self': self})
         self.t.daemon = True
         self.t.start()
 
@@ -414,7 +413,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         """
         Step 2 in starting the onionshare server. Zipping up files.
         """
-        common.log('OnionShareGui', 'start_server_step2')
+        self.common.log('OnionShareGui', 'start_server_step2')
 
         # add progress bar to the status bar, indicating the crunching of files.
         self._zip_progress_bar = ZipProgressBar(0)
@@ -451,7 +450,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         Step 3 in starting the onionshare server. This displays the large filesize
         warning, if applicable.
         """
-        common.log('OnionShareGui', 'start_server_step3')
+        self.common.log('OnionShareGui', 'start_server_step3')
 
         # Remove zip progress bar
         if self._zip_progress_bar is not None:
@@ -469,7 +468,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
             self.timeout = now.secsTo(self.server_status.timeout)
             # Set the shutdown timeout value
             if self.timeout > 0:
-                self.app.shutdown_timer = ShutdownTimer(self.timeout)
+                self.app.shutdown_timer = ShutdownTimer(self.common, self.timeout)
                 self.app.shutdown_timer.start()
             # The timeout has actually already passed since the user clicked Start. Probably the Onion service took too long to start.
             else:
@@ -480,11 +479,11 @@ class OnionShareGui(QtWidgets.QMainWindow):
         """
         If there's an error when trying to start the onion service
         """
-        common.log('OnionShareGui', 'start_server_error')
+        self.common.log('OnionShareGui', 'start_server_error')
 
         self.set_server_active(False)
 
-        Alert(error, QtWidgets.QMessageBox.Warning)
+        Alert(self.common, error, QtWidgets.QMessageBox.Warning)
         self.server_status.stop_server()
         if self._zip_progress_bar is not None:
             self.status_bar.removeWidget(self._zip_progress_bar)
@@ -503,7 +502,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         """
         Stop the onionshare server.
         """
-        common.log('OnionShareGui', 'stop_server')
+        self.common.log('OnionShareGui', 'stop_server')
 
         if self.server_status.status != self.server_status.STATUS_STOPPED:
             try:
@@ -527,13 +526,12 @@ class OnionShareGui(QtWidgets.QMainWindow):
         """
         Check for updates in a new thread, if enabled.
         """
-        system = common.get_platform()
-        if system == 'Windows' or system == 'Darwin':
+        if self.common.platform == 'Windows' or self.common.platform == 'Darwin':
             if self.settings.get('use_autoupdate'):
                 def update_available(update_url, installed_version, latest_version):
-                    Alert(strings._("update_available", True).format(update_url, installed_version, latest_version))
+                    Alert(self.common, strings._("update_available", True).format(update_url, installed_version, latest_version))
 
-                self.update_thread = UpdateThread(self.onion, self.config)
+                self.update_thread = UpdateThread(self.common, self.onion, self.config)
                 self.update_thread.update_available.connect(update_available)
                 self.update_thread.start()
 
@@ -544,7 +542,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
             if os.path.isfile(filename):
                 total_size += os.path.getsize(filename)
             if os.path.isdir(filename):
-                total_size += common.dir_size(filename)
+                total_size += Common.dir_size(filename)
         return total_size
 
     def check_for_requests(self):
@@ -594,7 +592,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
             elif event["type"] == self.web.REQUEST_RATE_LIMIT:
                 self.stop_server()
-                Alert(strings._('error_rate_limit'), QtWidgets.QMessageBox.Critical)
+                Alert(self.common, strings._('error_rate_limit'), QtWidgets.QMessageBox.Critical)
 
             elif event["type"] == self.web.REQUEST_PROGRESS:
                 self.downloads.update_download(event["data"]["id"], event["data"]["bytes"])
@@ -655,7 +653,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         """
         When the URL gets copied to the clipboard, display this in the status bar.
         """
-        common.log('OnionShareGui', 'copy_url')
+        self.common.log('OnionShareGui', 'copy_url')
         if self.systemTray.supportsMessages() and self.settings.get('systray_notifications'):
             self.systemTray.showMessage(strings._('gui_copied_url_title', True), strings._('gui_copied_url', True))
 
@@ -663,7 +661,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         """
         When the stealth onion service HidServAuth gets copied to the clipboard, display this in the status bar.
         """
-        common.log('OnionShareGui', 'copy_hidservauth')
+        self.common.log('OnionShareGui', 'copy_hidservauth')
         if self.systemTray.supportsMessages() and self.settings.get('systray_notifications'):
             self.systemTray.showMessage(strings._('gui_copied_hidservauth_title', True), strings._('gui_copied_hidservauth', True))
 
@@ -697,9 +695,9 @@ class OnionShareGui(QtWidgets.QMainWindow):
         Update the 'Downloads completed' info widget.
         """
         if count == 0:
-            self.info_completed_downloads_image = common.get_resource_path('images/download_completed_none.png')
+            self.info_completed_downloads_image = self.common.get_resource_path('images/download_completed_none.png')
         else:
-            self.info_completed_downloads_image = common.get_resource_path('images/download_completed.png')
+            self.info_completed_downloads_image = self.common.get_resource_path('images/download_completed.png')
         self.info_completed_downloads_count.setText('<img src="{0:s}" /> {1:d}'.format(self.info_completed_downloads_image, count))
         self.info_completed_downloads_count.setToolTip(strings._('info_completed_downloads_tooltip', True).format(count))
 
@@ -708,17 +706,17 @@ class OnionShareGui(QtWidgets.QMainWindow):
         Update the 'Downloads in progress' info widget.
         """
         if count == 0:
-            self.info_in_progress_downloads_image = common.get_resource_path('images/download_in_progress_none.png')
+            self.info_in_progress_downloads_image = self.common.get_resource_path('images/download_in_progress_none.png')
         else:
-            self.info_in_progress_downloads_image = common.get_resource_path('images/download_in_progress.png')
+            self.info_in_progress_downloads_image = self.common.get_resource_path('images/download_in_progress.png')
         self.info_in_progress_downloads_count.setText('<img src="{0:s}" /> {1:d}'.format(self.info_in_progress_downloads_image, count))
         self.info_in_progress_downloads_count.setToolTip(strings._('info_in_progress_downloads_tooltip', True).format(count))
 
     def closeEvent(self, e):
-        common.log('OnionShareGui', 'closeEvent')
+        self.common.log('OnionShareGui', 'closeEvent')
         try:
             if self.server_status.status != self.server_status.STATUS_STOPPED:
-                common.log('OnionShareGui', 'closeEvent, opening warning dialog')
+                self.common.log('OnionShareGui', 'closeEvent, opening warning dialog')
                 dialog = QtWidgets.QMessageBox()
                 dialog.setWindowTitle(strings._('gui_quit_title', True))
                 dialog.setText(strings._('gui_quit_warning', True))
@@ -803,9 +801,12 @@ class OnionThread(QtCore.QThread):
     decided to cancel (in which case do not proceed with obtaining
     the Onion address and starting the web server).
     """
-    def __init__(self, function, kwargs=None):
+    def __init__(self, common, function, kwargs=None):
         super(OnionThread, self).__init__()
-        common.log('OnionThread', '__init__')
+
+        self.common = common
+
+        self.common.log('OnionThread', '__init__')
         self.function = function
         if not kwargs:
             self.kwargs = {}
@@ -813,6 +814,6 @@ class OnionThread(QtCore.QThread):
             self.kwargs = kwargs
 
     def run(self):
-        common.log('OnionThread', 'run')
+        self.common.log('OnionThread', 'run')
 
         self.function(**self.kwargs)

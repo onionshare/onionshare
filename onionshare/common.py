@@ -29,212 +29,197 @@ import tempfile
 import threading
 import time
 
-debug = False
-
-
-def log(module, func, msg=None):
+class Common(object):
     """
-    If debug mode is on, log error messages to stdout
+    The Common object is shared amongst all parts of OnionShare.
     """
-    global debug
-    if debug:
-        timestamp = time.strftime("%b %d %Y %X")
+    def __init__(self, debug=False):
+        self.debug = debug
 
-        final_msg = "[{}] {}.{}".format(timestamp, module, func)
-        if msg:
-            final_msg = '{}: {}'.format(final_msg, msg)
-        print(final_msg)
+        # The platform OnionShare is running on
+        self.platform = platform.system()
+        if self.platform.endswith('BSD'):
+            self.platform = 'BSD'
 
+        # The current version of OnionShare
+        with open(self.get_resource_path('version.txt')) as f:
+            self.version = f.read().strip()
 
-def set_debug(new_debug):
-    global debug
-    debug = new_debug
+    def log(self, module, func, msg=None):
+        """
+        If debug mode is on, log error messages to stdout
+        """
+        if self.debug:
+            timestamp = time.strftime("%b %d %Y %X")
 
+            final_msg = "[{}] {}.{}".format(timestamp, module, func)
+            if msg:
+                final_msg = '{}: {}'.format(final_msg, msg)
+            print(final_msg)
 
-def get_platform():
-    """
-    Returns the platform OnionShare is running on.
-    """
-    plat = platform.system()
-    if plat.endswith('BSD'):
-        plat = 'BSD'
-    return plat
+    def get_resource_path(self, filename):
+        """
+        Returns the absolute path of a resource, regardless of whether OnionShare is installed
+        systemwide, and whether regardless of platform
+        """
+        # On Windows, and in Windows dev mode, switch slashes in incoming filename to backslackes
+        if self.platform == 'Windows':
+            filename = filename.replace('/', '\\')
 
+        if getattr(sys, 'onionshare_dev_mode', False):
+            # Look for resources directory relative to python file
+            prefix = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))), 'share')
+            if not os.path.exists(prefix):
+                # While running tests during stdeb bdist_deb, look 3 directories up for the share folder
+                prefix = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(prefix)))), 'share')
 
-def get_resource_path(filename):
-    """
-    Returns the absolute path of a resource, regardless of whether OnionShare is installed
-    systemwide, and whether regardless of platform
-    """
-    p = get_platform()
+        elif self.platform == 'BSD' or self.platform == 'Linux':
+            # Assume OnionShare is installed systemwide in Linux, since we're not running in dev mode
+            prefix = os.path.join(sys.prefix, 'share/onionshare')
 
-    # On Windows, and in Windows dev mode, switch slashes in incoming filename to backslackes
-    if p == 'Windows':
-        filename = filename.replace('/', '\\')
+        elif getattr(sys, 'frozen', False):
+            # Check if app is "frozen"
+            # https://pythonhosted.org/PyInstaller/#run-time-information
+            if self.platform == 'Darwin':
+                prefix = os.path.join(sys._MEIPASS, 'share')
+            elif self.platform == 'Windows':
+                prefix = os.path.join(os.path.dirname(sys.executable), 'share')
 
-    if getattr(sys, 'onionshare_dev_mode', False):
-        # Look for resources directory relative to python file
-        prefix = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))), 'share')
-        if not os.path.exists(prefix):
-            # While running tests during stdeb bdist_deb, look 3 directories up for the share folder
-            prefix = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(prefix)))), 'share')
+        return os.path.join(prefix, filename)
 
-    elif p == 'BSD' or p == 'Linux':
-        # Assume OnionShare is installed systemwide in Linux, since we're not running in dev mode
-        prefix = os.path.join(sys.prefix, 'share/onionshare')
+    def get_tor_paths(self):
+        if self.platform == 'Linux':
+            tor_path = '/usr/bin/tor'
+            tor_geo_ip_file_path = '/usr/share/tor/geoip'
+            tor_geo_ipv6_file_path = '/usr/share/tor/geoip6'
+            obfs4proxy_file_path = '/usr/bin/obfs4proxy'
+        elif self.platform == 'Windows':
+            base_path = os.path.join(os.path.dirname(os.path.dirname(self.get_resource_path(''))), 'tor')
+            tor_path               = os.path.join(os.path.join(base_path, 'Tor'), 'tor.exe')
+            obfs4proxy_file_path   = os.path.join(os.path.join(base_path, 'Tor'), 'obfs4proxy.exe')
+            tor_geo_ip_file_path   = os.path.join(os.path.join(os.path.join(base_path, 'Data'), 'Tor'), 'geoip')
+            tor_geo_ipv6_file_path = os.path.join(os.path.join(os.path.join(base_path, 'Data'), 'Tor'), 'geoip6')
+        elif self.platform == 'Darwin':
+            base_path = os.path.dirname(os.path.dirname(os.path.dirname(self.get_resource_path(''))))
+            tor_path               = os.path.join(base_path, 'Resources', 'Tor', 'tor')
+            tor_geo_ip_file_path   = os.path.join(base_path, 'Resources', 'Tor', 'geoip')
+            tor_geo_ipv6_file_path = os.path.join(base_path, 'Resources', 'Tor', 'geoip6')
+            obfs4proxy_file_path   = os.path.join(base_path, 'Resources', 'Tor', 'obfs4proxy')
+        elif self.platform == 'BSD':
+            tor_path = '/usr/local/bin/tor'
+            tor_geo_ip_file_path = '/usr/local/share/tor/geoip'
+            tor_geo_ipv6_file_path = '/usr/local/share/tor/geoip6'
+            obfs4proxy_file_path = '/usr/local/bin/obfs4proxy'
 
-    elif getattr(sys, 'frozen', False):
-        # Check if app is "frozen"
-        # https://pythonhosted.org/PyInstaller/#run-time-information
-        if p == 'Darwin':
-            prefix = os.path.join(sys._MEIPASS, 'share')
-        elif p == 'Windows':
-            prefix = os.path.join(os.path.dirname(sys.executable), 'share')
+        return (tor_path, tor_geo_ip_file_path, tor_geo_ipv6_file_path, obfs4proxy_file_path)
 
-    return os.path.join(prefix, filename)
+    def build_slug(self):
+        """
+        Returns a random string made from two words from the wordlist, such as "deter-trig".
+        """
+        with open(self.get_resource_path('wordlist.txt')) as f:
+            wordlist = f.read().split()
 
+        r = random.SystemRandom()
+        return '-'.join(r.choice(wordlist) for _ in range(2))
 
-def get_tor_paths():
-    p = get_platform()
-    if p == 'Linux':
-        tor_path = '/usr/bin/tor'
-        tor_geo_ip_file_path = '/usr/share/tor/geoip'
-        tor_geo_ipv6_file_path = '/usr/share/tor/geoip6'
-        obfs4proxy_file_path = '/usr/bin/obfs4proxy'
-    elif p == 'Windows':
-        base_path = os.path.join(os.path.dirname(os.path.dirname(get_resource_path(''))), 'tor')
-        tor_path               = os.path.join(os.path.join(base_path, 'Tor'), 'tor.exe')
-        obfs4proxy_file_path   = os.path.join(os.path.join(base_path, 'Tor'), 'obfs4proxy.exe')
-        tor_geo_ip_file_path   = os.path.join(os.path.join(os.path.join(base_path, 'Data'), 'Tor'), 'geoip')
-        tor_geo_ipv6_file_path = os.path.join(os.path.join(os.path.join(base_path, 'Data'), 'Tor'), 'geoip6')
-    elif p == 'Darwin':
-        base_path = os.path.dirname(os.path.dirname(os.path.dirname(get_resource_path(''))))
-        tor_path               = os.path.join(base_path, 'Resources', 'Tor', 'tor')
-        tor_geo_ip_file_path   = os.path.join(base_path, 'Resources', 'Tor', 'geoip')
-        tor_geo_ipv6_file_path = os.path.join(base_path, 'Resources', 'Tor', 'geoip6')
-        obfs4proxy_file_path   = os.path.join(base_path, 'Resources', 'Tor', 'obfs4proxy')
-    elif p == 'BSD':
-        tor_path = '/usr/local/bin/tor'
-        tor_geo_ip_file_path = '/usr/local/share/tor/geoip'
-        tor_geo_ipv6_file_path = '/usr/local/share/tor/geoip6'
-        obfs4proxy_file_path = '/usr/local/bin/obfs4proxy'
+    @staticmethod
+    def random_string(num_bytes, output_len=None):
+        """
+        Returns a random string with a specified number of bytes.
+        """
+        b = os.urandom(num_bytes)
+        h = hashlib.sha256(b).digest()[:16]
+        s = base64.b32encode(h).lower().replace(b'=', b'').decode('utf-8')
+        if not output_len:
+            return s
+        return s[:output_len]
 
-    return (tor_path, tor_geo_ip_file_path, tor_geo_ipv6_file_path, obfs4proxy_file_path)
-
-
-def get_version():
-    """
-    Returns the version of OnionShare that is running.
-    """
-    with open(get_resource_path('version.txt')) as f:
-        version = f.read().strip()
-        return version
-
-
-def random_string(num_bytes, output_len=None):
-    """
-    Returns a random string with a specified number of bytes.
-    """
-    b = os.urandom(num_bytes)
-    h = hashlib.sha256(b).digest()[:16]
-    s = base64.b32encode(h).lower().replace(b'=', b'').decode('utf-8')
-    if not output_len:
-        return s
-    return s[:output_len]
-
-
-def build_slug():
-    """
-    Returns a random string made from two words from the wordlist, such as "deter-trig".
-    """
-    with open(get_resource_path('wordlist.txt')) as f:
-        wordlist = f.read().split()
-
-    r = random.SystemRandom()
-    return '-'.join(r.choice(wordlist) for _ in range(2))
-
-
-def human_readable_filesize(b):
-    """
-    Returns filesize in a human readable format.
-    """
-    thresh = 1024.0
-    if b < thresh:
-        return '{:.1f} B'.format(b)
-    units = ('KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB')
-    u = 0
-    b /= thresh
-    while b >= thresh:
+    @staticmethod
+    def human_readable_filesize(b):
+        """
+        Returns filesize in a human readable format.
+        """
+        thresh = 1024.0
+        if b < thresh:
+            return '{:.1f} B'.format(b)
+        units = ('KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB')
+        u = 0
         b /= thresh
-        u += 1
-    return '{:.1f} {}'.format(b, units[u])
+        while b >= thresh:
+            b /= thresh
+            u += 1
+        return '{:.1f} {}'.format(b, units[u])
 
+    @staticmethod
+    def format_seconds(seconds):
+        """Return a human-readable string of the format 1d2h3m4s"""
+        days, seconds = divmod(seconds, 86400)
+        hours, seconds = divmod(seconds, 3600)
+        minutes, seconds = divmod(seconds, 60)
 
-def format_seconds(seconds):
-    """Return a human-readable string of the format 1d2h3m4s"""
-    days, seconds = divmod(seconds, 86400)
-    hours, seconds = divmod(seconds, 3600)
-    minutes, seconds = divmod(seconds, 60)
+        human_readable = []
+        if days:
+            human_readable.append("{:.0f}d".format(days))
+        if hours:
+            human_readable.append("{:.0f}h".format(hours))
+        if minutes:
+            human_readable.append("{:.0f}m".format(minutes))
+        if seconds or not human_readable:
+            human_readable.append("{:.0f}s".format(seconds))
+        return ''.join(human_readable)
 
-    human_readable = []
-    if days:
-        human_readable.append("{:.0f}d".format(days))
-    if hours:
-        human_readable.append("{:.0f}h".format(hours))
-    if minutes:
-        human_readable.append("{:.0f}m".format(minutes))
-    if seconds or not human_readable:
-        human_readable.append("{:.0f}s".format(seconds))
-    return ''.join(human_readable)
+    @staticmethod
+    def estimated_time_remaining(bytes_downloaded, total_bytes, started):
+        now = time.time()
+        time_elapsed = now - started  # in seconds
+        download_rate = bytes_downloaded / time_elapsed
+        remaining_bytes = total_bytes - bytes_downloaded
+        eta = remaining_bytes / download_rate
+        return format_seconds(eta)
 
+    @staticmethod
+    def get_available_port(min_port, max_port):
+        """
+        Find a random available port within the given range.
+        """
+        with socket.socket() as tmpsock:
+            while True:
+                try:
+                    tmpsock.bind(("127.0.0.1", random.randint(min_port, max_port)))
+                    break
+                except OSError as e:
+                    raise OSError(e)
+            _, port = tmpsock.getsockname()
+        return port
 
-def estimated_time_remaining(bytes_downloaded, total_bytes, started):
-    now = time.time()
-    time_elapsed = now - started  # in seconds
-    download_rate = bytes_downloaded / time_elapsed
-    remaining_bytes = total_bytes - bytes_downloaded
-    eta = remaining_bytes / download_rate
-    return format_seconds(eta)
-
-
-def get_available_port(min_port, max_port):
-    """
-    Find a random available port within the given range.
-    """
-    with socket.socket() as tmpsock:
-        while True:
-            try:
-                tmpsock.bind(("127.0.0.1", random.randint(min_port, max_port)))
-                break
-            except OSError as e:
-                raise OSError(e)
-        _, port = tmpsock.getsockname()
-    return port
-
-
-def dir_size(start_path):
-    """
-    Calculates the total size, in bytes, of all of the files in a directory.
-    """
-    total_size = 0
-    for dirpath, dirnames, filenames in os.walk(start_path):
-        for f in filenames:
-            fp = os.path.join(dirpath, f)
-            if not os.path.islink(fp):
-                total_size += os.path.getsize(fp)
-    return total_size
+    @staticmethod
+    def dir_size(start_path):
+        """
+        Calculates the total size, in bytes, of all of the files in a directory.
+        """
+        total_size = 0
+        for dirpath, dirnames, filenames in os.walk(start_path):
+            for f in filenames:
+                fp = os.path.join(dirpath, f)
+                if not os.path.islink(fp):
+                    total_size += os.path.getsize(fp)
+        return total_size
 
 
 class ShutdownTimer(threading.Thread):
     """
     Background thread sleeps t hours and returns.
     """
-    def __init__(self, time):
+    def __init__(self, common, time):
         threading.Thread.__init__(self)
+
+        self.common = common
+
         self.setDaemon(True)
         self.time = time
 
     def run(self):
-        log('Shutdown Timer', 'Server will shut down after {} seconds'.format(self.time))
+        self.common.log('Shutdown Timer', 'Server will shut down after {} seconds'.format(self.time))
         time.sleep(self.time)
         return 1
