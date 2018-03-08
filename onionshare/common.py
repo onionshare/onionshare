@@ -225,7 +225,7 @@ def dir_size(start_path):
     return total_size
 
 
-class close_after_seconds(threading.Thread):
+class ShutdownTimer(threading.Thread):
     """
     Background thread sleeps t hours and returns.
     """

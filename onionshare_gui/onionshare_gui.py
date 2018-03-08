@@ -24,6 +24,7 @@ import queue
 from PyQt5 import QtCore, QtWidgets, QtGui
 
 from onionshare import strings, common
+from onionshare.common import ShutdownTimer
 from onionshare.settings import Settings
 from onionshare.onion import *
 
@@ -468,7 +469,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
             self.timeout = now.secsTo(self.server_status.timeout)
             # Set the shutdown timeout value
             if self.timeout > 0:
-                self.app.shutdown_timer = common.close_after_seconds(self.timeout)
+                self.app.shutdown_timer = ShutdownTimer(self.timeout)
                 self.app.shutdown_timer.start()
             # The timeout has actually already passed since the user clicked Start. Probably the Onion service took too long to start.
             else:
