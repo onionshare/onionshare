@@ -22,7 +22,7 @@ import json
 import os
 import platform
 
-from . import strings, common
+from . import strings
 
 
 class Settings(object):
@@ -32,8 +32,10 @@ class Settings(object):
     which is to attempt to connect automatically using default Tor Browser
     settings.
     """
-    def __init__(self, config=False):
-        common.log('Settings', '__init__')
+    def __init__(self, common, config=False):
+        self.common = common
+
+        self.common.log('Settings', '__init__')
 
         # Default config
         self.filename = self.build_filename()
@@ -43,11 +45,11 @@ class Settings(object):
             if os.path.isfile(config):
                 self.filename = config
             else:
-                common.log('Settings', '__init__', 'Supplied config does not exist or is unreadable. Falling back to default location')
+                self.common.log('Settings', '__init__', 'Supplied config does not exist or is unreadable. Falling back to default location')
 
         # These are the default settings. They will get overwritten when loading from disk
         self.default_settings = {
-            'version': common.get_version(),
+            'version': self.common.version,
             'connection_type': 'bundled',
             'control_port_address': '127.0.0.1',
             'control_port_port': 9051,
@@ -110,12 +112,12 @@ class Settings(object):
         """
         Load the settings from file.
         """
-        common.log('Settings', 'load')
+        self.common.log('Settings', 'load')
 
         # If the settings file exists, load it
         if os.path.exists(self.filename):
             try:
-                common.log('Settings', 'load', 'Trying to load {}'.format(self.filename))
+                self.common.log('Settings', 'load', 'Trying to load {}'.format(self.filename))
                 with open(self.filename, 'r') as f:
                     self._settings = json.load(f)
                     self.fill_in_defaults()
@@ -126,7 +128,7 @@ class Settings(object):
         """
         Save settings to file.
         """
-        common.log('Settings', 'save')
+        self.common.log('Settings', 'save')
 
         try:
             os.makedirs(os.path.dirname(self.filename))

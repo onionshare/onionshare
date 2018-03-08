@@ -20,7 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import os, sys, time, argparse, threading
 
-from . import strings, common
+from . import strings
+from .common import Common
 from .web import Web
 from .onion import *
 from .onionshare import OnionShare
@@ -31,11 +32,13 @@ def main(cwd=None):
     The main() function implements all of the logic that the command-line version of
     onionshare uses.
     """
+    common = Common()
+
     strings.load_strings(common)
-    print(strings._('version_string').format(common.get_version()))
+    print(strings._('version_string').format(common.version))
 
     # OnionShare CLI in OSX needs to change current working directory (#132)
-    if common.get_platform() == 'Darwin':
+    if common.platform == 'Darwin':
         if cwd:
             os.chdir(cwd)
 
@@ -69,8 +72,7 @@ def main(cwd=None):
         sys.exit()
 
     # Debug mode?
-    if debug:
-        common.set_debug(debug)
+    common.debug = debug
 
     # Validate filenames
     if not receive:
@@ -86,7 +88,7 @@ def main(cwd=None):
             sys.exit()
 
     # Load settings
-    settings = Settings(config)
+    settings = Settings(common, config)
     settings.load()
 
     # In receive mode, validate downloads dir
@@ -105,10 +107,10 @@ def main(cwd=None):
         sys.exit()
 
     # Create the Web object
-    web = Web(debug, stay_open, False, receive)
+    web = Web(common, stay_open, False, receive)
 
     # Start the Onion object
-    onion = Onion()
+    onion = Onion(common)
     try:
         onion.connect(settings=False, config=config)
     except (TorTooOld, TorErrorInvalidSetting, TorErrorAutomatic, TorErrorSocketPort, TorErrorSocketFile, TorErrorMissingPassword, TorErrorUnreadableCookieFile, TorErrorAuthError, TorErrorProtocolError, BundledTorNotSupported, BundledTorTimeout) as e:
@@ -119,7 +121,7 @@ def main(cwd=None):
 
     # Start the onionshare app
     try:
-        app = OnionShare(onion, local_only, stay_open, shutdown_timeout)
+        app = OnionShare(common, onion, local_only, stay_open, shutdown_timeout)
         app.set_stealth(stealth)
         app.start_onion_service()
     except KeyboardInterrupt:

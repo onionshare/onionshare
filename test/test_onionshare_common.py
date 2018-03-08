@@ -157,13 +157,13 @@ class TestGetAvailablePort:
 
 class TestGetPlatform:
     def test_darwin(self, platform_darwin):
-        assert common.get_platform() == 'Darwin'
+        assert common.platform == 'Darwin'
 
     def test_linux(self, platform_linux):
-        assert common.get_platform() == 'Linux'
+        assert common.platform == 'Linux'
 
     def test_windows(self, platform_windows):
-        assert common.get_platform() == 'Windows'
+        assert common.platform == 'Windows'
 
 
 # TODO: double-check these tests
@@ -235,14 +235,6 @@ class TestGetTorPaths:
                 (tor_path, tor_geo_ip_file_path, tor_geo_ipv6_file_path, obfs4proxy_file_path))
 
 
-class TestGetVersion:
-    def test_get_version(self, sys_onionshare_dev_mode):
-        with open(common.get_resource_path('version.txt')) as f:
-            version = f.read().strip()
-
-        assert version == common.get_version()
-
-
 class TestHumanReadableFilesize:
     @pytest.mark.parametrize('test_input,expected', (
         (1024 ** 0, '1.0 B'),
@@ -284,13 +276,3 @@ class TestLog:
         line_one, line_two, _ = output.split('\n')
         assert LOG_MSG_REGEX.match(line_one)
         assert LOG_MSG_REGEX.match(line_two)
-
-
-class TestSetDebug:
-    def test_debug_true(self, set_debug_false):
-        common.set_debug(True)
-        assert common.debug is True
-
-    def test_debug_false(self, set_debug_true):
-        common.set_debug(False)
-        assert common.debug is False

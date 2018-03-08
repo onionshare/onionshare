@@ -28,7 +28,7 @@ from onionshare import common, settings, strings
 
 @pytest.fixture
 def custom_version(monkeypatch):
-    monkeypatch.setattr(common, 'get_version', lambda: 'DUMMY_VERSION_1.2.3')
+    monkeypatch.setattr(common, 'version', 'DUMMY_VERSION_1.2.3')
 
 
 @pytest.fixture

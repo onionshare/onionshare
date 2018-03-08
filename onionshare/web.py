@@ -41,14 +41,16 @@ class Web(object):
     """
     The Web object is the OnionShare web server, powered by flask
     """
-    def __init__(self, debug, stay_open, gui_mode, receive_mode=False):
+    def __init__(self, common, stay_open, gui_mode, receive_mode=False):
+        self.common = common
+
         # The flask app
         self.app = Flask(__name__,
                          static_folder=common.get_resource_path('static'),
                          template_folder=common.get_resource_path('templates'))
 
         # Debug mode?
-        if debug:
+        if self.common.debug:
             self.debug_mode()
 
         # Stay open after the first download?
@@ -107,7 +109,7 @@ class Web(object):
         self.client_cancel = False
 
         # shutting down the server only works within the context of flask, so the easiest way to do it is over http
-        self.shutdown_slug = common.random_string(16)
+        self.shutdown_slug = self.common.random_string(16)
 
         # Define the ewb app routes
         self.common_routes()
@@ -143,7 +145,7 @@ class Web(object):
                 file_info=self.file_info,
                 filename=os.path.basename(self.zip_filename),
                 filesize=self.zip_filesize,
-                filesize_human=common.human_readable_filesize(self.zip_filesize)))
+                filesize_human=self.common.human_readable_filesize(self.zip_filesize)))
             return self.add_security_headers(r)
 
         @self.app.route("/<slug_candidate>/download")
@@ -206,10 +208,9 @@ class Web(object):
                             percent = (1.0 * downloaded_bytes / self.zip_filesize) * 100
 
                             # only output to stdout if running onionshare in CLI mode, or if using Linux (#203, #304)
-                            plat = common.get_platform()
-                            if not self.gui_mode or plat == 'Linux' or plat == 'BSD':
+                            if not self.gui_mode or self.common.platform == 'Linux' or self.common.platform == 'BSD':
                                 sys.stdout.write(
-                                    "\r{0:s}, {1:.2f}%          ".format(common.human_readable_filesize(downloaded_bytes), percent))
+                                    "\r{0:s}, {1:.2f}%          ".format(self.common.human_readable_filesize(downloaded_bytes), percent))
                                 sys.stdout.flush()
 
                             self.add_request(self.REQUEST_PROGRESS, path, {'id': download_id, 'bytes': downloaded_bytes})
@@ -224,7 +225,7 @@ class Web(object):
 
                 fp.close()
 
-                if common.get_platform() != 'Darwin':
+                if self.common.platform != 'Darwin':
                     sys.stdout.write("\n")
 
                 # Download is finished
@@ -315,17 +316,17 @@ class Web(object):
             }
             if os.path.isfile(filename):
                 info['size'] = os.path.getsize(filename)
-                info['size_human'] = common.human_readable_filesize(info['size'])
+                info['size_human'] = self.common.human_readable_filesize(info['size'])
                 self.file_info['files'].append(info)
             if os.path.isdir(filename):
-                info['size'] = common.dir_size(filename)
-                info['size_human'] = common.human_readable_filesize(info['size'])
+                info['size'] = self.common.dir_size(filename)
+                info['size_human'] = self.common.human_readable_filesize(info['size'])
                 self.file_info['dirs'].append(info)
         self.file_info['files'] = sorted(self.file_info['files'], key=lambda k: k['basename'])
         self.file_info['dirs'] = sorted(self.file_info['dirs'], key=lambda k: k['basename'])
 
         # zip up the files and folders
-        z = ZipWriter(processed_size_callback=processed_size_callback)
+        z = ZipWriter(self.common, processed_size_callback=processed_size_callback)
         for info in self.file_info['files']:
             z.add_file(info['filename'])
         for info in self.file_info['dirs']:
@@ -353,7 +354,7 @@ class Web(object):
         if persistent_slug:
             self.slug = persistent_slug
         else:
-            self.slug = common.build_slug()
+            self.slug = self.common.build_slug()
 
     def debug_mode(self):
         """
@@ -424,11 +425,13 @@ class ZipWriter(object):
     with. If a zip_filename is not passed in, it will use the default onionshare
     filename.
     """
-    def __init__(self, zip_filename=None, processed_size_callback=None):
+    def __init__(self, common, zip_filename=None, processed_size_callback=None):
+        self.common = common
+
         if zip_filename:
             self.zip_filename = zip_filename
         else:
-            self.zip_filename = '{0:s}/onionshare_{1:s}.zip'.format(tempfile.mkdtemp(), common.random_string(4, 6))
+            self.zip_filename = '{0:s}/onionshare_{1:s}.zip'.format(tempfile.mkdtemp(), self.common.random_string(4, 6))
 
         self.z = zipfile.ZipFile(self.zip_filename, 'w', allowZip64=True)
         self.processed_size_callback = processed_size_callback

@@ -22,7 +22,8 @@ import os, sys, platform, argparse
 from .alert import Alert
 from PyQt5 import QtCore, QtWidgets
 
-from onionshare import strings, common
+from onionshare import strings
+from onionshare.common import Common
 from onionshare.web import Web
 from onionshare.onion import Onion
 from onionshare.onionshare import OnionShare
@@ -35,9 +36,8 @@ class Application(QtWidgets.QApplication):
     This is Qt's QApplication class. It has been overridden to support threads
     and the quick keyboard shortcut.
     """
-    def __init__(self):
-        system = common.get_platform()
-        if system == 'Linux' or system == 'BSD':
+    def __init__(self, common):
+        if common.platform == 'Linux' or common.platform == 'BSD':
             self.setAttribute(QtCore.Qt.AA_X11InitThreads, True)
         QtWidgets.QApplication.__init__(self, sys.argv)
         self.installEventFilter(self)
@@ -54,12 +54,14 @@ def main():
     """
     The main() function implements all of the logic that the GUI version of onionshare uses.
     """
+    common = Common()
+
     strings.load_strings(common)
-    print(strings._('version_string').format(common.get_version()))
+    print(strings._('version_string').format(common.version))
 
     # Start the Qt app
     global qtapp
-    qtapp = Application()
+    qtapp = Application(common)
 
     # Parse arguments
     parser = argparse.ArgumentParser(formatter_class=lambda prog: argparse.HelpFormatter(prog,max_help_position=48))
@@ -84,34 +86,33 @@ def main():
     debug = bool(args.debug)
 
     # Debug mode?
-    if debug:
-        common.set_debug(debug)
+    common.debug = debug
 
     # Validation
     if filenames:
         valid = True
         for filename in filenames:
             if not os.path.isfile(filename) and not os.path.isdir(filename):
-                Alert(strings._("not_a_file", True).format(filename))
+                Alert(self.common, strings._("not_a_file", True).format(filename))
                 valid = False
             if not os.access(filename, os.R_OK):
-                Alert(strings._("not_a_readable_file", True).format(filename))
+                Alert(self.common, strings._("not_a_readable_file", True).format(filename))
                 valid = False
         if not valid:
             sys.exit()
 
     # Create the Web object
-    web = Web(debug, stay_open, True)
+    web = Web(common, stay_open, True)
 
     # Start the Onion
-    onion = Onion()
+    onion = Onion(common)
 
     # Start the OnionShare app
-    app = OnionShare(onion, local_only, stay_open, shutdown_timeout)
+    app = OnionShare(common, onion, local_only, stay_open, shutdown_timeout)
 
     # Launch the gui
     web.stay_open = stay_open
-    gui = OnionShareGui(web, onion, qtapp, app, filenames, config)
+    gui = OnionShareGui(common, web, onion, qtapp, app, filenames, config)
 
     # Clean up when app quits
     def shutdown():

@@ -21,11 +21,13 @@ import time
 
 from PyQt5 import QtCore, QtWidgets
 
-from onionshare import strings, common
+from onionshare import strings
 
 class Download(object):
 
-    def __init__(self, download_id, total_bytes):
+    def __init__(self, common, download_id, total_bytes):
+        self.common = common
+
         self.download_id = download_id
         self.started = time.time()
         self.total_bytes = total_bytes
@@ -64,7 +66,7 @@ class Download(object):
         self.progress_bar.setValue(downloaded_bytes)
         if downloaded_bytes == self.progress_bar.total_bytes:
             pb_fmt = strings._('gui_download_progress_complete').format(
-                common.format_seconds(time.time() - self.started))
+                self.common.format_seconds(time.time() - self.started))
         else:
             elapsed = time.time() - self.started
             if elapsed < 10:
@@ -72,10 +74,10 @@ class Download(object):
                 # This prevents a "Windows copy dialog"-esque experience at
                 # the beginning of the download.
                 pb_fmt = strings._('gui_download_progress_starting').format(
-                    common.human_readable_filesize(downloaded_bytes))
+                    self.common.human_readable_filesize(downloaded_bytes))
             else:
                 pb_fmt = strings._('gui_download_progress_eta').format(
-                    common.human_readable_filesize(downloaded_bytes),
+                    self.common.human_readable_filesize(downloaded_bytes),
                     self.estimated_time_remaining)
 
         self.progress_bar.setFormat(pb_fmt)
@@ -85,7 +87,7 @@ class Download(object):
 
     @property
     def estimated_time_remaining(self):
-        return common.estimated_time_remaining(self.downloaded_bytes,
+        return self.common.estimated_time_remaining(self.downloaded_bytes,
                                                 self.total_bytes,
                                                 self.started)
 
@@ -95,8 +97,11 @@ class Downloads(QtWidgets.QWidget):
     The downloads chunk of the GUI. This lists all of the active download
     progress bars.
     """
-    def __init__(self):
+    def __init__(self, common):
         super(Downloads, self).__init__()
+
+        self.common = common
+
         self.downloads = {}
         self.layout = QtWidgets.QVBoxLayout()
         self.setLayout(self.layout)
@@ -108,7 +113,7 @@ class Downloads(QtWidgets.QWidget):
         self.parent().show()
 
         # add it to the list
-        download = Download(download_id, total_bytes)
+        download = Download(self.common, download_id, total_bytes)
         self.downloads[download_id] = download
         self.layout.insertWidget(-1, download.progress_bar)
 
