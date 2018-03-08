@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import os, shutil
 
 from . import common, strings
+from .common import ShutdownTimer
 
 class OnionShare(object):
     """
@@ -74,7 +75,7 @@ class OnionShare(object):
             return
 
         if self.shutdown_timeout > 0:
-            self.shutdown_timer = common.close_after_seconds(self.shutdown_timeout)
+            self.shutdown_timer = ShutdownTimer(self.shutdown_timeout)
 
         self.onion_host = self.onion.start_onion_service(self.port)
 
