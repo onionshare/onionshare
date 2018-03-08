@@ -68,7 +68,7 @@ class TestSettings:
             'private_key': '',
             'slug': '',
             'hidservauth_string': '',
-            'downloads_dir': os.path.expanduser('~/Downloads')
+            'downloads_dir': os.path.expanduser('~/OnionShare')
         }
 
     def test_fill_in_defaults(self, settings_obj):
