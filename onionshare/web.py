@@ -31,9 +31,10 @@ from distutils.version import LooseVersion as Version
 from urllib.request import urlopen
 
 from flask import (
-    Flask, Response, request, render_template, abort, make_response,
-    __version__ as flask_version
+    Flask, Response, request, render_template, abort, make_response, flash,
+    redirect, __version__ as flask_version
 )
+from werkzeug.utils import secure_filename
 
 from . import strings, common
 
@@ -48,6 +49,7 @@ class Web(object):
         self.app = Flask(__name__,
                          static_folder=common.get_resource_path('static'),
                          template_folder=common.get_resource_path('templates'))
+        self.app.secret_key = self.common.random_string(8)
 
         # Debug mode?
         if self.common.debug:
@@ -61,6 +63,8 @@ class Web(object):
 
         # Are we using receive mode?
         self.receive_mode = receive_mode
+        if self.receive_mode:
+            self.app.config['UPLOAD_FOLDER'] = self.common.settings.get('downloads_dir')
 
         # Starting in Flask 0.11, render_template_string autoescapes template variables
         # by default. To prevent content injection through template variables in
@@ -257,11 +261,25 @@ class Web(object):
         def index(slug_candidate):
             self.check_slug_candidate(slug_candidate)
 
-            # If download is allowed to continue, serve download page
             r = make_response(render_template(
                 'receive.html',
                 slug=self.slug))
             return self.add_security_headers(r)
+
+        @self.app.route("/<slug_candidate>/upload", methods=['POST'])
+        def upload(slug_candidate):
+            # Note that flash strings are on English, and not translated, on purpose,
+            # to avoid leaking the locale of the OnionShare user
+            self.check_slug_candidate(slug_candidate)
+            self.common.log('Web', 'upload, request.files: {}'.format(request.files))
+
+            # Check if the post request has the file part
+            if 'file' not in request.files:
+                flash('No files were selected to upload')
+                return redirect('/{}'.format(slug_candidate))
+
+            files = request.files['file']
+            return ''
 
     def common_routes(self):
         """
