@@ -176,7 +176,7 @@ class Common(object):
         download_rate = bytes_downloaded / time_elapsed
         remaining_bytes = total_bytes - bytes_downloaded
         eta = remaining_bytes / download_rate
-        return format_seconds(eta)
+        return Common.format_seconds(eta)
 
     @staticmethod
     def get_available_port(min_port, max_port):

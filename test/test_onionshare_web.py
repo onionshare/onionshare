@@ -29,7 +29,7 @@ import zipfile
 
 import pytest
 
-from onionshare import common
+from onionshare.common import Common
 
 DEFAULT_ZW_FILENAME_REGEX = re.compile(r'^onionshare_[a-z2-7]{6}.zip$')
 RANDOM_STR_REGEX = re.compile(r'^[a-z2-7]+$')
@@ -75,7 +75,7 @@ class TestZipWriterDefault:
 
 class TestZipWriterCustom:
     @pytest.mark.parametrize('test_input', (
-        common.random_string(
+        Common.random_string(
             random.randint(2, 50),
             random.choice((None, random.randint(2, 50)))
         ) for _ in range(50)
