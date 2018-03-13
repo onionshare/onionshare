@@ -98,7 +98,7 @@ def main(cwd=None):
             except:
                 print(strings._('error_cannot_create_downloads_dir').format(common.settings.get('downloads_dir')))
                 valid = False
-        if valid and not os.access(settings.get('downloads_dir'), os.W_OK):
+        if valid and not os.access(common.settings.get('downloads_dir'), os.W_OK):
             print(strings._('error_downloads_dir_not_writable').format(common.settings.get('downloads_dir')))
             valid = False
     if not valid:
