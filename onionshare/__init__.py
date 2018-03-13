@@ -25,7 +25,6 @@ from .common import Common
 from .web import Web
 from .onion import *
 from .onionshare import OnionShare
-from .settings import Settings
 
 def main(cwd=None):
     """
@@ -71,9 +70,6 @@ def main(cwd=None):
         print(strings._('no_filenames'))
         sys.exit()
 
-    # Debug mode?
-    common.debug = debug
-
     # Validate filenames
     if not receive:
         valid = True
@@ -88,20 +84,22 @@ def main(cwd=None):
             sys.exit()
 
     # Load settings
-    settings = Settings(common, config)
-    settings.load()
+    common.load_settings(config)
+
+    # Debug mode?
+    common.debug = debug
 
     # In receive mode, validate downloads dir
     if receive:
         valid = True
-        if not os.path.isdir(settings.get('downloads_dir')):
+        if not os.path.isdir(common.settings.get('downloads_dir')):
             try:
-                os.mkdir(settings.get('downloads_dir'), 0o700)
+                os.mkdir(common.settings.get('downloads_dir'), 0o700)
             except:
-                print(strings._('error_cannot_create_downloads_dir').format(settings.get('downloads_dir')))
+                print(strings._('error_cannot_create_downloads_dir').format(common.settings.get('downloads_dir')))
                 valid = False
         if valid and not os.access(settings.get('downloads_dir'), os.W_OK):
-            print(strings._('error_downloads_dir_not_writable').format(settings.get('downloads_dir')))
+            print(strings._('error_downloads_dir_not_writable').format(common.settings.get('downloads_dir')))
             valid = False
     if not valid:
         sys.exit()
@@ -112,7 +110,7 @@ def main(cwd=None):
     # Start the Onion object
     onion = Onion(common)
     try:
-        onion.connect(settings=False, config=config)
+        onion.connect(custom_settings=False, config=config)
     except (TorTooOld, TorErrorInvalidSetting, TorErrorAutomatic, TorErrorSocketPort, TorErrorSocketFile, TorErrorMissingPassword, TorErrorUnreadableCookieFile, TorErrorAuthError, TorErrorProtocolError, BundledTorNotSupported, BundledTorTimeout) as e:
         sys.exit(e.args[0])
     except KeyboardInterrupt:
@@ -144,7 +142,7 @@ def main(cwd=None):
         print('')
 
     # Start OnionShare http service in new thread
-    t = threading.Thread(target=web.start, args=(app.port, app.stay_open, settings.get('slug')))
+    t = threading.Thread(target=web.start, args=(app.port, app.stay_open, common.settings.get('slug')))
     t.daemon = True
     t.start()
 
@@ -157,10 +155,10 @@ def main(cwd=None):
             app.shutdown_timer.start()
 
         # Save the web slug if we are using a persistent private key
-        if settings.get('save_private_key'):
-            if not settings.get('slug'):
-                settings.set('slug', web.slug)
-                settings.save()
+        if common.settings.get('save_private_key'):
+            if not common.settings.get('slug'):
+                common.settings.set('slug', web.slug)
+                common.settings.save()
 
         print('')
         if receive:

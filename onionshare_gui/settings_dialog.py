@@ -599,8 +599,8 @@ class SettingsDialog(QtWidgets.QDialog):
             else:
                 tor_status_update_func = None
 
-            onion = Onion()
-            onion.connect(settings=settings, config=self.config, tor_status_update_func=tor_status_update_func)
+            onion = Onion(self.common)
+            onion.connect(custom_settings=settings, config=self.config, tor_status_update_func=tor_status_update_func)
 
             # If an exception hasn't been raised yet, the Tor settings work
             Alert(self.common, strings._('settings_test_success', True).format(onion.tor_version, onion.supports_ephemeral, onion.supports_stealth))
@@ -707,7 +707,7 @@ class SettingsDialog(QtWidgets.QDialog):
                 self.common.log('SettingsDialog', 'save_clicked', 'rebooting the Onion')
                 self.onion.cleanup()
 
-                tor_con = TorConnectionDialog(self.common, self.qtapp, settings, self.onion)
+                tor_con = TorConnectionDialog(self.common, self.qtapp, self.onion, settings)
                 tor_con.start()
 
                 self.common.log('SettingsDialog', 'save_clicked', 'Onion done rebooting, connected to Tor: {}'.format(self.onion.connected_to_tor))
