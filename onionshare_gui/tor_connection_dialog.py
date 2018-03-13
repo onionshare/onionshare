@@ -30,15 +30,19 @@ class TorConnectionDialog(QtWidgets.QProgressDialog):
     """
     open_settings = QtCore.pyqtSignal()
 
-    def __init__(self, common, qtapp, settings, onion):
+    def __init__(self, common, qtapp, onion, custom_settings=False):
         super(TorConnectionDialog, self).__init__(None)
 
         self.common = common
 
+        if custom_settings:
+            self.settings = custom_settings
+        else:
+            self.settings = self.common.settings
+
         self.common.log('TorConnectionDialog', '__init__')
 
         self.qtapp = qtapp
-        self.settings = settings
         self.onion = onion
 
         self.setWindowTitle("OnionShare")
@@ -60,7 +64,7 @@ class TorConnectionDialog(QtWidgets.QProgressDialog):
     def start(self):
         self.common.log('TorConnectionDialog', 'start')
 
-        t = TorConnectionThread(self.common, self, self.settings, self.onion)
+        t = TorConnectionThread(self.common, self.settings, self, self.onion)
         t.tor_status_update.connect(self._tor_status_update)
         t.connected_to_tor.connect(self._connected_to_tor)
         t.canceled_connecting_to_tor.connect(self._canceled_connecting_to_tor)
@@ -116,15 +120,16 @@ class TorConnectionThread(QtCore.QThread):
     canceled_connecting_to_tor = QtCore.pyqtSignal()
     error_connecting_to_tor = QtCore.pyqtSignal(str)
 
-    def __init__(self, common, dialog, settings, onion):
+    def __init__(self, common, settings, dialog, onion):
         super(TorConnectionThread, self).__init__()
 
         self.common = common
 
         self.common.log('TorConnectionThread', '__init__')
 
-        self.dialog = dialog
         self.settings = settings
+
+        self.dialog = dialog
         self.onion = onion
 
     def run(self):

@@ -27,7 +27,6 @@ from onionshare.common import Common
 from onionshare.web import Web
 from onionshare.onion import Onion
 from onionshare.onionshare import OnionShare
-from onionshare.settings import Settings
 
 from .onionshare_gui import OnionShareGui
 

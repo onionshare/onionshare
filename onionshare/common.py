@@ -29,6 +29,8 @@ import tempfile
 import threading
 import time
 
+from .settings import Settings
+
 class Common(object):
     """
     The Common object is shared amongst all parts of OnionShare.
@@ -44,6 +46,13 @@ class Common(object):
         # The current version of OnionShare
         with open(self.get_resource_path('version.txt')) as f:
             self.version = f.read().strip()
+
+    def load_settings(self, config=None):
+        """
+        Loading settings, optionally from a custom config json file.
+        """
+        self.settings = Settings(self, config)
+        self.settings.load()
 
     def log(self, module, func, msg=None):
         """

@@ -148,15 +148,14 @@ class Onion(object):
         # Start out not connected to Tor
         self.connected_to_tor = False
 
-    def connect(self, settings=False, config=False, tor_status_update_func=None):
+    def connect(self, custom_settings=False, config=False, tor_status_update_func=None):
         self.common.log('Onion', 'connect')
 
-        # Either use settings that are passed in, or load them from disk
-        if settings:
-            self.settings = settings
+        # Either use settings that are passed in, or use them from common
+        if custom_settings:
+            self.settings = custom_settings
         else:
-            self.settings = Settings(self.common, config)
-            self.settings.load()
+            self.settings = self.common.settings
 
         # The Tor controller
         self.c = None
