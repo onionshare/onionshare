@@ -12,16 +12,6 @@
         <h1>OnionShare</h1>
     </header>
 
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        <ul class=flashes>
-        {% for message in messages %}
-          <li>{{ message }}</li>
-        {% endfor %}
-        </ul>
-      {% endif %}
-    {% endwith %}
-
     <div class="upload-wrapper">
       <div class="upload">
         <p><img class="logo" src="/static/img/logo_large.png" title="OnionShare"></p>
@@ -29,10 +19,25 @@
         <p class="upload-description">Select the files you want to send, then click "Send Files"...</p>
         <form method="post" enctype="multipart/form-data" action="/{{ slug }}/upload">
            <p><input type="file" name="file[]" multiple /></p>
-           <p><input type="submit" class="button" value="Upload Files" /></p>
+           <p><input type="submit" name="upload" class="button" value="Upload Files" /></p>
+           <div>
+             {% with messages = get_flashed_messages() %}
+               {% if messages %}
+                 <ul class=flashes>
+                 {% for message in messages %}
+                   <li>{{ message }}</li>
+                 {% endfor %}
+                 </ul>
+               {% endif %}
+             {% endwith %}
+           </div>
         </form>
       </div>
     </div>
+
+    <form method="post" action="/{{ slug }}/close">
+      <input type="submit" name="close" class="close-button" value="I'm Finished Uploading" />
+    </form>
 
   </body>
 </html>

@@ -305,9 +305,7 @@ class Web(object):
                                     valid = True
 
                     self.common.log('Web', 'receive_routes', '/upload, uploaded {}, saving to {}'.format(f.filename, local_path))
-                    print('')
                     print(strings._('receive_mode_received_file').format(local_path))
-                    print('')
                     f.save(local_path)
 
             # Note that flash strings are on English, and not translated, on purpose,
@@ -318,6 +316,12 @@ class Web(object):
                 flash('Uploaded {}'.format(', '.join(filenames)))
 
             return redirect('/{}'.format(slug_candidate))
+
+        @self.app.route("/<slug_candidate>/close", methods=['POST'])
+        def close(slug_candidate):
+            self.check_slug_candidate(slug_candidate)
+            self.force_shutdown()
+            return ""
 
     def common_routes(self):
         """
