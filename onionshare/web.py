@@ -350,7 +350,7 @@ class Web(object):
             """
             Stop the flask web server, from the context of an http request.
             """
-            self.check_slug_candidate(slug_candidate, shutdown_slug)
+            self.check_slug_candidate(slug_candidate, self.shutdown_slug)
             self.force_shutdown()
             return ""
 
@@ -472,10 +472,10 @@ class Web(object):
         try:
             s = socket.socket()
             s.connect(('127.0.0.1', port))
-            s.sendall('GET /{0:s}/shutdown HTTP/1.1\r\n\r\n'.format(shutdown_slug))
+            s.sendall('GET /{0:s}/shutdown HTTP/1.1\r\n\r\n'.format(self.shutdown_slug))
         except:
             try:
-                urlopen('http://127.0.0.1:{0:d}/{1:s}/shutdown'.format(port, shutdown_slug)).read()
+                urlopen('http://127.0.0.1:{0:d}/{1:s}/shutdown'.format(port, self.shutdown_slug)).read()
             except:
                 pass
 
