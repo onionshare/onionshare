@@ -28,7 +28,7 @@
         <p class="upload-header">Send Files</p>
         <p class="upload-description">Select the files you want to send, then click "Send Files"...</p>
         <form method="post" enctype="multipart/form-data" action="/{{ slug }}/upload">
-           <p><input type="file" multiple /></p>
+           <p><input type="file" name="file[]" multiple /></p>
            <p><input type="submit" class="button" value="Upload Files" /></p>
         </form>
       </div>
