@@ -19,7 +19,7 @@
         <p class="upload-description">Select the files you want to send, then click "Send Files"...</p>
         <form method="post" enctype="multipart/form-data" action="/{{ slug }}/upload">
            <p><input type="file" name="file[]" multiple /></p>
-           <p><input type="submit" name="upload" class="button" value="Upload Files" /></p>
+           <p><input type="submit" class="button" value="Send Files" /></p>
            <div>
              {% with messages = get_flashed_messages() %}
                {% if messages %}
@@ -36,7 +36,7 @@
     </div>
 
     <form method="post" action="/{{ slug }}/close">
-      <input type="submit" name="close" class="close-button" value="I'm Finished Uploading" />
+      <input type="submit" class="close-button" value="I'm Finished Uploading" />
     </form>
 
   </body>

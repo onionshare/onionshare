@@ -321,7 +321,8 @@ class Web(object):
         def close(slug_candidate):
             self.check_slug_candidate(slug_candidate)
             self.force_shutdown()
-            return ""
+            r = make_response(render_template('closed.html'))
+            return self.add_security_headers(r)
 
     def common_routes(self):
         """
