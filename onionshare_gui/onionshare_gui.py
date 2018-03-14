@@ -412,7 +412,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         """
         common.log('OnionShareGui', 'start_server_step2')
 
-        # add progress bar to the status bar, indicating the crunching of files.
+        # add progress bar to the status bar, indicating the compressing of files.
         self._zip_progress_bar = ZipProgressBar(0)
         self.filenames = []
         for index in range(self.file_selection.file_list.count()):
