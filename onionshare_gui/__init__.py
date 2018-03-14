@@ -92,10 +92,10 @@ def main():
         valid = True
         for filename in filenames:
             if not os.path.isfile(filename) and not os.path.isdir(filename):
-                Alert(self.common, strings._("not_a_file", True).format(filename))
+                Alert(common, strings._("not_a_file", True).format(filename))
                 valid = False
             if not os.access(filename, os.R_OK):
-                Alert(self.common, strings._("not_a_readable_file", True).format(filename))
+                Alert(common, strings._("not_a_readable_file", True).format(filename))
                 valid = False
         if not valid:
             sys.exit()
