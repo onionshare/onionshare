@@ -158,5 +158,7 @@
     "info_in_progress_downloads_tooltip": "{} download(s) in progress",
     "info_completed_downloads_tooltip": "{} download(s) completed",
     "error_cannot_create_downloads_dir": "Error creating downloads folder: {}",
-    "error_downloads_dir_not_writable": "The downloads folder isn't writable: {}"
+    "error_downloads_dir_not_writable": "The downloads folder isn't writable: {}",
+    "receive_mode_warning": "Warning: Some files can hack your computer if you open them! Only open files from people you trust, or if you know what you're doing.",
+    "receive_mode_received_file": "Received file: {}"
 }

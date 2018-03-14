@@ -305,6 +305,9 @@ class Web(object):
                                     valid = True
 
                     self.common.log('Web', 'receive_routes', '/upload, uploaded {}, saving to {}'.format(f.filename, local_path))
+                    print('')
+                    print(strings._('receive_mode_received_file').format(local_path))
+                    print('')
                     f.save(local_path)
 
             # Note that flash strings are on English, and not translated, on purpose,

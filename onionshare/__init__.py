@@ -162,6 +162,9 @@ def main(cwd=None):
 
         print('')
         if receive:
+            print(strings._('receive_mode_warning'))
+            print('')
+
             if stealth:
                 print(strings._("give_this_url_receive_stealth"))
                 print('http://{0:s}/{1:s}'.format(app.onion_host, web.slug))
