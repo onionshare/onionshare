@@ -63,8 +63,6 @@ class Web(object):
 
         # Are we using receive mode?
         self.receive_mode = receive_mode
-        if self.receive_mode:
-            self.app.config['UPLOAD_FOLDER'] = self.common.settings.get('downloads_dir')
 
         # Starting in Flask 0.11, render_template_string autoescapes template variables
         # by default. To prevent content injection through template variables in
@@ -268,18 +266,55 @@ class Web(object):
 
         @self.app.route("/<slug_candidate>/upload", methods=['POST'])
         def upload(slug_candidate):
+            self.check_slug_candidate(slug_candidate)
+
+            files = request.files.getlist('file[]')
+            filenames = []
+            for f in files:
+                if f.filename != '':
+                    # Automatically rename the file, if a file of the same name already exists
+                    filename = secure_filename(f.filename)
+                    filenames.append(filename)
+                    local_path = os.path.join(self.common.settings.get('downloads_dir'), filename)
+                    if os.path.exists(local_path):
+                        if '.' in filename:
+                            # Add "-i", e.g. change "foo.txt" to "foo-2.txt"
+                            parts = filename.split('.')
+                            name = parts[:-1]
+                            ext = parts[-1]
+
+                            i = 2
+                            valid = False
+                            while not valid:
+                                new_filename = '{}-{}.{}'.format('.'.join(name), i, ext)
+                                local_path = os.path.join(self.common.settings.get('downloads_dir'), new_filename)
+                                if os.path.exists(local_path):
+                                    i += 1
+                                else:
+                                    valid = True
+                        else:
+                            # If no extension, just add "-i", e.g. change "foo" to "foo-2"
+                            i = 2
+                            valid = False
+                            while not valid:
+                                new_filename = '{}-{}'.format(filename, i)
+                                local_path = os.path.join(self.common.settings.get('downloads_dir'), new_filename)
+                                if os.path.exists(local_path):
+                                    i += 1
+                                else:
+                                    valid = True
+
+                    self.common.log('Web', 'receive_routes', '/upload, uploaded {}, saving to {}'.format(f.filename, local_path))
+                    f.save(local_path)
+
             # Note that flash strings are on English, and not translated, on purpose,
             # to avoid leaking the locale of the OnionShare user
-            self.check_slug_candidate(slug_candidate)
-            self.common.log('Web', 'upload, request.files: {}'.format(request.files))
+            if len(filenames) == 0:
+                flash('No files uploaded')
+            else:
+                flash('Uploaded {}'.format(', '.join(filenames)))
 
-            # Check if the post request has the file part
-            if 'file' not in request.files:
-                flash('No files were selected to upload')
-                return redirect('/{}'.format(slug_candidate))
-
-            files = request.files['file']
-            return ''
+            return redirect('/{}'.format(slug_candidate))
 
     def common_routes(self):
         """
