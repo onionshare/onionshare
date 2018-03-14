@@ -1,5 +1,9 @@
 # OnionShare Changelog
 
+## 1.4
+* New feature: Support for meek_lite pluggable transports (Amazon and Azure) on Windows and Mac
+* New feature: Support for custom obfs4 and meek_lite bridges on Windows and Mac
+
 ## 1.3
 
 * Major UI redesign, introducing many UX improvements
