@@ -345,7 +345,8 @@ class OnionShareGui(QtWidgets.QMainWindow):
                 # If there were some files listed for sharing, we should be ok to
                 # re-enable the 'Start Sharing' button now.
                 if self.server_status.file_selection.get_num_files() > 0:
-                    self.server_status.server_button.setEnabled(True)
+                    self.primary_action.show()
+                    self.info_widget.show()
                 self.status_bar.clearMessage()
             # If we switched off the shutdown timeout setting, ensure the widget is hidden.
             if not self.settings.get('shutdown_timeout'):
@@ -554,7 +555,8 @@ class OnionShareGui(QtWidgets.QMainWindow):
             self.timer.stop()
             if self.server_status.status != self.server_status.STATUS_STOPPED:
                 self.server_status.stop_server()
-            self.server_status.server_button.setEnabled(False)
+            self.primary_action.hide()
+            self.info_widget.hide()
             self.status_bar.showMessage(strings._('gui_tor_connection_lost', True))
             if self.systemTray.supportsMessages() and self.settings.get('systray_notifications'):
                 self.systemTray.showMessage(strings._('gui_tor_connection_lost', True), strings._('gui_tor_connection_error_settings', True))
