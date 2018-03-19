@@ -27,6 +27,7 @@ import socket
 import sys
 import tempfile
 import zipfile
+import re
 from distutils.version import LooseVersion as Version
 from urllib.request import urlopen
 
@@ -63,6 +64,9 @@ class Web(object):
 
         # Are we using receive mode?
         self.receive_mode = receive_mode
+        if self.receive_mode:
+            # In receive mode, use WSGI middleware to track the progess of upload POSTs
+            self.app.wsgi_app = UploadProgessMiddleware(self.app.wsgi_app, self)
 
         # Starting in Flask 0.11, render_template_string autoescapes template variables
         # by default. To prevent content injection through template variables in
@@ -528,3 +532,28 @@ class ZipWriter(object):
         Close the zip archive.
         """
         self.z.close()
+
+
+class UploadProgessMiddleware(object):
+    def __init__(self, app, web):
+        self.app = app
+        self.web = web
+
+        self.upload_regex = re.compile('/(.*)/upload')
+
+    def __call__(self, environ, start_response):
+        # Check if this is a POST request to /[slug]/upload
+        valid_upload_request = False
+        if environ.get('REQUEST_METHOD') == 'POST':
+            match = self.upload_regex.match(environ.get('PATH_INFO'))
+            if match:
+                slug_candidate = match.group(1)
+                if hmac.compare_digest(self.web.slug, slug_candidate):
+                    valid_upload_request = True
+
+        # If this is a valid upload request, stream the upload
+        if valid_upload_request:
+            #print(environ.get('wsgi.input'))
+            pass
+
+        return self.app(environ, start_response)
