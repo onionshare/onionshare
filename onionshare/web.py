@@ -66,6 +66,8 @@ class Web(object):
         # Are we using receive mode?
         self.receive_mode = receive_mode
         if self.receive_mode:
+            # Use custom WSGI middleware, to modify environ
+            self.app.wsgi_app = ReceiveModeWSGIMiddleware(self.app.wsgi_app, self)
             # Use a custom Request class to track upload progess
             self.app.request_class = ReceiveModeRequest
 
@@ -318,7 +320,8 @@ class Web(object):
             if len(filenames) == 0:
                 flash('No files uploaded')
             else:
-                flash('Uploaded {}'.format(', '.join(filenames)))
+                for filename in filenames:
+                    flash('Uploaded {}'.format(filename))
 
             return redirect('/{}'.format(slug_candidate))
 
@@ -535,6 +538,19 @@ class ZipWriter(object):
         self.z.close()
 
 
+class ReceiveModeWSGIMiddleware(object):
+    """
+    Custom WSGI middleware in order to attach the Web object to environ, so
+    ReceiveModeRequest can access it.
+    """
+    def __init__(self, app, web):
+        self.app = app
+        self.web = web
+
+    def __call__(self, environ, start_response):
+        environ['web'] = self.web
+        return self.app(environ, start_response)
+
 class ReceiveModeTemporaryFile(object):
     """
     A custom TemporaryFile that tells ReceiveModeRequest every time data gets
@@ -571,6 +587,7 @@ class ReceiveModeRequest(Request):
     """
     def __init__(self, environ, populate_request=True, shallow=False):
         super(ReceiveModeRequest, self).__init__(environ, populate_request, shallow)
+        self.web = environ['web']
 
         # A dictionary that maps filenames to the bytes uploaded so far
         self.onionshare_progress = {}
@@ -580,13 +597,22 @@ class ReceiveModeRequest(Request):
         This gets called for each file that gets uploaded, and returns an file-like
         writable stream.
         """
-        print('')
+        if len(self.onionshare_progress) > 0:
+            print('')
         self.onionshare_progress[filename] = 0
         return ReceiveModeTemporaryFile(filename, self.onionshare_update_func)
+
+    def close(self):
+        """
+        When closing the request, print a newline if this was a file upload.
+        """
+        super(ReceiveModeRequest, self).close()
+        if len(self.onionshare_progress) > 0:
+            print('')
 
     def onionshare_update_func(self, filename, length):
         """
         Keep track of the bytes uploaded so far for all files.
         """
         self.onionshare_progress[filename] += length
-        print('\r{}: {}     '.format(filename, self.onionshare_progress[filename]), end='')
+        print('{} - {}     '.format(self.web.common.human_readable_filesize(self.onionshare_progress[filename]), filename), end='\r')

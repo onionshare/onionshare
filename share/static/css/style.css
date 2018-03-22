@@ -135,6 +135,7 @@ ul.flashes {
   margin: 0;
   padding: 0;
   color: #cc0000;
+  text-align: left;
 }
 
 ul.flashes li {
