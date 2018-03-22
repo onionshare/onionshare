@@ -106,7 +106,7 @@
     "gui_settings_tor_bridges_meek_lite_azure_radio_option_no_obfs4proxy": "Use built-in meek_lite (Azure) pluggable transports (requires obfs4proxy)",
     "gui_settings_tor_bridges_custom_radio_option": "Use custom bridges",
     "gui_settings_tor_bridges_custom_label": "You can get bridges from <a href=\"https://bridges.torproject.org/options\">https://bridges.torproject.org</a>",
-    "gui_settings_tor_bridges_invalid": "None of the bridges you supplied seem work.\nPlease try again by double-checking them or adding other ones.",
+    "gui_settings_tor_bridges_invalid": "None of the bridges you supplied seem to work.\nPlease try again by double-checking them or adding other ones.",
     "gui_settings_button_save": "Save",
     "gui_settings_button_cancel": "Cancel",
     "gui_settings_button_help": "Help",
