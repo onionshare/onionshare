@@ -66,9 +66,7 @@ class Web(object):
         # Are we using receive mode?
         self.receive_mode = receive_mode
         if self.receive_mode:
-            # In receive mode, use WSGI middleware to track the progess of upload POSTs
-            self.app.wsgi_app = UploadProgessMiddleware(self.common, self.app.wsgi_app, self)
-            # Use a custom Request class
+            # Use a custom Request class to track upload progess
             self.app.request_class = ReceiveModeRequest
 
         # Starting in Flask 0.11, render_template_string autoescapes template variables
@@ -537,32 +535,6 @@ class ZipWriter(object):
         self.z.close()
 
 
-class UploadProgessMiddleware(object):
-    def __init__(self, common, app, web):
-        self.common = common
-        self.app = app
-        self.web = web
-
-        self.upload_regex = re.compile('/(.*)/upload')
-
-    def __call__(self, environ, start_response):
-        # Check if this is a POST request to /[slug]/upload
-        valid_upload_request = False
-        if environ.get('REQUEST_METHOD') == 'POST':
-            match = self.upload_regex.match(environ.get('PATH_INFO'))
-            if match:
-                slug_candidate = match.group(1)
-                if hmac.compare_digest(self.web.slug, slug_candidate):
-                    valid_upload_request = True
-
-        # If this is a valid upload request, stream the upload
-        if valid_upload_request:
-            length = environ.get('CONTENT_LENGTH')
-            self.common.log('UploadProgessMiddleware', 'upload started, {} bytes'.format(length))
-
-        return self.app(environ, start_response)
-
-
 class ReceiveModeTemporaryFile(object):
     """
     A custom TemporaryFile that tells ReceiveModeRequest every time data gets
@@ -600,9 +572,6 @@ class ReceiveModeRequest(Request):
     def __init__(self, environ, populate_request=True, shallow=False):
         super(ReceiveModeRequest, self).__init__(environ, populate_request, shallow)
 
-        # The total size of this request, which may include multiple files
-        self.total_content_length = 0
-
         # A dictionary that maps filenames to the bytes uploaded so far
         self.onionshare_progress = {}
 
@@ -612,7 +581,6 @@ class ReceiveModeRequest(Request):
         writable stream.
         """
         print('')
-        self.total_content_length = total_content_length
         self.onionshare_progress[filename] = 0
         return ReceiveModeTemporaryFile(filename, self.onionshare_update_func)
 
