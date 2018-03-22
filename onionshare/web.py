@@ -28,12 +28,13 @@ import sys
 import tempfile
 import zipfile
 import re
+import io
 from distutils.version import LooseVersion as Version
 from urllib.request import urlopen
 
 from flask import (
-    Flask, Response, request, render_template, abort, make_response, flash,
-    redirect, __version__ as flask_version
+    Flask, Response, Request, request, render_template, abort, make_response,
+    flash, redirect, __version__ as flask_version
 )
 from werkzeug.utils import secure_filename
 
@@ -66,7 +67,9 @@ class Web(object):
         self.receive_mode = receive_mode
         if self.receive_mode:
             # In receive mode, use WSGI middleware to track the progess of upload POSTs
-            self.app.wsgi_app = UploadProgessMiddleware(self.app.wsgi_app, self)
+            self.app.wsgi_app = UploadProgessMiddleware(self.common, self.app.wsgi_app, self)
+            # Use a custom Request class
+            self.app.request_class = ReceiveModeRequest
 
         # Starting in Flask 0.11, render_template_string autoescapes template variables
         # by default. To prevent content injection through template variables in
@@ -535,7 +538,8 @@ class ZipWriter(object):
 
 
 class UploadProgessMiddleware(object):
-    def __init__(self, app, web):
+    def __init__(self, common, app, web):
+        self.common = common
         self.app = app
         self.web = web
 
@@ -553,7 +557,68 @@ class UploadProgessMiddleware(object):
 
         # If this is a valid upload request, stream the upload
         if valid_upload_request:
-            #print(environ.get('wsgi.input'))
-            pass
+            length = environ.get('CONTENT_LENGTH')
+            self.common.log('UploadProgessMiddleware', 'upload started, {} bytes'.format(length))
 
         return self.app(environ, start_response)
+
+
+class ReceiveModeTemporaryFile(object):
+    """
+    A custom TemporaryFile that tells ReceiveModeRequest every time data gets
+    written to it, in order to track the progress of uploads.
+    """
+    def __init__(self, filename, update_func):
+        self.onionshare_filename = filename
+        self.onionshare_update_func = update_func
+
+        # Create a temporary file
+        self.f = tempfile.TemporaryFile('wb+')
+
+        # Make all the file-like methods and attributes actually access the
+        # TemporaryFile, except for write
+        attrs = ['close', 'closed', 'detach', 'fileno', 'flush', 'isatty', 'mode',
+                 'name', 'peek', 'raw', 'read', 'read1', 'readable', 'readinto',
+                 'readinto1', 'readline', 'readlines', 'seek', 'seekable', 'tell',
+                 'truncate', 'writable', 'writelines']
+        for attr in attrs:
+            setattr(self, attr, getattr(self.f, attr))
+
+    def write(self, b):
+        """
+        Custom write method that calls out to onionshare_update_func
+        """
+        bytes_written = self.f.write(b)
+        self.onionshare_update_func(self.onionshare_filename, bytes_written)
+
+
+class ReceiveModeRequest(Request):
+    """
+    A custom flask Request object that keeps track of how much data has been
+    uploaded for each file, for receive mode.
+    """
+    def __init__(self, environ, populate_request=True, shallow=False):
+        super(ReceiveModeRequest, self).__init__(environ, populate_request, shallow)
+
+        # The total size of this request, which may include multiple files
+        self.total_content_length = 0
+
+        # A dictionary that maps filenames to the bytes uploaded so far
+        self.onionshare_progress = {}
+
+    def _get_file_stream(self, total_content_length, content_type, filename=None, content_length=None):
+        """
+        This gets called for each file that gets uploaded, and returns an file-like
+        writable stream.
+        """
+        print('')
+        self.total_content_length = total_content_length
+        self.onionshare_progress[filename] = 0
+        return ReceiveModeTemporaryFile(filename, self.onionshare_update_func)
+
+    def onionshare_update_func(self, filename, length):
+        """
+        Keep track of the bytes uploaded so far for all files.
+        """
+        self.onionshare_progress[filename] += length
+        print('\r{}: {}     '.format(filename, self.onionshare_progress[filename]), end='')
