@@ -114,9 +114,13 @@ class Downloads(QtWidgets.QWidget):
         self.downloads_label.setStyleSheet('QLabel { font-weight: bold; font-size 14px; text-align: center; }')
         self.no_downloads_label = QtWidgets.QLabel(strings._('gui_no_downloads', True))
 
+        self.downloads_layout = QtWidgets.QVBoxLayout()
+
         self.layout = QtWidgets.QVBoxLayout()
         self.layout.addWidget(self.downloads_label)
         self.layout.addWidget(self.no_downloads_label)
+        self.layout.addLayout(self.downloads_layout)
+        self.layout.addStretch()
         self.setLayout(self.layout)
 
     def add_download(self, download_id, total_bytes):
@@ -126,7 +130,7 @@ class Downloads(QtWidgets.QWidget):
         # add it to the list
         download = Download(download_id, total_bytes)
         self.downloads[download_id] = download
-        self.layout.addWidget(download.progress_bar)
+        self.downloads_layout.addWidget(download.progress_bar)
 
     def update_download(self, download_id, downloaded_bytes):
         """
@@ -145,6 +149,6 @@ class Downloads(QtWidgets.QWidget):
         Reset the downloads back to zero
         """
         for download in self.downloads.values():
-            self.layout.removeWidget(download.progress_bar)
+            self.downloads_layout.removeWidget(download.progress_bar)
             download.progress_bar.close()
         self.downloads = {}
