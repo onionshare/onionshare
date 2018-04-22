@@ -108,7 +108,7 @@ def main():
     app = OnionShare(onion, local_only, stay_open, shutdown_timeout)
 
     # Launch the gui
-    gui = OnionShareGui(onion, qtapp, app, filenames, config)
+    gui = OnionShareGui(onion, qtapp, app, filenames, config, local_only)
 
     # Clean up when app quits
     def shutdown():
