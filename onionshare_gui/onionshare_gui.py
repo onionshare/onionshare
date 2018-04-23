@@ -107,7 +107,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.filesize_warning.hide()
 
         # Downloads
-        self.downloads = Downloads()
+        self.downloads = Downloads(self.common)
         self.new_download = False
         self.downloads_in_progress = 0
         self.downloads_completed = 0
@@ -118,7 +118,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.info_label.setStyleSheet('QLabel { font-size: 12px; color: #666666; }')
 
         self.info_show_downloads = QtWidgets.QToolButton()
-        self.info_show_downloads.setIcon(QtGui.QIcon(common.get_resource_path('images/download_window_gray.png')))
+        self.info_show_downloads.setIcon(QtGui.QIcon(self.common.get_resource_path('images/download_window_gray.png')))
         self.info_show_downloads.setCheckable(True)
         self.info_show_downloads.toggled.connect(self.downloads_toggled)
         self.info_show_downloads.setToolTip(strings._('gui_downloads_window_tooltip', True))
@@ -655,7 +655,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         """
         When the 'Show/hide downloads' button is toggled, show or hide the downloads window.
         """
-        common.log('OnionShareGui', 'toggle_downloads')
+        self.common.log('OnionShareGui', 'toggle_downloads')
         if checked:
             self.downloads.downloads_container.show()
         else:
@@ -701,7 +701,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         """
         self.update_downloads_completed(0)
         self.update_downloads_in_progress(0)
-        self.info_show_downloads.setIcon(QtGui.QIcon(common.get_resource_path('images/download_window_gray.png')))
+        self.info_show_downloads.setIcon(QtGui.QIcon(self.common.get_resource_path('images/download_window_gray.png')))
         self.downloads.no_downloads_label.show()
         self.downloads.downloads_container.resize(self.downloads.downloads_container.sizeHint())
 

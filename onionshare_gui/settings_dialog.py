@@ -683,7 +683,7 @@ class SettingsDialog(QtWidgets.QDialog):
             reboot_onion = False
             if not self.local_only:
                 if self.onion.is_authenticated():
-                    common.log('SettingsDialog', 'save_clicked', 'Connected to Tor')
+                    self.common.log('SettingsDialog', 'save_clicked', 'Connected to Tor')
                     def changed(s1, s2, keys):
                         """
                         Compare the Settings objects s1 and s2 and return true if any values
@@ -705,20 +705,20 @@ class SettingsDialog(QtWidgets.QDialog):
                         reboot_onion = True
 
                 else:
-                    common.log('SettingsDialog', 'save_clicked', 'Not connected to Tor')
+                    self.common.log('SettingsDialog', 'save_clicked', 'Not connected to Tor')
                     # Tor isn't connected, so try connecting
                     reboot_onion = True
 
                 # Do we need to reinitialize Tor?
                 if reboot_onion:
                     # Reinitialize the Onion object
-                    common.log('SettingsDialog', 'save_clicked', 'rebooting the Onion')
+                    self.common.log('SettingsDialog', 'save_clicked', 'rebooting the Onion')
                     self.onion.cleanup()
 
                     tor_con = TorConnectionDialog(self.qtapp, settings, self.onion)
                     tor_con.start()
 
-                    common.log('SettingsDialog', 'save_clicked', 'Onion done rebooting, connected to Tor: {}'.format(self.onion.connected_to_tor))
+                    self.common.log('SettingsDialog', 'save_clicked', 'Onion done rebooting, connected to Tor: {}'.format(self.onion.connected_to_tor))
 
                     if self.onion.is_authenticated() and not tor_con.wasCanceled():
                         self.settings_saved.emit()
