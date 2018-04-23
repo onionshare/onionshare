@@ -309,22 +309,21 @@ class SettingsDialog(QtWidgets.QDialog):
         connection_type_radio_group = QtWidgets.QGroupBox(strings._("gui_settings_connection_type_label", True))
         connection_type_radio_group.setLayout(connection_type_radio_group_layout)
 
-        # Connection type layout
-        connection_type_group_layout = QtWidgets.QVBoxLayout()
-        connection_type_group_layout.addWidget(self.connection_type_control_port_extras)
-        connection_type_group_layout.addWidget(self.connection_type_socket_file_extras)
-        connection_type_group_layout.addWidget(self.connection_type_socks)
-        connection_type_group_layout.addWidget(self.authenticate_group)
-        connection_type_group_layout.addWidget(self.connection_type_test_button)
-        connection_type_group = QtWidgets.QGroupBox()
-        connection_type_group.setLayout(connection_type_group_layout)
-
         # The Bridges options are not exclusive (enabling Bridges offers obfs4 or custom bridges)
         connection_type_bridges_radio_group_layout = QtWidgets.QVBoxLayout()
         connection_type_bridges_radio_group_layout.addWidget(self.bridges)
         self.connection_type_bridges_radio_group = QtWidgets.QGroupBox(strings._("gui_settings_tor_bridges", True))
         self.connection_type_bridges_radio_group.setLayout(connection_type_bridges_radio_group_layout)
         self.connection_type_bridges_radio_group.hide()
+
+        # Connection type layout
+        connection_type_layout = QtWidgets.QVBoxLayout()
+        connection_type_layout.addWidget(self.connection_type_control_port_extras)
+        connection_type_layout.addWidget(self.connection_type_socket_file_extras)
+        connection_type_layout.addWidget(self.connection_type_socks)
+        connection_type_layout.addWidget(self.authenticate_group)
+        connection_type_layout.addWidget(self.connection_type_bridges_radio_group)
+        connection_type_layout.addWidget(self.connection_type_test_button)
 
         # Buttons
         self.save_button = QtWidgets.QPushButton(strings._('gui_settings_button_save', True))
@@ -356,8 +355,7 @@ class SettingsDialog(QtWidgets.QDialog):
 
         right_col_layout = QtWidgets.QVBoxLayout()
         right_col_layout.addWidget(connection_type_radio_group)
-        right_col_layout.addWidget(connection_type_group)
-        right_col_layout.addWidget(self.connection_type_bridges_radio_group)
+        right_col_layout.addLayout(connection_type_layout)
         right_col_layout.addWidget(self.tor_status)
         right_col_layout.addStretch()
 
