@@ -46,7 +46,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
     starting_server_step3 = QtCore.pyqtSignal()
     starting_server_error = QtCore.pyqtSignal(str)
 
-    def __init__(self, common, web, onion, qtapp, app, filenames, config=False):
+    def __init__(self, common, web, onion, qtapp, app, filenames, config=False, local_only=False):
         super(OnionShareGui, self).__init__()
 
         self.common = common
@@ -58,6 +58,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.onion = onion
         self.qtapp = qtapp
         self.app = app
+        self.local_only = local_only
 
         self.setWindowTitle('OnionShare')
         self.setWindowIcon(QtGui.QIcon(self.common.get_resource_path('images/logo.png')))
@@ -106,14 +107,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.filesize_warning.hide()
 
         # Downloads
-        self.downloads = Downloads(self.common)
-        self.downloads_container = QtWidgets.QScrollArea()
-        self.downloads_container.setWidget(self.downloads)
-        self.downloads_container.setWidgetResizable(True)
-        self.downloads_container.setMaximumHeight(200)
-        self.downloads_container.setMinimumHeight(75)
-        self.vbar = self.downloads_container.verticalScrollBar()
-        self.downloads_container.hide() # downloads start out hidden
+        self.downloads = Downloads()
         self.new_download = False
         self.downloads_in_progress = 0
         self.downloads_completed = 0
@@ -122,6 +116,12 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.info_layout = QtWidgets.QHBoxLayout()
         self.info_label = QtWidgets.QLabel()
         self.info_label.setStyleSheet('QLabel { font-size: 12px; color: #666666; }')
+
+        self.info_show_downloads = QtWidgets.QToolButton()
+        self.info_show_downloads.setIcon(QtGui.QIcon(common.get_resource_path('images/download_window_gray.png')))
+        self.info_show_downloads.setCheckable(True)
+        self.info_show_downloads.toggled.connect(self.downloads_toggled)
+        self.info_show_downloads.setToolTip(strings._('gui_downloads_window_tooltip', True))
 
         self.info_in_progress_downloads_count = QtWidgets.QLabel()
         self.info_in_progress_downloads_count.setStyleSheet('QLabel { font-size: 12px; color: #666666; }')
@@ -136,6 +136,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.info_layout.addStretch()
         self.info_layout.addWidget(self.info_in_progress_downloads_count)
         self.info_layout.addWidget(self.info_completed_downloads_count)
+        self.info_layout.addWidget(self.info_show_downloads)
 
         self.info_widget = QtWidgets.QWidget()
         self.info_widget.setLayout(self.info_layout)
@@ -193,7 +194,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
         primary_action_layout = QtWidgets.QVBoxLayout()
         primary_action_layout.addWidget(self.server_status)
         primary_action_layout.addWidget(self.filesize_warning)
-        primary_action_layout.addWidget(self.downloads_container)
         self.primary_action = QtWidgets.QWidget()
         self.primary_action.setLayout(primary_action_layout)
         self.primary_action.hide()
@@ -223,7 +223,8 @@ class OnionShareGui(QtWidgets.QMainWindow):
         tor_con = TorConnectionDialog(self.common, self.qtapp, self.onion)
         tor_con.canceled.connect(self._tor_connection_canceled)
         tor_con.open_settings.connect(self._tor_connection_open_settings)
-        tor_con.start()
+        if not self.local_only:
+            tor_con.start()
 
         # Start the timer
         self.timer.start(500)
@@ -341,19 +342,21 @@ class OnionShareGui(QtWidgets.QMainWindow):
             # We might've stopped the main requests timer if a Tor connection failed.
             # If we've reloaded settings, we probably succeeded in obtaining a new
             # connection. If so, restart the timer.
-            if self.onion.is_authenticated():
-                if not self.timer.isActive():
-                    self.timer.start(500)
-                # If there were some files listed for sharing, we should be ok to
-                # re-enable the 'Start Sharing' button now.
-                if self.server_status.file_selection.get_num_files() > 0:
-                    self.server_status.server_button.setEnabled(True)
-                self.status_bar.clearMessage()
+            if not self.local_only:
+                if self.onion.is_authenticated():
+                    if not self.timer.isActive():
+                        self.timer.start(500)
+                    # If there were some files listed for sharing, we should be ok to
+                    # re-enable the 'Start Sharing' button now.
+                    if self.server_status.file_selection.get_num_files() > 0:
+                        self.primary_action.show()
+                        self.info_widget.show()
+                    self.status_bar.clearMessage()
             # If we switched off the shutdown timeout setting, ensure the widget is hidden.
             if not self.common.settings.get('shutdown_timeout'):
                 self.server_status.shutdown_timeout_container.hide()
 
-        d = SettingsDialog(self.common, self.onion, self.qtapp, self.config)
+        d = SettingsDialog(self.common, self.onion, self.qtapp, self.config, self.local_only)
         d.settings_saved.connect(reload_settings)
         d.exec_()
 
@@ -372,7 +375,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.app.set_stealth(self.common.settings.get('use_stealth'))
 
         # Hide and reset the downloads if we have previously shared
-        self.downloads_container.hide()
         self.downloads.reset_downloads()
         self.reset_info_counters()
         self.status_bar.clearMessage()
@@ -413,7 +415,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         """
         self.common.log('OnionShareGui', 'start_server_step2')
 
-        # add progress bar to the status bar, indicating the crunching of files.
+        # add progress bar to the status bar, indicating the compressing of files.
         self._zip_progress_bar = ZipProgressBar(0)
         self.filenames = []
         for index in range(self.file_selection.file_list.count()):
@@ -549,20 +551,22 @@ class OnionShareGui(QtWidgets.QMainWindow):
         """
         self.update()
 
-        # Have we lost connection to Tor somehow?
-        if not self.onion.is_authenticated():
-            self.timer.stop()
-            if self.server_status.status != self.server_status.STATUS_STOPPED:
-                self.server_status.stop_server()
-            self.server_status.server_button.setEnabled(False)
-            self.status_bar.showMessage(strings._('gui_tor_connection_lost', True))
-            if self.systemTray.supportsMessages() and self.common.settings.get('systray_notifications'):
-                self.systemTray.showMessage(strings._('gui_tor_connection_lost', True), strings._('gui_tor_connection_error_settings', True))
+        if not self.local_only:
+            # Have we lost connection to Tor somehow?
+            if not self.onion.is_authenticated():
+                self.timer.stop()
+                if self.server_status.status != self.server_status.STATUS_STOPPED:
+                    self.server_status.stop_server()
+                self.primary_action.hide()
+                self.info_widget.hide()
+                self.status_bar.showMessage(strings._('gui_tor_connection_lost', True))
+                if self.systemTray.supportsMessages() and self.settings.get('systray_notifications'):
+                    self.systemTray.showMessage(strings._('gui_tor_connection_lost', True), strings._('gui_tor_connection_error_settings', True))
 
         # scroll to the bottom of the dl progress bar log pane
         # if a new download has been added
         if self.new_download:
-            self.vbar.setValue(self.vbar.maximum())
+            self.downloads.downloads_container.vbar.setValue(self.downloads.downloads_container.vbar.maximum())
             self.new_download = False
 
         events = []
@@ -580,8 +584,8 @@ class OnionShareGui(QtWidgets.QMainWindow):
                 self.status_bar.showMessage(strings._('download_page_loaded', True))
 
             elif event["type"] == self.web.REQUEST_DOWNLOAD:
-                self.downloads_container.show() # show the downloads layout
-                self.downloads.add_download(event["data"]["id"], self.web.zip_filesize)
+                self.downloads.no_downloads_label.hide()
+                self.downloads.add_download(event["data"]["id"], web.zip_filesize)
                 self.new_download = True
                 self.downloads_in_progress += 1
                 self.update_downloads_in_progress(self.downloads_in_progress)
@@ -647,6 +651,16 @@ class OnionShareGui(QtWidgets.QMainWindow):
                             self.status_bar.clearMessage()
                             self.server_share_status_label.setText(strings._('timeout_download_still_running', True))
 
+    def downloads_toggled(self, checked):
+        """
+        When the 'Show/hide downloads' button is toggled, show or hide the downloads window.
+        """
+        common.log('OnionShareGui', 'toggle_downloads')
+        if checked:
+            self.downloads.downloads_container.show()
+        else:
+            self.downloads.downloads_container.hide()
+
     def copy_url(self):
         """
         When the URL gets copied to the clipboard, display this in the status bar.
@@ -687,6 +701,9 @@ class OnionShareGui(QtWidgets.QMainWindow):
         """
         self.update_downloads_completed(0)
         self.update_downloads_in_progress(0)
+        self.info_show_downloads.setIcon(QtGui.QIcon(common.get_resource_path('images/download_window_gray.png')))
+        self.downloads.no_downloads_label.show()
+        self.downloads.downloads_container.resize(self.downloads.downloads_container.sizeHint())
 
     def update_downloads_completed(self, count):
         """
@@ -707,6 +724,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
             self.info_in_progress_downloads_image = self.common.get_resource_path('images/download_in_progress_none.png')
         else:
             self.info_in_progress_downloads_image = self.common.get_resource_path('images/download_in_progress.png')
+            self.info_show_downloads.setIcon(QtGui.QIcon(self.common.get_resource_path('images/download_window_green.png')))
         self.info_in_progress_downloads_count.setText('<img src="{0:s}" /> {1:d}'.format(self.info_in_progress_downloads_image, count))
         self.info_in_progress_downloads_count.setToolTip(strings._('info_in_progress_downloads_tooltip', True).format(count))
 
