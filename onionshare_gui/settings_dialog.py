@@ -296,10 +296,6 @@ class SettingsDialog(QtWidgets.QDialog):
         self.authenticate_group = QtWidgets.QGroupBox(strings._("gui_settings_authenticate_label", True))
         self.authenticate_group.setLayout(authenticate_group_layout)
 
-        # Test tor settings button
-        self.connection_type_test_button = QtWidgets.QPushButton(strings._('gui_settings_connection_type_test_button', True))
-        self.connection_type_test_button.clicked.connect(self.test_tor_clicked)
-
         # Put the radios into their own group so they are exclusive
         connection_type_radio_group_layout = QtWidgets.QVBoxLayout()
         connection_type_radio_group_layout.addWidget(self.connection_type_bundled_radio)
@@ -316,6 +312,13 @@ class SettingsDialog(QtWidgets.QDialog):
         self.connection_type_bridges_radio_group.setLayout(connection_type_bridges_radio_group_layout)
         self.connection_type_bridges_radio_group.hide()
 
+        # Test tor settings button
+        self.connection_type_test_button = QtWidgets.QPushButton(strings._('gui_settings_connection_type_test_button', True))
+        self.connection_type_test_button.clicked.connect(self.test_tor_clicked)
+        connection_type_test_button_layout = QtWidgets.QHBoxLayout()
+        connection_type_test_button_layout.addWidget(self.connection_type_test_button)
+        connection_type_test_button_layout.addStretch()
+
         # Connection type layout
         connection_type_layout = QtWidgets.QVBoxLayout()
         connection_type_layout.addWidget(self.connection_type_control_port_extras)
@@ -323,7 +326,7 @@ class SettingsDialog(QtWidgets.QDialog):
         connection_type_layout.addWidget(self.connection_type_socks)
         connection_type_layout.addWidget(self.authenticate_group)
         connection_type_layout.addWidget(self.connection_type_bridges_radio_group)
-        connection_type_layout.addWidget(self.connection_type_test_button)
+        connection_type_layout.addLayout(connection_type_test_button_layout)
 
         # Buttons
         self.save_button = QtWidgets.QPushButton(strings._('gui_settings_button_save', True))
