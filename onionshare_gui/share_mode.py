@@ -30,6 +30,7 @@ from .file_selection import FileSelection
 from .server_status import ServerStatus
 from .downloads import Downloads
 from .onion_thread import OnionThread
+from .alert import Alert
 
 
 class ShareMode(QtWidgets.QWidget):
@@ -43,7 +44,7 @@ class ShareMode(QtWidgets.QWidget):
     starting_server_error = QtCore.pyqtSignal(str)
     set_share_server_active = QtCore.pyqtSignal(bool)
 
-    def __init__(self, common, filenames, qtapp, app, web, status_bar, server_share_status_label):
+    def __init__(self, common, filenames, qtapp, app, web, status_bar, server_share_status_label, system_tray):
         super(ShareMode, self).__init__()
         self.common = common
         self.qtapp = qtapp
@@ -52,6 +53,7 @@ class ShareMode(QtWidgets.QWidget):
 
         self.status_bar = status_bar
         self.server_share_status_label = server_share_status_label
+        self.system_tray = system_tray
 
         # File selection
         self.file_selection = FileSelection(self.common)
@@ -87,6 +89,7 @@ class ShareMode(QtWidgets.QWidget):
         self.downloads = Downloads(self.common)
         self.downloads_in_progress = 0
         self.downloads_completed = 0
+        self.new_download = False # For scrolling to the bottom of the downloads list
 
         # Info label along top of screen
         self.info_layout = QtWidgets.QHBoxLayout()
@@ -144,6 +147,11 @@ class ShareMode(QtWidgets.QWidget):
         """
         This method is called regularly on a timer while share mode is active.
         """
+        # Scroll to the bottom of the download progress bar log pane if a new download has been added
+        if self.new_download:
+            self.downloads.downloads_container.vbar.setValue(self.downloads.downloads_container.vbar.maximum())
+            self.new_download = False
+
         # If the auto-shutdown timer has stopped, stop the server
         if self.server_status.status == self.server_status.STATUS_STARTED:
             if self.app.shutdown_timer and self.common.settings.get('shutdown_timeout'):
@@ -161,6 +169,81 @@ class ShareMode(QtWidgets.QWidget):
                         else:
                             self.status_bar.clearMessage()
                             self.server_share_status_label.setText(strings._('timeout_download_still_running', True))
+
+    def handle_tor_broke(self):
+        """
+        Handle connection from Tor breaking.
+        """
+        if self.server_status.status != self.server_status.STATUS_STOPPED:
+            self.server_status.stop_server()
+        self.primary_action.hide()
+        self.info_widget.hide()
+
+    def handle_request_load(self, event):
+        """
+        Handle REQUEST_LOAD event.
+        """
+        self.status_bar.showMessage(strings._('download_page_loaded', True))
+
+    def handle_request_download(self, event):
+        """
+        Handle REQUEST_DOWNLOAD event.
+        """
+        self.downloads.no_downloads_label.hide()
+        self.downloads.add_download(event["data"]["id"], self.web.zip_filesize)
+        self.new_download = True
+        self.downloads_in_progress += 1
+        self.update_downloads_in_progress(self.downloads_in_progress)
+
+        if self.system_tray.supportsMessages() and self.common.settings.get('systray_notifications'):
+            self.system_tray.showMessage(strings._('systray_download_started_title', True), strings._('systray_download_started_message', True))
+
+    def handle_request_rate_limit(self, event):
+        """
+        Handle REQUEST_RATE_LIMIT event.
+        """
+        self.stop_server()
+        Alert(self.common, strings._('error_rate_limit'), QtWidgets.QMessageBox.Critical)
+
+    def handle_request_progress(self, event):
+        """
+        Handle REQUEST_PROGRESS event.
+        """
+        self.downloads.update_download(event["data"]["id"], event["data"]["bytes"])
+
+        # Is the download complete?
+        if event["data"]["bytes"] == self.web.zip_filesize:
+            if self.system_tray.supportsMessages() and self.common.settings.get('systray_notifications'):
+                self.system_tray.showMessage(strings._('systray_download_completed_title', True), strings._('systray_download_completed_message', True))
+            # Update the total 'completed downloads' info
+            self.downloads_completed += 1
+            self.update_downloads_completed(self.downloads_completed)
+            # Update the 'in progress downloads' info
+            self.downloads_in_progress -= 1
+            self.update_downloads_in_progress(self.downloads_in_progress)
+
+            # close on finish?
+            if not self.web.stay_open:
+                self.server_status.stop_server()
+                self.status_bar.clearMessage()
+                self.server_share_status_label.setText(strings._('closing_automatically', True))
+        else:
+            if self.server_status.status == self.server_status.STATUS_STOPPED:
+                self.downloads.cancel_download(event["data"]["id"])
+                self.downloads_in_progress = 0
+                self.update_downloads_in_progress(self.downloads_in_progress)
+
+    def handle_request_canceled(self, event):
+        """
+        Handle REQUEST_CANCELED event.
+        """
+        self.downloads.cancel_download(event["data"]["id"])
+
+        # Update the 'in progress downloads' info
+        self.downloads_in_progress -= 1
+        self.update_downloads_in_progress(self.downloads_in_progress)
+        if self.system_tray.supportsMessages() and self.common.settings.get('systray_notifications'):
+            self.system_tray.showMessage(strings._('systray_download_canceled_title', True), strings._('systray_download_canceled_message', True))
 
     def update_primary_action(self):
         # Show or hide primary action layout
