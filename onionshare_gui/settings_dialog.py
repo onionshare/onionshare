@@ -59,11 +59,6 @@ class SettingsDialog(QtWidgets.QDialog):
         self.close_after_first_download_checkbox.setCheckState(QtCore.Qt.Checked)
         self.close_after_first_download_checkbox.setText(strings._("gui_settings_close_after_first_download_option", True))
 
-        # Whether or not to show systray notifications
-        self.systray_notifications_checkbox = QtWidgets.QCheckBox()
-        self.systray_notifications_checkbox.setCheckState(QtCore.Qt.Checked)
-        self.systray_notifications_checkbox.setText(strings._("gui_settings_systray_notifications", True))
-
         # Whether or not to use a shutdown timer
         self.shutdown_timeout_checkbox = QtWidgets.QCheckBox()
         self.shutdown_timeout_checkbox.setCheckState(QtCore.Qt.Checked)
@@ -77,7 +72,6 @@ class SettingsDialog(QtWidgets.QDialog):
         # Sharing options layout
         sharing_group_layout = QtWidgets.QVBoxLayout()
         sharing_group_layout.addWidget(self.close_after_first_download_checkbox)
-        sharing_group_layout.addWidget(self.systray_notifications_checkbox)
         sharing_group_layout.addWidget(self.shutdown_timeout_checkbox)
         sharing_group_layout.addWidget(self.save_private_key_checkbox)
         sharing_group = QtWidgets.QGroupBox(strings._("gui_settings_sharing_label", True))
@@ -385,12 +379,6 @@ class SettingsDialog(QtWidgets.QDialog):
             self.close_after_first_download_checkbox.setCheckState(QtCore.Qt.Checked)
         else:
             self.close_after_first_download_checkbox.setCheckState(QtCore.Qt.Unchecked)
-
-        systray_notifications = self.old_settings.get('systray_notifications')
-        if systray_notifications:
-            self.systray_notifications_checkbox.setCheckState(QtCore.Qt.Checked)
-        else:
-            self.systray_notifications_checkbox.setCheckState(QtCore.Qt.Unchecked)
 
         shutdown_timeout = self.old_settings.get('shutdown_timeout')
         if shutdown_timeout:
@@ -760,7 +748,6 @@ class SettingsDialog(QtWidgets.QDialog):
         settings.load() # To get the last update timestamp
 
         settings.set('close_after_first_download', self.close_after_first_download_checkbox.isChecked())
-        settings.set('systray_notifications', self.systray_notifications_checkbox.isChecked())
         settings.set('shutdown_timeout', self.shutdown_timeout_checkbox.isChecked())
         if self.save_private_key_checkbox.isChecked():
             settings.set('save_private_key', True)

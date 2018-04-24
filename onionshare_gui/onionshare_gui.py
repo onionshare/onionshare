@@ -357,8 +357,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
             if not self.onion.is_authenticated():
                 self.timer.stop()
                 self.status_bar.showMessage(strings._('gui_tor_connection_lost', True))
-                if self.system_tray.supportsMessages() and self.settings.get('systray_notifications'):
-                    self.system_tray.showMessage(strings._('gui_tor_connection_lost', True), strings._('gui_tor_connection_error_settings', True))
+                self.system_tray.showMessage(strings._('gui_tor_connection_lost', True), strings._('gui_tor_connection_error_settings', True))
 
                 self.share_mode.handle_tor_broke()
 
@@ -401,16 +400,14 @@ class OnionShareGui(QtWidgets.QMainWindow):
         When the URL gets copied to the clipboard, display this in the status bar.
         """
         self.common.log('OnionShareGui', 'copy_url')
-        if self.system_tray.supportsMessages() and self.common.settings.get('systray_notifications'):
-            self.system_tray.showMessage(strings._('gui_copied_url_title', True), strings._('gui_copied_url', True))
+        self.system_tray.showMessage(strings._('gui_copied_url_title', True), strings._('gui_copied_url', True))
 
     def copy_hidservauth(self):
         """
         When the stealth onion service HidServAuth gets copied to the clipboard, display this in the status bar.
         """
         self.common.log('OnionShareGui', 'copy_hidservauth')
-        if self.system_tray.supportsMessages() and self.common.settings.get('systray_notifications'):
-            self.system_tray.showMessage(strings._('gui_copied_hidservauth_title', True), strings._('gui_copied_hidservauth', True))
+        self.system_tray.showMessage(strings._('gui_copied_hidservauth_title', True), strings._('gui_copied_hidservauth', True))
 
     def clear_message(self):
         """

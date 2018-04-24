@@ -195,8 +195,7 @@ class ShareMode(QtWidgets.QWidget):
         self.downloads_in_progress += 1
         self.update_downloads_in_progress(self.downloads_in_progress)
 
-        if self.system_tray.supportsMessages() and self.common.settings.get('systray_notifications'):
-            self.system_tray.showMessage(strings._('systray_download_started_title', True), strings._('systray_download_started_message', True))
+        self.system_tray.showMessage(strings._('systray_download_started_title', True), strings._('systray_download_started_message', True))
 
     def handle_request_rate_limit(self, event):
         """
@@ -213,8 +212,8 @@ class ShareMode(QtWidgets.QWidget):
 
         # Is the download complete?
         if event["data"]["bytes"] == self.web.zip_filesize:
-            if self.system_tray.supportsMessages() and self.common.settings.get('systray_notifications'):
-                self.system_tray.showMessage(strings._('systray_download_completed_title', True), strings._('systray_download_completed_message', True))
+            self.system_tray.showMessage(strings._('systray_download_completed_title', True), strings._('systray_download_completed_message', True))
+
             # Update the total 'completed downloads' info
             self.downloads_completed += 1
             self.update_downloads_completed(self.downloads_completed)
@@ -242,8 +241,7 @@ class ShareMode(QtWidgets.QWidget):
         # Update the 'in progress downloads' info
         self.downloads_in_progress -= 1
         self.update_downloads_in_progress(self.downloads_in_progress)
-        if self.system_tray.supportsMessages() and self.common.settings.get('systray_notifications'):
-            self.system_tray.showMessage(strings._('systray_download_canceled_title', True), strings._('systray_download_canceled_message', True))
+        self.system_tray.showMessage(strings._('systray_download_canceled_title', True), strings._('systray_download_canceled_message', True))
 
     def update_primary_action(self):
         # Show or hide primary action layout
