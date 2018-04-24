@@ -193,7 +193,7 @@ class ShareMode(QtWidgets.QWidget):
         Start the onionshare server. This uses multiple threads to start the Tor onion
         server and the web app.
         """
-        self.common.log('OnionShareGui', 'start_server')
+        self.common.log('ShareMode', 'start_server')
 
         self.set_server_active.emit(True)
 
@@ -238,7 +238,7 @@ class ShareMode(QtWidgets.QWidget):
         """
         Step 2 in starting the onionshare server. Zipping up files.
         """
-        self.common.log('OnionShareGui', 'start_server_step2')
+        self.common.log('ShareMode', 'start_server_step2')
 
         # add progress bar to the status bar, indicating the compressing of files.
         self._zip_progress_bar = ZipProgressBar(0)
@@ -258,10 +258,11 @@ class ShareMode(QtWidgets.QWidget):
             try:
                 self.web.set_file_info(self.filenames, processed_size_callback=_set_processed_size)
                 self.app.cleanup_filenames.append(self.web.zip_filename)
-                self.starting_server_step3.emit()
 
-                # done
-                self.start_server_finished.emit()
+                # Only continue if the server hasn't been canceled
+                if self.server_status.status != self.server_status.STATUS_STOPPED:
+                    self.starting_server_step3.emit()
+                    self.start_server_finished.emit()
             except OSError as e:
                 self.starting_server_error.emit(e.strerror)
                 return
@@ -275,7 +276,7 @@ class ShareMode(QtWidgets.QWidget):
         Step 3 in starting the onionshare server. This displays the large filesize
         warning, if applicable.
         """
-        self.common.log('OnionShareGui', 'start_server_step3')
+        self.common.log('ShareMode', 'start_server_step3')
 
         # Remove zip progress bar
         if self._zip_progress_bar is not None:
@@ -304,7 +305,7 @@ class ShareMode(QtWidgets.QWidget):
         """
         If there's an error when trying to start the onion service
         """
-        self.common.log('OnionShareGui', 'start_server_error')
+        self.common.log('ShareMode', 'start_server_error')
 
         self.set_server_active.emit(False)
 
@@ -327,7 +328,7 @@ class ShareMode(QtWidgets.QWidget):
         """
         Stop the onionshare server.
         """
-        self.common.log('OnionShareGui', 'stop_server')
+        self.common.log('ShareMode', 'stop_server')
 
         if self.server_status.status != self.server_status.STATUS_STOPPED:
             try:
@@ -337,8 +338,11 @@ class ShareMode(QtWidgets.QWidget):
                 pass
         self.app.cleanup()
 
-        # Remove ephemeral service, but don't disconnect from Tor
-        self.onion.cleanup(stop_tor=False)
+        # Remove the progress bar
+        if self._zip_progress_bar is not None:
+            self.status_bar.removeWidget(self._zip_progress_bar)
+            self._zip_progress_bar = None
+
         self.filesize_warning.hide()
         self.downloads_in_progress = 0
         self.downloads_completed = 0
@@ -352,7 +356,7 @@ class ShareMode(QtWidgets.QWidget):
         """
         When the 'Show/hide downloads' button is toggled, show or hide the downloads window.
         """
-        self.common.log('OnionShareGui', 'toggle_downloads')
+        self.common.log('ShareMode', 'toggle_downloads')
         if checked:
             self.downloads.downloads_container.show()
         else:

@@ -146,6 +146,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.share_mode.server_status.server_stopped.connect(self.update_server_status_indicator)
         self.share_mode.start_server_finished.connect(self.update_server_status_indicator)
         self.share_mode.stop_server_finished.connect(self.update_server_status_indicator)
+        self.share_mode.stop_server_finished.connect(self.stop_server_finished)
         self.share_mode.start_server_finished.connect(self.clear_message)
         self.share_mode.server_status.button_clicked.connect(self.clear_message)
         self.share_mode.server_status.url_copied.connect(self.copy_url)
@@ -254,6 +255,10 @@ class OnionShareGui(QtWidgets.QMainWindow):
             self.systemTray.setIcon(QtGui.QIcon(self.common.get_resource_path('images/logo.png')))
         self.systemTray.setContextMenu(menu)
         self.systemTray.show()
+
+    def stop_server_finished(self):
+        # When the server stopped, cleanup the ephemeral onion service
+        self.onion.cleanup(stop_tor=False)
 
     def _tor_connection_canceled(self):
         """
