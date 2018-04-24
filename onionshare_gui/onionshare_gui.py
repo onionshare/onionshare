@@ -27,6 +27,9 @@ from onionshare import strings, common
 from onionshare.common import Common, ShutdownTimer
 from onionshare.onion import *
 
+from .share_mode import ShareMode
+from .receive_mode import ReceiveMode
+
 from .tor_connection_dialog import TorConnectionDialog
 from .settings_dialog import SettingsDialog
 from .file_selection import FileSelection
@@ -115,6 +118,11 @@ class OnionShareGui(QtWidgets.QMainWindow):
         mode_switcher_layout.addWidget(self.share_mode_button)
         mode_switcher_layout.addWidget(self.receive_mode_button)
         mode_switcher_layout.addWidget(self.settings_button)
+
+        # Share and receive mode widgets
+        self.receive_mode = ReceiveMode(self.common)
+        self.share_mode = ReceiveMode(self.common)
+
         self.update_mode_switcher()
 
         # File selection
@@ -240,6 +248,9 @@ class OnionShareGui(QtWidgets.QMainWindow):
         # Layouts
         contents_layout = QtWidgets.QVBoxLayout()
         contents_layout.setContentsMargins(10, 10, 10, 10)
+        contents_layout.addWidget(self.receive_mode)
+        contents_layout.addWidget(self.share_mode)
+        # TODO: move these into ShareMode
         contents_layout.addWidget(self.info_widget)
         contents_layout.addLayout(self.file_selection)
         contents_layout.addWidget(self.primary_action)
@@ -283,9 +294,17 @@ class OnionShareGui(QtWidgets.QMainWindow):
         if self.mode == self.MODE_SHARE:
             self.share_mode_button.setStyleSheet(self.mode_switcher_selected_style)
             self.receive_mode_button.setStyleSheet(self.mode_switcher_unselected_style)
+
+            self.share_mode.show()
+            self.receive_mode.hide()
         else:
             self.share_mode_button.setStyleSheet(self.mode_switcher_unselected_style)
             self.receive_mode_button.setStyleSheet(self.mode_switcher_selected_style)
+
+            self.share_mode.hide()
+            self.receive_mode.show()
+
+        self.adjustSize();
 
     def share_mode_clicked(self):
         self.mode = self.MODE_SHARE
