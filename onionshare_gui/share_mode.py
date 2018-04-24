@@ -41,7 +41,7 @@ class ShareMode(QtWidgets.QWidget):
     starting_server_step2 = QtCore.pyqtSignal()
     starting_server_step3 = QtCore.pyqtSignal()
     starting_server_error = QtCore.pyqtSignal(str)
-    set_server_active = QtCore.pyqtSignal(bool)
+    set_share_server_active = QtCore.pyqtSignal(bool)
 
     def __init__(self, common, filenames, qtapp, app, web, status_bar, server_share_status_label):
         super(ShareMode, self).__init__()
@@ -195,7 +195,7 @@ class ShareMode(QtWidgets.QWidget):
         """
         self.common.log('ShareMode', 'start_server')
 
-        self.set_server_active.emit(True)
+        self.set_share_server_active.emit(True)
 
         self.app.set_stealth(self.common.settings.get('use_stealth'))
 
@@ -307,7 +307,7 @@ class ShareMode(QtWidgets.QWidget):
         """
         self.common.log('ShareMode', 'start_server_error')
 
-        self.set_server_active.emit(False)
+        self.set_share_server_active.emit(False)
 
         Alert(self.common, error, QtWidgets.QMessageBox.Warning)
         self.server_status.stop_server()
@@ -349,7 +349,7 @@ class ShareMode(QtWidgets.QWidget):
         self.update_downloads_in_progress(0)
         self.file_selection.file_list.adjustSize()
 
-        self.set_server_active.emit(False)
+        self.set_share_server_active.emit(False)
         self.stop_server_finished.emit()
 
     def downloads_toggled(self, checked):
