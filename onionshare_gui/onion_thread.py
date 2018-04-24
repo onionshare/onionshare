@@ -17,20 +17,29 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-from PyQt5 import QtCore, QtWidgets, QtGui
+from PyQt5 import QtCore
 
-from onionshare import strings
+class OnionThread(QtCore.QThread):
+    """
+    A QThread for starting our Onion Service.
+    By using QThread rather than threading.Thread, we are able
+    to call quit() or terminate() on the startup if the user
+    decided to cancel (in which case do not proceed with obtaining
+    the Onion address and starting the web server).
+    """
+    def __init__(self, common, function, kwargs=None):
+        super(OnionThread, self).__init__()
 
-class ReceiveMode(QtWidgets.QWidget):
-    """
-    Parts of the main window UI for receiving files.
-    """
-    def __init__(self, common):
-        super(ReceiveMode, self).__init__()
         self.common = common
 
-    def timer_callback(self):
-        """
-        This method is called regularly on a timer while receive mode is active.
-        """
-        pass
+        self.common.log('OnionThread', '__init__')
+        self.function = function
+        if not kwargs:
+            self.kwargs = {}
+        else:
+            self.kwargs = kwargs
+
+    def run(self):
+        self.common.log('OnionThread', 'run')
+
+        self.function(**self.kwargs)

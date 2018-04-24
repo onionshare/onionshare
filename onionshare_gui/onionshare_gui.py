@@ -17,24 +17,16 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-import os
-import threading
-import time
 import queue
 from PyQt5 import QtCore, QtWidgets, QtGui
 
-from onionshare import strings, common
-from onionshare.common import Common, ShutdownTimer
-from onionshare.onion import *
+from onionshare import strings
 
 from .share_mode import ShareMode
 from .receive_mode import ReceiveMode
 
 from .tor_connection_dialog import TorConnectionDialog
 from .settings_dialog import SettingsDialog
-from .file_selection import FileSelection
-from .server_status import ServerStatus
-from .downloads import Downloads
 from .alert import Alert
 from .update_checker import UpdateThread
 
@@ -43,12 +35,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
     OnionShareGui is the main window for the GUI that contains all of the
     GUI elements.
     """
-    start_server_finished = QtCore.pyqtSignal()
-    stop_server_finished = QtCore.pyqtSignal()
-    starting_server_step2 = QtCore.pyqtSignal()
-    starting_server_step3 = QtCore.pyqtSignal()
-    starting_server_error = QtCore.pyqtSignal(str)
-
     MODE_SHARE = 'share'
     MODE_RECEIVE = 'receive'
 
@@ -67,6 +53,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.local_only = local_only
 
         self.mode = self.MODE_SHARE
+        self.new_download = False # For scrolling to the bottom of the downloads list
 
         self.setWindowTitle('OnionShare')
         self.setWindowIcon(QtGui.QIcon(self.common.get_resource_path('images/logo.png')))
@@ -119,11 +106,19 @@ class OnionShareGui(QtWidgets.QMainWindow):
         mode_switcher_layout.addWidget(self.receive_mode_button)
         mode_switcher_layout.addWidget(self.settings_button)
 
-        # Share and receive mode widgets
-        self.receive_mode = ReceiveMode(self.common)
-        self.share_mode = ReceiveMode(self.common)
-
-        self.update_mode_switcher()
+        # Server status indicator on the status bar
+        self.server_status_image_stopped = QtGui.QImage(self.common.get_resource_path('images/server_stopped.png'))
+        self.server_status_image_working = QtGui.QImage(self.common.get_resource_path('images/server_working.png'))
+        self.server_status_image_started = QtGui.QImage(self.common.get_resource_path('images/server_started.png'))
+        self.server_status_image_label = QtWidgets.QLabel()
+        self.server_status_image_label.setFixedWidth(20)
+        self.server_status_label = QtWidgets.QLabel()
+        self.server_status_label.setStyleSheet('QLabel { font-style: italic; color: #666666; }')
+        server_status_indicator_layout = QtWidgets.QHBoxLayout()
+        server_status_indicator_layout.addWidget(self.server_status_image_label)
+        server_status_indicator_layout.addWidget(self.server_status_label)
+        self.server_status_indicator = QtWidgets.QWidget()
+        self.server_status_indicator.setLayout(server_status_indicator_layout)
 
         # Status bar
         self.status_bar = QtWidgets.QStatusBar()
@@ -140,12 +135,26 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.status_bar.addPermanentWidget(self.server_status_indicator)
         self.setStatusBar(self.status_bar)
 
-        # Status bar, zip progress bar
-        self._zip_progress_bar = None
         # Status bar, sharing messages
         self.server_share_status_label = QtWidgets.QLabel('')
         self.server_share_status_label.setStyleSheet('QLabel { font-style: italic; color: #666666; padding: 2px; }')
         self.status_bar.insertWidget(0, self.server_share_status_label)
+
+        # Share and receive mode widgets
+        self.share_mode = ShareMode(self.common, filenames, qtapp, app, web, self.status_bar, self.server_share_status_label)
+        self.share_mode.server_status.server_started.connect(self.update_server_status_indicator)
+        self.share_mode.server_status.server_stopped.connect(self.update_server_status_indicator)
+        self.share_mode.start_server_finished.connect(self.update_server_status_indicator)
+        self.share_mode.stop_server_finished.connect(self.update_server_status_indicator)
+        self.share_mode.start_server_finished.connect(self.clear_message)
+        self.share_mode.server_status.button_clicked.connect(self.clear_message)
+        self.share_mode.server_status.url_copied.connect(self.copy_url)
+        self.share_mode.server_status.hidservauth_copied.connect(self.copy_hidservauth)
+        self.share_mode.set_server_active.connect(self.set_server_active)
+        self.receive_mode = ReceiveMode(self.common)
+
+        self.update_mode_switcher()
+        self.update_server_status_indicator()
 
         # Layouts
         contents_layout = QtWidgets.QVBoxLayout()
@@ -168,7 +177,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         # Create the timer
         self.timer = QtCore.QTimer()
-        self.timer.timeout.connect(self.check_for_requests)
+        self.timer.timeout.connect(self.timer_callback)
 
         # Start the "Connecting to Tor" dialog, which calls onion.connect()
         tor_con = TorConnectionDialog(self.common, self.qtapp, self.onion)
@@ -208,6 +217,25 @@ class OnionShareGui(QtWidgets.QMainWindow):
     def receive_mode_clicked(self):
         self.mode = self.MODE_RECEIVE
         self.update_mode_switcher()
+
+    def update_server_status_indicator(self):
+        self.common.log('OnionShareGui', 'update_server_status_indicator')
+
+        # Share mode
+        if self.mode == self.MODE_SHARE:
+            # Set the status image
+            if self.share_mode.server_status.status == self.share_mode.server_status.STATUS_STOPPED:
+                self.server_status_image_label.setPixmap(QtGui.QPixmap.fromImage(self.server_status_image_stopped))
+                self.server_status_label.setText(strings._('gui_status_indicator_stopped', True))
+            elif self.share_mode.server_status.status == self.share_mode.server_status.STATUS_WORKING:
+                self.server_status_image_label.setPixmap(QtGui.QPixmap.fromImage(self.server_status_image_working))
+                self.server_status_label.setText(strings._('gui_status_indicator_working', True))
+            elif self.share_mode.server_status.status == self.share_mode.server_status.STATUS_STARTED:
+                self.server_status_image_label.setPixmap(QtGui.QPixmap.fromImage(self.server_status_image_started))
+                self.server_status_label.setText(strings._('gui_status_indicator_started', True))
+        else:
+            self.server_status_image_label.setPixmap(QtGui.QPixmap.fromImage(self.server_status_image_stopped))
+            self.server_status_label.setText(strings._('gui_status_indicator_stopped', True))
 
     def _initSystemTray(self):
         menu = QtWidgets.QMenu()
@@ -313,9 +341,10 @@ class OnionShareGui(QtWidgets.QMainWindow):
                 self.update_thread.update_available.connect(update_available)
                 self.update_thread.start()
 
-    def check_for_requests(self):
+    def timer_callback(self):
         """
-        Check for messages communicated from the web app, and update the GUI accordingly.
+        Check for messages communicated from the web app, and update the GUI accordingly. Also,
+        call ShareMode and ReceiveMode's timer_callbacks.
         """
         self.update()
 
@@ -334,7 +363,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         # scroll to the bottom of the dl progress bar log pane
         # if a new download has been added
         if self.new_download:
-            self.downloads.downloads_container.vbar.setValue(self.downloads.downloads_container.vbar.maximum())
+            self.share_mode.downloads.downloads_container.vbar.setValue(self.downloads.downloads_container.vbar.maximum())
             self.new_download = False
 
         events = []
@@ -401,23 +430,10 @@ class OnionShareGui(QtWidgets.QMainWindow):
             elif event["path"] != '/favicon.ico':
                 self.status_bar.showMessage('[#{0:d}] {1:s}: {2:s}'.format(self.web.error404_count, strings._('other_page_loaded', True), event["path"]))
 
-        # If the auto-shutdown timer has stopped, stop the server
-        if self.server_status.status == self.server_status.STATUS_STARTED:
-            if self.app.shutdown_timer and self.common.settings.get('shutdown_timeout'):
-                if self.timeout > 0:
-                    now = QtCore.QDateTime.currentDateTime()
-                    seconds_remaining = now.secsTo(self.server_status.timeout)
-                    self.server_status.server_button.setText(strings._('gui_stop_server_shutdown_timeout', True).format(seconds_remaining))
-                    if not self.app.shutdown_timer.is_alive():
-                        # If there were no attempts to download the share, or all downloads are done, we can stop
-                        if self.web.download_count == 0 or self.web.done:
-                            self.server_status.stop_server()
-                            self.status_bar.clearMessage()
-                            self.server_share_status_label.setText(strings._('close_on_timeout', True))
-                        # A download is probably still running - hold off on stopping the share
-                        else:
-                            self.status_bar.clearMessage()
-                            self.server_share_status_label.setText(strings._('timeout_download_still_running', True))
+        if self.mode == self.MODE_SHARE:
+            self.share_mode.timer_callback()
+        else:
+            self.receive_mode.timer_callback()
 
     def copy_url(self):
         """
@@ -477,84 +493,3 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         except:
             e.accept()
-
-
-class ZipProgressBar(QtWidgets.QProgressBar):
-    update_processed_size_signal = QtCore.pyqtSignal(int)
-
-    def __init__(self, total_files_size):
-        super(ZipProgressBar, self).__init__()
-        self.setMaximumHeight(20)
-        self.setMinimumWidth(200)
-        self.setValue(0)
-        self.setFormat(strings._('zip_progress_bar_format'))
-        cssStyleData ="""
-        QProgressBar {
-            border: 1px solid #4e064f;
-            background-color: #ffffff !important;
-            text-align: center;
-            color: #9b9b9b;
-        }
-
-        QProgressBar::chunk {
-            border: 0px;
-            background-color: #4e064f;
-            width: 10px;
-        }"""
-        self.setStyleSheet(cssStyleData)
-
-        self._total_files_size = total_files_size
-        self._processed_size = 0
-
-        self.update_processed_size_signal.connect(self.update_processed_size)
-
-    @property
-    def total_files_size(self):
-        return self._total_files_size
-
-    @total_files_size.setter
-    def total_files_size(self, val):
-        self._total_files_size = val
-
-    @property
-    def processed_size(self):
-        return self._processed_size
-
-    @processed_size.setter
-    def processed_size(self, val):
-        self.update_processed_size(val)
-
-    def update_processed_size(self, val):
-        self._processed_size = val
-        if self.processed_size < self.total_files_size:
-            self.setValue(int((self.processed_size * 100) / self.total_files_size))
-        elif self.total_files_size != 0:
-            self.setValue(100)
-        else:
-            self.setValue(0)
-
-
-class OnionThread(QtCore.QThread):
-    """
-    A QThread for starting our Onion Service.
-    By using QThread rather than threading.Thread, we are able
-    to call quit() or terminate() on the startup if the user
-    decided to cancel (in which case do not proceed with obtaining
-    the Onion address and starting the web server).
-    """
-    def __init__(self, common, function, kwargs=None):
-        super(OnionThread, self).__init__()
-
-        self.common = common
-
-        self.common.log('OnionThread', '__init__')
-        self.function = function
-        if not kwargs:
-            self.kwargs = {}
-        else:
-            self.kwargs = kwargs
-
-    def run(self):
-        self.common.log('OnionThread', 'run')
-
-        self.function(**self.kwargs)
