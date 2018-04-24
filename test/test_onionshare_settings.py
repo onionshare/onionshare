@@ -51,7 +51,6 @@ class TestSettings:
             'auth_type': 'no_auth',
             'auth_password': '',
             'close_after_first_download': True,
-            'systray_notifications': True,
             'shutdown_timeout': False,
             'use_stealth': False,
             'use_autoupdate': True,
@@ -119,7 +118,6 @@ class TestSettings:
         assert settings_obj.get('auth_type') == 'no_auth'
         assert settings_obj.get('auth_password') == ''
         assert settings_obj.get('close_after_first_download') is True
-        assert settings_obj.get('systray_notifications') is True
         assert settings_obj.get('use_stealth') is False
         assert settings_obj.get('use_autoupdate') is True
         assert settings_obj.get('autoupdate_timestamp') is None

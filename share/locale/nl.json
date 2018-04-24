@@ -74,7 +74,6 @@
     "gui_settings_autoupdate_check_button": "Controleer voor update",
     "gui_settings_sharing_label": "Deel opties",
     "gui_settings_close_after_first_download_option": "Stop delen na eerste download",
-    "gui_settings_systray_notifications": "Laat desktop notificaties zien",
     "gui_settings_connection_type_label": "Hoe moet OnionShare verbinden met Tor?",
     "gui_settings_connection_type_bundled_option": "Gebruik Tor die is meegeleverd met OnionShare",
     "gui_settings_connection_type_automatic_option": "Probeer automatische configuratie met Tor Browser",

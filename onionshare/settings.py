@@ -59,7 +59,6 @@ class Settings(object):
             'auth_type': 'no_auth',
             'auth_password': '',
             'close_after_first_download': True,
-            'systray_notifications': True,
             'shutdown_timeout': False,
             'use_stealth': False,
             'use_autoupdate': True,
