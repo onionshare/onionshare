@@ -46,6 +46,9 @@ class OnionShareGui(QtWidgets.QMainWindow):
     starting_server_step3 = QtCore.pyqtSignal()
     starting_server_error = QtCore.pyqtSignal(str)
 
+    MODE_SHARE = 'share'
+    MODE_RECEIVE = 'receive'
+
     def __init__(self, common, web, onion, qtapp, app, filenames, config=False, local_only=False):
         super(OnionShareGui, self).__init__()
 
@@ -60,6 +63,8 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.app = app
         self.local_only = local_only
 
+        self.mode = self.MODE_SHARE
+
         self.setWindowTitle('OnionShare')
         self.setWindowIcon(QtGui.QIcon(self.common.get_resource_path('images/logo.png')))
         self.setMinimumWidth(430)
@@ -67,6 +72,43 @@ class OnionShareGui(QtWidgets.QMainWindow):
         # Load settings
         self.config = config
         self.common.load_settings(self.config)
+
+        # Mode switcher, to switch between share files and receive files
+        self.mode_switcher_selected_style = """
+            QPushButton {
+                color: #ffffff;
+                background-color: #4e064f;
+                border: 0;
+                border-right: 1px solid #69266b;
+                font-weight: bold;
+                border-radius: 0;
+            }"""
+        self.mode_switcher_unselected_style = """
+            QPushButton {
+                color: #ffffff;
+                background-color: #601f61;
+                border: 0;
+                border-right: 1px solid #69266b;
+                font-weight: normal;
+                border-radius: 0;
+            }"""
+        self.share_mode_button = QtWidgets.QPushButton(strings._('gui_mode_share_button', True));
+        self.share_mode_button.setFixedHeight(50)
+        self.receive_mode_button = QtWidgets.QPushButton(strings._('gui_mode_receive_button', True));
+        self.receive_mode_button.setFixedHeight(50)
+        self.settings_button = QtWidgets.QPushButton()
+        self.settings_button.setDefault(False)
+        self.settings_button.setFixedWidth(40)
+        self.settings_button.setFixedHeight(50)
+        self.settings_button.setIcon( QtGui.QIcon(self.common.get_resource_path('images/settings.png')) )
+        self.settings_button.clicked.connect(self.open_settings)
+        self.settings_button.setStyleSheet('QPushButton { background-color: #601f61; border: 0; border-radius: 0; }')
+        mode_switcher_layout = QtWidgets.QHBoxLayout();
+        mode_switcher_layout.setSpacing(0)
+        mode_switcher_layout.addWidget(self.share_mode_button)
+        mode_switcher_layout.addWidget(self.receive_mode_button)
+        mode_switcher_layout.addWidget(self.settings_button)
+        self.update_mode_switcher()
 
         # File selection
         self.file_selection = FileSelection(self.common)
@@ -142,14 +184,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.info_widget.setLayout(self.info_layout)
         self.info_widget.hide()
 
-        # Settings button on the status bar
-        self.settings_button = QtWidgets.QPushButton()
-        self.settings_button.setDefault(False)
-        self.settings_button.setFlat(True)
-        self.settings_button.setFixedWidth(40)
-        self.settings_button.setIcon( QtGui.QIcon(self.common.get_resource_path('images/settings.png')) )
-        self.settings_button.clicked.connect(self.open_settings)
-
         # Server status indicator on the status bar
         self.server_status_image_stopped = QtGui.QImage(self.common.get_resource_path('images/server_stopped.png'))
         self.server_status_image_working = QtGui.QImage(self.common.get_resource_path('images/server_working.png'))
@@ -180,7 +214,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         self.status_bar.setStyleSheet(statusBar_cssStyleData)
         self.status_bar.addPermanentWidget(self.server_status_indicator)
-        self.status_bar.addPermanentWidget(self.settings_button)
         self.setStatusBar(self.status_bar)
 
         # Status bar, zip progress bar
@@ -201,6 +234,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         # Main layout
         self.layout = QtWidgets.QVBoxLayout()
+        self.layout.addLayout(mode_switcher_layout)
         self.layout.addWidget(self.info_widget)
         self.layout.addLayout(self.file_selection)
         self.layout.addWidget(self.primary_action)
@@ -231,6 +265,16 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         # After connecting to Tor, check for updates
         self.check_for_updates()
+
+    def update_mode_switcher(self):
+        # Based on the current mode, switch the mode switcher button styles,
+        # and show and hide widgets to switch modes
+        if self.mode == self.MODE_SHARE:
+            self.share_mode_button.setStyleSheet(self.mode_switcher_selected_style)
+            self.receive_mode_button.setStyleSheet(self.mode_switcher_unselected_style)
+        else:
+            self.share_mode_button.setStyleSheet(self.mode_switcher_unselected_style)
+            self.receive_mode_button.setStyleSheet(self.mode_switcher_selected_style)
 
     def update_primary_action(self):
         # Show or hide primary action layout
