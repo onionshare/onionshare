@@ -17,18 +17,41 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
+import os
+import threading
+import time
 from PyQt5 import QtCore, QtWidgets, QtGui
 
 from onionshare import strings
-from .mode import Mode
+from onionshare.common import Common, ShutdownTimer
+from onionshare.onion import *
+
+from .file_selection import FileSelection
+from .server_status import ServerStatus
+from .downloads import Downloads
+from .onion_thread import OnionThread
+
 
 class ShareMode(QtWidgets.QWidget):
     """
     Parts of the main window UI for sharing files.
     """
-    def __init__(self, common):
+    start_server_finished = QtCore.pyqtSignal()
+    stop_server_finished = QtCore.pyqtSignal()
+    starting_server_step2 = QtCore.pyqtSignal()
+    starting_server_step3 = QtCore.pyqtSignal()
+    starting_server_error = QtCore.pyqtSignal(str)
+    set_server_active = QtCore.pyqtSignal(bool)
+
+    def __init__(self, common, filenames, qtapp, app, web, status_bar, server_share_status_label):
         super(ShareMode, self).__init__()
         self.common = common
+        self.qtapp = qtapp
+        self.app = app
+        self.web = web
+
+        self.status_bar = status_bar
+        self.server_share_status_label = server_share_status_label
 
         # File selection
         self.file_selection = FileSelection(self.common)
@@ -40,27 +63,19 @@ class ShareMode(QtWidgets.QWidget):
         self.server_status = ServerStatus(self.common, self.qtapp, self.app, self.web, self.file_selection)
         self.server_status.server_started.connect(self.file_selection.server_started)
         self.server_status.server_started.connect(self.start_server)
-        self.server_status.server_started.connect(self.update_server_status_indicator)
         self.server_status.server_stopped.connect(self.file_selection.server_stopped)
         self.server_status.server_stopped.connect(self.stop_server)
-        self.server_status.server_stopped.connect(self.update_server_status_indicator)
         self.server_status.server_stopped.connect(self.update_primary_action)
         self.server_status.server_canceled.connect(self.cancel_server)
         self.server_status.server_canceled.connect(self.file_selection.server_stopped)
         self.server_status.server_canceled.connect(self.update_primary_action)
-        self.start_server_finished.connect(self.clear_message)
         self.start_server_finished.connect(self.server_status.start_server_finished)
-        self.start_server_finished.connect(self.update_server_status_indicator)
         self.stop_server_finished.connect(self.server_status.stop_server_finished)
-        self.stop_server_finished.connect(self.update_server_status_indicator)
         self.file_selection.file_list.files_updated.connect(self.server_status.update)
         self.file_selection.file_list.files_updated.connect(self.update_primary_action)
-        self.server_status.url_copied.connect(self.copy_url)
-        self.server_status.hidservauth_copied.connect(self.copy_hidservauth)
         self.starting_server_step2.connect(self.start_server_step2)
         self.starting_server_step3.connect(self.start_server_step3)
         self.starting_server_error.connect(self.start_server_error)
-        self.server_status.button_clicked.connect(self.clear_message)
 
         # Filesize warning
         self.filesize_warning = QtWidgets.QLabel()
@@ -70,7 +85,6 @@ class ShareMode(QtWidgets.QWidget):
 
         # Downloads
         self.downloads = Downloads(self.common)
-        self.new_download = False
         self.downloads_in_progress = 0
         self.downloads_completed = 0
 
@@ -104,21 +118,6 @@ class ShareMode(QtWidgets.QWidget):
         self.info_widget.setLayout(self.info_layout)
         self.info_widget.hide()
 
-        # Server status indicator on the status bar
-        self.server_status_image_stopped = QtGui.QImage(self.common.get_resource_path('images/server_stopped.png'))
-        self.server_status_image_working = QtGui.QImage(self.common.get_resource_path('images/server_working.png'))
-        self.server_status_image_started = QtGui.QImage(self.common.get_resource_path('images/server_started.png'))
-        self.server_status_image_label = QtWidgets.QLabel()
-        self.server_status_image_label.setFixedWidth(20)
-        self.server_status_label = QtWidgets.QLabel()
-        self.server_status_label.setStyleSheet('QLabel { font-style: italic; color: #666666; }')
-        server_status_indicator_layout = QtWidgets.QHBoxLayout()
-        server_status_indicator_layout.addWidget(self.server_status_image_label)
-        server_status_indicator_layout.addWidget(self.server_status_label)
-        self.server_status_indicator = QtWidgets.QWidget()
-        self.server_status_indicator.setLayout(server_status_indicator_layout)
-        self.update_server_status_indicator()
-
         # Primary action layout
         primary_action_layout = QtWidgets.QVBoxLayout()
         primary_action_layout.addWidget(self.server_status)
@@ -127,6 +126,9 @@ class ShareMode(QtWidgets.QWidget):
         self.primary_action.setLayout(primary_action_layout)
         self.primary_action.hide()
         self.update_primary_action()
+
+        # Status bar, zip progress bar
+        self._zip_progress_bar = None
 
         # Layout
         layout = QtWidgets.QVBoxLayout()
@@ -137,6 +139,28 @@ class ShareMode(QtWidgets.QWidget):
 
         # Always start with focus on file selection
         self.file_selection.setFocus()
+
+    def timer_callback(self):
+        """
+        This method is called regularly on a timer while share mode is active.
+        """
+        # If the auto-shutdown timer has stopped, stop the server
+        if self.server_status.status == self.server_status.STATUS_STARTED:
+            if self.app.shutdown_timer and self.common.settings.get('shutdown_timeout'):
+                if self.timeout > 0:
+                    now = QtCore.QDateTime.currentDateTime()
+                    seconds_remaining = now.secsTo(self.server_status.timeout)
+                    self.server_status.server_button.setText(strings._('gui_stop_server_shutdown_timeout', True).format(seconds_remaining))
+                    if not self.app.shutdown_timer.is_alive():
+                        # If there were no attempts to download the share, or all downloads are done, we can stop
+                        if self.web.download_count == 0 or self.web.done:
+                            self.server_status.stop_server()
+                            self.status_bar.clearMessage()
+                            self.server_share_status_label.setText(strings._('close_on_timeout', True))
+                        # A download is probably still running - hold off on stopping the share
+                        else:
+                            self.status_bar.clearMessage()
+                            self.server_share_status_label.setText(strings._('timeout_download_still_running', True))
 
     def update_primary_action(self):
         # Show or hide primary action layout
@@ -164,20 +188,6 @@ class ShareMode(QtWidgets.QWidget):
         # Resize window
         self.adjustSize()
 
-    def update_server_status_indicator(self):
-        self.common.log('OnionShareGui', 'update_server_status_indicator')
-
-        # Set the status image
-        if self.server_status.status == self.server_status.STATUS_STOPPED:
-            self.server_status_image_label.setPixmap(QtGui.QPixmap.fromImage(self.server_status_image_stopped))
-            self.server_status_label.setText(strings._('gui_status_indicator_stopped', True))
-        elif self.server_status.status == self.server_status.STATUS_WORKING:
-            self.server_status_image_label.setPixmap(QtGui.QPixmap.fromImage(self.server_status_image_working))
-            self.server_status_label.setText(strings._('gui_status_indicator_working', True))
-        elif self.server_status.status == self.server_status.STATUS_STARTED:
-            self.server_status_image_label.setPixmap(QtGui.QPixmap.fromImage(self.server_status_image_started))
-            self.server_status_label.setText(strings._('gui_status_indicator_started', True))
-
     def start_server(self):
         """
         Start the onionshare server. This uses multiple threads to start the Tor onion
@@ -185,7 +195,7 @@ class ShareMode(QtWidgets.QWidget):
         """
         self.common.log('OnionShareGui', 'start_server')
 
-        self.set_server_active(True)
+        self.set_server_active.emit(True)
 
         self.app.set_stealth(self.common.settings.get('use_stealth'))
 
@@ -296,7 +306,7 @@ class ShareMode(QtWidgets.QWidget):
         """
         self.common.log('OnionShareGui', 'start_server_error')
 
-        self.set_server_active(False)
+        self.set_server_active.emit(False)
 
         Alert(self.common, error, QtWidgets.QMessageBox.Warning)
         self.server_status.stop_server()
@@ -326,6 +336,7 @@ class ShareMode(QtWidgets.QWidget):
                 # Probably we had no port to begin with (Onion service didn't start)
                 pass
         self.app.cleanup()
+
         # Remove ephemeral service, but don't disconnect from Tor
         self.onion.cleanup(stop_tor=False)
         self.filesize_warning.hide()
@@ -334,7 +345,7 @@ class ShareMode(QtWidgets.QWidget):
         self.update_downloads_in_progress(0)
         self.file_selection.file_list.adjustSize()
 
-        self.set_server_active(False)
+        self.set_server_active.emit(False)
         self.stop_server_finished.emit()
 
     def downloads_toggled(self, checked):
@@ -389,3 +400,58 @@ class ShareMode(QtWidgets.QWidget):
             if os.path.isdir(filename):
                 total_size += Common.dir_size(filename)
         return total_size
+
+
+class ZipProgressBar(QtWidgets.QProgressBar):
+    update_processed_size_signal = QtCore.pyqtSignal(int)
+
+    def __init__(self, total_files_size):
+        super(ZipProgressBar, self).__init__()
+        self.setMaximumHeight(20)
+        self.setMinimumWidth(200)
+        self.setValue(0)
+        self.setFormat(strings._('zip_progress_bar_format'))
+        cssStyleData ="""
+        QProgressBar {
+            border: 1px solid #4e064f;
+            background-color: #ffffff !important;
+            text-align: center;
+            color: #9b9b9b;
+        }
+
+        QProgressBar::chunk {
+            border: 0px;
+            background-color: #4e064f;
+            width: 10px;
+        }"""
+        self.setStyleSheet(cssStyleData)
+
+        self._total_files_size = total_files_size
+        self._processed_size = 0
+
+        self.update_processed_size_signal.connect(self.update_processed_size)
+
+    @property
+    def total_files_size(self):
+        return self._total_files_size
+
+    @total_files_size.setter
+    def total_files_size(self, val):
+        self._total_files_size = val
+
+    @property
+    def processed_size(self):
+        return self._processed_size
+
+    @processed_size.setter
+    def processed_size(self, val):
+        self.update_processed_size(val)
+
+    def update_processed_size(self, val):
+        self._processed_size = val
+        if self.processed_size < self.total_files_size:
+            self.setValue(int((self.processed_size * 100) / self.total_files_size))
+        elif self.total_files_size != 0:
+            self.setValue(100)
+        else:
+            self.setValue(0)
