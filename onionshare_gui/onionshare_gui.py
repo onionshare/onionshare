@@ -88,21 +88,28 @@ class OnionShareGui(QtWidgets.QMainWindow):
                 color: #ffffff;
                 background-color: #601f61;
                 border: 0;
-                border-right: 1px solid #69266b;
                 font-weight: normal;
                 border-radius: 0;
             }"""
         self.share_mode_button = QtWidgets.QPushButton(strings._('gui_mode_share_button', True));
         self.share_mode_button.setFixedHeight(50)
+        self.share_mode_button.clicked.connect(self.share_mode_clicked)
         self.receive_mode_button = QtWidgets.QPushButton(strings._('gui_mode_receive_button', True));
         self.receive_mode_button.setFixedHeight(50)
+        self.receive_mode_button.clicked.connect(self.receive_mode_clicked)
         self.settings_button = QtWidgets.QPushButton()
         self.settings_button.setDefault(False)
         self.settings_button.setFixedWidth(40)
         self.settings_button.setFixedHeight(50)
         self.settings_button.setIcon( QtGui.QIcon(self.common.get_resource_path('images/settings.png')) )
         self.settings_button.clicked.connect(self.open_settings)
-        self.settings_button.setStyleSheet('QPushButton { background-color: #601f61; border: 0; border-radius: 0; }')
+        self.settings_button.setStyleSheet("""
+            QPushButton {
+                background-color: #601f61;
+                border: 0;
+                border-left: 1px solid #69266b;
+                border-radius: 0;
+            }""")
         mode_switcher_layout = QtWidgets.QHBoxLayout();
         mode_switcher_layout.setSpacing(0)
         mode_switcher_layout.addWidget(self.share_mode_button)
@@ -202,17 +209,15 @@ class OnionShareGui(QtWidgets.QMainWindow):
         # Status bar
         self.status_bar = QtWidgets.QStatusBar()
         self.status_bar.setSizeGripEnabled(False)
-        statusBar_cssStyleData ="""
-        QStatusBar {
-            font-style: italic;
-            color: #666666;
-        }
+        self.status_bar.setStyleSheet("""
+            QStatusBar {
+                font-style: italic;
+                color: #666666;
+            }
 
-        QStatusBar::item {
-            border: 0px;
-        }"""
-
-        self.status_bar.setStyleSheet(statusBar_cssStyleData)
+            QStatusBar::item {
+                border: 0px;
+            }""")
         self.status_bar.addPermanentWidget(self.server_status_indicator)
         self.setStatusBar(self.status_bar)
 
@@ -281,6 +286,14 @@ class OnionShareGui(QtWidgets.QMainWindow):
         else:
             self.share_mode_button.setStyleSheet(self.mode_switcher_unselected_style)
             self.receive_mode_button.setStyleSheet(self.mode_switcher_selected_style)
+
+    def share_mode_clicked(self):
+        self.mode = self.MODE_SHARE
+        self.update_mode_switcher()
+
+    def receive_mode_clicked(self):
+        self.mode = self.MODE_RECEIVE
+        self.update_mode_switcher()
 
     def update_primary_action(self):
         # Show or hide primary action layout
