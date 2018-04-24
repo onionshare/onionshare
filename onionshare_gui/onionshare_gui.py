@@ -232,14 +232,20 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.primary_action.hide()
         self.update_primary_action()
 
-        # Main layout
-        self.layout = QtWidgets.QVBoxLayout()
-        self.layout.addLayout(mode_switcher_layout)
-        self.layout.addWidget(self.info_widget)
-        self.layout.addLayout(self.file_selection)
-        self.layout.addWidget(self.primary_action)
+        # Layouts
+        contents_layout = QtWidgets.QVBoxLayout()
+        contents_layout.setContentsMargins(10, 10, 10, 10)
+        contents_layout.addWidget(self.info_widget)
+        contents_layout.addLayout(self.file_selection)
+        contents_layout.addWidget(self.primary_action)
+
+        layout = QtWidgets.QVBoxLayout()
+        layout.setContentsMargins(0, 0, 0, 0)
+        layout.addLayout(mode_switcher_layout)
+        layout.addLayout(contents_layout)
+
         central_widget = QtWidgets.QWidget()
-        central_widget.setLayout(self.layout)
+        central_widget.setLayout(layout)
         self.setCentralWidget(central_widget)
         self.show()
 
