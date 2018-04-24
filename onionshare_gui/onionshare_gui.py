@@ -44,8 +44,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.common = common
         self.common.log('OnionShareGui', '__init__')
 
-        self._initSystemTray()
-
         self.web = web
         self.onion = onion
         self.qtapp = qtapp
@@ -53,7 +51,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.local_only = local_only
 
         self.mode = self.MODE_SHARE
-        self.new_download = False # For scrolling to the bottom of the downloads list
 
         self.setWindowTitle('OnionShare')
         self.setWindowIcon(QtGui.QIcon(self.common.get_resource_path('images/logo.png')))
@@ -62,6 +59,24 @@ class OnionShareGui(QtWidgets.QMainWindow):
         # Load settings
         self.config = config
         self.common.load_settings(self.config)
+
+        # System tray
+        menu = QtWidgets.QMenu()
+        self.settings_action = menu.addAction(strings._('gui_settings_window_title', True))
+        self.settings_action.triggered.connect(self.open_settings)
+        help_action = menu.addAction(strings._('gui_settings_button_help', True))
+        help_action.triggered.connect(SettingsDialog.help_clicked)
+        exit_action = menu.addAction(strings._('systray_menu_exit', True))
+        exit_action.triggered.connect(self.close)
+
+        self.system_tray = QtWidgets.QSystemTrayIcon(self)
+        # The convention is Mac systray icons are always grayscale
+        if self.common.platform == 'Darwin':
+            self.system_tray.setIcon(QtGui.QIcon(self.common.get_resource_path('images/logo_grayscale.png')))
+        else:
+            self.system_tray.setIcon(QtGui.QIcon(self.common.get_resource_path('images/logo.png')))
+        self.system_tray.setContextMenu(menu)
+        self.system_tray.show()
 
         # Mode switcher, to switch between share files and receive files
         self.mode_switcher_selected_style = """
@@ -141,7 +156,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.status_bar.insertWidget(0, self.server_share_status_label)
 
         # Share and receive mode widgets
-        self.share_mode = ShareMode(self.common, filenames, qtapp, app, web, self.status_bar, self.server_share_status_label)
+        self.share_mode = ShareMode(self.common, filenames, qtapp, app, web, self.status_bar, self.server_share_status_label, self.system_tray)
         self.share_mode.server_status.server_started.connect(self.update_server_status_indicator)
         self.share_mode.server_status.server_stopped.connect(self.update_server_status_indicator)
         self.share_mode.start_server_finished.connect(self.update_server_status_indicator)
@@ -238,24 +253,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
             self.server_status_image_label.setPixmap(QtGui.QPixmap.fromImage(self.server_status_image_stopped))
             self.server_status_label.setText(strings._('gui_status_indicator_stopped', True))
 
-    def _initSystemTray(self):
-        menu = QtWidgets.QMenu()
-        self.settingsAction = menu.addAction(strings._('gui_settings_window_title', True))
-        self.settingsAction.triggered.connect(self.open_settings)
-        self.helpAction = menu.addAction(strings._('gui_settings_button_help', True))
-        self.helpAction.triggered.connect(SettingsDialog.help_clicked)
-        self.exitAction = menu.addAction(strings._('systray_menu_exit', True))
-        self.exitAction.triggered.connect(self.close)
-
-        self.systemTray = QtWidgets.QSystemTrayIcon(self)
-        # The convention is Mac systray icons are always grayscale
-        if self.common.platform == 'Darwin':
-            self.systemTray.setIcon(QtGui.QIcon(self.common.get_resource_path('images/logo_grayscale.png')))
-        else:
-            self.systemTray.setIcon(QtGui.QIcon(self.common.get_resource_path('images/logo.png')))
-        self.systemTray.setContextMenu(menu)
-        self.systemTray.show()
-
     def stop_server_finished(self):
         # When the server stopped, cleanup the ephemeral onion service
         self.onion.cleanup(stop_tor=False)
@@ -309,6 +306,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         def reload_settings():
             self.common.log('OnionShareGui', 'open_settings', 'settings have changed, reloading')
             self.common.settings.load()
+
             # We might've stopped the main requests timer if a Tor connection failed.
             # If we've reloaded settings, we probably succeeded in obtaining a new
             # connection. If so, restart the timer.
@@ -322,16 +320,17 @@ class OnionShareGui(QtWidgets.QMainWindow):
                         self.primary_action.show()
                         self.info_widget.show()
                     self.status_bar.clearMessage()
+
             # If we switched off the shutdown timeout setting, ensure the widget is hidden.
             if not self.common.settings.get('shutdown_timeout'):
-                self.server_status.shutdown_timeout_container.hide()
+                self.share_mode.server_status.shutdown_timeout_container.hide()
 
         d = SettingsDialog(self.common, self.onion, self.qtapp, self.config, self.local_only)
         d.settings_saved.connect(reload_settings)
         d.exec_()
 
         # When settings close, refresh the server status UI
-        self.server_status.update()
+        self.share_mode.server_status.update()
 
     def check_for_updates(self):
         """
@@ -357,19 +356,11 @@ class OnionShareGui(QtWidgets.QMainWindow):
             # Have we lost connection to Tor somehow?
             if not self.onion.is_authenticated():
                 self.timer.stop()
-                if self.server_status.status != self.server_status.STATUS_STOPPED:
-                    self.server_status.stop_server()
-                self.primary_action.hide()
-                self.info_widget.hide()
                 self.status_bar.showMessage(strings._('gui_tor_connection_lost', True))
-                if self.systemTray.supportsMessages() and self.settings.get('systray_notifications'):
-                    self.systemTray.showMessage(strings._('gui_tor_connection_lost', True), strings._('gui_tor_connection_error_settings', True))
+                if self.system_tray.supportsMessages() and self.settings.get('systray_notifications'):
+                    self.system_tray.showMessage(strings._('gui_tor_connection_lost', True), strings._('gui_tor_connection_error_settings', True))
 
-        # scroll to the bottom of the dl progress bar log pane
-        # if a new download has been added
-        if self.new_download:
-            self.share_mode.downloads.downloads_container.vbar.setValue(self.downloads.downloads_container.vbar.maximum())
-            self.new_download = False
+                self.share_mode.handle_tor_broke()
 
         events = []
 
@@ -383,54 +374,19 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         for event in events:
             if event["type"] == self.web.REQUEST_LOAD:
-                self.status_bar.showMessage(strings._('download_page_loaded', True))
+                self.share_mode.handle_request_load(event)
 
             elif event["type"] == self.web.REQUEST_DOWNLOAD:
-                self.downloads.no_downloads_label.hide()
-                self.downloads.add_download(event["data"]["id"], web.zip_filesize)
-                self.new_download = True
-                self.downloads_in_progress += 1
-                self.update_downloads_in_progress(self.downloads_in_progress)
-                if self.systemTray.supportsMessages() and self.common.settings.get('systray_notifications'):
-                    self.systemTray.showMessage(strings._('systray_download_started_title', True), strings._('systray_download_started_message', True))
+                self.share_mode.handle_request_download(event)
 
             elif event["type"] == self.web.REQUEST_RATE_LIMIT:
-                self.stop_server()
-                Alert(self.common, strings._('error_rate_limit'), QtWidgets.QMessageBox.Critical)
+                self.share_mode.handle_request_rate_limit(event)
 
             elif event["type"] == self.web.REQUEST_PROGRESS:
-                self.downloads.update_download(event["data"]["id"], event["data"]["bytes"])
-
-                # is the download complete?
-                if event["data"]["bytes"] == self.web.zip_filesize:
-                    if self.systemTray.supportsMessages() and self.common.settings.get('systray_notifications'):
-                        self.systemTray.showMessage(strings._('systray_download_completed_title', True), strings._('systray_download_completed_message', True))
-                    # Update the total 'completed downloads' info
-                    self.downloads_completed += 1
-                    self.update_downloads_completed(self.downloads_completed)
-                    # Update the 'in progress downloads' info
-                    self.downloads_in_progress -= 1
-                    self.update_downloads_in_progress(self.downloads_in_progress)
-
-                    # close on finish?
-                    if not self.web.stay_open:
-                        self.server_status.stop_server()
-                        self.status_bar.clearMessage()
-                        self.server_share_status_label.setText(strings._('closing_automatically', True))
-                else:
-                    if self.server_status.status == self.server_status.STATUS_STOPPED:
-                        self.downloads.cancel_download(event["data"]["id"])
-                        self.downloads_in_progress = 0
-                        self.update_downloads_in_progress(self.downloads_in_progress)
-
+                self.share_mode.handle_request_progress(event)
 
             elif event["type"] == self.web.REQUEST_CANCELED:
-                self.downloads.cancel_download(event["data"]["id"])
-                # Update the 'in progress downloads' info
-                self.downloads_in_progress -= 1
-                self.update_downloads_in_progress(self.downloads_in_progress)
-                if self.systemTray.supportsMessages() and self.common.settings.get('systray_notifications'):
-                    self.systemTray.showMessage(strings._('systray_download_canceled_title', True), strings._('systray_download_canceled_message', True))
+                self.share_mode.handle_request_canceled(event)
 
             elif event["path"] != '/favicon.ico':
                 self.status_bar.showMessage('[#{0:d}] {1:s}: {2:s}'.format(self.web.error404_count, strings._('other_page_loaded', True), event["path"]))
@@ -445,16 +401,16 @@ class OnionShareGui(QtWidgets.QMainWindow):
         When the URL gets copied to the clipboard, display this in the status bar.
         """
         self.common.log('OnionShareGui', 'copy_url')
-        if self.systemTray.supportsMessages() and self.common.settings.get('systray_notifications'):
-            self.systemTray.showMessage(strings._('gui_copied_url_title', True), strings._('gui_copied_url', True))
+        if self.system_tray.supportsMessages() and self.common.settings.get('systray_notifications'):
+            self.system_tray.showMessage(strings._('gui_copied_url_title', True), strings._('gui_copied_url', True))
 
     def copy_hidservauth(self):
         """
         When the stealth onion service HidServAuth gets copied to the clipboard, display this in the status bar.
         """
         self.common.log('OnionShareGui', 'copy_hidservauth')
-        if self.systemTray.supportsMessages() and self.common.settings.get('systray_notifications'):
-            self.systemTray.showMessage(strings._('gui_copied_hidservauth_title', True), strings._('gui_copied_hidservauth', True))
+        if self.system_tray.supportsMessages() and self.common.settings.get('systray_notifications'):
+            self.system_tray.showMessage(strings._('gui_copied_hidservauth_title', True), strings._('gui_copied_hidservauth', True))
 
     def clear_message(self):
         """
@@ -476,7 +432,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
             self.receive_mode_button.show()
 
         # Disable settings menu action when server is active
-        self.settingsAction.setEnabled(not active)
+        self.settings_action.setEnabled(not active)
 
     def closeEvent(self, e):
         self.common.log('OnionShareGui', 'closeEvent')
