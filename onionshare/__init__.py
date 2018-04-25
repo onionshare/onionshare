@@ -162,6 +162,8 @@ def main(cwd=None):
 
         print('')
         if receive:
+            print(strings._('receive_mode_downloads_dir').format(common.settings.get('downloads_dir')))
+            print('')
             print(strings._('receive_mode_warning'))
             print('')
 
