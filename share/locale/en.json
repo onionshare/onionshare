@@ -64,7 +64,7 @@
     "gui_download_progress_complete": "%p%, Time Elapsed: {0:s}",
     "gui_download_progress_starting": "{0:s}, %p% (Computing ETA)",
     "gui_download_progress_eta": "{0:s}, ETA: {1:s}, %p%",
-    "version_string": "Onionshare {0:s} | https://onionshare.org/",
+    "version_string": "OnionShare {0:s} | https://onionshare.org/",
     "gui_quit_title": "Transfer in Progress",
     "gui_quit_warning": "You're in the process of sending files. Are you sure you want to quit OnionShare?",
     "gui_quit_warning_quit": "Quit",
@@ -161,6 +161,7 @@
     "info_completed_downloads_tooltip": "{} download(s) completed",
     "error_cannot_create_downloads_dir": "Error creating downloads folder: {}",
     "error_downloads_dir_not_writable": "The downloads folder isn't writable: {}",
+    "receive_mode_downloads_dir": "Files people send you will appear in this folder: {}",
     "receive_mode_warning": "Warning: Some files can hack your computer if you open them! Only open files from people you trust, or if you know what you're doing.",
     "receive_mode_received_file": "Received file: {}"
 }
