@@ -18,10 +18,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import platform
-from .alert import Alert
 from PyQt5 import QtCore, QtWidgets, QtGui
 
 from onionshare import strings
+
+from ..alert import Alert
 
 class ServerStatus(QtWidgets.QWidget):
     """

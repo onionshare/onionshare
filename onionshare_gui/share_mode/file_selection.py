@@ -19,9 +19,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import os
 from PyQt5 import QtCore, QtWidgets, QtGui
-from .alert import Alert
 
 from onionshare import strings
+
+from ..alert import Alert
 
 class DropHereLabel(QtWidgets.QLabel):
     """
