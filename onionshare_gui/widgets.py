@@ -38,3 +38,28 @@ class Alert(QtWidgets.QMessageBox):
 
         if autostart:
             self.exec_()
+
+
+class AddFileDialog(QtWidgets.QFileDialog):
+    """
+    Overridden version of QFileDialog which allows us to select folders as well
+    as, or instead of, files. For adding files/folders to share.
+    """
+    def __init__(self, common, *args, **kwargs):
+        QtWidgets.QFileDialog.__init__(self, *args, **kwargs)
+
+        self.common = common
+        self.common.log('AddFileDialog', '__init__')
+
+        self.setOption(self.DontUseNativeDialog, True)
+        self.setOption(self.ReadOnly, True)
+        self.setOption(self.ShowDirsOnly, False)
+        self.setFileMode(self.ExistingFiles)
+        tree_view = self.findChild(QtWidgets.QTreeView)
+        tree_view.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
+        list_view = self.findChild(QtWidgets.QListView, "listView")
+        list_view.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
+
+    def accept(self):
+        self.common.log('AddFileDialog', 'accept')
+        QtWidgets.QDialog.accept(self)

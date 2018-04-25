@@ -27,7 +27,7 @@ from .receive_mode import ReceiveMode
 
 from .tor_connection_dialog import TorConnectionDialog
 from .settings_dialog import SettingsDialog
-from .alert import Alert
+from .widgets import Alert
 from .update_checker import UpdateThread
 
 class OnionShareGui(QtWidgets.QMainWindow):
