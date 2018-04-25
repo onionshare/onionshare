@@ -758,7 +758,7 @@ class SettingsDialog(QtWidgets.QDialog):
         Cancel button clicked.
         """
         self.common.log('SettingsDialog', 'cancel_clicked')
-        if not self.local_only and self.onion.is_authenticated():
+        if not self.local_only and not self.onion.is_authenticated():
             Alert(self.common, strings._('gui_tor_connection_canceled', True), QtWidgets.QMessageBox.Warning)
             sys.exit()
         else:
