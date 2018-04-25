@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 from __future__ import division
 import os, sys, platform, argparse
-from .alert import Alert
+from .widgets import Alert
 from PyQt5 import QtCore, QtWidgets
 
 from onionshare import strings

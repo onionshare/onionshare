@@ -22,7 +22,7 @@ from PyQt5 import QtCore, QtWidgets, QtGui
 
 from onionshare import strings
 
-from ..alert import Alert
+from ..widgets import Alert
 
 class ServerStatus(QtWidgets.QWidget):
     """

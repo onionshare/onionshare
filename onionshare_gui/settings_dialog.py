@@ -24,7 +24,7 @@ from onionshare import strings, common
 from onionshare.settings import Settings
 from onionshare.onion import *
 
-from .alert import Alert
+from .widgets import Alert
 from .update_checker import *
 from .tor_connection_dialog import TorConnectionDialog
 
@@ -76,6 +76,23 @@ class SettingsDialog(QtWidgets.QDialog):
         sharing_group_layout.addWidget(self.save_private_key_checkbox)
         sharing_group = QtWidgets.QGroupBox(strings._("gui_settings_sharing_label", True))
         sharing_group.setLayout(sharing_group_layout)
+
+        # Downloads dir
+        downloads_label = QtWidgets.QLabel(strings._('gui_settings_downloads_label', True));
+        self.downloads_dir_lineedit = QtWidgets.QLineEdit()
+        self.downloads_dir_lineedit.setReadOnly(True)
+        downloads_button = QtWidgets.QPushButton(strings._('gui_settings_downloads_button', True))
+        downloads_button.clicked.connect(self.downloads_button_clicked)
+        downloads_layout = QtWidgets.QHBoxLayout()
+        downloads_layout.addWidget(downloads_label)
+        downloads_layout.addWidget(self.downloads_dir_lineedit)
+        downloads_layout.addWidget(downloads_button)
+
+        # Receiving options layout
+        receiving_group_layout = QtWidgets.QVBoxLayout()
+        receiving_group_layout.addLayout(downloads_layout)
+        receiving_group = QtWidgets.QGroupBox(strings._("gui_settings_receiving_label", True))
+        receiving_group.setLayout(receiving_group_layout)
 
         # Stealth options
 
@@ -349,6 +366,7 @@ class SettingsDialog(QtWidgets.QDialog):
         # Layout
         left_col_layout = QtWidgets.QVBoxLayout()
         left_col_layout.addWidget(sharing_group)
+        left_col_layout.addWidget(receiving_group)
         left_col_layout.addWidget(stealth_group)
         left_col_layout.addWidget(autoupdate_group)
         left_col_layout.addStretch()
@@ -391,6 +409,9 @@ class SettingsDialog(QtWidgets.QDialog):
             self.save_private_key_checkbox.setCheckState(QtCore.Qt.Checked)
         else:
             self.save_private_key_checkbox.setCheckState(QtCore.Qt.Unchecked)
+
+        downloads_dir = self.old_settings.get('downloads_dir')
+        self.downloads_dir_lineedit.setText(downloads_dir)
 
         use_stealth = self.old_settings.get('use_stealth')
         if use_stealth:
@@ -574,6 +595,18 @@ class SettingsDialog(QtWidgets.QDialog):
         self.common.log('SettingsDialog', 'hidservauth_copy_button_clicked', 'HidServAuth was copied to clipboard')
         clipboard = self.qtapp.clipboard()
         clipboard.setText(self.old_settings.get('hidservauth_string'))
+
+    def downloads_button_clicked(self):
+        """
+        Browse for a new downloads directory
+        """
+        downloads_dir = self.downloads_dir_lineedit.text()
+        selected_dir = QtWidgets.QFileDialog.getExistingDirectory(self,
+            strings._('gui_settings_downloads_label', True), downloads_dir)
+
+        if selected_dir:
+            self.common.log('SettingsDialog', 'downloads_button_clicked', 'selected dir: {}'.format(selected_dir))
+            self.downloads_dir_lineedit.setText(selected_dir)
 
     def test_tor_clicked(self):
         """
@@ -760,6 +793,7 @@ class SettingsDialog(QtWidgets.QDialog):
             settings.set('slug', '')
             # Also unset the HidServAuth if we are removing our reusable private key
             settings.set('hidservauth_string', '')
+        settings.set('downloads_dir', self.downloads_dir_lineedit.text())
         settings.set('use_stealth', self.stealth_checkbox.isChecked())
         # Always unset the HidServAuth if Stealth mode is unset
         if not self.stealth_checkbox.isChecked():

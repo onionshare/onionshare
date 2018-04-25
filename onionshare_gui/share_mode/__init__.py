@@ -30,7 +30,7 @@ from .file_selection import FileSelection
 from .server_status import ServerStatus
 from .downloads import Downloads
 from ..onion_thread import OnionThread
-from ..alert import Alert
+from ..widgets import Alert
 
 
 class ShareMode(QtWidgets.QWidget):

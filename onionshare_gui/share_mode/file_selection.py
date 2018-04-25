@@ -22,7 +22,7 @@ from PyQt5 import QtCore, QtWidgets, QtGui
 
 from onionshare import strings
 
-from ..alert import Alert
+from ..widgets import Alert, AddFileDialog
 
 class DropHereLabel(QtWidgets.QLabel):
     """
@@ -340,7 +340,7 @@ class FileSelection(QtWidgets.QVBoxLayout):
         """
         Add button clicked.
         """
-        file_dialog = FileDialog(caption=strings._('gui_choose_items', True))
+        file_dialog = AddFileDialog(self.common, caption=strings._('gui_choose_items', True))
         if file_dialog.exec_() == QtWidgets.QDialog.Accepted:
             for filename in file_dialog.selectedFiles():
                 self.file_list.add_file(filename)
@@ -388,22 +388,3 @@ class FileSelection(QtWidgets.QVBoxLayout):
         Set the Qt app focus on the file selection box.
         """
         self.file_list.setFocus()
-
-class FileDialog(QtWidgets.QFileDialog):
-    """
-    Overridden version of QFileDialog which allows us to select
-    folders as well as, or instead of, files.
-    """
-    def __init__(self, *args, **kwargs):
-        QtWidgets.QFileDialog.__init__(self, *args, **kwargs)
-        self.setOption(self.DontUseNativeDialog, True)
-        self.setOption(self.ReadOnly, True)
-        self.setOption(self.ShowDirsOnly, False)
-        self.setFileMode(self.ExistingFiles)
-        tree_view = self.findChild(QtWidgets.QTreeView)
-        tree_view.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
-        list_view = self.findChild(QtWidgets.QListView, "listView")
-        list_view.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
-
-    def accept(self):
-        QtWidgets.QDialog.accept(self)
