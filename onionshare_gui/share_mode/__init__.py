@@ -243,6 +243,15 @@ class ShareMode(QtWidgets.QWidget):
         self.update_downloads_in_progress(self.downloads_in_progress)
         self.system_tray.showMessage(strings._('systray_download_canceled_title', True), strings._('systray_download_canceled_message', True))
 
+    def on_reload_settings(self):
+        """
+        If there were some files listed for sharing, we should be ok to re-enable
+        the 'Start Sharing' button now.
+        """
+        if self.server_status.file_selection.get_num_files() > 0:
+            self.primary_action.show()
+            self.info_widget.show()
+
     def update_primary_action(self):
         # Show or hide primary action layout
         file_count = self.file_selection.file_list.count()

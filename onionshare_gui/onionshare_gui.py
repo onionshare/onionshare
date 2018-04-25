@@ -314,11 +314,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
                 if self.onion.is_authenticated():
                     if not self.timer.isActive():
                         self.timer.start(500)
-                    # If there were some files listed for sharing, we should be ok to
-                    # re-enable the 'Start Sharing' button now.
-                    if self.server_status.file_selection.get_num_files() > 0:
-                        self.primary_action.show()
-                        self.info_widget.show()
+                    self.share_mode.on_reload_settings()
                     self.status_bar.clearMessage()
 
             # If we switched off the shutdown timeout setting, ensure the widget is hidden.
