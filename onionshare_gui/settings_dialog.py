@@ -737,7 +737,7 @@ class SettingsDialog(QtWidgets.QDialog):
                     self.common.log('SettingsDialog', 'save_clicked', 'rebooting the Onion')
                     self.onion.cleanup()
 
-                    tor_con = TorConnectionDialog(self.qtapp, settings, self.onion)
+                    tor_con = TorConnectionDialog(self.common, self.qtapp, self.onion, settings)
                     tor_con.start()
 
                     self.common.log('SettingsDialog', 'save_clicked', 'Onion done rebooting, connected to Tor: {}'.format(self.onion.connected_to_tor))
