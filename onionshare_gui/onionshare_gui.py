@@ -29,6 +29,7 @@ from .tor_connection_dialog import TorConnectionDialog
 from .settings_dialog import SettingsDialog
 from .widgets import Alert
 from .update_checker import UpdateThread
+from .server_status import ServerStatus
 
 class OnionShareGui(QtWidgets.QMainWindow):
     """
@@ -167,7 +168,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.share_mode.server_status.url_copied.connect(self.copy_url)
         self.share_mode.server_status.hidservauth_copied.connect(self.copy_hidservauth)
         self.share_mode.set_share_server_active.connect(self.set_share_server_active)
-        self.receive_mode = ReceiveMode(self.common)
+        self.receive_mode = ReceiveMode(self.common, qtapp, app, web, self.status_bar, self.server_share_status_label, self.system_tray)
 
         self.update_mode_switcher()
         self.update_server_status_indicator()
@@ -224,6 +225,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
             self.share_mode.hide()
             self.receive_mode.show()
 
+        self.update_server_status_indicator()
         self.adjustSize();
 
     def share_mode_clicked(self):
@@ -237,21 +239,30 @@ class OnionShareGui(QtWidgets.QMainWindow):
     def update_server_status_indicator(self):
         self.common.log('OnionShareGui', 'update_server_status_indicator')
 
-        # Share mode
+        # Set the status image
+
         if self.mode == self.MODE_SHARE:
-            # Set the status image
-            if self.share_mode.server_status.status == self.share_mode.server_status.STATUS_STOPPED:
+            # Share mode
+            if self.share_mode.server_status.status == ServerStatus.STATUS_STOPPED:
                 self.server_status_image_label.setPixmap(QtGui.QPixmap.fromImage(self.server_status_image_stopped))
-                self.server_status_label.setText(strings._('gui_status_indicator_stopped', True))
-            elif self.share_mode.server_status.status == self.share_mode.server_status.STATUS_WORKING:
+                self.server_status_label.setText(strings._('gui_status_indicator_share_stopped', True))
+            elif self.share_mode.server_status.status == ServerStatus.STATUS_WORKING:
                 self.server_status_image_label.setPixmap(QtGui.QPixmap.fromImage(self.server_status_image_working))
-                self.server_status_label.setText(strings._('gui_status_indicator_working', True))
-            elif self.share_mode.server_status.status == self.share_mode.server_status.STATUS_STARTED:
+                self.server_status_label.setText(strings._('gui_status_indicator_share_working', True))
+            elif self.share_mode.server_status.status == ServerStatus.STATUS_STARTED:
                 self.server_status_image_label.setPixmap(QtGui.QPixmap.fromImage(self.server_status_image_started))
-                self.server_status_label.setText(strings._('gui_status_indicator_started', True))
+                self.server_status_label.setText(strings._('gui_status_indicator_share_started', True))
         else:
-            self.server_status_image_label.setPixmap(QtGui.QPixmap.fromImage(self.server_status_image_stopped))
-            self.server_status_label.setText(strings._('gui_status_indicator_stopped', True))
+            # Receive mode
+            if self.receive_mode.server_status.status == ServerStatus.STATUS_STOPPED:
+                self.server_status_image_label.setPixmap(QtGui.QPixmap.fromImage(self.server_status_image_stopped))
+                self.server_status_label.setText(strings._('gui_status_indicator_receive_stopped', True))
+            elif self.receive_mode.server_status.status == ServerStatus.STATUS_WORKING:
+                self.server_status_image_label.setPixmap(QtGui.QPixmap.fromImage(self.server_status_image_working))
+                self.server_status_label.setText(strings._('gui_status_indicator_receive_working', True))
+            elif self.receive_mode.server_status.status == ServerStatus.STATUS_STARTED:
+                self.server_status_image_label.setPixmap(QtGui.QPixmap.fromImage(self.server_status_image_started))
+                self.server_status_label.setText(strings._('gui_status_indicator_receive_started', True))
 
     def stop_server_finished(self):
         # When the server stopped, cleanup the ephemeral onion service

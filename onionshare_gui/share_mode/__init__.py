@@ -27,8 +27,8 @@ from onionshare.common import Common, ShutdownTimer
 from onionshare.onion import *
 
 from .file_selection import FileSelection
-from .server_status import ServerStatus
 from .downloads import Downloads
+from ..server_status import ServerStatus
 from ..onion_thread import OnionThread
 from ..widgets import Alert
 

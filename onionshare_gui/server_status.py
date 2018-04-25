@@ -22,7 +22,7 @@ from PyQt5 import QtCore, QtWidgets, QtGui
 
 from onionshare import strings
 
-from ..widgets import Alert
+from .widgets import Alert
 
 class ServerStatus(QtWidgets.QWidget):
     """
@@ -39,7 +39,7 @@ class ServerStatus(QtWidgets.QWidget):
     STATUS_WORKING = 1
     STATUS_STARTED = 2
 
-    def __init__(self, common, qtapp, app, web, file_selection):
+    def __init__(self, common, qtapp, app, web, file_selection=None):
         super(ServerStatus, self).__init__()
 
         self.common = common
@@ -49,6 +49,8 @@ class ServerStatus(QtWidgets.QWidget):
         self.qtapp = qtapp
         self.app = app
         self.web = web
+
+        # Only used in share mode
         self.file_selection = file_selection
 
         # Shutdown timeout layout
@@ -172,7 +174,8 @@ class ServerStatus(QtWidgets.QWidget):
         button_stopped_style = 'QPushButton { background-color: #5fa416; color: #ffffff; padding: 10px; border: 0; border-radius: 5px; }'
         button_working_style = 'QPushButton { background-color: #4c8211; color: #ffffff; padding: 10px; border: 0; border-radius: 5px; font-style: italic; }'
         button_started_style = 'QPushButton { background-color: #d0011b; color: #ffffff; padding: 10px; border: 0; border-radius: 5px; }'
-        if self.file_selection.get_num_files() == 0:
+
+        if self.file_selection and self.file_selection.get_num_files() == 0:
             self.server_button.hide()
         else:
             self.server_button.show()
