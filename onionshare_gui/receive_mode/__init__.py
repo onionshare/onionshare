@@ -38,6 +38,11 @@ class ReceiveMode(QtWidgets.QWidget):
         self.server_share_status_label = server_share_status_label
         self.system_tray = system_tray
 
+        # Receive mode info
+        self.receive_info = QtWidgets.QLabel(strings._('gui_receive_mode_warning', True))
+        self.receive_info.setMinimumHeight(80)
+        self.receive_info.setWordWrap(True)
+
         # Server status
         self.server_status = ServerStatus(self.common, self.qtapp, self.app, self.web, False)
 
@@ -49,6 +54,7 @@ class ReceiveMode(QtWidgets.QWidget):
 
         # Layout
         layout = QtWidgets.QVBoxLayout()
+        layout.addWidget(self.receive_info)
         layout.addWidget(self.primary_action)
         self.setLayout(layout)
 
