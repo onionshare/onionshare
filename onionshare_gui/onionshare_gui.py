@@ -52,7 +52,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.local_only = local_only
 
         self.mode = self.MODE_SHARE
-        self.web = None
 
         self.setWindowTitle('OnionShare')
         self.setWindowIcon(QtGui.QIcon(self.common.get_resource_path('images/logo.png')))
@@ -374,36 +373,40 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
                 self.share_mode.handle_tor_broke()
 
-        # If we have a web object, process events from it
-        if self.web:
-            events = []
+        # Process events from the web object
+        if self.mode == self.MODE_SHARE:
+            web = self.share_mode.web
+        else:
+            web = self.receive_mode.web
 
-            done = False
-            while not done:
-                try:
-                    r = self.web.q.get(False)
-                    events.append(r)
-                except queue.Empty:
-                    done = True
+        events = []
 
-            for event in events:
-                if event["type"] == Web.REQUEST_LOAD:
-                    self.share_mode.handle_request_load(event)
+        done = False
+        while not done:
+            try:
+                r = web.q.get(False)
+                events.append(r)
+            except queue.Empty:
+                done = True
 
-                elif event["type"] == Web.REQUEST_DOWNLOAD:
-                    self.share_mode.handle_request_download(event)
+        for event in events:
+            if event["type"] == Web.REQUEST_LOAD:
+                self.share_mode.handle_request_load(event)
 
-                elif event["type"] == Web.REQUEST_RATE_LIMIT:
-                    self.share_mode.handle_request_rate_limit(event)
+            elif event["type"] == Web.REQUEST_DOWNLOAD:
+                self.share_mode.handle_request_download(event)
 
-                elif event["type"] == Web.REQUEST_PROGRESS:
-                    self.share_mode.handle_request_progress(event)
+            elif event["type"] == Web.REQUEST_RATE_LIMIT:
+                self.share_mode.handle_request_rate_limit(event)
 
-                elif event["type"] == Web.REQUEST_CANCELED:
-                    self.share_mode.handle_request_canceled(event)
+            elif event["type"] == Web.REQUEST_PROGRESS:
+                self.share_mode.handle_request_progress(event)
 
-                elif event["path"] != '/favicon.ico':
-                    self.status_bar.showMessage('[#{0:d}] {1:s}: {2:s}'.format(self.web.error404_count, strings._('other_page_loaded', True), event["path"]))
+            elif event["type"] == Web.REQUEST_CANCELED:
+                self.share_mode.handle_request_canceled(event)
+
+            elif event["path"] != '/favicon.ico':
+                self.status_bar.showMessage('[#{0:d}] {1:s}: {2:s}'.format(web.error404_count, strings._('other_page_loaded', True), event["path"]))
 
         if self.mode == self.MODE_SHARE:
             self.share_mode.timer_callback()
