@@ -21,6 +21,7 @@ import queue
 from PyQt5 import QtCore, QtWidgets, QtGui
 
 from onionshare import strings
+from onionshare.web import Web
 
 from .share_mode import ShareMode
 from .receive_mode import ReceiveMode
@@ -39,19 +40,19 @@ class OnionShareGui(QtWidgets.QMainWindow):
     MODE_SHARE = 'share'
     MODE_RECEIVE = 'receive'
 
-    def __init__(self, common, web, onion, qtapp, app, filenames, config=False, local_only=False):
+    def __init__(self, common, onion, qtapp, app, filenames, config=False, local_only=False):
         super(OnionShareGui, self).__init__()
 
         self.common = common
         self.common.log('OnionShareGui', '__init__')
 
-        self.web = web
         self.onion = onion
         self.qtapp = qtapp
         self.app = app
         self.local_only = local_only
 
         self.mode = self.MODE_SHARE
+        self.web = None
 
         self.setWindowTitle('OnionShare')
         self.setWindowIcon(QtGui.QIcon(self.common.get_resource_path('images/logo.png')))
@@ -156,8 +157,8 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.server_status_label.setStyleSheet('QLabel { font-style: italic; color: #666666; padding: 2px; }')
         self.status_bar.insertWidget(0, self.server_status_label)
 
-        # Share and receive mode widgets
-        self.share_mode = ShareMode(self.common, qtapp, app, web, self.status_bar, self.server_status_label, self.system_tray, filenames)
+        # Share mode
+        self.share_mode = ShareMode(self.common, qtapp, app, self.status_bar, self.server_status_label, self.system_tray, filenames)
         self.share_mode.init()
         self.share_mode.server_status.server_started.connect(self.update_server_status_indicator)
         self.share_mode.server_status.server_stopped.connect(self.update_server_status_indicator)
@@ -169,7 +170,9 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.share_mode.server_status.url_copied.connect(self.copy_url)
         self.share_mode.server_status.hidservauth_copied.connect(self.copy_hidservauth)
         self.share_mode.set_server_active.connect(self.set_server_active)
-        self.receive_mode = ReceiveMode(self.common, qtapp, app, web, self.status_bar, self.server_status_label, self.system_tray)
+
+        # Receive mode
+        self.receive_mode = ReceiveMode(self.common, qtapp, app, self.status_bar, self.server_status_label, self.system_tray)
         self.receive_mode.init()
         self.receive_mode.set_server_active.connect(self.set_server_active)
 
@@ -371,34 +374,36 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
                 self.share_mode.handle_tor_broke()
 
-        events = []
+        # If we have a web object, process events from it
+        if self.web:
+            events = []
 
-        done = False
-        while not done:
-            try:
-                r = self.web.q.get(False)
-                events.append(r)
-            except queue.Empty:
-                done = True
+            done = False
+            while not done:
+                try:
+                    r = self.web.q.get(False)
+                    events.append(r)
+                except queue.Empty:
+                    done = True
 
-        for event in events:
-            if event["type"] == self.web.REQUEST_LOAD:
-                self.share_mode.handle_request_load(event)
+            for event in events:
+                if event["type"] == Web.REQUEST_LOAD:
+                    self.share_mode.handle_request_load(event)
 
-            elif event["type"] == self.web.REQUEST_DOWNLOAD:
-                self.share_mode.handle_request_download(event)
+                elif event["type"] == Web.REQUEST_DOWNLOAD:
+                    self.share_mode.handle_request_download(event)
 
-            elif event["type"] == self.web.REQUEST_RATE_LIMIT:
-                self.share_mode.handle_request_rate_limit(event)
+                elif event["type"] == Web.REQUEST_RATE_LIMIT:
+                    self.share_mode.handle_request_rate_limit(event)
 
-            elif event["type"] == self.web.REQUEST_PROGRESS:
-                self.share_mode.handle_request_progress(event)
+                elif event["type"] == Web.REQUEST_PROGRESS:
+                    self.share_mode.handle_request_progress(event)
 
-            elif event["type"] == self.web.REQUEST_CANCELED:
-                self.share_mode.handle_request_canceled(event)
+                elif event["type"] == Web.REQUEST_CANCELED:
+                    self.share_mode.handle_request_canceled(event)
 
-            elif event["path"] != '/favicon.ico':
-                self.status_bar.showMessage('[#{0:d}] {1:s}: {2:s}'.format(self.web.error404_count, strings._('other_page_loaded', True), event["path"]))
+                elif event["path"] != '/favicon.ico':
+                    self.status_bar.showMessage('[#{0:d}] {1:s}: {2:s}'.format(self.web.error404_count, strings._('other_page_loaded', True), event["path"]))
 
         if self.mode == self.MODE_SHARE:
             self.share_mode.timer_callback()

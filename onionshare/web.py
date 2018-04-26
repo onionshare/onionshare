@@ -38,27 +38,24 @@ from flask import (
 )
 from werkzeug.utils import secure_filename
 
-from . import strings, common
+from . import strings
 
 class Web(object):
     """
     The Web object is the OnionShare web server, powered by flask
     """
-    def __init__(self, common, stay_open, gui_mode, receive_mode=False):
+    def __init__(self, common, gui_mode, receive_mode=False):
         self.common = common
 
         # The flask app
         self.app = Flask(__name__,
-                         static_folder=common.get_resource_path('static'),
-                         template_folder=common.get_resource_path('templates'))
+                         static_folder=self.common.get_resource_path('static'),
+                         template_folder=self.common.get_resource_path('templates'))
         self.app.secret_key = self.common.random_string(8)
 
         # Debug mode?
         if self.common.debug:
             self.debug_mode()
-
-        # Stay open after the first download?
-        self.stay_open = stay_open
 
         # Are we running in GUI mode?
         self.gui_mode = gui_mode

@@ -24,7 +24,6 @@ from PyQt5 import QtCore, QtWidgets
 
 from onionshare import strings
 from onionshare.common import Common
-from onionshare.web import Web
 from onionshare.onion import Onion
 from onionshare.onionshare import OnionShare
 
@@ -100,9 +99,6 @@ def main():
         if not valid:
             sys.exit()
 
-    # Create the Web object
-    web = Web(common, stay_open, True)
-
     # Start the Onion
     onion = Onion(common)
 
@@ -110,7 +106,7 @@ def main():
     app = OnionShare(common, onion, local_only, stay_open, shutdown_timeout)
 
     # Launch the gui
-    gui = OnionShareGui(common, web, onion, qtapp, app, filenames, config, local_only)
+    gui = OnionShareGui(common, onion, qtapp, app, filenames, config, local_only)
 
     # Clean up when app quits
     def shutdown():

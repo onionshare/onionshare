@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from PyQt5 import QtCore, QtWidgets, QtGui
 
 from onionshare import strings
+from onionshare.web import Web
 
 from ..mode import Mode
 
@@ -31,6 +32,13 @@ class ReceiveMode(Mode):
         """
         Custom initialization for ReceiveMode.
         """
+        # Create the Web object
+        self.web = Web(self.common, True, True)
+        
+        # Tell server_status about web, then update
+        self.server_status.web = self.web
+        self.server_status.update()
+
         # Receive mode info
         self.receive_info = QtWidgets.QLabel(strings._('gui_receive_mode_warning', True))
         self.receive_info.setMinimumHeight(80)
@@ -47,7 +55,10 @@ class ReceiveMode(Mode):
     
     def start_server_step2_custom(self):
         """
-        Step 2 in starting the server. Nothing to do here but move on to step 3.
+        Step 2 in starting the server.
         """
+        # Set up web
+        
+        # Continue
         self.starting_server_step3.emit()
         self.start_server_finished.emit()

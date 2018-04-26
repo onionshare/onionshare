@@ -105,7 +105,8 @@ def main(cwd=None):
         sys.exit()
 
     # Create the Web object
-    web = Web(common, stay_open, False, receive)
+    web = Web(common, False, receive)
+    web.stay_open = stay_open
 
     # Start the Onion object
     onion = Onion(common)
