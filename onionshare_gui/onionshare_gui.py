@@ -152,12 +152,12 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.setStatusBar(self.status_bar)
 
         # Status bar, sharing messages
-        self.server_share_status_label = QtWidgets.QLabel('')
-        self.server_share_status_label.setStyleSheet('QLabel { font-style: italic; color: #666666; padding: 2px; }')
-        self.status_bar.insertWidget(0, self.server_share_status_label)
+        self.server_status_label = QtWidgets.QLabel('')
+        self.server_status_label.setStyleSheet('QLabel { font-style: italic; color: #666666; padding: 2px; }')
+        self.status_bar.insertWidget(0, self.server_status_label)
 
         # Share and receive mode widgets
-        self.share_mode = ShareMode(self.common, qtapp, app, web, self.status_bar, self.server_share_status_label, self.system_tray, filenames)
+        self.share_mode = ShareMode(self.common, qtapp, app, web, self.status_bar, self.server_status_label, self.system_tray, filenames)
         self.share_mode.init()
         self.share_mode.server_status.server_started.connect(self.update_server_status_indicator)
         self.share_mode.server_status.server_stopped.connect(self.update_server_status_indicator)
@@ -168,8 +168,8 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.share_mode.server_status.button_clicked.connect(self.clear_message)
         self.share_mode.server_status.url_copied.connect(self.copy_url)
         self.share_mode.server_status.hidservauth_copied.connect(self.copy_hidservauth)
-        self.share_mode.set_share_server_active.connect(self.set_share_server_active)
-        self.receive_mode = ReceiveMode(self.common, qtapp, app, web, self.status_bar, self.server_share_status_label, self.system_tray)
+        self.share_mode.set_server_active.connect(self.set_share_server_active)
+        self.receive_mode = ReceiveMode(self.common, qtapp, app, web, self.status_bar, self.server_status_label, self.system_tray)
         self.receive_mode.init()
 
         self.update_mode_switcher()

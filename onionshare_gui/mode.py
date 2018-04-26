@@ -17,13 +17,12 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-import threading
 import time
-import os
+import threading
 from PyQt5 import QtCore, QtWidgets, QtGui
 
 from onionshare import strings
-from onionshare.common import Common, ShutdownTimer
+from onionshare.common import ShutdownTimer
 
 from .server_status import ServerStatus
 from .onion_thread import OnionThread
@@ -38,9 +37,9 @@ class Mode(QtWidgets.QWidget):
     starting_server_step2 = QtCore.pyqtSignal()
     starting_server_step3 = QtCore.pyqtSignal()
     starting_server_error = QtCore.pyqtSignal(str)
-    set_share_server_active = QtCore.pyqtSignal(bool)
+    set_server_active = QtCore.pyqtSignal(bool)
 
-    def __init__(self, common, qtapp, app, web, status_bar, server_share_status_label, system_tray, filenames=None):
+    def __init__(self, common, qtapp, app, web, status_bar, server_status_label, system_tray, filenames=None):
         super(Mode, self).__init__()
         self.common = common
         self.qtapp = qtapp
@@ -48,13 +47,13 @@ class Mode(QtWidgets.QWidget):
         self.web = web
 
         self.status_bar = status_bar
-        self.server_share_status_label = server_share_status_label
+        self.server_status_label = server_status_label
         self.system_tray = system_tray
 
         self.filenames = filenames
 
         # Server status
-        self.server_status = ServerStatus(self.common, self.qtapp, self.app, self.web, False)
+        self.server_status = ServerStatus(self.common, self.qtapp, self.app, self.web)
         self.server_status.server_started.connect(self.start_server)
         self.server_status.server_stopped.connect(self.stop_server)
         self.server_status.server_canceled.connect(self.cancel_server)
@@ -77,7 +76,7 @@ class Mode(QtWidgets.QWidget):
 
     def init(self):
         """
-        Add custom initialization of the mode here.
+        Add custom initialization here.
         """
         pass
 
@@ -92,17 +91,16 @@ class Mode(QtWidgets.QWidget):
         Start the onionshare server. This uses multiple threads to start the Tor onion
         server and the web app.
         """
-        self.common.log('ShareMode', 'start_server')
+        self.common.log('Mode', 'start_server')
+        
+        self.start_server_custom()
 
-        self.set_share_server_active.emit(True)
-
+        self.set_server_active.emit(True)
         self.app.set_stealth(self.common.settings.get('use_stealth'))
 
-        # Hide and reset the downloads if we have previously shared
-        self.downloads.reset_downloads()
-        self.reset_info_counters()
+        # Clear the status bar
         self.status_bar.clearMessage()
-        self.server_share_status_label.setText('')
+        self.server_status_label.setText('')
 
         # Reset web counters
         self.web.download_count = 0
@@ -128,64 +126,44 @@ class Mode(QtWidgets.QWidget):
             # wait for modules in thread to load, preventing a thread-related cx_Freeze crash
             time.sleep(0.2)
 
-        self.common.log('OnionshareGui', 'start_server', 'Starting an onion thread')
+        self.common.log('Mode', 'start_server', 'Starting an onion thread')
         self.t = OnionThread(self.common, function=start_onion_service, kwargs={'self': self})
         self.t.daemon = True
         self.t.start()
+    
+    def start_server_custom(self):
+        """
+        Add custom initialization here.
+        """
+        pass
 
     def start_server_step2(self):
         """
-        Step 2 in starting the onionshare server. Zipping up files.
+        Step 2 in starting the onionshare server.
         """
-        self.common.log('ShareMode', 'start_server_step2')
+        self.common.log('Mode', 'start_server_step2')
 
-        # add progress bar to the status bar, indicating the compressing of files.
-        self._zip_progress_bar = ZipProgressBar(0)
-        self.filenames = []
-        for index in range(self.file_selection.file_list.count()):
-            self.filenames.append(self.file_selection.file_list.item(index).filename)
+        self.start_server_step2_custom()
 
-        self._zip_progress_bar.total_files_size = Mode._compute_total_size(self.filenames)
-        self.status_bar.insertWidget(0, self._zip_progress_bar)
+        # Nothing to do here.
 
-        # prepare the files for sending in a new thread
-        def finish_starting_server(self):
-            # prepare files to share
-            def _set_processed_size(x):
-                if self._zip_progress_bar != None:
-                    self._zip_progress_bar.update_processed_size_signal.emit(x)
-            try:
-                self.web.set_file_info(self.filenames, processed_size_callback=_set_processed_size)
-                self.app.cleanup_filenames.append(self.web.zip_filename)
-
-                # Only continue if the server hasn't been canceled
-                if self.server_status.status != self.server_status.STATUS_STOPPED:
-                    self.starting_server_step3.emit()
-                    self.start_server_finished.emit()
-            except OSError as e:
-                self.starting_server_error.emit(e.strerror)
-                return
-
-        t = threading.Thread(target=finish_starting_server, kwargs={'self': self})
-        t.daemon = True
-        t.start()
+        # start_server_step2_custom has call these to move on:
+        # self.starting_server_step3.emit()
+        # self.start_server_finished.emit()
+    
+    def start_server_step2_custom(self):
+        """
+        Add custom initialization here.
+        """
+        pass
 
     def start_server_step3(self):
         """
-        Step 3 in starting the onionshare server. This displays the large filesize
-        warning, if applicable.
+        Step 3 in starting the onionshare server. 
         """
-        self.common.log('ShareMode', 'start_server_step3')
+        self.common.log('Mode', 'start_server_step3')
 
-        # Remove zip progress bar
-        if self._zip_progress_bar is not None:
-            self.status_bar.removeWidget(self._zip_progress_bar)
-            self._zip_progress_bar = None
-
-        # warn about sending large files over Tor
-        if self.web.zip_filesize >= 157286400:  # 150mb
-            self.filesize_warning.setText(strings._("large_filesize", True))
-            self.filesize_warning.show()
+        self.start_server_step3_custom()
 
         if self.common.settings.get('shutdown_timeout'):
             # Convert the date value to seconds between now and then
@@ -200,20 +178,30 @@ class Mode(QtWidgets.QWidget):
                 self.stop_server()
                 self.start_server_error(strings._('gui_server_started_after_timeout'))
 
+    def start_server_step3_custom(self):
+        """
+        Add custom initialization here.
+        """
+        pass
+
     def start_server_error(self, error):
         """
         If there's an error when trying to start the onion service
         """
-        self.common.log('ShareMode', 'start_server_error')
-
-        self.set_share_server_active.emit(False)
+        self.common.log('Mode', 'start_server_error')
 
         Alert(self.common, error, QtWidgets.QMessageBox.Warning)
+        self.set_server_active.emit(False)
         self.server_status.stop_server()
-        if self._zip_progress_bar is not None:
-            self.status_bar.removeWidget(self._zip_progress_bar)
-            self._zip_progress_bar = None
         self.status_bar.clearMessage()
+
+        self.start_server_error_custom()
+    
+    def start_server_error_custom(self):
+        """
+        Add custom initialization here.
+        """
+        pass
 
     def cancel_server(self):
         """
@@ -227,7 +215,7 @@ class Mode(QtWidgets.QWidget):
         """
         Stop the onionshare server.
         """
-        self.common.log('ShareMode', 'stop_server')
+        self.common.log('Mode', 'stop_server')
 
         if self.server_status.status != self.server_status.STATUS_STOPPED:
             try:
@@ -237,81 +225,27 @@ class Mode(QtWidgets.QWidget):
                 pass
         self.app.cleanup()
 
-        # Remove the progress bar
-        if self._zip_progress_bar is not None:
-            self.status_bar.removeWidget(self._zip_progress_bar)
-            self._zip_progress_bar = None
+        self.stop_server_custom()
 
-        self.filesize_warning.hide()
-        self.downloads_in_progress = 0
-        self.downloads_completed = 0
-        self.update_downloads_in_progress(0)
-        self.file_selection.file_list.adjustSize()
-
-        self.set_share_server_active.emit(False)
+        self.set_server_active.emit(False)
         self.stop_server_finished.emit()
+
+    def stop_server_custom(self):
+        """
+        Add custom initialization here.
+        """
+        pass
     
-    @staticmethod
-    def _compute_total_size(filenames):
-        total_size = 0
-        for filename in filenames:
-            if os.path.isfile(filename):
-                total_size += os.path.getsize(filename)
-            if os.path.isdir(filename):
-                total_size += Common.dir_size(filename)
-        return total_size
-
-
-class ZipProgressBar(QtWidgets.QProgressBar):
-    update_processed_size_signal = QtCore.pyqtSignal(int)
-
-    def __init__(self, total_files_size):
-        super(ZipProgressBar, self).__init__()
-        self.setMaximumHeight(20)
-        self.setMinimumWidth(200)
-        self.setValue(0)
-        self.setFormat(strings._('zip_progress_bar_format'))
-        cssStyleData ="""
-        QProgressBar {
-            border: 1px solid #4e064f;
-            background-color: #ffffff !important;
-            text-align: center;
-            color: #9b9b9b;
-        }
-
-        QProgressBar::chunk {
-            border: 0px;
-            background-color: #4e064f;
-            width: 10px;
-        }"""
-        self.setStyleSheet(cssStyleData)
-
-        self._total_files_size = total_files_size
-        self._processed_size = 0
-
-        self.update_processed_size_signal.connect(self.update_processed_size)
-
-    @property
-    def total_files_size(self):
-        return self._total_files_size
-
-    @total_files_size.setter
-    def total_files_size(self, val):
-        self._total_files_size = val
-
-    @property
-    def processed_size(self):
-        return self._processed_size
-
-    @processed_size.setter
-    def processed_size(self, val):
-        self.update_processed_size(val)
-
-    def update_processed_size(self, val):
-        self._processed_size = val
-        if self.processed_size < self.total_files_size:
-            self.setValue(int((self.processed_size * 100) / self.total_files_size))
-        elif self.total_files_size != 0:
-            self.setValue(100)
-        else:
-            self.setValue(0)
+    def handle_tor_broke(self):
+        """
+        Handle connection from Tor breaking.
+        """
+        if self.server_status.status != self.server_status.STATUS_STOPPED:
+            self.server_status.stop_server()
+        self.handle_tor_broke_custom()
+    
+    def handle_tor_broke_custom(self):
+        """
+        Add custom initialization here.
+        """
+        pass

@@ -44,3 +44,10 @@ class ReceiveMode(Mode):
         This method is called regularly on a timer while receive mode is active.
         """
         pass
+    
+    def start_server_step2_custom(self):
+        """
+        Step 2 in starting the server. Nothing to do here but move on to step 3.
+        """
+        self.starting_server_step3.emit()
+        self.start_server_finished.emit()
