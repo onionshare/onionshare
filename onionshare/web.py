@@ -44,6 +44,13 @@ class Web(object):
     """
     The Web object is the OnionShare web server, powered by flask
     """
+    REQUEST_LOAD = 0
+    REQUEST_DOWNLOAD = 1
+    REQUEST_PROGRESS = 2
+    REQUEST_OTHER = 3
+    REQUEST_CANCELED = 4
+    REQUEST_RATE_LIMIT = 5
+    
     def __init__(self, common, gui_mode, receive_mode=False):
         self.common = common
 
@@ -90,12 +97,6 @@ class Web(object):
             ('Server', 'OnionShare')
         ]
 
-        self.REQUEST_LOAD = 0
-        self.REQUEST_DOWNLOAD = 1
-        self.REQUEST_PROGRESS = 2
-        self.REQUEST_OTHER = 3
-        self.REQUEST_CANCELED = 4
-        self.REQUEST_RATE_LIMIT = 5
         self.q = queue.Queue()
 
         self.slug = None
