@@ -39,7 +39,7 @@ class ServerStatus(QtWidgets.QWidget):
     STATUS_WORKING = 1
     STATUS_STARTED = 2
 
-    def __init__(self, common, qtapp, app, web, file_selection=None):
+    def __init__(self, common, qtapp, app, file_selection=None):
         super(ServerStatus, self).__init__()
 
         self.common = common
@@ -49,7 +49,8 @@ class ServerStatus(QtWidgets.QWidget):
 
         self.qtapp = qtapp
         self.app = app
-        self.web = web
+
+        self.web = None
 
         # Shutdown timeout layout
         self.shutdown_timeout_label = QtWidgets.QLabel(strings._('gui_settings_shutdown_timeout', True))
@@ -112,8 +113,6 @@ class ServerStatus(QtWidgets.QWidget):
         layout.addLayout(url_layout)
         layout.addWidget(self.shutdown_timeout_container)
         self.setLayout(layout)
-
-        self.update()
     
     def set_share_mode(self, file_selection):
         """
@@ -121,6 +120,7 @@ class ServerStatus(QtWidgets.QWidget):
         """
         self.share_mode = True
         self.file_selection = file_selection
+        self.update()
 
     def shutdown_timeout_reset(self):
         """

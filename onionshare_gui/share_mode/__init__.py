@@ -24,6 +24,7 @@ from PyQt5 import QtCore, QtWidgets, QtGui
 from onionshare import strings
 from onionshare.onion import *
 from onionshare.common import Common
+from onionshare.web import Web
 
 from .file_selection import FileSelection
 from .downloads import Downloads
@@ -39,6 +40,9 @@ class ShareMode(Mode):
         """
         Custom initialization for ReceiveMode.
         """
+        # Create the Web object
+        self.web = Web(self.common, True, False)
+
         # File selection
         self.file_selection = FileSelection(self.common)
         if self.filenames:
@@ -54,6 +58,9 @@ class ShareMode(Mode):
         self.server_status.server_canceled.connect(self.update_primary_action)
         self.file_selection.file_list.files_updated.connect(self.server_status.update)
         self.file_selection.file_list.files_updated.connect(self.update_primary_action)
+        # Tell server_status about web, then update
+        self.server_status.web = self.web
+        self.server_status.update()
 
         # Filesize warning
         self.filesize_warning = QtWidgets.QLabel()
@@ -143,6 +150,10 @@ class ShareMode(Mode):
         """
         Starting the server.
         """
+        # Reset web counters
+        self.web.download_count = 0
+        self.web.error404_count = 0
+        
         # Hide and reset the downloads if we have previously shared
         self.downloads.reset_downloads()
         self.reset_info_counters()

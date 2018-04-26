@@ -39,12 +39,11 @@ class Mode(QtWidgets.QWidget):
     starting_server_error = QtCore.pyqtSignal(str)
     set_server_active = QtCore.pyqtSignal(bool)
 
-    def __init__(self, common, qtapp, app, web, status_bar, server_status_label, system_tray, filenames=None):
+    def __init__(self, common, qtapp, app, status_bar, server_status_label, system_tray, filenames=None):
         super(Mode, self).__init__()
         self.common = common
         self.qtapp = qtapp
         self.app = app
-        self.web = web
 
         self.status_bar = status_bar
         self.server_status_label = server_status_label
@@ -52,8 +51,11 @@ class Mode(QtWidgets.QWidget):
 
         self.filenames = filenames
 
+        # The web object gets created in init()
+        self.web = None
+
         # Server status
-        self.server_status = ServerStatus(self.common, self.qtapp, self.app, self.web)
+        self.server_status = ServerStatus(self.common, self.qtapp, self.app)
         self.server_status.server_started.connect(self.start_server)
         self.server_status.server_stopped.connect(self.stop_server)
         self.server_status.server_canceled.connect(self.cancel_server)
@@ -102,11 +104,7 @@ class Mode(QtWidgets.QWidget):
         self.status_bar.clearMessage()
         self.server_status_label.setText('')
 
-        # Reset web counters
-        self.web.download_count = 0
-        self.web.error404_count = 0
-
-        # start the onion service in a new thread
+        # Start the onion service in a new thread
         def start_onion_service(self):
             try:
                 self.app.start_onion_service()
@@ -116,14 +114,13 @@ class Mode(QtWidgets.QWidget):
                 self.starting_server_error.emit(e.args[0])
                 return
 
-
             self.app.stay_open = not self.common.settings.get('close_after_first_download')
 
-            # start onionshare http service in new thread
+            # Start http service in new thread
             t = threading.Thread(target=self.web.start, args=(self.app.port, self.app.stay_open, self.common.settings.get('slug')))
             t.daemon = True
             t.start()
-            # wait for modules in thread to load, preventing a thread-related cx_Freeze crash
+            # Wait for modules in thread to load, preventing a thread-related cx_Freeze crash
             time.sleep(0.2)
 
         self.common.log('Mode', 'start_server', 'Starting an onion thread')
