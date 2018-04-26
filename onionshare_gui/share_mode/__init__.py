@@ -28,12 +28,12 @@ from onionshare.onion import *
 
 from .file_selection import FileSelection
 from .downloads import Downloads
-from ..server_status import ServerStatus
+from ..mode import Mode
 from ..onion_thread import OnionThread
 from ..widgets import Alert
 
 
-class ShareMode(QtWidgets.QWidget):
+class ShareMode(Mode):
     """
     Parts of the main window UI for sharing files.
     """
@@ -44,27 +44,19 @@ class ShareMode(QtWidgets.QWidget):
     starting_server_error = QtCore.pyqtSignal(str)
     set_share_server_active = QtCore.pyqtSignal(bool)
 
-    def __init__(self, common, filenames, qtapp, app, web, status_bar, server_share_status_label, system_tray):
-        super(ShareMode, self).__init__()
-        self.common = common
-        self.qtapp = qtapp
-        self.app = app
-        self.web = web
-
-        self.status_bar = status_bar
-        self.server_share_status_label = server_share_status_label
-        self.system_tray = system_tray
-
+    def init(self):
+        """
+        Custom initialization for ReceiveMode.
+        """
         # File selection
         self.file_selection = FileSelection(self.common)
-        if filenames:
-            for filename in filenames:
+        if self.filenames:
+            for filename in self.filenames:
                 self.file_selection.file_list.add_file(filename)
-
+        
         # Server status
-        self.server_status = ServerStatus(self.common, self.qtapp, self.app, self.web, True, self.file_selection)
-        self.server_status.server_started.connect(self.file_selection.server_started)
         self.server_status.server_started.connect(self.start_server)
+        self.server_status.server_started.connect(self.file_selection.server_started)
         self.server_status.server_stopped.connect(self.file_selection.server_stopped)
         self.server_status.server_stopped.connect(self.stop_server)
         self.server_status.server_stopped.connect(self.update_primary_action)
@@ -122,11 +114,7 @@ class ShareMode(QtWidgets.QWidget):
         self.info_widget.hide()
 
         # Primary action layout
-        primary_action_layout = QtWidgets.QVBoxLayout()
-        primary_action_layout.addWidget(self.server_status)
-        primary_action_layout.addWidget(self.filesize_warning)
-        self.primary_action = QtWidgets.QWidget()
-        self.primary_action.setLayout(primary_action_layout)
+        self.primary_action_layout.addWidget(self.filesize_warning)
         self.primary_action.hide()
         self.update_primary_action()
 
@@ -134,11 +122,8 @@ class ShareMode(QtWidgets.QWidget):
         self._zip_progress_bar = None
 
         # Layout
-        layout = QtWidgets.QVBoxLayout()
-        layout.addWidget(self.info_widget)
-        layout.addLayout(self.file_selection)
-        layout.addWidget(self.primary_action)
-        self.setLayout(layout)
+        self.layout.insertWidget(1, self.info_widget)
+        self.layout.insertLayout(0, self.file_selection)
 
         # Always start with focus on file selection
         self.file_selection.setFocus()
