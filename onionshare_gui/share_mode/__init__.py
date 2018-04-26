@@ -158,7 +158,7 @@ class ShareMode(QtWidgets.QWidget):
                 if self.timeout > 0:
                     now = QtCore.QDateTime.currentDateTime()
                     seconds_remaining = now.secsTo(self.server_status.timeout)
-                    self.server_status.server_button.setText(strings._('gui_stop_server_shutdown_timeout', True).format(seconds_remaining))
+                    self.server_status.server_button.setText(strings._('gui_share_stop_server_shutdown_timeout', True).format(seconds_remaining))
                     if not self.app.shutdown_timer.is_alive():
                         # If there were no attempts to download the share, or all downloads are done, we can stop
                         if self.web.download_count == 0 or self.web.done:

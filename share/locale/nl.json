@@ -38,8 +38,6 @@
     "gui_add": "Toevoegen",
     "gui_delete": "Verwijder",
     "gui_choose_items": "Kies",
-    "gui_start_server": "Start server",
-    "gui_stop_server": "Stop server",
     "gui_copy_url": "Kopieer URL",
     "gui_copy_hidservauth": "Kopieer HidServAuth",
     "gui_downloads": "Downloads:",

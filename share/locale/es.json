@@ -24,8 +24,8 @@
     "gui_add": "Añadir",
     "gui_delete": "Eliminar",
     "gui_choose_items": "Elegir",
-    "gui_start_server": "Encender el Servidor",
-    "gui_stop_server": "Detener el Servidor",
+    "gui_share_start_server": "Encender el Servidor",
+    "gui_share_stop_server": "Detener el Servidor",
     "gui_copy_url": "Copiar URL",
     "gui_downloads": "Descargas:",
     "gui_copied_url": "Se copió la URL en el portapapeles"

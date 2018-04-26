@@ -39,7 +39,7 @@ class ServerStatus(QtWidgets.QWidget):
     STATUS_WORKING = 1
     STATUS_STARTED = 2
 
-    def __init__(self, common, qtapp, app, web, file_selection=None):
+    def __init__(self, common, qtapp, app, web, share_mode, file_selection=None):
         super(ServerStatus, self).__init__()
 
         self.common = common
@@ -51,7 +51,9 @@ class ServerStatus(QtWidgets.QWidget):
         self.web = web
 
         # Only used in share mode
-        self.file_selection = file_selection
+        self.share_mode = share_mode
+        if self.share_mode:
+            self.file_selection = file_selection
 
         # Shutdown timeout layout
         self.shutdown_timeout_label = QtWidgets.QLabel(strings._('gui_settings_shutdown_timeout', True))
@@ -72,7 +74,6 @@ class ServerStatus(QtWidgets.QWidget):
         self.shutdown_timeout_container = QtWidgets.QWidget()
         self.shutdown_timeout_container.setLayout(shutdown_timeout_container_layout)
         self.shutdown_timeout_container.hide()
-
 
         # Server layout
         self.server_button = QtWidgets.QPushButton()
@@ -175,7 +176,7 @@ class ServerStatus(QtWidgets.QWidget):
         button_working_style = 'QPushButton { background-color: #4c8211; color: #ffffff; padding: 10px; border: 0; border-radius: 5px; font-style: italic; }'
         button_started_style = 'QPushButton { background-color: #d0011b; color: #ffffff; padding: 10px; border: 0; border-radius: 5px; }'
 
-        if self.file_selection and self.file_selection.get_num_files() == 0:
+        if self.share_mode and self.file_selection.get_num_files() == 0:
             self.server_button.hide()
         else:
             self.server_button.show()
@@ -183,17 +184,27 @@ class ServerStatus(QtWidgets.QWidget):
             if self.status == self.STATUS_STOPPED:
                 self.server_button.setStyleSheet(button_stopped_style)
                 self.server_button.setEnabled(True)
-                self.server_button.setText(strings._('gui_start_server', True))
+                if self.share_mode:
+                    self.server_button.setText(strings._('gui_share_start_server', True))
+                else:
+                    self.server_button.setText(strings._('gui_receive_start_server', True))
                 self.server_button.setToolTip('')
                 if self.common.settings.get('shutdown_timeout'):
                     self.shutdown_timeout_container.show()
             elif self.status == self.STATUS_STARTED:
                 self.server_button.setStyleSheet(button_started_style)
                 self.server_button.setEnabled(True)
-                self.server_button.setText(strings._('gui_stop_server', True))
+                if self.share_mode:
+                    self.server_button.setText(strings._('gui_share_stop_server', True))
+                else:
+                    self.server_button.setText(strings._('gui_share_stop_server', True))
                 if self.common.settings.get('shutdown_timeout'):
                     self.shutdown_timeout_container.hide()
-                    self.server_button.setToolTip(strings._('gui_stop_server_shutdown_timeout_tooltip', True).format(self.timeout))
+                    if self.share_mode:
+                        self.server_button.setToolTip(strings._('gui_share_stop_server_shutdown_timeout_tooltip', True).format(self.timeout))
+                    else:
+                        self.server_button.setToolTip(strings._('gui_receive_stop_server_shutdown_timeout_tooltip', True).format(self.timeout))
+
             elif self.status == self.STATUS_WORKING:
                 self.server_button.setStyleSheet(button_working_style)
                 self.server_button.setEnabled(True)
