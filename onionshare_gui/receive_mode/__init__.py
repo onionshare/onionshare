@@ -21,42 +21,23 @@ from PyQt5 import QtCore, QtWidgets, QtGui
 
 from onionshare import strings
 
-from ..server_status import ServerStatus
+from ..mode import Mode
 
-class ReceiveMode(QtWidgets.QWidget):
+class ReceiveMode(Mode):
     """
     Parts of the main window UI for receiving files.
     """
-    def __init__(self, common, qtapp, app, web, status_bar, server_share_status_label, system_tray):
-        super(ReceiveMode, self).__init__()
-        self.common = common
-        self.qtapp = qtapp
-        self.app = app
-        self.web = web
-
-        self.status_bar = status_bar
-        self.server_share_status_label = server_share_status_label
-        self.system_tray = system_tray
-
+    def init(self):
+        """
+        Custom initialization for ReceiveMode.
+        """
         # Receive mode info
         self.receive_info = QtWidgets.QLabel(strings._('gui_receive_mode_warning', True))
         self.receive_info.setMinimumHeight(80)
         self.receive_info.setWordWrap(True)
 
-        # Server status
-        self.server_status = ServerStatus(self.common, self.qtapp, self.app, self.web, False)
-
-        # Primary action layout
-        primary_action_layout = QtWidgets.QVBoxLayout()
-        primary_action_layout.addWidget(self.server_status)
-        self.primary_action = QtWidgets.QWidget()
-        self.primary_action.setLayout(primary_action_layout)
-
         # Layout
-        layout = QtWidgets.QVBoxLayout()
-        layout.addWidget(self.receive_info)
-        layout.addWidget(self.primary_action)
-        self.setLayout(layout)
+        self.layout.insertWidget(0, self.receive_info)
 
     def timer_callback(self):
         """

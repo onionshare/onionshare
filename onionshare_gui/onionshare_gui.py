@@ -157,7 +157,8 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.status_bar.insertWidget(0, self.server_share_status_label)
 
         # Share and receive mode widgets
-        self.share_mode = ShareMode(self.common, filenames, qtapp, app, web, self.status_bar, self.server_share_status_label, self.system_tray)
+        self.share_mode = ShareMode(self.common, qtapp, app, web, self.status_bar, self.server_share_status_label, self.system_tray, filenames)
+        self.share_mode.init()
         self.share_mode.server_status.server_started.connect(self.update_server_status_indicator)
         self.share_mode.server_status.server_stopped.connect(self.update_server_status_indicator)
         self.share_mode.start_server_finished.connect(self.update_server_status_indicator)
@@ -169,6 +170,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.share_mode.server_status.hidservauth_copied.connect(self.copy_hidservauth)
         self.share_mode.set_share_server_active.connect(self.set_share_server_active)
         self.receive_mode = ReceiveMode(self.common, qtapp, app, web, self.status_bar, self.server_share_status_label, self.system_tray)
+        self.receive_mode.init()
 
         self.update_mode_switcher()
         self.update_server_status_indicator()
