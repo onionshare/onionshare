@@ -168,9 +168,10 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.share_mode.server_status.button_clicked.connect(self.clear_message)
         self.share_mode.server_status.url_copied.connect(self.copy_url)
         self.share_mode.server_status.hidservauth_copied.connect(self.copy_hidservauth)
-        self.share_mode.set_server_active.connect(self.set_share_server_active)
+        self.share_mode.set_server_active.connect(self.set_server_active)
         self.receive_mode = ReceiveMode(self.common, qtapp, app, web, self.status_bar, self.server_status_label, self.system_tray)
         self.receive_mode.init()
+        self.receive_mode.set_server_active.connect(self.set_server_active)
 
         self.update_mode_switcher()
         self.update_server_status_indicator()
@@ -191,8 +192,8 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.setCentralWidget(central_widget)
         self.show()
 
-        # The server isn't active yet
-        self.set_share_server_active(False)
+        # The servers isn't active yet
+        self.set_server_active(False)
 
         # Create the timer
         self.timer = QtCore.QTimer()
@@ -424,14 +425,18 @@ class OnionShareGui(QtWidgets.QMainWindow):
         """
         self.status_bar.clearMessage()
 
-    def set_share_server_active(self, active):
+    def set_server_active(self, active):
         """
         Disable the Settings and Receive Files buttons while an Share Files server is active.
         """
         if active:
             self.settings_button.hide()
-            self.share_mode_button.show()
-            self.receive_mode_button.hide()
+            if self.mode == self.MODE_SHARE:
+                self.share_mode_button.show()
+                self.receive_mode_button.hide()
+            else:
+                self.share_mode_button.hide()
+                self.receive_mode_button.show()
         else:
             self.settings_button.show()
             self.share_mode_button.show()
