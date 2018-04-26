@@ -39,7 +39,7 @@ class ReceiveMode(QtWidgets.QWidget):
         self.system_tray = system_tray
 
         # Server status
-        self.server_status = ServerStatus(self.common, self.qtapp, self.app, self.web)
+        self.server_status = ServerStatus(self.common, self.qtapp, self.app, self.web, False)
 
         # Primary action layout
         primary_action_layout = QtWidgets.QVBoxLayout()

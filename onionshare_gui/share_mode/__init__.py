@@ -62,7 +62,7 @@ class ShareMode(QtWidgets.QWidget):
                 self.file_selection.file_list.add_file(filename)
 
         # Server status
-        self.server_status = ServerStatus(self.common, self.qtapp, self.app, self.web, self.file_selection)
+        self.server_status = ServerStatus(self.common, self.qtapp, self.app, self.web, True, self.file_selection)
         self.server_status.server_started.connect(self.file_selection.server_started)
         self.server_status.server_started.connect(self.start_server)
         self.server_status.server_stopped.connect(self.file_selection.server_stopped)
