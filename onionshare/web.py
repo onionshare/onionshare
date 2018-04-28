@@ -453,6 +453,7 @@ class Web(object):
         """
         Start the flask web server.
         """
+        self.common.log('Web', 'start', 'port={}, stay_open={}, persistent_slug={}'.format(port, stay_open, persistent_slug))
         self.generate_slug(persistent_slug)
 
         self.stay_open = stay_open
