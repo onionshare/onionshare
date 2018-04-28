@@ -138,6 +138,19 @@ class Mode(QtWidgets.QWidget):
 
         # Start the onion service in a new thread
         def start_onion_service(self):
+            # Choose a port for the web app
+            self.app.choose_port()
+
+            # Start http service in new thread
+            t = threading.Thread(target=self.web.start, args=(self.app.port, self.app.stay_open, self.common.settings.get('slug')))
+            t.daemon = True
+            t.start()
+
+            # Wait for the web app slug to generate before continuing
+            while self.web.slug == None:
+                time.sleep(0.1)
+
+            # Now start the onion service
             try:
                 self.app.start_onion_service()
                 self.starting_server_step2.emit()
@@ -147,13 +160,6 @@ class Mode(QtWidgets.QWidget):
                 return
 
             self.app.stay_open = not self.common.settings.get('close_after_first_download')
-
-            # Start http service in new thread
-            t = threading.Thread(target=self.web.start, args=(self.app.port, self.app.stay_open, self.common.settings.get('slug')))
-            t.daemon = True
-            t.start()
-            # Wait for modules in thread to load, preventing a thread-related cx_Freeze crash
-            time.sleep(0.2)
 
         self.common.log('Mode', 'start_server', 'Starting an onion thread')
         self.t = OnionThread(self.common, function=start_onion_service, kwargs={'self': self})
