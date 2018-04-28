@@ -38,6 +38,7 @@ class OnionShare(object):
 
         self.hidserv_dir = None
         self.onion_host = None
+        self.port = None
         self.stealth = None
 
         # files and dirs to delete on shutdown
@@ -59,6 +60,15 @@ class OnionShare(object):
 
         self.stealth = stealth
         self.onion.stealth = stealth
+    
+    def choose_port(self):
+        """
+        Choose a random port.
+        """
+        try:
+            self.port = self.common.get_available_port(17600, 17650)
+        except:
+            raise OSError(strings._('no_available_port'))
 
     def start_onion_service(self):
         """
@@ -66,11 +76,8 @@ class OnionShare(object):
         """
         self.common.log('OnionShare', 'start_onion_service')
 
-        # Choose a random port
-        try:
-            self.port = self.common.get_available_port(17600, 17650)
-        except:
-            raise OSError(strings._('no_available_port'))
+        if not self.port:
+            self.choose_port()
 
         if self.local_only:
             self.onion_host = '127.0.0.1:{0:d}'.format(self.port)

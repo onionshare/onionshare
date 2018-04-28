@@ -419,11 +419,12 @@ class Web(object):
 
     def generate_slug(self, persistent_slug=None):
         self.common.log('Web', 'generate_slug', 'persistent_slug={}'.format(persistent_slug))
-        if persistent_slug != None:
+        if persistent_slug != None and persistent_slug != '':
             self.slug = persistent_slug
+            self.common.log('Web', 'generate_slug', 'persistent_slug sent, so slug is: "{}"'.format(self.slug))
         else:
             self.slug = self.common.build_slug()
-        self.common.log('Web', 'generate_slug', 'slug is set to {}'.format(self.slug))
+            self.common.log('Web', 'generate_slug', 'built random slug: "{}"'.format(self.slug))
 
     def debug_mode(self):
         """

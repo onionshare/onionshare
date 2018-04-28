@@ -122,6 +122,7 @@ def main(cwd=None):
     try:
         app = OnionShare(common, onion, local_only, stay_open, shutdown_timeout)
         app.set_stealth(stealth)
+        app.choose_port()
         app.start_onion_service()
     except KeyboardInterrupt:
         print("")
