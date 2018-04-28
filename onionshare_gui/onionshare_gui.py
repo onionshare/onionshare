@@ -128,8 +128,8 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.server_status_image_started = QtGui.QImage(self.common.get_resource_path('images/server_started.png'))
         self.server_status_image_label = QtWidgets.QLabel()
         self.server_status_image_label.setFixedWidth(20)
-        self.server_status_label = QtWidgets.QLabel()
-        self.server_status_label.setStyleSheet('QLabel { font-style: italic; color: #666666; }')
+        self.server_status_label = QtWidgets.QLabel('')
+        self.server_status_label.setStyleSheet('QLabel { font-style: italic; color: #666666; padding: 2px; }')
         server_status_indicator_layout = QtWidgets.QHBoxLayout()
         server_status_indicator_layout.addWidget(self.server_status_image_label)
         server_status_indicator_layout.addWidget(self.server_status_label)
@@ -150,11 +150,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
             }""")
         self.status_bar.addPermanentWidget(self.server_status_indicator)
         self.setStatusBar(self.status_bar)
-
-        # Status bar, sharing messages
-        self.server_status_label = QtWidgets.QLabel('')
-        self.server_status_label.setStyleSheet('QLabel { font-style: italic; color: #666666; padding: 2px; }')
-        self.status_bar.insertWidget(0, self.server_status_label)
 
         # Share mode
         self.share_mode = ShareMode(self.common, qtapp, app, self.status_bar, self.server_status_label, self.system_tray, filenames)
