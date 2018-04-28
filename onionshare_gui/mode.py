@@ -142,7 +142,7 @@ class Mode(QtWidgets.QWidget):
                 self.app.start_onion_service()
                 self.starting_server_step2.emit()
 
-            except (TorTooOld, TorErrorInvalidSetting, TorErrorAutomatic, TorErrorSocketPort, TorErrorSocketFile, TorErrorMissingPassword, TorErrorUnreadableCookieFile, TorErrorAuthError, TorErrorProtocolError, BundledTorTimeout, OSError) as e:
+            except Exception as e:
                 self.starting_server_error.emit(e.args[0])
                 return
 

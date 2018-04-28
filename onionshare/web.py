@@ -417,11 +417,13 @@ class Web(object):
             'data': data
         })
 
-    def generate_slug(self, persistent_slug=''):
-        if persistent_slug:
+    def generate_slug(self, persistent_slug=None):
+        self.common.log('Web', 'generate_slug', 'persistent_slug={}'.format(persistent_slug))
+        if persistent_slug != None:
             self.slug = persistent_slug
         else:
             self.slug = self.common.build_slug()
+        self.common.log('Web', 'generate_slug', 'slug is set to {}'.format(self.slug))
 
     def debug_mode(self):
         """
@@ -449,7 +451,7 @@ class Web(object):
             raise RuntimeError('Not running with the Werkzeug Server')
         func()
 
-    def start(self, port, stay_open=False, persistent_slug=''):
+    def start(self, port, stay_open=False, persistent_slug=None):
         """
         Start the flask web server.
         """

@@ -112,11 +112,11 @@ def main(cwd=None):
     onion = Onion(common)
     try:
         onion.connect(custom_settings=False, config=config)
-    except (TorTooOld, TorErrorInvalidSetting, TorErrorAutomatic, TorErrorSocketPort, TorErrorSocketFile, TorErrorMissingPassword, TorErrorUnreadableCookieFile, TorErrorAuthError, TorErrorProtocolError, BundledTorNotSupported, BundledTorTimeout) as e:
-        sys.exit(e.args[0])
     except KeyboardInterrupt:
         print("")
         sys.exit()
+    except Exception as e:
+        sys.exit(e.args[0])
 
     # Start the onionshare app
     try:
