@@ -27,18 +27,15 @@ from onionshare import common, settings, strings
 
 
 @pytest.fixture
-def custom_version(monkeypatch):
-    monkeypatch.setattr(common, 'get_version', lambda: 'DUMMY_VERSION_1.2.3')
-
-
-@pytest.fixture
 def os_path_expanduser(monkeypatch):
     monkeypatch.setattr('os.path.expanduser', lambda path: path)
 
 
 @pytest.fixture
-def settings_obj(custom_version, sys_onionshare_dev_mode, platform_linux):
-    return settings.Settings()
+def settings_obj(sys_onionshare_dev_mode, platform_linux):
+    _common = common.Common()
+    _common.version = 'DUMMY_VERSION_1.2.3'
+    return settings.Settings(_common)
 
 
 class TestSettings:
@@ -67,7 +64,8 @@ class TestSettings:
             'save_private_key': False,
             'private_key': '',
             'slug': '',
-            'hidservauth_string': ''
+            'hidservauth_string': '',
+            'downloads_dir': os.path.expanduser('~/OnionShare')
         }
 
     def test_fill_in_defaults(self, settings_obj):
@@ -153,30 +151,27 @@ class TestSettings:
 
     def test_filename_darwin(
             self,
-            custom_version,
             monkeypatch,
             os_path_expanduser,
             platform_darwin):
-        obj = settings.Settings()
+        obj = settings.Settings(common.Common())
         assert (obj.filename ==
                 '~/Library/Application Support/OnionShare/onionshare.json')
 
     def test_filename_linux(
             self,
-            custom_version,
             monkeypatch,
             os_path_expanduser,
             platform_linux):
-        obj = settings.Settings()
+        obj = settings.Settings(common.Common())
         assert obj.filename == '~/.config/onionshare/onionshare.json'
 
     def test_filename_windows(
             self,
-            custom_version,
             monkeypatch,
             platform_windows):
         monkeypatch.setenv('APPDATA', 'C:')
-        obj = settings.Settings()
+        obj = settings.Settings(common.Common())
         assert obj.filename == 'C:\\OnionShare\\onionshare.json'
 
     def test_set_custom_bridge(self, settings_obj):

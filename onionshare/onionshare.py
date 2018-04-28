@@ -21,14 +21,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import os, shutil
 
 from . import common, strings
+from .common import ShutdownTimer
 
 class OnionShare(object):
     """
     OnionShare is the main application class. Pass in options and run
     start_onion_service and it will do the magic.
     """
-    def __init__(self, onion, local_only=False, stay_open=False, shutdown_timeout=0):
-        common.log('OnionShare', '__init__')
+    def __init__(self, common, onion, local_only=False, stay_open=False, shutdown_timeout=0):
+        self.common = common
+
+        self.common.log('OnionShare', '__init__')
 
         # The Onion object
         self.onion = onion
@@ -52,7 +55,7 @@ class OnionShare(object):
         self.shutdown_timer = None
 
     def set_stealth(self, stealth):
-        common.log('OnionShare', 'set_stealth', 'stealth={}'.format(stealth))
+        self.common.log('OnionShare', 'set_stealth', 'stealth={}'.format(stealth))
 
         self.stealth = stealth
         self.onion.stealth = stealth
@@ -61,11 +64,11 @@ class OnionShare(object):
         """
         Start the onionshare onion service.
         """
-        common.log('OnionShare', 'start_onion_service')
+        self.common.log('OnionShare', 'start_onion_service')
 
         # Choose a random port
         try:
-            self.port = common.get_available_port(17600, 17650)
+            self.port = self.common.get_available_port(17600, 17650)
         except:
             raise OSError(strings._('no_available_port'))
 
@@ -74,7 +77,7 @@ class OnionShare(object):
             return
 
         if self.shutdown_timeout > 0:
-            self.shutdown_timer = common.close_after_seconds(self.shutdown_timeout)
+            self.shutdown_timer = ShutdownTimer(self.common, self.shutdown_timeout)
 
         self.onion_host = self.onion.start_onion_service(self.port)
 
@@ -85,7 +88,7 @@ class OnionShare(object):
         """
         Shut everything down and clean up temporary files, etc.
         """
-        common.log('OnionShare', 'cleanup')
+        self.common.log('OnionShare', 'cleanup')
 
         # cleanup files
         for filename in self.cleanup_filenames:
