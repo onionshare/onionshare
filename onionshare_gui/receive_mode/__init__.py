@@ -34,6 +34,11 @@ class ReceiveMode(Mode):
         """
         # Create the Web object
         self.web = Web(self.common, True, True)
+
+        # Server status
+        self.server_status.set_mode('receive')
+        #self.server_status.server_stopped.connect(self.update_primary_action)
+        #self.server_status.server_canceled.connect(self.update_primary_action)
         
         # Tell server_status about web, then update
         self.server_status.web = self.web
@@ -53,12 +58,21 @@ class ReceiveMode(Mode):
         """
         pass
     
+    def start_server_custom(self):
+        """
+        Starting the server.
+        """
+        # Reset web counters
+        self.web.error404_count = 0
+        
+        # Hide and reset the downloads if we have previously shared
+        #self.downloads.reset_downloads()
+        #self.reset_info_counters()
+    
     def start_server_step2_custom(self):
         """
         Step 2 in starting the server.
         """
-        # Set up web
-        
         # Continue
         self.starting_server_step3.emit()
         self.start_server_finished.emit()
