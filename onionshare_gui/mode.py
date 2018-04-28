@@ -86,15 +86,10 @@ class Mode(QtWidgets.QWidget):
         """
         This method is called regularly on a timer.
         """
-        self.common.log('Mode', 'timer_callback')
         # If the auto-shutdown timer has stopped, stop the server
-        print(self.server_status.status) ## HERE IS THE PROBLEM, self.server_status.status isn't getting updated
         if self.server_status.status == ServerStatus.STATUS_STARTED:
-            print('debug1')
             if self.app.shutdown_timer and self.common.settings.get('shutdown_timeout'):
-                print('debug2')
                 if self.timeout > 0:
-                    print('debug3')
                     now = QtCore.QDateTime.currentDateTime()
                     seconds_remaining = now.secsTo(self.server_status.timeout)
 
