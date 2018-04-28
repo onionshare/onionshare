@@ -369,7 +369,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
         Check for messages communicated from the web app, and update the GUI accordingly. Also,
         call ShareMode and ReceiveMode's timer_callbacks.
         """
-        self.common.log('OnionShareGui', 'timer_callback')
         self.update()
 
         if not self.local_only:
