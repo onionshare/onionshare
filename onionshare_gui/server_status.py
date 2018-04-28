@@ -35,6 +35,9 @@ class ServerStatus(QtWidgets.QWidget):
     url_copied = QtCore.pyqtSignal()
     hidservauth_copied = QtCore.pyqtSignal()
 
+    MODE_SHARE = 'share'
+    MODE_RECEIVE = 'receive'
+
     STATUS_STOPPED = 0
     STATUS_WORKING = 1
     STATUS_STARTED = 2
@@ -45,7 +48,7 @@ class ServerStatus(QtWidgets.QWidget):
         self.common = common
 
         self.status = self.STATUS_STOPPED
-        self.share_mode = False # Gets changed in in self.set_share_mode
+        self.mode = None # Gets set in self.set_mode
 
         self.qtapp = qtapp
         self.app = app
@@ -78,7 +81,7 @@ class ServerStatus(QtWidgets.QWidget):
 
         # URL layout
         url_font = QtGui.QFont()
-        self.url_description = QtWidgets.QLabel(strings._('gui_url_description', True))
+        self.url_description = QtWidgets.QLabel()
         self.url_description.setWordWrap(True)
         self.url_description.setMinimumHeight(50)
         self.url = QtWidgets.QLabel()
@@ -114,12 +117,15 @@ class ServerStatus(QtWidgets.QWidget):
         layout.addWidget(self.shutdown_timeout_container)
         self.setLayout(layout)
     
-    def set_share_mode(self, file_selection):
+    def set_mode(self, share_mode, file_selection=None):
         """
         The server status is in share mode.
         """
-        self.share_mode = True
-        self.file_selection = file_selection
+        self.mode = share_mode
+
+        if self.mode == ServerStatus.MODE_SHARE:
+            self.file_selection = file_selection
+
         self.update()
 
     def shutdown_timeout_reset(self):
@@ -138,15 +144,20 @@ class ServerStatus(QtWidgets.QWidget):
             self.url_description.show()
 
             info_image = self.common.get_resource_path('images/info.png')
-            self.url_description.setText(strings._('gui_url_description', True).format(info_image))
+
+            if self.mode == ServerStatus.MODE_SHARE:
+                self.url_description.setText(strings._('gui_share_url_description', True).format(info_image))
+            else:
+                self.url_description.setText(strings._('gui_receive_url_description', True).format(info_image))
+
             # Show a Tool Tip explaining the lifecycle of this URL
             if self.common.settings.get('save_private_key'):
-                if self.common.settings.get('close_after_first_download'):
+                if self.mode == ServerStatus.MODE_SHARE and self.common.settings.get('close_after_first_download'):
                     self.url_description.setToolTip(strings._('gui_url_label_onetime_and_persistent', True))
                 else:
                     self.url_description.setToolTip(strings._('gui_url_label_persistent', True))
             else:
-                if self.common.settings.get('close_after_first_download'):
+                if self.mode == ServerStatus.MODE_SHARE and self.common.settings.get('close_after_first_download'):
                     self.url_description.setToolTip(strings._('gui_url_label_onetime', True))
                 else:
                     self.url_description.setToolTip(strings._('gui_url_label_stay_open', True))
@@ -179,7 +190,7 @@ class ServerStatus(QtWidgets.QWidget):
         button_working_style = 'QPushButton { background-color: #4c8211; color: #ffffff; padding: 10px; border: 0; border-radius: 5px; font-style: italic; }'
         button_started_style = 'QPushButton { background-color: #d0011b; color: #ffffff; padding: 10px; border: 0; border-radius: 5px; }'
 
-        if self.share_mode and self.file_selection.get_num_files() == 0:
+        if self.mode == ServerStatus.MODE_SHARE and self.file_selection.get_num_files() == 0:
             self.server_button.hide()
         else:
             self.server_button.show()
@@ -187,7 +198,7 @@ class ServerStatus(QtWidgets.QWidget):
             if self.status == self.STATUS_STOPPED:
                 self.server_button.setStyleSheet(button_stopped_style)
                 self.server_button.setEnabled(True)
-                if self.share_mode:
+                if self.mode == ServerStatus.MODE_SHARE:
                     self.server_button.setText(strings._('gui_share_start_server', True))
                 else:
                     self.server_button.setText(strings._('gui_receive_start_server', True))
@@ -197,13 +208,13 @@ class ServerStatus(QtWidgets.QWidget):
             elif self.status == self.STATUS_STARTED:
                 self.server_button.setStyleSheet(button_started_style)
                 self.server_button.setEnabled(True)
-                if self.share_mode:
+                if self.mode == ServerStatus.MODE_SHARE:
                     self.server_button.setText(strings._('gui_share_stop_server', True))
                 else:
                     self.server_button.setText(strings._('gui_share_stop_server', True))
                 if self.common.settings.get('shutdown_timeout'):
                     self.shutdown_timeout_container.hide()
-                    if self.share_mode:
+                    if self.mode == ServerStatus.MODE_SHARE:
                         self.server_button.setToolTip(strings._('gui_share_stop_server_shutdown_timeout_tooltip', True).format(self.timeout))
                     else:
                         self.server_button.setToolTip(strings._('gui_receive_stop_server_shutdown_timeout_tooltip', True).format(self.timeout))

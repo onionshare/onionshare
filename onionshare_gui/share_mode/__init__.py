@@ -31,7 +31,6 @@ from .downloads import Downloads
 from ..mode import Mode
 from ..widgets import Alert
 
-
 class ShareMode(Mode):
     """
     Parts of the main window UI for sharing files.
@@ -50,7 +49,7 @@ class ShareMode(Mode):
                 self.file_selection.file_list.add_file(filename)
         
         # Server status
-        self.server_status.set_share_mode(self.file_selection)
+        self.server_status.set_mode('share', self.file_selection)
         self.server_status.server_started.connect(self.file_selection.server_started)
         self.server_status.server_stopped.connect(self.file_selection.server_stopped)
         self.server_status.server_stopped.connect(self.update_primary_action)
