@@ -43,7 +43,7 @@
     "gui_download_progress_starting": "{0:s}, %p% (Computing ETA)",
     "gui_download_progress_eta": "{0:s}, ETA: {1:s}, %p%",
     "version_string": "Onionshare {0:s} | https://onionshare.org/",
-    "gui_quit_warning": "Jste si jistí, že chcete odejít?\nURL, kterou sdílíte poté nebude existovat.",
+    "gui_share_quit_warning": "Jste si jistí, že chcete odejít?\nURL, kterou sdílíte poté nebude existovat.",
     "gui_quit_warning_quit": "Zavřít",
     "gui_quit_warning_dont_quit": "Zůstat",
     "error_rate_limit": "Útočník možná zkouší uhodnout vaši URL. Abychom tomu předešli, OnionShare automaticky zastavil server. Pro sdílení souborů ho musíte spustit znovu a sdílet novou URL.",

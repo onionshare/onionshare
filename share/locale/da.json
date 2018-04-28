@@ -56,7 +56,7 @@
     "gui_download_progress_starting": "{0:s}, %p% (udregner anslået ankomsttid)",
     "gui_download_progress_eta": "{0:s}, anslået ankomsttid: {1:s}, %p%",
     "version_string": "Onionshare {0:s} | https://onionshare.org/",
-    "gui_quit_warning": "Er du sikker på, at du vil afslutte?\nURL'en som du deler vil ikke eksistere længere.",
+    "gui_share_quit_warning": "Er du sikker på, at du vil afslutte?\nURL'en som du deler vil ikke eksistere længere.",
     "gui_quit_warning_quit": "Afslut",
     "gui_quit_warning_dont_quit": "Afslut ikke",
     "error_rate_limit": "En angriber forsøger måske at gætte din URL. For at forhindre det, har OnionShare automatisk stoppet serveren. For at dele filerne skal du starte den igen og dele den nye URL.",
