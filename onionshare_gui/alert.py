@@ -19,18 +19,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 from PyQt5 import QtCore, QtWidgets, QtGui
 
-from onionshare import common
-
 class Alert(QtWidgets.QMessageBox):
     """
     An alert box dialog.
     """
-    def __init__(self, message, icon=QtWidgets.QMessageBox.NoIcon, buttons=QtWidgets.QMessageBox.Ok, autostart=True):
+    def __init__(self, common, message, icon=QtWidgets.QMessageBox.NoIcon, buttons=QtWidgets.QMessageBox.Ok, autostart=True):
         super(Alert, self).__init__(None)
-        common.log('Alert', '__init__')
+
+        self.common = common
+
+        self.common.log('Alert', '__init__')
 
         self.setWindowTitle("OnionShare")
-        self.setWindowIcon(QtGui.QIcon(common.get_resource_path('images/logo.png')))
+        self.setWindowIcon(QtGui.QIcon(self.common.get_resource_path('images/logo.png')))
         self.setText(message)
         self.setIcon(icon)
         self.setStandardButtons(buttons)

@@ -22,6 +22,7 @@ import os
 import pytest
 
 from onionshare import OnionShare
+from onionshare.common import Common
 
 
 class MyOnion:
@@ -37,7 +38,8 @@ class MyOnion:
 
 @pytest.fixture
 def onionshare_obj():
-    return OnionShare(MyOnion())
+    common = Common()
+    return OnionShare(common, MyOnion())
 
 
 class TestOnionShare:
