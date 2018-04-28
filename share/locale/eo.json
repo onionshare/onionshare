@@ -43,7 +43,7 @@
     "gui_download_progress_starting": "{0:s}, %p% (Computing ETA)",
     "gui_download_progress_eta": "{0:s}, ETA: {1:s}, %p%",
     "version_string": "Onionshare {0:s} | https://onionshare.org/",
-    "gui_quit_warning": "Ĉu vi certas ke vi volas foriri?\nLa URL, kiun vi kundividas ne plu ekzistos.",
+    "gui_share_quit_warning": "Ĉu vi certas ke vi volas foriri?\nLa URL, kiun vi kundividas ne plu ekzistos.",
     "gui_quit_warning_quit": "Foriri",
     "gui_quit_warning_dont_quit": "Ne foriri",
     "error_rate_limit": "Iu atankanto povas provi diveni vian URL. Por eviti tion, OnionShare aŭtomate haltis la servilon. Por kundividi la dosierojn vi devas starti ĝin denove kaj kundividi la novan URL.",

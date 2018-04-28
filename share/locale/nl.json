@@ -54,7 +54,7 @@
     "gui_download_progress_starting": "{0:s}, %p% (ETA berekenen)",
     "gui_download_progress_eta": "{0:s}, ETA: {1:s}, %p%",
     "version_string": "Onionshare {0:s} | https://onionshare.org/",
-    "gui_quit_warning": "Weet je zeker dat je wilt afsluiten?\nDe URL die je aan het delen bent zal niet meer bestaan.",
+    "gui_share_quit_warning": "Weet je zeker dat je wilt afsluiten?\nDe URL die je aan het delen bent zal niet meer bestaan.",
     "gui_quit_warning_quit": "Afsluiten",
     "gui_quit_warning_dont_quit": "Niet afsluiten",
     "error_rate_limit": "Een aanvaller probeert misschien je URL te gokken. Om dit te voorkomen heeft OnionShare de server automatisch gestopt. Om de bestanden te delen moet je de server opnieuw starten en de nieuwe URL delen.",
