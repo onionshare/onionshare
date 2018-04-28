@@ -51,12 +51,15 @@ class ReceiveMode(Mode):
 
         # Layout
         self.layout.insertWidget(0, self.receive_info)
-
-    def timer_callback(self):
+    
+    def timer_callback_custom(self):
         """
-        This method is called regularly on a timer while receive mode is active.
+        This method is called regularly on a timer while share mode is active.
         """
-        pass
+        # Scroll to the bottom of the download progress bar log pane if a new download has been added
+        #if self.new_download:
+        #    self.downloads.downloads_container.vbar.setValue(self.downloads.downloads_container.vbar.maximum())
+        #    self.new_download = False
     
     def get_stop_server_shutdown_timeout_text(self):
         """
