@@ -86,6 +86,43 @@ class Mode(QtWidgets.QWidget):
         """
         This method is called regularly on a timer.
         """
+        self.common.log('Mode', 'timer_callback')
+        # If the auto-shutdown timer has stopped, stop the server
+        print(self.server_status.status) ## HERE IS THE PROBLEM, self.server_status.status isn't getting updated
+        if self.server_status.status == ServerStatus.STATUS_STARTED:
+            print('debug1')
+            if self.app.shutdown_timer and self.common.settings.get('shutdown_timeout'):
+                print('debug2')
+                if self.timeout > 0:
+                    print('debug3')
+                    now = QtCore.QDateTime.currentDateTime()
+                    seconds_remaining = now.secsTo(self.server_status.timeout)
+
+                    # Update the server button
+                    server_button_text = self.get_stop_server_shutdown_timeout_text()
+                    self.server_status.server_button.setText(server_button_text.format(seconds_remaining))
+
+                    self.status_bar.clearMessage()
+                    if not self.app.shutdown_timer.is_alive():
+                        if self.timeout_finished_should_stop_server():
+                            self.server_status.stop_server()
+
+    def timer_callback_custom(self):
+        """
+        Add custom timer code.
+        """
+        pass
+    
+    def get_stop_server_shutdown_timeout_text(self):
+        """
+        Return the string to put on the stop server button, if there's a shutdown timeout
+        """
+        pass
+    
+    def timeout_finished_should_stop_server(self):
+        """
+        The shutdown timer expired, should we stop the server? Returns a bool
+        """
         pass
     
     def start_server(self):
@@ -214,7 +251,7 @@ class Mode(QtWidgets.QWidget):
         """
         self.common.log('Mode', 'stop_server')
 
-        if self.server_status.status != self.server_status.STATUS_STOPPED:
+        if self.server_status.status != ServerStatus.STATUS_STOPPED:
             try:
                 self.web.stop(self.app.port)
             except:
@@ -237,7 +274,7 @@ class Mode(QtWidgets.QWidget):
         """
         Handle connection from Tor breaking.
         """
-        if self.server_status.status != self.server_status.STATUS_STOPPED:
+        if self.server_status.status != ServerStatus.STATUS_STOPPED:
             self.server_status.stop_server()
         self.handle_tor_broke_custom()
     

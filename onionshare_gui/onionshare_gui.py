@@ -341,6 +341,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
             # If we switched off the shutdown timeout setting, ensure the widget is hidden.
             if not self.common.settings.get('shutdown_timeout'):
                 self.share_mode.server_status.shutdown_timeout_container.hide()
+                self.receive_mode.server_status.shutdown_timeout_container.hide()
 
         d = SettingsDialog(self.common, self.onion, self.qtapp, self.config, self.local_only)
         d.settings_saved.connect(reload_settings)
@@ -348,6 +349,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         # When settings close, refresh the server status UI
         self.share_mode.server_status.update()
+        self.receive_mode.server_status.update()
 
     def check_for_updates(self):
         """
@@ -367,6 +369,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         Check for messages communicated from the web app, and update the GUI accordingly. Also,
         call ShareMode and ReceiveMode's timer_callbacks.
         """
+        self.common.log('OnionShareGui', 'timer_callback')
         self.update()
 
         if not self.local_only:
@@ -413,10 +416,8 @@ class OnionShareGui(QtWidgets.QMainWindow):
             elif event["path"] != '/favicon.ico':
                 self.status_bar.showMessage('[#{0:d}] {1:s}: {2:s}'.format(web.error404_count, strings._('other_page_loaded', True), event["path"]))
 
-        if self.mode == self.MODE_SHARE:
-            self.share_mode.timer_callback()
-        else:
-            self.receive_mode.timer_callback()
+        self.share_mode.timer_callback()
+        self.receive_mode.timer_callback()
 
     def copy_url(self):
         """

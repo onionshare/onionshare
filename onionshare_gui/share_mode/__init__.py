@@ -118,7 +118,7 @@ class ShareMode(Mode):
         # Always start with focus on file selection
         self.file_selection.setFocus()
 
-    def timer_callback(self):
+    def timer_callback_custom(self):
         """
         This method is called regularly on a timer while share mode is active.
         """
@@ -126,24 +126,26 @@ class ShareMode(Mode):
         if self.new_download:
             self.downloads.downloads_container.vbar.setValue(self.downloads.downloads_container.vbar.maximum())
             self.new_download = False
-
-        # If the auto-shutdown timer has stopped, stop the server
-        if self.server_status.status == self.server_status.STATUS_STARTED:
-            if self.app.shutdown_timer and self.common.settings.get('shutdown_timeout'):
-                if self.timeout > 0:
-                    now = QtCore.QDateTime.currentDateTime()
-                    seconds_remaining = now.secsTo(self.server_status.timeout)
-                    self.server_status.server_button.setText(strings._('gui_share_stop_server_shutdown_timeout', True).format(seconds_remaining))
-                    if not self.app.shutdown_timer.is_alive():
-                        # If there were no attempts to download the share, or all downloads are done, we can stop
-                        if self.web.download_count == 0 or self.web.done:
-                            self.server_status.stop_server()
-                            self.status_bar.clearMessage()
-                            self.server_status_label.setText(strings._('close_on_timeout', True))
-                        # A download is probably still running - hold off on stopping the share
-                        else:
-                            self.status_bar.clearMessage()
-                            self.server_status_label.setText(strings._('timeout_download_still_running', True))
+    
+    def get_stop_server_shutdown_timeout_text(self):
+        """
+        Return the string to put on the stop server button, if there's a shutdown timeout
+        """
+        return strings._('gui_share_stop_server_shutdown_timeout', True)
+    
+    def timeout_finished_should_stop_server(self):
+        """
+        The shutdown timer expired, should we stop the server? Returns a bool
+        """
+        # If there were no attempts to download the share, or all downloads are done, we can stop
+        if self.web.download_count == 0 or self.web.done:
+            self.server_status.stop_server()
+            self.server_status_label.setText(strings._('close_on_timeout', True))
+            return True
+        # A download is probably still running - hold off on stopping the share
+        else:
+            self.server_status_label.setText(strings._('timeout_download_still_running', True))
+            return False
 
     def start_server_custom(self):
         """

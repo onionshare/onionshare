@@ -58,6 +58,19 @@ class ReceiveMode(Mode):
         """
         pass
     
+    def get_stop_server_shutdown_timeout_text(self):
+        """
+        Return the string to put on the stop server button, if there's a shutdown timeout
+        """
+        return strings._('gui_receive_stop_server_shutdown_timeout', True)
+    
+    def timeout_finished_should_stop_server(self):
+        """
+        The shutdown timer expired, should we stop the server? Returns a bool
+        """
+        # TODO: wait until the final upload is done before stoppign the server?
+        return True
+    
     def start_server_custom(self):
         """
         Starting the server.
