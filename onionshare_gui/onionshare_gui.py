@@ -168,6 +168,16 @@ class OnionShareGui(QtWidgets.QMainWindow):
         # Receive mode
         self.receive_mode = ReceiveMode(self.common, qtapp, app, self.status_bar, self.server_status_label, self.system_tray)
         self.receive_mode.init()
+        self.receive_mode.server_status.server_started.connect(self.update_server_status_indicator)
+        self.receive_mode.server_status.server_stopped.connect(self.update_server_status_indicator)
+        self.receive_mode.start_server_finished.connect(self.update_server_status_indicator)
+        self.receive_mode.stop_server_finished.connect(self.update_server_status_indicator)
+        self.receive_mode.stop_server_finished.connect(self.stop_server_finished)
+        self.receive_mode.start_server_finished.connect(self.clear_message)
+        self.receive_mode.server_status.button_clicked.connect(self.clear_message)
+        self.receive_mode.server_status.url_copied.connect(self.copy_url)
+        self.receive_mode.server_status.hidservauth_copied.connect(self.copy_hidservauth)
+        self.receive_mode.set_server_active.connect(self.set_server_active)
         self.receive_mode.set_server_active.connect(self.set_server_active)
 
         self.update_mode_switcher()
