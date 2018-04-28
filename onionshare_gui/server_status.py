@@ -211,7 +211,7 @@ class ServerStatus(QtWidgets.QWidget):
                 if self.mode == ServerStatus.MODE_SHARE:
                     self.server_button.setText(strings._('gui_share_stop_server', True))
                 else:
-                    self.server_button.setText(strings._('gui_share_stop_server', True))
+                    self.server_button.setText(strings._('gui_receive_stop_server', True))
                 if self.common.settings.get('shutdown_timeout'):
                     self.shutdown_timeout_container.hide()
                     if self.mode == ServerStatus.MODE_SHARE:
