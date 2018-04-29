@@ -50,6 +50,7 @@ class Web(object):
     REQUEST_OTHER = 3
     REQUEST_CANCELED = 4
     REQUEST_RATE_LIMIT = 5
+    REQUEST_CLOSE_SERVER = 6
     
     def __init__(self, common, gui_mode, receive_mode=False):
         self.common = common
@@ -117,6 +118,9 @@ class Web(object):
 
         # shutting down the server only works within the context of flask, so the easiest way to do it is over http
         self.shutdown_slug = self.common.random_string(16)
+
+        # Keep track if the server is running
+        self.running = False
 
         # Define the ewb app routes
         self.common_routes()
@@ -331,6 +335,7 @@ class Web(object):
             if self.common.settings.get('receive_allow_receiver_shutdown'):
                 self.force_shutdown()
                 r = make_response(render_template('closed.html'))
+                self.add_request(self.REQUEST_CLOSE_SERVER, request.path)
                 return self.add_security_headers(r)
             else:
                 return redirect('/{}'.format(slug_candidate))
@@ -451,11 +456,12 @@ class Web(object):
         """
         Stop the flask web server, from the context of the flask app.
         """
-        # shutdown the flask service
+        # Shutdown the flask service
         func = request.environ.get('werkzeug.server.shutdown')
         if func is None:
             raise RuntimeError('Not running with the Werkzeug Server')
         func()
+        self.running = False
 
     def start(self, port, stay_open=False, persistent_slug=None):
         """
@@ -472,6 +478,7 @@ class Web(object):
         else:
             host = '127.0.0.1'
 
+        self.running = True
         self.app.run(host=host, port=port, threaded=True)
 
     def stop(self, port):
@@ -483,16 +490,17 @@ class Web(object):
         # serving the file
         self.client_cancel = True
 
-        # to stop flask, load http://127.0.0.1:<port>/<shutdown_slug>/shutdown
-        try:
-            s = socket.socket()
-            s.connect(('127.0.0.1', port))
-            s.sendall('GET /{0:s}/shutdown HTTP/1.1\r\n\r\n'.format(self.shutdown_slug))
-        except:
+        # To stop flask, load http://127.0.0.1:<port>/<shutdown_slug>/shutdown
+        if self.running:
             try:
-                urlopen('http://127.0.0.1:{0:d}/{1:s}/shutdown'.format(port, self.shutdown_slug)).read()
+                s = socket.socket()
+                s.connect(('127.0.0.1', port))
+                s.sendall('GET /{0:s}/shutdown HTTP/1.1\r\n\r\n'.format(self.shutdown_slug))
             except:
-                pass
+                try:
+                    urlopen('http://127.0.0.1:{0:d}/{1:s}/shutdown'.format(port, self.shutdown_slug)).read()
+                except:
+                    pass
 
 
 class ZipWriter(object):

@@ -284,3 +284,41 @@ class Mode(QtWidgets.QWidget):
         Add custom initialization here.
         """
         pass
+
+    # Handle web server events
+
+    def handle_request_load(self, event):
+        """
+        Handle REQUEST_LOAD event.
+        """
+        pass
+
+    def handle_request_download(self, event):
+        """
+        Handle REQUEST_DOWNLOAD event.
+        """
+        pass
+
+    def handle_request_rate_limit(self, event):
+        """
+        Handle REQUEST_RATE_LIMIT event.
+        """
+        pass
+
+    def handle_request_progress(self, event):
+        """
+        Handle REQUEST_PROGRESS event.
+        """
+        pass
+
+    def handle_request_canceled(self, event):
+        """
+        Handle REQUEST_CANCELED event.
+        """
+        pass
+    
+    def handle_request_close_server(self, event):
+        """
+        Handle REQUEST_CLOSE_SERVER event.
+        """
+        pass

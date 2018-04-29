@@ -92,3 +92,10 @@ class ReceiveMode(Mode):
         # Continue
         self.starting_server_step3.emit()
         self.start_server_finished.emit()
+    
+    def handle_request_close_server(self, event):
+        """
+        Handle REQUEST_CLOSE_SERVER event.
+        """
+        self.stop_server()
+        self.system_tray.showMessage(strings._('systray_close_server_title', True), strings._('systray_close_server_message', True))

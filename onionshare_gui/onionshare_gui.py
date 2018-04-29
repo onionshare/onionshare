@@ -382,41 +382,43 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         # Process events from the web object
         if self.mode == self.MODE_SHARE:
-            web = self.share_mode.web
+            mode = self.share_mode
         else:
-            web = self.receive_mode.web
+            mode = self.receive_mode
 
         events = []
 
         done = False
         while not done:
             try:
-                r = web.q.get(False)
+                r = mode.web.q.get(False)
                 events.append(r)
             except queue.Empty:
                 done = True
 
         for event in events:
             if event["type"] == Web.REQUEST_LOAD:
-                self.share_mode.handle_request_load(event)
+                mode.handle_request_load(event)
 
             elif event["type"] == Web.REQUEST_DOWNLOAD:
-                self.share_mode.handle_request_download(event)
+                mode.handle_request_download(event)
 
             elif event["type"] == Web.REQUEST_RATE_LIMIT:
-                self.share_mode.handle_request_rate_limit(event)
+                mode.handle_request_rate_limit(event)
 
             elif event["type"] == Web.REQUEST_PROGRESS:
-                self.share_mode.handle_request_progress(event)
+                mode.handle_request_progress(event)
 
             elif event["type"] == Web.REQUEST_CANCELED:
-                self.share_mode.handle_request_canceled(event)
+                mode.handle_request_canceled(event)
+            
+            elif event["type"] == Web.REQUEST_CLOSE_SERVER:
+                mode.handle_request_close_server(event)
 
             elif event["path"] != '/favicon.ico':
-                self.status_bar.showMessage('[#{0:d}] {1:s}: {2:s}'.format(web.error404_count, strings._('other_page_loaded', True), event["path"]))
+                self.status_bar.showMessage('[#{0:d}] {1:s}: {2:s}'.format(mode.web.error404_count, strings._('other_page_loaded', True), event["path"]))
 
-        self.share_mode.timer_callback()
-        self.receive_mode.timer_callback()
+        mode.timer_callback()
 
     def copy_url(self):
         """
