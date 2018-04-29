@@ -266,7 +266,8 @@ class Web(object):
 
             r = make_response(render_template(
                 'receive.html',
-                slug=self.slug))
+                slug=self.slug,
+                receive_allow_receiver_shutdown=self.common.settings.get('receive_allow_receiver_shutdown')))
             return self.add_security_headers(r)
 
         @self.app.route("/<slug_candidate>/upload", methods=['POST'])
@@ -326,9 +327,13 @@ class Web(object):
         @self.app.route("/<slug_candidate>/close", methods=['POST'])
         def close(slug_candidate):
             self.check_slug_candidate(slug_candidate)
-            self.force_shutdown()
-            r = make_response(render_template('closed.html'))
-            return self.add_security_headers(r)
+            
+            if self.common.settings.get('receive_allow_receiver_shutdown'):
+                self.force_shutdown()
+                r = make_response(render_template('closed.html'))
+                return self.add_security_headers(r)
+            else:
+                return redirect('/{}'.format(slug_candidate))
 
     def common_routes(self):
         """
