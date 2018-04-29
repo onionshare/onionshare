@@ -162,7 +162,7 @@ class ServerStatus(QtWidgets.QWidget):
                 else:
                     self.url_description.setToolTip(strings._('gui_url_label_stay_open', True))
 
-            self.url.setText('http://{0:s}/{1:s}'.format(self.app.onion_host, self.web.slug))
+            self.url.setText(self.get_url())
             self.url.show()
 
             self.copy_url_button.show()
@@ -299,10 +299,8 @@ class ServerStatus(QtWidgets.QWidget):
         """
         Copy the onionshare URL to the clipboard.
         """
-        url = 'http://{0:s}/{1:s}'.format(self.app.onion_host, self.web.slug)
-
         clipboard = self.qtapp.clipboard()
-        clipboard.setText(url)
+        clipboard.setText(self.get_url())
 
         self.url_copied.emit()
 
@@ -314,3 +312,13 @@ class ServerStatus(QtWidgets.QWidget):
         clipboard.setText(self.app.auth_string)
 
         self.hidservauth_copied.emit()
+    
+    def get_url(self):
+        """
+        Returns the OnionShare URL.
+        """
+        if self.mode == ServerStatus.MODE_RECEIVE and self.common.settings.get('receive_public_mode'):
+            url = 'http://{0:s}'.format(self.app.onion_host)
+        else:
+            url = 'http://{0:s}/{1:s}'.format(self.app.onion_host, self.web.slug)
+        return url
