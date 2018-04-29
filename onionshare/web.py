@@ -264,20 +264,27 @@ class Web(object):
         """
         The web app routes for sharing files
         """
-        @self.app.route("/<slug_candidate>")
-        def index(slug_candidate):
-            self.check_slug_candidate(slug_candidate)
 
+        def index_logic():
             r = make_response(render_template(
                 'receive.html',
                 slug=self.slug,
                 receive_allow_receiver_shutdown=self.common.settings.get('receive_allow_receiver_shutdown')))
             return self.add_security_headers(r)
-
-        @self.app.route("/<slug_candidate>/upload", methods=['POST'])
-        def upload(slug_candidate):
+        
+        @self.app.route("/<slug_candidate>")
+        def index(slug_candidate):
             self.check_slug_candidate(slug_candidate)
+            return index_logic()
+        
+        @self.app.route("/")
+        def index_public():
+            if not self.common.settings.get('receive_public_mode'):
+                return self.error404()
+            return index_logic()
 
+
+        def upload_logic(slug_candidate=''):
             files = request.files.getlist('file[]')
             filenames = []
             for f in files:
@@ -328,10 +335,19 @@ class Web(object):
 
             return redirect('/{}'.format(slug_candidate))
 
-        @self.app.route("/<slug_candidate>/close", methods=['POST'])
-        def close(slug_candidate):
+        @self.app.route("/<slug_candidate>/upload", methods=['POST'])
+        def upload(slug_candidate):
             self.check_slug_candidate(slug_candidate)
-            
+            return upload_logic(slug_candidate)
+        
+        @self.app.route("/upload")
+        def upload_public():
+            if not self.common.settings.get('receive_public_mode'):
+                return self.error404()
+            return upload_logic()
+
+
+        def close_logic(slug_candidate=''):
             if self.common.settings.get('receive_allow_receiver_shutdown'):
                 self.force_shutdown()
                 r = make_response(render_template('closed.html'))
@@ -339,6 +355,17 @@ class Web(object):
                 return self.add_security_headers(r)
             else:
                 return redirect('/{}'.format(slug_candidate))
+        
+        @self.app.route("/<slug_candidate>/close", methods=['POST'])
+        def close(slug_candidate):
+            self.check_slug_candidate(slug_candidate)
+            return close_logic(slug_candidate)
+            
+        @self.app.route("/upload")
+        def close_public():
+            if not self.common.settings.get('receive_public_mode'):
+                return self.error404()
+            return close_logic()
 
     def common_routes(self):
         """
@@ -349,17 +376,7 @@ class Web(object):
             """
             404 error page.
             """
-            self.add_request(self.REQUEST_OTHER, request.path)
-
-            if request.path != '/favicon.ico':
-                self.error404_count += 1
-                if self.error404_count == 20:
-                    self.add_request(self.REQUEST_RATE_LIMIT, request.path)
-                    self.force_shutdown()
-                    print(strings._('error_rate_limit'))
-
-            r = make_response(render_template('404.html'), 404)
-            return self.add_security_headers(r)
+            return self.error404()
 
         @self.app.route("/<slug_candidate>/shutdown")
         def shutdown(slug_candidate):
@@ -369,6 +386,21 @@ class Web(object):
             self.check_slug_candidate(slug_candidate, self.shutdown_slug)
             self.force_shutdown()
             return ""
+
+    def error404(self):
+        self.add_request(self.REQUEST_OTHER, request.path)
+        if request.path != '/favicon.ico':
+            self.error404_count += 1
+
+            # In receive mode, with public mode enabled, skip rate limiting 404s
+            if not (self.receive_mode and self.common.settings.get('receive_public_mode')):
+                if self.error404_count == 20:
+                    self.add_request(self.REQUEST_RATE_LIMIT, request.path)
+                    self.force_shutdown()
+                    print(strings._('error_rate_limit'))
+
+        r = make_response(render_template('404.html'), 404)
+        return self.add_security_headers(r)
 
     def add_security_headers(self, r):
         """
