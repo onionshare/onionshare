@@ -162,6 +162,12 @@ def main(cwd=None):
                 common.settings.set('slug', web.slug)
                 common.settings.save()
 
+        # Build the URL
+        if receive and common.settings.get('receive_public_mode'):
+            url = 'http://{0:s}'.format(app.onion_host)
+        else:
+            url = 'http://{0:s}/{1:s}'.format(app.onion_host, web.slug)
+
         print('')
         if receive:
             print(strings._('receive_mode_downloads_dir').format(common.settings.get('downloads_dir')))
@@ -171,19 +177,19 @@ def main(cwd=None):
 
             if stealth:
                 print(strings._("give_this_url_receive_stealth"))
-                print('http://{0:s}/{1:s}'.format(app.onion_host, web.slug))
+                print(url)
                 print(app.auth_string)
             else:
                 print(strings._("give_this_url_receive"))
-                print('http://{0:s}/{1:s}'.format(app.onion_host, web.slug))
+                print(url)
         else:
             if stealth:
                 print(strings._("give_this_url_stealth"))
-                print('http://{0:s}/{1:s}'.format(app.onion_host, web.slug))
+                print(url)
                 print(app.auth_string)
             else:
                 print(strings._("give_this_url"))
-                print('http://{0:s}/{1:s}'.format(app.onion_host, web.slug))
+                print(url)
         print('')
         print(strings._("ctrlc_to_stop"))
 
