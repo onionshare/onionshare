@@ -266,6 +266,8 @@ class Web(object):
         """
 
         def index_logic():
+            self.add_request(self.REQUEST_LOAD, request.path)
+
             r = make_response(render_template(
                 'receive.html',
                 slug=self.slug,
