@@ -14,7 +14,6 @@
     "not_a_readable_file": "{0:s} is not a readable file.",
     "no_filenames": "You must specify a list of files to share.",
     "no_available_port": "Could not start the Onion service as there was no available port.",
-    "download_page_loaded": "Download page loaded",
     "other_page_loaded": "Address loaded",
     "close_on_timeout": "Stopped because timer expired",
     "closing_automatically": "Stopped because download finished",
@@ -181,5 +180,8 @@
     "gui_settings_receive_allow_receiver_shutdown_checkbox": "Allow people who upload files to you to stop Receive Mode for you",
     "gui_settings_receive_public_mode_checkbox": "Receive Mode is open to the public\n(don't try to prevent people from guessing the OnionShare address)",
     "systray_close_server_title": "OnionShare Server Closed",
-    "systray_close_server_message": "The user closed the server"
+    "systray_close_server_message": "A user closed the server",
+    "systray_page_loaded_title": "OnionShare Page Loaded",
+    "systray_download_page_loaded_message": "A user loaded the download page",
+    "systray_upload_page_loaded_message": "A user loaded the upload page"
 }

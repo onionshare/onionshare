@@ -93,6 +93,12 @@ class ReceiveMode(Mode):
         self.starting_server_step3.emit()
         self.start_server_finished.emit()
     
+    def handle_request_load(self, event):
+        """
+        Handle REQUEST_LOAD event.
+        """
+        self.system_tray.showMessage(strings._('systray_page_loaded_title', True), strings._('systray_upload_page_loaded_message', True))
+    
     def handle_request_close_server(self, event):
         """
         Handle REQUEST_CLOSE_SERVER event.

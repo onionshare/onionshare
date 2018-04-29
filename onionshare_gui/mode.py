@@ -303,7 +303,8 @@ class Mode(QtWidgets.QWidget):
         """
         Handle REQUEST_RATE_LIMIT event.
         """
-        pass
+        self.stop_server()
+        Alert(self.common, strings._('error_rate_limit'), QtWidgets.QMessageBox.Critical)
 
     def handle_request_progress(self, event):
         """

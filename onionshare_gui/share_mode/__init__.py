@@ -244,7 +244,7 @@ class ShareMode(Mode):
         """
         Handle REQUEST_LOAD event.
         """
-        self.status_bar.showMessage(strings._('download_page_loaded', True))
+        self.system_tray.showMessage(strings._('systray_page_loaded_title', True), strings._('systray_download_page_loaded_message', True))
 
     def handle_request_download(self, event):
         """
@@ -257,13 +257,6 @@ class ShareMode(Mode):
         self.update_downloads_in_progress(self.downloads_in_progress)
 
         self.system_tray.showMessage(strings._('systray_download_started_title', True), strings._('systray_download_started_message', True))
-
-    def handle_request_rate_limit(self, event):
-        """
-        Handle REQUEST_RATE_LIMIT event.
-        """
-        self.stop_server()
-        Alert(self.common, strings._('error_rate_limit'), QtWidgets.QMessageBox.Critical)
 
     def handle_request_progress(self, event):
         """
