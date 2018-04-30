@@ -8,7 +8,7 @@ import tempfile
 
 import pytest
 
-from onionshare import common, web
+from onionshare import common, web, settings
 
 @pytest.fixture
 def temp_dir_1024():
