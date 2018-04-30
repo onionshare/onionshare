@@ -246,9 +246,13 @@ class Web(object):
                 # Close the server, if necessary
                 if not self.stay_open and not canceled:
                     print(strings._("closing_automatically"))
-                    if shutdown_func is None:
-                        raise RuntimeError('Not running with the Werkzeug Server')
-                    shutdown_func()
+                    self.running = False
+                    try:
+                        if shutdown_func is None:
+                            raise RuntimeError('Not running with the Werkzeug Server')
+                        shutdown_func()
+                    except:
+                        pass
 
             r = Response(generate())
             r.headers.set('Content-Length', self.zip_filesize)

@@ -42,6 +42,8 @@ def web_obj(common_obj, recieve_mode, num_files=0):
     web = Web(common_obj, False, recieve_mode)
     web.generate_slug()
     web.stay_open = True
+    web.running = True
+
     web.app.testing = True
 
     # Share mode
@@ -67,22 +69,38 @@ class TestWeb:
         with web.app.test_client() as c:
             # Load 404 pages
             res = c.get('/')
+            res.get_data()
             assert res.status_code == 404
 
             res = c.get('/invalidslug'.format(web.slug))
+            res.get_data()
             assert res.status_code == 404
 
             # Load download page
             res = c.get('/{}'.format(web.slug))
+            res.get_data()
             assert res.status_code == 200
 
             # Download
             res = c.get('/{}/download'.format(web.slug))
+            res.get_data()
             assert res.status_code == 200
             assert res.mimetype == 'application/zip'
     
     def test_share_mode_close_after_first_download(self, common_obj, temp_file_1024):
-        pass
+        web = web_obj(common_obj, False, 3)
+        web.stay_open = False
+
+        assert web.running == True
+
+        with web.app.test_client() as c:
+            # Download the first time
+            res = c.get('/{}/download'.format(web.slug))
+            res.get_data()
+            assert res.status_code == 200
+            assert res.mimetype == 'application/zip'
+
+            assert web.running == False
 
 
 class TestZipWriterDefault:
