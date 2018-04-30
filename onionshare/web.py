@@ -495,10 +495,13 @@ class Web(object):
         Stop the flask web server, from the context of the flask app.
         """
         # Shutdown the flask service
-        func = request.environ.get('werkzeug.server.shutdown')
-        if func is None:
-            raise RuntimeError('Not running with the Werkzeug Server')
-        func()
+        try:
+            func = request.environ.get('werkzeug.server.shutdown')
+            if func is None:
+                raise RuntimeError('Not running with the Werkzeug Server')
+            func()
+        except:
+            pass
         self.running = False
 
     def start(self, port, stay_open=False, persistent_slug=None):
