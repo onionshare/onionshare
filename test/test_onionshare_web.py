@@ -32,6 +32,7 @@ import pytest
 
 from onionshare.common import Common
 from onionshare.web import Web
+from onionshare.settings import Settings
 
 DEFAULT_ZW_FILENAME_REGEX = re.compile(r'^onionshare_[a-z2-7]{6}.zip$')
 RANDOM_STR_REGEX = re.compile(r'^[a-z2-7]+$')
@@ -39,6 +40,8 @@ RANDOM_STR_REGEX = re.compile(r'^[a-z2-7]+$')
 
 def web_obj(common_obj, recieve_mode, num_files=0):
     """ Creates a Web object, in either share mode or receive mode, ready for testing """
+    common_obj.load_settings()
+
     web = Web(common_obj, False, recieve_mode)
     web.generate_slug()
     web.stay_open = True
@@ -87,7 +90,7 @@ class TestWeb:
             assert res.status_code == 200
             assert res.mimetype == 'application/zip'
     
-    def test_share_mode_close_after_first_download(self, common_obj, temp_file_1024):
+    def test_share_mode_close_after_first_download_on(self, common_obj, temp_file_1024):
         web = web_obj(common_obj, False, 3)
         web.stay_open = False
 
@@ -101,6 +104,98 @@ class TestWeb:
             assert res.mimetype == 'application/zip'
 
             assert web.running == False
+    
+    def test_share_mode_close_after_first_download_off(self, common_obj, temp_file_1024):
+        web = web_obj(common_obj, False, 3)
+        web.stay_open = True
+
+        assert web.running == True
+
+        with web.app.test_client() as c:
+            # Download the first time
+            res = c.get('/{}/download'.format(web.slug))
+            res.get_data()
+            assert res.status_code == 200
+            assert res.mimetype == 'application/zip'
+            assert web.running == True
+    
+    def test_receive_mode(self, common_obj):
+        web = web_obj(common_obj, True)
+        assert web.receive_mode is True
+
+        with web.app.test_client() as c:
+            # Load 404 pages
+            res = c.get('/')
+            res.get_data()
+            assert res.status_code == 404
+
+            res = c.get('/invalidslug'.format(web.slug))
+            res.get_data()
+            assert res.status_code == 404
+
+            # Load upload page
+            res = c.get('/{}'.format(web.slug))
+            res.get_data()
+            assert res.status_code == 200
+    
+    def test_receive_mode_allow_receiver_shutdown_on(self, common_obj):
+        web = web_obj(common_obj, True)
+
+        common_obj.settings.set('receive_allow_receiver_shutdown', True)
+
+        assert web.running == True
+
+        with web.app.test_client() as c:
+            # Load close page
+            res = c.post('/{}/close'.format(web.slug))
+            res.get_data()
+            # Should return ok, and server should stop
+            assert res.status_code == 200
+            assert web.running == False
+    
+    def test_receive_mode_allow_receiver_shutdown_off(self, common_obj):
+        web = web_obj(common_obj, True)
+
+        common_obj.settings.set('receive_allow_receiver_shutdown', False)
+
+        assert web.running == True
+
+        with web.app.test_client() as c:
+            # Load close page
+            res = c.post('/{}/close'.format(web.slug))
+            res.get_data()
+            # Should redirect to index, and server should still be running
+            assert res.status_code == 302
+            assert web.running == True
+    
+    def test_receive_mode_receive_public_mode_on(self, common_obj):
+        web = web_obj(common_obj, True)
+        common_obj.settings.set('receive_public_mode', True)
+
+        with web.app.test_client() as c:
+            # Upload page should be accessible from both / and /[slug]
+            res = c.get('/')
+            data1 = res.get_data()
+            assert res.status_code == 200
+
+            res = c.get('/{}'.format(web.slug))
+            data2 = res.get_data()
+            assert res.status_code == 200
+    
+    def test_receive_mode_receive_public_mode_off(self, common_obj):
+        web = web_obj(common_obj, True)
+        common_obj.settings.set('receive_public_mode', False)
+
+        with web.app.test_client() as c:
+            # / should be a 404
+            res = c.get('/')
+            data1 = res.get_data()
+            assert res.status_code == 404
+
+            # Upload page should be accessible from both /[slug]
+            res = c.get('/{}'.format(web.slug))
+            data2 = res.get_data()
+            assert res.status_code == 200
 
 
 class TestZipWriterDefault:
