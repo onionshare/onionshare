@@ -26,13 +26,64 @@ import re
 import socket
 import sys
 import zipfile
+import tempfile
 
 import pytest
 
 from onionshare.common import Common
+from onionshare.web import Web
 
 DEFAULT_ZW_FILENAME_REGEX = re.compile(r'^onionshare_[a-z2-7]{6}.zip$')
 RANDOM_STR_REGEX = re.compile(r'^[a-z2-7]+$')
+
+
+def web_obj(common_obj, recieve_mode, num_files=0):
+    """ Creates a Web object, in either share mode or receive mode, ready for testing """
+    web = Web(common_obj, False, recieve_mode)
+    web.generate_slug()
+    web.stay_open = True
+    web.app.testing = True
+
+    # Share mode
+    if not recieve_mode:
+        # Add files
+        files = []
+        for i in range(num_files):
+            with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
+                tmp_file.write(b'*' * 1024)
+                files.append(tmp_file.name)
+        web.set_file_info(files)
+    # Receive mode
+    else:
+        pass
+    
+    return web
+
+
+class TestWeb:
+    def test_share_mode(self, common_obj):
+        web = web_obj(common_obj, False, 3)
+        assert web.receive_mode is False
+        with web.app.test_client() as c:
+            # Load 404 pages
+            res = c.get('/')
+            assert res.status_code == 404
+
+            res = c.get('/invalidslug'.format(web.slug))
+            assert res.status_code == 404
+
+            # Load download page
+            res = c.get('/{}'.format(web.slug))
+            assert res.status_code == 200
+
+            # Download
+            res = c.get('/{}/download'.format(web.slug))
+            assert res.status_code == 200
+            assert res.mimetype == 'application/zip'
+    
+    def test_share_mode_close_after_first_download(self, common_obj, temp_file_1024):
+        pass
+
 
 class TestZipWriterDefault:
     @pytest.mark.parametrize('test_input', (
