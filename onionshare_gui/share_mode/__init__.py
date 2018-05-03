@@ -73,8 +73,7 @@ class ShareMode(Mode):
         self.downloads_completed = 0
         self.new_download = False # For scrolling to the bottom of the downloads list
 
-        # Info label along top of screen
-        self.info_layout = QtWidgets.QHBoxLayout()
+        # Information about share, and show downloads button
         self.info_label = QtWidgets.QLabel()
         self.info_label.setStyleSheet('QLabel { font-size: 12px; color: #666666; }')
 
@@ -90,9 +89,10 @@ class ShareMode(Mode):
         self.info_completed_downloads_count = QtWidgets.QLabel()
         self.info_completed_downloads_count.setStyleSheet('QLabel { font-size: 12px; color: #666666; }')
 
-        self.update_downloads_completed(self.downloads_in_progress)
-        self.update_downloads_in_progress(self.downloads_in_progress)
+        self.update_downloads_completed()
+        self.update_downloads_in_progress()
 
+        self.info_layout = QtWidgets.QHBoxLayout()
         self.info_layout.addWidget(self.info_label)
         self.info_layout.addStretch()
         self.info_layout.addWidget(self.info_in_progress_downloads_count)
@@ -230,7 +230,7 @@ class ShareMode(Mode):
         self.filesize_warning.hide()
         self.downloads_in_progress = 0
         self.downloads_completed = 0
-        self.update_downloads_in_progress(0)
+        self.update_downloads_in_progress()
         self.file_selection.file_list.adjustSize()
 
     def handle_tor_broke_custom(self):
@@ -254,7 +254,7 @@ class ShareMode(Mode):
         self.downloads.add_download(event["data"]["id"], self.web.zip_filesize)
         self.new_download = True
         self.downloads_in_progress += 1
-        self.update_downloads_in_progress(self.downloads_in_progress)
+        self.update_downloads_in_progress()
 
         self.system_tray.showMessage(strings._('systray_download_started_title', True), strings._('systray_download_started_message', True))
 
@@ -270,10 +270,10 @@ class ShareMode(Mode):
 
             # Update the total 'completed downloads' info
             self.downloads_completed += 1
-            self.update_downloads_completed(self.downloads_completed)
+            self.update_downloads_completed()
             # Update the 'in progress downloads' info
             self.downloads_in_progress -= 1
-            self.update_downloads_in_progress(self.downloads_in_progress)
+            self.update_downloads_in_progress()
 
             # close on finish?
             if not self.web.stay_open:
@@ -284,7 +284,7 @@ class ShareMode(Mode):
             if self.server_status.status == self.server_status.STATUS_STOPPED:
                 self.downloads.cancel_download(event["data"]["id"])
                 self.downloads_in_progress = 0
-                self.update_downloads_in_progress(self.downloads_in_progress)
+                self.update_downloads_in_progress()
 
     def handle_request_canceled(self, event):
         """
@@ -294,7 +294,7 @@ class ShareMode(Mode):
 
         # Update the 'in progress downloads' info
         self.downloads_in_progress -= 1
-        self.update_downloads_in_progress(self.downloads_in_progress)
+        self.update_downloads_in_progress()
         self.system_tray.showMessage(strings._('systray_download_canceled_title', True), strings._('systray_download_canceled_message', True))
 
     def on_reload_settings(self):
@@ -346,34 +346,36 @@ class ShareMode(Mode):
         """
         Set the info counters back to zero.
         """
-        self.update_downloads_completed(0)
-        self.update_downloads_in_progress(0)
+        self.downloads_completed = 0
+        self.downloads_in_progress = 0
+        self.update_downloads_completed()
+        self.update_downloads_in_progress()
         self.info_show_downloads.setIcon(QtGui.QIcon(self.common.get_resource_path('images/download_window_gray.png')))
         self.downloads.no_downloads_label.show()
         self.downloads.downloads_container.resize(self.downloads.downloads_container.sizeHint())
 
-    def update_downloads_completed(self, count):
+    def update_downloads_completed(self):
         """
         Update the 'Downloads completed' info widget.
         """
-        if count == 0:
-            self.info_completed_downloads_image = self.common.get_resource_path('images/download_completed_none.png')
+        if self.downloads_completed == 0:
+            image = self.common.get_resource_path('images/download_completed_none.png')
         else:
-            self.info_completed_downloads_image = self.common.get_resource_path('images/download_completed.png')
-        self.info_completed_downloads_count.setText('<img src="{0:s}" /> {1:d}'.format(self.info_completed_downloads_image, count))
-        self.info_completed_downloads_count.setToolTip(strings._('info_completed_downloads_tooltip', True).format(count))
+            image = self.common.get_resource_path('images/download_completed.png')
+        self.info_completed_downloads_count.setText('<img src="{0:s}" /> {1:d}'.format(image, self.downloads_completed))
+        self.info_completed_downloads_count.setToolTip(strings._('info_completed_downloads_tooltip', True).format(self.downloads_completed))
 
-    def update_downloads_in_progress(self, count):
+    def update_downloads_in_progress(self):
         """
         Update the 'Downloads in progress' info widget.
         """
-        if count == 0:
-            self.info_in_progress_downloads_image = self.common.get_resource_path('images/download_in_progress_none.png')
+        if self.downloads_in_progress == 0:
+            image = self.common.get_resource_path('images/download_in_progress_none.png')
         else:
-            self.info_in_progress_downloads_image = self.common.get_resource_path('images/download_in_progress.png')
+            image = self.common.get_resource_path('images/download_in_progress.png')
             self.info_show_downloads.setIcon(QtGui.QIcon(self.common.get_resource_path('images/download_window_green.png')))
-        self.info_in_progress_downloads_count.setText('<img src="{0:s}" /> {1:d}'.format(self.info_in_progress_downloads_image, count))
-        self.info_in_progress_downloads_count.setToolTip(strings._('info_in_progress_downloads_tooltip', True).format(count))
+        self.info_in_progress_downloads_count.setText('<img src="{0:s}" /> {1:d}'.format(image, self.downloads_in_progress))
+        self.info_in_progress_downloads_count.setToolTip(strings._('info_in_progress_downloads_tooltip', True).format(self.downloads_in_progress))
     
     @staticmethod
     def _compute_total_size(filenames):

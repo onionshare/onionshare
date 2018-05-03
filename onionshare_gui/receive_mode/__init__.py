@@ -44,6 +44,38 @@ class ReceiveMode(Mode):
         self.server_status.web = self.web
         self.server_status.update()
 
+        # Downloads
+        #self.uploads = Uploads(self.common)
+        self.uploads_in_progress = 0
+        self.uploads_completed = 0
+        self.new_upload = False # For scrolling to the bottom of the uploads list
+
+        # Information about share, and show uploads button
+        self.info_show_uploads = QtWidgets.QToolButton()
+        self.info_show_uploads.setIcon(QtGui.QIcon(self.common.get_resource_path('images/download_window_gray.png')))
+        self.info_show_uploads.setCheckable(True)
+        #self.info_show_uploads.toggled.connect(self.downloads_toggled)
+        self.info_show_uploads.setToolTip(strings._('gui_downloads_window_tooltip', True))
+
+        self.info_in_progress_uploads_count = QtWidgets.QLabel()
+        self.info_in_progress_uploads_count.setStyleSheet('QLabel { font-size: 12px; color: #666666; }')
+
+        self.info_completed_uploads_count = QtWidgets.QLabel()
+        self.info_completed_uploads_count.setStyleSheet('QLabel { font-size: 12px; color: #666666; }')
+
+        self.update_uploads_completed()
+        self.update_uploads_in_progress()
+
+        self.info_layout = QtWidgets.QHBoxLayout()
+        self.info_layout.addStretch()
+        self.info_layout.addWidget(self.info_in_progress_uploads_count)
+        self.info_layout.addWidget(self.info_completed_uploads_count)
+        self.info_layout.addWidget(self.info_show_uploads)
+
+        self.info_widget = QtWidgets.QWidget()
+        self.info_widget.setLayout(self.info_layout)
+        self.info_widget.hide()
+
         # Receive mode info
         self.receive_info = QtWidgets.QLabel(strings._('gui_receive_mode_warning', True))
         self.receive_info.setMinimumHeight(80)
@@ -51,6 +83,7 @@ class ReceiveMode(Mode):
 
         # Layout
         self.layout.insertWidget(0, self.receive_info)
+        self.layout.insertWidget(0, self.info_widget)
     
     def timer_callback_custom(self):
         """
@@ -105,3 +138,26 @@ class ReceiveMode(Mode):
         """
         self.stop_server()
         self.system_tray.showMessage(strings._('systray_close_server_title', True), strings._('systray_close_server_message', True))
+
+    def update_uploads_completed(self):
+        """
+        Update the 'Downloads completed' info widget.
+        """
+        if self.uploads_completed == 0:
+            image = self.common.get_resource_path('images/download_completed_none.png')
+        else:
+            image = self.common.get_resource_path('images/download_completed.png')
+        self.info_completed_uploads_count.setText('<img src="{0:s}" /> {1:d}'.format(image, self.uploads_completed))
+        self.info_completed_uploads_count.setToolTip(strings._('info_completed_downloads_tooltip', True).format(self.uploads_completed))
+
+    def update_uploads_in_progress(self):
+        """
+        Update the 'Downloads in progress' info widget.
+        """
+        if self.uploads_in_progress == 0:
+            image = self.common.get_resource_path('images/download_in_progress_none.png')
+        else:
+            image = self.common.get_resource_path('images/download_in_progress.png')
+            self.info_show_uploads.setIcon(QtGui.QIcon(self.common.get_resource_path('images/download_window_green.png')))
+        self.info_in_progress_uploads_count.setText('<img src="{0:s}" /> {1:d}'.format(image, self.uploads_in_progress))
+        self.info_in_progress_uploads_count.setToolTip(strings._('info_in_progress_downloads_tooltip', True).format(self.uploads_in_progress))
