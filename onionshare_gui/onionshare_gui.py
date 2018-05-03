@@ -55,7 +55,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         self.setWindowTitle('OnionShare')
         self.setWindowIcon(QtGui.QIcon(self.common.get_resource_path('images/logo.png')))
-        self.setMinimumWidth(430)
+        self.setMinimumWidth(450)
 
         # Load settings
         self.config = config
@@ -236,21 +236,24 @@ class OnionShareGui(QtWidgets.QMainWindow):
             self.receive_mode.show()
 
         self.update_server_status_indicator()
-        self.adjustSize();
+
+        # Wait 1ms for the event loop to finish, then adjust size
+        QtCore.QTimer.singleShot(1, self.adjustSize)
 
     def share_mode_clicked(self):
-        self.mode = self.MODE_SHARE
-        self.update_mode_switcher()
+        if self.mode != self.MODE_SHARE:
+            self.common.log('OnionShareGui', 'share_mode_clicked')
+            self.mode = self.MODE_SHARE
+            self.update_mode_switcher()
 
     def receive_mode_clicked(self):
-        self.mode = self.MODE_RECEIVE
-        self.update_mode_switcher()
+        if self.mode != self.MODE_RECEIVE:
+            self.common.log('OnionShareGui', 'receive_mode_clicked')
+            self.mode = self.MODE_RECEIVE
+            self.update_mode_switcher()
 
     def update_server_status_indicator(self):
-        self.common.log('OnionShareGui', 'update_server_status_indicator')
-
         # Set the status image
-
         if self.mode == self.MODE_SHARE:
             # Share mode
             if self.share_mode.server_status.status == ServerStatus.STATUS_STOPPED:
