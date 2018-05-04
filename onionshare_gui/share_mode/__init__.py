@@ -325,9 +325,9 @@ class ShareMode(Mode):
         """
         self.common.log('ShareMode', 'toggle_downloads')
         if checked:
-            self.downloads.downloads_container.show()
+            self.downloads.show()
         else:
-            self.downloads.downloads_container.hide()
+            self.downloads.hide()
 
     def reset_info_counters(self):
         """
