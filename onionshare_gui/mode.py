@@ -144,7 +144,7 @@ class Mode(QtWidgets.QWidget):
             self.app.choose_port()
 
             # Start http service in new thread
-            t = threading.Thread(target=self.web.start, args=(self.app.port, self.app.stay_open, self.common.settings.get('slug')))
+            t = threading.Thread(target=self.web.start, args=(self.app.port, not self.common.settings.get('close_after_first_download'), self.common.settings.get('slug')))
             t.daemon = True
             t.start()
 
@@ -160,8 +160,6 @@ class Mode(QtWidgets.QWidget):
             except Exception as e:
                 self.starting_server_error.emit(e.args[0])
                 return
-
-            self.app.stay_open = not self.common.settings.get('close_after_first_download')
 
         self.common.log('Mode', 'start_server', 'Starting an onion thread')
         self.t = OnionThread(self.common, function=start_onion_service, kwargs={'self': self})

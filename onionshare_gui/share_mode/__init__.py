@@ -262,8 +262,8 @@ class ShareMode(Mode):
             self.downloads_in_progress -= 1
             self.update_downloads_in_progress()
 
-            # close on finish?
-            if not self.web.stay_open:
+            # Close on finish?
+            if self.common.settings.get('close_after_first_download'):
                 self.server_status.stop_server()
                 self.status_bar.clearMessage()
                 self.server_status_label.setText(strings._('closing_automatically', True))

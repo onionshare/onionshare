@@ -64,7 +64,6 @@ def main():
     # Parse arguments
     parser = argparse.ArgumentParser(formatter_class=lambda prog: argparse.HelpFormatter(prog,max_help_position=48))
     parser.add_argument('--local-only', action='store_true', dest='local_only', help=strings._("help_local_only"))
-    parser.add_argument('--stay-open', action='store_true', dest='stay_open', help=strings._("help_stay_open"))
     parser.add_argument('--shutdown-timeout', metavar='<int>', dest='shutdown_timeout', default=0, help=strings._("help_shutdown_timeout"))
     parser.add_argument('--debug', action='store_true', dest='debug', help=strings._("help_debug"))
     parser.add_argument('--filenames', metavar='filenames', nargs='+', help=strings._('help_filename'))
@@ -79,7 +78,6 @@ def main():
     config = args.config
 
     local_only = bool(args.local_only)
-    stay_open = bool(args.stay_open)
     shutdown_timeout = int(args.shutdown_timeout)
     debug = bool(args.debug)
 
@@ -103,7 +101,7 @@ def main():
     onion = Onion(common)
 
     # Start the OnionShare app
-    app = OnionShare(common, onion, local_only, stay_open, shutdown_timeout)
+    app = OnionShare(common, onion, local_only, shutdown_timeout)
 
     # Launch the gui
     gui = OnionShareGui(common, onion, qtapp, app, filenames, config, local_only)
