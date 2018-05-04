@@ -22,6 +22,7 @@ from PyQt5 import QtCore, QtWidgets, QtGui
 from onionshare import strings
 from onionshare.web import Web
 
+from .uploads import Uploads
 from ..mode import Mode
 
 class ReceiveMode(Mode):
@@ -46,7 +47,7 @@ class ReceiveMode(Mode):
         self.server_status.update()
 
         # Downloads
-        #self.uploads = Uploads(self.common)
+        self.uploads = Uploads(self.common)
         self.uploads_in_progress = 0
         self.uploads_completed = 0
         self.new_upload = False # For scrolling to the bottom of the uploads list
