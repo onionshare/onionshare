@@ -76,12 +76,12 @@ class OnionShare(object):
         if not self.port:
             self.choose_port()
 
+        if self.shutdown_timeout > 0:
+            self.shutdown_timer = ShutdownTimer(self.common, self.shutdown_timeout)
+
         if self.local_only:
             self.onion_host = '127.0.0.1:{0:d}'.format(self.port)
             return
-
-        if self.shutdown_timeout > 0:
-            self.shutdown_timer = ShutdownTimer(self.common, self.shutdown_timeout)
 
         self.onion_host = self.onion.start_onion_service(self.port)
 
