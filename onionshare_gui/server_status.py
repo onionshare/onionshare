@@ -29,6 +29,7 @@ class ServerStatus(QtWidgets.QWidget):
     The server status chunk of the GUI.
     """
     server_started = QtCore.pyqtSignal()
+    server_started_finished = QtCore.pyqtSignal()
     server_stopped = QtCore.pyqtSignal()
     server_canceled = QtCore.pyqtSignal()
     button_clicked = QtCore.pyqtSignal()
@@ -116,7 +117,7 @@ class ServerStatus(QtWidgets.QWidget):
         layout.addLayout(url_layout)
         layout.addWidget(self.shutdown_timeout_container)
         self.setLayout(layout)
-    
+
     def set_mode(self, share_mode, file_selection=None):
         """
         The server status is in share mode.
@@ -268,6 +269,7 @@ class ServerStatus(QtWidgets.QWidget):
         self.status = self.STATUS_STARTED
         self.copy_url()
         self.update()
+        self.server_started_finished.emit()
 
     def stop_server(self):
         """
@@ -312,7 +314,7 @@ class ServerStatus(QtWidgets.QWidget):
         clipboard.setText(self.app.auth_string)
 
         self.hidservauth_copied.emit()
-    
+
     def get_url(self):
         """
         Returns the OnionShare URL.
