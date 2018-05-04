@@ -131,10 +131,16 @@ class Downloads(QtWidgets.QWidget):
         """
         Add a new download progress bar.
         """
-        # add it to the list
+        # Hide the no_downloads_label
+        self.no_downloads_label.hide()
+
+        # Add it to the list
         download = Download(self.common, download_id, total_bytes)
         self.downloads[download_id] = download
         self.downloads_layout.addWidget(download.progress_bar)
+
+        # Scroll to the bottom
+        self.downloads_container.vbar.setValue(self.downloads_container.vbar.maximum())
 
     def update_download(self, download_id, downloaded_bytes):
         """
@@ -156,3 +162,6 @@ class Downloads(QtWidgets.QWidget):
             self.downloads_layout.removeWidget(download.progress_bar)
             download.progress_bar.close()
         self.downloads = {}
+
+        self.no_downloads_label.show()
+        self.downloads_container.resize(self.downloads_container.sizeHint())

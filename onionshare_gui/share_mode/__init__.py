@@ -47,7 +47,7 @@ class ShareMode(Mode):
         if self.filenames:
             for filename in self.filenames:
                 self.file_selection.file_list.add_file(filename)
-        
+
         # Server status
         self.server_status.set_mode('share', self.file_selection)
         self.server_status.server_started.connect(self.file_selection.server_started)
@@ -71,7 +71,6 @@ class ShareMode(Mode):
         self.downloads = Downloads(self.common)
         self.downloads_in_progress = 0
         self.downloads_completed = 0
-        self.new_download = False # For scrolling to the bottom of the downloads list
 
         # Information about share, and show downloads button
         self.info_label = QtWidgets.QLabel()
@@ -118,21 +117,12 @@ class ShareMode(Mode):
         # Always start with focus on file selection
         self.file_selection.setFocus()
 
-    def timer_callback_custom(self):
-        """
-        This method is called regularly on a timer while share mode is active.
-        """
-        # Scroll to the bottom of the download progress bar log pane if a new download has been added
-        if self.new_download:
-            self.downloads.downloads_container.vbar.setValue(self.downloads.downloads_container.vbar.maximum())
-            self.new_download = False
-    
     def get_stop_server_shutdown_timeout_text(self):
         """
         Return the string to put on the stop server button, if there's a shutdown timeout
         """
         return strings._('gui_share_stop_server_shutdown_timeout', True)
-    
+
     def timeout_finished_should_stop_server(self):
         """
         The shutdown timer expired, should we stop the server? Returns a bool
@@ -154,11 +144,10 @@ class ShareMode(Mode):
         # Reset web counters
         self.web.download_count = 0
         self.web.error404_count = 0
-        
+
         # Hide and reset the downloads if we have previously shared
-        self.downloads.reset_downloads()
         self.reset_info_counters()
-    
+
     def start_server_step2_custom(self):
         """
         Step 2 in starting the server. Zipping up files.
@@ -178,7 +167,7 @@ class ShareMode(Mode):
             def _set_processed_size(x):
                 if self._zip_progress_bar != None:
                     self._zip_progress_bar.update_processed_size_signal.emit(x)
-            
+
             try:
                 self.web.set_file_info(self.filenames, processed_size_callback=_set_processed_size)
                 self.app.cleanup_filenames.append(self.web.zip_filename)
@@ -194,7 +183,7 @@ class ShareMode(Mode):
         t = threading.Thread(target=finish_starting_server, kwargs={'self': self})
         t.daemon = True
         t.start()
-    
+
     def start_server_step3_custom(self):
         """
         Step 3 in starting the server. Remove zip progess bar, and display large filesize
@@ -209,7 +198,7 @@ class ShareMode(Mode):
         if self.web.zip_filesize >= 157286400:  # 150mb
             self.filesize_warning.setText(strings._("large_filesize", True))
             self.filesize_warning.show()
-    
+
     def start_server_error_custom(self):
         """
         Start server error.
@@ -217,7 +206,7 @@ class ShareMode(Mode):
         if self._zip_progress_bar is not None:
             self.status_bar.removeWidget(self._zip_progress_bar)
             self._zip_progress_bar = None
-    
+
     def stop_server_custom(self):
         """
         Stop server.
@@ -250,9 +239,7 @@ class ShareMode(Mode):
         """
         Handle REQUEST_DOWNLOAD event.
         """
-        self.downloads.no_downloads_label.hide()
         self.downloads.add_download(event["data"]["id"], self.web.zip_filesize)
-        self.new_download = True
         self.downloads_in_progress += 1
         self.update_downloads_in_progress()
 
@@ -351,8 +338,7 @@ class ShareMode(Mode):
         self.update_downloads_completed()
         self.update_downloads_in_progress()
         self.info_show_downloads.setIcon(QtGui.QIcon(self.common.get_resource_path('images/download_window_gray.png')))
-        self.downloads.no_downloads_label.show()
-        self.downloads.downloads_container.resize(self.downloads.downloads_container.sizeHint())
+        self.downloads.reset_downloads()
 
     def update_downloads_completed(self):
         """
@@ -376,7 +362,7 @@ class ShareMode(Mode):
             self.info_show_downloads.setIcon(QtGui.QIcon(self.common.get_resource_path('images/download_window_green.png')))
         self.info_in_progress_downloads_count.setText('<img src="{0:s}" /> {1:d}'.format(image, self.downloads_in_progress))
         self.info_in_progress_downloads_count.setToolTip(strings._('info_in_progress_downloads_tooltip', True).format(self.downloads_in_progress))
-    
+
     @staticmethod
     def _compute_total_size(filenames):
         total_size = 0
