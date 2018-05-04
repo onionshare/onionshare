@@ -37,9 +37,10 @@ class ReceiveMode(Mode):
 
         # Server status
         self.server_status.set_mode('receive')
-        #self.server_status.server_stopped.connect(self.update_primary_action)
-        #self.server_status.server_canceled.connect(self.update_primary_action)
-        
+        self.server_status.server_started_finished.connect(self.update_primary_action)
+        self.server_status.server_stopped.connect(self.update_primary_action)
+        self.server_status.server_canceled.connect(self.update_primary_action)
+
         # Tell server_status about web, then update
         self.server_status.web = self.web
         self.server_status.update()
@@ -84,7 +85,7 @@ class ReceiveMode(Mode):
         # Layout
         self.layout.insertWidget(0, self.receive_info)
         self.layout.insertWidget(0, self.info_widget)
-    
+
     def timer_callback_custom(self):
         """
         This method is called regularly on a timer while share mode is active.
@@ -93,31 +94,31 @@ class ReceiveMode(Mode):
         #if self.new_download:
         #    self.downloads.downloads_container.vbar.setValue(self.downloads.downloads_container.vbar.maximum())
         #    self.new_download = False
-    
+
     def get_stop_server_shutdown_timeout_text(self):
         """
         Return the string to put on the stop server button, if there's a shutdown timeout
         """
         return strings._('gui_receive_stop_server_shutdown_timeout', True)
-    
+
     def timeout_finished_should_stop_server(self):
         """
         The shutdown timer expired, should we stop the server? Returns a bool
         """
         # TODO: wait until the final upload is done before stoppign the server?
         return True
-    
+
     def start_server_custom(self):
         """
         Starting the server.
         """
         # Reset web counters
         self.web.error404_count = 0
-        
+
         # Hide and reset the downloads if we have previously shared
         #self.downloads.reset_downloads()
         #self.reset_info_counters()
-    
+
     def start_server_step2_custom(self):
         """
         Step 2 in starting the server.
@@ -125,13 +126,13 @@ class ReceiveMode(Mode):
         # Continue
         self.starting_server_step3.emit()
         self.start_server_finished.emit()
-    
+
     def handle_request_load(self, event):
         """
         Handle REQUEST_LOAD event.
         """
         self.system_tray.showMessage(strings._('systray_page_loaded_title', True), strings._('systray_upload_page_loaded_message', True))
-    
+
     def handle_request_close_server(self, event):
         """
         Handle REQUEST_CLOSE_SERVER event.
@@ -161,3 +162,15 @@ class ReceiveMode(Mode):
             self.info_show_uploads.setIcon(QtGui.QIcon(self.common.get_resource_path('images/download_window_green.png')))
         self.info_in_progress_uploads_count.setText('<img src="{0:s}" /> {1:d}'.format(image, self.uploads_in_progress))
         self.info_in_progress_uploads_count.setToolTip(strings._('info_in_progress_downloads_tooltip', True).format(self.uploads_in_progress))
+
+    def update_primary_action(self):
+        self.common.log('ReceiveMode', 'update_primary_action')
+
+        # Show the info widget when the server is active
+        if self.server_status.status == self.server_status.STATUS_STARTED:
+            self.info_widget.show()
+        else:
+            self.info_widget.hide()
+
+        # Resize window
+        self.adjustSize()

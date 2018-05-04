@@ -51,6 +51,8 @@ class Mode(QtWidgets.QWidget):
 
         self.filenames = filenames
 
+        self.setMinimumWidth(450)
+
         # The web object gets created in init()
         self.web = None
 
@@ -107,26 +109,26 @@ class Mode(QtWidgets.QWidget):
         Add custom timer code.
         """
         pass
-    
+
     def get_stop_server_shutdown_timeout_text(self):
         """
         Return the string to put on the stop server button, if there's a shutdown timeout
         """
         pass
-    
+
     def timeout_finished_should_stop_server(self):
         """
         The shutdown timer expired, should we stop the server? Returns a bool
         """
         pass
-    
+
     def start_server(self):
         """
         Start the onionshare server. This uses multiple threads to start the Tor onion
         server and the web app.
         """
         self.common.log('Mode', 'start_server')
-        
+
         self.start_server_custom()
 
         self.set_server_active.emit(True)
@@ -165,7 +167,7 @@ class Mode(QtWidgets.QWidget):
         self.t = OnionThread(self.common, function=start_onion_service, kwargs={'self': self})
         self.t.daemon = True
         self.t.start()
-    
+
     def start_server_custom(self):
         """
         Add custom initialization here.
@@ -185,7 +187,7 @@ class Mode(QtWidgets.QWidget):
         # start_server_step2_custom has call these to move on:
         # self.starting_server_step3.emit()
         # self.start_server_finished.emit()
-    
+
     def start_server_step2_custom(self):
         """
         Add custom initialization here.
@@ -194,7 +196,7 @@ class Mode(QtWidgets.QWidget):
 
     def start_server_step3(self):
         """
-        Step 3 in starting the onionshare server. 
+        Step 3 in starting the onionshare server.
         """
         self.common.log('Mode', 'start_server_step3')
 
@@ -231,7 +233,7 @@ class Mode(QtWidgets.QWidget):
         self.status_bar.clearMessage()
 
         self.start_server_error_custom()
-    
+
     def start_server_error_custom(self):
         """
         Add custom initialization here.
@@ -270,7 +272,7 @@ class Mode(QtWidgets.QWidget):
         Add custom initialization here.
         """
         pass
-    
+
     def handle_tor_broke(self):
         """
         Handle connection from Tor breaking.
@@ -278,7 +280,7 @@ class Mode(QtWidgets.QWidget):
         if self.server_status.status != ServerStatus.STATUS_STOPPED:
             self.server_status.stop_server()
         self.handle_tor_broke_custom()
-    
+
     def handle_tor_broke_custom(self):
         """
         Add custom initialization here.
@@ -317,7 +319,7 @@ class Mode(QtWidgets.QWidget):
         Handle REQUEST_CANCELED event.
         """
         pass
-    
+
     def handle_request_close_server(self, event):
         """
         Handle REQUEST_CLOSE_SERVER event.
