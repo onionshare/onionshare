@@ -91,41 +91,40 @@ class Download(object):
                                                 self.started)
 
 
-class Downloads(QtWidgets.QWidget):
+class Downloads(QtWidgets.QScrollArea):
     """
     The downloads chunk of the GUI. This lists all of the active download
     progress bars.
     """
     def __init__(self, common):
         super(Downloads, self).__init__()
-
         self.common = common
 
         self.downloads = {}
 
-        self.downloads_container = QtWidgets.QScrollArea()
-        self.downloads_container.setWidget(self)
-        self.downloads_container.setWindowTitle(strings._('gui_downloads', True))
-        self.downloads_container.setWidgetResizable(True)
-        self.downloads_container.setMaximumHeight(600)
-        self.downloads_container.setMinimumHeight(150)
-        self.downloads_container.setMinimumWidth(350)
-        self.downloads_container.setWindowIcon(QtGui.QIcon(common.get_resource_path('images/logo.png')))
-        self.downloads_container.setWindowFlags(QtCore.Qt.Sheet | QtCore.Qt.WindowTitleHint | QtCore.Qt.WindowSystemMenuHint | QtCore.Qt.CustomizeWindowHint)
-        self.downloads_container.vbar = self.downloads_container.verticalScrollBar()
+        self.setWindowTitle(strings._('gui_downloads', True))
+        self.setWidgetResizable(True)
+        self.setMaximumHeight(600)
+        self.setMinimumHeight(150)
+        self.setMinimumWidth(350)
+        self.setWindowIcon(QtGui.QIcon(common.get_resource_path('images/logo.png')))
+        self.setWindowFlags(QtCore.Qt.Sheet | QtCore.Qt.WindowTitleHint | QtCore.Qt.WindowSystemMenuHint | QtCore.Qt.CustomizeWindowHint)
+        self.vbar = self.verticalScrollBar()
 
-        self.downloads_label = QtWidgets.QLabel(strings._('gui_downloads', True))
-        self.downloads_label.setStyleSheet('QLabel { font-weight: bold; font-size 14px; text-align: center; }')
+        downloads_label = QtWidgets.QLabel(strings._('gui_downloads', True))
+        downloads_label.setStyleSheet('QLabel { font-weight: bold; font-size 14px; text-align: center; }')
         self.no_downloads_label = QtWidgets.QLabel(strings._('gui_no_downloads', True))
 
         self.downloads_layout = QtWidgets.QVBoxLayout()
 
-        self.layout = QtWidgets.QVBoxLayout()
-        self.layout.addWidget(self.downloads_label)
-        self.layout.addWidget(self.no_downloads_label)
-        self.layout.addLayout(self.downloads_layout)
-        self.layout.addStretch()
-        self.setLayout(self.layout)
+        widget = QtWidgets.QWidget()
+        layout = QtWidgets.QVBoxLayout()
+        layout.addWidget(downloads_label)
+        layout.addWidget(self.no_downloads_label)
+        layout.addLayout(self.downloads_layout)
+        layout.addStretch()
+        widget.setLayout(layout)
+        self.setWidget(widget)
 
     def add_download(self, download_id, total_bytes):
         """
@@ -140,7 +139,7 @@ class Downloads(QtWidgets.QWidget):
         self.downloads_layout.addWidget(download.progress_bar)
 
         # Scroll to the bottom
-        self.downloads_container.vbar.setValue(self.downloads_container.vbar.maximum())
+        self.vbar.setValue(self.vbar.maximum())
 
     def update_download(self, download_id, downloaded_bytes):
         """
@@ -164,4 +163,4 @@ class Downloads(QtWidgets.QWidget):
         self.downloads = {}
 
         self.no_downloads_label.show()
-        self.downloads_container.resize(self.downloads_container.sizeHint())
+        self.resize(self.sizeHint())
