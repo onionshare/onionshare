@@ -106,7 +106,6 @@ def main(cwd=None):
 
     # Create the Web object
     web = Web(common, False, receive)
-    web.stay_open = stay_open
 
     # Start the Onion object
     onion = Onion(common)
@@ -120,7 +119,7 @@ def main(cwd=None):
 
     # Start the onionshare app
     try:
-        app = OnionShare(common, onion, local_only, stay_open, shutdown_timeout)
+        app = OnionShare(common, onion, local_only, shutdown_timeout)
         app.set_stealth(stealth)
         app.choose_port()
         app.start_onion_service()
@@ -144,7 +143,7 @@ def main(cwd=None):
         print('')
 
     # Start OnionShare http service in new thread
-    t = threading.Thread(target=web.start, args=(app.port, app.stay_open, common.settings.get('slug')))
+    t = threading.Thread(target=web.start, args=(app.port, stay_open, common.settings.get('slug')))
     t.daemon = True
     t.start()
 

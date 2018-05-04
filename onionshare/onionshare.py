@@ -28,7 +28,7 @@ class OnionShare(object):
     OnionShare is the main application class. Pass in options and run
     start_onion_service and it will do the magic.
     """
-    def __init__(self, common, onion, local_only=False, stay_open=False, shutdown_timeout=0):
+    def __init__(self, common, onion, local_only=False, shutdown_timeout=0):
         self.common = common
 
         self.common.log('OnionShare', '__init__')
@@ -47,9 +47,6 @@ class OnionShare(object):
         # do not use tor -- for development
         self.local_only = local_only
 
-        # automatically close when download is finished
-        self.stay_open = stay_open
-
         # optionally shut down after N hours
         self.shutdown_timeout = shutdown_timeout
         # init timing thread
@@ -60,7 +57,7 @@ class OnionShare(object):
 
         self.stealth = stealth
         self.onion.stealth = stealth
-    
+
     def choose_port(self):
         """
         Choose a random port.
