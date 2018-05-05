@@ -21,16 +21,37 @@ from PyQt5 import QtCore, QtWidgets, QtGui
 
 from onionshare import strings
 
-class Uploads(QtWidgets.QWidget):
+class Uploads(QtWidgets.QScrollArea):
     """
     The uploads chunk of the GUI. This lists all of the active upload
     progress bars, as well as information about each upload.
     """
     def __init__(self, common):
         super(Uploads, self).__init__()
-
         self.common = common
 
-        self.layout = QtWidgets.QVBoxLayout()
-        self.layout.addStretch()
-        self.setLayout(self.layout)
+        self.uploads = {}
+
+        self.setWindowTitle(strings._('gui_uploads', True))
+        self.setWidgetResizable(True)
+        self.setMaximumHeight(600)
+        self.setMinimumHeight(150)
+        self.setMinimumWidth(350)
+        self.setWindowIcon(QtGui.QIcon(common.get_resource_path('images/logo.png')))
+        self.setWindowFlags(QtCore.Qt.Sheet | QtCore.Qt.WindowTitleHint | QtCore.Qt.WindowSystemMenuHint | QtCore.Qt.CustomizeWindowHint)
+        self.vbar = self.verticalScrollBar()
+
+        uploads_label = QtWidgets.QLabel(strings._('gui_uploads', True))
+        uploads_label.setStyleSheet('QLabel { font-weight: bold; font-size 14px; text-align: center; }')
+        self.no_uploads_label = QtWidgets.QLabel(strings._('gui_no_uploads', True))
+
+        self.uploads_layout = QtWidgets.QVBoxLayout()
+
+        widget = QtWidgets.QWidget()
+        layout = QtWidgets.QVBoxLayout()
+        layout.addWidget(uploads_label)
+        layout.addWidget(self.no_uploads_label)
+        layout.addLayout(self.uploads_layout)
+        layout.addStretch()
+        widget.setLayout(layout)
+        self.setWidget(widget)
