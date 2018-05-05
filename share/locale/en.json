@@ -183,5 +183,8 @@
     "systray_close_server_message": "A user closed the server",
     "systray_page_loaded_title": "OnionShare Page Loaded",
     "systray_download_page_loaded_message": "A user loaded the download page",
-    "systray_upload_page_loaded_message": "A user loaded the upload page"
+    "systray_upload_page_loaded_message": "A user loaded the upload page",
+    "gui_uploads": "Upload History",
+    "gui_uploads_window_tooltip": "Show/hide uploads",
+    "gui_no_uploads": "No uploads yet."
 }
