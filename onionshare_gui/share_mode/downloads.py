@@ -126,7 +126,7 @@ class Downloads(QtWidgets.QScrollArea):
         widget.setLayout(layout)
         self.setWidget(widget)
 
-    def add_download(self, download_id, total_bytes):
+    def add(self, download_id, total_bytes):
         """
         Add a new download progress bar.
         """
@@ -141,19 +141,19 @@ class Downloads(QtWidgets.QScrollArea):
         # Scroll to the bottom
         self.vbar.setValue(self.vbar.maximum())
 
-    def update_download(self, download_id, downloaded_bytes):
+    def update(self, download_id, downloaded_bytes):
         """
         Update the progress of a download progress bar.
         """
         self.downloads[download_id].update(downloaded_bytes)
 
-    def cancel_download(self, download_id):
+    def cancel(self, download_id):
         """
         Update a download progress bar to show that it has been canceled.
         """
         self.downloads[download_id].cancel()
 
-    def reset_downloads(self):
+    def reset(self):
         """
         Reset the downloads back to zero
         """
