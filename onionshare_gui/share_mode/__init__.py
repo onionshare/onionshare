@@ -239,7 +239,7 @@ class ShareMode(Mode):
         """
         Handle REQUEST_DOWNLOAD event.
         """
-        self.downloads.add_download(event["data"]["id"], self.web.zip_filesize)
+        self.downloads.add(event["data"]["id"], self.web.zip_filesize)
         self.downloads_in_progress += 1
         self.update_downloads_in_progress()
 
@@ -249,7 +249,7 @@ class ShareMode(Mode):
         """
         Handle REQUEST_PROGRESS event.
         """
-        self.downloads.update_download(event["data"]["id"], event["data"]["bytes"])
+        self.downloads.update(event["data"]["id"], event["data"]["bytes"])
 
         # Is the download complete?
         if event["data"]["bytes"] == self.web.zip_filesize:
@@ -269,7 +269,7 @@ class ShareMode(Mode):
                 self.server_status_label.setText(strings._('closing_automatically', True))
         else:
             if self.server_status.status == self.server_status.STATUS_STOPPED:
-                self.downloads.cancel_download(event["data"]["id"])
+                self.downloads.cancel(event["data"]["id"])
                 self.downloads_in_progress = 0
                 self.update_downloads_in_progress()
 
@@ -277,7 +277,7 @@ class ShareMode(Mode):
         """
         Handle REQUEST_CANCELED event.
         """
-        self.downloads.cancel_download(event["data"]["id"])
+        self.downloads.cancel(event["data"]["id"])
 
         # Update the 'in progress downloads' info
         self.downloads_in_progress -= 1
@@ -338,7 +338,7 @@ class ShareMode(Mode):
         self.update_downloads_completed()
         self.update_downloads_in_progress()
         self.info_show_downloads.setIcon(QtGui.QIcon(self.common.get_resource_path('images/download_window_gray.png')))
-        self.downloads.reset_downloads()
+        self.downloads.reset()
 
     def update_downloads_completed(self):
         """
