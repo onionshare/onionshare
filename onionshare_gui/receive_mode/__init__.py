@@ -87,15 +87,6 @@ class ReceiveMode(Mode):
         self.layout.insertWidget(0, self.receive_info)
         self.layout.insertWidget(0, self.info_widget)
 
-    def timer_callback_custom(self):
-        """
-        This method is called regularly on a timer while share mode is active.
-        """
-        # Scroll to the bottom of the download progress bar log pane if a new download has been added
-        #if self.new_download:
-        #    self.downloads.downloads_container.vbar.setValue(self.downloads.downloads_container.vbar.maximum())
-        #    self.new_download = False
-
     def get_stop_server_shutdown_timeout_text(self):
         """
         Return the string to put on the stop server button, if there's a shutdown timeout
@@ -116,9 +107,8 @@ class ReceiveMode(Mode):
         # Reset web counters
         self.web.error404_count = 0
 
-        # Hide and reset the downloads if we have previously shared
-        #self.downloads.reset_downloads()
-        #self.reset_info_counters()
+        # Hide and reset the uploads if we have previously shared
+        self.reset_info_counters()
 
     def start_server_step2_custom(self):
         """
@@ -140,6 +130,17 @@ class ReceiveMode(Mode):
         """
         self.stop_server()
         self.system_tray.showMessage(strings._('systray_close_server_title', True), strings._('systray_close_server_message', True))
+
+    def reset_info_counters(self):
+        """
+        Set the info counters back to zero.
+        """
+        self.uploads_completed = 0
+        self.uploads_in_progress = 0
+        self.update_uploads_completed()
+        self.update_uploads_in_progress()
+        self.info_show_uploads.setIcon(QtGui.QIcon(self.common.get_resource_path('images/upload_window_gray.png')))
+        self.uploads.reset()
 
     def update_uploads_completed(self):
         """

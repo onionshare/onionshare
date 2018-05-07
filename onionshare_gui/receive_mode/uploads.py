@@ -21,6 +21,7 @@ from PyQt5 import QtCore, QtWidgets, QtGui
 
 from onionshare import strings
 
+
 class Uploads(QtWidgets.QScrollArea):
     """
     The uploads chunk of the GUI. This lists all of the active upload
@@ -55,3 +56,9 @@ class Uploads(QtWidgets.QScrollArea):
         layout.addStretch()
         widget.setLayout(layout)
         self.setWidget(widget)
+
+    def reset(self):
+        """
+        Reset the uploads back to zero
+        """
+        pass

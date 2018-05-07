@@ -23,7 +23,6 @@ from PyQt5 import QtCore, QtWidgets, QtGui
 from onionshare import strings
 
 class Download(object):
-
     def __init__(self, common, download_id, total_bytes):
         self.common = common
 
@@ -33,7 +32,14 @@ class Download(object):
         self.downloaded_bytes = 0
 
         # make a new progress bar
-        cssStyleData ="""
+        self.progress_bar = QtWidgets.QProgressBar()
+        self.progress_bar.setTextVisible(True)
+        self.progress_bar.setAttribute(QtCore.Qt.WA_DeleteOnClose)
+        self.progress_bar.setAlignment(QtCore.Qt.AlignHCenter)
+        self.progress_bar.setMinimum(0)
+        self.progress_bar.setMaximum(total_bytes)
+        self.progress_bar.setValue(0)
+        self.progress_bar.setStyleSheet("""
         QProgressBar {
             border: 1px solid #4e064f;
             background-color: #ffffff !important;
@@ -45,15 +51,7 @@ class Download(object):
         QProgressBar::chunk {
             background-color: #4e064f;
             width: 10px;
-        }"""
-        self.progress_bar = QtWidgets.QProgressBar()
-        self.progress_bar.setTextVisible(True)
-        self.progress_bar.setAttribute(QtCore.Qt.WA_DeleteOnClose)
-        self.progress_bar.setAlignment(QtCore.Qt.AlignHCenter)
-        self.progress_bar.setMinimum(0)
-        self.progress_bar.setMaximum(total_bytes)
-        self.progress_bar.setValue(0)
-        self.progress_bar.setStyleSheet(cssStyleData)
+        }""")
         self.progress_bar.total_bytes = total_bytes
 
         # start at 0
