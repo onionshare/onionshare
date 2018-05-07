@@ -90,16 +90,15 @@ class ServerStatus(QtWidgets.QWidget):
         self.url.setWordWrap(True)
         self.url.setMinimumHeight(60)
         self.url.setMinimumSize(self.url.sizeHint())
-        self.url.setStyleSheet('QLabel { background-color: #ffffff; color: #000000; padding: 10px; border: 1px solid #666666; }')
+        self.url.setStyleSheet(self.common.css['server_status_url'])
 
-        url_buttons_style = 'QPushButton { color: #3f7fcf; }'
         self.copy_url_button = QtWidgets.QPushButton(strings._('gui_copy_url', True))
         self.copy_url_button.setFlat(True)
-        self.copy_url_button.setStyleSheet(url_buttons_style)
+        self.copy_url_button.setStyleSheet(self.common.css['server_status_url_buttons'])
         self.copy_url_button.clicked.connect(self.copy_url)
         self.copy_hidservauth_button = QtWidgets.QPushButton(strings._('gui_copy_hidservauth', True))
         self.copy_hidservauth_button.setFlat(True)
-        self.copy_hidservauth_button.setStyleSheet(url_buttons_style)
+        self.copy_hidservauth_button.setStyleSheet(self.common.css['server_status_url_buttons'])
         self.copy_hidservauth_button.clicked.connect(self.copy_hidservauth)
         url_buttons_layout = QtWidgets.QHBoxLayout()
         url_buttons_layout.addWidget(self.copy_url_button)
@@ -187,17 +186,13 @@ class ServerStatus(QtWidgets.QWidget):
             self.copy_hidservauth_button.hide()
 
         # Button
-        button_stopped_style = 'QPushButton { background-color: #5fa416; color: #ffffff; padding: 10px; border: 0; border-radius: 5px; }'
-        button_working_style = 'QPushButton { background-color: #4c8211; color: #ffffff; padding: 10px; border: 0; border-radius: 5px; font-style: italic; }'
-        button_started_style = 'QPushButton { background-color: #d0011b; color: #ffffff; padding: 10px; border: 0; border-radius: 5px; }'
-
         if self.mode == ServerStatus.MODE_SHARE and self.file_selection.get_num_files() == 0:
             self.server_button.hide()
         else:
             self.server_button.show()
 
             if self.status == self.STATUS_STOPPED:
-                self.server_button.setStyleSheet(button_stopped_style)
+                self.server_button.setStyleSheet(self.common.css['server_status_button_stopped'])
                 self.server_button.setEnabled(True)
                 if self.mode == ServerStatus.MODE_SHARE:
                     self.server_button.setText(strings._('gui_share_start_server', True))
@@ -207,7 +202,7 @@ class ServerStatus(QtWidgets.QWidget):
                 if self.common.settings.get('shutdown_timeout'):
                     self.shutdown_timeout_container.show()
             elif self.status == self.STATUS_STARTED:
-                self.server_button.setStyleSheet(button_started_style)
+                self.server_button.setStyleSheet(self.common.css['server_status_button_started'])
                 self.server_button.setEnabled(True)
                 if self.mode == ServerStatus.MODE_SHARE:
                     self.server_button.setText(strings._('gui_share_stop_server', True))
@@ -221,13 +216,13 @@ class ServerStatus(QtWidgets.QWidget):
                         self.server_button.setToolTip(strings._('gui_receive_stop_server_shutdown_timeout_tooltip', True).format(self.timeout))
 
             elif self.status == self.STATUS_WORKING:
-                self.server_button.setStyleSheet(button_working_style)
+                self.server_button.setStyleSheet(self.common.css['server_status_button_working'])
                 self.server_button.setEnabled(True)
                 self.server_button.setText(strings._('gui_please_wait'))
                 if self.common.settings.get('shutdown_timeout'):
                     self.shutdown_timeout_container.hide()
             else:
-                self.server_button.setStyleSheet(button_working_style)
+                self.server_button.setStyleSheet(self.common.css['server_status_button_working'])
                 self.server_button.setEnabled(False)
                 self.server_button.setText(strings._('gui_please_wait'))
                 if self.common.settings.get('shutdown_timeout'):

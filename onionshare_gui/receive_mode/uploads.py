@@ -43,7 +43,7 @@ class Uploads(QtWidgets.QScrollArea):
         self.vbar = self.verticalScrollBar()
 
         uploads_label = QtWidgets.QLabel(strings._('gui_uploads', True))
-        uploads_label.setStyleSheet('QLabel { font-weight: bold; font-size 14px; text-align: center; }')
+        uploads_label.setStyleSheet(self.common.css['downloads_uploads_label'])
         self.no_uploads_label = QtWidgets.QLabel(strings._('gui_no_uploads', True))
 
         self.uploads_layout = QtWidgets.QVBoxLayout()

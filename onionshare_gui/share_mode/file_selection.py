@@ -42,7 +42,7 @@ class DropHereLabel(QtWidgets.QLabel):
             self.setPixmap(QtGui.QPixmap.fromImage(QtGui.QImage(self.common.get_resource_path('images/logo_transparent.png'))))
         else:
             self.setText(strings._('gui_drag_and_drop', True))
-            self.setStyleSheet('color: #999999;')
+            self.setStyleSheet(self.common.css['share_file_selection_drop_here_label'])
 
         self.hide()
 
@@ -66,7 +66,7 @@ class DropCountLabel(QtWidgets.QLabel):
         self.setAcceptDrops(True)
         self.setAlignment(QtCore.Qt.AlignCenter)
         self.setText(strings._('gui_drag_and_drop', True))
-        self.setStyleSheet('color: #ffffff; background-color: #f44449; font-weight: bold; padding: 5px 10px; border-radius: 10px;')
+        self.setStyleSheet(self.common.css['share_file_selection_drop_count_label'])
         self.hide()
 
     def dragEnterEvent(self, event):
@@ -158,7 +158,7 @@ class FileList(QtWidgets.QListWidget):
         dragEnterEvent for dragging files and directories into the widget.
         """
         if event.mimeData().hasUrls:
-            self.setStyleSheet('FileList { border: 3px solid #538ad0; }')
+            self.setStyleSheet(self.common.css['share_file_list_drag_enter'])
             count = len(event.mimeData().urls())
             self.drop_count.setText('+{}'.format(count))
 
@@ -173,7 +173,7 @@ class FileList(QtWidgets.QListWidget):
         """
         dragLeaveEvent for dragging files and directories into the widget.
         """
-        self.setStyleSheet('FileList { border: none; }')
+        self.setStyleSheet(self.common.css['share_file_list_drag_leave'])
         self.drop_count.hide()
         event.accept()
         self.update()
@@ -201,7 +201,7 @@ class FileList(QtWidgets.QListWidget):
         else:
             event.ignore()
 
-        self.setStyleSheet('border: none;')
+        self.setStyleSheet(self.common.css['share_file_list_drag_leave'])
         self.drop_count.hide()
 
         self.files_dropped.emit()
@@ -238,7 +238,7 @@ class FileList(QtWidgets.QListWidget):
             # Item's filename attribute and size labels
             item.filename = filename
             item_size = QtWidgets.QLabel(size_readable)
-            item_size.setStyleSheet('QLabel { color: #666666; font-size: 11px; }')
+            item_size.setStyleSheet(self.common.css['share_file_list_item_size'])
 
             item.basename = os.path.basename(filename.rstrip('/'))
             # Use the basename as the method with which to sort the list

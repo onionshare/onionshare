@@ -80,23 +80,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.system_tray.show()
 
         # Mode switcher, to switch between share files and receive files
-        self.mode_switcher_selected_style = """
-            QPushButton {
-                color: #ffffff;
-                background-color: #4e064f;
-                border: 0;
-                border-right: 1px solid #69266b;
-                font-weight: bold;
-                border-radius: 0;
-            }"""
-        self.mode_switcher_unselected_style = """
-            QPushButton {
-                color: #ffffff;
-                background-color: #601f61;
-                border: 0;
-                font-weight: normal;
-                border-radius: 0;
-            }"""
         self.share_mode_button = QtWidgets.QPushButton(strings._('gui_mode_share_button', True));
         self.share_mode_button.setFixedHeight(50)
         self.share_mode_button.clicked.connect(self.share_mode_clicked)
@@ -109,13 +92,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.settings_button.setFixedHeight(50)
         self.settings_button.setIcon( QtGui.QIcon(self.common.get_resource_path('images/settings.png')) )
         self.settings_button.clicked.connect(self.open_settings)
-        self.settings_button.setStyleSheet("""
-            QPushButton {
-                background-color: #601f61;
-                border: 0;
-                border-left: 1px solid #69266b;
-                border-radius: 0;
-            }""")
+        self.settings_button.setStyleSheet(self.common.css['settings_button'])
         mode_switcher_layout = QtWidgets.QHBoxLayout();
         mode_switcher_layout.setSpacing(0)
         mode_switcher_layout.addWidget(self.share_mode_button)
@@ -129,7 +106,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.server_status_image_label = QtWidgets.QLabel()
         self.server_status_image_label.setFixedWidth(20)
         self.server_status_label = QtWidgets.QLabel('')
-        self.server_status_label.setStyleSheet('QLabel { font-style: italic; color: #666666; padding: 2px; }')
+        self.server_status_label.setStyleSheet(self.common.css['server_status_indicator_label'])
         server_status_indicator_layout = QtWidgets.QHBoxLayout()
         server_status_indicator_layout.addWidget(self.server_status_image_label)
         server_status_indicator_layout.addWidget(self.server_status_label)
@@ -139,15 +116,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         # Status bar
         self.status_bar = QtWidgets.QStatusBar()
         self.status_bar.setSizeGripEnabled(False)
-        self.status_bar.setStyleSheet("""
-            QStatusBar {
-                font-style: italic;
-                color: #666666;
-            }
-
-            QStatusBar::item {
-                border: 0px;
-            }""")
+        self.status_bar.setStyleSheet(self.common.css['status_bar'])
         self.status_bar.addPermanentWidget(self.server_status_indicator)
         self.setStatusBar(self.status_bar)
 
@@ -223,14 +192,14 @@ class OnionShareGui(QtWidgets.QMainWindow):
         # Based on the current mode, switch the mode switcher button styles,
         # and show and hide widgets to switch modes
         if self.mode == self.MODE_SHARE:
-            self.share_mode_button.setStyleSheet(self.mode_switcher_selected_style)
-            self.receive_mode_button.setStyleSheet(self.mode_switcher_unselected_style)
+            self.share_mode_button.setStyleSheet(self.common.css['mode_switcher_selected_style'])
+            self.receive_mode_button.setStyleSheet(self.common.css['mode_switcher_unselected_style'])
 
             self.share_mode.show()
             self.receive_mode.hide()
         else:
-            self.share_mode_button.setStyleSheet(self.mode_switcher_unselected_style)
-            self.receive_mode_button.setStyleSheet(self.mode_switcher_selected_style)
+            self.share_mode_button.setStyleSheet(self.common.css['mode_switcher_unselected_style'])
+            self.receive_mode_button.setStyleSheet(self.common.css['mode_switcher_selected_style'])
 
             self.share_mode.hide()
             self.receive_mode.show()
@@ -414,7 +383,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
             elif event["type"] == Web.REQUEST_CANCELED:
                 mode.handle_request_canceled(event)
-            
+
             elif event["type"] == Web.REQUEST_CLOSE_SERVER:
                 mode.handle_request_close_server(event)
 
