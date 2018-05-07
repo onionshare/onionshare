@@ -22,6 +22,7 @@ from PyQt5 import QtCore, QtWidgets, QtGui
 
 from onionshare import strings
 
+
 class Download(object):
     def __init__(self, common, download_id, total_bytes):
         self.common = common
@@ -31,7 +32,7 @@ class Download(object):
         self.total_bytes = total_bytes
         self.downloaded_bytes = 0
 
-        # make a new progress bar
+        # Progress bar
         self.progress_bar = QtWidgets.QProgressBar()
         self.progress_bar.setTextVisible(True)
         self.progress_bar.setAttribute(QtCore.Qt.WA_DeleteOnClose)
@@ -42,7 +43,7 @@ class Download(object):
         self.progress_bar.setStyleSheet(self.common.css['downloads_uploads_progress_bar'])
         self.progress_bar.total_bytes = total_bytes
 
-        # start at 0
+        # Start at 0
         self.update(0)
 
     def update(self, downloaded_bytes):
@@ -50,7 +51,7 @@ class Download(object):
 
         self.progress_bar.setValue(downloaded_bytes)
         if downloaded_bytes == self.progress_bar.total_bytes:
-            pb_fmt = strings._('gui_download_progress_complete').format(
+            pb_fmt = strings._('gui_download_upload_progress_complete').format(
                 self.common.format_seconds(time.time() - self.started))
         else:
             elapsed = time.time() - self.started
@@ -58,10 +59,10 @@ class Download(object):
                 # Wait a couple of seconds for the download rate to stabilize.
                 # This prevents a "Windows copy dialog"-esque experience at
                 # the beginning of the download.
-                pb_fmt = strings._('gui_download_progress_starting').format(
+                pb_fmt = strings._('gui_download_upload_progress_starting').format(
                     self.common.human_readable_filesize(downloaded_bytes))
             else:
-                pb_fmt = strings._('gui_download_progress_eta').format(
+                pb_fmt = strings._('gui_download_upload_progress_eta').format(
                     self.common.human_readable_filesize(downloaded_bytes),
                     self.estimated_time_remaining)
 
