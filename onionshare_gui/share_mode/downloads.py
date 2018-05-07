@@ -39,19 +39,7 @@ class Download(object):
         self.progress_bar.setMinimum(0)
         self.progress_bar.setMaximum(total_bytes)
         self.progress_bar.setValue(0)
-        self.progress_bar.setStyleSheet("""
-        QProgressBar {
-            border: 1px solid #4e064f;
-            background-color: #ffffff !important;
-            text-align: center;
-            color: #9b9b9b;
-            font-size: 12px;
-        }
-
-        QProgressBar::chunk {
-            background-color: #4e064f;
-            width: 10px;
-        }""")
+        self.progress_bar.setStyleSheet(self.common.css['downloads_uploads_progress_bar'])
         self.progress_bar.total_bytes = total_bytes
 
         # start at 0
@@ -110,7 +98,7 @@ class Downloads(QtWidgets.QScrollArea):
         self.vbar = self.verticalScrollBar()
 
         downloads_label = QtWidgets.QLabel(strings._('gui_downloads', True))
-        downloads_label.setStyleSheet('QLabel { font-weight: bold; font-size 14px; text-align: center; }')
+        downloads_label.setStyleSheet(self.common.css['downloads_uploads_label'])
         self.no_downloads_label = QtWidgets.QLabel(strings._('gui_no_downloads', True))
 
         self.downloads_layout = QtWidgets.QVBoxLayout()

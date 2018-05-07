@@ -60,10 +60,10 @@ class ReceiveMode(Mode):
         self.info_show_uploads.setToolTip(strings._('gui_uploads_window_tooltip', True))
 
         self.info_in_progress_uploads_count = QtWidgets.QLabel()
-        self.info_in_progress_uploads_count.setStyleSheet('QLabel { font-size: 12px; color: #666666; }')
+        self.info_in_progress_uploads_count.setStyleSheet(self.common.css['mode_info_label'])
 
         self.info_completed_uploads_count = QtWidgets.QLabel()
-        self.info_completed_uploads_count.setStyleSheet('QLabel { font-size: 12px; color: #666666; }')
+        self.info_completed_uploads_count.setStyleSheet(self.common.css['mode_info_label'])
 
         self.update_uploads_completed()
         self.update_uploads_in_progress()

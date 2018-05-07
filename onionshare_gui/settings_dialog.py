@@ -360,7 +360,7 @@ class SettingsDialog(QtWidgets.QDialog):
         self.cancel_button = QtWidgets.QPushButton(strings._('gui_settings_button_cancel', True))
         self.cancel_button.clicked.connect(self.cancel_clicked)
         version_label = QtWidgets.QLabel('OnionShare {0:s}'.format(self.common.version))
-        version_label.setStyleSheet('color: #666666')
+        version_label.setStyleSheet(self.common.css['settings_version'])
         self.help_button = QtWidgets.QPushButton(strings._('gui_settings_button_help', True))
         self.help_button.clicked.connect(self.help_clicked)
         buttons_layout = QtWidgets.QHBoxLayout()
@@ -372,7 +372,7 @@ class SettingsDialog(QtWidgets.QDialog):
 
         # Tor network connection status
         self.tor_status = QtWidgets.QLabel()
-        self.tor_status.setStyleSheet('background-color: #ffffff; color: #000000; padding: 10px')
+        self.tor_status.setStyleSheet(self.common.css['settings_tor_status'])
         self.tor_status.hide()
 
         # Layout
@@ -430,7 +430,7 @@ class SettingsDialog(QtWidgets.QDialog):
             self.receive_allow_receiver_shutdown_checkbox.setCheckState(QtCore.Qt.Checked)
         else:
             self.receive_allow_receiver_shutdown_checkbox.setCheckState(QtCore.Qt.Unchecked)
-        
+
         receive_public_mode = self.old_settings.get('receive_public_mode')
         if receive_public_mode:
             self.receive_public_mode_checkbox.setCheckState(QtCore.Qt.Checked)

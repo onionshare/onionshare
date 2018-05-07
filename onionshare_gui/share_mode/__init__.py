@@ -64,7 +64,7 @@ class ShareMode(Mode):
         # Filesize warning
         self.filesize_warning = QtWidgets.QLabel()
         self.filesize_warning.setWordWrap(True)
-        self.filesize_warning.setStyleSheet('padding: 10px 0; font-weight: bold; color: #333333;')
+        self.filesize_warning.setStyleSheet(self.common.css['share_filesize_warning'])
         self.filesize_warning.hide()
 
         # Downloads
@@ -74,7 +74,7 @@ class ShareMode(Mode):
 
         # Information about share, and show downloads button
         self.info_label = QtWidgets.QLabel()
-        self.info_label.setStyleSheet('QLabel { font-size: 12px; color: #666666; }')
+        self.info_label.setStyleSheet(self.common.css['mode_info_label'])
 
         self.info_show_downloads = QtWidgets.QToolButton()
         self.info_show_downloads.setIcon(QtGui.QIcon(self.common.get_resource_path('images/download_window_gray.png')))
@@ -83,10 +83,10 @@ class ShareMode(Mode):
         self.info_show_downloads.setToolTip(strings._('gui_downloads_window_tooltip', True))
 
         self.info_in_progress_downloads_count = QtWidgets.QLabel()
-        self.info_in_progress_downloads_count.setStyleSheet('QLabel { font-size: 12px; color: #666666; }')
+        self.info_in_progress_downloads_count.setStyleSheet(self.common.css['mode_info_label'])
 
         self.info_completed_downloads_count = QtWidgets.QLabel()
-        self.info_completed_downloads_count.setStyleSheet('QLabel { font-size: 12px; color: #666666; }')
+        self.info_completed_downloads_count.setStyleSheet(self.common.css['mode_info_label'])
 
         self.update_downloads_completed()
         self.update_downloads_in_progress()
@@ -153,7 +153,7 @@ class ShareMode(Mode):
         Step 2 in starting the server. Zipping up files.
         """
         # Add progress bar to the status bar, indicating the compressing of files.
-        self._zip_progress_bar = ZipProgressBar(0)
+        self._zip_progress_bar = ZipProgressBar(self.common, 0)
         self.filenames = []
         for index in range(self.file_selection.file_list.count()):
             self.filenames.append(self.file_selection.file_list.item(index).filename)
@@ -377,26 +377,15 @@ class ShareMode(Mode):
 class ZipProgressBar(QtWidgets.QProgressBar):
     update_processed_size_signal = QtCore.pyqtSignal(int)
 
-    def __init__(self, total_files_size):
+    def __init__(self, common, total_files_size):
         super(ZipProgressBar, self).__init__()
+        self.common = common
+
         self.setMaximumHeight(20)
         self.setMinimumWidth(200)
         self.setValue(0)
         self.setFormat(strings._('zip_progress_bar_format'))
-        cssStyleData ="""
-        QProgressBar {
-            border: 1px solid #4e064f;
-            background-color: #ffffff !important;
-            text-align: center;
-            color: #9b9b9b;
-        }
-
-        QProgressBar::chunk {
-            border: 0px;
-            background-color: #4e064f;
-            width: 10px;
-        }"""
-        self.setStyleSheet(cssStyleData)
+        self.setStyleSheet(self.common.css['share_zip_progess_bar'])
 
         self._total_files_size = total_files_size
         self._processed_size = 0

@@ -53,6 +53,7 @@ def main():
     The main() function implements all of the logic that the GUI version of onionshare uses.
     """
     common = Common()
+    common.define_css()
 
     strings.load_strings(common)
     print(strings._('version_string').format(common.version))
