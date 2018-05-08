@@ -670,9 +670,6 @@ class ReceiveModeRequest(Request):
         super(ReceiveModeRequest, self).__init__(environ, populate_request, shallow)
         self.web = environ['web']
 
-        # A dictionary that maps filenames to the bytes uploaded so far
-        self.progress = {}
-
         # Is this a valid upload request?
         self.upload_request = False
         if self.method == 'POST':
@@ -683,34 +680,39 @@ class ReceiveModeRequest(Request):
                 if self.path == '/{}/upload'.format(self.web.slug):
                     self.upload_request = True
 
-        # If this is an upload request, create an upload_id (attach it to the request)
-        self.upload_id = self.web.upload_count
-        self.web.upload_count += 1
+        if self.upload_request:
+            # A dictionary that maps filenames to the bytes uploaded so far
+            self.progress = {}
 
-        # Tell the GUI
-        self.web.add_request(Web.REQUEST_STARTED, self.path, {
-            'id': self.upload_id
-        })
+            # Create an upload_id, attach it to the request
+            self.upload_id = self.web.upload_count
+            self.web.upload_count += 1
+
+            # Tell the GUI
+            self.web.add_request(Web.REQUEST_STARTED, self.path, {
+                'id': self.upload_id
+            })
 
     def _get_file_stream(self, total_content_length, content_type, filename=None, content_length=None):
         """
         This gets called for each file that gets uploaded, and returns an file-like
         writable stream.
         """
-        # Tell the GUI about the new file upload
-        self.web.add_request(Web.REQUEST_UPLOAD_NEW_FILE_STARTED, self.path, {
-            'id': self.upload_id,
-            'filename': filename,
-            'total_bytes': total_content_length
-        })
+        if self.upload_request:
+            # Tell the GUI about the new file upload
+            self.web.add_request(Web.REQUEST_UPLOAD_NEW_FILE_STARTED, self.path, {
+                'id': self.upload_id,
+                'filename': filename,
+                'total_bytes': total_content_length
+            })
 
-        self.progress[filename] = {
-            'total_bytes': total_content_length,
-            'uploaded_bytes': 0
-        }
+            self.progress[filename] = {
+                'total_bytes': total_content_length,
+                'uploaded_bytes': 0
+            }
 
-        if len(self.progress) > 0:
-            print('')
+            if len(self.progress) > 0:
+                print('')
 
         return ReceiveModeTemporaryFile(filename, self.onionshare_update_func)
 
@@ -719,20 +721,22 @@ class ReceiveModeRequest(Request):
         When closing the request, print a newline if this was a file upload.
         """
         super(ReceiveModeRequest, self).close()
-        if len(self.progress) > 0:
-            print('')
+        if self.upload_request:
+            if len(self.progress) > 0:
+                print('')
 
     def onionshare_update_func(self, filename, length):
         """
         Keep track of the bytes uploaded so far for all files.
         """
-        self.progress[filename]['uploaded_bytes'] += length
-        uploaded = self.web.common.human_readable_filesize(self.progress[filename]['uploaded_bytes'])
-        total = self.web.common.human_readable_filesize(self.progress[filename]['total_bytes'])
-        print('{}/{} - {}     '.format(uploaded, total, filename), end='\r')
+        if self.upload_request:
+            self.progress[filename]['uploaded_bytes'] += length
+            uploaded = self.web.common.human_readable_filesize(self.progress[filename]['uploaded_bytes'])
+            total = self.web.common.human_readable_filesize(self.progress[filename]['total_bytes'])
+            print('{}/{} - {}     '.format(uploaded, total, filename), end='\r')
 
-        # Update the GUI on the upload progress
-        self.web.add_request(Web.REQUEST_PROGRESS, self.path, {
-            'id': self.upload_id,
-            'progress': self.progress
-        })
+            # Update the GUI on the upload progress
+            self.web.add_request(Web.REQUEST_PROGRESS, self.path, {
+                'id': self.upload_id,
+                'progress': self.progress
+            })
