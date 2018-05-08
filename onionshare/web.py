@@ -45,13 +45,13 @@ class Web(object):
     The Web object is the OnionShare web server, powered by flask
     """
     REQUEST_LOAD = 0
-    REQUEST_DOWNLOAD = 1
+    REQUEST_STARTED = 1
     REQUEST_PROGRESS = 2
     REQUEST_OTHER = 3
     REQUEST_CANCELED = 4
     REQUEST_RATE_LIMIT = 5
     REQUEST_CLOSE_SERVER = 6
-    
+
     def __init__(self, common, gui_mode, receive_mode=False):
         self.common = common
 
@@ -103,6 +103,7 @@ class Web(object):
         self.slug = None
 
         self.download_count = 0
+        self.upload_count = 0
         self.error404_count = 0
 
         # If "Stop After First Download" is checked (stay_open == False), only allow
@@ -173,17 +174,17 @@ class Web(object):
                 r = make_response(render_template('denied.html'))
                 return self.add_security_headers(r)
 
-            # each download has a unique id
+            # Each download has a unique id
             download_id = self.download_count
             self.download_count += 1
 
-            # prepare some variables to use inside generate() function below
+            # Prepare some variables to use inside generate() function below
             # which is outside of the request context
             shutdown_func = request.environ.get('werkzeug.server.shutdown')
             path = request.path
 
-            # tell GUI the download started
-            self.add_request(self.REQUEST_DOWNLOAD, path, {'id': download_id})
+            # Tell GUI the download started
+            self.add_request(self.REQUEST_STARTED, path, {'id': download_id})
 
             dirname = os.path.dirname(self.zip_filename)
             basename = os.path.basename(self.zip_filename)
@@ -266,9 +267,8 @@ class Web(object):
 
     def receive_routes(self):
         """
-        The web app routes for sharing files
+        The web app routes for receiving files
         """
-
         def index_logic():
             self.add_request(self.REQUEST_LOAD, request.path)
 
@@ -277,12 +277,12 @@ class Web(object):
                 slug=self.slug,
                 receive_allow_receiver_shutdown=self.common.settings.get('receive_allow_receiver_shutdown')))
             return self.add_security_headers(r)
-        
+
         @self.app.route("/<slug_candidate>")
         def index(slug_candidate):
             self.check_slug_candidate(slug_candidate)
             return index_logic()
-        
+
         @self.app.route("/")
         def index_public():
             if not self.common.settings.get('receive_public_mode'):
@@ -291,6 +291,9 @@ class Web(object):
 
 
         def upload_logic(slug_candidate=''):
+            """
+            Upload files.
+            """
             files = request.files.getlist('file[]')
             filenames = []
             for f in files:
@@ -345,7 +348,7 @@ class Web(object):
         def upload(slug_candidate):
             self.check_slug_candidate(slug_candidate)
             return upload_logic(slug_candidate)
-        
+
         @self.app.route("/upload")
         def upload_public():
             if not self.common.settings.get('receive_public_mode'):
@@ -361,12 +364,12 @@ class Web(object):
                 return self.add_security_headers(r)
             else:
                 return redirect('/{}'.format(slug_candidate))
-        
+
         @self.app.route("/<slug_candidate>/close", methods=['POST'])
         def close(slug_candidate):
             self.check_slug_candidate(slug_candidate)
             return close_logic(slug_candidate)
-            
+
         @self.app.route("/upload")
         def close_public():
             if not self.common.settings.get('receive_public_mode'):
@@ -653,9 +656,24 @@ class ReceiveModeRequest(Request):
         This gets called for each file that gets uploaded, and returns an file-like
         writable stream.
         """
+        # Each upload has a unique id. Now that the upload is starting, attach its
+        # upload_id to the request
+        self.upload_id = self.web.upload_count
+        self.web.upload_count += 1
+
+        # Tell GUI the upload started
+        self.web.add_request(self.web.REQUEST_STARTED, self.path, {
+            'id': self.upload_id
+        })
+
+        self.onionshare_progress[filename] = {
+            'total_bytes': total_content_length,
+            'uploaded_bytes': 0
+        }
+
         if len(self.onionshare_progress) > 0:
             print('')
-        self.onionshare_progress[filename] = 0
+
         return ReceiveModeTemporaryFile(filename, self.onionshare_update_func)
 
     def close(self):
@@ -670,5 +688,13 @@ class ReceiveModeRequest(Request):
         """
         Keep track of the bytes uploaded so far for all files.
         """
-        self.onionshare_progress[filename] += length
-        print('{} - {}     '.format(self.web.common.human_readable_filesize(self.onionshare_progress[filename]), filename), end='\r')
+        self.onionshare_progress[filename]['uploaded_bytes'] += length
+        uploaded = self.web.common.human_readable_filesize(self.onionshare_progress[filename]['uploaded_bytes'])
+        total = self.web.common.human_readable_filesize(self.onionshare_progress[filename]['total_bytes'])
+        print('{}/{} - {}     '.format(uploaded, total, filename), end='\r')
+
+        # Update the GUI on the download progress
+        self.web.add_request(self.web.REQUEST_PROGRESS, self.path, {
+            'id': self.upload_id,
+            'bytes': self.onionshare_progress[filename]['uploaded_bytes']
+        })

@@ -372,7 +372,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
             if event["type"] == Web.REQUEST_LOAD:
                 mode.handle_request_load(event)
 
-            elif event["type"] == Web.REQUEST_DOWNLOAD:
+            elif event["type"] == Web.REQUEST_STARTED:
                 mode.handle_request_download(event)
 
             elif event["type"] == Web.REQUEST_RATE_LIMIT:
