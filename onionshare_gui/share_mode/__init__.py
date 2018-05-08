@@ -237,7 +237,7 @@ class ShareMode(Mode):
 
     def handle_request_download(self, event):
         """
-        Handle REQUEST_DOWNLOAD event.
+        Handle REQUEST_STARTED event.
         """
         self.downloads.add(event["data"]["id"], self.web.zip_filesize)
         self.downloads_in_progress += 1

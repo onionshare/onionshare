@@ -105,6 +105,7 @@ class ReceiveMode(Mode):
         Starting the server.
         """
         # Reset web counters
+        self.web.upload_count = 0
         self.web.error404_count = 0
 
         # Hide and reset the uploads if we have previously shared
@@ -117,6 +118,12 @@ class ReceiveMode(Mode):
         # Continue
         self.starting_server_step3.emit()
         self.start_server_finished.emit()
+
+    def handle_tor_broke_custom(self):
+        """
+        Connection to Tor broke.
+        """
+        self.info_widget.hide()
 
     def handle_request_load(self, event):
         """
