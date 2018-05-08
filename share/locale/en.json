@@ -28,6 +28,10 @@
     "systray_download_completed_message": "The user finished downloading your files",
     "systray_download_canceled_title": "OnionShare Download Canceled",
     "systray_download_canceled_message": "The user canceled the download",
+    "systray_upload_started_title": "OnionShare Upload Started",
+    "systray_upload_started_message": "A user started uploading files to your computer",
+    "systray_upload_completed_title": "OnionShare Upload Finished",
+    "systray_upload_completed_message": "The user finished uploading files to your computer",
     "help_local_only": "Do not attempt to use Tor: For development only",
     "help_stay_open": "Keep onion service running after download has finished",
     "help_shutdown_timeout": "Shut down the onion service after N seconds",
@@ -186,5 +190,7 @@
     "systray_upload_page_loaded_message": "A user loaded the upload page",
     "gui_uploads": "Upload History",
     "gui_uploads_window_tooltip": "Show/hide uploads",
-    "gui_no_uploads": "No uploads yet."
+    "gui_no_uploads": "No uploads yet.",
+    "gui_upload_in_progress": "Upload in progress, started {}",
+    "gui_upload_finished": "Uploaded {} to {}"
 }
