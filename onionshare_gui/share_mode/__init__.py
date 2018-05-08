@@ -235,7 +235,7 @@ class ShareMode(Mode):
         """
         self.system_tray.showMessage(strings._('systray_page_loaded_title', True), strings._('systray_download_page_loaded_message', True))
 
-    def handle_request_download(self, event):
+    def handle_request_started(self, event):
         """
         Handle REQUEST_STARTED event.
         """

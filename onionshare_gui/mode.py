@@ -293,7 +293,7 @@ class Mode(QtWidgets.QWidget):
         """
         pass
 
-    def handle_request_download(self, event):
+    def handle_request_started(self, event):
         """
         Handle REQUEST_STARTED event.
         """
