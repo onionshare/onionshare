@@ -131,12 +131,42 @@ class ReceiveMode(Mode):
         """
         self.system_tray.showMessage(strings._('systray_page_loaded_title', True), strings._('systray_upload_page_loaded_message', True))
 
+    def handle_request_started(self, event):
+        """
+        Handle REQUEST_STARTED event.
+        """
+        self.uploads.add(event["data"]["id"])
+        self.uploads_in_progress += 1
+        self.update_uploads_in_progress()
+
+        self.system_tray.showMessage(strings._('systray_upload_started_title', True), strings._('systray_upload_started_message', True))
+
+    def handle_request_progress(self, event):
+        """
+        Handle REQUEST_PROGRESS event.
+        """
+        self.uploads.update(event["data"]["id"], event["data"]["progress"])
+
+        # TODO: not done yet
+
     def handle_request_close_server(self, event):
         """
         Handle REQUEST_CLOSE_SERVER event.
         """
         self.stop_server()
         self.system_tray.showMessage(strings._('systray_close_server_title', True), strings._('systray_close_server_message', True))
+
+    def handle_request_upload_new_file_started(self, event):
+        """
+        Handle REQUEST_UPLOAD_NEW_FILE_STARTED event.
+        """
+        pass
+
+    def handle_request_upload_file_renamed(self, event):
+        """
+        Handle REQUEST_UPLOAD_FILE_RENAMED event.
+        """
+        pass
 
     def reset_info_counters(self):
         """

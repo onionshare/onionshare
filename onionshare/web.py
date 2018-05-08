@@ -51,6 +51,8 @@ class Web(object):
     REQUEST_CANCELED = 4
     REQUEST_RATE_LIMIT = 5
     REQUEST_CLOSE_SERVER = 6
+    REQUEST_UPLOAD_NEW_FILE_STARTED = 7
+    REQUEST_UPLOAD_FILE_RENAMED = 8
 
     def __init__(self, common, gui_mode, receive_mode=False):
         self.common = common
@@ -104,6 +106,7 @@ class Web(object):
 
         self.download_count = 0
         self.upload_count = 0
+
         self.error404_count = 0
 
         # If "Stop After First Download" is checked (stay_open == False), only allow
@@ -141,7 +144,7 @@ class Web(object):
             """
             self.check_slug_candidate(slug_candidate)
 
-            self.add_request(self.REQUEST_LOAD, request.path)
+            self.add_request(Web.REQUEST_LOAD, request.path)
 
             # Deny new downloads if "Stop After First Download" is checked and there is
             # currently a download
@@ -184,7 +187,9 @@ class Web(object):
             path = request.path
 
             # Tell GUI the download started
-            self.add_request(self.REQUEST_STARTED, path, {'id': download_id})
+            self.add_request(Web.REQUEST_STARTED, path, {
+                'id': download_id}
+            )
 
             dirname = os.path.dirname(self.zip_filename)
             basename = os.path.basename(self.zip_filename)
@@ -205,7 +210,9 @@ class Web(object):
                 while not self.done:
                     # The user has canceled the download, so stop serving the file
                     if self.client_cancel:
-                        self.add_request(self.REQUEST_CANCELED, path, {'id': download_id})
+                        self.add_request(Web.REQUEST_CANCELED, path, {
+                            'id': download_id
+                        })
                         break
 
                     chunk = fp.read(chunk_size)
@@ -225,7 +232,10 @@ class Web(object):
                                     "\r{0:s}, {1:.2f}%          ".format(self.common.human_readable_filesize(downloaded_bytes), percent))
                                 sys.stdout.flush()
 
-                            self.add_request(self.REQUEST_PROGRESS, path, {'id': download_id, 'bytes': downloaded_bytes})
+                            self.add_request(Web.REQUEST_PROGRESS, path, {
+                                'id': download_id,
+                                'bytes': downloaded_bytes
+                                })
                             self.done = False
                         except:
                             # looks like the download was canceled
@@ -233,7 +243,9 @@ class Web(object):
                             canceled = True
 
                             # tell the GUI the download has canceled
-                            self.add_request(self.REQUEST_CANCELED, path, {'id': download_id})
+                            self.add_request(Web.REQUEST_CANCELED, path, {
+                                'id': download_id
+                            })
 
                 fp.close()
 
@@ -270,7 +282,7 @@ class Web(object):
         The web app routes for receiving files
         """
         def index_logic():
-            self.add_request(self.REQUEST_LOAD, request.path)
+            self.add_request(Web.REQUEST_LOAD, request.path)
 
             r = make_response(render_template(
                 'receive.html',
@@ -330,6 +342,15 @@ class Web(object):
                                 else:
                                     valid = True
 
+                    basename = os.path.basename(local_path)
+                    if f.filename != basename:
+                        # Tell the GUI that the file has changed names
+                        self.add_request(Web.REQUEST_UPLOAD_FILE_RENAMED, request.path, {
+                            'id': request.upload_id,
+                            'old_filename': f.filename,
+                            'new_filename': basename
+                        })
+
                     self.common.log('Web', 'receive_routes', '/upload, uploaded {}, saving to {}'.format(f.filename, local_path))
                     print(strings._('receive_mode_received_file').format(local_path))
                     f.save(local_path)
@@ -360,7 +381,7 @@ class Web(object):
             if self.common.settings.get('receive_allow_receiver_shutdown'):
                 self.force_shutdown()
                 r = make_response(render_template('closed.html'))
-                self.add_request(self.REQUEST_CLOSE_SERVER, request.path)
+                self.add_request(Web.REQUEST_CLOSE_SERVER, request.path)
                 return self.add_security_headers(r)
             else:
                 return redirect('/{}'.format(slug_candidate))
@@ -397,14 +418,14 @@ class Web(object):
             return ""
 
     def error404(self):
-        self.add_request(self.REQUEST_OTHER, request.path)
+        self.add_request(Web.REQUEST_OTHER, request.path)
         if request.path != '/favicon.ico':
             self.error404_count += 1
 
             # In receive mode, with public mode enabled, skip rate limiting 404s
             if not (self.receive_mode and self.common.settings.get('receive_public_mode')):
                 if self.error404_count == 20:
-                    self.add_request(self.REQUEST_RATE_LIMIT, request.path)
+                    self.add_request(Web.REQUEST_RATE_LIMIT, request.path)
                     self.force_shutdown()
                     print(strings._('error_rate_limit'))
 
@@ -610,6 +631,7 @@ class ReceiveModeWSGIMiddleware(object):
         environ['web'] = self.web
         return self.app(environ, start_response)
 
+
 class ReceiveModeTemporaryFile(object):
     """
     A custom TemporaryFile that tells ReceiveModeRequest every time data gets
@@ -649,29 +671,45 @@ class ReceiveModeRequest(Request):
         self.web = environ['web']
 
         # A dictionary that maps filenames to the bytes uploaded so far
-        self.onionshare_progress = {}
+        self.progress = {}
+
+        # Is this a valid upload request?
+        self.upload_request = False
+        if self.method == 'POST':
+            if self.web.common.settings.get('receive_public_mode'):
+                if self.path == '/upload':
+                    self.upload_request = True
+            else:
+                if self.path == '/{}/upload'.format(self.web.slug):
+                    self.upload_request = True
+
+        # If this is an upload request, create an upload_id (attach it to the request)
+        self.upload_id = self.web.upload_count
+        self.web.upload_count += 1
+
+        # Tell the GUI
+        self.web.add_request(Web.REQUEST_STARTED, self.path, {
+            'id': self.upload_id
+        })
 
     def _get_file_stream(self, total_content_length, content_type, filename=None, content_length=None):
         """
         This gets called for each file that gets uploaded, and returns an file-like
         writable stream.
         """
-        # Each upload has a unique id. Now that the upload is starting, attach its
-        # upload_id to the request
-        self.upload_id = self.web.upload_count
-        self.web.upload_count += 1
-
-        # Tell GUI the upload started
-        self.web.add_request(self.web.REQUEST_STARTED, self.path, {
-            'id': self.upload_id
+        # Tell the GUI about the new file upload
+        self.web.add_request(Web.REQUEST_UPLOAD_NEW_FILE_STARTED, self.path, {
+            'id': self.upload_id,
+            'filename': filename,
+            'total_bytes': total_content_length
         })
 
-        self.onionshare_progress[filename] = {
+        self.progress[filename] = {
             'total_bytes': total_content_length,
             'uploaded_bytes': 0
         }
 
-        if len(self.onionshare_progress) > 0:
+        if len(self.progress) > 0:
             print('')
 
         return ReceiveModeTemporaryFile(filename, self.onionshare_update_func)
@@ -681,20 +719,20 @@ class ReceiveModeRequest(Request):
         When closing the request, print a newline if this was a file upload.
         """
         super(ReceiveModeRequest, self).close()
-        if len(self.onionshare_progress) > 0:
+        if len(self.progress) > 0:
             print('')
 
     def onionshare_update_func(self, filename, length):
         """
         Keep track of the bytes uploaded so far for all files.
         """
-        self.onionshare_progress[filename]['uploaded_bytes'] += length
-        uploaded = self.web.common.human_readable_filesize(self.onionshare_progress[filename]['uploaded_bytes'])
-        total = self.web.common.human_readable_filesize(self.onionshare_progress[filename]['total_bytes'])
+        self.progress[filename]['uploaded_bytes'] += length
+        uploaded = self.web.common.human_readable_filesize(self.progress[filename]['uploaded_bytes'])
+        total = self.web.common.human_readable_filesize(self.progress[filename]['total_bytes'])
         print('{}/{} - {}     '.format(uploaded, total, filename), end='\r')
 
-        # Update the GUI on the download progress
-        self.web.add_request(self.web.REQUEST_PROGRESS, self.path, {
+        # Update the GUI on the upload progress
+        self.web.add_request(Web.REQUEST_PROGRESS, self.path, {
             'id': self.upload_id,
-            'bytes': self.onionshare_progress[filename]['uploaded_bytes']
+            'progress': self.progress
         })
