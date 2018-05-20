@@ -692,12 +692,12 @@ class ReceiveModeRequest(Request):
         # Is this a valid upload request?
         self.upload_request = False
         if self.method == 'POST':
-            if self.web.common.settings.get('receive_public_mode'):
-                if self.path == '/upload':
-                    self.upload_request = True
+            if self.path == '/{}/upload'.format(self.web.slug):
+                self.upload_request = True
             else:
-                if self.path == '/{}/upload'.format(self.web.slug):
-                    self.upload_request = True
+                if self.web.common.settings.get('receive_public_mode'):
+                    if self.path == '/upload':
+                        self.upload_request = True
 
         if self.upload_request:
             # A dictionary that maps filenames to the bytes uploaded so far
