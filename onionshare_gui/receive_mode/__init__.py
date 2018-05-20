@@ -147,8 +147,6 @@ class ReceiveMode(Mode):
         """
         self.uploads.update(event["data"]["id"], event["data"]["progress"])
 
-        # TODO: not done yet
-
     def handle_request_close_server(self, event):
         """
         Handle REQUEST_CLOSE_SERVER event.
