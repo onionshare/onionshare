@@ -128,7 +128,8 @@ class Upload(QtWidgets.QWidget):
                 self.common.human_readable_filesize(total_uploaded_bytes),
                 estimated_time_remaining)
 
-        for filename in progress:
+        # Using list(progress) to avoid "RuntimeError: dictionary changed size during iteration"
+        for filename in list(progress):
             # Add a new file if needed
             if filename not in self.files:
                 self.files[filename] = File(self.common, filename)
