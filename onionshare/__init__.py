@@ -89,23 +89,6 @@ def main(cwd=None):
     # Debug mode?
     common.debug = debug
 
-    # In receive mode, validate downloads dir
-    if receive:
-        valid = True
-        try:
-            common.validate_downloads_dir()
-
-        except DownloadsDirErrorCannotCreate:
-            print(strings._('error_cannot_create_downloads_dir').format(common.settings.get('downloads_dir')))
-            valid = False
-
-        except DownloadsDirErrorNotWritable:
-            print(strings._('error_downloads_dir_not_writable').format(common.settings.get('downloads_dir')))
-            valid = False
-
-        if not valid:
-            sys.exit()
-
     # Create the Web object
     web = Web(common, False, receive)
 
