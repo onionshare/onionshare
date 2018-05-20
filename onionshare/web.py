@@ -288,9 +288,17 @@ class Web(object):
         def index_logic():
             self.add_request(Web.REQUEST_LOAD, request.path)
 
+            if self.common.settings.get('receive_public_mode'):
+                upload_action = '/upload'
+                close_action = '/close'
+            else:
+                upload_action = '/{}/upload'.format(self.slug)
+                close_action = '/{}/close'.format(self.slug)
+
             r = make_response(render_template(
                 'receive.html',
-                slug=self.slug,
+                upload_action=upload_action,
+                close_action=close_action,
                 receive_allow_receiver_shutdown=self.common.settings.get('receive_allow_receiver_shutdown')))
             return self.add_security_headers(r)
 
@@ -324,7 +332,10 @@ class Web(object):
                 valid = False
             if not valid:
                 flash('Error uploading, please inform the OnionShare user')
-                return redirect('/{}'.format(slug_candidate))
+                if self.common.settings.get('receive_public_mode'):
+                    return redirect('/')
+                else:
+                    return redirect('/{}'.format(slug_candidate))
 
             files = request.files.getlist('file[]')
             filenames = []
@@ -383,14 +394,17 @@ class Web(object):
                 for filename in filenames:
                     flash('Uploaded {}'.format(filename))
 
-            return redirect('/{}'.format(slug_candidate))
+            if self.common.settings.get('receive_public_mode'):
+                return redirect('/')
+            else:
+                return redirect('/{}'.format(slug_candidate))
 
         @self.app.route("/<slug_candidate>/upload", methods=['POST'])
         def upload(slug_candidate):
             self.check_slug_candidate(slug_candidate)
             return upload_logic(slug_candidate)
 
-        @self.app.route("/upload")
+        @self.app.route("/upload", methods=['POST'])
         def upload_public():
             if not self.common.settings.get('receive_public_mode'):
                 return self.error404()
@@ -411,7 +425,7 @@ class Web(object):
             self.check_slug_candidate(slug_candidate)
             return close_logic(slug_candidate)
 
-        @self.app.route("/upload")
+        @self.app.route("/close", methods=['POST'])
         def close_public():
             if not self.common.settings.get('receive_public_mode'):
                 return self.error404()
