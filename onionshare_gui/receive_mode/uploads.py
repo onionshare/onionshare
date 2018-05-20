@@ -63,6 +63,10 @@ class File(QtWidgets.QWidget):
         if complete:
             self.folder_button.show()
 
+    def rename(self, new_filename):
+        self.filename = new_filename
+        self.filename_label.setText(self.filename)
+
 
 class Upload(QtWidgets.QWidget):
     def __init__(self, common, upload_id, content_length):
@@ -137,6 +141,10 @@ class Upload(QtWidgets.QWidget):
 
             # Update the file
             self.files[filename].update(progress[filename]['uploaded_bytes'], progress[filename]['complete'])
+
+    def rename(self, old_filename, new_filename):
+        self.files[old_filename].rename(new_filename)
+        self.files[new_filename] = self.files.pop(old_filename)
 
     def finished(self):
         # Hide the progress bar
@@ -219,7 +227,12 @@ class Uploads(QtWidgets.QScrollArea):
         Update the progress of an upload.
         """
         self.uploads[upload_id].update(progress)
-        #self.adjustSize()
+
+    def rename(self, upload_id, old_filename, new_filename):
+        """
+        Rename a file, which happens if the filename already exists in downloads_dir.
+        """
+        self.uploads[upload_id].rename(old_filename, new_filename)
 
     def finished(self, upload_id):
         """
