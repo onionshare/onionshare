@@ -52,11 +52,10 @@ class Web(object):
     REQUEST_CANCELED = 4
     REQUEST_RATE_LIMIT = 5
     REQUEST_CLOSE_SERVER = 6
-    REQUEST_UPLOAD_NEW_FILE_STARTED = 7
-    REQUEST_UPLOAD_FILE_RENAMED = 8
-    REQUEST_UPLOAD_FINISHED = 9
-    REQUEST_ERROR_DOWNLOADS_DIR_CANNOT_CREATE = 10
-    REQUEST_ERROR_DOWNLOADS_DIR_NOT_WRITABLE = 11
+    REQUEST_UPLOAD_FILE_RENAMED = 7
+    REQUEST_UPLOAD_FINISHED = 8
+    REQUEST_ERROR_DOWNLOADS_DIR_CANNOT_CREATE = 9
+    REQUEST_ERROR_DOWNLOADS_DIR_NOT_WRITABLE = 10
 
     def __init__(self, common, gui_mode, receive_mode=False):
         self.common = common
@@ -740,13 +739,6 @@ class ReceiveModeRequest(Request):
         writable stream.
         """
         if self.upload_request:
-            # Tell the GUI about the new file upload
-            self.web.add_request(Web.REQUEST_UPLOAD_NEW_FILE_STARTED, self.path, {
-                'id': self.upload_id,
-                'filename': filename,
-                'total_bytes': total_content_length
-            })
-
             self.progress[filename] = {
                 'uploaded_bytes': 0,
                 'complete': False

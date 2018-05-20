@@ -156,12 +156,6 @@ class ReceiveMode(Mode):
         self.stop_server()
         self.system_tray.showMessage(strings._('systray_close_server_title', True), strings._('systray_close_server_message', True))
 
-    def handle_request_upload_new_file_started(self, event):
-        """
-        Handle REQUEST_UPLOAD_NEW_FILE_STARTED event.
-        """
-        pass
-
     def handle_request_upload_file_renamed(self, event):
         """
         Handle REQUEST_UPLOAD_FILE_RENAMED event.

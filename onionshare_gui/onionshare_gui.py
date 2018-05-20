@@ -387,9 +387,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
             elif event["type"] == Web.REQUEST_CLOSE_SERVER:
                 mode.handle_request_close_server(event)
 
-            elif event["type"] == Web.REQUEST_UPLOAD_NEW_FILE_STARTED:
-                mode.handle_request_upload_new_file_started(event)
-
             elif event["type"] == Web.REQUEST_UPLOAD_FILE_RENAMED:
                 mode.handle_request_upload_file_renamed(event)
 
