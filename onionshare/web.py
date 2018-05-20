@@ -707,9 +707,16 @@ class ReceiveModeRequest(Request):
             self.upload_id = self.web.upload_count
             self.web.upload_count += 1
 
+            # Figure out the content length
+            try:
+                self.content_length = int(self.headers['Content-Length'])
+            except:
+                self.content_length = 0
+
             # Tell the GUI
             self.web.add_request(Web.REQUEST_STARTED, self.path, {
-                'id': self.upload_id
+                'id': self.upload_id,
+                'content_length': self.content_length
             })
 
     def _get_file_stream(self, total_content_length, content_type, filename=None, content_length=None):
@@ -726,8 +733,8 @@ class ReceiveModeRequest(Request):
             })
 
             self.progress[filename] = {
-                'total_bytes': total_content_length,
-                'uploaded_bytes': 0
+                'uploaded_bytes': 0,
+                'complete': False
             }
 
             if len(self.progress) > 0:
@@ -749,10 +756,14 @@ class ReceiveModeRequest(Request):
         Keep track of the bytes uploaded so far for all files.
         """
         if self.upload_request:
-            self.progress[filename]['uploaded_bytes'] += length
+            # The final write, when upload is complete, length will be 0
+            if length == 0:
+                self.progress[filename]['complete'] = True
+            else:
+                self.progress[filename]['uploaded_bytes'] += length
+
             uploaded = self.web.common.human_readable_filesize(self.progress[filename]['uploaded_bytes'])
-            total = self.web.common.human_readable_filesize(self.progress[filename]['total_bytes'])
-            print('{}/{} - {}     '.format(uploaded, total, filename), end='\r')
+            print('{} - {}     '.format(uploaded, filename), end='\r')
 
             # Update the GUI on the upload progress
             self.web.add_request(Web.REQUEST_PROGRESS, self.path, {

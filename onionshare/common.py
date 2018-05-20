@@ -322,6 +322,19 @@ class Common(object):
                     font-size: 11px;
                 }""",
 
+            # Recieve mode and child widget styles
+            'receive_file': """
+                QWidget {
+                    background-color: #ffffff;
+                }
+                """,
+
+            'receive_file_size': """
+                QLabel {
+                    color: #666666;
+                    font-size: 11px;
+                }""",
+
             # Settings dialog
             'settings_version': """
                 QLabel {
