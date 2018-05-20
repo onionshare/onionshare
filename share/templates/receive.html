@@ -17,7 +17,7 @@
         <p><img class="logo" src="/static/img/logo_large.png" title="OnionShare"></p>
         <p class="upload-header">Send Files</p>
         <p class="upload-description">Select the files you want to send, then click "Send Files"...</p>
-        <form method="post" enctype="multipart/form-data" action="/{{ slug }}/upload">
+        <form method="post" enctype="multipart/form-data" action="{{ upload_action }}">
            <p><input type="file" name="file[]" multiple /></p>
            <p><input type="submit" class="button" value="Send Files" /></p>
            <div>
@@ -35,7 +35,7 @@
       </div>
     </div>
     {% if receive_allow_receiver_shutdown %}
-    <form method="post" action="/{{ slug }}/close">
+    <form method="post" action="{{ close_action }}">
       <input type="submit" class="close-button" value="I'm Finished Uploading" />
     </form>
     {% endif %}
