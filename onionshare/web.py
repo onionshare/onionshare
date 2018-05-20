@@ -670,16 +670,17 @@ class ReceiveModeTemporaryFile(object):
     A custom TemporaryFile that tells ReceiveModeRequest every time data gets
     written to it, in order to track the progress of uploads.
     """
-    def __init__(self, filename, update_func):
+    def __init__(self, filename, write_func, close_func):
         self.onionshare_filename = filename
-        self.onionshare_update_func = update_func
+        self.onionshare_write_func = write_func
+        self.onionshare_close_func = close_func
 
         # Create a temporary file
         self.f = tempfile.TemporaryFile('wb+')
 
         # Make all the file-like methods and attributes actually access the
         # TemporaryFile, except for write
-        attrs = ['close', 'closed', 'detach', 'fileno', 'flush', 'isatty', 'mode',
+        attrs = ['closed', 'detach', 'fileno', 'flush', 'isatty', 'mode',
                  'name', 'peek', 'raw', 'read', 'read1', 'readable', 'readinto',
                  'readinto1', 'readline', 'readlines', 'seek', 'seekable', 'tell',
                  'truncate', 'writable', 'writelines']
@@ -688,10 +689,17 @@ class ReceiveModeTemporaryFile(object):
 
     def write(self, b):
         """
-        Custom write method that calls out to onionshare_update_func
+        Custom write method that calls out to onionshare_write_func
         """
         bytes_written = self.f.write(b)
-        self.onionshare_update_func(self.onionshare_filename, bytes_written)
+        self.onionshare_write_func(self.onionshare_filename, bytes_written)
+
+    def close(self):
+        """
+        Custom close method that calls out to onionshare_close_func
+        """
+        self.f.close()
+        self.onionshare_close_func(self.onionshare_filename)
 
 
 class ReceiveModeRequest(Request):
@@ -747,7 +755,7 @@ class ReceiveModeRequest(Request):
             if len(self.progress) > 0:
                 print('')
 
-        return ReceiveModeTemporaryFile(filename, self.onionshare_update_func)
+        return ReceiveModeTemporaryFile(filename, self.file_write_func, self.file_close_func)
 
     def close(self):
         """
@@ -763,16 +771,12 @@ class ReceiveModeRequest(Request):
             if len(self.progress) > 0:
                 print('')
 
-    def onionshare_update_func(self, filename, length):
+    def file_write_func(self, filename, length):
         """
-        Keep track of the bytes uploaded so far for all files.
+        This function gets called when a specific file is written to.
         """
         if self.upload_request:
-            # The final write, when upload is complete, length will be 0
-            if length == 0:
-                self.progress[filename]['complete'] = True
-            else:
-                self.progress[filename]['uploaded_bytes'] += length
+            self.progress[filename]['uploaded_bytes'] += length
 
             uploaded = self.web.common.human_readable_filesize(self.progress[filename]['uploaded_bytes'])
             print('{} - {}     '.format(uploaded, filename), end='\r')
@@ -782,3 +786,9 @@ class ReceiveModeRequest(Request):
                 'id': self.upload_id,
                 'progress': self.progress
             })
+
+    def file_close_func(self, filename):
+        """
+        This function gets called when a specific file is closed.
+        """
+        self.progress[filename]['complete'] = True
