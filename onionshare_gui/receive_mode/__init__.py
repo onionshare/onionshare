@@ -160,7 +160,7 @@ class ReceiveMode(Mode):
         """
         Handle REQUEST_UPLOAD_FILE_RENAMED event.
         """
-        pass
+        self.uploads.rename(event["data"]["id"], event["data"]["old_filename"], event["data"]["new_filename"])
 
     def handle_request_upload_finished(self, event):
         """
