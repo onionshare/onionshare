@@ -17,18 +17,23 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
+import os
+import subprocess
 from datetime import datetime
 from PyQt5 import QtCore, QtWidgets, QtGui
 
 from onionshare import strings
+from ..widgets import Alert
 
 
 class File(QtWidgets.QWidget):
     def __init__(self, common, filename):
         super(File, self).__init__()
         self.common = common
-        self.filename = filename
 
+        self.common.log('File', '__init__', 'filename: {}'.format(filename))
+
+        self.filename = filename
         self.started = datetime.now()
 
         # Filename label
@@ -43,6 +48,7 @@ class File(QtWidgets.QWidget):
         folder_pixmap = QtGui.QPixmap.fromImage(QtGui.QImage(self.common.get_resource_path('images/open_folder.png')))
         folder_icon = QtGui.QIcon(folder_pixmap)
         self.folder_button = QtWidgets.QPushButton()
+        self.folder_button.clicked.connect(self.open_folder)
         self.folder_button.setIcon(folder_icon)
         self.folder_button.setIconSize(folder_pixmap.rect().size())
         self.folder_button.setFlat(True)
@@ -66,6 +72,34 @@ class File(QtWidgets.QWidget):
     def rename(self, new_filename):
         self.filename = new_filename
         self.filename_label.setText(self.filename)
+
+    def open_folder(self):
+        """
+        Open the downloads folder, with the file selected, in a cross-platform manner
+        """
+        self.common.log('File', 'open_folder')
+
+        abs_filename = os.path.join(self.common.settings.get('downloads_dir'), self.filename)
+
+        # Linux
+        if self.common.platform == 'Linux' or self.common.platform == 'BSD':
+            try:
+                # If nautilus is available, open it
+                subprocess.Popen(['nautilus', abs_filename])
+            except:
+                Alert(self.common, strings._('gui_open_folder_error_nautilus').format(abs_filename))
+
+        # macOS
+        elif self.common.platform == 'Darwin':
+            # TODO: Implement opening folder with file selected in macOS
+            # This seems helpful: https://stackoverflow.com/questions/3520493/python-show-in-finder
+            self.common.log('File', 'open_folder', 'not implemented for Darwin yet')
+
+        # Windows
+        elif self.common.platform == 'Windows':
+            # TODO: Implement opening folder with file selected in Windows
+            # This seems helpful: https://stackoverflow.com/questions/6631299/python-opening-a-folder-in-explorer-nautilus-mac-thingie
+            self.common.log('File', 'open_folder', 'not implemented for Windows yet')
 
 
 class Upload(QtWidgets.QWidget):
