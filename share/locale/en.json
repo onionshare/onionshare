@@ -192,5 +192,6 @@
     "gui_uploads_window_tooltip": "Show/hide uploads",
     "gui_no_uploads": "No uploads yet.",
     "gui_upload_in_progress": "Upload Started {}",
-    "gui_upload_finished": "Uploaded {} to {}"
+    "gui_upload_finished_range": "Uploaded {} to {}",
+    "gui_upload_finished": "Uploaded {}"
 }

@@ -168,6 +168,12 @@ class ReceiveMode(Mode):
         """
         pass
 
+    def handle_request_upload_finished(self, event):
+        """
+        Handle REQUEST_UPLOAD_FINISHED event.
+        """
+        self.uploads.finished(event["data"]["id"])
+
     def reset_info_counters(self):
         """
         Set the info counters back to zero.

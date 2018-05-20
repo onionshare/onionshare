@@ -54,8 +54,9 @@ class Web(object):
     REQUEST_CLOSE_SERVER = 6
     REQUEST_UPLOAD_NEW_FILE_STARTED = 7
     REQUEST_UPLOAD_FILE_RENAMED = 8
-    REQUEST_ERROR_DOWNLOADS_DIR_CANNOT_CREATE = 9
-    REQUEST_ERROR_DOWNLOADS_DIR_NOT_WRITABLE = 10
+    REQUEST_UPLOAD_FINISHED = 9
+    REQUEST_ERROR_DOWNLOADS_DIR_CANNOT_CREATE = 10
+    REQUEST_ERROR_DOWNLOADS_DIR_NOT_WRITABLE = 11
 
     def __init__(self, common, gui_mode, receive_mode=False):
         self.common = common
@@ -748,6 +749,11 @@ class ReceiveModeRequest(Request):
         """
         super(ReceiveModeRequest, self).close()
         if self.upload_request:
+            # Inform the GUI that the upload has finished
+            self.web.add_request(Web.REQUEST_UPLOAD_FINISHED, self.path, {
+                'id': self.upload_id
+            })
+
             if len(self.progress) > 0:
                 print('')
 

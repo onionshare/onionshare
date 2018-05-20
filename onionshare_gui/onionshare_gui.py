@@ -393,6 +393,9 @@ class OnionShareGui(QtWidgets.QMainWindow):
             elif event["type"] == Web.REQUEST_UPLOAD_FILE_RENAMED:
                 mode.handle_request_upload_file_renamed(event)
 
+            elif event["type"] == Web.REQUEST_UPLOAD_FINISHED:
+                mode.handle_request_upload_finished(event)
+
             if event["type"] == Web.REQUEST_ERROR_DOWNLOADS_DIR_CANNOT_CREATE:
                 Alert(self.common, strings._('error_cannot_create_downloads_dir').format(self.common.settings.get('downloads_dir')))
 

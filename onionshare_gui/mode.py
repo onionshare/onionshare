@@ -335,3 +335,9 @@ class Mode(QtWidgets.QWidget):
         Handle REQUEST_UPLOAD_FILE_RENAMED event.
         """
         pass
+
+    def handle_request_upload_finished(self, event):
+        """
+        Handle REQUEST_UPLOAD_FINISHED event.
+        """
+        pass
