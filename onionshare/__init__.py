@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import os, sys, time, argparse, threading
 
 from . import strings
-from .common import Common
+from .common import Common, DownloadsDirErrorCannotCreate, DownloadsDirErrorNotWritable
 from .web import Web
 from .onion import *
 from .onionshare import OnionShare
@@ -92,17 +92,19 @@ def main(cwd=None):
     # In receive mode, validate downloads dir
     if receive:
         valid = True
-        if not os.path.isdir(common.settings.get('downloads_dir')):
-            try:
-                os.mkdir(common.settings.get('downloads_dir'), 0o700)
-            except:
-                print(strings._('error_cannot_create_downloads_dir').format(common.settings.get('downloads_dir')))
-                valid = False
-        if valid and not os.access(common.settings.get('downloads_dir'), os.W_OK):
+        try:
+            common.validate_downloads_dir()
+
+        except DownloadsDirErrorCannotCreate:
+            print(strings._('error_cannot_create_downloads_dir').format(common.settings.get('downloads_dir')))
+            valid = False
+
+        except DownloadsDirErrorNotWritable:
             print(strings._('error_downloads_dir_not_writable').format(common.settings.get('downloads_dir')))
             valid = False
-    if not valid:
-        sys.exit()
+
+        if not valid:
+            sys.exit()
 
     # Create the Web object
     web = Web(common, False, receive)
