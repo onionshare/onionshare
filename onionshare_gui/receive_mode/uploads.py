@@ -111,28 +111,22 @@ class Upload(QtWidgets.QWidget):
         for filename in progress:
             total_uploaded_bytes += progress[filename]['uploaded_bytes']
 
-        if total_uploaded_bytes == self.content_length:
-            # Hide the progress bar, show the folder button
-            self.progress_bar.hide()
-            self.folder_button.show()
+        # Update the progress bar
+        self.progress_bar.setMaximum(self.content_length)
+        self.progress_bar.setValue(total_uploaded_bytes)
 
+        elapsed = datetime.now() - self.started
+        if elapsed.seconds < 10:
+            pb_fmt = strings._('gui_download_upload_progress_starting').format(
+                self.common.human_readable_filesize(total_uploaded_bytes))
         else:
-            # Update the progress bar
-            self.progress_bar.setMaximum(self.content_length)
-            self.progress_bar.setValue(total_uploaded_bytes)
-
-            elapsed = datetime.now() - self.started
-            if elapsed.seconds < 10:
-                pb_fmt = strings._('gui_download_upload_progress_starting').format(
-                    self.common.human_readable_filesize(total_uploaded_bytes))
-            else:
-                estimated_time_remaining = self.common.estimated_time_remaining(
-                    total_uploaded_bytes,
-                    self.content_length,
-                    started.timestamp())
-                pb_fmt = strings._('gui_download_upload_progress_eta').format(
-                    self.common.human_readable_filesize(total_uploaded_bytes),
-                    estimated_time_remaining)
+            estimated_time_remaining = self.common.estimated_time_remaining(
+                total_uploaded_bytes,
+                self.content_length,
+                self.started.timestamp())
+            pb_fmt = strings._('gui_download_upload_progress_eta').format(
+                self.common.human_readable_filesize(total_uploaded_bytes),
+                estimated_time_remaining)
 
         for filename in progress:
             # Add a new file if needed
@@ -142,6 +136,29 @@ class Upload(QtWidgets.QWidget):
 
             # Update the file
             self.files[filename].update(progress[filename]['uploaded_bytes'], progress[filename]['complete'])
+
+    def finished(self):
+        # Hide the progress bar
+        self.progress_bar.hide()
+
+        # Change the label
+        self.ended = self.started = datetime.now()
+        if self.started.year == self.ended.year and self.started.month == self.ended.month and self.started.day == self.ended.day:
+            if self.started.hour == self.ended.hour and self.started.minute == self.ended.minute:
+                text = strings._('gui_upload_finished', True).format(
+                    self.started.strftime("%b %d, %I:%M%p")
+                )
+            else:
+                text = strings._('gui_upload_finished_range', True).format(
+                    self.started.strftime("%b %d, %I:%M%p"),
+                    self.ended.strftime("%I:%M%p")
+                )
+        else:
+            text = strings._('gui_upload_finished_range', True).format(
+                self.started.strftime("%b %d, %I:%M%p"),
+                self.ended.strftime("%b %d, %I:%M%p")
+            )
+        self.label.setText(text)
 
 
 class Uploads(QtWidgets.QScrollArea):
@@ -198,10 +215,16 @@ class Uploads(QtWidgets.QScrollArea):
 
     def update(self, upload_id, progress):
         """
-        Update the progress of an upload progress bar.
+        Update the progress of an upload.
         """
         self.uploads[upload_id].update(progress)
-        self.adjustSize()
+        #self.adjustSize()
+
+    def finished(self, upload_id):
+        """
+        An upload has finished.
+        """
+        self.uploads[upload_id].finished()
 
     def cancel(self, upload_id):
         """
