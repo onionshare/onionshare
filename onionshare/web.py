@@ -39,6 +39,7 @@ from flask import (
 from werkzeug.utils import secure_filename
 
 from . import strings
+from .common import DownloadsDirErrorCannotCreate, DownloadsDirErrorNotWritable
 
 class Web(object):
     """
@@ -53,6 +54,8 @@ class Web(object):
     REQUEST_CLOSE_SERVER = 6
     REQUEST_UPLOAD_NEW_FILE_STARTED = 7
     REQUEST_UPLOAD_FILE_RENAMED = 8
+    REQUEST_ERROR_DOWNLOADS_DIR_CANNOT_CREATE = 9
+    REQUEST_ERROR_DOWNLOADS_DIR_NOT_WRITABLE = 10
 
     def __init__(self, common, gui_mode, receive_mode=False):
         self.common = common
@@ -306,6 +309,22 @@ class Web(object):
             """
             Upload files.
             """
+            # Make sure downloads_dir exists
+            valid = True
+            try:
+                self.common.validate_downloads_dir()
+            except DownloadsDirErrorCannotCreate:
+                self.add_request(Web.REQUEST_ERROR_DOWNLOADS_DIR_CANNOT_CREATE, request.path)
+                print(strings._('error_cannot_create_downloads_dir').format(self.common.settings.get('downloads_dir')))
+                valid = False
+            except DownloadsDirErrorNotWritable:
+                self.add_request(Web.REQUEST_ERROR_DOWNLOADS_DIR_NOT_WRITABLE, request.path)
+                print(strings._('error_downloads_dir_not_writable').format(self.common.settings.get('downloads_dir')))
+                valid = False
+            if not valid:
+                flash('Error uploading, please inform the OnionShare user')
+                return redirect('/{}'.format(slug_candidate))
+
             files = request.files.getlist('file[]')
             filenames = []
             for f in files:
