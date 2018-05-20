@@ -32,7 +32,48 @@ class File(QtWidgets.QWidget):
         self.started = datetime.now()
 
         # Filename label
-        self.label = QtWidgets.QLabel(self.filename)
+        self.filename_label = QtWidgets.QLabel(self.filename)
+
+        # File size label
+        self.filesize_label = QtWidgets.QLabel()
+        self.filesize_label.setStyleSheet(self.common.css['receive_file_size'])
+        self.filesize_label.hide()
+
+        # Folder button
+        folder_pixmap = QtGui.QPixmap.fromImage(QtGui.QImage(self.common.get_resource_path('images/open_folder.png')))
+        folder_icon = QtGui.QIcon(folder_pixmap)
+        self.folder_button = QtWidgets.QPushButton()
+        self.folder_button.setIcon(folder_icon)
+        self.folder_button.setIconSize(folder_pixmap.rect().size())
+        self.folder_button.setFlat(True)
+        self.folder_button.hide()
+
+        # Layouts
+        layout = QtWidgets.QHBoxLayout()
+        layout.addWidget(self.filename_label)
+        layout.addWidget(self.filesize_label)
+        layout.addStretch()
+        layout.addWidget(self.folder_button)
+        self.setLayout(layout)
+
+    def update(self, uploaded_bytes, complete):
+        self.filesize_label.setText(self.common.human_readable_filesize(uploaded_bytes))
+        self.filesize_label.show()
+
+        if complete:
+            self.folder_button.show()
+
+
+class Upload(QtWidgets.QWidget):
+    def __init__(self, common, upload_id, content_length):
+        super(Upload, self).__init__()
+        self.common = common
+        self.upload_id = upload_id
+        self.content_length = content_length
+        self.started = datetime.now()
+
+        # Label
+        self.label = QtWidgets.QLabel(strings._('gui_upload_in_progress', True).format(self.started.strftime("%b %d, %I:%M%p")))
 
         # Progress bar
         self.progress_bar = QtWidgets.QProgressBar()
@@ -43,79 +84,64 @@ class File(QtWidgets.QWidget):
         self.progress_bar.setValue(0)
         self.progress_bar.setStyleSheet(self.common.css['downloads_uploads_progress_bar'])
 
-        # Folder button
-        self.folder_button = QtWidgets.QPushButton("open folder")
-        self.folder_button.hide()
+        # This layout contains file widgets
+        self.files_layout = QtWidgets.QVBoxLayout()
+        self.files_layout.setContentsMargins(0, 0, 0, 0)
+        files_widget = QtWidgets.QWidget()
+        files_widget.setStyleSheet(self.common.css['receive_file'])
+        files_widget.setLayout(self.files_layout)
 
-        # Layouts
-        info_layout = QtWidgets.QVBoxLayout()
-        info_layout.addWidget(self.label)
-        info_layout.addWidget(self.progress_bar)
-
-        # The horizontal layout has info to the left, folder button to the right
-        layout = QtWidgets.QHBoxLayout()
-        layout.addLayout(info_layout)
-        layout.addWidget(self.folder_button)
+        # Layout
+        layout = QtWidgets.QVBoxLayout()
+        layout.addWidget(self.label)
+        layout.addWidget(self.progress_bar)
+        layout.addWidget(files_widget)
+        layout.addStretch()
         self.setLayout(layout)
-
-    def update(self, total_bytes, uploaded_bytes):
-        print('total_bytes: {}, uploaded_bytes: {}'.format(total_bytes, uploaded_bytes))
-        if total_bytes == uploaded_bytes:
-            # Hide the progress bar, show the folder button
-            self.progress_bar.hide()
-            self.folder_button.show()
-
-        else:
-            # Update the progress bar
-            self.progress_bar.setMaximum(total_bytes)
-            self.progress_bar.setValue(uploaded_bytes)
-
-            elapsed = datetime.now() - self.started
-            if elapsed.seconds < 10:
-                pb_fmt = strings._('gui_download_upload_progress_starting').format(
-                    self.common.human_readable_filesize(uploaded_bytes))
-            else:
-                estimated_time_remaining = self.common.estimated_time_remaining(
-                    uploaded_bytes,
-                    total_bytes,
-                    started.timestamp())
-                pb_fmt = strings._('gui_download_upload_progress_eta').format(
-                    self.common.human_readable_filesize(uploaded_bytes),
-                    estimated_time_remaining)
-
-
-class Upload(QtWidgets.QGroupBox):
-    def __init__(self, common, upload_id):
-        super(Upload, self).__init__()
-        self.common = common
-
-        self.upload_id = upload_id
-        self.started = datetime.now()
-        self.uploaded_bytes = 0
-
-        # Set the title of the title of the group box based on the start time
-        self.setTitle(strings._('gui_upload_in_progress', True).format(self.started.strftime("%b %m, %I:%M%p")))
-
-        # The layout contains file widgets
-        self.layout = QtWidgets.QVBoxLayout()
-        self.setLayout(self.layout)
 
         # We're also making a dictionary of file widgets, to make them easier to access
         self.files = {}
 
     def update(self, progress):
         """
-        Using the progress from Web, make sure all the file progress bars exist,
-        and update their progress
+        Using the progress from Web, update the progress bar and file size labels
+        for each file
         """
+        total_uploaded_bytes = 0
+        for filename in progress:
+            total_uploaded_bytes += progress[filename]['uploaded_bytes']
+
+        if total_uploaded_bytes == self.content_length:
+            # Hide the progress bar, show the folder button
+            self.progress_bar.hide()
+            self.folder_button.show()
+
+        else:
+            # Update the progress bar
+            self.progress_bar.setMaximum(self.content_length)
+            self.progress_bar.setValue(total_uploaded_bytes)
+
+            elapsed = datetime.now() - self.started
+            if elapsed.seconds < 10:
+                pb_fmt = strings._('gui_download_upload_progress_starting').format(
+                    self.common.human_readable_filesize(total_uploaded_bytes))
+            else:
+                estimated_time_remaining = self.common.estimated_time_remaining(
+                    total_uploaded_bytes,
+                    self.content_length,
+                    started.timestamp())
+                pb_fmt = strings._('gui_download_upload_progress_eta').format(
+                    self.common.human_readable_filesize(total_uploaded_bytes),
+                    estimated_time_remaining)
+
         for filename in progress:
             # Add a new file if needed
             if filename not in self.files:
                 self.files[filename] = File(self.common, filename)
-                self.layout.addWidget(self.files[filename])
+                self.files_layout.addWidget(self.files[filename])
 
             # Update the file
-            self.files[filename].update(progress[filename]['total_bytes'], progress[filename]['uploaded_bytes'])
+            self.files[filename].update(progress[filename]['uploaded_bytes'], progress[filename]['complete'])
 
 
 class Uploads(QtWidgets.QScrollArea):
@@ -154,16 +180,16 @@ class Uploads(QtWidgets.QScrollArea):
         widget.setLayout(layout)
         self.setWidget(widget)
 
-    def add(self, upload_id):
+    def add(self, upload_id, content_length):
         """
         Add a new upload.
         """
-        self.common.log('Uploads', 'add', 'upload_id: {}'.format(upload_id))
+        self.common.log('Uploads', 'add', 'upload_id: {}, content_length: {}'.format(upload_id, content_length))
         # Hide the no_uploads_label
         self.no_uploads_label.hide()
 
         # Add it to the list
-        upload = Upload(self.common, upload_id)
+        upload = Upload(self.common, upload_id, content_length)
         self.uploads[upload_id] = upload
         self.uploads_layout.addWidget(upload)
 
