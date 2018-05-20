@@ -31,6 +31,7 @@ import re
 import io
 from distutils.version import LooseVersion as Version
 from urllib.request import urlopen
+from datetime import datetime
 
 from flask import (
     Flask, Response, Request, request, render_template, abort, make_response,
@@ -338,6 +339,7 @@ class Web(object):
 
             files = request.files.getlist('file[]')
             filenames = []
+            print('')
             for f in files:
                 if f.filename != '':
                     # Automatically rename the file, if a file of the same name already exists
@@ -735,11 +737,18 @@ class ReceiveModeRequest(Request):
             except:
                 self.content_length = 0
 
+            print("{}: {}".format(
+                datetime.now().strftime("%b %d, %I:%M%p"),
+                strings._("receive_mode_upload_starting").format(self.web.common.human_readable_filesize(self.content_length))
+            ))
+
             # Tell the GUI
             self.web.add_request(Web.REQUEST_STARTED, self.path, {
                 'id': self.upload_id,
                 'content_length': self.content_length
             })
+
+            self.previous_file = None
 
     def _get_file_stream(self, total_content_length, content_type, filename=None, content_length=None):
         """
@@ -752,14 +761,11 @@ class ReceiveModeRequest(Request):
                 'complete': False
             }
 
-            if len(self.progress) > 0:
-                print('')
-
         return ReceiveModeTemporaryFile(filename, self.file_write_func, self.file_close_func)
 
     def close(self):
         """
-        When closing the request, print a newline if this was a file upload.
+        Closing the request.
         """
         super(ReceiveModeRequest, self).close()
         if self.upload_request:
@@ -768,9 +774,6 @@ class ReceiveModeRequest(Request):
                 'id': self.upload_id
             })
 
-            if len(self.progress) > 0:
-                print('')
-
     def file_write_func(self, filename, length):
         """
         This function gets called when a specific file is written to.
@@ -778,8 +781,15 @@ class ReceiveModeRequest(Request):
         if self.upload_request:
             self.progress[filename]['uploaded_bytes'] += length
 
-            uploaded = self.web.common.human_readable_filesize(self.progress[filename]['uploaded_bytes'])
-            print('{} - {}     '.format(uploaded, filename), end='\r')
+            if self.previous_file != filename:
+                if self.previous_file is not None:
+                    print('')
+                self.previous_file = filename
+
+            print('\r=> {:15s} {}'.format(
+                self.web.common.human_readable_filesize(self.progress[filename]['uploaded_bytes']),
+                filename
+            ), end='')
 
             # Update the GUI on the upload progress
             self.web.add_request(Web.REQUEST_PROGRESS, self.path, {
