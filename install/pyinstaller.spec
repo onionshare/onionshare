@@ -21,7 +21,9 @@ a = Analysis(
         ('../share/images/*', 'share/images'),
         ('../share/locale/*', 'share/locale'),
         ('../share/templates/*', 'share/templates'),
-        ('../share/static/*', 'share/static')
+        ('../share/static/css/*', 'share/static/css'),
+        ('../share/static/img/*', 'share/static/img'),
+        ('../share/static/js/*', 'share/static/js')
     ],
     hiddenimports=[],
     hookspath=[],
