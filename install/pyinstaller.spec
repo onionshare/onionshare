@@ -10,7 +10,6 @@ a = Analysis(
     pathex=['.'],
     binaries=None,
     datas=[
-        ('../share/license.txt', 'share'),
         ('../share/version.txt', 'share'),
         ('../share/wordlist.txt', 'share'),
         ('../share/torrc_template', 'share'),
