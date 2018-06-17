@@ -19,7 +19,8 @@ a = Analysis(
         ('../share/torrc_template-windows', 'share'),
         ('../share/images/*', 'share/images'),
         ('../share/locale/*', 'share/locale'),
-        ('../share/html/*', 'share/html')
+        ('../share/html/*', 'share/html'),
+        ('../install/licenses/*', 'licenses')
     ],
     hiddenimports=[],
     hookspath=[],
