@@ -1,7 +1,5 @@
 OnionShare
-
-Copyright © 2018
-  Micah Lee <micah@micahflee.com>
+Copyright © 2018 Micah Lee <micah@micahflee.com>
 
                     GNU GENERAL PUBLIC LICENSE
                        Version 3, 29 June 2007
