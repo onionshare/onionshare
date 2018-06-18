@@ -39,7 +39,7 @@ ${EndIf}
     !echo "Creating normal installer"
     !system "makensis.exe /DINNER onionshare.nsi" = 0
     !system "$%TEMP%\tempinstaller.exe" = 2
-    !system "signtool.exe sign /v /d $\"Uninstall OnionShare$\" /a /tr http://time.certum.pl/ /fd sha256 $%TEMP%\uninstall.exe" = 0
+    !system "signtool.exe sign /v /d $\"Uninstall OnionShare$\" /a /tr http://time.certum.pl/ $%TEMP%\uninstall.exe" = 0
 
     # all done, now we can build the real installer
     OutFile "..\dist\onionshare-setup.exe"
