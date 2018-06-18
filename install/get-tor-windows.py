@@ -24,8 +24,13 @@ In order to avoid a Windows gnupg dependency, I manually verify the signature
 and hard-code the sha256 hash.
 """
 
-import inspect, os, sys, hashlib, shutil, subprocess
-import urllib.request
+import inspect
+import os
+import sys
+import hashlib
+import shutil
+import subprocess
+import requests
 
 def main():
     exe_url = 'https://archive.torproject.org/tor-package-archive/torbrowser/7.5.5/torbrowser-install-7.5.5_en-US.exe'
@@ -44,10 +49,9 @@ def main():
     # Make sure the zip is downloaded
     if not os.path.exists(exe_path):
         print("Downloading {}".format(exe_url))
-        response = urllib.request.urlopen(exe_url)
-        exe_data = response.read()
-        open(exe_path, 'wb').write(exe_data)
-        exe_sha256 = hashlib.sha256(exe_data).hexdigest()
+        r = requests.get(exe_url)
+        open(exe_path, 'wb').write(r.content)
+        exe_sha256 = hashlib.sha256(r.content).hexdigest()
     else:
         exe_data = open(exe_path, 'rb').read()
         exe_sha256 = hashlib.sha256(exe_data).hexdigest()
