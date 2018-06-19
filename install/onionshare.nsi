@@ -6,7 +6,7 @@
 !define INSTALLSIZE 66537
 !define VERSIONMAJOR 1
 !define VERSIONMINOR 3
-!define VERSIONSTRING "1.3"
+!define VERSIONSTRING "1.3.1"
 
 RequestExecutionLevel admin
 
@@ -39,7 +39,7 @@ ${EndIf}
     !echo "Creating normal installer"
     !system "makensis.exe /DINNER onionshare.nsi" = 0
     !system "$%TEMP%\tempinstaller.exe" = 2
-    !system "signtool.exe sign /v /d $\"Uninstall OnionShare$\" /a /tr http://time.certum.pl/ /fd sha256 $%TEMP%\uninstall.exe" = 0
+    !system "signtool.exe sign /v /d $\"Uninstall OnionShare$\" /a /tr http://time.certum.pl/ $%TEMP%\uninstall.exe" = 0
 
     # all done, now we can build the real installer
     OutFile "..\dist\onionshare-setup.exe"
@@ -162,6 +162,12 @@ Section "install"
     SetOutPath "$INSTDIR\lib2to3\tests\data"
     File "${BINPATH}\lib2to3\tests\data\README"
 
+    SetOutPath "$INSTDIR\licenses"
+    File "${BINPATH}\licenses\license-obfs4.txt"
+    File "${BINPATH}\licenses\license-onionshare.txt"
+    File "${BINPATH}\licenses\license-tor.txt"
+    File "${BINPATH}\licenses\readme.txt"
+
     SetOutPath "$INSTDIR\PyQt5\Qt\bin"
     File "${BINPATH}\PyQt5\Qt\bin\qt.conf"
 
@@ -188,7 +194,6 @@ Section "install"
     File "${BINPATH}\PyQt5\Qt\plugins\printsupport\windowsprintersupport.dll"
 
     SetOutPath "$INSTDIR\share"
-    File "${BINPATH}\share\license.txt"
     File "${BINPATH}\share\torrc_template"
     File "${BINPATH}\share\torrc_template-windows"
     File "${BINPATH}\share\torrc_template-obfs4"
@@ -353,6 +358,10 @@ FunctionEnd
         Delete "$INSTDIR\lib2to3\tests"
         Delete "$INSTDIR\lib2to3\tests\data"
         Delete "$INSTDIR\lib2to3\tests\data\README"
+        Delete "$INSTDIR\licenses\license-obfs4.txt"
+        Delete "$INSTDIR\licenses\license-onionshare.txt"
+        Delete "$INSTDIR\licenses\license-tor.txt"
+        Delete "$INSTDIR\licenses\readme.txt"
         Delete "$INSTDIR\mfc140u.dll"
         Delete "$INSTDIR\MSVCP140.dll"
         Delete "$INSTDIR\onionshare-gui.exe"
@@ -409,7 +418,6 @@ FunctionEnd
         Delete "$INSTDIR\share\images\settings.png"
         Delete "$INSTDIR\share\images\web_file.png"
         Delete "$INSTDIR\share\images\web_folder.png"
-        Delete "$INSTDIR\share\license.txt"
         Delete "$INSTDIR\share\locale\cs.json"
         Delete "$INSTDIR\share\locale\de.json"
         Delete "$INSTDIR\share\locale\en.json"
@@ -470,6 +478,7 @@ FunctionEnd
         rmDir "$INSTDIR\lib2to3\tests\data"
         rmDir "$INSTDIR\lib2to3\tests"
         rmDir "$INSTDIR\lib2to3"
+        rmDir "$INSTDIR\licenses"
         rmDir "$INSTDIR\PyQt5\Qt\bin"
         rmDir "$INSTDIR\PyQt5\Qt\plugins\iconengines"
         rmDir "$INSTDIR\PyQt5\Qt\plugins\imageformats"
