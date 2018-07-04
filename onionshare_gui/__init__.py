@@ -36,7 +36,7 @@ class Application(QtWidgets.QApplication):
     """
     def __init__(self):
         system = common.get_platform()
-        if system == 'Linux' or system == 'BSD':
+        if system == 'Linux' or platform.system().endswith('BSD'):
             self.setAttribute(QtCore.Qt.AA_X11InitThreads, True)
         QtWidgets.QApplication.__init__(self, sys.argv)
         self.installEventFilter(self)
