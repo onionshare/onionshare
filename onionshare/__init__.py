@@ -2,7 +2,7 @@
 """
 OnionShare | https://onionshare.org/
 
-Copyright (C) 2017 Micah Lee <micah@micahflee.com>
+Copyright (C) 2018 Micah Lee <micah@micahflee.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -20,21 +20,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import os, sys, time, argparse, threading
 
-from . import strings, common, web
+from . import strings
+from .common import Common
+from .web import Web
 from .onion import *
 from .onionshare import OnionShare
-from .settings import Settings
 
 def main(cwd=None):
     """
     The main() function implements all of the logic that the command-line version of
     onionshare uses.
     """
+    common = Common()
+
     strings.load_strings(common)
-    print(strings._('version_string').format(common.get_version()))
+    print(strings._('version_string').format(common.version))
 
     # OnionShare CLI in OSX needs to change current working directory (#132)
-    if common.get_platform() == 'Darwin':
+    if common.platform == 'Darwin':
         if cwd:
             os.chdir(cwd)
 
@@ -44,9 +47,10 @@ def main(cwd=None):
     parser.add_argument('--stay-open', action='store_true', dest='stay_open', help=strings._("help_stay_open"))
     parser.add_argument('--shutdown-timeout', metavar='<int>', dest='shutdown_timeout', default=0, help=strings._("help_shutdown_timeout"))
     parser.add_argument('--stealth', action='store_true', dest='stealth', help=strings._("help_stealth"))
-    parser.add_argument('--debug', action='store_true', dest='debug', help=strings._("help_debug"))
+    parser.add_argument('--receive', action='store_true', dest='receive', help=strings._("help_receive"))
     parser.add_argument('--config', metavar='config', default=False, help=strings._('help_config'))
-    parser.add_argument('filename', metavar='filename', nargs='+', help=strings._('help_filename'))
+    parser.add_argument('--debug', action='store_true', dest='debug', help=strings._("help_debug"))
+    parser.add_argument('filename', metavar='filename', nargs='*', help=strings._('help_filename'))
     args = parser.parse_args()
 
     filenames = args.filename
@@ -58,32 +62,55 @@ def main(cwd=None):
     stay_open = bool(args.stay_open)
     shutdown_timeout = int(args.shutdown_timeout)
     stealth = bool(args.stealth)
+    receive = bool(args.receive)
     config = args.config
 
-    # Debug mode?
-    if debug:
-        common.set_debug(debug)
-        web.debug_mode()
+    # Make sure filenames given if not using receiver mode
+    if not receive and len(filenames) == 0:
+        print(strings._('no_filenames'))
+        sys.exit()
 
-    # Validation
-    valid = True
-    for filename in filenames:
-        if not os.path.isfile(filename) and not os.path.isdir(filename):
-            print(strings._("not_a_file").format(filename))
-            valid = False
-        if not os.access(filename, os.R_OK):
-            print(strings._("not_a_readable_file").format(filename))
+    # Validate filenames
+    if not receive:
+        valid = True
+        for filename in filenames:
+            if not os.path.isfile(filename) and not os.path.isdir(filename):
+                print(strings._("not_a_file").format(filename))
+                valid = False
+            if not os.access(filename, os.R_OK):
+                print(strings._("not_a_readable_file").format(filename))
+                valid = False
+        if not valid:
+            sys.exit()
+
+    # Load settings
+    common.load_settings(config)
+
+    # Debug mode?
+    common.debug = debug
+
+    # In receive mode, validate downloads dir
+    if receive:
+        valid = True
+        if not os.path.isdir(common.settings.get('downloads_dir')):
+            try:
+                os.mkdir(common.settings.get('downloads_dir'), 0o700)
+            except:
+                print(strings._('error_cannot_create_downloads_dir').format(common.settings.get('downloads_dir')))
+                valid = False
+        if valid and not os.access(common.settings.get('downloads_dir'), os.W_OK):
+            print(strings._('error_downloads_dir_not_writable').format(common.settings.get('downloads_dir')))
             valid = False
     if not valid:
         sys.exit()
 
-
-    settings = Settings(config)
+    # Create the Web object
+    web = Web(common, stay_open, False, receive)
 
     # Start the Onion object
-    onion = Onion()
+    onion = Onion(common)
     try:
-        onion.connect(settings=False, config=config)
+        onion.connect(custom_settings=False, config=config)
     except (TorTooOld, TorErrorInvalidSetting, TorErrorAutomatic, TorErrorSocketPort, TorErrorSocketFile, TorErrorMissingPassword, TorErrorUnreadableCookieFile, TorErrorAuthError, TorErrorProtocolError, BundledTorNotSupported, BundledTorTimeout) as e:
         sys.exit(e.args[0])
     except KeyboardInterrupt:
@@ -92,7 +119,7 @@ def main(cwd=None):
 
     # Start the onionshare app
     try:
-        app = OnionShare(onion, local_only, stay_open, shutdown_timeout)
+        app = OnionShare(common, onion, local_only, stay_open, shutdown_timeout)
         app.set_stealth(stealth)
         app.start_onion_service()
     except KeyboardInterrupt:
@@ -115,8 +142,7 @@ def main(cwd=None):
         print('')
 
     # Start OnionShare http service in new thread
-    settings.load()
-    t = threading.Thread(target=web.start, args=(app.port, app.stay_open, settings.get('slug')))
+    t = threading.Thread(target=web.start, args=(app.port, app.stay_open, common.settings.get('slug')))
     t.daemon = True
     t.start()
 
@@ -129,18 +155,33 @@ def main(cwd=None):
             app.shutdown_timer.start()
 
         # Save the web slug if we are using a persistent private key
-        if settings.get('save_private_key'):
-            if not settings.get('slug'):
-                settings.set('slug', web.slug)
-                settings.save()
+        if common.settings.get('save_private_key'):
+            if not common.settings.get('slug'):
+                common.settings.set('slug', web.slug)
+                common.settings.save()
 
-        if(stealth):
-            print(strings._("give_this_url_stealth"))
-            print('http://{0:s}/{1:s}'.format(app.onion_host, web.slug))
-            print(app.auth_string)
+        print('')
+        if receive:
+            print(strings._('receive_mode_downloads_dir').format(common.settings.get('downloads_dir')))
+            print('')
+            print(strings._('receive_mode_warning'))
+            print('')
+
+            if stealth:
+                print(strings._("give_this_url_receive_stealth"))
+                print('http://{0:s}/{1:s}'.format(app.onion_host, web.slug))
+                print(app.auth_string)
+            else:
+                print(strings._("give_this_url_receive"))
+                print('http://{0:s}/{1:s}'.format(app.onion_host, web.slug))
         else:
-            print(strings._("give_this_url"))
-            print('http://{0:s}/{1:s}'.format(app.onion_host, web.slug))
+            if stealth:
+                print(strings._("give_this_url_stealth"))
+                print('http://{0:s}/{1:s}'.format(app.onion_host, web.slug))
+                print(app.auth_string)
+            else:
+                print(strings._("give_this_url"))
+                print('http://{0:s}/{1:s}'.format(app.onion_host, web.slug))
         print('')
         print(strings._("ctrlc_to_stop"))
 

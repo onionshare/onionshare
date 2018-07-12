@@ -1,7 +1,7 @@
 """
 OnionShare | https://onionshare.org/
 
-Copyright (C) 2017 Micah Lee <micah@micahflee.com>
+Copyright (C) 2018 Micah Lee <micah@micahflee.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -22,6 +22,7 @@ import os
 import pytest
 
 from onionshare import OnionShare
+from onionshare.common import Common
 
 
 class MyOnion:
@@ -37,7 +38,8 @@ class MyOnion:
 
 @pytest.fixture
 def onionshare_obj():
-    return OnionShare(MyOnion())
+    common = Common()
+    return OnionShare(common, MyOnion())
 
 
 class TestOnionShare:

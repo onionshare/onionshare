@@ -1,7 +1,7 @@
 """
 OnionShare | https://onionshare.org/
 
-Copyright (C) 2017 Micah Lee <micah@micahflee.com>
+Copyright (C) 2018 Micah Lee <micah@micahflee.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -29,15 +29,14 @@ import zipfile
 
 import pytest
 
-from onionshare import common
-
-DEFAULT_ZW_FILENAME_REGEX = re.compile(r'^onionshare_[a-z2-7]{6}.zip$')
 LOG_MSG_REGEX = re.compile(r"""
     ^\[Jun\ 06\ 2013\ 11:05:00\]
     \ TestModule\.<function\ TestLog\.test_output\.<locals>\.dummy_func
     \ at\ 0x[a-f0-9]+>(:\ TEST_MSG)?$""", re.VERBOSE)
-RANDOM_STR_REGEX = re.compile(r'^[a-z2-7]+$')
 SLUG_REGEX = re.compile(r'^([a-z]+)(-[a-z]+)?-([a-z]+)(-[a-z]+)?$')
+
+
+# TODO: Improve the Common tests to test it all as a single class
 
 
 class TestBuildSlug:
@@ -79,17 +78,17 @@ class TestBuildSlug:
 
         assert bool(SLUG_REGEX.match(test_input)) == expected
 
-    def test_build_slug_unique(self, sys_onionshare_dev_mode):
-        assert common.build_slug() != common.build_slug()
+    def test_build_slug_unique(self, common_obj, sys_onionshare_dev_mode):
+        assert common_obj.build_slug() != common_obj.build_slug()
 
 
 class TestDirSize:
-    def test_temp_dir_size(self, temp_dir_1024_delete):
+    def test_temp_dir_size(self, common_obj, temp_dir_1024_delete):
         """ dir_size() should return the total size (in bytes) of all files
         in a particular directory.
         """
 
-        assert common.dir_size(temp_dir_1024_delete) == 1024
+        assert common_obj.dir_size(temp_dir_1024_delete) == 1024
 
 
 class TestEstimatedTimeRemaining:
@@ -103,16 +102,16 @@ class TestEstimatedTimeRemaining:
         ((971, 1009, 83), '1s')
     ))
     def test_estimated_time_remaining(
-            self, test_input, expected, time_time_100):
-        assert common.estimated_time_remaining(*test_input) == expected
+            self, common_obj, test_input, expected, time_time_100):
+        assert common_obj.estimated_time_remaining(*test_input) == expected
 
     @pytest.mark.parametrize('test_input', (
         (10, 20, 100),  # if `time_elapsed == 0`
         (0, 37, 99)     # if `download_rate == 0`
     ))
-    def test_raises_zero_division_error(self, test_input, time_time_100):
+    def test_raises_zero_division_error(self, common_obj, test_input, time_time_100):
         with pytest.raises(ZeroDivisionError):
-            common.estimated_time_remaining(*test_input)
+            common_obj.estimated_time_remaining(*test_input)
 
 
 class TestFormatSeconds:
@@ -131,16 +130,16 @@ class TestFormatSeconds:
         (129674, '1d12h1m14s'),
         (56404.12, '15h40m4s')
     ))
-    def test_format_seconds(self, test_input, expected):
-        assert common.format_seconds(test_input) == expected
+    def test_format_seconds(self, common_obj, test_input, expected):
+        assert common_obj.format_seconds(test_input) == expected
 
     # TODO: test negative numbers?
     @pytest.mark.parametrize('test_input', (
         'string', lambda: None, [], {}, set()
     ))
-    def test_invalid_input_types(self, test_input):
+    def test_invalid_input_types(self, common_obj, test_input):
         with pytest.raises(TypeError):
-            common.format_seconds(test_input)
+            common_obj.format_seconds(test_input)
 
 
 class TestGetAvailablePort:
@@ -148,29 +147,29 @@ class TestGetAvailablePort:
         (random.randint(1024, 1500),
          random.randint(1800, 2048)) for _ in range(50)
     ))
-    def test_returns_an_open_port(self, port_min, port_max):
+    def test_returns_an_open_port(self, common_obj, port_min, port_max):
         """ get_available_port() should return an open port within the range """
 
-        port = common.get_available_port(port_min, port_max)
+        port = common_obj.get_available_port(port_min, port_max)
         assert port_min <= port <= port_max
         with socket.socket() as tmpsock:
             tmpsock.bind(('127.0.0.1', port))
 
 
 class TestGetPlatform:
-    def test_darwin(self, platform_darwin):
-        assert common.get_platform() == 'Darwin'
+    def test_darwin(self, platform_darwin, common_obj):
+        assert common_obj.platform == 'Darwin'
 
-    def test_linux(self, platform_linux):
-        assert common.get_platform() == 'Linux'
+    def test_linux(self, platform_linux, common_obj):
+        assert common_obj.platform == 'Linux'
 
-    def test_windows(self, platform_windows):
-        assert common.get_platform() == 'Windows'
+    def test_windows(self, platform_windows, common_obj):
+        assert common_obj.platform == 'Windows'
 
 
 # TODO: double-check these tests
 class TestGetResourcePath:
-    def test_onionshare_dev_mode(self, sys_onionshare_dev_mode):
+    def test_onionshare_dev_mode(self, common_obj, sys_onionshare_dev_mode):
         prefix = os.path.join(
             os.path.dirname(
                 os.path.dirname(
@@ -178,29 +177,29 @@ class TestGetResourcePath:
                         inspect.getfile(
                             inspect.currentframe())))), 'share')
         assert (
-            common.get_resource_path(os.path.join(prefix, 'test_filename')) ==
+            common_obj.get_resource_path(os.path.join(prefix, 'test_filename')) ==
             os.path.join(prefix, 'test_filename'))
 
-    def test_linux(self, platform_linux, sys_argv_sys_prefix):
+    def test_linux(self, common_obj, platform_linux, sys_argv_sys_prefix):
         prefix = os.path.join(sys.prefix, 'share/onionshare')
         assert (
-            common.get_resource_path(os.path.join(prefix, 'test_filename')) ==
+            common_obj.get_resource_path(os.path.join(prefix, 'test_filename')) ==
             os.path.join(prefix, 'test_filename'))
 
-    def test_frozen_darwin(self, platform_darwin, sys_frozen, sys_meipass):
+    def test_frozen_darwin(self, common_obj, platform_darwin, sys_frozen, sys_meipass):
         prefix = os.path.join(sys._MEIPASS, 'share')
         assert (
-            common.get_resource_path(os.path.join(prefix, 'test_filename')) ==
+            common_obj.get_resource_path(os.path.join(prefix, 'test_filename')) ==
             os.path.join(prefix, 'test_filename'))
 
 
 class TestGetTorPaths:
     # @pytest.mark.skipif(sys.platform != 'Darwin', reason='requires MacOS') ?
-    def test_get_tor_paths_darwin(self, platform_darwin, sys_frozen, sys_meipass):
+    def test_get_tor_paths_darwin(self, platform_darwin, common_obj, sys_frozen, sys_meipass):
         base_path = os.path.dirname(
             os.path.dirname(
                 os.path.dirname(
-                    common.get_resource_path(''))))
+                    common_obj.get_resource_path(''))))
         tor_path = os.path.join(
             base_path, 'Resources', 'Tor', 'tor')
         tor_geo_ip_file_path = os.path.join(
@@ -209,20 +208,20 @@ class TestGetTorPaths:
             base_path, 'Resources', 'Tor', 'geoip6')
         obfs4proxy_file_path = os.path.join(
             base_path, 'Resources', 'Tor', 'obfs4proxy')
-        assert (common.get_tor_paths() ==
+        assert (common_obj.get_tor_paths() ==
                 (tor_path, tor_geo_ip_file_path, tor_geo_ipv6_file_path, obfs4proxy_file_path))
 
     # @pytest.mark.skipif(sys.platform != 'Linux', reason='requires Linux') ?
-    def test_get_tor_paths_linux(self, platform_linux):
-        assert (common.get_tor_paths() ==
+    def test_get_tor_paths_linux(self, platform_linux, common_obj):
+        assert (common_obj.get_tor_paths() ==
                 ('/usr/bin/tor', '/usr/share/tor/geoip', '/usr/share/tor/geoip6', '/usr/bin/obfs4proxy'))
 
     # @pytest.mark.skipif(sys.platform != 'Windows', reason='requires Windows') ?
-    def test_get_tor_paths_windows(self, platform_windows, sys_frozen):
+    def test_get_tor_paths_windows(self, platform_windows, common_obj, sys_frozen):
         base_path = os.path.join(
             os.path.dirname(
                 os.path.dirname(
-                    common.get_resource_path(''))), 'tor')
+                    common_obj.get_resource_path(''))), 'tor')
         tor_path = os.path.join(
             os.path.join(base_path, 'Tor'), 'tor.exe')
         obfs4proxy_file_path = os.path.join(
@@ -233,16 +232,8 @@ class TestGetTorPaths:
         tor_geo_ipv6_file_path = os.path.join(
             os.path.join(
                 os.path.join(base_path, 'Data'), 'Tor'), 'geoip6')
-        assert (common.get_tor_paths() ==
+        assert (common_obj.get_tor_paths() ==
                 (tor_path, tor_geo_ip_file_path, tor_geo_ipv6_file_path, obfs4proxy_file_path))
-
-
-class TestGetVersion:
-    def test_get_version(self, sys_onionshare_dev_mode):
-        with open(common.get_resource_path('version.txt')) as f:
-            version = f.read().strip()
-
-        assert version == common.get_version()
 
 
 class TestHumanReadableFilesize:
@@ -257,8 +248,8 @@ class TestHumanReadableFilesize:
         (1024 ** 7, '1.0 ZiB'),
         (1024 ** 8, '1.0 YiB')
     ))
-    def test_human_readable_filesize(self, test_input, expected):
-        assert common.human_readable_filesize(test_input) == expected
+    def test_human_readable_filesize(self, common_obj, test_input, expected):
+        assert common_obj.human_readable_filesize(test_input) == expected
 
 
 class TestLog:
@@ -273,82 +264,18 @@ class TestLog:
     def test_log_msg_regex(self, test_input):
         assert bool(LOG_MSG_REGEX.match(test_input))
 
-    def test_output(self, set_debug_true, time_strftime):
+    def test_output(self, common_obj, time_strftime):
         def dummy_func():
             pass
 
+        common_obj.debug = True
+
         # From: https://stackoverflow.com/questions/1218933
         with io.StringIO() as buf, contextlib.redirect_stdout(buf):
-            common.log('TestModule', dummy_func)
-            common.log('TestModule', dummy_func, 'TEST_MSG')
+            common_obj.log('TestModule', dummy_func)
+            common_obj.log('TestModule', dummy_func, 'TEST_MSG')
             output = buf.getvalue()
 
         line_one, line_two, _ = output.split('\n')
         assert LOG_MSG_REGEX.match(line_one)
         assert LOG_MSG_REGEX.match(line_two)
-
-
-class TestSetDebug:
-    def test_debug_true(self, set_debug_false):
-        common.set_debug(True)
-        assert common.debug is True
-
-    def test_debug_false(self, set_debug_true):
-        common.set_debug(False)
-        assert common.debug is False
-
-
-class TestZipWriterDefault:
-    @pytest.mark.parametrize('test_input', (
-        'onionshare_{}.zip'.format(''.join(
-            random.choice('abcdefghijklmnopqrstuvwxyz234567') for _ in range(6)
-        )) for _ in range(50)
-    ))
-    def test_default_zw_filename_regex(self, test_input):
-        assert bool(DEFAULT_ZW_FILENAME_REGEX.match(test_input))
-
-    def test_zw_filename(self, default_zw):
-        zw_filename = os.path.basename(default_zw.zip_filename)
-        assert bool(DEFAULT_ZW_FILENAME_REGEX.match(zw_filename))
-
-    def test_zipfile_filename_matches_zipwriter_filename(self, default_zw):
-        assert default_zw.z.filename == default_zw.zip_filename
-
-    def test_zipfile_allow_zip64(self, default_zw):
-        assert default_zw.z._allowZip64 is True
-
-    def test_zipfile_mode(self, default_zw):
-        assert default_zw.z.mode == 'w'
-
-    def test_callback(self, default_zw):
-        assert default_zw.processed_size_callback(None) is None
-
-    def test_add_file(self, default_zw, temp_file_1024_delete):
-        default_zw.add_file(temp_file_1024_delete)
-        zipfile_info = default_zw.z.getinfo(
-            os.path.basename(temp_file_1024_delete))
-
-        assert zipfile_info.compress_type == zipfile.ZIP_DEFLATED
-        assert zipfile_info.file_size == 1024
-
-    def test_add_directory(self, temp_dir_1024_delete, default_zw):
-        previous_size = default_zw._size  # size before adding directory
-        default_zw.add_dir(temp_dir_1024_delete)
-        assert default_zw._size == previous_size + 1024
-
-
-class TestZipWriterCustom:
-    @pytest.mark.parametrize('test_input', (
-        common.random_string(
-            random.randint(2, 50),
-            random.choice((None, random.randint(2, 50)))
-        ) for _ in range(50)
-    ))
-    def test_random_string_regex(self, test_input):
-        assert bool(RANDOM_STR_REGEX.match(test_input))
-
-    def test_custom_filename(self, custom_zw):
-        assert bool(RANDOM_STR_REGEX.match(custom_zw.zip_filename))
-
-    def test_custom_callback(self, custom_zw):
-        assert custom_zw.processed_size_callback(None) == 'custom_callback'
