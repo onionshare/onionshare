@@ -8,7 +8,7 @@ import tempfile
 
 import pytest
 
-from onionshare import common
+from onionshare import common, web
 
 @pytest.fixture
 def temp_dir_1024():
@@ -64,8 +64,9 @@ def temp_file_1024_delete():
 # pytest > 2.9 only needs @pytest.fixture
 @pytest.yield_fixture(scope='session')
 def custom_zw():
-    zw = common.ZipWriter(
-        zip_filename=common.random_string(4, 6),
+    zw = web.ZipWriter(
+        common.Common(),
+        zip_filename=common.Common.random_string(4, 6),
         processed_size_callback=lambda _: 'custom_callback'
     )
     yield zw
@@ -76,7 +77,7 @@ def custom_zw():
 # pytest > 2.9 only needs @pytest.fixture
 @pytest.yield_fixture(scope='session')
 def default_zw():
-    zw = common.ZipWriter()
+    zw = web.ZipWriter(common.Common())
     yield zw
     zw.close()
     tmp_dir = os.path.dirname(zw.zip_filename)
@@ -119,16 +120,6 @@ def platform_windows(monkeypatch):
 
 
 @pytest.fixture
-def set_debug_false(monkeypatch):
-    monkeypatch.setattr('onionshare.common.debug', False)
-
-
-@pytest.fixture
-def set_debug_true(monkeypatch):
-    monkeypatch.setattr('onionshare.common.debug', True)
-
-
-@pytest.fixture
 def sys_argv_sys_prefix(monkeypatch):
     monkeypatch.setattr('sys.argv', [sys.prefix])
 
@@ -157,3 +148,7 @@ def time_time_100(monkeypatch):
 @pytest.fixture
 def time_strftime(monkeypatch):
     monkeypatch.setattr('time.strftime', lambda _: 'Jun 06 2013 11:05:00')
+
+@pytest.fixture
+def common_obj():
+    return common.Common()

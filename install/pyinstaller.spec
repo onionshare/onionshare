@@ -10,7 +10,6 @@ a = Analysis(
     pathex=['.'],
     binaries=None,
     datas=[
-        ('../share/license.txt', 'share'),
         ('../share/version.txt', 'share'),
         ('../share/wordlist.txt', 'share'),
         ('../share/torrc_template', 'share'),
@@ -20,7 +19,9 @@ a = Analysis(
         ('../share/torrc_template-windows', 'share'),
         ('../share/images/*', 'share/images'),
         ('../share/locale/*', 'share/locale'),
-        ('../share/html/*', 'share/html')
+        ('../share/static/*', 'share/static'),
+        ('../share/templates/*', 'share/templates'),
+        ('../install/licenses/*', 'licenses')
     ],
     hiddenimports=[],
     hookspath=[],

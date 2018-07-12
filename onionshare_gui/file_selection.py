@@ -2,7 +2,7 @@
 """
 OnionShare | https://onionshare.org/
 
-Copyright (C) 2017 Micah Lee <micah@micahflee.com>
+Copyright (C) 2018 Micah Lee <micah@micahflee.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -21,21 +21,24 @@ import os
 from PyQt5 import QtCore, QtWidgets, QtGui
 from .alert import Alert
 
-from onionshare import strings, common
+from onionshare import strings
 
 class DropHereLabel(QtWidgets.QLabel):
     """
     When there are no files or folders in the FileList yet, display the
     'drop files here' message and graphic.
     """
-    def __init__(self, parent, image=False):
+    def __init__(self, common, parent, image=False):
         self.parent = parent
         super(DropHereLabel, self).__init__(parent=parent)
+
+        self.common = common
+
         self.setAcceptDrops(True)
         self.setAlignment(QtCore.Qt.AlignCenter)
 
         if image:
-            self.setPixmap(QtGui.QPixmap.fromImage(QtGui.QImage(common.get_resource_path('images/logo_transparent.png'))))
+            self.setPixmap(QtGui.QPixmap.fromImage(QtGui.QImage(self.common.get_resource_path('images/logo_transparent.png'))))
         else:
             self.setText(strings._('gui_drag_and_drop', True))
             self.setStyleSheet('color: #999999;')
@@ -53,9 +56,12 @@ class DropCountLabel(QtWidgets.QLabel):
     While dragging files over the FileList, this counter displays the
     number of files you're dragging.
     """
-    def __init__(self, parent):
+    def __init__(self, common, parent):
         self.parent = parent
         super(DropCountLabel, self).__init__(parent=parent)
+
+        self.common = common
+
         self.setAcceptDrops(True)
         self.setAlignment(QtCore.Qt.AlignCenter)
         self.setText(strings._('gui_drag_and_drop', True))
@@ -74,16 +80,19 @@ class FileList(QtWidgets.QListWidget):
     files_dropped = QtCore.pyqtSignal()
     files_updated = QtCore.pyqtSignal()
 
-    def __init__(self, parent=None):
+    def __init__(self, common, parent=None):
         super(FileList, self).__init__(parent)
+
+        self.common = common
+
         self.setAcceptDrops(True)
         self.setIconSize(QtCore.QSize(32, 32))
         self.setSortingEnabled(True)
         self.setMinimumHeight(205)
         self.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
-        self.drop_here_image = DropHereLabel(self, True)
-        self.drop_here_text = DropHereLabel(self, False)
-        self.drop_count = DropCountLabel(self)
+        self.drop_here_image = DropHereLabel(self.common, self, True)
+        self.drop_here_text = DropHereLabel(self.common, self, False)
+        self.drop_count = DropCountLabel(self.common, self)
         self.resizeEvent(None)
         self.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
 
@@ -206,7 +215,7 @@ class FileList(QtWidgets.QListWidget):
 
         if filename not in filenames:
             if not os.access(filename, os.R_OK):
-                Alert(strings._("not_a_readable_file", True).format(filename))
+                Alert(self.common, strings._("not_a_readable_file", True).format(filename))
                 return
 
             fileinfo = QtCore.QFileInfo(filename)
@@ -215,10 +224,10 @@ class FileList(QtWidgets.QListWidget):
 
             if os.path.isfile(filename):
                 size_bytes = fileinfo.size()
-                size_readable = common.human_readable_filesize(size_bytes)
+                size_readable = self.common.human_readable_filesize(size_bytes)
             else:
-                size_bytes = common.dir_size(filename)
-                size_readable = common.human_readable_filesize(size_bytes)
+                size_bytes = self.common.dir_size(filename)
+                size_readable = self.common.human_readable_filesize(size_bytes)
 
             # Create a new item
             item = QtWidgets.QListWidgetItem()
@@ -245,7 +254,7 @@ class FileList(QtWidgets.QListWidget):
             item.item_button = QtWidgets.QPushButton()
             item.item_button.setDefault(False)
             item.item_button.setFlat(True)
-            item.item_button.setIcon( QtGui.QIcon(common.get_resource_path('images/file_delete.png')) )
+            item.item_button.setIcon( QtGui.QIcon(self.common.get_resource_path('images/file_delete.png')) )
             item.item_button.clicked.connect(delete_item)
             item.item_button.setSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
 
@@ -277,12 +286,15 @@ class FileSelection(QtWidgets.QVBoxLayout):
     The list of files and folders in the GUI, as well as buttons to add and
     delete the files and folders.
     """
-    def __init__(self):
+    def __init__(self, common):
         super(FileSelection, self).__init__()
+
+        self.common = common
+
         self.server_on = False
 
         # File list
-        self.file_list = FileList()
+        self.file_list = FileList(self.common)
         self.file_list.itemSelectionChanged.connect(self.update)
         self.file_list.files_dropped.connect(self.update)
         self.file_list.files_updated.connect(self.update)
