@@ -308,6 +308,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
                     if not self.timer.isActive():
                         self.timer.start(500)
                     self.share_mode.on_reload_settings()
+                    self.receive_mode.on_reload_settings()
                     self.status_bar.clearMessage()
 
             # If we switched off the shutdown timeout setting, ensure the widget is hidden.
@@ -351,6 +352,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
                 self.system_tray.showMessage(strings._('gui_tor_connection_lost', True), strings._('gui_tor_connection_error_settings', True))
 
                 self.share_mode.handle_tor_broke()
+                self.receive_mode.handle_tor_broke()
 
         # Process events from the web object
         if self.mode == self.MODE_SHARE:
