@@ -35,9 +35,13 @@
       </div>
     </div>
     {% if receive_allow_receiver_shutdown %}
-    <form method="post" action="{{ close_action }}">
-      <input type="submit" class="close-button" value="I'm Finished Sending" />
-    </form>
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <form method="post" action="{{ close_action }}">
+            <input type="submit" class="close-button" value="I'm Finished Sending" />
+          </form>
+        {% endif %}
+      {% endwith %}
     {% endif %}
   </body>
 </html>
