@@ -13,7 +13,11 @@
         <div class="right">
             <ul>
                 <li>Total size: <strong>{{ filesize_human }}</strong> (compressed)</li>
+		{% if slug %}
                 <li><a class="button" href='/{{ slug }}/download'>Download Files</a></li>
+		{% else %}
+		<li><a class="button" href='/download'>Download Files</a></li>
+                {% endif %}
             </ul>
         </div>
         <img class="logo" src="/static/img/logo.png" title="OnionShare">
