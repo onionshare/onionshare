@@ -105,8 +105,6 @@
     "gui_settings_tor_bridges_no_bridges_radio_option": "Don't use bridges",
     "gui_settings_tor_bridges_obfs4_radio_option": "Use built-in obfs4 pluggable transports",
     "gui_settings_tor_bridges_obfs4_radio_option_no_obfs4proxy": "Use built-in obfs4 pluggable transports (requires obfs4proxy)",
-    "gui_settings_tor_bridges_meek_lite_amazon_radio_option": "Use built-in meek_lite (Amazon) pluggable transports",
-    "gui_settings_tor_bridges_meek_lite_amazon_radio_option_no_obfs4proxy": "Use built-in meek_lite (Amazon) pluggable transports (requires obfs4proxy)",
     "gui_settings_tor_bridges_meek_lite_azure_radio_option": "Use built-in meek_lite (Azure) pluggable transports",
     "gui_settings_tor_bridges_meek_lite_azure_radio_option_no_obfs4proxy": "Use built-in meek_lite (Azure) pluggable transports (requires obfs4proxy)",
     "gui_settings_meek_lite_expensive_warning": "Warning: the meek_lite bridges are very costly for the Tor Project to run!<br><br>You should only use meek_lite bridges if you are having trouble connecting to Tor directly, via obfs4 transports or other normal bridges.",

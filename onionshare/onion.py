@@ -210,11 +210,6 @@ class Onion(object):
                     with open(self.common.get_resource_path('torrc_template-obfs4')) as o:
                         for line in o:
                             f.write(line)
-                elif self.settings.get('tor_bridges_use_meek_lite_amazon'):
-                    f.write('ClientTransportPlugin meek_lite exec {}\n'.format(self.obfs4proxy_file_path))
-                    with open(self.common.get_resource_path('torrc_template-meek_lite_amazon')) as o:
-                        for line in o:
-                            f.write(line)
                 elif self.settings.get('tor_bridges_use_meek_lite_azure'):
                     f.write('ClientTransportPlugin meek_lite exec {}\n'.format(self.obfs4proxy_file_path))
                     with open(self.common.get_resource_path('torrc_template-meek_lite_azure')) as o:
@@ -281,7 +276,6 @@ class Onion(object):
                 # If using bridges, it might take a bit longer to connect to Tor
                 if self.settings.get('tor_bridges_use_custom_bridges') or \
                    self.settings.get('tor_bridges_use_obfs4') or \
-                   self.settings.get('tor_bridges_use_meek_lite_amazon') or \
                    self.settings.get('tor_bridges_use_meek_lite_azure'):
                     connect_timeout = 150
                 else:
