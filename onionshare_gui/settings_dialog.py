@@ -503,7 +503,7 @@ class SettingsDialog(QtWidgets.QDialog):
             self.tor_bridges_use_custom_textbox_options.hide()
             # Alert the user about meek's costliness if it looks like they're turning it on
             if not self.old_settings.get('tor_bridges_use_meek_lite_amazon'):
-                Alert(strings._('gui_settings_meek_lite_expensive_warning', True), QtWidgets.QMessageBox.Warning)
+                Alert(self.common, strings._('gui_settings_meek_lite_expensive_warning', True), QtWidgets.QMessageBox.Warning)
 
     def tor_bridges_use_meek_lite_azure_radio_toggled(self, checked):
         """
@@ -513,7 +513,7 @@ class SettingsDialog(QtWidgets.QDialog):
             self.tor_bridges_use_custom_textbox_options.hide()
             # Alert the user about meek's costliness if it looks like they're turning it on
             if not self.old_settings.get('tor_bridges_use_meek_lite_azure'):
-                Alert(strings._('gui_settings_meek_lite_expensive_warning', True), QtWidgets.QMessageBox.Warning)
+                Alert(self.common, strings._('gui_settings_meek_lite_expensive_warning', True), QtWidgets.QMessageBox.Warning)
 
     def tor_bridges_use_custom_radio_toggled(self, checked):
         """
