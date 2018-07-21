@@ -144,13 +144,14 @@ class Mode(QtWidgets.QWidget):
             self.app.choose_port()
 
             # Start http service in new thread
-            t = threading.Thread(target=self.web.start, args=(self.app.port, not self.common.settings.get('close_after_first_download'), self.common.settings.get('slug')))
+            t = threading.Thread(target=self.web.start, args=(self.app.port, not self.common.settings.get('close_after_first_download'), self.common.settings.get('public_mode'), self.common.settings.get('slug')))
             t.daemon = True
             t.start()
 
             # Wait for the web app slug to generate before continuing
-            while self.web.slug == None:
-                time.sleep(0.1)
+            if not self.common.settings.get('public_mode'):
+                while self.web.slug == None:
+                    time.sleep(0.1)
 
             # Now start the onion service
             try:

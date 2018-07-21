@@ -52,6 +52,25 @@ class SettingsDialog(QtWidgets.QDialog):
 
         self.system = platform.system()
 
+        # General options
+
+        # Whether or not to save the Onion private key for reuse (persistent URL  mode)
+        self.save_private_key_checkbox = QtWidgets.QCheckBox()
+        self.save_private_key_checkbox.setCheckState(QtCore.Qt.Unchecked)
+        self.save_private_key_checkbox.setText(strings._("gui_save_private_key_checkbox", True))
+
+        # Use a slug
+        self.public_mode_checkbox = QtWidgets.QCheckBox()
+        self.public_mode_checkbox.setCheckState(QtCore.Qt.Unchecked)
+        self.public_mode_checkbox.setText(strings._("gui_settings_public_mode_checkbox", True))
+
+        # General options layout
+        general_group_layout = QtWidgets.QVBoxLayout()
+        general_group_layout.addWidget(self.save_private_key_checkbox)
+        general_group_layout.addWidget(self.public_mode_checkbox)
+        general_group = QtWidgets.QGroupBox(strings._("gui_settings_general_label", True))
+        general_group.setLayout(general_group_layout)
+
         # Sharing options
 
         # Close after first download
@@ -64,16 +83,10 @@ class SettingsDialog(QtWidgets.QDialog):
         self.shutdown_timeout_checkbox.setCheckState(QtCore.Qt.Checked)
         self.shutdown_timeout_checkbox.setText(strings._("gui_settings_shutdown_timeout_checkbox", True))
 
-        # Whether or not to save the Onion private key for reuse
-        self.save_private_key_checkbox = QtWidgets.QCheckBox()
-        self.save_private_key_checkbox.setCheckState(QtCore.Qt.Unchecked)
-        self.save_private_key_checkbox.setText(strings._("gui_save_private_key_checkbox", True))
-
         # Sharing options layout
         sharing_group_layout = QtWidgets.QVBoxLayout()
         sharing_group_layout.addWidget(self.close_after_first_download_checkbox)
         sharing_group_layout.addWidget(self.shutdown_timeout_checkbox)
-        sharing_group_layout.addWidget(self.save_private_key_checkbox)
         sharing_group = QtWidgets.QGroupBox(strings._("gui_settings_sharing_label", True))
         sharing_group.setLayout(sharing_group_layout)
 
@@ -93,16 +106,10 @@ class SettingsDialog(QtWidgets.QDialog):
         self.receive_allow_receiver_shutdown_checkbox.setCheckState(QtCore.Qt.Checked)
         self.receive_allow_receiver_shutdown_checkbox.setText(strings._("gui_settings_receive_allow_receiver_shutdown_checkbox", True))
 
-        # Use a slug
-        self.receive_public_mode_checkbox = QtWidgets.QCheckBox()
-        self.receive_public_mode_checkbox.setCheckState(QtCore.Qt.Checked)
-        self.receive_public_mode_checkbox.setText(strings._("gui_settings_receive_public_mode_checkbox", True))
-
         # Receiving options layout
         receiving_group_layout = QtWidgets.QVBoxLayout()
         receiving_group_layout.addLayout(downloads_layout)
         receiving_group_layout.addWidget(self.receive_allow_receiver_shutdown_checkbox)
-        receiving_group_layout.addWidget(self.receive_public_mode_checkbox)
         receiving_group = QtWidgets.QGroupBox(strings._("gui_settings_receiving_label", True))
         receiving_group.setLayout(receiving_group_layout)
 
@@ -377,6 +384,7 @@ class SettingsDialog(QtWidgets.QDialog):
 
         # Layout
         left_col_layout = QtWidgets.QVBoxLayout()
+        left_col_layout.addWidget(general_group)
         left_col_layout.addWidget(sharing_group)
         left_col_layout.addWidget(receiving_group)
         left_col_layout.addWidget(stealth_group)
@@ -431,11 +439,11 @@ class SettingsDialog(QtWidgets.QDialog):
         else:
             self.receive_allow_receiver_shutdown_checkbox.setCheckState(QtCore.Qt.Unchecked)
 
-        receive_public_mode = self.old_settings.get('receive_public_mode')
-        if receive_public_mode:
-            self.receive_public_mode_checkbox.setCheckState(QtCore.Qt.Checked)
+        public_mode = self.old_settings.get('public_mode')
+        if public_mode:
+            self.public_mode_checkbox.setCheckState(QtCore.Qt.Checked)
         else:
-            self.receive_public_mode_checkbox.setCheckState(QtCore.Qt.Unchecked)
+            self.public_mode_checkbox.setCheckState(QtCore.Qt.Unchecked)
 
         use_stealth = self.old_settings.get('use_stealth')
         if use_stealth:
@@ -819,7 +827,7 @@ class SettingsDialog(QtWidgets.QDialog):
             settings.set('hidservauth_string', '')
         settings.set('downloads_dir', self.downloads_dir_lineedit.text())
         settings.set('receive_allow_receiver_shutdown', self.receive_allow_receiver_shutdown_checkbox.isChecked())
-        settings.set('receive_public_mode', self.receive_public_mode_checkbox.isChecked())
+        settings.set('public_mode', self.public_mode_checkbox.isChecked())
         settings.set('use_stealth', self.stealth_checkbox.isChecked())
         # Always unset the HidServAuth if Stealth mode is unset
         if not self.stealth_checkbox.isChecked():

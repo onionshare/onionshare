@@ -128,7 +128,7 @@ def main(cwd=None):
         print('')
 
     # Start OnionShare http service in new thread
-    t = threading.Thread(target=web.start, args=(app.port, stay_open, common.settings.get('slug')))
+    t = threading.Thread(target=web.start, args=(app.port, stay_open, common.settings.get('public_mode'), common.settings.get('slug')))
     t.daemon = True
     t.start()
 
@@ -147,7 +147,7 @@ def main(cwd=None):
                 common.settings.save()
 
         # Build the URL
-        if receive and common.settings.get('receive_public_mode'):
+        if common.settings.get('public_mode'):
             url = 'http://{0:s}'.format(app.onion_host)
         else:
             url = 'http://{0:s}/{1:s}'.format(app.onion_host, web.slug)
