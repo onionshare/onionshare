@@ -168,9 +168,9 @@ class TestWeb:
             assert res.status_code == 302
             assert web.running == True
     
-    def test_receive_mode_receive_public_mode_on(self, common_obj):
+    def test_public_mode_on(self, common_obj):
         web = web_obj(common_obj, True)
-        common_obj.settings.set('receive_public_mode', True)
+        common_obj.settings.set('public_mode', True)
 
         with web.app.test_client() as c:
             # Upload page should be accessible from both / and /[slug]
@@ -182,9 +182,9 @@ class TestWeb:
             data2 = res.get_data()
             assert res.status_code == 200
     
-    def test_receive_mode_receive_public_mode_off(self, common_obj):
+    def test_public_mode_off(self, common_obj):
         web = web_obj(common_obj, True)
-        common_obj.settings.set('receive_public_mode', False)
+        common_obj.settings.set('public_mode', False)
 
         with web.app.test_client() as c:
             # / should be a 404
