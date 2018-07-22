@@ -47,7 +47,7 @@ license = 'GPL v3'
 keywords = 'onion, share, onionshare, tor, anonymous, web server'
 data_files=[
         (os.path.join(sys.prefix, 'share/applications'), ['install/onionshare.desktop']),
-        (os.path.join(sys.prefix, 'share/appdata'), ['install/onionshare.appdata.xml']),
+        (os.path.join(sys.prefix, 'share/metainfo'), ['install/onionshare.appdata.xml']),
         (os.path.join(sys.prefix, 'share/pixmaps'), ['install/onionshare80.xpm']),
         (os.path.join(sys.prefix, 'share/onionshare'), file_list('share')),
         (os.path.join(sys.prefix, 'share/onionshare/images'), file_list('share/images')),
