@@ -1,4 +1,5 @@
 click==6.7
+cryptography==2.1.4
 Flask==0.12.2
 itsdangerous==0.24
 Jinja2==2.10
@@ -6,6 +7,9 @@ MarkupSafe==1.0
 PyInstaller==3.3.1
 PyQt5==5.9.2
 PySocks==1.6.7
+pycrypto==2.6.1
+pynacl==1.2.1
+pysha3==1.0.2
 sip==4.19.6
 stem==1.6.0
 Werkzeug==0.14.1

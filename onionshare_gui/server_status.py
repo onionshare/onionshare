@@ -18,6 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import platform
+import textwrap
 from PyQt5 import QtCore, QtWidgets, QtGui
 
 from onionshare import strings
@@ -88,7 +89,7 @@ class ServerStatus(QtWidgets.QWidget):
         self.url = QtWidgets.QLabel()
         self.url.setFont(url_font)
         self.url.setWordWrap(True)
-        self.url.setMinimumHeight(60)
+        self.url.setMinimumHeight(65)
         self.url.setMinimumSize(self.url.sizeHint())
         self.url.setStyleSheet(self.common.css['server_status_url'])
 
@@ -162,7 +163,13 @@ class ServerStatus(QtWidgets.QWidget):
                 else:
                     self.url_description.setToolTip(strings._('gui_url_label_stay_open', True))
 
-            self.url.setText(self.get_url())
+            # Wrap the Onion URL if it's a big v3 one
+            url_length=len(self.get_url())
+            if url_length > 60:
+                wrapped_onion_url = textwrap.fill(self.get_url(), 50)
+                self.url.setText(wrapped_onion_url)
+            else:
+                self.url.setText(self.get_url())
             self.url.show()
 
             self.copy_url_button.show()

@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 from PyQt5 import QtCore, QtWidgets, QtGui
 import sys, platform, datetime, re
+from distutils.version import LooseVersion as Version
 
 from onionshare import strings, common
 from onionshare.settings import Settings
@@ -64,7 +65,7 @@ class SettingsDialog(QtWidgets.QDialog):
         self.shutdown_timeout_checkbox.setCheckState(QtCore.Qt.Checked)
         self.shutdown_timeout_checkbox.setText(strings._("gui_settings_shutdown_timeout_checkbox", True))
 
-        # Whether or not to save the Onion private key for reuse
+        # Whether or not to save the Onion private key for reuse (persistent URLs)
         self.save_private_key_checkbox = QtWidgets.QCheckBox()
         self.save_private_key_checkbox.setCheckState(QtCore.Qt.Unchecked)
         self.save_private_key_checkbox.setText(strings._("gui_save_private_key_checkbox", True))
@@ -421,6 +422,9 @@ class SettingsDialog(QtWidgets.QDialog):
             self.save_private_key_checkbox.setCheckState(QtCore.Qt.Checked)
         else:
             self.save_private_key_checkbox.setCheckState(QtCore.Qt.Unchecked)
+            # Using persistent URLs with v3 onions is not yet stable
+            if Version(self.onion.tor_version) >= Version('0.3.2.9'):
+               self.save_private_key_checkbox.hide()
 
         downloads_dir = self.old_settings.get('downloads_dir')
         self.downloads_dir_lineedit.setText(downloads_dir)
@@ -445,6 +449,9 @@ class SettingsDialog(QtWidgets.QDialog):
                 self.hidservauth_copy_button.show()
         else:
             self.stealth_checkbox.setCheckState(QtCore.Qt.Unchecked)
+            # Using Client Auth with v3 onions is not yet possible
+            if Version(self.onion.tor_version) >= Version('0.3.2.9'):
+                stealth_group.hide()
 
         use_autoupdate = self.old_settings.get('use_autoupdate')
         if use_autoupdate:
