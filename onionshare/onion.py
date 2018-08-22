@@ -468,7 +468,7 @@ class Onion(object):
             self.common.log('Onion', 'Starting a hidden service with a saved private key')
         else:
             # Work out if we can support v3 onion services, which are preferred
-            if Version(self.tor_version) >= Version('0.3.3'):
+            if Version(self.tor_version) >= Version('0.3.2.9') and not self.settings.get('use_legacy_v2_onions'):
                 key_type = "ED25519-V3"
                 key_content = onionkey.generate_v3_private_key()[0]
             else:
@@ -479,7 +479,7 @@ class Onion(object):
 
         # v3 onions don't yet support basic auth. Our ticket:
         # https://github.com/micahflee/onionshare/issues/697
-        if key_type == "ED25519-V3":
+        if key_type == "ED25519-V3" and not self.settings.get('use_legacy_v2_onions'):
             basic_auth = None
             self.stealth = False
 

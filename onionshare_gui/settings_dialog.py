@@ -65,15 +65,25 @@ class SettingsDialog(QtWidgets.QDialog):
         self.shutdown_timeout_checkbox.setCheckState(QtCore.Qt.Checked)
         self.shutdown_timeout_checkbox.setText(strings._("gui_settings_shutdown_timeout_checkbox", True))
 
+        # Whether or not to use legacy v2 onions
+        self.use_legacy_v2_onions_checkbox = QtWidgets.QCheckBox()
+        self.use_legacy_v2_onions_checkbox.setCheckState(QtCore.Qt.Unchecked)
+        self.use_legacy_v2_onions_checkbox.setText(strings._("gui_use_legacy_v2_onions_checkbox", True))
+        self.use_legacy_v2_onions_checkbox.clicked.connect(self.use_legacy_v2_onions_clicked)
+        if Version(self.onion.tor_version) < Version('0.3.2.9'):
+            self.use_legacy_v2_onions_checkbox.hide()
+
         # Whether or not to save the Onion private key for reuse (persistent URLs)
         self.save_private_key_checkbox = QtWidgets.QCheckBox()
         self.save_private_key_checkbox.setCheckState(QtCore.Qt.Unchecked)
         self.save_private_key_checkbox.setText(strings._("gui_save_private_key_checkbox", True))
+        self.save_private_key_checkbox.clicked.connect(self.save_private_key_checkbox_clicked)
 
         # Sharing options layout
         sharing_group_layout = QtWidgets.QVBoxLayout()
         sharing_group_layout.addWidget(self.close_after_first_download_checkbox)
         sharing_group_layout.addWidget(self.shutdown_timeout_checkbox)
+        sharing_group_layout.addWidget(self.use_legacy_v2_onions_checkbox)
         sharing_group_layout.addWidget(self.save_private_key_checkbox)
         sharing_group = QtWidgets.QGroupBox(strings._("gui_settings_sharing_label", True))
         sharing_group.setLayout(sharing_group_layout)
@@ -118,6 +128,7 @@ class SettingsDialog(QtWidgets.QDialog):
         self.stealth_checkbox = QtWidgets.QCheckBox()
         self.stealth_checkbox.setCheckState(QtCore.Qt.Unchecked)
         self.stealth_checkbox.setText(strings._("gui_settings_stealth_option", True))
+        self.stealth_checkbox.clicked.connect(self.stealth_checkbox_clicked_connect)
 
         hidservauth_details = QtWidgets.QLabel(strings._('gui_settings_stealth_hidservauth_string', True))
         hidservauth_details.setWordWrap(True)
@@ -134,8 +145,8 @@ class SettingsDialog(QtWidgets.QDialog):
         stealth_group_layout.addWidget(self.stealth_checkbox)
         stealth_group_layout.addWidget(hidservauth_details)
         stealth_group_layout.addWidget(self.hidservauth_copy_button)
-        stealth_group = QtWidgets.QGroupBox(strings._("gui_settings_stealth_label", True))
-        stealth_group.setLayout(stealth_group_layout)
+        self.stealth_group = QtWidgets.QGroupBox(strings._("gui_settings_stealth_label", True))
+        self.stealth_group.setLayout(stealth_group_layout)
 
         # Automatic updates options
 
@@ -380,7 +391,7 @@ class SettingsDialog(QtWidgets.QDialog):
         left_col_layout = QtWidgets.QVBoxLayout()
         left_col_layout.addWidget(sharing_group)
         left_col_layout.addWidget(receiving_group)
-        left_col_layout.addWidget(stealth_group)
+        left_col_layout.addWidget(self.stealth_group)
         left_col_layout.addWidget(autoupdate_group)
         left_col_layout.addStretch()
 
@@ -417,14 +428,24 @@ class SettingsDialog(QtWidgets.QDialog):
         else:
             self.shutdown_timeout_checkbox.setCheckState(QtCore.Qt.Unchecked)
 
+        use_legacy_v2_onions = self.old_settings.get('use_legacy_v2_onions')
+
         save_private_key = self.old_settings.get('save_private_key')
         if save_private_key:
             self.save_private_key_checkbox.setCheckState(QtCore.Qt.Checked)
+            # Legacy v2 mode is forced on if persistence is enabled
+            self.use_legacy_v2_onions_checkbox.setEnabled(False)
         else:
             self.save_private_key_checkbox.setCheckState(QtCore.Qt.Unchecked)
+            self.use_legacy_v2_onions_checkbox.setEnabled(True)
             # Using persistent URLs with v3 onions is not yet stable
-            if Version(self.onion.tor_version) >= Version('0.3.2.9'):
+            if Version(self.onion.tor_version) >= Version('0.3.2.9') and not use_legacy_v2_onions:
                self.save_private_key_checkbox.hide()
+
+        if use_legacy_v2_onions or save_private_key:
+            self.use_legacy_v2_onions_checkbox.setCheckState(QtCore.Qt.Checked)
+            self.save_private_key_checkbox.show()
+            self.stealth_group.show()
 
         downloads_dir = self.old_settings.get('downloads_dir')
         self.downloads_dir_lineedit.setText(downloads_dir)
@@ -444,14 +465,17 @@ class SettingsDialog(QtWidgets.QDialog):
         use_stealth = self.old_settings.get('use_stealth')
         if use_stealth:
             self.stealth_checkbox.setCheckState(QtCore.Qt.Checked)
+            # Legacy v2 mode is forced on if Stealth is enabled
+            self.use_legacy_v2_onions_checkbox.setEnabled(False)
             if save_private_key:
                 hidservauth_details.show()
                 self.hidservauth_copy_button.show()
         else:
             self.stealth_checkbox.setCheckState(QtCore.Qt.Unchecked)
+            self.use_legacy_v2_onions_checkbox.setEnabled(True)
             # Using Client Auth with v3 onions is not yet possible
-            if Version(self.onion.tor_version) >= Version('0.3.2.9'):
-                stealth_group.hide()
+            if not use_legacy_v2_onions:
+                self.stealth_group.hide()
 
         use_autoupdate = self.old_settings.get('use_autoupdate')
         if use_autoupdate:
@@ -626,6 +650,37 @@ class SettingsDialog(QtWidgets.QDialog):
         self.common.log('SettingsDialog', 'hidservauth_copy_button_clicked', 'HidServAuth was copied to clipboard')
         clipboard = self.qtapp.clipboard()
         clipboard.setText(self.old_settings.get('hidservauth_string'))
+
+    def use_legacy_v2_onions_clicked(self, checked):
+        """
+        Show the persistent and stealth options since we're using legacy onions.
+        """
+        if checked:
+            self.save_private_key_checkbox.show()
+            self.stealth_group.show()
+        else:
+            self.save_private_key_checkbox.hide()
+            self.stealth_group.hide()
+
+    def save_private_key_checkbox_clicked(self, checked):
+        """
+        Prevent the v2 legacy mode being switched off if persistence is enabled
+        """
+        if checked:
+            self.use_legacy_v2_onions_checkbox.setCheckState(QtCore.Qt.Checked)
+            self.use_legacy_v2_onions_checkbox.setEnabled(False)
+        else:
+            self.use_legacy_v2_onions_checkbox.setEnabled(True)
+
+    def stealth_checkbox_clicked_connect(self, checked):
+        """
+        Prevent the v2 legacy mode being switched off if stealth is enabled
+        """
+        if checked:
+            self.use_legacy_v2_onions_checkbox.setCheckState(QtCore.Qt.Checked)
+            self.use_legacy_v2_onions_checkbox.setEnabled(False)
+        else:
+            self.use_legacy_v2_onions_checkbox.setEnabled(True)
 
     def downloads_button_clicked(self):
         """
@@ -813,7 +868,16 @@ class SettingsDialog(QtWidgets.QDialog):
 
         settings.set('close_after_first_download', self.close_after_first_download_checkbox.isChecked())
         settings.set('shutdown_timeout', self.shutdown_timeout_checkbox.isChecked())
+
+        # Complicated logic here to force v2 onion mode on or off depending on other settings
+        if self.use_legacy_v2_onions_checkbox.isChecked():
+            use_legacy_v2_onions = True
+        else:
+            use_legacy_v2_onions = False
+
         if self.save_private_key_checkbox.isChecked():
+            # force the legacy mode on
+            use_legacy_v2_onions = True
             settings.set('save_private_key', True)
             settings.set('private_key', self.old_settings.get('private_key'))
             settings.set('slug', self.old_settings.get('slug'))
@@ -824,6 +888,18 @@ class SettingsDialog(QtWidgets.QDialog):
             settings.set('slug', '')
             # Also unset the HidServAuth if we are removing our reusable private key
             settings.set('hidservauth_string', '')
+
+        if use_legacy_v2_onions:
+            settings.set('use_legacy_v2_onions', True)
+        else:
+            settings.set('use_legacy_v2_onions', False)
+            # If we are not using legacy mode, but we previously had persistence turned on, force it off!
+            settings.set('save_private_key', False)
+            settings.set('private_key', '')
+            settings.set('slug', '')
+            # Also unset the HidServAuth if we are removing our reusable private key
+            settings.set('hidservauth_string', '')
+
         settings.set('downloads_dir', self.downloads_dir_lineedit.text())
         settings.set('receive_allow_receiver_shutdown', self.receive_allow_receiver_shutdown_checkbox.isChecked())
         settings.set('receive_public_mode', self.receive_public_mode_checkbox.isChecked())
