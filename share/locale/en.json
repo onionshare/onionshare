@@ -153,6 +153,7 @@
     "gui_server_started_after_timeout": "The server started after your chosen auto-timeout.\nPlease start a new share.",
     "gui_server_timeout_expired": "The chosen timeout has already expired.\nPlease update the timeout and then you may start sharing.",
     "share_via_onionshare": "Share via OnionShare",
+    "gui_use_legacy_v2_onions_checkbox": "Use legacy (v2) .onion addresses?",
     "gui_save_private_key_checkbox": "Use a persistent address\n(unchecking will delete any saved addresses)",
     "gui_share_url_description": "<b>Anyone</b> with this link can <b>download</b> your files using the <b>Tor Browser</b>: <img src='{}' />",
     "gui_receive_url_description": "<b>Anyone</b> with this link can <b>upload</b> files to your computer using the <b>Tor Browser</b>: <img src='{}' />",
