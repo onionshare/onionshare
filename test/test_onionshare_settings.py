@@ -60,6 +60,7 @@ class TestSettings:
             'tor_bridges_use_meek_lite_amazon': False,
             'tor_bridges_use_meek_lite_azure': False,
             'tor_bridges_use_custom_bridges': '',
+            'use_legacy_v2_onions': False,
             'save_private_key': False,
             'private_key': '',
             'slug': '',
