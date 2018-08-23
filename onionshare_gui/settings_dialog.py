@@ -19,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 from PyQt5 import QtCore, QtWidgets, QtGui
 import sys, platform, datetime, re
-from distutils.version import LooseVersion as Version
 
 from onionshare import strings, common
 from onionshare.settings import Settings
@@ -69,9 +68,6 @@ class SettingsDialog(QtWidgets.QDialog):
         self.use_legacy_v2_onions_checkbox = QtWidgets.QCheckBox()
         self.use_legacy_v2_onions_checkbox.setCheckState(QtCore.Qt.Unchecked)
         self.use_legacy_v2_onions_checkbox.setText(strings._("gui_use_legacy_v2_onions_checkbox", True))
-        self.use_legacy_v2_onions_checkbox.clicked.connect(self.use_legacy_v2_onions_clicked)
-        if Version(self.onion.tor_version) < Version('0.3.2.9'):
-            self.use_legacy_v2_onions_checkbox.hide()
 
         # Whether or not to save the Onion private key for reuse (persistent URLs)
         self.save_private_key_checkbox = QtWidgets.QCheckBox()
@@ -145,8 +141,8 @@ class SettingsDialog(QtWidgets.QDialog):
         stealth_group_layout.addWidget(self.stealth_checkbox)
         stealth_group_layout.addWidget(hidservauth_details)
         stealth_group_layout.addWidget(self.hidservauth_copy_button)
-        self.stealth_group = QtWidgets.QGroupBox(strings._("gui_settings_stealth_label", True))
-        self.stealth_group.setLayout(stealth_group_layout)
+        stealth_group = QtWidgets.QGroupBox(strings._("gui_settings_stealth_label", True))
+        stealth_group.setLayout(stealth_group_layout)
 
         # Automatic updates options
 
@@ -391,7 +387,7 @@ class SettingsDialog(QtWidgets.QDialog):
         left_col_layout = QtWidgets.QVBoxLayout()
         left_col_layout.addWidget(sharing_group)
         left_col_layout.addWidget(receiving_group)
-        left_col_layout.addWidget(self.stealth_group)
+        left_col_layout.addWidget(stealth_group)
         left_col_layout.addWidget(autoupdate_group)
         left_col_layout.addStretch()
 
@@ -438,14 +434,9 @@ class SettingsDialog(QtWidgets.QDialog):
         else:
             self.save_private_key_checkbox.setCheckState(QtCore.Qt.Unchecked)
             self.use_legacy_v2_onions_checkbox.setEnabled(True)
-            # Using persistent URLs with v3 onions is not yet stable
-            if Version(self.onion.tor_version) >= Version('0.3.2.9') and not use_legacy_v2_onions:
-               self.save_private_key_checkbox.hide()
 
         if use_legacy_v2_onions or save_private_key:
             self.use_legacy_v2_onions_checkbox.setCheckState(QtCore.Qt.Checked)
-            self.save_private_key_checkbox.show()
-            self.stealth_group.show()
 
         downloads_dir = self.old_settings.get('downloads_dir')
         self.downloads_dir_lineedit.setText(downloads_dir)
@@ -473,9 +464,6 @@ class SettingsDialog(QtWidgets.QDialog):
         else:
             self.stealth_checkbox.setCheckState(QtCore.Qt.Unchecked)
             self.use_legacy_v2_onions_checkbox.setEnabled(True)
-            # Using Client Auth with v3 onions is not yet possible
-            if not use_legacy_v2_onions:
-                self.stealth_group.hide()
 
         use_autoupdate = self.old_settings.get('use_autoupdate')
         if use_autoupdate:
@@ -651,17 +639,6 @@ class SettingsDialog(QtWidgets.QDialog):
         clipboard = self.qtapp.clipboard()
         clipboard.setText(self.old_settings.get('hidservauth_string'))
 
-    def use_legacy_v2_onions_clicked(self, checked):
-        """
-        Show the persistent and stealth options since we're using legacy onions.
-        """
-        if checked:
-            self.save_private_key_checkbox.show()
-            self.stealth_group.show()
-        else:
-            self.save_private_key_checkbox.hide()
-            self.stealth_group.hide()
-
     def save_private_key_checkbox_clicked(self, checked):
         """
         Prevent the v2 legacy mode being switched off if persistence is enabled
@@ -670,7 +647,8 @@ class SettingsDialog(QtWidgets.QDialog):
             self.use_legacy_v2_onions_checkbox.setCheckState(QtCore.Qt.Checked)
             self.use_legacy_v2_onions_checkbox.setEnabled(False)
         else:
-            self.use_legacy_v2_onions_checkbox.setEnabled(True)
+            if not self.stealth_checkbox.isChecked():
+                self.use_legacy_v2_onions_checkbox.setEnabled(True)
 
     def stealth_checkbox_clicked_connect(self, checked):
         """
@@ -680,7 +658,8 @@ class SettingsDialog(QtWidgets.QDialog):
             self.use_legacy_v2_onions_checkbox.setCheckState(QtCore.Qt.Checked)
             self.use_legacy_v2_onions_checkbox.setEnabled(False)
         else:
-            self.use_legacy_v2_onions_checkbox.setEnabled(True)
+            if not self.save_private_key_checkbox.isChecked():
+                self.use_legacy_v2_onions_checkbox.setEnabled(True)
 
     def downloads_button_clicked(self):
         """
