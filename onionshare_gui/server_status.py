@@ -57,6 +57,8 @@ class ServerStatus(QtWidgets.QWidget):
 
         self.web = None
 
+        self.resizeEvent(None)
+
         # Shutdown timeout layout
         self.shutdown_timeout_label = QtWidgets.QLabel(strings._('gui_settings_shutdown_timeout', True))
         self.shutdown_timeout = QtWidgets.QDateTimeEdit()
@@ -129,6 +131,24 @@ class ServerStatus(QtWidgets.QWidget):
 
         self.update()
 
+    def resizeEvent(self, event):
+        """
+        When the widget is resized, try and adjust the display of a v3 onion URL.
+        """
+        try:
+            self.get_url()
+            url_length=len(self.get_url())
+            if url_length > 60:
+                width = self.frameGeometry().width()
+                if width < 530:
+                    wrapped_onion_url = textwrap.fill(self.get_url(), 50)
+                    self.url.setText(wrapped_onion_url)
+                else:
+                    self.url.setText(self.get_url())
+        except:
+            pass
+
+
     def shutdown_timeout_reset(self):
         """
         Reset the timeout in the UI after stopping a share
@@ -163,13 +183,7 @@ class ServerStatus(QtWidgets.QWidget):
                 else:
                     self.url_description.setToolTip(strings._('gui_url_label_stay_open', True))
 
-            # Wrap the Onion URL if it's a big v3 one
-            url_length=len(self.get_url())
-            if url_length > 60:
-                wrapped_onion_url = textwrap.fill(self.get_url(), 50)
-                self.url.setText(wrapped_onion_url)
-            else:
-                self.url.setText(self.get_url())
+            self.url.setText(self.get_url())
             self.url.show()
 
             self.copy_url_button.show()
