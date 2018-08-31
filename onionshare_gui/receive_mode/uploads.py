@@ -38,6 +38,7 @@ class File(QtWidgets.QWidget):
 
         # Filename label
         self.filename_label = QtWidgets.QLabel(self.filename)
+        self.filename_label_width = self.filename_label.width()
 
         # File size label
         self.filesize_label = QtWidgets.QLabel()
@@ -214,6 +215,8 @@ class Uploads(QtWidgets.QScrollArea):
         self.common = common
         self.common.log('Uploads', '__init__')
 
+        self.resizeEvent = None
+
         self.uploads = {}
 
         self.setWindowTitle(strings._('gui_uploads', True))
@@ -292,3 +295,16 @@ class Uploads(QtWidgets.QScrollArea):
 
         self.no_uploads_label.show()
         self.resize(self.sizeHint())
+
+    def resizeEvent(self, event):
+       width = self.frameGeometry().width()
+       try:
+           for upload in self.uploads.values():
+               for item in upload.files.values():
+                   if item.filename_label_width > width:
+                       item.filename_label.setText(item.filename[:25] + '[...]')
+                       item.adjustSize()
+                   if width > item.filename_label_width:
+                       item.filename_label.setText(item.filename)
+       except:
+           pass
