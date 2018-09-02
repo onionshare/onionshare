@@ -560,7 +560,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
                 self.primary_action.hide()
                 self.info_widget.hide()
                 self.status_bar.showMessage(strings._('gui_tor_connection_lost', True))
-                if self.systemTray.supportsMessages() and self.settings.get('systray_notifications'):
+                if self.systemTray.supportsMessages() and self.common.settings.get('systray_notifications'):
                     self.systemTray.showMessage(strings._('gui_tor_connection_lost', True), strings._('gui_tor_connection_error_settings', True))
 
         # scroll to the bottom of the dl progress bar log pane
@@ -585,7 +585,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
             elif event["type"] == self.web.REQUEST_DOWNLOAD:
                 self.downloads.no_downloads_label.hide()
-                self.downloads.add_download(event["data"]["id"], web.zip_filesize)
+                self.downloads.add_download(event["data"]["id"], self.web.zip_filesize)
                 self.new_download = True
                 self.downloads_in_progress += 1
                 self.update_downloads_in_progress(self.downloads_in_progress)
