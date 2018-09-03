@@ -123,6 +123,7 @@ class ReceiveMode(Mode):
         """
         Connection to Tor broke.
         """
+        self.primary_action.hide()
         self.info_widget.hide()
 
     def handle_request_load(self, event):
@@ -165,6 +166,13 @@ class ReceiveMode(Mode):
         Handle REQUEST_UPLOAD_FINISHED event.
         """
         self.uploads.finished(event["data"]["id"])
+
+    def on_reload_settings(self):
+        """
+        We should be ok to re-enable the 'Start Receive Mode' button now.
+        """
+        self.primary_action.show()
+        self.info_widget.show()
 
     def reset_info_counters(self):
         """
