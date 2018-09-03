@@ -147,7 +147,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.receive_mode.server_status.url_copied.connect(self.copy_url)
         self.receive_mode.server_status.hidservauth_copied.connect(self.copy_hidservauth)
         self.receive_mode.set_server_active.connect(self.set_server_active)
-        self.receive_mode.set_server_active.connect(self.set_server_active)
 
         self.update_mode_switcher()
         self.update_server_status_indicator()
