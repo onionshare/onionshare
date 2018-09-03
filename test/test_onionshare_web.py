@@ -38,11 +38,11 @@ DEFAULT_ZW_FILENAME_REGEX = re.compile(r'^onionshare_[a-z2-7]{6}.zip$')
 RANDOM_STR_REGEX = re.compile(r'^[a-z2-7]+$')
 
 
-def web_obj(common_obj, recieve_mode, num_files=0):
+def web_obj(common_obj, receive_mode, num_files=0):
     """ Creates a Web object, in either share mode or receive mode, ready for testing """
     common_obj.load_settings()
 
-    web = Web(common_obj, False, recieve_mode)
+    web = Web(common_obj, False, receive_mode)
     web.generate_slug()
     web.stay_open = True
     web.running = True
@@ -50,7 +50,7 @@ def web_obj(common_obj, recieve_mode, num_files=0):
     web.app.testing = True
 
     # Share mode
-    if not recieve_mode:
+    if not receive_mode:
         # Add files
         files = []
         for i in range(num_files):
