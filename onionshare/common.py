@@ -322,7 +322,7 @@ class Common(object):
                     font-size: 11px;
                 }""",
 
-            # Recieve mode and child widget styles
+            # Receive mode and child widget styles
             'receive_file': """
                 QWidget {
                     background-color: #ffffff;

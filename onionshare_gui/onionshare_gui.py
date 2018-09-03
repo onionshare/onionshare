@@ -167,7 +167,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.setCentralWidget(central_widget)
         self.show()
 
-        # The servers isn't active yet
+        # The server isn't active yet
         self.set_server_active(False)
 
         # Create the timer
