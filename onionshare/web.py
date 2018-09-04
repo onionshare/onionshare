@@ -356,7 +356,7 @@ class Web(object):
                 print(strings._('error_downloads_dir_not_writable').format(self.common.settings.get('downloads_dir')))
                 valid = False
             if not valid:
-                flash('Error uploading, please inform the OnionShare user')
+                flash('Error uploading, please inform the OnionShare user', 'error')
                 if self.common.settings.get('public_mode'):
                     return redirect('/')
                 else:
@@ -415,10 +415,10 @@ class Web(object):
             # Note that flash strings are on English, and not translated, on purpose,
             # to avoid leaking the locale of the OnionShare user
             if len(filenames) == 0:
-                flash('No files uploaded')
+                flash('No files uploaded', 'info')
             else:
                 for filename in filenames:
-                    flash('Uploaded {}'.format(filename))
+                    flash('Sent {}'.format(filename), 'info')
 
             if self.common.settings.get('public_mode'):
                 return redirect('/')
