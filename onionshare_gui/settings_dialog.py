@@ -489,7 +489,7 @@ class SettingsDialog(QtWidgets.QDialog):
             self.tor_bridges_use_custom_textbox_options.hide()
             # Alert the user about meek's costliness if it looks like they're turning it on
             if not self.old_settings.get('tor_bridges_use_meek_lite_azure'):
-                Alert(strings._('gui_settings_meek_lite_expensive_warning', True), QtWidgets.QMessageBox.Warning)
+                Alert(self.common, strings._('gui_settings_meek_lite_expensive_warning', True), QtWidgets.QMessageBox.Warning)
 
     def tor_bridges_use_custom_radio_toggled(self, checked):
         """
@@ -692,7 +692,7 @@ class SettingsDialog(QtWidgets.QDialog):
                     self.common.log('SettingsDialog', 'save_clicked', 'rebooting the Onion')
                     self.onion.cleanup()
 
-                    tor_con = TorConnectionDialog(self.qtapp, settings, self.onion)
+                    tor_con = TorConnectionDialog(self.common, self.qtapp, self.onion, settings)
                     tor_con.start()
 
                     self.common.log('SettingsDialog', 'save_clicked', 'Onion done rebooting, connected to Tor: {}'.format(self.onion.connected_to_tor))
