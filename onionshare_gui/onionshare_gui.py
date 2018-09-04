@@ -277,7 +277,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.settingsAction = menu.addAction(strings._('gui_settings_window_title', True))
         self.settingsAction.triggered.connect(self.open_settings)
         self.helpAction = menu.addAction(strings._('gui_settings_button_help', True))
-        self.helpAction.triggered.connect(SettingsDialog.help_clicked)
+        self.helpAction.triggered.connect(lambda: SettingsDialog.help_clicked(self))
         self.exitAction = menu.addAction(strings._('systray_menu_exit', True))
         self.exitAction.triggered.connect(self.close)
 
