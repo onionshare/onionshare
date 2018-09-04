@@ -23,7 +23,6 @@ from stem import ProtocolError, SocketClosed
 from stem.connection import MissingPassword, UnreadableCookieFile, AuthenticationFailure
 import os, sys, tempfile, shutil, urllib, platform, subprocess, time, shlex
 
-from . import socks
 from . import common, strings
 from .settings import Settings
 
