@@ -20,6 +20,9 @@ a = Analysis(
         ('../share/locale/*', 'share/locale'),
         ('../share/static/*', 'share/static'),
         ('../share/templates/*', 'share/templates'),
+        ('../share/static/css/*', 'share/static/css'),
+        ('../share/static/img/*', 'share/static/img'),
+        ('../share/static/js/*', 'share/static/js'),
         ('../install/licenses/*', 'licenses')
     ],
     hiddenimports=[],
