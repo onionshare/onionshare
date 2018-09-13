@@ -37,39 +37,40 @@ from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import rsa
 
 
-b = 256
+def stem_compatible_base64_blob_from_private_key(private_key_seed: bytes) -> str:
+    """
+    Provides a base64-encoded private key for v3-style Onions.
+    """
+    b = 256
 
-def bit(h, i):
-    return (h[i // 8] >> (i % 8)) & 1
+    def bit(h: bytes, i: int) -> int:
+        return (h[i // 8] >> (i % 8)) & 1
+
+    def encode_int(y: int) -> bytes:
+        bits = [(y >> i) & 1 for i in range(b)]
+        return b''.join([bytes([(sum([bits[i * 8 + j] << j for j in range(8)]))]) for i in range(b // 8)])
+
+    def expand_private_key(sk: bytes) -> bytes:
+        h = hashlib.sha512(sk).digest()
+        a = 2 ** (b - 2) + sum(2 ** i * bit(h, i) for i in range(3, b - 2))
+        k = b''.join([bytes([h[i]]) for i in range(b // 8, b // 4)])
+        assert len(k) == 32
+        return encode_int(a) + k
+
+    expanded_private_key = expand_private_key(private_key_seed)
+    return base64.b64encode(expanded_private_key).decode()
 
 
-def encodeint(y):
-    bits = [(y >> i) & 1 for i in range(b)]
-    return b''.join([bytes([(sum([bits[i * 8 + j] << j for j in range(8)]))]) for i in range(b // 8)])
-
-
-def H(m):
-    return hashlib.sha512(m).digest()
-
-
-def expandSK(sk):
-    h = H(sk)
-    a = 2 ** (b - 2) + sum(2 ** i * bit(h, i) for i in range(3, b - 2))
-    k = b''.join([bytes([h[i]]) for i in range(b // 8, b // 4)])
-    assert len(k) == 32
-    return encodeint(a) + k
-
-
-def onion_url_from_private_key(private_key):
+def onion_url_from_private_key(private_key_seed: bytes) -> str:
     """
     Derives the public key (.onion hostname) from a v3-style
     Onion private key.
     """
-    private_key = nacl.signing.SigningKey(seed=private_key)
-    pubkey = bytes(private_key.verify_key)
+    signing_key = nacl.signing.SigningKey(seed=private_key_seed)
+    public_key = bytes(signing_key.verify_key)
     version = b'\x03'
-    checksum = hashlib.sha3_256(b".onion checksum" + pubkey + version).digest()[:2]
-    onion_address = "http://{}.onion".format(base64.b32encode(pubkey + checksum + version).decode().lower())
+    checksum = hashlib.sha3_256(b".onion checksum" + public_key + version).digest()[:2]
+    onion_address = "http://{}.onion".format(base64.b32encode(public_key + checksum + version).decode().lower())
     return onion_address
 
 
@@ -78,10 +79,10 @@ def generate_v3_private_key():
     Generates a private and public key for use with v3 style Onions.
     Returns both the private key as well as the public key (.onion hostname)
     """
-    secretKey = os.urandom(32)
-    expandedSecretKey = expandSK(secretKey)
-    private_key = base64.b64encode(expandedSecretKey).decode()
-    return (private_key, onion_url_from_private_key(secretKey))
+    private_key_seed = os.urandom(32)
+    private_key = stem_compatible_base64_blob_from_private_key(private_key_seed)
+    return (private_key, onion_url_from_private_key(private_key_seed))
+
 
 def generate_v2_private_key():
     """
@@ -108,6 +109,7 @@ def generate_v2_private_key():
     serialized_key = ''.join(pem_format.decode().split('\n')[1:-2])
 
     return (serialized_key, onion_url)
+
 
 def is_v2_key(key):
     """
