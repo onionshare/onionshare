@@ -81,7 +81,8 @@ def generate_v3_private_key():
     """
     private_key_seed = os.urandom(32)
     private_key = stem_compatible_base64_blob_from_private_key(private_key_seed)
-    return (private_key, onion_url_from_private_key(private_key_seed))
+    onion_url = onion_url_from_private_key(private_key_seed)
+    return (private_key, onion_url)
 
 
 def generate_v2_private_key():
