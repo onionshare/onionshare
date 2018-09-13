@@ -139,6 +139,7 @@
     "settings_error_bundled_tor_broken": "OnionShare could not connect to Tor in the background:\n{}",
     "settings_test_success": "Congratulations, OnionShare can connect to the Tor controller.\n\nTor version: {}\nSupports ephemeral onion services: {}\nSupports stealth onion services: {}",
     "error_tor_protocol_error": "Could not communicate with the Tor controller.\nIf you're using Whonix, check out https://www.whonix.org/wiki/onionshare to make OnionShare work.",
+    "error_invalid_private_key": "This private key type is unsupported",
     "connecting_to_tor": "Connecting to the Tor network",
     "update_available": "A new version of OnionShare is available. <a href='{}'>Click here</a> to download it.<br><br>Installed version: {}<br>Latest version: {}",
     "update_error_check_error": "Error checking for updates: Maybe you're not connected to Tor, or maybe the OnionShare website is down.",

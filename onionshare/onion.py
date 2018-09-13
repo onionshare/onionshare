@@ -446,11 +446,10 @@ class Onion(object):
             basic_auth = None
 
         if self.settings.get('private_key'):
-            try:
-                # is the key a v2 key?
-                key = onionkey.is_v2_key(self.settings.get('private_key'))
+            key_content = self.settings.get('private_key')
+            # is the key a v2 key?
+            if onionkey.is_v2_key(key_content):
                 key_type = "RSA1024"
-                key_content = self.settings.get('private_key')
             # The below section is commented out because re-publishing
             # a pre-prepared v3 private key is currently unstable in Tor.
             # This is fixed upstream but won't reach stable until 0.3.5
@@ -460,11 +459,11 @@ class Onion(object):
             # v3 onions, which should not be possible via the GUI settings
             # anyway.
             # Our ticket: https://github.com/micahflee/onionshare/issues/677
-            except:
-                pass
-            #    Assume it was a v3 key
-            #    key_type = "ED25519-V3"
-            #    key_content = self.settings.get('private_key')
+            #
+            # Assume it was a v3 key
+            # key_type = "ED25519-V3"
+            else:
+                raise TorErrorProtocolError(strings._('error_invalid_private_key'))
             self.common.log('Onion', 'Starting a hidden service with a saved private key')
         else:
             # Work out if we can support v3 onion services, which are preferred
