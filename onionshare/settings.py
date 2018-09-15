@@ -65,7 +65,6 @@ class Settings(object):
             'autoupdate_timestamp': None,
             'no_bridges': True,
             'tor_bridges_use_obfs4': False,
-            'tor_bridges_use_meek_lite_amazon': False,
             'tor_bridges_use_meek_lite_azure': False,
             'tor_bridges_use_custom_bridges': '',
             'save_private_key': False,

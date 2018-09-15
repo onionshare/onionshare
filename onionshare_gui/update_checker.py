@@ -19,9 +19,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 from PyQt5 import QtCore
 import datetime, time, socket, re, platform
+import socks
 from distutils.version import LooseVersion as Version
 
-from onionshare import socks
 from onionshare.settings import Settings
 from onionshare.onion import Onion
 
@@ -53,7 +53,7 @@ class UpdateChecker(QtCore.QObject):
     update_available = QtCore.pyqtSignal(str, str, str)
     update_not_available = QtCore.pyqtSignal()
     update_error = QtCore.pyqtSignal()
-    update_invalid_version = QtCore.pyqtSignal()
+    update_invalid_version = QtCore.pyqtSignal(str)
 
     def __init__(self, common, onion, config=False):
         super(UpdateChecker, self).__init__()
@@ -136,7 +136,7 @@ class UpdateChecker(QtCore.QObject):
             # This regex is: 1-3 dot-separated numeric components
             version_re = r"^(\d+\.)?(\d+\.)?(\d+)$"
             if not re.match(version_re, latest_version):
-                self.update_invalid_version.emit()
+                self.update_invalid_version.emit(latest_version)
                 raise UpdateCheckerInvalidLatestVersion(latest_version)
 
             # Update the last checked timestamp (dropping the seconds and milliseconds)
@@ -160,7 +160,7 @@ class UpdateThread(QtCore.QThread):
     update_available = QtCore.pyqtSignal(str, str, str)
     update_not_available = QtCore.pyqtSignal()
     update_error = QtCore.pyqtSignal()
-    update_invalid_version = QtCore.pyqtSignal()
+    update_invalid_version = QtCore.pyqtSignal(str)
 
     def __init__(self, common, onion, config=False, force=False):
         super(UpdateThread, self).__init__()
@@ -203,7 +203,7 @@ class UpdateThread(QtCore.QThread):
         self.active = False
         self.update_error.emit()
 
-    def _update_invalid_version(self):
+    def _update_invalid_version(self, latest_version):
         self.common.log('UpdateThread', '_update_invalid_version')
         self.active = False
-        self.update_invalid_version.emit()
+        self.update_invalid_version.emit(latest_version)
