@@ -24,13 +24,18 @@ In order to avoid a Windows gnupg dependency, I manually verify the signature
 and hard-code the sha256 hash.
 """
 
-import inspect, os, sys, hashlib, shutil, subprocess
-import urllib.request
+import inspect
+import os
+import sys
+import hashlib
+import shutil
+import subprocess
+import requests
 
 def main():
-    exe_url = 'https://archive.torproject.org/tor-package-archive/torbrowser/7.5/torbrowser-install-7.5_en-US.exe'
-    exe_filename = 'torbrowser-install-7.5_en-US.exe'
-    expected_exe_sha256 = '81ccb9456118cf8fa755a3eafb5c514665fc69599cdd41e9eb36baa335ebe233'
+    exe_url = 'https://archive.torproject.org/tor-package-archive/torbrowser/7.5.5/torbrowser-install-7.5.5_en-US.exe'
+    exe_filename = 'torbrowser-install-7.5.5_en-US.exe'
+    expected_exe_sha256 = '992f9a6658001c3419ed3695a908eef4fb7feb1cd549389bdacbadb7f8cb08a7'
     # Build paths
     root_path = os.path.dirname(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))))
     working_path = os.path.join(os.path.join(root_path, 'build'), 'tor')
@@ -44,10 +49,9 @@ def main():
     # Make sure the zip is downloaded
     if not os.path.exists(exe_path):
         print("Downloading {}".format(exe_url))
-        response = urllib.request.urlopen(exe_url)
-        exe_data = response.read()
-        open(exe_path, 'wb').write(exe_data)
-        exe_sha256 = hashlib.sha256(exe_data).hexdigest()
+        r = requests.get(exe_url)
+        open(exe_path, 'wb').write(r.content)
+        exe_sha256 = hashlib.sha256(r.content).hexdigest()
     else:
         exe_data = open(exe_path, 'rb').read()
         exe_sha256 = hashlib.sha256(exe_data).hexdigest()
