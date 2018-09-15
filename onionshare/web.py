@@ -143,7 +143,8 @@ class Web(object):
         """
         @self.app.route("/<slug_candidate>")
         def index(slug_candidate):
-            self.check_slug_candidate(slug_candidate)
+            if not self.common.settings.get('public_mode'):
+                self.check_slug_candidate(slug_candidate)
             return index_logic()
 
         @self.app.route("/")
@@ -186,7 +187,8 @@ class Web(object):
 
         @self.app.route("/<slug_candidate>/download")
         def download(slug_candidate):
-            self.check_slug_candidate(slug_candidate)
+            if not self.common.settings.get('public_mode'):
+                self.check_slug_candidate(slug_candidate)
             return download_logic()
 
         @self.app.route("/download")
@@ -329,7 +331,8 @@ class Web(object):
 
         @self.app.route("/<slug_candidate>")
         def index(slug_candidate):
-            self.check_slug_candidate(slug_candidate)
+            if not self.common.settings.get('public_mode'):
+                self.check_slug_candidate(slug_candidate)
             return index_logic()
 
         @self.app.route("/")
@@ -427,7 +430,8 @@ class Web(object):
 
         @self.app.route("/<slug_candidate>/upload", methods=['POST'])
         def upload(slug_candidate):
-            self.check_slug_candidate(slug_candidate)
+            if not self.common.settings.get('public_mode'):
+                self.check_slug_candidate(slug_candidate)
             return upload_logic(slug_candidate)
 
         @self.app.route("/upload", methods=['POST'])
@@ -448,7 +452,8 @@ class Web(object):
 
         @self.app.route("/<slug_candidate>/close", methods=['POST'])
         def close(slug_candidate):
-            self.check_slug_candidate(slug_candidate)
+            if not self.common.settings.get('public_mode'):
+                self.check_slug_candidate(slug_candidate)
             return close_logic(slug_candidate)
 
         @self.app.route("/close", methods=['POST'])
