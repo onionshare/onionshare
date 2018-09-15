@@ -11,7 +11,7 @@ cd onionshare
 
 Install the needed dependencies:
 
-For Debian-like distros: `apt install -y build-essential fakeroot python3-all python3-stdeb dh-python  python3-flask python3-stem python3-pyqt5 python-nautilus python3-pytest tor obfs4proxy`
+For Debian-like distros: `apt install -y build-essential fakeroot python3-all python3-stdeb dh-python python3-socks python3-flask python3-stem python3-pyqt5 python-nautilus python3-pytest tor obfs4proxy`
 
 For Fedora-like distros: `dnf install -y rpm-build python3-flask python3-stem python3-qt5 python3-pytest nautilus-python tor obfs4 rpm-build`
 

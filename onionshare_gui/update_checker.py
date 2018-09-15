@@ -19,9 +19,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 from PyQt5 import QtCore
 import datetime, time, socket, re, platform
+import socks
 from distutils.version import LooseVersion as Version
 
-from onionshare import socks
 from onionshare.settings import Settings
 from onionshare.onion import Onion
 
