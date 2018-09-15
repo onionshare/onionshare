@@ -24,13 +24,20 @@ In order to avoid a Mac gnupg dependency, I manually verify the signature
 and hard-code the sha256 hash.
 """
 
-import inspect, os, sys, hashlib, zipfile, io, shutil, subprocess
-import urllib.request
+import inspect
+import os
+import sys
+import hashlib
+import zipfile
+import io
+import shutil
+import subprocess
+import requests
 
 def main():
-    dmg_url = 'https://archive.torproject.org/tor-package-archive/torbrowser/7.5/TorBrowser-7.5-osx64_en-US.dmg'
-    dmg_filename = 'TorBrowser-7.5-osx64_en-US.dmg'
-    expected_dmg_sha256 = '43a8dc0afd0a77e42766311eb54ad9fc8714f67fcd2d3582a3bcb98b22c2e629'
+    dmg_url = 'https://archive.torproject.org/tor-package-archive/torbrowser/7.5.5/TorBrowser-7.5.5-osx64_en-US.dmg'
+    dmg_filename = 'TorBrowser-7.5.5-osx64_en-US.dmg'
+    expected_dmg_sha256 = '2b445e4237cdd9be0e71e65f76db5d36f0d6c37532982d642803b57e388e4636'
 
     # Build paths
     root_path = os.path.dirname(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))))
@@ -46,10 +53,9 @@ def main():
     # Make sure the zip is downloaded
     if not os.path.exists(dmg_path):
         print("Downloading {}".format(dmg_url))
-        response = urllib.request.urlopen(dmg_url)
-        dmg_data = response.read()
-        open(dmg_path, 'wb').write(dmg_data)
-        dmg_sha256 = hashlib.sha256(dmg_data).hexdigest()
+        r = requests.get(dmg_url)
+        open(dmg_path, 'wb').write(r.content)
+        dmg_sha256 = hashlib.sha256(r.content).hexdigest()
     else:
         dmg_data = open(dmg_path, 'rb').read()
         dmg_sha256 = hashlib.sha256(dmg_data).hexdigest()
