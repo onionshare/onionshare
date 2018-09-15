@@ -463,7 +463,8 @@ class SettingsDialog(QtWidgets.QDialog):
                 self.hidservauth_copy_button.show()
         else:
             self.stealth_checkbox.setCheckState(QtCore.Qt.Unchecked)
-            self.use_legacy_v2_onions_checkbox.setEnabled(True)
+            if not save_private_key:
+                self.use_legacy_v2_onions_checkbox.setEnabled(True)
 
         use_autoupdate = self.old_settings.get('use_autoupdate')
         if use_autoupdate:
