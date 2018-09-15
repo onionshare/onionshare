@@ -634,8 +634,8 @@ class SettingsDialog(QtWidgets.QDialog):
             Alert(self.common, strings._('update_error_check_error', True), QtWidgets.QMessageBox.Warning)
             close_forced_update_thread()
 
-        def update_invalid_version():
-            Alert(self.common, strings._('update_error_invalid_latest_version', True).format(e.latest_version), QtWidgets.QMessageBox.Warning)
+        def update_invalid_version(latest_version):
+            Alert(self.common, strings._('update_error_invalid_latest_version', True).format(latest_version), QtWidgets.QMessageBox.Warning)
             close_forced_update_thread()
 
         forced_update_thread = UpdateThread(self.common, self.onion, self.config, force=True)
