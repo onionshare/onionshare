@@ -1,5 +1,10 @@
 # OnionShare Changelog
 
+## 1.3.1
+
+* Updated Tor to 0.2.3.10
+* Windows and Mac binaries are now distributed with licenses for tor and obfs4
+
 ## 1.3
 
 * Major UI redesign, introducing many UX improvements

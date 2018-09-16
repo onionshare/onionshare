@@ -57,7 +57,6 @@ class TestSettings:
             'autoupdate_timestamp': None,
             'no_bridges': True,
             'tor_bridges_use_obfs4': False,
-            'tor_bridges_use_meek_lite_amazon': False,
             'tor_bridges_use_meek_lite_azure': False,
             'tor_bridges_use_custom_bridges': '',
             'use_legacy_v2_onions': False,
@@ -67,7 +66,7 @@ class TestSettings:
             'hidservauth_string': '',
             'downloads_dir': os.path.expanduser('~/OnionShare'),
             'receive_allow_receiver_shutdown': True,
-            'receive_public_mode': False
+            'public_mode': False
         }
 
     def test_fill_in_defaults(self, settings_obj):
@@ -127,7 +126,6 @@ class TestSettings:
         assert settings_obj.get('autoupdate_timestamp') is None
         assert settings_obj.get('no_bridges') is True
         assert settings_obj.get('tor_bridges_use_obfs4') is False
-        assert settings_obj.get('tor_bridges_use_meek_lite_amazon') is False
         assert settings_obj.get('tor_bridges_use_meek_lite_azure') is False
         assert settings_obj.get('tor_bridges_use_custom_bridges') == ''
 

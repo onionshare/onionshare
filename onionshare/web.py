@@ -143,11 +143,19 @@ class Web(object):
         """
         @self.app.route("/<slug_candidate>")
         def index(slug_candidate):
+            self.check_slug_candidate(slug_candidate)
+            return index_logic()
+
+        @self.app.route("/")
+        def index_public():
+            if not self.common.settings.get('public_mode'):
+                return self.error404()
+            return index_logic()
+
+        def index_logic(slug_candidate=''):
             """
             Render the template for the onionshare landing page.
             """
-            self.check_slug_candidate(slug_candidate)
-
             self.add_request(Web.REQUEST_LOAD, request.path)
 
             # Deny new downloads if "Stop After First Download" is checked and there is
@@ -158,22 +166,39 @@ class Web(object):
                 return self.add_security_headers(r)
 
             # If download is allowed to continue, serve download page
-            r = make_response(render_template(
-                'send.html',
-                slug=self.slug,
-                file_info=self.file_info,
-                filename=os.path.basename(self.zip_filename),
-                filesize=self.zip_filesize,
-                filesize_human=self.common.human_readable_filesize(self.zip_filesize)))
+            if self.slug:
+                r = make_response(render_template(
+                    'send.html',
+                    slug=self.slug,
+                    file_info=self.file_info,
+                    filename=os.path.basename(self.zip_filename),
+                    filesize=self.zip_filesize,
+                    filesize_human=self.common.human_readable_filesize(self.zip_filesize)))
+            else:
+                # If download is allowed to continue, serve download page
+                r = make_response(render_template(
+                    'send.html',
+                    file_info=self.file_info,
+                    filename=os.path.basename(self.zip_filename),
+                    filesize=self.zip_filesize,
+                    filesize_human=self.common.human_readable_filesize(self.zip_filesize)))
             return self.add_security_headers(r)
 
         @self.app.route("/<slug_candidate>/download")
         def download(slug_candidate):
+            self.check_slug_candidate(slug_candidate)
+            return download_logic()
+
+        @self.app.route("/download")
+        def download_public():
+            if not self.common.settings.get('public_mode'):
+                return self.error404()
+            return download_logic()
+
+        def download_logic(slug_candidate=''):
             """
             Download the zip file.
             """
-            self.check_slug_candidate(slug_candidate)
-
             # Deny new downloads if "Stop After First Download" is checked and there is
             # currently a download
             deny_download = not self.stay_open and self.download_in_progress
@@ -288,7 +313,7 @@ class Web(object):
         def index_logic():
             self.add_request(Web.REQUEST_LOAD, request.path)
 
-            if self.common.settings.get('receive_public_mode'):
+            if self.common.settings.get('public_mode'):
                 upload_action = '/upload'
                 close_action = '/close'
             else:
@@ -309,7 +334,7 @@ class Web(object):
 
         @self.app.route("/")
         def index_public():
-            if not self.common.settings.get('receive_public_mode'):
+            if not self.common.settings.get('public_mode'):
                 return self.error404()
             return index_logic()
 
@@ -331,8 +356,8 @@ class Web(object):
                 print(strings._('error_downloads_dir_not_writable').format(self.common.settings.get('downloads_dir')))
                 valid = False
             if not valid:
-                flash('Error uploading, please inform the OnionShare user')
-                if self.common.settings.get('receive_public_mode'):
+                flash('Error uploading, please inform the OnionShare user', 'error')
+                if self.common.settings.get('public_mode'):
                     return redirect('/')
                 else:
                     return redirect('/{}'.format(slug_candidate))
@@ -390,12 +415,12 @@ class Web(object):
             # Note that flash strings are on English, and not translated, on purpose,
             # to avoid leaking the locale of the OnionShare user
             if len(filenames) == 0:
-                flash('No files uploaded')
+                flash('No files uploaded', 'info')
             else:
                 for filename in filenames:
-                    flash('Uploaded {}'.format(filename))
+                    flash('Sent {}'.format(filename), 'info')
 
-            if self.common.settings.get('receive_public_mode'):
+            if self.common.settings.get('public_mode'):
                 return redirect('/')
             else:
                 return redirect('/{}'.format(slug_candidate))
@@ -407,7 +432,7 @@ class Web(object):
 
         @self.app.route("/upload", methods=['POST'])
         def upload_public():
-            if not self.common.settings.get('receive_public_mode'):
+            if not self.common.settings.get('public_mode'):
                 return self.error404()
             return upload_logic()
 
@@ -428,7 +453,7 @@ class Web(object):
 
         @self.app.route("/close", methods=['POST'])
         def close_public():
-            if not self.common.settings.get('receive_public_mode'):
+            if not self.common.settings.get('public_mode'):
                 return self.error404()
             return close_logic()
 
@@ -458,7 +483,7 @@ class Web(object):
             self.error404_count += 1
 
             # In receive mode, with public mode enabled, skip rate limiting 404s
-            if not (self.receive_mode and self.common.settings.get('receive_public_mode')):
+            if not self.common.settings.get('public_mode'):
                 if self.error404_count == 20:
                     self.add_request(Web.REQUEST_RATE_LIMIT, request.path)
                     self.force_shutdown()
@@ -544,10 +569,14 @@ class Web(object):
         self.app.logger.addHandler(log_handler)
 
     def check_slug_candidate(self, slug_candidate, slug_compare=None):
-        if not slug_compare:
-            slug_compare = self.slug
-        if not hmac.compare_digest(slug_compare, slug_candidate):
+        self.common.log('Web', 'check_slug_candidate: slug_candidate={}, slug_compare={}'.format(slug_candidate, slug_compare))
+        if self.common.settings.get('public_mode'):
             abort(404)
+        else:
+            if not slug_compare:
+                slug_compare = self.slug
+            if not hmac.compare_digest(slug_compare, slug_candidate):
+                abort(404)
 
     def force_shutdown(self):
         """
@@ -563,12 +592,13 @@ class Web(object):
             pass
         self.running = False
 
-    def start(self, port, stay_open=False, persistent_slug=None):
+    def start(self, port, stay_open=False, public_mode=False, persistent_slug=None):
         """
         Start the flask web server.
         """
         self.common.log('Web', 'start', 'port={}, stay_open={}, persistent_slug={}'.format(port, stay_open, persistent_slug))
-        self.generate_slug(persistent_slug)
+        if not public_mode:
+            self.generate_slug(persistent_slug)
 
         self.stay_open = stay_open
 
@@ -719,7 +749,7 @@ class ReceiveModeRequest(Request):
             if self.path == '/{}/upload'.format(self.web.slug):
                 self.upload_request = True
             else:
-                if self.web.common.settings.get('receive_public_mode'):
+                if self.web.common.settings.get('public_mode'):
                     if self.path == '/upload':
                         self.upload_request = True
 

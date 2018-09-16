@@ -21,11 +21,11 @@
            <p><input type="file" name="file[]" multiple /></p>
            <p><input type="submit" class="button" value="Send Files" /></p>
            <div>
-             {% with messages = get_flashed_messages() %}
+             {% with messages = get_flashed_messages(with_categories=true) %}
                {% if messages %}
                  <ul class=flashes>
-                 {% for message in messages %}
-                   <li>{{ message }}</li>
+                 {% for category, message in messages %}
+		 <li class="{{ category }}">{{ message }}</li>
                  {% endfor %}
                  </ul>
                {% endif %}
@@ -35,9 +35,13 @@
       </div>
     </div>
     {% if receive_allow_receiver_shutdown %}
-    <form method="post" action="{{ close_action }}">
-      <input type="submit" class="close-button" value="I'm Finished Uploading" />
-    </form>
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <form method="post" action="{{ close_action }}">
+            <input type="submit" class="close-button" value="I'm Finished Sending" />
+          </form>
+        {% endif %}
+      {% endwith %}
     {% endif %}
   </body>
 </html>
