@@ -52,6 +52,32 @@ class SettingsDialog(QtWidgets.QDialog):
 
         self.system = platform.system()
 
+        # General options
+
+        # Whether or not to use legacy v2 onions
+        self.use_legacy_v2_onions_checkbox = QtWidgets.QCheckBox()
+        self.use_legacy_v2_onions_checkbox.setCheckState(QtCore.Qt.Unchecked)
+        self.use_legacy_v2_onions_checkbox.setText(strings._("gui_use_legacy_v2_onions_checkbox", True))
+
+        # Whether or not to save the Onion private key for reuse (persistent URL mode)
+        self.save_private_key_checkbox = QtWidgets.QCheckBox()
+        self.save_private_key_checkbox.setCheckState(QtCore.Qt.Unchecked)
+        self.save_private_key_checkbox.setText(strings._("gui_save_private_key_checkbox", True))
+        self.save_private_key_checkbox.clicked.connect(self.save_private_key_checkbox_clicked)
+
+        # Use a slug
+        self.public_mode_checkbox = QtWidgets.QCheckBox()
+        self.public_mode_checkbox.setCheckState(QtCore.Qt.Unchecked)
+        self.public_mode_checkbox.setText(strings._("gui_settings_public_mode_checkbox", True))
+
+        # General options layout
+        general_group_layout = QtWidgets.QVBoxLayout()
+        general_group_layout.addWidget(self.use_legacy_v2_onions_checkbox)
+        general_group_layout.addWidget(self.save_private_key_checkbox)
+        general_group_layout.addWidget(self.public_mode_checkbox)
+        general_group = QtWidgets.QGroupBox(strings._("gui_settings_general_label", True))
+        general_group.setLayout(general_group_layout)
+
         # Sharing options
 
         # Close after first download
@@ -64,23 +90,10 @@ class SettingsDialog(QtWidgets.QDialog):
         self.shutdown_timeout_checkbox.setCheckState(QtCore.Qt.Checked)
         self.shutdown_timeout_checkbox.setText(strings._("gui_settings_shutdown_timeout_checkbox", True))
 
-        # Whether or not to use legacy v2 onions
-        self.use_legacy_v2_onions_checkbox = QtWidgets.QCheckBox()
-        self.use_legacy_v2_onions_checkbox.setCheckState(QtCore.Qt.Unchecked)
-        self.use_legacy_v2_onions_checkbox.setText(strings._("gui_use_legacy_v2_onions_checkbox", True))
-
-        # Whether or not to save the Onion private key for reuse (persistent URLs)
-        self.save_private_key_checkbox = QtWidgets.QCheckBox()
-        self.save_private_key_checkbox.setCheckState(QtCore.Qt.Unchecked)
-        self.save_private_key_checkbox.setText(strings._("gui_save_private_key_checkbox", True))
-        self.save_private_key_checkbox.clicked.connect(self.save_private_key_checkbox_clicked)
-
         # Sharing options layout
         sharing_group_layout = QtWidgets.QVBoxLayout()
         sharing_group_layout.addWidget(self.close_after_first_download_checkbox)
         sharing_group_layout.addWidget(self.shutdown_timeout_checkbox)
-        sharing_group_layout.addWidget(self.use_legacy_v2_onions_checkbox)
-        sharing_group_layout.addWidget(self.save_private_key_checkbox)
         sharing_group = QtWidgets.QGroupBox(strings._("gui_settings_sharing_label", True))
         sharing_group.setLayout(sharing_group_layout)
 
@@ -100,16 +113,10 @@ class SettingsDialog(QtWidgets.QDialog):
         self.receive_allow_receiver_shutdown_checkbox.setCheckState(QtCore.Qt.Checked)
         self.receive_allow_receiver_shutdown_checkbox.setText(strings._("gui_settings_receive_allow_receiver_shutdown_checkbox", True))
 
-        # Use a slug
-        self.receive_public_mode_checkbox = QtWidgets.QCheckBox()
-        self.receive_public_mode_checkbox.setCheckState(QtCore.Qt.Checked)
-        self.receive_public_mode_checkbox.setText(strings._("gui_settings_receive_public_mode_checkbox", True))
-
         # Receiving options layout
         receiving_group_layout = QtWidgets.QVBoxLayout()
         receiving_group_layout.addLayout(downloads_layout)
         receiving_group_layout.addWidget(self.receive_allow_receiver_shutdown_checkbox)
-        receiving_group_layout.addWidget(self.receive_public_mode_checkbox)
         receiving_group = QtWidgets.QGroupBox(strings._("gui_settings_receiving_label", True))
         receiving_group.setLayout(receiving_group_layout)
 
@@ -199,16 +206,6 @@ class SettingsDialog(QtWidgets.QDialog):
             self.tor_bridges_use_obfs4_radio = QtWidgets.QRadioButton(strings._('gui_settings_tor_bridges_obfs4_radio_option', True))
         self.tor_bridges_use_obfs4_radio.toggled.connect(self.tor_bridges_use_obfs4_radio_toggled)
 
-        # meek_lite-amazon option radio
-        # if the obfs4proxy binary is missing, we can't use meek_lite-amazon transports
-        (self.tor_path, self.tor_geo_ip_file_path, self.tor_geo_ipv6_file_path, self.obfs4proxy_file_path) = self.common.get_tor_paths()
-        if not os.path.isfile(self.obfs4proxy_file_path):
-            self.tor_bridges_use_meek_lite_amazon_radio = QtWidgets.QRadioButton(strings._('gui_settings_tor_bridges_meek_lite_amazon_radio_option_no_obfs4proxy', True))
-            self.tor_bridges_use_meek_lite_amazon_radio.setEnabled(False)
-        else:
-            self.tor_bridges_use_meek_lite_amazon_radio = QtWidgets.QRadioButton(strings._('gui_settings_tor_bridges_meek_lite_amazon_radio_option', True))
-        self.tor_bridges_use_meek_lite_amazon_radio.toggled.connect(self.tor_bridges_use_meek_lite_amazon_radio_toggled)
-
         # meek_lite-azure option radio
         # if the obfs4proxy binary is missing, we can't use meek_lite-azure transports
         (self.tor_path, self.tor_geo_ip_file_path, self.tor_geo_ipv6_file_path, self.obfs4proxy_file_path) = self.common.get_tor_paths()
@@ -221,7 +218,6 @@ class SettingsDialog(QtWidgets.QDialog):
 
         # meek_lite currently not supported on the version of obfs4proxy bundled with TorBrowser
         if self.system == 'Windows' or self.system == 'Darwin':
-            self.tor_bridges_use_meek_lite_amazon_radio.hide()
             self.tor_bridges_use_meek_lite_azure_radio.hide()
 
         # Custom bridges radio and textbox
@@ -247,7 +243,6 @@ class SettingsDialog(QtWidgets.QDialog):
         bridges_layout = QtWidgets.QVBoxLayout()
         bridges_layout.addWidget(self.tor_bridges_no_bridges_radio)
         bridges_layout.addWidget(self.tor_bridges_use_obfs4_radio)
-        bridges_layout.addWidget(self.tor_bridges_use_meek_lite_amazon_radio)
         bridges_layout.addWidget(self.tor_bridges_use_meek_lite_azure_radio)
         bridges_layout.addWidget(self.tor_bridges_use_custom_radio)
         bridges_layout.addWidget(self.tor_bridges_use_custom_textbox_options)
@@ -385,6 +380,7 @@ class SettingsDialog(QtWidgets.QDialog):
 
         # Layout
         left_col_layout = QtWidgets.QVBoxLayout()
+        left_col_layout.addWidget(general_group)
         left_col_layout.addWidget(sharing_group)
         left_col_layout.addWidget(receiving_group)
         left_col_layout.addWidget(stealth_group)
@@ -447,11 +443,11 @@ class SettingsDialog(QtWidgets.QDialog):
         else:
             self.receive_allow_receiver_shutdown_checkbox.setCheckState(QtCore.Qt.Unchecked)
 
-        receive_public_mode = self.old_settings.get('receive_public_mode')
-        if receive_public_mode:
-            self.receive_public_mode_checkbox.setCheckState(QtCore.Qt.Checked)
+        public_mode = self.old_settings.get('public_mode')
+        if public_mode:
+            self.public_mode_checkbox.setCheckState(QtCore.Qt.Checked)
         else:
-            self.receive_public_mode_checkbox.setCheckState(QtCore.Qt.Unchecked)
+            self.public_mode_checkbox.setCheckState(QtCore.Qt.Unchecked)
 
         use_stealth = self.old_settings.get('use_stealth')
         if use_stealth:
@@ -503,13 +499,11 @@ class SettingsDialog(QtWidgets.QDialog):
         if self.old_settings.get('no_bridges'):
             self.tor_bridges_no_bridges_radio.setChecked(True)
             self.tor_bridges_use_obfs4_radio.setChecked(False)
-            self.tor_bridges_use_meek_lite_amazon_radio.setChecked(False)
             self.tor_bridges_use_meek_lite_azure_radio.setChecked(False)
             self.tor_bridges_use_custom_radio.setChecked(False)
         else:
             self.tor_bridges_no_bridges_radio.setChecked(False)
             self.tor_bridges_use_obfs4_radio.setChecked(self.old_settings.get('tor_bridges_use_obfs4'))
-            self.tor_bridges_use_meek_lite_amazon_radio.setChecked(self.old_settings.get('tor_bridges_use_meek_lite_amazon'))
             self.tor_bridges_use_meek_lite_azure_radio.setChecked(self.old_settings.get('tor_bridges_use_meek_lite_azure'))
 
             if self.old_settings.get('tor_bridges_use_custom_bridges'):
@@ -548,16 +542,6 @@ class SettingsDialog(QtWidgets.QDialog):
         if checked:
             self.tor_bridges_use_custom_textbox_options.hide()
 
-    def tor_bridges_use_meek_lite_amazon_radio_toggled(self, checked):
-        """
-        meek_lite-amazon bridges option was toggled. If checked, disable custom bridge options.
-        """
-        if checked:
-            self.tor_bridges_use_custom_textbox_options.hide()
-            # Alert the user about meek's costliness if it looks like they're turning it on
-            if not self.old_settings.get('tor_bridges_use_meek_lite_amazon'):
-                Alert(strings._('gui_settings_meek_lite_expensive_warning', True), QtWidgets.QMessageBox.Warning)
-
     def tor_bridges_use_meek_lite_azure_radio_toggled(self, checked):
         """
         meek_lite_azure bridges option was toggled. If checked, disable custom bridge options.
@@ -566,7 +550,7 @@ class SettingsDialog(QtWidgets.QDialog):
             self.tor_bridges_use_custom_textbox_options.hide()
             # Alert the user about meek's costliness if it looks like they're turning it on
             if not self.old_settings.get('tor_bridges_use_meek_lite_azure'):
-                Alert(strings._('gui_settings_meek_lite_expensive_warning', True), QtWidgets.QMessageBox.Warning)
+                Alert(self.common, strings._('gui_settings_meek_lite_expensive_warning', True), QtWidgets.QMessageBox.Warning)
 
     def tor_bridges_use_custom_radio_toggled(self, checked):
         """
@@ -745,8 +729,8 @@ class SettingsDialog(QtWidgets.QDialog):
             Alert(self.common, strings._('update_error_check_error', True), QtWidgets.QMessageBox.Warning)
             close_forced_update_thread()
 
-        def update_invalid_version():
-            Alert(self.common, strings._('update_error_invalid_latest_version', True).format(e.latest_version), QtWidgets.QMessageBox.Warning)
+        def update_invalid_version(latest_version):
+            Alert(self.common, strings._('update_error_invalid_latest_version', True).format(latest_version), QtWidgets.QMessageBox.Warning)
             close_forced_update_thread()
 
         forced_update_thread = UpdateThread(self.common, self.onion, self.config, force=True)
@@ -787,7 +771,7 @@ class SettingsDialog(QtWidgets.QDialog):
                         'control_port_port', 'socks_address', 'socks_port',
                         'socket_file_path', 'auth_type', 'auth_password',
                         'no_bridges', 'tor_bridges_use_obfs4',
-                        'tor_bridges_use_meek_lite_amazon', 'tor_bridges_use_meek_lite_azure',
+                        'tor_bridges_use_meek_lite_azure',
                         'tor_bridges_use_custom_bridges']):
 
                         reboot_onion = True
@@ -882,7 +866,7 @@ class SettingsDialog(QtWidgets.QDialog):
 
         settings.set('downloads_dir', self.downloads_dir_lineedit.text())
         settings.set('receive_allow_receiver_shutdown', self.receive_allow_receiver_shutdown_checkbox.isChecked())
-        settings.set('receive_public_mode', self.receive_public_mode_checkbox.isChecked())
+        settings.set('public_mode', self.public_mode_checkbox.isChecked())
         settings.set('use_stealth', self.stealth_checkbox.isChecked())
         # Always unset the HidServAuth if Stealth mode is unset
         if not self.stealth_checkbox.isChecked():
@@ -920,31 +904,21 @@ class SettingsDialog(QtWidgets.QDialog):
         if self.tor_bridges_no_bridges_radio.isChecked():
             settings.set('no_bridges', True)
             settings.set('tor_bridges_use_obfs4', False)
-            settings.set('tor_bridges_use_meek_lite_amazon', False)
             settings.set('tor_bridges_use_meek_lite_azure', False)
             settings.set('tor_bridges_use_custom_bridges', '')
         if self.tor_bridges_use_obfs4_radio.isChecked():
             settings.set('no_bridges', False)
             settings.set('tor_bridges_use_obfs4', True)
-            settings.set('tor_bridges_use_meek_lite_amazon', False)
-            settings.set('tor_bridges_use_meek_lite_azure', False)
-            settings.set('tor_bridges_use_custom_bridges', '')
-        if self.tor_bridges_use_meek_lite_amazon_radio.isChecked():
-            settings.set('no_bridges', False)
-            settings.set('tor_bridges_use_obfs4', False)
-            settings.set('tor_bridges_use_meek_lite_amazon', True)
             settings.set('tor_bridges_use_meek_lite_azure', False)
             settings.set('tor_bridges_use_custom_bridges', '')
         if self.tor_bridges_use_meek_lite_azure_radio.isChecked():
             settings.set('no_bridges', False)
             settings.set('tor_bridges_use_obfs4', False)
-            settings.set('tor_bridges_use_meek_lite_amazon', False)
             settings.set('tor_bridges_use_meek_lite_azure', True)
             settings.set('tor_bridges_use_custom_bridges', '')
         if self.tor_bridges_use_custom_radio.isChecked():
             settings.set('no_bridges', False)
             settings.set('tor_bridges_use_obfs4', False)
-            settings.set('tor_bridges_use_meek_lite_amazon', False)
             settings.set('tor_bridges_use_meek_lite_azure', False)
 
             # Insert a 'Bridge' line at the start of each bridge.

@@ -38,11 +38,11 @@ DEFAULT_ZW_FILENAME_REGEX = re.compile(r'^onionshare_[a-z2-7]{6}.zip$')
 RANDOM_STR_REGEX = re.compile(r'^[a-z2-7]+$')
 
 
-def web_obj(common_obj, recieve_mode, num_files=0):
+def web_obj(common_obj, receive_mode, num_files=0):
     """ Creates a Web object, in either share mode or receive mode, ready for testing """
     common_obj.load_settings()
 
-    web = Web(common_obj, False, recieve_mode)
+    web = Web(common_obj, False, receive_mode)
     web.generate_slug()
     web.stay_open = True
     web.running = True
@@ -50,7 +50,7 @@ def web_obj(common_obj, recieve_mode, num_files=0):
     web.app.testing = True
 
     # Share mode
-    if not recieve_mode:
+    if not receive_mode:
         # Add files
         files = []
         for i in range(num_files):
@@ -61,7 +61,7 @@ def web_obj(common_obj, recieve_mode, num_files=0):
     # Receive mode
     else:
         pass
-    
+
     return web
 
 
@@ -89,7 +89,7 @@ class TestWeb:
             res.get_data()
             assert res.status_code == 200
             assert res.mimetype == 'application/zip'
-    
+
     def test_share_mode_close_after_first_download_on(self, common_obj, temp_file_1024):
         web = web_obj(common_obj, False, 3)
         web.stay_open = False
@@ -104,7 +104,7 @@ class TestWeb:
             assert res.mimetype == 'application/zip'
 
             assert web.running == False
-    
+
     def test_share_mode_close_after_first_download_off(self, common_obj, temp_file_1024):
         web = web_obj(common_obj, False, 3)
         web.stay_open = True
@@ -118,7 +118,7 @@ class TestWeb:
             assert res.status_code == 200
             assert res.mimetype == 'application/zip'
             assert web.running == True
-    
+
     def test_receive_mode(self, common_obj):
         web = web_obj(common_obj, True)
         assert web.receive_mode is True
@@ -137,7 +137,7 @@ class TestWeb:
             res = c.get('/{}'.format(web.slug))
             res.get_data()
             assert res.status_code == 200
-    
+
     def test_receive_mode_allow_receiver_shutdown_on(self, common_obj):
         web = web_obj(common_obj, True)
 
@@ -152,7 +152,7 @@ class TestWeb:
             # Should return ok, and server should stop
             assert res.status_code == 200
             assert web.running == False
-    
+
     def test_receive_mode_allow_receiver_shutdown_off(self, common_obj):
         web = web_obj(common_obj, True)
 
@@ -168,9 +168,9 @@ class TestWeb:
             assert res.status_code == 302
             assert web.running == True
     
-    def test_receive_mode_receive_public_mode_on(self, common_obj):
+    def test_public_mode_on(self, common_obj):
         web = web_obj(common_obj, True)
-        common_obj.settings.set('receive_public_mode', True)
+        common_obj.settings.set('public_mode', True)
 
         with web.app.test_client() as c:
             # Upload page should be accessible from both / and /[slug]
@@ -182,9 +182,9 @@ class TestWeb:
             data2 = res.get_data()
             assert res.status_code == 200
     
-    def test_receive_mode_receive_public_mode_off(self, common_obj):
+    def test_public_mode_off(self, common_obj):
         web = web_obj(common_obj, True)
-        common_obj.settings.set('receive_public_mode', False)
+        common_obj.settings.set('public_mode', False)
 
         with web.app.test_client() as c:
             # / should be a 404

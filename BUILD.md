@@ -11,9 +11,11 @@ cd onionshare
 
 Install the needed dependencies:
 
-For Debian-like distros: `apt install -y build-essential fakeroot python3-all python3-stdeb dh-python python3-flask python3-stem python3-pyqt5 python-nautilus python3-pytest tor obfs4proxy python3-cryptography python3-crypto python3-nacl python3-pip; pip3 install pysha3`
+For Debian-like distros: `apt install -y build-essential fakeroot python3-all python3-stdeb dh-python python3-flask python3-stem python3-pyqt5 python-nautilus python3-pytest tor obfs4proxy python3-cryptography python3-crypto python3-nacl python3-pip python3-socks python3-sha3`
 
-For Fedora-like distros: `dnf install -y rpm-build python3-flask python3-stem python3-qt5 python3-pytest nautilus-python tor obfs4 python3-pynacl python3-cryptography python3-crypto python3-pip; pip3 install pysha3`
+On some older versions of Debian you may need to install pysha3 with `pip3 install pysha3` if python3-sha3 is not available.
+
+For Fedora-like distros: `dnf install -y rpm-build python3-flask python3-stem python3-qt5 python3-pytest nautilus-python tor obfs4 python3-pynacl python3-cryptography python3-crypto python3-pip python3-pysocks`
 
 After that you can try both the CLI and the GUI version of OnionShare:
 
@@ -27,6 +29,8 @@ You can also build OnionShare packages to install:
 Create a .deb on Debian-like distros: `./install/build_deb.sh`
 
 Create a .rpm on Fedora-like distros: `./install/build_rpm.sh`
+
+For OpenSuSE: There are instructions for building [in the wiki](https://github.com/micahflee/onionshare/wiki/Linux-Distribution-Support#opensuse-leap-150).
 
 For ArchLinux: There is a PKBUILD available [here](https://aur.archlinux.org/packages/onionshare/) that can be used to install OnionShare.
 
@@ -85,7 +89,7 @@ pip3 install -r install\requirements-windows.txt
 
 Download and install pywin32 (build 221, x86, for python 3.6) from https://sourceforge.net/projects/pywin32/files/pywin32/Build%20221/. I downloaded `pywin32-221.win32-py3.6.exe`.
 
-Download and install Qt5 from https://www.qt.io/download-open-source/. I downloaded `qt-unified-windows-x86-3.0.2-online.exe`. There's no need to login to a Qt account during installation. Make sure you install the latest Qt 5.x. I installed Qt 5.10.0.
+Download and install Qt5 from https://www.qt.io/download-open-source/. I downloaded `qt-unified-windows-x86-3.0.4-online.exe`. There's no need to login to a Qt account during installation. Make sure you install the latest Qt 5.x. I installed Qt 5.11.0. You only need to install the `MSVC 2015 32-bit` component, as well as all of the the `Qt` components, for that that version.
 
 After that you can try both the CLI and the GUI version of OnionShare:
 
@@ -100,7 +104,7 @@ These instructions include adding folders to the path in Windows. To do this, go
 
 Download and install the 32-bit [Visual C++ Redistributable for Visual Studio 2015](https://www.microsoft.com/en-US/download/details.aspx?id=48145). I downloaded `vc_redist.x86.exe`.
 
-Download and install 7-Zip from http://www.7-zip.org/download.html. I downloaded `7z1800.exe`.
+Download and install 7-Zip from http://www.7-zip.org/download.html. I downloaded `7z1805.exe`.
 
 Download and install the standalone [Windows 10 SDK](https://dev.windows.com/en-us/downloads/windows-10-sdk). Note that you may not need this if you already have Visual Studio.
 
@@ -113,7 +117,7 @@ Add the following directories to the path:
 
 If you want to build the installer:
 
-* Go to http://nsis.sourceforge.net/Download and download the latest NSIS. I downloaded `nsis-3.02.1-setup.exe`.
+* Go to http://nsis.sourceforge.net/Download and download the latest NSIS. I downloaded `nsis-3.03-setup.exe`.
 * Add `C:\Program Files (x86)\NSIS` to the path.
 
 If you want to sign binaries with Authenticode:

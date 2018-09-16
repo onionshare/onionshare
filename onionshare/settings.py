@@ -65,17 +65,16 @@ class Settings(object):
             'autoupdate_timestamp': None,
             'no_bridges': True,
             'tor_bridges_use_obfs4': False,
-            'tor_bridges_use_meek_lite_amazon': False,
             'tor_bridges_use_meek_lite_azure': False,
             'tor_bridges_use_custom_bridges': '',
             'use_legacy_v2_onions': False,
             'save_private_key': False,
             'private_key': '',
+            'public_mode': False,
             'slug': '',
             'hidservauth_string': '',
             'downloads_dir': self.build_default_downloads_dir(),
-            'receive_allow_receiver_shutdown': True,
-            'receive_public_mode': False
+            'receive_allow_receiver_shutdown': True
         }
         self._settings = {}
         self.fill_in_defaults()

@@ -12,6 +12,7 @@ PySocks==1.6.7
 pynacl==1.2.1
 pycrypto==2.6.1
 pysha3==1.0.2
+requests==2.19.1
 sip==4.19.6
 stem==1.6.0
 Werkzeug==0.14.1
