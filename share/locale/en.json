@@ -141,7 +141,7 @@
     "share_via_onionshare": "Share via OnionShare",
     "gui_use_legacy_v2_onions_checkbox": "Use legacy addresses",
     "gui_use_legacy_v2_onions_label": "(<a href=\"https://github.com/micahflee/onionshare/wiki/Legacy-Addresses\">what's this?</a>)",
-    "gui_save_private_key_checkbox": "Use a persistent address (legacy)\n(unchecking will delete any saved addresses)",
+    "gui_save_private_key_checkbox": "Use a persistent address (legacy)",
     "gui_save_private_key_label": "(<a href=\"https://github.com/micahflee/onionshare/wiki/Using-a-Persistent-URL\">what's this?</a>)",
     "gui_share_url_description": "<b>Anyone</b> with this link can <b>download</b> your files using the <b>Tor Browser</b>: <img src='{}' />",
     "gui_receive_url_description": "<b>Anyone</b> with this link can <b>upload</b> files to your computer using the <b>Tor Browser</b>: <img src='{}' />",
