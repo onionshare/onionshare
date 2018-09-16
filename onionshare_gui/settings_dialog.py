@@ -54,12 +54,43 @@ class SettingsDialog(QtWidgets.QDialog):
 
         # General options
 
+        # Use a slug or not ('public mode')
+        self.public_mode_checkbox = QtWidgets.QCheckBox()
+        self.public_mode_checkbox.setCheckState(QtCore.Qt.Unchecked)
+        self.public_mode_checkbox.setText(strings._("gui_settings_public_mode_checkbox", True))
+        public_mode_label = QtWidgets.QLabel(strings._("gui_settings_public_mode_details", True))
+        public_mode_label.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
+        public_mode_label.setOpenExternalLinks(True)
+        public_mode_label.setMinimumSize(public_mode_label.sizeHint())
+        public_mode_layout = QtWidgets.QHBoxLayout()
+        public_mode_layout.addWidget(self.public_mode_checkbox)
+        public_mode_layout.addWidget(public_mode_label)
+        public_mode_layout.addStretch()
+        public_mode_layout.setContentsMargins(0,0,0,0)
+        public_mode_widget = QtWidgets.QWidget()
+        public_mode_widget.setLayout(public_mode_layout)
+
+        # Whether or not to use a shutdown ('auto-stop') timer
+        self.shutdown_timeout_checkbox = QtWidgets.QCheckBox()
+        self.shutdown_timeout_checkbox.setCheckState(QtCore.Qt.Checked)
+        self.shutdown_timeout_checkbox.setText(strings._("gui_settings_shutdown_timeout_checkbox", True))
+        shutdown_timeout_label = QtWidgets.QLabel(strings._("gui_settings_shutdown_timeout_details", True))
+        shutdown_timeout_label.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
+        shutdown_timeout_label.setOpenExternalLinks(True)
+        shutdown_timeout_label.setMinimumSize(public_mode_label.sizeHint())
+        shutdown_timeout_layout = QtWidgets.QHBoxLayout()
+        shutdown_timeout_layout.addWidget(self.shutdown_timeout_checkbox)
+        shutdown_timeout_layout.addWidget(shutdown_timeout_label)
+        shutdown_timeout_layout.addStretch()
+        shutdown_timeout_layout.setContentsMargins(0,0,0,0)
+        shutdown_timeout_widget = QtWidgets.QWidget()
+        shutdown_timeout_widget.setLayout(shutdown_timeout_layout)
+
         # Whether or not to use legacy v2 onions
         self.use_legacy_v2_onions_checkbox = QtWidgets.QCheckBox()
         self.use_legacy_v2_onions_checkbox.setCheckState(QtCore.Qt.Unchecked)
         self.use_legacy_v2_onions_checkbox.setText(strings._("gui_use_legacy_v2_onions_checkbox", True))
         use_legacy_v2_onions_label = QtWidgets.QLabel(strings._("gui_use_legacy_v2_onions_label", True))
-        use_legacy_v2_onions_label.setWordWrap(True)
         use_legacy_v2_onions_label.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
         use_legacy_v2_onions_label.setOpenExternalLinks(True)
         use_legacy_v2_onions_layout = QtWidgets.QHBoxLayout()
@@ -75,16 +106,16 @@ class SettingsDialog(QtWidgets.QDialog):
         self.save_private_key_checkbox.setCheckState(QtCore.Qt.Unchecked)
         self.save_private_key_checkbox.setText(strings._("gui_save_private_key_checkbox", True))
         self.save_private_key_checkbox.clicked.connect(self.save_private_key_checkbox_clicked)
-
-        # Use a slug
-        self.public_mode_checkbox = QtWidgets.QCheckBox()
-        self.public_mode_checkbox.setCheckState(QtCore.Qt.Unchecked)
-        self.public_mode_checkbox.setText(strings._("gui_settings_public_mode_checkbox", True))
-
-        # Whether or not to use a shutdown timer
-        self.shutdown_timeout_checkbox = QtWidgets.QCheckBox()
-        self.shutdown_timeout_checkbox.setCheckState(QtCore.Qt.Checked)
-        self.shutdown_timeout_checkbox.setText(strings._("gui_settings_shutdown_timeout_checkbox", True))
+        save_private_key_label = QtWidgets.QLabel(strings._("gui_save_private_key_label", True))
+        save_private_key_label.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
+        save_private_key_label.setOpenExternalLinks(True)
+        save_private_key_layout = QtWidgets.QHBoxLayout()
+        save_private_key_layout.addWidget(self.save_private_key_checkbox)
+        save_private_key_layout.addWidget(save_private_key_label)
+        save_private_key_layout.addStretch()
+        save_private_key_layout.setContentsMargins(0,0,0,0)
+        save_private_key_widget = QtWidgets.QWidget()
+        save_private_key_widget.setLayout(save_private_key_layout)
 
         # Stealth
         self.stealth_checkbox = QtWidgets.QCheckBox()
@@ -92,7 +123,6 @@ class SettingsDialog(QtWidgets.QDialog):
         self.stealth_checkbox.setText(strings._("gui_settings_stealth_option", True))
         self.stealth_checkbox.clicked.connect(self.stealth_checkbox_clicked_connect)
         use_stealth_label = QtWidgets.QLabel(strings._("gui_settings_stealth_option_details", True))
-        use_stealth_label.setWordWrap(True)
         use_stealth_label.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
         use_stealth_label.setOpenExternalLinks(True)
         use_stealth_label.setMinimumSize(use_stealth_label.sizeHint())
@@ -116,10 +146,10 @@ class SettingsDialog(QtWidgets.QDialog):
 
         # General options layout
         general_group_layout = QtWidgets.QVBoxLayout()
-        general_group_layout.addWidget(self.public_mode_checkbox)
-        general_group_layout.addWidget(self.shutdown_timeout_checkbox)
+        general_group_layout.addWidget(public_mode_widget)
+        general_group_layout.addWidget(shutdown_timeout_widget)
         general_group_layout.addWidget(use_legacy_v2_onions_widget)
-        general_group_layout.addWidget(self.save_private_key_checkbox)
+        general_group_layout.addWidget(save_private_key_widget)
         general_group_layout.addWidget(use_stealth_widget)
         general_group_layout.addWidget(hidservauth_details)
         general_group_layout.addWidget(self.hidservauth_copy_button)
