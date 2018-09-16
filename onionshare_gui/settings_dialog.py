@@ -81,6 +81,11 @@ class SettingsDialog(QtWidgets.QDialog):
         self.public_mode_checkbox.setCheckState(QtCore.Qt.Unchecked)
         self.public_mode_checkbox.setText(strings._("gui_settings_public_mode_checkbox", True))
 
+        # Whether or not to use a shutdown timer
+        self.shutdown_timeout_checkbox = QtWidgets.QCheckBox()
+        self.shutdown_timeout_checkbox.setCheckState(QtCore.Qt.Checked)
+        self.shutdown_timeout_checkbox.setText(strings._("gui_settings_shutdown_timeout_checkbox", True))
+
         # Stealth
         self.stealth_checkbox = QtWidgets.QCheckBox()
         self.stealth_checkbox.setCheckState(QtCore.Qt.Unchecked)
@@ -111,9 +116,10 @@ class SettingsDialog(QtWidgets.QDialog):
 
         # General options layout
         general_group_layout = QtWidgets.QVBoxLayout()
+        general_group_layout.addWidget(self.public_mode_checkbox)
+        general_group_layout.addWidget(self.shutdown_timeout_checkbox)
         general_group_layout.addWidget(use_legacy_v2_onions_widget)
         general_group_layout.addWidget(self.save_private_key_checkbox)
-        general_group_layout.addWidget(self.public_mode_checkbox)
         general_group_layout.addWidget(use_stealth_widget)
         general_group_layout.addWidget(hidservauth_details)
         general_group_layout.addWidget(self.hidservauth_copy_button)
@@ -128,15 +134,9 @@ class SettingsDialog(QtWidgets.QDialog):
         self.close_after_first_download_checkbox.setCheckState(QtCore.Qt.Checked)
         self.close_after_first_download_checkbox.setText(strings._("gui_settings_close_after_first_download_option", True))
 
-        # Whether or not to use a shutdown timer
-        self.shutdown_timeout_checkbox = QtWidgets.QCheckBox()
-        self.shutdown_timeout_checkbox.setCheckState(QtCore.Qt.Checked)
-        self.shutdown_timeout_checkbox.setText(strings._("gui_settings_shutdown_timeout_checkbox", True))
-
         # Sharing options layout
         sharing_group_layout = QtWidgets.QVBoxLayout()
         sharing_group_layout.addWidget(self.close_after_first_download_checkbox)
-        sharing_group_layout.addWidget(self.shutdown_timeout_checkbox)
         sharing_group = QtWidgets.QGroupBox(strings._("gui_settings_sharing_label", True))
         sharing_group.setLayout(sharing_group_layout)
 
