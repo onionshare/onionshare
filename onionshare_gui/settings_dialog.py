@@ -67,8 +67,8 @@ class SettingsDialog(QtWidgets.QDialog):
         public_mode_layout.addWidget(public_mode_label)
         public_mode_layout.addStretch()
         public_mode_layout.setContentsMargins(0,0,0,0)
-        public_mode_widget = QtWidgets.QWidget()
-        public_mode_widget.setLayout(public_mode_layout)
+        self.public_mode_widget = QtWidgets.QWidget()
+        self.public_mode_widget.setLayout(public_mode_layout)
 
         # Whether or not to use a shutdown ('auto-stop') timer
         self.shutdown_timeout_checkbox = QtWidgets.QCheckBox()
@@ -83,13 +83,14 @@ class SettingsDialog(QtWidgets.QDialog):
         shutdown_timeout_layout.addWidget(shutdown_timeout_label)
         shutdown_timeout_layout.addStretch()
         shutdown_timeout_layout.setContentsMargins(0,0,0,0)
-        shutdown_timeout_widget = QtWidgets.QWidget()
-        shutdown_timeout_widget.setLayout(shutdown_timeout_layout)
+        self.shutdown_timeout_widget = QtWidgets.QWidget()
+        self.shutdown_timeout_widget.setLayout(shutdown_timeout_layout)
 
         # Whether or not to use legacy v2 onions
         self.use_legacy_v2_onions_checkbox = QtWidgets.QCheckBox()
         self.use_legacy_v2_onions_checkbox.setCheckState(QtCore.Qt.Unchecked)
         self.use_legacy_v2_onions_checkbox.setText(strings._("gui_use_legacy_v2_onions_checkbox", True))
+        self.use_legacy_v2_onions_checkbox.clicked.connect(self.use_legacy_v2_onions_checkbox_clicked)
         use_legacy_v2_onions_label = QtWidgets.QLabel(strings._("gui_use_legacy_v2_onions_label", True))
         use_legacy_v2_onions_label.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
         use_legacy_v2_onions_label.setOpenExternalLinks(True)
@@ -98,8 +99,8 @@ class SettingsDialog(QtWidgets.QDialog):
         use_legacy_v2_onions_layout.addWidget(use_legacy_v2_onions_label)
         use_legacy_v2_onions_layout.addStretch()
         use_legacy_v2_onions_layout.setContentsMargins(0,0,0,0)
-        use_legacy_v2_onions_widget = QtWidgets.QWidget()
-        use_legacy_v2_onions_widget.setLayout(use_legacy_v2_onions_layout)
+        self.use_legacy_v2_onions_widget = QtWidgets.QWidget()
+        self.use_legacy_v2_onions_widget.setLayout(use_legacy_v2_onions_layout)
 
         # Whether or not to save the Onion private key for reuse (persistent URL mode)
         self.save_private_key_checkbox = QtWidgets.QCheckBox()
@@ -114,8 +115,8 @@ class SettingsDialog(QtWidgets.QDialog):
         save_private_key_layout.addWidget(save_private_key_label)
         save_private_key_layout.addStretch()
         save_private_key_layout.setContentsMargins(0,0,0,0)
-        save_private_key_widget = QtWidgets.QWidget()
-        save_private_key_widget.setLayout(save_private_key_layout)
+        self.save_private_key_widget = QtWidgets.QWidget()
+        self.save_private_key_widget.setLayout(save_private_key_layout)
 
         # Stealth
         self.stealth_checkbox = QtWidgets.QCheckBox()
@@ -126,14 +127,13 @@ class SettingsDialog(QtWidgets.QDialog):
         use_stealth_label.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
         use_stealth_label.setOpenExternalLinks(True)
         use_stealth_label.setMinimumSize(use_stealth_label.sizeHint())
-
         use_stealth_layout = QtWidgets.QHBoxLayout()
         use_stealth_layout.addWidget(self.stealth_checkbox)
         use_stealth_layout.addWidget(use_stealth_label)
         use_stealth_layout.addStretch()
         use_stealth_layout.setContentsMargins(0,0,0,0)
-        use_stealth_widget = QtWidgets.QWidget()
-        use_stealth_widget.setLayout(use_stealth_layout)
+        self.use_stealth_widget = QtWidgets.QWidget()
+        self.use_stealth_widget.setLayout(use_stealth_layout)
 
         hidservauth_details = QtWidgets.QLabel(strings._('gui_settings_stealth_hidservauth_string', True))
         hidservauth_details.setWordWrap(True)
@@ -146,11 +146,11 @@ class SettingsDialog(QtWidgets.QDialog):
 
         # General options layout
         general_group_layout = QtWidgets.QVBoxLayout()
-        general_group_layout.addWidget(public_mode_widget)
-        general_group_layout.addWidget(shutdown_timeout_widget)
-        general_group_layout.addWidget(use_legacy_v2_onions_widget)
-        general_group_layout.addWidget(save_private_key_widget)
-        general_group_layout.addWidget(use_stealth_widget)
+        general_group_layout.addWidget(self.public_mode_widget)
+        general_group_layout.addWidget(self.shutdown_timeout_widget)
+        general_group_layout.addWidget(self.use_legacy_v2_onions_widget)
+        general_group_layout.addWidget(self.save_private_key_widget)
+        general_group_layout.addWidget(self.use_stealth_widget)
         general_group_layout.addWidget(hidservauth_details)
         general_group_layout.addWidget(self.hidservauth_copy_button)
 
@@ -463,6 +463,13 @@ class SettingsDialog(QtWidgets.QDialog):
 
         use_legacy_v2_onions = self.old_settings.get('use_legacy_v2_onions')
 
+        if use_legacy_v2_onions:
+            self.save_private_key_widget.show()
+            self.use_stealth_widget.show()
+        else:
+            self.save_private_key_widget.hide()
+            self.use_stealth_widget.hide()
+
         save_private_key = self.old_settings.get('save_private_key')
         if save_private_key:
             self.save_private_key_checkbox.setCheckState(QtCore.Qt.Checked)
@@ -495,7 +502,7 @@ class SettingsDialog(QtWidgets.QDialog):
             self.stealth_checkbox.setCheckState(QtCore.Qt.Checked)
             # Legacy v2 mode is forced on if Stealth is enabled
             self.use_legacy_v2_onions_checkbox.setEnabled(False)
-            if save_private_key:
+            if save_private_key and self.old_settings.get('hidservauth_string') != "":
                 hidservauth_details.show()
                 self.hidservauth_copy_button.show()
         else:
@@ -664,6 +671,17 @@ class SettingsDialog(QtWidgets.QDialog):
         self.common.log('SettingsDialog', 'hidservauth_copy_button_clicked', 'HidServAuth was copied to clipboard')
         clipboard = self.qtapp.clipboard()
         clipboard.setText(self.old_settings.get('hidservauth_string'))
+
+    def use_legacy_v2_onions_checkbox_clicked(self, checked):
+        """
+        Show the legacy settings if the legacy mode is enabled.
+        """
+        if checked:
+            self.save_private_key_widget.show()
+            self.use_stealth_widget.show()
+        else:
+            self.save_private_key_widget.hide()
+            self.use_stealth_widget.hide()
 
     def save_private_key_checkbox_clicked(self, checked):
         """
