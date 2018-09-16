@@ -401,7 +401,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
                 Alert(self.common, strings._('error_downloads_dir_not_writable').format(self.common.settings.get('downloads_dir')))
 
             if event["type"] == Web.REQUEST_OTHER:
-                if event["path"] != '/favicon.ico' and event["path"] != "{}/shutdown".format(mode.web.shutdown_slug):
+                if event["path"] != '/favicon.ico' and event["path"] != "/{}/shutdown".format(mode.web.shutdown_slug):
                     self.status_bar.showMessage('[#{0:d}] {1:s}: {2:s}'.format(mode.web.error404_count, strings._('other_page_loaded', True), event["path"]))
 
         mode.timer_callback()
