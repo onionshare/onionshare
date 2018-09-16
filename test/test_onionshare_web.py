@@ -173,14 +173,15 @@ class TestWeb:
         common_obj.settings.set('public_mode', True)
 
         with web.app.test_client() as c:
-            # Upload page should be accessible from both / and /[slug]
+            # Upload page should be accessible from /
             res = c.get('/')
             data1 = res.get_data()
             assert res.status_code == 200
 
+            # /[slug] should be a 404
             res = c.get('/{}'.format(web.slug))
             data2 = res.get_data()
-            assert res.status_code == 200
+            assert res.status_code == 404
     
     def test_public_mode_off(self, common_obj):
         web = web_obj(common_obj, True)
@@ -192,7 +193,7 @@ class TestWeb:
             data1 = res.get_data()
             assert res.status_code == 404
 
-            # Upload page should be accessible from both /[slug]
+            # Upload page should be accessible from /[slug]
             res = c.get('/{}'.format(web.slug))
             data2 = res.get_data()
             assert res.status_code == 200
