@@ -204,6 +204,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.layout.addWidget(self.info_widget)
         self.layout.addLayout(self.file_selection)
         self.layout.addWidget(self.primary_action)
+        self.layout.addStretch()
         central_widget = QtWidgets.QWidget()
         central_widget.setLayout(self.layout)
         self.setCentralWidget(central_widget)
@@ -513,11 +514,15 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.app.cleanup()
         # Remove ephemeral service, but don't disconnect from Tor
         self.onion.cleanup(stop_tor=False)
-        self.filesize_warning.hide()
+
+        # Clean up UI
         self.downloads_in_progress = 0
         self.downloads_completed = 0
         self.update_downloads_in_progress(0)
+
+        self.filesize_warning.hide()
         self.file_selection.file_list.adjustSize()
+        self.adjustSize()
 
         self.set_server_active(False)
         self.stop_server_finished.emit()
