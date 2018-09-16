@@ -58,6 +58,10 @@ class SettingsDialog(QtWidgets.QDialog):
         self.use_legacy_v2_onions_checkbox = QtWidgets.QCheckBox()
         self.use_legacy_v2_onions_checkbox.setCheckState(QtCore.Qt.Unchecked)
         self.use_legacy_v2_onions_checkbox.setText(strings._("gui_use_legacy_v2_onions_checkbox", True))
+        use_legacy_v2_onions_label = QtWidgets.QLabel(strings._("gui_use_legacy_v2_onions_label", True))
+        use_legacy_v2_onions_label.setWordWrap(True)
+        use_legacy_v2_onions_label.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
+        use_legacy_v2_onions_label.setOpenExternalLinks(True)
 
         # Whether or not to save the Onion private key for reuse (persistent URL mode)
         self.save_private_key_checkbox = QtWidgets.QCheckBox()
@@ -70,11 +74,37 @@ class SettingsDialog(QtWidgets.QDialog):
         self.public_mode_checkbox.setCheckState(QtCore.Qt.Unchecked)
         self.public_mode_checkbox.setText(strings._("gui_settings_public_mode_checkbox", True))
 
+        # Stealth
+        self.stealth_checkbox = QtWidgets.QCheckBox()
+        self.stealth_checkbox.setCheckState(QtCore.Qt.Unchecked)
+        self.stealth_checkbox.setText(strings._("gui_settings_stealth_option", True))
+        self.stealth_checkbox.clicked.connect(self.stealth_checkbox_clicked_connect)
+        stealth_details = QtWidgets.QLabel(strings._("gui_settings_stealth_option_details", True))
+        stealth_details.setWordWrap(True)
+        stealth_details.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
+        stealth_details.setOpenExternalLinks(True)
+        stealth_details.setMinimumSize(stealth_details.sizeHint())
+
+        hidservauth_details = QtWidgets.QLabel(strings._('gui_settings_stealth_hidservauth_string', True))
+        hidservauth_details.setWordWrap(True)
+        hidservauth_details.setMinimumSize(hidservauth_details.sizeHint())
+        hidservauth_details.hide()
+
+        self.hidservauth_copy_button = QtWidgets.QPushButton(strings._('gui_copy_hidservauth', True))
+        self.hidservauth_copy_button.clicked.connect(self.hidservauth_copy_button_clicked)
+        self.hidservauth_copy_button.hide()
+
         # General options layout
         general_group_layout = QtWidgets.QVBoxLayout()
         general_group_layout.addWidget(self.use_legacy_v2_onions_checkbox)
+        general_group_layout.addWidget(use_legacy_v2_onions_label)
         general_group_layout.addWidget(self.save_private_key_checkbox)
         general_group_layout.addWidget(self.public_mode_checkbox)
+        general_group_layout.addWidget(self.stealth_checkbox)
+        general_group_layout.addWidget(stealth_details)
+        general_group_layout.addWidget(hidservauth_details)
+        general_group_layout.addWidget(self.hidservauth_copy_button)
+
         general_group = QtWidgets.QGroupBox(strings._("gui_settings_general_label", True))
         general_group.setLayout(general_group_layout)
 
@@ -119,37 +149,6 @@ class SettingsDialog(QtWidgets.QDialog):
         receiving_group_layout.addWidget(self.receive_allow_receiver_shutdown_checkbox)
         receiving_group = QtWidgets.QGroupBox(strings._("gui_settings_receiving_label", True))
         receiving_group.setLayout(receiving_group_layout)
-
-        # Stealth options
-
-        # Stealth
-        stealth_details = QtWidgets.QLabel(strings._("gui_settings_stealth_option_details", True))
-        stealth_details.setWordWrap(True)
-        stealth_details.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
-        stealth_details.setOpenExternalLinks(True)
-        stealth_details.setMinimumSize(stealth_details.sizeHint())
-        self.stealth_checkbox = QtWidgets.QCheckBox()
-        self.stealth_checkbox.setCheckState(QtCore.Qt.Unchecked)
-        self.stealth_checkbox.setText(strings._("gui_settings_stealth_option", True))
-        self.stealth_checkbox.clicked.connect(self.stealth_checkbox_clicked_connect)
-
-        hidservauth_details = QtWidgets.QLabel(strings._('gui_settings_stealth_hidservauth_string', True))
-        hidservauth_details.setWordWrap(True)
-        hidservauth_details.setMinimumSize(hidservauth_details.sizeHint())
-        hidservauth_details.hide()
-
-        self.hidservauth_copy_button = QtWidgets.QPushButton(strings._('gui_copy_hidservauth', True))
-        self.hidservauth_copy_button.clicked.connect(self.hidservauth_copy_button_clicked)
-        self.hidservauth_copy_button.hide()
-
-        # Stealth options layout
-        stealth_group_layout = QtWidgets.QVBoxLayout()
-        stealth_group_layout.addWidget(stealth_details)
-        stealth_group_layout.addWidget(self.stealth_checkbox)
-        stealth_group_layout.addWidget(hidservauth_details)
-        stealth_group_layout.addWidget(self.hidservauth_copy_button)
-        stealth_group = QtWidgets.QGroupBox(strings._("gui_settings_stealth_label", True))
-        stealth_group.setLayout(stealth_group_layout)
 
         # Automatic updates options
 
@@ -383,7 +382,6 @@ class SettingsDialog(QtWidgets.QDialog):
         left_col_layout.addWidget(general_group)
         left_col_layout.addWidget(sharing_group)
         left_col_layout.addWidget(receiving_group)
-        left_col_layout.addWidget(stealth_group)
         left_col_layout.addWidget(autoupdate_group)
         left_col_layout.addStretch()
 
