@@ -69,11 +69,11 @@ class Settings(object):
             'tor_bridges_use_custom_bridges': '',
             'save_private_key': False,
             'private_key': '',
+            'public_mode': False,
             'slug': '',
             'hidservauth_string': '',
             'downloads_dir': self.build_default_downloads_dir(),
-            'receive_allow_receiver_shutdown': True,
-            'receive_public_mode': False
+            'receive_allow_receiver_shutdown': True
         }
         self._settings = {}
         self.fill_in_defaults()

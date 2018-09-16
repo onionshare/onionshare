@@ -314,7 +314,7 @@ class ServerStatus(QtWidgets.QWidget):
         """
         Returns the OnionShare URL.
         """
-        if self.mode == ServerStatus.MODE_RECEIVE and self.common.settings.get('receive_public_mode'):
+        if self.common.settings.get('public_mode'):
             url = 'http://{0:s}'.format(self.app.onion_host)
         else:
             url = 'http://{0:s}/{1:s}'.format(self.app.onion_host, self.web.slug)

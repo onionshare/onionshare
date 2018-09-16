@@ -65,7 +65,7 @@ class TestSettings:
             'hidservauth_string': '',
             'downloads_dir': os.path.expanduser('~/OnionShare'),
             'receive_allow_receiver_shutdown': True,
-            'receive_public_mode': False
+            'public_mode': False
         }
 
     def test_fill_in_defaults(self, settings_obj):
