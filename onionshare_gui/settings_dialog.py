@@ -66,6 +66,7 @@ class SettingsDialog(QtWidgets.QDialog):
         use_legacy_v2_onions_layout.addWidget(self.use_legacy_v2_onions_checkbox)
         use_legacy_v2_onions_layout.addWidget(use_legacy_v2_onions_label)
         use_legacy_v2_onions_layout.addStretch()
+        use_legacy_v2_onions_layout.setContentsMargins(0,0,0,0)
         use_legacy_v2_onions_widget = QtWidgets.QWidget()
         use_legacy_v2_onions_widget.setLayout(use_legacy_v2_onions_layout)
 
@@ -95,6 +96,7 @@ class SettingsDialog(QtWidgets.QDialog):
         use_stealth_layout.addWidget(self.stealth_checkbox)
         use_stealth_layout.addWidget(use_stealth_label)
         use_stealth_layout.addStretch()
+        use_stealth_layout.setContentsMargins(0,0,0,0)
         use_stealth_widget = QtWidgets.QWidget()
         use_stealth_widget.setLayout(use_stealth_layout)
 
