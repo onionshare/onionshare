@@ -172,23 +172,23 @@ li.info {
   min-height: 400px;
 }
 
-.closed {
+.info {
   text-align: center;
 }
 
-.closed img {
+.info img {
   width: 120px;
   height: 120px;
 }
 
-.closed .closed-header {
+.info .info-header {
   font-size: 30px;
   font-weight: normal;
   color: #666666;
   margin: 0 0 10px 0;
 }
 
-.closed .closed-description {
+.info .info-description {
   color: #666666;
   margin: 0 0 20px 0;
 }
