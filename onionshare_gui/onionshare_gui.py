@@ -514,6 +514,10 @@ class OnionShareGui(QtWidgets.QMainWindow):
         # Remove ephemeral service, but don't disconnect from Tor
         self.onion.cleanup(stop_tor=False)
         self.filesize_warning.hide()
+        # Remove zip progress bar
+        if self._zip_progress_bar is not None:
+            self.status_bar.removeWidget(self._zip_progress_bar)
+            self._zip_progress_bar = None
         self.downloads_in_progress = 0
         self.downloads_completed = 0
         self.update_downloads_in_progress(0)
