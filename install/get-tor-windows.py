@@ -33,9 +33,9 @@ import subprocess
 import requests
 
 def main():
-    exe_url = 'https://archive.torproject.org/tor-package-archive/torbrowser/7.5.5/torbrowser-install-7.5.5_en-US.exe'
-    exe_filename = 'torbrowser-install-7.5.5_en-US.exe'
-    expected_exe_sha256 = '992f9a6658001c3419ed3695a908eef4fb7feb1cd549389bdacbadb7f8cb08a7'
+    exe_url = 'https://archive.torproject.org/tor-package-archive/torbrowser/8.0/torbrowser-install-8.0_en-US.exe'
+    exe_filename = 'torbrowser-install-8.0_en-US.exe'
+    expected_exe_sha256 = '0682b44eff5877dfc2fe2fdd5b46e678d47adad86d564e7cb6654c5f60eb1ed2'
     # Build paths
     root_path = os.path.dirname(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))))
     working_path = os.path.join(os.path.join(root_path, 'build'), 'tor')
