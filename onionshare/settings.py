@@ -67,6 +67,7 @@ class Settings(object):
             'tor_bridges_use_obfs4': False,
             'tor_bridges_use_meek_lite_azure': False,
             'tor_bridges_use_custom_bridges': '',
+            'use_legacy_v2_onions': False,
             'save_private_key': False,
             'private_key': '',
             'public_mode': False,
