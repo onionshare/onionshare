@@ -21,8 +21,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from stem.control import Controller
 from stem import ProtocolError, SocketClosed
 from stem.connection import MissingPassword, UnreadableCookieFile, AuthenticationFailure
-import os, sys, tempfile, shutil, urllib, platform, subprocess, time, shlex
+import base64, os, sys, tempfile, shutil, urllib, platform, subprocess, time, shlex
 
+from distutils.version import LooseVersion as Version
+from . import onionkey
 from . import common, strings
 from .settings import Settings
 
@@ -437,20 +439,48 @@ class Onion(object):
             basic_auth = None
 
         if self.settings.get('private_key'):
-            key_type = "RSA1024"
             key_content = self.settings.get('private_key')
-            self.common.log('Onion', 'start_onion_service', 'Starting a hidden service with a saved private key')
+            # is the key a v2 key?
+            if onionkey.is_v2_key(key_content):
+                key_type = "RSA1024"
+            # The below section is commented out because re-publishing
+            # a pre-prepared v3 private key is currently unstable in Tor.
+            # This is fixed upstream but won't reach stable until 0.3.5
+            # (expected in December 2018)
+            # See https://trac.torproject.org/projects/tor/ticket/25552
+            # Until then, we will deliberately not work with 'persistent'
+            # v3 onions, which should not be possible via the GUI settings
+            # anyway.
+            # Our ticket: https://github.com/micahflee/onionshare/issues/677
+            #
+            # Assume it was a v3 key
+            # key_type = "ED25519-V3"
+            else:
+                raise TorErrorProtocolError(strings._('error_invalid_private_key'))
+            self.common.log('Onion', 'Starting a hidden service with a saved private key')
         else:
-            key_type = "NEW"
-            key_content = "RSA1024"
-            self.common.log('Onion', 'start_onion_service', 'Starting a hidden service with a new private key')
+            # Work out if we can support v3 onion services, which are preferred
+            if Version(self.tor_version) >= Version('0.3.2.9') and not self.settings.get('use_legacy_v2_onions'):
+                key_type = "ED25519-V3"
+                key_content = onionkey.generate_v3_private_key()[0]
+            else:
+                # fall back to v2 onion services
+                key_type = "RSA1024"
+                key_content = onionkey.generate_v2_private_key()[0]
+            self.common.log('Onion', 'Starting a hidden service with a new private key')
+
+        # v3 onions don't yet support basic auth. Our ticket:
+        # https://github.com/micahflee/onionshare/issues/697
+        if key_type == "ED25519-V3" and not self.settings.get('use_legacy_v2_onions'):
+            basic_auth = None
+            self.stealth = False
 
         try:
             if basic_auth != None:
-                res = self.c.create_ephemeral_hidden_service({ 80: port }, await_publication=True, basic_auth=basic_auth, key_type = key_type, key_content=key_content)
+                res = self.c.create_ephemeral_hidden_service({ 80: port }, await_publication=True, basic_auth=basic_auth, key_type=key_type, key_content=key_content)
             else:
                 # if the stem interface is older than 1.5.0, basic_auth isn't a valid keyword arg
-                res = self.c.create_ephemeral_hidden_service({ 80: port }, await_publication=True, key_type = key_type, key_content=key_content)
+                res = self.c.create_ephemeral_hidden_service({ 80: port }, await_publication=True, key_type=key_type, key_content=key_content)
 
         except ProtocolError:
             raise TorErrorProtocolError(strings._('error_tor_protocol_error'))
@@ -461,7 +491,7 @@ class Onion(object):
         # A new private key was generated and is in the Control port response.
         if self.settings.get('save_private_key'):
             if not self.settings.get('private_key'):
-                self.settings.set('private_key', res.private_key)
+                self.settings.set('private_key', key_content)
 
         if self.stealth:
             # Similar to the PrivateKey, the Control port only returns the ClientAuth
