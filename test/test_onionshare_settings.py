@@ -63,7 +63,7 @@ class TestSettings:
             'private_key': '',
             'slug': '',
             'hidservauth_string': '',
-            'downloads_dir': os.path.expanduser('~/OnionShare')
+            'downloads_dir': os.path.expanduser('~/OnionShare'),
             'public_mode': False
         }
 
