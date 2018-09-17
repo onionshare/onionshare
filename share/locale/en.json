@@ -155,6 +155,8 @@
     "gui_file_info_single": "{} File, {}",
     "info_in_progress_downloads_tooltip": "{} download(s) in progress",
     "info_completed_downloads_tooltip": "{} download(s) completed",
+    "info_in_progress_uploads_tooltip": "{} upload(s) in progress",
+    "info_completed_uploads_tooltip": "{} upload(s) completed",
     "error_cannot_create_downloads_dir": "Error creating downloads folder: {}",
     "error_downloads_dir_not_writable": "The downloads folder isn't writable: {}",
     "receive_mode_downloads_dir": "Files people send you will appear in this folder: {}",

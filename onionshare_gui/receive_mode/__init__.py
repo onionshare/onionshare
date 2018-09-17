@@ -194,7 +194,7 @@ class ReceiveMode(Mode):
         else:
             image = self.common.get_resource_path('images/share_completed.png')
         self.info_completed_uploads_count.setText('<img src="{0:s}" /> {1:d}'.format(image, self.uploads_completed))
-        self.info_completed_uploads_count.setToolTip(strings._('info_completed_downloads_tooltip', True).format(self.uploads_completed))
+        self.info_completed_uploads_count.setToolTip(strings._('info_completed_uploads_tooltip', True).format(self.uploads_completed))
 
     def update_uploads_in_progress(self):
         """
@@ -206,7 +206,7 @@ class ReceiveMode(Mode):
             image = self.common.get_resource_path('images/share_in_progress.png')
             self.info_show_uploads.setIcon(QtGui.QIcon(self.common.get_resource_path('images/upload_window_green.png')))
         self.info_in_progress_uploads_count.setText('<img src="{0:s}" /> {1:d}'.format(image, self.uploads_in_progress))
-        self.info_in_progress_uploads_count.setToolTip(strings._('info_in_progress_downloads_tooltip', True).format(self.uploads_in_progress))
+        self.info_in_progress_uploads_count.setToolTip(strings._('info_in_progress_uploads_tooltip', True).format(self.uploads_in_progress))
 
     def update_primary_action(self):
         self.common.log('ReceiveMode', 'update_primary_action')
