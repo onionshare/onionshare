@@ -15,6 +15,7 @@
     "close_on_timeout": "Stopped because timer expired",
     "closing_automatically": "Stopped because download finished",
     "timeout_download_still_running": "Waiting for download to complete",
+    "timeout_upload_still_running": "Waiting for upload to complete",
     "large_filesize": "Warning: Sending large files could take hours",
     "systray_menu_exit": "Quit",
     "systray_download_started_title": "OnionShare Download Started",

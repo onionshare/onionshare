@@ -118,6 +118,7 @@ class Web(object):
         self.download_in_progress = False
 
         self.done = False
+        self.can_upload = True
 
         # If the client closes the OnionShare window while a download is in progress,
         # it should immediately stop serving the file. The client_cancel global is
@@ -343,96 +344,104 @@ class Web(object):
             """
             Upload files.
             """
-            # Make sure downloads_dir exists
-            valid = True
-            try:
-                self.common.validate_downloads_dir()
-            except DownloadsDirErrorCannotCreate:
-                self.add_request(Web.REQUEST_ERROR_DOWNLOADS_DIR_CANNOT_CREATE, request.path)
-                print(strings._('error_cannot_create_downloads_dir').format(self.common.settings.get('downloads_dir')))
-                valid = False
-            except DownloadsDirErrorNotWritable:
-                self.add_request(Web.REQUEST_ERROR_DOWNLOADS_DIR_NOT_WRITABLE, request.path)
-                print(strings._('error_downloads_dir_not_writable').format(self.common.settings.get('downloads_dir')))
-                valid = False
-            if not valid:
-                flash('Error uploading, please inform the OnionShare user', 'error')
+            while self.can_upload:
+                # Make sure downloads_dir exists
+                valid = True
+                try:
+                    self.common.validate_downloads_dir()
+                except DownloadsDirErrorCannotCreate:
+                    self.add_request(Web.REQUEST_ERROR_DOWNLOADS_DIR_CANNOT_CREATE, request.path)
+                    print(strings._('error_cannot_create_downloads_dir').format(self.common.settings.get('downloads_dir')))
+                    valid = False
+                except DownloadsDirErrorNotWritable:
+                    self.add_request(Web.REQUEST_ERROR_DOWNLOADS_DIR_NOT_WRITABLE, request.path)
+                    print(strings._('error_downloads_dir_not_writable').format(self.common.settings.get('downloads_dir')))
+                    valid = False
+                if not valid:
+                    flash('Error uploading, please inform the OnionShare user', 'error')
+                    if self.common.settings.get('public_mode'):
+                        return redirect('/')
+                    else:
+                        return redirect('/{}'.format(slug_candidate))
+
+                files = request.files.getlist('file[]')
+                filenames = []
+                print('')
+                for f in files:
+                    if f.filename != '':
+                        # Automatically rename the file, if a file of the same name already exists
+                        filename = secure_filename(f.filename)
+                        filenames.append(filename)
+                        local_path = os.path.join(self.common.settings.get('downloads_dir'), filename)
+                        if os.path.exists(local_path):
+                            if '.' in filename:
+                                # Add "-i", e.g. change "foo.txt" to "foo-2.txt"
+                                parts = filename.split('.')
+                                name = parts[:-1]
+                                ext = parts[-1]
+
+                                i = 2
+                                valid = False
+                                while not valid:
+                                    new_filename = '{}-{}.{}'.format('.'.join(name), i, ext)
+                                    local_path = os.path.join(self.common.settings.get('downloads_dir'), new_filename)
+                                    if os.path.exists(local_path):
+                                        i += 1
+                                    else:
+                                        valid = True
+                            else:
+                                # If no extension, just add "-i", e.g. change "foo" to "foo-2"
+                                i = 2
+                                valid = False
+                                while not valid:
+                                    new_filename = '{}-{}'.format(filename, i)
+                                    local_path = os.path.join(self.common.settings.get('downloads_dir'), new_filename)
+                                    if os.path.exists(local_path):
+                                        i += 1
+                                    else:
+                                        valid = True
+
+                        basename = os.path.basename(local_path)
+                        if f.filename != basename:
+                            # Tell the GUI that the file has changed names
+                            self.add_request(Web.REQUEST_UPLOAD_FILE_RENAMED, request.path, {
+                                'id': request.upload_id,
+                                'old_filename': f.filename,
+                                'new_filename': basename
+                            })
+
+                        self.common.log('Web', 'receive_routes', '/upload, uploaded {}, saving to {}'.format(f.filename, local_path))
+                        print(strings._('receive_mode_received_file').format(local_path))
+                        f.save(local_path)
+
+                # Note that flash strings are on English, and not translated, on purpose,
+                # to avoid leaking the locale of the OnionShare user
+                if len(filenames) == 0:
+                    flash('No files uploaded', 'info')
+                else:
+                    for filename in filenames:
+                        flash('Sent {}'.format(filename), 'info')
+
+
+                # Register that uploads were sent (for shutdown timer)
+                self.done = True
+
                 if self.common.settings.get('public_mode'):
                     return redirect('/')
                 else:
                     return redirect('/{}'.format(slug_candidate))
 
-            files = request.files.getlist('file[]')
-            filenames = []
-            print('')
-            for f in files:
-                if f.filename != '':
-                    # Automatically rename the file, if a file of the same name already exists
-                    filename = secure_filename(f.filename)
-                    filenames.append(filename)
-                    local_path = os.path.join(self.common.settings.get('downloads_dir'), filename)
-                    if os.path.exists(local_path):
-                        if '.' in filename:
-                            # Add "-i", e.g. change "foo.txt" to "foo-2.txt"
-                            parts = filename.split('.')
-                            name = parts[:-1]
-                            ext = parts[-1]
-
-                            i = 2
-                            valid = False
-                            while not valid:
-                                new_filename = '{}-{}.{}'.format('.'.join(name), i, ext)
-                                local_path = os.path.join(self.common.settings.get('downloads_dir'), new_filename)
-                                if os.path.exists(local_path):
-                                    i += 1
-                                else:
-                                    valid = True
-                        else:
-                            # If no extension, just add "-i", e.g. change "foo" to "foo-2"
-                            i = 2
-                            valid = False
-                            while not valid:
-                                new_filename = '{}-{}'.format(filename, i)
-                                local_path = os.path.join(self.common.settings.get('downloads_dir'), new_filename)
-                                if os.path.exists(local_path):
-                                    i += 1
-                                else:
-                                    valid = True
-
-                    basename = os.path.basename(local_path)
-                    if f.filename != basename:
-                        # Tell the GUI that the file has changed names
-                        self.add_request(Web.REQUEST_UPLOAD_FILE_RENAMED, request.path, {
-                            'id': request.upload_id,
-                            'old_filename': f.filename,
-                            'new_filename': basename
-                        })
-
-                    self.common.log('Web', 'receive_routes', '/upload, uploaded {}, saving to {}'.format(f.filename, local_path))
-                    print(strings._('receive_mode_received_file').format(local_path))
-                    f.save(local_path)
-
-            # Note that flash strings are on English, and not translated, on purpose,
-            # to avoid leaking the locale of the OnionShare user
-            if len(filenames) == 0:
-                flash('No files uploaded', 'info')
-            else:
-                for filename in filenames:
-                    flash('Sent {}'.format(filename), 'info')
-
-            if self.common.settings.get('public_mode'):
-                return redirect('/')
-            else:
-                return redirect('/{}'.format(slug_candidate))
-
         @self.app.route("/<slug_candidate>/upload", methods=['POST'])
         def upload(slug_candidate):
             self.check_slug_candidate(slug_candidate)
-            return upload_logic(slug_candidate)
+            if self.can_upload:
+                return upload_logic(slug_candidate)
+            else:
+                return self.error404()
 
         @self.app.route("/upload", methods=['POST'])
         def upload_public():
-            if not self.common.settings.get('public_mode'):
+            if not self.common.settings.get('public_mode') or not self.can_upload:
                 return self.error404()
             return upload_logic()
 
@@ -449,11 +458,14 @@ class Web(object):
         @self.app.route("/<slug_candidate>/close", methods=['POST'])
         def close(slug_candidate):
             self.check_slug_candidate(slug_candidate)
-            return close_logic(slug_candidate)
+            if self.can_upload:
+                return close_logic(slug_candidate)
+            else:
+                return self.error404()
 
         @self.app.route("/close", methods=['POST'])
         def close_public():
-            if not self.common.settings.get('public_mode'):
+            if not self.common.settings.get('public_mode') or not self.can_upload:
                 return self.error404()
             return close_logic()
 
@@ -745,7 +757,7 @@ class ReceiveModeRequest(Request):
 
         # Is this a valid upload request?
         self.upload_request = False
-        if self.method == 'POST':
+        if self.method == 'POST' and self.web.can_upload:
             if self.path == '/{}/upload'.format(self.web.slug):
                 self.upload_request = True
             else:
