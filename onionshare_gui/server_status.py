@@ -18,6 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import platform
+import textwrap
 from PyQt5 import QtCore, QtWidgets, QtGui
 
 from onionshare import strings
@@ -56,6 +57,8 @@ class ServerStatus(QtWidgets.QWidget):
 
         self.web = None
 
+        self.resizeEvent(None)
+
         # Shutdown timeout layout
         self.shutdown_timeout_label = QtWidgets.QLabel(strings._('gui_settings_shutdown_timeout', True))
         self.shutdown_timeout = QtWidgets.QDateTimeEdit()
@@ -88,7 +91,7 @@ class ServerStatus(QtWidgets.QWidget):
         self.url = QtWidgets.QLabel()
         self.url.setFont(url_font)
         self.url.setWordWrap(True)
-        self.url.setMinimumHeight(60)
+        self.url.setMinimumHeight(65)
         self.url.setMinimumSize(self.url.sizeHint())
         self.url.setStyleSheet(self.common.css['server_status_url'])
 
@@ -127,6 +130,24 @@ class ServerStatus(QtWidgets.QWidget):
             self.file_selection = file_selection
 
         self.update()
+
+    def resizeEvent(self, event):
+        """
+        When the widget is resized, try and adjust the display of a v3 onion URL.
+        """
+        try:
+            self.get_url()
+            url_length=len(self.get_url())
+            if url_length > 60:
+                width = self.frameGeometry().width()
+                if width < 530:
+                    wrapped_onion_url = textwrap.fill(self.get_url(), 50)
+                    self.url.setText(wrapped_onion_url)
+                else:
+                    self.url.setText(self.get_url())
+        except:
+            pass
+
 
     def shutdown_timeout_reset(self):
         """
