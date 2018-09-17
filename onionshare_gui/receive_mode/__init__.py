@@ -99,7 +99,7 @@ class ReceiveMode(Mode):
         """
         # TODO: wait until the final upload is done before stoppign the server?
         # If there were no attempts to upload files, or all uploads are done, we can stop
-        if self.web.upload_count == 0 or self.web.done:
+        if self.web.upload_count == 0 or not self.web.uploads_in_progress:
             self.server_status.stop_server()
             self.server_status_label.setText(strings._('close_on_timeout', True))
             return True

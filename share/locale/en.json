@@ -168,7 +168,6 @@
     "gui_settings_receiving_label": "Receiving options",
     "gui_settings_downloads_label": "Save files to",
     "gui_settings_downloads_button": "Browse",
-    "gui_settings_receive_allow_receiver_shutdown_checkbox": "Receive mode can be stopped by the sender",
     "gui_settings_public_mode_checkbox": "OnionShare is open to the public\n(don't prevent people from guessing the OnionShare address)",
     "systray_close_server_title": "OnionShare Server Closed",
     "systray_close_server_message": "A user closed the server",

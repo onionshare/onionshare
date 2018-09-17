@@ -72,8 +72,7 @@ class Settings(object):
             'public_mode': False,
             'slug': '',
             'hidservauth_string': '',
-            'downloads_dir': self.build_default_downloads_dir(),
-            'receive_allow_receiver_shutdown': True
+            'downloads_dir': self.build_default_downloads_dir()
         }
         self._settings = {}
         self.fill_in_defaults()

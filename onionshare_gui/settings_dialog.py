@@ -101,15 +101,9 @@ class SettingsDialog(QtWidgets.QDialog):
         downloads_layout.addWidget(self.downloads_dir_lineedit)
         downloads_layout.addWidget(downloads_button)
 
-        # Allow the receiver to shutdown the server
-        self.receive_allow_receiver_shutdown_checkbox = QtWidgets.QCheckBox()
-        self.receive_allow_receiver_shutdown_checkbox.setCheckState(QtCore.Qt.Checked)
-        self.receive_allow_receiver_shutdown_checkbox.setText(strings._("gui_settings_receive_allow_receiver_shutdown_checkbox", True))
-
         # Receiving options layout
         receiving_group_layout = QtWidgets.QVBoxLayout()
         receiving_group_layout.addLayout(downloads_layout)
-        receiving_group_layout.addWidget(self.receive_allow_receiver_shutdown_checkbox)
         receiving_group = QtWidgets.QGroupBox(strings._("gui_settings_receiving_label", True))
         receiving_group.setLayout(receiving_group_layout)
 
@@ -420,12 +414,6 @@ class SettingsDialog(QtWidgets.QDialog):
 
         downloads_dir = self.old_settings.get('downloads_dir')
         self.downloads_dir_lineedit.setText(downloads_dir)
-
-        receive_allow_receiver_shutdown = self.old_settings.get('receive_allow_receiver_shutdown')
-        if receive_allow_receiver_shutdown:
-            self.receive_allow_receiver_shutdown_checkbox.setCheckState(QtCore.Qt.Checked)
-        else:
-            self.receive_allow_receiver_shutdown_checkbox.setCheckState(QtCore.Qt.Unchecked)
 
         public_mode = self.old_settings.get('public_mode')
         if public_mode:
@@ -802,7 +790,6 @@ class SettingsDialog(QtWidgets.QDialog):
             # Also unset the HidServAuth if we are removing our reusable private key
             settings.set('hidservauth_string', '')
         settings.set('downloads_dir', self.downloads_dir_lineedit.text())
-        settings.set('receive_allow_receiver_shutdown', self.receive_allow_receiver_shutdown_checkbox.isChecked())
         settings.set('public_mode', self.public_mode_checkbox.isChecked())
         settings.set('use_stealth', self.stealth_checkbox.isChecked())
         # Always unset the HidServAuth if Stealth mode is unset
