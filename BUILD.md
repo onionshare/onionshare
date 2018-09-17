@@ -38,11 +38,11 @@ If you find that these instructions don't work for your Linux distribution or ve
 
 Install Xcode from the Mac App Store. Once it's installed, run it for the first time to set it up. Also, run this to make sure command line tools are installed: `xcode-select --install`. And finally, open Xcode, go to Preferences > Locations, and make sure under Command Line Tools you select an installed version from the dropdown. (This is required for installing Qt5.)
 
-Download and install Python 3.6.4 from https://www.python.org/downloads/release/python-364/. I downloaded `python-3.6.4-macosx10.6.pkg`.
+Download and install Python 3.7.0 from https://www.python.org/downloads/release/python-370/. I downloaded `python-3.7.0-macosx10.9.pkg`.
 
 You may also need to run the command `/Applications/Python\ 3.6/Install\ Certificates.command` to update Python 3.6's internal certificate store. Otherwise, you may find that fetching the Tor Browser .dmg file fails later due to a certificate validation error.
 
-Download and install Qt5 from https://www.qt.io/download-open-source/. I downloaded `qt-unified-mac-x64-3.0.2-online.dmg`. There's no need to login to a Qt account during installation. Make sure you install the latest Qt 5.x. I installed Qt 5.10.0 -- all you need is to check `Qt > Qt 5.10.0 > macOS`.
+Download and install Qt5 from https://www.qt.io/download-open-source/. I downloaded `qt-unified-mac-x64-3.0.5-online.dmg`. There's no need to login to a Qt account during installation. When you select components, install the `macOS` component from Qt 5.11.1 (or whatever the latest Qt version is).
 
 Now install some python dependencies with pip (note, there's issues building a .app if you install this in a virtualenv):
 
