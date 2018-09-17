@@ -54,20 +54,111 @@ class SettingsDialog(QtWidgets.QDialog):
 
         # General options
 
-        # Whether or not to save the Onion private key for reuse (persistent URL  mode)
-        self.save_private_key_checkbox = QtWidgets.QCheckBox()
-        self.save_private_key_checkbox.setCheckState(QtCore.Qt.Unchecked)
-        self.save_private_key_checkbox.setText(strings._("gui_save_private_key_checkbox", True))
-
-        # Use a slug
+        # Use a slug or not ('public mode')
         self.public_mode_checkbox = QtWidgets.QCheckBox()
         self.public_mode_checkbox.setCheckState(QtCore.Qt.Unchecked)
         self.public_mode_checkbox.setText(strings._("gui_settings_public_mode_checkbox", True))
+        public_mode_label = QtWidgets.QLabel(strings._("gui_settings_whats_this", True).format("https://github.com/micahflee/onionshare/wiki/Public-Mode"))
+        public_mode_label.setStyleSheet(self.common.css['settings_whats_this'])
+        public_mode_label.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
+        public_mode_label.setOpenExternalLinks(True)
+        public_mode_label.setMinimumSize(public_mode_label.sizeHint())
+        public_mode_layout = QtWidgets.QHBoxLayout()
+        public_mode_layout.addWidget(self.public_mode_checkbox)
+        public_mode_layout.addWidget(public_mode_label)
+        public_mode_layout.addStretch()
+        public_mode_layout.setContentsMargins(0,0,0,0)
+        self.public_mode_widget = QtWidgets.QWidget()
+        self.public_mode_widget.setLayout(public_mode_layout)
+
+        # Whether or not to use a shutdown ('auto-stop') timer
+        self.shutdown_timeout_checkbox = QtWidgets.QCheckBox()
+        self.shutdown_timeout_checkbox.setCheckState(QtCore.Qt.Checked)
+        self.shutdown_timeout_checkbox.setText(strings._("gui_settings_shutdown_timeout_checkbox", True))
+        shutdown_timeout_label = QtWidgets.QLabel(strings._("gui_settings_whats_this", True).format("https://github.com/micahflee/onionshare/wiki/Using-the-Auto-Stop-Timer"))
+        shutdown_timeout_label.setStyleSheet(self.common.css['settings_whats_this'])
+        shutdown_timeout_label.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
+        shutdown_timeout_label.setOpenExternalLinks(True)
+        shutdown_timeout_label.setMinimumSize(public_mode_label.sizeHint())
+        shutdown_timeout_layout = QtWidgets.QHBoxLayout()
+        shutdown_timeout_layout.addWidget(self.shutdown_timeout_checkbox)
+        shutdown_timeout_layout.addWidget(shutdown_timeout_label)
+        shutdown_timeout_layout.addStretch()
+        shutdown_timeout_layout.setContentsMargins(0,0,0,0)
+        self.shutdown_timeout_widget = QtWidgets.QWidget()
+        self.shutdown_timeout_widget.setLayout(shutdown_timeout_layout)
+
+        # Whether or not to use legacy v2 onions
+        self.use_legacy_v2_onions_checkbox = QtWidgets.QCheckBox()
+        self.use_legacy_v2_onions_checkbox.setCheckState(QtCore.Qt.Unchecked)
+        self.use_legacy_v2_onions_checkbox.setText(strings._("gui_use_legacy_v2_onions_checkbox", True))
+        self.use_legacy_v2_onions_checkbox.clicked.connect(self.use_legacy_v2_onions_checkbox_clicked)
+        use_legacy_v2_onions_label = QtWidgets.QLabel(strings._("gui_settings_whats_this", True).format("https://github.com/micahflee/onionshare/wiki/Legacy-Addresses"))
+        use_legacy_v2_onions_label.setStyleSheet(self.common.css['settings_whats_this'])
+        use_legacy_v2_onions_label.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
+        use_legacy_v2_onions_label.setOpenExternalLinks(True)
+        use_legacy_v2_onions_layout = QtWidgets.QHBoxLayout()
+        use_legacy_v2_onions_layout.addWidget(self.use_legacy_v2_onions_checkbox)
+        use_legacy_v2_onions_layout.addWidget(use_legacy_v2_onions_label)
+        use_legacy_v2_onions_layout.addStretch()
+        use_legacy_v2_onions_layout.setContentsMargins(0,0,0,0)
+        self.use_legacy_v2_onions_widget = QtWidgets.QWidget()
+        self.use_legacy_v2_onions_widget.setLayout(use_legacy_v2_onions_layout)
+
+        # Whether or not to save the Onion private key for reuse (persistent URL mode)
+        self.save_private_key_checkbox = QtWidgets.QCheckBox()
+        self.save_private_key_checkbox.setCheckState(QtCore.Qt.Unchecked)
+        self.save_private_key_checkbox.setText(strings._("gui_save_private_key_checkbox", True))
+        self.save_private_key_checkbox.clicked.connect(self.save_private_key_checkbox_clicked)
+        save_private_key_label = QtWidgets.QLabel(strings._("gui_settings_whats_this", True).format("https://github.com/micahflee/onionshare/wiki/Using-a-Persistent-URL"))
+        save_private_key_label.setStyleSheet(self.common.css['settings_whats_this'])
+        save_private_key_label.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
+        save_private_key_label.setOpenExternalLinks(True)
+        save_private_key_layout = QtWidgets.QHBoxLayout()
+        save_private_key_layout.addWidget(self.save_private_key_checkbox)
+        save_private_key_layout.addWidget(save_private_key_label)
+        save_private_key_layout.addStretch()
+        save_private_key_layout.setContentsMargins(0,0,0,0)
+        self.save_private_key_widget = QtWidgets.QWidget()
+        self.save_private_key_widget.setLayout(save_private_key_layout)
+
+        # Stealth
+        self.stealth_checkbox = QtWidgets.QCheckBox()
+        self.stealth_checkbox.setCheckState(QtCore.Qt.Unchecked)
+        self.stealth_checkbox.setText(strings._("gui_settings_stealth_option", True))
+        self.stealth_checkbox.clicked.connect(self.stealth_checkbox_clicked_connect)
+        use_stealth_label = QtWidgets.QLabel(strings._("gui_settings_whats_this", True).format("https://github.com/micahflee/onionshare/wiki/Stealth-Onion-Services"))
+        use_stealth_label.setStyleSheet(self.common.css['settings_whats_this'])
+        use_stealth_label.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
+        use_stealth_label.setOpenExternalLinks(True)
+        use_stealth_label.setMinimumSize(use_stealth_label.sizeHint())
+        use_stealth_layout = QtWidgets.QHBoxLayout()
+        use_stealth_layout.addWidget(self.stealth_checkbox)
+        use_stealth_layout.addWidget(use_stealth_label)
+        use_stealth_layout.addStretch()
+        use_stealth_layout.setContentsMargins(0,0,0,0)
+        self.use_stealth_widget = QtWidgets.QWidget()
+        self.use_stealth_widget.setLayout(use_stealth_layout)
+
+        hidservauth_details = QtWidgets.QLabel(strings._('gui_settings_stealth_hidservauth_string', True))
+        hidservauth_details.setWordWrap(True)
+        hidservauth_details.setMinimumSize(hidservauth_details.sizeHint())
+        hidservauth_details.hide()
+
+        self.hidservauth_copy_button = QtWidgets.QPushButton(strings._('gui_copy_hidservauth', True))
+        self.hidservauth_copy_button.clicked.connect(self.hidservauth_copy_button_clicked)
+        self.hidservauth_copy_button.hide()
 
         # General options layout
         general_group_layout = QtWidgets.QVBoxLayout()
-        general_group_layout.addWidget(self.save_private_key_checkbox)
-        general_group_layout.addWidget(self.public_mode_checkbox)
+        general_group_layout.addWidget(self.public_mode_widget)
+        general_group_layout.addWidget(self.shutdown_timeout_widget)
+        general_group_layout.addWidget(self.use_legacy_v2_onions_widget)
+        general_group_layout.addWidget(self.save_private_key_widget)
+        general_group_layout.addWidget(self.use_stealth_widget)
+        general_group_layout.addWidget(hidservauth_details)
+        general_group_layout.addWidget(self.hidservauth_copy_button)
+
         general_group = QtWidgets.QGroupBox(strings._("gui_settings_general_label", True))
         general_group.setLayout(general_group_layout)
 
@@ -78,15 +169,9 @@ class SettingsDialog(QtWidgets.QDialog):
         self.close_after_first_download_checkbox.setCheckState(QtCore.Qt.Checked)
         self.close_after_first_download_checkbox.setText(strings._("gui_settings_close_after_first_download_option", True))
 
-        # Whether or not to use a shutdown timer
-        self.shutdown_timeout_checkbox = QtWidgets.QCheckBox()
-        self.shutdown_timeout_checkbox.setCheckState(QtCore.Qt.Checked)
-        self.shutdown_timeout_checkbox.setText(strings._("gui_settings_shutdown_timeout_checkbox", True))
-
         # Sharing options layout
         sharing_group_layout = QtWidgets.QVBoxLayout()
         sharing_group_layout.addWidget(self.close_after_first_download_checkbox)
-        sharing_group_layout.addWidget(self.shutdown_timeout_checkbox)
         sharing_group = QtWidgets.QGroupBox(strings._("gui_settings_sharing_label", True))
         sharing_group.setLayout(sharing_group_layout)
 
@@ -112,36 +197,6 @@ class SettingsDialog(QtWidgets.QDialog):
         receiving_group_layout.addWidget(self.receive_allow_receiver_shutdown_checkbox)
         receiving_group = QtWidgets.QGroupBox(strings._("gui_settings_receiving_label", True))
         receiving_group.setLayout(receiving_group_layout)
-
-        # Stealth options
-
-        # Stealth
-        stealth_details = QtWidgets.QLabel(strings._("gui_settings_stealth_option_details", True))
-        stealth_details.setWordWrap(True)
-        stealth_details.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
-        stealth_details.setOpenExternalLinks(True)
-        stealth_details.setMinimumSize(stealth_details.sizeHint())
-        self.stealth_checkbox = QtWidgets.QCheckBox()
-        self.stealth_checkbox.setCheckState(QtCore.Qt.Unchecked)
-        self.stealth_checkbox.setText(strings._("gui_settings_stealth_option", True))
-
-        hidservauth_details = QtWidgets.QLabel(strings._('gui_settings_stealth_hidservauth_string', True))
-        hidservauth_details.setWordWrap(True)
-        hidservauth_details.setMinimumSize(hidservauth_details.sizeHint())
-        hidservauth_details.hide()
-
-        self.hidservauth_copy_button = QtWidgets.QPushButton(strings._('gui_copy_hidservauth', True))
-        self.hidservauth_copy_button.clicked.connect(self.hidservauth_copy_button_clicked)
-        self.hidservauth_copy_button.hide()
-
-        # Stealth options layout
-        stealth_group_layout = QtWidgets.QVBoxLayout()
-        stealth_group_layout.addWidget(stealth_details)
-        stealth_group_layout.addWidget(self.stealth_checkbox)
-        stealth_group_layout.addWidget(hidservauth_details)
-        stealth_group_layout.addWidget(self.hidservauth_copy_button)
-        stealth_group = QtWidgets.QGroupBox(strings._("gui_settings_stealth_label", True))
-        stealth_group.setLayout(stealth_group_layout)
 
         # Automatic updates options
 
@@ -375,7 +430,6 @@ class SettingsDialog(QtWidgets.QDialog):
         left_col_layout.addWidget(general_group)
         left_col_layout.addWidget(sharing_group)
         left_col_layout.addWidget(receiving_group)
-        left_col_layout.addWidget(stealth_group)
         left_col_layout.addWidget(autoupdate_group)
         left_col_layout.addStretch()
 
@@ -412,11 +466,26 @@ class SettingsDialog(QtWidgets.QDialog):
         else:
             self.shutdown_timeout_checkbox.setCheckState(QtCore.Qt.Unchecked)
 
+        use_legacy_v2_onions = self.old_settings.get('use_legacy_v2_onions')
+
+        if use_legacy_v2_onions:
+            self.save_private_key_widget.show()
+            self.use_stealth_widget.show()
+        else:
+            self.save_private_key_widget.hide()
+            self.use_stealth_widget.hide()
+
         save_private_key = self.old_settings.get('save_private_key')
         if save_private_key:
             self.save_private_key_checkbox.setCheckState(QtCore.Qt.Checked)
+            # Legacy v2 mode is forced on if persistence is enabled
+            self.use_legacy_v2_onions_checkbox.setEnabled(False)
         else:
             self.save_private_key_checkbox.setCheckState(QtCore.Qt.Unchecked)
+            self.use_legacy_v2_onions_checkbox.setEnabled(True)
+
+        if use_legacy_v2_onions or save_private_key:
+            self.use_legacy_v2_onions_checkbox.setCheckState(QtCore.Qt.Checked)
 
         downloads_dir = self.old_settings.get('downloads_dir')
         self.downloads_dir_lineedit.setText(downloads_dir)
@@ -436,11 +505,15 @@ class SettingsDialog(QtWidgets.QDialog):
         use_stealth = self.old_settings.get('use_stealth')
         if use_stealth:
             self.stealth_checkbox.setCheckState(QtCore.Qt.Checked)
-            if save_private_key:
+            # Legacy v2 mode is forced on if Stealth is enabled
+            self.use_legacy_v2_onions_checkbox.setEnabled(False)
+            if save_private_key and self.old_settings.get('hidservauth_string') != "":
                 hidservauth_details.show()
                 self.hidservauth_copy_button.show()
         else:
             self.stealth_checkbox.setCheckState(QtCore.Qt.Unchecked)
+            if not save_private_key:
+                self.use_legacy_v2_onions_checkbox.setEnabled(True)
 
         use_autoupdate = self.old_settings.get('use_autoupdate')
         if use_autoupdate:
@@ -603,6 +676,39 @@ class SettingsDialog(QtWidgets.QDialog):
         self.common.log('SettingsDialog', 'hidservauth_copy_button_clicked', 'HidServAuth was copied to clipboard')
         clipboard = self.qtapp.clipboard()
         clipboard.setText(self.old_settings.get('hidservauth_string'))
+
+    def use_legacy_v2_onions_checkbox_clicked(self, checked):
+        """
+        Show the legacy settings if the legacy mode is enabled.
+        """
+        if checked:
+            self.save_private_key_widget.show()
+            self.use_stealth_widget.show()
+        else:
+            self.save_private_key_widget.hide()
+            self.use_stealth_widget.hide()
+
+    def save_private_key_checkbox_clicked(self, checked):
+        """
+        Prevent the v2 legacy mode being switched off if persistence is enabled
+        """
+        if checked:
+            self.use_legacy_v2_onions_checkbox.setCheckState(QtCore.Qt.Checked)
+            self.use_legacy_v2_onions_checkbox.setEnabled(False)
+        else:
+            if not self.stealth_checkbox.isChecked():
+                self.use_legacy_v2_onions_checkbox.setEnabled(True)
+
+    def stealth_checkbox_clicked_connect(self, checked):
+        """
+        Prevent the v2 legacy mode being switched off if stealth is enabled
+        """
+        if checked:
+            self.use_legacy_v2_onions_checkbox.setCheckState(QtCore.Qt.Checked)
+            self.use_legacy_v2_onions_checkbox.setEnabled(False)
+        else:
+            if not self.save_private_key_checkbox.isChecked():
+                self.use_legacy_v2_onions_checkbox.setEnabled(True)
 
     def downloads_button_clicked(self):
         """
@@ -790,7 +896,16 @@ class SettingsDialog(QtWidgets.QDialog):
 
         settings.set('close_after_first_download', self.close_after_first_download_checkbox.isChecked())
         settings.set('shutdown_timeout', self.shutdown_timeout_checkbox.isChecked())
+
+        # Complicated logic here to force v2 onion mode on or off depending on other settings
+        if self.use_legacy_v2_onions_checkbox.isChecked():
+            use_legacy_v2_onions = True
+        else:
+            use_legacy_v2_onions = False
+
         if self.save_private_key_checkbox.isChecked():
+            # force the legacy mode on
+            use_legacy_v2_onions = True
             settings.set('save_private_key', True)
             settings.set('private_key', self.old_settings.get('private_key'))
             settings.set('slug', self.old_settings.get('slug'))
@@ -801,6 +916,18 @@ class SettingsDialog(QtWidgets.QDialog):
             settings.set('slug', '')
             # Also unset the HidServAuth if we are removing our reusable private key
             settings.set('hidservauth_string', '')
+
+        if use_legacy_v2_onions:
+            settings.set('use_legacy_v2_onions', True)
+        else:
+            settings.set('use_legacy_v2_onions', False)
+            # If we are not using legacy mode, but we previously had persistence turned on, force it off!
+            settings.set('save_private_key', False)
+            settings.set('private_key', '')
+            settings.set('slug', '')
+            # Also unset the HidServAuth if we are removing our reusable private key
+            settings.set('hidservauth_string', '')
+
         settings.set('downloads_dir', self.downloads_dir_lineedit.text())
         settings.set('receive_allow_receiver_shutdown', self.receive_allow_receiver_shutdown_checkbox.isChecked())
         settings.set('public_mode', self.public_mode_checkbox.isChecked())
