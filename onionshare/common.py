@@ -346,6 +346,11 @@ class Common(object):
                     background-color: #ffffff;
                     color: #000000;
                     padding: 10px;
+                }""",
+
+            'settings_whats_this': """
+                QLabel {
+                    font-size: 12px;
                 }"""
         }
 
