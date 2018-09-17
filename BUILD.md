@@ -77,7 +77,7 @@ Now you should have `dist/OnionShare.pkg`.
 
 ### Setting up your dev environment
 
-Download Python 3.6.4, 32-bit (x86) from https://www.python.org/downloads/release/python-364/. I downloaded `python-3.6.4.exe`. When installing it, make sure to check the "Add Python 3.6 to PATH" checkbox on the first page of the installer.
+Download Python 3.7.0, 32-bit (x86) from https://www.python.org/downloads/release/python-370/. I downloaded `python-3.7.0.exe`. When installing it, make sure to check the "Add Python 3.7 to PATH" checkbox on the first page of the installer.
 
 Open a command prompt, cd to the onionshare folder, and install dependencies with pip:
 
@@ -85,9 +85,9 @@ Open a command prompt, cd to the onionshare folder, and install dependencies wit
 pip3 install -r install\requirements-windows.txt
 ```
 
-Download and install pywin32 (build 221, x86, for python 3.6) from https://sourceforge.net/projects/pywin32/files/pywin32/Build%20221/. I downloaded `pywin32-221.win32-py3.6.exe`.
+Download and install pywin32 (build 223, x86, for python 3.7) from https://github.com/mhammond/pywin32/releases/tag/b223. I downloaded `pywin32-223.win32-py3.7.exe`.
 
-Download and install Qt5 from https://www.qt.io/download-open-source/. I downloaded `qt-unified-windows-x86-3.0.4-online.exe`. There's no need to login to a Qt account during installation. Make sure you install the latest Qt 5.x. I installed Qt 5.11.0. You only need to install the `MSVC 2015 32-bit` component, as well as all of the the `Qt` components, for that that version.
+Download and install Qt5 from https://www.qt.io/download-open-source/. I downloaded `qt-unified-windows-x86-3.0.5-online.exe`. There's no need to login to a Qt account during installation. When you can select components, install the `MSVC 2015 32-bit` component from Qt 5.11.1 (or whatever the latest Qt version is).
 
 After that you can try both the CLI and the GUI version of OnionShare:
 
