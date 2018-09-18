@@ -1,7 +1,7 @@
 """
 OnionShare | https://onionshare.org/
 
-Copyright (C) 2018 Micah Lee <micah@micahflee.com>
+Copyright (C) 2014-2018 Micah Lee <micah@micahflee.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -51,7 +51,6 @@ class TestSettings:
             'auth_type': 'no_auth',
             'auth_password': '',
             'close_after_first_download': True,
-            'systray_notifications': True,
             'shutdown_timeout': False,
             'use_stealth': False,
             'use_autoupdate': True,
@@ -60,11 +59,14 @@ class TestSettings:
             'tor_bridges_use_obfs4': False,
             'tor_bridges_use_meek_lite_azure': False,
             'tor_bridges_use_custom_bridges': '',
+            'use_legacy_v2_onions': False,
             'save_private_key': False,
             'private_key': '',
             'slug': '',
             'hidservauth_string': '',
-            'downloads_dir': os.path.expanduser('~/OnionShare')
+            'downloads_dir': os.path.expanduser('~/OnionShare'),
+            'receive_allow_receiver_shutdown': True,
+            'public_mode': False
         }
 
     def test_fill_in_defaults(self, settings_obj):
@@ -118,7 +120,6 @@ class TestSettings:
         assert settings_obj.get('auth_type') == 'no_auth'
         assert settings_obj.get('auth_password') == ''
         assert settings_obj.get('close_after_first_download') is True
-        assert settings_obj.get('systray_notifications') is True
         assert settings_obj.get('use_stealth') is False
         assert settings_obj.get('use_autoupdate') is True
         assert settings_obj.get('autoupdate_timestamp') is None

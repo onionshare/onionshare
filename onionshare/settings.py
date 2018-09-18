@@ -2,7 +2,7 @@
 """
 OnionShare | https://onionshare.org/
 
-Copyright (C) 2018 Micah Lee <micah@micahflee.com>
+Copyright (C) 2014-2018 Micah Lee <micah@micahflee.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -59,7 +59,6 @@ class Settings(object):
             'auth_type': 'no_auth',
             'auth_password': '',
             'close_after_first_download': True,
-            'systray_notifications': True,
             'shutdown_timeout': False,
             'use_stealth': False,
             'use_autoupdate': True,
@@ -68,11 +67,14 @@ class Settings(object):
             'tor_bridges_use_obfs4': False,
             'tor_bridges_use_meek_lite_azure': False,
             'tor_bridges_use_custom_bridges': '',
+            'use_legacy_v2_onions': False,
             'save_private_key': False,
             'private_key': '',
+            'public_mode': False,
             'slug': '',
             'hidservauth_string': '',
-            'downloads_dir': self.build_default_downloads_dir()
+            'downloads_dir': self.build_default_downloads_dir(),
+            'receive_allow_receiver_shutdown': True
         }
         self._settings = {}
         self.fill_in_defaults()

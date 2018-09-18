@@ -8,7 +8,7 @@ import tempfile
 
 import pytest
 
-from onionshare import common, web
+from onionshare import common, web, settings
 
 @pytest.fixture
 def temp_dir_1024():
@@ -152,3 +152,9 @@ def time_strftime(monkeypatch):
 @pytest.fixture
 def common_obj():
     return common.Common()
+
+@pytest.fixture
+def settings_obj(sys_onionshare_dev_mode, platform_linux):
+    _common = common.Common()
+    _common.version = 'DUMMY_VERSION_1.2.3'
+    return settings.Settings(_common)

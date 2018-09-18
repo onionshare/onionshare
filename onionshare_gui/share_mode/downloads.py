@@ -2,7 +2,7 @@
 """
 OnionShare | https://onionshare.org/
 
-Copyright (C) 2018 Micah Lee <micah@micahflee.com>
+Copyright (C) 2014-2018 Micah Lee <micah@micahflee.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,13 +18,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import time
-
 from PyQt5 import QtCore, QtWidgets, QtGui
 
 from onionshare import strings
 
-class Download(object):
 
+class Download(object):
     def __init__(self, common, download_id, total_bytes):
         self.common = common
 
@@ -33,20 +32,7 @@ class Download(object):
         self.total_bytes = total_bytes
         self.downloaded_bytes = 0
 
-        # make a new progress bar
-        cssStyleData ="""
-        QProgressBar {
-            border: 1px solid #4e064f;
-            background-color: #ffffff !important;
-            text-align: center;
-            color: #9b9b9b;
-            font-size: 12px;
-        }
-
-        QProgressBar::chunk {
-            background-color: #4e064f;
-            width: 10px;
-        }"""
+        # Progress bar
         self.progress_bar = QtWidgets.QProgressBar()
         self.progress_bar.setTextVisible(True)
         self.progress_bar.setAttribute(QtCore.Qt.WA_DeleteOnClose)
@@ -54,10 +40,10 @@ class Download(object):
         self.progress_bar.setMinimum(0)
         self.progress_bar.setMaximum(total_bytes)
         self.progress_bar.setValue(0)
-        self.progress_bar.setStyleSheet(cssStyleData)
+        self.progress_bar.setStyleSheet(self.common.css['downloads_uploads_progress_bar'])
         self.progress_bar.total_bytes = total_bytes
 
-        # start at 0
+        # Start at 0
         self.update(0)
 
     def update(self, downloaded_bytes):
@@ -65,7 +51,7 @@ class Download(object):
 
         self.progress_bar.setValue(downloaded_bytes)
         if downloaded_bytes == self.progress_bar.total_bytes:
-            pb_fmt = strings._('gui_download_progress_complete').format(
+            pb_fmt = strings._('gui_download_upload_progress_complete').format(
                 self.common.format_seconds(time.time() - self.started))
         else:
             elapsed = time.time() - self.started
@@ -73,10 +59,10 @@ class Download(object):
                 # Wait a couple of seconds for the download rate to stabilize.
                 # This prevents a "Windows copy dialog"-esque experience at
                 # the beginning of the download.
-                pb_fmt = strings._('gui_download_progress_starting').format(
+                pb_fmt = strings._('gui_download_upload_progress_starting').format(
                     self.common.human_readable_filesize(downloaded_bytes))
             else:
-                pb_fmt = strings._('gui_download_progress_eta').format(
+                pb_fmt = strings._('gui_download_upload_progress_eta').format(
                     self.common.human_readable_filesize(downloaded_bytes),
                     self.estimated_time_remaining)
 
@@ -92,64 +78,69 @@ class Download(object):
                                                 self.started)
 
 
-class Downloads(QtWidgets.QWidget):
+class Downloads(QtWidgets.QScrollArea):
     """
     The downloads chunk of the GUI. This lists all of the active download
     progress bars.
     """
     def __init__(self, common):
         super(Downloads, self).__init__()
-
         self.common = common
 
         self.downloads = {}
 
-        self.downloads_container = QtWidgets.QScrollArea()
-        self.downloads_container.setWidget(self)
-        self.downloads_container.setWindowTitle(strings._('gui_downloads', True))
-        self.downloads_container.setWidgetResizable(True)
-        self.downloads_container.setMaximumHeight(600)
-        self.downloads_container.setMinimumHeight(150)
-        self.downloads_container.setMinimumWidth(350)
-        self.downloads_container.setWindowIcon(QtGui.QIcon(common.get_resource_path('images/logo.png')))
-        self.downloads_container.setWindowFlags(QtCore.Qt.Sheet | QtCore.Qt.WindowTitleHint | QtCore.Qt.WindowSystemMenuHint | QtCore.Qt.CustomizeWindowHint)
-        self.downloads_container.vbar = self.downloads_container.verticalScrollBar()
+        self.setWindowTitle(strings._('gui_downloads', True))
+        self.setWidgetResizable(True)
+        self.setMaximumHeight(600)
+        self.setMinimumHeight(150)
+        self.setMinimumWidth(350)
+        self.setWindowIcon(QtGui.QIcon(common.get_resource_path('images/logo.png')))
+        self.setWindowFlags(QtCore.Qt.Sheet | QtCore.Qt.WindowTitleHint | QtCore.Qt.WindowSystemMenuHint | QtCore.Qt.CustomizeWindowHint)
+        self.vbar = self.verticalScrollBar()
 
-        self.downloads_label = QtWidgets.QLabel(strings._('gui_downloads', True))
-        self.downloads_label.setStyleSheet('QLabel { font-weight: bold; font-size 14px; text-align: center; }')
+        downloads_label = QtWidgets.QLabel(strings._('gui_downloads', True))
+        downloads_label.setStyleSheet(self.common.css['downloads_uploads_label'])
         self.no_downloads_label = QtWidgets.QLabel(strings._('gui_no_downloads', True))
 
         self.downloads_layout = QtWidgets.QVBoxLayout()
 
-        self.layout = QtWidgets.QVBoxLayout()
-        self.layout.addWidget(self.downloads_label)
-        self.layout.addWidget(self.no_downloads_label)
-        self.layout.addLayout(self.downloads_layout)
-        self.layout.addStretch()
-        self.setLayout(self.layout)
+        widget = QtWidgets.QWidget()
+        layout = QtWidgets.QVBoxLayout()
+        layout.addWidget(downloads_label)
+        layout.addWidget(self.no_downloads_label)
+        layout.addLayout(self.downloads_layout)
+        layout.addStretch()
+        widget.setLayout(layout)
+        self.setWidget(widget)
 
-    def add_download(self, download_id, total_bytes):
+    def add(self, download_id, total_bytes):
         """
         Add a new download progress bar.
         """
-        # add it to the list
+        # Hide the no_downloads_label
+        self.no_downloads_label.hide()
+
+        # Add it to the list
         download = Download(self.common, download_id, total_bytes)
         self.downloads[download_id] = download
         self.downloads_layout.addWidget(download.progress_bar)
 
-    def update_download(self, download_id, downloaded_bytes):
+        # Scroll to the bottom
+        self.vbar.setValue(self.vbar.maximum())
+
+    def update(self, download_id, downloaded_bytes):
         """
         Update the progress of a download progress bar.
         """
         self.downloads[download_id].update(downloaded_bytes)
 
-    def cancel_download(self, download_id):
+    def cancel(self, download_id):
         """
         Update a download progress bar to show that it has been canceled.
         """
         self.downloads[download_id].cancel()
 
-    def reset_downloads(self):
+    def reset(self):
         """
         Reset the downloads back to zero
         """
@@ -157,3 +148,6 @@ class Downloads(QtWidgets.QWidget):
             self.downloads_layout.removeWidget(download.progress_bar)
             download.progress_bar.close()
         self.downloads = {}
+
+        self.no_downloads_label.show()
+        self.resize(self.sizeHint())
