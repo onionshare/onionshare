@@ -544,13 +544,15 @@ class Web(object):
             # Canceling early?
             if self.cancel_compression:
                 self.zip_writer.close()
-                return
+                return False
 
         for info in self.file_info['dirs']:
-            self.zip_writer.add_dir(info['filename'])
+            if not self.zip_writer.add_dir(info['filename']):
+                return False
 
         self.zip_writer.close()
         self.zip_filesize = os.path.getsize(self.zip_filename)
+        return True
 
     def _safe_select_jinja_autoescape(self, filename):
         if filename is None:
@@ -692,14 +694,16 @@ class ZipWriter(object):
             for f in filenames:
                 # Canceling early?
                 if self.cancel_compression:
-                    return
-                
+                    return False
+
                 full_filename = os.path.join(dirpath, f)
                 if not os.path.islink(full_filename):
                     arc_filename = full_filename[len(dir_to_strip):]
                     self.z.write(full_filename, arc_filename, zipfile.ZIP_DEFLATED)
                     self._size += os.path.getsize(full_filename)
                     self.processed_size_callback(self._size)
+
+        return True
 
     def close(self):
         """
