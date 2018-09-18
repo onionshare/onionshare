@@ -42,7 +42,7 @@ def main():
     # Build paths
     root_path = os.path.dirname(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))))
     working_path = os.path.join(root_path, 'build', 'tor')
-    dmg_tor_path = os.path.join('/Volumes', 'Tor Browser', 'TorBrowser.app', 'Contents')
+    dmg_tor_path = os.path.join('/Volumes', 'Tor Browser', 'Tor Browser.app', 'Contents')
     dmg_path = os.path.join(working_path, dmg_filename)
     dist_path = os.path.join(root_path, 'dist', 'OnionShare.app', 'Contents')
 
@@ -88,7 +88,7 @@ def main():
     shutil.copyfile(os.path.join(dmg_tor_path, 'Resources', 'TorBrowser', 'Tor', 'geoip6'), os.path.join(dist_path, 'Resources', 'Tor', 'geoip6'))
     os.chmod(os.path.join(dist_path, 'Resources', 'Tor', 'tor'), 0o755)
     shutil.copyfile(os.path.join(dmg_tor_path, 'MacOS', 'Tor', 'tor.real'), os.path.join(dist_path, 'MacOS', 'Tor', 'tor.real'))
-    shutil.copyfile(os.path.join(dmg_tor_path, 'MacOS', 'Tor', 'libevent-2.0.5.dylib'), os.path.join(dist_path, 'MacOS', 'Tor', 'libevent-2.0.5.dylib'))
+    shutil.copyfile(os.path.join(dmg_tor_path, 'MacOS', 'Tor', 'libevent-2.1.6.dylib'), os.path.join(dist_path, 'MacOS', 'Tor', 'libevent-2.1.6.dylib'))
     os.chmod(os.path.join(dist_path, 'MacOS', 'Tor', 'tor.real'), 0o755)
     # obfs4proxy binary
     shutil.copyfile(os.path.join(dmg_tor_path, 'MacOS', 'Tor', 'PluggableTransports', 'obfs4proxy'), os.path.join(dist_path, 'Resources', 'Tor', 'obfs4proxy'))
