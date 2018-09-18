@@ -457,7 +457,6 @@ class Onion(object):
             # key_type = "ED25519-V3"
             else:
                 raise TorErrorProtocolError(strings._('error_invalid_private_key'))
-            self.common.log('Onion', 'Starting a hidden service with a saved private key')
         else:
             # Work out if we can support v3 onion services, which are preferred
             if Version(self.tor_version) >= Version('0.3.2.9') and not self.settings.get('use_legacy_v2_onions'):
@@ -467,7 +466,6 @@ class Onion(object):
                 # fall back to v2 onion services
                 key_type = "RSA1024"
                 key_content = onionkey.generate_v2_private_key()[0]
-            self.common.log('Onion', 'Starting a hidden service with a new private key')
 
         # v3 onions don't yet support basic auth. Our ticket:
         # https://github.com/micahflee/onionshare/issues/697
