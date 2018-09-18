@@ -2,6 +2,7 @@ altgraph==0.16.1
 certifi==2018.8.24
 chardet==3.0.4
 click==6.7
+cryptography==2.3.1
 Flask==1.0.2
 future==0.16.0
 idna==2.7
@@ -14,6 +15,9 @@ PyInstaller==3.4
 PyQt5==5.11.2
 PyQt5-sip==4.19.12
 PySocks==1.6.8
+pycrypto==2.6.1
+pynacl==1.2.1
+pysha3==1.0.2
 requests==2.19.1
 sip==4.19.8
 stem==1.6.0
