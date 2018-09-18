@@ -104,6 +104,8 @@ class Web(object):
         self.file_info = []
         self.zip_filename = None
         self.zip_filesize = None
+        self.zip_writer = None
+        self.cancel_compression = False
 
         self.security_headers = [
             ('Content-Security-Policy', 'default-src \'self\'; style-src \'self\'; script-src \'self\'; img-src \'self\' data:;'),
@@ -534,14 +536,20 @@ class Web(object):
         self.file_info['files'] = sorted(self.file_info['files'], key=lambda k: k['basename'])
         self.file_info['dirs'] = sorted(self.file_info['dirs'], key=lambda k: k['basename'])
 
-        # zip up the files and folders
-        z = ZipWriter(self.common, processed_size_callback=processed_size_callback)
+        # Zip up the files and folders
+        self.zip_writer = ZipWriter(self.common, processed_size_callback=processed_size_callback)
+        self.zip_filename = self.zip_writer.zip_filename
         for info in self.file_info['files']:
-            z.add_file(info['filename'])
+            self.zip_writer.add_file(info['filename'])
+            # Canceling early?
+            if self.cancel_compression:
+                self.zip_writer.close()
+                return
+
         for info in self.file_info['dirs']:
-            z.add_dir(info['filename'])
-        z.close()
-        self.zip_filename = z.zip_filename
+            self.zip_writer.add_dir(info['filename'])
+
+        self.zip_writer.close()
         self.zip_filesize = os.path.getsize(self.zip_filename)
 
     def _safe_select_jinja_autoescape(self, filename):
@@ -653,6 +661,7 @@ class ZipWriter(object):
     """
     def __init__(self, common, zip_filename=None, processed_size_callback=None):
         self.common = common
+        self.cancel_compression = False
 
         if zip_filename:
             self.zip_filename = zip_filename
@@ -681,6 +690,10 @@ class ZipWriter(object):
         dir_to_strip = os.path.dirname(filename.rstrip('/'))+'/'
         for dirpath, dirnames, filenames in os.walk(filename):
             for f in filenames:
+                # Canceling early?
+                if self.cancel_compression:
+                    return
+                
                 full_filename = os.path.join(dirpath, f)
                 if not os.path.islink(full_filename):
                     arc_filename = full_filename[len(dir_to_strip):]
