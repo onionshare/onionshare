@@ -35,14 +35,14 @@ import subprocess
 import requests
 
 def main():
-    dmg_url = 'https://archive.torproject.org/tor-package-archive/torbrowser/7.5.5/TorBrowser-7.5.5-osx64_en-US.dmg'
-    dmg_filename = 'TorBrowser-7.5.5-osx64_en-US.dmg'
-    expected_dmg_sha256 = '2b445e4237cdd9be0e71e65f76db5d36f0d6c37532982d642803b57e388e4636'
+    dmg_url = 'https://archive.torproject.org/tor-package-archive/torbrowser/8.0/TorBrowser-8.0-osx64_en-US.dmg'
+    dmg_filename = 'TorBrowser-8.0-osx64_en-US.dmg'
+    expected_dmg_sha256 = '15603ae7b3a1942863c98acc92f509e4409db48fe22c9acae6b15c9cb9bf3088'
 
     # Build paths
     root_path = os.path.dirname(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))))
     working_path = os.path.join(root_path, 'build', 'tor')
-    dmg_tor_path = os.path.join('/Volumes', 'Tor Browser', 'TorBrowser.app', 'Contents')
+    dmg_tor_path = os.path.join('/Volumes', 'Tor Browser', 'Tor Browser.app', 'Contents')
     dmg_path = os.path.join(working_path, dmg_filename)
     dist_path = os.path.join(root_path, 'dist', 'OnionShare.app', 'Contents')
 
@@ -88,7 +88,7 @@ def main():
     shutil.copyfile(os.path.join(dmg_tor_path, 'Resources', 'TorBrowser', 'Tor', 'geoip6'), os.path.join(dist_path, 'Resources', 'Tor', 'geoip6'))
     os.chmod(os.path.join(dist_path, 'Resources', 'Tor', 'tor'), 0o755)
     shutil.copyfile(os.path.join(dmg_tor_path, 'MacOS', 'Tor', 'tor.real'), os.path.join(dist_path, 'MacOS', 'Tor', 'tor.real'))
-    shutil.copyfile(os.path.join(dmg_tor_path, 'MacOS', 'Tor', 'libevent-2.0.5.dylib'), os.path.join(dist_path, 'MacOS', 'Tor', 'libevent-2.0.5.dylib'))
+    shutil.copyfile(os.path.join(dmg_tor_path, 'MacOS', 'Tor', 'libevent-2.1.6.dylib'), os.path.join(dist_path, 'MacOS', 'Tor', 'libevent-2.1.6.dylib'))
     os.chmod(os.path.join(dist_path, 'MacOS', 'Tor', 'tor.real'), 0o755)
     # obfs4proxy binary
     shutil.copyfile(os.path.join(dmg_tor_path, 'MacOS', 'Tor', 'PluggableTransports', 'obfs4proxy'), os.path.join(dist_path, 'Resources', 'Tor', 'obfs4proxy'))
