@@ -216,7 +216,6 @@ class ShareMode(Mode):
         """
         if self.compress_thread:
             self.common.log('OnionShareGui', 'cancel_server: quitting compress thread')
-            self.compress_thread.cancel()
             self.compress_thread.quit()
 
     def handle_tor_broke_custom(self):
