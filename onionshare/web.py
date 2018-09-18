@@ -105,7 +105,6 @@ class Web(object):
         self.zip_filename = None
         self.zip_filesize = None
         self.zip_writer = None
-        self.cancel_compression = False
 
         self.security_headers = [
             ('Content-Security-Policy', 'default-src \'self\'; style-src \'self\'; script-src \'self\'; img-src \'self\' data:;'),
@@ -518,6 +517,8 @@ class Web(object):
         page will need to display. This includes zipping up the file in order to
         get the zip file's name and size.
         """
+        self.cancel_compression = False
+        
         # build file info list
         self.file_info = {'files': [], 'dirs': []}
         for filename in filenames:
