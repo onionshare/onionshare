@@ -227,6 +227,7 @@ class Uploads(QtWidgets.QScrollArea):
         self.setWindowIcon(QtGui.QIcon(common.get_resource_path('images/logo.png')))
         self.setWindowFlags(QtCore.Qt.Sheet | QtCore.Qt.WindowTitleHint | QtCore.Qt.WindowSystemMenuHint | QtCore.Qt.CustomizeWindowHint)
         self.vbar = self.verticalScrollBar()
+        self.vbar.rangeChanged.connect(self.resizeScroll)
 
         uploads_label = QtWidgets.QLabel(strings._('gui_uploads', True))
         uploads_label.setStyleSheet(self.common.css['downloads_uploads_label'])
@@ -243,6 +244,12 @@ class Uploads(QtWidgets.QScrollArea):
         widget.setLayout(layout)
         self.setWidget(widget)
 
+    def resizeScroll(self, minimum, maximum):
+        """
+        Scroll to the bottom of the window when the range changes.
+        """
+        self.vbar.setValue(maximum)
+
     def add(self, upload_id, content_length):
         """
         Add a new upload.
@@ -255,9 +262,6 @@ class Uploads(QtWidgets.QScrollArea):
         upload = Upload(self.common, upload_id, content_length)
         self.uploads[upload_id] = upload
         self.uploads_layout.addWidget(upload)
-
-        # Scroll to the bottom
-        self.vbar.setValue(self.vbar.maximum())
 
     def update(self, upload_id, progress):
         """
