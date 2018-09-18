@@ -483,7 +483,7 @@ class Web(object):
             """
             Stop the flask web server, from the context of an http request.
             """
-            self.check_slug_candidate(slug_candidate, self.shutdown_slug)
+            self.check_shutdown_slug_candidate(slug_candidate)
             self.force_shutdown()
             return ""
 
@@ -578,15 +578,17 @@ class Web(object):
         log_handler.setLevel(logging.WARNING)
         self.app.logger.addHandler(log_handler)
 
-    def check_slug_candidate(self, slug_candidate, slug_compare=None):
-        self.common.log('Web', 'check_slug_candidate: slug_candidate={}, slug_compare={}'.format(slug_candidate, slug_compare))
+    def check_slug_candidate(self, slug_candidate):
+        self.common.log('Web', 'check_slug_candidate: slug_candidate={}'.format(slug_candidate))
         if self.common.settings.get('public_mode'):
             abort(404)
-        else:
-            if not slug_compare:
-                slug_compare = self.slug
-            if not hmac.compare_digest(slug_compare, slug_candidate):
-                abort(404)
+        if not hmac.compare_digest(self.slug, slug_candidate):
+            abort(404)
+
+    def check_shutdown_slug_candidate(self, slug_candidate):
+        self.common.log('Web', 'check_shutdown_slug_candidate: slug_candidate={}'.format(slug_candidate))
+        if not hmac.compare_digest(self.shutdown_slug, slug_candidate):
+            abort(404)
 
     def force_shutdown(self):
         """
