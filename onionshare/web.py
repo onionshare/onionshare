@@ -2,7 +2,7 @@
 """
 OnionShare | https://onionshare.org/
 
-Copyright (C) 2018 Micah Lee <micah@micahflee.com>
+Copyright (C) 2014-2018 Micah Lee <micah@micahflee.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -31,6 +31,7 @@ import re
 import io
 from distutils.version import LooseVersion as Version
 from urllib.request import urlopen
+from datetime import datetime
 
 import flask
 from flask import (
@@ -39,7 +40,8 @@ from flask import (
 )
 from werkzeug.utils import secure_filename
 
-from . import strings, common
+from . import strings
+from .common import DownloadsDirErrorCannotCreate, DownloadsDirErrorNotWritable
 
 
 # Stub out flask's show_server_banner function, to avoiding showing warnings that
@@ -54,21 +56,30 @@ class Web(object):
     """
     The Web object is the OnionShare web server, powered by flask
     """
-    def __init__(self, common, stay_open, gui_mode, receive_mode=False):
+    REQUEST_LOAD = 0
+    REQUEST_STARTED = 1
+    REQUEST_PROGRESS = 2
+    REQUEST_OTHER = 3
+    REQUEST_CANCELED = 4
+    REQUEST_RATE_LIMIT = 5
+    REQUEST_CLOSE_SERVER = 6
+    REQUEST_UPLOAD_FILE_RENAMED = 7
+    REQUEST_UPLOAD_FINISHED = 8
+    REQUEST_ERROR_DOWNLOADS_DIR_CANNOT_CREATE = 9
+    REQUEST_ERROR_DOWNLOADS_DIR_NOT_WRITABLE = 10
+
+    def __init__(self, common, gui_mode, receive_mode=False):
         self.common = common
 
         # The flask app
         self.app = Flask(__name__,
-                         static_folder=common.get_resource_path('static'),
-                         template_folder=common.get_resource_path('templates'))
+                         static_folder=self.common.get_resource_path('static'),
+                         template_folder=self.common.get_resource_path('templates'))
         self.app.secret_key = self.common.random_string(8)
 
         # Debug mode?
         if self.common.debug:
             self.debug_mode()
-
-        # Stay open after the first download?
-        self.stay_open = stay_open
 
         # Are we running in GUI mode?
         self.gui_mode = gui_mode
@@ -103,17 +114,13 @@ class Web(object):
             ('Server', 'OnionShare')
         ]
 
-        self.REQUEST_LOAD = 0
-        self.REQUEST_DOWNLOAD = 1
-        self.REQUEST_PROGRESS = 2
-        self.REQUEST_OTHER = 3
-        self.REQUEST_CANCELED = 4
-        self.REQUEST_RATE_LIMIT = 5
         self.q = queue.Queue()
 
         self.slug = None
 
         self.download_count = 0
+        self.upload_count = 0
+
         self.error404_count = 0
 
         # If "Stop After First Download" is checked (stay_open == False), only allow
@@ -130,6 +137,9 @@ class Web(object):
         # shutting down the server only works within the context of flask, so the easiest way to do it is over http
         self.shutdown_slug = self.common.random_string(16)
 
+        # Keep track if the server is running
+        self.running = False
+
         # Define the ewb app routes
         self.common_routes()
         if self.receive_mode:
@@ -143,12 +153,20 @@ class Web(object):
         """
         @self.app.route("/<slug_candidate>")
         def index(slug_candidate):
+            self.check_slug_candidate(slug_candidate)
+            return index_logic()
+
+        @self.app.route("/")
+        def index_public():
+            if not self.common.settings.get('public_mode'):
+                return self.error404()
+            return index_logic()
+
+        def index_logic(slug_candidate=''):
             """
             Render the template for the onionshare landing page.
             """
-            self.check_slug_candidate(slug_candidate)
-
-            self.add_request(self.REQUEST_LOAD, request.path)
+            self.add_request(Web.REQUEST_LOAD, request.path)
 
             # Deny new downloads if "Stop After First Download" is checked and there is
             # currently a download
@@ -158,22 +176,39 @@ class Web(object):
                 return self.add_security_headers(r)
 
             # If download is allowed to continue, serve download page
-            r = make_response(render_template(
-                'send.html',
-                slug=self.slug,
-                file_info=self.file_info,
-                filename=os.path.basename(self.zip_filename),
-                filesize=self.zip_filesize,
-                filesize_human=self.common.human_readable_filesize(self.zip_filesize)))
+            if self.slug:
+                r = make_response(render_template(
+                    'send.html',
+                    slug=self.slug,
+                    file_info=self.file_info,
+                    filename=os.path.basename(self.zip_filename),
+                    filesize=self.zip_filesize,
+                    filesize_human=self.common.human_readable_filesize(self.zip_filesize)))
+            else:
+                # If download is allowed to continue, serve download page
+                r = make_response(render_template(
+                    'send.html',
+                    file_info=self.file_info,
+                    filename=os.path.basename(self.zip_filename),
+                    filesize=self.zip_filesize,
+                    filesize_human=self.common.human_readable_filesize(self.zip_filesize)))
             return self.add_security_headers(r)
 
         @self.app.route("/<slug_candidate>/download")
         def download(slug_candidate):
+            self.check_slug_candidate(slug_candidate)
+            return download_logic()
+
+        @self.app.route("/download")
+        def download_public():
+            if not self.common.settings.get('public_mode'):
+                return self.error404()
+            return download_logic()
+
+        def download_logic(slug_candidate=''):
             """
             Download the zip file.
             """
-            self.check_slug_candidate(slug_candidate)
-
             # Deny new downloads if "Stop After First Download" is checked and there is
             # currently a download
             deny_download = not self.stay_open and self.download_in_progress
@@ -181,17 +216,19 @@ class Web(object):
                 r = make_response(render_template('denied.html'))
                 return self.add_security_headers(r)
 
-            # each download has a unique id
+            # Each download has a unique id
             download_id = self.download_count
             self.download_count += 1
 
-            # prepare some variables to use inside generate() function below
+            # Prepare some variables to use inside generate() function below
             # which is outside of the request context
             shutdown_func = request.environ.get('werkzeug.server.shutdown')
             path = request.path
 
-            # tell GUI the download started
-            self.add_request(self.REQUEST_DOWNLOAD, path, {'id': download_id})
+            # Tell GUI the download started
+            self.add_request(Web.REQUEST_STARTED, path, {
+                'id': download_id}
+            )
 
             dirname = os.path.dirname(self.zip_filename)
             basename = os.path.basename(self.zip_filename)
@@ -212,7 +249,9 @@ class Web(object):
                 while not self.done:
                     # The user has canceled the download, so stop serving the file
                     if self.client_cancel:
-                        self.add_request(self.REQUEST_CANCELED, path, {'id': download_id})
+                        self.add_request(Web.REQUEST_CANCELED, path, {
+                            'id': download_id
+                        })
                         break
 
                     chunk = fp.read(chunk_size)
@@ -232,7 +271,10 @@ class Web(object):
                                     "\r{0:s}, {1:.2f}%          ".format(self.common.human_readable_filesize(downloaded_bytes), percent))
                                 sys.stdout.flush()
 
-                            self.add_request(self.REQUEST_PROGRESS, path, {'id': download_id, 'bytes': downloaded_bytes})
+                            self.add_request(Web.REQUEST_PROGRESS, path, {
+                                'id': download_id,
+                                'bytes': downloaded_bytes
+                                })
                             self.done = False
                         except:
                             # looks like the download was canceled
@@ -240,7 +282,9 @@ class Web(object):
                             canceled = True
 
                             # tell the GUI the download has canceled
-                            self.add_request(self.REQUEST_CANCELED, path, {'id': download_id})
+                            self.add_request(Web.REQUEST_CANCELED, path, {
+                                'id': download_id
+                            })
 
                 fp.close()
 
@@ -254,9 +298,13 @@ class Web(object):
                 # Close the server, if necessary
                 if not self.stay_open and not canceled:
                     print(strings._("closing_automatically"))
-                    if shutdown_func is None:
-                        raise RuntimeError('Not running with the Werkzeug Server')
-                    shutdown_func()
+                    self.running = False
+                    try:
+                        if shutdown_func is None:
+                            raise RuntimeError('Not running with the Werkzeug Server')
+                        shutdown_func()
+                    except:
+                        pass
 
             r = Response(generate())
             r.headers.set('Content-Length', self.zip_filesize)
@@ -270,23 +318,63 @@ class Web(object):
 
     def receive_routes(self):
         """
-        The web app routes for sharing files
+        The web app routes for receiving files
         """
-        @self.app.route("/<slug_candidate>")
-        def index(slug_candidate):
-            self.check_slug_candidate(slug_candidate)
+        def index_logic():
+            self.add_request(Web.REQUEST_LOAD, request.path)
+
+            if self.common.settings.get('public_mode'):
+                upload_action = '/upload'
+                close_action = '/close'
+            else:
+                upload_action = '/{}/upload'.format(self.slug)
+                close_action = '/{}/close'.format(self.slug)
 
             r = make_response(render_template(
                 'receive.html',
-                slug=self.slug))
+                upload_action=upload_action,
+                close_action=close_action,
+                receive_allow_receiver_shutdown=self.common.settings.get('receive_allow_receiver_shutdown')))
             return self.add_security_headers(r)
 
-        @self.app.route("/<slug_candidate>/upload", methods=['POST'])
-        def upload(slug_candidate):
+        @self.app.route("/<slug_candidate>")
+        def index(slug_candidate):
             self.check_slug_candidate(slug_candidate)
+            return index_logic()
+
+        @self.app.route("/")
+        def index_public():
+            if not self.common.settings.get('public_mode'):
+                return self.error404()
+            return index_logic()
+
+
+        def upload_logic(slug_candidate=''):
+            """
+            Upload files.
+            """
+            # Make sure downloads_dir exists
+            valid = True
+            try:
+                self.common.validate_downloads_dir()
+            except DownloadsDirErrorCannotCreate:
+                self.add_request(Web.REQUEST_ERROR_DOWNLOADS_DIR_CANNOT_CREATE, request.path)
+                print(strings._('error_cannot_create_downloads_dir').format(self.common.settings.get('downloads_dir')))
+                valid = False
+            except DownloadsDirErrorNotWritable:
+                self.add_request(Web.REQUEST_ERROR_DOWNLOADS_DIR_NOT_WRITABLE, request.path)
+                print(strings._('error_downloads_dir_not_writable').format(self.common.settings.get('downloads_dir')))
+                valid = False
+            if not valid:
+                flash('Error uploading, please inform the OnionShare user', 'error')
+                if self.common.settings.get('public_mode'):
+                    return redirect('/')
+                else:
+                    return redirect('/{}'.format(slug_candidate))
 
             files = request.files.getlist('file[]')
             filenames = []
+            print('')
             for f in files:
                 if f.filename != '':
                     # Automatically rename the file, if a file of the same name already exists
@@ -321,6 +409,15 @@ class Web(object):
                                 else:
                                     valid = True
 
+                    basename = os.path.basename(local_path)
+                    if f.filename != basename:
+                        # Tell the GUI that the file has changed names
+                        self.add_request(Web.REQUEST_UPLOAD_FILE_RENAMED, request.path, {
+                            'id': request.upload_id,
+                            'old_filename': f.filename,
+                            'new_filename': basename
+                        })
+
                     self.common.log('Web', 'receive_routes', '/upload, uploaded {}, saving to {}'.format(f.filename, local_path))
                     print(strings._('receive_mode_received_file').format(local_path))
                     f.save(local_path)
@@ -328,19 +425,47 @@ class Web(object):
             # Note that flash strings are on English, and not translated, on purpose,
             # to avoid leaking the locale of the OnionShare user
             if len(filenames) == 0:
-                flash('No files uploaded')
+                flash('No files uploaded', 'info')
             else:
                 for filename in filenames:
-                    flash('Uploaded {}'.format(filename))
+                    flash('Sent {}'.format(filename), 'info')
 
-            return redirect('/{}'.format(slug_candidate))
+            if self.common.settings.get('public_mode'):
+                return redirect('/')
+            else:
+                return redirect('/{}'.format(slug_candidate))
+
+        @self.app.route("/<slug_candidate>/upload", methods=['POST'])
+        def upload(slug_candidate):
+            self.check_slug_candidate(slug_candidate)
+            return upload_logic(slug_candidate)
+
+        @self.app.route("/upload", methods=['POST'])
+        def upload_public():
+            if not self.common.settings.get('public_mode'):
+                return self.error404()
+            return upload_logic()
+
+
+        def close_logic(slug_candidate=''):
+            if self.common.settings.get('receive_allow_receiver_shutdown'):
+                self.force_shutdown()
+                r = make_response(render_template('closed.html'))
+                self.add_request(Web.REQUEST_CLOSE_SERVER, request.path)
+                return self.add_security_headers(r)
+            else:
+                return redirect('/{}'.format(slug_candidate))
 
         @self.app.route("/<slug_candidate>/close", methods=['POST'])
         def close(slug_candidate):
             self.check_slug_candidate(slug_candidate)
-            self.force_shutdown()
-            r = make_response(render_template('closed.html'))
-            return self.add_security_headers(r)
+            return close_logic(slug_candidate)
+
+        @self.app.route("/close", methods=['POST'])
+        def close_public():
+            if not self.common.settings.get('public_mode'):
+                return self.error404()
+            return close_logic()
 
     def common_routes(self):
         """
@@ -351,26 +476,31 @@ class Web(object):
             """
             404 error page.
             """
-            self.add_request(self.REQUEST_OTHER, request.path)
-
-            if request.path != '/favicon.ico':
-                self.error404_count += 1
-                if self.error404_count == 20:
-                    self.add_request(self.REQUEST_RATE_LIMIT, request.path)
-                    self.force_shutdown()
-                    print(strings._('error_rate_limit'))
-
-            r = make_response(render_template('404.html'), 404)
-            return self.add_security_headers(r)
+            return self.error404()
 
         @self.app.route("/<slug_candidate>/shutdown")
         def shutdown(slug_candidate):
             """
             Stop the flask web server, from the context of an http request.
             """
-            self.check_slug_candidate(slug_candidate, self.shutdown_slug)
+            self.check_shutdown_slug_candidate(slug_candidate)
             self.force_shutdown()
             return ""
+
+    def error404(self):
+        self.add_request(Web.REQUEST_OTHER, request.path)
+        if request.path != '/favicon.ico':
+            self.error404_count += 1
+
+            # In receive mode, with public mode enabled, skip rate limiting 404s
+            if not self.common.settings.get('public_mode'):
+                if self.error404_count == 20:
+                    self.add_request(Web.REQUEST_RATE_LIMIT, request.path)
+                    self.force_shutdown()
+                    print(strings._('error_rate_limit'))
+
+        r = make_response(render_template('404.html'), 404)
+        return self.add_security_headers(r)
 
     def add_security_headers(self, r):
         """
@@ -429,11 +559,14 @@ class Web(object):
             'data': data
         })
 
-    def generate_slug(self, persistent_slug=''):
-        if persistent_slug:
+    def generate_slug(self, persistent_slug=None):
+        self.common.log('Web', 'generate_slug', 'persistent_slug={}'.format(persistent_slug))
+        if persistent_slug != None and persistent_slug != '':
             self.slug = persistent_slug
+            self.common.log('Web', 'generate_slug', 'persistent_slug sent, so slug is: "{}"'.format(self.slug))
         else:
             self.slug = self.common.build_slug()
+            self.common.log('Web', 'generate_slug', 'built random slug: "{}"'.format(self.slug))
 
     def debug_mode(self):
         """
@@ -445,27 +578,39 @@ class Web(object):
         log_handler.setLevel(logging.WARNING)
         self.app.logger.addHandler(log_handler)
 
-    def check_slug_candidate(self, slug_candidate, slug_compare=None):
-        if not slug_compare:
-            slug_compare = self.slug
-        if not hmac.compare_digest(slug_compare, slug_candidate):
+    def check_slug_candidate(self, slug_candidate):
+        self.common.log('Web', 'check_slug_candidate: slug_candidate={}'.format(slug_candidate))
+        if self.common.settings.get('public_mode'):
+            abort(404)
+        if not hmac.compare_digest(self.slug, slug_candidate):
+            abort(404)
+
+    def check_shutdown_slug_candidate(self, slug_candidate):
+        self.common.log('Web', 'check_shutdown_slug_candidate: slug_candidate={}'.format(slug_candidate))
+        if not hmac.compare_digest(self.shutdown_slug, slug_candidate):
             abort(404)
 
     def force_shutdown(self):
         """
         Stop the flask web server, from the context of the flask app.
         """
-        # shutdown the flask service
-        func = request.environ.get('werkzeug.server.shutdown')
-        if func is None:
-            raise RuntimeError('Not running with the Werkzeug Server')
-        func()
+        # Shutdown the flask service
+        try:
+            func = request.environ.get('werkzeug.server.shutdown')
+            if func is None:
+                raise RuntimeError('Not running with the Werkzeug Server')
+            func()
+        except:
+            pass
+        self.running = False
 
-    def start(self, port, stay_open=False, persistent_slug=''):
+    def start(self, port, stay_open=False, public_mode=False, persistent_slug=None):
         """
         Start the flask web server.
         """
-        self.generate_slug(persistent_slug)
+        self.common.log('Web', 'start', 'port={}, stay_open={}, persistent_slug={}'.format(port, stay_open, persistent_slug))
+        if not public_mode:
+            self.generate_slug(persistent_slug)
 
         self.stay_open = stay_open
 
@@ -475,6 +620,7 @@ class Web(object):
         else:
             host = '127.0.0.1'
 
+        self.running = True
         self.app.run(host=host, port=port, threaded=True)
 
     def stop(self, port):
@@ -486,16 +632,17 @@ class Web(object):
         # serving the file
         self.client_cancel = True
 
-        # to stop flask, load http://127.0.0.1:<port>/<shutdown_slug>/shutdown
-        try:
-            s = socket.socket()
-            s.connect(('127.0.0.1', port))
-            s.sendall('GET /{0:s}/shutdown HTTP/1.1\r\n\r\n'.format(self.shutdown_slug))
-        except:
+        # To stop flask, load http://127.0.0.1:<port>/<shutdown_slug>/shutdown
+        if self.running:
             try:
-                urlopen('http://127.0.0.1:{0:d}/{1:s}/shutdown'.format(port, self.shutdown_slug)).read()
+                s = socket.socket()
+                s.connect(('127.0.0.1', port))
+                s.sendall('GET /{0:s}/shutdown HTTP/1.1\r\n\r\n'.format(self.shutdown_slug))
             except:
-                pass
+                try:
+                    urlopen('http://127.0.0.1:{0:d}/{1:s}/shutdown'.format(port, self.shutdown_slug)).read()
+                except:
+                    pass
 
 
 class ZipWriter(object):
@@ -561,21 +708,23 @@ class ReceiveModeWSGIMiddleware(object):
         environ['web'] = self.web
         return self.app(environ, start_response)
 
+
 class ReceiveModeTemporaryFile(object):
     """
     A custom TemporaryFile that tells ReceiveModeRequest every time data gets
     written to it, in order to track the progress of uploads.
     """
-    def __init__(self, filename, update_func):
+    def __init__(self, filename, write_func, close_func):
         self.onionshare_filename = filename
-        self.onionshare_update_func = update_func
+        self.onionshare_write_func = write_func
+        self.onionshare_close_func = close_func
 
         # Create a temporary file
         self.f = tempfile.TemporaryFile('wb+')
 
         # Make all the file-like methods and attributes actually access the
         # TemporaryFile, except for write
-        attrs = ['close', 'closed', 'detach', 'fileno', 'flush', 'isatty', 'mode',
+        attrs = ['closed', 'detach', 'fileno', 'flush', 'isatty', 'mode',
                  'name', 'peek', 'raw', 'read', 'read1', 'readable', 'readinto',
                  'readinto1', 'readline', 'readlines', 'seek', 'seekable', 'tell',
                  'truncate', 'writable', 'writelines']
@@ -584,10 +733,17 @@ class ReceiveModeTemporaryFile(object):
 
     def write(self, b):
         """
-        Custom write method that calls out to onionshare_update_func
+        Custom write method that calls out to onionshare_write_func
         """
         bytes_written = self.f.write(b)
-        self.onionshare_update_func(self.onionshare_filename, bytes_written)
+        self.onionshare_write_func(self.onionshare_filename, bytes_written)
+
+    def close(self):
+        """
+        Custom close method that calls out to onionshare_close_func
+        """
+        self.f.close()
+        self.onionshare_close_func(self.onionshare_filename)
 
 
 class ReceiveModeRequest(Request):
@@ -599,30 +755,92 @@ class ReceiveModeRequest(Request):
         super(ReceiveModeRequest, self).__init__(environ, populate_request, shallow)
         self.web = environ['web']
 
-        # A dictionary that maps filenames to the bytes uploaded so far
-        self.onionshare_progress = {}
+        # Is this a valid upload request?
+        self.upload_request = False
+        if self.method == 'POST':
+            if self.path == '/{}/upload'.format(self.web.slug):
+                self.upload_request = True
+            else:
+                if self.web.common.settings.get('public_mode'):
+                    if self.path == '/upload':
+                        self.upload_request = True
+
+        if self.upload_request:
+            # A dictionary that maps filenames to the bytes uploaded so far
+            self.progress = {}
+
+            # Create an upload_id, attach it to the request
+            self.upload_id = self.web.upload_count
+            self.web.upload_count += 1
+
+            # Figure out the content length
+            try:
+                self.content_length = int(self.headers['Content-Length'])
+            except:
+                self.content_length = 0
+
+            print("{}: {}".format(
+                datetime.now().strftime("%b %d, %I:%M%p"),
+                strings._("receive_mode_upload_starting").format(self.web.common.human_readable_filesize(self.content_length))
+            ))
+
+            # Tell the GUI
+            self.web.add_request(Web.REQUEST_STARTED, self.path, {
+                'id': self.upload_id,
+                'content_length': self.content_length
+            })
+
+            self.previous_file = None
 
     def _get_file_stream(self, total_content_length, content_type, filename=None, content_length=None):
         """
         This gets called for each file that gets uploaded, and returns an file-like
         writable stream.
         """
-        if len(self.onionshare_progress) > 0:
-            print('')
-        self.onionshare_progress[filename] = 0
-        return ReceiveModeTemporaryFile(filename, self.onionshare_update_func)
+        if self.upload_request:
+            self.progress[filename] = {
+                'uploaded_bytes': 0,
+                'complete': False
+            }
+
+        return ReceiveModeTemporaryFile(filename, self.file_write_func, self.file_close_func)
 
     def close(self):
         """
-        When closing the request, print a newline if this was a file upload.
+        Closing the request.
         """
         super(ReceiveModeRequest, self).close()
-        if len(self.onionshare_progress) > 0:
-            print('')
+        if self.upload_request:
+            # Inform the GUI that the upload has finished
+            self.web.add_request(Web.REQUEST_UPLOAD_FINISHED, self.path, {
+                'id': self.upload_id
+            })
 
-    def onionshare_update_func(self, filename, length):
+    def file_write_func(self, filename, length):
         """
-        Keep track of the bytes uploaded so far for all files.
+        This function gets called when a specific file is written to.
         """
-        self.onionshare_progress[filename] += length
-        print('{} - {}     '.format(self.web.common.human_readable_filesize(self.onionshare_progress[filename]), filename), end='\r')
+        if self.upload_request:
+            self.progress[filename]['uploaded_bytes'] += length
+
+            if self.previous_file != filename:
+                if self.previous_file is not None:
+                    print('')
+                self.previous_file = filename
+
+            print('\r=> {:15s} {}'.format(
+                self.web.common.human_readable_filesize(self.progress[filename]['uploaded_bytes']),
+                filename
+            ), end='')
+
+            # Update the GUI on the upload progress
+            self.web.add_request(Web.REQUEST_PROGRESS, self.path, {
+                'id': self.upload_id,
+                'progress': self.progress
+            })
+
+    def file_close_func(self, filename):
+        """
+        This function gets called when a specific file is closed.
+        """
+        self.progress[filename]['complete'] = True
