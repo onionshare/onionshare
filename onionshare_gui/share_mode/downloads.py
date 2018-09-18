@@ -97,6 +97,7 @@ class Downloads(QtWidgets.QScrollArea):
         self.setWindowIcon(QtGui.QIcon(common.get_resource_path('images/logo.png')))
         self.setWindowFlags(QtCore.Qt.Sheet | QtCore.Qt.WindowTitleHint | QtCore.Qt.WindowSystemMenuHint | QtCore.Qt.CustomizeWindowHint)
         self.vbar = self.verticalScrollBar()
+        self.vbar.rangeChanged.connect(self.resizeScroll)
 
         downloads_label = QtWidgets.QLabel(strings._('gui_downloads', True))
         downloads_label.setStyleSheet(self.common.css['downloads_uploads_label'])
@@ -113,6 +114,12 @@ class Downloads(QtWidgets.QScrollArea):
         widget.setLayout(layout)
         self.setWidget(widget)
 
+    def resizeScroll(self, minimum, maximum):
+        """
+        Scroll to the bottom of the window when the range changes.
+        """
+        self.vbar.setValue(maximum)
+
     def add(self, download_id, total_bytes):
         """
         Add a new download progress bar.
@@ -124,9 +131,6 @@ class Downloads(QtWidgets.QScrollArea):
         download = Download(self.common, download_id, total_bytes)
         self.downloads[download_id] = download
         self.downloads_layout.addWidget(download.progress_bar)
-
-        # Scroll to the bottom
-        self.vbar.setValue(self.vbar.maximum())
 
     def update(self, download_id, downloaded_bytes):
         """
