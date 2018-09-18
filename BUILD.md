@@ -42,14 +42,14 @@ Install Xcode from the Mac App Store. Once it's installed, run it for the first 
 
 Download and install Python 3.7.0 from https://www.python.org/downloads/release/python-370/. I downloaded `python-3.7.0-macosx10.9.pkg`.
 
-You may also need to run the command `/Applications/Python\ 3.6/Install\ Certificates.command` to update Python 3.6's internal certificate store. Otherwise, you may find that fetching the Tor Browser .dmg file fails later due to a certificate validation error.
+You may also need to run the command `/Applications/Python\ 3.7/Install\ Certificates.command` to update Python 3.6's internal certificate store. Otherwise, you may find that fetching the Tor Browser .dmg file fails later due to a certificate validation error.
 
 Download and install Qt5 from https://www.qt.io/download-open-source/. I downloaded `qt-unified-mac-x64-3.0.5-online.dmg`. There's no need to login to a Qt account during installation. When you select components, install the `macOS` component from Qt 5.11.1 (or whatever the latest Qt version is).
 
 Now install some python dependencies with pip (note, there's issues building a .app if you install this in a virtualenv):
 
 ```sh
-sudo pip3 install -r install/requirements.txt
+pip3 install -r install/requirements.txt
 ```
 
 You can run both the CLI and GUI versions of OnionShare without building an bundle:
@@ -84,10 +84,8 @@ Download Python 3.7.0, 32-bit (x86) from https://www.python.org/downloads/releas
 Open a command prompt, cd to the onionshare folder, and install dependencies with pip:
 
 ```cmd
-pip3 install -r install\requirements-windows.txt
+pip install -r install\requirements.txt
 ```
-
-Download and install pywin32 (build 223, x86, for python 3.7) from https://github.com/mhammond/pywin32/releases/tag/b223. I downloaded `pywin32-223.win32-py3.7.exe`.
 
 Download and install Qt5 from https://www.qt.io/download-open-source/. I downloaded `qt-unified-windows-x86-3.0.5-online.exe`. There's no need to login to a Qt account during installation. When you can select components, install the `MSVC 2015 32-bit` component from Qt 5.11.1 (or whatever the latest Qt version is).
 
