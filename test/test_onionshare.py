@@ -1,7 +1,7 @@
 """
 OnionShare | https://onionshare.org/
 
-Copyright (C) 2018 Micah Lee <micah@micahflee.com>
+Copyright (C) 2014-2018 Micah Lee <micah@micahflee.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -49,7 +49,6 @@ class TestOnionShare:
         assert onionshare_obj.stealth is None
         assert onionshare_obj.cleanup_filenames == []
         assert onionshare_obj.local_only is False
-        assert onionshare_obj.stay_open is False
 
     def test_set_stealth_true(self, onionshare_obj):
         onionshare_obj.set_stealth(True)

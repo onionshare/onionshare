@@ -1,7 +1,7 @@
 """
 OnionShare | https://onionshare.org/
 
-Copyright (C) 2017 Micah Lee <micah@micahflee.com>
+Copyright (C) 2014-2018 Micah Lee <micah@micahflee.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -26,13 +26,178 @@ import re
 import socket
 import sys
 import zipfile
+import tempfile
 
 import pytest
 
 from onionshare.common import Common
+from onionshare.web import Web
+from onionshare.settings import Settings
 
 DEFAULT_ZW_FILENAME_REGEX = re.compile(r'^onionshare_[a-z2-7]{6}.zip$')
 RANDOM_STR_REGEX = re.compile(r'^[a-z2-7]+$')
+
+
+def web_obj(common_obj, receive_mode, num_files=0):
+    """ Creates a Web object, in either share mode or receive mode, ready for testing """
+    common_obj.load_settings()
+
+    web = Web(common_obj, False, receive_mode)
+    web.generate_slug()
+    web.stay_open = True
+    web.running = True
+
+    web.app.testing = True
+
+    # Share mode
+    if not receive_mode:
+        # Add files
+        files = []
+        for i in range(num_files):
+            with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
+                tmp_file.write(b'*' * 1024)
+                files.append(tmp_file.name)
+        web.set_file_info(files)
+    # Receive mode
+    else:
+        pass
+
+    return web
+
+
+class TestWeb:
+    def test_share_mode(self, common_obj):
+        web = web_obj(common_obj, False, 3)
+        assert web.receive_mode is False
+        with web.app.test_client() as c:
+            # Load 404 pages
+            res = c.get('/')
+            res.get_data()
+            assert res.status_code == 404
+
+            res = c.get('/invalidslug'.format(web.slug))
+            res.get_data()
+            assert res.status_code == 404
+
+            # Load download page
+            res = c.get('/{}'.format(web.slug))
+            res.get_data()
+            assert res.status_code == 200
+
+            # Download
+            res = c.get('/{}/download'.format(web.slug))
+            res.get_data()
+            assert res.status_code == 200
+            assert res.mimetype == 'application/zip'
+
+    def test_share_mode_close_after_first_download_on(self, common_obj, temp_file_1024):
+        web = web_obj(common_obj, False, 3)
+        web.stay_open = False
+
+        assert web.running == True
+
+        with web.app.test_client() as c:
+            # Download the first time
+            res = c.get('/{}/download'.format(web.slug))
+            res.get_data()
+            assert res.status_code == 200
+            assert res.mimetype == 'application/zip'
+
+            assert web.running == False
+
+    def test_share_mode_close_after_first_download_off(self, common_obj, temp_file_1024):
+        web = web_obj(common_obj, False, 3)
+        web.stay_open = True
+
+        assert web.running == True
+
+        with web.app.test_client() as c:
+            # Download the first time
+            res = c.get('/{}/download'.format(web.slug))
+            res.get_data()
+            assert res.status_code == 200
+            assert res.mimetype == 'application/zip'
+            assert web.running == True
+
+    def test_receive_mode(self, common_obj):
+        web = web_obj(common_obj, True)
+        assert web.receive_mode is True
+
+        with web.app.test_client() as c:
+            # Load 404 pages
+            res = c.get('/')
+            res.get_data()
+            assert res.status_code == 404
+
+            res = c.get('/invalidslug'.format(web.slug))
+            res.get_data()
+            assert res.status_code == 404
+
+            # Load upload page
+            res = c.get('/{}'.format(web.slug))
+            res.get_data()
+            assert res.status_code == 200
+
+    def test_receive_mode_allow_receiver_shutdown_on(self, common_obj):
+        web = web_obj(common_obj, True)
+
+        common_obj.settings.set('receive_allow_receiver_shutdown', True)
+
+        assert web.running == True
+
+        with web.app.test_client() as c:
+            # Load close page
+            res = c.post('/{}/close'.format(web.slug))
+            res.get_data()
+            # Should return ok, and server should stop
+            assert res.status_code == 200
+            assert web.running == False
+
+    def test_receive_mode_allow_receiver_shutdown_off(self, common_obj):
+        web = web_obj(common_obj, True)
+
+        common_obj.settings.set('receive_allow_receiver_shutdown', False)
+
+        assert web.running == True
+
+        with web.app.test_client() as c:
+            # Load close page
+            res = c.post('/{}/close'.format(web.slug))
+            res.get_data()
+            # Should redirect to index, and server should still be running
+            assert res.status_code == 302
+            assert web.running == True
+    
+    def test_public_mode_on(self, common_obj):
+        web = web_obj(common_obj, True)
+        common_obj.settings.set('public_mode', True)
+
+        with web.app.test_client() as c:
+            # Upload page should be accessible from /
+            res = c.get('/')
+            data1 = res.get_data()
+            assert res.status_code == 200
+
+            # /[slug] should be a 404
+            res = c.get('/{}'.format(web.slug))
+            data2 = res.get_data()
+            assert res.status_code == 404
+    
+    def test_public_mode_off(self, common_obj):
+        web = web_obj(common_obj, True)
+        common_obj.settings.set('public_mode', False)
+
+        with web.app.test_client() as c:
+            # / should be a 404
+            res = c.get('/')
+            data1 = res.get_data()
+            assert res.status_code == 404
+
+            # Upload page should be accessible from /[slug]
+            res = c.get('/{}'.format(web.slug))
+            data2 = res.get_data()
+            assert res.status_code == 200
+
 
 class TestZipWriterDefault:
     @pytest.mark.parametrize('test_input', (

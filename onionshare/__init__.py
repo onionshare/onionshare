@@ -2,7 +2,7 @@
 """
 OnionShare | https://onionshare.org/
 
-Copyright (C) 2018 Micah Lee <micah@micahflee.com>
+Copyright (C) 2014-2018 Micah Lee <micah@micahflee.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import os, sys, time, argparse, threading
 
 from . import strings
-from .common import Common
+from .common import Common, DownloadsDirErrorCannotCreate, DownloadsDirErrorNotWritable
 from .web import Web
 from .onion import *
 from .onionshare import OnionShare
@@ -89,38 +89,24 @@ def main(cwd=None):
     # Debug mode?
     common.debug = debug
 
-    # In receive mode, validate downloads dir
-    if receive:
-        valid = True
-        if not os.path.isdir(common.settings.get('downloads_dir')):
-            try:
-                os.mkdir(common.settings.get('downloads_dir'), 0o700)
-            except:
-                print(strings._('error_cannot_create_downloads_dir').format(common.settings.get('downloads_dir')))
-                valid = False
-        if valid and not os.access(common.settings.get('downloads_dir'), os.W_OK):
-            print(strings._('error_downloads_dir_not_writable').format(common.settings.get('downloads_dir')))
-            valid = False
-    if not valid:
-        sys.exit()
-
     # Create the Web object
-    web = Web(common, stay_open, False, receive)
+    web = Web(common, False, receive)
 
     # Start the Onion object
     onion = Onion(common)
     try:
         onion.connect(custom_settings=False, config=config)
-    except (TorTooOld, TorErrorInvalidSetting, TorErrorAutomatic, TorErrorSocketPort, TorErrorSocketFile, TorErrorMissingPassword, TorErrorUnreadableCookieFile, TorErrorAuthError, TorErrorProtocolError, BundledTorNotSupported, BundledTorTimeout) as e:
-        sys.exit(e.args[0])
     except KeyboardInterrupt:
         print("")
         sys.exit()
+    except Exception as e:
+        sys.exit(e.args[0])
 
     # Start the onionshare app
     try:
-        app = OnionShare(common, onion, local_only, stay_open, shutdown_timeout)
+        app = OnionShare(common, onion, local_only, shutdown_timeout)
         app.set_stealth(stealth)
+        app.choose_port()
         app.start_onion_service()
     except KeyboardInterrupt:
         print("")
@@ -142,7 +128,7 @@ def main(cwd=None):
         print('')
 
     # Start OnionShare http service in new thread
-    t = threading.Thread(target=web.start, args=(app.port, app.stay_open, common.settings.get('slug')))
+    t = threading.Thread(target=web.start, args=(app.port, stay_open, common.settings.get('public_mode'), common.settings.get('slug')))
     t.daemon = True
     t.start()
 
@@ -160,6 +146,12 @@ def main(cwd=None):
                 common.settings.set('slug', web.slug)
                 common.settings.save()
 
+        # Build the URL
+        if common.settings.get('public_mode'):
+            url = 'http://{0:s}'.format(app.onion_host)
+        else:
+            url = 'http://{0:s}/{1:s}'.format(app.onion_host, web.slug)
+
         print('')
         if receive:
             print(strings._('receive_mode_downloads_dir').format(common.settings.get('downloads_dir')))
@@ -169,19 +161,19 @@ def main(cwd=None):
 
             if stealth:
                 print(strings._("give_this_url_receive_stealth"))
-                print('http://{0:s}/{1:s}'.format(app.onion_host, web.slug))
+                print(url)
                 print(app.auth_string)
             else:
                 print(strings._("give_this_url_receive"))
-                print('http://{0:s}/{1:s}'.format(app.onion_host, web.slug))
+                print(url)
         else:
             if stealth:
                 print(strings._("give_this_url_stealth"))
-                print('http://{0:s}/{1:s}'.format(app.onion_host, web.slug))
+                print(url)
                 print(app.auth_string)
             else:
                 print(strings._("give_this_url"))
-                print('http://{0:s}/{1:s}'.format(app.onion_host, web.slug))
+                print(url)
         print('')
         print(strings._("ctrlc_to_stop"))
 

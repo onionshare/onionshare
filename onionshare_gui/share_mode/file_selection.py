@@ -2,7 +2,7 @@
 """
 OnionShare | https://onionshare.org/
 
-Copyright (C) 2018 Micah Lee <micah@micahflee.com>
+Copyright (C) 2014-2018 Micah Lee <micah@micahflee.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -19,9 +19,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import os
 from PyQt5 import QtCore, QtWidgets, QtGui
-from .alert import Alert
 
 from onionshare import strings
+
+from ..widgets import Alert, AddFileDialog
 
 class DropHereLabel(QtWidgets.QLabel):
     """
@@ -41,7 +42,7 @@ class DropHereLabel(QtWidgets.QLabel):
             self.setPixmap(QtGui.QPixmap.fromImage(QtGui.QImage(self.common.get_resource_path('images/logo_transparent.png'))))
         else:
             self.setText(strings._('gui_drag_and_drop', True))
-            self.setStyleSheet('color: #999999;')
+            self.setStyleSheet(self.common.css['share_file_selection_drop_here_label'])
 
         self.hide()
 
@@ -65,7 +66,7 @@ class DropCountLabel(QtWidgets.QLabel):
         self.setAcceptDrops(True)
         self.setAlignment(QtCore.Qt.AlignCenter)
         self.setText(strings._('gui_drag_and_drop', True))
-        self.setStyleSheet('color: #ffffff; background-color: #f44449; font-weight: bold; padding: 5px 10px; border-radius: 10px;')
+        self.setStyleSheet(self.common.css['share_file_selection_drop_count_label'])
         self.hide()
 
     def dragEnterEvent(self, event):
@@ -157,7 +158,7 @@ class FileList(QtWidgets.QListWidget):
         dragEnterEvent for dragging files and directories into the widget.
         """
         if event.mimeData().hasUrls:
-            self.setStyleSheet('FileList { border: 3px solid #538ad0; }')
+            self.setStyleSheet(self.common.css['share_file_list_drag_enter'])
             count = len(event.mimeData().urls())
             self.drop_count.setText('+{}'.format(count))
 
@@ -172,7 +173,7 @@ class FileList(QtWidgets.QListWidget):
         """
         dragLeaveEvent for dragging files and directories into the widget.
         """
-        self.setStyleSheet('FileList { border: none; }')
+        self.setStyleSheet(self.common.css['share_file_list_drag_leave'])
         self.drop_count.hide()
         event.accept()
         self.update()
@@ -200,7 +201,7 @@ class FileList(QtWidgets.QListWidget):
         else:
             event.ignore()
 
-        self.setStyleSheet('border: none;')
+        self.setStyleSheet(self.common.css['share_file_list_drag_leave'])
         self.drop_count.hide()
 
         self.files_dropped.emit()
@@ -237,7 +238,7 @@ class FileList(QtWidgets.QListWidget):
             # Item's filename attribute and size labels
             item.filename = filename
             item_size = QtWidgets.QLabel(size_readable)
-            item_size.setStyleSheet('QLabel { color: #666666; font-size: 11px; }')
+            item_size.setStyleSheet(self.common.css['share_file_list_item_size'])
 
             item.basename = os.path.basename(filename.rstrip('/'))
             # Use the basename as the method with which to sort the list
@@ -339,7 +340,7 @@ class FileSelection(QtWidgets.QVBoxLayout):
         """
         Add button clicked.
         """
-        file_dialog = FileDialog(caption=strings._('gui_choose_items', True))
+        file_dialog = AddFileDialog(self.common, caption=strings._('gui_choose_items', True))
         if file_dialog.exec_() == QtWidgets.QDialog.Accepted:
             for filename in file_dialog.selectedFiles():
                 self.file_list.add_file(filename)
@@ -387,22 +388,3 @@ class FileSelection(QtWidgets.QVBoxLayout):
         Set the Qt app focus on the file selection box.
         """
         self.file_list.setFocus()
-
-class FileDialog(QtWidgets.QFileDialog):
-    """
-    Overridden version of QFileDialog which allows us to select
-    folders as well as, or instead of, files.
-    """
-    def __init__(self, *args, **kwargs):
-        QtWidgets.QFileDialog.__init__(self, *args, **kwargs)
-        self.setOption(self.DontUseNativeDialog, True)
-        self.setOption(self.ReadOnly, True)
-        self.setOption(self.ShowDirsOnly, False)
-        self.setFileMode(self.ExistingFiles)
-        tree_view = self.findChild(QtWidgets.QTreeView)
-        tree_view.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
-        list_view = self.findChild(QtWidgets.QListView, "listView")
-        list_view.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
-
-    def accept(self):
-        QtWidgets.QDialog.accept(self)
