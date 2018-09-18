@@ -33,6 +33,7 @@ from distutils.version import LooseVersion as Version
 from urllib.request import urlopen
 from datetime import datetime
 
+import flask
 from flask import (
     Flask, Response, Request, request, render_template, abort, make_response,
     flash, redirect, __version__ as flask_version
@@ -41,6 +42,15 @@ from werkzeug.utils import secure_filename
 
 from . import strings
 from .common import DownloadsDirErrorCannotCreate, DownloadsDirErrorNotWritable
+
+
+# Stub out flask's show_server_banner function, to avoiding showing warnings that
+# are not applicable to OnionShare
+def stubbed_show_server_banner(env, debug, app_import_path, eager_loading):
+    pass
+
+flask.cli.show_server_banner = stubbed_show_server_banner
+
 
 class Web(object):
     """
