@@ -105,9 +105,13 @@ class Settings(object):
         """
         Returns the path of the default Downloads directory for receive mode.
         """
-        # TODO: Test in Windows, though it looks like it should work
-        # https://docs.python.org/3/library/os.path.html#os.path.expanduser
-        return os.path.expanduser('~/OnionShare')
+        # On Windows, os.path.expanduser() needs to use backslash, or else it
+        # retains the forward slash, which breaks opening the folder in explorer.
+        p = platform.system()
+        if p == 'Windows':
+            return os.path.expanduser('~\OnionShare')
+        else:
+            return os.path.expanduser('~/OnionShare')
 
     def load(self):
         """
