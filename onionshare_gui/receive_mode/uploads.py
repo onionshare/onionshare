@@ -294,6 +294,7 @@ class Uploads(QtWidgets.QScrollArea):
         """
         self.common.log('Uploads', 'reset')
         for upload in self.uploads.values():
+            upload.close()
             self.uploads_layout.removeWidget(upload)
         self.uploads = {}
 
