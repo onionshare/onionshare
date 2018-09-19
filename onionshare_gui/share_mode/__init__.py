@@ -17,7 +17,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-import threading
 import os
 from PyQt5 import QtCore, QtWidgets, QtGui
 
@@ -28,6 +27,7 @@ from onionshare.web import Web
 
 from .file_selection import FileSelection
 from .downloads import Downloads
+from .threads import CompressThread
 from ..mode import Mode
 from ..widgets import Alert
 
@@ -39,6 +39,9 @@ class ShareMode(Mode):
         """
         Custom initialization for ReceiveMode.
         """
+        # Threads start out as None
+        self.compress_thread = None
+
         # Create the Web object
         self.web = Web(self.common, True, False)
 
@@ -161,28 +164,13 @@ class ShareMode(Mode):
         self._zip_progress_bar.total_files_size = ShareMode._compute_total_size(self.filenames)
         self.status_bar.insertWidget(0, self._zip_progress_bar)
 
-        # Prepare the files for sending in a new thread
-        def finish_starting_server(self):
-            # Prepare files to share
-            def _set_processed_size(x):
-                if self._zip_progress_bar != None:
-                    self._zip_progress_bar.update_processed_size_signal.emit(x)
-
-            try:
-                self.web.set_file_info(self.filenames, processed_size_callback=_set_processed_size)
-                self.app.cleanup_filenames.append(self.web.zip_filename)
-
-                # Only continue if the server hasn't been canceled
-                if self.server_status.status != self.server_status.STATUS_STOPPED:
-                    self.starting_server_step3.emit()
-                    self.start_server_finished.emit()
-            except OSError as e:
-                self.starting_server_error.emit(e.strerror)
-                return
-
-        t = threading.Thread(target=finish_starting_server, kwargs={'self': self})
-        t.daemon = True
-        t.start()
+        # prepare the files for sending in a new thread
+        self.compress_thread = CompressThread(self)
+        self.compress_thread.success.connect(self.starting_server_step3.emit)
+        self.compress_thread.success.connect(self.start_server_finished.emit)
+        self.compress_thread.error.connect(self.starting_server_error.emit)
+        self.server_status.server_canceled.connect(self.compress_thread.cancel)
+        self.compress_thread.start()
 
     def start_server_step3_custom(self):
         """
@@ -221,6 +209,14 @@ class ShareMode(Mode):
         self.downloads_completed = 0
         self.update_downloads_in_progress()
         self.file_selection.file_list.adjustSize()
+
+    def cancel_server_custom(self):
+        """
+        Stop the compression thread on cancel
+        """
+        if self.compress_thread:
+            self.common.log('OnionShareGui', 'cancel_server: quitting compress thread')
+            self.compress_thread.quit()
 
     def handle_tor_broke_custom(self):
         """
