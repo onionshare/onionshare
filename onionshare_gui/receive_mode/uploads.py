@@ -96,7 +96,7 @@ class File(QtWidgets.QWidget):
 
         # Windows
         elif self.common.platform == 'Windows':
-            subprocess.Popen(['explorer', '/select', abs_filename])
+            subprocess.Popen(['explorer', '/select,{}'.format(abs_filename)])
 
 
 class Upload(QtWidgets.QWidget):
