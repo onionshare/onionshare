@@ -111,6 +111,10 @@ def main(cwd=None):
     except KeyboardInterrupt:
         print("")
         sys.exit()
+    except (TorTooOld, TorErrorProtocolError) as e:
+        print("")
+        print(e.args[0])
+        sys.exit()
 
     # Prepare files to share
     print(strings._("preparing_files"))
