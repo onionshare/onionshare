@@ -20,6 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import time
 from PyQt5 import QtCore
 
+from onionshare.onion import *
+
 
 class OnionThread(QtCore.QThread):
     """
