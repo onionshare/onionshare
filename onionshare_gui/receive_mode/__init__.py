@@ -166,6 +166,12 @@ class ReceiveMode(Mode):
         Handle REQUEST_UPLOAD_FINISHED event.
         """
         self.uploads.finished(event["data"]["id"])
+        # Update the total 'completed uploads' info
+        self.uploads_completed += 1
+        self.update_uploads_completed()
+        # Update the 'in progress uploads' info
+        self.uploads_in_progress -= 1
+        self.update_uploads_in_progress()
 
     def on_reload_settings(self):
         """
@@ -187,7 +193,7 @@ class ReceiveMode(Mode):
 
     def update_uploads_completed(self):
         """
-        Update the 'Downloads completed' info widget.
+        Update the 'Uploads completed' info widget.
         """
         if self.uploads_completed == 0:
             image = self.common.get_resource_path('images/share_completed_none.png')
@@ -198,7 +204,7 @@ class ReceiveMode(Mode):
 
     def update_uploads_in_progress(self):
         """
-        Update the 'Downloads in progress' info widget.
+        Update the 'Uploads in progress' info widget.
         """
         if self.uploads_in_progress == 0:
             image = self.common.get_resource_path('images/share_in_progress_none.png')
