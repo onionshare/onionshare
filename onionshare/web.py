@@ -102,8 +102,9 @@ class Web(object):
 
         # Information about the file
         self.file_info = []
-        self.zip_filename = None
-        self.zip_filesize = None
+        self.is_zipped = False
+        self.download_filename = None
+        self.download_filesize = None
         self.zip_writer = None
 
         self.security_headers = [
@@ -182,17 +183,19 @@ class Web(object):
                     'send.html',
                     slug=self.slug,
                     file_info=self.file_info,
-                    filename=os.path.basename(self.zip_filename),
-                    filesize=self.zip_filesize,
-                    filesize_human=self.common.human_readable_filesize(self.zip_filesize)))
+                    filename=os.path.basename(self.download_filename),
+                    filesize=self.download_filesize,
+                    filesize_human=self.common.human_readable_filesize(self.download_filesize),
+                    is_zipped=self.is_zipped))
             else:
                 # If download is allowed to continue, serve download page
                 r = make_response(render_template(
                     'send.html',
                     file_info=self.file_info,
-                    filename=os.path.basename(self.zip_filename),
-                    filesize=self.zip_filesize,
-                    filesize_human=self.common.human_readable_filesize(self.zip_filesize)))
+                    filename=os.path.basename(self.download_filename),
+                    filesize=self.download_filesize,
+                    filesize_human=self.common.human_readable_filesize(self.download_filesize),
+                    is_zipped=self.is_zipped))
             return self.add_security_headers(r)
 
         @self.app.route("/<slug_candidate>/download")
@@ -231,8 +234,8 @@ class Web(object):
                 'id': download_id}
             )
 
-            dirname = os.path.dirname(self.zip_filename)
-            basename = os.path.basename(self.zip_filename)
+            dirname = os.path.dirname(self.download_filename)
+            basename = os.path.basename(self.download_filename)
 
             def generate():
                 # The user hasn't canceled the download
@@ -244,7 +247,7 @@ class Web(object):
 
                 chunk_size = 102400  # 100kb
 
-                fp = open(self.zip_filename, 'rb')
+                fp = open(self.download_filename, 'rb')
                 self.done = False
                 canceled = False
                 while not self.done:
@@ -264,7 +267,7 @@ class Web(object):
 
                             # tell GUI the progress
                             downloaded_bytes = fp.tell()
-                            percent = (1.0 * downloaded_bytes / self.zip_filesize) * 100
+                            percent = (1.0 * downloaded_bytes / self.download_filesize) * 100
 
                             # only output to stdout if running onionshare in CLI mode, or if using Linux (#203, #304)
                             if not self.gui_mode or self.common.platform == 'Linux' or self.common.platform == 'BSD':
@@ -308,7 +311,7 @@ class Web(object):
                         pass
 
             r = Response(generate())
-            r.headers.set('Content-Length', self.zip_filesize)
+            r.headers.set('Content-Length', self.download_filesize)
             r.headers.set('Content-Disposition', 'attachment', filename=basename)
             r = self.add_security_headers(r)
             # guess content type
@@ -517,8 +520,9 @@ class Web(object):
         page will need to display. This includes zipping up the file in order to
         get the zip file's name and size.
         """
+        self.common.log("Web", "set_file_info")
         self.cancel_compression = False
-        
+
         # build file info list
         self.file_info = {'files': [], 'dirs': []}
         for filename in filenames:
@@ -537,22 +541,30 @@ class Web(object):
         self.file_info['files'] = sorted(self.file_info['files'], key=lambda k: k['basename'])
         self.file_info['dirs'] = sorted(self.file_info['dirs'], key=lambda k: k['basename'])
 
-        # Zip up the files and folders
-        self.zip_writer = ZipWriter(self.common, processed_size_callback=processed_size_callback)
-        self.zip_filename = self.zip_writer.zip_filename
-        for info in self.file_info['files']:
-            self.zip_writer.add_file(info['filename'])
-            # Canceling early?
-            if self.cancel_compression:
-                self.zip_writer.close()
-                return False
+        # Check if there's only 1 file and no folders
+        if len(self.file_info['files']) == 1 and len(self.file_info['dirs']) == 0:
+            self.is_zipped = False
+            self.download_filename = self.file_info['files'][0]['filename']
+            self.download_filesize = self.file_info['files'][0]['size']
+        else:
+            # Zip up the files and folders
+            self.zip_writer = ZipWriter(self.common, processed_size_callback=processed_size_callback)
+            self.download_filename = self.zip_writer.zip_filename
+            for info in self.file_info['files']:
+                self.zip_writer.add_file(info['filename'])
+                # Canceling early?
+                if self.cancel_compression:
+                    self.zip_writer.close()
+                    return False
 
-        for info in self.file_info['dirs']:
-            if not self.zip_writer.add_dir(info['filename']):
-                return False
+            for info in self.file_info['dirs']:
+                if not self.zip_writer.add_dir(info['filename']):
+                    return False
 
-        self.zip_writer.close()
-        self.zip_filesize = os.path.getsize(self.zip_filename)
+            self.zip_writer.close()
+            self.download_filesize = os.path.getsize(self.download_filename)
+            self.is_zipped = True
+
         return True
 
     def _safe_select_jinja_autoescape(self, filename):
