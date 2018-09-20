@@ -46,7 +46,7 @@ class ReceiveMode(Mode):
         self.server_status.web = self.web
         self.server_status.update()
 
-        # Downloads
+        # Uploads
         self.uploads = Uploads(self.common)
         self.uploads_in_progress = 0
         self.uploads_completed = 0
@@ -86,6 +86,7 @@ class ReceiveMode(Mode):
         # Layout
         self.layout.insertWidget(0, self.receive_info)
         self.layout.insertWidget(0, self.info_widget)
+        self.horizontal_layout_wrapper.addWidget(self.uploads)
 
     def get_stop_server_shutdown_timeout_text(self):
         """

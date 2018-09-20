@@ -91,7 +91,6 @@ class Downloads(QtWidgets.QScrollArea):
 
         self.setWindowTitle(strings._('gui_downloads', True))
         self.setWidgetResizable(True)
-        self.setMaximumHeight(600)
         self.setMinimumHeight(150)
         self.setMinimumWidth(350)
         self.setWindowIcon(QtGui.QIcon(common.get_resource_path('images/logo.png')))
