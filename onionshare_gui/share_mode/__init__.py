@@ -79,12 +79,6 @@ class ShareMode(Mode):
         self.info_label = QtWidgets.QLabel()
         self.info_label.setStyleSheet(self.common.css['mode_info_label'])
 
-        self.info_show_downloads = QtWidgets.QToolButton()
-        self.info_show_downloads.setIcon(QtGui.QIcon(self.common.get_resource_path('images/download_window_gray.png')))
-        self.info_show_downloads.setCheckable(True)
-        self.info_show_downloads.toggled.connect(self.downloads_toggled)
-        self.info_show_downloads.setToolTip(strings._('gui_downloads_window_tooltip', True))
-
         self.info_in_progress_downloads_count = QtWidgets.QLabel()
         self.info_in_progress_downloads_count.setStyleSheet(self.common.css['mode_info_label'])
 
@@ -99,7 +93,6 @@ class ShareMode(Mode):
         self.info_layout.addStretch()
         self.info_layout.addWidget(self.info_in_progress_downloads_count)
         self.info_layout.addWidget(self.info_completed_downloads_count)
-        self.info_layout.addWidget(self.info_show_downloads)
 
         self.info_widget = QtWidgets.QWidget()
         self.info_widget.setLayout(self.info_layout)
@@ -116,6 +109,7 @@ class ShareMode(Mode):
         # Layout
         self.layout.insertLayout(0, self.file_selection)
         self.layout.insertWidget(0, self.info_widget)
+        self.horizontal_layout_wrapper.addWidget(self.downloads)
 
         # Always start with focus on file selection
         self.file_selection.setFocus()
@@ -315,16 +309,6 @@ class ShareMode(Mode):
         # Resize window
         self.adjustSize()
 
-    def downloads_toggled(self, checked):
-        """
-        When the 'Show/hide downloads' button is toggled, show or hide the downloads window.
-        """
-        self.common.log('ShareMode', 'toggle_downloads')
-        if checked:
-            self.downloads.show()
-        else:
-            self.downloads.hide()
-
     def reset_info_counters(self):
         """
         Set the info counters back to zero.
@@ -333,7 +317,6 @@ class ShareMode(Mode):
         self.downloads_in_progress = 0
         self.update_downloads_completed()
         self.update_downloads_in_progress()
-        self.info_show_downloads.setIcon(QtGui.QIcon(self.common.get_resource_path('images/download_window_gray.png')))
         self.downloads.reset()
 
     def update_downloads_completed(self):
@@ -355,7 +338,6 @@ class ShareMode(Mode):
             image = self.common.get_resource_path('images/share_in_progress_none.png')
         else:
             image = self.common.get_resource_path('images/share_in_progress.png')
-            self.info_show_downloads.setIcon(QtGui.QIcon(self.common.get_resource_path('images/download_window_green.png')))
         self.info_in_progress_downloads_count.setText('<img src="{0:s}" /> {1:d}'.format(image, self.downloads_in_progress))
         self.info_in_progress_downloads_count.setToolTip(strings._('info_in_progress_downloads_tooltip', True).format(self.downloads_in_progress))
 
