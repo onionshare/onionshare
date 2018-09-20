@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import os
 import subprocess
+import textwrap
 from datetime import datetime
 from PyQt5 import QtCore, QtWidgets, QtGui
 
@@ -306,10 +307,7 @@ class Uploads(QtWidgets.QScrollArea):
        try:
            for upload in self.uploads.values():
                for item in upload.files.values():
-                   if item.filename_label_width > width:
-                       item.filename_label.setText(item.filename[:25] + '[...]')
-                       item.adjustSize()
-                   if width > item.filename_label_width:
-                       item.filename_label.setText(item.filename)
+                   item.filename_label.setText(textwrap.fill(item.filename, 30))
+                   item.adjustSize()
        except:
            pass
