@@ -78,7 +78,11 @@ class Mode(QtWidgets.QWidget):
         # Layout
         self.layout = QtWidgets.QVBoxLayout()
         self.layout.addWidget(self.primary_action)
-        self.setLayout(self.layout)
+
+        self.horizontal_layout_wrapper = QtWidgets.QHBoxLayout()
+        self.horizontal_layout_wrapper.addLayout(self.layout)
+
+        self.setLayout(self.horizontal_layout_wrapper)
 
     def init(self):
         """
