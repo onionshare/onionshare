@@ -205,9 +205,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         self.update_server_status_indicator()
 
-        # Wait 1ms for the event loop to finish, then adjust size
-        QtCore.QTimer.singleShot(1, self.adjustSize)
-
     def share_mode_clicked(self):
         if self.mode != self.MODE_SHARE:
             self.common.log('OnionShareGui', 'share_mode_clicked')
