@@ -177,7 +177,7 @@ class ShareMode(Mode):
             self._zip_progress_bar = None
 
         # Warn about sending large files over Tor
-        if self.web.zip_filesize >= 157286400:  # 150mb
+        if self.web.download_filesize >= 157286400:  # 150mb
             self.filesize_warning.setText(strings._("large_filesize", True))
             self.filesize_warning.show()
 
@@ -229,7 +229,7 @@ class ShareMode(Mode):
         """
         Handle REQUEST_STARTED event.
         """
-        self.downloads.add(event["data"]["id"], self.web.zip_filesize)
+        self.downloads.add(event["data"]["id"], self.web.download_filesize)
         self.downloads_in_progress += 1
         self.update_downloads_in_progress()
 
@@ -242,7 +242,7 @@ class ShareMode(Mode):
         self.downloads.update(event["data"]["id"], event["data"]["bytes"])
 
         # Is the download complete?
-        if event["data"]["bytes"] == self.web.zip_filesize:
+        if event["data"]["bytes"] == self.web.download_filesize:
             self.system_tray.showMessage(strings._('systray_download_completed_title', True), strings._('systray_download_completed_message', True))
 
             # Update the total 'completed downloads' info
