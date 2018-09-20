@@ -233,6 +233,10 @@ class Uploads(QtWidgets.QScrollArea):
         uploads_label = QtWidgets.QLabel(strings._('gui_uploads', True))
         uploads_label.setStyleSheet(self.common.css['downloads_uploads_label'])
         self.no_uploads_label = QtWidgets.QLabel(strings._('gui_no_uploads', True))
+        self.clear_history_button = QtWidgets.QPushButton(strings._('gui_clear_history', True))
+        self.clear_history_button.clicked.connect(self.reset)
+        self.clear_history_button.hide()
+
 
         self.uploads_layout = QtWidgets.QVBoxLayout()
 
@@ -240,6 +244,7 @@ class Uploads(QtWidgets.QScrollArea):
         layout = QtWidgets.QVBoxLayout()
         layout.addWidget(uploads_label)
         layout.addWidget(self.no_uploads_label)
+        layout.addWidget(self.clear_history_button)
         layout.addLayout(self.uploads_layout)
         layout.addStretch()
         widget.setLayout(layout)
@@ -258,6 +263,8 @@ class Uploads(QtWidgets.QScrollArea):
         self.common.log('Uploads', 'add', 'upload_id: {}, content_length: {}'.format(upload_id, content_length))
         # Hide the no_uploads_label
         self.no_uploads_label.hide()
+        # Show the clear_history_button
+        self.clear_history_button.show()
 
         # Add it to the list
         upload = Upload(self.common, upload_id, content_length)
@@ -300,6 +307,7 @@ class Uploads(QtWidgets.QScrollArea):
         self.uploads = {}
 
         self.no_uploads_label.show()
+        self.clear_history_button.hide()
         self.resize(self.sizeHint())
 
     def resizeEvent(self, event):
