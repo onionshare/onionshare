@@ -53,12 +53,6 @@ class ReceiveMode(Mode):
         self.new_upload = False # For scrolling to the bottom of the uploads list
 
         # Information about share, and show uploads button
-        self.info_show_uploads = QtWidgets.QToolButton()
-        self.info_show_uploads.setIcon(QtGui.QIcon(self.common.get_resource_path('images/upload_window_gray.png')))
-        self.info_show_uploads.setCheckable(True)
-        self.info_show_uploads.toggled.connect(self.uploads_toggled)
-        self.info_show_uploads.setToolTip(strings._('gui_uploads_window_tooltip', True))
-
         self.info_in_progress_uploads_count = QtWidgets.QLabel()
         self.info_in_progress_uploads_count.setStyleSheet(self.common.css['mode_info_label'])
 
@@ -72,7 +66,6 @@ class ReceiveMode(Mode):
         self.info_layout.addStretch()
         self.info_layout.addWidget(self.info_in_progress_uploads_count)
         self.info_layout.addWidget(self.info_completed_uploads_count)
-        self.info_layout.addWidget(self.info_show_uploads)
 
         self.info_widget = QtWidgets.QWidget()
         self.info_widget.setLayout(self.info_layout)
@@ -189,7 +182,6 @@ class ReceiveMode(Mode):
         self.uploads_in_progress = 0
         self.update_uploads_completed()
         self.update_uploads_in_progress()
-        self.info_show_uploads.setIcon(QtGui.QIcon(self.common.get_resource_path('images/upload_window_gray.png')))
         self.uploads.reset()
 
     def update_uploads_completed(self):
@@ -211,7 +203,6 @@ class ReceiveMode(Mode):
             image = self.common.get_resource_path('images/share_in_progress_none.png')
         else:
             image = self.common.get_resource_path('images/share_in_progress.png')
-            self.info_show_uploads.setIcon(QtGui.QIcon(self.common.get_resource_path('images/upload_window_green.png')))
         self.info_in_progress_uploads_count.setText('<img src="{0:s}" /> {1:d}'.format(image, self.uploads_in_progress))
         self.info_in_progress_uploads_count.setToolTip(strings._('info_in_progress_uploads_tooltip', True).format(self.uploads_in_progress))
 
@@ -226,13 +217,3 @@ class ReceiveMode(Mode):
 
         # Resize window
         self.adjustSize()
-
-    def uploads_toggled(self, checked):
-        """
-        When the 'Show/hide uploads' button is toggled, show or hide the uploads window.
-        """
-        self.common.log('ReceiveMode', 'toggle_uploads')
-        if checked:
-            self.uploads.show()
-        else:
-            self.uploads.hide()

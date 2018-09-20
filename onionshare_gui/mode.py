@@ -78,6 +78,7 @@ class Mode(QtWidgets.QWidget):
         # Layout
         self.layout = QtWidgets.QVBoxLayout()
         self.layout.addWidget(self.primary_action)
+        self.layout.addStretch()
         # Hack to allow a minimum width on self.layout
         min_width_widget = QtWidgets.QWidget()
         min_width_widget.setMinimumWidth(450)
