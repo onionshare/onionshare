@@ -116,6 +116,7 @@ class ShareMode(Mode):
         # Layout
         self.layout.insertLayout(0, self.file_selection)
         self.layout.insertWidget(0, self.info_widget)
+        self.horizontal_layout_wrapper.addWidget(self.downloads)
 
         # Always start with focus on file selection
         self.file_selection.setFocus()
