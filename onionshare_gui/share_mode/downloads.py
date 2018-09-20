@@ -102,6 +102,9 @@ class Downloads(QtWidgets.QScrollArea):
         downloads_label = QtWidgets.QLabel(strings._('gui_downloads', True))
         downloads_label.setStyleSheet(self.common.css['downloads_uploads_label'])
         self.no_downloads_label = QtWidgets.QLabel(strings._('gui_no_downloads', True))
+        self.clear_history_button = QtWidgets.QPushButton(strings._('gui_clear_history', True))
+        self.clear_history_button.clicked.connect(self.reset)
+        self.clear_history_button.hide()
 
         self.downloads_layout = QtWidgets.QVBoxLayout()
 
@@ -109,6 +112,7 @@ class Downloads(QtWidgets.QScrollArea):
         layout = QtWidgets.QVBoxLayout()
         layout.addWidget(downloads_label)
         layout.addWidget(self.no_downloads_label)
+        layout.addWidget(self.clear_history_button)
         layout.addLayout(self.downloads_layout)
         layout.addStretch()
         widget.setLayout(layout)
@@ -126,6 +130,8 @@ class Downloads(QtWidgets.QScrollArea):
         """
         # Hide the no_downloads_label
         self.no_downloads_label.hide()
+        # Show the clear_history_button
+        self.clear_history_button.show()
 
         # Add it to the list
         download = Download(self.common, download_id, total_bytes)
@@ -154,4 +160,5 @@ class Downloads(QtWidgets.QScrollArea):
         self.downloads = {}
 
         self.no_downloads_label.show()
+        self.clear_history_button.hide()
         self.resize(self.sizeHint())
