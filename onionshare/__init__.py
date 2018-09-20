@@ -120,13 +120,13 @@ def main(cwd=None):
     print(strings._("preparing_files"))
     try:
         web.set_file_info(filenames)
-        app.cleanup_filenames.append(web.zip_filename)
+        app.cleanup_filenames.append(web.download_filename)
     except OSError as e:
         print(e.strerror)
         sys.exit(1)
 
     # Warn about sending large files over Tor
-    if web.zip_filesize >= 157286400:  # 150mb
+    if web.download_filesize >= 157286400:  # 150mb
         print('')
         print(strings._("large_filesize"))
         print('')
