@@ -79,6 +79,7 @@ class ReceiveMode(Mode):
         # Layout
         self.layout.insertWidget(0, self.receive_info)
         self.layout.insertWidget(0, self.info_widget)
+        self.layout.addStretch()
         self.horizontal_layout_wrapper.addWidget(self.uploads)
 
     def get_stop_server_shutdown_timeout_text(self):
