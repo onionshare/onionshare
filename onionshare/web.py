@@ -340,10 +340,14 @@ class Web(object):
         @self.app.route("/<slug_candidate>")
         def index(slug_candidate):
             self.check_slug_candidate(slug_candidate)
+            if not self.can_upload:
+                return self.error403()
             return index_logic()
 
         @self.app.route("/")
         def index_public():
+            if not self.can_upload:
+                return self.error403()
             if not self.common.settings.get('public_mode'):
                 return self.error404()
             return index_logic()
