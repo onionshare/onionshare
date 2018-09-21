@@ -21,6 +21,5 @@
     "gui_canceled": "Cancellati",
     "gui_copied_url": "URL Copiato nella clipboard",
     "gui_please_wait": "Attendere prego...",
-    "using_ephemeral": "Avviamento del servizio nascosto Tor ephemeral e attesa della pubblicazione",
     "zip_progress_bar_format": "Elaborazione files: %p%"
 }
