@@ -12,7 +12,10 @@ class ReceiveModeWeb(object):
     """
     All of the web logic for receive mode
     """
-    def __init__(self, web):
+    def __init__(self, common, web):
+        self.common = common
+        self.common.log('ReceiveModeWeb', '__init__')
+
         self.web = web
 
         self.upload_count = 0
@@ -26,7 +29,7 @@ class ReceiveModeWeb(object):
         def index_logic():
             self.web.add_request(self.web.REQUEST_LOAD, request.path)
 
-            if self.web.common.settings.get('public_mode'):
+            if self.common.settings.get('public_mode'):
                 upload_action = '/upload'
                 close_action = '/close'
             else:
@@ -37,7 +40,7 @@ class ReceiveModeWeb(object):
                 'receive.html',
                 upload_action=upload_action,
                 close_action=close_action,
-                receive_allow_receiver_shutdown=self.web.common.settings.get('receive_allow_receiver_shutdown')))
+                receive_allow_receiver_shutdown=self.common.settings.get('receive_allow_receiver_shutdown')))
             return self.web.add_security_headers(r)
 
         @self.web.app.route("/<slug_candidate>")
@@ -47,7 +50,7 @@ class ReceiveModeWeb(object):
 
         @self.web.app.route("/")
         def index_public():
-            if not self.web.common.settings.get('public_mode'):
+            if not self.common.settings.get('public_mode'):
                 return self.web.error404()
             return index_logic()
 
@@ -59,18 +62,18 @@ class ReceiveModeWeb(object):
             # Make sure downloads_dir exists
             valid = True
             try:
-                self.web.common.validate_downloads_dir()
+                self.common.validate_downloads_dir()
             except DownloadsDirErrorCannotCreate:
                 self.web.add_request(self.web.REQUEST_ERROR_DOWNLOADS_DIR_CANNOT_CREATE, request.path)
-                print(strings._('error_cannot_create_downloads_dir').format(self.web.common.settings.get('downloads_dir')))
+                print(strings._('error_cannot_create_downloads_dir').format(self.common.settings.get('downloads_dir')))
                 valid = False
             except DownloadsDirErrorNotWritable:
                 self.web.add_request(self.web.REQUEST_ERROR_DOWNLOADS_DIR_NOT_WRITABLE, request.path)
-                print(strings._('error_downloads_dir_not_writable').format(self.web.common.settings.get('downloads_dir')))
+                print(strings._('error_downloads_dir_not_writable').format(self.common.settings.get('downloads_dir')))
                 valid = False
             if not valid:
                 flash('Error uploading, please inform the OnionShare user', 'error')
-                if self.web.common.settings.get('public_mode'):
+                if self.common.settings.get('public_mode'):
                     return redirect('/')
                 else:
                     return redirect('/{}'.format(slug_candidate))
@@ -83,7 +86,7 @@ class ReceiveModeWeb(object):
                     # Automatically rename the file, if a file of the same name already exists
                     filename = secure_filename(f.filename)
                     filenames.append(filename)
-                    local_path = os.path.join(self.web.common.settings.get('downloads_dir'), filename)
+                    local_path = os.path.join(self.common.settings.get('downloads_dir'), filename)
                     if os.path.exists(local_path):
                         if '.' in filename:
                             # Add "-i", e.g. change "foo.txt" to "foo-2.txt"
@@ -95,7 +98,7 @@ class ReceiveModeWeb(object):
                             valid = False
                             while not valid:
                                 new_filename = '{}-{}.{}'.format('.'.join(name), i, ext)
-                                local_path = os.path.join(self.web.common.settings.get('downloads_dir'), new_filename)
+                                local_path = os.path.join(self.common.settings.get('downloads_dir'), new_filename)
                                 if os.path.exists(local_path):
                                     i += 1
                                 else:
@@ -106,7 +109,7 @@ class ReceiveModeWeb(object):
                             valid = False
                             while not valid:
                                 new_filename = '{}-{}'.format(filename, i)
-                                local_path = os.path.join(self.web.common.settings.get('downloads_dir'), new_filename)
+                                local_path = os.path.join(self.common.settings.get('downloads_dir'), new_filename)
                                 if os.path.exists(local_path):
                                     i += 1
                                 else:
@@ -121,7 +124,7 @@ class ReceiveModeWeb(object):
                             'new_filename': basename
                         })
 
-                    self.web.common.log('Web', 'receive_routes', '/upload, uploaded {}, saving to {}'.format(f.filename, local_path))
+                    self.common.log('ReceiveModeWeb', 'define_routes', '/upload, uploaded {}, saving to {}'.format(f.filename, local_path))
                     print(strings._('receive_mode_received_file').format(local_path))
                     f.save(local_path)
 
@@ -133,7 +136,7 @@ class ReceiveModeWeb(object):
                 for filename in filenames:
                     flash('Sent {}'.format(filename), 'info')
 
-            if self.web.common.settings.get('public_mode'):
+            if self.common.settings.get('public_mode'):
                 return redirect('/')
             else:
                 return redirect('/{}'.format(slug_candidate))
@@ -145,13 +148,13 @@ class ReceiveModeWeb(object):
 
         @self.web.app.route("/upload", methods=['POST'])
         def upload_public():
-            if not self.web.common.settings.get('public_mode'):
+            if not self.common.settings.get('public_mode'):
                 return self.web.error404()
             return upload_logic()
 
 
         def close_logic(slug_candidate=''):
-            if self.web.common.settings.get('receive_allow_receiver_shutdown'):
+            if self.common.settings.get('receive_allow_receiver_shutdown'):
                 self.web.force_shutdown()
                 r = make_response(render_template('closed.html'))
                 self.web.add_request(self.web.REQUEST_CLOSE_SERVER, request.path)
@@ -166,7 +169,7 @@ class ReceiveModeWeb(object):
 
         @self.web.app.route("/close", methods=['POST'])
         def close_public():
-            if not self.web.common.settings.get('public_mode'):
+            if not self.common.settings.get('public_mode'):
                 return self.web.error404()
             return close_logic()
 
