@@ -43,6 +43,7 @@ class Web(object):
 
     def __init__(self, common, is_gui, mode='share'):
         self.common = common
+        self.common.log('Web', '__init__', 'is_gui={}, mode={}'.format(is_gui, mode))
 
         # The flask app
         self.app = Flask(__name__,
@@ -101,9 +102,9 @@ class Web(object):
         self.share_mode = None
         self.receive_mode = None
         if self.mode == 'receive':
-            self.receive_mode = ReceiveModeWeb(self)
+            self.receive_mode = ReceiveModeWeb(self.common, self)
         elif self.mode == 'share':
-            self.share_mode = ShareModeWeb(self)
+            self.share_mode = ShareModeWeb(self.common, self)
 
 
     def define_common_routes(self):

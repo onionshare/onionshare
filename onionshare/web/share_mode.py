@@ -12,7 +12,10 @@ class ShareModeWeb(object):
     """
     All of the web logic for share mode
     """
-    def __init__(self, web):
+    def __init__(self, common, web):
+        self.common = common
+        self.common.log('ShareModeWeb', '__init__')
+
         self.web = web
 
         # Information about the file to be shared
@@ -46,7 +49,7 @@ class ShareModeWeb(object):
 
         @self.web.app.route("/")
         def index_public():
-            if not self.web.common.settings.get('public_mode'):
+            if not self.common.settings.get('public_mode'):
                 return self.web.error404()
             return index_logic()
 
@@ -71,7 +74,7 @@ class ShareModeWeb(object):
                     file_info=self.file_info,
                     filename=os.path.basename(self.download_filename),
                     filesize=self.download_filesize,
-                    filesize_human=self.web.common.human_readable_filesize(self.download_filesize),
+                    filesize_human=self.common.human_readable_filesize(self.download_filesize),
                     is_zipped=self.is_zipped))
             else:
                 # If download is allowed to continue, serve download page
@@ -80,7 +83,7 @@ class ShareModeWeb(object):
                     file_info=self.file_info,
                     filename=os.path.basename(self.download_filename),
                     filesize=self.download_filesize,
-                    filesize_human=self.web.common.human_readable_filesize(self.download_filesize),
+                    filesize_human=self.common.human_readable_filesize(self.download_filesize),
                     is_zipped=self.is_zipped))
             return self.web.add_security_headers(r)
 
@@ -91,7 +94,7 @@ class ShareModeWeb(object):
 
         @self.web.app.route("/download")
         def download_public():
-            if not self.web.common.settings.get('public_mode'):
+            if not self.common.settings.get('public_mode'):
                 return self.web.error404()
             return download_logic()
 
@@ -156,9 +159,9 @@ class ShareModeWeb(object):
                             percent = (1.0 * downloaded_bytes / self.download_filesize) * 100
 
                             # only output to stdout if running onionshare in CLI mode, or if using Linux (#203, #304)
-                            if not self.web.is_gui or self.web.common.platform == 'Linux' or self.web.common.platform == 'BSD':
+                            if not self.web.is_gui or self.common.platform == 'Linux' or self.common.platform == 'BSD':
                                 sys.stdout.write(
-                                    "\r{0:s}, {1:.2f}%          ".format(self.web.common.human_readable_filesize(downloaded_bytes), percent))
+                                    "\r{0:s}, {1:.2f}%          ".format(self.common.human_readable_filesize(downloaded_bytes), percent))
                                 sys.stdout.flush()
 
                             self.web.add_request(self.web.REQUEST_PROGRESS, path, {
@@ -178,7 +181,7 @@ class ShareModeWeb(object):
 
                 fp.close()
 
-                if self.web.common.platform != 'Darwin':
+                if self.common.platform != 'Darwin':
                     sys.stdout.write("\n")
 
                 # Download is finished
@@ -212,7 +215,7 @@ class ShareModeWeb(object):
         page will need to display. This includes zipping up the file in order to
         get the zip file's name and size.
         """
-        self.web.common.log("Web", "set_file_info")
+        self.common.log("ShareModeWeb", "set_file_info")
         self.web.cancel_compression = False
 
         # build file info list
@@ -224,11 +227,11 @@ class ShareModeWeb(object):
             }
             if os.path.isfile(filename):
                 info['size'] = os.path.getsize(filename)
-                info['size_human'] = self.web.common.human_readable_filesize(info['size'])
+                info['size_human'] = self.common.human_readable_filesize(info['size'])
                 self.file_info['files'].append(info)
             if os.path.isdir(filename):
-                info['size'] = self.web.common.dir_size(filename)
-                info['size_human'] = self.web.common.human_readable_filesize(info['size'])
+                info['size'] = self.common.dir_size(filename)
+                info['size_human'] = self.common.human_readable_filesize(info['size'])
                 self.file_info['dirs'].append(info)
         self.file_info['files'] = sorted(self.file_info['files'], key=lambda k: k['basename'])
         self.file_info['dirs'] = sorted(self.file_info['dirs'], key=lambda k: k['basename'])
@@ -240,7 +243,7 @@ class ShareModeWeb(object):
             self.download_filesize = self.file_info['files'][0]['size']
         else:
             # Zip up the files and folders
-            self.zip_writer = ZipWriter(self.web.common, processed_size_callback=processed_size_callback)
+            self.zip_writer = ZipWriter(self.common, processed_size_callback=processed_size_callback)
             self.download_filename = self.zip_writer.zip_filename
             for info in self.file_info['files']:
                 self.zip_writer.add_file(info['filename'])
