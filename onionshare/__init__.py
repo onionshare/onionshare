@@ -119,7 +119,7 @@ def main(cwd=None):
     # Prepare files to share
     print(strings._("preparing_files"))
     try:
-        web.set_file_info(filenames)
+        web.share_mode.set_file_info(filenames)
         if web.is_zipped:
             app.cleanup_filenames.append(web.download_filename)
     except OSError as e:

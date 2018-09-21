@@ -13,8 +13,8 @@ from flask import Flask, request, render_template, abort, make_response, __versi
 
 from .. import strings
 
-from .share_mode import share_routes, ZipWriter
-from .receive_mode import receive_routes, ReceiveModeWSGIMiddleware, ReceiveModeTemporaryFile, ReceiveModeRequest
+from .share_mode import ShareModeWeb
+from .receive_mode import ReceiveModeWeb, ReceiveModeWSGIMiddleware, ReceiveModeTemporaryFile, ReceiveModeRequest
 
 
 # Stub out flask's show_server_banner function, to avoiding showing warnings that
@@ -41,7 +41,7 @@ class Web(object):
     REQUEST_ERROR_DOWNLOADS_DIR_CANNOT_CREATE = 9
     REQUEST_ERROR_DOWNLOADS_DIR_NOT_WRITABLE = 10
 
-    def __init__(self, common, gui_mode, receive_mode=False):
+    def __init__(self, common, is_gui, mode='share'):
         self.common = common
 
         # The flask app
@@ -55,11 +55,11 @@ class Web(object):
             self.debug_mode()
 
         # Are we running in GUI mode?
-        self.gui_mode = gui_mode
+        self.is_gui = is_gui
 
         # Are we using receive mode?
-        self.receive_mode = receive_mode
-        if self.receive_mode:
+        self.mode = mode
+        if self.mode == 'receive':
             # Use custom WSGI middleware, to modify environ
             self.app.wsgi_app = ReceiveModeWSGIMiddleware(self.app.wsgi_app, self)
             # Use a custom Request class to track upload progess
@@ -115,14 +115,19 @@ class Web(object):
         # Keep track if the server is running
         self.running = False
 
-        # Define the ewb app routes
-        self.common_routes()
-        if self.receive_mode:
-            receive_routes(self)
-        else:
-            share_routes(self)
+        # Define the web app routes
+        self.define_common_routes()
 
-    def common_routes(self):
+        # Create the mode web object, which defines its own routes
+        self.share_mode = None
+        self.receive_mode = None
+        if self.mode == 'receive':
+            self.receive_mode = ReceiveModeWeb(self)
+        elif self.mode == 'share':
+            self.share_mode = ShareModeWeb(self)
+
+
+    def define_common_routes(self):
         """
         Common web app routes between sending and receiving
         """
@@ -164,59 +169,6 @@ class Web(object):
         for header, value in self.security_headers:
             r.headers.set(header, value)
         return r
-
-    def set_file_info(self, filenames, processed_size_callback=None):
-        """
-        Using the list of filenames being shared, fill in details that the web
-        page will need to display. This includes zipping up the file in order to
-        get the zip file's name and size.
-        """
-        self.common.log("Web", "set_file_info")
-        self.cancel_compression = False
-
-        # build file info list
-        self.file_info = {'files': [], 'dirs': []}
-        for filename in filenames:
-            info = {
-                'filename': filename,
-                'basename': os.path.basename(filename.rstrip('/'))
-            }
-            if os.path.isfile(filename):
-                info['size'] = os.path.getsize(filename)
-                info['size_human'] = self.common.human_readable_filesize(info['size'])
-                self.file_info['files'].append(info)
-            if os.path.isdir(filename):
-                info['size'] = self.common.dir_size(filename)
-                info['size_human'] = self.common.human_readable_filesize(info['size'])
-                self.file_info['dirs'].append(info)
-        self.file_info['files'] = sorted(self.file_info['files'], key=lambda k: k['basename'])
-        self.file_info['dirs'] = sorted(self.file_info['dirs'], key=lambda k: k['basename'])
-
-        # Check if there's only 1 file and no folders
-        if len(self.file_info['files']) == 1 and len(self.file_info['dirs']) == 0:
-            self.is_zipped = False
-            self.download_filename = self.file_info['files'][0]['filename']
-            self.download_filesize = self.file_info['files'][0]['size']
-        else:
-            # Zip up the files and folders
-            self.zip_writer = ZipWriter(self.common, processed_size_callback=processed_size_callback)
-            self.download_filename = self.zip_writer.zip_filename
-            for info in self.file_info['files']:
-                self.zip_writer.add_file(info['filename'])
-                # Canceling early?
-                if self.cancel_compression:
-                    self.zip_writer.close()
-                    return False
-
-            for info in self.file_info['dirs']:
-                if not self.zip_writer.add_dir(info['filename']):
-                    return False
-
-            self.zip_writer.close()
-            self.download_filesize = os.path.getsize(self.download_filename)
-            self.is_zipped = True
-
-        return True
 
     def _safe_select_jinja_autoescape(self, filename):
         if filename is None:
