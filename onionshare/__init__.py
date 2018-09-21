@@ -120,7 +120,8 @@ def main(cwd=None):
     print(strings._("preparing_files"))
     try:
         web.set_file_info(filenames)
-        app.cleanup_filenames.append(web.download_filename)
+        if web.is_zipped:
+            app.cleanup_filenames.append(web.download_filename)
     except OSError as e:
         print(e.strerror)
         sys.exit(1)
