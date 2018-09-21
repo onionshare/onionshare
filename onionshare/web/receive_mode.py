@@ -14,6 +14,9 @@ class ReceiveModeWeb(object):
     """
     def __init__(self, web):
         self.web = web
+
+        self.upload_count = 0
+
         self.define_routes()
 
     def define_routes(self):
@@ -243,8 +246,8 @@ class ReceiveModeRequest(Request):
             self.progress = {}
 
             # Create an upload_id, attach it to the request
-            self.upload_id = self.web.upload_count
-            self.web.upload_count += 1
+            self.upload_id = self.upload_count
+            self.upload_count += 1
 
             # Figure out the content length
             try:

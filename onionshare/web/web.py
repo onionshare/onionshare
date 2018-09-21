@@ -73,13 +73,6 @@ class Web(object):
             # Monkey-patch in the fix from https://github.com/pallets/flask/commit/99c99c4c16b1327288fd76c44bc8635a1de452bc
             Flask.select_jinja_autoescape = self._safe_select_jinja_autoescape
 
-        # Information about the file
-        self.file_info = []
-        self.is_zipped = False
-        self.download_filename = None
-        self.download_filesize = None
-        self.zip_writer = None
-
         self.security_headers = [
             ('Content-Security-Policy', 'default-src \'self\'; style-src \'self\'; script-src \'self\'; img-src \'self\' data:;'),
             ('X-Frame-Options', 'DENY'),
@@ -90,24 +83,10 @@ class Web(object):
         ]
 
         self.q = queue.Queue()
-
         self.slug = None
-
-        self.download_count = 0
-        self.upload_count = 0
-
         self.error404_count = 0
 
-        # If "Stop After First Download" is checked (stay_open == False), only allow
-        # one download at a time.
-        self.download_in_progress = False
-
         self.done = False
-
-        # If the client closes the OnionShare window while a download is in progress,
-        # it should immediately stop serving the file. The client_cancel global is
-        # used to tell the download function that the client is canceling the download.
-        self.client_cancel = False
 
         # shutting down the server only works within the context of flask, so the easiest way to do it is over http
         self.shutdown_slug = self.common.random_string(16)
@@ -254,9 +233,10 @@ class Web(object):
         Stop the flask web server by loading /shutdown.
         """
 
-        # If the user cancels the download, let the download function know to stop
-        # serving the file
-        self.client_cancel = True
+        if self.mode == 'share':
+            # If the user cancels the download, let the download function know to stop
+            # serving the file
+            self.share_mode.client_cancel = True
 
         # To stop flask, load http://127.0.0.1:<port>/<shutdown_slug>/shutdown
         if self.running:
