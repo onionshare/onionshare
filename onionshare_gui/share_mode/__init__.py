@@ -229,7 +229,11 @@ class ShareMode(Mode):
         """
         Handle REQUEST_STARTED event.
         """
-        self.downloads.add(event["data"]["id"], self.web.share_mode.download_filesize)
+        if event["data"]["use_gzip"]:
+            filesize = self.web.share_mode.gzip_filesize
+        else:
+            filesize = self.web.share_mode.download_filesize
+        self.downloads.add(event["data"]["id"], filesize)
         self.downloads_in_progress += 1
         self.update_downloads_in_progress()
 
@@ -388,6 +392,7 @@ class ZipProgressBar(QtWidgets.QProgressBar):
 
     def update_processed_size(self, val):
         self._processed_size = val
+
         if self.processed_size < self.total_files_size:
             self.setValue(int((self.processed_size * 100) / self.total_files_size))
         elif self.total_files_size != 0:

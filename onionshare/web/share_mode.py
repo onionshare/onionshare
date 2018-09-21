@@ -25,6 +25,7 @@ class ShareModeWeb(object):
         self.download_filename = None
         self.download_filesize = None
         self.gzip_filename = None
+        self.gzip_filesize = None
         self.zip_writer = None
 
         self.download_count = 0
@@ -69,13 +70,18 @@ class ShareModeWeb(object):
                 return self.web.add_security_headers(r)
 
             # If download is allowed to continue, serve download page
+            if self.should_use_gzip():
+                filesize = self.gzip_filesize
+            else:
+                filesize = self.download_filesize
+
             if self.web.slug:
                 r = make_response(render_template(
                     'send.html',
                     slug=self.web.slug,
                     file_info=self.file_info,
                     filename=os.path.basename(self.download_filename),
-                    filesize=self.download_filesize,
+                    filesize=filesize,
                     filesize_human=self.common.human_readable_filesize(self.download_filesize),
                     is_zipped=self.is_zipped))
             else:
@@ -84,7 +90,7 @@ class ShareModeWeb(object):
                     'send.html',
                     file_info=self.file_info,
                     filename=os.path.basename(self.download_filename),
-                    filesize=self.download_filesize,
+                    filesize=filesize,
                     filesize_human=self.common.human_readable_filesize(self.download_filesize),
                     is_zipped=self.is_zipped))
             return self.web.add_security_headers(r)
@@ -123,7 +129,7 @@ class ShareModeWeb(object):
             # If this is a zipped file, then serve as-is. If it's not zipped, then,
             # if the http client supports gzip compression, gzip the file first
             # and serve that
-            use_gzip = (not self.is_zipped) and ('gzip' in request.headers.get('Accept-Encoding', '').lower())
+            use_gzip = self.should_use_gzip()
             if use_gzip:
                 file_to_download = self.gzip_filename
             else:
@@ -131,7 +137,8 @@ class ShareModeWeb(object):
 
             # Tell GUI the download started
             self.web.add_request(self.web.REQUEST_STARTED, path, {
-                'id': download_id
+                'id': download_id,
+                'use_gzip': use_gzip
             })
 
             basename = os.path.basename(self.download_filename)
@@ -212,7 +219,7 @@ class ShareModeWeb(object):
             r = Response(generate())
             if use_gzip:
                 r.headers.set('Content-Encoding', 'gzip')
-                r.headers.set('Content-Length', os.path.getsize(self.gzip_filename))
+                r.headers.set('Content-Length', self.gzip_filesize)
             else:
                 r.headers.set('Content-Length', self.download_filesize)
             r.headers.set('Content-Disposition', 'attachment', filename=basename)
@@ -260,6 +267,7 @@ class ShareModeWeb(object):
             # Compress the file with gzip now, so we don't have to do it on each request
             self.gzip_filename = tempfile.mkstemp('wb+')[1]
             self._gzip_compress(self.download_filename, self.gzip_filename, 6, processed_size_callback)
+            self.gzip_filesize = os.path.getsize(self.gzip_filename)
 
             # Make sure the gzip file gets cleaned up when onionshare stops
             self.cleanup_filenames.append(self.gzip_filename)
@@ -290,6 +298,12 @@ class ShareModeWeb(object):
             self.is_zipped = True
 
         return True
+
+    def should_use_gzip(self):
+        """
+        Should we use gzip for this browser?
+        """
+        return (not self.is_zipped) and ('gzip' in request.headers.get('Accept-Encoding', '').lower())
 
     def _gzip_compress(self, input_filename, output_filename, level, processed_size_callback=None):
         """
