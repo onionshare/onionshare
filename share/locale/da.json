@@ -1,7 +1,6 @@
 {
     "config_onion_service": "Konfigurerer onion-tjeneste på port {0:d}.",
     "preparing_files": "Forbereder filer som skal deles.",
-    "wait_for_hs": "Venter på at HS bliver klar:",
     "give_this_url": "Giv denne URL til personen du sender filen til:",
     "give_this_url_stealth": "Giv denne URL og HidServAuth-linje til personen du sender filen til:",
     "ctrlc_to_stop": "Tryk på Ctrl-C for at stoppe serveren",
@@ -53,9 +52,7 @@
     "error_stealth_not_supported": "For at oprette usynlige onion-tjenester, skal du mindst have Tor 0.2.9.1-alpha (eller Tor Browser 6.5) og mindst python3-stem 1.5.0.",
     "error_ephemeral_not_supported": "OnionShare kræver mindst Tor 0.2.7.1 og mindst python3-stem 1.4.0.",
     "gui_settings_window_title": "Indstillinger",
-    "gui_settings_stealth_label": "Usynlig (avanceret)",
     "gui_settings_stealth_option": "Opret usynlige onion-tjenester",
-    "gui_settings_stealth_option_details": "Det gør OnionShare mere sikker, men også mere besværlig for modtageren at oprette forbindelse til den.<br><a href=\"https://github.com/micahflee/onionshare/wiki/Stealth-Onion-Services\">Mere information</a>.",
     "gui_settings_stealth_hidservauth_string": "Du har gemt den private nøgle til at blive brugt igen, så din HidServAuth-streng bruges også igen.\nKlik nedenfor, for at kopiere HidServAuth.",
     "gui_settings_autoupdate_label": "Søg efter opdateringer",
     "gui_settings_autoupdate_option": "Giv mig besked når der findes opdateringer",

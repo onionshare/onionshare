@@ -1,6 +1,5 @@
 {
     "preparing_files": "Valmistellaan tiedostoja jaettavaksi.",
-    "wait_for_hs": "Odotetaan piilopalvelun valmistumista:",
     "give_this_url": "Anna tämä URL-osoite henkilölle, jolle lähetät tiedostot:",
     "ctrlc_to_stop":  "Näppäin Ctrl-C pysäyttää palvelimen",
     "not_a_file": "{0:s} Ei ole tiedosto.",
