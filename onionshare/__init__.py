@@ -126,14 +126,14 @@ def main(cwd=None):
         print(strings._("preparing_files"))
         try:
             web.share_mode.set_file_info(filenames)
-            if web.is_zipped:
-                app.cleanup_filenames.append(web.download_filename)
+            if web.share_mode.is_zipped:
+                app.cleanup_filenames.append(web.share_mode.download_filename)
         except OSError as e:
             print(e.strerror)
             sys.exit(1)
 
         # Warn about sending large files over Tor
-        if web.download_filesize >= 157286400:  # 150mb
+        if web.share_mode.download_filesize >= 157286400:  # 150mb
             print('')
             print(strings._("large_filesize"))
             print('')
@@ -193,11 +193,12 @@ def main(cwd=None):
             if app.shutdown_timeout > 0:
                 # if the shutdown timer was set and has run out, stop the server
                 if not app.shutdown_timer.is_alive():
-                    # If there were no attempts to download the share, or all downloads are done, we can stop
-                    if web.download_count == 0 or web.done:
-                        print(strings._("close_on_timeout"))
-                        web.stop(app.port)
-                        break
+                    if mode == 'share':
+                        # If there were no attempts to download the share, or all downloads are done, we can stop
+                        if web.share_mode.download_count == 0 or web.done:
+                            print(strings._("close_on_timeout"))
+                            web.stop(app.port)
+                            break
             # Allow KeyboardInterrupt exception to be handled with threads
             # https://stackoverflow.com/questions/3788208/python-threading-ignores-keyboardinterrupt-exception
             time.sleep(0.2)

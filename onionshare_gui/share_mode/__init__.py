@@ -125,7 +125,7 @@ class ShareMode(Mode):
         The shutdown timer expired, should we stop the server? Returns a bool
         """
         # If there were no attempts to download the share, or all downloads are done, we can stop
-        if self.web.download_count == 0 or self.web.done:
+        if self.web.share_mode.download_count == 0 or self.web.done:
             self.server_status.stop_server()
             self.server_status_label.setText(strings._('close_on_timeout', True))
             return True
@@ -139,7 +139,7 @@ class ShareMode(Mode):
         Starting the server.
         """
         # Reset web counters
-        self.web.download_count = 0
+        self.web.share_mode.download_count = 0
         self.web.error404_count = 0
 
         # Hide and reset the downloads if we have previously shared
@@ -177,7 +177,7 @@ class ShareMode(Mode):
             self._zip_progress_bar = None
 
         # Warn about sending large files over Tor
-        if self.web.download_filesize >= 157286400:  # 150mb
+        if self.web.share_mode.download_filesize >= 157286400:  # 150mb
             self.filesize_warning.setText(strings._("large_filesize", True))
             self.filesize_warning.show()
 
@@ -229,7 +229,7 @@ class ShareMode(Mode):
         """
         Handle REQUEST_STARTED event.
         """
-        self.downloads.add(event["data"]["id"], self.web.download_filesize)
+        self.downloads.add(event["data"]["id"], self.web.share_mode.download_filesize)
         self.downloads_in_progress += 1
         self.update_downloads_in_progress()
 
@@ -242,7 +242,7 @@ class ShareMode(Mode):
         self.downloads.update(event["data"]["id"], event["data"]["bytes"])
 
         # Is the download complete?
-        if event["data"]["bytes"] == self.web.download_filesize:
+        if event["data"]["bytes"] == self.web.share_mode.download_filesize:
             self.system_tray.showMessage(strings._('systray_download_completed_title', True), strings._('systray_download_completed_message', True))
 
             # Update the total 'completed downloads' info

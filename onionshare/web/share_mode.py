@@ -14,6 +14,25 @@ class ShareModeWeb(object):
     """
     def __init__(self, web):
         self.web = web
+
+        # Information about the file to be shared
+        self.file_info = []
+        self.is_zipped = False
+        self.download_filename = None
+        self.download_filesize = None
+        self.zip_writer = None
+
+        self.download_count = 0
+
+        # If "Stop After First Download" is checked (stay_open == False), only allow
+        # one download at a time.
+        self.download_in_progress = False
+
+        # If the client closes the OnionShare window while a download is in progress,
+        # it should immediately stop serving the file. The client_cancel global is
+        # used to tell the download function that the client is canceling the download.
+        self.client_cancel = False
+
         self.define_routes()
 
     def define_routes(self):
@@ -39,7 +58,7 @@ class ShareModeWeb(object):
 
             # Deny new downloads if "Stop After First Download" is checked and there is
             # currently a download
-            deny_download = not self.web.stay_open and self.web.download_in_progress
+            deny_download = not self.web.stay_open and self.download_in_progress
             if deny_download:
                 r = make_response(render_template('denied.html'))
                 return self.web.add_security_headers(r)
@@ -49,20 +68,20 @@ class ShareModeWeb(object):
                 r = make_response(render_template(
                     'send.html',
                     slug=self.web.slug,
-                    file_info=self.web.file_info,
-                    filename=os.path.basename(self.web.download_filename),
-                    filesize=self.web.download_filesize,
-                    filesize_human=self.web.common.human_readable_filesize(self.web.download_filesize),
-                    is_zipped=self.web.is_zipped))
+                    file_info=self.file_info,
+                    filename=os.path.basename(self.download_filename),
+                    filesize=self.download_filesize,
+                    filesize_human=self.web.common.human_readable_filesize(self.download_filesize),
+                    is_zipped=self.is_zipped))
             else:
                 # If download is allowed to continue, serve download page
                 r = make_response(render_template(
                     'send.html',
-                    file_info=self.web.file_info,
-                    filename=os.path.basename(self.web.download_filename),
-                    filesize=self.web.download_filesize,
-                    filesize_human=self.web.common.human_readable_filesize(self.web.download_filesize),
-                    is_zipped=self.web.is_zipped))
+                    file_info=self.file_info,
+                    filename=os.path.basename(self.download_filename),
+                    filesize=self.download_filesize,
+                    filesize_human=self.web.common.human_readable_filesize(self.download_filesize),
+                    is_zipped=self.is_zipped))
             return self.web.add_security_headers(r)
 
         @self.web.app.route("/<slug_candidate>/download")
@@ -82,14 +101,14 @@ class ShareModeWeb(object):
             """
             # Deny new downloads if "Stop After First Download" is checked and there is
             # currently a download
-            deny_download = not self.web.stay_open and self.web.download_in_progress
+            deny_download = not self.web.stay_open and self.download_in_progress
             if deny_download:
                 r = make_response(render_template('denied.html'))
                 return self.web.add_security_headers(r)
 
             # Each download has a unique id
-            download_id = self.web.download_count
-            self.web.download_count += 1
+            download_id = self.download_count
+            self.download_count += 1
 
             # Prepare some variables to use inside generate() function below
             # which is outside of the request context
@@ -101,25 +120,25 @@ class ShareModeWeb(object):
                 'id': download_id}
             )
 
-            dirname = os.path.dirname(self.web.download_filename)
-            basename = os.path.basename(self.web.download_filename)
+            dirname = os.path.dirname(self.download_filename)
+            basename = os.path.basename(self.download_filename)
 
             def generate():
                 # The user hasn't canceled the download
-                self.web.client_cancel = False
+                self.client_cancel = False
 
                 # Starting a new download
                 if not self.web.stay_open:
-                    self.web.download_in_progress = True
+                    self.download_in_progress = True
 
                 chunk_size = 102400  # 100kb
 
-                fp = open(self.web.download_filename, 'rb')
+                fp = open(self.download_filename, 'rb')
                 self.web.done = False
                 canceled = False
                 while not self.web.done:
                     # The user has canceled the download, so stop serving the file
-                    if self.web.client_cancel:
+                    if self.client_cancel:
                         self.web.add_request(self.web.REQUEST_CANCELED, path, {
                             'id': download_id
                         })
@@ -134,7 +153,7 @@ class ShareModeWeb(object):
 
                             # tell GUI the progress
                             downloaded_bytes = fp.tell()
-                            percent = (1.0 * downloaded_bytes / self.web.download_filesize) * 100
+                            percent = (1.0 * downloaded_bytes / self.download_filesize) * 100
 
                             # only output to stdout if running onionshare in CLI mode, or if using Linux (#203, #304)
                             if not self.web.is_gui or self.web.common.platform == 'Linux' or self.web.common.platform == 'BSD':
@@ -164,7 +183,7 @@ class ShareModeWeb(object):
 
                 # Download is finished
                 if not self.web.stay_open:
-                    self.web.download_in_progress = False
+                    self.download_in_progress = False
 
                 # Close the server, if necessary
                 if not self.web.stay_open and not canceled:
@@ -178,7 +197,7 @@ class ShareModeWeb(object):
                         pass
 
             r = Response(generate())
-            r.headers.set('Content-Length', self.web.download_filesize)
+            r.headers.set('Content-Length', self.download_filesize)
             r.headers.set('Content-Disposition', 'attachment', filename=basename)
             r = self.web.add_security_headers(r)
             # guess content type
@@ -197,7 +216,7 @@ class ShareModeWeb(object):
         self.web.cancel_compression = False
 
         # build file info list
-        self.web.file_info = {'files': [], 'dirs': []}
+        self.file_info = {'files': [], 'dirs': []}
         for filename in filenames:
             info = {
                 'filename': filename,
@@ -206,37 +225,37 @@ class ShareModeWeb(object):
             if os.path.isfile(filename):
                 info['size'] = os.path.getsize(filename)
                 info['size_human'] = self.web.common.human_readable_filesize(info['size'])
-                self.web.file_info['files'].append(info)
+                self.file_info['files'].append(info)
             if os.path.isdir(filename):
                 info['size'] = self.web.common.dir_size(filename)
                 info['size_human'] = self.web.common.human_readable_filesize(info['size'])
-                self.web.file_info['dirs'].append(info)
-        self.web.file_info['files'] = sorted(self.web.file_info['files'], key=lambda k: k['basename'])
-        self.web.file_info['dirs'] = sorted(self.web.file_info['dirs'], key=lambda k: k['basename'])
+                self.file_info['dirs'].append(info)
+        self.file_info['files'] = sorted(self.file_info['files'], key=lambda k: k['basename'])
+        self.file_info['dirs'] = sorted(self.file_info['dirs'], key=lambda k: k['basename'])
 
         # Check if there's only 1 file and no folders
-        if len(self.web.file_info['files']) == 1 and len(self.web.file_info['dirs']) == 0:
-            self.web.is_zipped = False
-            self.web.download_filename = self.web.file_info['files'][0]['filename']
-            self.web.download_filesize = self.web.file_info['files'][0]['size']
+        if len(self.file_info['files']) == 1 and len(self.file_info['dirs']) == 0:
+            self.is_zipped = False
+            self.download_filename = self.file_info['files'][0]['filename']
+            self.download_filesize = self.file_info['files'][0]['size']
         else:
             # Zip up the files and folders
-            self.web.zip_writer = ZipWriter(self.web.common, processed_size_callback=processed_size_callback)
-            self.web.download_filename = self.web.zip_writer.zip_filename
-            for info in self.web.file_info['files']:
-                self.web.zip_writer.add_file(info['filename'])
+            self.zip_writer = ZipWriter(self.web.common, processed_size_callback=processed_size_callback)
+            self.download_filename = self.zip_writer.zip_filename
+            for info in self.file_info['files']:
+                self.zip_writer.add_file(info['filename'])
                 # Canceling early?
                 if self.web.cancel_compression:
-                    self.web.zip_writer.close()
+                    self.zip_writer.close()
                     return False
 
-            for info in self.web.file_info['dirs']:
-                if not self.web.zip_writer.add_dir(info['filename']):
+            for info in self.file_info['dirs']:
+                if not self.zip_writer.add_dir(info['filename']):
                     return False
 
-            self.web.zip_writer.close()
-            self.web.download_filesize = os.path.getsize(self.web.download_filename)
-            self.web.is_zipped = True
+            self.zip_writer.close()
+            self.download_filesize = os.path.getsize(self.download_filename)
+            self.is_zipped = True
 
         return True
 
