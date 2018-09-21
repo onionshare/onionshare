@@ -39,7 +39,6 @@
     "gui_copied_url": "Kopierede URL til udklipsholder",
     "gui_copied_hidservauth": "Kopierede HidServAuth-linje til udklipsholder",
     "gui_please_wait": "Vent venligst...",
-    "using_ephemeral": "Starter kortvarig Tor onion-tjeneste og afventer udgivelse",
     "gui_download_upload_progress_complete": "%p%, tid forløbet: {0:s}",
     "gui_download_upload_progress_starting": "{0:s}, %p% (udregner anslået ankomsttid)",
     "gui_download_upload_progress_eta": "{0:s}, anslået ankomsttid: {1:s}, %p%",

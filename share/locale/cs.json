@@ -26,7 +26,6 @@
     "gui_copied_url": "URL zkopírováno do schránky",
     "gui_copied_hidservauth": "Copied HidServAuth line to clipboard",
     "gui_please_wait": "Prosím čekejte...",
-    "using_ephemeral": "Starting ephemeral Tor onion service and awaiting publication",
     "gui_download_upload_progress_complete": "%p%, Uplynulý čas: {0:s}",
     "gui_download_upload_progress_starting": "{0:s}, %p% (Computing ETA)",
     "gui_download_upload_progress_eta": "{0:s}, ETA: {1:s}, %p%",
