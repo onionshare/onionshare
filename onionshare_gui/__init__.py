@@ -18,7 +18,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 from __future__ import division
-import os, sys, platform, argparse
+import os
+import sys
+import platform
+import argparse
+import signal
 from .widgets import Alert
 from PyQt5 import QtCore, QtWidgets
 
@@ -57,6 +61,10 @@ def main():
 
     strings.load_strings(common)
     print(strings._('version_string').format(common.version))
+
+    # Allow Ctrl-C to smoothly quit the program instead of throwing an exception
+    # https://stackoverflow.com/questions/42814093/how-to-handle-ctrlc-in-python-app-with-pyqt
+    signal.signal(signal.SIGINT, signal.SIG_DFL)
 
     # Start the Qt app
     global qtapp
