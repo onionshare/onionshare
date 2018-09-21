@@ -65,13 +65,18 @@ def main(cwd=None):
     receive = bool(args.receive)
     config = args.config
 
+    if receive:
+        mode = 'receive'
+    else:
+        mode = 'share'
+
     # Make sure filenames given if not using receiver mode
-    if not receive and len(filenames) == 0:
+    if mode == 'share' and len(filenames) == 0:
         print(strings._('no_filenames'))
         sys.exit()
 
     # Validate filenames
-    if not receive:
+    if mode == 'share':
         valid = True
         for filename in filenames:
             if not os.path.isfile(filename) and not os.path.isdir(filename):
@@ -90,7 +95,7 @@ def main(cwd=None):
     common.debug = debug
 
     # Create the Web object
-    web = Web(common, False, receive)
+    web = Web(common, False, mode)
 
     # Start the Onion object
     onion = Onion(common)
@@ -116,21 +121,22 @@ def main(cwd=None):
         print(e.args[0])
         sys.exit()
 
-    # Prepare files to share
-    print(strings._("preparing_files"))
-    try:
-        web.share_mode.set_file_info(filenames)
-        if web.is_zipped:
-            app.cleanup_filenames.append(web.download_filename)
-    except OSError as e:
-        print(e.strerror)
-        sys.exit(1)
+    if mode == 'share':
+        # Prepare files to share
+        print(strings._("preparing_files"))
+        try:
+            web.share_mode.set_file_info(filenames)
+            if web.is_zipped:
+                app.cleanup_filenames.append(web.download_filename)
+        except OSError as e:
+            print(e.strerror)
+            sys.exit(1)
 
-    # Warn about sending large files over Tor
-    if web.download_filesize >= 157286400:  # 150mb
-        print('')
-        print(strings._("large_filesize"))
-        print('')
+        # Warn about sending large files over Tor
+        if web.download_filesize >= 157286400:  # 150mb
+            print('')
+            print(strings._("large_filesize"))
+            print('')
 
     # Start OnionShare http service in new thread
     t = threading.Thread(target=web.start, args=(app.port, stay_open, common.settings.get('public_mode'), common.settings.get('slug')))
@@ -158,7 +164,7 @@ def main(cwd=None):
             url = 'http://{0:s}/{1:s}'.format(app.onion_host, web.slug)
 
         print('')
-        if receive:
+        if mode == 'receive':
             print(strings._('receive_mode_downloads_dir').format(common.settings.get('downloads_dir')))
             print('')
             print(strings._('receive_mode_warning'))
