@@ -43,7 +43,7 @@ class ShareMode(Mode):
         self.compress_thread = None
 
         # Create the Web object
-        self.web = Web(self.common, True, False)
+        self.web = Web(self.common, True, 'share')
 
         # File selection
         self.file_selection = FileSelection(self.common)

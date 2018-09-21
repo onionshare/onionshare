@@ -34,7 +34,7 @@ class ReceiveMode(Mode):
         Custom initialization for ReceiveMode.
         """
         # Create the Web object
-        self.web = Web(self.common, True, True)
+        self.web = Web(self.common, True, 'receive')
 
         # Server status
         self.server_status.set_mode('receive')
