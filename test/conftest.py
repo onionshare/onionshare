@@ -64,7 +64,7 @@ def temp_file_1024_delete():
 # pytest > 2.9 only needs @pytest.fixture
 @pytest.yield_fixture(scope='session')
 def custom_zw():
-    zw = web.ZipWriter(
+    zw = web.share_mode.ZipWriter(
         common.Common(),
         zip_filename=common.Common.random_string(4, 6),
         processed_size_callback=lambda _: 'custom_callback'
@@ -77,7 +77,7 @@ def custom_zw():
 # pytest > 2.9 only needs @pytest.fixture
 @pytest.yield_fixture(scope='session')
 def default_zw():
-    zw = web.ZipWriter(common.Common())
+    zw = web.share_mode.ZipWriter(common.Common())
     yield zw
     zw.close()
     tmp_dir = os.path.dirname(zw.zip_filename)
