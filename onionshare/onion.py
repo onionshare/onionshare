@@ -427,7 +427,6 @@ class Onion(object):
             raise TorTooOld(strings._('error_stealth_not_supported'))
 
         print(strings._("config_onion_service").format(int(port)))
-        print(strings._('using_ephemeral'))
 
         if self.stealth:
             if self.settings.get('hidservauth_string'):

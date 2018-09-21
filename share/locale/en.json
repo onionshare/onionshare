@@ -1,7 +1,6 @@
 {
     "config_onion_service": "Configuring onion service on port {0:d}.",
     "preparing_files": "Preparing files to share.",
-    "wait_for_hs": "Waiting for HS to be ready:",
     "give_this_url": "Give this address to the person you're sending the file to:",
     "give_this_url_stealth": "Give this address and HidServAuth line to the person you're sending the file to:",
     "give_this_url_receive": "Give this address to the people sending you files:",
@@ -9,7 +8,6 @@
     "ctrlc_to_stop":  "Press Ctrl+C to stop the server",
     "not_a_file": "{0:s} is not a valid file.",
     "not_a_readable_file": "{0:s} is not a readable file.",
-    "no_filenames": "You must specify a list of files to share.",
     "no_available_port": "Could not start the Onion service as there was no available port.",
     "other_page_loaded": "Address loaded",
     "close_on_timeout": "Stopped because timer expired",
@@ -55,7 +53,6 @@
     "gui_copied_hidservauth_title": "Copied HidServAuth",
     "gui_copied_hidservauth": "The HidServAuth line has been copied to clipboard",
     "gui_please_wait": "Starting… Click to cancel",
-    "using_ephemeral": "Starting ephemeral Tor onion service and awaiting publication",
     "gui_download_upload_progress_complete": "%p%, Time Elapsed: {0:s}",
     "gui_download_upload_progress_starting": "{0:s}, %p% (Computing ETA)",
     "gui_download_upload_progress_eta": "{0:s}, ETA: {1:s}, %p%",
