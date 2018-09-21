@@ -1,6 +1,5 @@
 {
     "preparing_files": "Paylaşmak için dosyalar hazırlanıyor.",
-    "wait_for_hs": "GH hazır olması bekleniyor:",
     "give_this_url": "Dosyayı gönderdiğin kişiye bu URL'i verin:",
     "ctrlc_to_stop":  "Sunucuyu durdurmak için, Ctrl-C basın",
     "not_a_file": "{0:s} dosya değil.",
@@ -22,6 +21,5 @@
     "gui_canceled": "İptal edilen",
     "gui_copied_url": "Panoya kopyalanan URL",
     "gui_please_wait": "Lütfen bekleyin...",
-    "using_ephemeral": "Geçici Tor gizli hizmetine bakılıyor ve yayımı bekleniyor",
     "zip_progress_bar_format": "Dosyalar hazırlanıyor: %p%"
 }

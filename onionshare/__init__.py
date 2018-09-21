@@ -72,7 +72,7 @@ def main(cwd=None):
 
     # Make sure filenames given if not using receiver mode
     if mode == 'share' and len(filenames) == 0:
-        print(strings._('no_filenames'))
+        parser.print_help()
         sys.exit()
 
     # Validate filenames

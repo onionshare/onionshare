@@ -1,7 +1,6 @@
 {
     "config_onion_service": "Agordas onion service je pordo {0:d}.",
     "preparing_files": "Preparas dosierojn por kundivido.",
-    "wait_for_hs": "Atendas al hidden sevice por esti preta:",
     "give_this_url": "Donu ĉi tiun URL al la persono al kiu vi sendas la dosieron:",
     "give_this_url_stealth": "Give this URL and HidServAuth line to the person you're sending the file to:",
     "ctrlc_to_stop":  "Presu Ctrl-C por halti la servilon",
@@ -27,7 +26,6 @@
     "gui_copied_url": "URL kopiita en tondujon",
     "gui_copied_hidservauth": "Copied HidServAuth line to clipboard",
     "gui_please_wait": "Bonvolu atendi...",
-    "using_ephemeral": "Starting ephemeral Tor onion service and awaiting publication",
     "gui_download_upload_progress_complete": "%p%, Tempo pasinta: {0:s}",
     "gui_download_upload_progress_starting": "{0:s}, %p% (Computing ETA)",
     "gui_download_upload_progress_eta": "{0:s}, ETA: {1:s}, %p%",
