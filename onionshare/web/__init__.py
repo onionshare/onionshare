@@ -40,8 +40,8 @@ from flask import (
 )
 from werkzeug.utils import secure_filename
 
-from . import strings
-from .common import DownloadsDirErrorCannotCreate, DownloadsDirErrorNotWritable
+from .. import strings
+from ..common import DownloadsDirErrorCannotCreate, DownloadsDirErrorNotWritable
 
 
 # Stub out flask's show_server_banner function, to avoiding showing warnings that
