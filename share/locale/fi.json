@@ -21,6 +21,5 @@
     "gui_canceled": "Peruutettu",
     "gui_copied_url": "URL-osoite kopioitu leikepöydälle",
     "gui_please_wait": "Odota...",
-    "using_ephemeral": "Käynnistetään lyhytaikainen Tor piilopalvelu ja odotetaan julkaisua",
     "zip_progress_bar_format": "Tiivistän tiedostoja: %p%"
 }
