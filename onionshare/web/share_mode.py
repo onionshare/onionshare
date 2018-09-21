@@ -3,6 +3,7 @@ import sys
 import tempfile
 import zipfile
 import mimetypes
+import gzip
 from flask import Response, request, render_template, make_response
 
 from .. import strings
@@ -23,6 +24,7 @@ class ShareModeWeb(object):
         self.is_zipped = False
         self.download_filename = None
         self.download_filesize = None
+        self.gzip_filename = None
         self.zip_writer = None
 
         self.download_count = 0
@@ -118,12 +120,20 @@ class ShareModeWeb(object):
             shutdown_func = request.environ.get('werkzeug.server.shutdown')
             path = request.path
 
+            # If this is a zipped file, then serve as-is. If it's not zipped, then,
+            # if the http client supports gzip compression, gzip the file first
+            # and serve that
+            use_gzip = (not self.is_zipped) and ('gzip' in request.headers.get('Accept-Encoding', '').lower())
+            if use_gzip:
+                file_to_download = self.gzip_filename
+            else:
+                file_to_download = self.download_filename
+
             # Tell GUI the download started
             self.web.add_request(self.web.REQUEST_STARTED, path, {
-                'id': download_id}
-            )
+                'id': download_id
+            })
 
-            dirname = os.path.dirname(self.download_filename)
             basename = os.path.basename(self.download_filename)
 
             def generate():
@@ -136,7 +146,7 @@ class ShareModeWeb(object):
 
                 chunk_size = 102400  # 100kb
 
-                fp = open(self.download_filename, 'rb')
+                fp = open(file_to_download, 'rb')
                 self.web.done = False
                 canceled = False
                 while not self.web.done:
@@ -200,7 +210,11 @@ class ShareModeWeb(object):
                         pass
 
             r = Response(generate())
-            r.headers.set('Content-Length', self.download_filesize)
+            if use_gzip:
+                r.headers.set('Content-Encoding', 'gzip')
+                r.headers.set('Content-Length', os.path.getsize(self.gzip_filename))
+            else:
+                r.headers.set('Content-Length', self.download_filesize)
             r.headers.set('Content-Disposition', 'attachment', filename=basename)
             r = self.web.add_security_headers(r)
             # guess content type
@@ -217,6 +231,8 @@ class ShareModeWeb(object):
         """
         self.common.log("ShareModeWeb", "set_file_info")
         self.web.cancel_compression = False
+
+        self.cleanup_filenames = []
 
         # build file info list
         self.file_info = {'files': [], 'dirs': []}
@@ -238,9 +254,18 @@ class ShareModeWeb(object):
 
         # Check if there's only 1 file and no folders
         if len(self.file_info['files']) == 1 and len(self.file_info['dirs']) == 0:
-            self.is_zipped = False
             self.download_filename = self.file_info['files'][0]['filename']
             self.download_filesize = self.file_info['files'][0]['size']
+
+            # Compress the file with gzip now, so we don't have to do it on each request
+            self.gzip_filename = tempfile.mkstemp('wb+')[1]
+            self._gzip_compress(self.download_filename, self.gzip_filename, 6, processed_size_callback)
+
+            # Make sure the gzip file gets cleaned up when onionshare stops
+            self.cleanup_filenames.append(self.gzip_filename)
+
+            self.is_zipped = False
+
         else:
             # Zip up the files and folders
             self.zip_writer = ZipWriter(self.common, processed_size_callback=processed_size_callback)
@@ -258,9 +283,34 @@ class ShareModeWeb(object):
 
             self.zip_writer.close()
             self.download_filesize = os.path.getsize(self.download_filename)
+
+            # Make sure the zip file gets cleaned up when onionshare stops
+            self.cleanup_filenames.append(self.zip_writer.zip_filename)
+
             self.is_zipped = True
 
         return True
+
+    def _gzip_compress(self, input_filename, output_filename, level, processed_size_callback=None):
+        """
+        Compress a file with gzip, without loading the whole thing into memory
+        Thanks: https://stackoverflow.com/questions/27035296/python-how-to-gzip-a-large-text-file-without-memoryerror
+        """
+        bytes_processed = 0
+        blocksize = 1 << 16 # 64kB
+        with open(input_filename, 'rb') as input_file:
+            output_file = gzip.open(output_filename, 'wb', level)
+            while True:
+                if processed_size_callback is not None:
+                    processed_size_callback(bytes_processed)
+
+                block = input_file.read(blocksize)
+                if len(block) == 0:
+                    break
+                output_file.write(block)
+                bytes_processed += blocksize
+
+            output_file.close()
 
 
 class ZipWriter(object):

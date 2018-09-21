@@ -47,8 +47,7 @@ class CompressThread(QtCore.QThread):
                 # Cancelled
                 pass
 
-            if self.mode.web.share_mode.is_zipped:
-                self.mode.app.cleanup_filenames.append(self.mode.web.share_mode.download_filename)
+            self.mode.app.cleanup_filenames += self.mode.web.share_mode.cleanup_filenames
         except OSError as e:
             self.error.emit(e.strerror)
 
