@@ -37,7 +37,6 @@
     "gui_copied_url": "URL gekopieerd naar klembord",
     "gui_copied_hidservauth": "HidServAuth regel gekopieerd naar klembord",
     "gui_please_wait": "Moment geduld...",
-    "using_ephemeral": "Kortstondige Tor onion service gestart en in afwachting van publicatie",
     "gui_download_upload_progress_complete": "%p%, Tijd verstreken: {0:s}",
     "gui_download_upload_progress_starting": "{0:s}, %p% (ETA berekenen)",
     "gui_download_upload_progress_eta": "{0:s}, ETA: {1:s}, %p%",
