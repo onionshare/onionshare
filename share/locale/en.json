@@ -8,7 +8,6 @@
     "ctrlc_to_stop":  "Press Ctrl+C to stop the server",
     "not_a_file": "{0:s} is not a valid file.",
     "not_a_readable_file": "{0:s} is not a readable file.",
-    "no_filenames": "You must specify a list of files to share.",
     "no_available_port": "Could not start the Onion service as there was no available port.",
     "other_page_loaded": "Address loaded",
     "close_on_timeout": "Stopped because timer expired",
