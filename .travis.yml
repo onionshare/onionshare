@@ -17,6 +17,6 @@ before_script:
     - flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 # command to run tests
 script: pytest --cov=onionshare test/
-script: xvfb-run py.test-3 unit_tests/onionshare_share_mode_download_test.py
+script: xvfb-run pytest unit_tests/onionshare_share_mode_download_test.py
 after_success:
   - coveralls
