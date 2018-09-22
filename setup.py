@@ -67,6 +67,7 @@ setup(
     url=url, license=license, keywords=keywords,
     packages=[
         'onionshare',
+        'onionshare.web',
         'onionshare_gui',
         'onionshare_gui.share_mode',
         'onionshare_gui.receive_mode'

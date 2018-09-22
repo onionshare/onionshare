@@ -34,7 +34,7 @@ class ReceiveMode(Mode):
         Custom initialization for ReceiveMode.
         """
         # Create the Web object
-        self.web = Web(self.common, True, True)
+        self.web = Web(self.common, True, 'receive')
 
         # Server status
         self.server_status.set_mode('receive')
@@ -100,7 +100,7 @@ class ReceiveMode(Mode):
         Starting the server.
         """
         # Reset web counters
-        self.web.upload_count = 0
+        self.web.receive_mode.upload_count = 0
         self.web.error404_count = 0
 
         # Hide and reset the uploads if we have previously shared
