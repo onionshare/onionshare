@@ -249,8 +249,8 @@ class ReceiveModeRequest(Request):
             self.progress = {}
 
             # Create an upload_id, attach it to the request
-            self.upload_id = self.upload_count
-            self.upload_count += 1
+            self.upload_id = self.web.receive_mode.upload_count
+            self.web.receive_mode.upload_count += 1
 
             # Figure out the content length
             try:
