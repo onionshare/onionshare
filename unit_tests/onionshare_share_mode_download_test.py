@@ -8,7 +8,7 @@ import zipfile
 import socks
 import json
 
-from PyQt5 import QtCore, QtWidgets, QtTest
+from PyQt5 import QtCore, QtWidgets, QtTest, QtGui
 
 from onionshare.common import Common
 from onionshare.web import Web
@@ -197,8 +197,11 @@ class OnionShareGuiTest(unittest.TestCase):
 
     @pytest.mark.run(order=20)
     def test_have_copy_url_button(self):
-        '''Test that the Copy URL button is shown'''
+        '''Test that the Copy URL button is shown and can be copied to clipboard'''
         self.assertTrue(self.gui.share_mode.server_status.copy_url_button.isVisible())
+        QtTest.QTest.mouseClick(self.gui.share_mode.server_status.copy_url_button, QtCore.Qt.LeftButton)
+        clipboard = self.gui.qtapp.clipboard()
+        self.assertEquals(clipboard.text(), 'http://127.0.0.1:{}/{}'.format(self.gui.app.port, self.gui.share_mode.server_status.web.slug))
 
     @pytest.mark.run(order=21)
     def test_server_status_indicator_says_sharing(self):
