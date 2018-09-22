@@ -132,8 +132,10 @@ class ShareModeWeb(object):
             use_gzip = self.should_use_gzip()
             if use_gzip:
                 file_to_download = self.gzip_filename
+                filesize = self.gzip_filesize
             else:
                 file_to_download = self.download_filename
+                filesize = self.download_filesize
 
             # Tell GUI the download started
             self.web.add_request(self.web.REQUEST_STARTED, path, {
@@ -173,7 +175,7 @@ class ShareModeWeb(object):
 
                             # tell GUI the progress
                             downloaded_bytes = fp.tell()
-                            percent = (1.0 * downloaded_bytes / self.download_filesize) * 100
+                            percent = (1.0 * downloaded_bytes / filesize) * 100
 
                             # only output to stdout if running onionshare in CLI mode, or if using Linux (#203, #304)
                             if not self.web.is_gui or self.common.platform == 'Linux' or self.common.platform == 'BSD':
@@ -219,9 +221,7 @@ class ShareModeWeb(object):
             r = Response(generate())
             if use_gzip:
                 r.headers.set('Content-Encoding', 'gzip')
-                r.headers.set('Content-Length', self.gzip_filesize)
-            else:
-                r.headers.set('Content-Length', self.download_filesize)
+            r.headers.set('Content-Length', filesize)
             r.headers.set('Content-Disposition', 'attachment', filename=basename)
             r = self.web.add_security_headers(r)
             # guess content type
