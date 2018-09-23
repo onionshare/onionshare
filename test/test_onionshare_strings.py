@@ -47,7 +47,7 @@ class TestLoadStrings:
             self, common_obj, locale_en, sys_onionshare_dev_mode):
         """ load_strings() loads English by default """
         strings.load_strings(common_obj)
-        assert strings._('preparing_files') == "Preparing files to share."
+        assert strings._('preparing_files') == "Compressing files."
 
 
     def test_load_strings_loads_other_languages(
