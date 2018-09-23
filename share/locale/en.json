@@ -47,7 +47,7 @@
     "gui_copy_hidservauth": "Copy HidServAuth",
     "gui_downloads": "History of sent shares",
     "gui_no_downloads": "None yet.",
-    "gui_canceled": "Canceled",
+    "gui_canceled": "Cancelled",
     "gui_copied_url_title": "Copied",
     "gui_copied_url": "OnionShare address copied to clipboard",
     "gui_copied_hidservauth_title": "Copied",
