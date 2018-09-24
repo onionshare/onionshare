@@ -15,7 +15,7 @@ from .. import strings
 
 from .share_mode import ShareModeWeb
 from .receive_mode import ReceiveModeWeb, ReceiveModeWSGIMiddleware, ReceiveModeTemporaryFile, ReceiveModeRequest
-
+from .website_mode import ShareModeWebsite
 
 # Stub out flask's show_server_banner function, to avoiding showing warnings that
 # are not applicable to OnionShare
@@ -101,8 +101,11 @@ class Web(object):
         # Create the mode web object, which defines its own routes
         self.share_mode = None
         self.receive_mode = None
+        self.website_mode = None
         if self.mode == 'receive':
             self.receive_mode = ReceiveModeWeb(self.common, self)
+        elif self.mode == 'website':
+            self.website_mode = ShareModeWebsite(self.common, self)
         elif self.mode == 'share':
             self.share_mode = ShareModeWeb(self.common, self)
 

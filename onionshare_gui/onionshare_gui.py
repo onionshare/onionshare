@@ -25,6 +25,7 @@ from onionshare.web import Web
 
 from .mode.share_mode import ShareMode
 from .mode.receive_mode import ReceiveMode
+from .mode.website_mode import WebsiteMode
 
 from .tor_connection_dialog import TorConnectionDialog
 from .settings_dialog import SettingsDialog
@@ -39,6 +40,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
     """
     MODE_SHARE = 'share'
     MODE_RECEIVE = 'receive'
+    MODE_WEBSITE = 'website'
 
     def __init__(self, common, onion, qtapp, app, filenames, config=False, local_only=False):
         super(OnionShareGui, self).__init__()
@@ -88,6 +90,9 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.receive_mode_button = QtWidgets.QPushButton(strings._('gui_mode_receive_button'));
         self.receive_mode_button.setFixedHeight(50)
         self.receive_mode_button.clicked.connect(self.receive_mode_clicked)
+        self.website_mode_button = QtWidgets.QPushButton(strings._('gui_mode_website_button'));
+        self.website_mode_button.setFixedHeight(50)
+        self.website_mode_button.clicked.connect(self.website_mode_clicked)
         self.settings_button = QtWidgets.QPushButton()
         self.settings_button.setDefault(False)
         self.settings_button.setFixedWidth(40)
@@ -99,6 +104,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         mode_switcher_layout.setSpacing(0)
         mode_switcher_layout.addWidget(self.share_mode_button)
         mode_switcher_layout.addWidget(self.receive_mode_button)
+        mode_switcher_layout.addWidget(self.website_mode_button)
         mode_switcher_layout.addWidget(self.settings_button)
 
         # Server status indicator on the status bar
@@ -136,6 +142,20 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.share_mode.server_status.hidservauth_copied.connect(self.copy_hidservauth)
         self.share_mode.set_server_active.connect(self.set_server_active)
 
+        # Website mode
+        self.website_mode = WebsiteMode(self.common, qtapp, app, self.status_bar, self.server_status_label, self.system_tray, filenames)
+        self.website_mode.init()
+        self.website_mode.server_status.server_started.connect(self.update_server_status_indicator)
+        self.website_mode.server_status.server_stopped.connect(self.update_server_status_indicator)
+        self.website_mode.start_server_finished.connect(self.update_server_status_indicator)
+        self.website_mode.stop_server_finished.connect(self.update_server_status_indicator)
+        self.website_mode.stop_server_finished.connect(self.stop_server_finished)
+        self.website_mode.start_server_finished.connect(self.clear_message)
+        self.website_mode.server_status.button_clicked.connect(self.clear_message)
+        self.website_mode.server_status.url_copied.connect(self.copy_url)
+        self.website_mode.server_status.hidservauth_copied.connect(self.copy_hidservauth)
+        self.website_mode.set_server_active.connect(self.set_server_active)
+
         # Receive mode
         self.receive_mode = ReceiveMode(self.common, qtapp, app, self.status_bar, self.server_status_label, self.system_tray, None, self.local_only)
         self.receive_mode.init()
@@ -157,6 +177,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         contents_layout = QtWidgets.QVBoxLayout()
         contents_layout.setContentsMargins(10, 0, 10, 0)
         contents_layout.addWidget(self.receive_mode)
+        contents_layout.addWidget(self.website_mode)
         contents_layout.addWidget(self.share_mode)
 
         layout = QtWidgets.QVBoxLayout()
@@ -195,15 +216,24 @@ class OnionShareGui(QtWidgets.QMainWindow):
         if self.mode == self.MODE_SHARE:
             self.share_mode_button.setStyleSheet(self.common.css['mode_switcher_selected_style'])
             self.receive_mode_button.setStyleSheet(self.common.css['mode_switcher_unselected_style'])
-
-            self.receive_mode.hide()
+            self.website_mode_button.setStyleSheet(self.common.css['mode_switcher_unselected_style'])
             self.share_mode.show()
+            self.receive_mode.hide()
+            self.website_mode.hide()
+        elif self.mode == self.MODE_WEBSITE:
+            self.receive_mode_button.setStyleSheet(self.common.css['mode_switcher_unselected_style'])
+            self.share_mode_button.setStyleSheet(self.common.css['mode_switcher_unselected_style'])
+            self.website_mode_button.setStyleSheet(self.common.css['mode_switcher_selected_style'])
+            self.share_mode.hide()
+            self.receive_mode.hide()
+            self.website_mode.show()
         else:
             self.share_mode_button.setStyleSheet(self.common.css['mode_switcher_unselected_style'])
             self.receive_mode_button.setStyleSheet(self.common.css['mode_switcher_selected_style'])
-
+            self.website_mode_button.setStyleSheet(self.common.css['mode_switcher_unselected_style'])
             self.share_mode.hide()
             self.receive_mode.show()
+            self.website_mode.hide()
 
         self.update_server_status_indicator()
 
@@ -211,6 +241,12 @@ class OnionShareGui(QtWidgets.QMainWindow):
         if self.mode != self.MODE_SHARE:
             self.common.log('OnionShareGui', 'share_mode_clicked')
             self.mode = self.MODE_SHARE
+            self.update_mode_switcher()
+
+    def website_mode_clicked(self):
+        if self.mode != self.MODE_WEBSITE:
+            self.common.log('OnionShareGui', 'website_mode_clicked')
+            self.mode = self.MODE_WEBSITE
             self.update_mode_switcher()
 
     def receive_mode_clicked(self):
@@ -230,6 +266,17 @@ class OnionShareGui(QtWidgets.QMainWindow):
                 self.server_status_image_label.setPixmap(QtGui.QPixmap.fromImage(self.server_status_image_working))
                 self.server_status_label.setText(strings._('gui_status_indicator_share_working'))
             elif self.share_mode.server_status.status == ServerStatus.STATUS_STARTED:
+                self.server_status_image_label.setPixmap(QtGui.QPixmap.fromImage(self.server_status_image_started))
+                self.server_status_label.setText(strings._('gui_status_indicator_share_started'))
+        elif self.mode == self.MODE_WEBSITE:
+            # Website mode
+            if self.website_mode.server_status.status == ServerStatus.STATUS_STOPPED:
+                self.server_status_image_label.setPixmap(QtGui.QPixmap.fromImage(self.server_status_image_stopped))
+                self.server_status_label.setText(strings._('gui_status_indicator_share_stopped'))
+            elif self.website_mode.server_status.status == ServerStatus.STATUS_WORKING:
+                self.server_status_image_label.setPixmap(QtGui.QPixmap.fromImage(self.server_status_image_working))
+                self.server_status_label.setText(strings._('gui_status_indicator_share_working'))
+            elif self.website_mode.server_status.status == ServerStatus.STATUS_STARTED:
                 self.server_status_image_label.setPixmap(QtGui.QPixmap.fromImage(self.server_status_image_started))
                 self.server_status_label.setText(strings._('gui_status_indicator_share_started'))
         else:
@@ -307,6 +354,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
                         self.timer.start(500)
                     self.share_mode.on_reload_settings()
                     self.receive_mode.on_reload_settings()
+                    self.website_mode.on_reload_settings()
                     self.status_bar.clearMessage()
 
             # If we switched off the shutdown timeout setting, ensure the widget is hidden.
@@ -321,6 +369,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         # When settings close, refresh the server status UI
         self.share_mode.server_status.update()
         self.receive_mode.server_status.update()
+        self.website_mode.server_status.update()
 
     def check_for_updates(self):
         """
@@ -351,10 +400,13 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
                 self.share_mode.handle_tor_broke()
                 self.receive_mode.handle_tor_broke()
+                self.website_mode.handle_tor_broke()
 
         # Process events from the web object
         if self.mode == self.MODE_SHARE:
             mode = self.share_mode
+        elif self.mode == self.MODE_WEBSITE:
+            mode = self.website_mode
         else:
             mode = self.receive_mode
 
@@ -434,13 +486,20 @@ class OnionShareGui(QtWidgets.QMainWindow):
             if self.mode == self.MODE_SHARE:
                 self.share_mode_button.show()
                 self.receive_mode_button.hide()
+                self.website_mode_button.hide()
+            elif self.mode == self.MODE_WEBSITE:
+                self.share_mode_button.hide()
+                self.receive_mode_button.hide()
+                self.website_mode_button.show()
             else:
                 self.share_mode_button.hide()
                 self.receive_mode_button.show()
+                self.website_mode_button.hide()
         else:
             self.settings_button.show()
             self.share_mode_button.show()
             self.receive_mode_button.show()
+            self.website_mode_button.show()
 
         # Disable settings menu action when server is active
         self.settings_action.setEnabled(not active)
@@ -450,6 +509,8 @@ class OnionShareGui(QtWidgets.QMainWindow):
         try:
             if self.mode == OnionShareGui.MODE_SHARE:
                 server_status = self.share_mode.server_status
+            if self.mode == OnionShareGui.MODE_WEBSITE:
+                server_status = self.website_mode.server_status
             else:
                 server_status = self.receive_mode.server_status
             if server_status.status != server_status.STATUS_STOPPED:

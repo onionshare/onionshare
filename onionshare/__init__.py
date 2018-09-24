@@ -56,6 +56,7 @@ def main(cwd=None):
     parser.add_argument('--shutdown-timeout', metavar='<int>', dest='shutdown_timeout', default=0, help=strings._("help_shutdown_timeout"))
     parser.add_argument('--stealth', action='store_true', dest='stealth', help=strings._("help_stealth"))
     parser.add_argument('--receive', action='store_true', dest='receive', help=strings._("help_receive"))
+    parser.add_argument('--website', action='store_true', dest='website', help=strings._("help_website"))
     parser.add_argument('--config', metavar='config', default=False, help=strings._('help_config'))
     parser.add_argument('--debug', action='store_true', dest='debug', help=strings._("help_debug"))
     parser.add_argument('filename', metavar='filename', nargs='*', help=strings._('help_filename'))
@@ -71,10 +72,13 @@ def main(cwd=None):
     shutdown_timeout = int(args.shutdown_timeout)
     stealth = bool(args.stealth)
     receive = bool(args.receive)
+    website = bool(args.website)
     config = args.config
 
     if receive:
         mode = 'receive'
+    elif website:
+        mode = 'website'
     else:
         mode = 'share'
 
@@ -131,6 +135,15 @@ def main(cwd=None):
         print("")
         print(e.args[0])
         sys.exit()
+
+    if mode == 'website':
+        # Prepare files to share
+        print(strings._("preparing_files"))
+        try:
+            web.website_mode.set_file_info(filenames)
+        except OSError as e:
+            print(e.strerror)
+            sys.exit(1)
 
     if mode == 'share':
         # Prepare files to share
