@@ -2,18 +2,17 @@
 import os
 import sys
 import unittest
-import socket
 import pytest
-import zipfile
-import socks
 import json
 
-from PyQt5 import QtCore, QtWidgets, QtTest
+from PyQt5 import QtWidgets
 
 from onionshare.common import Common
 from onionshare.web import Web
 from onionshare import onion, strings
 from onionshare_gui import *
+
+from .commontests import CommonTests
 
 app = QtWidgets.QApplication(sys.argv)
 
@@ -81,62 +80,63 @@ class OnionShareGuiTest(unittest.TestCase):
 
     @pytest.mark.run(order=1)
     def test_gui_loaded(self):
-        '''Test that the GUI actually is shown'''
-        self.assertTrue(self.gui.show)
+        CommonTests.test_gui_loaded(self)
 
     @pytest.mark.run(order=2)
-    def test_set_timeout(self):
-        '''Test that the timeout can be set'''
-        timer = QtCore.QDateTime.currentDateTime().addSecs(120)
-        self.gui.share_mode.server_status.shutdown_timeout.setDateTime(timer)
-        self.assertTrue(self.gui.share_mode.server_status.shutdown_timeout.dateTime(), timer)
+    def test_windowTitle_seen(self):
+        CommonTests.test_windowTitle_seen(self)
 
     @pytest.mark.run(order=3)
-    def test_server_working_on_start_button_pressed(self):
-        '''Test we can start the service'''
-        QtTest.QTest.mouseClick(self.gui.share_mode.server_status.server_button, QtCore.Qt.LeftButton)
-
-        # Should be in SERVER_WORKING state
-        self.assertEqual(self.gui.share_mode.server_status.status, 1)
+    def test_settings_button_is_visible(self):
+        CommonTests.test_settings_button_is_visible(self)
 
     @pytest.mark.run(order=4)
-    def test_server_status_indicator_says_starting(self):
-        '''Test that the Server Status indicator shows we are Starting'''
-        self.assertEquals(self.gui.share_mode.server_status_label.text(), strings._('gui_status_indicator_share_working', True))
+    def test_server_status_bar_is_visible(self):
+        CommonTests.test_server_status_bar_is_visible(self)
 
     @pytest.mark.run(order=5)
-    def test_a_server_is_started(self):
-        '''Test that the server has started'''
-        QtTest.QTest.qWait(2000)
-        # Should now be in SERVER_STARTED state
-        self.assertEqual(self.gui.share_mode.server_status.status, 2)
+    def test_file_selection_widget_has_a_file(self):
+        CommonTests.test_file_selection_widget_has_a_file(self)
 
     @pytest.mark.run(order=6)
-    def test_a_web_server_is_running(self):
-        '''Test that the web server has started'''
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-        self.assertEqual(sock.connect_ex(('127.0.0.1',self.gui.app.port)), 0)
+    def test_info_widget_is_visible(self):
+        CommonTests.test_info_widget_is_visible(self, 'share')
 
     @pytest.mark.run(order=7)
-    def test_timeout_widget_hidden(self):
-        '''Test that the timeout widget is hidden when share has started'''
-        self.assertFalse(self.gui.share_mode.server_status.shutdown_timeout_container.isVisible())
+    def test_history_is_visible(self):
+        CommonTests.test_history_is_visible(self, 'share')
 
     @pytest.mark.run(order=8)
-    def test_server_timed_out(self):
-        '''Test that the server has timed out after the timer ran out'''
-        QtTest.QTest.qWait(100000)
-        # We should have timed out now
-        self.assertEqual(self.gui.share_mode.server_status.status, 0)
+    def test_set_timeout(self):
+        CommonTests.test_set_timeout(self, 'share')
 
     @pytest.mark.run(order=9)
-    def test_web_service_is_stopped(self):
-        '''Test that the web server also stopped'''
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    def test_server_working_on_start_button_pressed(self):
+        CommonTests.test_server_working_on_start_button_pressed(self, 'share')
 
-        # We should be closed by now. Fail if not!
-        self.assertNotEqual(sock.connect_ex(('127.0.0.1',self.gui.app.port)), 0)
+    @pytest.mark.run(order=10)
+    def test_server_status_indicator_says_starting(self):
+        CommonTests.test_server_status_indicator_says_starting(self, 'share')
+
+    @pytest.mark.run(order=11)
+    def test_a_server_is_started(self):
+       CommonTests.test_a_server_is_started(self, 'share')
+
+    @pytest.mark.run(order=12)
+    def test_a_web_server_is_running(self):
+        CommonTests.test_a_web_server_is_running(self)
+
+    @pytest.mark.run(order=13)
+    def test_timeout_widget_hidden(self):
+        CommonTests.test_timeout_widget_hidden(self, 'share')
+
+    @pytest.mark.run(order=14)
+    def test_timeout(self):
+        CommonTests.test_server_timed_out(self, 'share', 120000)
+
+    @pytest.mark.run(order=15)
+    def test_web_service_is_stopped(self):
+        CommonTests.test_web_service_is_stopped(self)
 
 if __name__ == "__main__":
     unittest.main()
