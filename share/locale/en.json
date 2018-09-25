@@ -117,7 +117,7 @@
     "settings_error_bundled_tor_not_supported": "Using the Tor version that comes with OnionShare does not work in developer mode on Windows or macOS.",
     "settings_error_bundled_tor_timeout": "Taking too long to connect to Tor. Maybe you aren't connected to the Internet, or have an inaccurate system clock?",
     "settings_error_bundled_tor_broken": "OnionShare could not connect to Tor in the background:\n{}",
-    "settings_test_success": "Connected to the Tor controller.\n\nTor version: {}\nSupports ephemeral onion services: {}.\nSupports client authentication: {}.",
+    "settings_test_success": "Connected to the Tor controller.\n\nTor version: {}\nSupports ephemeral onion services: {}.\nSupports client authentication: {}.\nSupports next-gen .onion addresses: {}.",
     "error_tor_protocol_error": "There was an error with Tor: {}",
     "error_tor_protocol_error_unknown": "There was an unknown error with Tor",
     "error_invalid_private_key": "This private key type is unsupported",
