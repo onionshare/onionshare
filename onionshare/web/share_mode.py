@@ -71,9 +71,9 @@ class ShareModeWeb(object):
 
             # If download is allowed to continue, serve download page
             if self.should_use_gzip():
-                filesize = self.gzip_filesize
+                self.filesize = self.gzip_filesize
             else:
-                filesize = self.download_filesize
+                self.filesize = self.download_filesize
 
             if self.web.slug:
                 r = make_response(render_template(
@@ -81,7 +81,7 @@ class ShareModeWeb(object):
                     slug=self.web.slug,
                     file_info=self.file_info,
                     filename=os.path.basename(self.download_filename),
-                    filesize=filesize,
+                    filesize=self.filesize,
                     filesize_human=self.common.human_readable_filesize(self.download_filesize),
                     is_zipped=self.is_zipped))
             else:
@@ -90,7 +90,7 @@ class ShareModeWeb(object):
                     'send.html',
                     file_info=self.file_info,
                     filename=os.path.basename(self.download_filename),
-                    filesize=filesize,
+                    filesize=self.filesize,
                     filesize_human=self.common.human_readable_filesize(self.download_filesize),
                     is_zipped=self.is_zipped))
             return self.web.add_security_headers(r)
@@ -132,10 +132,10 @@ class ShareModeWeb(object):
             use_gzip = self.should_use_gzip()
             if use_gzip:
                 file_to_download = self.gzip_filename
-                filesize = self.gzip_filesize
+                self.filesize = self.gzip_filesize
             else:
                 file_to_download = self.download_filename
-                filesize = self.download_filesize
+                self.filesize = self.download_filesize
 
             # Tell GUI the download started
             self.web.add_request(self.web.REQUEST_STARTED, path, {
@@ -175,7 +175,7 @@ class ShareModeWeb(object):
 
                             # tell GUI the progress
                             downloaded_bytes = fp.tell()
-                            percent = (1.0 * downloaded_bytes / filesize) * 100
+                            percent = (1.0 * downloaded_bytes / self.filesize) * 100
 
                             # only output to stdout if running onionshare in CLI mode, or if using Linux (#203, #304)
                             if not self.web.is_gui or self.common.platform == 'Linux' or self.common.platform == 'BSD':
@@ -221,7 +221,7 @@ class ShareModeWeb(object):
             r = Response(generate())
             if use_gzip:
                 r.headers.set('Content-Encoding', 'gzip')
-            r.headers.set('Content-Length', filesize)
+            r.headers.set('Content-Length', self.filesize)
             r.headers.set('Content-Disposition', 'attachment', filename=basename)
             r = self.web.add_security_headers(r)
             # guess content type

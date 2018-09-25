@@ -246,7 +246,7 @@ class ShareMode(Mode):
         self.downloads.update(event["data"]["id"], event["data"]["bytes"])
 
         # Is the download complete?
-        if event["data"]["bytes"] == self.web.share_mode.download_filesize:
+        if event["data"]["bytes"] == self.web.share_mode.filesize:
             self.system_tray.showMessage(strings._('systray_download_completed_title', True), strings._('systray_download_completed_message', True))
 
             # Update the total 'completed downloads' info
