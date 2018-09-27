@@ -44,7 +44,7 @@ class ServerStatus(QtWidgets.QWidget):
     STATUS_WORKING = 1
     STATUS_STARTED = 2
 
-    def __init__(self, common, qtapp, app, file_selection=None):
+    def __init__(self, common, qtapp, app, file_selection=None, local_only=False):
         super(ServerStatus, self).__init__()
 
         self.common = common
@@ -56,17 +56,23 @@ class ServerStatus(QtWidgets.QWidget):
         self.app = app
 
         self.web = None
+        self.local_only = local_only
 
         self.resizeEvent(None)
 
         # Shutdown timeout layout
         self.shutdown_timeout_label = QtWidgets.QLabel(strings._('gui_settings_shutdown_timeout', True))
         self.shutdown_timeout = QtWidgets.QDateTimeEdit()
-        # Set proposed timeout to be 5 minutes into the future
         self.shutdown_timeout.setDisplayFormat("hh:mm A MMM d, yy")
-        self.shutdown_timeout.setDateTime(QtCore.QDateTime.currentDateTime().addSecs(300))
-        # Onion services can take a little while to start, so reduce the risk of it expiring too soon by setting the minimum to 2 min from now
-        self.shutdown_timeout.setMinimumDateTime(QtCore.QDateTime.currentDateTime().addSecs(120))
+        if self.local_only:
+            # For testing
+            self.shutdown_timeout.setDateTime(QtCore.QDateTime.currentDateTime().addSecs(15))
+            self.shutdown_timeout.setMinimumDateTime(QtCore.QDateTime.currentDateTime())
+        else:
+            # Set proposed timeout to be 5 minutes into the future
+            self.shutdown_timeout.setDateTime(QtCore.QDateTime.currentDateTime().addSecs(300))
+            # Onion services can take a little while to start, so reduce the risk of it expiring too soon by setting the minimum to 60s from now
+            self.shutdown_timeout.setMinimumDateTime(QtCore.QDateTime.currentDateTime().addSecs(60))
         self.shutdown_timeout.setCurrentSection(QtWidgets.QDateTimeEdit.MinuteSection)
         shutdown_timeout_layout = QtWidgets.QHBoxLayout()
         shutdown_timeout_layout.addWidget(self.shutdown_timeout_label)
@@ -154,7 +160,8 @@ class ServerStatus(QtWidgets.QWidget):
         Reset the timeout in the UI after stopping a share
         """
         self.shutdown_timeout.setDateTime(QtCore.QDateTime.currentDateTime().addSecs(300))
-        self.shutdown_timeout.setMinimumDateTime(QtCore.QDateTime.currentDateTime().addSecs(120))
+        if not self.local_only:
+            self.shutdown_timeout.setMinimumDateTime(QtCore.QDateTime.currentDateTime().addSecs(60))
 
     def update(self):
         """
@@ -255,8 +262,11 @@ class ServerStatus(QtWidgets.QWidget):
         """
         if self.status == self.STATUS_STOPPED:
             if self.common.settings.get('shutdown_timeout'):
-                # Get the timeout chosen, stripped of its seconds. This prevents confusion if the share stops at (say) 37 seconds past the minute chosen
-                self.timeout = self.shutdown_timeout.dateTime().toPyDateTime().replace(second=0, microsecond=0)
+                if self.local_only:
+                    self.timeout = self.shutdown_timeout.dateTime().toPyDateTime()
+                else:
+                    # Get the timeout chosen, stripped of its seconds. This prevents confusion if the share stops at (say) 37 seconds past the minute chosen
+                    self.timeout = self.shutdown_timeout.dateTime().toPyDateTime().replace(second=0, microsecond=0)
                 # If the timeout has actually passed already before the user hit Start, refuse to start the server.
                 if QtCore.QDateTime.currentDateTime().toPyDateTime() > self.timeout:
                     Alert(self.common, strings._('gui_server_timeout_expired', QtWidgets.QMessageBox.Warning))
