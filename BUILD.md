@@ -155,3 +155,12 @@ If you would like to run the GUI unit tests in 'local only mode':
 cd tests_gui_local/
 ./run_unit_tests.sh
 ```
+
+If you would like to run the GUI unit tests in 'tor' (bundled) mode:
+
+```sh
+cd tests_gui_tor/
+./run_unit_tests.sh
+```
+
+Keep in mind that the Tor tests take a lot longer to run than local mode, but they are also more comprehensive.
