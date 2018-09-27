@@ -108,7 +108,7 @@ class OnionShareGuiTest(unittest.TestCase):
 
     @pytest.mark.run(order=8)
     def test_set_timeout(self):
-        CommonTests.test_set_timeout(self, 'share')
+        CommonTests.test_set_timeout(self, 'share', 5)
 
     @pytest.mark.run(order=9)
     def test_server_working_on_start_button_pressed(self):
@@ -132,7 +132,7 @@ class OnionShareGuiTest(unittest.TestCase):
 
     @pytest.mark.run(order=14)
     def test_timeout(self):
-        CommonTests.test_server_timed_out(self, 'share', 120000)
+        CommonTests.test_server_timed_out(self, 'share', 10000)
 
     @pytest.mark.run(order=15)
     def test_web_service_is_stopped(self):

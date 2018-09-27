@@ -203,9 +203,9 @@ class CommonTests(object):
                 self.assertEquals(self.gui.share_mode.server_status_label.text(), strings._('closing_automatically', True))
 
     # Auto-stop timer tests
-    def test_set_timeout(self, mode):
+    def test_set_timeout(self, mode, timeout):
         '''Test that the timeout can be set'''
-        timer = QtCore.QDateTime.currentDateTime().addSecs(120)
+        timer = QtCore.QDateTime.currentDateTime().addSecs(timeout)
         if mode == 'receive':
             self.gui.receive_mode.server_status.shutdown_timeout.setDateTime(timer)
             self.assertTrue(self.gui.receive_mode.server_status.shutdown_timeout.dateTime(), timer)
