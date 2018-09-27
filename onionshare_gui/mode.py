@@ -37,7 +37,7 @@ class Mode(QtWidgets.QWidget):
     starting_server_error = QtCore.pyqtSignal(str)
     set_server_active = QtCore.pyqtSignal(bool)
 
-    def __init__(self, common, qtapp, app, status_bar, server_status_label, system_tray, filenames=None):
+    def __init__(self, common, qtapp, app, status_bar, server_status_label, system_tray, filenames=None, local_only=False):
         super(Mode, self).__init__()
         self.common = common
         self.qtapp = qtapp
@@ -54,12 +54,15 @@ class Mode(QtWidgets.QWidget):
         # The web object gets created in init()
         self.web = None
 
+        # Local mode is passed from OnionShareGui
+        self.local_only = local_only
+
         # Threads start out as None
         self.onion_thread = None
         self.web_thread = None
 
         # Server status
-        self.server_status = ServerStatus(self.common, self.qtapp, self.app)
+        self.server_status = ServerStatus(self.common, self.qtapp, self.app, None, self.local_only)
         self.server_status.server_started.connect(self.start_server)
         self.server_status.server_stopped.connect(self.stop_server)
         self.server_status.server_canceled.connect(self.cancel_server)
