@@ -137,8 +137,30 @@ This will prompt you to codesign three binaries and execute one unsigned binary.
 
 ## Tests
 
-OnionShare includes PyTest unit tests. To run the tests:
+OnionShare includes PyTest unit tests. To run the tests, first install some dependencies:
 
 ```sh
-pytest test/
+pip3 install -r install/requirements-tests.txt
 ```
+
+If you'd like to run the CLI-based tests that Travis runs:
+
+```sh
+pytest tests/
+```
+
+If you would like to run the GUI unit tests in 'local only mode':
+
+```sh
+cd tests_gui_local/
+./run_unit_tests.sh
+```
+
+If you would like to run the GUI unit tests in 'tor' (bundled) mode:
+
+```sh
+cd tests_gui_tor/
+./run_unit_tests.sh
+```
+
+Keep in mind that the Tor tests take a lot longer to run than local mode, but they are also more comprehensive.
