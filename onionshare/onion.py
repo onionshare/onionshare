@@ -402,6 +402,8 @@ class Onion(object):
             # ephemeral stealth onion services are not supported
             self.supports_stealth = False
 
+        # Does this version of Tor support next-gen ('v3') onions?
+        self.supports_next_gen_onions = self.tor_version > Version('0.3.3.1')
 
     def is_authenticated(self):
         """

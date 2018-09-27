@@ -746,7 +746,7 @@ class SettingsDialog(QtWidgets.QDialog):
             onion.connect(custom_settings=settings, config=self.config, tor_status_update_func=tor_status_update_func)
 
             # If an exception hasn't been raised yet, the Tor settings work
-            Alert(self.common, strings._('settings_test_success', True).format(onion.tor_version, onion.supports_ephemeral, onion.supports_stealth))
+            Alert(self.common, strings._('settings_test_success', True).format(onion.tor_version, onion.supports_ephemeral, onion.supports_stealth, onion.supports_next_gen_onions))
 
             # Clean up
             onion.cleanup()
