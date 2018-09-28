@@ -14,8 +14,6 @@ from onionshare_gui import *
 
 from .commontests import CommonTests
 
-app = QtWidgets.QApplication(sys.argv)
-
 class OnionShareGuiTest(unittest.TestCase):
     '''Test the OnionShare GUI'''
     @classmethod
@@ -48,7 +46,7 @@ class OnionShareGuiTest(unittest.TestCase):
             "control_port_port": 9051,
             "downloads_dir": "/tmp/OnionShare",
             "hidservauth_string": "",
-            "no_bridges": True, 
+            "no_bridges": True,
             "private_key": "",
             "public_mode": False,
             "receive_allow_receiver_shutdown": True,
@@ -72,7 +70,7 @@ class OnionShareGuiTest(unittest.TestCase):
         open(testsettings, 'w').write(json.dumps(test_settings))
 
         cls.gui = OnionShareGui(common, testonion, qtapp, app, ['/tmp/test.txt'], testsettings, False)
-        
+
     @classmethod
     def tearDownClass(cls):
         '''Clean up after tests'''
