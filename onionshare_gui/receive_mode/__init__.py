@@ -63,10 +63,19 @@ class ReceiveMode(Mode):
         self.update_uploads_completed()
         self.update_uploads_in_progress()
 
+        self.info_toggle_button = QtWidgets.QPushButton()
+        self.info_toggle_button.setDefault(False)
+        self.info_toggle_button.setFixedWidth(30)
+        self.info_toggle_button.setFixedHeight(30)
+        self.info_toggle_button.setFlat(True)
+        self.info_toggle_button.setIcon( QtGui.QIcon(self.common.get_resource_path('images/uploads_toggle.png')) )
+        self.info_toggle_button.clicked.connect(self.toggle_uploads)
+
         self.info_layout = QtWidgets.QHBoxLayout()
         self.info_layout.addStretch()
         self.info_layout.addWidget(self.info_in_progress_uploads_count)
         self.info_layout.addWidget(self.info_completed_uploads_count)
+        self.info_layout.addWidget(self.info_toggle_button)
 
         self.info_widget = QtWidgets.QWidget()
         self.info_widget.setLayout(self.info_layout)
@@ -226,4 +235,21 @@ class ReceiveMode(Mode):
             self.info_widget.hide()
 
         # Resize window
-        self.adjustSize()
+        self.adjust_size.emit()
+
+    def toggle_uploads(self):
+        """
+        Toggle showing and hiding the Uploads widget
+        """
+        self.common.log('ReceiveMode', 'toggle_uploads')
+
+        if self.uploads.isVisible():
+            self.uploads.hide()
+            self.info_toggle_button.setIcon( QtGui.QIcon(self.common.get_resource_path('images/uploads_toggle.png')) )
+            self.info_toggle_button.setFlat(True)
+        else:
+            self.uploads.show()
+            self.info_toggle_button.setIcon( QtGui.QIcon(self.common.get_resource_path('images/uploads_toggle_selected.png')) )
+            self.info_toggle_button.setFlat(False)
+
+        self.adjust_size.emit()

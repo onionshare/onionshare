@@ -226,7 +226,7 @@ class ShareMode(Mode):
         Stop the compression thread on cancel
         """
         if self.compress_thread:
-            self.common.log('OnionShareGui', 'cancel_server: quitting compress thread')
+            self.common.log('ShareMode', 'cancel_server: quitting compress thread')
             self.compress_thread.quit()
 
     def handle_tor_broke_custom(self):
@@ -305,6 +305,8 @@ class ShareMode(Mode):
             self.info_widget.show()
 
     def update_primary_action(self):
+        self.common.log('ShareMode', 'update_primary_action')
+
         # Show or hide primary action layout
         file_count = self.file_selection.file_list.count()
         if file_count > 0:
@@ -328,7 +330,7 @@ class ShareMode(Mode):
             self.info_widget.hide()
 
         # Resize window
-        self.adjustSize()
+        self.adjust_size.emit()
 
     def reset_info_counters(self):
         """
@@ -366,7 +368,18 @@ class ShareMode(Mode):
         """
         Toggle showing and hiding the Downloads widget
         """
-        pass
+        self.common.log('ShareMode', 'toggle_downloads')
+
+        if self.downloads.isVisible():
+            self.downloads.hide()
+            self.info_toggle_button.setIcon( QtGui.QIcon(self.common.get_resource_path('images/downloads_toggle.png')) )
+            self.info_toggle_button.setFlat(True)
+        else:
+            self.downloads.show()
+            self.info_toggle_button.setIcon( QtGui.QIcon(self.common.get_resource_path('images/downloads_toggle_selected.png')) )
+            self.info_toggle_button.setFlat(False)
+
+        self.adjust_size.emit()
 
     @staticmethod
     def _compute_total_size(filenames):
