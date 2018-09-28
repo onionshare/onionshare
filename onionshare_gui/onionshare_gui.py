@@ -55,7 +55,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         self.setWindowTitle('OnionShare')
         self.setWindowIcon(QtGui.QIcon(self.common.get_resource_path('images/logo.png')))
-        self.setMinimumWidth(850)
 
         # Load settings
         self.config = config
@@ -194,8 +193,8 @@ class OnionShareGui(QtWidgets.QMainWindow):
             self.share_mode_button.setStyleSheet(self.common.css['mode_switcher_selected_style'])
             self.receive_mode_button.setStyleSheet(self.common.css['mode_switcher_unselected_style'])
 
-            self.share_mode.show()
             self.receive_mode.hide()
+            self.share_mode.show()
         else:
             self.share_mode_button.setStyleSheet(self.common.css['mode_switcher_unselected_style'])
             self.receive_mode_button.setStyleSheet(self.common.css['mode_switcher_selected_style'])
