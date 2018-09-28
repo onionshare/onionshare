@@ -132,6 +132,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.share_mode.server_status.url_copied.connect(self.copy_url)
         self.share_mode.server_status.hidservauth_copied.connect(self.copy_hidservauth)
         self.share_mode.set_server_active.connect(self.set_server_active)
+        self.share_mode.adjust_size.connect(self.adjust_size)
 
         # Receive mode
         self.receive_mode = ReceiveMode(self.common, qtapp, app, self.status_bar, self.server_status_label, self.system_tray, None, self.local_only)
@@ -146,6 +147,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.receive_mode.server_status.url_copied.connect(self.copy_url)
         self.receive_mode.server_status.hidservauth_copied.connect(self.copy_hidservauth)
         self.receive_mode.set_server_active.connect(self.set_server_active)
+        self.receive_mode.adjust_size.connect(self.adjust_size)
 
         self.update_mode_switcher()
         self.update_server_status_indicator()
@@ -441,6 +443,11 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         # Disable settings menu action when server is active
         self.settings_action.setEnabled(not active)
+
+    def adjust_size(self):
+        self.share_mode.adjustSize()
+        self.receive_mode.adjustSize()
+        self.adjustSize()
 
     def closeEvent(self, e):
         self.common.log('OnionShareGui', 'closeEvent')

@@ -36,6 +36,7 @@ class Mode(QtWidgets.QWidget):
     starting_server_step3 = QtCore.pyqtSignal()
     starting_server_error = QtCore.pyqtSignal(str)
     set_server_active = QtCore.pyqtSignal(bool)
+    adjust_size = QtCore.pyqtSignal()
 
     def __init__(self, common, qtapp, app, status_bar, server_status_label, system_tray, filenames=None, local_only=False):
         super(Mode, self).__init__()
