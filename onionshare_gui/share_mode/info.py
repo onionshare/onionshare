@@ -22,20 +22,21 @@ from PyQt5 import QtCore, QtWidgets, QtGui
 from onionshare import strings
 
 
-class Info(QtWidgets.QWidget):
+class ShareModeInfo(QtWidgets.QWidget):
     """
     Share mode information widget
     """
     def __init__(self, common, share_mode):
-        super(Info, self).__init__()
+        super(ShareModeInfo, self).__init__()
         self.common = common
         self.share_mode = share_mode
 
         # Label
+        self.label_text = ""
         self.label = QtWidgets.QLabel()
         self.label.setStyleSheet(self.common.css['mode_info_label'])
 
-        # In prorgess and completed labels
+        # In progress and completed labels
         self.in_progress_downloads_count = QtWidgets.QLabel()
         self.in_progress_downloads_count.setStyleSheet(self.common.css['mode_info_label'])
         self.completed_downloads_count = QtWidgets.QLabel()
@@ -66,7 +67,8 @@ class Info(QtWidgets.QWidget):
         """
         Updates the text of the label.
         """
-        self.label.setText(s)
+        self.label_text = s
+        self.label.setText(self.label_text)
 
     def update_downloads_completed(self):
         """
@@ -94,7 +96,7 @@ class Info(QtWidgets.QWidget):
         """
         Toggle showing and hiding the Downloads widget
         """
-        self.common.log('ShareMode', 'toggle_downloads')
+        self.common.log('ShareModeInfo', 'toggle_downloads')
 
         if self.share_mode.downloads.isVisible():
             self.share_mode.downloads.hide()
@@ -111,10 +113,10 @@ class Info(QtWidgets.QWidget):
         """
         Remove clutter widgets that aren't necessary.
         """
-        self.label.hide()
+        self.label.setText("")
 
     def show_more(self):
         """
         Show all widgets.
         """
-        self.label.show()
+        self.label.setText(self.label_text)
