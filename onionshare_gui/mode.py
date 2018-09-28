@@ -36,7 +36,7 @@ class Mode(QtWidgets.QWidget):
     starting_server_step3 = QtCore.pyqtSignal()
     starting_server_error = QtCore.pyqtSignal(str)
     set_server_active = QtCore.pyqtSignal(bool)
-    adjust_size = QtCore.pyqtSignal()
+    adjust_size = QtCore.pyqtSignal(int)
 
     def __init__(self, common, qtapp, app, status_bar, server_status_label, system_tray, filenames=None, local_only=False):
         super(Mode, self).__init__()
@@ -332,3 +332,22 @@ class Mode(QtWidgets.QWidget):
         Handle REQUEST_UPLOAD_FINISHED event.
         """
         pass
+
+    def resize_window(self):
+        """
+        We call this to force the OnionShare window to resize itself to be smaller.
+        For this to do anything, the Mode needs to override it and call:
+
+        self.adjust_size.emit(min_width)
+
+        It can calculate min_width (the new minimum window width) based on what
+        widgets are visible.
+        """
+        pass
+
+    def show(self):
+        """
+        Always resize the window after showing this Mode widget.
+        """
+        super(Mode, self).show()
+        self.resize_window()

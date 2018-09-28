@@ -330,7 +330,7 @@ class ShareMode(Mode):
             self.info_widget.hide()
 
         # Resize window
-        self.adjust_size.emit()
+        self.resize_window()
 
     def reset_info_counters(self):
         """
@@ -379,7 +379,13 @@ class ShareMode(Mode):
             self.info_toggle_button.setIcon( QtGui.QIcon(self.common.get_resource_path('images/downloads_toggle_selected.png')) )
             self.info_toggle_button.setFlat(False)
 
-        self.adjust_size.emit()
+        self.resize_window()
+
+    def resize_window(self):
+        min_width = 450
+        if self.downloads.isVisible():
+            min_width += 300
+        self.adjust_size.emit(min_width)
 
     @staticmethod
     def _compute_total_size(filenames):
