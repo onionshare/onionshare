@@ -89,11 +89,20 @@ class ShareMode(Mode):
         self.update_downloads_completed()
         self.update_downloads_in_progress()
 
+        self.info_toggle_button = QtWidgets.QPushButton()
+        self.info_toggle_button.setDefault(False)
+        self.info_toggle_button.setFixedWidth(30)
+        self.info_toggle_button.setFixedHeight(30)
+        self.info_toggle_button.setFlat(True)
+        self.info_toggle_button.setIcon( QtGui.QIcon(self.common.get_resource_path('images/downloads_toggle.png')) )
+        self.info_toggle_button.clicked.connect(self.toggle_downloads)
+
         self.info_layout = QtWidgets.QHBoxLayout()
         self.info_layout.addWidget(self.info_label)
         self.info_layout.addStretch()
         self.info_layout.addWidget(self.info_in_progress_downloads_count)
         self.info_layout.addWidget(self.info_completed_downloads_count)
+        self.info_layout.addWidget(self.info_toggle_button)
 
         self.info_widget = QtWidgets.QWidget()
         self.info_widget.setLayout(self.info_layout)
@@ -352,6 +361,12 @@ class ShareMode(Mode):
             image = self.common.get_resource_path('images/share_in_progress.png')
         self.info_in_progress_downloads_count.setText('<img src="{0:s}" /> {1:d}'.format(image, self.downloads_in_progress))
         self.info_in_progress_downloads_count.setToolTip(strings._('info_in_progress_downloads_tooltip', True).format(self.downloads_in_progress))
+
+    def toggle_downloads(self):
+        """
+        Toggle showing and hiding the Downloads widget
+        """
+        pass
 
     @staticmethod
     def _compute_total_size(filenames):
