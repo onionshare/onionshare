@@ -168,6 +168,9 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.setCentralWidget(central_widget)
         self.show()
 
+        # Adjust window size, to start with a minimum window width
+        self.adjust_size(450)
+
         # The server isn't active yet
         self.set_server_active(False)
 
@@ -444,10 +447,14 @@ class OnionShareGui(QtWidgets.QMainWindow):
         # Disable settings menu action when server is active
         self.settings_action.setEnabled(not active)
 
-    def adjust_size(self):
+    def adjust_size(self, min_width):
         """
-        Recursively adjust size on all widgets
+        Recursively adjust size on all widgets. min_width is the new minimum width
+        of the window.
         """
+        self.common.log("OnionShareGui", "adjust_size", "min_width={}".format(min_width))
+        self.setMinimumWidth(min_width)
+
         # Recursively adjust sizes for the modes
         def adjust_size_layout(layout):
             count = layout.count()
@@ -465,8 +472,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
             layout = widget.layout()
             if layout:
                 adjust_size_layout(layout)
-            # Processing Qt events before adjusting size makes each .adjustSize() actually count
-            self.qtapp.processEvents()
             widget.adjustSize()
 
         # Adjust sizes of each mode
@@ -474,6 +479,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
             adjust_size_widget(mode)
 
         # Adjust window size
+        self.qtapp.processEvents()
         self.adjustSize()
 
     def closeEvent(self, e):
