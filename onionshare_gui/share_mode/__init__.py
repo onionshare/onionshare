@@ -28,7 +28,7 @@ from onionshare.web import Web
 from .file_selection import FileSelection
 from .downloads import Downloads
 from .threads import CompressThread
-from .info import Info
+from .info import ShareModeInfo
 from ..mode import Mode
 from ..widgets import Alert
 
@@ -78,7 +78,7 @@ class ShareMode(Mode):
         self.downloads_completed = 0
 
         # Information about share, and show downloads button
-        self.info = Info(self.common, self)
+        self.info = ShareModeInfo(self.common, self)
 
         # Primary action layout
         self.primary_action_layout.addWidget(self.filesize_warning)

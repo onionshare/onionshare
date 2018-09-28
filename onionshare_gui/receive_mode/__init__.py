@@ -23,6 +23,7 @@ from onionshare import strings
 from onionshare.web import Web
 
 from .uploads import Uploads
+from .info import ReceiveModeInfo
 from ..mode import Mode
 
 class ReceiveMode(Mode):
@@ -54,32 +55,8 @@ class ReceiveMode(Mode):
         self.new_upload = False # For scrolling to the bottom of the uploads list
 
         # Information about share, and show uploads button
-        self.info_in_progress_uploads_count = QtWidgets.QLabel()
-        self.info_in_progress_uploads_count.setStyleSheet(self.common.css['mode_info_label'])
-
-        self.info_completed_uploads_count = QtWidgets.QLabel()
-        self.info_completed_uploads_count.setStyleSheet(self.common.css['mode_info_label'])
-
-        self.update_uploads_completed()
-        self.update_uploads_in_progress()
-
-        self.info_toggle_button = QtWidgets.QPushButton()
-        self.info_toggle_button.setDefault(False)
-        self.info_toggle_button.setFixedWidth(30)
-        self.info_toggle_button.setFixedHeight(30)
-        self.info_toggle_button.setFlat(True)
-        self.info_toggle_button.setIcon( QtGui.QIcon(self.common.get_resource_path('images/uploads_toggle.png')) )
-        self.info_toggle_button.clicked.connect(self.toggle_uploads)
-
-        self.info_layout = QtWidgets.QHBoxLayout()
-        self.info_layout.addStretch()
-        self.info_layout.addWidget(self.info_in_progress_uploads_count)
-        self.info_layout.addWidget(self.info_completed_uploads_count)
-        self.info_layout.addWidget(self.info_toggle_button)
-
-        self.info_widget = QtWidgets.QWidget()
-        self.info_widget.setLayout(self.info_layout)
-        self.info_widget.hide()
+        self.info = ReceiveModeInfo(self.common, self)
+        self.info.show_less()
 
         # Receive mode info
         self.receive_info = QtWidgets.QLabel(strings._('gui_receive_mode_warning', True))
@@ -88,7 +65,7 @@ class ReceiveMode(Mode):
 
         # Main layout
         self.main_layout = QtWidgets.QVBoxLayout()
-        self.main_layout.addWidget(self.info_widget)
+        self.main_layout.addWidget(self.info)
         self.main_layout.addWidget(self.receive_info)
         self.main_layout.addWidget(self.primary_action)
         self.main_layout.addStretch()
@@ -137,7 +114,7 @@ class ReceiveMode(Mode):
         Connection to Tor broke.
         """
         self.primary_action.hide()
-        self.info_widget.hide()
+        self.info.show_less()
 
     def handle_request_load(self, event):
         """
@@ -151,7 +128,7 @@ class ReceiveMode(Mode):
         """
         self.uploads.add(event["data"]["id"], event["data"]["content_length"])
         self.uploads_in_progress += 1
-        self.update_uploads_in_progress()
+        self.info.update_uploads_in_progress()
 
         self.system_tray.showMessage(strings._('systray_upload_started_title', True), strings._('systray_upload_started_message', True))
 
@@ -181,17 +158,17 @@ class ReceiveMode(Mode):
         self.uploads.finished(event["data"]["id"])
         # Update the total 'completed uploads' info
         self.uploads_completed += 1
-        self.update_uploads_completed()
+        self.info.update_uploads_completed()
         # Update the 'in progress uploads' info
         self.uploads_in_progress -= 1
-        self.update_uploads_in_progress()
+        self.info.update_uploads_in_progress()
 
     def on_reload_settings(self):
         """
         We should be ok to re-enable the 'Start Receive Mode' button now.
         """
         self.primary_action.show()
-        self.info_widget.show()
+        self.info.show_more()
 
     def reset_info_counters(self):
         """
@@ -199,59 +176,20 @@ class ReceiveMode(Mode):
         """
         self.uploads_completed = 0
         self.uploads_in_progress = 0
-        self.update_uploads_completed()
-        self.update_uploads_in_progress()
+        self.info.update_uploads_completed()
+        self.info.update_uploads_in_progress()
         self.uploads.reset()
-
-    def update_uploads_completed(self):
-        """
-        Update the 'Uploads completed' info widget.
-        """
-        if self.uploads_completed == 0:
-            image = self.common.get_resource_path('images/share_completed_none.png')
-        else:
-            image = self.common.get_resource_path('images/share_completed.png')
-        self.info_completed_uploads_count.setText('<img src="{0:s}" /> {1:d}'.format(image, self.uploads_completed))
-        self.info_completed_uploads_count.setToolTip(strings._('info_completed_uploads_tooltip', True).format(self.uploads_completed))
-
-    def update_uploads_in_progress(self):
-        """
-        Update the 'Uploads in progress' info widget.
-        """
-        if self.uploads_in_progress == 0:
-            image = self.common.get_resource_path('images/share_in_progress_none.png')
-        else:
-            image = self.common.get_resource_path('images/share_in_progress.png')
-        self.info_in_progress_uploads_count.setText('<img src="{0:s}" /> {1:d}'.format(image, self.uploads_in_progress))
-        self.info_in_progress_uploads_count.setToolTip(strings._('info_in_progress_uploads_tooltip', True).format(self.uploads_in_progress))
 
     def update_primary_action(self):
         self.common.log('ReceiveMode', 'update_primary_action')
 
         # Show the info widget when the server is active
         if self.server_status.status == self.server_status.STATUS_STARTED:
-            self.info_widget.show()
+            self.info.show_more()
         else:
-            self.info_widget.hide()
+            self.info.show_less()
 
         # Resize window
-        self.resize_window()
-
-    def toggle_uploads(self):
-        """
-        Toggle showing and hiding the Uploads widget
-        """
-        self.common.log('ReceiveMode', 'toggle_uploads')
-
-        if self.uploads.isVisible():
-            self.uploads.hide()
-            self.info_toggle_button.setIcon( QtGui.QIcon(self.common.get_resource_path('images/uploads_toggle.png')) )
-            self.info_toggle_button.setFlat(True)
-        else:
-            self.uploads.show()
-            self.info_toggle_button.setIcon( QtGui.QIcon(self.common.get_resource_path('images/uploads_toggle_selected.png')) )
-            self.info_toggle_button.setFlat(False)
-
         self.resize_window()
 
     def resize_window(self):

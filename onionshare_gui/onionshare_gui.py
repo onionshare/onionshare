@@ -452,7 +452,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
         Recursively adjust size on all widgets. min_width is the new minimum width
         of the window.
         """
-        self.common.log("OnionShareGui", "adjust_size", "min_width={}".format(min_width))
         self.setMinimumWidth(min_width)
 
         # Recursively adjust sizes for the modes
