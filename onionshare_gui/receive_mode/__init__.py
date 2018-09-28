@@ -76,11 +76,19 @@ class ReceiveMode(Mode):
         self.receive_info.setMinimumHeight(80)
         self.receive_info.setWordWrap(True)
 
+        # Main layout
+        self.main_layout = QtWidgets.QVBoxLayout()
+        self.main_layout.addWidget(self.info_widget)
+        self.main_layout.addWidget(self.receive_info)
+        self.main_layout.addWidget(self.primary_action)
+        self.main_layout.addStretch()
+        self.main_layout.addWidget(self.min_width_widget)
+
         # Layout
-        self.layout.insertWidget(0, self.receive_info)
-        self.layout.insertWidget(0, self.info_widget)
-        self.layout.addStretch()
-        self.horizontal_layout_wrapper.addWidget(self.uploads)
+        self.layout = QtWidgets.QHBoxLayout()
+        self.layout.addLayout(self.main_layout)
+        self.layout.addWidget(self.uploads)
+        self.setLayout(self.layout)
 
     def get_stop_server_shutdown_timeout_text(self):
         """
