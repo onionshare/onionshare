@@ -106,10 +106,18 @@ class ShareMode(Mode):
         # Status bar, zip progress bar
         self._zip_progress_bar = None
 
+        # Main layout
+        self.main_layout = QtWidgets.QVBoxLayout()
+        self.main_layout.addWidget(self.info_widget)
+        self.main_layout.addLayout(self.file_selection)
+        self.main_layout.addWidget(self.primary_action)
+        self.main_layout.addWidget(self.min_width_widget)
+
         # Layout
-        self.layout.insertLayout(0, self.file_selection)
-        self.layout.insertWidget(0, self.info_widget)
-        self.horizontal_layout_wrapper.addWidget(self.downloads)
+        self.layout = QtWidgets.QHBoxLayout()
+        self.layout.addLayout(self.main_layout)
+        self.layout.addWidget(self.downloads)
+        self.setLayout(self.layout)
 
         # Always start with focus on file selection
         self.file_selection.setFocus()
