@@ -454,7 +454,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
         """
         self.setMinimumWidth(min_width)
 
-        # Recursively adjust sizes for the modes
         def adjust_size_layout(layout):
             count = layout.count()
             for i in range(count):

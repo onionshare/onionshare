@@ -350,4 +350,5 @@ class Mode(QtWidgets.QWidget):
         Always resize the window after showing this Mode widget.
         """
         super(Mode, self).show()
+        self.qtapp.processEvents()
         self.resize_window()
