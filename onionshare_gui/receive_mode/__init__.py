@@ -94,11 +94,11 @@ class ReceiveMode(Mode):
         self.main_layout.addStretch()
         self.main_layout.addWidget(self.min_width_widget)
 
-        # Layout
-        self.layout = QtWidgets.QHBoxLayout()
-        self.layout.addLayout(self.main_layout)
-        self.layout.addWidget(self.uploads)
-        self.setLayout(self.layout)
+        # Wrapper layout
+        self.wrapper_layout = QtWidgets.QHBoxLayout()
+        self.wrapper_layout.addLayout(self.main_layout)
+        self.wrapper_layout.addWidget(self.uploads)
+        self.setLayout(self.wrapper_layout)
 
     def get_stop_server_shutdown_timeout_text(self):
         """

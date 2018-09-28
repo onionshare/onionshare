@@ -445,8 +445,35 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.settings_action.setEnabled(not active)
 
     def adjust_size(self):
-        self.share_mode.adjustSize()
-        self.receive_mode.adjustSize()
+        """
+        Recursively adjust size on all widgets
+        """
+        # Recursively adjust sizes for the modes
+        def adjust_size_layout(layout):
+            count = layout.count()
+            for i in range(count):
+                item = layout.itemAt(i)
+                if item:
+                    child_widget = item.widget()
+                    if child_widget:
+                        adjust_size_widget(child_widget)
+                    child_layout = item.layout()
+                    if child_layout:
+                        adjust_size_layout(child_layout)
+
+        def adjust_size_widget(widget):
+            layout = widget.layout()
+            if layout:
+                adjust_size_layout(layout)
+            # Processing Qt events before adjusting size makes each .adjustSize() actually count
+            self.qtapp.processEvents()
+            widget.adjustSize()
+
+        # Adjust sizes of each mode
+        for mode in [self.share_mode, self.receive_mode]:
+            adjust_size_widget(mode)
+
+        # Adjust window size
         self.adjustSize()
 
     def closeEvent(self, e):

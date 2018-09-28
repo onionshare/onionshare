@@ -122,11 +122,11 @@ class ShareMode(Mode):
         self.main_layout.addWidget(self.primary_action)
         self.main_layout.addWidget(self.min_width_widget)
 
-        # Layout
-        self.layout = QtWidgets.QHBoxLayout()
-        self.layout.addLayout(self.main_layout)
-        self.layout.addWidget(self.downloads)
-        self.setLayout(self.layout)
+        # Wrapper layout
+        self.wrapper_layout = QtWidgets.QHBoxLayout()
+        self.wrapper_layout.addLayout(self.main_layout)
+        self.wrapper_layout.addWidget(self.downloads)
+        self.setLayout(self.wrapper_layout)
 
         # Always start with focus on file selection
         self.file_selection.setFocus()
