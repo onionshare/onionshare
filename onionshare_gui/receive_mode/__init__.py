@@ -48,6 +48,7 @@ class ReceiveMode(Mode):
 
         # Uploads
         self.uploads = Uploads(self.common)
+        self.uploads.hide()
         self.uploads_in_progress = 0
         self.uploads_completed = 0
         self.new_upload = False # For scrolling to the bottom of the uploads list

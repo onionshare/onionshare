@@ -72,6 +72,7 @@ class ShareMode(Mode):
 
         # Downloads
         self.downloads = Downloads(self.common)
+        self.downloads.hide()
         self.downloads_in_progress = 0
         self.downloads_completed = 0
 
@@ -96,7 +97,6 @@ class ShareMode(Mode):
 
         self.info_widget = QtWidgets.QWidget()
         self.info_widget.setLayout(self.info_layout)
-        self.info_widget.hide()
 
         # Primary action layout
         self.primary_action_layout.addWidget(self.filesize_warning)
