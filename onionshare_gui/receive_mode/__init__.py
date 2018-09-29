@@ -127,6 +127,7 @@ class ReceiveMode(Mode):
         Handle REQUEST_STARTED event.
         """
         self.uploads.add(event["data"]["id"], event["data"]["content_length"])
+        self.info.update_indicator(True)
         self.uploads_in_progress += 1
         self.info.update_uploads_in_progress()
 

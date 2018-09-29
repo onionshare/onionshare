@@ -46,16 +46,38 @@ class ReceiveModeInfo(QtWidgets.QWidget):
         self.toggle_button.setIcon( QtGui.QIcon(self.common.get_resource_path('images/uploads_toggle.png')) )
         self.toggle_button.clicked.connect(self.toggle_uploads)
 
+        # Keep track of indicator
+        self.indicator_count = 0
+        self.indicator_label = QtWidgets.QLabel()
+        self.indicator_label.setStyleSheet(self.common.css['download_uploads_indicator'])
+        self.update_indicator()
+
         # Layout
         layout = QtWidgets.QHBoxLayout()
         layout.addStretch()
         layout.addWidget(self.in_progress_uploads_count)
         layout.addWidget(self.completed_uploads_count)
+        layout.addWidget(self.indicator_label)
         layout.addWidget(self.toggle_button)
         self.setLayout(layout)
 
         self.update_uploads_completed()
         self.update_uploads_in_progress()
+
+    def update_indicator(self, increment=False):
+        """
+        Update the display of the indicator count. If increment is True, then
+        only increment the counter if Uploads is hidden.
+        """
+        if increment and not self.receive_mode.uploads.isVisible():
+            self.indicator_count += 1
+
+        self.indicator_label.setText("{}".format(self.indicator_count))
+
+        if self.indicator_count == 0:
+            self.indicator_label.hide()
+        else:
+            self.indicator_label.show()
 
     def update_uploads_completed(self):
         """
@@ -93,6 +115,10 @@ class ReceiveModeInfo(QtWidgets.QWidget):
             self.receive_mode.uploads.show()
             self.toggle_button.setIcon( QtGui.QIcon(self.common.get_resource_path('images/uploads_toggle_selected.png')) )
             self.toggle_button.setFlat(False)
+
+        # Reset the indicator count
+        self.indicator_count = 0
+        self.update_indicator()
 
         self.receive_mode.resize_window()
 

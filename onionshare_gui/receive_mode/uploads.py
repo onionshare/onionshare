@@ -206,69 +206,30 @@ class Upload(QtWidgets.QWidget):
         self.label.setText(text)
 
 
-class Uploads(QtWidgets.QScrollArea):
+class UploadList(QtWidgets.QListWidget):
     """
-    The uploads chunk of the GUI. This lists all of the active upload
-    progress bars, as well as information about each upload.
+    List of upload progess bars.
     """
     def __init__(self, common):
-        super(Uploads, self).__init__()
+        super(UploadList, self).__init__()
         self.common = common
-        self.common.log('Uploads', '__init__')
-
-        self.resizeEvent = None
 
         self.uploads = {}
 
-        self.setWindowTitle(strings._('gui_uploads', True))
-        self.setWidgetResizable(True)
-        self.setMinimumHeight(150)
-        self.setMinimumWidth(350)
-        self.setWindowIcon(QtGui.QIcon(common.get_resource_path('images/logo.png')))
-        self.setWindowFlags(QtCore.Qt.Sheet | QtCore.Qt.WindowTitleHint | QtCore.Qt.WindowSystemMenuHint | QtCore.Qt.CustomizeWindowHint)
-        self.vbar = self.verticalScrollBar()
-        self.vbar.rangeChanged.connect(self.resizeScroll)
-
-        uploads_label = QtWidgets.QLabel(strings._('gui_uploads', True))
-        uploads_label.setStyleSheet(self.common.css['downloads_uploads_label'])
-        self.no_uploads_label = QtWidgets.QLabel(strings._('gui_no_uploads', True))
-        self.clear_history_button = QtWidgets.QPushButton(strings._('gui_clear_history', True))
-        self.clear_history_button.clicked.connect(self.reset)
-        self.clear_history_button.hide()
-
-
-        self.uploads_layout = QtWidgets.QVBoxLayout()
-
-        widget = QtWidgets.QWidget()
-        layout = QtWidgets.QVBoxLayout()
-        layout.addWidget(uploads_label)
-        layout.addWidget(self.no_uploads_label)
-        layout.addWidget(self.clear_history_button)
-        layout.addLayout(self.uploads_layout)
-        layout.addStretch()
-        widget.setLayout(layout)
-        self.setWidget(widget)
-
-    def resizeScroll(self, minimum, maximum):
-        """
-        Scroll to the bottom of the window when the range changes.
-        """
-        self.vbar.setValue(maximum)
+        self.setMinimumHeight(205)
+        self.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
+        self.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
 
     def add(self, upload_id, content_length):
         """
-        Add a new upload.
+        Add a new upload progress bar.
         """
-        self.common.log('Uploads', 'add', 'upload_id: {}, content_length: {}'.format(upload_id, content_length))
-        # Hide the no_uploads_label
-        self.no_uploads_label.hide()
-        # Show the clear_history_button
-        self.clear_history_button.show()
-
-        # Add it to the list
         upload = Upload(self.common, upload_id, content_length)
         self.uploads[upload_id] = upload
-        self.uploads_layout.addWidget(upload)
+
+        item = QtWidgets.QListWidgetItem()
+        self.addItem(item)
+        self.setItemWidget(item, upload)
 
     def update(self, upload_id, progress):
         """
@@ -299,22 +260,122 @@ class Uploads(QtWidgets.QScrollArea):
         """
         Reset the uploads back to zero
         """
-        self.common.log('Uploads', 'reset')
+        # Remove all items from list
+        while True:
+            item = self.takeItem(0)
+            if not item:
+                break
+
+        # Close all progress bars
         for upload in self.uploads.values():
-            upload.close()
-            self.uploads_layout.removeWidget(upload)
+            upload.progress_bar.close()
         self.uploads = {}
 
-        self.no_uploads_label.show()
-        self.clear_history_button.hide()
-        self.resize(self.sizeHint())
 
-    def resizeEvent(self, event):
-       width = self.frameGeometry().width()
-       try:
-           for upload in self.uploads.values():
-               for item in upload.files.values():
-                   item.filename_label.setText(textwrap.fill(item.filename, 30))
-                   item.adjustSize()
-       except:
-           pass
+class Uploads(QtWidgets.QWidget):
+    """
+    The uploads chunk of the GUI. This lists all of the active upload
+    progress bars, as well as information about each upload.
+    """
+    def __init__(self, common):
+        super(Uploads, self).__init__()
+        self.common = common
+        self.common.log('Uploads', '__init__')
+
+        self.setMinimumWidth(350)
+
+        # When there are no uploads
+        empty_image = QtWidgets.QLabel()
+        empty_image.setAlignment(QtCore.Qt.AlignCenter)
+        empty_image.setPixmap(QtGui.QPixmap.fromImage(QtGui.QImage(self.common.get_resource_path('images/uploads_transparent.png'))))
+        empty_text = QtWidgets.QLabel(strings._('gui_no_uploads', True))
+        empty_text.setAlignment(QtCore.Qt.AlignCenter)
+        empty_text.setStyleSheet(self.common.css['downloads_uploads_empty_text'])
+        empty_layout = QtWidgets.QVBoxLayout()
+        empty_layout.addStretch()
+        empty_layout.addWidget(empty_image)
+        empty_layout.addWidget(empty_text)
+        empty_layout.addStretch()
+        self.empty = QtWidgets.QWidget()
+        self.empty.setStyleSheet(self.common.css['downloads_uploads_empty'])
+        self.empty.setLayout(empty_layout)
+
+        # When there are uploads
+        self.upload_list = UploadList(self.common)
+
+        # Upload header
+        uploads_label = QtWidgets.QLabel(strings._('gui_uploads', True))
+        uploads_label.setStyleSheet(self.common.css['downloads_uploads_label'])
+        clear_button = QtWidgets.QPushButton(strings._('gui_clear_history', True))
+        clear_button.setStyleSheet(self.common.css['downloads_uploads_clear'])
+        clear_button.setFlat(True)
+        clear_button.clicked.connect(self.reset)
+        upload_header = QtWidgets.QHBoxLayout()
+        upload_header.addWidget(uploads_label)
+        upload_header.addStretch()
+        upload_header.addWidget(clear_button)
+
+        # Upload layout
+        not_empty_layout = QtWidgets.QVBoxLayout()
+        not_empty_layout.addLayout(upload_header)
+        not_empty_layout.addWidget(self.upload_list)
+        self.not_empty = QtWidgets.QWidget()
+        self.not_empty.setLayout(not_empty_layout)
+
+        # Layout
+        layout = QtWidgets.QVBoxLayout()
+        layout.setContentsMargins(0, 0, 0, 0)
+        layout.addWidget(self.empty)
+        layout.addWidget(self.not_empty)
+        self.setLayout(layout)
+
+        # Reset once at the beginning
+        self.reset()
+
+    def add(self, upload_id, content_length):
+        """
+        Add a new upload.
+        """
+        self.common.log('Uploads', 'add', 'upload_id: {}, content_length: {}'.format(upload_id, content_length))
+
+        # Hide empty, show not empty
+        self.empty.hide()
+        self.not_empty.show()
+
+        # Add it to the list
+        self.upload_list.add(upload_id, content_length)
+
+    def update(self, upload_id, progress):
+        """
+        Update the progress of an upload.
+        """
+        self.upload_list.update(upload_id, progress)
+
+    def rename(self, upload_id, old_filename, new_filename):
+        """
+        Rename a file, which happens if the filename already exists in downloads_dir.
+        """
+        self.upload_list.rename(upload_id, old_filename, new_filename)
+
+    def finished(self, upload_id):
+        """
+        An upload has finished.
+        """
+        self.upload_list.finished(upload_id)
+
+    def cancel(self, upload_id):
+        """
+        Update an upload progress bar to show that it has been canceled.
+        """
+        self.common.log('Uploads', 'cancel', 'upload_id: {}'.format(upload_id))
+        self.upload_list.cancel(upload_id)
+
+    def reset(self):
+        """
+        Reset the uploads back to zero
+        """
+        self.upload_list.reset()
+
+        # Hide not empty, show empty
+        self.not_empty.hide()
+        self.empty.show()
