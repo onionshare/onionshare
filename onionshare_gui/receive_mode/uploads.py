@@ -206,7 +206,7 @@ class Upload(QtWidgets.QWidget):
         self.label.setText(text)
 
 
-class UploadList(QtWidgets.QListWidget):
+class UploadList(QtWidgets.QScrollArea):
     """
     List of upload progess bars.
     """
@@ -216,9 +216,32 @@ class UploadList(QtWidgets.QListWidget):
 
         self.uploads = {}
 
-        self.setMinimumHeight(205)
-        self.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
-        self.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
+        # The layout that holds all of the uploads
+        self.uploads_layout = QtWidgets.QVBoxLayout()
+        self.uploads_layout.setContentsMargins(0, 0, 0, 0)
+        self.uploads_layout.setSizeConstraint(QtWidgets.QLayout.SetMinAndMaxSize)
+
+        # Wrapper layout that also contains a stretch
+        wrapper_layout = QtWidgets.QVBoxLayout()
+        wrapper_layout.setSizeConstraint(QtWidgets.QLayout.SetMinAndMaxSize)
+        wrapper_layout.addLayout(self.uploads_layout)
+        wrapper_layout.addStretch()
+
+        # The internal widget of the scroll area
+        widget = QtWidgets.QWidget()
+        widget.setLayout(wrapper_layout)
+        self.setWidget(widget)
+        self.setWidgetResizable(True)
+
+        # Other scroll area settings
+        self.setBackgroundRole(QtGui.QPalette.Light)
+        self.verticalScrollBar().rangeChanged.connect(self.resizeScroll)
+
+    def resizeScroll(self, minimum, maximum):
+        """
+        Scroll to the bottom of the window when the range changes.
+        """
+        self.verticalScrollBar().setValue(maximum)
 
     def add(self, upload_id, content_length):
         """
@@ -226,10 +249,7 @@ class UploadList(QtWidgets.QListWidget):
         """
         upload = Upload(self.common, upload_id, content_length)
         self.uploads[upload_id] = upload
-
-        item = QtWidgets.QListWidgetItem()
-        self.addItem(item)
-        self.setItemWidget(item, upload)
+        self.uploads_layout.addWidget(upload)
 
     def update(self, upload_id, progress):
         """
@@ -260,14 +280,8 @@ class UploadList(QtWidgets.QListWidget):
         """
         Reset the uploads back to zero
         """
-        # Remove all items from list
-        while True:
-            item = self.takeItem(0)
-            if not item:
-                break
-
-        # Close all progress bars
         for upload in self.uploads.values():
+            self.uploads_layout.removeWidget(upload)
             upload.progress_bar.close()
         self.uploads = {}
 
