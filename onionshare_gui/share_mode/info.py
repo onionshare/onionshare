@@ -57,7 +57,7 @@ class ShareModeInfo(QtWidgets.QWidget):
         self.indicator_label.setStyleSheet(self.common.css['download_uploads_indicator'])
         self.update_indicator()
 
-        # Info layout
+        # Layout
         layout = QtWidgets.QHBoxLayout()
         layout.addWidget(self.label)
         layout.addStretch()

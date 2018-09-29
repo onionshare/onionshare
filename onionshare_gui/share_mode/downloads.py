@@ -194,6 +194,8 @@ class Downloads(QtWidgets.QWidget):
         """
         Add a new download progress bar.
         """
+        self.common.log('Downloads', 'add', 'download_id: {}, content_length: {}'.format(download_id, content_length))
+
         # Hide empty, show not empty
         self.empty.hide()
         self.not_empty.show()

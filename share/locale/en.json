@@ -175,7 +175,7 @@
     "systray_download_page_loaded_message": "A user loaded the download page",
     "systray_upload_page_loaded_message": "A user loaded the upload page",
     "gui_uploads": "Upload History",
-    "gui_no_uploads": "No uploads yet.",
+    "gui_no_uploads": "No Uploads Yet",
     "gui_clear_history": "Clear All",
     "gui_upload_in_progress": "Upload Started {}",
     "gui_upload_finished_range": "Uploaded {} to {}",
