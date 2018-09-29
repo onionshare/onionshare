@@ -78,7 +78,7 @@ class Download(object):
                                                 self.started)
 
 
-class Downloads(QtWidgets.QScrollArea):
+class Downloads(QtWidgets.QWidget):
     """
     The downloads chunk of the GUI. This lists all of the active download
     progress bars.
@@ -90,11 +90,6 @@ class Downloads(QtWidgets.QScrollArea):
         self.downloads = {}
 
         self.setMinimumWidth(350)
-        self.setStyleSheet(self.common.css['downloads_uploads'])
-
-        # Scroll bar
-        self.vbar = self.verticalScrollBar()
-        self.vbar.rangeChanged.connect(self.resizeScroll)
 
         # When there are no downloads
         empty_image = QtWidgets.QLabel()
@@ -109,6 +104,7 @@ class Downloads(QtWidgets.QScrollArea):
         empty_layout.addWidget(empty_text)
         empty_layout.addStretch()
         self.empty = QtWidgets.QWidget()
+        self.empty.setStyleSheet(self.common.css['downloads_uploads_empty'])
         self.empty.setLayout(empty_layout)
 
         # When there are downloads
@@ -122,24 +118,28 @@ class Downloads(QtWidgets.QScrollArea):
         download_header.addWidget(downloads_label)
         download_header.addStretch()
         download_header.addWidget(clear_button)
-        self.not_empty = QtWidgets.QWidget()
-        self.not_empty.setLayout(download_header)
-
         self.downloads_layout = QtWidgets.QVBoxLayout()
+        not_empty_layout = QtWidgets.QVBoxLayout()
+        not_empty_layout.addLayout(download_header)
+        not_empty_layout.addLayout(self.downloads_layout)
+        self.not_empty = QtWidgets.QWidget()
+        self.not_empty.setLayout(not_empty_layout)
 
         # Layout
-        self.widget = QtWidgets.QWidget()
         layout = QtWidgets.QVBoxLayout()
         layout.setContentsMargins(0, 0, 0, 0)
         layout.addWidget(self.empty)
         layout.addWidget(self.not_empty)
-        layout.addLayout(self.downloads_layout)
-        layout.addStretch()
-        self.widget.setLayout(layout)
-        self.setWidget(self.widget)
+        self.setLayout(layout)
 
         # Reset once at the beginning
         self.reset()
+
+        """
+        # Scroll bar
+        self.vbar = self.verticalScrollBar()
+        self.vbar.rangeChanged.connect(self.resizeScroll)
+        """
 
     def resizeEvent(self, event):
         """
@@ -152,7 +152,8 @@ class Downloads(QtWidgets.QScrollArea):
         """
         Scroll to the bottom of the window when the range changes.
         """
-        self.vbar.setValue(maximum)
+        pass
+        #self.vbar.setValue(maximum)
 
     def add(self, download_id, total_bytes):
         """
