@@ -148,7 +148,7 @@ class DownloadList(QtWidgets.QScrollArea):
         Reset the downloads back to zero
         """
         for download in self.downloads.values():
-            self.downloads_layout.removeWidget(download.progress_bar)
+            self.downloads_layout.removeWidget(download)
             download.progress_bar.close()
         self.downloads = {}
 
