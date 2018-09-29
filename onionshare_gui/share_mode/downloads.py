@@ -23,14 +23,17 @@ from PyQt5 import QtCore, QtWidgets, QtGui
 from onionshare import strings
 
 
-class Download(object):
+class Download(QtWidgets.QWidget):
     def __init__(self, common, download_id, total_bytes):
+        super(Download, self).__init__()
         self.common = common
 
         self.download_id = download_id
         self.started = time.time()
         self.total_bytes = total_bytes
         self.downloaded_bytes = 0
+
+        self.setStyleSheet('QWidget { border: 1px solid red; }')
 
         # Progress bar
         self.progress_bar = QtWidgets.QProgressBar()
@@ -42,6 +45,11 @@ class Download(object):
         self.progress_bar.setValue(0)
         self.progress_bar.setStyleSheet(self.common.css['downloads_uploads_progress_bar'])
         self.progress_bar.total_bytes = total_bytes
+
+        # Layout
+        layout = QtWidgets.QVBoxLayout()
+        layout.addWidget(self.progress_bar)
+        self.setLayout(layout)
 
         # Start at 0
         self.update(0)
@@ -78,9 +86,9 @@ class Download(object):
                                                 self.started)
 
 
-class DownloadList(QtWidgets.QListWidget):
+class DownloadList(QtWidgets.QScrollArea):
     """
-    List of download progess bars.
+    List of download progress bars.
     """
     def __init__(self, common):
         super(DownloadList, self).__init__()
@@ -88,9 +96,20 @@ class DownloadList(QtWidgets.QListWidget):
 
         self.downloads = {}
 
-        self.setMinimumHeight(205)
-        self.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
-        self.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
+        self.downloads_layout = QtWidgets.QVBoxLayout()
+        self.downloads_layout.setSizeConstraint(QtWidgets.QLayout.SetMinAndMaxSize)
+        widget = QtWidgets.QWidget()
+        widget.setLayout(self.downloads_layout)
+        self.setWidget(widget)
+
+        self.setBackgroundRole(QtGui.QPalette.Light)
+        self.verticalScrollBar().rangeChanged.connect(self.resizeScroll)
+
+    def resizeScroll(self, minimum, maximum):
+        """
+        Scroll to the bottom of the window when the range changes.
+        """
+        self.verticalScrollBar().setValue(maximum)
 
     def add(self, download_id, content_length):
         """
@@ -98,10 +117,7 @@ class DownloadList(QtWidgets.QListWidget):
         """
         download = Download(self.common, download_id, content_length)
         self.downloads[download_id] = download
-
-        item = QtWidgets.QListWidgetItem()
-        self.addItem(item)
-        self.setItemWidget(item, download.progress_bar)
+        self.downloads_layout.addWidget(download)
 
     def update(self, download_id, downloaded_bytes):
         """
@@ -119,14 +135,8 @@ class DownloadList(QtWidgets.QListWidget):
         """
         Reset the downloads back to zero
         """
-        # Remove all items from list
-        while True:
-            item = self.takeItem(0)
-            if not item:
-                break
-
-        # Close all progress bars
         for download in self.downloads.values():
+            self.downloads_layout.removeWidget(download.progress_bar)
             download.progress_bar.close()
         self.downloads = {}
 
