@@ -284,9 +284,10 @@ class Common(object):
                     color: #ffffff;
                     background-color: #f44449;
                     font-weight: bold;
-                    padding: 5px;
-                    border-radius: 5px;
                     font-size: 10px;
+                    padding: 2px;
+                    border-radius: 8px;
+                    text-align: center;
                 }""",
 
             'downloads_uploads_progress_bar': """
