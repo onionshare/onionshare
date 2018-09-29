@@ -89,33 +89,64 @@ class Downloads(QtWidgets.QScrollArea):
 
         self.downloads = {}
 
-        self.setWindowTitle(strings._('gui_downloads', True))
-        self.setWidgetResizable(True)
-        self.setMinimumHeight(150)
         self.setMinimumWidth(350)
-        self.setWindowIcon(QtGui.QIcon(common.get_resource_path('images/logo.png')))
-        self.setWindowFlags(QtCore.Qt.Sheet | QtCore.Qt.WindowTitleHint | QtCore.Qt.WindowSystemMenuHint | QtCore.Qt.CustomizeWindowHint)
+        self.setStyleSheet(self.common.css['downloads_uploads'])
+
+        # Scroll bar
         self.vbar = self.verticalScrollBar()
         self.vbar.rangeChanged.connect(self.resizeScroll)
 
+        # When there are no downloads
+        empty_image = QtWidgets.QLabel()
+        empty_image.setAlignment(QtCore.Qt.AlignCenter)
+        empty_image.setPixmap(QtGui.QPixmap.fromImage(QtGui.QImage(self.common.get_resource_path('images/downloads_transparent.png'))))
+        empty_text = QtWidgets.QLabel(strings._('gui_no_downloads', True))
+        empty_text.setAlignment(QtCore.Qt.AlignCenter)
+        empty_text.setStyleSheet(self.common.css['downloads_uploads_empty_text'])
+        empty_layout = QtWidgets.QVBoxLayout()
+        empty_layout.addStretch()
+        empty_layout.addWidget(empty_image)
+        empty_layout.addWidget(empty_text)
+        empty_layout.addStretch()
+        self.empty = QtWidgets.QWidget()
+        self.empty.setLayout(empty_layout)
+
+        # When there are downloads
         downloads_label = QtWidgets.QLabel(strings._('gui_downloads', True))
         downloads_label.setStyleSheet(self.common.css['downloads_uploads_label'])
-        self.no_downloads_label = QtWidgets.QLabel(strings._('gui_no_downloads', True))
-        self.clear_history_button = QtWidgets.QPushButton(strings._('gui_clear_history', True))
-        self.clear_history_button.clicked.connect(self.reset)
-        self.clear_history_button.hide()
+        clear_button = QtWidgets.QPushButton(strings._('gui_clear_history', True))
+        clear_button.setStyleSheet(self.common.css['downloads_uploads_clear'])
+        clear_button.setFlat(True)
+        clear_button.clicked.connect(self.reset)
+        download_header = QtWidgets.QHBoxLayout()
+        download_header.addWidget(downloads_label)
+        download_header.addStretch()
+        download_header.addWidget(clear_button)
+        self.not_empty = QtWidgets.QWidget()
+        self.not_empty.setLayout(download_header)
 
         self.downloads_layout = QtWidgets.QVBoxLayout()
 
-        widget = QtWidgets.QWidget()
+        # Layout
+        self.widget = QtWidgets.QWidget()
         layout = QtWidgets.QVBoxLayout()
-        layout.addWidget(downloads_label)
-        layout.addWidget(self.no_downloads_label)
-        layout.addWidget(self.clear_history_button)
+        layout.setContentsMargins(0, 0, 0, 0)
+        layout.addWidget(self.empty)
+        layout.addWidget(self.not_empty)
         layout.addLayout(self.downloads_layout)
         layout.addStretch()
-        widget.setLayout(layout)
-        self.setWidget(widget)
+        self.widget.setLayout(layout)
+        self.setWidget(self.widget)
+
+        # Reset once at the beginning
+        self.reset()
+
+    def resizeEvent(self, event):
+        """
+        When the widget resizes, resize the inner widget to match
+        """
+        #self.empty.resize(self.width()-2, self.width()-2)
+        pass
 
     def resizeScroll(self, minimum, maximum):
         """
@@ -127,10 +158,9 @@ class Downloads(QtWidgets.QScrollArea):
         """
         Add a new download progress bar.
         """
-        # Hide the no_downloads_label
-        self.no_downloads_label.hide()
-        # Show the clear_history_button
-        self.clear_history_button.show()
+        # Hide empty, show not empty
+        self.empty.hide()
+        self.not_empty.show()
 
         # Add it to the list
         download = Download(self.common, download_id, total_bytes)
@@ -158,6 +188,6 @@ class Downloads(QtWidgets.QScrollArea):
             download.progress_bar.close()
         self.downloads = {}
 
-        self.no_downloads_label.show()
-        self.clear_history_button.hide()
-        self.resize(self.sizeHint())
+        # Hide not empty, show empty
+        self.not_empty.hide()
+        self.empty.show()

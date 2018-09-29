@@ -248,12 +248,27 @@ class Common(object):
                     border-radius: 5px;
                 }""",
 
+            'downloads_uploads': """
+                background-color: #ffffff;
+                """,
+
+            'downloads_uploads_empty_text': """
+                QLabel {
+                    color: #999999;
+                }""",
+
             'downloads_uploads_label': """
                 QLabel {
                     font-weight: bold;
                     font-size 14px;
                     text-align: center;
                 }""",
+
+            'downloads_uploads_clear': """
+                QPushButton {
+                    color: #3f7fcf;
+                }
+                """,
 
             'downloads_uploads_progress_bar': """
                 QProgressBar {
