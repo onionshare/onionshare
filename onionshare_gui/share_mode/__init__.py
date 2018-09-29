@@ -317,7 +317,7 @@ class ShareMode(Mode):
         self.downloads.reset()
 
     def resize_window(self):
-        min_width = 450
+        min_width = self.common.min_window_width
         if self.downloads.isVisible():
             min_width += 300
         self.adjust_size.emit(min_width)

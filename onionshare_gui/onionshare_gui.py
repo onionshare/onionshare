@@ -45,6 +45,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         self.common = common
         self.common.log('OnionShareGui', '__init__')
+        self.common.min_window_width = 460
 
         self.onion = onion
         self.qtapp = qtapp
@@ -169,7 +170,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.show()
 
         # Adjust window size, to start with a minimum window width
-        self.adjust_size(450)
+        self.adjust_size(self.common.min_window_width)
 
         # The server isn't active yet
         self.set_server_active(False)
@@ -474,6 +475,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         # Adjust sizes of each mode
         for mode in [self.share_mode, self.receive_mode]:
+            self.qtapp.processEvents()
             adjust_size_widget(mode)
 
         # Adjust window size
