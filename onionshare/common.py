@@ -285,7 +285,7 @@ class Common(object):
                     background-color: #ffffff !important;
                     text-align: center;
                     color: #9b9b9b;
-                    font-size: 12px;
+                    font-size: 14px;
                 }
                 QProgressBar::chunk {
                     background-color: #4e064f;
