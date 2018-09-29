@@ -57,14 +57,6 @@ class ShareModeInfo(QtWidgets.QWidget):
         self.indicator_label.setStyleSheet(self.common.css['download_uploads_indicator'])
         self.update_indicator()
 
-        """
-        # Add it to the toggle button
-        toggle_button_layout = QtWidgets.QHBoxLayout()
-        toggle_button_layout.addSpacing(10)
-        toggle_button_layout.addWidget(self.indicator_label)
-        self.toggle_button.setLayout(toggle_button_layout)
-        """
-
         # Layout
         layout = QtWidgets.QHBoxLayout()
         layout.addWidget(self.label)
