@@ -50,7 +50,7 @@ class Mode(QtWidgets.QWidget):
 
         self.filenames = filenames
 
-        self.setMinimumWidth(450)
+        self.setMinimumWidth(self.common.min_window_width)
 
         # The web object gets created in init()
         self.web = None
@@ -83,7 +83,7 @@ class Mode(QtWidgets.QWidget):
         # Hack to allow a minimum width on the main layout
         # Note: It's up to the downstream Mode to add this to its layout
         self.min_width_widget = QtWidgets.QWidget()
-        self.min_width_widget.setMinimumWidth(450)
+        self.min_width_widget.setMinimumWidth(self.common.min_window_width)
 
     def init(self):
         """
