@@ -248,8 +248,15 @@ class Common(object):
                     border-radius: 5px;
                 }""",
 
-            'downloads_uploads': """
-                background-color: #ffffff;
+            'downloads_uploads_empty': """
+                QWidget {
+                    background-color: #ffffff;
+                    border: 1px solid #999999;
+                }
+                QWidget QLabel {
+                    background-color: none;
+                    border: 0px;
+                }
                 """,
 
             'downloads_uploads_empty_text': """
@@ -262,6 +269,8 @@ class Common(object):
                     font-weight: bold;
                     font-size 14px;
                     text-align: center;
+                    background-color: none;
+                    border: none;
                 }""",
 
             'downloads_uploads_clear': """
