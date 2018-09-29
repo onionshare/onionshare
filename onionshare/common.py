@@ -279,6 +279,16 @@ class Common(object):
                 }
                 """,
 
+            'download_uploads_indicator': """
+                QLabel {
+                    color: #ffffff;
+                    background-color: #f44449;
+                    font-weight: bold;
+                    padding: 5px;
+                    border-radius: 5px;
+                    font-size: 10px;
+                }""",
+
             'downloads_uploads_progress_bar': """
                 QProgressBar {
                     border: 1px solid #4e064f;

@@ -224,6 +224,7 @@ class ShareMode(Mode):
         else:
             filesize = self.web.share_mode.download_filesize
         self.downloads.add(event["data"]["id"], filesize)
+        self.info.update_indicator(True)
         self.downloads_in_progress += 1
         self.info.update_downloads_in_progress()
 

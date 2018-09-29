@@ -51,12 +51,19 @@ class ShareModeInfo(QtWidgets.QWidget):
         self.toggle_button.setIcon( QtGui.QIcon(self.common.get_resource_path('images/downloads_toggle.png')) )
         self.toggle_button.clicked.connect(self.toggle_downloads)
 
+        # Keep track of indicator
+        self.indicator_count = 0
+        self.indicator_label = QtWidgets.QLabel()
+        self.indicator_label.setStyleSheet(self.common.css['download_uploads_indicator'])
+        self.update_indicator()
+
         # Info layout
         layout = QtWidgets.QHBoxLayout()
         layout.addWidget(self.label)
         layout.addStretch()
         layout.addWidget(self.in_progress_downloads_count)
         layout.addWidget(self.completed_downloads_count)
+        layout.addWidget(self.indicator_label)
         layout.addWidget(self.toggle_button)
         self.setLayout(layout)
 
@@ -69,6 +76,21 @@ class ShareModeInfo(QtWidgets.QWidget):
         """
         self.label_text = s
         self.label.setText(self.label_text)
+
+    def update_indicator(self, increment=False):
+        """
+        Update the display of the indicator count. If increment is True, then
+        only increment the counter if Downloads is hidden.
+        """
+        if increment and not self.share_mode.downloads.isVisible():
+            self.indicator_count += 1
+
+        self.indicator_label.setText("{}".format(self.indicator_count))
+
+        if self.indicator_count == 0:
+            self.indicator_label.hide()
+        else:
+            self.indicator_label.show()
 
     def update_downloads_completed(self):
         """
@@ -106,6 +128,10 @@ class ShareModeInfo(QtWidgets.QWidget):
             self.share_mode.downloads.show()
             self.toggle_button.setIcon( QtGui.QIcon(self.common.get_resource_path('images/downloads_toggle_selected.png')) )
             self.toggle_button.setFlat(False)
+
+        # Reset the indicator count
+        self.indicator_count = 0
+        self.update_indicator()
 
         self.share_mode.resize_window()
 
