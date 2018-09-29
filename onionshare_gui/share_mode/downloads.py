@@ -78,6 +78,59 @@ class Download(object):
                                                 self.started)
 
 
+class DownloadList(QtWidgets.QListWidget):
+    """
+    List of download progess bars.
+    """
+    def __init__(self, common):
+        super(DownloadList, self).__init__()
+        self.common = common
+
+        self.downloads = {}
+
+        self.setMinimumHeight(205)
+        self.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
+        self.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
+
+    def add(self, download_id, total_bytes):
+        """
+        Add a new download progress bar.
+        """
+        download = Download(self.common, download_id, total_bytes)
+        self.downloads[download_id] = download
+
+        item = QtWidgets.QListWidgetItem()
+        self.addItem(item)
+        self.setItemWidget(item, download.progress_bar)
+
+    def update(self, download_id, downloaded_bytes):
+        """
+        Update the progress of a download progress bar.
+        """
+        self.downloads[download_id].update(downloaded_bytes)
+
+    def cancel(self, download_id):
+        """
+        Update a download progress bar to show that it has been canceled.
+        """
+        self.downloads[download_id].cancel()
+
+    def reset(self):
+        """
+        Reset the downloads back to zero
+        """
+        # Remove all items from list
+        while True:
+            item = self.takeItem(0)
+            if not item:
+                break
+
+        # Close all progress bars
+        for download in self.downloads.values():
+            download.progress_bar.close()
+        self.downloads = {}
+
+
 class Downloads(QtWidgets.QWidget):
     """
     The downloads chunk of the GUI. This lists all of the active download
@@ -86,8 +139,6 @@ class Downloads(QtWidgets.QWidget):
     def __init__(self, common):
         super(Downloads, self).__init__()
         self.common = common
-
-        self.downloads = {}
 
         self.setMinimumWidth(350)
 
@@ -108,6 +159,9 @@ class Downloads(QtWidgets.QWidget):
         self.empty.setLayout(empty_layout)
 
         # When there are downloads
+        self.download_list = DownloadList(self.common)
+
+        # Download header
         downloads_label = QtWidgets.QLabel(strings._('gui_downloads', True))
         downloads_label.setStyleSheet(self.common.css['downloads_uploads_label'])
         clear_button = QtWidgets.QPushButton(strings._('gui_clear_history', True))
@@ -118,10 +172,11 @@ class Downloads(QtWidgets.QWidget):
         download_header.addWidget(downloads_label)
         download_header.addStretch()
         download_header.addWidget(clear_button)
-        self.downloads_layout = QtWidgets.QVBoxLayout()
+
+        # Download layout
         not_empty_layout = QtWidgets.QVBoxLayout()
         not_empty_layout.addLayout(download_header)
-        not_empty_layout.addLayout(self.downloads_layout)
+        not_empty_layout.addWidget(self.download_list)
         self.not_empty = QtWidgets.QWidget()
         self.not_empty.setLayout(not_empty_layout)
 
@@ -141,13 +196,6 @@ class Downloads(QtWidgets.QWidget):
         self.vbar.rangeChanged.connect(self.resizeScroll)
         """
 
-    def resizeEvent(self, event):
-        """
-        When the widget resizes, resize the inner widget to match
-        """
-        #self.empty.resize(self.width()-2, self.width()-2)
-        pass
-
     def resizeScroll(self, minimum, maximum):
         """
         Scroll to the bottom of the window when the range changes.
@@ -164,30 +212,25 @@ class Downloads(QtWidgets.QWidget):
         self.not_empty.show()
 
         # Add it to the list
-        download = Download(self.common, download_id, total_bytes)
-        self.downloads[download_id] = download
-        self.downloads_layout.addWidget(download.progress_bar)
+        self.download_list.add(download_id, total_bytes)
 
     def update(self, download_id, downloaded_bytes):
         """
         Update the progress of a download progress bar.
         """
-        self.downloads[download_id].update(downloaded_bytes)
+        self.download_list.update(download_id, downloaded_bytes)
 
     def cancel(self, download_id):
         """
         Update a download progress bar to show that it has been canceled.
         """
-        self.downloads[download_id].cancel()
+        self.download_list.cancel(download_id)
 
     def reset(self):
         """
         Reset the downloads back to zero
         """
-        for download in self.downloads.values():
-            self.downloads_layout.removeWidget(download.progress_bar)
-            download.progress_bar.close()
-        self.downloads = {}
+        self.download_list.reset()
 
         # Hide not empty, show empty
         self.not_empty.hide()
