@@ -190,19 +190,6 @@ class Downloads(QtWidgets.QWidget):
         # Reset once at the beginning
         self.reset()
 
-        """
-        # Scroll bar
-        self.vbar = self.verticalScrollBar()
-        self.vbar.rangeChanged.connect(self.resizeScroll)
-        """
-
-    def resizeScroll(self, minimum, maximum):
-        """
-        Scroll to the bottom of the window when the range changes.
-        """
-        pass
-        #self.vbar.setValue(maximum)
-
     def add(self, download_id, total_bytes):
         """
         Add a new download progress bar.
