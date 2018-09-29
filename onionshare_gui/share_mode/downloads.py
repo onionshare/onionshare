@@ -92,11 +92,11 @@ class DownloadList(QtWidgets.QListWidget):
         self.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
         self.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
 
-    def add(self, download_id, total_bytes):
+    def add(self, download_id, content_length):
         """
         Add a new download progress bar.
         """
-        download = Download(self.common, download_id, total_bytes)
+        download = Download(self.common, download_id, content_length)
         self.downloads[download_id] = download
 
         item = QtWidgets.QListWidgetItem()
@@ -190,7 +190,7 @@ class Downloads(QtWidgets.QWidget):
         # Reset once at the beginning
         self.reset()
 
-    def add(self, download_id, total_bytes):
+    def add(self, download_id, content_length):
         """
         Add a new download progress bar.
         """
@@ -201,7 +201,7 @@ class Downloads(QtWidgets.QWidget):
         self.not_empty.show()
 
         # Add it to the list
-        self.download_list.add(download_id, total_bytes)
+        self.download_list.add(download_id, content_length)
 
     def update(self, download_id, downloaded_bytes):
         """
