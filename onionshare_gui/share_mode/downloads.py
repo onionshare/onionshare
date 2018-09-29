@@ -96,12 +96,24 @@ class DownloadList(QtWidgets.QScrollArea):
 
         self.downloads = {}
 
+        # The layout that holds all of the downloads
         self.downloads_layout = QtWidgets.QVBoxLayout()
+        self.downloads_layout.setContentsMargins(0, 0, 0, 0)
         self.downloads_layout.setSizeConstraint(QtWidgets.QLayout.SetMinAndMaxSize)
-        widget = QtWidgets.QWidget()
-        widget.setLayout(self.downloads_layout)
-        self.setWidget(widget)
 
+        # Wrapper layout that also contains a stretch
+        wrapper_layout = QtWidgets.QVBoxLayout()
+        wrapper_layout.setSizeConstraint(QtWidgets.QLayout.SetMinAndMaxSize)
+        wrapper_layout.addLayout(self.downloads_layout)
+        wrapper_layout.addStretch()
+
+        # The internal widget of the scroll area
+        widget = QtWidgets.QWidget()
+        widget.setLayout(wrapper_layout)
+        self.setWidget(widget)
+        self.setWidgetResizable(True)
+
+        # Other scroll area settings
         self.setBackgroundRole(QtGui.QPalette.Light)
         self.verticalScrollBar().rangeChanged.connect(self.resizeScroll)
 
