@@ -45,7 +45,7 @@ class ShareModeInfo(QtWidgets.QWidget):
         # Toggle button
         self.toggle_button = QtWidgets.QPushButton()
         self.toggle_button.setDefault(False)
-        self.toggle_button.setFixedWidth(30)
+        self.toggle_button.setFixedWidth(35)
         self.toggle_button.setFixedHeight(30)
         self.toggle_button.setFlat(True)
         self.toggle_button.setIcon( QtGui.QIcon(self.common.get_resource_path('images/downloads_toggle.png')) )
@@ -53,9 +53,17 @@ class ShareModeInfo(QtWidgets.QWidget):
 
         # Keep track of indicator
         self.indicator_count = 0
-        self.indicator_label = QtWidgets.QLabel()
+        self.indicator_label = QtWidgets.QLabel(parent=self.toggle_button)
         self.indicator_label.setStyleSheet(self.common.css['download_uploads_indicator'])
         self.update_indicator()
+
+        """
+        # Add it to the toggle button
+        toggle_button_layout = QtWidgets.QHBoxLayout()
+        toggle_button_layout.addSpacing(10)
+        toggle_button_layout.addWidget(self.indicator_label)
+        self.toggle_button.setLayout(toggle_button_layout)
+        """
 
         # Layout
         layout = QtWidgets.QHBoxLayout()
@@ -63,7 +71,6 @@ class ShareModeInfo(QtWidgets.QWidget):
         layout.addStretch()
         layout.addWidget(self.in_progress_downloads_count)
         layout.addWidget(self.completed_downloads_count)
-        layout.addWidget(self.indicator_label)
         layout.addWidget(self.toggle_button)
         self.setLayout(layout)
 
@@ -90,6 +97,8 @@ class ShareModeInfo(QtWidgets.QWidget):
         if self.indicator_count == 0:
             self.indicator_label.hide()
         else:
+            size = self.indicator_label.sizeHint()
+            self.indicator_label.setGeometry(35-size.width(), 0, size.width(), size.height())
             self.indicator_label.show()
 
     def update_downloads_completed(self):
