@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import json
 import os
 import platform
+import locale
 
 from . import strings
 
@@ -46,6 +47,12 @@ class Settings(object):
                 self.filename = config
             else:
                 self.common.log('Settings', '__init__', 'Supplied config does not exist or is unreadable. Falling back to default location')
+
+        # Available languages in this version of OnionShare
+        self.available_locales = [
+            'cs', 'da', 'de', 'en', 'eo', 'es', 'fi',
+            'fr', 'it', 'nl', 'no', 'pt', 'ru', 'tr'
+        ]
 
         # These are the default settings. They will get overwritten when loading from disk
         self.default_settings = {
@@ -74,7 +81,8 @@ class Settings(object):
             'slug': '',
             'hidservauth_string': '',
             'downloads_dir': self.build_default_downloads_dir(),
-            'receive_allow_receiver_shutdown': True
+            'receive_allow_receiver_shutdown': True,
+            'locale': None # this gets defined in fill_in_defaults()
         }
         self._settings = {}
         self.fill_in_defaults()
@@ -87,6 +95,13 @@ class Settings(object):
         for key in self.default_settings:
             if key not in self._settings:
                 self._settings[key] = self.default_settings[key]
+
+        # Choose the default locale based on the OS preference, and fall-back to English
+        if self._settings['locale'] is None:
+            default_locale = locale.getdefaultlocale()[0][:2]
+            if default_locale not in self.available_locales:
+                default_locale = 'en'
+            self._settings['locale'] = default_locale
 
     def build_filename(self):
         """
