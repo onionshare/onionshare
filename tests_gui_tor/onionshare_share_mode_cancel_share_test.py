@@ -96,14 +96,6 @@ class OnionShareGuiTest(unittest.TestCase):
     def test_file_selection_widget_has_a_file(self):
         CommonTests.test_file_selection_widget_has_a_file(self)
 
-    @pytest.mark.run(order=6)
-    def test_info_widget_is_visible(self):
-        CommonTests.test_info_widget_is_visible(self, 'share')
-
-    @pytest.mark.run(order=7)
-    def test_history_is_visible(self):
-        CommonTests.test_history_is_visible(self, 'share')
-
     @pytest.mark.run(order=8)
     def test_deleting_only_file_hides_delete_button(self):
         CommonTests.test_deleting_only_file_hides_delete_button(self)

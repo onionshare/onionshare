@@ -10,6 +10,15 @@ from onionshare import strings
 from tests_gui_local import CommonTests as LocalCommonTests
 
 class CommonTests(LocalCommonTests):
+    def test_a_server_is_started(self, mode):
+        '''Test that the server has started (overriding from local tests to wait for longer)'''
+        QtTest.QTest.qWait(45000)
+        # Should now be in SERVER_STARTED state
+        if mode == 'receive':
+            self.assertEqual(self.gui.receive_mode.server_status.status, 2)
+        if mode == 'share':
+            self.assertEqual(self.gui.share_mode.server_status.status, 2)
+
     def test_have_an_onion_service(self):
         '''Test that we have a valid Onion URL'''
         self.assertRegex(self.gui.app.onion_host, r'[a-z2-7].onion')
