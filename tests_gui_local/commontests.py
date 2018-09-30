@@ -52,6 +52,59 @@ class CommonTests(object):
             QtTest.QTest.mouseClick(self.gui.share_mode.info.toggle_button, QtCore.Qt.LeftButton)
             self.assertEqual(self.gui.share_mode.downloads.isVisible(), not currently_visible)
 
+    def test_history_indicator(self, mode, public_mode):
+        '''Test that we can make sure the history is toggled off, do an action, and the indiciator works'''
+        if mode == 'receive':
+            # Make sure history is toggled off
+            if self.gui.receive_mode.uploads.isVisible():
+                QtTest.QTest.mouseClick(self.gui.receive_mode.info.toggle_button, QtCore.Qt.LeftButton)
+                self.assertFalse(self.gui.receive_mode.uploads.isVisible())
+
+            # Indicator should not be visible yet
+            self.assertFalse(self.gui.receive_mode.info.indicator_label.isVisible())
+
+            # Upload a file
+            files = {'file[]': open('/tmp/test.txt', 'rb')}
+            if not public_mode:
+                path = 'http://127.0.0.1:{}/{}/upload'.format(self.gui.app.port, self.gui.receive_mode.web.slug)
+            else:
+                path = 'http://127.0.0.1:{}/upload'.format(self.gui.app.port)
+            response = requests.post(path, files=files)
+            QtTest.QTest.qWait(2000)
+
+            # Indicator should be visible, have a value of "1"
+            self.assertTrue(self.gui.receive_mode.info.indicator_label.isVisible())
+            self.assertEqual(self.gui.receive_mode.info.indicator_label.text(), "1")
+
+            # Toggle history back on, indicator should be hidden again
+            QtTest.QTest.mouseClick(self.gui.receive_mode.info.toggle_button, QtCore.Qt.LeftButton)
+            self.assertFalse(self.gui.receive_mode.info.indicator_label.isVisible())
+
+        if mode == 'share':
+            # Make sure history is toggled off
+            if self.gui.share_mode.downloads.isVisible():
+                QtTest.QTest.mouseClick(self.gui.share_mode.info.toggle_button, QtCore.Qt.LeftButton)
+                self.assertFalse(self.gui.share_mode.downloads.isVisible())
+
+            # Indicator should not be visible yet
+            self.assertFalse(self.gui.share_mode.info.indicator_label.isVisible())
+
+            # Download files
+            if public_mode:
+                url = "http://127.0.0.1:{}/download".format(self.gui.app.port)
+            else:
+                url = "http://127.0.0.1:{}/{}/download".format(self.gui.app.port, self.gui.share_mode.web.slug)
+            r = requests.get(url)
+            QtTest.QTest.qWait(2000)
+
+            # Indicator should be visible, have a value of "1"
+            self.assertTrue(self.gui.share_mode.info.indicator_label.isVisible())
+            self.assertEqual(self.gui.share_mode.info.indicator_label.text(), "1")
+
+            # Toggle history back on, indicator should be hidden again
+            QtTest.QTest.mouseClick(self.gui.share_mode.info.toggle_button, QtCore.Qt.LeftButton)
+            self.assertFalse(self.gui.share_mode.info.indicator_label.isVisible())
+
     def test_history_is_not_visible(self, mode):
         '''Test that the History section is not visible'''
         if mode == 'receive':
