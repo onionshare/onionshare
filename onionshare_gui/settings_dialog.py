@@ -228,20 +228,19 @@ class SettingsDialog(QtWidgets.QDialog):
             autoupdate_group.hide()
 
         # Language settings
-
-        # Populate the dropdown with all of OnionShare's available languages
+        language_label = QtWidgets.QLabel(strings._("gui_settings_language_label", True))
         self.language_combobox = QtWidgets.QComboBox()
+        # Populate the dropdown with all of OnionShare's available languages
         language_names_to_locales = {v: k for k, v in self.common.settings.available_locales.items()}
         language_names = list(language_names_to_locales)
         language_names.sort()
         for language_name in language_names:
             locale = language_names_to_locales[language_name]
             self.language_combobox.addItem(language_name, QtCore.QVariant(locale))
-
-        language_layout = QtWidgets.QVBoxLayout()
+        language_layout = QtWidgets.QHBoxLayout()
+        language_layout.addWidget(language_label)
         language_layout.addWidget(self.language_combobox)
-        language_group = QtWidgets.QGroupBox(strings._("gui_settings_language_label", True))
-        language_group.setLayout(language_layout)
+        language_layout.addStretch()
 
         # Connection type: either automatic, control port, or socket file
 
@@ -447,7 +446,7 @@ class SettingsDialog(QtWidgets.QDialog):
         left_col_layout.addWidget(sharing_group)
         left_col_layout.addWidget(receiving_group)
         left_col_layout.addWidget(autoupdate_group)
-        left_col_layout.addWidget(language_group)
+        left_col_layout.addLayout(language_layout)
         left_col_layout.addStretch()
 
         right_col_layout = QtWidgets.QVBoxLayout()
