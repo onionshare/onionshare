@@ -24,19 +24,13 @@ class CommonTests(object):
         '''Test that the status bar is visible'''
         self.assertTrue(self.gui.status_bar.isVisible())
 
-    def test_info_widget_is_not_visible(self, mode):
-        '''Test that the info widget along top of screen is not shown'''
-        if mode == 'receive':
-            self.assertFalse(self.gui.receive_mode.info_widget.isVisible())
+    def test_info_widget_shows_less(self, mode):
+        '''Test that minimum information (no label) is displayed in the info bar'''
         if mode == 'share':
-            self.assertFalse(self.gui.share_mode.info_widget.isVisible())
-
-    def test_info_widget_is_visible(self, mode):
-        '''Test that the info widget along top of screen is shown''' 
+            self.assertFalse(self.gui.share_mode.info.label.text() == "")
         if mode == 'receive':
-            self.assertTrue(self.gui.receive_mode.info_widget.isVisible())
-        if mode == 'share':
-            self.assertTrue(self.gui.share_mode.info_widget.isVisible())
+            # There's no minimal display in receive mode
+            self.assertTrue(False)
 
     def test_click_mode(self, mode):
         '''Test that we can switch Mode by clicking the button'''
@@ -47,14 +41,30 @@ class CommonTests(object):
             QtTest.QTest.mouseClick(self.gui.share_mode_button, QtCore.Qt.LeftButton)
             self.assertTrue(self.gui.mode, self.gui.MODE_SHARE)
 
+    def test_click_toggle_history(self, mode):
+        '''Test that we can toggle Download or Upload history by clicking the toggle button'''
+        if mode == 'receive':
+            currently_visible = self.gui.receive_mode.uploads.isVisible()
+            QtTest.QTest.mouseClick(self.gui.receive_mode.info.toggle_button, QtCore.Qt.LeftButton)
+            self.assertEqual(self.gui.receive_mode.uploads.isVisible(), not currently_visible)
+        if mode == 'share':
+            currently_visible = self.gui.receive_mode.uploads.isVisible()
+            QtTest.QTest.mouseClick(self.gui.share_mode.info.toggle_button, QtCore.Qt.LeftButton)
+            self.assertEqual(self.gui.share_mode.downloads.isVisible(), not currently_visible)
+
+    def test_history_is_not_visible(self, mode):
+        '''Test that the History section is not visible'''
+        if mode == 'receive':
+            self.assertFalse(self.gui.receive_mode.uploads.isVisible())
+        if mode == 'share':
+            self.assertFalse(self.gui.share_mode.downloads.isVisible())
+
     def test_history_is_visible(self, mode):
-        '''Test that the History section is visible and that the relevant widget is present'''
+        '''Test that the History section is visible'''
         if mode == 'receive':
             self.assertTrue(self.gui.receive_mode.uploads.isVisible())
-            self.assertTrue(self.gui.receive_mode.uploads.no_uploads_label.isVisible())
         if mode == 'share':
             self.assertTrue(self.gui.share_mode.downloads.isVisible())
-            self.assertTrue(self.gui.share_mode.downloads.no_downloads_label.isVisible())
 
     def test_server_working_on_start_button_pressed(self, mode):
         '''Test we can start the service'''
@@ -161,11 +171,11 @@ class CommonTests(object):
     def test_history_widgets_present(self, mode):
         '''Test that the relevant widgets are present in the history view after activity has taken place'''
         if mode == 'receive':
-            self.assertFalse(self.gui.receive_mode.uploads.no_uploads_label.isVisible())
-            self.assertTrue(self.gui.receive_mode.uploads.clear_history_button.isVisible())
+            self.assertFalse(self.gui.receive_mode.uploads.empty.isVisible())
+            self.assertTrue(self.gui.receive_mode.uploads.not_empty.isVisible())
         if mode == 'share':
-            self.assertFalse(self.gui.share_mode.downloads.no_downloads_label.isVisible())
-            self.assertTrue(self.gui.share_mode.downloads.clear_history_button.isVisible())
+            self.assertFalse(self.gui.share_mode.downloads.empty.isVisible())
+            self.assertTrue(self.gui.share_mode.downloads.not_empty.isVisible())
 
     def test_counter_incremented(self, mode, count):
         '''Test that the counter has incremented'''
@@ -304,4 +314,3 @@ class CommonTests(object):
     def test_add_button_visible(self):
         '''Test that the add button should be visible'''
         self.assertTrue(self.gui.share_mode.server_status.file_selection.add_button.isVisible())
-

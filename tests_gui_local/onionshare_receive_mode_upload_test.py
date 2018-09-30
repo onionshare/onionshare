@@ -94,15 +94,19 @@ class OnionShareGuiTest(unittest.TestCase):
     def test_server_status_bar_is_visible(self):
         CommonTests.test_server_status_bar_is_visible(self)
 
-    @pytest.mark.run(order=5)
-    def test_info_widget_is_not_visible(self):
-        CommonTests.test_info_widget_is_not_visible(self, 'receive')
-
     @pytest.mark.run(order=6)
     def test_click_mode(self):
         CommonTests.test_click_mode(self, 'receive')
 
+    @pytest.mark.run(order=6)
+    def test_history_is_not_visible(self):
+        CommonTests.test_history_is_not_visible(self, 'receive')
+
     @pytest.mark.run(order=7)
+    def test_click_toggle_history(self):
+        CommonTests.test_click_toggle_history(self, 'receive')
+
+    @pytest.mark.run(order=8)
     def test_history_is_visible(self):
         CommonTests.test_history_is_visible(self, 'receive')
 

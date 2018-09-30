@@ -97,12 +97,12 @@ class OnionShareGuiTest(unittest.TestCase):
         CommonTests.test_file_selection_widget_has_a_file(self)
 
     @pytest.mark.run(order=6)
-    def test_info_widget_is_visible(self):
-        CommonTests.test_info_widget_is_visible(self, 'share')
+    def test_info_widget_shows_less(self):
+        CommonTests.test_info_widget_shows_less(self, 'share')
 
     @pytest.mark.run(order=7)
-    def test_history_is_visible(self):
-        CommonTests.test_history_is_visible(self, 'share')
+    def test_history_is_not_visible(self):
+        CommonTests.test_history_is_not_visible(self, 'share')
 
     @pytest.mark.run(order=8)
     def test_set_timeout(self):
