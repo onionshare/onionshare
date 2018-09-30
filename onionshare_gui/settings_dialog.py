@@ -227,6 +227,22 @@ class SettingsDialog(QtWidgets.QDialog):
         if self.system != 'Windows' and self.system != 'Darwin':
             autoupdate_group.hide()
 
+        # Language settings
+
+        # Populate the dropdown with all of OnionShare's available languages
+        self.language_combobox = QtWidgets.QComboBox()
+        language_names_to_locales = {v: k for k, v in self.common.settings.available_locales.items()}
+        language_names = list(language_names_to_locales)
+        language_names.sort()
+        for language_name in language_names:
+            locale = language_names_to_locales[language_name]
+            self.language_combobox.addItem(language_name, QtCore.QVariant(locale))
+
+        language_layout = QtWidgets.QVBoxLayout()
+        language_layout.addWidget(self.language_combobox)
+        language_group = QtWidgets.QGroupBox(strings._("gui_settings_language_label", True))
+        language_group.setLayout(language_layout)
+
         # Connection type: either automatic, control port, or socket file
 
         # Bundled Tor
@@ -431,6 +447,7 @@ class SettingsDialog(QtWidgets.QDialog):
         left_col_layout.addWidget(sharing_group)
         left_col_layout.addWidget(receiving_group)
         left_col_layout.addWidget(autoupdate_group)
+        left_col_layout.addWidget(language_group)
         left_col_layout.addStretch()
 
         right_col_layout = QtWidgets.QVBoxLayout()
@@ -523,6 +540,10 @@ class SettingsDialog(QtWidgets.QDialog):
 
         autoupdate_timestamp = self.old_settings.get('autoupdate_timestamp')
         self._update_autoupdate_timestamp(autoupdate_timestamp)
+
+        locale = self.old_settings.get('locale')
+        locale_index = self.language_combobox.findData(QtCore.QVariant(locale))
+        self.language_combobox.setCurrentIndex(locale_index)
 
         connection_type = self.old_settings.get('connection_type')
         if connection_type == 'bundled':
@@ -936,6 +957,12 @@ class SettingsDialog(QtWidgets.QDialog):
         if not self.stealth_checkbox.isChecked():
             settings.set('hidservauth_string', '')
 
+        # Language
+        locale_index = self.language_combobox.currentIndex()
+        locale = self.language_combobox.itemData(locale_index)
+        settings.set('locale', locale)
+
+        # Tor connection
         if self.connection_type_bundled_radio.isChecked():
             settings.set('connection_type', 'bundled')
         if self.connection_type_automatic_radio.isChecked():
