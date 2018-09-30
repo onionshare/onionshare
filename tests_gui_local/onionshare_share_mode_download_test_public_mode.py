@@ -192,6 +192,12 @@ class OnionShareGuiTest(unittest.TestCase):
     def test_add_button_visible(self):
         CommonTests.test_add_button_visible(self)
 
+    @pytest.mark.run(order=30)
+    def test_history_indicator(self):
+        CommonTests.test_server_working_on_start_button_pressed(self, 'share')
+        CommonTests.test_a_server_is_started(self, 'share')
+        CommonTests.test_history_indicator(self, 'share', True)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -171,14 +171,18 @@ class OnionShareGuiTest(unittest.TestCase):
         CommonTests.test_counter_incremented(self, 'receive', 2)
 
     @pytest.mark.run(order=24)
+    def test_history_indicator(self):
+        CommonTests.test_history_indicator(self, 'receive', True)
+
+    @pytest.mark.run(order=25)
     def test_server_is_stopped(self):
         CommonTests.test_server_is_stopped(self, 'receive', False)
 
-    @pytest.mark.run(order=25)
+    @pytest.mark.run(order=26)
     def test_web_service_is_stopped(self):
         CommonTests.test_web_service_is_stopped(self)
 
-    @pytest.mark.run(order=26)
+    @pytest.mark.run(order=27)
     def test_server_status_indicator_says_closed(self):
         CommonTests.test_server_status_indicator_says_closed(self, 'receive', False)
 

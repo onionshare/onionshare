@@ -168,6 +168,12 @@ class OnionShareGuiTest(unittest.TestCase):
         CommonTests.test_server_is_stopped(self, 'share', True)
         CommonTests.test_web_service_is_stopped(self)
 
+    @pytest.mark.run(order=23)
+    def test_history_indicator(self):
+        CommonTests.test_server_working_on_start_button_pressed(self, 'share')
+        CommonTests.test_a_server_is_started(self, 'share')
+        CommonTests.test_history_indicator(self, 'share', False)
+
 
 if __name__ == "__main__":
     unittest.main()
