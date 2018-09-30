@@ -97,42 +97,50 @@ class OnionShareGuiTest(unittest.TestCase):
         CommonTests.test_file_selection_widget_has_a_file(self)
 
     @pytest.mark.run(order=6)
-    def test_info_widget_is_visible(self):
-        CommonTests.test_info_widget_is_visible(self, 'share')
+    def test_info_widget_shows_less(self):
+        CommonTests.test_info_widget_shows_less(self, 'share')
 
     @pytest.mark.run(order=7)
+    def test_history_is_not_visible(self):
+        CommonTests.test_history_is_not_visible(self, 'share')
+
+    @pytest.mark.run(order=8)
+    def test_click_toggle_history(self):
+        CommonTests.test_click_toggle_history(self, 'share')
+
+    @pytest.mark.run(order=9)
     def test_history_is_visible(self):
         CommonTests.test_history_is_visible(self, 'share')
 
-    @pytest.mark.run(order=8)
+    @pytest.mark.run(order=10)
     def test_set_timeout(self):
         CommonTests.test_set_timeout(self, 'share', 120)
 
-    @pytest.mark.run(order=9)
+    @pytest.mark.run(order=11)
     def test_server_working_on_start_button_pressed(self):
         CommonTests.test_server_working_on_start_button_pressed(self, 'share')
 
-    @pytest.mark.run(order=10)
+    @pytest.mark.run(order=12)
     def test_server_status_indicator_says_starting(self):
         CommonTests.test_server_status_indicator_says_starting(self, 'share')
 
-    @pytest.mark.run(order=11)
+    @pytest.mark.run(order=13)
     def test_a_server_is_started(self):
        CommonTests.test_a_server_is_started(self, 'share')
 
-    @pytest.mark.run(order=12)
+    @pytest.mark.run(order=14)
     def test_a_web_server_is_running(self):
         CommonTests.test_a_web_server_is_running(self)
 
-    @pytest.mark.run(order=13)
+    @pytest.mark.run(order=15)
     def test_timeout_widget_hidden(self):
         CommonTests.test_timeout_widget_hidden(self, 'share')
 
-    @pytest.mark.run(order=14)
+    @pytest.mark.run(order=16)
     def test_timeout(self):
         CommonTests.test_server_timed_out(self, 'share', 125000)
 
-    @pytest.mark.run(order=15)
+    @pytest.mark.run(order=17)
     def test_web_service_is_stopped(self):
         CommonTests.test_web_service_is_stopped(self)
 

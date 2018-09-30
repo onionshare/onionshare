@@ -97,20 +97,20 @@ class OnionShareGuiTest(unittest.TestCase):
         CommonTests.test_file_selection_widget_has_a_file(self)
 
     @pytest.mark.run(order=6)
-    def test_info_widget_is_visible(self):
-        CommonTests.test_info_widget_is_visible(self, 'share')
+    def test_info_widget_shows_less(self):
+        CommonTests.test_info_widget_shows_less(self, 'share')
 
     @pytest.mark.run(order=7)
-    def test_history_is_visible(self):
-        CommonTests.test_history_is_visible(self, 'share')
+    def test_history_is_not_visible(self):
+        CommonTests.test_history_is_not_visible(self, 'share')
 
     @pytest.mark.run(order=8)
-    def test_deleting_only_file_hides_delete_button(self):
-        CommonTests.test_deleting_only_file_hides_delete_button(self)
+    def test_click_toggle_history(self):
+        CommonTests.test_click_toggle_history(self, 'share')
 
     @pytest.mark.run(order=9)
-    def test_add_a_file_and_delete_using_its_delete_widget(self):
-        CommonTests.test_add_a_file_and_delete_using_its_delete_widget(self)
+    def test_history_is_visible(self):
+        CommonTests.test_history_is_visible(self, 'share')
 
     @pytest.mark.run(order=10)
     def test_file_selection_widget_readd_files(self):
