@@ -48,11 +48,25 @@ class Settings(object):
             else:
                 self.common.log('Settings', '__init__', 'Supplied config does not exist or is unreadable. Falling back to default location')
 
-        # Available languages in this version of OnionShare
-        self.available_locales = [
-            'cs', 'da', 'de', 'en', 'eo', 'es', 'fi',
-            'fr', 'it', 'nl', 'no', 'pt', 'ru', 'tr'
-        ]
+        # Dictionary of available languages in this version of OnionShare,
+        # mapped to the language name, in that language.
+        # TODO: Update language names to not be in English
+        self.available_locales = {
+            'cs': 'Croatian',
+            'da': 'Danish',
+            'de': 'German',
+            'en': 'English',
+            'eo': 'Esperanto',
+            'es': 'Spanish',
+            'fi': 'Finnish',
+            'fr': 'French',
+            'it': 'Italian',
+            'nl': 'Dutch',
+            'no': 'Norweigan',
+            'pt': 'Portuguese',
+            'ru': 'Russian',
+            'tr': 'Turkish'
+        }
 
         # These are the default settings. They will get overwritten when loading from disk
         self.default_settings = {
