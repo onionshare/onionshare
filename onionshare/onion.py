@@ -402,6 +402,8 @@ class Onion(object):
             # ephemeral stealth onion services are not supported
             self.supports_stealth = False
 
+        # Does this version of Tor support next-gen ('v3') onions?
+        self.supports_next_gen_onions = self.tor_version > Version('0.3.3.1')
 
     def is_authenticated(self):
         """
@@ -427,7 +429,6 @@ class Onion(object):
             raise TorTooOld(strings._('error_stealth_not_supported'))
 
         print(strings._("config_onion_service").format(int(port)))
-        print(strings._('using_ephemeral'))
 
         if self.stealth:
             if self.settings.get('hidservauth_string'):
@@ -443,31 +444,29 @@ class Onion(object):
             # is the key a v2 key?
             if onionkey.is_v2_key(key_content):
                 key_type = "RSA1024"
-            # The below section is commented out because re-publishing
-            # a pre-prepared v3 private key is currently unstable in Tor.
-            # This is fixed upstream but won't reach stable until 0.3.5
-            # (expected in December 2018)
-            # See https://trac.torproject.org/projects/tor/ticket/25552
-            # Until then, we will deliberately not work with 'persistent'
-            # v3 onions, which should not be possible via the GUI settings
-            # anyway.
-            # Our ticket: https://github.com/micahflee/onionshare/issues/677
-            #
-            # Assume it was a v3 key
-            # key_type = "ED25519-V3"
+                # The below section is commented out because re-publishing
+                # a pre-prepared v3 private key is currently unstable in Tor.
+                # This is fixed upstream but won't reach stable until 0.3.5
+                # (expected in December 2018)
+                # See https://trac.torproject.org/projects/tor/ticket/25552
+                # Until then, we will deliberately not work with 'persistent'
+                # v3 onions, which should not be possible via the GUI settings
+                # anyway.
+                # Our ticket: https://github.com/micahflee/onionshare/issues/677
+                #
+                # Assume it was a v3 key
+                # key_type = "ED25519-V3"
             else:
                 raise TorErrorProtocolError(strings._('error_invalid_private_key'))
-            self.common.log('Onion', 'Starting a hidden service with a saved private key')
         else:
             # Work out if we can support v3 onion services, which are preferred
-            if Version(self.tor_version) >= Version('0.3.2.9') and not self.settings.get('use_legacy_v2_onions'):
+            if Version(self.tor_version) >= Version('0.3.3.1') and not self.settings.get('use_legacy_v2_onions'):
                 key_type = "ED25519-V3"
                 key_content = onionkey.generate_v3_private_key()[0]
             else:
                 # fall back to v2 onion services
                 key_type = "RSA1024"
                 key_content = onionkey.generate_v2_private_key()[0]
-            self.common.log('Onion', 'Starting a hidden service with a new private key')
 
         # v3 onions don't yet support basic auth. Our ticket:
         # https://github.com/micahflee/onionshare/issues/697
@@ -475,6 +474,7 @@ class Onion(object):
             basic_auth = None
             self.stealth = False
 
+        self.common.log('Onion', 'start_onion_service', 'key_type={}'.format(key_type))
         try:
             if basic_auth != None:
                 res = self.c.create_ephemeral_hidden_service({ 80: port }, await_publication=True, basic_auth=basic_auth, key_type=key_type, key_content=key_content)
@@ -482,8 +482,8 @@ class Onion(object):
                 # if the stem interface is older than 1.5.0, basic_auth isn't a valid keyword arg
                 res = self.c.create_ephemeral_hidden_service({ 80: port }, await_publication=True, key_type=key_type, key_content=key_content)
 
-        except ProtocolError:
-            raise TorErrorProtocolError(strings._('error_tor_protocol_error'))
+        except ProtocolError as e:
+            raise TorErrorProtocolError(strings._('error_tor_protocol_error').format(e.args[0]))
 
         self.service_id = res.service_id
         onion_host = self.service_id + '.onion'
@@ -514,7 +514,7 @@ class Onion(object):
             self.settings.save()
             return onion_host
         else:
-            raise TorErrorProtocolError(strings._('error_tor_protocol_error'))
+            raise TorErrorProtocolError(strings._('error_tor_protocol_error_unknown'))
 
     def cleanup(self, stop_tor=True):
         """

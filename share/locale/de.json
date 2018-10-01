@@ -1,6 +1,5 @@
 {
     "preparing_files": "Dateien werden vorbereitet.",
-    "wait_for_hs": "Warte auf HS:",
     "give_this_url": "Geben Sie diese URL der Person, der Sie die Datei zusenden möchten:",
     "ctrlc_to_stop":  "Drücken Sie Strg+C um den Server anzuhalten",
     "not_a_file": "{0:s} ist keine Datei.",

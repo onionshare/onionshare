@@ -38,11 +38,11 @@ DEFAULT_ZW_FILENAME_REGEX = re.compile(r'^onionshare_[a-z2-7]{6}.zip$')
 RANDOM_STR_REGEX = re.compile(r'^[a-z2-7]+$')
 
 
-def web_obj(common_obj, receive_mode, num_files=0):
+def web_obj(common_obj, mode, num_files=0):
     """ Creates a Web object, in either share mode or receive mode, ready for testing """
     common_obj.load_settings()
 
-    web = Web(common_obj, False, receive_mode)
+    web = Web(common_obj, False, mode)
     web.generate_slug()
     web.stay_open = True
     web.running = True
@@ -50,14 +50,14 @@ def web_obj(common_obj, receive_mode, num_files=0):
     web.app.testing = True
 
     # Share mode
-    if not receive_mode:
+    if mode == 'share':
         # Add files
         files = []
         for i in range(num_files):
             with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
                 tmp_file.write(b'*' * 1024)
                 files.append(tmp_file.name)
-        web.set_file_info(files)
+        web.share_mode.set_file_info(files)
     # Receive mode
     else:
         pass
@@ -67,8 +67,8 @@ def web_obj(common_obj, receive_mode, num_files=0):
 
 class TestWeb:
     def test_share_mode(self, common_obj):
-        web = web_obj(common_obj, False, 3)
-        assert web.receive_mode is False
+        web = web_obj(common_obj, 'share', 3)
+        assert web.mode is 'share'
         with web.app.test_client() as c:
             # Load 404 pages
             res = c.get('/')
@@ -91,7 +91,7 @@ class TestWeb:
             assert res.mimetype == 'application/zip'
 
     def test_share_mode_close_after_first_download_on(self, common_obj, temp_file_1024):
-        web = web_obj(common_obj, False, 3)
+        web = web_obj(common_obj, 'share', 3)
         web.stay_open = False
 
         assert web.running == True
@@ -106,7 +106,7 @@ class TestWeb:
             assert web.running == False
 
     def test_share_mode_close_after_first_download_off(self, common_obj, temp_file_1024):
-        web = web_obj(common_obj, False, 3)
+        web = web_obj(common_obj, 'share', 3)
         web.stay_open = True
 
         assert web.running == True
@@ -120,8 +120,8 @@ class TestWeb:
             assert web.running == True
 
     def test_receive_mode(self, common_obj):
-        web = web_obj(common_obj, True)
-        assert web.receive_mode is True
+        web = web_obj(common_obj, 'receive')
+        assert web.mode is 'receive'
 
         with web.app.test_client() as c:
             # Load 404 pages
@@ -139,7 +139,7 @@ class TestWeb:
             assert res.status_code == 200
 
     def test_public_mode_on(self, common_obj):
-        web = web_obj(common_obj, True)
+        web = web_obj(common_obj, 'receive')
         common_obj.settings.set('public_mode', True)
 
         with web.app.test_client() as c:
@@ -152,9 +152,9 @@ class TestWeb:
             res = c.get('/{}'.format(web.slug))
             data2 = res.get_data()
             assert res.status_code == 404
-    
+
     def test_public_mode_off(self, common_obj):
-        web = web_obj(common_obj, True)
+        web = web_obj(common_obj, 'receive')
         common_obj.settings.set('public_mode', False)
 
         with web.app.test_client() as c:

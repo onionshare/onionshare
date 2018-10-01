@@ -17,15 +17,13 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-import time
-import threading
 from PyQt5 import QtCore, QtWidgets, QtGui
 
 from onionshare import strings
 from onionshare.common import ShutdownTimer
 
 from .server_status import ServerStatus
-from .onion_thread import OnionThread
+from .threads import OnionThread
 from .widgets import Alert
 
 class Mode(QtWidgets.QWidget):
@@ -39,7 +37,7 @@ class Mode(QtWidgets.QWidget):
     starting_server_error = QtCore.pyqtSignal(str)
     set_server_active = QtCore.pyqtSignal(bool)
 
-    def __init__(self, common, qtapp, app, status_bar, server_status_label, system_tray, filenames=None):
+    def __init__(self, common, qtapp, app, status_bar, server_status_label, system_tray, filenames=None, local_only=False):
         super(Mode, self).__init__()
         self.common = common
         self.qtapp = qtapp
@@ -56,8 +54,15 @@ class Mode(QtWidgets.QWidget):
         # The web object gets created in init()
         self.web = None
 
+        # Local mode is passed from OnionShareGui
+        self.local_only = local_only
+
+        # Threads start out as None
+        self.onion_thread = None
+        self.web_thread = None
+
         # Server status
-        self.server_status = ServerStatus(self.common, self.qtapp, self.app)
+        self.server_status = ServerStatus(self.common, self.qtapp, self.app, None, self.local_only)
         self.server_status.server_started.connect(self.start_server)
         self.server_status.server_stopped.connect(self.stop_server)
         self.server_status.server_canceled.connect(self.cancel_server)
@@ -76,7 +81,15 @@ class Mode(QtWidgets.QWidget):
         # Layout
         self.layout = QtWidgets.QVBoxLayout()
         self.layout.addWidget(self.primary_action)
-        self.setLayout(self.layout)
+        # Hack to allow a minimum width on self.layout
+        min_width_widget = QtWidgets.QWidget()
+        min_width_widget.setMinimumWidth(450)
+        self.layout.addWidget(min_width_widget)
+
+        self.horizontal_layout_wrapper = QtWidgets.QHBoxLayout()
+        self.horizontal_layout_wrapper.addLayout(self.layout)
+
+        self.setLayout(self.horizontal_layout_wrapper)
 
     def init(self):
         """
@@ -138,34 +151,11 @@ class Mode(QtWidgets.QWidget):
         self.status_bar.clearMessage()
         self.server_status_label.setText('')
 
-        # Start the onion service in a new thread
-        def start_onion_service(self):
-            # Choose a port for the web app
-            self.app.choose_port()
-
-            # Start http service in new thread
-            t = threading.Thread(target=self.web.start, args=(self.app.port, not self.common.settings.get('close_after_first_download'), self.common.settings.get('public_mode'), self.common.settings.get('slug')))
-            t.daemon = True
-            t.start()
-
-            # Wait for the web app slug to generate before continuing
-            if not self.common.settings.get('public_mode'):
-                while self.web.slug == None:
-                    time.sleep(0.1)
-
-            # Now start the onion service
-            try:
-                self.app.start_onion_service()
-                self.starting_server_step2.emit()
-
-            except Exception as e:
-                self.starting_server_error.emit(e.args[0])
-                return
-
         self.common.log('Mode', 'start_server', 'Starting an onion thread')
-        self.t = OnionThread(self.common, function=start_onion_service, kwargs={'self': self})
-        self.t.daemon = True
-        self.t.start()
+        self.onion_thread = OnionThread(self)
+        self.onion_thread.success.connect(self.starting_server_step2.emit)
+        self.onion_thread.error.connect(self.starting_server_error.emit)
+        self.onion_thread.start()
 
     def start_server_custom(self):
         """
@@ -243,9 +233,21 @@ class Mode(QtWidgets.QWidget):
         """
         Cancel the server while it is preparing to start
         """
-        if self.t:
-            self.t.quit()
+        self.cancel_server_custom()
+
+        if self.onion_thread:
+            self.common.log('Mode', 'cancel_server: quitting onion thread')
+            self.onion_thread.quit()
+        if self.web_thread:
+            self.common.log('Mode', 'cancel_server: quitting web thread')
+            self.web_thread.quit()
         self.stop_server()
+
+    def cancel_server_custom(self):
+        """
+        Add custom initialization here.
+        """
+        pass
 
     def stop_server(self):
         """

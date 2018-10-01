@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import os
 import subprocess
+import textwrap
 from datetime import datetime
 from PyQt5 import QtCore, QtWidgets, QtGui
 
@@ -221,16 +222,20 @@ class Uploads(QtWidgets.QScrollArea):
 
         self.setWindowTitle(strings._('gui_uploads', True))
         self.setWidgetResizable(True)
-        self.setMaximumHeight(600)
         self.setMinimumHeight(150)
         self.setMinimumWidth(350)
         self.setWindowIcon(QtGui.QIcon(common.get_resource_path('images/logo.png')))
         self.setWindowFlags(QtCore.Qt.Sheet | QtCore.Qt.WindowTitleHint | QtCore.Qt.WindowSystemMenuHint | QtCore.Qt.CustomizeWindowHint)
         self.vbar = self.verticalScrollBar()
+        self.vbar.rangeChanged.connect(self.resizeScroll)
 
         uploads_label = QtWidgets.QLabel(strings._('gui_uploads', True))
         uploads_label.setStyleSheet(self.common.css['downloads_uploads_label'])
         self.no_uploads_label = QtWidgets.QLabel(strings._('gui_no_uploads', True))
+        self.clear_history_button = QtWidgets.QPushButton(strings._('gui_clear_history', True))
+        self.clear_history_button.clicked.connect(self.reset)
+        self.clear_history_button.hide()
+
 
         self.uploads_layout = QtWidgets.QVBoxLayout()
 
@@ -238,10 +243,17 @@ class Uploads(QtWidgets.QScrollArea):
         layout = QtWidgets.QVBoxLayout()
         layout.addWidget(uploads_label)
         layout.addWidget(self.no_uploads_label)
+        layout.addWidget(self.clear_history_button)
         layout.addLayout(self.uploads_layout)
         layout.addStretch()
         widget.setLayout(layout)
         self.setWidget(widget)
+
+    def resizeScroll(self, minimum, maximum):
+        """
+        Scroll to the bottom of the window when the range changes.
+        """
+        self.vbar.setValue(maximum)
 
     def add(self, upload_id, content_length):
         """
@@ -250,14 +262,13 @@ class Uploads(QtWidgets.QScrollArea):
         self.common.log('Uploads', 'add', 'upload_id: {}, content_length: {}'.format(upload_id, content_length))
         # Hide the no_uploads_label
         self.no_uploads_label.hide()
+        # Show the clear_history_button
+        self.clear_history_button.show()
 
         # Add it to the list
         upload = Upload(self.common, upload_id, content_length)
         self.uploads[upload_id] = upload
         self.uploads_layout.addWidget(upload)
-
-        # Scroll to the bottom
-        self.vbar.setValue(self.vbar.maximum())
 
     def update(self, upload_id, progress):
         """
@@ -290,10 +301,12 @@ class Uploads(QtWidgets.QScrollArea):
         """
         self.common.log('Uploads', 'reset')
         for upload in self.uploads.values():
+            upload.close()
             self.uploads_layout.removeWidget(upload)
         self.uploads = {}
 
         self.no_uploads_label.show()
+        self.clear_history_button.hide()
         self.resize(self.sizeHint())
 
     def resizeEvent(self, event):
@@ -301,10 +314,7 @@ class Uploads(QtWidgets.QScrollArea):
        try:
            for upload in self.uploads.values():
                for item in upload.files.values():
-                   if item.filename_label_width > width:
-                       item.filename_label.setText(item.filename[:25] + '[...]')
-                       item.adjustSize()
-                   if width > item.filename_label_width:
-                       item.filename_label.setText(item.filename)
+                   item.filename_label.setText(textwrap.fill(item.filename, 30))
+                   item.adjustSize()
        except:
            pass

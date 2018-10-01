@@ -433,7 +433,7 @@ class Common(object):
                     tmpsock.bind(("127.0.0.1", random.randint(min_port, max_port)))
                     break
                 except OSError as e:
-                    raise OSError(e)
+                    pass
             _, port = tmpsock.getsockname()
         return port
 

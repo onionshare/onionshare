@@ -34,7 +34,7 @@ class ReceiveMode(Mode):
         Custom initialization for ReceiveMode.
         """
         # Create the Web object
-        self.web = Web(self.common, True, True)
+        self.web = Web(self.common, True, 'receive')
 
         # Server status
         self.server_status.set_mode('receive')
@@ -46,19 +46,13 @@ class ReceiveMode(Mode):
         self.server_status.web = self.web
         self.server_status.update()
 
-        # Downloads
+        # Uploads
         self.uploads = Uploads(self.common)
         self.uploads_in_progress = 0
         self.uploads_completed = 0
         self.new_upload = False # For scrolling to the bottom of the uploads list
 
         # Information about share, and show uploads button
-        self.info_show_uploads = QtWidgets.QToolButton()
-        self.info_show_uploads.setIcon(QtGui.QIcon(self.common.get_resource_path('images/upload_window_gray.png')))
-        self.info_show_uploads.setCheckable(True)
-        self.info_show_uploads.toggled.connect(self.uploads_toggled)
-        self.info_show_uploads.setToolTip(strings._('gui_uploads_window_tooltip', True))
-
         self.info_in_progress_uploads_count = QtWidgets.QLabel()
         self.info_in_progress_uploads_count.setStyleSheet(self.common.css['mode_info_label'])
 
@@ -72,7 +66,6 @@ class ReceiveMode(Mode):
         self.info_layout.addStretch()
         self.info_layout.addWidget(self.info_in_progress_uploads_count)
         self.info_layout.addWidget(self.info_completed_uploads_count)
-        self.info_layout.addWidget(self.info_show_uploads)
 
         self.info_widget = QtWidgets.QWidget()
         self.info_widget.setLayout(self.info_layout)
@@ -86,6 +79,8 @@ class ReceiveMode(Mode):
         # Layout
         self.layout.insertWidget(0, self.receive_info)
         self.layout.insertWidget(0, self.info_widget)
+        self.layout.addStretch()
+        self.horizontal_layout_wrapper.addWidget(self.uploads)
 
     def get_stop_server_shutdown_timeout_text(self):
         """
@@ -97,16 +92,15 @@ class ReceiveMode(Mode):
         """
         The shutdown timer expired, should we stop the server? Returns a bool
         """
-        # TODO: wait until the final upload is done before stoppign the server?
         # If there were no attempts to upload files, or all uploads are done, we can stop
-        if self.web.upload_count == 0 or not self.web.uploads_in_progress:
+        if self.web.receive_mode.upload_count == 0 or not self.web.receive_mode.uploads_in_progress:
             self.server_status.stop_server()
             self.server_status_label.setText(strings._('close_on_timeout', True))
             return True
         # An upload is probably still running - hold off on stopping the share, but block new shares.
         else:
             self.server_status_label.setText(strings._('timeout_upload_still_running', True))
-            self.web.can_upload = False
+            self.web.receive_mode.can_upload = False
             return False
 
         return True
@@ -116,7 +110,7 @@ class ReceiveMode(Mode):
         Starting the server.
         """
         # Reset web counters
-        self.web.upload_count = 0
+        self.web.receive_mode.upload_count = 0
         self.web.error404_count = 0
 
         # Hide and reset the uploads if we have previously shared
@@ -177,6 +171,12 @@ class ReceiveMode(Mode):
         Handle REQUEST_UPLOAD_FINISHED event.
         """
         self.uploads.finished(event["data"]["id"])
+        # Update the total 'completed uploads' info
+        self.uploads_completed += 1
+        self.update_uploads_completed()
+        # Update the 'in progress uploads' info
+        self.uploads_in_progress -= 1
+        self.update_uploads_in_progress()
 
     def on_reload_settings(self):
         """
@@ -193,12 +193,11 @@ class ReceiveMode(Mode):
         self.uploads_in_progress = 0
         self.update_uploads_completed()
         self.update_uploads_in_progress()
-        self.info_show_uploads.setIcon(QtGui.QIcon(self.common.get_resource_path('images/upload_window_gray.png')))
         self.uploads.reset()
 
     def update_uploads_completed(self):
         """
-        Update the 'Downloads completed' info widget.
+        Update the 'Uploads completed' info widget.
         """
         if self.uploads_completed == 0:
             image = self.common.get_resource_path('images/share_completed_none.png')
@@ -209,13 +208,12 @@ class ReceiveMode(Mode):
 
     def update_uploads_in_progress(self):
         """
-        Update the 'Downloads in progress' info widget.
+        Update the 'Uploads in progress' info widget.
         """
         if self.uploads_in_progress == 0:
             image = self.common.get_resource_path('images/share_in_progress_none.png')
         else:
             image = self.common.get_resource_path('images/share_in_progress.png')
-            self.info_show_uploads.setIcon(QtGui.QIcon(self.common.get_resource_path('images/upload_window_green.png')))
         self.info_in_progress_uploads_count.setText('<img src="{0:s}" /> {1:d}'.format(image, self.uploads_in_progress))
         self.info_in_progress_uploads_count.setToolTip(strings._('info_in_progress_uploads_tooltip', True).format(self.uploads_in_progress))
 
@@ -230,13 +228,3 @@ class ReceiveMode(Mode):
 
         # Resize window
         self.adjustSize()
-
-    def uploads_toggled(self, checked):
-        """
-        When the 'Show/hide uploads' button is toggled, show or hide the uploads window.
-        """
-        self.common.log('ReceiveMode', 'toggle_uploads')
-        if checked:
-            self.uploads.show()
-        else:
-            self.uploads.hide()
