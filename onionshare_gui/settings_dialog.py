@@ -938,7 +938,7 @@ class SettingsDialog(QtWidgets.QDialog):
         if self.save_private_key_checkbox.isChecked():
             # force the legacy mode on
             use_legacy_v2_onions = True
-            settings.set('save_private_key')
+            settings.set('save_private_key', True)
             settings.set('private_key', self.old_settings.get('private_key'))
             settings.set('slug', self.old_settings.get('slug'))
             settings.set('hidservauth_string', self.old_settings.get('hidservauth_string'))
@@ -950,7 +950,7 @@ class SettingsDialog(QtWidgets.QDialog):
             settings.set('hidservauth_string', '')
 
         if use_legacy_v2_onions:
-            settings.set('use_legacy_v2_onions')
+            settings.set('use_legacy_v2_onions', True)
         else:
             settings.set('use_legacy_v2_onions', False)
             # If we are not using legacy mode, but we previously had persistence turned on, force it off!
@@ -984,7 +984,7 @@ class SettingsDialog(QtWidgets.QDialog):
             settings.set('connection_type', 'socket_file')
 
         if self.autoupdate_checkbox.isChecked():
-            settings.set('use_autoupdate')
+            settings.set('use_autoupdate', True)
         else:
             settings.set('use_autoupdate', False)
 
@@ -1004,19 +1004,19 @@ class SettingsDialog(QtWidgets.QDialog):
 
         # Whether we use bridges
         if self.tor_bridges_no_bridges_radio.isChecked():
-            settings.set('no_bridges')
+            settings.set('no_bridges', True)
             settings.set('tor_bridges_use_obfs4', False)
             settings.set('tor_bridges_use_meek_lite_azure', False)
             settings.set('tor_bridges_use_custom_bridges', '')
         if self.tor_bridges_use_obfs4_radio.isChecked():
             settings.set('no_bridges', False)
-            settings.set('tor_bridges_use_obfs4')
+            settings.set('tor_bridges_use_obfs4', True)
             settings.set('tor_bridges_use_meek_lite_azure', False)
             settings.set('tor_bridges_use_custom_bridges', '')
         if self.tor_bridges_use_meek_lite_azure_radio.isChecked():
             settings.set('no_bridges', False)
             settings.set('tor_bridges_use_obfs4', False)
-            settings.set('tor_bridges_use_meek_lite_azure')
+            settings.set('tor_bridges_use_meek_lite_azure', True)
             settings.set('tor_bridges_use_custom_bridges', '')
         if self.tor_bridges_use_custom_radio.isChecked():
             settings.set('no_bridges', False)
@@ -1048,7 +1048,7 @@ class SettingsDialog(QtWidgets.QDialog):
                 settings.set('tor_bridges_use_custom_bridges', new_bridges)
             else:
                 Alert(self.common, strings._('gui_settings_tor_bridges_invalid'))
-                settings.set('no_bridges')
+                settings.set('no_bridges', True)
                 return False
 
         return settings
