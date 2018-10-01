@@ -33,7 +33,11 @@ def main(cwd=None):
     """
     common = Common()
 
+    # Load settings right away, in order to get locale setting for strings
+    common.load_settings(config)
     strings.load_strings(common)
+
+    # Display OnionShare banner
     print(strings._('version_string').format(common.version))
 
     # OnionShare CLI in OSX needs to change current working directory (#132)
@@ -88,8 +92,9 @@ def main(cwd=None):
         if not valid:
             sys.exit()
 
-    # Load settings
-    common.load_settings(config)
+    # Re-load settings, if a custom config was passed in
+    if config:
+        common.load_settings(config)
 
     # Debug mode?
     common.debug = debug

@@ -57,9 +57,10 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.setWindowIcon(QtGui.QIcon(self.common.get_resource_path('images/logo.png')))
         self.setMinimumWidth(850)
 
-        # Load settings
+        # Load settings, if a custom config was passed in
         self.config = config
-        self.common.load_settings(self.config)
+        if self.config:
+            self.common.load_settings(self.config)
 
         # System tray
         menu = QtWidgets.QMenu()

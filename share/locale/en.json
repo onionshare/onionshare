@@ -181,5 +181,6 @@
     "gui_upload_finished_range": "Uploaded {} to {}",
     "gui_upload_finished": "Uploaded {}",
     "gui_open_folder_error_nautilus": "Cannot open folder because nautilus is not available. The file is here: {}",
-    "gui_settings_language_label": "Preferred language"
+    "gui_settings_language_label": "Preferred language",
+    "gui_settings_language_changed_notice": "Restart OnionShare for your change in language to take effect."
 }
