@@ -19,7 +19,6 @@ class ReceiveModeWeb(object):
         self.web = web
 
         self.can_upload = True
-        self.can_stop_share_now = False
         self.upload_count = 0
         self.uploads_in_progress = []
 
@@ -40,7 +39,6 @@ class ReceiveModeWeb(object):
             r = make_response(render_template(
                 'receive.html',
                 upload_action=upload_action))
-
             return self.web.add_security_headers(r)
 
         @self.web.app.route("/<slug_candidate>")
