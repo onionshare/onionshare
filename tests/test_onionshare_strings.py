@@ -47,22 +47,14 @@ class TestLoadStrings:
             self, common_obj, locale_en, sys_onionshare_dev_mode):
         """ load_strings() loads English by default """
         strings.load_strings(common_obj)
-        assert strings._('wait_for_hs') == "Waiting for HS to be ready:"
+        assert strings._('preparing_files') == "Compressing files."
 
 
     def test_load_strings_loads_other_languages(
             self, common_obj, locale_fr, sys_onionshare_dev_mode):
         """ load_strings() loads other languages in different locales """
         strings.load_strings(common_obj, "fr")
-        assert strings._('wait_for_hs') == "En attente du HS:"
-
-    def test_load_partial_strings(
-            self, common_obj, locale_ru, sys_onionshare_dev_mode):
-        strings.load_strings(common_obj)
-        assert strings._("give_this_url") == (
-            "Отправьте эту ссылку тому человеку, "
-            "которому вы хотите передать файл:")
-        assert strings._('wait_for_hs') == "Waiting for HS to be ready:"
+        assert strings._('preparing_files') == "Préparation des fichiers à partager."
 
     def test_load_invalid_locale(
             self, common_obj, locale_invalid, sys_onionshare_dev_mode):

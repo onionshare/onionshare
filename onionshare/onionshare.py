@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import os, shutil
 
 from . import common, strings
+from .onion import TorTooOld, TorErrorProtocolError
 from .common import ShutdownTimer
 
 class OnionShare(object):

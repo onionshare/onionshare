@@ -59,7 +59,7 @@ def main():
           files_in(dir, 'onionshare_gui/share_mode') + \
           files_in(dir, 'onionshare_gui/receive_mode') + \
           files_in(dir, 'install/scripts') + \
-          files_in(dir, 'test')
+          files_in(dir, 'tests')
     pysrc = [p for p in src if p.endswith('.py')]
 
     lang_code = args.lang_code
