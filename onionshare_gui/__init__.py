@@ -59,7 +59,11 @@ def main():
     common = Common()
     common.define_css()
 
+    # Load settings right away, in order to get locale setting for strings
+    common.load_settings()
     strings.load_strings(common)
+
+    # Display OnionShare banner
     print(strings._('version_string').format(common.version))
 
     # Allow Ctrl-C to smoothly quit the program instead of throwing an exception

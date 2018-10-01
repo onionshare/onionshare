@@ -830,8 +830,29 @@ class SettingsDialog(QtWidgets.QDialog):
         """
         self.common.log('SettingsDialog', 'save_clicked')
 
+        def changed(s1, s2, keys):
+            """
+            Compare the Settings objects s1 and s2 and return true if any values
+            have changed for the given keys.
+            """
+            for key in keys:
+                if s1.get(key) != s2.get(key):
+                    return True
+            return False
+
         settings = self.settings_from_fields()
         if settings:
+            # If language changed, inform user they need to restart OnionShare
+            if changed(settings, self.old_settings, ['locale']):
+                # Look up error message in different locale
+                new_locale = settings.get('locale')
+                if new_locale in strings.translations and 'gui_settings_language_changed_notice' in strings.translations[new_locale]:
+                    notice = strings.translations[new_locale]['gui_settings_language_changed_notice']
+                else:
+                    notice = strings._('gui_settings_language_changed_notice')
+            Alert(self.common, notice, QtWidgets.QMessageBox.Information)
+
+            # Save the new settings
             settings.save()
 
             # If Tor isn't connected, or if Tor settings have changed, Reinitialize
@@ -840,15 +861,6 @@ class SettingsDialog(QtWidgets.QDialog):
             if not self.local_only:
                 if self.onion.is_authenticated():
                     self.common.log('SettingsDialog', 'save_clicked', 'Connected to Tor')
-                    def changed(s1, s2, keys):
-                        """
-                        Compare the Settings objects s1 and s2 and return true if any values
-                        have changed for the given keys.
-                        """
-                        for key in keys:
-                            if s1.get(key) != s2.get(key):
-                                return True
-                        return False
 
                     if changed(settings, self.old_settings, [
                         'connection_type', 'control_port_address',
