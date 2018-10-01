@@ -41,7 +41,7 @@ class DropHereLabel(QtWidgets.QLabel):
         if image:
             self.setPixmap(QtGui.QPixmap.fromImage(QtGui.QImage(self.common.get_resource_path('images/logo_transparent.png'))))
         else:
-            self.setText(strings._('gui_drag_and_drop', True))
+            self.setText(strings._('gui_drag_and_drop'))
             self.setStyleSheet(self.common.css['share_file_selection_drop_here_label'])
 
         self.hide()
@@ -65,7 +65,7 @@ class DropCountLabel(QtWidgets.QLabel):
 
         self.setAcceptDrops(True)
         self.setAlignment(QtCore.Qt.AlignCenter)
-        self.setText(strings._('gui_drag_and_drop', True))
+        self.setText(strings._('gui_drag_and_drop'))
         self.setStyleSheet(self.common.css['share_file_selection_drop_count_label'])
         self.hide()
 
@@ -216,7 +216,7 @@ class FileList(QtWidgets.QListWidget):
 
         if filename not in filenames:
             if not os.access(filename, os.R_OK):
-                Alert(self.common, strings._("not_a_readable_file", True).format(filename))
+                Alert(self.common, strings._("not_a_readable_file").format(filename))
                 return
 
             fileinfo = QtCore.QFileInfo(filename)
@@ -301,9 +301,9 @@ class FileSelection(QtWidgets.QVBoxLayout):
         self.file_list.files_updated.connect(self.update)
 
         # Buttons
-        self.add_button = QtWidgets.QPushButton(strings._('gui_add', True))
+        self.add_button = QtWidgets.QPushButton(strings._('gui_add'))
         self.add_button.clicked.connect(self.add)
-        self.delete_button = QtWidgets.QPushButton(strings._('gui_delete', True))
+        self.delete_button = QtWidgets.QPushButton(strings._('gui_delete'))
         self.delete_button.clicked.connect(self.delete)
         button_layout = QtWidgets.QHBoxLayout()
         button_layout.addStretch()
@@ -340,7 +340,7 @@ class FileSelection(QtWidgets.QVBoxLayout):
         """
         Add button clicked.
         """
-        file_dialog = AddFileDialog(self.common, caption=strings._('gui_choose_items', True))
+        file_dialog = AddFileDialog(self.common, caption=strings._('gui_choose_items'))
         if file_dialog.exec_() == QtWidgets.QDialog.Accepted:
             for filename in file_dialog.selectedFiles():
                 self.file_list.add_file(filename)

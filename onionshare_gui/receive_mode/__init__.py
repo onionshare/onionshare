@@ -72,7 +72,7 @@ class ReceiveMode(Mode):
         self.info_widget.hide()
 
         # Receive mode info
-        self.receive_info = QtWidgets.QLabel(strings._('gui_receive_mode_warning', True))
+        self.receive_info = QtWidgets.QLabel(strings._('gui_receive_mode_warning'))
         self.receive_info.setMinimumHeight(80)
         self.receive_info.setWordWrap(True)
 
@@ -86,7 +86,7 @@ class ReceiveMode(Mode):
         """
         Return the string to put on the stop server button, if there's a shutdown timeout
         """
-        return strings._('gui_receive_stop_server_shutdown_timeout', True)
+        return strings._('gui_receive_stop_server_shutdown_timeout')
 
     def timeout_finished_should_stop_server(self):
         """
@@ -125,7 +125,7 @@ class ReceiveMode(Mode):
         """
         Handle REQUEST_LOAD event.
         """
-        self.system_tray.showMessage(strings._('systray_page_loaded_title', True), strings._('systray_upload_page_loaded_message', True))
+        self.system_tray.showMessage(strings._('systray_page_loaded_title'), strings._('systray_upload_page_loaded_message'))
 
     def handle_request_started(self, event):
         """
@@ -135,7 +135,7 @@ class ReceiveMode(Mode):
         self.uploads_in_progress += 1
         self.update_uploads_in_progress()
 
-        self.system_tray.showMessage(strings._('systray_upload_started_title', True), strings._('systray_upload_started_message', True))
+        self.system_tray.showMessage(strings._('systray_upload_started_title'), strings._('systray_upload_started_message'))
 
     def handle_request_progress(self, event):
         """
@@ -148,7 +148,7 @@ class ReceiveMode(Mode):
         Handle REQUEST_CLOSE_SERVER event.
         """
         self.stop_server()
-        self.system_tray.showMessage(strings._('systray_close_server_title', True), strings._('systray_close_server_message', True))
+        self.system_tray.showMessage(strings._('systray_close_server_title'), strings._('systray_close_server_message'))
 
     def handle_request_upload_file_renamed(self, event):
         """
@@ -194,7 +194,7 @@ class ReceiveMode(Mode):
         else:
             image = self.common.get_resource_path('images/share_completed.png')
         self.info_completed_uploads_count.setText('<img src="{0:s}" /> {1:d}'.format(image, self.uploads_completed))
-        self.info_completed_uploads_count.setToolTip(strings._('info_completed_uploads_tooltip', True).format(self.uploads_completed))
+        self.info_completed_uploads_count.setToolTip(strings._('info_completed_uploads_tooltip').format(self.uploads_completed))
 
     def update_uploads_in_progress(self):
         """
@@ -205,7 +205,7 @@ class ReceiveMode(Mode):
         else:
             image = self.common.get_resource_path('images/share_in_progress.png')
         self.info_in_progress_uploads_count.setText('<img src="{0:s}" /> {1:d}'.format(image, self.uploads_in_progress))
-        self.info_in_progress_uploads_count.setToolTip(strings._('info_in_progress_uploads_tooltip', True).format(self.uploads_in_progress))
+        self.info_in_progress_uploads_count.setToolTip(strings._('info_in_progress_uploads_tooltip').format(self.uploads_in_progress))
 
     def update_primary_action(self):
         self.common.log('ReceiveMode', 'update_primary_action')

@@ -118,7 +118,7 @@ class ShareMode(Mode):
         """
         Return the string to put on the stop server button, if there's a shutdown timeout
         """
-        return strings._('gui_share_stop_server_shutdown_timeout', True)
+        return strings._('gui_share_stop_server_shutdown_timeout')
 
     def timeout_finished_should_stop_server(self):
         """
@@ -127,11 +127,11 @@ class ShareMode(Mode):
         # If there were no attempts to download the share, or all downloads are done, we can stop
         if self.web.share_mode.download_count == 0 or self.web.done:
             self.server_status.stop_server()
-            self.server_status_label.setText(strings._('close_on_timeout', True))
+            self.server_status_label.setText(strings._('close_on_timeout'))
             return True
         # A download is probably still running - hold off on stopping the share
         else:
-            self.server_status_label.setText(strings._('timeout_download_still_running', True))
+            self.server_status_label.setText(strings._('timeout_download_still_running'))
             return False
 
     def start_server_custom(self):
@@ -178,7 +178,7 @@ class ShareMode(Mode):
 
         # Warn about sending large files over Tor
         if self.web.share_mode.download_filesize >= 157286400:  # 150mb
-            self.filesize_warning.setText(strings._("large_filesize", True))
+            self.filesize_warning.setText(strings._("large_filesize"))
             self.filesize_warning.show()
 
     def start_server_error_custom(self):
@@ -223,7 +223,7 @@ class ShareMode(Mode):
         """
         Handle REQUEST_LOAD event.
         """
-        self.system_tray.showMessage(strings._('systray_page_loaded_title', True), strings._('systray_download_page_loaded_message', True))
+        self.system_tray.showMessage(strings._('systray_page_loaded_title'), strings._('systray_download_page_loaded_message'))
 
     def handle_request_started(self, event):
         """
@@ -237,7 +237,7 @@ class ShareMode(Mode):
         self.downloads_in_progress += 1
         self.update_downloads_in_progress()
 
-        self.system_tray.showMessage(strings._('systray_download_started_title', True), strings._('systray_download_started_message', True))
+        self.system_tray.showMessage(strings._('systray_download_started_title'), strings._('systray_download_started_message'))
 
     def handle_request_progress(self, event):
         """
@@ -247,7 +247,7 @@ class ShareMode(Mode):
 
         # Is the download complete?
         if event["data"]["bytes"] == self.web.share_mode.filesize:
-            self.system_tray.showMessage(strings._('systray_download_completed_title', True), strings._('systray_download_completed_message', True))
+            self.system_tray.showMessage(strings._('systray_download_completed_title'), strings._('systray_download_completed_message'))
 
             # Update the total 'completed downloads' info
             self.downloads_completed += 1
@@ -260,7 +260,7 @@ class ShareMode(Mode):
             if self.common.settings.get('close_after_first_download'):
                 self.server_status.stop_server()
                 self.status_bar.clearMessage()
-                self.server_status_label.setText(strings._('closing_automatically', True))
+                self.server_status_label.setText(strings._('closing_automatically'))
         else:
             if self.server_status.status == self.server_status.STATUS_STOPPED:
                 self.downloads.cancel(event["data"]["id"])
@@ -276,7 +276,7 @@ class ShareMode(Mode):
         # Update the 'in progress downloads' info
         self.downloads_in_progress -= 1
         self.update_downloads_in_progress()
-        self.system_tray.showMessage(strings._('systray_download_canceled_title', True), strings._('systray_download_canceled_message', True))
+        self.system_tray.showMessage(strings._('systray_download_canceled_title'), strings._('systray_download_canceled_message'))
 
     def on_reload_settings(self):
         """
@@ -302,9 +302,9 @@ class ShareMode(Mode):
             total_size_readable = self.common.human_readable_filesize(total_size_bytes)
 
             if file_count > 1:
-                self.info_label.setText(strings._('gui_file_info', True).format(file_count, total_size_readable))
+                self.info_label.setText(strings._('gui_file_info').format(file_count, total_size_readable))
             else:
-                self.info_label.setText(strings._('gui_file_info_single', True).format(file_count, total_size_readable))
+                self.info_label.setText(strings._('gui_file_info_single').format(file_count, total_size_readable))
 
         else:
             self.primary_action.hide()
@@ -332,7 +332,7 @@ class ShareMode(Mode):
         else:
             image = self.common.get_resource_path('images/share_completed.png')
         self.info_completed_downloads_count.setText('<img src="{0:s}" /> {1:d}'.format(image, self.downloads_completed))
-        self.info_completed_downloads_count.setToolTip(strings._('info_completed_downloads_tooltip', True).format(self.downloads_completed))
+        self.info_completed_downloads_count.setToolTip(strings._('info_completed_downloads_tooltip').format(self.downloads_completed))
 
     def update_downloads_in_progress(self):
         """
@@ -343,7 +343,7 @@ class ShareMode(Mode):
         else:
             image = self.common.get_resource_path('images/share_in_progress.png')
         self.info_in_progress_downloads_count.setText('<img src="{0:s}" /> {1:d}'.format(image, self.downloads_in_progress))
-        self.info_in_progress_downloads_count.setToolTip(strings._('info_in_progress_downloads_tooltip', True).format(self.downloads_in_progress))
+        self.info_in_progress_downloads_count.setToolTip(strings._('info_in_progress_downloads_tooltip').format(self.downloads_in_progress))
 
     @staticmethod
     def _compute_total_size(filenames):

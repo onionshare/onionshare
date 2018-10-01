@@ -51,7 +51,7 @@ def load_strings(common):
             strings[s] = translations[default_locale][s]
 
 
-def translated(k, gui=False):
+def translated(k):
     """
     Returns a translated string.
     """
