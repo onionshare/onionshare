@@ -236,7 +236,6 @@ class ReceiveModeRequest(Request):
 
         # Is this a valid upload request?
         self.upload_request = False
-        self.upload_rejected = False
         if self.method == 'POST':
             if self.path == '/{}/upload'.format(self.web.slug):
                 self.upload_request = True
