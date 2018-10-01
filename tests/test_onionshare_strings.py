@@ -32,12 +32,6 @@ from onionshare import strings
 #     return path
 # common.get_resource_path = get_resource_path
 
-
-def test_starts_with_empty_strings():
-    """ Creates an empty strings dict by default """
-    assert strings.strings == {}
-
-
 def test_underscore_is_function():
     assert callable(strings._) and isinstance(strings._, types.FunctionType)
 
@@ -53,11 +47,13 @@ class TestLoadStrings:
     def test_load_strings_loads_other_languages(
             self, common_obj, locale_fr, sys_onionshare_dev_mode):
         """ load_strings() loads other languages in different locales """
-        strings.load_strings(common_obj, "fr")
+        common_obj.settings.set('locale', 'fr')
+        strings.load_strings(common_obj)
         assert strings._('preparing_files') == "Préparation des fichiers à partager."
 
     def test_load_invalid_locale(
             self, common_obj, locale_invalid, sys_onionshare_dev_mode):
         """ load_strings() raises a KeyError for an invalid locale """
         with pytest.raises(KeyError):
-            strings.load_strings(common_obj, 'XX')
+            common_obj.settings.set('locale', 'XX')
+            strings.load_strings(common_obj)
