@@ -66,8 +66,6 @@ class Web(object):
             # Use a custom Request class to track upload progess
             self.app.request_class = ReceiveModeRequest
 
-            self.can_upload = True
-
         # Starting in Flask 0.11, render_template_string autoescapes template variables
         # by default. To prevent content injection through template variables in
         # earlier versions of Flask, we force autoescaping in the Jinja2 template
