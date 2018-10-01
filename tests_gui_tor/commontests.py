@@ -32,7 +32,7 @@ class CommonTests(object):
             self.assertFalse(self.gui.share_mode.info_widget.isVisible())
 
     def test_info_widget_is_visible(self, mode):
-        '''Test that the info widget along top of screen is shown''' 
+        '''Test that the info widget along top of screen is shown'''
         if mode == 'receive':
             self.assertTrue(self.gui.receive_mode.info_widget.isVisible())
         if mode == 'share':
@@ -69,9 +69,9 @@ class CommonTests(object):
     def test_server_status_indicator_says_starting(self, mode):
         '''Test that the Server Status indicator shows we are Starting'''
         if mode == 'receive':
-            self.assertEquals(self.gui.receive_mode.server_status_label.text(), strings._('gui_status_indicator_share_working', True))
+            self.assertEquals(self.gui.receive_mode.server_status_label.text(), strings._('gui_status_indicator_share_working'))
         if mode == 'share':
-            self.assertEquals(self.gui.share_mode.server_status_label.text(), strings._('gui_status_indicator_share_working', True))
+            self.assertEquals(self.gui.share_mode.server_status_label.text(), strings._('gui_status_indicator_share_working'))
 
     def test_settings_button_is_hidden(self):
         '''Test that the settings button is hidden when the server starts'''
@@ -126,9 +126,9 @@ class CommonTests(object):
     def test_server_status_indicator_says_started(self, mode):
         '''Test that the Server Status indicator shows we are started'''
         if mode == 'receive':
-            self.assertEquals(self.gui.receive_mode.server_status_label.text(), strings._('gui_status_indicator_receive_started', True))
+            self.assertEquals(self.gui.receive_mode.server_status_label.text(), strings._('gui_status_indicator_receive_started'))
         if mode == 'share':
-            self.assertEquals(self.gui.receive_mode.server_status_label.text(), strings._('gui_status_indicator_share_started', True))
+            self.assertEquals(self.gui.receive_mode.server_status_label.text(), strings._('gui_status_indicator_share_started'))
 
     def test_web_page(self, mode, string, public_mode):
         '''Test that the web page contains a string'''
@@ -201,12 +201,12 @@ class CommonTests(object):
     def test_server_status_indicator_says_closed(self, mode, stay_open):
         '''Test that the Server Status indicator shows we closed'''
         if mode == 'receive':
-            self.assertEquals(self.gui.receive_mode.server_status_label.text(), strings._('gui_status_indicator_receive_stopped', True))
+            self.assertEquals(self.gui.receive_mode.server_status_label.text(), strings._('gui_status_indicator_receive_stopped'))
         if mode == 'share':
             if stay_open:
-                self.assertEquals(self.gui.share_mode.server_status_label.text(), strings._('gui_status_indicator_share_stopped', True))
+                self.assertEquals(self.gui.share_mode.server_status_label.text(), strings._('gui_status_indicator_share_stopped'))
             else:
-                self.assertEquals(self.gui.share_mode.server_status_label.text(), strings._('closing_automatically', True))
+                self.assertEquals(self.gui.share_mode.server_status_label.text(), strings._('closing_automatically'))
 
     def test_cancel_the_share(self, mode):
         '''Test that we can cancel this share before it's started up '''
@@ -354,6 +354,6 @@ class CommonTests(object):
         self.gui.app.onion.cleanup(stop_tor=True)
         QtTest.QTest.qWait(2500)
         if mode == 'share':
-            self.assertTrue(self.gui.share_mode.status_bar.currentMessage(), strings._('gui_tor_connection_lost', True))
+            self.assertTrue(self.gui.share_mode.status_bar.currentMessage(), strings._('gui_tor_connection_lost'))
         if mode == 'receive':
-            self.assertTrue(self.gui.receive_mode.status_bar.currentMessage(), strings._('gui_tor_connection_lost', True))
+            self.assertTrue(self.gui.receive_mode.status_bar.currentMessage(), strings._('gui_tor_connection_lost'))
