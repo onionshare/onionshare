@@ -243,7 +243,11 @@ class ReceiveModeRequest(Request):
                     if self.path == '/upload':
                         self.upload_request = True
 
-        if self.upload_request and self.web.receive_mode.can_upload:
+        # Prevent new uploads if we've said so (timer expired)
+        if not self.web.receive_mode.can_upload:
+            self.upload_request = False
+
+        if self.upload_request:
             # A dictionary that maps filenames to the bytes uploaded so far
             self.progress = {}
 
@@ -290,16 +294,11 @@ class ReceiveModeRequest(Request):
         """
         super(ReceiveModeRequest, self).close()
         if self.upload_request:
-            try:
-                upload_id = self.upload_id
-                # Inform the GUI that the upload has finished
-                self.web.add_request(self.web.REQUEST_UPLOAD_FINISHED, self.path, {
-                    'id': upload_id
-                })
+            # Inform the GUI that the upload has finished
+            self.web.add_request(self.web.REQUEST_UPLOAD_FINISHED, self.path, {
+                'id': self.upload_id
+            })
 
-            except AttributeError:
-                # We may not have got an upload_id (e.g uploads were rejected)
-                pass
 
     def file_write_func(self, filename, length):
         """
