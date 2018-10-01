@@ -59,7 +59,11 @@ def main():
     common = Common()
     common.define_css()
 
-    # Load settings right away, in order to get locale setting for strings
+    # Load the default settings and strings early, for the sake of being able to parse options.
+    # These won't be in the user's chosen locale necessarily, but we need to parse them
+    # early in order to even display the option to pass alternate settings (which might
+    # contain a preferred locale).
+    # If an alternate --config is passed, we'll reload strings later.
     common.load_settings()
     strings.load_strings(common)
 
@@ -88,6 +92,10 @@ def main():
             filenames[i] = os.path.abspath(filenames[i])
 
     config = args.config
+    if config:
+        # Re-load the strings, in case the provided config has changed locale
+        common.load_settings(config)
+        strings.load_strings(common)
 
     local_only = bool(args.local_only)
     debug = bool(args.debug)

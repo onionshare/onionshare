@@ -33,8 +33,12 @@ def main(cwd=None):
     """
     common = Common()
 
-    # Load settings right away, in order to get locale setting for strings
-    common.load_settings(config)
+    # Load the default settings and strings early, for the sake of being able to parse options.
+    # These won't be in the user's chosen locale necessarily, but we need to parse them
+    # early in order to even display the option to pass alternate settings (which might
+    # contain a preferred locale).
+    # If an alternate --config is passed, we'll reload strings later.
+    common.load_settings()
     strings.load_strings(common)
 
     # Display OnionShare banner
@@ -95,6 +99,8 @@ def main(cwd=None):
     # Re-load settings, if a custom config was passed in
     if config:
         common.load_settings(config)
+        # Re-load the strings, in case the provided config has changed locale
+        strings.load_strings(common)
 
     # Debug mode?
     common.debug = debug
