@@ -164,7 +164,7 @@ class Settings(object):
         except:
             pass
         open(self.filename, 'w').write(json.dumps(self._settings))
-        print(strings._('settings_saved').format(self.filename))
+        self.common.log('Settings', 'save', 'Settings saved in {}'.format(self.filename))
 
     def get(self, key):
         return self._settings[key]

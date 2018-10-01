@@ -106,7 +106,6 @@
     "gui_settings_button_help": "Help",
     "gui_settings_shutdown_timeout_checkbox": "Use auto-stop timer",
     "gui_settings_shutdown_timeout": "Stop the share at:",
-    "settings_saved": "Settings saved in {}",
     "settings_error_unknown": "Can't connect to Tor controller because your settings don't make sense.",
     "settings_error_automatic": "Could not connect to the Tor controller. Is Tor Browser (available from torproject.org) running in the background?",
     "settings_error_socket_port": "Can't connect to the Tor controller at {}:{}.",
