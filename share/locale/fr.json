@@ -29,5 +29,6 @@
     "gui_please_wait": "Attendez-vous...",
     "gui_quit_warning_quit": "Quitter",
     "gui_quit_warning_dont_quit": "Ne quitter pas",
-    "gui_settings_autoupdate_timestamp_never": "Jamais"
+    "gui_settings_autoupdate_timestamp_never": "Jamais",
+    "gui_settings_language_changed_notice": "Redémarrez OnionShare pour que votre changement de langue prenne effet"
 }
