@@ -20,7 +20,6 @@ class ReceiveModeWeb(object):
 
         self.can_upload = True
         self.upload_count = 0
-        self.uploads_in_progress = []
 
         self.define_routes()
 
@@ -264,9 +263,6 @@ class ReceiveModeRequest(Request):
                 strings._("receive_mode_upload_starting").format(self.web.common.human_readable_filesize(self.content_length))
             ))
 
-            # append to self.uploads_in_progress
-            self.web.receive_mode.uploads_in_progress.append(self.upload_id)
-
             # Tell the GUI
             self.web.add_request(self.web.REQUEST_STARTED, self.path, {
                 'id': self.upload_id,
@@ -300,9 +296,6 @@ class ReceiveModeRequest(Request):
                 self.web.add_request(self.web.REQUEST_UPLOAD_FINISHED, self.path, {
                     'id': upload_id
                 })
-
-                # remove from self.uploads_in_progress
-                self.web.receive_mode.uploads_in_progress.remove(upload_id)
 
             except AttributeError:
                 # We may not have got an upload_id (e.g uploads were rejected)
