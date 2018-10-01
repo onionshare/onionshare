@@ -19,6 +19,7 @@ class ReceiveModeWeb(object):
         self.web = web
 
         self.can_upload = True
+        self.can_stop_share_now = False
         self.upload_count = 0
         self.uploads_in_progress = []
 
@@ -39,6 +40,7 @@ class ReceiveModeWeb(object):
             r = make_response(render_template(
                 'receive.html',
                 upload_action=upload_action))
+
             return self.web.add_security_headers(r)
 
         @self.web.app.route("/<slug_candidate>")
@@ -138,10 +140,24 @@ class ReceiveModeWeb(object):
                 for filename in filenames:
                     flash('Sent {}'.format(filename), 'info')
 
-            if self.common.settings.get('public_mode'):
-                return redirect('/')
+            if self.can_upload:
+                if self.common.settings.get('public_mode'):
+                    path = '/'
+                else:
+                    path = '/{}'.format(slug_candidate)
+
+                return redirect('{}'.format(path))
             else:
-                return redirect('/{}'.format(slug_candidate))
+                # It was the last upload and the timer ran out
+                if self.common.settings.get('public_mode'):
+                    return thankyou_logic(slug_candidate)
+                else:
+                    return thankyou_logic()
+
+        def thankyou_logic(slug_candidate=''):
+            r = make_response(render_template(
+                'thankyou.html'))
+            return self.web.add_security_headers(r)
 
         @self.web.app.route("/<slug_candidate>/upload", methods=['POST'])
         def upload(slug_candidate):
@@ -231,39 +247,36 @@ class ReceiveModeRequest(Request):
                     if self.path == '/upload':
                         self.upload_request = True
 
-        if self.upload_request:
+        if self.upload_request and self.web.receive_mode.can_upload:
             # A dictionary that maps filenames to the bytes uploaded so far
             self.progress = {}
 
             # Create an upload_id, attach it to the request
             self.upload_id = self.web.receive_mode.upload_count
 
-            if self.web.receive_mode.can_upload:
-                self.web.receive_mode.upload_count += 1
+            self.web.receive_mode.upload_count += 1
 
-                # Figure out the content length
-                try:
-                    self.content_length = int(self.headers['Content-Length'])
-                except:
-                    self.content_length = 0
+            # Figure out the content length
+            try:
+                self.content_length = int(self.headers['Content-Length'])
+            except:
+                self.content_length = 0
 
-                print("{}: {}".format(
-                    datetime.now().strftime("%b %d, %I:%M%p"),
-                    strings._("receive_mode_upload_starting").format(self.web.common.human_readable_filesize(self.content_length))
-                ))
+            print("{}: {}".format(
+                datetime.now().strftime("%b %d, %I:%M%p"),
+                strings._("receive_mode_upload_starting").format(self.web.common.human_readable_filesize(self.content_length))
+            ))
 
-                # append to self.uploads_in_progress
-                self.web.receive_mode.uploads_in_progress.append(self.upload_id)
+            # append to self.uploads_in_progress
+            self.web.receive_mode.uploads_in_progress.append(self.upload_id)
 
-                # Tell the GUI
-                self.web.add_request(self.web.REQUEST_STARTED, self.path, {
-                    'id': self.upload_id,
-                    'content_length': self.content_length
-                })
+            # Tell the GUI
+            self.web.add_request(self.web.REQUEST_STARTED, self.path, {
+                'id': self.upload_id,
+                'content_length': self.content_length
+            })
 
-                self.previous_file = None
-            else:
-                self.upload_rejected = True
+            self.previous_file = None
 
     def _get_file_stream(self, total_content_length, content_type, filename=None, content_length=None):
         """
@@ -284,14 +297,19 @@ class ReceiveModeRequest(Request):
         """
         super(ReceiveModeRequest, self).close()
         if self.upload_request:
-            if not self.upload_rejected:
+            try:
+                upload_id = self.upload_id
                 # Inform the GUI that the upload has finished
                 self.web.add_request(self.web.REQUEST_UPLOAD_FINISHED, self.path, {
-                    'id': self.upload_id
+                    'id': upload_id
                 })
 
                 # remove from self.uploads_in_progress
-                self.web.receive_mode.uploads_in_progress.remove(self.upload_id)
+                self.web.receive_mode.uploads_in_progress.remove(upload_id)
+
+            except AttributeError:
+                # We may not have got an upload_id (e.g uploads were rejected)
+                pass
 
     def file_write_func(self, filename, length):
         """

@@ -51,6 +51,7 @@ class ReceiveMode(Mode):
         self.uploads_in_progress = 0
         self.uploads_completed = 0
         self.new_upload = False # For scrolling to the bottom of the uploads list
+        self.can_stop_server = False # for communicating to the auto-stop timer
 
         # Information about share, and show uploads button
         self.info_in_progress_uploads_count = QtWidgets.QLabel()
@@ -93,7 +94,7 @@ class ReceiveMode(Mode):
         The shutdown timer expired, should we stop the server? Returns a bool
         """
         # If there were no attempts to upload files, or all uploads are done, we can stop
-        if self.web.receive_mode.upload_count == 0 or not self.web.receive_mode.uploads_in_progress:
+        if self.web.receive_mode.upload_count == 0 or self.can_stop_server:
             self.server_status.stop_server()
             self.server_status_label.setText(strings._('close_on_timeout', True))
             return True
@@ -110,7 +111,9 @@ class ReceiveMode(Mode):
         Starting the server.
         """
         # Reset web counters
+        self.can_stop_server = False
         self.web.receive_mode.upload_count = 0
+        self.web.receive_mode.can_upload = True
         self.web.error404_count = 0
 
         # Hide and reset the uploads if we have previously shared
@@ -144,6 +147,7 @@ class ReceiveMode(Mode):
         self.uploads.add(event["data"]["id"], event["data"]["content_length"])
         self.uploads_in_progress += 1
         self.update_uploads_in_progress()
+        self.can_stop_server = False
 
         self.system_tray.showMessage(strings._('systray_upload_started_title', True), strings._('systray_upload_started_message', True))
 
@@ -177,6 +181,8 @@ class ReceiveMode(Mode):
         # Update the 'in progress uploads' info
         self.uploads_in_progress -= 1
         self.update_uploads_in_progress()
+        if self.uploads_in_progress == 0:
+            self.can_stop_server = True
 
     def on_reload_settings(self):
         """
