@@ -3,11 +3,60 @@ import requests
 import socket
 import socks
 import zipfile
+import json
+import shutil
 
 from PyQt5 import QtCore, QtTest
+
 from onionshare import strings
+from onionshare.common import Common
+from onionshare.settings import Settings
+from onionshare.onion import Onion
+from onionshare.web import Web
+from onionshare_gui import Application, OnionShare, OnionShareGui
+
 
 class CommonTests(object):
+    @staticmethod
+    def set_up(test_settings):
+        '''Create GUI with given settings'''
+        # Create our test file
+        testfile = open('/tmp/test.txt', 'w')
+        testfile.write('onionshare')
+        testfile.close()
+
+        common = Common()
+        common.settings = Settings(common)
+        common.define_css()
+        strings.load_strings(common)
+
+        # Get all of the settings in test_settings
+        test_settings['downloads_dir'] = '/tmp/OnionShare'
+        for key, val in common.settings.default_settings.items():
+            if key not in test_settings:
+                test_settings[key] = val
+
+        # Start the Onion
+        testonion = Onion(common)
+        global qtapp
+        qtapp = Application(common)
+        app = OnionShare(common, testonion, True, 0)
+
+        web = Web(common, False, True)
+        settings_filename = '/tmp/testsettings.json'
+        open(settings_filename, 'w').write(json.dumps(test_settings))
+
+        gui = OnionShareGui(common, testonion, qtapp, app, ['/tmp/test.txt'], settings_filename, True)
+        return gui
+
+    @staticmethod
+    def tear_down():
+        try:
+            os.remove('/tmp/test.txt')
+            shutil.rmtree('/tmp/OnionShare')
+        except:
+            pass
+
     def test_gui_loaded(self):
         '''Test that the GUI actually is shown'''
         self.assertTrue(self.gui.show)
@@ -32,7 +81,7 @@ class CommonTests(object):
             self.assertFalse(self.gui.share_mode.info_widget.isVisible())
 
     def test_info_widget_is_visible(self, mode):
-        '''Test that the info widget along top of screen is shown''' 
+        '''Test that the info widget along top of screen is shown'''
         if mode == 'receive':
             self.assertTrue(self.gui.receive_mode.info_widget.isVisible())
         if mode == 'share':
@@ -69,9 +118,9 @@ class CommonTests(object):
     def test_server_status_indicator_says_starting(self, mode):
         '''Test that the Server Status indicator shows we are Starting'''
         if mode == 'receive':
-            self.assertEquals(self.gui.receive_mode.server_status_label.text(), strings._('gui_status_indicator_share_working', True))
+            self.assertEquals(self.gui.receive_mode.server_status_label.text(), strings._('gui_status_indicator_share_working'))
         if mode == 'share':
-            self.assertEquals(self.gui.share_mode.server_status_label.text(), strings._('gui_status_indicator_share_working', True))
+            self.assertEquals(self.gui.share_mode.server_status_label.text(), strings._('gui_status_indicator_share_working'))
 
     def test_settings_button_is_hidden(self):
         '''Test that the settings button is hidden when the server starts'''
@@ -123,9 +172,9 @@ class CommonTests(object):
     def test_server_status_indicator_says_started(self, mode):
         '''Test that the Server Status indicator shows we are started'''
         if mode == 'receive':
-            self.assertEquals(self.gui.receive_mode.server_status_label.text(), strings._('gui_status_indicator_receive_started', True))
+            self.assertEquals(self.gui.receive_mode.server_status_label.text(), strings._('gui_status_indicator_receive_started'))
         if mode == 'share':
-            self.assertEquals(self.gui.receive_mode.server_status_label.text(), strings._('gui_status_indicator_share_started', True))
+            self.assertEquals(self.gui.receive_mode.server_status_label.text(), strings._('gui_status_indicator_share_started'))
 
     def test_web_page(self, mode, string, public_mode):
         '''Test that the web page contains a string'''
@@ -195,12 +244,12 @@ class CommonTests(object):
     def test_server_status_indicator_says_closed(self, mode, stay_open):
         '''Test that the Server Status indicator shows we closed'''
         if mode == 'receive':
-            self.assertEquals(self.gui.receive_mode.server_status_label.text(), strings._('gui_status_indicator_receive_stopped', True))
+            self.assertEquals(self.gui.receive_mode.server_status_label.text(), strings._('gui_status_indicator_receive_stopped'))
         if mode == 'share':
             if stay_open:
-                self.assertEquals(self.gui.share_mode.server_status_label.text(), strings._('gui_status_indicator_share_stopped', True))
+                self.assertEquals(self.gui.share_mode.server_status_label.text(), strings._('gui_status_indicator_share_stopped'))
             else:
-                self.assertEquals(self.gui.share_mode.server_status_label.text(), strings._('closing_automatically', True))
+                self.assertEquals(self.gui.share_mode.server_status_label.text(), strings._('closing_automatically'))
 
     # Auto-stop timer tests
     def test_set_timeout(self, mode, timeout):
@@ -304,4 +353,3 @@ class CommonTests(object):
     def test_add_button_visible(self):
         '''Test that the add button should be visible'''
         self.assertTrue(self.gui.share_mode.server_status.file_selection.add_button.isVisible())
-
