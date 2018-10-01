@@ -850,7 +850,7 @@ class SettingsDialog(QtWidgets.QDialog):
                     notice = strings.translations[new_locale]['gui_settings_language_changed_notice']
                 else:
                     notice = strings._('gui_settings_language_changed_notice')
-            Alert(self.common, notice, QtWidgets.QMessageBox.Information)
+                Alert(self.common, notice, QtWidgets.QMessageBox.Information)
 
             # Save the new settings
             settings.save()
