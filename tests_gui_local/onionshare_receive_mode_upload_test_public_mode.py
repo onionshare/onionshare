@@ -16,7 +16,6 @@ from onionshare_gui import *
 from .commontests import CommonTests
 
 class OnionShareGuiTest(unittest.TestCase):
-    '''Test the OnionShare GUI'''
     @classmethod
     def setUpClass(cls):
         test_settings = {
