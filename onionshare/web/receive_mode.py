@@ -20,6 +20,7 @@ class ReceiveModeWeb(object):
 
         self.can_upload = True
         self.upload_count = 0
+        self.uploads_in_progress = []
 
         self.define_routes()
 
@@ -273,6 +274,8 @@ class ReceiveModeRequest(Request):
                 'content_length': self.content_length
             })
 
+            self.web.receive_mode.uploads_in_progress.append(self.upload_id)
+
             self.previous_file = None
 
     def _get_file_stream(self, total_content_length, content_type, filename=None, content_length=None):
@@ -298,6 +301,7 @@ class ReceiveModeRequest(Request):
             self.web.add_request(self.web.REQUEST_UPLOAD_FINISHED, self.path, {
                 'id': self.upload_id
             })
+            self.web.receive_mode.uploads_in_progress.remove(self.upload_id)
 
 
     def file_write_func(self, filename, length):
