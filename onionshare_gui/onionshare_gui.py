@@ -54,7 +54,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.mode = self.MODE_SHARE
 
         self.setWindowTitle('OnionShare')
-        self.setWindowIcon(QtGui.QIcon(self.common.get_resource_path('images/logo.png')))
+        self.setWindowIcon(QtGui.QIcon(self.common.get_resource_path('images/logo.svg')))
         self.setMinimumWidth(850)
 
         # Load settings
@@ -73,9 +73,9 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.system_tray = QtWidgets.QSystemTrayIcon(self)
         # The convention is Mac systray icons are always grayscale
         if self.common.platform == 'Darwin':
-            self.system_tray.setIcon(QtGui.QIcon(self.common.get_resource_path('images/logo_grayscale.png')))
+            self.system_tray.setIcon(QtGui.QIcon(self.common.get_resource_path('images/logo_grayscale.svg')))
         else:
-            self.system_tray.setIcon(QtGui.QIcon(self.common.get_resource_path('images/logo.png')))
+            self.system_tray.setIcon(QtGui.QIcon(self.common.get_resource_path('images/logo.svg')))
         self.system_tray.setContextMenu(menu)
         self.system_tray.show()
 
@@ -90,7 +90,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.settings_button.setDefault(False)
         self.settings_button.setFixedWidth(40)
         self.settings_button.setFixedHeight(50)
-        self.settings_button.setIcon( QtGui.QIcon(self.common.get_resource_path('images/settings.png')) )
+        self.settings_button.setIcon( QtGui.QIcon(self.common.get_resource_path('images/settings.svg')) )
         self.settings_button.clicked.connect(self.open_settings)
         self.settings_button.setStyleSheet(self.common.css['settings_button'])
         mode_switcher_layout = QtWidgets.QHBoxLayout();
@@ -100,9 +100,9 @@ class OnionShareGui(QtWidgets.QMainWindow):
         mode_switcher_layout.addWidget(self.settings_button)
 
         # Server status indicator on the status bar
-        self.server_status_image_stopped = QtGui.QImage(self.common.get_resource_path('images/server_stopped.png'))
-        self.server_status_image_working = QtGui.QImage(self.common.get_resource_path('images/server_working.png'))
-        self.server_status_image_started = QtGui.QImage(self.common.get_resource_path('images/server_started.png'))
+        self.server_status_image_stopped = QtGui.QImage(self.common.get_resource_path('images/server_stopped.svg'))
+        self.server_status_image_working = QtGui.QImage(self.common.get_resource_path('images/server_working.svg'))
+        self.server_status_image_started = QtGui.QImage(self.common.get_resource_path('images/server_started.svg'))
         self.server_status_image_label = QtWidgets.QLabel()
         self.server_status_image_label.setFixedWidth(20)
         self.server_status_label = QtWidgets.QLabel('')

@@ -46,7 +46,7 @@ class TorConnectionDialog(QtWidgets.QProgressDialog):
         self.onion = onion
 
         self.setWindowTitle("OnionShare")
-        self.setWindowIcon(QtGui.QIcon(self.common.get_resource_path('images/logo.png')))
+        self.setWindowIcon(QtGui.QIcon(self.common.get_resource_path('images/logo.svg')))
         self.setModal(True)
         self.setFixedSize(400, 150)
 

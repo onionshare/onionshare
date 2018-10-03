@@ -255,7 +255,7 @@ class FileList(QtWidgets.QListWidget):
             item.item_button = QtWidgets.QPushButton()
             item.item_button.setDefault(False)
             item.item_button.setFlat(True)
-            item.item_button.setIcon( QtGui.QIcon(self.common.get_resource_path('images/file_delete.png')) )
+            item.item_button.setIcon( QtGui.QIcon(self.common.get_resource_path('images/file_delete.svg')) )
             item.item_button.clicked.connect(delete_item)
             item.item_button.setSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
 

@@ -48,7 +48,7 @@ class SettingsDialog(QtWidgets.QDialog):
 
         self.setModal(True)
         self.setWindowTitle(strings._('gui_settings_window_title', True))
-        self.setWindowIcon(QtGui.QIcon(self.common.get_resource_path('images/logo.png')))
+        self.setWindowIcon(QtGui.QIcon(self.common.get_resource_path('images/logo.svg')))
 
         self.system = platform.system()
 

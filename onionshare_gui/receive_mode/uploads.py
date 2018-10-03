@@ -224,7 +224,7 @@ class Uploads(QtWidgets.QScrollArea):
         self.setWidgetResizable(True)
         self.setMinimumHeight(150)
         self.setMinimumWidth(350)
-        self.setWindowIcon(QtGui.QIcon(common.get_resource_path('images/logo.png')))
+        self.setWindowIcon(QtGui.QIcon(common.get_resource_path('images/logo.svg')))
         self.setWindowFlags(QtCore.Qt.Sheet | QtCore.Qt.WindowTitleHint | QtCore.Qt.WindowSystemMenuHint | QtCore.Qt.CustomizeWindowHint)
         self.vbar = self.verticalScrollBar()
         self.vbar.rangeChanged.connect(self.resizeScroll)

@@ -328,9 +328,9 @@ class ShareMode(Mode):
         Update the 'Downloads completed' info widget.
         """
         if self.downloads_completed == 0:
-            image = self.common.get_resource_path('images/share_completed_none.png')
+            image = self.common.get_resource_path('images/share_completed_none.svg')
         else:
-            image = self.common.get_resource_path('images/share_completed.png')
+            image = self.common.get_resource_path('images/share_completed.svg')
         self.info_completed_downloads_count.setText('<img src="{0:s}" /> {1:d}'.format(image, self.downloads_completed))
         self.info_completed_downloads_count.setToolTip(strings._('info_completed_downloads_tooltip', True).format(self.downloads_completed))
 
@@ -339,9 +339,9 @@ class ShareMode(Mode):
         Update the 'Downloads in progress' info widget.
         """
         if self.downloads_in_progress == 0:
-            image = self.common.get_resource_path('images/share_in_progress_none.png')
+            image = self.common.get_resource_path('images/share_in_progress_none.svg')
         else:
-            image = self.common.get_resource_path('images/share_in_progress.png')
+            image = self.common.get_resource_path('images/share_in_progress.svg')
         self.info_in_progress_downloads_count.setText('<img src="{0:s}" /> {1:d}'.format(image, self.downloads_in_progress))
         self.info_in_progress_downloads_count.setToolTip(strings._('info_in_progress_downloads_tooltip', True).format(self.downloads_in_progress))
 
