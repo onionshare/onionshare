@@ -29,8 +29,8 @@ from .file_selection import FileSelection
 from .downloads import Downloads
 from .threads import CompressThread
 from .info import ShareModeInfo
-from ..mode import Mode
-from ..widgets import Alert
+from .. import Mode
+from ...widgets import Alert
 
 class ShareMode(Mode):
     """

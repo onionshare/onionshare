@@ -24,7 +24,7 @@ from onionshare.web import Web
 
 from .uploads import Uploads
 from .info import ReceiveModeInfo
-from ..mode import Mode
+from .. import Mode
 
 class ReceiveMode(Mode):
     """

@@ -23,8 +23,8 @@ from PyQt5 import QtCore, QtWidgets, QtGui
 from onionshare import strings
 from onionshare.web import Web
 
-from .share_mode import ShareMode
-from .receive_mode import ReceiveMode
+from .mode.share_mode import ShareMode
+from .mode.receive_mode import ReceiveMode
 
 from .tor_connection_dialog import TorConnectionDialog
 from .settings_dialog import SettingsDialog
