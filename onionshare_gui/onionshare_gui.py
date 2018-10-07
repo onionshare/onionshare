@@ -200,12 +200,14 @@ class OnionShareGui(QtWidgets.QMainWindow):
             self.receive_mode_button.setStyleSheet(self.common.css['mode_switcher_unselected_style'])
 
             self.receive_mode.hide()
+            self.adjust_size(self.common.min_window_width)
             self.share_mode.show()
         else:
             self.share_mode_button.setStyleSheet(self.common.css['mode_switcher_unselected_style'])
             self.receive_mode_button.setStyleSheet(self.common.css['mode_switcher_selected_style'])
 
             self.share_mode.hide()
+            self.adjust_size(self.common.min_window_width)
             self.receive_mode.show()
 
         self.update_server_status_indicator()
