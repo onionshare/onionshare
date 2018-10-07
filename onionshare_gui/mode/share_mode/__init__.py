@@ -28,8 +28,9 @@ from onionshare.web import Web
 from .file_selection import FileSelection
 from .downloads import Downloads
 from .threads import CompressThread
-from .info import ShareModeInfo
+#from .info import ShareModeInfo
 from .. import Mode
+from ..toggle_history import ToggleHistory
 from ...widgets import Alert
 
 class ShareMode(Mode):
@@ -78,7 +79,24 @@ class ShareMode(Mode):
         self.downloads_completed = 0
 
         # Information about share, and show downloads button
-        self.info = ShareModeInfo(self.common, self)
+        #self.info = ShareModeInfo(self.common, self)
+
+        # Info label
+        self.info_label = QtWidgets.QLabel()
+        self.info_label.hide()
+
+        # Toggle history
+        self.toggle_history = ToggleHistory(
+            self.common, self, self.downloads,
+            QtGui.QIcon(self.common.get_resource_path('images/downloads_toggle.png')),
+            QtGui.QIcon(self.common.get_resource_path('images/downloads_toggle_selected.png'))
+        )
+
+        # Top bar
+        top_bar_layout = QtWidgets.QHBoxLayout()
+        top_bar_layout.addWidget(self.info_label)
+        top_bar_layout.addStretch()
+        top_bar_layout.addWidget(self.toggle_history)
 
         # Primary action layout
         self.primary_action_layout.addWidget(self.filesize_warning)
@@ -90,7 +108,7 @@ class ShareMode(Mode):
 
         # Main layout
         self.main_layout = QtWidgets.QVBoxLayout()
-        self.main_layout.addWidget(self.info)
+        self.main_layout.addLayout(top_bar_layout)
         self.main_layout.addLayout(self.file_selection)
         self.main_layout.addWidget(self.primary_action)
         self.main_layout.addWidget(self.min_width_widget)
@@ -191,7 +209,7 @@ class ShareMode(Mode):
         self.filesize_warning.hide()
         self.downloads_in_progress = 0
         self.downloads_completed = 0
-        self.info.update_downloads_in_progress()
+        #self.info.update_downloads_in_progress()
         self.file_selection.file_list.adjustSize()
 
     def cancel_server_custom(self):
@@ -207,7 +225,7 @@ class ShareMode(Mode):
         Connection to Tor broke.
         """
         self.primary_action.hide()
-        self.info.show_less()
+        self.info_label.hide()
 
     def handle_request_load(self, event):
         """
@@ -224,9 +242,9 @@ class ShareMode(Mode):
         else:
             filesize = self.web.share_mode.download_filesize
         self.downloads.add(event["data"]["id"], filesize)
-        self.info.update_indicator(True)
+        self.toggle_history.update_indicator(True)
         self.downloads_in_progress += 1
-        self.info.update_downloads_in_progress()
+        #self.info.update_downloads_in_progress()
 
         self.system_tray.showMessage(strings._('systray_download_started_title', True), strings._('systray_download_started_message', True))
 
@@ -242,10 +260,10 @@ class ShareMode(Mode):
 
             # Update the total 'completed downloads' info
             self.downloads_completed += 1
-            self.info.update_downloads_completed()
+            #self.info.update_downloads_completed()
             # Update the 'in progress downloads' info
             self.downloads_in_progress -= 1
-            self.info.update_downloads_in_progress()
+            #self.info.update_downloads_in_progress()
 
             # Close on finish?
             if self.common.settings.get('close_after_first_download'):
@@ -256,7 +274,7 @@ class ShareMode(Mode):
             if self.server_status.status == self.server_status.STATUS_STOPPED:
                 self.downloads.cancel(event["data"]["id"])
                 self.downloads_in_progress = 0
-                self.info.update_downloads_in_progress()
+                #self.info.update_downloads_in_progress()
 
     def handle_request_canceled(self, event):
         """
@@ -266,7 +284,7 @@ class ShareMode(Mode):
 
         # Update the 'in progress downloads' info
         self.downloads_in_progress -= 1
-        self.info.update_downloads_in_progress()
+        #self.info.update_downloads_in_progress()
         self.system_tray.showMessage(strings._('systray_download_canceled_title', True), strings._('systray_download_canceled_message', True))
 
     def on_reload_settings(self):
@@ -276,7 +294,7 @@ class ShareMode(Mode):
         """
         if self.server_status.file_selection.get_num_files() > 0:
             self.primary_action.show()
-            self.info.show_more()
+            self.info_label.show()
 
     def update_primary_action(self):
         self.common.log('ShareMode', 'update_primary_action')
@@ -285,7 +303,7 @@ class ShareMode(Mode):
         file_count = self.file_selection.file_list.count()
         if file_count > 0:
             self.primary_action.show()
-            self.info.show_more()
+            self.info_label.show()
 
             # Update the file count in the info label
             total_size_bytes = 0
@@ -295,13 +313,13 @@ class ShareMode(Mode):
             total_size_readable = self.common.human_readable_filesize(total_size_bytes)
 
             if file_count > 1:
-                self.info.update_label(strings._('gui_file_info', True).format(file_count, total_size_readable))
+                self.info_label.setText(strings._('gui_file_info', True).format(file_count, total_size_readable))
             else:
-                self.info.update_label(strings._('gui_file_info_single', True).format(file_count, total_size_readable))
+                self.info_label.setText(strings._('gui_file_info_single', True).format(file_count, total_size_readable))
 
         else:
             self.primary_action.hide()
-            self.info.show_less()
+            self.info_label.hide()
 
         # Resize window
         self.resize_window()
@@ -312,8 +330,8 @@ class ShareMode(Mode):
         """
         self.downloads_completed = 0
         self.downloads_in_progress = 0
-        self.info.update_downloads_completed()
-        self.info.update_downloads_in_progress()
+        #self.info.update_downloads_completed()
+        #self.info.update_downloads_in_progress()
         self.downloads.reset()
 
     def resize_window(self):
