@@ -22,9 +22,9 @@ from PyQt5 import QtCore, QtWidgets, QtGui
 from onionshare import strings
 from onionshare.common import ShutdownTimer
 
-from .server_status import ServerStatus
-from .threads import OnionThread
-from .widgets import Alert
+from ..server_status import ServerStatus
+from ..threads import OnionThread
+from ..widgets import Alert
 
 class Mode(QtWidgets.QWidget):
     """
