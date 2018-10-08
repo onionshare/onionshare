@@ -179,6 +179,30 @@ class History(QtWidgets.QWidget):
 
         self.setMinimumWidth(350)
 
+        # In progress and completed counters
+        self.in_progress_count = 0
+        self.completed_count = 0
+
+        # In progress and completed labels
+        self.in_progress_label = QtWidgets.QLabel()
+        self.in_progress_label.setStyleSheet(self.common.css['mode_info_label'])
+        self.completed_label = QtWidgets.QLabel()
+        self.completed_label.setStyleSheet(self.common.css['mode_info_label'])
+
+        # Header
+        self.header_label = QtWidgets.QLabel(header_text)
+        self.header_label.setStyleSheet(self.common.css['downloads_uploads_label'])
+        clear_button = QtWidgets.QPushButton(strings._('gui_clear_history', True))
+        clear_button.setStyleSheet(self.common.css['downloads_uploads_clear'])
+        clear_button.setFlat(True)
+        clear_button.clicked.connect(self.reset)
+        header_layout = QtWidgets.QHBoxLayout()
+        header_layout.addWidget(self.header_label)
+        header_layout.addStretch()
+        header_layout.addWidget(self.in_progress_label)
+        header_layout.addWidget(self.completed_label)
+        header_layout.addWidget(clear_button)
+
         # When there are no items
         self.empty_image = QtWidgets.QLabel()
         self.empty_image.setAlignment(QtCore.Qt.AlignCenter)
@@ -195,22 +219,9 @@ class History(QtWidgets.QWidget):
         self.empty.setStyleSheet(self.common.css['downloads_uploads_empty'])
         self.empty.setLayout(empty_layout)
 
-        # Header
-        self.header_label = QtWidgets.QLabel(header_text)
-        self.header_label.setStyleSheet(self.common.css['downloads_uploads_label'])
-        clear_button = QtWidgets.QPushButton(strings._('gui_clear_history', True))
-        clear_button.setStyleSheet(self.common.css['downloads_uploads_clear'])
-        clear_button.setFlat(True)
-        clear_button.clicked.connect(self.reset)
-        header_layout = QtWidgets.QHBoxLayout()
-        header_layout.addWidget(self.header_label)
-        header_layout.addStretch()
-        header_layout.addWidget(clear_button)
-
         # When there are items
         self.item_list = HistoryItemList(self.common)
         self.not_empty_layout = QtWidgets.QVBoxLayout()
-        self.not_empty_layout.addLayout(header_layout)
         self.not_empty_layout.addWidget(self.item_list)
         self.not_empty = QtWidgets.QWidget()
         self.not_empty.setLayout(self.not_empty_layout)
@@ -218,12 +229,15 @@ class History(QtWidgets.QWidget):
         # Layout
         layout = QtWidgets.QVBoxLayout()
         layout.setContentsMargins(0, 0, 0, 0)
+        layout.addLayout(header_layout)
         layout.addWidget(self.empty)
         layout.addWidget(self.not_empty)
         self.setLayout(layout)
 
         # Reset once at the beginning
         self.reset()
+        self.update_completed()
+        self.update_in_progress()
 
     def add(self, id, item):
         """
@@ -260,6 +274,34 @@ class History(QtWidgets.QWidget):
         # Hide not empty, show empty
         self.not_empty.hide()
         self.empty.show()
+
+        # Reset counters
+        self.completed_count = 0
+        self.in_progress_count = 0
+        self.update_completed()
+        self.update_in_progress()
+
+    def update_completed(self):
+        """
+        Update the 'completed' widget.
+        """
+        if self.completed_count == 0:
+            image = self.common.get_resource_path('images/share_completed_none.png')
+        else:
+            image = self.common.get_resource_path('images/share_completed.png')
+        self.completed_label.setText('<img src="{0:s}" /> {1:d}'.format(image, self.completed_count))
+        self.completed_label.setToolTip(strings._('history_completed_tooltip').format(self.completed_count))
+
+    def update_in_progress(self):
+        """
+        Update the 'in progress' widget.
+        """
+        if self.in_progress_count == 0:
+            image = self.common.get_resource_path('images/share_in_progress_none.png')
+        else:
+            image = self.common.get_resource_path('images/share_in_progress.png')
+        self.in_progress_label.setText('<img src="{0:s}" /> {1:d}'.format(image, self.in_progress_count))
+        self.in_progress_label.setToolTip(strings._('history_in_progress_tooltip', True).format(self.in_progress_count))
 
 
 class ToggleHistory(QtWidgets.QPushButton):
