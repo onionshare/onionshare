@@ -165,6 +165,7 @@ class HistoryItemList(QtWidgets.QScrollArea):
         """
         for item in self.items.values():
             self.items_layout.removeWidget(item)
+            item.hide()
         self.items = {}
 
 
@@ -222,6 +223,7 @@ class History(QtWidgets.QWidget):
         # When there are items
         self.item_list = HistoryItemList(self.common)
         self.not_empty_layout = QtWidgets.QVBoxLayout()
+        self.not_empty_layout.addLayout(header_layout)
         self.not_empty_layout.addWidget(self.item_list)
         self.not_empty = QtWidgets.QWidget()
         self.not_empty.setLayout(self.not_empty_layout)
@@ -229,15 +231,12 @@ class History(QtWidgets.QWidget):
         # Layout
         layout = QtWidgets.QVBoxLayout()
         layout.setContentsMargins(0, 0, 0, 0)
-        layout.addLayout(header_layout)
         layout.addWidget(self.empty)
         layout.addWidget(self.not_empty)
         self.setLayout(layout)
 
         # Reset once at the beginning
         self.reset()
-        self.update_completed()
-        self.update_in_progress()
 
     def add(self, id, item):
         """
@@ -251,7 +250,6 @@ class History(QtWidgets.QWidget):
 
         # Add it to the list
         self.item_list.add(id, item)
-
 
     def update(self, id, data):
         """
