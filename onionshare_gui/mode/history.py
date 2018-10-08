@@ -548,5 +548,3 @@ class ToggleHistory(QtWidgets.QPushButton):
         # Reset the indicator count
         self.indicator_count = 0
         self.update_indicator()
-
-        self.current_mode.resize_window()
