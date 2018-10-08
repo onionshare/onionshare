@@ -19,10 +19,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import time
 import subprocess
+import os
 from datetime import datetime
 from PyQt5 import QtCore, QtWidgets, QtGui
 
 from onionshare import strings
+from ..widgets import Alert
 
 
 class HistoryItem(QtWidgets.QWidget):
