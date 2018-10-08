@@ -79,11 +79,6 @@ class ShareMode(Mode):
             strings._('gui_downloads')
         )
         self.history.hide()
-        self.downloads_in_progress = 0
-        self.downloads_completed = 0
-
-        # Information about share, and show downloads button
-        #self.info = ShareModeInfo(self.common, self)
 
         # Info label
         self.info_label = QtWidgets.QLabel()
@@ -211,9 +206,9 @@ class ShareMode(Mode):
             self._zip_progress_bar = None
 
         self.filesize_warning.hide()
-        self.downloads_in_progress = 0
-        self.downloads_completed = 0
-        #self.info.update_downloads_in_progress()
+        self.history.in_progress_count = 0
+        self.history.completed_count = 0
+        self.history.update_in_progress()
         self.file_selection.file_list.adjustSize()
 
     def cancel_server_custom(self):
@@ -249,8 +244,8 @@ class ShareMode(Mode):
         item = DownloadHistoryItem(self.common, event["data"]["id"], filesize)
         self.history.add(event["data"]["id"], item)
         self.toggle_history.update_indicator(True)
-        self.downloads_in_progress += 1
-        #self.info.update_downloads_in_progress()
+        self.history.in_progress_count += 1
+        self.history.update_in_progress()
 
         self.system_tray.showMessage(strings._('systray_download_started_title', True), strings._('systray_download_started_message', True))
 
@@ -264,12 +259,11 @@ class ShareMode(Mode):
         if event["data"]["bytes"] == self.web.share_mode.filesize:
             self.system_tray.showMessage(strings._('systray_download_completed_title', True), strings._('systray_download_completed_message', True))
 
-            # Update the total 'completed downloads' info
-            self.downloads_completed += 1
-            #self.info.update_downloads_completed()
-            # Update the 'in progress downloads' info
-            self.downloads_in_progress -= 1
-            #self.info.update_downloads_in_progress()
+            # Update completed and in progress labels
+            self.history.completed_count += 1
+            self.history.in_progress_count -= 1
+            self.history.update_completed()
+            self.history.update_in_progress()
 
             # Close on finish?
             if self.common.settings.get('close_after_first_download'):
@@ -279,8 +273,8 @@ class ShareMode(Mode):
         else:
             if self.server_status.status == self.server_status.STATUS_STOPPED:
                 self.history.cancel(event["data"]["id"])
-                self.downloads_in_progress = 0
-                #self.info.update_downloads_in_progress()
+                self.history.in_progress_count = 0
+                self.history.update_in_progress()
 
     def handle_request_canceled(self, event):
         """
@@ -288,9 +282,9 @@ class ShareMode(Mode):
         """
         self.history.cancel(event["data"]["id"])
 
-        # Update the 'in progress downloads' info
-        self.downloads_in_progress -= 1
-        #self.info.update_downloads_in_progress()
+        # Update in progress count
+        self.history.in_progress_count -= 1
+        self.history.update_in_progress()
         self.system_tray.showMessage(strings._('systray_download_canceled_title', True), strings._('systray_download_canceled_message', True))
 
     def on_reload_settings(self):
@@ -334,10 +328,6 @@ class ShareMode(Mode):
         """
         Set the info counters back to zero.
         """
-        self.downloads_completed = 0
-        self.downloads_in_progress = 0
-        #self.info.update_downloads_completed()
-        #self.info.update_downloads_in_progress()
         self.history.reset()
 
     def resize_window(self):
