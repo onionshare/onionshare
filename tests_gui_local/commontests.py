@@ -171,7 +171,7 @@ class CommonTests(object):
 
     def test_counter_incremented(self, mode, count):
         '''Test that the counter has incremented'''
-        self.assertEquals(mode.uploads_completed, count)
+        self.assertEquals(mode.history.completed_count, count)
 
     def test_server_is_stopped(self, mode, stay_open):
         '''Test that the server stops when we click Stop'''
