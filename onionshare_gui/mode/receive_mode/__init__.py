@@ -196,12 +196,3 @@ class ReceiveMode(Mode):
 
     def update_primary_action(self):
         self.common.log('ReceiveMode', 'update_primary_action')
-
-        # Resize window
-        self.resize_window()
-
-    def resize_window(self):
-        min_width = self.common.min_window_width
-        if self.history.isVisible():
-            min_width += 300
-        self.adjust_size.emit(min_width)

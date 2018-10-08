@@ -45,7 +45,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         self.common = common
         self.common.log('OnionShareGui', '__init__')
-        self.common.min_window_width = 460
+        self.setMinimumWidth(700)
 
         self.onion = onion
         self.qtapp = qtapp
@@ -133,7 +133,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.share_mode.server_status.url_copied.connect(self.copy_url)
         self.share_mode.server_status.hidservauth_copied.connect(self.copy_hidservauth)
         self.share_mode.set_server_active.connect(self.set_server_active)
-        self.share_mode.adjust_size.connect(self.adjust_size)
 
         # Receive mode
         self.receive_mode = ReceiveMode(self.common, qtapp, app, self.status_bar, self.server_status_label, self.system_tray, None, self.local_only)
@@ -148,7 +147,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.receive_mode.server_status.url_copied.connect(self.copy_url)
         self.receive_mode.server_status.hidservauth_copied.connect(self.copy_hidservauth)
         self.receive_mode.set_server_active.connect(self.set_server_active)
-        self.receive_mode.adjust_size.connect(self.adjust_size)
 
         self.update_mode_switcher()
         self.update_server_status_indicator()
@@ -168,9 +166,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
         central_widget.setLayout(layout)
         self.setCentralWidget(central_widget)
         self.show()
-
-        # Adjust window size, to start with a minimum window width
-        self.adjust_size(self.common.min_window_width)
 
         # The server isn't active yet
         self.set_server_active(False)
@@ -200,14 +195,12 @@ class OnionShareGui(QtWidgets.QMainWindow):
             self.receive_mode_button.setStyleSheet(self.common.css['mode_switcher_unselected_style'])
 
             self.receive_mode.hide()
-            self.adjust_size(self.common.min_window_width)
             self.share_mode.show()
         else:
             self.share_mode_button.setStyleSheet(self.common.css['mode_switcher_unselected_style'])
             self.receive_mode_button.setStyleSheet(self.common.css['mode_switcher_selected_style'])
 
             self.share_mode.hide()
-            self.adjust_size(self.common.min_window_width)
             self.receive_mode.show()
 
         self.update_server_status_indicator()
@@ -449,40 +442,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         # Disable settings menu action when server is active
         self.settings_action.setEnabled(not active)
-
-    def adjust_size(self, min_width):
-        """
-        Recursively adjust size on all widgets. min_width is the new minimum width
-        of the window.
-        """
-        self.setMinimumWidth(min_width)
-
-        def adjust_size_layout(layout):
-            count = layout.count()
-            for i in range(count):
-                item = layout.itemAt(i)
-                if item:
-                    child_widget = item.widget()
-                    if child_widget:
-                        adjust_size_widget(child_widget)
-                    child_layout = item.layout()
-                    if child_layout:
-                        adjust_size_layout(child_layout)
-
-        def adjust_size_widget(widget):
-            layout = widget.layout()
-            if layout:
-                adjust_size_layout(layout)
-            widget.adjustSize()
-
-        # Adjust sizes of each mode
-        for mode in [self.share_mode, self.receive_mode]:
-            self.qtapp.processEvents()
-            adjust_size_widget(mode)
-
-        # Adjust window size
-        self.qtapp.processEvents()
-        self.adjustSize()
 
     def closeEvent(self, e):
         self.common.log('OnionShareGui', 'closeEvent')
