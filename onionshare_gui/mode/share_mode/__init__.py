@@ -26,12 +26,11 @@ from onionshare.common import Common
 from onionshare.web import Web
 
 from .file_selection import FileSelection
-from .downloads import Downloads
 from .threads import CompressThread
-#from .info import ShareModeInfo
 from .. import Mode
-from ..toggle_history import ToggleHistory
+from ..history import History, ToggleHistory, DownloadHistoryItem
 from ...widgets import Alert
+
 
 class ShareMode(Mode):
     """
@@ -72,9 +71,14 @@ class ShareMode(Mode):
         self.filesize_warning.setStyleSheet(self.common.css['share_filesize_warning'])
         self.filesize_warning.hide()
 
-        # Downloads
-        self.downloads = Downloads(self.common)
-        self.downloads.hide()
+        # Download history
+        self.history = History(
+            self.common,
+            QtGui.QPixmap.fromImage(QtGui.QImage(self.common.get_resource_path('images/downloads_transparent.png'))),
+            strings._('gui_no_downloads'),
+            strings._('gui_downloads')
+        )
+        self.history.hide()
         self.downloads_in_progress = 0
         self.downloads_completed = 0
 
@@ -87,7 +91,7 @@ class ShareMode(Mode):
 
         # Toggle history
         self.toggle_history = ToggleHistory(
-            self.common, self, self.downloads,
+            self.common, self, self.history,
             QtGui.QIcon(self.common.get_resource_path('images/downloads_toggle.png')),
             QtGui.QIcon(self.common.get_resource_path('images/downloads_toggle_selected.png'))
         )
@@ -116,7 +120,7 @@ class ShareMode(Mode):
         # Wrapper layout
         self.wrapper_layout = QtWidgets.QHBoxLayout()
         self.wrapper_layout.addLayout(self.main_layout)
-        self.wrapper_layout.addWidget(self.downloads)
+        self.wrapper_layout.addWidget(self.history)
         self.setLayout(self.wrapper_layout)
 
         # Always start with focus on file selection
@@ -241,7 +245,9 @@ class ShareMode(Mode):
             filesize = self.web.share_mode.gzip_filesize
         else:
             filesize = self.web.share_mode.download_filesize
-        self.downloads.add(event["data"]["id"], filesize)
+
+        item = DownloadHistoryItem(self.common, event["data"]["id"], filesize)
+        self.history.add(event["data"]["id"], item)
         self.toggle_history.update_indicator(True)
         self.downloads_in_progress += 1
         #self.info.update_downloads_in_progress()
@@ -252,7 +258,7 @@ class ShareMode(Mode):
         """
         Handle REQUEST_PROGRESS event.
         """
-        self.downloads.update(event["data"]["id"], event["data"]["bytes"])
+        self.history.update(event["data"]["id"], event["data"]["bytes"])
 
         # Is the download complete?
         if event["data"]["bytes"] == self.web.share_mode.filesize:
@@ -272,7 +278,7 @@ class ShareMode(Mode):
                 self.server_status_label.setText(strings._('closing_automatically', True))
         else:
             if self.server_status.status == self.server_status.STATUS_STOPPED:
-                self.downloads.cancel(event["data"]["id"])
+                self.history.cancel(event["data"]["id"])
                 self.downloads_in_progress = 0
                 #self.info.update_downloads_in_progress()
 
@@ -280,7 +286,7 @@ class ShareMode(Mode):
         """
         Handle REQUEST_CANCELED event.
         """
-        self.downloads.cancel(event["data"]["id"])
+        self.history.cancel(event["data"]["id"])
 
         # Update the 'in progress downloads' info
         self.downloads_in_progress -= 1
@@ -332,11 +338,11 @@ class ShareMode(Mode):
         self.downloads_in_progress = 0
         #self.info.update_downloads_completed()
         #self.info.update_downloads_in_progress()
-        self.downloads.reset()
+        self.history.reset()
 
     def resize_window(self):
         min_width = self.common.min_window_width
-        if self.downloads.isVisible():
+        if self.history.isVisible():
             min_width += 300
         self.adjust_size.emit(min_width)
 
