@@ -321,20 +321,11 @@ class ShareMode(Mode):
             self.primary_action.hide()
             self.info_label.hide()
 
-        # Resize window
-        self.resize_window()
-
     def reset_info_counters(self):
         """
         Set the info counters back to zero.
         """
         self.history.reset()
-
-    def resize_window(self):
-        min_width = self.common.min_window_width
-        if self.history.isVisible():
-            min_width += 300
-        self.adjust_size.emit(min_width)
 
     @staticmethod
     def _compute_total_size(filenames):
