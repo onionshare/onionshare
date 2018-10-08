@@ -347,7 +347,7 @@ class HistoryItemList(QtWidgets.QScrollArea):
         """
         for item in self.items.values():
             self.items_layout.removeWidget(item)
-            item.hide()
+            item.close()
         self.items = {}
 
 
