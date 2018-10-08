@@ -18,6 +18,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import time
+import subprocess
+from datetime import datetime
 from PyQt5 import QtCore, QtWidgets, QtGui
 
 from onionshare import strings
@@ -101,6 +103,186 @@ class DownloadHistoryItem(HistoryItem):
         return self.common.estimated_time_remaining(self.downloaded_bytes,
                                                 self.total_bytes,
                                                 self.started)
+
+
+class UploadHistoryItemFile(QtWidgets.QWidget):
+    def __init__(self, common, filename):
+        super(UploadHistoryItemFile, self).__init__()
+        self.common = common
+
+        self.common.log('UploadHistoryItemFile', '__init__', 'filename: {}'.format(filename))
+
+        self.filename = filename
+        self.started = datetime.now()
+
+        # Filename label
+        self.filename_label = QtWidgets.QLabel(self.filename)
+        self.filename_label_width = self.filename_label.width()
+
+        # File size label
+        self.filesize_label = QtWidgets.QLabel()
+        self.filesize_label.setStyleSheet(self.common.css['receive_file_size'])
+        self.filesize_label.hide()
+
+        # Folder button
+        folder_pixmap = QtGui.QPixmap.fromImage(QtGui.QImage(self.common.get_resource_path('images/open_folder.png')))
+        folder_icon = QtGui.QIcon(folder_pixmap)
+        self.folder_button = QtWidgets.QPushButton()
+        self.folder_button.clicked.connect(self.open_folder)
+        self.folder_button.setIcon(folder_icon)
+        self.folder_button.setIconSize(folder_pixmap.rect().size())
+        self.folder_button.setFlat(True)
+        self.folder_button.hide()
+
+        # Layouts
+        layout = QtWidgets.QHBoxLayout()
+        layout.addWidget(self.filename_label)
+        layout.addWidget(self.filesize_label)
+        layout.addStretch()
+        layout.addWidget(self.folder_button)
+        self.setLayout(layout)
+
+    def update(self, uploaded_bytes, complete):
+        self.filesize_label.setText(self.common.human_readable_filesize(uploaded_bytes))
+        self.filesize_label.show()
+
+        if complete:
+            self.folder_button.show()
+
+    def rename(self, new_filename):
+        self.filename = new_filename
+        self.filename_label.setText(self.filename)
+
+    def open_folder(self):
+        """
+        Open the downloads folder, with the file selected, in a cross-platform manner
+        """
+        self.common.log('UploadHistoryItemFile', 'open_folder')
+
+        abs_filename = os.path.join(self.common.settings.get('downloads_dir'), self.filename)
+
+        # Linux
+        if self.common.platform == 'Linux' or self.common.platform == 'BSD':
+            try:
+                # If nautilus is available, open it
+                subprocess.Popen(['nautilus', abs_filename])
+            except:
+                Alert(self.common, strings._('gui_open_folder_error_nautilus').format(abs_filename))
+
+        # macOS
+        elif self.common.platform == 'Darwin':
+            # TODO: Implement opening folder with file selected in macOS
+            # This seems helpful: https://stackoverflow.com/questions/3520493/python-show-in-finder
+            self.common.log('UploadHistoryItemFile', 'open_folder', 'not implemented for Darwin yet')
+
+        # Windows
+        elif self.common.platform == 'Windows':
+            # TODO: Implement opening folder with file selected in Windows
+            # This seems helpful: https://stackoverflow.com/questions/6631299/python-opening-a-folder-in-explorer-nautilus-mac-thingie
+            self.common.log('UploadHistoryItemFile', 'open_folder', 'not implemented for Windows yet')
+
+
+class UploadHistoryItem(HistoryItem):
+    def __init__(self, common, id, content_length):
+        super(UploadHistoryItem, self).__init__()
+        self.common = common
+        self.id = id
+        self.content_length = content_length
+        self.started = datetime.now()
+
+        # Label
+        self.label = QtWidgets.QLabel(strings._('gui_upload_in_progress', True).format(self.started.strftime("%b %d, %I:%M%p")))
+
+        # Progress bar
+        self.progress_bar = QtWidgets.QProgressBar()
+        self.progress_bar.setTextVisible(True)
+        self.progress_bar.setAttribute(QtCore.Qt.WA_DeleteOnClose)
+        self.progress_bar.setAlignment(QtCore.Qt.AlignHCenter)
+        self.progress_bar.setMinimum(0)
+        self.progress_bar.setValue(0)
+        self.progress_bar.setStyleSheet(self.common.css['downloads_uploads_progress_bar'])
+
+        # This layout contains file widgets
+        self.files_layout = QtWidgets.QVBoxLayout()
+        self.files_layout.setContentsMargins(0, 0, 0, 0)
+        files_widget = QtWidgets.QWidget()
+        files_widget.setStyleSheet(self.common.css['receive_file'])
+        files_widget.setLayout(self.files_layout)
+
+        # Layout
+        layout = QtWidgets.QVBoxLayout()
+        layout.addWidget(self.label)
+        layout.addWidget(self.progress_bar)
+        layout.addWidget(files_widget)
+        layout.addStretch()
+        self.setLayout(layout)
+
+        # We're also making a dictionary of file widgets, to make them easier to access
+        self.files = {}
+
+    def update(self, data):
+        """
+        Using the progress from Web, update the progress bar and file size labels
+        for each file
+        """
+        if data['action'] == 'progress':
+            total_uploaded_bytes = 0
+            for filename in data['progress']:
+                total_uploaded_bytes += data['progress'][filename]['uploaded_bytes']
+
+            # Update the progress bar
+            self.progress_bar.setMaximum(self.content_length)
+            self.progress_bar.setValue(total_uploaded_bytes)
+
+            elapsed = datetime.now() - self.started
+            if elapsed.seconds < 10:
+                pb_fmt = strings._('gui_download_upload_progress_starting').format(
+                    self.common.human_readable_filesize(total_uploaded_bytes))
+            else:
+                estimated_time_remaining = self.common.estimated_time_remaining(
+                    total_uploaded_bytes,
+                    self.content_length,
+                    self.started.timestamp())
+                pb_fmt = strings._('gui_download_upload_progress_eta').format(
+                    self.common.human_readable_filesize(total_uploaded_bytes),
+                    estimated_time_remaining)
+
+            # Using list(progress) to avoid "RuntimeError: dictionary changed size during iteration"
+            for filename in list(data['progress']):
+                # Add a new file if needed
+                if filename not in self.files:
+                    self.files[filename] = UploadHistoryItemFile(self.common, filename)
+                    self.files_layout.addWidget(self.files[filename])
+
+                # Update the file
+                self.files[filename].update(data['progress'][filename]['uploaded_bytes'], data['progress'][filename]['complete'])
+
+        elif data['action'] == 'rename':
+            self.files[data['old_filename']].rename(data['new_filename'])
+            self.files[data['new_filename']] = self.files.pop(data['old_filename'])
+
+        elif data['action'] == 'finished':
+            # Hide the progress bar
+            self.progress_bar.hide()
+
+            # Change the label
+            self.ended = self.started = datetime.now()
+            if self.started.year == self.ended.year and self.started.month == self.ended.month and self.started.day == self.ended.day:
+                if self.started.hour == self.ended.hour and self.started.minute == self.ended.minute:
+                    text = strings._('gui_upload_finished', True).format(
+                        self.started.strftime("%b %d, %I:%M%p")
+                    )
+                else:
+                    text = strings._('gui_upload_finished_range', True).format(
+                        self.started.strftime("%b %d, %I:%M%p"),
+                        self.ended.strftime("%I:%M%p")
+                    )
+            else:
+                text = strings._('gui_upload_finished_range', True).format(
+                    self.started.strftime("%b %d, %I:%M%p"),
+                    self.ended.strftime("%b %d, %I:%M%p")
+                )
+            self.label.setText(text)
 
 
 class HistoryItemList(QtWidgets.QScrollArea):
