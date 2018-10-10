@@ -287,7 +287,7 @@ class Common(object):
                     font-weight: bold;
                     font-size: 10px;
                     padding: 2px;
-                    border-radius: 8px;
+                    border-radius: 7px;
                     text-align: center;
                 }""",
 
