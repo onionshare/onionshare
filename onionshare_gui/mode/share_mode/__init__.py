@@ -224,7 +224,6 @@ class ShareMode(Mode):
         Connection to Tor broke.
         """
         self.primary_action.hide()
-        self.info_label.hide()
 
     def handle_request_load(self, event):
         """

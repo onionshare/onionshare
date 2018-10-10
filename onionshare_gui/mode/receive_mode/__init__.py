@@ -123,7 +123,6 @@ class ReceiveMode(Mode):
         Connection to Tor broke.
         """
         self.primary_action.hide()
-        #self.info.show_less()
 
     def handle_request_load(self, event):
         """
