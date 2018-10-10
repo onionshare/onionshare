@@ -90,20 +90,20 @@ class ServerStatus(QtWidgets.QWidget):
         self.server_button.clicked.connect(self.server_button_clicked)
 
         # URL layout
-        url_font = QtGui.QFont()
+        url_font = QtGui.QFontDatabase.systemFont(QtGui.QFontDatabase.FixedFont)
         self.url_description = QtWidgets.QLabel()
         self.url_description.setWordWrap(True)
         self.url_description.setMinimumHeight(50)
         self.url = QtWidgets.QLabel()
         self.url.setFont(url_font)
         self.url.setWordWrap(True)
-        self.url.setMinimumHeight(65)
         self.url.setMinimumSize(self.url.sizeHint())
         self.url.setStyleSheet(self.common.css['server_status_url'])
 
         self.copy_url_button = QtWidgets.QPushButton(strings._('gui_copy_url', True))
         self.copy_url_button.setFlat(True)
         self.copy_url_button.setStyleSheet(self.common.css['server_status_url_buttons'])
+        self.copy_url_button.setMinimumHeight(65)
         self.copy_url_button.clicked.connect(self.copy_url)
         self.copy_hidservauth_button = QtWidgets.QPushButton(strings._('gui_copy_hidservauth', True))
         self.copy_hidservauth_button.setFlat(True)

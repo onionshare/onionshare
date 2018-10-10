@@ -211,6 +211,7 @@ class Common(object):
                     color: #000000;
                     padding: 10px;
                     border: 1px solid #666666;
+                    font-size: 12px;
                 }
                 """,
 
