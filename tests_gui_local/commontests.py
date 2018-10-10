@@ -95,7 +95,7 @@ class CommonTests(object):
 
     def test_server_status_indicator_says_starting(self, mode):
         '''Test that the Server Status indicator shows we are Starting'''
-        self.assertEquals(mode.server_status_label.text(), strings._('gui_status_indicator_share_working', True))
+        self.assertEquals(mode.server_status_label.text(), strings._('gui_status_indicator_share_working'))
 
     def test_settings_button_is_hidden(self):
         '''Test that the settings button is hidden when the server starts'''
@@ -132,9 +132,9 @@ class CommonTests(object):
     def test_server_status_indicator_says_started(self, mode):
         '''Test that the Server Status indicator shows we are started'''
         if type(mode) == ReceiveMode:
-            self.assertEquals(mode.server_status_label.text(), strings._('gui_status_indicator_receive_started', True))
+            self.assertEquals(mode.server_status_label.text(), strings._('gui_status_indicator_receive_started'))
         if type(mode) == ShareMode:
-            self.assertEquals(mode.server_status_label.text(), strings._('gui_status_indicator_share_started', True))
+            self.assertEquals(mode.server_status_label.text(), strings._('gui_status_indicator_share_started'))
 
     def test_web_page(self, mode, string, public_mode):
         '''Test that the web page contains a string'''
@@ -193,9 +193,9 @@ class CommonTests(object):
             self.assertEquals(self.gui.receive_mode.server_status_label.text(), strings._('gui_status_indicator_receive_stopped', True))
         if type(mode) == ShareMode:
             if stay_open:
-                self.assertEquals(self.gui.share_mode.server_status_label.text(), strings._('gui_status_indicator_share_stopped', True))
+                self.assertEqual(self.gui.share_mode.server_status_label.text(), strings._('gui_status_indicator_share_stopped', True))
             else:
-                self.assertEquals(self.gui.share_mode.server_status_label.text(), strings._('closing_automatically', True))
+                self.assertEqual(self.gui.share_mode.server_status_label.text(), strings._('closing_automatically', True))
 
     # Auto-stop timer tests
     def test_set_timeout(self, mode, timeout):
@@ -245,7 +245,7 @@ class CommonTests(object):
         '''Test that we can also delete a file by clicking on its [X] widget'''
         self.gui.share_mode.server_status.file_selection.file_list.add_file('/etc/hosts')
         QtTest.QTest.mouseClick(self.gui.share_mode.server_status.file_selection.file_list.item(0).item_button, QtCore.Qt.LeftButton)
-        self.assertEquals(self.gui.share_mode.server_status.file_selection.get_num_files(), 0)
+        self.assertEqual(self.gui.share_mode.server_status.file_selection.get_num_files(), 0)
 
     def test_file_selection_widget_readd_files(self):
         '''Re-add some files to the list so we can share'''
@@ -284,7 +284,7 @@ class CommonTests(object):
 
         zip = zipfile.ZipFile('/tmp/download.zip')
         QtTest.QTest.qWait(2000)
-        self.assertEquals('onionshare', zip.read('test.txt').decode('utf-8'))
+        self.assertEqual('onionshare', zip.read('test.txt').decode('utf-8'))
 
     def test_add_button_visible(self):
         '''Test that the add button should be visible'''
