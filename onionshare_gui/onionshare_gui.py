@@ -46,7 +46,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.common = common
         self.common.log('OnionShareGui', '__init__')
         self.setMinimumWidth(820)
-        self.setMinimumHeight(620)
+        self.setMinimumHeight(650)
 
         self.onion = onion
         self.qtapp = qtapp
