@@ -50,11 +50,13 @@ class DownloadHistoryItem(HistoryItem):
         self.common = common
 
         self.id = id
-        self.started = time.time()
         self.total_bytes = total_bytes
         self.downloaded_bytes = 0
+        self.started = time.time()
+        self.started_dt = datetime.fromtimestamp(self.started)
 
-        self.setStyleSheet('QWidget { border: 1px solid red; }')
+        # Label
+        self.label = QtWidgets.QLabel(strings._('gui_download_in_progress').format(self.started_dt.strftime("%b %d, %I:%M%p")))
 
         # Progress bar
         self.progress_bar = QtWidgets.QProgressBar()
@@ -69,6 +71,7 @@ class DownloadHistoryItem(HistoryItem):
 
         # Layout
         layout = QtWidgets.QVBoxLayout()
+        layout.addWidget(self.label)
         layout.addWidget(self.progress_bar)
         self.setLayout(layout)
 
