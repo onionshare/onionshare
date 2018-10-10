@@ -185,7 +185,6 @@ class ReceiveMode(Mode):
         We should be ok to re-enable the 'Start Receive Mode' button now.
         """
         self.primary_action.show()
-        #self.info.show_more()
 
     def reset_info_counters(self):
         """
