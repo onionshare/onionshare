@@ -23,8 +23,8 @@ from PyQt5 import QtCore, QtWidgets, QtGui
 from onionshare import strings
 from onionshare.web import Web
 
-from .share_mode import ShareMode
-from .receive_mode import ReceiveMode
+from .mode.share_mode import ShareMode
+from .mode.receive_mode import ReceiveMode
 
 from .tor_connection_dialog import TorConnectionDialog
 from .settings_dialog import SettingsDialog
@@ -45,6 +45,8 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         self.common = common
         self.common.log('OnionShareGui', '__init__')
+        self.setMinimumWidth(820)
+        self.setMinimumHeight(660)
 
         self.onion = onion
         self.qtapp = qtapp
@@ -55,7 +57,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         self.setWindowTitle('OnionShare')
         self.setWindowIcon(QtGui.QIcon(self.common.get_resource_path('images/logo.png')))
-        self.setMinimumWidth(450)
 
         # Load settings
         self.config = config
@@ -66,7 +67,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.settings_action = menu.addAction(strings._('gui_settings_window_title', True))
         self.settings_action.triggered.connect(self.open_settings)
         help_action = menu.addAction(strings._('gui_settings_button_help', True))
-        help_action.triggered.connect(SettingsDialog.help_clicked)
+        help_action.triggered.connect(SettingsDialog.open_help)
         exit_action = menu.addAction(strings._('systray_menu_exit', True))
         exit_action.triggered.connect(self.close)
 
@@ -121,7 +122,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.setStatusBar(self.status_bar)
 
         # Share mode
-        self.share_mode = ShareMode(self.common, qtapp, app, self.status_bar, self.server_status_label, self.system_tray, filenames)
+        self.share_mode = ShareMode(self.common, qtapp, app, self.status_bar, self.server_status_label, self.system_tray, filenames, self.local_only)
         self.share_mode.init()
         self.share_mode.server_status.server_started.connect(self.update_server_status_indicator)
         self.share_mode.server_status.server_stopped.connect(self.update_server_status_indicator)
@@ -135,7 +136,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.share_mode.set_server_active.connect(self.set_server_active)
 
         # Receive mode
-        self.receive_mode = ReceiveMode(self.common, qtapp, app, self.status_bar, self.server_status_label, self.system_tray)
+        self.receive_mode = ReceiveMode(self.common, qtapp, app, self.status_bar, self.server_status_label, self.system_tray, None, self.local_only)
         self.receive_mode.init()
         self.receive_mode.server_status.server_started.connect(self.update_server_status_indicator)
         self.receive_mode.server_status.server_stopped.connect(self.update_server_status_indicator)
@@ -153,7 +154,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         # Layouts
         contents_layout = QtWidgets.QVBoxLayout()
-        contents_layout.setContentsMargins(10, 10, 10, 10)
+        contents_layout.setContentsMargins(10, 0, 10, 0)
         contents_layout.addWidget(self.receive_mode)
         contents_layout.addWidget(self.share_mode)
 
@@ -194,8 +195,8 @@ class OnionShareGui(QtWidgets.QMainWindow):
             self.share_mode_button.setStyleSheet(self.common.css['mode_switcher_selected_style'])
             self.receive_mode_button.setStyleSheet(self.common.css['mode_switcher_unselected_style'])
 
-            self.share_mode.show()
             self.receive_mode.hide()
+            self.share_mode.show()
         else:
             self.share_mode_button.setStyleSheet(self.common.css['mode_switcher_unselected_style'])
             self.receive_mode_button.setStyleSheet(self.common.css['mode_switcher_selected_style'])
@@ -204,9 +205,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
             self.receive_mode.show()
 
         self.update_server_status_indicator()
-
-        # Wait 1ms for the event loop to finish, then adjust size
-        QtCore.QTimer.singleShot(1, self.adjustSize)
 
     def share_mode_clicked(self):
         if self.mode != self.MODE_SHARE:

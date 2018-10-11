@@ -1,7 +1,6 @@
 {
     "config_onion_service": "Nastavuji onion service na portu {0:d}.",
     "preparing_files": "Připravuji soubory ke sdílení.",
-    "wait_for_hs": "Čekám na HS až bude připravena:",
     "give_this_url": "Dejte tuto URL osobě, které dané soubory posíláte:",
     "give_this_url_stealth": "Give this URL and HidServAuth line to the person you're sending the file to:",
     "ctrlc_to_stop":  "Stiskněte Ctrl-C pro zastavení serveru",
@@ -27,7 +26,6 @@
     "gui_copied_url": "URL zkopírováno do schránky",
     "gui_copied_hidservauth": "Copied HidServAuth line to clipboard",
     "gui_please_wait": "Prosím čekejte...",
-    "using_ephemeral": "Starting ephemeral Tor onion service and awaiting publication",
     "gui_download_upload_progress_complete": "%p%, Uplynulý čas: {0:s}",
     "gui_download_upload_progress_starting": "{0:s}, %p% (Computing ETA)",
     "gui_download_upload_progress_eta": "{0:s}, ETA: {1:s}, %p%",

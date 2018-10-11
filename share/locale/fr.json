@@ -1,6 +1,5 @@
 {
     "preparing_files": "Préparation des fichiers à partager.",
-    "wait_for_hs": "En attente du HS:",
     "give_this_url": "Donnez cette URL à la personne qui doit recevoir le fichier :",
     "ctrlc_to_stop":  "Ctrl-C arrête le serveur",
     "not_a_file": "{0:s} n'est pas un fichier.",
