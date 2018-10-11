@@ -69,8 +69,9 @@ setup(
         'onionshare',
         'onionshare.web',
         'onionshare_gui',
-        'onionshare_gui.share_mode',
-        'onionshare_gui.receive_mode'
+        'onionshare_gui.mode',
+        'onionshare_gui.mode.share_mode',
+        'onionshare_gui.mode.receive_mode'
     ],
     include_package_data=True,
     scripts=['install/scripts/onionshare', 'install/scripts/onionshare-gui'],

@@ -97,74 +97,82 @@ class OnionShareGuiTest(unittest.TestCase):
         CommonTests.test_file_selection_widget_has_a_file(self)
 
     @pytest.mark.run(order=6)
-    def test_info_widget_is_visible(self):
-        CommonTests.test_info_widget_is_visible(self, 'share')
+    def test_info_widget_shows_less(self):
+        CommonTests.test_info_widget_shows_less(self, 'share')
 
     @pytest.mark.run(order=7)
+    def test_history_is_not_visible(self):
+        CommonTests.test_history_is_not_visible(self, 'share')
+
+    @pytest.mark.run(order=8)
+    def test_click_toggle_history(self):
+        CommonTests.test_click_toggle_history(self, 'share')
+
+    @pytest.mark.run(order=9)
     def test_history_is_visible(self):
         CommonTests.test_history_is_visible(self, 'share')
 
-    @pytest.mark.run(order=8)
+    @pytest.mark.run(order=10)
     def test_deleting_only_file_hides_delete_button(self):
         CommonTests.test_deleting_only_file_hides_delete_button(self)
 
-    @pytest.mark.run(order=9)
+    @pytest.mark.run(order=11)
     def test_add_a_file_and_delete_using_its_delete_widget(self):
         CommonTests.test_add_a_file_and_delete_using_its_delete_widget(self)
 
-    @pytest.mark.run(order=10)
+    @pytest.mark.run(order=12)
     def test_file_selection_widget_readd_files(self):
         CommonTests.test_file_selection_widget_readd_files(self)
 
-    @pytest.mark.run(order=11)
+    @pytest.mark.run(order=13)
     def test_server_working_on_start_button_pressed(self):
         CommonTests.test_server_working_on_start_button_pressed(self, 'share')
 
-    @pytest.mark.run(order=12)
+    @pytest.mark.run(order=14)
     def test_server_status_indicator_says_starting(self):
         CommonTests.test_server_status_indicator_says_starting(self, 'share')
 
-    @pytest.mark.run(order=13)
+    @pytest.mark.run(order=15)
     def test_add_delete_buttons_hidden(self):
         CommonTests.test_add_delete_buttons_hidden(self)
 
-    @pytest.mark.run(order=14)
+    @pytest.mark.run(order=16)
     def test_settings_button_is_hidden(self):
         CommonTests.test_settings_button_is_hidden(self)
 
-    @pytest.mark.run(order=15)
+    @pytest.mark.run(order=17)
     def test_a_server_is_started(self):
        CommonTests.test_a_server_is_started(self, 'share')
 
-    @pytest.mark.run(order=16)
+    @pytest.mark.run(order=18)
     def test_a_web_server_is_running(self):
         CommonTests.test_a_web_server_is_running(self)
 
-    @pytest.mark.run(order=17)
+    @pytest.mark.run(order=19)
     def test_have_a_slug(self):
         CommonTests.test_have_a_slug(self, 'share', False)
 
-    @pytest.mark.run(order=18)
+    @pytest.mark.run(order=20)
     def test_have_an_onion(self):
        CommonTests.test_have_an_onion_service(self)
 
-    @pytest.mark.run(order=19)
+    @pytest.mark.run(order=21)
     def test_url_description_shown(self):
         CommonTests.test_url_description_shown(self, 'share')
 
-    @pytest.mark.run(order=20)
+    @pytest.mark.run(order=22)
     def test_have_copy_url_button(self):
         CommonTests.test_have_copy_url_button(self, 'share')
 
-    @pytest.mark.run(order=21)
+    @pytest.mark.run(order=23)
     def test_server_status_indicator_says_started(self):
         CommonTests.test_server_status_indicator_says_started(self, 'share')
 
-    @pytest.mark.run(order=22)
+    @pytest.mark.run(order=24)
     def test_copy_have_hidserv_auth_button(self):
         CommonTests.test_copy_have_hidserv_auth_button(self, 'share')
 
-    @pytest.mark.run(order=23)
+    @pytest.mark.run(order=25)
     def test_hidserv_auth_string(self):
         CommonTests.test_hidserv_auth_string(self)
 

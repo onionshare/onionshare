@@ -22,8 +22,8 @@ from PyQt5 import QtCore, QtWidgets, QtGui
 from onionshare import strings
 from onionshare.web import Web
 
-from .uploads import Uploads
-from ..mode import Mode
+from ..history import History, ToggleHistory, UploadHistoryItem
+from .. import Mode
 
 class ReceiveMode(Mode):
     """
@@ -46,41 +46,45 @@ class ReceiveMode(Mode):
         self.server_status.web = self.web
         self.server_status.update()
 
-        # Uploads
-        self.uploads = Uploads(self.common)
-        self.uploads_in_progress = 0
-        self.uploads_completed = 0
-        self.new_upload = False # For scrolling to the bottom of the uploads list
+        # Upload history
+        self.history = History(
+            self.common,
+            QtGui.QPixmap.fromImage(QtGui.QImage(self.common.get_resource_path('images/uploads_transparent.png'))),
+            strings._('gui_no_uploads'),
+            strings._('gui_uploads')
+        )
+        self.history.hide()
 
-        # Information about share, and show uploads button
-        self.info_in_progress_uploads_count = QtWidgets.QLabel()
-        self.info_in_progress_uploads_count.setStyleSheet(self.common.css['mode_info_label'])
+        # Toggle history
+        self.toggle_history = ToggleHistory(
+            self.common, self, self.history,
+            QtGui.QIcon(self.common.get_resource_path('images/uploads_toggle.png')),
+            QtGui.QIcon(self.common.get_resource_path('images/uploads_toggle_selected.png'))
+        )
 
-        self.info_completed_uploads_count = QtWidgets.QLabel()
-        self.info_completed_uploads_count.setStyleSheet(self.common.css['mode_info_label'])
+        # Receive mode warning
+        receive_warning = QtWidgets.QLabel(strings._('gui_receive_mode_warning', True))
+        receive_warning.setMinimumHeight(80)
+        receive_warning.setWordWrap(True)
 
-        self.update_uploads_completed()
-        self.update_uploads_in_progress()
+        # Top bar
+        top_bar_layout = QtWidgets.QHBoxLayout()
+        top_bar_layout.addStretch()
+        top_bar_layout.addWidget(self.toggle_history)
 
-        self.info_layout = QtWidgets.QHBoxLayout()
-        self.info_layout.addStretch()
-        self.info_layout.addWidget(self.info_in_progress_uploads_count)
-        self.info_layout.addWidget(self.info_completed_uploads_count)
+        # Main layout
+        self.main_layout = QtWidgets.QVBoxLayout()
+        self.main_layout.addLayout(top_bar_layout)
+        self.main_layout.addWidget(receive_warning)
+        self.main_layout.addWidget(self.primary_action)
+        self.main_layout.addStretch()
+        self.main_layout.addWidget(self.min_width_widget)
 
-        self.info_widget = QtWidgets.QWidget()
-        self.info_widget.setLayout(self.info_layout)
-        self.info_widget.hide()
-
-        # Receive mode info
-        self.receive_info = QtWidgets.QLabel(strings._('gui_receive_mode_warning'))
-        self.receive_info.setMinimumHeight(80)
-        self.receive_info.setWordWrap(True)
-
-        # Layout
-        self.layout.insertWidget(0, self.receive_info)
-        self.layout.insertWidget(0, self.info_widget)
-        self.layout.addStretch()
-        self.horizontal_layout_wrapper.addWidget(self.uploads)
+        # Wrapper layout
+        self.wrapper_layout = QtWidgets.QHBoxLayout()
+        self.wrapper_layout.addLayout(self.main_layout)
+        self.wrapper_layout.addWidget(self.history)
+        self.setLayout(self.wrapper_layout)
 
     def get_stop_server_shutdown_timeout_text(self):
         """
@@ -119,7 +123,6 @@ class ReceiveMode(Mode):
         Connection to Tor broke.
         """
         self.primary_action.hide()
-        self.info_widget.hide()
 
     def handle_request_load(self, event):
         """
@@ -131,9 +134,11 @@ class ReceiveMode(Mode):
         """
         Handle REQUEST_STARTED event.
         """
-        self.uploads.add(event["data"]["id"], event["data"]["content_length"])
-        self.uploads_in_progress += 1
-        self.update_uploads_in_progress()
+        item = UploadHistoryItem(self.common, event["data"]["id"], event["data"]["content_length"])
+        self.history.add(event["data"]["id"], item)
+        self.toggle_history.update_indicator(True)
+        self.history.in_progress_count += 1
+        self.history.update_in_progress()
 
         self.system_tray.showMessage(strings._('systray_upload_started_title'), strings._('systray_upload_started_message'))
 
@@ -141,7 +146,10 @@ class ReceiveMode(Mode):
         """
         Handle REQUEST_PROGRESS event.
         """
-        self.uploads.update(event["data"]["id"], event["data"]["progress"])
+        self.history.update(event["data"]["id"], {
+            'action': 'progress',
+            'progress': event["data"]["progress"]
+        })
 
     def handle_request_close_server(self, event):
         """
@@ -154,67 +162,35 @@ class ReceiveMode(Mode):
         """
         Handle REQUEST_UPLOAD_FILE_RENAMED event.
         """
-        self.uploads.rename(event["data"]["id"], event["data"]["old_filename"], event["data"]["new_filename"])
+        self.history.update(event["data"]["id"], {
+            'action': 'rename',
+            'old_filename': event["data"]["old_filename"],
+            'new_filename': event["data"]["new_filename"]
+        })
 
     def handle_request_upload_finished(self, event):
         """
         Handle REQUEST_UPLOAD_FINISHED event.
         """
-        self.uploads.finished(event["data"]["id"])
-        # Update the total 'completed uploads' info
-        self.uploads_completed += 1
-        self.update_uploads_completed()
-        # Update the 'in progress uploads' info
-        self.uploads_in_progress -= 1
-        self.update_uploads_in_progress()
+        self.history.update(event["data"]["id"], {
+            'action': 'finished'
+        })
+        self.history.completed_count += 1
+        self.history.in_progress_count -= 1
+        self.history.update_completed()
+        self.history.update_in_progress()
 
     def on_reload_settings(self):
         """
         We should be ok to re-enable the 'Start Receive Mode' button now.
         """
         self.primary_action.show()
-        self.info_widget.show()
 
     def reset_info_counters(self):
         """
         Set the info counters back to zero.
         """
-        self.uploads_completed = 0
-        self.uploads_in_progress = 0
-        self.update_uploads_completed()
-        self.update_uploads_in_progress()
-        self.uploads.reset()
-
-    def update_uploads_completed(self):
-        """
-        Update the 'Uploads completed' info widget.
-        """
-        if self.uploads_completed == 0:
-            image = self.common.get_resource_path('images/share_completed_none.png')
-        else:
-            image = self.common.get_resource_path('images/share_completed.png')
-        self.info_completed_uploads_count.setText('<img src="{0:s}" /> {1:d}'.format(image, self.uploads_completed))
-        self.info_completed_uploads_count.setToolTip(strings._('info_completed_uploads_tooltip').format(self.uploads_completed))
-
-    def update_uploads_in_progress(self):
-        """
-        Update the 'Uploads in progress' info widget.
-        """
-        if self.uploads_in_progress == 0:
-            image = self.common.get_resource_path('images/share_in_progress_none.png')
-        else:
-            image = self.common.get_resource_path('images/share_in_progress.png')
-        self.info_in_progress_uploads_count.setText('<img src="{0:s}" /> {1:d}'.format(image, self.uploads_in_progress))
-        self.info_in_progress_uploads_count.setToolTip(strings._('info_in_progress_uploads_tooltip').format(self.uploads_in_progress))
+        self.history.reset()
 
     def update_primary_action(self):
         self.common.log('ReceiveMode', 'update_primary_action')
-
-        # Show the info widget when the server is active
-        if self.server_status.status == self.server_status.STATUS_STARTED:
-            self.info_widget.show()
-        else:
-            self.info_widget.hide()
-
-        # Resize window
-        self.adjustSize()

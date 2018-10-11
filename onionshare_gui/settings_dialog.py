@@ -915,8 +915,12 @@ class SettingsDialog(QtWidgets.QDialog):
         Help button clicked.
         """
         self.common.log('SettingsDialog', 'help_clicked')
-        help_site = 'https://github.com/micahflee/onionshare/wiki'
-        QtGui.QDesktopServices.openUrl(QtCore.QUrl(help_site))
+        SettingsDialog.open_help()
+
+    @staticmethod
+    def open_help():
+        help_url = 'https://github.com/micahflee/onionshare/wiki'
+        QtGui.QDesktopServices.openUrl(QtCore.QUrl(help_url))
 
     def settings_from_fields(self):
         """
