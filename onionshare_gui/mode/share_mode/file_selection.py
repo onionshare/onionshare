@@ -89,7 +89,7 @@ class FileList(QtWidgets.QListWidget):
         self.setAcceptDrops(True)
         self.setIconSize(QtCore.QSize(32, 32))
         self.setSortingEnabled(True)
-        self.setMinimumHeight(205)
+        self.setMinimumHeight(160)
         self.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
         self.drop_here_image = DropHereLabel(self.common, self, True)
         self.drop_here_text = DropHereLabel(self.common, self, False)
@@ -261,6 +261,7 @@ class FileList(QtWidgets.QListWidget):
 
             # Item info widget, with a white background
             item_info_layout = QtWidgets.QHBoxLayout()
+            item_info_layout.setContentsMargins(0, 0, 0, 0)
             item_info_layout.addWidget(item_size)
             item_info_layout.addWidget(item.item_button)
             item_info = QtWidgets.QWidget()
