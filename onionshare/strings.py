@@ -22,39 +22,36 @@ import locale
 import os
 
 strings = {}
+translations = {}
 
 
-def load_strings(common, default="en"):
+def load_strings(common):
     """
     Loads translated strings and fallback to English
     if the translation does not exist.
     """
-    global strings
+    global strings, translations
 
-    # find locale dir
-    locale_dir = common.get_resource_path('locale')
-
-    # load all translations
+    # Load all translations
     translations = {}
-    for filename in os.listdir(locale_dir):
-        abs_filename = os.path.join(locale_dir, filename)
-        lang, ext = os.path.splitext(filename)
-        if ext == '.json':
-            with open(abs_filename, encoding='utf-8') as f:
-                translations[lang] = json.load(f)
+    for locale in common.settings.available_locales:
+        locale_dir = common.get_resource_path('locale')
+        filename = os.path.join(locale_dir, "{}.json".format(locale))
+        with open(filename, encoding='utf-8') as f:
+            translations[locale] = json.load(f)
 
-    strings = translations[default]
-    lc, enc = locale.getdefaultlocale()
-    if lc:
-        lang = lc[:2]
-        if lang in translations:
-            # if a string doesn't exist, fallback to English
-            for key in translations[default]:
-                if key in translations[lang]:
-                    strings[key] = translations[lang][key]
+    # Build strings
+    default_locale = 'en'
+    current_locale = common.settings.get('locale')
+    strings = {}
+    for s in translations[default_locale]:
+        if s in translations[current_locale]:
+            strings[s] = translations[current_locale][s]
+        else:
+            strings[s] = translations[default_locale][s]
 
 
-def translated(k, gui=False):
+def translated(k):
     """
     Returns a translated string.
     """

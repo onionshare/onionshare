@@ -15,66 +15,17 @@ from onionshare_gui import *
 from .commontests import CommonTests
 
 class OnionShareGuiTest(unittest.TestCase):
-    '''Test the OnionShare GUI'''
     @classmethod
     def setUpClass(cls):
-        '''Create the GUI'''
-        # Create our test file
-        testfile = open('/tmp/test.txt', 'w')
-        testfile.write('onionshare')
-        testfile.close()
-        common = Common()
-        common.define_css()
-
-        # Start the Onion
-        strings.load_strings(common)
-
-        testonion = onion.Onion(common)
-        global qtapp
-        qtapp = Application(common)
-        app = OnionShare(common, testonion, True, 0)
-
-        web = Web(common, False, True)
-
         test_settings = {
-            "auth_password": "",
-            "auth_type": "no_auth",
-            "autoupdate_timestamp": "",
-            "close_after_first_download": True,
-            "connection_type": "bundled",
-            "control_port_address": "127.0.0.1",
-            "control_port_port": 9051,
-            "downloads_dir": "/tmp/OnionShare",
-            "hidservauth_string": "",
-            "no_bridges": True,
-            "private_key": "",
             "public_mode": False,
-            "receive_allow_receiver_shutdown": True,
-            "save_private_key": False,
-            "shutdown_timeout": True,
-            "slug": "",
-            "socks_address": "127.0.0.1",
-            "socks_port": 9050,
-            "socket_file_path": "/var/run/tor/control",
-            "systray_notifications": True,
-            "tor_bridges_use_meek_lite_azure": False,
-            "tor_bridges_use_meek_lite_amazon": False,
-            "tor_bridges_use_custom_bridges": "",
-            "tor_bridges_use_obfs4": False,
-            "use_stealth": False,
-            "use_legacy_v2_onions": False,
-            "use_autoupdate": True,
-            "version": "1.3.1"
+            "shutdown_timeout": True
         }
-        testsettings = '/tmp/testsettings.json'
-        open(testsettings, 'w').write(json.dumps(test_settings))
-
-        cls.gui = OnionShareGui(common, testonion, qtapp, app, ['/tmp/test.txt'], testsettings, True)
+        cls.gui = CommonTests.set_up(test_settings)
 
     @classmethod
     def tearDownClass(cls):
-        '''Clean up after tests'''
-        os.remove('/tmp/test.txt')
+        CommonTests.tear_down()
 
     @pytest.mark.run(order=1)
     def test_gui_loaded(self):

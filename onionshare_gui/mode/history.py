@@ -196,7 +196,7 @@ class UploadHistoryItem(HistoryItem):
         self.started = datetime.now()
 
         # Label
-        self.label = QtWidgets.QLabel(strings._('gui_upload_in_progress', True).format(self.started.strftime("%b %d, %I:%M%p")))
+        self.label = QtWidgets.QLabel(strings._('gui_upload_in_progress').format(self.started.strftime("%b %d, %I:%M%p")))
 
         # Progress bar
         self.progress_bar = QtWidgets.QProgressBar()
@@ -274,16 +274,16 @@ class UploadHistoryItem(HistoryItem):
             self.ended = self.started = datetime.now()
             if self.started.year == self.ended.year and self.started.month == self.ended.month and self.started.day == self.ended.day:
                 if self.started.hour == self.ended.hour and self.started.minute == self.ended.minute:
-                    text = strings._('gui_upload_finished', True).format(
+                    text = strings._('gui_upload_finished').format(
                         self.started.strftime("%b %d, %I:%M%p")
                     )
                 else:
-                    text = strings._('gui_upload_finished_range', True).format(
+                    text = strings._('gui_upload_finished_range').format(
                         self.started.strftime("%b %d, %I:%M%p"),
                         self.ended.strftime("%I:%M%p")
                     )
             else:
-                text = strings._('gui_upload_finished_range', True).format(
+                text = strings._('gui_upload_finished_range').format(
                     self.started.strftime("%b %d, %I:%M%p"),
                     self.ended.strftime("%b %d, %I:%M%p")
                 )
@@ -380,7 +380,7 @@ class History(QtWidgets.QWidget):
         # Header
         self.header_label = QtWidgets.QLabel(header_text)
         self.header_label.setStyleSheet(self.common.css['downloads_uploads_label'])
-        clear_button = QtWidgets.QPushButton(strings._('gui_clear_history', True))
+        clear_button = QtWidgets.QPushButton(strings._('gui_clear_history'))
         clear_button.setStyleSheet(self.common.css['downloads_uploads_clear'])
         clear_button.setFlat(True)
         clear_button.clicked.connect(self.reset)
@@ -486,7 +486,7 @@ class History(QtWidgets.QWidget):
         else:
             image = self.common.get_resource_path('images/share_in_progress.png')
         self.in_progress_label.setText('<img src="{0:s}" /> {1:d}'.format(image, self.in_progress_count))
-        self.in_progress_label.setToolTip(strings._('history_in_progress_tooltip', True).format(self.in_progress_count))
+        self.in_progress_label.setToolTip(strings._('history_in_progress_tooltip').format(self.in_progress_count))
 
 
 class ToggleHistory(QtWidgets.QPushButton):

@@ -47,7 +47,7 @@ class SettingsDialog(QtWidgets.QDialog):
         self.local_only = local_only
 
         self.setModal(True)
-        self.setWindowTitle(strings._('gui_settings_window_title', True))
+        self.setWindowTitle(strings._('gui_settings_window_title'))
         self.setWindowIcon(QtGui.QIcon(self.common.get_resource_path('images/logo.png')))
 
         self.system = platform.system()
@@ -57,8 +57,8 @@ class SettingsDialog(QtWidgets.QDialog):
         # Use a slug or not ('public mode')
         self.public_mode_checkbox = QtWidgets.QCheckBox()
         self.public_mode_checkbox.setCheckState(QtCore.Qt.Unchecked)
-        self.public_mode_checkbox.setText(strings._("gui_settings_public_mode_checkbox", True))
-        public_mode_label = QtWidgets.QLabel(strings._("gui_settings_whats_this", True).format("https://github.com/micahflee/onionshare/wiki/Public-Mode"))
+        self.public_mode_checkbox.setText(strings._("gui_settings_public_mode_checkbox"))
+        public_mode_label = QtWidgets.QLabel(strings._("gui_settings_whats_this").format("https://github.com/micahflee/onionshare/wiki/Public-Mode"))
         public_mode_label.setStyleSheet(self.common.css['settings_whats_this'])
         public_mode_label.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
         public_mode_label.setOpenExternalLinks(True)
@@ -74,8 +74,8 @@ class SettingsDialog(QtWidgets.QDialog):
         # Whether or not to use a shutdown ('auto-stop') timer
         self.shutdown_timeout_checkbox = QtWidgets.QCheckBox()
         self.shutdown_timeout_checkbox.setCheckState(QtCore.Qt.Checked)
-        self.shutdown_timeout_checkbox.setText(strings._("gui_settings_shutdown_timeout_checkbox", True))
-        shutdown_timeout_label = QtWidgets.QLabel(strings._("gui_settings_whats_this", True).format("https://github.com/micahflee/onionshare/wiki/Using-the-Auto-Stop-Timer"))
+        self.shutdown_timeout_checkbox.setText(strings._("gui_settings_shutdown_timeout_checkbox"))
+        shutdown_timeout_label = QtWidgets.QLabel(strings._("gui_settings_whats_this").format("https://github.com/micahflee/onionshare/wiki/Using-the-Auto-Stop-Timer"))
         shutdown_timeout_label.setStyleSheet(self.common.css['settings_whats_this'])
         shutdown_timeout_label.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
         shutdown_timeout_label.setOpenExternalLinks(True)
@@ -91,9 +91,9 @@ class SettingsDialog(QtWidgets.QDialog):
         # Whether or not to use legacy v2 onions
         self.use_legacy_v2_onions_checkbox = QtWidgets.QCheckBox()
         self.use_legacy_v2_onions_checkbox.setCheckState(QtCore.Qt.Unchecked)
-        self.use_legacy_v2_onions_checkbox.setText(strings._("gui_use_legacy_v2_onions_checkbox", True))
+        self.use_legacy_v2_onions_checkbox.setText(strings._("gui_use_legacy_v2_onions_checkbox"))
         self.use_legacy_v2_onions_checkbox.clicked.connect(self.use_legacy_v2_onions_checkbox_clicked)
-        use_legacy_v2_onions_label = QtWidgets.QLabel(strings._("gui_settings_whats_this", True).format("https://github.com/micahflee/onionshare/wiki/Legacy-Addresses"))
+        use_legacy_v2_onions_label = QtWidgets.QLabel(strings._("gui_settings_whats_this").format("https://github.com/micahflee/onionshare/wiki/Legacy-Addresses"))
         use_legacy_v2_onions_label.setStyleSheet(self.common.css['settings_whats_this'])
         use_legacy_v2_onions_label.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
         use_legacy_v2_onions_label.setOpenExternalLinks(True)
@@ -108,9 +108,9 @@ class SettingsDialog(QtWidgets.QDialog):
         # Whether or not to save the Onion private key for reuse (persistent URL mode)
         self.save_private_key_checkbox = QtWidgets.QCheckBox()
         self.save_private_key_checkbox.setCheckState(QtCore.Qt.Unchecked)
-        self.save_private_key_checkbox.setText(strings._("gui_save_private_key_checkbox", True))
+        self.save_private_key_checkbox.setText(strings._("gui_save_private_key_checkbox"))
         self.save_private_key_checkbox.clicked.connect(self.save_private_key_checkbox_clicked)
-        save_private_key_label = QtWidgets.QLabel(strings._("gui_settings_whats_this", True).format("https://github.com/micahflee/onionshare/wiki/Using-a-Persistent-URL"))
+        save_private_key_label = QtWidgets.QLabel(strings._("gui_settings_whats_this").format("https://github.com/micahflee/onionshare/wiki/Using-a-Persistent-URL"))
         save_private_key_label.setStyleSheet(self.common.css['settings_whats_this'])
         save_private_key_label.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
         save_private_key_label.setOpenExternalLinks(True)
@@ -125,9 +125,9 @@ class SettingsDialog(QtWidgets.QDialog):
         # Stealth
         self.stealth_checkbox = QtWidgets.QCheckBox()
         self.stealth_checkbox.setCheckState(QtCore.Qt.Unchecked)
-        self.stealth_checkbox.setText(strings._("gui_settings_stealth_option", True))
+        self.stealth_checkbox.setText(strings._("gui_settings_stealth_option"))
         self.stealth_checkbox.clicked.connect(self.stealth_checkbox_clicked_connect)
-        use_stealth_label = QtWidgets.QLabel(strings._("gui_settings_whats_this", True).format("https://github.com/micahflee/onionshare/wiki/Stealth-Onion-Services"))
+        use_stealth_label = QtWidgets.QLabel(strings._("gui_settings_whats_this").format("https://github.com/micahflee/onionshare/wiki/Stealth-Onion-Services"))
         use_stealth_label.setStyleSheet(self.common.css['settings_whats_this'])
         use_stealth_label.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
         use_stealth_label.setOpenExternalLinks(True)
@@ -140,12 +140,12 @@ class SettingsDialog(QtWidgets.QDialog):
         self.use_stealth_widget = QtWidgets.QWidget()
         self.use_stealth_widget.setLayout(use_stealth_layout)
 
-        hidservauth_details = QtWidgets.QLabel(strings._('gui_settings_stealth_hidservauth_string', True))
+        hidservauth_details = QtWidgets.QLabel(strings._('gui_settings_stealth_hidservauth_string'))
         hidservauth_details.setWordWrap(True)
         hidservauth_details.setMinimumSize(hidservauth_details.sizeHint())
         hidservauth_details.hide()
 
-        self.hidservauth_copy_button = QtWidgets.QPushButton(strings._('gui_copy_hidservauth', True))
+        self.hidservauth_copy_button = QtWidgets.QPushButton(strings._('gui_copy_hidservauth'))
         self.hidservauth_copy_button.clicked.connect(self.hidservauth_copy_button_clicked)
         self.hidservauth_copy_button.hide()
 
@@ -159,7 +159,7 @@ class SettingsDialog(QtWidgets.QDialog):
         general_group_layout.addWidget(hidservauth_details)
         general_group_layout.addWidget(self.hidservauth_copy_button)
 
-        general_group = QtWidgets.QGroupBox(strings._("gui_settings_general_label", True))
+        general_group = QtWidgets.QGroupBox(strings._("gui_settings_general_label"))
         general_group.setLayout(general_group_layout)
 
         # Sharing options
@@ -167,19 +167,19 @@ class SettingsDialog(QtWidgets.QDialog):
         # Close after first download
         self.close_after_first_download_checkbox = QtWidgets.QCheckBox()
         self.close_after_first_download_checkbox.setCheckState(QtCore.Qt.Checked)
-        self.close_after_first_download_checkbox.setText(strings._("gui_settings_close_after_first_download_option", True))
+        self.close_after_first_download_checkbox.setText(strings._("gui_settings_close_after_first_download_option"))
 
         # Sharing options layout
         sharing_group_layout = QtWidgets.QVBoxLayout()
         sharing_group_layout.addWidget(self.close_after_first_download_checkbox)
-        sharing_group = QtWidgets.QGroupBox(strings._("gui_settings_sharing_label", True))
+        sharing_group = QtWidgets.QGroupBox(strings._("gui_settings_sharing_label"))
         sharing_group.setLayout(sharing_group_layout)
 
         # Downloads dir
-        downloads_label = QtWidgets.QLabel(strings._('gui_settings_downloads_label', True));
+        downloads_label = QtWidgets.QLabel(strings._('gui_settings_downloads_label'));
         self.downloads_dir_lineedit = QtWidgets.QLineEdit()
         self.downloads_dir_lineedit.setReadOnly(True)
-        downloads_button = QtWidgets.QPushButton(strings._('gui_settings_downloads_button', True))
+        downloads_button = QtWidgets.QPushButton(strings._('gui_settings_downloads_button'))
         downloads_button.clicked.connect(self.downloads_button_clicked)
         downloads_layout = QtWidgets.QHBoxLayout()
         downloads_layout.addWidget(downloads_label)
@@ -189,13 +189,13 @@ class SettingsDialog(QtWidgets.QDialog):
         # Allow the receiver to shutdown the server
         self.receive_allow_receiver_shutdown_checkbox = QtWidgets.QCheckBox()
         self.receive_allow_receiver_shutdown_checkbox.setCheckState(QtCore.Qt.Checked)
-        self.receive_allow_receiver_shutdown_checkbox.setText(strings._("gui_settings_receive_allow_receiver_shutdown_checkbox", True))
+        self.receive_allow_receiver_shutdown_checkbox.setText(strings._("gui_settings_receive_allow_receiver_shutdown_checkbox"))
 
         # Receiving options layout
         receiving_group_layout = QtWidgets.QVBoxLayout()
         receiving_group_layout.addLayout(downloads_layout)
         receiving_group_layout.addWidget(self.receive_allow_receiver_shutdown_checkbox)
-        receiving_group = QtWidgets.QGroupBox(strings._("gui_settings_receiving_label", True))
+        receiving_group = QtWidgets.QGroupBox(strings._("gui_settings_receiving_label"))
         receiving_group.setLayout(receiving_group_layout)
 
         # Automatic updates options
@@ -203,13 +203,13 @@ class SettingsDialog(QtWidgets.QDialog):
         # Autoupdate
         self.autoupdate_checkbox = QtWidgets.QCheckBox()
         self.autoupdate_checkbox.setCheckState(QtCore.Qt.Unchecked)
-        self.autoupdate_checkbox.setText(strings._("gui_settings_autoupdate_option", True))
+        self.autoupdate_checkbox.setText(strings._("gui_settings_autoupdate_option"))
 
         # Last update time
         self.autoupdate_timestamp = QtWidgets.QLabel()
 
         # Check for updates button
-        self.check_for_updates_button = QtWidgets.QPushButton(strings._('gui_settings_autoupdate_check_button', True))
+        self.check_for_updates_button = QtWidgets.QPushButton(strings._('gui_settings_autoupdate_check_button'))
         self.check_for_updates_button.clicked.connect(self.check_for_updates)
         # We can't check for updates if not connected to Tor
         if not self.onion.connected_to_tor:
@@ -220,17 +220,32 @@ class SettingsDialog(QtWidgets.QDialog):
         autoupdate_group_layout.addWidget(self.autoupdate_checkbox)
         autoupdate_group_layout.addWidget(self.autoupdate_timestamp)
         autoupdate_group_layout.addWidget(self.check_for_updates_button)
-        autoupdate_group = QtWidgets.QGroupBox(strings._("gui_settings_autoupdate_label", True))
+        autoupdate_group = QtWidgets.QGroupBox(strings._("gui_settings_autoupdate_label"))
         autoupdate_group.setLayout(autoupdate_group_layout)
 
         # Autoupdate is only available for Windows and Mac (Linux updates using package manager)
         if self.system != 'Windows' and self.system != 'Darwin':
             autoupdate_group.hide()
 
+        # Language settings
+        language_label = QtWidgets.QLabel(strings._("gui_settings_language_label"))
+        self.language_combobox = QtWidgets.QComboBox()
+        # Populate the dropdown with all of OnionShare's available languages
+        language_names_to_locales = {v: k for k, v in self.common.settings.available_locales.items()}
+        language_names = list(language_names_to_locales)
+        language_names.sort()
+        for language_name in language_names:
+            locale = language_names_to_locales[language_name]
+            self.language_combobox.addItem(language_name, QtCore.QVariant(locale))
+        language_layout = QtWidgets.QHBoxLayout()
+        language_layout.addWidget(language_label)
+        language_layout.addWidget(self.language_combobox)
+        language_layout.addStretch()
+
         # Connection type: either automatic, control port, or socket file
 
         # Bundled Tor
-        self.connection_type_bundled_radio = QtWidgets.QRadioButton(strings._('gui_settings_connection_type_bundled_option', True))
+        self.connection_type_bundled_radio = QtWidgets.QRadioButton(strings._('gui_settings_connection_type_bundled_option'))
         self.connection_type_bundled_radio.toggled.connect(self.connection_type_bundled_toggled)
 
         # Bundled Tor doesn't work on dev mode in Windows or Mac
@@ -240,27 +255,27 @@ class SettingsDialog(QtWidgets.QDialog):
         # Bridge options for bundled tor
 
         # No bridges option radio
-        self.tor_bridges_no_bridges_radio = QtWidgets.QRadioButton(strings._('gui_settings_tor_bridges_no_bridges_radio_option', True))
+        self.tor_bridges_no_bridges_radio = QtWidgets.QRadioButton(strings._('gui_settings_tor_bridges_no_bridges_radio_option'))
         self.tor_bridges_no_bridges_radio.toggled.connect(self.tor_bridges_no_bridges_radio_toggled)
 
         # obfs4 option radio
         # if the obfs4proxy binary is missing, we can't use obfs4 transports
         (self.tor_path, self.tor_geo_ip_file_path, self.tor_geo_ipv6_file_path, self.obfs4proxy_file_path) = self.common.get_tor_paths()
         if not os.path.isfile(self.obfs4proxy_file_path):
-            self.tor_bridges_use_obfs4_radio = QtWidgets.QRadioButton(strings._('gui_settings_tor_bridges_obfs4_radio_option_no_obfs4proxy', True))
+            self.tor_bridges_use_obfs4_radio = QtWidgets.QRadioButton(strings._('gui_settings_tor_bridges_obfs4_radio_option_no_obfs4proxy'))
             self.tor_bridges_use_obfs4_radio.setEnabled(False)
         else:
-            self.tor_bridges_use_obfs4_radio = QtWidgets.QRadioButton(strings._('gui_settings_tor_bridges_obfs4_radio_option', True))
+            self.tor_bridges_use_obfs4_radio = QtWidgets.QRadioButton(strings._('gui_settings_tor_bridges_obfs4_radio_option'))
         self.tor_bridges_use_obfs4_radio.toggled.connect(self.tor_bridges_use_obfs4_radio_toggled)
 
         # meek_lite-azure option radio
         # if the obfs4proxy binary is missing, we can't use meek_lite-azure transports
         (self.tor_path, self.tor_geo_ip_file_path, self.tor_geo_ipv6_file_path, self.obfs4proxy_file_path) = self.common.get_tor_paths()
         if not os.path.isfile(self.obfs4proxy_file_path):
-            self.tor_bridges_use_meek_lite_azure_radio = QtWidgets.QRadioButton(strings._('gui_settings_tor_bridges_meek_lite_azure_radio_option_no_obfs4proxy', True))
+            self.tor_bridges_use_meek_lite_azure_radio = QtWidgets.QRadioButton(strings._('gui_settings_tor_bridges_meek_lite_azure_radio_option_no_obfs4proxy'))
             self.tor_bridges_use_meek_lite_azure_radio.setEnabled(False)
         else:
-            self.tor_bridges_use_meek_lite_azure_radio = QtWidgets.QRadioButton(strings._('gui_settings_tor_bridges_meek_lite_azure_radio_option', True))
+            self.tor_bridges_use_meek_lite_azure_radio = QtWidgets.QRadioButton(strings._('gui_settings_tor_bridges_meek_lite_azure_radio_option'))
         self.tor_bridges_use_meek_lite_azure_radio.toggled.connect(self.tor_bridges_use_meek_lite_azure_radio_toggled)
 
         # meek_lite currently not supported on the version of obfs4proxy bundled with TorBrowser
@@ -268,10 +283,10 @@ class SettingsDialog(QtWidgets.QDialog):
             self.tor_bridges_use_meek_lite_azure_radio.hide()
 
         # Custom bridges radio and textbox
-        self.tor_bridges_use_custom_radio = QtWidgets.QRadioButton(strings._('gui_settings_tor_bridges_custom_radio_option', True))
+        self.tor_bridges_use_custom_radio = QtWidgets.QRadioButton(strings._('gui_settings_tor_bridges_custom_radio_option'))
         self.tor_bridges_use_custom_radio.toggled.connect(self.tor_bridges_use_custom_radio_toggled)
 
-        self.tor_bridges_use_custom_label = QtWidgets.QLabel(strings._('gui_settings_tor_bridges_custom_label', True))
+        self.tor_bridges_use_custom_label = QtWidgets.QLabel(strings._('gui_settings_tor_bridges_custom_label'))
         self.tor_bridges_use_custom_label.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
         self.tor_bridges_use_custom_label.setOpenExternalLinks(True)
         self.tor_bridges_use_custom_textbox = QtWidgets.QPlainTextEdit()
@@ -298,14 +313,14 @@ class SettingsDialog(QtWidgets.QDialog):
         self.bridges.setLayout(bridges_layout)
 
         # Automatic
-        self.connection_type_automatic_radio = QtWidgets.QRadioButton(strings._('gui_settings_connection_type_automatic_option', True))
+        self.connection_type_automatic_radio = QtWidgets.QRadioButton(strings._('gui_settings_connection_type_automatic_option'))
         self.connection_type_automatic_radio.toggled.connect(self.connection_type_automatic_toggled)
 
         # Control port
-        self.connection_type_control_port_radio = QtWidgets.QRadioButton(strings._('gui_settings_connection_type_control_port_option', True))
+        self.connection_type_control_port_radio = QtWidgets.QRadioButton(strings._('gui_settings_connection_type_control_port_option'))
         self.connection_type_control_port_radio.toggled.connect(self.connection_type_control_port_toggled)
 
-        connection_type_control_port_extras_label = QtWidgets.QLabel(strings._('gui_settings_control_port_label', True))
+        connection_type_control_port_extras_label = QtWidgets.QLabel(strings._('gui_settings_control_port_label'))
         self.connection_type_control_port_extras_address = QtWidgets.QLineEdit()
         self.connection_type_control_port_extras_port = QtWidgets.QLineEdit()
         connection_type_control_port_extras_layout = QtWidgets.QHBoxLayout()
@@ -318,10 +333,10 @@ class SettingsDialog(QtWidgets.QDialog):
         self.connection_type_control_port_extras.hide()
 
         # Socket file
-        self.connection_type_socket_file_radio = QtWidgets.QRadioButton(strings._('gui_settings_connection_type_socket_file_option', True))
+        self.connection_type_socket_file_radio = QtWidgets.QRadioButton(strings._('gui_settings_connection_type_socket_file_option'))
         self.connection_type_socket_file_radio.toggled.connect(self.connection_type_socket_file_toggled)
 
-        connection_type_socket_file_extras_label = QtWidgets.QLabel(strings._('gui_settings_socket_file_label', True))
+        connection_type_socket_file_extras_label = QtWidgets.QLabel(strings._('gui_settings_socket_file_label'))
         self.connection_type_socket_file_extras_path = QtWidgets.QLineEdit()
         connection_type_socket_file_extras_layout = QtWidgets.QHBoxLayout()
         connection_type_socket_file_extras_layout.addWidget(connection_type_socket_file_extras_label)
@@ -332,7 +347,7 @@ class SettingsDialog(QtWidgets.QDialog):
         self.connection_type_socket_file_extras.hide()
 
         # Tor SOCKS address and port
-        gui_settings_socks_label = QtWidgets.QLabel(strings._('gui_settings_socks_label', True))
+        gui_settings_socks_label = QtWidgets.QLabel(strings._('gui_settings_socks_label'))
         self.connection_type_socks_address = QtWidgets.QLineEdit()
         self.connection_type_socks_port = QtWidgets.QLineEdit()
         connection_type_socks_layout = QtWidgets.QHBoxLayout()
@@ -347,14 +362,14 @@ class SettingsDialog(QtWidgets.QDialog):
         # Authentication options
 
         # No authentication
-        self.authenticate_no_auth_radio = QtWidgets.QRadioButton(strings._('gui_settings_authenticate_no_auth_option', True))
+        self.authenticate_no_auth_radio = QtWidgets.QRadioButton(strings._('gui_settings_authenticate_no_auth_option'))
         self.authenticate_no_auth_radio.toggled.connect(self.authenticate_no_auth_toggled)
 
         # Password
-        self.authenticate_password_radio = QtWidgets.QRadioButton(strings._('gui_settings_authenticate_password_option', True))
+        self.authenticate_password_radio = QtWidgets.QRadioButton(strings._('gui_settings_authenticate_password_option'))
         self.authenticate_password_radio.toggled.connect(self.authenticate_password_toggled)
 
-        authenticate_password_extras_label = QtWidgets.QLabel(strings._('gui_settings_password_label', True))
+        authenticate_password_extras_label = QtWidgets.QLabel(strings._('gui_settings_password_label'))
         self.authenticate_password_extras_password = QtWidgets.QLineEdit('')
         authenticate_password_extras_layout = QtWidgets.QHBoxLayout()
         authenticate_password_extras_layout.addWidget(authenticate_password_extras_label)
@@ -369,7 +384,7 @@ class SettingsDialog(QtWidgets.QDialog):
         authenticate_group_layout.addWidget(self.authenticate_no_auth_radio)
         authenticate_group_layout.addWidget(self.authenticate_password_radio)
         authenticate_group_layout.addWidget(self.authenticate_password_extras)
-        self.authenticate_group = QtWidgets.QGroupBox(strings._("gui_settings_authenticate_label", True))
+        self.authenticate_group = QtWidgets.QGroupBox(strings._("gui_settings_authenticate_label"))
         self.authenticate_group.setLayout(authenticate_group_layout)
 
         # Put the radios into their own group so they are exclusive
@@ -378,18 +393,18 @@ class SettingsDialog(QtWidgets.QDialog):
         connection_type_radio_group_layout.addWidget(self.connection_type_automatic_radio)
         connection_type_radio_group_layout.addWidget(self.connection_type_control_port_radio)
         connection_type_radio_group_layout.addWidget(self.connection_type_socket_file_radio)
-        connection_type_radio_group = QtWidgets.QGroupBox(strings._("gui_settings_connection_type_label", True))
+        connection_type_radio_group = QtWidgets.QGroupBox(strings._("gui_settings_connection_type_label"))
         connection_type_radio_group.setLayout(connection_type_radio_group_layout)
 
         # The Bridges options are not exclusive (enabling Bridges offers obfs4 or custom bridges)
         connection_type_bridges_radio_group_layout = QtWidgets.QVBoxLayout()
         connection_type_bridges_radio_group_layout.addWidget(self.bridges)
-        self.connection_type_bridges_radio_group = QtWidgets.QGroupBox(strings._("gui_settings_tor_bridges", True))
+        self.connection_type_bridges_radio_group = QtWidgets.QGroupBox(strings._("gui_settings_tor_bridges"))
         self.connection_type_bridges_radio_group.setLayout(connection_type_bridges_radio_group_layout)
         self.connection_type_bridges_radio_group.hide()
 
         # Test tor settings button
-        self.connection_type_test_button = QtWidgets.QPushButton(strings._('gui_settings_connection_type_test_button', True))
+        self.connection_type_test_button = QtWidgets.QPushButton(strings._('gui_settings_connection_type_test_button'))
         self.connection_type_test_button.clicked.connect(self.test_tor_clicked)
         connection_type_test_button_layout = QtWidgets.QHBoxLayout()
         connection_type_test_button_layout.addWidget(self.connection_type_test_button)
@@ -405,13 +420,13 @@ class SettingsDialog(QtWidgets.QDialog):
         connection_type_layout.addLayout(connection_type_test_button_layout)
 
         # Buttons
-        self.save_button = QtWidgets.QPushButton(strings._('gui_settings_button_save', True))
+        self.save_button = QtWidgets.QPushButton(strings._('gui_settings_button_save'))
         self.save_button.clicked.connect(self.save_clicked)
-        self.cancel_button = QtWidgets.QPushButton(strings._('gui_settings_button_cancel', True))
+        self.cancel_button = QtWidgets.QPushButton(strings._('gui_settings_button_cancel'))
         self.cancel_button.clicked.connect(self.cancel_clicked)
         version_label = QtWidgets.QLabel('OnionShare {0:s}'.format(self.common.version))
         version_label.setStyleSheet(self.common.css['settings_version'])
-        self.help_button = QtWidgets.QPushButton(strings._('gui_settings_button_help', True))
+        self.help_button = QtWidgets.QPushButton(strings._('gui_settings_button_help'))
         self.help_button.clicked.connect(self.help_clicked)
         buttons_layout = QtWidgets.QHBoxLayout()
         buttons_layout.addWidget(version_label)
@@ -431,6 +446,7 @@ class SettingsDialog(QtWidgets.QDialog):
         left_col_layout.addWidget(sharing_group)
         left_col_layout.addWidget(receiving_group)
         left_col_layout.addWidget(autoupdate_group)
+        left_col_layout.addLayout(language_layout)
         left_col_layout.addStretch()
 
         right_col_layout = QtWidgets.QVBoxLayout()
@@ -524,6 +540,10 @@ class SettingsDialog(QtWidgets.QDialog):
         autoupdate_timestamp = self.old_settings.get('autoupdate_timestamp')
         self._update_autoupdate_timestamp(autoupdate_timestamp)
 
+        locale = self.old_settings.get('locale')
+        locale_index = self.language_combobox.findData(QtCore.QVariant(locale))
+        self.language_combobox.setCurrentIndex(locale_index)
+
         connection_type = self.old_settings.get('connection_type')
         if connection_type == 'bundled':
             if self.connection_type_bundled_radio.isEnabled():
@@ -603,7 +623,7 @@ class SettingsDialog(QtWidgets.QDialog):
             self.tor_bridges_use_custom_textbox_options.hide()
             # Alert the user about meek's costliness if it looks like they're turning it on
             if not self.old_settings.get('tor_bridges_use_meek_lite_azure'):
-                Alert(self.common, strings._('gui_settings_meek_lite_expensive_warning', True), QtWidgets.QMessageBox.Warning)
+                Alert(self.common, strings._('gui_settings_meek_lite_expensive_warning'), QtWidgets.QMessageBox.Warning)
 
     def tor_bridges_use_custom_radio_toggled(self, checked):
         """
@@ -716,7 +736,7 @@ class SettingsDialog(QtWidgets.QDialog):
         """
         downloads_dir = self.downloads_dir_lineedit.text()
         selected_dir = QtWidgets.QFileDialog.getExistingDirectory(self,
-            strings._('gui_settings_downloads_label', True), downloads_dir)
+            strings._('gui_settings_downloads_label'), downloads_dir)
 
         if selected_dir:
             self.common.log('SettingsDialog', 'downloads_button_clicked', 'selected dir: {}'.format(selected_dir))
@@ -746,7 +766,7 @@ class SettingsDialog(QtWidgets.QDialog):
             onion.connect(custom_settings=settings, config=self.config, tor_status_update_func=tor_status_update_func)
 
             # If an exception hasn't been raised yet, the Tor settings work
-            Alert(self.common, strings._('settings_test_success', True).format(onion.tor_version, onion.supports_ephemeral, onion.supports_stealth, onion.supports_next_gen_onions))
+            Alert(self.common, strings._('settings_test_success').format(onion.tor_version, onion.supports_ephemeral, onion.supports_stealth, onion.supports_next_gen_onions))
 
             # Clean up
             onion.cleanup()
@@ -782,19 +802,19 @@ class SettingsDialog(QtWidgets.QDialog):
 
         # Check for updates
         def update_available(update_url, installed_version, latest_version):
-            Alert(self.common, strings._("update_available", True).format(update_url, installed_version, latest_version))
+            Alert(self.common, strings._("update_available").format(update_url, installed_version, latest_version))
             close_forced_update_thread()
 
         def update_not_available():
-            Alert(self.common, strings._('update_not_available', True))
+            Alert(self.common, strings._('update_not_available'))
             close_forced_update_thread()
 
         def update_error():
-            Alert(self.common, strings._('update_error_check_error', True), QtWidgets.QMessageBox.Warning)
+            Alert(self.common, strings._('update_error_check_error'), QtWidgets.QMessageBox.Warning)
             close_forced_update_thread()
 
         def update_invalid_version(latest_version):
-            Alert(self.common, strings._('update_error_invalid_latest_version', True).format(latest_version), QtWidgets.QMessageBox.Warning)
+            Alert(self.common, strings._('update_error_invalid_latest_version').format(latest_version), QtWidgets.QMessageBox.Warning)
             close_forced_update_thread()
 
         forced_update_thread = UpdateThread(self.common, self.onion, self.config, force=True)
@@ -810,8 +830,29 @@ class SettingsDialog(QtWidgets.QDialog):
         """
         self.common.log('SettingsDialog', 'save_clicked')
 
+        def changed(s1, s2, keys):
+            """
+            Compare the Settings objects s1 and s2 and return true if any values
+            have changed for the given keys.
+            """
+            for key in keys:
+                if s1.get(key) != s2.get(key):
+                    return True
+            return False
+
         settings = self.settings_from_fields()
         if settings:
+            # If language changed, inform user they need to restart OnionShare
+            if changed(settings, self.old_settings, ['locale']):
+                # Look up error message in different locale
+                new_locale = settings.get('locale')
+                if new_locale in strings.translations and 'gui_settings_language_changed_notice' in strings.translations[new_locale]:
+                    notice = strings.translations[new_locale]['gui_settings_language_changed_notice']
+                else:
+                    notice = strings._('gui_settings_language_changed_notice')
+                Alert(self.common, notice, QtWidgets.QMessageBox.Information)
+
+            # Save the new settings
             settings.save()
 
             # If Tor isn't connected, or if Tor settings have changed, Reinitialize
@@ -820,15 +861,6 @@ class SettingsDialog(QtWidgets.QDialog):
             if not self.local_only:
                 if self.onion.is_authenticated():
                     self.common.log('SettingsDialog', 'save_clicked', 'Connected to Tor')
-                    def changed(s1, s2, keys):
-                        """
-                        Compare the Settings objects s1 and s2 and return true if any values
-                        have changed for the given keys.
-                        """
-                        for key in keys:
-                            if s1.get(key) != s2.get(key):
-                                return True
-                        return False
 
                     if changed(settings, self.old_settings, [
                         'connection_type', 'control_port_address',
@@ -873,7 +905,7 @@ class SettingsDialog(QtWidgets.QDialog):
         """
         self.common.log('SettingsDialog', 'cancel_clicked')
         if not self.local_only and not self.onion.is_authenticated():
-            Alert(self.common, strings._('gui_tor_connection_canceled', True), QtWidgets.QMessageBox.Warning)
+            Alert(self.common, strings._('gui_tor_connection_canceled'), QtWidgets.QMessageBox.Warning)
             sys.exit()
         else:
             self.close()
@@ -940,6 +972,12 @@ class SettingsDialog(QtWidgets.QDialog):
         if not self.stealth_checkbox.isChecked():
             settings.set('hidservauth_string', '')
 
+        # Language
+        locale_index = self.language_combobox.currentIndex()
+        locale = self.language_combobox.itemData(locale_index)
+        settings.set('locale', locale)
+
+        # Tor connection
         if self.connection_type_bundled_radio.isChecked():
             settings.set('connection_type', 'bundled')
         if self.connection_type_automatic_radio.isChecked():
@@ -1013,7 +1051,7 @@ class SettingsDialog(QtWidgets.QDialog):
                 new_bridges = ''.join(new_bridges)
                 settings.set('tor_bridges_use_custom_bridges', new_bridges)
             else:
-                Alert(self.common, strings._('gui_settings_tor_bridges_invalid', True))
+                Alert(self.common, strings._('gui_settings_tor_bridges_invalid'))
                 settings.set('no_bridges', True)
                 return False
 
@@ -1037,11 +1075,11 @@ class SettingsDialog(QtWidgets.QDialog):
             dt = datetime.datetime.fromtimestamp(autoupdate_timestamp)
             last_checked = dt.strftime('%B %d, %Y %H:%M')
         else:
-            last_checked = strings._('gui_settings_autoupdate_timestamp_never', True)
-        self.autoupdate_timestamp.setText(strings._('gui_settings_autoupdate_timestamp', True).format(last_checked))
+            last_checked = strings._('gui_settings_autoupdate_timestamp_never')
+        self.autoupdate_timestamp.setText(strings._('gui_settings_autoupdate_timestamp').format(last_checked))
 
     def _tor_status_update(self, progress, summary):
-        self.tor_status.setText('<strong>{}</strong><br>{}% {}'.format(strings._('connecting_to_tor', True), progress, summary))
+        self.tor_status.setText('<strong>{}</strong><br>{}% {}'.format(strings._('connecting_to_tor'), progress, summary))
         self.qtapp.processEvents()
         if 'Done' in summary:
             self.tor_status.hide()

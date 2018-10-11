@@ -8,7 +8,7 @@ import tempfile
 
 import pytest
 
-from onionshare import common, web, settings
+from onionshare import common, web, settings, strings
 
 @pytest.fixture
 def temp_dir_1024():
@@ -151,7 +151,10 @@ def time_strftime(monkeypatch):
 
 @pytest.fixture
 def common_obj():
-    return common.Common()
+    _common = common.Common()
+    _common.settings = settings.Settings(_common)
+    strings.load_strings(_common)
+    return _common
 
 @pytest.fixture
 def settings_obj(sys_onionshare_dev_mode, platform_linux):
