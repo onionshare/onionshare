@@ -63,7 +63,7 @@ class ReceiveMode(Mode):
         )
 
         # Receive mode warning
-        receive_warning = QtWidgets.QLabel(strings._('gui_receive_mode_warning', True))
+        receive_warning = QtWidgets.QLabel(strings._('gui_receive_mode_warning'))
         receive_warning.setMinimumHeight(80)
         receive_warning.setWordWrap(True)
 

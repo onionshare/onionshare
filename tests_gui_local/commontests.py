@@ -14,6 +14,8 @@ from onionshare.settings import Settings
 from onionshare.onion import Onion
 from onionshare.web import Web
 from onionshare_gui import Application, OnionShare, OnionShareGui
+from onionshare_gui.mode.share_mode import ShareMode
+from onionshare_gui.mode.receive_mode import ReceiveMode
 
 
 class CommonTests(object):
@@ -236,7 +238,7 @@ class CommonTests(object):
     def test_server_status_indicator_says_closed(self, mode, stay_open):
         '''Test that the Server Status indicator shows we closed'''
         if type(mode) == ReceiveMode:
-            self.assertEquals(self.gui.receive_mode.server_status_label.text(), strings._('gui_status_indicator_receive_stopped', True))
+            self.assertEquals(self.gui.receive_mode.server_status_label.text(), strings._('gui_status_indicator_receive_stopped'))
         if type(mode) == ShareMode:
             if stay_open:
                 self.assertEquals(self.gui.share_mode.server_status_label.text(), strings._('gui_status_indicator_share_stopped'))
