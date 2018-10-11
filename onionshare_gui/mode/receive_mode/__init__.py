@@ -63,7 +63,7 @@ class ReceiveMode(Mode):
         )
 
         # Receive mode warning
-        receive_warning = QtWidgets.QLabel(strings._('gui_receive_mode_warning', True))
+        receive_warning = QtWidgets.QLabel(strings._('gui_receive_mode_warning'))
         receive_warning.setMinimumHeight(80)
         receive_warning.setWordWrap(True)
 
@@ -90,7 +90,7 @@ class ReceiveMode(Mode):
         """
         Return the string to put on the stop server button, if there's a shutdown timeout
         """
-        return strings._('gui_receive_stop_server_shutdown_timeout', True)
+        return strings._('gui_receive_stop_server_shutdown_timeout')
 
     def timeout_finished_should_stop_server(self):
         """
@@ -128,7 +128,7 @@ class ReceiveMode(Mode):
         """
         Handle REQUEST_LOAD event.
         """
-        self.system_tray.showMessage(strings._('systray_page_loaded_title', True), strings._('systray_upload_page_loaded_message', True))
+        self.system_tray.showMessage(strings._('systray_page_loaded_title'), strings._('systray_upload_page_loaded_message'))
 
     def handle_request_started(self, event):
         """
@@ -140,7 +140,7 @@ class ReceiveMode(Mode):
         self.history.in_progress_count += 1
         self.history.update_in_progress()
 
-        self.system_tray.showMessage(strings._('systray_upload_started_title', True), strings._('systray_upload_started_message', True))
+        self.system_tray.showMessage(strings._('systray_upload_started_title'), strings._('systray_upload_started_message'))
 
     def handle_request_progress(self, event):
         """
@@ -156,7 +156,7 @@ class ReceiveMode(Mode):
         Handle REQUEST_CLOSE_SERVER event.
         """
         self.stop_server()
-        self.system_tray.showMessage(strings._('systray_close_server_title', True), strings._('systray_close_server_message', True))
+        self.system_tray.showMessage(strings._('systray_close_server_title'), strings._('systray_close_server_message'))
 
     def handle_request_upload_file_renamed(self, event):
         """

@@ -56,6 +56,6 @@ class CommonTests(LocalCommonTests):
         self.gui.app.onion.cleanup(stop_tor=True)
         QtTest.QTest.qWait(2500)
         if mode == 'share':
-            self.assertTrue(self.gui.share_mode.status_bar.currentMessage(), strings._('gui_tor_connection_lost', True))
+            self.assertTrue(self.gui.share_mode.status_bar.currentMessage(), strings._('gui_tor_connection_lost'))
         if mode == 'receive':
-            self.assertTrue(self.gui.receive_mode.status_bar.currentMessage(), strings._('gui_tor_connection_lost', True))
+            self.assertTrue(self.gui.receive_mode.status_bar.currentMessage(), strings._('gui_tor_connection_lost'))
