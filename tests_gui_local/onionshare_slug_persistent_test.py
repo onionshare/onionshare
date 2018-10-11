@@ -12,14 +12,18 @@ from onionshare.web import Web
 from onionshare import onion, strings
 from onionshare_gui import *
 
-from .GuiBaseTest import GuiBaseTest 
+from .GuiBaseTest import GuiBaseTest
 
-class ShareModeTest(unittest.TestCase):
+class ShareModePersistentSlugTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         test_settings = {
+            "public_mode": False,
+            "slug": "",
+            "save_private_key": True,
+            "close_after_first_download": False,
         }
-        cls.gui = GuiBaseTest.set_up(test_settings, '/tmp/ShareModeTest.json')
+        cls.gui = GuiBaseTest.set_up(test_settings)
 
     @classmethod
     def tearDownClass(cls):
@@ -31,7 +35,14 @@ class ShareModeTest(unittest.TestCase):
 
     @pytest.mark.run(order=2)
     def test_run_all_share_mode_tests(self):
-        GuiBaseTest.run_all_share_mode_tests(self, False, False)
+        GuiBaseTest.run_all_share_mode_tests(self, False, True)
+        global slug
+        slug = self.gui.share_mode.server_status.web.slug
+
+    @pytest.mark.run(order=3)
+    def test_have_same_slug(self):
+        '''Test that we have the same slug'''
+        self.assertEqual(self.gui.share_mode.server_status.web.slug, slug)
 
 if __name__ == "__main__":
     unittest.main()

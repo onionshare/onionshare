@@ -19,4 +19,5 @@ before_script:
     - flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 # run CLI tests and local GUI tests
 script:
-  - xvfb-run pytest --cov=onionshare tests/
+  - pytest --cov=onionshare tests/
+  - cd tests_gui_local/ && xvfb-run ./run_unit_tests.sh

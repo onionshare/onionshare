@@ -12,16 +12,14 @@ from onionshare.web import Web
 from onionshare import onion, strings
 from onionshare_gui import *
 
-from .GuiBaseTest import GuiBaseTest
+from .GuiBaseTest import GuiBaseTest 
 
-class ShareModeTimerTest(unittest.TestCase):
+class ShareModeTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         test_settings = {
-            "public_mode": False,
-            "shutdown_timeout": True,
         }
-        cls.gui = GuiBaseTest.set_up(test_settings, '/tmp/ShareModeTimerTest.json')
+        cls.gui = GuiBaseTest.set_up(test_settings)
 
     @classmethod
     def tearDownClass(cls):
@@ -32,8 +30,8 @@ class ShareModeTimerTest(unittest.TestCase):
         GuiBaseTest.run_all_common_setup_tests(self)
 
     @pytest.mark.run(order=2)
-    def test_run_all_share_mode_timer_tests(self):
-        GuiBaseTest.run_all_share_mode_timer_tests(self, False)
+    def test_run_all_share_mode_tests(self):
+        GuiBaseTest.run_all_share_mode_tests(self, False, False)
 
 if __name__ == "__main__":
     unittest.main()
