@@ -1,1 +1,1 @@
-from .commontests import CommonTests
+from .GuiBaseTest import GuiBaseTest 
