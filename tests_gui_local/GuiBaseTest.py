@@ -18,7 +18,7 @@ from onionshare_gui.mode.share_mode import ShareMode
 from onionshare_gui.mode.receive_mode import ReceiveMode
 
 
-class CommonTests(object):
+class GuiBaseTest(object):
     @staticmethod
     def set_up(test_settings):
         '''Create GUI with given settings'''
@@ -58,6 +58,7 @@ class CommonTests(object):
             shutil.rmtree('/tmp/OnionShare')
         except:
             pass
+
 
     def test_gui_loaded(self):
         '''Test that the GUI actually is shown'''
@@ -167,7 +168,6 @@ class CommonTests(object):
             self.assertRegex(mode.server_status.web.slug, r'(\w+)-(\w+)')
         else:
             self.assertIsNone(mode.server_status.web.slug, r'(\w+)-(\w+)')
-
 
     def test_url_description_shown(self, mode):
         '''Test that the URL label is showing'''
@@ -337,3 +337,92 @@ class CommonTests(object):
     def test_add_button_visible(self):
         '''Test that the add button should be visible'''
         self.assertTrue(self.gui.share_mode.server_status.file_selection.add_button.isVisible())
+
+
+    # The following are 'groupings' of tests used by other objects that inherit GuiBaseTest
+
+    def run_all_common_setup_tests(self):
+        GuiBaseTest.test_gui_loaded(self)
+        GuiBaseTest.test_windowTitle_seen(self)
+        GuiBaseTest.test_settings_button_is_visible(self)
+        GuiBaseTest.test_server_status_bar_is_visible(self)
+
+    def run_all_share_mode_setup_tests(self):
+        """Tests in share mode prior to starting a share"""
+        GuiBaseTest.test_click_mode(self, self.gui.share_mode)
+        GuiBaseTest.test_file_selection_widget_has_a_file(self)
+        GuiBaseTest.test_history_is_not_visible(self, self.gui.share_mode)
+        GuiBaseTest.test_click_toggle_history(self, self.gui.share_mode)
+        GuiBaseTest.test_history_is_visible(self, self.gui.share_mode)
+        GuiBaseTest.test_deleting_only_file_hides_delete_button(self)
+        GuiBaseTest.test_add_a_file_and_delete_using_its_delete_widget(self)
+        GuiBaseTest.test_file_selection_widget_readd_files(self)
+
+    def run_all_share_mode_started_tests(self, public_mode):
+        """Tests in share mode after starting a share"""
+        GuiBaseTest.test_server_working_on_start_button_pressed(self, self.gui.share_mode)
+        GuiBaseTest.test_server_status_indicator_says_starting(self, self.gui.share_mode)
+        GuiBaseTest.test_add_delete_buttons_hidden(self)
+        GuiBaseTest.test_settings_button_is_hidden(self)
+        GuiBaseTest.test_a_server_is_started(self, self.gui.share_mode)
+        GuiBaseTest.test_a_web_server_is_running(self)
+        GuiBaseTest.test_have_a_slug(self, self.gui.share_mode, public_mode)
+        GuiBaseTest.test_url_description_shown(self, self.gui.share_mode)
+        GuiBaseTest.test_have_copy_url_button(self, self.gui.share_mode)
+        GuiBaseTest.test_server_status_indicator_says_started(self, self.gui.share_mode)
+        GuiBaseTest.test_web_page(self, self.gui.share_mode, 'Total size', public_mode)
+
+    def run_all_share_mode_download_tests(self, public_mode, stay_open):
+        """Tests in share mode after downloading a share"""
+        GuiBaseTest.test_download_share(self, public_mode)
+        GuiBaseTest.test_history_widgets_present(self, self.gui.share_mode)
+        GuiBaseTest.test_server_is_stopped(self, self.gui.share_mode, stay_open)
+        GuiBaseTest.test_web_service_is_stopped(self)
+        GuiBaseTest.test_server_status_indicator_says_closed(self, self.gui.share_mode, stay_open)
+        GuiBaseTest.test_add_button_visible(self)
+        GuiBaseTest.test_server_working_on_start_button_pressed(self, self.gui.share_mode)
+        GuiBaseTest.test_a_server_is_started(self, self.gui.share_mode)
+        GuiBaseTest.test_history_indicator(self, self.gui.share_mode, public_mode)
+
+    def run_all_share_mode_tests(self, public_mode, stay_open):
+        """End-to-end share tests"""
+        GuiBaseTest.run_all_share_mode_setup_tests(self)
+        GuiBaseTest.run_all_share_mode_started_tests(self, public_mode)
+        GuiBaseTest.run_all_share_mode_download_tests(self, public_mode, stay_open)
+
+    def run_all_share_mode_timer_tests(self, public_mode):
+        """Auto-stop timer tests in share mode"""
+        GuiBaseTest.run_all_share_mode_setup_tests(self)
+        GuiBaseTest.test_set_timeout(self, self.gui.share_mode, 5)
+        GuiBaseTest.run_all_share_mode_started_tests(self, public_mode)
+        GuiBaseTest.test_timeout_widget_hidden(self, self.gui.share_mode)
+        GuiBaseTest.test_server_timed_out(self, self.gui.share_mode, 10000)
+        GuiBaseTest.test_web_service_is_stopped(self)
+
+    def run_all_receive_mode_tests(self, public_mode, receive_allow_receiver_shutdown):
+        GuiBaseTest.test_click_mode(self, self.gui.receive_mode)
+        GuiBaseTest.test_history_is_not_visible(self, self.gui.receive_mode)
+        GuiBaseTest.test_click_toggle_history(self, self.gui.receive_mode)
+        GuiBaseTest.test_history_is_visible(self, self.gui.receive_mode)
+        GuiBaseTest.test_server_working_on_start_button_pressed(self, self.gui.receive_mode)
+        GuiBaseTest.test_server_status_indicator_says_starting(self, self.gui.receive_mode)
+        GuiBaseTest.test_settings_button_is_hidden(self)
+        GuiBaseTest.test_a_server_is_started(self, self.gui.receive_mode)
+        GuiBaseTest.test_a_web_server_is_running(self)
+        GuiBaseTest.test_have_a_slug(self, self.gui.receive_mode, public_mode)
+        GuiBaseTest.test_url_description_shown(self, self.gui.receive_mode)
+        GuiBaseTest.test_have_copy_url_button(self, self.gui.receive_mode)
+        GuiBaseTest.test_server_status_indicator_says_started(self, self.gui.receive_mode)
+        GuiBaseTest.test_web_page(self, self.gui.receive_mode, 'Select the files you want to send, then click', public_mode)
+        GuiBaseTest.test_upload_file(self, public_mode, '/tmp/OnionShare/test.txt')
+        GuiBaseTest.test_history_widgets_present(self, self.gui.receive_mode)
+        GuiBaseTest.test_counter_incremented(self, self.gui.receive_mode, 1)
+        GuiBaseTest.test_upload_file(self, public_mode, '/tmp/OnionShare/test-2.txt')
+        GuiBaseTest.test_counter_incremented(self, self.gui.receive_mode, 2)
+        GuiBaseTest.test_history_indicator(self, self.gui.receive_mode, public_mode)
+        GuiBaseTest.test_server_is_stopped(self, self.gui.receive_mode, False)
+        GuiBaseTest.test_web_service_is_stopped(self)
+        GuiBaseTest.test_server_status_indicator_says_closed(self, self.gui.receive_mode, False)
+        GuiBaseTest.test_server_working_on_start_button_pressed(self, self.gui.receive_mode)
+        GuiBaseTest.test_a_server_is_started(self, self.gui.receive_mode)
+        GuiBaseTest.test_history_indicator(self, self.gui.receive_mode, public_mode)
