@@ -176,19 +176,19 @@ class CommonTests(object):
     def test_counter_incremented(self, mode, count):
         '''Test that the counter has incremented'''
         if mode == 'receive':
-            self.assertEquals(self.gui.receive_mode.uploads_completed, count)
+            self.assertEqual(self.gui.receive_mode.uploads_completed, count)
         if mode == 'share':
-            self.assertEquals(self.gui.share_mode.downloads_completed, count)
+            self.assertEqual(self.gui.share_mode.downloads_completed, count)
 
     def test_server_is_stopped(self, mode, stay_open):
         '''Test that the server stops when we click Stop'''
         if mode == 'receive':
             QtTest.QTest.mouseClick(self.gui.receive_mode.server_status.server_button, QtCore.Qt.LeftButton)
-            self.assertEquals(self.gui.receive_mode.server_status.status, 0)
+            self.assertEqual(self.gui.receive_mode.server_status.status, 0)
         if mode == 'share':
             if stay_open:
                 QtTest.QTest.mouseClick(self.gui.share_mode.server_status.server_button, QtCore.Qt.LeftButton)
-            self.assertEquals(self.gui.share_mode.server_status.status, 0)
+            self.assertEqual(self.gui.share_mode.server_status.status, 0)
 
     def test_web_service_is_stopped(self):
         '''Test that the web server also stopped'''
@@ -286,7 +286,7 @@ class CommonTests(object):
         '''Test that we can also delete a file by clicking on its [X] widget'''
         self.gui.share_mode.server_status.file_selection.file_list.add_file('/etc/hosts')
         QtTest.QTest.mouseClick(self.gui.share_mode.server_status.file_selection.file_list.item(0).item_button, QtCore.Qt.LeftButton)
-        self.assertEquals(self.gui.share_mode.server_status.file_selection.get_num_files(), 0)
+        self.assertEqual(self.gui.share_mode.server_status.file_selection.get_num_files(), 0)
 
     def test_file_selection_widget_readd_files(self):
         '''Re-add some files to the list so we can share'''
@@ -328,7 +328,7 @@ class CommonTests(object):
 
         zip = zipfile.ZipFile('/tmp/download.zip')
         QtTest.QTest.qWait(4000)
-        self.assertEquals('onionshare', zip.read('test.txt').decode('utf-8'))
+        self.assertEqual('onionshare', zip.read('test.txt').decode('utf-8'))
 
     def test_add_button_visible(self):
         '''Test that the add button should be visible'''
