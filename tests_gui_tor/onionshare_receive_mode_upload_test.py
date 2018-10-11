@@ -94,15 +94,19 @@ class OnionShareGuiTest(unittest.TestCase):
     def test_server_status_bar_is_visible(self):
         CommonTests.test_server_status_bar_is_visible(self)
 
-    @pytest.mark.run(order=5)
-    def test_info_widget_is_not_visible(self):
-        CommonTests.test_info_widget_is_not_visible(self, 'receive')
-
     @pytest.mark.run(order=6)
     def test_click_mode(self):
         CommonTests.test_click_mode(self, 'receive')
 
+    @pytest.mark.run(order=6)
+    def test_history_is_not_visible(self):
+        CommonTests.test_history_is_not_visible(self, 'receive')
+
     @pytest.mark.run(order=7)
+    def test_click_toggle_history(self):
+        CommonTests.test_click_toggle_history(self, 'receive')
+
+    @pytest.mark.run(order=8)
     def test_history_is_visible(self):
         CommonTests.test_history_is_visible(self, 'receive')
 
@@ -134,51 +138,51 @@ class OnionShareGuiTest(unittest.TestCase):
     def test_have_an_onion(self):
        CommonTests.test_have_an_onion_service(self)
 
-    @pytest.mark.run(order=16)
+    @pytest.mark.run(order=20)
     def test_url_description_shown(self):
        CommonTests.test_url_description_shown(self, 'receive')
 
-    @pytest.mark.run(order=17)
+    @pytest.mark.run(order=21)
     def test_have_copy_url_button(self):
        CommonTests.test_have_copy_url_button(self, 'receive')
 
-    @pytest.mark.run(order=18)
+    @pytest.mark.run(order=22)
     def test_server_status_indicator_says_started(self):
         CommonTests.test_server_status_indicator_says_started(self, 'receive')
 
-    @pytest.mark.run(order=19)
+    @pytest.mark.run(order=23)
     def test_web_page(self):
         CommonTests.test_web_page(self, 'receive', 'Select the files you want to send, then click', False)
 
-    @pytest.mark.run(order=20)
+    @pytest.mark.run(order=24)
     def test_upload_file(self):
         CommonTests.test_upload_file(self, False, '/tmp/OnionShare/test.txt')
 
-    @pytest.mark.run(order=21)
+    @pytest.mark.run(order=25)
     def test_history_widgets_present(self):
         CommonTests.test_history_widgets_present(self, 'receive')
 
-    @pytest.mark.run(order=22)
+    @pytest.mark.run(order=26)
     def test_counter_incremented(self):
         CommonTests.test_counter_incremented(self, 'receive', 1)
 
-    @pytest.mark.run(order=23)
+    @pytest.mark.run(order=27)
     def test_upload_same_file_is_renamed(self):
         CommonTests.test_upload_file(self, False, '/tmp/OnionShare/test-2.txt')
 
-    @pytest.mark.run(order=24)
+    @pytest.mark.run(order=28)
     def test_upload_count_incremented_again(self):
         CommonTests.test_counter_incremented(self, 'receive', 2)
 
-    @pytest.mark.run(order=25)
+    @pytest.mark.run(order=29)
     def test_server_is_stopped(self):
         CommonTests.test_server_is_stopped(self, 'receive', False)
 
-    @pytest.mark.run(order=26)
+    @pytest.mark.run(order=30)
     def test_web_service_is_stopped(self):
         CommonTests.test_web_service_is_stopped(self)
 
-    @pytest.mark.run(order=27)
+    @pytest.mark.run(order=31)
     def test_server_status_indicator_says_closed(self):
         CommonTests.test_server_status_indicator_says_closed(self, 'receive', False)
 

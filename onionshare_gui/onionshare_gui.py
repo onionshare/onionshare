@@ -23,8 +23,8 @@ from PyQt5 import QtCore, QtWidgets, QtGui
 from onionshare import strings
 from onionshare.web import Web
 
-from .share_mode import ShareMode
-from .receive_mode import ReceiveMode
+from .mode.share_mode import ShareMode
+from .mode.receive_mode import ReceiveMode
 
 from .tor_connection_dialog import TorConnectionDialog
 from .settings_dialog import SettingsDialog
@@ -45,6 +45,8 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         self.common = common
         self.common.log('OnionShareGui', '__init__')
+        self.setMinimumWidth(820)
+        self.setMinimumHeight(660)
 
         self.onion = onion
         self.qtapp = qtapp
@@ -55,7 +57,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         self.setWindowTitle('OnionShare')
         self.setWindowIcon(QtGui.QIcon(self.common.get_resource_path('images/logo.png')))
-        self.setMinimumWidth(850)
 
         # Load settings
         self.config = config
@@ -66,7 +67,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.settings_action = menu.addAction(strings._('gui_settings_window_title', True))
         self.settings_action.triggered.connect(self.open_settings)
         help_action = menu.addAction(strings._('gui_settings_button_help', True))
-        help_action.triggered.connect(SettingsDialog.help_clicked)
+        help_action.triggered.connect(SettingsDialog.open_help)
         exit_action = menu.addAction(strings._('systray_menu_exit', True))
         exit_action.triggered.connect(self.close)
 
@@ -153,7 +154,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
         # Layouts
         contents_layout = QtWidgets.QVBoxLayout()
-        contents_layout.setContentsMargins(10, 10, 10, 10)
+        contents_layout.setContentsMargins(10, 0, 10, 0)
         contents_layout.addWidget(self.receive_mode)
         contents_layout.addWidget(self.share_mode)
 
@@ -194,8 +195,8 @@ class OnionShareGui(QtWidgets.QMainWindow):
             self.share_mode_button.setStyleSheet(self.common.css['mode_switcher_selected_style'])
             self.receive_mode_button.setStyleSheet(self.common.css['mode_switcher_unselected_style'])
 
-            self.share_mode.show()
             self.receive_mode.hide()
+            self.share_mode.show()
         else:
             self.share_mode_button.setStyleSheet(self.common.css['mode_switcher_unselected_style'])
             self.receive_mode_button.setStyleSheet(self.common.css['mode_switcher_selected_style'])
