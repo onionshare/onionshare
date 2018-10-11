@@ -22,9 +22,9 @@ from PyQt5 import QtCore, QtWidgets, QtGui
 from onionshare import strings
 from onionshare.common import ShutdownTimer
 
-from .server_status import ServerStatus
-from .threads import OnionThread
-from .widgets import Alert
+from ..server_status import ServerStatus
+from ..threads import OnionThread
+from ..widgets import Alert
 
 class Mode(QtWidgets.QWidget):
     """
@@ -49,8 +49,6 @@ class Mode(QtWidgets.QWidget):
 
         self.filenames = filenames
 
-        self.setMinimumWidth(450)
-
         # The web object gets created in init()
         self.web = None
 
@@ -72,24 +70,17 @@ class Mode(QtWidgets.QWidget):
         self.starting_server_step3.connect(self.start_server_step3)
         self.starting_server_error.connect(self.start_server_error)
 
-        # Primary action layout
+        # Primary action
+        # Note: It's up to the downstream Mode to add this to its layout
         self.primary_action_layout = QtWidgets.QVBoxLayout()
         self.primary_action_layout.addWidget(self.server_status)
         self.primary_action = QtWidgets.QWidget()
         self.primary_action.setLayout(self.primary_action_layout)
 
-        # Layout
-        self.layout = QtWidgets.QVBoxLayout()
-        self.layout.addWidget(self.primary_action)
-        # Hack to allow a minimum width on self.layout
-        min_width_widget = QtWidgets.QWidget()
-        min_width_widget.setMinimumWidth(450)
-        self.layout.addWidget(min_width_widget)
-
-        self.horizontal_layout_wrapper = QtWidgets.QHBoxLayout()
-        self.horizontal_layout_wrapper.addLayout(self.layout)
-
-        self.setLayout(self.horizontal_layout_wrapper)
+        # Hack to allow a minimum width on the main layout
+        # Note: It's up to the downstream Mode to add this to its layout
+        self.min_width_widget = QtWidgets.QWidget()
+        self.min_width_widget.setMinimumWidth(600)
 
     def init(self):
         """

@@ -6,6 +6,9 @@ import zipfile
 
 from PyQt5 import QtCore, QtTest
 from onionshare import strings
+from onionshare_gui.mode.receive_mode import ReceiveMode
+from onionshare_gui.mode.share_mode import ShareMode
+
 
 class CommonTests(object):
     def test_gui_loaded(self):
@@ -24,54 +27,75 @@ class CommonTests(object):
         '''Test that the status bar is visible'''
         self.assertTrue(self.gui.status_bar.isVisible())
 
-    def test_info_widget_is_not_visible(self, mode):
-        '''Test that the info widget along top of screen is not shown'''
-        if mode == 'receive':
-            self.assertFalse(self.gui.receive_mode.info_widget.isVisible())
-        if mode == 'share':
-            self.assertFalse(self.gui.share_mode.info_widget.isVisible())
-
-    def test_info_widget_is_visible(self, mode):
-        '''Test that the info widget along top of screen is shown''' 
-        if mode == 'receive':
-            self.assertTrue(self.gui.receive_mode.info_widget.isVisible())
-        if mode == 'share':
-            self.assertTrue(self.gui.share_mode.info_widget.isVisible())
-
     def test_click_mode(self, mode):
         '''Test that we can switch Mode by clicking the button'''
-        if mode == 'receive':
+        if type(mode) == ReceiveMode:
             QtTest.QTest.mouseClick(self.gui.receive_mode_button, QtCore.Qt.LeftButton)
             self.assertTrue(self.gui.mode, self.gui.MODE_RECEIVE)
-        if mode == 'share':
+        if type(mode) == ShareMode:
             QtTest.QTest.mouseClick(self.gui.share_mode_button, QtCore.Qt.LeftButton)
             self.assertTrue(self.gui.mode, self.gui.MODE_SHARE)
 
+    def test_click_toggle_history(self, mode):
+        '''Test that we can toggle Download or Upload history by clicking the toggle button'''
+        currently_visible = mode.history.isVisible()
+        QtTest.QTest.mouseClick(mode.toggle_history, QtCore.Qt.LeftButton)
+        self.assertEqual(mode.history.isVisible(), not currently_visible)
+
+    def test_history_indicator(self, mode, public_mode):
+        '''Test that we can make sure the history is toggled off, do an action, and the indiciator works'''
+        # Make sure history is toggled off
+        if mode.history.isVisible():
+            QtTest.QTest.mouseClick(mode.toggle_history, QtCore.Qt.LeftButton)
+            self.assertFalse(mode.history.isVisible())
+
+        # Indicator should not be visible yet
+        self.assertFalse(mode.toggle_history.indicator_label.isVisible())
+
+        if type(mode) == ReceiveMode:
+            # Upload a file
+            files = {'file[]': open('/tmp/test.txt', 'rb')}
+            if not public_mode:
+                path = 'http://127.0.0.1:{}/{}/upload'.format(self.gui.app.port, mode.web.slug)
+            else:
+                path = 'http://127.0.0.1:{}/upload'.format(self.gui.app.port)
+            response = requests.post(path, files=files)
+            QtTest.QTest.qWait(2000)
+
+        if type(mode) == ShareMode:
+            # Download files
+            if public_mode:
+                url = "http://127.0.0.1:{}/download".format(self.gui.app.port)
+            else:
+                url = "http://127.0.0.1:{}/{}/download".format(self.gui.app.port, self.gui.share_mode.web.slug)
+            r = requests.get(url)
+            QtTest.QTest.qWait(2000)
+
+        # Indicator should be visible, have a value of "1"
+        self.assertTrue(mode.toggle_history.indicator_label.isVisible())
+        self.assertEqual(mode.toggle_history.indicator_label.text(), "1")
+
+        # Toggle history back on, indicator should be hidden again
+        QtTest.QTest.mouseClick(mode.toggle_history, QtCore.Qt.LeftButton)
+        self.assertFalse(mode.toggle_history.indicator_label.isVisible())
+
+    def test_history_is_not_visible(self, mode):
+        '''Test that the History section is not visible'''
+        self.assertFalse(mode.history.isVisible())
+
     def test_history_is_visible(self, mode):
-        '''Test that the History section is visible and that the relevant widget is present'''
-        if mode == 'receive':
-            self.assertTrue(self.gui.receive_mode.uploads.isVisible())
-            self.assertTrue(self.gui.receive_mode.uploads.no_uploads_label.isVisible())
-        if mode == 'share':
-            self.assertTrue(self.gui.share_mode.downloads.isVisible())
-            self.assertTrue(self.gui.share_mode.downloads.no_downloads_label.isVisible())
+        '''Test that the History section is visible'''
+        self.assertTrue(mode.history.isVisible())
 
     def test_server_working_on_start_button_pressed(self, mode):
         '''Test we can start the service'''
         # Should be in SERVER_WORKING state
-        if mode == 'receive':
-            QtTest.QTest.mouseClick(self.gui.receive_mode.server_status.server_button, QtCore.Qt.LeftButton)
-            self.assertEqual(self.gui.receive_mode.server_status.status, 1)
-        if mode == 'share':
-            QtTest.QTest.mouseClick(self.gui.share_mode.server_status.server_button, QtCore.Qt.LeftButton)
-            self.assertEqual(self.gui.share_mode.server_status.status, 1)
+        QtTest.QTest.mouseClick(mode.server_status.server_button, QtCore.Qt.LeftButton)
+        self.assertEqual(mode.server_status.status, 1)
 
     def test_server_status_indicator_says_starting(self, mode):
         '''Test that the Server Status indicator shows we are Starting'''
-        if mode == 'receive':
-            self.assertEqual(self.gui.receive_mode.server_status_label.text(), strings._('gui_status_indicator_share_working', True))
-        if mode == 'share':
-            self.assertEqual(self.gui.share_mode.server_status_label.text(), strings._('gui_status_indicator_share_working', True))
+        self.assertEquals(mode.server_status_label.text(), strings._('gui_status_indicator_share_working'))
 
     def test_settings_button_is_hidden(self):
         '''Test that the settings button is hidden when the server starts'''
@@ -81,10 +105,7 @@ class CommonTests(object):
         '''Test that the server has started'''
         QtTest.QTest.qWait(2000)
         # Should now be in SERVER_STARTED state
-        if mode == 'receive':
-            self.assertEqual(self.gui.receive_mode.server_status.status, 2)
-        if mode == 'share':
-            self.assertEqual(self.gui.share_mode.server_status.status, 2)
+        self.assertEqual(mode.server_status.status, 2)
 
     def test_a_web_server_is_running(self):
         '''Test that the web server has started'''
@@ -94,38 +115,26 @@ class CommonTests(object):
 
     def test_have_a_slug(self, mode, public_mode):
         '''Test that we have a valid slug'''
-        if mode == 'receive':
-            if not public_mode:
-                self.assertRegex(self.gui.receive_mode.server_status.web.slug, r'(\w+)-(\w+)')
-            else:
-                self.assertIsNone(self.gui.receive_mode.server_status.web.slug, r'(\w+)-(\w+)')
-        if mode == 'share':
-            if not public_mode:
-                self.assertRegex(self.gui.share_mode.server_status.web.slug, r'(\w+)-(\w+)')
-            else:
-                self.assertIsNone(self.gui.share_mode.server_status.web.slug, r'(\w+)-(\w+)')
+        if not public_mode:
+            self.assertRegex(mode.server_status.web.slug, r'(\w+)-(\w+)')
+        else:
+            self.assertIsNone(mode.server_status.web.slug, r'(\w+)-(\w+)')
 
 
     def test_url_description_shown(self, mode):
         '''Test that the URL label is showing'''
-        if mode == 'receive':
-            self.assertTrue(self.gui.receive_mode.server_status.url_description.isVisible())
-        if mode == 'share':
-            self.assertTrue(self.gui.share_mode.server_status.url_description.isVisible())
+        self.assertTrue(mode.server_status.url_description.isVisible())
 
     def test_have_copy_url_button(self, mode):
         '''Test that the Copy URL button is shown'''
-        if mode == 'receive':
-            self.assertTrue(self.gui.receive_mode.server_status.copy_url_button.isVisible())
-        if mode == 'share':
-            self.assertTrue(self.gui.share_mode.server_status.copy_url_button.isVisible())
+        self.assertTrue(mode.server_status.copy_url_button.isVisible())
 
     def test_server_status_indicator_says_started(self, mode):
         '''Test that the Server Status indicator shows we are started'''
-        if mode == 'receive':
-            self.assertEqual(self.gui.receive_mode.server_status_label.text(), strings._('gui_status_indicator_receive_started', True))
-        if mode == 'share':
-            self.assertEqual(self.gui.receive_mode.server_status_label.text(), strings._('gui_status_indicator_share_started', True))
+        if type(mode) == ReceiveMode:
+            self.assertEquals(mode.server_status_label.text(), strings._('gui_status_indicator_receive_started'))
+        if type(mode) == ShareMode:
+            self.assertEquals(mode.server_status_label.text(), strings._('gui_status_indicator_share_started'))
 
     def test_web_page(self, mode, string, public_mode):
         '''Test that the web page contains a string'''
@@ -134,10 +143,7 @@ class CommonTests(object):
         s.connect(('127.0.0.1', self.gui.app.port))
 
         if not public_mode:
-            if mode == 'receive':
-                path = '/{}'.format(self.gui.receive_mode.server_status.web.slug)
-            if mode == 'share':
-                path = '/{}'.format(self.gui.share_mode.server_status.web.slug)
+            path = '/{}'.format(mode.server_status.web.slug)
         else:
             path = '/'
 
@@ -160,29 +166,18 @@ class CommonTests(object):
 
     def test_history_widgets_present(self, mode):
         '''Test that the relevant widgets are present in the history view after activity has taken place'''
-        if mode == 'receive':
-            self.assertFalse(self.gui.receive_mode.uploads.no_uploads_label.isVisible())
-            self.assertTrue(self.gui.receive_mode.uploads.clear_history_button.isVisible())
-        if mode == 'share':
-            self.assertFalse(self.gui.share_mode.downloads.no_downloads_label.isVisible())
-            self.assertTrue(self.gui.share_mode.downloads.clear_history_button.isVisible())
+        self.assertFalse(mode.history.empty.isVisible())
+        self.assertTrue(mode.history.not_empty.isVisible())
 
     def test_counter_incremented(self, mode, count):
         '''Test that the counter has incremented'''
-        if mode == 'receive':
-            self.assertEqual(self.gui.receive_mode.uploads_completed, count)
-        if mode == 'share':
-            self.assertEqual(self.gui.share_mode.downloads_completed, count)
+        self.assertEquals(mode.history.completed_count, count)
 
     def test_server_is_stopped(self, mode, stay_open):
         '''Test that the server stops when we click Stop'''
-        if mode == 'receive':
-            QtTest.QTest.mouseClick(self.gui.receive_mode.server_status.server_button, QtCore.Qt.LeftButton)
-            self.assertEqual(self.gui.receive_mode.server_status.status, 0)
-        if mode == 'share':
-            if stay_open:
-                QtTest.QTest.mouseClick(self.gui.share_mode.server_status.server_button, QtCore.Qt.LeftButton)
-            self.assertEqual(self.gui.share_mode.server_status.status, 0)
+        if type(mode) == ReceiveMode or (type(mode) == ShareMode and stay_open):
+            QtTest.QTest.mouseClick(mode.server_status.server_button, QtCore.Qt.LeftButton)
+        self.assertEquals(mode.server_status.status, 0)
 
     def test_web_service_is_stopped(self):
         '''Test that the web server also stopped'''
@@ -194,9 +189,9 @@ class CommonTests(object):
 
     def test_server_status_indicator_says_closed(self, mode, stay_open):
         '''Test that the Server Status indicator shows we closed'''
-        if mode == 'receive':
-            self.assertEqual(self.gui.receive_mode.server_status_label.text(), strings._('gui_status_indicator_receive_stopped', True))
-        if mode == 'share':
+        if type(mode) == ReceiveMode:
+            self.assertEquals(self.gui.receive_mode.server_status_label.text(), strings._('gui_status_indicator_receive_stopped', True))
+        if type(mode) == ShareMode:
             if stay_open:
                 self.assertEqual(self.gui.share_mode.server_status_label.text(), strings._('gui_status_indicator_share_stopped', True))
             else:
@@ -206,28 +201,18 @@ class CommonTests(object):
     def test_set_timeout(self, mode, timeout):
         '''Test that the timeout can be set'''
         timer = QtCore.QDateTime.currentDateTime().addSecs(timeout)
-        if mode == 'receive':
-            self.gui.receive_mode.server_status.shutdown_timeout.setDateTime(timer)
-            self.assertTrue(self.gui.receive_mode.server_status.shutdown_timeout.dateTime(), timer)
-        if mode == 'share':
-            self.gui.share_mode.server_status.shutdown_timeout.setDateTime(timer)
-            self.assertTrue(self.gui.share_mode.server_status.shutdown_timeout.dateTime(), timer)
+        mode.server_status.shutdown_timeout.setDateTime(timer)
+        self.assertTrue(mode.server_status.shutdown_timeout.dateTime(), timer)
 
     def test_timeout_widget_hidden(self, mode):
         '''Test that the timeout widget is hidden when share has started'''
-        if mode == 'receive':
-            self.assertFalse(self.gui.receive_mode.server_status.shutdown_timeout_container.isVisible())
-        if mode == 'share':
-            self.assertFalse(self.gui.share_mode.server_status.shutdown_timeout_container.isVisible())
+        self.assertFalse(mode.server_status.shutdown_timeout_container.isVisible())
 
     def test_server_timed_out(self, mode, wait):
         '''Test that the server has timed out after the timer ran out'''
         QtTest.QTest.qWait(wait)
         # We should have timed out now
-        if mode == 'receive':
-            self.assertEqual(self.gui.receive_mode.server_status.status, 0)
-        if mode == 'share':
-            self.assertEqual(self.gui.share_mode.server_status.status, 0)
+        self.assertEqual(mode.server_status.status, 0)
 
     # Receive-specific tests
     def test_upload_file(self, public_mode, expected_file):
@@ -304,4 +289,3 @@ class CommonTests(object):
     def test_add_button_visible(self):
         '''Test that the add button should be visible'''
         self.assertTrue(self.gui.share_mode.server_status.file_selection.add_button.isVisible())
-

@@ -96,29 +96,25 @@ class OnionShareGuiTest(unittest.TestCase):
     def test_file_selection_widget_has_a_file(self):
         CommonTests.test_file_selection_widget_has_a_file(self)
 
-    @pytest.mark.run(order=6)
-    def test_info_widget_is_visible(self):
-        CommonTests.test_info_widget_is_visible(self, 'share')
-
     @pytest.mark.run(order=7)
-    def test_history_is_visible(self):
-        CommonTests.test_history_is_visible(self, 'share')
+    def test_history_is_not_visible(self):
+        CommonTests.test_history_is_not_visible(self, self.gui.share_mode)
 
     @pytest.mark.run(order=8)
     def test_set_timeout(self):
-        CommonTests.test_set_timeout(self, 'share', 5)
+        CommonTests.test_set_timeout(self, self.gui.share_mode, 5)
 
     @pytest.mark.run(order=9)
     def test_server_working_on_start_button_pressed(self):
-        CommonTests.test_server_working_on_start_button_pressed(self, 'share')
+        CommonTests.test_server_working_on_start_button_pressed(self, self.gui.share_mode)
 
     @pytest.mark.run(order=10)
     def test_server_status_indicator_says_starting(self):
-        CommonTests.test_server_status_indicator_says_starting(self, 'share')
+        CommonTests.test_server_status_indicator_says_starting(self, self.gui.share_mode)
 
     @pytest.mark.run(order=11)
     def test_a_server_is_started(self):
-       CommonTests.test_a_server_is_started(self, 'share')
+       CommonTests.test_a_server_is_started(self, self.gui.share_mode)
 
     @pytest.mark.run(order=12)
     def test_a_web_server_is_running(self):
@@ -126,11 +122,11 @@ class OnionShareGuiTest(unittest.TestCase):
 
     @pytest.mark.run(order=13)
     def test_timeout_widget_hidden(self):
-        CommonTests.test_timeout_widget_hidden(self, 'share')
+        CommonTests.test_timeout_widget_hidden(self, self.gui.share_mode)
 
     @pytest.mark.run(order=14)
     def test_timeout(self):
-        CommonTests.test_server_timed_out(self, 'share', 10000)
+        CommonTests.test_server_timed_out(self, self.gui.share_mode, 10000)
 
     @pytest.mark.run(order=15)
     def test_web_service_is_stopped(self):
