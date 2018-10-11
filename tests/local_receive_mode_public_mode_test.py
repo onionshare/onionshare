@@ -14,13 +14,14 @@ from onionshare_gui import *
 
 from .GuiBaseTest import GuiBaseTest
 
-class ReceiveModeTest(unittest.TestCase):
+class ReceiveModePublicModeTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         test_settings = {
+            "public_mode": True,
             "receive_allow_receiver_shutdown": True
         }
-        cls.gui = GuiBaseTest.set_up(test_settings)
+        cls.gui = GuiBaseTest.set_up(test_settings, '/tmp/ReceiveModePublicModeTest.json')
 
     @classmethod
     def tearDownClass(cls):
@@ -32,7 +33,7 @@ class ReceiveModeTest(unittest.TestCase):
 
     @pytest.mark.run(order=2)
     def test_run_all_share_mode_tests(self):
-        GuiBaseTest.run_all_receive_mode_tests(self, False, True)
+        GuiBaseTest.run_all_receive_mode_tests(self, True, True)
 
 if __name__ == "__main__":
     unittest.main()
