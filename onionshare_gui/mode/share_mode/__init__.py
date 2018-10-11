@@ -26,10 +26,11 @@ from onionshare.common import Common
 from onionshare.web import Web
 
 from .file_selection import FileSelection
-from .downloads import Downloads
 from .threads import CompressThread
-from ..mode import Mode
-from ..widgets import Alert
+from .. import Mode
+from ..history import History, ToggleHistory, DownloadHistoryItem
+from ...widgets import Alert
+
 
 class ShareMode(Mode):
     """
@@ -70,33 +71,31 @@ class ShareMode(Mode):
         self.filesize_warning.setStyleSheet(self.common.css['share_filesize_warning'])
         self.filesize_warning.hide()
 
-        # Downloads
-        self.downloads = Downloads(self.common)
-        self.downloads_in_progress = 0
-        self.downloads_completed = 0
+        # Download history
+        self.history = History(
+            self.common,
+            QtGui.QPixmap.fromImage(QtGui.QImage(self.common.get_resource_path('images/downloads_transparent.png'))),
+            strings._('gui_no_downloads'),
+            strings._('gui_downloads')
+        )
+        self.history.hide()
 
-        # Information about share, and show downloads button
+        # Info label
         self.info_label = QtWidgets.QLabel()
-        self.info_label.setStyleSheet(self.common.css['mode_info_label'])
+        self.info_label.hide()
 
-        self.info_in_progress_downloads_count = QtWidgets.QLabel()
-        self.info_in_progress_downloads_count.setStyleSheet(self.common.css['mode_info_label'])
+        # Toggle history
+        self.toggle_history = ToggleHistory(
+            self.common, self, self.history,
+            QtGui.QIcon(self.common.get_resource_path('images/downloads_toggle.png')),
+            QtGui.QIcon(self.common.get_resource_path('images/downloads_toggle_selected.png'))
+        )
 
-        self.info_completed_downloads_count = QtWidgets.QLabel()
-        self.info_completed_downloads_count.setStyleSheet(self.common.css['mode_info_label'])
-
-        self.update_downloads_completed()
-        self.update_downloads_in_progress()
-
-        self.info_layout = QtWidgets.QHBoxLayout()
-        self.info_layout.addWidget(self.info_label)
-        self.info_layout.addStretch()
-        self.info_layout.addWidget(self.info_in_progress_downloads_count)
-        self.info_layout.addWidget(self.info_completed_downloads_count)
-
-        self.info_widget = QtWidgets.QWidget()
-        self.info_widget.setLayout(self.info_layout)
-        self.info_widget.hide()
+        # Top bar
+        top_bar_layout = QtWidgets.QHBoxLayout()
+        top_bar_layout.addWidget(self.info_label)
+        top_bar_layout.addStretch()
+        top_bar_layout.addWidget(self.toggle_history)
 
         # Primary action layout
         self.primary_action_layout.addWidget(self.filesize_warning)
@@ -106,10 +105,18 @@ class ShareMode(Mode):
         # Status bar, zip progress bar
         self._zip_progress_bar = None
 
-        # Layout
-        self.layout.insertLayout(0, self.file_selection)
-        self.layout.insertWidget(0, self.info_widget)
-        self.horizontal_layout_wrapper.addWidget(self.downloads)
+        # Main layout
+        self.main_layout = QtWidgets.QVBoxLayout()
+        self.main_layout.addLayout(top_bar_layout)
+        self.main_layout.addLayout(self.file_selection)
+        self.main_layout.addWidget(self.primary_action)
+        self.main_layout.addWidget(self.min_width_widget)
+
+        # Wrapper layout
+        self.wrapper_layout = QtWidgets.QHBoxLayout()
+        self.wrapper_layout.addLayout(self.main_layout)
+        self.wrapper_layout.addWidget(self.history)
+        self.setLayout(self.wrapper_layout)
 
         # Always start with focus on file selection
         self.file_selection.setFocus()
@@ -199,9 +206,9 @@ class ShareMode(Mode):
             self._zip_progress_bar = None
 
         self.filesize_warning.hide()
-        self.downloads_in_progress = 0
-        self.downloads_completed = 0
-        self.update_downloads_in_progress()
+        self.history.in_progress_count = 0
+        self.history.completed_count = 0
+        self.history.update_in_progress()
         self.file_selection.file_list.adjustSize()
 
     def cancel_server_custom(self):
@@ -209,7 +216,7 @@ class ShareMode(Mode):
         Stop the compression thread on cancel
         """
         if self.compress_thread:
-            self.common.log('OnionShareGui', 'cancel_server: quitting compress thread')
+            self.common.log('ShareMode', 'cancel_server: quitting compress thread')
             self.compress_thread.quit()
 
     def handle_tor_broke_custom(self):
@@ -217,7 +224,6 @@ class ShareMode(Mode):
         Connection to Tor broke.
         """
         self.primary_action.hide()
-        self.info_widget.hide()
 
     def handle_request_load(self, event):
         """
@@ -233,9 +239,12 @@ class ShareMode(Mode):
             filesize = self.web.share_mode.gzip_filesize
         else:
             filesize = self.web.share_mode.download_filesize
-        self.downloads.add(event["data"]["id"], filesize)
-        self.downloads_in_progress += 1
-        self.update_downloads_in_progress()
+
+        item = DownloadHistoryItem(self.common, event["data"]["id"], filesize)
+        self.history.add(event["data"]["id"], item)
+        self.toggle_history.update_indicator(True)
+        self.history.in_progress_count += 1
+        self.history.update_in_progress()
 
         self.system_tray.showMessage(strings._('systray_download_started_title'), strings._('systray_download_started_message'))
 
@@ -243,18 +252,17 @@ class ShareMode(Mode):
         """
         Handle REQUEST_PROGRESS event.
         """
-        self.downloads.update(event["data"]["id"], event["data"]["bytes"])
+        self.history.update(event["data"]["id"], event["data"]["bytes"])
 
         # Is the download complete?
         if event["data"]["bytes"] == self.web.share_mode.filesize:
             self.system_tray.showMessage(strings._('systray_download_completed_title'), strings._('systray_download_completed_message'))
 
-            # Update the total 'completed downloads' info
-            self.downloads_completed += 1
-            self.update_downloads_completed()
-            # Update the 'in progress downloads' info
-            self.downloads_in_progress -= 1
-            self.update_downloads_in_progress()
+            # Update completed and in progress labels
+            self.history.completed_count += 1
+            self.history.in_progress_count -= 1
+            self.history.update_completed()
+            self.history.update_in_progress()
 
             # Close on finish?
             if self.common.settings.get('close_after_first_download'):
@@ -263,20 +271,20 @@ class ShareMode(Mode):
                 self.server_status_label.setText(strings._('closing_automatically'))
         else:
             if self.server_status.status == self.server_status.STATUS_STOPPED:
-                self.downloads.cancel(event["data"]["id"])
-                self.downloads_in_progress = 0
-                self.update_downloads_in_progress()
+                self.history.cancel(event["data"]["id"])
+                self.history.in_progress_count = 0
+                self.history.update_in_progress()
 
     def handle_request_canceled(self, event):
         """
         Handle REQUEST_CANCELED event.
         """
-        self.downloads.cancel(event["data"]["id"])
+        self.history.cancel(event["data"]["id"])
 
-        # Update the 'in progress downloads' info
-        self.downloads_in_progress -= 1
-        self.update_downloads_in_progress()
-        self.system_tray.showMessage(strings._('systray_download_canceled_title'), strings._('systray_download_canceled_message'))
+        # Update in progress count
+        self.history.in_progress_count -= 1
+        self.history.update_in_progress()
+        self.system_tray.showMessage(strings._('systray_download_canceled_title', True), strings._('systray_download_canceled_message', True))
 
     def on_reload_settings(self):
         """
@@ -285,14 +293,16 @@ class ShareMode(Mode):
         """
         if self.server_status.file_selection.get_num_files() > 0:
             self.primary_action.show()
-            self.info_widget.show()
+            self.info_label.show()
 
     def update_primary_action(self):
+        self.common.log('ShareMode', 'update_primary_action')
+
         # Show or hide primary action layout
         file_count = self.file_selection.file_list.count()
         if file_count > 0:
             self.primary_action.show()
-            self.info_widget.show()
+            self.info_label.show()
 
             # Update the file count in the info label
             total_size_bytes = 0
@@ -308,42 +318,13 @@ class ShareMode(Mode):
 
         else:
             self.primary_action.hide()
-            self.info_widget.hide()
-
-        # Resize window
-        self.adjustSize()
+            self.info_label.hide()
 
     def reset_info_counters(self):
         """
         Set the info counters back to zero.
         """
-        self.downloads_completed = 0
-        self.downloads_in_progress = 0
-        self.update_downloads_completed()
-        self.update_downloads_in_progress()
-        self.downloads.reset()
-
-    def update_downloads_completed(self):
-        """
-        Update the 'Downloads completed' info widget.
-        """
-        if self.downloads_completed == 0:
-            image = self.common.get_resource_path('images/share_completed_none.png')
-        else:
-            image = self.common.get_resource_path('images/share_completed.png')
-        self.info_completed_downloads_count.setText('<img src="{0:s}" /> {1:d}'.format(image, self.downloads_completed))
-        self.info_completed_downloads_count.setToolTip(strings._('info_completed_downloads_tooltip').format(self.downloads_completed))
-
-    def update_downloads_in_progress(self):
-        """
-        Update the 'Downloads in progress' info widget.
-        """
-        if self.downloads_in_progress == 0:
-            image = self.common.get_resource_path('images/share_in_progress_none.png')
-        else:
-            image = self.common.get_resource_path('images/share_in_progress.png')
-        self.info_in_progress_downloads_count.setText('<img src="{0:s}" /> {1:d}'.format(image, self.downloads_in_progress))
-        self.info_in_progress_downloads_count.setToolTip(strings._('info_in_progress_downloads_tooltip').format(self.downloads_in_progress))
+        self.history.reset()
 
     @staticmethod
     def _compute_total_size(filenames):
