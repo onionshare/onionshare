@@ -160,7 +160,7 @@
     "receive_mode_downloads_dir": "Filer sendt til deg vil vises i denne mappen: {}",
     "receive_mode_warning": "Advarsel: Mottaksmodus lar folk laste opp filer til din datamaskin. Noen filer kan potensielt ta over datamaskinen din hvis du åpner dem. Kun åpne ting fra folk du stoler på, eller hvis du vet hva du gjør.",
     "gui_receive_mode_warning": "Mottaksmodus lar folk laste opp filer til din datamaskin.<br><br><b>Noen filer kan potensielt ta over datamaskinen din hvis du åpner dem. Kun åpne ting fra folk du stoler på, eller hvis du vet hva du gjør.</b>",
-    "receive_mode_upload_starting": "Opplasting av størrelse {} starter",
+    "receive_mode_upload_starting": "Opplasting av total størrelse {} starter",
     "receive_mode_received_file": "Mottatt: {}",
     "gui_mode_share_button": "Del filer",
     "gui_mode_receive_button": "Motta filer",
@@ -176,9 +176,14 @@
     "systray_upload_page_loaded_message": "En bruker lastet inn opplastingssiden",
     "gui_uploads": "Opplastingshistorikk",
     "gui_no_uploads": "Ingen opplastinger enda.",
-    "gui_clear_history": "Tøm historikk",
+    "gui_clear_history": "Tøm alt",
     "gui_upload_in_progress": "Opplasting startet {}",
     "gui_upload_finished_range": "Lastet opp {} til {}",
     "gui_upload_finished": "Lastet opp {}",
-    "gui_open_folder_error_nautilus": "Kan ikke åpne mappe fordi nautilus ikke er tilgjengelig. Filen er her: {}"
+    "gui_open_folder_error_nautilus": "Kan ikke åpne mappe fordi nautilus ikke er tilgjengelig. Filen er her: {}",
+    "history_in_progress_tooltip": "{} underveis",
+    "history_completed_tooltip": "{} fullført",
+    "gui_download_in_progress": "Nedlasting startet {}",
+    "gui_settings_language_label": "Foretrukket språk",
+    "gui_settings_language_changed_notice": "Start OnionShare på ny for å se nytt språkvalg."
 }
