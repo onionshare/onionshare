@@ -402,6 +402,8 @@ class Onion(object):
             # ephemeral stealth onion services are not supported
             self.supports_stealth = False
 
+        # Does this version of Tor support next-gen ('v3') onions?
+        self.supports_next_gen_onions = self.tor_version > Version('0.3.3.1')
 
     def is_authenticated(self):
         """
@@ -427,7 +429,6 @@ class Onion(object):
             raise TorTooOld(strings._('error_stealth_not_supported'))
 
         print(strings._("config_onion_service").format(int(port)))
-        print(strings._('using_ephemeral'))
 
         if self.stealth:
             if self.settings.get('hidservauth_string'):

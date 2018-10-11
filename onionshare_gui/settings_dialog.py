@@ -746,7 +746,7 @@ class SettingsDialog(QtWidgets.QDialog):
             onion.connect(custom_settings=settings, config=self.config, tor_status_update_func=tor_status_update_func)
 
             # If an exception hasn't been raised yet, the Tor settings work
-            Alert(self.common, strings._('settings_test_success', True).format(onion.tor_version, onion.supports_ephemeral, onion.supports_stealth))
+            Alert(self.common, strings._('settings_test_success', True).format(onion.tor_version, onion.supports_ephemeral, onion.supports_stealth, onion.supports_next_gen_onions))
 
             # Clean up
             onion.cleanup()
@@ -883,8 +883,12 @@ class SettingsDialog(QtWidgets.QDialog):
         Help button clicked.
         """
         self.common.log('SettingsDialog', 'help_clicked')
-        help_site = 'https://github.com/micahflee/onionshare/wiki'
-        QtGui.QDesktopServices.openUrl(QtCore.QUrl(help_site))
+        SettingsDialog.open_help()
+
+    @staticmethod
+    def open_help():
+        help_url = 'https://github.com/micahflee/onionshare/wiki'
+        QtGui.QDesktopServices.openUrl(QtCore.QUrl(help_url))
 
     def settings_from_fields(self):
         """
