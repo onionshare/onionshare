@@ -1,20 +1,10 @@
 #!/usr/bin/env python3
-import os
-import sys
-import unittest
 import pytest
-import json
+import unittest
 
-from PyQt5 import QtWidgets
+from .GuiShareTest import GuiShareTest
 
-from onionshare.common import Common
-from onionshare.web import Web
-from onionshare import onion, strings
-from onionshare_gui import *
-
-from .GuiBaseTest import GuiBaseTest
-
-class ShareModePersistentSlugTest(unittest.TestCase):
+class ShareModePersistentSlugTest(unittest.TestCase, GuiShareTest):
     @classmethod
     def setUpClass(cls):
         test_settings = {
@@ -23,19 +13,19 @@ class ShareModePersistentSlugTest(unittest.TestCase):
             "save_private_key": True,
             "close_after_first_download": False,
         }
-        cls.gui = GuiBaseTest.set_up(test_settings)
+        cls.gui = GuiShareTest.set_up(test_settings)
 
     @classmethod
     def tearDownClass(cls):
-        GuiBaseTest.tear_down()
+        GuiShareTest.tear_down()
 
     @pytest.mark.run(order=1)
     def test_run_all_common_setup_tests(self):
-        GuiBaseTest.run_all_common_setup_tests(self)
+        GuiShareTest.run_all_common_setup_tests(self)
 
     @pytest.mark.run(order=2)
     def test_run_all_share_mode_tests(self):
-        GuiBaseTest.run_all_share_mode_tests(self, False, True)
+        GuiShareTest.run_all_share_mode_tests(self, False, True)
         global slug
         slug = self.gui.share_mode.server_status.web.slug
 
