@@ -22,6 +22,6 @@ PyQt5-sip==4.19.12
 PySocks==1.6.8
 requests==2.19.1
 six==1.11.0
-stem==1.6.0
+stem==1.7.0
 urllib3==1.23
 Werkzeug==0.14.1
