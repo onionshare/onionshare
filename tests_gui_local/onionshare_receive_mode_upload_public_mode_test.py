@@ -11,7 +11,7 @@ class ReceiveModePublicModeTest(unittest.TestCase, GuiReceiveTest):
             "public_mode": True,
             "receive_allow_receiver_shutdown": True
         }
-        cls.gui = GuiReceiveTest.set_up(test_settings, 'ReceiveModePublicModeTest')
+        cls.gui = GuiReceiveTest.set_up(test_settings)
 
     @classmethod
     def tearDownClass(cls):
