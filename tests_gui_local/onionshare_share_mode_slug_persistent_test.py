@@ -13,26 +13,15 @@ class ShareModePersistentSlugTest(unittest.TestCase, GuiShareTest):
             "save_private_key": True,
             "close_after_first_download": False,
         }
-        cls.gui = GuiShareTest.set_up(test_settings)
-
-    @classmethod
-    def tearDownClass(cls):
-        GuiShareTest.tear_down()
+        cls.gui = GuiShareTest.set_up(test_settings, 'ShareModePersistentSlugTest')
 
     @pytest.mark.run(order=1)
     def test_run_all_common_setup_tests(self):
-        GuiShareTest.run_all_common_setup_tests(self)
+        self.run_all_common_setup_tests()
 
     @pytest.mark.run(order=2)
     def test_run_all_share_mode_tests(self):
-        GuiShareTest.run_all_share_mode_tests(self, False, True)
-        global slug
-        slug = self.gui.share_mode.server_status.web.slug
-
-    @pytest.mark.run(order=3)
-    def test_have_same_slug(self):
-        '''Test that we have the same slug'''
-        self.assertEqual(self.gui.share_mode.server_status.web.slug, slug)
+        self.run_all_share_mode_persistent_tests(False, True)
 
 if __name__ == "__main__":
     unittest.main()

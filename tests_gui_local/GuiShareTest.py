@@ -24,6 +24,11 @@ class GuiShareTest(GuiBaseTest):
         # We should have timed out now
         self.assertEqual(mode.server_status.status, 0)
 
+    # Persistence tests
+    def have_same_slug(self, slug):
+        '''Test that we have the same slug'''
+        self.assertEqual(self.gui.share_mode.server_status.web.slug, slug)
+
     # Share-specific tests
     
     def file_selection_widget_has_a_file(self):
@@ -141,6 +146,15 @@ class GuiShareTest(GuiBaseTest):
         self.run_all_share_mode_setup_tests()
         self.run_all_share_mode_started_tests(public_mode)
         self.run_all_share_mode_download_tests(public_mode, stay_open)
+
+
+    def run_all_share_mode_persistent_tests(self, public_mode, stay_open):
+        """Same as end-to-end share tests but also test the slug is the same on multiple shared"""
+        self.run_all_share_mode_setup_tests()
+        self.run_all_share_mode_started_tests(public_mode)
+        slug = self.gui.share_mode.server_status.web.slug
+        self.run_all_share_mode_download_tests(public_mode, stay_open)
+        self.have_same_slug(slug)
 
 
     def run_all_share_mode_timer_tests(self, public_mode):
