@@ -13,11 +13,10 @@ class LocalReceiveModePublicModeTest(unittest.TestCase, GuiReceiveTest):
         }
         cls.gui = GuiReceiveTest.set_up(test_settings, 'LocalReceiveModePublicModeTest')
 
-    @pytest.mark.run(order=1)
     def test_run_all_common_setup_tests(self):
         self.run_all_common_setup_tests()
 
-    @pytest.mark.run(order=2)
+    @pytest.mark.run(after='test_run_all_common_setup_tests')
     def test_run_all_receive_mode_tests(self):
         self.run_all_receive_mode_tests(True, True)
 

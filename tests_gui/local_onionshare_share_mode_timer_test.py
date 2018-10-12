@@ -13,11 +13,10 @@ class LocalShareModeTimerTest(unittest.TestCase, GuiShareTest):
         }
         cls.gui = GuiShareTest.set_up(test_settings, 'LocalShareModeTimerTest')
 
-    @pytest.mark.run(order=1)
     def test_run_all_common_setup_tests(self):
         self.run_all_common_setup_tests()
 
-    @pytest.mark.run(order=2)
+    @pytest.mark.run(after='test_run_all_common_setup_tests')
     def test_run_all_share_mode_timer_tests(self):
         self.run_all_share_mode_timer_tests(False)
 
