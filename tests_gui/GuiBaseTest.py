@@ -120,7 +120,7 @@ class GuiBaseTest(object):
             if public_mode:
                 url = "http://127.0.0.1:{}/download".format(self.gui.app.port)
             else:
-                url = "http://127.0.0.1:{}/{}/download".format(self.gui.app.port, self.gui.share_mode.web.slug)
+                url = "http://127.0.0.1:{}/{}/download".format(self.gui.app.port, mode.web.slug)
             r = requests.get(url)
             QtTest.QTest.qWait(2000)
 

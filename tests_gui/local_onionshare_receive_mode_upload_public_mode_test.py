@@ -4,13 +4,14 @@ import unittest
 
 from .GuiReceiveTest import GuiReceiveTest
 
-class ReceiveModeTest(unittest.TestCase, GuiReceiveTest):
+class LocalReceiveModePublicModeTest(unittest.TestCase, GuiReceiveTest):
     @classmethod
     def setUpClass(cls):
         test_settings = {
+            "public_mode": True,
             "receive_allow_receiver_shutdown": True
         }
-        cls.gui = GuiReceiveTest.set_up(test_settings, 'ReceiveModeTest')
+        cls.gui = GuiReceiveTest.set_up(test_settings, 'LocalReceiveModePublicModeTest')
 
     @pytest.mark.run(order=1)
     def test_run_all_common_setup_tests(self):
@@ -18,7 +19,7 @@ class ReceiveModeTest(unittest.TestCase, GuiReceiveTest):
 
     @pytest.mark.run(order=2)
     def test_run_all_receive_mode_tests(self):
-        self.run_all_receive_mode_tests(False, True)
+        self.run_all_receive_mode_tests(True, True)
 
 if __name__ == "__main__":
     unittest.main()

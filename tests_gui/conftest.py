@@ -8,7 +8,23 @@ import tempfile
 
 import pytest
 
-from onionshare import common, web, settings, strings
+from onionshare import common, web, settings
+
+def pytest_addoption(parser):
+    parser.addoption(
+        "--runtor", action="store_true", default=False, help="run tor tests"
+    )
+
+
+def pytest_collection_modifyitems(config, items):
+    if config.getoption("--runtor"):
+        # --runtor given in cli: do not skip tor tests
+        return
+    skip_tor = pytest.mark.skip(reason="need --runtor option to run")
+    for item in items:
+        if "tor" in item.keywords:
+            item.add_marker(skip_tor)
+
 
 @pytest.fixture
 def temp_dir_1024():
@@ -151,10 +167,7 @@ def time_strftime(monkeypatch):
 
 @pytest.fixture
 def common_obj():
-    _common = common.Common()
-    _common.settings = settings.Settings(_common)
-    strings.load_strings(_common)
-    return _common
+    return common.Common()
 
 @pytest.fixture
 def settings_obj(sys_onionshare_dev_mode, platform_linux):

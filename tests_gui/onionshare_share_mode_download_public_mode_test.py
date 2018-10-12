@@ -2,21 +2,23 @@
 import pytest
 import unittest
 
-from .GuiShareTest import GuiShareTest
+from .TorGuiShareTest import TorGuiShareTest
 
-class ShareModePublicModeTest(unittest.TestCase, GuiShareTest):
+class ShareModePublicModeTest(unittest.TestCase, TorGuiShareTest):
     @classmethod
     def setUpClass(cls):
         test_settings = {
             "public_mode": True,
         }
-        cls.gui = GuiShareTest.set_up(test_settings, 'ShareModePublicModeTest')
+        cls.gui = TorGuiShareTest.set_up(test_settings, 'ShareModePublicModeTest')
 
     @pytest.mark.run(order=1)
+    @pytest.mark.tor
     def test_run_all_common_setup_tests(self):
         self.run_all_common_setup_tests()
 
     @pytest.mark.run(order=2)
+    @pytest.mark.tor
     def test_run_all_share_mode_tests(self):
         self.run_all_share_mode_tests(True, False)
 

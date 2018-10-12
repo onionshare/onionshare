@@ -125,11 +125,11 @@ class GuiShareTest(GuiBaseTest):
         self.url_description_shown(self.gui.share_mode)
         self.have_copy_url_button(self.gui.share_mode)
         self.server_status_indicator_says_started(self.gui.share_mode)
-        self.web_page(self.gui.share_mode, 'Total size', public_mode)
 
     
     def run_all_share_mode_download_tests(self, public_mode, stay_open):
         """Tests in share mode after downloading a share"""
+        self.web_page(self.gui.share_mode, 'Total size', public_mode)
         self.download_share(public_mode)
         self.history_widgets_present(self.gui.share_mode)
         self.server_is_stopped(self.gui.share_mode, stay_open)
