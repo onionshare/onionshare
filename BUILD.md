@@ -143,24 +143,16 @@ OnionShare includes PyTest unit tests. To run the tests, first install some depe
 pip3 install -r install/requirements-tests.txt
 ```
 
-If you'd like to run the CLI-based tests that Travis runs:
+Then you can run `pytest` against the `tests/` directory.
 
 ```sh
 pytest tests/
 ```
 
-If you would like to run the GUI unit tests in 'local only mode':
+If you would like to also run the GUI unit tests in 'tor' mode, start Tor Browser in the background, then run:
 
 ```sh
-cd tests_gui_local/
-./run_unit_tests.sh
-```
-
-If you would like to run the GUI unit tests in 'tor' (bundled) mode:
-
-```sh
-cd tests_gui_tor/
-./run_unit_tests.sh
+pytest --runtor tests/
 ```
 
 Keep in mind that the Tor tests take a lot longer to run than local mode, but they are also more comprehensive.
