@@ -149,6 +149,12 @@ OnionShare includes PyTest unit tests. To run the tests, first install some depe
 pip3 install -r install/requirements-tests.txt
 ```
 
+You must have `pytest` in your path point to python 3's pytest. If necessary, you might need to make a symlink, like:
+
+```sh
+ln -s /usr/bin/pytest-3 /usr/local/bin/pytest
+```
+
 If you'd like to run the CLI-based tests that Travis runs:
 
 ```sh
