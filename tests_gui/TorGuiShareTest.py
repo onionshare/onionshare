@@ -62,9 +62,9 @@ class TorGuiShareTest(TorGuiBaseTest, GuiShareTest):
     def run_all_share_mode_timer_tests(self, public_mode):
         """Auto-stop timer tests in share mode"""
         self.run_all_share_mode_setup_tests()
-        self.set_timeout(self.gui.share_mode, 5)
+        self.set_timeout(self.gui.share_mode, 120)
         self.run_all_share_mode_started_tests(public_mode)
         self.timeout_widget_hidden(self.gui.share_mode)
-        self.server_timed_out(self.gui.share_mode, 10000)
+        self.server_timed_out(self.gui.share_mode, 125000)
         self.web_service_is_stopped()
 
