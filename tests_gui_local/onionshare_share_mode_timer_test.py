@@ -4,10 +4,12 @@ import unittest
 
 from .GuiShareTest import GuiShareTest
 
-class ShareModeTest(unittest.TestCase, GuiShareTest):
+class ShareModeTimerTest(unittest.TestCase, GuiShareTest):
     @classmethod
     def setUpClass(cls):
         test_settings = {
+            "public_mode": False,
+            "shutdown_timeout": True,
         }
         cls.gui = GuiShareTest.set_up(test_settings)
 
@@ -20,8 +22,8 @@ class ShareModeTest(unittest.TestCase, GuiShareTest):
         GuiShareTest.run_all_common_setup_tests(self)
 
     @pytest.mark.run(order=2)
-    def test_run_all_share_mode_tests(self):
-        GuiShareTest.run_all_share_mode_tests(self, False, False)
+    def test_run_all_share_mode_timer_tests(self):
+        GuiShareTest.run_all_share_mode_timer_tests(self, False)
 
 if __name__ == "__main__":
     unittest.main()

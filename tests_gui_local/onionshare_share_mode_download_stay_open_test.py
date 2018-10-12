@@ -4,10 +4,11 @@ import unittest
 
 from .GuiShareTest import GuiShareTest
 
-class ShareModeTest(unittest.TestCase, GuiShareTest):
+class ShareModeStayOpenTest(unittest.TestCase, GuiShareTest):
     @classmethod
     def setUpClass(cls):
         test_settings = {
+            "close_after_first_download": False,
         }
         cls.gui = GuiShareTest.set_up(test_settings)
 
@@ -21,7 +22,7 @@ class ShareModeTest(unittest.TestCase, GuiShareTest):
 
     @pytest.mark.run(order=2)
     def test_run_all_share_mode_tests(self):
-        GuiShareTest.run_all_share_mode_tests(self, False, False)
+        GuiShareTest.run_all_share_mode_tests(self, False, True)
 
 if __name__ == "__main__":
     unittest.main()
