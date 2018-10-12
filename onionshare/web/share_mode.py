@@ -1,12 +1,31 @@
+import binascii
+import hashlib
 import os
 import sys
 import tempfile
 import zipfile
 import mimetypes
 import gzip
+
+from datetime import datetime
 from flask import Response, request, render_template, make_response, abort
+from werkzeug import parse_date, http_date
 
 from .. import strings
+
+
+def make_etag(data):
+    hasher = hashlib.sha256()
+
+    while True:
+        read_bytes = data.read(4096)
+        if read_bytes:
+            hasher.update(read_bytes)
+        else:
+            break
+
+    hash_value = binascii.hexlify(hasher.digest()).decode('utf-8')
+    return '"sha256:{}"'.format(hash_value)
 
 
 def parse_range_header(range_header: str, target_size: int) -> list:
@@ -88,8 +107,11 @@ class ShareModeWeb(object):
         self.is_zipped = False
         self.download_filename = None
         self.download_filesize = None
+        self.download_etag = None
         self.gzip_filename = None
         self.gzip_filesize = None
+        self.gzip_etag = None
+        self.last_modified = datetime.utcnow()
         self.zip_writer = None
 
         self.download_count = 0
@@ -130,9 +152,9 @@ class ShareModeWeb(object):
 
             # If download is allowed to continue, serve download page
             if self.should_use_gzip():
-                self.filesize = self.gzip_filesize
+                filesize = self.gzip_filesize
             else:
-                self.filesize = self.download_filesize
+                filesize = self.download_filesize
 
             if self.web.slug:
                 r = make_response(render_template(
@@ -140,7 +162,7 @@ class ShareModeWeb(object):
                     slug=self.web.slug,
                     file_info=self.file_info,
                     filename=os.path.basename(self.download_filename),
-                    filesize=self.filesize,
+                    filesize=filesize,
                     filesize_human=self.common.human_readable_filesize(self.download_filesize),
                     is_zipped=self.is_zipped))
             else:
@@ -149,7 +171,7 @@ class ShareModeWeb(object):
                     'send.html',
                     file_info=self.file_info,
                     filename=os.path.basename(self.download_filename),
-                    filesize=self.filesize,
+                    filesize=filesize,
                     filesize_human=self.common.human_readable_filesize(self.download_filesize),
                     is_zipped=self.is_zipped))
             return self.web.add_security_headers(r)
@@ -191,10 +213,15 @@ class ShareModeWeb(object):
             use_gzip = self.should_use_gzip()
             if use_gzip:
                 file_to_download = self.gzip_filename
-                self.filesize = self.gzip_filesize
+                filesize = self.gzip_filesize
+                etag = self.gzip_etag
             else:
                 file_to_download = self.download_filename
-                self.filesize = self.download_filesize
+                filesize = self.download_filesize
+                etag = self.download_etag
+
+            # for range requests
+            range_, status_code = self.get_range_and_status_code(filesize, etag, self.last_modified)
 
             # Tell GUI the download started
             self.web.add_request(self.web.REQUEST_STARTED, request_path, {
@@ -204,19 +231,72 @@ class ShareModeWeb(object):
 
             basename = os.path.basename(self.download_filename)
 
-            r = Response(self.generate(file_to_download, request_path, download_id))
+            if status_code == 304:
+                r = Response()
+            else:
+                r = Response(
+                    self.generate(shutdown_func, range_, file_to_download, request_path,
+                                  download_id, filesize))
+
             if use_gzip:
                 r.headers.set('Content-Encoding', 'gzip')
-            r.headers.set('Content-Length', self.filesize)
+
+            r.headers.set('Content-Length', range_[1] - range_[0])
             r.headers.set('Content-Disposition', 'attachment', filename=basename)
             r = self.web.add_security_headers(r)
             # guess content type
             (content_type, _) = mimetypes.guess_type(basename, strict=False)
             if content_type is not None:
                 r.headers.set('Content-Type', content_type)
+
+            r.headers.set('Content-Length', range_[1] - range_[0])
+            r.headers.set('Accept-Ranges', 'bytes')
+            r.headers.set('ETag', etag)
+            r.headers.set('Last-Modified', http_date(self.last_modified))
+
+            if status_code == 206:
+                r.headers.set('Content-Range',
+                              'bytes {}-{}/{}'.format(range_[0], range_[1], filesize))
+
+            r.status_code = status_code
+
             return r
 
-    def generate(self, file_to_download, request_path, download_id):
+    @classmethod
+    def get_range_and_status_code(cls, dl_size, etag, last_modified):
+        use_default_range = True
+        status_code = 200
+        # range requests are only allowed for get
+        if request.method == 'GET':
+            range_header = request.headers.get('Range')
+
+            ranges = parse_range_header(range_header, dl_size)
+            if not (len(ranges) == 1 and ranges[0][0] == 0 and ranges[0][1] == dl_size - 1):
+                use_default_range = False
+                status_code = 206
+
+            if range_header:
+                if_range = request.headers.get('If-Range')
+                if if_range and if_range != etag:
+                    use_default_range = True
+                    status_code = 200
+
+        if use_default_range:
+            ranges = [(0, dl_size - 1)]
+
+        if len(ranges) > 1:
+            abort(416)  # We don't support multipart range requests yet
+        range_ = ranges[0]
+
+        if_unmod = request.headers.get('If-Unmodified-Since')
+        if if_unmod:
+            if_date = parse_date(if_unmod)
+            if if_date and if_date < last_modified:
+                status_code = 304
+
+        return range_, status_code
+
+    def generate(self, shutdown_func, range_, file_to_download, request_path, download_id, filesize):
         # The user hasn't canceled the download
         self.client_cancel = False
 
@@ -224,11 +304,15 @@ class ShareModeWeb(object):
         if not self.web.stay_open:
             self.download_in_progress = True
 
+        start, end = range_
+
         chunk_size = 102400  # 100kb
 
         fp = open(file_to_download, 'rb')
+        fp.seek(start)
         self.web.done = False
         canceled = False
+        bytes_left = end - start + 1
         while not self.web.done:
             # The user has canceled the download, so stop serving the file
             if not self.web.stop_q.empty():
@@ -237,7 +321,8 @@ class ShareModeWeb(object):
                 })
                 break
 
-            chunk = fp.read(chunk_size)
+            read_size = min(chunk_size, bytes_left)
+            chunk = fp.read(read_size)
             if chunk == b'':
                 self.web.done = True
             else:
@@ -245,8 +330,11 @@ class ShareModeWeb(object):
                     yield chunk
 
                     # tell GUI the progress
+                    # (this is technically inaccurate because a user could request just the
+                    #  middle bytes, but we assume it's a Tor Browser "continue download")
                     downloaded_bytes = fp.tell()
-                    percent = (1.0 * downloaded_bytes / self.filesize) * 100
+                    percent = (1.0 * downloaded_bytes / filesize) * 100
+                    bytes_left -= read_size
 
                     # only output to stdout if running onionshare in CLI mode, or if using Linux (#203, #304)
                     if not self.web.is_gui or self.common.platform == 'Linux' or self.common.platform == 'BSD':
@@ -323,11 +411,15 @@ class ShareModeWeb(object):
         if len(self.file_info['files']) == 1 and len(self.file_info['dirs']) == 0:
             self.download_filename = self.file_info['files'][0]['filename']
             self.download_filesize = self.file_info['files'][0]['size']
+            with open(self.download_filename, 'rb') as f:
+                self.download_etag = make_etag(f)
 
             # Compress the file with gzip now, so we don't have to do it on each request
             self.gzip_filename = tempfile.mkstemp('wb+')[1]
             self._gzip_compress(self.download_filename, self.gzip_filename, 6, processed_size_callback)
             self.gzip_filesize = os.path.getsize(self.gzip_filename)
+            with open(self.gzip_filename, 'rb') as f:
+                self.gzip_etag = make_etag(f)
 
             # Make sure the gzip file gets cleaned up when onionshare stops
             self.cleanup_filenames.append(self.gzip_filename)
@@ -351,6 +443,8 @@ class ShareModeWeb(object):
 
             self.zip_writer.close()
             self.download_filesize = os.path.getsize(self.download_filename)
+            with open(self.download_filename, 'rb') as f:
+                self.download_etag = make_etag(f)
 
             # Make sure the zip file gets cleaned up when onionshare stops
             self.cleanup_filenames.append(self.zip_writer.zip_filename)

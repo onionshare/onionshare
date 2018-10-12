@@ -30,9 +30,12 @@ import tempfile
 
 import pytest
 
+from werkzeug.exceptions import RequestedRangeNotSatisfiable
+
 from onionshare.common import Common
 from onionshare import strings
 from onionshare.web import Web
+from onionshare.web.share_mode import parse_range_header
 from onionshare.settings import Settings
 
 DEFAULT_ZW_FILENAME_REGEX = re.compile(r'^onionshare_[a-z2-7]{6}.zip$')
@@ -224,3 +227,119 @@ class TestZipWriterCustom:
 
     def test_custom_callback(self, custom_zw):
         assert custom_zw.processed_size_callback(None) == 'custom_callback'
+
+
+class TestRangeRequests:
+
+    VALID_RANGES = [
+        (None, 500, [(0, 499)]),
+        ('bytes=0', 500, [(0, 499)]),
+        ('bytes=100', 500, [(100, 499)]),
+        ('bytes=100-', 500, [(100, 499)]),  # not in the RFC, but how curl sends
+        ('bytes=0-99', 500, [(0, 99)]),
+        ('bytes=0-599', 500, [(0, 499)]),
+        ('bytes=0-0', 500, [(0, 0)]),
+        ('bytes=-100', 500, [(400, 499)]),
+        ('bytes=0-99,100-199', 500, [(0, 199)]),
+        ('bytes=0-100,100-199', 500, [(0, 199)]),
+        ('bytes=0-99,101-199', 500, [(0, 99), (101, 199)]),
+        ('bytes=0-199,100-299', 500, [(0, 299)]),
+        ('bytes=0-99,200-299', 500, [(0, 99), (200, 299)]),
+    ]
+
+    INVALID_RANGES = [
+        'bytes=200-100',
+        'bytes=0-100,300-200',
+    ]
+
+    def test_parse_ranges(self):
+        for case in self.VALID_RANGES:
+            (header, target_size, expected) = case
+            parsed = parse_range_header(header, target_size)
+            assert parsed == expected, case
+
+        for invalid in self.INVALID_RANGES:
+            with pytest.raises(RequestedRangeNotSatisfiable):
+                parse_range_header(invalid, 500)
+
+    def test_headers(self, common_obj):
+        web = web_obj(common_obj, 'share', 3)
+        web.stay_open = True
+        url = '/{}/download'.format(web.slug)
+
+        with web.app.test_client() as client:
+            resp = client.get(url)
+            assert resp.headers['ETag'].startswith('"sha256:')
+            assert resp.headers['Accept-Ranges'] == 'bytes'
+            assert resp.headers.get('Last-Modified') is not None
+            assert resp.headers.get('Content-Length') is not None
+
+    def test_basic(self, common_obj):
+        web = web_obj(common_obj, 'share', 3)
+        web.stay_open = True
+        url = '/{}/download'.format(web.slug)
+        with open(web.share_mode.download_filename, 'rb') as f:
+            contents = f.read()
+
+        with web.app.test_client() as client:
+            resp = client.get(url)
+            assert resp.status_code == 200
+            assert resp.data == contents
+
+    def test_reassemble(self, common_obj):
+        web = web_obj(common_obj, 'share', 3)
+        web.stay_open = True
+        url = '/{}/download'.format(web.slug)
+        with open(web.share_mode.download_filename, 'rb') as f:
+            contents = f.read()
+
+        with web.app.test_client() as client:
+            resp = client.get(url, headers={'Range': 'bytes=0-10'})
+            assert resp.status_code == 206
+            content_range = resp.headers['Content-Range']
+            assert content_range == 'bytes {}-{}/{}'.format(0, 10, web.share_mode.download_filesize)
+            bytes_out = resp.data
+
+            resp = client.get(url, headers={'Range': 'bytes=11-100000'})
+            assert resp.status_code == 206
+            content_range = resp.headers['Content-Range']
+            assert content_range == 'bytes {}-{}/{}'.format(
+                11, web.share_mode.download_filesize - 1, web.share_mode.download_filesize)
+            bytes_out += resp.data
+
+            assert bytes_out == contents
+
+    def test_mismatched_etags(self, common_obj):
+        '''RFC 7233 Section 3.2
+           The "If-Range" header field allows a client to "short-circuit" the second request.
+           Informally, its meaning is as follows: if the representation is unchanged, send me the
+           part(s) that I am requesting in Range; otherwise, send me the entire representation.
+        '''
+        web = web_obj(common_obj, 'share', 3)
+        web.stay_open = True
+        url = '/{}/download'.format(web.slug)
+        with open(web.share_mode.download_filename, 'rb') as f:
+            contents = f.read()
+
+        with web.app.test_client() as client:
+            resp = client.get(url)
+            assert resp.status_code == 200
+
+            resp = client.get(url,
+                              headers={'If-Range': 'mismatched etag',
+                                       'Range': 'bytes=10-100'})
+            assert resp.status_code == 200
+            assert resp.data == contents
+
+    def test_if_unmodified_since(self, common_obj):
+        web = web_obj(common_obj, 'share', 3)
+        web.stay_open = True
+        url = '/{}/download'.format(web.slug)
+
+        with web.app.test_client() as client:
+            resp = client.get(url)
+            assert resp.status_code == 200
+            last_mod = resp.headers['Last-Modified']
+
+            resp = client.get(url, headers={'If-Unmodified-Since': last_mod})
+            assert resp.status_code == 304
