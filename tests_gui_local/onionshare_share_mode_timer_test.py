@@ -11,7 +11,7 @@ class ShareModeTimerTest(unittest.TestCase, GuiShareTest):
             "public_mode": False,
             "shutdown_timeout": True,
         }
-        cls.gui = GuiShareTest.set_up(test_settings)
+        cls.gui = GuiShareTest.set_up(test_settings, 'ShareModeTimerTest')
 
     @classmethod
     def tearDownClass(cls):
