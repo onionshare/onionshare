@@ -14,13 +14,13 @@ Install the needed dependencies:
 For Debian-like distros:
 
 ```
-apt install -y python3-flask python3-stem python3-pyqt5 python3-cryptography python3-crypto python3-socks python-nautilus tor obfs4proxy python3-pytest build-essential fakeroot python3-all python3-stdeb dh-python
+apt install -y python3-flask python3-stem python3-pyqt5 python3-crypto python3-socks python-nautilus tor obfs4proxy python3-pytest build-essential fakeroot python3-all python3-stdeb dh-python
 ```
 
 For Fedora-like distros:
 
 ```
-dnf install -y python3-flask python3-stem python3-qt5 python3-cryptography python3-crypto python3-pysocks nautilus-python tor obfs4 python3-pytest rpm-build
+dnf install -y python3-flask python3-stem python3-qt5 python3-crypto python3-pysocks nautilus-python tor obfs4 python3-pytest rpm-build
 ```
 
 After that you can try both the CLI and the GUI version of OnionShare:
