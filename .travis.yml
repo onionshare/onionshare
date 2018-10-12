@@ -20,4 +20,4 @@ before_script:
 # run CLI tests and local GUI tests
 script:
   - pytest --cov=onionshare tests/
-  - xvfb-run pytest tests_gui/ -vvv
+  - cd tests_gui && xvfb-run ./run_unit_tests.sh
