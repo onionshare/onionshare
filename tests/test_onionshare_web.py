@@ -24,12 +24,17 @@ import os
 import random
 import re
 import socket
+import subprocess
 import sys
+import time
 import zipfile
 import tempfile
 
 import pytest
 
+from contextlib import contextmanager
+from multiprocessing import Process
+from urllib.request import urlopen
 from werkzeug.exceptions import RequestedRangeNotSatisfiable
 
 from onionshare.common import Common
@@ -229,6 +234,51 @@ class TestZipWriterCustom:
         assert custom_zw.processed_size_callback(None) == 'custom_callback'
 
 
+def check_unsupported(cmd: str, args: list):
+    cmd_args = [cmd]
+    cmd_args.extend(args)
+    skip = False
+
+    try:
+        subprocess.check_call(cmd_args)
+    except Exception:
+        skip = True
+
+    return pytest.mark.skipif(skip, reason='Command {!r} not supported'.format(cmd))
+
+
+@contextmanager
+def live_server(web):
+    s = socket.socket()
+    s.bind(("localhost", 0))
+    port = s.getsockname()[1]
+    s.close()
+
+    def run():
+        web.app.run(host='127.0.0.1', port=port, debug=False)
+
+    proc = Process(target=run)
+    proc.start()
+
+    url = 'http://127.0.0.1:{}/{}'.format(port, web.slug)
+
+    attempts = 20
+    while True:
+        try:
+            urlopen(url)
+            break
+        except Exception:
+            attempts -= 1
+            if attempts > 0:
+                time.sleep(0.5)
+            else:
+                raise
+
+    yield url + '/download'
+
+    proc.terminate()
+
+
 class TestRangeRequests:
 
     VALID_RANGES = [
@@ -344,3 +394,34 @@ class TestRangeRequests:
 
             resp = client.get(url, headers={'If-Unmodified-Since': last_mod})
             assert resp.status_code == 304
+
+    @check_unsupported('curl', ['--version'])
+    def test_curl(self, common_obj):
+        web = web_obj(common_obj, 'share', 3)
+        web.stay_open = True
+
+        with live_server(web) as url:
+            # Debugbing help from `man curl`, on error 33
+            #       33     HTTP range error. The range "command" didn't work.
+            subprocess.check_call(['curl', '--continue-at', '10', url])
+
+    @check_unsupported('wget', ['--version'])
+    def test_wget(self, tmpdir, common_obj):
+        web = web_obj(common_obj, 'share', 3)
+        web.stay_open = True
+
+        # wget needs a file to exist to continue
+        download = tmpdir.join('download')
+        download.write('x' * 10)
+
+        with live_server(web) as url:
+            subprocess.check_call(['wget', '--continue', '-O', str(download), url])
+
+
+    @check_unsupported('http', ['--version'])
+    def test_httpie(self, common_obj):
+        web = web_obj(common_obj, 'share', 3)
+        web.stay_open = True
+
+        with live_server(web) as url:
+            subprocess.check_call(['http', url, 'Range: bytes=10'])
