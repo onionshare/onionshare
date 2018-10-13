@@ -1,7 +1,6 @@
 import requests
-import socks
 import zipfile
-from PyQt5 import QtCore, QtTest
+from PyQt5 import QtTest
 from .TorGuiBaseTest import TorGuiBaseTest
 from .GuiShareTest import GuiShareTest
 
