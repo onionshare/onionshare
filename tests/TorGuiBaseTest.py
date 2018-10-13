@@ -1,8 +1,5 @@
 import json
-import os
 import requests
-import shutil
-import socket
 import socks
 
 from PyQt5 import QtCore, QtTest
