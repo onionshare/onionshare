@@ -253,6 +253,8 @@ class ShareModeWeb(object):
             r.headers.set('Accept-Ranges', 'bytes')
             r.headers.set('ETag', etag)
             r.headers.set('Last-Modified', http_date(self.last_modified))
+            # we need to set this for range requests
+            r.headers.set('Vary', 'Accept-Encoding')
 
             if status_code == 206:
                 r.headers.set('Content-Range',

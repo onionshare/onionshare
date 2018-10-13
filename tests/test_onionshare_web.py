@@ -273,6 +273,7 @@ class TestRangeRequests:
             assert resp.headers['Accept-Ranges'] == 'bytes'
             assert resp.headers.get('Last-Modified') is not None
             assert resp.headers.get('Content-Length') is not None
+            assert 'Accept-Encoding' in resp.headers['Vary']
 
     def test_basic(self, common_obj):
         web = web_obj(common_obj, 'share', 3)
