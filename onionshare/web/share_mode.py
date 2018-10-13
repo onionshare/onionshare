@@ -344,7 +344,8 @@ class ShareModeWeb(object):
 
                     self.web.add_request(self.web.REQUEST_PROGRESS, request_path, {
                         'id': download_id,
-                        'bytes': downloaded_bytes
+                        'bytes': downloaded_bytes,
+                        'total_bytes': filesize,
                         })
                     self.web.done = False
                 except:
