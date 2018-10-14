@@ -4,7 +4,7 @@ import unittest
 
 from .TorGuiShareTest import TorGuiShareTest
 
-class LocalShareModePersistentSlugTest(unittest.TestCase, TorGuiShareTest):
+class ShareModePersistentSlugTest(unittest.TestCase, TorGuiShareTest):
     @classmethod
     def setUpClass(cls):
         test_settings = {
