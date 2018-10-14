@@ -19,18 +19,10 @@ class ShareModeStealthTest(unittest.TestCase, TorGuiShareTest):
 
     @pytest.mark.run(after='test_run_all_common_setup_tests')
     @pytest.mark.tor
-    def test_run_share_mode_setup_tests(self):
+    def test_run_stealth_mode_tests(self):
         self.run_all_share_mode_setup_tests()
         self.run_all_share_mode_started_tests(False)
-
-    @pytest.mark.run(after='test_run_share_mode_setup_tests')
-    @pytest.mark.tor
-    def test_copy_have_hidserv_auth_button(self):
         self.copy_have_hidserv_auth_button(self.gui.share_mode)
-
-    @pytest.mark.run(after='test_run_share_mode_setup_tests')
-    @pytest.mark.tor
-    def test_hidserv_auth_string(self):
         self.hidserv_auth_string()
 
 if __name__ == "__main__":
