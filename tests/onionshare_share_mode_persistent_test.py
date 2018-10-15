@@ -17,12 +17,8 @@ class ShareModePersistentSlugTest(unittest.TestCase, TorGuiShareTest):
         cls.gui = TorGuiShareTest.set_up(test_settings, 'ShareModePersistentSlugTest')
 
     @pytest.mark.tor
-    def test_run_all_common_setup_tests(self):
+    def test_gui(self):
         self.run_all_common_setup_tests()
-
-    @pytest.mark.run(after='test_run_all_common_setup_tests')
-    @pytest.mark.tor
-    def test_run_all_share_mode_tests(self):
         self.run_all_share_mode_persistent_tests(False, True)
 
 if __name__ == "__main__":

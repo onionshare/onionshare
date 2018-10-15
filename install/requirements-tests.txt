@@ -5,7 +5,6 @@ pluggy==0.6.0
 py==1.6.0
 pytest==3.4.2
 pytest-faulthandler==1.5.0
-pytest-ordering==0.5
 pytest-qt==3.1.0
 six==1.11.0
 urllib3==1.23
