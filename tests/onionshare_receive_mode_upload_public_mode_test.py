@@ -14,12 +14,8 @@ class ReceiveModeTest(unittest.TestCase, TorGuiReceiveTest):
         cls.gui = TorGuiReceiveTest.set_up(test_settings, 'ReceiveModeTest')
 
     @pytest.mark.tor
-    def test_run_all_common_setup_tests(self):
+    def test_gui(self):
         self.run_all_common_setup_tests()
-
-    @pytest.mark.run(after='test_run_all_common_setup_tests')
-    @pytest.mark.tor
-    def test_run_all_receive_mode_tests(self):
         self.run_all_receive_mode_tests(True, True)
 
 if __name__ == "__main__":
