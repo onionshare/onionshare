@@ -3,17 +3,18 @@ import unittest
 
 from .GuiShareTest import GuiShareTest
 
-class LocalShareModePublicModeTest(unittest.TestCase, GuiShareTest):
+class Local404RateLimitTest(unittest.TestCase, GuiShareTest):
     @classmethod
     def setUpClass(cls):
         test_settings = {
-            "public_mode": True,
+            "close_after_first_download": False
         }
-        cls.gui = GuiShareTest.set_up(test_settings, 'LocalShareModePublicModeTest')
+        cls.gui = GuiShareTest.set_up(test_settings, 'Local404RateLimitTest')
 
     def test_gui(self):
         self.run_all_common_setup_tests()
-        self.run_all_share_mode_tests(True, False)
+        self.run_all_share_mode_tests(False, True)
+        self.hit_404(False)
 
 if __name__ == "__main__":
     unittest.main()

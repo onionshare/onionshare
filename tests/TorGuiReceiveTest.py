@@ -20,7 +20,11 @@ class TorGuiReceiveTest(TorGuiBaseTest):
         QtTest.QTest.qWait(4000)
         self.assertTrue(os.path.isfile(expected_file))
 
+
+    # 'Grouped' tests follow from here
+
     def run_all_receive_mode_tests(self, public_mode, receive_allow_receiver_shutdown):
+        '''Run a full suite of tests in Receive mode'''
         self.click_mode(self.gui.receive_mode)
         self.history_is_not_visible(self.gui.receive_mode)
         self.click_toggle_history(self.gui.receive_mode)
@@ -28,12 +32,12 @@ class TorGuiReceiveTest(TorGuiBaseTest):
         self.server_working_on_start_button_pressed(self.gui.receive_mode)
         self.server_status_indicator_says_starting(self.gui.receive_mode)
         self.settings_button_is_hidden()
-        self.a_server_is_started(self.gui.receive_mode)
-        self.a_web_server_is_running()
+        self.server_is_started(self.gui.receive_mode, startup_time=45000)
+        self.web_server_is_running()
         self.have_an_onion_service()
         self.have_a_slug(self.gui.receive_mode, public_mode)
         self.url_description_shown(self.gui.receive_mode)
-        self.have_copy_url_button(self.gui.receive_mode)
+        self.have_copy_url_button(self.gui.receive_mode, public_mode)
         self.server_status_indicator_says_started(self.gui.receive_mode)
         self.web_page(self.gui.receive_mode, 'Select the files you want to send, then click', public_mode)
         self.upload_file(public_mode, '/tmp/OnionShare/test.txt')
@@ -43,9 +47,9 @@ class TorGuiReceiveTest(TorGuiBaseTest):
         self.counter_incremented(self.gui.receive_mode, 2)
         self.history_indicator(self.gui.receive_mode, public_mode)
         self.server_is_stopped(self.gui.receive_mode, False)
-        self.web_service_is_stopped()
+        self.web_server_is_stopped()
         self.server_status_indicator_says_closed(self.gui.receive_mode, False)
         self.server_working_on_start_button_pressed(self.gui.receive_mode)
-        self.a_server_is_started(self.gui.receive_mode)
+        self.server_is_started(self.gui.receive_mode, startup_time=45000)
         self.history_indicator(self.gui.receive_mode, public_mode)
 

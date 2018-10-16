@@ -19,7 +19,7 @@ class ShareModeCancelSecondShareTest(unittest.TestCase, TorGuiShareTest):
         self.run_all_share_mode_tests(False, False)
         self.cancel_the_share(self.gui.share_mode)
         self.server_is_stopped(self.gui.share_mode, False)
-        self.web_service_is_stopped()
+        self.web_server_is_stopped()
 
 if __name__ == "__main__":
     unittest.main()

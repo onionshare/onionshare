@@ -1,4 +1,5 @@
 import json
+import os
 import requests
 import socks
 
@@ -24,6 +25,13 @@ class TorGuiBaseTest(GuiBaseTest):
         testfile.write('onionshare')
         testfile.close()
 
+        # Create a test dir and files
+        if not os.path.exists('/tmp/testdir'):
+            testdir = os.mkdir('/tmp/testdir')
+        testfile = open('/tmp/testdir/test.txt', 'w')
+        testfile.write('onionshare')
+        testfile.close()
+
         common = Common()
         common.settings = Settings(common)
         common.define_css()
@@ -45,7 +53,7 @@ class TorGuiBaseTest(GuiBaseTest):
         web = Web(common, False, False)
         open('/tmp/{}.json'.format(settings_filename), 'w').write(json.dumps(test_settings))
 
-        gui = OnionShareGui(common, testonion, qtapp, app, ['/tmp/test.txt'], '/tmp/{}.json'.format(settings_filename), False)
+        gui = OnionShareGui(common, testonion, qtapp, app, ['/tmp/test.txt', '/tmp/testdir'], '/tmp/{}.json'.format(settings_filename), False)
         return gui
 
     def history_indicator(self, mode, public_mode):
@@ -91,12 +99,6 @@ class TorGuiBaseTest(GuiBaseTest):
         QtTest.QTest.mouseClick(mode.toggle_history, QtCore.Qt.LeftButton)
         self.assertFalse(mode.toggle_history.indicator_label.isVisible())
 
-    def a_server_is_started(self, mode):
-        '''Test that the server has started (overriding from local tests to wait for longer)'''
-        QtTest.QTest.qWait(45000)
-        # Should now be in SERVER_STARTED state
-        self.assertEqual(mode.server_status.status, 2)
-
     def have_an_onion_service(self):
         '''Test that we have a valid Onion URL'''
         self.assertRegex(self.gui.app.onion_host, r'[a-z2-7].onion')
@@ -127,6 +129,17 @@ class TorGuiBaseTest(GuiBaseTest):
         self.assertTrue(string in f.read())
         f.close()
 
+    def have_copy_url_button(self, mode, public_mode):
+        '''Test that the Copy URL button is shown and that the clipboard is correct'''
+        self.assertTrue(mode.server_status.copy_url_button.isVisible())
+
+        QtTest.QTest.mouseClick(mode.server_status.copy_url_button, QtCore.Qt.LeftButton)
+        clipboard = self.gui.qtapp.clipboard()
+        if public_mode:
+            self.assertEqual(clipboard.text(), 'http://{}'.format(self.gui.app.onion_host))
+        else:
+            self.assertEqual(clipboard.text(), 'http://{}/{}'.format(self.gui.app.onion_host, mode.server_status.web.slug))
+
     def cancel_the_share(self, mode):
         '''Test that we can cancel this share before it's started up '''
         self.server_working_on_start_button_pressed(self.gui.share_mode)
@@ -138,13 +151,15 @@ class TorGuiBaseTest(GuiBaseTest):
         QtTest.QTest.mouseRelease(mode.server_status.server_button, QtCore.Qt.LeftButton)
         self.assertEqual(mode.server_status.status, 0)
         self.server_is_stopped(self.gui.share_mode, False)
-        self.web_service_is_stopped()
+        self.web_server_is_stopped()
 
 
     # Stealth tests
     def copy_have_hidserv_auth_button(self, mode):
         '''Test that the Copy HidservAuth button is shown'''
         self.assertTrue(mode.server_status.copy_hidservauth_button.isVisible())
+        clipboard = self.gui.qtapp.clipboard()
+        self.assertRegex(clipboard.text(), r'HidServAuth %s [a-zA-Z1-9]' % self.gui.app.onion_host)
 
     def hidserv_auth_string(self):
         '''Test the validity of the HidservAuth string'''
