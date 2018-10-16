@@ -26,6 +26,13 @@ class GuiBaseTest(object):
         testfile.write('onionshare')
         testfile.close()
 
+        # Create a test dir and files
+        if not os.path.exists('/tmp/testdir'):
+            testdir = os.mkdir('/tmp/testdir')
+        testfile = open('/tmp/testdir/test.txt', 'w')
+        testfile.write('onionshare')
+        testfile.close()
+
         common = Common()
         common.settings = Settings(common)
         common.define_css()
@@ -46,14 +53,17 @@ class GuiBaseTest(object):
         web = Web(common, False, True)
         open('/tmp/{}.json'.format(settings_filename), 'w').write(json.dumps(test_settings))
 
-        gui = OnionShareGui(common, testonion, qtapp, app, ['/tmp/test.txt'], '/tmp/{}.json'.format(settings_filename), True)
+        gui = OnionShareGui(common, testonion, qtapp, app, ['/tmp/test.txt', '/tmp/testdir'], '/tmp/{}.json'.format(settings_filename), True)
         return gui
 
     @staticmethod
     def tear_down():
+        '''Clean up after tests'''
         try:
             os.remove('/tmp/test.txt')
+            os.remove('/tmp/largefile')
             shutil.rmtree('/tmp/OnionShare')
+            shutil.rmtree('/tmp/testdir')
         except:
             pass
 
@@ -71,6 +81,11 @@ class GuiBaseTest(object):
     def settings_button_is_visible(self):
         '''Test that the settings button is visible'''
         self.assertTrue(self.gui.settings_button.isVisible())
+
+
+    def settings_button_is_hidden(self):
+        '''Test that the settings button is hidden when the server starts'''
+        self.assertFalse(self.gui.settings_button.isVisible())
 
     
     def server_status_bar_is_visible(self):
@@ -152,22 +167,17 @@ class GuiBaseTest(object):
     
     def server_status_indicator_says_starting(self, mode):
         '''Test that the Server Status indicator shows we are Starting'''
-        self.assertEquals(mode.server_status_label.text(), strings._('gui_status_indicator_share_working'))
+        self.assertEqual(mode.server_status_label.text(), strings._('gui_status_indicator_share_working'))
 
     
-    def settings_button_is_hidden(self):
-        '''Test that the settings button is hidden when the server starts'''
-        self.assertFalse(self.gui.settings_button.isVisible())
-
-    
-    def a_server_is_started(self, mode):
+    def server_is_started(self, mode, startup_time=2000):
         '''Test that the server has started'''
-        QtTest.QTest.qWait(2000)
+        QtTest.QTest.qWait(startup_time)
         # Should now be in SERVER_STARTED state
         self.assertEqual(mode.server_status.status, 2)
 
     
-    def a_web_server_is_running(self):
+    def web_server_is_running(self):
         '''Test that the web server has started'''
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -187,17 +197,24 @@ class GuiBaseTest(object):
         self.assertTrue(mode.server_status.url_description.isVisible())
 
     
-    def have_copy_url_button(self, mode):
-        '''Test that the Copy URL button is shown'''
+    def have_copy_url_button(self, mode, public_mode):
+        '''Test that the Copy URL button is shown and that the clipboard is correct'''
         self.assertTrue(mode.server_status.copy_url_button.isVisible())
+
+        QtTest.QTest.mouseClick(mode.server_status.copy_url_button, QtCore.Qt.LeftButton)
+        clipboard = self.gui.qtapp.clipboard()
+        if public_mode:
+            self.assertEqual(clipboard.text(), 'http://127.0.0.1:{}'.format(self.gui.app.port))
+        else:
+            self.assertEqual(clipboard.text(), 'http://127.0.0.1:{}/{}'.format(self.gui.app.port, mode.server_status.web.slug))
 
     
     def server_status_indicator_says_started(self, mode):
         '''Test that the Server Status indicator shows we are started'''
         if type(mode) == ReceiveMode:
-            self.assertEquals(mode.server_status_label.text(), strings._('gui_status_indicator_receive_started'))
+            self.assertEqual(mode.server_status_label.text(), strings._('gui_status_indicator_receive_started'))
         if type(mode) == ShareMode:
-            self.assertEquals(mode.server_status_label.text(), strings._('gui_status_indicator_share_started'))
+            self.assertEqual(mode.server_status_label.text(), strings._('gui_status_indicator_share_started'))
 
     
     def web_page(self, mode, string, public_mode):
@@ -237,17 +254,17 @@ class GuiBaseTest(object):
     
     def counter_incremented(self, mode, count):
         '''Test that the counter has incremented'''
-        self.assertEquals(mode.history.completed_count, count)
+        self.assertEqual(mode.history.completed_count, count)
 
     
     def server_is_stopped(self, mode, stay_open):
         '''Test that the server stops when we click Stop'''
         if type(mode) == ReceiveMode or (type(mode) == ShareMode and stay_open):
             QtTest.QTest.mouseClick(mode.server_status.server_button, QtCore.Qt.LeftButton)
-        self.assertEquals(mode.server_status.status, 0)
+        self.assertEqual(mode.server_status.status, 0)
 
     
-    def web_service_is_stopped(self):
+    def web_server_is_stopped(self):
         '''Test that the web server also stopped'''
         QtTest.QTest.qWait(2000)
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -259,12 +276,35 @@ class GuiBaseTest(object):
     def server_status_indicator_says_closed(self, mode, stay_open):
         '''Test that the Server Status indicator shows we closed'''
         if type(mode) == ReceiveMode:
-            self.assertEquals(self.gui.receive_mode.server_status_label.text(), strings._('gui_status_indicator_receive_stopped'))
+            self.assertEqual(self.gui.receive_mode.server_status_label.text(), strings._('gui_status_indicator_receive_stopped'))
         if type(mode) == ShareMode:
             if stay_open:
-                self.assertEquals(self.gui.share_mode.server_status_label.text(), strings._('gui_status_indicator_share_stopped'))
+                self.assertEqual(self.gui.share_mode.server_status_label.text(), strings._('gui_status_indicator_share_stopped'))
             else:
-                self.assertEquals(self.gui.share_mode.server_status_label.text(), strings._('closing_automatically'))
+                self.assertEqual(self.gui.share_mode.server_status_label.text(), strings._('closing_automatically'))
+
+
+    # Auto-stop timer tests
+    def set_timeout(self, mode, timeout):
+        '''Test that the timeout can be set'''
+        timer = QtCore.QDateTime.currentDateTime().addSecs(timeout)
+        mode.server_status.shutdown_timeout.setDateTime(timer)
+        self.assertTrue(mode.server_status.shutdown_timeout.dateTime(), timer)
+
+
+    def timeout_widget_hidden(self, mode):
+        '''Test that the timeout widget is hidden when share has started'''
+        self.assertFalse(mode.server_status.shutdown_timeout_container.isVisible())
+
+
+    def server_timed_out(self, mode, wait):
+        '''Test that the server has timed out after the timer ran out'''
+        QtTest.QTest.qWait(wait)
+        # We should have timed out now
+        self.assertEqual(mode.server_status.status, 0)
+
+
+    # 'Grouped' tests follow from here
 
     def run_all_common_setup_tests(self):
         self.gui_loaded()

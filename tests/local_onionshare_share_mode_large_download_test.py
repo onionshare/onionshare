@@ -3,17 +3,16 @@ import unittest
 
 from .GuiShareTest import GuiShareTest
 
-class LocalShareModePublicModeTest(unittest.TestCase, GuiShareTest):
+class LocalShareModeTest(unittest.TestCase, GuiShareTest):
     @classmethod
     def setUpClass(cls):
         test_settings = {
-            "public_mode": True,
         }
-        cls.gui = GuiShareTest.set_up(test_settings, 'LocalShareModePublicModeTest')
+        cls.gui = GuiShareTest.set_up(test_settings, 'LocalShareModeTest')
 
     def test_gui(self):
         self.run_all_common_setup_tests()
-        self.run_all_share_mode_tests(True, False)
+        self.run_all_large_file_tests(False, True)
 
 if __name__ == "__main__":
     unittest.main()

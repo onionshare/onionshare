@@ -1,29 +1,11 @@
+import os
+import requests
 import socks
 import zipfile
 from PyQt5 import QtCore, QtTest
 from .GuiBaseTest import GuiBaseTest
 
 class GuiShareTest(GuiBaseTest):
-    # Auto-stop timer tests
-    
-    def set_timeout(self, mode, timeout):
-        '''Test that the timeout can be set'''
-        timer = QtCore.QDateTime.currentDateTime().addSecs(timeout)
-        mode.server_status.shutdown_timeout.setDateTime(timer)
-        self.assertTrue(mode.server_status.shutdown_timeout.dateTime(), timer)
-
-    
-    def timeout_widget_hidden(self, mode):
-        '''Test that the timeout widget is hidden when share has started'''
-        self.assertFalse(mode.server_status.shutdown_timeout_container.isVisible())
-
-    
-    def server_timed_out(self, mode, wait):
-        '''Test that the server has timed out after the timer ran out'''
-        QtTest.QTest.qWait(wait)
-        # We should have timed out now
-        self.assertEqual(mode.server_status.status, 0)
-
     # Persistence tests
     def have_same_slug(self, slug):
         '''Test that we have the same slug'''
@@ -31,19 +13,26 @@ class GuiShareTest(GuiBaseTest):
 
     # Share-specific tests
     
-    def file_selection_widget_has_a_file(self):
-        '''Test that the number of files in the list is 1'''
-        self.assertEqual(self.gui.share_mode.server_status.file_selection.get_num_files(), 1)
+    def file_selection_widget_has_files(self):
+        '''Test that the number of items in the list is 2'''
+        self.assertEqual(self.gui.share_mode.server_status.file_selection.get_num_files(), 2)
 
     
-    def deleting_only_file_hides_delete_button(self):
+    def deleting_all_files_hides_delete_button(self):
         '''Test that clicking on the file item shows the delete button. Test that deleting the only item in the list hides the delete button'''
         rect = self.gui.share_mode.server_status.file_selection.file_list.visualItemRect(self.gui.share_mode.server_status.file_selection.file_list.item(0))
         QtTest.QTest.mouseClick(self.gui.share_mode.server_status.file_selection.file_list.viewport(), QtCore.Qt.LeftButton, pos=rect.center())
         # Delete button should be visible
         self.assertTrue(self.gui.share_mode.server_status.file_selection.delete_button.isVisible())
-        # Click delete, and since there's no more files, the delete button should be hidden
+        # Click delete, delete button should still be visible since we have one more file
         QtTest.QTest.mouseClick(self.gui.share_mode.server_status.file_selection.delete_button, QtCore.Qt.LeftButton)
+
+        rect = self.gui.share_mode.server_status.file_selection.file_list.visualItemRect(self.gui.share_mode.server_status.file_selection.file_list.item(0))
+        QtTest.QTest.mouseClick(self.gui.share_mode.server_status.file_selection.file_list.viewport(), QtCore.Qt.LeftButton, pos=rect.center())
+        self.assertTrue(self.gui.share_mode.server_status.file_selection.delete_button.isVisible())
+        QtTest.QTest.mouseClick(self.gui.share_mode.server_status.file_selection.delete_button, QtCore.Qt.LeftButton)
+
+        # No more files, the delete button should be hidden
         self.assertFalse(self.gui.share_mode.server_status.file_selection.delete_button.isVisible())
 
     
@@ -60,7 +49,15 @@ class GuiShareTest(GuiBaseTest):
         self.gui.share_mode.server_status.file_selection.file_list.add_file('/tmp/test.txt')
         self.assertEqual(self.gui.share_mode.server_status.file_selection.get_num_files(), 2)
 
+
+    def add_large_file(self):
+        '''Add a large file to the share'''
+        size = 1024*1024*155
+        with open('/tmp/large_file', 'wb') as fout:
+            fout.write(os.urandom(size))
+        self.gui.share_mode.server_status.file_selection.file_list.add_file('/tmp/large_file')
     
+
     def add_delete_buttons_hidden(self):
         '''Test that the add and delete buttons are hidden when the server starts'''
         self.assertFalse(self.gui.share_mode.server_status.file_selection.add_button.isVisible())
@@ -95,35 +92,56 @@ class GuiShareTest(GuiBaseTest):
         QtTest.QTest.qWait(2000)
         self.assertEqual('onionshare', zip.read('test.txt').decode('utf-8'))
 
-    
+    def hit_404(self, public_mode):
+        '''Test that the server stops after too many 404s, or doesn't when in public_mode'''
+        bogus_path = '/gimme'
+        url = "http://127.0.0.1:{}/{}".format(self.gui.app.port, bogus_path)
+
+        for _ in range(20):
+            r = requests.get(url)
+
+        # A nasty hack to avoid the Alert dialog that blocks the rest of the test
+        if not public_mode:
+            self.gui.qtapp.exit()
+
+        # In public mode, we should still be running (no rate-limiting)
+        if public_mode:
+            self.web_server_is_running()
+        # In non-public mode, we should be shut down (rate-limiting)
+        else:
+            self.web_server_is_stopped()
+
+
     def add_button_visible(self):
         '''Test that the add button should be visible'''
         self.assertTrue(self.gui.share_mode.server_status.file_selection.add_button.isVisible())
 
 
+    # 'Grouped' tests follow from here
+
     def run_all_share_mode_setup_tests(self):
         """Tests in share mode prior to starting a share"""
         self.click_mode(self.gui.share_mode)
-        self.file_selection_widget_has_a_file()
+        self.file_selection_widget_has_files()
         self.history_is_not_visible(self.gui.share_mode)
         self.click_toggle_history(self.gui.share_mode)
         self.history_is_visible(self.gui.share_mode)
-        self.deleting_only_file_hides_delete_button()
+        self.deleting_all_files_hides_delete_button()
         self.add_a_file_and_delete_using_its_delete_widget()
         self.file_selection_widget_readd_files()
 
     
-    def run_all_share_mode_started_tests(self, public_mode):
+    def run_all_share_mode_started_tests(self, public_mode, startup_time=2000):
         """Tests in share mode after starting a share"""
         self.server_working_on_start_button_pressed(self.gui.share_mode)
         self.server_status_indicator_says_starting(self.gui.share_mode)
         self.add_delete_buttons_hidden()
         self.settings_button_is_hidden()
-        self.a_server_is_started(self.gui.share_mode)
-        self.a_web_server_is_running()
+        self.server_is_started(self.gui.share_mode, startup_time)
+        self.web_server_is_running()
         self.have_a_slug(self.gui.share_mode, public_mode)
         self.url_description_shown(self.gui.share_mode)
-        self.have_copy_url_button(self.gui.share_mode)
+        self.have_copy_url_button(self.gui.share_mode, public_mode)
         self.server_status_indicator_says_started(self.gui.share_mode)
 
     
@@ -133,11 +151,11 @@ class GuiShareTest(GuiBaseTest):
         self.download_share(public_mode)
         self.history_widgets_present(self.gui.share_mode)
         self.server_is_stopped(self.gui.share_mode, stay_open)
-        self.web_service_is_stopped()
+        self.web_server_is_stopped()
         self.server_status_indicator_says_closed(self.gui.share_mode, stay_open)
         self.add_button_visible()
         self.server_working_on_start_button_pressed(self.gui.share_mode)
-        self.a_server_is_started(self.gui.share_mode)
+        self.server_is_started(self.gui.share_mode)
         self.history_indicator(self.gui.share_mode, public_mode)
 
     
@@ -146,6 +164,17 @@ class GuiShareTest(GuiBaseTest):
         self.run_all_share_mode_setup_tests()
         self.run_all_share_mode_started_tests(public_mode)
         self.run_all_share_mode_download_tests(public_mode, stay_open)
+
+
+    def run_all_large_file_tests(self, public_mode, stay_open):
+        """Same as above but with a larger file"""
+        self.run_all_share_mode_setup_tests()
+        self.add_large_file()
+        self.run_all_share_mode_started_tests(public_mode, startup_time=15000)
+        self.assertTrue(self.gui.share_mode.filesize_warning.isVisible())
+        self.server_is_stopped(self.gui.share_mode, stay_open)
+        self.web_server_is_stopped()
+        self.server_status_indicator_says_closed(self.gui.share_mode, stay_open)
 
 
     def run_all_share_mode_persistent_tests(self, public_mode, stay_open):
@@ -164,5 +193,5 @@ class GuiShareTest(GuiBaseTest):
         self.run_all_share_mode_started_tests(public_mode)
         self.timeout_widget_hidden(self.gui.share_mode)
         self.server_timed_out(self.gui.share_mode, 10000)
-        self.web_service_is_stopped()
+        self.web_server_is_stopped()
 

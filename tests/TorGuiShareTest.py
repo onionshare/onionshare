@@ -6,6 +6,7 @@ from .GuiShareTest import GuiShareTest
 
 class TorGuiShareTest(TorGuiBaseTest, GuiShareTest):
     def download_share(self, public_mode):
+        '''Test downloading a share'''
         # Set up connecting to the onion
         (socks_address, socks_port) = self.gui.app.onion.get_tor_socks_port()
         session = requests.session()
@@ -27,12 +28,16 @@ class TorGuiShareTest(TorGuiBaseTest, GuiShareTest):
                 file_to_write.close()
             zip = zipfile.ZipFile('/tmp/download.zip')
         QtTest.QTest.qWait(4000)
-        self.assertEquals('onionshare', zip.read('test.txt').decode('utf-8'))
+        self.assertEqual('onionshare', zip.read('test.txt').decode('utf-8'))
+
 
     # Persistence tests
     def have_same_onion(self, onion):
         '''Test that we have the same onion'''
         self.assertEqual(self.gui.app.onion_host, onion)
+
+
+    # 'Grouped' tests follow from here
 
     def run_all_share_mode_started_tests(self, public_mode):
         """Tests in share mode after starting a share"""
@@ -40,13 +45,28 @@ class TorGuiShareTest(TorGuiBaseTest, GuiShareTest):
         self.server_status_indicator_says_starting(self.gui.share_mode)
         self.add_delete_buttons_hidden()
         self.settings_button_is_hidden()
-        self.a_server_is_started(self.gui.share_mode)
-        self.a_web_server_is_running()
+        self.server_is_started(self.gui.share_mode, startup_time=45000)
+        self.web_server_is_running()
         self.have_an_onion_service()
         self.have_a_slug(self.gui.share_mode, public_mode)
         self.url_description_shown(self.gui.share_mode)
-        self.have_copy_url_button(self.gui.share_mode)
+        self.have_copy_url_button(self.gui.share_mode, public_mode)
         self.server_status_indicator_says_started(self.gui.share_mode)
+
+
+    def run_all_share_mode_download_tests(self, public_mode, stay_open):
+        """Tests in share mode after downloading a share"""
+        self.web_page(self.gui.share_mode, 'Total size', public_mode)
+        self.download_share(public_mode)
+        self.history_widgets_present(self.gui.share_mode)
+        self.server_is_stopped(self.gui.share_mode, stay_open)
+        self.web_server_is_stopped()
+        self.server_status_indicator_says_closed(self.gui.share_mode, stay_open)
+        self.add_button_visible()
+        self.server_working_on_start_button_pressed(self.gui.share_mode)
+        self.server_is_started(self.gui.share_mode, startup_time=45000)
+        self.history_indicator(self.gui.share_mode, public_mode)
+
 
     def run_all_share_mode_persistent_tests(self, public_mode, stay_open):
         """Same as end-to-end share tests but also test the slug is the same on multiple shared"""
@@ -57,6 +77,7 @@ class TorGuiShareTest(TorGuiBaseTest, GuiShareTest):
         self.run_all_share_mode_download_tests(public_mode, stay_open)
         self.have_same_onion(onion)
         self.have_same_slug(slug)
+
     
     def run_all_share_mode_timer_tests(self, public_mode):
         """Auto-stop timer tests in share mode"""
@@ -65,5 +86,5 @@ class TorGuiShareTest(TorGuiBaseTest, GuiShareTest):
         self.run_all_share_mode_started_tests(public_mode)
         self.timeout_widget_hidden(self.gui.share_mode)
         self.server_timed_out(self.gui.share_mode, 125000)
-        self.web_service_is_stopped()
+        self.web_server_is_stopped()
 
