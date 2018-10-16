@@ -11,6 +11,10 @@ class LocalReceiveModeTest(unittest.TestCase, GuiReceiveTest):
         }
         cls.gui = GuiReceiveTest.set_up(test_settings, 'LocalReceiveModeTest')
 
+    @classmethod
+    def tearDownClass(cls):
+        GuiReceiveTest.tear_down()
+
     def test_gui(self):
         self.run_all_common_setup_tests()
         self.run_all_receive_mode_tests(False, True)

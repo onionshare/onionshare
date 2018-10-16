@@ -12,6 +12,10 @@ class ShareModePublicModeTest(unittest.TestCase, TorGuiShareTest):
         }
         cls.gui = TorGuiShareTest.set_up(test_settings, 'ShareModePublicModeTest')
 
+    @classmethod
+    def tearDownClass(cls):
+        TorGuiShareTest.tear_down()
+
     @pytest.mark.tor
     def test_gui(self):
         self.run_all_common_setup_tests()
