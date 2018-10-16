@@ -36,11 +36,16 @@ class TorGuiShareTest(TorGuiBaseTest, GuiShareTest):
         '''Test that we have the same onion'''
         self.assertEqual(self.gui.app.onion_host, onion)
 
+    # legacy v2 onion test
+    def have_v2_onion(self):
+        '''Test that the onion is a v2 style onion'''
+        self.assertRegex(self.gui.app.onion_host, r'[a-z2-7].onion')
+        self.assertEqual(len(self.gui.app.onion_host), 22)
 
     # 'Grouped' tests follow from here
 
     def run_all_share_mode_started_tests(self, public_mode):
-        """Tests in share mode after starting a share"""
+        '''Tests in share mode after starting a share'''
         self.server_working_on_start_button_pressed(self.gui.share_mode)
         self.server_status_indicator_says_starting(self.gui.share_mode)
         self.add_delete_buttons_hidden()

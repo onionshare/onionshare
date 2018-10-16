@@ -158,9 +158,7 @@ class TorGuiBaseTest(GuiBaseTest):
     def copy_have_hidserv_auth_button(self, mode):
         '''Test that the Copy HidservAuth button is shown'''
         self.assertTrue(mode.server_status.copy_hidservauth_button.isVisible())
-        clipboard = self.gui.qtapp.clipboard()
-        self.assertRegex(clipboard.text(), r'HidServAuth %s [a-zA-Z1-9]' % self.gui.app.onion_host)
 
     def hidserv_auth_string(self):
         '''Test the validity of the HidservAuth string'''
-        self.assertRegex(self.gui.app.auth_string, r'HidServAuth %s [a-zA-Z1-9]' % self.gui.app.onion_host)
+        self.assertRegex(self.gui.app.auth_string, r'HidServAuth {} [a-zA-Z1-9]'.format(self.gui.app.onion_host))
