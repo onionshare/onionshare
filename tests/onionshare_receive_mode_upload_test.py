@@ -12,6 +12,10 @@ class ReceiveModeTest(unittest.TestCase, TorGuiReceiveTest):
         }
         cls.gui = TorGuiReceiveTest.set_up(test_settings, 'ReceiveModeTest')
 
+    @classmethod
+    def tearDownClass(cls):
+        TorGuiReceiveTest.tear_down()
+
     @pytest.mark.tor
     def test_gui(self):
         self.run_all_common_setup_tests()

@@ -12,6 +12,10 @@ class LocalReceiveModeTimerTest(unittest.TestCase, GuiReceiveTest):
         }
         cls.gui = GuiReceiveTest.set_up(test_settings, 'LocalReceiveModeTimerTest')
 
+    @classmethod
+    def tearDownClass(cls):
+        GuiReceiveTest.tear_down()
+
     def test_gui(self):
         self.run_all_common_setup_tests()
         self.run_all_receive_mode_timer_tests(False)
