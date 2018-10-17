@@ -22,18 +22,14 @@ jobs:
           name: install dependencies
           command: |
             sudo apt-get update && sudo apt-get install python3-pyqt5
-            python3 -m venv venv
-            . venv/bin/activate
-            pip install -r install/requirements.txt
-            pip install -r install/requirements-tests.txt
-            pip install pytest-cov flake8
-            pip install -r install/requirements-tests.txt
+            pip3 install -r install/requirements.txt
+            pip3 install -r install/requirements-tests.txt
+            pip3 install pytest-cov flake8
 
       # run tests!
       - run:
           name: run flask tests
           command: | 
-            . venv/bin/activate
             # stop the build if there are Python syntax errors or undefined names
             flake8 . --count --select=E901,E999,F821,F822,F823 --show-source --statistics
             # exit-zero treats all errors as warnings.  The GitHub editor is 127 chars wide
@@ -42,6 +38,5 @@ jobs:
       - run:
           name: run tests
           command: |
-            . venv/bin/activate
             xvfb-run pytest --cov=onionshare --cov=onionshare_gui --cov-report=term-missing -vvv tests/
 
