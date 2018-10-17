@@ -14,7 +14,7 @@ class ShareModePersistentSlugTest(unittest.TestCase, TorGuiShareTest):
             "save_private_key": True,
             "close_after_first_download": False,
         }
-        cls.gui = TorGuiShareTest.set_up(test_settings, 'ShareModePersistentSlugTest')
+        cls.gui = TorGuiShareTest.set_up(test_settings)
 
     @classmethod
     def tearDownClass(cls):

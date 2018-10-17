@@ -10,7 +10,7 @@ class ShareModeV2OnionTest(unittest.TestCase, TorGuiShareTest):
         test_settings = {
             "use_legacy_v2_onions": True,
         }
-        cls.gui = TorGuiShareTest.set_up(test_settings, 'ShareModeV2OnionTest')
+        cls.gui = TorGuiShareTest.set_up(test_settings)
 
     @classmethod
     def tearDownClass(cls):

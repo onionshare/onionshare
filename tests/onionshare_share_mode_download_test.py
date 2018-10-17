@@ -9,7 +9,7 @@ class ShareModeTest(unittest.TestCase, TorGuiShareTest):
     def setUpClass(cls):
         test_settings = {
         }
-        cls.gui = TorGuiShareTest.set_up(test_settings, 'ShareModeTest')
+        cls.gui = TorGuiShareTest.set_up(test_settings)
 
     @classmethod
     def tearDownClass(cls):

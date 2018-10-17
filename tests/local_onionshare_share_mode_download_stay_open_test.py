@@ -9,7 +9,7 @@ class LocalShareModeStayOpenTest(unittest.TestCase, GuiShareTest):
         test_settings = {
             "close_after_first_download": False,
         }
-        cls.gui = GuiShareTest.set_up(test_settings, 'LocalShareModeStayOpenTest')
+        cls.gui = GuiShareTest.set_up(test_settings)
 
     @classmethod
     def tearDownClass(cls):

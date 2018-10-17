@@ -9,7 +9,7 @@ class LocalShareModePublicModeTest(unittest.TestCase, GuiShareTest):
         test_settings = {
             "public_mode": True,
         }
-        cls.gui = GuiShareTest.set_up(test_settings, 'LocalShareModePublicModeTest')
+        cls.gui = GuiShareTest.set_up(test_settings)
 
     @classmethod
     def tearDownClass(cls):

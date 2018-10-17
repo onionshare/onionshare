@@ -11,7 +11,7 @@ class ShareModeStealthTest(unittest.TestCase, TorGuiShareTest):
             "use_legacy_v2_onions": True,
             "use_stealth": True,
         }
-        cls.gui = TorGuiShareTest.set_up(test_settings, 'ShareModeStealthTest')
+        cls.gui = TorGuiShareTest.set_up(test_settings)
 
     @classmethod
     def tearDownClass(cls):

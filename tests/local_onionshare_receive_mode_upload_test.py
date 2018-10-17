@@ -9,7 +9,7 @@ class LocalReceiveModeTest(unittest.TestCase, GuiReceiveTest):
         test_settings = {
             "receive_allow_receiver_shutdown": True
         }
-        cls.gui = GuiReceiveTest.set_up(test_settings, 'LocalReceiveModeTest')
+        cls.gui = GuiReceiveTest.set_up(test_settings)
 
     @classmethod
     def tearDownClass(cls):

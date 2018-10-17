@@ -8,7 +8,7 @@ class LocalShareModeUnReadableFileTest(unittest.TestCase, GuiShareTest):
     def setUpClass(cls):
         test_settings = {
         }
-        cls.gui = GuiShareTest.set_up(test_settings, 'LocalShareModeUnReadableFileTest')
+        cls.gui = GuiShareTest.set_up(test_settings)
 
     @classmethod
     def tearDownClass(cls):

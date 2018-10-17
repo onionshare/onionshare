@@ -10,7 +10,7 @@ class ShareModeStayOpenTest(unittest.TestCase, TorGuiShareTest):
         test_settings = {
             "close_after_first_download": False,
         }
-        cls.gui = TorGuiShareTest.set_up(test_settings, 'ShareModeStayOpenTest')
+        cls.gui = TorGuiShareTest.set_up(test_settings)
 
     @classmethod
     def tearDownClass(cls):

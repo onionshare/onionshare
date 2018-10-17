@@ -10,7 +10,7 @@ class ReceiveModeTest(unittest.TestCase, TorGuiReceiveTest):
         test_settings = {
             "receive_allow_receiver_shutdown": True
         }
-        cls.gui = TorGuiReceiveTest.set_up(test_settings, 'ReceiveModeTest')
+        cls.gui = TorGuiReceiveTest.set_up(test_settings)
 
     @classmethod
     def tearDownClass(cls):

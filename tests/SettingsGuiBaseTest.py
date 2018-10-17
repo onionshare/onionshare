@@ -13,7 +13,7 @@ from onionshare_gui.settings_dialog import SettingsDialog
 
 class SettingsGuiBaseTest(object):
     @staticmethod
-    def set_up(test_settings, settings_filename):
+    def set_up(test_settings):
         '''Create the GUI'''
         # Create our test file
         testfile = open('/tmp/test.txt', 'w')
@@ -37,9 +37,9 @@ class SettingsGuiBaseTest(object):
             if key not in test_settings:
                 test_settings[key] = val
 
-        open('/tmp/{}.json'.format(settings_filename), 'w').write(json.dumps(test_settings))
+        open('/tmp/settings.json', 'w').write(json.dumps(test_settings))
 
-        gui = SettingsDialog(common, testonion, qtapp, '/tmp/{}.json'.format(settings_filename), True)
+        gui = SettingsDialog(common, testonion, qtapp, '/tmp/settings.json', True)
         return gui
 
 
