@@ -162,3 +162,12 @@ class TorGuiBaseTest(GuiBaseTest):
     def hidserv_auth_string(self):
         '''Test the validity of the HidservAuth string'''
         self.assertRegex(self.gui.app.auth_string, r'HidServAuth {} [a-zA-Z1-9]'.format(self.gui.app.onion_host))
+
+
+
+    # Miscellaneous tests
+    def tor_killed_statusbar_message_shown(self, mode):
+        '''Test that the status bar message shows Tor was disconnected'''
+        self.gui.app.onion.c = None
+        QtTest.QTest.qWait(1000)
+        self.assertTrue(mode.status_bar.currentMessage(), strings._('gui_tor_connection_lost'))

@@ -1,6 +1,6 @@
 import os
 import requests
-from PyQt5 import QtTest
+from PyQt5 import QtCore, QtTest
 from .GuiBaseTest import GuiBaseTest
 
 class GuiReceiveTest(GuiBaseTest):
@@ -24,8 +24,7 @@ class GuiReceiveTest(GuiBaseTest):
             path = 'http://127.0.0.1:{}/upload'.format(self.gui.app.port)
         response = requests.post(path, files=files)
 
-        # A nasty hack to avoid the Alert dialog that blocks the rest of the test
-        self.gui.qtapp.exit()
+        QtCore.QTimer.singleShot(1000, self.accept_dialog)
         self.assertTrue('Error uploading, please inform the OnionShare user' in response.text)
 
     def upload_dir_permissions(self, mode=0o755):
