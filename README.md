@@ -18,5 +18,5 @@ You can set up your development environment to build OnionShare yourself by foll
 
 # Screenshots 
 
-![Server Screenshot](/screenshots/server.png)
+![Server Screenshot](/screenshots/appdata-server.png)
 ![Client Screenshot](/screenshots/client.png)
