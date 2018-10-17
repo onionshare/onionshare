@@ -4,9 +4,9 @@ from PyQt5 import QtCore, QtTest
 from .GuiBaseTest import GuiBaseTest
 
 class GuiReceiveTest(GuiBaseTest):
-    def upload_file(self, public_mode, expected_file):
+    def upload_file(self, public_mode, file_to_upload, expected_file):
         '''Test that we can upload the file'''
-        files = {'file[]': open('/tmp/test.txt', 'rb')}
+        files = {'file[]': open(file_to_upload, 'rb')}
         if not public_mode:
             path = 'http://127.0.0.1:{}/{}/upload'.format(self.gui.app.port, self.gui.receive_mode.web.slug)
         else:
@@ -30,6 +30,12 @@ class GuiReceiveTest(GuiBaseTest):
     def upload_dir_permissions(self, mode=0o755):
         '''Manipulate the permissions on the upload dir in between tests'''
         os.chmod('/tmp/OnionShare', mode)
+
+    def try_public_paths_in_non_public_mode(self):
+        response = requests.post('http://127.0.0.1:{}/upload'.format(self.gui.app.port))
+        self.assertEqual(response.status_code, 404)
+        response = requests.get('http://127.0.0.1:{}/close'.format(self.gui.app.port))
+        self.assertEqual(response.status_code, 404)
 
     def run_receive_mode_sender_closed_tests(self, public_mode):
         '''Test that the share can be stopped by the sender in receive mode'''
@@ -65,11 +71,17 @@ class GuiReceiveTest(GuiBaseTest):
     def run_all_receive_mode_tests(self, public_mode, receive_allow_receiver_shutdown):
         '''Upload files in receive mode and stop the share'''
         self.run_all_receive_mode_setup_tests(public_mode)
-        self.upload_file(public_mode, '/tmp/OnionShare/test.txt')
+        if not public_mode:
+            self.try_public_paths_in_non_public_mode()
+        self.upload_file(public_mode, '/tmp/test.txt', '/tmp/OnionShare/test.txt')
         self.history_widgets_present(self.gui.receive_mode)
         self.counter_incremented(self.gui.receive_mode, 1)
-        self.upload_file(public_mode, '/tmp/OnionShare/test-2.txt')
+        self.upload_file(public_mode, '/tmp/test.txt', '/tmp/OnionShare/test-2.txt')
         self.counter_incremented(self.gui.receive_mode, 2)
+        self.upload_file(public_mode, '/tmp/testdir/test', '/tmp/OnionShare/test')
+        self.counter_incremented(self.gui.receive_mode, 3)
+        self.upload_file(public_mode, '/tmp/testdir/test', '/tmp/OnionShare/test-2')
+        self.counter_incremented(self.gui.receive_mode, 4)
         self.history_indicator(self.gui.receive_mode, public_mode)
         self.server_is_stopped(self.gui.receive_mode, False)
         self.web_server_is_stopped()

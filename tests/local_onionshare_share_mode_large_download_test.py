@@ -3,12 +3,12 @@ import unittest
 
 from .GuiShareTest import GuiShareTest
 
-class LocalShareModeTest(unittest.TestCase, GuiShareTest):
+class LocalShareModeLargeDownloadTest(unittest.TestCase, GuiShareTest):
     @classmethod
     def setUpClass(cls):
         test_settings = {
         }
-        cls.gui = GuiShareTest.set_up(test_settings, 'LocalShareModeTest')
+        cls.gui = GuiShareTest.set_up(test_settings, 'LocalShareModeLargeDownloadTest')
 
     @classmethod
     def tearDownClass(cls):
