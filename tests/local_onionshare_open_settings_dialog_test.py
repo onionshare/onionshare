@@ -19,7 +19,7 @@ class LocalOpenSettingsDialogTest(unittest.TestCase, GuiShareTest):
         self.run_all_common_setup_tests()
         self.run_all_share_mode_setup_tests()
         # Make sure we can open the settings dialog via the settings button
-        QtCore.QTimer.singleShot(4000, self.accept_dialog)
+        QtCore.QTimer.singleShot(1000, self.accept_dialog)
         QtTest.QTest.mouseClick(self.gui.settings_button, QtCore.Qt.LeftButton)
 
 if __name__ == "__main__":
