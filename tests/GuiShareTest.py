@@ -12,10 +12,10 @@ class GuiShareTest(GuiBaseTest):
         self.assertEqual(self.gui.share_mode.server_status.web.slug, slug)
 
     # Share-specific tests
-    
-    def file_selection_widget_has_files(self):
-        '''Test that the number of items in the list is 2'''
-        self.assertEqual(self.gui.share_mode.server_status.file_selection.get_num_files(), 2)
+
+    def file_selection_widget_has_files(self, num=2):
+        '''Test that the number of items in the list is as expected'''
+        self.assertEqual(self.gui.share_mode.server_status.file_selection.get_num_files(), num)
 
     
     def deleting_all_files_hides_delete_button(self):
@@ -40,14 +40,14 @@ class GuiShareTest(GuiBaseTest):
         '''Test that we can also delete a file by clicking on its [X] widget'''
         self.gui.share_mode.server_status.file_selection.file_list.add_file('/etc/hosts')
         QtTest.QTest.mouseClick(self.gui.share_mode.server_status.file_selection.file_list.item(0).item_button, QtCore.Qt.LeftButton)
-        self.assertEqual(self.gui.share_mode.server_status.file_selection.get_num_files(), 0)
+        self.file_selection_widget_has_files(0)
 
     
     def file_selection_widget_readd_files(self):
         '''Re-add some files to the list so we can share'''
         self.gui.share_mode.server_status.file_selection.file_list.add_file('/etc/hosts')
         self.gui.share_mode.server_status.file_selection.file_list.add_file('/tmp/test.txt')
-        self.assertEqual(self.gui.share_mode.server_status.file_selection.get_num_files(), 2)
+        self.file_selection_widget_has_files(2)
 
 
     def add_large_file(self):
@@ -102,7 +102,7 @@ class GuiShareTest(GuiBaseTest):
 
         # A nasty hack to avoid the Alert dialog that blocks the rest of the test
         if not public_mode:
-            self.gui.qtapp.exit()
+            QtCore.QTimer.singleShot(1000, self.accept_dialog)
 
         # In public mode, we should still be running (no rate-limiting)
         if public_mode:
@@ -195,3 +195,10 @@ class GuiShareTest(GuiBaseTest):
         self.server_timed_out(self.gui.share_mode, 10000)
         self.web_server_is_stopped()
 
+
+    def run_all_share_mode_unreadable_file_tests(self):
+        '''Attempt to share an unreadable file'''
+        self.run_all_share_mode_setup_tests()
+        QtCore.QTimer.singleShot(1000, self.accept_dialog)
+        self.gui.share_mode.server_status.file_selection.file_list.add_file('/tmp/nonexistent.txt')
+        self.file_selection_widget_has_files(2)

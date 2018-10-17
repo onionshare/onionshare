@@ -303,6 +303,11 @@ class GuiBaseTest(object):
         # We should have timed out now
         self.assertEqual(mode.server_status.status, 0)
 
+    # Hack to close an Alert dialog that would otherwise block tests
+    def accept_dialog(self):
+        window = self.gui.qtapp.activeWindow()
+        if window:
+            window.close()
 
     # 'Grouped' tests follow from here
 
