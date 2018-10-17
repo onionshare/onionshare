@@ -63,8 +63,10 @@ class GuiBaseTest(object):
             os.remove('/tmp/test.txt')
             os.remove('/tmp/settings.json')
             os.remove('/tmp/large_file')
-            shutil.rmtree('/tmp/OnionShare')
+            os.remove('/tmp/download.zip')
+            os.remove('/tmp/webpage')
             shutil.rmtree('/tmp/testdir')
+            shutil.rmtree('/tmp/OnionShare')
         except:
             pass
 
