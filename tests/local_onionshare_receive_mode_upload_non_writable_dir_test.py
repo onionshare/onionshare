@@ -3,13 +3,13 @@ import unittest
 
 from .GuiReceiveTest import GuiReceiveTest
 
-class LocalReceiveModeTest(unittest.TestCase, GuiReceiveTest):
+class LocalReceiveModeUnwritableTest(unittest.TestCase, GuiReceiveTest):
     @classmethod
     def setUpClass(cls):
         test_settings = {
             "receive_allow_receiver_shutdown": True
         }
-        cls.gui = GuiReceiveTest.set_up(test_settings, 'LocalReceiveModeTest')
+        cls.gui = GuiReceiveTest.set_up(test_settings, 'LocalReceiveModeUnwritableTest')
 
     @classmethod
     def tearDownClass(cls):

@@ -29,7 +29,7 @@ class GuiBaseTest(object):
         # Create a test dir and files
         if not os.path.exists('/tmp/testdir'):
             testdir = os.mkdir('/tmp/testdir')
-        testfile = open('/tmp/testdir/test.txt', 'w')
+        testfile = open('/tmp/testdir/test', 'w')
         testfile.write('onionshare')
         testfile.close()
 

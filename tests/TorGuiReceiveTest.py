@@ -5,13 +5,13 @@ from .TorGuiBaseTest import TorGuiBaseTest
 
 class TorGuiReceiveTest(TorGuiBaseTest):
 
-    def upload_file(self, public_mode, expected_file):
+    def upload_file(self, public_mode, file_to_upload, expected_file):
         '''Test that we can upload the file'''
         (socks_address, socks_port) = self.gui.app.onion.get_tor_socks_port()
         session = requests.session()
         session.proxies = {}
         session.proxies['http'] = 'socks5h://{}:{}'.format(socks_address, socks_port)
-        files = {'file[]': open('/tmp/test.txt', 'rb')}
+        files = {'file[]': open(file_to_upload, 'rb')}
         if not public_mode:
             path = 'http://{}/{}/upload'.format(self.gui.app.onion_host, self.gui.receive_mode.web.slug)
         else:
@@ -40,11 +40,15 @@ class TorGuiReceiveTest(TorGuiBaseTest):
         self.have_copy_url_button(self.gui.receive_mode, public_mode)
         self.server_status_indicator_says_started(self.gui.receive_mode)
         self.web_page(self.gui.receive_mode, 'Select the files you want to send, then click', public_mode)
-        self.upload_file(public_mode, '/tmp/OnionShare/test.txt')
+        self.upload_file(public_mode, '/tmp/test.txt', '/tmp/OnionShare/test.txt')
         self.history_widgets_present(self.gui.receive_mode)
         self.counter_incremented(self.gui.receive_mode, 1)
-        self.upload_file(public_mode, '/tmp/OnionShare/test-2.txt')
+        self.upload_file(public_mode, '/tmp/test.txt', '/tmp/OnionShare/test-2.txt')
         self.counter_incremented(self.gui.receive_mode, 2)
+        self.upload_file(public_mode, '/tmp/testdir/test', '/tmp/OnionShare/test')
+        self.counter_incremented(self.gui.receive_mode, 3)
+        self.upload_file(public_mode, '/tmp/testdir/test', '/tmp/OnionShare/test-2')
+        self.counter_incremented(self.gui.receive_mode, 4)
         self.history_indicator(self.gui.receive_mode, public_mode)
         self.server_is_stopped(self.gui.receive_mode, False)
         self.web_server_is_stopped()

@@ -11,7 +11,7 @@ class SettingsGuiTest(unittest.TestCase, SettingsGuiBaseTest):
     def setUpClass(cls):
         test_settings = {
           "no_bridges": False,
-          "tor_bridges_use_obfs4": True,
+          "tor_bridges_use_custom_bridges": "Bridge 1.2.3.4:56 EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE\nBridge 5.6.7.8:910 EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE\nBridge 11.12.13.14:1516 EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE\n",
         }
         cls.gui = SettingsGuiBaseTest.set_up(test_settings, 'settings')
 
@@ -97,8 +97,12 @@ class SettingsGuiTest(unittest.TestCase, SettingsGuiBaseTest):
         self.assertTrue(self.gui.connection_type_bundled_radio.isChecked())
         # bridge options are shown
         self.assertTrue(self.gui.connection_type_bridges_radio_group.isVisible())
-        # bridges are set to obfs4
+        # bridges are set to custom
         self.assertFalse(self.gui.tor_bridges_no_bridges_radio.isChecked())
+        self.assertTrue(self.gui.tor_bridges_use_custom_radio.isChecked())
+
+        # switch to obfs4
+        QtTest.QTest.mouseClick(self.gui.tor_bridges_use_obfs4_radio, QtCore.Qt.LeftButton, pos=QtCore.QPoint(2,self.gui.tor_bridges_use_obfs4_radio.height()/2))
         self.assertTrue(self.gui.tor_bridges_use_obfs4_radio.isChecked())
 
         # custom bridges are hidden
@@ -143,10 +147,11 @@ class SettingsGuiTest(unittest.TestCase, SettingsGuiBaseTest):
 
         # re-enable bundled mode
         QtTest.QTest.mouseClick(self.gui.connection_type_bundled_radio, QtCore.Qt.LeftButton, pos=QtCore.QPoint(2,self.gui.connection_type_bundled_radio.height()/2))
-        # set some custom bridges
+        # go back to custom bridges
         QtTest.QTest.mouseClick(self.gui.tor_bridges_use_custom_radio, QtCore.Qt.LeftButton, pos=QtCore.QPoint(2,self.gui.tor_bridges_use_custom_radio.height()/2))
         self.assertTrue(self.gui.tor_bridges_use_custom_radio.isChecked())
         self.assertTrue(self.gui.tor_bridges_use_custom_textbox.isVisible())
+        self.assertFalse(self.gui.tor_bridges_use_obfs4_radio.isChecked())
         self.gui.tor_bridges_use_custom_textbox.setPlainText('94.242.249.2:83 E25A95F1DADB739F0A83EB0223A37C02FD519306\n148.251.90.59:7510 019F727CA6DCA6CA5C90B55E477B7D87981E75BC\n93.80.47.217:41727 A6A0D497D98097FCFE91D639548EE9E34C15CDD3')
 
         # Test that the Settings Dialog can save the settings and close itself
