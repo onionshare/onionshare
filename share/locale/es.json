@@ -143,5 +143,12 @@
     "gui_settings_authenticate_no_auth_option": "Sin autenticación, o autenticación por cookies",
     "gui_settings_authenticate_password_option": "Contraseña",
     "gui_settings_password_label": "Contraseña",
-    "gui_settings_tor_bridges_no_bridges_radio_option": "No usar puentes"
+    "gui_settings_tor_bridges_no_bridges_radio_option": "No usar puentes",
+    "gui_receive_quit_warning": "Estás recibiendo archivos. ¿Quieres cerrar OnionShare igualmente?",
+    "gui_settings_tor_bridges_obfs4_radio_option": "Usar transportes enchufables obfs4 incorporados",
+    "gui_settings_tor_bridges_obfs4_radio_option_no_obfs4proxy": "Usar transportes enchufables obfs4 incorporados (requiere obfs4proxy)",
+    "gui_settings_tor_bridges_meek_lite_azure_radio_option": "Utilizar transporte enchufable incorporado meek_lite (Azure)",
+    "gui_settings_tor_bridges_meek_lite_azure_radio_option_no_obfs4proxy": "Usar transporte enchufable meek_lite (Azure) incorporado (requiere obfs4proxy)",
+    "gui_settings_meek_lite_expensive_warning": "Advertencia: Los puentes meek_lite son caros para el Proyecto Tor. <br><br>br>Úsalos sólo si no puedes conectarte a Tor directamente, a través de transportes obfs4, u otros puentes normales.",
+    "gui_settings_tor_bridges_custom_radio_option": "Usar puentes personalizados"
 }
