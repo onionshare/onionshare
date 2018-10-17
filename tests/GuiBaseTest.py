@@ -19,7 +19,7 @@ from onionshare_gui.mode.receive_mode import ReceiveMode
 
 class GuiBaseTest(object):
     @staticmethod
-    def set_up(test_settings, settings_filename):
+    def set_up(test_settings):
         '''Create GUI with given settings'''
         # Create our test file
         testfile = open('/tmp/test.txt', 'w')
@@ -51,9 +51,9 @@ class GuiBaseTest(object):
         app = OnionShare(common, testonion, True, 0)
 
         web = Web(common, False, True)
-        open('/tmp/{}.json'.format(settings_filename), 'w').write(json.dumps(test_settings))
+        open('/tmp/settings.json', 'w').write(json.dumps(test_settings))
 
-        gui = OnionShareGui(common, testonion, qtapp, app, ['/tmp/test.txt', '/tmp/testdir'], '/tmp/{}.json'.format(settings_filename), True)
+        gui = OnionShareGui(common, testonion, qtapp, app, ['/tmp/test.txt', '/tmp/testdir'], '/tmp/settings.json', True)
         return gui
 
     @staticmethod
@@ -61,6 +61,7 @@ class GuiBaseTest(object):
         '''Clean up after tests'''
         try:
             os.remove('/tmp/test.txt')
+            os.remove('/tmp/settings.json')
             os.remove('/tmp/largefile')
             shutil.rmtree('/tmp/OnionShare')
             shutil.rmtree('/tmp/testdir')

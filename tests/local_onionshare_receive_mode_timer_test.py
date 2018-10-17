@@ -10,7 +10,7 @@ class LocalReceiveModeTimerTest(unittest.TestCase, GuiReceiveTest):
             "public_mode": False,
             "shutdown_timeout": True,
         }
-        cls.gui = GuiReceiveTest.set_up(test_settings, 'LocalReceiveModeTimerTest')
+        cls.gui = GuiReceiveTest.set_up(test_settings)
 
     @classmethod
     def tearDownClass(cls):

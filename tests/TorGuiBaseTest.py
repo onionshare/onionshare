@@ -18,7 +18,7 @@ from .GuiBaseTest import GuiBaseTest
 
 class TorGuiBaseTest(GuiBaseTest):
     @staticmethod
-    def set_up(test_settings, settings_filename):
+    def set_up(test_settings):
         '''Create GUI with given settings'''
         # Create our test file
         testfile = open('/tmp/test.txt', 'w')
@@ -51,9 +51,9 @@ class TorGuiBaseTest(GuiBaseTest):
         app = OnionShare(common, testonion, False, 0)
 
         web = Web(common, False, False)
-        open('/tmp/{}.json'.format(settings_filename), 'w').write(json.dumps(test_settings))
+        open('/tmp/settings.json', 'w').write(json.dumps(test_settings))
 
-        gui = OnionShareGui(common, testonion, qtapp, app, ['/tmp/test.txt', '/tmp/testdir'], '/tmp/{}.json'.format(settings_filename), False)
+        gui = OnionShareGui(common, testonion, qtapp, app, ['/tmp/test.txt', '/tmp/testdir'], '/tmp/settings.json', False)
         return gui
 
     def history_indicator(self, mode, public_mode):

@@ -13,7 +13,7 @@ class SettingsGuiTest(unittest.TestCase, SettingsGuiBaseTest):
           "no_bridges": False,
           "tor_bridges_use_custom_bridges": "Bridge 1.2.3.4:56 EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE\nBridge 5.6.7.8:910 EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE\nBridge 11.12.13.14:1516 EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE\n",
         }
-        cls.gui = SettingsGuiBaseTest.set_up(test_settings, 'settings')
+        cls.gui = SettingsGuiBaseTest.set_up(test_settings)
 
     @classmethod
     def tearDownClass(cls):

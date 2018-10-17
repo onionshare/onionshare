@@ -12,7 +12,7 @@ class LocalShareModePersistentSlugTest(unittest.TestCase, GuiShareTest):
             "save_private_key": True,
             "close_after_first_download": False,
         }
-        cls.gui = GuiShareTest.set_up(test_settings, 'LocalShareModePersistentSlugTest')
+        cls.gui = GuiShareTest.set_up(test_settings)
 
     @classmethod
     def tearDownClass(cls):

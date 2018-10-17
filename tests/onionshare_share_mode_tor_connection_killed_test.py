@@ -9,7 +9,7 @@ class ShareModeTorConnectionKilledTest(unittest.TestCase, TorGuiShareTest):
     def setUpClass(cls):
         test_settings = {
         }
-        cls.gui = TorGuiShareTest.set_up(test_settings, 'ShareModeTorConnectionKilledTest')
+        cls.gui = TorGuiShareTest.set_up(test_settings)
 
     @pytest.mark.tor
     def test_gui(self):

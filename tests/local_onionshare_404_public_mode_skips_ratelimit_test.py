@@ -10,7 +10,7 @@ class Local404PublicModeRateLimitTest(unittest.TestCase, GuiShareTest):
             "close_after_first_download": False,
             "public_mode": True
         }
-        cls.gui = GuiShareTest.set_up(test_settings, 'Local404PublicModeRateLimitTest')
+        cls.gui = GuiShareTest.set_up(test_settings)
 
     @classmethod
     def tearDownClass(cls):
