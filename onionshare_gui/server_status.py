@@ -269,7 +269,7 @@ class ServerStatus(QtWidgets.QWidget):
                     self.timeout = self.shutdown_timeout.dateTime().toPyDateTime().replace(second=0, microsecond=0)
                 # If the timeout has actually passed already before the user hit Start, refuse to start the server.
                 if QtCore.QDateTime.currentDateTime().toPyDateTime() > self.timeout:
-                    Alert(self.common, strings._('gui_server_timeout_expired', QtWidgets.QMessageBox.Warning))
+                    Alert(self.common, strings._('gui_server_timeout_expired'), QtWidgets.QMessageBox.Warning)
                 else:
                     self.start_server()
             else:
