@@ -1,13 +1,10 @@
 import json
 import os
-import sys
-from PyQt5 import QtWidgets
 
 from onionshare import strings
 from onionshare.common import Common
 from onionshare.settings import Settings
 from onionshare.onion import Onion
-from onionshare.web import Web
 from onionshare_gui import Application, OnionShare
 from onionshare_gui.settings_dialog import SettingsDialog
 
@@ -30,8 +27,6 @@ class SettingsGuiBaseTest(object):
         global qtapp
         qtapp = Application(common)
         app = OnionShare(common, testonion, True, 0)
-
-        web = Web(common, False, True)
 
         for key, val in common.settings.default_settings.items():
             if key not in test_settings:
