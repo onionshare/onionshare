@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-import pytest
 import unittest
 from PyQt5 import QtCore, QtTest
 
