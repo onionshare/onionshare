@@ -22,9 +22,9 @@ jobs:
           name: install dependencies
           command: |
             sudo apt-get update && sudo apt-get install python3-pyqt5
-            pip3 install -r install/requirements.txt
-            pip3 install -r install/requirements-tests.txt
-            pip3 install pytest-cov flake8
+            sudo pip3 install -r install/requirements.txt
+            sudo pip3 install -r install/requirements-tests.txt
+            sudo pip3 install pytest-cov flake8
 
       # run tests!
       - run:
