@@ -12,9 +12,9 @@ class LocalQuittingDuringSharePromptsWarningTest(unittest.TestCase, GuiShareTest
         }
         cls.gui = GuiShareTest.set_up(test_settings, 'LocalQuittingDuringSharePromptsWarningTest')
 
-    #@classmethod
-    #def tearDownClass(cls):
-    #    TorGuiShareTest.tear_down()
+    @classmethod
+    def tearDownClass(cls):
+        GuiShareTest.tear_down()
 
     def test_gui(self):
         self.run_all_common_setup_tests()
