@@ -62,7 +62,7 @@ class GuiBaseTest(object):
         try:
             os.remove('/tmp/test.txt')
             os.remove('/tmp/settings.json')
-            os.remove('/tmp/largefile')
+            os.remove('/tmp/large_file')
             shutil.rmtree('/tmp/OnionShare')
             shutil.rmtree('/tmp/testdir')
         except:
