@@ -284,7 +284,7 @@ class ShareMode(Mode):
         # Update in progress count
         self.history.in_progress_count -= 1
         self.history.update_in_progress()
-        self.system_tray.showMessage(strings._('systray_download_canceled_title', True), strings._('systray_download_canceled_message', True))
+        self.system_tray.showMessage(strings._('systray_download_canceled_title'), strings._('systray_download_canceled_message'))
 
     def on_reload_settings(self):
         """
