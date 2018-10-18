@@ -57,7 +57,7 @@ def get_platform():
     Returns the platform OnionShare is running on.
     """
     plat = platform.system()
-    if plat.endswith('BSD'):
+    if plat.endswith('BSD') or plat == 'DragonFly':
         plat = 'BSD'
     return plat
 
