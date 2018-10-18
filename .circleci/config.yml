@@ -18,7 +18,7 @@ jobs:
       - run:
           name: install dependencies
           command: |
-            apt-get update && apt-get install -y python3-pyqt5 python3-pip xvfb
+            apt-get update && apt-get install -y python3-pip python3-flask python3-stem python3-pyqt5 python3-cryptography python3-crypto python3-nacl python3-socks python-nautilus xvfb
             pip3 install -r install/requirements-tests.txt
             pip3 install pytest-cov flake8
 
