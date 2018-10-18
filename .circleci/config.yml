@@ -8,7 +8,7 @@ jobs:
     docker:
       # specify the version you desire here
       # use `-browsers` prefix for selenium tests, e.g. `3.6.1-browsers`
-      - image: debian:buster
+      - image: circleci/python:3.6.6
       
     working_directory: ~/repo
 
@@ -18,7 +18,7 @@ jobs:
       - run:
           name: install dependencies
           command: |
-            apt-get update && apt-get install -y python3-pip python3-flask python3-stem python3-pyqt5 python3-cryptography python3-crypto python3-nacl python3-socks python3-stdeb python3-all python-nautilus xvfb
+            apt-get update && apt-get install -y python3-pip python3-flask python3-stem python3-pyqt5 python3-cryptography python3-crypto python3-nacl python3-socks python3-stdeb python3-all python-nautilus xvfb obfs4proxy
             pip3 install -r install/requirements-tests.txt
             pip3 install pytest-cov flake8
 
