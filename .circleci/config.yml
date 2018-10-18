@@ -19,7 +19,6 @@ jobs:
           name: install dependencies
           command: |
             apt-get update && apt-get install -y python3-pyqt5 python3-pip xvfb
-            pip3 install -r install/requirements.txt
             pip3 install -r install/requirements-tests.txt
             pip3 install pytest-cov flake8
 
