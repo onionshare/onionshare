@@ -156,3 +156,9 @@ pytest --runtor tests/
 ```
 
 Keep in mind that the Tor tests take a lot longer to run than local mode, but they are also more comprehensive.
+
+You can also choose to wrap the tests in `xvfb-run` so that a ton of OnionShare windows don't pop up on your desktop (you may need to install the `xorg-x11-server-Xvfb` package), like this:
+
+```sh
+xvfb-run pytest tests/
+```
