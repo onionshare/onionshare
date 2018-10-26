@@ -39,7 +39,6 @@ class Web(object):
     REQUEST_UPLOAD_FILE_RENAMED = 7
     REQUEST_UPLOAD_FINISHED = 8
     REQUEST_ERROR_DOWNLOADS_DIR_CANNOT_CREATE = 9
-    REQUEST_ERROR_DOWNLOADS_DIR_NOT_WRITABLE = 10
 
     def __init__(self, common, is_gui, mode='share'):
         self.common = common

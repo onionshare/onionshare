@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import os, sys, time, argparse, threading
 
 from . import strings
-from .common import Common, DownloadsDirErrorCannotCreate, DownloadsDirErrorNotWritable
+from .common import Common
 from .web import Web
 from .onion import *
 from .onionshare import OnionShare
