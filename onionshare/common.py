@@ -32,20 +32,6 @@ import time
 from .settings import Settings
 
 
-class DownloadsDirErrorCannotCreate(Exception):
-    """
-    Error creating the downloads dir (~/OnionShare by default).
-    """
-    pass
-
-
-class DownloadsDirErrorNotWritable(Exception):
-    """
-    Downloads dir is not writable.
-    """
-    pass
-
-
 class Common(object):
     """
     The Common object is shared amongst all parts of OnionShare.
@@ -389,19 +375,6 @@ class Common(object):
                     font-size: 12px;
                 }"""
         }
-
-    def validate_downloads_dir(self):
-        """
-        Validate that downloads_dir exists, and create it if it doesn't
-        """
-        if not os.path.isdir(self.settings.get('downloads_dir')):
-            try:
-                os.mkdir(self.settings.get('downloads_dir'), 0o700)
-            except:
-                raise DownloadsDirErrorCannotCreate
-
-        if not os.access(self.settings.get('downloads_dir'), os.W_OK):
-            raise DownloadsDirErrorNotWritable
 
     @staticmethod
     def random_string(num_bytes, output_len=None):
