@@ -61,7 +61,7 @@ class ReceiveModeWeb(object):
             # Make sure the receive mode dir exists
             now = datetime.now()
             date_dir = now.strftime("%Y-%m-%d")
-            time_dir = now.strftime("%H.%M:%S")
+            time_dir = now.strftime("%H.%M.%S")
             receive_mode_dir = os.path.join(self.common.settings.get('downloads_dir'), date_dir, time_dir)
             valid = True
             try:
