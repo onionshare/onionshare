@@ -125,6 +125,13 @@ class ReceiveModeWeb(object):
                             'new_filename': basename
                         })
 
+                    # Tell the GUI the receive mode directory for this file
+                    self.web.add_request(self.web.REQUEST_UPLOAD_SET_DIR, request.path, {
+                        'id': request.upload_id,
+                        'filename': basename,
+                        'dir': receive_mode_dir
+                    })
+
                     self.common.log('ReceiveModeWeb', 'define_routes', '/upload, uploaded {}, saving to {}'.format(f.filename, local_path))
                     print(strings._('receive_mode_received_file').format(local_path))
                     f.save(local_path)

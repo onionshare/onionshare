@@ -390,6 +390,9 @@ class OnionShareGui(QtWidgets.QMainWindow):
             elif event["type"] == Web.REQUEST_UPLOAD_FILE_RENAMED:
                 mode.handle_request_upload_file_renamed(event)
 
+            elif event["type"] == Web.REQUEST_UPLOAD_SET_DIR:
+                mode.handle_request_upload_set_dir(event)
+
             elif event["type"] == Web.REQUEST_UPLOAD_FINISHED:
                 mode.handle_request_upload_finished(event)
 
