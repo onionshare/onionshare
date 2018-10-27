@@ -80,7 +80,7 @@
     "settings_error_bundled_tor_not_supported": "Bundled Tor no sepuede usar si no se usa el modo de desarrollo en Windows o macOS.",
     "settings_error_bundled_tor_timeout": "Conectarse con Tor está llevando demasiado tiempo. ¿Quizás el equipo está desconectado, o el reloj no está en hora?",
     "settings_error_bundled_tor_broken": "OnionShare no pudo conectarse a Tor en segundo plano:\n{}",
-    "settings_test_success": "Conectado al *Tor controlador.\n\n*Tor Versión: {}\nSoporte servicios de cebolla efímera: {}.\nAutentificación de cliente de los soportes: {}.\nSoporte direcciones de cebolla de nueva generación: {}.",
+    "settings_test_success": "Conectado al *Tor controlador.\n\n*Tor Versión: {}\nSoporte servicios de cebolla efímeros: {}.\nAutentificación de cliente de los soportes: {}.\nSoporte direcciones de cebolla de nueva generación: {}.",
     "error_tor_protocol_error": "Hubo un error con Tor: {}",
     "error_tor_protocol_error_unknown": "Hubo un error desconocido con Tor",
     "error_invalid_private_key": "Este tipo de clave privada no es compatible",
@@ -177,5 +177,12 @@
     "systray_upload_page_loaded_message": "Un usuario cargó la página de carga",
     "gui_uploads": "Historial de carga",
     "gui_no_uploads": "No hay subidas todavía",
-    "gui_clear_history": "Limpiar todo"
+    "gui_clear_history": "Limpiar todo",
+    "gui_settings_receive_allow_receiver_shutdown_checkbox": "El modo de recepción puede ser detenido por el remitente",
+    "gui_upload_in_progress": "Subida Iniciada {}",
+    "gui_upload_finished": "Subido {}",
+    "gui_download_in_progress": "Descarga iniciada {}",
+    "gui_open_folder_error_nautilus": "No se puede abrir la carpeta porque nautilus no está disponible. El archivo está aquí: {}",
+    "gui_settings_language_label": "Idioma preferido",
+    "gui_settings_language_changed_notice": "Reinicia OnionShare para que el cambio de idioma surta efecto."
 }
