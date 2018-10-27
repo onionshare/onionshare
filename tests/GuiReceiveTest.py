@@ -1,10 +1,11 @@
 import os
 import requests
+from datetime import datetime, timedelta
 from PyQt5 import QtCore, QtTest
 from .GuiBaseTest import GuiBaseTest
 
 class GuiReceiveTest(GuiBaseTest):
-    def upload_file(self, public_mode, file_to_upload, expected_file):
+    def upload_file(self, public_mode, file_to_upload, expected_basename):
         '''Test that we can upload the file'''
         files = {'file[]': open(file_to_upload, 'rb')}
         if not public_mode:
@@ -13,9 +14,23 @@ class GuiReceiveTest(GuiBaseTest):
             path = 'http://127.0.0.1:{}/upload'.format(self.gui.app.port)
         response = requests.post(path, files=files)
         QtTest.QTest.qWait(2000)
-        self.assertTrue(os.path.isfile(expected_file))
 
-    def upload_file_should_fail(self, public_mode, expected_file):
+        # Make sure the file is within the last 10 seconds worth of filenames
+        exists = False
+        now = datetime.now()
+        for i in range(10):
+            date_dir = now.strftime("%Y-%m-%d")
+            time_dir = now.strftime("%H.%M.%S")
+            receive_mode_dir = os.path.join(self.gui.common.settings.get('downloads_dir'), date_dir, time_dir)
+            expected_filename = os.path.join(receive_mode_dir, expected_basename)
+            if os.path.exists(expected_filename):
+                exists = True
+                break
+            now = now - timedelta(seconds=1)
+
+        self.assertTrue(exists)
+
+    def upload_file_should_fail(self, public_mode):
         '''Test that we can't upload the file when permissions are wrong, and expected content is shown'''
         files = {'file[]': open('/tmp/test.txt', 'rb')}
         if not public_mode:
@@ -73,14 +88,14 @@ class GuiReceiveTest(GuiBaseTest):
         self.run_all_receive_mode_setup_tests(public_mode)
         if not public_mode:
             self.try_public_paths_in_non_public_mode()
-        self.upload_file(public_mode, '/tmp/test.txt', '/tmp/OnionShare/test.txt')
+        self.upload_file(public_mode, '/tmp/test.txt', 'test.txt')
         self.history_widgets_present(self.gui.receive_mode)
         self.counter_incremented(self.gui.receive_mode, 1)
-        self.upload_file(public_mode, '/tmp/test.txt', '/tmp/OnionShare/test-2.txt')
+        self.upload_file(public_mode, '/tmp/test.txt', 'test.txt')
         self.counter_incremented(self.gui.receive_mode, 2)
-        self.upload_file(public_mode, '/tmp/testdir/test', '/tmp/OnionShare/test')
+        self.upload_file(public_mode, '/tmp/testdir/test', 'test')
         self.counter_incremented(self.gui.receive_mode, 3)
-        self.upload_file(public_mode, '/tmp/testdir/test', '/tmp/OnionShare/test-2')
+        self.upload_file(public_mode, '/tmp/testdir/test', 'test')
         self.counter_incremented(self.gui.receive_mode, 4)
         self.history_indicator(self.gui.receive_mode, public_mode)
         self.server_is_stopped(self.gui.receive_mode, False)
@@ -94,7 +109,7 @@ class GuiReceiveTest(GuiBaseTest):
         '''Attempt to upload (unwritable) files in receive mode and stop the share'''
         self.run_all_receive_mode_setup_tests(public_mode)
         self.upload_dir_permissions(0o400)
-        self.upload_file_should_fail(public_mode, '/tmp/OnionShare/test.txt')
+        self.upload_file_should_fail(public_mode)
         self.server_is_stopped(self.gui.receive_mode, True)
         self.web_server_is_stopped()
         self.server_status_indicator_says_closed(self.gui.receive_mode, False)

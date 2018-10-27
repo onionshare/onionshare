@@ -118,6 +118,7 @@ class UploadHistoryItemFile(QtWidgets.QWidget):
         self.common.log('UploadHistoryItemFile', '__init__', 'filename: {}'.format(filename))
 
         self.filename = filename
+        self.dir = None
         self.started = datetime.now()
 
         # Filename label
@@ -158,13 +159,20 @@ class UploadHistoryItemFile(QtWidgets.QWidget):
         self.filename = new_filename
         self.filename_label.setText(self.filename)
 
+    def set_dir(self, dir):
+        self.dir = dir
+
     def open_folder(self):
         """
         Open the downloads folder, with the file selected, in a cross-platform manner
         """
         self.common.log('UploadHistoryItemFile', 'open_folder')
 
-        abs_filename = os.path.join(self.common.settings.get('downloads_dir'), self.filename)
+        if not self.dir:
+            self.common.log('UploadHistoryItemFile', 'open_folder', "dir has not been set yet, can't open folder")
+            return
+
+        abs_filename = os.path.join(self.dir, self.filename)
 
         # Linux
         if self.common.platform == 'Linux' or self.common.platform == 'BSD':
@@ -265,6 +273,9 @@ class UploadHistoryItem(HistoryItem):
         elif data['action'] == 'rename':
             self.files[data['old_filename']].rename(data['new_filename'])
             self.files[data['new_filename']] = self.files.pop(data['old_filename'])
+
+        elif data['action'] == 'set_dir':
+            self.files[data['filename']].set_dir(data['dir'])
 
         elif data['action'] == 'finished':
             # Hide the progress bar
