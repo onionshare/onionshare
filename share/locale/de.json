@@ -20,7 +20,7 @@
     "gui_downloads": "Downloads:",
     "gui_copied_url": "URL wurde in die Zwischenablage kopiert",
     "gui_please_wait": "Bitte warten...",
-    "timeout_download_still_running": "Warte auf Beendigung des Downloads.",
+    "timeout_download_still_running": "Warte auf Beendigung des Downloads",
     "systray_menu_exit": "Beenden",
     "gui_settings_authenticate_password_option": "Passwort",
     "gui_settings_password_label": "Passwort",
