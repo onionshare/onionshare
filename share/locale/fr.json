@@ -61,5 +61,6 @@
     "gui_copied_hidservauth": "Ligne HidServAuth copiée dans le presse-papiers",
     "version_string": "OnionShare {0:s} | https://onionshare.org/",
     "zip_progress_bar_format": "Compression : %p%",
-    "error_ephemeral_not_supported": "OnionShare nécessite au moins Tor 0.2.7.1 et python3-stem 1.4.0."
+    "error_ephemeral_not_supported": "OnionShare nécessite au moins Tor 0.2.7.1 et python3-stem 1.4.0.",
+    "help_shutdown_timeout": "Arrêter le partage après un certain nombre de secondes"
 }
