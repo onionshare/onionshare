@@ -62,7 +62,7 @@
     "gui_receive_quit_warning": "You're in the process of receiving files. Are you sure you want to quit OnionShare?",
     "gui_quit_warning_quit": "Quit",
     "gui_quit_warning_dont_quit": "Cancel",
-    "error_rate_limit": "Someone has made too many wrong attempts on your address, which means they could be trying to guess it, so OnionShare has stopped the server. Start sharing again and send the receipient a new address to share.",
+    "error_rate_limit": "Someone has made too many wrong attempts on your address, which means they could be trying to guess it, so OnionShare has stopped the server. Start sharing again and send the recipient a new address to share.",
     "zip_progress_bar_format": "Compressing: %p%",
     "error_stealth_not_supported": "To use client authorization, you need at least both Tor 0.2.9.1-alpha (or Tor Browser 6.5) and python3-stem 1.5.0.",
     "error_ephemeral_not_supported": "OnionShare requires at least both Tor 0.2.7.1 and python3-stem 1.4.0.",
