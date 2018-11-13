@@ -89,7 +89,7 @@ class Downloads(QtWidgets.QScrollArea):
 
         self.downloads = {}
 
-        self.setWindowTitle(strings._('gui_downloads', True))
+        self.setWindowTitle(strings._('gui_downloads'))
         self.setWidgetResizable(True)
         self.setMinimumHeight(150)
         self.setMinimumWidth(350)
@@ -98,10 +98,10 @@ class Downloads(QtWidgets.QScrollArea):
         self.vbar = self.verticalScrollBar()
         self.vbar.rangeChanged.connect(self.resizeScroll)
 
-        downloads_label = QtWidgets.QLabel(strings._('gui_downloads', True))
+        downloads_label = QtWidgets.QLabel(strings._('gui_downloads'))
         downloads_label.setStyleSheet(self.common.css['downloads_uploads_label'])
-        self.no_downloads_label = QtWidgets.QLabel(strings._('gui_no_downloads', True))
-        self.clear_history_button = QtWidgets.QPushButton(strings._('gui_clear_history', True))
+        self.no_downloads_label = QtWidgets.QLabel(strings._('gui_no_downloads'))
+        self.clear_history_button = QtWidgets.QPushButton(strings._('gui_clear_history'))
         self.clear_history_button.clicked.connect(self.reset)
         self.clear_history_button.hide()
 

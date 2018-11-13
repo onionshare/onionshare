@@ -35,6 +35,7 @@ class File(QtWidgets.QWidget):
         self.common.log('File', '__init__', 'filename: {}'.format(filename))
 
         self.filename = filename
+        self.dir = None
         self.started = datetime.now()
 
         # Filename label
@@ -71,6 +72,9 @@ class File(QtWidgets.QWidget):
         if complete:
             self.folder_button.show()
 
+    def set_dir(self, dir):
+        self.dir = dir
+
     def rename(self, new_filename):
         self.filename = new_filename
         self.filename_label.setText(self.filename)
@@ -81,7 +85,10 @@ class File(QtWidgets.QWidget):
         """
         self.common.log('File', 'open_folder')
 
-        abs_filename = os.path.join(self.common.settings.get('downloads_dir'), self.filename)
+        if not self.dir:
+            return
+
+        abs_filename = os.path.join(self.dir, self.filename)
 
         # Linux
         if self.common.platform == 'Linux' or self.common.platform == 'BSD':
@@ -113,7 +120,7 @@ class Upload(QtWidgets.QWidget):
         self.started = datetime.now()
 
         # Label
-        self.label = QtWidgets.QLabel(strings._('gui_upload_in_progress', True).format(self.started.strftime("%b %d, %I:%M%p")))
+        self.label = QtWidgets.QLabel(strings._('gui_upload_in_progress').format(self.started.strftime("%b %d, %I:%M%p")))
 
         # Progress bar
         self.progress_bar = QtWidgets.QProgressBar()
@@ -182,6 +189,9 @@ class Upload(QtWidgets.QWidget):
         self.files[old_filename].rename(new_filename)
         self.files[new_filename] = self.files.pop(old_filename)
 
+    def set_dir(self, filename, dir):
+        self.files[filename].set_dir(dir)
+
     def finished(self):
         # Hide the progress bar
         self.progress_bar.hide()
@@ -190,16 +200,16 @@ class Upload(QtWidgets.QWidget):
         self.ended = self.started = datetime.now()
         if self.started.year == self.ended.year and self.started.month == self.ended.month and self.started.day == self.ended.day:
             if self.started.hour == self.ended.hour and self.started.minute == self.ended.minute:
-                text = strings._('gui_upload_finished', True).format(
+                text = strings._('gui_upload_finished').format(
                     self.started.strftime("%b %d, %I:%M%p")
                 )
             else:
-                text = strings._('gui_upload_finished_range', True).format(
+                text = strings._('gui_upload_finished_range').format(
                     self.started.strftime("%b %d, %I:%M%p"),
                     self.ended.strftime("%I:%M%p")
                 )
         else:
-            text = strings._('gui_upload_finished_range', True).format(
+            text = strings._('gui_upload_finished_range').format(
                 self.started.strftime("%b %d, %I:%M%p"),
                 self.ended.strftime("%b %d, %I:%M%p")
             )
@@ -220,7 +230,7 @@ class Uploads(QtWidgets.QScrollArea):
 
         self.uploads = {}
 
-        self.setWindowTitle(strings._('gui_uploads', True))
+        self.setWindowTitle(strings._('gui_uploads'))
         self.setWidgetResizable(True)
         self.setMinimumHeight(150)
         self.setMinimumWidth(350)
@@ -229,10 +239,10 @@ class Uploads(QtWidgets.QScrollArea):
         self.vbar = self.verticalScrollBar()
         self.vbar.rangeChanged.connect(self.resizeScroll)
 
-        uploads_label = QtWidgets.QLabel(strings._('gui_uploads', True))
+        uploads_label = QtWidgets.QLabel(strings._('gui_uploads'))
         uploads_label.setStyleSheet(self.common.css['downloads_uploads_label'])
-        self.no_uploads_label = QtWidgets.QLabel(strings._('gui_no_uploads', True))
-        self.clear_history_button = QtWidgets.QPushButton(strings._('gui_clear_history', True))
+        self.no_uploads_label = QtWidgets.QLabel(strings._('gui_no_uploads'))
+        self.clear_history_button = QtWidgets.QPushButton(strings._('gui_clear_history'))
         self.clear_history_button.clicked.connect(self.reset)
         self.clear_history_button.hide()
 

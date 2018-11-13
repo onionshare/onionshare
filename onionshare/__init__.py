@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import os, sys, time, argparse, threading
 
 from . import strings
-from .common import Common, DownloadsDirErrorCannotCreate, DownloadsDirErrorNotWritable
+from .common import Common
 from .web import Web
 from .onion import *
 from .onionshare import OnionShare
@@ -33,7 +33,15 @@ def main(cwd=None):
     """
     common = Common()
 
+    # Load the default settings and strings early, for the sake of being able to parse options.
+    # These won't be in the user's chosen locale necessarily, but we need to parse them
+    # early in order to even display the option to pass alternate settings (which might
+    # contain a preferred locale).
+    # If an alternate --config is passed, we'll reload strings later.
+    common.load_settings()
     strings.load_strings(common)
+
+    # Display OnionShare banner
     print(strings._('version_string').format(common.version))
 
     # OnionShare CLI in OSX needs to change current working directory (#132)
@@ -88,8 +96,11 @@ def main(cwd=None):
         if not valid:
             sys.exit()
 
-    # Load settings
-    common.load_settings(config)
+    # Re-load settings, if a custom config was passed in
+    if config:
+        common.load_settings(config)
+        # Re-load the strings, in case the provided config has changed locale
+        strings.load_strings(common)
 
     # Debug mode?
     common.debug = debug

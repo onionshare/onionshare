@@ -40,7 +40,7 @@ def settings_obj(sys_onionshare_dev_mode, platform_linux):
 
 class TestSettings:
     def test_init(self, settings_obj):
-        assert settings_obj._settings == settings_obj.default_settings == {
+        expected_settings = {
             'version': 'DUMMY_VERSION_1.2.3',
             'connection_type': 'bundled',
             'control_port_address': '127.0.0.1',
@@ -67,6 +67,11 @@ class TestSettings:
             'downloads_dir': os.path.expanduser('~/OnionShare'),
             'public_mode': False
         }
+        for key in settings_obj._settings:
+            # Skip locale, it will not always default to the same thing
+            if key != 'locale':
+                assert settings_obj._settings[key] == settings_obj.default_settings[key]
+                assert settings_obj._settings[key] == expected_settings[key]
 
     def test_fill_in_defaults(self, settings_obj):
         del settings_obj._settings['version']

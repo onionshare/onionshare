@@ -59,7 +59,15 @@ def main():
     common = Common()
     common.define_css()
 
+    # Load the default settings and strings early, for the sake of being able to parse options.
+    # These won't be in the user's chosen locale necessarily, but we need to parse them
+    # early in order to even display the option to pass alternate settings (which might
+    # contain a preferred locale).
+    # If an alternate --config is passed, we'll reload strings later.
+    common.load_settings()
     strings.load_strings(common)
+
+    # Display OnionShare banner
     print(strings._('version_string').format(common.version))
 
     # Allow Ctrl-C to smoothly quit the program instead of throwing an exception
@@ -84,6 +92,10 @@ def main():
             filenames[i] = os.path.abspath(filenames[i])
 
     config = args.config
+    if config:
+        # Re-load the strings, in case the provided config has changed locale
+        common.load_settings(config)
+        strings.load_strings(common)
 
     local_only = bool(args.local_only)
     debug = bool(args.debug)
@@ -96,10 +108,10 @@ def main():
         valid = True
         for filename in filenames:
             if not os.path.isfile(filename) and not os.path.isdir(filename):
-                Alert(common, strings._("not_a_file", True).format(filename))
+                Alert(common, strings._("not_a_file").format(filename))
                 valid = False
             if not os.access(filename, os.R_OK):
-                Alert(common, strings._("not_a_readable_file", True).format(filename))
+                Alert(common, strings._("not_a_readable_file").format(filename))
                 valid = False
         if not valid:
             sys.exit()

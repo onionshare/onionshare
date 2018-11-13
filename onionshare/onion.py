@@ -247,7 +247,7 @@ class Onion(object):
                     self.c = Controller.from_socket_file(path=self.tor_control_socket)
                     self.c.authenticate()
             except Exception as e:
-                raise BundledTorBroken(strings._('settings_error_bundled_tor_broken', True).format(e.args[0]))
+                raise BundledTorBroken(strings._('settings_error_bundled_tor_broken').format(e.args[0]))
 
             while True:
                 try:

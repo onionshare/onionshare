@@ -32,20 +32,6 @@ import time
 from .settings import Settings
 
 
-class DownloadsDirErrorCannotCreate(Exception):
-    """
-    Error creating the downloads dir (~/OnionShare by default).
-    """
-    pass
-
-
-class DownloadsDirErrorNotWritable(Exception):
-    """
-    Downloads dir is not writable.
-    """
-    pass
-
-
 class Common(object):
     """
     The Common object is shared amongst all parts of OnionShare.
@@ -211,6 +197,7 @@ class Common(object):
                     color: #000000;
                     padding: 10px;
                     border: 1px solid #666666;
+                    font-size: 12px;
                 }
                 """,
 
@@ -248,10 +235,45 @@ class Common(object):
                     border-radius: 5px;
                 }""",
 
+            'downloads_uploads_empty': """
+                QWidget {
+                    background-color: #ffffff;
+                    border: 1px solid #999999;
+                }
+                QWidget QLabel {
+                    background-color: none;
+                    border: 0px;
+                }
+                """,
+
+            'downloads_uploads_empty_text': """
+                QLabel {
+                    color: #999999;
+                }""",
+
             'downloads_uploads_label': """
                 QLabel {
                     font-weight: bold;
                     font-size 14px;
+                    text-align: center;
+                    background-color: none;
+                    border: none;
+                }""",
+
+            'downloads_uploads_clear': """
+                QPushButton {
+                    color: #3f7fcf;
+                }
+                """,
+
+            'download_uploads_indicator': """
+                QLabel {
+                    color: #ffffff;
+                    background-color: #f44449;
+                    font-weight: bold;
+                    font-size: 10px;
+                    padding: 2px;
+                    border-radius: 7px;
                     text-align: center;
                 }""",
 
@@ -261,7 +283,7 @@ class Common(object):
                     background-color: #ffffff !important;
                     text-align: center;
                     color: #9b9b9b;
-                    font-size: 12px;
+                    font-size: 14px;
                 }
                 QProgressBar::chunk {
                     background-color: #4e064f;
@@ -353,19 +375,6 @@ class Common(object):
                     font-size: 12px;
                 }"""
         }
-
-    def validate_downloads_dir(self):
-        """
-        Validate that downloads_dir exists, and create it if it doesn't
-        """
-        if not os.path.isdir(self.settings.get('downloads_dir')):
-            try:
-                os.mkdir(self.settings.get('downloads_dir'), 0o700)
-            except:
-                raise DownloadsDirErrorCannotCreate
-
-        if not os.access(self.settings.get('downloads_dir'), os.W_OK):
-            raise DownloadsDirErrorNotWritable
 
     @staticmethod
     def random_string(num_bytes, output_len=None):
