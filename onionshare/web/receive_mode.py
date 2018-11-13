@@ -305,7 +305,6 @@ class ReceiveModeRequest(Request):
         super(ReceiveModeRequest, self).close()
         try:
             upload_id = self.upload_id
-            self.web.common.log('ReceiveModeWeb', 'We finished our upload')
             # Inform the GUI that the upload has finished
             self.web.add_request(self.web.REQUEST_UPLOAD_FINISHED, self.path, {
                 'id': upload_id
