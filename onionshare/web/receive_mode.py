@@ -4,7 +4,6 @@ from datetime import datetime
 from flask import Request, request, render_template, make_response, flash, redirect
 from werkzeug.utils import secure_filename
 
-from ..common import DownloadsDirErrorCannotCreate, DownloadsDirErrorNotWritable
 from .. import strings
 
 
@@ -61,17 +60,19 @@ class ReceiveModeWeb(object):
             """
             Upload files.
             """
-            # Make sure downloads_dir exists
+            # Make sure the receive mode dir exists
+            now = datetime.now()
+            date_dir = now.strftime("%Y-%m-%d")
+            time_dir = now.strftime("%H.%M.%S")
+            receive_mode_dir = os.path.join(self.common.settings.get('downloads_dir'), date_dir, time_dir)
             valid = True
             try:
-                self.common.validate_downloads_dir()
-            except DownloadsDirErrorCannotCreate:
-                self.web.add_request(self.web.REQUEST_ERROR_DOWNLOADS_DIR_CANNOT_CREATE, request.path)
-                print(strings._('error_cannot_create_downloads_dir').format(self.common.settings.get('downloads_dir')))
-                valid = False
-            except DownloadsDirErrorNotWritable:
-                self.web.add_request(self.web.REQUEST_ERROR_DOWNLOADS_DIR_NOT_WRITABLE, request.path)
-                print(strings._('error_downloads_dir_not_writable').format(self.common.settings.get('downloads_dir')))
+                os.makedirs(receive_mode_dir, 0o700)
+            except PermissionError:
+                self.web.add_request(self.web.REQUEST_ERROR_DOWNLOADS_DIR_CANNOT_CREATE, request.path, {
+                    "receive_mode_dir": receive_mode_dir
+                })
+                print(strings._('error_cannot_create_downloads_dir').format(receive_mode_dir))
                 valid = False
             if not valid:
                 flash('Error uploading, please inform the OnionShare user', 'error')
@@ -88,7 +89,7 @@ class ReceiveModeWeb(object):
                     # Automatically rename the file, if a file of the same name already exists
                     filename = secure_filename(f.filename)
                     filenames.append(filename)
-                    local_path = os.path.join(self.common.settings.get('downloads_dir'), filename)
+                    local_path = os.path.join(receive_mode_dir, filename)
                     if os.path.exists(local_path):
                         if '.' in filename:
                             # Add "-i", e.g. change "foo.txt" to "foo-2.txt"
@@ -100,7 +101,7 @@ class ReceiveModeWeb(object):
                             valid = False
                             while not valid:
                                 new_filename = '{}-{}.{}'.format('.'.join(name), i, ext)
-                                local_path = os.path.join(self.common.settings.get('downloads_dir'), new_filename)
+                                local_path = os.path.join(receive_mode_dir, new_filename)
                                 if os.path.exists(local_path):
                                     i += 1
                                 else:
@@ -111,7 +112,7 @@ class ReceiveModeWeb(object):
                             valid = False
                             while not valid:
                                 new_filename = '{}-{}'.format(filename, i)
-                                local_path = os.path.join(self.common.settings.get('downloads_dir'), new_filename)
+                                local_path = os.path.join(receive_mode_dir, new_filename)
                                 if os.path.exists(local_path):
                                     i += 1
                                 else:
@@ -125,6 +126,13 @@ class ReceiveModeWeb(object):
                             'old_filename': f.filename,
                             'new_filename': basename
                         })
+
+                    # Tell the GUI the receive mode directory for this file
+                    self.web.add_request(self.web.REQUEST_UPLOAD_SET_DIR, request.path, {
+                        'id': request.upload_id,
+                        'filename': basename,
+                        'dir': receive_mode_dir
+                    })
 
                     self.common.log('ReceiveModeWeb', 'define_routes', '/upload, uploaded {}, saving to {}'.format(f.filename, local_path))
                     print(strings._('receive_mode_received_file').format(local_path))
