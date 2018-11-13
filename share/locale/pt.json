@@ -110,5 +110,12 @@
     "gui_status_indicator_receive_working": "Começando…",
     "gui_status_indicator_receive_started": "Recebendo",
     "gui_file_info": "{} arquivos, {}",
-    "gui_file_info_single": "{} arquivo, {}"
+    "gui_file_info_single": "{} arquivo, {}",
+    "settings_error_unreadable_cookie_file": "Conectado ao controlador Tor, mas talvez a senha esteja incorreta, ou o seu usuário não possui autorização para ler o arquivo de cookie.",
+    "settings_error_bundled_tor_timeout": "A conexão a Tor está demorando muito. O seu computado está conectado à Internet e o seu relógio de sistema, ajustado?",
+    "settings_test_success": "Conectado ao controlador Tor.\n\nVersão do Tor: {}\nPossui suporte para serviços onion efêmeros: {}.\nPossui suporte para autenticação de cliente: {}.\nPossui suporte para a próxima geração de endereços .onion: {}.",
+    "error_tor_protocol_error": "Houve um erro com Tor: {}",
+    "update_available": "Atualização de OnionShare disponível. <a href='{}'>Clique aqui</a> para obtê-la.<br><br>Você está usando a versão {} e a última é {}.",
+    "update_not_available": "Você está rodando a última versão de OnionShare.",
+    "gui_tor_connection_lost": "Desconectado do Tor."
 }
