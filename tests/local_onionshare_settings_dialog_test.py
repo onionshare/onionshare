@@ -85,11 +85,6 @@ class SettingsGuiTest(unittest.TestCase, SettingsGuiBaseTest):
 
         # receive mode
         self.gui.downloads_dir_lineedit.setText('/tmp/OnionShareSettingsTest')
-        # allow receiver shutdown is on
-        self.assertTrue(self.gui.receive_allow_receiver_shutdown_checkbox.isChecked())
-        # disable receiver shutdown
-        QtTest.QTest.mouseClick(self.gui.receive_allow_receiver_shutdown_checkbox, QtCore.Qt.LeftButton, pos=QtCore.QPoint(2,self.gui.receive_allow_receiver_shutdown_checkbox.height()/2))
-        self.assertFalse(self.gui.receive_allow_receiver_shutdown_checkbox.isChecked())
 
 
         # bundled mode is enabled
@@ -168,7 +163,6 @@ class SettingsGuiTest(unittest.TestCase, SettingsGuiBaseTest):
         self.assertTrue(data["save_private_key"])
         self.assertTrue(data["use_stealth"])
         self.assertEqual(data["downloads_dir"], "/tmp/OnionShareSettingsTest")
-        self.assertFalse(data["receive_allow_receiver_shutdown"])
         self.assertFalse(data["close_after_first_download"])
         self.assertEqual(data["connection_type"], "bundled")
         self.assertFalse(data["tor_bridges_use_obfs4"])
