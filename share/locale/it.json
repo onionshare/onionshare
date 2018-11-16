@@ -22,4 +22,6 @@
     "gui_copied_url": "URL Copiato nella clipboard",
     "gui_please_wait": "Attendere prego...",
     "zip_progress_bar_format": "Elaborazione files: %p%"
+    "gui_share_quit_warning": "Stai per inviare dai file. Sei sicuro di voler uscire da OnionShare?"
+    "gui_settings_connection_type_bundled_option": "Usa la versione Tor integrata in OnionShare"
 }
