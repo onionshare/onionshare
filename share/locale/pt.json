@@ -62,7 +62,7 @@
     "gui_receive_quit_warning": "O recebimento dos seus arquivos ainda não terminou. Você tem certeza de que quer sair do OnionShare?",
     "gui_quit_warning_quit": "Sair",
     "gui_quit_warning_dont_quit": "Cancelar",
-    "error_rate_limit": "Alguém tentou por várias vezes entrar no seu endereço, o que talvez signifique que essa pessoa esteja tentando adivinhá-lo. Por isso, OnionShare interrompeu o servidor. Recomece a compartilhar e envie um novo endereço ao seu destinatário para continuar a compartilhar.",
+    "error_rate_limit": "Alguém tentou por várias vezes acessar seu endereço, o que talvez signifique que essa pessoa esteja tentando adivinhá-lo. Por isso, OnionShare interrompeu o servidor. Recomece a compartilhar e envie um novo endereço ao seu destinatário para continuar a compartilhar.",
     "zip_progress_bar_format": "Comprimindo: %p%",
     "error_stealth_not_supported": "Para usar uma autorização de cliente, você precisa de ao menos de Tor 0.2.9.1-alpha (ou navegador Tor 6.5) e de python3-stem 1.5.0.",
     "error_ephemeral_not_supported": "OnionShare requer ao menos Tor 0.2.7.1 e python3-stem 1.4.0.",
@@ -117,5 +117,16 @@
     "error_tor_protocol_error": "Houve um erro com Tor: {}",
     "update_available": "Atualização de OnionShare disponível. <a href='{}'>Clique aqui</a> para obtê-la.<br><br>Você está usando a versão {} e a última é {}.",
     "update_not_available": "Você está rodando a última versão de OnionShare.",
-    "gui_tor_connection_lost": "Desconectado do Tor."
+    "gui_tor_connection_lost": "Desconectado do Tor.",
+    "gui_settings_stealth_hidservauth_string": "Após salvar a sua chave privada para reutilização, você pode\nclicar para copiar o seu HidServAuth.",
+    "gui_settings_connection_type_socket_file_option": "Conectar usando um arquivo socket",
+    "gui_settings_connection_type_test_button": "Testar a conexão a Tor",
+    "gui_settings_control_port_label": "Entrada de controle",
+    "gui_settings_socket_file_label": "Arquivo socket",
+    "gui_settings_tor_bridges_obfs4_radio_option": "Usar transportadores plugáveis obfs4 já instalados",
+    "gui_settings_tor_bridges_obfs4_radio_option_no_obfs4proxy": "Usar transportadores plugáveis obfs4 já instalados (requer obfs4proxy)",
+    "gui_settings_tor_bridges_meek_lite_azure_radio_option": "Usar transportadores plugáveis meek_lite (Azure) instalados",
+    "gui_settings_tor_bridges_meek_lite_azure_radio_option_no_obfs4proxy": "Usar transportadores plugáveis meek_lite (Azure) instalados (requer obfs4proxy)",
+    "settings_error_unknown": "Impossível conectar-se ao controlador do Tor, porque as suas configurações estão confusas.",
+    "settings_error_automatic": "Não foi possível conectar ao controlador do Tor. O Navegador Tor (disponível no site torproject.org) está rodando em segundo plano?"
 }
