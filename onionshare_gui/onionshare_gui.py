@@ -390,14 +390,14 @@ class OnionShareGui(QtWidgets.QMainWindow):
             elif event["type"] == Web.REQUEST_UPLOAD_FILE_RENAMED:
                 mode.handle_request_upload_file_renamed(event)
 
+            elif event["type"] == Web.REQUEST_UPLOAD_SET_DIR:
+                mode.handle_request_upload_set_dir(event)
+
             elif event["type"] == Web.REQUEST_UPLOAD_FINISHED:
                 mode.handle_request_upload_finished(event)
 
             if event["type"] == Web.REQUEST_ERROR_DOWNLOADS_DIR_CANNOT_CREATE:
-                Alert(self.common, strings._('error_cannot_create_downloads_dir').format(self.common.settings.get('downloads_dir')))
-
-            if event["type"] == Web.REQUEST_ERROR_DOWNLOADS_DIR_NOT_WRITABLE:
-                Alert(self.common, strings._('error_downloads_dir_not_writable').format(self.common.settings.get('downloads_dir')))
+                Alert(self.common, strings._('error_cannot_create_downloads_dir').format(event["data"]["receive_mode_dir"]))
 
             if event["type"] == Web.REQUEST_OTHER:
                 if event["path"] != '/favicon.ico' and event["path"] != "/{}/shutdown".format(mode.web.shutdown_slug):
