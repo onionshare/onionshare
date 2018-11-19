@@ -31,6 +31,7 @@ import tempfile
 import pytest
 
 from onionshare.common import Common
+from onionshare import strings
 from onionshare.web import Web
 from onionshare.settings import Settings
 
@@ -41,7 +42,7 @@ RANDOM_STR_REGEX = re.compile(r'^[a-z2-7]+$')
 def web_obj(common_obj, mode, num_files=0):
     """ Creates a Web object, in either share mode or receive mode, ready for testing """
     common_obj.load_settings()
-
+    strings.load_strings(common_obj)
     web = Web(common_obj, False, mode)
     web.generate_slug()
     web.stay_open = True

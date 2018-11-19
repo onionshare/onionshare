@@ -1,6 +1,6 @@
 # OnionShare
 
-[![Build Status](https://travis-ci.org/micahflee/onionshare.png)](https://travis-ci.org/micahflee/onionshare)
+[![CircleCI](https://circleci.com/gh/micahflee/onionshare.svg?style=svg)](https://circleci.com/gh/micahflee/onionshare)
 
 [OnionShare](https://onionshare.org) lets you securely and anonymously share files of any size. It works by starting a web server, making it accessible as a Tor Onion Service, and generating an unguessable URL to access and download the files. It does _not_ require setting up a separate server or using a third party file-sharing service. You host the files on your own computer and use a Tor Onion Service to make it temporarily accessible over the internet. The receiving user just needs to open the URL in Tor Browser to download the file.
 
@@ -18,5 +18,5 @@ You can set up your development environment to build OnionShare yourself by foll
 
 # Screenshots 
 
-![Server Screenshot](/screenshots/server.png)
+![Server Screenshot](/screenshots/appdata-server.png)
 ![Client Screenshot](/screenshots/client.png)

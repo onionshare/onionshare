@@ -35,6 +35,7 @@ class File(QtWidgets.QWidget):
         self.common.log('File', '__init__', 'filename: {}'.format(filename))
 
         self.filename = filename
+        self.dir = None
         self.started = datetime.now()
 
         # Filename label
@@ -71,6 +72,9 @@ class File(QtWidgets.QWidget):
         if complete:
             self.folder_button.show()
 
+    def set_dir(self, dir):
+        self.dir = dir
+
     def rename(self, new_filename):
         self.filename = new_filename
         self.filename_label.setText(self.filename)
@@ -81,7 +85,10 @@ class File(QtWidgets.QWidget):
         """
         self.common.log('File', 'open_folder')
 
-        abs_filename = os.path.join(self.common.settings.get('downloads_dir'), self.filename)
+        if not self.dir:
+            return
+
+        abs_filename = os.path.join(self.dir, self.filename)
 
         # Linux
         if self.common.platform == 'Linux' or self.common.platform == 'BSD':
@@ -181,6 +188,9 @@ class Upload(QtWidgets.QWidget):
     def rename(self, old_filename, new_filename):
         self.files[old_filename].rename(new_filename)
         self.files[new_filename] = self.files.pop(old_filename)
+
+    def set_dir(self, filename, dir):
+        self.files[filename].set_dir(dir)
 
     def finished(self):
         # Hide the progress bar

@@ -168,6 +168,16 @@ class ReceiveMode(Mode):
             'new_filename': event["data"]["new_filename"]
         })
 
+    def handle_request_upload_set_dir(self, event):
+        """
+        Handle REQUEST_UPLOAD_SET_DIR event.
+        """
+        self.history.update(event["data"]["id"], {
+            'action': 'set_dir',
+            'filename': event["data"]["filename"],
+            'dir': event["data"]["dir"]
+        })
+
     def handle_request_upload_finished(self, event):
         """
         Handle REQUEST_UPLOAD_FINISHED event.

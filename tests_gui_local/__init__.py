@@ -1,1 +1,0 @@
-from .commontests import CommonTests
