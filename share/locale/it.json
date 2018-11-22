@@ -66,5 +66,6 @@
     "error_stealth_not_supported": "Per usare l'opzione \"client auth\" hai bisogno almeno di Tor 0.2.9.1-alpha (o Tor Browser 6.5) con python3-stem 1.5.0.",
     "error_ephemeral_not_supported": "OnionShare richiede almeno Tor 0.2.7.1 e python3-stem 1.4.0.",
     "gui_settings_window_title": "Preferenze",
-    "gui_settings_whats_this": "<a href='{0:s}'>Cos'e' questo?</a>"
+    "gui_settings_whats_this": "<a href='{0:s}'>Cos'e' questo?</a>",
+    "help_receive": "Ricevi condivisioni invece di inviarle"
 }
