@@ -67,5 +67,20 @@
     "error_ephemeral_not_supported": "OnionShare richiede almeno Tor 0.2.7.1 e python3-stem 1.4.0.",
     "gui_settings_window_title": "Preferenze",
     "gui_settings_whats_this": "<a href='{0:s}'>Cos'e' questo?</a>",
-    "help_receive": "Ricevi condivisioni invece di inviarle"
+    "help_receive": "Ricevi condivisioni invece di inviarle",
+    "gui_settings_stealth_option": "Usa l'autorizzazione client (legacy)",
+    "gui_settings_stealth_hidservauth_string": "Dopo aver salvato la tua chiave privata per il riutilizzo, significa che ora puoi\nclicca per copiare il tuo HidServAuth.",
+    "gui_settings_autoupdate_label": "controlla la nuova versione",
+    "gui_settings_autoupdate_option": "Notificami quando una nuova versione è disponibile",
+    "gui_settings_autoupdate_timestamp": "ultimo controllo",
+    "gui_settings_autoupdate_timestamp_never": "Mai",
+    "gui_settings_autoupdate_check_button": "Controlla per una nuova nuova versione",
+    "gui_settings_general_label": "Impostazioni generali",
+    "gui_settings_sharing_label": "Impostazione Condivise",
+    "gui_settings_close_after_first_download_option": "Ferma la condivisione dopo il primo download",
+    "gui_settings_connection_type_label": "Come OnionShare si connette a tor?",
+    "gui_settings_connection_type_bundled_option": "Usa la versione Tor integrata in OnionShare",
+    "gui_settings_connection_type_automatic_option": "Tentativo di auto-configurazione con Tor Browser",
+    "gui_settings_language_label": "Lingua preferita",
+    "gui_settings_language_changed_notice": "Riavvia OnionShare affinché il cambiamento della tua lingua abbia effetto."
 }
