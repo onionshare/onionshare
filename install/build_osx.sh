@@ -25,7 +25,7 @@ if [ "$1" = "--release" ]; then
   IDENTITY_NAME_INSTALLER="Developer ID Installer: Micah Lee"
 
   echo "Codesigning the app bundle"
-  codesign --deep -s "$IDENTITY_NAME_APPLICATION" "$APP_PATH"
+  codesign --deep -s "$IDENTITY_NAME_APPLICATION" "$APP_PATH" --entitlements "$ROOT/install/OnionShare.entitlements"
 
   echo "Creating an installer"
   productbuild --sign "$IDENTITY_NAME_INSTALLER" --component "$APP_PATH" /Applications "$PKG_PATH"
