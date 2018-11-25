@@ -16,12 +16,11 @@ pefile==2018.8.8
 pycparser==2.18
 pycryptodome==3.6.6
 PyInstaller==3.4
-PyNaCl==1.2.1
 PyQt5==5.11.2
 PyQt5-sip==4.19.12
 PySocks==1.6.8
 requests==2.19.1
 six==1.11.0
-stem==1.6.0
+stem==1.7.0
 urllib3==1.23
 Werkzeug==0.14.1
