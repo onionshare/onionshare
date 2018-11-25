@@ -21,10 +21,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from stem.control import Controller
 from stem import ProtocolError, SocketClosed
 from stem.connection import MissingPassword, UnreadableCookieFile, AuthenticationFailure
+from Crypto.PublicKey import RSA
 import base64, os, sys, tempfile, shutil, urllib, platform, subprocess, time, shlex
 
 from distutils.version import LooseVersion as Version
-from . import onionkey
 from . import common, strings
 from .settings import Settings
 
@@ -441,8 +441,7 @@ class Onion(object):
 
         if self.settings.get('private_key'):
             key_content = self.settings.get('private_key')
-            # is the key a v2 key?
-            if onionkey.is_v2_key(key_content):
+            if self.is_v2_key(key_content):
                 key_type = "RSA1024"
                 # The below section is commented out because re-publishing
                 # a pre-prepared v3 private key is currently unstable in Tor.
@@ -458,29 +457,33 @@ class Onion(object):
                 # key_type = "ED25519-V3"
             else:
                 raise TorErrorProtocolError(strings._('error_invalid_private_key'))
+
         else:
+            key_type = "NEW"
             # Work out if we can support v3 onion services, which are preferred
             if Version(self.tor_version) >= Version('0.3.3.1') and not self.settings.get('use_legacy_v2_onions'):
-                key_type = "ED25519-V3"
-                key_content = onionkey.generate_v3_private_key()[0]
+                key_content = "ED25519-V3"
             else:
                 # fall back to v2 onion services
-                key_type = "RSA1024"
-                key_content = onionkey.generate_v2_private_key()[0]
+                key_content = "RSA1024"
 
         # v3 onions don't yet support basic auth. Our ticket:
         # https://github.com/micahflee/onionshare/issues/697
-        if key_type == "ED25519-V3" and not self.settings.get('use_legacy_v2_onions'):
+        if key_type == "NEW" and key_content == "ED25519-V3" and not self.settings.get('use_legacy_v2_onions'):
             basic_auth = None
             self.stealth = False
 
-        self.common.log('Onion', 'start_onion_service', 'key_type={}'.format(key_type))
+        debug_message = 'key_type={}'.format(key_type)
+        if key_type == "NEW":
+            debug_message += ', key_content={}'.format(key_content)
+        self.common.log('Onion', 'start_onion_service', '{}'.format(debug_message))
+        await_publication = True
         try:
             if basic_auth != None:
-                res = self.c.create_ephemeral_hidden_service({ 80: port }, await_publication=True, basic_auth=basic_auth, key_type=key_type, key_content=key_content)
+                res = self.c.create_ephemeral_hidden_service({ 80: port }, await_publication=await_publication, basic_auth=basic_auth, key_type=key_type, key_content=key_content)
             else:
                 # if the stem interface is older than 1.5.0, basic_auth isn't a valid keyword arg
-                res = self.c.create_ephemeral_hidden_service({ 80: port }, await_publication=True, key_type=key_type, key_content=key_content)
+                res = self.c.create_ephemeral_hidden_service({ 80: port }, await_publication=await_publication, key_type=key_type, key_content=key_content)
 
         except ProtocolError as e:
             raise TorErrorProtocolError(strings._('error_tor_protocol_error').format(e.args[0]))
@@ -491,7 +494,7 @@ class Onion(object):
         # A new private key was generated and is in the Control port response.
         if self.settings.get('save_private_key'):
             if not self.settings.get('private_key'):
-                self.settings.set('private_key', key_content)
+                self.settings.set('private_key', res.private_key)
 
         if self.stealth:
             # Similar to the PrivateKey, the Control port only returns the ClientAuth
@@ -575,3 +578,18 @@ class Onion(object):
             return ('127.0.0.1', 9150)
         else:
             return (self.settings.get('socks_address'), self.settings.get('socks_port'))
+
+    def is_v2_key(self, key):
+        """
+        Helper function for determining if a key is RSA1024 (v2) or not.
+        """
+        try:
+            # Import the key
+            key = RSA.importKey(base64.b64decode(key))
+            # Is this a v2 Onion key? (1024 bits) If so, we should keep using it.
+            if key.n.bit_length() == 1024:
+                return True
+            else:
+                return False
+        except:
+            return False
