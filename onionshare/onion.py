@@ -494,7 +494,7 @@ class Onion(object):
         # A new private key was generated and is in the Control port response.
         if self.settings.get('save_private_key'):
             if not self.settings.get('private_key'):
-                self.settings.set('private_key', key_content)
+                self.settings.set('private_key', res.private_key)
 
         if self.stealth:
             # Similar to the PrivateKey, the Control port only returns the ClientAuth
@@ -579,7 +579,7 @@ class Onion(object):
         else:
             return (self.settings.get('socks_address'), self.settings.get('socks_port'))
 
-    def is_v2_key(key):
+    def is_v2_key(self, key):
         """
         Helper function for determining if a key is RSA1024 (v2) or not.
         """
