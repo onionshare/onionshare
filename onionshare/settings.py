@@ -22,6 +22,7 @@ import json
 import os
 import platform
 import locale
+import pwd
 
 from . import strings
 
@@ -128,7 +129,13 @@ class Settings(object):
         """
         # TODO: Test in Windows, though it looks like it should work
         # https://docs.python.org/3/library/os.path.html#os.path.expanduser
-        return os.path.expanduser('~/OnionShare')
+        if self.common.platform == "Darwin":
+            # We can't use os.path.expanduser in macOS because in the sandbox it
+            # returns the path to the sandboxed homedir
+            real_homedir = pwd.getpwuid(os.getuid()).pw_dir
+            return os.path.join(real_homedir, 'OnionShare')
+        else:
+            return os.path.expanduser('~/OnionShare')
 
     def load(self):
         """
