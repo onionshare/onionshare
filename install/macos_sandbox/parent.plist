@@ -4,23 +4,30 @@
 <dict>
 	<key>com.apple.security.app-sandbox</key>
 	<true/>
+	<!-- Tor needs to network server and client, and OnionShare needs network client -->
 	<key>com.apple.security.network.server</key>
 	<true/>
 	<key>com.apple.security.network.client</key>
 	<true/>
-	<key>com.apple.security.files.user-selected.read-only</key>
+	<!-- In share mode, users need to be able to select files, and in receive mode,
+       users need to be able to choose a folder to save files to -->
+	<key>com.apple.security.files.user-selected.read-write</key>
 	<true/>
+	<!-- Flask needs to read this mime.types file when starting an HTTP server -->
+	<key>com.apple.security.temporary-exception.files.absolute-path.read-only</key>
+	<array>
+		<string>/private/etc/apache2/mime.types</string>
+	</array>
+	<!-- For OnionShare to be able to connect to Tor Browser's tor control port,
+	     it needs to read it's control_auth_cookie file -->
 	<key>com.apple.security.temporary-exception.files.home-relative-path.read-only</key>
 	<array>
 		<string>/Library/Application Support/TorBrowser-Data/Tor/control_auth_cookie</string>
 	</array>
+	<!-- In receive mode, OnionShare needs to be able to write to ~/OnionShare -->
 	<key>com.apple.security.temporary-exception.files.home-relative-path.read-write</key>
 	<array>
 		<string>/OnionShare</string>
-	</array>
-	<key>com.apple.security.application-groups</key>
-	<array>
-		<string>com.micahflee.onionshare</string>
 	</array>
 </dict>
 </plist>
