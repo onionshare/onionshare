@@ -10,13 +10,17 @@
 	<true/>
 	<key>com.apple.security.files.user-selected.read-only</key>
 	<true/>
+	<key>com.apple.security.temporary-exception.files.home-relative-path.read-only</key>
+	<array>
+		<string>/Library/Application Support/TorBrowser-Data/Tor/control_auth_cookie</string>
+	</array>
 	<key>com.apple.security.temporary-exception.files.home-relative-path.read-write</key>
 	<array>
-    <string>/OnionShare</string>
-  </array>
+		<string>/OnionShare</string>
+	</array>
 	<key>com.apple.security.application-groups</key>
-    <array>
-        <string>com.micahflee.onionshare</string>
-    </array>
+	<array>
+		<string>com.micahflee.onionshare</string>
+	</array>
 </dict>
 </plist>
