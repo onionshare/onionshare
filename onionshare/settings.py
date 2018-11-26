@@ -146,6 +146,12 @@ class Settings(object):
             except:
                 pass
 
+        # Make sure downloads_dir exists
+        try:
+            os.makedirs(self.get('downloads_dir'), exist_ok=True)
+        except:
+            pass
+
     def save(self):
         """
         Save settings to file.
