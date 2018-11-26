@@ -166,13 +166,8 @@ class Onion(object):
                 raise BundledTorNotSupported(strings._('settings_error_bundled_tor_not_supported'))
 
             # Create a torrc for this session
-            if self.common.platform == 'Darwin':
-                group_container_dir = os.path.expanduser('~/Library/Group Containers/com.micahflee.onionshare')
-                os.makedirs(group_container_dir, exist_ok=True)
-                self.tor_data_directory = tempfile.TemporaryDirectory(dir=group_container_dir)
-                self.common.log('Onion', 'connect', 'tor_data_directory={}'.format(self.tor_data_directory.name))
-            else:
-                self.tor_data_directory = tempfile.TemporaryDirectory()
+            self.tor_data_directory = tempfile.TemporaryDirectory(dir=self.common.build_data_dir())
+            self.common.log('Onion', 'connect', 'tor_data_directory={}'.format(self.tor_data_directory.name))
 
             # Create the torrc
             with open(self.common.get_resource_path('torrc_template')) as f:
