@@ -170,6 +170,7 @@ class Onion(object):
                 group_container_dir = os.path.expanduser('~/Library/Group Containers/com.micahflee.onionshare')
                 os.makedirs(group_container_dir, exist_ok=True)
                 self.tor_data_directory = tempfile.TemporaryDirectory(dir=group_container_dir)
+                self.common.log('Onion', 'connect', 'tor_data_directory={}'.format(self.tor_data_directory))
             else:
                 self.tor_data_directory = tempfile.TemporaryDirectory()
 
