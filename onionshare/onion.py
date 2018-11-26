@@ -170,36 +170,36 @@ class Onion(object):
                 group_container_dir = os.path.expanduser('~/Library/Group Containers/com.micahflee.onionshare')
                 os.makedirs(group_container_dir, exist_ok=True)
                 self.tor_data_directory = tempfile.TemporaryDirectory(dir=group_container_dir)
-                self.common.log('Onion', 'connect', 'tor_data_directory={}'.format(self.tor_data_directory))
+                self.common.log('Onion', 'connect', 'tor_data_directory={}'.format(self.tor_data_directory.name))
             else:
                 self.tor_data_directory = tempfile.TemporaryDirectory()
 
-            if self.common.platform == 'Windows':
-                # Windows needs to use network ports, doesn't support unix sockets
-                torrc_template = open(self.common.get_resource_path('torrc_template-windows')).read()
+            # Create the torrc
+            with open(self.common.get_resource_path('torrc_template')) as f:
+                torrc_template = f.read()
+            self.tor_cookie_auth_file = os.path.join(self.tor_data_directory.name, 'cookie')
+            try:
+                self.tor_socks_port = self.common.get_available_port(1000, 65535)
+            except:
+                raise OSError(strings._('no_available_port'))
+            self.tor_torrc = os.path.join(self.tor_data_directory.name, 'torrc')
+
+            if self.common.platform == 'Windows' or self.common.platform == "Darwin":
+                # Windows doesn't support unix sockets, so it must use a network port.
+                # macOS can't use unix sockets either because socket filenames are limited to
+                # 100 chars, and the macOS sandbox forces us to put the socket file in a place
+                # with a really long path.
+                torrc_template += 'ControlPort {{control_port}}\n'
                 try:
                     self.tor_control_port = self.common.get_available_port(1000, 65535)
                 except:
                     raise OSError(strings._('no_available_port'))
                 self.tor_control_socket = None
-                self.tor_cookie_auth_file = os.path.join(self.tor_data_directory.name, 'cookie')
-                try:
-                    self.tor_socks_port = self.common.get_available_port(1000, 65535)
-                except:
-                    raise OSError(strings._('no_available_port'))
-                self.tor_torrc = os.path.join(self.tor_data_directory.name, 'torrc')
             else:
-                # Linux, Mac and BSD can use unix sockets
-                with open(self.common.get_resource_path('torrc_template')) as f:
-                    torrc_template = f.read()
+                # Linux and BSD can use unix sockets
+                torrc_template += 'ControlSocket {{control_socket}}\n'
                 self.tor_control_port = None
                 self.tor_control_socket = os.path.join(self.tor_data_directory.name, 'control_socket')
-                self.tor_cookie_auth_file = os.path.join(self.tor_data_directory.name, 'cookie')
-                try:
-                    self.tor_socks_port = self.common.get_available_port(1000, 65535)
-                except:
-                    raise OSError(strings._('no_available_port'))
-                self.tor_torrc = os.path.join(self.tor_data_directory.name, 'torrc')
 
             torrc_template = torrc_template.replace('{{data_directory}}',   self.tor_data_directory.name)
             torrc_template = torrc_template.replace('{{control_port}}',     str(self.tor_control_port))
@@ -208,6 +208,7 @@ class Onion(object):
             torrc_template = torrc_template.replace('{{geo_ip_file}}',      self.tor_geo_ip_file_path)
             torrc_template = torrc_template.replace('{{geo_ipv6_file}}',    self.tor_geo_ipv6_file_path)
             torrc_template = torrc_template.replace('{{socks_port}}',       str(self.tor_socks_port))
+
             with open(self.tor_torrc, 'w') as f:
                 f.write(torrc_template)
 
@@ -246,7 +247,7 @@ class Onion(object):
 
             # Connect to the controller
             try:
-                if self.common.platform == 'Windows':
+                if self.common.platform == 'Windows' or self.common.platform == "Darwin":
                     self.c = Controller.from_port(port=self.tor_control_port)
                     self.c.authenticate()
                 else:
