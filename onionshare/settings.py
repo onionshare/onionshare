@@ -163,11 +163,7 @@ class Settings(object):
         Save settings to file.
         """
         self.common.log('Settings', 'save')
-
-        try:
-            os.makedirs(os.path.dirname(self.filename))
-        except:
-            pass
+        os.makedirs(os.path.dirname(self.filename), exist_ok=True)
         open(self.filename, 'w').write(json.dumps(self._settings))
         self.common.log('Settings', 'save', 'Settings saved in {}'.format(self.filename))
 

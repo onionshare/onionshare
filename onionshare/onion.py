@@ -166,7 +166,12 @@ class Onion(object):
                 raise BundledTorNotSupported(strings._('settings_error_bundled_tor_not_supported'))
 
             # Create a torrc for this session
-            self.tor_data_directory = tempfile.TemporaryDirectory()
+            if self.common.platform == 'Darwin':
+                group_container_dir = os.path.expanduser('~/Library/Group Containers/com.micahflee.onionshare')
+                os.makedirs(group_container_dir, exist_ok=True)
+                self.tor_data_directory = tempfile.TemporaryDirectory(dir=group_container_dir)
+            else:
+                self.tor_data_directory = tempfile.TemporaryDirectory()
 
             if self.common.platform == 'Windows':
                 # Windows needs to use network ports, doesn't support unix sockets
