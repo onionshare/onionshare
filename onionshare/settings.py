@@ -120,19 +120,7 @@ class Settings(object):
         """
         Returns the path of the settings file.
         """
-        p = platform.system()
-        if p == 'Windows':
-            try:
-                appdata = os.environ['APPDATA']
-                return '{}\\OnionShare\\onionshare.json'.format(appdata)
-            except:
-                # If for some reason we don't have the 'APPDATA' environment variable
-                # (like running tests in Linux while pretending to be in Windows)
-                return os.path.expanduser('~/.config/onionshare/onionshare.json')
-        elif p == 'Darwin':
-            return os.path.expanduser('~/Library/Application Support/OnionShare/onionshare.json')
-        else:
-            return os.path.expanduser('~/.config/onionshare/onionshare.json')
+        return os.path.join(self.common.build_data_dir(), 'onionshare.json')
 
     def build_default_downloads_dir(self):
         """
