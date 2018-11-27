@@ -184,16 +184,11 @@ class UploadHistoryItemFile(QtWidgets.QWidget):
 
         # macOS
         elif self.common.platform == 'Darwin':
-            # TODO: Implement opening folder with file selected in macOS
-            # This seems helpful: https://stackoverflow.com/questions/3520493/python-show-in-finder
-            self.common.log('UploadHistoryItemFile', 'open_folder', 'not implemented for Darwin yet')
+            subprocess.call(['open', '-R', abs_filename]) 
 
         # Windows
         elif self.common.platform == 'Windows':
-            # TODO: Implement opening folder with file selected in Windows
-            # This seems helpful: https://stackoverflow.com/questions/6631299/python-opening-a-folder-in-explorer-nautilus-mac-thingie
-            self.common.log('UploadHistoryItemFile', 'open_folder', 'not implemented for Windows yet')
-
+            subprocess.Popen(['explorer', '/select,{}'.format(abs_filename)])
 
 class UploadHistoryItem(HistoryItem):
     def __init__(self, common, id, content_length):
