@@ -288,10 +288,11 @@ class FileSelection(QtWidgets.QVBoxLayout):
     The list of files and folders in the GUI, as well as buttons to add and
     delete the files and folders.
     """
-    def __init__(self, common):
+    def __init__(self, common, parent):
         super(FileSelection, self).__init__()
 
         self.common = common
+        self.parent = parent
 
         self.server_on = False
 
@@ -302,13 +303,25 @@ class FileSelection(QtWidgets.QVBoxLayout):
         self.file_list.files_updated.connect(self.update)
 
         # Buttons
-        self.add_button = QtWidgets.QPushButton(strings._('gui_add'))
-        self.add_button.clicked.connect(self.add)
+        if self.common.platform == 'Darwin':
+            # The macOS sandbox makes it so the Mac version needs separate add files
+            # and folders buttons, in order to use native file selection dialogs
+            self.add_files_button = QtWidgets.QPushButton(strings._('gui_add_files'))
+            self.add_files_button.clicked.connect(self.add_files)
+            self.add_folder_button = QtWidgets.QPushButton(strings._('gui_add_folder'))
+            self.add_folder_button.clicked.connect(self.add_folder)
+        else:
+            self.add_button = QtWidgets.QPushButton(strings._('gui_add'))
+            self.add_button.clicked.connect(self.add)
         self.delete_button = QtWidgets.QPushButton(strings._('gui_delete'))
         self.delete_button.clicked.connect(self.delete)
         button_layout = QtWidgets.QHBoxLayout()
         button_layout.addStretch()
-        button_layout.addWidget(self.add_button)
+        if self.common.platform == 'Darwin':
+            button_layout.addWidget(self.add_files_button)
+            button_layout.addWidget(self.add_folder_button)
+        else:
+            button_layout.addWidget(self.add_button)
         button_layout.addWidget(self.delete_button)
 
         # Add the widgets
@@ -323,10 +336,18 @@ class FileSelection(QtWidgets.QVBoxLayout):
         """
         # All buttons should be hidden if the server is on
         if self.server_on:
-            self.add_button.hide()
+            if self.common.platform == 'Darwin':
+                self.add_files_button.hide()
+                self.add_folder_button.hide()
+            else:
+                self.add_button.hide()
             self.delete_button.hide()
         else:
-            self.add_button.show()
+            if self.common.platform == 'Darwin':
+                self.add_files_button.show()
+                self.add_folder_button.show()
+            else:
+                self.add_button.show()
 
             # Delete button should be hidden if item isn't selected
             if len(self.file_list.selectedItems()) == 0:
@@ -348,6 +369,24 @@ class FileSelection(QtWidgets.QVBoxLayout):
 
         self.file_list.setCurrentItem(None)
         self.update()
+
+    def add_files(self):
+        """
+        Add files button clicked.
+        """
+        files = QtWidgets.QFileDialog.getOpenFileNames(self.parent, caption=strings._('gui_choose_items'))
+        filenames = files[0]
+        for filename in filenames:
+            self.file_list.add_file(filename)
+
+    def add_folder(self):
+        """
+        Add folder button clicked.
+        """
+        filename = QtWidgets.QFileDialog.getExistingDirectory(self.parent,
+                                                         caption=strings._('gui_choose_items'),
+                                                         options=QtWidgets.QFileDialog.ShowDirsOnly)
+        self.file_list.add_file(filename)
 
     def delete(self):
         """
