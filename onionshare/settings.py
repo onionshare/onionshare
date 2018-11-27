@@ -127,14 +127,18 @@ class Settings(object):
         """
         Returns the path of the default Downloads directory for receive mode.
         """
-        # TODO: Test in Windows, though it looks like it should work
-        # https://docs.python.org/3/library/os.path.html#os.path.expanduser
+
         if self.common.platform == "Darwin":
-            # We can't use os.path.expanduser in macOS because in the sandbox it
+            # We can't use os.path.expanduser() in macOS because in the sandbox it
             # returns the path to the sandboxed homedir
             real_homedir = pwd.getpwuid(os.getuid()).pw_dir
             return os.path.join(real_homedir, 'OnionShare')
+        elif self.common.platform == "Windows":
+            # On Windows, os.path.expanduser() needs to use backslash, or else it
+            # retains the forward slash, which breaks opening the folder in explorer.
+            return os.path.expanduser('~\OnionShare')
         else:
+            # All other OSes
             return os.path.expanduser('~/OnionShare')
 
     def load(self):
