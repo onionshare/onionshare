@@ -143,5 +143,7 @@
     "gui_upload_finished": "{} envoyé",
     "gui_download_in_progress": "Téléchargement démarré {}",
     "gui_open_folder_error_nautilus": "Impossible d'ouvrir le dossier car nautilus n'est pas disponible. Le fichier est ici : {}",
-    "gui_settings_language_label": "Langue préférée"
+    "gui_settings_language_label": "Langue préférée",
+    "help_stealth": "Utilisation de l'autorisation du client (avancé)",
+    "help_receive": "Recevoir des actions au lieu de les envoyer"
 }
