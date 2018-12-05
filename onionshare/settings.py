@@ -94,7 +94,6 @@ class Settings(object):
             'slug': '',
             'hidservauth_string': '',
             'downloads_dir': self.build_default_downloads_dir(),
-            'receive_allow_receiver_shutdown': True,
             'locale': None # this gets defined in fill_in_defaults()
         }
         self._settings = {}

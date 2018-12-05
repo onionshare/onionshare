@@ -142,6 +142,12 @@ class Web(object):
         r = make_response(render_template('404.html'), 404)
         return self.add_security_headers(r)
 
+    def error403(self):
+        self.add_request(Web.REQUEST_OTHER, request.path)
+
+        r = make_response(render_template('403.html'), 403)
+        return self.add_security_headers(r)
+
     def add_security_headers(self, r):
         """
         Add security headers to a request

@@ -209,6 +209,13 @@ def main(cwd=None):
                             print(strings._("close_on_timeout"))
                             web.stop(app.port)
                             break
+                    if mode == 'receive':
+                        if web.receive_mode.upload_count == 0 or not web.receive_mode.uploads_in_progress:
+                            print(strings._("close_on_timeout"))
+                            web.stop(app.port)
+                            break
+                        else:
+                            web.receive_mode.can_upload = False
             # Allow KeyboardInterrupt exception to be handled with threads
             # https://stackoverflow.com/questions/3788208/python-threading-ignores-keyboardinterrupt-exception
             time.sleep(0.2)
