@@ -96,8 +96,16 @@ class ReceiveMode(Mode):
         """
         The shutdown timer expired, should we stop the server? Returns a bool
         """
-        # TODO: wait until the final upload is done before stoppign the server?
-        return True
+        # If there were no attempts to upload files, or all uploads are done, we can stop
+        if self.web.receive_mode.upload_count == 0 or not self.web.receive_mode.uploads_in_progress:
+            self.server_status.stop_server()
+            self.server_status_label.setText(strings._('close_on_timeout'))
+            return True
+        # An upload is probably still running - hold off on stopping the share, but block new shares.
+        else:
+            self.server_status_label.setText(strings._('timeout_upload_still_running'))
+            self.web.receive_mode.can_upload = False
+            return False
 
     def start_server_custom(self):
         """
