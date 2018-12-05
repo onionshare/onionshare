@@ -1,6 +1,6 @@
 {
     "preparing_files": "Dateien werden vorbereitet.",
-    "give_this_url": "Geben Sie diese URL der Person, der Sie die Datei zusenden möchten:",
+    "give_this_url": "Gib diese URL an den Empfänger:",
     "ctrlc_to_stop": "Drücke Strg+C um den Server anzuhalten",
     "not_a_file": "{0:s} ist keine Datei.",
     "other_page_loaded": "URL geladen",
@@ -97,7 +97,7 @@
     "error_ephemeral_not_supported": "OnionShare benötigt mindestens Tor 0.2.7.1 als auch python3-stem 1.4.0.",
     "gui_settings_whats_this": "<a href='{0:s}'>Was ist das?</a>",
     "gui_settings_stealth_option": "Nutze Klientauthorisierung (Alt)",
-    "gui_settings_autoupdate_label": "Suche nach neuerer Version",
+    "gui_settings_autoupdate_label": "Suche nach einer neueren Version",
     "gui_settings_autoupdate_option": "Benachrichtige mich, wenn eine neuere Version verfügbar ist",
     "gui_settings_autoupdate_check_button": "Suche nach neuerer Version",
     "gui_settings_general_label": "Allgemeine Einstellungen",
@@ -168,5 +168,6 @@
     "gui_download_in_progress": "Download gestartet {}",
     "gui_open_folder_error_nautilus": "Kann den Ordner nicht öffnen, weil Nautilus nicht verfügbar ist. Die Datei ist hier: {}",
     "gui_settings_language_label": "Bevorzugte Sprache",
-    "gui_settings_language_changed_notice": "Starte OnionShare neu, damit die Sprache geändert wird."
+    "gui_settings_language_changed_notice": "Starte OnionShare neu, damit die Sprache geändert wird.",
+    "help_config": "Ort deiner eigenen JSON Konfigurationsdatei (optional)"
 }
