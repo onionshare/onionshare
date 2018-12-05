@@ -65,7 +65,6 @@ class TestSettings:
             'slug': '',
             'hidservauth_string': '',
             'downloads_dir': os.path.expanduser('~/OnionShare'),
-            'receive_allow_receiver_shutdown': True,
             'public_mode': False
         }
         for key in settings_obj._settings:
