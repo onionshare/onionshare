@@ -185,5 +185,6 @@
     "history_completed_tooltip": "{} fullført",
     "gui_download_in_progress": "Nedlasting startet {}",
     "gui_settings_language_label": "Foretrukket språk",
-    "gui_settings_language_changed_notice": "Start OnionShare på ny for å se nytt språkvalg."
+    "gui_settings_language_changed_notice": "Start OnionShare på ny for å se nytt språkvalg.",
+    "timeout_upload_still_running": "Venter på at opplastingen fullføres"
 }
