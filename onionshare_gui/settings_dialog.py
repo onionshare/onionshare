@@ -164,15 +164,6 @@ class SettingsDialog(QtWidgets.QDialog):
         onion_settings_widget = QtWidgets.QWidget()
         onion_settings_widget.setLayout(onion_settings_layout)
 
-        # If we're connected to Tor, show onion service settings, show label if not
-        if self.onion.is_authenticated():
-            connect_to_tor_label.hide()
-            onion_settings_widget.show()
-        else:
-            connect_to_tor_label.show()
-            onion_settings_widget.hide()
-
-
         # General options layout
         general_group_layout = QtWidgets.QVBoxLayout()
         general_group_layout.addWidget(self.public_mode_widget)
@@ -480,6 +471,7 @@ class SettingsDialog(QtWidgets.QDialog):
         self.setLayout(layout)
         self.cancel_button.setFocus()
 
+
         # Load settings, and fill them in
         self.old_settings = Settings(self.common, self.config)
         self.old_settings.load()
@@ -598,6 +590,25 @@ class SettingsDialog(QtWidgets.QDialog):
                     new_bridges.append(bridge)
                 new_bridges = ''.join(new_bridges)
                 self.tor_bridges_use_custom_textbox.setPlainText(new_bridges)
+
+        # If we're connected to Tor, show onion service settings, show label if not
+        if self.onion.is_authenticated():
+            connect_to_tor_label.hide()
+            onion_settings_widget.show()
+
+            # If v3 onion services are supported, allow using legacy mode
+            if self.onion.supports_v3_onions:
+                self.common.log('SettingsDialog', '__init__', 'v3 onions are supported')
+                self.use_legacy_v2_onions_checkbox.show()
+            else:
+                self.common.log('SettingsDialog', '__init__', 'v3 onions are not supported')
+                self.use_legacy_v2_onions_checkbox.setCheckState(QtCore.Qt.Checked)
+                self.use_legacy_v2_onions_widget.hide()
+                self.use_legacy_v2_onions_checkbox_clicked(True)
+        else:
+            connect_to_tor_label.show()
+            onion_settings_widget.hide()
+
 
     def connection_type_bundled_toggled(self, checked):
         """
@@ -774,7 +785,7 @@ class SettingsDialog(QtWidgets.QDialog):
             onion.connect(custom_settings=settings, config=self.config, tor_status_update_func=tor_status_update_func)
 
             # If an exception hasn't been raised yet, the Tor settings work
-            Alert(self.common, strings._('settings_test_success').format(onion.tor_version, onion.supports_ephemeral, onion.supports_stealth, onion.supports_next_gen_onions))
+            Alert(self.common, strings._('settings_test_success').format(onion.tor_version, onion.supports_ephemeral, onion.supports_stealth, onion.supports_v3_onions))
 
             # Clean up
             onion.cleanup()
