@@ -602,7 +602,6 @@ class SettingsDialog(QtWidgets.QDialog):
                 self.use_legacy_v2_onions_checkbox.show()
             else:
                 self.common.log('SettingsDialog', '__init__', 'v3 onions are not supported')
-                self.use_legacy_v2_onions_checkbox.setCheckState(QtCore.Qt.Checked)
                 self.use_legacy_v2_onions_widget.hide()
                 self.use_legacy_v2_onions_checkbox_clicked(True)
         else:
