@@ -406,7 +406,7 @@ class Onion(object):
         # Does this version of Tor support next-gen ('v3') onions?
         # Note, this is the version of Tor where this bug was fixed:
         # https://trac.torproject.org/projects/tor/ticket/28619
-        self.supports_v3_onions = self.tor_version > Version('0.4.0.0')
+        self.supports_v3_onions = self.tor_version >= Version('0.4.0.0')
 
     def is_authenticated(self):
         """
@@ -464,7 +464,7 @@ class Onion(object):
         else:
             key_type = "NEW"
             # Work out if we can support v3 onion services, which are preferred
-            if Version(self.tor_version) >= Version('0.3.3.1') and not self.settings.get('use_legacy_v2_onions'):
+            if self.supports_v3_onions and not self.settings.get('use_legacy_v2_onions'):
                 key_content = "ED25519-V3"
             else:
                 # fall back to v2 onion services
