@@ -184,5 +184,6 @@
     "receive_mode_warning": "Advarsel: Modtagetilstand lader folk uploade filer til din computer. Nogle filer kan potentielt tage kontrol over din computer hvis du åbner dem. Åbn kun ting fra folk du har tillid til, eller hvis du ved hvad du har gang i.",
     "gui_receive_mode_warning": "Modtagetilstand lader folk uploade filer til din computer.<br><br><b>Nogle filer kan potentielt tage kontrol over din computer hvis du åbner dem. Åbn kun ting fra folk du har tillid til, eller hvis du ved hvad du har gang i.</b>",
     "receive_mode_upload_starting": "Upload med samlet størrelse på {} starter",
-    "gui_open_folder_error_nautilus": "Kan ikke åbne mappe fordi nautilus ikke er tilgængelig. Filen er her: {}"
+    "gui_open_folder_error_nautilus": "Kan ikke åbne mappe fordi nautilus ikke er tilgængelig. Filen er her: {}",
+    "timeout_upload_still_running": "Venter på at upload skal blive færdig"
 }
