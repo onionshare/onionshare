@@ -135,6 +135,7 @@
     "gui_server_started_after_timeout": "The auto-stop timer ran out before the server started.\nPlease make a new share.",
     "gui_server_timeout_expired": "The auto-stop timer already ran out.\nPlease update it to start sharing.",
     "share_via_onionshare": "OnionShare it",
+    "gui_connect_to_tor_for_onion_settings": "Connect to Tor to see onion service settings",
     "gui_use_legacy_v2_onions_checkbox": "Use legacy addresses",
     "gui_save_private_key_checkbox": "Use a persistent address (legacy)",
     "gui_share_url_description": "<b>Anyone</b> with this OnionShare address can <b>download</b> your files using the <b>Tor Browser</b>: <img src='{}' />",

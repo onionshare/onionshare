@@ -88,6 +88,10 @@ class SettingsDialog(QtWidgets.QDialog):
         self.shutdown_timeout_widget = QtWidgets.QWidget()
         self.shutdown_timeout_widget.setLayout(shutdown_timeout_layout)
 
+        # Label telling user to connect to Tor for onion service settings
+        connect_to_tor_label = QtWidgets.QLabel(strings._("gui_connect_to_tor_for_onion_settings"))
+        connect_to_tor_label.setStyleSheet(self.common.css['settings_connect_to_tor'])
+
         # Whether or not to use legacy v2 onions
         self.use_legacy_v2_onions_checkbox = QtWidgets.QCheckBox()
         self.use_legacy_v2_onions_checkbox.setCheckState(QtCore.Qt.Unchecked)
@@ -149,16 +153,32 @@ class SettingsDialog(QtWidgets.QDialog):
         self.hidservauth_copy_button.clicked.connect(self.hidservauth_copy_button_clicked)
         self.hidservauth_copy_button.hide()
 
+        # Onion settings widget
+        onion_settings_layout = QtWidgets.QVBoxLayout()
+        onion_settings_layout.setContentsMargins(0, 0, 0, 0)
+        onion_settings_layout.addWidget(self.use_legacy_v2_onions_widget)
+        onion_settings_layout.addWidget(self.save_private_key_widget)
+        onion_settings_layout.addWidget(self.use_stealth_widget)
+        onion_settings_layout.addWidget(hidservauth_details)
+        onion_settings_layout.addWidget(self.hidservauth_copy_button)
+        onion_settings_widget = QtWidgets.QWidget()
+        onion_settings_widget.setLayout(onion_settings_layout)
+
+        # If we're connected to Tor, show onion service settings, show label if not
+        if self.onion.is_authenticated():
+            connect_to_tor_label.hide()
+            onion_settings_widget.show()
+        else:
+            connect_to_tor_label.show()
+            onion_settings_widget.hide()
+
+
         # General options layout
         general_group_layout = QtWidgets.QVBoxLayout()
         general_group_layout.addWidget(self.public_mode_widget)
         general_group_layout.addWidget(self.shutdown_timeout_widget)
-        general_group_layout.addWidget(self.use_legacy_v2_onions_widget)
-        general_group_layout.addWidget(self.save_private_key_widget)
-        general_group_layout.addWidget(self.use_stealth_widget)
-        general_group_layout.addWidget(hidservauth_details)
-        general_group_layout.addWidget(self.hidservauth_copy_button)
-
+        general_group_layout.addWidget(connect_to_tor_label)
+        general_group_layout.addWidget(onion_settings_widget)
         general_group = QtWidgets.QGroupBox(strings._("gui_settings_general_label"))
         general_group.setLayout(general_group_layout)
 
