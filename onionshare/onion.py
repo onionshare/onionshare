@@ -387,6 +387,7 @@ class Onion(object):
 
         # Get the tor version
         self.tor_version = self.c.get_version().version_str
+        self.common.log('Onion', 'connect', 'Connected to tor {}'.format(self.tor_version))
 
         # Do the versions of stem and tor that I'm using support ephemeral onion services?
         list_ephemeral_hidden_services = getattr(self.c, "list_ephemeral_hidden_services", None)
@@ -403,7 +404,9 @@ class Onion(object):
             self.supports_stealth = False
 
         # Does this version of Tor support next-gen ('v3') onions?
-        self.supports_next_gen_onions = self.tor_version > Version('0.3.3.1')
+        # Note, this is the version of Tor where this bug was fixed:
+        # https://trac.torproject.org/projects/tor/ticket/28619
+        self.supports_v3_onions = self.tor_version > Version('0.4.0.0')
 
     def is_authenticated(self):
         """
