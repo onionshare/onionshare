@@ -146,6 +146,9 @@ class Onion(object):
         # The tor process
         self.tor_proc = None
 
+        # The Tor controller
+        self.c = None
+
         # Start out not connected to Tor
         self.connected_to_tor = False
 
