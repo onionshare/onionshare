@@ -149,7 +149,7 @@
     "gui_settings_tor_bridges_obfs4_radio_option_no_obfs4proxy": "Usar transportes enchufables obfs4 incorporados (requiere obfs4proxy)",
     "gui_settings_tor_bridges_meek_lite_azure_radio_option": "Utilizar transporte enchufable incorporado meek_lite (Azure)",
     "gui_settings_tor_bridges_meek_lite_azure_radio_option_no_obfs4proxy": "Usar transporte enchufable meek_lite (Azure) incorporado (requiere obfs4proxy)",
-    "gui_settings_meek_lite_expensive_warning": "Advertencia: Los puentes meek_lite son caros para el Proyecto Tor. <br><br>br>Úsalos sólo si no puedes conectarte a Tor directamente, a través de transportes obfs4, u otros puentes normales.",
+    "gui_settings_meek_lite_expensive_warning": "Advertencia: Los puentes meek_lite son caros para el Proyecto Tor. <br><br>Úsalos sólo si no puedes conectarte a Tor directamente, a través de transportes obfs4, u otros puentes normales.",
     "gui_settings_tor_bridges_custom_radio_option": "Usar puentes personalizados",
     "gui_settings_tor_bridges_custom_label": "Puedes obtener puentes en <a href=\"https://bridges.torproject.org/options\">https://bridges.torproject.org</a>",
     "gui_settings_button_save": "Guardar",
