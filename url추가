@@ -1,0 +1,6 @@
+url 추가
+onionshare_gui의 server_state 파일에 copy_url 존재
+import urllib2 한건 onion의 web 파일에 존대 
+server_state 와 onionshare_gui에는 web을 import함 
+
+server_state 파일에 추가함으로써 url추가가 가능해 보임 
