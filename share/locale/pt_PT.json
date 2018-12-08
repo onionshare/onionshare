@@ -1,0 +1,7 @@
+{
+    "give_this_url": "Passe este URL para a pessoa que deve receber o arquivo:",
+    "ctrlc_to_stop":  "Pressione Ctrl-C para parar o servidor",
+    "not_a_file": "{0:s} não é um arquivo.",
+    "gui_copied_url": "URL foi copiado para área de transferência",
+    "other_page_loaded": "Outra página tem sido carregada"
+}

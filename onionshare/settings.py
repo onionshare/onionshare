@@ -62,7 +62,8 @@ class Settings(object):
             'it': 'Italiano',   # Italian
             'nl': 'Nederlands', # Dutch
             'no': 'Norsk',      # Norweigan
-            'pt': 'Português',  # Portuguese
+            'pt_BR': 'Português Brasil',   # Portuguese Brazil
+            'pt_PT': 'Português Portugal', # Portuguese Portugal
             'ru': 'Русский',    # Russian
             'tr': 'Türkçe'      # Turkish
         }
