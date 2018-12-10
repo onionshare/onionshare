@@ -107,7 +107,7 @@
     "gui_settings_shutdown_timeout_checkbox": "Posa un temporitzador d'aturada",
     "gui_settings_shutdown_timeout": "Atura a:",
     "settings_error_unknown": "No s'ha pogut connectar a Tor perquè la configuració és inconsistent.",
-    "settings_error_automatic": "No s'ha pogut connectar al controlador de Tor. Tens el navegador de Tor arrencat? (el pots descarregar a https://torproject.org)",
+    "settings_error_automatic": "No s'ha pogut connectar al controlador de Tor. Tens el navegador de Tor arrencat? (el pots descarregar a torproject.org)",
     "settings_error_socket_port": "No s'ha pogut establir la connexió al controlador de Tor a {}:{}.",
     "settings_error_socket_file": "No s'ha pogut connectar al controlador de Tor fent servir el fitxer de socket {}.",
     "settings_error_auth": "S'ha establert la connexió a {}:{} però ha fallat l'autenticació. Pot ser que no sigui un controlador de Tor?",
