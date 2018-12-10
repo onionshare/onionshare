@@ -61,7 +61,7 @@ class Settings(object):
             'fr': 'Français',   # French
             'it': 'Italiano',   # Italian
             'nl': 'Nederlands', # Dutch
-            'no': 'Norsk',      # Norweigan
+            'no': 'Norsk',      # Norwegian
             'pt_BR': 'Português Brasil',   # Portuguese Brazil
             'pt_PT': 'Português Portugal', # Portuguese Portugal
             'ru': 'Русский',    # Russian
