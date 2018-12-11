@@ -1,5 +1,9 @@
 # OnionShare Changelog
 
+## 1.3.2
+
+* Bug fix: In debug mode, stop saving flask debug log in /tmp, where all users can access it
+
 ## 1.3.1
 
 * Updated Tor to 0.2.3.10
