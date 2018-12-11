@@ -135,7 +135,7 @@
     "gui_server_timeout_expired": "O temporizador já se esgotou.\nPor favor, atualize-o antes de começar a compartilhar.",
     "share_via_onionshare": "Compartilhar por meio de OnionShare",
     "gui_use_legacy_v2_onions_checkbox": "Usar endereços do tipo antigo",
-    "gui_save_private_key_checkbox": "",
+    "gui_save_private_key_checkbox": "Usar um endereço persistente (modo antigo)",
     "gui_share_url_description": "<b>Qualquer pessoa</b> com este endereço do OnionShare pode <b>baixar</b> seus arquivos usando o <b>Tor Browser</b>: <img src='{}' />",
     "gui_receive_url_description": "<b>Qualquer pessoa</b> com este endereço do OnionShare pode <b>fazer upload</b> de arquivos para o seu computador usando o <b>Tor Browser</b>: <img src='{}' />",
     "gui_url_label_persistent": "Este compartilhamento não vai ser encerrado automaticamente.<br><br>Todos os compartilhamentos posteriores reutilizarão este endereço. (Para usar um endereço novo a cada vez, desligue a opção \"Usar endereço persistente\" nas configurações.)",
