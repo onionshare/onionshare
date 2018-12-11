@@ -178,12 +178,19 @@ def set_gui_mode():
 def debug_mode():
     """
     Turn on debugging mode, which will log flask errors to a debug file.
+
+    This is commented out (it's only needed for debugging, and not needed
+    for OnionShare 1.3.2) as a hotfix to resolve this issue:
+    https://github.com/micahflee/onionshare/issues/837
+    """
+    pass
     """
     temp_dir = tempfile.gettempdir()
     log_handler = logging.FileHandler(
         os.path.join(temp_dir, 'onionshare_server.log'))
     log_handler.setLevel(logging.WARNING)
     app.logger.addHandler(log_handler)
+    """
 
 
 def check_slug_candidate(slug_candidate, slug_compare=None):
