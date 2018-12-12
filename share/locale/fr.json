@@ -182,5 +182,5 @@
     "gui_settings_shutdown_timeout_checkbox": "Utiliser la minuterie d'arrêt automatique",
     "gui_server_started_after_timeout": "La minuterie d'arrêt automatique a expiré avant le démarrage du serveur.\nVeuillez faire un nouveau partage.",
     "gui_server_timeout_expired": "La minuterie d'arrêt automatique a déjà expiré.\nVeuillez la mettre à jour pour démarrer le partage.",
-    "close_on_timeout": "Arrêté parce que la minuterie d'arrêt automatique s'est épuisée."
+    "close_on_timeout": "Arrêté parce que la minuterie d'arrêt automatique est épuisée"
 }
