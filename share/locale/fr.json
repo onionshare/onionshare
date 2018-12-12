@@ -154,5 +154,22 @@
     "gui_download_upload_progress_eta": "{0:s}, Fin : {1:s}, %p%",
     "error_rate_limit": "Une personne a effectué sur votre adresse beaucoup de tentatives qui ont échouées, ce qui veut dire qu'elle essayait de la deviner, ainsi OnionShare a arrêté le serveur. Démarrez le partage à nouveau et envoyez une nouvelle adresse au destinataire pour pouvoir partager.",
     "error_stealth_not_supported": "Pour utiliser l’autorisation client, vous avez besoin d'au moins Tor 0.2.9.1-alpha (ou le navigateur Tor 6.5) et python3-stem 1.5.0.",
-    "gui_settings_stealth_option": "Utiliser l'autorisation client (legacy)"
+    "gui_settings_stealth_option": "Utiliser l'autorisation client (legacy)",
+    "timeout_upload_still_running": "En attente de la fin de l'envoi",
+    "gui_settings_stealth_hidservauth_string": "Vous avez enregistré votre clé privée, vous pouvez maintenant\ncliquer pour copier votre HidServAuth.",
+    "gui_settings_autoupdate_check_button": "Vérifier les mises à jour",
+    "settings_test_success": "Connecté au contrôleur Tor.\n\nVersion de Tor : {}\nSupport des services oignon éphémères : {}.\nSupport de l'authentification client : {}.\nSupport de la nouvelle génération d'adresses .onion : {}.",
+    "update_error_check_error": "Impossible de vérifier les mises à jour : le site web d'OnionShare dit que la dernière version est la méconnaissable '{}'…",
+    "update_error_invalid_latest_version": "Impossible de vérifier les mises à jour : peut-être qu'il n'y a pas de connexion à Tor ou que le site web d'OnionShare est hors service ?",
+    "gui_tor_connection_ask": "Ouvrir les paramètres pour configurer la connexion à Tor ?",
+    "gui_tor_connection_canceled": "Impossible de se connecter à Tor.\n\nVérifiez votre connexion à Internet, puis réouvrez OnionShare et configurez sa connexion à Tor.",
+    "gui_use_legacy_v2_onions_checkbox": "Utiliser les adresses legacy",
+    "info_in_progress_uploads_tooltip": "{} envoi(s) en cours",
+    "info_completed_uploads_tooltip": "{} envoi(s) terminé(s)",
+    "error_cannot_create_downloads_dir": "Impossible de créer le dossier du mode réception : {}",
+    "receive_mode_upload_starting": "Un envoi d'une taille totale de {} a commencé",
+    "systray_close_server_message": "Une personne a arrêté le serveur",
+    "systray_page_loaded_title": "Page OnionShare chargée",
+    "systray_download_page_loaded_message": "Une personne a chargé la page de téléchargement",
+    "systray_upload_page_loaded_message": "Une personne a chargé la page d'envoi"
 }
