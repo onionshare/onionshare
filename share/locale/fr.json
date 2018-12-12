@@ -181,5 +181,6 @@
     "gui_settings_meek_lite_expensive_warning": "Avertissement : les bridges meek_lite sont très coûteux à faire fonctionner pour le Tor Project.<br><br>Utilisez les seulement si vous ne pouvez pas vous connecter à Tor directement, via les transports obfs4 ou avec d'autres bridges normaux.",
     "gui_settings_shutdown_timeout_checkbox": "Utiliser la minuterie d'arrêt automatique",
     "gui_server_started_after_timeout": "La minuterie d'arrêt automatique a expiré avant le démarrage du serveur.\nVeuillez faire un nouveau partage.",
-    "gui_server_timeout_expired": "La minuterie d'arrêt automatique a déjà expiré.\nVeuillez la mettre à jour pour démarrer le partage."
+    "gui_server_timeout_expired": "La minuterie d'arrêt automatique a déjà expiré.\nVeuillez la mettre à jour pour démarrer le partage.",
+    "close_on_timeout": "Arrêté parce que la minuterie d'arrêt automatique s'est épuisée."
 }
