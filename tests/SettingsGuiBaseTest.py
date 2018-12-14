@@ -63,7 +63,6 @@ class SettingsGuiBaseTest(object):
 
     def run_settings_gui_tests(self):
         self.gui.show()
-        self.gui.qtapp.processEvents()
 
         # Window is shown
         self.assertTrue(self.gui.isVisible())
