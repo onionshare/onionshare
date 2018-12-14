@@ -15,7 +15,7 @@ class SettingsGuiTest(unittest.TestCase, SettingsGuiBaseTest):
         SettingsGuiBaseTest.tear_down()
 
     def test_gui_no_tor(self):
-        self.gui.onion = OnionStub(False)
+        self.gui.onion = OnionStub(False, False)
         self.gui.reload_settings()
         self.run_settings_gui_tests()
 
