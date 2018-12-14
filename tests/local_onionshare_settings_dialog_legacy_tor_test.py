@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
-import json
 import unittest
-import time
-from PyQt5 import QtCore, QtTest
 
 from onionshare import strings
 from .SettingsGuiBaseTest import SettingsGuiBaseTest, OnionStub
