@@ -14,7 +14,7 @@ from onionshare_gui.settings_dialog import SettingsDialog
 class OnionStub(object):
     def __init__(self, is_authenticated, supports_v3_onions=False):
         self._is_authenticated = is_authenticated
-        self.supports_v3_onions = True
+        self.supports_v3_onions = supports_v3_onions
 
     def is_authenticated(self):
         return self._is_authenticated
