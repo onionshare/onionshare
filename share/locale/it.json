@@ -82,5 +82,6 @@
     "gui_settings_connection_type_bundled_option": "Usa la versione Tor integrata in OnionShare",
     "gui_settings_connection_type_automatic_option": "Tentativo di auto-configurazione con Tor Browser",
     "gui_settings_language_label": "Lingua preferita",
-    "gui_settings_language_changed_notice": "Riavvia OnionShare affinché il cambiamento della tua lingua abbia effetto."
+    "gui_settings_language_changed_notice": "Riavvia OnionShare affinché il cambiamento della tua lingua abbia effetto.",
+    "gui_settings_tor_bridges_custom_radio_option": "Utilizzare ponti personalizzati"
 }
