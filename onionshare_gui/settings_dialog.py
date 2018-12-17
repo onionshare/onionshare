@@ -88,6 +88,10 @@ class SettingsDialog(QtWidgets.QDialog):
         self.shutdown_timeout_widget = QtWidgets.QWidget()
         self.shutdown_timeout_widget.setLayout(shutdown_timeout_layout)
 
+        # Label telling user to connect to Tor for onion service settings
+        self.connect_to_tor_label = QtWidgets.QLabel(strings._("gui_connect_to_tor_for_onion_settings"))
+        self.connect_to_tor_label.setStyleSheet(self.common.css['settings_connect_to_tor'])
+
         # Whether or not to use legacy v2 onions
         self.use_legacy_v2_onions_checkbox = QtWidgets.QCheckBox()
         self.use_legacy_v2_onions_checkbox.setCheckState(QtCore.Qt.Unchecked)
@@ -149,16 +153,23 @@ class SettingsDialog(QtWidgets.QDialog):
         self.hidservauth_copy_button.clicked.connect(self.hidservauth_copy_button_clicked)
         self.hidservauth_copy_button.hide()
 
+        # Onion settings widget
+        onion_settings_layout = QtWidgets.QVBoxLayout()
+        onion_settings_layout.setContentsMargins(0, 0, 0, 0)
+        onion_settings_layout.addWidget(self.use_legacy_v2_onions_widget)
+        onion_settings_layout.addWidget(self.save_private_key_widget)
+        onion_settings_layout.addWidget(self.use_stealth_widget)
+        onion_settings_layout.addWidget(hidservauth_details)
+        onion_settings_layout.addWidget(self.hidservauth_copy_button)
+        self.onion_settings_widget = QtWidgets.QWidget()
+        self.onion_settings_widget.setLayout(onion_settings_layout)
+
         # General options layout
         general_group_layout = QtWidgets.QVBoxLayout()
         general_group_layout.addWidget(self.public_mode_widget)
         general_group_layout.addWidget(self.shutdown_timeout_widget)
-        general_group_layout.addWidget(self.use_legacy_v2_onions_widget)
-        general_group_layout.addWidget(self.save_private_key_widget)
-        general_group_layout.addWidget(self.use_stealth_widget)
-        general_group_layout.addWidget(hidservauth_details)
-        general_group_layout.addWidget(self.hidservauth_copy_button)
-
+        general_group_layout.addWidget(self.connect_to_tor_label)
+        general_group_layout.addWidget(self.onion_settings_widget)
         general_group = QtWidgets.QGroupBox(strings._("gui_settings_general_label"))
         general_group.setLayout(general_group_layout)
 
@@ -460,6 +471,9 @@ class SettingsDialog(QtWidgets.QDialog):
         self.setLayout(layout)
         self.cancel_button.setFocus()
 
+        self.reload_settings()
+
+    def reload_settings(self):
         # Load settings, and fill them in
         self.old_settings = Settings(self.common, self.config)
         self.old_settings.load()
@@ -578,6 +592,24 @@ class SettingsDialog(QtWidgets.QDialog):
                     new_bridges.append(bridge)
                 new_bridges = ''.join(new_bridges)
                 self.tor_bridges_use_custom_textbox.setPlainText(new_bridges)
+
+        # If we're connected to Tor, show onion service settings, show label if not
+        if self.onion.is_authenticated():
+            self.connect_to_tor_label.hide()
+            self.onion_settings_widget.show()
+
+            # If v3 onion services are supported, allow using legacy mode
+            if self.onion.supports_v3_onions:
+                self.common.log('SettingsDialog', '__init__', 'v3 onions are supported')
+                self.use_legacy_v2_onions_checkbox.show()
+            else:
+                self.common.log('SettingsDialog', '__init__', 'v3 onions are not supported')
+                self.use_legacy_v2_onions_widget.hide()
+                self.use_legacy_v2_onions_checkbox_clicked(True)
+        else:
+            self.connect_to_tor_label.show()
+            self.onion_settings_widget.hide()
+
 
     def connection_type_bundled_toggled(self, checked):
         """
@@ -754,7 +786,7 @@ class SettingsDialog(QtWidgets.QDialog):
             onion.connect(custom_settings=settings, config=self.config, tor_status_update_func=tor_status_update_func)
 
             # If an exception hasn't been raised yet, the Tor settings work
-            Alert(self.common, strings._('settings_test_success').format(onion.tor_version, onion.supports_ephemeral, onion.supports_stealth, onion.supports_next_gen_onions))
+            Alert(self.common, strings._('settings_test_success').format(onion.tor_version, onion.supports_ephemeral, onion.supports_stealth, onion.supports_v3_onions))
 
             # Clean up
             onion.cleanup()
