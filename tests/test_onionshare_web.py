@@ -139,36 +139,6 @@ class TestWeb:
             res.get_data()
             assert res.status_code == 200
 
-    def test_receive_mode_allow_receiver_shutdown_on(self, common_obj):
-        web = web_obj(common_obj, 'receive')
-
-        common_obj.settings.set('receive_allow_receiver_shutdown', True)
-
-        assert web.running == True
-
-        with web.app.test_client() as c:
-            # Load close page
-            res = c.post('/{}/close'.format(web.slug))
-            res.get_data()
-            # Should return ok, and server should stop
-            assert res.status_code == 200
-            assert web.running == False
-
-    def test_receive_mode_allow_receiver_shutdown_off(self, common_obj):
-        web = web_obj(common_obj, 'receive')
-
-        common_obj.settings.set('receive_allow_receiver_shutdown', False)
-
-        assert web.running == True
-
-        with web.app.test_client() as c:
-            # Load close page
-            res = c.post('/{}/close'.format(web.slug))
-            res.get_data()
-            # Should redirect to index, and server should still be running
-            assert res.status_code == 302
-            assert web.running == True
-
     def test_public_mode_on(self, common_obj):
         web = web_obj(common_obj, 'receive')
         common_obj.settings.set('public_mode', True)
