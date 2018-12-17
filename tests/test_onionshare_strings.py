@@ -51,7 +51,7 @@ class TestLoadStrings:
         common_obj.settings = Settings(common_obj)
         common_obj.settings.set('locale', 'fr')
         strings.load_strings(common_obj)
-        assert strings._('preparing_files') == "Préparation des fichiers à partager."
+        assert strings._('preparing_files') == "Compression des fichiers."
 
     def test_load_invalid_locale(
             self, common_obj, locale_invalid, sys_onionshare_dev_mode):

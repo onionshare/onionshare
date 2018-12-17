@@ -390,6 +390,11 @@ class Common(object):
             'settings_whats_this': """
                 QLabel {
                     font-size: 12px;
+                }""",
+
+            'settings_connect_to_tor': """
+                QLabel {
+                    font-style: italic;
                 }"""
         }
 

@@ -142,6 +142,12 @@ class Web(object):
         r = make_response(render_template('404.html'), 404)
         return self.add_security_headers(r)
 
+    def error403(self):
+        self.add_request(Web.REQUEST_OTHER, request.path)
+
+        r = make_response(render_template('403.html'), 403)
+        return self.add_security_headers(r)
+
     def add_security_headers(self, r):
         """
         Add security headers to a request
@@ -178,9 +184,20 @@ class Web(object):
         """
         Turn on debugging mode, which will log flask errors to a debug file.
         """
-        temp_dir = tempfile.gettempdir()
-        log_handler = logging.FileHandler(
-            os.path.join(temp_dir, 'onionshare_server.log'))
+        if self.common.platform == 'Windows':
+            try:
+                appdata = os.environ['APPDATA']
+                flask_debug_filename = '{}\\OnionShare\\flask_debug.log'.format(appdata)
+            except:
+                # If for some reason we don't have the 'APPDATA' environment variable
+                # (like running tests in Linux while pretending to be in Windows)
+                flask_debug_filename = os.path.expanduser('~/.config/onionshare/flask_debug.log')
+        elif self.common.platform == 'Darwin':
+            flask_debug_filename = os.path.expanduser('~/Library/Application Support/OnionShare/flask_debug.log')
+        else:
+            flask_debug_filename = os.path.expanduser('~/.config/onionshare/flask_debug.log')
+
+        log_handler = logging.FileHandler(flask_debug_filename)
         log_handler.setLevel(logging.WARNING)
         self.app.logger.addHandler(log_handler)
 

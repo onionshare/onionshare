@@ -62,8 +62,9 @@ class Settings(object):
             'fr': 'Français',   # French
             'it': 'Italiano',   # Italian
             'nl': 'Nederlands', # Dutch
-            'no': 'Norsk',      # Norweigan
-            'pt': 'Português',  # Portuguese
+            'no': 'Norsk',      # Norwegian
+            'pt_BR': 'Português Brasil',   # Portuguese Brazil
+            'pt_PT': 'Português Portugal', # Portuguese Portugal
             'ru': 'Русский',    # Russian
             'tr': 'Türkçe'      # Turkish
         }
@@ -95,7 +96,6 @@ class Settings(object):
             'slug': '',
             'hidservauth_string': '',
             'downloads_dir': self.build_default_downloads_dir(),
-            'receive_allow_receiver_shutdown': True,
             'locale': None # this gets defined in fill_in_defaults()
         }
         self._settings = {}
