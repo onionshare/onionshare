@@ -22,7 +22,12 @@ import json
 import os
 import platform
 import locale
-import pwd
+
+try:
+    # We only need pwd module in macOS, and it's not available in Windows
+    import pwd
+except:
+    pass
 
 from . import strings
 
