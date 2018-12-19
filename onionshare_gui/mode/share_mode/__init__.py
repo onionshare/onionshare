@@ -47,7 +47,7 @@ class ShareMode(Mode):
         self.web = Web(self.common, True, 'share')
 
         # File selection
-        self.file_selection = FileSelection(self.common)
+        self.file_selection = FileSelection(self.common, self)
         if self.filenames:
             for filename in self.filenames:
                 self.file_selection.file_list.add_file(filename)

@@ -175,7 +175,7 @@ class TestSettings:
             platform_windows):
         monkeypatch.setenv('APPDATA', 'C:')
         obj = settings.Settings(common.Common())
-        assert obj.filename == 'C:\\OnionShare\\onionshare.json'
+        assert obj.filename.replace('/', '\\') == 'C:\\OnionShare\\onionshare.json'
 
     def test_set_custom_bridge(self, settings_obj):
         settings_obj.set('tor_bridges_use_custom_bridges', 'Bridge 45.3.20.65:9050 21300AD88890A49C429A6CB9959CFD44490A8F6E')

@@ -1,5 +1,15 @@
 # OnionShare Changelog
 
+## 2.0
+
+* New feature: Receiver mode allows you to receive files with OnionShare, instead of only sending files
+* New feature: macOS sandbox is enabled
+* New feature: Support for next generation onion services (TODO waiting on Tor release)
+* New feature: If you're sharing a single file, don't zip it up
+* New feature: Allow selecting your language from a dropdown
+* New translations: (TODO fill in for final release)
+* Several bugfixes
+
 ## 1.3.1
 
 * Updated Tor to 0.2.3.10

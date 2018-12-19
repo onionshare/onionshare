@@ -23,6 +23,12 @@ import os
 import platform
 import locale
 
+try:
+    # We only need pwd module in macOS, and it's not available in Windows
+    import pwd
+except:
+    pass
+
 from . import strings
 
 
@@ -132,30 +138,24 @@ class Settings(object):
         """
         Returns the path of the settings file.
         """
-        p = platform.system()
-        if p == 'Windows':
-            try:
-                appdata = os.environ['APPDATA']
-                return '{}\\OnionShare\\onionshare.json'.format(appdata)
-            except:
-                # If for some reason we don't have the 'APPDATA' environment variable
-                # (like running tests in Linux while pretending to be in Windows)
-                return os.path.expanduser('~/.config/onionshare/onionshare.json')
-        elif p == 'Darwin':
-            return os.path.expanduser('~/Library/Application Support/OnionShare/onionshare.json')
-        else:
-            return os.path.expanduser('~/.config/onionshare/onionshare.json')
+        return os.path.join(self.common.build_data_dir(), 'onionshare.json')
 
     def build_default_downloads_dir(self):
         """
         Returns the path of the default Downloads directory for receive mode.
         """
-        # On Windows, os.path.expanduser() needs to use backslash, or else it
-        # retains the forward slash, which breaks opening the folder in explorer.
-        p = platform.system()
-        if p == 'Windows':
+
+        if self.common.platform == "Darwin":
+            # We can't use os.path.expanduser() in macOS because in the sandbox it
+            # returns the path to the sandboxed homedir
+            real_homedir = pwd.getpwuid(os.getuid()).pw_dir
+            return os.path.join(real_homedir, 'OnionShare')
+        elif self.common.platform == "Windows":
+            # On Windows, os.path.expanduser() needs to use backslash, or else it
+            # retains the forward slash, which breaks opening the folder in explorer.
             return os.path.expanduser('~\OnionShare')
         else:
+            # All other OSes
             return os.path.expanduser('~/OnionShare')
 
     def load(self):
@@ -174,16 +174,18 @@ class Settings(object):
             except:
                 pass
 
+        # Make sure downloads_dir exists
+        try:
+            os.makedirs(self.get('downloads_dir'), exist_ok=True)
+        except:
+            pass
+
     def save(self):
         """
         Save settings to file.
         """
         self.common.log('Settings', 'save')
-
-        try:
-            os.makedirs(os.path.dirname(self.filename))
-        except:
-            pass
+        os.makedirs(os.path.dirname(self.filename), exist_ok=True)
         open(self.filename, 'w').write(json.dumps(self._settings))
         self.common.log('Settings', 'save', 'Settings saved in {}'.format(self.filename))
 
