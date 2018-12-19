@@ -44,6 +44,10 @@ class AddFileDialog(QtWidgets.QFileDialog):
     """
     Overridden version of QFileDialog which allows us to select folders as well
     as, or instead of, files. For adding files/folders to share.
+
+    Note that this dialog can't be used in macOS, only in Windows, Linux, and BSD.
+    This is because the macOS sandbox requires native dialogs, and this is a Qt5
+    dialog.
     """
     def __init__(self, common, *args, **kwargs):
         QtWidgets.QFileDialog.__init__(self, *args, **kwargs)
