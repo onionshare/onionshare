@@ -45,6 +45,16 @@ author_email = 'micah@micahflee.com'
 url = 'https://github.com/micahflee/onionshare'
 license = 'GPL v3'
 keywords = 'onion, share, onionshare, tor, anonymous, web server'
+classifiers = [
+        "Programming Language :: Python :: 3",
+        "Framework :: Flask",
+        "Topic :: Communications :: File Sharing",
+        "Topic :: Security :: Cryptography",
+        "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+        "Intended Audience :: End Users/Desktop",
+        "Operating System :: OS Independent",
+        "Environment :: Web Environment"
+    ]
 data_files=[
         (os.path.join(sys.prefix, 'share/applications'), ['install/onionshare.desktop']),
         (os.path.join(sys.prefix, 'share/metainfo'), ['install/onionshare.appdata.xml']),
@@ -63,8 +73,8 @@ if platform.system() != 'OpenBSD':
 setup(
     name='onionshare', version=version,
     description=description, long_description=long_description,
-    author=author, author_email=author_email,
-    url=url, license=license, keywords=keywords,
+    author=author, author_email=author_email, maintainer=author, maintainer_email=author_email,
+    url=url, license=license, keywords=keywords, classifiers=classifiers,
     packages=[
         'onionshare',
         'onionshare.web',
