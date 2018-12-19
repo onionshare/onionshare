@@ -111,7 +111,19 @@ class Settings(object):
 
         # Choose the default locale based on the OS preference, and fall-back to English
         if self._settings['locale'] is None:
-            default_locale = locale.getdefaultlocale()[0][:2]
+            language_code, encoding = locale.getdefaultlocale()
+
+            # Default to English
+            if not language_code:
+                language_code = 'en_US'
+
+            if language_code == 'pt_PT' and language_code == 'pt_BR':
+                # Portuguese locales include country code
+                default_locale = language_code
+            else:
+                # All other locales cut off the country code
+                default_locale = language_code[:2]
+
             if default_locale not in self.available_locales:
                 default_locale = 'en'
             self._settings['locale'] = default_locale
