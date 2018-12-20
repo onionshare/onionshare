@@ -395,6 +395,13 @@ class Common(object):
             'settings_connect_to_tor': """
                 QLabel {
                     font-style: italic;
+                }""",
+
+            # For some reason, this prevents extra padding around the v2 onion
+            # settings when viewing in macOS
+            'settings_onion_settings': """
+                QWidget {
+                    border: 0;
                 }"""
         }
 

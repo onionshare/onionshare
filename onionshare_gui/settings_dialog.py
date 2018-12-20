@@ -162,6 +162,7 @@ class SettingsDialog(QtWidgets.QDialog):
         onion_settings_layout.addWidget(hidservauth_details)
         onion_settings_layout.addWidget(self.hidservauth_copy_button)
         self.onion_settings_widget = QtWidgets.QWidget()
+        self.onion_settings_widget.setStyleSheet(self.common.css['settings_onion_settings'])
         self.onion_settings_widget.setLayout(onion_settings_layout)
 
         # General options layout
