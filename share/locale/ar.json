@@ -1,7 +1,7 @@
 {
-    "config_onion_service": "",
-    "preparing_files": "",
-    "give_this_url": "",
+    "config_onion_service": "تثبيت خدمة onion على المنفذ {0:d}.",
+    "preparing_files": "ضغط الملفات",
+    "give_this_url": "أعط هذا العنوان للمستقبل",
     "give_this_url_stealth": "",
     "give_this_url_receive": "",
     "give_this_url_receive_stealth": "",
