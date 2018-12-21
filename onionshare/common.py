@@ -134,11 +134,11 @@ class Common(object):
             except:
                 # If for some reason we don't have the 'APPDATA' environment variable
                 # (like running tests in Linux while pretending to be in Windows)
-                onionshare_data_dir = '~/.config/onionshare'
+                onionshare_data_dir = os.path.expanduser('~/.config/onionshare')
         elif self.platform == 'Darwin':
-            onionshare_data_dir = '~/Library/Application Support/OnionShare'
+            onionshare_data_dir = os.path.expanduser('~/Library/Application Support/OnionShare')
         else:
-            onionshare_data_dir = '~/.config/onionshare'
+            onionshare_data_dir = os.path.expanduser('~/.config/onionshare')
 
         os.makedirs(onionshare_data_dir, 0o700, True)
         return onionshare_data_dir
