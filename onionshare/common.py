@@ -130,15 +130,18 @@ class Common(object):
         if self.platform == 'Windows':
             try:
                 appdata = os.environ['APPDATA']
-                return '{}\\OnionShare'.format(appdata)
+                onionshare_data_dir = '{}\\OnionShare'.format(appdata)
             except:
                 # If for some reason we don't have the 'APPDATA' environment variable
                 # (like running tests in Linux while pretending to be in Windows)
-                return os.path.expanduser('~/.config/onionshare')
+                onionshare_data_dir = '~/.config/onionshare'
         elif self.platform == 'Darwin':
-            return os.path.expanduser('~/Library/Application Support/OnionShare')
+            onionshare_data_dir = '~/Library/Application Support/OnionShare'
         else:
-            return os.path.expanduser('~/.config/onionshare')
+            onionshare_data_dir = '~/.config/onionshare'
+
+        os.makedirs(onionshare_data_dir, 0o700, True)
+        return onionshare_data_dir
 
     def build_slug(self):
         """
