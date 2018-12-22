@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright 2016 Micah Lee <micah@micahflee.com> -->
+<!-- Copyright 2018 Micah Lee <micah@micahflee.com> -->
 <component type="desktop">
     <id>onionshare.desktop</id>
     <metadata_license>CC0-1.0</metadata_license>
@@ -21,12 +21,20 @@
     </description>
     <screenshots>
         <screenshot type="default">
-            <image>https://raw.githubusercontent.com/micahflee/onionshare/master/screenshots/appdata-server.png</image>
-            <caption>Sender sharing files with OnionShare</caption>
+            <image>https://raw.githubusercontent.com/micahflee/onionshare/master/screenshots/appdata-onionshare-share-server.png</image>
+            <caption>Sharing files with OnionShare</caption>
         </screenshot>
         <screenshot>
-            <image>https://raw.githubusercontent.com/micahflee/onionshare/master/screenshots/appdata-client.png</image>
-            <caption>Receiver downloading files with Tor Browser</caption>
+            <image>https://raw.githubusercontent.com/micahflee/onionshare/master/screenshots/appdata-onionshare-share-client.png</image>
+            <caption>Downloading OnionShare files using Tor Browser</caption>
+        </screenshot>
+        <screenshot>
+            <image>https://raw.githubusercontent.com/micahflee/onionshare/master/screenshots/appdata-onionshare-receive-server.png</image>
+            <caption>Receiving files with OnionShare</caption>
+        </screenshot>
+        <screenshot>
+            <image>https://raw.githubusercontent.com/micahflee/onionshare/master/screenshots/appdata-onionshare-receive-client.png</image>
+            <caption>Uploading files to OnionShare user using Tor Browser</caption>
         </screenshot>
     </screenshots>
     <url type="homepage">https://onionshare.org/</url>
