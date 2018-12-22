@@ -10,6 +10,7 @@
 * New feature: Allow selecting your language from a dropdown
 * New translations: (TODO fill in for final release)
 * Several bugfixes
+* Invisible to users, but this version includes some major refactoring of the codebase, and a robust set of unit tests which makes OnionShare easier to maintain going forward
 
 ## 1.3.2
 
