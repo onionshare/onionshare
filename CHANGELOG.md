@@ -1,6 +1,6 @@
 # OnionShare Changelog
 
-## 2.0
+## 2.0.dev2
 
 * New feature: Receiver mode allows you to receive files with OnionShare, instead of only sending files
 * New feature: macOS sandbox is enabled
@@ -9,6 +9,10 @@
 * New feature: Allow selecting your language from a dropdown
 * New translations: (TODO fill in for final release)
 * Several bugfixes
+
+## 1.3.2
+
+* Bug fix: In debug mode, stop saving flask debug log in /tmp, where all users can access it
 
 ## 1.3.1
 
