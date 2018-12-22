@@ -6,6 +6,7 @@
 * New feature: macOS sandbox is enabled
 * New feature: Support for next generation onion services (TODO waiting on Tor release)
 * New feature: If you're sharing a single file, don't zip it up
+* New feature: Full support for meek_lite (Azure) bridges
 * New feature: Allow selecting your language from a dropdown
 * New translations: (TODO fill in for final release)
 * Several bugfixes
