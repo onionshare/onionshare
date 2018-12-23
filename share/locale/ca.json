@@ -121,7 +121,7 @@
     "error_tor_protocol_error_unknown": "Hi ha hagut un error desconegut amb Tor",
     "error_invalid_private_key": "Aquest tipus de clau privada no està suportat",
     "connecting_to_tor": "Connectant a la xarxa Tor",
-    "update_available": "",
+    "update_available": "Ha sortit una nova versió d'OnionShare.<a href='{}'>Feu clic aquí</a> per obtenir-la.<br><br>Esteu usant {} i la més recent és {}.",
     "update_error_check_error": "",
     "update_error_invalid_latest_version": "",
     "update_not_available": "",
