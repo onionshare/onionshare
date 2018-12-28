@@ -164,7 +164,7 @@
     "gui_mode_receive_button": "",
     "gui_settings_receiving_label": "",
     "gui_settings_downloads_label": "",
-    "gui_settings_downloads_button": "Wybierz...",
+    "gui_settings_downloads_button": "Przeglądaj",
     "gui_settings_receive_allow_receiver_shutdown_checkbox": "",
     "gui_settings_public_mode_checkbox": "",
     "systray_close_server_title": "",
