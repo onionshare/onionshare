@@ -23,7 +23,7 @@
     "help_stay_open": "Blijven delen na afronden van eerste download",
     "help_shutdown_timeout": "Stoppen met delen na het opgegeven aantal seconden",
     "help_stealth": "Client-authorisatie gebruiken (geavanceerd)",
-    "help_debug": "Log OnionShare fouten naar stdout, en web fouten naar disk",
+    "help_debug": "Log  OnionShare fouten naar stdout, en web fouten naar disk",
     "help_filename": "Lijst van bestanden of mappen om te delen",
     "help_config": "Instelbaar pad naar JSON configuratie bestand (optioneel)",
     "gui_drag_and_drop": "Sleep en zet\nbestanden hier neer",

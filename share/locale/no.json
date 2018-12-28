@@ -1,6 +1,6 @@
 {
     "give_this_url": "Gi denne adressen til mottakeren:",
-    "ctrlc_to_stop": "Trykk Ctrl+C for å stoppe serveren.",
+    "ctrlc_to_stop": "Trykk Ctrl+C for å stoppe serveren",
     "not_a_file": "{0:s} er ikke en fil.",
     "gui_copied_url": "OnionShare-adresse kopiert til utklippstavle",
     "other_page_loaded": "En annen side har blitt lastet",
