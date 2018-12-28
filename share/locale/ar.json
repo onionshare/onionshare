@@ -1,9 +1,9 @@
 {
     "config_onion_service": "تثبيت خدمة onion على المنفذ {0:d}.",
-    "preparing_files": "ضغط الملفات",
-    "give_this_url": "أعط هذا العنوان للمستقبل",
+    "preparing_files": "ضغط الملفات.",
+    "give_this_url": "أعط هذا العنوان للمتلقي:",
     "give_this_url_stealth": "",
-    "give_this_url_receive": "",
+    "give_this_url_receive": "إعط هذا العنوان للمُرسِل:",
     "give_this_url_receive_stealth": "",
     "ctrlc_to_stop": "",
     "not_a_file": "",
