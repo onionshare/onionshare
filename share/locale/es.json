@@ -36,7 +36,7 @@
     "error_stealth_not_supported": "Para usar autorización de cliente, necesitas al menos Tor 0.2.9.1-alfa (o Navegador Tor 6.5) y python3-stem 1.5.0.",
     "error_ephemeral_not_supported": "OnionShare requiere ambos Tor 0.2.7.1 y python3-stem 1.4.0 al menos.",
     "gui_settings_window_title": "Configuración",
-    "gui_settings_stealth_option": "Utilizar la autorización del cliente (antigua)",
+    "gui_settings_stealth_option": "Utilizar autorización de cliente",
     "gui_settings_stealth_hidservauth_string": "Habiendo guardado tu clave privada para volver a utilizarla, ahora puedes\nhacer clic para copiar tu HidServAuth.",
     "gui_settings_autoupdate_label": "Comprobar si hay una versión nueva",
     "gui_settings_autoupdate_option": "Notificarme cuando haya una nueva versión disponible",
@@ -99,7 +99,7 @@
     "gui_server_timeout_expired": "El temporizador de parada automática ya se ha agotado.\nPor favor, actualízalo para comenzar a compartir.",
     "share_via_onionshare": "Compártelo con OnionShare",
     "gui_use_legacy_v2_onions_checkbox": "Usar direcciones antiguas",
-    "gui_save_private_key_checkbox": "Usar una dirección persistente (modo antiguo)",
+    "gui_save_private_key_checkbox": "Usar una dirección persistente",
     "gui_share_url_description": "<b>Cualquier persona </b> con esta dirección de OnionShare puede <b>descargar</b> tus archivos usando el <b>Navegador Tor</b>: <img src='{}' />",
     "gui_receive_url_description": "Con esta dirección de OnionShare, <b>cualquier persona</b> puede <b>subir</b> archivos a tu ordenador usando el <b>Navegador Tor</b>: <img src='{}' />",
     "gui_url_label_persistent": "Este recurso compartido no se detendrá automáticamente.<br><br>Cada recurso compartido subsiguiente reutilizará la dirección. (Para usar direcciones una sola vez, desactive la opción \"Usar dirección persistente\" en los ajustes.)",
@@ -186,5 +186,8 @@
     "gui_settings_language_label": "Idioma preferido",
     "gui_settings_language_changed_notice": "Reinicia OnionShare para que el cambio de idioma surta efecto.",
     "gui_upload_finished_range": "Cargado {} a {}",
-    "timeout_upload_still_running": "Esperando a que se complete la subida"
+    "timeout_upload_still_running": "Esperando a que se complete la subida",
+    "gui_add_files": "Añadir Archivos",
+    "gui_add_folder": "Añadir Carpeta",
+    "gui_connect_to_tor_for_onion_settings": "Conectarse a Tor para ver configuraciones de servicio cebolla"
 }
