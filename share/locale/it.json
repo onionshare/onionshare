@@ -83,5 +83,16 @@
     "gui_settings_connection_type_automatic_option": "Tentativo di auto-configurazione con Tor Browser",
     "gui_settings_language_label": "Lingua preferita",
     "gui_settings_language_changed_notice": "Riavvia OnionShare affinché il cambiamento della tua lingua abbia effetto.",
-    "gui_settings_tor_bridges_custom_radio_option": "Utilizzare ponti personalizzati"
+    "gui_settings_tor_bridges_custom_radio_option": "Utilizzare ponti personalizzati",
+    "timeout_upload_still_running": "Aspettando che si completi l'upload",
+    "gui_add_files": "Aggiungi file",
+    "gui_add_folder": "Aggiungi cartella",
+    "gui_settings_connection_type_control_port_option": "Connettendo usano la porta di controllo",
+    "gui_settings_connection_type_socket_file_option": "Connessione usano file di socket",
+    "gui_settings_connection_type_test_button": "Testa la connessione Tor",
+    "gui_settings_socket_file_label": "File di socket",
+    "gui_settings_socks_label": "Porta SOCKS",
+    "gui_settings_authenticate_label": "Impostazioni autenticazione Tor",
+    "gui_settings_authenticate_password_option": "Password",
+    "gui_settings_password_label": "Password"
 }
