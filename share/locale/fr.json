@@ -106,7 +106,7 @@
     "gui_tor_connection_ask_quit": "Quitter",
     "gui_tor_connection_lost": "Déconnecté de Tor.",
     "share_via_onionshare": "Partager via OnionShare",
-    "gui_save_private_key_checkbox": "Utiliser une adresse persistante (legacy)",
+    "gui_save_private_key_checkbox": "Utiliser une adresse persistante",
     "gui_share_url_description": "Avec cette adresse OnionShare <b>n'importe qui</b> peut <b>télécharger</b> vos fichiers en utilisant le <b>navigateur Tor</b> : <img src='{}' />",
     "gui_receive_url_description": "Avec cette adresse OnionShare <b>n'importe qui</b> peut <b>envoyer</b> des fichiers vers votre ordinateur en utilisant le <b>navigateur Tor</b> : <img src='{}' />",
     "gui_url_label_persistent": "Ce partage ne s'arrêtera pas automatiquement.<br><br>Tous les partages suivants réutiliseront l'adresse. (Pour utiliser des adresses uniques, désactivez \"Utiliser une adresse persistante\" dans les paramètres.)",
@@ -154,7 +154,7 @@
     "gui_download_upload_progress_eta": "{0:s}, Fin : {1:s}, %p%",
     "error_rate_limit": "Une personne a effectué sur votre adresse beaucoup de tentatives qui ont échouées, ce qui veut dire qu'elle essayait de la deviner, ainsi OnionShare a arrêté le serveur. Démarrez le partage à nouveau et envoyez une nouvelle adresse au destinataire pour pouvoir partager.",
     "error_stealth_not_supported": "Pour utiliser l’autorisation client, vous avez besoin d'au moins Tor 0.2.9.1-alpha (ou le navigateur Tor 6.5) et python3-stem 1.5.0.",
-    "gui_settings_stealth_option": "Utiliser l'autorisation client (legacy)",
+    "gui_settings_stealth_option": "Utiliser l'autorisation client",
     "timeout_upload_still_running": "En attente de la fin de l'envoi",
     "gui_settings_stealth_hidservauth_string": "Vous avez enregistré votre clé privée, vous pouvez maintenant\ncliquer pour copier votre HidServAuth.",
     "gui_settings_autoupdate_check_button": "Vérifier les mises à jour",
@@ -182,5 +182,7 @@
     "gui_settings_shutdown_timeout_checkbox": "Utiliser la minuterie d'arrêt automatique",
     "gui_server_started_after_timeout": "La minuterie d'arrêt automatique a expiré avant le démarrage du serveur.\nVeuillez faire un nouveau partage.",
     "gui_server_timeout_expired": "La minuterie d'arrêt automatique a déjà expiré.\nVeuillez la mettre à jour pour démarrer le partage.",
-    "close_on_timeout": "Arrêté parce que la minuterie d'arrêt automatique a expiré"
+    "close_on_timeout": "Arrêté parce que la minuterie d'arrêt automatique a expiré",
+    "gui_add_files": "Ajouter fichiers",
+    "gui_add_folder": "Ajouter dossier"
 }
