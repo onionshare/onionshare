@@ -4,7 +4,7 @@
     "give_this_url": "Dejte tuto URL osobě, které dané soubory posíláte:",
     "give_this_url_stealth": "Sděl příjemci tuto URL a HidServAuth:",
     "ctrlc_to_stop": "Stiskněte Ctrl+C pro zastavení serveru",
-    "not_a_file": "{0:s} není soubor.",
+    "not_a_file": "{0:s} není platný soubor.",
     "other_page_loaded": "URL loaded",
     "closing_automatically": "Zastavuji automaticky, protože stahování skončilo",
     "large_filesize": "Varování: Posílání velkých souborů může trvat hodiny",
@@ -62,5 +62,7 @@
     "error_tor_protocol_error": "Error talking to the Tor controller.\nIf you're using Whonix, check out https://www.whonix.org/wiki/onionshare to make OnionShare work.",
     "give_this_url_receive": "Sděl tuto adresu odesilateli:",
     "give_this_url_receive_stealth": "Sdělte tuto adresu a HidServAuth odesilateli:",
-    "no_available_port": "Port potřebný ke spuštění služeb onion nelze nalézt"
+    "no_available_port": "Port potřebný ke spuštění služeb onion nelze nalézt",
+    "not_a_readable_file": "Soubor {0:s} není čitelný.",
+    "timeout_download_still_running": "Čeká se na konec stahování"
 }
