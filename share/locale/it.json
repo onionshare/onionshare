@@ -6,7 +6,7 @@
     "other_page_loaded": "URL caricato",
     "closing_automatically": "Chiusura automatica, download completato",
     "large_filesize": "Attenzione: inviare file di grandi dimensioni può richiedere ore",
-    "help_local_only": "Non usare Tor (versione in fase di sviluppo)",
+    "help_local_only": "Non usare Tor (solo per lo sviluppo)",
     "help_stay_open": "Mantieni il servizio avviato anche dopo aver completato il primo download",
     "help_debug": "Registra gli errori sul disco",
     "help_filename": "Lista dei file o cartelle da condividere",
