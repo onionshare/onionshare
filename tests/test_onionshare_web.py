@@ -395,13 +395,34 @@ class TestRangeRequests:
             resp = client.get(url, headers={'If-Unmodified-Since': last_mod})
             assert resp.status_code == 304
 
+    def test_firefox_like_behavior(self, common_obj):
+        web = web_obj(common_obj, 'share', 3)
+        web.stay_open = True
+        url = '/{}/download'.format(web.slug)
+
+        with web.app.test_client() as client:
+            resp = client.get(url)
+            assert resp.status_code == 200
+
+            # Firefox sends these with all range requests
+            etag = resp.headers['ETag']
+            last_mod = resp.headers['Last-Modified']
+
+            # make a request that uses the full header set
+            headers = {'Range': 'bytes=0-10',
+                       'If-Unmodified-Since': last_mod,
+                       'If-Range': etag}
+            resp = client.get(url, headers=headers)
+            assert resp.status_code == 206
+
+
     @check_unsupported('curl', ['--version'])
     def test_curl(self, common_obj):
         web = web_obj(common_obj, 'share', 3)
         web.stay_open = True
 
         with live_server(web) as url:
-            # Debugbing help from `man curl`, on error 33
+            # Debugging help from `man curl`, on error 33
             #       33     HTTP range error. The range "command" didn't work.
             subprocess.check_call(['curl', '--continue-at', '10', url])
 

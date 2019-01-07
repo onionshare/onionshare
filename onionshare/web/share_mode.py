@@ -268,10 +268,10 @@ class ShareModeWeb(object):
     def get_range_and_status_code(cls, dl_size, etag, last_modified):
         use_default_range = True
         status_code = 200
+        range_header = request.headers.get('Range')
+
         # range requests are only allowed for get
         if request.method == 'GET':
-            range_header = request.headers.get('Range')
-
             ranges = parse_range_header(range_header, dl_size)
             if not (len(ranges) == 1 and ranges[0][0] == 0 and ranges[0][1] == dl_size - 1):
                 use_default_range = False
@@ -290,10 +290,16 @@ class ShareModeWeb(object):
             abort(416)  # We don't support multipart range requests yet
         range_ = ranges[0]
 
+        etag_header = request.headers.get('ETag')
+        if etag_header is not None and etag_header != etag:
+            abort(412)
+
         if_unmod = request.headers.get('If-Unmodified-Since')
         if if_unmod:
             if_date = parse_date(if_unmod)
-            if if_date and if_date < last_modified:
+            if if_date and if_date > last_modified:
+                abort(412)
+            elif range_header is None:
                 status_code = 304
 
         return range_, status_code
