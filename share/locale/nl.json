@@ -184,5 +184,6 @@
     "gui_settings_language_label": "Voorkeurstaal",
     "gui_settings_language_changed_notice": "Je moet OnionShare opnieuw starten als je de taal veranderd.",
     "gui_add_files": "Bestanden toevoegen",
-    "gui_add_folder": "Map toevoegen"
+    "gui_add_folder": "Map toevoegen",
+    "gui_connect_to_tor_for_onion_settings": "Verbind met Tor om de instellingen van onion diensten te zien"
 }
