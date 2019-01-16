@@ -12,3 +12,5 @@ Categories=Network;FileTransfer;
 Keywords=tor;anonymity;privacy;onion service;file sharing;file hosting;
 Keywords[da]=tor;anonymitet;privatliv;onion-tjeneste;fildeling;filhosting;
 Keywords[de]=tor;Anonymität;Privatsphäre;Onion-Service;File-Sharing;File-Hosting;
+StartupNotify=true
+StartupWMClass=onionshare
