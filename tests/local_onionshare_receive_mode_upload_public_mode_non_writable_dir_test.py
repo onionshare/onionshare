@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import pytest
 import unittest
 
 from .GuiReceiveTest import GuiReceiveTest
@@ -16,6 +17,7 @@ class LocalReceivePublicModeUnwritableTest(unittest.TestCase, GuiReceiveTest):
     def tearDownClass(cls):
         GuiReceiveTest.tear_down()
 
+    @pytest.mark.gui
     def test_gui(self):
         self.run_all_common_setup_tests()
         self.run_all_receive_mode_unwritable_dir_tests(True, True)
