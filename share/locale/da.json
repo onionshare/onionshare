@@ -51,7 +51,7 @@
     "error_stealth_not_supported": "For at bruge klientautentifikation skal du have mindst Tor 0.2.9.1-alpha (eller Tor Browser 6.5) og python3-stem 1.5.0.",
     "error_ephemeral_not_supported": "OnionShare kræver mindst både Tor 0.2.7.1 og python3-stem 1.4.0.",
     "gui_settings_window_title": "Indstillinger",
-    "gui_settings_stealth_option": "Brug klientautentifikation (forældet)",
+    "gui_settings_stealth_option": "Brug klientautentifikation",
     "gui_settings_stealth_hidservauth_string": "Ved at have gemt din private nøgle til at blive brugt igen, betyder det at du nu\nkan klikke for at kopiere din HidServAuth.",
     "gui_settings_autoupdate_label": "Søg efter ny version",
     "gui_settings_autoupdate_option": "Giv mig besked når der findes en ny version",
@@ -111,7 +111,7 @@
     "gui_server_started_after_timeout": "Timeren med autostop løb ud inden serveren startede.\nOpret venligst en ny deling.",
     "gui_server_timeout_expired": "Timeren med autostop er allerede løbet ud.\nOpdater den venligst for at starte deling.",
     "share_via_onionshare": "Del via OnionShare",
-    "gui_save_private_key_checkbox": "Brug en vedvarende adresse (udgået)",
+    "gui_save_private_key_checkbox": "Brug en vedvarende adresse",
     "gui_copied_url_title": "Kopierede OnionShare-adresse",
     "gui_copied_hidservauth_title": "Kopierede HidServAuth",
     "gui_quit_title": "Klap lige hesten",
@@ -185,5 +185,8 @@
     "gui_receive_mode_warning": "Modtagetilstand lader folk uploade filer til din computer.<br><br><b>Nogle filer kan potentielt tage kontrol over din computer hvis du åbner dem. Åbn kun ting fra folk du har tillid til, eller hvis du ved hvad du har gang i.</b>",
     "receive_mode_upload_starting": "Upload med samlet størrelse på {} starter",
     "gui_open_folder_error_nautilus": "Kan ikke åbne mappe fordi nautilus ikke er tilgængelig. Filen er her: {}",
-    "timeout_upload_still_running": "Venter på at upload skal blive færdig"
+    "timeout_upload_still_running": "Venter på at upload skal blive færdig",
+    "gui_add_files": "Tilføj filer",
+    "gui_add_folder": "Tilføj mappe",
+    "gui_connect_to_tor_for_onion_settings": "Opret forbindelse til Tor for at se indstillinger for onion-tjeneste"
 }
