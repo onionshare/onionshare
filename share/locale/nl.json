@@ -182,5 +182,7 @@
     "gui_download_in_progress": "Binnenhalen gestart {}",
     "gui_open_folder_error_nautilus": "Kan de map niet openen omdat bestandsbeheerprogramma nautilus niet beschikbaar is. Het bestand staat hier : {}",
     "gui_settings_language_label": "Voorkeurstaal",
-    "gui_settings_language_changed_notice": "Je moet OnionShare opnieuw starten als je de taal veranderd."
+    "gui_settings_language_changed_notice": "Je moet OnionShare opnieuw starten als je de taal veranderd.",
+    "gui_add_files": "Bestanden toevoegen",
+    "gui_add_folder": "Map toevoegen"
 }
