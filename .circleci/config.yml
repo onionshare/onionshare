@@ -15,7 +15,7 @@ jobs:
   test-3.5: &test-template
     docker:
       - image: circleci/python:3.5.6
-      
+
     working_directory: ~/repo
 
     steps:
@@ -33,7 +33,7 @@ jobs:
       # run tests!
       - run:
           name: run flake tests
-          command: | 
+          command: |
             # stop the build if there are Python syntax errors or undefined names
             flake8 . --count --select=E901,E999,F821,F822,F823 --show-source --statistics
             # exit-zero treats all errors as warnings.  The GitHub editor is 127 chars wide
@@ -42,7 +42,7 @@ jobs:
       - run:
           name: run tests
           command: |
-            xvfb-run pytest --cov=onionshare --cov=onionshare_gui --cov-report=term-missing -vvv tests/
+            xvfb-run pytest --cov=onionshare --cov=onionshare_gui --cov-report=term-missing -vvv tests/ --rungui
 
   test-3.6:
     <<: *test-template
