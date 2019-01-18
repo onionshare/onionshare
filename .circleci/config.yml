@@ -42,7 +42,7 @@ jobs:
       - run:
           name: run tests
           command: |
-            xvfb-run pytest --cov=onionshare --cov=onionshare_gui --cov-report=term-missing -vvv tests/ --rungui
+            xvfb-run pytest --rungui --cov=onionshare --cov=onionshare_gui --cov-report=term-missing -vvv tests/
 
   test-3.6:
     <<: *test-template
