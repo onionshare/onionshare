@@ -115,7 +115,7 @@
     "settings_error_bundled_tor_not_supported": "Im Entwicklermodus auf Windows oder macOS kannst du die Torversion, die mit OnionShare geliefert wird, nicht nutzen.",
     "settings_error_bundled_tor_timeout": "Die Verbindung zum Tornetzwerk braucht zu lang. Bist du vielleicht nicht mit dem Internet verbunden oder geht die Uhr auf deinem System falsch?",
     "settings_error_bundled_tor_broken": "OnionShare konnte im Hintergrund nicht mit Tor verbinden:\n{}",
-    "settings_test_success": "Verbunden mit dem Tor controller.\n\nTor-Version: {}\nUnterstützt vorübergehende onion services: {}.\nUnterstützt Klient-Authorisierung: {}.\nUnterstützt .onion-Adressen der nächsten Generation: {}.",
+    "settings_test_success": "Verbunden mit dem Tor controller.\n\nTorversion: {}\nUnterstützt flüchtige onion services: {}.\nUnterstützt Klientauthorisierung: {}.\nUnterstützt .onion-Adressen der nächsten Generation: {}.",
     "error_tor_protocol_error": "Es gab einen Fehler mit Tor: {}",
     "error_tor_protocol_error_unknown": "Es gab einen unbekannten Fehler mit Tor",
     "error_invalid_private_key": "Diese Art von privatem Schlüssel wird nicht unterstützt",
