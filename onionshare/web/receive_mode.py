@@ -64,7 +64,7 @@ class ReceiveModeWeb(object):
             now = datetime.now()
             date_dir = now.strftime("%Y-%m-%d")
             time_dir = now.strftime("%H.%M.%S")
-            receive_mode_dir = os.path.join(self.common.settings.get('downloads_dir'), date_dir, time_dir)
+            receive_mode_dir = os.path.join(self.common.settings.get('data_dir'), date_dir, time_dir)
 
             files = request.files.getlist('file[]')
             filenames = []

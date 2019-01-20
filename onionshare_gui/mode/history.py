@@ -40,13 +40,36 @@ class HistoryItem(QtWidgets.QWidget):
     def cancel(self):
         pass
 
+    def get_finished_label_text(self, started):
+        """
+        When an item finishes, returns a string displaying the start/end datetime range.
+        started is a datetime object.
+        """
+        ended = datetime.now()
+        if started.year == ended.year and started.month == ended.month and started.day == ended.day:
+            if started.hour == ended.hour and started.minute == ended.minute:
+                text = strings._('gui_all_modes_transfer_finished').format(
+                    started.strftime("%b %d, %I:%M%p")
+                )
+            else:
+                text = strings._('gui_all_modes_transfer_finished_range').format(
+                    started.strftime("%b %d, %I:%M%p"),
+                    ended.strftime("%I:%M%p")
+                )
+        else:
+            text = strings._('gui_all_modes_transfer_finished_range').format(
+                started.strftime("%b %d, %I:%M%p"),
+                ended.strftime("%b %d, %I:%M%p")
+            )
+        return text
 
-class DownloadHistoryItem(HistoryItem):
+
+class ShareHistoryItem(HistoryItem):
     """
     Download history item, for share mode
     """
     def __init__(self, common, id, total_bytes):
-        super(DownloadHistoryItem, self).__init__()
+        super(ShareHistoryItem, self).__init__()
         self.common = common
 
         self.id = id
@@ -56,7 +79,7 @@ class DownloadHistoryItem(HistoryItem):
         self.started_dt = datetime.fromtimestamp(self.started)
 
         # Label
-        self.label = QtWidgets.QLabel(strings._('gui_download_in_progress').format(self.started_dt.strftime("%b %d, %I:%M%p")))
+        self.label = QtWidgets.QLabel(strings._('gui_all_modes_transfer_started').format(self.started_dt.strftime("%b %d, %I:%M%p")))
 
         # Progress bar
         self.progress_bar = QtWidgets.QProgressBar()
@@ -83,18 +106,22 @@ class DownloadHistoryItem(HistoryItem):
 
         self.progress_bar.setValue(downloaded_bytes)
         if downloaded_bytes == self.progress_bar.total_bytes:
-            pb_fmt = strings._('gui_download_upload_progress_complete').format(
+            pb_fmt = strings._('gui_all_modes_progress_complete').format(
                 self.common.format_seconds(time.time() - self.started))
+
+            # Change the label
+            self.label.setText(self.get_finished_label_text(self.started_dt))
+
         else:
             elapsed = time.time() - self.started
             if elapsed < 10:
                 # Wait a couple of seconds for the download rate to stabilize.
                 # This prevents a "Windows copy dialog"-esque experience at
                 # the beginning of the download.
-                pb_fmt = strings._('gui_download_upload_progress_starting').format(
+                pb_fmt = strings._('gui_all_modes_progress_starting').format(
                     self.common.human_readable_filesize(downloaded_bytes))
             else:
-                pb_fmt = strings._('gui_download_upload_progress_eta').format(
+                pb_fmt = strings._('gui_all_modes_progress_eta').format(
                     self.common.human_readable_filesize(downloaded_bytes),
                     self.estimated_time_remaining)
 
@@ -110,12 +137,12 @@ class DownloadHistoryItem(HistoryItem):
                                                 self.started)
 
 
-class UploadHistoryItemFile(QtWidgets.QWidget):
+class ReceiveHistoryItemFile(QtWidgets.QWidget):
     def __init__(self, common, filename):
-        super(UploadHistoryItemFile, self).__init__()
+        super(ReceiveHistoryItemFile, self).__init__()
         self.common = common
 
-        self.common.log('UploadHistoryItemFile', '__init__', 'filename: {}'.format(filename))
+        self.common.log('ReceiveHistoryItemFile', '__init__', 'filename: {}'.format(filename))
 
         self.filename = filename
         self.dir = None
@@ -166,10 +193,10 @@ class UploadHistoryItemFile(QtWidgets.QWidget):
         """
         Open the downloads folder, with the file selected, in a cross-platform manner
         """
-        self.common.log('UploadHistoryItemFile', 'open_folder')
+        self.common.log('ReceiveHistoryItemFile', 'open_folder')
 
         if not self.dir:
-            self.common.log('UploadHistoryItemFile', 'open_folder', "dir has not been set yet, can't open folder")
+            self.common.log('ReceiveHistoryItemFile', 'open_folder', "dir has not been set yet, can't open folder")
             return
 
         abs_filename = os.path.join(self.dir, self.filename)
@@ -190,16 +217,16 @@ class UploadHistoryItemFile(QtWidgets.QWidget):
         elif self.common.platform == 'Windows':
             subprocess.Popen(['explorer', '/select,{}'.format(abs_filename)])
 
-class UploadHistoryItem(HistoryItem):
+class ReceiveHistoryItem(HistoryItem):
     def __init__(self, common, id, content_length):
-        super(UploadHistoryItem, self).__init__()
+        super(ReceiveHistoryItem, self).__init__()
         self.common = common
         self.id = id
         self.content_length = content_length
         self.started = datetime.now()
 
         # Label
-        self.label = QtWidgets.QLabel(strings._('gui_upload_in_progress').format(self.started.strftime("%b %d, %I:%M%p")))
+        self.label = QtWidgets.QLabel(strings._('gui_all_modes_transfer_started').format(self.started.strftime("%b %d, %I:%M%p")))
 
         # Progress bar
         self.progress_bar = QtWidgets.QProgressBar()
@@ -244,14 +271,14 @@ class UploadHistoryItem(HistoryItem):
 
             elapsed = datetime.now() - self.started
             if elapsed.seconds < 10:
-                pb_fmt = strings._('gui_download_upload_progress_starting').format(
+                pb_fmt = strings._('gui_all_modes_progress_starting').format(
                     self.common.human_readable_filesize(total_uploaded_bytes))
             else:
                 estimated_time_remaining = self.common.estimated_time_remaining(
                     total_uploaded_bytes,
                     self.content_length,
                     self.started.timestamp())
-                pb_fmt = strings._('gui_download_upload_progress_eta').format(
+                pb_fmt = strings._('gui_all_modes_progress_eta').format(
                     self.common.human_readable_filesize(total_uploaded_bytes),
                     estimated_time_remaining)
 
@@ -259,7 +286,7 @@ class UploadHistoryItem(HistoryItem):
             for filename in list(data['progress']):
                 # Add a new file if needed
                 if filename not in self.files:
-                    self.files[filename] = UploadHistoryItemFile(self.common, filename)
+                    self.files[filename] = ReceiveHistoryItemFile(self.common, filename)
                     self.files_layout.addWidget(self.files[filename])
 
                 # Update the file
@@ -277,23 +304,7 @@ class UploadHistoryItem(HistoryItem):
             self.progress_bar.hide()
 
             # Change the label
-            self.ended = self.started = datetime.now()
-            if self.started.year == self.ended.year and self.started.month == self.ended.month and self.started.day == self.ended.day:
-                if self.started.hour == self.ended.hour and self.started.minute == self.ended.minute:
-                    text = strings._('gui_upload_finished').format(
-                        self.started.strftime("%b %d, %I:%M%p")
-                    )
-                else:
-                    text = strings._('gui_upload_finished_range').format(
-                        self.started.strftime("%b %d, %I:%M%p"),
-                        self.ended.strftime("%I:%M%p")
-                    )
-            else:
-                text = strings._('gui_upload_finished_range').format(
-                    self.started.strftime("%b %d, %I:%M%p"),
-                    self.ended.strftime("%b %d, %I:%M%p")
-                )
-            self.label.setText(text)
+            self.label.setText(self.get_finished_label_text(self.started))
 
         elif data['action'] == 'canceled':
             # Hide the progress bar
@@ -393,7 +404,7 @@ class History(QtWidgets.QWidget):
         # Header
         self.header_label = QtWidgets.QLabel(header_text)
         self.header_label.setStyleSheet(self.common.css['downloads_uploads_label'])
-        clear_button = QtWidgets.QPushButton(strings._('gui_clear_history'))
+        clear_button = QtWidgets.QPushButton(strings._('gui_all_modes_clear_history'))
         clear_button.setStyleSheet(self.common.css['downloads_uploads_clear'])
         clear_button.setFlat(True)
         clear_button.clicked.connect(self.reset)
