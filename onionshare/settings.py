@@ -100,7 +100,7 @@ class Settings(object):
             'public_mode': False,
             'slug': '',
             'hidservauth_string': '',
-            'downloads_dir': self.build_default_downloads_dir(),
+            'data_dir': self.build_default_data_dir(),
             'locale': None # this gets defined in fill_in_defaults()
         }
         self._settings = {}
@@ -140,7 +140,7 @@ class Settings(object):
         """
         return os.path.join(self.common.build_data_dir(), 'onionshare.json')
 
-    def build_default_downloads_dir(self):
+    def build_default_data_dir(self):
         """
         Returns the path of the default Downloads directory for receive mode.
         """
@@ -174,9 +174,9 @@ class Settings(object):
             except:
                 pass
 
-        # Make sure downloads_dir exists
+        # Make sure data_dir exists
         try:
-            os.makedirs(self.get('downloads_dir'), exist_ok=True)
+            os.makedirs(self.get('data_dir'), exist_ok=True)
         except:
             pass
 

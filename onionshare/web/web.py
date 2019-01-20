@@ -38,7 +38,7 @@ class Web(object):
     REQUEST_UPLOAD_FILE_RENAMED = 6
     REQUEST_UPLOAD_SET_DIR = 7
     REQUEST_UPLOAD_FINISHED = 8
-    REQUEST_ERROR_DOWNLOADS_DIR_CANNOT_CREATE = 9
+    REQUEST_ERROR_DATA_DIR_CANNOT_CREATE = 9
 
     def __init__(self, common, is_gui, mode='share'):
         self.common = common
