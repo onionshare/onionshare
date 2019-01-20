@@ -103,7 +103,7 @@ class ReceiveMode(Mode):
             return True
         # An upload is probably still running - hold off on stopping the share, but block new shares.
         else:
-            self.server_status_label.setText(strings._('timeout_upload_still_running'))
+            self.server_status_label.setText(strings._('gui_receive_mode_timeout_waiting'))
             self.web.receive_mode.can_upload = False
             return False
 
@@ -158,13 +158,6 @@ class ReceiveMode(Mode):
             'action': 'progress',
             'progress': event["data"]["progress"]
         })
-
-    def handle_request_close_server(self, event):
-        """
-        Handle REQUEST_CLOSE_SERVER event.
-        """
-        self.stop_server()
-        self.system_tray.showMessage(strings._('systray_close_server_title'), strings._('systray_close_server_message'))
 
     def handle_request_upload_file_renamed(self, event):
         """

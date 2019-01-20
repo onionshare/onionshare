@@ -138,7 +138,7 @@ class ShareMode(Mode):
             return True
         # A download is probably still running - hold off on stopping the share
         else:
-            self.server_status_label.setText(strings._('timeout_download_still_running'))
+            self.server_status_label.setText(strings._('gui_share_mode_timeout_waiting'))
             return False
 
     def start_server_custom(self):
