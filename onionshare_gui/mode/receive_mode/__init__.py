@@ -49,7 +49,7 @@ class ReceiveMode(Mode):
         # Upload history
         self.history = History(
             self.common,
-            QtGui.QPixmap.fromImage(QtGui.QImage(self.common.get_resource_path('images/uploads_transparent.png'))),
+            QtGui.QPixmap.fromImage(QtGui.QImage(self.common.get_resource_path('images/receive_icon_transparent.png'))),
             strings._('gui_receive_mode_no_files'),
             strings._('gui_all_modes_history')
         )
@@ -58,8 +58,8 @@ class ReceiveMode(Mode):
         # Toggle history
         self.toggle_history = ToggleHistory(
             self.common, self, self.history,
-            QtGui.QIcon(self.common.get_resource_path('images/uploads_toggle.png')),
-            QtGui.QIcon(self.common.get_resource_path('images/uploads_toggle_selected.png'))
+            QtGui.QIcon(self.common.get_resource_path('images/receive_icon_toggle.png')),
+            QtGui.QIcon(self.common.get_resource_path('images/receive_icon_toggle_selected.png'))
         )
 
         # Receive mode warning

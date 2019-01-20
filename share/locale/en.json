@@ -54,9 +54,6 @@
     "gui_copied_hidservauth_title": "Copied HidServAuth",
     "gui_copied_hidservauth": "HidServAuth line copied to clipboard",
     "gui_please_wait": "Starting… Click to cancel.",
-    "gui_download_upload_progress_complete": "%p%, {0:s} elapsed.",
-    "gui_download_upload_progress_starting": "{0:s}, %p% (calculating)",
-    "gui_download_upload_progress_eta": "{0:s}, ETA: {1:s}, %p%",
     "version_string": "OnionShare {0:s} | https://onionshare.org/",
     "gui_quit_title": "Not so fast",
     "gui_share_quit_warning": "You're in the process of sending files. Are you sure you want to quit OnionShare?",
@@ -179,12 +176,12 @@
 
     "gui_all_modes_history": "History",
     "gui_all_modes_clear_history": "Clear All",
-
+    "gui_all_modes_transfer_started": "Started {}",
+    "gui_all_modes_transfer_finished_range": "Transferred {} - {}",
+    "gui_all_modes_transfer_finished": "Transferred {}",
+    "gui_all_modes_progress_complete": "%p%, {0:s} elapsed.",
+    "gui_all_modes_progress_starting": "{0:s}, %p% (calculating)",
+    "gui_all_modes_progress_eta": "{0:s}, ETA: {1:s}, %p%",
     "gui_share_mode_no_files": "No Files Sent Yet",
-    "gui_share_mode_transfer_started": "Started {}",
-
-    "gui_receive_mode_no_files": "No Files Received Yet",
-    "gui_receive_mode_transfer_started": "Started {}",
-    "gui_receive_mode_transfer_finished_range": "Started {}, finished {}",
-    "gui_receive_mode_transfer_finished": "Finished {}"
+    "gui_receive_mode_no_files": "No Files Received Yet"
 }
