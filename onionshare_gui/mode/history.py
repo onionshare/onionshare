@@ -184,7 +184,7 @@ class UploadHistoryItemFile(QtWidgets.QWidget):
 
         # macOS
         elif self.common.platform == 'Darwin':
-            subprocess.call(['open', '-R', abs_filename]) 
+            subprocess.call(['open', '-R', abs_filename])
 
         # Windows
         elif self.common.platform == 'Windows':
@@ -294,6 +294,13 @@ class UploadHistoryItem(HistoryItem):
                     self.ended.strftime("%b %d, %I:%M%p")
                 )
             self.label.setText(text)
+
+        elif data['action'] == 'canceled':
+            # Hide the progress bar
+            self.progress_bar.hide()
+
+            # Change the label
+            self.label.setText(strings._('gui_canceled'))
 
 
 class HistoryItemList(QtWidgets.QScrollArea):

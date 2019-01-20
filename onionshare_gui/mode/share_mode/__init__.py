@@ -115,7 +115,7 @@ class ShareMode(Mode):
         # Wrapper layout
         self.wrapper_layout = QtWidgets.QHBoxLayout()
         self.wrapper_layout.addLayout(self.main_layout)
-        self.wrapper_layout.addWidget(self.history)
+        self.wrapper_layout.addWidget(self.history, stretch=1)
         self.setLayout(self.wrapper_layout)
 
         # Always start with focus on file selection
