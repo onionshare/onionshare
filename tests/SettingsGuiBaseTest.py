@@ -148,7 +148,7 @@ class SettingsGuiBaseTest(object):
         self.assertFalse(self.gui.close_after_first_download_checkbox.isChecked())
 
         # receive mode
-        self.gui.downloads_dir_lineedit.setText('/tmp/OnionShareSettingsTest')
+        self.gui.data_dir_lineedit.setText('/tmp/OnionShareSettingsTest')
 
 
         # bundled mode is enabled
@@ -234,7 +234,7 @@ class SettingsGuiBaseTest(object):
             self.assertFalse(data["save_private_key"])
             self.assertFalse(data["use_stealth"])
 
-        self.assertEqual(data["downloads_dir"], "/tmp/OnionShareSettingsTest")
+        self.assertEqual(data["data_dir"], "/tmp/OnionShareSettingsTest")
         self.assertFalse(data["close_after_first_download"])
         self.assertEqual(data["connection_type"], "bundled")
         self.assertFalse(data["tor_bridges_use_obfs4"])

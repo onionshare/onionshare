@@ -64,15 +64,15 @@ class ReceiveModeWeb(object):
             now = datetime.now()
             date_dir = now.strftime("%Y-%m-%d")
             time_dir = now.strftime("%H.%M.%S")
-            receive_mode_dir = os.path.join(self.common.settings.get('downloads_dir'), date_dir, time_dir)
+            receive_mode_dir = os.path.join(self.common.settings.get('data_dir'), date_dir, time_dir)
             valid = True
             try:
                 os.makedirs(receive_mode_dir, 0o700)
             except PermissionError:
-                self.web.add_request(self.web.REQUEST_ERROR_DOWNLOADS_DIR_CANNOT_CREATE, request.path, {
+                self.web.add_request(self.web.REQUEST_ERROR_DATA_DIR_CANNOT_CREATE, request.path, {
                     "receive_mode_dir": receive_mode_dir
                 })
-                print(strings._('error_cannot_create_downloads_dir').format(receive_mode_dir))
+                print(strings._('error_cannot_create_data_dir').format(receive_mode_dir))
                 valid = False
             if not valid:
                 flash('Error uploading, please inform the OnionShare user', 'error')
