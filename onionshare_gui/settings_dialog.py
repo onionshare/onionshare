@@ -187,16 +187,16 @@ class SettingsDialog(QtWidgets.QDialog):
         sharing_group = QtWidgets.QGroupBox(strings._("gui_settings_sharing_label"))
         sharing_group.setLayout(sharing_group_layout)
 
-        # Downloads dir
-        downloads_label = QtWidgets.QLabel(strings._('gui_settings_downloads_label'));
-        self.downloads_dir_lineedit = QtWidgets.QLineEdit()
-        self.downloads_dir_lineedit.setReadOnly(True)
-        downloads_button = QtWidgets.QPushButton(strings._('gui_settings_downloads_button'))
-        downloads_button.clicked.connect(self.downloads_button_clicked)
+        # OnionShare data dir
+        data_dir_label = QtWidgets.QLabel(strings._('gui_settings_data_dir_label'));
+        self.data_dir_lineedit = QtWidgets.QLineEdit()
+        self.data_dir_lineedit.setReadOnly(True)
+        data_dir_button = QtWidgets.QPushButton(strings._('gui_settings_data_dir_browse_button'))
+        data_dir_button.clicked.connect(self.data_dir_button_clicked)
         downloads_layout = QtWidgets.QHBoxLayout()
-        downloads_layout.addWidget(downloads_label)
-        downloads_layout.addWidget(self.downloads_dir_lineedit)
-        downloads_layout.addWidget(downloads_button)
+        downloads_layout.addWidget(data_dir_label)
+        downloads_layout.addWidget(self.data_dir_lineedit)
+        downloads_layout.addWidget(data_dir_button)
 
         # Receiving options layout
         receiving_group_layout = QtWidgets.QVBoxLayout()
@@ -508,8 +508,8 @@ class SettingsDialog(QtWidgets.QDialog):
         if use_legacy_v2_onions or save_private_key:
             self.use_legacy_v2_onions_checkbox.setCheckState(QtCore.Qt.Checked)
 
-        downloads_dir = self.old_settings.get('downloads_dir')
-        self.downloads_dir_lineedit.setText(downloads_dir)
+        data_dir = self.old_settings.get('data_dir')
+        self.data_dir_lineedit.setText(data_dir)
 
         public_mode = self.old_settings.get('public_mode')
         if public_mode:
@@ -747,17 +747,17 @@ class SettingsDialog(QtWidgets.QDialog):
             if not self.save_private_key_checkbox.isChecked():
                 self.use_legacy_v2_onions_checkbox.setEnabled(True)
 
-    def downloads_button_clicked(self):
+    def data_dir_button_clicked(self):
         """
-        Browse for a new downloads directory
+        Browse for a new OnionShare data directory
         """
-        downloads_dir = self.downloads_dir_lineedit.text()
+        data_dir = self.data_dir_lineedit.text()
         selected_dir = QtWidgets.QFileDialog.getExistingDirectory(self,
-            strings._('gui_settings_downloads_label'), downloads_dir)
+            strings._('gui_settings_data_dir_label'), data_dir)
 
         if selected_dir:
-            self.common.log('SettingsDialog', 'downloads_button_clicked', 'selected dir: {}'.format(selected_dir))
-            self.downloads_dir_lineedit.setText(selected_dir)
+            self.common.log('SettingsDialog', 'data_dir_button_clicked', 'selected dir: {}'.format(selected_dir))
+            self.data_dir_lineedit.setText(selected_dir)
 
     def test_tor_clicked(self):
         """
@@ -981,7 +981,7 @@ class SettingsDialog(QtWidgets.QDialog):
             # Also unset the HidServAuth if we are removing our reusable private key
             settings.set('hidservauth_string', '')
 
-        settings.set('downloads_dir', self.downloads_dir_lineedit.text())
+        settings.set('data_dir', self.data_dir_lineedit.text())
         settings.set('public_mode', self.public_mode_checkbox.isChecked())
         settings.set('use_stealth', self.stealth_checkbox.isChecked())
         # Always unset the HidServAuth if Stealth mode is unset
