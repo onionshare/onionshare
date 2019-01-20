@@ -11,6 +11,7 @@ class ShareModeTorConnectionKilledTest(unittest.TestCase, TorGuiShareTest):
         }
         cls.gui = TorGuiShareTest.set_up(test_settings)
 
+    @pytest.mark.gui
     @pytest.mark.tor
     def test_gui(self):
         self.run_all_common_setup_tests()
