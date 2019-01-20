@@ -22,7 +22,7 @@ from PyQt5 import QtCore, QtWidgets, QtGui
 from onionshare import strings
 from onionshare.web import Web
 
-from ..history import History, ToggleHistory, UploadHistoryItem
+from ..history import History, ToggleHistory, ReceiveHistoryItem
 from .. import Mode
 
 class ReceiveMode(Mode):
@@ -50,8 +50,8 @@ class ReceiveMode(Mode):
         self.history = History(
             self.common,
             QtGui.QPixmap.fromImage(QtGui.QImage(self.common.get_resource_path('images/uploads_transparent.png'))),
-            strings._('gui_no_uploads'),
-            strings._('gui_uploads')
+            strings._('gui_receive_mode_no_files'),
+            strings._('gui_all_modes_history')
         )
         self.history.hide()
 
@@ -142,7 +142,7 @@ class ReceiveMode(Mode):
         """
         Handle REQUEST_STARTED event.
         """
-        item = UploadHistoryItem(self.common, event["data"]["id"], event["data"]["content_length"])
+        item = ReceiveHistoryItem(self.common, event["data"]["id"], event["data"]["content_length"])
         self.history.add(event["data"]["id"], item)
         self.toggle_history.update_indicator(True)
         self.history.in_progress_count += 1
