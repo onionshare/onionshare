@@ -155,10 +155,16 @@ Then you can run `pytest` against the `tests/` directory.
 pytest tests/
 ```
 
+You can run GUI tests like this:
+
+```sh
+pytest --rungui tests/
+```
+
 If you would like to also run the GUI unit tests in 'tor' mode, start Tor Browser in the background, then run:
 
 ```sh
-pytest --runtor tests/
+pytest --rungui --runtor tests/
 ```
 
 Keep in mind that the Tor tests take a lot longer to run than local mode, but they are also more comprehensive.
@@ -166,5 +172,5 @@ Keep in mind that the Tor tests take a lot longer to run than local mode, but th
 You can also choose to wrap the tests in `xvfb-run` so that a ton of OnionShare windows don't pop up on your desktop (you may need to install the `xorg-x11-server-Xvfb` package), like this:
 
 ```sh
-xvfb-run pytest tests/
+xvfb-run pytest --rungui tests/
 ```

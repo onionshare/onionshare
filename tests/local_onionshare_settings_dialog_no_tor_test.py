@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import pytest
 import unittest
 
 from onionshare import strings
@@ -14,6 +15,7 @@ class SettingsGuiTest(unittest.TestCase, SettingsGuiBaseTest):
     def tearDownClass(cls):
         SettingsGuiBaseTest.tear_down()
 
+    @pytest.mark.gui
     def test_gui_no_tor(self):
         self.gui.onion = OnionStub(False, False)
         self.gui.reload_settings()

@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import pytest
 import unittest
 
 from .GuiShareTest import GuiShareTest
@@ -15,6 +16,7 @@ class Local404RateLimitTest(unittest.TestCase, GuiShareTest):
     def tearDownClass(cls):
         GuiShareTest.tear_down()
 
+    @pytest.mark.gui
     def test_gui(self):
         self.run_all_common_setup_tests()
         self.run_all_share_mode_tests(False, True)

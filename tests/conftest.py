@@ -12,18 +12,27 @@ from onionshare import common, web, settings, strings
 
 def pytest_addoption(parser):
     parser.addoption(
+        "--rungui", action="store_true", default=False, help="run GUI tests"
+    )
+    parser.addoption(
         "--runtor", action="store_true", default=False, help="run tor tests"
     )
 
 
 def pytest_collection_modifyitems(config, items):
-    if config.getoption("--runtor"):
+    if not config.getoption("--runtor"):
         # --runtor given in cli: do not skip tor tests
-        return
-    skip_tor = pytest.mark.skip(reason="need --runtor option to run")
-    for item in items:
-        if "tor" in item.keywords:
-            item.add_marker(skip_tor)
+        skip_tor = pytest.mark.skip(reason="need --runtor option to run")
+        for item in items:
+            if "tor" in item.keywords:
+                item.add_marker(skip_tor)
+
+    if not config.getoption('--rungui'):
+        # --rungui given in cli: do not skip GUI tests
+        skip_gui = pytest.mark.skip(reason="need --rungui option to run")
+        for item in items:
+            if "gui" in item.keywords:
+                item.add_marker(skip_gui)
 
 
 @pytest.fixture
