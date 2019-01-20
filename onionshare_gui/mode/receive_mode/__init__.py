@@ -136,7 +136,7 @@ class ReceiveMode(Mode):
         """
         Handle REQUEST_LOAD event.
         """
-        self.system_tray.showMessage(strings._('systray_page_loaded_title'), strings._('systray_upload_page_loaded_message'))
+        self.system_tray.showMessage(strings._('systray_page_loaded_title'), strings._('systray_page_loaded_message'))
 
     def handle_request_started(self, event):
         """
@@ -148,7 +148,7 @@ class ReceiveMode(Mode):
         self.history.in_progress_count += 1
         self.history.update_in_progress()
 
-        self.system_tray.showMessage(strings._('systray_upload_started_title'), strings._('systray_upload_started_message'))
+        self.system_tray.showMessage(strings._('systray_receive_started_title'), strings._('systray_receive_started_message'))
 
     def handle_request_progress(self, event):
         """
