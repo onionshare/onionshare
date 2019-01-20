@@ -229,7 +229,7 @@ class ShareMode(Mode):
         """
         Handle REQUEST_LOAD event.
         """
-        self.system_tray.showMessage(strings._('systray_page_loaded_title'), strings._('systray_download_page_loaded_message'))
+        self.system_tray.showMessage(strings._('systray_page_loaded_title'), strings._('systray_page_loaded_message'))
 
     def handle_request_started(self, event):
         """
@@ -246,7 +246,7 @@ class ShareMode(Mode):
         self.history.in_progress_count += 1
         self.history.update_in_progress()
 
-        self.system_tray.showMessage(strings._('systray_download_started_title'), strings._('systray_download_started_message'))
+        self.system_tray.showMessage(strings._('systray_share_started_title'), strings._('systray_share_started_message'))
 
     def handle_request_progress(self, event):
         """
@@ -256,7 +256,7 @@ class ShareMode(Mode):
 
         # Is the download complete?
         if event["data"]["bytes"] == self.web.share_mode.filesize:
-            self.system_tray.showMessage(strings._('systray_download_completed_title'), strings._('systray_download_completed_message'))
+            self.system_tray.showMessage(strings._('systray_share_completed_title'), strings._('systray_share_completed_message'))
 
             # Update completed and in progress labels
             self.history.completed_count += 1
@@ -284,7 +284,7 @@ class ShareMode(Mode):
         # Update in progress count
         self.history.in_progress_count -= 1
         self.history.update_in_progress()
-        self.system_tray.showMessage(strings._('systray_download_canceled_title'), strings._('systray_download_canceled_message'))
+        self.system_tray.showMessage(strings._('systray_share_canceled_title'), strings._('systray_share_canceled_message'))
 
     def on_reload_settings(self):
         """
