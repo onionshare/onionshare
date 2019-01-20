@@ -16,6 +16,7 @@ class ShareModeStayOpenTest(unittest.TestCase, TorGuiShareTest):
     def tearDownClass(cls):
         TorGuiShareTest.tear_down()
 
+    @pytest.mark.gui
     @pytest.mark.tor
     def test_gui(self):
         self.run_all_common_setup_tests()

@@ -9,7 +9,7 @@ class ShareModeCancelSecondShareTest(unittest.TestCase, TorGuiShareTest):
     @classmethod
     def setUpClass(cls):
         test_settings = {
-            "close_after_first_download": True 
+            "close_after_first_download": True
         }
         cls.gui = TorGuiShareTest.set_up(test_settings)
 
@@ -17,6 +17,7 @@ class ShareModeCancelSecondShareTest(unittest.TestCase, TorGuiShareTest):
     def tearDownClass(cls):
         TorGuiShareTest.tear_down()
 
+    @pytest.mark.gui
     @pytest.mark.tor
     def test_gui(self):
         self.run_all_common_setup_tests()
