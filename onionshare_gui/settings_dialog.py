@@ -193,14 +193,14 @@ class SettingsDialog(QtWidgets.QDialog):
         self.data_dir_lineedit.setReadOnly(True)
         data_dir_button = QtWidgets.QPushButton(strings._('gui_settings_data_dir_browse_button'))
         data_dir_button.clicked.connect(self.data_dir_button_clicked)
-        downloads_layout = QtWidgets.QHBoxLayout()
-        downloads_layout.addWidget(data_dir_label)
-        downloads_layout.addWidget(self.data_dir_lineedit)
-        downloads_layout.addWidget(data_dir_button)
+        data_dir_layout = QtWidgets.QHBoxLayout()
+        data_dir_layout.addWidget(data_dir_label)
+        data_dir_layout.addWidget(self.data_dir_lineedit)
+        data_dir_layout.addWidget(data_dir_button)
 
         # Receiving options layout
         receiving_group_layout = QtWidgets.QVBoxLayout()
-        receiving_group_layout.addLayout(downloads_layout)
+        receiving_group_layout.addLayout(data_dir_layout)
         receiving_group = QtWidgets.QGroupBox(strings._("gui_settings_receiving_label"))
         receiving_group.setLayout(receiving_group_layout)
 
