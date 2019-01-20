@@ -40,12 +40,11 @@ class HistoryItem(QtWidgets.QWidget):
     def cancel(self):
         pass
 
-    def get_finished_label_text(self, started_ts):
+    def get_finished_label_text(self, started):
         """
         When an item finishes, returns a string displaying the start/end datetime range.
         started is a datetime object.
         """
-        started = datetime.fromtimestamp(started_ts)
         ended = datetime.now()
         if started.year == ended.year and started.month == ended.month and started.day == ended.day:
             if started.hour == ended.hour and started.minute == ended.minute:
@@ -111,7 +110,7 @@ class ShareHistoryItem(HistoryItem):
                 self.common.format_seconds(time.time() - self.started))
 
             # Change the label
-            self.label.setText(self.get_finished_label_text(self.started))
+            self.label.setText(self.get_finished_label_text(self.started_dt))
 
         else:
             elapsed = time.time() - self.started
