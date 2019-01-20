@@ -28,7 +28,7 @@ from onionshare.web import Web
 from .file_selection import FileSelection
 from .threads import CompressThread
 from .. import Mode
-from ..history import History, ToggleHistory, DownloadHistoryItem
+from ..history import History, ToggleHistory, ShareHistoryItem
 from ...widgets import Alert
 
 
@@ -75,8 +75,8 @@ class ShareMode(Mode):
         self.history = History(
             self.common,
             QtGui.QPixmap.fromImage(QtGui.QImage(self.common.get_resource_path('images/downloads_transparent.png'))),
-            strings._('gui_no_downloads'),
-            strings._('gui_downloads')
+            strings._('gui_share_mode_no_files'),
+            strings._('gui_all_modes_history')
         )
         self.history.hide()
 
@@ -240,7 +240,7 @@ class ShareMode(Mode):
         else:
             filesize = self.web.share_mode.download_filesize
 
-        item = DownloadHistoryItem(self.common, event["data"]["id"], filesize)
+        item = ShareHistoryItem(self.common, event["data"]["id"], filesize)
         self.history.add(event["data"]["id"], item)
         self.toggle_history.update_indicator(True)
         self.history.in_progress_count += 1

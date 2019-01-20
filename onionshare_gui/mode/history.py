@@ -41,12 +41,12 @@ class HistoryItem(QtWidgets.QWidget):
         pass
 
 
-class DownloadHistoryItem(HistoryItem):
+class ShareHistoryItem(HistoryItem):
     """
     Download history item, for share mode
     """
     def __init__(self, common, id, total_bytes):
-        super(DownloadHistoryItem, self).__init__()
+        super(ShareHistoryItem, self).__init__()
         self.common = common
 
         self.id = id
@@ -56,7 +56,7 @@ class DownloadHistoryItem(HistoryItem):
         self.started_dt = datetime.fromtimestamp(self.started)
 
         # Label
-        self.label = QtWidgets.QLabel(strings._('gui_download_in_progress').format(self.started_dt.strftime("%b %d, %I:%M%p")))
+        self.label = QtWidgets.QLabel(strings._('gui_share_mode_transfer_started').format(self.started_dt.strftime("%b %d, %I:%M%p")))
 
         # Progress bar
         self.progress_bar = QtWidgets.QProgressBar()
@@ -110,12 +110,12 @@ class DownloadHistoryItem(HistoryItem):
                                                 self.started)
 
 
-class UploadHistoryItemFile(QtWidgets.QWidget):
+class ReceiveHistoryItemFile(QtWidgets.QWidget):
     def __init__(self, common, filename):
-        super(UploadHistoryItemFile, self).__init__()
+        super(ReceiveHistoryItemFile, self).__init__()
         self.common = common
 
-        self.common.log('UploadHistoryItemFile', '__init__', 'filename: {}'.format(filename))
+        self.common.log('ReceiveHistoryItemFile', '__init__', 'filename: {}'.format(filename))
 
         self.filename = filename
         self.dir = None
@@ -166,10 +166,10 @@ class UploadHistoryItemFile(QtWidgets.QWidget):
         """
         Open the downloads folder, with the file selected, in a cross-platform manner
         """
-        self.common.log('UploadHistoryItemFile', 'open_folder')
+        self.common.log('ReceiveHistoryItemFile', 'open_folder')
 
         if not self.dir:
-            self.common.log('UploadHistoryItemFile', 'open_folder', "dir has not been set yet, can't open folder")
+            self.common.log('ReceiveHistoryItemFile', 'open_folder', "dir has not been set yet, can't open folder")
             return
 
         abs_filename = os.path.join(self.dir, self.filename)
@@ -184,15 +184,15 @@ class UploadHistoryItemFile(QtWidgets.QWidget):
 
         # macOS
         elif self.common.platform == 'Darwin':
-            subprocess.call(['open', '-R', abs_filename]) 
+            subprocess.call(['open', '-R', abs_filename])
 
         # Windows
         elif self.common.platform == 'Windows':
             subprocess.Popen(['explorer', '/select,{}'.format(abs_filename)])
 
-class UploadHistoryItem(HistoryItem):
+class ReceiveHistoryItem(HistoryItem):
     def __init__(self, common, id, content_length):
-        super(UploadHistoryItem, self).__init__()
+        super(ReceiveHistoryItem, self).__init__()
         self.common = common
         self.id = id
         self.content_length = content_length
@@ -259,7 +259,7 @@ class UploadHistoryItem(HistoryItem):
             for filename in list(data['progress']):
                 # Add a new file if needed
                 if filename not in self.files:
-                    self.files[filename] = UploadHistoryItemFile(self.common, filename)
+                    self.files[filename] = ReceiveHistoryItemFile(self.common, filename)
                     self.files_layout.addWidget(self.files[filename])
 
                 # Update the file
@@ -280,16 +280,16 @@ class UploadHistoryItem(HistoryItem):
             self.ended = self.started = datetime.now()
             if self.started.year == self.ended.year and self.started.month == self.ended.month and self.started.day == self.ended.day:
                 if self.started.hour == self.ended.hour and self.started.minute == self.ended.minute:
-                    text = strings._('gui_upload_finished').format(
+                    text = strings._('gui_receive_mode_transfer_finished').format(
                         self.started.strftime("%b %d, %I:%M%p")
                     )
                 else:
-                    text = strings._('gui_upload_finished_range').format(
+                    text = strings._('gui_receive_mode_transfer_finished_range').format(
                         self.started.strftime("%b %d, %I:%M%p"),
                         self.ended.strftime("%I:%M%p")
                     )
             else:
-                text = strings._('gui_upload_finished_range').format(
+                text = strings._('gui_receive_mode_transfer_finished_range').format(
                     self.started.strftime("%b %d, %I:%M%p"),
                     self.ended.strftime("%b %d, %I:%M%p")
                 )
@@ -386,7 +386,7 @@ class History(QtWidgets.QWidget):
         # Header
         self.header_label = QtWidgets.QLabel(header_text)
         self.header_label.setStyleSheet(self.common.css['downloads_uploads_label'])
-        clear_button = QtWidgets.QPushButton(strings._('gui_clear_history'))
+        clear_button = QtWidgets.QPushButton(strings._('gui_all_modes_clear_history'))
         clear_button.setStyleSheet(self.common.css['downloads_uploads_clear'])
         clear_button.setFlat(True)
         clear_button.clicked.connect(self.reset)
