@@ -39,7 +39,7 @@ class GuiBaseTest(object):
         strings.load_strings(common)
 
         # Get all of the settings in test_settings
-        test_settings['downloads_dir'] = '/tmp/OnionShare'
+        test_settings['data_dir'] = '/tmp/OnionShare'
         for key, val in common.settings.default_settings.items():
             if key not in test_settings:
                 test_settings[key] = val
@@ -70,17 +70,17 @@ class GuiBaseTest(object):
         except:
             pass
 
-    
+
     def gui_loaded(self):
         '''Test that the GUI actually is shown'''
         self.assertTrue(self.gui.show)
 
-    
+
     def windowTitle_seen(self):
         '''Test that the window title is OnionShare'''
         self.assertEqual(self.gui.windowTitle(), 'OnionShare')
 
-    
+
     def settings_button_is_visible(self):
         '''Test that the settings button is visible'''
         self.assertTrue(self.gui.settings_button.isVisible())
@@ -90,12 +90,12 @@ class GuiBaseTest(object):
         '''Test that the settings button is hidden when the server starts'''
         self.assertFalse(self.gui.settings_button.isVisible())
 
-    
+
     def server_status_bar_is_visible(self):
         '''Test that the status bar is visible'''
         self.assertTrue(self.gui.status_bar.isVisible())
 
-    
+
     def click_mode(self, mode):
         '''Test that we can switch Mode by clicking the button'''
         if type(mode) == ReceiveMode:
@@ -105,14 +105,14 @@ class GuiBaseTest(object):
             QtTest.QTest.mouseClick(self.gui.share_mode_button, QtCore.Qt.LeftButton)
             self.assertTrue(self.gui.mode, self.gui.MODE_SHARE)
 
-    
+
     def click_toggle_history(self, mode):
         '''Test that we can toggle Download or Upload history by clicking the toggle button'''
         currently_visible = mode.history.isVisible()
         QtTest.QTest.mouseClick(mode.toggle_history, QtCore.Qt.LeftButton)
         self.assertEqual(mode.history.isVisible(), not currently_visible)
 
-    
+
     def history_indicator(self, mode, public_mode):
         '''Test that we can make sure the history is toggled off, do an action, and the indiciator works'''
         # Make sure history is toggled off
@@ -150,43 +150,43 @@ class GuiBaseTest(object):
         QtTest.QTest.mouseClick(mode.toggle_history, QtCore.Qt.LeftButton)
         self.assertFalse(mode.toggle_history.indicator_label.isVisible())
 
-    
+
     def history_is_not_visible(self, mode):
         '''Test that the History section is not visible'''
         self.assertFalse(mode.history.isVisible())
 
-    
+
     def history_is_visible(self, mode):
         '''Test that the History section is visible'''
         self.assertTrue(mode.history.isVisible())
 
-    
+
     def server_working_on_start_button_pressed(self, mode):
         '''Test we can start the service'''
         # Should be in SERVER_WORKING state
         QtTest.QTest.mouseClick(mode.server_status.server_button, QtCore.Qt.LeftButton)
         self.assertEqual(mode.server_status.status, 1)
 
-    
+
     def server_status_indicator_says_starting(self, mode):
         '''Test that the Server Status indicator shows we are Starting'''
         self.assertEqual(mode.server_status_label.text(), strings._('gui_status_indicator_share_working'))
 
-    
+
     def server_is_started(self, mode, startup_time=2000):
         '''Test that the server has started'''
         QtTest.QTest.qWait(startup_time)
         # Should now be in SERVER_STARTED state
         self.assertEqual(mode.server_status.status, 2)
 
-    
+
     def web_server_is_running(self):
         '''Test that the web server has started'''
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
         self.assertEqual(sock.connect_ex(('127.0.0.1',self.gui.app.port)), 0)
 
-    
+
     def have_a_slug(self, mode, public_mode):
         '''Test that we have a valid slug'''
         if not public_mode:
@@ -194,12 +194,12 @@ class GuiBaseTest(object):
         else:
             self.assertIsNone(mode.server_status.web.slug, r'(\w+)-(\w+)')
 
-    
+
     def url_description_shown(self, mode):
         '''Test that the URL label is showing'''
         self.assertTrue(mode.server_status.url_description.isVisible())
 
-    
+
     def have_copy_url_button(self, mode, public_mode):
         '''Test that the Copy URL button is shown and that the clipboard is correct'''
         self.assertTrue(mode.server_status.copy_url_button.isVisible())
@@ -211,7 +211,7 @@ class GuiBaseTest(object):
         else:
             self.assertEqual(clipboard.text(), 'http://127.0.0.1:{}/{}'.format(self.gui.app.port, mode.server_status.web.slug))
 
-    
+
     def server_status_indicator_says_started(self, mode):
         '''Test that the Server Status indicator shows we are started'''
         if type(mode) == ReceiveMode:
@@ -219,7 +219,7 @@ class GuiBaseTest(object):
         if type(mode) == ShareMode:
             self.assertEqual(mode.server_status_label.text(), strings._('gui_status_indicator_share_started'))
 
-    
+
     def web_page(self, mode, string, public_mode):
         '''Test that the web page contains a string'''
         s = socks.socksocket()
@@ -248,25 +248,25 @@ class GuiBaseTest(object):
         self.assertTrue(string in f.read())
         f.close()
 
-    
+
     def history_widgets_present(self, mode):
         '''Test that the relevant widgets are present in the history view after activity has taken place'''
         self.assertFalse(mode.history.empty.isVisible())
         self.assertTrue(mode.history.not_empty.isVisible())
 
-    
+
     def counter_incremented(self, mode, count):
         '''Test that the counter has incremented'''
         self.assertEqual(mode.history.completed_count, count)
 
-    
+
     def server_is_stopped(self, mode, stay_open):
         '''Test that the server stops when we click Stop'''
         if type(mode) == ReceiveMode or (type(mode) == ShareMode and stay_open):
             QtTest.QTest.mouseClick(mode.server_status.server_button, QtCore.Qt.LeftButton)
         self.assertEqual(mode.server_status.status, 0)
 
-    
+
     def web_server_is_stopped(self):
         '''Test that the web server also stopped'''
         QtTest.QTest.qWait(2000)
@@ -275,7 +275,7 @@ class GuiBaseTest(object):
         # We should be closed by now. Fail if not!
         self.assertNotEqual(sock.connect_ex(('127.0.0.1',self.gui.app.port)), 0)
 
-    
+
     def server_status_indicator_says_closed(self, mode, stay_open):
         '''Test that the Server Status indicator shows we closed'''
         if type(mode) == ReceiveMode:
@@ -319,5 +319,3 @@ class GuiBaseTest(object):
         self.windowTitle_seen()
         self.settings_button_is_visible()
         self.server_status_bar_is_visible()
-
-

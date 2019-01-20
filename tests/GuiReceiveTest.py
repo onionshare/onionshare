@@ -21,7 +21,7 @@ class GuiReceiveTest(GuiBaseTest):
         for i in range(10):
             date_dir = now.strftime("%Y-%m-%d")
             time_dir = now.strftime("%H.%M.%S")
-            receive_mode_dir = os.path.join(self.gui.common.settings.get('downloads_dir'), date_dir, time_dir)
+            receive_mode_dir = os.path.join(self.gui.common.settings.get('data_dir'), date_dir, time_dir)
             expected_filename = os.path.join(receive_mode_dir, expected_basename)
             if os.path.exists(expected_filename):
                 exists = True

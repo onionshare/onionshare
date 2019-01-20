@@ -28,7 +28,7 @@ from onionshare.web import Web
 from .file_selection import FileSelection
 from .threads import CompressThread
 from .. import Mode
-from ..history import History, ToggleHistory, DownloadHistoryItem
+from ..history import History, ToggleHistory, ShareHistoryItem
 from ...widgets import Alert
 
 
@@ -74,9 +74,9 @@ class ShareMode(Mode):
         # Download history
         self.history = History(
             self.common,
-            QtGui.QPixmap.fromImage(QtGui.QImage(self.common.get_resource_path('images/downloads_transparent.png'))),
-            strings._('gui_no_downloads'),
-            strings._('gui_downloads')
+            QtGui.QPixmap.fromImage(QtGui.QImage(self.common.get_resource_path('images/share_icon_transparent.png'))),
+            strings._('gui_share_mode_no_files'),
+            strings._('gui_all_modes_history')
         )
         self.history.hide()
 
@@ -87,8 +87,8 @@ class ShareMode(Mode):
         # Toggle history
         self.toggle_history = ToggleHistory(
             self.common, self, self.history,
-            QtGui.QIcon(self.common.get_resource_path('images/downloads_toggle.png')),
-            QtGui.QIcon(self.common.get_resource_path('images/downloads_toggle_selected.png'))
+            QtGui.QIcon(self.common.get_resource_path('images/share_icon_toggle.png')),
+            QtGui.QIcon(self.common.get_resource_path('images/share_icon_toggle_selected.png'))
         )
 
         # Top bar
@@ -138,7 +138,7 @@ class ShareMode(Mode):
             return True
         # A download is probably still running - hold off on stopping the share
         else:
-            self.server_status_label.setText(strings._('timeout_download_still_running'))
+            self.server_status_label.setText(strings._('gui_share_mode_timeout_waiting'))
             return False
 
     def start_server_custom(self):
@@ -229,7 +229,7 @@ class ShareMode(Mode):
         """
         Handle REQUEST_LOAD event.
         """
-        self.system_tray.showMessage(strings._('systray_page_loaded_title'), strings._('systray_download_page_loaded_message'))
+        self.system_tray.showMessage(strings._('systray_page_loaded_title'), strings._('systray_page_loaded_message'))
 
     def handle_request_started(self, event):
         """
@@ -240,13 +240,13 @@ class ShareMode(Mode):
         else:
             filesize = self.web.share_mode.download_filesize
 
-        item = DownloadHistoryItem(self.common, event["data"]["id"], filesize)
+        item = ShareHistoryItem(self.common, event["data"]["id"], filesize)
         self.history.add(event["data"]["id"], item)
         self.toggle_history.update_indicator(True)
         self.history.in_progress_count += 1
         self.history.update_in_progress()
 
-        self.system_tray.showMessage(strings._('systray_download_started_title'), strings._('systray_download_started_message'))
+        self.system_tray.showMessage(strings._('systray_share_started_title'), strings._('systray_share_started_message'))
 
     def handle_request_progress(self, event):
         """
@@ -256,7 +256,7 @@ class ShareMode(Mode):
 
         # Is the download complete?
         if event["data"]["bytes"] == self.web.share_mode.filesize:
-            self.system_tray.showMessage(strings._('systray_download_completed_title'), strings._('systray_download_completed_message'))
+            self.system_tray.showMessage(strings._('systray_share_completed_title'), strings._('systray_share_completed_message'))
 
             # Update completed and in progress labels
             self.history.completed_count += 1
@@ -284,7 +284,7 @@ class ShareMode(Mode):
         # Update in progress count
         self.history.in_progress_count -= 1
         self.history.update_in_progress()
-        self.system_tray.showMessage(strings._('systray_download_canceled_title'), strings._('systray_download_canceled_message'))
+        self.system_tray.showMessage(strings._('systray_share_canceled_title'), strings._('systray_share_canceled_message'))
 
     def on_reload_settings(self):
         """
