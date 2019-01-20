@@ -1,6 +1,6 @@
 {
     "give_this_url": "Gi denne adressen til mottakeren:",
-    "ctrlc_to_stop": "Trykk Ctrl+C for å stoppe serveren",
+    "ctrlc_to_stop": "Trykk Ctrl+C for å stoppe tjeneren",
     "not_a_file": "{0:s} er ikke en fil.",
     "gui_copied_url": "OnionShare-adresse kopiert til utklippstavle",
     "other_page_loaded": "En annen side har blitt lastet",
@@ -186,5 +186,8 @@
     "gui_download_in_progress": "Nedlasting startet {}",
     "gui_settings_language_label": "Foretrukket språk",
     "gui_settings_language_changed_notice": "Start OnionShare på ny for å se nytt språkvalg.",
-    "timeout_upload_still_running": "Venter på at opplastingen fullføres"
+    "timeout_upload_still_running": "Venter på at opplastingen fullføres",
+    "gui_add_files": "Legg til filer",
+    "gui_add_folder": "Legg til mappe",
+    "gui_connect_to_tor_for_onion_settings": "Koble til Tor for å se løktjeneste-innstillinger"
 }
