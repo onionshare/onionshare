@@ -74,7 +74,7 @@ class ShareMode(Mode):
         # Download history
         self.history = History(
             self.common,
-            QtGui.QPixmap.fromImage(QtGui.QImage(self.common.get_resource_path('images/downloads_transparent.png'))),
+            QtGui.QPixmap.fromImage(QtGui.QImage(self.common.get_resource_path('images/share_icon_transparent.png'))),
             strings._('gui_share_mode_no_files'),
             strings._('gui_all_modes_history')
         )
@@ -87,8 +87,8 @@ class ShareMode(Mode):
         # Toggle history
         self.toggle_history = ToggleHistory(
             self.common, self, self.history,
-            QtGui.QIcon(self.common.get_resource_path('images/downloads_toggle.png')),
-            QtGui.QIcon(self.common.get_resource_path('images/downloads_toggle_selected.png'))
+            QtGui.QIcon(self.common.get_resource_path('images/share_icon_toggle.png')),
+            QtGui.QIcon(self.common.get_resource_path('images/share_icon_toggle_selected.png'))
         )
 
         # Top bar
