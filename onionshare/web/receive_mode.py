@@ -275,11 +275,8 @@ class ReceiveModeRequest(Request):
                     strings._("receive_mode_upload_starting").format(self.web.common.human_readable_filesize(self.content_length))
                 ))
 
-                # Tell the GUI
-                self.web.add_request(self.web.REQUEST_STARTED, self.path, {
-                    'id': self.upload_id,
-                    'content_length': self.content_length
-                })
+                # Don't tell the GUI that a request has started until we start receiving files
+                self.told_gui_about_request = False
 
                 self.web.receive_mode.uploads_in_progress.append(self.upload_id)
 
@@ -291,6 +288,14 @@ class ReceiveModeRequest(Request):
         writable stream.
         """
         if self.upload_request:
+            if not self.told_gui_about_request:
+                # Tell the GUI about the request
+                self.web.add_request(self.web.REQUEST_STARTED, self.path, {
+                    'id': self.upload_id,
+                    'content_length': self.content_length
+                })
+                self.told_gui_about_request = True
+
             self.progress[filename] = {
                 'uploaded_bytes': 0,
                 'complete': False
