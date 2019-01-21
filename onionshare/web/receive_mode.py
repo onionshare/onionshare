@@ -278,8 +278,6 @@ class ReceiveModeRequest(Request):
                 # Don't tell the GUI that a request has started until we start receiving files
                 self.told_gui_about_request = False
 
-                self.web.receive_mode.uploads_in_progress.append(self.upload_id)
-
                 self.previous_file = None
 
     def _get_file_stream(self, total_content_length, content_type, filename=None, content_length=None):
@@ -294,6 +292,8 @@ class ReceiveModeRequest(Request):
                     'id': self.upload_id,
                     'content_length': self.content_length
                 })
+                self.web.receive_mode.uploads_in_progress.append(self.upload_id)
+
                 self.told_gui_about_request = True
 
             self.progress[filename] = {
@@ -309,12 +309,13 @@ class ReceiveModeRequest(Request):
         """
         super(ReceiveModeRequest, self).close()
         try:
-            upload_id = self.upload_id
-            # Inform the GUI that the upload has finished
-            self.web.add_request(self.web.REQUEST_UPLOAD_FINISHED, self.path, {
-                'id': upload_id
-            })
-            self.web.receive_mode.uploads_in_progress.remove(upload_id)
+            if self.told_gui_about_request:
+                upload_id = self.upload_id
+                # Inform the GUI that the upload has finished
+                self.web.add_request(self.web.REQUEST_UPLOAD_FINISHED, self.path, {
+                    'id': upload_id
+                })
+                self.web.receive_mode.uploads_in_progress.remove(upload_id)
         except AttributeError:
             pass
 
@@ -336,10 +337,11 @@ class ReceiveModeRequest(Request):
             ), end='')
 
             # Update the GUI on the upload progress
-            self.web.add_request(self.web.REQUEST_PROGRESS, self.path, {
-                'id': self.upload_id,
-                'progress': self.progress
-            })
+            if self.told_gui_about_request:
+                self.web.add_request(self.web.REQUEST_PROGRESS, self.path, {
+                    'id': self.upload_id,
+                    'progress': self.progress
+                })
 
     def file_close_func(self, filename):
         """
