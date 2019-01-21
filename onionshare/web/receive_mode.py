@@ -348,6 +348,9 @@ class ReceiveModeRequest(Request):
         """
         This function gets called when a specific file is written to.
         """
+        if self.closed:
+            return
+
         if self.upload_request:
             self.progress[filename]['uploaded_bytes'] += length
 
