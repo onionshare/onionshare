@@ -375,13 +375,15 @@ class HistoryItemList(QtWidgets.QScrollArea):
         """
         Update an item.  Override this method.
         """
-        self.items[id].update(data)
+        if id in self.items:
+            self.items[id].update(data)
 
     def cancel(self, id):
         """
         Cancel an item.  Override this method.
         """
-        self.items[id].cancel()
+        if id in self.items:
+            self.items[id].cancel()
 
     def reset(self):
         """
