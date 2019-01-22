@@ -67,7 +67,7 @@ class ReceiveModeWeb(object):
             receive_mode_dir = os.path.join(self.common.settings.get('data_dir'), date_dir, time_dir)
             valid = True
             try:
-                os.makedirs(receive_mode_dir, 0o700)
+                os.makedirs(receive_mode_dir, 0o700, exist_ok=True)
             except PermissionError:
                 self.web.add_request(self.web.REQUEST_ERROR_DATA_DIR_CANNOT_CREATE, request.path, {
                     "receive_mode_dir": receive_mode_dir
@@ -275,13 +275,8 @@ class ReceiveModeRequest(Request):
                     strings._("receive_mode_upload_starting").format(self.web.common.human_readable_filesize(self.content_length))
                 ))
 
-                # Tell the GUI
-                self.web.add_request(self.web.REQUEST_STARTED, self.path, {
-                    'id': self.upload_id,
-                    'content_length': self.content_length
-                })
-
-                self.web.receive_mode.uploads_in_progress.append(self.upload_id)
+                # Don't tell the GUI that a request has started until we start receiving files
+                self.told_gui_about_request = False
 
                 self.previous_file = None
 
@@ -291,6 +286,16 @@ class ReceiveModeRequest(Request):
         writable stream.
         """
         if self.upload_request:
+            if not self.told_gui_about_request:
+                # Tell the GUI about the request
+                self.web.add_request(self.web.REQUEST_STARTED, self.path, {
+                    'id': self.upload_id,
+                    'content_length': self.content_length
+                })
+                self.web.receive_mode.uploads_in_progress.append(self.upload_id)
+
+                self.told_gui_about_request = True
+
             self.progress[filename] = {
                 'uploaded_bytes': 0,
                 'complete': False
@@ -304,12 +309,13 @@ class ReceiveModeRequest(Request):
         """
         super(ReceiveModeRequest, self).close()
         try:
-            upload_id = self.upload_id
-            # Inform the GUI that the upload has finished
-            self.web.add_request(self.web.REQUEST_UPLOAD_FINISHED, self.path, {
-                'id': upload_id
-            })
-            self.web.receive_mode.uploads_in_progress.remove(upload_id)
+            if self.told_gui_about_request:
+                upload_id = self.upload_id
+                # Inform the GUI that the upload has finished
+                self.web.add_request(self.web.REQUEST_UPLOAD_FINISHED, self.path, {
+                    'id': upload_id
+                })
+                self.web.receive_mode.uploads_in_progress.remove(upload_id)
         except AttributeError:
             pass
 
@@ -331,10 +337,11 @@ class ReceiveModeRequest(Request):
             ), end='')
 
             # Update the GUI on the upload progress
-            self.web.add_request(self.web.REQUEST_PROGRESS, self.path, {
-                'id': self.upload_id,
-                'progress': self.progress
-            })
+            if self.told_gui_about_request:
+                self.web.add_request(self.web.REQUEST_PROGRESS, self.path, {
+                    'id': self.upload_id,
+                    'progress': self.progress
+                })
 
     def file_close_func(self, filename):
         """
