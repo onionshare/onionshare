@@ -67,7 +67,7 @@ class ReceiveModeWeb(object):
             receive_mode_dir = os.path.join(self.common.settings.get('data_dir'), date_dir, time_dir)
             valid = True
             try:
-                os.makedirs(receive_mode_dir, 0o700)
+                os.makedirs(receive_mode_dir, 0o700, exist_ok=True)
             except PermissionError:
                 self.web.add_request(self.web.REQUEST_ERROR_DATA_DIR_CANNOT_CREATE, request.path, {
                     "receive_mode_dir": receive_mode_dir
