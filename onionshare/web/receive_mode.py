@@ -347,29 +347,21 @@ class ReceiveModeRequest(Request):
         self.web.common.log('ReceiveModeRequest', 'close')
 
         try:
-<<<<<<< HEAD
-            upload_id = self.upload_id
-
-            if not self.web.stop_q.empty():
-                # Inform the GUI that the upload has canceled
-                self.web.add_request(self.web.REQUEST_UPLOAD_CANCELED, self.path, {
-                    'id': upload_id
-                })
-            else:
-=======
             if self.told_gui_about_request:
                 upload_id = self.upload_id
->>>>>>> develop
-                # Inform the GUI that the upload has finished
-                self.web.add_request(self.web.REQUEST_UPLOAD_FINISHED, self.path, {
-                    'id': upload_id
-                })
-<<<<<<< HEAD
 
-            self.web.receive_mode.uploads_in_progress.remove(upload_id)
-=======
+                if not self.web.stop_q.empty():
+                    # Inform the GUI that the upload has canceled
+                    self.web.add_request(self.web.REQUEST_UPLOAD_CANCELED, self.path, {
+                        'id': upload_id
+                    })
+                else:
+                    # Inform the GUI that the upload has finished
+                    self.web.add_request(self.web.REQUEST_UPLOAD_FINISHED, self.path, {
+                        'id': upload_id
+                    })
                 self.web.receive_mode.uploads_in_progress.remove(upload_id)
->>>>>>> develop
+
         except AttributeError:
             pass
 
