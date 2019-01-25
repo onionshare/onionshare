@@ -214,5 +214,7 @@
     "gui_share_mode_no_files": "No se enviaron archivos todavía",
     "gui_share_mode_timeout_waiting": "Esperando a que termine el envío",
     "gui_receive_mode_no_files": "No se recibieron archivos todavía",
-    "gui_receive_mode_timeout_waiting": "Esperando a que termine la recepción"
+    "gui_receive_mode_timeout_waiting": "Esperando a que termine la recepción",
+    "gui_all_modes_transfer_canceled_range": "Cancelado {} - {}",
+    "gui_all_modes_transfer_canceled": "Cancelado {}"
 }
