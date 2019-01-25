@@ -45,19 +45,32 @@ class HistoryItem(QtWidgets.QWidget):
         When an item finishes, returns a string displaying the start/end datetime range.
         started is a datetime object.
         """
+        return self._get_label_text('gui_all_modes_transfer_finished', 'gui_all_modes_transfer_finished_range', started)
+
+    def get_canceled_label_text(self, started):
+        """
+        When an item is canceled, returns a string displaying the start/end datetime range.
+        started is a datetime object.
+        """
+        return self._get_label_text('gui_all_modes_transfer_canceled', 'gui_all_modes_transfer_canceled_range', started)
+
+    def _get_label_text(self, string_name, string_range_name, started):
+        """
+        Return a string that contains a date, or date range.
+        """
         ended = datetime.now()
         if started.year == ended.year and started.month == ended.month and started.day == ended.day:
             if started.hour == ended.hour and started.minute == ended.minute:
-                text = strings._('gui_all_modes_transfer_finished').format(
+                text = strings._(string_name).format(
                     started.strftime("%b %d, %I:%M%p")
                 )
             else:
-                text = strings._('gui_all_modes_transfer_finished_range').format(
+                text = strings._(string_range_name).format(
                     started.strftime("%b %d, %I:%M%p"),
                     ended.strftime("%I:%M%p")
                 )
         else:
-            text = strings._('gui_all_modes_transfer_finished_range').format(
+            text = strings._(string_range_name).format(
                 started.strftime("%b %d, %I:%M%p"),
                 ended.strftime("%b %d, %I:%M%p")
             )
@@ -305,6 +318,13 @@ class ReceiveHistoryItem(HistoryItem):
 
             # Change the label
             self.label.setText(self.get_finished_label_text(self.started))
+
+        elif data['action'] == 'canceled':
+            # Hide the progress bar
+            self.progress_bar.hide()
+
+            # Change the label
+            self.label.setText(self.get_canceled_label_text(self.started))
 
 
 class HistoryItemList(QtWidgets.QScrollArea):

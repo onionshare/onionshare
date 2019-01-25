@@ -83,7 +83,7 @@ class ReceiveMode(Mode):
         # Wrapper layout
         self.wrapper_layout = QtWidgets.QHBoxLayout()
         self.wrapper_layout.addLayout(self.main_layout)
-        self.wrapper_layout.addWidget(self.history)
+        self.wrapper_layout.addWidget(self.history, stretch=1)
         self.setLayout(self.wrapper_layout)
 
     def get_stop_server_shutdown_timeout_text(self):
@@ -185,6 +185,18 @@ class ReceiveMode(Mode):
         """
         self.history.update(event["data"]["id"], {
             'action': 'finished'
+        })
+        self.history.completed_count += 1
+        self.history.in_progress_count -= 1
+        self.history.update_completed()
+        self.history.update_in_progress()
+
+    def handle_request_upload_canceled(self, event):
+        """
+        Handle REQUEST_UPLOAD_CANCELED event.
+        """
+        self.history.update(event["data"]["id"], {
+            'action': 'canceled'
         })
         self.history.completed_count += 1
         self.history.in_progress_count -= 1
