@@ -329,3 +329,9 @@ class Mode(QtWidgets.QWidget):
         Handle REQUEST_UPLOAD_FINISHED event.
         """
         pass
+
+    def handle_request_upload_canceled(self, event):
+        """
+        Handle REQUEST_UPLOAD_CANCELED event.
+        """
+        pass
