@@ -209,5 +209,7 @@
     "gui_share_mode_no_files": "Inga filer har skickats än",
     "gui_share_mode_timeout_waiting": "Väntar på att avsluta sändningen",
     "gui_receive_mode_no_files": "Inga filer har mottagits ännu",
-    "gui_receive_mode_timeout_waiting": "Väntar på att avsluta mottagande"
+    "gui_receive_mode_timeout_waiting": "Väntar på att avsluta mottagande",
+    "gui_all_modes_transfer_canceled_range": "Avbröt {} - {}",
+    "gui_all_modes_transfer_canceled": "Avbröt {}"
 }
