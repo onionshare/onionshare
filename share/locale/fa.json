@@ -201,8 +201,8 @@
     "systray_receive_started_message": "شخصی در حال ارسال فایل به شماست",
     "gui_all_modes_history": "تاریخچه",
     "gui_all_modes_clear_history": "پاکسازی همه",
-    "gui_all_modes_transfer_started": "{} شروع شد",
-    "gui_all_modes_transfer_finished_range": "منتقل شد {} - {}",
+    "gui_all_modes_transfer_started": "{} آغاز شد",
+    "gui_all_modes_transfer_finished_range": "{} - {} منتقل شد",
     "gui_all_modes_transfer_finished": "{} منتقل شد",
     "gui_all_modes_progress_complete": "%p%، {0:s} سپری شد.",
     "gui_all_modes_progress_starting": "{0:s}, %p% (در حال محاسبه)",
@@ -210,5 +210,7 @@
     "gui_share_mode_no_files": "هیچ فایلی هنوز ارسال نشده است",
     "gui_share_mode_timeout_waiting": "انتظار برای به پایان رسیدن ارسال",
     "gui_receive_mode_no_files": "هیچ فایلی هنوز دریافت نشده است",
-    "gui_receive_mode_timeout_waiting": "انتظار برای به پایان رسیدن دریافت"
+    "gui_receive_mode_timeout_waiting": "انتظار برای به پایان رسیدن دریافت",
+    "gui_all_modes_transfer_canceled_range": "{} - {} لغو شد",
+    "gui_all_modes_transfer_canceled": "{} لغو شد"
 }
