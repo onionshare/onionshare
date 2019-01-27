@@ -152,9 +152,9 @@ class ShareModeWeb(object):
 
             # If download is allowed to continue, serve download page
             if self.should_use_gzip():
-                filesize = self.gzip_filesize
+                self.filesize = self.gzip_filesize
             else:
-                filesize = self.download_filesize
+                self.filesize = self.download_filesize
 
             if self.web.slug:
                 r = make_response(render_template(
@@ -162,7 +162,7 @@ class ShareModeWeb(object):
                     slug=self.web.slug,
                     file_info=self.file_info,
                     filename=os.path.basename(self.download_filename),
-                    filesize=filesize,
+                    filesize=self.filesize,
                     filesize_human=self.common.human_readable_filesize(self.download_filesize),
                     is_zipped=self.is_zipped))
             else:
@@ -171,7 +171,7 @@ class ShareModeWeb(object):
                     'send.html',
                     file_info=self.file_info,
                     filename=os.path.basename(self.download_filename),
-                    filesize=filesize,
+                    filesize=self.filesize,
                     filesize_human=self.common.human_readable_filesize(self.download_filesize),
                     is_zipped=self.is_zipped))
             return self.web.add_security_headers(r)
