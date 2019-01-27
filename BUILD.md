@@ -56,6 +56,7 @@ Now install some python dependencies with pip (note, there's issues building a .
 
 ```sh
 pip3 install -r install/requirements.txt
+pip3 install PyInstaller==3.4
 ```
 
 #### You can run both the CLI and GUI versions of OnionShare without building an bundle
@@ -121,7 +122,11 @@ Add the following directories to the path:
 
 #### If you want the .exe to not get falsely flagged as malicious by anti-virus software
 
-OnionShare uses PyInstaller to turn the python source code into Windows executable `.exe` file. Apparently, malware developers also use PyInstaller, and some anti-virus vendors have included snippets of PyInstaller code in their virus definitions. To avoid this, you have to compile the Windows PyInstaller bootloader yourself instead of using the pre-compiled one that comes with PyInstaller. Here's how:
+OnionShare uses PyInstaller to turn the python source code into Windows executable `.exe` file. Apparently, malware developers also use PyInstaller, and some anti-virus vendors have included snippets of PyInstaller code in their virus definitions. To avoid this, you have to compile the Windows PyInstaller bootloader yourself instead of using the pre-compiled one that comes with PyInstaller.
+
+(If you don't care about this, you can install PyInstaller with `pip install PyInstaller==3.4`.)
+
+Here's how to compile the PyInstaller bootloader:
 
 Download and install [Microsoft Build Tools for Visual Studio 2017](https://www.visualstudio.com/downloads/#build-tools-for-visual-studio-2017). I downloaded `vs_buildtools.exe`. In the installer, check the box next to "Visual C++ build tools". Click "Individual components", and under "Compilers, build tools and runtimes", check "Windows Universal CRT SDK". Then click install. When installation is done, you may have to reboot your computer.
 
@@ -138,7 +143,7 @@ Make sure you have a new enough `setuptools`:
 pip install setuptools==40.6.3
 ```
 
-Now uninstall PyInstaller from pip:
+Now make sure you don't have PyInstaller installed from pip:
 
 ```
 pip uninstall PyInstaller
