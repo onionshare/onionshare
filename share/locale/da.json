@@ -213,5 +213,7 @@
     "gui_share_mode_no_files": "Der er endnu ikke sendt nogen filer",
     "gui_share_mode_timeout_waiting": "Venter på at blive færdig med at sende",
     "gui_receive_mode_no_files": "Der er endnu ikke modtaget nogen filer",
-    "gui_receive_mode_timeout_waiting": "Venter på at blive færdig med at modtage"
+    "gui_receive_mode_timeout_waiting": "Venter på at blive færdig med at modtage",
+    "gui_all_modes_transfer_canceled_range": "Annullerede {} - {}",
+    "gui_all_modes_transfer_canceled": "Annullerede {}"
 }
