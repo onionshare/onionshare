@@ -178,17 +178,10 @@
     "gui_no_uploads": "Загрузок пока нет",
     "gui_upload_in_progress": "Загрузка началась {}",
     "gui_upload_finished_range": "Загружено {} в {}",
-<<<<<<< HEAD
     "gui_upload_finished": "Загружено {}",
     "gui_download_in_progress": "Загрузка началась {}",
     "gui_open_folder_error_nautilus": "Не удаётся открыть папку, поскольку файловый менджер Nautilus не доступен. Файл находится здесь: {}",
     "gui_settings_language_changed_notice": "Перезапустите OnionShare, чтобы изменения языковых настроек вступили в силу.",
-=======
-    "gui_upload_finished": "Выгружено {}",
-    "gui_download_in_progress": "Загрузка Началась {}",
-    "gui_open_folder_error_nautilus": "Не удаётся открыть папку, поскольку nautilus не доступен. Файл находится здесь: {}",
-    "gui_settings_language_changed_notice": "Перезапустите OnionShare чтобы применились языковые настройки.",
->>>>>>> cdd74632727a76505998ae91e87472f1776ff6d2
     "gui_add_files": "Добавить файлы",
     "gui_add_folder": "Добавить папку",
     "error_cannot_create_data_dir": "Не удалось создать папку данных OnionShare: {}"
