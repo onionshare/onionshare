@@ -85,7 +85,7 @@
     "gui_settings_language_changed_notice": "Riavvia OnionShare affinché il cambiamento della tua lingua abbia effetto.",
     "gui_settings_tor_bridges_custom_radio_option": "Utilizzare ponti personalizzati",
     "timeout_upload_still_running": "In attesa del completamento dell'upload",
-    "gui_add_files": "Aggiungi file",
+    "gui_add_files": "Aggiungi archivi",
     "gui_add_folder": "Aggiungi una cartella",
     "gui_settings_connection_type_control_port_option": "Connessione usando la porta di controllo",
     "gui_settings_connection_type_socket_file_option": "Connessione usando il file di socket",
