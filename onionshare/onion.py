@@ -411,7 +411,7 @@ class Onion(object):
         # Does this version of Tor support next-gen ('v3') onions?
         # Note, this is the version of Tor where this bug was fixed:
         # https://trac.torproject.org/projects/tor/ticket/28619
-        self.supports_v3_onions = self.tor_version >= Version('0.4.0.0')
+        self.supports_v3_onions = self.tor_version >= Version('0.3.5.7')
 
     def is_authenticated(self):
         """
