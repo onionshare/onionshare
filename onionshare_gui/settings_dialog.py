@@ -52,7 +52,7 @@ class SettingsDialog(QtWidgets.QDialog):
 
         self.system = platform.system()
 
-        # General options
+        # General settings
 
         # Use a slug or not ('public mode')
         self.public_mode_checkbox = QtWidgets.QCheckBox()
@@ -87,6 +87,15 @@ class SettingsDialog(QtWidgets.QDialog):
         shutdown_timeout_layout.setContentsMargins(0,0,0,0)
         self.shutdown_timeout_widget = QtWidgets.QWidget()
         self.shutdown_timeout_widget.setLayout(shutdown_timeout_layout)
+
+        # General settings layout
+        general_group_layout = QtWidgets.QVBoxLayout()
+        general_group_layout.addWidget(self.public_mode_widget)
+        general_group_layout.addWidget(self.shutdown_timeout_widget)
+        general_group = QtWidgets.QGroupBox(strings._("gui_settings_general_label"))
+        general_group.setLayout(general_group_layout)
+
+        # Onion settings
 
         # Label telling user to connect to Tor for onion service settings
         self.connect_to_tor_label = QtWidgets.QLabel(strings._("gui_connect_to_tor_for_onion_settings"))
@@ -144,10 +153,10 @@ class SettingsDialog(QtWidgets.QDialog):
         self.use_stealth_widget = QtWidgets.QWidget()
         self.use_stealth_widget.setLayout(use_stealth_layout)
 
-        hidservauth_details = QtWidgets.QLabel(strings._('gui_settings_stealth_hidservauth_string'))
-        hidservauth_details.setWordWrap(True)
-        hidservauth_details.setMinimumSize(hidservauth_details.sizeHint())
-        hidservauth_details.hide()
+        self.hidservauth_details = QtWidgets.QLabel(strings._('gui_settings_stealth_hidservauth_string'))
+        self.hidservauth_details.setWordWrap(True)
+        self.hidservauth_details.setMinimumSize(self.hidservauth_details.sizeHint())
+        self.hidservauth_details.hide()
 
         self.hidservauth_copy_button = QtWidgets.QPushButton(strings._('gui_copy_hidservauth'))
         self.hidservauth_copy_button.clicked.connect(self.hidservauth_copy_button_clicked)
@@ -159,20 +168,18 @@ class SettingsDialog(QtWidgets.QDialog):
         onion_settings_layout.addWidget(self.use_legacy_v2_onions_widget)
         onion_settings_layout.addWidget(self.save_private_key_widget)
         onion_settings_layout.addWidget(self.use_stealth_widget)
-        onion_settings_layout.addWidget(hidservauth_details)
+        onion_settings_layout.addWidget(self.hidservauth_details)
         onion_settings_layout.addWidget(self.hidservauth_copy_button)
         self.onion_settings_widget = QtWidgets.QWidget()
-        self.onion_settings_widget.setStyleSheet(self.common.css['settings_onion_settings'])
         self.onion_settings_widget.setLayout(onion_settings_layout)
 
-        # General options layout
-        general_group_layout = QtWidgets.QVBoxLayout()
-        general_group_layout.addWidget(self.public_mode_widget)
-        general_group_layout.addWidget(self.shutdown_timeout_widget)
-        general_group_layout.addWidget(self.connect_to_tor_label)
-        general_group_layout.addWidget(self.onion_settings_widget)
-        general_group = QtWidgets.QGroupBox(strings._("gui_settings_general_label"))
-        general_group.setLayout(general_group_layout)
+        # Onion settings layout
+        onion_group_layout = QtWidgets.QVBoxLayout()
+        onion_group_layout.addWidget(self.connect_to_tor_label)
+        onion_group_layout.addWidget(self.onion_settings_widget)
+        onion_group = QtWidgets.QGroupBox(strings._("gui_settings_onion_label"))
+        onion_group.setLayout(onion_group_layout)
+
 
         # Sharing options
 
@@ -445,6 +452,7 @@ class SettingsDialog(QtWidgets.QDialog):
         # Layout
         left_col_layout = QtWidgets.QVBoxLayout()
         left_col_layout.addWidget(general_group)
+        left_col_layout.addWidget(onion_group)
         left_col_layout.addWidget(sharing_group)
         left_col_layout.addWidget(receiving_group)
         left_col_layout.addWidget(autoupdate_group)
@@ -523,7 +531,7 @@ class SettingsDialog(QtWidgets.QDialog):
             # Legacy v2 mode is forced on if Stealth is enabled
             self.use_legacy_v2_onions_checkbox.setEnabled(False)
             if save_private_key and self.old_settings.get('hidservauth_string') != "":
-                hidservauth_details.show()
+                self.hidservauth_details.show()
                 self.hidservauth_copy_button.show()
         else:
             self.stealth_checkbox.setCheckState(QtCore.Qt.Unchecked)
