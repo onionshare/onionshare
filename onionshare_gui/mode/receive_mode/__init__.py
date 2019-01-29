@@ -22,7 +22,7 @@ from PyQt5 import QtCore, QtWidgets, QtGui
 from onionshare import strings
 from onionshare.web import Web
 
-from ..history import History, ToggleHistory, UploadHistoryItem
+from ..history import History, ToggleHistory, ReceiveHistoryItem
 from .. import Mode
 
 class ReceiveMode(Mode):
@@ -49,17 +49,17 @@ class ReceiveMode(Mode):
         # Upload history
         self.history = History(
             self.common,
-            QtGui.QPixmap.fromImage(QtGui.QImage(self.common.get_resource_path('images/uploads_transparent.png'))),
-            strings._('gui_no_uploads'),
-            strings._('gui_uploads')
+            QtGui.QPixmap.fromImage(QtGui.QImage(self.common.get_resource_path('images/receive_icon_transparent.png'))),
+            strings._('gui_receive_mode_no_files'),
+            strings._('gui_all_modes_history')
         )
         self.history.hide()
 
         # Toggle history
         self.toggle_history = ToggleHistory(
             self.common, self, self.history,
-            QtGui.QIcon(self.common.get_resource_path('images/uploads_toggle.png')),
-            QtGui.QIcon(self.common.get_resource_path('images/uploads_toggle_selected.png'))
+            QtGui.QIcon(self.common.get_resource_path('images/receive_icon_toggle.png')),
+            QtGui.QIcon(self.common.get_resource_path('images/receive_icon_toggle_selected.png'))
         )
 
         # Receive mode warning
@@ -83,7 +83,7 @@ class ReceiveMode(Mode):
         # Wrapper layout
         self.wrapper_layout = QtWidgets.QHBoxLayout()
         self.wrapper_layout.addLayout(self.main_layout)
-        self.wrapper_layout.addWidget(self.history)
+        self.wrapper_layout.addWidget(self.history, stretch=1)
         self.setLayout(self.wrapper_layout)
 
     def get_stop_server_shutdown_timeout_text(self):
@@ -103,7 +103,7 @@ class ReceiveMode(Mode):
             return True
         # An upload is probably still running - hold off on stopping the share, but block new shares.
         else:
-            self.server_status_label.setText(strings._('timeout_upload_still_running'))
+            self.server_status_label.setText(strings._('gui_receive_mode_timeout_waiting'))
             self.web.receive_mode.can_upload = False
             return False
 
@@ -136,19 +136,19 @@ class ReceiveMode(Mode):
         """
         Handle REQUEST_LOAD event.
         """
-        self.system_tray.showMessage(strings._('systray_page_loaded_title'), strings._('systray_upload_page_loaded_message'))
+        self.system_tray.showMessage(strings._('systray_page_loaded_title'), strings._('systray_page_loaded_message'))
 
     def handle_request_started(self, event):
         """
         Handle REQUEST_STARTED event.
         """
-        item = UploadHistoryItem(self.common, event["data"]["id"], event["data"]["content_length"])
+        item = ReceiveHistoryItem(self.common, event["data"]["id"], event["data"]["content_length"])
         self.history.add(event["data"]["id"], item)
         self.toggle_history.update_indicator(True)
         self.history.in_progress_count += 1
         self.history.update_in_progress()
 
-        self.system_tray.showMessage(strings._('systray_upload_started_title'), strings._('systray_upload_started_message'))
+        self.system_tray.showMessage(strings._('systray_receive_started_title'), strings._('systray_receive_started_message'))
 
     def handle_request_progress(self, event):
         """
@@ -158,13 +158,6 @@ class ReceiveMode(Mode):
             'action': 'progress',
             'progress': event["data"]["progress"]
         })
-
-    def handle_request_close_server(self, event):
-        """
-        Handle REQUEST_CLOSE_SERVER event.
-        """
-        self.stop_server()
-        self.system_tray.showMessage(strings._('systray_close_server_title'), strings._('systray_close_server_message'))
 
     def handle_request_upload_file_renamed(self, event):
         """
@@ -192,6 +185,18 @@ class ReceiveMode(Mode):
         """
         self.history.update(event["data"]["id"], {
             'action': 'finished'
+        })
+        self.history.completed_count += 1
+        self.history.in_progress_count -= 1
+        self.history.update_completed()
+        self.history.update_in_progress()
+
+    def handle_request_upload_canceled(self, event):
+        """
+        Handle REQUEST_UPLOAD_CANCELED event.
+        """
+        self.history.update(event["data"]["id"], {
+            'action': 'canceled'
         })
         self.history.completed_count += 1
         self.history.in_progress_count -= 1

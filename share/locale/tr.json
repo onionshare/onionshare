@@ -22,5 +22,9 @@
     "gui_copied_url": "Panoya kopyalanan URL",
     "gui_please_wait": "Lütfen bekleyin...",
     "zip_progress_bar_format": "Dosyalar hazırlanıyor: %p%",
-    "config_onion_service": "{0:d} bağlantı noktasında onion servisini ayarla."
+    "config_onion_service": "{0:d} bağlantı noktasında onion servisini ayarla.",
+    "give_this_url_receive": "Bu adresi gönderene ver:",
+    "not_a_readable_file": "{0:s} okunabilir bir dosya değil.",
+    "no_available_port": "Onion servisini başlatmak için uygun bir port bulunamadı",
+    "close_on_timeout": "Otomatik durma zamanlayıcısının bitmesi nedeniyle durdu"
 }

@@ -39,7 +39,7 @@ class TorGuiBaseTest(GuiBaseTest):
 
         # Get all of the settings in test_settings
         test_settings['connection_type'] = 'automatic'
-        test_settings['downloads_dir'] = '/tmp/OnionShare'
+        test_settings['data_dir'] = '/tmp/OnionShare'
         for key, val in common.settings.default_settings.items():
             if key not in test_settings:
                 test_settings[key] = val

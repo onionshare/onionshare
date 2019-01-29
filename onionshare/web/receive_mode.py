@@ -60,19 +60,19 @@ class ReceiveModeWeb(object):
             """
             Upload files.
             """
-            # Make sure the receive mode dir exists
+            # Figure out what the receive mode dir should be
             now = datetime.now()
             date_dir = now.strftime("%Y-%m-%d")
             time_dir = now.strftime("%H.%M.%S")
-            receive_mode_dir = os.path.join(self.common.settings.get('downloads_dir'), date_dir, time_dir)
+            receive_mode_dir = os.path.join(self.common.settings.get('data_dir'), date_dir, time_dir)
             valid = True
             try:
-                os.makedirs(receive_mode_dir, 0o700)
+                os.makedirs(receive_mode_dir, 0o700, exist_ok=True)
             except PermissionError:
-                self.web.add_request(self.web.REQUEST_ERROR_DOWNLOADS_DIR_CANNOT_CREATE, request.path, {
+                self.web.add_request(self.web.REQUEST_ERROR_DATA_DIR_CANNOT_CREATE, request.path, {
                     "receive_mode_dir": receive_mode_dir
                 })
-                print(strings._('error_cannot_create_downloads_dir').format(receive_mode_dir))
+                print(strings._('error_cannot_create_data_dir').format(receive_mode_dir))
                 valid = False
             if not valid:
                 flash('Error uploading, please inform the OnionShare user', 'error')
@@ -134,6 +134,23 @@ class ReceiveModeWeb(object):
                         'dir': receive_mode_dir
                     })
 
+                    # Make sure receive mode dir exists before writing file
+                    valid = True
+                    try:
+                        os.makedirs(receive_mode_dir, 0o700, exist_ok=True)
+                    except PermissionError:
+                        self.web.add_request(self.web.REQUEST_ERROR_DATA_DIR_CANNOT_CREATE, request.path, {
+                            "receive_mode_dir": receive_mode_dir
+                        })
+                        print(strings._('error_cannot_create_data_dir').format(receive_mode_dir))
+                        valid = False
+                    if not valid:
+                        flash('Error uploading, please inform the OnionShare user', 'error')
+                        if self.common.settings.get('public_mode'):
+                            return redirect('/')
+                        else:
+                            return redirect('/{}'.format(slug_candidate))
+
                     self.common.log('ReceiveModeWeb', 'define_routes', '/upload, uploaded {}, saving to {}'.format(f.filename, local_path))
                     print(strings._('receive_mode_received_file').format(local_path))
                     f.save(local_path)
@@ -193,6 +210,7 @@ class ReceiveModeWSGIMiddleware(object):
 
     def __call__(self, environ, start_response):
         environ['web'] = self.web
+        environ['stop_q'] = self.web.stop_q
         return self.app(environ, start_response)
 
 
@@ -201,7 +219,8 @@ class ReceiveModeTemporaryFile(object):
     A custom TemporaryFile that tells ReceiveModeRequest every time data gets
     written to it, in order to track the progress of uploads.
     """
-    def __init__(self, filename, write_func, close_func):
+    def __init__(self, request, filename, write_func, close_func):
+        self.onionshare_request = request
         self.onionshare_filename = filename
         self.onionshare_write_func = write_func
         self.onionshare_close_func = close_func
@@ -222,6 +241,11 @@ class ReceiveModeTemporaryFile(object):
         """
         Custom write method that calls out to onionshare_write_func
         """
+        if not self.onionshare_request.stop_q.empty():
+            self.close()
+            self.onionshare_request.close()
+            return
+
         bytes_written = self.f.write(b)
         self.onionshare_write_func(self.onionshare_filename, bytes_written)
 
@@ -241,6 +265,12 @@ class ReceiveModeRequest(Request):
     def __init__(self, environ, populate_request=True, shallow=False):
         super(ReceiveModeRequest, self).__init__(environ, populate_request, shallow)
         self.web = environ['web']
+        self.stop_q = environ['stop_q']
+
+        self.web.common.log('ReceiveModeRequest', '__init__')
+
+        # Prevent running the close() method more than once
+        self.closed = False
 
         # Is this a valid upload request?
         self.upload_request = False
@@ -275,13 +305,8 @@ class ReceiveModeRequest(Request):
                     strings._("receive_mode_upload_starting").format(self.web.common.human_readable_filesize(self.content_length))
                 ))
 
-                # Tell the GUI
-                self.web.add_request(self.web.REQUEST_STARTED, self.path, {
-                    'id': self.upload_id,
-                    'content_length': self.content_length
-                })
-
-                self.web.receive_mode.uploads_in_progress.append(self.upload_id)
+                # Don't tell the GUI that a request has started until we start receiving files
+                self.told_gui_about_request = False
 
                 self.previous_file = None
 
@@ -291,25 +316,52 @@ class ReceiveModeRequest(Request):
         writable stream.
         """
         if self.upload_request:
+            if not self.told_gui_about_request:
+                # Tell the GUI about the request
+                self.web.add_request(self.web.REQUEST_STARTED, self.path, {
+                    'id': self.upload_id,
+                    'content_length': self.content_length
+                })
+                self.web.receive_mode.uploads_in_progress.append(self.upload_id)
+
+                self.told_gui_about_request = True
+
             self.progress[filename] = {
                 'uploaded_bytes': 0,
                 'complete': False
             }
 
-        return ReceiveModeTemporaryFile(filename, self.file_write_func, self.file_close_func)
+        return ReceiveModeTemporaryFile(self, filename, self.file_write_func, self.file_close_func)
 
     def close(self):
         """
         Closing the request.
         """
         super(ReceiveModeRequest, self).close()
+
+        # Prevent calling this method more than once per request
+        if self.closed:
+            return
+        self.closed = True
+
+        self.web.common.log('ReceiveModeRequest', 'close')
+
         try:
-            upload_id = self.upload_id
-            # Inform the GUI that the upload has finished
-            self.web.add_request(self.web.REQUEST_UPLOAD_FINISHED, self.path, {
-                'id': upload_id
-            })
-            self.web.receive_mode.uploads_in_progress.remove(upload_id)
+            if self.told_gui_about_request:
+                upload_id = self.upload_id
+
+                if not self.web.stop_q.empty():
+                    # Inform the GUI that the upload has canceled
+                    self.web.add_request(self.web.REQUEST_UPLOAD_CANCELED, self.path, {
+                        'id': upload_id
+                    })
+                else:
+                    # Inform the GUI that the upload has finished
+                    self.web.add_request(self.web.REQUEST_UPLOAD_FINISHED, self.path, {
+                        'id': upload_id
+                    })
+                self.web.receive_mode.uploads_in_progress.remove(upload_id)
+
         except AttributeError:
             pass
 
@@ -317,6 +369,9 @@ class ReceiveModeRequest(Request):
         """
         This function gets called when a specific file is written to.
         """
+        if self.closed:
+            return
+
         if self.upload_request:
             self.progress[filename]['uploaded_bytes'] += length
 
@@ -331,10 +386,11 @@ class ReceiveModeRequest(Request):
             ), end='')
 
             # Update the GUI on the upload progress
-            self.web.add_request(self.web.REQUEST_PROGRESS, self.path, {
-                'id': self.upload_id,
-                'progress': self.progress
-            })
+            if self.told_gui_about_request:
+                self.web.add_request(self.web.REQUEST_PROGRESS, self.path, {
+                    'id': self.upload_id,
+                    'progress': self.progress
+                })
 
     def file_close_func(self, filename):
         """

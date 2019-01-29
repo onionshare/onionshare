@@ -15,7 +15,6 @@ MarkupSafe==1.1.0
 pefile==2018.8.8
 pycparser==2.19
 pycryptodome==3.7.2
-PyInstaller==3.4
 PyQt5==5.11.3
 PyQt5-sip==4.19.13
 PySocks==1.6.8
