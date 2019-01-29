@@ -52,7 +52,7 @@ class SettingsDialog(QtWidgets.QDialog):
 
         self.system = platform.system()
 
-        # General options
+        # General settings
 
         # Use a slug or not ('public mode')
         self.public_mode_checkbox = QtWidgets.QCheckBox()
@@ -87,6 +87,15 @@ class SettingsDialog(QtWidgets.QDialog):
         shutdown_timeout_layout.setContentsMargins(0,0,0,0)
         self.shutdown_timeout_widget = QtWidgets.QWidget()
         self.shutdown_timeout_widget.setLayout(shutdown_timeout_layout)
+
+        # General settings layout
+        general_group_layout = QtWidgets.QVBoxLayout()
+        general_group_layout.addWidget(self.public_mode_widget)
+        general_group_layout.addWidget(self.shutdown_timeout_widget)
+        general_group = QtWidgets.QGroupBox(strings._("gui_settings_general_label"))
+        general_group.setLayout(general_group_layout)
+
+        # Onion settings
 
         # Label telling user to connect to Tor for onion service settings
         self.connect_to_tor_label = QtWidgets.QLabel(strings._("gui_connect_to_tor_for_onion_settings"))
@@ -162,17 +171,15 @@ class SettingsDialog(QtWidgets.QDialog):
         onion_settings_layout.addWidget(self.hidservauth_details)
         onion_settings_layout.addWidget(self.hidservauth_copy_button)
         self.onion_settings_widget = QtWidgets.QWidget()
-        self.onion_settings_widget.setStyleSheet(self.common.css['settings_onion_settings'])
         self.onion_settings_widget.setLayout(onion_settings_layout)
 
-        # General options layout
-        general_group_layout = QtWidgets.QVBoxLayout()
-        general_group_layout.addWidget(self.public_mode_widget)
-        general_group_layout.addWidget(self.shutdown_timeout_widget)
-        general_group_layout.addWidget(self.connect_to_tor_label)
-        general_group_layout.addWidget(self.onion_settings_widget)
-        general_group = QtWidgets.QGroupBox(strings._("gui_settings_general_label"))
-        general_group.setLayout(general_group_layout)
+        # Onion settings layout
+        onion_group_layout = QtWidgets.QVBoxLayout()
+        onion_group_layout.addWidget(self.connect_to_tor_label)
+        onion_group_layout.addWidget(self.onion_settings_widget)
+        onion_group = QtWidgets.QGroupBox(strings._("gui_settings_onion_label"))
+        onion_group.setLayout(onion_group_layout)
+
 
         # Sharing options
 
@@ -445,6 +452,7 @@ class SettingsDialog(QtWidgets.QDialog):
         # Layout
         left_col_layout = QtWidgets.QVBoxLayout()
         left_col_layout.addWidget(general_group)
+        left_col_layout.addWidget(onion_group)
         left_col_layout.addWidget(sharing_group)
         left_col_layout.addWidget(receiving_group)
         left_col_layout.addWidget(autoupdate_group)
