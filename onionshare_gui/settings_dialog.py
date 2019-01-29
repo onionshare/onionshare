@@ -144,10 +144,10 @@ class SettingsDialog(QtWidgets.QDialog):
         self.use_stealth_widget = QtWidgets.QWidget()
         self.use_stealth_widget.setLayout(use_stealth_layout)
 
-        hidservauth_details = QtWidgets.QLabel(strings._('gui_settings_stealth_hidservauth_string'))
-        hidservauth_details.setWordWrap(True)
-        hidservauth_details.setMinimumSize(hidservauth_details.sizeHint())
-        hidservauth_details.hide()
+        self.hidservauth_details = QtWidgets.QLabel(strings._('gui_settings_stealth_hidservauth_string'))
+        self.hidservauth_details.setWordWrap(True)
+        self.hidservauth_details.setMinimumSize(self.hidservauth_details.sizeHint())
+        self.hidservauth_details.hide()
 
         self.hidservauth_copy_button = QtWidgets.QPushButton(strings._('gui_copy_hidservauth'))
         self.hidservauth_copy_button.clicked.connect(self.hidservauth_copy_button_clicked)
@@ -159,7 +159,7 @@ class SettingsDialog(QtWidgets.QDialog):
         onion_settings_layout.addWidget(self.use_legacy_v2_onions_widget)
         onion_settings_layout.addWidget(self.save_private_key_widget)
         onion_settings_layout.addWidget(self.use_stealth_widget)
-        onion_settings_layout.addWidget(hidservauth_details)
+        onion_settings_layout.addWidget(self.hidservauth_details)
         onion_settings_layout.addWidget(self.hidservauth_copy_button)
         self.onion_settings_widget = QtWidgets.QWidget()
         self.onion_settings_widget.setStyleSheet(self.common.css['settings_onion_settings'])
@@ -523,7 +523,7 @@ class SettingsDialog(QtWidgets.QDialog):
             # Legacy v2 mode is forced on if Stealth is enabled
             self.use_legacy_v2_onions_checkbox.setEnabled(False)
             if save_private_key and self.old_settings.get('hidservauth_string') != "":
-                hidservauth_details.show()
+                self.hidservauth_details.show()
                 self.hidservauth_copy_button.show()
         else:
             self.stealth_checkbox.setCheckState(QtCore.Qt.Unchecked)
