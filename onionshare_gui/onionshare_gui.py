@@ -384,9 +384,6 @@ class OnionShareGui(QtWidgets.QMainWindow):
             elif event["type"] == Web.REQUEST_CANCELED:
                 mode.handle_request_canceled(event)
 
-            elif event["type"] == Web.REQUEST_CLOSE_SERVER:
-                mode.handle_request_close_server(event)
-
             elif event["type"] == Web.REQUEST_UPLOAD_FILE_RENAMED:
                 mode.handle_request_upload_file_renamed(event)
 
@@ -396,8 +393,11 @@ class OnionShareGui(QtWidgets.QMainWindow):
             elif event["type"] == Web.REQUEST_UPLOAD_FINISHED:
                 mode.handle_request_upload_finished(event)
 
-            if event["type"] == Web.REQUEST_ERROR_DOWNLOADS_DIR_CANNOT_CREATE:
-                Alert(self.common, strings._('error_cannot_create_downloads_dir').format(event["data"]["receive_mode_dir"]))
+            elif event["type"] == Web.REQUEST_UPLOAD_CANCELED:
+                mode.handle_request_upload_canceled(event)
+
+            if event["type"] == Web.REQUEST_ERROR_DATA_DIR_CANNOT_CREATE:
+                Alert(self.common, strings._('error_cannot_create_data_dir').format(event["data"]["receive_mode_dir"]))
 
             if event["type"] == Web.REQUEST_OTHER:
                 if event["path"] != '/favicon.ico' and event["path"] != "/{}/shutdown".format(mode.web.shutdown_slug):

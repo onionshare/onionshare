@@ -21,7 +21,7 @@ class GuiReceiveTest(GuiBaseTest):
         for i in range(10):
             date_dir = now.strftime("%Y-%m-%d")
             time_dir = now.strftime("%H.%M.%S")
-            receive_mode_dir = os.path.join(self.gui.common.settings.get('downloads_dir'), date_dir, time_dir)
+            receive_mode_dir = os.path.join(self.gui.common.settings.get('data_dir'), date_dir, time_dir)
             expected_filename = os.path.join(receive_mode_dir, expected_basename)
             if os.path.exists(expected_filename):
                 exists = True
@@ -51,6 +51,28 @@ class GuiReceiveTest(GuiBaseTest):
         self.assertEqual(response.status_code, 404)
         response = requests.get('http://127.0.0.1:{}/close'.format(self.gui.app.port))
         self.assertEqual(response.status_code, 404)
+
+    def uploading_zero_files_shouldnt_change_ui(self, mode, public_mode):
+        '''If you submit the receive mode form without selecting any files, the UI shouldn't get updated'''
+        if not public_mode:
+            path = 'http://127.0.0.1:{}/{}/upload'.format(self.gui.app.port, self.gui.receive_mode.web.slug)
+        else:
+            path = 'http://127.0.0.1:{}/upload'.format(self.gui.app.port)
+
+        # What were the counts before submitting the form?
+        before_in_progress_count = mode.history.in_progress_count
+        before_completed_count = mode.history.completed_count
+        before_number_of_history_items = len(mode.history.item_list.items)
+
+        # Click submit without including any files a few times
+        response = requests.post(path, files={})
+        response = requests.post(path, files={})
+        response = requests.post(path, files={})
+
+        # The counts shouldn't change
+        self.assertEqual(mode.history.in_progress_count, before_in_progress_count)
+        self.assertEqual(mode.history.completed_count, before_completed_count)
+        self.assertEqual(len(mode.history.item_list.items), before_number_of_history_items)
 
     def run_receive_mode_sender_closed_tests(self, public_mode):
         '''Test that the share can be stopped by the sender in receive mode'''
@@ -97,6 +119,7 @@ class GuiReceiveTest(GuiBaseTest):
         self.counter_incremented(self.gui.receive_mode, 3)
         self.upload_file(public_mode, '/tmp/testdir/test', 'test')
         self.counter_incremented(self.gui.receive_mode, 4)
+        self.uploading_zero_files_shouldnt_change_ui(self.gui.receive_mode, public_mode)
         self.history_indicator(self.gui.receive_mode, public_mode)
         self.server_is_stopped(self.gui.receive_mode, False)
         self.web_server_is_stopped()

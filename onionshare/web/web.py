@@ -35,11 +35,11 @@ class Web(object):
     REQUEST_OTHER = 3
     REQUEST_CANCELED = 4
     REQUEST_RATE_LIMIT = 5
-    REQUEST_CLOSE_SERVER = 6
-    REQUEST_UPLOAD_FILE_RENAMED = 7
-    REQUEST_UPLOAD_SET_DIR = 8
-    REQUEST_UPLOAD_FINISHED = 9
-    REQUEST_ERROR_DOWNLOADS_DIR_CANNOT_CREATE = 10
+    REQUEST_UPLOAD_FILE_RENAMED = 6
+    REQUEST_UPLOAD_SET_DIR = 7
+    REQUEST_UPLOAD_FINISHED = 8
+    REQUEST_UPLOAD_CANCELED = 9
+    REQUEST_ERROR_DATA_DIR_CANNOT_CREATE = 10
 
     def __init__(self, common, is_gui, mode='share'):
         self.common = common
@@ -57,6 +57,11 @@ class Web(object):
 
         # Are we running in GUI mode?
         self.is_gui = is_gui
+
+        # If the user stops the server while a transfer is in progress, it should
+        # immediately stop the transfer. In order to make it thread-safe, stop_q
+        # is a queue. If anything is in it, then the user stopped the server
+        self.stop_q = queue.Queue()
 
         # Are we using receive mode?
         self.mode = mode
@@ -225,6 +230,13 @@ class Web(object):
 
         self.stay_open = stay_open
 
+        # Make sure the stop_q is empty when starting a new server
+        while not self.stop_q.empty():
+            try:
+                self.stop_q.get(block=False)
+            except queue.Empty:
+                pass
+
         # In Whonix, listen on 0.0.0.0 instead of 127.0.0.1 (#220)
         if os.path.exists('/usr/share/anon-ws-base-files/workstation'):
             host = '0.0.0.0'
@@ -238,11 +250,10 @@ class Web(object):
         """
         Stop the flask web server by loading /shutdown.
         """
+        self.common.log('Web', 'stop', 'stopping server')
 
-        if self.mode == 'share':
-            # If the user cancels the download, let the download function know to stop
-            # serving the file
-            self.share_mode.client_cancel = True
+        # Let the mode know that the user stopped the server
+        self.stop_q.put(True)
 
         # To stop flask, load http://127.0.0.1:<port>/<shutdown_slug>/shutdown
         if self.running:

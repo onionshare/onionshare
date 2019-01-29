@@ -312,12 +312,6 @@ class Mode(QtWidgets.QWidget):
         """
         pass
 
-    def handle_request_close_server(self, event):
-        """
-        Handle REQUEST_CLOSE_SERVER event.
-        """
-        pass
-
     def handle_request_upload_file_renamed(self, event):
         """
         Handle REQUEST_UPLOAD_FILE_RENAMED event.
@@ -333,5 +327,11 @@ class Mode(QtWidgets.QWidget):
     def handle_request_upload_finished(self, event):
         """
         Handle REQUEST_UPLOAD_FINISHED event.
+        """
+        pass
+
+    def handle_request_upload_canceled(self, event):
+        """
+        Handle REQUEST_UPLOAD_CANCELED event.
         """
         pass

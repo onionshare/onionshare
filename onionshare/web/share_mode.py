@@ -34,11 +34,6 @@ class ShareModeWeb(object):
         # one download at a time.
         self.download_in_progress = False
 
-        # If the client closes the OnionShare window while a download is in progress,
-        # it should immediately stop serving the file. The client_cancel global is
-        # used to tell the download function that the client is canceling the download.
-        self.client_cancel = False
-
         self.define_routes()
 
     def define_routes(self):
@@ -146,9 +141,6 @@ class ShareModeWeb(object):
             basename = os.path.basename(self.download_filename)
 
             def generate():
-                # The user hasn't canceled the download
-                self.client_cancel = False
-
                 # Starting a new download
                 if not self.web.stay_open:
                     self.download_in_progress = True
@@ -160,7 +152,7 @@ class ShareModeWeb(object):
                 canceled = False
                 while not self.web.done:
                     # The user has canceled the download, so stop serving the file
-                    if self.client_cancel:
+                    if not self.web.stop_q.empty():
                         self.web.add_request(self.web.REQUEST_CANCELED, path, {
                             'id': download_id
                         })
