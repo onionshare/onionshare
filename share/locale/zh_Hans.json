@@ -209,5 +209,8 @@
     "gui_share_mode_no_files": "还没有文件发出",
     "gui_share_mode_timeout_waiting": "等待结束发送",
     "gui_receive_mode_no_files": "还没有接收文件",
-    "gui_receive_mode_timeout_waiting": "等待接收完成"
+    "gui_receive_mode_timeout_waiting": "等待接收完成",
+    "gui_settings_onion_label": "Onion设置",
+    "gui_all_modes_transfer_canceled_range": "已取消 {} - {}",
+    "gui_all_modes_transfer_canceled": "已取消 {}"
 }
