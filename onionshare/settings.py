@@ -57,21 +57,19 @@ class Settings(object):
         # Dictionary of available languages in this version of OnionShare,
         # mapped to the language name, in that language
         self.available_locales = {
-            'cs': 'Hrvatski',   # Croatian
+            'bn': 'বাংলা',       # Bengali
+            'ca': 'Català',     # Catalan
             'da': 'Dansk',      # Danish
-            'de': 'Deutsch',    # German
             'en': 'English',    # English
-            'eo': 'Esperanto',  # Esperanto
-            'es': 'Español',    # Spanish
-            'fi': 'Suomi',      # Finnish
             'fr': 'Français',   # French
+            'el': 'Ελληνικά',   # Greek
             'it': 'Italiano',   # Italian
-            'nl': 'Nederlands', # Dutch
-            'no': 'Norsk',      # Norwegian
-            'pt_BR': 'Português Brasil',   # Portuguese Brazil
-            'pt_PT': 'Português Portugal', # Portuguese Portugal
+            'ja': '日本語',      # Japanese
+            'fa': 'فارسی',      # Persian
+            'pt_BR': 'Português (Brasil)',  # Portuguese Brazil
             'ru': 'Русский',    # Russian
-            'tr': 'Türkçe'      # Turkish
+            'es': 'Español',    # Spanish
+            'sv': 'Svenska'     # Swedish
         }
 
         # These are the default settings. They will get overwritten when loading from disk
