@@ -2,7 +2,7 @@
 
 [OnionShare](https://onionshare.org) lets you securely and anonymously send and receive files. It works by starting a web server, making it accessible as a Tor onion service, and generating an unguessable web address so others can download files from you, or upload files to you. It does _not_ require setting up a separate server or using a third party file-sharing service.
 
-If you want to send files to someone, OnionShare hosts them on your own computer and uses a Tor onion service to make them temporarily accessible over the internet. The receiving user just needs to open the web address in Tor Browser to download the files. If you want to receive files, OnionShare hosts an anonymous dropbox directly on your computer and uses a Tor onion service to make it temporarily accessible over the internet. Other users can upload files to you from by loading the web address in Tor Browser.
+OnionShare is an open source tool for securely and anonymously sending and receiving files using Tor onion services. It works by starting a web server directly on your computer and making it accessible as an unguessable Tor web address that others can load in Tor Browser to download files from you, or upload files to you. It doesn't require setting up a separate server, using a third party file-sharing service, or even logging into an account. Unlike services like email, Google Drive, DropBox, WeTransfer, or nearly any other way people typically send files to each other, when you use OnionShare you don't give any companies access to the files that you're sharing. So long as you share the unguessable web address in a secure way (like pasting it in an encrypted messaging app), _no one_ but you and the person you're sharing files with can access them.
 
 ## Documentation
 
@@ -12,20 +12,18 @@ To learn how OnionShare works, what its security properties are, and how to use 
 
 You can download OnionShare for Windows and macOS from the [OnionShare website](https://onionshare.org).
 
-For Ubuntu-like distributions, you could use this PPA to get the latest version:
+For Ubuntu-like Linux distributions, you could use this PPA to get the latest version:
 
 ```
 sudo add-apt-repository ppa:micahflee/ppa
 sudo apt install -y onionshare
 ```
 
-OnionShare also may be available in your operating system's package manager:
+OnionShare may also be available in your Linux distribution's package manager. Check [this wiki page](https://github.com/micahflee/onionshare/wiki/How-Do-I-Install-Onionshare) for more information.
 
-[![Packaging status](https://repology.org/badge/vertical-allrepos/onionshare.svg)](https://repology.org/metapackage/onionshare/versions)
+## Contributing to OnionShare
 
-## Developing OnionShare
-
-You can set up your development environment to build OnionShare yourself by following [these instructions](/BUILD.md). You may also subscribe to our developers mailing list [here](https://lists.riseup.net/www/info/onionshare-dev).
+You can set up your development environment to build OnionShare yourself by following [these instructions](/BUILD.md). You may also subscribe to our mailing list [here](https://lists.riseup.net/www/info/onionshare-dev), and join our public Keybase team [here](https://keybase.io/team/onionshare).
 
 Test status: [![CircleCI](https://circleci.com/gh/micahflee/onionshare.svg?style=svg)](https://circleci.com/gh/micahflee/onionshare)
 
