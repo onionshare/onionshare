@@ -1,7 +1,7 @@
 {
     "preparing_files": "Valmistellaan tiedostoja jaettavaksi.",
-    "give_this_url": "Anna tämä URL-osoite henkilölle, jolle lähetät tiedostot:",
-    "ctrlc_to_stop":  "Näppäin Ctrl-C pysäyttää palvelimen",
+    "give_this_url": "Anna tämä URL-osoite vastaanottajalle:",
+    "ctrlc_to_stop": "Näppäin Ctrl-C pysäyttää palvelimen",
     "not_a_file": "{0:s} Ei ole tiedosto.",
     "other_page_loaded": "URL-osoite ladattu",
     "closing_automatically": "Lataus valmis. Suljetaan automaattisesti",

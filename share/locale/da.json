@@ -52,7 +52,7 @@
     "error_ephemeral_not_supported": "OnionShare kræver mindst både Tor 0.2.7.1 og python3-stem 1.4.0.",
     "gui_settings_window_title": "Indstillinger",
     "gui_settings_stealth_option": "Brug klientautentifikation",
-    "gui_settings_stealth_hidservauth_string": "Ved at have gemt din private nøgle til at blive brugt igen, betyder det at du nu\nkan klikke for at kopiere din HidServAuth.",
+    "gui_settings_stealth_hidservauth_string": "Ved at have gemt din private nøgle til at blive brugt igen, betyder det at du nu kan klikke for at kopiere din HidServAuth.",
     "gui_settings_autoupdate_label": "Søg efter ny version",
     "gui_settings_autoupdate_option": "Giv mig besked når der findes en ny version",
     "gui_settings_autoupdate_timestamp": "Sidste søgning: {}",
@@ -215,5 +215,6 @@
     "gui_receive_mode_no_files": "Der er endnu ikke modtaget nogen filer",
     "gui_receive_mode_timeout_waiting": "Venter på at blive færdig med at modtage",
     "gui_all_modes_transfer_canceled_range": "Annullerede {} - {}",
-    "gui_all_modes_transfer_canceled": "Annullerede {}"
+    "gui_all_modes_transfer_canceled": "Annullerede {}",
+    "gui_settings_onion_label": "Onion-indstillinger"
 }
