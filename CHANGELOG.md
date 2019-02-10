@@ -1,14 +1,14 @@
 # OnionShare Changelog
 
-## 2.0.dev2
+## 2.0
 
 * New feature: Receiver mode allows you to receive files with OnionShare, instead of only sending files
+* New feature: Support for next generation onion services
 * New feature: macOS sandbox is enabled
-* New feature: Support for next generation onion services (TODO waiting on Tor release)
 * New feature: If you're sharing a single file, don't zip it up
 * New feature: Full support for meek_lite (Azure) bridges
 * New feature: Allow selecting your language from a dropdown
-* New translations: (TODO fill in for final release)
+* New translations: Bengali (বাংলা), Catalan (Català), Danish (Dansk), French (Français), Greek (Ελληνικά), Italian (Italiano), Japanese (日本語), Persian (فارسی), Portuguese Brazil (Português Brasil), Russian (Русский), Spanish (Español), Swedish (Svenska)
 * Several bugfixes
 * Invisible to users, but this version includes some major refactoring of the codebase, and a robust set of unit tests which makes OnionShare easier to maintain going forward
 
