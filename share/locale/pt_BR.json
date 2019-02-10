@@ -69,7 +69,7 @@
     "gui_settings_window_title": "Configurações",
     "gui_settings_whats_this": "<a href='{0:s}'>O que é isso?</a>",
     "gui_settings_stealth_option": "Usar autorização de cliente",
-    "gui_settings_stealth_hidservauth_string": "Após salvar a sua chave privada para reutilização, você pode\nclicar para copiar o seu HidServAuth.",
+    "gui_settings_stealth_hidservauth_string": "Após salvar a sua chave privada para reutilização, você pode clicar para copiar o seu HidServAuth.",
     "gui_settings_autoupdate_label": "Procurar a nova versão",
     "gui_settings_autoupdate_option": "Notificar-me quando uma nova versão estiver disponível",
     "gui_settings_autoupdate_timestamp": "Última atualização: {}",
