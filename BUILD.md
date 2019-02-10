@@ -56,7 +56,6 @@ Now install some python dependencies with pip (note, there's issues building a .
 
 ```sh
 pip3 install -r install/requirements.txt
-pip3 install PyInstaller==3.4
 ```
 
 #### You can run both the CLI and GUI versions of OnionShare without building an bundle
@@ -64,6 +63,48 @@ pip3 install PyInstaller==3.4
 ```sh
 ./dev_scripts/onionshare
 ./dev_scripts/onionshare-gui
+```
+
+#### Building PyInstaller
+
+If you want to build an app bundle, you'll need to use PyInstaller. Recently there has been issues with installing PyInstaller using pip, so here's how to build it from source. First, make sure you don't have PyInstaller currently installed:
+
+```sh
+pip3 uninstall PyInstaller
+```
+
+Change to a folder where you keep source code, and clone the PyInstaller git repo:
+
+```sh
+git clone https://github.com/pyinstaller/pyinstaller.git
+```
+
+Verify the v3.4 git tag:
+
+```sh
+cd pyinstaller
+gpg --keyserver hkps://keyserver.ubuntu.com:443 --recv-key 0xD4AD8B9C167B757C4F08E8777B752811BF773B65
+git tag -v v3.4
+```
+
+It should say `Good signature from "Hartmut Goebel <h.goebel@goebel-consult.de>`. If it verified successfully, checkout the tag:
+
+```sh
+git checkout v3.4
+```
+
+And compile the bootloader, following [these instructions](https://pyinstaller.readthedocs.io/en/stable/bootloader-building.html#building-for-mac-os-x). To compile, run this:
+
+```sh
+cd bootloader
+python3 waf distclean all --target-arch=64bit
+```
+
+Finally, install the PyInstaller module into your local site-packages:
+
+```sh
+cd ..
+python3 setup.py install
 ```
 
 #### To build the app bundle
@@ -185,7 +226,8 @@ python waf distclean all --target-arch=32bit --msvc_targets=x86
 Finally, install the PyInstaller module into your local site-packages:
 
 ```
-pythin setup.py install
+cd ..
+python setup.py install
 ```
 
 Now the next time you use PyInstaller to build OnionShare, the `.exe` file should not be flagged as malicious by anti-virus.
