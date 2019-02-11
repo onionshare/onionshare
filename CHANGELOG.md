@@ -5,6 +5,7 @@
 * New feature: Receiver mode allows you to receive files with OnionShare, instead of only sending files
 * New feature: Support for next generation onion services
 * New feature: macOS sandbox is enabled
+* New feature: Public mode feature, for public uses of OnionShare, which when enabled turns off slugs in the URL and removes the limit on how many 404 requests can be made
 * New feature: If you're sharing a single file, don't zip it up
 * New feature: Full support for meek_lite (Azure) bridges
 * New feature: Allow selecting your language from a dropdown
