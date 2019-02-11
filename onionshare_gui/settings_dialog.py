@@ -101,6 +101,22 @@ class SettingsDialog(QtWidgets.QDialog):
         self.connect_to_tor_label = QtWidgets.QLabel(strings._("gui_connect_to_tor_for_onion_settings"))
         self.connect_to_tor_label.setStyleSheet(self.common.css['settings_connect_to_tor'])
 
+        # Whether or not to save the Onion private key for reuse (persistent URL mode)
+        self.save_private_key_checkbox = QtWidgets.QCheckBox()
+        self.save_private_key_checkbox.setCheckState(QtCore.Qt.Unchecked)
+        self.save_private_key_checkbox.setText(strings._("gui_save_private_key_checkbox"))
+        save_private_key_label = QtWidgets.QLabel(strings._("gui_settings_whats_this").format("https://github.com/micahflee/onionshare/wiki/Using-a-Persistent-URL"))
+        save_private_key_label.setStyleSheet(self.common.css['settings_whats_this'])
+        save_private_key_label.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
+        save_private_key_label.setOpenExternalLinks(True)
+        save_private_key_layout = QtWidgets.QHBoxLayout()
+        save_private_key_layout.addWidget(self.save_private_key_checkbox)
+        save_private_key_layout.addWidget(save_private_key_label)
+        save_private_key_layout.addStretch()
+        save_private_key_layout.setContentsMargins(0,0,0,0)
+        self.save_private_key_widget = QtWidgets.QWidget()
+        self.save_private_key_widget.setLayout(save_private_key_layout)
+
         # Whether or not to use legacy v2 onions
         self.use_legacy_v2_onions_checkbox = QtWidgets.QCheckBox()
         self.use_legacy_v2_onions_checkbox.setCheckState(QtCore.Qt.Unchecked)
@@ -117,22 +133,6 @@ class SettingsDialog(QtWidgets.QDialog):
         use_legacy_v2_onions_layout.setContentsMargins(0,0,0,0)
         self.use_legacy_v2_onions_widget = QtWidgets.QWidget()
         self.use_legacy_v2_onions_widget.setLayout(use_legacy_v2_onions_layout)
-
-        # Whether or not to save the Onion private key for reuse (persistent URL mode)
-        self.save_private_key_checkbox = QtWidgets.QCheckBox()
-        self.save_private_key_checkbox.setCheckState(QtCore.Qt.Unchecked)
-        self.save_private_key_checkbox.setText(strings._("gui_save_private_key_checkbox"))
-        save_private_key_label = QtWidgets.QLabel(strings._("gui_settings_whats_this").format("https://github.com/micahflee/onionshare/wiki/Using-a-Persistent-URL"))
-        save_private_key_label.setStyleSheet(self.common.css['settings_whats_this'])
-        save_private_key_label.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
-        save_private_key_label.setOpenExternalLinks(True)
-        save_private_key_layout = QtWidgets.QHBoxLayout()
-        save_private_key_layout.addWidget(self.save_private_key_checkbox)
-        save_private_key_layout.addWidget(save_private_key_label)
-        save_private_key_layout.addStretch()
-        save_private_key_layout.setContentsMargins(0,0,0,0)
-        self.save_private_key_widget = QtWidgets.QWidget()
-        self.save_private_key_widget.setLayout(save_private_key_layout)
 
         # Stealth
         self.stealth_checkbox = QtWidgets.QCheckBox()
@@ -164,8 +164,8 @@ class SettingsDialog(QtWidgets.QDialog):
         # Onion settings widget
         onion_settings_layout = QtWidgets.QVBoxLayout()
         onion_settings_layout.setContentsMargins(0, 0, 0, 0)
-        onion_settings_layout.addWidget(self.use_legacy_v2_onions_widget)
         onion_settings_layout.addWidget(self.save_private_key_widget)
+        onion_settings_layout.addWidget(self.use_legacy_v2_onions_widget)
         onion_settings_layout.addWidget(self.use_stealth_widget)
         onion_settings_layout.addWidget(self.hidservauth_details)
         onion_settings_layout.addWidget(self.hidservauth_copy_button)
@@ -494,21 +494,19 @@ class SettingsDialog(QtWidgets.QDialog):
         else:
             self.shutdown_timeout_checkbox.setCheckState(QtCore.Qt.Unchecked)
 
-        use_legacy_v2_onions = self.old_settings.get('use_legacy_v2_onions')
-
-        if use_legacy_v2_onions:
-            self.use_stealth_widget.show()
-        else:
-            self.use_stealth_widget.hide()
-
         save_private_key = self.old_settings.get('save_private_key')
         if save_private_key:
             self.save_private_key_checkbox.setCheckState(QtCore.Qt.Checked)
         else:
             self.save_private_key_checkbox.setCheckState(QtCore.Qt.Unchecked)
 
+        use_legacy_v2_onions = self.old_settings.get('use_legacy_v2_onions')
+
         if use_legacy_v2_onions:
             self.use_legacy_v2_onions_checkbox.setCheckState(QtCore.Qt.Checked)
+            self.use_stealth_widget.show()
+        else:
+            self.use_stealth_widget.hide()
 
         data_dir = self.old_settings.get('data_dir')
         self.data_dir_lineedit.setText(data_dir)
