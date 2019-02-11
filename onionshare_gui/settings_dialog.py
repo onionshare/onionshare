@@ -122,7 +122,6 @@ class SettingsDialog(QtWidgets.QDialog):
         self.save_private_key_checkbox = QtWidgets.QCheckBox()
         self.save_private_key_checkbox.setCheckState(QtCore.Qt.Unchecked)
         self.save_private_key_checkbox.setText(strings._("gui_save_private_key_checkbox"))
-        self.save_private_key_checkbox.clicked.connect(self.save_private_key_checkbox_clicked)
         save_private_key_label = QtWidgets.QLabel(strings._("gui_settings_whats_this").format("https://github.com/micahflee/onionshare/wiki/Using-a-Persistent-URL"))
         save_private_key_label.setStyleSheet(self.common.css['settings_whats_this'])
         save_private_key_label.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
@@ -498,22 +497,17 @@ class SettingsDialog(QtWidgets.QDialog):
         use_legacy_v2_onions = self.old_settings.get('use_legacy_v2_onions')
 
         if use_legacy_v2_onions:
-            self.save_private_key_widget.show()
             self.use_stealth_widget.show()
         else:
-            self.save_private_key_widget.hide()
             self.use_stealth_widget.hide()
 
         save_private_key = self.old_settings.get('save_private_key')
         if save_private_key:
             self.save_private_key_checkbox.setCheckState(QtCore.Qt.Checked)
-            # Legacy v2 mode is forced on if persistence is enabled
-            self.use_legacy_v2_onions_checkbox.setEnabled(False)
         else:
             self.save_private_key_checkbox.setCheckState(QtCore.Qt.Unchecked)
-            self.use_legacy_v2_onions_checkbox.setEnabled(True)
 
-        if use_legacy_v2_onions or save_private_key:
+        if use_legacy_v2_onions:
             self.use_legacy_v2_onions_checkbox.setCheckState(QtCore.Qt.Checked)
 
         data_dir = self.old_settings.get('data_dir')
@@ -535,8 +529,6 @@ class SettingsDialog(QtWidgets.QDialog):
                 self.hidservauth_copy_button.show()
         else:
             self.stealth_checkbox.setCheckState(QtCore.Qt.Unchecked)
-            if not save_private_key:
-                self.use_legacy_v2_onions_checkbox.setEnabled(True)
 
         use_autoupdate = self.old_settings.get('use_autoupdate')
         if use_autoupdate:
@@ -727,22 +719,9 @@ class SettingsDialog(QtWidgets.QDialog):
         Show the legacy settings if the legacy mode is enabled.
         """
         if checked:
-            self.save_private_key_widget.show()
             self.use_stealth_widget.show()
         else:
-            self.save_private_key_widget.hide()
             self.use_stealth_widget.hide()
-
-    def save_private_key_checkbox_clicked(self, checked):
-        """
-        Prevent the v2 legacy mode being switched off if persistence is enabled
-        """
-        if checked:
-            self.use_legacy_v2_onions_checkbox.setCheckState(QtCore.Qt.Checked)
-            self.use_legacy_v2_onions_checkbox.setEnabled(False)
-        else:
-            if not self.stealth_checkbox.isChecked():
-                self.use_legacy_v2_onions_checkbox.setEnabled(True)
 
     def stealth_checkbox_clicked_connect(self, checked):
         """
@@ -752,8 +731,7 @@ class SettingsDialog(QtWidgets.QDialog):
             self.use_legacy_v2_onions_checkbox.setCheckState(QtCore.Qt.Checked)
             self.use_legacy_v2_onions_checkbox.setEnabled(False)
         else:
-            if not self.save_private_key_checkbox.isChecked():
-                self.use_legacy_v2_onions_checkbox.setEnabled(True)
+            self.use_legacy_v2_onions_checkbox.setEnabled(True)
 
     def data_dir_button_clicked(self):
         """
@@ -965,8 +943,6 @@ class SettingsDialog(QtWidgets.QDialog):
             use_legacy_v2_onions = False
 
         if self.save_private_key_checkbox.isChecked():
-            # force the legacy mode on
-            use_legacy_v2_onions = True
             settings.set('save_private_key', True)
             settings.set('private_key', self.old_settings.get('private_key'))
             settings.set('slug', self.old_settings.get('slug'))
@@ -982,12 +958,6 @@ class SettingsDialog(QtWidgets.QDialog):
             settings.set('use_legacy_v2_onions', True)
         else:
             settings.set('use_legacy_v2_onions', False)
-            # If we are not using legacy mode, but we previously had persistence turned on, force it off!
-            settings.set('save_private_key', False)
-            settings.set('private_key', '')
-            settings.set('slug', '')
-            # Also unset the HidServAuth if we are removing our reusable private key
-            settings.set('hidservauth_string', '')
 
         settings.set('data_dir', self.data_dir_lineedit.text())
         settings.set('public_mode', self.public_mode_checkbox.isChecked())

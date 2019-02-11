@@ -451,20 +451,9 @@ class Onion(object):
             key_content = self.settings.get('private_key')
             if self.is_v2_key(key_content):
                 key_type = "RSA1024"
-                # The below section is commented out because re-publishing
-                # a pre-prepared v3 private key is currently unstable in Tor.
-                # This is fixed upstream but won't reach stable until 0.3.5
-                # (expected in December 2018)
-                # See https://trac.torproject.org/projects/tor/ticket/25552
-                # Until then, we will deliberately not work with 'persistent'
-                # v3 onions, which should not be possible via the GUI settings
-                # anyway.
-                # Our ticket: https://github.com/micahflee/onionshare/issues/677
-                #
-                # Assume it was a v3 key
-                # key_type = "ED25519-V3"
             else:
-                raise TorErrorProtocolError(strings._('error_invalid_private_key'))
+                # Assume it was a v3 key. Stem will throw an error if it's something illegible
+                key_type = "ED25519-V3"
 
         else:
             key_type = "NEW"

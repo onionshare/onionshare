@@ -88,8 +88,8 @@ class SettingsGuiBaseTest(object):
             if self.gui.onion.supports_v3_onions:
                 # legacy mode is off
                 self.assertFalse(self.gui.use_legacy_v2_onions_checkbox.isChecked())
-                # persistence, stealth is hidden and disabled
-                self.assertFalse(self.gui.save_private_key_widget.isVisible())
+                # persistence is still available, stealth is hidden and disabled
+                self.assertTrue(self.gui.save_private_key_widget.isVisible())
                 self.assertFalse(self.gui.save_private_key_checkbox.isChecked())
                 self.assertFalse(self.gui.use_stealth_widget.isVisible())
                 self.assertFalse(self.gui.stealth_checkbox.isChecked())
@@ -107,7 +107,7 @@ class SettingsGuiBaseTest(object):
                 # enable stealth mode
                 QtTest.QTest.mouseClick(self.gui.stealth_checkbox, QtCore.Qt.LeftButton, pos=QtCore.QPoint(2,self.gui.stealth_checkbox.height()/2))
                 self.assertTrue(self.gui.stealth_checkbox.isChecked())
-                # now that stealth, persistence are enabled, we can't turn off legacy mode
+                # now that stealth is enabled, we can't turn off legacy mode
                 self.assertFalse(self.gui.use_legacy_v2_onions_checkbox.isEnabled())
                 # disable stealth, persistence
                 QtTest.QTest.mouseClick(self.gui.save_private_key_checkbox, QtCore.Qt.LeftButton, pos=QtCore.QPoint(2,self.gui.save_private_key_checkbox.height()/2))
@@ -117,7 +117,7 @@ class SettingsGuiBaseTest(object):
                 # uncheck legacy mode
                 QtTest.QTest.mouseClick(self.gui.use_legacy_v2_onions_checkbox, QtCore.Qt.LeftButton, pos=QtCore.QPoint(2,self.gui.use_legacy_v2_onions_checkbox.height()/2))
                 # legacy options hidden again
-                self.assertFalse(self.gui.save_private_key_widget.isVisible())
+                self.assertTrue(self.gui.save_private_key_widget.isVisible())
                 self.assertFalse(self.gui.use_stealth_widget.isVisible())
 
                 # re-enable legacy mode
