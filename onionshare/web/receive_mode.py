@@ -198,21 +198,24 @@ class ReceiveModeFile(object):
 
         try:
             bytes_written = self.f.write(b)
+            self.onionshare_write_func(self.onionshare_filename, bytes_written)
+
         except:
-            # If we can't write the file, close early
             self.upload_error = True
-            return
-        self.onionshare_write_func(self.onionshare_filename, bytes_written)
 
     def close(self):
         """
         Custom close method that calls out to onionshare_close_func
         """
-        self.f.close()
+        try:
+            self.f.close()
 
-        if not self.upload_error:
-            # Rename the in progress file to the final filename
-            os.rename(self.filename_in_progress, self.filename)
+            if not self.upload_error:
+                # Rename the in progress file to the final filename
+                os.rename(self.filename_in_progress, self.filename)
+
+        except:
+            self.upload_error = True
 
         self.onionshare_close_func(self.onionshare_filename)
 
