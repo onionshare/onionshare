@@ -193,10 +193,15 @@ class ReceiveModeFile(object):
         """
         if self.upload_error or (not self.onionshare_request.stop_q.empty()):
             self.close()
-            self.onionshare_request.close()
+            self.onionshare_request.close(self.upload_error)
             return
 
-        bytes_written = self.f.write(b)
+        try:
+            bytes_written = self.f.write(b)
+        except:
+            # If we can't write the file, close early
+            self.upload_error = True
+            return
         self.onionshare_write_func(self.onionshare_filename, bytes_written)
 
     def close(self):
@@ -394,8 +399,12 @@ class ReceiveModeRequest(Request):
                     'progress': self.progress
                 })
 
-    def file_close_func(self, filename):
+    def file_close_func(self, filename, upload_error=False):
         """
         This function gets called when a specific file is closed.
         """
         self.progress[filename]['complete'] = True
+
+        # If the file tells us there was an upload error, let the request know as well
+        if upload_error:
+            self.upload_error = True
