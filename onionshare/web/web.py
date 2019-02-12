@@ -14,7 +14,7 @@ from flask import Flask, request, render_template, abort, make_response, __versi
 from .. import strings
 
 from .share_mode import ShareModeWeb
-from .receive_mode import ReceiveModeWeb, ReceiveModeWSGIMiddleware, ReceiveModeTemporaryFile, ReceiveModeRequest
+from .receive_mode import ReceiveModeWeb, ReceiveModeWSGIMiddleware, ReceiveModeRequest
 
 
 # Stub out flask's show_server_banner function, to avoiding showing warnings that

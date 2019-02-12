@@ -58,104 +58,37 @@ class ReceiveModeWeb(object):
 
         def upload_logic(slug_candidate=''):
             """
-            Upload files.
+            Handle the upload files POST request, though at this point, the files have
+            already been uploaded and saved to their correct locations.
             """
-            # Figure out what the receive mode dir should be
-            now = datetime.now()
-            date_dir = now.strftime("%Y-%m-%d")
-            time_dir = now.strftime("%H.%M.%S")
-            receive_mode_dir = os.path.join(self.common.settings.get('data_dir'), date_dir, time_dir)
-            valid = True
-            try:
-                os.makedirs(receive_mode_dir, 0o700, exist_ok=True)
-            except PermissionError:
-                self.web.add_request(self.web.REQUEST_ERROR_DATA_DIR_CANNOT_CREATE, request.path, {
-                    "receive_mode_dir": receive_mode_dir
-                })
-                print(strings._('error_cannot_create_data_dir').format(receive_mode_dir))
-                valid = False
-            if not valid:
+            files = request.files.getlist('file[]')
+            filenames = []
+            for f in files:
+                if f.filename != '':
+                    filename = secure_filename(f.filename)
+                    filenames.append(filename)
+                    local_path = os.path.join(request.receive_mode_dir, filename)
+                    basename = os.path.basename(local_path)
+
+                    # Tell the GUI the receive mode directory for this file
+                    self.web.add_request(self.web.REQUEST_UPLOAD_SET_DIR, request.path, {
+                        'id': request.upload_id,
+                        'filename': basename,
+                        'dir': request.receive_mode_dir
+                    })
+
+                    self.common.log('ReceiveModeWeb', 'define_routes', '/upload, uploaded {}, saving to {}'.format(f.filename, local_path))
+                    print(strings._('receive_mode_received_file').format(local_path))
+
+            if request.upload_error:
+                self.common.log('ReceiveModeWeb', 'define_routes', '/upload, there was an upload error')
                 flash('Error uploading, please inform the OnionShare user', 'error')
                 if self.common.settings.get('public_mode'):
                     return redirect('/')
                 else:
                     return redirect('/{}'.format(slug_candidate))
 
-            files = request.files.getlist('file[]')
-            filenames = []
-            print('')
-            for f in files:
-                if f.filename != '':
-                    # Automatically rename the file, if a file of the same name already exists
-                    filename = secure_filename(f.filename)
-                    filenames.append(filename)
-                    local_path = os.path.join(receive_mode_dir, filename)
-                    if os.path.exists(local_path):
-                        if '.' in filename:
-                            # Add "-i", e.g. change "foo.txt" to "foo-2.txt"
-                            parts = filename.split('.')
-                            name = parts[:-1]
-                            ext = parts[-1]
-
-                            i = 2
-                            valid = False
-                            while not valid:
-                                new_filename = '{}-{}.{}'.format('.'.join(name), i, ext)
-                                local_path = os.path.join(receive_mode_dir, new_filename)
-                                if os.path.exists(local_path):
-                                    i += 1
-                                else:
-                                    valid = True
-                        else:
-                            # If no extension, just add "-i", e.g. change "foo" to "foo-2"
-                            i = 2
-                            valid = False
-                            while not valid:
-                                new_filename = '{}-{}'.format(filename, i)
-                                local_path = os.path.join(receive_mode_dir, new_filename)
-                                if os.path.exists(local_path):
-                                    i += 1
-                                else:
-                                    valid = True
-
-                    basename = os.path.basename(local_path)
-                    if f.filename != basename:
-                        # Tell the GUI that the file has changed names
-                        self.web.add_request(self.web.REQUEST_UPLOAD_FILE_RENAMED, request.path, {
-                            'id': request.upload_id,
-                            'old_filename': f.filename,
-                            'new_filename': basename
-                        })
-
-                    # Tell the GUI the receive mode directory for this file
-                    self.web.add_request(self.web.REQUEST_UPLOAD_SET_DIR, request.path, {
-                        'id': request.upload_id,
-                        'filename': basename,
-                        'dir': receive_mode_dir
-                    })
-
-                    # Make sure receive mode dir exists before writing file
-                    valid = True
-                    try:
-                        os.makedirs(receive_mode_dir, 0o700, exist_ok=True)
-                    except PermissionError:
-                        self.web.add_request(self.web.REQUEST_ERROR_DATA_DIR_CANNOT_CREATE, request.path, {
-                            "receive_mode_dir": receive_mode_dir
-                        })
-                        print(strings._('error_cannot_create_data_dir').format(receive_mode_dir))
-                        valid = False
-                    if not valid:
-                        flash('Error uploading, please inform the OnionShare user', 'error')
-                        if self.common.settings.get('public_mode'):
-                            return redirect('/')
-                        else:
-                            return redirect('/{}'.format(slug_candidate))
-
-                    self.common.log('ReceiveModeWeb', 'define_routes', '/upload, uploaded {}, saving to {}'.format(f.filename, local_path))
-                    print(strings._('receive_mode_received_file').format(local_path))
-                    f.save(local_path)
-
-            # Note that flash strings are on English, and not translated, on purpose,
+            # Note that flash strings are in English, and not translated, on purpose,
             # to avoid leaking the locale of the OnionShare user
             if len(filenames) == 0:
                 flash('No files uploaded', 'info')
@@ -198,7 +131,6 @@ class ReceiveModeWeb(object):
             return upload_logic()
 
 
-
 class ReceiveModeWSGIMiddleware(object):
     """
     Custom WSGI middleware in order to attach the Web object to environ, so
@@ -214,10 +146,11 @@ class ReceiveModeWSGIMiddleware(object):
         return self.app(environ, start_response)
 
 
-class ReceiveModeTemporaryFile(object):
+class ReceiveModeFile(object):
     """
-    A custom TemporaryFile that tells ReceiveModeRequest every time data gets
-    written to it, in order to track the progress of uploads.
+    A custom file object that tells ReceiveModeRequest every time data gets
+    written to it, in order to track the progress of uploads. It starts out with
+    a .part file extension, and when it's complete it removes that extension.
     """
     def __init__(self, request, filename, write_func, close_func):
         self.onionshare_request = request
@@ -225,8 +158,17 @@ class ReceiveModeTemporaryFile(object):
         self.onionshare_write_func = write_func
         self.onionshare_close_func = close_func
 
-        # Create a temporary file
-        self.f = tempfile.TemporaryFile('wb+')
+        self.filename = os.path.join(self.onionshare_request.receive_mode_dir, secure_filename(filename))
+        self.filename_in_progress = '{}.part'.format(self.filename)
+
+        # Open the file
+        try:
+            self.f = open(self.filename_in_progress, 'wb+')
+        except:
+            # This will only happen if someone is messaging with the data dir while
+            # OnionShare is running, but if it does make sure to throw an error
+            self.upload_error = True
+            self.f = tempfile.TemporaryFile('wb+')
 
         # Make all the file-like methods and attributes actually access the
         # TemporaryFile, except for write
@@ -241,7 +183,7 @@ class ReceiveModeTemporaryFile(object):
         """
         Custom write method that calls out to onionshare_write_func
         """
-        if not self.onionshare_request.stop_q.empty():
+        if self.upload_error or (not self.onionshare_request.stop_q.empty()):
             self.close()
             self.onionshare_request.close()
             return
@@ -254,6 +196,11 @@ class ReceiveModeTemporaryFile(object):
         Custom close method that calls out to onionshare_close_func
         """
         self.f.close()
+
+        if not self.upload_error:
+            # Rename the in progress file to the final filename
+            os.rename(self.filename_in_progress, self.filename)
+
         self.onionshare_close_func(self.onionshare_filename)
 
 
@@ -283,6 +230,49 @@ class ReceiveModeRequest(Request):
                         self.upload_request = True
 
         if self.upload_request:
+            # No errors yet
+            self.upload_error = False
+
+            # Figure out what files should be saved
+            now = datetime.now()
+            date_dir = now.strftime("%Y-%m-%d")
+            time_dir = now.strftime("%H.%M.%S")
+            self.receive_mode_dir = os.path.join(self.web.common.settings.get('data_dir'), date_dir, time_dir)
+
+            # Create that directory, which shouldn't exist yet
+            try:
+                os.makedirs(self.receive_mode_dir, 0o700, exist_ok=False)
+            except OSError:
+                # If this directory already exists, maybe someone else is uploading files at
+                # the same second, so use a different name in that case
+                if os.path.exists(self.receive_mode_dir):
+                    # Keep going until we find a directory name that's available
+                    i = 1
+                    while True:
+                        new_receive_mode_dir = '{}-{}'.format(self.receive_mode_dir, i)
+                        try:
+                            os.makedirs(new_receive_mode_dir, 0o700, exist_ok=False)
+                            break
+                        except OSError:
+                            pass
+                        i += 1
+                        # Failsafe
+                        if i == 100:
+                            self.web.common.log('ReceiveModeRequest', '__init__', 'Error finding available receive mode directory')
+                            self.upload_error = True
+                            break
+            except PermissionError:
+                self.web.add_request(self.web.REQUEST_ERROR_DATA_DIR_CANNOT_CREATE, request.path, {
+                    "receive_mode_dir": self.receive_mode_dir
+                })
+                print(strings._('error_cannot_create_data_dir').format(self.receive_mode_dir))
+                self.web.common.log('ReceiveModeRequest', '__init__', 'Permission denied creating receive mode directory')
+                self.upload_error = True
+
+            # If there's an error so far, finish early
+            if self.upload_error:
+                return
+
             # A dictionary that maps filenames to the bytes uploaded so far
             self.progress = {}
 
@@ -331,7 +321,11 @@ class ReceiveModeRequest(Request):
                 'complete': False
             }
 
-        return ReceiveModeTemporaryFile(self, filename, self.file_write_func, self.file_close_func)
+        f = ReceiveModeFile(self, filename, self.file_write_func, self.file_close_func)
+        if f.upload_error:
+            self.web.common.log('ReceiveModeRequest', '_get_file_stream', 'Error creating file')
+            self.upload_error = True
+        return f
 
     def close(self):
         """
@@ -376,8 +370,6 @@ class ReceiveModeRequest(Request):
             self.progress[filename]['uploaded_bytes'] += length
 
             if self.previous_file != filename:
-                if self.previous_file is not None:
-                    print('')
                 self.previous_file = filename
 
             print('\r=> {:15s} {}'.format(
