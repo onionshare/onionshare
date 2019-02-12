@@ -158,10 +158,11 @@ class ReceiveModeFile(object):
         self.onionshare_write_func = write_func
         self.onionshare_close_func = close_func
 
-        self.filename = os.path.join(self.onionshare_request.receive_mode_dir, secure_filename(filename))
+        self.filename = os.path.join(self.onionshare_request.receive_mode_dir, filename)
         self.filename_in_progress = '{}.part'.format(self.filename)
 
         # Open the file
+        self.upload_error = False
         try:
             self.f = open(self.filename_in_progress, 'wb+')
         except:
@@ -315,6 +316,8 @@ class ReceiveModeRequest(Request):
                 self.web.receive_mode.uploads_in_progress.append(self.upload_id)
 
                 self.told_gui_about_request = True
+
+            filename = secure_filename(filename)
 
             self.progress[filename] = {
                 'uploaded_bytes': 0,
