@@ -82,7 +82,14 @@ class ReceiveModeWeb(object):
 
             if request.upload_error:
                 self.common.log('ReceiveModeWeb', 'define_routes', '/upload, there was an upload error')
+
+                self.web.add_request(self.web.REQUEST_ERROR_DATA_DIR_CANNOT_CREATE, request.path, {
+                    "receive_mode_dir": request.receive_mode_dir
+                })
+                print(strings._('error_cannot_create_data_dir').format(request.receive_mode_dir))
+
                 flash('Error uploading, please inform the OnionShare user', 'error')
+
                 if self.common.settings.get('public_mode'):
                     return redirect('/')
                 else:
