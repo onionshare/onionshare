@@ -173,7 +173,7 @@ class ReceiveModeFile(object):
         try:
             self.f = open(self.filename_in_progress, 'wb+')
         except:
-            # This will only happen if someone is messaging with the data dir while
+            # This will only happen if someone is messing with the data dir while
             # OnionShare is running, but if it does make sure to throw an error
             self.upload_error = True
             self.f = tempfile.TemporaryFile('wb+')
