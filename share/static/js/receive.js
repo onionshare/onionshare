@@ -5,36 +5,46 @@ var uploadButton = document.getElementById('send-button');
 form.onsubmit = function(event) {
   event.preventDefault();
 
-  // Update button text.
-  uploadButton.innerHTML = 'Uploading...';
+  // Disable button, and update text
+  uploadButton.disabled = true;
+  uploadButton.innerHTML = 'Uploading ...';
 
-  // Get the selected files from the input.
+  // Create form data
   var files = fileSelect.files;
-
-  // Create a new FormData object.
   var formData = new FormData();
-
-  // Loop through each of the selected files.
   for (var i = 0; i < files.length; i++) {
     var file = files[i];
-
-    // Add the file to the request.
     formData.append('file[]', file, file.name);
   }
 
-  // Set up the request.
-  var xhr = new XMLHttpRequest();
+  // Set up the request
+  var ajax = new XMLHttpRequest();
 
-  // Open the connection.
-  xhr.open('POST', window.location.pathname + '/upload', true);
+  ajax.upload.addEventListener('progress', function(event){
+    console.log('upload progress', 'uploaded '+event.loaded+' bytes / '+event.total+' bytes');
+    var percent = Math.ceil(event.loaded / event.total) * 100;
+    uploadButton.innerHTML = 'Uploading '+percent+'%';
+  }, false);
 
-  xhr.onload = function() {
-      if (xhr.status == 200) {
-          uploadButton.innerHTML = 'Send Files';
-      }
-  }
+  ajax.addEventListener("load", function(event){
+    console.log("upload finished");
+    if(ajax.status == 200) {
+      // Re-enable button, and update text
+      uploadButton.innerHTML = 'Send Files';
+      uploadButton.disabled = false;
+    }
+  }, false);
 
-  // Send the Data.
-  xhr.send(formData);
+	ajax.addEventListener("error", function(event){
+    console.log('error', event);
+  }, false);
+
+  ajax.addEventListener("abort", function(event){
+    console.log('abort', event);
+  }, false);
+
+  // Send the request
+  ajax.open('POST', window.location.pathname + '/upload', true);
+  ajax.send(formData);
+  console.log("upload started");
 }
-
