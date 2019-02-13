@@ -192,3 +192,13 @@ li.info {
   color: #666666;
   margin: 0 0 20px 0;
 }
+
+div.noscript {
+  border: 1px solid #e55454;
+  text-align: left;
+  color: #e55454;
+  padding: 1em;
+  line-height: 150%;
+  max-width: 700px;
+  margin: 100px 2em 0 2em;
+}
