@@ -17,9 +17,9 @@
         <p><img class="logo" src="/static/img/logo_large.png" title="OnionShare"></p>
         <p class="upload-header">Send Files</p>
         <p class="upload-description">Select the files you want to send, then click "Send Files"...</p>
-        <form method="post" enctype="multipart/form-data" action="{{ upload_action }}">
-           <p><input type="file" name="file[]" multiple /></p>
-           <p><input type="submit" class="button" value="Send Files" /></p>
+        <form id="send" method="post" enctype="multipart/form-data" action="{{ upload_action }}">
+           <p><input type="file" id="file-select" name="file[]" multiple /></p>
+           <p><button type="submit" id="send-button" class="button">Send Files</button></p>
            <div>
              {% with messages = get_flashed_messages(with_categories=true) %}
                {% if messages %}
@@ -34,5 +34,6 @@
         </form>
       </div>
     </div>
+    <script src="/static/js/receive.js"></script>
   </body>
 </html>
