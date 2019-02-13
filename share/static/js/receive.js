@@ -31,9 +31,6 @@ form.onsubmit = function(event) {
   xhr.onload = function() {
       if (xhr.status == 200) {
           uploadButton.innerHTML = 'Send Files';
-          if (document.getElementByClassName('flashes') !=null) {
-            var flashes = document.getElementByClassName('flashes')
-          }
       }
   }
 
