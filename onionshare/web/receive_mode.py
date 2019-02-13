@@ -193,7 +193,7 @@ class ReceiveModeFile(object):
         """
         if self.upload_error or (not self.onionshare_request.stop_q.empty()):
             self.close()
-            self.onionshare_request.close(self.upload_error)
+            self.onionshare_request.close()
             return
 
         try:
@@ -217,7 +217,7 @@ class ReceiveModeFile(object):
         except:
             self.upload_error = True
 
-        self.onionshare_close_func(self.onionshare_filename)
+        self.onionshare_close_func(self.onionshare_filename, self.upload_error)
 
 
 class ReceiveModeRequest(Request):
