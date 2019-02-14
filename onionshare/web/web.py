@@ -132,6 +132,14 @@ class Web(object):
             self.force_shutdown()
             return ""
 
+        @self.app.route("/noscript-xss-instructions")
+        def noscript_xss_instructions():
+            """
+            Display instructions for disabling Tor Browser's NoScript XSS setting
+            """
+            r = make_response(render_template('receive_noscript_xss.html'))
+            return self.add_security_headers(r)
+
     def error404(self):
         self.add_request(Web.REQUEST_OTHER, request.path)
         if request.path != '/favicon.ico':
