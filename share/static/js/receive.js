@@ -9,8 +9,9 @@ form.onsubmit = function(event) {
   event.preventDefault();
 
   // Disable button, and update text
-  uploadButton.disabled = true;
   uploadButton.innerHTML = 'Uploading ...';
+  uploadButton.disabled = true;
+  fileSelect.disabled = true;
 
   // Create form data
   var files = fileSelect.files;
@@ -25,7 +26,7 @@ form.onsubmit = function(event) {
 
   ajax.upload.addEventListener('progress', function(event){
     console.log('upload progress', 'uploaded '+event.loaded+' bytes / '+event.total+' bytes');
-    var percent = Math.ceil(event.loaded / event.total) * 100;
+    var percent = parseInt((event.loaded / event.total) * 100, 10);
     uploadButton.innerHTML = 'Uploading '+percent+'%';
   }, false);
 
@@ -35,6 +36,7 @@ form.onsubmit = function(event) {
       // Re-enable button, and update text
       uploadButton.innerHTML = 'Send Files';
       uploadButton.disabled = false;
+      fileSelect.disabled = false;
     }
   }, false);
 
