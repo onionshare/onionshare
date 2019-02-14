@@ -33,14 +33,17 @@
            </div>
         </form>
 
-        <noscript>
-          <div class="noscript">
-            <strong>Warning:</strong> Due to a bug in Tor Browser and Firefox, if you want to upload
-            a file bigger than 50mb, you must set the Tor Browser security slider to
-            Standard. Otherwise your upload will never finish. If you plan on
-            only uploading small files, your current settings are fine.
-          </div>
-        </noscript>
+        <!-- We are not using a <noscript> tag because it only works when the security slider
+             is set to Safest, not Safer. -->
+        <div id="noscript">
+          <p>
+            <strong>Warning:</strong> Due to a bug in Tor Browser and Firefox, if you
+            want to upload a file bigger than 50mb, you must set the Tor Browser
+            <a rel="noreferrer" target="_blank" href="https://tb-manual.torproject.org/en-US/security-slider/">security slider</a>
+            to Standard. Otherwise your upload will never finish.</p>
+
+            <p>If you plan on only uploading small files, your current settings are fine.</p>
+        </div>
       </div>
     </div>
     <script src="/static/js/receive.js"></script>

@@ -1,3 +1,6 @@
+// Hide the noscript div, because our javascript is executing
+document.getElementById('noscript').style.display = 'none';
+
 var form = document.getElementById('send');
 var fileSelect = document.getElementById('file-select');
 var uploadButton = document.getElementById('send-button');
