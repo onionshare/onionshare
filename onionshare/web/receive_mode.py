@@ -56,7 +56,7 @@ class ReceiveModeWeb(object):
             return index_logic()
 
 
-        def upload_logic(slug_candidate=''):
+        def upload_logic(slug_candidate='', ajax=False):
             """
             Handle the upload files POST request, though at this point, the files have
             already been uploaded and saved to their correct locations.
@@ -88,39 +88,52 @@ class ReceiveModeWeb(object):
                 })
                 print(strings._('error_cannot_create_data_dir').format(request.receive_mode_dir))
 
-                flash('Error uploading, please inform the OnionShare user', 'error')
-
-                if self.common.settings.get('public_mode'):
-                    return redirect('/')
+                msg = 'Error uploading, please inform the OnionShare user'
+                if ajax:
+                    return json.dumps({"error_flashes": [msg]})
                 else:
-                    return redirect('/{}'.format(slug_candidate))
+                    flash(msg, 'error')
+
+                    if self.common.settings.get('public_mode'):
+                        return redirect('/')
+                    else:
+                        return redirect('/{}'.format(slug_candidate))
 
             # Note that flash strings are in English, and not translated, on purpose,
             # to avoid leaking the locale of the OnionShare user
+            if ajax:
+                info_flashes = []
+
             if len(filenames) == 0:
-                flash('No files uploaded', 'info')
+                msg = 'No files uploaded'
+                if ajax:
+                    info_flashes.append(msg)
+                else:
+                    flash(msg, 'info')
             else:
                 for filename in filenames:
-                    flash('Sent {}'.format(filename), 'info')
+                    msg = 'Sent {}'.format(filename)
+                    if ajax:
+                        info_flashes.append(msg)
+                    else:
+                        flash(msg, 'info')
 
             if self.can_upload:
-                if self.common.settings.get('public_mode'):
-                    path = '/'
+                if ajax:
+                    return json.dumps({"info_flashes": info_flashes})
                 else:
-                    path = '/{}'.format(slug_candidate)
-
-                return redirect('{}'.format(path))
+                    if self.common.settings.get('public_mode'):
+                        path = '/'
+                    else:
+                        path = '/{}'.format(slug_candidate)
+                    return redirect('{}'.format(path))
             else:
-                # It was the last upload and the timer ran out
-                if self.common.settings.get('public_mode'):
-                    return thankyou_logic(slug_candidate)
+                if ajax:
+                    return json.dumps({"new_body": render_template('thankyou.html')})
                 else:
-                    return thankyou_logic()
-
-        def thankyou_logic(slug_candidate=''):
-            r = make_response(render_template(
-                'thankyou.html'))
-            return self.web.add_security_headers(r)
+                    # It was the last upload and the timer ran out
+                    r = make_response(render_template('thankyou.html'))
+                    return self.web.add_security_headers(r)
 
         @self.web.app.route("/<slug_candidate>/upload", methods=['POST'])
         def upload(slug_candidate):
