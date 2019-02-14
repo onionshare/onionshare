@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+ <head>
+    <title>OnionShare</title>
+    <link href="/static/img/favicon.ico" rel="icon" type="image/x-icon" />
+    <link href="/static/css/style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+
+    <header class="clearfix">
+        <img class="logo" src="/static/img/logo.png" title="OnionShare">
+        <h1>OnionShare</h1>
+    </header>
+
+    <div class="disable-noscript-xss-wrapper">
+      <h3>Disable your Tor Browser's NoScript XSS setting</h3>
+
+      <p>If your security slider is set to Safest, JavaScript is disabled so XSS vulnerabilities won't affect you,
+      which makes it safe to disable NoScript's XSS protections.</p>
+
+      <p>Here is how to disable this setting:</p>
+
+      <ol>
+        <li>Click the menu icon in the top-right of Tor Browser and open "Add-ons"</li>
+        <li>Next to the NoScript add-on, click the "Preferences" button</li>
+        <li>Switch to the "Advanced" tab</li>
+        <li>Uncheck "Sanitize cross-site suspicious requests"</li>
+      </ol>
+
+      <p>If you'd like to learn technical details about this issue, check
+        <a rel="noreferrer" href="https://github.com/micahflee/onionshare/issues/899">this issue</a>
+        on GitHub.</p>
+    </div>
+  </body>
+</html>

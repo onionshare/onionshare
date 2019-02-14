@@ -199,10 +199,15 @@ div#noscript {
   color: #e55454;
   padding: 1em;
   line-height: 150%;
-  max-width: 700px;
+  max-width: 900px;
   margin: 100px 2em 0 2em;
 }
 
 div#noscript a, div#noscript a:visited {
   color: #e27f7f;
+}
+
+.disable-noscript-xss-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
 }
