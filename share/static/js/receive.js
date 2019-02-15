@@ -4,6 +4,15 @@ document.getElementById('noscript').style.display = 'none';
 var form = document.getElementById('send');
 var fileSelect = document.getElementById('file-select');
 var uploadButton = document.getElementById('send-button');
+var flashes = document.getElementById('flashes');
+
+// Add a flash message
+function flash(category, message) {
+  var el = document.createElement('li');
+  el.innerText = message;
+  el.className = category;
+  flashes.appendChild(el);
+}
 
 form.onsubmit = function(event) {
   event.preventDefault();
@@ -30,9 +39,37 @@ form.onsubmit = function(event) {
     uploadButton.innerHTML = 'Uploading '+percent+'%';
   }, false);
 
-  ajax.addEventListener("load", function(event){
-    console.log("upload finished");
+  ajax.addEventListener('load', function(event){
+    console.log('upload finished', ajax.response);
     if(ajax.status == 200) {
+      // Parse response
+      try {
+        var response = JSON.parse(ajax.response);
+
+        // The 'new_body' response replaces the whole HTML document and ends
+        if('new_body' in response) {
+          document.body.innerHTML = response['new_body'];
+          return;
+        }
+
+        // Show error flashes
+        if('error_flashes' in response) {
+          for(var i=0; i<response['error_flashes'].length; i++) {
+            flash('error', response['error_flashes'][i]);
+          }
+        }
+
+        // Show info flashes
+        if('info_flashes' in response) {
+          for(var i=0; i<response['info_flashes'].length; i++) {
+            flash('info', response['info_flashes'][i]);
+          }
+        }
+      } catch(e) {
+        console.log('invalid response', ajax.response);
+        flash('error', 'Invalid response from server: '+ajax.response);
+      }
+
       // Re-enable button, and update text
       uploadButton.innerHTML = 'Send Files';
       uploadButton.disabled = false;
@@ -40,16 +77,18 @@ form.onsubmit = function(event) {
     }
   }, false);
 
-	ajax.addEventListener("error", function(event){
+	ajax.addEventListener('error', function(event){
     console.log('error', event);
+    flash('error', 'Error uploading');
   }, false);
 
-  ajax.addEventListener("abort", function(event){
+  ajax.addEventListener('abort', function(event){
     console.log('abort', event);
+    flash('error', 'Upload aborted');
   }, false);
 
   // Send the request
-  ajax.open('POST', window.location.pathname + '/upload', true);
+  ajax.open('POST', window.location.pathname + '/upload-ajax', true);
   ajax.send(formData);
-  console.log("upload started");
+  console.log('upload started');
 }
