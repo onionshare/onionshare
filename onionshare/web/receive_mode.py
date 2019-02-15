@@ -1,5 +1,6 @@
 import os
 import tempfile
+import json
 from datetime import datetime
 from flask import Request, request, render_template, make_response, flash, redirect
 from werkzeug.utils import secure_filename
@@ -150,6 +151,21 @@ class ReceiveModeWeb(object):
                 return self.web.error404()
             return upload_logic()
 
+        @self.web.app.route("/<slug_candidate>/upload-ajax", methods=['POST'])
+        def upload_ajax(slug_candidate):
+            if not self.can_upload:
+                return self.web.error403()
+            self.web.check_slug_candidate(slug_candidate)
+            return upload_logic(slug_candidate, ajax=True)
+
+        @self.web.app.route("/upload-ajax", methods=['POST'])
+        def upload_ajax_public():
+            if not self.can_upload:
+                return self.web.error403()
+            if not self.common.settings.get('public_mode'):
+                return self.web.error404()
+            return upload_logic(ajax=True)
+
 
 class ReceiveModeWSGIMiddleware(object):
     """
@@ -251,12 +267,12 @@ class ReceiveModeRequest(Request):
         # Is this a valid upload request?
         self.upload_request = False
         if self.method == 'POST':
-            if self.path == '/{}/upload'.format(self.web.slug):
-                self.upload_request = True
+            if self.web.common.settings.get('public_mode'):
+                if self.path == '/upload' or self.path == '/upload-ajax':
+                    self.upload_request = True
             else:
-                if self.web.common.settings.get('public_mode'):
-                    if self.path == '/upload':
-                        self.upload_request = True
+                if self.path == '/{}/upload'.format(self.web.slug) or self.path == '/{}/upload-ajax'.format(self.web.slug):
+                    self.upload_request = True
 
         if self.upload_request:
             # No errors yet

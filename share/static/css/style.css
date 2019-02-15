@@ -139,30 +139,22 @@ ul.flashes {
 }
 
 ul.flashes li {
-  margin: 0;
+  margin: 0 0 5px 0;
   padding: 10px;
+  list-style: none;
+  border: 0;
+  border-radius: 3px;
+  text-align: left;
 }
 
 li.error {
-  list-style: none;
-  margin: 0;
-  padding: 0;
   color: #ffffff;
   background-color: #c90c0c;
-  border: 0;
-  border-radius: 5px;
-  text-align: left;
 }
 
 li.info {
-  list-style: none;
-  margin: 0;
-  padding: 0;
   color: #000000;
   background-color: #a9e26c;
-  border: 0;
-  border-radius: 5px;
-  text-align: left;
 }
 
 .closed-wrapper {

@@ -21,23 +21,21 @@
            <p><input type="file" id="file-select" name="file[]" multiple /></p>
            <p><button type="submit" id="send-button" class="button">Send Files</button></p>
            <div>
-             {% with messages = get_flashed_messages(with_categories=true) %}
-               {% if messages %}
-                 <ul class=flashes>
-                 {% for category, message in messages %}
-		               <li class="{{ category }}">{{ message }}</li>
-                 {% endfor %}
-                 </ul>
-               {% endif %}
-             {% endwith %}
+             <ul id="flashes" class="flashes">
+               {% with messages = get_flashed_messages(with_categories=true) %}
+                 {% if messages %}
+                   {% for category, message in messages %}
+  		               <li class="{{ category }}">{{ message }}</li>
+                   {% endfor %}
+                 {% endif %}
+               {% endwith %}
+             </ul>
            </div>
         </form>
 
-        <!-- We are not using a <noscript> tag because it only works when the security slider
-             is set to Safest, not Safer.
-
-             For more information about the upload issue:
-             https://github.com/micahflee/onionshare/issues/899
+        <!--
+        We are not using a <noscript> tag because it only works when the security slider is set to
+        Safest, not Safer: https://trac.torproject.org/projects/tor/ticket/29506
         -->
         <div id="noscript">
           <p>
@@ -47,6 +45,7 @@
             to Standard or
             <a target="_blank" href="/noscript-xss-instructions">turn off your Tor Browser's NoScript XSS setting</a>.</p>
         </div>
+
       </div>
     </div>
     <script src="/static/js/receive.js"></script>
