@@ -9,7 +9,7 @@
 
 body {
   margin: 0;
-  font-family: Helvetica;
+  font-family: Helvetica, sans-serif;
 }
 
 header {
@@ -103,58 +103,96 @@ table.file-list td:last-child {
 }
 
 .upload-wrapper {
-  display: flex;
   align-items: center;
   justify-content: center;
   min-height: 400px;
-}
-
-.upload {
   text-align: center;
 }
 
-.upload img {
+.upload-wrapper img.logo {
   width: 120px;
   height: 120px;
 }
 
-.upload .upload-header {
+.upload-wrapper .upload-header {
   font-size: 30px;
   font-weight: normal;
   color: #666666;
   margin: 0 0 10px 0;
 }
 
-.upload .upload-description {
+.upload-wrapper .upload-description {
   color: #666666;
   margin: 0 0 20px 0;
+}
+
+div#uploads {
+  width: 800px;
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+div#uploads .upload {
+  border: 1px solid #DDDDDD;
+  margin: 20px 0;
+  padding: 10px;
+  text-align: left;
+}
+
+div#uploads .upload .upload-filename {
+  font-weight: bold;
+  font-family: monospace;
+  font-size: 1.1em;
+  margin-bottom: 5px;
+}
+
+div#uploads .upload .upload-status {
+  color: #999999;
+  font-size: 0.9em;
+  margin-bottom: 5px;
+}
+
+div#uploads .upload input.cancel {
+	color: #f24537;
+  border: 0;
+  background: none;
+  box-shadow: none;
+  border-radius: 0px;
+	cursor: pointer;
+	font-family: sans-serif;
+	font-size: 12px;
+	text-decoration: none;
+  display: inline-block;
+  float:right;
+}
+
+div#uploads .upload progress {
+  width: 100%;
+  height: 20px;
 }
 
 ul.flashes {
   list-style: none;
   margin: 0;
   padding: 0;
-  color: #cc0000;
-  text-align: left;
+  width: 800px;
+  max-width: 90%;
+  margin: 0 auto;
 }
 
 ul.flashes li {
   margin: 0 0 5px 0;
-  padding: 10px;
+  padding: 5px;
   list-style: none;
-  border: 0;
-  border-radius: 3px;
   text-align: left;
 }
 
 li.error {
-  color: #ffffff;
-  background-color: #c90c0c;
+  color: #dd4040;
 }
 
 li.info {
-  color: #000000;
-  background-color: #a9e26c;
+  color: #3e933f;
 }
 
 .closed-wrapper {
