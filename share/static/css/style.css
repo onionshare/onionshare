@@ -153,7 +153,7 @@ div#uploads .upload .upload-status {
 }
 
 div#uploads .upload input.cancel {
-	color: #f24537;
+	color: #d0011b;
   border: 0;
   background: none;
   box-shadow: none;
@@ -188,11 +188,11 @@ ul.flashes li {
 }
 
 li.error {
-  color: #dd4040;
+  color: #d0011b;
 }
 
 li.info {
-  color: #3e933f;
+  color: #5fa416;
 }
 
 .closed-wrapper {
