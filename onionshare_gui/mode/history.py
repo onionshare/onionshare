@@ -237,6 +237,7 @@ class ReceiveHistoryItem(HistoryItem):
         self.id = id
         self.content_length = content_length
         self.started = datetime.now()
+        self.status = 'started'
 
         # Label
         self.label = QtWidgets.QLabel(strings._('gui_all_modes_transfer_started').format(self.started.strftime("%b %d, %I:%M%p")))
@@ -313,6 +314,9 @@ class ReceiveHistoryItem(HistoryItem):
             self.files[data['filename']].set_dir(data['dir'])
 
         elif data['action'] == 'finished':
+            # Change the status
+            self.status = 'finished'
+
             # Hide the progress bar
             self.progress_bar.hide()
 
@@ -320,6 +324,9 @@ class ReceiveHistoryItem(HistoryItem):
             self.label.setText(self.get_finished_label_text(self.started))
 
         elif data['action'] == 'canceled':
+            # Change the status
+            self.status = 'canceled'
+
             # Hide the progress bar
             self.progress_bar.hide()
 
@@ -389,11 +396,11 @@ class HistoryItemList(QtWidgets.QScrollArea):
         """
         Reset all items, emptying the list.  Override this method.
         """
-        for item in self.items.values():
-            self.items_layout.removeWidget(item)
-            item.close()
-        self.items = {}
-
+        for key, item in self.items.copy().items():
+            if item.status != 'started':
+                self.items_layout.removeWidget(item)
+                item.close()
+                del self.items[key]
 
 class History(QtWidgets.QWidget):
     """
@@ -495,15 +502,17 @@ class History(QtWidgets.QWidget):
         """
         self.item_list.reset()
 
-        # Hide not empty, show empty
-        self.not_empty.hide()
-        self.empty.show()
+        if not any(self.item_list.items):
+            # Hide not empty, show empty
+            self.not_empty.hide()
+            self.empty.show()
+            # Reset in-progress counter
+            self.in_progress_count = 0
+            self.update_in_progress()
 
-        # Reset counters
+        # Reset completed counter
         self.completed_count = 0
-        self.in_progress_count = 0
         self.update_completed()
-        self.update_in_progress()
 
     def update_completed(self):
         """
