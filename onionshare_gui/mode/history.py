@@ -90,6 +90,7 @@ class ShareHistoryItem(HistoryItem):
         self.downloaded_bytes = 0
         self.started = time.time()
         self.started_dt = datetime.fromtimestamp(self.started)
+        self.status = 'started'
 
         # Label
         self.label = QtWidgets.QLabel(strings._('gui_all_modes_transfer_started').format(self.started_dt.strftime("%b %d, %I:%M%p")))
@@ -124,6 +125,7 @@ class ShareHistoryItem(HistoryItem):
 
             # Change the label
             self.label.setText(self.get_finished_label_text(self.started_dt))
+            self.status = 'finished'
 
         else:
             elapsed = time.time() - self.started
@@ -142,6 +144,7 @@ class ShareHistoryItem(HistoryItem):
 
     def cancel(self):
         self.progress_bar.setFormat(strings._('gui_canceled'))
+        self.status = 'canceled'
 
     @property
     def estimated_time_remaining(self):
@@ -501,8 +504,7 @@ class History(QtWidgets.QWidget):
         Reset all items.
         """
         self.item_list.reset()
-
-        if not any(self.item_list.items):
+        if len(self.item_list.items) == 0:
             # Hide not empty, show empty
             self.not_empty.hide()
             self.empty.show()
