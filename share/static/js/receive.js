@@ -81,7 +81,10 @@ $(function(){
 
     ajax.addEventListener('error', function(event){
       console.log('error', event);
-      flash('error', 'Error uploading');
+      flash('error', 'Error uploading: '+filenames.join(', '));
+
+      // Remove the upload div
+      ajax.$upload_div.remove()
     }, false);
 
     ajax.addEventListener('abort', function(event){
