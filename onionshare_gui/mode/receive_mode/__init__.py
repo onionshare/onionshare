@@ -198,9 +198,7 @@ class ReceiveMode(Mode):
         self.history.update(event["data"]["id"], {
             'action': 'canceled'
         })
-        self.history.completed_count += 1
         self.history.in_progress_count -= 1
-        self.history.update_completed()
         self.history.update_in_progress()
 
     def on_reload_settings(self):
