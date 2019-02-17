@@ -31,6 +31,10 @@ class HistoryItem(QtWidgets.QWidget):
     """
     The base history item
     """
+    STATUS_STARTED = 0
+    STATUS_FINISHED = 1
+    STATUS_CANCELED = 2
+
     def __init__(self):
         super(HistoryItem, self).__init__()
 
@@ -90,6 +94,7 @@ class ShareHistoryItem(HistoryItem):
         self.downloaded_bytes = 0
         self.started = time.time()
         self.started_dt = datetime.fromtimestamp(self.started)
+        self.status = HistoryItem.STATUS_STARTED
 
         # Label
         self.label = QtWidgets.QLabel(strings._('gui_all_modes_transfer_started').format(self.started_dt.strftime("%b %d, %I:%M%p")))
@@ -124,6 +129,7 @@ class ShareHistoryItem(HistoryItem):
 
             # Change the label
             self.label.setText(self.get_finished_label_text(self.started_dt))
+            self.status = HistoryItem.STATUS_FINISHED
 
         else:
             elapsed = time.time() - self.started
@@ -142,6 +148,7 @@ class ShareHistoryItem(HistoryItem):
 
     def cancel(self):
         self.progress_bar.setFormat(strings._('gui_canceled'))
+        self.status = HistoryItem.STATUS_CANCELED
 
     @property
     def estimated_time_remaining(self):
@@ -237,6 +244,7 @@ class ReceiveHistoryItem(HistoryItem):
         self.id = id
         self.content_length = content_length
         self.started = datetime.now()
+        self.status = HistoryItem.STATUS_STARTED
 
         # Label
         self.label = QtWidgets.QLabel(strings._('gui_all_modes_transfer_started').format(self.started.strftime("%b %d, %I:%M%p")))
@@ -313,6 +321,9 @@ class ReceiveHistoryItem(HistoryItem):
             self.files[data['filename']].set_dir(data['dir'])
 
         elif data['action'] == 'finished':
+            # Change the status
+            self.status = HistoryItem.STATUS_FINISHED
+
             # Hide the progress bar
             self.progress_bar.hide()
 
@@ -320,6 +331,9 @@ class ReceiveHistoryItem(HistoryItem):
             self.label.setText(self.get_finished_label_text(self.started))
 
         elif data['action'] == 'canceled':
+            # Change the status
+            self.status = HistoryItem.STATUS_CANCELED
+
             # Hide the progress bar
             self.progress_bar.hide()
 
@@ -389,11 +403,11 @@ class HistoryItemList(QtWidgets.QScrollArea):
         """
         Reset all items, emptying the list.  Override this method.
         """
-        for item in self.items.values():
-            self.items_layout.removeWidget(item)
-            item.close()
-        self.items = {}
-
+        for key, item in self.items.copy().items():
+            if item.status != HistoryItem.STATUS_STARTED:
+                self.items_layout.removeWidget(item)
+                item.close()
+                del self.items[key]
 
 class History(QtWidgets.QWidget):
     """
@@ -494,16 +508,17 @@ class History(QtWidgets.QWidget):
         Reset all items.
         """
         self.item_list.reset()
+        if len(self.item_list.items) == 0:
+            # Hide not empty, show empty
+            self.not_empty.hide()
+            self.empty.show()
+            # Reset in-progress counter
+            self.in_progress_count = 0
+            self.update_in_progress()
 
-        # Hide not empty, show empty
-        self.not_empty.hide()
-        self.empty.show()
-
-        # Reset counters
+        # Reset completed counter
         self.completed_count = 0
-        self.in_progress_count = 0
         self.update_completed()
-        self.update_in_progress()
 
     def update_completed(self):
         """
