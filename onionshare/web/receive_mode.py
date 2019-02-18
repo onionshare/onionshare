@@ -79,7 +79,7 @@ class ReceiveModeWeb(object):
                     })
 
                     self.common.log('ReceiveModeWeb', 'define_routes', '/upload, uploaded {}, saving to {}'.format(f.filename, local_path))
-                    print(strings._('receive_mode_received_file').format(local_path))
+                    print('\n' + strings._('receive_mode_received_file').format(local_path))
 
             if request.upload_error:
                 self.common.log('ReceiveModeWeb', 'define_routes', '/upload, there was an upload error')

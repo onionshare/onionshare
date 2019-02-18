@@ -121,7 +121,7 @@ $(function(){
     $('#uploads').append($upload_div);
 
     // Send the request
-    ajax.open('POST', window.location.pathname + '/upload-ajax', true);
+    ajax.open('POST', window.location.pathname.replace(/\/$/, '') + '/upload-ajax', true);
     ajax.send(formData);
   });
 });
