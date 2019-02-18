@@ -95,10 +95,14 @@ class OnionShare(object):
         """
         self.common.log('OnionShare', 'cleanup')
 
-        # cleanup files
-        for filename in self.cleanup_filenames:
-            if os.path.isfile(filename):
-                os.remove(filename)
-            elif os.path.isdir(filename):
-                shutil.rmtree(filename)
+        # Cleanup files
+        try:
+            for filename in self.cleanup_filenames:
+                if os.path.isfile(filename):
+                    os.remove(filename)
+                elif os.path.isdir(filename):
+                    shutil.rmtree(filename)
+        except:
+            # Don't crash if file is still in use
+            pass
         self.cleanup_filenames = []
