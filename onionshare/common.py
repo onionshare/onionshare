@@ -2,7 +2,7 @@
 """
 OnionShare | https://onionshare.org/
 
-Copyright (C) 2018 Micah Lee <micah@micahflee.com>
+Copyright (C) 2014-2018 Micah Lee <micah@micahflee.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -28,262 +28,476 @@ import sys
 import tempfile
 import threading
 import time
-import zipfile
 
-debug = False
+from .settings import Settings
 
 
-def log(module, func, msg=None):
+class Common(object):
     """
-    If debug mode is on, log error messages to stdout
+    The Common object is shared amongst all parts of OnionShare.
     """
-    global debug
-    if debug:
-        timestamp = time.strftime("%b %d %Y %X")
+    def __init__(self, debug=False):
+        self.debug = debug
 
-        final_msg = "[{}] {}.{}".format(timestamp, module, func)
-        if msg:
-            final_msg = '{}: {}'.format(final_msg, msg)
-        print(final_msg)
+        # The platform OnionShare is running on
+        self.platform = platform.system()
+        if self.platform.endswith('BSD'):
+            self.platform = 'BSD'
 
+        # The current version of OnionShare
+        with open(self.get_resource_path('version.txt')) as f:
+            self.version = f.read().strip()
 
-def set_debug(new_debug):
-    global debug
-    debug = new_debug
+    def load_settings(self, config=None):
+        """
+        Loading settings, optionally from a custom config json file.
+        """
+        self.settings = Settings(self, config)
+        self.settings.load()
 
+    def log(self, module, func, msg=None):
+        """
+        If debug mode is on, log error messages to stdout
+        """
+        if self.debug:
+            timestamp = time.strftime("%b %d %Y %X")
 
-def get_platform():
-    """
-    Returns the platform OnionShare is running on.
-    """
-    plat = platform.system()
-    if plat.endswith('BSD'):
-        plat = 'BSD'
-    return plat
+            final_msg = "[{}] {}.{}".format(timestamp, module, func)
+            if msg:
+                final_msg = '{}: {}'.format(final_msg, msg)
+            print(final_msg)
 
+    def get_resource_path(self, filename):
+        """
+        Returns the absolute path of a resource, regardless of whether OnionShare is installed
+        systemwide, and whether regardless of platform
+        """
+        # On Windows, and in Windows dev mode, switch slashes in incoming filename to backslackes
+        if self.platform == 'Windows':
+            filename = filename.replace('/', '\\')
 
-def get_resource_path(filename):
-    """
-    Returns the absolute path of a resource, regardless of whether OnionShare is installed
-    systemwide, and whether regardless of platform
-    """
-    p = get_platform()
+        if getattr(sys, 'onionshare_dev_mode', False):
+            # Look for resources directory relative to python file
+            prefix = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))), 'share')
+            if not os.path.exists(prefix):
+                # While running tests during stdeb bdist_deb, look 3 directories up for the share folder
+                prefix = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(prefix)))), 'share')
 
-    # On Windows, and in Windows dev mode, switch slashes in incoming filename to backslackes
-    if p == 'Windows':
-        filename = filename.replace('/', '\\')
+        elif self.platform == 'BSD' or self.platform == 'Linux':
+            # Assume OnionShare is installed systemwide in Linux, since we're not running in dev mode
+            prefix = os.path.join(sys.prefix, 'share/onionshare')
 
-    if getattr(sys, 'onionshare_dev_mode', False):
-        # Look for resources directory relative to python file
-        prefix = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))), 'share')
-        if not os.path.exists(prefix):
-            # While running tests during stdeb bdist_deb, look 3 directories up for the share folder
-            prefix = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(prefix)))), 'share')
+        elif getattr(sys, 'frozen', False):
+            # Check if app is "frozen"
+            # https://pythonhosted.org/PyInstaller/#run-time-information
+            if self.platform == 'Darwin':
+                prefix = os.path.join(sys._MEIPASS, 'share')
+            elif self.platform == 'Windows':
+                prefix = os.path.join(os.path.dirname(sys.executable), 'share')
 
-    elif p == 'BSD' or p == 'Linux':
-        # Assume OnionShare is installed systemwide in Linux, since we're not running in dev mode
-        prefix = os.path.join(sys.prefix, 'share/onionshare')
+        return os.path.join(prefix, filename)
 
-    elif getattr(sys, 'frozen', False):
-        # Check if app is "frozen"
-        # https://pythonhosted.org/PyInstaller/#run-time-information
-        if p == 'Darwin':
-            prefix = os.path.join(sys._MEIPASS, 'share')
-        elif p == 'Windows':
-            prefix = os.path.join(os.path.dirname(sys.executable), 'share')
+    def get_tor_paths(self):
+        if self.platform == 'Linux':
+            tor_path = '/usr/bin/tor'
+            tor_geo_ip_file_path = '/usr/share/tor/geoip'
+            tor_geo_ipv6_file_path = '/usr/share/tor/geoip6'
+            obfs4proxy_file_path = '/usr/bin/obfs4proxy'
+        elif self.platform == 'Windows':
+            base_path = os.path.join(os.path.dirname(os.path.dirname(self.get_resource_path(''))), 'tor')
+            tor_path               = os.path.join(os.path.join(base_path, 'Tor'), 'tor.exe')
+            obfs4proxy_file_path   = os.path.join(os.path.join(base_path, 'Tor'), 'obfs4proxy.exe')
+            tor_geo_ip_file_path   = os.path.join(os.path.join(os.path.join(base_path, 'Data'), 'Tor'), 'geoip')
+            tor_geo_ipv6_file_path = os.path.join(os.path.join(os.path.join(base_path, 'Data'), 'Tor'), 'geoip6')
+        elif self.platform == 'Darwin':
+            base_path = os.path.dirname(os.path.dirname(os.path.dirname(self.get_resource_path(''))))
+            tor_path               = os.path.join(base_path, 'Resources', 'Tor', 'tor')
+            tor_geo_ip_file_path   = os.path.join(base_path, 'Resources', 'Tor', 'geoip')
+            tor_geo_ipv6_file_path = os.path.join(base_path, 'Resources', 'Tor', 'geoip6')
+            obfs4proxy_file_path   = os.path.join(base_path, 'Resources', 'Tor', 'obfs4proxy')
+        elif self.platform == 'BSD':
+            tor_path = '/usr/local/bin/tor'
+            tor_geo_ip_file_path = '/usr/local/share/tor/geoip'
+            tor_geo_ipv6_file_path = '/usr/local/share/tor/geoip6'
+            obfs4proxy_file_path = '/usr/local/bin/obfs4proxy'
 
-    return os.path.join(prefix, filename)
+        return (tor_path, tor_geo_ip_file_path, tor_geo_ipv6_file_path, obfs4proxy_file_path)
 
-
-def get_tor_paths():
-    p = get_platform()
-    if p == 'Linux':
-        tor_path = '/usr/bin/tor'
-        tor_geo_ip_file_path = '/usr/share/tor/geoip'
-        tor_geo_ipv6_file_path = '/usr/share/tor/geoip6'
-        obfs4proxy_file_path = '/usr/bin/obfs4proxy'
-    elif p == 'Windows':
-        base_path = os.path.join(os.path.dirname(os.path.dirname(get_resource_path(''))), 'tor')
-        tor_path               = os.path.join(os.path.join(base_path, 'Tor'), 'tor.exe')
-        obfs4proxy_file_path   = os.path.join(os.path.join(base_path, 'Tor'), 'obfs4proxy.exe')
-        tor_geo_ip_file_path   = os.path.join(os.path.join(os.path.join(base_path, 'Data'), 'Tor'), 'geoip')
-        tor_geo_ipv6_file_path = os.path.join(os.path.join(os.path.join(base_path, 'Data'), 'Tor'), 'geoip6')
-    elif p == 'Darwin':
-        base_path = os.path.dirname(os.path.dirname(os.path.dirname(get_resource_path(''))))
-        tor_path               = os.path.join(base_path, 'Resources', 'Tor', 'tor')
-        tor_geo_ip_file_path   = os.path.join(base_path, 'Resources', 'Tor', 'geoip')
-        tor_geo_ipv6_file_path = os.path.join(base_path, 'Resources', 'Tor', 'geoip6')
-        obfs4proxy_file_path   = os.path.join(base_path, 'Resources', 'Tor', 'obfs4proxy')
-    elif p == 'BSD':
-        tor_path = '/usr/local/bin/tor'
-        tor_geo_ip_file_path = '/usr/local/share/tor/geoip'
-        tor_geo_ipv6_file_path = '/usr/local/share/tor/geoip6'
-        obfs4proxy_file_path = '/usr/local/bin/obfs4proxy'
-
-    return (tor_path, tor_geo_ip_file_path, tor_geo_ipv6_file_path, obfs4proxy_file_path)
-
-
-def get_version():
-    """
-    Returns the version of OnionShare that is running.
-    """
-    with open(get_resource_path('version.txt')) as f:
-        version = f.read().strip()
-        return version
-
-
-def random_string(num_bytes, output_len=None):
-    """
-    Returns a random string with a specified number of bytes.
-    """
-    b = os.urandom(num_bytes)
-    h = hashlib.sha256(b).digest()[:16]
-    s = base64.b32encode(h).lower().replace(b'=', b'').decode('utf-8')
-    if not output_len:
-        return s
-    return s[:output_len]
-
-
-def build_slug():
-    """
-    Returns a random string made from two words from the wordlist, such as "deter-trig".
-    """
-    with open(get_resource_path('wordlist.txt')) as f:
-        wordlist = f.read().split()
-
-    r = random.SystemRandom()
-    return '-'.join(r.choice(wordlist) for _ in range(2))
-
-
-def human_readable_filesize(b):
-    """
-    Returns filesize in a human readable format.
-    """
-    thresh = 1024.0
-    if b < thresh:
-        return '{:.1f} B'.format(b)
-    units = ('KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB')
-    u = 0
-    b /= thresh
-    while b >= thresh:
-        b /= thresh
-        u += 1
-    return '{:.1f} {}'.format(b, units[u])
-
-
-def format_seconds(seconds):
-    """Return a human-readable string of the format 1d2h3m4s"""
-    days, seconds = divmod(seconds, 86400)
-    hours, seconds = divmod(seconds, 3600)
-    minutes, seconds = divmod(seconds, 60)
-
-    human_readable = []
-    if days:
-        human_readable.append("{:.0f}d".format(days))
-    if hours:
-        human_readable.append("{:.0f}h".format(hours))
-    if minutes:
-        human_readable.append("{:.0f}m".format(minutes))
-    if seconds or not human_readable:
-        human_readable.append("{:.0f}s".format(seconds))
-    return ''.join(human_readable)
-
-
-def estimated_time_remaining(bytes_downloaded, total_bytes, started):
-    now = time.time()
-    time_elapsed = now - started  # in seconds
-    download_rate = bytes_downloaded / time_elapsed
-    remaining_bytes = total_bytes - bytes_downloaded
-    eta = remaining_bytes / download_rate
-    return format_seconds(eta)
-
-
-def get_available_port(min_port, max_port):
-    """
-    Find a random available port within the given range.
-    """
-    with socket.socket() as tmpsock:
-        while True:
+    def build_data_dir(self):
+        """
+        Returns the path of the OnionShare data directory.
+        """
+        if self.platform == 'Windows':
             try:
-                tmpsock.bind(("127.0.0.1", random.randint(min_port, max_port)))
-                break
-            except OSError as e:
-                raise OSError(e)
-        _, port = tmpsock.getsockname()
-    return port
-
-
-def dir_size(start_path):
-    """
-    Calculates the total size, in bytes, of all of the files in a directory.
-    """
-    total_size = 0
-    for dirpath, dirnames, filenames in os.walk(start_path):
-        for f in filenames:
-            fp = os.path.join(dirpath, f)
-            if not os.path.islink(fp):
-                total_size += os.path.getsize(fp)
-    return total_size
-
-
-class ZipWriter(object):
-    """
-    ZipWriter accepts files and directories and compresses them into a zip file
-    with. If a zip_filename is not passed in, it will use the default onionshare
-    filename.
-    """
-    def __init__(self, zip_filename=None, processed_size_callback=None):
-        if zip_filename:
-            self.zip_filename = zip_filename
+                appdata = os.environ['APPDATA']
+                onionshare_data_dir = '{}\\OnionShare'.format(appdata)
+            except:
+                # If for some reason we don't have the 'APPDATA' environment variable
+                # (like running tests in Linux while pretending to be in Windows)
+                onionshare_data_dir = os.path.expanduser('~/.config/onionshare')
+        elif self.platform == 'Darwin':
+            onionshare_data_dir = os.path.expanduser('~/Library/Application Support/OnionShare')
         else:
-            self.zip_filename = '{0:s}/onionshare_{1:s}.zip'.format(tempfile.mkdtemp(), random_string(4, 6))
+            onionshare_data_dir = os.path.expanduser('~/.config/onionshare')
 
-        self.z = zipfile.ZipFile(self.zip_filename, 'w', allowZip64=True)
-        self.processed_size_callback = processed_size_callback
-        if self.processed_size_callback is None:
-            self.processed_size_callback = lambda _: None
-        self._size = 0
-        self.processed_size_callback(self._size)
+        os.makedirs(onionshare_data_dir, 0o700, True)
+        return onionshare_data_dir
 
-    def add_file(self, filename):
+    def build_slug(self):
         """
-        Add a file to the zip archive.
+        Returns a random string made from two words from the wordlist, such as "deter-trig".
         """
-        self.z.write(filename, os.path.basename(filename), zipfile.ZIP_DEFLATED)
-        self._size += os.path.getsize(filename)
-        self.processed_size_callback(self._size)
+        with open(self.get_resource_path('wordlist.txt')) as f:
+            wordlist = f.read().split()
 
-    def add_dir(self, filename):
+        r = random.SystemRandom()
+        return '-'.join(r.choice(wordlist) for _ in range(2))
+
+    def define_css(self):
         """
-        Add a directory, and all of its children, to the zip archive.
+        This defines all of the stylesheets used in GUI mode, to avoid repeating code.
+        This method is only called in GUI mode.
         """
-        dir_to_strip = os.path.dirname(filename.rstrip('/'))+'/'
-        for dirpath, dirnames, filenames in os.walk(filename):
+        self.css = {
+            # OnionShareGui styles
+            'mode_switcher_selected_style': """
+                QPushButton {
+                    color: #ffffff;
+                    background-color: #4e064f;
+                    border: 0;
+                    border-right: 1px solid #69266b;
+                    font-weight: bold;
+                    border-radius: 0;
+                }""",
+
+            'mode_switcher_unselected_style': """
+                QPushButton {
+                    color: #ffffff;
+                    background-color: #601f61;
+                    border: 0;
+                    font-weight: normal;
+                    border-radius: 0;
+                }""",
+
+            'settings_button': """
+                QPushButton {
+                    background-color: #601f61;
+                    border: 0;
+                    border-left: 1px solid #69266b;
+                    border-radius: 0;
+                }""",
+
+            'server_status_indicator_label': """
+                QLabel {
+                    font-style: italic;
+                    color: #666666;
+                    padding: 2px;
+                }""",
+
+            'status_bar': """
+                QStatusBar {
+                    font-style: italic;
+                    color: #666666;
+                }
+                QStatusBar::item {
+                    border: 0px;
+                }""",
+
+            # Common styles between ShareMode and ReceiveMode and their child widgets
+            'mode_info_label': """
+                QLabel {
+                    font-size: 12px;
+                    color: #666666;
+                }
+                """,
+
+            'server_status_url': """
+                QLabel {
+                    background-color: #ffffff;
+                    color: #000000;
+                    padding: 10px;
+                    border: 1px solid #666666;
+                    font-size: 12px;
+                }
+                """,
+
+            'server_status_url_buttons': """
+                QPushButton {
+                    color: #3f7fcf;
+                }
+                """,
+
+            'server_status_button_stopped': """
+                QPushButton {
+                    background-color: #5fa416;
+                    color: #ffffff;
+                    padding: 10px;
+                    border: 0;
+                    border-radius: 5px;
+                }""",
+
+            'server_status_button_working': """
+                QPushButton {
+                    background-color: #4c8211;
+                    color: #ffffff;
+                    padding: 10px;
+                    border: 0;
+                    border-radius: 5px;
+                    font-style: italic;
+                }""",
+
+            'server_status_button_started': """
+                QPushButton {
+                    background-color: #d0011b;
+                    color: #ffffff;
+                    padding: 10px;
+                    border: 0;
+                    border-radius: 5px;
+                }""",
+
+            'downloads_uploads_empty': """
+                QWidget {
+                    background-color: #ffffff;
+                    border: 1px solid #999999;
+                }
+                QWidget QLabel {
+                    background-color: none;
+                    border: 0px;
+                }
+                """,
+
+            'downloads_uploads_empty_text': """
+                QLabel {
+                    color: #999999;
+                }""",
+
+            'downloads_uploads_label': """
+                QLabel {
+                    font-weight: bold;
+                    font-size 14px;
+                    text-align: center;
+                    background-color: none;
+                    border: none;
+                }""",
+
+            'downloads_uploads_clear': """
+                QPushButton {
+                    color: #3f7fcf;
+                }
+                """,
+
+            'download_uploads_indicator': """
+                QLabel {
+                    color: #ffffff;
+                    background-color: #f44449;
+                    font-weight: bold;
+                    font-size: 10px;
+                    padding: 2px;
+                    border-radius: 7px;
+                    text-align: center;
+                }""",
+
+            'downloads_uploads_progress_bar': """
+                QProgressBar {
+                    border: 1px solid #4e064f;
+                    background-color: #ffffff !important;
+                    text-align: center;
+                    color: #9b9b9b;
+                    font-size: 14px;
+                }
+                QProgressBar::chunk {
+                    background-color: #4e064f;
+                    width: 10px;
+                }""",
+
+            # Share mode and child widget styles
+            'share_zip_progess_bar': """
+                QProgressBar {
+                    border: 1px solid #4e064f;
+                    background-color: #ffffff !important;
+                    text-align: center;
+                    color: #9b9b9b;
+                }
+                QProgressBar::chunk {
+                    border: 0px;
+                    background-color: #4e064f;
+                    width: 10px;
+                }""",
+
+            'share_filesize_warning': """
+                QLabel {
+                    padding: 10px 0;
+                    font-weight: bold;
+                    color: #333333;
+                }
+                """,
+
+            'share_file_selection_drop_here_label': """
+                QLabel {
+                    color: #999999;
+                }""",
+
+            'share_file_selection_drop_count_label': """
+                QLabel {
+                    color: #ffffff;
+                    background-color: #f44449;
+                    font-weight: bold;
+                    padding: 5px 10px;
+                    border-radius: 10px;
+                }""",
+
+            'share_file_list_drag_enter': """
+                FileList {
+                    border: 3px solid #538ad0;
+                }
+                """,
+
+            'share_file_list_drag_leave': """
+                FileList {
+                    border: none;
+                }
+                """,
+
+            'share_file_list_item_size': """
+                QLabel {
+                    color: #666666;
+                    font-size: 11px;
+                }""",
+
+            # Receive mode and child widget styles
+            'receive_file': """
+                QWidget {
+                    background-color: #ffffff;
+                }
+                """,
+
+            'receive_file_size': """
+                QLabel {
+                    color: #666666;
+                    font-size: 11px;
+                }""",
+
+            # Settings dialog
+            'settings_version': """
+                QLabel {
+                    color: #666666;
+                }""",
+
+            'settings_tor_status': """
+                QLabel {
+                    background-color: #ffffff;
+                    color: #000000;
+                    padding: 10px;
+                }""",
+
+            'settings_whats_this': """
+                QLabel {
+                    font-size: 12px;
+                }""",
+
+            'settings_connect_to_tor': """
+                QLabel {
+                    font-style: italic;
+                }"""
+        }
+
+    @staticmethod
+    def random_string(num_bytes, output_len=None):
+        """
+        Returns a random string with a specified number of bytes.
+        """
+        b = os.urandom(num_bytes)
+        h = hashlib.sha256(b).digest()[:16]
+        s = base64.b32encode(h).lower().replace(b'=', b'').decode('utf-8')
+        if not output_len:
+            return s
+        return s[:output_len]
+
+    @staticmethod
+    def human_readable_filesize(b):
+        """
+        Returns filesize in a human readable format.
+        """
+        thresh = 1024.0
+        if b < thresh:
+            return '{:.1f} B'.format(b)
+        units = ('KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB')
+        u = 0
+        b /= thresh
+        while b >= thresh:
+            b /= thresh
+            u += 1
+        return '{:.1f} {}'.format(b, units[u])
+
+    @staticmethod
+    def format_seconds(seconds):
+        """Return a human-readable string of the format 1d2h3m4s"""
+        days, seconds = divmod(seconds, 86400)
+        hours, seconds = divmod(seconds, 3600)
+        minutes, seconds = divmod(seconds, 60)
+
+        human_readable = []
+        if days:
+            human_readable.append("{:.0f}d".format(days))
+        if hours:
+            human_readable.append("{:.0f}h".format(hours))
+        if minutes:
+            human_readable.append("{:.0f}m".format(minutes))
+        if seconds or not human_readable:
+            human_readable.append("{:.0f}s".format(seconds))
+        return ''.join(human_readable)
+
+    @staticmethod
+    def estimated_time_remaining(bytes_downloaded, total_bytes, started):
+        now = time.time()
+        time_elapsed = now - started  # in seconds
+        download_rate = bytes_downloaded / time_elapsed
+        remaining_bytes = total_bytes - bytes_downloaded
+        eta = remaining_bytes / download_rate
+        return Common.format_seconds(eta)
+
+    @staticmethod
+    def get_available_port(min_port, max_port):
+        """
+        Find a random available port within the given range.
+        """
+        with socket.socket() as tmpsock:
+            while True:
+                try:
+                    tmpsock.bind(("127.0.0.1", random.randint(min_port, max_port)))
+                    break
+                except OSError as e:
+                    pass
+            _, port = tmpsock.getsockname()
+        return port
+
+    @staticmethod
+    def dir_size(start_path):
+        """
+        Calculates the total size, in bytes, of all of the files in a directory.
+        """
+        total_size = 0
+        for dirpath, dirnames, filenames in os.walk(start_path):
             for f in filenames:
-                full_filename = os.path.join(dirpath, f)
-                if not os.path.islink(full_filename):
-                    arc_filename = full_filename[len(dir_to_strip):]
-                    self.z.write(full_filename, arc_filename, zipfile.ZIP_DEFLATED)
-                    self._size += os.path.getsize(full_filename)
-                    self.processed_size_callback(self._size)
-
-    def close(self):
-        """
-        Close the zip archive.
-        """
-        self.z.close()
+                fp = os.path.join(dirpath, f)
+                if not os.path.islink(fp):
+                    total_size += os.path.getsize(fp)
+        return total_size
 
 
-class close_after_seconds(threading.Thread):
+class ShutdownTimer(threading.Thread):
     """
     Background thread sleeps t hours and returns.
     """
-    def __init__(self, time):
+    def __init__(self, common, time):
         threading.Thread.__init__(self)
+
+        self.common = common
+
         self.setDaemon(True)
         self.time = time
 
     def run(self):
-        log('Shutdown Timer', 'Server will shut down after {} seconds'.format(self.time))
+        self.common.log('Shutdown Timer', 'Server will shut down after {} seconds'.format(self.time))
         time.sleep(self.time)
         return 1

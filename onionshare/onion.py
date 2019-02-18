@@ -2,7 +2,7 @@
 """
 OnionShare | https://onionshare.org/
 
-Copyright (C) 2018 Micah Lee <micah@micahflee.com>
+Copyright (C) 2014-2018 Micah Lee <micah@micahflee.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -21,9 +21,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from stem.control import Controller
 from stem import ProtocolError, SocketClosed
 from stem.connection import MissingPassword, UnreadableCookieFile, AuthenticationFailure
-import os, sys, tempfile, shutil, urllib, platform, subprocess, time, shlex
+from Crypto.PublicKey import RSA
+import base64, os, sys, tempfile, shutil, urllib, platform, subprocess, time, shlex
 
-from . import socks
+from distutils.version import LooseVersion as Version
 from . import common, strings
 from .settings import Settings
 
@@ -125,38 +126,40 @@ class Onion(object):
     call this function and pass in a status string while connecting to tor. This
     is necessary for status updates to reach the GUI.
     """
-    def __init__(self):
-        common.log('Onion', '__init__')
+    def __init__(self, common):
+        self.common = common
+
+        self.common.log('Onion', '__init__')
 
         self.stealth = False
         self.service_id = None
 
-        self.system = common.get_platform()
-
         # Is bundled tor supported?
-        if (self.system == 'Windows' or self.system == 'Darwin') and getattr(sys, 'onionshare_dev_mode', False):
+        if (self.common.platform == 'Windows' or self.common.platform == 'Darwin') and getattr(sys, 'onionshare_dev_mode', False):
             self.bundle_tor_supported = False
         else:
             self.bundle_tor_supported = True
 
         # Set the path of the tor binary, for bundled tor
-        (self.tor_path, self.tor_geo_ip_file_path, self.tor_geo_ipv6_file_path, self.obfs4proxy_file_path) = common.get_tor_paths()
+        (self.tor_path, self.tor_geo_ip_file_path, self.tor_geo_ipv6_file_path, self.obfs4proxy_file_path) = self.common.get_tor_paths()
 
         # The tor process
         self.tor_proc = None
 
+        # The Tor controller
+        self.c = None
+
         # Start out not connected to Tor
         self.connected_to_tor = False
 
-    def connect(self, settings=False, config=False, tor_status_update_func=None):
-        common.log('Onion', 'connect')
+    def connect(self, custom_settings=False, config=False, tor_status_update_func=None):
+        self.common.log('Onion', 'connect')
 
-        # Either use settings that are passed in, or load them from disk
-        if settings:
-            self.settings = settings
+        # Either use settings that are passed in, or use them from common
+        if custom_settings:
+            self.settings = custom_settings
         else:
-            self.settings = Settings(config)
-            self.settings.load()
+            self.settings = self.common.settings
 
         # The Tor controller
         self.c = None
@@ -166,34 +169,35 @@ class Onion(object):
                 raise BundledTorNotSupported(strings._('settings_error_bundled_tor_not_supported'))
 
             # Create a torrc for this session
-            self.tor_data_directory = tempfile.TemporaryDirectory()
+            self.tor_data_directory = tempfile.TemporaryDirectory(dir=self.common.build_data_dir())
+            self.common.log('Onion', 'connect', 'tor_data_directory={}'.format(self.tor_data_directory.name))
 
-            if self.system == 'Windows':
-                # Windows needs to use network ports, doesn't support unix sockets
-                torrc_template = open(common.get_resource_path('torrc_template-windows')).read()
+            # Create the torrc
+            with open(self.common.get_resource_path('torrc_template')) as f:
+                torrc_template = f.read()
+            self.tor_cookie_auth_file = os.path.join(self.tor_data_directory.name, 'cookie')
+            try:
+                self.tor_socks_port = self.common.get_available_port(1000, 65535)
+            except:
+                raise OSError(strings._('no_available_port'))
+            self.tor_torrc = os.path.join(self.tor_data_directory.name, 'torrc')
+
+            if self.common.platform == 'Windows' or self.common.platform == "Darwin":
+                # Windows doesn't support unix sockets, so it must use a network port.
+                # macOS can't use unix sockets either because socket filenames are limited to
+                # 100 chars, and the macOS sandbox forces us to put the socket file in a place
+                # with a really long path.
+                torrc_template += 'ControlPort {{control_port}}\n'
                 try:
-                    self.tor_control_port = common.get_available_port(1000, 65535)
+                    self.tor_control_port = self.common.get_available_port(1000, 65535)
                 except:
                     raise OSError(strings._('no_available_port'))
                 self.tor_control_socket = None
-                self.tor_cookie_auth_file = os.path.join(self.tor_data_directory.name, 'cookie')
-                try:
-                    self.tor_socks_port = common.get_available_port(1000, 65535)
-                except:
-                    raise OSError(strings._('no_available_port'))
-                self.tor_torrc = os.path.join(self.tor_data_directory.name, 'torrc')
             else:
-                # Linux, Mac and BSD can use unix sockets
-                with open(common.get_resource_path('torrc_template')) as f:
-                    torrc_template = f.read()
+                # Linux and BSD can use unix sockets
+                torrc_template += 'ControlSocket {{control_socket}}\n'
                 self.tor_control_port = None
                 self.tor_control_socket = os.path.join(self.tor_data_directory.name, 'control_socket')
-                self.tor_cookie_auth_file = os.path.join(self.tor_data_directory.name, 'cookie')
-                try:
-                    self.tor_socks_port = common.get_available_port(1000, 65535)
-                except:
-                    raise OSError(strings._('no_available_port'))
-                self.tor_torrc = os.path.join(self.tor_data_directory.name, 'torrc')
 
             torrc_template = torrc_template.replace('{{data_directory}}',   self.tor_data_directory.name)
             torrc_template = torrc_template.replace('{{control_port}}',     str(self.tor_control_port))
@@ -202,23 +206,19 @@ class Onion(object):
             torrc_template = torrc_template.replace('{{geo_ip_file}}',      self.tor_geo_ip_file_path)
             torrc_template = torrc_template.replace('{{geo_ipv6_file}}',    self.tor_geo_ipv6_file_path)
             torrc_template = torrc_template.replace('{{socks_port}}',       str(self.tor_socks_port))
+
             with open(self.tor_torrc, 'w') as f:
                 f.write(torrc_template)
 
                 # Bridge support
                 if self.settings.get('tor_bridges_use_obfs4'):
                     f.write('ClientTransportPlugin obfs4 exec {}\n'.format(self.obfs4proxy_file_path))
-                    with open(common.get_resource_path('torrc_template-obfs4')) as o:
-                        for line in o:
-                            f.write(line)
-                elif self.settings.get('tor_bridges_use_meek_lite_amazon'):
-                    f.write('ClientTransportPlugin meek_lite exec {}\n'.format(self.obfs4proxy_file_path))
-                    with open(common.get_resource_path('torrc_template-meek_lite_amazon')) as o:
+                    with open(self.common.get_resource_path('torrc_template-obfs4')) as o:
                         for line in o:
                             f.write(line)
                 elif self.settings.get('tor_bridges_use_meek_lite_azure'):
                     f.write('ClientTransportPlugin meek_lite exec {}\n'.format(self.obfs4proxy_file_path))
-                    with open(common.get_resource_path('torrc_template-meek_lite_azure')) as o:
+                    with open(self.common.get_resource_path('torrc_template-meek_lite_azure')) as o:
                         for line in o:
                             f.write(line)
 
@@ -232,7 +232,7 @@ class Onion(object):
 
             # Execute a tor subprocess
             start_ts = time.time()
-            if self.system == 'Windows':
+            if self.common.platform == 'Windows':
                 # In Windows, hide console window when opening tor.exe subprocess
                 startupinfo = subprocess.STARTUPINFO()
                 startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
@@ -245,14 +245,14 @@ class Onion(object):
 
             # Connect to the controller
             try:
-                if self.system == 'Windows':
+                if self.common.platform == 'Windows' or self.common.platform == "Darwin":
                     self.c = Controller.from_port(port=self.tor_control_port)
                     self.c.authenticate()
                 else:
                     self.c = Controller.from_socket_file(path=self.tor_control_socket)
                     self.c.authenticate()
             except Exception as e:
-                raise BundledTorBroken(strings._('settings_error_bundled_tor_broken', True).format(e.args[0]))
+                raise BundledTorBroken(strings._('settings_error_bundled_tor_broken').format(e.args[0]))
 
             while True:
                 try:
@@ -270,7 +270,7 @@ class Onion(object):
                 if callable(tor_status_update_func):
                     if not tor_status_update_func(progress, summary):
                         # If the dialog was canceled, stop connecting to Tor
-                        common.log('Onion', 'connect', 'tor_status_update_func returned false, canceling connecting to Tor')
+                        self.common.log('Onion', 'connect', 'tor_status_update_func returned false, canceling connecting to Tor')
                         print()
                         return False
 
@@ -282,7 +282,6 @@ class Onion(object):
                 # If using bridges, it might take a bit longer to connect to Tor
                 if self.settings.get('tor_bridges_use_custom_bridges') or \
                    self.settings.get('tor_bridges_use_obfs4') or \
-                   self.settings.get('tor_bridges_use_meek_lite_amazon') or \
                    self.settings.get('tor_bridges_use_meek_lite_azure'):
                     connect_timeout = 150
                 else:
@@ -322,7 +321,7 @@ class Onion(object):
                 socket_file_path = ''
                 if not found_tor:
                     try:
-                        if self.system == 'Darwin':
+                        if self.common.platform == 'Darwin':
                             socket_file_path = os.path.expanduser('~/Library/Application Support/TorBrowser-Data/Tor/control.socket')
 
                         self.c = Controller.from_socket_file(path=socket_file_path)
@@ -334,11 +333,11 @@ class Onion(object):
             # guessing the socket file name next
             if not found_tor:
                 try:
-                    if self.system == 'Linux' or self.system == 'BSD':
+                    if self.common.platform == 'Linux' or self.common.platform == 'BSD':
                         socket_file_path = '/run/user/{}/Tor/control.socket'.format(os.geteuid())
-                    elif self.system == 'Darwin':
+                    elif self.common.platform == 'Darwin':
                         socket_file_path = '/run/user/{}/Tor/control.socket'.format(os.geteuid())
-                    elif self.system == 'Windows':
+                    elif self.common.platform == 'Windows':
                         # Windows doesn't support unix sockets
                         raise TorErrorAutomatic(strings._('settings_error_automatic'))
 
@@ -393,6 +392,7 @@ class Onion(object):
 
         # Get the tor version
         self.tor_version = self.c.get_version().version_str
+        self.common.log('Onion', 'connect', 'Connected to tor {}'.format(self.tor_version))
 
         # Do the versions of stem and tor that I'm using support ephemeral onion services?
         list_ephemeral_hidden_services = getattr(self.c, "list_ephemeral_hidden_services", None)
@@ -408,6 +408,10 @@ class Onion(object):
             # ephemeral stealth onion services are not supported
             self.supports_stealth = False
 
+        # Does this version of Tor support next-gen ('v3') onions?
+        # Note, this is the version of Tor where this bug was fixed:
+        # https://trac.torproject.org/projects/tor/ticket/28619
+        self.supports_v3_onions = self.tor_version >= Version('0.3.5.7')
 
     def is_authenticated(self):
         """
@@ -424,7 +428,7 @@ class Onion(object):
         Start a onion service on port 80, pointing to the given port, and
         return the onion hostname.
         """
-        common.log('Onion', 'start_onion_service')
+        self.common.log('Onion', 'start_onion_service')
 
         self.auth_string = None
         if not self.supports_ephemeral:
@@ -433,7 +437,6 @@ class Onion(object):
             raise TorTooOld(strings._('error_stealth_not_supported'))
 
         print(strings._("config_onion_service").format(int(port)))
-        print(strings._('using_ephemeral'))
 
         if self.stealth:
             if self.settings.get('hidservauth_string'):
@@ -445,23 +448,42 @@ class Onion(object):
             basic_auth = None
 
         if self.settings.get('private_key'):
-            key_type = "RSA1024"
             key_content = self.settings.get('private_key')
-            common.log('Onion', 'Starting a hidden service with a saved private key')
+            if self.is_v2_key(key_content):
+                key_type = "RSA1024"
+            else:
+                # Assume it was a v3 key. Stem will throw an error if it's something illegible
+                key_type = "ED25519-V3"
+
         else:
             key_type = "NEW"
-            key_content = "RSA1024"
-            common.log('Onion', 'Starting a hidden service with a new private key')
+            # Work out if we can support v3 onion services, which are preferred
+            if self.supports_v3_onions and not self.settings.get('use_legacy_v2_onions'):
+                key_content = "ED25519-V3"
+            else:
+                # fall back to v2 onion services
+                key_content = "RSA1024"
 
+        # v3 onions don't yet support basic auth. Our ticket:
+        # https://github.com/micahflee/onionshare/issues/697
+        if key_type == "NEW" and key_content == "ED25519-V3" and not self.settings.get('use_legacy_v2_onions'):
+            basic_auth = None
+            self.stealth = False
+
+        debug_message = 'key_type={}'.format(key_type)
+        if key_type == "NEW":
+            debug_message += ', key_content={}'.format(key_content)
+        self.common.log('Onion', 'start_onion_service', '{}'.format(debug_message))
+        await_publication = True
         try:
             if basic_auth != None:
-                res = self.c.create_ephemeral_hidden_service({ 80: port }, await_publication=True, basic_auth=basic_auth, key_type = key_type, key_content=key_content)
+                res = self.c.create_ephemeral_hidden_service({ 80: port }, await_publication=await_publication, basic_auth=basic_auth, key_type=key_type, key_content=key_content)
             else:
                 # if the stem interface is older than 1.5.0, basic_auth isn't a valid keyword arg
-                res = self.c.create_ephemeral_hidden_service({ 80: port }, await_publication=True, key_type = key_type, key_content=key_content)
+                res = self.c.create_ephemeral_hidden_service({ 80: port }, await_publication=await_publication, key_type=key_type, key_content=key_content)
 
-        except ProtocolError:
-            raise TorErrorProtocolError(strings._('error_tor_protocol_error'))
+        except ProtocolError as e:
+            raise TorErrorProtocolError(strings._('error_tor_protocol_error').format(e.args[0]))
 
         self.service_id = res.service_id
         onion_host = self.service_id + '.onion'
@@ -492,23 +514,23 @@ class Onion(object):
             self.settings.save()
             return onion_host
         else:
-            raise TorErrorProtocolError(strings._('error_tor_protocol_error'))
+            raise TorErrorProtocolError(strings._('error_tor_protocol_error_unknown'))
 
     def cleanup(self, stop_tor=True):
         """
         Stop onion services that were created earlier. If there's a tor subprocess running, kill it.
         """
-        common.log('Onion', 'cleanup')
+        self.common.log('Onion', 'cleanup')
 
         # Cleanup the ephemeral onion services, if we have any
         try:
             onions = self.c.list_ephemeral_hidden_services()
             for onion in onions:
                 try:
-                    common.log('Onion', 'cleanup', 'trying to remove onion {}'.format(onion))
+                    self.common.log('Onion', 'cleanup', 'trying to remove onion {}'.format(onion))
                     self.c.remove_ephemeral_hidden_service(onion)
                 except:
-                    common.log('Onion', 'cleanup', 'could not remove onion {}.. moving on anyway'.format(onion))
+                    self.common.log('Onion', 'cleanup', 'could not remove onion {}.. moving on anyway'.format(onion))
                     pass
         except:
             pass
@@ -545,7 +567,7 @@ class Onion(object):
         """
         Returns a (address, port) tuple for the Tor SOCKS port
         """
-        common.log('Onion', 'get_tor_socks_port')
+        self.common.log('Onion', 'get_tor_socks_port')
 
         if self.settings.get('connection_type') == 'bundled':
             return ('127.0.0.1', self.tor_socks_port)
@@ -553,3 +575,18 @@ class Onion(object):
             return ('127.0.0.1', 9150)
         else:
             return (self.settings.get('socks_address'), self.settings.get('socks_port'))
+
+    def is_v2_key(self, key):
+        """
+        Helper function for determining if a key is RSA1024 (v2) or not.
+        """
+        try:
+            # Import the key
+            key = RSA.importKey(base64.b64decode(key))
+            # Is this a v2 Onion key? (1024 bits) If so, we should keep using it.
+            if key.n.bit_length() == 1024:
+                return True
+            else:
+                return False
+        except:
+            return False

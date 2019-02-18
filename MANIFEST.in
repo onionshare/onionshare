@@ -4,9 +4,10 @@ include BUILD.md
 include share/*
 include share/images/*
 include share/locale/*
-include share/html/*
+include share/templates/*
+include share/static/*
 include install/onionshare.desktop
 include install/onionshare.appdata.xml
 include install/onionshare80.xpm
 include install/scripts/onionshare-nautilus.py
-include test/*.py
+include tests/*.py
