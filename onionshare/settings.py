@@ -2,7 +2,7 @@
 """
 OnionShare | https://onionshare.org/
 
-Copyright (C) 2018 Micah Lee <micah@micahflee.com>
+Copyright (C) 2014-2018 Micah Lee <micah@micahflee.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -21,8 +21,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import json
 import os
 import platform
+import locale
 
-from . import strings, common
+try:
+    # We only need pwd module in macOS, and it's not available in Windows
+    import pwd
+except:
+    pass
+
+from . import strings
 
 
 class Settings(object):
@@ -32,8 +39,10 @@ class Settings(object):
     which is to attempt to connect automatically using default Tor Browser
     settings.
     """
-    def __init__(self, config=False):
-        common.log('Settings', '__init__')
+    def __init__(self, common, config=False):
+        self.common = common
+
+        self.common.log('Settings', '__init__')
 
         # Default config
         self.filename = self.build_filename()
@@ -43,11 +52,29 @@ class Settings(object):
             if os.path.isfile(config):
                 self.filename = config
             else:
-                common.log('Settings', '__init__', 'Supplied config does not exist or is unreadable. Falling back to default location')
+                self.common.log('Settings', '__init__', 'Supplied config does not exist or is unreadable. Falling back to default location')
+
+        # Dictionary of available languages in this version of OnionShare,
+        # mapped to the language name, in that language
+        self.available_locales = {
+            'bn': 'বাংলা',       # Bengali
+            'ca': 'Català',     # Catalan
+            'da': 'Dansk',      # Danish
+            'en': 'English',    # English
+            'fr': 'Français',   # French
+            'el': 'Ελληνικά',   # Greek
+            'it': 'Italiano',   # Italian
+            'ja': '日本語',      # Japanese
+            'fa': 'فارسی',      # Persian
+            'pt_BR': 'Português (Brasil)',  # Portuguese Brazil
+            'ru': 'Русский',    # Russian
+            'es': 'Español',    # Spanish
+            'sv': 'Svenska'     # Swedish
+        }
 
         # These are the default settings. They will get overwritten when loading from disk
         self.default_settings = {
-            'version': common.get_version(),
+            'version': self.common.version,
             'connection_type': 'bundled',
             'control_port_address': '127.0.0.1',
             'control_port_port': 9051,
@@ -57,20 +84,22 @@ class Settings(object):
             'auth_type': 'no_auth',
             'auth_password': '',
             'close_after_first_download': True,
-            'systray_notifications': True,
             'shutdown_timeout': False,
             'use_stealth': False,
             'use_autoupdate': True,
             'autoupdate_timestamp': None,
             'no_bridges': True,
             'tor_bridges_use_obfs4': False,
-            'tor_bridges_use_meek_lite_amazon': False,
             'tor_bridges_use_meek_lite_azure': False,
             'tor_bridges_use_custom_bridges': '',
+            'use_legacy_v2_onions': False,
             'save_private_key': False,
             'private_key': '',
+            'public_mode': False,
             'slug': '',
-            'hidservauth_string': ''
+            'hidservauth_string': '',
+            'data_dir': self.build_default_data_dir(),
+            'locale': None # this gets defined in fill_in_defaults()
         }
         self._settings = {}
         self.fill_in_defaults()
@@ -84,47 +113,78 @@ class Settings(object):
             if key not in self._settings:
                 self._settings[key] = self.default_settings[key]
 
+        # Choose the default locale based on the OS preference, and fall-back to English
+        if self._settings['locale'] is None:
+            language_code, encoding = locale.getdefaultlocale()
+
+            # Default to English
+            if not language_code:
+                language_code = 'en_US'
+
+            if language_code == 'pt_PT' and language_code == 'pt_BR':
+                # Portuguese locales include country code
+                default_locale = language_code
+            else:
+                # All other locales cut off the country code
+                default_locale = language_code[:2]
+
+            if default_locale not in self.available_locales:
+                default_locale = 'en'
+            self._settings['locale'] = default_locale
+
     def build_filename(self):
         """
         Returns the path of the settings file.
         """
-        p = platform.system()
-        if p == 'Windows':
-            appdata = os.environ['APPDATA']
-            return '{}\\OnionShare\\onionshare.json'.format(appdata)
-        elif p == 'Darwin':
-            return os.path.expanduser('~/Library/Application Support/OnionShare/onionshare.json')
+        return os.path.join(self.common.build_data_dir(), 'onionshare.json')
+
+    def build_default_data_dir(self):
+        """
+        Returns the path of the default Downloads directory for receive mode.
+        """
+
+        if self.common.platform == "Darwin":
+            # We can't use os.path.expanduser() in macOS because in the sandbox it
+            # returns the path to the sandboxed homedir
+            real_homedir = pwd.getpwuid(os.getuid()).pw_dir
+            return os.path.join(real_homedir, 'OnionShare')
+        elif self.common.platform == "Windows":
+            # On Windows, os.path.expanduser() needs to use backslash, or else it
+            # retains the forward slash, which breaks opening the folder in explorer.
+            return os.path.expanduser('~\OnionShare')
         else:
-            return os.path.expanduser('~/.config/onionshare/onionshare.json')
+            # All other OSes
+            return os.path.expanduser('~/OnionShare')
 
     def load(self):
         """
         Load the settings from file.
         """
-        common.log('Settings', 'load')
+        self.common.log('Settings', 'load')
 
         # If the settings file exists, load it
         if os.path.exists(self.filename):
             try:
-                common.log('Settings', 'load', 'Trying to load {}'.format(self.filename))
+                self.common.log('Settings', 'load', 'Trying to load {}'.format(self.filename))
                 with open(self.filename, 'r') as f:
                     self._settings = json.load(f)
                     self.fill_in_defaults()
             except:
                 pass
 
+        # Make sure data_dir exists
+        try:
+            os.makedirs(self.get('data_dir'), exist_ok=True)
+        except:
+            pass
+
     def save(self):
         """
         Save settings to file.
         """
-        common.log('Settings', 'save')
-
-        try:
-            os.makedirs(os.path.dirname(self.filename))
-        except:
-            pass
+        self.common.log('Settings', 'save')
         open(self.filename, 'w').write(json.dumps(self._settings))
-        print(strings._('settings_saved').format(self.filename))
+        self.common.log('Settings', 'save', 'Settings saved in {}'.format(self.filename))
 
     def get(self, key):
         return self._settings[key]

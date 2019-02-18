@@ -23,9 +23,12 @@ if [ "$1" = "--release" ]; then
   PKG_PATH="$ROOT/dist/OnionShare.pkg"
   IDENTITY_NAME_APPLICATION="Developer ID Application: Micah Lee"
   IDENTITY_NAME_INSTALLER="Developer ID Installer: Micah Lee"
+  ENTITLEMENTS_CHILD_PATH="$ROOT/install/macos_sandbox/child.plist"
+  ENTITLEMENTS_PARENT_PATH="$ROOT/install/macos_sandbox/parent.plist"
 
   echo "Codesigning the app bundle"
-  codesign --deep -s "$IDENTITY_NAME_APPLICATION" "$APP_PATH"
+  codesign --deep -s "$IDENTITY_NAME_APPLICATION" -f --entitlements "$ENTITLEMENTS_CHILD_PATH" "$APP_PATH"
+  codesign -s "$IDENTITY_NAME_APPLICATION" -f --entitlements "$ENTITLEMENTS_PARENT_PATH" "$APP_PATH"
 
   echo "Creating an installer"
   productbuild --sign "$IDENTITY_NAME_INSTALLER" --component "$APP_PATH" /Applications "$PKG_PATH"

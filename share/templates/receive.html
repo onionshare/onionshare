@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+ <head>
+    <title>OnionShare</title>
+    <link href="/static/img/favicon.ico" rel="icon" type="image/x-icon" />
+    <link href="/static/css/style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+
+    <header class="clearfix">
+        <img class="logo" src="/static/img/logo.png" title="OnionShare">
+        <h1>OnionShare</h1>
+    </header>
+
+    <div class="upload-wrapper">
+      <p><img class="logo" src="/static/img/logo_large.png" title="OnionShare"></p>
+
+      <p class="upload-header">Send Files</p>
+      <p class="upload-description">Select the files you want to send, then click "Send Files"...</p>
+
+      <form id="send" method="post" enctype="multipart/form-data" action="{{ upload_action }}">
+         <p><input type="file" id="file-select" name="file[]" multiple /></p>
+         <p><button type="submit" id="send-button" class="button">Send Files</button></p>
+      </form>
+
+      <div id="uploads"></div>
+
+      <div>
+        <ul id="flashes" class="flashes">
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                <li class="{{ category }}">{{ message }}</li>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+        </ul>
+      </div>
+
+      <!--
+      We are not using a <noscript> tag because it only works when the security slider is set to
+      Safest, not Safer: https://trac.torproject.org/projects/tor/ticket/29506
+      -->
+      <div id="noscript">
+        <p>
+          <strong>Warning:</strong> Due to a bug in Tor Browser and Firefox, uploads
+          sometimes never finish. To upload reliably, either set your Tor Browser
+          <a rel="noreferrer" target="_blank" href="https://tb-manual.torproject.org/en-US/security-slider/">security slider</a>
+          to Standard or
+          <a target="_blank" href="/noscript-xss-instructions">turn off your Tor Browser's NoScript XSS setting</a>.</p>
+      </div>
+      <script src="/static/js/receive-noscript.js"></script>
+
+    </div>
+    <script src="/static/js/jquery-3.3.1.min.js"></script>
+    <script src="/static/js/receive.js"></script>
+  </body>
+</html>

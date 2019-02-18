@@ -54,7 +54,12 @@ def main():
 
     dir = args.onionshare_dir
 
-    src = files_in(dir, 'onionshare') + files_in(dir, 'onionshare_gui')
+    src = files_in(dir, 'onionshare') + \
+          files_in(dir, 'onionshare_gui') + \
+          files_in(dir, 'onionshare_gui/share_mode') + \
+          files_in(dir, 'onionshare_gui/receive_mode') + \
+          files_in(dir, 'install/scripts') + \
+          files_in(dir, 'tests')
     pysrc = [p for p in src if p.endswith('.py')]
 
     lang_code = args.lang_code
@@ -64,11 +69,11 @@ def main():
     for line in fileinput.input(pysrc, openhook=fileinput.hook_encoded('utf-8')):
         # search `strings._('translate_key')`
         #        `strings._('translate_key', True)`
-        m = re.search(r'strings\._\((.*?)\)', line)
+        m = re.findall(r'strings\._\((.*?)\)', line)
         if m:
-            arg = m.group(1)
-            key = arg.split(',')[0].strip('''"' ''')
-            translate_keys.add(key)
+            for match in m:
+                key = match.split(',')[0].strip('''"' ''')
+                translate_keys.add(key)
 
     if args.show_all_keys:
         for k in sorted(translate_keys):

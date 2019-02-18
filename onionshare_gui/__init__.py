@@ -2,7 +2,7 @@
 """
 OnionShare | https://onionshare.org/
 
-Copyright (C) 2018 Micah Lee <micah@micahflee.com>
+Copyright (C) 2014-2018 Micah Lee <micah@micahflee.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,14 +18,18 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 from __future__ import division
-import os, sys, platform, argparse
-from .alert import Alert
+import os
+import sys
+import platform
+import argparse
+import signal
+from .widgets import Alert
 from PyQt5 import QtCore, QtWidgets
 
-from onionshare import strings, common, web
+from onionshare import strings
+from onionshare.common import Common
 from onionshare.onion import Onion
 from onionshare.onionshare import OnionShare
-from onionshare.settings import Settings
 
 from .onionshare_gui import OnionShareGui
 
@@ -34,9 +38,8 @@ class Application(QtWidgets.QApplication):
     This is Qt's QApplication class. It has been overridden to support threads
     and the quick keyboard shortcut.
     """
-    def __init__(self):
-        system = common.get_platform()
-        if system == 'Linux' or system == 'BSD':
+    def __init__(self, common):
+        if common.platform == 'Linux' or common.platform == 'BSD':
             self.setAttribute(QtCore.Qt.AA_X11InitThreads, True)
         QtWidgets.QApplication.__init__(self, sys.argv)
         self.installEventFilter(self)
@@ -53,18 +56,31 @@ def main():
     """
     The main() function implements all of the logic that the GUI version of onionshare uses.
     """
+    common = Common()
+    common.define_css()
+
+    # Load the default settings and strings early, for the sake of being able to parse options.
+    # These won't be in the user's chosen locale necessarily, but we need to parse them
+    # early in order to even display the option to pass alternate settings (which might
+    # contain a preferred locale).
+    # If an alternate --config is passed, we'll reload strings later.
+    common.load_settings()
     strings.load_strings(common)
-    print(strings._('version_string').format(common.get_version()))
+
+    # Display OnionShare banner
+    print(strings._('version_string').format(common.version))
+
+    # Allow Ctrl-C to smoothly quit the program instead of throwing an exception
+    # https://stackoverflow.com/questions/42814093/how-to-handle-ctrlc-in-python-app-with-pyqt
+    signal.signal(signal.SIGINT, signal.SIG_DFL)
 
     # Start the Qt app
     global qtapp
-    qtapp = Application()
+    qtapp = Application(common)
 
     # Parse arguments
     parser = argparse.ArgumentParser(formatter_class=lambda prog: argparse.HelpFormatter(prog,max_help_position=48))
     parser.add_argument('--local-only', action='store_true', dest='local_only', help=strings._("help_local_only"))
-    parser.add_argument('--stay-open', action='store_true', dest='stay_open', help=strings._("help_stay_open"))
-    parser.add_argument('--shutdown-timeout', metavar='<int>', dest='shutdown_timeout', default=0, help=strings._("help_shutdown_timeout"))
     parser.add_argument('--debug', action='store_true', dest='debug', help=strings._("help_debug"))
     parser.add_argument('--filenames', metavar='filenames', nargs='+', help=strings._('help_filename'))
     parser.add_argument('--config', metavar='config', default=False, help=strings._('help_config'))
@@ -76,39 +92,38 @@ def main():
             filenames[i] = os.path.abspath(filenames[i])
 
     config = args.config
+    if config:
+        # Re-load the strings, in case the provided config has changed locale
+        common.load_settings(config)
+        strings.load_strings(common)
 
     local_only = bool(args.local_only)
-    stay_open = bool(args.stay_open)
-    shutdown_timeout = int(args.shutdown_timeout)
     debug = bool(args.debug)
 
     # Debug mode?
-    if debug:
-        common.set_debug(debug)
-        web.debug_mode()
+    common.debug = debug
 
     # Validation
     if filenames:
         valid = True
         for filename in filenames:
             if not os.path.isfile(filename) and not os.path.isdir(filename):
-                Alert(strings._("not_a_file", True).format(filename))
+                Alert(common, strings._("not_a_file").format(filename))
                 valid = False
             if not os.access(filename, os.R_OK):
-                Alert(strings._("not_a_readable_file", True).format(filename))
+                Alert(common, strings._("not_a_readable_file").format(filename))
                 valid = False
         if not valid:
             sys.exit()
 
     # Start the Onion
-    onion = Onion()
+    onion = Onion(common)
 
     # Start the OnionShare app
-    web.set_stay_open(stay_open)
-    app = OnionShare(onion, local_only, stay_open, shutdown_timeout)
+    app = OnionShare(common, onion, local_only)
 
     # Launch the gui
-    gui = OnionShareGui(onion, qtapp, app, filenames, config)
+    gui = OnionShareGui(common, onion, qtapp, app, filenames, config, local_only)
 
     # Clean up when app quits
     def shutdown():

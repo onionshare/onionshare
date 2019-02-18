@@ -2,7 +2,7 @@
 """
 OnionShare | https://onionshare.org/
 
-Copyright (C) 2018 Micah Lee <micah@micahflee.com>
+Copyright (C) 2014-2018 Micah Lee <micah@micahflee.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -21,20 +21,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import os, shutil
 
 from . import common, strings
+from .onion import TorTooOld, TorErrorProtocolError
+from .common import ShutdownTimer
 
 class OnionShare(object):
     """
     OnionShare is the main application class. Pass in options and run
     start_onion_service and it will do the magic.
     """
-    def __init__(self, onion, local_only=False, stay_open=False, shutdown_timeout=0):
-        common.log('OnionShare', '__init__')
+    def __init__(self, common, onion, local_only=False, shutdown_timeout=0):
+        self.common = common
+
+        self.common.log('OnionShare', '__init__')
 
         # The Onion object
         self.onion = onion
 
         self.hidserv_dir = None
         self.onion_host = None
+        self.port = None
         self.stealth = None
 
         # files and dirs to delete on shutdown
@@ -43,38 +48,41 @@ class OnionShare(object):
         # do not use tor -- for development
         self.local_only = local_only
 
-        # automatically close when download is finished
-        self.stay_open = stay_open
-
         # optionally shut down after N hours
         self.shutdown_timeout = shutdown_timeout
         # init timing thread
         self.shutdown_timer = None
 
     def set_stealth(self, stealth):
-        common.log('OnionShare', 'set_stealth', 'stealth={}'.format(stealth))
+        self.common.log('OnionShare', 'set_stealth', 'stealth={}'.format(stealth))
 
         self.stealth = stealth
         self.onion.stealth = stealth
+
+    def choose_port(self):
+        """
+        Choose a random port.
+        """
+        try:
+            self.port = self.common.get_available_port(17600, 17650)
+        except:
+            raise OSError(strings._('no_available_port'))
 
     def start_onion_service(self):
         """
         Start the onionshare onion service.
         """
-        common.log('OnionShare', 'start_onion_service')
+        self.common.log('OnionShare', 'start_onion_service')
 
-        # Choose a random port
-        try:
-            self.port = common.get_available_port(17600, 17650)
-        except:
-            raise OSError(strings._('no_available_port'))
+        if not self.port:
+            self.choose_port()
+
+        if self.shutdown_timeout > 0:
+            self.shutdown_timer = ShutdownTimer(self.common, self.shutdown_timeout)
 
         if self.local_only:
             self.onion_host = '127.0.0.1:{0:d}'.format(self.port)
             return
-
-        if self.shutdown_timeout > 0:
-            self.shutdown_timer = common.close_after_seconds(self.shutdown_timeout)
 
         self.onion_host = self.onion.start_onion_service(self.port)
 
@@ -85,12 +93,16 @@ class OnionShare(object):
         """
         Shut everything down and clean up temporary files, etc.
         """
-        common.log('OnionShare', 'cleanup')
+        self.common.log('OnionShare', 'cleanup')
 
-        # cleanup files
-        for filename in self.cleanup_filenames:
-            if os.path.isfile(filename):
-                os.remove(filename)
-            elif os.path.isdir(filename):
-                shutil.rmtree(filename)
+        # Cleanup files
+        try:
+            for filename in self.cleanup_filenames:
+                if os.path.isfile(filename):
+                    os.remove(filename)
+                elif os.path.isdir(filename):
+                    shutil.rmtree(filename)
+        except:
+            # Don't crash if file is still in use
+            pass
         self.cleanup_filenames = []

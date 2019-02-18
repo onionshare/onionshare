@@ -1,0 +1,55 @@
+# Python CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-python/ for more details
+#
+version: 2
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test-3.5
+      - test-3.6
+      - test-3.7
+
+jobs:
+  test-3.5: &test-template
+    docker:
+      - image: circleci/python:3.5.6
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      - run:
+          name: install dependencies
+          command: |
+            sudo apt-get update
+            sudo apt-get install -y python3-pip python3-flask python3-stem python3-pyqt5 python3-crypto python3-socks python3-stdeb python3-all python-nautilus xvfb obfs4proxy
+            sudo pip3 install -r install/requirements.txt
+            sudo pip3 install -r install/requirements-tests.txt
+            sudo pip3 install pytest-cov flake8
+
+      # run tests!
+      - run:
+          name: run flake tests
+          command: |
+            # stop the build if there are Python syntax errors or undefined names
+            flake8 . --count --select=E901,E999,F821,F822,F823 --show-source --statistics
+            # exit-zero treats all errors as warnings.  The GitHub editor is 127 chars wide
+            flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+
+      - run:
+          name: run tests
+          command: |
+            xvfb-run pytest --rungui --cov=onionshare --cov=onionshare_gui --cov-report=term-missing -vvv tests/
+
+  test-3.6:
+    <<: *test-template
+    docker:
+      - image: circleci/python:3.6.6
+
+  test-3.7:
+    <<: *test-template
+    docker:
+      - image: circleci/python:3.7.1
