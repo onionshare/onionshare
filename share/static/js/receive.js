@@ -28,7 +28,6 @@ $(function(){
     ajax.upload.addEventListener('progress', function(event){
       // Update progress bar for this specific upload
       if(event.lengthComputable) {
-        console.log('upload progress', ''+event.loaded+' bytes / '+event.total+' bytes');
         $('progress', ajax.$upload_div).attr({
           value: event.loaded,
           max: event.total,
@@ -38,15 +37,12 @@ $(function(){
       // If it's finished sending all data to the first Tor node, remove cancel button
       // and update the status
       if(event.loaded == event.total) {
-        console.log('upload progress', 'complete');
         $('.cancel', ajax.$upload_div).remove();
         $('.upload-status', ajax.$upload_div).html('<img src="/static/img/ajax.gif" alt="" /> Waiting for data to finish traversing Tor network ...');
       }
     }, false);
 
     ajax.addEventListener('load', function(event){
-      console.log('upload finished', ajax.response);
-
       // Remove the upload div
       ajax.$upload_div.remove();
 
@@ -74,13 +70,11 @@ $(function(){
           }
         }
       } catch(e) {
-        console.log('invalid response');
         flash('error', 'Invalid response from server: '+data);
       }
     }, false);
 
     ajax.addEventListener('error', function(event){
-      console.log('error', event);
       flash('error', 'Error uploading: '+filenames.join(', '));
 
       // Remove the upload div
@@ -88,7 +82,6 @@ $(function(){
     }, false);
 
     ajax.addEventListener('abort', function(event){
-      console.log('abort', event);
       flash('error', 'Upload aborted: '+filenames.join(', '));
     }, false);
 
@@ -130,6 +123,5 @@ $(function(){
     // Send the request
     ajax.open('POST', window.location.pathname + '/upload-ajax', true);
     ajax.send(formData);
-    console.log('upload started');
   });
 });
