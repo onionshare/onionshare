@@ -1,1 +1,1 @@
-This folder contains the software licenses for 3rd-party binaries included with OnionShare.
+This folder contains 3rd-party licenses for software included with OnionShare.
