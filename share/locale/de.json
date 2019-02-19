@@ -212,5 +212,6 @@
     "gui_share_mode_timeout_waiting": "Warte auf Abschluss der Sendung",
     "gui_receive_mode_no_files": "Bisher keine Dateien empfangen",
     "gui_receive_mode_timeout_waiting": "Warte auf Abschluss des Empfangs",
-    "gui_all_modes_progress_eta": "{0:s}, ETA: {1:s}, %p%"
+    "gui_all_modes_progress_eta": "{0:s}, ETA: {1:s}, %p%",
+    "gui_all_modes_progress_complete": "%p%, {0:s} vergangen."
 }
