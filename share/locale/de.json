@@ -7,7 +7,7 @@
     "closing_automatically": "Gestoppt, da der Download erfolgreich beendet wurde",
     "large_filesize": "Warnung: Das Hochladen von großen Dateien kann Stunden dauern",
     "help_local_only": "Tor nicht verwenden (nur für Entwicklung)",
-    "help_stay_open": "Den OnionService nicht anhalten nachdem ein Download beendet wurde",
+    "help_stay_open": "Den Server weiterlaufen lassen, nachdem die Dateien verschickt wurden",
     "help_debug": "Schreibe Fehler von OnionShare nach stdout und Webfehler auf die Festplatte",
     "help_filename": "Liste der zu teilenden Dateien oder Ordner",
     "gui_drag_and_drop": "Dateien und Ordner hierher ziehen\num sie zu teilen",
@@ -211,5 +211,6 @@
     "gui_share_mode_no_files": "Bisher keine Dateien versendet",
     "gui_share_mode_timeout_waiting": "Warte auf Abschluss der Sendung",
     "gui_receive_mode_no_files": "Bisher keine Dateien empfangen",
-    "gui_receive_mode_timeout_waiting": "Warte auf Abschluss des Empfangs"
+    "gui_receive_mode_timeout_waiting": "Warte auf Abschluss des Empfangs",
+    "gui_all_modes_progress_eta": "{0:s}, ETA: {1:s}, %p%"
 }
