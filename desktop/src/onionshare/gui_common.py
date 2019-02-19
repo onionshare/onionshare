@@ -128,7 +128,12 @@ class GuiCommon:
                 """,
             "server_status_url_buttons": """
                 QPushButton {
-                    color: #3f7fcf;
+                    color: #ffffff;
+                    background-color: #4e064f;
+                    padding: 10px;
+                    border: 0;
+                    border-radius: 5px;
+                    text-decoration: none;
                 }
                 """,
             "server_status_button_stopped": """
