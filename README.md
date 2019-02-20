@@ -12,6 +12,12 @@ To learn how OnionShare works, what its security properties are, and how to use 
 
 You can download OnionShare for Windows and macOS from the [OnionShare website](https://onionshare.org).
 
+For MacOS you can also use HomeBrew
+
+```
+brew cask install onionshare
+```
+
 For Ubuntu-like Linux distributions, you could use this PPA to get the latest version:
 
 ```
