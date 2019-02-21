@@ -14,7 +14,7 @@ Install the needed dependencies:
 For Debian-like distros:
 
 ```
-apt install -y python3-flask python3-stem python3-pyqt5 python3-crypto python3-socks python3-distutils python-nautilus tor obfs4proxy python3-pytest build-essential fakeroot python3-all python3-stdeb dh-python
+apt install -y python3-flask python3-stem python3-pyqt5 python3-crypto python3-socks python-nautilus tor obfs4proxy python3-pytest build-essential fakeroot python3-all python3-stdeb dh-python
 ```
 
 For Fedora-like distros:
