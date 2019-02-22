@@ -74,18 +74,6 @@ class GuiReceiveTest(GuiBaseTest):
         self.assertEqual(mode.history.completed_count, before_completed_count)
         self.assertEqual(len(mode.history.item_list.items), before_number_of_history_items)
 
-    def run_receive_mode_sender_closed_tests(self, public_mode):
-        '''Test that the share can be stopped by the sender in receive mode'''
-        if not public_mode:
-            path = 'http://127.0.0.1:{}/{}/close'.format(self.gui.app.port, self.gui.receive_mode.web.slug)
-        else:
-            path = 'http://127.0.0.1:{}/close'.format(self.gui.app.port)
-        response = requests.post(path)
-        self.server_is_stopped(self.gui.receive_mode, False)
-        self.web_server_is_stopped()
-        self.server_status_indicator_says_closed(self.gui.receive_mode, False)
-
-
     # 'Grouped' tests follow from here
 
     def run_all_receive_mode_setup_tests(self, public_mode):
