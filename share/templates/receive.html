@@ -18,11 +18,6 @@
       <p class="upload-header">Send Files</p>
       <p class="upload-description">Select the files you want to send, then click "Send Files"...</p>
 
-      <form id="send" method="post" enctype="multipart/form-data" action="{{ upload_action }}">
-         <p><input type="file" id="file-select" name="file[]" multiple /></p>
-         <p><button type="submit" id="send-button" class="button">Send Files</button></p>
-      </form>
-
       <div id="uploads"></div>
 
       <div>
@@ -50,6 +45,11 @@
           <a target="_blank" href="/noscript-xss-instructions">turn off your Tor Browser's NoScript XSS setting</a>.</p>
       </div>
       <script src="/static/js/receive-noscript.js"></script>
+
+      <form id="send" method="post" enctype="multipart/form-data" action="{{ upload_action }}">
+         <p><input type="file" id="file-select" name="file[]" multiple /></p>
+         <p><button type="submit" id="send-button" class="button">Send Files</button></p>
+      </form>
 
     </div>
     <script src="/static/js/jquery-3.3.1.min.js"></script>
