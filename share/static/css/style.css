@@ -224,17 +224,21 @@ li.info {
 }
 
 div#noscript {
-  border: 1px solid #e55454;
   text-align: center;
-  color: #e55454;
+  color: #d709df;
   padding: 1em;
   line-height: 150%;
-  max-width: 500px;
+  max-width: 700px;
   margin: 0 auto;
 }
 
 div#noscript a, div#noscript a:visited {
-  color: #e27f7f;
+  color: #d709df;
+}
+
+div#noscript svg {
+  fill: #d709df;
+  max-width: 30px;
 }
 
 .disable-noscript-xss-wrapper {

@@ -13,6 +13,20 @@
     </header>
 
     <div class="upload-wrapper">
+      <!--
+      We are not using a <noscript> tag because it only works when the security slider is set to
+      Safest, not Safer: https://trac.torproject.org/projects/tor/ticket/29506
+      -->
+      <div id="noscript">
+        <p>
+          <?xml version="1.0" encoding="UTF-8"?> <svg style="fill:#d709df;" viewBox="0 0 325 213" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"> <!-- Generator: Sketch 52.3 (67297) - http://www.bohemiancoding.com/sketch --> <title>Fill 1</title> <desc>Created with Sketch.</desc> <g id="Page-1" stroke="none" stroke-width="1" fill-rule="evenodd"> <path d="M62.864,111.653 L91.886,39.767 C93.839,34.888 99.374,32.518 104.249,34.473 C109.119,36.424 111.496,41.965 109.541,46.843 L93.83,86.5 C93.83,86.5 92.708,89.255 95.364,90.32 C98.076,91.407 99.109,88.616 99.109,88.616 L122.001,31.502 C123.955,26.627 129.381,24.41 134.254,26.363 C139.132,28.319 141.088,33.494 139.134,38.369 L116.242,95.481 C116.242,95.481 115.421,98.392 118.044,99.443 C120.641,100.484 121.957,97.771 121.957,97.771 L148.665,31.141 C150.618,26.268 155.775,24.039 160.65,25.993 C165.526,27.947 167.745,33.133 165.792,38.006 L139.085,104.636 C139.085,104.636 138.148,107.362 140.955,108.487 C143.714,109.592 144.798,106.926 144.798,106.926 L164.638,57.429 C166.592,52.553 171.634,51.027 176.507,52.98 C181.385,54.935 183.728,59.422 181.774,64.297 L152.778,136.637 C152.778,136.637 151.966,140.046 158.705,136.582 C175.983,127.715 183.235,127.482 183.235,127.482 C183.235,127.482 196.66,126.483 197.652,138.4 C198.368,147.042 194.399,145.9 184.966,152.378 C176.619,158.117 151.891,172.097 151.891,172.097 C151.891,172.097 121.294,191.835 94.92,181.263 C94.92,181.263 42.378,162.76 62.864,111.653 Z M270.905,152.632 L270.905,28.8 C270.905,12.96 257.946,0 242.106,0 L28.8,0 C12.96,0 0,12.96 0,28.8 L0,182.478 C0,198.318 12.96,211.278 28.8,211.278 L231.808,211.278 L242.106,211.278 L325.04,212.782 L270.905,152.632 Z" id="Fill-1" fill="#d709df"></path> </g> </svg>
+          <strong>Warning:</strong> Due to a bug in Tor Browser and Firefox, uploads
+          sometimes never finish. To upload reliably, either set your Tor Browser
+          <a rel="noreferrer" target="_blank" href="https://tb-manual.torproject.org/en-US/security-slider/">security slider</a>
+          to Standard or
+          <a target="_blank" href="/noscript-xss-instructions">turn off your Tor Browser's NoScript XSS setting</a>.</p>
+      </div>
+
       <p><img class="logo" src="/static/img/logo_large.png" title="OnionShare"></p>
 
       <p class="upload-header">Send Files</p>
@@ -32,26 +46,13 @@
         </ul>
       </div>
 
-      <!--
-      We are not using a <noscript> tag because it only works when the security slider is set to
-      Safest, not Safer: https://trac.torproject.org/projects/tor/ticket/29506
-      -->
-      <div id="noscript">
-        <p>
-          <strong>Warning:</strong> Due to a bug in Tor Browser and Firefox, uploads
-          sometimes never finish. To upload reliably, either set your Tor Browser
-          <a rel="noreferrer" target="_blank" href="https://tb-manual.torproject.org/en-US/security-slider/">security slider</a>
-          to Standard or
-          <a target="_blank" href="/noscript-xss-instructions">turn off your Tor Browser's NoScript XSS setting</a>.</p>
-      </div>
-      <script src="/static/js/receive-noscript.js"></script>
-
       <form id="send" method="post" enctype="multipart/form-data" action="{{ upload_action }}">
          <p><input type="file" id="file-select" name="file[]" multiple /></p>
          <p><button type="submit" id="send-button" class="button">Send Files</button></p>
       </form>
 
     </div>
+    <script src="/static/js/receive-noscript.js"></script>
     <script src="/static/js/jquery-3.3.1.min.js"></script>
     <script src="/static/js/receive.js"></script>
   </body>
