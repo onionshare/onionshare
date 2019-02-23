@@ -2,8 +2,8 @@
 <html>
  <head>
     <title>OnionShare</title>
-    <link href="/static/img/favicon.ico" rel="icon" type="image/x-icon" />
-    <link href="/static/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="/static/img/favicon.ico" rel="icon" type="image/x-icon">
+    <link rel="stylesheet" rel="subresource" type="text/css" href="/static/css/style.css" media="none" onload="if(media!='all')media='all'">
   </head>
   <body>
 
@@ -49,10 +49,10 @@
           to Standard or
           <a target="_blank" href="/noscript-xss-instructions">turn off your Tor Browser's NoScript XSS setting</a>.</p>
       </div>
-      <script src="/static/js/receive-noscript.js"></script>
+      <script async src="/static/js/receive-noscript.js" charset="utf-8"></script>
 
     </div>
-    <script src="/static/js/jquery-3.3.1.min.js"></script>
-    <script src="/static/js/receive.js"></script>
+    <script src="/static/js/jquery-3.3.1.min.js" charset="utf-8"></script>
+    <script async src="/static/js/receive.js" charset="utf-8"></script>
   </body>
 </html>
