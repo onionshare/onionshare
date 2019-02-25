@@ -14,9 +14,9 @@
         <ul>
           <li>Total size: <strong>{{ filesize_human }}</strong> {% if is_zipped %} (compressed){% endif %}</li>
           {% if slug %}
-          <li><a class="button" href='/{{ slug }}/download'>Download Files</a></li>
+          <li><a class="button download" href='/{{ slug }}/download'>Download Files</a></li>
           {% else %}
-          <li><a class="button" href='/download'>Download Files</a></li>
+          <li><a class="button download" href='/download'>Download Files</a></li>
           {% endif %}
         </ul>
       </div>
