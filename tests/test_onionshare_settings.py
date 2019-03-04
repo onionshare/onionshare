@@ -52,6 +52,7 @@ class TestSettings:
             'auth_password': '',
             'close_after_first_download': True,
             'shutdown_timeout': False,
+            'startup_timer': False,
             'use_stealth': False,
             'use_autoupdate': True,
             'autoupdate_timestamp': None,

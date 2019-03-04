@@ -228,7 +228,10 @@ class OnionShareGui(QtWidgets.QMainWindow):
                 self.server_status_label.setText(strings._('gui_status_indicator_share_stopped'))
             elif self.share_mode.server_status.status == ServerStatus.STATUS_WORKING:
                 self.server_status_image_label.setPixmap(QtGui.QPixmap.fromImage(self.server_status_image_working))
-                self.server_status_label.setText(strings._('gui_status_indicator_share_working'))
+                if self.share_mode.server_status.scheduled_start:
+                    self.server_status_label.setText(strings._('gui_status_indicator_share_scheduled'))
+                else:
+                    self.server_status_label.setText(strings._('gui_status_indicator_share_working'))
             elif self.share_mode.server_status.status == ServerStatus.STATUS_STARTED:
                 self.server_status_image_label.setPixmap(QtGui.QPixmap.fromImage(self.server_status_image_started))
                 self.server_status_label.setText(strings._('gui_status_indicator_share_started'))
@@ -239,7 +242,10 @@ class OnionShareGui(QtWidgets.QMainWindow):
                 self.server_status_label.setText(strings._('gui_status_indicator_receive_stopped'))
             elif self.receive_mode.server_status.status == ServerStatus.STATUS_WORKING:
                 self.server_status_image_label.setPixmap(QtGui.QPixmap.fromImage(self.server_status_image_working))
-                self.server_status_label.setText(strings._('gui_status_indicator_receive_working'))
+                if self.receive_mode.server_status.scheduled_start:
+                    self.server_status_label.setText(strings._('gui_status_indicator_receive_scheduled'))
+                else:
+                    self.server_status_label.setText(strings._('gui_status_indicator_receive_working'))
             elif self.receive_mode.server_status.status == ServerStatus.STATUS_STARTED:
                 self.server_status_image_label.setPixmap(QtGui.QPixmap.fromImage(self.server_status_image_started))
                 self.server_status_label.setText(strings._('gui_status_indicator_receive_started'))
@@ -313,6 +319,10 @@ class OnionShareGui(QtWidgets.QMainWindow):
             if not self.common.settings.get('shutdown_timeout'):
                 self.share_mode.server_status.shutdown_timeout_container.hide()
                 self.receive_mode.server_status.shutdown_timeout_container.hide()
+            # If we switched off the startup timer setting, ensure the widget is hidden.
+            if not self.common.settings.get('startup_timer'):
+                self.share_mode.server_status.startup_timer_container.hide()
+                self.receive_mode.server_status.startup_timer_container.hide()
 
         d = SettingsDialog(self.common, self.onion, self.qtapp, self.config, self.local_only)
         d.settings_saved.connect(reload_settings)

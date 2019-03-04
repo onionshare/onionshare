@@ -133,6 +133,7 @@ class Onion(object):
 
         self.stealth = False
         self.service_id = None
+        self.scheduled_key = None
 
         # Is bundled tor supported?
         if (self.common.platform == 'Windows' or self.common.platform == 'Darwin') and getattr(sys, 'onionshare_dev_mode', False):
@@ -423,7 +424,7 @@ class Onion(object):
             return False
 
 
-    def start_onion_service(self, port):
+    def start_onion_service(self, port, await_publication, save_scheduled_key=False):
         """
         Start a onion service on port 80, pointing to the given port, and
         return the onion hostname.
@@ -455,6 +456,14 @@ class Onion(object):
                 # Assume it was a v3 key. Stem will throw an error if it's something illegible
                 key_type = "ED25519-V3"
 
+        elif self.scheduled_key:
+            key_content = self.scheduled_key
+            if self.is_v2_key(key_content):
+                key_type = "RSA1024"
+            else:
+                # Assume it was a v3 key. Stem will throw an error if it's something illegible
+                key_type = "ED25519-V3"
+
         else:
             key_type = "NEW"
             # Work out if we can support v3 onion services, which are preferred
@@ -474,7 +483,6 @@ class Onion(object):
         if key_type == "NEW":
             debug_message += ', key_content={}'.format(key_content)
         self.common.log('Onion', 'start_onion_service', '{}'.format(debug_message))
-        await_publication = True
         try:
             if basic_auth != None:
                 res = self.c.create_ephemeral_hidden_service({ 80: port }, await_publication=await_publication, basic_auth=basic_auth, key_type=key_type, key_content=key_content)
@@ -492,6 +500,12 @@ class Onion(object):
         if self.settings.get('save_private_key'):
             if not self.settings.get('private_key'):
                 self.settings.set('private_key', res.private_key)
+
+        # If we were scheduling a future share, register the private key for later re-use
+        if save_scheduled_key:
+            self.scheduled_key = res.private_key
+        else:
+            self.scheduled_key = None
 
         if self.stealth:
             # Similar to the PrivateKey, the Control port only returns the ClientAuth
