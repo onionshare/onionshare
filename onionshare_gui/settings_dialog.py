@@ -71,6 +71,23 @@ class SettingsDialog(QtWidgets.QDialog):
         self.public_mode_widget = QtWidgets.QWidget()
         self.public_mode_widget.setLayout(public_mode_layout)
 
+        # Whether or not to use a startup ('auto-start') timer
+        self.startup_timer_checkbox = QtWidgets.QCheckBox()
+        self.startup_timer_checkbox.setCheckState(QtCore.Qt.Checked)
+        self.startup_timer_checkbox.setText(strings._("gui_settings_startup_timer_checkbox"))
+        startup_timer_label = QtWidgets.QLabel(strings._("gui_settings_whats_this").format("https://github.com/micahflee/onionshare/wiki/Using-the-Auto-Stop-Timer"))
+        startup_timer_label.setStyleSheet(self.common.css['settings_whats_this'])
+        startup_timer_label.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
+        startup_timer_label.setOpenExternalLinks(True)
+        startup_timer_label.setMinimumSize(public_mode_label.sizeHint())
+        startup_timer_layout = QtWidgets.QHBoxLayout()
+        startup_timer_layout.addWidget(self.startup_timer_checkbox)
+        startup_timer_layout.addWidget(startup_timer_label)
+        startup_timer_layout.addStretch()
+        startup_timer_layout.setContentsMargins(0,0,0,0)
+        self.startup_timer_widget = QtWidgets.QWidget()
+        self.startup_timer_widget.setLayout(startup_timer_layout)
+
         # Whether or not to use a shutdown ('auto-stop') timer
         self.shutdown_timeout_checkbox = QtWidgets.QCheckBox()
         self.shutdown_timeout_checkbox.setCheckState(QtCore.Qt.Checked)
@@ -91,6 +108,7 @@ class SettingsDialog(QtWidgets.QDialog):
         # General settings layout
         general_group_layout = QtWidgets.QVBoxLayout()
         general_group_layout.addWidget(self.public_mode_widget)
+        general_group_layout.addWidget(self.startup_timer_widget)
         general_group_layout.addWidget(self.shutdown_timeout_widget)
         general_group = QtWidgets.QGroupBox(strings._("gui_settings_general_label"))
         general_group.setLayout(general_group_layout)
@@ -487,6 +505,12 @@ class SettingsDialog(QtWidgets.QDialog):
             self.close_after_first_download_checkbox.setCheckState(QtCore.Qt.Checked)
         else:
             self.close_after_first_download_checkbox.setCheckState(QtCore.Qt.Unchecked)
+
+        startup_timer = self.old_settings.get('startup_timer')
+        if startup_timer:
+            self.startup_timer_checkbox.setCheckState(QtCore.Qt.Checked)
+        else:
+            self.startup_timer_checkbox.setCheckState(QtCore.Qt.Unchecked)
 
         shutdown_timeout = self.old_settings.get('shutdown_timeout')
         if shutdown_timeout:
@@ -932,6 +956,7 @@ class SettingsDialog(QtWidgets.QDialog):
         settings.load() # To get the last update timestamp
 
         settings.set('close_after_first_download', self.close_after_first_download_checkbox.isChecked())
+        settings.set('startup_timer', self.startup_timer_checkbox.isChecked())
         settings.set('shutdown_timeout', self.shutdown_timeout_checkbox.isChecked())
 
         # Complicated logic here to force v2 onion mode on or off depending on other settings

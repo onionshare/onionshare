@@ -228,13 +228,11 @@ class Web(object):
             pass
         self.running = False
 
-    def start(self, port, stay_open=False, public_mode=False, persistent_slug=None):
+    def start(self, port, stay_open=False, public_mode=False, slug=None):
         """
         Start the flask web server.
         """
-        self.common.log('Web', 'start', 'port={}, stay_open={}, public_mode={}, persistent_slug={}'.format(port, stay_open, public_mode, persistent_slug))
-        if not public_mode:
-            self.generate_slug(persistent_slug)
+        self.common.log('Web', 'start', 'port={}, stay_open={}, public_mode={}, slug={}'.format(port, stay_open, public_mode, slug))
 
         self.stay_open = stay_open
 
@@ -264,7 +262,7 @@ class Web(object):
         self.stop_q.put(True)
 
         # Reset any slug that was in use
-        self.slug = ''
+        self.slug = None
 
         # To stop flask, load http://127.0.0.1:<port>/<shutdown_slug>/shutdown
         if self.running:

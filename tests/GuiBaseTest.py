@@ -172,6 +172,9 @@ class GuiBaseTest(object):
         '''Test that the Server Status indicator shows we are Starting'''
         self.assertEqual(mode.server_status_label.text(), strings._('gui_status_indicator_share_working'))
 
+    def server_status_indicator_says_scheduled(self, mode):
+        '''Test that the Server Status indicator shows we are Scheduled'''
+        self.assertEqual(mode.server_status_label.text(), strings._('gui_status_indicator_share_scheduled'))
 
     def server_is_started(self, mode, startup_time=2000):
         '''Test that the server has started'''
@@ -294,7 +297,6 @@ class GuiBaseTest(object):
         mode.server_status.shutdown_timeout.setDateTime(timer)
         self.assertTrue(mode.server_status.shutdown_timeout.dateTime(), timer)
 
-
     def timeout_widget_hidden(self, mode):
         '''Test that the timeout widget is hidden when share has started'''
         self.assertFalse(mode.server_status.shutdown_timeout_container.isVisible())
@@ -305,6 +307,23 @@ class GuiBaseTest(object):
         QtTest.QTest.qWait(wait)
         # We should have timed out now
         self.assertEqual(mode.server_status.status, 0)
+
+    # Startup timer tests
+    def set_startup_timer(self, mode, timer):
+        '''Test that the timer can be set'''
+        schedule = QtCore.QDateTime.currentDateTime().addSecs(timer)
+        mode.server_status.startup_timer.setDateTime(schedule)
+        self.assertTrue(mode.server_status.startup_timer.dateTime(), schedule)
+
+    def startup_timer_widget_hidden(self, mode):
+        '''Test that the startup timer widget is hidden when share has started'''
+        self.assertFalse(mode.server_status.startup_timer_container.isVisible())
+
+    def scheduled_service_started(self, mode, wait):
+        '''Test that the server has timed out after the timer ran out'''
+        QtTest.QTest.qWait(wait)
+        # We should have started now
+        self.assertEqual(mode.server_status.status, 2)
 
     # Hack to close an Alert dialog that would otherwise block tests
     def accept_dialog(self):

@@ -195,6 +195,15 @@ class GuiShareTest(GuiBaseTest):
         self.server_timed_out(self.gui.share_mode, 10000)
         self.web_server_is_stopped()
 
+    def run_all_share_mode_startup_timer_tests(self, public_mode):
+        """Auto-stop timer tests in share mode"""
+        self.run_all_share_mode_setup_tests()
+        self.set_startup_timer(self.gui.share_mode, 5)
+        self.server_working_on_start_button_pressed(self.gui.share_mode)
+        self.startup_timer_widget_hidden(self.gui.share_mode)
+        self.server_status_indicator_says_scheduled(self.gui.share_mode)
+        self.scheduled_service_started(self.gui.share_mode, 7000)
+        self.web_server_is_running()
 
     def run_all_share_mode_unreadable_file_tests(self):
         '''Attempt to share an unreadable file'''
