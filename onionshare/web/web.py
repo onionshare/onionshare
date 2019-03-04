@@ -89,7 +89,6 @@ class Web(object):
         ]
 
         self.q = queue.Queue()
-        self.slug = None
         self.error404_count = 0
 
         self.done = False
@@ -184,15 +183,6 @@ class Web(object):
             'data': data
         })
 
-    def generate_slug(self, persistent_slug=None):
-        self.common.log('Web', 'generate_slug', 'persistent_slug={}'.format(persistent_slug))
-        if persistent_slug != None and persistent_slug != '':
-            self.slug = persistent_slug
-            self.common.log('Web', 'generate_slug', 'persistent_slug sent, so slug is: "{}"'.format(self.slug))
-        else:
-            self.slug = self.common.build_slug()
-            self.common.log('Web', 'generate_slug', 'built random slug: "{}"'.format(self.slug))
-
     def debug_mode(self):
         """
         Turn on debugging mode, which will log flask errors to a debug file.
@@ -206,7 +196,7 @@ class Web(object):
         self.common.log('Web', 'check_slug_candidate: slug_candidate={}'.format(slug_candidate))
         if self.common.settings.get('public_mode'):
             abort(404)
-        if not hmac.compare_digest(self.slug, slug_candidate):
+        if not hmac.compare_digest(self.common.slug, slug_candidate):
             abort(404)
 
     def check_shutdown_slug_candidate(self, slug_candidate):
@@ -228,13 +218,11 @@ class Web(object):
             pass
         self.running = False
 
-    def start(self, port, stay_open=False, public_mode=False, persistent_slug=None):
+    def start(self, port, stay_open=False, public_mode=False, slug=''):
         """
         Start the flask web server.
         """
-        self.common.log('Web', 'start', 'port={}, stay_open={}, public_mode={}, persistent_slug={}'.format(port, stay_open, public_mode, persistent_slug))
-        if not public_mode:
-            self.generate_slug(persistent_slug)
+        self.common.log('Web', 'start', 'port={}, stay_open={}, public_mode={}, slug={}'.format(port, stay_open, public_mode, slug))
 
         self.stay_open = stay_open
 
@@ -264,7 +252,7 @@ class Web(object):
         self.stop_q.put(True)
 
         # Reset any slug that was in use
-        self.slug = ''
+        self.common.slug = ''
 
         # To stop flask, load http://127.0.0.1:<port>/<shutdown_slug>/shutdown
         if self.running:

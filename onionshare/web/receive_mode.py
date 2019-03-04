@@ -34,7 +34,7 @@ class ReceiveModeWeb(object):
             if self.common.settings.get('public_mode'):
                 upload_action = '/upload'
             else:
-                upload_action = '/{}/upload'.format(self.web.slug)
+                upload_action = '/{}/upload'.format(self.common.slug)
 
             r = make_response(render_template(
                 'receive.html',
@@ -271,7 +271,7 @@ class ReceiveModeRequest(Request):
                 if self.path == '/upload' or self.path == '/upload-ajax':
                     self.upload_request = True
             else:
-                if self.path == '/{}/upload'.format(self.web.slug) or self.path == '/{}/upload-ajax'.format(self.web.slug):
+                if self.path == '/{}/upload'.format(self.common.slug) or self.path == '/{}/upload-ajax'.format(self.web.slug):
                     self.upload_request = True
 
         if self.upload_request:

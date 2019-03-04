@@ -38,6 +38,7 @@ class Common(object):
     """
     def __init__(self, debug=False):
         self.debug = debug
+        self.slug = None
 
         # The platform OnionShare is running on
         self.platform = platform.system()
@@ -152,6 +153,12 @@ class Common(object):
 
         r = random.SystemRandom()
         return '-'.join(r.choice(wordlist) for _ in range(2))
+
+    def generate_slug(self, persistent_slug=None):
+        if persistent_slug != None and persistent_slug != '':
+            self.slug = persistent_slug
+        else:
+            self.slug = self.build_slug()
 
     def define_css(self):
         """
