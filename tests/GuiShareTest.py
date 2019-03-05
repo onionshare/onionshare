@@ -202,6 +202,7 @@ class GuiShareTest(GuiBaseTest):
         self.server_working_on_start_button_pressed(self.gui.share_mode)
         self.startup_timer_widget_hidden(self.gui.share_mode)
         self.server_status_indicator_says_scheduled(self.gui.share_mode)
+        self.web_server_is_stopped()
         self.scheduled_service_started(self.gui.share_mode, 7000)
         self.web_server_is_running()
 
