@@ -312,11 +312,16 @@ class ServerStatus(QtWidgets.QWidget):
         Toggle starting or stopping the server.
         """
         if self.status == self.STATUS_STOPPED:
+            can_start = True
             if self.common.settings.get('startup_timer'):
                 if self.local_only:
                     self.scheduled_start = self.startup_timer.dateTime().toPyDateTime()
                 else:
                     self.scheduled_start = self.startup_timer.dateTime().toPyDateTime().replace(second=0, microsecond=0)
+                # If the timer has actually passed already before the user hit Start, refuse to start the server.
+                if QtCore.QDateTime.currentDateTime().toPyDateTime() > self.scheduled_start:
+                    can_start = False
+                    Alert(self.common, strings._('gui_server_startup_timer_expired'), QtWidgets.QMessageBox.Warning)
             if self.common.settings.get('shutdown_timeout'):
                 if self.local_only:
                     self.timeout = self.shutdown_timeout.dateTime().toPyDateTime()
@@ -325,10 +330,9 @@ class ServerStatus(QtWidgets.QWidget):
                     self.timeout = self.shutdown_timeout.dateTime().toPyDateTime().replace(second=0, microsecond=0)
                 # If the timeout has actually passed already before the user hit Start, refuse to start the server.
                 if QtCore.QDateTime.currentDateTime().toPyDateTime() > self.timeout:
+                    can_start = False
                     Alert(self.common, strings._('gui_server_timeout_expired'), QtWidgets.QMessageBox.Warning)
-                else:
-                    self.start_server()
-            else:
+            if can_start:
                 self.start_server()
         elif self.status == self.STATUS_STARTED:
             self.stop_server()

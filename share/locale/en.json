@@ -125,6 +125,7 @@
     "gui_tor_connection_lost": "Disconnected from Tor.",
     "gui_server_started_after_timeout": "The auto-stop timer ran out before the server started.\nPlease make a new share.",
     "gui_server_timeout_expired": "The auto-stop timer already ran out.\nPlease update it to start sharing.",
+    "gui_server_startup_timer_expired": "The scheduled time has already passed.\nPlease update it to start sharing.",
     "share_via_onionshare": "OnionShare it",
     "gui_connect_to_tor_for_onion_settings": "Connect to Tor to see onion service settings",
     "gui_use_legacy_v2_onions_checkbox": "Use legacy addresses",
