@@ -9,7 +9,7 @@
     "not_a_file": "{0:s} bukan berkas yang sah.",
     "not_a_readable_file": "{0:s} bukan berkas yang bisa dibaca.",
     "no_available_port": "Tidak dapat menemukan porta yang tersedia untuk memulai layanan onion",
-    "other_page_loaded": "",
+    "other_page_loaded": "Alamat dimuat",
     "close_on_timeout": "",
     "closing_automatically": "Terhenti karena transfer telah tuntas",
     "timeout_download_still_running": "",
