@@ -216,5 +216,6 @@
     "gui_receive_mode_no_files": "Ingen filer mottatt enda",
     "gui_receive_mode_timeout_waiting": "Venter på fullføring av mottak",
     "gui_all_modes_transfer_canceled_range": "Avbrutt {} - {}",
-    "gui_all_modes_transfer_canceled": "Avbrutt {}"
+    "gui_all_modes_transfer_canceled": "Avbrutt {}",
+    "gui_settings_onion_label": "Løk-innstillinger"
 }
