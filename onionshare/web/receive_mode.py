@@ -297,6 +297,7 @@ class ReceiveModeRequest(Request):
                         new_receive_mode_dir = '{}-{}'.format(self.receive_mode_dir, i)
                         try:
                             os.makedirs(new_receive_mode_dir, 0o700, exist_ok=False)
+                            self.receive_mode_dir = new_receive_mode_dir
                             break
                         except OSError:
                             pass
