@@ -140,19 +140,6 @@ class TorGuiBaseTest(GuiBaseTest):
         else:
             self.assertEqual(clipboard.text(), 'http://{}/{}'.format(self.gui.app.onion_host, mode.server_status.web.slug))
 
-    def cancel_the_share(self, mode):
-        '''Test that we can cancel this share before it's started up '''
-        self.server_working_on_start_button_pressed(self.gui.share_mode)
-        self.server_status_indicator_says_starting(self.gui.share_mode)
-        self.add_delete_buttons_hidden()
-        self.settings_button_is_hidden()
-        QtTest.QTest.mousePress(mode.server_status.server_button, QtCore.Qt.LeftButton)
-        QtTest.QTest.qWait(1000)
-        QtTest.QTest.mouseRelease(mode.server_status.server_button, QtCore.Qt.LeftButton)
-        self.assertEqual(mode.server_status.status, 0)
-        self.server_is_stopped(self.gui.share_mode, False)
-        self.web_server_is_stopped()
-
 
     # Stealth tests
     def copy_have_hidserv_auth_button(self, mode):

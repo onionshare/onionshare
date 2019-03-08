@@ -115,9 +115,9 @@ class StartupTimer(QtCore.QThread):
                 now = QtCore.QDateTime.currentDateTime()
                 scheduled_start = now.secsTo(self.mode.server_status.scheduled_start)
             # Timer has now finished
-            self.mode.server_status.server_button.setText(strings._('gui_please_wait'))
-            self.mode.server_status_label.setText(strings._('gui_status_indicator_share_working'))
             if self.canceled == False:
+                self.mode.server_status.server_button.setText(strings._('gui_please_wait'))
+                self.mode.server_status_label.setText(strings._('gui_status_indicator_share_working'))
                 self.success.emit()
         except ValueError as e:
             self.error.emit(e.args[0])

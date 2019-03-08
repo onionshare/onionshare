@@ -2,22 +2,21 @@
 import pytest
 import unittest
 
-from .TorGuiShareTest import TorGuiShareTest
+from .GuiShareTest import GuiShareTest
 
-class ShareModeCancelTest(unittest.TestCase, TorGuiShareTest):
+class LocalShareModeCancelTest(unittest.TestCase, GuiShareTest):
     @classmethod
     def setUpClass(cls):
         test_settings = {
            "startup_timer": True,
         }
-        cls.gui = TorGuiShareTest.set_up(test_settings)
+        cls.gui = GuiShareTest.set_up(test_settings)
 
     @classmethod
     def tearDownClass(cls):
-        TorGuiShareTest.tear_down()
+        GuiShareTest.tear_down()
 
     @pytest.mark.gui
-    @pytest.mark.tor
     def test_gui(self):
         self.run_all_common_setup_tests()
         self.run_all_share_mode_setup_tests()
