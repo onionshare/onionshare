@@ -5,7 +5,7 @@ from PyQt5 import QtCore, QtTest
 from .GuiBaseTest import GuiBaseTest
 
 class GuiReceiveTest(GuiBaseTest):
-    def upload_file(self, public_mode, file_to_upload, expected_basename):
+    def upload_file(self, public_mode, file_to_upload, expected_basename, identical_files_at_once=False):
         '''Test that we can upload the file'''
         files = {'file[]': open(file_to_upload, 'rb')}
         if not public_mode:
@@ -13,6 +13,9 @@ class GuiReceiveTest(GuiBaseTest):
         else:
             path = 'http://127.0.0.1:{}/upload'.format(self.gui.app.port)
         response = requests.post(path, files=files)
+        if identical_files_at_once:
+            # Send a duplicate upload to test for collisions
+            response = requests.post(path, files=files)
         QtTest.QTest.qWait(2000)
 
         # Make sure the file is within the last 10 seconds worth of filenames
@@ -20,7 +23,10 @@ class GuiReceiveTest(GuiBaseTest):
         now = datetime.now()
         for i in range(10):
             date_dir = now.strftime("%Y-%m-%d")
-            time_dir = now.strftime("%H.%M.%S")
+            if identical_files_at_once:
+                time_dir = now.strftime("%H.%M.%S-1")
+            else:
+                time_dir = now.strftime("%H.%M.%S")
             receive_mode_dir = os.path.join(self.gui.common.settings.get('data_dir'), date_dir, time_dir)
             expected_filename = os.path.join(receive_mode_dir, expected_basename)
             if os.path.exists(expected_filename):
@@ -119,6 +125,9 @@ class GuiReceiveTest(GuiBaseTest):
         self.counter_incremented(self.gui.receive_mode, 3)
         self.upload_file(public_mode, '/tmp/testdir/test', 'test')
         self.counter_incremented(self.gui.receive_mode, 4)
+        # Test uploading the same file twice at the same time, and make sure no collisions
+        self.upload_file(public_mode, '/tmp/test.txt', 'test.txt', True)
+        self.counter_incremented(self.gui.receive_mode, 6)
         self.uploading_zero_files_shouldnt_change_ui(self.gui.receive_mode, public_mode)
         self.history_indicator(self.gui.receive_mode, public_mode)
         self.server_is_stopped(self.gui.receive_mode, False)
