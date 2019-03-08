@@ -325,6 +325,20 @@ class GuiBaseTest(object):
         # We should have started now
         self.assertEqual(mode.server_status.status, 2)
 
+    def cancel_the_share(self, mode):
+        '''Test that we can cancel a share before it's started up '''
+        self.server_working_on_start_button_pressed(mode)
+        self.server_status_indicator_says_scheduled(mode)
+        self.add_delete_buttons_hidden()
+        self.settings_button_is_hidden()
+        self.set_startup_timer(mode, 10)
+        QtTest.QTest.mousePress(mode.server_status.server_button, QtCore.Qt.LeftButton)
+        QtTest.QTest.qWait(2000)
+        QtTest.QTest.mouseRelease(mode.server_status.server_button, QtCore.Qt.LeftButton)
+        self.assertEqual(mode.server_status.status, 0)
+        self.server_is_stopped(mode, False)
+        self.web_server_is_stopped()
+
     # Hack to close an Alert dialog that would otherwise block tests
     def accept_dialog(self):
         window = self.gui.qtapp.activeWindow()
