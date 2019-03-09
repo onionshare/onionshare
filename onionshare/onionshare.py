@@ -41,7 +41,6 @@ class OnionShare(object):
         self.onion_host = None
         self.port = None
         self.stealth = None
-        self.scheduled_key = None
 
         # files and dirs to delete on shutdown
         self.cleanup_filenames = []
@@ -90,15 +89,11 @@ class OnionShare(object):
         if self.stealth:
             self.auth_string = self.onion.auth_string
 
-        if self.onion.scheduled_key:
-            self.scheduled_key = self.onion.scheduled_key
-
     def cleanup(self):
         """
         Shut everything down and clean up temporary files, etc.
         """
         self.common.log('OnionShare', 'cleanup')
-        self.scheduled_key = None
 
         # Cleanup files
         try:
