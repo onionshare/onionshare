@@ -209,7 +209,7 @@
     "gui_share_mode_timeout_waiting": "En attente de la fin de l’envoi",
     "gui_receive_mode_no_files": "Aucun fichier n’a encore été reçu",
     "gui_receive_mode_timeout_waiting": "En attente de la fin de la réception",
-    "gui_connect_to_tor_for_onion_settings": "Connectez-vous à Tor pour voir les paramètres du service onion",
+    "gui_connect_to_tor_for_onion_settings": "Se connecter à Tor pour voir les paramètres du service onion",
     "systray_share_completed_message": "L’envoi de fichiers est terminé",
     "gui_all_modes_transfer_canceled": "Annulé le {}",
     "gui_settings_onion_label": "Paramètres onion",
