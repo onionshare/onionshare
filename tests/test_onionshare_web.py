@@ -41,7 +41,7 @@ RANDOM_STR_REGEX = re.compile(r'^[a-z2-7]+$')
 
 def web_obj(common_obj, mode, num_files=0):
     """ Creates a Web object, in either share mode or receive mode, ready for testing """
-    common_obj.load_settings()
+    common_obj.settings = Settings(common_obj)
     strings.load_strings(common_obj)
     web = Web(common_obj, False, mode)
     web.generate_slug()
