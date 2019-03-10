@@ -1,6 +1,6 @@
 {
     "preparing_files": "Compressione dei file in corso.",
-    "give_this_url": "Dai questa URL al destinatario:",
+    "give_this_url": "Dai questo indirizzo al destinatario:",
     "ctrlc_to_stop": "Premi Ctrl+C per fermare il server",
     "not_a_file": "{0:s} non è un file valido.",
     "other_page_loaded": "URL caricato",
@@ -23,7 +23,7 @@
     "gui_please_wait": "Avviato... Cliccare per interrompere.",
     "zip_progress_bar_format": "Compressione in corso: %p%",
     "config_onion_service": "Preparando il servizio onion sulla porta {0:d}.",
-    "give_this_url_stealth": "Dai questa URL e la linea HidServAuth al destinatario:",
+    "give_this_url_stealth": "Dai questo indirizzo e la linea HidServAuth al destinatario:",
     "give_this_url_receive": "Dai questo indirizzo al mittente:",
     "give_this_url_receive_stealth": "Condividi questo indirizzo e la linea HideServAuth con il mittente:",
     "not_a_readable_file": "{0:s} non è un file leggibile.",
