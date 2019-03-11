@@ -5,6 +5,11 @@
     "give_this_url_stealth": "Give this address and HidServAuth line to the recipient:",
     "give_this_url_receive": "Give this address to the sender:",
     "give_this_url_receive_stealth": "Give this address and HidServAuth to the sender:",
+    "give_this_scheduled_url_share": "Give this address to your recipient, and tell them it won't be accessible until: {}",
+    "give_this_scheduled_url_receive": "Give this address to your sender, and tell them it won't be accessible until: {}",
+    "give_this_scheduled_url_share_stealth": "Give this address and HidServAuth line to your recipient, and tell them it won't be accessible until: {}",
+    "give_this_scheduled_url_receive_stealth": "Give this address and HidServAuth lineto your sender, and tell them it won't be accessible until: {}",
+    "server_started": "Server started",
     "ctrlc_to_stop":  "Press Ctrl+C to stop the server",
     "not_a_file": "{0:s} is not a valid file.",
     "not_a_readable_file": "{0:s} is not a readable file.",
@@ -126,6 +131,7 @@
     "gui_server_started_after_timeout": "The auto-stop timer ran out before the server started.\nPlease make a new share.",
     "gui_server_timeout_expired": "The auto-stop timer already ran out.\nPlease update it to start sharing.",
     "gui_server_startup_timer_expired": "The scheduled time has already passed.\nPlease update it to start sharing.",
+    "gui_timeout_cant_be_earlier_than_startup": "The auto-stop time can't be the same or earlier than the start-up time.\nPlease update it to start sharing.",
     "share_via_onionshare": "OnionShare it",
     "gui_connect_to_tor_for_onion_settings": "Connect to Tor to see onion service settings",
     "gui_use_legacy_v2_onions_checkbox": "Use legacy addresses",
@@ -188,6 +194,5 @@
     "gui_share_mode_timeout_waiting": "Waiting to finish sending",
     "gui_receive_mode_no_files": "No Files Received Yet",
     "gui_receive_mode_timeout_waiting": "Waiting to finish receiving",
-    "waiting_for_startup_timer": "Waiting for the timer to run down before starting...",
-    "scheduled_onion_service": "Your OnionShare URL will be: {}"
+    "waiting_for_scheduled_time": "Waiting for the scheduled time before starting..."
 }

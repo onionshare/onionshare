@@ -134,6 +134,7 @@ class Onion(object):
         self.stealth = False
         self.service_id = None
         self.scheduled_key = None
+        self.scheduled_auth_cookie = None
 
         # Is bundled tor supported?
         if (self.common.platform == 'Windows' or self.common.platform == 'Darwin') and getattr(sys, 'onionshare_dev_mode', False):
@@ -430,21 +431,25 @@ class Onion(object):
         return the onion hostname.
         """
         self.common.log('Onion', 'start_onion_service')
-
         self.auth_string = None
+
         if not self.supports_ephemeral:
             raise TorTooOld(strings._('error_ephemeral_not_supported'))
         if self.stealth and not self.supports_stealth:
             raise TorTooOld(strings._('error_stealth_not_supported'))
 
-        print(strings._("config_onion_service").format(int(port)))
+        if not save_scheduled_key:
+            print(strings._("config_onion_service").format(int(port)))
 
         if self.stealth:
             if self.settings.get('hidservauth_string'):
                 hidservauth_string = self.settings.get('hidservauth_string').split()[2]
                 basic_auth = {'onionshare':hidservauth_string}
             else:
-                basic_auth = {'onionshare':None}
+                if self.scheduled_auth_cookie:
+                    basic_auth = {'onionshare':self.scheduled_auth_cookie}
+                else:
+                    basic_auth = {'onionshare':None}
         else:
             basic_auth = None
 
@@ -521,8 +526,19 @@ class Onion(object):
                     self.auth_string = 'HidServAuth {} {}'.format(onion_host, auth_cookie)
                     self.settings.set('hidservauth_string', self.auth_string)
             else:
-                auth_cookie = list(res.client_auth.values())[0]
-                self.auth_string = 'HidServAuth {} {}'.format(onion_host, auth_cookie)
+                if not self.scheduled_auth_cookie:
+                    auth_cookie = list(res.client_auth.values())[0]
+                    self.auth_string = 'HidServAuth {} {}'.format(onion_host, auth_cookie)
+                    if save_scheduled_key:
+                        # Register the HidServAuth for the scheduled share
+                        self.scheduled_auth_cookie = auth_cookie
+                    else:
+                        self.scheduled_auth_cookie = None
+                else:
+                    self.auth_string = 'HidServAuth {} {}'.format(onion_host, self.scheduled_auth_cookie)
+                    if not save_scheduled_key:
+                        # We've used the scheduled share's HidServAuth. Reset it to None for future shares
+                        self.scheduled_auth_cookie = None
 
         if onion_host is not None:
             self.settings.save()

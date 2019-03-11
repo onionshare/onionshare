@@ -206,6 +206,15 @@ class GuiShareTest(GuiBaseTest):
         self.scheduled_service_started(self.gui.share_mode, 7000)
         self.web_server_is_running()
 
+    def run_all_share_mode_startup_shutdown_mismatch_tests(self, public_mode):
+        """Auto-stop timer tests in share mode"""
+        self.run_all_share_mode_setup_tests()
+        self.set_startup_timer(self.gui.share_mode, 15)
+        self.set_timeout(self.gui.share_mode, 5)
+        QtCore.QTimer.singleShot(4000, self.accept_dialog)
+        QtTest.QTest.mouseClick(self.gui.share_mode.server_status.server_button, QtCore.Qt.LeftButton)
+        self.server_is_stopped(self.gui.share_mode, False)
+
     def run_all_share_mode_unreadable_file_tests(self):
         '''Attempt to share an unreadable file'''
         self.run_all_share_mode_setup_tests()

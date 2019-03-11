@@ -19,6 +19,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 import os, sys, time, argparse, threading
+from datetime import datetime
+from datetime import timedelta
 
 from . import strings
 from .common import Common
@@ -137,9 +139,27 @@ def main(cwd=None):
                 url = 'http://{0:s}'.format(app.onion_host)
             else:
                 url = 'http://{0:s}/{1:s}'.format(app.onion_host, web.slug)
-            print(strings._("scheduled_onion_service").format(url))
-            app.onion.cleanup()
-            print(strings._("waiting_for_startup_timer"))
+            schedule = datetime.now() + timedelta(seconds=startup_timer)
+            if mode == 'receive':
+                print(strings._('receive_mode_data_dir').format(common.settings.get('data_dir')))
+                print('')
+                print(strings._('receive_mode_warning'))
+                print('')
+                if stealth:
+                    print(strings._("give_this_scheduled_url_receive_stealth").format(schedule.strftime("%b %d, %I:%M:%S%p")))
+                    print(app.auth_string)
+                else:
+                    print(strings._("give_this_scheduled_url_receive").format(schedule.strftime("%b %d, %I:%M:%S%p")))
+            else:
+                if stealth:
+                    print(strings._("give_this_scheduled_url_share_stealth").format(schedule.strftime("%b %d, %I:%M:%S%p")))
+                    print(app.auth_string)
+                else:
+                    print(strings._("give_this_scheduled_url_share").format(schedule.strftime("%b %d, %I:%M:%S%p")))
+            print(url)
+            print('')
+            print(strings._("waiting_for_scheduled_time"))
+            app.onion.cleanup(False)
             time.sleep(startup_timer)
             app.start_onion_service()
         else:
@@ -194,27 +214,30 @@ def main(cwd=None):
             url = 'http://{0:s}/{1:s}'.format(app.onion_host, web.slug)
 
         print('')
-        if mode == 'receive':
-            print(strings._('receive_mode_data_dir').format(common.settings.get('data_dir')))
-            print('')
-            print(strings._('receive_mode_warning'))
-            print('')
-
-            if stealth:
-                print(strings._("give_this_url_receive_stealth"))
-                print(url)
-                print(app.auth_string)
-            else:
-                print(strings._("give_this_url_receive"))
-                print(url)
+        if startup_timer > 0:
+            print(strings._('server_started'))
         else:
-            if stealth:
-                print(strings._("give_this_url_stealth"))
-                print(url)
-                print(app.auth_string)
+            if mode == 'receive':
+                print(strings._('receive_mode_data_dir').format(common.settings.get('data_dir')))
+                print('')
+                print(strings._('receive_mode_warning'))
+                print('')
+
+                if stealth:
+                    print(strings._("give_this_url_receive_stealth"))
+                    print(url)
+                    print(app.auth_string)
+                else:
+                    print(strings._("give_this_url_receive"))
+                    print(url)
             else:
-                print(strings._("give_this_url"))
-                print(url)
+                if stealth:
+                    print(strings._("give_this_url_stealth"))
+                    print(url)
+                    print(app.auth_string)
+                else:
+                    print(strings._("give_this_url"))
+                    print(url)
         print('')
         print(strings._("ctrlc_to_stop"))
 

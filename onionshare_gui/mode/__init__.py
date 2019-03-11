@@ -275,6 +275,7 @@ class Mode(QtWidgets.QWidget):
             self.common.log('Mode', 'cancel_server: quitting startup thread')
             self.startup_thread.canceled = True
             self.app.onion.scheduled_key = None
+            self.app.onion.scheduled_auth_cookie = None
             self.startup_thread.quit()
         if self.onion_thread:
             self.common.log('Mode', 'cancel_server: quitting onion thread')
