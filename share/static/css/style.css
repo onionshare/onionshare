@@ -228,16 +228,11 @@ div#noscript {
   color: #d709df;
   padding: 1em;
   line-height: 150%;
-  max-width: 700px;
   margin: 0 auto;
 }
 
 div#noscript a, div#noscript a:visited {
   color: #d709df;
-}
-
-div#noscript svg {
-  max-width: 30px;
 }
 
 .disable-noscript-xss-wrapper {
