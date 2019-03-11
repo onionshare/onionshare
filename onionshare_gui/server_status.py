@@ -205,6 +205,11 @@ class ServerStatus(QtWidgets.QWidget):
         self.url.show()
         self.copy_url_button.show()
 
+        if self.app.stealth:
+            self.copy_hidservauth_button.show()
+        else:
+            self.copy_hidservauth_button.hide()
+
     def update(self):
         """
         Update the GUI elements based on the current state.
@@ -244,11 +249,6 @@ class ServerStatus(QtWidgets.QWidget):
 
             if self.common.settings.get('shutdown_timeout'):
                 self.shutdown_timeout_container.hide()
-
-            if self.app.stealth:
-                self.copy_hidservauth_button.show()
-            else:
-                self.copy_hidservauth_button.hide()
         else:
             self.url_description.hide()
             self.url.hide()
@@ -292,7 +292,8 @@ class ServerStatus(QtWidgets.QWidget):
                 self.server_button.setStyleSheet(self.common.css['server_status_button_working'])
                 self.server_button.setEnabled(True)
                 if self.scheduled_start:
-                    self.server_button.setText(strings._('gui_waiting_to_start').format(self.scheduled_start))
+                    scheduled_friendly_time = self.startup_timer.dateTime().toString("MMM dd, H:mmAP")
+                    self.server_button.setText(strings._('gui_waiting_to_start').format(scheduled_friendly_time))
                     self.startup_timer_container.hide()
                 else:
                     self.server_button.setText(strings._('gui_please_wait'))
@@ -332,6 +333,10 @@ class ServerStatus(QtWidgets.QWidget):
                 if QtCore.QDateTime.currentDateTime().toPyDateTime() > self.timeout:
                     can_start = False
                     Alert(self.common, strings._('gui_server_timeout_expired'), QtWidgets.QMessageBox.Warning)
+                if self.common.settings.get('startup_timer'):
+                    if self.timeout <= self.scheduled_start:
+                        Alert(self.common, strings._('gui_timeout_cant_be_earlier_than_startup'), QtWidgets.QMessageBox.Warning)
+                        can_start = False
             if can_start:
                 self.start_server()
         elif self.status == self.STATUS_STARTED:
