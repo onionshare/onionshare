@@ -99,7 +99,11 @@ class Settings(object):
             'slug': '',
             'hidservauth_string': '',
             'data_dir': self.build_default_data_dir(),
-            'locale': None # this gets defined in fill_in_defaults()
+            'locale': None, # this gets defined in fill_in_defaults()
+            'debug_onion': '',
+            'debug_url': '',
+            'debug_slug': '',
+            'debug_hidservauth': ''
         }
         self._settings = {}
         self.fill_in_defaults()

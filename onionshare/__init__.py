@@ -18,7 +18,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-import os, sys, time, argparse, threading
+import argparse
+import json
+import os
+import sys
+import threading
+import time
 
 from . import strings
 from .common import Common
@@ -173,6 +178,15 @@ def main(cwd=None):
         else:
             url = 'http://{0:s}/{1:s}'.format(app.onion_host, web.slug)
 
+        # Save the onionshare details to json for programmatic use
+        if debug:
+            common.settings.set('debug_onion', app.onion_host)
+            common.settings.set('debug_url', url)
+            if not common.settings.get('public_mode'):
+                common.settings.set('debug_slug', web.slug)
+            if stealth:
+                common.settings.set('debug_hidservauth', app.auth_string)
+            common.settings.save()
         print('')
         if mode == 'receive':
             print(strings._('receive_mode_data_dir').format(common.settings.get('data_dir')))

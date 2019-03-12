@@ -65,7 +65,11 @@ class TestSettings:
             'slug': '',
             'hidservauth_string': '',
             'data_dir': os.path.expanduser('~/OnionShare'),
-            'public_mode': False
+            'public_mode': False,
+            'debug_onion': '',
+            'debug_url': '',
+            'debug_slug': '',
+            'debug_hidservauth': ''
         }
         for key in settings_obj._settings:
             # Skip locale, it will not always default to the same thing

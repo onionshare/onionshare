@@ -18,7 +18,7 @@
     "help_shutdown_timeout": "Stop sharing after a given amount of seconds",
     "help_stealth": "Use client authorization (advanced)",
     "help_receive": "Receive shares instead of sending them",
-    "help_debug": "Log OnionShare errors to stdout, and web errors to disk",
+    "help_debug": "Log OnionShare errors to stdout, onion details to the json settings file, and web errors to disk",
     "help_filename": "List of files or folders to share",
     "help_config": "Custom JSON config file location (optional)",
     "gui_drag_and_drop": "Drag and drop files and folders\nto start sharing",
