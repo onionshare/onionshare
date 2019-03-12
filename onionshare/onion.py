@@ -535,6 +535,10 @@ class Onion(object):
         except:
             pass
         self.service_id = None
+        debug_settings = [ 'debug_onion', 'debug_url', 'debug_slug', 'debug_hidservauth' ]
+        for key in debug_settings:
+            self.settings.set(key, '')
+        self.settings.save()
 
         if stop_tor:
             # Stop tor process
