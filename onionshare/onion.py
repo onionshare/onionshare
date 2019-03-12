@@ -283,7 +283,9 @@ class Onion(object):
                 if self.settings.get('tor_bridges_use_custom_bridges') or \
                    self.settings.get('tor_bridges_use_obfs4') or \
                    self.settings.get('tor_bridges_use_meek_lite_azure'):
-                    connect_timeout = 150
+                       # Only override timeout if a custom timeout has not been passed in
+                       if connect_timeout == 120:
+                           connect_timeout = 150
                 if time.time() - start_ts > connect_timeout:
                     print("")
                     try:
