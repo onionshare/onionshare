@@ -16,6 +16,7 @@
     "help_local_only": "Don't use Tor (only for development)",
     "help_stay_open": "Continue sharing after files have been sent",
     "help_shutdown_timeout": "Stop sharing after a given amount of seconds",
+    "help_connect_timeout": "Give up connecting to Tor after a given amount of seconds (default: 120)",
     "help_stealth": "Use client authorization (advanced)",
     "help_receive": "Receive shares instead of sending them",
     "help_debug": "Log OnionShare errors to stdout, and web errors to disk",

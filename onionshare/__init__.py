@@ -54,6 +54,7 @@ def main(cwd=None):
     parser.add_argument('--local-only', action='store_true', dest='local_only', help=strings._("help_local_only"))
     parser.add_argument('--stay-open', action='store_true', dest='stay_open', help=strings._("help_stay_open"))
     parser.add_argument('--shutdown-timeout', metavar='<int>', dest='shutdown_timeout', default=0, help=strings._("help_shutdown_timeout"))
+    parser.add_argument('--connect-timeout', metavar='<int>', dest='connect_timeout', default=120, help=strings._("help_connect_timeout"))
     parser.add_argument('--stealth', action='store_true', dest='stealth', help=strings._("help_stealth"))
     parser.add_argument('--receive', action='store_true', dest='receive', help=strings._("help_receive"))
     parser.add_argument('--config', metavar='config', default=False, help=strings._('help_config'))
@@ -69,6 +70,7 @@ def main(cwd=None):
     debug = bool(args.debug)
     stay_open = bool(args.stay_open)
     shutdown_timeout = int(args.shutdown_timeout)
+    connect_timeout = int(args.connect_timeout)
     stealth = bool(args.stealth)
     receive = bool(args.receive)
     config = args.config
@@ -111,7 +113,7 @@ def main(cwd=None):
     # Start the Onion object
     onion = Onion(common)
     try:
-        onion.connect(custom_settings=False, config=config)
+        onion.connect(custom_settings=False, config=config, connect_timeout=connect_timeout)
     except KeyboardInterrupt:
         print("")
         sys.exit()
