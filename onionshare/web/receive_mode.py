@@ -112,12 +112,14 @@ class ReceiveModeWeb(object):
                 else:
                     flash(msg, 'info')
             else:
+                msg = 'Sent '
                 for filename in filenames:
-                    msg = 'Sent {}'.format(filename)
-                    if ajax:
-                        info_flashes.append(msg)
-                    else:
-                        flash(msg, 'info')
+                    msg += '{}, '.format(filename)
+                msg = msg.rstrip(', ')
+                if ajax:
+                    info_flashes.append(msg)
+                else:
+                    flash(msg, 'info')
 
             if self.can_upload:
                 if ajax:
