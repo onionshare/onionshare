@@ -176,7 +176,7 @@ ul.flashes {
   margin: 0;
   padding: 0;
   width: 800px;
-  max-width: 90%;
+  max-width: 500px;
   margin: 0 auto;
 }
 
@@ -184,7 +184,7 @@ ul.flashes li {
   margin: 0 0 5px 0;
   padding: 5px;
   list-style: none;
-  text-align: left;
+  text-align: center;
 }
 
 li.error {
@@ -224,17 +224,15 @@ li.info {
 }
 
 div#noscript {
-  border: 1px solid #e55454;
-  text-align: left;
-  color: #e55454;
+  text-align: center;
+  color: #d709df;
   padding: 1em;
   line-height: 150%;
-  max-width: 900px;
-  margin: 100px 2em 0 2em;
+  margin: 0 auto;
 }
 
 div#noscript a, div#noscript a:visited {
-  color: #e27f7f;
+  color: #d709df;
 }
 
 .disable-noscript-xss-wrapper {
