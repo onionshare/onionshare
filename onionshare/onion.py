@@ -152,7 +152,7 @@ class Onion(object):
         # Start out not connected to Tor
         self.connected_to_tor = False
 
-    def connect(self, custom_settings=False, config=False, tor_status_update_func=None):
+    def connect(self, custom_settings=False, config=False, tor_status_update_func=None, connect_timeout=120):
         self.common.log('Onion', 'connect')
 
         # Either use settings that are passed in, or use them from common
@@ -283,14 +283,16 @@ class Onion(object):
                 if self.settings.get('tor_bridges_use_custom_bridges') or \
                    self.settings.get('tor_bridges_use_obfs4') or \
                    self.settings.get('tor_bridges_use_meek_lite_azure'):
-                    connect_timeout = 150
-                else:
-                    # Timeout after 120 seconds
-                    connect_timeout = 120
+                       # Only override timeout if a custom timeout has not been passed in
+                       if connect_timeout == 120:
+                           connect_timeout = 150
                 if time.time() - start_ts > connect_timeout:
                     print("")
-                    self.tor_proc.terminate()
-                    raise BundledTorTimeout(strings._('settings_error_bundled_tor_timeout'))
+                    try:
+                        self.tor_proc.terminate()
+                        raise BundledTorTimeout(strings._('settings_error_bundled_tor_timeout'))
+                    except FileNotFoundError:
+                        pass
 
         elif self.settings.get('connection_type') == 'automatic':
             # Automatically try to guess the right way to connect to Tor Browser
