@@ -201,6 +201,27 @@ class ServerStatus(QtWidgets.QWidget):
         """
         Show the URL in the UI.
         """
+        self.url_description.show()
+
+        info_image = self.common.get_resource_path('images/info.png')
+
+        if self.mode == ServerStatus.MODE_SHARE:
+            self.url_description.setText(strings._('gui_share_url_description').format(info_image))
+        else:
+            self.url_description.setText(strings._('gui_receive_url_description').format(info_image))
+
+        # Show a Tool Tip explaining the lifecycle of this URL
+        if self.common.settings.get('save_private_key'):
+            if self.mode == ServerStatus.MODE_SHARE and self.common.settings.get('close_after_first_download'):
+                self.url_description.setToolTip(strings._('gui_url_label_onetime_and_persistent'))
+            else:
+                self.url_description.setToolTip(strings._('gui_url_label_persistent'))
+        else:
+            if self.mode == ServerStatus.MODE_SHARE and self.common.settings.get('close_after_first_download'):
+                self.url_description.setToolTip(strings._('gui_url_label_onetime'))
+            else:
+                self.url_description.setToolTip(strings._('gui_url_label_stay_open'))
+
         self.url.setText(self.get_url())
         self.url.show()
         self.copy_url_button.show()
@@ -216,27 +237,6 @@ class ServerStatus(QtWidgets.QWidget):
         """
         # Set the URL fields
         if self.status == self.STATUS_STARTED:
-            self.url_description.show()
-
-            info_image = self.common.get_resource_path('images/info.png')
-
-            if self.mode == ServerStatus.MODE_SHARE:
-                self.url_description.setText(strings._('gui_share_url_description').format(info_image))
-            else:
-                self.url_description.setText(strings._('gui_receive_url_description').format(info_image))
-
-            # Show a Tool Tip explaining the lifecycle of this URL
-            if self.common.settings.get('save_private_key'):
-                if self.mode == ServerStatus.MODE_SHARE and self.common.settings.get('close_after_first_download'):
-                    self.url_description.setToolTip(strings._('gui_url_label_onetime_and_persistent'))
-                else:
-                    self.url_description.setToolTip(strings._('gui_url_label_persistent'))
-            else:
-                if self.mode == ServerStatus.MODE_SHARE and self.common.settings.get('close_after_first_download'):
-                    self.url_description.setToolTip(strings._('gui_url_label_onetime'))
-                else:
-                    self.url_description.setToolTip(strings._('gui_url_label_stay_open'))
-
             self.show_url()
 
             if self.common.settings.get('save_private_key'):
