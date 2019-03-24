@@ -25,7 +25,7 @@
     "systray_upload_started_message": "",
     "help_local_only": "不使用Tor(只限开发测试)",
     "help_stay_open": "文件传输完成后继续分享",
-    "help_shutdown_timeout": "超过给定时间(秒)后,终止分享.",
+    "help_autostop_timer": "超过给定时间(秒)后,终止分享.",
     "help_stealth": "使用服务端认证(高级选项)",
     "help_receive": "仅接收分享的文件,不发送",
     "help_debug": "将OnionShare错误日志记录到stdout,将web错误日志记录到磁盘",

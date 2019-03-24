@@ -25,7 +25,7 @@
     "systray_upload_started_message": "Thosaigh úsáideoir ag uaslódáil comhad go dtí do ríomhaire",
     "help_local_only": "Ná húsáid Tor (tástáil amháin)",
     "help_stay_open": "Lean ort ag comhroinnt tar éis an chéad íoslódáil",
-    "help_shutdown_timeout": "Stop ag comhroinnt tar éis líon áirithe soicindí",
+    "help_autostop_timer": "Stop ag comhroinnt tar éis líon áirithe soicindí",
     "help_stealth": "Úsáid údarú cliaint (ardleibhéal)",
     "help_receive": "Glac le comhaid chomhroinnte in áit iad a sheoladh",
     "help_debug": "Déan tuairisc ar earráidí OnionShare ar stdout, agus earráidí Gréasáin ar an diosca",

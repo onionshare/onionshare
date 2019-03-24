@@ -26,7 +26,7 @@
     "systray_upload_started_message": "En bruker startet opplasting av filer til din datamaskin",
     "help_local_only": "Ikke bruk Tor (kun i utviklingsøyemed)",
     "help_stay_open": "Fortsett å dele etter at filene har blitt sendt",
-    "help_shutdown_timeout": "Stopp deling etter et gitt antall sekunder",
+    "help_autostop_timer": "Stopp deling etter et gitt antall sekunder",
     "help_stealth": "Bruk klientidentifisering (avansert)",
     "help_receive": "Motta delinger istedenfor å sende dem",
     "help_debug": "Log OnionShare-feil til stdout, og vev-feil til disk",

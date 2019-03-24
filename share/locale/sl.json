@@ -25,7 +25,7 @@
     "systray_upload_started_message": "",
     "help_local_only": "",
     "help_stay_open": "",
-    "help_shutdown_timeout": "",
+    "help_autostop_timer": "",
     "help_stealth": "",
     "help_receive": "",
     "help_debug": "",

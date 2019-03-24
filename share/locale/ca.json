@@ -25,7 +25,7 @@
     "systray_upload_started_message": "Algú ha començat a pujar arxius al teu ordinador",
     "help_local_only": "No facis servir Tor (només per a desenvolupament)",
     "help_stay_open": "Mantingues obert el servei després d'enviar els arxius",
-    "help_shutdown_timeout": "Deixa de compartir al cap de tants segons",
+    "help_autostop_timer": "Deixa de compartir al cap de tants segons",
     "help_stealth": "Fes servir autorització de client (avançat)",
     "help_receive": "Rep recursos en comptes d'enviar-los",
     "help_debug": "Envia els errors d'OnionShare a stdout i els errors web al disc",

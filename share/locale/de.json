@@ -53,7 +53,7 @@
     "close_on_timeout": "Angehalten da der auto-stop Timer abgelaufen ist",
     "systray_upload_started_title": "OnionShare Upload wurde gestartet",
     "systray_upload_started_message": "Ein Benutzer hat begonnen, Dateien auf deinen Computer hochzuladen",
-    "help_shutdown_timeout": "Den Server nach einer bestimmten Zeit anhalten (in Sekunden)",
+    "help_autostop_timer": "Den Server nach einer bestimmten Zeit anhalten (in Sekunden)",
     "help_receive": "Empfange Dateien anstatt sie zu senden",
     "gui_share_stop_server_shutdown_timeout": "Server stoppen (läuft noch {} Sekunden)",
     "gui_share_stop_server_shutdown_timeout_tooltip": "Zeit läuft in {} Sekunden ab",

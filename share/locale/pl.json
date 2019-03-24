@@ -25,7 +25,7 @@
     "systray_upload_started_message": "Użytkownik rozpoczął wysyłanie plików na Twój komputer",
     "help_local_only": "Nie wykorzystuj sieci Tor (opcja zaawansowana)",
     "help_stay_open": "Kontynuuj udostępnianie po pierwszym pobraniu",
-    "help_shutdown_timeout": "Przestań udostępniać po określonym czasie w sekundach",
+    "help_autostop_timer": "Przestań udostępniać po określonym czasie w sekundach",
     "help_stealth": "Korzystaj z weryfikacji klienta (zaawansowane)",
     "help_receive": "Odbieraj dane zamiast je wysyłać",
     "help_debug": "Zapisz błędy OnionShare do stdout i zapisz błędy sieciowe na dysku",

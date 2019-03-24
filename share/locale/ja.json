@@ -26,7 +26,7 @@
     "systray_upload_started_message": "ユーザーがファイルをアップロードし始めました",
     "help_local_only": "Torを使わない（開発利用のみ）",
     "help_stay_open": "ファイルが送信された後に共有し続けます",
-    "help_shutdown_timeout": "数秒後に共有が停止されます",
+    "help_autostop_timer": "数秒後に共有が停止されます",
     "help_stealth": "クライアント認証を使う（上級者向け）",
     "help_receive": "共有を送信する代わりに受信する",
     "help_debug": "OnionShareのエラーを標準出力に、Webのエラーをディスクに記録する",

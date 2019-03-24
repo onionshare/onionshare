@@ -25,7 +25,7 @@
     "systray_upload_started_message": "بدأ مستخدم رفع ملفات الى حاسوبك",
     "help_local_only": "",
     "help_stay_open": "استمر في المشاركة بعد اول تحميل",
-    "help_shutdown_timeout": "أوقف المشاركة بعد ثواني محددة",
+    "help_autostop_timer": "أوقف المشاركة بعد ثواني محددة",
     "help_stealth": "",
     "help_receive": "",
     "help_debug": "",

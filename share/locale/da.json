@@ -21,7 +21,7 @@
     "systray_download_canceled_message": "Brugeren annullerede downloaden",
     "help_local_only": "Brug ikke Tor (kun til udvikling)",
     "help_stay_open": "Fortsæt deling efter filerne er blevet sendt",
-    "help_shutdown_timeout": "Stop deling efter et vist antal sekunder",
+    "help_autostop_timer": "Stop deling efter et vist antal sekunder",
     "help_stealth": "Brug klientautentifikation (avanceret)",
     "help_debug": "Log OnionShare-fejl til stdout, og webfejl til disk",
     "help_filename": "Liste over filer eller mapper som skal deles",
