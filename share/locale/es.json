@@ -24,7 +24,7 @@
     "close_on_timeout": "Parado porque el temporizador expiró",
     "timeout_download_still_running": "Esperando a que se complete la descarga",
     "large_filesize": "Advertencia: Enviar un archivo tan grande podría llevar horas",
-    "help_shutdown_timeout": "Dejar de compartir después de una determinada cantidad de segundos",
+    "help_autostop_timer": "Dejar de compartir después de una determinada cantidad de segundos",
     "help_stealth": "Usar autorización de cliente (avanzada)",
     "help_config": "Ubicación del archivo de configuración JSON personalizado (opcional)",
     "gui_copied_url_title": "Dirección de OnionShare copiada",

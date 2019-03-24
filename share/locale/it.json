@@ -39,7 +39,7 @@
     "systray_download_canceled_message": "L'utente ha interrotto il download",
     "systray_upload_started_title": "Upload con OnionShare avviato",
     "systray_upload_started_message": "Un utente ha avviato l'upload di file sul tuo computer",
-    "help_shutdown_timeout": "Termina la condivisione dopo alcuni secondi",
+    "help_autostop_timer": "Termina la condivisione dopo alcuni secondi",
     "help_stealth": "Usa l'autorizzazione del client (avanzato)",
     "help_config": "Specifica il percorso del file di configurazione del JSON personalizzato",
     "gui_share_stop_server_shutdown_timeout": "Arresta la condivisione ({}s rimanenti)",

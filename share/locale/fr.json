@@ -62,7 +62,7 @@
     "version_string": "OnionShare {0:s} | https://onionshare.org/",
     "zip_progress_bar_format": "Compression : %p%",
     "error_ephemeral_not_supported": "OnionShare exige au moins Tor 0.2.7.1 et python3-stem 1.4.0.",
-    "help_shutdown_timeout": "Arrêter le partage après un certain nombre de secondes",
+    "help_autostop_timer": "Arrêter le partage après un certain nombre de secondes",
     "gui_tor_connection_error_settings": "Essayez de modifier dans les paramètres la façon dont OnionShare se connecte au réseau Tor.",
     "no_available_port": "Impossible de trouver un port disponible pour démarrer le service oignon",
     "gui_share_stop_server_shutdown_timeout": "Arrêter le partage ({}s restantes)",

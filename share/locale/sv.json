@@ -26,7 +26,7 @@
     "systray_upload_started_message": "En användare började ladda upp filer på din dator",
     "help_local_only": "Använd inte Tor (endast för utveckling)",
     "help_stay_open": "Fortsätt dela efter att filer har skickats",
-    "help_shutdown_timeout": "Avbryt delning efter ett bestämt antal sekunder",
+    "help_autostop_timer": "Avbryt delning efter ett bestämt antal sekunder",
     "help_stealth": "Använd klient-auktorisering (avancerat)",
     "help_receive": "Ta emot delningar istället för att skicka dem",
     "help_debug": "Logga OnionShare fel till stdout och webbfel till hårddisken",

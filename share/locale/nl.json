@@ -21,7 +21,7 @@
     "systray_download_canceled_message": "De gebruiker heeft de download afgebroken",
     "help_local_only": "Tor niet gebruiken (alleen voor ontwikkelingsdoeleinden)",
     "help_stay_open": "Blijven delen na afronden van eerste download",
-    "help_shutdown_timeout": "Stoppen met delen na het opgegeven aantal seconden",
+    "help_autostop_timer": "Stoppen met delen na het opgegeven aantal seconden",
     "help_stealth": "Client-authorisatie gebruiken (geavanceerd)",
     "help_debug": "Log OnionShare fouten naar stdout, en web fouten naar disk",
     "help_filename": "Lijst van bestanden of mappen om te delen",

@@ -55,8 +55,8 @@ def main(cwd=None):
     parser = argparse.ArgumentParser(formatter_class=lambda prog: argparse.HelpFormatter(prog,max_help_position=28))
     parser.add_argument('--local-only', action='store_true', dest='local_only', help=strings._("help_local_only"))
     parser.add_argument('--stay-open', action='store_true', dest='stay_open', help=strings._("help_stay_open"))
-    parser.add_argument('--startup-timer', metavar='<int>', dest='startup_timer', default=0, help=strings._("help_startup_timer"))
-    parser.add_argument('--shutdown-timeout', metavar='<int>', dest='shutdown_timeout', default=0, help=strings._("help_shutdown_timeout"))
+    parser.add_argument('--autostart-timer', metavar='<int>', dest='autostart_timer', default=0, help=strings._("help_autostart_timer"))
+    parser.add_argument('--autostop-timer', metavar='<int>', dest='autostop_timer', default=0, help=strings._("help_autostop_timer"))
     parser.add_argument('--stealth', action='store_true', dest='stealth', help=strings._("help_stealth"))
     parser.add_argument('--receive', action='store_true', dest='receive', help=strings._("help_receive"))
     parser.add_argument('--config', metavar='config', default=False, help=strings._('help_config'))
@@ -71,8 +71,8 @@ def main(cwd=None):
     local_only = bool(args.local_only)
     debug = bool(args.debug)
     stay_open = bool(args.stay_open)
-    startup_timer = int(args.startup_timer)
-    shutdown_timeout = int(args.shutdown_timeout)
+    autostart_timer = int(args.autostart_timer)
+    autostop_timer = int(args.autostop_timer)
     stealth = bool(args.stealth)
     receive = bool(args.receive)
     config = args.config
@@ -129,13 +129,13 @@ def main(cwd=None):
             web.generate_slug(common.settings.get('slug'))
         else:
             web.slug = None
-        app = OnionShare(common, onion, local_only, shutdown_timeout)
+        app = OnionShare(common, onion, local_only, autostop_timer)
         app.set_stealth(stealth)
         app.choose_port()
         # Delay the startup if a startup timer was set
-        if startup_timer > 0:
+        if autostart_timer > 0:
             # Can't set a schedule that is later than the shutdown timer
-            if app.shutdown_timeout > 0 and app.shutdown_timeout < startup_timer:
+            if app.shutdown_timeout > 0 and app.shutdown_timeout < autostart_timer:
                 print(strings._('gui_timeout_cant_be_earlier_than_startup'))
                 sys.exit()
 
@@ -144,7 +144,7 @@ def main(cwd=None):
                 url = 'http://{0:s}'.format(app.onion_host)
             else:
                 url = 'http://{0:s}/{1:s}'.format(app.onion_host, web.slug)
-            schedule = datetime.now() + timedelta(seconds=startup_timer)
+            schedule = datetime.now() + timedelta(seconds=autostart_timer)
             if mode == 'receive':
                 print(strings._('receive_mode_data_dir').format(common.settings.get('data_dir')))
                 print('')
@@ -165,7 +165,7 @@ def main(cwd=None):
             print('')
             print(strings._("waiting_for_scheduled_time"))
             app.onion.cleanup(False)
-            time.sleep(startup_timer)
+            time.sleep(autostart_timer)
             app.start_onion_service()
         else:
             app.start_onion_service()
@@ -219,7 +219,7 @@ def main(cwd=None):
             url = 'http://{0:s}/{1:s}'.format(app.onion_host, web.slug)
 
         print('')
-        if startup_timer > 0:
+        if autostart_timer > 0:
             print(strings._('server_started'))
         else:
             if mode == 'receive':
