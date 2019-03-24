@@ -134,6 +134,11 @@ def main(cwd=None):
         app.choose_port()
         # Delay the startup if a startup timer was set
         if startup_timer > 0:
+            # Can't set a schedule that is later than the shutdown timer
+            if app.shutdown_timeout > 0 and app.shutdown_timeout < startup_timer:
+                print(strings._('gui_timeout_cant_be_earlier_than_startup'))
+                sys.exit()
+
             app.start_onion_service(False, True)
             if common.settings.get('public_mode'):
                 url = 'http://{0:s}'.format(app.onion_host)
