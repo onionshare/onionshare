@@ -92,10 +92,35 @@ class Mode(QtWidgets.QWidget):
         """
         pass
 
+    def human_friendly_time(self, secs):
+        """
+        Returns a human-friendly time delta from given seconds.
+        """
+        days = secs//86400
+        hours = (secs - days*86400)//3600
+        minutes = (secs - days*86400 - hours*3600)//60
+        seconds = secs - days*86400 - hours*3600 - minutes*60
+        if not seconds:
+            seconds = '0'
+        result = ("{0}{1}, ".format(days, strings._('days_first_letter')) if days else "") + \
+        ("{0}{1}, ".format(hours, strings._('hours_first_letter')) if hours else "") + \
+        ("{0}{1}, ".format(minutes, strings._('minutes_first_letter')) if minutes else "") + \
+        "{0}{1}".format(seconds, strings._('seconds_first_letter'))
+
+        return result
+
     def timer_callback(self):
         """
         This method is called regularly on a timer.
         """
+        # If this is a scheduled share, display the countdown til the share starts
+        if self.server_status.status == ServerStatus.STATUS_WORKING:
+            if self.server_status.scheduled_start:
+                now = QtCore.QDateTime.currentDateTime()
+                seconds_remaining = now.secsTo(self.server_status.startup_timer.dateTime())
+                # Update the server button
+                self.server_status.server_button.setText(strings._('gui_waiting_to_start').format(self.human_friendly_time(seconds_remaining)))
+
         # If the auto-shutdown timer has stopped, stop the server
         if self.server_status.status == ServerStatus.STATUS_STARTED:
             if self.app.shutdown_timer and self.common.settings.get('shutdown_timeout'):
@@ -105,7 +130,7 @@ class Mode(QtWidgets.QWidget):
 
                     # Update the server button
                     server_button_text = self.get_stop_server_shutdown_timeout_text()
-                    self.server_status.server_button.setText(server_button_text.format(seconds_remaining))
+                    self.server_status.server_button.setText(server_button_text.format(self.human_friendly_time(seconds_remaining)))
 
                     self.status_bar.clearMessage()
                     if not self.app.shutdown_timer.is_alive():

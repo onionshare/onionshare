@@ -284,17 +284,13 @@ class ServerStatus(QtWidgets.QWidget):
                     self.startup_timer_container.hide()
                 if self.common.settings.get('shutdown_timeout'):
                     self.shutdown_timeout_container.hide()
-                    if self.mode == ServerStatus.MODE_SHARE:
-                        self.server_button.setToolTip(strings._('gui_share_stop_server_shutdown_timeout_tooltip').format(self.timeout))
-                    else:
-                        self.server_button.setToolTip(strings._('gui_receive_stop_server_shutdown_timeout_tooltip').format(self.timeout))
+                    self.server_button.setToolTip(strings._('gui_stop_server_shutdown_timeout_tooltip').format(self.shutdown_timeout.dateTime().toString("H:mmAP, MMM dd, yy")))
             elif self.status == self.STATUS_WORKING:
                 self.server_button.setStyleSheet(self.common.css['server_status_button_working'])
                 self.server_button.setEnabled(True)
                 if self.scheduled_start:
-                    scheduled_friendly_time = self.startup_timer.dateTime().toString("MMM dd, H:mmAP")
-                    self.server_button.setText(strings._('gui_waiting_to_start').format(scheduled_friendly_time))
                     self.startup_timer_container.hide()
+                    self.server_button.setToolTip(strings._('gui_start_server_startup_timer_tooltip').format(self.startup_timer.dateTime().toString("H:mmAP, MMM dd, yy")))
                 else:
                     self.server_button.setText(strings._('gui_please_wait'))
                 if self.common.settings.get('shutdown_timeout'):
@@ -305,6 +301,7 @@ class ServerStatus(QtWidgets.QWidget):
                 self.server_button.setText(strings._('gui_please_wait'))
                 if self.common.settings.get('startup_timer'):
                     self.startup_timer_container.hide()
+                    self.server_button.setToolTip(strings._('gui_start_server_startup_timer_tooltip').format(self.startup_timer.dateTime().toString("H:mmAP, MMM dd, yy")))
                 if self.common.settings.get('shutdown_timeout'):
                     self.shutdown_timeout_container.hide()
 
