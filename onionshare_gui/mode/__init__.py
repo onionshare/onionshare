@@ -117,9 +117,15 @@ class Mode(QtWidgets.QWidget):
         if self.server_status.status == ServerStatus.STATUS_WORKING:
             if self.server_status.scheduled_start:
                 now = QtCore.QDateTime.currentDateTime()
-                seconds_remaining = now.secsTo(self.server_status.startup_timer.dateTime())
+                if self.server_status.local_only:
+                    seconds_remaining = now.secsTo(self.server_status.startup_timer.dateTime())
+                else:
+                    seconds_remaining = now.secsTo(self.server_status.scheduled_start.replace(second=0, microsecond=0))
                 # Update the server button
-                self.server_status.server_button.setText(strings._('gui_waiting_to_start').format(self.human_friendly_time(seconds_remaining)))
+                if seconds_remaining > 0:
+                    self.server_status.server_button.setText(strings._('gui_waiting_to_start').format(self.human_friendly_time(seconds_remaining)))
+                else:
+                    self.server_status.server_button.setText(strings._('gui_please_wait'))
 
         # If the auto-shutdown timer has stopped, stop the server
         if self.server_status.status == ServerStatus.STATUS_STARTED:
