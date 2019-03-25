@@ -191,7 +191,7 @@ class GuiShareTest(GuiBaseTest):
         self.run_all_share_mode_setup_tests()
         self.set_timeout(self.gui.share_mode, 5)
         self.run_all_share_mode_started_tests(public_mode)
-        self.timeout_widget_hidden(self.gui.share_mode)
+        self.autostop_timer_widget_hidden(self.gui.share_mode)
         self.server_timed_out(self.gui.share_mode, 10000)
         self.web_server_is_stopped()
 
@@ -206,7 +206,7 @@ class GuiShareTest(GuiBaseTest):
         self.scheduled_service_started(self.gui.share_mode, 7000)
         self.web_server_is_running()
 
-    def run_all_share_mode_startup_shutdown_mismatch_tests(self, public_mode):
+    def run_all_share_mode_autostop_autostart_mismatch_tests(self, public_mode):
         """Auto-stop timer tests in share mode"""
         self.run_all_share_mode_setup_tests()
         self.set_startup_timer(self.gui.share_mode, 15)

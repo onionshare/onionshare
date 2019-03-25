@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from PyQt5 import QtCore, QtWidgets, QtGui
 
 from onionshare import strings
-from onionshare.common import ShutdownTimer
+from onionshare.common import AutoStopTimer
 
 from ..server_status import ServerStatus
 from ..threads import OnionThread
@@ -127,20 +127,20 @@ class Mode(QtWidgets.QWidget):
                 else:
                     self.server_status.server_button.setText(strings._('gui_please_wait'))
 
-        # If the auto-shutdown timer has stopped, stop the server
+        # If the auto-stop timer has stopped, stop the server
         if self.server_status.status == ServerStatus.STATUS_STARTED:
-            if self.app.shutdown_timer and self.common.settings.get('shutdown_timeout'):
-                if self.timeout > 0:
+            if self.app.autostop_timer_thread and self.common.settings.get('autostop_timer'):
+                if self.autostop_timer_datetime_delta > 0:
                     now = QtCore.QDateTime.currentDateTime()
-                    seconds_remaining = now.secsTo(self.server_status.timeout)
+                    seconds_remaining = now.secsTo(self.server_status.autostop_timer_datetime)
 
                     # Update the server button
-                    server_button_text = self.get_stop_server_shutdown_timeout_text()
+                    server_button_text = self.get_stop_server_autostop_timer_text()
                     self.server_status.server_button.setText(server_button_text.format(self.human_friendly_time(seconds_remaining)))
 
                     self.status_bar.clearMessage()
-                    if not self.app.shutdown_timer.is_alive():
-                        if self.timeout_finished_should_stop_server():
+                    if not self.app.autostop_timer_thread.is_alive():
+                        if self.autostop_timer_finished_should_stop_server():
                             self.server_status.stop_server()
 
     def timer_callback_custom(self):
@@ -149,15 +149,15 @@ class Mode(QtWidgets.QWidget):
         """
         pass
 
-    def get_stop_server_shutdown_timeout_text(self):
+    def get_stop_server_autostop_timer_text(self):
         """
-        Return the string to put on the stop server button, if there's a shutdown timeout
+        Return the string to put on the stop server button, if there's an auto-stop timer
         """
         pass
 
-    def timeout_finished_should_stop_server(self):
+    def autostop_timer_finished_should_stop_server(self):
         """
-        The shutdown timer expired, should we stop the server? Returns a bool
+        The auto-stop timer expired, should we stop the server? Returns a bool
         """
         pass
 
@@ -259,18 +259,18 @@ class Mode(QtWidgets.QWidget):
 
         self.start_server_step3_custom()
 
-        if self.common.settings.get('shutdown_timeout'):
+        if self.common.settings.get('autostop_timer'):
             # Convert the date value to seconds between now and then
             now = QtCore.QDateTime.currentDateTime()
-            self.timeout = now.secsTo(self.server_status.timeout)
-            # Set the shutdown timeout value
-            if self.timeout > 0:
-                self.app.shutdown_timer = ShutdownTimer(self.common, self.timeout)
-                self.app.shutdown_timer.start()
-            # The timeout has actually already passed since the user clicked Start. Probably the Onion service took too long to start.
+            self.autostop_timer_datetime_delta = now.secsTo(self.server_status.autostop_timer_datetime)
+            # Start the auto-stop timer
+            if self.autostop_timer_datetime_delta > 0:
+                self.app.autostop_timer_thread = AutoStopTimer(self.common, self.autostop_timer_datetime_delta)
+                self.app.autostop_timer_thread.start()
+            # The auto-stop timer has actually already passed since the user clicked Start. Probably the Onion service took too long to start.
             else:
                 self.stop_server()
-                self.start_server_error(strings._('gui_server_started_after_timeout'))
+                self.start_server_error(strings._('gui_server_started_after_autostop_timer'))
 
     def start_server_step3_custom(self):
         """

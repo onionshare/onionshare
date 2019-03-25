@@ -136,9 +136,9 @@ def main(cwd=None):
         app.choose_port()
         # Delay the startup if a startup timer was set
         if autostart_timer > 0:
-            # Can't set a schedule that is later than the shutdown timer
-            if app.shutdown_timeout > 0 and app.shutdown_timeout < autostart_timer:
-                print(strings._('gui_timeout_cant_be_earlier_than_startup'))
+            # Can't set a schedule that is later than the auto-stop timer
+            if app.autostop_timer > 0 and app.autostop_timer < autostart_timer:
+                print(strings._('gui_autostop_timer_cant_be_earlier_than_startup'))
                 sys.exit()
 
             app.start_onion_service(False, True)
@@ -204,9 +204,9 @@ def main(cwd=None):
         # Wait for web.generate_slug() to finish running
         time.sleep(0.2)
 
-        # start shutdown timer thread
-        if app.shutdown_timeout > 0:
-            app.shutdown_timer.start()
+        # start auto-stop timer thread
+        if app.autostop_timer > 0:
+            app.autostop_timer_thread.start()
 
         # Save the web slug if we are using a persistent private key
         if common.settings.get('save_private_key'):
@@ -250,18 +250,18 @@ def main(cwd=None):
 
         # Wait for app to close
         while t.is_alive():
-            if app.shutdown_timeout > 0:
-                # if the shutdown timer was set and has run out, stop the server
-                if not app.shutdown_timer.is_alive():
+            if app.autostop_timer > 0:
+                # if the auto-stop timer was set and has run out, stop the server
+                if not app.autostop_timer_thread.is_alive():
                     if mode == 'share':
                         # If there were no attempts to download the share, or all downloads are done, we can stop
                         if web.share_mode.download_count == 0 or web.done:
-                            print(strings._("close_on_timeout"))
+                            print(strings._("close_on_autostop_timer"))
                             web.stop(app.port)
                             break
                     if mode == 'receive':
                         if web.receive_mode.upload_count == 0 or not web.receive_mode.uploads_in_progress:
-                            print(strings._("close_on_timeout"))
+                            print(strings._("close_on_autostop_timer"))
                             web.stop(app.port)
                             break
                         else:
