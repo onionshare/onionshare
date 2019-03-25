@@ -112,12 +112,14 @@ class ReceiveModeWeb(object):
                 else:
                     flash(msg, 'info')
             else:
+                msg = 'Sent '
                 for filename in filenames:
-                    msg = 'Sent {}'.format(filename)
-                    if ajax:
-                        info_flashes.append(msg)
-                    else:
-                        flash(msg, 'info')
+                    msg += '{}, '.format(filename)
+                msg = msg.rstrip(', ')
+                if ajax:
+                    info_flashes.append(msg)
+                else:
+                    flash(msg, 'info')
 
             if self.can_upload:
                 if ajax:
@@ -297,6 +299,7 @@ class ReceiveModeRequest(Request):
                         new_receive_mode_dir = '{}-{}'.format(self.receive_mode_dir, i)
                         try:
                             os.makedirs(new_receive_mode_dir, 0o700, exist_ok=False)
+                            self.receive_mode_dir = new_receive_mode_dir
                             break
                         except OSError:
                             pass

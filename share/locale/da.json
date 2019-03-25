@@ -133,7 +133,7 @@
     "help_receive": "Modtager aktier i stedet for at sende dem",
     "gui_share_stop_server_shutdown_timeout": "Stop deling ({}s tilbage)",
     "gui_receive_quit_warning": "Du er i færd med at modtage filer. Er du sikker på du ønsker at stoppe med at OnionShare?",
-    "gui_settings_whats_this": "<a href='{0:s}'>Hvad er dette?</a>",
+    "gui_settings_whats_this": "<a href='{0:s}'>Hvad er det?</a>",
     "gui_settings_general_label": "Generel opsætning",
     "gui_upload_in_progress": "Upload begyndte {}",
     "gui_download_in_progress": "Download begyndte {}",
