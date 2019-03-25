@@ -86,30 +86,30 @@ class ServerStatus(QtWidgets.QWidget):
         self.startup_timer_container.setLayout(startup_timer_container_layout)
         self.startup_timer_container.hide()
 
-        # Shutdown timeout layout
-        self.shutdown_timeout_label = QtWidgets.QLabel(strings._('gui_settings_shutdown_timeout'))
-        self.shutdown_timeout = QtWidgets.QDateTimeEdit()
-        self.shutdown_timeout.setDisplayFormat("hh:mm A MMM d, yy")
+        # Auto-stop timer layout
+        self.autostop_timer_label = QtWidgets.QLabel(strings._('gui_settings_autostop_timer'))
+        self.autostop_timer_widget = QtWidgets.QDateTimeEdit()
+        self.autostop_timer_widget.setDisplayFormat("hh:mm A MMM d, yy")
         if self.local_only:
             # For testing
-            self.shutdown_timeout.setDateTime(QtCore.QDateTime.currentDateTime().addSecs(15))
-            self.shutdown_timeout.setMinimumDateTime(QtCore.QDateTime.currentDateTime())
+            self.autostop_timer_widget.setDateTime(QtCore.QDateTime.currentDateTime().addSecs(15))
+            self.autostop_timer_widget.setMinimumDateTime(QtCore.QDateTime.currentDateTime())
         else:
-            # Set proposed timeout to be 5 minutes into the future
-            self.shutdown_timeout.setDateTime(QtCore.QDateTime.currentDateTime().addSecs(300))
+            # Set proposed timer to be 5 minutes into the future
+            self.autostop_timer_widget.setDateTime(QtCore.QDateTime.currentDateTime().addSecs(300))
             # Onion services can take a little while to start, so reduce the risk of it expiring too soon by setting the minimum to 60s from now
-            self.shutdown_timeout.setMinimumDateTime(QtCore.QDateTime.currentDateTime().addSecs(60))
-        self.shutdown_timeout.setCurrentSection(QtWidgets.QDateTimeEdit.MinuteSection)
-        shutdown_timeout_layout = QtWidgets.QHBoxLayout()
-        shutdown_timeout_layout.addWidget(self.shutdown_timeout_label)
-        shutdown_timeout_layout.addWidget(self.shutdown_timeout)
+            self.autostop_timer_widget.setMinimumDateTime(QtCore.QDateTime.currentDateTime().addSecs(60))
+        self.autostop_timer_widget.setCurrentSection(QtWidgets.QDateTimeEdit.MinuteSection)
+        autostop_timer_layout = QtWidgets.QHBoxLayout()
+        autostop_timer_layout.addWidget(self.autostop_timer_label)
+        autostop_timer_layout.addWidget(self.autostop_timer_widget)
 
-        # Shutdown timeout container, so it can all be hidden and shown as a group
-        shutdown_timeout_container_layout = QtWidgets.QVBoxLayout()
-        shutdown_timeout_container_layout.addLayout(shutdown_timeout_layout)
-        self.shutdown_timeout_container = QtWidgets.QWidget()
-        self.shutdown_timeout_container.setLayout(shutdown_timeout_container_layout)
-        self.shutdown_timeout_container.hide()
+        # Auto-stop timer container, so it can all be hidden and shown as a group
+        autostop_timer_container_layout = QtWidgets.QVBoxLayout()
+        autostop_timer_container_layout.addLayout(autostop_timer_layout)
+        self.autostop_timer_container = QtWidgets.QWidget()
+        self.autostop_timer_container.setLayout(autostop_timer_container_layout)
+        self.autostop_timer_container.hide()
 
         # Server layout
         self.server_button = QtWidgets.QPushButton()
@@ -150,7 +150,7 @@ class ServerStatus(QtWidgets.QWidget):
         layout.addWidget(self.server_button)
         layout.addLayout(url_layout)
         layout.addWidget(self.startup_timer_container)
-        layout.addWidget(self.shutdown_timeout_container)
+        layout.addWidget(self.autostop_timer_container)
         self.setLayout(layout)
 
     def set_mode(self, share_mode, file_selection=None):
@@ -189,13 +189,13 @@ class ServerStatus(QtWidgets.QWidget):
         if not self.local_only:
             self.startup_timer.setMinimumDateTime(QtCore.QDateTime.currentDateTime().addSecs(60))
 
-    def shutdown_timeout_reset(self):
+    def autostop_timer_reset(self):
         """
-        Reset the timeout in the UI after stopping a share
+        Reset the auto-stop timer in the UI after stopping a share
         """
-        self.shutdown_timeout.setDateTime(QtCore.QDateTime.currentDateTime().addSecs(300))
+        self.autostop_timer_widget.setDateTime(QtCore.QDateTime.currentDateTime().addSecs(300))
         if not self.local_only:
-            self.shutdown_timeout.setMinimumDateTime(QtCore.QDateTime.currentDateTime().addSecs(60))
+            self.autostop_timer_widget.setMinimumDateTime(QtCore.QDateTime.currentDateTime().addSecs(60))
 
     def show_url(self):
         """
@@ -247,8 +247,8 @@ class ServerStatus(QtWidgets.QWidget):
             if self.common.settings.get('startup_timer'):
                 self.startup_timer_container.hide()
 
-            if self.common.settings.get('shutdown_timeout'):
-                self.shutdown_timeout_container.hide()
+            if self.common.settings.get('autostop_timer'):
+                self.autostop_timer_container.hide()
         else:
             self.url_description.hide()
             self.url.hide()
@@ -271,8 +271,8 @@ class ServerStatus(QtWidgets.QWidget):
                 self.server_button.setToolTip('')
                 if self.common.settings.get('startup_timer'):
                     self.startup_timer_container.show()
-                if self.common.settings.get('shutdown_timeout'):
-                    self.shutdown_timeout_container.show()
+                if self.common.settings.get('autostop_timer'):
+                    self.autostop_timer_container.show()
             elif self.status == self.STATUS_STARTED:
                 self.server_button.setStyleSheet(self.common.css['server_status_button_started'])
                 self.server_button.setEnabled(True)
@@ -282,9 +282,9 @@ class ServerStatus(QtWidgets.QWidget):
                     self.server_button.setText(strings._('gui_receive_stop_server'))
                 if self.common.settings.get('startup_timer'):
                     self.startup_timer_container.hide()
-                if self.common.settings.get('shutdown_timeout'):
-                    self.shutdown_timeout_container.hide()
-                    self.server_button.setToolTip(strings._('gui_stop_server_shutdown_timeout_tooltip').format(self.shutdown_timeout.dateTime().toString("H:mmAP, MMM dd, yy")))
+                if self.common.settings.get('autostop_timer'):
+                    self.autostop_timer_container.hide()
+                    self.server_button.setToolTip(strings._('gui_stop_server_autostop_timer_tooltip').format(self.autostop_timer_widget.dateTime().toString("H:mmAP, MMM dd, yy")))
             elif self.status == self.STATUS_WORKING:
                 self.server_button.setStyleSheet(self.common.css['server_status_button_working'])
                 self.server_button.setEnabled(True)
@@ -293,8 +293,8 @@ class ServerStatus(QtWidgets.QWidget):
                     self.server_button.setToolTip(strings._('gui_start_server_startup_timer_tooltip').format(self.startup_timer.dateTime().toString("H:mmAP, MMM dd, yy")))
                 else:
                     self.server_button.setText(strings._('gui_please_wait'))
-                if self.common.settings.get('shutdown_timeout'):
-                    self.shutdown_timeout_container.hide()
+                if self.common.settings.get('autostop_timer'):
+                    self.autostop_timer_container.hide()
             else:
                 self.server_button.setStyleSheet(self.common.css['server_status_button_working'])
                 self.server_button.setEnabled(False)
@@ -302,8 +302,8 @@ class ServerStatus(QtWidgets.QWidget):
                 if self.common.settings.get('startup_timer'):
                     self.startup_timer_container.hide()
                     self.server_button.setToolTip(strings._('gui_start_server_startup_timer_tooltip').format(self.startup_timer.dateTime().toString("H:mmAP, MMM dd, yy")))
-                if self.common.settings.get('shutdown_timeout'):
-                    self.shutdown_timeout_container.hide()
+                if self.common.settings.get('autostop_timer'):
+                    self.autostop_timer_container.hide()
 
     def server_button_clicked(self):
         """
@@ -320,19 +320,19 @@ class ServerStatus(QtWidgets.QWidget):
                 if QtCore.QDateTime.currentDateTime().toPyDateTime() > self.scheduled_start:
                     can_start = False
                     Alert(self.common, strings._('gui_server_startup_timer_expired'), QtWidgets.QMessageBox.Warning)
-            if self.common.settings.get('shutdown_timeout'):
+            if self.common.settings.get('autostop_timer'):
                 if self.local_only:
-                    self.timeout = self.shutdown_timeout.dateTime().toPyDateTime()
+                    self.autostop_timer_datetime = self.autostop_timer_widget.dateTime().toPyDateTime()
                 else:
-                    # Get the timeout chosen, stripped of its seconds. This prevents confusion if the share stops at (say) 37 seconds past the minute chosen
-                    self.timeout = self.shutdown_timeout.dateTime().toPyDateTime().replace(second=0, microsecond=0)
-                # If the timeout has actually passed already before the user hit Start, refuse to start the server.
-                if QtCore.QDateTime.currentDateTime().toPyDateTime() > self.timeout:
+                    # Get the timer chosen, stripped of its seconds. This prevents confusion if the share stops at (say) 37 seconds past the minute chosen
+                    self.autostop_timer_datetime = self.autostop_timer_widget.dateTime().toPyDateTime().replace(second=0, microsecond=0)
+                # If the timer has actually passed already before the user hit Start, refuse to start the server.
+                if QtCore.QDateTime.currentDateTime().toPyDateTime() > self.autostop_timer_datetime:
                     can_start = False
-                    Alert(self.common, strings._('gui_server_timeout_expired'), QtWidgets.QMessageBox.Warning)
+                    Alert(self.common, strings._('gui_server_autostop_timer_expired'), QtWidgets.QMessageBox.Warning)
                 if self.common.settings.get('startup_timer'):
-                    if self.timeout <= self.scheduled_start:
-                        Alert(self.common, strings._('gui_timeout_cant_be_earlier_than_startup'), QtWidgets.QMessageBox.Warning)
+                    if self.autostop_timer_datetime <= self.scheduled_start:
+                        Alert(self.common, strings._('gui_autostop_timer_cant_be_earlier_than_startup'), QtWidgets.QMessageBox.Warning)
                         can_start = False
             if can_start:
                 self.start_server()
@@ -365,7 +365,7 @@ class ServerStatus(QtWidgets.QWidget):
         """
         self.status = self.STATUS_WORKING
         self.startup_timer_reset()
-        self.shutdown_timeout_reset()
+        self.autostop_timer_reset()
         self.update()
         self.server_stopped.emit()
 
@@ -376,7 +376,7 @@ class ServerStatus(QtWidgets.QWidget):
         self.common.log('ServerStatus', 'cancel_server', 'Canceling the server mid-startup')
         self.status = self.STATUS_WORKING
         self.startup_timer_reset()
-        self.shutdown_timeout_reset()
+        self.autostop_timer_reset()
         self.update()
         self.server_canceled.emit()
 

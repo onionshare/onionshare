@@ -315,10 +315,10 @@ class OnionShareGui(QtWidgets.QMainWindow):
                     self.receive_mode.on_reload_settings()
                     self.status_bar.clearMessage()
 
-            # If we switched off the shutdown timeout setting, ensure the widget is hidden.
-            if not self.common.settings.get('shutdown_timeout'):
-                self.share_mode.server_status.shutdown_timeout_container.hide()
-                self.receive_mode.server_status.shutdown_timeout_container.hide()
+            # If we switched off the auto-stop timer setting, ensure the widget is hidden.
+            if not self.common.settings.get('autostop_timer'):
+                self.share_mode.server_status.autostop_timer_container.hide()
+                self.receive_mode.server_status.autostop_timer_container.hide()
             # If we switched off the startup timer setting, ensure the widget is hidden.
             if not self.common.settings.get('startup_timer'):
                 self.share_mode.server_status.scheduled_start = None

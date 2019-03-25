@@ -139,6 +139,6 @@ class GuiReceiveTest(GuiBaseTest):
         """Auto-stop timer tests in receive mode"""
         self.run_all_receive_mode_setup_tests(public_mode)
         self.set_timeout(self.gui.receive_mode, 5)
-        self.timeout_widget_hidden(self.gui.receive_mode)
+        self.autostop_timer_widget_hidden(self.gui.receive_mode)
         self.server_timed_out(self.gui.receive_mode, 15000)
         self.web_server_is_stopped()

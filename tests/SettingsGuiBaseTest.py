@@ -77,11 +77,11 @@ class SettingsGuiBaseTest(object):
         QtTest.QTest.mouseClick(self.gui.public_mode_checkbox, QtCore.Qt.LeftButton, pos=QtCore.QPoint(2,self.gui.public_mode_checkbox.height()/2))
         self.assertTrue(self.gui.public_mode_checkbox.isChecked())
 
-        # shutdown timer is off
-        self.assertFalse(self.gui.shutdown_timeout_checkbox.isChecked())
-        # enable shutdown timer
-        QtTest.QTest.mouseClick(self.gui.shutdown_timeout_checkbox, QtCore.Qt.LeftButton, pos=QtCore.QPoint(2,self.gui.shutdown_timeout_checkbox.height()/2))
-        self.assertTrue(self.gui.shutdown_timeout_checkbox.isChecked())
+        # autostop timer is off
+        self.assertFalse(self.gui.autostop_timer_checkbox.isChecked())
+        # enable autostop timer
+        QtTest.QTest.mouseClick(self.gui.autostop_timer_checkbox, QtCore.Qt.LeftButton, pos=QtCore.QPoint(2,self.gui.autostop_timer_checkbox.height()/2))
+        self.assertTrue(self.gui.autostop_timer_checkbox.isChecked())
 
         # legacy mode checkbox and related widgets
         if self.gui.onion.is_authenticated():
@@ -222,7 +222,7 @@ class SettingsGuiBaseTest(object):
             data = json.load(f)
 
         self.assertTrue(data["public_mode"])
-        self.assertTrue(data["shutdown_timeout"])
+        self.assertTrue(data["autostop_timer"])
 
         if self.gui.onion.is_authenticated():
             if self.gui.onion.supports_v3_onions:

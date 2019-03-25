@@ -86,24 +86,24 @@ class ReceiveMode(Mode):
         self.wrapper_layout.addWidget(self.history, stretch=1)
         self.setLayout(self.wrapper_layout)
 
-    def get_stop_server_shutdown_timeout_text(self):
+    def get_stop_server_autostop_timer_text(self):
         """
-        Return the string to put on the stop server button, if there's a shutdown timeout
+        Return the string to put on the stop server button, if there's an auto-stop timer
         """
-        return strings._('gui_receive_stop_server_shutdown_timeout')
+        return strings._('gui_receive_stop_server_autostop_timer')
 
-    def timeout_finished_should_stop_server(self):
+    def autostop_timer_finished_should_stop_server(self):
         """
-        The shutdown timer expired, should we stop the server? Returns a bool
+        The auto-stop timer expired, should we stop the server? Returns a bool
         """
         # If there were no attempts to upload files, or all uploads are done, we can stop
         if self.web.receive_mode.upload_count == 0 or not self.web.receive_mode.uploads_in_progress:
             self.server_status.stop_server()
-            self.server_status_label.setText(strings._('close_on_timeout'))
+            self.server_status_label.setText(strings._('close_on_autostop_timer'))
             return True
         # An upload is probably still running - hold off on stopping the share, but block new shares.
         else:
-            self.server_status_label.setText(strings._('gui_receive_mode_timeout_waiting'))
+            self.server_status_label.setText(strings._('gui_receive_mode_autostop_timer_waiting'))
             self.web.receive_mode.can_upload = False
             return False
 
