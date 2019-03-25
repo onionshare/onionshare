@@ -153,16 +153,16 @@ def main(cwd=None):
                 print(strings._('receive_mode_warning'))
                 print('')
                 if stealth:
-                    print(strings._("give_this_scheduled_url_receive_stealth").format(schedule.strftime("%b %d, %I:%M:%S%p")))
+                    print(strings._("give_this_scheduled_url_receive_stealth").format(schedule.strftime("%I:%M:%S%p, %b %d, %y")))
                     print(app.auth_string)
                 else:
-                    print(strings._("give_this_scheduled_url_receive").format(schedule.strftime("%b %d, %I:%M:%S%p")))
+                    print(strings._("give_this_scheduled_url_receive").format(schedule.strftime("%I:%M:%S%p, %b %d, %y")))
             else:
                 if stealth:
-                    print(strings._("give_this_scheduled_url_share_stealth").format(schedule.strftime("%b %d, %I:%M:%S%p")))
+                    print(strings._("give_this_scheduled_url_share_stealth").format(schedule.strftime("%I:%M:%S%p, %b %d, %y")))
                     print(app.auth_string)
                 else:
-                    print(strings._("give_this_scheduled_url_share").format(schedule.strftime("%b %d, %I:%M:%S%p")))
+                    print(strings._("give_this_scheduled_url_share").format(schedule.strftime("%I:%M:%S%p, %b %d, %y")))
             print(url)
             print('')
             print(strings._("waiting_for_scheduled_time"))
