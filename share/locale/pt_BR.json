@@ -208,5 +208,10 @@
     "gui_all_modes_transfer_canceled": "Cancelado {}",
     "gui_share_mode_timeout_waiting": "Esperando para completar o envio",
     "gui_receive_mode_no_files": "Nenhum arquivo recebido",
-    "gui_receive_mode_timeout_waiting": "Esperando para completar o recebimento"
+    "gui_receive_mode_timeout_waiting": "Esperando para completar o recebimento",
+    "gui_settings_onion_label": "Configurando Onion",
+    "systray_page_loaded_message": "Endereço OnionShare foi carregado",
+    "gui_all_modes_progress_complete": "%p%, {0:s} em curso.",
+    "gui_all_modes_progress_starting": "{0:s}, %p% (calculando)",
+    "gui_all_modes_progress_eta": "{0:s}, Tempo aproximado: {1:s}, %p%"
 }

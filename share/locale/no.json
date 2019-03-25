@@ -69,7 +69,7 @@
     "gui_settings_window_title": "Innstillinger",
     "gui_settings_whats_this": "<a href='{0:s}'>Hva er dette?</a>",
     "gui_settings_stealth_option": "Bruk klientidentifisering",
-    "gui_settings_stealth_hidservauth_string": "Siden du har lagret din private nøkkel for gjenbruk, kan du nå\nklikke for å kopiere din HidServAuth-linje.",
+    "gui_settings_stealth_hidservauth_string": "Siden du har lagret din private nøkkel for gjenbruk, kan du nå klikke for å kopiere din HidServAuth-linje.",
     "gui_settings_autoupdate_label": "Se etter ny versjon",
     "gui_settings_autoupdate_option": "Gi meg beskjed når en ny versjon er tilgjengelig",
     "gui_settings_autoupdate_timestamp": "Sist sjekket: {}",
@@ -216,5 +216,6 @@
     "gui_receive_mode_no_files": "Ingen filer mottatt enda",
     "gui_receive_mode_timeout_waiting": "Venter på fullføring av mottak",
     "gui_all_modes_transfer_canceled_range": "Avbrutt {} - {}",
-    "gui_all_modes_transfer_canceled": "Avbrutt {}"
+    "gui_all_modes_transfer_canceled": "Avbrutt {}",
+    "gui_settings_onion_label": "Løk-innstillinger"
 }
