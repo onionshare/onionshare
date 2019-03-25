@@ -5,12 +5,12 @@ from PyQt5 import QtCore, QtTest
 
 from .GuiShareTest import GuiShareTest
 
-class LocalShareModeStartupTimerTooShortTest(unittest.TestCase, GuiShareTest):
+class LocalShareModeAutoStartTimerTooShortTest(unittest.TestCase, GuiShareTest):
     @classmethod
     def setUpClass(cls):
         test_settings = {
             "public_mode": False,
-            "startup_timer": True,
+            "autostart_timer": True,
         }
         cls.gui = GuiShareTest.set_up(test_settings)
 
@@ -23,7 +23,7 @@ class LocalShareModeStartupTimerTooShortTest(unittest.TestCase, GuiShareTest):
         self.run_all_common_setup_tests()
         self.run_all_share_mode_setup_tests()
         # Set a low timeout
-        self.set_startup_timer(self.gui.share_mode, 2)
+        self.set_autostart_timer(self.gui.share_mode, 2)
         QtTest.QTest.qWait(3000)
         QtCore.QTimer.singleShot(4000, self.accept_dialog)
         QtTest.QTest.mouseClick(self.gui.share_mode.server_status.server_button, QtCore.Qt.LeftButton)

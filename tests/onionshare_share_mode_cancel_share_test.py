@@ -8,7 +8,7 @@ class ShareModeCancelTest(unittest.TestCase, TorGuiShareTest):
     @classmethod
     def setUpClass(cls):
         test_settings = {
-           "startup_timer": True,
+           "autostart_timer": True,
         }
         cls.gui = TorGuiShareTest.set_up(test_settings)
 

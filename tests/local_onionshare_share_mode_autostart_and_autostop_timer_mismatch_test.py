@@ -4,12 +4,12 @@ import unittest
 
 from .GuiShareTest import GuiShareTest
 
-class LocalShareModeStartupTimerTest(unittest.TestCase, GuiShareTest):
+class LocalShareModeAutoStartTimerTest(unittest.TestCase, GuiShareTest):
     @classmethod
     def setUpClass(cls):
         test_settings = {
             "public_mode": False,
-            "startup_timer": True,
+            "autostart_timer": True,
             "autostop_timer": True,
         }
         cls.gui = GuiShareTest.set_up(test_settings)

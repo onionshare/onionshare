@@ -8,7 +8,7 @@ class LocalShareModeCancelTest(unittest.TestCase, GuiShareTest):
     @classmethod
     def setUpClass(cls):
         test_settings = {
-           "startup_timer": True,
+           "autostart_timer": True,
         }
         cls.gui = GuiShareTest.set_up(test_settings)
 

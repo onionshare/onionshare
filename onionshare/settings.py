@@ -85,7 +85,7 @@ class Settings(object):
             'auth_password': '',
             'close_after_first_download': True,
             'autostop_timer': False,
-            'startup_timer': False,
+            'autostart_timer': False,
             'use_stealth': False,
             'use_autoupdate': True,
             'autoupdate_timestamp': None,

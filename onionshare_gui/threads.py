@@ -90,30 +90,30 @@ class WebThread(QtCore.QThread):
         self.success.emit()
 
 
-class StartupTimer(QtCore.QThread):
+class AutoStartTimer(QtCore.QThread):
     """
     Waits for a prescribed time before allowing a share to start
     """
     success = QtCore.pyqtSignal()
     error = QtCore.pyqtSignal(str)
     def __init__(self, mode, canceled=False):
-        super(StartupTimer, self).__init__()
+        super(AutoStartTimer, self).__init__()
         self.mode = mode
         self.canceled = canceled
-        self.mode.common.log('StartupTimer', '__init__')
+        self.mode.common.log('AutoStartTimer', '__init__')
 
         # allow this thread to be terminated
         self.setTerminationEnabled()
 
     def run(self):
         now = QtCore.QDateTime.currentDateTime()
-        scheduled_start = now.secsTo(self.mode.server_status.scheduled_start)
+        autostart_timer_datetime_delta = now.secsTo(self.mode.server_status.autostart_timer_datetime)
         try:
             # Sleep until scheduled time
-            while scheduled_start > 0 and self.canceled == False:
+            while autostart_timer_datetime_delta > 0 and self.canceled == False:
                 time.sleep(0.1)
                 now = QtCore.QDateTime.currentDateTime()
-                scheduled_start = now.secsTo(self.mode.server_status.scheduled_start)
+                autostart_timer_datetime_delta = now.secsTo(self.mode.server_status.autostart_timer_datetime)
             # Timer has now finished
             if self.canceled == False:
                 self.mode.server_status.server_button.setText(strings._('gui_please_wait'))

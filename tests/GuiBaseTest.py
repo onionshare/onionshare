@@ -308,16 +308,16 @@ class GuiBaseTest(object):
         # We should have timed out now
         self.assertEqual(mode.server_status.status, 0)
 
-    # Startup timer tests
-    def set_startup_timer(self, mode, timer):
+    # Auto-start timer tests
+    def set_autostart_timer(self, mode, timer):
         '''Test that the timer can be set'''
         schedule = QtCore.QDateTime.currentDateTime().addSecs(timer)
-        mode.server_status.startup_timer.setDateTime(schedule)
-        self.assertTrue(mode.server_status.startup_timer.dateTime(), schedule)
+        mode.server_status.autostart_timer_widget.setDateTime(schedule)
+        self.assertTrue(mode.server_status.autostart_timer_widget.dateTime(), schedule)
 
-    def startup_timer_widget_hidden(self, mode):
-        '''Test that the startup timer widget is hidden when share has started'''
-        self.assertFalse(mode.server_status.startup_timer_container.isVisible())
+    def autostart_timer_widget_hidden(self, mode):
+        '''Test that the auto-start timer widget is hidden when share has started'''
+        self.assertFalse(mode.server_status.autostart_timer_container.isVisible())
 
     def scheduled_service_started(self, mode, wait):
         '''Test that the server has timed out after the timer ran out'''
@@ -331,7 +331,7 @@ class GuiBaseTest(object):
         self.server_status_indicator_says_scheduled(mode)
         self.add_delete_buttons_hidden()
         self.settings_button_is_hidden()
-        self.set_startup_timer(mode, 10)
+        self.set_autostart_timer(mode, 10)
         QtTest.QTest.mousePress(mode.server_status.server_button, QtCore.Qt.LeftButton)
         QtTest.QTest.qWait(2000)
         QtTest.QTest.mouseRelease(mode.server_status.server_button, QtCore.Qt.LeftButton)
