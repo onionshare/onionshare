@@ -71,22 +71,22 @@ class SettingsDialog(QtWidgets.QDialog):
         self.public_mode_widget = QtWidgets.QWidget()
         self.public_mode_widget.setLayout(public_mode_layout)
 
-        # Whether or not to use a startup ('auto-start') timer
-        self.startup_timer_checkbox = QtWidgets.QCheckBox()
-        self.startup_timer_checkbox.setCheckState(QtCore.Qt.Checked)
-        self.startup_timer_checkbox.setText(strings._("gui_settings_startup_timer_checkbox"))
-        startup_timer_label = QtWidgets.QLabel(strings._("gui_settings_whats_this").format("https://github.com/micahflee/onionshare/wiki/Using-the-Startup-Timer"))
-        startup_timer_label.setStyleSheet(self.common.css['settings_whats_this'])
-        startup_timer_label.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
-        startup_timer_label.setOpenExternalLinks(True)
-        startup_timer_label.setMinimumSize(public_mode_label.sizeHint())
-        startup_timer_layout = QtWidgets.QHBoxLayout()
-        startup_timer_layout.addWidget(self.startup_timer_checkbox)
-        startup_timer_layout.addWidget(startup_timer_label)
-        startup_timer_layout.addStretch()
-        startup_timer_layout.setContentsMargins(0,0,0,0)
-        self.startup_timer_widget = QtWidgets.QWidget()
-        self.startup_timer_widget.setLayout(startup_timer_layout)
+        # Whether or not to use an auto-start timer
+        self.autostart_timer_checkbox = QtWidgets.QCheckBox()
+        self.autostart_timer_checkbox.setCheckState(QtCore.Qt.Checked)
+        self.autostart_timer_checkbox.setText(strings._("gui_settings_autostart_timer_checkbox"))
+        autostart_timer_label = QtWidgets.QLabel(strings._("gui_settings_whats_this").format("https://github.com/micahflee/onionshare/wiki/Using-the-Startup-Timer"))
+        autostart_timer_label.setStyleSheet(self.common.css['settings_whats_this'])
+        autostart_timer_label.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
+        autostart_timer_label.setOpenExternalLinks(True)
+        autostart_timer_label.setMinimumSize(public_mode_label.sizeHint())
+        autostart_timer_layout = QtWidgets.QHBoxLayout()
+        autostart_timer_layout.addWidget(self.autostart_timer_checkbox)
+        autostart_timer_layout.addWidget(autostart_timer_label)
+        autostart_timer_layout.addStretch()
+        autostart_timer_layout.setContentsMargins(0,0,0,0)
+        self.autostart_timer_widget = QtWidgets.QWidget()
+        self.autostart_timer_widget.setLayout(autostart_timer_layout)
 
         # Whether or not to use an auto-stop timer
         self.autostop_timer_checkbox = QtWidgets.QCheckBox()
@@ -108,7 +108,7 @@ class SettingsDialog(QtWidgets.QDialog):
         # General settings layout
         general_group_layout = QtWidgets.QVBoxLayout()
         general_group_layout.addWidget(self.public_mode_widget)
-        general_group_layout.addWidget(self.startup_timer_widget)
+        general_group_layout.addWidget(self.autostart_timer_widget)
         general_group_layout.addWidget(self.autostop_timer_widget)
         general_group = QtWidgets.QGroupBox(strings._("gui_settings_general_label"))
         general_group.setLayout(general_group_layout)
@@ -506,11 +506,11 @@ class SettingsDialog(QtWidgets.QDialog):
         else:
             self.close_after_first_download_checkbox.setCheckState(QtCore.Qt.Unchecked)
 
-        startup_timer = self.old_settings.get('startup_timer')
-        if startup_timer:
-            self.startup_timer_checkbox.setCheckState(QtCore.Qt.Checked)
+        autostart_timer = self.old_settings.get('autostart_timer')
+        if autostart_timer:
+            self.autostart_timer_checkbox.setCheckState(QtCore.Qt.Checked)
         else:
-            self.startup_timer_checkbox.setCheckState(QtCore.Qt.Unchecked)
+            self.autostart_timer_checkbox.setCheckState(QtCore.Qt.Unchecked)
 
         autostop_timer = self.old_settings.get('autostop_timer')
         if autostop_timer:
@@ -956,7 +956,7 @@ class SettingsDialog(QtWidgets.QDialog):
         settings.load() # To get the last update timestamp
 
         settings.set('close_after_first_download', self.close_after_first_download_checkbox.isChecked())
-        settings.set('startup_timer', self.startup_timer_checkbox.isChecked())
+        settings.set('autostart_timer', self.autostart_timer_checkbox.isChecked())
         settings.set('autostop_timer', self.autostop_timer_checkbox.isChecked())
 
         # Complicated logic here to force v2 onion mode on or off depending on other settings

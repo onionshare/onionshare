@@ -138,7 +138,7 @@ def main(cwd=None):
         if autostart_timer > 0:
             # Can't set a schedule that is later than the auto-stop timer
             if app.autostop_timer > 0 and app.autostop_timer < autostart_timer:
-                print(strings._('gui_autostop_timer_cant_be_earlier_than_startup'))
+                print(strings._('gui_autostop_timer_cant_be_earlier_than_autostart_timer'))
                 sys.exit()
 
             app.start_onion_service(False, True)

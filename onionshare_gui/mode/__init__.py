@@ -24,7 +24,7 @@ from onionshare.common import AutoStopTimer
 
 from ..server_status import ServerStatus
 from ..threads import OnionThread
-from ..threads import StartupTimer
+from ..threads import AutoStartTimer 
 from ..widgets import Alert
 
 class Mode(QtWidgets.QWidget):
@@ -115,12 +115,12 @@ class Mode(QtWidgets.QWidget):
         """
         # If this is a scheduled share, display the countdown til the share starts
         if self.server_status.status == ServerStatus.STATUS_WORKING:
-            if self.server_status.scheduled_start:
+            if self.server_status.autostart_timer_datetime:
                 now = QtCore.QDateTime.currentDateTime()
                 if self.server_status.local_only:
-                    seconds_remaining = now.secsTo(self.server_status.startup_timer.dateTime())
+                    seconds_remaining = now.secsTo(self.server_status.autostart_timer_widget.dateTime())
                 else:
-                    seconds_remaining = now.secsTo(self.server_status.scheduled_start.replace(second=0, microsecond=0))
+                    seconds_remaining = now.secsTo(self.server_status.autostart_timer_datetime.replace(second=0, microsecond=0))
                 # Update the server button
                 if seconds_remaining > 0:
                     self.server_status.server_button.setText(strings._('gui_waiting_to_start').format(self.human_friendly_time(seconds_remaining)))
@@ -183,15 +183,15 @@ class Mode(QtWidgets.QWidget):
         # Start the onion thread. If this share was scheduled for a future date,
         # the OnionThread will start and exit 'early' to obtain the port, slug
         # and onion address, but it will not start the WebThread yet.
-        if self.server_status.scheduled_start:
+        if self.server_status.autostart_timer_datetime:
             self.start_onion_thread(obtain_onion_early=True)
         else:
             self.start_onion_thread()
 
         # If scheduling a share, delay starting the real share
-        if self.server_status.scheduled_start:
-            self.common.log('Mode', 'start_server', 'Starting startup timer')
-            self.startup_thread = StartupTimer(self)
+        if self.server_status.autostart_timer_datetime:
+            self.common.log('Mode', 'start_server', 'Starting auto-start timer')
+            self.startup_thread = AutoStartTimer(self)
             # Once the timer has finished, start the real share, with a WebThread
             self.startup_thread.success.connect(self.start_scheduled_service)
             self.startup_thread.error.connect(self.start_server_error)
