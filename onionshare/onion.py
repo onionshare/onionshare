@@ -431,6 +431,9 @@ class Onion(object):
         return the onion hostname.
         """
         self.common.log('Onion', 'start_onion_service')
+        # Settings may have changed in the frontend but not updated in our settings object,
+        # such as persistence. Reload the settings now just to be sure.
+        self.settings.load()
 
         self.auth_string = None
         if not self.supports_ephemeral:

@@ -169,6 +169,10 @@ class ServerStatus(QtWidgets.QWidget):
         """
         # Set the URL fields
         if self.status == self.STATUS_STARTED:
+            # The backend Onion may have saved new settings, such as the private key.
+            # Reload the settings before saving new ones.
+            self.common.settings.load()
+
             self.url_description.show()
 
             info_image = self.common.get_resource_path('images/info.png')
