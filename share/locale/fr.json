@@ -13,7 +13,7 @@
     "systray_download_canceled_message": "La personne a annulé le téléchargement",
     "help_local_only": "Ne pas utiliser Tor (uniquement pour le développement)",
     "help_stay_open": "Continuer le partage après l’envoi des fichiers",
-    "help_debug": "Journaliser les erreurs d’OnionShare sur la sortie standard et les erreurs Web sur le disque",
+    "help_verbose": "Journaliser les erreurs d’OnionShare sur la sortie standard et les erreurs Web sur le disque",
     "help_filename": "Liste des fichiers ou dossiers à partager",
     "gui_drag_and_drop": "Glisser-déposer des fichiers et dossiers\npour commencer le partage",
     "gui_add": "Ajouter",

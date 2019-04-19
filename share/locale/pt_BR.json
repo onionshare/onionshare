@@ -28,7 +28,7 @@
     "help_autostop_timer": "Parar de compartilhar após um número determinado de segundos",
     "help_stealth": "Usar autorização de cliente (avançado)",
     "help_receive": "Receber compartilhamentos ao invés de enviá-los",
-    "help_debug": "Registrar erros do OnionShare no stdout e erros de rede, no disco",
+    "help_verbose": "Registrar erros do OnionShare no stdout e erros de rede, no disco",
     "help_filename": "Lista de arquivos ou pastas a compartilhar",
     "help_config": "Personalizar a configuração JSON de localização de arquivos (opcional)",
     "gui_drag_and_drop": "Arrastar arquivos e pastas\npara começar a compartilhá-los",

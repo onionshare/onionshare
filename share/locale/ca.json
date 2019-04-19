@@ -28,7 +28,7 @@
     "help_autostop_timer": "Deixa de compartir al cap de tants segons",
     "help_stealth": "Fes servir autorització de client (avançat)",
     "help_receive": "Rep recursos en comptes d'enviar-los",
-    "help_debug": "Envia els errors d'OnionShare a stdout i els errors web al disc",
+    "help_verbose": "Envia els errors d'OnionShare a stdout i els errors web al disc",
     "help_filename": "Llista d'arxius o carpetes a compartir",
     "help_config": "Ubicació de la configuració JSON personalitzada",
     "gui_drag_and_drop": "Arrossega arxius i carpetes\nper començar a compartir",

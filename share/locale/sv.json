@@ -29,7 +29,7 @@
     "help_autostop_timer": "Sluta dela efter ett bestämt antal sekunder",
     "help_stealth": "Använd klient-auktorisering (avancerat)",
     "help_receive": "Ta emot delningar istället för att skicka dem",
-    "help_debug": "Logga OnionShare fel till stdout och webbfel till hårddisken",
+    "help_verbose": "Logga OnionShare fel till stdout och webbfel till hårddisken",
     "help_filename": "Lista filer och mappar att dela",
     "help_config": "Egenvald sökväg för JSON konfigurationsfil (valfri)",
     "gui_drag_and_drop": "Dra och släpp filer och mappar\nför att börja delning",

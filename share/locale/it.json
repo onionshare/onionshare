@@ -8,7 +8,7 @@
     "large_filesize": "Attenzione: inviare file di grandi dimensioni può richiedere ore",
     "help_local_only": "Non usare Tor (solo per lo sviluppo)",
     "help_stay_open": "Mantieni la condivisione attiva anche dopo che i file sono stati inviati",
-    "help_debug": "Registra gli errori sul disco",
+    "help_verbose": "Registra gli errori sul disco",
     "help_filename": "Lista dei file o cartelle da condividere",
     "gui_drag_and_drop": "Trascina e rilascia i file e le cartelle per iniziare la condivisione",
     "gui_add": "Aggiungi",

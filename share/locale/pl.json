@@ -28,7 +28,7 @@
     "help_autostop_timer": "Przestań udostępniać po określonym czasie w sekundach",
     "help_stealth": "Korzystaj z weryfikacji klienta (zaawansowane)",
     "help_receive": "Odbieraj dane zamiast je wysyłać",
-    "help_debug": "Zapisz błędy OnionShare do stdout i zapisz błędy sieciowe na dysku",
+    "help_verbose": "Zapisz błędy OnionShare do stdout i zapisz błędy sieciowe na dysku",
     "help_filename": "Lista plików i folderów do udostępnienia",
     "help_config": "Lokalizacja niestandarowego pliku konfiguracyjnego JSON (opcjonalne)",
     "gui_drag_and_drop": "Przeciągnij i upuść pliki i foldery\naby je udostępnić",
