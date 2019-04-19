@@ -284,13 +284,13 @@ class ServerStatus(QtWidgets.QWidget):
                     self.autostart_timer_container.hide()
                 if self.common.settings.get('autostop_timer'):
                     self.autostop_timer_container.hide()
-                    self.server_button.setToolTip(strings._('gui_stop_server_autostop_timer_tooltip').format(self.autostop_timer_widget.dateTime().toString("H:mmAP, MMM dd, yy")))
+                    self.server_button.setToolTip(strings._('gui_stop_server_autostop_timer_tooltip').format(self.autostop_timer_widget.dateTime().toString("h:mm AP, MMMM dd, yyyy")))
             elif self.status == self.STATUS_WORKING:
                 self.server_button.setStyleSheet(self.common.css['server_status_button_working'])
                 self.server_button.setEnabled(True)
                 if self.autostart_timer_datetime:
                     self.autostart_timer_container.hide()
-                    self.server_button.setToolTip(strings._('gui_start_server_autostart_timer_tooltip').format(self.autostart_timer_widget.dateTime().toString("H:mmAP, MMM dd, yy")))
+                    self.server_button.setToolTip(strings._('gui_start_server_autostart_timer_tooltip').format(self.autostart_timer_widget.dateTime().toString("h:mm AP, MMMM dd, yyyy")))
                 else:
                     self.server_button.setText(strings._('gui_please_wait'))
                 if self.common.settings.get('autostop_timer'):
@@ -301,7 +301,7 @@ class ServerStatus(QtWidgets.QWidget):
                 self.server_button.setText(strings._('gui_please_wait'))
                 if self.common.settings.get('autostart_timer'):
                     self.autostart_timer_container.hide()
-                    self.server_button.setToolTip(strings._('gui_start_server_autostart_timer_tooltip').format(self.autostart_timer_widget.dateTime().toString("H:mmAP, MMM dd, yy")))
+                    self.server_button.setToolTip(strings._('gui_start_server_autostart_timer_tooltip').format(self.autostart_timer_widget.dateTime().toString("h:mm AP, MMMM dd, yyyy")))
                 if self.common.settings.get('autostop_timer'):
                     self.autostop_timer_container.hide()
 
