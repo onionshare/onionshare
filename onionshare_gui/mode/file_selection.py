@@ -22,7 +22,7 @@ from PyQt5 import QtCore, QtWidgets, QtGui
 
 from onionshare import strings
 
-from ...widgets import Alert, AddFileDialog
+from ..widgets import Alert, AddFileDialog
 
 class DropHereLabel(QtWidgets.QLabel):
     """

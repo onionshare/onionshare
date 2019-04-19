@@ -135,6 +135,7 @@
     "gui_receive_mode_warning": "Receive mode lets people upload files to your computer.<br><br><b>Some files can potentially take control of your computer if you open them. Only open things from people you trust, or if you know what you are doing.</b>",
     "gui_mode_share_button": "Share Files",
     "gui_mode_receive_button": "Receive Files",
+    "gui_mode_website_button": "Publish Website",
     "gui_settings_receiving_label": "Receiving settings",
     "gui_settings_data_dir_label": "Save files to",
     "gui_settings_data_dir_browse_button": "Browse",
