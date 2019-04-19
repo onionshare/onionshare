@@ -16,6 +16,7 @@ class SettingsGuiTest(unittest.TestCase, SettingsGuiBaseTest):
         SettingsGuiBaseTest.tear_down()
 
     @pytest.mark.gui
+    @pytest.mark.skipif(pytest.__version__ < '2.9', reason="requires newer pytest")
     def test_gui_no_tor(self):
         self.gui.onion = OnionStub(False, False)
         self.gui.reload_settings()
