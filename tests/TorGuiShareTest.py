@@ -89,7 +89,7 @@ class TorGuiShareTest(TorGuiBaseTest, GuiShareTest):
         self.run_all_share_mode_setup_tests()
         self.set_timeout(self.gui.share_mode, 120)
         self.run_all_share_mode_started_tests(public_mode)
-        self.timeout_widget_hidden(self.gui.share_mode)
+        self.autostop_timer_widget_hidden(self.gui.share_mode)
         self.server_timed_out(self.gui.share_mode, 125000)
         self.web_server_is_stopped()
 

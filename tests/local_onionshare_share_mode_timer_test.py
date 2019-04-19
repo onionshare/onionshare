@@ -9,7 +9,7 @@ class LocalShareModeTimerTest(unittest.TestCase, GuiShareTest):
     def setUpClass(cls):
         test_settings = {
             "public_mode": False,
-            "shutdown_timeout": True,
+            "autostop_timer": True,
         }
         cls.gui = GuiShareTest.set_up(test_settings)
 

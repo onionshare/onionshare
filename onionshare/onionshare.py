@@ -22,14 +22,14 @@ import os, shutil
 
 from . import common, strings
 from .onion import TorTooOld, TorErrorProtocolError
-from .common import ShutdownTimer
+from .common import AutoStopTimer 
 
 class OnionShare(object):
     """
     OnionShare is the main application class. Pass in options and run
     start_onion_service and it will do the magic.
     """
-    def __init__(self, common, onion, local_only=False, shutdown_timeout=0):
+    def __init__(self, common, onion, local_only=False, autostop_timer=0):
         self.common = common
 
         self.common.log('OnionShare', '__init__')
@@ -49,9 +49,9 @@ class OnionShare(object):
         self.local_only = local_only
 
         # optionally shut down after N hours
-        self.shutdown_timeout = shutdown_timeout
-        # init timing thread
-        self.shutdown_timer = None
+        self.autostop_timer = autostop_timer
+        # init auto-stop timer thread
+        self.autostop_timer_thread = None
 
     def set_stealth(self, stealth):
         self.common.log('OnionShare', 'set_stealth', 'stealth={}'.format(stealth))
@@ -68,7 +68,7 @@ class OnionShare(object):
         except:
             raise OSError(strings._('no_available_port'))
 
-    def start_onion_service(self):
+    def start_onion_service(self, await_publication=True, save_scheduled_key=False):
         """
         Start the onionshare onion service.
         """
@@ -77,14 +77,14 @@ class OnionShare(object):
         if not self.port:
             self.choose_port()
 
-        if self.shutdown_timeout > 0:
-            self.shutdown_timer = ShutdownTimer(self.common, self.shutdown_timeout)
+        if self.autostop_timer > 0:
+            self.autostop_timer_thread = AutoStopTimer(self.common, self.autostop_timer)
 
         if self.local_only:
             self.onion_host = '127.0.0.1:{0:d}'.format(self.port)
             return
 
-        self.onion_host = self.onion.start_onion_service(self.port)
+        self.onion_host = self.onion.start_onion_service(self.port, await_publication, save_scheduled_key)
 
         if self.stealth:
             self.auth_string = self.onion.auth_string

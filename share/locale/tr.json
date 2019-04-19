@@ -26,5 +26,5 @@
     "give_this_url_receive": "Bu adresi gönderene ver:",
     "not_a_readable_file": "{0:s} okunabilir bir dosya değil.",
     "no_available_port": "Onion servisini başlatmak için uygun bir port bulunamadı",
-    "close_on_timeout": "Otomatik durma zamanlayıcısının bitmesi nedeniyle durdu"
+    "close_on_autostop_timer": "Otomatik durma zamanlayıcısının bitmesi nedeniyle durdu"
 }
