@@ -36,8 +36,8 @@ class Common(object):
     """
     The Common object is shared amongst all parts of OnionShare.
     """
-    def __init__(self, debug=False):
-        self.debug = debug
+    def __init__(self, verbose=False):
+        self.verbose = verbose
 
         # The platform OnionShare is running on
         self.platform = platform.system()
@@ -57,9 +57,9 @@ class Common(object):
 
     def log(self, module, func, msg=None):
         """
-        If debug mode is on, log error messages to stdout
+        If verbose mode is on, log error messages to stdout
         """
-        if self.debug:
+        if self.verbose:
             timestamp = time.strftime("%b %d %Y %X")
 
             final_msg = "[{}] {}.{}".format(timestamp, module, func)

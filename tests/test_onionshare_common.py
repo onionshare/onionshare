@@ -268,7 +268,7 @@ class TestLog:
         def dummy_func():
             pass
 
-        common_obj.debug = True
+        common_obj.verbose = True
 
         # From: https://stackoverflow.com/questions/1218933
         with io.StringIO() as buf, contextlib.redirect_stdout(buf):

@@ -61,7 +61,7 @@ def main(cwd=None):
     parser.add_argument('--stealth', action='store_true', dest='stealth', help=strings._("help_stealth"))
     parser.add_argument('--receive', action='store_true', dest='receive', help=strings._("help_receive"))
     parser.add_argument('--config', metavar='config', default=False, help=strings._('help_config'))
-    parser.add_argument('--debug', action='store_true', dest='debug', help=strings._("help_debug"))
+    parser.add_argument('-v', '--verbose', action='store_true', dest='verbose', help=strings._("help_verbose"))
     parser.add_argument('filename', metavar='filename', nargs='*', help=strings._('help_filename'))
     args = parser.parse_args()
 
@@ -70,7 +70,7 @@ def main(cwd=None):
         filenames[i] = os.path.abspath(filenames[i])
 
     local_only = bool(args.local_only)
-    debug = bool(args.debug)
+    verbose = bool(args.verbose)
     stay_open = bool(args.stay_open)
     autostart_timer = int(args.autostart_timer)
     autostop_timer = int(args.autostop_timer)
@@ -108,8 +108,8 @@ def main(cwd=None):
         # Re-load the strings, in case the provided config has changed locale
         strings.load_strings(common)
 
-    # Debug mode?
-    common.debug = debug
+    # Verbose mode?
+    common.verbose = verbose
 
     # Create the Web object
     web = Web(common, False, mode)
