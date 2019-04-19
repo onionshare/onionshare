@@ -19,6 +19,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 import os, sys, time, argparse, threading
+from datetime import datetime
+from datetime import timedelta
 
 from . import strings
 from .common import Common
@@ -53,7 +55,9 @@ def main(cwd=None):
     parser = argparse.ArgumentParser(formatter_class=lambda prog: argparse.HelpFormatter(prog,max_help_position=28))
     parser.add_argument('--local-only', action='store_true', dest='local_only', help=strings._("help_local_only"))
     parser.add_argument('--stay-open', action='store_true', dest='stay_open', help=strings._("help_stay_open"))
-    parser.add_argument('--shutdown-timeout', metavar='<int>', dest='shutdown_timeout', default=0, help=strings._("help_shutdown_timeout"))
+    parser.add_argument('--auto-start-timer', metavar='<int>', dest='autostart_timer', default=0, help=strings._("help_autostart_timer"))
+    parser.add_argument('--auto-stop-timer', metavar='<int>', dest='autostop_timer', default=0, help=strings._("help_autostop_timer"))
+    parser.add_argument('--connect-timeout', metavar='<int>', dest='connect_timeout', default=120, help=strings._("help_connect_timeout"))
     parser.add_argument('--stealth', action='store_true', dest='stealth', help=strings._("help_stealth"))
     parser.add_argument('--receive', action='store_true', dest='receive', help=strings._("help_receive"))
     parser.add_argument('--config', metavar='config', default=False, help=strings._('help_config'))
@@ -68,7 +72,9 @@ def main(cwd=None):
     local_only = bool(args.local_only)
     debug = bool(args.debug)
     stay_open = bool(args.stay_open)
-    shutdown_timeout = int(args.shutdown_timeout)
+    autostart_timer = int(args.autostart_timer)
+    autostop_timer = int(args.autostop_timer)
+    connect_timeout = int(args.connect_timeout)
     stealth = bool(args.stealth)
     receive = bool(args.receive)
     config = args.config
@@ -111,7 +117,7 @@ def main(cwd=None):
     # Start the Onion object
     onion = Onion(common)
     try:
-        onion.connect(custom_settings=False, config=config)
+        onion.connect(custom_settings=False, config=config, connect_timeout=connect_timeout)
     except KeyboardInterrupt:
         print("")
         sys.exit()
@@ -120,10 +126,51 @@ def main(cwd=None):
 
     # Start the onionshare app
     try:
-        app = OnionShare(common, onion, local_only, shutdown_timeout)
+        common.settings.load()
+        if not common.settings.get('public_mode'):
+            web.generate_slug(common.settings.get('slug'))
+        else:
+            web.slug = None
+        app = OnionShare(common, onion, local_only, autostop_timer)
         app.set_stealth(stealth)
         app.choose_port()
-        app.start_onion_service()
+        # Delay the startup if a startup timer was set
+        if autostart_timer > 0:
+            # Can't set a schedule that is later than the auto-stop timer
+            if app.autostop_timer > 0 and app.autostop_timer < autostart_timer:
+                print(strings._('gui_autostop_timer_cant_be_earlier_than_autostart_timer'))
+                sys.exit()
+
+            app.start_onion_service(False, True)
+            if common.settings.get('public_mode'):
+                url = 'http://{0:s}'.format(app.onion_host)
+            else:
+                url = 'http://{0:s}/{1:s}'.format(app.onion_host, web.slug)
+            schedule = datetime.now() + timedelta(seconds=autostart_timer)
+            if mode == 'receive':
+                print(strings._('receive_mode_data_dir').format(common.settings.get('data_dir')))
+                print('')
+                print(strings._('receive_mode_warning'))
+                print('')
+                if stealth:
+                    print(strings._("give_this_scheduled_url_receive_stealth").format(schedule.strftime("%I:%M:%S%p, %b %d, %y")))
+                    print(app.auth_string)
+                else:
+                    print(strings._("give_this_scheduled_url_receive").format(schedule.strftime("%I:%M:%S%p, %b %d, %y")))
+            else:
+                if stealth:
+                    print(strings._("give_this_scheduled_url_share_stealth").format(schedule.strftime("%I:%M:%S%p, %b %d, %y")))
+                    print(app.auth_string)
+                else:
+                    print(strings._("give_this_scheduled_url_share").format(schedule.strftime("%I:%M:%S%p, %b %d, %y")))
+            print(url)
+            print('')
+            print(strings._("waiting_for_scheduled_time"))
+            app.onion.cleanup(False)
+            time.sleep(autostart_timer)
+            app.start_onion_service()
+        else:
+            app.start_onion_service()
     except KeyboardInterrupt:
         print("")
         sys.exit()
@@ -149,7 +196,7 @@ def main(cwd=None):
             print('')
 
     # Start OnionShare http service in new thread
-    t = threading.Thread(target=web.start, args=(app.port, stay_open, common.settings.get('public_mode'), common.settings.get('slug')))
+    t = threading.Thread(target=web.start, args=(app.port, stay_open, common.settings.get('public_mode'), web.slug))
     t.daemon = True
     t.start()
 
@@ -157,9 +204,9 @@ def main(cwd=None):
         # Wait for web.generate_slug() to finish running
         time.sleep(0.2)
 
-        # start shutdown timer thread
-        if app.shutdown_timeout > 0:
-            app.shutdown_timer.start()
+        # start auto-stop timer thread
+        if app.autostop_timer > 0:
+            app.autostop_timer_thread.start()
 
         # Save the web slug if we are using a persistent private key
         if common.settings.get('save_private_key'):
@@ -174,44 +221,47 @@ def main(cwd=None):
             url = 'http://{0:s}/{1:s}'.format(app.onion_host, web.slug)
 
         print('')
-        if mode == 'receive':
-            print(strings._('receive_mode_data_dir').format(common.settings.get('data_dir')))
-            print('')
-            print(strings._('receive_mode_warning'))
-            print('')
-
-            if stealth:
-                print(strings._("give_this_url_receive_stealth"))
-                print(url)
-                print(app.auth_string)
-            else:
-                print(strings._("give_this_url_receive"))
-                print(url)
+        if autostart_timer > 0:
+            print(strings._('server_started'))
         else:
-            if stealth:
-                print(strings._("give_this_url_stealth"))
-                print(url)
-                print(app.auth_string)
+            if mode == 'receive':
+                print(strings._('receive_mode_data_dir').format(common.settings.get('data_dir')))
+                print('')
+                print(strings._('receive_mode_warning'))
+                print('')
+
+                if stealth:
+                    print(strings._("give_this_url_receive_stealth"))
+                    print(url)
+                    print(app.auth_string)
+                else:
+                    print(strings._("give_this_url_receive"))
+                    print(url)
             else:
-                print(strings._("give_this_url"))
-                print(url)
+                if stealth:
+                    print(strings._("give_this_url_stealth"))
+                    print(url)
+                    print(app.auth_string)
+                else:
+                    print(strings._("give_this_url"))
+                    print(url)
         print('')
         print(strings._("ctrlc_to_stop"))
 
         # Wait for app to close
         while t.is_alive():
-            if app.shutdown_timeout > 0:
-                # if the shutdown timer was set and has run out, stop the server
-                if not app.shutdown_timer.is_alive():
+            if app.autostop_timer > 0:
+                # if the auto-stop timer was set and has run out, stop the server
+                if not app.autostop_timer_thread.is_alive():
                     if mode == 'share':
                         # If there were no attempts to download the share, or all downloads are done, we can stop
                         if web.share_mode.download_count == 0 or web.done:
-                            print(strings._("close_on_timeout"))
+                            print(strings._("close_on_autostop_timer"))
                             web.stop(app.port)
                             break
                     if mode == 'receive':
                         if web.receive_mode.upload_count == 0 or not web.receive_mode.uploads_in_progress:
-                            print(strings._("close_on_timeout"))
+                            print(strings._("close_on_autostop_timer"))
                             web.stop(app.port)
                             break
                         else:

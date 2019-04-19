@@ -485,7 +485,7 @@ class Common(object):
         return total_size
 
 
-class ShutdownTimer(threading.Thread):
+class AutoStopTimer(threading.Thread):
     """
     Background thread sleeps t hours and returns.
     """
@@ -498,6 +498,6 @@ class ShutdownTimer(threading.Thread):
         self.time = time
 
     def run(self):
-        self.common.log('Shutdown Timer', 'Server will shut down after {} seconds'.format(self.time))
+        self.common.log('AutoStopTimer', 'Server will shut down after {} seconds'.format(self.time))
         time.sleep(self.time)
         return 1

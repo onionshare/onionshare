@@ -172,6 +172,9 @@ class GuiBaseTest(object):
         '''Test that the Server Status indicator shows we are Starting'''
         self.assertEqual(mode.server_status_label.text(), strings._('gui_status_indicator_share_working'))
 
+    def server_status_indicator_says_scheduled(self, mode):
+        '''Test that the Server Status indicator shows we are Scheduled'''
+        self.assertEqual(mode.server_status_label.text(), strings._('gui_status_indicator_share_scheduled'))
 
     def server_is_started(self, mode, startup_time=2000):
         '''Test that the server has started'''
@@ -291,13 +294,12 @@ class GuiBaseTest(object):
     def set_timeout(self, mode, timeout):
         '''Test that the timeout can be set'''
         timer = QtCore.QDateTime.currentDateTime().addSecs(timeout)
-        mode.server_status.shutdown_timeout.setDateTime(timer)
-        self.assertTrue(mode.server_status.shutdown_timeout.dateTime(), timer)
+        mode.server_status.autostop_timer_widget.setDateTime(timer)
+        self.assertTrue(mode.server_status.autostop_timer_widget.dateTime(), timer)
 
-
-    def timeout_widget_hidden(self, mode):
-        '''Test that the timeout widget is hidden when share has started'''
-        self.assertFalse(mode.server_status.shutdown_timeout_container.isVisible())
+    def autostop_timer_widget_hidden(self, mode):
+        '''Test that the auto-stop timer widget is hidden when share has started'''
+        self.assertFalse(mode.server_status.autostop_timer_container.isVisible())
 
 
     def server_timed_out(self, mode, wait):
@@ -305,6 +307,37 @@ class GuiBaseTest(object):
         QtTest.QTest.qWait(wait)
         # We should have timed out now
         self.assertEqual(mode.server_status.status, 0)
+
+    # Auto-start timer tests
+    def set_autostart_timer(self, mode, timer):
+        '''Test that the timer can be set'''
+        schedule = QtCore.QDateTime.currentDateTime().addSecs(timer)
+        mode.server_status.autostart_timer_widget.setDateTime(schedule)
+        self.assertTrue(mode.server_status.autostart_timer_widget.dateTime(), schedule)
+
+    def autostart_timer_widget_hidden(self, mode):
+        '''Test that the auto-start timer widget is hidden when share has started'''
+        self.assertFalse(mode.server_status.autostart_timer_container.isVisible())
+
+    def scheduled_service_started(self, mode, wait):
+        '''Test that the server has timed out after the timer ran out'''
+        QtTest.QTest.qWait(wait)
+        # We should have started now
+        self.assertEqual(mode.server_status.status, 2)
+
+    def cancel_the_share(self, mode):
+        '''Test that we can cancel a share before it's started up '''
+        self.server_working_on_start_button_pressed(mode)
+        self.server_status_indicator_says_scheduled(mode)
+        self.add_delete_buttons_hidden()
+        self.settings_button_is_hidden()
+        self.set_autostart_timer(mode, 10)
+        QtTest.QTest.mousePress(mode.server_status.server_button, QtCore.Qt.LeftButton)
+        QtTest.QTest.qWait(2000)
+        QtTest.QTest.mouseRelease(mode.server_status.server_button, QtCore.Qt.LeftButton)
+        self.assertEqual(mode.server_status.status, 0)
+        self.server_is_stopped(mode, False)
+        self.web_server_is_stopped()
 
     # Hack to close an Alert dialog that would otherwise block tests
     def accept_dialog(self):
