@@ -29,7 +29,7 @@
     "help_autostop_timer": "数秒後に共有が停止されます",
     "help_stealth": "クライアント認証を使う（上級者向け）",
     "help_receive": "共有を送信する代わりに受信する",
-    "help_debug": "OnionShareのエラーを標準出力に、Webのエラーをディスクに記録する",
+    "help_verbose": "OnionShareのエラーを標準出力に、Webのエラーをディスクに記録する",
     "help_filename": "共有するファイルとフォルダの一覧",
     "help_config": "カスタムJSON設定ファイルの位置（任意）",
     "gui_drag_and_drop": "共有を始めるにはファイルやフォルダをドラッグアンドドロップしてください",

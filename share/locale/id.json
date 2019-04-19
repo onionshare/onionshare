@@ -28,7 +28,7 @@
     "help_autostop_timer": "Berhenti berbagi setelah beberapa detik",
     "help_stealth": "Gunakan otorisasi klien (lanjutan)",
     "help_receive": "",
-    "help_debug": "Catat kesalahan OnionShare ke stdout, dan kesalahan web ke disk",
+    "help_verbose": "Catat kesalahan OnionShare ke stdout, dan kesalahan web ke disk",
     "help_filename": "Daftar berkas atau folder untuk dibagikan",
     "help_config": "",
     "gui_drag_and_drop": "Seret dan lepas berkas dan folder\nuntuk mulai berbagi",

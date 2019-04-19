@@ -8,7 +8,7 @@
     "large_filesize": "Warnung: Das Hochladen von großen Dateien kann Stunden dauern",
     "help_local_only": "Tor nicht verwenden (nur für Entwicklung)",
     "help_stay_open": "Den Server weiterlaufen lassen, nachdem die Dateien verschickt wurden",
-    "help_debug": "Schreibe Fehler von OnionShare nach stdout und Webfehler auf die Festplatte",
+    "help_verbose": "Schreibe Fehler von OnionShare nach stdout und Webfehler auf die Festplatte",
     "help_filename": "Liste der zu teilenden Dateien oder Ordner",
     "gui_drag_and_drop": "Dateien und Ordner hierher ziehen\num sie zu teilen",
     "gui_add": "Hinzufügen",

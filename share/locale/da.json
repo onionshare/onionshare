@@ -23,7 +23,7 @@
     "help_stay_open": "Fortsæt deling efter filerne er blevet sendt",
     "help_autostop_timer": "Stop deling efter et vist antal sekunder",
     "help_stealth": "Brug klientautentifikation (avanceret)",
-    "help_debug": "Log OnionShare-fejl til stdout, og webfejl til disk",
+    "help_verbose": "Log OnionShare-fejl til stdout, og webfejl til disk",
     "help_filename": "Liste over filer eller mapper som skal deles",
     "help_config": "Tilpasset placering af JSON-konfigurationsfil (valgfri)",
     "gui_drag_and_drop": "Træk og slip filer og mapper her\nfor at starte deling",

@@ -7,7 +7,7 @@
     "closing_automatically": "Detenido porque la transferencia se completó",
     "help_local_only": "No usar Tor (sólo para desarrollo)",
     "help_stay_open": "Continuar compartiendo luego que los archivos hayan sido enviados",
-    "help_debug": "Enviar los errores de OnionShare a stdout, y los errores web al disco",
+    "help_verbose": "Enviar los errores de OnionShare a stdout, y los errores web al disco",
     "help_filename": "Lista de archivos o carpetas para compartir",
     "gui_drag_and_drop": "Arrastra y suelta archivos y carpetas\npara empezar a compartir",
     "gui_add": "Añadir",

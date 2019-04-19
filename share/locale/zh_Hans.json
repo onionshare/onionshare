@@ -28,7 +28,7 @@
     "help_autostop_timer": "超过给定时间（秒）后终止分享",
     "help_stealth": "使用服务端认证(高级选项)",
     "help_receive": "仅接收分享的文件，不发送",
-    "help_debug": "将OnionShare错误日志记录到stdout，将web错误日志记录到磁盘",
+    "help_verbose": "将OnionShare错误日志记录到stdout，将web错误日志记录到磁盘",
     "help_filename": "要分享的文件或文件夹的列表",
     "help_config": "自定义JSON配置文件的路径(可选)",
     "gui_drag_and_drop": "将文件或文件夹拖动到这里来开始分享",
