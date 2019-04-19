@@ -195,10 +195,10 @@ class Web(object):
 
     def verbose_mode(self):
         """
-        Turn on debugging mode, which will log flask errors to a debug file.
+        Turn on verbose mode, which will log flask errors to a file.
         """
-        flask_debug_filename = os.path.join(self.common.build_data_dir(), 'flask_debug.log')
-        log_handler = logging.FileHandler(flask_debug_filename)
+        flask_log_filename = os.path.join(self.common.build_data_dir(), 'flask.log')
+        log_handler = logging.FileHandler(flask_log_filename)
         log_handler.setLevel(logging.WARNING)
         self.app.logger.addHandler(log_handler)
 
