@@ -28,7 +28,7 @@
     "help_autostop_timer": "Stop ag comhroinnt tar éis líon áirithe soicindí",
     "help_stealth": "Úsáid údarú cliaint (ardleibhéal)",
     "help_receive": "Glac le comhaid chomhroinnte in áit iad a sheoladh",
-    "help_debug": "Déan tuairisc ar earráidí OnionShare ar stdout, agus earráidí Gréasáin ar an diosca",
+    "help_verbose": "Déan tuairisc ar earráidí OnionShare ar stdout, agus earráidí Gréasáin ar an diosca",
     "help_filename": "Liosta comhad nó fillteán le comhroinnt",
     "help_config": "Suíomh saincheaptha don chomhad cumraíochta JSON (roghnach)",
     "gui_drag_and_drop": "Tarraing agus scaoil comhaid agus fillteáin\nchun iad a chomhroinnt",

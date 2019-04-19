@@ -29,7 +29,7 @@
     "help_autostop_timer": "Stopp deling etter et gitt antall sekunder",
     "help_stealth": "Bruk klientidentifisering (avansert)",
     "help_receive": "Motta delinger istedenfor å sende dem",
-    "help_debug": "Log OnionShare-feil til stdout, og vev-feil til disk",
+    "help_verbose": "Log OnionShare-feil til stdout, og vev-feil til disk",
     "help_filename": "Liste over filer eller mapper å dele",
     "help_config": "Egendefinert JSON-oppsettsfil (valgfri)",
     "gui_drag_and_drop": "Dra og slipp filer og mapper\nfor å starte deling",

@@ -81,7 +81,7 @@ def main():
     # Parse arguments
     parser = argparse.ArgumentParser(formatter_class=lambda prog: argparse.HelpFormatter(prog,max_help_position=48))
     parser.add_argument('--local-only', action='store_true', dest='local_only', help=strings._("help_local_only"))
-    parser.add_argument('--debug', action='store_true', dest='debug', help=strings._("help_debug"))
+    parser.add_argument('-v', '--verbose', action='store_true', dest='verbose', help=strings._("help_verbose"))
     parser.add_argument('--filenames', metavar='filenames', nargs='+', help=strings._('help_filename'))
     parser.add_argument('--config', metavar='config', default=False, help=strings._('help_config'))
     args = parser.parse_args()
@@ -98,10 +98,10 @@ def main():
         strings.load_strings(common)
 
     local_only = bool(args.local_only)
-    debug = bool(args.debug)
+    verbose = bool(args.verbose)
 
-    # Debug mode?
-    common.debug = debug
+    # Verbose mode?
+    common.verbose = verbose
 
     # Validation
     if filenames:

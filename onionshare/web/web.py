@@ -54,9 +54,9 @@ class Web(object):
                          template_folder=self.common.get_resource_path('templates'))
         self.app.secret_key = self.common.random_string(8)
 
-        # Debug mode?
-        if self.common.debug:
-            self.debug_mode()
+        # Verbose mode?
+        if self.common.verbose:
+            self.verbose_mode()
 
         # Are we running in GUI mode?
         self.is_gui = is_gui
@@ -196,12 +196,12 @@ class Web(object):
             self.slug = self.common.build_slug()
             self.common.log('Web', 'generate_slug', 'built random slug: "{}"'.format(self.slug))
 
-    def debug_mode(self):
+    def verbose_mode(self):
         """
-        Turn on debugging mode, which will log flask errors to a debug file.
+        Turn on verbose mode, which will log flask errors to a file.
         """
-        flask_debug_filename = os.path.join(self.common.build_data_dir(), 'flask_debug.log')
-        log_handler = logging.FileHandler(flask_debug_filename)
+        flask_log_filename = os.path.join(self.common.build_data_dir(), 'flask.log')
+        log_handler = logging.FileHandler(flask_log_filename)
         log_handler.setLevel(logging.WARNING)
         self.app.logger.addHandler(log_handler)
 
