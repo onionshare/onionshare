@@ -22,7 +22,10 @@ from .receive_mode import ReceiveModeWeb, ReceiveModeWSGIMiddleware, ReceiveMode
 def stubbed_show_server_banner(env, debug, app_import_path, eager_loading):
     pass
 
-flask.cli.show_server_banner = stubbed_show_server_banner
+try:
+    flask.cli.show_server_banner = stubbed_show_server_banner
+except:
+    pass
 
 
 class Web(object):

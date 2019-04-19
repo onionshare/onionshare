@@ -17,6 +17,7 @@ class LocalShareModePublicModeTest(unittest.TestCase, GuiShareTest):
         GuiShareTest.tear_down()
 
     @pytest.mark.gui
+    @pytest.mark.skipif(pytest.__version__ < '2.9', reason="requires newer pytest")
     def test_gui(self):
         self.run_all_common_setup_tests()
         self.run_all_share_mode_tests(True, False)
