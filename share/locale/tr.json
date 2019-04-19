@@ -8,7 +8,7 @@
     "large_filesize": "Uyarı: Büyük dosyaların gönderimi saatler sürebilir",
     "help_local_only": "Tor kullanmaya kalkışmayın: sadece geliştirme için",
     "help_stay_open": "İndirme tamamlandıktan sonra gizli hizmeti çalıştırmaya devam et",
-    "help_debug": "Hata kayıtlarını diske kaydet",
+    "help_verbose": "Hata kayıtlarını diske kaydet",
     "help_filename": "Paylaşmak için dosya ve klasörler listesi",
     "gui_drag_and_drop": "Dosyaları buraya\n Sürükle ve Bırak",
     "gui_add": "Ekle",

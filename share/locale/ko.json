@@ -29,7 +29,7 @@
     "help_autostop_timer": "정해진 초단위의 시간이 지난후 공유하는 것을 멈추시오",
     "help_stealth": "고객 허가를 사용 (고급 수준의)",
     "help_receive": "그것들을 보내는것 대신 공유를 받으시오",
-    "help_debug": "어니언쉐어 에러들은 표준 출력 장치로 접속하고, 웹 에러들은 디스크로 접속  ",
+    "help_verbose": "어니언쉐어 에러들은 표준 출력 장치로 접속하고, 웹 에러들은 디스크로 접속  ",
     "help_filename": "",
     "help_config": "",
     "gui_drag_and_drop": "",

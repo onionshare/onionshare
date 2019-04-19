@@ -8,7 +8,7 @@
     "large_filesize": "Varoitus: Ison tiedoston lähetys saattaa kestää tunteja",
     "help_local_only": "Älä käytä Toria (vain kehitykseen)",
     "help_stay_open": "Jatka jakoa tiedostojen lähetyksen jälkeen",
-    "help_debug": "Kirjaa OnionShare virheet stdout:tiin, ja verkko virheet levylle",
+    "help_verbose": "Kirjaa OnionShare virheet stdout:tiin, ja verkko virheet levylle",
     "help_filename": "Luettele jaettavat tiedostot tai kansiot",
     "gui_drag_and_drop": "Vedä ja pudota\ntiedostot tänne",
     "gui_add": "Lisää",
