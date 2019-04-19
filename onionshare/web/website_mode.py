@@ -38,25 +38,29 @@ class WebsiteModeWeb(object):
         def get_pw(username):
             self.users['onionshare'] = self.web.slug
 
-            if self.common.settings.get('public_mode'):
-                return True  # let the request through, no questions asked!
-            elif username in self.users:
+            if username in self.users:
                 return self.users.get(username)
             else:
                 return None
 
+        @self.web.app.before_request
+        def conditional_auth_check():
+            if not self.common.settings.get('public_mode'):
+                @self.auth.login_required
+                def _check_login():
+                    return None
+
+                return _check_login()
+
         @self.web.app.route('/download/<path:page_path>')
-        @self.auth.login_required
         def path_download(page_path):
             return path_download(page_path)
 
         @self.web.app.route('/<path:page_path>')
-        @self.auth.login_required
         def path_public(page_path):
             return path_logic(page_path)
 
         @self.web.app.route("/")
-        @self.auth.login_required
         def index_public():
             return path_logic('')
 

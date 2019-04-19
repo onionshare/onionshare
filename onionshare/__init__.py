@@ -257,7 +257,7 @@ def main(cwd=None):
             if app.autostop_timer > 0:
                 # if the auto-stop timer was set and has run out, stop the server
                 if not app.autostop_timer_thread.is_alive():
-                    if mode == 'share':
+                    if mode == 'share'  or (mode == 'website'):
                         # If there were no attempts to download the share, or all downloads are done, we can stop
                         if web.share_mode.download_count == 0 or web.done:
                             print("Stopped because auto-stop timer ran out")
