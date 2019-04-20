@@ -44,15 +44,17 @@ class Settings(object):
 
         self.common.log('Settings', '__init__')
 
-        # Default config
-        self.filename = self.build_filename()
-
         # If a readable config file was provided, use that instead
         if config:
             if os.path.isfile(config):
                 self.filename = config
             else:
                 self.common.log('Settings', '__init__', 'Supplied config does not exist or is unreadable. Falling back to default location')
+                self.filename = self.build_filename()
+
+        else:
+            # Default config
+            self.filename = self.build_filename()
 
         # Dictionary of available languages in this version of OnionShare,
         # mapped to the language name, in that language
