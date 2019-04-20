@@ -161,8 +161,10 @@ class Onion(object):
         if custom_settings:
             self.settings = custom_settings
         else:
+            self.common.load_settings()
             self.settings = self.common.settings
 
+        strings.load_strings(self.common)
         # The Tor controller
         self.c = None
 

@@ -62,6 +62,10 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.config = config
         if self.config:
             self.common.load_settings(self.config)
+        else:
+            self.common.load_settings()
+
+        strings.load_strings(self.common)
 
         # System tray
         menu = QtWidgets.QMenu()
