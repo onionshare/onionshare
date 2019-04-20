@@ -160,6 +160,9 @@ class Onion(object):
         # Either use settings that are passed in, or use them from common
         if custom_settings:
             self.settings = custom_settings
+        elif config:
+            self.common.load_settings(config)
+            self.settings = self.common.settings
         else:
             self.common.load_settings()
             self.settings = self.common.settings
