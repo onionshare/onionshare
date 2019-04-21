@@ -272,7 +272,7 @@ class Onion(object):
                 summary = res_parts[4].split('=')[1]
 
                 # "\033[K" clears the rest of the line
-                print("{}: {}% - {}{}".format(strings._('connecting_to_tor'), progress, summary, "\033[K"), end="\r")
+                print("Connecting to the Tor network: {}% - {}{}".format(progress, summary, "\033[K"), end="\r")
 
                 if callable(tor_status_update_func):
                     if not tor_status_update_func(progress, summary):
@@ -446,7 +446,7 @@ class Onion(object):
             raise TorTooOld(strings._('error_stealth_not_supported'))
 
         if not save_scheduled_key:
-            print(strings._("config_onion_service").format(int(port)))
+            print("Setting up onion service on port {0:d}.".format(int(port)))
 
         if self.stealth:
             if self.settings.get('hidservauth_string'):

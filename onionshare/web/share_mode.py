@@ -201,7 +201,7 @@ class ShareModeWeb(object):
 
                 # Close the server, if necessary
                 if not self.web.stay_open and not canceled:
-                    print(strings._("closing_automatically"))
+                    print("Stopped because transfer is complete")
                     self.web.running = False
                     try:
                         if shutdown_func is None:

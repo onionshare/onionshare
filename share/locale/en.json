@@ -1,5 +1,4 @@
 {
-    "config_onion_service": "Setting up onion service on port {0:d}.",
     "preparing_files": "Compressing files.",
     "not_a_readable_file": "{0:s} is not a readable file.",
     "no_available_port": "Could not find an available port to start the onion service",
@@ -170,7 +169,6 @@
     "gui_receive_mode_no_files": "No Files Received Yet",
     "gui_receive_mode_autostop_timer_waiting": "Waiting to finish receiving",
     "receive_mode_upload_starting": "Upload of total size {} is starting",
-    "receive_mode_received_file": "Received: {}",
     "days_first_letter": "d",
     "hours_first_letter": "h",
     "minutes_first_letter": "m",

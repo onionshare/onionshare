@@ -79,7 +79,7 @@ class ReceiveModeWeb(object):
                     })
 
                     self.common.log('ReceiveModeWeb', 'define_routes', '/upload, uploaded {}, saving to {}'.format(f.filename, local_path))
-                    print('\n' + strings._('receive_mode_received_file').format(local_path))
+                    print('\n' + "Received: {}".format(local_path))
 
             if request.upload_error:
                 self.common.log('ReceiveModeWeb', 'define_routes', '/upload, there was an upload error')
@@ -87,7 +87,7 @@ class ReceiveModeWeb(object):
                 self.web.add_request(self.web.REQUEST_ERROR_DATA_DIR_CANNOT_CREATE, request.path, {
                     "receive_mode_dir": request.receive_mode_dir
                 })
-                print(strings._('error_cannot_create_data_dir').format(request.receive_mode_dir))
+                print("Could not create OnionShare data folder: {}".format(request.receive_mode_dir))
 
                 msg = 'Error uploading, please inform the OnionShare user'
                 if ajax:
@@ -313,7 +313,7 @@ class ReceiveModeRequest(Request):
                 self.web.add_request(self.web.REQUEST_ERROR_DATA_DIR_CANNOT_CREATE, request.path, {
                     "receive_mode_dir": self.receive_mode_dir
                 })
-                print(strings._('error_cannot_create_data_dir').format(self.receive_mode_dir))
+                print("Could not create OnionShare data folder: {}".format(self.receive_mode_dir))
                 self.web.common.log('ReceiveModeRequest', '__init__', 'Permission denied creating receive mode directory')
                 self.upload_error = True
 
