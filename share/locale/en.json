@@ -29,7 +29,6 @@
     "gui_copied_hidservauth": "HidServAuth line copied to clipboard",
     "gui_waiting_to_start": "Scheduled to start in {}. Click to cancel.",
     "gui_please_wait": "Starting… Click to cancel.",
-    "version_string": "OnionShare {0:s} | https://onionshare.org/",
     "gui_quit_title": "Not so fast",
     "gui_share_quit_warning": "You're in the process of sending files. Are you sure you want to quit OnionShare?",
     "gui_receive_quit_warning": "You're in the process of receiving files. Are you sure you want to quit OnionShare?",
