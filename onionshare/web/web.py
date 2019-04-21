@@ -153,7 +153,7 @@ class Web(object):
                 if self.error404_count == 20:
                     self.add_request(Web.REQUEST_RATE_LIMIT, request.path)
                     self.force_shutdown()
-                    print(strings._('error_rate_limit'))
+                    print("Someone has made too many wrong attempts on your address, which means they could be trying to guess it, so OnionShare has stopped the server. Start sharing again and send the recipient a new address to share.")
 
         r = make_response(render_template('404.html'), 404)
         return self.add_security_headers(r)
