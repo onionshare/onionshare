@@ -1,5 +1,12 @@
 # OnionShare Changelog
 
+## 2.1
+
+* New feature: Auto-start timer, which allows scheduling when the server starts
+* Renamed CLI argument --debug to --verbose
+* Make Tor connection timeout configurable as a CLI argument
+* New translations: [TODO: include final list]
+
 ## 2.0
 
 * New feature: Receiver mode allows you to receive files with OnionShare, instead of only sending files
