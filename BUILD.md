@@ -135,7 +135,7 @@ Open a command prompt, cd to the onionshare folder, and install dependencies wit
 pip install -r install\requirements.txt
 ```
 
-Install the Qt 5.11.3 from https://www.qt.io/download-open-source/. I downloaded `qt-unified-windows-x86-3.0.6-online.exe`. In the installer, you can skip making an account, and all you need `Qt` > `Qt 5.11.3` > `MSVC 2015 32-bit`.
+Install the Qt 5.12.1 from https://download.qt.io/archive/qt/5.12/5.12.1/. I downloaded `qt-opensource-windows-x86-5.12.1.exe`. In the installer, you can skip making an account, and all you need `Qt` > `Qt 5.12.1` > `MSVC 2017 32-bit`.
 
 After that you can try both the CLI and the GUI version of OnionShare:
 
@@ -150,14 +150,14 @@ These instructions include adding folders to the path in Windows. To do this, go
 
 Download and install the 32-bit [Visual C++ Redistributable for Visual Studio 2015](https://www.microsoft.com/en-US/download/details.aspx?id=48145). I downloaded `vc_redist.x86.exe`.
 
-Download and install 7-Zip from http://www.7-zip.org/download.html. I downloaded `7z1805.exe`.
+Download and install 7-Zip from http://www.7-zip.org/download.html. I downloaded `7z1900.exe`.
 
 Download and install the standalone [Windows 10 SDK](https://dev.windows.com/en-us/downloads/windows-10-sdk). Note that you may not need this if you already have Visual Studio.
 
 Add the following directories to the path:
 
-* `C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x86`
-* `C:\Program Files (x86)\Windows Kits\10\Redist\10.0.17763.0\ucrt\DLLs\x86`
+* `C:\Program Files (x86)\Windows Kits\10\bin\10.0.18362.0\x86`
+* `C:\Program Files (x86)\Windows Kits\10\Redist\10.0.18362.0\ucrt\DLLs\x86`
 * `C:\Users\user\AppData\Local\Programs\Python\Python37-32\Lib\site-packages\PyQt5\Qt\bin`
 * `C:\Program Files (x86)\7-Zip`
 
@@ -169,7 +169,7 @@ OnionShare uses PyInstaller to turn the python source code into Windows executab
 
 Here's how to compile the PyInstaller bootloader:
 
-Download and install [Microsoft Build Tools for Visual Studio 2017](https://www.visualstudio.com/downloads/#build-tools-for-visual-studio-2017). I downloaded `vs_buildtools.exe`. In the installer, check the box next to "Visual C++ build tools". Click "Individual components", and under "Compilers, build tools and runtimes", check "Windows Universal CRT SDK". Then click install. When installation is done, you may have to reboot your computer.
+Download and install [Microsoft Build Tools for Visual Studio 2019](https://www.visualstudio.com/downloads/#build-tools-for-visual-studio-2019). I downloaded `vs_buildtools__265029578.1555959436.exe`. In the installer, check the box next to "Visual C++ build tools". Click "Individual components", and under "Compilers, build tools and runtimes", check "Windows Universal CRT SDK". Then click install. When installation is done, you may have to reboot your computer.
 
 Then, enable the 32-bit Visual C++ Toolset on the Command Line like this:
 
@@ -181,7 +181,7 @@ vcvars32.bat
 Make sure you have a new enough `setuptools`:
 
 ```
-pip install setuptools==40.6.3
+pip install --upgrade setuptools
 ```
 
 Now make sure you don't have PyInstaller installed from pip:
