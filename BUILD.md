@@ -376,39 +376,11 @@ onionshare-$VERSION-setup.exe
 onionshare-$VERSION-setup.exe.asc
 ```
 
-## Make a source release
+## Source package
 
-Make a fresh clone of the git repo:
+To make a source package, run `./install/build_source.sh $TAG`, where `$TAG` is the the name of the signed git tag, e.g. `v2.1`.
 
-```
-cd ~/tmp
-git clone https://github.com/micahflee/onionshare.git
-```
-
-Verify the git tag, and if it verifies check it out:
-
-```
-cd onionshare
-git tag -v v$VERSION
-# (make sure tag verifies!!!)
-git checkout v$VERSION
-```
-
-Delete the `.git` folder and compress:
-
-```
-cd ..
-rm -rf onionshare/.git
-tar -cf onionshare-$VERSION.tar.gz onionshare/
-```
-
-PGP-sign the source package:
-
-```
-gpg -a --detach-sign onionshare-$VERSION.tar.gz
-```
-
-This process ends up with two final files:
+This process ends up with two final files in `dist`:
 
 ```
 onionshare-$VERSION.tar.gz
