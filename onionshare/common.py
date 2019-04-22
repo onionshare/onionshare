@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import base64
 import hashlib
 import inspect
+import itertools
 import os
 import platform
 import random
@@ -147,11 +148,28 @@ class Common(object):
         """
         Returns a random string made from two words from the wordlist, such as "deter-trig".
         """
-        with open(self.get_resource_path('wordlist.txt')) as f:
-            wordlist = f.read().split()
-
         r = random.SystemRandom()
-        return '-'.join(r.choice(wordlist) for _ in range(2))
+        # There are 7776 words in the word list file.
+        first_word_line = r.randrange(0, 7776)
+        second_word_line = r.randrange(0, 7776)
+        min_line = min(first_word_line, second_word_line)
+        max_line = max(first_word_line, second_word_line)
+
+        with open(self.get_resource_path('wordlist.txt')) as f:
+            words = [
+                word.strip()
+                for word in itertools.islice(
+                    f,
+                    min_line,
+                    max_line + 1,
+                    max_line - min_line or None,
+                )
+            ]
+
+        return '{}-{}'.format(
+            words[0] if first_word_line <= second_word_line else words[1],
+            words[1] if first_word_line < second_word_line else words[0],
+        )
 
     def define_css(self):
         """
