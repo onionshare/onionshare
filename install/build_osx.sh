@@ -32,14 +32,12 @@ if [ "$1" = "--release" ]; then
     -s "$IDENTITY_NAME_APPLICATION" \
     --force \
     --entitlements "$ENTITLEMENTS_CHILD_PATH" \
-    --options runtime \
     --timestamp \
     "$APP_PATH"
   codesign \
     -s "$IDENTITY_NAME_APPLICATION" \
     --force \
     --entitlements "$ENTITLEMENTS_PARENT_PATH" \
-    --options runtime \
     --timestamp \
     "$APP_PATH"
 
