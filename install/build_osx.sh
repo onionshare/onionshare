@@ -27,11 +27,26 @@ if [ "$1" = "--release" ]; then
   ENTITLEMENTS_PARENT_PATH="$ROOT/install/macos_sandbox/parent.plist"
 
   echo "Codesigning the app bundle"
-  codesign --deep -s "$IDENTITY_NAME_APPLICATION" -f --entitlements "$ENTITLEMENTS_CHILD_PATH" "$APP_PATH"
-  codesign -s "$IDENTITY_NAME_APPLICATION" -f --entitlements "$ENTITLEMENTS_PARENT_PATH" "$APP_PATH"
+  codesign \
+    --deep \
+    -s "$IDENTITY_NAME_APPLICATION" \
+    --force \
+    --entitlements "$ENTITLEMENTS_CHILD_PATH" \
+    --timestamp \
+    "$APP_PATH"
+  codesign \
+    -s "$IDENTITY_NAME_APPLICATION" \
+    --force \
+    --entitlements "$ENTITLEMENTS_PARENT_PATH" \
+    --timestamp \
+    "$APP_PATH"
 
   echo "Creating an installer"
-  productbuild --sign "$IDENTITY_NAME_INSTALLER" --component "$APP_PATH" /Applications "$PKG_PATH"
+  productbuild \
+    --sign "$IDENTITY_NAME_INSTALLER" \
+    --component "$APP_PATH" /Applications \
+    --timestamp \
+    "$PKG_PATH"
 
   echo "Cleaning up"
   rm -rf "$APP_PATH"
