@@ -5,6 +5,8 @@
 * New feature: Auto-start timer, which allows scheduling when the server starts
 * Renamed CLI argument --debug to --verbose
 * Make Tor connection timeout configurable as a CLI argument
+* Updated various dependencies, including to fix third-party security issues in urllib3, jinja2, and jQuery
+* Update Tor to 0.3.5.8
 * New translations: [TODO: include final list]
 
 ## 2.0
