@@ -44,9 +44,9 @@ if [ "$1" = "--release" ]; then
   echo "Creating an installer"
   productbuild \
     --sign "$IDENTITY_NAME_INSTALLER" \
-    --component "$APP_PATH" \
+    --component "$APP_PATH" /Applications \
     --timestamp \
-    /Applications "$PKG_PATH"
+    "$PKG_PATH"
 
   echo "Cleaning up"
   rm -rf "$APP_PATH"
