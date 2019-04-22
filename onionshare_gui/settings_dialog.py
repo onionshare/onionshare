@@ -75,7 +75,7 @@ class SettingsDialog(QtWidgets.QDialog):
         self.autostart_timer_checkbox = QtWidgets.QCheckBox()
         self.autostart_timer_checkbox.setCheckState(QtCore.Qt.Checked)
         self.autostart_timer_checkbox.setText(strings._("gui_settings_autostart_timer_checkbox"))
-        autostart_timer_label = QtWidgets.QLabel(strings._("gui_settings_whats_this").format("https://github.com/micahflee/onionshare/wiki/Using-the-Startup-Timer"))
+        autostart_timer_label = QtWidgets.QLabel(strings._("gui_settings_whats_this").format("https://github.com/micahflee/onionshare/wiki/Using-the-Auto-Start-Timer"))
         autostart_timer_label.setStyleSheet(self.common.css['settings_whats_this'])
         autostart_timer_label.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
         autostart_timer_label.setOpenExternalLinks(True)
