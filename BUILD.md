@@ -339,8 +339,12 @@ To make a macOS release, go to macOS build machine:
 
 Then move back to the developer machine:
 
+- PGP-sign the macOS installer, `gpg --detach-sign OnionShare-[version].pkg`
+
+Note that once we support notarizing the macOS installer (see [this issue](https://github.com/micahflee/onionshare/issues/953)), these will be the steps instead:
+
 - Developer machine, running the latest macOS, must have an app-specific Apple ID password saved in the login keychain called `onionshare-notarize`
-- Notarize it: `crun altool --notarize-app --primary-bundle-id "com.micahflee.onionshare" -u "micah@micahflee.com" -p "@keychain:onionshare-notarize" --file OnionShare-[version].pkg`
+- Notarize it: `xcrun altool --notarize-app --primary-bundle-id "com.micahflee.onionshare" -u "micah@micahflee.com" -p "@keychain:onionshare-notarize" --file OnionShare-[version].pkg`
 - Wait for it to get approved, check status with: `xcrun altool --notarization-history 0 -u "micah@micahflee.com" -p "@keychain:onionshare-notarize"`
 - After it's approved, staple the ticket: `xcrun stapler staple OnionShare-[version].pkg`
 - PGP-sign the final, notarized and stapled, `gpg --detach-sign OnionShare-[version].pkg`
