@@ -42,7 +42,7 @@ For ArchLinux: There is a PKBUILD available [here](https://aur.archlinux.org/pac
 
 If you find that these instructions don't work for your Linux distribution or version, consult the [Linux Distribution Support wiki guide](https://github.com/micahflee/onionshare/wiki/Linux-Distribution-Support), which might contain extra instructions.
 
-## Mac OS X
+## macOS
 
 Install Xcode from the Mac App Store. Once it's installed, run it for the first time to set it up. Also, run this to make sure command line tools are installed: `xcode-select --install`. And finally, open Xcode, go to Preferences > Locations, and make sure under Command Line Tools you select an installed version from the dropdown. (This is required for installing Qt5.)
 
@@ -254,7 +254,7 @@ Open a command prompt, cd to the onionshare directory, and type: `install\build_
 
 This will prompt you to codesign three binaries and execute one unsigned binary. When you're done clicking through everything you will have `dist\onionshare-setup.exe`.
 
-## Tests
+# Running tests
 
 OnionShare includes PyTest unit tests. To run the tests, first install some dependencies:
 
@@ -287,3 +287,99 @@ You can also choose to wrap the tests in `xvfb-run` so that a ton of OnionShare 
 ```sh
 xvfb-run pytest --rungui tests/
 ```
+
+# Making releases
+
+This section documents the release process. Unless you're a core OnionShare developer making a release, you'll probably never need to follow it.
+
+## Changelog, version, and signed git tag
+
+Before making a release, all of these should be complete:
+
+* `share/version.txt` should have the correct version
+* `install/onionshare.nsi` should have the correct version, for the Windows installer
+* `CHANGELOG.md` should be updated to include a list of all major changes since the last release
+* There must be a PGP-signed git tag for the version, e.g. for OnionShare 2.1, the tag must be `v2.1`
+
+The first step for the Linux, macOS, and Windows releases is the same:
+
+Verify the release git tag:
+
+```
+git fetch
+git tag -v [tag_name]
+```
+
+If the tag verifies successfully, check it out:
+
+```
+git checkout [tag_name]
+```
+
+## Linux release
+
+TODO: Write Flatpak instructions (see [this issue](https://github.com/micahflee/onionshare/issues/910)).
+
+To make a PPA release:
+
+- Go to Ubuntu build machine, which must have `~/.dput.cf` with the correct PPA info in it, and with the correct PGP signing key
+- Verify and checkout the git tag for this release
+- Run `./install/ppa_release.sh`, which builds a source package and uploads to the PPA build server
+- Login to Launchpad to monitor the build and make sure it is successful; if not, make minor patches and try the release again
+- After build is successful, from Launchpad, copy the binary from `cosmic` into other suites
+
+## macOS release
+
+To make a macOS release, go to macOS build machine:
+
+- Build machine should be running macOS 10.11.6, and must have the Apple-trusted `Developer ID Application: Micah Lee` and `Developer ID Installer: Micah Lee` code-signing certificates installed
+- Verify and checkout the git tag for this release
+- Run `./install/build_osx.sh --release`; this will make a codesigned installer package called `dist/OnionShare-[version].pkg`
+- Copy `OnionShare-[version].pkg` to developer machine
+
+Then move back to the developer machine:
+
+- Developer machine, running the latest macOS, must have an app-specific Apple ID password saved in the login keychain called `onionshare-notarize`
+- Notarize it: `crun altool --notarize-app --primary-bundle-id "com.micahflee.onionshare" -u "micah@micahflee.com" -p "@keychain:onionshare-notarize" --file OnionShare-[version].pkg`
+- Wait for it to get approved, check status with: `xcrun altool --notarization-history 0 -u "micah@micahflee.com" -p "@keychain:onionshare-notarize"`
+- After it's approved, staple the ticket: `xcrun stapler staple OnionShare-[version].pkg`
+- PGP-sign the final, notarized and stapled, `gpg --detach-sign OnionShare-[version].pkg`
+
+This process ends up with two final files:
+
+```
+OnionShare-[version].pkg
+OnionShare-[version].pkg.asc
+```
+
+## Windows release
+
+To make a Windows release, go to Windows build machine:
+
+- Build machine should be running Windows 10, and have the Windows codesigning certificate installed
+- Verify and checkout the git tag for this release
+- Run `install\build_exe.bat`; this will make a codesigned installer package called `dist\onionshare-[version]-setup.exe`
+- Copy `onionshare-[version]-setup.exe` to developer machine
+
+Then move back to the developer machine:
+
+- PGP-sign the Windows installer, `gpg --detach-sign onionshare-[version]-setup.exe`
+
+This process ends up with two final files:
+
+```
+onionshare-[version]-setup.exe
+onionshare-[version]-setup.exe.asc
+```
+
+## Publishing the release
+
+To publish the release:
+
+- Create a new release on GitHub, put the changelog in the description of the release, and upload all four files (the macOS installer and PGP sig, and the Windows installer and PGP sig)
+- Upload the four release files to https://onionshare.org/dist/[version]/
+- Update the [onionshare-website](https://github.com/micahflee/onionshare-website) repo:
+  - Edit `latest-version.txt` to match the latest version
+  - Update the version number and download links
+  - Deploy to https://onionshare.org/
+- Email the [onionshare-dev](https://lists.riseup.net/www/subscribe/onionshare-dev) mailing list announcing the release
