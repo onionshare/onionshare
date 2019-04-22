@@ -307,13 +307,13 @@ Verify the release git tag:
 
 ```
 git fetch
-git tag -v [tag_name]
+git tag -v v$VERSION
 ```
 
 If the tag verifies successfully, check it out:
 
 ```
-git checkout [tag_name]
+git checkout v$VERSION
 ```
 
 ## Linux release
@@ -334,26 +334,26 @@ To make a macOS release, go to macOS build machine:
 
 - Build machine should be running macOS 10.11.6, and must have the Apple-trusted `Developer ID Application: Micah Lee` and `Developer ID Installer: Micah Lee` code-signing certificates installed
 - Verify and checkout the git tag for this release
-- Run `./install/build_osx.sh --release`; this will make a codesigned installer package called `dist/OnionShare-[version].pkg`
-- Copy `OnionShare-[version].pkg` to developer machine
+- Run `./install/build_osx.sh --release`; this will make a codesigned installer package called `dist/OnionShare-$VERSION.pkg`
+- Copy `OnionShare-$VERSION.pkg` to developer machine
 
 Then move back to the developer machine:
 
-- PGP-sign the macOS installer, `gpg --detach-sign OnionShare-[version].pkg`
+- PGP-sign the macOS installer, `gpg --detach-sign OnionShare-$VERSION.pkg`
 
 Note that once we support notarizing the macOS installer (see [this issue](https://github.com/micahflee/onionshare/issues/953)), these will be the steps instead:
 
 - Developer machine, running the latest macOS, must have an app-specific Apple ID password saved in the login keychain called `onionshare-notarize`
-- Notarize it: `xcrun altool --notarize-app --primary-bundle-id "com.micahflee.onionshare" -u "micah@micahflee.com" -p "@keychain:onionshare-notarize" --file OnionShare-[version].pkg`
+- Notarize it: `xcrun altool --notarize-app --primary-bundle-id "com.micahflee.onionshare" -u "micah@micahflee.com" -p "@keychain:onionshare-notarize" --file OnionShare-$VERSION.pkg`
 - Wait for it to get approved, check status with: `xcrun altool --notarization-history 0 -u "micah@micahflee.com" -p "@keychain:onionshare-notarize"`
-- After it's approved, staple the ticket: `xcrun stapler staple OnionShare-[version].pkg`
-- PGP-sign the final, notarized and stapled, `gpg --detach-sign OnionShare-[version].pkg`
+- After it's approved, staple the ticket: `xcrun stapler staple OnionShare-$VERSION.pkg`
+- PGP-sign the final, notarized and stapled, `gpg -a --detach-sign OnionShare-$VERSION.pkg`
 
 This process ends up with two final files:
 
 ```
-OnionShare-[version].pkg
-OnionShare-[version].pkg.asc
+OnionShare-$VERSION.pkg
+OnionShare-$VERSION.pkg.asc
 ```
 
 ## Windows release
@@ -362,26 +362,65 @@ To make a Windows release, go to Windows build machine:
 
 - Build machine should be running Windows 10, and have the Windows codesigning certificate installed
 - Verify and checkout the git tag for this release
-- Run `install\build_exe.bat`; this will make a codesigned installer package called `dist\onionshare-[version]-setup.exe`
-- Copy `onionshare-[version]-setup.exe` to developer machine
+- Run `install\build_exe.bat`; this will make a codesigned installer package called `dist\onionshare-$VERSION-setup.exe`
+- Copy `onionshare-$VERSION-setup.exe` to developer machine
 
 Then move back to the developer machine:
 
-- PGP-sign the Windows installer, `gpg --detach-sign onionshare-[version]-setup.exe`
+- PGP-sign the Windows installer, `gpg -a --detach-sign onionshare-$VERSION-setup.exe`
 
 This process ends up with two final files:
 
 ```
-onionshare-[version]-setup.exe
-onionshare-[version]-setup.exe.asc
+onionshare-$VERSION-setup.exe
+onionshare-$VERSION-setup.exe.asc
+```
+
+## Make a source release
+
+Make a fresh clone of the git repo:
+
+```
+cd ~/tmp
+git clone https://github.com/micahflee/onionshare.git
+```
+
+Verify the git tag, and if it verifies check it out:
+
+```
+cd onionshare
+git tag -v v$VERSION
+# (make sure tag verifies!!!)
+git checkout v$VERSION
+```
+
+Delete the `.git` folder and compress:
+
+```
+cd ..
+rm -rf onionshare/.git
+tar -cf onionshare-$VERSION.tar.gz onionshare/
+```
+
+PGP-sign the source package:
+
+```
+gpg -a --detach-sign onionshare-$VERSION.tar.gz
+```
+
+This process ends up with two final files:
+
+```
+onionshare-$VERSION.tar.gz
+onionshare-$VERSION.tar.gz.asc
 ```
 
 ## Publishing the release
 
 To publish the release:
 
-- Create a new release on GitHub, put the changelog in the description of the release, and upload all four files (the macOS installer and PGP sig, and the Windows installer and PGP sig)
-- Upload the four release files to https://onionshare.org/dist/[version]/
+- Create a new release on GitHub, put the changelog in the description of the release, and upload all six files (the macOS installer, the Windows installer, the source package, and their signatures)
+- Upload the six release files to https://onionshare.org/dist/$VERSION/
 - Update the [onionshare-website](https://github.com/micahflee/onionshare-website) repo:
   - Edit `latest-version.txt` to match the latest version
   - Update the version number and download links
