@@ -27,7 +27,7 @@ from onionshare.web import Web
 
 from ..file_selection import FileSelection
 from .. import Mode
-from ..history import History, ToggleHistory, DownloadHistoryItem
+from ..history import History, ToggleHistory, VisitHistoryItem
 from ...widgets import Alert
 
 class WebsiteMode(Mode):
@@ -130,7 +130,7 @@ class WebsiteMode(Mode):
         The shutdown timer expired, should we stop the server? Returns a bool
         """
         # If there were no attempts to download the share, or all downloads are done, we can stop
-        if self.web.website_mode.download_count == 0 or self.web.done:
+        if self.web.website_mode.visit_count == 0 or self.web.done:
             self.server_status.stop_server()
             self.server_status_label.setText(strings._('close_on_timeout'))
             return True
@@ -144,7 +144,7 @@ class WebsiteMode(Mode):
         Starting the server.
         """
         # Reset web counters
-        self.web.website_mode.download_count = 0
+        self.web.website_mode.visit_count = 0
         self.web.error404_count = 0
 
         # Hide and reset the downloads if we have previously shared
@@ -201,11 +201,10 @@ class WebsiteMode(Mode):
 
     def cancel_server_custom(self):
         """
-        Stop the compression thread on cancel
+        Log that the server has been cancelled
         """
-        if self.compress_thread:
-            self.common.log('WebsiteMode', 'cancel_server: quitting compress thread')
-            self.compress_thread.quit()
+        self.common.log('WebsiteMode', 'cancel_server')
+
 
     def handle_tor_broke_custom(self):
         """
@@ -217,7 +216,7 @@ class WebsiteMode(Mode):
         """
         Handle REQUEST_LOAD event.
         """
-        self.system_tray.showMessage(strings._('systray_page_loaded_title'), strings._('systray_download_page_loaded_message'))
+        self.system_tray.showMessage(strings._('systray_site_loaded_title'), strings._('systray_site_page_loaded_message'))
 
     def handle_request_started(self, event):
         """
@@ -226,51 +225,11 @@ class WebsiteMode(Mode):
 
         filesize = self.web.website_mode.download_filesize
 
-        item = DownloadHistoryItem(self.common, event["data"]["id"], filesize)
+        item = VisitHistoryItem(self.common, event["data"]["id"], filesize)
         self.history.add(event["data"]["id"], item)
         self.toggle_history.update_indicator(True)
         self.history.in_progress_count += 1
         self.history.update_in_progress()
-
-        self.system_tray.showMessage(strings._('systray_download_started_title'), strings._('systray_download_started_message'))
-
-    def handle_request_progress(self, event):
-        """
-        Handle REQUEST_PROGRESS event.
-        """
-        self.history.update(event["data"]["id"], event["data"]["bytes"])
-
-        # Is the download complete?
-        if event["data"]["bytes"] == self.web.website_mode.filesize:
-            self.system_tray.showMessage(strings._('systray_download_completed_title'), strings._('systray_download_completed_message'))
-
-            # Update completed and in progress labels
-            self.history.completed_count += 1
-            self.history.in_progress_count -= 1
-            self.history.update_completed()
-            self.history.update_in_progress()
-
-            # Close on finish?
-            if self.common.settings.get('close_after_first_download'):
-                self.server_status.stop_server()
-                self.status_bar.clearMessage()
-                self.server_status_label.setText(strings._('closing_automatically'))
-        else:
-            if self.server_status.status == self.server_status.STATUS_STOPPED:
-                self.history.cancel(event["data"]["id"])
-                self.history.in_progress_count = 0
-                self.history.update_in_progress()
-
-    def handle_request_canceled(self, event):
-        """
-        Handle REQUEST_CANCELED event.
-        """
-        self.history.cancel(event["data"]["id"])
-
-        # Update in progress count
-        self.history.in_progress_count -= 1
-        self.history.update_in_progress()
-        self.system_tray.showMessage(strings._('systray_download_canceled_title'), strings._('systray_download_canceled_message'))
 
     def on_reload_settings(self):
         """
