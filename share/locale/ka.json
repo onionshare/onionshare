@@ -32,7 +32,7 @@
     "help_filename": "",
     "help_config": "",
     "gui_drag_and_drop": "",
-    "gui_add": "",
+    "gui_add": "დამატება",
     "gui_delete": "",
     "gui_choose_items": "",
     "gui_share_start_server": "",
@@ -101,7 +101,7 @@
     "gui_settings_tor_bridges_custom_radio_option": "",
     "gui_settings_tor_bridges_custom_label": "",
     "gui_settings_tor_bridges_invalid": "",
-    "gui_settings_button_save": "",
+    "gui_settings_button_save": "შენახვა",
     "gui_settings_button_cancel": "",
     "gui_settings_button_help": "",
     "gui_settings_autostop_timer_checkbox": "",
@@ -181,5 +181,7 @@
     "gui_download_in_progress": "",
     "gui_open_folder_error_nautilus": "",
     "gui_settings_language_label": "",
-    "gui_settings_language_changed_notice": ""
+    "gui_settings_language_changed_notice": "",
+    "gui_settings_data_dir_browse_button": "არჩევა",
+    "gui_all_modes_history": "History"
 }
