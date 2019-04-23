@@ -81,24 +81,27 @@ class WebsiteModeWeb(object):
 
             self.web.add_request(self.web.REQUEST_LOAD, request.path)
 
+            print(self.file_info)
+
+            filelist = []
             if self.file_info['files']:
                 self.website_folder = os.path.dirname(self.file_info['files'][0]['filename'])
+                filelist = [v['basename'] for v in self.file_info['files']]
             elif self.file_info['dirs']:
                 self.website_folder = self.file_info['dirs'][0]['filename']
+                filelist = os.listdir(self.website_folder)
             else:
                 return self.web.error404()
 
-            if any((fname == 'index.html') for fname in os.listdir(self.website_folder)):
+            if any((fname == 'index.html') for fname in filelist):
                 self.web.app.static_url_path = self.website_folder
                 self.web.app.static_folder = self.website_folder
                 if not os.path.isfile(os.path.join(self.website_folder, page_path)):
                     page_path = os.path.join(page_path, 'index.html')
-
                 return send_from_directory(self.website_folder, page_path)
-
-            elif any(os.path.isfile(os.path.join(self.website_folder, i)) for i in os.listdir(self.website_folder)):
+            elif any(os.path.isfile(os.path.join(self.website_folder, i)) for i in filelist):
                 filenames = []
-                for i in os.listdir(self.website_folder):
+                for i in filelist:
                     filenames.append(os.path.join(self.website_folder, i))
 
                 self.set_file_info(filenames)

@@ -341,6 +341,27 @@ class ReceiveHistoryItem(HistoryItem):
             self.label.setText(self.get_canceled_label_text(self.started))
 
 
+class VisitHistoryItem(HistoryItem):
+    """
+    Download history item, for share mode
+    """
+    def __init__(self, common, id, total_bytes):
+        super(VisitHistoryItem, self).__init__()
+        self.common = common
+
+        self.id = id
+        self.visited = time.time()
+        self.visited_dt = datetime.fromtimestamp(self.visited)
+
+        # Label
+        self.label = QtWidgets.QLabel(strings._('gui_visit_started').format(self.started_dt.strftime("%b %d, %I:%M%p")))
+
+        # Layout
+        layout = QtWidgets.QVBoxLayout()
+        layout.addWidget(self.label)
+        self.setLayout(layout)
+
+
 class HistoryItemList(QtWidgets.QScrollArea):
     """
     List of items
