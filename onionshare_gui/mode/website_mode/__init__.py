@@ -75,9 +75,9 @@ class WebsiteMode(Mode):
         # Download history
         self.history = History(
             self.common,
-            QtGui.QPixmap.fromImage(QtGui.QImage(self.common.get_resource_path('images/downloads_transparent.png'))),
-            strings._('gui_no_downloads'),
-            strings._('gui_downloads')
+            QtGui.QPixmap.fromImage(QtGui.QImage(self.common.get_resource_path('images/share_icon_transparent.png'))),
+            strings._('gui_share_mode_no_files'),
+            strings._('gui_all_modes_history')
         )
         self.history.hide()
 
@@ -216,7 +216,7 @@ class WebsiteMode(Mode):
         """
         Handle REQUEST_LOAD event.
         """
-        self.system_tray.showMessage(strings._('systray_site_loaded_title'), strings._('systray_site_page_loaded_message'))
+        self.system_tray.showMessage(strings._('systray_site_loaded_title'), strings._('systray_site_loaded_message'))
 
     def handle_request_started(self, event):
         """
