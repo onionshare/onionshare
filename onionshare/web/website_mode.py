@@ -81,8 +81,6 @@ class WebsiteModeWeb(object):
 
             self.web.add_request(self.web.REQUEST_LOAD, request.path)
 
-            print(self.file_info)
-
             filelist = []
             if self.file_info['files']:
                 self.website_folder = os.path.dirname(self.file_info['files'][0]['filename'])

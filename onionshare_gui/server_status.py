@@ -289,23 +289,11 @@ class ServerStatus(QtWidgets.QWidget):
                     self.server_button.setText(strings._('gui_share_stop_server'))
                 else:
                     self.server_button.setText(strings._('gui_receive_stop_server'))
-<<<<<<< HEAD
                 if self.common.settings.get('autostart_timer'):
                     self.autostart_timer_container.hide()
                 if self.common.settings.get('autostop_timer'):
                     self.autostop_timer_container.hide()
                     self.server_button.setToolTip(strings._('gui_stop_server_autostop_timer_tooltip').format(self.autostop_timer_widget.dateTime().toString("h:mm AP, MMMM dd, yyyy")))
-=======
-                if self.common.settings.get('shutdown_timeout'):
-                    self.shutdown_timeout_container.hide()
-                    if self.mode == ServerStatus.MODE_SHARE:
-                        self.server_button.setToolTip(strings._('gui_share_stop_server_shutdown_timeout_tooltip').format(self.timeout))
-                    if self.mode == ServerStatus.MODE_WEBSITE:
-                        self.server_button.setToolTip(strings._('gui_share_stop_server_shutdown_timeout_tooltip').format(self.timeout))
-                    else:
-                        self.server_button.setToolTip(strings._('gui_receive_stop_server_shutdown_timeout_tooltip').format(self.timeout))
-
->>>>>>> Add gui for website sharing and listing
             elif self.status == self.STATUS_WORKING:
                 self.server_button.setStyleSheet(self.common.css['server_status_button_working'])
                 self.server_button.setEnabled(True)
