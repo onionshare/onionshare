@@ -3,7 +3,7 @@ certifi==2019.3.9
 chardet==3.0.4
 Click==7.0
 Flask==1.0.2
-Flask-HTTPAuth
+Flask-HTTPAuth==3.2.4
 future==0.17.1
 idna==2.8
 itsdangerous==1.1.0
