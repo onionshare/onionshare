@@ -6,7 +6,7 @@
 !define INSTALLSIZE 115186
 !define VERSIONMAJOR 2
 !define VERSIONMINOR 1
-!define VERSIONSTRING "2.1.dev1"
+!define VERSIONSTRING "2.1"
 
 RequestExecutionLevel admin
 
