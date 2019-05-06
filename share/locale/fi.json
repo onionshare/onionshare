@@ -35,7 +35,7 @@
     "help_config": "Mukautettu JSON-määritystiedoston sijainti (valinnainen)",
     "gui_add_files": "Lisää tiedostoja",
     "gui_add_folder": "Lisää kansio",
-    "gui_share_stop_server_autostop_timer": "Lopeta jakaminen({}s jäljellä)",
+    "gui_share_stop_server_autostop_timer": "Lopeta jakaminen ({})",
     "gui_share_stop_server_autostop_timer_tooltip": "Auto-stop ajastin loppuu {} jälkeen",
     "gui_receive_start_server": "Aloita vastaanotto tila",
     "gui_receive_stop_server": "Lopeta vastaanotto tila",
@@ -181,5 +181,18 @@
     "gui_share_mode_no_files": "Yhtäkään tiedostoa ei ole lähetetty vielä",
     "gui_share_mode_autostop_timer_waiting": "Odotetaan lähettämisen valmistumista",
     "gui_receive_mode_no_files": "Yhtäkään tiedostoa ei ole vastaanotettu vielä",
-    "gui_receive_mode_autostop_timer_waiting": "Odotetaan vastaanottamisen valmistumista"
+    "gui_receive_mode_autostop_timer_waiting": "Odotetaan vastaanottamisen valmistumista",
+    "gui_stop_server_autostop_timer_tooltip": "Auto-stop ajastin loppuu {} päästä",
+    "gui_start_server_autostart_timer_tooltip": "Auto-start ajastin loppu {} päästä",
+    "gui_waiting_to_start": "Ajastettu aloitus {} päästä. Peruuta napsauttamalla.",
+    "gui_settings_autostart_timer_checkbox": "Käytä auto-start ajastinta",
+    "gui_settings_autostart_timer": "Aloita jakaminen:",
+    "gui_server_autostart_timer_expired": "Aikataulu on jo kulunut. Päivitä se aloittaaksesi jakamisen.",
+    "gui_autostop_timer_cant_be_earlier_than_autostart_timer": "Auto-stop aika ei voi olla sama tai aikaisempi kuin auto-start aika. Päivitä se aloittaaksesi jakamisen.",
+    "gui_status_indicator_share_scheduled": "Ajastettu…",
+    "gui_status_indicator_receive_scheduled": "Ajastettu…",
+    "days_first_letter": "pv",
+    "hours_first_letter": "t",
+    "minutes_first_letter": "min",
+    "seconds_first_letter": "s"
 }

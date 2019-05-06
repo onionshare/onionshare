@@ -4,7 +4,7 @@
     "ctrlc_to_stop": "Premi Ctrl+C per fermare il server",
     "not_a_file": "{0:s} non è un file valido.",
     "other_page_loaded": "URL caricato",
-    "closing_automatically": "Fermato perchè il trasferimento è stato completato",
+    "closing_automatically": "Fermato perché il trasferimento è stato completato",
     "large_filesize": "Attenzione: inviare file di grandi dimensioni può richiedere ore",
     "help_local_only": "Non usare Tor (solo per lo sviluppo)",
     "help_stay_open": "Mantieni la condivisione attiva anche dopo che i file sono stati inviati",
