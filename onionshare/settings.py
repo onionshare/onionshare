@@ -61,8 +61,8 @@ class Settings(object):
         self.available_locales = {
             #'bn': 'বাংলা', # Bengali (commented out because not at 90% translation)
             'ca': 'Català',                     # Catalan
-            'zh_Hant': '正體中文 (繁體)'          # Traditional Chinese
-            'zh_Hans': '中文 (简体)'             # Simplified Chinese
+            'zh_Hant': '正體中文 (繁體)',         # Traditional Chinese
+            'zh_Hans': '中文 (简体)',            # Simplified Chinese
             'da': 'Dansk',                      # Danish
             'en': 'English',                    # English
             'fi': 'Suomi',                      # Finish
