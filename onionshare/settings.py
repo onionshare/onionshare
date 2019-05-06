@@ -59,19 +59,31 @@ class Settings(object):
         # Dictionary of available languages in this version of OnionShare,
         # mapped to the language name, in that language
         self.available_locales = {
-            'bn': 'বাংলা',       # Bengali
-            'ca': 'Català',     # Catalan
-            'da': 'Dansk',      # Danish
-            'en': 'English',    # English
-            'fr': 'Français',   # French
-            'el': 'Ελληνικά',   # Greek
-            'it': 'Italiano',   # Italian
-            'ja': '日本語',      # Japanese
-            'fa': 'فارسی',      # Persian
-            'pt_BR': 'Português (Brasil)',  # Portuguese Brazil
-            'ru': 'Русский',    # Russian
-            'es': 'Español',    # Spanish
-            'sv': 'Svenska'     # Swedish
+            #'bn': 'বাংলা', # Bengali (commented out because not at 90% translation)
+            'ca': 'Català',                     # Catalan
+            'zh_Hant': '正體中文 (繁體)'          # Traditional Chinese
+            'zh_Hans': '中文 (简体)'             # Simplified Chinese
+            'da': 'Dansk',                      # Danish
+            'en': 'English',                    # English
+            'fi': 'Suomi',                      # Finish
+            'fr': 'Français',                   # French
+            'de': 'Deutsch',                    # German
+            'el': 'Ελληνικά',                   # Greek
+            'is': 'Íslenska',                   # Icelandic
+            'ga': 'Gaeilge',                    # Irish
+            'it': 'Italiano',                   # Italian
+            'ja': '日本語',                      # Japanese
+            'nb': 'Norsk Bokmål',               # Norwegian Bokmål
+            #'fa': 'فارسی', # Persian (commented out because not at 90% translation)
+            'pl': 'Polski',                     # Polish
+            'pt_BR': 'Português (Brasil)',      # Portuguese Brazil
+            'pt_PT': 'Português (Portugal)',    # Portuguese Portugal
+            'ru': 'Русский',                    # Russian
+            'es': 'Español',                    # Spanish
+            'sv': 'Svenska',                    # Swedish
+            'te': 'తెలుగు',                      # Telugu
+            'tr': 'Türkçe',                     # Turkish
+            'uk': 'Українська',                 # Ukrainian
         }
 
         # These are the default settings. They will get overwritten when loading from disk
