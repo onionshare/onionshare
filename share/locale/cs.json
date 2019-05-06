@@ -77,6 +77,6 @@
     "gui_share_stop_server_autostop_timer": "Zastavit sdílení ({}s zbývá)",
     "gui_receive_start_server": "Spustit mód přijímání",
     "gui_receive_stop_server": "Zastavit přijímání",
-    "gui_receive_stop_server_autostop_timer": "Zastavit mód přijímání ({}s zbývá)",
+    "gui_receive_stop_server_autostop_timer": "Zastavit mód přijímání ({} zbývá)",
     "gui_copied_hidservauth_title": "Zkopírovaný HidServAuth token"
 }

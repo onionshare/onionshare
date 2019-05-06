@@ -64,7 +64,7 @@
     "gui_share_stop_server_autostop_timer_tooltip": "El temporizador de parada automática termina en {}",
     "gui_receive_start_server": "Iniciar el modo de recepción",
     "gui_receive_stop_server": "Detener el modo de recepción",
-    "gui_receive_stop_server_autostop_timer": "Detener el modo de recepción ({}s restantes)",
+    "gui_receive_stop_server_autostop_timer": "Detener el modo de recepción ({} restantes)",
     "gui_receive_stop_server_autostop_timer_tooltip": "El temporizador de parada automática termina en {}",
     "gui_copy_hidservauth": "Copiar HidServAuth",
     "gui_no_downloads": "Ninguna Descarga Todavía",

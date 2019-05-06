@@ -19,7 +19,7 @@
     "gui_start_server_autostart_timer_tooltip": "Таймеру автостарту спливає о {}",
     "gui_receive_start_server": "Розпочати Режим Отримання",
     "gui_receive_stop_server": "Зупинити Режим Отримання",
-    "gui_receive_stop_server_autostop_timer": "Зупинити Режим Отримання ({}с залишилось)",
+    "gui_receive_stop_server_autostop_timer": "Зупинити Режим Отримання ({} залишилось)",
     "gui_copy_url": "Копіювати Адресу",
     "gui_copy_hidservauth": "Скопіювати HidServAuth",
     "gui_canceled": "Скасовано",

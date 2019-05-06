@@ -46,7 +46,7 @@
     "gui_share_stop_server_autostop_timer_tooltip": "Il timer si arresterà tra {}",
     "gui_receive_start_server": "Inizia la ricezione",
     "gui_receive_stop_server": "Arresta la ricezione",
-    "gui_receive_stop_server_autostop_timer": "Interrompi la ricezione ({}s rimanenti)",
+    "gui_receive_stop_server_autostop_timer": "Interrompi la ricezione ({} rimanenti)",
     "gui_receive_stop_server_autostop_timer_tooltip": "Il timer termina tra {}",
     "gui_copy_hidservauth": "Copia HidServAuth",
     "gui_no_downloads": "Ancora nessun Download",

@@ -41,7 +41,7 @@
     "gui_share_stop_server_autostop_timer_tooltip": "Czas upłynie za {}",
     "gui_receive_start_server": "Rozpocznij tryb odbierania",
     "gui_receive_stop_server": "Zatrzymaj tryb odbierania",
-    "gui_receive_stop_server_autostop_timer": "Zatrzymaj tryb odbierania (pozostało {}s)",
+    "gui_receive_stop_server_autostop_timer": "Zatrzymaj tryb odbierania (pozostało {})",
     "gui_receive_stop_server_autostop_timer_tooltip": "Czas upływa za {}",
     "gui_copy_url": "Kopiuj adres załącznika",
     "gui_copy_hidservauth": "Kopiuj HidServAuth",

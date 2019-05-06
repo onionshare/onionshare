@@ -39,7 +39,7 @@
     "gui_share_stop_server_autostop_timer_tooltip": "Auto-stop ajastin loppuu {} jälkeen",
     "gui_receive_start_server": "Aloita vastaanotto tila",
     "gui_receive_stop_server": "Lopeta vastaanotto tila",
-    "gui_receive_stop_server_autostop_timer": "Lopeta vastaanotto tila ({}s jäljellä)",
+    "gui_receive_stop_server_autostop_timer": "Lopeta vastaanotto tila ({} jäljellä)",
     "gui_receive_stop_server_autostop_timer_tooltip": "Auto-stop ajastin loppuu kello {}",
     "gui_copy_hidservauth": "Kopioi HidServAuth",
     "gui_copied_url_title": "Kopioi OnionShare osoite",

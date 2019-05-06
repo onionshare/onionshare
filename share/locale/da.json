@@ -140,7 +140,7 @@
     "gui_share_stop_server_autostop_timer_tooltip": "Timer med autostop slutter ved {}",
     "gui_receive_start_server": "Start modtagetilstand",
     "gui_receive_stop_server": "Stop modtagetilstand",
-    "gui_receive_stop_server_autostop_timer": "Stop modtagetilstand ({}s tilbage)",
+    "gui_receive_stop_server_autostop_timer": "Stop modtagetilstand ({} tilbage)",
     "gui_receive_stop_server_autostop_timer_tooltip": "Timer med autostop slutter ved {}",
     "gui_no_downloads": "Ingen downloads endnu",
     "error_tor_protocol_error_unknown": "Der opstod en ukendt fejl med Tor",

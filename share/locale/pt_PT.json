@@ -41,7 +41,7 @@
     "gui_share_stop_server_autostop_timer_tooltip": "O cronómetro automático de parar a partilha termina em {}",
     "gui_receive_start_server": "Começar modo de receber",
     "gui_receive_stop_server": "Parar modo de receber",
-    "gui_receive_stop_server_autostop_timer": "Parar modo de receber ({}s restantes)",
+    "gui_receive_stop_server_autostop_timer": "Parar modo de receber ({} restantes)",
     "gui_receive_stop_server_autostop_timer_tooltip": "O cronómetro automático de parar a partilha termina em {}",
     "gui_copy_url": "Copiar endereço",
     "gui_copy_hidservauth": "Copiar HidServAuth",
