@@ -50,9 +50,16 @@ Download and install Python 3.7.2 from https://www.python.org/downloads/release/
 
 You may also need to run the command `/Applications/Python\ 3.7/Install\ Certificates.command` to update Python 3.6's internal certificate store. Otherwise, you may find that fetching the Tor Browser .dmg file fails later due to a certificate validation error.
 
-Install Qt 5.11.3 from https://www.qt.io/download-open-source/. I downloaded `qt-unified-mac-x64-3.0.6-online.dmg`. In the installer, you can skip making an account, and all you need is `Qt` > `Qt 5.11.3` > `macOS`.
+Install Qt 5.12.1 from https://download.qt.io/archive/qt/5.12/5.12.1/. I downloaded `qt-opensource-mac-x64-5.12.1.dmg`. In the installer, you can skip making an account, and all you need is `Qt` > `Qt 5.12.1` > `macOS`.
 
-Now install some python dependencies with pip (note, there's issues building a .app if you install this in a virtualenv):
+Now install pip dependencies. If you want to use a virtualenv, create it and activate it first:
+
+```sh
+python3 -m venv venv
+. venv/bin/activate
+```
+
+Then install the dependencies:
 
 ```sh
 pip3 install -r install/requirements.txt
@@ -100,7 +107,7 @@ cd bootloader
 python3 waf distclean all --target-arch=64bit
 ```
 
-Finally, install the PyInstaller module into your local site-packages:
+Finally, install the PyInstaller module into your local site-packages. If you're using a virtualenv, make sure to run this last command while your virtualenv is activated:
 
 ```sh
 cd ..
