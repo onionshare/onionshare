@@ -7,7 +7,22 @@
 * Make Tor connection timeout configurable as a CLI argument
 * Updated various dependencies, including to fix third-party security issues in urllib3, jinja2, and jQuery
 * Update Tor to 0.3.5.8
-* New translations: [TODO: include final list]
+* New translations:
+  * Traditional Chinese (正體中文 (繁體)),
+  * Simplified Chinese (中文 (简体))
+  * Finnish (Suomi)
+  * German (Deutsch)
+  * Icelandic (Íslenska)
+  * Irish (Gaeilge)
+  * Norwegian Bokmål (Norsk Bokmål)
+  * Polish (Polski)
+  * Portuguese Portugal (Português (Portugal))
+  * Telugu (తెలుగు)
+  * Turkish (Türkçe)
+  * Ukrainian (Українська)
+* Removed translations because less than 90% of the strings were translated:
+  * Bengali (বাংলা)
+  * Persian (فارسی),
 
 ## 2.0
 
