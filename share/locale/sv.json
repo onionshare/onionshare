@@ -38,7 +38,7 @@
     "gui_choose_items": "Välj",
     "gui_share_start_server": "Börja dela",
     "gui_share_stop_server": "Avbryt delning",
-    "gui_share_stop_server_autostop_timer": "Avbryt Delning ({}s kvarstår)",
+    "gui_share_stop_server_autostop_timer": "Sluta dela ({})",
     "gui_share_stop_server_autostop_timer_tooltip": "Automatiska stopp-tidtagaren avslutar vid {}",
     "gui_receive_start_server": "Starta mottagarläge",
     "gui_receive_stop_server": "Avsluta Mottagarläge",
@@ -212,5 +212,18 @@
     "gui_receive_mode_autostop_timer_waiting": "Väntar på att avsluta mottagande",
     "gui_all_modes_transfer_canceled_range": "Avbröt {} - {}",
     "gui_all_modes_transfer_canceled": "Avbröt {}",
-    "gui_settings_onion_label": "Inställningar för Onion"
+    "gui_settings_onion_label": "Inställningar för Onion",
+    "gui_stop_server_autostop_timer_tooltip": "Auto-stop timern slutar vid {}",
+    "gui_start_server_autostart_timer_tooltip": "Auto-start timer slutar vid {}",
+    "gui_waiting_to_start": "Planerad för att starta i {}. Klicka för att avbryta.",
+    "gui_settings_autostart_timer_checkbox": "Använd auto-start timer",
+    "gui_settings_autostart_timer": "Börja dela vid:",
+    "gui_server_autostart_timer_expired": "Den schemalagda tiden har redan passerat. Uppdatera den för att starta delning.",
+    "gui_autostop_timer_cant_be_earlier_than_autostart_timer": "Auto-stop tiden kan inte vara samma eller tidigare än auto-starttiden. Uppdatera den för att starta delning.",
+    "gui_status_indicator_share_scheduled": "Planerad…",
+    "gui_status_indicator_receive_scheduled": "Planerad…",
+    "days_first_letter": "d",
+    "hours_first_letter": "t",
+    "minutes_first_letter": "m",
+    "seconds_first_letter": "s"
 }
