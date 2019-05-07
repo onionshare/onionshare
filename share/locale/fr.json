@@ -148,7 +148,7 @@
     "help_receive": "Recevoir des partages au lieu de les envoyer",
     "gui_receive_start_server": "Démarrer le mode réception",
     "gui_receive_stop_server": "Arrêter le mode réception",
-    "gui_receive_stop_server_autostop_timer": "Arrêter le mode réception ({} s restantes)",
+    "gui_receive_stop_server_autostop_timer": "Arrêter le mode réception ({} restantes)",
     "gui_download_upload_progress_complete": "%p%, {0:s} écoulées.",
     "gui_download_upload_progress_starting": "{0:s}, %p% (estimation)",
     "gui_download_upload_progress_eta": "{0:s}, Fin : {1:s}, %p%",

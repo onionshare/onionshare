@@ -41,7 +41,7 @@
     "gui_share_stop_server_autostop_timer_tooltip": "El temporitzador acaba a {}",
     "gui_receive_start_server": "Inicia en mode de recepció",
     "gui_receive_stop_server": "Atura el mode de recepció",
-    "gui_receive_stop_server_autostop_timer": "Atura el mode de recepció (queden {}s)",
+    "gui_receive_stop_server_autostop_timer": "Atura el mode de recepció (queden {})",
     "gui_receive_stop_server_autostop_timer_tooltip": "El temporitzador acaba a {}",
     "gui_copy_url": "Copia l'adreça",
     "gui_copy_hidservauth": "Copia el HidServAuth",

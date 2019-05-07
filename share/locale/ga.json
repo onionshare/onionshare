@@ -41,7 +41,7 @@
     "gui_share_stop_server_autostop_timer_tooltip": "Amadóir uathstoptha caite {}",
     "gui_receive_start_server": "Tosaigh an Mód Glactha",
     "gui_receive_stop_server": "Stop an Mód Glactha",
-    "gui_receive_stop_server_autostop_timer": "Stop an Mód Glactha ({}s fágtha)",
+    "gui_receive_stop_server_autostop_timer": "Stop an Mód Glactha ({} fágtha)",
     "gui_receive_stop_server_autostop_timer_tooltip": "Amadóir uathstoptha caite {}",
     "gui_copy_url": "Cóipeáil an Seoladh",
     "gui_copy_hidservauth": "Cóipeáil HidServAuth",

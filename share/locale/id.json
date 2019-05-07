@@ -41,7 +41,7 @@
     "gui_share_stop_server_autostop_timer_tooltip": "",
     "gui_receive_start_server": "Mulai Mode Menerima",
     "gui_receive_stop_server": "Menghentikan Mode Menerima",
-    "gui_receive_stop_server_autostop_timer": "Menghentikan Mode Menerima ({}d tersisa)",
+    "gui_receive_stop_server_autostop_timer": "Menghentikan Mode Menerima ({} tersisa)",
     "gui_receive_stop_server_autostop_timer_tooltip": "",
     "gui_copy_url": "Salin Alamat",
     "gui_copy_hidservauth": "Salin HidServAuth",

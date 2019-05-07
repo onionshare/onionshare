@@ -19,7 +19,7 @@
     "gui_start_server_autostart_timer_tooltip": "Auto-start timer ends at {}",
     "gui_receive_start_server": "Start Receive Mode",
     "gui_receive_stop_server": "Stop Receive Mode",
-    "gui_receive_stop_server_autostop_timer": "Stop Receive Mode ({}s remaining)",
+    "gui_receive_stop_server_autostop_timer": "Stop Receive Mode ({} remaining)",
     "gui_copy_url": "Copy Address",
     "gui_copy_hidservauth": "Copy HidServAuth",
     "gui_canceled": "Canceled",
