@@ -112,7 +112,7 @@
     "gui_share_stop_server_autostop_timer_tooltip": "Auto-stop timer eindigt bij {}",
     "gui_receive_start_server": "Start Ontvangstmodus",
     "gui_receive_stop_server": "Stop Ontvangstmodus",
-    "gui_receive_stop_server_autostop_timer": "Stop Ontvangstmodus ({}s resterend)",
+    "gui_receive_stop_server_autostop_timer": "Stop Ontvangstmodus ({} resterend)",
     "gui_receive_stop_server_autostop_timer_tooltip": "Auto-stop timer stopt bij {}",
     "gui_no_downloads": "Nog Geen Downloads",
     "gui_copied_url_title": "Gekopieerd OnionShare Adres",

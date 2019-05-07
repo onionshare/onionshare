@@ -42,7 +42,7 @@
     "gui_share_stop_server_autostop_timer_tooltip": "Tidsavbruddsuret går ut {}",
     "gui_receive_start_server": "Start mottaksmodus",
     "gui_receive_stop_server": "Stopp mottaksmodus",
-    "gui_receive_stop_server_autostop_timer": "Stopp mottaksmodus ({}s gjenstår)",
+    "gui_receive_stop_server_autostop_timer": "Stopp mottaksmodus ({} gjenstår)",
     "gui_receive_stop_server_autostop_timer_tooltip": "Tidsavbruddsuret går ut {}",
     "gui_copy_url": "Kopier nettadresse",
     "gui_copy_hidservauth": "Kopier HidServAuth",

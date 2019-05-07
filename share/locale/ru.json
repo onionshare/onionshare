@@ -64,7 +64,7 @@
     "gui_share_stop_server_autostop_timer_tooltip": "Время таймера истекает в {}",
     "gui_receive_start_server": "Включить режим получения",
     "gui_receive_stop_server": "Выключить режим получения",
-    "gui_receive_stop_server_autostop_timer": "Выключить Режим Получения (осталось {}с)",
+    "gui_receive_stop_server_autostop_timer": "Выключить Режим Получения (осталось {})",
     "gui_receive_stop_server_autostop_timer_tooltip": "Время таймера истекает в {}",
     "gui_copy_hidservauth": "Скопировать строку HidServAuth",
     "gui_downloads": "История скачиваний",

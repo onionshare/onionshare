@@ -42,7 +42,7 @@
     "gui_share_stop_server_autostop_timer_tooltip": "Automatiska stopp-tidtagaren avslutar vid {}",
     "gui_receive_start_server": "Starta mottagarläge",
     "gui_receive_stop_server": "Avsluta Mottagarläge",
-    "gui_receive_stop_server_autostop_timer": "Avsluta Mottagarläge ({}s kvarstår)",
+    "gui_receive_stop_server_autostop_timer": "Avsluta Mottagarläge ({} kvarstår)",
     "gui_receive_stop_server_autostop_timer_tooltip": "Automatiska stopp-tidtagaren avslutar vid {}",
     "gui_copy_url": "Kopiera Adress",
     "gui_copy_hidservauth": "Kopiera HidServAuth",

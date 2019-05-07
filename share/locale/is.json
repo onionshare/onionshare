@@ -41,7 +41,7 @@
     "gui_share_stop_server_autostop_timer_tooltip": "Sjálfvirk niðurtalning endar {}",
     "gui_receive_start_server": "Byrja í móttökuham",
     "gui_receive_stop_server": "Hætta í móttökuham",
-    "gui_receive_stop_server_autostop_timer": "Hætta í móttökuham ({}s eftir)",
+    "gui_receive_stop_server_autostop_timer": "Hætta í móttökuham ({} eftir)",
     "gui_receive_stop_server_autostop_timer_tooltip": "Sjálfvirk niðurtalning endar {}",
     "gui_copy_url": "Afrita vistfang",
     "gui_copy_hidservauth": "Afrita HidServAuth",
