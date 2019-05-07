@@ -11,7 +11,7 @@
     "help_local_only": "Nepoužívat Tor: jen pro vývoj",
     "help_stay_open": "Nechat běžet onion service po skončení stahování",
     "help_stealth": "Create stealth onion service (advanced)",
-    "help_debug": "Zaznamenat chyby na disk",
+    "help_verbose": "Zaznamenat chyby na disk",
     "help_filename": "Seznam souborů a složek ke sdílení",
     "gui_drag_and_drop": "Táhni a pusť\nsoubory sem",
     "gui_add": "Přidat",
@@ -74,9 +74,9 @@
     "systray_download_canceled_message": "Uživatel přerušil stahování souboru",
     "systray_upload_started_title": "Začalo nahrávání pomocí OnionShare",
     "systray_upload_started_message": "Někdo právě začal nahrávat soubory na váš počítač",
-    "gui_share_stop_server_shutdown_timeout": "Zastavit sdílení ({}s zbývá)",
+    "gui_share_stop_server_autostop_timer": "Zastavit sdílení ({}s zbývá)",
     "gui_receive_start_server": "Spustit mód přijímání",
     "gui_receive_stop_server": "Zastavit přijímání",
-    "gui_receive_stop_server_shutdown_timeout": "Zastavit mód přijímání ({}s zbývá)",
+    "gui_receive_stop_server_autostop_timer": "Zastavit mód přijímání ({} zbývá)",
     "gui_copied_hidservauth_title": "Zkopírovaný HidServAuth token"
 }

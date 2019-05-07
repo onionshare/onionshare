@@ -48,3 +48,6 @@ tags
 
 # OSX
 .DS_Store
+
+# virtualenv
+venv

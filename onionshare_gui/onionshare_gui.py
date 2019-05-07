@@ -62,13 +62,17 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.config = config
         if self.config:
             self.common.load_settings(self.config)
+        else:
+            self.common.load_settings()
+
+        strings.load_strings(self.common)
 
         # System tray
         menu = QtWidgets.QMenu()
         self.settings_action = menu.addAction(strings._('gui_settings_window_title'))
         self.settings_action.triggered.connect(self.open_settings)
-        help_action = menu.addAction(strings._('gui_settings_button_help'))
-        help_action.triggered.connect(SettingsDialog.help_clicked)
+        self.help_action = menu.addAction(strings._('gui_settings_button_help'))
+        self.help_action.triggered.connect(lambda: SettingsDialog.help_clicked(self))
         exit_action = menu.addAction(strings._('systray_menu_exit'))
         exit_action.triggered.connect(self.close)
 
@@ -228,7 +232,10 @@ class OnionShareGui(QtWidgets.QMainWindow):
                 self.server_status_label.setText(strings._('gui_status_indicator_share_stopped'))
             elif self.share_mode.server_status.status == ServerStatus.STATUS_WORKING:
                 self.server_status_image_label.setPixmap(QtGui.QPixmap.fromImage(self.server_status_image_working))
-                self.server_status_label.setText(strings._('gui_status_indicator_share_working'))
+                if self.share_mode.server_status.autostart_timer_datetime:
+                    self.server_status_label.setText(strings._('gui_status_indicator_share_scheduled'))
+                else:
+                    self.server_status_label.setText(strings._('gui_status_indicator_share_working'))
             elif self.share_mode.server_status.status == ServerStatus.STATUS_STARTED:
                 self.server_status_image_label.setPixmap(QtGui.QPixmap.fromImage(self.server_status_image_started))
                 self.server_status_label.setText(strings._('gui_status_indicator_share_started'))
@@ -239,7 +246,10 @@ class OnionShareGui(QtWidgets.QMainWindow):
                 self.server_status_label.setText(strings._('gui_status_indicator_receive_stopped'))
             elif self.receive_mode.server_status.status == ServerStatus.STATUS_WORKING:
                 self.server_status_image_label.setPixmap(QtGui.QPixmap.fromImage(self.server_status_image_working))
-                self.server_status_label.setText(strings._('gui_status_indicator_receive_working'))
+                if self.receive_mode.server_status.autostart_timer_datetime:
+                    self.server_status_label.setText(strings._('gui_status_indicator_receive_scheduled'))
+                else:
+                    self.server_status_label.setText(strings._('gui_status_indicator_receive_working'))
             elif self.receive_mode.server_status.status == ServerStatus.STATUS_STARTED:
                 self.server_status_image_label.setPixmap(QtGui.QPixmap.fromImage(self.server_status_image_started))
                 self.server_status_label.setText(strings._('gui_status_indicator_receive_started'))
@@ -309,10 +319,16 @@ class OnionShareGui(QtWidgets.QMainWindow):
                     self.receive_mode.on_reload_settings()
                     self.status_bar.clearMessage()
 
-            # If we switched off the shutdown timeout setting, ensure the widget is hidden.
-            if not self.common.settings.get('shutdown_timeout'):
-                self.share_mode.server_status.shutdown_timeout_container.hide()
-                self.receive_mode.server_status.shutdown_timeout_container.hide()
+            # If we switched off the auto-stop timer setting, ensure the widget is hidden.
+            if not self.common.settings.get('autostop_timer'):
+                self.share_mode.server_status.autostop_timer_container.hide()
+                self.receive_mode.server_status.autostop_timer_container.hide()
+            # If we switched off the auto-start timer setting, ensure the widget is hidden.
+            if not self.common.settings.get('autostart_timer'):
+                self.share_mode.server_status.autostart_timer_datetime = None
+                self.receive_mode.server_status.autostart_timer_datetime = None
+                self.share_mode.server_status.autostart_timer_container.hide()
+                self.receive_mode.server_status.autostart_timer_container.hide()
 
         d = SettingsDialog(self.common, self.onion, self.qtapp, self.config, self.local_only)
         d.settings_saved.connect(reload_settings)

@@ -133,6 +133,8 @@ class Onion(object):
 
         self.stealth = False
         self.service_id = None
+        self.scheduled_key = None
+        self.scheduled_auth_cookie = None
 
         # Is bundled tor supported?
         if (self.common.platform == 'Windows' or self.common.platform == 'Darwin') and getattr(sys, 'onionshare_dev_mode', False):
@@ -152,15 +154,20 @@ class Onion(object):
         # Start out not connected to Tor
         self.connected_to_tor = False
 
-    def connect(self, custom_settings=False, config=False, tor_status_update_func=None):
+    def connect(self, custom_settings=False, config=False, tor_status_update_func=None, connect_timeout=120):
         self.common.log('Onion', 'connect')
 
         # Either use settings that are passed in, or use them from common
         if custom_settings:
             self.settings = custom_settings
+        elif config:
+            self.common.load_settings(config)
+            self.settings = self.common.settings
         else:
+            self.common.load_settings()
             self.settings = self.common.settings
 
+        strings.load_strings(self.common)
         # The Tor controller
         self.c = None
 
@@ -265,7 +272,7 @@ class Onion(object):
                 summary = res_parts[4].split('=')[1]
 
                 # "\033[K" clears the rest of the line
-                print("{}: {}% - {}{}".format(strings._('connecting_to_tor'), progress, summary, "\033[K"), end="\r")
+                print("Connecting to the Tor network: {}% - {}{}".format(progress, summary, "\033[K"), end="\r")
 
                 if callable(tor_status_update_func):
                     if not tor_status_update_func(progress, summary):
@@ -283,14 +290,16 @@ class Onion(object):
                 if self.settings.get('tor_bridges_use_custom_bridges') or \
                    self.settings.get('tor_bridges_use_obfs4') or \
                    self.settings.get('tor_bridges_use_meek_lite_azure'):
-                    connect_timeout = 150
-                else:
-                    # Timeout after 120 seconds
-                    connect_timeout = 120
+                       # Only override timeout if a custom timeout has not been passed in
+                       if connect_timeout == 120:
+                           connect_timeout = 150
                 if time.time() - start_ts > connect_timeout:
                     print("")
-                    self.tor_proc.terminate()
-                    raise BundledTorTimeout(strings._('settings_error_bundled_tor_timeout'))
+                    try:
+                        self.tor_proc.terminate()
+                        raise BundledTorTimeout(strings._('settings_error_bundled_tor_timeout'))
+                    except FileNotFoundError:
+                        pass
 
         elif self.settings.get('connection_type') == 'automatic':
             # Automatically try to guess the right way to connect to Tor Browser
@@ -423,32 +432,44 @@ class Onion(object):
             return False
 
 
-    def start_onion_service(self, port):
+    def start_onion_service(self, port, await_publication, save_scheduled_key=False):
         """
         Start a onion service on port 80, pointing to the given port, and
         return the onion hostname.
         """
         self.common.log('Onion', 'start_onion_service')
-
         self.auth_string = None
+
         if not self.supports_ephemeral:
             raise TorTooOld(strings._('error_ephemeral_not_supported'))
         if self.stealth and not self.supports_stealth:
             raise TorTooOld(strings._('error_stealth_not_supported'))
 
-        print(strings._("config_onion_service").format(int(port)))
+        if not save_scheduled_key:
+            print("Setting up onion service on port {0:d}.".format(int(port)))
 
         if self.stealth:
             if self.settings.get('hidservauth_string'):
                 hidservauth_string = self.settings.get('hidservauth_string').split()[2]
                 basic_auth = {'onionshare':hidservauth_string}
             else:
-                basic_auth = {'onionshare':None}
+                if self.scheduled_auth_cookie:
+                    basic_auth = {'onionshare':self.scheduled_auth_cookie}
+                else:
+                    basic_auth = {'onionshare':None}
         else:
             basic_auth = None
 
         if self.settings.get('private_key'):
             key_content = self.settings.get('private_key')
+            if self.is_v2_key(key_content):
+                key_type = "RSA1024"
+            else:
+                # Assume it was a v3 key. Stem will throw an error if it's something illegible
+                key_type = "ED25519-V3"
+
+        elif self.scheduled_key:
+            key_content = self.scheduled_key
             if self.is_v2_key(key_content):
                 key_type = "RSA1024"
             else:
@@ -474,7 +495,6 @@ class Onion(object):
         if key_type == "NEW":
             debug_message += ', key_content={}'.format(key_content)
         self.common.log('Onion', 'start_onion_service', '{}'.format(debug_message))
-        await_publication = True
         try:
             if basic_auth != None:
                 res = self.c.create_ephemeral_hidden_service({ 80: port }, await_publication=await_publication, basic_auth=basic_auth, key_type=key_type, key_content=key_content)
@@ -493,6 +513,12 @@ class Onion(object):
             if not self.settings.get('private_key'):
                 self.settings.set('private_key', res.private_key)
 
+        # If we were scheduling a future share, register the private key for later re-use
+        if save_scheduled_key:
+            self.scheduled_key = res.private_key
+        else:
+            self.scheduled_key = None
+
         if self.stealth:
             # Similar to the PrivateKey, the Control port only returns the ClientAuth
             # in the response if it was responsible for creating the basic_auth password
@@ -507,8 +533,19 @@ class Onion(object):
                     self.auth_string = 'HidServAuth {} {}'.format(onion_host, auth_cookie)
                     self.settings.set('hidservauth_string', self.auth_string)
             else:
-                auth_cookie = list(res.client_auth.values())[0]
-                self.auth_string = 'HidServAuth {} {}'.format(onion_host, auth_cookie)
+                if not self.scheduled_auth_cookie:
+                    auth_cookie = list(res.client_auth.values())[0]
+                    self.auth_string = 'HidServAuth {} {}'.format(onion_host, auth_cookie)
+                    if save_scheduled_key:
+                        # Register the HidServAuth for the scheduled share
+                        self.scheduled_auth_cookie = auth_cookie
+                    else:
+                        self.scheduled_auth_cookie = None
+                else:
+                    self.auth_string = 'HidServAuth {} {}'.format(onion_host, self.scheduled_auth_cookie)
+                    if not save_scheduled_key:
+                        # We've used the scheduled share's HidServAuth. Reset it to None for future shares
+                        self.scheduled_auth_cookie = None
 
         if onion_host is not None:
             self.settings.save()

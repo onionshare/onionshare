@@ -8,11 +8,17 @@ Unlike services like email, Google Drive, DropBox, WeTransfer, or nearly any oth
 
 To learn how OnionShare works, what its security properties are, and how to use it, check out the [wiki](https://github.com/micahflee/onionshare/wiki).
 
-## Downloading OnionShare
+## Installing OnionShare
 
 You can download OnionShare for Windows and macOS from the [OnionShare website](https://onionshare.org).
 
-For Ubuntu-like Linux distributions, you could use this PPA to get the latest version:
+For macOS you can also use [Homebrew](https://brew.sh/):
+
+```
+brew cask install onionshare
+```
+
+For Ubuntu-like Linux distributions, you can use this PPA:
 
 ```
 sudo add-apt-repository ppa:micahflee/ppa
