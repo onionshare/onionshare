@@ -18,6 +18,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import os
+import secrets
+import random
+import string
+
 from PyQt5 import QtCore, QtWidgets, QtGui
 
 from onionshare import strings
@@ -41,9 +45,6 @@ class WebsiteMode(Mode):
         """
         Custom initialization for ReceiveMode.
         """
-        # Threads start out as None
-        self.compress_thread = None
-
         # Create the Web object
         self.web = Web(self.common, True, 'website')
 
@@ -76,8 +77,9 @@ class WebsiteMode(Mode):
         self.history = History(
             self.common,
             QtGui.QPixmap.fromImage(QtGui.QImage(self.common.get_resource_path('images/share_icon_transparent.png'))),
-            strings._('gui_share_mode_no_files'),
-            strings._('gui_all_modes_history')
+            strings._('gui_website_mode_no_files'),
+            strings._('gui_all_modes_history'),
+            'website'
         )
         self.history.hide()
 
@@ -88,8 +90,8 @@ class WebsiteMode(Mode):
         # Toggle history
         self.toggle_history = ToggleHistory(
             self.common, self, self.history,
-            QtGui.QIcon(self.common.get_resource_path('images/downloads_toggle.png')),
-            QtGui.QIcon(self.common.get_resource_path('images/downloads_toggle_selected.png'))
+            QtGui.QIcon(self.common.get_resource_path('images/share_icon_toggle.png')),
+            QtGui.QIcon(self.common.get_resource_path('images/share_icon_toggle_selected.png'))
         )
 
         # Top bar
@@ -113,31 +115,27 @@ class WebsiteMode(Mode):
         # Wrapper layout
         self.wrapper_layout = QtWidgets.QHBoxLayout()
         self.wrapper_layout.addLayout(self.main_layout)
-        self.wrapper_layout.addWidget(self.history)
+        self.wrapper_layout.addWidget(self.history, stretch=1)
         self.setLayout(self.wrapper_layout)
 
         # Always start with focus on file selection
         self.file_selection.setFocus()
 
-    def get_stop_server_shutdown_timeout_text(self):
+    def get_stop_server_autostop_timer_text(self):
         """
-        Return the string to put on the stop server button, if there's a shutdown timeout
+        Return the string to put on the stop server button, if there's an auto-stop timer
         """
-        return strings._('gui_share_stop_server_shutdown_timeout')
+        return strings._('gui_share_stop_server_autostop_timer')
 
-    def timeout_finished_should_stop_server(self):
+    def autostop_timer_finished_should_stop_server(self):
         """
-        The shutdown timer expired, should we stop the server? Returns a bool
+        The auto-stop timer expired, should we stop the server? Returns a bool
         """
-        # If there were no attempts to download the share, or all downloads are done, we can stop
-        if self.web.website_mode.visit_count == 0 or self.web.done:
-            self.server_status.stop_server()
-            self.server_status_label.setText(strings._('close_on_timeout'))
-            return True
-        # A download is probably still running - hold off on stopping the share
-        else:
-            self.server_status_label.setText(strings._('timeout_download_still_running'))
-            return False
+
+        self.server_status.stop_server()
+        self.server_status_label.setText(strings._('close_on_autostop_timer'))
+        return True
+
 
     def start_server_custom(self):
         """
@@ -194,9 +192,7 @@ class WebsiteMode(Mode):
         """
 
         self.filesize_warning.hide()
-        self.history.in_progress_count = 0
         self.history.completed_count = 0
-        self.history.update_in_progress()
         self.file_selection.file_list.adjustSize()
 
     def cancel_server_custom(self):
@@ -222,14 +218,17 @@ class WebsiteMode(Mode):
         """
         Handle REQUEST_STARTED event.
         """
+        if ( (event["path"] == '') or (event["path"].find(".htm") != -1 ) ):
+            filesize = self.web.website_mode.download_filesize
+            item = VisitHistoryItem(self.common, event["data"]["id"], filesize)
 
-        filesize = self.web.website_mode.download_filesize
+            self.history.add(event["data"]["id"], item)
+            self.toggle_history.update_indicator(True)
+            self.history.completed_count += 1
+            self.history.update_completed()
 
-        item = VisitHistoryItem(self.common, event["data"]["id"], filesize)
-        self.history.add(event["data"]["id"], item)
-        self.toggle_history.update_indicator(True)
-        self.history.in_progress_count += 1
-        self.history.update_in_progress()
+        self.system_tray.showMessage(strings._('systray_website_started_title'), strings._('systray_website_started_message'))
+
 
     def on_reload_settings(self):
         """

@@ -347,6 +347,7 @@ class VisitHistoryItem(HistoryItem):
     """
     def __init__(self, common, id, total_bytes):
         super(VisitHistoryItem, self).__init__()
+        self.status = HistoryItem.STATUS_STARTED
         self.common = common
 
         self.id = id
@@ -354,13 +355,20 @@ class VisitHistoryItem(HistoryItem):
         self.visited_dt = datetime.fromtimestamp(self.visited)
 
         # Label
-        self.label = QtWidgets.QLabel(strings._('gui_visit_started').format(self.started_dt.strftime("%b %d, %I:%M%p")))
+        self.label = QtWidgets.QLabel(strings._('gui_visit_started').format(self.visited_dt.strftime("%b %d, %I:%M%p")))
 
         # Layout
         layout = QtWidgets.QVBoxLayout()
         layout.addWidget(self.label)
         self.setLayout(layout)
 
+    def update(self):
+        self.label.setText(self.get_finished_label_text(self.started_dt))
+        self.status = HistoryItem.STATUS_FINISHED
+
+    def cancel(self):
+        self.progress_bar.setFormat(strings._('gui_canceled'))
+        self.status = HistoryItem.STATUS_CANCELED
 
 class HistoryItemList(QtWidgets.QScrollArea):
     """
@@ -425,19 +433,19 @@ class HistoryItemList(QtWidgets.QScrollArea):
         Reset all items, emptying the list.  Override this method.
         """
         for key, item in self.items.copy().items():
-            if item.status != HistoryItem.STATUS_STARTED:
-                self.items_layout.removeWidget(item)
-                item.close()
-                del self.items[key]
+            self.items_layout.removeWidget(item)
+            item.close()
+            del self.items[key]
 
 class History(QtWidgets.QWidget):
     """
     A history of what's happened so far in this mode. This contains an internal
     object full of a scrollable list of items.
     """
-    def __init__(self, common, empty_image, empty_text, header_text):
+    def __init__(self, common, empty_image, empty_text, header_text, mode=''):
         super(History, self).__init__()
         self.common = common
+        self.mode = mode
 
         self.setMinimumWidth(350)
 
@@ -556,12 +564,14 @@ class History(QtWidgets.QWidget):
         """
         Update the 'in progress' widget.
         """
-        if self.in_progress_count == 0:
-            image = self.common.get_resource_path('images/share_in_progress_none.png')
-        else:
-            image = self.common.get_resource_path('images/share_in_progress.png')
-        self.in_progress_label.setText('<img src="{0:s}" /> {1:d}'.format(image, self.in_progress_count))
-        self.in_progress_label.setToolTip(strings._('history_in_progress_tooltip').format(self.in_progress_count))
+        if self.mode != 'website':
+            if self.in_progress_count == 0:
+                image = self.common.get_resource_path('images/share_in_progress_none.png')
+            else:
+                image = self.common.get_resource_path('images/share_in_progress.png')
+
+            self.in_progress_label.setText('<img src="{0:s}" /> {1:d}'.format(image, self.in_progress_count))
+            self.in_progress_label.setToolTip(strings._('history_in_progress_tooltip').format(self.in_progress_count))
 
 
 class ToggleHistory(QtWidgets.QPushButton):

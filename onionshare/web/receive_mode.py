@@ -18,6 +18,9 @@ class ReceiveModeWeb(object):
 
         self.web = web
 
+        # Reset assets path
+        self.web.app.static_folder=self.common.get_resource_path('static')
+
         self.can_upload = True
         self.upload_count = 0
         self.uploads_in_progress = []
