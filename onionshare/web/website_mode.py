@@ -25,6 +25,9 @@ class WebsiteModeWeb(object):
         self.download_filesize = 0
         self.visit_count = 0
 
+        # Reset assets path
+        self.web.app.static_folder=self.common.get_resource_path('static')
+
         self.users = { }
 
         self.define_routes()
@@ -79,7 +82,15 @@ class WebsiteModeWeb(object):
             Render the onionshare website.
             """
 
-            self.web.add_request(self.web.REQUEST_LOAD, request.path)
+            # Each download has a unique id
+            visit_id = self.visit_count
+            self.visit_count += 1
+
+            # Tell GUI the page has been visited
+            self.web.add_request(self.web.REQUEST_STARTED, page_path, {
+                'id': visit_id,
+                'action': 'visit'
+            })
 
             filelist = []
             if self.file_info['files']:
@@ -102,6 +113,7 @@ class WebsiteModeWeb(object):
                 for i in filelist:
                     filenames.append(os.path.join(self.website_folder, i))
 
+                self.web.app.static_folder=self.common.get_resource_path('static')
                 self.set_file_info(filenames)
 
                 r = make_response(render_template(
