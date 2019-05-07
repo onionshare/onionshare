@@ -14,7 +14,7 @@ Install the needed dependencies:
 For Debian-like distros:
 
 ```
-apt install -y python3-flask python3-stem python3-pyqt5 python3-crypto python3-socks python3-distutils python-nautilus tor obfs4proxy python3-pytest build-essential fakeroot python3-all python3-stdeb dh-python
+apt install -y python3-flask python3-stem python3-pyqt5 python3-crypto python3-socks python-nautilus tor obfs4proxy python3-pytest build-essential fakeroot python3-all python3-stdeb dh-python
 ```
 
 For Fedora-like distros:
@@ -42,7 +42,7 @@ For ArchLinux: There is a PKBUILD available [here](https://aur.archlinux.org/pac
 
 If you find that these instructions don't work for your Linux distribution or version, consult the [Linux Distribution Support wiki guide](https://github.com/micahflee/onionshare/wiki/Linux-Distribution-Support), which might contain extra instructions.
 
-## Mac OS X
+## macOS
 
 Install Xcode from the Mac App Store. Once it's installed, run it for the first time to set it up. Also, run this to make sure command line tools are installed: `xcode-select --install`. And finally, open Xcode, go to Preferences > Locations, and make sure under Command Line Tools you select an installed version from the dropdown. (This is required for installing Qt5.)
 
@@ -50,9 +50,16 @@ Download and install Python 3.7.2 from https://www.python.org/downloads/release/
 
 You may also need to run the command `/Applications/Python\ 3.7/Install\ Certificates.command` to update Python 3.6's internal certificate store. Otherwise, you may find that fetching the Tor Browser .dmg file fails later due to a certificate validation error.
 
-Install Qt 5.11.3 from https://www.qt.io/download-open-source/. I downloaded `qt-unified-mac-x64-3.0.6-online.dmg`. In the installer, you can skip making an account, and all you need is `Qt` > `Qt 5.11.3` > `macOS`.
+Install Qt 5.12.1 from https://download.qt.io/archive/qt/5.12/5.12.1/. I downloaded `qt-opensource-mac-x64-5.12.1.dmg`. In the installer, you can skip making an account, and all you need is `Qt` > `Qt 5.12.1` > `macOS`.
 
-Now install some python dependencies with pip (note, there's issues building a .app if you install this in a virtualenv):
+Now install pip dependencies. If you want to use a virtualenv, create it and activate it first:
+
+```sh
+python3 -m venv venv
+. venv/bin/activate
+```
+
+Then install the dependencies:
 
 ```sh
 pip3 install -r install/requirements.txt
@@ -100,7 +107,7 @@ cd bootloader
 python3 waf distclean all --target-arch=64bit
 ```
 
-Finally, install the PyInstaller module into your local site-packages:
+Finally, install the PyInstaller module into your local site-packages. If you're using a virtualenv, make sure to run this last command while your virtualenv is activated:
 
 ```sh
 cd ..
@@ -135,7 +142,7 @@ Open a command prompt, cd to the onionshare folder, and install dependencies wit
 pip install -r install\requirements.txt
 ```
 
-Install the Qt 5.11.3 from https://www.qt.io/download-open-source/. I downloaded `qt-unified-windows-x86-3.0.6-online.exe`. In the installer, you can skip making an account, and all you need `Qt` > `Qt 5.11.3` > `MSVC 2015 32-bit`.
+Install the Qt 5.12.1 from https://download.qt.io/archive/qt/5.12/5.12.1/. I downloaded `qt-opensource-windows-x86-5.12.1.exe`. In the installer, you can skip making an account, and all you need `Qt` > `Qt 5.12.1` > `MSVC 2017 32-bit`.
 
 After that you can try both the CLI and the GUI version of OnionShare:
 
@@ -150,14 +157,14 @@ These instructions include adding folders to the path in Windows. To do this, go
 
 Download and install the 32-bit [Visual C++ Redistributable for Visual Studio 2015](https://www.microsoft.com/en-US/download/details.aspx?id=48145). I downloaded `vc_redist.x86.exe`.
 
-Download and install 7-Zip from http://www.7-zip.org/download.html. I downloaded `7z1805.exe`.
+Download and install 7-Zip from http://www.7-zip.org/download.html. I downloaded `7z1900.exe`.
 
 Download and install the standalone [Windows 10 SDK](https://dev.windows.com/en-us/downloads/windows-10-sdk). Note that you may not need this if you already have Visual Studio.
 
 Add the following directories to the path:
 
-* `C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x86`
-* `C:\Program Files (x86)\Windows Kits\10\Redist\10.0.17763.0\ucrt\DLLs\x86`
+* `C:\Program Files (x86)\Windows Kits\10\bin\10.0.18362.0\x86`
+* `C:\Program Files (x86)\Windows Kits\10\Redist\10.0.18362.0\ucrt\DLLs\x86`
 * `C:\Users\user\AppData\Local\Programs\Python\Python37-32\Lib\site-packages\PyQt5\Qt\bin`
 * `C:\Program Files (x86)\7-Zip`
 
@@ -169,7 +176,7 @@ OnionShare uses PyInstaller to turn the python source code into Windows executab
 
 Here's how to compile the PyInstaller bootloader:
 
-Download and install [Microsoft Build Tools for Visual Studio 2017](https://www.visualstudio.com/downloads/#build-tools-for-visual-studio-2017). I downloaded `vs_buildtools.exe`. In the installer, check the box next to "Visual C++ build tools". Click "Individual components", and under "Compilers, build tools and runtimes", check "Windows Universal CRT SDK". Then click install. When installation is done, you may have to reboot your computer.
+Download and install [Microsoft Build Tools for Visual Studio 2019](https://www.visualstudio.com/downloads/#build-tools-for-visual-studio-2019). I downloaded `vs_buildtools__265029578.1555959436.exe`. In the installer, check the box next to "Visual C++ build tools". Click "Individual components", and under "Compilers, build tools and runtimes", check "Windows Universal CRT SDK". Then click install. When installation is done, you may have to reboot your computer.
 
 Then, enable the 32-bit Visual C++ Toolset on the Command Line like this:
 
@@ -181,7 +188,7 @@ vcvars32.bat
 Make sure you have a new enough `setuptools`:
 
 ```
-pip install setuptools==40.6.3
+pip install --upgrade setuptools
 ```
 
 Now make sure you don't have PyInstaller installed from pip:
@@ -254,7 +261,7 @@ Open a command prompt, cd to the onionshare directory, and type: `install\build_
 
 This will prompt you to codesign three binaries and execute one unsigned binary. When you're done clicking through everything you will have `dist\onionshare-setup.exe`.
 
-## Tests
+# Running tests
 
 OnionShare includes PyTest unit tests. To run the tests, first install some dependencies:
 
@@ -287,3 +294,114 @@ You can also choose to wrap the tests in `xvfb-run` so that a ton of OnionShare 
 ```sh
 xvfb-run pytest --rungui tests/
 ```
+
+# Making releases
+
+This section documents the release process. Unless you're a core OnionShare developer making a release, you'll probably never need to follow it.
+
+## Changelog, version, and signed git tag
+
+Before making a release, all of these should be complete:
+
+* `share/version.txt` should have the correct version
+* `install/onionshare.nsi` should have the correct version, for the Windows installer
+* `CHANGELOG.md` should be updated to include a list of all major changes since the last release
+* There must be a PGP-signed git tag for the version, e.g. for OnionShare 2.1, the tag must be `v2.1`
+
+The first step for the Linux, macOS, and Windows releases is the same:
+
+Verify the release git tag:
+
+```
+git fetch
+git tag -v v$VERSION
+```
+
+If the tag verifies successfully, check it out:
+
+```
+git checkout v$VERSION
+```
+
+## Linux release
+
+TODO: Write Flatpak instructions (see [this issue](https://github.com/micahflee/onionshare/issues/910)).
+
+To make a PPA release:
+
+- Go to Ubuntu build machine, which must have `~/.dput.cf` with the correct PPA info in it, and with the correct PGP signing key
+- Verify and checkout the git tag for this release
+- Run `./install/ppa_release.sh`, which builds a source package and uploads to the PPA build server
+- Login to Launchpad to monitor the build and make sure it is successful; if not, make minor patches and try the release again
+- After build is successful, from Launchpad, copy the binary from `cosmic` into other suites
+
+## macOS release
+
+To make a macOS release, go to macOS build machine:
+
+- Build machine should be running macOS 10.11.6, and must have the Apple-trusted `Developer ID Application: Micah Lee` and `Developer ID Installer: Micah Lee` code-signing certificates installed
+- Verify and checkout the git tag for this release
+- Run `./install/build_osx.sh --release`; this will make a codesigned installer package called `dist/OnionShare-$VERSION.pkg`
+- Copy `OnionShare-$VERSION.pkg` to developer machine
+
+Then move back to the developer machine:
+
+- PGP-sign the macOS installer, `gpg --detach-sign OnionShare-$VERSION.pkg`
+
+Note that once we support notarizing the macOS installer (see [this issue](https://github.com/micahflee/onionshare/issues/953)), these will be the steps instead:
+
+- Developer machine, running the latest macOS, must have an app-specific Apple ID password saved in the login keychain called `onionshare-notarize`
+- Notarize it: `xcrun altool --notarize-app --primary-bundle-id "com.micahflee.onionshare" -u "micah@micahflee.com" -p "@keychain:onionshare-notarize" --file OnionShare-$VERSION.pkg`
+- Wait for it to get approved, check status with: `xcrun altool --notarization-history 0 -u "micah@micahflee.com" -p "@keychain:onionshare-notarize"`
+- After it's approved, staple the ticket: `xcrun stapler staple OnionShare-$VERSION.pkg`
+- PGP-sign the final, notarized and stapled, `gpg -a --detach-sign OnionShare-$VERSION.pkg`
+
+This process ends up with two final files:
+
+```
+OnionShare-$VERSION.pkg
+OnionShare-$VERSION.pkg.asc
+```
+
+## Windows release
+
+To make a Windows release, go to Windows build machine:
+
+- Build machine should be running Windows 10, and have the Windows codesigning certificate installed
+- Verify and checkout the git tag for this release
+- Run `install\build_exe.bat`; this will make a codesigned installer package called `dist\onionshare-$VERSION-setup.exe`
+- Copy `onionshare-$VERSION-setup.exe` to developer machine
+
+Then move back to the developer machine:
+
+- PGP-sign the Windows installer, `gpg -a --detach-sign onionshare-$VERSION-setup.exe`
+
+This process ends up with two final files:
+
+```
+onionshare-$VERSION-setup.exe
+onionshare-$VERSION-setup.exe.asc
+```
+
+## Source package
+
+To make a source package, run `./install/build_source.sh $TAG`, where `$TAG` is the the name of the signed git tag, e.g. `v2.1`.
+
+This process ends up with two final files in `dist`:
+
+```
+onionshare-$VERSION.tar.gz
+onionshare-$VERSION.tar.gz.asc
+```
+
+## Publishing the release
+
+To publish the release:
+
+- Create a new release on GitHub, put the changelog in the description of the release, and upload all six files (the macOS installer, the Windows installer, the source package, and their signatures)
+- Upload the six release files to https://onionshare.org/dist/$VERSION/
+- Update the [onionshare-website](https://github.com/micahflee/onionshare-website) repo:
+  - Edit `latest-version.txt` to match the latest version
+  - Update the version number and download links
+  - Deploy to https://onionshare.org/
+- Email the [onionshare-dev](https://lists.riseup.net/www/subscribe/onionshare-dev) mailing list announcing the release

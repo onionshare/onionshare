@@ -30,9 +30,10 @@ class MyOnion:
         self.auth_string = 'TestHidServAuth'
         self.private_key = ''
         self.stealth = stealth
+        self.scheduled_key = None
 
     @staticmethod
-    def start_onion_service(_):
+    def start_onion_service(self, await_publication=True, save_scheduled_key=False):
         return 'test_service_id.onion'
 
 

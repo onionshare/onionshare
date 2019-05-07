@@ -9,7 +9,7 @@ class LocalReceiveModeTimerTest(unittest.TestCase, GuiReceiveTest):
     def setUpClass(cls):
         test_settings = {
             "public_mode": False,
-            "shutdown_timeout": True,
+            "autostop_timer": True,
         }
         cls.gui = GuiReceiveTest.set_up(test_settings)
 
@@ -18,6 +18,7 @@ class LocalReceiveModeTimerTest(unittest.TestCase, GuiReceiveTest):
         GuiReceiveTest.tear_down()
 
     @pytest.mark.gui
+    @pytest.mark.skipif(pytest.__version__ < '2.9', reason="requires newer pytest")
     def test_gui(self):
         self.run_all_common_setup_tests()
         self.run_all_receive_mode_timer_tests(False)

@@ -44,32 +44,46 @@ class Settings(object):
 
         self.common.log('Settings', '__init__')
 
-        # Default config
-        self.filename = self.build_filename()
-
         # If a readable config file was provided, use that instead
         if config:
             if os.path.isfile(config):
                 self.filename = config
             else:
                 self.common.log('Settings', '__init__', 'Supplied config does not exist or is unreadable. Falling back to default location')
+                self.filename = self.build_filename()
+
+        else:
+            # Default config
+            self.filename = self.build_filename()
 
         # Dictionary of available languages in this version of OnionShare,
         # mapped to the language name, in that language
         self.available_locales = {
-            'bn': 'বাংলা',       # Bengali
-            'ca': 'Català',     # Catalan
-            'da': 'Dansk',      # Danish
-            'en': 'English',    # English
-            'fr': 'Français',   # French
-            'el': 'Ελληνικά',   # Greek
-            'it': 'Italiano',   # Italian
-            'ja': '日本語',      # Japanese
-            'fa': 'فارسی',      # Persian
-            'pt_BR': 'Português (Brasil)',  # Portuguese Brazil
-            'ru': 'Русский',    # Russian
-            'es': 'Español',    # Spanish
-            'sv': 'Svenska'     # Swedish
+            #'bn': 'বাংলা', # Bengali (commented out because not at 90% translation)
+            'ca': 'Català',                     # Catalan
+            'zh_Hant': '正體中文 (繁體)',         # Traditional Chinese
+            'zh_Hans': '中文 (简体)',            # Simplified Chinese
+            'da': 'Dansk',                      # Danish
+            'en': 'English',                    # English
+            'fi': 'Suomi',                      # Finnish
+            'fr': 'Français',                   # French
+            'de': 'Deutsch',                    # German
+            'el': 'Ελληνικά',                   # Greek
+            'is': 'Íslenska',                   # Icelandic
+            'ga': 'Gaeilge',                    # Irish
+            'it': 'Italiano',                   # Italian
+            'ja': '日本語',                      # Japanese
+            'nb': 'Norsk Bokmål',               # Norwegian Bokmål
+            #'fa': 'فارسی', # Persian (commented out because not at 90% translation)
+            'pl': 'Polski',                     # Polish
+            'pt_BR': 'Português (Brasil)',      # Portuguese Brazil
+            'pt_PT': 'Português (Portugal)',    # Portuguese Portugal
+            'ru': 'Русский',                    # Russian
+            'es': 'Español',                    # Spanish
+            'sv': 'Svenska',                    # Swedish
+            'te': 'తెలుగు',                      # Telugu
+            'tr': 'Türkçe',                     # Turkish
+            'uk': 'Українська',                 # Ukrainian
         }
 
         # These are the default settings. They will get overwritten when loading from disk
@@ -84,7 +98,8 @@ class Settings(object):
             'auth_type': 'no_auth',
             'auth_password': '',
             'close_after_first_download': True,
-            'shutdown_timeout': False,
+            'autostop_timer': False,
+            'autostart_timer': False,
             'use_stealth': False,
             'use_autoupdate': True,
             'autoupdate_timestamp': None,

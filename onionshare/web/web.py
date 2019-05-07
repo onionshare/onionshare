@@ -22,7 +22,10 @@ from .receive_mode import ReceiveModeWeb, ReceiveModeWSGIMiddleware, ReceiveMode
 def stubbed_show_server_banner(env, debug, app_import_path, eager_loading):
     pass
 
-flask.cli.show_server_banner = stubbed_show_server_banner
+try:
+    flask.cli.show_server_banner = stubbed_show_server_banner
+except:
+    pass
 
 
 class Web(object):
@@ -51,9 +54,9 @@ class Web(object):
                          template_folder=self.common.get_resource_path('templates'))
         self.app.secret_key = self.common.random_string(8)
 
-        # Debug mode?
-        if self.common.debug:
-            self.debug_mode()
+        # Verbose mode?
+        if self.common.verbose:
+            self.verbose_mode()
 
         # Are we running in GUI mode?
         self.is_gui = is_gui
@@ -150,7 +153,7 @@ class Web(object):
                 if self.error404_count == 20:
                     self.add_request(Web.REQUEST_RATE_LIMIT, request.path)
                     self.force_shutdown()
-                    print(strings._('error_rate_limit'))
+                    print("Someone has made too many wrong attempts on your address, which means they could be trying to guess it, so OnionShare has stopped the server. Start sharing again and send the recipient a new address to share.")
 
         r = make_response(render_template('404.html'), 404)
         return self.add_security_headers(r)
@@ -193,12 +196,12 @@ class Web(object):
             self.slug = self.common.build_slug()
             self.common.log('Web', 'generate_slug', 'built random slug: "{}"'.format(self.slug))
 
-    def debug_mode(self):
+    def verbose_mode(self):
         """
-        Turn on debugging mode, which will log flask errors to a debug file.
+        Turn on verbose mode, which will log flask errors to a file.
         """
-        flask_debug_filename = os.path.join(self.common.build_data_dir(), 'flask_debug.log')
-        log_handler = logging.FileHandler(flask_debug_filename)
+        flask_log_filename = os.path.join(self.common.build_data_dir(), 'flask.log')
+        log_handler = logging.FileHandler(flask_log_filename)
         log_handler.setLevel(logging.WARNING)
         self.app.logger.addHandler(log_handler)
 
@@ -228,13 +231,11 @@ class Web(object):
             pass
         self.running = False
 
-    def start(self, port, stay_open=False, public_mode=False, persistent_slug=None):
+    def start(self, port, stay_open=False, public_mode=False, slug=None):
         """
         Start the flask web server.
         """
-        self.common.log('Web', 'start', 'port={}, stay_open={}, public_mode={}, persistent_slug={}'.format(port, stay_open, public_mode, persistent_slug))
-        if not public_mode:
-            self.generate_slug(persistent_slug)
+        self.common.log('Web', 'start', 'port={}, stay_open={}, public_mode={}, slug={}'.format(port, stay_open, public_mode, slug))
 
         self.stay_open = stay_open
 
@@ -264,7 +265,7 @@ class Web(object):
         self.stop_q.put(True)
 
         # Reset any slug that was in use
-        self.slug = ''
+        self.slug = None
 
         # To stop flask, load http://127.0.0.1:<port>/<shutdown_slug>/shutdown
         if self.running:

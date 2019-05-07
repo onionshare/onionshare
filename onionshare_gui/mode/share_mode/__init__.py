@@ -121,24 +121,24 @@ class ShareMode(Mode):
         # Always start with focus on file selection
         self.file_selection.setFocus()
 
-    def get_stop_server_shutdown_timeout_text(self):
+    def get_stop_server_autostop_timer_text(self):
         """
-        Return the string to put on the stop server button, if there's a shutdown timeout
+        Return the string to put on the stop server button, if there's an auto-stop timer
         """
-        return strings._('gui_share_stop_server_shutdown_timeout')
+        return strings._('gui_share_stop_server_autostop_timer')
 
-    def timeout_finished_should_stop_server(self):
+    def autostop_timer_finished_should_stop_server(self):
         """
-        The shutdown timer expired, should we stop the server? Returns a bool
+        The auto-stop timer expired, should we stop the server? Returns a bool
         """
         # If there were no attempts to download the share, or all downloads are done, we can stop
         if self.web.share_mode.download_count == 0 or self.web.done:
             self.server_status.stop_server()
-            self.server_status_label.setText(strings._('close_on_timeout'))
+            self.server_status_label.setText(strings._('close_on_autostop_timer'))
             return True
         # A download is probably still running - hold off on stopping the share
         else:
-            self.server_status_label.setText(strings._('gui_share_mode_timeout_waiting'))
+            self.server_status_label.setText(strings._('gui_share_mode_autostop_timer_waiting'))
             return False
 
     def start_server_custom(self):

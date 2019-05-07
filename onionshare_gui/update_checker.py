@@ -25,7 +25,7 @@ from distutils.version import LooseVersion as Version
 from onionshare.settings import Settings
 from onionshare.onion import Onion
 
-from . import strings
+from onionshare import strings
 
 class UpdateCheckerCheckError(Exception):
     """
