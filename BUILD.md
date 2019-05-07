@@ -181,7 +181,7 @@ Download and install [Microsoft Build Tools for Visual Studio 2019](https://www.
 Then, enable the 32-bit Visual C++ Toolset on the Command Line like this:
 
 ```
-cd "C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\VC\Auxiliary\Build"
+cd "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build"
 vcvars32.bat
 ```
 
@@ -346,7 +346,7 @@ To make a macOS release, go to macOS build machine:
 
 Then move back to the developer machine:
 
-- PGP-sign the macOS installer, `gpg --detach-sign OnionShare-$VERSION.pkg`
+- PGP-sign the macOS installer, `gpg -a --detach-sign OnionShare-$VERSION.pkg`
 
 Note that once we support notarizing the macOS installer (see [this issue](https://github.com/micahflee/onionshare/issues/953)), these will be the steps instead:
 
@@ -400,8 +400,10 @@ To publish the release:
 
 - Create a new release on GitHub, put the changelog in the description of the release, and upload all six files (the macOS installer, the Windows installer, the source package, and their signatures)
 - Upload the six release files to https://onionshare.org/dist/$VERSION/
+- Copy the six release files into the OnionShare team Keybase filesystem 
 - Update the [onionshare-website](https://github.com/micahflee/onionshare-website) repo:
   - Edit `latest-version.txt` to match the latest version
   - Update the version number and download links
   - Deploy to https://onionshare.org/
 - Email the [onionshare-dev](https://lists.riseup.net/www/subscribe/onionshare-dev) mailing list announcing the release
+- Make a PR to [homebrew-cask](https://github.com/homebrew/homebrew-cask) to update the macOS version
