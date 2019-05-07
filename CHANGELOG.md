@@ -5,8 +5,8 @@
 * New feature: Auto-start timer, which allows scheduling when the server starts
 * Renamed CLI argument --debug to --verbose
 * Make Tor connection timeout configurable as a CLI argument
-* Updated various dependencies, including to fix third-party security issues in urllib3, jinja2, and jQuery
-* Update Tor to 0.3.5.8
+* Updated various dependencies, including fixing third-party security issues in urllib3, Jinja2, and jQuery
+* Updated Tor to 0.3.5.8
 * New translations:
   * Traditional Chinese (正體中文 (繁體)),
   * Simplified Chinese (中文 (简体))
@@ -14,13 +14,13 @@
   * German (Deutsch)
   * Icelandic (Íslenska)
   * Irish (Gaeilge)
-  * Norwegian Bokmål (Norsk Bokmål)
+  * Norwegian Bokmål (Norsk bokmål)
   * Polish (Polski)
   * Portuguese Portugal (Português (Portugal))
   * Telugu (తెలుగు)
   * Turkish (Türkçe)
   * Ukrainian (Українська)
-* Removed translations because less than 90% of the strings were translated:
+* Removed translations with fewer than 90% of strings translated:
   * Bengali (বাংলা)
   * Persian (فارسی)
 
@@ -35,31 +35,31 @@
 * New feature: Allow selecting your language from a dropdown
 * New translations: Bengali (বাংলা), Catalan (Català), Danish (Dansk), French (Français), Greek (Ελληνικά), Italian (Italiano), Japanese (日本語), Persian (فارسی), Portuguese Brazil (Português Brasil), Russian (Русский), Spanish (Español), Swedish (Svenska)
 * Several bugfixes
-* Invisible to users, but this version includes some major refactoring of the codebase, and a robust set of unit tests which makes OnionShare easier to maintain going forward
+* Invisible to users, this version includes some major refactoring of the codebase, and a robust set of unit tests which makes OnionShare easier to maintain going forward
 
 ## 1.3.2
 
-* Bug fix: In debug mode, stop saving flask debug log in /tmp, where all users can access it
+* Bugfix: In debug mode, stop saving flask debug log in /tmp, where all users can access it
 
 ## 1.3.1
 
 * Updated Tor to 0.2.3.10
-* Windows and Mac binaries are now distributed with licenses for tor and obfs4
+* Windows and Mac binaries are now distributed with licenses for Tor and obfs4
 
 ## 1.3
 
 * Major UI redesign, introducing many UX improvements
 * Client-side web interfact redesigned
-* New feature: Support for meek_lite pluggable transports (Amazon and Azure) - not yet ready for Windows or Mac, sorry
-* New feature: Support for custom obfs4 and meek_lite bridges (again, meek_lite not available on Windows/Mac yet)
-* New feature: ability to cancel share before it starts
-* Bug fix: the UpdateChecker no longer blocks the UI when checking
-* Bug fix: simultaneous downloads (broken in 1.2)
-* Update Tor to 0.2.3.9
+* New feature: Support for meek_lite pluggable transports (Amazon and Azure) - not yet ready for Windows or macOS, sorry
+* New feature: Support for custom obfs4 and meek_lite bridges (again, meek_lite not available on Windows/macOS yet)
+* New feature: Ability to cancel share before it starts
+* Bugfix: The UpdateChecker no longer blocks the UI when checking
+* Bugfix: Simultaneous downloads (broken in 1.2)
+* Updated Tor to 0.2.3.9
 * Improved support for BSD
 * Updated French and Danish translations
 * Minor build script and build documentation fixes
-* Add flake8 tests
+* Flake8 tests added
 
 ## 1.2
 
@@ -67,18 +67,18 @@
 * New feature: Ability to use a persistent URL
 * New feature: Auto-stop timer, to stop OnionShare at a specified time
 * New feature: Get notification when Tor connection dies
-* Updated versions of python, Qt, tor, and other dependencies that are bundled
+* Updated versions of Python, Qt, Tor, and other dependencies that are bundled
 * Added ability to supply a custom settings file as a command line arg
 * Added support for FreeBSD
 * Fixed small user interface issues
 * Fixed minor bugs
-* New translations for Dutch
+* New Dutch translations
 
 ## 1.1
 
 * OnionShare connects to Tor itself now, so opening Tor Browser in the background isn't required
 * In Windows and macOS, OnionShare alerts users about updates
-* Removed the menu bar, and adding a Settings button
+* Removed the menu bar, and adding a "Settings" button
 * Added desktop notifications, and a system tray icon
 * Ability to add multiple files and folders with a single "Add" button
 * Ability to delete multiple files and folders at once with the "Delete" button
@@ -145,7 +145,7 @@
 
 * Fixed critical bug in OS X binaries that caused crashes on some computers
 * Added Security Design document
-* Minor bug fix with Windows code signing timestamp server
+* Minor bugfix with Windows code signing timestamp server
 * Linux version uses HS dir that is allowed by Tor Browser Launcher's AppArmor profiles
 
 ## 0.7
@@ -160,7 +160,7 @@
 
 * Brand new drag-and-drop GUI with ability to start and stop server
 * Much cleaner code split into several files
-* Support for sharing multiple files and folders at once, and automatically zips files before sharing
+* Support for sharing multiple files and folders at once, and automatically compresses files before sharing
 * Redesigned receiver HTML interface
 * Waits for hidden service to be available before displaying URL
 * Cleans up hidden service directory on exit
@@ -198,4 +198,4 @@
 * Shows download progress
 * Limited suite of tests
 * If a localized string doesn't exist, falls back to English
-* New translations: Dutch, Portuguese, German, Russian, and updated translations: Norwegian, Spanish, French, Italian
+* New translations: Dutch, Portuguese, German, Russian, and updated translations: Norwegian Bokmål, Spanish, French, Italian
