@@ -22,7 +22,7 @@
   * Ukrainian (Українська)
 * Removed translations because less than 90% of the strings were translated:
   * Bengali (বাংলা)
-  * Persian (فارسی),
+  * Persian (فارسی)
 
 ## 2.0
 
