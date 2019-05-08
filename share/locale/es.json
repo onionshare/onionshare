@@ -95,7 +95,7 @@
     "gui_tor_connection_error_settings": "Intenta cambiando la forma en que OnionShare se conecta a la red Tor en tu configuración.",
     "gui_tor_connection_canceled": "No se pudo conectar con Tor.\n\nAsegúrate de estar conectado a Internet, luego vuelve a abrir OnionShare y configurar tu conexión a Tor.",
     "gui_tor_connection_lost": "Desconectado de Tor.",
-    "gui_server_started_after_autostop_timer": "El temporizador de auto-parada expiró antes de que se iniciara el servidor.\nPor favor crea una nueva conexión compartida.",
+    "gui_server_started_after_autostop_timer": "El temporizador de auto-parada expiró antes de que se iniciara el servidor.\nPor favor crea un nuevo recurso compartido.",
     "gui_server_autostop_timer_expired": "El temporizador de auto-parada ya expiró.\nPor favor actualízarlo para comenzar a compartir.",
     "share_via_onionshare": "Compártelo con OnionShare",
     "gui_use_legacy_v2_onions_checkbox": "Usar direcciones antiguas",
