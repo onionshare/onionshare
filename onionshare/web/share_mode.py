@@ -34,6 +34,10 @@ class ShareModeWeb(object):
         # one download at a time.
         self.download_in_progress = False
 
+        # Reset assets path
+        self.web.app.static_folder=self.common.get_resource_path('static')
+
+
         self.define_routes()
 
     def define_routes(self):
