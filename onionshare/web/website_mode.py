@@ -19,10 +19,8 @@ class WebsiteModeWeb(object):
         self.web = web
         self.auth = HTTPBasicAuth()
 
-        # Information about the file to be shared
-        self.file_info = []
-        self.website_folder = ''
-        self.download_filesize = 0
+        # Dictionary mapping file paths to filenames on disk
+        self.files = {}
         self.visit_count = 0
 
         # Reset assets path
@@ -55,10 +53,6 @@ class WebsiteModeWeb(object):
 
                 return _check_login()
 
-        @self.web.app.route('/download/<path:page_path>')
-        def path_download(page_path):
-            return path_download(page_path)
-
         @self.web.app.route('/<path:page_path>')
         def path_public(page_path):
             return path_logic(page_path)
@@ -67,17 +61,7 @@ class WebsiteModeWeb(object):
         def index_public():
             return path_logic('')
 
-        def path_download(file_path=''):
-            """
-            Render the download links.
-            """
-            self.web.add_request(self.web.REQUEST_LOAD, request.path)
-            if not os.path.isfile(os.path.join(self.website_folder, file_path)):
-                return self.web.error404()
-
-            return send_from_directory(self.website_folder, file_path)
-
-        def path_logic(page_path=''):
+        def path_logic(path=''):
             """
             Render the onionshare website.
             """
@@ -87,85 +71,106 @@ class WebsiteModeWeb(object):
             self.visit_count += 1
 
             # Tell GUI the page has been visited
-            self.web.add_request(self.web.REQUEST_STARTED, page_path, {
+            self.web.add_request(self.web.REQUEST_STARTED, path, {
                 'id': visit_id,
                 'action': 'visit'
             })
 
-            filelist = []
-            if self.file_info['files']:
-                self.website_folder = os.path.dirname(self.file_info['files'][0]['filename'])
-                filelist = [v['basename'] for v in self.file_info['files']]
-            elif self.file_info['dirs']:
-                self.website_folder = self.file_info['dirs'][0]['filename']
-                filelist = os.listdir(self.website_folder)
+            # Removing trailing slashes, because self.files doesn't have them
+            path = path.rstrip('/')
+
+            if path in self.files:
+                filesystem_path = self.files[path]
+
+                # If it's a directory
+                if os.path.isdir(filesystem_path):
+                    # Is there an index.html?
+                    index_path = os.path.join(path, 'index.html')
+                    if index_path in self.files:
+                        # Render it
+                        dirname = os.path.dirname(self.files[index_path])
+                        basename = os.path.basename(self.files[index_path])
+                        return send_from_directory(dirname, basename)
+
+                    else:
+                        # Otherwise, render directory listing
+                        filenames = os.listdir(filesystem_path)
+                        filenames.sort()
+
+                        files = []
+                        dirs = []
+
+                        for filename in filenames:
+                            this_filesystem_path = os.path.join(filesystem_path, filename)
+                            is_dir = os.path.isdir(this_filesystem_path)
+
+                            if is_dir:
+                                dirs.append({
+                                    'basename': filename
+                                })
+                            else:
+                                size = os.path.getsize(this_filesystem_path)
+                                size_human = self.common.human_readable_filesize(size)
+                                files.append({
+                                    'basename': filename,
+                                    'size_human': size_human
+                                })
+
+                        r = make_response(render_template('listing.html',
+                            path=path,
+                            files=files,
+                            dirs=dirs))
+                        return self.web.add_security_headers(r)
+
+                # If it's a file
+                elif os.path.isfile(filesystem_path):
+                    dirname = os.path.dirname(filesystem_path)
+                    basename = os.path.basename(filesystem_path)
+                    return send_from_directory(dirname, basename)
+
+                # If it's not a directory or file, throw a 404
+                else:
+                    return self.web.error404()
             else:
+                # If the path isn't found, throw a 404
                 return self.web.error404()
 
-            if any((fname == 'index.html') for fname in filelist):
-                self.web.app.static_url_path = self.website_folder
-                self.web.app.static_folder = self.website_folder
-                if not os.path.isfile(os.path.join(self.website_folder, page_path)):
-                    page_path = os.path.join(page_path, 'index.html')
-                return send_from_directory(self.website_folder, page_path)
-            elif any(os.path.isfile(os.path.join(self.website_folder, i)) for i in filelist):
-                filenames = []
-                for i in filelist:
-                    filenames.append(os.path.join(self.website_folder, i))
 
-                self.web.app.static_folder=self.common.get_resource_path('static')
-                self.set_file_info(filenames)
-
-                r = make_response(render_template(
-                    'listing.html',
-                    file_info=self.file_info,
-                    filesize=self.download_filesize,
-                    filesize_human=self.common.human_readable_filesize(self.download_filesize)))
-
-                return self.web.add_security_headers(r)
-
-            else:
-                return self.web.error404()
-
-
-    def set_file_info(self, filenames, processed_size_callback=None):
+    def set_file_info(self, filenames):
         """
-        Using the list of filenames being shared, fill in details that the web
-        page will need to display. This includes zipping up the file in order to
-        get the zip file's name and size.
+        Build a data structure that describes the list of files that make up
+        the static website.
         """
         self.common.log("WebsiteModeWeb", "set_file_info")
-        self.web.cancel_compression = True
 
-        self.cleanup_filenames = []
+        # This is a dictionary that maps HTTP routes to filenames on disk
+        self.files = {}
 
-        # build file info list
-        self.file_info = {'files': [], 'dirs': []}
+        # If there's just one folder, replace filenames with a list of files inside that folder
+        if len(filenames) == 1 and os.path.isdir(filenames[0]):
+            filenames = [os.path.join(filenames[0], x) for x in os.listdir(filenames[0])]
+
+        # Loop through the files
         for filename in filenames:
-            info = {
-                'filename': filename,
-                'basename': os.path.basename(filename.rstrip('/'))
-            }
+            basename = os.path.basename(filename.rstrip('/'))
+
+            # If it's a filename, add it
             if os.path.isfile(filename):
-                info['size'] = os.path.getsize(filename)
-                info['size_human'] = self.common.human_readable_filesize(info['size'])
-                self.file_info['files'].append(info)
-            if os.path.isdir(filename):
-                info['size'] = self.common.dir_size(filename)
-                info['size_human'] = self.common.human_readable_filesize(info['size'])
-                self.file_info['dirs'].append(info)
+                self.files[basename] = filename
 
-            self.download_filesize += info['size']
+            # If it's a directory, add it recursively
+            elif os.path.isdir(filename):
+                for root, _, nested_filenames in os.walk(filename):
+                    # Normalize the root path. So if the directory name is "/home/user/Documents/some_folder",
+                    # and it has a nested folder foobar, the root is "/home/user/Documents/some_folder/foobar".
+                    # The normalized_root should be "some_folder/foobar"
+                    normalized_root = os.path.join(basename, root.lstrip(filename)).rstrip('/')
 
-        self.file_info['files'] = sorted(self.file_info['files'], key=lambda k: k['basename'])
-        self.file_info['dirs'] = sorted(self.file_info['dirs'], key=lambda k: k['basename'])
+                    # Add the dir itself
+                    self.files[normalized_root] = filename
 
-        # Check if there's only 1 file and no folders
-        if len(self.file_info['files']) == 1 and len(self.file_info['dirs']) == 0:
-            self.download_filename = self.file_info['files'][0]['filename']
-            self.download_filesize = self.file_info['files'][0]['size']
-
-            self.download_filesize = os.path.getsize(self.download_filename)
-
+                    # Add the files in this dir
+                    for nested_filename in nested_filenames:
+                        self.files[os.path.join(normalized_root, nested_filename)] = os.path.join(root, nested_filename)
 
         return True
