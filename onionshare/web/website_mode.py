@@ -76,9 +76,6 @@ class WebsiteModeWeb(object):
                 'action': 'visit'
             })
 
-            # Removing trailing slashes, because self.files doesn't have them
-            path = path.rstrip('/')
-
             if path in self.files:
                 filesystem_path = self.files[path]
 
@@ -96,31 +93,7 @@ class WebsiteModeWeb(object):
                         # Otherwise, render directory listing
                         filenames = os.listdir(filesystem_path)
                         filenames.sort()
-
-                        files = []
-                        dirs = []
-
-                        for filename in filenames:
-                            this_filesystem_path = os.path.join(filesystem_path, filename)
-                            is_dir = os.path.isdir(this_filesystem_path)
-
-                            if is_dir:
-                                dirs.append({
-                                    'basename': filename
-                                })
-                            else:
-                                size = os.path.getsize(this_filesystem_path)
-                                size_human = self.common.human_readable_filesize(size)
-                                files.append({
-                                    'basename': filename,
-                                    'size_human': size_human
-                                })
-
-                        r = make_response(render_template('listing.html',
-                            path=path,
-                            files=files,
-                            dirs=dirs))
-                        return self.web.add_security_headers(r)
+                        return self.directory_listing(path, filenames, filesystem_path)
 
                 # If it's a file
                 elif os.path.isfile(filesystem_path):
@@ -132,9 +105,54 @@ class WebsiteModeWeb(object):
                 else:
                     return self.web.error404()
             else:
-                # If the path isn't found, throw a 404
-                return self.web.error404()
+                # Special case loading /
+                if path == '':
+                    index_path = 'index.html'
+                    if index_path in self.files:
+                        # Render it
+                        dirname = os.path.dirname(self.files[index_path])
+                        basename = os.path.basename(self.files[index_path])
+                        return send_from_directory(dirname, basename)
+                    else:
+                        # Root directory listing
+                        filenames = list(self.root_files)
+                        filenames.sort()
+                        return self.directory_listing(path, filenames)
 
+                else:
+                    # If the path isn't found, throw a 404
+                    return self.web.error404()
+
+    def directory_listing(self, path, filenames, filesystem_path=None):
+        # If filesystem_path is None, this is the root directory listing
+        files = []
+        dirs = []
+
+        for filename in filenames:
+            if filesystem_path:
+                this_filesystem_path = os.path.join(filesystem_path, filename)
+            else:
+                this_filesystem_path = self.files[filename]
+
+            is_dir = os.path.isdir(this_filesystem_path)
+
+            if is_dir:
+                dirs.append({
+                    'basename': filename
+                })
+            else:
+                size = os.path.getsize(this_filesystem_path)
+                size_human = self.common.human_readable_filesize(size)
+                files.append({
+                    'basename': filename,
+                    'size_human': size_human
+                })
+
+        r = make_response(render_template('listing.html',
+            path=path,
+            files=files,
+            dirs=dirs))
+        return self.web.add_security_headers(r)
 
     def set_file_info(self, filenames):
         """
@@ -145,6 +163,9 @@ class WebsiteModeWeb(object):
 
         # This is a dictionary that maps HTTP routes to filenames on disk
         self.files = {}
+
+        # This is only the root files and dirs, as opposed to all of them
+        self.root_files = {}
 
         # If there's just one folder, replace filenames with a list of files inside that folder
         if len(filenames) == 1 and os.path.isdir(filenames[0]):
@@ -157,9 +178,12 @@ class WebsiteModeWeb(object):
             # If it's a filename, add it
             if os.path.isfile(filename):
                 self.files[basename] = filename
+                self.root_files[basename] = filename
 
             # If it's a directory, add it recursively
             elif os.path.isdir(filename):
+                self.root_files[basename + '/'] = filename
+
                 for root, _, nested_filenames in os.walk(filename):
                     # Normalize the root path. So if the directory name is "/home/user/Documents/some_folder",
                     # and it has a nested folder foobar, the root is "/home/user/Documents/some_folder/foobar".
@@ -167,7 +191,7 @@ class WebsiteModeWeb(object):
                     normalized_root = os.path.join(basename, root.lstrip(filename)).rstrip('/')
 
                     # Add the dir itself
-                    self.files[normalized_root] = filename
+                    self.files[normalized_root + '/'] = filename
 
                     # Add the files in this dir
                     for nested_filename in nested_filenames:
