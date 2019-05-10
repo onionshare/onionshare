@@ -8,11 +8,6 @@
   <body>
 
     <header class="clearfix">
-      <div class="right">
-        <ul>
-          <li>Total size: <strong>{{ filesize_human }}</strong></li>
-        </ul>
-      </div>
       <img class="logo" src="/static/img/logo.png" title="OnionShare">
       <h1>OnionShare</h1>
     </header>
@@ -24,17 +19,29 @@
         <th></th>
       </tr>
 
-      {% for info in file_info.files %}
+      {% for info in dirs %}
+      <tr>
+        <td>
+          <img width="30" height="30" title="" alt="" src="/static/img/web_folder.png" />
+          <a href="/{{ path }}/{{ info.basename }}">
+            {{ info.basename }}
+          </a>
+        </td>
+        <td></td>
+      </tr>
+      {% endfor %}
+
+      {% for info in files %}
       <tr>
         <td>
           <img width="30" height="30" title="" alt="" src="/static/img/web_file.png" />
-          {{ info.basename }}
+          <a href="/{{ path }}/{{ info.basename }}">
+            {{ info.basename }}
+          </a>
         </td>
         <td>{{ info.size_human }}</td>
-        <td><a href="/download/{{ info.basename }}">download</td>
       </tr>
       {% endfor %}
     </table>
-    <script src="/static/js/send.js"></script>
   </body>
 </html>
