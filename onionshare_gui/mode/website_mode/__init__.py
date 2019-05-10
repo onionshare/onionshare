@@ -167,11 +167,6 @@ class WebsiteMode(Mode):
         warning, if applicable.
         """
 
-        # Warn about sending large files over Tor
-        if self.web.website_mode.download_filesize >= 157286400:  # 150mb
-            self.filesize_warning.setText(strings._("large_filesize"))
-            self.filesize_warning.show()
-
         if self.web.website_mode.set_file_info(self.filenames):
             self.success.emit()
         else:
@@ -219,8 +214,7 @@ class WebsiteMode(Mode):
         Handle REQUEST_STARTED event.
         """
         if ( (event["path"] == '') or (event["path"].find(".htm") != -1 ) ):
-            filesize = self.web.website_mode.download_filesize
-            item = VisitHistoryItem(self.common, event["data"]["id"], filesize)
+            item = VisitHistoryItem(self.common, event["data"]["id"], 0)
 
             self.history.add(event["data"]["id"], item)
             self.toggle_history.update_indicator(True)
