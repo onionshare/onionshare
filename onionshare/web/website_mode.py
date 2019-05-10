@@ -53,13 +53,10 @@ class WebsiteModeWeb(object):
 
                 return _check_login()
 
-        @self.web.app.route('/<path:page_path>')
-        def path_public(page_path):
-            return path_logic(page_path)
-
-        @self.web.app.route("/")
-        def index_public():
-            return path_logic('')
+        @self.web.app.route('/', defaults={'path': ''})
+        @self.web.app.route('/<path:path>')
+        def path_public(path):
+            return path_logic(path)
 
         def path_logic(path=''):
             """
@@ -91,7 +88,12 @@ class WebsiteModeWeb(object):
 
                     else:
                         # Otherwise, render directory listing
-                        filenames = os.listdir(filesystem_path)
+                        filenames = []
+                        for filename in os.listdir(filesystem_path):
+                            if os.path.isdir(os.path.join(filesystem_path, filename)):
+                                filenames.append(filename + '/')
+                            else:
+                                filenames.append(filename)
                         filenames.sort()
                         return self.directory_listing(path, filenames, filesystem_path)
 
@@ -188,10 +190,10 @@ class WebsiteModeWeb(object):
                     # Normalize the root path. So if the directory name is "/home/user/Documents/some_folder",
                     # and it has a nested folder foobar, the root is "/home/user/Documents/some_folder/foobar".
                     # The normalized_root should be "some_folder/foobar"
-                    normalized_root = os.path.join(basename, root.lstrip(filename)).rstrip('/')
+                    normalized_root = os.path.join(basename, root[len(filename):].lstrip('/')).rstrip('/')
 
                     # Add the dir itself
-                    self.files[normalized_root + '/'] = filename
+                    self.files[normalized_root + '/'] = root
 
                     # Add the files in this dir
                     for nested_filename in nested_filenames:
