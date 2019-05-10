@@ -23,11 +23,11 @@
       <tr>
         <td>
           <img width="30" height="30" title="" alt="" src="/static/img/web_folder.png" />
-          <a href="/{{ path }}/{{ info.basename }}">
+          <a href="{{ info.basename }}">
             {{ info.basename }}
           </a>
         </td>
-        <td></td>
+        <td>&mdash;</td>
       </tr>
       {% endfor %}
 
@@ -35,7 +35,7 @@
       <tr>
         <td>
           <img width="30" height="30" title="" alt="" src="/static/img/web_file.png" />
-          <a href="/{{ path }}/{{ info.basename }}">
+          <a href="{{ info.basename }}">
             {{ info.basename }}
           </a>
         </td>
