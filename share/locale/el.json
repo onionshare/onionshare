@@ -133,7 +133,7 @@
     "gui_tor_connection_lost": "Έγινε αποσύνδεση από το Tor.",
     "gui_server_started_after_autostop_timer": "Το χρονόμετρο αυτόματης διακοπής τελείωσε πριν την εκκίνηση του server. Παρακαλώ κάντε ένα νέο διαμοιρασμό.",
     "gui_server_autostop_timer_expired": "Το χρονόμετρο αυτόματης διακοπής έχει ήδη τελειώσει. Παρακαλώ ανανεώστε το για να ξεκινήσετε το διαμοιρασμό.",
-    "share_via_onionshare": "Κάντε το OnionShare",
+    "share_via_onionshare": "Κάντε OnionShare",
     "gui_use_legacy_v2_onions_checkbox": "Χρήση \"παραδοσιακών\" διευθύνσεων",
     "gui_save_private_key_checkbox": "Χρήση μόνιμης διεύθυνσης",
     "gui_share_url_description": "<b>Οποιοσδήποτε</b> με αυτή τη διεύθυνση OnionShare μπορεί να <b>κατεβάσει</b> τα αρχεία σας χρησιμοποιώντας το <b>Tor Browser</b>: <img src='{}' />",
