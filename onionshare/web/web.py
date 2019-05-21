@@ -5,6 +5,7 @@ import queue
 import socket
 import sys
 import tempfile
+import requests
 from distutils.version import LooseVersion as Version
 from urllib.request import urlopen
 
@@ -131,6 +132,8 @@ class Web(object):
         def get_pw(username):
             if username == 'onionshare':
                 return self.slug
+            elif username == 'shutdown':
+                return self.shutdown_slug
             else:
                 return None
 
@@ -293,14 +296,8 @@ class Web(object):
         # Reset any slug that was in use
         self.slug = None
 
-        # To stop flask, load http://127.0.0.1:<port>/<shutdown_slug>/shutdown
+        # To stop flask, load http://shutdown:[shutdown_slug]@127.0.0.1/[shutdown_slug]/shutdown
+        # (We're putting the shutdown_slug in the path as well to make routing simpler)
         if self.running:
-            try:
-                s = socket.socket()
-                s.connect(('127.0.0.1', port))
-                s.sendall('GET /{0:s}/shutdown HTTP/1.1\r\n\r\n'.format(self.shutdown_slug))
-            except:
-                try:
-                    urlopen('http://127.0.0.1:{0:d}/{1:s}/shutdown'.format(port, self.shutdown_slug)).read()
-                except:
-                    pass
+            requests.get('http://127.0.0.1:{}/{}/shutdown'.format(port, self.shutdown_slug),
+                auth=requests.auth.HTTPBasicAuth('shutdown', self.shutdown_slug))
