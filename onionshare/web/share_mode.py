@@ -64,24 +64,13 @@ class ShareModeWeb(object):
             else:
                 self.filesize = self.download_filesize
 
-            if self.web.password:
-                r = make_response(render_template(
-                    'send.html',
-                    password=self.web.password,
-                    file_info=self.file_info,
-                    filename=os.path.basename(self.download_filename),
-                    filesize=self.filesize,
-                    filesize_human=self.common.human_readable_filesize(self.download_filesize),
-                    is_zipped=self.is_zipped))
-            else:
-                # If download is allowed to continue, serve download page
-                r = make_response(render_template(
-                    'send.html',
-                    file_info=self.file_info,
-                    filename=os.path.basename(self.download_filename),
-                    filesize=self.filesize,
-                    filesize_human=self.common.human_readable_filesize(self.download_filesize),
-                    is_zipped=self.is_zipped))
+            r = make_response(render_template(
+                'send.html',
+                file_info=self.file_info,
+                filename=os.path.basename(self.download_filename),
+                filesize=self.filesize,
+                filesize_human=self.common.human_readable_filesize(self.download_filesize),
+                is_zipped=self.is_zipped))
             return self.web.add_security_headers(r)
 
         @self.web.app.route("/download")
