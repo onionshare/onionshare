@@ -10,6 +10,7 @@ from urllib.request import urlopen
 
 import flask
 from flask import Flask, request, render_template, abort, make_response, __version__ as flask_version
+from flask_httpauth import HTTPBasicAuth
 
 from .. import strings
 
@@ -53,6 +54,7 @@ class Web(object):
                          static_folder=self.common.get_resource_path('static'),
                          template_folder=self.common.get_resource_path('templates'))
         self.app.secret_key = self.common.random_string(8)
+        self.auth = HTTPBasicAuth()
 
         # Verbose mode?
         if self.common.verbose:
@@ -119,8 +121,25 @@ class Web(object):
 
     def define_common_routes(self):
         """
-        Common web app routes between sending, receiving and website modes.
+        Common web app routes between all modes.
         """
+
+        @self.auth.get_password
+        def get_pw(username):
+            if username == 'onionshare':
+                return self.slug
+            else:
+                return None
+
+        @self.app.before_request
+        def conditional_auth_check():
+            if not self.common.settings.get('public_mode'):
+                @self.auth.login_required
+                def _check_login():
+                    return None
+
+                return _check_login()
+
         @self.app.errorhandler(404)
         def page_not_found(e):
             """

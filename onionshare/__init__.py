@@ -50,8 +50,8 @@ def main(cwd=None):
     parser.add_argument('--auto-stop-timer', metavar='<int>', dest='autostop_timer', default=0, help="Stop sharing after a given amount of seconds")
     parser.add_argument('--connect-timeout', metavar='<int>', dest='connect_timeout', default=120, help="Give up connecting to Tor after a given amount of seconds (default: 120)")
     parser.add_argument('--stealth', action='store_true', dest='stealth', help="Use client authorization (advanced)")
-    parser.add_argument('--receive', action='store_true', dest='receive', help="Receive shares instead of sending them")
-    parser.add_argument('--website', action='store_true', dest='website', help=strings._("help_website"))
+    parser.add_argument('--receive', action='store_true', dest='receive', help="Receive files instead of sending them")
+    parser.add_argument('--website', action='store_true', dest='website', help="Host a static website as an onion service")
     parser.add_argument('--config', metavar='config', default=False, help="Custom JSON config file location (optional)")
     parser.add_argument('-v', '--verbose', action='store_true', dest='verbose', help="Log OnionShare errors to stdout, and web errors to disk")
     parser.add_argument('filename', metavar='filename', nargs='*', help="List of files or folders to share")
@@ -174,7 +174,6 @@ def main(cwd=None):
 
     if mode == 'website':
         # Prepare files to share
-        print(strings._("preparing_website"))
         try:
             web.website_mode.set_file_info(filenames)
         except OSError as e:
@@ -219,10 +218,8 @@ def main(cwd=None):
         # Build the URL
         if common.settings.get('public_mode'):
             url = 'http://{0:s}'.format(app.onion_host)
-        elif mode == 'website':
-            url = 'http://onionshare:{0:s}@{1:s}'.format(web.slug, app.onion_host)
         else:
-            url = 'http://{0:s}/{1:s}'.format(app.onion_host, web.slug)
+            url = 'http://onionshare:{0:s}@{1:s}'.format(web.slug, app.onion_host)
 
         print('')
         if autostart_timer > 0:
