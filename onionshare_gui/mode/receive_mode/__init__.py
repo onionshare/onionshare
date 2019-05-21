@@ -113,7 +113,7 @@ class ReceiveMode(Mode):
         """
         # Reset web counters
         self.web.receive_mode.upload_count = 0
-        self.web.reset_invalid_slugs()
+        self.web.reset_invalid_passwords()
 
         # Hide and reset the uploads if we have previously shared
         self.reset_info_counters()

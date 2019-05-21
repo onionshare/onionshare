@@ -45,7 +45,7 @@ class Web(object):
     REQUEST_UPLOAD_FINISHED = 8
     REQUEST_UPLOAD_CANCELED = 9
     REQUEST_ERROR_DATA_DIR_CANNOT_CREATE = 10
-    REQUEST_INVALID_SLUG = 11
+    REQUEST_INVALID_PASSWORD = 11
 
     def __init__(self, common, is_gui, mode='share'):
         self.common = common
@@ -97,14 +97,14 @@ class Web(object):
         ]
 
         self.q = queue.Queue()
-        self.slug = None
+        self.password = None
 
-        self.reset_invalid_slugs()
+        self.reset_invalid_passwords()
 
         self.done = False
 
         # shutting down the server only works within the context of flask, so the easiest way to do it is over http
-        self.shutdown_slug = self.common.random_string(16)
+        self.shutdown_password = self.common.random_string(16)
 
         # Keep track if the server is running
         self.running = False
@@ -131,7 +131,7 @@ class Web(object):
         @self.auth.get_password
         def get_pw(username):
             if username == 'onionshare':
-                return self.slug
+                return self.password
             else:
                 return None
 
@@ -148,12 +148,12 @@ class Web(object):
         def not_found(e):
             return self.error404()
 
-        @self.app.route("/<slug_candidate>/shutdown")
-        def shutdown(slug_candidate):
+        @self.app.route("/<password_candidate>/shutdown")
+        def shutdown(password_candidate):
             """
             Stop the flask web server, from the context of an http request.
             """
-            if slug_candidate == self.shutdown_slug:
+            if password_candidate == self.shutdown_password:
                 self.force_shutdown()
                 return ""
             abort(404)
@@ -169,14 +169,14 @@ class Web(object):
     def error401(self):
         auth = request.authorization
         if auth:
-            if auth['username'] == 'onionshare' and auth['password'] not in self.invalid_slugs:
+            if auth['username'] == 'onionshare' and auth['password'] not in self.invalid_passwords:
                 print('Invalid password guess: {}'.format(auth['password']))
-                self.add_request(Web.REQUEST_INVALID_SLUG, data=auth['password'])
+                self.add_request(Web.REQUEST_INVALID_PASSWORD, data=auth['password'])
 
-                self.invalid_slugs.append(auth['password'])
-                self.invalid_slugs_count += 1
+                self.invalid_passwords.append(auth['password'])
+                self.invalid_passwords_count += 1
 
-                if self.invalid_slugs_count == 20:
+                if self.invalid_passwords_count == 20:
                     self.add_request(Web.REQUEST_RATE_LIMIT)
                     self.force_shutdown()
                     print("Someone has made too many wrong attempts to guess your password, so OnionShare has stopped the server. Start sharing again and send the recipient a new address to share.")
@@ -218,14 +218,14 @@ class Web(object):
             'data': data
         })
 
-    def generate_slug(self, persistent_slug=None):
-        self.common.log('Web', 'generate_slug', 'persistent_slug={}'.format(persistent_slug))
-        if persistent_slug != None and persistent_slug != '':
-            self.slug = persistent_slug
-            self.common.log('Web', 'generate_slug', 'persistent_slug sent, so slug is: "{}"'.format(self.slug))
+    def generate_password(self, persistent_password=None):
+        self.common.log('Web', 'generate_password', 'persistent_password={}'.format(persistent_password))
+        if persistent_password != None and persistent_password != '':
+            self.password = persistent_password
+            self.common.log('Web', 'generate_password', 'persistent_password sent, so password is: "{}"'.format(self.password))
         else:
-            self.slug = self.common.build_slug()
-            self.common.log('Web', 'generate_slug', 'built random slug: "{}"'.format(self.slug))
+            self.password = self.common.build_password()
+            self.common.log('Web', 'generate_password', 'built random password: "{}"'.format(self.password))
 
     def verbose_mode(self):
         """
@@ -236,9 +236,9 @@ class Web(object):
         log_handler.setLevel(logging.WARNING)
         self.app.logger.addHandler(log_handler)
 
-    def reset_invalid_slugs(self):
-        self.invalid_slugs_count = 0
-        self.invalid_slugs = []
+    def reset_invalid_passwords(self):
+        self.invalid_passwords_count = 0
+        self.invalid_passwords = []
 
     def force_shutdown(self):
         """
@@ -254,11 +254,11 @@ class Web(object):
             pass
         self.running = False
 
-    def start(self, port, stay_open=False, public_mode=False, slug=None):
+    def start(self, port, stay_open=False, public_mode=False, password=None):
         """
         Start the flask web server.
         """
-        self.common.log('Web', 'start', 'port={}, stay_open={}, public_mode={}, slug={}'.format(port, stay_open, public_mode, slug))
+        self.common.log('Web', 'start', 'port={}, stay_open={}, public_mode={}, password={}'.format(port, stay_open, public_mode, password))
 
         self.stay_open = stay_open
 
@@ -287,11 +287,11 @@ class Web(object):
         # Let the mode know that the user stopped the server
         self.stop_q.put(True)
 
-        # To stop flask, load http://shutdown:[shutdown_slug]@127.0.0.1/[shutdown_slug]/shutdown
-        # (We're putting the shutdown_slug in the path as well to make routing simpler)
+        # To stop flask, load http://shutdown:[shutdown_password]@127.0.0.1/[shutdown_password]/shutdown
+        # (We're putting the shutdown_password in the path as well to make routing simpler)
         if self.running:
-            requests.get('http://127.0.0.1:{}/{}/shutdown'.format(port, self.shutdown_slug),
-                auth=requests.auth.HTTPBasicAuth('onionshare', self.slug))
+            requests.get('http://127.0.0.1:{}/{}/shutdown'.format(port, self.shutdown_password),
+                auth=requests.auth.HTTPBasicAuth('onionshare', self.password))
 
-        # Reset any slug that was in use
-        self.slug = None
+        # Reset any password that was in use
+        self.password = None

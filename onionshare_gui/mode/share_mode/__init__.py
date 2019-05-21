@@ -147,7 +147,7 @@ class ShareMode(Mode):
         """
         # Reset web counters
         self.web.share_mode.download_count = 0
-        self.web.reset_invalid_slugs()
+        self.web.reset_invalid_passwords()
 
         # Hide and reset the downloads if we have previously shared
         self.reset_info_counters()

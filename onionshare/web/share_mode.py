@@ -64,10 +64,10 @@ class ShareModeWeb(object):
             else:
                 self.filesize = self.download_filesize
 
-            if self.web.slug:
+            if self.web.password:
                 r = make_response(render_template(
                     'send.html',
-                    slug=self.web.slug,
+                    password=self.web.password,
                     file_info=self.file_info,
                     filename=os.path.basename(self.download_filename),
                     filesize=self.filesize,

@@ -54,7 +54,7 @@ class SettingsDialog(QtWidgets.QDialog):
 
         # General settings
 
-        # Use a slug or not ('public mode')
+        # Use a password or not ('public mode')
         self.public_mode_checkbox = QtWidgets.QCheckBox()
         self.public_mode_checkbox.setCheckState(QtCore.Qt.Unchecked)
         self.public_mode_checkbox.setText(strings._("gui_settings_public_mode_checkbox"))
@@ -968,12 +968,12 @@ class SettingsDialog(QtWidgets.QDialog):
         if self.save_private_key_checkbox.isChecked():
             settings.set('save_private_key', True)
             settings.set('private_key', self.old_settings.get('private_key'))
-            settings.set('slug', self.old_settings.get('slug'))
+            settings.set('password', self.old_settings.get('password'))
             settings.set('hidservauth_string', self.old_settings.get('hidservauth_string'))
         else:
             settings.set('save_private_key', False)
             settings.set('private_key', '')
-            settings.set('slug', '')
+            settings.set('password', '')
             # Also unset the HidServAuth if we are removing our reusable private key
             settings.set('hidservauth_string', '')
 
