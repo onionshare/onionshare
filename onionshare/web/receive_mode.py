@@ -38,7 +38,7 @@ class ReceiveModeWeb(object):
             if self.common.settings.get('public_mode'):
                 upload_action = '/upload'
             else:
-                upload_action = '/{}/upload'.format(self.web.slug)
+                upload_action = '/{}/upload'.format(self.web.password)
 
             r = make_response(render_template(
                 'receive.html',
@@ -87,7 +87,7 @@ class ReceiveModeWeb(object):
                     if self.common.settings.get('public_mode'):
                         return redirect('/')
                     else:
-                        return redirect('/{}'.format(slug_candidate))
+                        return redirect('/{}'.format(password_candidate))
 
             # Note that flash strings are in English, and not translated, on purpose,
             # to avoid leaking the locale of the OnionShare user
@@ -117,7 +117,7 @@ class ReceiveModeWeb(object):
                     if self.common.settings.get('public_mode'):
                         path = '/'
                     else:
-                        path = '/{}'.format(slug_candidate)
+                        path = '/{}'.format(password_candidate)
                     return redirect('{}'.format(path))
             else:
                 if ajax:
@@ -238,7 +238,7 @@ class ReceiveModeRequest(Request):
                 if self.path == '/upload' or self.path == '/upload-ajax':
                     self.upload_request = True
             else:
-                if self.path == '/{}/upload'.format(self.web.slug) or self.path == '/{}/upload-ajax'.format(self.web.slug):
+                if self.path == '/{}/upload'.format(self.web.password) or self.path == '/{}/upload-ajax'.format(self.web.password):
                     self.upload_request = True
 
         if self.upload_request:

@@ -243,8 +243,8 @@ class ServerStatus(QtWidgets.QWidget):
             self.show_url()
 
             if self.common.settings.get('save_private_key'):
-                if not self.common.settings.get('slug'):
-                    self.common.settings.set('slug', self.web.slug)
+                if not self.common.settings.get('password'):
+                    self.common.settings.set('password', self.web.password)
                     self.common.settings.save()
 
             if self.common.settings.get('autostart_timer'):
@@ -421,5 +421,5 @@ class ServerStatus(QtWidgets.QWidget):
         if self.common.settings.get('public_mode'):
             url = 'http://{0:s}'.format(self.app.onion_host)
         else:
-            url = 'http://onionshare:{0:s}@{1:s}'.format(self.web.slug, self.app.onion_host)
+            url = 'http://onionshare:{0:s}@{1:s}'.format(self.web.password, self.app.onion_host)
         return url

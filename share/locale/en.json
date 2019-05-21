@@ -3,7 +3,7 @@
     "not_a_readable_file": "{0:s} is not a readable file.",
     "no_available_port": "Could not find an available port to start the onion service",
     "other_page_loaded": "Address loaded",
-    "invalid_slug_guess": "Invalid password guess",
+    "invalid_password_guess": "Invalid password guess",
     "close_on_autostop_timer": "Stopped because auto-stop timer ran out",
     "closing_automatically": "Stopped because transfer is complete",
     "large_filesize": "Warning: Sending a large share could take hours",
