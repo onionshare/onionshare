@@ -285,7 +285,7 @@ class ServerStatus(QtWidgets.QWidget):
                 self.server_button.setEnabled(True)
                 if self.mode == ServerStatus.MODE_SHARE:
                     self.server_button.setText(strings._('gui_share_stop_server'))
-                if self.mode == ServerStatus.MODE_WEBSITE:
+                elif self.mode == ServerStatus.MODE_WEBSITE:
                     self.server_button.setText(strings._('gui_share_stop_server'))
                 else:
                     self.server_button.setText(strings._('gui_receive_stop_server'))
