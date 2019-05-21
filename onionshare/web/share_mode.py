@@ -44,18 +44,8 @@ class ShareModeWeb(object):
         """
         The web app routes for sharing files
         """
-        @self.web.app.route("/<slug_candidate>")
-        def index(slug_candidate):
-            self.web.check_slug_candidate(slug_candidate)
-            return index_logic()
-
         @self.web.app.route("/")
-        def index_public():
-            if not self.common.settings.get('public_mode'):
-                return self.web.error404()
-            return index_logic()
-
-        def index_logic(slug_candidate=''):
+        def index():
             """
             Render the template for the onionshare landing page.
             """
@@ -94,18 +84,8 @@ class ShareModeWeb(object):
                     is_zipped=self.is_zipped))
             return self.web.add_security_headers(r)
 
-        @self.web.app.route("/<slug_candidate>/download")
-        def download(slug_candidate):
-            self.web.check_slug_candidate(slug_candidate)
-            return download_logic()
-
         @self.web.app.route("/download")
-        def download_public():
-            if not self.common.settings.get('public_mode'):
-                return self.web.error404()
-            return download_logic()
-
-        def download_logic(slug_candidate=''):
+        def download():
             """
             Download the zip file.
             """
