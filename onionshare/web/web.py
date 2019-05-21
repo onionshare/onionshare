@@ -44,6 +44,7 @@ class Web(object):
     REQUEST_UPLOAD_FINISHED = 8
     REQUEST_UPLOAD_CANCELED = 9
     REQUEST_ERROR_DATA_DIR_CANNOT_CREATE = 10
+    REQUEST_INVALID_SLUG = 11
 
     def __init__(self, common, is_gui, mode='share'):
         self.common = common
@@ -55,6 +56,7 @@ class Web(object):
                          template_folder=self.common.get_resource_path('templates'))
         self.app.secret_key = self.common.random_string(8)
         self.auth = HTTPBasicAuth()
+        self.auth.error_handler(self.error401)
 
         # Verbose mode?
         if self.common.verbose:
@@ -95,7 +97,8 @@ class Web(object):
 
         self.q = queue.Queue()
         self.slug = None
-        self.error404_count = 0
+
+        self.reset_invalid_slugs()
 
         self.done = False
 
@@ -141,10 +144,7 @@ class Web(object):
                 return _check_login()
 
         @self.app.errorhandler(404)
-        def page_not_found(e):
-            """
-            404 error page.
-            """
+        def not_found(e):
             return self.error404()
 
         @self.app.route("/<slug_candidate>/shutdown")
@@ -164,18 +164,26 @@ class Web(object):
             r = make_response(render_template('receive_noscript_xss.html'))
             return self.add_security_headers(r)
 
+    def error401(self):
+        auth = request.authorization
+        if auth:
+            if auth['username'] == 'onionshare' and auth['password'] not in self.invalid_slugs:
+                print('Invalid password guess: {}'.format(auth['password']))
+                self.add_request(Web.REQUEST_INVALID_SLUG, data=auth['password'])
+
+                self.invalid_slugs.append(auth['password'])
+                self.invalid_slugs_count += 1
+
+                if self.invalid_slugs_count == 20:
+                    self.add_request(Web.REQUEST_RATE_LIMIT)
+                    self.force_shutdown()
+                    print("Someone has made too many wrong attempts to guess your password, so OnionShare has stopped the server. Start sharing again and send the recipient a new address to share.")
+
+        r = make_response(render_template('401.html'), 401)
+        return self.add_security_headers(r)
+
     def error404(self):
         self.add_request(Web.REQUEST_OTHER, request.path)
-        if request.path != '/favicon.ico':
-            self.error404_count += 1
-
-            # In receive mode, with public mode enabled, skip rate limiting 404s
-            if not self.common.settings.get('public_mode'):
-                if self.error404_count == 20:
-                    self.add_request(Web.REQUEST_RATE_LIMIT, request.path)
-                    self.force_shutdown()
-                    print("Someone has made too many wrong attempts on your address, which means they could be trying to guess it, so OnionShare has stopped the server. Start sharing again and send the recipient a new address to share.")
-
         r = make_response(render_template('404.html'), 404)
         return self.add_security_headers(r)
 
@@ -198,7 +206,7 @@ class Web(object):
             return True
         return filename.endswith(('.html', '.htm', '.xml', '.xhtml'))
 
-    def add_request(self, request_type, path, data=None):
+    def add_request(self, request_type, path=None, data=None):
         """
         Add a request to the queue, to communicate with the GUI.
         """
@@ -226,17 +234,14 @@ class Web(object):
         log_handler.setLevel(logging.WARNING)
         self.app.logger.addHandler(log_handler)
 
-    def check_slug_candidate(self, slug_candidate):
-        self.common.log('Web', 'check_slug_candidate: slug_candidate={}'.format(slug_candidate))
-        if self.common.settings.get('public_mode'):
-            abort(404)
-        if not hmac.compare_digest(self.slug, slug_candidate):
-            abort(404)
-
     def check_shutdown_slug_candidate(self, slug_candidate):
         self.common.log('Web', 'check_shutdown_slug_candidate: slug_candidate={}'.format(slug_candidate))
         if not hmac.compare_digest(self.shutdown_slug, slug_candidate):
             abort(404)
+
+    def reset_invalid_slugs(self):
+        self.invalid_slugs_count = 0
+        self.invalid_slugs = []
 
     def force_shutdown(self):
         """

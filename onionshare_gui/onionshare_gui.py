@@ -472,7 +472,10 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
             if event["type"] == Web.REQUEST_OTHER:
                 if event["path"] != '/favicon.ico' and event["path"] != "/{}/shutdown".format(mode.web.shutdown_slug):
-                    self.status_bar.showMessage('[#{0:d}] {1:s}: {2:s}'.format(mode.web.error404_count, strings._('other_page_loaded'), event["path"]))
+                    self.status_bar.showMessage('{0:s}: {1:s}'.format(strings._('other_page_loaded'), event["path"]))
+
+            if event["type"] == Web.REQUEST_INVALID_SLUG:
+                self.status_bar.showMessage('[#{0:d}] {1:s}: {2:s}'.format(mode.web.invalid_slugs_count, strings._('invalid_slug_guess'), event["data"]))
 
         mode.timer_callback()
 
