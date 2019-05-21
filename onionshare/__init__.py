@@ -27,6 +27,15 @@ from .web import Web
 from .onion import *
 from .onionshare import OnionShare
 
+
+def build_url(common, app, web):
+    # Build the URL
+    if common.settings.get('public_mode'):
+        return 'http://{0:s}'.format(app.onion_host)
+    else:
+        return 'http://onionshare:{0:s}@{1:s}'.format(web.password, app.onion_host)
+
+
 def main(cwd=None):
     """
     The main() function implements all of the logic that the command-line version of
@@ -128,12 +137,6 @@ def main(cwd=None):
         app.set_stealth(stealth)
         app.choose_port()
 
-        # Build the URL
-        if common.settings.get('public_mode'):
-            url = 'http://{0:s}'.format(app.onion_host)
-        else:
-            url = 'http://onionshare:{0:s}@{1:s}'.format(web.password, app.onion_host)
-
         # Delay the startup if a startup timer was set
         if autostart_timer > 0:
             # Can't set a schedule that is later than the auto-stop timer
@@ -142,6 +145,7 @@ def main(cwd=None):
                 sys.exit()
 
             app.start_onion_service(False, True)
+            url = build_url(common, app, web)
             schedule = datetime.now() + timedelta(seconds=autostart_timer)
             if mode == 'receive':
                 print("Files sent to you appear in this folder: {}".format(common.settings.get('data_dir')))
@@ -217,6 +221,9 @@ def main(cwd=None):
             if not common.settings.get('password'):
                 common.settings.set('password', web.password)
                 common.settings.save()
+
+        # Build the URL
+        url = build_url(common, app, web)
 
         print('')
         if autostart_timer > 0:
