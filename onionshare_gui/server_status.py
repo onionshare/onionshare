@@ -420,8 +420,6 @@ class ServerStatus(QtWidgets.QWidget):
         """
         if self.common.settings.get('public_mode'):
             url = 'http://{0:s}'.format(self.app.onion_host)
-        elif self.mode == ServerStatus.MODE_WEBSITE:
-            url = 'http://onionshare:{0:s}@{1:s}'.format(self.web.slug, self.app.onion_host)
         else:
-            url = 'http://{0:s}/{1:s}'.format(self.app.onion_host, self.web.slug)
+            url = 'http://onionshare:{0:s}@{1:s}'.format(self.web.slug, self.app.onion_host)
         return url
