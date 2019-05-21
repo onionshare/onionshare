@@ -34,15 +34,7 @@ class ReceiveModeWeb(object):
         @self.web.app.route("/")
         def index():
             self.web.add_request(self.web.REQUEST_LOAD, request.path)
-
-            if self.common.settings.get('public_mode'):
-                upload_action = '/upload'
-            else:
-                upload_action = '/{}/upload'.format(self.web.password)
-
-            r = make_response(render_template(
-                'receive.html',
-                upload_action=upload_action))
+            r = make_response(render_template('receive.html'))
             return self.web.add_security_headers(r)
 
         @self.web.app.route("/upload", methods=['POST'])
@@ -83,11 +75,7 @@ class ReceiveModeWeb(object):
                     return json.dumps({"error_flashes": [msg]})
                 else:
                     flash(msg, 'error')
-
-                    if self.common.settings.get('public_mode'):
-                        return redirect('/')
-                    else:
-                        return redirect('/{}'.format(password_candidate))
+                    return redirect('/')
 
             # Note that flash strings are in English, and not translated, on purpose,
             # to avoid leaking the locale of the OnionShare user
@@ -114,11 +102,7 @@ class ReceiveModeWeb(object):
                 if ajax:
                     return json.dumps({"info_flashes": info_flashes})
                 else:
-                    if self.common.settings.get('public_mode'):
-                        path = '/'
-                    else:
-                        path = '/{}'.format(password_candidate)
-                    return redirect('{}'.format(path))
+                    return redirect('/')
             else:
                 if ajax:
                     return json.dumps({"new_body": render_template('thankyou.html')})
@@ -234,12 +218,8 @@ class ReceiveModeRequest(Request):
         # Is this a valid upload request?
         self.upload_request = False
         if self.method == 'POST':
-            if self.web.common.settings.get('public_mode'):
-                if self.path == '/upload' or self.path == '/upload-ajax':
-                    self.upload_request = True
-            else:
-                if self.path == '/{}/upload'.format(self.web.password) or self.path == '/{}/upload-ajax'.format(self.web.password):
-                    self.upload_request = True
+            if self.path == '/upload' or self.path == '/upload-ajax':
+                self.upload_request = True
 
         if self.upload_request:
             # No errors yet
