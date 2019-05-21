@@ -132,8 +132,6 @@ class Web(object):
         def get_pw(username):
             if username == 'onionshare':
                 return self.slug
-            elif username == 'shutdown':
-                return self.shutdown_slug
             else:
                 return None
 
@@ -155,9 +153,10 @@ class Web(object):
             """
             Stop the flask web server, from the context of an http request.
             """
-            self.check_shutdown_slug_candidate(slug_candidate)
-            self.force_shutdown()
-            return ""
+            if slug_candidate == self.shutdown_slug:
+                self.force_shutdown()
+                return ""
+            abort(404)
 
         @self.app.route("/noscript-xss-instructions")
         def noscript_xss_instructions():
@@ -237,11 +236,6 @@ class Web(object):
         log_handler.setLevel(logging.WARNING)
         self.app.logger.addHandler(log_handler)
 
-    def check_shutdown_slug_candidate(self, slug_candidate):
-        self.common.log('Web', 'check_shutdown_slug_candidate: slug_candidate={}'.format(slug_candidate))
-        if not hmac.compare_digest(self.shutdown_slug, slug_candidate):
-            abort(404)
-
     def reset_invalid_slugs(self):
         self.invalid_slugs_count = 0
         self.invalid_slugs = []
@@ -293,11 +287,11 @@ class Web(object):
         # Let the mode know that the user stopped the server
         self.stop_q.put(True)
 
-        # Reset any slug that was in use
-        self.slug = None
-
         # To stop flask, load http://shutdown:[shutdown_slug]@127.0.0.1/[shutdown_slug]/shutdown
         # (We're putting the shutdown_slug in the path as well to make routing simpler)
         if self.running:
             requests.get('http://127.0.0.1:{}/{}/shutdown'.format(port, self.shutdown_slug),
-                auth=requests.auth.HTTPBasicAuth('shutdown', self.shutdown_slug))
+                auth=requests.auth.HTTPBasicAuth('onionshare', self.slug))
+
+        # Reset any slug that was in use
+        self.slug = None
