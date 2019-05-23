@@ -142,6 +142,11 @@ class Web(object):
 
         @self.app.before_request
         def conditional_auth_check():
+            # Allow static files without basic authentication
+            if(request.path.startswith(self.static_url_path + '/')):
+                return None
+
+            # If public mode is disabled, require authentication
             if not self.common.settings.get('public_mode'):
                 @self.auth.login_required
                 def _check_login():
