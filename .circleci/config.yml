@@ -42,7 +42,7 @@ jobs:
       - run:
           name: run tests
           command: |
-            xvfb-run pytest --rungui --cov=onionshare --cov=onionshare_gui --cov-report=term-missing -vvv tests/
+            xvfb-run -s "-screen 0 1280x1024x24" pytest --rungui --cov=onionshare --cov=onionshare_gui --cov-report=term-missing -vvv --no-qt-log tests/
 
   test-3.6:
     <<: *test-template
