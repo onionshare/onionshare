@@ -127,7 +127,7 @@ class GuiBaseTest(object):
             # Upload a file
             files = {'file[]': open('/tmp/test.txt', 'rb')}
             if not public_mode:
-                path = 'http://127.0.0.1:{}/{}/upload'.format(self.gui.app.port, mode.web.slug)
+                path = 'http://127.0.0.1:{}/{}/upload'.format(self.gui.app.port, mode.web.password)
             else:
                 path = 'http://127.0.0.1:{}/upload'.format(self.gui.app.port)
             response = requests.post(path, files=files)
@@ -138,7 +138,7 @@ class GuiBaseTest(object):
             if public_mode:
                 url = "http://127.0.0.1:{}/download".format(self.gui.app.port)
             else:
-                url = "http://127.0.0.1:{}/{}/download".format(self.gui.app.port, mode.web.slug)
+                url = "http://127.0.0.1:{}/{}/download".format(self.gui.app.port, mode.web.password)
             r = requests.get(url)
             QtTest.QTest.qWait(2000)
 
@@ -190,12 +190,12 @@ class GuiBaseTest(object):
         self.assertEqual(sock.connect_ex(('127.0.0.1',self.gui.app.port)), 0)
 
 
-    def have_a_slug(self, mode, public_mode):
-        '''Test that we have a valid slug'''
+    def have_a_password(self, mode, public_mode):
+        '''Test that we have a valid password'''
         if not public_mode:
-            self.assertRegex(mode.server_status.web.slug, r'(\w+)-(\w+)')
+            self.assertRegex(mode.server_status.web.password, r'(\w+)-(\w+)')
         else:
-            self.assertIsNone(mode.server_status.web.slug, r'(\w+)-(\w+)')
+            self.assertIsNone(mode.server_status.web.password, r'(\w+)-(\w+)')
 
 
     def url_description_shown(self, mode):
@@ -212,7 +212,7 @@ class GuiBaseTest(object):
         if public_mode:
             self.assertEqual(clipboard.text(), 'http://127.0.0.1:{}'.format(self.gui.app.port))
         else:
-            self.assertEqual(clipboard.text(), 'http://127.0.0.1:{}/{}'.format(self.gui.app.port, mode.server_status.web.slug))
+            self.assertEqual(clipboard.text(), 'http://127.0.0.1:{}/{}'.format(self.gui.app.port, mode.server_status.web.password))
 
 
     def server_status_indicator_says_started(self, mode):
@@ -230,7 +230,7 @@ class GuiBaseTest(object):
         s.connect(('127.0.0.1', self.gui.app.port))
 
         if not public_mode:
-            path = '/{}'.format(mode.server_status.web.slug)
+            path = '/{}'.format(mode.server_status.web.password)
         else:
             path = '/'
 

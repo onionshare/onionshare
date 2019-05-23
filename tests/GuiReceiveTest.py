@@ -9,7 +9,7 @@ class GuiReceiveTest(GuiBaseTest):
         '''Test that we can upload the file'''
         files = {'file[]': open(file_to_upload, 'rb')}
         if not public_mode:
-            path = 'http://127.0.0.1:{}/{}/upload'.format(self.gui.app.port, self.gui.receive_mode.web.slug)
+            path = 'http://127.0.0.1:{}/{}/upload'.format(self.gui.app.port, self.gui.receive_mode.web.password)
         else:
             path = 'http://127.0.0.1:{}/upload'.format(self.gui.app.port)
         response = requests.post(path, files=files)
@@ -40,7 +40,7 @@ class GuiReceiveTest(GuiBaseTest):
         '''Test that we can't upload the file when permissions are wrong, and expected content is shown'''
         files = {'file[]': open('/tmp/test.txt', 'rb')}
         if not public_mode:
-            path = 'http://127.0.0.1:{}/{}/upload'.format(self.gui.app.port, self.gui.receive_mode.web.slug)
+            path = 'http://127.0.0.1:{}/{}/upload'.format(self.gui.app.port, self.gui.receive_mode.web.password)
         else:
             path = 'http://127.0.0.1:{}/upload'.format(self.gui.app.port)
         response = requests.post(path, files=files)
@@ -61,7 +61,7 @@ class GuiReceiveTest(GuiBaseTest):
     def uploading_zero_files_shouldnt_change_ui(self, mode, public_mode):
         '''If you submit the receive mode form without selecting any files, the UI shouldn't get updated'''
         if not public_mode:
-            path = 'http://127.0.0.1:{}/{}/upload'.format(self.gui.app.port, self.gui.receive_mode.web.slug)
+            path = 'http://127.0.0.1:{}/{}/upload'.format(self.gui.app.port, self.gui.receive_mode.web.password)
         else:
             path = 'http://127.0.0.1:{}/upload'.format(self.gui.app.port)
 
@@ -93,7 +93,7 @@ class GuiReceiveTest(GuiBaseTest):
         self.settings_button_is_hidden()
         self.server_is_started(self.gui.receive_mode)
         self.web_server_is_running()
-        self.have_a_slug(self.gui.receive_mode, public_mode)
+        self.have_a_password(self.gui.receive_mode, public_mode)
         self.url_description_shown(self.gui.receive_mode)
         self.have_copy_url_button(self.gui.receive_mode, public_mode)
         self.server_status_indicator_says_started(self.gui.receive_mode)

@@ -44,7 +44,7 @@ def web_obj(common_obj, mode, num_files=0):
     common_obj.settings = Settings(common_obj)
     strings.load_strings(common_obj)
     web = Web(common_obj, False, mode)
-    web.generate_slug()
+    web.generate_password()
     web.stay_open = True
     web.running = True
 
@@ -76,17 +76,17 @@ class TestWeb:
             res.get_data()
             assert res.status_code == 404
 
-            res = c.get('/invalidslug'.format(web.slug))
+            res = c.get('/invalidpassword'.format(web.password))
             res.get_data()
             assert res.status_code == 404
 
             # Load download page
-            res = c.get('/{}'.format(web.slug))
+            res = c.get('/{}'.format(web.password))
             res.get_data()
             assert res.status_code == 200
 
             # Download
-            res = c.get('/{}/download'.format(web.slug))
+            res = c.get('/{}/download'.format(web.password))
             res.get_data()
             assert res.status_code == 200
             assert res.mimetype == 'application/zip'
@@ -99,7 +99,7 @@ class TestWeb:
 
         with web.app.test_client() as c:
             # Download the first time
-            res = c.get('/{}/download'.format(web.slug))
+            res = c.get('/{}/download'.format(web.password))
             res.get_data()
             assert res.status_code == 200
             assert res.mimetype == 'application/zip'
@@ -114,7 +114,7 @@ class TestWeb:
 
         with web.app.test_client() as c:
             # Download the first time
-            res = c.get('/{}/download'.format(web.slug))
+            res = c.get('/{}/download'.format(web.password))
             res.get_data()
             assert res.status_code == 200
             assert res.mimetype == 'application/zip'
@@ -130,12 +130,12 @@ class TestWeb:
             res.get_data()
             assert res.status_code == 404
 
-            res = c.get('/invalidslug'.format(web.slug))
+            res = c.get('/invalidpassword'.format(web.password))
             res.get_data()
             assert res.status_code == 404
 
             # Load upload page
-            res = c.get('/{}'.format(web.slug))
+            res = c.get('/{}'.format(web.password))
             res.get_data()
             assert res.status_code == 200
 
@@ -149,8 +149,8 @@ class TestWeb:
             data1 = res.get_data()
             assert res.status_code == 200
 
-            # /[slug] should be a 404
-            res = c.get('/{}'.format(web.slug))
+            # /[password] should be a 404
+            res = c.get('/{}'.format(web.password))
             data2 = res.get_data()
             assert res.status_code == 404
 
@@ -164,8 +164,8 @@ class TestWeb:
             data1 = res.get_data()
             assert res.status_code == 404
 
-            # Upload page should be accessible from /[slug]
-            res = c.get('/{}'.format(web.slug))
+            # Upload page should be accessible from /[password]
+            res = c.get('/{}'.format(web.password))
             data2 = res.get_data()
             assert res.status_code == 200
 
