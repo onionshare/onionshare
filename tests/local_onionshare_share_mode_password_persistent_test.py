@@ -4,12 +4,12 @@ import unittest
 
 from .GuiShareTest import GuiShareTest
 
-class LocalShareModePersistentSlugTest(unittest.TestCase, GuiShareTest):
+class LocalShareModePersistentPasswordTest(unittest.TestCase, GuiShareTest):
     @classmethod
     def setUpClass(cls):
         test_settings = {
             "public_mode": False,
-            "slug": "",
+            "password": "",
             "save_private_key": True,
             "close_after_first_download": False,
         }

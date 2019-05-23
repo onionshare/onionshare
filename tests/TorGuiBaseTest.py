@@ -76,7 +76,7 @@ class TorGuiBaseTest(GuiBaseTest):
             # Upload a file
             files = {'file[]': open('/tmp/test.txt', 'rb')}
             if not public_mode:
-                path = 'http://{}/{}/upload'.format(self.gui.app.onion_host, mode.web.slug)
+                path = 'http://{}/{}/upload'.format(self.gui.app.onion_host, mode.web.password)
             else:
                 path = 'http://{}/upload'.format(self.gui.app.onion_host)
             response = session.post(path, files=files)
@@ -87,7 +87,7 @@ class TorGuiBaseTest(GuiBaseTest):
             if public_mode:
                 path = "http://{}/download".format(self.gui.app.onion_host)
             else:
-                path = "http://{}/{}/download".format(self.gui.app.onion_host, mode.web.slug)
+                path = "http://{}/{}/download".format(self.gui.app.onion_host, mode.web.password)
             response = session.get(path)
             QtTest.QTest.qWait(4000)
 
@@ -111,7 +111,7 @@ class TorGuiBaseTest(GuiBaseTest):
         s.settimeout(60)
         s.connect((self.gui.app.onion_host, 80))
         if not public_mode:
-            path = '/{}'.format(mode.server_status.web.slug)
+            path = '/{}'.format(mode.server_status.web.password)
         else:
             path = '/'
         http_request = 'GET {} HTTP/1.0\r\n'.format(path)
@@ -138,7 +138,7 @@ class TorGuiBaseTest(GuiBaseTest):
         if public_mode:
             self.assertEqual(clipboard.text(), 'http://{}'.format(self.gui.app.onion_host))
         else:
-            self.assertEqual(clipboard.text(), 'http://{}/{}'.format(self.gui.app.onion_host, mode.server_status.web.slug))
+            self.assertEqual(clipboard.text(), 'http://{}/{}'.format(self.gui.app.onion_host, mode.server_status.web.password))
 
 
     # Stealth tests

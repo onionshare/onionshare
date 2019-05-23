@@ -4,13 +4,13 @@ import unittest
 
 from .TorGuiShareTest import TorGuiShareTest
 
-class ShareModePersistentSlugTest(unittest.TestCase, TorGuiShareTest):
+class ShareModePersistentPasswordTest(unittest.TestCase, TorGuiShareTest):
     @classmethod
     def setUpClass(cls):
         test_settings = {
             "use_legacy_v2_onions": True,
             "public_mode": False,
-            "slug": "",
+            "password": "",
             "save_private_key": True,
             "close_after_first_download": False,
         }
