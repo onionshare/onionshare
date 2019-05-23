@@ -51,8 +51,13 @@ class Web(object):
         self.common = common
         self.common.log('Web', '__init__', 'is_gui={}, mode={}'.format(is_gui, mode))
 
+        # The static URL path has a 128-bit random number in it to avoid having name
+        # collisions with files that might be getting shared
+        self.static_url_path = '/static_{}'.format(self.common.random_string(16))
+
         # The flask app
         self.app = Flask(__name__,
+                         static_url_path=self.static_url_path,
                          static_folder=self.common.get_resource_path('static'),
                          template_folder=self.common.get_resource_path('templates'))
         self.app.secret_key = self.common.random_string(8)
@@ -163,7 +168,8 @@ class Web(object):
             """
             Display instructions for disabling Tor Browser's NoScript XSS setting
             """
-            r = make_response(render_template('receive_noscript_xss.html'))
+            r = make_response(render_template('receive_noscript_xss.html',
+                static_url_path=self.static_url_path))
             return self.add_security_headers(r)
 
     def error401(self):
@@ -181,18 +187,18 @@ class Web(object):
                     self.force_shutdown()
                     print("Someone has made too many wrong attempts to guess your password, so OnionShare has stopped the server. Start sharing again and send the recipient a new address to share.")
 
-        r = make_response(render_template('401.html'), 401)
+        r = make_response(render_template('401.html', static_url_path=self.static_url_path), 401)
         return self.add_security_headers(r)
 
     def error404(self):
         self.add_request(Web.REQUEST_OTHER, request.path)
-        r = make_response(render_template('404.html'), 404)
+        r = make_response(render_template('404.html', static_url_path=self.static_url_path), 404)
         return self.add_security_headers(r)
 
     def error403(self):
         self.add_request(Web.REQUEST_OTHER, request.path)
 
-        r = make_response(render_template('403.html'), 403)
+        r = make_response(render_template('403.html', static_url_path=self.static_url_path), 403)
         return self.add_security_headers(r)
 
     def add_security_headers(self, r):

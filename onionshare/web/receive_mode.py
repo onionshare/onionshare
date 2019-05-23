@@ -34,7 +34,8 @@ class ReceiveModeWeb(object):
         @self.web.app.route("/")
         def index():
             self.web.add_request(self.web.REQUEST_LOAD, request.path)
-            r = make_response(render_template('receive.html'))
+            r = make_response(render_template('receive.html', 
+                static_url_path=self.web.static_url_path))
             return self.web.add_security_headers(r)
 
         @self.web.app.route("/upload", methods=['POST'])
@@ -105,10 +106,12 @@ class ReceiveModeWeb(object):
                     return redirect('/')
             else:
                 if ajax:
-                    return json.dumps({"new_body": render_template('thankyou.html')})
+                    return json.dumps({
+                        "new_body": render_template('thankyou.html', static_url_path=self.web.static_url_path)
+                    })
                 else:
                     # It was the last upload and the timer ran out
-                    r = make_response(render_template('thankyou.html'))
+                    r = make_response(render_template('thankyou.html'), static_url_path=self.web.static_url_path)
                     return self.web.add_security_headers(r)
 
         @self.web.app.route("/upload-ajax", methods=['POST'])

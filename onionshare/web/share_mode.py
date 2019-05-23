@@ -55,7 +55,8 @@ class ShareModeWeb(object):
             # currently a download
             deny_download = not self.web.stay_open and self.download_in_progress
             if deny_download:
-                r = make_response(render_template('denied.html'))
+                r = make_response(render_template('denied.html'),
+                    static_url_path=self.web.static_url_path)
                 return self.web.add_security_headers(r)
 
             # If download is allowed to continue, serve download page
@@ -70,7 +71,8 @@ class ShareModeWeb(object):
                 filename=os.path.basename(self.download_filename),
                 filesize=self.filesize,
                 filesize_human=self.common.human_readable_filesize(self.download_filesize),
-                is_zipped=self.is_zipped))
+                is_zipped=self.is_zipped,
+                static_url_path=self.web.static_url_path))
             return self.web.add_security_headers(r)
 
         @self.web.app.route("/download")
@@ -82,7 +84,8 @@ class ShareModeWeb(object):
             # currently a download
             deny_download = not self.web.stay_open and self.download_in_progress
             if deny_download:
-                r = make_response(render_template('denied.html'))
+                r = make_response(render_template('denied.html',
+                    static_url_path=self.web.static_url_path))
                 return self.web.add_security_headers(r)
 
             # Each download has a unique id
