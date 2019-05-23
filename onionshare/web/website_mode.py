@@ -131,7 +131,8 @@ class WebsiteModeWeb(object):
         r = make_response(render_template('listing.html',
             path=path,
             files=files,
-            dirs=dirs))
+            dirs=dirs,
+            static_url_path=self.web.static_url_path))
         return self.web.add_security_headers(r)
 
     def set_file_info(self, filenames):

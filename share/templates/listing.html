@@ -2,13 +2,13 @@
 <html>
  <head>
     <title>OnionShare</title>
-    <link href="/static/img/favicon.ico" rel="icon" type="image/x-icon" />
-    <link href="/static/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="{{ static_url_path }}/img/favicon.ico" rel="icon" type="image/x-icon" />
+    <link href="{{ static_url_path }}/css/style.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
 
     <header class="clearfix">
-      <img class="logo" src="/static/img/logo.png" title="OnionShare">
+      <img class="logo" src="{{ static_url_path }}/img/logo.png" title="OnionShare">
       <h1>OnionShare</h1>
     </header>
 
@@ -22,7 +22,7 @@
       {% for info in dirs %}
       <tr>
         <td>
-          <img width="30" height="30" title="" alt="" src="/static/img/web_folder.png" />
+          <img width="30" height="30" title="" alt="" src="{{ static_url_path }}/img/web_folder.png" />
           <a href="{{ info.basename }}">
             {{ info.basename }}
           </a>
@@ -34,7 +34,7 @@
       {% for info in files %}
       <tr>
         <td>
-          <img width="30" height="30" title="" alt="" src="/static/img/web_file.png" />
+          <img width="30" height="30" title="" alt="" src="{{ static_url_path }}/img/web_file.png" />
           <a href="{{ info.basename }}">
             {{ info.basename }}
           </a>
