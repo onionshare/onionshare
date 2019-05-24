@@ -51,7 +51,7 @@ def main(cwd=None):
     parser.add_argument('--connect-timeout', metavar='<int>', dest='connect_timeout', default=120, help="Give up connecting to Tor after a given amount of seconds (default: 120)")
     parser.add_argument('--stealth', action='store_true', dest='stealth', help="Use client authorization (advanced)")
     parser.add_argument('--receive', action='store_true', dest='receive', help="Receive shares instead of sending them")
-    parser.add_argument('--website', action='store_true', dest='website', help=strings._("help_website"))
+    parser.add_argument('--website', action='store_true', dest='website', help="Publish a static website")
     parser.add_argument('--config', metavar='config', default=False, help="Custom JSON config file location (optional)")
     parser.add_argument('-v', '--verbose', action='store_true', dest='verbose', help="Log OnionShare errors to stdout, and web errors to disk")
     parser.add_argument('filename', metavar='filename', nargs='*', help="List of files or folders to share")
@@ -174,7 +174,7 @@ def main(cwd=None):
 
     if mode == 'website':
         # Prepare files to share
-        print(strings._("preparing_website"))
+        print("Preparing files to publish website...")
         try:
             web.website_mode.set_file_info(filenames)
         except OSError as e:
