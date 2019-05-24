@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+ <head>
+    <title>OnionShare</title>
+    <link href="/static/img/favicon.ico" rel="icon" type="image/x-icon" />
+    <link href="/static/css/style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+
+    <header class="clearfix">
+      <img class="logo" src="/static/img/logo.png" title="OnionShare">
+      <h1>OnionShare</h1>
+    </header>
+
+    <table class="file-list" id="file-list">
+      <tr>
+        <th id="filename-header">Filename</th>
+        <th id="size-header">Size</th>
+        <th></th>
+      </tr>
+
+      {% for info in dirs %}
+      <tr>
+        <td>
+          <img width="30" height="30" title="" alt="" src="/static/img/web_folder.png" />
+          <a href="{{ info.basename }}">
+            {{ info.basename }}
+          </a>
+        </td>
+        <td>&mdash;</td>
+      </tr>
+      {% endfor %}
+
+      {% for info in files %}
+      <tr>
+        <td>
+          <img width="30" height="30" title="" alt="" src="/static/img/web_file.png" />
+          <a href="{{ info.basename }}">
+            {{ info.basename }}
+          </a>
+        </td>
+        <td>{{ info.size_human }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </body>
+</html>

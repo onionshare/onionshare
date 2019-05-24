@@ -51,6 +51,7 @@ def main(cwd=None):
     parser.add_argument('--connect-timeout', metavar='<int>', dest='connect_timeout', default=120, help="Give up connecting to Tor after a given amount of seconds (default: 120)")
     parser.add_argument('--stealth', action='store_true', dest='stealth', help="Use client authorization (advanced)")
     parser.add_argument('--receive', action='store_true', dest='receive', help="Receive shares instead of sending them")
+    parser.add_argument('--website', action='store_true', dest='website', help="Publish a static website")
     parser.add_argument('--config', metavar='config', default=False, help="Custom JSON config file location (optional)")
     parser.add_argument('-v', '--verbose', action='store_true', dest='verbose', help="Log OnionShare errors to stdout, and web errors to disk")
     parser.add_argument('filename', metavar='filename', nargs='*', help="List of files or folders to share")
@@ -68,10 +69,13 @@ def main(cwd=None):
     connect_timeout = int(args.connect_timeout)
     stealth = bool(args.stealth)
     receive = bool(args.receive)
+    website = bool(args.website)
     config = args.config
 
     if receive:
         mode = 'receive'
+    elif website:
+        mode = 'website'
     else:
         mode = 'share'
 
@@ -168,6 +172,15 @@ def main(cwd=None):
         print(e.args[0])
         sys.exit()
 
+    if mode == 'website':
+        # Prepare files to share
+        print("Preparing files to publish website...")
+        try:
+            web.website_mode.set_file_info(filenames)
+        except OSError as e:
+            print(e.strerror)
+            sys.exit(1)
+
     if mode == 'share':
         # Prepare files to share
         print("Compressing files.")
@@ -206,6 +219,8 @@ def main(cwd=None):
         # Build the URL
         if common.settings.get('public_mode'):
             url = 'http://{0:s}'.format(app.onion_host)
+        elif mode == 'website':
+            url = 'http://onionshare:{0:s}@{1:s}'.format(web.slug, app.onion_host)
         else:
             url = 'http://{0:s}/{1:s}'.format(app.onion_host, web.slug)
 
@@ -242,7 +257,7 @@ def main(cwd=None):
             if app.autostop_timer > 0:
                 # if the auto-stop timer was set and has run out, stop the server
                 if not app.autostop_timer_thread.is_alive():
-                    if mode == 'share':
+                    if mode == 'share'  or (mode == 'website'):
                         # If there were no attempts to download the share, or all downloads are done, we can stop
                         if web.share_mode.download_count == 0 or web.done:
                             print("Stopped because auto-stop timer ran out")
