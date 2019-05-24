@@ -4,6 +4,7 @@ import requests
 import shutil
 import socket
 import socks
+import base64
 
 from PyQt5 import QtCore, QtTest
 
@@ -126,20 +127,20 @@ class GuiBaseTest(object):
         if type(mode) == ReceiveMode:
             # Upload a file
             files = {'file[]': open('/tmp/test.txt', 'rb')}
-            if not public_mode:
-                path = 'http://127.0.0.1:{}/{}/upload'.format(self.gui.app.port, mode.web.password)
+            url = 'http://127.0.0.1:{}/upload'.format(self.gui.app.port)
+            if public_mode:
+                response = requests.post(url, files=files)
             else:
-                path = 'http://127.0.0.1:{}/upload'.format(self.gui.app.port)
-            response = requests.post(path, files=files)
+                response = requests.post(url, files=files, auth=requests.auth.HTTPBasicAuth('onionshare', mode.web.password))
             QtTest.QTest.qWait(2000)
 
         if type(mode) == ShareMode:
             # Download files
+            url = "http://127.0.0.1:{}/download".format(self.gui.app.port)
             if public_mode:
-                url = "http://127.0.0.1:{}/download".format(self.gui.app.port)
+                r = requests.get(url)
             else:
-                url = "http://127.0.0.1:{}/{}/download".format(self.gui.app.port, mode.web.password)
-            r = requests.get(url)
+                r = requests.get(url, auth=requests.auth.HTTPBasicAuth('onionshare', mode.web.password))
             QtTest.QTest.qWait(2000)
 
         # Indicator should be visible, have a value of "1"
@@ -212,7 +213,7 @@ class GuiBaseTest(object):
         if public_mode:
             self.assertEqual(clipboard.text(), 'http://127.0.0.1:{}'.format(self.gui.app.port))
         else:
-            self.assertEqual(clipboard.text(), 'http://127.0.0.1:{}/{}'.format(self.gui.app.port, mode.server_status.web.password))
+            self.assertEqual(clipboard.text(), 'http://onionshare:{}@127.0.0.1:{}'.format(mode.server_status.web.password, self.gui.app.port))
 
 
     def server_status_indicator_says_started(self, mode):
@@ -234,8 +235,11 @@ class GuiBaseTest(object):
         else:
             path = '/'
 
-        http_request = 'GET {} HTTP/1.0\r\n'.format(path)
+        http_request = 'GET / HTTP/1.0\r\n'
         http_request += 'Host: 127.0.0.1\r\n'
+        if not public_mode:
+            auth = base64.b64encode(b'onionshare:'+password.encode()).decode()
+            http_request += 'Authorization: Basic {}'.format(auth)
         http_request += '\r\n'
         s.sendall(http_request.encode('utf-8'))
 
