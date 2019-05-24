@@ -92,13 +92,13 @@ class GuiShareTest(GuiBaseTest):
         QtTest.QTest.qWait(2000)
         self.assertEqual('onionshare', zip.read('test.txt').decode('utf-8'))
 
-    def hit_404(self, public_mode):
-        '''Test that the server stops after too many 404s, or doesn't when in public_mode'''
-        bogus_path = '/gimme'
-        url = "http://127.0.0.1:{}/{}".format(self.gui.app.port, bogus_path)
+    def hit_401(self, public_mode):
+        '''Test that the server stops after too many 401s, or doesn't when in public_mode'''
+        url = "http://127.0.0.1:{}/".format(self.gui.app.port)
 
         for _ in range(20):
-            r = requests.get(url)
+            password_guess = self.gui.common.build_password()
+            r = requests.get(url, auth=requests.auth.HTTPBasicAuth('onionshare', password))
 
         # A nasty hack to avoid the Alert dialog that blocks the rest of the test
         if not public_mode:

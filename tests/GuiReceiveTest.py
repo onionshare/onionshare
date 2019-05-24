@@ -8,14 +8,14 @@ class GuiReceiveTest(GuiBaseTest):
     def upload_file(self, public_mode, file_to_upload, expected_basename, identical_files_at_once=False):
         '''Test that we can upload the file'''
         files = {'file[]': open(file_to_upload, 'rb')}
+        url = 'http://127.0.0.1:{}/upload'.format(self.gui.app.port)
         if not public_mode:
-            path = 'http://127.0.0.1:{}/{}/upload'.format(self.gui.app.port, self.gui.receive_mode.web.password)
+            r = requests.post(url, files=files)
         else:
-            path = 'http://127.0.0.1:{}/upload'.format(self.gui.app.port)
-        response = requests.post(path, files=files)
+            r = requests.post(url, files=files, auth=requests.auth.HTTPBasicAuth('onionshare', mode.web.password))
         if identical_files_at_once:
             # Send a duplicate upload to test for collisions
-            response = requests.post(path, files=files)
+            r = requests.post(path, files=files)
         QtTest.QTest.qWait(2000)
 
         # Make sure the file is within the last 10 seconds worth of filenames
@@ -39,11 +39,11 @@ class GuiReceiveTest(GuiBaseTest):
     def upload_file_should_fail(self, public_mode):
         '''Test that we can't upload the file when permissions are wrong, and expected content is shown'''
         files = {'file[]': open('/tmp/test.txt', 'rb')}
+        url = 'http://127.0.0.1:{}/upload'.format(self.gui.app.port)
         if not public_mode:
-            path = 'http://127.0.0.1:{}/{}/upload'.format(self.gui.app.port, self.gui.receive_mode.web.password)
+            r = requests.post(url, files=files)
         else:
-            path = 'http://127.0.0.1:{}/upload'.format(self.gui.app.port)
-        response = requests.post(path, files=files)
+            r = requests.post(url, files=files, auth=requests.auth.HTTPBasicAuth('onionshare', mode.web.password))
 
         QtCore.QTimer.singleShot(1000, self.accept_dialog)
         self.assertTrue('Error uploading, please inform the OnionShare user' in response.text)
@@ -53,17 +53,14 @@ class GuiReceiveTest(GuiBaseTest):
         os.chmod('/tmp/OnionShare', mode)
 
     def try_public_paths_in_non_public_mode(self):
-        response = requests.post('http://127.0.0.1:{}/upload'.format(self.gui.app.port))
+        r = requests.post('http://127.0.0.1:{}/upload'.format(self.gui.app.port))
         self.assertEqual(response.status_code, 404)
-        response = requests.get('http://127.0.0.1:{}/close'.format(self.gui.app.port))
+        r = requests.get('http://127.0.0.1:{}/close'.format(self.gui.app.port))
         self.assertEqual(response.status_code, 404)
 
     def uploading_zero_files_shouldnt_change_ui(self, mode, public_mode):
         '''If you submit the receive mode form without selecting any files, the UI shouldn't get updated'''
-        if not public_mode:
-            path = 'http://127.0.0.1:{}/{}/upload'.format(self.gui.app.port, self.gui.receive_mode.web.password)
-        else:
-            path = 'http://127.0.0.1:{}/upload'.format(self.gui.app.port)
+        url = 'http://127.0.0.1:{}/upload'.format(self.gui.app.port)
 
         # What were the counts before submitting the form?
         before_in_progress_count = mode.history.in_progress_count
@@ -71,9 +68,15 @@ class GuiReceiveTest(GuiBaseTest):
         before_number_of_history_items = len(mode.history.item_list.items)
 
         # Click submit without including any files a few times
-        response = requests.post(path, files={})
-        response = requests.post(path, files={})
-        response = requests.post(path, files={})
+        if not public_mode:
+            r = requests.post(url, files={})
+            r = requests.post(url, files={})
+            r = requests.post(url, files={})
+        else:
+            auth = requests.auth.HTTPBasicAuth('onionshare', mode.web.password)
+            r = requests.post(url, files={}, auth=auth)
+            r = requests.post(url, files={}, auth=auth)
+            r = requests.post(url, files={}, auth=auth)
 
         # The counts shouldn't change
         self.assertEqual(mode.history.in_progress_count, before_in_progress_count)
