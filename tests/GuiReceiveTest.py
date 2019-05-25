@@ -15,12 +15,14 @@ class GuiReceiveTest(GuiBaseTest):
         url = 'http://127.0.0.1:{}/upload'.format(self.gui.app.port)
         if public_mode:
             r = requests.post(url, files=files)
+            if identical_files_at_once:
+                # Send a duplicate upload to test for collisions
+                r = requests.post(url, files=files)
         else:
             r = requests.post(url, files=files, auth=requests.auth.HTTPBasicAuth('onionshare', self.gui.receive_mode.web.password))
-
-        if identical_files_at_once:
-            # Send a duplicate upload to test for collisions
-            r = requests.post(url, files=files)
+            if identical_files_at_once:
+                # Send a duplicate upload to test for collisions
+                r = requests.post(url, files=files, auth=requests.auth.HTTPBasicAuth('onionshare', self.gui.receive_mode.web.password))
 
         QtTest.QTest.qWait(2000)
 
