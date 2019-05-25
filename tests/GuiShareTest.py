@@ -2,6 +2,7 @@ import os
 import requests
 import socks
 import zipfile
+import tempfile
 from PyQt5 import QtCore, QtTest
 from .GuiBaseTest import GuiBaseTest
 
@@ -66,29 +67,17 @@ class GuiShareTest(GuiBaseTest):
 
     def download_share(self, public_mode):
         '''Test that we can download the share'''
-        s = socks.socksocket()
-        s.settimeout(60)
-        s.connect(('127.0.0.1', self.gui.app.port))
-
+        url = "http://127.0.0.1:{}/download".format(self.gui.app.port)
         if public_mode:
-            path = '/download'
+            r = requests.get(url)
         else:
-            path = '{}/download'.format(self.gui.share_mode.web.password)
+            r = requests.get(url, auth=requests.auth.HTTPBasicAuth('onionshare', self.gui.share_mode.server_status.web.password))
 
-        http_request = 'GET {} HTTP/1.0\r\n'.format(path)
-        http_request += 'Host: 127.0.0.1\r\n'
-        http_request += '\r\n'
-        s.sendall(http_request.encode('utf-8'))
+        tmp_file = tempfile.NamedTemporaryFile()
+        with open(tmp_file.name, 'wb') as f:
+            f.write(r.content)
 
-        with open('/tmp/download.zip', 'wb') as file_to_write:
-            while True:
-               data = s.recv(1024)
-               if not data:
-                   break
-               file_to_write.write(data)
-            file_to_write.close()
-
-        zip = zipfile.ZipFile('/tmp/download.zip')
+        zip = zipfile.ZipFile(tmp_file.name)
         QtTest.QTest.qWait(2000)
         self.assertEqual('onionshare', zip.read('test.txt').decode('utf-8'))
 
@@ -98,7 +87,7 @@ class GuiShareTest(GuiBaseTest):
 
         for _ in range(20):
             password_guess = self.gui.common.build_password()
-            r = requests.get(url, auth=requests.auth.HTTPBasicAuth('onionshare', password))
+            r = requests.get(url, auth=requests.auth.HTTPBasicAuth('onionshare', password_guess))
 
         # A nasty hack to avoid the Alert dialog that blocks the rest of the test
         if not public_mode:
