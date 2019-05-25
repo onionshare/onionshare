@@ -374,13 +374,16 @@ class OnionShareGui(QtWidgets.QMainWindow):
             if not self.common.settings.get('autostop_timer'):
                 self.share_mode.server_status.autostop_timer_container.hide()
                 self.receive_mode.server_status.autostop_timer_container.hide()
+                self.website_mode.server_status.autostop_timer_container.hide()
             # If we switched off the auto-start timer setting, ensure the widget is hidden.
             if not self.common.settings.get('autostart_timer'):
                 self.share_mode.server_status.autostart_timer_datetime = None
                 self.receive_mode.server_status.autostart_timer_datetime = None
+                self.website_mode.server_status.autostart_timer_datetime = None
                 self.share_mode.server_status.autostart_timer_container.hide()
                 self.receive_mode.server_status.autostart_timer_container.hide()
-
+                self.website_mode.server_status.autostart_timer_container.hide()
+                
         d = SettingsDialog(self.common, self.onion, self.qtapp, self.config, self.local_only)
         d.settings_saved.connect(reload_settings)
         d.exec_()
