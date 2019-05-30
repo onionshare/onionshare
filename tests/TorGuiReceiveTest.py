@@ -13,7 +13,7 @@ class TorGuiReceiveTest(TorGuiBaseTest):
         session.proxies['http'] = 'socks5h://{}:{}'.format(socks_address, socks_port)
         files = {'file[]': open(file_to_upload, 'rb')}
         if not public_mode:
-            path = 'http://{}/{}/upload'.format(self.gui.app.onion_host, self.gui.receive_mode.web.slug)
+            path = 'http://{}/{}/upload'.format(self.gui.app.onion_host, self.gui.receive_mode.web.password)
         else:
             path = 'http://{}/upload'.format(self.gui.app.onion_host)
         response = session.post(path, files=files)
@@ -35,7 +35,7 @@ class TorGuiReceiveTest(TorGuiBaseTest):
         self.server_is_started(self.gui.receive_mode, startup_time=45000)
         self.web_server_is_running()
         self.have_an_onion_service()
-        self.have_a_slug(self.gui.receive_mode, public_mode)
+        self.have_a_password(self.gui.receive_mode, public_mode)
         self.url_description_shown(self.gui.receive_mode)
         self.have_copy_url_button(self.gui.receive_mode, public_mode)
         self.server_status_indicator_says_started(self.gui.receive_mode)
@@ -56,4 +56,3 @@ class TorGuiReceiveTest(TorGuiBaseTest):
         self.server_working_on_start_button_pressed(self.gui.receive_mode)
         self.server_is_started(self.gui.receive_mode, startup_time=45000)
         self.history_indicator(self.gui.receive_mode, public_mode)
-

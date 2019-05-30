@@ -27,6 +27,15 @@ from .web import Web
 from .onion import *
 from .onionshare import OnionShare
 
+
+def build_url(common, app, web):
+    # Build the URL
+    if common.settings.get('public_mode'):
+        return 'http://{0:s}'.format(app.onion_host)
+    else:
+        return 'http://onionshare:{0:s}@{1:s}'.format(web.password, app.onion_host)
+
+
 def main(cwd=None):
     """
     The main() function implements all of the logic that the command-line version of
@@ -121,12 +130,13 @@ def main(cwd=None):
     try:
         common.settings.load()
         if not common.settings.get('public_mode'):
-            web.generate_slug(common.settings.get('slug'))
+            web.generate_password(common.settings.get('password'))
         else:
-            web.slug = None
+            web.password = None
         app = OnionShare(common, onion, local_only, autostop_timer)
         app.set_stealth(stealth)
         app.choose_port()
+
         # Delay the startup if a startup timer was set
         if autostart_timer > 0:
             # Can't set a schedule that is later than the auto-stop timer
@@ -135,10 +145,7 @@ def main(cwd=None):
                 sys.exit()
 
             app.start_onion_service(False, True)
-            if common.settings.get('public_mode'):
-                url = 'http://{0:s}'.format(app.onion_host)
-            else:
-                url = 'http://{0:s}/{1:s}'.format(app.onion_host, web.slug)
+            url = build_url(common, app, web)
             schedule = datetime.now() + timedelta(seconds=autostart_timer)
             if mode == 'receive':
                 print("Files sent to you appear in this folder: {}".format(common.settings.get('data_dir')))
@@ -174,7 +181,6 @@ def main(cwd=None):
 
     if mode == 'website':
         # Prepare files to share
-        print("Preparing files to publish website...")
         try:
             web.website_mode.set_file_info(filenames)
         except OSError as e:
@@ -198,31 +204,26 @@ def main(cwd=None):
             print('')
 
     # Start OnionShare http service in new thread
-    t = threading.Thread(target=web.start, args=(app.port, stay_open, common.settings.get('public_mode'), web.slug))
+    t = threading.Thread(target=web.start, args=(app.port, stay_open, common.settings.get('public_mode'), web.password))
     t.daemon = True
     t.start()
 
     try:  # Trap Ctrl-C
-        # Wait for web.generate_slug() to finish running
+        # Wait for web.generate_password() to finish running
         time.sleep(0.2)
 
         # start auto-stop timer thread
         if app.autostop_timer > 0:
             app.autostop_timer_thread.start()
 
-        # Save the web slug if we are using a persistent private key
+        # Save the web password if we are using a persistent private key
         if common.settings.get('save_private_key'):
-            if not common.settings.get('slug'):
-                common.settings.set('slug', web.slug)
+            if not common.settings.get('password'):
+                common.settings.set('password', web.password)
                 common.settings.save()
 
         # Build the URL
-        if common.settings.get('public_mode'):
-            url = 'http://{0:s}'.format(app.onion_host)
-        elif mode == 'website':
-            url = 'http://onionshare:{0:s}@{1:s}'.format(web.slug, app.onion_host)
-        else:
-            url = 'http://{0:s}/{1:s}'.format(app.onion_host, web.slug)
+        url = build_url(common, app, web)
 
         print('')
         if autostart_timer > 0:

@@ -24,7 +24,7 @@ from onionshare.common import AutoStopTimer
 
 from ..server_status import ServerStatus
 from ..threads import OnionThread
-from ..threads import AutoStartTimer 
+from ..threads import AutoStartTimer
 from ..widgets import Alert
 
 class Mode(QtWidgets.QWidget):
@@ -181,7 +181,7 @@ class Mode(QtWidgets.QWidget):
         self.app.port = None
 
         # Start the onion thread. If this share was scheduled for a future date,
-        # the OnionThread will start and exit 'early' to obtain the port, slug
+        # the OnionThread will start and exit 'early' to obtain the port, password
         # and onion address, but it will not start the WebThread yet.
         if self.server_status.autostart_timer_datetime:
             self.start_onion_thread(obtain_onion_early=True)

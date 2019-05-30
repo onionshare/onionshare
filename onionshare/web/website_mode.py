@@ -3,7 +3,6 @@ import sys
 import tempfile
 import mimetypes
 from flask import Response, request, render_template, make_response, send_from_directory
-from flask_httpauth import HTTPBasicAuth
 
 from .. import strings
 
@@ -17,7 +16,6 @@ class WebsiteModeWeb(object):
         self.common.log('WebsiteModeWeb', '__init__')
 
         self.web = web
-        self.auth = HTTPBasicAuth()
 
         # Dictionary mapping file paths to filenames on disk
         self.files = {}
@@ -26,32 +24,12 @@ class WebsiteModeWeb(object):
         # Reset assets path
         self.web.app.static_folder=self.common.get_resource_path('static')
 
-        self.users = { }
-
         self.define_routes()
 
     def define_routes(self):
         """
         The web app routes for sharing a website
         """
-
-        @self.auth.get_password
-        def get_pw(username):
-            self.users['onionshare'] = self.web.slug
-
-            if username in self.users:
-                return self.users.get(username)
-            else:
-                return None
-
-        @self.web.app.before_request
-        def conditional_auth_check():
-            if not self.common.settings.get('public_mode'):
-                @self.auth.login_required
-                def _check_login():
-                    return None
-
-                return _check_login()
 
         @self.web.app.route('/', defaults={'path': ''})
         @self.web.app.route('/<path:path>')
@@ -153,7 +131,8 @@ class WebsiteModeWeb(object):
         r = make_response(render_template('listing.html',
             path=path,
             files=files,
-            dirs=dirs))
+            dirs=dirs,
+            static_url_path=self.web.static_url_path))
         return self.web.add_security_headers(r)
 
     def set_file_info(self, filenames):

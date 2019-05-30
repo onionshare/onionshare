@@ -42,13 +42,16 @@ class OnionThread(QtCore.QThread):
     def run(self):
         self.mode.common.log('OnionThread', 'run')
 
-        # Choose port and slug early, because we need them to exist in advance for scheduled shares
+        # Make a new static URL path for each new share
+        self.mode.web.generate_static_url_path()
+
+        # Choose port and password early, because we need them to exist in advance for scheduled shares
         self.mode.app.stay_open = not self.mode.common.settings.get('close_after_first_download')
         if not self.mode.app.port:
             self.mode.app.choose_port()
         if not self.mode.common.settings.get('public_mode'):
-            if not self.mode.web.slug:
-                self.mode.web.generate_slug(self.mode.common.settings.get('slug'))
+            if not self.mode.web.password:
+                self.mode.web.generate_password(self.mode.common.settings.get('password'))
 
         try:
             if self.mode.obtain_onion_early:
@@ -86,7 +89,7 @@ class WebThread(QtCore.QThread):
 
     def run(self):
         self.mode.common.log('WebThread', 'run')
-        self.mode.web.start(self.mode.app.port, self.mode.app.stay_open, self.mode.common.settings.get('public_mode'), self.mode.web.slug)
+        self.mode.web.start(self.mode.app.port, self.mode.app.stay_open, self.mode.common.settings.get('public_mode'), self.mode.web.password)
         self.success.emit()
 
 

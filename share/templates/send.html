@@ -3,8 +3,8 @@
 
 <head>
   <title>OnionShare</title>
-  <link href="/static/img/favicon.ico" rel="icon" type="image/x-icon">
-  <link rel="stylesheet" rel="subresource" type="text/css" href="/static/css/style.css" media="all">
+  <link href="{{ static_url_path }}/img/favicon.ico" rel="icon" type="image/x-icon">
+  <link rel="stylesheet" rel="subresource" type="text/css" href="{{ static_url_path }}/css/style.css" media="all">
   <meta name="onionshare-filename" content="{{ filename }}">
   <meta name="onionshare-filesize" content="{{ filesize }}">
 </head>
@@ -15,14 +15,10 @@
     <div class="right">
       <ul>
         <li>Total size: <strong>{{ filesize_human }}</strong> {% if is_zipped %} (compressed){% endif %}</li>
-        {% if slug %}
-        <li><a class="button" href='/{{ slug }}/download'>Download Files</a></li>
-        {% else %}
         <li><a class="button" href='/download'>Download Files</a></li>
-        {% endif %}
       </ul>
     </div>
-    <img class="logo" src="/static/img/logo.png" title="OnionShare">
+    <img class="logo" src="{{ static_url_path }}/img/logo.png" title="OnionShare">
     <h1>OnionShare</h1>
   </header>
 
@@ -35,7 +31,7 @@
     {% for info in file_info.dirs %}
     <tr>
       <td>
-        <img width="30" height="30" title="" alt="" src="/static/img/web_folder.png" />
+        <img width="30" height="30" title="" alt="" src="{{ static_url_path }}/img/web_folder.png" />
         {{ info.basename }}
       </td>
       <td>{{ info.size_human }}</td>
@@ -45,7 +41,7 @@
     {% for info in file_info.files %}
     <tr>
       <td>
-        <img width="30" height="30" title="" alt="" src="/static/img/web_file.png" />
+        <img width="30" height="30" title="" alt="" src="{{ static_url_path }}/img/web_file.png" />
         {{ info.basename }}
       </td>
       <td>{{ info.size_human }}</td>
@@ -53,7 +49,7 @@
     </tr>
     {% endfor %}
   </table>
-  <script async src="/static/js/send.js" charset="utf-8"></script>
+  <script async src="{{ static_url_path }}/js/send.js" charset="utf-8"></script>
 </body>
 
 </html>

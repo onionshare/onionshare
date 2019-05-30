@@ -474,8 +474,11 @@ class OnionShareGui(QtWidgets.QMainWindow):
                 Alert(self.common, strings._('error_cannot_create_data_dir').format(event["data"]["receive_mode_dir"]))
 
             if event["type"] == Web.REQUEST_OTHER:
-                if event["path"] != '/favicon.ico' and event["path"] != "/{}/shutdown".format(mode.web.shutdown_slug):
-                    self.status_bar.showMessage('[#{0:d}] {1:s}: {2:s}'.format(mode.web.error404_count, strings._('other_page_loaded'), event["path"]))
+                if event["path"] != '/favicon.ico' and event["path"] != "/{}/shutdown".format(mode.web.shutdown_password):
+                    self.status_bar.showMessage('{0:s}: {1:s}'.format(strings._('other_page_loaded'), event["path"]))
+
+            if event["type"] == Web.REQUEST_INVALID_PASSWORD:
+                self.status_bar.showMessage('[#{0:d}] {1:s}: {2:s}'.format(mode.web.invalid_passwords_count, strings._('invalid_password_guess'), event["data"]))
 
         mode.timer_callback()
 

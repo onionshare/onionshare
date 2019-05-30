@@ -21,7 +21,7 @@ class LocalReceiveModePublicModeTest(unittest.TestCase, GuiReceiveTest):
     @pytest.mark.skipif(pytest.__version__ < '2.9', reason="requires newer pytest")
     def test_gui(self):
         self.run_all_common_setup_tests()
-        self.run_all_receive_mode_tests(True, True)
+        self.run_all_receive_mode_tests(True)
 
 if __name__ == "__main__":
     unittest.main()

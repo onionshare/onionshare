@@ -142,7 +142,7 @@ class WebsiteMode(Mode):
         """
         # Reset web counters
         self.web.website_mode.visit_count = 0
-        self.web.error404_count = 0
+        self.web.reset_invalid_passwords()
 
         # Hide and reset the downloads if we have previously shared
         self.reset_info_counters()
