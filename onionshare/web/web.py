@@ -164,15 +164,6 @@ class Web(object):
                 return ""
             abort(404)
 
-        @self.app.route("/noscript-xss-instructions")
-        def noscript_xss_instructions():
-            """
-            Display instructions for disabling Tor Browser's NoScript XSS setting
-            """
-            r = make_response(render_template('receive_noscript_xss.html',
-                static_url_path=self.static_url_path))
-            return self.add_security_headers(r)
-
     def error401(self):
         auth = request.authorization
         if auth:
