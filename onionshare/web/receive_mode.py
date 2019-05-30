@@ -31,36 +31,15 @@ class ReceiveModeWeb(object):
         """
         The web app routes for receiving files
         """
-        def index_logic():
+        @self.web.app.route("/")
+        def index():
             self.web.add_request(self.web.REQUEST_LOAD, request.path)
-
-            if self.common.settings.get('public_mode'):
-                upload_action = '/upload'
-            else:
-                upload_action = '/{}/upload'.format(self.web.slug)
-
-            r = make_response(render_template(
-                'receive.html',
-                upload_action=upload_action))
+            r = make_response(render_template('receive.html', 
+                static_url_path=self.web.static_url_path))
             return self.web.add_security_headers(r)
 
-        @self.web.app.route("/<slug_candidate>")
-        def index(slug_candidate):
-            if not self.can_upload:
-                return self.web.error403()
-            self.web.check_slug_candidate(slug_candidate)
-            return index_logic()
-
-        @self.web.app.route("/")
-        def index_public():
-            if not self.can_upload:
-                return self.web.error403()
-            if not self.common.settings.get('public_mode'):
-                return self.web.error404()
-            return index_logic()
-
-
-        def upload_logic(slug_candidate='', ajax=False):
+        @self.web.app.route("/upload", methods=['POST'])
+        def upload(ajax=False):
             """
             Handle the upload files POST request, though at this point, the files have
             already been uploaded and saved to their correct locations.
@@ -97,11 +76,7 @@ class ReceiveModeWeb(object):
                     return json.dumps({"error_flashes": [msg]})
                 else:
                     flash(msg, 'error')
-
-                    if self.common.settings.get('public_mode'):
-                        return redirect('/')
-                    else:
-                        return redirect('/{}'.format(slug_candidate))
+                    return redirect('/')
 
             # Note that flash strings are in English, and not translated, on purpose,
             # to avoid leaking the locale of the OnionShare user
@@ -128,48 +103,22 @@ class ReceiveModeWeb(object):
                 if ajax:
                     return json.dumps({"info_flashes": info_flashes})
                 else:
-                    if self.common.settings.get('public_mode'):
-                        path = '/'
-                    else:
-                        path = '/{}'.format(slug_candidate)
-                    return redirect('{}'.format(path))
+                    return redirect('/')
             else:
                 if ajax:
-                    return json.dumps({"new_body": render_template('thankyou.html')})
+                    return json.dumps({
+                        "new_body": render_template('thankyou.html', static_url_path=self.web.static_url_path)
+                    })
                 else:
                     # It was the last upload and the timer ran out
-                    r = make_response(render_template('thankyou.html'))
+                    r = make_response(render_template('thankyou.html'), static_url_path=self.web.static_url_path)
                     return self.web.add_security_headers(r)
-
-        @self.web.app.route("/<slug_candidate>/upload", methods=['POST'])
-        def upload(slug_candidate):
-            if not self.can_upload:
-                return self.web.error403()
-            self.web.check_slug_candidate(slug_candidate)
-            return upload_logic(slug_candidate)
-
-        @self.web.app.route("/upload", methods=['POST'])
-        def upload_public():
-            if not self.can_upload:
-                return self.web.error403()
-            if not self.common.settings.get('public_mode'):
-                return self.web.error404()
-            return upload_logic()
-
-        @self.web.app.route("/<slug_candidate>/upload-ajax", methods=['POST'])
-        def upload_ajax(slug_candidate):
-            if not self.can_upload:
-                return self.web.error403()
-            self.web.check_slug_candidate(slug_candidate)
-            return upload_logic(slug_candidate, ajax=True)
 
         @self.web.app.route("/upload-ajax", methods=['POST'])
         def upload_ajax_public():
             if not self.can_upload:
                 return self.web.error403()
-            if not self.common.settings.get('public_mode'):
-                return self.web.error404()
-            return upload_logic(ajax=True)
+            return upload(ajax=True)
 
 
 class ReceiveModeWSGIMiddleware(object):
@@ -272,12 +221,8 @@ class ReceiveModeRequest(Request):
         # Is this a valid upload request?
         self.upload_request = False
         if self.method == 'POST':
-            if self.web.common.settings.get('public_mode'):
-                if self.path == '/upload' or self.path == '/upload-ajax':
-                    self.upload_request = True
-            else:
-                if self.path == '/{}/upload'.format(self.web.slug) or self.path == '/{}/upload-ajax'.format(self.web.slug):
-                    self.upload_request = True
+            if self.path == '/upload' or self.path == '/upload-ajax':
+                self.upload_request = True
 
         if self.upload_request:
             # No errors yet

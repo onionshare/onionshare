@@ -44,18 +44,8 @@ class ShareModeWeb(object):
         """
         The web app routes for sharing files
         """
-        @self.web.app.route("/<slug_candidate>")
-        def index(slug_candidate):
-            self.web.check_slug_candidate(slug_candidate)
-            return index_logic()
-
         @self.web.app.route("/")
-        def index_public():
-            if not self.common.settings.get('public_mode'):
-                return self.web.error404()
-            return index_logic()
-
-        def index_logic(slug_candidate=''):
+        def index():
             """
             Render the template for the onionshare landing page.
             """
@@ -65,7 +55,8 @@ class ShareModeWeb(object):
             # currently a download
             deny_download = not self.web.stay_open and self.download_in_progress
             if deny_download:
-                r = make_response(render_template('denied.html'))
+                r = make_response(render_template('denied.html'),
+                    static_url_path=self.web.static_url_path)
                 return self.web.add_security_headers(r)
 
             # If download is allowed to continue, serve download page
@@ -74,38 +65,18 @@ class ShareModeWeb(object):
             else:
                 self.filesize = self.download_filesize
 
-            if self.web.slug:
-                r = make_response(render_template(
-                    'send.html',
-                    slug=self.web.slug,
-                    file_info=self.file_info,
-                    filename=os.path.basename(self.download_filename),
-                    filesize=self.filesize,
-                    filesize_human=self.common.human_readable_filesize(self.download_filesize),
-                    is_zipped=self.is_zipped))
-            else:
-                # If download is allowed to continue, serve download page
-                r = make_response(render_template(
-                    'send.html',
-                    file_info=self.file_info,
-                    filename=os.path.basename(self.download_filename),
-                    filesize=self.filesize,
-                    filesize_human=self.common.human_readable_filesize(self.download_filesize),
-                    is_zipped=self.is_zipped))
+            r = make_response(render_template(
+                'send.html',
+                file_info=self.file_info,
+                filename=os.path.basename(self.download_filename),
+                filesize=self.filesize,
+                filesize_human=self.common.human_readable_filesize(self.download_filesize),
+                is_zipped=self.is_zipped,
+                static_url_path=self.web.static_url_path))
             return self.web.add_security_headers(r)
 
-        @self.web.app.route("/<slug_candidate>/download")
-        def download(slug_candidate):
-            self.web.check_slug_candidate(slug_candidate)
-            return download_logic()
-
         @self.web.app.route("/download")
-        def download_public():
-            if not self.common.settings.get('public_mode'):
-                return self.web.error404()
-            return download_logic()
-
-        def download_logic(slug_candidate=''):
+        def download():
             """
             Download the zip file.
             """
@@ -113,7 +84,8 @@ class ShareModeWeb(object):
             # currently a download
             deny_download = not self.web.stay_open and self.download_in_progress
             if deny_download:
-                r = make_response(render_template('denied.html'))
+                r = make_response(render_template('denied.html',
+                    static_url_path=self.web.static_url_path))
                 return self.web.add_security_headers(r)
 
             # Each download has a unique id

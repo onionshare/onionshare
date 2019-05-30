@@ -2,8 +2,7 @@ import json
 import os
 import requests
 import shutil
-import socket
-import socks
+import base64
 
 from PyQt5 import QtCore, QtTest
 
@@ -126,20 +125,20 @@ class GuiBaseTest(object):
         if type(mode) == ReceiveMode:
             # Upload a file
             files = {'file[]': open('/tmp/test.txt', 'rb')}
-            if not public_mode:
-                path = 'http://127.0.0.1:{}/{}/upload'.format(self.gui.app.port, mode.web.slug)
+            url = 'http://127.0.0.1:{}/upload'.format(self.gui.app.port)
+            if public_mode:
+                r = requests.post(url, files=files)
             else:
-                path = 'http://127.0.0.1:{}/upload'.format(self.gui.app.port)
-            response = requests.post(path, files=files)
+                r = requests.post(url, files=files, auth=requests.auth.HTTPBasicAuth('onionshare', mode.web.password))
             QtTest.QTest.qWait(2000)
 
         if type(mode) == ShareMode:
             # Download files
+            url = "http://127.0.0.1:{}/download".format(self.gui.app.port)
             if public_mode:
-                url = "http://127.0.0.1:{}/download".format(self.gui.app.port)
+                r = requests.get(url)
             else:
-                url = "http://127.0.0.1:{}/{}/download".format(self.gui.app.port, mode.web.slug)
-            r = requests.get(url)
+                r = requests.get(url, auth=requests.auth.HTTPBasicAuth('onionshare', mode.web.password))
             QtTest.QTest.qWait(2000)
 
         # Indicator should be visible, have a value of "1"
@@ -185,17 +184,19 @@ class GuiBaseTest(object):
 
     def web_server_is_running(self):
         '''Test that the web server has started'''
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        try:
+            r = requests.get('http://127.0.0.1:{}/'.format(self.gui.app.port))
+            self.assertTrue(True)
+        except requests.exceptions.ConnectionError:
+            self.assertTrue(False)
 
-        self.assertEqual(sock.connect_ex(('127.0.0.1',self.gui.app.port)), 0)
 
-
-    def have_a_slug(self, mode, public_mode):
-        '''Test that we have a valid slug'''
+    def have_a_password(self, mode, public_mode):
+        '''Test that we have a valid password'''
         if not public_mode:
-            self.assertRegex(mode.server_status.web.slug, r'(\w+)-(\w+)')
+            self.assertRegex(mode.server_status.web.password, r'(\w+)-(\w+)')
         else:
-            self.assertIsNone(mode.server_status.web.slug, r'(\w+)-(\w+)')
+            self.assertIsNone(mode.server_status.web.password, r'(\w+)-(\w+)')
 
 
     def url_description_shown(self, mode):
@@ -212,7 +213,7 @@ class GuiBaseTest(object):
         if public_mode:
             self.assertEqual(clipboard.text(), 'http://127.0.0.1:{}'.format(self.gui.app.port))
         else:
-            self.assertEqual(clipboard.text(), 'http://127.0.0.1:{}/{}'.format(self.gui.app.port, mode.server_status.web.slug))
+            self.assertEqual(clipboard.text(), 'http://onionshare:{}@127.0.0.1:{}'.format(mode.server_status.web.password, self.gui.app.port))
 
 
     def server_status_indicator_says_started(self, mode):
@@ -225,31 +226,14 @@ class GuiBaseTest(object):
 
     def web_page(self, mode, string, public_mode):
         '''Test that the web page contains a string'''
-        s = socks.socksocket()
-        s.settimeout(60)
-        s.connect(('127.0.0.1', self.gui.app.port))
 
-        if not public_mode:
-            path = '/{}'.format(mode.server_status.web.slug)
+        url = "http://127.0.0.1:{}/".format(self.gui.app.port)
+        if public_mode:
+            r = requests.get(url)
         else:
-            path = '/'
+            r = requests.get(url, auth=requests.auth.HTTPBasicAuth('onionshare', mode.web.password))
 
-        http_request = 'GET {} HTTP/1.0\r\n'.format(path)
-        http_request += 'Host: 127.0.0.1\r\n'
-        http_request += '\r\n'
-        s.sendall(http_request.encode('utf-8'))
-
-        with open('/tmp/webpage', 'wb') as file_to_write:
-            while True:
-               data = s.recv(1024)
-               if not data:
-                   break
-               file_to_write.write(data)
-            file_to_write.close()
-
-        f = open('/tmp/webpage')
-        self.assertTrue(string in f.read())
-        f.close()
+        self.assertTrue(string in r.text)
 
 
     def history_widgets_present(self, mode):
@@ -273,10 +257,12 @@ class GuiBaseTest(object):
     def web_server_is_stopped(self):
         '''Test that the web server also stopped'''
         QtTest.QTest.qWait(2000)
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-        # We should be closed by now. Fail if not!
-        self.assertNotEqual(sock.connect_ex(('127.0.0.1',self.gui.app.port)), 0)
+        try:
+            r = requests.get('http://127.0.0.1:{}/'.format(self.gui.app.port))
+            self.assertTrue(False)
+        except requests.exceptions.ConnectionError:
+            self.assertTrue(True)
 
 
     def server_status_indicator_says_closed(self, mode, stay_open):
