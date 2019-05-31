@@ -222,20 +222,3 @@ li.info {
   color: #666666;
   margin: 0 0 20px 0;
 }
-
-div#noscript {
-  text-align: center;
-  color: #d709df;
-  padding: 1em;
-  line-height: 150%;
-  margin: 0 auto;
-}
-
-div#noscript a, div#noscript a:visited {
-  color: #d709df;
-}
-
-.disable-noscript-xss-wrapper {
-  max-width: 900px;
-  margin: 0 auto;
-}
