@@ -4,25 +4,17 @@ import tempfile
 import mimetypes
 from flask import Response, request, render_template, make_response, send_from_directory
 
+from .base_mode import BaseModeWeb
 from .. import strings
 
 
-class WebsiteModeWeb(object):
+class WebsiteModeWeb(BaseModeWeb):
     """
     All of the web logic for share mode
     """
-    def __init__(self, common, web):
-        self.common = common
+    def init(self):
+
         self.common.log('WebsiteModeWeb', '__init__')
-
-        self.web = web
-
-        # Dictionary mapping file paths to filenames on disk
-        self.files = {}
-        self.visit_count = 0
-
-        # Reset assets path
-        self.web.app.static_folder=self.common.get_resource_path('static')
 
         self.define_routes()
 
