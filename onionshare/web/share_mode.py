@@ -44,15 +44,8 @@ class ShareModeWeb(BaseModeWeb):
             else:
                 self.filesize = self.download_filesize
 
-            r = make_response(render_template(
-                'send.html',
-                file_info=self.file_info,
-                filename=os.path.basename(self.download_filename),
-                filesize=self.filesize,
-                filesize_human=self.common.human_readable_filesize(self.download_filesize),
-                is_zipped=self.is_zipped,
-                static_url_path=self.web.static_url_path))
-            return self.web.add_security_headers(r)
+            return self.directory_listing()
+
 
         @self.web.app.route("/download")
         def download():
