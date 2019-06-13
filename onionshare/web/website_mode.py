@@ -14,11 +14,8 @@ class WebsiteModeWeb(BaseModeWeb):
     """
     def init(self):
         self.common.log('WebsiteModeWeb', '__init__')
-
-        # Reset assets path
-        self.web.app.static_folder=self.common.get_resource_path('share/static')
-
         self.define_routes()
+
 
     def define_routes(self):
         """
@@ -56,6 +53,7 @@ class WebsiteModeWeb(BaseModeWeb):
                         # Render it
                         dirname = os.path.dirname(self.files[index_path])
                         basename = os.path.basename(self.files[index_path])
+
                         return send_from_directory(dirname, basename)
 
                     else:
@@ -80,6 +78,7 @@ class WebsiteModeWeb(BaseModeWeb):
                     return self.web.error404()
             else:
                 # Special case loading /
+
                 if path == '':
                     index_path = 'index.html'
                     if index_path in self.files:
@@ -97,7 +96,29 @@ class WebsiteModeWeb(BaseModeWeb):
                     # If the path isn't found, throw a 404
                     return self.web.error404()
 
-    
+    def build_directory_listing(self, filenames):
+        for filename in filenames:
+            if filesystem_path:
+                this_filesystem_path = os.path.join(filesystem_path, filename)
+            else:
+                this_filesystem_path = self.files[filename]
+
+            is_dir = os.path.isdir(this_filesystem_path)
+
+            if is_dir:
+                dirs.append({
+                    'basename': filename
+                })
+            else:
+                size = os.path.getsize(this_filesystem_path)
+                size_human = self.common.human_readable_filesize(size)
+                files.append({
+                    'basename': filename,
+                    'size_human': size_human
+                })
+        return files, dirs
+
+
     def build_file_list(self, filenames):
         """
         Build a data structure that describes the list of files that make up
