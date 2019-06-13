@@ -177,19 +177,8 @@ class ShareModeWeb(BaseModeWeb):
                 r.headers.set('Content-Type', content_type)
             return r
 
-    def set_file_info(self, filenames, processed_size_callback=None):
-        """
-        Using the list of filenames being shared, fill in details that the web
-        page will need to display. This includes zipping up the file in order to
-        get the zip file's name and size.
-        """
-        self.common.log("ShareModeWeb", "set_file_info")
-        self.web.cancel_compression = False
-
-        self.cleanup_filenames = []
-
-        # build file info list
-        self.file_info = {'files': [], 'dirs': []}
+    def build_zipfile_list(self, filenames, processed_size_callback=None):
+        self.common.log("ShareModeWeb", "build_file_list")
         for filename in filenames:
             info = {
                 'filename': filename,

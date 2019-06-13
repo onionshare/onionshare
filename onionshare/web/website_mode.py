@@ -10,11 +10,13 @@ from .. import strings
 
 class WebsiteModeWeb(BaseModeWeb):
     """
-    All of the web logic for share mode
+    All of the web logic for website mode
     """
     def init(self):
-
         self.common.log('WebsiteModeWeb', '__init__')
+
+        # Reset assets path
+        self.web.app.static_folder=self.common.get_resource_path('share/static')
 
         self.define_routes()
 
@@ -127,22 +129,12 @@ class WebsiteModeWeb(BaseModeWeb):
             static_url_path=self.web.static_url_path))
         return self.web.add_security_headers(r)
 
-    def set_file_info(self, filenames):
+    def build_file_list(self, filenames):
         """
         Build a data structure that describes the list of files that make up
         the static website.
         """
-        self.common.log("WebsiteModeWeb", "set_file_info")
-
-        # This is a dictionary that maps HTTP routes to filenames on disk
-        self.files = {}
-
-        # This is only the root files and dirs, as opposed to all of them
-        self.root_files = {}
-
-        # If there's just one folder, replace filenames with a list of files inside that folder
-        if len(filenames) == 1 and os.path.isdir(filenames[0]):
-            filenames = [os.path.join(filenames[0], x) for x in os.listdir(filenames[0])]
+        self.common.log("WebsiteModeWeb", "build_file_list")
 
         # Loop through the files
         for filename in filenames:
