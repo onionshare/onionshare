@@ -26,7 +26,9 @@ class BaseModeWeb(object):
 
         # Dictionary mapping file paths to filenames on disk
         self.files = {}
-        
+        self.cleanup_filenames = []
+        self.file_info = {'files': [], 'dirs': []}
+
         self.visit_count = 0
         self.download_count = 0
 
@@ -34,8 +36,7 @@ class BaseModeWeb(object):
         # one download at a time.
         self.download_in_progress = False
 
-        # Reset assets path
-        self.web.app.static_folder=self.common.get_resource_path('static')
+        self.define_routes()
 
 
     def init(self):
@@ -43,3 +44,27 @@ class BaseModeWeb(object):
         Add custom initialization here.
         """
         pass
+
+    def set_file_info(self, filenames, processed_size_callback=None):
+        """
+        Build a data structure that describes the list of files
+        """
+        if self.web.mode == 'website':
+            self.common.log("WebsiteModeWeb", "set_file_info")
+            self.web.cancel_compression = True
+
+            # This is only the root files and dirs, as opposed to all of them
+            self.root_files = {}
+
+            # If there's just one folder, replace filenames with a list of files inside that folder
+            if len(filenames) == 1 and os.path.isdir(filenames[0]):
+                filenames = [os.path.join(filenames[0], x) for x in os.listdir(filenames[0])]
+
+            self.build_file_list(filenames)
+
+        elif self.web.mode == 'share':
+            self.common.log("ShareModeWeb", "set_file_info")
+            self.web.cancel_compression = False
+            self.build_zipfile_list(filenames, processed_size_callback)
+
+        return True
