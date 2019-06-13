@@ -4,7 +4,7 @@ import tempfile
 import mimetypes
 from flask import Response, request, render_template, make_response
 
-from .. import strings
+ from .. import strings
 
 class BaseModeWeb(object):
     """
@@ -44,6 +44,40 @@ class BaseModeWeb(object):
         Add custom initialization here.
         """
         pass
+
+
+    def directory_listing(self, path, filenames, filesystem_path=None):
+        # If filesystem_path is None, this is the root directory listing
+        files = []
+        dirs = []
+
+        for filename in filenames:
+            if filesystem_path:
+                this_filesystem_path = os.path.join(filesystem_path, filename)
+            else:
+                this_filesystem_path = self.files[filename]
+
+            is_dir = os.path.isdir(this_filesystem_path)
+
+            if is_dir:
+                dirs.append({
+                    'basename': filename
+                })
+            else:
+                size = os.path.getsize(this_filesystem_path)
+                size_human = self.common.human_readable_filesize(size)
+                files.append({
+                    'basename': filename,
+                    'size_human': size_human
+                })
+
+        r = make_response(render_template('listing.html',
+            path=path,
+            files=files,
+            dirs=dirs,
+            static_url_path=self.web.static_url_path))
+        return self.web.add_security_headers(r)
+
 
     def set_file_info(self, filenames, processed_size_callback=None):
         """
