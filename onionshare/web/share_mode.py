@@ -23,8 +23,9 @@ class ShareModeWeb(BaseModeWeb):
         """
         The web app routes for sharing files
         """
-        @self.web.app.route("/")
-        def index():
+        @self.web.app.route('/', defaults={'path': ''})
+        @self.web.app.route('/<path:path>')
+        def index(path):
             """
             Render the template for the onionshare landing page.
             """
@@ -44,7 +45,7 @@ class ShareModeWeb(BaseModeWeb):
             else:
                 self.filesize = self.download_filesize
 
-            return self.directory_listing()
+            return self.render_logic(path)
 
 
         @self.web.app.route("/download")
@@ -171,7 +172,7 @@ class ShareModeWeb(BaseModeWeb):
             return r
 
     def build_zipfile_list(self, filenames, processed_size_callback=None):
-        self.common.log("ShareModeWeb", "build_file_list")
+        self.common.log("ShareModeWeb", "build_zipfile_list")
         for filename in filenames:
             info = {
                 'filename': filename,
