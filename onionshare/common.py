@@ -41,7 +41,7 @@ class Common(object):
 
         # The platform OnionShare is running on
         self.platform = platform.system()
-        if self.platform.endswith('BSD'):
+        if self.platform.endswith('BSD') or self.platform == 'DragonFly':
             self.platform = 'BSD'
 
         # The current version of OnionShare
