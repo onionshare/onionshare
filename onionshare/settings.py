@@ -111,7 +111,7 @@ class Settings(object):
             'save_private_key': False,
             'private_key': '',
             'public_mode': False,
-            'slug': '',
+            'password': '',
             'hidservauth_string': '',
             'data_dir': self.build_default_data_dir(),
             'locale': None # this gets defined in fill_in_defaults()

@@ -39,6 +39,7 @@ class ServerStatus(QtWidgets.QWidget):
 
     MODE_SHARE = 'share'
     MODE_RECEIVE = 'receive'
+    MODE_WEBSITE = 'website'
 
     STATUS_STOPPED = 0
     STATUS_WORKING = 1
@@ -159,7 +160,7 @@ class ServerStatus(QtWidgets.QWidget):
         """
         self.mode = share_mode
 
-        if self.mode == ServerStatus.MODE_SHARE:
+        if (self.mode == ServerStatus.MODE_SHARE) or (self.mode == ServerStatus.MODE_WEBSITE):
             self.file_selection = file_selection
 
         self.update()
@@ -207,6 +208,8 @@ class ServerStatus(QtWidgets.QWidget):
 
         if self.mode == ServerStatus.MODE_SHARE:
             self.url_description.setText(strings._('gui_share_url_description').format(info_image))
+        elif self.mode == ServerStatus.MODE_WEBSITE:
+            self.url_description.setText(strings._('gui_share_url_description').format(info_image))
         else:
             self.url_description.setText(strings._('gui_receive_url_description').format(info_image))
 
@@ -240,8 +243,8 @@ class ServerStatus(QtWidgets.QWidget):
             self.show_url()
 
             if self.common.settings.get('save_private_key'):
-                if not self.common.settings.get('slug'):
-                    self.common.settings.set('slug', self.web.slug)
+                if not self.common.settings.get('password'):
+                    self.common.settings.set('password', self.web.password)
                     self.common.settings.save()
 
             if self.common.settings.get('autostart_timer'):
@@ -258,6 +261,8 @@ class ServerStatus(QtWidgets.QWidget):
         # Button
         if self.mode == ServerStatus.MODE_SHARE and self.file_selection.get_num_files() == 0:
             self.server_button.hide()
+        elif self.mode == ServerStatus.MODE_WEBSITE and self.file_selection.get_num_files() == 0:
+            self.server_button.hide()
         else:
             self.server_button.show()
 
@@ -265,6 +270,8 @@ class ServerStatus(QtWidgets.QWidget):
                 self.server_button.setStyleSheet(self.common.css['server_status_button_stopped'])
                 self.server_button.setEnabled(True)
                 if self.mode == ServerStatus.MODE_SHARE:
+                    self.server_button.setText(strings._('gui_share_start_server'))
+                elif self.mode == ServerStatus.MODE_WEBSITE:
                     self.server_button.setText(strings._('gui_share_start_server'))
                 else:
                     self.server_button.setText(strings._('gui_receive_start_server'))
@@ -277,6 +284,8 @@ class ServerStatus(QtWidgets.QWidget):
                 self.server_button.setStyleSheet(self.common.css['server_status_button_started'])
                 self.server_button.setEnabled(True)
                 if self.mode == ServerStatus.MODE_SHARE:
+                    self.server_button.setText(strings._('gui_share_stop_server'))
+                elif self.mode == ServerStatus.MODE_WEBSITE:
                     self.server_button.setText(strings._('gui_share_stop_server'))
                 else:
                     self.server_button.setText(strings._('gui_receive_stop_server'))
@@ -412,5 +421,5 @@ class ServerStatus(QtWidgets.QWidget):
         if self.common.settings.get('public_mode'):
             url = 'http://{0:s}'.format(self.app.onion_host)
         else:
-            url = 'http://{0:s}/{1:s}'.format(self.app.onion_host, self.web.slug)
+            url = 'http://onionshare:{0:s}@{1:s}'.format(self.web.password, self.app.onion_host)
         return url

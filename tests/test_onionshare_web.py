@@ -27,8 +27,10 @@ import socket
 import sys
 import zipfile
 import tempfile
+import base64
 
 import pytest
+from werkzeug.datastructures import Headers
 
 from onionshare.common import Common
 from onionshare import strings
@@ -44,7 +46,7 @@ def web_obj(common_obj, mode, num_files=0):
     common_obj.settings = Settings(common_obj)
     strings.load_strings(common_obj)
     web = Web(common_obj, False, mode)
-    web.generate_slug()
+    web.generate_password()
     web.stay_open = True
     web.running = True
 
@@ -71,22 +73,23 @@ class TestWeb:
         web = web_obj(common_obj, 'share', 3)
         assert web.mode is 'share'
         with web.app.test_client() as c:
-            # Load 404 pages
+            # Load / without auth
             res = c.get('/')
             res.get_data()
-            assert res.status_code == 404
+            assert res.status_code == 401
 
-            res = c.get('/invalidslug'.format(web.slug))
+            # Load / with invalid auth
+            res = c.get('/', headers=self._make_auth_headers('invalid'))
             res.get_data()
-            assert res.status_code == 404
+            assert res.status_code == 401
 
-            # Load download page
-            res = c.get('/{}'.format(web.slug))
+            # Load / with valid auth
+            res = c.get('/', headers=self._make_auth_headers(web.password))
             res.get_data()
             assert res.status_code == 200
 
             # Download
-            res = c.get('/{}/download'.format(web.slug))
+            res = c.get('/download', headers=self._make_auth_headers(web.password))
             res.get_data()
             assert res.status_code == 200
             assert res.mimetype == 'application/zip'
@@ -99,7 +102,7 @@ class TestWeb:
 
         with web.app.test_client() as c:
             # Download the first time
-            res = c.get('/{}/download'.format(web.slug))
+            res = c.get('/download', headers=self._make_auth_headers(web.password))
             res.get_data()
             assert res.status_code == 200
             assert res.mimetype == 'application/zip'
@@ -114,7 +117,7 @@ class TestWeb:
 
         with web.app.test_client() as c:
             # Download the first time
-            res = c.get('/{}/download'.format(web.slug))
+            res = c.get('/download', headers=self._make_auth_headers(web.password))
             res.get_data()
             assert res.status_code == 200
             assert res.mimetype == 'application/zip'
@@ -125,17 +128,18 @@ class TestWeb:
         assert web.mode is 'receive'
 
         with web.app.test_client() as c:
-            # Load 404 pages
+            # Load / without auth
             res = c.get('/')
             res.get_data()
-            assert res.status_code == 404
+            assert res.status_code == 401
 
-            res = c.get('/invalidslug'.format(web.slug))
+            # Load / with invalid auth
+            res = c.get('/', headers=self._make_auth_headers('invalid'))
             res.get_data()
-            assert res.status_code == 404
+            assert res.status_code == 401
 
-            # Load upload page
-            res = c.get('/{}'.format(web.slug))
+            # Load / with valid auth
+            res = c.get('/', headers=self._make_auth_headers(web.password))
             res.get_data()
             assert res.status_code == 200
 
@@ -144,30 +148,36 @@ class TestWeb:
         common_obj.settings.set('public_mode', True)
 
         with web.app.test_client() as c:
-            # Upload page should be accessible from /
+            # Loading / should work without auth
             res = c.get('/')
             data1 = res.get_data()
             assert res.status_code == 200
-
-            # /[slug] should be a 404
-            res = c.get('/{}'.format(web.slug))
-            data2 = res.get_data()
-            assert res.status_code == 404
 
     def test_public_mode_off(self, common_obj):
         web = web_obj(common_obj, 'receive')
         common_obj.settings.set('public_mode', False)
 
         with web.app.test_client() as c:
-            # / should be a 404
+            # Load / without auth
             res = c.get('/')
-            data1 = res.get_data()
-            assert res.status_code == 404
+            res.get_data()
+            assert res.status_code == 401
 
-            # Upload page should be accessible from /[slug]
-            res = c.get('/{}'.format(web.slug))
-            data2 = res.get_data()
+            # But static resources should work without auth
+            res = c.get('{}/css/style.css'.format(web.static_url_path))
+            res.get_data()
             assert res.status_code == 200
+
+            # Load / with valid auth
+            res = c.get('/', headers=self._make_auth_headers(web.password))
+            res.get_data()
+            assert res.status_code == 200
+
+    def _make_auth_headers(self, password):
+        auth = base64.b64encode(b'onionshare:'+password.encode()).decode()
+        h = Headers()
+        h.add('Authorization', 'Basic ' + auth)
+        return h
 
 
 class TestZipWriterDefault:

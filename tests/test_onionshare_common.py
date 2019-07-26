@@ -33,13 +33,13 @@ LOG_MSG_REGEX = re.compile(r"""
     ^\[Jun\ 06\ 2013\ 11:05:00\]
     \ TestModule\.<function\ TestLog\.test_output\.<locals>\.dummy_func
     \ at\ 0x[a-f0-9]+>(:\ TEST_MSG)?$""", re.VERBOSE)
-SLUG_REGEX = re.compile(r'^([a-z]+)(-[a-z]+)?-([a-z]+)(-[a-z]+)?$')
+PASSWORD_REGEX = re.compile(r'^([a-z]+)(-[a-z]+)?-([a-z]+)(-[a-z]+)?$')
 
 
 # TODO: Improve the Common tests to test it all as a single class
 
 
-class TestBuildSlug:
+class TestBuildPassword:
     @pytest.mark.parametrize('test_input,expected', (
         # VALID, two lowercase words, separated by a hyphen
         ('syrup-enzyme', True),
@@ -60,8 +60,8 @@ class TestBuildSlug:
         ('too-many-hyphens-', False),
         ('symbols-!@#$%', False)
     ))
-    def test_build_slug_regex(self, test_input, expected):
-        """ Test that `SLUG_REGEX` accounts for the following patterns
+    def test_build_password_regex(self, test_input, expected):
+        """ Test that `PASSWORD_REGEX` accounts for the following patterns
 
         There are a few hyphenated words in `wordlist.txt`:
             * drop-down
@@ -69,17 +69,17 @@ class TestBuildSlug:
             * t-shirt
             * yo-yo
 
-        These words cause a few extra potential slug patterns:
+        These words cause a few extra potential password patterns:
             * word-word
             * hyphenated-word-word
             * word-hyphenated-word
             * hyphenated-word-hyphenated-word
         """
 
-        assert bool(SLUG_REGEX.match(test_input)) == expected
+        assert bool(PASSWORD_REGEX.match(test_input)) == expected
 
-    def test_build_slug_unique(self, common_obj, sys_onionshare_dev_mode):
-        assert common_obj.build_slug() != common_obj.build_slug()
+    def test_build_password_unique(self, common_obj, sys_onionshare_dev_mode):
+        assert common_obj.build_password() != common_obj.build_password()
 
 
 class TestDirSize:
