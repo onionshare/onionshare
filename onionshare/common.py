@@ -143,7 +143,7 @@ class Common(object):
         os.makedirs(onionshare_data_dir, 0o700, True)
         return onionshare_data_dir
 
-    def build_slug(self):
+    def build_password(self):
         """
         Returns a random string made from two words from the wordlist, such as "deter-trig".
         """

@@ -27,6 +27,15 @@ from .web import Web
 from .onion import *
 from .onionshare import OnionShare
 
+
+def build_url(common, app, web):
+    # Build the URL
+    if common.settings.get('public_mode'):
+        return 'http://{0:s}'.format(app.onion_host)
+    else:
+        return 'http://onionshare:{0:s}@{1:s}'.format(web.password, app.onion_host)
+
+
 def main(cwd=None):
     """
     The main() function implements all of the logic that the command-line version of
@@ -51,6 +60,7 @@ def main(cwd=None):
     parser.add_argument('--connect-timeout', metavar='<int>', dest='connect_timeout', default=120, help="Give up connecting to Tor after a given amount of seconds (default: 120)")
     parser.add_argument('--stealth', action='store_true', dest='stealth', help="Use client authorization (advanced)")
     parser.add_argument('--receive', action='store_true', dest='receive', help="Receive shares instead of sending them")
+    parser.add_argument('--website', action='store_true', dest='website', help="Publish a static website")
     parser.add_argument('--config', metavar='config', default=False, help="Custom JSON config file location (optional)")
     parser.add_argument('-v', '--verbose', action='store_true', dest='verbose', help="Log OnionShare errors to stdout, and web errors to disk")
     parser.add_argument('filename', metavar='filename', nargs='*', help="List of files or folders to share")
@@ -68,10 +78,13 @@ def main(cwd=None):
     connect_timeout = int(args.connect_timeout)
     stealth = bool(args.stealth)
     receive = bool(args.receive)
+    website = bool(args.website)
     config = args.config
 
     if receive:
         mode = 'receive'
+    elif website:
+        mode = 'website'
     else:
         mode = 'share'
 
@@ -117,12 +130,13 @@ def main(cwd=None):
     try:
         common.settings.load()
         if not common.settings.get('public_mode'):
-            web.generate_slug(common.settings.get('slug'))
+            web.generate_password(common.settings.get('password'))
         else:
-            web.slug = None
+            web.password = None
         app = OnionShare(common, onion, local_only, autostop_timer)
         app.set_stealth(stealth)
         app.choose_port()
+
         # Delay the startup if a startup timer was set
         if autostart_timer > 0:
             # Can't set a schedule that is later than the auto-stop timer
@@ -131,10 +145,7 @@ def main(cwd=None):
                 sys.exit()
 
             app.start_onion_service(False, True)
-            if common.settings.get('public_mode'):
-                url = 'http://{0:s}'.format(app.onion_host)
-            else:
-                url = 'http://{0:s}/{1:s}'.format(app.onion_host, web.slug)
+            url = build_url(common, app, web)
             schedule = datetime.now() + timedelta(seconds=autostart_timer)
             if mode == 'receive':
                 print("Files sent to you appear in this folder: {}".format(common.settings.get('data_dir')))
@@ -168,6 +179,14 @@ def main(cwd=None):
         print(e.args[0])
         sys.exit()
 
+    if mode == 'website':
+        # Prepare files to share
+        try:
+            web.website_mode.set_file_info(filenames)
+        except OSError as e:
+            print(e.strerror)
+            sys.exit(1)
+
     if mode == 'share':
         # Prepare files to share
         print("Compressing files.")
@@ -185,29 +204,26 @@ def main(cwd=None):
             print('')
 
     # Start OnionShare http service in new thread
-    t = threading.Thread(target=web.start, args=(app.port, stay_open, common.settings.get('public_mode'), web.slug))
+    t = threading.Thread(target=web.start, args=(app.port, stay_open, common.settings.get('public_mode'), web.password))
     t.daemon = True
     t.start()
 
     try:  # Trap Ctrl-C
-        # Wait for web.generate_slug() to finish running
+        # Wait for web.generate_password() to finish running
         time.sleep(0.2)
 
         # start auto-stop timer thread
         if app.autostop_timer > 0:
             app.autostop_timer_thread.start()
 
-        # Save the web slug if we are using a persistent private key
+        # Save the web password if we are using a persistent private key
         if common.settings.get('save_private_key'):
-            if not common.settings.get('slug'):
-                common.settings.set('slug', web.slug)
+            if not common.settings.get('password'):
+                common.settings.set('password', web.password)
                 common.settings.save()
 
         # Build the URL
-        if common.settings.get('public_mode'):
-            url = 'http://{0:s}'.format(app.onion_host)
-        else:
-            url = 'http://{0:s}/{1:s}'.format(app.onion_host, web.slug)
+        url = build_url(common, app, web)
 
         print('')
         if autostart_timer > 0:
@@ -242,7 +258,7 @@ def main(cwd=None):
             if app.autostop_timer > 0:
                 # if the auto-stop timer was set and has run out, stop the server
                 if not app.autostop_timer_thread.is_alive():
-                    if mode == 'share':
+                    if mode == 'share'  or (mode == 'website'):
                         # If there were no attempts to download the share, or all downloads are done, we can stop
                         if web.share_mode.download_count == 0 or web.done:
                             print("Stopped because auto-stop timer ran out")

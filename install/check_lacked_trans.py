@@ -59,6 +59,7 @@ def main():
           files_in(dir, 'onionshare_gui/mode') + \
           files_in(dir, 'onionshare_gui/mode/share_mode') + \
           files_in(dir, 'onionshare_gui/mode/receive_mode') + \
+          files_in(dir, 'onionshare_gui/mode/website_mode') + \
           files_in(dir, 'install/scripts') + \
           files_in(dir, 'tests')
     pysrc = [p for p in src if p.endswith('.py')]

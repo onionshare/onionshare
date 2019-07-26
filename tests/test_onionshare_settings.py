@@ -63,7 +63,7 @@ class TestSettings:
             'use_legacy_v2_onions': False,
             'save_private_key': False,
             'private_key': '',
-            'slug': '',
+            'password': '',
             'hidservauth_string': '',
             'data_dir': os.path.expanduser('~/OnionShare'),
             'public_mode': False

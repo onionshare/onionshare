@@ -17,7 +17,7 @@ class TorGuiShareTest(TorGuiBaseTest, GuiShareTest):
         if public_mode:
             path = "http://{}/download".format(self.gui.app.onion_host)
         else:
-            path = "http://{}/{}/download".format(self.gui.app.onion_host, self.gui.share_mode.web.slug)
+            path = "http://{}/{}/download".format(self.gui.app.onion_host, self.gui.share_mode.web.password)
         response = session.get(path, stream=True)
         QtTest.QTest.qWait(4000)
 
@@ -53,7 +53,7 @@ class TorGuiShareTest(TorGuiBaseTest, GuiShareTest):
         self.server_is_started(self.gui.share_mode, startup_time=45000)
         self.web_server_is_running()
         self.have_an_onion_service()
-        self.have_a_slug(self.gui.share_mode, public_mode)
+        self.have_a_password(self.gui.share_mode, public_mode)
         self.url_description_shown(self.gui.share_mode)
         self.have_copy_url_button(self.gui.share_mode, public_mode)
         self.server_status_indicator_says_started(self.gui.share_mode)
@@ -74,16 +74,16 @@ class TorGuiShareTest(TorGuiBaseTest, GuiShareTest):
 
 
     def run_all_share_mode_persistent_tests(self, public_mode, stay_open):
-        """Same as end-to-end share tests but also test the slug is the same on multiple shared"""
+        """Same as end-to-end share tests but also test the password is the same on multiple shared"""
         self.run_all_share_mode_setup_tests()
         self.run_all_share_mode_started_tests(public_mode)
-        slug = self.gui.share_mode.server_status.web.slug
+        password = self.gui.share_mode.server_status.web.password
         onion = self.gui.app.onion_host
         self.run_all_share_mode_download_tests(public_mode, stay_open)
         self.have_same_onion(onion)
-        self.have_same_slug(slug)
+        self.have_same_password(password)
 
-    
+
     def run_all_share_mode_timer_tests(self, public_mode):
         """Auto-stop timer tests in share mode"""
         self.run_all_share_mode_setup_tests()
@@ -92,4 +92,3 @@ class TorGuiShareTest(TorGuiBaseTest, GuiShareTest):
         self.autostop_timer_widget_hidden(self.gui.share_mode)
         self.server_timed_out(self.gui.share_mode, 125000)
         self.web_server_is_stopped()
-
