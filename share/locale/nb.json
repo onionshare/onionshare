@@ -230,5 +230,13 @@
     "days_first_letter": "d",
     "hours_first_letter": "t",
     "minutes_first_letter": "m",
-    "seconds_first_letter": "s"
+    "seconds_first_letter": "s",
+    "gui_website_url_description": "<b>Hvem som helst</b> med denne OnionShare-adressen kan <b>besøke</b> din nettside ved bruk av <b>Tor-nettleseren</b>: <img src='{}' />",
+    "gui_mode_website_button": "Publiser nettside",
+    "systray_site_loaded_title": "Side innlastet",
+    "systray_site_loaded_message": "OnionShare-side innlastet",
+    "systray_website_started_title": "Starter deling av nettside",
+    "systray_website_started_message": "Noen besøker din nettside",
+    "gui_website_mode_no_files": "Ingen nettside delt enda",
+    "gui_visit_started": "Noen har besøkt din nettside {}"
 }

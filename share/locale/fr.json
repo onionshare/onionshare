@@ -152,7 +152,7 @@
     "gui_download_upload_progress_complete": "%p%, {0:s} écoulées.",
     "gui_download_upload_progress_starting": "{0:s}, %p% (estimation)",
     "gui_download_upload_progress_eta": "{0:s}, Fin : {1:s}, %p%",
-    "error_rate_limit": "Quelqu’un a effectué trop de tentatives échouées sur votre adresse, ce qui signifie que cette personne pourrait essayer de la deviner. C’est pourquoi OnionShare a arrêté le serveur. Redémarrez le partage et envoyez au destinataire une nouvelle adresse pour partager.",
+    "error_rate_limit": "Quelqu’un a effectué trop de tentatives échouées pour deviner votre mot de passe, c’est pourquoi OnionShare a arrêté le serveur. Redémarrez le partage et envoyez au destinataire une nouvelle adresse pour partager.",
     "error_stealth_not_supported": "Pour utiliser l’autorisation client, Tor 0.2.9.1-alpha (ou le Navigateur Tor 6.5) et python3-stem 1.5.0 ou versions ultérieures sont exigés.",
     "gui_settings_stealth_option": "Utiliser l’autorisation client",
     "timeout_upload_still_running": "En attente de la fin de l'envoi",
@@ -226,5 +226,12 @@
     "days_first_letter": "j",
     "hours_first_letter": "h",
     "minutes_first_letter": "min",
-    "seconds_first_letter": "s"
+    "seconds_first_letter": "s",
+    "gui_website_url_description": "<b>Quiconque</b> aura cette adresse OnionShare pourra <b>visiter</b> votre site Web en utilisant le <b>Navigateur Tor</b> : <img src='{}' />",
+    "systray_site_loaded_title": "Le site a été chargé",
+    "systray_site_loaded_message": "Le site OnionShare a été chargé",
+    "systray_website_started_title": "Début du partage du site Web",
+    "systray_website_started_message": "Quelqu’un visite votre site Web",
+    "gui_website_mode_no_files": "Aucun site Web n’a encore été partagé",
+    "gui_visit_started": "Quelqu’un a visité votre site Web {}"
 }
