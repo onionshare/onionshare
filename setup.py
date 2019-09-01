@@ -74,7 +74,7 @@ data_files=[
         (os.path.join(sys.prefix, 'share/onionshare/static/img'), file_list('share/static/img')),
         (os.path.join(sys.prefix, 'share/onionshare/static/js'), file_list('share/static/js'))
     ]
-if platform.system() != 'OpenBSD':
+if not platform.system().endswith('BSD') and platform.system() != 'DragonFly':
     data_files.append(('/usr/share/nautilus-python/extensions/', ['install/scripts/onionshare-nautilus.py']))
 
 setup(
