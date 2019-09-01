@@ -2,9 +2,10 @@ import os
 import sys
 import tempfile
 import mimetypes
-from flask import Response, request, render_template, make_response, send_from_directory
+from flask import Response, request, render_template, make_response
 
 from .. import strings
+
 
 class SendBaseModeWeb:
     """
@@ -40,43 +41,28 @@ class SendBaseModeWeb:
 
         self.define_routes()
 
-
     def init(self):
+        self.common.log('SendBaseModeWeb', '__init__')
+        self.define_routes()
+
+    def define_routes(self):
         """
-        Add custom initialization here.
+        Inherited class will implement this
         """
         pass
 
+    def directory_listing_template(self):
+        """
+        Inherited class will implement this. It should call render_template and return
+        the response.
+        """
+        pass
 
     def directory_listing(self, filenames, path='', filesystem_path=None):
         # If filesystem_path is None, this is the root directory listing
-        files = []
-        dirs = []
-        r = ''
-
         files, dirs = self.build_directory_listing(filenames, filesystem_path)
-
-        if self.web.mode == 'website':
-            r = make_response(render_template('listing.html',
-                path=path,
-                files=files,
-                dirs=dirs,
-                static_url_path=self.web.static_url_path))
-
-        elif self.web.mode == 'share':
-            r = make_response(render_template(
-                'send.html',
-                file_info=self.file_info,
-                files=files,
-                dirs=dirs,
-                filename=os.path.basename(self.download_filename),
-                filesize=self.filesize,
-                filesize_human=self.common.human_readable_filesize(self.download_filesize),
-                is_zipped=self.is_zipped,
-                static_url_path=self.web.static_url_path))
-
+        r = self.directory_listing_template(path, files, dirs)
         return self.web.add_security_headers(r)
-
 
     def build_directory_listing(self, filenames, filesystem_path):
         files = []
@@ -103,6 +89,11 @@ class SendBaseModeWeb:
                 })
         return files, dirs
 
+    def set_file_info_custom(self, filenames, processed_size_callback):
+        """
+        Inherited class will implement this.
+        """
+        pass
 
     def set_file_info(self, filenames, processed_size_callback=None):
         """
@@ -114,18 +105,7 @@ class SendBaseModeWeb:
             filenames = [os.path.join(filenames[0], x) for x in os.listdir(filenames[0])]
 
         self.build_file_list(filenames)
-
-        if self.web.mode == 'share':
-            self.common.log("ShareModeWeb", "set_file_info")
-            self.web.cancel_compression = False
-            self.build_zipfile_list(filenames, processed_size_callback)
-
-        elif self.web.mode == 'website':
-            self.common.log("WebsiteModeWeb", "set_file_info")
-            self.web.cancel_compression = True
-
-        return True
-
+        self.set_file_info_custom(filenames, processed_size_callback)
 
     def build_file_list(self, filenames):
         """
@@ -163,56 +143,7 @@ class SendBaseModeWeb:
         return True
 
     def render_logic(self, path=''):
-        if path in self.files:
-            filesystem_path = self.files[path]
-
-            # If it's a directory
-            if os.path.isdir(filesystem_path):
-                # Is there an index.html?
-                index_path = os.path.join(path, 'index.html')
-                if self.web.mode == 'website' and index_path in self.files:
-                    # Render it
-                    dirname = os.path.dirname(self.files[index_path])
-                    basename = os.path.basename(self.files[index_path])
-
-                    return send_from_directory(dirname, basename)
-
-                else:
-                    # Otherwise, render directory listing
-                    filenames = []
-                    for filename in os.listdir(filesystem_path):
-                        if os.path.isdir(os.path.join(filesystem_path, filename)):
-                            filenames.append(filename + '/')
-                        else:
-                            filenames.append(filename)
-                    filenames.sort()
-                    return self.directory_listing(filenames, path, filesystem_path)
-
-            # If it's a file
-            elif os.path.isfile(filesystem_path):
-                dirname = os.path.dirname(filesystem_path)
-                basename = os.path.basename(filesystem_path)
-                return send_from_directory(dirname, basename)
-
-            # If it's not a directory or file, throw a 404
-            else:
-                return self.web.error404()
-        else:
-            # Special case loading /
-
-            if path == '':
-                index_path = 'index.html'
-                if self.web.mode == 'website' and index_path in self.files:
-                    # Render it
-                    dirname = os.path.dirname(self.files[index_path])
-                    basename = os.path.basename(self.files[index_path])
-                    return send_from_directory(dirname, basename)
-                else:
-                    # Root directory listing
-                    filenames = list(self.root_files)
-                    filenames.sort()
-                    return self.directory_listing(filenames, path)
-
-            else:
-                # If the path isn't found, throw a 404
-                return self.web.error404()
+        """
+        Inherited class will implement this.
+        """
+        pass

@@ -165,12 +165,8 @@ class WebsiteMode(Mode):
         Step 3 in starting the server. Display large filesize
         warning, if applicable.
         """
-
-        if self.web.website_mode.set_file_info(self.filenames):
-            self.success.emit()
-        else:
-            # Cancelled
-            pass
+        self.web.website_mode.set_file_info(self.filenames)
+        self.success.emit()
 
     def start_server_error_custom(self):
         """
