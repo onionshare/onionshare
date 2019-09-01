@@ -4,7 +4,7 @@ import tempfile
 import zipfile
 import mimetypes
 import gzip
-from flask import Response, request, render_template, make_response
+from flask import Response, request, render_template, make_response, send_from_directory
 
 from .send_base_mode import SendBaseModeWeb
 from .. import strings
@@ -14,11 +14,6 @@ class ShareModeWeb(SendBaseModeWeb):
     """
     All of the web logic for share mode
     """
-    def init(self):
-        self.common.log('ShareModeWeb', '__init__')
-
-        self.define_routes()
-
     def define_routes(self):
         """
         The web app routes for sharing files
@@ -46,7 +41,6 @@ class ShareModeWeb(SendBaseModeWeb):
                 self.filesize = self.download_filesize
 
             return self.render_logic(path)
-
 
         @self.web.app.route("/download")
         def download():
@@ -170,6 +164,61 @@ class ShareModeWeb(SendBaseModeWeb):
             if content_type is not None:
                 r.headers.set('Content-Type', content_type)
             return r
+
+    def directory_listing_template(self, path, files, dirs):
+        return make_response(render_template(
+            'send.html',
+            file_info=self.file_info,
+            files=files,
+            dirs=dirs,
+            filename=os.path.basename(self.download_filename),
+            filesize=self.filesize,
+            filesize_human=self.common.human_readable_filesize(self.download_filesize),
+            is_zipped=self.is_zipped,
+            static_url_path=self.web.static_url_path))
+
+    def set_file_info_custom(self, filenames, processed_size_callback):
+        self.common.log("ShareModeWeb", "set_file_info_custom")
+        self.web.cancel_compression = False
+        self.build_zipfile_list(filenames, processed_size_callback)
+
+    def render_logic(self, path=''):
+        if path in self.files:
+            filesystem_path = self.files[path]
+
+            # If it's a directory
+            if os.path.isdir(filesystem_path):
+                # Render directory listing
+                filenames = []
+                for filename in os.listdir(filesystem_path):
+                    if os.path.isdir(os.path.join(filesystem_path, filename)):
+                        filenames.append(filename + '/')
+                    else:
+                        filenames.append(filename)
+                filenames.sort()
+                return self.directory_listing(filenames, path)
+
+            # If it's a file
+            elif os.path.isfile(filesystem_path):
+                dirname = os.path.dirname(filesystem_path)
+                basename = os.path.basename(filesystem_path)
+                return send_from_directory(dirname, basename)
+
+            # If it's not a directory or file, throw a 404
+            else:
+                return self.web.error404()
+        else:
+            # Special case loading /
+
+            if path == '':
+                # Root directory listing
+                filenames = list(self.root_files)
+                filenames.sort()
+                return self.directory_listing(filenames, path)
+
+            else:
+                # If the path isn't found, throw a 404
+                return self.web.error404()
 
     def build_zipfile_list(self, filenames, processed_size_callback=None):
         self.common.log("ShareModeWeb", "build_zipfile_list")
