@@ -18,9 +18,6 @@ class ReceiveModeWeb(object):
 
         self.web = web
 
-        # Reset assets path
-        self.web.app.static_folder=self.common.get_resource_path('static')
-
         self.can_upload = True
         self.upload_count = 0
         self.uploads_in_progress = []
@@ -34,7 +31,7 @@ class ReceiveModeWeb(object):
         @self.web.app.route("/")
         def index():
             self.web.add_request(self.web.REQUEST_LOAD, request.path)
-            r = make_response(render_template('receive.html', 
+            r = make_response(render_template('receive.html',
                 static_url_path=self.web.static_url_path))
             return self.web.add_security_headers(r)
 
