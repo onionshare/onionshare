@@ -19,7 +19,7 @@
     "gui_start_server_autostart_timer_tooltip": "స్వీయ నియంత్రణ సమయం అయిపోయినది",
     "gui_receive_start_server": "స్వీకరించు రీతిని మొదలుపెట్టు",
     "gui_receive_stop_server": "స్వీకరించు రీతిని ఆపివేయి",
-    "gui_receive_stop_server_autostop_timer": "స్వీకరించు రీతిని ఆపివేయి ({}s మిగిలినది)",
+    "gui_receive_stop_server_autostop_timer": "స్వీకరించు రీతిని ఆపివేయి ({} మిగిలినది)",
     "gui_copy_url": "జాల చిరునామాను నకలు తీయి",
     "gui_copy_hidservauth": "HidServAuth నకలు తీయి",
     "gui_canceled": "రద్దు చేయబడినది",
