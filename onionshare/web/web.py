@@ -51,12 +51,16 @@ class Web(object):
         self.common = common
         self.common.log('Web', '__init__', 'is_gui={}, mode={}'.format(is_gui, mode))
 
+        # The static URL path has a 128-bit random number in it to avoid having name
+        # collisions with files that might be getting shared
+        self.static_url_path = '/static_{}'.format(self.common.random_string(16))
+
         # The flask app
         self.app = Flask(__name__,
+                         static_url_path=self.static_url_path,
                          static_folder=self.common.get_resource_path('static'),
                          template_folder=self.common.get_resource_path('templates'))
         self.app.secret_key = self.common.random_string(8)
-        self.generate_static_url_path()
         self.auth = HTTPBasicAuth()
         self.auth.error_handler(self.error401)
 
@@ -224,18 +228,6 @@ class Web(object):
         else:
             self.password = self.common.build_password()
             self.common.log('Web', 'generate_password', 'built random password: "{}"'.format(self.password))
-
-    def generate_static_url_path(self):
-        # The static URL path has a 128-bit random number in it to avoid having name
-        # collisions with files that might be getting shared
-        self.static_url_path = '/static_{}'.format(self.common.random_string(16))
-        self.common.log('Web', 'generate_static_url_path', 'new static_url_path is {}'.format(self.static_url_path))
-
-        # Update the flask route to handle the new static URL path
-        self.app.static_url_path = self.static_url_path
-        self.app.add_url_rule(
-            self.static_url_path + '/<path:filename>',
-            endpoint='static', view_func=self.app.send_static_file)
 
     def verbose_mode(self):
         """

@@ -42,9 +42,6 @@ class OnionThread(QtCore.QThread):
     def run(self):
         self.mode.common.log('OnionThread', 'run')
 
-        # Make a new static URL path for each new share
-        self.mode.web.generate_static_url_path()
-
         # Choose port and password early, because we need them to exist in advance for scheduled shares
         self.mode.app.stay_open = not self.mode.common.settings.get('close_after_first_download')
         if not self.mode.app.port:

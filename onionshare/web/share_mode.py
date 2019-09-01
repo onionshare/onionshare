@@ -6,37 +6,16 @@ import mimetypes
 import gzip
 from flask import Response, request, render_template, make_response
 
+from .base_mode import BaseModeWeb
 from .. import strings
 
 
-class ShareModeWeb(object):
+class ShareModeWeb(BaseModeWeb):
     """
     All of the web logic for share mode
     """
-    def __init__(self, common, web):
-        self.common = common
+    def init(self):
         self.common.log('ShareModeWeb', '__init__')
-
-        self.web = web
-
-        # Information about the file to be shared
-        self.file_info = []
-        self.is_zipped = False
-        self.download_filename = None
-        self.download_filesize = None
-        self.gzip_filename = None
-        self.gzip_filesize = None
-        self.zip_writer = None
-
-        self.download_count = 0
-
-        # If "Stop After First Download" is checked (stay_open == False), only allow
-        # one download at a time.
-        self.download_in_progress = False
-
-        # Reset assets path
-        self.web.app.static_folder=self.common.get_resource_path('static')
-
 
         self.define_routes()
 
@@ -44,8 +23,9 @@ class ShareModeWeb(object):
         """
         The web app routes for sharing files
         """
-        @self.web.app.route("/")
-        def index():
+        @self.web.app.route('/', defaults={'path': ''})
+        @self.web.app.route('/<path:path>')
+        def index(path):
             """
             Render the template for the onionshare landing page.
             """
@@ -65,15 +45,8 @@ class ShareModeWeb(object):
             else:
                 self.filesize = self.download_filesize
 
-            r = make_response(render_template(
-                'send.html',
-                file_info=self.file_info,
-                filename=os.path.basename(self.download_filename),
-                filesize=self.filesize,
-                filesize_human=self.common.human_readable_filesize(self.download_filesize),
-                is_zipped=self.is_zipped,
-                static_url_path=self.web.static_url_path))
-            return self.web.add_security_headers(r)
+            return self.render_logic(path)
+
 
         @self.web.app.route("/download")
         def download():
@@ -198,19 +171,8 @@ class ShareModeWeb(object):
                 r.headers.set('Content-Type', content_type)
             return r
 
-    def set_file_info(self, filenames, processed_size_callback=None):
-        """
-        Using the list of filenames being shared, fill in details that the web
-        page will need to display. This includes zipping up the file in order to
-        get the zip file's name and size.
-        """
-        self.common.log("ShareModeWeb", "set_file_info")
-        self.web.cancel_compression = False
-
-        self.cleanup_filenames = []
-
-        # build file info list
-        self.file_info = {'files': [], 'dirs': []}
+    def build_zipfile_list(self, filenames, processed_size_callback=None):
+        self.common.log("ShareModeWeb", "build_zipfile_list")
         for filename in filenames:
             info = {
                 'filename': filename,
