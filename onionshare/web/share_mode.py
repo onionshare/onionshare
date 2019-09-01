@@ -6,11 +6,11 @@ import mimetypes
 import gzip
 from flask import Response, request, render_template, make_response
 
-from .base_mode import BaseModeWeb
+from .send_base_mode import SendBaseModeWeb
 from .. import strings
 
 
-class ShareModeWeb(BaseModeWeb):
+class ShareModeWeb(SendBaseModeWeb):
     """
     All of the web logic for share mode
     """

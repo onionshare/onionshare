@@ -8,7 +8,7 @@ from werkzeug.utils import secure_filename
 from .. import strings
 
 
-class ReceiveModeWeb(object):
+class ReceiveModeWeb:
     """
     All of the web logic for receive mode
     """

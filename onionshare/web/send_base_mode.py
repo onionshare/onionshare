@@ -6,12 +6,12 @@ from flask import Response, request, render_template, make_response, send_from_d
 
 from .. import strings
 
-class BaseModeWeb(object):
+class SendBaseModeWeb:
     """
-    All of the web logic shared between share and website mode
+    All of the web logic shared between share and website mode (modes where the user sends files)
     """
     def __init__(self, common, web):
-        super(BaseModeWeb, self).__init__()
+        super(SendBaseModeWeb, self).__init__()
         self.common = common
         self.web = web
 
