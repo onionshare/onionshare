@@ -4,11 +4,11 @@ import tempfile
 import mimetypes
 from flask import Response, request, render_template, make_response
 
-from .base_mode import BaseModeWeb
+from .send_base_mode import SendBaseModeWeb
 from .. import strings
 
 
-class WebsiteModeWeb(BaseModeWeb):
+class WebsiteModeWeb(SendBaseModeWeb):
     """
     All of the web logic for website mode
     """
