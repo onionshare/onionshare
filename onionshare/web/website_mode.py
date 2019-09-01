@@ -98,7 +98,7 @@ class WebsiteModeWeb(SendBaseModeWeb):
                     # Root directory listing
                     filenames = list(self.root_files)
                     filenames.sort()
-                    return self.directory_listing(filenames, path, filesystem_path)
+                    return self.directory_listing(filenames, path)
 
             else:
                 # If the path isn't found, throw a 404

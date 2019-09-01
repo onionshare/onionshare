@@ -196,7 +196,7 @@ class ShareModeWeb(SendBaseModeWeb):
                     else:
                         filenames.append(filename)
                 filenames.sort()
-                return self.directory_listing(filenames, path)
+                return self.directory_listing(filenames, path, filesystem_path)
 
             # If it's a file
             elif os.path.isfile(filesystem_path):
