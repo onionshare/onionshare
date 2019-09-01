@@ -46,11 +46,11 @@ If you find that these instructions don't work for your Linux distribution or ve
 
 Install Xcode from the Mac App Store. Once it's installed, run it for the first time to set it up. Also, run this to make sure command line tools are installed: `xcode-select --install`. And finally, open Xcode, go to Preferences > Locations, and make sure under Command Line Tools you select an installed version from the dropdown. (This is required for installing Qt5.)
 
-Download and install Python 3.7.2 from https://www.python.org/downloads/release/python-372/. I downloaded `python-3.7.2-macosx10.9.pkg`.
+Download and install Python 3.7.4 from https://www.python.org/downloads/release/python-374/. I downloaded `python-3.7.4-macosx10.9.pkg`.
 
 You may also need to run the command `/Applications/Python\ 3.7/Install\ Certificates.command` to update Python 3.6's internal certificate store. Otherwise, you may find that fetching the Tor Browser .dmg file fails later due to a certificate validation error.
 
-Install Qt 5.12.1 from https://download.qt.io/archive/qt/5.12/5.12.1/. I downloaded `qt-opensource-mac-x64-5.12.1.dmg`. In the installer, you can skip making an account, and all you need is `Qt` > `Qt 5.12.1` > `macOS`.
+Install Qt 5.13.0 for macOS from https://www.qt.io/offline-installers. I downloaded `qt-opensource-mac-x64-5.13.0.dmg`. In the installer, you can skip making an account, and all you need is `Qt` > `Qt 5.13.0` > `macOS`.
 
 Now install pip dependencies. If you want to use a virtualenv, create it and activate it first:
 
@@ -70,48 +70,6 @@ pip3 install -r install/requirements.txt
 ```sh
 ./dev_scripts/onionshare
 ./dev_scripts/onionshare-gui
-```
-
-#### Building PyInstaller
-
-If you want to build an app bundle, you'll need to use PyInstaller. Recently there has been issues with installing PyInstaller using pip, so here's how to build it from source. First, make sure you don't have PyInstaller currently installed:
-
-```sh
-pip3 uninstall PyInstaller
-```
-
-Change to a folder where you keep source code, and clone the PyInstaller git repo:
-
-```sh
-git clone https://github.com/pyinstaller/pyinstaller.git
-```
-
-Verify the v3.4 git tag:
-
-```sh
-cd pyinstaller
-gpg --keyserver hkps://keyserver.ubuntu.com:443 --recv-key 0xD4AD8B9C167B757C4F08E8777B752811BF773B65
-git tag -v v3.4
-```
-
-It should say `Good signature from "Hartmut Goebel <h.goebel@goebel-consult.de>`. If it verified successfully, checkout the tag:
-
-```sh
-git checkout v3.4
-```
-
-And compile the bootloader, following [these instructions](https://pyinstaller.readthedocs.io/en/stable/bootloader-building.html#building-for-mac-os-x). To compile, run this:
-
-```sh
-cd bootloader
-python3 waf distclean all --target-arch=64bit
-```
-
-Finally, install the PyInstaller module into your local site-packages. If you're using a virtualenv, make sure to run this last command while your virtualenv is activated:
-
-```sh
-cd ..
-python3 setup.py install
 ```
 
 #### To build the app bundle
@@ -134,7 +92,7 @@ Now you should have `dist/OnionShare.pkg`.
 
 ### Setting up your dev environment
 
-Download Python 3.7.2, 32-bit (x86) from https://www.python.org/downloads/release/python-372/. I downloaded `python-3.7.2.exe`. When installing it, make sure to check the "Add Python 3.7 to PATH" checkbox on the first page of the installer.
+Download Python 3.7.4, 32-bit (x86) from https://www.python.org/downloads/release/python-374/. I downloaded `python-3.7.4.exe`. When installing it, make sure to check the "Add Python 3.7 to PATH" checkbox on the first page of the installer.
 
 Open a command prompt, cd to the onionshare folder, and install dependencies with pip:
 
@@ -142,7 +100,7 @@ Open a command prompt, cd to the onionshare folder, and install dependencies wit
 pip install -r install\requirements.txt
 ```
 
-Install the Qt 5.12.1 from https://download.qt.io/archive/qt/5.12/5.12.1/. I downloaded `qt-opensource-windows-x86-5.12.1.exe`. In the installer, you can skip making an account, and all you need `Qt` > `Qt 5.12.1` > `MSVC 2017 32-bit`.
+Install the Qt 5.13.0 from https://www.qt.io/download-open-source/. I downloaded `qt-opensource-windows-x86-5.13.0.exe`. In the installer, you can skip making an account, and all you need `Qt` > `Qt 5.13.0` > `MSVC 2017 32-bit`.
 
 After that you can try both the CLI and the GUI version of OnionShare:
 
