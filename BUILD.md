@@ -14,7 +14,7 @@ Install the needed dependencies:
 For Debian-like distros:
 
 ```
-apt install -y python3-flask python3-stem python3-pyqt5 python3-crypto python3-socks python-nautilus tor obfs4proxy python3-pytest build-essential fakeroot python3-all python3-stdeb dh-python python-flask-httpauth 
+apt install -y python3-flask python3-stem python3-pyqt5 python3-crypto python3-socks python-nautilus tor obfs4proxy python3-pytest build-essential fakeroot python3-all python3-stdeb dh-python python3-flask-httpauth
 ```
 
 For Fedora-like distros:
@@ -400,7 +400,7 @@ To publish the release:
 
 - Create a new release on GitHub, put the changelog in the description of the release, and upload all six files (the macOS installer, the Windows installer, the source package, and their signatures)
 - Upload the six release files to https://onionshare.org/dist/$VERSION/
-- Copy the six release files into the OnionShare team Keybase filesystem 
+- Copy the six release files into the OnionShare team Keybase filesystem
 - Update the [onionshare-website](https://github.com/micahflee/onionshare-website) repo:
   - Edit `latest-version.txt` to match the latest version
   - Update the version number and download links
