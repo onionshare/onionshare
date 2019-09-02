@@ -204,10 +204,17 @@ class SettingsDialog(QtWidgets.QDialog):
         self.close_after_first_download_checkbox = QtWidgets.QCheckBox()
         self.close_after_first_download_checkbox.setCheckState(QtCore.Qt.Checked)
         self.close_after_first_download_checkbox.setText(strings._("gui_settings_close_after_first_download_option"))
+        self.close_after_first_download_checkbox.toggled.connect(self.close_after_first_download_toggled)
+
+        # Close after first download
+        self.allow_downloading_individual_files_checkbox = QtWidgets.QCheckBox()
+        self.allow_downloading_individual_files_checkbox.setCheckState(QtCore.Qt.Checked)
+        self.allow_downloading_individual_files_checkbox.setText(strings._("gui_settings_allow_downloading_individual_files_option"))
 
         # Sharing options layout
         sharing_group_layout = QtWidgets.QVBoxLayout()
         sharing_group_layout.addWidget(self.close_after_first_download_checkbox)
+        sharing_group_layout.addWidget(self.allow_downloading_individual_files_checkbox)
         sharing_group = QtWidgets.QGroupBox(strings._("gui_settings_sharing_label"))
         sharing_group.setLayout(sharing_group_layout)
 
@@ -503,8 +510,16 @@ class SettingsDialog(QtWidgets.QDialog):
         close_after_first_download = self.old_settings.get('close_after_first_download')
         if close_after_first_download:
             self.close_after_first_download_checkbox.setCheckState(QtCore.Qt.Checked)
+            self.allow_downloading_individual_files_checkbox.setEnabled(False)
         else:
             self.close_after_first_download_checkbox.setCheckState(QtCore.Qt.Unchecked)
+            self.allow_downloading_individual_files_checkbox.setEnabled(True)
+
+        allow_downloading_individual_files = self.old_settings.get('share_allow_downloading_individual_files')
+        if allow_downloading_individual_files:
+            self.allow_downloading_individual_files_checkbox.setCheckState(QtCore.Qt.Checked)
+        else:
+            self.allow_downloading_individual_files_checkbox.setCheckState(QtCore.Qt.Unchecked)
 
         autostart_timer = self.old_settings.get('autostart_timer')
         if autostart_timer:
@@ -629,6 +644,15 @@ class SettingsDialog(QtWidgets.QDialog):
             self.connect_to_tor_label.show()
             self.onion_settings_widget.hide()
 
+    def close_after_first_download_toggled(self, checked):
+        """
+        Stop sharing after files have been sent was toggled. If checked, disable allow downloading of individual files.
+        """
+        self.common.log('SettingsDialog', 'close_after_first_download_toggled')
+        if checked:
+            self.allow_downloading_individual_files_checkbox.setEnabled(False)
+        else:
+            self.allow_downloading_individual_files_checkbox.setEnabled(True)
 
     def connection_type_bundled_toggled(self, checked):
         """
@@ -956,6 +980,7 @@ class SettingsDialog(QtWidgets.QDialog):
         settings.load() # To get the last update timestamp
 
         settings.set('close_after_first_download', self.close_after_first_download_checkbox.isChecked())
+        settings.set('share_allow_downloading_individual_files', self.allow_downloading_individual_files_checkbox.isChecked())
         settings.set('autostart_timer', self.autostart_timer_checkbox.isChecked())
         settings.set('autostop_timer', self.autostop_timer_checkbox.isChecked())
 
