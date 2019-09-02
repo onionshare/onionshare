@@ -109,6 +109,8 @@ def main(cwd=None):
     # Re-load settings, if a custom config was passed in
     if config:
         common.load_settings(config)
+    else:
+        common.load_settings()
 
     # Verbose mode?
     common.verbose = verbose
