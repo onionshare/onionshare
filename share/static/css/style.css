@@ -56,6 +56,10 @@ header .right ul li {
   cursor: pointer;
 }
 
+a.button:visited {
+  color: #ffffff;
+}
+
 .close-button {
   color: #ffffff;
   background-color: #c90c0c;

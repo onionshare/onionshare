@@ -41,10 +41,13 @@ class SendBaseModeWeb:
         self.download_in_progress = False
 
         self.define_routes()
+        self.init()
 
     def init(self):
-        self.common.log('SendBaseModeWeb', '__init__')
-        self.define_routes()
+        """
+        Inherited class will implement this
+        """
+        pass
 
     def define_routes(self):
         """
@@ -105,6 +108,10 @@ class SendBaseModeWeb:
         if len(filenames) == 1 and os.path.isdir(filenames[0]):
             filenames = [os.path.join(filenames[0], x) for x in os.listdir(filenames[0])]
 
+        # Re-initialize
+        self.init()
+
+        # Build the file list
         self.build_file_list(filenames)
         self.set_file_info_custom(filenames, processed_size_callback)
 
