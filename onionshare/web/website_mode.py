@@ -12,6 +12,9 @@ class WebsiteModeWeb(SendBaseModeWeb):
     """
     All of the web logic for website mode
     """
+    def init(self):
+        pass
+
     def define_routes(self):
         """
         The web app routes for sharing a website

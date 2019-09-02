@@ -14,6 +14,12 @@ class ShareModeWeb(SendBaseModeWeb):
     """
     All of the web logic for share mode
     """
+    def init(self):
+        self.common.log('ShareModeWeb', 'init')
+        # If "Stop sharing after files have been sent" is unchecked and "Allow downloading of individual files" is checked
+        self.download_individual_files = not self.common.settings.get('close_after_first_download') \
+            and self.common.settings.get('share_allow_downloading_individual_files')
+
     def define_routes(self):
         """
         The web app routes for sharing files
@@ -26,7 +32,7 @@ class ShareModeWeb(SendBaseModeWeb):
             """
             self.web.add_request(self.web.REQUEST_LOAD, request.path)
 
-            # Deny new downloads if "Stop After First Download" is checked and there is
+            # Deny new downloads if "Stop sharing after files have been sent" is checked and there is
             # currently a download
             deny_download = not self.web.stay_open and self.download_in_progress
             if deny_download:
@@ -175,7 +181,8 @@ class ShareModeWeb(SendBaseModeWeb):
             filesize=self.filesize,
             filesize_human=self.common.human_readable_filesize(self.download_filesize),
             is_zipped=self.is_zipped,
-            static_url_path=self.web.static_url_path))
+            static_url_path=self.web.static_url_path,
+            download_individual_files=self.download_individual_files))
 
     def set_file_info_custom(self, filenames, processed_size_callback):
         self.common.log("ShareModeWeb", "set_file_info_custom")
@@ -200,9 +207,12 @@ class ShareModeWeb(SendBaseModeWeb):
 
             # If it's a file
             elif os.path.isfile(filesystem_path):
-                dirname = os.path.dirname(filesystem_path)
-                basename = os.path.basename(filesystem_path)
-                return send_from_directory(dirname, basename)
+                if self.download_individual_files:
+                    dirname = os.path.dirname(filesystem_path)
+                    basename = os.path.basename(filesystem_path)
+                    return send_from_directory(dirname, basename)
+                else:
+                    return self.web.error404()
 
             # If it's not a directory or file, throw a 404
             else:

@@ -44,9 +44,13 @@
     <tr>
       <td>
         <img width="30" height="30" title="" alt="" src="{{ static_url_path }}/img/web_file.png" />
+        {% if download_individual_files %}
         <a href="{{ info.basename }}">
           {{ info.basename }}
         </a>
+        {% else %}
+        {{ info.basename }}
+        {% endif %}
       </td>
       <td>{{ info.size_human }}</td>
     </tr>
