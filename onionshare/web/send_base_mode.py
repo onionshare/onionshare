@@ -29,6 +29,7 @@ class SendBaseModeWeb:
         self.files = {}
         # This is only the root files and dirs, as opposed to all of them
         self.root_files = {}
+
         self.cleanup_filenames = []
         self.file_info = {'files': [], 'dirs': []}
 
@@ -113,6 +114,10 @@ class SendBaseModeWeb:
         the static website.
         """
         self.common.log("BaseModeWeb", "build_file_list")
+
+        # Clear the list of files
+        self.files = {}
+        self.root_files = {}
 
         # Loop through the files
         for filename in filenames:
