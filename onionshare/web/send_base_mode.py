@@ -111,22 +111,11 @@ class SendBaseModeWeb:
         # Re-initialize
         self.init()
 
-        # Build the file list
-        self.build_file_list(filenames)
-        self.set_file_info_custom(filenames, processed_size_callback)
-
-    def build_file_list(self, filenames):
-        """
-        Build a data structure that describes the list of files that make up
-        the static website.
-        """
-        self.common.log("BaseModeWeb", "build_file_list")
-
         # Clear the list of files
         self.files = {}
         self.root_files = {}
 
-        # Loop through the files
+        # Build the file list
         for filename in filenames:
             basename = os.path.basename(filename.rstrip('/'))
 
@@ -152,7 +141,7 @@ class SendBaseModeWeb:
                     for nested_filename in nested_filenames:
                         self.files[os.path.join(normalized_root, nested_filename)] = os.path.join(root, nested_filename)
 
-        return True
+        self.set_file_info_custom(filenames, processed_size_callback)
 
     def render_logic(self, path=''):
         """
