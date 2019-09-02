@@ -44,7 +44,7 @@ class GuiShareTest(GuiBaseTest):
         self.file_selection_widget_has_files(0)
 
 
-    def file_selection_widget_readd_files(self):
+    def file_selection_widget_read_files(self):
         '''Re-add some files to the list so we can share'''
         self.gui.share_mode.server_status.file_selection.file_list.add_file('/etc/hosts')
         self.gui.share_mode.server_status.file_selection.file_list.add_file('/tmp/test.txt')
@@ -117,7 +117,7 @@ class GuiShareTest(GuiBaseTest):
         self.history_is_visible(self.gui.share_mode)
         self.deleting_all_files_hides_delete_button()
         self.add_a_file_and_delete_using_its_delete_widget()
-        self.file_selection_widget_readd_files()
+        self.file_selection_widget_read_files()
 
 
     def run_all_share_mode_started_tests(self, public_mode, startup_time=2000):

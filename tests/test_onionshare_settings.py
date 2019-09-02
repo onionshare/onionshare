@@ -51,7 +51,6 @@ class TestSettings:
             'auth_type': 'no_auth',
             'auth_password': '',
             'close_after_first_download': True,
-            'share_allow_downloading_individual_files': True,
             'autostop_timer': False,
             'autostart_timer': False,
             'use_stealth': False,

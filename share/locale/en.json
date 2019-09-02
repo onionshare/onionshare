@@ -52,7 +52,6 @@
     "gui_settings_onion_label": "Onion settings",
     "gui_settings_sharing_label": "Sharing settings",
     "gui_settings_close_after_first_download_option": "Stop sharing after files have been sent",
-    "gui_settings_allow_downloading_individual_files_option": "Allow downloading of individual files",
     "gui_settings_connection_type_label": "How should OnionShare connect to Tor?",
     "gui_settings_connection_type_bundled_option": "Use the Tor version built into OnionShare",
     "gui_settings_connection_type_automatic_option": "Attempt auto-configuration with Tor Browser",
