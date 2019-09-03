@@ -19,7 +19,7 @@ class LocalWebsiteModeTest(unittest.TestCase, GuiWebsiteTest):
     @pytest.mark.skipif(pytest.__version__ < '2.9', reason="requires newer pytest")
     def test_gui(self):
         #self.run_all_common_setup_tests()
-        self.run_all_website_mode_download_tests(False, False)
+        self.run_all_website_mode_download_tests(False)
 
 if __name__ == "__main__":
     unittest.main()
