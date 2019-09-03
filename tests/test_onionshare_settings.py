@@ -66,6 +66,7 @@ class TestSettings:
             'password': '',
             'hidservauth_string': '',
             'data_dir': os.path.expanduser('~/OnionShare'),
+            'upload_max_size': 0,
             'public_mode': False
         }
         for key in settings_obj._settings:
