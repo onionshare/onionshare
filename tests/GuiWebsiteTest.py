@@ -11,7 +11,6 @@ from onionshare.settings import Settings
 from onionshare.onion import Onion
 from onionshare.web import Web
 from onionshare_gui import Application, OnionShare, OnionShareGui
-from onionshare_gui.mode.website_mode import WebsiteMode
 from .GuiShareTest import GuiShareTest
 
 class GuiWebsiteTest(GuiShareTest):
