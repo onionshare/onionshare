@@ -14,6 +14,7 @@ from onionshare.web import Web
 from onionshare_gui import Application, OnionShare, OnionShareGui
 from onionshare_gui.mode.share_mode import ShareMode
 from onionshare_gui.mode.receive_mode import ReceiveMode
+from onionshare_gui.mode.website_mode import WebsiteMode
 
 
 class GuiBaseTest(object):
@@ -103,6 +104,9 @@ class GuiBaseTest(object):
         if type(mode) == ShareMode:
             QtTest.QTest.mouseClick(self.gui.share_mode_button, QtCore.Qt.LeftButton)
             self.assertTrue(self.gui.mode, self.gui.MODE_SHARE)
+        if type(mode) == WebsiteMode:
+            QtTest.QTest.mouseClick(self.gui.website_mode_button, QtCore.Qt.LeftButton)
+            self.assertTrue(self.gui.mode, self.gui.MODE_WEBSITE)
 
 
     def click_toggle_history(self, mode):
@@ -198,6 +202,9 @@ class GuiBaseTest(object):
         else:
             self.assertIsNone(mode.server_status.web.password, r'(\w+)-(\w+)')
 
+    def add_button_visible(self, mode):
+        '''Test that the add button should be visible'''
+        self.assertTrue(mode.server_status.file_selection.add_button.isVisible())
 
     def url_description_shown(self, mode):
         '''Test that the URL label is showing'''
@@ -249,7 +256,7 @@ class GuiBaseTest(object):
 
     def server_is_stopped(self, mode, stay_open):
         '''Test that the server stops when we click Stop'''
-        if type(mode) == ReceiveMode or (type(mode) == ShareMode and stay_open):
+        if type(mode) == ReceiveMode or (type(mode) == ShareMode and stay_open) or (type(mode) == WebsiteMode):
             QtTest.QTest.mouseClick(mode.server_status.server_button, QtCore.Qt.LeftButton)
         self.assertEqual(mode.server_status.status, 0)
 
