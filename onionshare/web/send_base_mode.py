@@ -2,6 +2,7 @@ import os
 import sys
 import tempfile
 import mimetypes
+import gzip
 from flask import Response, request, render_template, make_response
 
 from .. import strings
@@ -148,3 +149,114 @@ class SendBaseModeWeb:
         Inherited class will implement this.
         """
         pass
+
+    def stream_individual_file(self, filesystem_path):
+        """
+        Return a flask response that's streaming the download of an individual file, and gzip
+        compressing it if the browser supports it.
+        """
+        use_gzip = self.should_use_gzip()
+
+        # gzip compress the individual file, if it hasn't already been compressed
+        if use_gzip:
+            if filesystem_path not in self.gzip_individual_files:
+                gzip_filename = tempfile.mkstemp('wb+')[1]
+                self._gzip_compress(filesystem_path, gzip_filename, 6, None)
+                self.gzip_individual_files[filesystem_path] = gzip_filename
+
+                # Make sure the gzip file gets cleaned up when onionshare stops
+                self.cleanup_filenames.append(gzip_filename)
+
+            file_to_download = self.gzip_individual_files[filesystem_path]
+            filesize = os.path.getsize(self.gzip_individual_files[filesystem_path])
+        else:
+            file_to_download = filesystem_path
+            filesize = os.path.getsize(filesystem_path)
+
+        # TODO: Tell GUI the download started
+        #self.web.add_request(self.web.REQUEST_STARTED, path, {
+        #    'id': download_id,
+        #    'use_gzip': use_gzip
+        #})
+
+        def generate():
+            chunk_size = 102400  # 100kb
+
+            fp = open(file_to_download, 'rb')
+            done = False
+            canceled = False
+            while not done:
+                chunk = fp.read(chunk_size)
+                if chunk == b'':
+                    done = True
+                else:
+                    try:
+                        yield chunk
+
+                        # TODO: Tell GUI the progress
+                        downloaded_bytes = fp.tell()
+                        percent = (1.0 * downloaded_bytes / filesize) * 100
+                        if not self.web.is_gui or self.common.platform == 'Linux' or self.common.platform == 'BSD':
+                            sys.stdout.write(
+                                "\r{0:s}, {1:.2f}%          ".format(self.common.human_readable_filesize(downloaded_bytes), percent))
+                            sys.stdout.flush()
+
+                        #self.web.add_request(self.web.REQUEST_PROGRESS, path, {
+                        #    'id': download_id,
+                        #    'bytes': downloaded_bytes
+                        #    })
+                        done = False
+                    except:
+                        # Looks like the download was canceled
+                        done = True
+                        canceled = True
+
+                        # TODO: Tell the GUI the download has canceled
+                        #self.web.add_request(self.web.REQUEST_CANCELED, path, {
+                        #    'id': download_id
+                        #})
+
+            fp.close()
+
+            if self.common.platform != 'Darwin':
+                sys.stdout.write("\n")
+
+        basename = os.path.basename(filesystem_path)
+
+        r = Response(generate())
+        if use_gzip:
+            r.headers.set('Content-Encoding', 'gzip')
+        r.headers.set('Content-Length', filesize)
+        r.headers.set('Content-Disposition', 'inline', filename=basename)
+        r = self.web.add_security_headers(r)
+        (content_type, _) = mimetypes.guess_type(basename, strict=False)
+        if content_type is not None:
+            r.headers.set('Content-Type', content_type)
+        return r
+
+    def should_use_gzip(self):
+        """
+        Should we use gzip for this browser?
+        """
+        return (not self.is_zipped) and ('gzip' in request.headers.get('Accept-Encoding', '').lower())
+
+    def _gzip_compress(self, input_filename, output_filename, level, processed_size_callback=None):
+        """
+        Compress a file with gzip, without loading the whole thing into memory
+        Thanks: https://stackoverflow.com/questions/27035296/python-how-to-gzip-a-large-text-file-without-memoryerror
+        """
+        bytes_processed = 0
+        blocksize = 1 << 16 # 64kB
+        with open(input_filename, 'rb') as input_file:
+            output_file = gzip.open(output_filename, 'wb', level)
+            while True:
+                if processed_size_callback is not None:
+                    processed_size_callback(bytes_processed)
+
+                block = input_file.read(blocksize)
+                if len(block) == 0:
+                    break
+                output_file.write(block)
+                bytes_processed += blocksize
+
+            output_file.close()

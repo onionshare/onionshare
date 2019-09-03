@@ -3,8 +3,7 @@ import sys
 import tempfile
 import zipfile
 import mimetypes
-import gzip
-from flask import Response, request, render_template, make_response, send_from_directory
+from flask import Response, request, render_template, make_response
 
 from .send_base_mode import SendBaseModeWeb
 from .. import strings
@@ -16,8 +15,10 @@ class ShareModeWeb(SendBaseModeWeb):
     """
     def init(self):
         self.common.log('ShareModeWeb', 'init')
+
         # Allow downloading individual files if "Stop sharing after files have been sent" is unchecked
         self.download_individual_files = not self.common.settings.get('close_after_first_download')
+        self.gzip_individual_files = {}
 
     def define_routes(self):
         """
@@ -207,9 +208,7 @@ class ShareModeWeb(SendBaseModeWeb):
             # If it's a file
             elif os.path.isfile(filesystem_path):
                 if self.download_individual_files:
-                    dirname = os.path.dirname(filesystem_path)
-                    basename = os.path.basename(filesystem_path)
-                    return send_from_directory(dirname, basename)
+                    return self.stream_individual_file(filesystem_path)
                 else:
                     return self.web.error404()
 
@@ -286,33 +285,6 @@ class ShareModeWeb(SendBaseModeWeb):
             self.is_zipped = True
 
         return True
-
-    def should_use_gzip(self):
-        """
-        Should we use gzip for this browser?
-        """
-        return (not self.is_zipped) and ('gzip' in request.headers.get('Accept-Encoding', '').lower())
-
-    def _gzip_compress(self, input_filename, output_filename, level, processed_size_callback=None):
-        """
-        Compress a file with gzip, without loading the whole thing into memory
-        Thanks: https://stackoverflow.com/questions/27035296/python-how-to-gzip-a-large-text-file-without-memoryerror
-        """
-        bytes_processed = 0
-        blocksize = 1 << 16 # 64kB
-        with open(input_filename, 'rb') as input_file:
-            output_file = gzip.open(output_filename, 'wb', level)
-            while True:
-                if processed_size_callback is not None:
-                    processed_size_callback(bytes_processed)
-
-                block = input_file.read(blocksize)
-                if len(block) == 0:
-                    break
-                output_file.write(block)
-                bytes_processed += blocksize
-
-            output_file.close()
 
 
 class ZipWriter(object):

@@ -2,7 +2,7 @@ import os
 import sys
 import tempfile
 import mimetypes
-from flask import Response, request, render_template, make_response, send_from_directory
+from flask import Response, request, render_template, make_response
 
 from .send_base_mode import SendBaseModeWeb
 from .. import strings
@@ -13,7 +13,7 @@ class WebsiteModeWeb(SendBaseModeWeb):
     All of the web logic for website mode
     """
     def init(self):
-        pass
+        self.gzip_individual_files = {}
 
     def define_routes(self):
         """
@@ -62,10 +62,7 @@ class WebsiteModeWeb(SendBaseModeWeb):
                 index_path = os.path.join(path, 'index.html')
                 if index_path in self.files:
                     # Render it
-                    dirname = os.path.dirname(self.files[index_path])
-                    basename = os.path.basename(self.files[index_path])
-
-                    return send_from_directory(dirname, basename)
+                    return self.stream_individual_file(filesystem_path)
 
                 else:
                     # Otherwise, render directory listing
@@ -80,9 +77,7 @@ class WebsiteModeWeb(SendBaseModeWeb):
 
             # If it's a file
             elif os.path.isfile(filesystem_path):
-                dirname = os.path.dirname(filesystem_path)
-                basename = os.path.basename(filesystem_path)
-                return send_from_directory(dirname, basename)
+                return self.stream_individual_file(filesystem_path)
 
             # If it's not a directory or file, throw a 404
             else:
@@ -94,9 +89,7 @@ class WebsiteModeWeb(SendBaseModeWeb):
                 index_path = 'index.html'
                 if index_path in self.files:
                     # Render it
-                    dirname = os.path.dirname(self.files[index_path])
-                    basename = os.path.basename(self.files[index_path])
-                    return send_from_directory(dirname, basename)
+                    return self.stream_individual_file(self.files[index_path])
                 else:
                     # Root directory listing
                     filenames = list(self.root_files)
