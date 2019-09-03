@@ -341,6 +341,37 @@ class ReceiveHistoryItem(HistoryItem):
             self.label.setText(self.get_canceled_label_text(self.started))
 
 
+class IndividualFileHistoryItem(HistoryItem):
+    """
+    Individual file history item, for share mode viewing of individual files
+    """
+    def __init__(self, common, path):
+        super(IndividualFileHistoryItem, self).__init__()
+        self.status = HistoryItem.STATUS_STARTED
+        self.common = common
+
+        self.visited = time.time()
+        self.visited_dt = datetime.fromtimestamp(self.visited)
+
+        # Labels
+        self.timestamp_label = QtWidgets.QLabel(self.visited_dt.strftime("%b %d, %I:%M%p"))
+        self.path_viewed_label = QtWidgets.QLabel(strings._('gui_individual_file_download').format(path))
+
+        # Layout
+        layout = QtWidgets.QVBoxLayout()
+        layout.addWidget(self.timestamp_label)
+        layout.addWidget(self.path_viewed_label)
+        self.setLayout(layout)
+
+
+    def update(self):
+        self.label.setText(self.get_finished_label_text(self.started_dt))
+        self.status = HistoryItem.STATUS_FINISHED
+
+    def cancel(self):
+        self.progress_bar.setFormat(strings._('gui_canceled'))
+        self.status = HistoryItem.STATUS_CANCELED
+
 class VisitHistoryItem(HistoryItem):
     """
     Download history item, for share mode
