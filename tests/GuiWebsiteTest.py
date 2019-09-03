@@ -19,7 +19,7 @@ class GuiWebsiteTest(GuiShareTest):
         '''Create GUI with given settings'''
         # Create our test file
         testfile = open('/tmp/index.html', 'w')
-        testfile.write('<html><blink>This is a test website hosted by OnionShare</blink></html>')
+        testfile.write('<html><body><p>This is a test website hosted by OnionShare</p></body></html>')
         testfile.close()
 
         common = Common()
@@ -64,7 +64,7 @@ class GuiWebsiteTest(GuiShareTest):
             r = requests.get(url, auth=requests.auth.HTTPBasicAuth('onionshare', self.gui.website_mode.server_status.web.password))
 
         QtTest.QTest.qWait(2000)
-        self.assertTrue('<blink>This is a test website hosted by OnionShare</blink>' in r.text)
+        self.assertTrue('This is a test website hosted by OnionShare' in r.text)
 
     def run_all_website_mode_setup_tests(self):
         """Tests in website mode prior to starting a share"""
