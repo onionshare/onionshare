@@ -105,12 +105,12 @@ class GuiShareTest(GuiBaseTest):
             with open(tmp_file.name, 'r') as f:
                 self.assertEqual('onionshare', f.read())
         else:
+            self.assertFalse('a href="/test.txt"' in r.text)
             if public_mode:
                 r = requests.get(download_file_url)
             else:
                 r = requests.get(download_file_url, auth=requests.auth.HTTPBasicAuth('onionshare', self.gui.share_mode.server_status.web.password))
             self.assertEqual(r.status_code, 404)
-            self.assertFalse('a href="/test.txt"' in r.text)
             self.download_share(public_mode)
 
         QtTest.QTest.qWait(2000)
