@@ -54,7 +54,6 @@ class GuiWebsiteTest(GuiShareTest):
         except:
             pass
 
-
     def view_website(self, public_mode):
         '''Test that we can download the share'''
         url = "http://127.0.0.1:{}/".format(self.gui.app.port)
@@ -88,10 +87,14 @@ class GuiWebsiteTest(GuiShareTest):
         self.server_status_indicator_says_started(self.gui.website_mode)
 
 
-    def run_all_website_mode_download_tests(self, public_mode, stay_open):
+    def run_all_website_mode_download_tests(self, public_mode):
         """Tests in website mode after viewing the site"""
         self.run_all_website_mode_setup_tests()
         self.run_all_website_mode_started_tests(public_mode, startup_time=2000)
         self.view_website(public_mode)
         self.history_widgets_present(self.gui.website_mode)
+        self.server_is_stopped(self.gui.website_mode, False)
+        self.web_server_is_stopped()
+        self.server_status_indicator_says_closed(self.gui.website_mode, False)
+        self.add_button_visible(self.gui.website_mode)
 

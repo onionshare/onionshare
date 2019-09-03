@@ -130,11 +130,6 @@ class GuiShareTest(GuiBaseTest):
             self.web_server_is_stopped()
 
 
-    def add_button_visible(self):
-        '''Test that the add button should be visible'''
-        self.assertTrue(self.gui.share_mode.server_status.file_selection.add_button.isVisible())
-
-
     # 'Grouped' tests follow from here
 
     def run_all_share_mode_setup_tests(self):
@@ -171,7 +166,7 @@ class GuiShareTest(GuiBaseTest):
         self.server_is_stopped(self.gui.share_mode, stay_open)
         self.web_server_is_stopped()
         self.server_status_indicator_says_closed(self.gui.share_mode, stay_open)
-        self.add_button_visible()
+        self.add_button_visible(self.gui.share_mode)
         self.server_working_on_start_button_pressed(self.gui.share_mode)
         self.server_is_started(self.gui.share_mode)
         self.history_indicator(self.gui.share_mode, public_mode)
@@ -184,7 +179,7 @@ class GuiShareTest(GuiBaseTest):
         self.server_is_stopped(self.gui.share_mode, stay_open)
         self.web_server_is_stopped()
         self.server_status_indicator_says_closed(self.gui.share_mode, stay_open)
-        self.add_button_visible()
+        self.add_button_visible(self.gui.share_mode)
         self.server_working_on_start_button_pressed(self.gui.share_mode)
         self.server_is_started(self.gui.share_mode)
         self.history_indicator(self.gui.share_mode, public_mode)
