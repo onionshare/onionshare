@@ -14,6 +14,7 @@ from onionshare.web import Web
 from onionshare_gui import Application, OnionShare, OnionShareGui
 from onionshare_gui.mode.share_mode import ShareMode
 from onionshare_gui.mode.receive_mode import ReceiveMode
+from onionshare_gui.mode.website_mode import WebsiteMode
 
 
 class GuiBaseTest(object):
@@ -103,6 +104,9 @@ class GuiBaseTest(object):
         if type(mode) == ShareMode:
             QtTest.QTest.mouseClick(self.gui.share_mode_button, QtCore.Qt.LeftButton)
             self.assertTrue(self.gui.mode, self.gui.MODE_SHARE)
+        if type(mode) == WebsiteMode:
+            QtTest.QTest.mouseClick(self.gui.website_mode_button, QtCore.Qt.LeftButton)
+            self.assertTrue(self.gui.mode, self.gui.MODE_WEBSITE)
 
 
     def click_toggle_history(self, mode):
