@@ -230,7 +230,7 @@ class ShareMode(Mode):
         Handle REQUEST_LOAD event.
         """
         self.system_tray.showMessage(strings._('systray_page_loaded_title'), strings._('systray_page_loaded_message'))
-        if not event["path"].startswith(('/favicon.ico', '/download', self.web.static_url_path)) and event["path"] != '/':
+        if not self.common.settings.get('close_after_first_download') and not event["path"].startswith(('/favicon.ico', '/download', self.web.static_url_path)) and event["path"] != '/':
 
             item = IndividualFileHistoryItem(self.common, event["path"])
 
