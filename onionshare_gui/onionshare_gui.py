@@ -473,6 +473,9 @@ class OnionShareGui(QtWidgets.QMainWindow):
             if event["type"] == Web.REQUEST_ERROR_DATA_DIR_CANNOT_CREATE:
                 Alert(self.common, strings._('error_cannot_create_data_dir').format(event["data"]["receive_mode_dir"]))
 
+            if event["type"] == Web.REQUEST_ERROR_UPLOAD_TOO_LARGE:
+                self.status_bar.showMessage('{0:s}'.format(strings._('receive_mode_upload_too_large')))
+
             if event["type"] == Web.REQUEST_OTHER:
                 if event["path"] != '/favicon.ico' and event["path"] != "/{}/shutdown".format(mode.web.shutdown_password):
                     self.status_bar.showMessage('{0:s}: {1:s}'.format(strings._('other_page_loaded'), event["path"]))

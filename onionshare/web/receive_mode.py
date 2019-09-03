@@ -265,9 +265,23 @@ class ReceiveModeRequest(Request):
                 self.web.common.log('ReceiveModeRequest', '__init__', 'Permission denied creating receive mode directory')
                 self.upload_error = True
 
+            # Figure out the content length
+            try:
+                self.content_length = int(self.headers['Content-Length'])
+            except:
+                self.content_length = 0
+
+            upload_max_size_in_bytes = self.web.common.settings.get('upload_max_size') * 1024 * 1024
+            if upload_max_size_in_bytes != 0 and self.content_length > upload_max_size_in_bytes:
+                self.web.add_request(self.web.REQUEST_ERROR_UPLOAD_TOO_LARGE)
+                print("Could not upload the file, it is too large")
+                self.web.common.log('ReceiveModeRequest', '__init__', 'Refused uploading file because it exceeds the max upload size')
+                self.upload_error = True
+
+
             # If there's an error so far, finish early
             if self.upload_error:
-                return
+                raise Exception('There was a problem uploading the file')
 
             # A dictionary that maps filenames to the bytes uploaded so far
             self.progress = {}
@@ -279,12 +293,6 @@ class ReceiveModeRequest(Request):
                 self.upload_id = self.web.receive_mode.upload_count
 
                 self.web.receive_mode.upload_count += 1
-
-               # Figure out the content length
-                try:
-                    self.content_length = int(self.headers['Content-Length'])
-                except:
-                    self.content_length = 0
 
                 print("{}: {}".format(
                     datetime.now().strftime("%b %d, %I:%M%p"),

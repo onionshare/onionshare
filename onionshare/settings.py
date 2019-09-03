@@ -114,6 +114,7 @@ class Settings(object):
             'password': '',
             'hidservauth_string': '',
             'data_dir': self.build_default_data_dir(),
+            'upload_max_size': 0,
             'locale': None # this gets defined in fill_in_defaults()
         }
         self._settings = {}

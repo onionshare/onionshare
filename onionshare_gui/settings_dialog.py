@@ -230,9 +230,18 @@ class SettingsDialog(QtWidgets.QDialog):
         data_dir_layout.addWidget(self.data_dir_lineedit)
         data_dir_layout.addWidget(data_dir_button)
 
+        # Upload max size
+        upload_max_size_label = QtWidgets.QLabel(strings._('gui_settings_upload_max_size_label'));
+        self.upload_max_size_spinbox = QtWidgets.QSpinBox()
+        upload_max_size_layout = QtWidgets.QHBoxLayout()
+        upload_max_size_layout.addWidget(upload_max_size_label)
+        upload_max_size_layout.addWidget(self.upload_max_size_spinbox)
+
+
         # Receiving options layout
         receiving_group_layout = QtWidgets.QVBoxLayout()
         receiving_group_layout.addLayout(data_dir_layout)
+        receiving_group_layout.addLayout(upload_max_size_layout)
         receiving_group = QtWidgets.QGroupBox(strings._("gui_settings_receiving_label"))
         receiving_group.setLayout(receiving_group_layout)
 
@@ -543,6 +552,8 @@ class SettingsDialog(QtWidgets.QDialog):
 
         data_dir = self.old_settings.get('data_dir')
         self.data_dir_lineedit.setText(data_dir)
+        upload_max_size = self.old_settings.get('upload_max_size')
+        self.upload_max_size_spinbox.setValue(upload_max_size)
 
         public_mode = self.old_settings.get('public_mode')
         if public_mode:
@@ -1008,6 +1019,7 @@ class SettingsDialog(QtWidgets.QDialog):
             settings.set('use_legacy_v2_onions', False)
 
         settings.set('data_dir', self.data_dir_lineedit.text())
+        settings.set('upload_max_size', self.upload_max_size_spinbox.value())
         settings.set('public_mode', self.public_mode_checkbox.isChecked())
         settings.set('use_stealth', self.stealth_checkbox.isChecked())
         # Always unset the HidServAuth if Stealth mode is unset

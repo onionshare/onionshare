@@ -46,6 +46,7 @@ class Web(object):
     REQUEST_UPLOAD_CANCELED = 9
     REQUEST_ERROR_DATA_DIR_CANNOT_CREATE = 10
     REQUEST_INVALID_PASSWORD = 11
+    REQUEST_ERROR_UPLOAD_TOO_LARGE = 12
 
     def __init__(self, common, is_gui, mode='share'):
         self.common = common
