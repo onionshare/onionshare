@@ -173,6 +173,7 @@ class GuiShareTest(GuiBaseTest):
         self.server_status_indicator_says_closed(self.gui.share_mode, stay_open)
         self.add_button_visible(self.gui.share_mode)
         self.server_working_on_start_button_pressed(self.gui.share_mode)
+        self.toggle_indicator_is_reset(self.gui.share_mode)
         self.server_is_started(self.gui.share_mode)
         self.history_indicator(self.gui.share_mode, public_mode)
 

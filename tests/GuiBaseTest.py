@@ -170,6 +170,9 @@ class GuiBaseTest(object):
         QtTest.QTest.mouseClick(mode.server_status.server_button, QtCore.Qt.LeftButton)
         self.assertEqual(mode.server_status.status, 1)
 
+    def toggle_indicator_is_reset(self, mode):
+        self.assertEqual(mode.toggle_history.indicator_count, 0)
+        self.assertFalse(mode.toggle_history.indicator_label.isVisible())
 
     def server_status_indicator_says_starting(self, mode):
         '''Test that the Server Status indicator shows we are Starting'''

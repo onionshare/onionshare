@@ -212,6 +212,8 @@ class ReceiveMode(Mode):
         Set the info counters back to zero.
         """
         self.history.reset()
+        self.toggle_history.indicator_count = 0
+        self.toggle_history.update_indicator()
 
     def update_primary_action(self):
         self.common.log('ReceiveMode', 'update_primary_action')
