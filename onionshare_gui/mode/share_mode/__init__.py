@@ -334,6 +334,8 @@ class ShareMode(Mode):
         Set the info counters back to zero.
         """
         self.history.reset()
+        self.toggle_history.indicator_count = 0
+        self.toggle_history.update_indicator()
 
     @staticmethod
     def _compute_total_size(filenames):
