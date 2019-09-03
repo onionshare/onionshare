@@ -2,6 +2,7 @@ import os
 import requests
 from datetime import datetime, timedelta
 from PyQt5 import QtCore, QtTest
+from onionshare import strings
 from .GuiBaseTest import GuiBaseTest
 
 class GuiReceiveTest(GuiBaseTest):
@@ -55,6 +56,25 @@ class GuiReceiveTest(GuiBaseTest):
 
         QtCore.QTimer.singleShot(1000, self.accept_dialog)
         self.assertTrue('Error uploading, please inform the OnionShare user' in r.text)
+
+    def upload_too_large_file(self, mode, public_mode):
+        '''Test that we can't upload a file that is too large'''
+        size = 2097152
+        with open('/tmp/large_file', 'wb') as fout:
+            fout.write(os.urandom(size))
+        files = {'file[]': open('/tmp/large_file', 'rb')}
+        url = 'http://127.0.0.1:{}/upload'.format(self.gui.app.port)
+        if public_mode:
+            r = requests.post(url, files=files)
+        else:
+            r = requests.post(url, files=files, auth=requests.auth.HTTPBasicAuth('onionshare', self.gui.receive_mode.web.password))
+
+        QtCore.QTimer.singleShot(1000, self.accept_dialog)
+        self.assertEqual(r.status_code, 500)
+        QtTest.QTest.qWait(1000)
+        self.assertTrue(mode.status_bar.currentMessage(), strings._('receive_mode_upload_too_large'))
+        self.assertTrue(mode.history.empty.isVisible())
+        self.assertFalse(mode.history.not_empty.isVisible())
 
     def upload_dir_permissions(self, mode=0o755):
         '''Manipulate the permissions on the upload dir in between tests'''
@@ -153,3 +173,10 @@ class GuiReceiveTest(GuiBaseTest):
         self.autostop_timer_widget_hidden(self.gui.receive_mode)
         self.server_timed_out(self.gui.receive_mode, 15000)
         self.web_server_is_stopped()
+
+    def receive_mode_upload_too_large_test(self, public_mode):
+        self.run_all_receive_mode_setup_tests(public_mode)
+        self.upload_too_large_file(self.gui.receive_mode, public_mode)
+        self.server_is_stopped(self.gui.receive_mode, False)
+        self.web_server_is_stopped()
+        self.server_status_indicator_says_closed(self.gui.receive_mode, False)
