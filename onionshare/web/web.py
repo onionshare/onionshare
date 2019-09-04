@@ -63,6 +63,9 @@ class Web:
         self.auth = HTTPBasicAuth()
         self.auth.error_handler(self.error401)
 
+        # This tracks the history id
+        self.cur_history_id = 0
+
         # Verbose mode?
         if self.common.verbose:
             self.verbose_mode()
@@ -193,20 +196,52 @@ class Web:
                     self.force_shutdown()
                     print("Someone has made too many wrong attempts to guess your password, so OnionShare has stopped the server. Start sharing again and send the recipient a new address to share.")
 
+        history_id = self.cur_history_id
+        self.cur_history_id += 1
+        self.add_request(self.REQUEST_INDIVIDUAL_FILE_STARTED, '{}'.format(request.path), {
+            'id': history_id,
+            'method': request.method,
+            'status_code': 401
+        })
+
         r = make_response(render_template('401.html', static_url_path=self.static_url_path), 401)
         return self.add_security_headers(r)
 
     def error403(self):
+        history_id = self.cur_history_id
+        self.cur_history_id += 1
+        self.add_request(self.REQUEST_INDIVIDUAL_FILE_STARTED, '{}'.format(request.path), {
+            'id': history_id,
+            'method': request.method,
+            'status_code': 403
+        })
+
         self.add_request(Web.REQUEST_OTHER, request.path)
         r = make_response(render_template('403.html', static_url_path=self.static_url_path), 403)
         return self.add_security_headers(r)
 
     def error404(self):
+        history_id = self.cur_history_id
+        self.cur_history_id += 1
+        self.add_request(self.REQUEST_INDIVIDUAL_FILE_STARTED, '{}'.format(request.path), {
+            'id': history_id,
+            'method': request.method,
+            'status_code': 404
+        })
+
         self.add_request(Web.REQUEST_OTHER, request.path)
         r = make_response(render_template('404.html', static_url_path=self.static_url_path), 404)
         return self.add_security_headers(r)
 
     def error405(self):
+        history_id = self.cur_history_id
+        self.cur_history_id += 1
+        self.add_request(self.REQUEST_INDIVIDUAL_FILE_STARTED, '{}'.format(request.path), {
+            'id': history_id,
+            'method': request.method,
+            'status_code': 405
+        })
+
         r = make_response(render_template('405.html', static_url_path=self.static_url_path), 405)
         return self.add_security_headers(r)
 

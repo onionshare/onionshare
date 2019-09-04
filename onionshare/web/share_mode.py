@@ -60,10 +60,6 @@ class ShareModeWeb(SendBaseModeWeb):
                     static_url_path=self.web.static_url_path))
                 return self.web.add_security_headers(r)
 
-            # Each download has a unique id
-            download_id = self.download_count
-            self.download_count += 1
-
             # Prepare some variables to use inside generate() function below
             # which is outside of the request context
             shutdown_func = request.environ.get('werkzeug.server.shutdown')
@@ -81,8 +77,10 @@ class ShareModeWeb(SendBaseModeWeb):
                 self.filesize = self.download_filesize
 
             # Tell GUI the download started
+            history_id = self.cur_history_id
+            self.cur_history_id += 1
             self.web.add_request(self.web.REQUEST_STARTED, path, {
-                'id': download_id,
+                'id': history_id,
                 'use_gzip': use_gzip
             })
 
@@ -102,7 +100,7 @@ class ShareModeWeb(SendBaseModeWeb):
                     # The user has canceled the download, so stop serving the file
                     if not self.web.stop_q.empty():
                         self.web.add_request(self.web.REQUEST_CANCELED, path, {
-                            'id': download_id
+                            'id': history_id
                         })
                         break
 
@@ -124,7 +122,7 @@ class ShareModeWeb(SendBaseModeWeb):
                                 sys.stdout.flush()
 
                             self.web.add_request(self.web.REQUEST_PROGRESS, path, {
-                                'id': download_id,
+                                'id': history_id,
                                 'bytes': downloaded_bytes
                                 })
                             self.web.done = False
@@ -135,7 +133,7 @@ class ShareModeWeb(SendBaseModeWeb):
 
                             # tell the GUI the download has canceled
                             self.web.add_request(self.web.REQUEST_CANCELED, path, {
-                                'id': download_id
+                                'id': history_id
                             })
 
                 fp.close()

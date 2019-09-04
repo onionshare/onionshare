@@ -19,7 +19,6 @@ class ReceiveModeWeb:
         self.web = web
 
         self.can_upload = True
-        self.upload_count = 0
         self.uploads_in_progress = []
 
         self.define_routes()
@@ -52,7 +51,7 @@ class ReceiveModeWeb:
 
                     # Tell the GUI the receive mode directory for this file
                     self.web.add_request(self.web.REQUEST_UPLOAD_SET_DIR, request.path, {
-                        'id': request.upload_id,
+                        'id': request.history_id,
                         'filename': basename,
                         'dir': request.receive_mode_dir
                     })
@@ -272,10 +271,9 @@ class ReceiveModeRequest(Request):
             # Prevent new uploads if we've said so (timer expired)
             if self.web.receive_mode.can_upload:
 
-                # Create an upload_id, attach it to the request
-                self.upload_id = self.web.receive_mode.upload_count
-
-                self.web.receive_mode.upload_count += 1
+                # Create an history_id, attach it to the request
+                self.history_id = self.web.receive_mode.cur_history_id
+                self.web.receive_mode.cur_history_id += 1
 
                # Figure out the content length
                 try:
@@ -302,10 +300,10 @@ class ReceiveModeRequest(Request):
             if not self.told_gui_about_request:
                 # Tell the GUI about the request
                 self.web.add_request(self.web.REQUEST_STARTED, self.path, {
-                    'id': self.upload_id,
+                    'id': self.history_id,
                     'content_length': self.content_length
                 })
-                self.web.receive_mode.uploads_in_progress.append(self.upload_id)
+                self.web.receive_mode.uploads_in_progress.append(self.history_id)
 
                 self.told_gui_about_request = True
 
@@ -337,19 +335,19 @@ class ReceiveModeRequest(Request):
 
         try:
             if self.told_gui_about_request:
-                upload_id = self.upload_id
+                history_id = self.history_id
 
                 if not self.web.stop_q.empty() or not self.progress[self.filename]['complete']:
                     # Inform the GUI that the upload has canceled
                     self.web.add_request(self.web.REQUEST_UPLOAD_CANCELED, self.path, {
-                        'id': upload_id
+                        'id': history_id
                     })
                 else:
                     # Inform the GUI that the upload has finished
                     self.web.add_request(self.web.REQUEST_UPLOAD_FINISHED, self.path, {
-                        'id': upload_id
+                        'id': history_id
                     })
-                self.web.receive_mode.uploads_in_progress.remove(upload_id)
+                self.web.receive_mode.uploads_in_progress.remove(history_id)
 
         except AttributeError:
             pass
@@ -375,7 +373,7 @@ class ReceiveModeRequest(Request):
             # Update the GUI on the upload progress
             if self.told_gui_about_request:
                 self.web.add_request(self.web.REQUEST_PROGRESS, self.path, {
-                    'id': self.upload_id,
+                    'id': self.history_id,
                     'progress': self.progress
                 })
 
