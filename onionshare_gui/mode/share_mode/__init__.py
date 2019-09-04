@@ -225,21 +225,6 @@ class ShareMode(Mode):
         """
         self.primary_action.hide()
 
-    def handle_request_load(self, event):
-        """
-        Handle REQUEST_LOAD event.
-        """
-        self.system_tray.showMessage(strings._('systray_page_loaded_title'), strings._('systray_page_loaded_message'))
-        if not self.common.settings.get('close_after_first_download') and not event["path"].startswith(('/favicon.ico', '/download', self.web.static_url_path)) and event["path"] != '/':
-
-            item = IndividualFileHistoryItem(self.common, event["path"])
-
-            self.history.add(0, item)
-            self.toggle_history.update_indicator(True)
-            self.history.completed_count += 1
-            self.history.update_completed()
-            self.system_tray.showMessage(strings._('systray_individual_file_downloaded_title'), strings._('systray_individual_file_downloaded_message').format(event["path"]))
-
     def handle_request_started(self, event):
         """
         Handle REQUEST_STARTED event.

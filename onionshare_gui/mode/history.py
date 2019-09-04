@@ -345,61 +345,88 @@ class IndividualFileHistoryItem(HistoryItem):
     """
     Individual file history item, for share mode viewing of individual files
     """
-    def __init__(self, common, path):
+    def __init__(self, common, data, path):
         super(IndividualFileHistoryItem, self).__init__()
         self.status = HistoryItem.STATUS_STARTED
         self.common = common
 
-        self.visited = time.time()
-        self.visited_dt = datetime.fromtimestamp(self.visited)
+        self.id = id
+        self.path = path
+        self.method = data['method']
+        self.total_bytes = data['filesize']
+        self.downloaded_bytes = 0
+        self.started = time.time()
+        self.started_dt = datetime.fromtimestamp(self.started)
+        self.status = HistoryItem.STATUS_STARTED
 
         # Labels
-        self.timestamp_label = QtWidgets.QLabel(self.visited_dt.strftime("%b %d, %I:%M%p"))
-        self.path_viewed_label = QtWidgets.QLabel(strings._('gui_individual_file_download').format(path))
+        self.timestamp_label = QtWidgets.QLabel(self.started_dt.strftime("%b %d, %I:%M%p"))
+        self.method_label = QtWidgets.QLabel("{} {}".format(self.method, self.path))
+        self.status_label = QtWidgets.QLabel()
+
+        # Progress bar
+        self.progress_bar = QtWidgets.QProgressBar()
+        self.progress_bar.setTextVisible(True)
+        self.progress_bar.setAttribute(QtCore.Qt.WA_DeleteOnClose)
+        self.progress_bar.setAlignment(QtCore.Qt.AlignHCenter)
+        self.progress_bar.setMinimum(0)
+        self.progress_bar.setMaximum(data['filesize'])
+        self.progress_bar.setValue(0)
+        self.progress_bar.setStyleSheet(self.common.css['downloads_uploads_progress_bar'])
+        self.progress_bar.total_bytes = data['filesize']
+
+        # Text layout
+        labels_layout = QtWidgets.QHBoxLayout()
+        labels_layout.addWidget(self.timestamp_label)
+        labels_layout.addWidget(self.method_label)
+        labels_layout.addWidget(self.status_label)
 
         # Layout
         layout = QtWidgets.QVBoxLayout()
-        layout.addWidget(self.timestamp_label)
-        layout.addWidget(self.path_viewed_label)
+        layout.addLayout(labels_layout)
+        layout.addWidget(self.progress_bar)
         self.setLayout(layout)
 
+        # All non-GET requests are error 405 Method Not Allowed
+        if self.method.lower() != 'get':
+            self.status_label.setText("405")
+            self.progress_bar.hide()
+        else:
+            # Start at 0
+            self.update(0)
 
-    def update(self):
-        self.label.setText(self.get_finished_label_text(self.started_dt))
-        self.status = HistoryItem.STATUS_FINISHED
+    def update(self, downloaded_bytes):
+        self.downloaded_bytes = downloaded_bytes
+
+        self.progress_bar.setValue(downloaded_bytes)
+        if downloaded_bytes == self.progress_bar.total_bytes:
+            self.progress_bar.hide()
+            self.status = HistoryItem.STATUS_FINISHED
+
+        else:
+            elapsed = time.time() - self.started
+            if elapsed < 10:
+                # Wait a couple of seconds for the download rate to stabilize.
+                # This prevents a "Windows copy dialog"-esque experience at
+                # the beginning of the download.
+                pb_fmt = strings._('gui_all_modes_progress_starting').format(
+                    self.common.human_readable_filesize(downloaded_bytes))
+            else:
+                pb_fmt = strings._('gui_all_modes_progress_eta').format(
+                    self.common.human_readable_filesize(downloaded_bytes),
+                    self.estimated_time_remaining)
+
+            self.progress_bar.setFormat(pb_fmt)
 
     def cancel(self):
         self.progress_bar.setFormat(strings._('gui_canceled'))
         self.status = HistoryItem.STATUS_CANCELED
 
-class VisitHistoryItem(HistoryItem):
-    """
-    Download history item, for share mode
-    """
-    def __init__(self, common, id, total_bytes):
-        super(VisitHistoryItem, self).__init__()
-        self.status = HistoryItem.STATUS_STARTED
-        self.common = common
-
-        self.id = id
-        self.visited = time.time()
-        self.visited_dt = datetime.fromtimestamp(self.visited)
-
-        # Label
-        self.label = QtWidgets.QLabel(strings._('gui_visit_started').format(self.visited_dt.strftime("%b %d, %I:%M%p")))
-
-        # Layout
-        layout = QtWidgets.QVBoxLayout()
-        layout.addWidget(self.label)
-        self.setLayout(layout)
-
-    def update(self):
-        self.label.setText(self.get_finished_label_text(self.started_dt))
-        self.status = HistoryItem.STATUS_FINISHED
-
-    def cancel(self):
-        self.progress_bar.setFormat(strings._('gui_canceled'))
-        self.status = HistoryItem.STATUS_CANCELED
+    @property
+    def estimated_time_remaining(self):
+        return self.common.estimated_time_remaining(self.downloaded_bytes,
+                                                self.total_bytes,
+                                                self.started)
 
 class HistoryItemList(QtWidgets.QScrollArea):
     """

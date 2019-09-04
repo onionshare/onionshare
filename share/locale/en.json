@@ -178,7 +178,6 @@
     "gui_receive_mode_no_files": "No Files Received Yet",
     "gui_receive_mode_autostop_timer_waiting": "Waiting to finish receiving",
     "gui_visit_started": "Someone has visited your website {}",
-    "gui_individual_file_download": "Viewed {}",
     "receive_mode_upload_starting": "Upload of total size {} is starting",
     "days_first_letter": "d",
     "hours_first_letter": "h",

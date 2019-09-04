@@ -22,6 +22,8 @@ from PyQt5 import QtCore, QtWidgets, QtGui
 from onionshare import strings
 from onionshare.common import AutoStopTimer
 
+from .history import IndividualFileHistoryItem
+
 from ..server_status import ServerStatus
 from ..threads import OnionThread
 from ..threads import AutoStartTimer
@@ -29,7 +31,7 @@ from ..widgets import Alert
 
 class Mode(QtWidgets.QWidget):
     """
-    The class that ShareMode and ReceiveMode inherit from.
+    The class that all modes inherit from
     """
     start_server_finished = QtCore.pyqtSignal()
     stop_server_finished = QtCore.pyqtSignal()
@@ -417,3 +419,46 @@ class Mode(QtWidgets.QWidget):
         Handle REQUEST_UPLOAD_CANCELED event.
         """
         pass
+
+    def handle_request_individual_file_started(self, event):
+        """
+        Handle REQUEST_INDVIDIDUAL_FILES_STARTED event.
+        Used in both Share and Website modes, so implemented here.
+        """
+        item = IndividualFileHistoryItem(self.common, event["data"], event["path"])
+        self.history.add(event["data"]["id"], item)
+        self.toggle_history.update_indicator(True)
+        self.history.in_progress_count += 1
+        self.history.update_in_progress()
+
+    def handle_request_individual_file_progress(self, event):
+        """
+        Handle REQUEST_INDVIDIDUAL_FILES_PROGRESS event.
+        Used in both Share and Website modes, so implemented here.
+        """
+        self.history.update(event["data"]["id"], event["data"]["bytes"])
+
+        # Is the download complete?
+        if event["data"]["bytes"] == self.web.share_mode.filesize:
+            # Update completed and in progress labels
+            self.history.completed_count += 1
+            self.history.in_progress_count -= 1
+            self.history.update_completed()
+            self.history.update_in_progress()
+
+        else:
+            if self.server_status.status == self.server_status.STATUS_STOPPED:
+                self.history.cancel(event["data"]["id"])
+                self.history.in_progress_count = 0
+                self.history.update_in_progress()
+
+    def handle_request_individual_file_canceled(self, event):
+        """
+        Handle REQUEST_INDVIDIDUAL_FILES_CANCELED event.
+        Used in both Share and Website modes, so implemented here.
+        """
+        self.history.cancel(event["data"]["id"])
+
+        # Update in progress count
+        self.history.in_progress_count -= 1
+        self.history.update_in_progress()

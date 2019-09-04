@@ -132,18 +132,28 @@ class SendBaseModeWeb:
             file_to_download = filesystem_path
             filesize = os.path.getsize(filesystem_path)
 
-        # TODO: Tell GUI the download started
-        #self.web.add_request(self.web.REQUEST_STARTED, path, {
-        #    'id': download_id,
-        #    'use_gzip': use_gzip
-        #})
+        # Each download has a unique id
+        download_id = self.download_count
+        self.download_count += 1
+
+        path = request.path
+
+        # Tell GUI the individual file started
+        self.web.add_request(self.web.REQUEST_INDIVIDUAL_FILE_STARTED, path, {
+            'id': download_id,
+            'filesize': filesize,
+            'method': request.method
+        })
+
+        # Only GET requests are allowed, any other method should fail
+        if request.method != "GET":
+            return self.web.error405()
 
         def generate():
             chunk_size = 102400  # 100kb
 
             fp = open(file_to_download, 'rb')
             done = False
-            canceled = False
             while not done:
                 chunk = fp.read(chunk_size)
                 if chunk == b'':
@@ -152,7 +162,7 @@ class SendBaseModeWeb:
                     try:
                         yield chunk
 
-                        # TODO: Tell GUI the progress
+                        # Tell GUI the progress
                         downloaded_bytes = fp.tell()
                         percent = (1.0 * downloaded_bytes / filesize) * 100
                         if not self.web.is_gui or self.common.platform == 'Linux' or self.common.platform == 'BSD':
@@ -160,20 +170,19 @@ class SendBaseModeWeb:
                                 "\r{0:s}, {1:.2f}%          ".format(self.common.human_readable_filesize(downloaded_bytes), percent))
                             sys.stdout.flush()
 
-                        #self.web.add_request(self.web.REQUEST_PROGRESS, path, {
-                        #    'id': download_id,
-                        #    'bytes': downloaded_bytes
-                        #    })
+                        self.web.add_request(self.web.REQUEST_INDIVIDUAL_FILE_PROGRESS, path, {
+                            'id': download_id,
+                            'bytes': downloaded_bytes
+                            })
                         done = False
                     except:
                         # Looks like the download was canceled
                         done = True
-                        canceled = True
 
-                        # TODO: Tell the GUI the download has canceled
-                        #self.web.add_request(self.web.REQUEST_CANCELED, path, {
-                        #    'id': download_id
-                        #})
+                        # Tell the GUI the individual file was canceled
+                        self.web.add_request(self.web.REQUEST_INDIVIDUAL_FILE_CANCELED, path, {
+                            'id': download_id
+                        })
 
             fp.close()
 

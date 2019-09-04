@@ -30,7 +30,7 @@ from onionshare.web import Web
 
 from ..file_selection import FileSelection
 from .. import Mode
-from ..history import History, ToggleHistory, VisitHistoryItem
+from ..history import History, ToggleHistory
 from ...widgets import Alert
 
 class WebsiteMode(Mode):
@@ -203,21 +203,6 @@ class WebsiteMode(Mode):
         Handle REQUEST_LOAD event.
         """
         self.system_tray.showMessage(strings._('systray_site_loaded_title'), strings._('systray_site_loaded_message'))
-
-    def handle_request_started(self, event):
-        """
-        Handle REQUEST_STARTED event.
-        """
-        if ( (event["path"] == '') or (event["path"].find(".htm") != -1 ) ):
-            item = VisitHistoryItem(self.common, event["data"]["id"], 0)
-
-            self.history.add(event["data"]["id"], item)
-            self.toggle_history.update_indicator(True)
-            self.history.completed_count += 1
-            self.history.update_completed()
-
-        self.system_tray.showMessage(strings._('systray_website_started_title'), strings._('systray_website_started_message'))
-
 
     def on_reload_settings(self):
         """

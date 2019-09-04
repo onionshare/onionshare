@@ -37,15 +37,18 @@ class Web:
     REQUEST_LOAD = 0
     REQUEST_STARTED = 1
     REQUEST_PROGRESS = 2
-    REQUEST_OTHER = 3
-    REQUEST_CANCELED = 4
-    REQUEST_RATE_LIMIT = 5
-    REQUEST_UPLOAD_FILE_RENAMED = 6
-    REQUEST_UPLOAD_SET_DIR = 7
-    REQUEST_UPLOAD_FINISHED = 8
-    REQUEST_UPLOAD_CANCELED = 9
-    REQUEST_ERROR_DATA_DIR_CANNOT_CREATE = 10
-    REQUEST_INVALID_PASSWORD = 11
+    REQUEST_CANCELED = 3
+    REQUEST_RATE_LIMIT = 4
+    REQUEST_UPLOAD_FILE_RENAMED = 5
+    REQUEST_UPLOAD_SET_DIR = 6
+    REQUEST_UPLOAD_FINISHED = 7
+    REQUEST_UPLOAD_CANCELED = 8
+    REQUEST_INDIVIDUAL_FILE_STARTED = 9
+    REQUEST_INDIVIDUAL_FILE_PROGRESS = 10
+    REQUEST_INDIVIDUAL_FILE_CANCELED = 11
+    REQUEST_ERROR_DATA_DIR_CANNOT_CREATE = 12
+    REQUEST_OTHER = 13
+    REQUEST_INVALID_PASSWORD = 14
 
     def __init__(self, common, is_gui, mode='share'):
         self.common = common
@@ -193,15 +196,18 @@ class Web:
         r = make_response(render_template('401.html', static_url_path=self.static_url_path), 401)
         return self.add_security_headers(r)
 
+    def error403(self):
+        self.add_request(Web.REQUEST_OTHER, request.path)
+        r = make_response(render_template('403.html', static_url_path=self.static_url_path), 403)
+        return self.add_security_headers(r)
+
     def error404(self):
         self.add_request(Web.REQUEST_OTHER, request.path)
         r = make_response(render_template('404.html', static_url_path=self.static_url_path), 404)
         return self.add_security_headers(r)
 
-    def error403(self):
-        self.add_request(Web.REQUEST_OTHER, request.path)
-
-        r = make_response(render_template('403.html', static_url_path=self.static_url_path), 403)
+    def error405(self):
+        r = make_response(render_template('405.html', static_url_path=self.static_url_path), 405)
         return self.add_security_headers(r)
 
     def add_security_headers(self, r):
