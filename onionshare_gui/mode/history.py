@@ -363,7 +363,9 @@ class IndividualFileHistoryItem(HistoryItem):
 
         # Labels
         self.timestamp_label = QtWidgets.QLabel(self.started_dt.strftime("%b %d, %I:%M%p"))
-        self.method_label = QtWidgets.QLabel("{} {}".format(self.method, self.path))
+        self.timestamp_label.setStyleSheet(self.common.css['history_individual_file_timestamp_label'])
+        self.request_label = QtWidgets.QLabel("{} {}".format(self.method, self.path))
+        self.request_label.setStyleSheet(self.common.css['history_individual_file_request_label'])
         self.status_code_label = QtWidgets.QLabel()
 
         # Progress bar
@@ -377,7 +379,7 @@ class IndividualFileHistoryItem(HistoryItem):
         # Text layout
         labels_layout = QtWidgets.QHBoxLayout()
         labels_layout.addWidget(self.timestamp_label)
-        labels_layout.addWidget(self.method_label)
+        labels_layout.addWidget(self.request_label)
         labels_layout.addWidget(self.status_code_label)
         labels_layout.addStretch()
 
@@ -387,16 +389,13 @@ class IndividualFileHistoryItem(HistoryItem):
         layout.addWidget(self.progress_bar)
         self.setLayout(layout)
 
-        # All non-GET requests are error 405 Method Not Allowed
-        if self.method.lower() != 'get':
-            self.status_code_label.setText("405")
-            self.status = HistoryItem.STATUS_FINISHED
-            self.progress_bar.hide()
-            return
-
         # Is a status code already sent?
         if 'status_code' in data:
             self.status_code_label.setText("{}".format(data['status_code']))
+            if data['status_code'] >= 200 and data['status_code'] < 300:
+                self.status_code_label.setStyleSheet(self.common.css['history_individual_file_status_code_label_2xx'])
+            if data['status_code'] >= 400 and data['status_code'] < 500:
+                self.status_code_label.setStyleSheet(self.common.css['history_individual_file_status_code_label_4xx'])
             self.status = HistoryItem.STATUS_FINISHED
             self.progress_bar.hide()
             return
@@ -416,6 +415,7 @@ class IndividualFileHistoryItem(HistoryItem):
         self.progress_bar.setValue(downloaded_bytes)
         if downloaded_bytes == self.progress_bar.total_bytes:
             self.status_code_label.setText("200")
+            self.status_code_label.setStyleSheet(self.common.css['history_individual_file_status_code_label_2xx'])
             self.progress_bar.hide()
             self.status = HistoryItem.STATUS_FINISHED
 
