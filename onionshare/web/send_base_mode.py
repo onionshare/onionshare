@@ -79,6 +79,15 @@ class SendBaseModeWeb:
         self.set_file_info_custom(filenames, processed_size_callback)
 
     def directory_listing(self, filenames, path='', filesystem_path=None):
+        # Tell the GUI about the directory listing
+        download_id = self.download_count
+        self.download_count += 1
+        self.web.add_request(self.web.REQUEST_INDIVIDUAL_FILE_STARTED, '/{}'.format(path), {
+            'id': download_id,
+            'method': request.method,
+            'directory_listing': True
+        })
+
         # If filesystem_path is None, this is the root directory listing
         files, dirs = self.build_directory_listing(filenames, filesystem_path)
         r = self.directory_listing_template(path, files, dirs)
@@ -132,13 +141,11 @@ class SendBaseModeWeb:
             file_to_download = filesystem_path
             filesize = os.path.getsize(filesystem_path)
 
-        # Each download has a unique id
-        download_id = self.download_count
-        self.download_count += 1
-
         path = request.path
 
         # Tell GUI the individual file started
+        download_id = self.download_count
+        self.download_count += 1
         self.web.add_request(self.web.REQUEST_INDIVIDUAL_FILE_STARTED, path, {
             'id': download_id,
             'filesize': filesize,

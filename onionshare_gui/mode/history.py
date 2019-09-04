@@ -352,34 +352,34 @@ class IndividualFileHistoryItem(HistoryItem):
 
         self.id = id
         self.path = path
-        self.method = data['method']
-        self.total_bytes = data['filesize']
+        self.total_bytes = 0
         self.downloaded_bytes = 0
+        self.method = data['method']
         self.started = time.time()
         self.started_dt = datetime.fromtimestamp(self.started)
         self.status = HistoryItem.STATUS_STARTED
 
+        self.directory_listing = 'directory_listing' in data
+
         # Labels
         self.timestamp_label = QtWidgets.QLabel(self.started_dt.strftime("%b %d, %I:%M%p"))
         self.method_label = QtWidgets.QLabel("{} {}".format(self.method, self.path))
-        self.status_label = QtWidgets.QLabel()
+        self.status_code_label = QtWidgets.QLabel()
 
         # Progress bar
         self.progress_bar = QtWidgets.QProgressBar()
         self.progress_bar.setTextVisible(True)
         self.progress_bar.setAttribute(QtCore.Qt.WA_DeleteOnClose)
         self.progress_bar.setAlignment(QtCore.Qt.AlignHCenter)
-        self.progress_bar.setMinimum(0)
-        self.progress_bar.setMaximum(data['filesize'])
         self.progress_bar.setValue(0)
         self.progress_bar.setStyleSheet(self.common.css['downloads_uploads_progress_bar'])
-        self.progress_bar.total_bytes = data['filesize']
 
         # Text layout
         labels_layout = QtWidgets.QHBoxLayout()
         labels_layout.addWidget(self.timestamp_label)
         labels_layout.addWidget(self.method_label)
-        labels_layout.addWidget(self.status_label)
+        labels_layout.addWidget(self.status_code_label)
+        labels_layout.addStretch()
 
         # Layout
         layout = QtWidgets.QVBoxLayout()
@@ -389,11 +389,26 @@ class IndividualFileHistoryItem(HistoryItem):
 
         # All non-GET requests are error 405 Method Not Allowed
         if self.method.lower() != 'get':
-            self.status_label.setText("405")
+            self.status_code_label.setText("405")
+            self.status = HistoryItem.STATUS_FINISHED
             self.progress_bar.hide()
+            return
+
+        # Is this a directory listing?
+        if self.directory_listing:
+            self.status_code_label.setText("200")
+            self.status = HistoryItem.STATUS_FINISHED
+            self.progress_bar.hide()
+            return
+
         else:
-            # Start at 0
-            self.update(0)
+            self.total_bytes = data['filesize']
+            self.progress_bar.setMinimum(0)
+            self.progress_bar.setMaximum(data['filesize'])
+            self.progress_bar.total_bytes = data['filesize']
+
+        # Start at 0
+        self.update(0)
 
     def update(self, downloaded_bytes):
         self.downloaded_bytes = downloaded_bytes
