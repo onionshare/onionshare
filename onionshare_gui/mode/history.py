@@ -394,9 +394,9 @@ class IndividualFileHistoryItem(HistoryItem):
             self.progress_bar.hide()
             return
 
-        # Is this a directory listing?
-        if self.directory_listing:
-            self.status_code_label.setText("200")
+        # Is a status code already sent?
+        if 'status_code' in data:
+            self.status_code_label.setText("{}".format(data['status_code']))
             self.status = HistoryItem.STATUS_FINISHED
             self.progress_bar.hide()
             return
@@ -415,6 +415,7 @@ class IndividualFileHistoryItem(HistoryItem):
 
         self.progress_bar.setValue(downloaded_bytes)
         if downloaded_bytes == self.progress_bar.total_bytes:
+            self.status_code_label.setText("200")
             self.progress_bar.hide()
             self.status = HistoryItem.STATUS_FINISHED
 

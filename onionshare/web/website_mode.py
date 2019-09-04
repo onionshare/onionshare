@@ -28,17 +28,6 @@ class WebsiteModeWeb(SendBaseModeWeb):
             """
             Render the onionshare website.
             """
-
-            # Each download has a unique id
-            visit_id = self.visit_count
-            self.visit_count += 1
-
-            # Tell GUI the page has been visited
-            self.web.add_request(self.web.REQUEST_STARTED, path, {
-                'id': visit_id,
-                'action': 'visit'
-            })
-
             return self.render_logic(path)
 
     def directory_listing_template(self, path, files, dirs):

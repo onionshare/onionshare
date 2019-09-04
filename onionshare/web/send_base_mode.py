@@ -44,8 +44,7 @@ class SendBaseModeWeb:
         self.files = {} # Dictionary mapping file paths to filenames on disk
         self.root_files = {} # This is only the root files and dirs, as opposed to all of them
         self.cleanup_filenames = []
-        self.visit_count = 0
-        self.download_count = 0
+        self.cur_history_id = 0
         self.file_info = {'files': [], 'dirs': []}
         self.gzip_individual_files = {}
         self.init()
@@ -80,12 +79,12 @@ class SendBaseModeWeb:
 
     def directory_listing(self, filenames, path='', filesystem_path=None):
         # Tell the GUI about the directory listing
-        download_id = self.download_count
-        self.download_count += 1
+        history_id = self.cur_history_id
+        self.cur_history_id += 1
         self.web.add_request(self.web.REQUEST_INDIVIDUAL_FILE_STARTED, '/{}'.format(path), {
-            'id': download_id,
+            'id': history_id,
             'method': request.method,
-            'directory_listing': True
+            'status_code': 200
         })
 
         # If filesystem_path is None, this is the root directory listing
@@ -144,10 +143,10 @@ class SendBaseModeWeb:
         path = request.path
 
         # Tell GUI the individual file started
-        download_id = self.download_count
-        self.download_count += 1
+        history_id = self.cur_history_id
+        self.cur_history_id += 1
         self.web.add_request(self.web.REQUEST_INDIVIDUAL_FILE_STARTED, path, {
-            'id': download_id,
+            'id': history_id,
             'filesize': filesize,
             'method': request.method
         })
@@ -178,7 +177,7 @@ class SendBaseModeWeb:
                             sys.stdout.flush()
 
                         self.web.add_request(self.web.REQUEST_INDIVIDUAL_FILE_PROGRESS, path, {
-                            'id': download_id,
+                            'id': history_id,
                             'bytes': downloaded_bytes
                             })
                         done = False
@@ -188,7 +187,7 @@ class SendBaseModeWeb:
 
                         # Tell the GUI the individual file was canceled
                         self.web.add_request(self.web.REQUEST_INDIVIDUAL_FILE_CANCELED, path, {
-                            'id': download_id
+                            'id': history_id
                         })
 
             fp.close()
