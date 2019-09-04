@@ -203,7 +203,7 @@ class Common(object):
                     border: 0px;
                 }""",
 
-            # Common styles between ShareMode and ReceiveMode and their child widgets
+            # Common styles between modes and their child widgets
             'mode_info_label': """
                 QLabel {
                     font-size: 12px;
@@ -308,6 +308,24 @@ class Common(object):
                 QProgressBar::chunk {
                     background-color: #4e064f;
                     width: 10px;
+                }""",
+
+            'history_individual_file_timestamp_label': """
+                QLabel {
+                    color: #666666;
+                }""",
+
+            'history_individual_file_request_label': """
+                QLabel { }""",
+
+            'history_individual_file_status_code_label_2xx': """
+                QLabel {
+                    color: #008800;
+                }""",
+
+            'history_individual_file_status_code_label_4xx': """
+                QLabel {
+                    color: #cc0000;
                 }""",
 
             # Share mode and child widget styles
