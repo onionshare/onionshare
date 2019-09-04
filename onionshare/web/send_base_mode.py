@@ -18,24 +18,12 @@ class SendBaseModeWeb:
         self.web = web
 
         # Information about the file to be shared
-        self.file_info = []
         self.is_zipped = False
         self.download_filename = None
         self.download_filesize = None
         self.gzip_filename = None
         self.gzip_filesize = None
         self.zip_writer = None
-
-        # Dictionary mapping file paths to filenames on disk
-        self.files = {}
-        # This is only the root files and dirs, as opposed to all of them
-        self.root_files = {}
-
-        self.cleanup_filenames = []
-        self.file_info = {'files': [], 'dirs': []}
-
-        self.visit_count = 0
-        self.download_count = 0
 
         # If "Stop After First Download" is checked (stay_open == False), only allow
         # one download at a time.
@@ -44,24 +32,51 @@ class SendBaseModeWeb:
         self.define_routes()
         self.init()
 
-    def init(self):
+    def set_file_info(self, filenames, processed_size_callback=None):
         """
-        Inherited class will implement this
+        Build a data structure that describes the list of files
         """
-        pass
+        # If there's just one folder, replace filenames with a list of files inside that folder
+        if len(filenames) == 1 and os.path.isdir(filenames[0]):
+            filenames = [os.path.join(filenames[0], x) for x in os.listdir(filenames[0])]
 
-    def define_routes(self):
-        """
-        Inherited class will implement this
-        """
-        pass
+        # Re-initialize
+        self.files = {} # Dictionary mapping file paths to filenames on disk
+        self.root_files = {} # This is only the root files and dirs, as opposed to all of them
+        self.cleanup_filenames = []
+        self.visit_count = 0
+        self.download_count = 0
+        self.file_info = {'files': [], 'dirs': []}
+        self.gzip_individual_files = {}
+        self.init()
 
-    def directory_listing_template(self):
-        """
-        Inherited class will implement this. It should call render_template and return
-        the response.
-        """
-        pass
+        # Build the file list
+        for filename in filenames:
+            basename = os.path.basename(filename.rstrip('/'))
+
+            # If it's a filename, add it
+            if os.path.isfile(filename):
+                self.files[basename] = filename
+                self.root_files[basename] = filename
+
+            # If it's a directory, add it recursively
+            elif os.path.isdir(filename):
+                self.root_files[basename + '/'] = filename
+
+                for root, _, nested_filenames in os.walk(filename):
+                    # Normalize the root path. So if the directory name is "/home/user/Documents/some_folder",
+                    # and it has a nested folder foobar, the root is "/home/user/Documents/some_folder/foobar".
+                    # The normalized_root should be "some_folder/foobar"
+                    normalized_root = os.path.join(basename, root[len(filename):].lstrip('/')).rstrip('/')
+
+                    # Add the dir itself
+                    self.files[normalized_root + '/'] = root
+
+                    # Add the files in this dir
+                    for nested_filename in nested_filenames:
+                        self.files[os.path.join(normalized_root, nested_filename)] = os.path.join(root, nested_filename)
+
+        self.set_file_info_custom(filenames, processed_size_callback)
 
     def directory_listing(self, filenames, path='', filesystem_path=None):
         # If filesystem_path is None, this is the root directory listing
@@ -93,62 +108,6 @@ class SendBaseModeWeb:
                     'size_human': size_human
                 })
         return files, dirs
-
-    def set_file_info_custom(self, filenames, processed_size_callback):
-        """
-        Inherited class will implement this.
-        """
-        pass
-
-    def set_file_info(self, filenames, processed_size_callback=None):
-        """
-        Build a data structure that describes the list of files
-        """
-
-        # If there's just one folder, replace filenames with a list of files inside that folder
-        if len(filenames) == 1 and os.path.isdir(filenames[0]):
-            filenames = [os.path.join(filenames[0], x) for x in os.listdir(filenames[0])]
-
-        # Re-initialize
-        self.init()
-
-        # Clear the list of files
-        self.files = {}
-        self.root_files = {}
-
-        # Build the file list
-        for filename in filenames:
-            basename = os.path.basename(filename.rstrip('/'))
-
-            # If it's a filename, add it
-            if os.path.isfile(filename):
-                self.files[basename] = filename
-                self.root_files[basename] = filename
-
-            # If it's a directory, add it recursively
-            elif os.path.isdir(filename):
-                self.root_files[basename + '/'] = filename
-
-                for root, _, nested_filenames in os.walk(filename):
-                    # Normalize the root path. So if the directory name is "/home/user/Documents/some_folder",
-                    # and it has a nested folder foobar, the root is "/home/user/Documents/some_folder/foobar".
-                    # The normalized_root should be "some_folder/foobar"
-                    normalized_root = os.path.join(basename, root[len(filename):].lstrip('/')).rstrip('/')
-
-                    # Add the dir itself
-                    self.files[normalized_root + '/'] = root
-
-                    # Add the files in this dir
-                    for nested_filename in nested_filenames:
-                        self.files[os.path.join(normalized_root, nested_filename)] = os.path.join(root, nested_filename)
-
-        self.set_file_info_custom(filenames, processed_size_callback)
-
-    def render_logic(self, path=''):
-        """
-        Inherited class will implement this.
-        """
-        pass
 
     def stream_individual_file(self, filesystem_path):
         """
@@ -260,3 +219,34 @@ class SendBaseModeWeb:
                 bytes_processed += blocksize
 
             output_file.close()
+
+    def init(self):
+        """
+        Inherited class will implement this
+        """
+        pass
+
+    def define_routes(self):
+        """
+        Inherited class will implement this
+        """
+        pass
+
+    def directory_listing_template(self):
+        """
+        Inherited class will implement this. It should call render_template and return
+        the response.
+        """
+        pass
+
+    def set_file_info_custom(self, filenames, processed_size_callback):
+        """
+        Inherited class will implement this.
+        """
+        pass
+
+    def render_logic(self, path=''):
+        """
+        Inherited class will implement this.
+        """
+        pass

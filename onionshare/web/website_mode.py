@@ -13,7 +13,7 @@ class WebsiteModeWeb(SendBaseModeWeb):
     All of the web logic for website mode
     """
     def init(self):
-        self.gzip_individual_files = {}
+        pass
 
     def define_routes(self):
         """
