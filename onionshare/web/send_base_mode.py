@@ -147,8 +147,7 @@ class SendBaseModeWeb:
         self.cur_history_id += 1
         self.web.add_request(self.web.REQUEST_INDIVIDUAL_FILE_STARTED, path, {
             'id': history_id,
-            'filesize': filesize,
-            'method': request.method
+            'filesize': filesize
         })
 
         # Only GET requests are allowed, any other method should fail
