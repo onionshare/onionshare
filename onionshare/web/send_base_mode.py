@@ -177,7 +177,8 @@ class SendBaseModeWeb:
 
                         self.web.add_request(self.web.REQUEST_INDIVIDUAL_FILE_PROGRESS, path, {
                             'id': history_id,
-                            'bytes': downloaded_bytes
+                            'bytes': downloaded_bytes,
+                            'filesize': filesize
                             })
                         done = False
                     except:
