@@ -354,7 +354,6 @@ class IndividualFileHistoryItem(HistoryItem):
         self.path = path
         self.total_bytes = 0
         self.downloaded_bytes = 0
-        self.method = data['method']
         self.started = time.time()
         self.started_dt = datetime.fromtimestamp(self.started)
         self.status = HistoryItem.STATUS_STARTED
@@ -364,8 +363,7 @@ class IndividualFileHistoryItem(HistoryItem):
         # Labels
         self.timestamp_label = QtWidgets.QLabel(self.started_dt.strftime("%b %d, %I:%M%p"))
         self.timestamp_label.setStyleSheet(self.common.css['history_individual_file_timestamp_label'])
-        self.request_label = QtWidgets.QLabel("{} {}".format(self.method, self.path))
-        self.request_label.setStyleSheet(self.common.css['history_individual_file_request_label'])
+        self.path_label = QtWidgets.QLabel("{}".format(self.path))
         self.status_code_label = QtWidgets.QLabel()
 
         # Progress bar
@@ -379,7 +377,7 @@ class IndividualFileHistoryItem(HistoryItem):
         # Text layout
         labels_layout = QtWidgets.QHBoxLayout()
         labels_layout.addWidget(self.timestamp_label)
-        labels_layout.addWidget(self.request_label)
+        labels_layout.addWidget(self.path_label)
         labels_layout.addWidget(self.status_code_label)
         labels_layout.addStretch()
 

@@ -315,9 +315,6 @@ class Common(object):
                     color: #666666;
                 }""",
 
-            'history_individual_file_request_label': """
-                QLabel { }""",
-
             'history_individual_file_status_code_label_2xx': """
                 QLabel {
                     color: #008800;
