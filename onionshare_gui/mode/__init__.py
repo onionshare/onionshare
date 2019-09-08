@@ -427,9 +427,6 @@ class Mode(QtWidgets.QWidget):
         """
         item = IndividualFileHistoryItem(self.common, event["data"], event["path"])
         self.history.add(event["data"]["id"], item)
-        self.toggle_history.update_indicator(True)
-        self.history.in_progress_count += 1
-        self.history.update_in_progress()
 
     def handle_request_individual_file_progress(self, event):
         """
@@ -438,19 +435,8 @@ class Mode(QtWidgets.QWidget):
         """
         self.history.update(event["data"]["id"], event["data"]["bytes"])
 
-        # Is the download complete?
-        if event["data"]["bytes"] == self.web.share_mode.filesize:
-            # Update completed and in progress labels
-            self.history.completed_count += 1
-            self.history.in_progress_count -= 1
-            self.history.update_completed()
-            self.history.update_in_progress()
-
-        else:
-            if self.server_status.status == self.server_status.STATUS_STOPPED:
-                self.history.cancel(event["data"]["id"])
-                self.history.in_progress_count = 0
-                self.history.update_in_progress()
+        if self.server_status.status == self.server_status.STATUS_STOPPED:
+            self.history.cancel(event["data"]["id"])
 
     def handle_request_individual_file_canceled(self, event):
         """
@@ -458,7 +444,3 @@ class Mode(QtWidgets.QWidget):
         Used in both Share and Website modes, so implemented here.
         """
         self.history.cancel(event["data"]["id"])
-
-        # Update in progress count
-        self.history.in_progress_count -= 1
-        self.history.update_in_progress()
