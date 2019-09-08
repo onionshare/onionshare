@@ -209,7 +209,6 @@ class Web:
         self.cur_history_id += 1
         self.add_request(self.REQUEST_INDIVIDUAL_FILE_STARTED, '{}'.format(request.path), {
             'id': history_id,
-            'method': request.method,
             'status_code': 404
         })
 

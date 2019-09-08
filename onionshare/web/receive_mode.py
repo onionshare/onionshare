@@ -21,6 +21,8 @@ class ReceiveModeWeb:
         self.can_upload = True
         self.uploads_in_progress = []
 
+        self.cur_history_id = 0
+
         self.define_routes()
 
     def define_routes(self):
@@ -29,6 +31,13 @@ class ReceiveModeWeb:
         """
         @self.web.app.route("/")
         def index():
+            history_id = self.cur_history_id
+            self.cur_history_id += 1
+            self.web.add_request(self.web.REQUEST_INDIVIDUAL_FILE_STARTED, '{}'.format(request.path), {
+                'id': history_id,
+                'status_code': 200
+            })
+
             self.web.add_request(self.web.REQUEST_LOAD, request.path)
             r = make_response(render_template('receive.html',
                 static_url_path=self.web.static_url_path))
