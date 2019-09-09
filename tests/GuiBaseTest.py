@@ -116,7 +116,7 @@ class GuiBaseTest(object):
         self.assertEqual(mode.history.isVisible(), not currently_visible)
 
 
-    def history_indicator(self, mode, public_mode):
+    def history_indicator(self, mode, public_mode, indicator_count="1"):
         '''Test that we can make sure the history is toggled off, do an action, and the indiciator works'''
         # Make sure history is toggled off
         if mode.history.isVisible():
@@ -147,7 +147,7 @@ class GuiBaseTest(object):
 
         # Indicator should be visible, have a value of "1"
         self.assertTrue(mode.toggle_history.indicator_label.isVisible())
-        self.assertEqual(mode.toggle_history.indicator_label.text(), "1")
+        self.assertEqual(mode.toggle_history.indicator_label.text(), indicator_count)
 
         # Toggle history back on, indicator should be hidden again
         QtTest.QTest.mouseClick(mode.toggle_history, QtCore.Qt.LeftButton)
