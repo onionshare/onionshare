@@ -285,6 +285,10 @@ class GuiBaseTest(object):
             else:
                 self.assertEqual(self.gui.share_mode.server_status_label.text(), strings._('closing_automatically'))
 
+    def clear_all_history_items(self, mode, count):
+        if count == 0:
+            QtTest.QTest.mouseClick(mode.history.clear_button, QtCore.Qt.LeftButton)
+        self.assertEquals(len(mode.history.item_list.items.keys()), count)
 
     # Auto-stop timer tests
     def set_timeout(self, mode, timeout):

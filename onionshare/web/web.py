@@ -63,9 +63,6 @@ class Web:
         self.auth = HTTPBasicAuth()
         self.auth.error_handler(self.error401)
 
-        # This tracks the history id
-        self.cur_history_id = 0
-
         # Verbose mode?
         if self.common.verbose:
             self.verbose_mode()
@@ -204,9 +201,7 @@ class Web:
         r = make_response(render_template('403.html', static_url_path=self.static_url_path), 403)
         return self.add_security_headers(r)
 
-    def error404(self):
-        history_id = self.cur_history_id
-        self.cur_history_id += 1
+    def error404(self, history_id):
         self.add_request(self.REQUEST_INDIVIDUAL_FILE_STARTED, '{}'.format(request.path), {
             'id': history_id,
             'status_code': 404

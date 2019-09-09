@@ -127,3 +127,12 @@ class GuiReceiveTest(GuiBaseTest):
         self.autostop_timer_widget_hidden(self.gui.receive_mode)
         self.server_timed_out(self.gui.receive_mode, 15000)
         self.web_server_is_stopped()
+
+    def run_all_clear_all_button_tests(self, public_mode):
+        """Test the Clear All history button"""
+        self.run_all_receive_mode_setup_tests(public_mode)
+        self.upload_file(public_mode, '/tmp/test.txt', 'test.txt')
+        self.history_widgets_present(self.gui.receive_mode)
+        self.clear_all_history_items(self.gui.receive_mode, 0)
+        self.upload_file(public_mode, '/tmp/test.txt', 'test.txt')
+        self.clear_all_history_items(self.gui.receive_mode, 2)
