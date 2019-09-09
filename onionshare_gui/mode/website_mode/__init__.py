@@ -80,6 +80,8 @@ class WebsiteMode(Mode):
             strings._('gui_all_modes_history'),
             'website'
         )
+        self.history.in_progress_label.hide()
+        self.history.completed_label.hide()
         self.history.hide()
 
         # Info label
