@@ -70,7 +70,9 @@ class WebsiteModeWeb(SendBaseModeWeb):
 
             # If it's not a directory or file, throw a 404
             else:
-                return self.web.error404()
+                history_id = self.cur_history_id
+                self.cur_history_id += 1
+                return self.web.error404(history_id)
         else:
             # Special case loading /
 
@@ -87,4 +89,6 @@ class WebsiteModeWeb(SendBaseModeWeb):
 
             else:
                 # If the path isn't found, throw a 404
-                return self.web.error404()
+                history_id = self.cur_history_id
+                self.cur_history_id += 1
+                return self.web.error404(history_id)
