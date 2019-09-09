@@ -134,6 +134,7 @@
     "gui_file_info_single": "{} file, {}",
     "history_in_progress_tooltip": "{} in progress",
     "history_completed_tooltip": "{} completed",
+    "history_requests_tooltip": "{} web requests",
     "error_cannot_create_data_dir": "Could not create OnionShare data folder: {}",
     "gui_receive_mode_warning": "Receive mode lets people upload files to your computer.<br><br><b>Some files can potentially take control of your computer if you open them. Only open things from people you trust, or if you know what you are doing.</b>",
     "gui_mode_share_button": "Share Files",

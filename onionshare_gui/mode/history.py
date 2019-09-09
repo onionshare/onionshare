@@ -237,6 +237,7 @@ class ReceiveHistoryItemFile(QtWidgets.QWidget):
         elif self.common.platform == 'Windows':
             subprocess.Popen(['explorer', '/select,{}'.format(abs_filename)])
 
+
 class ReceiveHistoryItem(HistoryItem):
     def __init__(self, common, id, content_length):
         super(ReceiveHistoryItem, self).__init__()
@@ -442,6 +443,7 @@ class IndividualFileHistoryItem(HistoryItem):
                                                 self.total_bytes,
                                                 self.started)
 
+
 class HistoryItemList(QtWidgets.QScrollArea):
     """
     List of items
@@ -524,12 +526,15 @@ class History(QtWidgets.QWidget):
         # In progress and completed counters
         self.in_progress_count = 0
         self.completed_count = 0
+        self.requests_count = 0
 
-        # In progress and completed labels
+        # In progress, completed, and requests labels
         self.in_progress_label = QtWidgets.QLabel()
         self.in_progress_label.setStyleSheet(self.common.css['mode_info_label'])
         self.completed_label = QtWidgets.QLabel()
         self.completed_label.setStyleSheet(self.common.css['mode_info_label'])
+        self.requests_label = QtWidgets.QLabel()
+        self.requests_label.setStyleSheet(self.common.css['mode_info_label'])
 
         # Header
         self.header_label = QtWidgets.QLabel(header_text)
@@ -543,6 +548,7 @@ class History(QtWidgets.QWidget):
         header_layout.addStretch()
         header_layout.addWidget(self.in_progress_label)
         header_layout.addWidget(self.completed_label)
+        header_layout.addWidget(self.requests_label)
         header_layout.addWidget(clear_button)
 
         # When there are no items
@@ -621,6 +627,10 @@ class History(QtWidgets.QWidget):
         self.completed_count = 0
         self.update_completed()
 
+        # Reset web requests counter
+        self.requests_count = 0
+        self.update_requests()
+
     def update_completed(self):
         """
         Update the 'completed' widget.
@@ -636,14 +646,25 @@ class History(QtWidgets.QWidget):
         """
         Update the 'in progress' widget.
         """
-        if self.mode != 'website':
-            if self.in_progress_count == 0:
-                image = self.common.get_resource_path('images/share_in_progress_none.png')
-            else:
-                image = self.common.get_resource_path('images/share_in_progress.png')
+        if self.in_progress_count == 0:
+            image = self.common.get_resource_path('images/share_in_progress_none.png')
+        else:
+            image = self.common.get_resource_path('images/share_in_progress.png')
 
-            self.in_progress_label.setText('<img src="{0:s}" /> {1:d}'.format(image, self.in_progress_count))
-            self.in_progress_label.setToolTip(strings._('history_in_progress_tooltip').format(self.in_progress_count))
+        self.in_progress_label.setText('<img src="{0:s}" /> {1:d}'.format(image, self.in_progress_count))
+        self.in_progress_label.setToolTip(strings._('history_in_progress_tooltip').format(self.in_progress_count))
+
+    def update_requests(self):
+        """
+        Update the 'web requests' widget.
+        """
+        if self.requests_count == 0:
+            image = self.common.get_resource_path('images/share_requests_none.png')
+        else:
+            image = self.common.get_resource_path('images/share_requests.png')
+
+        self.requests_label.setText('<img src="{0:s}" /> {1:d}'.format(image, self.in_progress_count))
+        self.requests_label.setToolTip(strings._('history_requests_tooltip').format(self.in_progress_count))
 
 
 class ToggleHistory(QtWidgets.QPushButton):
