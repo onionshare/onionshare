@@ -539,17 +539,17 @@ class History(QtWidgets.QWidget):
         # Header
         self.header_label = QtWidgets.QLabel(header_text)
         self.header_label.setStyleSheet(self.common.css['downloads_uploads_label'])
-        clear_button = QtWidgets.QPushButton(strings._('gui_all_modes_clear_history'))
-        clear_button.setStyleSheet(self.common.css['downloads_uploads_clear'])
-        clear_button.setFlat(True)
-        clear_button.clicked.connect(self.reset)
+        self.clear_button = QtWidgets.QPushButton(strings._('gui_all_modes_clear_history'))
+        self.clear_button.setStyleSheet(self.common.css['downloads_uploads_clear'])
+        self.clear_button.setFlat(True)
+        self.clear_button.clicked.connect(self.reset)
         header_layout = QtWidgets.QHBoxLayout()
         header_layout.addWidget(self.header_label)
         header_layout.addStretch()
         header_layout.addWidget(self.in_progress_label)
         header_layout.addWidget(self.completed_label)
         header_layout.addWidget(self.requests_label)
-        header_layout.addWidget(clear_button)
+        header_layout.addWidget(self.clear_button)
 
         # When there are no items
         self.empty_image = QtWidgets.QLabel()

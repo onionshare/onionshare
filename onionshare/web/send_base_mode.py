@@ -29,6 +29,9 @@ class SendBaseModeWeb:
         # one download at a time.
         self.download_in_progress = False
 
+        # This tracks the history id
+        self.cur_history_id = 0
+
         self.define_routes()
         self.init()
 

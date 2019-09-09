@@ -207,11 +207,15 @@ class ShareModeWeb(SendBaseModeWeb):
                 if self.download_individual_files:
                     return self.stream_individual_file(filesystem_path)
                 else:
-                    return self.web.error404()
+                    history_id = self.cur_history_id
+                    self.cur_history_id += 1
+                    return self.web.error404(history_id)
 
             # If it's not a directory or file, throw a 404
             else:
-                return self.web.error404()
+                history_id = self.cur_history_id
+                self.cur_history_id += 1
+                return self.web.error404(history_id)
         else:
             # Special case loading /
 
@@ -223,7 +227,9 @@ class ShareModeWeb(SendBaseModeWeb):
 
             else:
                 # If the path isn't found, throw a 404
-                return self.web.error404()
+                history_id = self.cur_history_id
+                self.cur_history_id += 1
+                return self.web.error404(history_id)
 
     def build_zipfile_list(self, filenames, processed_size_callback=None):
         self.common.log("ShareModeWeb", "build_zipfile_list")

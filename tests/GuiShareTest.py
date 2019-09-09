@@ -196,6 +196,15 @@ class GuiShareTest(GuiBaseTest):
         self.run_all_share_mode_started_tests(public_mode)
         self.run_all_share_mode_download_tests(public_mode, stay_open)
 
+    def run_all_clear_all_button_tests(self, public_mode, stay_open):
+        """Test the Clear All history button"""
+        self.run_all_share_mode_setup_tests()
+        self.run_all_share_mode_started_tests(public_mode)
+        self.individual_file_is_viewable_or_not(public_mode, stay_open)
+        self.history_widgets_present(self.gui.share_mode)
+        self.clear_all_history_items(self.gui.share_mode, 0)
+        self.individual_file_is_viewable_or_not(public_mode, stay_open)
+        self.clear_all_history_items(self.gui.share_mode, 2)
 
     def run_all_share_mode_individual_file_tests(self, public_mode, stay_open):
         """Tests in share mode when viewing an individual file"""
