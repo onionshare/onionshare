@@ -636,9 +636,9 @@ class History(QtWidgets.QWidget):
         Update the 'completed' widget.
         """
         if self.completed_count == 0:
-            image = self.common.get_resource_path('images/share_completed_none.png')
+            image = self.common.get_resource_path('images/history_completed_none.png')
         else:
-            image = self.common.get_resource_path('images/share_completed.png')
+            image = self.common.get_resource_path('images/history_completed.png')
         self.completed_label.setText('<img src="{0:s}" /> {1:d}'.format(image, self.completed_count))
         self.completed_label.setToolTip(strings._('history_completed_tooltip').format(self.completed_count))
 
@@ -647,9 +647,9 @@ class History(QtWidgets.QWidget):
         Update the 'in progress' widget.
         """
         if self.in_progress_count == 0:
-            image = self.common.get_resource_path('images/share_in_progress_none.png')
+            image = self.common.get_resource_path('images/history_in_progress_none.png')
         else:
-            image = self.common.get_resource_path('images/share_in_progress.png')
+            image = self.common.get_resource_path('images/history_in_progress.png')
 
         self.in_progress_label.setText('<img src="{0:s}" /> {1:d}'.format(image, self.in_progress_count))
         self.in_progress_label.setToolTip(strings._('history_in_progress_tooltip').format(self.in_progress_count))
@@ -659,9 +659,9 @@ class History(QtWidgets.QWidget):
         Update the 'web requests' widget.
         """
         if self.requests_count == 0:
-            image = self.common.get_resource_path('images/share_requests_none.png')
+            image = self.common.get_resource_path('images/history_requests_none.png')
         else:
-            image = self.common.get_resource_path('images/share_requests.png')
+            image = self.common.get_resource_path('images/history_requests.png')
 
         self.requests_label.setText('<img src="{0:s}" /> {1:d}'.format(image, self.in_progress_count))
         self.requests_label.setToolTip(strings._('history_requests_tooltip').format(self.in_progress_count))
