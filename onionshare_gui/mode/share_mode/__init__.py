@@ -28,7 +28,7 @@ from onionshare.web import Web
 from ..file_selection import FileSelection
 from .threads import CompressThread
 from .. import Mode
-from ..history import History, ToggleHistory, ShareHistoryItem, IndividualFileHistoryItem
+from ..history import History, ToggleHistory, ShareHistoryItem
 from ...widgets import Alert
 
 
