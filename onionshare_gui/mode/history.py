@@ -663,8 +663,8 @@ class History(QtWidgets.QWidget):
         else:
             image = self.common.get_resource_path('images/history_requests.png')
 
-        self.requests_label.setText('<img src="{0:s}" /> {1:d}'.format(image, self.in_progress_count))
-        self.requests_label.setToolTip(strings._('history_requests_tooltip').format(self.in_progress_count))
+        self.requests_label.setText('<img src="{0:s}" /> {1:d}'.format(image, self.requests_count))
+        self.requests_label.setToolTip(strings._('history_requests_tooltip').format(self.requests_count))
 
 
 class ToggleHistory(QtWidgets.QPushButton):
@@ -697,7 +697,7 @@ class ToggleHistory(QtWidgets.QPushButton):
     def update_indicator(self, increment=False):
         """
         Update the display of the indicator count. If increment is True, then
-        only increment the counter if Downloads is hidden.
+        only increment the counter if History is hidden.
         """
         if increment and not self.history_widget.isVisible():
             self.indicator_count += 1

@@ -425,6 +425,10 @@ class Mode(QtWidgets.QWidget):
         Handle REQUEST_INDVIDIDUAL_FILES_STARTED event.
         Used in both Share and Website modes, so implemented here.
         """
+        self.toggle_history.update_indicator(True)
+        self.history.requests_count += 1
+        self.history.update_requests()
+
         item = IndividualFileHistoryItem(self.common, event["data"], event["path"])
         self.history.add(event["data"]["id"], item)
 
