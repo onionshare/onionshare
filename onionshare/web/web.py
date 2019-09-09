@@ -10,7 +10,7 @@ from distutils.version import LooseVersion as Version
 from urllib.request import urlopen
 
 import flask
-from flask import Flask, request, render_template, abort, make_response, __version__ as flask_version
+from flask import Flask, request, render_template, abort, make_response, send_file, __version__ as flask_version
 from flask_httpauth import HTTPBasicAuth
 
 from .. import strings
@@ -177,6 +177,11 @@ class Web:
                 self.force_shutdown()
                 return ""
             abort(404)
+
+        if self.mode != 'website':
+            @self.app.route("/favicon.ico")
+            def favicon():
+                return send_file('{}/img/favicon.ico'.format(self.common.get_resource_path('static')))
 
     def error401(self):
         auth = request.authorization
