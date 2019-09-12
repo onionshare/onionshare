@@ -78,7 +78,7 @@
     "gui_settings_autoupdate_check_button": "Sök efter ny version",
     "gui_settings_general_label": "Allmänna inställningar",
     "gui_settings_sharing_label": "Delningsinställningar",
-    "gui_settings_close_after_first_download_option": "Fortsätt dela efter att filer har skickats",
+    "gui_settings_close_after_first_download_option": "Avbryt delning efter att filer har skickats",
     "gui_settings_connection_type_label": "Hur ska OnionShare ansluta till Tor?",
     "gui_settings_connection_type_bundled_option": "Använd Tor-versionen som är inbyggd i OnionShare",
     "gui_settings_connection_type_automatic_option": "Försök automatisk konfiguration med Tor Browser",
