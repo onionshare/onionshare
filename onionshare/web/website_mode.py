@@ -30,11 +30,13 @@ class WebsiteModeWeb(SendBaseModeWeb):
             """
             return self.render_logic(path)
 
-    def directory_listing_template(self, path, files, dirs):
+    def directory_listing_template(self, path, files, dirs, breadcrumbs, breadcrumbs_leaf):
         return make_response(render_template('listing.html',
             path=path,
             files=files,
             dirs=dirs,
+            breadcrumbs=breadcrumbs,
+            breadcrumbs_leaf=breadcrumbs_leaf,
             static_url_path=self.web.static_url_path))
 
     def set_file_info_custom(self, filenames, processed_size_callback):
@@ -51,7 +53,7 @@ class WebsiteModeWeb(SendBaseModeWeb):
                 index_path = os.path.join(path, 'index.html')
                 if index_path in self.files:
                     # Render it
-                    return self.stream_individual_file(filesystem_path)
+                    return self.stream_individual_file(self.files[index_path])
 
                 else:
                     # Otherwise, render directory listing
