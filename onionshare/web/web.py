@@ -119,12 +119,23 @@ class Web:
         # Create the mode web object, which defines its own routes
         self.share_mode = None
         self.receive_mode = None
-        if self.mode == 'receive':
+        self.website_mode = None
+        if self.mode == 'share':
+            self.share_mode = ShareModeWeb(self.common, self)
+        elif self.mode == 'receive':
             self.receive_mode = ReceiveModeWeb(self.common, self)
         elif self.mode == 'website':
             self.website_mode = WebsiteModeWeb(self.common, self)
-        elif self.mode == 'share':
-            self.share_mode = ShareModeWeb(self.common, self)
+
+    def get_mode(self):
+        if self.mode == 'share':
+            return self.share_mode
+        elif self.mode == 'receive':
+            return self.receive_mode
+        elif self.mode == 'website':
+            return self.website_mode
+        else:
+            return None
 
     def generate_static_url_path(self):
         # The static URL path has a 128-bit random number in it to avoid having name
@@ -166,7 +177,10 @@ class Web:
 
         @self.app.errorhandler(404)
         def not_found(e):
-            return self.error404()
+            mode = self.get_mode()
+            history_id = mode.cur_history_id
+            mode.cur_history_id += 1
+            return self.error404(history_id)
 
         @self.app.route("/<password_candidate>/shutdown")
         def shutdown(password_candidate):
