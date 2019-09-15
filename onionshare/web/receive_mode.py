@@ -21,6 +21,7 @@ class ReceiveModeWeb:
         self.can_upload = True
         self.uploads_in_progress = []
 
+        # This tracks the history id
         self.cur_history_id = 0
 
         self.define_routes()
