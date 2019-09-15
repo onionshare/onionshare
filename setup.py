@@ -66,7 +66,6 @@ data_files=[
         (os.path.join(sys.prefix, 'share/applications'), ['install/org.onionshare.OnionShare.desktop']),
         (os.path.join(sys.prefix, 'share/icons/hicolor/scalable/apps'), ['install/org.onionshare.OnionShare.svg']),
         (os.path.join(sys.prefix, 'share/metainfo'), ['install/org.onionshare.OnionShare.appdata.xml']),
-        (os.path.join(sys.prefix, 'share/pixmaps'), ['install/onionshare80.xpm']),
         (os.path.join(sys.prefix, 'share/onionshare'), file_list('share')),
         (os.path.join(sys.prefix, 'share/onionshare/images'), file_list('share/images')),
         (os.path.join(sys.prefix, 'share/onionshare/locale'), file_list('share/locale')),
