@@ -174,6 +174,8 @@ class ShareModeWeb(SendBaseModeWeb):
             file_info=self.file_info,
             files=files,
             dirs=dirs,
+            breadcrumbs=breadcrumbs,
+            breadcrumbs_leaf=breadcrumbs_leaf,
             filename=os.path.basename(self.download_filename),
             filesize=self.filesize,
             filesize_human=self.common.human_readable_filesize(self.download_filesize),
