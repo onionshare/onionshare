@@ -2,12 +2,13 @@ include LICENSE
 include README.md
 include BUILD.md
 include share/*
+include share/icons/hicolor/scalable/apps/org.onionshare.OnionShare.svg
 include share/images/*
 include share/locale/*
 include share/templates/*
 include share/static/*
-include install/onionshare.desktop
-include install/onionshare.appdata.xml
+include install/org.onionshare.OnionShare.desktop
+include install/org.onionshare.OnionShare.appdata.xml
 include install/onionshare80.xpm
 include install/scripts/onionshare-nautilus.py
 include tests/*.py
