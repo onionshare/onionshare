@@ -212,10 +212,12 @@ class SettingsDialog(QtWidgets.QDialog):
         self.close_after_first_download_checkbox = QtWidgets.QCheckBox()
         self.close_after_first_download_checkbox.setCheckState(QtCore.Qt.Checked)
         self.close_after_first_download_checkbox.setText(strings._("gui_settings_close_after_first_download_option"))
+        individual_downloads_label = QtWidgets.QLabel(strings._("gui_settings_individual_downloads_label"))
 
         # Sharing options layout
         sharing_group_layout = QtWidgets.QVBoxLayout()
         sharing_group_layout.addWidget(self.close_after_first_download_checkbox)
+        sharing_group_layout.addWidget(individual_downloads_label)
         sharing_group = QtWidgets.QGroupBox(strings._("gui_settings_sharing_label"))
         sharing_group.setLayout(sharing_group_layout)
 
@@ -637,7 +639,6 @@ class SettingsDialog(QtWidgets.QDialog):
         else:
             self.connect_to_tor_label.show()
             self.onion_settings_widget.hide()
-
 
     def connection_type_bundled_toggled(self, checked):
         """

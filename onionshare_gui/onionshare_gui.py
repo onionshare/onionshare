@@ -383,7 +383,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
                 self.share_mode.server_status.autostart_timer_container.hide()
                 self.receive_mode.server_status.autostart_timer_container.hide()
                 self.website_mode.server_status.autostart_timer_container.hide()
-                
+
         d = SettingsDialog(self.common, self.onion, self.qtapp, self.config, self.local_only)
         d.settings_saved.connect(reload_settings)
         d.exec_()
@@ -469,6 +469,15 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
             elif event["type"] == Web.REQUEST_UPLOAD_CANCELED:
                 mode.handle_request_upload_canceled(event)
+
+            elif event["type"] == Web.REQUEST_INDIVIDUAL_FILE_STARTED:
+                mode.handle_request_individual_file_started(event)
+
+            elif event["type"] == Web.REQUEST_INDIVIDUAL_FILE_PROGRESS:
+                mode.handle_request_individual_file_progress(event)
+
+            elif event["type"] == Web.REQUEST_INDIVIDUAL_FILE_CANCELED:
+                mode.handle_request_individual_file_canceled(event)
 
             if event["type"] == Web.REQUEST_ERROR_DATA_DIR_CANNOT_CREATE:
                 Alert(self.common, strings._('error_cannot_create_data_dir').format(event["data"]["receive_mode_dir"]))
