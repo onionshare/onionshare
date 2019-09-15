@@ -132,7 +132,7 @@ class ShareMode(Mode):
         The auto-stop timer expired, should we stop the server? Returns a bool
         """
         # If there were no attempts to download the share, or all downloads are done, we can stop
-        if self.web.share_mode.download_count == 0 or self.web.done:
+        if self.web.share_mode.cur_history_id == 0 or self.web.done:
             self.server_status.stop_server()
             self.server_status_label.setText(strings._('close_on_autostop_timer'))
             return True
@@ -146,7 +146,7 @@ class ShareMode(Mode):
         Starting the server.
         """
         # Reset web counters
-        self.web.share_mode.download_count = 0
+        self.web.share_mode.cur_history_id = 0
         self.web.reset_invalid_passwords()
 
         # Hide and reset the downloads if we have previously shared
@@ -224,12 +224,6 @@ class ShareMode(Mode):
         Connection to Tor broke.
         """
         self.primary_action.hide()
-
-    def handle_request_load(self, event):
-        """
-        Handle REQUEST_LOAD event.
-        """
-        self.system_tray.showMessage(strings._('systray_page_loaded_title'), strings._('systray_page_loaded_message'))
 
     def handle_request_started(self, event):
         """
@@ -325,6 +319,8 @@ class ShareMode(Mode):
         Set the info counters back to zero.
         """
         self.history.reset()
+        self.toggle_history.indicator_count = 0
+        self.toggle_history.update_indicator()
 
     @staticmethod
     def _compute_total_size(filenames):

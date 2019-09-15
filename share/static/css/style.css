@@ -56,6 +56,10 @@ header .right ul li {
   cursor: pointer;
 }
 
+a.button:visited {
+  color: #ffffff;
+}
+
 .close-button {
   color: #ffffff;
   background-color: #c90c0c;
@@ -221,4 +225,13 @@ li.info {
 .info .info-description {
   color: #666666;
   margin: 0 0 20px 0;
+}
+
+a {
+  text-decoration: none;
+  color: #1c1ca0;
+}
+
+a:visited {
+  color: #601ca0;
 }

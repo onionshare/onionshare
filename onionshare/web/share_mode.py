@@ -3,55 +3,35 @@ import sys
 import tempfile
 import zipfile
 import mimetypes
-import gzip
 from flask import Response, request, render_template, make_response
 
+from .send_base_mode import SendBaseModeWeb
 from .. import strings
 
 
-class ShareModeWeb(object):
+class ShareModeWeb(SendBaseModeWeb):
     """
     All of the web logic for share mode
     """
-    def __init__(self, common, web):
-        self.common = common
-        self.common.log('ShareModeWeb', '__init__')
+    def init(self):
+        self.common.log('ShareModeWeb', 'init')
 
-        self.web = web
-
-        # Information about the file to be shared
-        self.file_info = []
-        self.is_zipped = False
-        self.download_filename = None
-        self.download_filesize = None
-        self.gzip_filename = None
-        self.gzip_filesize = None
-        self.zip_writer = None
-
-        self.download_count = 0
-
-        # If "Stop After First Download" is checked (stay_open == False), only allow
-        # one download at a time.
-        self.download_in_progress = False
-
-        # Reset assets path
-        self.web.app.static_folder=self.common.get_resource_path('static')
-
-
-        self.define_routes()
+        # Allow downloading individual files if "Stop sharing after files have been sent" is unchecked
+        self.download_individual_files = not self.common.settings.get('close_after_first_download')
 
     def define_routes(self):
         """
         The web app routes for sharing files
         """
-        @self.web.app.route("/")
-        def index():
+        @self.web.app.route('/', defaults={'path': ''})
+        @self.web.app.route('/<path:path>')
+        def index(path):
             """
             Render the template for the onionshare landing page.
             """
             self.web.add_request(self.web.REQUEST_LOAD, request.path)
 
-            # Deny new downloads if "Stop After First Download" is checked and there is
+            # Deny new downloads if "Stop sharing after files have been sent" is checked and there is
             # currently a download
             deny_download = not self.web.stay_open and self.download_in_progress
             if deny_download:
@@ -65,15 +45,7 @@ class ShareModeWeb(object):
             else:
                 self.filesize = self.download_filesize
 
-            r = make_response(render_template(
-                'send.html',
-                file_info=self.file_info,
-                filename=os.path.basename(self.download_filename),
-                filesize=self.filesize,
-                filesize_human=self.common.human_readable_filesize(self.download_filesize),
-                is_zipped=self.is_zipped,
-                static_url_path=self.web.static_url_path))
-            return self.web.add_security_headers(r)
+            return self.render_logic(path)
 
         @self.web.app.route("/download")
         def download():
@@ -87,10 +59,6 @@ class ShareModeWeb(object):
                 r = make_response(render_template('denied.html',
                     static_url_path=self.web.static_url_path))
                 return self.web.add_security_headers(r)
-
-            # Each download has a unique id
-            download_id = self.download_count
-            self.download_count += 1
 
             # Prepare some variables to use inside generate() function below
             # which is outside of the request context
@@ -109,8 +77,10 @@ class ShareModeWeb(object):
                 self.filesize = self.download_filesize
 
             # Tell GUI the download started
+            history_id = self.cur_history_id
+            self.cur_history_id += 1
             self.web.add_request(self.web.REQUEST_STARTED, path, {
-                'id': download_id,
+                'id': history_id,
                 'use_gzip': use_gzip
             })
 
@@ -130,7 +100,7 @@ class ShareModeWeb(object):
                     # The user has canceled the download, so stop serving the file
                     if not self.web.stop_q.empty():
                         self.web.add_request(self.web.REQUEST_CANCELED, path, {
-                            'id': download_id
+                            'id': history_id
                         })
                         break
 
@@ -152,7 +122,7 @@ class ShareModeWeb(object):
                                 sys.stdout.flush()
 
                             self.web.add_request(self.web.REQUEST_PROGRESS, path, {
-                                'id': download_id,
+                                'id': history_id,
                                 'bytes': downloaded_bytes
                                 })
                             self.web.done = False
@@ -163,7 +133,7 @@ class ShareModeWeb(object):
 
                             # tell the GUI the download has canceled
                             self.web.add_request(self.web.REQUEST_CANCELED, path, {
-                                'id': download_id
+                                'id': history_id
                             })
 
                 fp.close()
@@ -198,19 +168,71 @@ class ShareModeWeb(object):
                 r.headers.set('Content-Type', content_type)
             return r
 
-    def set_file_info(self, filenames, processed_size_callback=None):
-        """
-        Using the list of filenames being shared, fill in details that the web
-        page will need to display. This includes zipping up the file in order to
-        get the zip file's name and size.
-        """
-        self.common.log("ShareModeWeb", "set_file_info")
+    def directory_listing_template(self, path, files, dirs):
+        return make_response(render_template(
+            'send.html',
+            file_info=self.file_info,
+            files=files,
+            dirs=dirs,
+            filename=os.path.basename(self.download_filename),
+            filesize=self.filesize,
+            filesize_human=self.common.human_readable_filesize(self.download_filesize),
+            is_zipped=self.is_zipped,
+            static_url_path=self.web.static_url_path,
+            download_individual_files=self.download_individual_files))
+
+    def set_file_info_custom(self, filenames, processed_size_callback):
+        self.common.log("ShareModeWeb", "set_file_info_custom")
         self.web.cancel_compression = False
+        self.build_zipfile_list(filenames, processed_size_callback)
 
-        self.cleanup_filenames = []
+    def render_logic(self, path=''):
+        if path in self.files:
+            filesystem_path = self.files[path]
 
-        # build file info list
-        self.file_info = {'files': [], 'dirs': []}
+            # If it's a directory
+            if os.path.isdir(filesystem_path):
+                # Render directory listing
+                filenames = []
+                for filename in os.listdir(filesystem_path):
+                    if os.path.isdir(os.path.join(filesystem_path, filename)):
+                        filenames.append(filename + '/')
+                    else:
+                        filenames.append(filename)
+                filenames.sort()
+                return self.directory_listing(filenames, path, filesystem_path)
+
+            # If it's a file
+            elif os.path.isfile(filesystem_path):
+                if self.download_individual_files:
+                    return self.stream_individual_file(filesystem_path)
+                else:
+                    history_id = self.cur_history_id
+                    self.cur_history_id += 1
+                    return self.web.error404(history_id)
+
+            # If it's not a directory or file, throw a 404
+            else:
+                history_id = self.cur_history_id
+                self.cur_history_id += 1
+                return self.web.error404(history_id)
+        else:
+            # Special case loading /
+
+            if path == '':
+                # Root directory listing
+                filenames = list(self.root_files)
+                filenames.sort()
+                return self.directory_listing(filenames, path)
+
+            else:
+                # If the path isn't found, throw a 404
+                history_id = self.cur_history_id
+                self.cur_history_id += 1
+                return self.web.error404(history_id)
+
+    def build_zipfile_list(self, filenames, processed_size_callback=None):
+        self.common.log("ShareModeWeb", "build_zipfile_list")
         for filename in filenames:
             info = {
                 'filename': filename,
@@ -266,33 +288,6 @@ class ShareModeWeb(object):
             self.is_zipped = True
 
         return True
-
-    def should_use_gzip(self):
-        """
-        Should we use gzip for this browser?
-        """
-        return (not self.is_zipped) and ('gzip' in request.headers.get('Accept-Encoding', '').lower())
-
-    def _gzip_compress(self, input_filename, output_filename, level, processed_size_callback=None):
-        """
-        Compress a file with gzip, without loading the whole thing into memory
-        Thanks: https://stackoverflow.com/questions/27035296/python-how-to-gzip-a-large-text-file-without-memoryerror
-        """
-        bytes_processed = 0
-        blocksize = 1 << 16 # 64kB
-        with open(input_filename, 'rb') as input_file:
-            output_file = gzip.open(output_filename, 'wb', level)
-            while True:
-                if processed_size_callback is not None:
-                    processed_size_callback(bytes_processed)
-
-                block = input_file.read(blocksize)
-                if len(block) == 0:
-                    break
-                output_file.write(block)
-                bytes_processed += blocksize
-
-            output_file.close()
 
 
 class ZipWriter(object):
