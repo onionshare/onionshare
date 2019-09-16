@@ -97,7 +97,7 @@ class ReceiveMode(Mode):
         The auto-stop timer expired, should we stop the server? Returns a bool
         """
         # If there were no attempts to upload files, or all uploads are done, we can stop
-        if self.web.receive_mode.upload_count == 0 or not self.web.receive_mode.uploads_in_progress:
+        if self.web.receive_mode.cur_history_id == 0 or not self.web.receive_mode.uploads_in_progress:
             self.server_status.stop_server()
             self.server_status_label.setText(strings._('close_on_autostop_timer'))
             return True
@@ -112,7 +112,7 @@ class ReceiveMode(Mode):
         Starting the server.
         """
         # Reset web counters
-        self.web.receive_mode.upload_count = 0
+        self.web.receive_mode.cur_history_id = 0
         self.web.reset_invalid_passwords()
 
         # Hide and reset the uploads if we have previously shared
@@ -212,6 +212,8 @@ class ReceiveMode(Mode):
         Set the info counters back to zero.
         """
         self.history.reset()
+        self.toggle_history.indicator_count = 0
+        self.toggle_history.update_indicator()
 
     def update_primary_action(self):
         self.common.log('ReceiveMode', 'update_primary_action')

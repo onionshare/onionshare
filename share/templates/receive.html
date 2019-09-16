@@ -17,6 +17,9 @@
 
       <p class="upload-header">Send Files</p>
       <p class="upload-description">Select the files you want to send, then click "Send Files"...</p>
+      {% if upload_max_size %}
+      <p class="upload-maxsize">Maximum upload size: {{ upload_max_size }} MB</p>
+      {% endif %}
 
       <div id="uploads"></div>
 

@@ -30,7 +30,7 @@ from onionshare.web import Web
 
 from ..file_selection import FileSelection
 from .. import Mode
-from ..history import History, ToggleHistory, VisitHistoryItem
+from ..history import History, ToggleHistory
 from ...widgets import Alert
 
 class WebsiteMode(Mode):
@@ -80,6 +80,8 @@ class WebsiteMode(Mode):
             strings._('gui_all_modes_history'),
             'website'
         )
+        self.history.in_progress_label.hide()
+        self.history.completed_label.hide()
         self.history.hide()
 
         # Info label
@@ -165,12 +167,8 @@ class WebsiteMode(Mode):
         Step 3 in starting the server. Display large filesize
         warning, if applicable.
         """
-
-        if self.web.website_mode.set_file_info(self.filenames):
-            self.success.emit()
-        else:
-            # Cancelled
-            pass
+        self.web.website_mode.set_file_info(self.filenames)
+        self.success.emit()
 
     def start_server_error_custom(self):
         """
@@ -207,21 +205,6 @@ class WebsiteMode(Mode):
         Handle REQUEST_LOAD event.
         """
         self.system_tray.showMessage(strings._('systray_site_loaded_title'), strings._('systray_site_loaded_message'))
-
-    def handle_request_started(self, event):
-        """
-        Handle REQUEST_STARTED event.
-        """
-        if ( (event["path"] == '') or (event["path"].find(".htm") != -1 ) ):
-            item = VisitHistoryItem(self.common, event["data"]["id"], 0)
-
-            self.history.add(event["data"]["id"], item)
-            self.toggle_history.update_indicator(True)
-            self.history.completed_count += 1
-            self.history.update_completed()
-
-        self.system_tray.showMessage(strings._('systray_website_started_title'), strings._('systray_website_started_message'))
-
 
     def on_reload_settings(self):
         """
@@ -262,6 +245,8 @@ class WebsiteMode(Mode):
         Set the info counters back to zero.
         """
         self.history.reset()
+        self.toggle_history.indicator_count = 0
+        self.toggle_history.update_indicator()
 
     @staticmethod
     def _compute_total_size(filenames):
