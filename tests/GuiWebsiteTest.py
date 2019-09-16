@@ -65,6 +65,20 @@ class GuiWebsiteTest(GuiShareTest):
         QtTest.QTest.qWait(2000)
         self.assertTrue('This is a test website hosted by OnionShare' in r.text)
 
+    def check_csp_header(self, public_mode, csp_header_enabled):
+        '''Test that the CSP header is present when enabled or vice versa'''
+        url = "http://127.0.0.1:{}/".format(self.gui.app.port)
+        if public_mode:
+            r = requests.get(url)
+        else:
+            r = requests.get(url, auth=requests.auth.HTTPBasicAuth('onionshare', self.gui.website_mode.server_status.web.password))
+
+        QtTest.QTest.qWait(2000)
+        if csp_header_enabled:
+            self.assertTrue('Content-Security-Policy' in r.headers)
+        else:
+            self.assertFalse('Content-Security-Policy' in r.headers)
+
     def run_all_website_mode_setup_tests(self):
         """Tests in website mode prior to starting a share"""
         self.click_mode(self.gui.website_mode)
@@ -92,6 +106,7 @@ class GuiWebsiteTest(GuiShareTest):
         self.run_all_website_mode_setup_tests()
         self.run_all_website_mode_started_tests(public_mode, startup_time=2000)
         self.view_website(public_mode)
+        self.check_csp_header(public_mode, self.gui.common.settings.get('csp_header_enabled'))
         self.history_widgets_present(self.gui.website_mode)
         self.server_is_stopped(self.gui.website_mode, False)
         self.web_server_is_stopped()
