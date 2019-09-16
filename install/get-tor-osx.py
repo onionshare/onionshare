@@ -35,9 +35,9 @@ import subprocess
 import requests
 
 def main():
-    dmg_url = 'https://archive.torproject.org/tor-package-archive/torbrowser/8.0.8/TorBrowser-8.0.8-osx64_en-US.dmg'
-    dmg_filename = 'TorBrowser-8.0.8-osx64_en-US.dmg'
-    expected_dmg_sha256 = '1dc01b95146352593c3f18ece25f8735120565f921e22c2827df819effdddca3'
+    dmg_url = 'https://archive.torproject.org/tor-package-archive/torbrowser/8.5.5/TorBrowser-8.5.5-osx64_en-US.dmg'
+    dmg_filename = 'TorBrowser-8.5.5-osx64_en-US.dmg'
+    expected_dmg_sha256 = '9c1b7840bd251a4c52f0c919991e57cafb9178c55e11fa49f83ffacce3c20511'
 
     # Build paths
     root_path = os.path.dirname(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))))
