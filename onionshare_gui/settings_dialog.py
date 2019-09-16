@@ -214,10 +214,28 @@ class SettingsDialog(QtWidgets.QDialog):
         self.close_after_first_download_checkbox.setText(strings._("gui_settings_close_after_first_download_option"))
         individual_downloads_label = QtWidgets.QLabel(strings._("gui_settings_individual_downloads_label"))
 
+        # Option to disable Content Security Policy (for website sharing)
+        self.csp_header_enabled_checkbox = QtWidgets.QCheckBox()
+        self.csp_header_enabled_checkbox.setCheckState(QtCore.Qt.Checked)
+        self.csp_header_enabled_checkbox.setText(strings._("gui_settings_csp_header_enabled_option"))
+        csp_header_label = QtWidgets.QLabel(strings._("gui_settings_whats_this").format("https://github.com/micahflee/onionshare/wiki/Content-Security-Policy"))
+        csp_header_label.setStyleSheet(self.common.css['settings_whats_this'])
+        csp_header_label.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
+        csp_header_label.setOpenExternalLinks(True)
+        csp_header_label.setMinimumSize(csp_header_label.sizeHint())
+        csp_header_layout = QtWidgets.QHBoxLayout()
+        csp_header_layout.addWidget(self.csp_header_enabled_checkbox)
+        csp_header_layout.addWidget(csp_header_label)
+        csp_header_layout.addStretch()
+        csp_header_layout.setContentsMargins(0,0,0,0)
+        self.csp_header_widget = QtWidgets.QWidget()
+        self.csp_header_widget.setLayout(csp_header_layout)
+
         # Sharing options layout
         sharing_group_layout = QtWidgets.QVBoxLayout()
         sharing_group_layout.addWidget(self.close_after_first_download_checkbox)
         sharing_group_layout.addWidget(individual_downloads_label)
+        sharing_group_layout.addWidget(self.csp_header_widget)
         sharing_group = QtWidgets.QGroupBox(strings._("gui_settings_sharing_label"))
         sharing_group.setLayout(sharing_group_layout)
 
@@ -516,6 +534,12 @@ class SettingsDialog(QtWidgets.QDialog):
             self.close_after_first_download_checkbox.setCheckState(QtCore.Qt.Checked)
         else:
             self.close_after_first_download_checkbox.setCheckState(QtCore.Qt.Unchecked)
+
+        csp_header_enabled = self.old_settings.get('csp_header_enabled')
+        if csp_header_enabled:
+            self.csp_header_enabled_checkbox.setCheckState(QtCore.Qt.Checked)
+        else:
+            self.csp_header_enabled_checkbox.setCheckState(QtCore.Qt.Unchecked)
 
         autostart_timer = self.old_settings.get('autostart_timer')
         if autostart_timer:
@@ -982,6 +1006,7 @@ class SettingsDialog(QtWidgets.QDialog):
         settings.load() # To get the last update timestamp
 
         settings.set('close_after_first_download', self.close_after_first_download_checkbox.isChecked())
+        settings.set('csp_header_enabled', self.csp_header_enabled_checkbox.isChecked())
         settings.set('autostart_timer', self.autostart_timer_checkbox.isChecked())
         settings.set('autostop_timer', self.autostop_timer_checkbox.isChecked())
 
