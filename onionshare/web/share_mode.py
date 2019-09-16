@@ -168,12 +168,14 @@ class ShareModeWeb(SendBaseModeWeb):
                 r.headers.set('Content-Type', content_type)
             return r
 
-    def directory_listing_template(self, path, files, dirs):
+    def directory_listing_template(self, path, files, dirs, breadcrumbs, breadcrumbs_leaf):
         return make_response(render_template(
             'send.html',
             file_info=self.file_info,
             files=files,
             dirs=dirs,
+            breadcrumbs=breadcrumbs,
+            breadcrumbs_leaf=breadcrumbs_leaf,
             filename=os.path.basename(self.download_filename),
             filesize=self.filesize,
             filesize_human=self.common.human_readable_filesize(self.download_filesize),
