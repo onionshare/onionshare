@@ -91,6 +91,14 @@ class Web:
             # Monkey-patch in the fix from https://github.com/pallets/flask/commit/99c99c4c16b1327288fd76c44bc8635a1de452bc
             Flask.select_jinja_autoescape = self._safe_select_jinja_autoescape
 
+        self.security_headers = [
+            ('X-Frame-Options', 'DENY'),
+            ('X-Xss-Protection', '1; mode=block'),
+            ('X-Content-Type-Options', 'nosniff'),
+            ('Referrer-Policy', 'no-referrer'),
+            ('Server', 'OnionShare')
+        ]
+
         self.q = queue.Queue()
         self.password = None
 
@@ -231,6 +239,8 @@ class Web:
         """
         for header, value in self.security_headers:
             r.headers.set(header, value)
+        if self.common.settings.get('csp_header_enabled'):
+            r.headers.set('Content-Security-Policy', 'default-src \'self\'; style-src \'self\'; script-src \'self\'; img-src \'self\' data:;')
         return r
 
     def _safe_select_jinja_autoescape(self, filename):
@@ -284,20 +294,6 @@ class Web:
             pass
         self.running = False
 
-    def set_security_headers(self):
-        """
-        Set the security headers for the web service each time we start it.
-        """
-        self.security_headers = [
-            ('X-Frame-Options', 'DENY'),
-            ('X-Xss-Protection', '1; mode=block'),
-            ('X-Content-Type-Options', 'nosniff'),
-            ('Referrer-Policy', 'no-referrer'),
-            ('Server', 'OnionShare')
-        ]
-        if self.common.settings.get('csp_header_enabled'):
-            self.security_headers.append(('Content-Security-Policy', 'default-src \'self\'; style-src \'self\'; script-src \'self\'; img-src \'self\' data:;'))
-
     def start(self, port, stay_open=False, public_mode=False, password=None):
         """
         Start the flask web server.
@@ -320,7 +316,6 @@ class Web:
             host = '127.0.0.1'
 
         self.running = True
-        self.set_security_headers()
         self.app.run(host=host, port=port, threaded=True)
 
     def stop(self, port):
