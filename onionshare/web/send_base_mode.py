@@ -90,9 +90,15 @@ class SendBaseModeWeb:
             'status_code': 200
         })
 
+        breadcrumbs = [('☗', '/')]
+        parts = path.split('/')[:-1]
+        for i in range(len(parts)):
+            breadcrumbs.append(('{}'.format(parts[i]), '/{}/'.format('/'.join(parts[0:i+1]))))
+        breadcrumbs_leaf = breadcrumbs.pop()[0]
+
         # If filesystem_path is None, this is the root directory listing
         files, dirs = self.build_directory_listing(filenames, filesystem_path)
-        r = self.directory_listing_template(path, files, dirs)
+        r = self.directory_listing_template(path, files, dirs, breadcrumbs, breadcrumbs_leaf)
         return self.web.add_security_headers(r)
 
     def build_directory_listing(self, filenames, filesystem_path):
