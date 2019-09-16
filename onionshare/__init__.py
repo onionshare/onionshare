@@ -88,13 +88,14 @@ def main(cwd=None):
     else:
         mode = 'share'
 
-    # Make sure filenames given if not using receiver mode
-    if mode == 'share' and len(filenames) == 0:
-        parser.print_help()
-        sys.exit()
+    # In share an website mode, you must supply a list of filenames
+    if mode == 'share' or mode == 'website':
+        # Make sure filenames given if not using receiver mode
+        if len(filenames) == 0:
+            parser.print_help()
+            sys.exit()
 
-    # Validate filenames
-    if mode == 'share':
+        # Validate filenames
         valid = True
         for filename in filenames:
             if not os.path.isfile(filename) and not os.path.isdir(filename):
