@@ -46,7 +46,7 @@
     "gui_share_quit_warning": "Du er ved at afsende filer. Er du sikker på, at du vil afslutte OnionShare?",
     "gui_quit_warning_quit": "Afslut",
     "gui_quit_warning_dont_quit": "Annuller",
-    "error_rate_limit": "Nogen har foretaget for mange forkerte forsøg på din adresse, hvilket kan betyde at de prøver at gætte det, så OnionShare har stoppet serveren. Begynd at dele igen og send en ny adresse til modtageren for at dele.",
+    "error_rate_limit": "Nogen har foretaget for mange forkerte forsøg på at gætte din adgangskode, så OnionShare har stoppet serveren. Begynd at dele igen og send en ny adresse til modtageren for at dele.",
     "zip_progress_bar_format": "Komprimerer: %p%",
     "error_stealth_not_supported": "For at bruge klientautentifikation skal du have mindst Tor 0.2.9.1-alpha (eller Tor Browser 6.5) og python3-stem 1.5.0.",
     "error_ephemeral_not_supported": "OnionShare kræver mindst både Tor 0.2.7.1 og python3-stem 1.4.0.",
@@ -229,5 +229,14 @@
     "days_first_letter": "d",
     "hours_first_letter": "t",
     "minutes_first_letter": "m",
-    "seconds_first_letter": "s"
+    "seconds_first_letter": "s",
+    "invalid_password_guess": "Ugyldigt adgangskodegæt",
+    "gui_website_url_description": "<b>Alle</b> men OnionShare-adressen kan <b>besøge</b> dit websted med <b>Tor Browser</b>: <img src='{}' />",
+    "gui_mode_website_button": "Udgiv websted",
+    "systray_site_loaded_title": "Stedet er indlæst",
+    "systray_site_loaded_message": "OnionShare-stedet er indlæst",
+    "systray_website_started_title": "Starter delingswebsted",
+    "systray_website_started_message": "Nogen besøger dit websted",
+    "gui_website_mode_no_files": "Intet websted delt endnu",
+    "gui_visit_started": "Nogen har besøgt dit websted {}"
 }
