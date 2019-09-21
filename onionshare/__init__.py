@@ -88,13 +88,14 @@ def main(cwd=None):
     else:
         mode = 'share'
 
-    # Make sure filenames given if not using receiver mode
-    if mode == 'share' and len(filenames) == 0:
-        parser.print_help()
-        sys.exit()
+    # In share an website mode, you must supply a list of filenames
+    if mode == 'share' or mode == 'website':
+        # Make sure filenames given if not using receiver mode
+        if len(filenames) == 0:
+            parser.print_help()
+            sys.exit()
 
-    # Validate filenames
-    if mode == 'share':
+        # Validate filenames
         valid = True
         for filename in filenames:
             if not os.path.isfile(filename) and not os.path.isdir(filename):
@@ -109,6 +110,8 @@ def main(cwd=None):
     # Re-load settings, if a custom config was passed in
     if config:
         common.load_settings(config)
+    else:
+        common.load_settings()
 
     # Verbose mode?
     common.verbose = verbose
@@ -260,12 +263,12 @@ def main(cwd=None):
                 if not app.autostop_timer_thread.is_alive():
                     if mode == 'share'  or (mode == 'website'):
                         # If there were no attempts to download the share, or all downloads are done, we can stop
-                        if web.share_mode.download_count == 0 or web.done:
+                        if web.share_mode.cur_history_id == 0 or web.done:
                             print("Stopped because auto-stop timer ran out")
                             web.stop(app.port)
                             break
                     if mode == 'receive':
-                        if web.receive_mode.upload_count == 0 or not web.receive_mode.uploads_in_progress:
+                        if web.receive_mode.cur_history_id == 0 or not web.receive_mode.uploads_in_progress:
                             print("Stopped because auto-stop timer ran out")
                             web.stop(app.port)
                             break

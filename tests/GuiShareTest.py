@@ -44,7 +44,7 @@ class GuiShareTest(GuiBaseTest):
         self.file_selection_widget_has_files(0)
 
 
-    def file_selection_widget_readd_files(self):
+    def file_selection_widget_read_files(self):
         '''Re-add some files to the list so we can share'''
         self.gui.share_mode.server_status.file_selection.file_list.add_file('/etc/hosts')
         self.gui.share_mode.server_status.file_selection.file_list.add_file('/tmp/test.txt')
@@ -81,6 +81,40 @@ class GuiShareTest(GuiBaseTest):
         QtTest.QTest.qWait(2000)
         self.assertEqual('onionshare', zip.read('test.txt').decode('utf-8'))
 
+    def individual_file_is_viewable_or_not(self, public_mode, stay_open):
+        '''Test whether an individual file is viewable (when in stay_open mode) and that it isn't (when not in stay_open mode)'''
+        url = "http://127.0.0.1:{}".format(self.gui.app.port)
+        download_file_url = "http://127.0.0.1:{}/test.txt".format(self.gui.app.port)
+        if public_mode:
+            r = requests.get(url)
+        else:
+            r = requests.get(url, auth=requests.auth.HTTPBasicAuth('onionshare', self.gui.share_mode.server_status.web.password))
+
+        if stay_open:
+            self.assertTrue('a href="test.txt"' in r.text)
+
+            if public_mode:
+                r = requests.get(download_file_url)
+            else:
+                r = requests.get(download_file_url, auth=requests.auth.HTTPBasicAuth('onionshare', self.gui.share_mode.server_status.web.password))
+
+            tmp_file = tempfile.NamedTemporaryFile()
+            with open(tmp_file.name, 'wb') as f:
+                f.write(r.content)
+
+            with open(tmp_file.name, 'r') as f:
+                self.assertEqual('onionshare', f.read())
+        else:
+            self.assertFalse('a href="/test.txt"' in r.text)
+            if public_mode:
+                r = requests.get(download_file_url)
+            else:
+                r = requests.get(download_file_url, auth=requests.auth.HTTPBasicAuth('onionshare', self.gui.share_mode.server_status.web.password))
+            self.assertEqual(r.status_code, 404)
+            self.download_share(public_mode)
+
+        QtTest.QTest.qWait(2000)
+
     def hit_401(self, public_mode):
         '''Test that the server stops after too many 401s, or doesn't when in public_mode'''
         url = "http://127.0.0.1:{}/".format(self.gui.app.port)
@@ -101,11 +135,6 @@ class GuiShareTest(GuiBaseTest):
             self.web_server_is_stopped()
 
 
-    def add_button_visible(self):
-        '''Test that the add button should be visible'''
-        self.assertTrue(self.gui.share_mode.server_status.file_selection.add_button.isVisible())
-
-
     # 'Grouped' tests follow from here
 
     def run_all_share_mode_setup_tests(self):
@@ -117,7 +146,7 @@ class GuiShareTest(GuiBaseTest):
         self.history_is_visible(self.gui.share_mode)
         self.deleting_all_files_hides_delete_button()
         self.add_a_file_and_delete_using_its_delete_widget()
-        self.file_selection_widget_readd_files()
+        self.file_selection_widget_read_files()
 
 
     def run_all_share_mode_started_tests(self, public_mode, startup_time=2000):
@@ -142,11 +171,24 @@ class GuiShareTest(GuiBaseTest):
         self.server_is_stopped(self.gui.share_mode, stay_open)
         self.web_server_is_stopped()
         self.server_status_indicator_says_closed(self.gui.share_mode, stay_open)
-        self.add_button_visible()
+        self.add_button_visible(self.gui.share_mode)
         self.server_working_on_start_button_pressed(self.gui.share_mode)
+        self.toggle_indicator_is_reset(self.gui.share_mode)
         self.server_is_started(self.gui.share_mode)
         self.history_indicator(self.gui.share_mode, public_mode)
 
+    def run_all_share_mode_individual_file_download_tests(self, public_mode, stay_open):
+        """Tests in share mode after downloading a share"""
+        self.web_page(self.gui.share_mode, 'Total size', public_mode)
+        self.individual_file_is_viewable_or_not(public_mode, stay_open)
+        self.history_widgets_present(self.gui.share_mode)
+        self.server_is_stopped(self.gui.share_mode, stay_open)
+        self.web_server_is_stopped()
+        self.server_status_indicator_says_closed(self.gui.share_mode, stay_open)
+        self.add_button_visible(self.gui.share_mode)
+        self.server_working_on_start_button_pressed(self.gui.share_mode)
+        self.server_is_started(self.gui.share_mode)
+        self.history_indicator(self.gui.share_mode, public_mode)
 
     def run_all_share_mode_tests(self, public_mode, stay_open):
         """End-to-end share tests"""
@@ -154,6 +196,21 @@ class GuiShareTest(GuiBaseTest):
         self.run_all_share_mode_started_tests(public_mode)
         self.run_all_share_mode_download_tests(public_mode, stay_open)
 
+    def run_all_clear_all_button_tests(self, public_mode, stay_open):
+        """Test the Clear All history button"""
+        self.run_all_share_mode_setup_tests()
+        self.run_all_share_mode_started_tests(public_mode)
+        self.individual_file_is_viewable_or_not(public_mode, stay_open)
+        self.history_widgets_present(self.gui.share_mode)
+        self.clear_all_history_items(self.gui.share_mode, 0)
+        self.individual_file_is_viewable_or_not(public_mode, stay_open)
+        self.clear_all_history_items(self.gui.share_mode, 2)
+
+    def run_all_share_mode_individual_file_tests(self, public_mode, stay_open):
+        """Tests in share mode when viewing an individual file"""
+        self.run_all_share_mode_setup_tests()
+        self.run_all_share_mode_started_tests(public_mode)
+        self.run_all_share_mode_individual_file_download_tests(public_mode, stay_open)
 
     def run_all_large_file_tests(self, public_mode, stay_open):
         """Same as above but with a larger file"""

@@ -18,7 +18,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 from PyQt5 import QtCore, QtWidgets, QtGui
-import sys, platform, datetime, re
+import sys
+import platform
+import datetime
+import re
+import os
 
 from onionshare import strings, common
 from onionshare.settings import Settings
@@ -27,6 +31,7 @@ from onionshare.onion import *
 from .widgets import Alert
 from .update_checker import *
 from .tor_connection_dialog import TorConnectionDialog
+
 
 class SettingsDialog(QtWidgets.QDialog):
     """
@@ -51,6 +56,9 @@ class SettingsDialog(QtWidgets.QDialog):
         self.setWindowIcon(QtGui.QIcon(self.common.get_resource_path('images/logo.png')))
 
         self.system = platform.system()
+
+        # If ONIONSHARE_HIDE_TOR_SETTINGS=1, hide Tor settings in the dialog
+        self.hide_tor_settings = os.environ.get('ONIONSHARE_HIDE_TOR_SETTINGS') == "1"
 
         # General settings
 
@@ -204,10 +212,12 @@ class SettingsDialog(QtWidgets.QDialog):
         self.close_after_first_download_checkbox = QtWidgets.QCheckBox()
         self.close_after_first_download_checkbox.setCheckState(QtCore.Qt.Checked)
         self.close_after_first_download_checkbox.setText(strings._("gui_settings_close_after_first_download_option"))
+        individual_downloads_label = QtWidgets.QLabel(strings._("gui_settings_individual_downloads_label"))
 
         # Sharing options layout
         sharing_group_layout = QtWidgets.QVBoxLayout()
         sharing_group_layout.addWidget(self.close_after_first_download_checkbox)
+        sharing_group_layout.addWidget(individual_downloads_label)
         sharing_group = QtWidgets.QGroupBox(strings._("gui_settings_sharing_label"))
         sharing_group.setLayout(sharing_group_layout)
 
@@ -484,7 +494,8 @@ class SettingsDialog(QtWidgets.QDialog):
 
         col_layout = QtWidgets.QHBoxLayout()
         col_layout.addLayout(left_col_layout)
-        col_layout.addLayout(right_col_layout)
+        if not self.hide_tor_settings:
+            col_layout.addLayout(right_col_layout)
 
         layout = QtWidgets.QVBoxLayout()
         layout.addLayout(col_layout)
@@ -629,12 +640,13 @@ class SettingsDialog(QtWidgets.QDialog):
             self.connect_to_tor_label.show()
             self.onion_settings_widget.hide()
 
-
     def connection_type_bundled_toggled(self, checked):
         """
         Connection type bundled was toggled. If checked, hide authentication fields.
         """
         self.common.log('SettingsDialog', 'connection_type_bundled_toggled')
+        if self.hide_tor_settings:
+            return
         if checked:
             self.authenticate_group.hide()
             self.connection_type_socks.hide()
@@ -644,6 +656,8 @@ class SettingsDialog(QtWidgets.QDialog):
         """
         'No bridges' option was toggled. If checked, enable other bridge options.
         """
+        if self.hide_tor_settings:
+            return
         if checked:
             self.tor_bridges_use_custom_textbox_options.hide()
 
@@ -651,6 +665,8 @@ class SettingsDialog(QtWidgets.QDialog):
         """
         obfs4 bridges option was toggled. If checked, disable custom bridge options.
         """
+        if self.hide_tor_settings:
+            return
         if checked:
             self.tor_bridges_use_custom_textbox_options.hide()
 
@@ -658,6 +674,8 @@ class SettingsDialog(QtWidgets.QDialog):
         """
         meek_lite_azure bridges option was toggled. If checked, disable custom bridge options.
         """
+        if self.hide_tor_settings:
+            return
         if checked:
             self.tor_bridges_use_custom_textbox_options.hide()
             # Alert the user about meek's costliness if it looks like they're turning it on
@@ -668,6 +686,8 @@ class SettingsDialog(QtWidgets.QDialog):
         """
         Custom bridges option was toggled. If checked, show custom bridge options.
         """
+        if self.hide_tor_settings:
+            return
         if checked:
             self.tor_bridges_use_custom_textbox_options.show()
 
@@ -676,6 +696,8 @@ class SettingsDialog(QtWidgets.QDialog):
         Connection type automatic was toggled. If checked, hide authentication fields.
         """
         self.common.log('SettingsDialog', 'connection_type_automatic_toggled')
+        if self.hide_tor_settings:
+            return
         if checked:
             self.authenticate_group.hide()
             self.connection_type_socks.hide()
@@ -687,6 +709,8 @@ class SettingsDialog(QtWidgets.QDialog):
         for Tor control address and port. If unchecked, hide those extra fields.
         """
         self.common.log('SettingsDialog', 'connection_type_control_port_toggled')
+        if self.hide_tor_settings:
+            return
         if checked:
             self.authenticate_group.show()
             self.connection_type_control_port_extras.show()
@@ -702,6 +726,8 @@ class SettingsDialog(QtWidgets.QDialog):
         for socket file. If unchecked, hide those extra fields.
         """
         self.common.log('SettingsDialog', 'connection_type_socket_file_toggled')
+        if self.hide_tor_settings:
+            return
         if checked:
             self.authenticate_group.show()
             self.connection_type_socket_file_extras.show()

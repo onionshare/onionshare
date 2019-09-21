@@ -63,9 +63,9 @@ classifiers = [
         "Environment :: Web Environment"
     ]
 data_files=[
-        (os.path.join(sys.prefix, 'share/applications'), ['install/onionshare.desktop']),
-        (os.path.join(sys.prefix, 'share/metainfo'), ['install/onionshare.appdata.xml']),
-        (os.path.join(sys.prefix, 'share/pixmaps'), ['install/onionshare80.xpm']),
+        (os.path.join(sys.prefix, 'share/applications'), ['install/org.onionshare.OnionShare.desktop']),
+        (os.path.join(sys.prefix, 'share/icons/hicolor/scalable/apps'), ['install/org.onionshare.OnionShare.svg']),
+        (os.path.join(sys.prefix, 'share/metainfo'), ['install/org.onionshare.OnionShare.appdata.xml']),
         (os.path.join(sys.prefix, 'share/onionshare'), file_list('share')),
         (os.path.join(sys.prefix, 'share/onionshare/images'), file_list('share/images')),
         (os.path.join(sys.prefix, 'share/onionshare/locale'), file_list('share/locale')),
@@ -74,7 +74,7 @@ data_files=[
         (os.path.join(sys.prefix, 'share/onionshare/static/img'), file_list('share/static/img')),
         (os.path.join(sys.prefix, 'share/onionshare/static/js'), file_list('share/static/js'))
     ]
-if platform.system() != 'OpenBSD':
+if not platform.system().endswith('BSD') and platform.system() != 'DragonFly':
     data_files.append(('/usr/share/nautilus-python/extensions/', ['install/scripts/onionshare-nautilus.py']))
 
 setup(
