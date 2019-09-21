@@ -51,7 +51,7 @@
     "gui_receive_quit_warning": "Dosya alıyorsunuz. OnionShare uygulamasından çıkmak istediğinize emin misiniz?",
     "gui_quit_warning_quit": "Çık",
     "gui_quit_warning_dont_quit": "İptal",
-    "error_rate_limit": "Birisi adresinize çok fazla hatalı girişimde bulundu. Bilgilerinizi tahmin etmeye çalışıyor olabilirler. Bu nedenle OnionShare sunucuyu durdurdu. Paylaşımı yeniden başlatın ve alıcıya yeni bir paylaşım adresi gönderin.",
+    "error_rate_limit": "Birisi şifrenizi tahmin etmek için çok fazla yanlış girişimde bulundu, bu yüzden OnionShare sunucuyu durdurdu. Tekrar paylaşmaya başlayın ve alıcıya paylaşması için yeni bir adres gönderin.",
     "error_stealth_not_supported": "İstemci kimlik doğrulamasını kullanmak için, en az Tor 0.2.9.1-alpha (ya da Tor Browser 6.5) ve python3-stem 1.5.0 sürümleri gereklidir.",
     "error_ephemeral_not_supported": "OnionShare için en az Tor 0.2.7.1 ve python3-stem 1.4.0 sürümleri gereklidir.",
     "gui_settings_window_title": "Ayarlar",
@@ -196,5 +196,14 @@
     "days_first_letter": "g",
     "hours_first_letter": "s",
     "minutes_first_letter": "d",
-    "seconds_first_letter": "sn"
+    "seconds_first_letter": "sn",
+    "invalid_password_guess": "Geçersiz parola tahmini",
+    "gui_website_url_description": "Bu OnionShare adresi olan <b>herkes</b>, <b>Tor Browser</b>'ı kullanarak web sitenizi <b>ziyaret</b> edebilir: <img src='{}' />",
+    "gui_mode_website_button": "Web Sitesini Yayınla",
+    "systray_site_loaded_title": "Site Yüklendi",
+    "systray_site_loaded_message": "OnionShare sitesi yüklü",
+    "systray_website_started_title": "Paylaşım web sitesi başlatılıyor",
+    "systray_website_started_message": "Birisi web sitenizi ziyaret ediyor",
+    "gui_website_mode_no_files": "Henüz Paylaşılan Web Sitesi Yok",
+    "gui_visit_started": "Birisi web sitenizi ziyaret etti {}"
 }
