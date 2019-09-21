@@ -237,6 +237,7 @@ class ReceiveHistoryItemFile(QtWidgets.QWidget):
         elif self.common.platform == 'Windows':
             subprocess.Popen(['explorer', '/select,{}'.format(abs_filename)])
 
+
 class ReceiveHistoryItem(HistoryItem):
     def __init__(self, common, id, content_length):
         super(ReceiveHistoryItem, self).__init__()
@@ -341,34 +342,107 @@ class ReceiveHistoryItem(HistoryItem):
             self.label.setText(self.get_canceled_label_text(self.started))
 
 
-class VisitHistoryItem(HistoryItem):
+class IndividualFileHistoryItem(HistoryItem):
     """
-    Download history item, for share mode
+    Individual file history item, for share mode viewing of individual files
     """
-    def __init__(self, common, id, total_bytes):
-        super(VisitHistoryItem, self).__init__()
+    def __init__(self, common, data, path):
+        super(IndividualFileHistoryItem, self).__init__()
         self.status = HistoryItem.STATUS_STARTED
         self.common = common
 
         self.id = id
-        self.visited = time.time()
-        self.visited_dt = datetime.fromtimestamp(self.visited)
+        self.path = path
+        self.total_bytes = 0
+        self.downloaded_bytes = 0
+        self.started = time.time()
+        self.started_dt = datetime.fromtimestamp(self.started)
+        self.status = HistoryItem.STATUS_STARTED
 
-        # Label
-        self.label = QtWidgets.QLabel(strings._('gui_visit_started').format(self.visited_dt.strftime("%b %d, %I:%M%p")))
+        self.directory_listing = 'directory_listing' in data
+
+        # Labels
+        self.timestamp_label = QtWidgets.QLabel(self.started_dt.strftime("%b %d, %I:%M%p"))
+        self.timestamp_label.setStyleSheet(self.common.css['history_individual_file_timestamp_label'])
+        self.path_label = QtWidgets.QLabel("{}".format(self.path))
+        self.status_code_label = QtWidgets.QLabel()
+
+        # Progress bar
+        self.progress_bar = QtWidgets.QProgressBar()
+        self.progress_bar.setTextVisible(True)
+        self.progress_bar.setAttribute(QtCore.Qt.WA_DeleteOnClose)
+        self.progress_bar.setAlignment(QtCore.Qt.AlignHCenter)
+        self.progress_bar.setValue(0)
+        self.progress_bar.setStyleSheet(self.common.css['downloads_uploads_progress_bar'])
+
+        # Text layout
+        labels_layout = QtWidgets.QHBoxLayout()
+        labels_layout.addWidget(self.timestamp_label)
+        labels_layout.addWidget(self.path_label)
+        labels_layout.addWidget(self.status_code_label)
+        labels_layout.addStretch()
 
         # Layout
         layout = QtWidgets.QVBoxLayout()
-        layout.addWidget(self.label)
+        layout.addLayout(labels_layout)
+        layout.addWidget(self.progress_bar)
         self.setLayout(layout)
 
-    def update(self):
-        self.label.setText(self.get_finished_label_text(self.started_dt))
-        self.status = HistoryItem.STATUS_FINISHED
+        # Is a status code already sent?
+        if 'status_code' in data:
+            self.status_code_label.setText("{}".format(data['status_code']))
+            if data['status_code'] >= 200 and data['status_code'] < 300:
+                self.status_code_label.setStyleSheet(self.common.css['history_individual_file_status_code_label_2xx'])
+            if data['status_code'] >= 400 and data['status_code'] < 500:
+                self.status_code_label.setStyleSheet(self.common.css['history_individual_file_status_code_label_4xx'])
+            self.status = HistoryItem.STATUS_FINISHED
+            self.progress_bar.hide()
+            return
+
+        else:
+            self.total_bytes = data['filesize']
+            self.progress_bar.setMinimum(0)
+            self.progress_bar.setMaximum(data['filesize'])
+            self.progress_bar.total_bytes = data['filesize']
+
+        # Start at 0
+        self.update(0)
+
+    def update(self, downloaded_bytes):
+        self.downloaded_bytes = downloaded_bytes
+
+        self.progress_bar.setValue(downloaded_bytes)
+        if downloaded_bytes == self.progress_bar.total_bytes:
+            self.status_code_label.setText("200")
+            self.status_code_label.setStyleSheet(self.common.css['history_individual_file_status_code_label_2xx'])
+            self.progress_bar.hide()
+            self.status = HistoryItem.STATUS_FINISHED
+
+        else:
+            elapsed = time.time() - self.started
+            if elapsed < 10:
+                # Wait a couple of seconds for the download rate to stabilize.
+                # This prevents a "Windows copy dialog"-esque experience at
+                # the beginning of the download.
+                pb_fmt = strings._('gui_all_modes_progress_starting').format(
+                    self.common.human_readable_filesize(downloaded_bytes))
+            else:
+                pb_fmt = strings._('gui_all_modes_progress_eta').format(
+                    self.common.human_readable_filesize(downloaded_bytes),
+                    self.estimated_time_remaining)
+
+            self.progress_bar.setFormat(pb_fmt)
 
     def cancel(self):
         self.progress_bar.setFormat(strings._('gui_canceled'))
         self.status = HistoryItem.STATUS_CANCELED
+
+    @property
+    def estimated_time_remaining(self):
+        return self.common.estimated_time_remaining(self.downloaded_bytes,
+                                                self.total_bytes,
+                                                self.started)
+
 
 class HistoryItemList(QtWidgets.QScrollArea):
     """
@@ -452,26 +526,30 @@ class History(QtWidgets.QWidget):
         # In progress and completed counters
         self.in_progress_count = 0
         self.completed_count = 0
+        self.requests_count = 0
 
-        # In progress and completed labels
+        # In progress, completed, and requests labels
         self.in_progress_label = QtWidgets.QLabel()
         self.in_progress_label.setStyleSheet(self.common.css['mode_info_label'])
         self.completed_label = QtWidgets.QLabel()
         self.completed_label.setStyleSheet(self.common.css['mode_info_label'])
+        self.requests_label = QtWidgets.QLabel()
+        self.requests_label.setStyleSheet(self.common.css['mode_info_label'])
 
         # Header
         self.header_label = QtWidgets.QLabel(header_text)
         self.header_label.setStyleSheet(self.common.css['downloads_uploads_label'])
-        clear_button = QtWidgets.QPushButton(strings._('gui_all_modes_clear_history'))
-        clear_button.setStyleSheet(self.common.css['downloads_uploads_clear'])
-        clear_button.setFlat(True)
-        clear_button.clicked.connect(self.reset)
+        self.clear_button = QtWidgets.QPushButton(strings._('gui_all_modes_clear_history'))
+        self.clear_button.setStyleSheet(self.common.css['downloads_uploads_clear'])
+        self.clear_button.setFlat(True)
+        self.clear_button.clicked.connect(self.reset)
         header_layout = QtWidgets.QHBoxLayout()
         header_layout.addWidget(self.header_label)
         header_layout.addStretch()
         header_layout.addWidget(self.in_progress_label)
         header_layout.addWidget(self.completed_label)
-        header_layout.addWidget(clear_button)
+        header_layout.addWidget(self.requests_label)
+        header_layout.addWidget(self.clear_button)
 
         # When there are no items
         self.empty_image = QtWidgets.QLabel()
@@ -549,14 +627,18 @@ class History(QtWidgets.QWidget):
         self.completed_count = 0
         self.update_completed()
 
+        # Reset web requests counter
+        self.requests_count = 0
+        self.update_requests()
+
     def update_completed(self):
         """
         Update the 'completed' widget.
         """
         if self.completed_count == 0:
-            image = self.common.get_resource_path('images/share_completed_none.png')
+            image = self.common.get_resource_path('images/history_completed_none.png')
         else:
-            image = self.common.get_resource_path('images/share_completed.png')
+            image = self.common.get_resource_path('images/history_completed.png')
         self.completed_label.setText('<img src="{0:s}" /> {1:d}'.format(image, self.completed_count))
         self.completed_label.setToolTip(strings._('history_completed_tooltip').format(self.completed_count))
 
@@ -564,14 +646,25 @@ class History(QtWidgets.QWidget):
         """
         Update the 'in progress' widget.
         """
-        if self.mode != 'website':
-            if self.in_progress_count == 0:
-                image = self.common.get_resource_path('images/share_in_progress_none.png')
-            else:
-                image = self.common.get_resource_path('images/share_in_progress.png')
+        if self.in_progress_count == 0:
+            image = self.common.get_resource_path('images/history_in_progress_none.png')
+        else:
+            image = self.common.get_resource_path('images/history_in_progress.png')
 
-            self.in_progress_label.setText('<img src="{0:s}" /> {1:d}'.format(image, self.in_progress_count))
-            self.in_progress_label.setToolTip(strings._('history_in_progress_tooltip').format(self.in_progress_count))
+        self.in_progress_label.setText('<img src="{0:s}" /> {1:d}'.format(image, self.in_progress_count))
+        self.in_progress_label.setToolTip(strings._('history_in_progress_tooltip').format(self.in_progress_count))
+
+    def update_requests(self):
+        """
+        Update the 'web requests' widget.
+        """
+        if self.requests_count == 0:
+            image = self.common.get_resource_path('images/history_requests_none.png')
+        else:
+            image = self.common.get_resource_path('images/history_requests.png')
+
+        self.requests_label.setText('<img src="{0:s}" /> {1:d}'.format(image, self.requests_count))
+        self.requests_label.setToolTip(strings._('history_requests_tooltip').format(self.requests_count))
 
 
 class ToggleHistory(QtWidgets.QPushButton):
@@ -604,7 +697,7 @@ class ToggleHistory(QtWidgets.QPushButton):
     def update_indicator(self, increment=False):
         """
         Update the display of the indicator count. If increment is True, then
-        only increment the counter if Downloads is hidden.
+        only increment the counter if History is hidden.
         """
         if increment and not self.history_widget.isVisible():
             self.indicator_count += 1

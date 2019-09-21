@@ -10,7 +10,7 @@ from distutils.version import LooseVersion as Version
 from urllib.request import urlopen
 
 import flask
-from flask import Flask, request, render_template, abort, make_response, __version__ as flask_version
+from flask import Flask, request, render_template, abort, make_response, send_file, __version__ as flask_version
 from flask_httpauth import HTTPBasicAuth
 
 from .. import strings
@@ -30,22 +30,25 @@ except:
     pass
 
 
-class Web(object):
+class Web:
     """
     The Web object is the OnionShare web server, powered by flask
     """
     REQUEST_LOAD = 0
     REQUEST_STARTED = 1
     REQUEST_PROGRESS = 2
-    REQUEST_OTHER = 3
-    REQUEST_CANCELED = 4
-    REQUEST_RATE_LIMIT = 5
-    REQUEST_UPLOAD_FILE_RENAMED = 6
-    REQUEST_UPLOAD_SET_DIR = 7
-    REQUEST_UPLOAD_FINISHED = 8
-    REQUEST_UPLOAD_CANCELED = 9
-    REQUEST_ERROR_DATA_DIR_CANNOT_CREATE = 10
-    REQUEST_INVALID_PASSWORD = 11
+    REQUEST_CANCELED = 3
+    REQUEST_RATE_LIMIT = 4
+    REQUEST_UPLOAD_FILE_RENAMED = 5
+    REQUEST_UPLOAD_SET_DIR = 6
+    REQUEST_UPLOAD_FINISHED = 7
+    REQUEST_UPLOAD_CANCELED = 8
+    REQUEST_INDIVIDUAL_FILE_STARTED = 9
+    REQUEST_INDIVIDUAL_FILE_PROGRESS = 10
+    REQUEST_INDIVIDUAL_FILE_CANCELED = 11
+    REQUEST_ERROR_DATA_DIR_CANNOT_CREATE = 12
+    REQUEST_OTHER = 13
+    REQUEST_INVALID_PASSWORD = 14
 
     def __init__(self, common, is_gui, mode='share'):
         self.common = common
@@ -116,13 +119,35 @@ class Web(object):
         # Create the mode web object, which defines its own routes
         self.share_mode = None
         self.receive_mode = None
-        if self.mode == 'receive':
+        self.website_mode = None
+        if self.mode == 'share':
+            self.share_mode = ShareModeWeb(self.common, self)
+        elif self.mode == 'receive':
             self.receive_mode = ReceiveModeWeb(self.common, self)
         elif self.mode == 'website':
             self.website_mode = WebsiteModeWeb(self.common, self)
-        elif self.mode == 'share':
-            self.share_mode = ShareModeWeb(self.common, self)
 
+    def get_mode(self):
+        if self.mode == 'share':
+            return self.share_mode
+        elif self.mode == 'receive':
+            return self.receive_mode
+        elif self.mode == 'website':
+            return self.website_mode
+        else:
+            return None
+
+    def generate_static_url_path(self):
+        # The static URL path has a 128-bit random number in it to avoid having name
+        # collisions with files that might be getting shared
+        self.static_url_path = '/static_{}'.format(self.common.random_string(16))
+        self.common.log('Web', 'generate_static_url_path', 'new static_url_path is {}'.format(self.static_url_path))
+
+        # Update the flask route to handle the new static URL path
+        self.app.static_url_path = self.static_url_path
+        self.app.add_url_rule(
+            self.static_url_path + '/<path:filename>',
+            endpoint='static', view_func=self.app.send_static_file)
 
     def define_common_routes(self):
         """
@@ -152,7 +177,10 @@ class Web(object):
 
         @self.app.errorhandler(404)
         def not_found(e):
-            return self.error404()
+            mode = self.get_mode()
+            history_id = mode.cur_history_id
+            mode.cur_history_id += 1
+            return self.error404(history_id)
 
         @self.app.route("/<password_candidate>/shutdown")
         def shutdown(password_candidate):
@@ -163,6 +191,11 @@ class Web(object):
                 self.force_shutdown()
                 return ""
             abort(404)
+
+        if self.mode != 'website':
+            @self.app.route("/favicon.ico")
+            def favicon():
+                return send_file('{}/img/favicon.ico'.format(self.common.get_resource_path('static')))
 
     def error401(self):
         auth = request.authorization
@@ -182,15 +215,23 @@ class Web(object):
         r = make_response(render_template('401.html', static_url_path=self.static_url_path), 401)
         return self.add_security_headers(r)
 
-    def error404(self):
+    def error403(self):
+        self.add_request(Web.REQUEST_OTHER, request.path)
+        r = make_response(render_template('403.html', static_url_path=self.static_url_path), 403)
+        return self.add_security_headers(r)
+
+    def error404(self, history_id):
+        self.add_request(self.REQUEST_INDIVIDUAL_FILE_STARTED, '{}'.format(request.path), {
+            'id': history_id,
+            'status_code': 404
+        })
+
         self.add_request(Web.REQUEST_OTHER, request.path)
         r = make_response(render_template('404.html', static_url_path=self.static_url_path), 404)
         return self.add_security_headers(r)
 
-    def error403(self):
-        self.add_request(Web.REQUEST_OTHER, request.path)
-
-        r = make_response(render_template('403.html', static_url_path=self.static_url_path), 403)
+    def error405(self):
+        r = make_response(render_template('405.html', static_url_path=self.static_url_path), 405)
         return self.add_security_headers(r)
 
     def add_security_headers(self, r):
@@ -224,18 +265,6 @@ class Web(object):
         else:
             self.password = self.common.build_password()
             self.common.log('Web', 'generate_password', 'built random password: "{}"'.format(self.password))
-
-    def generate_static_url_path(self):
-        # The static URL path has a 128-bit random number in it to avoid having name
-        # collisions with files that might be getting shared
-        self.static_url_path = '/static_{}'.format(self.common.random_string(16))
-        self.common.log('Web', 'generate_static_url_path', 'new static_url_path is {}'.format(self.static_url_path))
-
-        # Update the flask route to handle the new static URL path
-        self.app.static_url_path = self.static_url_path
-        self.app.add_url_rule(
-            self.static_url_path + '/<path:filename>',
-            endpoint='static', view_func=self.app.send_static_file)
 
     def verbose_mode(self):
         """
