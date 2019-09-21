@@ -62,7 +62,7 @@
     "gui_receive_quit_warning": "Þú ert að taka á móti skrám. Ertu viss um að þú viljir hætta í OnionShare?",
     "gui_quit_warning_quit": "Hætta",
     "gui_quit_warning_dont_quit": "Hætta við",
-    "error_rate_limit": "Einhver hefur gert of margar rangar tilraunir með þínu vistfangi, sem þýðir að hann gæti verið að reyna að giska á það, þannig að OnionShare hefur stöðvað þjóninn. Byrjaðu deiling aftur og sendu viðtakandanum nýtt vistfang til deilingar.",
+    "error_rate_limit": "Einhver hefur gert of margar rangar tilraunir til að giska á lykilorðið þitt, þannig að OnionShare hefur stöðvað þjóninn. Byrjaðu deiling aftur og sendu viðtakandanum nýtt vistfang til deilingar.",
     "zip_progress_bar_format": "Þjappa: %p%",
     "error_stealth_not_supported": "Til að nota biðlaraauðkenningu þarf a.m.k. bæði Tor 0.2.9.1-Alpha (eða Tor Browser 6,5) og python3-stem 1.5.0.",
     "error_ephemeral_not_supported": "OnionShare krefst a.m.k. bæði Tor 0.2.7.1 og python3-stem 1.4.0.",
@@ -225,5 +225,14 @@
     "days_first_letter": "dag",
     "hours_first_letter": "klst",
     "minutes_first_letter": "mín",
-    "seconds_first_letter": "sek"
+    "seconds_first_letter": "sek",
+    "invalid_password_guess": "Ógilt lykilorð",
+    "gui_website_url_description": "<b>Hver sem er</b> með þetta OnionShare vistfang getur <b>skoðað</b> vefsvæðið þitt með því að nota <b>Tor-vafrann</b>: <img src='{}' />",
+    "gui_mode_website_button": "Birta vefsvæði",
+    "systray_site_loaded_title": "Vefsvæðinu hefur verið hlaðið inn",
+    "systray_site_loaded_message": "OnionShare-vefsvæðinu hefur verið hlaðið inn",
+    "systray_website_started_title": "Byrja að deila vefsvæðinu",
+    "systray_website_started_message": "Einhver er að skoða vefinn þinn",
+    "gui_website_mode_no_files": "Ennþá hefur engu vefsvæði verið deilt",
+    "gui_visit_started": "Einhver hefur skoðað vefsvæðið {}"
 }
