@@ -540,6 +540,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
     def closeEvent(self, e):
         self.common.log('OnionShareGui', 'closeEvent')
+        self.system_tray.hide()
         try:
             if self.mode == OnionShareGui.MODE_SHARE:
                 server_status = self.share_mode.server_status
