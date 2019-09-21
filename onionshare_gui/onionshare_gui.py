@@ -487,7 +487,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
                     self.status_bar.showMessage('{0:s}: {1:s}'.format(strings._('other_page_loaded'), event["path"]))
 
             if event["type"] == Web.REQUEST_INVALID_PASSWORD:
-                self.status_bar.showMessage('[#{0:d}] {1:s}: {2:s}'.format(mode.web.invalid_passwords_count, strings._('invalid_password_guess'), event["data"]))
+                self.status_bar.showMessage('[#{0:d}] {1:s}: {2:s}'.format(mode.web.invalid_passwords_count, strings._('incorrect_password'), event["data"]))
 
         mode.timer_callback()
 
