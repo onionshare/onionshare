@@ -154,30 +154,15 @@ pip uninstall PyInstaller
 rmdir C:\Users\user\AppData\Local\Programs\Python\Python37-32\Lib\site-packages\PyInstaller /S
 ```
 
-Change to a folder where you keep source code, and clone the PyInstaller git repo:
+Change to a folder where you keep source code, and clone the PyInstaller git repo and checkout the `v3.5` tag:
 
 ```
 git clone https://github.com/pyinstaller/pyinstaller.git
-```
-
-To verify the git tag, you first need the signing key's PGP key, which means you need `gpg`. If you installed git from git-scm.com, you can run this from Git Bash:
-
-```
-gpg --keyserver hkps://keyserver.ubuntu.com:443 --recv-key 0xD4AD8B9C167B757C4F08E8777B752811BF773B65
-```
-
-And now verify the tag:
-
-```
 cd pyinstaller
-git tag -v v3.4
+git tag -v v3.5
 ```
 
-It should say `Good signature from "Hartmut Goebel <h.goebel@goebel-consult.de>`. If it verified successfully, checkout the tag:
-
-```
-git checkout v3.4
-```
+(Note that ideally you would verify the git tag, but the PGP key that has signed the `v3.5` git tag for is not published anywhere, so this isn't possible. See [this issue](https://github.com/pyinstaller/pyinstaller/issues/4430).)
 
 And compile the bootloader, following [these instructions](https://pythonhosted.org/PyInstaller/bootloader-building.html). To compile, run this:
 
