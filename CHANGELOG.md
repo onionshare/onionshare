@@ -1,5 +1,19 @@
 # OnionShare Changelog
 
+## 2.2
+
+* New feature: Website mode, which allows publishing a flat HTML website as an onion service
+* Allow individual files to be viewed or downloaded in Share mode, including the ability to browse into subdirectories and use breadcrumbs to navigate back
+* Show a counter when individual files or pages are viewed
+* Better History items including colors and status codes to differentiate between successful and failed requests
+* Swap out the random /slug suffix for HTTP basic authentication (when in non-public mode)
+* Hide the Tor connection settings if the ONIONSHARE_HIDE_TOR_SETTINGS environment variable is set (Tails compatibility)
+* Remove the NoScript XSS warning in Receive Mode now that the NoScript/Tor Browser bug is fixed. The ajax upload method still exists when javascript is enabled.
+* Better support for DragonFly BSD
+* Updated various dependencies, including Flask, Werkzeug, urllib3, requests, and PyQt5
+* Updated Tor to 0.4.1.5
+* Other minor bug fixes
+
 ## 2.1
 
 * New feature: Auto-start timer, which allows scheduling when the server starts
