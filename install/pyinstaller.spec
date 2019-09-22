@@ -58,7 +58,7 @@ if p == 'Darwin':
     app = BUNDLE(
         coll,
         name='OnionShare.app',
-        icon='install/onionshare.icns',
+        icon='onionshare.icns',
         bundle_identifier='com.micahflee.onionshare',
         info_plist={
             'CFBundleShortVersionString': version,
