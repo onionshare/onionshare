@@ -239,7 +239,8 @@ class Web:
         """
         for header, value in self.security_headers:
             r.headers.set(header, value)
-        if self.common.settings.get('csp_header_enabled'):
+        # Set a CSP header unless in website mode and the user has disabled it
+        if not self.common.settings.get('csp_header_disabled') or self.mode != 'website':
             r.headers.set('Content-Security-Policy', 'default-src \'self\'; style-src \'self\'; script-src \'self\'; img-src \'self\' data:;')
         return r
 

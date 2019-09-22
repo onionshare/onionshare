@@ -67,7 +67,7 @@ class TestSettings:
             'hidservauth_string': '',
             'data_dir': os.path.expanduser('~/OnionShare'),
             'public_mode': False,
-            'csp_header_enabled': True
+            'csp_header_disabled': False
         }
         for key in settings_obj._settings:
             # Skip locale, it will not always default to the same thing
