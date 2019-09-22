@@ -209,7 +209,7 @@ class ServerStatus(QtWidgets.QWidget):
         if self.mode == ServerStatus.MODE_SHARE:
             self.url_description.setText(strings._('gui_share_url_description').format(info_image))
         elif self.mode == ServerStatus.MODE_WEBSITE:
-            self.url_description.setText(strings._('gui_share_url_description').format(info_image))
+            self.url_description.setText(strings._('gui_website_url_description').format(info_image))
         else:
             self.url_description.setText(strings._('gui_receive_url_description').format(info_image))
 
