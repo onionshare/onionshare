@@ -2,7 +2,7 @@
 
 ## 2.2
 
-* New feature: Website mode, which allows publishing a flat HTML website as an onion service
+* New feature: Website mode, which allows publishing a static HTML website as an onion service
 * Allow individual files to be viewed or downloaded in Share mode, including the ability to browse into subdirectories and use breadcrumbs to navigate back
 * Show a counter when individual files or pages are viewed
 * Better History items including colors and status codes to differentiate between successful and failed requests
