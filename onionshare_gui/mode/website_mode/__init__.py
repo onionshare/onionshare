@@ -200,12 +200,6 @@ class WebsiteMode(Mode):
         """
         self.primary_action.hide()
 
-    def handle_request_load(self, event):
-        """
-        Handle REQUEST_LOAD event.
-        """
-        self.system_tray.showMessage(strings._('systray_site_loaded_title'), strings._('systray_site_loaded_message'))
-
     def on_reload_settings(self):
         """
         If there were some files listed for sharing, we should be ok to re-enable
