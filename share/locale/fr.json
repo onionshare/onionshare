@@ -228,12 +228,7 @@
     "minutes_first_letter": "min",
     "seconds_first_letter": "s",
     "gui_website_url_description": "<b>Quiconque</b> aura cette adresse OnionShare pourra <b>visiter</b> votre site Web en utilisant le <b>Navigateur Tor</b> : <img src='{}' />",
-    "systray_site_loaded_title": "Le site a été chargé",
-    "systray_site_loaded_message": "Le site OnionShare a été chargé",
-    "systray_website_started_title": "Début du partage du site Web",
-    "systray_website_started_message": "Quelqu’un visite votre site Web",
     "gui_website_mode_no_files": "Aucun site Web n’a encore été partagé",
-    "gui_visit_started": "Quelqu’un a visité votre site Web {}",
     "invalid_password_guess": "La tentative de mot de passe est invalide",
     "gui_mode_website_button": "Publier un site Web"
 }

@@ -229,15 +229,8 @@
     "invalid_password_guess": "Ógilt lykilorð",
     "gui_website_url_description": "<b>Hver sem er</b> með þetta OnionShare vistfang getur <b>skoðað</b> vefsvæðið þitt með því að nota <b>Tor-vafrann</b>: <img src='{}' />",
     "gui_mode_website_button": "Birta vefsvæði",
-    "systray_site_loaded_title": "Vefsvæði hefur verið hlaðið inn",
-    "systray_site_loaded_message": "OnionShare-vefsvæði hefur verið hlaðið inn",
-    "systray_website_started_title": "Byrja að deila vefsvæðinu",
-    "systray_website_started_message": "Einhver er að skoða vefinn þinn",
     "gui_website_mode_no_files": "Ennþá hefur engu vefsvæði verið deilt",
-    "gui_visit_started": "Einhver hefur skoðað vefsvæðið {}",
     "incorrect_password": "Rangt lykilorð",
     "gui_settings_individual_downloads_label": "Taktu merkið úr til að leyfa niðurhal á stökum skrám",
-    "history_requests_tooltip": "{} vefbeiðnir",
-    "systray_individual_file_downloaded_title": "Stakri skrá hlaðið inn",
-    "systray_individual_file_downloaded_message": "Staka skráin {} skoðuð"
+    "history_requests_tooltip": "{} vefbeiðnir"
 }

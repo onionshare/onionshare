@@ -229,10 +229,5 @@
     "invalid_password_guess": "Ogiltig lösenordsgissning",
     "gui_website_url_description": "<b>Någon</b> med denna OnionShare-adress kan <b>besöka</b> din webbplats med hjälp av <b>Tor Browser</b>: <img src='{}' />",
     "gui_mode_website_button": "Publicera webbplats",
-    "systray_site_loaded_title": "Webbplats inläst",
-    "systray_site_loaded_message": "Onionshare-webbplats inläst",
-    "systray_website_started_title": "Börjar dela webbplats",
-    "systray_website_started_message": "Någon besöker din webbplats",
-    "gui_website_mode_no_files": "Ingen webbplats delad ännu",
-    "gui_visit_started": "Någon har besökt din webbplats {}"
+    "gui_website_mode_no_files": "Ingen webbplats delad ännu"
 }

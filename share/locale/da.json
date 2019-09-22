@@ -233,15 +233,8 @@
     "invalid_password_guess": "Ugyldigt adgangskodegæt",
     "gui_website_url_description": "<b>Alle</b> men OnionShare-adressen kan <b>besøge</b> dit websted med <b>Tor Browser</b>: <img src='{}' />",
     "gui_mode_website_button": "Udgiv websted",
-    "systray_site_loaded_title": "Webstedet er indlæst",
-    "systray_site_loaded_message": "OnionShare-webstedet er indlæst",
-    "systray_website_started_title": "Starter delingswebsted",
-    "systray_website_started_message": "Nogen besøger dit websted",
     "gui_website_mode_no_files": "Intet websted delt endnu",
-    "gui_visit_started": "Nogen har besøgt dit websted {}",
     "incorrect_password": "Forkert adgangskode",
     "gui_settings_individual_downloads_label": "Fravælg for at tillade download af individuelle filer",
-    "history_requests_tooltip": "{}-webanmodninger",
-    "systray_individual_file_downloaded_title": "Individuel fil er indlæst",
-    "systray_individual_file_downloaded_message": "Individuel fil {} vist"
+    "history_requests_tooltip": "{}-webanmodninger"
 }

@@ -200,10 +200,5 @@
     "invalid_password_guess": "Geçersiz parola tahmini",
     "gui_website_url_description": "Bu OnionShare adresi olan <b>herkes</b>, <b>Tor Browser</b>'ı kullanarak web sitenizi <b>ziyaret</b> edebilir: <img src='{}' />",
     "gui_mode_website_button": "Web Sitesini Yayınla",
-    "systray_site_loaded_title": "Site Yüklendi",
-    "systray_site_loaded_message": "OnionShare sitesi yüklü",
-    "systray_website_started_title": "Paylaşım web sitesi başlatılıyor",
-    "systray_website_started_message": "Birisi web sitenizi ziyaret ediyor",
-    "gui_website_mode_no_files": "Henüz Paylaşılan Web Sitesi Yok",
-    "gui_visit_started": "Birisi web sitenizi ziyaret etti {}"
+    "gui_website_mode_no_files": "Henüz Paylaşılan Web Sitesi Yok"
 }

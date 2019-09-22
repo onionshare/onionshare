@@ -234,10 +234,5 @@
     "invalid_password_guess": "Intento de contraseña incorrecto",
     "gui_website_url_description": "<b>Cualquiera</b> que tenga esta dirección de OnionShare puede <b>visitar</b> su sitio web mediante el <b>navegador Tor</b>: <img src='{}' />",
     "gui_mode_website_button": "Publicar sitio web",
-    "systray_site_loaded_title": "Sitio cargado",
-    "systray_site_loaded_message": "Sitio de OnionShare cargado",
-    "systray_website_started_title": "Se comenzó a compartir el sitio web",
-    "systray_website_started_message": "Alguien está visitando su sitio web",
-    "gui_website_mode_no_files": "Aún no se han compartido sitios web",
-    "gui_visit_started": "Alguien ha visitado su sitio web {}"
+    "gui_website_mode_no_files": "Aún no se han compartido sitios web"
 }
