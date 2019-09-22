@@ -238,6 +238,36 @@ class SettingsDialog(QtWidgets.QDialog):
         receiving_group = QtWidgets.QGroupBox(strings._("gui_settings_receiving_label"))
         receiving_group.setLayout(receiving_group_layout)
 
+        # Option to disable Content Security Policy (for website sharing)
+        self.csp_header_disabled_checkbox = QtWidgets.QCheckBox()
+        self.csp_header_disabled_checkbox.setCheckState(QtCore.Qt.Unchecked)
+        self.csp_header_disabled_checkbox.setText(strings._("gui_settings_csp_header_disabled_option"))
+        csp_header_label = QtWidgets.QLabel(strings._("gui_settings_whats_this").format("https://github.com/micahflee/onionshare/wiki/Content-Security-Policy"))
+        csp_header_label.setStyleSheet(self.common.css['settings_whats_this'])
+        csp_header_label.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
+        csp_header_label.setOpenExternalLinks(True)
+        csp_header_label.setMinimumSize(csp_header_label.sizeHint())
+        csp_header_layout = QtWidgets.QHBoxLayout()
+        csp_header_layout.addWidget(self.csp_header_disabled_checkbox)
+        csp_header_layout.addWidget(csp_header_label)
+        csp_header_layout.addStretch()
+        csp_header_layout.setContentsMargins(0,0,0,0)
+        self.csp_header_widget = QtWidgets.QWidget()
+        self.csp_header_widget.setLayout(csp_header_layout)
+
+        # Website settings widget
+        website_settings_layout = QtWidgets.QVBoxLayout()
+        website_settings_layout.setContentsMargins(0, 0, 0, 0)
+        website_settings_layout.addWidget(self.csp_header_widget)
+        self.website_settings_widget = QtWidgets.QWidget()
+        self.website_settings_widget.setLayout(website_settings_layout)
+
+        # Website mode options layout
+        website_group_layout = QtWidgets.QVBoxLayout()
+        website_group_layout.addWidget(self.website_settings_widget)
+        website_group = QtWidgets.QGroupBox(strings._("gui_settings_website_label"))
+        website_group.setLayout(website_group_layout)
+
         # Automatic updates options
 
         # Autoupdate
@@ -482,6 +512,7 @@ class SettingsDialog(QtWidgets.QDialog):
         left_col_layout.addWidget(onion_group)
         left_col_layout.addWidget(sharing_group)
         left_col_layout.addWidget(receiving_group)
+        left_col_layout.addWidget(website_group)
         left_col_layout.addWidget(autoupdate_group)
         left_col_layout.addLayout(language_layout)
         left_col_layout.addStretch()
@@ -516,6 +547,12 @@ class SettingsDialog(QtWidgets.QDialog):
             self.close_after_first_download_checkbox.setCheckState(QtCore.Qt.Checked)
         else:
             self.close_after_first_download_checkbox.setCheckState(QtCore.Qt.Unchecked)
+
+        csp_header_disabled = self.old_settings.get('csp_header_disabled')
+        if csp_header_disabled:
+            self.csp_header_disabled_checkbox.setCheckState(QtCore.Qt.Checked)
+        else:
+            self.csp_header_disabled_checkbox.setCheckState(QtCore.Qt.Unchecked)
 
         autostart_timer = self.old_settings.get('autostart_timer')
         if autostart_timer:
@@ -982,6 +1019,7 @@ class SettingsDialog(QtWidgets.QDialog):
         settings.load() # To get the last update timestamp
 
         settings.set('close_after_first_download', self.close_after_first_download_checkbox.isChecked())
+        settings.set('csp_header_disabled', self.csp_header_disabled_checkbox.isChecked())
         settings.set('autostart_timer', self.autostart_timer_checkbox.isChecked())
         settings.set('autostop_timer', self.autostop_timer_checkbox.isChecked())
 

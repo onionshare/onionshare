@@ -92,7 +92,6 @@ class Web:
             Flask.select_jinja_autoescape = self._safe_select_jinja_autoescape
 
         self.security_headers = [
-            ('Content-Security-Policy', 'default-src \'self\'; style-src \'self\'; script-src \'self\'; img-src \'self\' data:;'),
             ('X-Frame-Options', 'DENY'),
             ('X-Xss-Protection', '1; mode=block'),
             ('X-Content-Type-Options', 'nosniff'),
@@ -240,6 +239,9 @@ class Web:
         """
         for header, value in self.security_headers:
             r.headers.set(header, value)
+        # Set a CSP header unless in website mode and the user has disabled it
+        if not self.common.settings.get('csp_header_disabled') or self.mode != 'website':
+            r.headers.set('Content-Security-Policy', 'default-src \'self\'; style-src \'self\'; script-src \'self\'; img-src \'self\' data:;')
         return r
 
     def _safe_select_jinja_autoescape(self, filename):

@@ -4,11 +4,11 @@ import unittest
 
 from .GuiWebsiteTest import GuiWebsiteTest
 
-class LocalWebsiteModeTest(unittest.TestCase, GuiWebsiteTest):
+class LocalWebsiteModeCSPEnabledTest(unittest.TestCase, GuiWebsiteTest):
     @classmethod
     def setUpClass(cls):
         test_settings = {
-            "csp_header_disabled": True
+            "csp_header_disabled": False,
         }
         cls.gui = GuiWebsiteTest.set_up(test_settings)
 
