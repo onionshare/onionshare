@@ -127,7 +127,7 @@
     "gui_tor_connection_ask_open_settings": "Ja",
     "gui_tor_connection_error_settings": "Versuche in den Einstellung zu ändern, wie sich OnionShare mit dem Tornetzwerk verbindet.",
     "gui_tor_connection_canceled": "Konnte keine Verbindung zu Tor herstellen.\n\nStelle sicher, dass du mit dem Internet verbunden bist, öffne OnionShare erneut und richte die Verbindung zu Tor ein.",
-    "share_via_onionshare": "Teile es per OnionShare",
+    "share_via_onionshare": "Teilen über OnionShare",
     "gui_use_legacy_v2_onions_checkbox": "Nutze das alte Adressformat",
     "gui_save_private_key_checkbox": "Nutze eine gleichbleibende Adresse",
     "gui_share_url_description": "<b>Jeder</b> mit dieser OnionShare-Adresse kann deine Dateien mit dem <b>Tor Browser</b> <b>herunterladen</b>: <img src='{}' />",
@@ -231,9 +231,11 @@
     "gui_website_url_description": "<b>Jeder</b> mit dieser OnionShare-Adresse kann deine Webseite mit dem <b>Tor Browser</b> <b>ansehen</b>: <img src='{}' />",
     "gui_mode_website_button": "Webseite veröffentlichen",
     "systray_site_loaded_title": "Seite geladen",
-    "systray_site_loaded_message": "OnionShare-Seite geladen",
+    "systray_site_loaded_message": "OnionShare Website geladen",
     "systray_website_started_title": "Freigabe der Webseite starten",
     "systray_website_started_message": "Jemand besucht deine Webseite",
     "gui_website_mode_no_files": "Noch keine Webseite freigegeben",
-    "gui_visit_started": "Jemand hat deine Webseite besucht {}"
+    "gui_visit_started": "Jemand hat deine Webseite besucht {}",
+    "incorrect_password": "Falsches Passwort",
+    "systray_individual_file_downloaded_title": "Individuelle Datei geladen"
 }
