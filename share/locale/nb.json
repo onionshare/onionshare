@@ -239,5 +239,6 @@
     "systray_website_started_message": "Noen besøker din nettside",
     "gui_website_mode_no_files": "Ingen nettside delt enda",
     "gui_visit_started": "Noen har besøkt din nettside {}",
-    "invalid_password_guess": "Feil passord"
+    "invalid_password_guess": "Feil passord",
+    "incorrect_password": "Feil passord"
 }
