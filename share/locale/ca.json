@@ -230,10 +230,5 @@
     "invalid_password_guess": "Intent de contrasenya incorrecte",
     "gui_website_url_description": "<b>Qualsevol persona</b> amb aquesta adreça d'OnionShare pot <b>visitar</b> el vostre lloc web fent servir el <b>Navegador Tor</b>: <img src='{}' />",
     "gui_mode_website_button": "Publica el lloc web",
-    "systray_site_loaded_title": "S'ha carregat el lloc",
-    "systray_site_loaded_message": "S'ha carregat el lloc OnionShare",
-    "systray_website_started_title": "S'ha començat a compartir el lloc web",
-    "systray_website_started_message": "Algú està visitant el vostre lloc web",
-    "gui_website_mode_no_files": "Encara no s'han compartit llocs web",
-    "gui_visit_started": "Algú ha visitat el vostre lloc web {}"
+    "gui_website_mode_no_files": "Encara no s'han compartit llocs web"
 }

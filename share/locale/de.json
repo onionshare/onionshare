@@ -230,12 +230,6 @@
     "invalid_password_guess": "Ungültige Passwortratschläge",
     "gui_website_url_description": "<b>Jeder</b> mit dieser OnionShare-Adresse kann deine Webseite mit dem <b>Tor Browser</b> <b>ansehen</b>: <img src='{}' />",
     "gui_mode_website_button": "Webseite veröffentlichen",
-    "systray_site_loaded_title": "Seite geladen",
-    "systray_site_loaded_message": "OnionShare Website geladen",
-    "systray_website_started_title": "Freigabe der Webseite starten",
-    "systray_website_started_message": "Jemand besucht deine Webseite",
     "gui_website_mode_no_files": "Noch keine Webseite freigegeben",
-    "gui_visit_started": "Jemand hat deine Webseite besucht {}",
-    "incorrect_password": "Falsches Passwort",
-    "systray_individual_file_downloaded_title": "Individuelle Datei geladen"
+    "incorrect_password": "Falsches Passwort"
 }
