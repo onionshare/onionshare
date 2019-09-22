@@ -8,7 +8,7 @@ class LocalWebsiteModeTest(unittest.TestCase, GuiWebsiteTest):
     @classmethod
     def setUpClass(cls):
         test_settings = {
-            "csp_header_enabled": False
+            "csp_header_disabled": True
         }
         cls.gui = GuiWebsiteTest.set_up(test_settings)
 
