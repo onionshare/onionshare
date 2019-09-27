@@ -175,7 +175,7 @@
     "gui_settings_connection_type_bundled_option": "Die integrierte Tor-Version von OnionShare nutzen",
     "settings_error_socket_file": "Kann nicht mittels des Tor Controller Socket {} verbinden.",
     "gui_server_started_after_autostop_timer": "Die Zeit ist abgelaufen bevor der Server gestartet werden konnte.\nBitte starte einen erneuten Teilvorgang.",
-    "gui_server_autostop_timer_expired": "Der Stop-Timer ist bereits abgelaufen.\nBitte pass diesen an, um das Teilen zu starten.",
+    "gui_server_autostop_timer_expired": "Der Stop-Timer ist bereits abgelaufen. Bitte pass diesen an, um das Teilen zu starten.",
     "gui_status_indicator_share_stopped": "Bereit zum teilen",
     "history_in_progress_tooltip": "{} läuft",
     "receive_mode_upload_starting": "Hochladen von insgesamt {} beginnt",
