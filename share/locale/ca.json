@@ -78,7 +78,7 @@
     "gui_settings_general_label": "Configuració general",
     "gui_settings_sharing_label": "Configuració de compartició",
     "gui_settings_close_after_first_download_option": "Deixa de compartir després d'enviar fitxers",
-    "gui_settings_connection_type_label": "Com hauria de connectar-se OnionShare a Tor?",
+    "gui_settings_connection_type_label": "Com hauria de connectar-se l'OnionShare al Tor?",
     "gui_settings_connection_type_bundled_option": "Fes servir la versió de Tor inclosa dins d'OnionShare",
     "gui_settings_connection_type_automatic_option": "Intenta la configuració automàtica amb el Navegador Tor",
     "gui_settings_connection_type_control_port_option": "Connecta fent servir el port de control",
@@ -132,7 +132,7 @@
     "gui_tor_connection_canceled": "No s'ha pogut establir la connexió amb la xarxa Tor.\n\nAssegureu-vos que teniu connexió a internet, torneu a obrir l'OnionShare i prepareu la connexió a Tor.",
     "gui_tor_connection_lost": "S'ha perdut la connexió amb Tor.",
     "gui_server_started_after_autostop_timer": "El temporitzador de finalització automàtica ha acabat abans que s'iniciés el servidor.\nTorneu a compartir-ho.",
-    "gui_server_autostop_timer_expired": "El temporitzador de finalització automàtica ja s'ha acabat.\nReinicieu-lo per a poder compartir.",
+    "gui_server_autostop_timer_expired": "El temporitzador de finalització automàtica ja s'ha acabat. Ajusteu-lo per a poder compartir.",
     "share_via_onionshare": "Comparteix-ho amb l'OnionShare",
     "gui_use_legacy_v2_onions_checkbox": "Fes servir adreces amb un format antic",
     "gui_save_private_key_checkbox": "Fes servir una adreça persistent",
@@ -238,5 +238,9 @@
     "gui_visit_started": "Algú ha visitat el vostre lloc web {}",
     "incorrect_password": "La contrasenya no és correcta",
     "history_requests_tooltip": "{} peticions web",
-    "systray_individual_file_downloaded_title": "S'ha carregat el fitxer individual"
+    "systray_individual_file_downloaded_title": "S'ha carregat el fitxer individual",
+    "gui_settings_individual_downloads_label": "Desmarqueu per a permetre la baixada de fitxers individuals",
+    "systray_individual_file_downloaded_message": "S'ha visualitzat el fitxer individual {}",
+    "gui_settings_csp_header_disabled_option": "Desactiva la capçalera de la Política de Seguretat de Contingut",
+    "gui_settings_website_label": "Configuració del lloc web"
 }
