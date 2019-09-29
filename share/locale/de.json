@@ -239,5 +239,6 @@
     "incorrect_password": "Falsches Passwort",
     "systray_individual_file_downloaded_title": "Individuelle Datei geladen",
     "gui_settings_individual_downloads_label": "Abwählen, um den Download einzelner Dateien zu erlauben",
-    "history_requests_tooltip": "Web-Anfragen"
+    "history_requests_tooltip": "{} Web-Anfragen",
+    "systray_individual_file_downloaded_message": "Individuelle Datei {} betrachtet"
 }
