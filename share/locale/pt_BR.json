@@ -230,9 +230,9 @@
     "incorrect_password": "senha incorreta",
     "gui_settings_individual_downloads_label": "Desmarque para permitir download de arquivos individuais",
     "gui_settings_csp_header_disabled_option": "Desabilitar cabeçalho Política de Segurança de Conteúdo",
-    "gui_website_url_description": "<b>Qualquer pessoa</b> com este endereço OnionShare pode  <b>visitar</b> seu site usando o <b>navegador Tor</b>: <img src='{}' />",
-    "gui_mode_website_button": "Publicar site",
-    "gui_website_mode_no_files": "Nenhum site compartilhado ainda",
+    "gui_website_url_description": "<b>Qualquer um</b> com este endereço OnionShare pode  <b>visitar</b> seu site usando o <b>navegador Tor</b>: <img src='{}' />",
+    "gui_mode_website_button": "Publicar Website",
+    "gui_website_mode_no_files": "Nenhum website compartilhado ainda",
     "history_requests_tooltip": "{} solicitações da web",
-    "gui_settings_website_label": "Configurações do site"
+    "gui_settings_website_label": "Configurações do Website"
 }
