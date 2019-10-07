@@ -127,14 +127,14 @@
     "error_invalid_private_key": "Questo tipo di chiave privata non è supportato",
     "connecting_to_tor": "In connessione alla rete Tor",
     "update_available": "E' disponibile una nuova versione di OnionShare. <a href='{}'>Clicca qui</a> per scaricarla.<br><br>Stai usando {} e l'ultima versione è {}.",
-    "update_error_check_error": "Non è possibile verificare per nuove versioni: il sito OnionShare dice che l'ultima versione non è riconoscibile '{}'…",
+    "update_error_check_error": "Non è possibile verificare per la nuova versione: il sito OnionShare dice che l'ultima versione non è riconoscibile '{}'…",
     "update_error_invalid_latest_version": "Non è possibile controllare per una nuova versione: Magari non sei connesso a Tor, o il sito OnionShare non funziona?",
     "update_not_available": "Stai usando la ultima versione di OnionShare.",
     "gui_tor_connection_ask": "Apri le impostazione per trovare la connessione a Tor?",
     "gui_tor_connection_ask_open_settings": "Sì",
     "gui_tor_connection_ask_quit": "Esci",
     "gui_tor_connection_error_settings": "Prova a modificare le impostazioni di come OnionShare si connette alla rete Tor.",
-    "gui_tor_connection_canceled": "Impossibile connettersi a Tor,\n\nVerifica la connessione a Internet, dopo prova a riaprire OnionShare e configurare la connessione a Tor.",
+    "gui_tor_connection_canceled": "Impossibile connettersi a Tor,\n\nAssicurati di essere connesso a Internet, dopo prova a riaprire OnionShare e configurare la connessione a Tor.",
     "gui_tor_connection_lost": "Disconnesso da Tor.",
     "gui_server_started_after_autostop_timer": "Il timer ad arresto automatico si è fermato prima dell'avvio del server. Si prega di fare una nuova condivisione.",
     "gui_server_autostop_timer_expired": "Il timer di arresto automatico è già scaduto. Si prega di aggiornarlo per iniziare la condivisione.",
@@ -225,5 +225,7 @@
     "days_first_letter": "d",
     "hours_first_letter": "h",
     "minutes_first_letter": "m",
-    "seconds_first_letter": "s"
+    "seconds_first_letter": "s",
+    "incorrect_password": "Password non corretta",
+    "gui_settings_individual_downloads_label": "Disabilita per consentire il download di file singoli"
 }
