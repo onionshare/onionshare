@@ -236,5 +236,7 @@
     "gui_website_mode_no_files": "Intet websted delt endnu",
     "incorrect_password": "Forkert adgangskode",
     "gui_settings_individual_downloads_label": "Fravælg for at tillade download af individuelle filer",
-    "history_requests_tooltip": "{}-webanmodninger"
+    "history_requests_tooltip": "{}-webanmodninger",
+    "gui_settings_csp_header_disabled_option": "Deaktivér indholdets header om sikkerhedspolitik",
+    "gui_settings_website_label": "Webstedsindstillinger"
 }

@@ -232,5 +232,7 @@
     "gui_website_mode_no_files": "Ennþá hefur engu vefsvæði verið deilt",
     "incorrect_password": "Rangt lykilorð",
     "gui_settings_individual_downloads_label": "Taktu merkið úr til að leyfa niðurhal á stökum skrám",
-    "history_requests_tooltip": "{} vefbeiðnir"
+    "history_requests_tooltip": "{} vefbeiðnir",
+    "gui_settings_csp_header_disabled_option": "Gera haus fyrir öryggisstefnu efnis (Content Security Policy) óvirkan",
+    "gui_settings_website_label": "Stillingar vefsvæðis"
 }
