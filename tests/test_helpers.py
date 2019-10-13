@@ -20,7 +20,7 @@ import tempfile
 import os
 
 
-class MockSubprocess():
+class MockSubprocess:
     def __init__(self):
         self.last_call = None
 

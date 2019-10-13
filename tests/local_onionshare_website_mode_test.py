@@ -4,12 +4,11 @@ import unittest
 
 from .GuiWebsiteTest import GuiWebsiteTest
 
+
 class LocalWebsiteModeTest(unittest.TestCase, GuiWebsiteTest):
     @classmethod
     def setUpClass(cls):
-        test_settings = {
-            "csp_header_disabled": True
-        }
+        test_settings = {"csp_header_disabled": True}
         cls.gui = GuiWebsiteTest.set_up(test_settings)
 
     @classmethod
@@ -17,10 +16,11 @@ class LocalWebsiteModeTest(unittest.TestCase, GuiWebsiteTest):
         GuiWebsiteTest.tear_down()
 
     @pytest.mark.gui
-    @pytest.mark.skipif(pytest.__version__ < '2.9', reason="requires newer pytest")
+    @pytest.mark.skipif(pytest.__version__ < "2.9", reason="requires newer pytest")
     def test_gui(self):
-        #self.run_all_common_setup_tests()
+        # self.run_all_common_setup_tests()
         self.run_all_website_mode_download_tests(False)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -25,10 +25,12 @@ from onionshare import strings
 
 from .widgets import Alert
 
+
 class ServerStatus(QtWidgets.QWidget):
     """
     The server status chunk of the GUI.
     """
+
     server_started = QtCore.pyqtSignal()
     server_started_finished = QtCore.pyqtSignal()
     server_stopped = QtCore.pyqtSignal()
@@ -37,9 +39,9 @@ class ServerStatus(QtWidgets.QWidget):
     url_copied = QtCore.pyqtSignal()
     hidservauth_copied = QtCore.pyqtSignal()
 
-    MODE_SHARE = 'share'
-    MODE_RECEIVE = 'receive'
-    MODE_WEBSITE = 'website'
+    MODE_SHARE = "share"
+    MODE_RECEIVE = "receive"
+    MODE_WEBSITE = "website"
 
     STATUS_STOPPED = 0
     STATUS_WORKING = 1
@@ -51,7 +53,7 @@ class ServerStatus(QtWidgets.QWidget):
         self.common = common
 
         self.status = self.STATUS_STOPPED
-        self.mode = None # Gets set in self.set_mode
+        self.mode = None  # Gets set in self.set_mode
 
         self.qtapp = qtapp
         self.app = app
@@ -63,19 +65,31 @@ class ServerStatus(QtWidgets.QWidget):
         self.resizeEvent(None)
 
         # Auto-start timer layout
-        self.autostart_timer_label = QtWidgets.QLabel(strings._('gui_settings_autostart_timer'))
+        self.autostart_timer_label = QtWidgets.QLabel(
+            strings._("gui_settings_autostart_timer")
+        )
         self.autostart_timer_widget = QtWidgets.QDateTimeEdit()
         self.autostart_timer_widget.setDisplayFormat("hh:mm A MMM d, yy")
         if self.local_only:
             # For testing
-            self.autostart_timer_widget.setDateTime(QtCore.QDateTime.currentDateTime().addSecs(15))
-            self.autostart_timer_widget.setMinimumDateTime(QtCore.QDateTime.currentDateTime())
+            self.autostart_timer_widget.setDateTime(
+                QtCore.QDateTime.currentDateTime().addSecs(15)
+            )
+            self.autostart_timer_widget.setMinimumDateTime(
+                QtCore.QDateTime.currentDateTime()
+            )
         else:
             # Set proposed timer to be 5 minutes into the future
-            self.autostart_timer_widget.setDateTime(QtCore.QDateTime.currentDateTime().addSecs(300))
+            self.autostart_timer_widget.setDateTime(
+                QtCore.QDateTime.currentDateTime().addSecs(300)
+            )
             # Onion services can take a little while to start, so reduce the risk of it expiring too soon by setting the minimum to 60s from now
-            self.autostart_timer_widget.setMinimumDateTime(QtCore.QDateTime.currentDateTime().addSecs(60))
-        self.autostart_timer_widget.setCurrentSection(QtWidgets.QDateTimeEdit.MinuteSection)
+            self.autostart_timer_widget.setMinimumDateTime(
+                QtCore.QDateTime.currentDateTime().addSecs(60)
+            )
+        self.autostart_timer_widget.setCurrentSection(
+            QtWidgets.QDateTimeEdit.MinuteSection
+        )
         autostart_timer_layout = QtWidgets.QHBoxLayout()
         autostart_timer_layout.addWidget(self.autostart_timer_label)
         autostart_timer_layout.addWidget(self.autostart_timer_widget)
@@ -88,19 +102,31 @@ class ServerStatus(QtWidgets.QWidget):
         self.autostart_timer_container.hide()
 
         # Auto-stop timer layout
-        self.autostop_timer_label = QtWidgets.QLabel(strings._('gui_settings_autostop_timer'))
+        self.autostop_timer_label = QtWidgets.QLabel(
+            strings._("gui_settings_autostop_timer")
+        )
         self.autostop_timer_widget = QtWidgets.QDateTimeEdit()
         self.autostop_timer_widget.setDisplayFormat("hh:mm A MMM d, yy")
         if self.local_only:
             # For testing
-            self.autostop_timer_widget.setDateTime(QtCore.QDateTime.currentDateTime().addSecs(15))
-            self.autostop_timer_widget.setMinimumDateTime(QtCore.QDateTime.currentDateTime())
+            self.autostop_timer_widget.setDateTime(
+                QtCore.QDateTime.currentDateTime().addSecs(15)
+            )
+            self.autostop_timer_widget.setMinimumDateTime(
+                QtCore.QDateTime.currentDateTime()
+            )
         else:
             # Set proposed timer to be 5 minutes into the future
-            self.autostop_timer_widget.setDateTime(QtCore.QDateTime.currentDateTime().addSecs(300))
+            self.autostop_timer_widget.setDateTime(
+                QtCore.QDateTime.currentDateTime().addSecs(300)
+            )
             # Onion services can take a little while to start, so reduce the risk of it expiring too soon by setting the minimum to 60s from now
-            self.autostop_timer_widget.setMinimumDateTime(QtCore.QDateTime.currentDateTime().addSecs(60))
-        self.autostop_timer_widget.setCurrentSection(QtWidgets.QDateTimeEdit.MinuteSection)
+            self.autostop_timer_widget.setMinimumDateTime(
+                QtCore.QDateTime.currentDateTime().addSecs(60)
+            )
+        self.autostop_timer_widget.setCurrentSection(
+            QtWidgets.QDateTimeEdit.MinuteSection
+        )
         autostop_timer_layout = QtWidgets.QHBoxLayout()
         autostop_timer_layout.addWidget(self.autostop_timer_label)
         autostop_timer_layout.addWidget(self.autostop_timer_widget)
@@ -125,16 +151,20 @@ class ServerStatus(QtWidgets.QWidget):
         self.url.setFont(url_font)
         self.url.setWordWrap(True)
         self.url.setMinimumSize(self.url.sizeHint())
-        self.url.setStyleSheet(self.common.css['server_status_url'])
+        self.url.setStyleSheet(self.common.css["server_status_url"])
 
-        self.copy_url_button = QtWidgets.QPushButton(strings._('gui_copy_url'))
+        self.copy_url_button = QtWidgets.QPushButton(strings._("gui_copy_url"))
         self.copy_url_button.setFlat(True)
-        self.copy_url_button.setStyleSheet(self.common.css['server_status_url_buttons'])
+        self.copy_url_button.setStyleSheet(self.common.css["server_status_url_buttons"])
         self.copy_url_button.setMinimumHeight(65)
         self.copy_url_button.clicked.connect(self.copy_url)
-        self.copy_hidservauth_button = QtWidgets.QPushButton(strings._('gui_copy_hidservauth'))
+        self.copy_hidservauth_button = QtWidgets.QPushButton(
+            strings._("gui_copy_hidservauth")
+        )
         self.copy_hidservauth_button.setFlat(True)
-        self.copy_hidservauth_button.setStyleSheet(self.common.css['server_status_url_buttons'])
+        self.copy_hidservauth_button.setStyleSheet(
+            self.common.css["server_status_url_buttons"]
+        )
         self.copy_hidservauth_button.clicked.connect(self.copy_hidservauth)
         url_buttons_layout = QtWidgets.QHBoxLayout()
         url_buttons_layout.addWidget(self.copy_url_button)
@@ -160,7 +190,9 @@ class ServerStatus(QtWidgets.QWidget):
         """
         self.mode = share_mode
 
-        if (self.mode == ServerStatus.MODE_SHARE) or (self.mode == ServerStatus.MODE_WEBSITE):
+        if (self.mode == ServerStatus.MODE_SHARE) or (
+            self.mode == ServerStatus.MODE_WEBSITE
+        ):
             self.file_selection = file_selection
 
         self.update()
@@ -171,7 +203,7 @@ class ServerStatus(QtWidgets.QWidget):
         """
         try:
             # Wrap the URL label
-            url_length=len(self.get_url())
+            url_length = len(self.get_url())
             if url_length > 60:
                 width = self.frameGeometry().width()
                 if width < 530:
@@ -186,17 +218,25 @@ class ServerStatus(QtWidgets.QWidget):
         """
         Reset the auto-start timer in the UI after stopping a share
         """
-        self.autostart_timer_widget.setDateTime(QtCore.QDateTime.currentDateTime().addSecs(300))
+        self.autostart_timer_widget.setDateTime(
+            QtCore.QDateTime.currentDateTime().addSecs(300)
+        )
         if not self.local_only:
-            self.autostart_timer_widget.setMinimumDateTime(QtCore.QDateTime.currentDateTime().addSecs(60))
+            self.autostart_timer_widget.setMinimumDateTime(
+                QtCore.QDateTime.currentDateTime().addSecs(60)
+            )
 
     def autostop_timer_reset(self):
         """
         Reset the auto-stop timer in the UI after stopping a share
         """
-        self.autostop_timer_widget.setDateTime(QtCore.QDateTime.currentDateTime().addSecs(300))
+        self.autostop_timer_widget.setDateTime(
+            QtCore.QDateTime.currentDateTime().addSecs(300)
+        )
         if not self.local_only:
-            self.autostop_timer_widget.setMinimumDateTime(QtCore.QDateTime.currentDateTime().addSecs(60))
+            self.autostop_timer_widget.setMinimumDateTime(
+                QtCore.QDateTime.currentDateTime().addSecs(60)
+            )
 
     def show_url(self):
         """
@@ -204,26 +244,38 @@ class ServerStatus(QtWidgets.QWidget):
         """
         self.url_description.show()
 
-        info_image = self.common.get_resource_path('images/info.png')
+        info_image = self.common.get_resource_path("images/info.png")
 
         if self.mode == ServerStatus.MODE_SHARE:
-            self.url_description.setText(strings._('gui_share_url_description').format(info_image))
+            self.url_description.setText(
+                strings._("gui_share_url_description").format(info_image)
+            )
         elif self.mode == ServerStatus.MODE_WEBSITE:
-            self.url_description.setText(strings._('gui_website_url_description').format(info_image))
+            self.url_description.setText(
+                strings._("gui_website_url_description").format(info_image)
+            )
         else:
-            self.url_description.setText(strings._('gui_receive_url_description').format(info_image))
+            self.url_description.setText(
+                strings._("gui_receive_url_description").format(info_image)
+            )
 
         # Show a Tool Tip explaining the lifecycle of this URL
-        if self.common.settings.get('save_private_key'):
-            if self.mode == ServerStatus.MODE_SHARE and self.common.settings.get('close_after_first_download'):
-                self.url_description.setToolTip(strings._('gui_url_label_onetime_and_persistent'))
+        if self.common.settings.get("save_private_key"):
+            if self.mode == ServerStatus.MODE_SHARE and self.common.settings.get(
+                "close_after_first_download"
+            ):
+                self.url_description.setToolTip(
+                    strings._("gui_url_label_onetime_and_persistent")
+                )
             else:
-                self.url_description.setToolTip(strings._('gui_url_label_persistent'))
+                self.url_description.setToolTip(strings._("gui_url_label_persistent"))
         else:
-            if self.mode == ServerStatus.MODE_SHARE and self.common.settings.get('close_after_first_download'):
-                self.url_description.setToolTip(strings._('gui_url_label_onetime'))
+            if self.mode == ServerStatus.MODE_SHARE and self.common.settings.get(
+                "close_after_first_download"
+            ):
+                self.url_description.setToolTip(strings._("gui_url_label_onetime"))
             else:
-                self.url_description.setToolTip(strings._('gui_url_label_stay_open'))
+                self.url_description.setToolTip(strings._("gui_url_label_stay_open"))
 
         self.url.setText(self.get_url())
         self.url.show()
@@ -245,15 +297,15 @@ class ServerStatus(QtWidgets.QWidget):
             self.common.settings.load()
             self.show_url()
 
-            if self.common.settings.get('save_private_key'):
-                if not self.common.settings.get('password'):
-                    self.common.settings.set('password', self.web.password)
+            if self.common.settings.get("save_private_key"):
+                if not self.common.settings.get("password"):
+                    self.common.settings.set("password", self.web.password)
                     self.common.settings.save()
 
-            if self.common.settings.get('autostart_timer'):
+            if self.common.settings.get("autostart_timer"):
                 self.autostart_timer_container.hide()
 
-            if self.common.settings.get('autostop_timer'):
+            if self.common.settings.get("autostop_timer"):
                 self.autostop_timer_container.hide()
         else:
             self.url_description.hide()
@@ -262,59 +314,91 @@ class ServerStatus(QtWidgets.QWidget):
             self.copy_hidservauth_button.hide()
 
         # Button
-        if self.mode == ServerStatus.MODE_SHARE and self.file_selection.get_num_files() == 0:
+        if (
+            self.mode == ServerStatus.MODE_SHARE
+            and self.file_selection.get_num_files() == 0
+        ):
             self.server_button.hide()
-        elif self.mode == ServerStatus.MODE_WEBSITE and self.file_selection.get_num_files() == 0:
+        elif (
+            self.mode == ServerStatus.MODE_WEBSITE
+            and self.file_selection.get_num_files() == 0
+        ):
             self.server_button.hide()
         else:
             self.server_button.show()
 
             if self.status == self.STATUS_STOPPED:
-                self.server_button.setStyleSheet(self.common.css['server_status_button_stopped'])
+                self.server_button.setStyleSheet(
+                    self.common.css["server_status_button_stopped"]
+                )
                 self.server_button.setEnabled(True)
                 if self.mode == ServerStatus.MODE_SHARE:
-                    self.server_button.setText(strings._('gui_share_start_server'))
+                    self.server_button.setText(strings._("gui_share_start_server"))
                 elif self.mode == ServerStatus.MODE_WEBSITE:
-                    self.server_button.setText(strings._('gui_share_start_server'))
+                    self.server_button.setText(strings._("gui_share_start_server"))
                 else:
-                    self.server_button.setText(strings._('gui_receive_start_server'))
-                self.server_button.setToolTip('')
-                if self.common.settings.get('autostart_timer'):
+                    self.server_button.setText(strings._("gui_receive_start_server"))
+                self.server_button.setToolTip("")
+                if self.common.settings.get("autostart_timer"):
                     self.autostart_timer_container.show()
-                if self.common.settings.get('autostop_timer'):
+                if self.common.settings.get("autostop_timer"):
                     self.autostop_timer_container.show()
             elif self.status == self.STATUS_STARTED:
-                self.server_button.setStyleSheet(self.common.css['server_status_button_started'])
+                self.server_button.setStyleSheet(
+                    self.common.css["server_status_button_started"]
+                )
                 self.server_button.setEnabled(True)
                 if self.mode == ServerStatus.MODE_SHARE:
-                    self.server_button.setText(strings._('gui_share_stop_server'))
+                    self.server_button.setText(strings._("gui_share_stop_server"))
                 elif self.mode == ServerStatus.MODE_WEBSITE:
-                    self.server_button.setText(strings._('gui_share_stop_server'))
+                    self.server_button.setText(strings._("gui_share_stop_server"))
                 else:
-                    self.server_button.setText(strings._('gui_receive_stop_server'))
-                if self.common.settings.get('autostart_timer'):
+                    self.server_button.setText(strings._("gui_receive_stop_server"))
+                if self.common.settings.get("autostart_timer"):
                     self.autostart_timer_container.hide()
-                if self.common.settings.get('autostop_timer'):
+                if self.common.settings.get("autostop_timer"):
                     self.autostop_timer_container.hide()
-                    self.server_button.setToolTip(strings._('gui_stop_server_autostop_timer_tooltip').format(self.autostop_timer_widget.dateTime().toString("h:mm AP, MMMM dd, yyyy")))
+                    self.server_button.setToolTip(
+                        strings._("gui_stop_server_autostop_timer_tooltip").format(
+                            self.autostop_timer_widget.dateTime().toString(
+                                "h:mm AP, MMMM dd, yyyy"
+                            )
+                        )
+                    )
             elif self.status == self.STATUS_WORKING:
-                self.server_button.setStyleSheet(self.common.css['server_status_button_working'])
+                self.server_button.setStyleSheet(
+                    self.common.css["server_status_button_working"]
+                )
                 self.server_button.setEnabled(True)
                 if self.autostart_timer_datetime:
                     self.autostart_timer_container.hide()
-                    self.server_button.setToolTip(strings._('gui_start_server_autostart_timer_tooltip').format(self.autostart_timer_widget.dateTime().toString("h:mm AP, MMMM dd, yyyy")))
+                    self.server_button.setToolTip(
+                        strings._("gui_start_server_autostart_timer_tooltip").format(
+                            self.autostart_timer_widget.dateTime().toString(
+                                "h:mm AP, MMMM dd, yyyy"
+                            )
+                        )
+                    )
                 else:
-                    self.server_button.setText(strings._('gui_please_wait'))
-                if self.common.settings.get('autostop_timer'):
+                    self.server_button.setText(strings._("gui_please_wait"))
+                if self.common.settings.get("autostop_timer"):
                     self.autostop_timer_container.hide()
             else:
-                self.server_button.setStyleSheet(self.common.css['server_status_button_working'])
+                self.server_button.setStyleSheet(
+                    self.common.css["server_status_button_working"]
+                )
                 self.server_button.setEnabled(False)
-                self.server_button.setText(strings._('gui_please_wait'))
-                if self.common.settings.get('autostart_timer'):
+                self.server_button.setText(strings._("gui_please_wait"))
+                if self.common.settings.get("autostart_timer"):
                     self.autostart_timer_container.hide()
-                    self.server_button.setToolTip(strings._('gui_start_server_autostart_timer_tooltip').format(self.autostart_timer_widget.dateTime().toString("h:mm AP, MMMM dd, yyyy")))
-                if self.common.settings.get('autostop_timer'):
+                    self.server_button.setToolTip(
+                        strings._("gui_start_server_autostart_timer_tooltip").format(
+                            self.autostart_timer_widget.dateTime().toString(
+                                "h:mm AP, MMMM dd, yyyy"
+                            )
+                        )
+                    )
+                if self.common.settings.get("autostop_timer"):
                     self.autostop_timer_container.hide()
 
     def server_button_clicked(self):
@@ -323,28 +407,60 @@ class ServerStatus(QtWidgets.QWidget):
         """
         if self.status == self.STATUS_STOPPED:
             can_start = True
-            if self.common.settings.get('autostart_timer'):
+            if self.common.settings.get("autostart_timer"):
                 if self.local_only:
-                    self.autostart_timer_datetime = self.autostart_timer_widget.dateTime().toPyDateTime()
+                    self.autostart_timer_datetime = (
+                        self.autostart_timer_widget.dateTime().toPyDateTime()
+                    )
                 else:
-                    self.autostart_timer_datetime = self.autostart_timer_widget.dateTime().toPyDateTime().replace(second=0, microsecond=0)
+                    self.autostart_timer_datetime = (
+                        self.autostart_timer_widget.dateTime()
+                        .toPyDateTime()
+                        .replace(second=0, microsecond=0)
+                    )
                 # If the timer has actually passed already before the user hit Start, refuse to start the server.
-                if QtCore.QDateTime.currentDateTime().toPyDateTime() > self.autostart_timer_datetime:
+                if (
+                    QtCore.QDateTime.currentDateTime().toPyDateTime()
+                    > self.autostart_timer_datetime
+                ):
                     can_start = False
-                    Alert(self.common, strings._('gui_server_autostart_timer_expired'), QtWidgets.QMessageBox.Warning)
-            if self.common.settings.get('autostop_timer'):
+                    Alert(
+                        self.common,
+                        strings._("gui_server_autostart_timer_expired"),
+                        QtWidgets.QMessageBox.Warning,
+                    )
+            if self.common.settings.get("autostop_timer"):
                 if self.local_only:
-                    self.autostop_timer_datetime = self.autostop_timer_widget.dateTime().toPyDateTime()
+                    self.autostop_timer_datetime = (
+                        self.autostop_timer_widget.dateTime().toPyDateTime()
+                    )
                 else:
                     # Get the timer chosen, stripped of its seconds. This prevents confusion if the share stops at (say) 37 seconds past the minute chosen
-                    self.autostop_timer_datetime = self.autostop_timer_widget.dateTime().toPyDateTime().replace(second=0, microsecond=0)
+                    self.autostop_timer_datetime = (
+                        self.autostop_timer_widget.dateTime()
+                        .toPyDateTime()
+                        .replace(second=0, microsecond=0)
+                    )
                 # If the timer has actually passed already before the user hit Start, refuse to start the server.
-                if QtCore.QDateTime.currentDateTime().toPyDateTime() > self.autostop_timer_datetime:
+                if (
+                    QtCore.QDateTime.currentDateTime().toPyDateTime()
+                    > self.autostop_timer_datetime
+                ):
                     can_start = False
-                    Alert(self.common, strings._('gui_server_autostop_timer_expired'), QtWidgets.QMessageBox.Warning)
-                if self.common.settings.get('autostart_timer'):
+                    Alert(
+                        self.common,
+                        strings._("gui_server_autostop_timer_expired"),
+                        QtWidgets.QMessageBox.Warning,
+                    )
+                if self.common.settings.get("autostart_timer"):
                     if self.autostop_timer_datetime <= self.autostart_timer_datetime:
-                        Alert(self.common, strings._('gui_autostop_timer_cant_be_earlier_than_autostart_timer'), QtWidgets.QMessageBox.Warning)
+                        Alert(
+                            self.common,
+                            strings._(
+                                "gui_autostop_timer_cant_be_earlier_than_autostart_timer"
+                            ),
+                            QtWidgets.QMessageBox.Warning,
+                        )
                         can_start = False
             if can_start:
                 self.start_server()
@@ -385,7 +501,9 @@ class ServerStatus(QtWidgets.QWidget):
         """
         Cancel the server.
         """
-        self.common.log('ServerStatus', 'cancel_server', 'Canceling the server mid-startup')
+        self.common.log(
+            "ServerStatus", "cancel_server", "Canceling the server mid-startup"
+        )
         self.status = self.STATUS_WORKING
         self.autostart_timer_reset()
         self.autostop_timer_reset()
@@ -421,8 +539,10 @@ class ServerStatus(QtWidgets.QWidget):
         """
         Returns the OnionShare URL.
         """
-        if self.common.settings.get('public_mode'):
-            url = 'http://{0:s}'.format(self.app.onion_host)
+        if self.common.settings.get("public_mode"):
+            url = "http://{0:s}".format(self.app.onion_host)
         else:
-            url = 'http://onionshare:{0:s}@{1:s}'.format(self.web.password, self.app.onion_host)
+            url = "http://onionshare:{0:s}@{1:s}".format(
+                self.web.password, self.app.onion_host
+            )
         return url

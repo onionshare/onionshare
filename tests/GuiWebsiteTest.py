@@ -13,13 +13,16 @@ from onionshare.web import Web
 from onionshare_gui import Application, OnionShare, OnionShareGui
 from .GuiShareTest import GuiShareTest
 
+
 class GuiWebsiteTest(GuiShareTest):
     @staticmethod
     def set_up(test_settings):
-        '''Create GUI with given settings'''
+        """Create GUI with given settings"""
         # Create our test file
-        testfile = open('/tmp/index.html', 'w')
-        testfile.write('<html><body><p>This is a test website hosted by OnionShare</p></body></html>')
+        testfile = open("/tmp/index.html", "w")
+        testfile.write(
+            "<html><body><p>This is a test website hosted by OnionShare</p></body></html>"
+        )
         testfile.close()
 
         common = Common()
@@ -28,7 +31,7 @@ class GuiWebsiteTest(GuiShareTest):
         strings.load_strings(common)
 
         # Get all of the settings in test_settings
-        test_settings['data_dir'] = '/tmp/OnionShare'
+        test_settings["data_dir"] = "/tmp/OnionShare"
         for key, val in common.settings.default_settings.items():
             if key not in test_settings:
                 test_settings[key] = val
@@ -40,44 +43,62 @@ class GuiWebsiteTest(GuiShareTest):
         app = OnionShare(common, testonion, True, 0)
 
         web = Web(common, False, True)
-        open('/tmp/settings.json', 'w').write(json.dumps(test_settings))
+        open("/tmp/settings.json", "w").write(json.dumps(test_settings))
 
-        gui = OnionShareGui(common, testonion, qtapp, app, ['/tmp/index.html'], '/tmp/settings.json', True)
+        gui = OnionShareGui(
+            common,
+            testonion,
+            qtapp,
+            app,
+            ["/tmp/index.html"],
+            "/tmp/settings.json",
+            True,
+        )
         return gui
 
     @staticmethod
     def tear_down():
-        '''Clean up after tests'''
+        """Clean up after tests"""
         try:
-            os.remove('/tmp/index.html')
-            os.remove('/tmp/settings.json')
+            os.remove("/tmp/index.html")
+            os.remove("/tmp/settings.json")
         except:
             pass
 
     def view_website(self, public_mode):
-        '''Test that we can download the share'''
+        """Test that we can download the share"""
         url = "http://127.0.0.1:{}/".format(self.gui.app.port)
         if public_mode:
             r = requests.get(url)
         else:
-            r = requests.get(url, auth=requests.auth.HTTPBasicAuth('onionshare', self.gui.website_mode.server_status.web.password))
+            r = requests.get(
+                url,
+                auth=requests.auth.HTTPBasicAuth(
+                    "onionshare", self.gui.website_mode.server_status.web.password
+                ),
+            )
 
         QtTest.QTest.qWait(2000)
-        self.assertTrue('This is a test website hosted by OnionShare' in r.text)
+        self.assertTrue("This is a test website hosted by OnionShare" in r.text)
 
     def check_csp_header(self, public_mode, csp_header_disabled):
-        '''Test that the CSP header is present when enabled or vice versa'''
+        """Test that the CSP header is present when enabled or vice versa"""
         url = "http://127.0.0.1:{}/".format(self.gui.app.port)
         if public_mode:
             r = requests.get(url)
         else:
-            r = requests.get(url, auth=requests.auth.HTTPBasicAuth('onionshare', self.gui.website_mode.server_status.web.password))
+            r = requests.get(
+                url,
+                auth=requests.auth.HTTPBasicAuth(
+                    "onionshare", self.gui.website_mode.server_status.web.password
+                ),
+            )
 
         QtTest.QTest.qWait(2000)
         if csp_header_disabled:
-            self.assertFalse('Content-Security-Policy' in r.headers)
+            self.assertFalse("Content-Security-Policy" in r.headers)
         else:
-            self.assertTrue('Content-Security-Policy' in r.headers)
+            self.assertTrue("Content-Security-Policy" in r.headers)
 
     def run_all_website_mode_setup_tests(self):
         """Tests in website mode prior to starting a share"""
@@ -100,16 +121,16 @@ class GuiWebsiteTest(GuiShareTest):
         self.have_copy_url_button(self.gui.website_mode, public_mode)
         self.server_status_indicator_says_started(self.gui.website_mode)
 
-
     def run_all_website_mode_download_tests(self, public_mode):
         """Tests in website mode after viewing the site"""
         self.run_all_website_mode_setup_tests()
         self.run_all_website_mode_started_tests(public_mode, startup_time=2000)
         self.view_website(public_mode)
-        self.check_csp_header(public_mode, self.gui.common.settings.get('csp_header_disabled'))
+        self.check_csp_header(
+            public_mode, self.gui.common.settings.get("csp_header_disabled")
+        )
         self.history_widgets_present(self.gui.website_mode)
         self.server_is_stopped(self.gui.website_mode, False)
         self.web_server_is_stopped()
         self.server_status_indicator_says_closed(self.gui.website_mode, False)
         self.add_button_visible(self.gui.website_mode)
-
