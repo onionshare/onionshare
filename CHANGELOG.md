@@ -13,6 +13,14 @@
 * Updated various dependencies, including Flask, Werkzeug, urllib3, requests, and PyQt5
 * Updated Tor to 0.4.1.5
 * Other minor bug fixes
+* New translations:
+  * Arabic (العربية)
+  * Dutch (Nederlands)
+  * Persian (فارسی)
+  * Romanian (Română)
+  * Serbian latin (Srpska (latinica))
+* Removed translations with fewer than 90% of strings translated:
+  * Finnish (Suomi)
 
 ## 2.1
 
