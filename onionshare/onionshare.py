@@ -22,17 +22,19 @@ import os, shutil
 
 from . import common, strings
 from .onion import TorTooOld, TorErrorProtocolError
-from .common import AutoStopTimer 
+from .common import AutoStopTimer
+
 
 class OnionShare(object):
     """
     OnionShare is the main application class. Pass in options and run
     start_onion_service and it will do the magic.
     """
+
     def __init__(self, common, onion, local_only=False, autostop_timer=0):
         self.common = common
 
-        self.common.log('OnionShare', '__init__')
+        self.common.log("OnionShare", "__init__")
 
         # The Onion object
         self.onion = onion
@@ -54,7 +56,7 @@ class OnionShare(object):
         self.autostop_timer_thread = None
 
     def set_stealth(self, stealth):
-        self.common.log('OnionShare', 'set_stealth', 'stealth={}'.format(stealth))
+        self.common.log("OnionShare", "set_stealth", "stealth={}".format(stealth))
 
         self.stealth = stealth
         self.onion.stealth = stealth
@@ -66,13 +68,13 @@ class OnionShare(object):
         try:
             self.port = self.common.get_available_port(17600, 17650)
         except:
-            raise OSError(strings._('no_available_port'))
+            raise OSError(strings._("no_available_port"))
 
     def start_onion_service(self, await_publication=True, save_scheduled_key=False):
         """
         Start the onionshare onion service.
         """
-        self.common.log('OnionShare', 'start_onion_service')
+        self.common.log("OnionShare", "start_onion_service")
 
         if not self.port:
             self.choose_port()
@@ -81,10 +83,12 @@ class OnionShare(object):
             self.autostop_timer_thread = AutoStopTimer(self.common, self.autostop_timer)
 
         if self.local_only:
-            self.onion_host = '127.0.0.1:{0:d}'.format(self.port)
+            self.onion_host = "127.0.0.1:{0:d}".format(self.port)
             return
 
-        self.onion_host = self.onion.start_onion_service(self.port, await_publication, save_scheduled_key)
+        self.onion_host = self.onion.start_onion_service(
+            self.port, await_publication, save_scheduled_key
+        )
 
         if self.stealth:
             self.auth_string = self.onion.auth_string
@@ -93,7 +97,7 @@ class OnionShare(object):
         """
         Shut everything down and clean up temporary files, etc.
         """
-        self.common.log('OnionShare', 'cleanup')
+        self.common.log("OnionShare", "cleanup")
 
         # Cleanup files
         try:

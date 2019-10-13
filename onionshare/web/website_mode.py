@@ -12,6 +12,7 @@ class WebsiteModeWeb(SendBaseModeWeb):
     """
     All of the web logic for website mode
     """
+
     def init(self):
         pass
 
@@ -19,38 +20,45 @@ class WebsiteModeWeb(SendBaseModeWeb):
         """
         The web app routes for sharing a website
         """
-        @self.web.app.route('/', defaults={'path': ''})
-        @self.web.app.route('/<path:path>')
+
+        @self.web.app.route("/", defaults={"path": ""})
+        @self.web.app.route("/<path:path>")
         def path_public(path):
             return path_logic(path)
 
-        def path_logic(path=''):
+        def path_logic(path=""):
             """
             Render the onionshare website.
             """
             return self.render_logic(path)
 
-    def directory_listing_template(self, path, files, dirs, breadcrumbs, breadcrumbs_leaf):
-        return make_response(render_template('listing.html',
-            path=path,
-            files=files,
-            dirs=dirs,
-            breadcrumbs=breadcrumbs,
-            breadcrumbs_leaf=breadcrumbs_leaf,
-            static_url_path=self.web.static_url_path))
+    def directory_listing_template(
+        self, path, files, dirs, breadcrumbs, breadcrumbs_leaf
+    ):
+        return make_response(
+            render_template(
+                "listing.html",
+                path=path,
+                files=files,
+                dirs=dirs,
+                breadcrumbs=breadcrumbs,
+                breadcrumbs_leaf=breadcrumbs_leaf,
+                static_url_path=self.web.static_url_path,
+            )
+        )
 
     def set_file_info_custom(self, filenames, processed_size_callback):
         self.common.log("WebsiteModeWeb", "set_file_info_custom")
         self.web.cancel_compression = True
 
-    def render_logic(self, path=''):
+    def render_logic(self, path=""):
         if path in self.files:
             filesystem_path = self.files[path]
 
             # If it's a directory
             if os.path.isdir(filesystem_path):
                 # Is there an index.html?
-                index_path = os.path.join(path, 'index.html')
+                index_path = os.path.join(path, "index.html")
                 if index_path in self.files:
                     # Render it
                     return self.stream_individual_file(self.files[index_path])
@@ -60,7 +68,7 @@ class WebsiteModeWeb(SendBaseModeWeb):
                     filenames = []
                     for filename in os.listdir(filesystem_path):
                         if os.path.isdir(os.path.join(filesystem_path, filename)):
-                            filenames.append(filename + '/')
+                            filenames.append(filename + "/")
                         else:
                             filenames.append(filename)
                     filenames.sort()
@@ -78,8 +86,8 @@ class WebsiteModeWeb(SendBaseModeWeb):
         else:
             # Special case loading /
 
-            if path == '':
-                index_path = 'index.html'
+            if path == "":
+                index_path = "index.html"
                 if index_path in self.files:
                     # Render it
                     return self.stream_individual_file(self.files[index_path])

@@ -36,16 +36,17 @@ class Common(object):
     """
     The Common object is shared amongst all parts of OnionShare.
     """
+
     def __init__(self, verbose=False):
         self.verbose = verbose
 
         # The platform OnionShare is running on
         self.platform = platform.system()
-        if self.platform.endswith('BSD') or self.platform == 'DragonFly':
-            self.platform = 'BSD'
+        if self.platform.endswith("BSD") or self.platform == "DragonFly":
+            self.platform = "BSD"
 
         # The current version of OnionShare
-        with open(self.get_resource_path('version.txt')) as f:
+        with open(self.get_resource_path("version.txt")) as f:
             self.version = f.read().strip()
 
     def load_settings(self, config=None):
@@ -64,7 +65,7 @@ class Common(object):
 
             final_msg = "[{}] {}.{}".format(timestamp, module, func)
             if msg:
-                final_msg = '{}: {}'.format(final_msg, msg)
+                final_msg = "{}: {}".format(final_msg, msg)
             print(final_msg)
 
     def get_resource_path(self, filename):
@@ -73,72 +74,105 @@ class Common(object):
         systemwide, and whether regardless of platform
         """
         # On Windows, and in Windows dev mode, switch slashes in incoming filename to backslackes
-        if self.platform == 'Windows':
-            filename = filename.replace('/', '\\')
+        if self.platform == "Windows":
+            filename = filename.replace("/", "\\")
 
-        if getattr(sys, 'onionshare_dev_mode', False):
+        if getattr(sys, "onionshare_dev_mode", False):
             # Look for resources directory relative to python file
-            prefix = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))), 'share')
+            prefix = os.path.join(
+                os.path.dirname(
+                    os.path.dirname(
+                        os.path.abspath(inspect.getfile(inspect.currentframe()))
+                    )
+                ),
+                "share",
+            )
             if not os.path.exists(prefix):
                 # While running tests during stdeb bdist_deb, look 3 directories up for the share folder
-                prefix = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(prefix)))), 'share')
+                prefix = os.path.join(
+                    os.path.dirname(
+                        os.path.dirname(os.path.dirname(os.path.dirname(prefix)))
+                    ),
+                    "share",
+                )
 
-        elif self.platform == 'BSD' or self.platform == 'Linux':
+        elif self.platform == "BSD" or self.platform == "Linux":
             # Assume OnionShare is installed systemwide in Linux, since we're not running in dev mode
-            prefix = os.path.join(sys.prefix, 'share/onionshare')
+            prefix = os.path.join(sys.prefix, "share/onionshare")
 
-        elif getattr(sys, 'frozen', False):
+        elif getattr(sys, "frozen", False):
             # Check if app is "frozen"
             # https://pythonhosted.org/PyInstaller/#run-time-information
-            if self.platform == 'Darwin':
-                prefix = os.path.join(sys._MEIPASS, 'share')
-            elif self.platform == 'Windows':
-                prefix = os.path.join(os.path.dirname(sys.executable), 'share')
+            if self.platform == "Darwin":
+                prefix = os.path.join(sys._MEIPASS, "share")
+            elif self.platform == "Windows":
+                prefix = os.path.join(os.path.dirname(sys.executable), "share")
 
         return os.path.join(prefix, filename)
 
     def get_tor_paths(self):
-        if self.platform == 'Linux':
-            tor_path = '/usr/bin/tor'
-            tor_geo_ip_file_path = '/usr/share/tor/geoip'
-            tor_geo_ipv6_file_path = '/usr/share/tor/geoip6'
-            obfs4proxy_file_path = '/usr/bin/obfs4proxy'
-        elif self.platform == 'Windows':
-            base_path = os.path.join(os.path.dirname(os.path.dirname(self.get_resource_path(''))), 'tor')
-            tor_path               = os.path.join(os.path.join(base_path, 'Tor'), 'tor.exe')
-            obfs4proxy_file_path   = os.path.join(os.path.join(base_path, 'Tor'), 'obfs4proxy.exe')
-            tor_geo_ip_file_path   = os.path.join(os.path.join(os.path.join(base_path, 'Data'), 'Tor'), 'geoip')
-            tor_geo_ipv6_file_path = os.path.join(os.path.join(os.path.join(base_path, 'Data'), 'Tor'), 'geoip6')
-        elif self.platform == 'Darwin':
-            base_path = os.path.dirname(os.path.dirname(os.path.dirname(self.get_resource_path(''))))
-            tor_path               = os.path.join(base_path, 'Resources', 'Tor', 'tor')
-            tor_geo_ip_file_path   = os.path.join(base_path, 'Resources', 'Tor', 'geoip')
-            tor_geo_ipv6_file_path = os.path.join(base_path, 'Resources', 'Tor', 'geoip6')
-            obfs4proxy_file_path   = os.path.join(base_path, 'Resources', 'Tor', 'obfs4proxy')
-        elif self.platform == 'BSD':
-            tor_path = '/usr/local/bin/tor'
-            tor_geo_ip_file_path = '/usr/local/share/tor/geoip'
-            tor_geo_ipv6_file_path = '/usr/local/share/tor/geoip6'
-            obfs4proxy_file_path = '/usr/local/bin/obfs4proxy'
+        if self.platform == "Linux":
+            tor_path = "/usr/bin/tor"
+            tor_geo_ip_file_path = "/usr/share/tor/geoip"
+            tor_geo_ipv6_file_path = "/usr/share/tor/geoip6"
+            obfs4proxy_file_path = "/usr/bin/obfs4proxy"
+        elif self.platform == "Windows":
+            base_path = os.path.join(
+                os.path.dirname(os.path.dirname(self.get_resource_path(""))), "tor"
+            )
+            tor_path = os.path.join(os.path.join(base_path, "Tor"), "tor.exe")
+            obfs4proxy_file_path = os.path.join(
+                os.path.join(base_path, "Tor"), "obfs4proxy.exe"
+            )
+            tor_geo_ip_file_path = os.path.join(
+                os.path.join(os.path.join(base_path, "Data"), "Tor"), "geoip"
+            )
+            tor_geo_ipv6_file_path = os.path.join(
+                os.path.join(os.path.join(base_path, "Data"), "Tor"), "geoip6"
+            )
+        elif self.platform == "Darwin":
+            base_path = os.path.dirname(
+                os.path.dirname(os.path.dirname(self.get_resource_path("")))
+            )
+            tor_path = os.path.join(base_path, "Resources", "Tor", "tor")
+            tor_geo_ip_file_path = os.path.join(base_path, "Resources", "Tor", "geoip")
+            tor_geo_ipv6_file_path = os.path.join(
+                base_path, "Resources", "Tor", "geoip6"
+            )
+            obfs4proxy_file_path = os.path.join(
+                base_path, "Resources", "Tor", "obfs4proxy"
+            )
+        elif self.platform == "BSD":
+            tor_path = "/usr/local/bin/tor"
+            tor_geo_ip_file_path = "/usr/local/share/tor/geoip"
+            tor_geo_ipv6_file_path = "/usr/local/share/tor/geoip6"
+            obfs4proxy_file_path = "/usr/local/bin/obfs4proxy"
 
-        return (tor_path, tor_geo_ip_file_path, tor_geo_ipv6_file_path, obfs4proxy_file_path)
+        return (
+            tor_path,
+            tor_geo_ip_file_path,
+            tor_geo_ipv6_file_path,
+            obfs4proxy_file_path,
+        )
 
     def build_data_dir(self):
         """
         Returns the path of the OnionShare data directory.
         """
-        if self.platform == 'Windows':
+        if self.platform == "Windows":
             try:
-                appdata = os.environ['APPDATA']
-                onionshare_data_dir = '{}\\OnionShare'.format(appdata)
+                appdata = os.environ["APPDATA"]
+                onionshare_data_dir = "{}\\OnionShare".format(appdata)
             except:
                 # If for some reason we don't have the 'APPDATA' environment variable
                 # (like running tests in Linux while pretending to be in Windows)
-                onionshare_data_dir = os.path.expanduser('~/.config/onionshare')
-        elif self.platform == 'Darwin':
-            onionshare_data_dir = os.path.expanduser('~/Library/Application Support/OnionShare')
+                onionshare_data_dir = os.path.expanduser("~/.config/onionshare")
+        elif self.platform == "Darwin":
+            onionshare_data_dir = os.path.expanduser(
+                "~/Library/Application Support/OnionShare"
+            )
         else:
-            onionshare_data_dir = os.path.expanduser('~/.config/onionshare')
+            onionshare_data_dir = os.path.expanduser("~/.config/onionshare")
 
         os.makedirs(onionshare_data_dir, 0o700, True)
         return onionshare_data_dir
@@ -147,11 +181,11 @@ class Common(object):
         """
         Returns a random string made from two words from the wordlist, such as "deter-trig".
         """
-        with open(self.get_resource_path('wordlist.txt')) as f:
+        with open(self.get_resource_path("wordlist.txt")) as f:
             wordlist = f.read().split()
 
         r = random.SystemRandom()
-        return '-'.join(r.choice(wordlist) for _ in range(2))
+        return "-".join(r.choice(wordlist) for _ in range(2))
 
     def define_css(self):
         """
@@ -160,7 +194,7 @@ class Common(object):
         """
         self.css = {
             # OnionShareGui styles
-            'mode_switcher_selected_style': """
+            "mode_switcher_selected_style": """
                 QPushButton {
                     color: #ffffff;
                     background-color: #4e064f;
@@ -169,8 +203,7 @@ class Common(object):
                     font-weight: bold;
                     border-radius: 0;
                 }""",
-
-            'mode_switcher_unselected_style': """
+            "mode_switcher_unselected_style": """
                 QPushButton {
                     color: #ffffff;
                     background-color: #601f61;
@@ -178,23 +211,20 @@ class Common(object):
                     font-weight: normal;
                     border-radius: 0;
                 }""",
-
-            'settings_button': """
+            "settings_button": """
                 QPushButton {
                     background-color: #601f61;
                     border: 0;
                     border-left: 1px solid #69266b;
                     border-radius: 0;
                 }""",
-
-            'server_status_indicator_label': """
+            "server_status_indicator_label": """
                 QLabel {
                     font-style: italic;
                     color: #666666;
                     padding: 2px;
                 }""",
-
-            'status_bar': """
+            "status_bar": """
                 QStatusBar {
                     font-style: italic;
                     color: #666666;
@@ -202,16 +232,14 @@ class Common(object):
                 QStatusBar::item {
                     border: 0px;
                 }""",
-
             # Common styles between modes and their child widgets
-            'mode_info_label': """
+            "mode_info_label": """
                 QLabel {
                     font-size: 12px;
                     color: #666666;
                 }
                 """,
-
-            'server_status_url': """
+            "server_status_url": """
                 QLabel {
                     background-color: #ffffff;
                     color: #000000;
@@ -220,14 +248,12 @@ class Common(object):
                     font-size: 12px;
                 }
                 """,
-
-            'server_status_url_buttons': """
+            "server_status_url_buttons": """
                 QPushButton {
                     color: #3f7fcf;
                 }
                 """,
-
-            'server_status_button_stopped': """
+            "server_status_button_stopped": """
                 QPushButton {
                     background-color: #5fa416;
                     color: #ffffff;
@@ -235,8 +261,7 @@ class Common(object):
                     border: 0;
                     border-radius: 5px;
                 }""",
-
-            'server_status_button_working': """
+            "server_status_button_working": """
                 QPushButton {
                     background-color: #4c8211;
                     color: #ffffff;
@@ -245,8 +270,7 @@ class Common(object):
                     border-radius: 5px;
                     font-style: italic;
                 }""",
-
-            'server_status_button_started': """
+            "server_status_button_started": """
                 QPushButton {
                     background-color: #d0011b;
                     color: #ffffff;
@@ -254,8 +278,7 @@ class Common(object):
                     border: 0;
                     border-radius: 5px;
                 }""",
-
-            'downloads_uploads_empty': """
+            "downloads_uploads_empty": """
                 QWidget {
                     background-color: #ffffff;
                     border: 1px solid #999999;
@@ -265,13 +288,11 @@ class Common(object):
                     border: 0px;
                 }
                 """,
-
-            'downloads_uploads_empty_text': """
+            "downloads_uploads_empty_text": """
                 QLabel {
                     color: #999999;
                 }""",
-
-            'downloads_uploads_label': """
+            "downloads_uploads_label": """
                 QLabel {
                     font-weight: bold;
                     font-size 14px;
@@ -279,14 +300,12 @@ class Common(object):
                     background-color: none;
                     border: none;
                 }""",
-
-            'downloads_uploads_clear': """
+            "downloads_uploads_clear": """
                 QPushButton {
                     color: #3f7fcf;
                 }
                 """,
-
-            'download_uploads_indicator': """
+            "download_uploads_indicator": """
                 QLabel {
                     color: #ffffff;
                     background-color: #f44449;
@@ -296,8 +315,7 @@ class Common(object):
                     border-radius: 7px;
                     text-align: center;
                 }""",
-
-            'downloads_uploads_progress_bar': """
+            "downloads_uploads_progress_bar": """
                 QProgressBar {
                     border: 1px solid #4e064f;
                     background-color: #ffffff !important;
@@ -309,24 +327,20 @@ class Common(object):
                     background-color: #4e064f;
                     width: 10px;
                 }""",
-
-            'history_individual_file_timestamp_label': """
+            "history_individual_file_timestamp_label": """
                 QLabel {
                     color: #666666;
                 }""",
-
-            'history_individual_file_status_code_label_2xx': """
+            "history_individual_file_status_code_label_2xx": """
                 QLabel {
                     color: #008800;
                 }""",
-
-            'history_individual_file_status_code_label_4xx': """
+            "history_individual_file_status_code_label_4xx": """
                 QLabel {
                     color: #cc0000;
                 }""",
-
             # Share mode and child widget styles
-            'share_zip_progess_bar': """
+            "share_zip_progess_bar": """
                 QProgressBar {
                     border: 1px solid #4e064f;
                     background-color: #ffffff !important;
@@ -338,21 +352,18 @@ class Common(object):
                     background-color: #4e064f;
                     width: 10px;
                 }""",
-
-            'share_filesize_warning': """
+            "share_filesize_warning": """
                 QLabel {
                     padding: 10px 0;
                     font-weight: bold;
                     color: #333333;
                 }
                 """,
-
-            'share_file_selection_drop_here_label': """
+            "share_file_selection_drop_here_label": """
                 QLabel {
                     color: #999999;
                 }""",
-
-            'share_file_selection_drop_count_label': """
+            "share_file_selection_drop_count_label": """
                 QLabel {
                     color: #ffffff;
                     background-color: #f44449;
@@ -360,60 +371,51 @@ class Common(object):
                     padding: 5px 10px;
                     border-radius: 10px;
                 }""",
-
-            'share_file_list_drag_enter': """
+            "share_file_list_drag_enter": """
                 FileList {
                     border: 3px solid #538ad0;
                 }
                 """,
-
-            'share_file_list_drag_leave': """
+            "share_file_list_drag_leave": """
                 FileList {
                     border: none;
                 }
                 """,
-
-            'share_file_list_item_size': """
+            "share_file_list_item_size": """
                 QLabel {
                     color: #666666;
                     font-size: 11px;
                 }""",
-
             # Receive mode and child widget styles
-            'receive_file': """
+            "receive_file": """
                 QWidget {
                     background-color: #ffffff;
                 }
                 """,
-
-            'receive_file_size': """
+            "receive_file_size": """
                 QLabel {
                     color: #666666;
                     font-size: 11px;
                 }""",
-
             # Settings dialog
-            'settings_version': """
+            "settings_version": """
                 QLabel {
                     color: #666666;
                 }""",
-
-            'settings_tor_status': """
+            "settings_tor_status": """
                 QLabel {
                     background-color: #ffffff;
                     color: #000000;
                     padding: 10px;
                 }""",
-
-            'settings_whats_this': """
+            "settings_whats_this": """
                 QLabel {
                     font-size: 12px;
                 }""",
-
-            'settings_connect_to_tor': """
+            "settings_connect_to_tor": """
                 QLabel {
                     font-style: italic;
-                }"""
+                }""",
         }
 
     @staticmethod
@@ -423,7 +425,7 @@ class Common(object):
         """
         b = os.urandom(num_bytes)
         h = hashlib.sha256(b).digest()[:16]
-        s = base64.b32encode(h).lower().replace(b'=', b'').decode('utf-8')
+        s = base64.b32encode(h).lower().replace(b"=", b"").decode("utf-8")
         if not output_len:
             return s
         return s[:output_len]
@@ -435,14 +437,14 @@ class Common(object):
         """
         thresh = 1024.0
         if b < thresh:
-            return '{:.1f} B'.format(b)
-        units = ('KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB')
+            return "{:.1f} B".format(b)
+        units = ("KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB")
         u = 0
         b /= thresh
         while b >= thresh:
             b /= thresh
             u += 1
-        return '{:.1f} {}'.format(b, units[u])
+        return "{:.1f} {}".format(b, units[u])
 
     @staticmethod
     def format_seconds(seconds):
@@ -460,7 +462,7 @@ class Common(object):
             human_readable.append("{:.0f}m".format(minutes))
         if seconds or not human_readable:
             human_readable.append("{:.0f}s".format(seconds))
-        return ''.join(human_readable)
+        return "".join(human_readable)
 
     @staticmethod
     def estimated_time_remaining(bytes_downloaded, total_bytes, started):
@@ -504,6 +506,7 @@ class AutoStopTimer(threading.Thread):
     """
     Background thread sleeps t hours and returns.
     """
+
     def __init__(self, common, time):
         threading.Thread.__init__(self)
 
@@ -513,6 +516,8 @@ class AutoStopTimer(threading.Thread):
         self.time = time
 
     def run(self):
-        self.common.log('AutoStopTimer', 'Server will shut down after {} seconds'.format(self.time))
+        self.common.log(
+            "AutoStopTimer", "Server will shut down after {} seconds".format(self.time)
+        )
         time.sleep(self.time)
         return 1
