@@ -39,17 +39,22 @@ class Settings(object):
     which is to attempt to connect automatically using default Tor Browser
     settings.
     """
+
     def __init__(self, common, config=False):
         self.common = common
 
-        self.common.log('Settings', '__init__')
+        self.common.log("Settings", "__init__")
 
         # If a readable config file was provided, use that instead
         if config:
             if os.path.isfile(config):
                 self.filename = config
             else:
-                self.common.log('Settings', '__init__', 'Supplied config does not exist or is unreadable. Falling back to default location')
+                self.common.log(
+                    "Settings",
+                    "__init__",
+                    "Supplied config does not exist or is unreadable. Falling back to default location",
+                )
                 self.filename = self.build_filename()
 
         else:
@@ -59,62 +64,67 @@ class Settings(object):
         # Dictionary of available languages in this version of OnionShare,
         # mapped to the language name, in that language
         self.available_locales = {
+            "ar": "العربية",  # Arabic
             #'bn': 'বাংলা', # Bengali (commented out because not at 90% translation)
-            'ca': 'Català',                     # Catalan
-            'zh_Hant': '正體中文 (繁體)',         # Traditional Chinese
-            'zh_Hans': '中文 (简体)',            # Simplified Chinese
-            'da': 'Dansk',                      # Danish
-            'en': 'English',                    # English
-            'fi': 'Suomi',                      # Finnish
-            'fr': 'Français',                   # French
-            'de': 'Deutsch',                    # German
-            'el': 'Ελληνικά',                   # Greek
-            'is': 'Íslenska',                   # Icelandic
-            'ga': 'Gaeilge',                    # Irish
-            'it': 'Italiano',                   # Italian
-            'ja': '日本語',                      # Japanese
-            'nb': 'Norsk Bokmål',               # Norwegian Bokmål
-            #'fa': 'فارسی', # Persian (commented out because not at 90% translation)
-            'pl': 'Polski',                     # Polish
-            'pt_BR': 'Português (Brasil)',      # Portuguese Brazil
-            'pt_PT': 'Português (Portugal)',    # Portuguese Portugal
-            'ru': 'Русский',                    # Russian
-            'es': 'Español',                    # Spanish
-            'sv': 'Svenska',                    # Swedish
-            'te': 'తెలుగు',                      # Telugu
-            'tr': 'Türkçe',                     # Turkish
-            'uk': 'Українська',                 # Ukrainian
+            "ca": "Català",  # Catalan
+            "zh_Hant": "正體中文 (繁體)",  # Traditional Chinese
+            "zh_Hans": "中文 (简体)",  # Simplified Chinese
+            "da": "Dansk",  # Danish
+            "nl": "Nederlands",  # Dutch
+            "en": "English",  # English
+            # "fi": "Suomi",  # Finnish (commented out because not at 90% translation)
+            "fr": "Français",  # French
+            "de": "Deutsch",  # German
+            "el": "Ελληνικά",  # Greek
+            "is": "Íslenska",  # Icelandic
+            "ga": "Gaeilge",  # Irish
+            "it": "Italiano",  # Italian
+            "ja": "日本語",  # Japanese
+            "nb": "Norsk Bokmål",  # Norwegian Bokmål
+            "fa": "فارسی",  # Persian
+            "pl": "Polski",  # Polish
+            "pt_BR": "Português (Brasil)",  # Portuguese Brazil
+            "pt_PT": "Português (Portugal)",  # Portuguese Portugal
+            "ro": "Română",  # Romanian
+            "ru": "Русский",  # Russian
+            "sr_Latn": "Srpska (latinica)",  #  Serbian (latin)
+            "es": "Español",  # Spanish
+            "sv": "Svenska",  # Swedish
+            "te": "తెలుగు",  # Telugu
+            "tr": "Türkçe",  # Turkish
+            "uk": "Українська",  # Ukrainian
         }
 
         # These are the default settings. They will get overwritten when loading from disk
         self.default_settings = {
-            'version': self.common.version,
-            'connection_type': 'bundled',
-            'control_port_address': '127.0.0.1',
-            'control_port_port': 9051,
-            'socks_address': '127.0.0.1',
-            'socks_port': 9050,
-            'socket_file_path': '/var/run/tor/control',
-            'auth_type': 'no_auth',
-            'auth_password': '',
-            'close_after_first_download': True,
-            'autostop_timer': False,
-            'autostart_timer': False,
-            'use_stealth': False,
-            'use_autoupdate': True,
-            'autoupdate_timestamp': None,
-            'no_bridges': True,
-            'tor_bridges_use_obfs4': False,
-            'tor_bridges_use_meek_lite_azure': False,
-            'tor_bridges_use_custom_bridges': '',
-            'use_legacy_v2_onions': False,
-            'save_private_key': False,
-            'private_key': '',
-            'public_mode': False,
-            'slug': '',
-            'hidservauth_string': '',
-            'data_dir': self.build_default_data_dir(),
-            'locale': None # this gets defined in fill_in_defaults()
+            "version": self.common.version,
+            "connection_type": "bundled",
+            "control_port_address": "127.0.0.1",
+            "control_port_port": 9051,
+            "socks_address": "127.0.0.1",
+            "socks_port": 9050,
+            "socket_file_path": "/var/run/tor/control",
+            "auth_type": "no_auth",
+            "auth_password": "",
+            "close_after_first_download": True,
+            "autostop_timer": False,
+            "autostart_timer": False,
+            "use_stealth": False,
+            "use_autoupdate": True,
+            "autoupdate_timestamp": None,
+            "no_bridges": True,
+            "tor_bridges_use_obfs4": False,
+            "tor_bridges_use_meek_lite_azure": False,
+            "tor_bridges_use_custom_bridges": "",
+            "use_legacy_v2_onions": False,
+            "save_private_key": False,
+            "private_key": "",
+            "public_mode": False,
+            "password": "",
+            "hidservauth_string": "",
+            "data_dir": self.build_default_data_dir(),
+            "csp_header_disabled": False,
+            "locale": None,  # this gets defined in fill_in_defaults()
         }
         self._settings = {}
         self.fill_in_defaults()
@@ -129,14 +139,14 @@ class Settings(object):
                 self._settings[key] = self.default_settings[key]
 
         # Choose the default locale based on the OS preference, and fall-back to English
-        if self._settings['locale'] is None:
+        if self._settings["locale"] is None:
             language_code, encoding = locale.getdefaultlocale()
 
             # Default to English
             if not language_code:
-                language_code = 'en_US'
+                language_code = "en_US"
 
-            if language_code == 'pt_PT' and language_code == 'pt_BR':
+            if language_code == "pt_PT" and language_code == "pt_BR":
                 # Portuguese locales include country code
                 default_locale = language_code
             else:
@@ -144,14 +154,14 @@ class Settings(object):
                 default_locale = language_code[:2]
 
             if default_locale not in self.available_locales:
-                default_locale = 'en'
-            self._settings['locale'] = default_locale
+                default_locale = "en"
+            self._settings["locale"] = default_locale
 
     def build_filename(self):
         """
         Returns the path of the settings file.
         """
-        return os.path.join(self.common.build_data_dir(), 'onionshare.json')
+        return os.path.join(self.common.build_data_dir(), "onionshare.json")
 
     def build_default_data_dir(self):
         """
@@ -162,26 +172,28 @@ class Settings(object):
             # We can't use os.path.expanduser() in macOS because in the sandbox it
             # returns the path to the sandboxed homedir
             real_homedir = pwd.getpwuid(os.getuid()).pw_dir
-            return os.path.join(real_homedir, 'OnionShare')
+            return os.path.join(real_homedir, "OnionShare")
         elif self.common.platform == "Windows":
             # On Windows, os.path.expanduser() needs to use backslash, or else it
             # retains the forward slash, which breaks opening the folder in explorer.
-            return os.path.expanduser('~\OnionShare')
+            return os.path.expanduser("~\OnionShare")
         else:
             # All other OSes
-            return os.path.expanduser('~/OnionShare')
+            return os.path.expanduser("~/OnionShare")
 
     def load(self):
         """
         Load the settings from file.
         """
-        self.common.log('Settings', 'load')
+        self.common.log("Settings", "load")
 
         # If the settings file exists, load it
         if os.path.exists(self.filename):
             try:
-                self.common.log('Settings', 'load', 'Trying to load {}'.format(self.filename))
-                with open(self.filename, 'r') as f:
+                self.common.log(
+                    "Settings", "load", "Trying to load {}".format(self.filename)
+                )
+                with open(self.filename, "r") as f:
                     self._settings = json.load(f)
                     self.fill_in_defaults()
             except:
@@ -189,7 +201,7 @@ class Settings(object):
 
         # Make sure data_dir exists
         try:
-            os.makedirs(self.get('data_dir'), exist_ok=True)
+            os.makedirs(self.get("data_dir"), exist_ok=True)
         except:
             pass
 
@@ -197,22 +209,24 @@ class Settings(object):
         """
         Save settings to file.
         """
-        self.common.log('Settings', 'save')
-        open(self.filename, 'w').write(json.dumps(self._settings))
-        self.common.log('Settings', 'save', 'Settings saved in {}'.format(self.filename))
+        self.common.log("Settings", "save")
+        open(self.filename, "w").write(json.dumps(self._settings, indent=2))
+        self.common.log(
+            "Settings", "save", "Settings saved in {}".format(self.filename)
+        )
 
     def get(self, key):
         return self._settings[key]
 
     def set(self, key, val):
         # If typecasting int values fails, fallback to default values
-        if key == 'control_port_port' or key == 'socks_port':
+        if key == "control_port_port" or key == "socks_port":
             try:
                 val = int(val)
             except:
-                if key == 'control_port_port':
-                    val = self.default_settings['control_port_port']
-                elif key == 'socks_port':
-                    val = self.default_settings['socks_port']
+                if key == "control_port_port":
+                    val = self.default_settings["control_port_port"]
+                elif key == "socks_port":
+                    val = self.default_settings["socks_port"]
 
         self._settings[key] = val

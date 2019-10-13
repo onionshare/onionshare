@@ -25,7 +25,7 @@ from onionshare.onion import *
 from onionshare.common import Common
 from onionshare.web import Web
 
-from .file_selection import FileSelection
+from ..file_selection import FileSelection
 from .threads import CompressThread
 from .. import Mode
 from ..history import History, ToggleHistory, ShareHistoryItem
@@ -36,6 +36,7 @@ class ShareMode(Mode):
     """
     Parts of the main window UI for sharing files.
     """
+
     def init(self):
         """
         Custom initialization for ReceiveMode.
@@ -44,7 +45,7 @@ class ShareMode(Mode):
         self.compress_thread = None
 
         # Create the Web object
-        self.web = Web(self.common, True, 'share')
+        self.web = Web(self.common, True, "share")
 
         # File selection
         self.file_selection = FileSelection(self.common, self)
@@ -53,7 +54,7 @@ class ShareMode(Mode):
                 self.file_selection.file_list.add_file(filename)
 
         # Server status
-        self.server_status.set_mode('share', self.file_selection)
+        self.server_status.set_mode("share", self.file_selection)
         self.server_status.server_started.connect(self.file_selection.server_started)
         self.server_status.server_stopped.connect(self.file_selection.server_stopped)
         self.server_status.server_stopped.connect(self.update_primary_action)
@@ -68,15 +69,19 @@ class ShareMode(Mode):
         # Filesize warning
         self.filesize_warning = QtWidgets.QLabel()
         self.filesize_warning.setWordWrap(True)
-        self.filesize_warning.setStyleSheet(self.common.css['share_filesize_warning'])
+        self.filesize_warning.setStyleSheet(self.common.css["share_filesize_warning"])
         self.filesize_warning.hide()
 
         # Download history
         self.history = History(
             self.common,
-            QtGui.QPixmap.fromImage(QtGui.QImage(self.common.get_resource_path('images/share_icon_transparent.png'))),
-            strings._('gui_share_mode_no_files'),
-            strings._('gui_all_modes_history')
+            QtGui.QPixmap.fromImage(
+                QtGui.QImage(
+                    self.common.get_resource_path("images/share_icon_transparent.png")
+                )
+            ),
+            strings._("gui_share_mode_no_files"),
+            strings._("gui_all_modes_history"),
         )
         self.history.hide()
 
@@ -86,9 +91,13 @@ class ShareMode(Mode):
 
         # Toggle history
         self.toggle_history = ToggleHistory(
-            self.common, self, self.history,
-            QtGui.QIcon(self.common.get_resource_path('images/share_icon_toggle.png')),
-            QtGui.QIcon(self.common.get_resource_path('images/share_icon_toggle_selected.png'))
+            self.common,
+            self,
+            self.history,
+            QtGui.QIcon(self.common.get_resource_path("images/share_icon_toggle.png")),
+            QtGui.QIcon(
+                self.common.get_resource_path("images/share_icon_toggle_selected.png")
+            ),
         )
 
         # Top bar
@@ -125,20 +134,22 @@ class ShareMode(Mode):
         """
         Return the string to put on the stop server button, if there's an auto-stop timer
         """
-        return strings._('gui_share_stop_server_autostop_timer')
+        return strings._("gui_share_stop_server_autostop_timer")
 
     def autostop_timer_finished_should_stop_server(self):
         """
         The auto-stop timer expired, should we stop the server? Returns a bool
         """
         # If there were no attempts to download the share, or all downloads are done, we can stop
-        if self.web.share_mode.download_count == 0 or self.web.done:
+        if self.web.share_mode.cur_history_id == 0 or self.web.done:
             self.server_status.stop_server()
-            self.server_status_label.setText(strings._('close_on_autostop_timer'))
+            self.server_status_label.setText(strings._("close_on_autostop_timer"))
             return True
         # A download is probably still running - hold off on stopping the share
         else:
-            self.server_status_label.setText(strings._('gui_share_mode_autostop_timer_waiting'))
+            self.server_status_label.setText(
+                strings._("gui_share_mode_autostop_timer_waiting")
+            )
             return False
 
     def start_server_custom(self):
@@ -146,8 +157,8 @@ class ShareMode(Mode):
         Starting the server.
         """
         # Reset web counters
-        self.web.share_mode.download_count = 0
-        self.web.error404_count = 0
+        self.web.share_mode.cur_history_id = 0
+        self.web.reset_invalid_passwords()
 
         # Hide and reset the downloads if we have previously shared
         self.reset_info_counters()
@@ -162,7 +173,9 @@ class ShareMode(Mode):
         for index in range(self.file_selection.file_list.count()):
             self.filenames.append(self.file_selection.file_list.item(index).filename)
 
-        self._zip_progress_bar.total_files_size = ShareMode._compute_total_size(self.filenames)
+        self._zip_progress_bar.total_files_size = ShareMode._compute_total_size(
+            self.filenames
+        )
         self.status_bar.insertWidget(0, self._zip_progress_bar)
 
         # prepare the files for sending in a new thread
@@ -216,7 +229,7 @@ class ShareMode(Mode):
         Stop the compression thread on cancel
         """
         if self.compress_thread:
-            self.common.log('ShareMode', 'cancel_server: quitting compress thread')
+            self.common.log("ShareMode", "cancel_server: quitting compress thread")
             self.compress_thread.quit()
 
     def handle_tor_broke_custom(self):
@@ -224,12 +237,6 @@ class ShareMode(Mode):
         Connection to Tor broke.
         """
         self.primary_action.hide()
-
-    def handle_request_load(self, event):
-        """
-        Handle REQUEST_LOAD event.
-        """
-        self.system_tray.showMessage(strings._('systray_page_loaded_title'), strings._('systray_page_loaded_message'))
 
     def handle_request_started(self, event):
         """
@@ -246,7 +253,10 @@ class ShareMode(Mode):
         self.history.in_progress_count += 1
         self.history.update_in_progress()
 
-        self.system_tray.showMessage(strings._('systray_share_started_title'), strings._('systray_share_started_message'))
+        self.system_tray.showMessage(
+            strings._("systray_share_started_title"),
+            strings._("systray_share_started_message"),
+        )
 
     def handle_request_progress(self, event):
         """
@@ -256,7 +266,10 @@ class ShareMode(Mode):
 
         # Is the download complete?
         if event["data"]["bytes"] == self.web.share_mode.filesize:
-            self.system_tray.showMessage(strings._('systray_share_completed_title'), strings._('systray_share_completed_message'))
+            self.system_tray.showMessage(
+                strings._("systray_share_completed_title"),
+                strings._("systray_share_completed_message"),
+            )
 
             # Update completed and in progress labels
             self.history.completed_count += 1
@@ -265,10 +278,10 @@ class ShareMode(Mode):
             self.history.update_in_progress()
 
             # Close on finish?
-            if self.common.settings.get('close_after_first_download'):
+            if self.common.settings.get("close_after_first_download"):
                 self.server_status.stop_server()
                 self.status_bar.clearMessage()
-                self.server_status_label.setText(strings._('closing_automatically'))
+                self.server_status_label.setText(strings._("closing_automatically"))
         else:
             if self.server_status.status == self.server_status.STATUS_STOPPED:
                 self.history.cancel(event["data"]["id"])
@@ -284,7 +297,10 @@ class ShareMode(Mode):
         # Update in progress count
         self.history.in_progress_count -= 1
         self.history.update_in_progress()
-        self.system_tray.showMessage(strings._('systray_share_canceled_title'), strings._('systray_share_canceled_message'))
+        self.system_tray.showMessage(
+            strings._("systray_share_canceled_title"),
+            strings._("systray_share_canceled_message"),
+        )
 
     def on_reload_settings(self):
         """
@@ -296,7 +312,7 @@ class ShareMode(Mode):
             self.info_label.show()
 
     def update_primary_action(self):
-        self.common.log('ShareMode', 'update_primary_action')
+        self.common.log("ShareMode", "update_primary_action")
 
         # Show or hide primary action layout
         file_count = self.file_selection.file_list.count()
@@ -312,9 +328,15 @@ class ShareMode(Mode):
             total_size_readable = self.common.human_readable_filesize(total_size_bytes)
 
             if file_count > 1:
-                self.info_label.setText(strings._('gui_file_info').format(file_count, total_size_readable))
+                self.info_label.setText(
+                    strings._("gui_file_info").format(file_count, total_size_readable)
+                )
             else:
-                self.info_label.setText(strings._('gui_file_info_single').format(file_count, total_size_readable))
+                self.info_label.setText(
+                    strings._("gui_file_info_single").format(
+                        file_count, total_size_readable
+                    )
+                )
 
         else:
             self.primary_action.hide()
@@ -325,6 +347,8 @@ class ShareMode(Mode):
         Set the info counters back to zero.
         """
         self.history.reset()
+        self.toggle_history.indicator_count = 0
+        self.toggle_history.update_indicator()
 
     @staticmethod
     def _compute_total_size(filenames):
@@ -347,8 +371,8 @@ class ZipProgressBar(QtWidgets.QProgressBar):
         self.setMaximumHeight(20)
         self.setMinimumWidth(200)
         self.setValue(0)
-        self.setFormat(strings._('zip_progress_bar_format'))
-        self.setStyleSheet(self.common.css['share_zip_progess_bar'])
+        self.setFormat(strings._("zip_progress_bar_format"))
+        self.setStyleSheet(self.common.css["share_zip_progess_bar"])
 
         self._total_files_size = total_files_size
         self._processed_size = 0

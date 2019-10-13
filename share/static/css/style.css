@@ -56,6 +56,10 @@ header .right ul li {
   cursor: pointer;
 }
 
+a.button:visited {
+  color: #ffffff;
+}
+
 .close-button {
   color: #ffffff;
   background-color: #c90c0c;
@@ -68,6 +72,30 @@ header .right ul li {
   position: absolute;
   right: 10px;
   bottom: 10px;
+}
+
+ul.breadcrumbs {
+  display: block;
+  list-style: none;
+  margin: 10px 0;
+  padding: 0;
+}
+
+ul.breadcrumbs li {
+  display: inline-block;
+  list-style: none;
+  margin: 0;
+  padding: 5px;
+  color: #999999;
+}
+
+ul.breadcrumbs li span.sep {
+  padding-left: 5px;
+}
+
+ul.breadcrumbs li a:link, ul.breadcrumbs li a:visited {
+  color: #666666;
+  border-bottom: 1px solid #666666;
 }
 
 table.file-list {
@@ -223,19 +251,11 @@ li.info {
   margin: 0 0 20px 0;
 }
 
-div#noscript {
-  text-align: center;
-  color: #d709df;
-  padding: 1em;
-  line-height: 150%;
-  margin: 0 auto;
+a {
+  text-decoration: none;
+  color: #1c1ca0;
 }
 
-div#noscript a, div#noscript a:visited {
-  color: #d709df;
-}
-
-.disable-noscript-xss-wrapper {
-  max-width: 900px;
-  margin: 0 auto;
+a:visited {
+  color: #601ca0;
 }

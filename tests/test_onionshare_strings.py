@@ -32,31 +32,34 @@ from onionshare.settings import Settings
 #     return path
 # common.get_resource_path = get_resource_path
 
+
 def test_underscore_is_function():
     assert callable(strings._) and isinstance(strings._, types.FunctionType)
 
 
 class TestLoadStrings:
     def test_load_strings_defaults_to_english(
-            self, common_obj, locale_en, sys_onionshare_dev_mode):
+        self, common_obj, locale_en, sys_onionshare_dev_mode
+    ):
         """ load_strings() loads English by default """
         common_obj.settings = Settings(common_obj)
         strings.load_strings(common_obj)
-        assert strings._('preparing_files') == "Compressing files."
-
+        assert strings._("preparing_files") == "Compressing files."
 
     def test_load_strings_loads_other_languages(
-            self, common_obj, locale_fr, sys_onionshare_dev_mode):
+        self, common_obj, locale_fr, sys_onionshare_dev_mode
+    ):
         """ load_strings() loads other languages in different locales """
         common_obj.settings = Settings(common_obj)
-        common_obj.settings.set('locale', 'fr')
+        common_obj.settings.set("locale", "fr")
         strings.load_strings(common_obj)
-        assert strings._('preparing_files') == "Compression des fichiers."
+        assert strings._("preparing_files") == "Compression des fichiers."
 
     def test_load_invalid_locale(
-            self, common_obj, locale_invalid, sys_onionshare_dev_mode):
+        self, common_obj, locale_invalid, sys_onionshare_dev_mode
+    ):
         """ load_strings() raises a KeyError for an invalid locale """
         with pytest.raises(KeyError):
             common_obj.settings = Settings(common_obj)
-            common_obj.settings.set('locale', 'XX')
+            common_obj.settings.set("locale", "XX")
             strings.load_strings(common_obj)

@@ -4,15 +4,11 @@ import unittest
 
 from .GuiShareTest import GuiShareTest
 
-class LocalShareModePersistentSlugTest(unittest.TestCase, GuiShareTest):
+
+class LocalShareModeClearAllButtonTest(unittest.TestCase, GuiShareTest):
     @classmethod
     def setUpClass(cls):
-        test_settings = {
-            "public_mode": False,
-            "slug": "",
-            "save_private_key": True,
-            "close_after_first_download": False,
-        }
+        test_settings = {"close_after_first_download": False}
         cls.gui = GuiShareTest.set_up(test_settings)
 
     @classmethod
@@ -20,10 +16,11 @@ class LocalShareModePersistentSlugTest(unittest.TestCase, GuiShareTest):
         GuiShareTest.tear_down()
 
     @pytest.mark.gui
-    @pytest.mark.skipif(pytest.__version__ < '2.9', reason="requires newer pytest")
+    @pytest.mark.skipif(pytest.__version__ < "2.9", reason="requires newer pytest")
     def test_gui(self):
         self.run_all_common_setup_tests()
-        self.run_all_share_mode_persistent_tests(False, True)
+        self.run_all_clear_all_button_tests(False, True)
+
 
 if __name__ == "__main__":
     unittest.main()

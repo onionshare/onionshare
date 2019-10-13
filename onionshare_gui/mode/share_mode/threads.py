@@ -24,13 +24,14 @@ class CompressThread(QtCore.QThread):
     """
     Compresses files to be shared
     """
+
     success = QtCore.pyqtSignal()
     error = QtCore.pyqtSignal(str)
 
     def __init__(self, mode):
         super(CompressThread, self).__init__()
         self.mode = mode
-        self.mode.common.log('CompressThread', '__init__')
+        self.mode.common.log("CompressThread", "__init__")
 
     # prepare files to share
     def set_processed_size(self, x):
@@ -38,21 +39,21 @@ class CompressThread(QtCore.QThread):
             self.mode._zip_progress_bar.update_processed_size_signal.emit(x)
 
     def run(self):
-        self.mode.common.log('CompressThread', 'run')
+        self.mode.common.log("CompressThread", "run")
 
         try:
-            if self.mode.web.share_mode.set_file_info(self.mode.filenames, processed_size_callback=self.set_processed_size):
-                self.success.emit()
-            else:
-                # Cancelled
-                pass
-
-            self.mode.app.cleanup_filenames += self.mode.web.share_mode.cleanup_filenames
+            self.mode.web.share_mode.set_file_info(
+                self.mode.filenames, processed_size_callback=self.set_processed_size
+            )
+            self.success.emit()
+            self.mode.app.cleanup_filenames += (
+                self.mode.web.share_mode.cleanup_filenames
+            )
         except OSError as e:
             self.error.emit(e.strerror)
 
     def cancel(self):
-        self.mode.common.log('CompressThread', 'cancel')
+        self.mode.common.log("CompressThread", "cancel")
 
         # Let the Web and ZipWriter objects know that we're canceling compression early
         self.mode.web.cancel_compression = True

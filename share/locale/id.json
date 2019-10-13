@@ -184,5 +184,6 @@
     "gui_settings_language_changed_notice": "",
     "gui_add_files": "Tambahkan berkas",
     "gui_add_folder": "Tambahkan Folder",
-    "gui_settings_onion_label": "Pengaturan Onion"
+    "gui_settings_onion_label": "Pengaturan Onion",
+    "incorrect_password": "Password salah"
 }

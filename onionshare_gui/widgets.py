@@ -19,19 +19,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 from PyQt5 import QtCore, QtWidgets, QtGui
 
+
 class Alert(QtWidgets.QMessageBox):
     """
     An alert box dialog.
     """
-    def __init__(self, common, message, icon=QtWidgets.QMessageBox.NoIcon, buttons=QtWidgets.QMessageBox.Ok, autostart=True):
+
+    def __init__(
+        self,
+        common,
+        message,
+        icon=QtWidgets.QMessageBox.NoIcon,
+        buttons=QtWidgets.QMessageBox.Ok,
+        autostart=True,
+    ):
         super(Alert, self).__init__(None)
 
         self.common = common
 
-        self.common.log('Alert', '__init__')
+        self.common.log("Alert", "__init__")
 
         self.setWindowTitle("OnionShare")
-        self.setWindowIcon(QtGui.QIcon(self.common.get_resource_path('images/logo.png')))
+        self.setWindowIcon(
+            QtGui.QIcon(self.common.get_resource_path("images/logo.png"))
+        )
         self.setText(message)
         self.setIcon(icon)
         self.setStandardButtons(buttons)
@@ -49,11 +60,12 @@ class AddFileDialog(QtWidgets.QFileDialog):
     This is because the macOS sandbox requires native dialogs, and this is a Qt5
     dialog.
     """
+
     def __init__(self, common, *args, **kwargs):
         QtWidgets.QFileDialog.__init__(self, *args, **kwargs)
 
         self.common = common
-        self.common.log('AddFileDialog', '__init__')
+        self.common.log("AddFileDialog", "__init__")
 
         self.setOption(self.DontUseNativeDialog, True)
         self.setOption(self.ReadOnly, True)
@@ -65,5 +77,5 @@ class AddFileDialog(QtWidgets.QFileDialog):
         list_view.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
 
     def accept(self):
-        self.common.log('AddFileDialog', 'accept')
+        self.common.log("AddFileDialog", "accept")
         QtWidgets.QDialog.accept(self)

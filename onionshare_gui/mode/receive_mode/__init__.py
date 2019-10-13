@@ -25,19 +25,21 @@ from onionshare.web import Web
 from ..history import History, ToggleHistory, ReceiveHistoryItem
 from .. import Mode
 
+
 class ReceiveMode(Mode):
     """
     Parts of the main window UI for receiving files.
     """
+
     def init(self):
         """
         Custom initialization for ReceiveMode.
         """
         # Create the Web object
-        self.web = Web(self.common, True, 'receive')
+        self.web = Web(self.common, True, "receive")
 
         # Server status
-        self.server_status.set_mode('receive')
+        self.server_status.set_mode("receive")
         self.server_status.server_started_finished.connect(self.update_primary_action)
         self.server_status.server_stopped.connect(self.update_primary_action)
         self.server_status.server_canceled.connect(self.update_primary_action)
@@ -49,21 +51,31 @@ class ReceiveMode(Mode):
         # Upload history
         self.history = History(
             self.common,
-            QtGui.QPixmap.fromImage(QtGui.QImage(self.common.get_resource_path('images/receive_icon_transparent.png'))),
-            strings._('gui_receive_mode_no_files'),
-            strings._('gui_all_modes_history')
+            QtGui.QPixmap.fromImage(
+                QtGui.QImage(
+                    self.common.get_resource_path("images/receive_icon_transparent.png")
+                )
+            ),
+            strings._("gui_receive_mode_no_files"),
+            strings._("gui_all_modes_history"),
         )
         self.history.hide()
 
         # Toggle history
         self.toggle_history = ToggleHistory(
-            self.common, self, self.history,
-            QtGui.QIcon(self.common.get_resource_path('images/receive_icon_toggle.png')),
-            QtGui.QIcon(self.common.get_resource_path('images/receive_icon_toggle_selected.png'))
+            self.common,
+            self,
+            self.history,
+            QtGui.QIcon(
+                self.common.get_resource_path("images/receive_icon_toggle.png")
+            ),
+            QtGui.QIcon(
+                self.common.get_resource_path("images/receive_icon_toggle_selected.png")
+            ),
         )
 
         # Receive mode warning
-        receive_warning = QtWidgets.QLabel(strings._('gui_receive_mode_warning'))
+        receive_warning = QtWidgets.QLabel(strings._("gui_receive_mode_warning"))
         receive_warning.setMinimumHeight(80)
         receive_warning.setWordWrap(True)
 
@@ -90,20 +102,25 @@ class ReceiveMode(Mode):
         """
         Return the string to put on the stop server button, if there's an auto-stop timer
         """
-        return strings._('gui_receive_stop_server_autostop_timer')
+        return strings._("gui_receive_stop_server_autostop_timer")
 
     def autostop_timer_finished_should_stop_server(self):
         """
         The auto-stop timer expired, should we stop the server? Returns a bool
         """
         # If there were no attempts to upload files, or all uploads are done, we can stop
-        if self.web.receive_mode.upload_count == 0 or not self.web.receive_mode.uploads_in_progress:
+        if (
+            self.web.receive_mode.cur_history_id == 0
+            or not self.web.receive_mode.uploads_in_progress
+        ):
             self.server_status.stop_server()
-            self.server_status_label.setText(strings._('close_on_autostop_timer'))
+            self.server_status_label.setText(strings._("close_on_autostop_timer"))
             return True
         # An upload is probably still running - hold off on stopping the share, but block new shares.
         else:
-            self.server_status_label.setText(strings._('gui_receive_mode_autostop_timer_waiting'))
+            self.server_status_label.setText(
+                strings._("gui_receive_mode_autostop_timer_waiting")
+            )
             self.web.receive_mode.can_upload = False
             return False
 
@@ -112,8 +129,8 @@ class ReceiveMode(Mode):
         Starting the server.
         """
         # Reset web counters
-        self.web.receive_mode.upload_count = 0
-        self.web.error404_count = 0
+        self.web.receive_mode.cur_history_id = 0
+        self.web.reset_invalid_passwords()
 
         # Hide and reset the uploads if we have previously shared
         self.reset_info_counters()
@@ -136,56 +153,68 @@ class ReceiveMode(Mode):
         """
         Handle REQUEST_LOAD event.
         """
-        self.system_tray.showMessage(strings._('systray_page_loaded_title'), strings._('systray_page_loaded_message'))
+        self.system_tray.showMessage(
+            strings._("systray_page_loaded_title"),
+            strings._("systray_page_loaded_message"),
+        )
 
     def handle_request_started(self, event):
         """
         Handle REQUEST_STARTED event.
         """
-        item = ReceiveHistoryItem(self.common, event["data"]["id"], event["data"]["content_length"])
+        item = ReceiveHistoryItem(
+            self.common, event["data"]["id"], event["data"]["content_length"]
+        )
         self.history.add(event["data"]["id"], item)
         self.toggle_history.update_indicator(True)
         self.history.in_progress_count += 1
         self.history.update_in_progress()
 
-        self.system_tray.showMessage(strings._('systray_receive_started_title'), strings._('systray_receive_started_message'))
+        self.system_tray.showMessage(
+            strings._("systray_receive_started_title"),
+            strings._("systray_receive_started_message"),
+        )
 
     def handle_request_progress(self, event):
         """
         Handle REQUEST_PROGRESS event.
         """
-        self.history.update(event["data"]["id"], {
-            'action': 'progress',
-            'progress': event["data"]["progress"]
-        })
+        self.history.update(
+            event["data"]["id"],
+            {"action": "progress", "progress": event["data"]["progress"]},
+        )
 
     def handle_request_upload_file_renamed(self, event):
         """
         Handle REQUEST_UPLOAD_FILE_RENAMED event.
         """
-        self.history.update(event["data"]["id"], {
-            'action': 'rename',
-            'old_filename': event["data"]["old_filename"],
-            'new_filename': event["data"]["new_filename"]
-        })
+        self.history.update(
+            event["data"]["id"],
+            {
+                "action": "rename",
+                "old_filename": event["data"]["old_filename"],
+                "new_filename": event["data"]["new_filename"],
+            },
+        )
 
     def handle_request_upload_set_dir(self, event):
         """
         Handle REQUEST_UPLOAD_SET_DIR event.
         """
-        self.history.update(event["data"]["id"], {
-            'action': 'set_dir',
-            'filename': event["data"]["filename"],
-            'dir': event["data"]["dir"]
-        })
+        self.history.update(
+            event["data"]["id"],
+            {
+                "action": "set_dir",
+                "filename": event["data"]["filename"],
+                "dir": event["data"]["dir"],
+            },
+        )
 
     def handle_request_upload_finished(self, event):
         """
         Handle REQUEST_UPLOAD_FINISHED event.
         """
-        self.history.update(event["data"]["id"], {
-            'action': 'finished'
-        })
+        self.history.update(event["data"]["id"], {"action": "finished"})
         self.history.completed_count += 1
         self.history.in_progress_count -= 1
         self.history.update_completed()
@@ -195,9 +224,7 @@ class ReceiveMode(Mode):
         """
         Handle REQUEST_UPLOAD_CANCELED event.
         """
-        self.history.update(event["data"]["id"], {
-            'action': 'canceled'
-        })
+        self.history.update(event["data"]["id"], {"action": "canceled"})
         self.history.in_progress_count -= 1
         self.history.update_in_progress()
 
@@ -212,6 +239,8 @@ class ReceiveMode(Mode):
         Set the info counters back to zero.
         """
         self.history.reset()
+        self.toggle_history.indicator_count = 0
+        self.toggle_history.update_indicator()
 
     def update_primary_action(self):
-        self.common.log('ReceiveMode', 'update_primary_action')
+        self.common.log("ReceiveMode", "update_primary_action")
