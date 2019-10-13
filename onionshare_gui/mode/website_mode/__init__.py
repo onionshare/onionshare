@@ -33,10 +33,12 @@ from .. import Mode
 from ..history import History, ToggleHistory
 from ...widgets import Alert
 
+
 class WebsiteMode(Mode):
     """
     Parts of the main window UI for sharing files.
     """
+
     success = QtCore.pyqtSignal()
     error = QtCore.pyqtSignal(str)
 
@@ -45,7 +47,7 @@ class WebsiteMode(Mode):
         Custom initialization for ReceiveMode.
         """
         # Create the Web object
-        self.web = Web(self.common, True, 'website')
+        self.web = Web(self.common, True, "website")
 
         # File selection
         self.file_selection = FileSelection(self.common, self)
@@ -54,7 +56,7 @@ class WebsiteMode(Mode):
                 self.file_selection.file_list.add_file(filename)
 
         # Server status
-        self.server_status.set_mode('website', self.file_selection)
+        self.server_status.set_mode("website", self.file_selection)
         self.server_status.server_started.connect(self.file_selection.server_started)
         self.server_status.server_stopped.connect(self.file_selection.server_stopped)
         self.server_status.server_stopped.connect(self.update_primary_action)
@@ -69,16 +71,20 @@ class WebsiteMode(Mode):
         # Filesize warning
         self.filesize_warning = QtWidgets.QLabel()
         self.filesize_warning.setWordWrap(True)
-        self.filesize_warning.setStyleSheet(self.common.css['share_filesize_warning'])
+        self.filesize_warning.setStyleSheet(self.common.css["share_filesize_warning"])
         self.filesize_warning.hide()
 
         # Download history
         self.history = History(
             self.common,
-            QtGui.QPixmap.fromImage(QtGui.QImage(self.common.get_resource_path('images/share_icon_transparent.png'))),
-            strings._('gui_website_mode_no_files'),
-            strings._('gui_all_modes_history'),
-            'website'
+            QtGui.QPixmap.fromImage(
+                QtGui.QImage(
+                    self.common.get_resource_path("images/share_icon_transparent.png")
+                )
+            ),
+            strings._("gui_website_mode_no_files"),
+            strings._("gui_all_modes_history"),
+            "website",
         )
         self.history.in_progress_label.hide()
         self.history.completed_label.hide()
@@ -90,9 +96,13 @@ class WebsiteMode(Mode):
 
         # Toggle history
         self.toggle_history = ToggleHistory(
-            self.common, self, self.history,
-            QtGui.QIcon(self.common.get_resource_path('images/share_icon_toggle.png')),
-            QtGui.QIcon(self.common.get_resource_path('images/share_icon_toggle_selected.png'))
+            self.common,
+            self,
+            self.history,
+            QtGui.QIcon(self.common.get_resource_path("images/share_icon_toggle.png")),
+            QtGui.QIcon(
+                self.common.get_resource_path("images/share_icon_toggle_selected.png")
+            ),
         )
 
         # Top bar
@@ -126,7 +136,7 @@ class WebsiteMode(Mode):
         """
         Return the string to put on the stop server button, if there's an auto-stop timer
         """
-        return strings._('gui_share_stop_server_autostop_timer')
+        return strings._("gui_share_stop_server_autostop_timer")
 
     def autostop_timer_finished_should_stop_server(self):
         """
@@ -134,9 +144,8 @@ class WebsiteMode(Mode):
         """
 
         self.server_status.stop_server()
-        self.server_status_label.setText(strings._('close_on_autostop_timer'))
+        self.server_status_label.setText(strings._("close_on_autostop_timer"))
         return True
-
 
     def start_server_custom(self):
         """
@@ -160,7 +169,6 @@ class WebsiteMode(Mode):
         # Continue
         self.starting_server_step3.emit()
         self.start_server_finished.emit()
-
 
     def start_server_step3_custom(self):
         """
@@ -191,8 +199,7 @@ class WebsiteMode(Mode):
         """
         Log that the server has been cancelled
         """
-        self.common.log('WebsiteMode', 'cancel_server')
-
+        self.common.log("WebsiteMode", "cancel_server")
 
     def handle_tor_broke_custom(self):
         """
@@ -210,7 +217,7 @@ class WebsiteMode(Mode):
             self.info_label.show()
 
     def update_primary_action(self):
-        self.common.log('WebsiteMode', 'update_primary_action')
+        self.common.log("WebsiteMode", "update_primary_action")
 
         # Show or hide primary action layout
         file_count = self.file_selection.file_list.count()
@@ -226,9 +233,15 @@ class WebsiteMode(Mode):
             total_size_readable = self.common.human_readable_filesize(total_size_bytes)
 
             if file_count > 1:
-                self.info_label.setText(strings._('gui_file_info').format(file_count, total_size_readable))
+                self.info_label.setText(
+                    strings._("gui_file_info").format(file_count, total_size_readable)
+                )
             else:
-                self.info_label.setText(strings._('gui_file_info_single').format(file_count, total_size_readable))
+                self.info_label.setText(
+                    strings._("gui_file_info_single").format(
+                        file_count, total_size_readable
+                    )
+                )
 
         else:
             self.primary_action.hide()

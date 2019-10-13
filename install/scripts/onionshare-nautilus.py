@@ -5,7 +5,8 @@ import locale
 import subprocess
 import urllib
 import gi
-gi.require_version('Nautilus', '3.0')
+
+gi.require_version("Nautilus", "3.0")
 
 from gi.repository import Nautilus
 from gi.repository import GObject
@@ -15,12 +16,12 @@ class OnionShareExtension(GObject.GObject, Nautilus.MenuProvider):
     def __init__(self):
         # Get the localized string for "Share via OnionShare" label
         self.label = None
-        default_label = 'Share via OnionShare'
+        default_label = "Share via OnionShare"
 
         try:
             # Re-implement localization in python2
-            default_locale = 'en'
-            locale_dir = os.path.join(sys.prefix, 'share/onionshare/locale')
+            default_locale = "en"
+            locale_dir = os.path.join(sys.prefix, "share/onionshare/locale")
             if os.path.exists(locale_dir):
                 # Load all translations
                 strings = {}
@@ -28,7 +29,7 @@ class OnionShareExtension(GObject.GObject, Nautilus.MenuProvider):
                 for filename in os.listdir(locale_dir):
                     abs_filename = os.path.join(locale_dir, filename)
                     lang, ext = os.path.splitext(filename)
-                    if ext == '.json':
+                    if ext == ".json":
                         with open(abs_filename) as f:
                             translations[lang] = json.load(f)
 
@@ -42,7 +43,7 @@ class OnionShareExtension(GObject.GObject, Nautilus.MenuProvider):
                             if key in translations[lang]:
                                 strings[key] = translations[lang][key]
 
-                self.label = strings['share_via_onionshare']
+                self.label = strings["share_via_onionshare"]
 
         except:
             self.label = default_label
@@ -63,30 +64,29 @@ class OnionShareExtension(GObject.GObject, Nautilus.MenuProvider):
             self.label = 'Share via OnionShare'
         """
 
-    def url2path(self,url):
+    def url2path(self, url):
         file_uri = url.get_activation_uri()
         arg_uri = file_uri[7:]
         path = urllib.url2pathname(arg_uri)
         return path
 
     def exec_onionshare(self, filenames):
-# Would prefer this method but there is a conflict between GTK 2.0 vs GTK 3.0 components being loaded at once
-# (nautilus:3090): Gtk-ERROR **: GTK+ 2.x symbols detected. Using GTK+ 2.x and GTK+ 3 in the same process is not supported
-#        sys.argv = ["", "--filenames"] + filenames
-#        sys.exit(onionshare_gui.main())
-        path = os.path.join(os.sep, 'usr', 'bin', 'onionshare-gui')
+        # Would prefer this method but there is a conflict between GTK 2.0 vs GTK 3.0 components being loaded at once
+        # (nautilus:3090): Gtk-ERROR **: GTK+ 2.x symbols detected. Using GTK+ 2.x and GTK+ 3 in the same process is not supported
+        #        sys.argv = ["", "--filenames"] + filenames
+        #        sys.exit(onionshare_gui.main())
+        path = os.path.join(os.sep, "usr", "bin", "onionshare-gui")
         cmd = [path, "--filenames"] + filenames
         subprocess.Popen(cmd)
 
     def get_file_items(self, window, files):
-        menuitem = Nautilus.MenuItem(name='OnionShare::Nautilus',
-                                         label=self.label,
-                                         tip='',
-                                         icon='')
+        menuitem = Nautilus.MenuItem(
+            name="OnionShare::Nautilus", label=self.label, tip="", icon=""
+        )
         menu = Nautilus.Menu()
         menu.append_item(menuitem)
         menuitem.connect("activate", self.menu_activate_cb, files)
-        return menuitem,
+        return (menuitem,)
 
     def menu_activate_cb(self, menu, files):
         file_list = []

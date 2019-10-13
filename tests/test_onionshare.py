@@ -27,14 +27,14 @@ from onionshare.common import Common
 
 class MyOnion:
     def __init__(self, stealth=False):
-        self.auth_string = 'TestHidServAuth'
-        self.private_key = ''
+        self.auth_string = "TestHidServAuth"
+        self.private_key = ""
         self.stealth = stealth
         self.scheduled_key = None
 
     @staticmethod
     def start_onion_service(self, await_publication=True, save_scheduled_key=False):
-        return 'test_service_id.onion'
+        return "test_service_id.onion"
 
 
 @pytest.fixture
@@ -65,18 +65,17 @@ class TestOnionShare:
         onionshare_obj.set_stealth(False)
         onionshare_obj.start_onion_service()
         assert 17600 <= onionshare_obj.port <= 17650
-        assert onionshare_obj.onion_host == 'test_service_id.onion'
+        assert onionshare_obj.onion_host == "test_service_id.onion"
 
     def test_start_onion_service_stealth(self, onionshare_obj):
         onionshare_obj.set_stealth(True)
         onionshare_obj.start_onion_service()
-        assert onionshare_obj.auth_string == 'TestHidServAuth'
+        assert onionshare_obj.auth_string == "TestHidServAuth"
 
     def test_start_onion_service_local_only(self, onionshare_obj):
         onionshare_obj.local_only = True
         onionshare_obj.start_onion_service()
-        assert onionshare_obj.onion_host == '127.0.0.1:{}'.format(
-            onionshare_obj.port)
+        assert onionshare_obj.onion_host == "127.0.0.1:{}".format(onionshare_obj.port)
 
     def test_cleanup(self, onionshare_obj, temp_dir_1024, temp_file_1024):
         onionshare_obj.cleanup_filenames = [temp_dir_1024, temp_file_1024]

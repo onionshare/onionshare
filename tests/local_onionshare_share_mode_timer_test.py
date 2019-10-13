@@ -4,13 +4,11 @@ import unittest
 
 from .GuiShareTest import GuiShareTest
 
+
 class LocalShareModeTimerTest(unittest.TestCase, GuiShareTest):
     @classmethod
     def setUpClass(cls):
-        test_settings = {
-            "public_mode": False,
-            "autostop_timer": True,
-        }
+        test_settings = {"public_mode": False, "autostop_timer": True}
         cls.gui = GuiShareTest.set_up(test_settings)
 
     @classmethod
@@ -18,10 +16,11 @@ class LocalShareModeTimerTest(unittest.TestCase, GuiShareTest):
         GuiShareTest.tear_down()
 
     @pytest.mark.gui
-    @pytest.mark.skipif(pytest.__version__ < '2.9', reason="requires newer pytest")
+    @pytest.mark.skipif(pytest.__version__ < "2.9", reason="requires newer pytest")
     def test_gui(self):
         self.run_all_common_setup_tests()
         self.run_all_share_mode_timer_tests(False)
+
 
 if __name__ == "__main__":
     unittest.main()

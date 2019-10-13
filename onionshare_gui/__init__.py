@@ -32,22 +32,26 @@ from onionshare.onionshare import OnionShare
 
 from .onionshare_gui import OnionShareGui
 
+
 class Application(QtWidgets.QApplication):
     """
     This is Qt's QApplication class. It has been overridden to support threads
     and the quick keyboard shortcut.
     """
+
     def __init__(self, common):
-        if common.platform == 'Linux' or common.platform == 'BSD':
+        if common.platform == "Linux" or common.platform == "BSD":
             self.setAttribute(QtCore.Qt.AA_X11InitThreads, True)
         QtWidgets.QApplication.__init__(self, sys.argv)
         self.installEventFilter(self)
 
     def eventFilter(self, obj, event):
-        if (event.type() == QtCore.QEvent.KeyPress and
-            event.key() == QtCore.Qt.Key_Q and
-            event.modifiers() == QtCore.Qt.ControlModifier):
-                self.quit()
+        if (
+            event.type() == QtCore.QEvent.KeyPress
+            and event.key() == QtCore.Qt.Key_Q
+            and event.modifiers() == QtCore.Qt.ControlModifier
+        ):
+            self.quit()
         return False
 
 
@@ -70,11 +74,34 @@ def main():
     qtapp = Application(common)
 
     # Parse arguments
-    parser = argparse.ArgumentParser(formatter_class=lambda prog: argparse.HelpFormatter(prog,max_help_position=48))
-    parser.add_argument('--local-only', action='store_true', dest='local_only', help="Don't use Tor (only for development)")
-    parser.add_argument('-v', '--verbose', action='store_true', dest='verbose', help="Log OnionShare errors to stdout, and web errors to disk")
-    parser.add_argument('--filenames', metavar='filenames', nargs='+', help="List of files or folders to share")
-    parser.add_argument('--config', metavar='config', default=False, help="Custom JSON config file location (optional)")
+    parser = argparse.ArgumentParser(
+        formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=48)
+    )
+    parser.add_argument(
+        "--local-only",
+        action="store_true",
+        dest="local_only",
+        help="Don't use Tor (only for development)",
+    )
+    parser.add_argument(
+        "-v",
+        "--verbose",
+        action="store_true",
+        dest="verbose",
+        help="Log OnionShare errors to stdout, and web errors to disk",
+    )
+    parser.add_argument(
+        "--filenames",
+        metavar="filenames",
+        nargs="+",
+        help="List of files or folders to share",
+    )
+    parser.add_argument(
+        "--config",
+        metavar="config",
+        default=False,
+        help="Custom JSON config file location (optional)",
+    )
     args = parser.parse_args()
 
     filenames = args.filenames
@@ -118,10 +145,12 @@ def main():
     def shutdown():
         onion.cleanup()
         app.cleanup()
+
     qtapp.aboutToQuit.connect(shutdown)
 
     # All done
     sys.exit(qtapp.exec_())
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()
