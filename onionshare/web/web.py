@@ -68,6 +68,9 @@ class Web:
         self.app = Flask(
             __name__,
             static_folder=self.common.get_resource_path("static"),
+            static_url_path="/static_".format(
+                self.common.random_string(16)
+            ),  # randomize static_url_path to avoid making /static unusable
             template_folder=self.common.get_resource_path("templates"),
         )
         self.app.secret_key = self.common.random_string(8)
