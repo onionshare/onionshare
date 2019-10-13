@@ -64,13 +64,15 @@ class Settings(object):
         # Dictionary of available languages in this version of OnionShare,
         # mapped to the language name, in that language
         self.available_locales = {
+            "ar": "العربية",  # Arabic
             #'bn': 'বাংলা', # Bengali (commented out because not at 90% translation)
             "ca": "Català",  # Catalan
             "zh_Hant": "正體中文 (繁體)",  # Traditional Chinese
             "zh_Hans": "中文 (简体)",  # Simplified Chinese
             "da": "Dansk",  # Danish
+            "nl": "Nederlands",  # Dutch
             "en": "English",  # English
-            "fi": "Suomi",  # Finnish
+            # "fi": "Suomi",  # Finnish (commented out because not at 90% translation)
             "fr": "Français",  # French
             "de": "Deutsch",  # German
             "el": "Ελληνικά",  # Greek
@@ -79,11 +81,13 @@ class Settings(object):
             "it": "Italiano",  # Italian
             "ja": "日本語",  # Japanese
             "nb": "Norsk Bokmål",  # Norwegian Bokmål
-            #'fa': 'فارسی', # Persian (commented out because not at 90% translation)
+            "fa": "فارسی",  # Persian
             "pl": "Polski",  # Polish
             "pt_BR": "Português (Brasil)",  # Portuguese Brazil
             "pt_PT": "Português (Portugal)",  # Portuguese Portugal
+            "ro": "Română",  # Romanian
             "ru": "Русский",  # Russian
+            "sr_Latn": "Srpska (latinica)",  #  Serbian (latin)
             "es": "Español",  # Spanish
             "sv": "Svenska",  # Swedish
             "te": "తెలుగు",  # Telugu
