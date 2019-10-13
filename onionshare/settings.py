@@ -199,7 +199,7 @@ class Settings(object):
         Save settings to file.
         """
         self.common.log('Settings', 'save')
-        open(self.filename, 'w').write(json.dumps(self._settings))
+        open(self.filename, 'w').write(json.dumps(self._settings, indent=2))
         self.common.log('Settings', 'save', 'Settings saved in {}'.format(self.filename))
 
     def get(self, key):
