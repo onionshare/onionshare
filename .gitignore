@@ -51,3 +51,6 @@ tags
 
 # virtualenv
 venv
+
+# other
+.vscode

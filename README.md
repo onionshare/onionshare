@@ -42,3 +42,5 @@ Test status: [![CircleCI](https://circleci.com/gh/micahflee/onionshare.svg?style
 ![Receive mode OnionShare](/screenshots/onionshare-receive-server.png)
 
 ![Receive mode Tor Browser](/screenshots/onionshare-receive-client.png)
+
+![Website mode OnionShare](/screenshots/onionshare-website-server.png)

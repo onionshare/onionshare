@@ -35,14 +35,14 @@ def load_strings(common):
     # Load all translations
     translations = {}
     for locale in common.settings.available_locales:
-        locale_dir = common.get_resource_path('locale')
+        locale_dir = common.get_resource_path("locale")
         filename = os.path.join(locale_dir, "{}.json".format(locale))
-        with open(filename, encoding='utf-8') as f:
+        with open(filename, encoding="utf-8") as f:
             translations[locale] = json.load(f)
 
     # Build strings
-    default_locale = 'en'
-    current_locale = common.settings.get('locale')
+    default_locale = "en"
+    current_locale = common.settings.get("locale")
     strings = {}
     for s in translations[default_locale]:
         if s in translations[current_locale] and translations[current_locale][s] != "":
@@ -56,5 +56,6 @@ def translated(k):
     Returns a translated string.
     """
     return strings[k]
+
 
 _ = translated

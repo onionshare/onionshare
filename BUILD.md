@@ -14,13 +14,13 @@ Install the needed dependencies:
 For Debian-like distros:
 
 ```
-apt install -y python3-flask python3-stem python3-pyqt5 python3-crypto python3-socks python-nautilus tor obfs4proxy python3-pytest build-essential fakeroot python3-all python3-stdeb dh-python
+apt install -y python3-flask python3-stem python3-pyqt5 python3-crypto python3-socks python-nautilus tor obfs4proxy python3-pytest build-essential fakeroot python3-all python3-stdeb dh-python python3-flask-httpauth python3-distutils
 ```
 
 For Fedora-like distros:
 
 ```
-dnf install -y python3-flask python3-stem python3-qt5 python3-crypto python3-pysocks nautilus-python tor obfs4 python3-pytest rpm-build
+dnf install -y python3-flask python3-flask-httpauth python3-stem python3-qt5 python3-crypto python3-pysocks nautilus-python tor obfs4 python3-pytest rpm-build
 ```
 
 After that you can try both the CLI and the GUI version of OnionShare:
@@ -46,11 +46,11 @@ If you find that these instructions don't work for your Linux distribution or ve
 
 Install Xcode from the Mac App Store. Once it's installed, run it for the first time to set it up. Also, run this to make sure command line tools are installed: `xcode-select --install`. And finally, open Xcode, go to Preferences > Locations, and make sure under Command Line Tools you select an installed version from the dropdown. (This is required for installing Qt5.)
 
-Download and install Python 3.7.2 from https://www.python.org/downloads/release/python-372/. I downloaded `python-3.7.2-macosx10.9.pkg`.
+Download and install Python 3.7.4 from https://www.python.org/downloads/release/python-374/. I downloaded `python-3.7.4-macosx10.9.pkg`.
 
 You may also need to run the command `/Applications/Python\ 3.7/Install\ Certificates.command` to update Python 3.6's internal certificate store. Otherwise, you may find that fetching the Tor Browser .dmg file fails later due to a certificate validation error.
 
-Install Qt 5.12.1 from https://download.qt.io/archive/qt/5.12/5.12.1/. I downloaded `qt-opensource-mac-x64-5.12.1.dmg`. In the installer, you can skip making an account, and all you need is `Qt` > `Qt 5.12.1` > `macOS`.
+Install Qt 5.13.1 for macOS from https://www.qt.io/offline-installers. I downloaded `qt-opensource-mac-x64-5.13.1.dmg`. In the installer, you can skip making an account, and all you need is `Qt` > `Qt 5.13.1` > `macOS`.
 
 Now install pip dependencies. If you want to use a virtualenv, create it and activate it first:
 
@@ -70,48 +70,6 @@ pip3 install -r install/requirements.txt
 ```sh
 ./dev_scripts/onionshare
 ./dev_scripts/onionshare-gui
-```
-
-#### Building PyInstaller
-
-If you want to build an app bundle, you'll need to use PyInstaller. Recently there has been issues with installing PyInstaller using pip, so here's how to build it from source. First, make sure you don't have PyInstaller currently installed:
-
-```sh
-pip3 uninstall PyInstaller
-```
-
-Change to a folder where you keep source code, and clone the PyInstaller git repo:
-
-```sh
-git clone https://github.com/pyinstaller/pyinstaller.git
-```
-
-Verify the v3.4 git tag:
-
-```sh
-cd pyinstaller
-gpg --keyserver hkps://keyserver.ubuntu.com:443 --recv-key 0xD4AD8B9C167B757C4F08E8777B752811BF773B65
-git tag -v v3.4
-```
-
-It should say `Good signature from "Hartmut Goebel <h.goebel@goebel-consult.de>`. If it verified successfully, checkout the tag:
-
-```sh
-git checkout v3.4
-```
-
-And compile the bootloader, following [these instructions](https://pyinstaller.readthedocs.io/en/stable/bootloader-building.html#building-for-mac-os-x). To compile, run this:
-
-```sh
-cd bootloader
-python3 waf distclean all --target-arch=64bit
-```
-
-Finally, install the PyInstaller module into your local site-packages. If you're using a virtualenv, make sure to run this last command while your virtualenv is activated:
-
-```sh
-cd ..
-python3 setup.py install
 ```
 
 #### To build the app bundle
@@ -134,7 +92,7 @@ Now you should have `dist/OnionShare.pkg`.
 
 ### Setting up your dev environment
 
-Download Python 3.7.2, 32-bit (x86) from https://www.python.org/downloads/release/python-372/. I downloaded `python-3.7.2.exe`. When installing it, make sure to check the "Add Python 3.7 to PATH" checkbox on the first page of the installer.
+Download Python 3.7.4, 32-bit (x86) from https://www.python.org/downloads/release/python-374/. I downloaded `python-3.7.4.exe`. When installing it, make sure to check the "Add Python 3.7 to PATH" checkbox on the first page of the installer.
 
 Open a command prompt, cd to the onionshare folder, and install dependencies with pip:
 
@@ -142,7 +100,7 @@ Open a command prompt, cd to the onionshare folder, and install dependencies wit
 pip install -r install\requirements.txt
 ```
 
-Install the Qt 5.12.1 from https://download.qt.io/archive/qt/5.12/5.12.1/. I downloaded `qt-opensource-windows-x86-5.12.1.exe`. In the installer, you can skip making an account, and all you need `Qt` > `Qt 5.12.1` > `MSVC 2017 32-bit`.
+Install the Qt 5.13.1 from https://www.qt.io/offline-installers. I downloaded `qt-opensource-windows-x86-5.13.1.exe`. In the installer, you can skip making an account, and all you need `Qt` > `Qt 5.13.1` > `MSVC 2017 32-bit`.
 
 After that you can try both the CLI and the GUI version of OnionShare:
 
@@ -155,33 +113,31 @@ python dev_scripts\onionshare-gui
 
 These instructions include adding folders to the path in Windows. To do this, go to Start and type "advanced system settings", and open "View advanced system settings" in the Control Panel. Click Environment Variables. Under "System variables" double-click on Path. From there you can add and remove folders that are available in the PATH.
 
-Download and install the 32-bit [Visual C++ Redistributable for Visual Studio 2015](https://www.microsoft.com/en-US/download/details.aspx?id=48145). I downloaded `vc_redist.x86.exe`.
-
 Download and install 7-Zip from http://www.7-zip.org/download.html. I downloaded `7z1900.exe`.
 
-Download and install the standalone [Windows 10 SDK](https://dev.windows.com/en-us/downloads/windows-10-sdk). Note that you may not need this if you already have Visual Studio.
+Download and install the standalone [Windows 10 SDK](https://developer.microsoft.com/en-us/windows/downloads/windows-10-sdk). Note that you may not need this if you already have Visual Studio.
 
-Add the following directories to the path:
+Add the following directories (you might want to make sure these are exact on your computer) to the path:
 
 * `C:\Program Files (x86)\Windows Kits\10\bin\10.0.18362.0\x86`
 * `C:\Program Files (x86)\Windows Kits\10\Redist\10.0.18362.0\ucrt\DLLs\x86`
-* `C:\Users\user\AppData\Local\Programs\Python\Python37-32\Lib\site-packages\PyQt5\Qt\bin`
 * `C:\Program Files (x86)\7-Zip`
+* `C:\Users\user\AppData\Local\Programs\Python\Python37-32\Lib\site-packages\PyQt5\Qt\bin`
 
 #### If you want the .exe to not get falsely flagged as malicious by anti-virus software
 
 OnionShare uses PyInstaller to turn the python source code into Windows executable `.exe` file. Apparently, malware developers also use PyInstaller, and some anti-virus vendors have included snippets of PyInstaller code in their virus definitions. To avoid this, you have to compile the Windows PyInstaller bootloader yourself instead of using the pre-compiled one that comes with PyInstaller.
 
-(If you don't care about this, you can install PyInstaller with `pip install PyInstaller==3.4`.)
+(If you don't care about this, you can install PyInstaller with `pip install PyInstaller==3.5`.)
 
 Here's how to compile the PyInstaller bootloader:
 
-Download and install [Microsoft Build Tools for Visual Studio 2019](https://www.visualstudio.com/downloads/#build-tools-for-visual-studio-2019). I downloaded `vs_buildtools__265029578.1555959436.exe`. In the installer, check the box next to "Visual C++ build tools". Click "Individual components", and under "Compilers, build tools and runtimes", check "Windows Universal CRT SDK". Then click install. When installation is done, you may have to reboot your computer.
+Download and install [Microsoft Build Tools for Visual Studio 2019](https://www.visualstudio.com/downloads/#build-tools-for-visual-studio-2019). I downloaded `vs_buildtools__1285639570.1568593053.exe`. In the installer, check the box next to "Visual C++ build tools". Click "Individual components", and under "Compilers, build tools and runtimes", check "Windows Universal CRT SDK". Then click install. When installation is done, you may have to reboot your computer.
 
 Then, enable the 32-bit Visual C++ Toolset on the Command Line like this:
 
 ```
-cd "C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\VC\Auxiliary\Build"
+cd "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build"
 vcvars32.bat
 ```
 
@@ -198,30 +154,15 @@ pip uninstall PyInstaller
 rmdir C:\Users\user\AppData\Local\Programs\Python\Python37-32\Lib\site-packages\PyInstaller /S
 ```
 
-Change to a folder where you keep source code, and clone the PyInstaller git repo:
+Change to a folder where you keep source code, and clone the PyInstaller git repo and checkout the `v3.5` tag:
 
 ```
 git clone https://github.com/pyinstaller/pyinstaller.git
-```
-
-To verify the git tag, you first need the signing key's PGP key, which means you need `gpg`. If you installed git from git-scm.com, you can run this from Git Bash:
-
-```
-gpg --keyserver hkps://keyserver.ubuntu.com:443 --recv-key 0xD4AD8B9C167B757C4F08E8777B752811BF773B65
-```
-
-And now verify the tag:
-
-```
 cd pyinstaller
-git tag -v v3.4
+git tag -v v3.5
 ```
 
-It should say `Good signature from "Hartmut Goebel <h.goebel@goebel-consult.de>`. If it verified successfully, checkout the tag:
-
-```
-git checkout v3.4
-```
+(Note that ideally you would verify the git tag, but the PGP key that has signed the `v3.5` git tag for is not published anywhere, so this isn't possible. See [this issue](https://github.com/pyinstaller/pyinstaller/issues/4430).)
 
 And compile the bootloader, following [these instructions](https://pythonhosted.org/PyInstaller/bootloader-building.html). To compile, run this:
 
@@ -346,7 +287,7 @@ To make a macOS release, go to macOS build machine:
 
 Then move back to the developer machine:
 
-- PGP-sign the macOS installer, `gpg --detach-sign OnionShare-$VERSION.pkg`
+- PGP-sign the macOS installer, `gpg -a --detach-sign OnionShare-$VERSION.pkg`
 
 Note that once we support notarizing the macOS installer (see [this issue](https://github.com/micahflee/onionshare/issues/953)), these will be the steps instead:
 
@@ -400,8 +341,10 @@ To publish the release:
 
 - Create a new release on GitHub, put the changelog in the description of the release, and upload all six files (the macOS installer, the Windows installer, the source package, and their signatures)
 - Upload the six release files to https://onionshare.org/dist/$VERSION/
+- Copy the six release files into the OnionShare team Keybase filesystem
 - Update the [onionshare-website](https://github.com/micahflee/onionshare-website) repo:
   - Edit `latest-version.txt` to match the latest version
   - Update the version number and download links
   - Deploy to https://onionshare.org/
 - Email the [onionshare-dev](https://lists.riseup.net/www/subscribe/onionshare-dev) mailing list announcing the release
+- Make a PR to [homebrew-cask](https://github.com/homebrew/homebrew-cask) to update the macOS version

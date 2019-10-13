@@ -4,11 +4,15 @@ import unittest
 
 from .GuiShareTest import GuiShareTest
 
-class Local404RateLimitTest(unittest.TestCase, GuiShareTest):
+
+class LocalShareModePersistentPasswordTest(unittest.TestCase, GuiShareTest):
     @classmethod
     def setUpClass(cls):
         test_settings = {
-            "close_after_first_download": False
+            "public_mode": False,
+            "password": "",
+            "save_private_key": True,
+            "close_after_first_download": False,
         }
         cls.gui = GuiShareTest.set_up(test_settings)
 
@@ -17,11 +21,11 @@ class Local404RateLimitTest(unittest.TestCase, GuiShareTest):
         GuiShareTest.tear_down()
 
     @pytest.mark.gui
-    @pytest.mark.skipif(pytest.__version__ < '2.9', reason="requires newer pytest")
+    @pytest.mark.skipif(pytest.__version__ < "2.9", reason="requires newer pytest")
     def test_gui(self):
         self.run_all_common_setup_tests()
-        self.run_all_share_mode_tests(False, True)
-        self.hit_404(False)
+        self.run_all_share_mode_persistent_tests(False, True)
+
 
 if __name__ == "__main__":
     unittest.main()
