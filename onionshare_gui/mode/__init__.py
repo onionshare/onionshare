@@ -29,10 +29,12 @@ from ..threads import OnionThread
 from ..threads import AutoStartTimer
 from ..widgets import Alert
 
+
 class Mode(QtWidgets.QWidget):
     """
     The class that all modes inherit from
     """
+
     start_server_finished = QtCore.pyqtSignal()
     stop_server_finished = QtCore.pyqtSignal()
     starting_server_step2 = QtCore.pyqtSignal()
@@ -41,7 +43,17 @@ class Mode(QtWidgets.QWidget):
     starting_server_early = QtCore.pyqtSignal()
     set_server_active = QtCore.pyqtSignal(bool)
 
-    def __init__(self, common, qtapp, app, status_bar, server_status_label, system_tray, filenames=None, local_only=False):
+    def __init__(
+        self,
+        common,
+        qtapp,
+        app,
+        status_bar,
+        server_status_label,
+        system_tray,
+        filenames=None,
+        local_only=False,
+    ):
         super(Mode, self).__init__()
         self.common = common
         self.qtapp = qtapp
@@ -65,7 +77,9 @@ class Mode(QtWidgets.QWidget):
         self.startup_thread = None
 
         # Server status
-        self.server_status = ServerStatus(self.common, self.qtapp, self.app, None, self.local_only)
+        self.server_status = ServerStatus(
+            self.common, self.qtapp, self.app, None, self.local_only
+        )
         self.server_status.server_started.connect(self.start_server)
         self.server_status.server_stopped.connect(self.stop_server)
         self.server_status.server_canceled.connect(self.cancel_server)
@@ -98,16 +112,26 @@ class Mode(QtWidgets.QWidget):
         """
         Returns a human-friendly time delta from given seconds.
         """
-        days = secs//86400
-        hours = (secs - days*86400)//3600
-        minutes = (secs - days*86400 - hours*3600)//60
-        seconds = secs - days*86400 - hours*3600 - minutes*60
+        days = secs // 86400
+        hours = (secs - days * 86400) // 3600
+        minutes = (secs - days * 86400 - hours * 3600) // 60
+        seconds = secs - days * 86400 - hours * 3600 - minutes * 60
         if not seconds:
-            seconds = '0'
-        result = ("{0}{1}, ".format(days, strings._('days_first_letter')) if days else "") + \
-        ("{0}{1}, ".format(hours, strings._('hours_first_letter')) if hours else "") + \
-        ("{0}{1}, ".format(minutes, strings._('minutes_first_letter')) if minutes else "") + \
-        "{0}{1}".format(seconds, strings._('seconds_first_letter'))
+            seconds = "0"
+        result = (
+            ("{0}{1}, ".format(days, strings._("days_first_letter")) if days else "")
+            + (
+                "{0}{1}, ".format(hours, strings._("hours_first_letter"))
+                if hours
+                else ""
+            )
+            + (
+                "{0}{1}, ".format(minutes, strings._("minutes_first_letter"))
+                if minutes
+                else ""
+            )
+            + "{0}{1}".format(seconds, strings._("seconds_first_letter"))
+        )
 
         return result
 
@@ -120,25 +144,45 @@ class Mode(QtWidgets.QWidget):
             if self.server_status.autostart_timer_datetime:
                 now = QtCore.QDateTime.currentDateTime()
                 if self.server_status.local_only:
-                    seconds_remaining = now.secsTo(self.server_status.autostart_timer_widget.dateTime())
+                    seconds_remaining = now.secsTo(
+                        self.server_status.autostart_timer_widget.dateTime()
+                    )
                 else:
-                    seconds_remaining = now.secsTo(self.server_status.autostart_timer_datetime.replace(second=0, microsecond=0))
+                    seconds_remaining = now.secsTo(
+                        self.server_status.autostart_timer_datetime.replace(
+                            second=0, microsecond=0
+                        )
+                    )
                 # Update the server button
                 if seconds_remaining > 0:
-                    self.server_status.server_button.setText(strings._('gui_waiting_to_start').format(self.human_friendly_time(seconds_remaining)))
+                    self.server_status.server_button.setText(
+                        strings._("gui_waiting_to_start").format(
+                            self.human_friendly_time(seconds_remaining)
+                        )
+                    )
                 else:
-                    self.server_status.server_button.setText(strings._('gui_please_wait'))
+                    self.server_status.server_button.setText(
+                        strings._("gui_please_wait")
+                    )
 
         # If the auto-stop timer has stopped, stop the server
         if self.server_status.status == ServerStatus.STATUS_STARTED:
-            if self.app.autostop_timer_thread and self.common.settings.get('autostop_timer'):
+            if self.app.autostop_timer_thread and self.common.settings.get(
+                "autostop_timer"
+            ):
                 if self.autostop_timer_datetime_delta > 0:
                     now = QtCore.QDateTime.currentDateTime()
-                    seconds_remaining = now.secsTo(self.server_status.autostop_timer_datetime)
+                    seconds_remaining = now.secsTo(
+                        self.server_status.autostop_timer_datetime
+                    )
 
                     # Update the server button
                     server_button_text = self.get_stop_server_autostop_timer_text()
-                    self.server_status.server_button.setText(server_button_text.format(self.human_friendly_time(seconds_remaining)))
+                    self.server_status.server_button.setText(
+                        server_button_text.format(
+                            self.human_friendly_time(seconds_remaining)
+                        )
+                    )
 
                     self.status_bar.clearMessage()
                     if not self.app.autostop_timer_thread.is_alive():
@@ -168,16 +212,16 @@ class Mode(QtWidgets.QWidget):
         Start the onionshare server. This uses multiple threads to start the Tor onion
         server and the web app.
         """
-        self.common.log('Mode', 'start_server')
+        self.common.log("Mode", "start_server")
 
         self.start_server_custom()
 
         self.set_server_active.emit(True)
-        self.app.set_stealth(self.common.settings.get('use_stealth'))
+        self.app.set_stealth(self.common.settings.get("use_stealth"))
 
         # Clear the status bar
         self.status_bar.clearMessage()
-        self.server_status_label.setText('')
+        self.server_status_label.setText("")
 
         # Ensure we always get a new random port each time we might launch an OnionThread
         self.app.port = None
@@ -192,7 +236,7 @@ class Mode(QtWidgets.QWidget):
 
         # If scheduling a share, delay starting the real share
         if self.server_status.autostart_timer_datetime:
-            self.common.log('Mode', 'start_server', 'Starting auto-start timer')
+            self.common.log("Mode", "start_server", "Starting auto-start timer")
             self.startup_thread = AutoStartTimer(self)
             # Once the timer has finished, start the real share, with a WebThread
             self.startup_thread.success.connect(self.start_scheduled_service)
@@ -201,7 +245,7 @@ class Mode(QtWidgets.QWidget):
             self.startup_thread.start()
 
     def start_onion_thread(self, obtain_onion_early=False):
-        self.common.log('Mode', 'start_server', 'Starting an onion thread')
+        self.common.log("Mode", "start_server", "Starting an onion thread")
         self.obtain_onion_early = obtain_onion_early
         self.onion_thread = OnionThread(self)
         self.onion_thread.success.connect(self.starting_server_step2.emit)
@@ -213,7 +257,7 @@ class Mode(QtWidgets.QWidget):
         # We start a new OnionThread with the saved scheduled key from settings
         self.common.settings.load()
         self.obtain_onion_early = obtain_onion_early
-        self.common.log('Mode', 'start_server', 'Starting a scheduled onion thread')
+        self.common.log("Mode", "start_server", "Starting a scheduled onion thread")
         self.onion_thread = OnionThread(self)
         self.onion_thread.success.connect(self.starting_server_step2.emit)
         self.onion_thread.error.connect(self.starting_server_error.emit)
@@ -237,7 +281,7 @@ class Mode(QtWidgets.QWidget):
         """
         Step 2 in starting the onionshare server.
         """
-        self.common.log('Mode', 'start_server_step2')
+        self.common.log("Mode", "start_server_step2")
 
         self.start_server_step2_custom()
 
@@ -257,22 +301,28 @@ class Mode(QtWidgets.QWidget):
         """
         Step 3 in starting the onionshare server.
         """
-        self.common.log('Mode', 'start_server_step3')
+        self.common.log("Mode", "start_server_step3")
 
         self.start_server_step3_custom()
 
-        if self.common.settings.get('autostop_timer'):
+        if self.common.settings.get("autostop_timer"):
             # Convert the date value to seconds between now and then
             now = QtCore.QDateTime.currentDateTime()
-            self.autostop_timer_datetime_delta = now.secsTo(self.server_status.autostop_timer_datetime)
+            self.autostop_timer_datetime_delta = now.secsTo(
+                self.server_status.autostop_timer_datetime
+            )
             # Start the auto-stop timer
             if self.autostop_timer_datetime_delta > 0:
-                self.app.autostop_timer_thread = AutoStopTimer(self.common, self.autostop_timer_datetime_delta)
+                self.app.autostop_timer_thread = AutoStopTimer(
+                    self.common, self.autostop_timer_datetime_delta
+                )
                 self.app.autostop_timer_thread.start()
             # The auto-stop timer has actually already passed since the user clicked Start. Probably the Onion service took too long to start.
             else:
                 self.stop_server()
-                self.start_server_error(strings._('gui_server_started_after_autostop_timer'))
+                self.start_server_error(
+                    strings._("gui_server_started_after_autostop_timer")
+                )
 
     def start_server_step3_custom(self):
         """
@@ -284,7 +334,7 @@ class Mode(QtWidgets.QWidget):
         """
         If there's an error when trying to start the onion service
         """
-        self.common.log('Mode', 'start_server_error')
+        self.common.log("Mode", "start_server_error")
 
         Alert(self.common, error, QtWidgets.QMessageBox.Warning)
         self.set_server_active.emit(False)
@@ -305,16 +355,16 @@ class Mode(QtWidgets.QWidget):
         """
         self.cancel_server_custom()
         if self.startup_thread:
-            self.common.log('Mode', 'cancel_server: quitting startup thread')
+            self.common.log("Mode", "cancel_server: quitting startup thread")
             self.startup_thread.canceled = True
             self.app.onion.scheduled_key = None
             self.app.onion.scheduled_auth_cookie = None
             self.startup_thread.quit()
         if self.onion_thread:
-            self.common.log('Mode', 'cancel_server: quitting onion thread')
+            self.common.log("Mode", "cancel_server: quitting onion thread")
             self.onion_thread.quit()
         if self.web_thread:
-            self.common.log('Mode', 'cancel_server: quitting web thread')
+            self.common.log("Mode", "cancel_server: quitting web thread")
             self.web_thread.quit()
         self.stop_server()
 
@@ -328,7 +378,7 @@ class Mode(QtWidgets.QWidget):
         """
         Stop the onionshare server.
         """
-        self.common.log('Mode', 'stop_server')
+        self.common.log("Mode", "stop_server")
 
         if self.server_status.status != ServerStatus.STATUS_STOPPED:
             try:
@@ -382,7 +432,9 @@ class Mode(QtWidgets.QWidget):
         Handle REQUEST_RATE_LIMIT event.
         """
         self.stop_server()
-        Alert(self.common, strings._('error_rate_limit'), QtWidgets.QMessageBox.Critical)
+        Alert(
+            self.common, strings._("error_rate_limit"), QtWidgets.QMessageBox.Critical
+        )
 
     def handle_request_progress(self, event):
         """
