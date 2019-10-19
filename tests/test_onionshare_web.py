@@ -71,7 +71,7 @@ def web_obj(common_obj, mode, num_files=0):
 class TestWeb:
     def test_share_mode(self, common_obj):
         web = web_obj(common_obj, "share", 3)
-        assert web.mode is "share"
+        assert web.mode == "share"
         with web.app.test_client() as c:
             # Load / without auth
             res = c.get("/")
@@ -127,7 +127,7 @@ class TestWeb:
 
     def test_receive_mode(self, common_obj):
         web = web_obj(common_obj, "receive")
-        assert web.mode is "receive"
+        assert web.mode == "receive"
 
         with web.app.test_client() as c:
             # Load / without auth
