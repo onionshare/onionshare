@@ -266,7 +266,14 @@ class Web:
         )
         return self.add_security_headers(r)
 
-    def error405(self):
+    def error405(self, history_id):
+        self.add_request(
+            self.REQUEST_INDIVIDUAL_FILE_STARTED,
+            "{}".format(request.path),
+            {"id": history_id, "status_code": 405},
+        )
+
+        self.add_request(Web.REQUEST_OTHER, request.path)
         r = make_response(
             render_template("405.html", static_url_path=self.static_url_path), 405
         )
