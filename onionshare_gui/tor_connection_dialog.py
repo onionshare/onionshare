@@ -86,7 +86,7 @@ class TorConnectionDialog(QtWidgets.QProgressDialog):
     def _tor_status_update(self, progress, summary):
         self.setValue(int(progress))
         self.setLabelText(
-            f"<strong>{strings._("connecting_to_tor")}</strong><br>{summary}"
+            f"<strong>{strings._('connecting_to_tor')}</strong><br>{summary}"
         )
 
     def _connected_to_tor(self):
