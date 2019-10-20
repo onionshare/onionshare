@@ -63,9 +63,9 @@ class Common(object):
         if self.verbose:
             timestamp = time.strftime("%b %d %Y %X")
 
-            final_msg = "[{}] {}.{}".format(timestamp, module, func)
+            final_msg = f"[{timestamp}] {module}.{func}"
             if msg:
-                final_msg = "{}: {}".format(final_msg, msg)
+                final_msg = f"{final_msg}: {msg}"
             print(final_msg)
 
     def get_resource_path(self, filename):
@@ -162,7 +162,7 @@ class Common(object):
         if self.platform == "Windows":
             try:
                 appdata = os.environ["APPDATA"]
-                onionshare_data_dir = "{}\\OnionShare".format(appdata)
+                onionshare_data_dir = f"{appdata}\\OnionShare"
             except:
                 # If for some reason we don't have the 'APPDATA' environment variable
                 # (like running tests in Linux while pretending to be in Windows)
@@ -437,7 +437,7 @@ class Common(object):
         """
         thresh = 1024.0
         if b < thresh:
-            return "{:.1f} B".format(b)
+            return f"{b} B"
         units = ("KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB")
         u = 0
         b /= thresh
@@ -517,7 +517,7 @@ class AutoStopTimer(threading.Thread):
 
     def run(self):
         self.common.log(
-            "AutoStopTimer", "Server will shut down after {} seconds".format(self.time)
+            "AutoStopTimer", f"Server will shut down after {self.time} seconds"
         )
         time.sleep(self.time)
         return 1

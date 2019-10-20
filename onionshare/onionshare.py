@@ -56,7 +56,7 @@ class OnionShare(object):
         self.autostop_timer_thread = None
 
     def set_stealth(self, stealth):
-        self.common.log("OnionShare", "set_stealth", "stealth={}".format(stealth))
+        self.common.log("OnionShare", f"set_stealth", "stealth={stealth}")
 
         self.stealth = stealth
         self.onion.stealth = stealth
@@ -83,7 +83,7 @@ class OnionShare(object):
             self.autostop_timer_thread = AutoStopTimer(self.common, self.autostop_timer)
 
         if self.local_only:
-            self.onion_host = "127.0.0.1:{0:d}".format(self.port)
+            self.onion_host = f"127.0.0.1:{self.port}"
             return
 
         self.onion_host = self.onion.start_onion_service(

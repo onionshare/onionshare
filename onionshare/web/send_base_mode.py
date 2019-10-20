@@ -95,16 +95,14 @@ class SendBaseModeWeb:
         self.cur_history_id += 1
         self.web.add_request(
             self.web.REQUEST_INDIVIDUAL_FILE_STARTED,
-            "/{}".format(path),
+            f"/{path}",
             {"id": history_id, "method": request.method, "status_code": 200},
         )
 
         breadcrumbs = [("☗", "/")]
         parts = path.split("/")[:-1]
         for i in range(len(parts)):
-            breadcrumbs.append(
-                ("{}".format(parts[i]), "/{}/".format("/".join(parts[0 : i + 1])))
-            )
+            breadcrumbs.append((parts[i], f"/{'/'.join(parts[0 : i + 1])}/"))
         breadcrumbs_leaf = breadcrumbs.pop()[0]
 
         # If filesystem_path is None, this is the root directory listing
@@ -172,7 +170,6 @@ class SendBaseModeWeb:
             path,
             {"id": history_id, "filesize": filesize},
         )
-
 
         def generate():
             chunk_size = 102400  # 100kb

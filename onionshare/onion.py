@@ -219,9 +219,7 @@ class Onion(object):
                 dir=self.common.build_data_dir()
             )
             self.common.log(
-                "Onion",
-                "connect",
-                "tor_data_directory={}".format(self.tor_data_directory.name),
+                "Onion", "connect", f"tor_data_directory={self.tor_data_directory.name}"
             )
 
             # Create the torrc
@@ -283,9 +281,7 @@ class Onion(object):
                 # Bridge support
                 if self.settings.get("tor_bridges_use_obfs4"):
                     f.write(
-                        "ClientTransportPlugin obfs4 exec {}\n".format(
-                            self.obfs4proxy_file_path
-                        )
+                        f"ClientTransportPlugin obfs4 exec {self.obfs4proxy_file_path}\n"
                     )
                     with open(
                         self.common.get_resource_path("torrc_template-obfs4")
@@ -294,9 +290,7 @@ class Onion(object):
                             f.write(line)
                 elif self.settings.get("tor_bridges_use_meek_lite_azure"):
                     f.write(
-                        "ClientTransportPlugin meek_lite exec {}\n".format(
-                            self.obfs4proxy_file_path
-                        )
+                        f"ClientTransportPlugin meek_lite exec {self.obfs4proxy_file_path}\n"
                     )
                     with open(
                         self.common.get_resource_path("torrc_template-meek_lite_azure")
@@ -307,17 +301,13 @@ class Onion(object):
                 if self.settings.get("tor_bridges_use_custom_bridges"):
                     if "obfs4" in self.settings.get("tor_bridges_use_custom_bridges"):
                         f.write(
-                            "ClientTransportPlugin obfs4 exec {}\n".format(
-                                self.obfs4proxy_file_path
-                            )
+                            f"ClientTransportPlugin obfs4 exec {self.obfs4proxy_file_path}\n"
                         )
                     elif "meek_lite" in self.settings.get(
                         "tor_bridges_use_custom_bridges"
                     ):
                         f.write(
-                            "ClientTransportPlugin meek_lite exec {}\n".format(
-                                self.obfs4proxy_file_path
-                            )
+                            f"ClientTransportPlugin meek_lite exec {self.obfs4proxy_file_path}\n"
                         )
                     f.write(self.settings.get("tor_bridges_use_custom_bridges"))
                     f.write("\nUseBridges 1")
@@ -372,9 +362,7 @@ class Onion(object):
 
                 # "\033[K" clears the rest of the line
                 print(
-                    "Connecting to the Tor network: {}% - {}{}".format(
-                        progress, summary, "\033[K"
-                    ),
+                    f"Connecting to the Tor network: {progress}% - {summary}\033[K",
                     end="\r",
                 )
 
@@ -457,12 +445,12 @@ class Onion(object):
             if not found_tor:
                 try:
                     if self.common.platform == "Linux" or self.common.platform == "BSD":
-                        socket_file_path = "/run/user/{}/Tor/control.socket".format(
-                            os.geteuid()
+                        socket_file_path = (
+                            f"/run/user/{os.geteuid()}/Tor/control.socket"
                         )
                     elif self.common.platform == "Darwin":
-                        socket_file_path = "/run/user/{}/Tor/control.socket".format(
-                            os.geteuid()
+                        socket_file_path = (
+                            f"/run/user/{os.geteuid()}/Tor/control.socket"
                         )
                     elif self.common.platform == "Windows":
                         # Windows doesn't support unix sockets
@@ -542,7 +530,7 @@ class Onion(object):
         # Get the tor version
         self.tor_version = self.c.get_version().version_str
         self.common.log(
-            "Onion", "connect", "Connected to tor {}".format(self.tor_version)
+            "Onion", "connect", f"Connected to tor {self.tor_version}"
         )
 
         # Do the versions of stem and tor that I'm using support ephemeral onion services?
@@ -597,7 +585,7 @@ class Onion(object):
             raise TorTooOld(strings._("error_stealth_not_supported"))
 
         if not save_scheduled_key:
-            print("Setting up onion service on port {0:d}.".format(int(port)))
+            print(f"Setting up onion service on port {port}."
 
         if self.stealth:
             if self.settings.get("hidservauth_string"):
@@ -648,10 +636,10 @@ class Onion(object):
             basic_auth = None
             self.stealth = False
 
-        debug_message = "key_type={}".format(key_type)
+        debug_message = f"key_type={key_type}"
         if key_type == "NEW":
-            debug_message += ", key_content={}".format(key_content)
-        self.common.log("Onion", "start_onion_service", "{}".format(debug_message))
+            debug_message += f", key_content={key_content}"
+        self.common.log("Onion", "start_onion_service", debug_message)
         try:
             if basic_auth != None:
                 res = self.c.create_ephemeral_hidden_service(
@@ -700,25 +688,19 @@ class Onion(object):
                     self.auth_string = self.settings.get("hidservauth_string")
                 else:
                     auth_cookie = list(res.client_auth.values())[0]
-                    self.auth_string = "HidServAuth {} {}".format(
-                        onion_host, auth_cookie
-                    )
+                    self.auth_string = f"HidServAuth {onion_host} {auth_cookie}"
                     self.settings.set("hidservauth_string", self.auth_string)
             else:
                 if not self.scheduled_auth_cookie:
                     auth_cookie = list(res.client_auth.values())[0]
-                    self.auth_string = "HidServAuth {} {}".format(
-                        onion_host, auth_cookie
-                    )
+                    self.auth_string = f"HidServAuth {onion_host} {auth_cookie}"
                     if save_scheduled_key:
                         # Register the HidServAuth for the scheduled share
                         self.scheduled_auth_cookie = auth_cookie
                     else:
                         self.scheduled_auth_cookie = None
                 else:
-                    self.auth_string = "HidServAuth {} {}".format(
-                        onion_host, self.scheduled_auth_cookie
-                    )
+                    self.auth_string = f"HidServAuth {onion_host} {self.scheduled_auth_cookie}"
                     if not save_scheduled_key:
                         # We've used the scheduled share's HidServAuth. Reset it to None for future shares
                         self.scheduled_auth_cookie = None
@@ -741,14 +723,14 @@ class Onion(object):
             for onion in onions:
                 try:
                     self.common.log(
-                        "Onion", "cleanup", "trying to remove onion {}".format(onion)
+                        "Onion", "cleanup", f"trying to remove onion {onion}"
                     )
                     self.c.remove_ephemeral_hidden_service(onion)
                 except:
                     self.common.log(
                         "Onion",
                         "cleanup",
-                        "could not remove onion {}.. moving on anyway".format(onion),
+                        f"could not remove onion {onion}.. moving on anyway",
                     )
                     pass
         except:
