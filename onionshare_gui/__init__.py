@@ -63,7 +63,7 @@ def main():
     common.define_css()
 
     # Display OnionShare banner
-    print("OnionShare {0:s} | https://onionshare.org/".format(common.version))
+    print(f"OnionShare {common.version} | https://onionshare.org/")
 
     # Allow Ctrl-C to smoothly quit the program instead of throwing an exception
     # https://stackoverflow.com/questions/42814093/how-to-handle-ctrlc-in-python-app-with-pyqt
@@ -124,10 +124,10 @@ def main():
         valid = True
         for filename in filenames:
             if not os.path.isfile(filename) and not os.path.isdir(filename):
-                Alert(common, "{0:s} is not a valid file.".format(filename))
+                Alert(common, f"{filename} is not a valid file.")
                 valid = False
             if not os.access(filename, os.R_OK):
-                Alert(common, "{0:s} is not a readable file.".format(filename))
+                Alert(common, f"{filename} is not a readable file.")
                 valid = False
         if not valid:
             sys.exit()
