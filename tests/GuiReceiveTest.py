@@ -19,7 +19,7 @@ class GuiReceiveTest(GuiBaseTest):
         QtTest.QTest.qWait(2000)
 
         files = {"file[]": open(file_to_upload, "rb")}
-        url = "http://127.0.0.1:{}/upload".format(self.gui.app.port)
+        url = f"http://127.0.0.1:{self.gui.app.port}/upload"
         if public_mode:
             r = requests.post(url, files=files)
             if identical_files_at_once:
@@ -68,7 +68,7 @@ class GuiReceiveTest(GuiBaseTest):
     def upload_file_should_fail(self, public_mode):
         """Test that we can't upload the file when permissions are wrong, and expected content is shown"""
         files = {"file[]": open("/tmp/test.txt", "rb")}
-        url = "http://127.0.0.1:{}/upload".format(self.gui.app.port)
+        url = f"http://127.0.0.1:{self.gui.app.port}/upload"
         if public_mode:
             r = requests.post(url, files=files)
         else:
@@ -88,9 +88,9 @@ class GuiReceiveTest(GuiBaseTest):
         os.chmod("/tmp/OnionShare", mode)
 
     def try_without_auth_in_non_public_mode(self):
-        r = requests.post("http://127.0.0.1:{}/upload".format(self.gui.app.port))
+        r = requests.post(f"http://127.0.0.1:{self.gui.app.port}/upload")
         self.assertEqual(r.status_code, 401)
-        r = requests.get("http://127.0.0.1:{}/close".format(self.gui.app.port))
+        r = requests.get(f"http://127.0.0.1:{self.gui.app.port}/close")
         self.assertEqual(r.status_code, 401)
 
     # 'Grouped' tests follow from here

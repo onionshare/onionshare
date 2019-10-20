@@ -10,14 +10,12 @@ class TorGuiReceiveTest(TorGuiBaseTest):
         (socks_address, socks_port) = self.gui.app.onion.get_tor_socks_port()
         session = requests.session()
         session.proxies = {}
-        session.proxies["http"] = "socks5h://{}:{}".format(socks_address, socks_port)
+        session.proxies["http"] = f"socks5h://{socks_address}:{socks_port}"
         files = {"file[]": open(file_to_upload, "rb")}
         if not public_mode:
-            path = "http://{}/{}/upload".format(
-                self.gui.app.onion_host, self.gui.receive_mode.web.password
-            )
+            path = f"http://{self.gui.app.onion_host}/{self.gui.receive_mode.web.password}/upload"
         else:
-            path = "http://{}/upload".format(self.gui.app.onion_host)
+            path = f"http://{self.gui.app.onion_host}/upload"
         response = session.post(path, files=files)
         QtTest.QTest.qWait(4000)
         self.assertTrue(os.path.isfile(expected_file))

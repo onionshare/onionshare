@@ -166,7 +166,7 @@ class TestWeb:
             assert res.status_code == 401
 
             # But static resources should work without auth
-            res = c.get("{}/css/style.css".format(web.static_url_path))
+            res = c.get(f"{web.static_url_path}/css/style.css")
             res.get_data()
             assert res.status_code == 200
 
@@ -186,11 +186,7 @@ class TestZipWriterDefault:
     @pytest.mark.parametrize(
         "test_input",
         (
-            "onionshare_{}.zip".format(
-                "".join(
-                    random.choice("abcdefghijklmnopqrstuvwxyz234567") for _ in range(6)
-                )
-            )
+            f"onionshare_{''.join(random.choice('abcdefghijklmnopqrstuvwxyz234567') for _ in range(6))}.zip"
             for _ in range(50)
         ),
     )

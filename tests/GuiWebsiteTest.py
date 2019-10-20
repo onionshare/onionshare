@@ -67,7 +67,7 @@ class GuiWebsiteTest(GuiShareTest):
 
     def view_website(self, public_mode):
         """Test that we can download the share"""
-        url = "http://127.0.0.1:{}/".format(self.gui.app.port)
+        url = f"http://127.0.0.1:{self.gui.app.port}/"
         if public_mode:
             r = requests.get(url)
         else:
@@ -83,7 +83,7 @@ class GuiWebsiteTest(GuiShareTest):
 
     def check_csp_header(self, public_mode, csp_header_disabled):
         """Test that the CSP header is present when enabled or vice versa"""
-        url = "http://127.0.0.1:{}/".format(self.gui.app.port)
+        url = f"http://127.0.0.1:{self.gui.app.port}/"
         if public_mode:
             r = requests.get(url)
         else:
