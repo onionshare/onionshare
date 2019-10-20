@@ -129,7 +129,7 @@ class GuiBaseTest(object):
         if type(mode) == ReceiveMode:
             # Upload a file
             files = {"file[]": open("/tmp/test.txt", "rb")}
-            url = "http://127.0.0.1:{}/upload".format(self.gui.app.port)
+            url = f"http://127.0.0.1:{self.gui.app.port}/upload"
             if public_mode:
                 r = requests.post(url, files=files)
             else:
@@ -142,7 +142,7 @@ class GuiBaseTest(object):
 
         if type(mode) == ShareMode:
             # Download files
-            url = "http://127.0.0.1:{}/download".format(self.gui.app.port)
+            url = f"http://127.0.0.1:{self.gui.app.port}/download"
             if public_mode:
                 r = requests.get(url)
             else:
@@ -201,7 +201,7 @@ class GuiBaseTest(object):
     def web_server_is_running(self):
         """Test that the web server has started"""
         try:
-            r = requests.get("http://127.0.0.1:{}/".format(self.gui.app.port))
+            r = requests.get(f"http://127.0.0.1:{self.gui.app.port}/")
             self.assertTrue(True)
         except requests.exceptions.ConnectionError:
             self.assertTrue(False)
@@ -230,15 +230,11 @@ class GuiBaseTest(object):
         )
         clipboard = self.gui.qtapp.clipboard()
         if public_mode:
-            self.assertEqual(
-                clipboard.text(), "http://127.0.0.1:{}".format(self.gui.app.port)
-            )
+            self.assertEqual(clipboard.text(), f"http://127.0.0.1:{self.gui.app.port}")
         else:
             self.assertEqual(
                 clipboard.text(),
-                "http://onionshare:{}@127.0.0.1:{}".format(
-                    mode.server_status.web.password, self.gui.app.port
-                ),
+                f"http://onionshare:{mode.server_status.web.password}@127.0.0.1:{self.gui.app.port}",
             )
 
     def server_status_indicator_says_started(self, mode):
@@ -257,7 +253,7 @@ class GuiBaseTest(object):
     def web_page(self, mode, string, public_mode):
         """Test that the web page contains a string"""
 
-        url = "http://127.0.0.1:{}/".format(self.gui.app.port)
+        url = f"http://127.0.0.1:{self.gui.app.port}/"
         if public_mode:
             r = requests.get(url)
         else:
@@ -293,7 +289,7 @@ class GuiBaseTest(object):
         QtTest.QTest.qWait(2000)
 
         try:
-            r = requests.get("http://127.0.0.1:{}/".format(self.gui.app.port))
+            r = requests.get(f"http://127.0.0.1:{self.gui.app.port}/")
             self.assertTrue(False)
         except requests.exceptions.ConnectionError:
             self.assertTrue(True)

@@ -12,15 +12,13 @@ class TorGuiShareTest(TorGuiBaseTest, GuiShareTest):
         (socks_address, socks_port) = self.gui.app.onion.get_tor_socks_port()
         session = requests.session()
         session.proxies = {}
-        session.proxies["http"] = "socks5h://{}:{}".format(socks_address, socks_port)
+        session.proxies["http"] = f"socks5h://{socks_address}:{socks_port}"
 
         # Download files
         if public_mode:
-            path = "http://{}/download".format(self.gui.app.onion_host)
+            path = f"http://{self.gui.app.onion_host}/download"
         else:
-            path = "http://{}/{}/download".format(
-                self.gui.app.onion_host, self.gui.share_mode.web.password
-            )
+            path = f"http://{self.gui.app.onion_host}/{self.gui.share_mode.web.password}/download"
         response = session.get(path, stream=True)
         QtTest.QTest.qWait(4000)
 
