@@ -181,9 +181,7 @@ class ReceiveHistoryItemFile(QtWidgets.QWidget):
         super(ReceiveHistoryItemFile, self).__init__()
         self.common = common
 
-        self.common.log(
-            "ReceiveHistoryItemFile", "__init__", "filename: {}".format(filename)
-        )
+        self.common.log("ReceiveHistoryItemFile", "__init__", f"filename: {filename}")
 
         self.filename = filename
         self.dir = None
@@ -265,7 +263,7 @@ class ReceiveHistoryItemFile(QtWidgets.QWidget):
 
         # Windows
         elif self.common.platform == "Windows":
-            subprocess.Popen(["explorer", "/select,{}".format(abs_filename)])
+            subprocess.Popen(["explorer", f"/select,{abs_filename}"])
 
 
 class ReceiveHistoryItem(HistoryItem):
@@ -409,7 +407,7 @@ class IndividualFileHistoryItem(HistoryItem):
         self.timestamp_label.setStyleSheet(
             self.common.css["history_individual_file_timestamp_label"]
         )
-        self.path_label = QtWidgets.QLabel("{}".format(self.path))
+        self.path_label = QtWidgets.QLabel(self.path)
         self.status_code_label = QtWidgets.QLabel()
 
         # Progress bar
@@ -437,7 +435,7 @@ class IndividualFileHistoryItem(HistoryItem):
 
         # Is a status code already sent?
         if "status_code" in data:
-            self.status_code_label.setText("{}".format(data["status_code"]))
+            self.status_code_label.setText(str(data["status_code"]))
             if data["status_code"] >= 200 and data["status_code"] < 300:
                 self.status_code_label.setStyleSheet(
                     self.common.css["history_individual_file_status_code_label_2xx"]
@@ -649,7 +647,7 @@ class History(QtWidgets.QWidget):
         """
         Add a new item.
         """
-        self.common.log("History", "add", "id: {}, item: {}".format(id, item))
+        self.common.log("History", "add", f"id: {id}, item: {item}")
 
         # Hide empty, show not empty
         self.empty.hide()
@@ -699,9 +697,7 @@ class History(QtWidgets.QWidget):
             image = self.common.get_resource_path("images/history_completed_none.png")
         else:
             image = self.common.get_resource_path("images/history_completed.png")
-        self.completed_label.setText(
-            '<img src="{0:s}" /> {1:d}'.format(image, self.completed_count)
-        )
+        self.completed_label.setText(f'<img src="{image}" /> {self.completed_count}')
         self.completed_label.setToolTip(
             strings._("history_completed_tooltip").format(self.completed_count)
         )
@@ -716,7 +712,7 @@ class History(QtWidgets.QWidget):
             image = self.common.get_resource_path("images/history_in_progress.png")
 
         self.in_progress_label.setText(
-            '<img src="{0:s}" /> {1:d}'.format(image, self.in_progress_count)
+            f'<img src="{image}" /> {self.in_progress_count}'
         )
         self.in_progress_label.setToolTip(
             strings._("history_in_progress_tooltip").format(self.in_progress_count)
@@ -731,9 +727,7 @@ class History(QtWidgets.QWidget):
         else:
             image = self.common.get_resource_path("images/history_requests.png")
 
-        self.requests_label.setText(
-            '<img src="{0:s}" /> {1:d}'.format(image, self.requests_count)
-        )
+        self.requests_label.setText(f'<img src="{image}" /> {self.requests_count}')
         self.requests_label.setToolTip(
             strings._("history_requests_tooltip").format(self.requests_count)
         )
@@ -777,7 +771,7 @@ class ToggleHistory(QtWidgets.QPushButton):
         if increment and not self.history_widget.isVisible():
             self.indicator_count += 1
 
-        self.indicator_label.setText("{}".format(self.indicator_count))
+        self.indicator_label.setText(str(self.indicator_count))
 
         if self.indicator_count == 0:
             self.indicator_label.hide()
