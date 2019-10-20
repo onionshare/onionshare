@@ -31,9 +31,9 @@ from .onionshare import OnionShare
 def build_url(common, app, web):
     # Build the URL
     if common.settings.get("public_mode"):
-        return "http://{0:s}".format(app.onion_host)
+        return f"http://{app.onion_host}"
     else:
-        return "http://onionshare:{0:s}@{1:s}".format(web.password, app.onion_host)
+        return f"http://onionshare:{web.password}@{app.onion_host}"
 
 
 def main(cwd=None):
@@ -44,7 +44,7 @@ def main(cwd=None):
     common = Common()
 
     # Display OnionShare banner
-    print("OnionShare {0:s} | https://onionshare.org/".format(common.version))
+    print(f"OnionShare {common.version} | https://onionshare.org/")
 
     # OnionShare CLI in OSX needs to change current working directory (#132)
     if common.platform == "Darwin":
@@ -160,10 +160,10 @@ def main(cwd=None):
         valid = True
         for filename in filenames:
             if not os.path.isfile(filename) and not os.path.isdir(filename):
-                print("{0:s} is not a valid file.".format(filename))
+                print(f"{filename} is not a valid file.")
                 valid = False
             if not os.access(filename, os.R_OK):
-                print("{0:s} is not a readable file.".format(filename))
+                print(f"{filename} is not a readable file.")
                 valid = False
         if not valid:
             sys.exit()
@@ -217,9 +217,7 @@ def main(cwd=None):
             schedule = datetime.now() + timedelta(seconds=autostart_timer)
             if mode == "receive":
                 print(
-                    "Files sent to you appear in this folder: {}".format(
-                        common.settings.get("data_dir")
-                    )
+                    f"Files sent to you appear in this folder: {common.settings.get('data_dir')}"
                 )
                 print("")
                 print(
@@ -228,30 +226,22 @@ def main(cwd=None):
                 print("")
                 if stealth:
                     print(
-                        "Give this address and HidServAuth lineto your sender, and tell them it won't be accessible until: {}".format(
-                            schedule.strftime("%I:%M:%S%p, %b %d, %y")
-                        )
+                        f"Give this address and HidServAuth lineto your sender, and tell them it won't be accessible until: {schedule.strftime('%I:%M:%S%p, %b %d, %y')}"
                     )
                     print(app.auth_string)
                 else:
                     print(
-                        "Give this address to your sender, and tell them it won't be accessible until: {}".format(
-                            schedule.strftime("%I:%M:%S%p, %b %d, %y")
-                        )
+                        f"Give this address to your sender, and tell them it won't be accessible until: {schedule.strftime('%I:%M:%S%p, %b %d, %y')}"
                     )
             else:
                 if stealth:
                     print(
-                        "Give this address and HidServAuth line to your recipient, and tell them it won't be accessible until: {}".format(
-                            schedule.strftime("%I:%M:%S%p, %b %d, %y")
-                        )
+                        f"Give this address and HidServAuth line to your recipient, and tell them it won't be accessible until: {schedule.strftime('%I:%M:%S%p, %b %d, %y')}"
                     )
                     print(app.auth_string)
                 else:
                     print(
-                        "Give this address to your recipient, and tell them it won't be accessible until: {}".format(
-                            schedule.strftime("%I:%M:%S%p, %b %d, %y")
-                        )
+                        f"Give this address to your recipient, and tell them it won't be accessible until: {schedule.strftime('%I:%M:%S%p, %b %d, %y')}"
                     )
             print(url)
             print("")
@@ -324,9 +314,7 @@ def main(cwd=None):
         else:
             if mode == "receive":
                 print(
-                    "Files sent to you appear in this folder: {}".format(
-                        common.settings.get("data_dir")
-                    )
+                    f"Files sent to you appear in this folder: {common.settings.get('data_dir')}"
                 )
                 print("")
                 print(

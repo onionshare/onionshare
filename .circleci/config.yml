@@ -7,14 +7,13 @@ workflows:
   version: 2
   test:
     jobs:
-      - test-3.5
       - test-3.6
       - test-3.7
 
 jobs:
-  test-3.5: &test-template
+  test-3.6: &test-template
     docker:
-      - image: circleci/python:3.5.6
+      - image: circleci/python:3.6.6
 
     working_directory: ~/repo
 
@@ -43,11 +42,6 @@ jobs:
           name: run tests
           command: |
             xvfb-run -s "-screen 0 1280x1024x24" pytest --rungui --cov=onionshare --cov=onionshare_gui --cov-report=term-missing -vvv --no-qt-log tests/
-
-  test-3.6:
-    <<: *test-template
-    docker:
-      - image: circleci/python:3.6.6
 
   test-3.7:
     <<: *test-template
