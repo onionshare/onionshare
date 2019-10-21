@@ -11,7 +11,7 @@ from onionshare.common import Common
 from onionshare.settings import Settings
 from onionshare.onion import Onion
 from onionshare.web import Web
-from onionshare_gui import Application, OnionShare, OnionShareGui
+from onionshare_gui import Application, OnionShare, MainWindow
 from onionshare_gui.mode.share_mode import ShareMode
 from onionshare_gui.mode.receive_mode import ReceiveMode
 from onionshare_gui.mode.website_mode import WebsiteMode
@@ -53,7 +53,7 @@ class GuiBaseTest(object):
         web = Web(common, False, True)
         open("/tmp/settings.json", "w").write(json.dumps(test_settings))
 
-        gui = OnionShareGui(
+        gui = MainWindow(
             common,
             testonion,
             qtapp,

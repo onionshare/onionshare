@@ -34,9 +34,9 @@ from .update_checker import UpdateThread
 from .server_status import ServerStatus
 
 
-class OnionShareGui(QtWidgets.QMainWindow):
+class MainWindow(QtWidgets.QMainWindow):
     """
-    OnionShareGui is the main window for the GUI that contains all of the
+    MainWindow is the main window for the GUI that contains all of the
     GUI elements.
     """
 
@@ -47,10 +47,10 @@ class OnionShareGui(QtWidgets.QMainWindow):
     def __init__(
         self, common, onion, qtapp, app, filenames, config=False, local_only=False
     ):
-        super(OnionShareGui, self).__init__()
+        super(MainWindow, self).__init__()
 
         self.common = common
-        self.common.log("OnionShareGui", "__init__")
+        self.common.log("MainWindow", "__init__")
         self.setMinimumWidth(820)
         self.setMinimumHeight(660)
 
@@ -344,19 +344,19 @@ class OnionShareGui(QtWidgets.QMainWindow):
 
     def share_mode_clicked(self):
         if self.mode != self.MODE_SHARE:
-            self.common.log("OnionShareGui", "share_mode_clicked")
+            self.common.log("MainWindow", "share_mode_clicked")
             self.mode = self.MODE_SHARE
             self.update_mode_switcher()
 
     def receive_mode_clicked(self):
         if self.mode != self.MODE_RECEIVE:
-            self.common.log("OnionShareGui", "receive_mode_clicked")
+            self.common.log("MainWindow", "receive_mode_clicked")
             self.mode = self.MODE_RECEIVE
             self.update_mode_switcher()
 
     def website_mode_clicked(self):
         if self.mode != self.MODE_WEBSITE:
-            self.common.log("OnionShareGui", "website_mode_clicked")
+            self.common.log("MainWindow", "website_mode_clicked")
             self.mode = self.MODE_WEBSITE
             self.update_mode_switcher()
 
@@ -451,7 +451,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         If the user cancels before Tor finishes connecting, ask if they want to
         quit, or open settings.
         """
-        self.common.log("OnionShareGui", "_tor_connection_canceled")
+        self.common.log("MainWindow", "_tor_connection_canceled")
 
         def ask():
             a = Alert(
@@ -497,7 +497,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         """
         The TorConnectionDialog wants to open the Settings dialog
         """
-        self.common.log("OnionShareGui", "_tor_connection_open_settings")
+        self.common.log("MainWindow", "_tor_connection_open_settings")
 
         # Wait 1ms for the event loop to finish closing the TorConnectionDialog
         QtCore.QTimer.singleShot(1, self.open_settings)
@@ -506,7 +506,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         """
         Open the SettingsDialog.
         """
-        self.common.log("OnionShareGui", "open_settings")
+        self.common.log("MainWindow", "open_settings")
 
         def reload_settings():
             self.common.log(
@@ -674,7 +674,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         """
         When the URL gets copied to the clipboard, display this in the status bar.
         """
-        self.common.log("OnionShareGui", "copy_url")
+        self.common.log("MainWindow", "copy_url")
         self.system_tray.showMessage(
             strings._("gui_copied_url_title"), strings._("gui_copied_url")
         )
@@ -683,7 +683,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         """
         When the stealth onion service HidServAuth gets copied to the clipboard, display this in the status bar.
         """
-        self.common.log("OnionShareGui", "copy_hidservauth")
+        self.common.log("MainWindow", "copy_hidservauth")
         self.system_tray.showMessage(
             strings._("gui_copied_hidservauth_title"),
             strings._("gui_copied_hidservauth"),
@@ -723,7 +723,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
         self.settings_action.setEnabled(not active)
 
     def closeEvent(self, e):
-        self.common.log("OnionShareGui", "closeEvent")
+        self.common.log("MainWindow", "closeEvent")
         self.system_tray.hide()
         try:
             if self.mode == OnionShareGui.MODE_SHARE:
@@ -733,7 +733,7 @@ class OnionShareGui(QtWidgets.QMainWindow):
             else:
                 server_status = self.receive_mode.server_status
             if server_status.status != server_status.STATUS_STOPPED:
-                self.common.log("OnionShareGui", "closeEvent, opening warning dialog")
+                self.common.log("MainWindow", "closeEvent, opening warning dialog")
                 dialog = QtWidgets.QMessageBox()
                 dialog.setWindowTitle(strings._("gui_quit_title"))
                 if self.mode == OnionShareGui.MODE_SHARE:
