@@ -10,7 +10,7 @@ from onionshare.common import Common
 from onionshare.settings import Settings
 from onionshare.onion import Onion
 from onionshare.web import Web
-from onionshare_gui import Application, OnionShare, OnionShareGui
+from onionshare_gui import Application, OnionShare, MainWindow
 from .GuiShareTest import GuiShareTest
 
 
@@ -45,7 +45,7 @@ class GuiWebsiteTest(GuiShareTest):
         web = Web(common, False, True)
         open("/tmp/settings.json", "w").write(json.dumps(test_settings))
 
-        gui = OnionShareGui(
+        gui = MainWindow(
             common,
             testonion,
             qtapp,

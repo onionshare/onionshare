@@ -31,7 +31,7 @@ from onionshare.onion import Onion
 from onionshare.onionshare import OnionShare
 
 from .widgets import Alert
-from .onionshare_gui import OnionShareGui
+from .main_window import MainWindow
 
 
 class Application(QtWidgets.QApplication):
@@ -164,7 +164,7 @@ def main():
     app = OnionShare(common, onion, local_only)
 
     # Launch the gui
-    gui = OnionShareGui(common, onion, qtapp, app, filenames, config, local_only)
+    gui = MainWindow(common, onion, qtapp, app, filenames, config, local_only)
 
     # Clean up when app quits
     def shutdown():
