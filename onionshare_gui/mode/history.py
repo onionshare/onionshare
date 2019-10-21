@@ -122,7 +122,7 @@ class ShareHistoryItem(HistoryItem):
         self.progress_bar.setMaximum(total_bytes)
         self.progress_bar.setValue(0)
         self.progress_bar.setStyleSheet(
-            self.common.css["downloads_uploads_progress_bar"]
+            self.common.gui.css["downloads_uploads_progress_bar"]
         )
         self.progress_bar.total_bytes = total_bytes
 
@@ -193,7 +193,7 @@ class ReceiveHistoryItemFile(QtWidgets.QWidget):
 
         # File size label
         self.filesize_label = QtWidgets.QLabel()
-        self.filesize_label.setStyleSheet(self.common.css["receive_file_size"])
+        self.filesize_label.setStyleSheet(self.common.gui.css["receive_file_size"])
         self.filesize_label.hide()
 
         # Folder button
@@ -290,14 +290,14 @@ class ReceiveHistoryItem(HistoryItem):
         self.progress_bar.setMinimum(0)
         self.progress_bar.setValue(0)
         self.progress_bar.setStyleSheet(
-            self.common.css["downloads_uploads_progress_bar"]
+            self.common.gui.css["downloads_uploads_progress_bar"]
         )
 
         # This layout contains file widgets
         self.files_layout = QtWidgets.QVBoxLayout()
         self.files_layout.setContentsMargins(0, 0, 0, 0)
         files_widget = QtWidgets.QWidget()
-        files_widget.setStyleSheet(self.common.css["receive_file"])
+        files_widget.setStyleSheet(self.common.gui.css["receive_file"])
         files_widget.setLayout(self.files_layout)
 
         # Layout
@@ -405,7 +405,7 @@ class IndividualFileHistoryItem(HistoryItem):
             self.started_dt.strftime("%b %d, %I:%M%p")
         )
         self.timestamp_label.setStyleSheet(
-            self.common.css["history_individual_file_timestamp_label"]
+            self.common.gui.css["history_individual_file_timestamp_label"]
         )
         self.path_label = QtWidgets.QLabel(self.path)
         self.status_code_label = QtWidgets.QLabel()
@@ -417,7 +417,7 @@ class IndividualFileHistoryItem(HistoryItem):
         self.progress_bar.setAlignment(QtCore.Qt.AlignHCenter)
         self.progress_bar.setValue(0)
         self.progress_bar.setStyleSheet(
-            self.common.css["downloads_uploads_progress_bar"]
+            self.common.gui.css["downloads_uploads_progress_bar"]
         )
 
         # Text layout
@@ -438,11 +438,11 @@ class IndividualFileHistoryItem(HistoryItem):
             self.status_code_label.setText(str(data["status_code"]))
             if data["status_code"] >= 200 and data["status_code"] < 300:
                 self.status_code_label.setStyleSheet(
-                    self.common.css["history_individual_file_status_code_label_2xx"]
+                    self.common.gui.css["history_individual_file_status_code_label_2xx"]
                 )
             if data["status_code"] >= 400 and data["status_code"] < 500:
                 self.status_code_label.setStyleSheet(
-                    self.common.css["history_individual_file_status_code_label_4xx"]
+                    self.common.gui.css["history_individual_file_status_code_label_4xx"]
                 )
             self.status = HistoryItem.STATUS_FINISHED
             self.progress_bar.hide()
@@ -464,7 +464,7 @@ class IndividualFileHistoryItem(HistoryItem):
         if downloaded_bytes == self.progress_bar.total_bytes:
             self.status_code_label.setText("200")
             self.status_code_label.setStyleSheet(
-                self.common.css["history_individual_file_status_code_label_2xx"]
+                self.common.gui.css["history_individual_file_status_code_label_2xx"]
             )
             self.progress_bar.hide()
             self.status = HistoryItem.STATUS_FINISHED
@@ -586,19 +586,19 @@ class History(QtWidgets.QWidget):
 
         # In progress, completed, and requests labels
         self.in_progress_label = QtWidgets.QLabel()
-        self.in_progress_label.setStyleSheet(self.common.css["mode_info_label"])
+        self.in_progress_label.setStyleSheet(self.common.gui.css["mode_info_label"])
         self.completed_label = QtWidgets.QLabel()
-        self.completed_label.setStyleSheet(self.common.css["mode_info_label"])
+        self.completed_label.setStyleSheet(self.common.gui.css["mode_info_label"])
         self.requests_label = QtWidgets.QLabel()
-        self.requests_label.setStyleSheet(self.common.css["mode_info_label"])
+        self.requests_label.setStyleSheet(self.common.gui.css["mode_info_label"])
 
         # Header
         self.header_label = QtWidgets.QLabel(header_text)
-        self.header_label.setStyleSheet(self.common.css["downloads_uploads_label"])
+        self.header_label.setStyleSheet(self.common.gui.css["downloads_uploads_label"])
         self.clear_button = QtWidgets.QPushButton(
             strings._("gui_all_modes_clear_history")
         )
-        self.clear_button.setStyleSheet(self.common.css["downloads_uploads_clear"])
+        self.clear_button.setStyleSheet(self.common.gui.css["downloads_uploads_clear"])
         self.clear_button.setFlat(True)
         self.clear_button.clicked.connect(self.reset)
         header_layout = QtWidgets.QHBoxLayout()
@@ -615,14 +615,16 @@ class History(QtWidgets.QWidget):
         self.empty_image.setPixmap(empty_image)
         self.empty_text = QtWidgets.QLabel(empty_text)
         self.empty_text.setAlignment(QtCore.Qt.AlignCenter)
-        self.empty_text.setStyleSheet(self.common.css["downloads_uploads_empty_text"])
+        self.empty_text.setStyleSheet(
+            self.common.gui.css["downloads_uploads_empty_text"]
+        )
         empty_layout = QtWidgets.QVBoxLayout()
         empty_layout.addStretch()
         empty_layout.addWidget(self.empty_image)
         empty_layout.addWidget(self.empty_text)
         empty_layout.addStretch()
         self.empty = QtWidgets.QWidget()
-        self.empty.setStyleSheet(self.common.css["downloads_uploads_empty"])
+        self.empty.setStyleSheet(self.common.gui.css["downloads_uploads_empty"])
         self.empty.setLayout(empty_layout)
 
         # When there are items
@@ -759,7 +761,7 @@ class ToggleHistory(QtWidgets.QPushButton):
         self.indicator_count = 0
         self.indicator_label = QtWidgets.QLabel(parent=self)
         self.indicator_label.setStyleSheet(
-            self.common.css["download_uploads_indicator"]
+            self.common.gui.css["download_uploads_indicator"]
         )
         self.update_indicator()
 

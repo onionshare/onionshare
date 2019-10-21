@@ -69,7 +69,9 @@ class ShareMode(Mode):
         # Filesize warning
         self.filesize_warning = QtWidgets.QLabel()
         self.filesize_warning.setWordWrap(True)
-        self.filesize_warning.setStyleSheet(self.common.css["share_filesize_warning"])
+        self.filesize_warning.setStyleSheet(
+            self.common.gui.css["share_filesize_warning"]
+        )
         self.filesize_warning.hide()
 
         # Download history
@@ -372,7 +374,7 @@ class ZipProgressBar(QtWidgets.QProgressBar):
         self.setMinimumWidth(200)
         self.setValue(0)
         self.setFormat(strings._("zip_progress_bar_format"))
-        self.setStyleSheet(self.common.css["share_zip_progess_bar"])
+        self.setStyleSheet(self.common.gui.css["share_zip_progess_bar"])
 
         self._total_files_size = total_files_size
         self._processed_size = 0

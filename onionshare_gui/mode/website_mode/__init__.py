@@ -71,7 +71,9 @@ class WebsiteMode(Mode):
         # Filesize warning
         self.filesize_warning = QtWidgets.QLabel()
         self.filesize_warning.setWordWrap(True)
-        self.filesize_warning.setStyleSheet(self.common.css["share_filesize_warning"])
+        self.filesize_warning.setStyleSheet(
+            self.common.gui.css["share_filesize_warning"]
+        )
         self.filesize_warning.hide()
 
         # Download history

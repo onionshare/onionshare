@@ -151,11 +151,13 @@ class ServerStatus(QtWidgets.QWidget):
         self.url.setFont(url_font)
         self.url.setWordWrap(True)
         self.url.setMinimumSize(self.url.sizeHint())
-        self.url.setStyleSheet(self.common.css["server_status_url"])
+        self.url.setStyleSheet(self.common.gui.css["server_status_url"])
 
         self.copy_url_button = QtWidgets.QPushButton(strings._("gui_copy_url"))
         self.copy_url_button.setFlat(True)
-        self.copy_url_button.setStyleSheet(self.common.css["server_status_url_buttons"])
+        self.copy_url_button.setStyleSheet(
+            self.common.gui.css["server_status_url_buttons"]
+        )
         self.copy_url_button.setMinimumHeight(65)
         self.copy_url_button.clicked.connect(self.copy_url)
         self.copy_hidservauth_button = QtWidgets.QPushButton(
@@ -163,7 +165,7 @@ class ServerStatus(QtWidgets.QWidget):
         )
         self.copy_hidservauth_button.setFlat(True)
         self.copy_hidservauth_button.setStyleSheet(
-            self.common.css["server_status_url_buttons"]
+            self.common.gui.css["server_status_url_buttons"]
         )
         self.copy_hidservauth_button.clicked.connect(self.copy_hidservauth)
         url_buttons_layout = QtWidgets.QHBoxLayout()
@@ -329,7 +331,7 @@ class ServerStatus(QtWidgets.QWidget):
 
             if self.status == self.STATUS_STOPPED:
                 self.server_button.setStyleSheet(
-                    self.common.css["server_status_button_stopped"]
+                    self.common.gui.css["server_status_button_stopped"]
                 )
                 self.server_button.setEnabled(True)
                 if self.mode == ServerStatus.MODE_SHARE:
@@ -345,7 +347,7 @@ class ServerStatus(QtWidgets.QWidget):
                     self.autostop_timer_container.show()
             elif self.status == self.STATUS_STARTED:
                 self.server_button.setStyleSheet(
-                    self.common.css["server_status_button_started"]
+                    self.common.gui.css["server_status_button_started"]
                 )
                 self.server_button.setEnabled(True)
                 if self.mode == ServerStatus.MODE_SHARE:
@@ -367,7 +369,7 @@ class ServerStatus(QtWidgets.QWidget):
                     )
             elif self.status == self.STATUS_WORKING:
                 self.server_button.setStyleSheet(
-                    self.common.css["server_status_button_working"]
+                    self.common.gui.css["server_status_button_working"]
                 )
                 self.server_button.setEnabled(True)
                 if self.autostart_timer_datetime:
@@ -385,7 +387,7 @@ class ServerStatus(QtWidgets.QWidget):
                     self.autostop_timer_container.hide()
             else:
                 self.server_button.setStyleSheet(
-                    self.common.css["server_status_button_working"]
+                    self.common.gui.css["server_status_button_working"]
                 )
                 self.server_button.setEnabled(False)
                 self.server_button.setText(strings._("gui_please_wait"))
