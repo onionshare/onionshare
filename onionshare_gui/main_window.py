@@ -39,10 +39,6 @@ class MainWindow(QtWidgets.QMainWindow):
     MainWindow is the OnionShare main window, which contains the GUI elements, including all open tabs
     """
 
-    MODE_SHARE = "share"
-    MODE_RECEIVE = "receive"
-    MODE_WEBSITE = "website"
-
     def __init__(
         self, common, onion, qtapp, app, filenames, config=False, local_only=False
     ):
@@ -58,7 +54,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.app = app
         self.local_only = local_only
 
-        self.mode = self.MODE_SHARE
+        self.mode = self.common.gui.MODE_SHARE
 
         self.setWindowTitle("OnionShare")
         self.setWindowIcon(
@@ -296,7 +292,7 @@ class MainWindow(QtWidgets.QMainWindow):
     def update_mode_switcher(self):
         # Based on the current mode, switch the mode switcher button styles,
         # and show and hide widgets to switch modes
-        if self.mode == self.MODE_SHARE:
+        if self.mode == self.common.gui.MODE_SHARE:
             self.share_mode_button.setStyleSheet(
                 self.common.gui.css["mode_switcher_selected_style"]
             )
@@ -310,7 +306,7 @@ class MainWindow(QtWidgets.QMainWindow):
             self.receive_mode.hide()
             self.share_mode.show()
             self.website_mode.hide()
-        elif self.mode == self.MODE_WEBSITE:
+        elif self.mode == self.common.gui.MODE_WEBSITE:
             self.share_mode_button.setStyleSheet(
                 self.common.gui.css["mode_switcher_unselected_style"]
             )
@@ -342,26 +338,26 @@ class MainWindow(QtWidgets.QMainWindow):
         self.update_server_status_indicator()
 
     def share_mode_clicked(self):
-        if self.mode != self.MODE_SHARE:
+        if self.mode != self.common.gui.MODE_SHARE:
             self.common.log("MainWindow", "share_mode_clicked")
-            self.mode = self.MODE_SHARE
+            self.mode = self.common.gui.MODE_SHARE
             self.update_mode_switcher()
 
     def receive_mode_clicked(self):
-        if self.mode != self.MODE_RECEIVE:
+        if self.mode != self.common.gui.MODE_RECEIVE:
             self.common.log("MainWindow", "receive_mode_clicked")
-            self.mode = self.MODE_RECEIVE
+            self.mode = self.common.gui.MODE_RECEIVE
             self.update_mode_switcher()
 
     def website_mode_clicked(self):
-        if self.mode != self.MODE_WEBSITE:
+        if self.mode != self.common.gui.MODE_WEBSITE:
             self.common.log("MainWindow", "website_mode_clicked")
-            self.mode = self.MODE_WEBSITE
+            self.mode = self.common.gui.MODE_WEBSITE
             self.update_mode_switcher()
 
     def update_server_status_indicator(self):
         # Set the status image
-        if self.mode == self.MODE_SHARE:
+        if self.mode == self.common.gui.MODE_SHARE:
             # Share mode
             if self.share_mode.server_status.status == ServerStatus.STATUS_STOPPED:
                 self.server_status_image_label.setPixmap(
@@ -389,7 +385,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 self.server_status_label.setText(
                     strings._("gui_status_indicator_share_started")
                 )
-        elif self.mode == self.MODE_WEBSITE:
+        elif self.mode == self.common.gui.MODE_WEBSITE:
             # Website mode
             if self.website_mode.server_status.status == ServerStatus.STATUS_STOPPED:
                 self.server_status_image_label.setPixmap(
@@ -591,9 +587,9 @@ class MainWindow(QtWidgets.QMainWindow):
                 self.website_mode.handle_tor_broke()
 
         # Process events from the web object
-        if self.mode == self.MODE_SHARE:
+        if self.mode == self.common.gui.MODE_SHARE:
             mode = self.share_mode
-        elif self.mode == self.MODE_WEBSITE:
+        elif self.mode == self.common.gui.MODE_WEBSITE:
             mode = self.website_mode
         else:
             mode = self.receive_mode
@@ -700,11 +696,11 @@ class MainWindow(QtWidgets.QMainWindow):
         """
         if active:
             self.settings_button.hide()
-            if self.mode == self.MODE_SHARE:
+            if self.mode == self.common.gui.MODE_SHARE:
                 self.share_mode_button.show()
                 self.receive_mode_button.hide()
                 self.website_mode_button.hide()
-            elif self.mode == self.MODE_WEBSITE:
+            elif self.mode == self.common.gui.MODE_WEBSITE:
                 self.share_mode_button.hide()
                 self.receive_mode_button.hide()
                 self.website_mode_button.show()
@@ -725,9 +721,9 @@ class MainWindow(QtWidgets.QMainWindow):
         self.common.log("MainWindow", "closeEvent")
         self.system_tray.hide()
         try:
-            if self.mode == OnionShareGui.MODE_SHARE:
+            if self.mode == self.common.gui.MODE_WEBSITE:
                 server_status = self.share_mode.server_status
-            if self.mode == OnionShareGui.MODE_WEBSITE:
+            if self.mode == self.common.gui.MODE_WEBSITE:
                 server_status = self.website_mode.server_status
             else:
                 server_status = self.receive_mode.server_status
@@ -735,7 +731,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 self.common.log("MainWindow", "closeEvent, opening warning dialog")
                 dialog = QtWidgets.QMessageBox()
                 dialog.setWindowTitle(strings._("gui_quit_title"))
-                if self.mode == OnionShareGui.MODE_SHARE:
+                if self.mode == self.common.gui.MODE_WEBSITE:
                     dialog.setText(strings._("gui_share_quit_warning"))
                 else:
                     dialog.setText(strings._("gui_receive_quit_warning"))

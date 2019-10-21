@@ -24,6 +24,10 @@ class GuiCommon:
     The shared code for all of the OnionShare GUI.
     """
 
+    MODE_SHARE = "share"
+    MODE_RECEIVE = "receive"
+    MODE_WEBSITE = "website"
+
     def __init__(self, common):
         self.common = common
 
