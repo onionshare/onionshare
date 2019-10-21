@@ -23,13 +23,14 @@ import sys
 import platform
 import argparse
 import signal
-from .widgets import Alert
+import psutil
 from PyQt5 import QtCore, QtWidgets
 
 from onionshare.common import Common
 from onionshare.onion import Onion
 from onionshare.onionshare import OnionShare
 
+from .widgets import Alert
 from .onionshare_gui import OnionShareGui
 
 
@@ -131,6 +132,30 @@ def main():
                 valid = False
         if not valid:
             sys.exit()
+
+    # Is there another onionshare-gui running?
+    existing_pid = None
+    for proc in psutil.process_iter(attrs=["pid", "name", "cmdline"]):
+        if proc.info["pid"] == os.getpid():
+            continue
+
+        if proc.info["name"] == "onionshare-gui":
+            existing_pid = proc.info["pid"]
+            break
+        else:
+            # Dev mode onionshare?
+            if proc.info["cmdline"] and len(proc.info["cmdline"]) >= 2:
+                if (
+                    os.path.basename(proc.info["cmdline"][0]).lower() == "python"
+                    and os.path.basename(proc.info["cmdline"][1]) == "onionshare-gui"
+                ):
+                    existing_pid = proc.info["pid"]
+                    break
+
+    if existing_pid:
+        print(f"Opening tab in existing OnionShare window (pid {proc.info['pid']})")
+        # TODO: open tab
+        return
 
     # Start the Onion
     onion = Onion(common)
