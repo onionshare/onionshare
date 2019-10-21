@@ -216,7 +216,7 @@ class Web:
             @self.app.route("/favicon.ico")
             def favicon():
                 return send_file(
-                    f"{self.common.get_resource_path("static")}/img/favicon.ico"
+                    f"{self.common.get_resource_path('static')}/img/favicon.ico"
                 )
 
     def error401(self):
@@ -226,7 +226,7 @@ class Web:
                 auth["username"] == "onionshare"
                 and auth["password"] not in self.invalid_passwords
             ):
-                print(f"Invalid password guess: {auth["password"]}"
+                print(f"Invalid password guess: {auth['password']}")
                 self.add_request(Web.REQUEST_INVALID_PASSWORD, data=auth["password"])
 
                 self.invalid_passwords.append(auth["password"])
@@ -307,9 +307,7 @@ class Web:
 
     def generate_password(self, persistent_password=None):
         self.common.log(
-            "Web",
-            "generate_password",
-            f"persistent_password={persistent_password}",
+            "Web", "generate_password", f"persistent_password={persistent_password}"
         )
         if persistent_password != None and persistent_password != "":
             self.password = persistent_password
@@ -321,9 +319,7 @@ class Web:
         else:
             self.password = self.common.build_password()
             self.common.log(
-                "Web",
-                "generate_password",
-                f'built random password: "{self.password}"',
+                "Web", "generate_password", f'built random password: "{self.password}"'
             )
 
     def verbose_mode(self):

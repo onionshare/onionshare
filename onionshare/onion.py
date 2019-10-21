@@ -361,10 +361,7 @@ class Onion(object):
                 summary = res_parts[4].split("=")[1]
 
                 # "\033[K" clears the rest of the line
-                print(
-                    f"Connecting to the Tor network: {progress}% - {summary}\033[K",
-                    end="\r",
-                )
+                print(f"Connecting to the Tor network: {progress}% - {summary}\033[K")
 
                 if callable(tor_status_update_func):
                     if not tor_status_update_func(progress, summary):
@@ -529,9 +526,7 @@ class Onion(object):
 
         # Get the tor version
         self.tor_version = self.c.get_version().version_str
-        self.common.log(
-            "Onion", "connect", f"Connected to tor {self.tor_version}"
-        )
+        self.common.log("Onion", "connect", f"Connected to tor {self.tor_version}")
 
         # Do the versions of stem and tor that I'm using support ephemeral onion services?
         list_ephemeral_hidden_services = getattr(
@@ -585,7 +580,7 @@ class Onion(object):
             raise TorTooOld(strings._("error_stealth_not_supported"))
 
         if not save_scheduled_key:
-            print(f"Setting up onion service on port {port}."
+            print(f"Setting up onion service on port {port}.")
 
         if self.stealth:
             if self.settings.get("hidservauth_string"):
@@ -700,7 +695,9 @@ class Onion(object):
                     else:
                         self.scheduled_auth_cookie = None
                 else:
-                    self.auth_string = f"HidServAuth {onion_host} {self.scheduled_auth_cookie}"
+                    self.auth_string = (
+                        f"HidServAuth {onion_host} {self.scheduled_auth_cookie}"
+                    )
                     if not save_scheduled_key:
                         # We've used the scheduled share's HidServAuth. Reset it to None for future shares
                         self.scheduled_auth_cookie = None
