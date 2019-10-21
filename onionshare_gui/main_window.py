@@ -23,6 +23,9 @@ from PyQt5 import QtCore, QtWidgets, QtGui
 from onionshare import strings
 from onionshare.web import Web
 
+from onionshare.onion import Onion
+from onionshare.onionshare import OnionShare
+
 from .mode.share_mode import ShareMode
 from .mode.receive_mode import ReceiveMode
 from .mode.website_mode import WebsiteMode
@@ -39,22 +42,26 @@ class MainWindow(QtWidgets.QMainWindow):
     MainWindow is the OnionShare main window, which contains the GUI elements, including all open tabs
     """
 
-    def __init__(
-        self, common, onion, qtapp, app, filenames, config=False, local_only=False
-    ):
+    def __init__(self, common, qtapp, filenames, config=False, local_only=False):
         super(MainWindow, self).__init__()
 
         self.common = common
         self.common.log("MainWindow", "__init__")
-        self.setMinimumWidth(820)
-        self.setMinimumHeight(660)
 
-        self.onion = onion
         self.qtapp = qtapp
-        self.app = app
         self.local_only = local_only
 
         self.mode = self.common.gui.MODE_SHARE
+
+        # Start the Onion
+        self.onion = Onion(common)
+
+        # Start the OnionShare app
+        self.app = OnionShare(common, self.onion, local_only)
+
+        # Initialize the window
+        self.setMinimumWidth(820)
+        self.setMinimumHeight(660)
 
         self.setWindowTitle("OnionShare")
         self.setWindowIcon(
@@ -157,7 +164,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.share_mode = ShareMode(
             self.common,
             qtapp,
-            app,
+            self.app,
             self.status_bar,
             self.server_status_label,
             self.system_tray,
@@ -188,7 +195,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.receive_mode = ReceiveMode(
             self.common,
             qtapp,
-            app,
+            self.app,
             self.status_bar,
             self.server_status_label,
             self.system_tray,
@@ -221,7 +228,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.website_mode = WebsiteMode(
             self.common,
             qtapp,
-            app,
+            self.app,
             self.status_bar,
             self.server_status_label,
             self.system_tray,
@@ -756,3 +763,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         except:
             e.accept()
+
+    def cleanup(self):
+        self.onion.cleanup()
+        self.app.cleanup()

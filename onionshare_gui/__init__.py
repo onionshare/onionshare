@@ -27,8 +27,6 @@ import psutil
 from PyQt5 import QtCore, QtWidgets
 
 from onionshare.common import Common
-from onionshare.onion import Onion
-from onionshare.onionshare import OnionShare
 
 from .gui_common import GuiCommon
 from .widgets import Alert
@@ -158,19 +156,12 @@ def main():
         # TODO: open tab
         return
 
-    # Start the Onion
-    onion = Onion(common)
-
-    # Start the OnionShare app
-    app = OnionShare(common, onion, local_only)
-
     # Launch the gui
-    gui = MainWindow(common, onion, qtapp, app, filenames, config, local_only)
+    main_window = MainWindow(common, qtapp, filenames, config, local_only)
 
     # Clean up when app quits
     def shutdown():
-        onion.cleanup()
-        app.cleanup()
+        main_window.cleanup()
 
     qtapp.aboutToQuit.connect(shutdown)
 
