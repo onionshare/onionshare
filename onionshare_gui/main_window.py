@@ -36,8 +36,7 @@ from .server_status import ServerStatus
 
 class MainWindow(QtWidgets.QMainWindow):
     """
-    MainWindow is the main window for the GUI that contains all of the
-    GUI elements.
+    MainWindow is the OnionShare main window, which contains the GUI elements, including all open tabs
     """
 
     MODE_SHARE = "share"
@@ -121,7 +120,7 @@ class MainWindow(QtWidgets.QMainWindow):
             QtGui.QIcon(self.common.get_resource_path("images/settings.png"))
         )
         self.settings_button.clicked.connect(self.open_settings)
-        self.settings_button.setStyleSheet(self.common.css["settings_button"])
+        self.settings_button.setStyleSheet(self.common.gui.css["settings_button"])
         mode_switcher_layout = QtWidgets.QHBoxLayout()
         mode_switcher_layout.setSpacing(0)
         mode_switcher_layout.addWidget(self.share_mode_button)
@@ -143,7 +142,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.server_status_image_label.setFixedWidth(20)
         self.server_status_label = QtWidgets.QLabel("")
         self.server_status_label.setStyleSheet(
-            self.common.css["server_status_indicator_label"]
+            self.common.gui.css["server_status_indicator_label"]
         )
         server_status_indicator_layout = QtWidgets.QHBoxLayout()
         server_status_indicator_layout.addWidget(self.server_status_image_label)
@@ -154,7 +153,7 @@ class MainWindow(QtWidgets.QMainWindow):
         # Status bar
         self.status_bar = QtWidgets.QStatusBar()
         self.status_bar.setSizeGripEnabled(False)
-        self.status_bar.setStyleSheet(self.common.css["status_bar"])
+        self.status_bar.setStyleSheet(self.common.gui.css["status_bar"])
         self.status_bar.addPermanentWidget(self.server_status_indicator)
         self.setStatusBar(self.status_bar)
 
@@ -299,13 +298,13 @@ class MainWindow(QtWidgets.QMainWindow):
         # and show and hide widgets to switch modes
         if self.mode == self.MODE_SHARE:
             self.share_mode_button.setStyleSheet(
-                self.common.css["mode_switcher_selected_style"]
+                self.common.gui.css["mode_switcher_selected_style"]
             )
             self.receive_mode_button.setStyleSheet(
-                self.common.css["mode_switcher_unselected_style"]
+                self.common.gui.css["mode_switcher_unselected_style"]
             )
             self.website_mode_button.setStyleSheet(
-                self.common.css["mode_switcher_unselected_style"]
+                self.common.gui.css["mode_switcher_unselected_style"]
             )
 
             self.receive_mode.hide()
@@ -313,13 +312,13 @@ class MainWindow(QtWidgets.QMainWindow):
             self.website_mode.hide()
         elif self.mode == self.MODE_WEBSITE:
             self.share_mode_button.setStyleSheet(
-                self.common.css["mode_switcher_unselected_style"]
+                self.common.gui.css["mode_switcher_unselected_style"]
             )
             self.receive_mode_button.setStyleSheet(
-                self.common.css["mode_switcher_unselected_style"]
+                self.common.gui.css["mode_switcher_unselected_style"]
             )
             self.website_mode_button.setStyleSheet(
-                self.common.css["mode_switcher_selected_style"]
+                self.common.gui.css["mode_switcher_selected_style"]
             )
 
             self.receive_mode.hide()
@@ -327,13 +326,13 @@ class MainWindow(QtWidgets.QMainWindow):
             self.website_mode.show()
         else:
             self.share_mode_button.setStyleSheet(
-                self.common.css["mode_switcher_unselected_style"]
+                self.common.gui.css["mode_switcher_unselected_style"]
             )
             self.receive_mode_button.setStyleSheet(
-                self.common.css["mode_switcher_selected_style"]
+                self.common.gui.css["mode_switcher_selected_style"]
             )
             self.website_mode_button.setStyleSheet(
-                self.common.css["mode_switcher_unselected_style"]
+                self.common.gui.css["mode_switcher_unselected_style"]
             )
 
             self.share_mode.hide()

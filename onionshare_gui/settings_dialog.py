@@ -76,7 +76,7 @@ class SettingsDialog(QtWidgets.QDialog):
                 "https://github.com/micahflee/onionshare/wiki/Public-Mode"
             )
         )
-        public_mode_label.setStyleSheet(self.common.css["settings_whats_this"])
+        public_mode_label.setStyleSheet(self.common.gui.css["settings_whats_this"])
         public_mode_label.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
         public_mode_label.setOpenExternalLinks(True)
         public_mode_label.setMinimumSize(public_mode_label.sizeHint())
@@ -99,7 +99,7 @@ class SettingsDialog(QtWidgets.QDialog):
                 "https://github.com/micahflee/onionshare/wiki/Using-the-Auto-Start-Timer"
             )
         )
-        autostart_timer_label.setStyleSheet(self.common.css["settings_whats_this"])
+        autostart_timer_label.setStyleSheet(self.common.gui.css["settings_whats_this"])
         autostart_timer_label.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
         autostart_timer_label.setOpenExternalLinks(True)
         autostart_timer_label.setMinimumSize(public_mode_label.sizeHint())
@@ -122,7 +122,7 @@ class SettingsDialog(QtWidgets.QDialog):
                 "https://github.com/micahflee/onionshare/wiki/Using-the-Auto-Stop-Timer"
             )
         )
-        autostop_timer_label.setStyleSheet(self.common.css["settings_whats_this"])
+        autostop_timer_label.setStyleSheet(self.common.gui.css["settings_whats_this"])
         autostop_timer_label.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
         autostop_timer_label.setOpenExternalLinks(True)
         autostop_timer_label.setMinimumSize(public_mode_label.sizeHint())
@@ -149,7 +149,7 @@ class SettingsDialog(QtWidgets.QDialog):
             strings._("gui_connect_to_tor_for_onion_settings")
         )
         self.connect_to_tor_label.setStyleSheet(
-            self.common.css["settings_connect_to_tor"]
+            self.common.gui.css["settings_connect_to_tor"]
         )
 
         # Whether or not to save the Onion private key for reuse (persistent URL mode)
@@ -163,7 +163,7 @@ class SettingsDialog(QtWidgets.QDialog):
                 "https://github.com/micahflee/onionshare/wiki/Using-a-Persistent-URL"
             )
         )
-        save_private_key_label.setStyleSheet(self.common.css["settings_whats_this"])
+        save_private_key_label.setStyleSheet(self.common.gui.css["settings_whats_this"])
         save_private_key_label.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
         save_private_key_label.setOpenExternalLinks(True)
         save_private_key_layout = QtWidgets.QHBoxLayout()
@@ -188,7 +188,7 @@ class SettingsDialog(QtWidgets.QDialog):
                 "https://github.com/micahflee/onionshare/wiki/Legacy-Addresses"
             )
         )
-        use_legacy_v2_onions_label.setStyleSheet(self.common.css["settings_whats_this"])
+        use_legacy_v2_onions_label.setStyleSheet(self.common.gui.css["settings_whats_this"])
         use_legacy_v2_onions_label.setTextInteractionFlags(
             QtCore.Qt.TextBrowserInteraction
         )
@@ -211,7 +211,7 @@ class SettingsDialog(QtWidgets.QDialog):
                 "https://github.com/micahflee/onionshare/wiki/Stealth-Onion-Services"
             )
         )
-        use_stealth_label.setStyleSheet(self.common.css["settings_whats_this"])
+        use_stealth_label.setStyleSheet(self.common.gui.css["settings_whats_this"])
         use_stealth_label.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
         use_stealth_label.setOpenExternalLinks(True)
         use_stealth_label.setMinimumSize(use_stealth_label.sizeHint())
@@ -305,7 +305,7 @@ class SettingsDialog(QtWidgets.QDialog):
                 "https://github.com/micahflee/onionshare/wiki/Content-Security-Policy"
             )
         )
-        csp_header_label.setStyleSheet(self.common.css["settings_whats_this"])
+        csp_header_label.setStyleSheet(self.common.gui.css["settings_whats_this"])
         csp_header_label.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
         csp_header_label.setOpenExternalLinks(True)
         csp_header_label.setMinimumSize(csp_header_label.sizeHint())
@@ -673,7 +673,7 @@ class SettingsDialog(QtWidgets.QDialog):
         )
         self.cancel_button.clicked.connect(self.cancel_clicked)
         version_label = QtWidgets.QLabel(f"OnionShare {self.common.version}")
-        version_label.setStyleSheet(self.common.css["settings_version"])
+        version_label.setStyleSheet(self.common.gui.css["settings_version"])
         self.help_button = QtWidgets.QPushButton(strings._("gui_settings_button_help"))
         self.help_button.clicked.connect(self.help_clicked)
         buttons_layout = QtWidgets.QHBoxLayout()
@@ -685,7 +685,7 @@ class SettingsDialog(QtWidgets.QDialog):
 
         # Tor network connection status
         self.tor_status = QtWidgets.QLabel()
-        self.tor_status.setStyleSheet(self.common.css["settings_tor_status"])
+        self.tor_status.setStyleSheet(self.common.gui.css["settings_tor_status"])
         self.tor_status.hide()
 
         # Layout

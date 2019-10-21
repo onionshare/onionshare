@@ -30,6 +30,7 @@ from onionshare.common import Common
 from onionshare.onion import Onion
 from onionshare.onionshare import OnionShare
 
+from .gui_common import GuiCommon
 from .widgets import Alert
 from .main_window import MainWindow
 
@@ -61,7 +62,7 @@ def main():
     The main() function implements all of the logic that the GUI version of onionshare uses.
     """
     common = Common()
-    common.define_css()
+    common.gui = GuiCommon(common)
 
     # Display OnionShare banner
     print(f"OnionShare {common.version} | https://onionshare.org/")
