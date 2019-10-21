@@ -60,7 +60,6 @@ def main():
     The main() function implements all of the logic that the GUI version of onionshare uses.
     """
     common = Common()
-    common.gui = GuiCommon(common)
 
     # Display OnionShare banner
     print(f"OnionShare {common.version} | https://onionshare.org/")
@@ -156,8 +155,11 @@ def main():
         # TODO: open tab
         return
 
+    # Attach the GUI common parts to the common object
+    common.gui = GuiCommon(common, qtapp, local_only, config)
+
     # Launch the gui
-    main_window = MainWindow(common, qtapp, filenames, config, local_only)
+    main_window = MainWindow(common, filenames)
 
     # Clean up when app quits
     def shutdown():

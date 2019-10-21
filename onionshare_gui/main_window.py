@@ -42,14 +42,11 @@ class MainWindow(QtWidgets.QMainWindow):
     MainWindow is the OnionShare main window, which contains the GUI elements, including all open tabs
     """
 
-    def __init__(self, common, qtapp, filenames, config=False, local_only=False):
+    def __init__(self, common, filenames):
         super(MainWindow, self).__init__()
 
         self.common = common
         self.common.log("MainWindow", "__init__")
-
-        self.qtapp = qtapp
-        self.local_only = local_only
 
         self.mode = self.common.gui.MODE_SHARE
 
@@ -57,7 +54,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.onion = Onion(common)
 
         # Start the OnionShare app
-        self.app = OnionShare(common, self.onion, local_only)
+        self.app = OnionShare(common, self.onion, self.common.gui.local_only)
 
         # Initialize the window
         self.setMinimumWidth(820)
@@ -67,15 +64,6 @@ class MainWindow(QtWidgets.QMainWindow):
         self.setWindowIcon(
             QtGui.QIcon(self.common.get_resource_path("images/logo.png"))
         )
-
-        # Load settings, if a custom config was passed in
-        self.config = config
-        if self.config:
-            self.common.load_settings(self.config)
-        else:
-            self.common.load_settings()
-
-        strings.load_strings(self.common)
 
         # System tray
         menu = QtWidgets.QMenu()
@@ -87,6 +75,7 @@ class MainWindow(QtWidgets.QMainWindow):
         exit_action.triggered.connect(self.close)
 
         self.system_tray = QtWidgets.QSystemTrayIcon(self)
+
         # The convention is Mac systray icons are always grayscale
         if self.common.platform == "Darwin":
             self.system_tray.setIcon(
@@ -163,13 +152,13 @@ class MainWindow(QtWidgets.QMainWindow):
         # Share mode
         self.share_mode = ShareMode(
             self.common,
-            qtapp,
+            self.common.gui.qtapp,
             self.app,
             self.status_bar,
             self.server_status_label,
             self.system_tray,
             filenames,
-            self.local_only,
+            self.common.gui.local_only,
         )
         self.share_mode.init()
         self.share_mode.server_status.server_started.connect(
@@ -194,13 +183,13 @@ class MainWindow(QtWidgets.QMainWindow):
         # Receive mode
         self.receive_mode = ReceiveMode(
             self.common,
-            qtapp,
+            self.common.gui.qtapp,
             self.app,
             self.status_bar,
             self.server_status_label,
             self.system_tray,
             None,
-            self.local_only,
+            self.common.gui.local_only,
         )
         self.receive_mode.init()
         self.receive_mode.server_status.server_started.connect(
@@ -227,7 +216,7 @@ class MainWindow(QtWidgets.QMainWindow):
         # Website mode
         self.website_mode = WebsiteMode(
             self.common,
-            qtapp,
+            self.common.gui.qtapp,
             self.app,
             self.status_bar,
             self.server_status_label,
@@ -284,10 +273,10 @@ class MainWindow(QtWidgets.QMainWindow):
         self.timer.timeout.connect(self.timer_callback)
 
         # Start the "Connecting to Tor" dialog, which calls onion.connect()
-        tor_con = TorConnectionDialog(self.common, self.qtapp, self.onion)
+        tor_con = TorConnectionDialog(self.common, self.common.gui.qtapp, self.onion)
         tor_con.canceled.connect(self._tor_connection_canceled)
         tor_con.open_settings.connect(self._tor_connection_open_settings)
-        if not self.local_only:
+        if not self.common.gui.local_only:
             tor_con.start()
 
         # Start the timer
@@ -490,7 +479,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 )
 
                 # Wait 1ms for the event loop to finish, then quit
-                QtCore.QTimer.singleShot(1, self.qtapp.quit)
+                QtCore.QTimer.singleShot(1, self.common.gui.qtapp.quit)
 
         # Wait 100ms before asking
         QtCore.QTimer.singleShot(100, ask)
@@ -519,7 +508,7 @@ class MainWindow(QtWidgets.QMainWindow):
             # We might've stopped the main requests timer if a Tor connection failed.
             # If we've reloaded settings, we probably succeeded in obtaining a new
             # connection. If so, restart the timer.
-            if not self.local_only:
+            if not self.common.gui.local_only:
                 if self.onion.is_authenticated():
                     if not self.timer.isActive():
                         self.timer.start(500)
@@ -543,7 +532,11 @@ class MainWindow(QtWidgets.QMainWindow):
                 self.website_mode.server_status.autostart_timer_container.hide()
 
         d = SettingsDialog(
-            self.common, self.onion, self.qtapp, self.config, self.local_only
+            self.common,
+            self.onion,
+            self.common.gui.qtapp,
+            self.common.gui.config,
+            self.common.gui.local_only,
         )
         d.settings_saved.connect(reload_settings)
         d.exec_()
@@ -568,7 +561,9 @@ class MainWindow(QtWidgets.QMainWindow):
                         ),
                     )
 
-                self.update_thread = UpdateThread(self.common, self.onion, self.config)
+                self.update_thread = UpdateThread(
+                    self.common, self.onion, self.common.gui.config
+                )
                 self.update_thread.update_available.connect(update_available)
                 self.update_thread.start()
 
@@ -579,7 +574,7 @@ class MainWindow(QtWidgets.QMainWindow):
         """
         self.update()
 
-        if not self.local_only:
+        if not self.common.gui.local_only:
             # Have we lost connection to Tor somehow?
             if not self.onion.is_authenticated():
                 self.timer.stop()

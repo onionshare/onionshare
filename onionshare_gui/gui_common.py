@@ -17,6 +17,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
+from onionshare import strings
 
 
 class GuiCommon:
@@ -28,8 +29,20 @@ class GuiCommon:
     MODE_RECEIVE = "receive"
     MODE_WEBSITE = "website"
 
-    def __init__(self, common):
+    def __init__(self, common, qtapp, local_only, config):
         self.common = common
+        self.qtapp = qtapp
+        self.local_only = local_only
+
+        # Load settings, if a custom config was passed in
+        self.config = config
+        if self.config:
+            self.common.load_settings(self.config)
+        else:
+            self.common.load_settings()
+
+        # Load strings
+        strings.load_strings(self.common)
 
         self.css = {
             # OnionShareGui styles
