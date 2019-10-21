@@ -39,10 +39,6 @@ class ServerStatus(QtWidgets.QWidget):
     url_copied = QtCore.pyqtSignal()
     hidservauth_copied = QtCore.pyqtSignal()
 
-    MODE_SHARE = "share"
-    MODE_RECEIVE = "receive"
-    MODE_WEBSITE = "website"
-
     STATUS_STOPPED = 0
     STATUS_WORKING = 1
     STATUS_STARTED = 2
@@ -192,8 +188,8 @@ class ServerStatus(QtWidgets.QWidget):
         """
         self.mode = share_mode
 
-        if (self.mode == ServerStatus.MODE_SHARE) or (
-            self.mode == ServerStatus.MODE_WEBSITE
+        if (self.mode == self.common.gui.MODE_SHARE) or (
+            self.mode == self.common.gui.MODE_WEBSITE
         ):
             self.file_selection = file_selection
 
@@ -248,11 +244,11 @@ class ServerStatus(QtWidgets.QWidget):
 
         info_image = self.common.get_resource_path("images/info.png")
 
-        if self.mode == ServerStatus.MODE_SHARE:
+        if self.mode == self.common.gui.MODE_SHARE:
             self.url_description.setText(
                 strings._("gui_share_url_description").format(info_image)
             )
-        elif self.mode == ServerStatus.MODE_WEBSITE:
+        elif self.mode == self.common.gui.MODE_WEBSITE:
             self.url_description.setText(
                 strings._("gui_website_url_description").format(info_image)
             )
@@ -263,7 +259,7 @@ class ServerStatus(QtWidgets.QWidget):
 
         # Show a Tool Tip explaining the lifecycle of this URL
         if self.common.settings.get("save_private_key"):
-            if self.mode == ServerStatus.MODE_SHARE and self.common.settings.get(
+            if self.mode == self.common.gui.MODE_SHARE and self.common.settings.get(
                 "close_after_first_download"
             ):
                 self.url_description.setToolTip(
@@ -272,7 +268,7 @@ class ServerStatus(QtWidgets.QWidget):
             else:
                 self.url_description.setToolTip(strings._("gui_url_label_persistent"))
         else:
-            if self.mode == ServerStatus.MODE_SHARE and self.common.settings.get(
+            if self.mode == self.common.gui.MODE_SHARE and self.common.settings.get(
                 "close_after_first_download"
             ):
                 self.url_description.setToolTip(strings._("gui_url_label_onetime"))
@@ -317,12 +313,12 @@ class ServerStatus(QtWidgets.QWidget):
 
         # Button
         if (
-            self.mode == ServerStatus.MODE_SHARE
+            self.mode == self.common.gui.MODE_SHARE
             and self.file_selection.get_num_files() == 0
         ):
             self.server_button.hide()
         elif (
-            self.mode == ServerStatus.MODE_WEBSITE
+            self.mode == self.common.gui.MODE_WEBSITE
             and self.file_selection.get_num_files() == 0
         ):
             self.server_button.hide()
@@ -334,9 +330,9 @@ class ServerStatus(QtWidgets.QWidget):
                     self.common.gui.css["server_status_button_stopped"]
                 )
                 self.server_button.setEnabled(True)
-                if self.mode == ServerStatus.MODE_SHARE:
+                if self.mode == self.common.gui.MODE_SHARE:
                     self.server_button.setText(strings._("gui_share_start_server"))
-                elif self.mode == ServerStatus.MODE_WEBSITE:
+                elif self.mode == self.common.gui.MODE_WEBSITE:
                     self.server_button.setText(strings._("gui_share_start_server"))
                 else:
                     self.server_button.setText(strings._("gui_receive_start_server"))
@@ -350,9 +346,9 @@ class ServerStatus(QtWidgets.QWidget):
                     self.common.gui.css["server_status_button_started"]
                 )
                 self.server_button.setEnabled(True)
-                if self.mode == ServerStatus.MODE_SHARE:
+                if self.mode == self.common.gui.MODE_SHARE:
                     self.server_button.setText(strings._("gui_share_stop_server"))
-                elif self.mode == ServerStatus.MODE_WEBSITE:
+                elif self.mode == self.common.gui.MODE_WEBSITE:
                     self.server_button.setText(strings._("gui_share_stop_server"))
                 else:
                     self.server_button.setText(strings._("gui_receive_stop_server"))
