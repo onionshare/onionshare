@@ -437,7 +437,7 @@ class Common(object):
         """
         thresh = 1024.0
         if b < thresh:
-            return f"{b} B"
+            return "{:.1f} B".format(b)
         units = ("KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB")
         u = 0
         b /= thresh
