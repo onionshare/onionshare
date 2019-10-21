@@ -112,7 +112,7 @@ class TorConnectionDialog(QtWidgets.QProgressDialog):
             # Display the exception in an alert box
             Alert(
                 self.common,
-                f"{msg}\n\n{strings._("gui_tor_connection_error_settings")}",
+                f"{msg}\n\n{strings._('gui_tor_connection_error_settings')}",
                 QtWidgets.QMessageBox.Warning,
             )
 
