@@ -18,6 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 from onionshare import strings
+from onionshare.onion import Onion
 
 
 class GuiCommon:
@@ -43,6 +44,9 @@ class GuiCommon:
 
         # Load strings
         strings.load_strings(self.common)
+
+        # Start the Onion
+        self.onion = Onion(common)
 
         self.css = {
             # OnionShareGui styles

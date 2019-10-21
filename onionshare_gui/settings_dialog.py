@@ -40,17 +40,12 @@ class SettingsDialog(QtWidgets.QDialog):
 
     settings_saved = QtCore.pyqtSignal()
 
-    def __init__(self, common, onion, qtapp, config=False, local_only=False):
+    def __init__(self, common):
         super(SettingsDialog, self).__init__()
 
         self.common = common
 
         self.common.log("SettingsDialog", "__init__")
-
-        self.onion = onion
-        self.qtapp = qtapp
-        self.config = config
-        self.local_only = local_only
 
         self.setModal(True)
         self.setWindowTitle(strings._("gui_settings_window_title"))
@@ -346,7 +341,7 @@ class SettingsDialog(QtWidgets.QDialog):
         )
         self.check_for_updates_button.clicked.connect(self.check_for_updates)
         # We can't check for updates if not connected to Tor
-        if not self.onion.connected_to_tor:
+        if not self.common.gui.onion.connected_to_tor:
             self.check_for_updates_button.setEnabled(False)
 
         # Autoupdate options layout
@@ -721,7 +716,7 @@ class SettingsDialog(QtWidgets.QDialog):
 
     def reload_settings(self):
         # Load settings, and fill them in
-        self.old_settings = Settings(self.common, self.config)
+        self.old_settings = Settings(self.common, self.common.gui.config)
         self.old_settings.load()
 
         close_after_first_download = self.old_settings.get("close_after_first_download")
@@ -861,12 +856,12 @@ class SettingsDialog(QtWidgets.QDialog):
                 self.tor_bridges_use_custom_textbox.setPlainText(new_bridges)
 
         # If we're connected to Tor, show onion service settings, show label if not
-        if self.onion.is_authenticated():
+        if self.common.gui.onion.is_authenticated():
             self.connect_to_tor_label.hide()
             self.onion_settings_widget.show()
 
             # If v3 onion services are supported, allow using legacy mode
-            if self.onion.supports_v3_onions:
+            if self.common.gui.onion.supports_v3_onions:
                 self.common.log("SettingsDialog", "__init__", "v3 onions are supported")
                 self.use_legacy_v2_onions_checkbox.show()
             else:
@@ -1005,7 +1000,7 @@ class SettingsDialog(QtWidgets.QDialog):
             "hidservauth_copy_button_clicked",
             "HidServAuth was copied to clipboard",
         )
-        clipboard = self.qtapp.clipboard()
+        clipboard = self.common.gui.qtapp.clipboard()
         clipboard.setText(self.old_settings.get("hidservauth_string"))
 
     def use_legacy_v2_onions_checkbox_clicked(self, checked):
@@ -1068,7 +1063,7 @@ class SettingsDialog(QtWidgets.QDialog):
             onion = Onion(self.common)
             onion.connect(
                 custom_settings=settings,
-                config=self.config,
+                config=self.common.gui.config,
                 tor_status_update_func=tor_status_update_func,
             )
 
@@ -1110,11 +1105,11 @@ class SettingsDialog(QtWidgets.QDialog):
         self.common.log("SettingsDialog", "check_for_updates")
         # Disable buttons
         self._disable_buttons()
-        self.qtapp.processEvents()
+        self.common.gui.qtapp.processEvents()
 
         def update_timestamp():
             # Update the last checked label
-            settings = Settings(self.common, self.config)
+            settings = Settings(self.common, self.common.gui.config)
             settings.load()
             autoupdate_timestamp = settings.get("autoupdate_timestamp")
             self._update_autoupdate_timestamp(autoupdate_timestamp)
@@ -1157,7 +1152,7 @@ class SettingsDialog(QtWidgets.QDialog):
             close_forced_update_thread()
 
         forced_update_thread = UpdateThread(
-            self.common, self.onion, self.config, force=True
+            self.common, self.onion, self.common.gui.config, force=True
         )
         forced_update_thread.update_available.connect(update_available)
         forced_update_thread.update_not_available.connect(update_not_available)
@@ -1205,8 +1200,8 @@ class SettingsDialog(QtWidgets.QDialog):
             # If Tor isn't connected, or if Tor settings have changed, Reinitialize
             # the Onion object
             reboot_onion = False
-            if not self.local_only:
-                if self.onion.is_authenticated():
+            if not self.common.gui.local_only:
+                if self.common.gui.onion.is_authenticated():
                     self.common.log(
                         "SettingsDialog", "save_clicked", "Connected to Tor"
                     )
@@ -1245,20 +1240,18 @@ class SettingsDialog(QtWidgets.QDialog):
                     self.common.log(
                         "SettingsDialog", "save_clicked", "rebooting the Onion"
                     )
-                    self.onion.cleanup()
+                    self.common.gui.onion.cleanup()
 
-                    tor_con = TorConnectionDialog(
-                        self.common, self.qtapp, self.onion, settings
-                    )
+                    tor_con = TorConnectionDialog(self.common, settings)
                     tor_con.start()
 
                     self.common.log(
                         "SettingsDialog",
                         "save_clicked",
-                        f"Onion done rebooting, connected to Tor: {self.onion.connected_to_tor}",
+                        f"Onion done rebooting, connected to Tor: {self.common.gui.onion.connected_to_tor}",
                     )
 
-                    if self.onion.is_authenticated() and not tor_con.wasCanceled():
+                    if self.common.gui.onion.is_authenticated() and not tor_con.wasCanceled():
                         self.settings_saved.emit()
                         self.close()
 
@@ -1274,7 +1267,7 @@ class SettingsDialog(QtWidgets.QDialog):
         Cancel button clicked.
         """
         self.common.log("SettingsDialog", "cancel_clicked")
-        if not self.local_only and not self.onion.is_authenticated():
+        if not self.common.gui.local_only and not self.common.gui.onion.is_authenticated():
             Alert(
                 self.common,
                 strings._("gui_tor_connection_canceled"),
@@ -1301,7 +1294,7 @@ class SettingsDialog(QtWidgets.QDialog):
         Return a Settings object that's full of values from the settings dialog.
         """
         self.common.log("SettingsDialog", "settings_from_fields")
-        settings = Settings(self.common, self.config)
+        settings = Settings(self.common, self.common.gui.config)
         settings.load()  # To get the last update timestamp
 
         settings.set(
@@ -1448,14 +1441,14 @@ class SettingsDialog(QtWidgets.QDialog):
         self.common.log("SettingsDialog", "closeEvent")
 
         # On close, if Tor isn't connected, then quit OnionShare altogether
-        if not self.local_only:
-            if not self.onion.is_authenticated():
+        if not self.common.gui.local_only:
+            if not self.common.gui.onion.is_authenticated():
                 self.common.log(
                     "SettingsDialog", "closeEvent", "Closing while not connected to Tor"
                 )
 
                 # Wait 1ms for the event loop to finish, then quit
-                QtCore.QTimer.singleShot(1, self.qtapp.quit)
+                QtCore.QTimer.singleShot(1, self.common.gui.qtapp.quit)
 
     def _update_autoupdate_timestamp(self, autoupdate_timestamp):
         self.common.log("SettingsDialog", "_update_autoupdate_timestamp")
@@ -1473,7 +1466,7 @@ class SettingsDialog(QtWidgets.QDialog):
         self.tor_status.setText(
             f"<strong>{strings._('connecting_to_tor')}</strong><br>{progress}% {summary}"
         )
-        self.qtapp.processEvents()
+        self.common.gui.qtapp.processEvents()
         if "Done" in summary:
             self.tor_status.hide()
             self._enable_buttons()
@@ -1489,7 +1482,7 @@ class SettingsDialog(QtWidgets.QDialog):
     def _enable_buttons(self):
         self.common.log("SettingsDialog", "_enable_buttons")
         # We can't check for updates if we're still not connected to Tor
-        if not self.onion.connected_to_tor:
+        if not self.common.gui.onion.connected_to_tor:
             self.check_for_updates_button.setEnabled(False)
         else:
             self.check_for_updates_button.setEnabled(True)
