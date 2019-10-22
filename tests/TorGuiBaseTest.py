@@ -79,28 +79,24 @@ class TorGuiBaseTest(GuiBaseTest):
         (socks_address, socks_port) = self.gui.app.onion.get_tor_socks_port()
         session = requests.session()
         session.proxies = {}
-        session.proxies["http"] = "socks5h://{}:{}".format(socks_address, socks_port)
+        session.proxies["http"] = f"socks5h://{socks_address}:{socks_port}"
 
         if type(mode) == ReceiveMode:
             # Upload a file
             files = {"file[]": open("/tmp/test.txt", "rb")}
             if not public_mode:
-                path = "http://{}/{}/upload".format(
-                    self.gui.app.onion_host, mode.web.password
-                )
+                path = f"http://{self.gui.app.onion_host}/{mode.web.password}/upload"
             else:
-                path = "http://{}/upload".format(self.gui.app.onion_host)
+                path = f"http://{self.gui.app.onion_host}/upload"
             response = session.post(path, files=files)
             QtTest.QTest.qWait(4000)
 
         if type(mode) == ShareMode:
             # Download files
             if public_mode:
-                path = "http://{}/download".format(self.gui.app.onion_host)
+                path = f"http://{self.gui.app.onion_host}/download"
             else:
-                path = "http://{}/{}/download".format(
-                    self.gui.app.onion_host, mode.web.password
-                )
+                path = f"http://{self.gui.app.onion_host}/{mode.web.password}/download"
             response = session.get(path)
             QtTest.QTest.qWait(4000)
 
@@ -124,11 +120,11 @@ class TorGuiBaseTest(GuiBaseTest):
         s.settimeout(60)
         s.connect((self.gui.app.onion_host, 80))
         if not public_mode:
-            path = "/{}".format(mode.server_status.web.password)
+            path = f"/{mode.server_status.web.password}"
         else:
             path = "/"
-        http_request = "GET {} HTTP/1.0\r\n".format(path)
-        http_request += "Host: {}\r\n".format(self.gui.app.onion_host)
+        http_request = f"GET {path} HTTP/1.0\r\n"
+        http_request += f"Host: {self.gui.app.onion_host}\r\n"
         http_request += "\r\n"
         s.sendall(http_request.encode("utf-8"))
         with open("/tmp/webpage", "wb") as file_to_write:
@@ -151,15 +147,11 @@ class TorGuiBaseTest(GuiBaseTest):
         )
         clipboard = self.gui.qtapp.clipboard()
         if public_mode:
-            self.assertEqual(
-                clipboard.text(), "http://{}".format(self.gui.app.onion_host)
-            )
+            self.assertEqual(clipboard.text(), f"http://{self.gui.app.onion_host}")
         else:
             self.assertEqual(
                 clipboard.text(),
-                "http://{}/{}".format(
-                    self.gui.app.onion_host, mode.server_status.web.password
-                ),
+                f"http://{self.gui.app.onion_host}/{mode.server_status.web.password}",
             )
 
     # Stealth tests

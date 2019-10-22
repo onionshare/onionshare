@@ -340,8 +340,8 @@ class ZipWriter(object):
         if zip_filename:
             self.zip_filename = zip_filename
         else:
-            self.zip_filename = "{0:s}/onionshare_{1:s}.zip".format(
-                tempfile.mkdtemp(), self.common.random_string(4, 6)
+            self.zip_filename = (
+                f"{tempfile.mkdtemp()}/onionshare_{self.common.random_string(4, 6)}.zip"
             )
 
         self.z = zipfile.ZipFile(self.zip_filename, "w", allowZip64=True)

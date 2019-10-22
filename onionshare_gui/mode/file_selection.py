@@ -171,7 +171,7 @@ class FileList(QtWidgets.QListWidget):
         if event.mimeData().hasUrls:
             self.setStyleSheet(self.common.css["share_file_list_drag_enter"])
             count = len(event.mimeData().urls())
-            self.drop_count.setText("+{}".format(count))
+            self.drop_count.setText(f"+{count}")
 
             size_hint = self.drop_count.sizeHint()
             self.drop_count.setGeometry(

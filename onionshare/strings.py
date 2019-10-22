@@ -36,7 +36,7 @@ def load_strings(common):
     translations = {}
     for locale in common.settings.available_locales:
         locale_dir = common.get_resource_path("locale")
-        filename = os.path.join(locale_dir, "{}.json".format(locale))
+        filename = os.path.join(locale_dir, f"{locale}.json")
         with open(filename, encoding="utf-8") as f:
             translations[locale] = json.load(f)
 

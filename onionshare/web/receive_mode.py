@@ -38,7 +38,7 @@ class ReceiveModeWeb:
             self.cur_history_id += 1
             self.web.add_request(
                 self.web.REQUEST_INDIVIDUAL_FILE_STARTED,
-                "{}".format(request.path),
+                request.path,
                 {"id": history_id, "status_code": 200},
             )
 
@@ -79,11 +79,9 @@ class ReceiveModeWeb:
                     self.common.log(
                         "ReceiveModeWeb",
                         "define_routes",
-                        "/upload, uploaded {}, saving to {}".format(
-                            f.filename, local_path
-                        ),
+                        f"/upload, uploaded {f.filename}, saving to {local_path}",
                     )
-                    print("\n" + "Received: {}".format(local_path))
+                    print(f"\nReceived: {local_path}")
 
             if request.upload_error:
                 self.common.log(
@@ -98,9 +96,7 @@ class ReceiveModeWeb:
                     {"receive_mode_dir": request.receive_mode_dir},
                 )
                 print(
-                    "Could not create OnionShare data folder: {}".format(
-                        request.receive_mode_dir
-                    )
+                    f"Could not create OnionShare data folder: {request.receive_mode_dir}"
                 )
 
                 msg = "Error uploading, please inform the OnionShare user"
@@ -124,7 +120,7 @@ class ReceiveModeWeb:
             else:
                 msg = "Sent "
                 for filename in filenames:
-                    msg += "{}, ".format(filename)
+                    msg += f"{filename}, "
                 msg = msg.rstrip(", ")
                 if ajax:
                     info_flashes.append(msg)
@@ -191,7 +187,7 @@ class ReceiveModeFile(object):
         self.onionshare_close_func = close_func
 
         self.filename = os.path.join(self.onionshare_request.receive_mode_dir, filename)
-        self.filename_in_progress = "{}.part".format(self.filename)
+        self.filename_in_progress = f"{self.filename}.part"
 
         # Open the file
         self.upload_error = False
@@ -309,7 +305,7 @@ class ReceiveModeRequest(Request):
                     # Keep going until we find a directory name that's available
                     i = 1
                     while True:
-                        new_receive_mode_dir = "{}-{}".format(self.receive_mode_dir, i)
+                        new_receive_mode_dir = f"{self.receive_mode_dir}-{i}"
                         try:
                             os.makedirs(new_receive_mode_dir, 0o700, exist_ok=False)
                             self.receive_mode_dir = new_receive_mode_dir
@@ -333,9 +329,7 @@ class ReceiveModeRequest(Request):
                     {"receive_mode_dir": self.receive_mode_dir},
                 )
                 print(
-                    "Could not create OnionShare data folder: {}".format(
-                        self.receive_mode_dir
-                    )
+                    f"Could not create OnionShare data folder: {self.receive_mode_dir}"
                 )
                 self.web.common.log(
                     "ReceiveModeRequest",
@@ -460,12 +454,7 @@ class ReceiveModeRequest(Request):
                 self.previous_file = filename
 
             print(
-                "\r=> {:15s} {}".format(
-                    self.web.common.human_readable_filesize(
-                        self.progress[filename]["uploaded_bytes"]
-                    ),
-                    filename,
-                ),
+                f"\r=> {self.web.common.human_readable_filesize(self.progress[filename]['uploaded_bytes'])} {filename}",
                 end="",
             )
 

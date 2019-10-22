@@ -105,7 +105,7 @@ class GuiShareTest(GuiBaseTest):
 
     def download_share(self, public_mode):
         """Test that we can download the share"""
-        url = "http://127.0.0.1:{}/download".format(self.gui.app.port)
+        url = f"http://127.0.0.1:{self.gui.app.port}/download"
         if public_mode:
             r = requests.get(url)
         else:
@@ -126,8 +126,8 @@ class GuiShareTest(GuiBaseTest):
 
     def individual_file_is_viewable_or_not(self, public_mode, stay_open):
         """Test whether an individual file is viewable (when in stay_open mode) and that it isn't (when not in stay_open mode)"""
-        url = "http://127.0.0.1:{}".format(self.gui.app.port)
-        download_file_url = "http://127.0.0.1:{}/test.txt".format(self.gui.app.port)
+        url = f"http://127.0.0.1:{self.gui.app.port}"
+        download_file_url = f"http://127.0.0.1:{self.gui.app.port}/test.txt"
         if public_mode:
             r = requests.get(url)
         else:
@@ -175,7 +175,7 @@ class GuiShareTest(GuiBaseTest):
 
     def hit_401(self, public_mode):
         """Test that the server stops after too many 401s, or doesn't when in public_mode"""
-        url = "http://127.0.0.1:{}/".format(self.gui.app.port)
+        url = f"http://127.0.0.1:{self.gui.app.port}/"
 
         for _ in range(20):
             password_guess = self.gui.common.build_password()
