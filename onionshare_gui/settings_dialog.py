@@ -672,7 +672,7 @@ class SettingsDialog(QtWidgets.QDialog):
             strings._("gui_settings_button_cancel")
         )
         self.cancel_button.clicked.connect(self.cancel_clicked)
-        version_label = QtWidgets.QLabel("OnionShare {0:s}".format(self.common.version))
+        version_label = QtWidgets.QLabel(f"OnionShare {self.common.version}")
         version_label.setStyleSheet(self.common.css["settings_version"])
         self.help_button = QtWidgets.QPushButton(strings._("gui_settings_button_help"))
         self.help_button.clicked.connect(self.help_clicked)
@@ -1040,7 +1040,7 @@ class SettingsDialog(QtWidgets.QDialog):
             self.common.log(
                 "SettingsDialog",
                 "data_dir_button_clicked",
-                "selected dir: {}".format(selected_dir),
+                f"selected dir: {selected_dir}",
             )
             self.data_dir_lineedit.setText(selected_dir)
 
@@ -1255,9 +1255,7 @@ class SettingsDialog(QtWidgets.QDialog):
                     self.common.log(
                         "SettingsDialog",
                         "save_clicked",
-                        "Onion done rebooting, connected to Tor: {}".format(
-                            self.onion.connected_to_tor
-                        ),
+                        f"Onion done rebooting, connected to Tor: {self.onion.connected_to_tor}",
                     )
 
                     if self.onion.is_authenticated() and not tor_con.wasCanceled():
@@ -1473,9 +1471,7 @@ class SettingsDialog(QtWidgets.QDialog):
 
     def _tor_status_update(self, progress, summary):
         self.tor_status.setText(
-            "<strong>{}</strong><br>{}% {}".format(
-                strings._("connecting_to_tor"), progress, summary
-            )
+            f"<strong>{strings._('connecting_to_tor')}</strong><br>{progress}% {summary}"
         )
         self.qtapp.processEvents()
         if "Done" in summary:

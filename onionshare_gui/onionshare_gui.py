@@ -655,22 +655,17 @@ class OnionShareGui(QtWidgets.QMainWindow):
                 )
 
             if event["type"] == Web.REQUEST_OTHER:
-                if event["path"] != "/favicon.ico" and event[
-                    "path"
-                ] != "/{}/shutdown".format(mode.web.shutdown_password):
+                if (
+                    event["path"] != "/favicon.ico"
+                    and event["path"] != f"/{mode.web.shutdown_password}/shutdown"
+                ):
                     self.status_bar.showMessage(
-                        "{0:s}: {1:s}".format(
-                            strings._("other_page_loaded"), event["path"]
-                        )
+                        f"{strings._('other_page_loaded')}: {event['path']}"
                     )
 
             if event["type"] == Web.REQUEST_INVALID_PASSWORD:
                 self.status_bar.showMessage(
-                    "[#{0:d}] {1:s}: {2:s}".format(
-                        mode.web.invalid_passwords_count,
-                        strings._("incorrect_password"),
-                        event["data"],
-                    )
+                    f"[#{mode.web.invalid_passwords_count}] {strings._('incorrect_password')}: {event['data']}"
                 )
 
         mode.timer_callback()

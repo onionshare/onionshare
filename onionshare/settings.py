@@ -190,9 +190,7 @@ class Settings(object):
         # If the settings file exists, load it
         if os.path.exists(self.filename):
             try:
-                self.common.log(
-                    "Settings", "load", "Trying to load {}".format(self.filename)
-                )
+                self.common.log("Settings", "load", f"Trying to load {self.filename}")
                 with open(self.filename, "r") as f:
                     self._settings = json.load(f)
                     self.fill_in_defaults()
@@ -211,9 +209,7 @@ class Settings(object):
         """
         self.common.log("Settings", "save")
         open(self.filename, "w").write(json.dumps(self._settings, indent=2))
-        self.common.log(
-            "Settings", "save", "Settings saved in {}".format(self.filename)
-        )
+        self.common.log("Settings", "save", f"Settings saved in {self.filename}")
 
     def get(self, key):
         return self._settings[key]

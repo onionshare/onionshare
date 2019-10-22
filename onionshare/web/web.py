@@ -62,15 +62,13 @@ class Web:
 
     def __init__(self, common, is_gui, mode="share"):
         self.common = common
-        self.common.log("Web", "__init__", "is_gui={}, mode={}".format(is_gui, mode))
+        self.common.log("Web", "__init__", f"is_gui={is_gui}, mode={mode}")
 
         # The flask app
         self.app = Flask(
             __name__,
             static_folder=self.common.get_resource_path("static"),
-            static_url_path="/static_".format(
-                self.common.random_string(16)
-            ),  # randomize static_url_path to avoid making /static unusable
+            static_url_path=f"/static_{self.common.random_string(16)}",  # randomize static_url_path to avoid making /static unusable
             template_folder=self.common.get_resource_path("templates"),
         )
         self.app.secret_key = self.common.random_string(8)
@@ -154,11 +152,11 @@ class Web:
     def generate_static_url_path(self):
         # The static URL path has a 128-bit random number in it to avoid having name
         # collisions with files that might be getting shared
-        self.static_url_path = "/static_{}".format(self.common.random_string(16))
+        self.static_url_path = f"/static_{self.common.random_string(16)}"
         self.common.log(
             "Web",
             "generate_static_url_path",
-            "new static_url_path is {}".format(self.static_url_path),
+            f"new static_url_path is {self.static_url_path}",
         )
 
         # Update the flask route to handle the new static URL path
@@ -218,7 +216,7 @@ class Web:
             @self.app.route("/favicon.ico")
             def favicon():
                 return send_file(
-                    "{}/img/favicon.ico".format(self.common.get_resource_path("static"))
+                    f"{self.common.get_resource_path('static')}/img/favicon.ico"
                 )
 
     def error401(self):
@@ -228,7 +226,7 @@ class Web:
                 auth["username"] == "onionshare"
                 and auth["password"] not in self.invalid_passwords
             ):
-                print("Invalid password guess: {}".format(auth["password"]))
+                print(f"Invalid password guess: {auth['password']}")
                 self.add_request(Web.REQUEST_INVALID_PASSWORD, data=auth["password"])
 
                 self.invalid_passwords.append(auth["password"])
@@ -256,7 +254,7 @@ class Web:
     def error404(self, history_id):
         self.add_request(
             self.REQUEST_INDIVIDUAL_FILE_STARTED,
-            "{}".format(request.path),
+            request.path,
             {"id": history_id, "status_code": 404},
         )
 
@@ -269,7 +267,7 @@ class Web:
     def error405(self, history_id):
         self.add_request(
             self.REQUEST_INDIVIDUAL_FILE_STARTED,
-            "{}".format(request.path),
+            request.path,
             {"id": history_id, "status_code": 405},
         )
 
@@ -309,23 +307,19 @@ class Web:
 
     def generate_password(self, persistent_password=None):
         self.common.log(
-            "Web",
-            "generate_password",
-            "persistent_password={}".format(persistent_password),
+            "Web", "generate_password", f"persistent_password={persistent_password}"
         )
         if persistent_password != None and persistent_password != "":
             self.password = persistent_password
             self.common.log(
                 "Web",
                 "generate_password",
-                'persistent_password sent, so password is: "{}"'.format(self.password),
+                f'persistent_password sent, so password is: "{self.password}"',
             )
         else:
             self.password = self.common.build_password()
             self.common.log(
-                "Web",
-                "generate_password",
-                'built random password: "{}"'.format(self.password),
+                "Web", "generate_password", f'built random password: "{self.password}"'
             )
 
     def verbose_mode(self):
@@ -362,9 +356,7 @@ class Web:
         self.common.log(
             "Web",
             "start",
-            "port={}, stay_open={}, public_mode={}, password={}".format(
-                port, stay_open, public_mode, password
-            ),
+            f"port={port}, stay_open={stay_open}, public_mode={public_mode}, password={password}",
         )
 
         self.stay_open = stay_open
@@ -398,7 +390,7 @@ class Web:
         # (We're putting the shutdown_password in the path as well to make routing simpler)
         if self.running:
             requests.get(
-                "http://127.0.0.1:{}/{}/shutdown".format(port, self.shutdown_password),
+                f"http://127.0.0.1:{port}/{self.shutdown_password}/shutdown",
                 auth=requests.auth.HTTPBasicAuth("onionshare", self.password),
             )
 

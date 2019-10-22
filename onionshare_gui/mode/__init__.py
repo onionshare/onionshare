@@ -119,18 +119,10 @@ class Mode(QtWidgets.QWidget):
         if not seconds:
             seconds = "0"
         result = (
-            ("{0}{1}, ".format(days, strings._("days_first_letter")) if days else "")
-            + (
-                "{0}{1}, ".format(hours, strings._("hours_first_letter"))
-                if hours
-                else ""
-            )
-            + (
-                "{0}{1}, ".format(minutes, strings._("minutes_first_letter"))
-                if minutes
-                else ""
-            )
-            + "{0}{1}".format(seconds, strings._("seconds_first_letter"))
+            (f"{days}{strings._('days_first_letter')}, " if days else "")
+            + (f"{hours}{strings._('hours_first_letter')}, " if hours else "")
+            + (f"{minutes}{strings._('minutes_first_letter')}, " if minutes else "")
+            + f"{seconds}{strings._('seconds_first_letter')}"
         )
 
         return result

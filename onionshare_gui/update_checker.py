@@ -71,7 +71,7 @@ class UpdateChecker(QtCore.QObject):
         self.config = config
 
     def check(self, force=False, config=False):
-        self.common.log("UpdateChecker", "check", "force={}".format(force))
+        self.common.log("UpdateChecker", "check", f"force={force}")
         # Load the settings
         settings = Settings(self.common, config)
         settings.load()
@@ -100,9 +100,7 @@ class UpdateChecker(QtCore.QObject):
             # Download the latest-version file over Tor
             try:
                 # User agent string includes OnionShare version and platform
-                user_agent = "OnionShare {}, {}".format(
-                    self.common.version, self.common.platform
-                )
+                user_agent = f"OnionShare {self.common.version}, {self.common.platform}"
 
                 # If the update is forced, add '?force=1' to the URL, to more
                 # accurately measure daily users
@@ -118,9 +116,7 @@ class UpdateChecker(QtCore.QObject):
                     onion_domain = "elx57ue5uyfplgva.onion"
 
                 self.common.log(
-                    "UpdateChecker",
-                    "check",
-                    "loading http://{}{}".format(onion_domain, path),
+                    "UpdateChecker", "check", f"loading http://{onion_domain}{path}"
                 )
 
                 (socks_address, socks_port) = self.onion.get_tor_socks_port()
@@ -130,9 +126,9 @@ class UpdateChecker(QtCore.QObject):
                 s.settimeout(15)  # 15 second timeout
                 s.connect((onion_domain, 80))
 
-                http_request = "GET {} HTTP/1.0\r\n".format(path)
-                http_request += "Host: {}\r\n".format(onion_domain)
-                http_request += "User-Agent: {}\r\n".format(user_agent)
+                http_request = f"GET {path} HTTP/1.0\r\n"
+                http_request += f"Host: {onion_domain}\r\n"
+                http_request += f"User-Agent: {user_agent}\r\n"
                 http_request += "\r\n"
                 s.sendall(http_request.encode("utf-8"))
 
@@ -146,11 +142,11 @@ class UpdateChecker(QtCore.QObject):
                 self.common.log(
                     "UpdateChecker",
                     "check",
-                    "latest OnionShare version: {}".format(latest_version),
+                    f"latest OnionShare version: {latest_version}",
                 )
 
             except Exception as e:
-                self.common.log("UpdateChecker", "check", "{}".format(e))
+                self.common.log("UpdateChecker", "check", str(e))
                 self.update_error.emit()
                 raise UpdateCheckerCheckError
 
@@ -174,9 +170,7 @@ class UpdateChecker(QtCore.QObject):
             settings.save()
 
             # Do we need to update?
-            update_url = "https://github.com/micahflee/onionshare/releases/tag/v{}".format(
-                latest_version
-            )
+            update_url = f"https://github.com/micahflee/onionshare/releases/tag/v{latest_version}"
             installed_version = self.common.version
             if installed_version < latest_version:
                 self.update_available.emit(
@@ -217,7 +211,7 @@ class UpdateThread(QtCore.QThread):
             u.check(config=self.config, force=self.force)
         except Exception as e:
             # If update check fails, silently ignore
-            self.common.log("UpdateThread", "run", "{}".format(e))
+            self.common.log("UpdateThread", "run", str(e))
             pass
 
     def _update_available(self, update_url, installed_version, latest_version):
