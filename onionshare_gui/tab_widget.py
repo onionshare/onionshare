@@ -37,7 +37,11 @@ class TabWidget(QtWidgets.QTabWidget):
         self.system_tray = system_tray
         self.status_bar = status_bar
 
-        # Definte the new tab button
+        # Keep track of tabs in a dictionary
+        self.tabs = {}
+        self.tab_id = 0  # each tab has a unique id
+
+        # Define the new tab button
         self.new_tab_button = QtWidgets.QPushButton("+", parent=self)
         self.new_tab_button.setFlat(True)
         self.new_tab_button.setAutoFillBackground(True)
@@ -83,10 +87,19 @@ class TabWidget(QtWidgets.QTabWidget):
         self.move_new_tab_button()
 
     def new_tab_clicked(self):
-        # Add a new tab
-        tab = Tab(self.common, self.system_tray, self.status_bar)
+        # Create the tab
+        tab = Tab(self.common, self.tab_id, self.system_tray, self.status_bar)
+        tab.change_title.connect(self.change_title)
+        self.tabs[self.tab_id] = tab
+        self.tab_id += 1
+
+        # Add it
         index = self.addTab(tab, "New Tab")
         self.setCurrentIndex(index)
+
+    def change_title(self, tab_id, title):
+        index = self.indexOf(self.tabs[tab_id])
+        self.setTabText(index, title)
 
 
 class TabBar(QtWidgets.QTabBar):
