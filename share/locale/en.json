@@ -30,11 +30,6 @@
     "gui_copied_hidservauth": "HidServAuth line copied to clipboard",
     "gui_waiting_to_start": "Scheduled to start in {}. Click to cancel.",
     "gui_please_wait": "Starting… Click to cancel.",
-    "gui_quit_title": "Not so fast",
-    "gui_share_quit_warning": "You're in the process of sending files. Are you sure you want to quit OnionShare?",
-    "gui_receive_quit_warning": "You're in the process of receiving files. Are you sure you want to quit OnionShare?",
-    "gui_quit_warning_quit": "Quit",
-    "gui_quit_warning_dont_quit": "Cancel",
     "error_rate_limit": "Someone has made too many wrong attempts to guess your password, so OnionShare has stopped the server. Start sharing again and send the recipient a new address to share.",
     "zip_progress_bar_format": "Compressing: %p%",
     "error_stealth_not_supported": "To use client authorization, you need at least both Tor 0.2.9.1-alpha (or Tor Browser 6.5) and python3-stem 1.5.0.",
@@ -194,5 +189,9 @@
     "gui_close_tab_warning_receive_description": "You're in the process of receiving files. Are you sure you want to close this tab?",
     "gui_close_tab_warning_website_description": "You're actively hosting a website. Are you sure you want to close this tab?",
     "gui_close_tab_warning_close": "Close",
-    "gui_close_tab_warning_cancel": "Cancel"
+    "gui_close_tab_warning_cancel": "Cancel",
+    "gui_quit_warning_title": "Are you sure?",
+    "gui_quit_warning_description": "Sharing is active in some of your tabs. If you quit, all of your tabs will close. Are you sure you want to quit?",
+    "gui_quit_warning_quit": "Quit",
+    "gui_quit_warning_cancel": "Cancel"
 }
