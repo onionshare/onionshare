@@ -50,6 +50,12 @@ class GuiCommon:
 
         self.css = {
             # OnionShareGui styles
+            "new_tab_button": """
+                QPushButton {
+                    font-weight: bold;
+                    font-size: 30px;
+                    color: #601f61;
+                }""",
             "mode_switcher_selected_style": """
                 QPushButton {
                     color: #ffffff;

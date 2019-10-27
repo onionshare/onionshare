@@ -179,5 +179,11 @@
     "days_first_letter": "d",
     "hours_first_letter": "h",
     "minutes_first_letter": "m",
-    "seconds_first_letter": "s"
+    "seconds_first_letter": "s",
+    "gui_new_tab_share_button": "Share Files",
+    "gui_new_tab_share_description": "Choose files on your computer to send to someone else. The person or people who you want to send files to will need to use Tor Browser to download them from you.",
+    "gui_new_tab_receive_button": "Receive Files",
+    "gui_new_tab_receive_description": "Turn your computer into an online dropbox. People will be able to use Tor Browser to send files to your computer.",
+    "gui_new_tab_website_button": "Publish Website",
+    "gui_new_tab_website_description": "Host a static HTML onion website from your computer."
 }
