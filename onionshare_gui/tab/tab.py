@@ -50,7 +50,7 @@ class Tab(QtWidgets.QWidget):
         self.status_bar = status_bar
         self.filenames = filenames
 
-        self.mode = self.common.gui.MODE_SHARE
+        self.mode = None
 
         # Start the OnionShare app
         self.app = OnionShare(common, self.common.gui.onion, self.common.gui.local_only)
@@ -511,44 +511,57 @@ class Tab(QtWidgets.QWidget):
         """
         self.status_bar.clearMessage()
 
-    def close_event(self, e):
-        self.common.log("Tab", "close_event")
-        try:
-            if self.mode == self.common.gui.MODE_WEBSITE:
-                server_status = self.share_mode.server_status
-            if self.mode == self.common.gui.MODE_WEBSITE:
-                server_status = self.website_mode.server_status
+    def close_tab(self):
+        self.common.log("Tab", "close_tab")
+        if self.mode is None:
+            return True
+
+        if self.mode == self.common.gui.MODE_SHARE:
+            server_status = self.share_mode.server_status
+        elif self.mode == self.common.gui.MODE_RECEIVE:
+            server_status = self.receive_mode.server_status
+        else:
+            server_status = self.website_mode.server_status
+
+        if server_status.status == server_status.STATUS_STOPPED:
+            return True
+        else:
+            self.common.log("Tab", "close_tab, opening warning dialog")
+            dialog = QtWidgets.QMessageBox()
+            dialog.setWindowTitle(strings._("gui_close_tab_warning_title"))
+            if self.mode == self.common.gui.MODE_SHARE:
+                dialog.setText(strings._("gui_close_tab_warning_share_description"))
+            elif self.mode == self.common.gui.MODE_RECEIVE:
+                dialog.setText(strings._("gui_close_tab_warning_receive_description"))
             else:
-                server_status = self.receive_mode.server_status
-            if server_status.status != server_status.STATUS_STOPPED:
-                self.common.log("MainWindow", "closeEvent, opening warning dialog")
-                dialog = QtWidgets.QMessageBox()
-                dialog.setWindowTitle(strings._("gui_quit_title"))
-                if self.mode == self.common.gui.MODE_WEBSITE:
-                    dialog.setText(strings._("gui_share_quit_warning"))
-                else:
-                    dialog.setText(strings._("gui_receive_quit_warning"))
-                dialog.setIcon(QtWidgets.QMessageBox.Critical)
-                quit_button = dialog.addButton(
-                    strings._("gui_quit_warning_quit"), QtWidgets.QMessageBox.YesRole
-                )
-                dont_quit_button = dialog.addButton(
-                    strings._("gui_quit_warning_dont_quit"),
-                    QtWidgets.QMessageBox.NoRole,
-                )
-                dialog.setDefaultButton(dont_quit_button)
-                reply = dialog.exec_()
+                dialog.setText(strings._("gui_close_tab_warning_website_description"))
+            dialog.setIcon(QtWidgets.QMessageBox.Critical)
+            dialog.addButton(
+                strings._("gui_close_tab_warning_close"), QtWidgets.QMessageBox.YesRole
+            )
+            cancel_button = dialog.addButton(
+                strings._("gui_close_tab_warning_cancel"), QtWidgets.QMessageBox.NoRole
+            )
+            dialog.setDefaultButton(cancel_button)
+            reply = dialog.exec_()
 
-                # Quit
-                if reply == 0:
-                    self.stop_server()
-                    e.accept()
-                # Don't Quit
-                else:
-                    e.ignore()
+            # Close
+            if reply == 0:
+                self.common.log("Tab", "close_tab", "close, closing tab")
 
-        except:
-            e.accept()
+                if self.mode == self.common.gui.MODE_SHARE:
+                    self.share_mode.stop_server()
+                elif self.mode == self.common.gui.MODE_RECEIVE:
+                    self.receive_mode.stop_server()
+                else:
+                    self.website_mode.stop_server()
+
+                self.app.cleanup()
+                return True
+            # Cancel
+            else:
+                self.common.log("Tab", "close_tab", "cancel, keeping tab open")
+                return False
 
     def cleanup(self):
         self.app.cleanup()
