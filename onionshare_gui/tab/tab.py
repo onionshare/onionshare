@@ -38,7 +38,7 @@ class Tab(QtWidgets.QWidget):
     A GUI tab, you know, sort of like in a web browser
     """
 
-    def __init__(self, common, system_tray, status_bar, filenames):
+    def __init__(self, common, system_tray, status_bar, filenames=None):
         super(Tab, self).__init__()
         self.common = common
         self.common.log("Tab", "__init__")
