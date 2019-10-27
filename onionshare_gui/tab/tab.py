@@ -117,7 +117,7 @@ class Tab(QtWidgets.QWidget):
         self.timer.timeout.connect(self.timer_callback)
 
         # Settings for this tab
-        self.tab_settings = {"persistence": False}
+        self.tab_settings = {"persistent": False}
 
         # Persistence button
         self.persistence_button = QtWidgets.QPushButton()
@@ -502,15 +502,15 @@ class Tab(QtWidgets.QWidget):
 
     def persistence_button_clicked(self):
         self.common.log("Tab", "persistence_button_clicked")
-        if self.tab_settings["persistence"]:
-            self.tab_settings["persistence"] = False
+        if self.tab_settings["persistent"]:
+            self.tab_settings["persistent"] = False
         else:
-            self.tab_settings["persistence"] = True
+            self.tab_settings["persistent"] = True
         self.update_persistence_button()
 
     def update_persistence_button(self):
         self.common.log("Tab", "update_persistence_button")
-        if self.tab_settings["persistence"]:
+        if self.tab_settings["persistent"]:
             self.persistence_button.setIcon(
                 QtGui.QIcon(
                     self.common.get_resource_path("images/persistent_enabled.png")
@@ -528,52 +528,58 @@ class Tab(QtWidgets.QWidget):
         if self.mode is None:
             return True
 
-        if self.mode == self.common.gui.MODE_SHARE:
-            server_status = self.share_mode.server_status
-        elif self.mode == self.common.gui.MODE_RECEIVE:
-            server_status = self.receive_mode.server_status
+        if self.tab_settings["persistent"]:
+            dialog_text = strings._("gui_close_tab_warning_persistent_description")
         else:
-            server_status = self.website_mode.server_status
-
-        if server_status.status == server_status.STATUS_STOPPED:
-            return True
-        else:
-            self.common.log("Tab", "close_tab, opening warning dialog")
-            dialog = QtWidgets.QMessageBox()
-            dialog.setWindowTitle(strings._("gui_close_tab_warning_title"))
             if self.mode == self.common.gui.MODE_SHARE:
-                dialog.setText(strings._("gui_close_tab_warning_share_description"))
+                server_status = self.share_mode.server_status
             elif self.mode == self.common.gui.MODE_RECEIVE:
-                dialog.setText(strings._("gui_close_tab_warning_receive_description"))
+                server_status = self.receive_mode.server_status
             else:
-                dialog.setText(strings._("gui_close_tab_warning_website_description"))
-            dialog.setIcon(QtWidgets.QMessageBox.Critical)
-            dialog.addButton(
-                strings._("gui_close_tab_warning_close"), QtWidgets.QMessageBox.YesRole
-            )
-            cancel_button = dialog.addButton(
-                strings._("gui_close_tab_warning_cancel"), QtWidgets.QMessageBox.NoRole
-            )
-            dialog.setDefaultButton(cancel_button)
-            reply = dialog.exec_()
+                server_status = self.website_mode.server_status
 
-            # Close
-            if reply == 0:
-                self.common.log("Tab", "close_tab", "close, closing tab")
-
-                if self.mode == self.common.gui.MODE_SHARE:
-                    self.share_mode.stop_server()
-                elif self.mode == self.common.gui.MODE_RECEIVE:
-                    self.receive_mode.stop_server()
-                else:
-                    self.website_mode.stop_server()
-
-                self.app.cleanup()
+            if server_status.status == server_status.STATUS_STOPPED:
                 return True
-            # Cancel
             else:
-                self.common.log("Tab", "close_tab", "cancel, keeping tab open")
-                return False
+                if self.mode == self.common.gui.MODE_SHARE:
+                    dialog_text = strings._("gui_close_tab_warning_share_description")
+                elif self.mode == self.common.gui.MODE_RECEIVE:
+                    dialog_text = strings._("gui_close_tab_warning_receive_description")
+                else:
+                    dialog_text = strings._("gui_close_tab_warning_website_description")
+
+        # Open the warning dialog
+        self.common.log("Tab", "close_tab, opening warning dialog")
+        dialog = QtWidgets.QMessageBox()
+        dialog.setWindowTitle(strings._("gui_close_tab_warning_title"))
+        dialog.setText(dialog_text)
+        dialog.setIcon(QtWidgets.QMessageBox.Critical)
+        dialog.addButton(
+            strings._("gui_close_tab_warning_close"), QtWidgets.QMessageBox.YesRole
+        )
+        cancel_button = dialog.addButton(
+            strings._("gui_close_tab_warning_cancel"), QtWidgets.QMessageBox.NoRole
+        )
+        dialog.setDefaultButton(cancel_button)
+        reply = dialog.exec_()
+
+        # Close
+        if reply == 0:
+            self.common.log("Tab", "close_tab", "close, closing tab")
+
+            if self.mode == self.common.gui.MODE_SHARE:
+                self.share_mode.stop_server()
+            elif self.mode == self.common.gui.MODE_RECEIVE:
+                self.receive_mode.stop_server()
+            else:
+                self.website_mode.stop_server()
+
+            self.app.cleanup()
+            return True
+        # Cancel
+        else:
+            self.common.log("Tab", "close_tab", "cancel, keeping tab open")
+            return False
 
     def cleanup(self):
         self.app.cleanup()
