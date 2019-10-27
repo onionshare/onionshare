@@ -268,8 +268,32 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def closeEvent(self, e):
         self.common.log("MainWindow", "closeEvent")
+
+        if self.tabs.are_tabs_active():
+            # Open the warning dialog
+            dialog = QtWidgets.QMessageBox()
+            dialog.setWindowTitle(strings._("gui_quit_warning_title"))
+            dialog.setText(strings._("gui_quit_warning_description"))
+            dialog.setIcon(QtWidgets.QMessageBox.Critical)
+            dialog.addButton(
+                strings._("gui_quit_warning_quit"), QtWidgets.QMessageBox.YesRole
+            )
+            cancel_button = dialog.addButton(
+                strings._("gui_quit_warning_cancel"), QtWidgets.QMessageBox.NoRole
+            )
+            dialog.setDefaultButton(cancel_button)
+            reply = dialog.exec_()
+
+            # Close
+            if reply == 0:
+                self.system_tray.hide()
+                e.accept()
+            # Cancel
+            else:
+                e.ignore()
+            return
+
         self.system_tray.hide()
-        # TODO: Run the tab's close_event
         e.accept()
 
     def cleanup(self):

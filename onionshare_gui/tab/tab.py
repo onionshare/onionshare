@@ -500,6 +500,14 @@ class Tab(QtWidgets.QWidget):
         """
         self.status_bar.clearMessage()
 
+    def get_mode(self):
+        if self.mode == self.common.gui.MODE_SHARE:
+            return self.share_mode
+        elif self.mode == self.common.gui.MODE_RECEIVE:
+            return self.receive_mode
+        else:
+            return self.website_mode
+
     def persistence_button_clicked(self):
         self.common.log("Tab", "persistence_button_clicked")
         if self.tab_settings["persistent"]:
@@ -531,13 +539,7 @@ class Tab(QtWidgets.QWidget):
         if self.tab_settings["persistent"]:
             dialog_text = strings._("gui_close_tab_warning_persistent_description")
         else:
-            if self.mode == self.common.gui.MODE_SHARE:
-                server_status = self.share_mode.server_status
-            elif self.mode == self.common.gui.MODE_RECEIVE:
-                server_status = self.receive_mode.server_status
-            else:
-                server_status = self.website_mode.server_status
-
+            server_status = self.get_mode().server_status
             if server_status.status == server_status.STATUS_STOPPED:
                 return True
             else:
@@ -566,14 +568,7 @@ class Tab(QtWidgets.QWidget):
         # Close
         if reply == 0:
             self.common.log("Tab", "close_tab", "close, closing tab")
-
-            if self.mode == self.common.gui.MODE_SHARE:
-                self.share_mode.stop_server()
-            elif self.mode == self.common.gui.MODE_RECEIVE:
-                self.receive_mode.stop_server()
-            else:
-                self.website_mode.stop_server()
-
+            self.get_mode().stop_server()
             self.app.cleanup()
             return True
         # Cancel

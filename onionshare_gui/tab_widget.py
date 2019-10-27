@@ -116,6 +116,16 @@ class TabWidget(QtWidgets.QTabWidget):
             if self.count() == 0:
                 self.new_tab_clicked()
 
+    def are_tabs_active(self):
+        """
+        See if there are active servers in any open tabs
+        """
+        for tab_id in self.tabs:
+            mode = self.tabs[tab_id].get_mode()
+            if mode.server_status.status != mode.server_status.STATUS_STOPPED:
+                return True
+        return False
+
     def resizeEvent(self, event):
         # Make sure to move new tab button on each resize
         super(TabWidget, self).resizeEvent(event)
