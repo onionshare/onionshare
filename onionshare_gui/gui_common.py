@@ -50,6 +50,16 @@ class GuiCommon:
 
         self.css = {
             # OnionShareGui styles
+            "tab_bar_new_tab": """
+                QTabBar::tab:last {
+                    border: 0;
+                    margin: 3px;
+                }""",
+            "tab_bar_new_tab_button": """
+                QToolButton {
+                    font-weight: bold;
+                    font-size: 20px;
+                }""",
             "new_tab_button": """
                 QPushButton {
                     font-weight: bold;

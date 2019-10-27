@@ -97,10 +97,24 @@ class MainWindow(QtWidgets.QMainWindow):
 
         # Tabs
         self.tabs = QtWidgets.QTabWidget()
+        self.tabs.setStyleSheet(self.common.gui.css["tab_bar_new_tab"])
+        self.tabs.setMovable(True)
+        self.tabs.setTabsClosable(True)
+        self.tabs.setUsesScrollButtons(True)
 
-        # Start with one tab
-        self.tab = Tab(self.common, self.system_tray, self.status_bar, filenames)
-        self.tabs.addTab(self.tab, "New Tab")
+        # New tab button
+        new_tab_button = QtWidgets.QToolButton()
+        new_tab_button.setStyleSheet(self.common.gui.css["tab_bar_new_tab_button"])
+        new_tab_button.setText("+")
+        new_tab_button.setAutoRaise(True)
+        self.tabs.insertTab(0, QtWidgets.QWidget(), "")
+        self.tabs.tabBar().setTabButton(0, QtWidgets.QTabBar.RightSide, new_tab_button)
+        self.tabs.tabBar().setTabToolTip(0, strings._("gui_new_tab_tooltip"))
+
+        # Start with a tab
+        new_tab = Tab(self.common, self.system_tray, self.status_bar, filenames)
+        self.tabs.insertTab(0, new_tab, strings._("gui_new_tab"))
+        self.tabs.setCurrentIndex(0)
 
         # Layout
         layout = QtWidgets.QVBoxLayout()
