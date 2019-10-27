@@ -38,11 +38,14 @@ class Tab(QtWidgets.QWidget):
     A GUI tab, you know, sort of like in a web browser
     """
 
-    def __init__(self, common, system_tray, status_bar, filenames=None):
+    change_title = QtCore.pyqtSignal(int, str)
+
+    def __init__(self, common, tab_id, system_tray, status_bar, filenames=None):
         super(Tab, self).__init__()
         self.common = common
         self.common.log("Tab", "__init__")
 
+        self.tab_id = tab_id
         self.system_tray = system_tray
         self.status_bar = status_bar
         self.filenames = filenames
@@ -173,6 +176,8 @@ class Tab(QtWidgets.QWidget):
         self.share_mode.server_status.hidservauth_copied.connect(self.copy_hidservauth)
         self.share_mode.set_server_active.connect(self.set_server_active)
 
+        self.change_title.emit(self.tab_id, strings._("gui_new_tab_share_button"))
+
         self.update_server_status_indicator()
         self.timer.start(500)
 
@@ -216,6 +221,8 @@ class Tab(QtWidgets.QWidget):
         )
         self.receive_mode.set_server_active.connect(self.set_server_active)
 
+        self.change_title.emit(self.tab_id, strings._("gui_new_tab_receive_button"))
+
         self.update_server_status_indicator()
         self.timer.start(500)
 
@@ -257,6 +264,8 @@ class Tab(QtWidgets.QWidget):
             self.copy_hidservauth
         )
         self.website_mode.set_server_active.connect(self.set_server_active)
+
+        self.change_title.emit(self.tab_id, strings._("gui_new_tab_website_button"))
 
         self.update_server_status_indicator()
         self.timer.start(500)
