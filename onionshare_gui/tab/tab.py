@@ -496,12 +496,15 @@ class Tab(QtWidgets.QWidget):
         self.status_bar.clearMessage()
 
     def get_mode(self):
-        if self.mode == self.common.gui.MODE_SHARE:
-            return self.share_mode
-        elif self.mode == self.common.gui.MODE_RECEIVE:
-            return self.receive_mode
+        if self.mode:
+            if self.mode == self.common.gui.MODE_SHARE:
+                return self.share_mode
+            elif self.mode == self.common.gui.MODE_RECEIVE:
+                return self.receive_mode
+            else:
+                return self.website_mode
         else:
-            return self.website_mode
+            return None
 
     def persistence_button_clicked(self):
         self.common.log("Tab", "persistence_button_clicked")
