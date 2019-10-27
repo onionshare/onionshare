@@ -45,28 +45,62 @@ class Tab(QtWidgets.QWidget):
 
         self.system_tray = system_tray
         self.status_bar = status_bar
+        self.filenames = filenames
 
         self.mode = self.common.gui.MODE_SHARE
 
         # Start the OnionShare app
         self.app = OnionShare(common, self.common.gui.onion, self.common.gui.local_only)
 
-        # Mode switcher, to switch between share files and receive files
-        self.share_mode_button = QtWidgets.QPushButton(
-            strings._("gui_mode_share_button")
+        # New tab widget
+        share_button = QtWidgets.QPushButton(strings._("gui_new_tab_share_button"))
+        share_button.setStyleSheet(self.common.gui.css["new_tab_button"])
+        share_description = QtWidgets.QLabel(strings._("gui_new_tab_share_description"))
+        share_description.setWordWrap(True)
+        share_button.clicked.connect(self.share_mode_clicked)
+
+        receive_button = QtWidgets.QPushButton(strings._("gui_new_tab_receive_button"))
+        receive_button.setStyleSheet(self.common.gui.css["new_tab_button"])
+        receive_button.clicked.connect(self.receive_mode_clicked)
+        receive_description = QtWidgets.QLabel(
+            strings._("gui_new_tab_receive_description")
         )
-        self.share_mode_button.setFixedHeight(50)
-        self.share_mode_button.clicked.connect(self.share_mode_clicked)
-        self.receive_mode_button = QtWidgets.QPushButton(
-            strings._("gui_mode_receive_button")
+        receive_description.setWordWrap(True)
+
+        website_button = QtWidgets.QPushButton(strings._("gui_new_tab_website_button"))
+        website_button.setStyleSheet(self.common.gui.css["new_tab_button"])
+        website_button.clicked.connect(self.website_mode_clicked)
+        website_description = QtWidgets.QLabel(
+            strings._("gui_new_tab_website_description")
         )
-        self.receive_mode_button.setFixedHeight(50)
-        self.receive_mode_button.clicked.connect(self.receive_mode_clicked)
-        self.website_mode_button = QtWidgets.QPushButton(
-            strings._("gui_mode_website_button")
-        )
-        self.website_mode_button.setFixedHeight(50)
-        self.website_mode_button.clicked.connect(self.website_mode_clicked)
+        website_description.setWordWrap(True)
+
+        new_tab_layout = QtWidgets.QVBoxLayout()
+        new_tab_layout.addStretch(1)
+        new_tab_layout.addWidget(share_button)
+        new_tab_layout.addWidget(share_description)
+        new_tab_layout.addSpacing(50)
+        new_tab_layout.addWidget(receive_button)
+        new_tab_layout.addWidget(receive_description)
+        new_tab_layout.addSpacing(50)
+        new_tab_layout.addWidget(website_button)
+        new_tab_layout.addWidget(website_description)
+        new_tab_layout.addStretch(3)
+
+        new_tab_inner = QtWidgets.QWidget()
+        new_tab_inner.setFixedWidth(500)
+        new_tab_inner.setLayout(new_tab_layout)
+
+        new_tab_outer_layout = QtWidgets.QHBoxLayout()
+        new_tab_outer_layout.addStretch()
+        new_tab_outer_layout.addWidget(new_tab_inner)
+        new_tab_outer_layout.addStretch()
+
+        self.new_tab = QtWidgets.QWidget()
+        self.new_tab.setLayout(new_tab_outer_layout)
+        self.new_tab.show()
+
+        # Settings button, but this is gonna disappear
         self.settings_button = QtWidgets.QPushButton()
         self.settings_button.setDefault(False)
         self.settings_button.setFixedWidth(40)
@@ -76,12 +110,6 @@ class Tab(QtWidgets.QWidget):
         )
         # self.settings_button.clicked.connect(self.open_settings)
         self.settings_button.setStyleSheet(self.common.gui.css["settings_button"])
-        mode_switcher_layout = QtWidgets.QHBoxLayout()
-        mode_switcher_layout.setSpacing(0)
-        mode_switcher_layout.addWidget(self.share_mode_button)
-        mode_switcher_layout.addWidget(self.receive_mode_button)
-        mode_switcher_layout.addWidget(self.website_mode_button)
-        mode_switcher_layout.addWidget(self.settings_button)
 
         # Server status indicator icons
         self.status_bar.server_status_image_stopped = QtGui.QImage(
@@ -94,7 +122,24 @@ class Tab(QtWidgets.QWidget):
             self.common.get_resource_path("images/server_started.png")
         )
 
-        # Share mode
+        # Layout
+        self.layout = QtWidgets.QVBoxLayout()
+        self.layout.setContentsMargins(0, 0, 0, 0)
+        self.layout.addWidget(self.new_tab)
+        self.setLayout(self.layout)
+
+        # The server isn't active yet
+        self.set_server_active(False)
+
+        # Create the timer
+        self.timer = QtCore.QTimer()
+        self.timer.timeout.connect(self.timer_callback)
+
+    def share_mode_clicked(self):
+        self.common.log("Tab", "share_mode_clicked")
+        self.mode = self.common.gui.MODE_SHARE
+        self.new_tab.hide()
+
         self.share_mode = ShareMode(
             self.common,
             self.common.gui.qtapp,
@@ -102,9 +147,12 @@ class Tab(QtWidgets.QWidget):
             self.status_bar,
             self.status_bar.server_status_label,
             self.system_tray,
-            filenames,
+            self.filenames,
             self.common.gui.local_only,
         )
+        self.layout.addWidget(self.share_mode)
+        self.share_mode.show()
+
         self.share_mode.init()
         self.share_mode.server_status.server_started.connect(
             self.update_server_status_indicator
@@ -125,7 +173,14 @@ class Tab(QtWidgets.QWidget):
         self.share_mode.server_status.hidservauth_copied.connect(self.copy_hidservauth)
         self.share_mode.set_server_active.connect(self.set_server_active)
 
-        # Receive mode
+        self.update_server_status_indicator()
+        self.timer.start(500)
+
+    def receive_mode_clicked(self):
+        self.common.log("Tab", "receive_mode_clicked")
+        self.mode = self.common.gui.MODE_RECEIVE
+        self.new_tab.hide()
+
         self.receive_mode = ReceiveMode(
             self.common,
             self.common.gui.qtapp,
@@ -136,6 +191,9 @@ class Tab(QtWidgets.QWidget):
             None,
             self.common.gui.local_only,
         )
+        self.layout.addWidget(self.receive_mode)
+        self.receive_mode.show()
+
         self.receive_mode.init()
         self.receive_mode.server_status.server_started.connect(
             self.update_server_status_indicator
@@ -158,7 +216,14 @@ class Tab(QtWidgets.QWidget):
         )
         self.receive_mode.set_server_active.connect(self.set_server_active)
 
-        # Website mode
+        self.update_server_status_indicator()
+        self.timer.start(500)
+
+    def website_mode_clicked(self):
+        self.common.log("Tab", "website_mode_clicked")
+        self.mode = self.common.gui.MODE_WEBSITE
+        self.new_tab.hide()
+
         self.website_mode = WebsiteMode(
             self.common,
             self.common.gui.qtapp,
@@ -166,8 +231,11 @@ class Tab(QtWidgets.QWidget):
             self.status_bar,
             self.status_bar.server_status_label,
             self.system_tray,
-            filenames,
+            self.filenames,
         )
+        self.layout.addWidget(self.website_mode)
+        self.website_mode.show()
+
         self.website_mode.init()
         self.website_mode.server_status.server_started.connect(
             self.update_server_status_indicator
@@ -190,97 +258,8 @@ class Tab(QtWidgets.QWidget):
         )
         self.website_mode.set_server_active.connect(self.set_server_active)
 
-        self.update_mode_switcher()
         self.update_server_status_indicator()
-
-        # Layouts
-        contents_layout = QtWidgets.QVBoxLayout()
-        contents_layout.setContentsMargins(10, 0, 10, 0)
-        contents_layout.addWidget(self.receive_mode)
-        contents_layout.addWidget(self.share_mode)
-        contents_layout.addWidget(self.website_mode)
-
-        layout = QtWidgets.QVBoxLayout()
-        layout.setContentsMargins(0, 0, 0, 0)
-        layout.addLayout(mode_switcher_layout)
-        layout.addLayout(contents_layout)
-        self.setLayout(layout)
-
-        # The server isn't active yet
-        self.set_server_active(False)
-
-        # Create the timer
-        self.timer = QtCore.QTimer()
-        self.timer.timeout.connect(self.timer_callback)
-
-        # Start the timer
         self.timer.start(500)
-
-    def update_mode_switcher(self):
-        # Based on the current mode, switch the mode switcher button styles,
-        # and show and hide widgets to switch modes
-        if self.mode == self.common.gui.MODE_SHARE:
-            self.share_mode_button.setStyleSheet(
-                self.common.gui.css["mode_switcher_selected_style"]
-            )
-            self.receive_mode_button.setStyleSheet(
-                self.common.gui.css["mode_switcher_unselected_style"]
-            )
-            self.website_mode_button.setStyleSheet(
-                self.common.gui.css["mode_switcher_unselected_style"]
-            )
-
-            self.receive_mode.hide()
-            self.share_mode.show()
-            self.website_mode.hide()
-        elif self.mode == self.common.gui.MODE_WEBSITE:
-            self.share_mode_button.setStyleSheet(
-                self.common.gui.css["mode_switcher_unselected_style"]
-            )
-            self.receive_mode_button.setStyleSheet(
-                self.common.gui.css["mode_switcher_unselected_style"]
-            )
-            self.website_mode_button.setStyleSheet(
-                self.common.gui.css["mode_switcher_selected_style"]
-            )
-
-            self.receive_mode.hide()
-            self.share_mode.hide()
-            self.website_mode.show()
-        else:
-            self.share_mode_button.setStyleSheet(
-                self.common.gui.css["mode_switcher_unselected_style"]
-            )
-            self.receive_mode_button.setStyleSheet(
-                self.common.gui.css["mode_switcher_selected_style"]
-            )
-            self.website_mode_button.setStyleSheet(
-                self.common.gui.css["mode_switcher_unselected_style"]
-            )
-
-            self.share_mode.hide()
-            self.receive_mode.show()
-            self.website_mode.hide()
-
-        self.update_server_status_indicator()
-
-    def share_mode_clicked(self):
-        if self.mode != self.common.gui.MODE_SHARE:
-            self.common.log("Tab", "share_mode_clicked")
-            self.mode = self.common.gui.MODE_SHARE
-            self.update_mode_switcher()
-
-    def receive_mode_clicked(self):
-        if self.mode != self.common.gui.MODE_RECEIVE:
-            self.common.log("Tab", "receive_mode_clicked")
-            self.mode = self.common.gui.MODE_RECEIVE
-            self.update_mode_switcher()
-
-    def website_mode_clicked(self):
-        if self.mode != self.common.gui.MODE_WEBSITE:
-            self.common.log("Tab", "website_mode_clicked")
-            self.mode = self.common.gui.MODE_WEBSITE
-            self.update_mode_switcher()
 
     def update_server_status_indicator(self):
         # Set the status image
@@ -335,7 +314,7 @@ class Tab(QtWidgets.QWidget):
                 self.status_bar.server_status_label.setText(
                     strings._("gui_status_indicator_share_started")
                 )
-        else:
+        elif self.mode == self.common.gui.MODE_RECEIVE:
             # Receive mode
             if self.receive_mode.server_status.status == ServerStatus.STATUS_STOPPED:
                 self.status_bar.server_status_image_label.setPixmap(
@@ -491,6 +470,8 @@ class Tab(QtWidgets.QWidget):
         """
         Disable the Settings and Receive Files buttons while an Share Files server is active.
         """
+        pass
+        """
         if active:
             self.settings_button.hide()
             if self.mode == self.common.gui.MODE_SHARE:
@@ -512,7 +493,8 @@ class Tab(QtWidgets.QWidget):
             self.website_mode_button.show()
 
         # Disable settings menu action when server is active
-        # self.settings_action.setEnabled(not active)
+        self.settings_action.setEnabled(not active)
+        """
 
     def clear_message(self):
         """

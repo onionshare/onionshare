@@ -100,7 +100,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         # Start with one tab
         self.tab = Tab(self.common, self.system_tray, self.status_bar, filenames)
-        self.tabs.addTab(self.tab, "Tab 1")
+        self.tabs.addTab(self.tab, "New Tab")
 
         # Layout
         layout = QtWidgets.QVBoxLayout()
