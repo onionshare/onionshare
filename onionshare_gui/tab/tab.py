@@ -39,6 +39,7 @@ class Tab(QtWidgets.QWidget):
     """
 
     change_title = QtCore.pyqtSignal(int, str)
+    change_icon = QtCore.pyqtSignal(int, str)
 
     def __init__(self, common, tab_id, system_tray, status_bar, filenames=None):
         super(Tab, self).__init__()
@@ -264,82 +265,76 @@ class Tab(QtWidgets.QWidget):
         if self.mode == self.common.gui.MODE_SHARE:
             # Share mode
             if self.share_mode.server_status.status == ServerStatus.STATUS_STOPPED:
-                self.status_bar.server_status_image_label.setPixmap(
-                    QtGui.QPixmap.fromImage(self.status_bar.server_status_image_stopped)
-                )
-                self.status_bar.server_status_label.setText(
+                self.set_server_status_indicator_stopped(
                     strings._("gui_status_indicator_share_stopped")
                 )
             elif self.share_mode.server_status.status == ServerStatus.STATUS_WORKING:
-                self.status_bar.server_status_image_label.setPixmap(
-                    QtGui.QPixmap.fromImage(self.status_bar.server_status_image_working)
-                )
                 if self.share_mode.server_status.autostart_timer_datetime:
-                    self.status_bar.server_status_label.setText(
+                    self.set_server_status_indicator_working(
                         strings._("gui_status_indicator_share_scheduled")
                     )
                 else:
-                    self.status_bar.server_status_label.setText(
+                    self.set_server_status_indicator_working(
                         strings._("gui_status_indicator_share_working")
                     )
             elif self.share_mode.server_status.status == ServerStatus.STATUS_STARTED:
-                self.status_bar.server_status_image_label.setPixmap(
-                    QtGui.QPixmap.fromImage(self.status_bar.server_status_image_started)
-                )
-                self.status_bar.server_status_label.setText(
+                self.set_server_status_indicator_started(
                     strings._("gui_status_indicator_share_started")
                 )
         elif self.mode == self.common.gui.MODE_WEBSITE:
             # Website mode
             if self.website_mode.server_status.status == ServerStatus.STATUS_STOPPED:
-                self.status_bar.server_status_image_label.setPixmap(
-                    QtGui.QPixmap.fromImage(self.status_bar.server_status_image_stopped)
-                )
-                self.status_bar.server_status_label.setText(
+                self.set_server_status_indicator_stopped(
                     strings._("gui_status_indicator_share_stopped")
                 )
             elif self.website_mode.server_status.status == ServerStatus.STATUS_WORKING:
-                self.status_bar.server_status_image_label.setPixmap(
-                    QtGui.QPixmap.fromImage(self.status_bar.server_status_image_working)
-                )
-                self.status_bar.server_status_label.setText(
+                self.set_server_status_indicator_working(
                     strings._("gui_status_indicator_share_working")
                 )
             elif self.website_mode.server_status.status == ServerStatus.STATUS_STARTED:
-                self.status_bar.server_status_image_label.setPixmap(
-                    QtGui.QPixmap.fromImage(self.status_bar.server_status_image_started)
-                )
-                self.status_bar.server_status_label.setText(
+                self.set_server_status_indicator_started(
                     strings._("gui_status_indicator_share_started")
                 )
         elif self.mode == self.common.gui.MODE_RECEIVE:
             # Receive mode
             if self.receive_mode.server_status.status == ServerStatus.STATUS_STOPPED:
-                self.status_bar.server_status_image_label.setPixmap(
-                    QtGui.QPixmap.fromImage(self.status_bar.server_status_image_stopped)
-                )
-                self.status_bar.server_status_label.setText(
+                self.set_server_status_indicator_stopped(
                     strings._("gui_status_indicator_receive_stopped")
                 )
             elif self.receive_mode.server_status.status == ServerStatus.STATUS_WORKING:
-                self.status_bar.server_status_image_label.setPixmap(
-                    QtGui.QPixmap.fromImage(self.status_bar.server_status_image_working)
-                )
                 if self.receive_mode.server_status.autostart_timer_datetime:
-                    self.status_bar.server_status_label.setText(
+                    self.set_server_status_indicator_working(
                         strings._("gui_status_indicator_receive_scheduled")
                     )
                 else:
-                    self.status_bar.server_status_label.setText(
+                    self.set_server_status_indicator_working(
                         strings._("gui_status_indicator_receive_working")
                     )
             elif self.receive_mode.server_status.status == ServerStatus.STATUS_STARTED:
-                self.status_bar.server_status_image_label.setPixmap(
-                    QtGui.QPixmap.fromImage(self.status_bar.server_status_image_started)
-                )
-                self.status_bar.server_status_label.setText(
+                self.set_server_status_indicator_started(
                     strings._("gui_status_indicator_receive_started")
                 )
+
+    def set_server_status_indicator_stopped(self, label_text):
+        self.change_icon.emit(self.tab_id, "images/server_stopped.png")
+        self.status_bar.server_status_image_label.setPixmap(
+            QtGui.QPixmap.fromImage(self.status_bar.server_status_image_stopped)
+        )
+        self.status_bar.server_status_label.setText(label_text)
+
+    def set_server_status_indicator_working(self, label_text):
+        self.change_icon.emit(self.tab_id, "images/server_working.png")
+        self.status_bar.server_status_image_label.setPixmap(
+            QtGui.QPixmap.fromImage(self.status_bar.server_status_image_working)
+        )
+        self.status_bar.server_status_label.setText(label_text)
+
+    def set_server_status_indicator_started(self, label_text):
+        self.change_icon.emit(self.tab_id, "images/server_started.png")
+        self.status_bar.server_status_image_label.setPixmap(
+            QtGui.QPixmap.fromImage(self.status_bar.server_status_image_started)
+        )
+        self.status_bar.server_status_label.setText(label_text)
 
     def stop_server_finished(self):
         # When the server stopped, cleanup the ephemeral onion service

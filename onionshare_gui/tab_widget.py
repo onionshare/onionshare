@@ -89,6 +89,7 @@ class TabWidget(QtWidgets.QTabWidget):
         # Create the tab
         tab = Tab(self.common, self.tab_id, self.system_tray, self.status_bar)
         tab.change_title.connect(self.change_title)
+        tab.change_icon.connect(self.change_icon)
         self.tabs[self.tab_id] = tab
         self.tab_id += 1
 
@@ -104,6 +105,10 @@ class TabWidget(QtWidgets.QTabWidget):
         self.tabBar().setTabButton(
             index, QtWidgets.QTabBar.LeftSide, self.tabs[tab_id].persistence_button
         )
+
+    def change_icon(self, tab_id, icon_path):
+        index = self.indexOf(self.tabs[tab_id])
+        self.setTabIcon(index, QtGui.QIcon(self.common.get_resource_path(icon_path)))
 
     def close_tab(self, index):
         self.common.log("TabWidget", "close_tab", f"{index}")
