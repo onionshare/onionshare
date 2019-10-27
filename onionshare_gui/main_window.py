@@ -95,6 +95,18 @@ class MainWindow(QtWidgets.QMainWindow):
         )
         self.status_bar.addPermanentWidget(self.status_bar.server_status_indicator)
 
+        # Settings button
+        self.settings_button = QtWidgets.QPushButton()
+        self.settings_button.setDefault(False)
+        self.settings_button.setFixedWidth(40)
+        self.settings_button.setFixedHeight(50)
+        self.settings_button.setIcon(
+            QtGui.QIcon(self.common.get_resource_path("images/settings.png"))
+        )
+        self.settings_button.clicked.connect(self.open_settings)
+        self.settings_button.setStyleSheet(self.common.gui.css["settings_button"])
+        self.status_bar.addPermanentWidget(self.settings_button)
+
         # Tabs
         self.tabs = TabWidget(self.common, self.system_tray, self.status_bar)
 

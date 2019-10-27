@@ -103,17 +103,6 @@ class Tab(QtWidgets.QWidget):
         self.new_tab.setLayout(new_tab_outer_layout)
         self.new_tab.show()
 
-        # Settings button, but this is gonna disappear
-        self.settings_button = QtWidgets.QPushButton()
-        self.settings_button.setDefault(False)
-        self.settings_button.setFixedWidth(40)
-        self.settings_button.setFixedHeight(50)
-        self.settings_button.setIcon(
-            QtGui.QIcon(self.common.get_resource_path("images/settings.png"))
-        )
-        # self.settings_button.clicked.connect(self.open_settings)
-        self.settings_button.setStyleSheet(self.common.gui.css["settings_button"])
-
         # Server status indicator icons
         self.status_bar.server_status_image_stopped = QtGui.QImage(
             self.common.get_resource_path("images/server_stopped.png")
