@@ -25,9 +25,8 @@ from onionshare.common import AutoStopTimer
 from .history import IndividualFileHistoryItem
 
 from ..server_status import ServerStatus
-from ..threads import OnionThread
-from ..threads import AutoStartTimer
-from ..widgets import Alert
+from ...threads import OnionThread, AutoStartTimer
+from ...widgets import Alert
 
 
 class Mode(QtWidgets.QWidget):

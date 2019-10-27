@@ -29,7 +29,7 @@ from ..file_selection import FileSelection
 from .threads import CompressThread
 from .. import Mode
 from ..history import History, ToggleHistory, ShareHistoryItem
-from ...widgets import Alert
+from ....widgets import Alert
 
 
 class ShareMode(Mode):
