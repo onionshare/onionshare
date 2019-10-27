@@ -75,6 +75,19 @@ class Mode(QtWidgets.QWidget):
         self.web_thread = None
         self.startup_thread = None
 
+        # Header
+        # Note: It's up to the downstream Mode to add this to its layout
+        self.header_label = QtWidgets.QLabel()
+        self.header_label.setStyleSheet(self.common.gui.css["mode_header_label"])
+        self.header_label.setAlignment(QtCore.Qt.AlignHCenter)
+
+        header_layout = QtWidgets.QVBoxLayout()
+        header_layout.setContentsMargins(0, 0, 0, 0)
+        header_layout.addWidget(self.header_label)
+
+        self.header = QtWidgets.QWidget()
+        self.header.setLayout(header_layout)
+
         # Server status
         self.server_status = ServerStatus(
             self.common, self.qtapp, self.app, None, self.local_only

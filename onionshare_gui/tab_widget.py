@@ -47,7 +47,9 @@ class TabWidget(QtWidgets.QTabWidget):
         self.new_tab_button.setAutoFillBackground(True)
         self.new_tab_button.setFixedSize(30, 30)
         self.new_tab_button.clicked.connect(self.new_tab_clicked)
-        self.new_tab_button.setStyleSheet(self.common.gui.css["tab_bar_new_tab_button"])
+        self.new_tab_button.setStyleSheet(
+            self.common.gui.css["tab_widget_new_tab_button"]
+        )
         self.new_tab_button.setToolTip(strings._("gui_new_tab_tooltip"))
 
         # Use a custom tab bar

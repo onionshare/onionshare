@@ -47,6 +47,9 @@ class ShareMode(Mode):
         # Create the Web object
         self.web = Web(self.common, True, "share")
 
+        # Header
+        self.header_label.setText(strings._("gui_new_tab_share_button"))
+
         # File selection
         self.file_selection = FileSelection(self.common, self)
         if self.filenames:
@@ -118,6 +121,7 @@ class ShareMode(Mode):
 
         # Main layout
         self.main_layout = QtWidgets.QVBoxLayout()
+        self.main_layout.addWidget(self.header)
         self.main_layout.addLayout(top_bar_layout)
         self.main_layout.addLayout(self.file_selection)
         self.main_layout.addWidget(self.primary_action)

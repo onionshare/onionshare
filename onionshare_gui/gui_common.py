@@ -50,33 +50,26 @@ class GuiCommon:
 
         self.css = {
             # OnionShareGui styles
-            "tab_bar_new_tab_button": """
+            "tab_widget_new_tab_button": """
                 QPushButton {
                     font-weight: bold;
                     font-size: 20px;
                 }""",
-            "new_tab_button": """
+            "mode_new_tab_button": """
                 QPushButton {
                     font-weight: bold;
                     font-size: 30px;
                     color: #601f61;
                 }""",
-            "mode_switcher_selected_style": """
-                QPushButton {
+            "mode_header_label": """
+                QLabel {
                     color: #ffffff;
                     background-color: #4e064f;
                     border: 0;
-                    border-right: 1px solid #69266b;
                     font-weight: bold;
+                    font-size: 18px;
                     border-radius: 0;
-                }""",
-            "mode_switcher_unselected_style": """
-                QPushButton {
-                    color: #ffffff;
-                    background-color: #601f61;
-                    border: 0;
-                    font-weight: normal;
-                    border-radius: 0;
+                    padding: 10px 0 10px 0;
                 }""",
             "settings_button": """
                 QPushButton {
