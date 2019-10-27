@@ -73,9 +73,7 @@ class GuiCommon:
                 }""",
             "settings_button": """
                 QPushButton {
-                    background-color: #601f61;
                     border: 0;
-                    border-left: 1px solid #69266b;
                     border-radius: 0;
                 }""",
             "server_status_indicator_label": """
