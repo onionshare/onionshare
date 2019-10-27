@@ -85,7 +85,8 @@ class TabWidget(QtWidgets.QTabWidget):
     def new_tab_clicked(self):
         # Add a new tab
         tab = Tab(self.common, self.system_tray, self.status_bar)
-        self.addTab(tab, "New Tab")
+        index = self.addTab(tab, "New Tab")
+        self.setCurrentIndex(index)
 
 
 class TabBar(QtWidgets.QTabBar):
