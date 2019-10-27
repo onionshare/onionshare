@@ -105,6 +105,10 @@ class TabWidget(QtWidgets.QTabWidget):
             self.removeTab(index)
             del self.tabs[tab.tab_id]
 
+            # If the last tab is closed, open a new one
+            if self.count() == 0:
+                self.new_tab_clicked()
+
     def resizeEvent(self, event):
         # Make sure to move new tab button on each resize
         super(TabWidget, self).resizeEvent(event)
