@@ -57,13 +57,13 @@ class Tab(QtWidgets.QWidget):
 
         # New tab widget
         share_button = QtWidgets.QPushButton(strings._("gui_new_tab_share_button"))
-        share_button.setStyleSheet(self.common.gui.css["new_tab_button"])
+        share_button.setStyleSheet(self.common.gui.css["mode_new_tab_button"])
         share_description = QtWidgets.QLabel(strings._("gui_new_tab_share_description"))
         share_description.setWordWrap(True)
         share_button.clicked.connect(self.share_mode_clicked)
 
         receive_button = QtWidgets.QPushButton(strings._("gui_new_tab_receive_button"))
-        receive_button.setStyleSheet(self.common.gui.css["new_tab_button"])
+        receive_button.setStyleSheet(self.common.gui.css["mode_new_tab_button"])
         receive_button.clicked.connect(self.receive_mode_clicked)
         receive_description = QtWidgets.QLabel(
             strings._("gui_new_tab_receive_description")
@@ -71,7 +71,7 @@ class Tab(QtWidgets.QWidget):
         receive_description.setWordWrap(True)
 
         website_button = QtWidgets.QPushButton(strings._("gui_new_tab_website_button"))
-        website_button.setStyleSheet(self.common.gui.css["new_tab_button"])
+        website_button.setStyleSheet(self.common.gui.css["mode_new_tab_button"])
         website_button.clicked.connect(self.website_mode_clicked)
         website_description = QtWidgets.QLabel(
             strings._("gui_new_tab_website_description")

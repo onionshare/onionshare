@@ -38,6 +38,9 @@ class ReceiveMode(Mode):
         # Create the Web object
         self.web = Web(self.common, True, "receive")
 
+        # Header
+        self.header_label.setText(strings._("gui_new_tab_receive_button"))
+
         # Server status
         self.server_status.set_mode("receive")
         self.server_status.server_started_finished.connect(self.update_primary_action)
@@ -86,6 +89,7 @@ class ReceiveMode(Mode):
 
         # Main layout
         self.main_layout = QtWidgets.QVBoxLayout()
+        self.main_layout.addWidget(self.header)
         self.main_layout.addLayout(top_bar_layout)
         self.main_layout.addWidget(receive_warning)
         self.main_layout.addWidget(self.primary_action)
