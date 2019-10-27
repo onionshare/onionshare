@@ -103,17 +103,6 @@ class Tab(QtWidgets.QWidget):
         self.new_tab.setLayout(new_tab_outer_layout)
         self.new_tab.show()
 
-        # Server status indicator icons
-        self.status_bar.server_status_image_stopped = QtGui.QImage(
-            self.common.get_resource_path("images/server_stopped.png")
-        )
-        self.status_bar.server_status_image_working = QtGui.QImage(
-            self.common.get_resource_path("images/server_working.png")
-        )
-        self.status_bar.server_status_image_started = QtGui.QImage(
-            self.common.get_resource_path("images/server_started.png")
-        )
-
         # Layout
         self.layout = QtWidgets.QVBoxLayout()
         self.layout.setContentsMargins(0, 0, 0, 0)
@@ -126,6 +115,17 @@ class Tab(QtWidgets.QWidget):
         # Create the timer
         self.timer = QtCore.QTimer()
         self.timer.timeout.connect(self.timer_callback)
+
+        # Settings for this tab
+        self.tab_settings = {"persistence": False}
+
+        # Persistence button
+        self.persistence_button = QtWidgets.QPushButton()
+        self.persistence_button.setDefault(False)
+        self.persistence_button.setFlat(True)
+        self.persistence_button.setFixedSize(30, 30)
+        self.persistence_button.clicked.connect(self.persistence_button_clicked)
+        self.update_persistence_button()
 
     def share_mode_clicked(self):
         self.common.log("Tab", "share_mode_clicked")
@@ -499,6 +499,29 @@ class Tab(QtWidgets.QWidget):
         Clear messages from the status bar.
         """
         self.status_bar.clearMessage()
+
+    def persistence_button_clicked(self):
+        self.common.log("Tab", "persistence_button_clicked")
+        if self.tab_settings["persistence"]:
+            self.tab_settings["persistence"] = False
+        else:
+            self.tab_settings["persistence"] = True
+        self.update_persistence_button()
+
+    def update_persistence_button(self):
+        self.common.log("Tab", "update_persistence_button")
+        if self.tab_settings["persistence"]:
+            self.persistence_button.setIcon(
+                QtGui.QIcon(
+                    self.common.get_resource_path("images/persistent_enabled.png")
+                )
+            )
+        else:
+            self.persistence_button.setIcon(
+                QtGui.QIcon(
+                    self.common.get_resource_path("images/persistent_disabled.png")
+                )
+            )
 
     def close_tab(self):
         self.common.log("Tab", "close_tab")

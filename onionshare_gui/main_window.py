@@ -77,6 +77,17 @@ class MainWindow(QtWidgets.QMainWindow):
         self.status_bar.setStyleSheet(self.common.gui.css["status_bar"])
         self.setStatusBar(self.status_bar)
 
+        # Server status indicator icons
+        self.status_bar.server_status_image_stopped = QtGui.QImage(
+            self.common.get_resource_path("images/server_stopped.png")
+        )
+        self.status_bar.server_status_image_working = QtGui.QImage(
+            self.common.get_resource_path("images/server_working.png")
+        )
+        self.status_bar.server_status_image_started = QtGui.QImage(
+            self.common.get_resource_path("images/server_started.png")
+        )
+
         # Server status indicator on the status bar
         self.status_bar.server_status_image_label = QtWidgets.QLabel()
         self.status_bar.server_status_image_label.setFixedWidth(20)
@@ -98,8 +109,7 @@ class MainWindow(QtWidgets.QMainWindow):
         # Settings button
         self.settings_button = QtWidgets.QPushButton()
         self.settings_button.setDefault(False)
-        self.settings_button.setFixedWidth(40)
-        self.settings_button.setFixedHeight(50)
+        self.settings_button.setFixedSize(40, 50)
         self.settings_button.setIcon(
             QtGui.QIcon(self.common.get_resource_path("images/settings.png"))
         )
