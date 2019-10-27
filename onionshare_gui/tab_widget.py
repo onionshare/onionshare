@@ -60,6 +60,8 @@ class TabWidget(QtWidgets.QTabWidget):
         self.setTabsClosable(True)
         self.setUsesScrollButtons(True)
 
+        self.tabCloseRequested.connect(self.close_tab)
+
         self.move_new_tab_button()
 
     def move_new_tab_button(self):
@@ -81,11 +83,6 @@ class TabWidget(QtWidgets.QTabWidget):
         self.new_tab_button.move(pos)
         self.new_tab_button.raise_()
 
-    def resizeEvent(self, event):
-        # Make sure to move new tab button on each resize
-        super(TabWidget, self).resizeEvent(event)
-        self.move_new_tab_button()
-
     def new_tab_clicked(self):
         # Create the tab
         tab = Tab(self.common, self.tab_id, self.system_tray, self.status_bar)
@@ -100,6 +97,18 @@ class TabWidget(QtWidgets.QTabWidget):
     def change_title(self, tab_id, title):
         index = self.indexOf(self.tabs[tab_id])
         self.setTabText(index, title)
+
+    def close_tab(self, index):
+        self.common.log("TabWidget", "close_tab", f"{index}")
+        tab = self.widget(index)
+        if tab.close_tab():
+            self.removeTab(index)
+            del self.tabs[tab.tab_id]
+
+    def resizeEvent(self, event):
+        # Make sure to move new tab button on each resize
+        super(TabWidget, self).resizeEvent(event)
+        self.move_new_tab_button()
 
 
 class TabBar(QtWidgets.QTabBar):

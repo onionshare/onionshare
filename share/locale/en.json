@@ -187,5 +187,11 @@
     "gui_new_tab_receive_button": "Receive Files",
     "gui_new_tab_receive_description": "Turn your computer into an online dropbox. People will be able to use Tor Browser to send files to your computer.",
     "gui_new_tab_website_button": "Publish Website",
-    "gui_new_tab_website_description": "Host a static HTML onion website from your computer."
+    "gui_new_tab_website_description": "Host a static HTML onion website from your computer.",
+    "gui_close_tab_warning_title": "Are you sure?",
+    "gui_close_tab_warning_share_description": "You're in the process of sending files. Are you sure you want to close this tab?",
+    "gui_close_tab_warning_receive_description": "You're in the process of receiving files. Are you sure you want to close this tab?",
+    "gui_close_tab_warning_website_description": "You're actively hosting a website. Are you sure you want to close this tab?",
+    "gui_close_tab_warning_close": "Close",
+    "gui_close_tab_warning_cancel": "Cancel"
 }
