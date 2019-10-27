@@ -100,6 +100,11 @@ class TabWidget(QtWidgets.QTabWidget):
         index = self.indexOf(self.tabs[tab_id])
         self.setTabText(index, title)
 
+        # Now that a mode has been selected, add persistence button
+        self.tabBar().setTabButton(
+            index, QtWidgets.QTabBar.LeftSide, self.tabs[tab_id].persistence_button
+        )
+
     def close_tab(self, index):
         self.common.log("TabWidget", "close_tab", f"{index}")
         tab = self.widget(index)
