@@ -31,7 +31,7 @@ from onionshare.web import Web
 from ..file_selection import FileSelection
 from .. import Mode
 from ..history import History, ToggleHistory
-from ...widgets import Alert
+from ....widgets import Alert
 
 
 class WebsiteMode(Mode):

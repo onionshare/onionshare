@@ -17,7 +17,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-import queue
 from PyQt5 import QtCore, QtWidgets, QtGui
 
 from onionshare import strings
@@ -27,6 +26,7 @@ from .tor_connection_dialog import TorConnectionDialog
 from .settings_dialog import SettingsDialog
 from .widgets import Alert
 from .update_checker import UpdateThread
+from .tab import Tab
 
 
 class MainWindow(QtWidgets.QMainWindow):
@@ -71,33 +71,41 @@ class MainWindow(QtWidgets.QMainWindow):
         self.system_tray.setContextMenu(menu)
         self.system_tray.show()
 
-        # Server status indicator on the status bar
-        self.server_status_image_label = QtWidgets.QLabel()
-        self.server_status_image_label.setFixedWidth(20)
-        self.server_status_label = QtWidgets.QLabel("")
-        self.server_status_label.setStyleSheet(
-            self.common.gui.css["server_status_indicator_label"]
-        )
-        server_status_indicator_layout = QtWidgets.QHBoxLayout()
-        server_status_indicator_layout.addWidget(self.server_status_image_label)
-        server_status_indicator_layout.addWidget(self.server_status_label)
-        self.server_status_indicator = QtWidgets.QWidget()
-        self.server_status_indicator.setLayout(server_status_indicator_layout)
-
         # Status bar
         self.status_bar = QtWidgets.QStatusBar()
         self.status_bar.setSizeGripEnabled(False)
         self.status_bar.setStyleSheet(self.common.gui.css["status_bar"])
-        self.status_bar.addPermanentWidget(self.server_status_indicator)
         self.setStatusBar(self.status_bar)
 
-        # Placeholder label
-        label = QtWidgets.QLabel("coming soon...")
+        # Server status indicator on the status bar
+        self.status_bar.server_status_image_label = QtWidgets.QLabel()
+        self.status_bar.server_status_image_label.setFixedWidth(20)
+        self.status_bar.server_status_label = QtWidgets.QLabel("")
+        self.status_bar.server_status_label.setStyleSheet(
+            self.common.gui.css["server_status_indicator_label"]
+        )
+        server_status_indicator_layout = QtWidgets.QHBoxLayout()
+        server_status_indicator_layout.addWidget(
+            self.status_bar.server_status_image_label
+        )
+        server_status_indicator_layout.addWidget(self.status_bar.server_status_label)
+        self.status_bar.server_status_indicator = QtWidgets.QWidget()
+        self.status_bar.server_status_indicator.setLayout(
+            server_status_indicator_layout
+        )
+        self.status_bar.addPermanentWidget(self.status_bar.server_status_indicator)
+
+        # Tabs
+        self.tabs = QtWidgets.QTabWidget()
+
+        # Start with one tab
+        self.tab = Tab(self.common, self.system_tray, self.status_bar, filenames)
+        self.tabs.addTab(self.tab, "Tab 1")
 
         # Layout
         layout = QtWidgets.QVBoxLayout()
-        layout.setContentsMargins(0, 0, 0, 0)
-        layout.addWidget(label)
+        # layout.setContentsMargins(0, 0, 0, 0)
+        layout.addWidget(self.tabs)
 
         central_widget = QtWidgets.QWidget()
         central_widget.setLayout(layout)
