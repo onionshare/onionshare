@@ -237,13 +237,9 @@ class MainWindow(QtWidgets.QMainWindow):
                 self.website_mode.server_status.autostart_timer_container.hide()
 
         d = SettingsDialog(self.common)
-        d.settings_saved.connect(reload_settings)
+        # d.settings_saved.connect(reload_settings)
+        # TODO: move the reload_settings logic into tabs
         d.exec_()
-
-        # When settings close, refresh the server status UI
-        self.share_mode.server_status.update()
-        self.receive_mode.server_status.update()
-        self.website_mode.server_status.update()
 
     def check_for_updates(self):
         """

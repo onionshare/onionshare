@@ -127,8 +127,9 @@ class TabWidget(QtWidgets.QTabWidget):
         """
         for tab_id in self.tabs:
             mode = self.tabs[tab_id].get_mode()
-            if mode.server_status.status != mode.server_status.STATUS_STOPPED:
-                return True
+            if mode:
+                if mode.server_status.status != mode.server_status.STATUS_STOPPED:
+                    return True
         return False
 
     def resizeEvent(self, event):
