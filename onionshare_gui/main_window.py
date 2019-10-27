@@ -98,14 +98,11 @@ class MainWindow(QtWidgets.QMainWindow):
         # Tabs
         self.tabs = TabWidget(self.common, self.system_tray, self.status_bar)
 
-        # Start with a tab
-        # new_tab = Tab(self.common, self.system_tray, self.status_bar, filenames)
-        # self.tabs.insertTab(0, new_tab, strings._("gui_new_tab"))
-        # self.tabs.setCurrentIndex(0)
+        # Start with opening the first tab
+        self.tabs.new_tab_clicked()
 
         # Layout
         layout = QtWidgets.QVBoxLayout()
-        # layout.setContentsMargins(0, 0, 0, 0)
         layout.addWidget(self.tabs)
 
         central_widget = QtWidgets.QWidget()
