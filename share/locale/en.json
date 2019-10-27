@@ -189,6 +189,7 @@
     "gui_new_tab_website_button": "Publish Website",
     "gui_new_tab_website_description": "Host a static HTML onion website from your computer.",
     "gui_close_tab_warning_title": "Are you sure?",
+    "gui_close_tab_warning_persistent_description": "This tab is persistent. If you close it you'll lose the onion address that it's using. Are you sure you want to close it?",
     "gui_close_tab_warning_share_description": "You're in the process of sending files. Are you sure you want to close this tab?",
     "gui_close_tab_warning_receive_description": "You're in the process of receiving files. Are you sure you want to close this tab?",
     "gui_close_tab_warning_website_description": "You're actively hosting a website. Are you sure you want to close this tab?",
