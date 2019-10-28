@@ -72,7 +72,7 @@ class Mode(QtWidgets.QWidget):
         self.header_label.setStyleSheet(self.common.gui.css["mode_header_label"])
         self.header_label.setAlignment(QtCore.Qt.AlignHCenter)
 
-        self.mode_settings = ModeSettings(self.common, self.tab.tab_id)
+        self.mode_settings = ModeSettings(self.common, self.tab)
         self.mode_settings.change_persistent.connect(self.change_persistent)
 
         header_layout = QtWidgets.QVBoxLayout()

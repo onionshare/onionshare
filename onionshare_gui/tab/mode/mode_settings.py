@@ -29,10 +29,10 @@ class ModeSettings(QtWidgets.QWidget):
 
     change_persistent = QtCore.pyqtSignal(int, bool)
 
-    def __init__(self, common, tab_id):
+    def __init__(self, common, tab):
         super(ModeSettings, self).__init__()
         self.common = common
-        self.tab_id = tab_id
+        self.tab = tab
 
         # Downstream Mode need to fill in this layout with its settings
         self.mode_specific_layout = QtWidgets.QVBoxLayout()
@@ -128,7 +128,13 @@ class ModeSettings(QtWidgets.QWidget):
             self.client_auth_checkbox.hide()
 
     def persistent_checkbox_clicked(self):
-        self.change_persistent.emit(self.tab_id, self.persistent_checkbox.isChecked())
+        self.tab.tab_settings["persistent"][
+            "enabled"
+        ] = self.persistent_checkbox.isChecked()
+
+        self.change_persistent.emit(
+            self.tab.tab_id, self.persistent_checkbox.isChecked()
+        )
 
     def toggle_advanced_clicked(self):
         if self.advanced_widget.isVisible():
