@@ -23,6 +23,7 @@ from onionshare import strings
 from onionshare.common import AutoStopTimer
 
 from .history import IndividualFileHistoryItem
+from .mode_settings import ModeSettings
 
 from ..server_status import ServerStatus
 from ...threads import OnionThread, AutoStartTimer
@@ -42,33 +43,22 @@ class Mode(QtWidgets.QWidget):
     starting_server_early = QtCore.pyqtSignal()
     set_server_active = QtCore.pyqtSignal(bool)
 
-    def __init__(
-        self,
-        common,
-        qtapp,
-        app,
-        status_bar,
-        server_status_label,
-        system_tray,
-        filenames=None,
-        local_only=False,
-    ):
+    def __init__(self, tab):
         super(Mode, self).__init__()
-        self.common = common
-        self.qtapp = qtapp
-        self.app = app
+        self.tab = tab
 
-        self.status_bar = status_bar
-        self.server_status_label = server_status_label
-        self.system_tray = system_tray
+        self.common = tab.common
+        self.qtapp = self.common.gui.qtapp
+        self.app = tab.app
 
-        self.filenames = filenames
+        self.status_bar = tab.status_bar
+        self.server_status_label = tab.status_bar.server_status_label
+        self.system_tray = tab.system_tray
+
+        self.filenames = tab.filenames
 
         # The web object gets created in init()
         self.web = None
-
-        # Local mode is passed from OnionShareGui
-        self.local_only = local_only
 
         # Threads start out as None
         self.onion_thread = None
@@ -81,16 +71,19 @@ class Mode(QtWidgets.QWidget):
         self.header_label.setStyleSheet(self.common.gui.css["mode_header_label"])
         self.header_label.setAlignment(QtCore.Qt.AlignHCenter)
 
+        self.mode_settings = ModeSettings(self.common)
+
         header_layout = QtWidgets.QVBoxLayout()
         header_layout.setContentsMargins(0, 0, 0, 0)
         header_layout.addWidget(self.header_label)
+        header_layout.addWidget(self.mode_settings)
 
         self.header = QtWidgets.QWidget()
         self.header.setLayout(header_layout)
 
         # Server status
         self.server_status = ServerStatus(
-            self.common, self.qtapp, self.app, None, self.local_only
+            self.common, self.qtapp, self.app, None, self.common.gui.local_only
         )
         self.server_status.server_started.connect(self.start_server)
         self.server_status.server_stopped.connect(self.stop_server)

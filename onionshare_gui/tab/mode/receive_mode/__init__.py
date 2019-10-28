@@ -41,6 +41,23 @@ class ReceiveMode(Mode):
         # Header
         self.header_label.setText(strings._("gui_new_tab_receive_button"))
 
+        data_dir_label = QtWidgets.QLabel(
+            strings._("mode_settings_receive_data_dir_label")
+        )
+        self.data_dir_lineedit = QtWidgets.QLineEdit()
+        self.data_dir_lineedit.setReadOnly(True)
+        self.data_dir_lineedit.setText(self.tab.tab_settings["receive"]["data_dir"])
+        data_dir_button = QtWidgets.QPushButton(
+            strings._("mode_settings_receive_data_dir_browse_button")
+        )
+        data_dir_button.clicked.connect(self.data_dir_button_clicked)
+        data_dir_layout = QtWidgets.QHBoxLayout()
+        data_dir_layout.addWidget(data_dir_label)
+        data_dir_layout.addWidget(self.data_dir_lineedit)
+        data_dir_layout.addWidget(data_dir_button)
+
+        self.mode_settings.mode_specific_layout.addLayout(data_dir_layout)
+
         # Server status
         self.server_status.set_mode("receive")
         self.server_status.server_started_finished.connect(self.update_primary_action)
@@ -101,6 +118,23 @@ class ReceiveMode(Mode):
         self.wrapper_layout.addLayout(self.main_layout)
         self.wrapper_layout.addWidget(self.history, stretch=1)
         self.setLayout(self.wrapper_layout)
+
+    def data_dir_button_clicked(self):
+        """
+        Browse for a new OnionShare data directory
+        """
+        data_dir = self.data_dir_lineedit.text()
+        selected_dir = QtWidgets.QFileDialog.getExistingDirectory(
+            self, strings._("mode_settings_receive_data_dir_label"), data_dir
+        )
+
+        if selected_dir:
+            self.common.log(
+                "ReceiveMode",
+                "data_dir_button_clicked",
+                f"selected dir: {selected_dir}",
+            )
+            self.data_dir_lineedit.setText(selected_dir)
 
     def get_stop_server_autostop_timer_text(self):
         """

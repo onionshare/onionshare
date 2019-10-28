@@ -50,6 +50,15 @@ class ShareMode(Mode):
         # Header
         self.header_label.setText(strings._("gui_new_tab_share_button"))
 
+        self.autostop_sharing_checkbox = QtWidgets.QCheckBox()
+        self.autostop_sharing_checkbox.setCheckState(QtCore.Qt.Checked)
+        self.autostop_sharing_checkbox.setText(
+            strings._("mode_settings_share_autostop_sharing_checkbox")
+        )
+        self.mode_settings.mode_specific_layout.addWidget(
+            self.autostop_sharing_checkbox
+        )
+
         # File selection
         self.file_selection = FileSelection(self.common, self)
         if self.filenames:

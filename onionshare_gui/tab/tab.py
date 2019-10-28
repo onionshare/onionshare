@@ -118,7 +118,24 @@ class Tab(QtWidgets.QWidget):
         self.timer.timeout.connect(self.timer_callback)
 
         # Settings for this tab
-        self.tab_settings = {"persistent": False}
+        self.tab_settings = {
+            "persistent": {
+                "enabled": False,
+                "private_key": None,
+                "hidservauth": None,
+                "password": None,
+            },
+            "general": {
+                "public": False,
+                "autostart_timer": False,
+                "autostop_timer": False,
+                "legacy_addresses": False,
+                "client_auth": False,
+            },
+            "share": {"autostop_sharing": True},
+            "receive": {"data_dir": self.common.settings.build_default_data_dir()},
+            "website": {"disable_csp": False},
+        }
 
         # Persistence button
         self.persistence_button = QtWidgets.QPushButton()
@@ -133,16 +150,7 @@ class Tab(QtWidgets.QWidget):
         self.mode = self.common.gui.MODE_SHARE
         self.new_tab.hide()
 
-        self.share_mode = ShareMode(
-            self.common,
-            self.common.gui.qtapp,
-            self.app,
-            self.status_bar,
-            self.status_bar.server_status_label,
-            self.system_tray,
-            self.filenames,
-            self.common.gui.local_only,
-        )
+        self.share_mode = ShareMode(self)
         self.layout.addWidget(self.share_mode)
         self.share_mode.show()
 
@@ -176,16 +184,7 @@ class Tab(QtWidgets.QWidget):
         self.mode = self.common.gui.MODE_RECEIVE
         self.new_tab.hide()
 
-        self.receive_mode = ReceiveMode(
-            self.common,
-            self.common.gui.qtapp,
-            self.app,
-            self.status_bar,
-            self.status_bar.server_status_label,
-            self.system_tray,
-            None,
-            self.common.gui.local_only,
-        )
+        self.receive_mode = ReceiveMode(self)
         self.layout.addWidget(self.receive_mode)
         self.receive_mode.show()
 
@@ -221,15 +220,7 @@ class Tab(QtWidgets.QWidget):
         self.mode = self.common.gui.MODE_WEBSITE
         self.new_tab.hide()
 
-        self.website_mode = WebsiteMode(
-            self.common,
-            self.common.gui.qtapp,
-            self.app,
-            self.status_bar,
-            self.status_bar.server_status_label,
-            self.system_tray,
-            self.filenames,
-        )
+        self.website_mode = WebsiteMode(self)
         self.layout.addWidget(self.website_mode)
         self.website_mode.show()
 
@@ -508,15 +499,15 @@ class Tab(QtWidgets.QWidget):
 
     def persistence_button_clicked(self):
         self.common.log("Tab", "persistence_button_clicked")
-        if self.tab_settings["persistent"]:
-            self.tab_settings["persistent"] = False
+        if self.tab_settings["persistent"]["enabled"]:
+            self.tab_settings["persistent"]["enabled"] = False
         else:
-            self.tab_settings["persistent"] = True
+            self.tab_settings["persistent"]["enabled"] = True
         self.update_persistence_button()
 
     def update_persistence_button(self):
         self.common.log("Tab", "update_persistence_button")
-        if self.tab_settings["persistent"]:
+        if self.tab_settings["persistent"]["enabled"]:
             self.persistence_button.setIcon(
                 QtGui.QIcon(
                     self.common.get_resource_path("images/persistent_enabled.png")
@@ -534,7 +525,7 @@ class Tab(QtWidgets.QWidget):
         if self.mode is None:
             return True
 
-        if self.tab_settings["persistent"]:
+        if self.tab_settings["persistent"]["enabled"]:
             dialog_text = strings._("gui_close_tab_warning_persistent_description")
         else:
             server_status = self.get_mode().server_status
