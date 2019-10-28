@@ -130,16 +130,20 @@ class ShareMode(Mode):
 
         # Main layout
         self.main_layout = QtWidgets.QVBoxLayout()
-        self.main_layout.addWidget(self.header)
         self.main_layout.addLayout(top_bar_layout)
         self.main_layout.addLayout(self.file_selection)
         self.main_layout.addWidget(self.primary_action)
         self.main_layout.addWidget(self.min_width_widget)
 
+        # Column layout
+        self.column_layout = QtWidgets.QHBoxLayout()
+        self.column_layout.addLayout(self.main_layout)
+        self.column_layout.addWidget(self.history, stretch=1)
+
         # Wrapper layout
-        self.wrapper_layout = QtWidgets.QHBoxLayout()
-        self.wrapper_layout.addLayout(self.main_layout)
-        self.wrapper_layout.addWidget(self.history, stretch=1)
+        self.wrapper_layout = QtWidgets.QVBoxLayout()
+        self.wrapper_layout.addWidget(self.header)
+        self.wrapper_layout.addLayout(self.column_layout)
         self.setLayout(self.wrapper_layout)
 
         # Always start with focus on file selection
