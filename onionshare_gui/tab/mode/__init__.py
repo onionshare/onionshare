@@ -42,6 +42,7 @@ class Mode(QtWidgets.QWidget):
     starting_server_error = QtCore.pyqtSignal(str)
     starting_server_early = QtCore.pyqtSignal()
     set_server_active = QtCore.pyqtSignal(bool)
+    change_persistent = QtCore.pyqtSignal(int, bool)
 
     def __init__(self, tab):
         super(Mode, self).__init__()
@@ -71,7 +72,8 @@ class Mode(QtWidgets.QWidget):
         self.header_label.setStyleSheet(self.common.gui.css["mode_header_label"])
         self.header_label.setAlignment(QtCore.Qt.AlignHCenter)
 
-        self.mode_settings = ModeSettings(self.common)
+        self.mode_settings = ModeSettings(self.common, self.tab.tab_id)
+        self.mode_settings.change_persistent.connect(self.change_persistent)
 
         header_layout = QtWidgets.QVBoxLayout()
         header_layout.setContentsMargins(0, 0, 0, 0)
