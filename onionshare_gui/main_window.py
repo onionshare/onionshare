@@ -42,7 +42,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         # Initialize the window
         self.setMinimumWidth(820)
-        self.setMinimumHeight(660)
+        self.setMinimumHeight(700)
         self.setWindowTitle("OnionShare")
         self.setWindowIcon(
             QtGui.QIcon(self.common.get_resource_path("images/logo.png"))

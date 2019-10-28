@@ -52,6 +52,13 @@ class WebsiteMode(Mode):
         # Header
         self.header_label.setText(strings._("gui_new_tab_website_button"))
 
+        self.disable_csp_checkbox = QtWidgets.QCheckBox()
+        self.disable_csp_checkbox.setCheckState(QtCore.Qt.Unchecked)
+        self.disable_csp_checkbox.setText(
+            strings._("mode_settings_website_disable_csp_checkbox")
+        )
+        self.mode_settings.mode_specific_layout.addWidget(self.disable_csp_checkbox)
+
         # File selection
         self.file_selection = FileSelection(self.common, self)
         if self.filenames:

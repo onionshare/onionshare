@@ -91,6 +91,12 @@ class GuiCommon:
                     border: 0px;
                 }""",
             # Common styles between modes and their child widgets
+            "mode_settings_toggle_advanced": """
+                QPushButton {
+                    color: #3f7fcf;
+                    text-align: left;
+                }
+                """,
             "mode_info_label": """
                 QLabel {
                     font-size: 12px;
