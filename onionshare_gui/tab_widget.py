@@ -90,6 +90,7 @@ class TabWidget(QtWidgets.QTabWidget):
         tab = Tab(self.common, self.tab_id, self.system_tray, self.status_bar)
         tab.change_title.connect(self.change_title)
         tab.change_icon.connect(self.change_icon)
+        tab.change_persistent.connect(self.change_persistent)
         self.tabs[self.tab_id] = tab
         self.tab_id += 1
 
@@ -101,14 +102,24 @@ class TabWidget(QtWidgets.QTabWidget):
         index = self.indexOf(self.tabs[tab_id])
         self.setTabText(index, title)
 
-        # Now that a mode has been selected, add persistence button
-        self.tabBar().setTabButton(
-            index, QtWidgets.QTabBar.LeftSide, self.tabs[tab_id].persistence_button
-        )
-
     def change_icon(self, tab_id, icon_path):
         index = self.indexOf(self.tabs[tab_id])
         self.setTabIcon(index, QtGui.QIcon(self.common.get_resource_path(icon_path)))
+
+    def change_persistent(self, tab_id, is_persistent):
+        index = self.indexOf(self.tabs[tab_id])
+        if is_persistent:
+            self.tabBar().setTabButton(
+                index,
+                QtWidgets.QTabBar.LeftSide,
+                self.tabs[tab_id].persistent_image_label,
+            )
+        else:
+            invisible_widget = QtWidgets.QWidget()
+            invisible_widget.setFixedSize(0, 0)
+            self.tabBar().setTabButton(
+                index, QtWidgets.QTabBar.LeftSide, invisible_widget
+            )
 
     def close_tab(self, index):
         self.common.log("TabWidget", "close_tab", f"{index}")

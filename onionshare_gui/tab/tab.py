@@ -40,6 +40,7 @@ class Tab(QtWidgets.QWidget):
 
     change_title = QtCore.pyqtSignal(int, str)
     change_icon = QtCore.pyqtSignal(int, str)
+    change_persistent = QtCore.pyqtSignal(int, bool)
 
     def __init__(self, common, tab_id, system_tray, status_bar, filenames=None):
         super(Tab, self).__init__()
@@ -56,7 +57,7 @@ class Tab(QtWidgets.QWidget):
         # Start the OnionShare app
         self.app = OnionShare(common, self.common.gui.onion, self.common.gui.local_only)
 
-        # New tab widget
+        # Widgets to display on a new tab
         share_button = QtWidgets.QPushButton(strings._("gui_new_tab_share_button"))
         share_button.setStyleSheet(self.common.gui.css["mode_new_tab_button"])
         share_description = QtWidgets.QLabel(strings._("gui_new_tab_share_description"))
@@ -137,13 +138,16 @@ class Tab(QtWidgets.QWidget):
             "website": {"disable_csp": False},
         }
 
-        # Persistence button
-        self.persistence_button = QtWidgets.QPushButton()
-        self.persistence_button.setDefault(False)
-        self.persistence_button.setFlat(True)
-        self.persistence_button.setFixedSize(30, 30)
-        self.persistence_button.clicked.connect(self.persistence_button_clicked)
-        self.update_persistence_button()
+        # Persistent image
+        self.persistent_image_label = QtWidgets.QLabel()
+        self.persistent_image_label.setPixmap(
+            QtGui.QPixmap.fromImage(
+                QtGui.QImage(
+                    self.common.get_resource_path("images/persistent_enabled.png")
+                )
+            )
+        )
+        self.persistent_image_label.setFixedSize(30, 30)
 
     def share_mode_clicked(self):
         self.common.log("Tab", "share_mode_clicked")
@@ -151,6 +155,8 @@ class Tab(QtWidgets.QWidget):
         self.new_tab.hide()
 
         self.share_mode = ShareMode(self)
+        self.share_mode.change_persistent.connect(self.change_persistent)
+
         self.layout.addWidget(self.share_mode)
         self.share_mode.show()
 
@@ -185,6 +191,8 @@ class Tab(QtWidgets.QWidget):
         self.new_tab.hide()
 
         self.receive_mode = ReceiveMode(self)
+        self.receive_mode.change_persistent.connect(self.change_persistent)
+
         self.layout.addWidget(self.receive_mode)
         self.receive_mode.show()
 
@@ -221,6 +229,8 @@ class Tab(QtWidgets.QWidget):
         self.new_tab.hide()
 
         self.website_mode = WebsiteMode(self)
+        self.website_mode.change_persistent.connect(self.change_persistent)
+
         self.layout.addWidget(self.website_mode)
         self.website_mode.show()
 
@@ -496,29 +506,6 @@ class Tab(QtWidgets.QWidget):
                 return self.website_mode
         else:
             return None
-
-    def persistence_button_clicked(self):
-        self.common.log("Tab", "persistence_button_clicked")
-        if self.tab_settings["persistent"]["enabled"]:
-            self.tab_settings["persistent"]["enabled"] = False
-        else:
-            self.tab_settings["persistent"]["enabled"] = True
-        self.update_persistence_button()
-
-    def update_persistence_button(self):
-        self.common.log("Tab", "update_persistence_button")
-        if self.tab_settings["persistent"]["enabled"]:
-            self.persistence_button.setIcon(
-                QtGui.QIcon(
-                    self.common.get_resource_path("images/persistent_enabled.png")
-                )
-            )
-        else:
-            self.persistence_button.setIcon(
-                QtGui.QIcon(
-                    self.common.get_resource_path("images/persistent_disabled.png")
-                )
-            )
 
     def close_tab(self):
         self.common.log("Tab", "close_tab")
