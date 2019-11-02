@@ -95,22 +95,12 @@ def main():
         nargs="+",
         help="List of files or folders to share",
     )
-    parser.add_argument(
-        "--config",
-        metavar="config",
-        default=False,
-        help="Custom JSON config file location (optional)",
-    )
     args = parser.parse_args()
 
     filenames = args.filenames
     if filenames:
         for i in range(len(filenames)):
             filenames[i] = os.path.abspath(filenames[i])
-
-    config = args.config
-    if config:
-        common.load_settings(config)
 
     local_only = bool(args.local_only)
     verbose = bool(args.verbose)
@@ -156,7 +146,7 @@ def main():
         return
 
     # Attach the GUI common parts to the common object
-    common.gui = GuiCommon(common, qtapp, local_only, config)
+    common.gui = GuiCommon(common, qtapp, local_only)
 
     # Launch the gui
     main_window = MainWindow(common, filenames)
