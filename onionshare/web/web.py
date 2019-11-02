@@ -352,17 +352,11 @@ class Web:
             pass
         self.running = False
 
-    def start(self, port, stay_open=False, public_mode=False, password=None):
+    def start(self, port):
         """
         Start the flask web server.
         """
-        self.common.log(
-            "Web",
-            "start",
-            f"port={port}, stay_open={stay_open}, public_mode={public_mode}, password={password}",
-        )
-
-        self.stay_open = stay_open
+        self.common.log("Web", "start", f"port={port}")
 
         # Make sure the stop_q is empty when starting a new server
         while not self.stop_q.empty():
