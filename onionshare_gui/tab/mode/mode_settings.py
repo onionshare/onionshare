@@ -24,7 +24,7 @@ from onionshare import strings
 
 class ModeSettings(QtWidgets.QWidget):
     """
-    A settings widget
+    All of the common settings for each mode are in this widget
     """
 
     change_persistent = QtCore.pyqtSignal(int, bool)
@@ -45,11 +45,15 @@ class ModeSettings(QtWidgets.QWidget):
 
         # Public
         self.public_checkbox = QtWidgets.QCheckBox()
+        self.public_checkbox.clicked.connect(self.public_checkbox_clicked)
         self.public_checkbox.setCheckState(QtCore.Qt.Unchecked)
         self.public_checkbox.setText(strings._("mode_settings_public_checkbox"))
 
         # Whether or not to use an auto-start timer
         self.autostart_timer_checkbox = QtWidgets.QCheckBox()
+        self.autostart_timer_checkbox.clicked.connect(
+            self.autostart_timer_checkbox_clicked
+        )
         self.autostart_timer_checkbox.setCheckState(QtCore.Qt.Unchecked)
         self.autostart_timer_checkbox.setText(
             strings._("mode_settings_autostart_timer_checkbox")
@@ -57,6 +61,9 @@ class ModeSettings(QtWidgets.QWidget):
 
         # Whether or not to use an auto-stop timer
         self.autostop_timer_checkbox = QtWidgets.QCheckBox()
+        self.autostop_timer_checkbox.clicked.connect(
+            self.autostop_timer_checkbox_clicked
+        )
         self.autostop_timer_checkbox.setCheckState(QtCore.Qt.Unchecked)
         self.autostop_timer_checkbox.setText(
             strings._("mode_settings_autostop_timer_checkbox")
@@ -64,12 +71,14 @@ class ModeSettings(QtWidgets.QWidget):
 
         # Legacy address
         self.legacy_checkbox = QtWidgets.QCheckBox()
+        self.legacy_checkbox.clicked.connect(self.legacy_checkbox_clicked)
         self.legacy_checkbox.clicked.connect(self.update_ui)
         self.legacy_checkbox.setCheckState(QtCore.Qt.Unchecked)
         self.legacy_checkbox.setText(strings._("mode_settings_legacy_checkbox"))
 
         # Client auth
         self.client_auth_checkbox = QtWidgets.QCheckBox()
+        self.client_auth_checkbox.clicked.connect(self.client_auth_checkbox_clicked)
         self.client_auth_checkbox.clicked.connect(self.update_ui)
         self.client_auth_checkbox.setCheckState(QtCore.Qt.Unchecked)
         self.client_auth_checkbox.setText(
@@ -135,6 +144,27 @@ class ModeSettings(QtWidgets.QWidget):
         self.change_persistent.emit(
             self.tab.tab_id, self.persistent_checkbox.isChecked()
         )
+
+    def public_checkbox_clicked(self):
+        self.tab.tab_settings["general"]["public"] = self.public_checkbox.isChecked()
+
+    def autostart_timer_checkbox_clicked(self):
+        self.tab.tab_settings["general"][
+            "autostart_timer"
+        ] = self.autostart_timer_checkbox.isChecked()
+
+    def autostop_timer_checkbox_clicked(self):
+        self.tab.tab_settings["general"][
+            "autostop_timer"
+        ] = self.autostop_timer_checkbox.isChecked()
+
+    def legacy_checkbox_clicked(self):
+        self.tab.tab_settings["general"]["legacy"] = self.legacy_checkbox.isChecked()
+
+    def client_auth_checkbox_clicked(self):
+        self.tab.tab_settings["general"][
+            "client_auth"
+        ] = self.client_auth_checkbox.isChecked()
 
     def toggle_advanced_clicked(self):
         if self.advanced_widget.isVisible():

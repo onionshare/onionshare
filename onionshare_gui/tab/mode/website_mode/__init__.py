@@ -52,7 +52,9 @@ class WebsiteMode(Mode):
         # Header
         self.header_label.setText(strings._("gui_new_tab_website_button"))
 
+        # Settings
         self.disable_csp_checkbox = QtWidgets.QCheckBox()
+        self.disable_csp_checkbox.clicked.connect(self.disable_csp_checkbox_clicked)
         self.disable_csp_checkbox.setCheckState(QtCore.Qt.Unchecked)
         self.disable_csp_checkbox.setText(
             strings._("mode_settings_website_disable_csp_checkbox")
@@ -148,6 +150,14 @@ class WebsiteMode(Mode):
 
         # Always start with focus on file selection
         self.file_selection.setFocus()
+
+    def disable_csp_checkbox_clicked(self):
+        """
+        Save disable CSP setting to the tab settings
+        """
+        self.tab.tab_settings["website"][
+            "disable_csp"
+        ] = self.disable_csp_checkbox.isChecked()
 
     def get_stop_server_autostop_timer_text(self):
         """
