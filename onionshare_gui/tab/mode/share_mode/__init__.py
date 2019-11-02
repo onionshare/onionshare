@@ -59,7 +59,7 @@ class ShareMode(Mode):
         self.autostop_sharing_checkbox.setText(
             strings._("mode_settings_share_autostop_sharing_checkbox")
         )
-        self.mode_settings.mode_specific_layout.addWidget(
+        self.mode_settings_widget.mode_specific_layout.addWidget(
             self.autostop_sharing_checkbox
         )
 

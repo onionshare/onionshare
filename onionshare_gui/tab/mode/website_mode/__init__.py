@@ -59,7 +59,9 @@ class WebsiteMode(Mode):
         self.disable_csp_checkbox.setText(
             strings._("mode_settings_website_disable_csp_checkbox")
         )
-        self.mode_settings.mode_specific_layout.addWidget(self.disable_csp_checkbox)
+        self.mode_settings_widget.mode_specific_layout.addWidget(
+            self.disable_csp_checkbox
+        )
 
         # File selection
         self.file_selection = FileSelection(self.common, self)
