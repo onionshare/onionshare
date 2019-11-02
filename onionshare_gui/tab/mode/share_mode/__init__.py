@@ -157,7 +157,7 @@ class ShareMode(Mode):
         """
         Save autostop sharing setting to the tab settings
         """
-        self.tab.set_tab_setting(
+        self.settings.set(
             "share", "autostop_sharing", self.autostop_sharing_checkbox.isChecked()
         )
 
@@ -309,7 +309,7 @@ class ShareMode(Mode):
             self.history.update_in_progress()
 
             # Close on finish?
-            if self.tab.tab_settings["share"]["autostop_sharing"]:
+            if self.settings.get("share", "autostop_sharing"):
                 self.server_status.stop_server()
                 self.status_bar.clearMessage()
                 self.server_status_label.setText(strings._("closing_automatically"))

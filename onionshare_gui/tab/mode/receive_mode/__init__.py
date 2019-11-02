@@ -47,7 +47,7 @@ class ReceiveMode(Mode):
         )
         self.data_dir_lineedit = QtWidgets.QLineEdit()
         self.data_dir_lineedit.setReadOnly(True)
-        self.data_dir_lineedit.setText(self.tab.tab_settings["receive"]["data_dir"])
+        self.data_dir_lineedit.setText(self.settings.get("receive", "data_dir"))
         data_dir_button = QtWidgets.QPushButton(
             strings._("mode_settings_receive_data_dir_browse_button")
         )
@@ -140,7 +140,7 @@ class ReceiveMode(Mode):
                 f"selected dir: {selected_dir}",
             )
             self.data_dir_lineedit.setText(selected_dir)
-            self.tab.set_tab_setting("receive", "data_dir", data_dir)
+            self.settings.set("receive", "data_dir", data_dir)
 
     def get_stop_server_autostop_timer_text(self):
         """

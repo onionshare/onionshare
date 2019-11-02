@@ -23,7 +23,7 @@ from onionshare import strings
 from onionshare.common import AutoStopTimer
 
 from .history import IndividualFileHistoryItem
-from .mode_settings import ModeSettings
+from .mode_settings_widget import ModeSettingsWidget
 
 from ..server_status import ServerStatus
 from ...threads import OnionThread, AutoStartTimer
@@ -47,6 +47,7 @@ class Mode(QtWidgets.QWidget):
     def __init__(self, tab):
         super(Mode, self).__init__()
         self.tab = tab
+        self.settings = tab.mode_settings
 
         self.common = tab.common
         self.qtapp = self.common.gui.qtapp
@@ -72,7 +73,9 @@ class Mode(QtWidgets.QWidget):
         self.header_label.setStyleSheet(self.common.gui.css["mode_header_label"])
         self.header_label.setAlignment(QtCore.Qt.AlignHCenter)
 
-        self.mode_settings = ModeSettings(self.common, self.tab)
+        self.mode_settings = ModeSettingsWidget(
+            self.common, self.tab.tab_id, self.tab.mode_settings
+        )
         self.mode_settings.change_persistent.connect(self.change_persistent)
 
         header_layout = QtWidgets.QVBoxLayout()

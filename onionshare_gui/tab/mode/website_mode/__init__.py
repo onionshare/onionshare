@@ -155,7 +155,7 @@ class WebsiteMode(Mode):
         """
         Save disable CSP setting to the tab settings
         """
-        self.tab.set_tab_setting(
+        self.settings.set(
             "website", "disable_csp", self.disable_csp_checkbox.isChecked()
         )
 
