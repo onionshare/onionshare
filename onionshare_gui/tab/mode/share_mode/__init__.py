@@ -50,7 +50,11 @@ class ShareMode(Mode):
         # Header
         self.header_label.setText(strings._("gui_new_tab_share_button"))
 
+        # Settings
         self.autostop_sharing_checkbox = QtWidgets.QCheckBox()
+        self.autostop_sharing_checkbox.clicked.connect(
+            self.autostop_sharing_checkbox_clicked
+        )
         self.autostop_sharing_checkbox.setCheckState(QtCore.Qt.Checked)
         self.autostop_sharing_checkbox.setText(
             strings._("mode_settings_share_autostop_sharing_checkbox")
@@ -148,6 +152,14 @@ class ShareMode(Mode):
 
         # Always start with focus on file selection
         self.file_selection.setFocus()
+
+    def autostop_sharing_checkbox_clicked(self):
+        """
+        Save autostop sharing setting to the tab settings
+        """
+        self.tab.tab_settings["share"][
+            "autostop_sharing"
+        ] = self.autostop_sharing_checkbox.isChecked()
 
     def get_stop_server_autostop_timer_text(self):
         """

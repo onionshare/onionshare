@@ -130,7 +130,7 @@ class Tab(QtWidgets.QWidget):
                 "public": False,
                 "autostart_timer": False,
                 "autostop_timer": False,
-                "legacy_addresses": False,
+                "legacy": False,
                 "client_auth": False,
             },
             "share": {"autostop_sharing": True},

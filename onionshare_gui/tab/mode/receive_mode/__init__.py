@@ -41,6 +41,7 @@ class ReceiveMode(Mode):
         # Header
         self.header_label.setText(strings._("gui_new_tab_receive_button"))
 
+        # Settings
         data_dir_label = QtWidgets.QLabel(
             strings._("mode_settings_receive_data_dir_label")
         )
@@ -125,7 +126,7 @@ class ReceiveMode(Mode):
 
     def data_dir_button_clicked(self):
         """
-        Browse for a new OnionShare data directory
+        Browse for a new OnionShare data directory, and save to tab settings
         """
         data_dir = self.data_dir_lineedit.text()
         selected_dir = QtWidgets.QFileDialog.getExistingDirectory(
@@ -139,6 +140,7 @@ class ReceiveMode(Mode):
                 f"selected dir: {selected_dir}",
             )
             self.data_dir_lineedit.setText(selected_dir)
+            self.tab.tab_settings["receive"]["data_dir"] = data_dir
 
     def get_stop_server_autostop_timer_text(self):
         """
