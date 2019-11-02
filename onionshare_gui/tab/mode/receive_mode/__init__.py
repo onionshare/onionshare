@@ -140,7 +140,7 @@ class ReceiveMode(Mode):
                 f"selected dir: {selected_dir}",
             )
             self.data_dir_lineedit.setText(selected_dir)
-            self.tab.tab_settings["receive"]["data_dir"] = data_dir
+            self.tab.set_tab_setting("receive", "data_dir", data_dir)
 
     def get_stop_server_autostop_timer_text(self):
         """

@@ -137,34 +137,34 @@ class ModeSettings(QtWidgets.QWidget):
             self.client_auth_checkbox.hide()
 
     def persistent_checkbox_clicked(self):
-        self.tab.tab_settings["persistent"][
-            "enabled"
-        ] = self.persistent_checkbox.isChecked()
+        self.tab.set_tab_setting(
+            "persistent", "enabled", self.persistent_checkbox.isChecked()
+        )
 
         self.change_persistent.emit(
             self.tab.tab_id, self.persistent_checkbox.isChecked()
         )
 
     def public_checkbox_clicked(self):
-        self.tab.tab_settings["general"]["public"] = self.public_checkbox.isChecked()
+        self.tab.set_tab_setting("general", "public", self.public_checkbox.isChecked())
 
     def autostart_timer_checkbox_clicked(self):
-        self.tab.tab_settings["general"][
-            "autostart_timer"
-        ] = self.autostart_timer_checkbox.isChecked()
+        self.tab.set_tab_setting(
+            "general", "autostart_timer", self.autostart_timer_checkbox.isChecked()
+        )
 
     def autostop_timer_checkbox_clicked(self):
-        self.tab.tab_settings["general"][
-            "autostop_timer"
-        ] = self.autostop_timer_checkbox.isChecked()
+        self.tab.set_tab_setting(
+            "general", "autostop_timer", self.autostop_timer_checkbox.isChecked()
+        )
 
     def legacy_checkbox_clicked(self):
-        self.tab.tab_settings["general"]["legacy"] = self.legacy_checkbox.isChecked()
+        self.tab.set_tab_setting("general", "legacy", self.legacy_checkbox.isChecked())
 
     def client_auth_checkbox_clicked(self):
-        self.tab.tab_settings["general"][
-            "client_auth"
-        ] = self.client_auth_checkbox.isChecked()
+        self.tab.set_tab_setting(
+            "general", "client_auth", self.client_auth_checkbox.isChecked()
+        )
 
     def toggle_advanced_clicked(self):
         if self.advanced_widget.isVisible():
