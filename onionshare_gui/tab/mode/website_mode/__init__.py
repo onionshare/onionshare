@@ -47,7 +47,7 @@ class WebsiteMode(Mode):
         Custom initialization for ReceiveMode.
         """
         # Create the Web object
-        self.web = Web(self.common, True, "website")
+        self.web = Web(self.common, True, self.settings, "website")
 
         # Header
         self.header_label.setText(strings._("gui_new_tab_website_button"))

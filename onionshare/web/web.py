@@ -60,9 +60,7 @@ class Web:
     REQUEST_OTHER = 13
     REQUEST_INVALID_PASSWORD = 14
 
-    def __init__(
-        self, common, is_gui, tab_settings_get=None, tab_settings_set=None, mode="share"
-    ):
+    def __init__(self, common, is_gui, mode_settings, mode="share"):
         """
         tab_settings_get and tab_settings_set are getter and setter functions for tab settings
         """
@@ -70,8 +68,7 @@ class Web:
         self.common = common
         self.common.log("Web", "__init__", f"is_gui={is_gui}, mode={mode}")
 
-        self.settings_get = tab_settings_get
-        self.settings_set = tab_settings_set
+        self.settings = mode_settings
 
         # The flask app
         self.app = Flask(
@@ -195,7 +192,7 @@ class Web:
                 return None
 
             # If public mode is disabled, require authentication
-            if not self.common.settings.get("public_mode"):
+            if not self.settings.get("general", "public"):
 
                 @self.auth.login_required
                 def _check_login():
@@ -293,10 +290,7 @@ class Web:
         for header, value in self.security_headers:
             r.headers.set(header, value)
         # Set a CSP header unless in website mode and the user has disabled it
-        if (
-            not self.common.settings.get("csp_header_disabled")
-            or self.mode != "website"
-        ):
+        if not self.settings.get("website", "disable_csp") or self.mode != "website":
             r.headers.set(
                 "Content-Security-Policy",
                 "default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:;",

@@ -45,7 +45,7 @@ class ShareMode(Mode):
         self.compress_thread = None
 
         # Create the Web object
-        self.web = Web(self.common, True, "share")
+        self.web = Web(self.common, True, self.settings, "share")
 
         # Header
         self.header_label.setText(strings._("gui_new_tab_share_button"))
