@@ -57,7 +57,7 @@ class ReceiveMode(Mode):
         data_dir_layout.addWidget(self.data_dir_lineedit)
         data_dir_layout.addWidget(data_dir_button)
 
-        self.mode_settings.mode_specific_layout.addLayout(data_dir_layout)
+        self.mode_settings_widget.mode_specific_layout.addLayout(data_dir_layout)
 
         # Server status
         self.server_status.set_mode("receive")

@@ -496,7 +496,7 @@ class Tab(QtWidgets.QWidget):
         if self.mode is None:
             return True
 
-        if self.tab_settings["persistent"]["enabled"]:
+        if self.mode_settings.get("persistent", "enabled"):
             dialog_text = strings._("gui_close_tab_warning_persistent_description")
         else:
             server_status = self.get_mode().server_status
