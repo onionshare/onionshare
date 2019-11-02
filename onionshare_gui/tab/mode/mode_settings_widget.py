@@ -22,17 +22,18 @@ from PyQt5 import QtCore, QtWidgets, QtGui
 from onionshare import strings
 
 
-class ModeSettings(QtWidgets.QWidget):
+class ModeSettingsWidget(QtWidgets.QWidget):
     """
     All of the common settings for each mode are in this widget
     """
 
     change_persistent = QtCore.pyqtSignal(int, bool)
 
-    def __init__(self, common, tab):
-        super(ModeSettings, self).__init__()
+    def __init__(self, common, tab_id, mode_settings):
+        super(ModeSettingsWidget, self).__init__()
         self.common = common
-        self.tab = tab
+        self.tab_id = tab_id
+        self.settings = mode_settings
 
         # Downstream Mode need to fill in this layout with its settings
         self.mode_specific_layout = QtWidgets.QVBoxLayout()
@@ -137,32 +138,28 @@ class ModeSettings(QtWidgets.QWidget):
             self.client_auth_checkbox.hide()
 
     def persistent_checkbox_clicked(self):
-        self.tab.set_tab_setting(
-            "persistent", "enabled", self.persistent_checkbox.isChecked()
-        )
+        self.settings.set("persistent", "enabled", self.persistent_checkbox.isChecked())
 
-        self.change_persistent.emit(
-            self.tab.tab_id, self.persistent_checkbox.isChecked()
-        )
+        self.change_persistent.emit(self.tab_id, self.persistent_checkbox.isChecked())
 
     def public_checkbox_clicked(self):
-        self.tab.set_tab_setting("general", "public", self.public_checkbox.isChecked())
+        self.settings.set("general", "public", self.public_checkbox.isChecked())
 
     def autostart_timer_checkbox_clicked(self):
-        self.tab.set_tab_setting(
+        self.settings.set(
             "general", "autostart_timer", self.autostart_timer_checkbox.isChecked()
         )
 
     def autostop_timer_checkbox_clicked(self):
-        self.tab.set_tab_setting(
+        self.settings.set(
             "general", "autostop_timer", self.autostop_timer_checkbox.isChecked()
         )
 
     def legacy_checkbox_clicked(self):
-        self.tab.set_tab_setting("general", "legacy", self.legacy_checkbox.isChecked())
+        self.settings.set("general", "legacy", self.legacy_checkbox.isChecked())
 
     def client_auth_checkbox_clicked(self):
-        self.tab.set_tab_setting(
+        self.settings.set(
             "general", "client_auth", self.client_auth_checkbox.isChecked()
         )
 

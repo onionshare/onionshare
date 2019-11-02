@@ -60,9 +60,18 @@ class Web:
     REQUEST_OTHER = 13
     REQUEST_INVALID_PASSWORD = 14
 
-    def __init__(self, common, is_gui, mode="share"):
+    def __init__(
+        self, common, is_gui, tab_settings_get=None, tab_settings_set=None, mode="share"
+    ):
+        """
+        tab_settings_get and tab_settings_set are getter and setter functions for tab settings
+        """
+
         self.common = common
         self.common.log("Web", "__init__", f"is_gui={is_gui}, mode={mode}")
+
+        self.settings_get = tab_settings_get
+        self.settings_set = tab_settings_set
 
         # The flask app
         self.app = Flask(

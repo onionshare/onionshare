@@ -23,6 +23,7 @@ from PyQt5 import QtCore, QtWidgets, QtGui
 from onionshare import strings
 from onionshare.onionshare import OnionShare
 from onionshare.web import Web
+from onionshare.mode_settings import ModeSettings
 
 from .mode.share_mode import ShareMode
 from .mode.receive_mode import ReceiveMode
@@ -130,30 +131,7 @@ class Tab(QtWidgets.QWidget):
         self.persistent_image_label.setFixedSize(30, 30)
 
         # Settings for this tab
-        self.tab_settings = {
-            "persistent": {
-                "enabled": False,
-                "private_key": None,
-                "hidservauth": None,
-                "password": None,
-            },
-            "general": {
-                "public": False,
-                "autostart_timer": False,
-                "autostop_timer": False,
-                "legacy": False,
-                "client_auth": False,
-            },
-            "share": {"autostop_sharing": True},
-            "receive": {"data_dir": self.common.settings.build_default_data_dir()},
-            "website": {"disable_csp": False},
-        }
-
-    def get_tab_setting(self, group, key):
-        return self.tab_settings[group][key]
-
-    def set_tab_setting(self, group, key, val):
-        self.tab_settings[group][key] = val
+        self.mode_settings = ModeSettings(self.common)
 
     def share_mode_clicked(self):
         self.common.log("Tab", "share_mode_clicked")
