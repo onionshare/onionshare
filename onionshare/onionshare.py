@@ -42,7 +42,6 @@ class OnionShare(object):
         self.hidserv_dir = None
         self.onion_host = None
         self.port = None
-        self.stealth = None
 
         # files and dirs to delete on shutdown
         self.cleanup_filenames = []
@@ -54,12 +53,6 @@ class OnionShare(object):
         self.autostop_timer = autostop_timer
         # init auto-stop timer thread
         self.autostop_timer_thread = None
-
-    def set_stealth(self, stealth):
-        self.common.log("OnionShare", f"set_stealth", "stealth={stealth}")
-
-        self.stealth = stealth
-        self.onion.stealth = stealth
 
     def choose_port(self):
         """
