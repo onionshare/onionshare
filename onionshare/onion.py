@@ -191,7 +191,14 @@ class Onion(object):
         config=False,
         tor_status_update_func=None,
         connect_timeout=120,
+        local_only=False,
     ):
+        if local_only:
+            self.common.log(
+                "Onion", "connect", "--local-only, so skip trying to connect"
+            )
+            return
+
         self.common.log("Onion", "connect")
 
         # Either use settings that are passed in, or use them from common
@@ -205,6 +212,7 @@ class Onion(object):
             self.settings = self.common.settings
 
         strings.load_strings(self.common)
+
         # The Tor controller
         self.c = None
 

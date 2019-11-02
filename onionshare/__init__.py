@@ -26,6 +26,7 @@ from .common import Common
 from .web import Web
 from .onion import *
 from .onionshare import OnionShare
+from .mode_settings import ModeSettings
 
 
 def build_url(common, app, web):
@@ -177,14 +178,20 @@ def main(cwd=None):
     # Verbose mode?
     common.verbose = verbose
 
+    # Mode settings
+    mode_settings = ModeSettings(common)
+
     # Create the Web object
-    web = Web(common, False, mode)
+    web = Web(common, False, mode_settings, mode)
 
     # Start the Onion object
     onion = Onion(common)
     try:
         onion.connect(
-            custom_settings=False, config=config, connect_timeout=connect_timeout
+            custom_settings=False,
+            config=config,
+            connect_timeout=connect_timeout,
+            local_only=local_only,
         )
     except KeyboardInterrupt:
         print("")
