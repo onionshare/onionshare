@@ -155,9 +155,9 @@ class WebsiteMode(Mode):
         """
         Save disable CSP setting to the tab settings
         """
-        self.tab.tab_settings["website"][
-            "disable_csp"
-        ] = self.disable_csp_checkbox.isChecked()
+        self.tab.set_tab_setting(
+            "website", "disable_csp", self.disable_csp_checkbox.isChecked()
+        )
 
     def get_stop_server_autostop_timer_text(self):
         """

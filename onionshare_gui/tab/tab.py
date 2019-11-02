@@ -118,6 +118,17 @@ class Tab(QtWidgets.QWidget):
         self.timer = QtCore.QTimer()
         self.timer.timeout.connect(self.timer_callback)
 
+        # Persistent image
+        self.persistent_image_label = QtWidgets.QLabel()
+        self.persistent_image_label.setPixmap(
+            QtGui.QPixmap.fromImage(
+                QtGui.QImage(
+                    self.common.get_resource_path("images/persistent_enabled.png")
+                )
+            )
+        )
+        self.persistent_image_label.setFixedSize(30, 30)
+
         # Settings for this tab
         self.tab_settings = {
             "persistent": {
@@ -138,16 +149,11 @@ class Tab(QtWidgets.QWidget):
             "website": {"disable_csp": False},
         }
 
-        # Persistent image
-        self.persistent_image_label = QtWidgets.QLabel()
-        self.persistent_image_label.setPixmap(
-            QtGui.QPixmap.fromImage(
-                QtGui.QImage(
-                    self.common.get_resource_path("images/persistent_enabled.png")
-                )
-            )
-        )
-        self.persistent_image_label.setFixedSize(30, 30)
+    def get_tab_setting(self, group, key):
+        return self.tab_settings[group][key]
+
+    def set_tab_setting(self, group, key, val):
+        self.tab_settings[group][key] = val
 
     def share_mode_clicked(self):
         self.common.log("Tab", "share_mode_clicked")
