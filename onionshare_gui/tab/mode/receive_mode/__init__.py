@@ -36,7 +36,7 @@ class ReceiveMode(Mode):
         Custom initialization for ReceiveMode.
         """
         # Create the Web object
-        self.web = Web(self.common, True, "receive")
+        self.web = Web(self.common, True, self.settings, "receive")
 
         # Header
         self.header_label.setText(strings._("gui_new_tab_receive_button"))

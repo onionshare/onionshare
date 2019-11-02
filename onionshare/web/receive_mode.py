@@ -292,7 +292,7 @@ class ReceiveModeRequest(Request):
             date_dir = now.strftime("%Y-%m-%d")
             time_dir = now.strftime("%H.%M.%S")
             self.receive_mode_dir = os.path.join(
-                self.web.common.settings.get("data_dir"), date_dir, time_dir
+                self.web.settings.get("website", "data_dir"), date_dir, time_dir
             )
 
             # Create that directory, which shouldn't exist yet

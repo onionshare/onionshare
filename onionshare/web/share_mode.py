@@ -18,8 +18,8 @@ class ShareModeWeb(SendBaseModeWeb):
         self.common.log("ShareModeWeb", "init")
 
         # Allow downloading individual files if "Stop sharing after files have been sent" is unchecked
-        self.download_individual_files = not self.common.settings.get(
-            "close_after_first_download"
+        self.download_individual_files = not self.web.settings.get(
+            "share", "autostop_sharing"
         )
 
     def define_routes(self):
