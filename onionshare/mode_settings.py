@@ -45,7 +45,7 @@ class ModeSettings:
                 "client_auth": False,
             },
             "share": {"autostop_sharing": True},
-            "receive": {"data_dir": self.build_default_data_dir()},
+            "receive": {"data_dir": self.build_default_receive_data_dir()},
             "website": {"disable_csp": False},
         }
 
@@ -55,7 +55,7 @@ class ModeSettings:
     def set(self, group, key, val):
         self.settings[group][key] = val
 
-    def build_default_data_dir(self):
+    def build_default_receive_data_dir(self):
         """
         Returns the path of the default Downloads directory for receive mode.
         """
