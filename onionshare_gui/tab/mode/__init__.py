@@ -47,7 +47,7 @@ class Mode(QtWidgets.QWidget):
     def __init__(self, tab):
         super(Mode, self).__init__()
         self.tab = tab
-        self.settings = tab.mode_settings
+        self.settings = tab.settings
 
         self.common = tab.common
         self.qtapp = self.common.gui.qtapp
@@ -69,7 +69,7 @@ class Mode(QtWidgets.QWidget):
 
         # Mode settings widget
         self.mode_settings_widget = ModeSettingsWidget(
-            self.common, self.tab.tab_id, self.settings
+            self.common, self.tab, self.settings
         )
         self.mode_settings_widget.change_persistent.connect(self.change_persistent)
 

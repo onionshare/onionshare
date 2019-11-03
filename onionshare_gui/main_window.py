@@ -120,8 +120,13 @@ class MainWindow(QtWidgets.QMainWindow):
         # Tabs
         self.tabs = TabWidget(self.common, self.system_tray, self.status_bar)
 
-        # Start with opening the first tab
-        self.tabs.new_tab_clicked()
+        # If we have saved persistent tabs, try opening those
+        if len(self.common.settings.get("persistent_tabs")) > 0:
+            for mode_settings_id in self.common.settings.get("persistent_tabs"):
+                self.tabs.load_tab(mode_settings_id)
+        else:
+            # Start with opening the first tab
+            self.tabs.new_tab_clicked()
 
         # Layout
         layout = QtWidgets.QVBoxLayout()

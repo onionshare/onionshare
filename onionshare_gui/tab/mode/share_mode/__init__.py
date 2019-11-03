@@ -55,10 +55,14 @@ class ShareMode(Mode):
         self.autostop_sharing_checkbox.clicked.connect(
             self.autostop_sharing_checkbox_clicked
         )
-        self.autostop_sharing_checkbox.setCheckState(QtCore.Qt.Checked)
         self.autostop_sharing_checkbox.setText(
             strings._("mode_settings_share_autostop_sharing_checkbox")
         )
+        if self.settings.get("share", "autostop_sharing"):
+            self.autostop_sharing_checkbox.setCheckState(QtCore.Qt.Checked)
+        else:
+            self.autostop_sharing_checkbox.setCheckState(QtCore.Qt.Unchecked)
+
         self.mode_settings_widget.mode_specific_layout.addWidget(
             self.autostop_sharing_checkbox
         )

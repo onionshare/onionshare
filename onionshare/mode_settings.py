@@ -28,12 +28,13 @@ class ModeSettings:
     is only one TabSettings, and in the GUI there is a separate TabSettings for each tab
     """
 
-    def __init__(self, common, filename=None):
+    def __init__(self, common, filename=None, id=None):
         self.common = common
 
         self.default_settings = {
             "persistent": {
                 "enabled": False,
+                "mode": None,
                 "private_key": None,
                 "hidservauth": None,
                 "password": None,
@@ -52,7 +53,10 @@ class ModeSettings:
         self._settings = {}
 
         self.just_created = False
-        self.id = self.common.build_password(3)
+        if id:
+            self.id = id
+        else:
+            self.id = self.common.build_password(3)
 
         self.load(filename)
 
@@ -104,7 +108,6 @@ class ModeSettings:
         if filename:
             self.filename = filename
         else:
-            # Give it a persistent filename
             self.filename = os.path.join(
                 self.common.build_persistent_dir(), f"{self.id}.json"
             )
