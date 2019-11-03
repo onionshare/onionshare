@@ -24,6 +24,7 @@ from onionshare.web import Web
 
 from ..history import History, ToggleHistory, ReceiveHistoryItem
 from .. import Mode
+from ....widgets import MinimumWidthWidget
 
 
 class ReceiveMode(Mode):
@@ -111,7 +112,7 @@ class ReceiveMode(Mode):
         self.main_layout.addWidget(receive_warning)
         self.main_layout.addWidget(self.primary_action)
         self.main_layout.addStretch()
-        self.main_layout.addWidget(self.min_width_widget)
+        self.main_layout.addWidget(MinimumWidthWidget(700))
 
         # Column layout
         self.column_layout = QtWidgets.QHBoxLayout()
@@ -120,7 +121,7 @@ class ReceiveMode(Mode):
 
         # Wrapper layout
         self.wrapper_layout = QtWidgets.QVBoxLayout()
-        self.wrapper_layout.addWidget(self.header)
+        self.wrapper_layout.addWidget(self.header_label)
         self.wrapper_layout.addLayout(self.column_layout)
         self.setLayout(self.wrapper_layout)
 
