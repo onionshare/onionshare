@@ -67,25 +67,6 @@ class Mode(QtWidgets.QWidget):
         self.web_thread = None
         self.startup_thread = None
 
-        # Header
-        # Note: It's up to the downstream Mode to add this to its layout
-        self.header_label = QtWidgets.QLabel()
-        self.header_label.setStyleSheet(self.common.gui.css["mode_header_label"])
-        self.header_label.setAlignment(QtCore.Qt.AlignHCenter)
-
-        self.mode_settings_widget = ModeSettingsWidget(
-            self.common, self.tab.tab_id, self.tab.mode_settings
-        )
-        self.mode_settings_widget.change_persistent.connect(self.change_persistent)
-
-        header_layout = QtWidgets.QVBoxLayout()
-        header_layout.setContentsMargins(0, 0, 0, 0)
-        header_layout.addWidget(self.header_label)
-        header_layout.addWidget(self.mode_settings_widget)
-
-        self.header = QtWidgets.QWidget()
-        self.header.setLayout(header_layout)
-
         # Server status
         self.server_status = ServerStatus(
             self.common,
@@ -104,6 +85,28 @@ class Mode(QtWidgets.QWidget):
         self.starting_server_step3.connect(self.start_server_step3)
         self.starting_server_early.connect(self.start_server_early)
         self.starting_server_error.connect(self.start_server_error)
+
+        # Header
+        # Note: It's up to the downstream Mode to add this to its layout
+        self.header_label = QtWidgets.QLabel()
+        self.header_label.setStyleSheet(self.common.gui.css["mode_header_label"])
+        self.header_label.setAlignment(QtCore.Qt.AlignHCenter)
+
+        self.mode_settings_widget = ModeSettingsWidget(
+            self.common, self.tab.tab_id, self.tab.mode_settings
+        )
+        self.mode_settings_widget.change_persistent.connect(self.change_persistent)
+        self.mode_settings_widget.update_server_status.connect(
+            self.server_status.update
+        )
+
+        header_layout = QtWidgets.QVBoxLayout()
+        header_layout.setContentsMargins(0, 0, 0, 0)
+        header_layout.addWidget(self.header_label)
+        header_layout.addWidget(self.mode_settings_widget)
+
+        self.header = QtWidgets.QWidget()
+        self.header.setLayout(header_layout)
 
         # Primary action
         # Note: It's up to the downstream Mode to add this to its layout
