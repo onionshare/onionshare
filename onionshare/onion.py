@@ -187,8 +187,8 @@ class Onion(object):
 
     def connect(
         self,
-        custom_settings=False,
-        config=False,
+        custom_settings=None,
+        config=None,
         tor_status_update_func=None,
         connect_timeout=120,
         local_only=False,
