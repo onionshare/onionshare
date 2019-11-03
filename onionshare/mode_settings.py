@@ -130,11 +130,13 @@ class ModeSettings:
     def save(self):
         # Save persistent setting to disk
         if not self.get("persistent", "enabled"):
-            self.common.log(
-                "ModeSettings", "save", f"{self.id}: not persistent, so not saving"
-            )
             return
 
         if self.filename:
             with open(self.filename, "w") as file:
                 file.write(json.dumps(self._settings, indent=2))
+
+    def delete(self):
+        # Delete the file from disk
+        if os.path.exists(self.filename):
+            os.remove(self.filename)

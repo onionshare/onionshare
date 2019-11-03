@@ -150,12 +150,19 @@ class TabWidget(QtWidgets.QTabWidget):
         self.common.log("TabWidget", "close_tab", f"{index}")
         tab = self.widget(index)
         if tab.close_tab():
+            # If the tab is persistent, delete the settings file from disk
+            if tab.settings.get("persistent", "enabled"):
+                tab.settings.delete()
+
+            # Remove the tab
             self.removeTab(index)
             del self.tabs[tab.tab_id]
 
             # If the last tab is closed, open a new one
             if self.count() == 0:
                 self.new_tab_clicked()
+
+        self.save_persistent_tabs()
 
     def are_tabs_active(self):
         """
