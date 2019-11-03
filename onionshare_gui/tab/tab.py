@@ -138,15 +138,18 @@ class Tab(QtWidgets.QWidget):
         )
         self.persistent_image_label.setFixedSize(20, 20)
 
+    def init(self, mode_settings=None):
         if mode_settings:
             # Load this tab
             self.settings = mode_settings
             mode = self.settings.get("persistent", "mode")
             if mode == "share":
+                self.filenames = self.settings.get("share", "filenames")
                 self.share_mode_clicked()
             elif mode == "receive":
                 self.receive_mode_clicked()
             elif mode == "website":
+                self.filenames = self.settings.get("website", "filenames")
                 self.website_mode_clicked()
         else:
             # This is a new tab

@@ -204,9 +204,7 @@ class ShareMode(Mode):
         """
         # Add progress bar to the status bar, indicating the compressing of files.
         self._zip_progress_bar = ZipProgressBar(self.common, 0)
-        self.filenames = []
-        for index in range(self.file_selection.file_list.count()):
-            self.filenames.append(self.file_selection.file_list.item(index).filename)
+        self.filenames = self.file_selection.get_filenames()
 
         self._zip_progress_bar.total_files_size = ShareMode._compute_total_size(
             self.filenames

@@ -383,6 +383,9 @@ class FileSelection(QtWidgets.QVBoxLayout):
         # Update the file list
         self.file_list.update()
 
+        # Save the latest file list to mode settings
+        self.save_filenames()
+
     def add(self):
         """
         Add button clicked.
@@ -451,6 +454,25 @@ class FileSelection(QtWidgets.QVBoxLayout):
         Returns the total number of files and folders in the list.
         """
         return len(range(self.file_list.count()))
+
+    def get_filenames(self):
+        """
+        Return the list of file and folder names
+        """
+        filenames = []
+        for index in range(self.file_list.count()):
+            filenames.append(self.file_list.item(index).filename)
+        return filenames
+
+    def save_filenames(self):
+        """
+        Save the filenames to mode settings
+        """
+        filenames = self.get_filenames()
+        if self.parent.tab.mode == self.common.gui.MODE_SHARE:
+            self.parent.settings.set("share", "filenames", filenames)
+        elif self.parent.tab.mode == self.common.gui.MODE_WEBSITE:
+            self.parent.settings.set("website", "filenames", filenames)
 
     def setFocus(self):
         """
