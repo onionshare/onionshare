@@ -47,15 +47,12 @@ class OnionThread(QtCore.QThread):
         self.mode.web.generate_static_url_path()
 
         # Choose port and password early, because we need them to exist in advance for scheduled shares
-        self.mode.app.stay_open = not self.mode.common.settings.get(
-            "close_after_first_download"
-        )
         if not self.mode.app.port:
             self.mode.app.choose_port()
-        if not self.mode.common.settings.get("public_mode"):
+        if not self.mode.settings.get("general", "public"):
             if not self.mode.web.password:
                 self.mode.web.generate_password(
-                    self.mode.common.settings.get("password")
+                    self.mode.settings.get("persistent", "password")
                 )
 
         try:
