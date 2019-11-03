@@ -50,24 +50,12 @@ class TestSettings:
             "socket_file_path": "/var/run/tor/control",
             "auth_type": "no_auth",
             "auth_password": "",
-            "close_after_first_download": True,
-            "autostop_timer": False,
-            "autostart_timer": False,
-            "use_stealth": False,
             "use_autoupdate": True,
             "autoupdate_timestamp": None,
             "no_bridges": True,
             "tor_bridges_use_obfs4": False,
             "tor_bridges_use_meek_lite_azure": False,
             "tor_bridges_use_custom_bridges": "",
-            "use_legacy_v2_onions": False,
-            "save_private_key": False,
-            "private_key": "",
-            "password": "",
-            "hidservauth_string": "",
-            "data_dir": os.path.expanduser("~/OnionShare"),
-            "public_mode": False,
-            "csp_header_disabled": False,
         }
         for key in settings_obj._settings:
             # Skip locale, it will not always default to the same thing
@@ -125,8 +113,6 @@ class TestSettings:
         assert settings_obj.get("socket_file_path") == "/var/run/tor/control"
         assert settings_obj.get("auth_type") == "no_auth"
         assert settings_obj.get("auth_password") == ""
-        assert settings_obj.get("close_after_first_download") is True
-        assert settings_obj.get("use_stealth") is False
         assert settings_obj.get("use_autoupdate") is True
         assert settings_obj.get("autoupdate_timestamp") is None
         assert settings_obj.get("autoupdate_timestamp") is None
