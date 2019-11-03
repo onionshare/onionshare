@@ -193,24 +193,8 @@ def main(cwd=None):
     else:
         mode = "share"
 
-    # In share an website mode, you must supply a list of filenames
-    if mode == "share" or mode == "website":
-        # Make sure filenames given if not using receiver mode
-        if len(filenames) == 0:
-            parser.print_help()
-            sys.exit()
-
-        # Validate filenames
-        valid = True
-        for filename in filenames:
-            if not os.path.isfile(filename) and not os.path.isdir(filename):
-                print(f"{filename} is not a valid file.")
-                valid = False
-            if not os.access(filename, os.R_OK):
-                print(f"{filename} is not a readable file.")
-                valid = False
-        if not valid:
-            sys.exit()
+    # Verbose mode?
+    common.verbose = verbose
 
     # client_auth can only be set if legacy is also set
     if client_auth and not legacy:
@@ -225,16 +209,15 @@ def main(cwd=None):
     else:
         common.load_settings()
 
-    # Verbose mode?
-    common.verbose = verbose
-
     # Mode settings
     if persistent_filename:
         mode_settings = ModeSettings(common, persistent_filename)
         mode_settings.set("persistent", "enabled", True)
     else:
         mode_settings = ModeSettings(common)
+
     if mode_settings.just_created:
+        # This means the mode settings were just created, not loaded from disk
         mode_settings.set("general", "public", public)
         mode_settings.set("general", "autostart_timer", autostart_timer)
         mode_settings.set("general", "autostop_timer", autostop_timer)
@@ -247,6 +230,37 @@ def main(cwd=None):
                 mode_settings.set("receive", "data_dir", data_dir)
         if mode == "website":
             mode_settings.set("website", "disable_csp", disable_csp)
+    else:
+        # See what the persistent mode was
+        mode = mode_settings.get("persistent", "mode")
+
+    # In share an website mode, you must supply a list of filenames
+    if mode == "share" or mode == "website":
+        # Unless you passed in a persistent filename, in which case get the filenames from
+        # the mode settings
+        if persistent_filename and not mode_settings.just_created:
+            filenames = mode_settings.get(mode, "filenames")
+
+        else:
+            # Make sure filenames given if not using receiver mode
+            if len(filenames) == 0:
+                if persistent_filename:
+                    mode_settings.delete()
+
+                parser.print_help()
+                sys.exit()
+
+            # Validate filenames
+            valid = True
+            for filename in filenames:
+                if not os.path.isfile(filename) and not os.path.isdir(filename):
+                    print(f"{filename} is not a valid file.")
+                    valid = False
+                if not os.access(filename, os.R_OK):
+                    print(f"{filename} is not a readable file.")
+                    valid = False
+            if not valid:
+                sys.exit()
 
     # Create the Web object
     web = Web(common, False, mode_settings, mode)
