@@ -55,10 +55,14 @@ class WebsiteMode(Mode):
         # Settings
         self.disable_csp_checkbox = QtWidgets.QCheckBox()
         self.disable_csp_checkbox.clicked.connect(self.disable_csp_checkbox_clicked)
-        self.disable_csp_checkbox.setCheckState(QtCore.Qt.Unchecked)
         self.disable_csp_checkbox.setText(
             strings._("mode_settings_website_disable_csp_checkbox")
         )
+        if self.settings.get("website", "disable_csp"):
+            self.disable_csp_checkbox.setCheckState(QtCore.Qt.Checked)
+        else:
+            self.disable_csp_checkbox.setCheckState(QtCore.Qt.Unchecked)
+
         self.mode_settings_widget.mode_specific_layout.addWidget(
             self.disable_csp_checkbox
         )

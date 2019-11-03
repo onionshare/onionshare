@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from PyQt5 import QtCore, QtWidgets, QtGui
 
 from onionshare import strings
+from onionshare.mode_settings import ModeSettings
 
 from .tab import Tab
 
@@ -86,15 +87,29 @@ class TabWidget(QtWidgets.QTabWidget):
         self.new_tab_button.raise_()
 
     def new_tab_clicked(self):
-        # Create the tab
+        # Create a new tab
         tab = Tab(self.common, self.tab_id, self.system_tray, self.status_bar)
+        self.add_tab(tab)
+
+    def load_tab(self, mode_settings_id):
+        # Load the tab's mode settings
+        mode_settings = ModeSettings(self.common, id=mode_settings_id)
+        tab = Tab(
+            self.common,
+            self.tab_id,
+            self.system_tray,
+            self.status_bar,
+            mode_settings=mode_settings,
+        )
+        self.add_tab(tab)
+
+    def add_tab(self, tab):
         tab.change_title.connect(self.change_title)
         tab.change_icon.connect(self.change_icon)
         tab.change_persistent.connect(self.change_persistent)
         self.tabs[self.tab_id] = tab
         self.tab_id += 1
 
-        # Add it
         index = self.addTab(tab, "New Tab")
         self.setCurrentIndex(index)
 
@@ -121,6 +136,18 @@ class TabWidget(QtWidgets.QTabWidget):
                 index, QtWidgets.QTabBar.LeftSide, invisible_widget
             )
 
+        self.save_persistent_tabs()
+
+    def save_persistent_tabs(self):
+        # Figure out the order of persistent tabs to save in settings
+        persistent_tabs = []
+        for index in range(self.count()):
+            tab = self.widget(index)
+            if tab.settings.get("persistent", "enabled"):
+                persistent_tabs.append(tab.settings.id)
+        self.common.settings.set("persistent_tabs", persistent_tabs)
+        self.common.settings.save()
+
     def close_tab(self, index):
         self.common.log("TabWidget", "close_tab", f"{index}")
         tab = self.widget(index)
@@ -142,6 +169,13 @@ class TabWidget(QtWidgets.QTabWidget):
                 if mode.server_status.status != mode.server_status.STATUS_STOPPED:
                     return True
         return False
+
+    def changeEvent(self, event):
+        # TODO: later when I have internet, figure out the right event for re-ordering tabs
+
+        # If tabs get move
+        super(TabWidget, self).changeEvent(event)
+        self.save_persistent_tabs()
 
     def resizeEvent(self, event):
         # Make sure to move new tab button on each resize

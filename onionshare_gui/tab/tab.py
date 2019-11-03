@@ -43,7 +43,15 @@ class Tab(QtWidgets.QWidget):
     change_icon = QtCore.pyqtSignal(int, str)
     change_persistent = QtCore.pyqtSignal(int, bool)
 
-    def __init__(self, common, tab_id, system_tray, status_bar, filenames=None):
+    def __init__(
+        self,
+        common,
+        tab_id,
+        system_tray,
+        status_bar,
+        mode_settings=None,
+        filenames=None,
+    ):
         super(Tab, self).__init__()
         self.common = common
         self.common.log("Tab", "__init__")
@@ -130,8 +138,19 @@ class Tab(QtWidgets.QWidget):
         )
         self.persistent_image_label.setFixedSize(20, 20)
 
-        # Settings for this tab
-        self.mode_settings = ModeSettings(self.common)
+        if mode_settings:
+            # Load this tab
+            self.settings = mode_settings
+            mode = self.settings.get("persistent", "mode")
+            if mode == "share":
+                self.share_mode_clicked()
+            elif mode == "receive":
+                self.receive_mode_clicked()
+            elif mode == "website":
+                self.website_mode_clicked()
+        else:
+            # This is a new tab
+            self.settings = ModeSettings(self.common)
 
     def share_mode_clicked(self):
         self.common.log("Tab", "share_mode_clicked")
@@ -496,7 +515,7 @@ class Tab(QtWidgets.QWidget):
         if self.mode is None:
             return True
 
-        if self.mode_settings.get("persistent", "enabled"):
+        if self.settings.get("persistent", "enabled"):
             dialog_text = strings._("gui_close_tab_warning_persistent_description")
         else:
             server_status = self.get_mode().server_status
