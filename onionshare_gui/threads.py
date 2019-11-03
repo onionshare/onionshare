@@ -61,7 +61,7 @@ class OnionThread(QtCore.QThread):
         try:
             if self.mode.obtain_onion_early:
                 self.mode.app.start_onion_service(
-                    await_publication=False, save_scheduled_key=True
+                    self.mode.settings, await_publication=False, save_scheduled_key=True
                 )
                 # wait for modules in thread to load, preventing a thread-related cx_Freeze crash
                 time.sleep(0.2)
@@ -69,7 +69,9 @@ class OnionThread(QtCore.QThread):
                 # Unregister the onion so we can use it in the next OnionThread
                 self.mode.app.onion.cleanup(False)
             else:
-                self.mode.app.start_onion_service(await_publication=True)
+                self.mode.app.start_onion_service(
+                    self.mode.settings, await_publication=True
+                )
                 # wait for modules in thread to load, preventing a thread-related cx_Freeze crash
                 time.sleep(0.2)
                 # start onionshare http service in new thread
