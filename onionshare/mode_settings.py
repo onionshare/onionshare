@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import os
 import pwd
+import json
 
 
 class ModeSettings:
@@ -27,10 +28,10 @@ class ModeSettings:
     is only one TabSettings, and in the GUI there is a separate TabSettings for each tab
     """
 
-    def __init__(self, common):
+    def __init__(self, common, filename=None):
         self.common = common
 
-        self.settings = {
+        self.default_settings = {
             "persistent": {
                 "enabled": False,
                 "private_key": None,
@@ -44,16 +45,41 @@ class ModeSettings:
                 "legacy": False,
                 "client_auth": False,
             },
-            "share": {"autostop_sharing": True},
+            "share": {"autostop_sharing": True, "filenames": []},
             "receive": {"data_dir": self.build_default_receive_data_dir()},
-            "website": {"disable_csp": False},
+            "website": {"disable_csp": False, "filenames": []},
         }
+        self._settings = {}
+
+        self.just_created = False
+        self.id = self.common.build_password(3)
+
+        self.load(filename)
+
+    def fill_in_defaults(self):
+        """
+        If there are any missing settings from self._settings, replace them with
+        their default values.
+        """
+        for key in self.default_settings:
+            if key in self._settings:
+                for inner_key in self.default_settings[key]:
+                    if inner_key not in self._settings[key]:
+                        self._settings[key][inner_key] = self.default_settings[key][
+                            inner_key
+                        ]
+            else:
+                self._settings[key] = self.default_settings[key]
 
     def get(self, group, key):
-        return self.settings[group][key]
+        return self._settings[group][key]
 
     def set(self, group, key, val):
-        self.settings[group][key] = val
+        self._settings[group][key] = val
+        self.common.log(
+            "ModeSettings", "set", f"updating {self.id}: {group}.{key} = {val}"
+        )
+        self.save()
 
     def build_default_receive_data_dir(self):
         """
@@ -73,6 +99,39 @@ class ModeSettings:
             # All other OSes
             return os.path.expanduser("~/OnionShare")
 
+    def load(self, filename=None):
+        # Load persistent settings from disk. If the file doesn't exist, create it
+        if filename:
+            self.filename = filename
+        else:
+            # Give it a persistent filename
+            self.filename = os.path.join(
+                self.common.build_persistent_dir(), f"{self.id}.json"
+            )
+
+        if os.path.exists(self.filename):
+            try:
+                with open(self.filename, "r") as f:
+                    self._settings = json.load(f)
+                    self.fill_in_defaults()
+                    self.common.log("ModeSettings", "load", f"loaded {self.filename}")
+                    return
+            except:
+                pass
+
+        # If loading settings didn't work, create the settings file
+        self.common.log("ModeSettings", "load", f"creating {self.filename}")
+        self.fill_in_defaults()
+        self.just_created = True
+
     def save(self):
-        # TODO: save settings, if persistent
-        pass
+        # Save persistent setting to disk
+        if not self.get("persistent", "enabled"):
+            self.common.log(
+                "ModeSettings", "save", f"{self.id}: not persistent, so not saving"
+            )
+            return
+
+        if self.filename:
+            with open(self.filename, "w") as file:
+                file.write(json.dumps(self._settings, indent=2))
