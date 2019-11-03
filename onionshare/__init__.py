@@ -73,21 +73,21 @@ def main(cwd=None):
     )
     parser.add_argument(
         "--connect-timeout",
-        metavar="<int>",
+        metavar="SECONDS",
         dest="connect_timeout",
         default=120,
         help="Give up connecting to Tor after a given amount of seconds (default: 120)",
     )
     parser.add_argument(
         "--config",
-        metavar="config",
+        metavar="FILENAME",
         default=None,
         help="Filename of custom global settings",
     )
     # Persistent file
     parser.add_argument(
         "--persistent",
-        metavar="persistent",
+        metavar="FILENAME",
         default=None,
         help="Filename of persistent session",
     )
@@ -101,14 +101,14 @@ def main(cwd=None):
     )
     parser.add_argument(
         "--auto-start-timer",
-        metavar="<int>",
+        metavar="SECONDS",
         dest="autostart_timer",
         default=0,
         help="Start onion service at scheduled time (N seconds from now)",
     )
     parser.add_argument(
         "--auto-stop-timer",
-        metavar="<int>",
+        metavar="SECONDS",
         dest="autostop_timer",
         default=0,
         help="Stop onion service at schedule time (N seconds from now)",
@@ -174,8 +174,8 @@ def main(cwd=None):
     website = bool(args.website)
     local_only = bool(args.local_only)
     connect_timeout = int(args.connect_timeout)
-    config = args.config
-    persistent = args.persistent
+    config_filename = args.config
+    persistent_filename = args.persistent
     public = bool(args.public)
     autostart_timer = int(args.autostart_timer)
     autostop_timer = int(args.autostop_timer)
@@ -220,8 +220,8 @@ def main(cwd=None):
         sys.exit()
 
     # Re-load settings, if a custom config was passed in
-    if config:
-        common.load_settings(config)
+    if config_filename:
+        common.load_settings(config_filename)
     else:
         common.load_settings()
 
@@ -229,21 +229,24 @@ def main(cwd=None):
     common.verbose = verbose
 
     # Mode settings
-    mode_settings = ModeSettings(common)
-    mode_settings.set("general", "public", public)
-    mode_settings.set("general", "autostart_timer", autostart_timer)
-    mode_settings.set("general", "autostop_timer", autostop_timer)
-    mode_settings.set("general", "legacy", legacy)
-    mode_settings.set("general", "client_auth", client_auth)
-    if mode == "share":
-        mode_settings.set("share", "autostop_sharing", autostop_sharing)
-    if mode == "receive":
-        if data_dir:
-            mode_settings.set("receive", "data_dir", data_dir)
-    if mode == "website":
-        mode_settings.set("website", "disable_csp", disable_csp)
-
-    # TODO: handle persistent
+    if persistent_filename:
+        mode_settings = ModeSettings(common, persistent_filename)
+        mode_settings.set("persistent", "enabled", True)
+    else:
+        mode_settings = ModeSettings(common)
+    if mode_settings.just_created:
+        mode_settings.set("general", "public", public)
+        mode_settings.set("general", "autostart_timer", autostart_timer)
+        mode_settings.set("general", "autostop_timer", autostop_timer)
+        mode_settings.set("general", "legacy", legacy)
+        mode_settings.set("general", "client_auth", client_auth)
+        if mode == "share":
+            mode_settings.set("share", "autostop_sharing", autostop_sharing)
+        if mode == "receive":
+            if data_dir:
+                mode_settings.set("receive", "data_dir", data_dir)
+        if mode == "website":
+            mode_settings.set("website", "disable_csp", disable_csp)
 
     # Create the Web object
     web = Web(common, False, mode_settings, mode)
@@ -253,7 +256,7 @@ def main(cwd=None):
     try:
         onion.connect(
             custom_settings=False,
-            config=config,
+            config=config_filename,
             connect_timeout=connect_timeout,
             local_only=local_only,
         )

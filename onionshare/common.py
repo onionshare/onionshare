@@ -177,15 +177,24 @@ class Common:
         os.makedirs(onionshare_data_dir, 0o700, True)
         return onionshare_data_dir
 
-    def build_password(self):
+    def build_persistent_dir(self):
         """
-        Returns a random string made from two words from the wordlist, such as "deter-trig".
+        Returns the path to the folder that holds persistent files
+        """
+        onionshare_data_dir = self.build_data_dir()
+        persistent_dir = os.path.join(onionshare_data_dir, "persistent")
+        os.makedirs(persistent_dir, 0o700, True)
+        return persistent_dir
+
+    def build_password(self, word_count=2):
+        """
+        Returns a random string made of words from the wordlist, such as "deter-trig".
         """
         with open(self.get_resource_path("wordlist.txt")) as f:
             wordlist = f.read().split()
 
         r = random.SystemRandom()
-        return "-".join(r.choice(wordlist) for _ in range(2))
+        return "-".join(r.choice(wordlist) for _ in range(word_count))
 
     @staticmethod
     def random_string(num_bytes, output_len=None):
