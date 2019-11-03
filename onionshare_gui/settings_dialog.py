@@ -716,7 +716,7 @@ class SettingsDialog(QtWidgets.QDialog):
 
     def reload_settings(self):
         # Load settings, and fill them in
-        self.old_settings = Settings(self.common, self.common.gui.config)
+        self.old_settings = Settings(self.common)
         self.old_settings.load()
 
         close_after_first_download = self.old_settings.get("close_after_first_download")
@@ -1063,7 +1063,6 @@ class SettingsDialog(QtWidgets.QDialog):
             onion = Onion(self.common)
             onion.connect(
                 custom_settings=settings,
-                config=self.common.gui.config,
                 tor_status_update_func=tor_status_update_func,
             )
 
@@ -1109,7 +1108,7 @@ class SettingsDialog(QtWidgets.QDialog):
 
         def update_timestamp():
             # Update the last checked label
-            settings = Settings(self.common, self.common.gui.config)
+            settings = Settings(self.common)
             settings.load()
             autoupdate_timestamp = settings.get("autoupdate_timestamp")
             self._update_autoupdate_timestamp(autoupdate_timestamp)
@@ -1152,7 +1151,7 @@ class SettingsDialog(QtWidgets.QDialog):
             close_forced_update_thread()
 
         forced_update_thread = UpdateThread(
-            self.common, self.onion, self.common.gui.config, force=True
+            self.common, self.onion, force=True
         )
         forced_update_thread.update_available.connect(update_available)
         forced_update_thread.update_not_available.connect(update_not_available)
@@ -1294,7 +1293,7 @@ class SettingsDialog(QtWidgets.QDialog):
         Return a Settings object that's full of values from the settings dialog.
         """
         self.common.log("SettingsDialog", "settings_from_fields")
-        settings = Settings(self.common, self.common.gui.config)
+        settings = Settings(self.common)
         settings.load()  # To get the last update timestamp
 
         settings.set(
