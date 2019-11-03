@@ -282,7 +282,7 @@ def main(cwd=None):
                 )
                 sys.exit()
 
-            app.start_onion_service(False, True)
+            app.start_onion_service(mode_settings, False, True)
             url = build_url(mode_settings, app, web)
             schedule = datetime.now() + timedelta(seconds=autostart_timer)
             if mode == "receive":
@@ -318,9 +318,9 @@ def main(cwd=None):
             print("Waiting for the scheduled time before starting...")
             app.onion.cleanup(False)
             time.sleep(autostart_timer)
-            app.start_onion_service()
+            app.start_onion_service(mode_settings)
         else:
-            app.start_onion_service()
+            app.start_onion_service(mode_settings)
     except KeyboardInterrupt:
         print("")
         sys.exit()

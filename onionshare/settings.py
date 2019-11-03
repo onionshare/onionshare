@@ -122,7 +122,7 @@ class Settings(object):
             "public_mode": False,
             "password": "",
             "hidservauth_string": "",
-            "data_dir": self.build_default_data_dir(),
+            "data_dir": "",
             "csp_header_disabled": False,
             "locale": None,  # this gets defined in fill_in_defaults()
         }
@@ -162,24 +162,6 @@ class Settings(object):
         Returns the path of the settings file.
         """
         return os.path.join(self.common.build_data_dir(), "onionshare.json")
-
-    def build_default_data_dir(self):
-        """
-        Returns the path of the default Downloads directory for receive mode.
-        """
-
-        if self.common.platform == "Darwin":
-            # We can't use os.path.expanduser() in macOS because in the sandbox it
-            # returns the path to the sandboxed homedir
-            real_homedir = pwd.getpwuid(os.getuid()).pw_dir
-            return os.path.join(real_homedir, "OnionShare")
-        elif self.common.platform == "Windows":
-            # On Windows, os.path.expanduser() needs to use backslash, or else it
-            # retains the forward slash, which breaks opening the folder in explorer.
-            return os.path.expanduser("~\OnionShare")
-        else:
-            # All other OSes
-            return os.path.expanduser("~/OnionShare")
 
     def load(self):
         """

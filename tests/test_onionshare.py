@@ -23,13 +23,13 @@ import pytest
 
 from onionshare import OnionShare
 from onionshare.common import Common
+from onionshare.mode_settings import ModeSettings
 
 
 class MyOnion:
-    def __init__(self, stealth=False):
+    def __init__(self):
         self.auth_string = "TestHidServAuth"
         self.private_key = ""
-        self.stealth = stealth
         self.scheduled_key = None
 
     @staticmethod
@@ -43,38 +43,27 @@ def onionshare_obj():
     return OnionShare(common, MyOnion())
 
 
+@pytest.fixture
+def mode_settings_obj():
+    common = Common()
+    return ModeSettings(common)
+
+
 class TestOnionShare:
     def test_init(self, onionshare_obj):
         assert onionshare_obj.hidserv_dir is None
         assert onionshare_obj.onion_host is None
-        assert onionshare_obj.stealth is None
         assert onionshare_obj.cleanup_filenames == []
         assert onionshare_obj.local_only is False
 
-    def test_set_stealth_true(self, onionshare_obj):
-        onionshare_obj.set_stealth(True)
-        assert onionshare_obj.stealth is True
-        assert onionshare_obj.onion.stealth is True
-
-    def test_set_stealth_false(self, onionshare_obj):
-        onionshare_obj.set_stealth(False)
-        assert onionshare_obj.stealth is False
-        assert onionshare_obj.onion.stealth is False
-
-    def test_start_onion_service(self, onionshare_obj):
-        onionshare_obj.set_stealth(False)
-        onionshare_obj.start_onion_service()
+    def test_start_onion_service(self, onionshare_obj, mode_settings_obj):
+        onionshare_obj.start_onion_service(mode_settings_obj)
         assert 17600 <= onionshare_obj.port <= 17650
         assert onionshare_obj.onion_host == "test_service_id.onion"
 
-    def test_start_onion_service_stealth(self, onionshare_obj):
-        onionshare_obj.set_stealth(True)
-        onionshare_obj.start_onion_service()
-        assert onionshare_obj.auth_string == "TestHidServAuth"
-
-    def test_start_onion_service_local_only(self, onionshare_obj):
+    def test_start_onion_service_local_only(self, onionshare_obj, mode_settings_obj):
         onionshare_obj.local_only = True
-        onionshare_obj.start_onion_service()
+        onionshare_obj.start_onion_service(mode_settings_obj)
         assert onionshare_obj.onion_host == "127.0.0.1:{}".format(onionshare_obj.port)
 
     def test_cleanup(self, onionshare_obj, temp_dir_1024, temp_file_1024):

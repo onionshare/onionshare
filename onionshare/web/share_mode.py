@@ -38,7 +38,7 @@ class ShareModeWeb(SendBaseModeWeb):
             # Deny new downloads if "Stop sharing after files have been sent" is checked and there is
             # currently a download
             deny_download = (
-                not self.web.settings.get("share", "autostop_sharing")
+                self.web.settings.get("share", "autostop_sharing")
                 and self.download_in_progress
             )
             if deny_download:
@@ -64,7 +64,7 @@ class ShareModeWeb(SendBaseModeWeb):
             # Deny new downloads if "Stop After First Download" is checked and there is
             # currently a download
             deny_download = (
-                not self.web.settings.get("share", "autostop_sharing")
+                self.web.settings.get("share", "autostop_sharing")
                 and self.download_in_progress
             )
             if deny_download:
@@ -102,7 +102,7 @@ class ShareModeWeb(SendBaseModeWeb):
 
             def generate():
                 # Starting a new download
-                if not self.web.settings.get("share", "autostop_sharing"):
+                if self.web.settings.get("share", "autostop_sharing"):
                     self.download_in_progress = True
 
                 chunk_size = 102400  # 100kb
@@ -167,14 +167,11 @@ class ShareModeWeb(SendBaseModeWeb):
                     sys.stdout.write("\n")
 
                 # Download is finished
-                if not self.web.settings.get("share", "autostop_sharing"):
+                if self.web.settings.get("share", "autostop_sharing"):
                     self.download_in_progress = False
 
                 # Close the server, if necessary
-                if (
-                    not self.web.settings.get("share", "autostop_sharing")
-                    and not canceled
-                ):
+                if self.web.settings.get("share", "autostop_sharing") and not canceled:
                     print("Stopped because transfer is complete")
                     self.web.running = False
                     try:
