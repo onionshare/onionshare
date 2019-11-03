@@ -67,12 +67,19 @@ class Mode(QtWidgets.QWidget):
         self.web_thread = None
         self.startup_thread = None
 
+        # Mode settings widget
+        self.mode_settings_widget = ModeSettingsWidget(
+            self.common, self.tab.tab_id, self.settings
+        )
+        self.mode_settings_widget.change_persistent.connect(self.change_persistent)
+
         # Server status
         self.server_status = ServerStatus(
             self.common,
             self.qtapp,
             self.app,
             self.settings,
+            self.mode_settings_widget,
             None,
             self.common.gui.local_only,
         )
@@ -85,15 +92,6 @@ class Mode(QtWidgets.QWidget):
         self.starting_server_step3.connect(self.start_server_step3)
         self.starting_server_early.connect(self.start_server_early)
         self.starting_server_error.connect(self.start_server_error)
-
-        # Mode settings widget
-        self.mode_settings_widget = ModeSettingsWidget(
-            self.common, self.tab.tab_id, self.tab.mode_settings
-        )
-        self.mode_settings_widget.change_persistent.connect(self.change_persistent)
-        self.mode_settings_widget.update_server_status.connect(
-            self.server_status.update
-        )
 
         # Header
         # Note: It's up to the downstream Mode to add this to its layout
@@ -144,7 +142,7 @@ class Mode(QtWidgets.QWidget):
                 now = QtCore.QDateTime.currentDateTime()
                 if self.server_status.local_only:
                     seconds_remaining = now.secsTo(
-                        self.server_status.autostart_timer_widget.dateTime()
+                        self.mode_settings_widget.autostart_timer_widget.dateTime()
                     )
                 else:
                     seconds_remaining = now.secsTo(
