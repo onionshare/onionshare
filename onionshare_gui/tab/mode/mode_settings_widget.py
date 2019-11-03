@@ -28,7 +28,6 @@ class ModeSettingsWidget(QtWidgets.QWidget):
     """
 
     change_persistent = QtCore.pyqtSignal(int, bool)
-    update_server_status = QtCore.pyqtSignal()
 
     def __init__(self, common, tab_id, mode_settings):
         super(ModeSettingsWidget, self).__init__()
@@ -61,6 +60,26 @@ class ModeSettingsWidget(QtWidgets.QWidget):
             strings._("mode_settings_autostart_timer_checkbox")
         )
 
+        # The autostart timer widget
+        self.autostart_timer_widget = QtWidgets.QDateTimeEdit()
+        self.autostart_timer_widget.setDisplayFormat("hh:mm A MMM d, yy")
+        self.autostart_timer_widget.setDateTime(
+            QtCore.QDateTime.currentDateTime().addSecs(300)  # 5 minutes in the future
+        )
+        self.autostart_timer_widget.setMinimumDateTime(
+            QtCore.QDateTime.currentDateTime().addSecs(60)
+        )
+        self.autostart_timer_widget.setCurrentSection(
+            QtWidgets.QDateTimeEdit.MinuteSection
+        )
+        self.autostart_timer_widget.hide()
+
+        # Autostart timer layout
+        autostart_timer_layout = QtWidgets.QHBoxLayout()
+        autostart_timer_layout.setContentsMargins(0, 0, 0, 0)
+        autostart_timer_layout.addWidget(self.autostart_timer_checkbox)
+        autostart_timer_layout.addWidget(self.autostart_timer_widget)
+
         # Whether or not to use an auto-stop timer
         self.autostop_timer_checkbox = QtWidgets.QCheckBox()
         self.autostop_timer_checkbox.clicked.connect(
@@ -70,6 +89,26 @@ class ModeSettingsWidget(QtWidgets.QWidget):
         self.autostop_timer_checkbox.setText(
             strings._("mode_settings_autostop_timer_checkbox")
         )
+
+        # The autostop timer widget
+        self.autostop_timer_widget = QtWidgets.QDateTimeEdit()
+        self.autostop_timer_widget.setDisplayFormat("hh:mm A MMM d, yy")
+        self.autostop_timer_widget.setDateTime(
+            QtCore.QDateTime.currentDateTime().addSecs(300)
+        )
+        self.autostop_timer_widget.setMinimumDateTime(
+            QtCore.QDateTime.currentDateTime().addSecs(60)
+        )
+        self.autostop_timer_widget.setCurrentSection(
+            QtWidgets.QDateTimeEdit.MinuteSection
+        )
+        self.autostop_timer_widget.hide()
+
+        # Autostop timer layout
+        autostop_timer_layout = QtWidgets.QHBoxLayout()
+        autostop_timer_layout.setContentsMargins(0, 0, 0, 0)
+        autostop_timer_layout.addWidget(self.autostop_timer_checkbox)
+        autostop_timer_layout.addWidget(self.autostop_timer_widget)
 
         # Legacy address
         self.legacy_checkbox = QtWidgets.QCheckBox()
@@ -99,8 +138,8 @@ class ModeSettingsWidget(QtWidgets.QWidget):
         advanced_layout = QtWidgets.QVBoxLayout()
         advanced_layout.setContentsMargins(0, 0, 0, 0)
         advanced_layout.addWidget(self.public_checkbox)
-        advanced_layout.addWidget(self.autostart_timer_checkbox)
-        advanced_layout.addWidget(self.autostop_timer_checkbox)
+        advanced_layout.addLayout(autostart_timer_layout)
+        advanced_layout.addLayout(autostop_timer_layout)
         advanced_layout.addWidget(self.legacy_checkbox)
         advanced_layout.addWidget(self.client_auth_checkbox)
         self.advanced_widget = QtWidgets.QWidget()
@@ -150,13 +189,21 @@ class ModeSettingsWidget(QtWidgets.QWidget):
         self.settings.set(
             "general", "autostart_timer", self.autostart_timer_checkbox.isChecked()
         )
-        self.update_server_status.emit()
+
+        if self.autostart_timer_checkbox.isChecked():
+            self.autostart_timer_widget.show()
+        else:
+            self.autostart_timer_widget.hide()
 
     def autostop_timer_checkbox_clicked(self):
         self.settings.set(
             "general", "autostop_timer", self.autostop_timer_checkbox.isChecked()
         )
-        self.update_server_status.emit()
+
+        if self.autostop_timer_checkbox.isChecked():
+            self.autostop_timer_widget.show()
+        else:
+            self.autostop_timer_widget.hide()
 
     def legacy_checkbox_clicked(self):
         self.settings.set("general", "legacy", self.legacy_checkbox.isChecked())
@@ -173,3 +220,25 @@ class ModeSettingsWidget(QtWidgets.QWidget):
             self.advanced_widget.show()
 
         self.update_ui()
+
+    def autostart_timer_reset(self):
+        """
+        Reset the auto-start timer in the UI after stopping a share
+        """
+        self.autostart_timer_widget.setDateTime(
+            QtCore.QDateTime.currentDateTime().addSecs(300)
+        )
+        self.autostart_timer_widget.setMinimumDateTime(
+            QtCore.QDateTime.currentDateTime().addSecs(60)
+        )
+
+    def autostop_timer_reset(self):
+        """
+        Reset the auto-stop timer in the UI after stopping a share
+        """
+        self.autostop_timer_widget.setDateTime(
+            QtCore.QDateTime.currentDateTime().addSecs(300)
+        )
+        self.autostop_timer_widget.setMinimumDateTime(
+            QtCore.QDateTime.currentDateTime().addSecs(60)
+        )
