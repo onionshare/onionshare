@@ -40,7 +40,7 @@ class TabWidget(QtWidgets.QTabWidget):
 
         # Keep track of tabs in a dictionary
         self.tabs = {}
-        self.tab_id = 0  # each tab has a unique id
+        self.current_tab_id = 0  # Each tab has a unique id
 
         # Define the new tab button
         self.new_tab_button = QtWidgets.QPushButton("+", parent=self)
@@ -88,30 +88,28 @@ class TabWidget(QtWidgets.QTabWidget):
 
     def new_tab_clicked(self):
         # Create a new tab
-        tab = Tab(self.common, self.tab_id, self.system_tray, self.status_bar)
-        self.add_tab(tab)
+        self.add_tab()
 
     def load_tab(self, mode_settings_id):
         # Load the tab's mode settings
         mode_settings = ModeSettings(self.common, id=mode_settings_id)
-        tab = Tab(
-            self.common,
-            self.tab_id,
-            self.system_tray,
-            self.status_bar,
-            mode_settings=mode_settings,
-        )
-        self.add_tab(tab)
+        self.add_tab(mode_settings)
 
-    def add_tab(self, tab):
+    def add_tab(self, mode_settings=None):
+        tab = Tab(self.common, self.current_tab_id, self.system_tray, self.status_bar)
         tab.change_title.connect(self.change_title)
         tab.change_icon.connect(self.change_icon)
         tab.change_persistent.connect(self.change_persistent)
-        self.tabs[self.tab_id] = tab
-        self.tab_id += 1
 
-        index = self.addTab(tab, "New Tab")
+        self.tabs[self.current_tab_id] = tab
+        self.current_tab_id += 1
+
+        index = self.addTab(tab, strings._("gui_new_tab"))
         self.setCurrentIndex(index)
+
+        tab.init(mode_settings)
+        # If it's persistent, set the persistent image in the tab
+        self.change_persistent(tab.tab_id, tab.settings.get("persistent", "enabled"))
 
     def change_title(self, tab_id, title):
         index = self.indexOf(self.tabs[tab_id])
