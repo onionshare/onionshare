@@ -88,7 +88,12 @@ class Mode(QtWidgets.QWidget):
 
         # Server status
         self.server_status = ServerStatus(
-            self.common, self.qtapp, self.app, None, self.common.gui.local_only
+            self.common,
+            self.qtapp,
+            self.app,
+            self.settings,
+            None,
+            self.common.gui.local_only,
         )
         self.server_status.server_started.connect(self.start_server)
         self.server_status.server_stopped.connect(self.stop_server)
@@ -169,8 +174,8 @@ class Mode(QtWidgets.QWidget):
 
         # If the auto-stop timer has stopped, stop the server
         if self.server_status.status == ServerStatus.STATUS_STARTED:
-            if self.app.autostop_timer_thread and self.common.settings.get(
-                "autostop_timer"
+            if self.app.autostop_timer_thread and self.settings.get(
+                "general", "autostop_timer"
             ):
                 if self.autostop_timer_datetime_delta > 0:
                     now = QtCore.QDateTime.currentDateTime()
@@ -217,13 +222,14 @@ class Mode(QtWidgets.QWidget):
         self.common.log("Mode", "start_server")
 
         self.start_server_custom()
-
         self.set_server_active.emit(True)
-        self.app.set_stealth(self.common.settings.get("use_stealth"))
 
         # Clear the status bar
         self.status_bar.clearMessage()
         self.server_status_label.setText("")
+
+        # Hide the mode settings
+        self.mode_settings_widget.hide()
 
         # Ensure we always get a new random port each time we might launch an OnionThread
         self.app.port = None
@@ -307,7 +313,7 @@ class Mode(QtWidgets.QWidget):
 
         self.start_server_step3_custom()
 
-        if self.common.settings.get("autostop_timer"):
+        if self.settings.get("general", "autostop_timer"):
             # Convert the date value to seconds between now and then
             now = QtCore.QDateTime.currentDateTime()
             self.autostop_timer_datetime_delta = now.secsTo(
@@ -394,6 +400,9 @@ class Mode(QtWidgets.QWidget):
 
         self.set_server_active.emit(False)
         self.stop_server_finished.emit()
+
+        # Show the mode settings
+        self.mode_settings_widget.show()
 
     def stop_server_custom(self):
         """
