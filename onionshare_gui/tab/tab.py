@@ -128,7 +128,7 @@ class Tab(QtWidgets.QWidget):
                 )
             )
         )
-        self.persistent_image_label.setFixedSize(30, 30)
+        self.persistent_image_label.setFixedSize(20, 20)
 
         # Settings for this tab
         self.mode_settings = ModeSettings(self.common)
