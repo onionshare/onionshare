@@ -28,6 +28,7 @@ class ModeSettingsWidget(QtWidgets.QWidget):
     """
 
     change_persistent = QtCore.pyqtSignal(int, bool)
+    update_server_status = QtCore.pyqtSignal()
 
     def __init__(self, common, tab_id, mode_settings):
         super(ModeSettingsWidget, self).__init__()
@@ -149,11 +150,13 @@ class ModeSettingsWidget(QtWidgets.QWidget):
         self.settings.set(
             "general", "autostart_timer", self.autostart_timer_checkbox.isChecked()
         )
+        self.update_server_status.emit()
 
     def autostop_timer_checkbox_clicked(self):
         self.settings.set(
             "general", "autostop_timer", self.autostop_timer_checkbox.isChecked()
         )
+        self.update_server_status.emit()
 
     def legacy_checkbox_clicked(self):
         self.settings.set("general", "legacy", self.legacy_checkbox.isChecked())

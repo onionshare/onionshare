@@ -291,6 +291,10 @@ class ServerStatus(QtWidgets.QWidget):
         """
         Update the GUI elements based on the current state.
         """
+        self.common.log("ServerStatus", "update")
+        autostart_timer = self.settings.get("general", "autostart_timer")
+        autostop_timer = self.settings.get("general", "autostop_timer")
+
         # Set the URL fields
         if self.status == self.STATUS_STARTED:
             # The backend Onion may have saved new settings, such as the private key.
@@ -302,17 +306,46 @@ class ServerStatus(QtWidgets.QWidget):
                 if not self.settings.get("persistent", "password"):
                     self.settings.set("persistent", "password", self.web.password)
                     self.settings.save()
-
-            if self.settings.get("general", "autostart_timer"):
-                self.autostart_timer_container.hide()
-
-            if self.settings.get("general", "autostop_timer"):
-                self.autostop_timer_container.hide()
         else:
             self.url_description.hide()
             self.url.hide()
             self.copy_url_button.hide()
             self.copy_hidservauth_button.hide()
+
+        # Autostart and autostop timers
+        if self.status == self.STATUS_STOPPED:
+            if autostart_timer:
+                self.autostart_timer_container.show()
+            else:
+                self.autostart_timer_container.hide()
+            if autostop_timer:
+                self.autostop_timer_container.show()
+            else:
+                self.autostop_timer_container.hide()
+        elif self.status == self.STATUS_STARTED:
+            self.autostart_timer_container.hide()
+            self.autostop_timer_container.hide()
+            
+            if autostop_timer:
+                self.server_button.setToolTip(
+                    strings._("gui_stop_server_autostop_timer_tooltip").format(
+                        self.autostop_timer_widget.dateTime().toString(
+                            "h:mm AP, MMMM dd, yyyy"
+                        )
+                    )
+                )
+        elif self.status == self.STATUS_WORKING:
+            self.autostart_timer_container.hide()
+            self.autostop_timer_container.hide()
+
+            if autostart_timer:
+                self.server_button.setToolTip(
+                    strings._("gui_start_server_autostart_timer_tooltip").format(
+                        self.autostart_timer_widget.dateTime().toString(
+                            "h:mm AP, MMMM dd, yyyy"
+                        )
+                    )
+                )
 
         # Button
         if (
@@ -340,10 +373,6 @@ class ServerStatus(QtWidgets.QWidget):
                 else:
                     self.server_button.setText(strings._("gui_receive_start_server"))
                 self.server_button.setToolTip("")
-                if self.settings.get("general", "autostart_timer"):
-                    self.autostart_timer_container.show()
-                if self.settings.get("general", "autostop_timer"):
-                    self.autostop_timer_container.show()
             elif self.status == self.STATUS_STARTED:
                 self.server_button.setStyleSheet(
                     self.common.gui.css["server_status_button_started"]
@@ -355,17 +384,6 @@ class ServerStatus(QtWidgets.QWidget):
                     self.server_button.setText(strings._("gui_share_stop_server"))
                 else:
                     self.server_button.setText(strings._("gui_receive_stop_server"))
-                if self.settings.get("general", "autostart_timer"):
-                    self.autostart_timer_container.hide()
-                if self.settings.get("general", "autostop_timer"):
-                    self.autostop_timer_container.hide()
-                    self.server_button.setToolTip(
-                        strings._("gui_stop_server_autostop_timer_tooltip").format(
-                            self.autostop_timer_widget.dateTime().toString(
-                                "h:mm AP, MMMM dd, yyyy"
-                            )
-                        )
-                    )
             elif self.status == self.STATUS_WORKING:
                 self.server_button.setStyleSheet(
                     self.common.gui.css["server_status_button_working"]
@@ -390,17 +408,6 @@ class ServerStatus(QtWidgets.QWidget):
                 )
                 self.server_button.setEnabled(False)
                 self.server_button.setText(strings._("gui_please_wait"))
-                if self.settings.get("general", "autostart_timer"):
-                    self.autostart_timer_container.hide()
-                    self.server_button.setToolTip(
-                        strings._("gui_start_server_autostart_timer_tooltip").format(
-                            self.autostart_timer_widget.dateTime().toString(
-                                "h:mm AP, MMMM dd, yyyy"
-                            )
-                        )
-                    )
-                if self.settings.get("general", "autostop_timer"):
-                    self.autostop_timer_container.hide()
 
     def server_button_clicked(self):
         """
