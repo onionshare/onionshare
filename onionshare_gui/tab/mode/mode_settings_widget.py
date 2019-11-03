@@ -202,6 +202,10 @@ class ModeSettingsWidget(QtWidgets.QWidget):
             self.tab.tab_id, self.persistent_checkbox.isChecked()
         )
 
+        # If disabling persistence, delete the file from disk
+        if not self.persistent_checkbox.isChecked():
+            self.settings.delete()
+
     def public_checkbox_clicked(self):
         self.settings.set("general", "public", self.public_checkbox.isChecked())
 
