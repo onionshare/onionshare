@@ -29,7 +29,7 @@ from ..file_selection import FileSelection
 from .threads import CompressThread
 from .. import Mode
 from ..history import History, ToggleHistory, ShareHistoryItem
-from ....widgets import Alert
+from ....widgets import Alert, MinimumWidthWidget
 
 
 class ShareMode(Mode):
@@ -137,7 +137,7 @@ class ShareMode(Mode):
         self.main_layout.addLayout(top_bar_layout)
         self.main_layout.addLayout(self.file_selection)
         self.main_layout.addWidget(self.primary_action)
-        self.main_layout.addWidget(self.min_width_widget)
+        self.main_layout.addWidget(MinimumWidthWidget(700))
 
         # Column layout
         self.column_layout = QtWidgets.QHBoxLayout()
@@ -146,7 +146,7 @@ class ShareMode(Mode):
 
         # Wrapper layout
         self.wrapper_layout = QtWidgets.QVBoxLayout()
-        self.wrapper_layout.addWidget(self.header)
+        self.wrapper_layout.addWidget(self.header_label)
         self.wrapper_layout.addLayout(self.column_layout)
         self.setLayout(self.wrapper_layout)
 

@@ -41,7 +41,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.common.log("MainWindow", "__init__")
 
         # Initialize the window
-        self.setMinimumWidth(820)
+        self.setMinimumWidth(1040)
         self.setMinimumHeight(700)
         self.setWindowTitle("OnionShare")
         self.setWindowIcon(
