@@ -72,3 +72,7 @@ class ModeSettings:
         else:
             # All other OSes
             return os.path.expanduser("~/OnionShare")
+
+    def save(self):
+        # TODO: save settings, if persistent
+        pass
