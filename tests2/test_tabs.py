@@ -42,6 +42,52 @@ class TestTabs(unittest.TestCase):
     def tearDownClass(cls):
         cls.gui.cleanup()
 
+    def close_tab_with_active_server(self, tab):
+        # Start the server
+        self.assertEqual(
+            tab.get_mode().server_status.status,
+            tab.get_mode().server_status.STATUS_STOPPED,
+        )
+        QtTest.QTest.mouseClick(
+            tab.get_mode().server_status.server_button, QtCore.Qt.LeftButton
+        )
+        self.assertEqual(
+            tab.get_mode().server_status.status,
+            tab.get_mode().server_status.STATUS_WORKING,
+        )
+        QtTest.QTest.qWait(1000)
+        self.assertEqual(
+            tab.get_mode().server_status.status,
+            tab.get_mode().server_status.STATUS_STARTED,
+        )
+
+        # Prepare to reject the dialog
+        QtCore.QTimer.singleShot(1000, tab.close_dialog.reject_button.click)
+
+        # Close tab
+        QtTest.QTest.mouseClick(
+            self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide),
+            QtCore.Qt.LeftButton,
+        )
+        QtTest.QTest.qWait(1000)
+
+        # The tab should still be open
+        self.assertFalse(tab.new_tab.isVisible())
+        self.assertTrue(tab.get_mode().isVisible())
+
+        # Prepare to accept the dialog
+        QtCore.QTimer.singleShot(1000, tab.close_dialog.accept_button.click)
+
+        # Close tab
+        QtTest.QTest.mouseClick(
+            self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide),
+            QtCore.Qt.LeftButton,
+        )
+        QtTest.QTest.qWait(1000)
+
+        # The tab should be closed
+        self.assertTrue(self.gui.tabs.widget(0).new_tab.isVisible())
+
     @pytest.mark.gui
     def test_001_gui_loaded(self):
         """Test that the GUI actually is shown"""
@@ -177,51 +223,38 @@ class TestTabs(unittest.TestCase):
         for filename in self.tmpfiles:
             tab.share_mode.server_status.file_selection.file_list.add_file(filename)
 
-        # Start the server
-        self.assertEqual(
-            tab.share_mode.server_status.status,
-            tab.share_mode.server_status.STATUS_STOPPED,
-        )
-        QtTest.QTest.mouseClick(
-            tab.share_mode.server_status.server_button, QtCore.Qt.LeftButton
-        )
-        self.assertEqual(
-            tab.share_mode.server_status.status,
-            tab.share_mode.server_status.STATUS_WORKING,
-        )
-        QtTest.QTest.qWait(1000)
-        self.assertEqual(
-            tab.share_mode.server_status.status,
-            tab.share_mode.server_status.STATUS_STARTED,
-        )
+        # Test closing it
+        self.close_tab_with_active_server(tab)
 
-        # Prepare to reject the dialog
-        QtCore.QTimer.singleShot(1000, tab.close_dialog.reject_button.click)
+    @pytest.mark.gui
+    def test_011_close_receive_tab_while_server_started_should_warn(self):
+        """Closing a recieve mode tab when the server is running should throw a warning"""
+        tab = self.gui.tabs.widget(0)
 
-        # Close tab
-        QtTest.QTest.mouseClick(
-            self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide),
-            QtCore.Qt.LeftButton,
-        )
-        QtTest.QTest.qWait(1000)
-
-        # The tab should still be open
+        # Receive files
+        QtTest.QTest.mouseClick(tab.receive_button, QtCore.Qt.LeftButton)
         self.assertFalse(tab.new_tab.isVisible())
-        self.assertTrue(tab.share_mode.isVisible())
+        self.assertTrue(tab.receive_mode.isVisible())
 
-        # Prepare to accept the dialog
-        QtCore.QTimer.singleShot(1000, tab.close_dialog.accept_button.click)
+        # Test closing it
+        self.close_tab_with_active_server(tab)
 
-        # Close tab
-        QtTest.QTest.mouseClick(
-            self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide),
-            QtCore.Qt.LeftButton,
-        )
-        QtTest.QTest.qWait(1000)
+    @pytest.mark.gui
+    def test_012_close_website_tab_while_server_started_should_warn(self):
+        """Closing a website mode tab when the server is running should throw a warning"""
+        tab = self.gui.tabs.widget(0)
 
-        # The tab should be closed
-        # QtTest.QTest.qWait(5000)
-        self.assertTrue(self.gui.tabs.widget(0).new_tab.isVisible())
+        # Publish website
+        QtTest.QTest.mouseClick(tab.website_button, QtCore.Qt.LeftButton)
+        self.assertFalse(tab.new_tab.isVisible())
+        self.assertTrue(tab.website_mode.isVisible())
+
+        # Add files
+        for filename in self.tmpfiles:
+            tab.website_mode.server_status.file_selection.file_list.add_file(filename)
+
+        # Test closing it
+        self.close_tab_with_active_server(tab)
 
 
 if __name__ == "__main__":
