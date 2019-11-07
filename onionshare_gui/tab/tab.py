@@ -142,6 +142,19 @@ class Tab(QtWidgets.QWidget):
         )
         self.persistent_image_label.setFixedSize(20, 20)
 
+        # Create the close warning dialog -- the dialog widget needs to be in the constructor
+        # in order to test it
+        self.close_dialog = QtWidgets.QMessageBox()
+        self.close_dialog.setWindowTitle(strings._("gui_close_tab_warning_title"))
+        self.close_dialog.setIcon(QtWidgets.QMessageBox.Critical)
+        self.close_dialog.accept_button = self.close_dialog.addButton(
+            strings._("gui_close_tab_warning_close"), QtWidgets.QMessageBox.AcceptRole
+        )
+        self.close_dialog.reject_button = self.close_dialog.addButton(
+            strings._("gui_close_tab_warning_cancel"), QtWidgets.QMessageBox.RejectRole
+        )
+        self.close_dialog.setDefaultButton(self.close_dialog.reject_button)
+
     def init(self, mode_settings=None):
         if mode_settings:
             # Load this tab
@@ -538,21 +551,11 @@ class Tab(QtWidgets.QWidget):
 
         # Open the warning dialog
         self.common.log("Tab", "close_tab, opening warning dialog")
-        dialog = QtWidgets.QMessageBox()
-        dialog.setWindowTitle(strings._("gui_close_tab_warning_title"))
-        dialog.setText(dialog_text)
-        dialog.setIcon(QtWidgets.QMessageBox.Critical)
-        dialog.addButton(
-            strings._("gui_close_tab_warning_close"), QtWidgets.QMessageBox.YesRole
-        )
-        cancel_button = dialog.addButton(
-            strings._("gui_close_tab_warning_cancel"), QtWidgets.QMessageBox.NoRole
-        )
-        dialog.setDefaultButton(cancel_button)
-        reply = dialog.exec_()
+        self.close_dialog.setText(dialog_text)
+        self.close_dialog.exec_()
 
         # Close
-        if reply == 0:
+        if self.close_dialog.clickedButton() == self.close_dialog.accept_button:
             self.common.log("Tab", "close_tab", "close, closing tab")
             self.get_mode().stop_server()
             self.app.cleanup()
