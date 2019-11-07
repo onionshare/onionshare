@@ -166,8 +166,6 @@ class TestTabs(unittest.TestCase):
     @pytest.mark.gui
     def test_010_close_share_tab_while_server_started_should_warn(self):
         """Closing a share mode tab when the server is running should throw a warning"""
-        pass
-        """
         tab = self.gui.tabs.widget(0)
 
         # Share files
@@ -197,34 +195,33 @@ class TestTabs(unittest.TestCase):
             tab.share_mode.server_status.STATUS_STARTED,
         )
 
+        # Prepare to reject the dialog
+        QtCore.QTimer.singleShot(1000, tab.close_dialog.reject_button.click)
+
         # Close tab
         QtTest.QTest.mouseClick(
             self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide),
             QtCore.Qt.LeftButton,
         )
+        QtTest.QTest.qWait(1000)
 
-        # The active window should now be a dialog
-        dialog = self.gui.qtapp.activeWindow()
-        self.assertEqual(type(dialog), QtWidgets.QMessageBox)
-
-        # Reject it -- the share mode tab should still be open
-        dialog.reject()
+        # The tab should still be open
         self.assertFalse(tab.new_tab.isVisible())
         self.assertTrue(tab.share_mode.isVisible())
 
+        # Prepare to accept the dialog
+        QtCore.QTimer.singleShot(1000, tab.close_dialog.accept_button.click)
+
         # Close tab
         QtTest.QTest.mouseClick(
             self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide),
             QtCore.Qt.LeftButton,
         )
+        QtTest.QTest.qWait(1000)
 
-        # This time accept it -- the share mode tab should be closed
-        dialog = self.gui.qtapp.activeWindow()
-        self.assertEqual(type(dialog), QtWidgets.QMessageBox)
-        dialog.accept()
-
+        # The tab should be closed
+        # QtTest.QTest.qWait(5000)
         self.assertTrue(self.gui.tabs.widget(0).new_tab.isVisible())
-        """
 
 
 if __name__ == "__main__":
