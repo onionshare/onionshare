@@ -40,6 +40,9 @@ class GuiBaseTest(unittest.TestCase):
             with open(filename, "w") as file:
                 file.write(secrets.token_hex(10))
             cls.tmpfiles.append(filename)
+        cls.tmpfile_test = os.path.join(cls.tmpdir.name, "test.txt")
+        with open(cls.tmpfile_test, "w") as file:
+            file.write("onionshare")
 
     @classmethod
     def tearDownClass(cls):
@@ -47,6 +50,64 @@ class GuiBaseTest(unittest.TestCase):
         cls.gui.cleanup()
 
     # Shared test methods
+
+    def verify_new_tab(self, tab):
+        # Make sure the new tab widget is showing, and no mode has been started
+        self.assertTrue(tab.new_tab.isVisible())
+        self.assertFalse(hasattr(tab, "share_mode"))
+        self.assertFalse(hasattr(tab, "receive_mode"))
+        self.assertFalse(hasattr(tab, "website_mode"))
+
+    def new_share_tab(self):
+        tab = self.gui.tabs.widget(0)
+        self.verify_new_tab(tab)
+
+        # Share files
+        tab.share_button.click()
+        self.assertFalse(tab.new_tab.isVisible())
+        self.assertTrue(tab.share_mode.isVisible())
+
+        return tab
+
+    def new_share_tab_with_files(self):
+        tab = self.new_share_tab()
+
+        # Add files
+        for filename in self.tmpfiles:
+            tab.share_mode.server_status.file_selection.file_list.add_file(filename)
+
+        return tab
+
+    def new_receive_tab(self):
+        tab = self.gui.tabs.widget(0)
+        self.verify_new_tab(tab)
+
+        # Receive files
+        tab.receive_button.click()
+        self.assertFalse(tab.new_tab.isVisible())
+        self.assertTrue(tab.receive_mode.isVisible())
+
+        return tab
+
+    def new_website_tab(self):
+        tab = self.gui.tabs.widget(0)
+        self.verify_new_tab(tab)
+
+        # Publish website
+        tab.website_button.click()
+        self.assertFalse(tab.new_tab.isVisible())
+        self.assertTrue(tab.website_mode.isVisible())
+
+        return tab
+
+    def new_website_tab_with_files(self):
+        tab = self.new_website_tab()
+
+        # Add files
+        for filename in self.tmpfiles:
+            tab.website_mode.server_status.file_selection.file_list.add_file(filename)
+
+        return tab
 
     def gui_loaded(self):
         """Test that the GUI actually is shown"""
@@ -56,265 +117,268 @@ class GuiBaseTest(unittest.TestCase):
         """Test that the window title is OnionShare"""
         self.assertEqual(self.gui.windowTitle(), "OnionShare")
 
-    def settings_button_is_visible(self):
-        """Test that the settings button is visible"""
-        self.assertTrue(self.gui.settings_button.isVisible())
-
-    def settings_button_is_hidden(self):
-        """Test that the settings button is hidden when the server starts"""
-        self.assertFalse(self.gui.settings_button.isVisible())
-
     def server_status_bar_is_visible(self):
         """Test that the status bar is visible"""
         self.assertTrue(self.gui.status_bar.isVisible())
 
-    def click_mode(self, mode):
-        """Test that we can switch Mode by clicking the button"""
-        if type(mode) == ReceiveMode:
-            QtTest.QTest.mouseClick(self.gui.receive_mode_button, QtCore.Qt.LeftButton)
-            self.assertTrue(self.gui.mode, self.gui.MODE_RECEIVE)
-        if type(mode) == ShareMode:
-            QtTest.QTest.mouseClick(self.gui.share_mode_button, QtCore.Qt.LeftButton)
-            self.assertTrue(self.gui.mode, self.gui.MODE_SHARE)
-        if type(mode) == WebsiteMode:
-            QtTest.QTest.mouseClick(self.gui.website_mode_button, QtCore.Qt.LeftButton)
-            self.assertTrue(self.gui.mode, self.gui.MODE_WEBSITE)
+    def mode_settings_widget_is_visible(self, tab):
+        """Test that the mode settings are visible"""
+        self.assertTrue(tab.get_mode().mode_settings_widget.isVisible())
 
-    def click_toggle_history(self, mode):
+    def mode_settings_widget_is_hidden(self, tab):
+        """Test that the mode settings are hidden when the server starts"""
+        self.assertFalse(tab.get_mode().mode_settings_widget.isVisible())
+
+    def click_toggle_history(self, tab):
         """Test that we can toggle Download or Upload history by clicking the toggle button"""
-        currently_visible = mode.history.isVisible()
-        QtTest.QTest.mouseClick(mode.toggle_history, QtCore.Qt.LeftButton)
-        self.assertEqual(mode.history.isVisible(), not currently_visible)
+        currently_visible = tab.get_mode().history.isVisible()
+        QtTest.QTest.mouseClick(tab.get_mode().toggle_history, QtCore.Qt.LeftButton)
+        self.assertEqual(tab.get_mode().history.isVisible(), not currently_visible)
 
-    def history_indicator(self, mode, public_mode, indicator_count="1"):
+    def history_indicator(self, tab, indicator_count="1"):
         """Test that we can make sure the history is toggled off, do an action, and the indiciator works"""
         # Make sure history is toggled off
-        if mode.history.isVisible():
-            QtTest.QTest.mouseClick(mode.toggle_history, QtCore.Qt.LeftButton)
-            self.assertFalse(mode.history.isVisible())
+        if tab.get_mode().history.isVisible():
+            QtTest.QTest.mouseClick(tab.get_mode().toggle_history, QtCore.Qt.LeftButton)
+            self.assertFalse(tab.get_mode().history.isVisible())
 
         # Indicator should not be visible yet
-        self.assertFalse(mode.toggle_history.indicator_label.isVisible())
+        self.assertFalse(tab.get_mode().toggle_history.indicator_label.isVisible())
 
-        if type(mode) == ReceiveMode:
+        if type(tab.get_mode()) == ReceiveMode:
             # Upload a file
-            files = {"file[]": open("/tmp/test.txt", "rb")}
-            url = f"http://127.0.0.1:{self.gui.app.port}/upload"
-            if public_mode:
+            files = {"file[]": open(self.tmpfiles[0], "rb")}
+            url = f"http://127.0.0.1:{tab.app.port}/upload"
+            if tab.settings.get("general", "public"):
                 requests.post(url, files=files)
             else:
                 requests.post(
                     url,
                     files=files,
-                    auth=requests.auth.HTTPBasicAuth("onionshare", mode.web.password),
+                    auth=requests.auth.HTTPBasicAuth(
+                        "onionshare", tab.get_mode().web.password
+                    ),
                 )
             QtTest.QTest.qWait(2000)
 
-        if type(mode) == ShareMode:
+        if type(tab.get_mode()) == ShareMode:
             # Download files
-            url = f"http://127.0.0.1:{self.gui.app.port}/download"
-            if public_mode:
+            url = f"http://127.0.0.1:{tab.app.port}/download"
+            if tab.settings.get("general", "public"):
                 requests.get(url)
             else:
                 requests.get(
                     url,
-                    auth=requests.auth.HTTPBasicAuth("onionshare", mode.web.password),
+                    auth=requests.auth.HTTPBasicAuth(
+                        "onionshare", tab.get_mode().web.password
+                    ),
                 )
             QtTest.QTest.qWait(2000)
 
         # Indicator should be visible, have a value of "1"
-        self.assertTrue(mode.toggle_history.indicator_label.isVisible())
-        self.assertEqual(mode.toggle_history.indicator_label.text(), indicator_count)
+        self.assertTrue(tab.get_mode().toggle_history.indicator_label.isVisible())
+        self.assertEqual(
+            tab.get_mode().toggle_history.indicator_label.text(), indicator_count
+        )
 
         # Toggle history back on, indicator should be hidden again
-        QtTest.QTest.mouseClick(mode.toggle_history, QtCore.Qt.LeftButton)
-        self.assertFalse(mode.toggle_history.indicator_label.isVisible())
+        QtTest.QTest.mouseClick(tab.get_mode().toggle_history, QtCore.Qt.LeftButton)
+        self.assertFalse(tab.get_mode().toggle_history.indicator_label.isVisible())
 
-    def history_is_not_visible(self, mode):
+    def history_is_not_visible(self, tab):
         """Test that the History section is not visible"""
-        self.assertFalse(mode.history.isVisible())
+        self.assertFalse(tab.get_mode().history.isVisible())
 
-    def history_is_visible(self, mode):
+    def history_is_visible(self, tab):
         """Test that the History section is visible"""
-        self.assertTrue(mode.history.isVisible())
+        self.assertTrue(tab.get_mode().history.isVisible())
 
-    def server_working_on_start_button_pressed(self, mode):
+    def server_working_on_start_button_pressed(self, tab):
         """Test we can start the service"""
         # Should be in SERVER_WORKING state
-        QtTest.QTest.mouseClick(mode.server_status.server_button, QtCore.Qt.LeftButton)
-        self.assertEqual(mode.server_status.status, 1)
+        QtTest.QTest.mouseClick(
+            tab.get_mode().server_status.server_button, QtCore.Qt.LeftButton
+        )
+        self.assertEqual(tab.get_mode().server_status.status, 1)
 
-    def toggle_indicator_is_reset(self, mode):
-        self.assertEqual(mode.toggle_history.indicator_count, 0)
-        self.assertFalse(mode.toggle_history.indicator_label.isVisible())
+    def toggle_indicator_is_reset(self, tab):
+        self.assertEqual(tab.get_mode().toggle_history.indicator_count, 0)
+        self.assertFalse(tab.get_mode().toggle_history.indicator_label.isVisible())
 
-    def server_status_indicator_says_starting(self, mode):
+    def server_status_indicator_says_starting(self, tab):
         """Test that the Server Status indicator shows we are Starting"""
         self.assertEqual(
-            mode.server_status_label.text(),
+            tab.get_mode().server_status_label.text(),
             strings._("gui_status_indicator_share_working"),
         )
 
-    def server_status_indicator_says_scheduled(self, mode):
+    def server_status_indicator_says_scheduled(self, tab):
         """Test that the Server Status indicator shows we are Scheduled"""
         self.assertEqual(
-            mode.server_status_label.text(),
+            tab.get_mode().server_status_label.text(),
             strings._("gui_status_indicator_share_scheduled"),
         )
 
-    def server_is_started(self, mode, startup_time=2000):
+    def server_is_started(self, tab, startup_time=2000):
         """Test that the server has started"""
         QtTest.QTest.qWait(startup_time)
         # Should now be in SERVER_STARTED state
-        self.assertEqual(mode.server_status.status, 2)
+        self.assertEqual(tab.get_mode().server_status.status, 2)
 
-    def web_server_is_running(self):
+    def web_server_is_running(self, tab):
         """Test that the web server has started"""
         try:
-            r = requests.get(f"http://127.0.0.1:{self.gui.app.port}/")
+            requests.get(f"http://127.0.0.1:{tab.app.port}/")
             self.assertTrue(True)
         except requests.exceptions.ConnectionError:
             self.assertTrue(False)
 
-    def have_a_password(self, mode, public_mode):
+    def have_a_password(self, tab):
         """Test that we have a valid password"""
-        if not public_mode:
-            self.assertRegex(mode.server_status.web.password, r"(\w+)-(\w+)")
+        if not tab.settings.get("general", "public"):
+            self.assertRegex(tab.get_mode().server_status.web.password, r"(\w+)-(\w+)")
         else:
-            self.assertIsNone(mode.server_status.web.password, r"(\w+)-(\w+)")
+            self.assertIsNone(tab.get_mode().server_status.web.password, r"(\w+)-(\w+)")
 
-    def add_button_visible(self, mode):
+    def add_button_visible(self, tab):
         """Test that the add button should be visible"""
-        self.assertTrue(mode.server_status.file_selection.add_button.isVisible())
+        self.assertTrue(
+            tab.get_mode().server_status.file_selection.add_button.isVisible()
+        )
 
-    def url_description_shown(self, mode):
+    def url_description_shown(self, tab):
         """Test that the URL label is showing"""
-        self.assertTrue(mode.server_status.url_description.isVisible())
+        self.assertTrue(tab.get_mode().server_status.url_description.isVisible())
 
-    def have_copy_url_button(self, mode, public_mode):
+    def have_copy_url_button(self, tab):
         """Test that the Copy URL button is shown and that the clipboard is correct"""
-        self.assertTrue(mode.server_status.copy_url_button.isVisible())
+        self.assertTrue(tab.get_mode().server_status.copy_url_button.isVisible())
 
         QtTest.QTest.mouseClick(
-            mode.server_status.copy_url_button, QtCore.Qt.LeftButton
+            tab.get_mode().server_status.copy_url_button, QtCore.Qt.LeftButton
         )
-        clipboard = self.gui.qtapp.clipboard()
-        if public_mode:
-            self.assertEqual(clipboard.text(), f"http://127.0.0.1:{self.gui.app.port}")
+        clipboard = tab.common.gui.qtapp.clipboard()
+        if tab.settings.get("general", "public"):
+            self.assertEqual(clipboard.text(), f"http://127.0.0.1:{tab.app.port}")
         else:
             self.assertEqual(
                 clipboard.text(),
-                f"http://onionshare:{mode.server_status.web.password}@127.0.0.1:{self.gui.app.port}",
+                f"http://onionshare:{tab.get_mode().server_status.web.password}@127.0.0.1:{tab.app.port}",
             )
 
-    def server_status_indicator_says_started(self, mode):
+    def server_status_indicator_says_started(self, tab):
         """Test that the Server Status indicator shows we are started"""
-        if type(mode) == ReceiveMode:
+        if type(tab.get_mode()) == ReceiveMode:
             self.assertEqual(
-                mode.server_status_label.text(),
+                tab.get_mode().server_status_label.text(),
                 strings._("gui_status_indicator_receive_started"),
             )
-        if type(mode) == ShareMode:
+        if type(tab.get_mode()) == ShareMode:
             self.assertEqual(
-                mode.server_status_label.text(),
+                tab.get_mode().server_status_label.text(),
                 strings._("gui_status_indicator_share_started"),
             )
 
-    def web_page(self, mode, string, public_mode):
+    def web_page(self, tab, string):
         """Test that the web page contains a string"""
 
-        url = f"http://127.0.0.1:{self.gui.app.port}/"
-        if public_mode:
+        url = f"http://127.0.0.1:{tab.app.port}/"
+        if tab.settings.get("general", "public"):
             r = requests.get(url)
         else:
             r = requests.get(
-                url, auth=requests.auth.HTTPBasicAuth("onionshare", mode.web.password)
+                url,
+                auth=requests.auth.HTTPBasicAuth(
+                    "onionshare", tab.get_mode().web.password
+                ),
             )
 
         self.assertTrue(string in r.text)
 
-    def history_widgets_present(self, mode):
+    def history_widgets_present(self, tab):
         """Test that the relevant widgets are present in the history view after activity has taken place"""
-        self.assertFalse(mode.history.empty.isVisible())
-        self.assertTrue(mode.history.not_empty.isVisible())
+        self.assertFalse(tab.get_mode().history.empty.isVisible())
+        self.assertTrue(tab.get_mode().history.not_empty.isVisible())
 
-    def counter_incremented(self, mode, count):
+    def counter_incremented(self, tab, count):
         """Test that the counter has incremented"""
-        self.assertEqual(mode.history.completed_count, count)
+        self.assertEqual(tab.get_mode().history.completed_count, count)
 
-    def server_is_stopped(self, mode, stay_open):
+    def server_is_stopped(self, tab):
         """Test that the server stops when we click Stop"""
         if (
-            type(mode) == ReceiveMode
-            or (type(mode) == ShareMode and stay_open)
-            or (type(mode) == WebsiteMode)
+            type(tab.get_mode()) == ReceiveMode
+            or (
+                type(tab.get_mode()) == ShareMode
+                and not tab.settings.get("share", "autostop_sharing")
+            )
+            or (type(tab.get_mode()) == WebsiteMode)
         ):
             QtTest.QTest.mouseClick(
-                mode.server_status.server_button, QtCore.Qt.LeftButton
+                tab.get_mode().server_status.server_button, QtCore.Qt.LeftButton
             )
-        self.assertEqual(mode.server_status.status, 0)
+        self.assertEqual(tab.get_mode().server_status.status, 0)
 
-    def web_server_is_stopped(self):
+    def web_server_is_stopped(self, tab):
         """Test that the web server also stopped"""
         QtTest.QTest.qWait(2000)
 
         try:
-            r = requests.get(f"http://127.0.0.1:{self.gui.app.port}/")
+            r = requests.get(f"http://127.0.0.1:{tab.app.port}/")
             self.assertTrue(False)
         except requests.exceptions.ConnectionError:
             self.assertTrue(True)
 
-    def server_status_indicator_says_closed(self, mode, stay_open):
+    def server_status_indicator_says_closed(self, tab):
         """Test that the Server Status indicator shows we closed"""
-        if type(mode) == ReceiveMode:
+        if type(tab.get_mode()) == ReceiveMode:
             self.assertEqual(
-                self.gui.receive_mode.server_status_label.text(),
+                tab.get_mode().server_status_label.text(),
                 strings._("gui_status_indicator_receive_stopped"),
             )
-        if type(mode) == ShareMode:
-            if stay_open:
+        if type(tab.get_mode()) == ShareMode:
+            if tab.settings.get("share", "autostop_sharing"):
                 self.assertEqual(
-                    self.gui.share_mode.server_status_label.text(),
+                    tab.get_mode().server_status_label.text(),
                     strings._("gui_status_indicator_share_stopped"),
                 )
             else:
                 self.assertEqual(
-                    self.gui.share_mode.server_status_label.text(),
+                    tab.get_mode().server_status_label.text(),
                     strings._("closing_automatically"),
                 )
 
-    def clear_all_history_items(self, mode, count):
+    def clear_all_history_items(self, tab, count):
         if count == 0:
-            QtTest.QTest.mouseClick(mode.history.clear_button, QtCore.Qt.LeftButton)
-        self.assertEquals(len(mode.history.item_list.items.keys()), count)
+            QtTest.QTest.mouseClick(
+                tab.get_mode().history.clear_button, QtCore.Qt.LeftButton
+            )
+        self.assertEquals(len(tab.get_mode().history.item_list.items.keys()), count)
 
     # Auto-stop timer tests
-    def set_timeout(self, mode, timeout):
+    def set_timeout(self, tab, timeout):
         """Test that the timeout can be set"""
         timer = QtCore.QDateTime.currentDateTime().addSecs(timeout)
-        mode.server_status.autostop_timer_widget.setDateTime(timer)
-        self.assertTrue(mode.server_status.autostop_timer_widget.dateTime(), timer)
+        tab.get_mode().server_status.autostop_timer_widget.setDateTime(timer)
+        self.assertTrue(
+            tab.get_mode().server_status.autostop_timer_widget.dateTime(), timer
+        )
 
-    def autostop_timer_widget_hidden(self, mode):
+    def autostop_timer_widget_hidden(self, tab):
         """Test that the auto-stop timer widget is hidden when share has started"""
-        self.assertFalse(mode.server_status.autostop_timer_container.isVisible())
+        self.assertFalse(
+            tab.get_mode().server_status.autostop_timer_container.isVisible()
+        )
 
-    def server_timed_out(self, mode, wait):
+    def server_timed_out(self, tab, wait):
         """Test that the server has timed out after the timer ran out"""
         QtTest.QTest.qWait(wait)
         # We should have timed out now
-        self.assertEqual(mode.server_status.status, 0)
-
-    # Hack to close an Alert dialog that would otherwise block tests
-    def accept_dialog(self):
-        window = self.gui.qtapp.activeWindow()
-        if window:
-            window.close()
+        self.assertEqual(tab.get_mode().server_status.status, 0)
 
     # Grouped tests follow from here
 
     def run_all_common_setup_tests(self):
         self.gui_loaded()
         self.window_title_seen()
-        self.settings_button_is_visible()
         self.server_status_bar_is_visible()
