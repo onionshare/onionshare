@@ -136,14 +136,14 @@ class GuiBaseTest(unittest.TestCase):
     def click_toggle_history(self, tab):
         """Test that we can toggle Download or Upload history by clicking the toggle button"""
         currently_visible = tab.get_mode().history.isVisible()
-        QtTest.QTest.mouseClick(tab.get_mode().toggle_history, QtCore.Qt.LeftButton)
+        tab.get_mode().toggle_history.click()
         self.assertEqual(tab.get_mode().history.isVisible(), not currently_visible)
 
     def history_indicator(self, tab, indicator_count="1"):
         """Test that we can make sure the history is toggled off, do an action, and the indiciator works"""
         # Make sure history is toggled off
         if tab.get_mode().history.isVisible():
-            QtTest.QTest.mouseClick(tab.get_mode().toggle_history, QtCore.Qt.LeftButton)
+            tab.get_mode().toggle_history.click()
             self.assertFalse(tab.get_mode().history.isVisible())
 
         # Indicator should not be visible yet
@@ -186,7 +186,7 @@ class GuiBaseTest(unittest.TestCase):
         )
 
         # Toggle history back on, indicator should be hidden again
-        QtTest.QTest.mouseClick(tab.get_mode().toggle_history, QtCore.Qt.LeftButton)
+        tab.get_mode().toggle_history.click()
         self.assertFalse(tab.get_mode().toggle_history.indicator_label.isVisible())
 
     def history_is_not_visible(self, tab):
@@ -200,9 +200,7 @@ class GuiBaseTest(unittest.TestCase):
     def server_working_on_start_button_pressed(self, tab):
         """Test we can start the service"""
         # Should be in SERVER_WORKING state
-        QtTest.QTest.mouseClick(
-            tab.get_mode().server_status.server_button, QtCore.Qt.LeftButton
-        )
+        tab.get_mode().server_status.server_button.click()
         self.assertEqual(tab.get_mode().server_status.status, 1)
 
     def toggle_indicator_is_reset(self, tab):
@@ -258,9 +256,7 @@ class GuiBaseTest(unittest.TestCase):
         """Test that the Copy URL button is shown and that the clipboard is correct"""
         self.assertTrue(tab.get_mode().server_status.copy_url_button.isVisible())
 
-        QtTest.QTest.mouseClick(
-            tab.get_mode().server_status.copy_url_button, QtCore.Qt.LeftButton
-        )
+        tab.get_mode().server_status.copy_url_button.click()
         clipboard = tab.common.gui.qtapp.clipboard()
         if tab.settings.get("general", "public"):
             self.assertEqual(clipboard.text(), f"http://127.0.0.1:{tab.app.port}")
@@ -318,17 +314,15 @@ class GuiBaseTest(unittest.TestCase):
             )
             or (type(tab.get_mode()) == WebsiteMode)
         ):
-            QtTest.QTest.mouseClick(
-                tab.get_mode().server_status.server_button, QtCore.Qt.LeftButton
-            )
+            tab.get_mode().server_status.server_button.click()
         self.assertEqual(tab.get_mode().server_status.status, 0)
 
     def web_server_is_stopped(self, tab):
         """Test that the web server also stopped"""
-        QtTest.QTest.qWait(2000)
+        QtTest.QTest.qWait(200)
 
         try:
-            r = requests.get(f"http://127.0.0.1:{tab.app.port}/")
+            requests.get(f"http://127.0.0.1:{tab.app.port}/")
             self.assertTrue(False)
         except requests.exceptions.ConnectionError:
             self.assertTrue(True)
@@ -354,9 +348,7 @@ class GuiBaseTest(unittest.TestCase):
 
     def clear_all_history_items(self, tab, count):
         if count == 0:
-            QtTest.QTest.mouseClick(
-                tab.get_mode().history.clear_button, QtCore.Qt.LeftButton
-            )
+            tab.get_mode().history.clear_button.click()
         self.assertEquals(len(tab.get_mode().history.item_list.items.keys()), count)
 
     # Auto-stop timer tests
