@@ -215,7 +215,7 @@ class TestShare(GuiBaseTest):
         QtTest.QTest.mousePress(
             tab.get_mode().server_status.server_button, QtCore.Qt.LeftButton
         )
-        QtTest.QTest.qWait(50)
+        QtTest.QTest.qWait(100)
         QtTest.QTest.mouseRelease(
             tab.get_mode().server_status.server_button, QtCore.Qt.LeftButton
         )
@@ -384,12 +384,8 @@ class TestShare(GuiBaseTest):
         self.web_server_is_stopped(tab)
         self.scheduled_service_started(tab, 2200)
         self.web_server_is_running(tab)
-        QtTest.QTest.qWait(200)
-        tab.get_mode().server_status.server_button.click()
-        QtTest.QTest.qWait(200)
-        self.server_is_stopped(tab)
-        self.web_server_is_stopped(tab)
 
+        self.stop_running_server(tab)
         self.close_all_tabs()
 
     @pytest.mark.gui
@@ -414,3 +410,20 @@ class TestShare(GuiBaseTest):
         QtCore.QTimer.singleShot(200, accept_dialog)
         tab.get_mode().server_status.server_button.click()
         self.assertEqual(tab.get_mode().server_status.status, 0)
+
+        self.close_all_tabs()
+
+    @pytest.mark.gui
+    def test_autostart_timer_cancel(self):
+        """
+        Test canceling a scheduled share
+        """
+        tab = self.new_share_tab()
+        tab.get_mode().mode_settings_widget.toggle_advanced_button.click()
+        tab.get_mode().mode_settings_widget.autostart_timer_checkbox.click()
+
+        self.run_all_common_setup_tests()
+        self.run_all_share_mode_setup_tests(tab)
+        self.cancel_the_share(tab)
+
+        self.close_all_tabs()

@@ -304,6 +304,16 @@ class GuiBaseTest(unittest.TestCase):
         """Test that the counter has incremented"""
         self.assertEqual(tab.get_mode().history.completed_count, count)
 
+    def stop_running_server(self, tab):
+        """Stop a server that's running"""
+        self.assertNotEqual(tab.get_mode().server_status.status, 0)
+
+        tab.get_mode().server_status.server_button.click()
+        QtTest.QTest.qWait(200)
+
+        self.server_is_stopped(tab)
+        self.web_server_is_stopped(tab)
+
     def server_is_stopped(self, tab):
         """Test that the server stops when we click Stop"""
         if (
