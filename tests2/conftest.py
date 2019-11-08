@@ -15,6 +15,10 @@ import pytest
 from onionshare import common, web, settings, strings
 
 
+# The temporary directory for CLI tests
+test_temp_dir = None
+
+
 def pytest_addoption(parser):
     parser.addoption(
         "--rungui", action="store_true", default=False, help="run GUI tests"
@@ -41,51 +45,60 @@ def pytest_collection_modifyitems(config, items):
 
 
 @pytest.fixture
-def temp_dir_1024():
+def temp_dir():
+    """Creates a persistent temporary directory for the CLI tests to use"""
+    global test_temp_dir
+    if not test_temp_dir:
+        test_temp_dir = tempfile.mkdtemp()
+    return test_temp_dir
+
+
+@pytest.fixture
+def temp_dir_1024(temp_dir):
     """ Create a temporary directory that has a single file of a
     particular size (1024 bytes).
     """
 
-    tmp_dir = tempfile.mkdtemp()
-    tmp_file, tmp_file_path = tempfile.mkstemp(dir=tmp_dir)
+    new_temp_dir = tempfile.mkdtemp(dir=temp_dir)
+    tmp_file, tmp_file_path = tempfile.mkstemp(dir=new_temp_dir)
     with open(tmp_file, "wb") as f:
         f.write(b"*" * 1024)
-    return tmp_dir
+    return new_temp_dir
 
 
 # pytest > 2.9 only needs @pytest.fixture
 @pytest.yield_fixture
-def temp_dir_1024_delete():
+def temp_dir_1024_delete(temp_dir):
     """ Create a temporary directory that has a single file of a
     particular size (1024 bytes). The temporary directory (including
     the file inside) will be deleted after fixture usage.
     """
 
-    with tempfile.TemporaryDirectory() as tmp_dir:
-        tmp_file, tmp_file_path = tempfile.mkstemp(dir=tmp_dir)
+    with tempfile.TemporaryDirectory(dir=temp_dir) as new_temp_dir:
+        tmp_file, tmp_file_path = tempfile.mkstemp(dir=new_temp_dir)
         with open(tmp_file, "wb") as f:
             f.write(b"*" * 1024)
-        yield tmp_dir
+        yield new_temp_dir
 
 
 @pytest.fixture
-def temp_file_1024():
+def temp_file_1024(temp_dir):
     """ Create a temporary file of a particular size (1024 bytes). """
 
-    with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
+    with tempfile.NamedTemporaryFile(delete=False, dir=temp_dir) as tmp_file:
         tmp_file.write(b"*" * 1024)
     return tmp_file.name
 
 
 # pytest > 2.9 only needs @pytest.fixture
 @pytest.yield_fixture
-def temp_file_1024_delete():
+def temp_file_1024_delete(temp_dir):
     """
     Create a temporary file of a particular size (1024 bytes).
     The temporary file will be deleted after fixture usage.
     """
 
-    with tempfile.NamedTemporaryFile() as tmp_file:
+    with tempfile.NamedTemporaryFile(dir=temp_dir) as tmp_file:
         tmp_file.write(b"*" * 1024)
         tmp_file.flush()
         yield tmp_file.name

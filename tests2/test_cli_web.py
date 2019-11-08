@@ -42,7 +42,7 @@ DEFAULT_ZW_FILENAME_REGEX = re.compile(r"^onionshare_[a-z2-7]{6}.zip$")
 RANDOM_STR_REGEX = re.compile(r"^[a-z2-7]+$")
 
 
-def web_obj(common_obj, mode, num_files=0):
+def web_obj(temp_dir, common_obj, mode, num_files=0):
     """ Creates a Web object, in either share mode or receive mode, ready for testing """
     common_obj.settings = Settings(common_obj)
     strings.load_strings(common_obj)
@@ -58,7 +58,7 @@ def web_obj(common_obj, mode, num_files=0):
         # Add files
         files = []
         for _ in range(num_files):
-            with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
+            with tempfile.NamedTemporaryFile(delete=False, dir=temp_dir) as tmp_file:
                 tmp_file.write(b"*" * 1024)
                 files.append(tmp_file.name)
         web.share_mode.set_file_info(files)
@@ -70,8 +70,8 @@ def web_obj(common_obj, mode, num_files=0):
 
 
 class TestWeb:
-    def test_share_mode(self, common_obj):
-        web = web_obj(common_obj, "share", 3)
+    def test_share_mode(self, temp_dir, common_obj):
+        web = web_obj(temp_dir, common_obj, "share", 3)
         assert web.mode == "share"
         with web.app.test_client() as c:
             # Load / without auth
@@ -95,8 +95,8 @@ class TestWeb:
             assert res.status_code == 200
             assert res.mimetype == "application/zip"
 
-    def test_share_mode_autostop_sharing_on(self, common_obj, temp_file_1024):
-        web = web_obj(common_obj, "share", 3)
+    def test_share_mode_autostop_sharing_on(self, temp_dir, common_obj, temp_file_1024):
+        web = web_obj(temp_dir, common_obj, "share", 3)
         web.settings.set("share", "autostop_sharing", True)
 
         assert web.running == True
@@ -110,8 +110,8 @@ class TestWeb:
 
             assert web.running == False
 
-    def test_share_mode_autostop_sharing_off(self, common_obj, temp_file_1024):
-        web = web_obj(common_obj, "share", 3)
+    def test_share_mode_autostop_sharing_off(self, temp_dir, common_obj, temp_file_1024):
+        web = web_obj(temp_dir, common_obj, "share", 3)
         web.settings.set("share", "autostop_sharing", False)
 
         assert web.running == True
@@ -124,8 +124,8 @@ class TestWeb:
             assert res.mimetype == "application/zip"
             assert web.running == True
 
-    def test_receive_mode(self, common_obj):
-        web = web_obj(common_obj, "receive")
+    def test_receive_mode(self, temp_dir, common_obj):
+        web = web_obj(temp_dir, common_obj, "receive")
         assert web.mode == "receive"
 
         with web.app.test_client() as c:
@@ -144,8 +144,8 @@ class TestWeb:
             res.get_data()
             assert res.status_code == 200
 
-    def test_public_mode_on(self, common_obj):
-        web = web_obj(common_obj, "receive")
+    def test_public_mode_on(self, temp_dir, common_obj):
+        web = web_obj(temp_dir, common_obj, "receive")
         web.settings.set("general", "public", True)
 
         with web.app.test_client() as c:
@@ -154,8 +154,8 @@ class TestWeb:
             data1 = res.get_data()
             assert res.status_code == 200
 
-    def test_public_mode_off(self, common_obj):
-        web = web_obj(common_obj, "receive")
+    def test_public_mode_off(self, temp_dir, common_obj):
+        web = web_obj(temp_dir, common_obj, "receive")
         web.settings.set("general", "public", False)
 
         with web.app.test_client() as c:
