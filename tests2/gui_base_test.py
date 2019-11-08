@@ -43,6 +43,7 @@ class GuiBaseTest(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
+        cls.gui.close()
         cls.gui.cleanup()
 
     # Shared test methods
@@ -304,39 +305,6 @@ class GuiBaseTest(unittest.TestCase):
         # We should have timed out now
         self.assertEqual(mode.server_status.status, 0)
 
-    # Auto-start timer tests
-    def set_autostart_timer(self, mode, timer):
-        """Test that the timer can be set"""
-        schedule = QtCore.QDateTime.currentDateTime().addSecs(timer)
-        mode.server_status.autostart_timer_widget.setDateTime(schedule)
-        self.assertTrue(mode.server_status.autostart_timer_widget.dateTime(), schedule)
-
-    def autostart_timer_widget_hidden(self, mode):
-        """Test that the auto-start timer widget is hidden when share has started"""
-        self.assertFalse(mode.server_status.autostart_timer_container.isVisible())
-
-    def scheduled_service_started(self, mode, wait):
-        """Test that the server has timed out after the timer ran out"""
-        QtTest.QTest.qWait(wait)
-        # We should have started now
-        self.assertEqual(mode.server_status.status, 2)
-
-    def cancel_the_share(self, mode):
-        """Test that we can cancel a share before it's started up """
-        self.server_working_on_start_button_pressed(mode)
-        self.server_status_indicator_says_scheduled(mode)
-        self.add_delete_buttons_hidden()
-        self.settings_button_is_hidden()
-        self.set_autostart_timer(mode, 10)
-        QtTest.QTest.mousePress(mode.server_status.server_button, QtCore.Qt.LeftButton)
-        QtTest.QTest.qWait(2000)
-        QtTest.QTest.mouseRelease(
-            mode.server_status.server_button, QtCore.Qt.LeftButton
-        )
-        self.assertEqual(mode.server_status.status, 0)
-        self.server_is_stopped(mode, False)
-        self.web_server_is_stopped()
-
     # Hack to close an Alert dialog that would otherwise block tests
     def accept_dialog(self):
         window = self.gui.qtapp.activeWindow()
@@ -344,7 +312,7 @@ class GuiBaseTest(unittest.TestCase):
             window.close()
 
     # Grouped tests follow from here
-    
+
     def run_all_common_setup_tests(self):
         self.gui_loaded()
         self.window_title_seen()
