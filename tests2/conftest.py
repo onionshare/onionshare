@@ -124,7 +124,10 @@ def default_zw():
     yield zw
     zw.close()
     tmp_dir = os.path.dirname(zw.zip_filename)
-    shutil.rmtree(tmp_dir)
+    try:
+        shutil.rmtree(tmp_dir, ignore_errors=True)
+    except:
+        pass
 
 
 @pytest.fixture

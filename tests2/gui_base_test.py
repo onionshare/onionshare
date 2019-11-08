@@ -40,9 +40,17 @@ class GuiBaseTest(unittest.TestCase):
             with open(filename, "w") as file:
                 file.write(secrets.token_hex(10))
             cls.tmpfiles.append(filename)
+
+        # A file called "test.txt"
         cls.tmpfile_test = os.path.join(cls.tmpdir.name, "test.txt")
         with open(cls.tmpfile_test, "w") as file:
             file.write("onionshare")
+
+        # A large file
+        size = 1024 * 1024 * 155
+        cls.tmpfile_large = os.path.join(cls.tmpdir.name, "large_file")
+        with open(cls.tmpfile_large, "wb") as fout:
+            fout.write(os.urandom(size))
 
     @classmethod
     def tearDownClass(cls):
@@ -51,6 +59,10 @@ class GuiBaseTest(unittest.TestCase):
         cls.gui.close()
 
         cls.gui.cleanup()
+        try:
+            shutil.rmtree(cls.tmpdir.name, ignore_errors=True)
+        except:
+            pass
 
     # Shared test methods
 
@@ -354,7 +366,7 @@ class GuiBaseTest(unittest.TestCase):
     def clear_all_history_items(self, tab, count):
         if count == 0:
             tab.get_mode().history.clear_button.click()
-        self.assertEquals(len(tab.get_mode().history.item_list.items.keys()), count)
+        self.assertEqual(len(tab.get_mode().history.item_list.items.keys()), count)
 
     # Auto-stop timer tests
     def set_timeout(self, tab, timeout):
