@@ -109,6 +109,10 @@ class GuiBaseTest(unittest.TestCase):
 
         return tab
 
+    def close_all_tabs(self):
+        for _ in range(self.gui.tabs.count()):
+            self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide).click()
+
     def gui_loaded(self):
         """Test that the GUI actually is shown"""
         self.assertTrue(self.gui.show)
