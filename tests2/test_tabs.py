@@ -42,6 +42,56 @@ class TestTabs(unittest.TestCase):
     def tearDownClass(cls):
         cls.gui.cleanup()
 
+    # Shared test methods
+
+    def verify_new_tab(self, tab):
+        # Make sure the new tab widget is showing, and no mode has been started
+        self.assertTrue(tab.new_tab.isVisible())
+        self.assertFalse(hasattr(tab, "share_mode"))
+        self.assertFalse(hasattr(tab, "receive_mode"))
+        self.assertFalse(hasattr(tab, "website_mode"))
+
+    def new_share_tab(self):
+        tab = self.gui.tabs.widget(0)
+        self.verify_new_tab(tab)
+
+        # Share files
+        QtTest.QTest.mouseClick(tab.share_button, QtCore.Qt.LeftButton)
+        self.assertFalse(tab.new_tab.isVisible())
+        self.assertTrue(tab.share_mode.isVisible())
+
+        # Add files
+        for filename in self.tmpfiles:
+            tab.share_mode.server_status.file_selection.file_list.add_file(filename)
+
+        return tab
+
+    def new_receive_tab(self):
+        tab = self.gui.tabs.widget(0)
+        self.verify_new_tab(tab)
+
+        # Receive files
+        QtTest.QTest.mouseClick(tab.receive_button, QtCore.Qt.LeftButton)
+        self.assertFalse(tab.new_tab.isVisible())
+        self.assertTrue(tab.receive_mode.isVisible())
+
+        return tab
+
+    def new_website_tab(self):
+        tab = self.gui.tabs.widget(0)
+        self.verify_new_tab(tab)
+
+        # Publish website
+        QtTest.QTest.mouseClick(tab.website_button, QtCore.Qt.LeftButton)
+        self.assertFalse(tab.new_tab.isVisible())
+        self.assertTrue(tab.website_mode.isVisible())
+
+        # Add files
+        for filename in self.tmpfiles:
+            tab.website_mode.server_status.file_selection.file_list.add_file(filename)
+
+        return tab
+
     def close_tab_with_active_server(self, tab):
         # Start the server
         self.assertEqual(
@@ -69,7 +119,6 @@ class TestTabs(unittest.TestCase):
             self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide),
             QtCore.Qt.LeftButton,
         )
-        QtTest.QTest.qWait(1000)
 
         # The tab should still be open
         self.assertFalse(tab.new_tab.isVisible())
@@ -83,10 +132,53 @@ class TestTabs(unittest.TestCase):
             self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide),
             QtCore.Qt.LeftButton,
         )
-        QtTest.QTest.qWait(1000)
 
         # The tab should be closed
         self.assertTrue(self.gui.tabs.widget(0).new_tab.isVisible())
+
+    def close_persistent_tab(self, tab):
+        # There shouldn't be a persistent settings file
+        self.assertFalse(os.path.exists(tab.settings.filename))
+
+        # Click the persistent checkbox
+        tab.get_mode().server_status.mode_settings_widget.persistent_checkbox.click()
+        QtTest.QTest.qWait(100)
+
+        # There should be a persistent settings file now
+        self.assertTrue(os.path.exists(tab.settings.filename))
+
+        # Prepare to reject the dialog
+        QtCore.QTimer.singleShot(1000, tab.close_dialog.reject_button.click)
+
+        # Close tab
+        QtTest.QTest.mouseClick(
+            self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide),
+            QtCore.Qt.LeftButton,
+        )
+
+        # The tab should still be open
+        self.assertFalse(tab.new_tab.isVisible())
+        self.assertTrue(tab.get_mode().isVisible())
+
+        # There should be a persistent settings file still
+        self.assertTrue(os.path.exists(tab.settings.filename))
+
+        # Prepare to accept the dialog
+        QtCore.QTimer.singleShot(1000, tab.close_dialog.accept_button.click)
+
+        # Close tab
+        QtTest.QTest.mouseClick(
+            self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide),
+            QtCore.Qt.LeftButton,
+        )
+
+        # The tab should be closed
+        self.assertTrue(self.gui.tabs.widget(0).new_tab.isVisible())
+
+        # The persistent settings file should be deleted
+        self.assertFalse(os.path.exists(tab.settings.filename))
+
+    # Tests
 
     @pytest.mark.gui
     def test_001_gui_loaded(self):
@@ -212,49 +304,38 @@ class TestTabs(unittest.TestCase):
     @pytest.mark.gui
     def test_010_close_share_tab_while_server_started_should_warn(self):
         """Closing a share mode tab when the server is running should throw a warning"""
-        tab = self.gui.tabs.widget(0)
-
-        # Share files
-        QtTest.QTest.mouseClick(tab.share_button, QtCore.Qt.LeftButton)
-        self.assertFalse(tab.new_tab.isVisible())
-        self.assertTrue(tab.share_mode.isVisible())
-
-        # Add files
-        for filename in self.tmpfiles:
-            tab.share_mode.server_status.file_selection.file_list.add_file(filename)
-
-        # Test closing it
+        tab = self.new_share_tab()
         self.close_tab_with_active_server(tab)
 
     @pytest.mark.gui
     def test_011_close_receive_tab_while_server_started_should_warn(self):
         """Closing a recieve mode tab when the server is running should throw a warning"""
-        tab = self.gui.tabs.widget(0)
-
-        # Receive files
-        QtTest.QTest.mouseClick(tab.receive_button, QtCore.Qt.LeftButton)
-        self.assertFalse(tab.new_tab.isVisible())
-        self.assertTrue(tab.receive_mode.isVisible())
-
-        # Test closing it
+        tab = self.new_receive_tab()
         self.close_tab_with_active_server(tab)
 
     @pytest.mark.gui
     def test_012_close_website_tab_while_server_started_should_warn(self):
         """Closing a website mode tab when the server is running should throw a warning"""
-        tab = self.gui.tabs.widget(0)
-
-        # Publish website
-        QtTest.QTest.mouseClick(tab.website_button, QtCore.Qt.LeftButton)
-        self.assertFalse(tab.new_tab.isVisible())
-        self.assertTrue(tab.website_mode.isVisible())
-
-        # Add files
-        for filename in self.tmpfiles:
-            tab.website_mode.server_status.file_selection.file_list.add_file(filename)
-
-        # Test closing it
+        tab = self.new_website_tab()
         self.close_tab_with_active_server(tab)
+
+    @pytest.mark.gui
+    def test_013_close_persistent_share_tab_shows_warning(self):
+        """Closing a share mode tab that's persistent should show a warning"""
+        tab = self.new_share_tab()
+        self.close_persistent_tab(tab)
+
+    @pytest.mark.gui
+    def test_014_close_persistent_receive_tab_shows_warning(self):
+        """Closing a receive mode tab that's persistent should show a warning"""
+        tab = self.new_receive_tab()
+        self.close_persistent_tab(tab)
+
+    @pytest.mark.gui
+    def test_015_close_persistent_website_tab_shows_warning(self):
+        """Closing a website mode tab that's persistent should show a warning"""
+        tab = self.new_website_tab()
+        self.close_persistent_tab(tab)
 
 
 if __name__ == "__main__":
