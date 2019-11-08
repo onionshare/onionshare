@@ -40,10 +40,7 @@ class TestShare(GuiBaseTest):
             tab.get_mode().server_status.file_selection.delete_button.isVisible()
         )
         # Click delete, delete button should still be visible since we have one more file
-        QtTest.QTest.mouseClick(
-            tab.get_mode().server_status.file_selection.delete_button,
-            QtCore.Qt.LeftButton,
-        )
+        tab.get_mode().server_status.file_selection.delete_button.click()
         rect = tab.get_mode().server_status.file_selection.file_list.visualItemRect(
             tab.get_mode().server_status.file_selection.file_list.item(0)
         )
@@ -55,10 +52,7 @@ class TestShare(GuiBaseTest):
         self.assertTrue(
             tab.get_mode().server_status.file_selection.delete_button.isVisible()
         )
-        QtTest.QTest.mouseClick(
-            tab.get_mode().server_status.file_selection.delete_button,
-            QtCore.Qt.LeftButton,
-        )
+        tab.get_mode().server_status.file_selection.delete_button.click()
 
         # No more files, the delete button should be hidden
         self.assertFalse(
@@ -68,10 +62,9 @@ class TestShare(GuiBaseTest):
     def add_a_file_and_delete_using_its_delete_widget(self, tab):
         """Test that we can also delete a file by clicking on its [X] widget"""
         tab.get_mode().server_status.file_selection.file_list.add_file(self.tmpfiles[0])
-        QtTest.QTest.mouseClick(
-            tab.get_mode().server_status.file_selection.file_list.item(0).item_button,
-            QtCore.Qt.LeftButton,
-        )
+        tab.get_mode().server_status.file_selection.file_list.item(
+            0
+        ).item_button.click()
         self.file_selection_widget_has_files(tab, 0)
 
     def file_selection_widget_read_files(self, tab):
@@ -116,7 +109,7 @@ class TestShare(GuiBaseTest):
             f.write(r.content)
 
         zip = zipfile.ZipFile(tmp_file.name)
-        QtTest.QTest.qWait(2000)
+        QtTest.QTest.qWait(50)
         self.assertEqual("onionshare", zip.read("test.txt").decode("utf-8"))
 
     def individual_file_is_viewable_or_not(self, tab):
@@ -166,7 +159,7 @@ class TestShare(GuiBaseTest):
             self.assertEqual(r.status_code, 404)
             self.download_share(tab)
 
-        QtTest.QTest.qWait(2000)
+        QtTest.QTest.qWait(50)
 
     def hit_401(self, tab):
         """Test that the server stops after too many 401s, or doesn't when in public_mode"""
@@ -180,7 +173,7 @@ class TestShare(GuiBaseTest):
 
         # A nasty hack to avoid the Alert dialog that blocks the rest of the test
         if not tab.settings.get("general", "public"):
-            QtCore.QTimer.singleShot(1000, self.accept_dialog)
+            QtCore.QTimer.singleShot(0, self.accept_dialog)
 
         # In public mode, we should still be running (no rate-limiting)
         if tab.settings.get("general", "public"):
@@ -206,13 +199,13 @@ class TestShare(GuiBaseTest):
             tab.get_mode().mode_settings_widget.autostart_timer_widget.isVisible()
         )
 
-    def scheduled_service_started(self, tab, mode, wait):
+    def scheduled_service_started(self, tab, wait):
         """Test that the server has timed out after the timer ran out"""
         QtTest.QTest.qWait(wait)
         # We should have started now
         self.assertEqual(tab.get_mode().server_status.status, 2)
 
-    def cancel_the_share(self, tab, mode):
+    def cancel_the_share(self, tab):
         """Test that we can cancel a share before it's started up """
         self.server_working_on_start_button_pressed(tab)
         self.server_status_indicator_says_scheduled(tab)
@@ -222,7 +215,7 @@ class TestShare(GuiBaseTest):
         QtTest.QTest.mousePress(
             tab.get_mode().server_status.server_button, QtCore.Qt.LeftButton
         )
-        QtTest.QTest.qWait(2000)
+        QtTest.QTest.qWait(50)
         QtTest.QTest.mouseRelease(
             tab.get_mode().server_status.server_button, QtCore.Qt.LeftButton
         )
@@ -339,7 +332,7 @@ class TestShare(GuiBaseTest):
     def run_all_share_mode_unreadable_file_tests(self, tab):
         """Attempt to share an unreadable file"""
         self.run_all_share_mode_setup_tests(tab)
-        QtCore.QTimer.singleShot(1000, self.accept_dialog)
+        QtCore.QTimer.singleShot(0, self.accept_dialog)
         tab.get_mode().server_status.file_selection.file_list.add_file(
             "/tmp/nonexistent.txt"
         )
@@ -353,18 +346,16 @@ class TestShare(GuiBaseTest):
         If autostart timer is after autostop timer, a warning should be thrown
         """
         tab = self.new_share_tab()
+        tab.get_mode().mode_settings_widget.toggle_advanced_button.click()
+        tab.get_mode().mode_settings_widget.autostart_timer_checkbox.click()
+        tab.get_mode().mode_settings_widget.autostop_timer_checkbox.click()
 
         def accept_dialog():
             window = tab.common.gui.qtapp.activeWindow()
             if window:
                 window.close()
 
-        tab.get_mode().mode_settings_widget.toggle_advanced_button.click()
-        tab.get_mode().mode_settings_widget.autostart_timer_checkbox.click()
-        tab.get_mode().mode_settings_widget.autostop_timer_checkbox.click()
-
         self.run_all_common_setup_tests()
-
         self.run_all_share_mode_setup_tests(tab)
         self.set_autostart_timer(tab, 15)
         self.set_timeout(tab, 5)
@@ -380,15 +371,23 @@ class TestShare(GuiBaseTest):
         Autostart timer should automatically start
         """
         tab = self.new_share_tab()
+        tab.get_mode().mode_settings_widget.toggle_advanced_button.click()
+        tab.get_mode().mode_settings_widget.autostart_timer_checkbox.click()
+
         self.run_all_common_setup_tests()
 
         self.run_all_share_mode_setup_tests(tab)
-        self.set_autostart_timer(tab, 5)
+        self.set_autostart_timer(tab, 2)
         self.server_working_on_start_button_pressed(tab)
         self.autostart_timer_widget_hidden(tab)
         self.server_status_indicator_says_scheduled(tab)
         self.web_server_is_stopped(tab)
-        self.scheduled_service_started(tab, 7000)
+        self.scheduled_service_started(tab, 2200)
         self.web_server_is_running(tab)
+        QtTest.QTest.qWait(200)
+        tab.get_mode().server_status.server_button.click()
+        QtTest.QTest.qWait(200)
+        self.server_is_stopped(tab)
+        self.web_server_is_stopped(tab)
 
         self.close_all_tabs()
