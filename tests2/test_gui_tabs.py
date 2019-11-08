@@ -70,14 +70,14 @@ class TestTabs(GuiBaseTest):
             tab.get_mode().server_status.status,
             tab.get_mode().server_status.STATUS_WORKING,
         )
-        QtTest.QTest.qWait(1000)
+        QtTest.QTest.qWait(500)
         self.assertEqual(
             tab.get_mode().server_status.status,
             tab.get_mode().server_status.STATUS_STARTED,
         )
 
         # Prepare to reject the dialog
-        QtCore.QTimer.singleShot(1000, tab.close_dialog.reject_button.click)
+        QtCore.QTimer.singleShot(200, tab.close_dialog.reject_button.click)
 
         # Close tab
         QtTest.QTest.mouseClick(
@@ -90,7 +90,7 @@ class TestTabs(GuiBaseTest):
         self.assertTrue(tab.get_mode().isVisible())
 
         # Prepare to accept the dialog
-        QtCore.QTimer.singleShot(1000, tab.close_dialog.accept_button.click)
+        QtCore.QTimer.singleShot(200, tab.close_dialog.accept_button.click)
 
         # Close tab
         QtTest.QTest.mouseClick(
@@ -113,7 +113,7 @@ class TestTabs(GuiBaseTest):
         self.assertTrue(os.path.exists(tab.settings.filename))
 
         # Prepare to reject the dialog
-        QtCore.QTimer.singleShot(1000, tab.close_dialog.reject_button.click)
+        QtCore.QTimer.singleShot(200, tab.close_dialog.reject_button.click)
 
         # Close tab
         QtTest.QTest.mouseClick(
@@ -129,7 +129,7 @@ class TestTabs(GuiBaseTest):
         self.assertTrue(os.path.exists(tab.settings.filename))
 
         # Prepare to accept the dialog
-        QtCore.QTimer.singleShot(1000, tab.close_dialog.accept_button.click)
+        QtCore.QTimer.singleShot(200, tab.close_dialog.accept_button.click)
 
         # Close tab
         QtTest.QTest.mouseClick(
@@ -304,14 +304,14 @@ class TestTabs(GuiBaseTest):
             tab.get_mode().server_status.status,
             tab.get_mode().server_status.STATUS_WORKING,
         )
-        QtTest.QTest.qWait(1000)
+        QtTest.QTest.qWait(500)
         self.assertEqual(
             tab.get_mode().server_status.status,
             tab.get_mode().server_status.STATUS_STARTED,
         )
 
         # Prepare to reject the dialog
-        QtCore.QTimer.singleShot(1000, self.gui.close_dialog.reject_button.click)
+        QtCore.QTimer.singleShot(200, self.gui.close_dialog.reject_button.click)
 
         # Close the window
         self.gui.close()
