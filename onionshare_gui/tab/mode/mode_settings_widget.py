@@ -72,12 +72,7 @@ class ModeSettingsWidget(QtWidgets.QWidget):
         # The autostart timer widget
         self.autostart_timer_widget = QtWidgets.QDateTimeEdit()
         self.autostart_timer_widget.setDisplayFormat("hh:mm A MMM d, yy")
-        self.autostart_timer_widget.setDateTime(
-            QtCore.QDateTime.currentDateTime().addSecs(300)  # 5 minutes in the future
-        )
-        self.autostart_timer_widget.setMinimumDateTime(
-            QtCore.QDateTime.currentDateTime().addSecs(60)
-        )
+        self.autostart_timer_reset()
         self.autostart_timer_widget.setCurrentSection(
             QtWidgets.QDateTimeEdit.MinuteSection
         )
@@ -105,12 +100,7 @@ class ModeSettingsWidget(QtWidgets.QWidget):
         # The autostop timer widget
         self.autostop_timer_widget = QtWidgets.QDateTimeEdit()
         self.autostop_timer_widget.setDisplayFormat("hh:mm A MMM d, yy")
-        self.autostop_timer_widget.setDateTime(
-            QtCore.QDateTime.currentDateTime().addSecs(300)
-        )
-        self.autostop_timer_widget.setMinimumDateTime(
-            QtCore.QDateTime.currentDateTime().addSecs(60)
-        )
+        self.autostop_timer_reset()
         self.autostop_timer_widget.setCurrentSection(
             QtWidgets.QDateTimeEdit.MinuteSection
         )
@@ -249,20 +239,40 @@ class ModeSettingsWidget(QtWidgets.QWidget):
         """
         Reset the auto-start timer in the UI after stopping a share
         """
-        self.autostart_timer_widget.setDateTime(
-            QtCore.QDateTime.currentDateTime().addSecs(300)
-        )
-        self.autostart_timer_widget.setMinimumDateTime(
-            QtCore.QDateTime.currentDateTime().addSecs(60)
-        )
+        if self.common.gui.local_only:
+            # For testing
+            self.autostart_timer_widget.setDateTime(
+                QtCore.QDateTime.currentDateTime().addSecs(15)
+            )
+            self.autostart_timer_widget.setMinimumDateTime(
+                QtCore.QDateTime.currentDateTime()
+            )
+        else:
+            self.autostart_timer_widget.setDateTime(
+                QtCore.QDateTime.currentDateTime().addSecs(
+                    300
+                )  # 5 minutes in the future
+            )
+            self.autostart_timer_widget.setMinimumDateTime(
+                QtCore.QDateTime.currentDateTime().addSecs(60)
+            )
 
     def autostop_timer_reset(self):
         """
         Reset the auto-stop timer in the UI after stopping a share
         """
-        self.autostop_timer_widget.setDateTime(
-            QtCore.QDateTime.currentDateTime().addSecs(300)
-        )
-        self.autostop_timer_widget.setMinimumDateTime(
-            QtCore.QDateTime.currentDateTime().addSecs(60)
-        )
+        if self.common.gui.local_only:
+            # For testing
+            self.autostop_timer_widget.setDateTime(
+                QtCore.QDateTime.currentDateTime().addSecs(15)
+            )
+            self.autostop_timer_widget.setMinimumDateTime(
+                QtCore.QDateTime.currentDateTime()
+            )
+        else:
+            self.autostop_timer_widget.setDateTime(
+                QtCore.QDateTime.currentDateTime().addSecs(300)
+            )
+            self.autostop_timer_widget.setMinimumDateTime(
+                QtCore.QDateTime.currentDateTime().addSecs(60)
+            )

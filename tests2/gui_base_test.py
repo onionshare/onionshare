@@ -359,15 +359,15 @@ class GuiBaseTest(unittest.TestCase):
     def set_timeout(self, tab, timeout):
         """Test that the timeout can be set"""
         timer = QtCore.QDateTime.currentDateTime().addSecs(timeout)
-        tab.get_mode().server_status.autostop_timer_widget.setDateTime(timer)
+        tab.get_mode().mode_settings_widget.autostop_timer_widget.setDateTime(timer)
         self.assertTrue(
-            tab.get_mode().server_status.autostop_timer_widget.dateTime(), timer
+            tab.get_mode().mode_settings_widget.autostop_timer_widget.dateTime(), timer
         )
 
     def autostop_timer_widget_hidden(self, tab):
         """Test that the auto-stop timer widget is hidden when share has started"""
         self.assertFalse(
-            tab.get_mode().server_status.autostop_timer_container.isVisible()
+            tab.get_mode().mode_settings_widget.autostop_timer_container.isVisible()
         )
 
     def server_timed_out(self, tab, wait):
