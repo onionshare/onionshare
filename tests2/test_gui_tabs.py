@@ -334,6 +334,11 @@ class TestTabs(GuiBaseTest):
         # The window should still be open
         self.assertTrue(self.gui.isVisible())
 
+        # Stop the server
+        QtTest.QTest.mouseClick(
+            tab.get_mode().server_status.server_button, QtCore.Qt.LeftButton
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
