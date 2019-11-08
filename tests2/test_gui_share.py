@@ -191,21 +191,26 @@ class TestShare(GuiBaseTest):
 
     # Auto-start timer tests
 
-    def set_autostart_timer(self, tab, mode, timer):
+    def set_autostart_timer(self, tab, timer):
         """Test that the timer can be set"""
         schedule = QtCore.QDateTime.currentDateTime().addSecs(timer)
-        mode.server_status.autostart_timer_widget.setDateTime(schedule)
-        self.assertTrue(mode.server_status.autostart_timer_widget.dateTime(), schedule)
+        tab.get_mode().mode_settings_widget.autostart_timer_widget.setDateTime(schedule)
+        self.assertTrue(
+            tab.get_mode().mode_settings_widget.autostart_timer_widget.dateTime(),
+            schedule,
+        )
 
     def autostart_timer_widget_hidden(self, tab, mode):
         """Test that the auto-start timer widget is hidden when share has started"""
-        self.assertFalse(mode.server_status.autostart_timer_container.isVisible())
+        self.assertFalse(
+            tab.get_mode().mode_settings_widget.autostart_timer_widget.isVisible()
+        )
 
     def scheduled_service_started(self, tab, mode, wait):
         """Test that the server has timed out after the timer ran out"""
         QtTest.QTest.qWait(wait)
         # We should have started now
-        self.assertEqual(mode.server_status.status, 2)
+        self.assertEqual(tab.get_mode().server_status.status, 2)
 
     def cancel_the_share(self, tab, mode):
         """Test that we can cancel a share before it's started up """
@@ -214,12 +219,14 @@ class TestShare(GuiBaseTest):
         self.add_delete_buttons_hidden(tab)
         self.mode_settings_widget_is_hidden(tab)
         self.set_autostart_timer(tab, 10)
-        QtTest.QTest.mousePress(mode.server_status.server_button, QtCore.Qt.LeftButton)
+        QtTest.QTest.mousePress(
+            tab.get_mode().server_status.server_button, QtCore.Qt.LeftButton
+        )
         QtTest.QTest.qWait(2000)
         QtTest.QTest.mouseRelease(
-            mode.server_status.server_button, QtCore.Qt.LeftButton
+            tab.get_mode().server_status.server_button, QtCore.Qt.LeftButton
         )
-        self.assertEqual(mode.server_status.status, 0)
+        self.assertEqual(tab.get_mode().server_status.status, 0)
         self.server_is_stopped(tab)
         self.web_server_is_stopped(tab)
 
@@ -340,17 +347,6 @@ class TestShare(GuiBaseTest):
         self.scheduled_service_started(tab, 7000)
         self.web_server_is_running(tab)
 
-    def run_all_share_mode_autostop_autostart_mismatch_tests(self, tab):
-        """Auto-stop timer tests in share mode"""
-        self.run_all_share_mode_setup_tests(tab)
-        self.set_autostart_timer(tab, 15)
-        self.set_timeout(tab, 5)
-        QtCore.QTimer.singleShot(4000, self.accept_dialog)
-        QtTest.QTest.mouseClick(
-            tab.get_mode().server_status.server_button, QtCore.Qt.LeftButton
-        )
-        self.server_is_stopped(tab, False)
-
     def run_all_share_mode_unreadable_file_tests(self, tab):
         """Attempt to share an unreadable file"""
         self.run_all_share_mode_setup_tests(tab)
@@ -363,19 +359,23 @@ class TestShare(GuiBaseTest):
     # Tests
 
     @pytest.mark.gui
-    def test_tmp(self):
+    def test_autostart_and_autostop_timer_mismatch(self):
         tab = self.new_share_tab()
-        self.run_all_share_mode_setup_tests(tab)
-        self.run_all_share_mode_started_tests(tab)
-        self.run_all_share_mode_download_tests(tab)
-        self.run_all_share_mode_individual_file_download_tests(tab)
-        self.run_all_share_mode_tests(tab)
-        self.run_all_clear_all_button_tests(tab)
-        self.run_all_share_mode_individual_file_tests(tab)
-        self.run_all_large_file_tests(tab)
-        self.run_all_share_mode_persistent_tests(tab)
-        self.run_all_share_mode_timer_tests(tab)
-        self.run_all_share_mode_autostart_timer_tests(tab)
-        self.run_all_share_mode_autostop_autostart_mismatch_tests(tab)
-        self.run_all_share_mode_unreadable_file_tests(tab)
 
+        def accept_dialog():
+            window = tab.common.gui.qtapp.activeWindow()
+            if window:
+                window.close()
+
+        tab.get_mode().mode_settings_widget.toggle_advanced_button.click()
+        tab.get_mode().mode_settings_widget.autostart_timer_checkbox.click()
+        tab.get_mode().mode_settings_widget.autostop_timer_checkbox.click()
+
+        self.run_all_common_setup_tests()
+
+        self.run_all_share_mode_setup_tests(tab)
+        self.set_autostart_timer(tab, 15)
+        self.set_timeout(tab, 5)
+        QtCore.QTimer.singleShot(200, accept_dialog)
+        tab.get_mode().server_status.server_button.click()
+        self.server_is_stopped(tab)
