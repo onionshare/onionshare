@@ -471,3 +471,28 @@ class TestShare(GuiBaseTest):
         self.run_all_share_mode_tests(tab)
 
         self.close_all_tabs()
+
+    @pytest.mark.gui
+    def test_autostop_sharing(self):
+        """
+        Autostop sharing after first download
+        """
+        tab = self.new_share_tab()
+        tab.get_mode().autostop_sharing_checkbox.click()
+
+        self.run_all_common_setup_tests()
+        self.run_all_share_mode_tests(tab)
+
+        self.close_all_tabs()
+
+    @pytest.mark.gui
+    def test_download(self):
+        """
+        Test downloading in share mode
+        """
+        tab = self.new_share_tab()
+
+        self.run_all_common_setup_tests()
+        self.run_all_share_mode_tests(tab)
+
+        self.close_all_tabs()
