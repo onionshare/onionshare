@@ -473,9 +473,9 @@ class TestShare(GuiBaseTest):
         self.close_all_tabs()
 
     @pytest.mark.gui
-    def test_autostop_sharing(self):
+    def test_without_autostop_sharing(self):
         """
-        Autostop sharing after first download
+        Disable autostop sharing after first download
         """
         tab = self.new_share_tab()
         tab.get_mode().autostop_sharing_checkbox.click()
@@ -494,5 +494,30 @@ class TestShare(GuiBaseTest):
 
         self.run_all_common_setup_tests()
         self.run_all_share_mode_tests(tab)
+
+        self.close_all_tabs()
+
+    @pytest.mark.gui
+    def test_individual_files_without_autostop_sharing(self):
+        """
+        Test downloading individual files with autostop sharing disabled
+        """
+        tab = self.new_share_tab()
+        tab.get_mode().autostop_sharing_checkbox.click()
+
+        self.run_all_common_setup_tests()
+        self.run_all_share_mode_individual_file_tests(tab)
+
+        self.close_all_tabs()
+
+    @pytest.mark.gui
+    def test_individual_files(self):
+        """
+        Test downloading individual files
+        """
+        tab = self.new_share_tab()
+
+        self.run_all_common_setup_tests()
+        self.run_all_share_mode_individual_file_tests(tab)
 
         self.close_all_tabs()
