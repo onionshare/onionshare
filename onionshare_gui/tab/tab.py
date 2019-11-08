@@ -380,10 +380,7 @@ class Tab(QtWidgets.QWidget):
                     strings._("gui_tor_connection_lost"),
                     strings._("gui_tor_connection_error_settings"),
                 )
-
-                self.share_mode.handle_tor_broke()
-                self.receive_mode.handle_tor_broke()
-                self.website_mode.handle_tor_broke()
+                self.get_mode().handle_tor_broke()
 
         # Process events from the web object
         if self.mode == self.common.gui.MODE_SHARE:

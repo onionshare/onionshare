@@ -46,7 +46,10 @@ class GuiBaseTest(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
+        # Quit
+        QtCore.QTimer.singleShot(0, cls.gui.close_dialog.accept_button.click)
         cls.gui.close()
+
         cls.gui.cleanup()
 
     # Shared test methods
