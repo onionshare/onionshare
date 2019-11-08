@@ -398,8 +398,8 @@ class ServerStatus(QtWidgets.QWidget):
             "ServerStatus", "cancel_server", "Canceling the server mid-startup"
         )
         self.status = self.STATUS_WORKING
-        self.autostart_timer_reset()
-        self.autostop_timer_reset()
+        self.mode_settings_widget.autostart_timer_reset()
+        self.mode_settings_widget.autostop_timer_reset()
         self.update()
         self.server_canceled.emit()
 
