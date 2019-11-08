@@ -147,6 +147,20 @@ class MainWindow(QtWidgets.QMainWindow):
         # After connecting to Tor, check for updates
         self.check_for_updates()
 
+        # Create the close warning dialog -- the dialog widget needs to be in the constructor
+        # in order to test it
+        self.close_dialog = QtWidgets.QMessageBox()
+        self.close_dialog.setWindowTitle(strings._("gui_quit_warning_title"))
+        self.close_dialog.setText(strings._("gui_quit_warning_description"))
+        self.close_dialog.setIcon(QtWidgets.QMessageBox.Critical)
+        self.close_dialog.accept_button = self.close_dialog.addButton(
+            strings._("gui_quit_warning_quit"), QtWidgets.QMessageBox.AcceptRole
+        )
+        self.close_dialog.reject_button = self.close_dialog.addButton(
+            strings._("gui_quit_warning_cancel"), QtWidgets.QMessageBox.NoRole
+        )
+        self.close_dialog.setDefaultButton(self.close_dialog.reject_button)
+
     def tor_connection_canceled(self):
         """
         If the user cancels before Tor finishes connecting, ask if they want to
@@ -272,21 +286,11 @@ class MainWindow(QtWidgets.QMainWindow):
 
         if self.tabs.are_tabs_active():
             # Open the warning dialog
-            dialog = QtWidgets.QMessageBox()
-            dialog.setWindowTitle(strings._("gui_quit_warning_title"))
-            dialog.setText(strings._("gui_quit_warning_description"))
-            dialog.setIcon(QtWidgets.QMessageBox.Critical)
-            dialog.addButton(
-                strings._("gui_quit_warning_quit"), QtWidgets.QMessageBox.YesRole
-            )
-            cancel_button = dialog.addButton(
-                strings._("gui_quit_warning_cancel"), QtWidgets.QMessageBox.NoRole
-            )
-            dialog.setDefaultButton(cancel_button)
-            reply = dialog.exec_()
+            self.common.log("MainWindow", "closeEvent, opening warning dialog")
+            self.close_dialog.exec_()
 
             # Close
-            if reply == 0:
+            if self.close_dialog.clickedButton() == self.close_dialog.accept_button:
                 self.system_tray.hide()
                 e.accept()
             # Cancel
