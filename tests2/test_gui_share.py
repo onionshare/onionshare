@@ -391,3 +391,26 @@ class TestShare(GuiBaseTest):
         self.web_server_is_stopped(tab)
 
         self.close_all_tabs()
+
+    @pytest.mark.gui
+    def test_autostart_timer_too_short(self):
+        """
+        Autostart timer should throw a warning if the scheduled time is too soon
+        """
+        tab = self.new_share_tab()
+        tab.get_mode().mode_settings_widget.toggle_advanced_button.click()
+        tab.get_mode().mode_settings_widget.autostart_timer_checkbox.click()
+
+        def accept_dialog():
+            window = tab.common.gui.qtapp.activeWindow()
+            if window:
+                window.close()
+
+        self.run_all_common_setup_tests()
+        self.run_all_share_mode_setup_tests(tab)
+        # Set a low timeout
+        self.set_autostart_timer(tab, 2)
+        QtTest.QTest.qWait(2200)
+        QtCore.QTimer.singleShot(200, accept_dialog)
+        tab.get_mode().server_status.server_button.click()
+        self.assertEqual(tab.get_mode().server_status.status, 0)
