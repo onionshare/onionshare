@@ -75,15 +75,6 @@ class TestShare(GuiBaseTest):
         tab.get_mode().server_status.file_selection.file_list.add_file(self.tmpfiles[1])
         self.file_selection_widget_has_files(tab, num_files + 2)
 
-    def add_large_file(self, tab):
-        """Add a large file to the share"""
-        size = 1024 * 1024 * 155
-        with open("/tmp/large_file", "wb") as fout:
-            fout.write(os.urandom(size))
-        tab.get_mode().server_status.file_selection.file_list.add_file(
-            "/tmp/large_file"
-        )
-
     def add_delete_buttons_hidden(self, tab):
         """Test that the add and delete buttons are hidden when the server starts"""
         self.assertFalse(
@@ -321,16 +312,6 @@ class TestShare(GuiBaseTest):
         self.run_all_share_mode_started_tests(tab)
         self.run_all_share_mode_individual_file_download_tests(tab)
 
-    def run_all_large_file_tests(self, tab):
-        """Same as above but with a larger file"""
-        self.run_all_share_mode_setup_tests(tab)
-        self.add_large_file(tab)
-        self.run_all_share_mode_started_tests(tab, startup_time=15000)
-        self.assertTrue(tab.filesize_warning.isVisible())
-        self.server_is_stopped(tab)
-        self.web_server_is_stopped(tab)
-        self.server_status_indicator_says_closed(tab)
-
     def run_all_share_mode_persistent_tests(self, tab):
         """Same as end-to-end share tests but also test the password is the same on multiple shared"""
         self.run_all_share_mode_setup_tests(tab)
@@ -519,5 +500,26 @@ class TestShare(GuiBaseTest):
 
         self.run_all_common_setup_tests()
         self.run_all_share_mode_individual_file_tests(tab)
+
+        self.close_all_tabs()
+
+    @pytest.mark.gui
+    def test_large_download(self):
+        """
+        Test a large download
+        """
+        tab = self.new_share_tab()
+
+        self.run_all_common_setup_tests()
+        self.run_all_share_mode_setup_tests(tab)
+        tab.get_mode().server_status.file_selection.file_list.add_file(
+            self.tmpfile_large
+        )
+        self.run_all_share_mode_started_tests(tab, startup_time=15000)
+        self.assertTrue(tab.get_mode().filesize_warning.isVisible())
+        self.download_share(tab)
+        self.server_is_stopped(tab)
+        self.web_server_is_stopped(tab)
+        self.server_status_indicator_says_closed(tab)
 
         self.close_all_tabs()

@@ -64,13 +64,13 @@ class TestSettings:
         settings_obj.fill_in_defaults()
         assert settings_obj._settings["version"] == "DUMMY_VERSION_1.2.3"
 
-    def test_load(self, settings_obj):
+    def test_load(self, temp_dir, settings_obj):
         custom_settings = {
             "version": "CUSTOM_VERSION",
             "socks_port": 9999,
             "use_stealth": True,
         }
-        tmp_file, tmp_file_path = tempfile.mkstemp()
+        tmp_file, tmp_file_path = tempfile.mkstemp(dir=temp_dir)
         with open(tmp_file, "w") as f:
             json.dump(custom_settings, f)
         settings_obj.filename = tmp_file_path
@@ -83,12 +83,12 @@ class TestSettings:
         os.remove(tmp_file_path)
         assert os.path.exists(tmp_file_path) is False
 
-    def test_save(self, monkeypatch, settings_obj):
+    def test_save(self, monkeypatch, temp_dir, settings_obj):
         monkeypatch.setattr(strings, "_", lambda _: "")
 
         settings_filename = "default_settings.json"
-        tmp_dir = tempfile.gettempdir()
-        settings_path = os.path.join(tmp_dir, settings_filename)
+        new_temp_dir = tempfile.mkdtemp(dir=temp_dir)
+        settings_path = os.path.join(new_temp_dir, settings_filename)
         settings_obj.filename = settings_path
         settings_obj.save()
         with open(settings_path, "r") as f:
