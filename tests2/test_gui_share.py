@@ -200,7 +200,7 @@ class TestShare(GuiBaseTest):
             schedule,
         )
 
-    def autostart_timer_widget_hidden(self, tab, mode):
+    def autostart_timer_widget_hidden(self, tab):
         """Test that the auto-start timer widget is hidden when share has started"""
         self.assertFalse(
             tab.get_mode().mode_settings_widget.autostart_timer_widget.isVisible()
@@ -336,17 +336,6 @@ class TestShare(GuiBaseTest):
         self.server_timed_out(tab, 10000)
         self.web_server_is_stopped(tab)
 
-    def run_all_share_mode_autostart_timer_tests(self, tab):
-        """Auto-start timer tests in share mode"""
-        self.run_all_share_mode_setup_tests(tab)
-        self.set_autostart_timer(tab, 5)
-        self.server_working_on_start_button_pressed(tab)
-        self.autostart_timer_widget_hidden(tab)
-        self.server_status_indicator_says_scheduled(tab)
-        self.web_server_is_stopped(tab)
-        self.scheduled_service_started(tab, 7000)
-        self.web_server_is_running(tab)
-
     def run_all_share_mode_unreadable_file_tests(self, tab):
         """Attempt to share an unreadable file"""
         self.run_all_share_mode_setup_tests(tab)
@@ -360,6 +349,9 @@ class TestShare(GuiBaseTest):
 
     @pytest.mark.gui
     def test_autostart_and_autostop_timer_mismatch(self):
+        """
+        If autostart timer is after autostop timer, a warning should be thrown
+        """
         tab = self.new_share_tab()
 
         def accept_dialog():
@@ -379,3 +371,24 @@ class TestShare(GuiBaseTest):
         QtCore.QTimer.singleShot(200, accept_dialog)
         tab.get_mode().server_status.server_button.click()
         self.server_is_stopped(tab)
+
+        self.close_all_tabs()
+
+    @pytest.mark.gui
+    def test_autostart_timer(self):
+        """
+        Autostart timer should automatically start
+        """
+        tab = self.new_share_tab()
+        self.run_all_common_setup_tests()
+
+        self.run_all_share_mode_setup_tests(tab)
+        self.set_autostart_timer(tab, 5)
+        self.server_working_on_start_button_pressed(tab)
+        self.autostart_timer_widget_hidden(tab)
+        self.server_status_indicator_says_scheduled(tab)
+        self.web_server_is_stopped(tab)
+        self.scheduled_service_started(tab, 7000)
+        self.web_server_is_running(tab)
+
+        self.close_all_tabs()
