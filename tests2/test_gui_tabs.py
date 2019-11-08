@@ -9,54 +9,6 @@ from .gui_base_test import GuiBaseTest
 class TestTabs(GuiBaseTest):
     # Shared test methods
 
-    def verify_new_tab(self, tab):
-        # Make sure the new tab widget is showing, and no mode has been started
-        self.assertTrue(tab.new_tab.isVisible())
-        self.assertFalse(hasattr(tab, "share_mode"))
-        self.assertFalse(hasattr(tab, "receive_mode"))
-        self.assertFalse(hasattr(tab, "website_mode"))
-
-    def new_share_tab(self):
-        tab = self.gui.tabs.widget(0)
-        self.verify_new_tab(tab)
-
-        # Share files
-        tab.share_button.click()
-        self.assertFalse(tab.new_tab.isVisible())
-        self.assertTrue(tab.share_mode.isVisible())
-
-        # Add files
-        for filename in self.tmpfiles:
-            tab.share_mode.server_status.file_selection.file_list.add_file(filename)
-
-        return tab
-
-    def new_receive_tab(self):
-        tab = self.gui.tabs.widget(0)
-        self.verify_new_tab(tab)
-
-        # Receive files
-        tab.receive_button.click()
-        self.assertFalse(tab.new_tab.isVisible())
-        self.assertTrue(tab.receive_mode.isVisible())
-
-        return tab
-
-    def new_website_tab(self):
-        tab = self.gui.tabs.widget(0)
-        self.verify_new_tab(tab)
-
-        # Publish website
-        tab.website_button.click()
-        self.assertFalse(tab.new_tab.isVisible())
-        self.assertTrue(tab.website_mode.isVisible())
-
-        # Add files
-        for filename in self.tmpfiles:
-            tab.website_mode.server_status.file_selection.file_list.add_file(filename)
-
-        return tab
-
     def close_tab_with_active_server(self, tab):
         # Start the server
         self.assertEqual(
@@ -208,7 +160,7 @@ class TestTabs(GuiBaseTest):
     @pytest.mark.gui
     def test_07_close_share_tab_while_server_started_should_warn(self):
         """Closing a share mode tab when the server is running should throw a warning"""
-        tab = self.new_share_tab()
+        tab = self.new_share_tab_with_files()
         self.close_tab_with_active_server(tab)
 
     @pytest.mark.gui
@@ -220,13 +172,13 @@ class TestTabs(GuiBaseTest):
     @pytest.mark.gui
     def test_09_close_website_tab_while_server_started_should_warn(self):
         """Closing a website mode tab when the server is running should throw a warning"""
-        tab = self.new_website_tab()
+        tab = self.new_website_tab_with_files()
         self.close_tab_with_active_server(tab)
 
     @pytest.mark.gui
     def test_10_close_persistent_share_tab_shows_warning(self):
         """Closing a share mode tab that's persistent should show a warning"""
-        tab = self.new_share_tab()
+        tab = self.new_share_tab_with_files()
         self.close_persistent_tab(tab)
 
     @pytest.mark.gui
@@ -238,7 +190,7 @@ class TestTabs(GuiBaseTest):
     @pytest.mark.gui
     def test_12_close_persistent_website_tab_shows_warning(self):
         """Closing a website mode tab that's persistent should show a warning"""
-        tab = self.new_website_tab()
+        tab = self.new_website_tab_with_files()
         self.close_persistent_tab(tab)
 
     @pytest.mark.gui
