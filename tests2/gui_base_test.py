@@ -26,7 +26,7 @@ from onionshare_gui.tab.mode.website_mode import WebsiteMode
 class GuiBaseTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        common = Common()
+        common = Common(verbose=True)
         qtapp = Application(common)
         common.gui = GuiCommon(common, qtapp, local_only=True)
         cls.gui = MainWindow(common, filenames=None)
