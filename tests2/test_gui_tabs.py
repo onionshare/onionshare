@@ -21,7 +21,7 @@ class TestTabs(GuiBaseTest):
         self.verify_new_tab(tab)
 
         # Share files
-        QtTest.QTest.mouseClick(tab.share_button, QtCore.Qt.LeftButton)
+        tab.share_button.click()
         self.assertFalse(tab.new_tab.isVisible())
         self.assertTrue(tab.share_mode.isVisible())
 
@@ -36,7 +36,7 @@ class TestTabs(GuiBaseTest):
         self.verify_new_tab(tab)
 
         # Receive files
-        QtTest.QTest.mouseClick(tab.receive_button, QtCore.Qt.LeftButton)
+        tab.receive_button.click()
         self.assertFalse(tab.new_tab.isVisible())
         self.assertTrue(tab.receive_mode.isVisible())
 
@@ -47,7 +47,7 @@ class TestTabs(GuiBaseTest):
         self.verify_new_tab(tab)
 
         # Publish website
-        QtTest.QTest.mouseClick(tab.website_button, QtCore.Qt.LeftButton)
+        tab.website_button.click()
         self.assertFalse(tab.new_tab.isVisible())
         self.assertTrue(tab.website_mode.isVisible())
 
@@ -63,9 +63,7 @@ class TestTabs(GuiBaseTest):
             tab.get_mode().server_status.status,
             tab.get_mode().server_status.STATUS_STOPPED,
         )
-        QtTest.QTest.mouseClick(
-            tab.get_mode().server_status.server_button, QtCore.Qt.LeftButton
-        )
+        tab.get_mode().server_status.server_button.click()
         self.assertEqual(
             tab.get_mode().server_status.status,
             tab.get_mode().server_status.STATUS_WORKING,
@@ -80,10 +78,7 @@ class TestTabs(GuiBaseTest):
         QtCore.QTimer.singleShot(200, tab.close_dialog.reject_button.click)
 
         # Close tab
-        QtTest.QTest.mouseClick(
-            self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide),
-            QtCore.Qt.LeftButton,
-        )
+        self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide).click()
 
         # The tab should still be open
         self.assertFalse(tab.new_tab.isVisible())
@@ -93,10 +88,7 @@ class TestTabs(GuiBaseTest):
         QtCore.QTimer.singleShot(200, tab.close_dialog.accept_button.click)
 
         # Close tab
-        QtTest.QTest.mouseClick(
-            self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide),
-            QtCore.Qt.LeftButton,
-        )
+        self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide).click()
 
         # The tab should be closed
         self.assertTrue(self.gui.tabs.widget(0).new_tab.isVisible())
@@ -116,10 +108,7 @@ class TestTabs(GuiBaseTest):
         QtCore.QTimer.singleShot(200, tab.close_dialog.reject_button.click)
 
         # Close tab
-        QtTest.QTest.mouseClick(
-            self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide),
-            QtCore.Qt.LeftButton,
-        )
+        self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide).click()
 
         # The tab should still be open
         self.assertFalse(tab.new_tab.isVisible())
@@ -132,10 +121,7 @@ class TestTabs(GuiBaseTest):
         QtCore.QTimer.singleShot(200, tab.close_dialog.accept_button.click)
 
         # Close tab
-        QtTest.QTest.mouseClick(
-            self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide),
-            QtCore.Qt.LeftButton,
-        )
+        self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide).click()
 
         # The tab should be closed
         self.assertTrue(self.gui.tabs.widget(0).new_tab.isVisible())
@@ -160,27 +146,18 @@ class TestTabs(GuiBaseTest):
     def test_03_new_tab_button_opens_new_tabs(self):
         """Clicking the "+" button should open new tabs"""
         self.assertEqual(self.gui.tabs.count(), 1)
-        QtTest.QTest.mouseClick(self.gui.tabs.new_tab_button, QtCore.Qt.LeftButton)
-        QtTest.QTest.mouseClick(self.gui.tabs.new_tab_button, QtCore.Qt.LeftButton)
-        QtTest.QTest.mouseClick(self.gui.tabs.new_tab_button, QtCore.Qt.LeftButton)
+        self.gui.tabs.new_tab_button.click()
+        self.gui.tabs.new_tab_button.click()
+        self.gui.tabs.new_tab_button.click()
         self.assertEqual(self.gui.tabs.count(), 4)
 
     @pytest.mark.gui
     def test_04_close_tab_button_closes_tabs(self):
         """Clicking the "x" button should close tabs"""
         self.assertEqual(self.gui.tabs.count(), 4)
-        QtTest.QTest.mouseClick(
-            self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide),
-            QtCore.Qt.LeftButton,
-        )
-        QtTest.QTest.mouseClick(
-            self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide),
-            QtCore.Qt.LeftButton,
-        )
-        QtTest.QTest.mouseClick(
-            self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide),
-            QtCore.Qt.LeftButton,
-        )
+        self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide).click()
+        self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide).click()
+        self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide).click()
         self.assertEqual(self.gui.tabs.count(), 1)
 
     @pytest.mark.gui
@@ -189,17 +166,12 @@ class TestTabs(GuiBaseTest):
         self.assertEqual(self.gui.tabs.count(), 1)
 
         # Click share button
-        QtTest.QTest.mouseClick(
-            self.gui.tabs.widget(0).share_button, QtCore.Qt.LeftButton
-        )
+        self.gui.tabs.widget(0).share_button.click()
         self.assertFalse(self.gui.tabs.widget(0).new_tab.isVisible())
         self.assertTrue(self.gui.tabs.widget(0).share_mode.isVisible())
 
         # Close the tab
-        QtTest.QTest.mouseClick(
-            self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide),
-            QtCore.Qt.LeftButton,
-        )
+        self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide).click()
 
         # A new tab should be opened
         self.assertEqual(self.gui.tabs.count(), 1)
@@ -210,46 +182,28 @@ class TestTabs(GuiBaseTest):
         """Clicking the mode buttons in a new tab should change the mode of the tab"""
 
         # New tab, share files
-        QtTest.QTest.mouseClick(self.gui.tabs.new_tab_button, QtCore.Qt.LeftButton)
-        QtTest.QTest.mouseClick(
-            self.gui.tabs.widget(1).share_button, QtCore.Qt.LeftButton
-        )
+        self.gui.tabs.new_tab_button.click()
+        self.gui.tabs.widget(1).share_button.click()
         self.assertFalse(self.gui.tabs.widget(1).new_tab.isVisible())
         self.assertTrue(self.gui.tabs.widget(1).share_mode.isVisible())
 
         # New tab, receive files
-        QtTest.QTest.mouseClick(self.gui.tabs.new_tab_button, QtCore.Qt.LeftButton)
-        QtTest.QTest.mouseClick(
-            self.gui.tabs.widget(2).receive_button, QtCore.Qt.LeftButton
-        )
+        self.gui.tabs.new_tab_button.click()
+        self.gui.tabs.widget(2).receive_button.click()
         self.assertFalse(self.gui.tabs.widget(2).new_tab.isVisible())
         self.assertTrue(self.gui.tabs.widget(2).receive_mode.isVisible())
 
         # New tab, publish website
-        QtTest.QTest.mouseClick(self.gui.tabs.new_tab_button, QtCore.Qt.LeftButton)
-        QtTest.QTest.mouseClick(
-            self.gui.tabs.widget(3).website_button, QtCore.Qt.LeftButton
-        )
+        self.gui.tabs.new_tab_button.click()
+        self.gui.tabs.widget(3).website_button.click()
         self.assertFalse(self.gui.tabs.widget(3).new_tab.isVisible())
         self.assertTrue(self.gui.tabs.widget(3).website_mode.isVisible())
 
         # Close tabs
-        QtTest.QTest.mouseClick(
-            self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide),
-            QtCore.Qt.LeftButton,
-        )
-        QtTest.QTest.mouseClick(
-            self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide),
-            QtCore.Qt.LeftButton,
-        )
-        QtTest.QTest.mouseClick(
-            self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide),
-            QtCore.Qt.LeftButton,
-        )
-        QtTest.QTest.mouseClick(
-            self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide),
-            QtCore.Qt.LeftButton,
-        )
+        self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide).click()
+        self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide).click()
+        self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide).click()
+        self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide).click()
 
     @pytest.mark.gui
     def test_07_close_share_tab_while_server_started_should_warn(self):
@@ -297,9 +251,7 @@ class TestTabs(GuiBaseTest):
             tab.get_mode().server_status.status,
             tab.get_mode().server_status.STATUS_STOPPED,
         )
-        QtTest.QTest.mouseClick(
-            tab.get_mode().server_status.server_button, QtCore.Qt.LeftButton
-        )
+        tab.get_mode().server_status.server_button.click()
         self.assertEqual(
             tab.get_mode().server_status.status,
             tab.get_mode().server_status.STATUS_WORKING,
@@ -320,6 +272,4 @@ class TestTabs(GuiBaseTest):
         self.assertTrue(self.gui.isVisible())
 
         # Stop the server
-        QtTest.QTest.mouseClick(
-            tab.get_mode().server_status.server_button, QtCore.Qt.LeftButton
-        )
+        tab.get_mode().server_status.server_button.click()
