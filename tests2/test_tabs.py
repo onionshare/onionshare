@@ -337,6 +337,38 @@ class TestTabs(unittest.TestCase):
         tab = self.new_website_tab()
         self.close_persistent_tab(tab)
 
+    @pytest.mark.gui
+    def test_016_quit_with_server_started_should_warn(self):
+        """Quitting OnionShare with any active servers should show a warning"""
+        tab = self.new_share_tab()
+
+        # Start the server
+        self.assertEqual(
+            tab.get_mode().server_status.status,
+            tab.get_mode().server_status.STATUS_STOPPED,
+        )
+        QtTest.QTest.mouseClick(
+            tab.get_mode().server_status.server_button, QtCore.Qt.LeftButton
+        )
+        self.assertEqual(
+            tab.get_mode().server_status.status,
+            tab.get_mode().server_status.STATUS_WORKING,
+        )
+        QtTest.QTest.qWait(1000)
+        self.assertEqual(
+            tab.get_mode().server_status.status,
+            tab.get_mode().server_status.STATUS_STARTED,
+        )
+
+        # Prepare to reject the dialog
+        QtCore.QTimer.singleShot(1000, self.gui.close_dialog.reject_button.click)
+
+        # Close the window
+        self.gui.close()
+
+        # The window should still be open
+        self.assertTrue(self.gui.isVisible())
+
 
 if __name__ == "__main__":
     unittest.main()
