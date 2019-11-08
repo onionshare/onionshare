@@ -19,7 +19,7 @@ class TestShare(GuiBaseTest):
 
     # Share-specific tests
 
-    def file_selection_widget_has_files(self, tab, num=2):
+    def file_selection_widget_has_files(self, tab, num=3):
         """Test that the number of items in the list is as expected"""
         self.assertEqual(
             tab.get_mode().server_status.file_selection.get_num_files(), num
@@ -61,17 +61,19 @@ class TestShare(GuiBaseTest):
 
     def add_a_file_and_delete_using_its_delete_widget(self, tab):
         """Test that we can also delete a file by clicking on its [X] widget"""
+        num_files = tab.get_mode().server_status.file_selection.get_num_files()
         tab.get_mode().server_status.file_selection.file_list.add_file(self.tmpfiles[0])
         tab.get_mode().server_status.file_selection.file_list.item(
             0
         ).item_button.click()
-        self.file_selection_widget_has_files(tab, 0)
+        self.file_selection_widget_has_files(tab, num_files)
 
     def file_selection_widget_read_files(self, tab):
         """Re-add some files to the list so we can share"""
+        num_files = tab.get_mode().server_status.file_selection.get_num_files()
         tab.get_mode().server_status.file_selection.file_list.add_file(self.tmpfiles[0])
         tab.get_mode().server_status.file_selection.file_list.add_file(self.tmpfiles[1])
-        self.file_selection_widget_has_files(tab, 2)
+        self.file_selection_widget_has_files(tab, num_files + 2)
 
     def add_large_file(self, tab):
         """Add a large file to the share"""
@@ -113,7 +115,10 @@ class TestShare(GuiBaseTest):
         self.assertEqual("onionshare", zip.read("test.txt").decode("utf-8"))
 
     def individual_file_is_viewable_or_not(self, tab):
-        """Test whether an individual file is viewable (when in autostop_sharing is false) and that it isn't (when not in autostop_sharing is true)"""
+        """
+        Test that an individual file is viewable (when in autostop_sharing is false) or that it
+        isn't (when not in autostop_sharing is true)
+        """
         url = f"http://127.0.0.1:{tab.app.port}"
         download_file_url = f"http://127.0.0.1:{tab.app.port}/test.txt"
         if tab.settings.get("general", "public"):
@@ -126,9 +131,21 @@ class TestShare(GuiBaseTest):
                 ),
             )
 
-        if not tab.settings.get("share", "autostop_sharing"):
+        if tab.settings.get("share", "autostop_sharing"):
+            self.assertFalse('a href="/test.txt"' in r.text)
+            if tab.settings.get("general", "public"):
+                r = requests.get(download_file_url)
+            else:
+                r = requests.get(
+                    download_file_url,
+                    auth=requests.auth.HTTPBasicAuth(
+                        "onionshare", tab.get_mode().server_status.web.password
+                    ),
+                )
+            self.assertEqual(r.status_code, 404)
+            self.download_share(tab)
+        else:
             self.assertTrue('a href="test.txt"' in r.text)
-
             if tab.settings.get("general", "public"):
                 r = requests.get(download_file_url)
             else:
@@ -145,21 +162,8 @@ class TestShare(GuiBaseTest):
 
             with open(tmp_file.name, "r") as f:
                 self.assertEqual("onionshare", f.read())
-        else:
-            self.assertFalse('a href="/test.txt"' in r.text)
-            if tab.settings.get("general", "public"):
-                r = requests.get(download_file_url)
-            else:
-                r = requests.get(
-                    download_file_url,
-                    auth=requests.auth.HTTPBasicAuth(
-                        "onionshare", tab.get_mode().server_status.web.password
-                    ),
-                )
-            self.assertEqual(r.status_code, 404)
-            self.download_share(tab)
 
-        QtTest.QTest.qWait(50)
+        QtTest.QTest.qWait(500)
 
     def hit_401(self, tab):
         """Test that the server stops after too many 401s, or doesn't when in public_mode"""
@@ -227,9 +231,12 @@ class TestShare(GuiBaseTest):
 
     def run_all_share_mode_setup_tests(self, tab):
         """Tests in share mode prior to starting a share"""
+        tab.get_mode().server_status.file_selection.file_list.add_file(
+            self.tmpfile_test
+        )
         tab.get_mode().server_status.file_selection.file_list.add_file(self.tmpfiles[0])
         tab.get_mode().server_status.file_selection.file_list.add_file(self.tmpfiles[1])
-        self.file_selection_widget_has_files(tab, 2)
+        self.file_selection_widget_has_files(tab, 3)
         self.history_is_not_visible(tab)
         self.click_toggle_history(tab)
         self.history_is_visible(tab)
@@ -290,7 +297,17 @@ class TestShare(GuiBaseTest):
         """Test the Clear All history button"""
         self.run_all_share_mode_setup_tests(tab)
         self.run_all_share_mode_started_tests(tab)
+        print(
+            "history items: {}".format(
+                len(tab.get_mode().history.item_list.items.keys())
+            )
+        )
         self.individual_file_is_viewable_or_not(tab)
+        print(
+            "history items: {}".format(
+                len(tab.get_mode().history.item_list.items.keys())
+            )
+        )
         self.history_widgets_present(tab)
         self.clear_all_history_items(tab, 0)
         self.individual_file_is_viewable_or_not(tab)
@@ -427,3 +444,14 @@ class TestShare(GuiBaseTest):
         self.cancel_the_share(tab)
 
         self.close_all_tabs()
+
+    @pytest.mark.gui
+    def test_clear_all_button(self):
+        """
+        Test canceling a scheduled share
+        """
+        tab = self.new_share_tab()
+        tab.get_mode().autostop_sharing_checkbox.click()
+
+        self.run_all_common_setup_tests()
+        self.run_all_clear_all_button_tests(tab)
