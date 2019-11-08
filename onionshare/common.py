@@ -159,23 +159,24 @@ class Common:
         """
         Returns the path of the OnionShare data directory.
         """
-        if getattr(sys, "onionshare_test_mode", False):
-            onionshare_data_dir = os.path.expanduser("~/.config/onionshare-testdata")
-        else:
-            if self.platform == "Windows":
-                try:
-                    appdata = os.environ["APPDATA"]
-                    onionshare_data_dir = f"{appdata}\\OnionShare"
-                except:
-                    # If for some reason we don't have the 'APPDATA' environment variable
-                    # (like running tests in Linux while pretending to be in Windows)
-                    onionshare_data_dir = os.path.expanduser("~/.config/onionshare")
-            elif self.platform == "Darwin":
-                onionshare_data_dir = os.path.expanduser(
-                    "~/Library/Application Support/OnionShare"
-                )
-            else:
+        if self.platform == "Windows":
+            try:
+                appdata = os.environ["APPDATA"]
+                onionshare_data_dir = f"{appdata}\\OnionShare"
+            except:
+                # If for some reason we don't have the 'APPDATA' environment variable
+                # (like running tests in Linux while pretending to be in Windows)
                 onionshare_data_dir = os.path.expanduser("~/.config/onionshare")
+        elif self.platform == "Darwin":
+            onionshare_data_dir = os.path.expanduser(
+                "~/Library/Application Support/OnionShare"
+            )
+        else:
+            onionshare_data_dir = os.path.expanduser("~/.config/onionshare")
+
+        # Modify the data dir if running tests
+        if getattr(sys, "onionshare_test_mode", False):
+            onionshare_data_dir += "-testdata"
 
         os.makedirs(onionshare_data_dir, 0o700, True)
         return onionshare_data_dir
