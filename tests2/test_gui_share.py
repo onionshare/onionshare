@@ -114,6 +114,8 @@ class TestShare(GuiBaseTest):
         QtTest.QTest.qWait(50)
         self.assertEqual("onionshare", zip.read("test.txt").decode("utf-8"))
 
+        QtTest.QTest.qWait(500)
+
     def individual_file_is_viewable_or_not(self, tab):
         """
         Test that an individual file is viewable (when in autostop_sharing is false) or that it
@@ -402,7 +404,6 @@ class TestShare(GuiBaseTest):
         self.scheduled_service_started(tab, 2200)
         self.web_server_is_running(tab)
 
-        self.stop_running_server(tab)
         self.close_all_tabs()
 
     @pytest.mark.gui
@@ -455,3 +456,18 @@ class TestShare(GuiBaseTest):
 
         self.run_all_common_setup_tests()
         self.run_all_clear_all_button_tests(tab)
+
+        self.close_all_tabs()
+
+    @pytest.mark.gui
+    def test_public_mode(self):
+        """
+        Public mode shouldn't have a password
+        """
+        tab = self.new_share_tab()
+        tab.get_mode().mode_settings_widget.public_checkbox.click()
+
+        self.run_all_common_setup_tests()
+        self.run_all_share_mode_tests(tab)
+
+        self.close_all_tabs()

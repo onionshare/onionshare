@@ -114,6 +114,8 @@ class GuiBaseTest(unittest.TestCase):
 
     def close_all_tabs(self):
         for _ in range(self.gui.tabs.count()):
+            tab = self.gui.tabs.widget(0)
+            QtCore.QTimer.singleShot(0, tab.close_dialog.accept_button.click)
             self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide).click()
 
     def gui_loaded(self):
@@ -307,16 +309,6 @@ class GuiBaseTest(unittest.TestCase):
         """Test that the counter has incremented"""
         self.assertEqual(tab.get_mode().history.completed_count, count)
 
-    def stop_running_server(self, tab):
-        """Stop a server that's running"""
-        self.assertNotEqual(tab.get_mode().server_status.status, 0)
-
-        tab.get_mode().server_status.server_button.click()
-        QtTest.QTest.qWait(200)
-
-        self.server_is_stopped(tab)
-        self.web_server_is_stopped(tab)
-
     def server_is_stopped(self, tab):
         """Test that the server stops when we click Stop"""
         if (
@@ -348,7 +340,7 @@ class GuiBaseTest(unittest.TestCase):
                 strings._("gui_status_indicator_receive_stopped"),
             )
         if type(tab.get_mode()) == ShareMode:
-            if tab.settings.get("share", "autostop_sharing"):
+            if not tab.settings.get("share", "autostop_sharing"):
                 self.assertEqual(
                     tab.get_mode().server_status_label.text(),
                     strings._("gui_status_indicator_share_stopped"),
