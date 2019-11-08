@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 import pytest
 import unittest
 
@@ -19,29 +18,10 @@ from onionshare.onion import Onion
 from onionshare.web import Web
 from onionshare_gui import Application, MainWindow, GuiCommon
 
+from .gui_base_test import GuiBaseTest
 
-class TestTabs(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        common = Common()
-        qtapp = Application(common)
-        common.gui = GuiCommon(common, qtapp, local_only=True)
-        cls.gui = MainWindow(common, filenames=None)
-        cls.gui.qtapp = qtapp
 
-        # Create some random files to test with
-        cls.tmpdir = tempfile.TemporaryDirectory()
-        cls.tmpfiles = []
-        for _ in range(10):
-            filename = os.path.join(cls.tmpdir.name, f"{secrets.token_hex(4)}.txt")
-            with open(filename, "w") as file:
-                file.write(secrets.token_hex(10))
-            cls.tmpfiles.append(filename)
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.gui.cleanup()
-
+class TestTabs(GuiBaseTest):
     # Shared test methods
 
     def verify_new_tab(self, tab):
@@ -181,33 +161,18 @@ class TestTabs(unittest.TestCase):
     # Tests
 
     @pytest.mark.gui
-    def test_001_gui_loaded(self):
-        """Test that the GUI actually is shown"""
-        self.assertTrue(self.gui.show)
+    def test_01_common_tests(self):
+        """Run all common tests"""
+        self.run_all_common_setup_tests()
 
     @pytest.mark.gui
-    def test_002_window_title_seen(self):
-        """Test that the window title is OnionShare"""
-        self.assertEqual(self.gui.windowTitle(), "OnionShare")
-
-    @pytest.mark.gui
-    def test_003_settings_button_is_visible(self):
-        """Test that the settings button is visible"""
-        self.assertTrue(self.gui.settings_button.isVisible())
-
-    @pytest.mark.gui
-    def test_004_server_status_bar_is_visible(self):
-        """Test that the status bar is visible"""
-        self.assertTrue(self.gui.status_bar.isVisible())
-
-    @pytest.mark.gui
-    def test_005_starts_with_one_new_tab(self):
+    def test_02_starts_with_one_new_tab(self):
         """There should be one "New Tab" tab open"""
         self.assertEqual(self.gui.tabs.count(), 1)
         self.assertTrue(self.gui.tabs.widget(0).new_tab.isVisible())
 
     @pytest.mark.gui
-    def test_006_new_tab_button_opens_new_tabs(self):
+    def test_03_new_tab_button_opens_new_tabs(self):
         """Clicking the "+" button should open new tabs"""
         self.assertEqual(self.gui.tabs.count(), 1)
         QtTest.QTest.mouseClick(self.gui.tabs.new_tab_button, QtCore.Qt.LeftButton)
@@ -216,7 +181,7 @@ class TestTabs(unittest.TestCase):
         self.assertEqual(self.gui.tabs.count(), 4)
 
     @pytest.mark.gui
-    def test_007_close_tab_button_closes_tabs(self):
+    def test_04_close_tab_button_closes_tabs(self):
         """Clicking the "x" button should close tabs"""
         self.assertEqual(self.gui.tabs.count(), 4)
         QtTest.QTest.mouseClick(
@@ -234,7 +199,7 @@ class TestTabs(unittest.TestCase):
         self.assertEqual(self.gui.tabs.count(), 1)
 
     @pytest.mark.gui
-    def test_008_closing_last_tab_opens_new_one(self):
+    def test_05_closing_last_tab_opens_new_one(self):
         """Closing the last tab should open a new tab"""
         self.assertEqual(self.gui.tabs.count(), 1)
 
@@ -256,7 +221,7 @@ class TestTabs(unittest.TestCase):
         self.assertTrue(self.gui.tabs.widget(0).new_tab.isVisible())
 
     @pytest.mark.gui
-    def test_009_new_tab_mode_buttons_show_correct_modes(self):
+    def test_06_new_tab_mode_buttons_show_correct_modes(self):
         """Clicking the mode buttons in a new tab should change the mode of the tab"""
 
         # New tab, share files
@@ -302,43 +267,43 @@ class TestTabs(unittest.TestCase):
         )
 
     @pytest.mark.gui
-    def test_010_close_share_tab_while_server_started_should_warn(self):
+    def test_07_close_share_tab_while_server_started_should_warn(self):
         """Closing a share mode tab when the server is running should throw a warning"""
         tab = self.new_share_tab()
         self.close_tab_with_active_server(tab)
 
     @pytest.mark.gui
-    def test_011_close_receive_tab_while_server_started_should_warn(self):
+    def test_08_close_receive_tab_while_server_started_should_warn(self):
         """Closing a recieve mode tab when the server is running should throw a warning"""
         tab = self.new_receive_tab()
         self.close_tab_with_active_server(tab)
 
     @pytest.mark.gui
-    def test_012_close_website_tab_while_server_started_should_warn(self):
+    def test_09_close_website_tab_while_server_started_should_warn(self):
         """Closing a website mode tab when the server is running should throw a warning"""
         tab = self.new_website_tab()
         self.close_tab_with_active_server(tab)
 
     @pytest.mark.gui
-    def test_013_close_persistent_share_tab_shows_warning(self):
+    def test_10_close_persistent_share_tab_shows_warning(self):
         """Closing a share mode tab that's persistent should show a warning"""
         tab = self.new_share_tab()
         self.close_persistent_tab(tab)
 
     @pytest.mark.gui
-    def test_014_close_persistent_receive_tab_shows_warning(self):
+    def test_11_close_persistent_receive_tab_shows_warning(self):
         """Closing a receive mode tab that's persistent should show a warning"""
         tab = self.new_receive_tab()
         self.close_persistent_tab(tab)
 
     @pytest.mark.gui
-    def test_015_close_persistent_website_tab_shows_warning(self):
+    def test_12_close_persistent_website_tab_shows_warning(self):
         """Closing a website mode tab that's persistent should show a warning"""
         tab = self.new_website_tab()
         self.close_persistent_tab(tab)
 
     @pytest.mark.gui
-    def test_016_quit_with_server_started_should_warn(self):
+    def test_13_quit_with_server_started_should_warn(self):
         """Quitting OnionShare with any active servers should show a warning"""
         tab = self.new_share_tab()
 
