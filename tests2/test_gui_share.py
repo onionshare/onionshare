@@ -1,22 +1,9 @@
 import pytest
-import unittest
-
-import json
 import os
 import requests
-import shutil
-import base64
 import tempfile
-import secrets
 
-from PyQt5 import QtCore, QtTest, QtWidgets
-
-from onionshare import strings
-from onionshare.common import Common
-from onionshare.settings import Settings
-from onionshare.onion import Onion
-from onionshare.web import Web
-from onionshare_gui import Application, MainWindow, GuiCommon
+from PyQt5 import QtCore, QtTest
 
 from .gui_base_test import GuiBaseTest
 
@@ -382,7 +369,3 @@ class TestShare(GuiBaseTest):
     def test_common_tests(self):
         """Run all common tests"""
         self.run_all_common_setup_tests()
-
-
-if __name__ == "__main__":
-    unittest.main()

@@ -1,22 +1,7 @@
 import pytest
-import unittest
-
-import json
 import os
-import requests
-import shutil
-import base64
-import tempfile
-import secrets
 
 from PyQt5 import QtCore, QtTest, QtWidgets
-
-from onionshare import strings
-from onionshare.common import Common
-from onionshare.settings import Settings
-from onionshare.onion import Onion
-from onionshare.web import Web
-from onionshare_gui import Application, MainWindow, GuiCommon
 
 from .gui_base_test import GuiBaseTest
 
@@ -338,7 +323,3 @@ class TestTabs(GuiBaseTest):
         QtTest.QTest.mouseClick(
             tab.get_mode().server_status.server_button, QtCore.Qt.LeftButton
         )
-
-
-if __name__ == "__main__":
-    unittest.main()
