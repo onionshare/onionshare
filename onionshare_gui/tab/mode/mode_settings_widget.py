@@ -155,7 +155,6 @@ class ModeSettingsWidget(QtWidgets.QWidget):
         # Advanced group itself
         advanced_layout = QtWidgets.QVBoxLayout()
         advanced_layout.setContentsMargins(0, 0, 0, 0)
-        advanced_layout.addWidget(self.public_checkbox)
         advanced_layout.addLayout(autostart_timer_layout)
         advanced_layout.addLayout(autostop_timer_layout)
         advanced_layout.addWidget(self.legacy_checkbox)
@@ -167,6 +166,7 @@ class ModeSettingsWidget(QtWidgets.QWidget):
         layout = QtWidgets.QVBoxLayout()
         layout.addLayout(self.mode_specific_layout)
         layout.addWidget(self.persistent_checkbox)
+        layout.addWidget(self.public_checkbox)
         layout.addWidget(self.advanced_widget)
         layout.addWidget(self.toggle_advanced_button)
         self.setLayout(layout)
