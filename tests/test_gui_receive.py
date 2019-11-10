@@ -69,6 +69,8 @@ class TestReceive(GuiBaseTest):
 
     def upload_file_should_fail(self, tab):
         """Test that we can't upload the file when permissions are wrong, and expected content is shown"""
+        QtTest.QTest.qWait(1000)
+
         files = {"file[]": open(self.tmpfile_test, "rb")}
         url = f"http://127.0.0.1:{tab.app.port}/upload"
         if tab.settings.get("general", "public"):
@@ -87,7 +89,7 @@ class TestReceive(GuiBaseTest):
             if window:
                 window.close()
 
-        QtCore.QTimer.singleShot(200, accept_dialog)
+        QtCore.QTimer.singleShot(1000, accept_dialog)
         self.assertTrue("Error uploading, please inform the OnionShare user" in r.text)
 
     def try_without_auth_in_non_public_mode(self, tab):
