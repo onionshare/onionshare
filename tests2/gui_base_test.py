@@ -27,6 +27,10 @@ class GuiBaseTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         common = Common(verbose=True)
+
+        # Delete any old test data that might exist
+        shutil.rmtree(common.build_data_dir(), ignore_errors=True)
+
         qtapp = Application(common)
         common.gui = GuiCommon(common, qtapp, local_only=True)
         cls.gui = MainWindow(common, filenames=None)
@@ -59,10 +63,6 @@ class GuiBaseTest(unittest.TestCase):
         cls.gui.close()
 
         cls.gui.cleanup()
-        try:
-            shutil.rmtree(cls.tmpdir.name, ignore_errors=True)
-        except:
-            pass
 
     # Shared test methods
 
