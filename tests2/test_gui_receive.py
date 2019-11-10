@@ -146,14 +146,6 @@ class TestReceive(GuiBaseTest):
         self.server_status_indicator_says_closed(tab, False)
         self.upload_dir_permissions(0o755)
 
-    def run_all_receive_mode_timer_tests(self, tab):
-        """Auto-stop timer tests in receive mode"""
-        self.run_all_receive_mode_setup_tests(tab)
-        self.set_timeout(tab, 5)
-        self.autostop_timer_widget_hidden(tab)
-        self.server_timed_out(tab, 15000)
-        self.web_server_is_stopped(tab)
-
     def run_all_clear_all_button_tests(self, tab):
         """Test the Clear All history button"""
         self.run_all_receive_mode_setup_tests(tab)
@@ -168,11 +160,29 @@ class TestReceive(GuiBaseTest):
     @pytest.mark.gui
     def test_clear_all_button(self):
         """
-        Public mode should skip the rate limit
+        Clear all history items should work
         """
         tab = self.new_receive_tab()
 
         self.run_all_common_setup_tests()
         self.run_all_clear_all_button_tests(tab)
+
+        self.close_all_tabs()
+
+    @pytest.mark.gui
+    def test_autostop_timer(self):
+        """
+        Test autostop timer
+        """
+        tab = self.new_receive_tab()
+        tab.get_mode().mode_settings_widget.toggle_advanced_button.click()
+        tab.get_mode().mode_settings_widget.autostop_timer_checkbox.click()
+
+        self.run_all_common_setup_tests()
+        self.run_all_receive_mode_setup_tests(tab)
+        self.set_timeout(tab, 5)
+        self.autostop_timer_widget_hidden(tab)
+        self.server_timed_out(tab, 15000)
+        self.web_server_is_stopped(tab)
 
         self.close_all_tabs()
