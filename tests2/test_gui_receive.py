@@ -1,6 +1,7 @@
 import pytest
 import os
 import requests
+import shutil
 from datetime import datetime, timedelta
 
 from PyQt5 import QtCore, QtTest
@@ -16,18 +17,18 @@ class TestReceive(GuiBaseTest):
     ):
         """Test that we can upload the file"""
 
-        # Wait 2 seconds to make sure the filename, based on timestamp, isn't accidentally reused
-        QtTest.QTest.qWait(2000)
+        # Wait 1.1 seconds to make sure the filename, based on timestamp, isn't accidentally reused
+        QtTest.QTest.qWait(1100)
 
         files = {"file[]": open(file_to_upload, "rb")}
         url = f"http://127.0.0.1:{tab.app.port}/upload"
         if tab.settings.get("general", "public"):
-            r = requests.post(url, files=files)
+            requests.post(url, files=files)
             if identical_files_at_once:
                 # Send a duplicate upload to test for collisions
-                r = requests.post(url, files=files)
+                requests.post(url, files=files)
         else:
-            r = requests.post(
+            requests.post(
                 url,
                 files=files,
                 auth=requests.auth.HTTPBasicAuth(
@@ -36,7 +37,7 @@ class TestReceive(GuiBaseTest):
             )
             if identical_files_at_once:
                 # Send a duplicate upload to test for collisions
-                r = requests.post(
+                requests.post(
                     url,
                     files=files,
                     auth=requests.auth.HTTPBasicAuth(
@@ -44,12 +45,12 @@ class TestReceive(GuiBaseTest):
                     ),
                 )
 
-        QtTest.QTest.qWait(2000)
+        QtTest.QTest.qWait(500)
 
         # Make sure the file is within the last 10 seconds worth of fileames
         exists = False
         now = datetime.now()
-        for i in range(10):
+        for _ in range(10):
             date_dir = now.strftime("%Y-%m-%d")
             if identical_files_at_once:
                 time_dir = now.strftime("%H.%M.%S-1")
@@ -81,12 +82,13 @@ class TestReceive(GuiBaseTest):
                 ),
             )
 
-        QtCore.QTimer.singleShot(1000, self.accept_dialog)
-        self.assertTrue("Error uploading, please inform the OnionShare user" in r.text)
+        def accept_dialog():
+            window = tab.common.gui.qtapp.activeWindow()
+            if window:
+                window.close()
 
-    def upload_dir_permissions(self, mode=0o755):
-        """Manipulate the permissions on the upload dir in between tests"""
-        os.chmod("/tmp/OnionShare", mode)
+        QtCore.QTimer.singleShot(200, accept_dialog)
+        self.assertTrue("Error uploading, please inform the OnionShare user" in r.text)
 
     def try_without_auth_in_non_public_mode(self, tab):
         r = requests.post(f"http://127.0.0.1:{tab.app.port}/upload")
@@ -136,16 +138,6 @@ class TestReceive(GuiBaseTest):
         self.server_is_started(tab)
         self.history_indicator(tab, "2")
 
-    def run_all_receive_mode_unwritable_dir_tests(self, tab):
-        """Attempt to upload (unwritable) files in receive mode and stop the share"""
-        self.run_all_receive_mode_setup_tests(tab)
-        self.upload_dir_permissions(0o400)
-        self.upload_file_should_fail(tab)
-        self.server_is_stopped(tab, True)
-        self.web_server_is_stopped(tab)
-        self.server_status_indicator_says_closed(tab, False)
-        self.upload_dir_permissions(0o755)
-
     def run_all_clear_all_button_tests(self, tab):
         """Test the Clear All history button"""
         self.run_all_receive_mode_setup_tests(tab)
@@ -154,6 +146,24 @@ class TestReceive(GuiBaseTest):
         self.clear_all_history_items(tab, 0)
         self.upload_file(tab, self.tmpfile_test, "test.txt")
         self.clear_all_history_items(tab, 2)
+
+    def run_all_upload_non_writable_dir_tests(self, tab):
+        """Test uploading a file when the data_dir is non-writable"""
+        upload_dir = os.path.join(self.tmpdir.name, "OnionShare")
+        shutil.rmtree(upload_dir, ignore_errors=True)
+        os.makedirs(upload_dir, 0o700)
+
+        # Set the upload dir setting
+        tab.get_mode().data_dir_lineedit.setText(upload_dir)
+        tab.settings.set("receive", "data_dir", upload_dir)
+
+        self.run_all_receive_mode_setup_tests(tab)
+        os.chmod(upload_dir, 0o400)
+        self.upload_file_should_fail(tab)
+        self.server_is_stopped(tab)
+        self.web_server_is_stopped(tab)
+        self.server_status_indicator_says_closed(tab)
+        os.chmod(upload_dir, 0o700)
 
     # Tests
 
@@ -196,5 +206,41 @@ class TestReceive(GuiBaseTest):
 
         self.run_all_common_setup_tests()
         self.run_all_receive_mode_tests(tab)
+
+        self.close_all_tabs()
+
+    @pytest.mark.gui
+    def test_upload_non_writable_dir(self):
+        """
+        Test uploading files to a non-writable directory
+        """
+        tab = self.new_receive_tab()
+
+        self.run_all_upload_non_writable_dir_tests(tab)
+
+        self.close_all_tabs()
+
+    @pytest.mark.gui
+    def test_public_upload(self):
+        """
+        Test uploading files in public mode
+        """
+        tab = self.new_receive_tab()
+        tab.get_mode().mode_settings_widget.public_checkbox.click()
+
+        self.run_all_common_setup_tests()
+        self.run_all_receive_mode_tests(tab)
+
+        self.close_all_tabs()
+
+    @pytest.mark.gui
+    def test_public_upload_non_writable_dir(self):
+        """
+        Test uploading files to a non-writable directory in public mode
+        """
+        tab = self.new_receive_tab()
+        tab.get_mode().mode_settings_widget.public_checkbox.click()
+
+        self.run_all_upload_non_writable_dir_tests(tab)
 
         self.close_all_tabs()
