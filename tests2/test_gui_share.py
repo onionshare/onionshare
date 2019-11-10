@@ -288,17 +288,7 @@ class TestShare(GuiBaseTest):
         """Test the Clear All history button"""
         self.run_all_share_mode_setup_tests(tab)
         self.run_all_share_mode_started_tests(tab)
-        print(
-            "history items: {}".format(
-                len(tab.get_mode().history.item_list.items.keys())
-            )
-        )
         self.individual_file_is_viewable_or_not(tab)
-        print(
-            "history items: {}".format(
-                len(tab.get_mode().history.item_list.items.keys())
-            )
-        )
         self.history_widgets_present(tab)
         self.clear_all_history_items(tab, 0)
         self.individual_file_is_viewable_or_not(tab)
