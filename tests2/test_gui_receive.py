@@ -121,15 +121,15 @@ class TestReceive(GuiBaseTest):
         self.counter_incremented(tab, 1)
         self.upload_file(tab, self.tmpfile_test, "test.txt")
         self.counter_incremented(tab, 2)
-        self.upload_file(tab, "/tmp/testdir/test", "test")
+        self.upload_file(tab, self.tmpfile_test2, "test2.txt")
         self.counter_incremented(tab, 3)
-        self.upload_file(tab, "/tmp/testdir/test", "test")
+        self.upload_file(tab, self.tmpfile_test2, "test2.txt")
         self.counter_incremented(tab, 4)
         # Test uploading the same file twice at the same time, and make sure no collisions
         self.upload_file(tab, self.tmpfile_test, "test.txt", True)
         self.counter_incremented(tab, 6)
         self.history_indicator(tab, "2")
-        self.server_is_stopped(tab, False)
+        self.server_is_stopped(tab)
         self.web_server_is_stopped(tab)
         self.server_status_indicator_says_closed(tab)
         self.server_working_on_start_button_pressed(tab)
@@ -184,5 +184,17 @@ class TestReceive(GuiBaseTest):
         self.autostop_timer_widget_hidden(tab)
         self.server_timed_out(tab, 15000)
         self.web_server_is_stopped(tab)
+
+        self.close_all_tabs()
+
+    @pytest.mark.gui
+    def test_upload(self):
+        """
+        Test uploading files
+        """
+        tab = self.new_receive_tab()
+
+        self.run_all_common_setup_tests()
+        self.run_all_receive_mode_tests(tab)
 
         self.close_all_tabs()

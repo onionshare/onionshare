@@ -50,6 +50,11 @@ class GuiBaseTest(unittest.TestCase):
         with open(cls.tmpfile_test, "w") as file:
             file.write("onionshare")
 
+        # A file called "test2.txt"
+        cls.tmpfile_test2 = os.path.join(cls.tmpdir.name, "test2.txt")
+        with open(cls.tmpfile_test2, "w") as file:
+            file.write("onionshare2")
+
         # A large file
         size = 1024 * 1024 * 155
         cls.tmpfile_large = os.path.join(cls.tmpdir.name, "large_file")
