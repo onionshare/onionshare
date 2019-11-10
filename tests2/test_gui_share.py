@@ -152,27 +152,32 @@ class TestShare(GuiBaseTest):
         QtTest.QTest.qWait(500)
 
     def hit_401(self, tab):
-        """Test that the server stops after too many 401s, or doesn't when in public_mode"""
-        url = f"http://127.0.0.1:{tab.app.port}/"
+        """Test that the server stops after too many 401s, or doesn't when in public mode"""
+        # In non-public mode, get ready to accept the dialog
+        if not tab.settings.get("general", "public"):
 
+            def accept_dialog():
+                window = tab.common.gui.qtapp.activeWindow()
+                if window:
+                    window.close()
+
+            QtCore.QTimer.singleShot(1000, accept_dialog)
+
+        # Make 20 requests with guessed passwords
+        url = f"http://127.0.0.1:{tab.app.port}/"
         for _ in range(20):
             password_guess = self.gui.common.build_password()
             requests.get(
                 url, auth=requests.auth.HTTPBasicAuth("onionshare", password_guess)
             )
 
-        # A nasty hack to avoid the Alert dialog that blocks the rest of the test
-        if not tab.settings.get("general", "public"):
-            QtCore.QTimer.singleShot(200, self.accept_dialog)
-
         # In public mode, we should still be running (no rate-limiting)
         if tab.settings.get("general", "public"):
             self.web_server_is_running(tab)
+
         # In non-public mode, we should be shut down (rate-limiting)
         else:
             self.web_server_is_stopped(tab)
-
-    # Auto-start timer tests
 
     def set_autostart_timer(self, tab, timer):
         """Test that the timer can be set"""
@@ -572,5 +577,34 @@ class TestShare(GuiBaseTest):
             "/tmp/nonexistent.txt"
         )
         self.file_selection_widget_has_files(tab, 3)
+
+        self.close_all_tabs()
+
+    @pytest.mark.gui
+    def test_401_triggers_ratelimit(self):
+        """
+        Rate limit should be triggered
+        """
+        tab = self.new_share_tab()
+        tab.get_mode().autostop_sharing_checkbox.click()
+
+        self.run_all_common_setup_tests()
+        self.run_all_share_mode_tests(tab)
+        self.hit_401(tab)
+
+        self.close_all_tabs()
+
+    @pytest.mark.gui
+    def test_401_public_skips_ratelimit(self):
+        """
+        Public mode should skip the rate limit
+        """
+        tab = self.new_share_tab()
+        tab.get_mode().autostop_sharing_checkbox.click()
+        tab.get_mode().mode_settings_widget.public_checkbox.click()
+
+        self.run_all_common_setup_tests()
+        self.run_all_share_mode_tests(tab)
+        self.hit_401(tab)
 
         self.close_all_tabs()
