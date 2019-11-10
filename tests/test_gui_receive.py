@@ -17,8 +17,8 @@ class TestReceive(GuiBaseTest):
     ):
         """Test that we can upload the file"""
 
-        # Wait 1.1 seconds to make sure the filename, based on timestamp, isn't accidentally reused
-        QtTest.QTest.qWait(1100)
+        # Wait 2 seconds to make sure the filename, based on timestamp, isn't accidentally reused
+        QtTest.QTest.qWait(2000)
 
         files = {"file[]": open(file_to_upload, "rb")}
         url = f"http://127.0.0.1:{tab.app.port}/upload"
@@ -45,7 +45,7 @@ class TestReceive(GuiBaseTest):
                     ),
                 )
 
-        QtTest.QTest.qWait(500)
+        QtTest.QTest.qWait(1000)
 
         # Make sure the file is within the last 10 seconds worth of fileames
         exists = False
