@@ -12,12 +12,6 @@ from .gui_base_test import GuiBaseTest
 class TestShare(GuiBaseTest):
     # Shared test methods
 
-    def file_selection_widget_has_files(self, tab, num=3):
-        """Test that the number of items in the list is as expected"""
-        self.assertEqual(
-            tab.get_mode().server_status.file_selection.get_num_files(), num
-        )
-
     def deleting_all_files_hides_delete_button(self, tab):
         """Test that clicking on the file item shows the delete button. Test that deleting the only item in the list hides the delete button"""
         rect = tab.get_mode().server_status.file_selection.file_list.visualItemRect(
@@ -67,15 +61,6 @@ class TestShare(GuiBaseTest):
         tab.get_mode().server_status.file_selection.file_list.add_file(self.tmpfiles[0])
         tab.get_mode().server_status.file_selection.file_list.add_file(self.tmpfiles[1])
         self.file_selection_widget_has_files(tab, num_files + 2)
-
-    def add_delete_buttons_hidden(self, tab):
-        """Test that the add and delete buttons are hidden when the server starts"""
-        self.assertFalse(
-            tab.get_mode().server_status.file_selection.add_button.isVisible()
-        )
-        self.assertFalse(
-            tab.get_mode().server_status.file_selection.delete_button.isVisible()
-        )
 
     def download_share(self, tab):
         """Test that we can download the share"""
