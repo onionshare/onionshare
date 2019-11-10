@@ -163,7 +163,7 @@ class TestShare(GuiBaseTest):
 
         # A nasty hack to avoid the Alert dialog that blocks the rest of the test
         if not tab.settings.get("general", "public"):
-            QtCore.QTimer.singleShot(0, self.accept_dialog)
+            QtCore.QTimer.singleShot(200, self.accept_dialog)
 
         # In public mode, we should still be running (no rate-limiting)
         if tab.settings.get("general", "public"):
@@ -304,24 +304,6 @@ class TestShare(GuiBaseTest):
         self.run_all_share_mode_setup_tests(tab)
         self.run_all_share_mode_started_tests(tab)
         self.run_all_share_mode_individual_file_download_tests(tab)
-
-    def run_all_share_mode_timer_tests(self, tab):
-        """Auto-stop timer tests in share mode"""
-        self.run_all_share_mode_setup_tests(tab)
-        self.set_timeout(tab, 5)
-        self.run_all_share_mode_started_tests(tab)
-        self.autostop_timer_widget_hidden(tab)
-        self.server_timed_out(tab, 10000)
-        self.web_server_is_stopped(tab)
-
-    def run_all_share_mode_unreadable_file_tests(self, tab):
-        """Attempt to share an unreadable file"""
-        self.run_all_share_mode_setup_tests(tab)
-        QtCore.QTimer.singleShot(0, self.accept_dialog)
-        tab.get_mode().server_status.file_selection.file_list.add_file(
-            "/tmp/nonexistent.txt"
-        )
-        self.file_selection_widget_has_files(tab, 2)
 
     # Tests
 
@@ -525,5 +507,70 @@ class TestShare(GuiBaseTest):
         self.run_all_share_mode_started_tests(tab)
         self.assertEqual(tab.get_mode().server_status.web.password, password)
         self.run_all_share_mode_download_tests(tab)
+
+        self.close_all_tabs()
+
+    @pytest.mark.gui
+    def test_autostop_timer(self):
+        """
+        Test the autostop timer
+        """
+        tab = self.new_share_tab()
+        tab.get_mode().mode_settings_widget.toggle_advanced_button.click()
+        tab.get_mode().mode_settings_widget.autostop_timer_checkbox.click()
+
+        self.run_all_common_setup_tests()
+        self.run_all_share_mode_setup_tests(tab)
+        self.set_timeout(tab, 5)
+        self.run_all_share_mode_started_tests(tab)
+        self.autostop_timer_widget_hidden(tab)
+        self.server_timed_out(tab, 10000)
+        self.web_server_is_stopped(tab)
+
+        self.close_all_tabs()
+
+    @pytest.mark.gui
+    def test_autostop_timer_too_short(self):
+        """
+        Test the autostop timer when the timeout is too short
+        """
+        tab = self.new_share_tab()
+        tab.get_mode().mode_settings_widget.toggle_advanced_button.click()
+        tab.get_mode().mode_settings_widget.autostop_timer_checkbox.click()
+
+        def accept_dialog():
+            window = tab.common.gui.qtapp.activeWindow()
+            if window:
+                window.close()
+
+        self.run_all_common_setup_tests()
+        self.run_all_share_mode_setup_tests(tab)
+        # Set a low timeout
+        self.set_timeout(tab, 2)
+        QtTest.QTest.qWait(2100)
+        QtCore.QTimer.singleShot(2200, accept_dialog)
+        tab.get_mode().server_status.server_button.click()
+        self.assertEqual(tab.get_mode().server_status.status, 0)
+
+        self.close_all_tabs()
+
+    @pytest.mark.gui
+    def test_unreadable_file(self):
+        """
+        Sharing an unreadable file should throw a warning
+        """
+        tab = self.new_share_tab()
+
+        def accept_dialog():
+            window = tab.common.gui.qtapp.activeWindow()
+            if window:
+                window.close()
+
+        self.run_all_share_mode_setup_tests(tab)
+        QtCore.QTimer.singleShot(200, accept_dialog)
+        tab.get_mode().server_status.file_selection.file_list.add_file(
+            "/tmp/nonexistent.txt"
+        )
+        self.file_selection_widget_has_files(tab, 3)
 
         self.close_all_tabs()
