@@ -55,6 +55,13 @@ class GuiBaseTest(unittest.TestCase):
         with open(cls.tmpfile_test2, "w") as file:
             file.write("onionshare2")
 
+        # A file called "index.html"
+        cls.tmpfile_index_html = os.path.join(cls.tmpdir.name, "index.html")
+        with open(cls.tmpfile_index_html, "w") as file:
+            file.write(
+                "<html><body><p>This is a test website hosted by OnionShare</p></body></html>"
+            )
+
         # A large file
         size = 1024 * 1024 * 155
         cls.tmpfile_large = os.path.join(cls.tmpdir.name, "large_file")
@@ -373,6 +380,21 @@ class GuiBaseTest(unittest.TestCase):
         if count == 0:
             tab.get_mode().history.clear_button.click()
         self.assertEqual(len(tab.get_mode().history.item_list.items.keys()), count)
+
+    def file_selection_widget_has_files(self, tab, num=3):
+        """Test that the number of items in the list is as expected"""
+        self.assertEqual(
+            tab.get_mode().server_status.file_selection.get_num_files(), num
+        )
+
+    def add_delete_buttons_hidden(self, tab):
+        """Test that the add and delete buttons are hidden when the server starts"""
+        self.assertFalse(
+            tab.get_mode().server_status.file_selection.add_button.isVisible()
+        )
+        self.assertFalse(
+            tab.get_mode().server_status.file_selection.delete_button.isVisible()
+        )
 
     # Auto-stop timer tests
     def set_timeout(self, tab, timeout):
