@@ -12,13 +12,6 @@ from .gui_base_test import GuiBaseTest
 class TestShare(GuiBaseTest):
     # Shared test methods
 
-    # Persistence tests
-    def have_same_password(self, tab, password):
-        """Test that we have the same password"""
-        self.assertEqual(tab.get_mode().server_status.web.password, password)
-
-    # Share-specific tests
-
     def file_selection_widget_has_files(self, tab, num=3):
         """Test that the number of items in the list is as expected"""
         self.assertEqual(
@@ -312,14 +305,6 @@ class TestShare(GuiBaseTest):
         self.run_all_share_mode_started_tests(tab)
         self.run_all_share_mode_individual_file_download_tests(tab)
 
-    def run_all_share_mode_persistent_tests(self, tab):
-        """Same as end-to-end share tests but also test the password is the same on multiple shared"""
-        self.run_all_share_mode_setup_tests(tab)
-        self.run_all_share_mode_started_tests(tab)
-        password = tab.get_mode().server_status.web.password
-        self.run_all_share_mode_download_tests(tab)
-        self.have_same_password(tab, password)
-
     def run_all_share_mode_timer_tests(self, tab):
         """Auto-stop timer tests in share mode"""
         self.run_all_share_mode_setup_tests(tab)
@@ -521,5 +506,24 @@ class TestShare(GuiBaseTest):
         self.server_is_stopped(tab)
         self.web_server_is_stopped(tab)
         self.server_status_indicator_says_closed(tab)
+
+        self.close_all_tabs()
+
+    @pytest.mark.gui
+    def test_persistent_password(self):
+        """
+        Test a large download
+        """
+        tab = self.new_share_tab()
+        tab.get_mode().mode_settings_widget.persistent_checkbox.click()
+
+        self.run_all_common_setup_tests()
+        self.run_all_share_mode_setup_tests(tab)
+        self.run_all_share_mode_started_tests(tab)
+        password = tab.get_mode().server_status.web.password
+        self.run_all_share_mode_download_tests(tab)
+        self.run_all_share_mode_started_tests(tab)
+        self.assertEqual(tab.get_mode().server_status.web.password, password)
+        self.run_all_share_mode_download_tests(tab)
 
         self.close_all_tabs()
