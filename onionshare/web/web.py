@@ -386,10 +386,15 @@ class Web:
         # To stop flask, load http://shutdown:[shutdown_password]@127.0.0.1/[shutdown_password]/shutdown
         # (We're putting the shutdown_password in the path as well to make routing simpler)
         if self.running:
-            requests.get(
-                f"http://127.0.0.1:{port}/{self.shutdown_password}/shutdown",
-                auth=requests.auth.HTTPBasicAuth("onionshare", self.password),
-            )
+            if self.password:
+                requests.get(
+                    f"http://127.0.0.1:{port}/{self.shutdown_password}/shutdown",
+                    auth=requests.auth.HTTPBasicAuth("onionshare", self.password),
+                )
+            else:
+                requests.get(
+                    f"http://127.0.0.1:{port}/{self.shutdown_password}/shutdown"
+                )
 
         # Reset any password that was in use
         self.password = None
