@@ -59,7 +59,7 @@ class GuiBaseTest(unittest.TestCase):
     @classmethod
     def tearDownClass(cls):
         # Quit
-        QtCore.QTimer.singleShot(0, cls.gui.close_dialog.accept_button.click)
+        QtCore.QTimer.singleShot(200, cls.gui.close_dialog.accept_button.click)
         cls.gui.close()
 
         cls.gui.cleanup()
@@ -127,7 +127,7 @@ class GuiBaseTest(unittest.TestCase):
     def close_all_tabs(self):
         for _ in range(self.gui.tabs.count()):
             tab = self.gui.tabs.widget(0)
-            QtCore.QTimer.singleShot(0, tab.close_dialog.accept_button.click)
+            QtCore.QTimer.singleShot(200, tab.close_dialog.accept_button.click)
             self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide).click()
 
     def gui_loaded(self):
@@ -380,7 +380,7 @@ class GuiBaseTest(unittest.TestCase):
     def autostop_timer_widget_hidden(self, tab):
         """Test that the auto-stop timer widget is hidden when share has started"""
         self.assertFalse(
-            tab.get_mode().mode_settings_widget.autostop_timer_container.isVisible()
+            tab.get_mode().mode_settings_widget.autostop_timer_widget.isVisible()
         )
 
     def server_timed_out(self, tab, wait):
