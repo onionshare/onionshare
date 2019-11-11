@@ -561,6 +561,11 @@ class TestShare(GuiBaseTest):
         Rate limit should be triggered
         """
         tab = self.new_share_tab()
+        def accept_dialog():
+            window = tab.common.gui.qtapp.activeWindow()
+            if window:
+                window.close()
+
         tab.get_mode().autostop_sharing_checkbox.click()
 
         self.run_all_common_setup_tests()
@@ -575,6 +580,11 @@ class TestShare(GuiBaseTest):
         Public mode should skip the rate limit
         """
         tab = self.new_share_tab()
+        def accept_dialog():
+            window = tab.common.gui.qtapp.activeWindow()
+            if window:
+                window.close()
+
         tab.get_mode().autostop_sharing_checkbox.click()
         tab.get_mode().mode_settings_widget.public_checkbox.click()
 
