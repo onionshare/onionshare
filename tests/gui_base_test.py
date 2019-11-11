@@ -80,7 +80,7 @@ class GuiBaseTest(unittest.TestCase):
 
     def verify_new_tab(self, tab):
         # Make sure the new tab widget is showing, and no mode has been started
-        QtTest.QTest.qWait(500)
+        QtTest.QTest.qWait(1000)
         self.assertTrue(tab.new_tab.isVisible())
         self.assertFalse(hasattr(tab, "share_mode"))
         self.assertFalse(hasattr(tab, "receive_mode"))
@@ -349,7 +349,7 @@ class GuiBaseTest(unittest.TestCase):
 
     def web_server_is_stopped(self, tab):
         """Test that the web server also stopped"""
-        QtTest.QTest.qWait(200)
+        QtTest.QTest.qWait(800)
 
         try:
             requests.get(f"http://127.0.0.1:{tab.app.port}/")
