@@ -33,7 +33,7 @@ class MyOnion:
         self.scheduled_key = None
 
     @staticmethod
-    def start_onion_service(self, await_publication=True, save_scheduled_key=False):
+    def start_onion_service(self, mode_settings_obj, await_publication=True, save_scheduled_key=False):
         return "test_service_id.onion"
 
 
