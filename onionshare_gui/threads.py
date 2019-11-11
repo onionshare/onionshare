@@ -20,7 +20,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import time
 from PyQt5 import QtCore
 
-from onionshare.onion import *
+from onionshare import strings
+from onionshare.onion import (
+    TorTooOld,
+    TorErrorInvalidSetting,
+    TorErrorAutomatic,
+    TorErrorSocketPort,
+    TorErrorSocketFile,
+    TorErrorMissingPassword,
+    TorErrorUnreadableCookieFile,
+    TorErrorAuthError,
+    TorErrorProtocolError,
+    BundledTorTimeout,
+)
 
 
 class OnionThread(QtCore.QThread):
@@ -64,7 +76,7 @@ class OnionThread(QtCore.QThread):
                 time.sleep(0.2)
                 self.success_early.emit()
                 # Unregister the onion so we can use it in the next OnionThread
-                self.mode.app.onion.cleanup(False)
+                self.mode.app.start_onion_service(self.mode.settings)
             else:
                 self.mode.app.start_onion_service(
                     self.mode.settings, await_publication=True

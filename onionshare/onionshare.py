@@ -82,11 +82,17 @@ class OnionShare(object):
             return
 
         self.onion_host = self.onion.start_onion_service(
-            self.port, await_publication, save_scheduled_key
+            mode_settings, self.port, await_publication, save_scheduled_key
         )
 
         if mode_settings.get("general", "client_auth"):
             self.auth_string = self.onion.auth_string
+
+    def stop_onion_service(self, mode_settings):
+        """
+        Stop the onion service
+        """
+        self.onion.stop_onion_service(mode_settings)
 
     def cleanup(self):
         """

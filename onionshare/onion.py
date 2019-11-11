@@ -152,13 +152,7 @@ class Onion(object):
 
     def __init__(self, common):
         self.common = common
-
         self.common.log("Onion", "__init__")
-
-        self.stealth = False
-        self.service_id = None
-        self.scheduled_key = None
-        self.scheduled_auth_cookie = None
 
         # Is bundled tor supported?
         if (
@@ -570,48 +564,32 @@ class Onion(object):
         else:
             return False
 
-    def start_onion_service(self, port, await_publication, save_scheduled_key=False):
+    def start_onion_service(
+        self, mode_settings, port, await_publication, save_scheduled_key=False
+    ):
         """
         Start a onion service on port 80, pointing to the given port, and
         return the onion hostname.
         """
-        self.common.log("Onion", "start_onion_service")
-        # Settings may have changed in the frontend but not updated in our settings object,
-        # such as persistence. Reload the settings now just to be sure.
-        self.settings.load()
-
-        self.auth_string = None
+        self.common.log("Onion", "start_onion_service", f"port={port}")
 
         if not self.supports_ephemeral:
             raise TorTooOld(strings._("error_ephemeral_not_supported"))
-        if self.stealth and not self.supports_stealth:
+        if mode_settings.get("general", "client_auth") and not self.supports_stealth:
             raise TorTooOld(strings._("error_stealth_not_supported"))
 
-        if not save_scheduled_key:
-            print(f"Setting up onion service on port {port}.")
-
-        if self.stealth:
-            if self.settings.get("hidservauth_string"):
-                hidservauth_string = self.settings.get("hidservauth_string").split()[2]
-                basic_auth = {"onionshare": hidservauth_string}
-            else:
-                if self.scheduled_auth_cookie:
-                    basic_auth = {"onionshare": self.scheduled_auth_cookie}
-                else:
-                    basic_auth = {"onionshare": None}
+        if mode_settings.get("general", "client_auth") and mode_settings.get(
+            "general", "hidservauth_string"
+        ):
+            auth_cookie = mode_settings.get("persistent", "hidservauth_string").split()[
+                2
+            ]
+            basic_auth = {"onionshare": auth_cookie}
         else:
             basic_auth = None
 
-        if self.settings.get("private_key"):
-            key_content = self.settings.get("private_key")
-            if self.is_v2_key(key_content):
-                key_type = "RSA1024"
-            else:
-                # Assume it was a v3 key. Stem will throw an error if it's something illegible
-                key_type = "ED25519-V3"
-
-        elif self.scheduled_key:
-            key_content = self.scheduled_key
+        if mode_settings.get("persistent", "private_key"):
+            key_content = mode_settings.get("persistent", "private_key")
             if self.is_v2_key(key_content):
                 key_type = "RSA1024"
             else:
@@ -621,9 +599,7 @@ class Onion(object):
         else:
             key_type = "NEW"
             # Work out if we can support v3 onion services, which are preferred
-            if self.supports_v3_onions and not self.settings.get(
-                "use_legacy_v2_onions"
-            ):
+            if self.supports_v3_onions and not mode_settings.get("general", "legacy"):
                 key_content = "ED25519-V3"
             else:
                 # fall back to v2 onion services
@@ -634,87 +610,62 @@ class Onion(object):
         if (
             key_type == "NEW"
             and key_content == "ED25519-V3"
-            and not self.settings.get("use_legacy_v2_onions")
+            and not mode_settings.get("general", "legacy")
         ):
             basic_auth = None
-            self.stealth = False
 
         debug_message = f"key_type={key_type}"
         if key_type == "NEW":
             debug_message += f", key_content={key_content}"
         self.common.log("Onion", "start_onion_service", debug_message)
         try:
-            if basic_auth != None:
-                res = self.c.create_ephemeral_hidden_service(
-                    {80: port},
-                    await_publication=await_publication,
-                    basic_auth=basic_auth,
-                    key_type=key_type,
-                    key_content=key_content,
-                )
-            else:
-                # if the stem interface is older than 1.5.0, basic_auth isn't a valid keyword arg
-                res = self.c.create_ephemeral_hidden_service(
-                    {80: port},
-                    await_publication=await_publication,
-                    key_type=key_type,
-                    key_content=key_content,
-                )
+            res = self.c.create_ephemeral_hidden_service(
+                {80: port},
+                await_publication=await_publication,
+                basic_auth=basic_auth,
+                key_type=key_type,
+                key_content=key_content,
+            )
 
         except ProtocolError as e:
             raise TorErrorProtocolError(
                 strings._("error_tor_protocol_error").format(e.args[0])
             )
 
-        self.service_id = res.service_id
-        onion_host = self.service_id + ".onion"
+        onion_host = res.service_id + ".onion"
 
-        # A new private key was generated and is in the Control port response.
-        if self.settings.get("save_private_key"):
-            if not self.settings.get("private_key"):
-                self.settings.set("private_key", res.private_key)
+        # Save the service_id
+        if not mode_settings.get("general", "service_id"):
+            mode_settings.set("general", "service_id", res.service_id)
 
-        # If we were scheduling a future share, register the private key for later re-use
-        if save_scheduled_key:
-            self.scheduled_key = res.private_key
-        else:
-            self.scheduled_key = None
+        # Save the private key and hidservauth string if persistence is enabled
+        if mode_settings.get("persistent", "enabled"):
+            if not mode_settings.get("persistent", "private_key"):
+                mode_settings.set("persistent", "private_key", res.private_key)
+            if mode_settings.get("general", "client_auth") and not mode_settings.get(
+                "persistent", "hidservauth_string"
+            ):
+                auth_cookie = list(res.client_auth.values())[0]
+                auth_string = f"HidServAuth {onion_host} {auth_cookie}"
+                mode_settings.set("persistent", "hidservauth_string", auth_string)
 
-        if self.stealth:
-            # Similar to the PrivateKey, the Control port only returns the ClientAuth
-            # in the response if it was responsible for creating the basic_auth password
-            # in the first place.
-            # If we sent the basic_auth (due to a saved hidservauth_string in the settings),
-            # there is no response here, so use the saved value from settings.
-            if self.settings.get("save_private_key"):
-                if self.settings.get("hidservauth_string"):
-                    self.auth_string = self.settings.get("hidservauth_string")
-                else:
-                    auth_cookie = list(res.client_auth.values())[0]
-                    self.auth_string = f"HidServAuth {onion_host} {auth_cookie}"
-                    self.settings.set("hidservauth_string", self.auth_string)
-            else:
-                if not self.scheduled_auth_cookie:
-                    auth_cookie = list(res.client_auth.values())[0]
-                    self.auth_string = f"HidServAuth {onion_host} {auth_cookie}"
-                    if save_scheduled_key:
-                        # Register the HidServAuth for the scheduled share
-                        self.scheduled_auth_cookie = auth_cookie
-                    else:
-                        self.scheduled_auth_cookie = None
-                else:
-                    self.auth_string = (
-                        f"HidServAuth {onion_host} {self.scheduled_auth_cookie}"
-                    )
-                    if not save_scheduled_key:
-                        # We've used the scheduled share's HidServAuth. Reset it to None for future shares
-                        self.scheduled_auth_cookie = None
+        return onion_host
 
-        if onion_host is not None:
-            self.settings.save()
-            return onion_host
-        else:
-            raise TorErrorProtocolError(strings._("error_tor_protocol_error_unknown"))
+    def stop_onion_service(self, mode_settings):
+        """
+        Stop a specific onion service
+        """
+        onion_host = mode_settings.get("general", "service_id")
+        self.common.log("Onion", "stop_onion_service", f"onion host: {onion_host}")
+
+        try:
+            self.c.remove_ephemeral_hidden_service(
+                mode_settings.get("general", "service_id")
+            )
+        except:
+            self.common.log(
+                "Onion", "stop_onion_service", f"failed to remove {onion_host}"
+            )
 
     def cleanup(self, stop_tor=True):
         """
@@ -725,22 +676,20 @@ class Onion(object):
         # Cleanup the ephemeral onion services, if we have any
         try:
             onions = self.c.list_ephemeral_hidden_services()
-            for onion in onions:
+            for service_id in onions:
+                onion_host = f"{service_id}.onion"
                 try:
                     self.common.log(
-                        "Onion", "cleanup", f"trying to remove onion {onion}"
+                        "Onion", "cleanup", f"trying to remove onion {onion_host}"
                     )
-                    self.c.remove_ephemeral_hidden_service(onion)
+                    self.c.remove_ephemeral_hidden_service(service_id)
                 except:
                     self.common.log(
-                        "Onion",
-                        "cleanup",
-                        f"could not remove onion {onion}.. moving on anyway",
+                        "Onion", "cleanup", f"failed to remove onion {onion_host}"
                     )
                     pass
         except:
             pass
-        self.service_id = None
 
         if stop_tor:
             # Stop tor process

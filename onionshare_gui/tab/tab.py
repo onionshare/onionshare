@@ -362,7 +362,7 @@ class Tab(QtWidgets.QWidget):
 
     def stop_server_finished(self):
         # When the server stopped, cleanup the ephemeral onion service
-        self.common.gui.onion.cleanup(stop_tor=False)
+        self.get_mode().app.stop_onion_service(self.settings)
 
     def timer_callback(self):
         """
