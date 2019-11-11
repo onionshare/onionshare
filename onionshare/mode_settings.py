@@ -36,7 +36,7 @@ class ModeSettings:
                 "enabled": False,
                 "mode": None,
                 "private_key": None,
-                "hidservauth": None,
+                "hidservauth_string": None,
                 "password": None,
             },
             "general": {
@@ -45,6 +45,7 @@ class ModeSettings:
                 "autostop_timer": False,
                 "legacy": False,
                 "client_auth": False,
+                "service_id": None,
             },
             "share": {"autostop_sharing": True, "filenames": []},
             "receive": {"data_dir": self.build_default_receive_data_dir()},
