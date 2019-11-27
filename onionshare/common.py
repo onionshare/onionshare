@@ -114,10 +114,11 @@ class Common(object):
 
     def get_tor_paths(self):
         if self.platform == "Linux":
-            tor_path = "/usr/bin/tor"
-            tor_geo_ip_file_path = "/usr/share/tor/geoip"
-            tor_geo_ipv6_file_path = "/usr/share/tor/geoip6"
-            obfs4proxy_file_path = "/usr/bin/obfs4proxy"
+            prefix = os.path.dirname(os.path.dirname(sys.argv[0]))
+            tor_path = os.path.join(prefix, "bin/tor")
+            tor_geo_ip_file_path = os.path.join(prefix, "share/tor/geoip")
+            tor_geo_ipv6_file_path = os.path.join(prefix, "share/tor/geoip6")
+            obfs4proxy_file_path = os.path.join(prefix, "bin/obfs4proxy")
         elif self.platform == "Windows":
             base_path = os.path.join(
                 os.path.dirname(os.path.dirname(self.get_resource_path(""))), "tor"
