@@ -69,42 +69,21 @@ classifiers = [
     "Environment :: Web Environment",
 ]
 data_files = [
-    (
-        os.path.join(sys.prefix, "share/applications"),
-        ["install/org.onionshare.OnionShare.desktop"],
-    ),
-    (
-        os.path.join(sys.prefix, "share/icons/hicolor/scalable/apps"),
-        ["install/org.onionshare.OnionShare.svg"],
-    ),
-    (
-        os.path.join(sys.prefix, "share/metainfo"),
-        ["install/org.onionshare.OnionShare.appdata.xml"],
-    ),
-    (os.path.join(sys.prefix, "share/onionshare"), file_list("share")),
-    (os.path.join(sys.prefix, "share/onionshare/images"), file_list("share/images")),
-    (os.path.join(sys.prefix, "share/onionshare/locale"), file_list("share/locale")),
-    (
-        os.path.join(sys.prefix, "share/onionshare/templates"),
-        file_list("share/templates"),
-    ),
-    (
-        os.path.join(sys.prefix, "share/onionshare/static/css"),
-        file_list("share/static/css"),
-    ),
-    (
-        os.path.join(sys.prefix, "share/onionshare/static/img"),
-        file_list("share/static/img"),
-    ),
-    (
-        os.path.join(sys.prefix, "share/onionshare/static/js"),
-        file_list("share/static/js"),
-    ),
+    ("share/applications", ["install/org.onionshare.OnionShare.desktop"]),
+    ("share/icons/hicolor/scalable/apps", ["install/org.onionshare.OnionShare.svg"]),
+    ("share/metainfo", ["install/org.onionshare.OnionShare.appdata.xml"]),
+    ("share/onionshare", file_list("share")),
+    ("share/onionshare/images", file_list("share/images")),
+    ("share/onionshare/locale", file_list("share/locale")),
+    ("share/onionshare/templates", file_list("share/templates")),
+    ("share/onionshare/static/css", file_list("share/static/css")),
+    ("share/onionshare/static/img", file_list("share/static/img")),
+    ("share/onionshare/static/js", file_list("share/static/js")),
 ]
 if not platform.system().endswith("BSD") and platform.system() != "DragonFly":
     data_files.append(
         (
-            "/usr/share/nautilus-python/extensions/",
+            "share/nautilus-python/extensions/",
             ["install/scripts/onionshare-nautilus.py"],
         )
     )
