@@ -3,7 +3,10 @@ import sys
 import json
 import locale
 import subprocess
-import urllib
+try:
+    import urllib.request
+except:
+    import urllib
 import gi
 
 gi.require_version("Nautilus", "3.0")
@@ -67,7 +70,10 @@ class OnionShareExtension(GObject.GObject, Nautilus.MenuProvider):
     def url2path(self, url):
         file_uri = url.get_activation_uri()
         arg_uri = file_uri[7:]
-        path = urllib.url2pathname(arg_uri)
+        try:
+            path = urllib.request.url2pathname(arg_uri)
+        except:
+            path = urllib.url2pathname(arg_uri)
         return path
 
     def exec_onionshare(self, filenames):
