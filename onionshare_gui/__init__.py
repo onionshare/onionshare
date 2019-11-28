@@ -23,10 +23,9 @@ import sys
 import platform
 import argparse
 import signal
+import json
+import psutil
 from PyQt5 import QtCore, QtWidgets
-
-if platform.system() == "Linux":
-    import psutil
 
 from onionshare.common import Common
 
@@ -110,6 +109,9 @@ def main():
     # Verbose mode?
     common.verbose = verbose
 
+    # Attach the GUI common parts to the common object
+    common.gui = GuiCommon(common, qtapp, local_only)
+
     # Validation
     if filenames:
         valid = True
@@ -124,33 +126,37 @@ def main():
             sys.exit()
 
     # Is there another onionshare-gui running?
-    if common.platform == "Linux":
-        existing_pid = None
-        for proc in psutil.process_iter(attrs=["pid", "name", "cmdline"]):
-            if proc.info["pid"] == os.getpid():
-                continue
+    existing_pid = None
+    for proc in psutil.process_iter(attrs=["pid", "name", "cmdline"]):
+        if proc.info["pid"] == os.getpid():
+            continue
 
-            if proc.info["name"] == "onionshare-gui":
-                existing_pid = proc.info["pid"]
-                break
-            else:
-                # Dev mode onionshare?
-                if proc.info["cmdline"] and len(proc.info["cmdline"]) >= 2:
-                    if (
-                        os.path.basename(proc.info["cmdline"][0]).lower() == "python"
-                        and os.path.basename(proc.info["cmdline"][1])
-                        == "onionshare-gui"
-                    ):
-                        existing_pid = proc.info["pid"]
-                        break
+        if proc.info["name"] == "onionshare-gui":
+            existing_pid = proc.info["pid"]
+            break
+        else:
+            # Dev mode onionshare?
+            if proc.info["cmdline"] and len(proc.info["cmdline"]) >= 2:
+                if (
+                    os.path.basename(proc.info["cmdline"][0]).lower() == "python"
+                    and os.path.basename(proc.info["cmdline"][1]) == "onionshare-gui"
+                ):
+                    existing_pid = proc.info["pid"]
+                    break
 
-        if existing_pid:
-            print(f"Opening tab in existing OnionShare window (pid {proc.info['pid']})")
-            # TODO: open tab
-            return
+    if existing_pid:
+        print(f"Opening tab in existing OnionShare window (pid {proc.info['pid']})")
 
-    # Attach the GUI common parts to the common object
-    common.gui = GuiCommon(common, qtapp, local_only)
+        # Make an event for the existing OnionShare window
+        if filenames:
+            obj = {"type": "new_share_tab", "filenames": filenames}
+        else:
+            obj = {"type": "new_tab"}
+
+        # Write that event to disk
+        with open(common.gui.events_filename, "a") as f:
+            f.write(json.dumps(obj) + "\n")
+        return
 
     # Launch the gui
     main_window = MainWindow(common, filenames)
