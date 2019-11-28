@@ -17,6 +17,8 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
+import os
+
 from onionshare import strings
 from onionshare.onion import Onion
 
@@ -43,6 +45,12 @@ class GuiCommon:
 
         # Start the Onion
         self.onion = Onion(common)
+
+        # Directory to watch for events
+        self.events_dir = os.path.join(self.common.build_data_dir(), "events")
+        if not os.path.exists(self.events_dir):
+            os.makedirs(self.events_dir, 0o700, True)
+        self.events_filename = os.path.join(self.events_dir, "events")
 
         self.css = {
             # OnionShareGui styles
