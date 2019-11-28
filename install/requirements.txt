@@ -21,3 +21,4 @@ requests==2.22.0
 stem==1.7.1
 urllib3==1.25.3
 Werkzeug==0.15.6
+watchdog==0.9.0

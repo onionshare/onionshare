@@ -18,17 +18,21 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 from PyQt5 import QtCore, QtWidgets, QtGui
+from watchdog.observers import Observer
 
 from onionshare import strings
 from onionshare.mode_settings import ModeSettings
 
 from .tab import Tab
+from .event_handler import EventHandler
 
 
 class TabWidget(QtWidgets.QTabWidget):
     """
     A custom tab widget, that has a "+" button for adding new tabs
     """
+
+    bring_to_front = QtCore.pyqtSignal()
 
     def __init__(self, common, system_tray, status_bar):
         super(TabWidget, self).__init__()
@@ -67,6 +71,14 @@ class TabWidget(QtWidgets.QTabWidget):
 
         self.move_new_tab_button()
 
+        # Watch the events file for changes
+        self.event_handler = EventHandler(common)
+        self.event_handler.new_tab.connect(self.add_tab)
+        self.event_handler.new_share_tab.connect(self.new_share_tab)
+        self.observer = Observer()
+        self.observer.schedule(self.event_handler, self.common.gui.events_dir)
+        self.observer.start()
+
     def move_new_tab_button(self):
         # Find the width of all tabs
         tabs_width = sum(
@@ -95,6 +107,12 @@ class TabWidget(QtWidgets.QTabWidget):
         mode_settings = ModeSettings(self.common, id=mode_settings_id)
         self.add_tab(mode_settings)
 
+    def new_share_tab(self, filenames):
+        mode_settings = ModeSettings(self.common)
+        mode_settings.set("persistent", "mode", "share")
+        mode_settings.set("share", "filenames", filenames)
+        self.add_tab(mode_settings)
+
     def add_tab(self, mode_settings=None):
         tab = Tab(self.common, self.current_tab_id, self.system_tray, self.status_bar)
         tab.change_title.connect(self.change_title)
@@ -110,6 +128,9 @@ class TabWidget(QtWidgets.QTabWidget):
         tab.init(mode_settings)
         # If it's persistent, set the persistent image in the tab
         self.change_persistent(tab.tab_id, tab.settings.get("persistent", "enabled"))
+
+        # Bring the window to front, in case this is being added by an event
+        self.bring_to_front.emit()
 
     def change_title(self, tab_id, title):
         index = self.indexOf(self.tabs[tab_id])
