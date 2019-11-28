@@ -164,8 +164,10 @@ class TabWidget(QtWidgets.QTabWidget):
             tab = self.widget(index)
             if tab.settings.get("persistent", "enabled"):
                 persistent_tabs.append(tab.settings.id)
-        self.common.settings.set("persistent_tabs", persistent_tabs)
-        self.common.settings.save()
+        # Only save if tabs have actually moved
+        if persistent_tabs != self.common.settings.get("persistent_tabs"):
+            self.common.settings.set("persistent_tabs", persistent_tabs)
+            self.common.settings.save()
 
     def close_tab(self, index):
         self.common.log("TabWidget", "close_tab", f"{index}")
@@ -196,11 +198,11 @@ class TabWidget(QtWidgets.QTabWidget):
                     return True
         return False
 
-    def changeEvent(self, event):
-        # TODO: later when I have internet, figure out the right event for re-ordering tabs
-
-        # If tabs get move
-        super(TabWidget, self).changeEvent(event)
+    def paintEvent(self, event):
+        super(TabWidget, self).paintEvent(event)
+        # Save the order of persistent tabs whenever a new tab is switched to -- ideally we would
+        # do this whenever tabs gets moved, but paintEvent is the only event that seems to get triggered
+        # when this happens
         self.save_persistent_tabs()
 
     def resizeEvent(self, event):
