@@ -501,7 +501,9 @@ class Tab(QtWidgets.QWidget):
             if self.common.gui.onion.is_authenticated():
                 if not self.timer.isActive():
                     self.timer.start(500)
-                self.get_mode().on_reload_settings()
+                mode = self.get_mode()
+                if mode:
+                    mode.on_reload_settings()
 
     def close_tab(self):
         self.common.log("Tab", "close_tab")
