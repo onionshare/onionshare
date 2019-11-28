@@ -538,7 +538,6 @@ class Tab(QtWidgets.QWidget):
                 if not self.timer.isActive():
                     self.timer.start(500)
                 self.get_mode().on_reload_settings()
-                self.get_mode().primary_action.show()
 
     def close_tab(self):
         self.common.log("Tab", "close_tab")
