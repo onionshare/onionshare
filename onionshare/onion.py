@@ -150,9 +150,11 @@ class Onion(object):
     is necessary for status updates to reach the GUI.
     """
 
-    def __init__(self, common):
+    def __init__(self, common, use_tmp_dir=False):
         self.common = common
         self.common.log("Onion", "__init__")
+
+        self.use_tmp_dir = use_tmp_dir
 
         # Is bundled tor supported?
         if (
@@ -217,24 +219,28 @@ class Onion(object):
                 )
 
             # Create a torrc for this session
-            self.tor_data_directory = tempfile.TemporaryDirectory(
-                dir=self.common.build_data_dir()
-            )
+            if self.use_tmp_dir:
+                self.tor_data_directory = tempfile.TemporaryDirectory(
+                    dir=self.common.build_tmp_dir()
+                )
+                self.tor_data_directory_name = self.tor_data_directory.name
+            else:
+                self.tor_data_directory_name = self.common.build_tor_dir()
             self.common.log(
-                "Onion", "connect", f"tor_data_directory={self.tor_data_directory.name}"
+                "Onion", "connect", f"tor_data_directory_name={self.tor_data_directory_name}"
             )
 
             # Create the torrc
             with open(self.common.get_resource_path("torrc_template")) as f:
                 torrc_template = f.read()
             self.tor_cookie_auth_file = os.path.join(
-                self.tor_data_directory.name, "cookie"
+                self.tor_data_directory_name, "cookie"
             )
             try:
                 self.tor_socks_port = self.common.get_available_port(1000, 65535)
             except:
                 raise OSError(strings._("no_available_port"))
-            self.tor_torrc = os.path.join(self.tor_data_directory.name, "torrc")
+            self.tor_torrc = os.path.join(self.tor_data_directory_name, "torrc")
 
             if self.common.platform == "Windows" or self.common.platform == "Darwin":
                 # Windows doesn't support unix sockets, so it must use a network port.
@@ -252,11 +258,11 @@ class Onion(object):
                 torrc_template += "ControlSocket {{control_socket}}\n"
                 self.tor_control_port = None
                 self.tor_control_socket = os.path.join(
-                    self.tor_data_directory.name, "control_socket"
+                    self.tor_data_directory_name, "control_socket"
                 )
 
             torrc_template = torrc_template.replace(
-                "{{data_directory}}", self.tor_data_directory.name
+                "{{data_directory}}", self.tor_data_directory_name
             )
             torrc_template = torrc_template.replace(
                 "{{control_port}}", str(self.tor_control_port)

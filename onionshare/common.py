@@ -181,14 +181,29 @@ class Common:
         os.makedirs(onionshare_data_dir, 0o700, True)
         return onionshare_data_dir
 
+    def build_tmp_dir(self):
+        """
+        Returns path to a folder that can hold temporary files
+        """
+        tmp_dir = os.path.join(self.build_data_dir(), "tmp")
+        os.makedirs(tmp_dir, 0o700, True)
+        return tmp_dir
+
     def build_persistent_dir(self):
         """
         Returns the path to the folder that holds persistent files
         """
-        onionshare_data_dir = self.build_data_dir()
-        persistent_dir = os.path.join(onionshare_data_dir, "persistent")
+        persistent_dir = os.path.join(self.build_data_dir(), "persistent")
         os.makedirs(persistent_dir, 0o700, True)
         return persistent_dir
+
+    def build_tor_dir(self):
+        """
+        Returns path to the tor data directory
+        """
+        tor_dir = os.path.join(self.build_data_dir(), "tor_data")
+        os.makedirs(tor_dir, 0o700, True)
+        return tor_dir
 
     def build_password(self, word_count=2):
         """
