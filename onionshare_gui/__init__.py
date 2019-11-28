@@ -131,7 +131,7 @@ def main():
         if proc.info["pid"] == os.getpid():
             continue
 
-        if proc.info["name"] == "onionshare-gui":
+        if proc.info["name"] == "onionshare-gui" and proc.status() != "zombie":
             existing_pid = proc.info["pid"]
             break
         else:
@@ -140,6 +140,7 @@ def main():
                 if (
                     os.path.basename(proc.info["cmdline"][0]).lower() == "python"
                     and os.path.basename(proc.info["cmdline"][1]) == "onionshare-gui"
+                    and proc.status() != "zombie"
                 ):
                     existing_pid = proc.info["pid"]
                     break
@@ -160,6 +161,10 @@ def main():
 
     # Launch the gui
     main_window = MainWindow(common, filenames)
+
+    # If filenames were passed in, open them in a tab
+    if filenames:
+        main_window.tabs.new_share_tab(filenames)
 
     # Clean up when app quits
     def shutdown():
