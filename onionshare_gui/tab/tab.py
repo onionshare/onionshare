@@ -124,9 +124,6 @@ class Tab(QtWidgets.QWidget):
         self.layout.addWidget(self.new_tab)
         self.setLayout(self.layout)
 
-        # The server isn't active yet
-        self.set_server_active(False)
-
         # Create the timer
         self.timer = QtCore.QTimer()
         self.timer.timeout.connect(self.timer_callback)
@@ -201,7 +198,6 @@ class Tab(QtWidgets.QWidget):
         self.share_mode.server_status.button_clicked.connect(self.clear_message)
         self.share_mode.server_status.url_copied.connect(self.copy_url)
         self.share_mode.server_status.hidservauth_copied.connect(self.copy_hidservauth)
-        self.share_mode.set_server_active.connect(self.set_server_active)
 
         self.change_title.emit(self.tab_id, strings._("gui_new_tab_share_button"))
 
@@ -239,7 +235,6 @@ class Tab(QtWidgets.QWidget):
         self.receive_mode.server_status.hidservauth_copied.connect(
             self.copy_hidservauth
         )
-        self.receive_mode.set_server_active.connect(self.set_server_active)
 
         self.change_title.emit(self.tab_id, strings._("gui_new_tab_receive_button"))
 
@@ -277,7 +272,6 @@ class Tab(QtWidgets.QWidget):
         self.website_mode.server_status.hidservauth_copied.connect(
             self.copy_hidservauth
         )
-        self.website_mode.set_server_active.connect(self.set_server_active)
 
         self.change_title.emit(self.tab_id, strings._("gui_new_tab_website_button"))
 
@@ -479,36 +473,6 @@ class Tab(QtWidgets.QWidget):
             strings._("gui_copied_hidservauth_title"),
             strings._("gui_copied_hidservauth"),
         )
-
-    def set_server_active(self, active):
-        """
-        Disable the Settings and Receive Files buttons while an Share Files server is active.
-        """
-        pass
-        """
-        if active:
-            self.settings_button.hide()
-            if self.mode == self.common.gui.MODE_SHARE:
-                self.share_mode_button.show()
-                self.receive_mode_button.hide()
-                self.website_mode_button.hide()
-            elif self.mode == self.common.gui.MODE_WEBSITE:
-                self.share_mode_button.hide()
-                self.receive_mode_button.hide()
-                self.website_mode_button.show()
-            else:
-                self.share_mode_button.hide()
-                self.receive_mode_button.show()
-                self.website_mode_button.hide()
-        else:
-            self.settings_button.show()
-            self.share_mode_button.show()
-            self.receive_mode_button.show()
-            self.website_mode_button.show()
-
-        # Disable settings menu action when server is active
-        self.settings_action.setEnabled(not active)
-        """
 
     def clear_message(self):
         """
