@@ -377,12 +377,7 @@ class Tab(QtWidgets.QWidget):
                 self.get_mode().handle_tor_broke()
 
         # Process events from the web object
-        if self.mode == self.common.gui.MODE_SHARE:
-            mode = self.share_mode
-        elif self.mode == self.common.gui.MODE_WEBSITE:
-            mode = self.website_mode
-        else:
-            mode = self.receive_mode
+        mode = self.get_mode()
 
         events = []
 
@@ -499,10 +494,10 @@ class Tab(QtWidgets.QWidget):
         # settings, we probably succeeded in obtaining a new connection. If so, restart the timer.
         if not self.common.gui.local_only:
             if self.common.gui.onion.is_authenticated():
-                if not self.timer.isActive():
-                    self.timer.start(500)
                 mode = self.get_mode()
                 if mode:
+                    if not self.timer.isActive():
+                        self.timer.start(500)
                     mode.on_reload_settings()
 
     def close_tab(self):
