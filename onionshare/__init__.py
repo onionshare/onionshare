@@ -266,7 +266,7 @@ def main(cwd=None):
     web = Web(common, False, mode_settings, mode)
 
     # Start the Onion object
-    onion = Onion(common)
+    onion = Onion(common, use_tmp_dir=True)
     try:
         onion.connect(
             custom_settings=False,
