@@ -527,6 +527,19 @@ class Tab(QtWidgets.QWidget):
         else:
             return None
 
+    def settings_have_changed(self):
+        # Global settings have changed
+        self.common.log("Tab", "settings_have_changed")
+
+        # We might've stopped the main requests timer if a Tor connection failed. If we've reloaded
+        # settings, we probably succeeded in obtaining a new connection. If so, restart the timer.
+        if not self.common.gui.local_only:
+            if self.common.gui.onion.is_authenticated():
+                if not self.timer.isActive():
+                    self.timer.start(500)
+                self.get_mode().on_reload_settings()
+                self.get_mode().primary_action.show()
+
     def close_tab(self):
         self.common.log("Tab", "close_tab")
         if self.mode is None:

@@ -144,6 +144,7 @@ class MainWindow(QtWidgets.QMainWindow):
         tor_con.open_settings.connect(self.tor_connection_open_settings)
         if not self.common.gui.local_only:
             tor_con.start()
+            self.settings_have_changed()
 
         # After connecting to Tor, check for updates
         self.check_for_updates()
@@ -223,43 +224,20 @@ class MainWindow(QtWidgets.QMainWindow):
         Open the SettingsDialog.
         """
         self.common.log("MainWindow", "open_settings")
-
-        def reload_settings():
-            self.common.log(
-                "OnionShareGui", "open_settings", "settings have changed, reloading"
-            )
-            self.common.settings.load()
-
-            # We might've stopped the main requests timer if a Tor connection failed.
-            # If we've reloaded settings, we probably succeeded in obtaining a new
-            # connection. If so, restart the timer.
-            if not self.common.gui.local_only:
-                if self.common.gui.onion.is_authenticated():
-                    if not self.timer.isActive():
-                        self.timer.start(500)
-                    self.share_mode.on_reload_settings()
-                    self.receive_mode.on_reload_settings()
-                    self.website_mode.on_reload_settings()
-                    self.status_bar.clearMessage()
-
-            # If we switched off the auto-stop timer setting, ensure the widget is hidden.
-            if not self.common.settings.get("autostop_timer"):
-                self.share_mode.server_status.autostop_timer_container.hide()
-                self.receive_mode.server_status.autostop_timer_container.hide()
-                self.website_mode.server_status.autostop_timer_container.hide()
-            # If we switched off the auto-start timer setting, ensure the widget is hidden.
-            if not self.common.settings.get("autostart_timer"):
-                self.share_mode.server_status.autostart_timer_datetime = None
-                self.receive_mode.server_status.autostart_timer_datetime = None
-                self.website_mode.server_status.autostart_timer_datetime = None
-                self.share_mode.server_status.autostart_timer_container.hide()
-                self.receive_mode.server_status.autostart_timer_container.hide()
-                self.website_mode.server_status.autostart_timer_container.hide()
-
         d = SettingsDialog(self.common)
-        # d.settings_saved.connect(reload_settings)
-        # TODO: move the reload_settings logic into tabs
+        d.settings_saved.connect(self.settings_have_changed)
         d.exec_()
+
+    def settings_have_changed(self):
+        self.common.log("OnionShareGui", "settings_have_changed")
+
+        if self.common.gui.onion.is_authenticated():
+            self.status_bar.clearMessage()
+
+        # Tell each tab that settings have changed
+        for index in range(self.tabs.count()):
+            tab = self.tabs.widget(index)
+            tab.settings_have_changed()
 
     def check_for_updates(self):
         """
