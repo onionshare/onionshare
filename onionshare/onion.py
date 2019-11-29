@@ -666,8 +666,7 @@ class Onion(object):
         onion_host = res.service_id + ".onion"
 
         # Save the service_id
-        if not mode_settings.get("general", "service_id"):
-            mode_settings.set("general", "service_id", res.service_id)
+        mode_settings.set("general", "service_id", res.service_id)
 
         # Save the private key and hidservauth string if persistence is enabled
         if mode_settings.get("persistent", "enabled"):
@@ -712,7 +711,6 @@ class Onion(object):
         """
         onion_host = mode_settings.get("general", "service_id")
         self.common.log("Onion", "stop_onion_service", f"onion host: {onion_host}")
-
         try:
             self.c.remove_ephemeral_hidden_service(
                 mode_settings.get("general", "service_id")
