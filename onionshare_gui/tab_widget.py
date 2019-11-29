@@ -85,7 +85,7 @@ class TabWidget(QtWidgets.QTabWidget):
             [self.tabBar().tabRect(i).width() for i in range(self.count())]
         )
 
-        # The current positoin of the new tab button
+        # The current position of the new tab button
         pos = self.new_tab_button.pos()
 
         # If there are so many tabs it scrolls, move the button to the left of the scroll buttons

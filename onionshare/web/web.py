@@ -61,10 +61,6 @@ class Web:
     REQUEST_INVALID_PASSWORD = 14
 
     def __init__(self, common, is_gui, mode_settings, mode="share"):
-        """
-        tab_settings_get and tab_settings_set are getter and setter functions for tab settings
-        """
-
         self.common = common
         self.common.log("Web", "__init__", f"is_gui={is_gui}, mode={mode}")
 

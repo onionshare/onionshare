@@ -234,7 +234,7 @@ def main(cwd=None):
         # See what the persistent mode was
         mode = mode_settings.get("persistent", "mode")
 
-    # In share an website mode, you must supply a list of filenames
+    # In share and website mode, you must supply a list of filenames
     if mode == "share" or mode == "website":
         # Unless you passed in a persistent filename, in which case get the filenames from
         # the mode settings
