@@ -25,7 +25,7 @@ import json
 class ModeSettings:
     """
     This stores the settings for a single instance of an OnionShare mode. In CLI there
-    is only one TabSettings, and in the GUI there is a separate TabSettings for each tab
+    is only one ModeSettings, and in the GUI there is a separate ModeSettings for each tab
     """
 
     def __init__(self, common, filename=None, id=None):
