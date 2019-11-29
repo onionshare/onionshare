@@ -176,7 +176,7 @@ class ShareMode(Mode):
         The auto-stop timer expired, should we stop the server? Returns a bool
         """
         # If there were no attempts to download the share, or all downloads are done, we can stop
-        if self.web.share_mode.cur_history_id == 0 or self.web.done:
+        if self.history.in_progress_count == 0 or self.web.done:
             self.server_status.stop_server()
             self.server_status_label.setText(strings._("close_on_autostop_timer"))
             return True
