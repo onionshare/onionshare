@@ -681,7 +681,6 @@ class Onion(object):
                 mode_settings.set("persistent", "hidservauth_string", auth_string)
 
         # If we were scheduling a future share, register the private key for later re-use
-        # Save the private key and hidservauth string if persistence is enabled
         if save_scheduled_key:
             self.scheduled_key = res.private_key
         else:
