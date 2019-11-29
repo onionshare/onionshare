@@ -673,7 +673,7 @@ class Onion(object):
                 "Onion", "stop_onion_service", f"failed to remove {onion_host}"
             )
 
-    def cleanup(self, stop_tor=True):
+    def cleanup(self):
         """
         Stop onion services that were created earlier. If there's a tor subprocess running, kill it.
         """
@@ -697,32 +697,30 @@ class Onion(object):
         except:
             pass
 
-        if stop_tor:
-            # Stop tor process
-            if self.tor_proc:
-                self.tor_proc.terminate()
-                time.sleep(0.2)
-                if not self.tor_proc.poll():
-                    try:
-                        self.tor_proc.kill()
-                    except:
-                        pass
-                self.tor_proc = None
+        # Stop tor process
+        if self.tor_proc:
+            self.tor_proc.terminate()
+            time.sleep(0.2)
+            if self.tor_proc.poll() == None:
+                self.common.log("Onion", "cleanup", "Tried to terminate tor process but it's still running")
+                try:
+                    self.tor_proc.kill()
+                    time.sleep(0.2)
+                    if self.tor_proc.poll() == None:
+                        self.common.log("Onion", "cleanup", "Tried to kill tor process but it's still running")
+                except:
+                    self.common.log("Onion", "cleanup", "Exception while killing tor process")
+            self.tor_proc = None
 
-            # Reset other Onion settings
-            self.connected_to_tor = False
-            self.stealth = False
+        # Reset other Onion settings
+        self.connected_to_tor = False
 
-            try:
-                # Delete the temporary tor data directory
+        try:
+            # Delete the temporary tor data directory
+            if self.use_tmp_dir:
                 self.tor_data_directory.cleanup()
-            except AttributeError:
-                # Skip if cleanup was somehow run before connect
-                pass
-            except PermissionError:
-                # Skip if the directory is still open (#550)
-                # TODO: find a better solution
-                pass
+        except:
+            pass
 
     def get_tor_socks_port(self):
         """
