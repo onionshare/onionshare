@@ -155,6 +155,8 @@ class Onion(object):
         self.common.log("Onion", "__init__")
 
         self.use_tmp_dir = use_tmp_dir
+        self.scheduled_key = None
+        self.scheduled_auth_cookie = None
 
         # Is bundled tor supported?
         if (
@@ -584,14 +586,29 @@ class Onion(object):
         if mode_settings.get("general", "client_auth") and not self.supports_stealth:
             raise TorTooOld(strings._("error_stealth_not_supported"))
 
-        if mode_settings.get("general", "client_auth") and mode_settings.get(
-            "general", "hidservauth_string"
-        ):
-            auth_cookie = mode_settings.get("persistent", "hidservauth_string").split()[
-                2
-            ]
-            basic_auth = {"onionshare": auth_cookie}
+        auth_cookie = None
+        if mode_settings.get("general", "client_auth"):
+            # If we have an auth cookie that's temporarily saved as part of a
+            # scheduled share, use that for the basic auth.
+            if self.scheduled_auth_cookie:
+                auth_cookie = self.scheduled_auth_cookie
+            else:
+                # If we don't have a scheduled share, but are using persistence, then
+                # we should be able to find a hidservauth_string in saved settings
+                if mode_settings.get(
+                    "persistent", "hidservauth_string"
+                ):
+                    auth_cookie = mode_settings.get("persistent", "hidservauth_string").split()[
+                        2
+                    ]
+            if auth_cookie:
+                basic_auth = {"onionshare": auth_cookie}
+            # If we had neither a scheduled auth cookie or a persistent hidservauth string,
+            # set the cookie to 'None', which means Tor will create one for us
+            else:
+                basic_auth = {"onionshare": None}
         else:
+            # Not using client auth at all
             basic_auth = None
 
         if mode_settings.get("persistent", "private_key"):
@@ -601,7 +618,15 @@ class Onion(object):
             else:
                 # Assume it was a v3 key. Stem will throw an error if it's something illegible
                 key_type = "ED25519-V3"
-
+        elif self.scheduled_key:
+            # We have a private key prepared already as part of a scheduled share
+            # that is about to start. Use that private key instead of a new one.
+            key_content = self.scheduled_key
+            if self.is_v2_key(key_content):
+                key_type = "RSA1024"
+            else:
+                # Assume it was a v3 key. Stem will throw an error if it's something illegible
+                key_type = "ED25519-V3"
         else:
             key_type = "NEW"
             # Work out if we can support v3 onion services, which are preferred
@@ -655,6 +680,31 @@ class Onion(object):
                 auth_string = f"HidServAuth {onion_host} {auth_cookie}"
                 mode_settings.set("persistent", "hidservauth_string", auth_string)
 
+        # If we were scheduling a future share, register the private key for later re-use
+        # Save the private key and hidservauth string if persistence is enabled
+        if save_scheduled_key:
+            self.scheduled_key = res.private_key
+        else:
+            self.scheduled_key = None
+
+        # Likewise, save the hidservauth string if we were scheduling a share
+        if mode_settings.get("general", "client_auth"):
+            if not self.scheduled_auth_cookie:
+                auth_cookie = list(res.client_auth.values())[0]
+                self.auth_string = f"HidServAuth {onion_host} {auth_cookie}"
+                if save_scheduled_key:
+                    # Register the HidServAuth for the scheduled share
+                    self.scheduled_auth_cookie = auth_cookie
+                else:
+                    self.scheduled_auth_cookie = None
+            else:
+                self.auth_string = (
+                    f"HidServAuth {onion_host} {self.scheduled_auth_cookie}"
+                )
+                if not save_scheduled_key:
+                    # We've used the scheduled share's HidServAuth. Reset it to None for future shares
+                    self.scheduled_auth_cookie = None
+
         return onion_host
 
     def stop_onion_service(self, mode_settings):
@@ -673,7 +723,7 @@ class Onion(object):
                 "Onion", "stop_onion_service", f"failed to remove {onion_host}"
             )
 
-    def cleanup(self):
+    def cleanup(self, stop_tor=True):
         """
         Stop onion services that were created earlier. If there's a tor subprocess running, kill it.
         """
@@ -697,30 +747,31 @@ class Onion(object):
         except:
             pass
 
-        # Stop tor process
-        if self.tor_proc:
-            self.tor_proc.terminate()
-            time.sleep(0.2)
-            if self.tor_proc.poll() == None:
-                self.common.log("Onion", "cleanup", "Tried to terminate tor process but it's still running")
-                try:
-                    self.tor_proc.kill()
-                    time.sleep(0.2)
-                    if self.tor_proc.poll() == None:
-                        self.common.log("Onion", "cleanup", "Tried to kill tor process but it's still running")
-                except:
-                    self.common.log("Onion", "cleanup", "Exception while killing tor process")
-            self.tor_proc = None
+        if stop_tor:
+            # Stop tor process
+            if self.tor_proc:
+                self.tor_proc.terminate()
+                time.sleep(0.2)
+                if self.tor_proc.poll() == None:
+                    self.common.log("Onion", "cleanup", "Tried to terminate tor process but it's still running")
+                    try:
+                        self.tor_proc.kill()
+                        time.sleep(0.2)
+                        if self.tor_proc.poll() == None:
+                            self.common.log("Onion", "cleanup", "Tried to kill tor process but it's still running")
+                    except:
+                        self.common.log("Onion", "cleanup", "Exception while killing tor process")
+                self.tor_proc = None
 
-        # Reset other Onion settings
-        self.connected_to_tor = False
+            # Reset other Onion settings
+            self.connected_to_tor = False
 
-        try:
-            # Delete the temporary tor data directory
-            if self.use_tmp_dir:
-                self.tor_data_directory.cleanup()
-        except:
-            pass
+            try:
+                # Delete the temporary tor data directory
+                if self.use_tmp_dir:
+                    self.tor_data_directory.cleanup()
+            except:
+                pass
 
     def get_tor_socks_port(self):
         """

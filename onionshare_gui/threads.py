@@ -76,7 +76,7 @@ class OnionThread(QtCore.QThread):
                 time.sleep(0.2)
                 self.success_early.emit()
                 # Unregister the onion so we can use it in the next OnionThread
-                self.mode.app.start_onion_service(self.mode.settings)
+                self.mode.app.onion.cleanup(False)
             else:
                 self.mode.app.start_onion_service(
                     self.mode.settings, await_publication=True
