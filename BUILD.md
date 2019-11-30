@@ -1,3 +1,22 @@
+# Index
+* [Building OnionShare](#building-onionshare)
+  * [Linux](#linux)
+    * [For Debian-like distros](#for-debian-like-distros)
+    * [For Fedora-like distros](#for-fedora-like-distros)
+  * [macOS](#macos)
+  * [Windows](#windows)
+    * [Setting up your dev environment](#setting-up-your-dev-environment)
+    * [To make a .exe](#to-make-a-exe)
+    * [To build the installer](#to-build-the-installer)
+* [Running tests](#running-tests)
+* [Making releases](#making-releases)
+  * [Changelog, version, and signed git tag](#changelog-version-and-signed-git-tag)
+  * [Linux release](#linux-release)
+  * [macOS release](#macos-release)
+  * [Windows release](#windows-release)
+  * [Source package](#source-package)
+  * [Publishing the release](#publishing-the-release)
+
 # Building OnionShare
 
 Start by getting the source code:
@@ -11,13 +30,13 @@ cd onionshare
 
 Install the needed dependencies:
 
-For Debian-like distros:
+#### For Debian-like distros:
 
 ```
 apt install -y python3-flask python3-stem python3-pyqt5 python3-crypto python3-socks python-nautilus tor obfs4proxy python3-pytest build-essential fakeroot python3-all python3-stdeb dh-python python3-flask-httpauth python3-distutils
 ```
 
-For Fedora-like distros:
+#### For Fedora-like distros:
 
 ```
 dnf install -y python3-flask python3-flask-httpauth python3-stem python3-qt5 python3-crypto python3-pysocks nautilus-python tor obfs4 python3-pytest rpm-build
