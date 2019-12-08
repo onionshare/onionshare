@@ -32,13 +32,12 @@ class ModeSettings:
         self.common = common
 
         self.default_settings = {
-            "persistent": {
-                "enabled": False,
-                "mode": None,
+            "onion": {
                 "private_key": None,
                 "hidservauth_string": None,
                 "password": None,
             },
+            "persistent": {"mode": None, "enabled": False},
             "general": {
                 "public": False,
                 "autostart_timer": False,

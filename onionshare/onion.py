@@ -229,7 +229,9 @@ class Onion(object):
             else:
                 self.tor_data_directory_name = self.common.build_tor_dir()
             self.common.log(
-                "Onion", "connect", f"tor_data_directory_name={self.tor_data_directory_name}"
+                "Onion",
+                "connect",
+                f"tor_data_directory_name={self.tor_data_directory_name}",
             )
 
             # Create the torrc
@@ -595,12 +597,10 @@ class Onion(object):
             else:
                 # If we don't have a scheduled share, but are using persistence, then
                 # we should be able to find a hidservauth_string in saved settings
-                if mode_settings.get(
-                    "persistent", "hidservauth_string"
-                ):
-                    auth_cookie = mode_settings.get("persistent", "hidservauth_string").split()[
-                        2
-                    ]
+                if mode_settings.get("onion", "hidservauth_string"):
+                    auth_cookie = mode_settings.get(
+                        "onion", "hidservauth_string"
+                    ).split()[2]
             if auth_cookie:
                 basic_auth = {"onionshare": auth_cookie}
             # If we had neither a scheduled auth cookie or a persistent hidservauth string,
@@ -611,8 +611,8 @@ class Onion(object):
             # Not using client auth at all
             basic_auth = None
 
-        if mode_settings.get("persistent", "private_key"):
-            key_content = mode_settings.get("persistent", "private_key")
+        if mode_settings.get("onion", "private_key"):
+            key_content = mode_settings.get("onion", "private_key")
             if self.is_v2_key(key_content):
                 key_type = "RSA1024"
             else:
@@ -668,16 +668,15 @@ class Onion(object):
         # Save the service_id
         mode_settings.set("general", "service_id", res.service_id)
 
-        # Save the private key and hidservauth string if persistence is enabled
-        if mode_settings.get("persistent", "enabled"):
-            if not mode_settings.get("persistent", "private_key"):
-                mode_settings.set("persistent", "private_key", res.private_key)
-            if mode_settings.get("general", "client_auth") and not mode_settings.get(
-                "persistent", "hidservauth_string"
-            ):
-                auth_cookie = list(res.client_auth.values())[0]
-                auth_string = f"HidServAuth {onion_host} {auth_cookie}"
-                mode_settings.set("persistent", "hidservauth_string", auth_string)
+        # Save the private key and hidservauth string
+        if not mode_settings.get("onion", "private_key"):
+            mode_settings.set("onion", "private_key", res.private_key)
+        if mode_settings.get("general", "client_auth") and not mode_settings.get(
+            "onion", "hidservauth_string"
+        ):
+            auth_cookie = list(res.client_auth.values())[0]
+            auth_string = f"HidServAuth {onion_host} {auth_cookie}"
+            mode_settings.set("onion", "hidservauth_string", auth_string)
 
         # If we were scheduling a future share, register the private key for later re-use
         if save_scheduled_key:
@@ -750,14 +749,24 @@ class Onion(object):
                 self.tor_proc.terminate()
                 time.sleep(0.2)
                 if self.tor_proc.poll() == None:
-                    self.common.log("Onion", "cleanup", "Tried to terminate tor process but it's still running")
+                    self.common.log(
+                        "Onion",
+                        "cleanup",
+                        "Tried to terminate tor process but it's still running",
+                    )
                     try:
                         self.tor_proc.kill()
                         time.sleep(0.2)
                         if self.tor_proc.poll() == None:
-                            self.common.log("Onion", "cleanup", "Tried to kill tor process but it's still running")
+                            self.common.log(
+                                "Onion",
+                                "cleanup",
+                                "Tried to kill tor process but it's still running",
+                            )
                     except:
-                        self.common.log("Onion", "cleanup", "Exception while killing tor process")
+                        self.common.log(
+                            "Onion", "cleanup", "Exception while killing tor process"
+                        )
                 self.tor_proc = None
 
             # Reset other Onion settings
