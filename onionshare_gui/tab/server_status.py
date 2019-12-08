@@ -225,6 +225,8 @@ class ServerStatus(QtWidgets.QWidget):
             self.copy_url_button.hide()
             self.copy_hidservauth_button.hide()
 
+            self.mode_settings_widget.update_ui()
+
         # Button
         if (
             self.mode == self.common.gui.MODE_SHARE
