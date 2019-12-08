@@ -254,9 +254,7 @@ class MainWindow(QtWidgets.QMainWindow):
                         ),
                     )
 
-                self.update_thread = UpdateThread(
-                    self.common, self.common.gui.onion, self.common.gui.config
-                )
+                self.update_thread = UpdateThread(self.common, self.common.gui.onion)
                 self.update_thread.update_available.connect(update_available)
                 self.update_thread.start()
 
