@@ -70,7 +70,7 @@ class OnionThread(QtCore.QThread):
         try:
             if self.mode.obtain_onion_early:
                 self.mode.app.start_onion_service(
-                    self.mode.settings, await_publication=False, save_scheduled_key=True
+                    self.mode.settings, await_publication=False
                 )
                 # wait for modules in thread to load, preventing a thread-related cx_Freeze crash
                 time.sleep(0.2)
