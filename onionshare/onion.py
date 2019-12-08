@@ -155,8 +155,6 @@ class Onion(object):
         self.common.log("Onion", "__init__")
 
         self.use_tmp_dir = use_tmp_dir
-        self.scheduled_key = None
-        self.scheduled_auth_cookie = None
 
         # Is bundled tor supported?
         if (
@@ -574,9 +572,7 @@ class Onion(object):
         else:
             return False
 
-    def start_onion_service(
-        self, mode_settings, port, await_publication, save_scheduled_key=False
-    ):
+    def start_onion_service(self, mode_settings, port, await_publication):
         """
         Start a onion service on port 80, pointing to the given port, and
         return the onion hostname.
@@ -590,22 +586,15 @@ class Onion(object):
 
         auth_cookie = None
         if mode_settings.get("general", "client_auth"):
-            # If we have an auth cookie that's temporarily saved as part of a
-            # scheduled share, use that for the basic auth.
-            if self.scheduled_auth_cookie:
-                auth_cookie = self.scheduled_auth_cookie
-            else:
-                # If we don't have a scheduled share, but are using persistence, then
-                # we should be able to find a hidservauth_string in saved settings
-                if mode_settings.get("onion", "hidservauth_string"):
-                    auth_cookie = mode_settings.get(
-                        "onion", "hidservauth_string"
-                    ).split()[2]
+            if mode_settings.get("onion", "hidservauth_string"):
+                auth_cookie = mode_settings.get("onion", "hidservauth_string").split()[
+                    2
+                ]
             if auth_cookie:
                 basic_auth = {"onionshare": auth_cookie}
-            # If we had neither a scheduled auth cookie or a persistent hidservauth string,
-            # set the cookie to 'None', which means Tor will create one for us
             else:
+                # If we had neither a scheduled auth cookie or a persistent hidservauth string,
+                # set the cookie to 'None', which means Tor will create one for us
                 basic_auth = {"onionshare": None}
         else:
             # Not using client auth at all
@@ -613,15 +602,6 @@ class Onion(object):
 
         if mode_settings.get("onion", "private_key"):
             key_content = mode_settings.get("onion", "private_key")
-            if self.is_v2_key(key_content):
-                key_type = "RSA1024"
-            else:
-                # Assume it was a v3 key. Stem will throw an error if it's something illegible
-                key_type = "ED25519-V3"
-        elif self.scheduled_key:
-            # We have a private key prepared already as part of a scheduled share
-            # that is about to start. Use that private key instead of a new one.
-            key_content = self.scheduled_key
             if self.is_v2_key(key_content):
                 key_type = "RSA1024"
             else:
@@ -677,30 +657,6 @@ class Onion(object):
             auth_cookie = list(res.client_auth.values())[0]
             auth_string = f"HidServAuth {onion_host} {auth_cookie}"
             mode_settings.set("onion", "hidservauth_string", auth_string)
-
-        # If we were scheduling a future share, register the private key for later re-use
-        if save_scheduled_key:
-            self.scheduled_key = res.private_key
-        else:
-            self.scheduled_key = None
-
-        # Likewise, save the hidservauth string if we were scheduling a share
-        if mode_settings.get("general", "client_auth"):
-            if not self.scheduled_auth_cookie:
-                auth_cookie = list(res.client_auth.values())[0]
-                self.auth_string = f"HidServAuth {onion_host} {auth_cookie}"
-                if save_scheduled_key:
-                    # Register the HidServAuth for the scheduled share
-                    self.scheduled_auth_cookie = auth_cookie
-                else:
-                    self.scheduled_auth_cookie = None
-            else:
-                self.auth_string = (
-                    f"HidServAuth {onion_host} {self.scheduled_auth_cookie}"
-                )
-                if not save_scheduled_key:
-                    # We've used the scheduled share's HidServAuth. Reset it to None for future shares
-                    self.scheduled_auth_cookie = None
 
         return onion_host
 

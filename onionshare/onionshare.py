@@ -63,9 +63,7 @@ class OnionShare(object):
         except:
             raise OSError(strings._("no_available_port"))
 
-    def start_onion_service(
-        self, mode_settings, await_publication=True, save_scheduled_key=False
-    ):
+    def start_onion_service(self, mode_settings, await_publication=True):
         """
         Start the onionshare onion service.
         """
@@ -82,7 +80,7 @@ class OnionShare(object):
             return
 
         self.onion_host = self.onion.start_onion_service(
-            mode_settings, self.port, await_publication, save_scheduled_key
+            mode_settings, self.port, await_publication
         )
 
         if mode_settings.get("general", "client_auth"):
