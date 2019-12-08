@@ -64,7 +64,7 @@ class OnionThread(QtCore.QThread):
         if not self.mode.settings.get("general", "public"):
             if not self.mode.web.password:
                 self.mode.web.generate_password(
-                    self.mode.settings.get("persistent", "password")
+                    self.mode.settings.get("onion", "password")
                 )
 
         try:

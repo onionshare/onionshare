@@ -304,16 +304,14 @@ class Web:
         """
         self.q.put({"type": request_type, "path": path, "data": data})
 
-    def generate_password(self, persistent_password=None):
-        self.common.log(
-            "Web", "generate_password", f"persistent_password={persistent_password}"
-        )
-        if persistent_password != None and persistent_password != "":
-            self.password = persistent_password
+    def generate_password(self, saved_password=None):
+        self.common.log("Web", "generate_password", f"saved_password={saved_password}")
+        if saved_password != None and saved_password != "":
+            self.password = saved_password
             self.common.log(
                 "Web",
                 "generate_password",
-                f'persistent_password sent, so password is: "{self.password}"',
+                f'saved_password sent, so password is: "{self.password}"',
             )
         else:
             self.password = self.common.build_password()

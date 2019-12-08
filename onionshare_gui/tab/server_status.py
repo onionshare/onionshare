@@ -207,10 +207,9 @@ class ServerStatus(QtWidgets.QWidget):
             self.common.settings.load()
             self.show_url()
 
-            if self.settings.get("persistent", "enabled"):
-                if not self.settings.get("persistent", "password"):
-                    self.settings.set("persistent", "password", self.web.password)
-                    self.settings.save()
+            if not self.settings.get("onion", "password"):
+                self.settings.set("onion", "password", self.web.password)
+                self.settings.save()
 
             if self.settings.get("general", "autostop_timer"):
                 self.server_button.setToolTip(

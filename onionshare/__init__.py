@@ -284,7 +284,7 @@ def main(cwd=None):
     try:
         common.settings.load()
         if not mode_settings.get("general", "public"):
-            web.generate_password(mode_settings.get("persistent", "password"))
+            web.generate_password(mode_settings.get("onion", "password"))
         else:
             web.password = None
         app = OnionShare(common, onion, local_only, autostop_timer)
@@ -385,8 +385,8 @@ def main(cwd=None):
 
         # Save the web password if we are using a persistent private key
         if mode_settings.get("persistent", "enabled"):
-            if not mode_settings.get("persistent", "password"):
-                mode_settings.set("persistent", "password", web.password)
+            if not mode_settings.get("onion", "password"):
+                mode_settings.set("onion", "password", web.password)
                 # mode_settings.save()
 
         # Build the URL
