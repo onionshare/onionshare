@@ -185,6 +185,17 @@ class ModeSettingsWidget(QtWidgets.QWidget):
         else:
             self.client_auth_checkbox.hide()
 
+        # If the server has been started in the past, prevent changing legacy option
+        if self.settings.get("onion", "private_key"):
+            if self.legacy_checkbox.isChecked():
+                # If using legacy, disable legacy and client auth options
+                self.legacy_checkbox.setEnabled(False)
+                self.client_auth_checkbox.setEnabled(False)
+            else:
+                # If using v3, hide legacy and client auth options
+                self.legacy_checkbox.hide()
+                self.client_auth_checkbox.hide()
+
     def persistent_checkbox_clicked(self):
         self.settings.set("persistent", "enabled", self.persistent_checkbox.isChecked())
         self.settings.set("persistent", "mode", self.tab.mode)
