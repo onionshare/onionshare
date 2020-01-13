@@ -10,19 +10,23 @@ a = Analysis(
     pathex=['.'],
     binaries=None,
     datas=[
-        ('../share/license.txt', 'share'),
         ('../share/version.txt', 'share'),
         ('../share/wordlist.txt', 'share'),
         ('../share/torrc_template', 'share'),
-        ('../share/torrc_template-windows', 'share'),
+        ('../share/torrc_template-obfs4', 'share'),
+        ('../share/torrc_template-meek_lite_azure', 'share'),
         ('../share/images/*', 'share/images'),
         ('../share/locale/*', 'share/locale'),
-        ('../share/html/*', 'share/html')
+        ('../share/static/*', 'share/static'),
+        ('../share/templates/*', 'share/templates'),
+        ('../share/static/css/*', 'share/static/css'),
+        ('../share/static/img/*', 'share/static/img'),
+        ('../share/static/js/*', 'share/static/js'),
+        ('../install/licenses/*', 'licenses')
     ],
     hiddenimports=[],
     hookspath=[],
     runtime_hooks=[],
-    excludes=['jinja2.asyncsupport'],
     win_no_prefer_redirects=False,
     win_private_assemblies=False,
     cipher=None)
@@ -54,7 +58,7 @@ if p == 'Darwin':
     app = BUNDLE(
         coll,
         name='OnionShare.app',
-        icon='install/onionshare.icns',
+        icon='onionshare.icns',
         bundle_identifier='com.micahflee.onionshare',
         info_plist={
             'CFBundleShortVersionString': version,

@@ -1,3 +1,4 @@
+__pycache__
 *.py[cod]
 
 # C extensions
@@ -28,6 +29,7 @@ pip-log.txt
 .tox
 nosetests.xml
 .cache
+.pytest_cache
 
 # Translations
 *.mo
@@ -46,3 +48,9 @@ tags
 
 # OSX
 .DS_Store
+
+# virtualenv
+venv
+
+# other
+.vscode

@@ -2,7 +2,7 @@
 """
 OnionShare | https://onionshare.org/
 
-Copyright (C) 2017 Micah Lee <micah@micahflee.com>
+Copyright (C) 2014-2018 Micah Lee <micah@micahflee.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -24,55 +24,81 @@ In order to avoid a Windows gnupg dependency, I manually verify the signature
 and hard-code the sha256 hash.
 """
 
-import inspect, os, sys, hashlib, zipfile, io, shutil
-import urllib.request
+import inspect
+import os
+import sys
+import hashlib
+import shutil
+import subprocess
+import requests
+
 
 def main():
-    zip_url = 'https://archive.torproject.org/tor-package-archive/torbrowser/7.0.11/tor-win32-0.3.1.9.zip'
-    zip_filename = 'tor-win32-0.3.1.9.zip'
-    expected_zip_sha256 = 'faf28efb606455842bda66ca369287a116b6d6e5ad3720ebed9337da0717f1b4'
-
+    exe_url = "https://archive.torproject.org/tor-package-archive/torbrowser/8.5.5/torbrowser-install-8.5.5_en-US.exe"
+    exe_filename = "torbrowser-install-8.5.5_en-US.exe"
+    expected_exe_sha256 = (
+        "a3aa7e626d1d2365dcecc6f17055f467f31c4ff9558a769e51d4b90640e48bb0"
+    )
     # Build paths
-    root_path = os.path.dirname(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))))
-    working_path = os.path.join(os.path.join(root_path, 'build'), 'tor')
-    zip_path = os.path.join(working_path, zip_filename)
-    dist_path = os.path.join(os.path.join(os.path.join(root_path, 'dist'), 'onionshare'), 'tor')
+    root_path = os.path.dirname(
+        os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+    )
+    working_path = os.path.join(os.path.join(root_path, "build"), "tor")
+    exe_path = os.path.join(working_path, exe_filename)
+    dist_path = os.path.join(
+        os.path.join(os.path.join(root_path, "dist"), "onionshare"), "tor"
+    )
 
     # Make sure the working folder exists
     if not os.path.exists(working_path):
         os.makedirs(working_path)
 
     # Make sure the zip is downloaded
-    if not os.path.exists(zip_path):
-        print("Downloading {}".format(zip_url))
-        response = urllib.request.urlopen(zip_url)
-        zip_data = response.read()
-        open(zip_path, 'wb').write(zip_data)
-        zip_sha256 = hashlib.sha256(zip_data).hexdigest()
+    if not os.path.exists(exe_path):
+        print("Downloading {}".format(exe_url))
+        r = requests.get(exe_url)
+        open(exe_path, "wb").write(r.content)
+        exe_sha256 = hashlib.sha256(r.content).hexdigest()
     else:
-        zip_data = open(zip_path, 'rb').read()
-        zip_sha256 = hashlib.sha256(zip_data).hexdigest()
+        exe_data = open(exe_path, "rb").read()
+        exe_sha256 = hashlib.sha256(exe_data).hexdigest()
 
     # Compare the hash
-    if zip_sha256 != expected_zip_sha256:
+    if exe_sha256 != expected_exe_sha256:
         print("ERROR! The sha256 doesn't match:")
-        print("expected: {}".format(expected_zip_sha256))
-        print("  actual: {}".format(zip_sha256))
+        print("expected: {}".format(expected_exe_sha256))
+        print("  actual: {}".format(exe_sha256))
         sys.exit(-1)
 
-    # Extract the zip
-    z = zipfile.ZipFile(io.BytesIO(zip_data))
-    z.extractall(working_path)
-
-    # Delete un-used files
-    os.remove(os.path.join(os.path.join(working_path, 'Tor'), 'tor-gencert.exe'))
+    # Extract the bits we need from the exe
+    cmd = [
+        "7z",
+        "e",
+        "-y",
+        exe_path,
+        "Browser\TorBrowser\Tor",
+        "-o%s" % os.path.join(working_path, "Tor"),
+    ]
+    cmd2 = [
+        "7z",
+        "e",
+        "-y",
+        exe_path,
+        "Browser\TorBrowser\Data\Tor\geoip*",
+        "-o%s" % os.path.join(working_path, "Data"),
+    ]
+    subprocess.Popen(cmd).wait()
+    subprocess.Popen(cmd2).wait()
 
     # Copy into dist
     if os.path.exists(dist_path):
         shutil.rmtree(dist_path)
     os.makedirs(dist_path)
-    shutil.copytree( os.path.join(working_path, 'Tor'), os.path.join(dist_path, 'Tor') )
-    shutil.copytree( os.path.join(working_path, 'Data'), os.path.join(dist_path, 'Data') )
+    shutil.copytree(os.path.join(working_path, "Tor"), os.path.join(dist_path, "Tor"))
+    shutil.copytree(
+        os.path.join(working_path, "Data"), os.path.join(dist_path, "Data", "Tor")
+    )
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()

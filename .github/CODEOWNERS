@@ -1,0 +1,9 @@
+* @micahflee
+
+# localization
+/share/locale/ @emmapeel2
+
+# tests
+/tests/ @mig5
+/tests_gui_local/ @mig5
+/tests_gui_tor/ @mig5
