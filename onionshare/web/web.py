@@ -109,7 +109,6 @@ class Web:
             ("X-Xss-Protection", "1; mode=block"),
             ("X-Content-Type-Options", "nosniff"),
             ("Referrer-Policy", "no-referrer"),
-            ("Server", "OnionShare"),
         ]
 
         self.q = queue.Queue()
