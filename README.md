@@ -6,11 +6,11 @@ Unlike services like email, Google Drive, DropBox, WeTransfer, or nearly any oth
 
 ## Documentation
 
-To learn how OnionShare works, what its security properties are, and how to use it, check out the [wiki](https://github.com/micahflee/onionshare/wiki).
+To learn about working of OnionShare, security properties and ssues, you can check out the [wiki](https://github.com/micahflee/onionshare/wiki).
 
 ## Installing OnionShare
 
-You can download OnionShare for Windows and macOS from the [OnionShare website](https://onionshare.org).
+You can download OnionShare on Windows and macOS from the [OnionShare website](https://onionshare.org).
 
 For macOS you can also use [Homebrew](https://brew.sh/):
 
@@ -29,7 +29,7 @@ OnionShare may also be available in your Linux distribution's package manager. C
 
 ## Contributing to OnionShare
 
-You can set up your development environment to build OnionShare yourself by following [these instructions](/BUILD.md). You may also subscribe to our mailing list [here](https://lists.riseup.net/www/info/onionshare-dev), and join our public Keybase team [here](https://keybase.io/team/onionshare).
+You can set up your development environment to build OnionShare yourself by following these [instructions](/BUILD.md). You may also subscribe to our mailing list [here](https://lists.riseup.net/www/info/onionshare-dev), and join our public Keybase team [here](https://keybase.io/team/onionshare).
 
 Test status: [![CircleCI](https://circleci.com/gh/micahflee/onionshare.svg?style=svg)](https://circleci.com/gh/micahflee/onionshare)
 
