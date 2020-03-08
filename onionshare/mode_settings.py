@@ -49,6 +49,7 @@ class ModeSettings:
             "share": {"autostop_sharing": True, "filenames": []},
             "receive": {"data_dir": self.build_default_receive_data_dir()},
             "website": {"disable_csp": False, "filenames": []},
+            "chat": {"room": "default"},
         }
         self._settings = {}
 
