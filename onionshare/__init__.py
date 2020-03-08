@@ -46,14 +46,12 @@ def main(cwd=None):
     # Display OnionShare banner
     print(f"OnionShare {common.version} | https://onionshare.org/")
     reset='\033[0m'
-    purple='\033[45m'
-    white='\033[97m'
-    print(purple, white)
-    print("                                                   ")
-    print("                     @@@@@@@@@                     ")
-    print("                @@@@@@@@@@@@@@@@@@@                ")
-    print("             @@@@@@@@@@@@@@@@@@@@@@@@@             ")
-    print("           @@@@@@@@@@@@@@@@@@@@@@@@@@@@@           ")
+    purple='\33[95m'
+    print(purple)
+    print("                     @@@@@@@@@                      ")
+    print("                @@@@@@@@@@@@@@@@@@@                 ")
+    print("             @@@@@@@@@@@@@@@@@@@@@@@@@              ")
+    print("           @@@@@@@@@@@@@@@@@@@@@@@@@@@@@            ")
     print("             @@@@@@@@@@@@@@@@@@@@@@@@@@@@@           ___        _               ")
     print("               @@@@@@         @@@@@@@@@@@@@         / _ \      (_)              ")
     print("         @@@@    @               @@@@@@@@@@@       | | | |_ __  _  ___  _ __    ")
@@ -66,11 +64,10 @@ def main(cwd=None):
     print("       @@@@@@@@@@@               @    @@@@          `--. \ '_ \ / _` | '__/ _ \\")
     print("        @@@@@@@@@@@@@         @@@@@@               /\__/ / | | | (_| | | |  __/")
     print("         @@@@@@@@@@@@@@@@@@@@@@@@@@@@@             \____/|_| |_|\__,_|_|  \___|")
-    print("           @@@@@@@@@@@@@@@@@@@@@@@@@@@@@           ")
-    print("             @@@@@@@@@@@@@@@@@@@@@@@@@             ")
-    print("                @@@@@@@@@@@@@@@@@@@                ")
-    print("                     @@@@@@@@@                     ")
-    print("                                                   ")
+    print("           @@@@@@@@@@@@@@@@@@@@@@@@@@@@@            ")
+    print("             @@@@@@@@@@@@@@@@@@@@@@@@@              ")
+    print("                @@@@@@@@@@@@@@@@@@@                 ")
+    print("                     @@@@@@@@@                      ")
     print(reset)
 
     # OnionShare CLI in OSX needs to change current working directory (#132)
