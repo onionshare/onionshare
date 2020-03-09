@@ -28,6 +28,7 @@ from onionshare.mode_settings import ModeSettings
 from .mode.share_mode import ShareMode
 from .mode.receive_mode import ReceiveMode
 from .mode.website_mode import WebsiteMode
+from .mode.chat_mode import ChatMode
 
 from .server_status import ServerStatus
 
@@ -93,6 +94,16 @@ class Tab(QtWidgets.QWidget):
         )
         website_description.setWordWrap(True)
 
+        self.chat_button = QtWidgets.QPushButton(
+            strings._("gui_new_tab_chat_button")
+        )
+        self.chat_button.setStyleSheet(self.common.gui.css["mode_new_tab_button"])
+        self.chat_button.clicked.connect(self.chat_mode_clicked)
+        chat_description = QtWidgets.QLabel(
+            strings._("gui_new_tab_chat_description")
+        )
+        chat_description.setWordWrap(True)
+
         new_tab_layout = QtWidgets.QVBoxLayout()
         new_tab_layout.addStretch(1)
         new_tab_layout.addWidget(self.share_button)
@@ -103,6 +114,9 @@ class Tab(QtWidgets.QWidget):
         new_tab_layout.addSpacing(50)
         new_tab_layout.addWidget(self.website_button)
         new_tab_layout.addWidget(website_description)
+        new_tab_layout.addSpacing(50)
+        new_tab_layout.addWidget(self.chat_button)
+        new_tab_layout.addWidget(chat_description)
         new_tab_layout.addStretch(3)
 
         new_tab_inner = QtWidgets.QWidget()
@@ -274,6 +288,43 @@ class Tab(QtWidgets.QWidget):
         )
 
         self.change_title.emit(self.tab_id, strings._("gui_new_tab_website_button"))
+
+        self.update_server_status_indicator()
+        self.timer.start(500)
+
+    def chat_mode_clicked(self):
+        self.common.log("Tab", "chat_mode_clicked")
+        self.mode = self.common.gui.MODE_CHAT
+        self.new_tab.hide()
+
+        self.chat_mode = ChatMode(self)
+        self.chat_mode.change_persistent.connect(self.change_persistent)
+
+        self.layout.addWidget(self.chat_mode)
+        self.chat_mode.show()
+
+        self.chat_mode.init()
+        self.chat_mode.server_status.server_started.connect(
+            self.update_server_status_indicator
+        )
+        self.chat_mode.server_status.server_stopped.connect(
+            self.update_server_status_indicator
+        )
+        self.chat_mode.start_server_finished.connect(
+            self.update_server_status_indicator
+        )
+        self.chat_mode.stop_server_finished.connect(
+            self.update_server_status_indicator
+        )
+        self.chat_mode.stop_server_finished.connect(self.stop_server_finished)
+        self.chat_mode.start_server_finished.connect(self.clear_message)
+        self.chat_mode.server_status.button_clicked.connect(self.clear_message)
+        self.chat_mode.server_status.url_copied.connect(self.copy_url)
+        self.chat_mode.server_status.hidservauth_copied.connect(
+            self.copy_hidservauth
+        )
+
+        self.change_title.emit(self.tab_id, strings._("gui_new_tab_chat_button"))
 
         self.update_server_status_indicator()
         self.timer.start(500)
