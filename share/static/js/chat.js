@@ -6,7 +6,6 @@ $(function(){
       socket.emit('joined', {});
     });
     socket.on('status', function(data) {
-      console.log("received")
       $('#chat').append('<p><small><i>' + data.msg + '</i></small></p>');
       $('#chat').scrollTop($('#chat')[0].scrollHeight);
     });

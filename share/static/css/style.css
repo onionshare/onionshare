@@ -130,6 +130,26 @@ table.file-list td:last-child {
   width: 100%;
 }
 
+.chat-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin: 0 1rem;
+  height: calc(100vh - (45px + 2em));
+}
+
+.chat-wrapper #chat {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
+  flex: 1;
+  overflow: auto;
+  background: #f2f2f2;
+  padding: 0 1rem;
+}
+
+.chat-wrapper .chat-form {
+  display: flex;
+}
+
 .upload-wrapper {
   align-items: center;
   justify-content: center;

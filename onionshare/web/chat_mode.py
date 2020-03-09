@@ -38,7 +38,6 @@ class ChatModeWeb:
             history_id = self.cur_history_id
             self.cur_history_id += 1
             self.web.add_request(
-                self.web.REQUEST_INDIVIDUAL_FILE_STARTED,
                 request.path,
                 {"id": history_id, "status_code": 200},
             )
