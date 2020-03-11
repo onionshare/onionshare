@@ -6,7 +6,7 @@ Unlike services like email, Google Drive, DropBox, WeTransfer, or nearly any oth
 
 ## Documentation
 
-To learn about working of OnionShare, security properties and ssues, you can check out the [wiki](https://github.com/micahflee/onionshare/wiki).
+To learn about working of OnionShare, security properties and it's uses, you can check out the [wiki](https://github.com/micahflee/onionshare/wiki).
 
 ## Installing OnionShare
 
