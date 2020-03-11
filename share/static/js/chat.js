@@ -6,11 +6,11 @@ $(function(){
       socket.emit('joined', {});
     });
     socket.on('status', function(data) {
-      $('#chat').append('<p><small><i>' + data.msg + '</i></small></p>');
+      $('#chat').append('<p><small><i>' + sanitizeHTML(data.msg) + '</i></small></p>');
       $('#chat').scrollTop($('#chat')[0].scrollHeight);
     });
     socket.on('message', function(data) {
-      $('#chat').append('<p>' + data.msg + '</p>');
+      $('#chat').append('<p>' + sanitizeHTML(data.msg) + '</p>');
       $('#chat').scrollTop($('#chat')[0].scrollHeight);
     });
     $('#new-message').on('keypress', function(e) {
@@ -23,8 +23,14 @@ $(function(){
   });
 });
 
-function emitMessage(socket) {
+var emitMessage = function(socket) {
   text = $('#new-message').val();
   $('#new-message').val('');
   socket.emit('text', {msg: text});
 }
+
+var sanitizeHTML = function(str) {
+	var temp = document.createElement('span');
+	temp.textContent = str;
+	return temp.innerHTML;
+};
