@@ -130,9 +130,34 @@ table.file-list td:last-child {
   width: 100%;
 }
 
+.chat-container {
+  display: flex;
+}
+
+.chat-users {
+  width: 20%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
+  overflow: auto;
+  background: #f2f2f2;
+}
+
+.chat-users .editable-username {
+  display: flex;
+}
+
+.chat-users input#username {
+  width: 50%;
+}
+
+.chat-users #user-list li {
+  margin-bottom: 1em;
+}
+
 .chat-wrapper {
   display: flex;
   flex-direction: column;
+  flex: 1;
   margin: 0 1rem;
   height: calc(100vh - (45px + 2em));
 }
@@ -148,6 +173,10 @@ table.file-list td:last-child {
 
 .chat-wrapper .chat-form {
   display: flex;
+}
+
+.chat-wrapper input#new-message {
+  height: 100%;
 }
 
 .upload-wrapper {
