@@ -26,7 +26,12 @@
 
     <div class="chat-container">
       <div class="chat-users">
-
+        <ul id="user-list">
+          <li class="editable-username">
+            <input id="username" value="{{ username }}" />
+            <button id="update-username">Save</button>
+          </li>
+        </ul>
       </div>
       <div class="chat-wrapper">
         <p class="chat-header">Chat Messages</p>
