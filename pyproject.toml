@@ -1,0 +1,50 @@
+[tool.poetry]
+name = "onionshare"
+version = "2.2"
+description = "OnionShare lets you securely and anonymously send and receive files. It works by starting a web server, making it accessible as a Tor onion service, and generating an unguessable web address so others can download files from you, or upload files to you. It does _not_ require setting up a separate server or using a third party file-sharing service."
+authors = ["Micah Lee <micah.lee@theintercept.com>"]
+license = "GPLv3+"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+altgraph = "0.16.1"
+certifi = "2019.9.11"
+chardet = "3.0.4"
+Click = "7.0"
+Flask = "1.1.1"
+Flask-HTTPAuth = "3.3.0"
+future = "0.17.1"
+idna = "2.8"
+itsdangerous = "1.1.0"
+Jinja2 = "2.10.1"
+macholib = "1.11"
+MarkupSafe = "1.1.1"
+pefile = "2019.4.18"
+pycryptodome = "3.9.0"
+PyQt5 = "5.13.1"
+PyQt5-sip = "4.19.19"
+PySocks = "1.7.0"
+requests = "2.22.0"
+stem = "1.7.1"
+urllib3 = "1.25.3"
+Werkzeug = "0.15.6"
+watchdog = "0.9.0"
+psutil = "5.6.7"
+
+[tool.poetry.dev-dependencies]
+atomicwrites = "1.3.0"
+attrs = "19.1.0"
+more-itertools = "7.2.0"
+pluggy = "0.13.0"
+py = "1.8.0"
+pytest = "5.1.2"
+pytest-faulthandler = "2.0.1"
+pytest-qt = "3.2.2"
+six = "1.12.0"
+urllib3 = "1.25.3"
+pyinstaller = {version = "^3.6", platform = "darwin"}
+setuptools = {version = "^45.2.0", platform = "windows"}
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
