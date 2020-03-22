@@ -20,27 +20,16 @@ jobs:
     steps:
       - checkout
 
-      # https://wiki.qt.io/Building_Qt_5_from_Git
       - run:
-          name: build Qt5 from source
+          name: Install Qt5 binaries
           command: |
-            sudo sh -c 'echo "deb-src http://deb.debian.org/debian buster main" >> /etc/apt/sources.list'
-            sudo apt-get update
-            sudo apt-get build-dep qt5-default -y
-            sudo apt-get install -y libxcb-xinerama0-dev
-            sudo apt-get install -y build-essential perl python git
-            sudo apt-get install -y '^libxcb.*-dev' libx11-xcb-dev libglu1-mesa-dev libxrender-dev libxi-dev libxkbcommon-dev libxkbcommon-x11-dev
-            git clone git://code.qt.io/qt/qt5.git ~/qt5
-            cd ~/qt5
-            git checkout 5.14.0
-            perl init-repository
-            export LLVM_INSTALL_DIR=/usr/llvm
-            ./configure -developer-build -opensource -confirm-license -nomake examples -nomake tests
-            make -j$(nproc)
-            make install
+            cd ~/
+            wget https://download.qt.io/official_releases/qt/5.14/5.14.0/qt-opensource-linux-x64-5.14.0.run
+            chmod +x qt-opensource-linux-x64-5.14.0.run
+            ./qt-opensource-linux-x64-5.14.0.run --script ~/repo/.circleci/qt-installer-script.js --platform minimal --verbose
 
       - run:
-          name: install dependencies
+          name: Install dependencies
           command: |
             sudo apt-get update
             sudo apt-get install -y python3-pip xvfb
