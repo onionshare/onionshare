@@ -25,8 +25,6 @@ jobs:
           command: |
             sudo apt-get update
             sudo apt-get install -y python3-pip python3-flask python3-stem python3-pyqt5 python3-crypto python3-socks python3-stdeb python3-all python-nautilus xvfb obfs4proxy
-            sudo pip3 install -r install/requirements.txt
-            sudo pip3 install -r install/requirements-tests.txt
             sudo pip3 install pytest-cov flake8
 
       # run tests!
