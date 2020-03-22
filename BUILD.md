@@ -71,24 +71,17 @@ You may also need to run the command `/Applications/Python\ 3.7/Install\ Certifi
 
 Install Qt 5.13.1 for macOS from https://www.qt.io/offline-installers. I downloaded `qt-opensource-mac-x64-5.13.1.dmg`. In the installer, you can skip making an account, and all you need is `Qt` > `Qt 5.13.1` > `macOS`.
 
-Now install pip dependencies. If you want to use a virtualenv, create it and activate it first:
+If you don't have it already, install poetry (`pip3 install --user poetry`). Then install dependencies:
 
 ```sh
-python3 -m venv venv
-. venv/bin/activate
-```
-
-Then install the dependencies:
-
-```sh
-pip3 install -r install/requirements.txt
+poetry install
 ```
 
 #### You can run both the CLI and GUI versions of OnionShare without building an bundle
 
 ```sh
-./dev_scripts/onionshare
-./dev_scripts/onionshare-gui
+poetry run ./dev_scripts/onionshare
+poetry run ./dev_scripts/onionshare-gui
 ```
 
 #### To build the app bundle
@@ -113,19 +106,25 @@ Now you should have `dist/OnionShare.pkg`.
 
 Download Python 3.7.4, 32-bit (x86) from https://www.python.org/downloads/release/python-374/. I downloaded `python-3.7.4.exe`. When installing it, make sure to check the "Add Python 3.7 to PATH" checkbox on the first page of the installer.
 
-Open a command prompt, cd to the onionshare folder, and install dependencies with pip:
+Install the Qt 5.13.1 from https://www.qt.io/offline-installers. I downloaded `qt-opensource-windows-x86-5.13.1.exe`. In the installer, you can skip making an account, and all you need `Qt` > `Qt 5.13.1` > `MSVC 2017 32-bit`.
 
-```cmd
-pip install -r install\requirements.txt
+Install [poetry](https://python-poetry.org/). Open PowerShell, and run:
+
+```
+(Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | python
 ```
 
-Install the Qt 5.13.1 from https://www.qt.io/offline-installers. I downloaded `qt-opensource-windows-x86-5.13.1.exe`. In the installer, you can skip making an account, and all you need `Qt` > `Qt 5.13.1` > `MSVC 2017 32-bit`.
+And add `%USERPROFILE%\.poetry\bin` to your path. Then open a command prompt and cd to the `dangerzone` folder, and install the poetry dependencies:
+
+```
+poetry install
+```
 
 After that you can try both the CLI and the GUI version of OnionShare:
 
 ```
-python dev_scripts\onionshare
-python dev_scripts\onionshare-gui
+poetry run python dev_scripts\onionshare
+poetry run python dev_scripts\onionshare-gui
 ```
 
 #### If you want to build a .exe
@@ -160,19 +159,6 @@ cd "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\
 vcvars32.bat
 ```
 
-Make sure you have a new enough `setuptools`:
-
-```
-pip install --upgrade setuptools
-```
-
-Now make sure you don't have PyInstaller installed from pip:
-
-```
-pip uninstall PyInstaller
-rmdir C:\Users\user\AppData\Local\Programs\Python\Python37-32\Lib\site-packages\PyInstaller /S
-```
-
 Change to a folder where you keep source code, and clone the PyInstaller git repo and checkout the `v3.5` tag:
 
 ```
@@ -183,6 +169,14 @@ git tag -v v3.5
 
 (Note that ideally you would verify the git tag, but the PGP key that has signed the `v3.5` git tag for is not published anywhere, so this isn't possible. See [this issue](https://github.com/pyinstaller/pyinstaller/issues/4430).)
 
+The next step is to compile the bootloader. We should do this all in dangerzone's poetry shell:
+
+```
+cd onionshare
+poetry shell
+cd ..\pyinstaller
+```
+
 And compile the bootloader, following [these instructions](https://pythonhosted.org/PyInstaller/bootloader-building.html). To compile, run this:
 
 ```
@@ -190,11 +184,12 @@ cd bootloader
 python waf distclean all --target-arch=32bit --msvc_targets=x86
 ```
 
-Finally, install the PyInstaller module into your local site-packages:
+Finally, install the PyInstaller module into your poetry environment:
 
 ```
 cd ..
 python setup.py install
+exit
 ```
 
 Now the next time you use PyInstaller to build OnionShare, the `.exe` file should not be flagged as malicious by anti-virus.
@@ -264,6 +259,7 @@ This section documents the release process. Unless you're a core OnionShare deve
 Before making a release, all of these should be complete:
 
 * `share/version.txt` should have the correct version
+* `pyproject.toml` should have the correct version
 * `install/onionshare.nsi` should have the correct version, for the Windows installer
 * `CHANGELOG.md` should be updated to include a list of all major changes since the last release
 * There must be a PGP-signed git tag for the version, e.g. for OnionShare 2.1, the tag must be `v2.1`
