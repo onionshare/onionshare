@@ -8,13 +8,14 @@ workflows:
   version: 2
   test:
     jobs:
+      - test-3.6
       - test-3.7
       - test-3.8
 
 jobs:
-  test-3.7: &test-template
+  test-3.6: &test-template
     docker:
-      - image: circleci/python:3.7-buster
+      - image: circleci/python:3.6-buster
 
     working_directory: ~/repo
 
@@ -51,6 +52,11 @@ jobs:
           name: Run unit tests
           command: |
             xvfb-run -s "-screen 0 1280x1024x24" poetry run pytest --rungui -vvv --no-qt-log tests/
+
+  test-3.7:
+    <<: *test-template
+    docker:
+      - image: circleci/python:3.7-buster
 
   test-3.8:
     <<: *test-template
