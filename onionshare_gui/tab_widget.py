@@ -79,6 +79,16 @@ class TabWidget(QtWidgets.QTabWidget):
         self.observer.schedule(self.event_handler, self.common.gui.events_dir)
         self.observer.start()
 
+    def cleanup(self):
+        # Stop the event thread
+        self.observer.stop()
+        self.observer.join()
+
+        # Clean up each tab
+        for index in range(self.count()):
+            tab = self.widget(index)
+            tab.cleanup()
+
     def move_new_tab_button(self):
         # Find the width of all tabs
         tabs_width = sum(
