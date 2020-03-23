@@ -1,8 +1,8 @@
 # Index
 * [Building OnionShare](#building-onionshare)
   * [Linux](#linux)
-    * [For Debian-like distros](#for-debian-like-distros)
-    * [For Fedora-like distros](#for-fedora-like-distros)
+    * [Use newest software](#use-newest-software)
+    * [Use package managers](#use-package-managers)
   * [macOS](#macos)
   * [Windows](#windows)
     * [Setting up your dev environment](#setting-up-your-dev-environment)
@@ -28,15 +28,61 @@ cd onionshare
 
 ## Linux
 
+### Use newest software
+
+The recommended way to develop OnionShare is to use the latest versions of all dependencies.
+
+First, install `tor` from either the [official Debian repository](https://support.torproject.org/apt/tor-deb-repo/), or from your package manager.
+
+Then download Qt 5.14.0 for Linux:
+
+```sh
+cd ~/Downloads
+wget https://download.qt.io/official_releases/qt/5.14/5.14.0/qt-opensource-linux-x64-5.14.0.run
+```
+
+If you'd like to check to make sure you have the exact installer I have, here is the sha256 checksum:
+
+```sh
+sha256sum qt-opensource-linux-x64-5.14.0.run
+4379f147c6793ec7e7349d2f9ee7d53b8ab6ea4e4edf8ee0574a75586a6a6e0e  qt-opensource-linux-x64-5.14.0.run
+```
+
+Then make it executable and install Qt:
+
+```sh
+chmod +x qt-opensource-linux-x64-5.14.0.run
+./qt-opensource-linux-x64-5.14.0.run
+```
+
+You have to create a Qt account and login to install Qt. Choose the default installation folder in your home directory. The only component you need is `Qt 5.14.0` > `Desktop gcc 64-bit`.
+
+Install [poetry](https://python-poetry.org/docs/) from your package manager, or by doing `pip install --user poetry`. Then install dependencies:
+
+```sh
+poetry install
+```
+
+You can run the CLI and the GUI versions of OnionShare like this:
+
+```sh
+poetry run ./dev_scripts/onionshare
+poetry run ./dev_scripts/onionshare-gui
+```
+
+### Use package managers
+
+Alternatively, you can install dependencies from package managers.
+
 Install the needed dependencies:
 
-#### For Debian-like distros:
+**For Debian-like distros:**
 
 ```
 apt install -y python3-flask python3-stem python3-pyqt5 python3-crypto python3-socks  python-nautilus tor obfs4proxy python3-pytest python3-pytestqt build-essential fakeroot python3-all python3-stdeb dh-python python3-flask-httpauth python3-distutils python3-psutil python3-watchdog
 ```
 
-#### For Fedora-like distros:
+**For Fedora-like distros:**
 
 ```
 dnf install -y python3-flask python3-flask-httpauth python3-stem python3-qt5 python3-crypto python3-pysocks nautilus-python tor obfs4 python3-pytest rpm-build python3-psutil python3-watchdog
