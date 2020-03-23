@@ -1,7 +1,8 @@
-# Python CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-python/ for more details
-#
+# To run the tests, CircleCI needs these environment variables:
+# QT_EMAIL - email address for a Qt account
+# QT_PASSWORD - password for a Qt account
+# (Unfortunately you can't install Qt without logging in.)
+
 version: 2
 workflows:
   version: 2
@@ -9,11 +10,12 @@ workflows:
     jobs:
       - test-3.6
       - test-3.7
+      - test-3.8
 
 jobs:
   test-3.6: &test-template
     docker:
-      - image: circleci/python:3.6.6
+      - image: circleci/python:3.6-buster
 
     working_directory: ~/repo
 
@@ -21,17 +23,25 @@ jobs:
       - checkout
 
       - run:
-          name: install dependencies
+          name: Install Qt5 binaries
           command: |
             sudo apt-get update
-            sudo apt-get install -y python3-pip python3-flask python3-stem python3-pyqt5 python3-crypto python3-socks python3-stdeb python3-all python-nautilus xvfb obfs4proxy
-            sudo pip3 install -r install/requirements.txt
-            sudo pip3 install -r install/requirements-tests.txt
-            sudo pip3 install pytest-cov flake8
+            sudo apt-get install xvfb libdbus-1-3 libxkbcommon-x11-0 libxkbcommon-x11-dev
+            cd ~/
+            wget https://download.qt.io/official_releases/qt/5.14/5.14.0/qt-opensource-linux-x64-5.14.0.run
+            chmod +x qt-opensource-linux-x64-5.14.0.run
+            xvfb-run ./qt-opensource-linux-x64-5.14.0.run --script ~/repo/.circleci/qt-installer-script.js --platform minimal --verbose
 
-      # run tests!
       - run:
-          name: run flake tests
+          name: Install dependencies
+          command: |
+            sudo apt-get update
+            sudo apt-get install -y python3-pip xvfb
+            sudo pip3 install poetry flake8
+            poetry install
+
+      - run:
+          name: Run flake tests
           command: |
             # stop the build if there are Python syntax errors or undefined names
             flake8 . --count --select=E901,E999,F821,F822,F823 --show-source --statistics
@@ -39,11 +49,16 @@ jobs:
             flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
       - run:
-          name: run tests
+          name: Run unit tests
           command: |
-            xvfb-run -s "-screen 0 1280x1024x24" pytest --rungui --cov=onionshare --cov=onionshare_gui --cov-report=term-missing -vvv --no-qt-log tests/
+            xvfb-run -s "-screen 0 1280x1024x24" poetry run pytest --rungui -vvv --no-qt-log tests/
 
   test-3.7:
     <<: *test-template
     docker:
-      - image: circleci/python:3.7.1
+      - image: circleci/python:3.7-buster
+
+  test-3.8:
+    <<: *test-template
+    docker:
+      - image: circleci/python:3.8-buster
