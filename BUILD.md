@@ -264,28 +264,22 @@ This will prompt you to codesign three binaries and execute one unsigned binary.
 
 # Running tests
 
-OnionShare includes PyTest unit tests. To run the tests, first install some dependencies:
+OnionShare includes PyTest unit tests. To run tests, you can run `pytest` against the `tests/` directory.
 
 ```sh
-pip3 install -r install/requirements-tests.txt
-```
-
-Then you can run `pytest` against the `tests/` directory.
-
-```sh
-pytest tests/
+poetry run pytest tests/
 ```
 
 You can run GUI tests like this:
 
 ```sh
-pytest --rungui tests/
+poetry run pytest --rungui tests/
 ```
 
 If you would like to also run the GUI unit tests in 'tor' mode, start Tor Browser in the background, then run:
 
 ```sh
-pytest --rungui --runtor tests/
+poetry run pytest --rungui --runtor tests/
 ```
 
 Keep in mind that the Tor tests take a lot longer to run than local mode, but they are also more comprehensive.
@@ -293,7 +287,7 @@ Keep in mind that the Tor tests take a lot longer to run than local mode, but th
 You can also choose to wrap the tests in `xvfb-run` so that a ton of OnionShare windows don't pop up on your desktop (you may need to install the `xorg-x11-server-Xvfb` package), like this:
 
 ```sh
-xvfb-run pytest --rungui tests/
+xvfb-run poetry run pytest --rungui -vvv --no-qt-log tests/
 ```
 
 # Making releases
