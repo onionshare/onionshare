@@ -51,7 +51,7 @@ jobs:
       - run:
           name: Run unit tests
           command: |
-            xvfb-run -s "-screen 0 1280x1024x24" poetry run pytest --rungui -vvv --no-qt-log tests/
+            xvfb-run -s "-screen 0 1280x1024x24" poetry run ./tests/run.sh --rungui
 
   test-3.7:
     <<: *test-template
