@@ -1,8 +1,4 @@
 import sys
-import faulthandler
-
-# Enable stacktraces of segmentation faults
-faulthandler.enable(file=sys.stdout)
 
 # Force tests to look for resources in the source code tree
 sys.onionshare_dev_mode = True
