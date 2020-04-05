@@ -79,3 +79,14 @@ class AddFileDialog(QtWidgets.QFileDialog):
     def accept(self):
         self.common.log("AddFileDialog", "accept")
         QtWidgets.QDialog.accept(self)
+
+
+class MinimumWidthWidget(QtWidgets.QWidget):
+    """
+    An empty widget with a minimum width, just to force layouts to behave
+    """
+
+    def __init__(self, width):
+        super(MinimumWidthWidget, self).__init__()
+        self.setMinimumWidth(width)
+

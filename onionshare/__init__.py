@@ -26,11 +26,12 @@ from .common import Common
 from .web import Web
 from .onion import *
 from .onionshare import OnionShare
+from .mode_settings import ModeSettings
 
 
-def build_url(common, app, web):
+def build_url(mode_settings, app, web):
     # Build the URL
-    if common.settings.get("public_mode"):
+    if mode_settings.get("general", "public"):
         return f"http://{app.onion_host}"
     else:
         return f"http://onionshare:{web.password}@{app.onion_host}"
@@ -79,63 +80,101 @@ def main(cwd=None):
     parser = argparse.ArgumentParser(
         formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=28)
     )
+    # Select modes
+    parser.add_argument(
+        "--receive", action="store_true", dest="receive", help="Receive files"
+    )
+    parser.add_argument(
+        "--website", action="store_true", dest="website", help="Publish website"
+    )
+    # Tor connection-related args
     parser.add_argument(
         "--local-only",
         action="store_true",
         dest="local_only",
+        default=False,
         help="Don't use Tor (only for development)",
     )
     parser.add_argument(
-        "--stay-open",
-        action="store_true",
-        dest="stay_open",
-        help="Continue sharing after files have been sent",
-    )
-    parser.add_argument(
-        "--auto-start-timer",
-        metavar="<int>",
-        dest="autostart_timer",
-        default=0,
-        help="Schedule this share to start N seconds from now",
-    )
-    parser.add_argument(
-        "--auto-stop-timer",
-        metavar="<int>",
-        dest="autostop_timer",
-        default=0,
-        help="Stop sharing after a given amount of seconds",
-    )
-    parser.add_argument(
         "--connect-timeout",
-        metavar="<int>",
+        metavar="SECONDS",
         dest="connect_timeout",
         default=120,
         help="Give up connecting to Tor after a given amount of seconds (default: 120)",
     )
     parser.add_argument(
-        "--stealth",
-        action="store_true",
-        dest="stealth",
-        help="Use client authorization (advanced)",
-    )
-    parser.add_argument(
-        "--receive",
-        action="store_true",
-        dest="receive",
-        help="Receive shares instead of sending them",
-    )
-    parser.add_argument(
-        "--website",
-        action="store_true",
-        dest="website",
-        help="Publish a static website",
-    )
-    parser.add_argument(
         "--config",
-        metavar="config",
-        default=False,
-        help="Custom JSON config file location (optional)",
+        metavar="FILENAME",
+        default=None,
+        help="Filename of custom global settings",
     )
+    # Persistent file
+    parser.add_argument(
+        "--persistent",
+        metavar="FILENAME",
+        default=None,
+        help="Filename of persistent session",
+    )
+    # General args
+    parser.add_argument(
+        "--public",
+        action="store_true",
+        dest="public",
+        default=False,
+        help="Don't use a password",
+    )
+    parser.add_argument(
+        "--auto-start-timer",
+        metavar="SECONDS",
+        dest="autostart_timer",
+        default=0,
+        help="Start onion service at scheduled time (N seconds from now)",
+    )
+    parser.add_argument(
+        "--auto-stop-timer",
+        metavar="SECONDS",
+        dest="autostop_timer",
+        default=0,
+        help="Stop onion service at schedule time (N seconds from now)",
+    )
+    parser.add_argument(
+        "--legacy",
+        action="store_true",
+        dest="legacy",
+        default=False,
+        help="Use legacy address (v2 onion service, not recommended)",
+    )
+    parser.add_argument(
+        "--client-auth",
+        action="store_true",
+        dest="client_auth",
+        default=False,
+        help="Use client authorization (requires --legacy)",
+    )
+    # Share args
+    parser.add_argument(
+        "--autostop-sharing",
+        action="store_true",
+        dest="autostop_sharing",
+        default=True,
+        help="Share files: Stop sharing after files have been sent",
+    )
+    # Receive args
+    parser.add_argument(
+        "--data-dir",
+        metavar="data_dir",
+        default=None,
+        help="Receive files: Save files received to this directory",
+    )
+    # Website args
+    parser.add_argument(
+        "--disable_csp",
+        action="store_true",
+        dest="disable_csp",
+        default=False,
+        help="Publish website: Disable Content Security Policy header (allows your website to use third-party resources)",
+    )
+    # Other
     parser.add_argument(
         "-v",
         "--verbose",
@@ -155,16 +194,21 @@ def main(cwd=None):
     for i in range(len(filenames)):
         filenames[i] = os.path.abspath(filenames[i])
 
-    local_only = bool(args.local_only)
-    verbose = bool(args.verbose)
-    stay_open = bool(args.stay_open)
-    autostart_timer = int(args.autostart_timer)
-    autostop_timer = int(args.autostop_timer)
-    connect_timeout = int(args.connect_timeout)
-    stealth = bool(args.stealth)
     receive = bool(args.receive)
     website = bool(args.website)
-    config = args.config
+    local_only = bool(args.local_only)
+    connect_timeout = int(args.connect_timeout)
+    config_filename = args.config
+    persistent_filename = args.persistent
+    public = bool(args.public)
+    autostart_timer = int(args.autostart_timer)
+    autostop_timer = int(args.autostop_timer)
+    legacy = bool(args.legacy)
+    client_auth = bool(args.client_auth)
+    autostop_sharing = bool(args.autostop_sharing)
+    data_dir = args.data_dir
+    disable_csp = bool(args.disable_csp)
+    verbose = bool(args.verbose)
 
     if receive:
         mode = "receive"
@@ -173,42 +217,86 @@ def main(cwd=None):
     else:
         mode = "share"
 
-    # In share an website mode, you must supply a list of filenames
-    if mode == "share" or mode == "website":
-        # Make sure filenames given if not using receiver mode
-        if len(filenames) == 0:
-            parser.print_help()
-            sys.exit()
-
-        # Validate filenames
-        valid = True
-        for filename in filenames:
-            if not os.path.isfile(filename) and not os.path.isdir(filename):
-                print(f"{filename} is not a valid file.")
-                valid = False
-            if not os.access(filename, os.R_OK):
-                print(f"{filename} is not a readable file.")
-                valid = False
-        if not valid:
-            sys.exit()
-
-    # Re-load settings, if a custom config was passed in
-    if config:
-        common.load_settings(config)
-    else:
-        common.load_settings()
-
     # Verbose mode?
     common.verbose = verbose
 
+    # client_auth can only be set if legacy is also set
+    if client_auth and not legacy:
+        print(
+            "Client authentication (--client-auth) is only supported with with legacy onion services (--legacy)"
+        )
+        sys.exit()
+
+    # Re-load settings, if a custom config was passed in
+    if config_filename:
+        common.load_settings(config_filename)
+    else:
+        common.load_settings()
+
+    # Mode settings
+    if persistent_filename:
+        mode_settings = ModeSettings(common, persistent_filename)
+        mode_settings.set("persistent", "enabled", True)
+    else:
+        mode_settings = ModeSettings(common)
+
+    if mode_settings.just_created:
+        # This means the mode settings were just created, not loaded from disk
+        mode_settings.set("general", "public", public)
+        mode_settings.set("general", "autostart_timer", autostart_timer)
+        mode_settings.set("general", "autostop_timer", autostop_timer)
+        mode_settings.set("general", "legacy", legacy)
+        mode_settings.set("general", "client_auth", client_auth)
+        if mode == "share":
+            mode_settings.set("share", "autostop_sharing", autostop_sharing)
+        if mode == "receive":
+            if data_dir:
+                mode_settings.set("receive", "data_dir", data_dir)
+        if mode == "website":
+            mode_settings.set("website", "disable_csp", disable_csp)
+    else:
+        # See what the persistent mode was
+        mode = mode_settings.get("persistent", "mode")
+
+    # In share and website mode, you must supply a list of filenames
+    if mode == "share" or mode == "website":
+        # Unless you passed in a persistent filename, in which case get the filenames from
+        # the mode settings
+        if persistent_filename and not mode_settings.just_created:
+            filenames = mode_settings.get(mode, "filenames")
+
+        else:
+            # Make sure filenames given if not using receiver mode
+            if len(filenames) == 0:
+                if persistent_filename:
+                    mode_settings.delete()
+
+                parser.print_help()
+                sys.exit()
+
+            # Validate filenames
+            valid = True
+            for filename in filenames:
+                if not os.path.isfile(filename) and not os.path.isdir(filename):
+                    print(f"{filename} is not a valid file.")
+                    valid = False
+                if not os.access(filename, os.R_OK):
+                    print(f"{filename} is not a readable file.")
+                    valid = False
+            if not valid:
+                sys.exit()
+
     # Create the Web object
-    web = Web(common, False, mode)
+    web = Web(common, False, mode_settings, mode)
 
     # Start the Onion object
-    onion = Onion(common)
+    onion = Onion(common, use_tmp_dir=True)
     try:
         onion.connect(
-            custom_settings=False, config=config, connect_timeout=connect_timeout
+            custom_settings=False,
+            config=config_filename,
+            connect_timeout=connect_timeout,
+            local_only=local_only,
         )
     except KeyboardInterrupt:
         print("")
@@ -219,36 +307,35 @@ def main(cwd=None):
     # Start the onionshare app
     try:
         common.settings.load()
-        if not common.settings.get("public_mode"):
-            web.generate_password(common.settings.get("password"))
+        if not mode_settings.get("general", "public"):
+            web.generate_password(mode_settings.get("onion", "password"))
         else:
             web.password = None
         app = OnionShare(common, onion, local_only, autostop_timer)
-        app.set_stealth(stealth)
         app.choose_port()
 
         # Delay the startup if a startup timer was set
         if autostart_timer > 0:
             # Can't set a schedule that is later than the auto-stop timer
-            if app.autostop_timer > 0 and app.autostop_timer < autostart_timer:
+            if autostop_timer > 0 and autostop_timer < autostart_timer:
                 print(
                     "The auto-stop time can't be the same or earlier than the auto-start time. Please update it to start sharing."
                 )
                 sys.exit()
 
-            app.start_onion_service(False, True)
-            url = build_url(common, app, web)
+            app.start_onion_service(mode_settings, False, True)
+            url = build_url(mode_settings, app, web)
             schedule = datetime.now() + timedelta(seconds=autostart_timer)
             if mode == "receive":
                 print(
-                    f"Files sent to you appear in this folder: {common.settings.get('data_dir')}"
+                    f"Files sent to you appear in this folder: {mode_settings.get('receive', 'data_dir')}"
                 )
                 print("")
                 print(
                     "Warning: Receive mode lets people upload files to your computer. Some files can potentially take control of your computer if you open them. Only open things from people you trust, or if you know what you are doing."
                 )
                 print("")
-                if stealth:
+                if mode_settings.get("general", "client_auth"):
                     print(
                         f"Give this address and HidServAuth lineto your sender, and tell them it won't be accessible until: {schedule.strftime('%I:%M:%S%p, %b %d, %y')}"
                     )
@@ -258,7 +345,7 @@ def main(cwd=None):
                         f"Give this address to your sender, and tell them it won't be accessible until: {schedule.strftime('%I:%M:%S%p, %b %d, %y')}"
                     )
             else:
-                if stealth:
+                if mode_settings.get("general", "client_auth"):
                     print(
                         f"Give this address and HidServAuth line to your recipient, and tell them it won't be accessible until: {schedule.strftime('%I:%M:%S%p, %b %d, %y')}"
                     )
@@ -272,9 +359,9 @@ def main(cwd=None):
             print("Waiting for the scheduled time before starting...")
             app.onion.cleanup(False)
             time.sleep(autostart_timer)
-            app.start_onion_service()
+            app.start_onion_service(mode_settings)
         else:
-            app.start_onion_service()
+            app.start_onion_service(mode_settings)
     except KeyboardInterrupt:
         print("")
         sys.exit()
@@ -308,10 +395,7 @@ def main(cwd=None):
             print("")
 
     # Start OnionShare http service in new thread
-    t = threading.Thread(
-        target=web.start,
-        args=(app.port, stay_open, common.settings.get("public_mode"), web.password),
-    )
+    t = threading.Thread(target=web.start, args=(app.port,))
     t.daemon = True
     t.start()
 
@@ -324,13 +408,13 @@ def main(cwd=None):
             app.autostop_timer_thread.start()
 
         # Save the web password if we are using a persistent private key
-        if common.settings.get("save_private_key"):
-            if not common.settings.get("password"):
-                common.settings.set("password", web.password)
-                common.settings.save()
+        if mode_settings.get("persistent", "enabled"):
+            if not mode_settings.get("onion", "password"):
+                mode_settings.set("onion", "password", web.password)
+                # mode_settings.save()
 
         # Build the URL
-        url = build_url(common, app, web)
+        url = build_url(mode_settings, app, web)
 
         print("")
         if autostart_timer > 0:
@@ -338,7 +422,7 @@ def main(cwd=None):
         else:
             if mode == "receive":
                 print(
-                    f"Files sent to you appear in this folder: {common.settings.get('data_dir')}"
+                    f"Files sent to you appear in this folder: {mode_settings.get('receive', 'data_dir')}"
                 )
                 print("")
                 print(
@@ -346,7 +430,7 @@ def main(cwd=None):
                 )
                 print("")
 
-                if stealth:
+                if mode_settings.get("general", "client_auth"):
                     print("Give this address and HidServAuth to the sender:")
                     print(url)
                     print(app.auth_string)
@@ -354,7 +438,7 @@ def main(cwd=None):
                     print("Give this address to the sender:")
                     print(url)
             else:
-                if stealth:
+                if mode_settings.get("general", "client_auth"):
                     print("Give this address and HidServAuth line to the recipient:")
                     print(url)
                     print(app.auth_string)

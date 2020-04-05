@@ -18,8 +18,8 @@ class ShareModeWeb(SendBaseModeWeb):
         self.common.log("ShareModeWeb", "init")
 
         # Allow downloading individual files if "Stop sharing after files have been sent" is unchecked
-        self.download_individual_files = not self.common.settings.get(
-            "close_after_first_download"
+        self.download_individual_files = not self.web.settings.get(
+            "share", "autostop_sharing"
         )
 
     def define_routes(self):
@@ -37,7 +37,10 @@ class ShareModeWeb(SendBaseModeWeb):
 
             # Deny new downloads if "Stop sharing after files have been sent" is checked and there is
             # currently a download
-            deny_download = not self.web.stay_open and self.download_in_progress
+            deny_download = (
+                self.web.settings.get("share", "autostop_sharing")
+                and self.download_in_progress
+            )
             if deny_download:
                 r = make_response(
                     render_template("denied.html"),
@@ -60,7 +63,10 @@ class ShareModeWeb(SendBaseModeWeb):
             """
             # Deny new downloads if "Stop After First Download" is checked and there is
             # currently a download
-            deny_download = not self.web.stay_open and self.download_in_progress
+            deny_download = (
+                self.web.settings.get("share", "autostop_sharing")
+                and self.download_in_progress
+            )
             if deny_download:
                 r = make_response(
                     render_template(
@@ -96,7 +102,7 @@ class ShareModeWeb(SendBaseModeWeb):
 
             def generate():
                 # Starting a new download
-                if not self.web.stay_open:
+                if self.web.settings.get("share", "autostop_sharing"):
                     self.download_in_progress = True
 
                 chunk_size = 102400  # 100kb
@@ -161,11 +167,11 @@ class ShareModeWeb(SendBaseModeWeb):
                     sys.stdout.write("\n")
 
                 # Download is finished
-                if not self.web.stay_open:
+                if self.web.settings.get("share", "autostop_sharing"):
                     self.download_in_progress = False
 
                 # Close the server, if necessary
-                if not self.web.stay_open and not canceled:
+                if self.web.settings.get("share", "autostop_sharing") and not canceled:
                     print("Stopped because transfer is complete")
                     self.web.running = False
                     try:

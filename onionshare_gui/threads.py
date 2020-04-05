@@ -20,7 +20,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import time
 from PyQt5 import QtCore
 
-from onionshare.onion import *
+from onionshare import strings
+from onionshare.onion import (
+    TorTooOld,
+    TorErrorInvalidSetting,
+    TorErrorAutomatic,
+    TorErrorSocketPort,
+    TorErrorSocketFile,
+    TorErrorMissingPassword,
+    TorErrorUnreadableCookieFile,
+    TorErrorAuthError,
+    TorErrorProtocolError,
+    BundledTorTimeout,
+)
 
 
 class OnionThread(QtCore.QThread):
@@ -47,29 +59,28 @@ class OnionThread(QtCore.QThread):
         self.mode.web.generate_static_url_path()
 
         # Choose port and password early, because we need them to exist in advance for scheduled shares
-        self.mode.app.stay_open = not self.mode.common.settings.get(
-            "close_after_first_download"
-        )
         if not self.mode.app.port:
             self.mode.app.choose_port()
-        if not self.mode.common.settings.get("public_mode"):
+        if not self.mode.settings.get("general", "public"):
             if not self.mode.web.password:
                 self.mode.web.generate_password(
-                    self.mode.common.settings.get("password")
+                    self.mode.settings.get("onion", "password")
                 )
 
         try:
             if self.mode.obtain_onion_early:
                 self.mode.app.start_onion_service(
-                    await_publication=False, save_scheduled_key=True
+                    self.mode.settings, await_publication=False
                 )
                 # wait for modules in thread to load, preventing a thread-related cx_Freeze crash
                 time.sleep(0.2)
                 self.success_early.emit()
                 # Unregister the onion so we can use it in the next OnionThread
-                self.mode.app.onion.cleanup(False)
+                self.mode.app.stop_onion_service(self.mode.settings)
             else:
-                self.mode.app.start_onion_service(await_publication=True)
+                self.mode.app.start_onion_service(
+                    self.mode.settings, await_publication=True
+                )
                 # wait for modules in thread to load, preventing a thread-related cx_Freeze crash
                 time.sleep(0.2)
                 # start onionshare http service in new thread
@@ -109,12 +120,7 @@ class WebThread(QtCore.QThread):
 
     def run(self):
         self.mode.common.log("WebThread", "run")
-        self.mode.web.start(
-            self.mode.app.port,
-            self.mode.app.stay_open,
-            self.mode.common.settings.get("public_mode"),
-            self.mode.web.password,
-        )
+        self.mode.web.start(self.mode.app.port)
         self.success.emit()
 
 
