@@ -42,7 +42,6 @@ class OnionShare(object):
         self.hidserv_dir = None
         self.onion_host = None
         self.port = None
-        self.stealth = None
 
         # files and dirs to delete on shutdown
         self.cleanup_filenames = []
@@ -55,12 +54,6 @@ class OnionShare(object):
         # init auto-stop timer thread
         self.autostop_timer_thread = None
 
-    def set_stealth(self, stealth):
-        self.common.log("OnionShare", f"set_stealth", "stealth={stealth}")
-
-        self.stealth = stealth
-        self.onion.stealth = stealth
-
     def choose_port(self):
         """
         Choose a random port.
@@ -70,7 +63,7 @@ class OnionShare(object):
         except:
             raise OSError(strings._("no_available_port"))
 
-    def start_onion_service(self, await_publication=True, save_scheduled_key=False):
+    def start_onion_service(self, mode_settings, await_publication=True):
         """
         Start the onionshare onion service.
         """
@@ -87,11 +80,17 @@ class OnionShare(object):
             return
 
         self.onion_host = self.onion.start_onion_service(
-            self.port, await_publication, save_scheduled_key
+            mode_settings, self.port, await_publication
         )
 
-        if self.stealth:
+        if mode_settings.get("general", "client_auth"):
             self.auth_string = self.onion.auth_string
+
+    def stop_onion_service(self, mode_settings):
+        """
+        Stop the onion service
+        """
+        self.onion.stop_onion_service(mode_settings)
 
     def cleanup(self):
         """

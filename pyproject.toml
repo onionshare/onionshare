@@ -6,7 +6,7 @@ authors = ["Micah Lee <micah@micahflee.com>"]
 license = "GPLv3+"
 
 [tool.poetry.dependencies]
-python = "*"
+python = "^3.7"
 altgraph = "*"
 certifi = "*"
 chardet = "*"
@@ -21,7 +21,7 @@ macholib = "*"
 MarkupSafe = "*"
 pefile = "*"
 pycryptodome = "*"
-PyQt5 = "*"
+PyQt5 = "5.14"
 PyQt5-sip = "*"
 PySocks = "*"
 requests = "*"

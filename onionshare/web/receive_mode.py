@@ -292,7 +292,7 @@ class ReceiveModeRequest(Request):
             date_dir = now.strftime("%Y-%m-%d")
             time_dir = now.strftime("%H.%M.%S")
             self.receive_mode_dir = os.path.join(
-                self.web.common.settings.get("data_dir"), date_dir, time_dir
+                self.web.settings.get("receive", "data_dir"), date_dir, time_dir
             )
 
             # Create that directory, which shouldn't exist yet
@@ -358,14 +358,9 @@ class ReceiveModeRequest(Request):
                 except:
                     self.content_length = 0
 
-                print(
-                    "{}: {}".format(
-                        datetime.now().strftime("%b %d, %I:%M%p"),
-                        strings._("receive_mode_upload_starting").format(
-                            self.web.common.human_readable_filesize(self.content_length)
-                        ),
-                    )
-                )
+                date_str = datetime.now().strftime("%b %d, %I:%M%p")
+                size_str = self.web.common.human_readable_filesize(self.content_length)
+                print(f"{date_str}: Upload of total size {size_str} is starting")
 
                 # Don't tell the GUI that a request has started until we start receiving files
                 self.told_gui_about_request = False
@@ -453,10 +448,10 @@ class ReceiveModeRequest(Request):
             if self.previous_file != filename:
                 self.previous_file = filename
 
-            print(
-                f"\r=> {self.web.common.human_readable_filesize(self.progress[filename]['uploaded_bytes'])} {filename}",
-                end="",
+            size_str = self.web.common.human_readable_filesize(
+                self.progress[filename]["uploaded_bytes"]
             )
+            print(f"\r=> {size_str} {filename}          ", end="")
 
             # Update the GUI on the upload progress
             if self.told_gui_about_request:
