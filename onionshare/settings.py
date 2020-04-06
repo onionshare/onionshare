@@ -106,24 +106,13 @@ class Settings(object):
             "socket_file_path": "/var/run/tor/control",
             "auth_type": "no_auth",
             "auth_password": "",
-            "close_after_first_download": True,
-            "autostop_timer": False,
-            "autostart_timer": False,
-            "use_stealth": False,
             "use_autoupdate": True,
             "autoupdate_timestamp": None,
             "no_bridges": True,
             "tor_bridges_use_obfs4": False,
             "tor_bridges_use_meek_lite_azure": False,
             "tor_bridges_use_custom_bridges": "",
-            "use_legacy_v2_onions": False,
-            "save_private_key": False,
-            "private_key": "",
-            "public_mode": False,
-            "password": "",
-            "hidservauth_string": "",
-            "data_dir": self.build_default_data_dir(),
-            "csp_header_disabled": False,
+            "persistent_tabs": [],
             "locale": None,  # this gets defined in fill_in_defaults()
         }
         self._settings = {}
@@ -162,24 +151,6 @@ class Settings(object):
         Returns the path of the settings file.
         """
         return os.path.join(self.common.build_data_dir(), "onionshare.json")
-
-    def build_default_data_dir(self):
-        """
-        Returns the path of the default Downloads directory for receive mode.
-        """
-
-        if self.common.platform == "Darwin":
-            # We can't use os.path.expanduser() in macOS because in the sandbox it
-            # returns the path to the sandboxed homedir
-            real_homedir = pwd.getpwuid(os.getuid()).pw_dir
-            return os.path.join(real_homedir, "OnionShare")
-        elif self.common.platform == "Windows":
-            # On Windows, os.path.expanduser() needs to use backslash, or else it
-            # retains the forward slash, which breaks opening the folder in explorer.
-            return os.path.expanduser("~\OnionShare")
-        else:
-            # All other OSes
-            return os.path.expanduser("~/OnionShare")
 
     def load(self):
         """

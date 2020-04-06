@@ -26,8 +26,7 @@ class SendBaseModeWeb:
         self.gzip_filesize = None
         self.zip_writer = None
 
-        # If "Stop After First Download" is checked (stay_open == False), only allow
-        # one download at a time.
+        # If autostop_sharing, only allow one download at a time
         self.download_in_progress = False
 
         # This tracks the history id
