@@ -269,7 +269,7 @@ class ServerStatus(QtWidgets.QWidget):
                     self.common.gui.css["server_status_button_working"]
                 )
                 self.server_button.setEnabled(True)
-                if self.autostart_timer_datetime:
+                if self.settings.get("general", "autostart_timer"):
                     self.server_button.setToolTip(
                         strings._("gui_start_server_autostart_timer_tooltip").format(
                             self.mode_settings_widget.autostart_timer_widget.dateTime().toString(
@@ -279,15 +279,6 @@ class ServerStatus(QtWidgets.QWidget):
                     )
                 else:
                     self.server_button.setText(strings._("gui_please_wait"))
-
-                if self.settings.get("general", "autostart_timer"):
-                    self.server_button.setToolTip(
-                        strings._("gui_start_server_autostart_timer_tooltip").format(
-                            self.mode_settings_widget.autostart_timer_widget.dateTime().toString(
-                                "h:mm AP, MMMM dd, yyyy"
-                            )
-                        )
-                    )
             else:
                 self.server_button.setStyleSheet(
                     self.common.gui.css["server_status_button_working"]
