@@ -97,8 +97,10 @@ class Common:
                 )
 
         elif self.platform == "BSD" or self.platform == "Linux":
-            # Assume OnionShare is installed systemwide in Linux, since we're not running in dev mode
-            prefix = os.path.join(sys.prefix, "share/onionshare")
+            # Look for resources relative to the binary, so if the binary is /usr/bin/onionshare-gui and
+            # the resource dir is /usr/share/onionshare, then the resource dir relative to the binary dir
+            # is ../share/onionshare
+            prefix = os.path.join(os.path.dirname(os.path.dirname(sys.argv[0])), "share/onionshare")
 
         elif getattr(sys, "frozen", False):
             # Check if app is "frozen"
@@ -112,10 +114,11 @@ class Common:
 
     def get_tor_paths(self):
         if self.platform == "Linux":
-            tor_path = "/usr/bin/tor"
-            tor_geo_ip_file_path = "/usr/share/tor/geoip"
-            tor_geo_ipv6_file_path = "/usr/share/tor/geoip6"
-            obfs4proxy_file_path = "/usr/bin/obfs4proxy"
+            prefix = os.path.dirname(os.path.dirname(sys.argv[0]))
+            tor_path = os.path.join(prefix, "bin/tor")
+            tor_geo_ip_file_path = os.path.join(prefix, "share/tor/geoip")
+            tor_geo_ipv6_file_path = os.path.join(prefix, "share/tor/geoip6")
+            obfs4proxy_file_path = os.path.join(prefix, "bin/obfs4proxy")
         elif self.platform == "Windows":
             base_path = os.path.join(
                 os.path.dirname(os.path.dirname(self.get_resource_path(""))), "tor"
