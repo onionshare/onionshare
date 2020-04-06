@@ -40,17 +40,12 @@ class SettingsDialog(QtWidgets.QDialog):
 
     settings_saved = QtCore.pyqtSignal()
 
-    def __init__(self, common, onion, qtapp, config=False, local_only=False):
+    def __init__(self, common):
         super(SettingsDialog, self).__init__()
 
         self.common = common
 
         self.common.log("SettingsDialog", "__init__")
-
-        self.onion = onion
-        self.qtapp = qtapp
-        self.config = config
-        self.local_only = local_only
 
         self.setModal(True)
         self.setWindowTitle(strings._("gui_settings_window_title"))
@@ -62,273 +57,6 @@ class SettingsDialog(QtWidgets.QDialog):
 
         # If ONIONSHARE_HIDE_TOR_SETTINGS=1, hide Tor settings in the dialog
         self.hide_tor_settings = os.environ.get("ONIONSHARE_HIDE_TOR_SETTINGS") == "1"
-
-        # General settings
-
-        # Use a password or not ('public mode')
-        self.public_mode_checkbox = QtWidgets.QCheckBox()
-        self.public_mode_checkbox.setCheckState(QtCore.Qt.Unchecked)
-        self.public_mode_checkbox.setText(
-            strings._("gui_settings_public_mode_checkbox")
-        )
-        public_mode_label = QtWidgets.QLabel(
-            strings._("gui_settings_whats_this").format(
-                "https://github.com/micahflee/onionshare/wiki/Public-Mode"
-            )
-        )
-        public_mode_label.setStyleSheet(self.common.css["settings_whats_this"])
-        public_mode_label.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
-        public_mode_label.setOpenExternalLinks(True)
-        public_mode_label.setMinimumSize(public_mode_label.sizeHint())
-        public_mode_layout = QtWidgets.QHBoxLayout()
-        public_mode_layout.addWidget(self.public_mode_checkbox)
-        public_mode_layout.addWidget(public_mode_label)
-        public_mode_layout.addStretch()
-        public_mode_layout.setContentsMargins(0, 0, 0, 0)
-        self.public_mode_widget = QtWidgets.QWidget()
-        self.public_mode_widget.setLayout(public_mode_layout)
-
-        # Whether or not to use an auto-start timer
-        self.autostart_timer_checkbox = QtWidgets.QCheckBox()
-        self.autostart_timer_checkbox.setCheckState(QtCore.Qt.Checked)
-        self.autostart_timer_checkbox.setText(
-            strings._("gui_settings_autostart_timer_checkbox")
-        )
-        autostart_timer_label = QtWidgets.QLabel(
-            strings._("gui_settings_whats_this").format(
-                "https://github.com/micahflee/onionshare/wiki/Using-the-Auto-Start-Timer"
-            )
-        )
-        autostart_timer_label.setStyleSheet(self.common.css["settings_whats_this"])
-        autostart_timer_label.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
-        autostart_timer_label.setOpenExternalLinks(True)
-        autostart_timer_label.setMinimumSize(public_mode_label.sizeHint())
-        autostart_timer_layout = QtWidgets.QHBoxLayout()
-        autostart_timer_layout.addWidget(self.autostart_timer_checkbox)
-        autostart_timer_layout.addWidget(autostart_timer_label)
-        autostart_timer_layout.addStretch()
-        autostart_timer_layout.setContentsMargins(0, 0, 0, 0)
-        self.autostart_timer_widget = QtWidgets.QWidget()
-        self.autostart_timer_widget.setLayout(autostart_timer_layout)
-
-        # Whether or not to use an auto-stop timer
-        self.autostop_timer_checkbox = QtWidgets.QCheckBox()
-        self.autostop_timer_checkbox.setCheckState(QtCore.Qt.Checked)
-        self.autostop_timer_checkbox.setText(
-            strings._("gui_settings_autostop_timer_checkbox")
-        )
-        autostop_timer_label = QtWidgets.QLabel(
-            strings._("gui_settings_whats_this").format(
-                "https://github.com/micahflee/onionshare/wiki/Using-the-Auto-Stop-Timer"
-            )
-        )
-        autostop_timer_label.setStyleSheet(self.common.css["settings_whats_this"])
-        autostop_timer_label.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
-        autostop_timer_label.setOpenExternalLinks(True)
-        autostop_timer_label.setMinimumSize(public_mode_label.sizeHint())
-        autostop_timer_layout = QtWidgets.QHBoxLayout()
-        autostop_timer_layout.addWidget(self.autostop_timer_checkbox)
-        autostop_timer_layout.addWidget(autostop_timer_label)
-        autostop_timer_layout.addStretch()
-        autostop_timer_layout.setContentsMargins(0, 0, 0, 0)
-        self.autostop_timer_widget = QtWidgets.QWidget()
-        self.autostop_timer_widget.setLayout(autostop_timer_layout)
-
-        # General settings layout
-        general_group_layout = QtWidgets.QVBoxLayout()
-        general_group_layout.addWidget(self.public_mode_widget)
-        general_group_layout.addWidget(self.autostart_timer_widget)
-        general_group_layout.addWidget(self.autostop_timer_widget)
-        general_group = QtWidgets.QGroupBox(strings._("gui_settings_general_label"))
-        general_group.setLayout(general_group_layout)
-
-        # Onion settings
-
-        # Label telling user to connect to Tor for onion service settings
-        self.connect_to_tor_label = QtWidgets.QLabel(
-            strings._("gui_connect_to_tor_for_onion_settings")
-        )
-        self.connect_to_tor_label.setStyleSheet(
-            self.common.css["settings_connect_to_tor"]
-        )
-
-        # Whether or not to save the Onion private key for reuse (persistent URL mode)
-        self.save_private_key_checkbox = QtWidgets.QCheckBox()
-        self.save_private_key_checkbox.setCheckState(QtCore.Qt.Unchecked)
-        self.save_private_key_checkbox.setText(
-            strings._("gui_save_private_key_checkbox")
-        )
-        save_private_key_label = QtWidgets.QLabel(
-            strings._("gui_settings_whats_this").format(
-                "https://github.com/micahflee/onionshare/wiki/Using-a-Persistent-URL"
-            )
-        )
-        save_private_key_label.setStyleSheet(self.common.css["settings_whats_this"])
-        save_private_key_label.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
-        save_private_key_label.setOpenExternalLinks(True)
-        save_private_key_layout = QtWidgets.QHBoxLayout()
-        save_private_key_layout.addWidget(self.save_private_key_checkbox)
-        save_private_key_layout.addWidget(save_private_key_label)
-        save_private_key_layout.addStretch()
-        save_private_key_layout.setContentsMargins(0, 0, 0, 0)
-        self.save_private_key_widget = QtWidgets.QWidget()
-        self.save_private_key_widget.setLayout(save_private_key_layout)
-
-        # Whether or not to use legacy v2 onions
-        self.use_legacy_v2_onions_checkbox = QtWidgets.QCheckBox()
-        self.use_legacy_v2_onions_checkbox.setCheckState(QtCore.Qt.Unchecked)
-        self.use_legacy_v2_onions_checkbox.setText(
-            strings._("gui_use_legacy_v2_onions_checkbox")
-        )
-        self.use_legacy_v2_onions_checkbox.clicked.connect(
-            self.use_legacy_v2_onions_checkbox_clicked
-        )
-        use_legacy_v2_onions_label = QtWidgets.QLabel(
-            strings._("gui_settings_whats_this").format(
-                "https://github.com/micahflee/onionshare/wiki/Legacy-Addresses"
-            )
-        )
-        use_legacy_v2_onions_label.setStyleSheet(self.common.css["settings_whats_this"])
-        use_legacy_v2_onions_label.setTextInteractionFlags(
-            QtCore.Qt.TextBrowserInteraction
-        )
-        use_legacy_v2_onions_label.setOpenExternalLinks(True)
-        use_legacy_v2_onions_layout = QtWidgets.QHBoxLayout()
-        use_legacy_v2_onions_layout.addWidget(self.use_legacy_v2_onions_checkbox)
-        use_legacy_v2_onions_layout.addWidget(use_legacy_v2_onions_label)
-        use_legacy_v2_onions_layout.addStretch()
-        use_legacy_v2_onions_layout.setContentsMargins(0, 0, 0, 0)
-        self.use_legacy_v2_onions_widget = QtWidgets.QWidget()
-        self.use_legacy_v2_onions_widget.setLayout(use_legacy_v2_onions_layout)
-
-        # Stealth
-        self.stealth_checkbox = QtWidgets.QCheckBox()
-        self.stealth_checkbox.setCheckState(QtCore.Qt.Unchecked)
-        self.stealth_checkbox.setText(strings._("gui_settings_stealth_option"))
-        self.stealth_checkbox.clicked.connect(self.stealth_checkbox_clicked_connect)
-        use_stealth_label = QtWidgets.QLabel(
-            strings._("gui_settings_whats_this").format(
-                "https://github.com/micahflee/onionshare/wiki/Stealth-Onion-Services"
-            )
-        )
-        use_stealth_label.setStyleSheet(self.common.css["settings_whats_this"])
-        use_stealth_label.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
-        use_stealth_label.setOpenExternalLinks(True)
-        use_stealth_label.setMinimumSize(use_stealth_label.sizeHint())
-        use_stealth_layout = QtWidgets.QHBoxLayout()
-        use_stealth_layout.addWidget(self.stealth_checkbox)
-        use_stealth_layout.addWidget(use_stealth_label)
-        use_stealth_layout.addStretch()
-        use_stealth_layout.setContentsMargins(0, 0, 0, 0)
-        self.use_stealth_widget = QtWidgets.QWidget()
-        self.use_stealth_widget.setLayout(use_stealth_layout)
-
-        self.hidservauth_details = QtWidgets.QLabel(
-            strings._("gui_settings_stealth_hidservauth_string")
-        )
-        self.hidservauth_details.setWordWrap(True)
-        self.hidservauth_details.setMinimumSize(self.hidservauth_details.sizeHint())
-        self.hidservauth_details.hide()
-
-        self.hidservauth_copy_button = QtWidgets.QPushButton(
-            strings._("gui_copy_hidservauth")
-        )
-        self.hidservauth_copy_button.clicked.connect(
-            self.hidservauth_copy_button_clicked
-        )
-        self.hidservauth_copy_button.hide()
-
-        # Onion settings widget
-        onion_settings_layout = QtWidgets.QVBoxLayout()
-        onion_settings_layout.setContentsMargins(0, 0, 0, 0)
-        onion_settings_layout.addWidget(self.save_private_key_widget)
-        onion_settings_layout.addWidget(self.use_legacy_v2_onions_widget)
-        onion_settings_layout.addWidget(self.use_stealth_widget)
-        onion_settings_layout.addWidget(self.hidservauth_details)
-        onion_settings_layout.addWidget(self.hidservauth_copy_button)
-        self.onion_settings_widget = QtWidgets.QWidget()
-        self.onion_settings_widget.setLayout(onion_settings_layout)
-
-        # Onion settings layout
-        onion_group_layout = QtWidgets.QVBoxLayout()
-        onion_group_layout.addWidget(self.connect_to_tor_label)
-        onion_group_layout.addWidget(self.onion_settings_widget)
-        onion_group = QtWidgets.QGroupBox(strings._("gui_settings_onion_label"))
-        onion_group.setLayout(onion_group_layout)
-
-        # Sharing options
-
-        # Close after first download
-        self.close_after_first_download_checkbox = QtWidgets.QCheckBox()
-        self.close_after_first_download_checkbox.setCheckState(QtCore.Qt.Checked)
-        self.close_after_first_download_checkbox.setText(
-            strings._("gui_settings_close_after_first_download_option")
-        )
-        individual_downloads_label = QtWidgets.QLabel(
-            strings._("gui_settings_individual_downloads_label")
-        )
-
-        # Sharing options layout
-        sharing_group_layout = QtWidgets.QVBoxLayout()
-        sharing_group_layout.addWidget(self.close_after_first_download_checkbox)
-        sharing_group_layout.addWidget(individual_downloads_label)
-        sharing_group = QtWidgets.QGroupBox(strings._("gui_settings_sharing_label"))
-        sharing_group.setLayout(sharing_group_layout)
-
-        # OnionShare data dir
-        data_dir_label = QtWidgets.QLabel(strings._("gui_settings_data_dir_label"))
-        self.data_dir_lineedit = QtWidgets.QLineEdit()
-        self.data_dir_lineedit.setReadOnly(True)
-        data_dir_button = QtWidgets.QPushButton(
-            strings._("gui_settings_data_dir_browse_button")
-        )
-        data_dir_button.clicked.connect(self.data_dir_button_clicked)
-        data_dir_layout = QtWidgets.QHBoxLayout()
-        data_dir_layout.addWidget(data_dir_label)
-        data_dir_layout.addWidget(self.data_dir_lineedit)
-        data_dir_layout.addWidget(data_dir_button)
-
-        # Receiving options layout
-        receiving_group_layout = QtWidgets.QVBoxLayout()
-        receiving_group_layout.addLayout(data_dir_layout)
-        receiving_group = QtWidgets.QGroupBox(strings._("gui_settings_receiving_label"))
-        receiving_group.setLayout(receiving_group_layout)
-
-        # Option to disable Content Security Policy (for website sharing)
-        self.csp_header_disabled_checkbox = QtWidgets.QCheckBox()
-        self.csp_header_disabled_checkbox.setCheckState(QtCore.Qt.Unchecked)
-        self.csp_header_disabled_checkbox.setText(
-            strings._("gui_settings_csp_header_disabled_option")
-        )
-        csp_header_label = QtWidgets.QLabel(
-            strings._("gui_settings_whats_this").format(
-                "https://github.com/micahflee/onionshare/wiki/Content-Security-Policy"
-            )
-        )
-        csp_header_label.setStyleSheet(self.common.css["settings_whats_this"])
-        csp_header_label.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
-        csp_header_label.setOpenExternalLinks(True)
-        csp_header_label.setMinimumSize(csp_header_label.sizeHint())
-        csp_header_layout = QtWidgets.QHBoxLayout()
-        csp_header_layout.addWidget(self.csp_header_disabled_checkbox)
-        csp_header_layout.addWidget(csp_header_label)
-        csp_header_layout.addStretch()
-        csp_header_layout.setContentsMargins(0, 0, 0, 0)
-        self.csp_header_widget = QtWidgets.QWidget()
-        self.csp_header_widget.setLayout(csp_header_layout)
-
-        # Website settings widget
-        website_settings_layout = QtWidgets.QVBoxLayout()
-        website_settings_layout.setContentsMargins(0, 0, 0, 0)
-        website_settings_layout.addWidget(self.csp_header_widget)
-        self.website_settings_widget = QtWidgets.QWidget()
-        self.website_settings_widget.setLayout(website_settings_layout)
-
-        # Website mode options layout
-        website_group_layout = QtWidgets.QVBoxLayout()
-        website_group_layout.addWidget(self.website_settings_widget)
-        website_group = QtWidgets.QGroupBox(strings._("gui_settings_website_label"))
-        website_group.setLayout(website_group_layout)
 
         # Automatic updates options
 
@@ -346,7 +74,7 @@ class SettingsDialog(QtWidgets.QDialog):
         )
         self.check_for_updates_button.clicked.connect(self.check_for_updates)
         # We can't check for updates if not connected to Tor
-        if not self.onion.connected_to_tor:
+        if not self.common.gui.onion.connected_to_tor:
             self.check_for_updates_button.setEnabled(False)
 
         # Autoupdate options layout
@@ -673,7 +401,7 @@ class SettingsDialog(QtWidgets.QDialog):
         )
         self.cancel_button.clicked.connect(self.cancel_clicked)
         version_label = QtWidgets.QLabel(f"OnionShare {self.common.version}")
-        version_label.setStyleSheet(self.common.css["settings_version"])
+        version_label.setStyleSheet(self.common.gui.css["settings_version"])
         self.help_button = QtWidgets.QPushButton(strings._("gui_settings_button_help"))
         self.help_button.clicked.connect(self.help_clicked)
         buttons_layout = QtWidgets.QHBoxLayout()
@@ -685,33 +413,26 @@ class SettingsDialog(QtWidgets.QDialog):
 
         # Tor network connection status
         self.tor_status = QtWidgets.QLabel()
-        self.tor_status.setStyleSheet(self.common.css["settings_tor_status"])
+        self.tor_status.setStyleSheet(self.common.gui.css["settings_tor_status"])
         self.tor_status.hide()
 
         # Layout
-        left_col_layout = QtWidgets.QVBoxLayout()
-        left_col_layout.addWidget(general_group)
-        left_col_layout.addWidget(onion_group)
-        left_col_layout.addWidget(sharing_group)
-        left_col_layout.addWidget(receiving_group)
-        left_col_layout.addWidget(website_group)
-        left_col_layout.addWidget(autoupdate_group)
-        left_col_layout.addLayout(language_layout)
-        left_col_layout.addStretch()
-
-        right_col_layout = QtWidgets.QVBoxLayout()
-        right_col_layout.addWidget(connection_type_radio_group)
-        right_col_layout.addLayout(connection_type_layout)
-        right_col_layout.addWidget(self.tor_status)
-        right_col_layout.addStretch()
-
-        col_layout = QtWidgets.QHBoxLayout()
-        col_layout.addLayout(left_col_layout)
-        if not self.hide_tor_settings:
-            col_layout.addLayout(right_col_layout)
+        tor_layout = QtWidgets.QVBoxLayout()
+        tor_layout.addWidget(connection_type_radio_group)
+        tor_layout.addLayout(connection_type_layout)
+        tor_layout.addWidget(self.tor_status)
+        tor_layout.addStretch()
 
         layout = QtWidgets.QVBoxLayout()
-        layout.addLayout(col_layout)
+        if not self.hide_tor_settings:
+            layout.addLayout(tor_layout)
+            layout.addSpacing(20)
+        layout.addWidget(autoupdate_group)
+        if autoupdate_group.isVisible():
+            layout.addSpacing(20)
+        layout.addLayout(language_layout)
+        layout.addSpacing(20)
+        layout.addStretch()
         layout.addLayout(buttons_layout)
 
         self.setLayout(layout)
@@ -721,66 +442,8 @@ class SettingsDialog(QtWidgets.QDialog):
 
     def reload_settings(self):
         # Load settings, and fill them in
-        self.old_settings = Settings(self.common, self.config)
+        self.old_settings = Settings(self.common)
         self.old_settings.load()
-
-        close_after_first_download = self.old_settings.get("close_after_first_download")
-        if close_after_first_download:
-            self.close_after_first_download_checkbox.setCheckState(QtCore.Qt.Checked)
-        else:
-            self.close_after_first_download_checkbox.setCheckState(QtCore.Qt.Unchecked)
-
-        csp_header_disabled = self.old_settings.get("csp_header_disabled")
-        if csp_header_disabled:
-            self.csp_header_disabled_checkbox.setCheckState(QtCore.Qt.Checked)
-        else:
-            self.csp_header_disabled_checkbox.setCheckState(QtCore.Qt.Unchecked)
-
-        autostart_timer = self.old_settings.get("autostart_timer")
-        if autostart_timer:
-            self.autostart_timer_checkbox.setCheckState(QtCore.Qt.Checked)
-        else:
-            self.autostart_timer_checkbox.setCheckState(QtCore.Qt.Unchecked)
-
-        autostop_timer = self.old_settings.get("autostop_timer")
-        if autostop_timer:
-            self.autostop_timer_checkbox.setCheckState(QtCore.Qt.Checked)
-        else:
-            self.autostop_timer_checkbox.setCheckState(QtCore.Qt.Unchecked)
-
-        save_private_key = self.old_settings.get("save_private_key")
-        if save_private_key:
-            self.save_private_key_checkbox.setCheckState(QtCore.Qt.Checked)
-        else:
-            self.save_private_key_checkbox.setCheckState(QtCore.Qt.Unchecked)
-
-        use_legacy_v2_onions = self.old_settings.get("use_legacy_v2_onions")
-
-        if use_legacy_v2_onions:
-            self.use_legacy_v2_onions_checkbox.setCheckState(QtCore.Qt.Checked)
-            self.use_stealth_widget.show()
-        else:
-            self.use_stealth_widget.hide()
-
-        data_dir = self.old_settings.get("data_dir")
-        self.data_dir_lineedit.setText(data_dir)
-
-        public_mode = self.old_settings.get("public_mode")
-        if public_mode:
-            self.public_mode_checkbox.setCheckState(QtCore.Qt.Checked)
-        else:
-            self.public_mode_checkbox.setCheckState(QtCore.Qt.Unchecked)
-
-        use_stealth = self.old_settings.get("use_stealth")
-        if use_stealth:
-            self.stealth_checkbox.setCheckState(QtCore.Qt.Checked)
-            # Legacy v2 mode is forced on if Stealth is enabled
-            self.use_legacy_v2_onions_checkbox.setEnabled(False)
-            if save_private_key and self.old_settings.get("hidservauth_string") != "":
-                self.hidservauth_details.show()
-                self.hidservauth_copy_button.show()
-        else:
-            self.stealth_checkbox.setCheckState(QtCore.Qt.Unchecked)
 
         use_autoupdate = self.old_settings.get("use_autoupdate")
         if use_autoupdate:
@@ -859,25 +522,6 @@ class SettingsDialog(QtWidgets.QDialog):
                     new_bridges.append(bridge)
                 new_bridges = "".join(new_bridges)
                 self.tor_bridges_use_custom_textbox.setPlainText(new_bridges)
-
-        # If we're connected to Tor, show onion service settings, show label if not
-        if self.onion.is_authenticated():
-            self.connect_to_tor_label.hide()
-            self.onion_settings_widget.show()
-
-            # If v3 onion services are supported, allow using legacy mode
-            if self.onion.supports_v3_onions:
-                self.common.log("SettingsDialog", "__init__", "v3 onions are supported")
-                self.use_legacy_v2_onions_checkbox.show()
-            else:
-                self.common.log(
-                    "SettingsDialog", "__init__", "v3 onions are not supported"
-                )
-                self.use_legacy_v2_onions_widget.hide()
-                self.use_legacy_v2_onions_checkbox_clicked(True)
-        else:
-            self.connect_to_tor_label.show()
-            self.onion_settings_widget.hide()
 
     def connection_type_bundled_toggled(self, checked):
         """
@@ -995,55 +639,6 @@ class SettingsDialog(QtWidgets.QDialog):
         else:
             self.authenticate_password_extras.hide()
 
-    def hidservauth_copy_button_clicked(self):
-        """
-        Toggle the 'Copy HidServAuth' button
-        to copy the saved HidServAuth to clipboard.
-        """
-        self.common.log(
-            "SettingsDialog",
-            "hidservauth_copy_button_clicked",
-            "HidServAuth was copied to clipboard",
-        )
-        clipboard = self.qtapp.clipboard()
-        clipboard.setText(self.old_settings.get("hidservauth_string"))
-
-    def use_legacy_v2_onions_checkbox_clicked(self, checked):
-        """
-        Show the legacy settings if the legacy mode is enabled.
-        """
-        if checked:
-            self.use_stealth_widget.show()
-        else:
-            self.use_stealth_widget.hide()
-
-    def stealth_checkbox_clicked_connect(self, checked):
-        """
-        Prevent the v2 legacy mode being switched off if stealth is enabled
-        """
-        if checked:
-            self.use_legacy_v2_onions_checkbox.setCheckState(QtCore.Qt.Checked)
-            self.use_legacy_v2_onions_checkbox.setEnabled(False)
-        else:
-            self.use_legacy_v2_onions_checkbox.setEnabled(True)
-
-    def data_dir_button_clicked(self):
-        """
-        Browse for a new OnionShare data directory
-        """
-        data_dir = self.data_dir_lineedit.text()
-        selected_dir = QtWidgets.QFileDialog.getExistingDirectory(
-            self, strings._("gui_settings_data_dir_label"), data_dir
-        )
-
-        if selected_dir:
-            self.common.log(
-                "SettingsDialog",
-                "data_dir_button_clicked",
-                f"selected dir: {selected_dir}",
-            )
-            self.data_dir_lineedit.setText(selected_dir)
-
     def test_tor_clicked(self):
         """
         Test Tor Settings button clicked. With the given settings, see if we can
@@ -1065,10 +660,9 @@ class SettingsDialog(QtWidgets.QDialog):
             else:
                 tor_status_update_func = None
 
-            onion = Onion(self.common)
+            onion = Onion(self.common, use_tmp_dir=True)
             onion.connect(
                 custom_settings=settings,
-                config=self.config,
                 tor_status_update_func=tor_status_update_func,
             )
 
@@ -1110,11 +704,11 @@ class SettingsDialog(QtWidgets.QDialog):
         self.common.log("SettingsDialog", "check_for_updates")
         # Disable buttons
         self._disable_buttons()
-        self.qtapp.processEvents()
+        self.common.gui.qtapp.processEvents()
 
         def update_timestamp():
             # Update the last checked label
-            settings = Settings(self.common, self.config)
+            settings = Settings(self.common)
             settings.load()
             autoupdate_timestamp = settings.get("autoupdate_timestamp")
             self._update_autoupdate_timestamp(autoupdate_timestamp)
@@ -1157,7 +751,7 @@ class SettingsDialog(QtWidgets.QDialog):
             close_forced_update_thread()
 
         forced_update_thread = UpdateThread(
-            self.common, self.onion, self.config, force=True
+            self.common, self.onion, force=True
         )
         forced_update_thread.update_available.connect(update_available)
         forced_update_thread.update_not_available.connect(update_not_available)
@@ -1205,8 +799,8 @@ class SettingsDialog(QtWidgets.QDialog):
             # If Tor isn't connected, or if Tor settings have changed, Reinitialize
             # the Onion object
             reboot_onion = False
-            if not self.local_only:
-                if self.onion.is_authenticated():
+            if not self.common.gui.local_only:
+                if self.common.gui.onion.is_authenticated():
                     self.common.log(
                         "SettingsDialog", "save_clicked", "Connected to Tor"
                     )
@@ -1245,20 +839,18 @@ class SettingsDialog(QtWidgets.QDialog):
                     self.common.log(
                         "SettingsDialog", "save_clicked", "rebooting the Onion"
                     )
-                    self.onion.cleanup()
+                    self.common.gui.onion.cleanup()
 
-                    tor_con = TorConnectionDialog(
-                        self.common, self.qtapp, self.onion, settings
-                    )
+                    tor_con = TorConnectionDialog(self.common, settings)
                     tor_con.start()
 
                     self.common.log(
                         "SettingsDialog",
                         "save_clicked",
-                        f"Onion done rebooting, connected to Tor: {self.onion.connected_to_tor}",
+                        f"Onion done rebooting, connected to Tor: {self.common.gui.onion.connected_to_tor}",
                     )
 
-                    if self.onion.is_authenticated() and not tor_con.wasCanceled():
+                    if self.common.gui.onion.is_authenticated() and not tor_con.wasCanceled():
                         self.settings_saved.emit()
                         self.close()
 
@@ -1274,7 +866,7 @@ class SettingsDialog(QtWidgets.QDialog):
         Cancel button clicked.
         """
         self.common.log("SettingsDialog", "cancel_clicked")
-        if not self.local_only and not self.onion.is_authenticated():
+        if not self.common.gui.local_only and not self.common.gui.onion.is_authenticated():
             Alert(
                 self.common,
                 strings._("gui_tor_connection_canceled"),
@@ -1301,50 +893,8 @@ class SettingsDialog(QtWidgets.QDialog):
         Return a Settings object that's full of values from the settings dialog.
         """
         self.common.log("SettingsDialog", "settings_from_fields")
-        settings = Settings(self.common, self.config)
+        settings = Settings(self.common)
         settings.load()  # To get the last update timestamp
-
-        settings.set(
-            "close_after_first_download",
-            self.close_after_first_download_checkbox.isChecked(),
-        )
-        settings.set(
-            "csp_header_disabled", self.csp_header_disabled_checkbox.isChecked()
-        )
-        settings.set("autostart_timer", self.autostart_timer_checkbox.isChecked())
-        settings.set("autostop_timer", self.autostop_timer_checkbox.isChecked())
-
-        # Complicated logic here to force v2 onion mode on or off depending on other settings
-        if self.use_legacy_v2_onions_checkbox.isChecked():
-            use_legacy_v2_onions = True
-        else:
-            use_legacy_v2_onions = False
-
-        if self.save_private_key_checkbox.isChecked():
-            settings.set("save_private_key", True)
-            settings.set("private_key", self.old_settings.get("private_key"))
-            settings.set("password", self.old_settings.get("password"))
-            settings.set(
-                "hidservauth_string", self.old_settings.get("hidservauth_string")
-            )
-        else:
-            settings.set("save_private_key", False)
-            settings.set("private_key", "")
-            settings.set("password", "")
-            # Also unset the HidServAuth if we are removing our reusable private key
-            settings.set("hidservauth_string", "")
-
-        if use_legacy_v2_onions:
-            settings.set("use_legacy_v2_onions", True)
-        else:
-            settings.set("use_legacy_v2_onions", False)
-
-        settings.set("data_dir", self.data_dir_lineedit.text())
-        settings.set("public_mode", self.public_mode_checkbox.isChecked())
-        settings.set("use_stealth", self.stealth_checkbox.isChecked())
-        # Always unset the HidServAuth if Stealth mode is unset
-        if not self.stealth_checkbox.isChecked():
-            settings.set("hidservauth_string", "")
 
         # Language
         locale_index = self.language_combobox.currentIndex()
@@ -1448,14 +998,14 @@ class SettingsDialog(QtWidgets.QDialog):
         self.common.log("SettingsDialog", "closeEvent")
 
         # On close, if Tor isn't connected, then quit OnionShare altogether
-        if not self.local_only:
-            if not self.onion.is_authenticated():
+        if not self.common.gui.local_only:
+            if not self.common.gui.onion.is_authenticated():
                 self.common.log(
                     "SettingsDialog", "closeEvent", "Closing while not connected to Tor"
                 )
 
                 # Wait 1ms for the event loop to finish, then quit
-                QtCore.QTimer.singleShot(1, self.qtapp.quit)
+                QtCore.QTimer.singleShot(1, self.common.gui.qtapp.quit)
 
     def _update_autoupdate_timestamp(self, autoupdate_timestamp):
         self.common.log("SettingsDialog", "_update_autoupdate_timestamp")
@@ -1473,7 +1023,7 @@ class SettingsDialog(QtWidgets.QDialog):
         self.tor_status.setText(
             f"<strong>{strings._('connecting_to_tor')}</strong><br>{progress}% {summary}"
         )
-        self.qtapp.processEvents()
+        self.common.gui.qtapp.processEvents()
         if "Done" in summary:
             self.tor_status.hide()
             self._enable_buttons()
@@ -1489,7 +1039,7 @@ class SettingsDialog(QtWidgets.QDialog):
     def _enable_buttons(self):
         self.common.log("SettingsDialog", "_enable_buttons")
         # We can't check for updates if we're still not connected to Tor
-        if not self.onion.connected_to_tor:
+        if not self.common.gui.onion.connected_to_tor:
             self.check_for_updates_button.setEnabled(False)
         else:
             self.check_for_updates_button.setEnabled(True)

@@ -60,9 +60,11 @@ class Web:
     REQUEST_OTHER = 13
     REQUEST_INVALID_PASSWORD = 14
 
-    def __init__(self, common, is_gui, mode="share"):
+    def __init__(self, common, is_gui, mode_settings, mode="share"):
         self.common = common
         self.common.log("Web", "__init__", f"is_gui={is_gui}, mode={mode}")
+
+        self.settings = mode_settings
 
         # The flask app
         self.app = Flask(
@@ -186,7 +188,7 @@ class Web:
                 return None
 
             # If public mode is disabled, require authentication
-            if not self.common.settings.get("public_mode"):
+            if not self.settings.get("general", "public"):
 
                 @self.auth.login_required
                 def _check_login():
@@ -284,10 +286,7 @@ class Web:
         for header, value in self.security_headers:
             r.headers.set(header, value)
         # Set a CSP header unless in website mode and the user has disabled it
-        if (
-            not self.common.settings.get("csp_header_disabled")
-            or self.mode != "website"
-        ):
+        if not self.settings.get("website", "disable_csp") or self.mode != "website":
             r.headers.set(
                 "Content-Security-Policy",
                 "default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:;",
@@ -305,16 +304,14 @@ class Web:
         """
         self.q.put({"type": request_type, "path": path, "data": data})
 
-    def generate_password(self, persistent_password=None):
-        self.common.log(
-            "Web", "generate_password", f"persistent_password={persistent_password}"
-        )
-        if persistent_password != None and persistent_password != "":
-            self.password = persistent_password
+    def generate_password(self, saved_password=None):
+        self.common.log("Web", "generate_password", f"saved_password={saved_password}")
+        if saved_password != None and saved_password != "":
+            self.password = saved_password
             self.common.log(
                 "Web",
                 "generate_password",
-                f'persistent_password sent, so password is: "{self.password}"',
+                f'saved_password sent, so password is: "{self.password}"',
             )
         else:
             self.password = self.common.build_password()
@@ -349,17 +346,11 @@ class Web:
             pass
         self.running = False
 
-    def start(self, port, stay_open=False, public_mode=False, password=None):
+    def start(self, port):
         """
         Start the flask web server.
         """
-        self.common.log(
-            "Web",
-            "start",
-            f"port={port}, stay_open={stay_open}, public_mode={public_mode}, password={password}",
-        )
-
-        self.stay_open = stay_open
+        self.common.log("Web", "start", f"port={port}")
 
         # Make sure the stop_q is empty when starting a new server
         while not self.stop_q.empty():
@@ -389,10 +380,15 @@ class Web:
         # To stop flask, load http://shutdown:[shutdown_password]@127.0.0.1/[shutdown_password]/shutdown
         # (We're putting the shutdown_password in the path as well to make routing simpler)
         if self.running:
-            requests.get(
-                f"http://127.0.0.1:{port}/{self.shutdown_password}/shutdown",
-                auth=requests.auth.HTTPBasicAuth("onionshare", self.password),
-            )
+            if self.password:
+                requests.get(
+                    f"http://127.0.0.1:{port}/{self.shutdown_password}/shutdown",
+                    auth=requests.auth.HTTPBasicAuth("onionshare", self.password),
+                )
+            else:
+                requests.get(
+                    f"http://127.0.0.1:{port}/{self.shutdown_password}/shutdown"
+                )
 
         # Reset any password that was in use
         self.password = None

@@ -23,14 +23,15 @@ import sys
 import platform
 import argparse
 import signal
-from .widgets import Alert
+import json
+import psutil
 from PyQt5 import QtCore, QtWidgets
 
 from onionshare.common import Common
-from onionshare.onion import Onion
-from onionshare.onionshare import OnionShare
 
-from .onionshare_gui import OnionShareGui
+from .gui_common import GuiCommon
+from .widgets import Alert
+from .main_window import MainWindow
 
 
 class Application(QtWidgets.QApplication):
@@ -60,7 +61,6 @@ def main():
     The main() function implements all of the logic that the GUI version of onionshare uses.
     """
     common = Common()
-    common.define_css()
 
     # Display OnionShare banner
     print(f"OnionShare {common.version} | https://onionshare.org/")
@@ -96,12 +96,6 @@ def main():
         nargs="+",
         help="List of files or folders to share",
     )
-    parser.add_argument(
-        "--config",
-        metavar="config",
-        default=False,
-        help="Custom JSON config file location (optional)",
-    )
     args = parser.parse_args()
 
     filenames = args.filenames
@@ -109,15 +103,14 @@ def main():
         for i in range(len(filenames)):
             filenames[i] = os.path.abspath(filenames[i])
 
-    config = args.config
-    if config:
-        common.load_settings(config)
-
     local_only = bool(args.local_only)
     verbose = bool(args.verbose)
 
     # Verbose mode?
     common.verbose = verbose
+
+    # Attach the GUI common parts to the common object
+    common.gui = GuiCommon(common, qtapp, local_only)
 
     # Validation
     if filenames:
@@ -132,19 +125,50 @@ def main():
         if not valid:
             sys.exit()
 
-    # Start the Onion
-    onion = Onion(common)
+    # Is there another onionshare-gui running?
+    existing_pid = None
+    for proc in psutil.process_iter(attrs=["pid", "name", "cmdline"]):
+        if proc.info["pid"] == os.getpid():
+            continue
 
-    # Start the OnionShare app
-    app = OnionShare(common, onion, local_only)
+        if proc.info["name"] == "onionshare-gui" and proc.status() != "zombie":
+            existing_pid = proc.info["pid"]
+            break
+        else:
+            # Dev mode onionshare?
+            if proc.info["cmdline"] and len(proc.info["cmdline"]) >= 2:
+                if (
+                    os.path.basename(proc.info["cmdline"][0]).lower() == "python"
+                    and os.path.basename(proc.info["cmdline"][1]) == "onionshare-gui"
+                    and proc.status() != "zombie"
+                ):
+                    existing_pid = proc.info["pid"]
+                    break
+
+    if existing_pid:
+        print(f"Opening tab in existing OnionShare window (pid {proc.info['pid']})")
+
+        # Make an event for the existing OnionShare window
+        if filenames:
+            obj = {"type": "new_share_tab", "filenames": filenames}
+        else:
+            obj = {"type": "new_tab"}
+
+        # Write that event to disk
+        with open(common.gui.events_filename, "a") as f:
+            f.write(json.dumps(obj) + "\n")
+        return
 
     # Launch the gui
-    gui = OnionShareGui(common, onion, qtapp, app, filenames, config, local_only)
+    main_window = MainWindow(common, filenames)
+
+    # If filenames were passed in, open them in a tab
+    if filenames:
+        main_window.tabs.new_share_tab(filenames)
 
     # Clean up when app quits
     def shutdown():
-        onion.cleanup()
-        app.cleanup()
+        main_window.cleanup()
 
     qtapp.aboutToQuit.connect(shutdown)
 
