@@ -28,7 +28,6 @@ requests = "*"
 stem = "*"
 urllib3 = "*"
 Werkzeug = "*"
-watchdog = "*"
 psutil = "*"
 
 [tool.poetry.dev-dependencies]
