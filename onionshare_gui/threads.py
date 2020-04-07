@@ -185,6 +185,7 @@ class EventHandlerThread(QtCore.QThread):
         super(EventHandlerThread, self).__init__()
         self.common = common
         self.common.log("EventHandlerThread", "__init__")
+        self.should_quit = False
 
     def run(self):
         self.common.log("EventHandlerThread", "run")
@@ -246,4 +247,6 @@ class EventHandlerThread(QtCore.QThread):
                     except:
                         pass
 
+            if self.should_quit:
+                break
             time.sleep(0.2)

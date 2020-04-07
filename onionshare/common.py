@@ -28,6 +28,7 @@ import sys
 import tempfile
 import threading
 import time
+import shutil
 
 from .settings import Settings
 
@@ -100,7 +101,9 @@ class Common:
             # Look for resources relative to the binary, so if the binary is /usr/bin/onionshare-gui and
             # the resource dir is /usr/share/onionshare, then the resource dir relative to the binary dir
             # is ../share/onionshare
-            prefix = os.path.join(os.path.dirname(os.path.dirname(sys.argv[0])), "share/onionshare")
+            prefix = os.path.join(
+                os.path.dirname(os.path.dirname(sys.argv[0])), "share/onionshare"
+            )
 
         elif getattr(sys, "frozen", False):
             # Check if app is "frozen"
@@ -114,11 +117,11 @@ class Common:
 
     def get_tor_paths(self):
         if self.platform == "Linux":
-            prefix = os.path.dirname(os.path.dirname(sys.argv[0]))
-            tor_path = os.path.join(prefix, "bin/tor")
+            tor_path = shutil.which("tor")
+            obfs4proxy_file_path = shutil.which("obfs4proxy")
+            prefix = os.path.dirname(os.path.dirname(tor_path))
             tor_geo_ip_file_path = os.path.join(prefix, "share/tor/geoip")
             tor_geo_ipv6_file_path = os.path.join(prefix, "share/tor/geoip6")
-            obfs4proxy_file_path = os.path.join(prefix, "bin/obfs4proxy")
         elif self.platform == "Windows":
             base_path = os.path.join(
                 os.path.dirname(os.path.dirname(self.get_resource_path(""))), "tor"
