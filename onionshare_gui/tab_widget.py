@@ -78,8 +78,9 @@ class TabWidget(QtWidgets.QTabWidget):
 
     def cleanup(self):
         # Stop the event thread
-        self.event_handler_t.stop()
-        self.event_handler_t.join()
+        self.event_handler_t.should_quit = True
+        self.event_handler_t.quit()
+        self.event_handler_t.wait(50)
 
         # Clean up each tab
         for index in range(self.count()):
