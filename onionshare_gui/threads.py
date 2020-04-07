@@ -182,17 +182,16 @@ class EventHandlerThread(QtCore.QThread):
     new_share_tab = QtCore.pyqtSignal(list)
 
     def __init__(self, common):
-        super(EventHandler, self).__init__()
+        super(EventHandlerThread, self).__init__()
         self.common = common
         self.common.log("EventHandlerThread", "__init__")
 
     def run(self):
         self.common.log("EventHandlerThread", "run")
 
-        mtime = os.stat(self.common.gui.events_filename).st_mtime
-
+        mtime = 0
         while True:
-            if os.path.exist(self.common.gui.events_filename):
+            if os.path.exists(self.common.gui.events_filename):
                 # Events file exists
                 if os.stat(self.common.gui.events_filename).st_mtime != mtime:
                     # Events file has been modified, load events
