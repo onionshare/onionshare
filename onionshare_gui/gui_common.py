@@ -46,7 +46,10 @@ class GuiCommon:
         # Start the Onion
         self.onion = Onion(common)
 
-        # Directory to watch for events
+        # Lock filename
+        self.lock_filename = os.path.join(self.common.build_data_dir(), "lock")
+
+        # Events filenames
         self.events_dir = os.path.join(self.common.build_data_dir(), "events")
         if not os.path.exists(self.events_dir):
             os.makedirs(self.events_dir, 0o700, True)
