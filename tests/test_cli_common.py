@@ -227,12 +227,16 @@ class TestGetTorPaths:
 
     # @pytest.mark.skipif(sys.platform != 'Linux', reason='requires Linux') ?
     def test_get_tor_paths_linux(self, platform_linux, common_obj):
-        assert common_obj.get_tor_paths() == (
-            "/usr/bin/tor",
-            "/usr/share/tor/geoip",
-            "/usr/share/tor/geoip6",
-            "/usr/bin/obfs4proxy",
-        )
+        (
+            tor_path,
+            tor_geo_ip_file_path,
+            tor_geo_ipv6_file_path,
+            _,  # obfs4proxy is optional
+        ) = common_obj.get_tor_paths()
+
+        assert os.path.basename(tor_path) == "tor"
+        assert tor_geo_ip_file_path == "/usr/share/tor/geoip"
+        assert tor_geo_ipv6_file_path == "/usr/share/tor/geoip6"
 
     # @pytest.mark.skipif(sys.platform != 'Windows', reason='requires Windows') ?
     def test_get_tor_paths_windows(self, platform_windows, common_obj, sys_frozen):

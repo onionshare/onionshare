@@ -32,7 +32,7 @@ cd onionshare
 
 The recommended way to develop OnionShare is to use the latest versions of all dependencies.
 
-First, install `tor` from either the [official Debian repository](https://support.torproject.org/apt/tor-deb-repo/), or from your package manager.
+First, install `tor` and `obfs4proxy` from either the [official Debian repository](https://support.torproject.org/apt/tor-deb-repo/), or from your package manager.
 
 Then download Qt 5.14.0 for Linux:
 
