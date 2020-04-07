@@ -141,7 +141,7 @@
     "gui_settings_data_dir_label": "Save files to",
     "gui_settings_data_dir_browse_button": "Browse",
     "gui_settings_public_mode_checkbox": "Public mode",
-    "gui_open_folder_error_nautilus": "Cannot open folder because nautilus is not available. The file is here: {}",
+    "gui_open_folder_error": "Failed to open folder with xdg-open. The file is here: {}",
     "gui_settings_language_label": "Preferred language",
     "gui_settings_language_changed_notice": "Restart OnionShare for the new language to be applied.",
     "systray_menu_exit": "Quit",
