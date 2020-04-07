@@ -64,10 +64,6 @@ def main():
     # Display OnionShare banner
     print(f"OnionShare {common.version} | https://onionshare.org/")
 
-    # Allow Ctrl-C to smoothly quit the program instead of throwing an exception
-    # https://stackoverflow.com/questions/42814093/how-to-handle-ctrlc-in-python-app-with-pyqt
-    signal.signal(signal.SIGINT, signal.SIG_DFL)
-
     # Start the Qt app
     global qtapp
     qtapp = Application(common)
@@ -146,6 +142,15 @@ def main():
         # Write the lock file
         with open(common.gui.lock_filename, "w") as f:
             f.write(f"{os.getpid()}\n")
+
+    # Allow Ctrl-C to smoothly quit the program instead of throwing an exception
+    def signal_handler(s, frame):
+        print("\nCtrl-C pressed, quitting")
+        if os.path.exists(common.gui.lock_filename):
+            os.remove(common.gui.lock_filename)
+        sys.exit(0)
+
+    signal.signal(signal.SIGINT, signal_handler)
 
     # Launch the gui
     main_window = MainWindow(common, filenames)
