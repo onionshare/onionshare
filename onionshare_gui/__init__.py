@@ -138,7 +138,11 @@ def main():
             # Dev mode onionshare?
             if proc.info["cmdline"] and len(proc.info["cmdline"]) >= 2:
                 if (
-                    os.path.basename(proc.info["cmdline"][0]).lower() == "python"
+                    (
+                        os.path.basename(proc.info["cmdline"][0]).lower() == "python"
+                        or os.path.basename(proc.info["cmdline"][0]).lower()
+                        == "python3"
+                    )
                     and os.path.basename(proc.info["cmdline"][1]) == "onionshare-gui"
                     and proc.status() != "zombie"
                 ):
