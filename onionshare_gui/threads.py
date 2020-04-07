@@ -18,6 +18,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import time
+import json
+import os
 from PyQt5 import QtCore
 
 from onionshare import strings
@@ -166,3 +168,83 @@ class AutoStartTimer(QtCore.QThread):
         except ValueError as e:
             self.error.emit(e.args[0])
             return
+
+
+class EventHandlerThread(QtCore.QThread):
+    """
+    To trigger an event, write a JSON line to the events file. When that file changes, 
+    each line will be handled as an event. Valid events are:
+    {"type": "new_tab"}
+    {"type": "new_share_tab", "filenames": ["file1", "file2"]}
+    """
+
+    new_tab = QtCore.pyqtSignal()
+    new_share_tab = QtCore.pyqtSignal(list)
+
+    def __init__(self, common):
+        super(EventHandler, self).__init__()
+        self.common = common
+        self.common.log("EventHandlerThread", "__init__")
+
+    def run(self):
+        self.common.log("EventHandlerThread", "run")
+
+        mtime = os.stat(self.common.gui.events_filename).st_mtime
+
+        while True:
+            if os.path.exist(self.common.gui.events_filename):
+                # Events file exists
+                if os.stat(self.common.gui.events_filename).st_mtime != mtime:
+                    # Events file has been modified, load events
+                    try:
+                        with open(self.common.gui.events_filename, "r") as f:
+                            lines = f.readlines()
+                        os.remove(self.common.gui.events_filename)
+
+                        self.common.log(
+                            "EventHandler", "run", f"processing {len(lines)} lines"
+                        )
+                        for line in lines:
+                            try:
+                                obj = json.loads(line)
+                                if "type" not in obj:
+                                    self.common.log(
+                                        "EventHandler",
+                                        "run",
+                                        f"event does not have a type: {obj}",
+                                    )
+                                    continue
+                            except json.decoder.JSONDecodeError:
+                                self.common.log(
+                                    "EventHandler",
+                                    "run",
+                                    f"ignoring invalid line: {line}",
+                                )
+                                continue
+
+                            if obj["type"] == "new_tab":
+                                self.common.log("EventHandler", "run", "new_tab event")
+                                self.new_tab.emit()
+
+                            elif obj["type"] == "new_share_tab":
+                                if (
+                                    "filenames" in obj
+                                    and type(obj["filenames"]) is list
+                                ):
+                                    self.new_share_tab.emit(obj["filenames"])
+                                else:
+                                    self.common.log(
+                                        "EventHandler",
+                                        "run",
+                                        f"invalid new_share_tab event: {obj}",
+                                    )
+
+                            else:
+                                self.common.log(
+                                    "EventHandler", "run", f"invalid event type: {obj}"
+                                )
+
+                    except:
+                        pass
+
+            time.sleep(0.2)
