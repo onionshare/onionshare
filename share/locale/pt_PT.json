@@ -115,7 +115,7 @@
     "settings_error_unreadable_cookie_file": "Ligado ao controlador Tor, mas a palavra-passe pode estar incorreta, ou o seu utilizador não tem autorização para ler o ficheiro do cookie.",
     "settings_error_bundled_tor_not_supported": "Utilizar a versão do Tor que vem com o OnionShare não funciona no modo de 'programação' no Windows ou macOS.",
     "settings_error_bundled_tor_timeout": "A ligação ao Tor está a demorar muito. Talvez não esteja ligado à Internet, ou o relógio do sistema está incorreto?",
-    "settings_error_bundled_tor_broken": "O OnionShare não consegui ligar ao Tor em segundo plano:\n{}",
+    "settings_error_bundled_tor_broken": "OnionShare não pôde se conectar ao Tor:\n{}",
     "settings_test_success": "Ligado ao controlador Tor.\n\nVersão do Tor: {}\nSuporta serviços onion efémeros: {}.\nSuporta autenticação de cliente: {}.\nSuporta próxima geração de endereços .onion: {}.",
     "error_tor_protocol_error": "Ocorreu um erro com o Tor: {}",
     "error_tor_protocol_error_unknown": "Ocorreu um erro desconhecido com o Tor",
@@ -228,5 +228,7 @@
     "hours_first_letter": "h",
     "minutes_first_letter": "m",
     "seconds_first_letter": "s",
-    "incorrect_password": "Senha incorreta"
+    "incorrect_password": "Senha incorreta",
+    "gui_settings_individual_downloads_label": "Desmarque para permitir a transferência de ficheiros individuais",
+    "gui_settings_csp_header_disabled_option": "Desativar cabeçalho da Política de Segurança de Conteúdo"
 }
