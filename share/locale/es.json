@@ -79,7 +79,7 @@
     "settings_error_unreadable_cookie_file": "Se conectó con el controlador de Tor, pero puede que la contraseña sea incorrecta o que no tenga permiso de lectura del archivo de «cookie».",
     "settings_error_bundled_tor_not_supported": "La versión de Tor que viene con OnionShare no funciona en el modo de desarrollador en Windows o macOS.",
     "settings_error_bundled_tor_timeout": "La conexión con Tor está demorando demasiado. ¿Quizás el equipo está desconectado de Internet o el reloj no está en hora?",
-    "settings_error_bundled_tor_broken": "OnionShare no pudo conectarse con Tor en segundo plano:\n{}",
+    "settings_error_bundled_tor_broken": "OnionShare no pudo conectarse a Tor:\n{}",
     "settings_test_success": "Se conectó con el controlador de Tor.\n\nVersión de Tor: {}.\nAdmite servicios cebolla efímeros: {}.\nAdmite autenticación de cliente: {}.\nAdmite direcciones .onion de nueva generación: {}.",
     "error_tor_protocol_error": "Se produjo un error en Tor: {}",
     "error_tor_protocol_error_unknown": "Se produjo un error desconocido en Tor",
