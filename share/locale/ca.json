@@ -115,15 +115,15 @@
     "settings_error_unreadable_cookie_file": "S'ha establert la connexió al controlador de Tor, però pot ser que la contrasenya sigui errònia o que faltin permisos de lectura en el fitxer de galetes.",
     "settings_error_bundled_tor_not_supported": "La versió de Tor inclosa a OnionShare no funciona en mode de desenvolupador a Windows ni MacOS.",
     "settings_error_bundled_tor_timeout": "La connexió està trigant molt. Podeu revisar que tingueu connexió a Internet i que el rellotge del sistema estigui en hora?",
-    "settings_error_bundled_tor_broken": "OnionShare no s'ha pogut connectar a Tor en segon pla:\n{}",
+    "settings_error_bundled_tor_broken": "OnionShare no s'ha pogut connectar a Tor:\n{}",
     "settings_test_success": "S'ha connectat al controlador de Tor.\n\nVersió de Tor: {}\nCompatible amb serveis onion efímers: {}.\nCompatible amb autenticació del client: {}.\nCompatible amb adreces .onion de nova generació: {}.",
     "error_tor_protocol_error": "Hi ha hagut un error amb Tor: {}",
     "error_tor_protocol_error_unknown": "Hi ha hagut un error desconegut amb Tor",
     "error_invalid_private_key": "Aquest tipus de clau privada no està suportat",
     "connecting_to_tor": "S'està connectant a la xarxa Tor",
     "update_available": "Hi ha una nova versió d'OnionShare.<a href='{}'>Feu clic aquí</a> per a obtenir-la.<br><br>Esteu usant {} i la més recent és {}.",
-    "update_error_check_error": "No s'ha pogut comprovar si hi ha una versió més nova. La web d'OnionShare diu que l'última versió és '{}' però no s'ha pogut reconèixer…",
-    "update_error_invalid_latest_version": "No s'ha pogut comprovar si hi ha una versió més nova. Pot ser que no estigueu connectat a Tor o que el web d'OnionShare estigui caigut?",
+    "update_error_check_error": "No s'ha pogut comprovar si hi ha una versió més nova. Pot ser que no estigueu connectat a Tor o que el web d'OnionShare estigui caigut?",
+    "update_error_invalid_latest_version": "No s'ha pogut comprovar si hi ha una versió més nova. La web d'OnionShare diu que l'última versió és '{}' però no s'ha pogut reconèixer…",
     "update_not_available": "Aquesta és l'última versió d'OnionShare.",
     "gui_tor_connection_ask": "Voleu anar a la configuració per a provar d'arreglar la connexió a Tor?",
     "gui_tor_connection_ask_open_settings": "Sí",
@@ -242,5 +242,8 @@
     "gui_settings_individual_downloads_label": "Desmarqueu per a permetre la baixada de fitxers individuals",
     "systray_individual_file_downloaded_message": "S'ha visualitzat el fitxer individual {}",
     "gui_settings_csp_header_disabled_option": "Desactiva la capçalera de la Política de Seguretat de Contingut",
-    "gui_settings_website_label": "Configuració del lloc web"
+    "gui_settings_website_label": "Configuració del lloc web",
+    "gui_new_tab_share_button": "Comparteix arxius",
+    "gui_new_tab_tooltip": "Obre una pestanya nova",
+    "gui_new_tab": "Nova pestanya"
 }
