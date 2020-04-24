@@ -241,5 +241,14 @@
     "systray_individual_file_downloaded_title": "Le fichier individuel a été chargé",
     "systray_individual_file_downloaded_message": "Le fichier individuel {} a été visualisé",
     "gui_settings_csp_header_disabled_option": "Désactiver l’en-tête Stratégie de sécurité du contenu",
-    "gui_settings_website_label": "Paramètres des sites Web"
+    "gui_settings_website_label": "Paramètres des sites Web",
+    "gui_close_tab_warning_title": "Confirmez-vous ?",
+    "gui_new_tab_website_description": "Hébergez un site Web onion statique HTML à partir de votre ordinateur.",
+    "gui_new_tab_website_button": "Publier des sites Web",
+    "gui_new_tab_receive_description": "Transformez votre ordinateur en service de stockage et de partage de fichiers. Les gens pourront utiliser le Navigateur Tor pour envoyer des fichiers vers votre ordinateur.",
+    "gui_new_tab_receive_button": "Recevoir des fichiers",
+    "gui_new_tab_share_description": "Choisissez sur votre ordinateur des fichiers à envoyer à quelqu’un d’autre. La ou les personnes à qui vous souhaitez envoyer des fichiers devront utiliser le Navigateur Tor pour les télécharger de vous.",
+    "gui_new_tab_share_button": "Partager des fichiers",
+    "gui_new_tab_tooltip": "Ouvrir un nouvel onglet",
+    "gui_new_tab": "Nouvel onglet"
 }
