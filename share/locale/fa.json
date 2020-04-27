@@ -234,5 +234,6 @@
     "gui_settings_individual_downloads_label": "برای دادن اجازه بارگیری پرونده‌ها مجزا، از انتخاب خارج کنید",
     "history_requests_tooltip": "{} درخواست وب",
     "gui_settings_csp_header_disabled_option": "غیرفعال‌سازی سرایند سیاست امنیت محتوا",
-    "gui_settings_website_label": "تنظیمات سایت"
+    "gui_settings_website_label": "تنظیمات سایت",
+    "gui_new_tab_share_button": "اشتراک‌‌گذاری فایل‌ها"
 }
