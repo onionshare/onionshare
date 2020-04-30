@@ -243,5 +243,17 @@
     "gui_settings_individual_downloads_label": "Forby nedlasting av enkeltfiler",
     "history_requests_tooltip": "{} vevforespørsler",
     "systray_individual_file_downloaded_title": "Enkeltfil innlastet",
-    "systray_individual_file_downloaded_message": "Enkeltfil {} sett"
+    "systray_individual_file_downloaded_message": "Enkeltfil {} sett",
+    "mode_settings_advanced_toggle_hide": "Skjul avanserte innstillinger",
+    "mode_settings_advanced_toggle_show": "Vis avanserte innstillinger",
+    "gui_quit_warning_cancel": "Avbryt",
+    "gui_quit_warning_title": "Er du sikker?",
+    "gui_close_tab_warning_cancel": "Avbryt",
+    "gui_close_tab_warning_close": "Lukk",
+    "gui_close_tab_warning_title": "Er du sikker?",
+    "gui_new_tab_website_button": "Offentliggjør nettside",
+    "gui_new_tab_share_button": "Del filer",
+    "gui_new_tab_tooltip": "Åpne en ny fane",
+    "gui_new_tab": "Ny fane",
+    "gui_settings_website_label": "Nettsideinnstillinger"
 }
