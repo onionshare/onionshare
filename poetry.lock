@@ -102,6 +102,18 @@ Flask = "*"
 
 [[package]]
 category = "main"
+description = "Socket.IO integration for Flask applications"
+name = "flask-socketio"
+optional = false
+python-versions = "*"
+version = "4.3.0"
+
+[package.dependencies]
+Flask = ">=0.9"
+python-socketio = ">=4.3.0"
+
+[[package]]
+category = "main"
 description = "Clean single-source support for Python 3 and 2"
 name = "future"
 optional = false
@@ -358,6 +370,37 @@ doc = ["sphinx", "sphinx-rtd-theme"]
 
 [[package]]
 category = "main"
+description = "Engine.IO server"
+name = "python-engineio"
+optional = false
+python-versions = "*"
+version = "3.12.1"
+
+[package.dependencies]
+six = ">=1.9.0"
+
+[package.extras]
+asyncio_client = ["aiohttp (>=3.4)"]
+client = ["requests (>=2.21.0)", "websocket-client (>=0.54.0)"]
+
+[[package]]
+category = "main"
+description = "Socket.IO server"
+name = "python-socketio"
+optional = false
+python-versions = "*"
+version = "4.5.1"
+
+[package.dependencies]
+python-engineio = ">=3.9.0"
+six = ">=1.9.0"
+
+[package.extras]
+asyncio_client = ["aiohttp (>=3.4)", "websockets (>=7.0)"]
+client = ["requests (>=2.21.0)", "websocket-client (>=0.54.0)"]
+
+[[package]]
+category = "main"
 description = "Python HTTP for Humans."
 name = "requests"
 optional = false
@@ -375,7 +418,7 @@ security = ["pyOpenSSL (>=0.14)", "cryptography (>=1.3.4)"]
 socks = ["PySocks (>=1.5.6,<1.5.7 || >1.5.7)", "win-inet-pton"]
 
 [[package]]
-category = "dev"
+category = "main"
 description = "Python 2 and 3 compatibility utilities"
 name = "six"
 optional = false
@@ -451,7 +494,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "41d68ea93701fdaa1aa56159195db7a65863e3b34cc7305ef4a3f5d02f2bdf13"
+content-hash = "7dfea1faae5162d9e1d8512213a5e40c3c8c4aaa2363e1ca8288756c80990535"
 python-versions = "^3.7"
 
 [metadata.files]
@@ -495,6 +538,10 @@ flask = [
 flask-httpauth = [
     {file = "Flask-HTTPAuth-3.3.0.tar.gz", hash = "sha256:6ef8b761332e780f9ff74d5f9056c2616f52babc1998b01d9f361a1e439e61b9"},
     {file = "Flask_HTTPAuth-3.3.0-py2.py3-none-any.whl", hash = "sha256:0149953720489407e51ec24bc2f86273597b7973d71cd51f9443bd0e2a89bd72"},
+]
+flask-socketio = [
+    {file = "Flask-SocketIO-4.3.0.tar.gz", hash = "sha256:7f9b54ac9cd92e28a657c58f51943d97e76b988840c8795784e7b2bafb13103f"},
+    {file = "Flask_SocketIO-4.3.0-py2.py3-none-any.whl", hash = "sha256:5969e1d4ead37ec9164f82779ec86239f0f394a08b20477d2056903010920f36"},
 ]
 future = [
     {file = "future-0.18.2.tar.gz", hash = "sha256:b1bead90b70cf6ec3f0710ae53a525360fa360d306a86583adc6bf83a4db537d"},
@@ -670,6 +717,14 @@ pytest-faulthandler = [
 pytest-qt = [
     {file = "pytest-qt-3.3.0.tar.gz", hash = "sha256:714b0bf86c5313413f2d300ac613515db3a1aef595051ab8ba2ffe619dbe8925"},
     {file = "pytest_qt-3.3.0-py2.py3-none-any.whl", hash = "sha256:5f8928288f50489d83f5d38caf2d7d9fcd6e7cf769947902caa4661dc7c851e3"},
+]
+python-engineio = [
+    {file = "python-engineio-3.12.1.tar.gz", hash = "sha256:2481732d93646998f7372ef0ecf003af7817b82720b881db173c3d50b4887916"},
+    {file = "python_engineio-3.12.1-py2.py3-none-any.whl", hash = "sha256:222926adb4bc6e03a8fc8e0ef2a3309f030c1c3f8e0fcc94c9ba214574565f02"},
+]
+python-socketio = [
+    {file = "python-socketio-4.5.1.tar.gz", hash = "sha256:149b98c33f8c3d09273fb4ebeb83781e4dc9411b56b27d9f058bec1bd1ed74b7"},
+    {file = "python_socketio-4.5.1-py2.py3-none-any.whl", hash = "sha256:81280cbbb7018d8ecdd006bf6025979733d347c0f2612282c1e21f6ed7d3b55b"},
 ]
 requests = [
     {file = "requests-2.23.0-py2.py3-none-any.whl", hash = "sha256:43999036bfa82904b6af1d99e4882b560e5e2c68e5c4b0aa03b655f3d7d73fee"},
