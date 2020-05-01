@@ -30,6 +30,7 @@ urllib3 = "*"
 Werkzeug = "*"
 watchdog = "*"
 psutil = "*"
+flask-socketio = "^4.3.0"
 
 [tool.poetry.dev-dependencies]
 atomicwrites = "*"
