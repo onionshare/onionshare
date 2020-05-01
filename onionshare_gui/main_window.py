@@ -284,7 +284,5 @@ class MainWindow(QtWidgets.QMainWindow):
         e.accept()
 
     def cleanup(self):
-        for index in range(self.tabs.count()):
-            tab = self.tabs.widget(index)
-            tab.cleanup()
+        self.tabs.cleanup()
         self.common.gui.onion.cleanup()

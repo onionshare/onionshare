@@ -71,6 +71,7 @@ class GuiBaseTest(unittest.TestCase):
     @classmethod
     def tearDownClass(cls):
         # Quit
+        cls.gui.qtapp.clipboard().clear()
         QtCore.QTimer.singleShot(200, cls.gui.close_dialog.accept_button.click)
         cls.gui.close()
 
