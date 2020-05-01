@@ -1,3 +1,22 @@
+# Index
+* [Building OnionShare](#building-onionshare)
+  * [Linux](#linux)
+    * [Use newest software](#use-newest-software)
+    * [Use package managers](#use-package-managers)
+  * [macOS](#macos)
+  * [Windows](#windows)
+    * [Setting up your dev environment](#setting-up-your-dev-environment)
+    * [To make a .exe](#to-make-a-exe)
+    * [To build the installer](#to-build-the-installer)
+* [Running tests](#running-tests)
+* [Making releases](#making-releases)
+  * [Changelog, version, and signed git tag](#changelog-version-and-signed-git-tag)
+  * [Linux release](#linux-release)
+  * [macOS release](#macos-release)
+  * [Windows release](#windows-release)
+  * [Source package](#source-package)
+  * [Publishing the release](#publishing-the-release)
+
 # Building OnionShare
 
 Start by getting the source code:
@@ -9,15 +28,61 @@ cd onionshare
 
 ## Linux
 
+### Use newest software
+
+The recommended way to develop OnionShare is to use the latest versions of all dependencies.
+
+First, install `tor` from either the [official Debian repository](https://support.torproject.org/apt/tor-deb-repo/), or from your package manager.
+
+Then download Qt 5.14.0 for Linux:
+
+```sh
+cd ~/Downloads
+wget https://download.qt.io/official_releases/qt/5.14/5.14.0/qt-opensource-linux-x64-5.14.0.run
+```
+
+If you'd like to check to make sure you have the exact installer I have, here is the sha256 checksum:
+
+```sh
+sha256sum qt-opensource-linux-x64-5.14.0.run
+4379f147c6793ec7e7349d2f9ee7d53b8ab6ea4e4edf8ee0574a75586a6a6e0e  qt-opensource-linux-x64-5.14.0.run
+```
+
+Then make it executable and install Qt:
+
+```sh
+chmod +x qt-opensource-linux-x64-5.14.0.run
+./qt-opensource-linux-x64-5.14.0.run
+```
+
+You have to create a Qt account and login to install Qt. Choose the default installation folder in your home directory. The only component you need is `Qt 5.14.0` > `Desktop gcc 64-bit`.
+
+Install [poetry](https://python-poetry.org/docs/) from your package manager, or by doing `pip install --user poetry`. Then install dependencies:
+
+```sh
+poetry install
+```
+
+You can run the CLI and the GUI versions of OnionShare like this:
+
+```sh
+poetry run ./dev_scripts/onionshare
+poetry run ./dev_scripts/onionshare-gui
+```
+
+### Use package managers
+
+Alternatively, you can install dependencies from package managers.
+
 Install the needed dependencies:
 
-For Debian-like distros:
+**For Debian-like distros:**
 
 ```
-apt install -y python3-flask python3-stem python3-pyqt5 python3-crypto python3-socks  python-nautilus tor obfs4proxy python3-pytest build-essential fakeroot python3-all python3-stdeb dh-python python3-flask-httpauth python3-distutils python3-psutil python3-watchdog
+apt install -y python3-flask python3-stem python3-pyqt5 python3-crypto python3-socks  python-nautilus tor obfs4proxy python3-pytest python3-pytestqt build-essential fakeroot python3-all python3-stdeb dh-python python3-flask-httpauth python3-distutils python3-psutil python3-watchdog
 ```
 
-For Fedora-like distros:
+**For Fedora-like distros:**
 
 ```
 dnf install -y python3-flask python3-flask-httpauth python3-stem python3-qt5 python3-crypto python3-pysocks nautilus-python tor obfs4 python3-pytest rpm-build python3-psutil python3-watchdog
@@ -36,7 +101,7 @@ Create a .deb on Debian-like distros: `./install/build_deb.sh`
 
 Create a .rpm on Fedora-like distros: `./install/build_rpm.sh`
 
-For OpenSuSE: There are instructions for building [in the wiki](https://github.com/micahflee/onionshare/wiki/Linux-Distribution-Support#opensuse-leap-150).
+For openSUSE: There are instructions for building [in the wiki](https://github.com/micahflee/onionshare/wiki/Linux-Distribution-Support#opensuse-leap-150).
 
 For ArchLinux: There is a PKBUILD available [here](https://aur.archlinux.org/packages/onionshare/) that can be used to install OnionShare.
 
@@ -52,24 +117,17 @@ You may also need to run the command `/Applications/Python\ 3.7/Install\ Certifi
 
 Install Qt 5.13.1 for macOS from https://www.qt.io/offline-installers. I downloaded `qt-opensource-mac-x64-5.13.1.dmg`. In the installer, you can skip making an account, and all you need is `Qt` > `Qt 5.13.1` > `macOS`.
 
-Now install pip dependencies. If you want to use a virtualenv, create it and activate it first:
+If you don't have it already, install poetry (`pip3 install --user poetry`). Then install dependencies:
 
 ```sh
-python3 -m venv venv
-. venv/bin/activate
-```
-
-Then install the dependencies:
-
-```sh
-pip3 install -r install/requirements.txt
+poetry install
 ```
 
 #### You can run both the CLI and GUI versions of OnionShare without building an bundle
 
 ```sh
-./dev_scripts/onionshare
-./dev_scripts/onionshare-gui
+poetry run ./dev_scripts/onionshare
+poetry run ./dev_scripts/onionshare-gui
 ```
 
 #### To build the app bundle
@@ -94,19 +152,25 @@ Now you should have `dist/OnionShare.pkg`.
 
 Download Python 3.7.4, 32-bit (x86) from https://www.python.org/downloads/release/python-374/. I downloaded `python-3.7.4.exe`. When installing it, make sure to check the "Add Python 3.7 to PATH" checkbox on the first page of the installer.
 
-Open a command prompt, cd to the onionshare folder, and install dependencies with pip:
+Install the Qt 5.13.1 from https://www.qt.io/offline-installers. I downloaded `qt-opensource-windows-x86-5.13.1.exe`. In the installer, you can skip making an account, and all you need `Qt` > `Qt 5.13.1` > `MSVC 2017 32-bit`.
 
-```cmd
-pip install -r install\requirements.txt
+Install [poetry](https://python-poetry.org/). Open PowerShell, and run:
+
+```
+(Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | python
 ```
 
-Install the Qt 5.13.1 from https://www.qt.io/offline-installers. I downloaded `qt-opensource-windows-x86-5.13.1.exe`. In the installer, you can skip making an account, and all you need `Qt` > `Qt 5.13.1` > `MSVC 2017 32-bit`.
+And add `%USERPROFILE%\.poetry\bin` to your path. Then open a command prompt and cd to the `dangerzone` folder, and install the poetry dependencies:
+
+```
+poetry install
+```
 
 After that you can try both the CLI and the GUI version of OnionShare:
 
 ```
-python dev_scripts\onionshare
-python dev_scripts\onionshare-gui
+poetry run python dev_scripts\onionshare
+poetry run python dev_scripts\onionshare-gui
 ```
 
 #### If you want to build a .exe
@@ -141,19 +205,6 @@ cd "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\
 vcvars32.bat
 ```
 
-Make sure you have a new enough `setuptools`:
-
-```
-pip install --upgrade setuptools
-```
-
-Now make sure you don't have PyInstaller installed from pip:
-
-```
-pip uninstall PyInstaller
-rmdir C:\Users\user\AppData\Local\Programs\Python\Python37-32\Lib\site-packages\PyInstaller /S
-```
-
 Change to a folder where you keep source code, and clone the PyInstaller git repo and checkout the `v3.5` tag:
 
 ```
@@ -164,6 +215,14 @@ git tag -v v3.5
 
 (Note that ideally you would verify the git tag, but the PGP key that has signed the `v3.5` git tag for is not published anywhere, so this isn't possible. See [this issue](https://github.com/pyinstaller/pyinstaller/issues/4430).)
 
+The next step is to compile the bootloader. We should do this all in dangerzone's poetry shell:
+
+```
+cd onionshare
+poetry shell
+cd ..\pyinstaller
+```
+
 And compile the bootloader, following [these instructions](https://pythonhosted.org/PyInstaller/bootloader-building.html). To compile, run this:
 
 ```
@@ -171,11 +230,12 @@ cd bootloader
 python waf distclean all --target-arch=32bit --msvc_targets=x86
 ```
 
-Finally, install the PyInstaller module into your local site-packages:
+Finally, install the PyInstaller module into your poetry environment:
 
 ```
 cd ..
 python setup.py install
+exit
 ```
 
 Now the next time you use PyInstaller to build OnionShare, the `.exe` file should not be flagged as malicious by anti-virus.
@@ -204,28 +264,22 @@ This will prompt you to codesign three binaries and execute one unsigned binary.
 
 # Running tests
 
-OnionShare includes PyTest unit tests. To run the tests, first install some dependencies:
+OnionShare includes PyTest unit tests. To run tests, you can run `pytest` against the `tests/` directory.
 
 ```sh
-pip3 install -r install/requirements-tests.txt
-```
-
-Then you can run `pytest` against the `tests/` directory.
-
-```sh
-pytest tests/
+poetry run ./tests/run.sh
 ```
 
 You can run GUI tests like this:
 
 ```sh
-pytest --rungui tests/
+poetry run ./tests/run.sh --rungui
 ```
 
 If you would like to also run the GUI unit tests in 'tor' mode, start Tor Browser in the background, then run:
 
 ```sh
-pytest --rungui --runtor tests/
+poetry run ./tests/run.sh --rungui --runtor
 ```
 
 Keep in mind that the Tor tests take a lot longer to run than local mode, but they are also more comprehensive.
@@ -233,7 +287,7 @@ Keep in mind that the Tor tests take a lot longer to run than local mode, but th
 You can also choose to wrap the tests in `xvfb-run` so that a ton of OnionShare windows don't pop up on your desktop (you may need to install the `xorg-x11-server-Xvfb` package), like this:
 
 ```sh
-xvfb-run pytest --rungui tests/
+xvfb-run poetry run ./tests/run.sh --rungui
 ```
 
 # Making releases
@@ -245,6 +299,7 @@ This section documents the release process. Unless you're a core OnionShare deve
 Before making a release, all of these should be complete:
 
 * `share/version.txt` should have the correct version
+* `pyproject.toml` should have the correct version
 * `install/onionshare.nsi` should have the correct version, for the Windows installer
 * `CHANGELOG.md` should be updated to include a list of all major changes since the last release
 * There must be a PGP-signed git tag for the version, e.g. for OnionShare 2.1, the tag must be `v2.1`
