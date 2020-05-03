@@ -1,0 +1,83 @@
+name: onionshare
+base: core18
+version: '2.2'
+summary: Securely and anonymously send and receive files, and publish onion sites
+description: |
+  OnionShare is an open source tool for securely and anonymously sending and
+  receiving files and publishing websites using Tor onion services. It works by
+  starting a web server directly on your computer and making it accessible as
+  an unguessable Tor web address that others can load in Tor Browser. It
+  doesn't require setting up a separate server, using a third party service, or
+  even logging into an account.
+
+grade: devel # must be 'stable' to release into candidate/stable channels
+confinement: devmode # use 'strict' once you have the right plugs and slots
+
+apps:
+  onionshare-gui:
+    common-id: org.onionshare.OnionShareGui
+    command: onionshare-gui
+    extensions:
+      - kde-neon
+    plugs:
+      - kde-frameworks-5-plug
+      - home
+      - opengl
+      - network
+      - network-bind
+      - pulseaudio
+  
+  # onionshare:
+  #   common-id: org.onionshare.OnionShare
+  #   command: onionshare
+  #   plugs:
+  #     - home
+  #     - network
+  #     - network-bind
+
+parts:
+  onionshare:
+    source: .
+    plugin: python
+    python-version: python3
+    python-packages:
+      - Click
+      - Flask
+      - Flask-HTTPAuth
+      - pycryptodome
+      - PySocks
+      - requests
+      - stem
+      - urllib3
+      - psutil
+    build-packages:
+      - pyqt5-dev
+    stage-packages:
+      - libatk-bridge2.0-0
+      - libatspi2.0-0
+      - libgtk-3-0
+      - python3-pyqt5
+    after: [tor, obfs4]
+  
+  tor:
+    source: https://dist.torproject.org/tor-0.4.2.7.tar.gz
+    source-checksum: sha256/06a1d835ddf382f6bca40a62e8fb40b71b2f73d56f0d53523c8bd5caf9b3026d
+    source-type: tar
+    plugin: autotools
+    build-packages:
+      - libssl-dev
+      - zlib1g-dev
+    after: [libevent]
+  
+  libevent:
+    source: https://github.com/libevent/libevent/releases/download/release-2.1.11-stable/libevent-2.1.11-stable.tar.gz
+    source-checksum: sha256/a65bac6202ea8c5609fd5c7e480e6d25de467ea1917c08290c521752f147283d
+    source-type: tar
+    plugin: autotools
+
+  obfs4:
+    source: pass
+    plugin: go
+    go-importpath: gitlab.com/yawning/obfs4
+    source: https://gitlab.com/yawning/obfs4
+    source-type: git
