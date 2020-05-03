@@ -44,15 +44,6 @@ parts:
     python-version: python3
     python-packages:
       - poetry
-      - Click
-      - Flask
-      - Flask-HTTPAuth
-      - pycryptodome
-      - PySocks
-      - requests
-      - stem
-      - urllib3
-      - psutil
     build-packages:
       - pyqt5-dev
     stage-packages:

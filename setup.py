@@ -98,11 +98,6 @@ setup(
         "onionshare_gui.tab.mode.website_mode",
     ],
     include_package_data=True,
-    entry_points={
-        "console_scripts": [
-            "onionshare = onionshare:main",
-            "onionshare-gui = onionshare_gui.main",
-        ],
-    },
+    scripts=["install/scripts/onionshare", "install/scripts/onionshare-gui"],
     data_files=data_files,
 )
