@@ -1,4 +1,12 @@
-from flask import Request, request, render_template, make_response, flash, redirect, session
+from flask import (
+    Request,
+    request,
+    render_template,
+    make_response,
+    flash,
+    redirect,
+    session,
+)
 from werkzeug.utils import secure_filename
 from flask_socketio import emit, join_room, leave_room
 
@@ -14,8 +22,8 @@ class ChatModeWeb:
 
         self.web = web
 
-        self.can_upload = True
-        self.uploads_in_progress = []
+        # This tracks users in the room
+        self.connected_users = []
 
         # This tracks the history id
         self.cur_history_id = 0
@@ -31,11 +39,14 @@ class ChatModeWeb:
         def index():
             history_id = self.cur_history_id
             self.cur_history_id += 1
-            session["name"] = self.common.build_username()
+            session["name"] = (
+                session.get("name")
+                if session.get("name")
+                else self.common.build_username()
+            )
             session["room"] = self.web.settings.default_settings["chat"]["room"]
             self.web.add_request(
-                request.path,
-                {"id": history_id, "status_code": 200},
+                request.path, {"id": history_id, "status_code": 200},
             )
 
             self.web.add_request(self.web.REQUEST_LOAD, request.path)
@@ -43,7 +54,7 @@ class ChatModeWeb:
                 render_template(
                     "chat.html",
                     static_url_path=self.web.static_url_path,
-                    username=session.get("name")
+                    username=session.get("name"),
                 )
             )
             return self.web.add_security_headers(r)
@@ -52,16 +63,16 @@ class ChatModeWeb:
         def joined(message):
             """Sent by clients when they enter a room.
             A status message is broadcast to all people in the room."""
-            session["worker"] = UserListWorker(self.web.socketio)
-            session["thread"] = self.web.socketio.start_background_task(
-                session["worker"].background_thread, session["name"]
-            )
+            self.connected_users.append(session.get("name"))
             join_room(session.get("room"))
             emit(
                 "status",
-                {"msg": session.get("name") + " has entered the room.",
-                "user": session.get("name")},
-                room=session.get("room")
+                {
+                    "msg": "{} has joined.".format(session.get("name")),
+                    "connected_users": self.connected_users,
+                    "user": session.get("name"),
+                },
+                room=session.get("room"),
             )
 
         @self.web.socketio.on("text", namespace="/chat")
@@ -70,8 +81,8 @@ class ChatModeWeb:
             The message is sent to all people in the room."""
             emit(
                 "message",
-                {"msg": session.get("name") + ": " + message["msg"]},
-                room=session.get("room")
+                {"msg": "{}: {}".format(session.get("name"), message["msg"])},
+                room=session.get("room"),
             )
 
         @self.web.socketio.on("update_username", namespace="/chat")
@@ -80,40 +91,33 @@ class ChatModeWeb:
             The message is sent to all people in the room."""
             current_name = session.get("name")
             session["name"] = message["username"]
-            session["worker"].stop_thread()
-            session["worker"] = UserListWorker(self.web.socketio)
-            session['thread'] = self.web.socketio.start_background_task(
-                session["worker"].background_thread, session['name']
-            )
+            self.connected_users[
+                self.connected_users.index(current_name)
+            ] = session.get("name")
             emit(
                 "status",
-                {"msg": current_name + " has updated their username to: " + session.get("name"),
-                "old_name": current_name,
-                "new_name": session.get("name")
+                {
+                    "msg": "{} has updated their username to: {}".format(
+                        current_name, session.get("name")
+                    ),
+                    "connected_users": self.connected_users,
+                    "old_name": current_name,
+                    "new_name": session.get("name"),
                 },
-                room=session.get("room")
+                room=session.get("room"),
             )
 
-
-
-class UserListWorker(object):
-
-    def __init__(self, socketio):
-        """
-        assign socketio object to emit
-        """
-        self.socketio = socketio
-        self.switch = True
-
-    def background_thread(self, name):
-        count = 0
-        while self.switch:
-            self.socketio.sleep(5)
-            count += 1
-            self.socketio.emit('update_list',
-                {'name': name, 'count': count},
-                namespace="/chat",
-                broadcast=True)
-
-    def stop_thread(self):
-        self.switch = False
+        @self.web.socketio.on("disconnect", namespace="/chat")
+        def disconnect():
+            """Sent by clients when they disconnect from a room.
+            A status message is broadcast to all people in the room."""
+            self.connected_users.remove(session.get("name"))
+            leave_room(session.get("room"))
+            emit(
+                "status",
+                {
+                    "msg": "{} has left the room.".format(session.get("name")),
+                    "connected_users": self.connected_users,
+                },
+                room=session.get("room"),
+            )

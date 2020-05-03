@@ -144,6 +144,7 @@ table.file-list td:last-child {
 
 .chat-users .editable-username {
   display: flex;
+  padding: 1rem;
 }
 
 .chat-users input#username {
@@ -177,6 +178,16 @@ table.file-list td:last-child {
 
 .chat-wrapper input#new-message {
   height: 100%;
+}
+
+@media (max-width: 992px) {
+  .chat-users .editable-username {
+    display: block;
+  }
+
+  .chat-users input#username {
+    width: 90%;
+  }
 }
 
 .upload-wrapper {
