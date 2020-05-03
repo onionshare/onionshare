@@ -37,10 +37,13 @@ apps:
 
 parts:
   onionshare:
-    source: .
+    source: https://github.com/micahflee/onionshare.git
+    source-type: git
+    source-branch: 1111_snap
     plugin: python
     python-version: python3
     python-packages:
+      - poetry
       - Click
       - Flask
       - Flask-HTTPAuth
