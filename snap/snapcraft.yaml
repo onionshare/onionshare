@@ -17,10 +17,7 @@ apps:
   onionshare-gui:
     common-id: org.onionshare.OnionShareGui
     command: onionshare-gui
-    extensions:
-      - kde-neon
     plugs:
-      - kde-frameworks-5-plug
       - home
       - opengl
       - network
@@ -44,15 +41,50 @@ parts:
     python-version: python3
     python-packages:
       - poetry
-    build-packages:
-      - pyqt5-dev
     stage-packages:
       - libatk-bridge2.0-0
       - libatspi2.0-0
       - libgtk-3-0
       - python3-pyqt5
-    after: [tor, obfs4]
+    after: [qt5, tor, obfs4]
   
+  # For building Qt5, see:
+  # https://doc.qt.io/qt-5/linux-building.html
+  # https://doc.qt.io/qt-5/linux-requirements.html
+  qt5:
+    source: https://download.qt.io/archive/qt/5.14/5.14.0/single/qt-everywhere-src-5.14.0.tar.xz
+    source-checksum: sha256/be9a77cd4e1f9d70b58621d0753be19ea498e6b0da0398753e5038426f76a8ba
+    source-type: tar
+    plugin: autotools
+    build-packages:
+      - python
+      - libfontconfig1-dev
+      - libfreetype6-dev
+      - libx11-dev
+      - libxext-dev
+      - libxfixes-dev
+      - libxi-dev
+      - libxrender-dev
+      - libxcb1-dev
+      - libx11-xcb-dev
+      - libxcb-glx0-dev
+      - libxkbcommon-x11-dev
+      - libxcb-keysyms1-dev
+      - libxcb-image0-dev
+      - libxcb-shm0-dev
+      - libxcb-icccm4-dev
+      - libxcb-sync0-dev
+      - libxcb-xfixes0-dev
+      - libxcb-shape0-dev
+      - libxcb-randr0-dev
+      - libxcb-render-util0-dev
+    # Using override-build instead of configflags to avoid problem where
+    # there's the `--prefix=` flag without any way to set the value
+    override-build: |
+      ./configure -opensource -confirm-license -no-opengl -nomake examples -nomake tests
+      make
+      make install DESTDIR="${SNAPCRAFT_PART_INSTALL}"
+
   tor:
     source: https://dist.torproject.org/tor-0.4.2.7.tar.gz
     source-checksum: sha256/06a1d835ddf382f6bca40a62e8fb40b71b2f73d56f0d53523c8bd5caf9b3026d
