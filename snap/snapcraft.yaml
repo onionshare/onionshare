@@ -48,42 +48,27 @@ parts:
       - python3-pyqt5
     after: [qt5, tor, obfs4]
   
-  # For building Qt5, see:
-  # https://doc.qt.io/qt-5/linux-building.html
-  # https://doc.qt.io/qt-5/linux-requirements.html
+  # Install Qt5 pre-compiled binary, because it's much simpler than
+  # building from source
   qt5:
-    source: https://download.qt.io/archive/qt/5.14/5.14.0/single/qt-everywhere-src-5.14.0.tar.xz
-    source-checksum: sha256/be9a77cd4e1f9d70b58621d0753be19ea498e6b0da0398753e5038426f76a8ba
-    source-type: tar
-    plugin: autotools
+    plugin: nil
     build-packages:
-      - python
-      - libfontconfig1-dev
-      - libfreetype6-dev
-      - libx11-dev
-      - libxext-dev
-      - libxfixes-dev
-      - libxi-dev
-      - libxrender-dev
-      - libxcb1-dev
-      - libx11-xcb-dev
-      - libxcb-glx0-dev
+      - xvfb
+      - libdbus-1-3
+      - libxkbcommon-x11-0
       - libxkbcommon-x11-dev
-      - libxcb-keysyms1-dev
-      - libxcb-image0-dev
-      - libxcb-shm0-dev
-      - libxcb-icccm4-dev
-      - libxcb-sync0-dev
-      - libxcb-xfixes0-dev
-      - libxcb-shape0-dev
-      - libxcb-randr0-dev
-      - libxcb-render-util0-dev
-    # Using override-build instead of configflags to avoid problem where
-    # there's the `--prefix=` flag without any way to set the value
+      - libfontconfig1
+    override-pull: |
+      wget https://download.qt.io/official_releases/qt/5.14/5.14.0/qt-opensource-linux-x64-5.14.0.run
+      echo "4379f147c6793ec7e7349d2f9ee7d53b8ab6ea4e4edf8ee0574a75586a6a6e0e *qt-opensource-linux-x64-5.14.0.run" | shasum -a 256 --check
+      chmod +x qt-opensource-linux-x64-5.14.0.run
     override-build: |
-      ./configure -opensource -confirm-license -no-opengl -nomake examples -nomake tests
-      make
-      make install DESTDIR="${SNAPCRAFT_PART_INSTALL}"
+      # qt-installer-script.js
+      echo "function Controller(){installer.installationFinished.connect(proceed)}function logCurrentPage(){var pageName=page().objectName;var pagePrettyTitle=page().title;console.log(\"At page: \"+pageName+\" ('\"+pagePrettyTitle+\"')\")}function page(){return gui.currentPageWidget()}function proceed(button,delay){gui.clickButton(button||buttons.NextButton,delay)}Controller.prototype.WelcomePageCallback=function(){logCurrentPage();proceed(buttons.NextButton,2000)};Controller.prototype.CredentialsPageCallback=function(){logCurrentPage();proceed()};Controller.prototype.IntroductionPageCallback=function(){logCurrentPage();proceed()};Controller.prototype.TargetDirectoryPageCallback=function(){logCurrentPage();proceed()};Controller.prototype.ComponentSelectionPageCallback=function(){logCurrentPage();page().deselectAll();page().selectComponent(\"qt.qt5.5140.gcc_64\");proceed()};Controller.prototype.LicenseAgreementPageCallback=function(){logCurrentPage();page().AcceptLicenseRadioButton.checked=true;gui.clickButton(buttons.NextButton)};Controller.prototype.ReadyForInstallationPageCallback=function(){logCurrentPage();proceed()};Controller.prototype.PerformInstallationPageCallback=function(){logCurrentPage()};Controller.prototype.FinishedPageCallback=function(){logCurrentPage();proceed(buttons.FinishButton)};Controller.prototype.DynamicTelemetryPluginFormCallback=function(){logCurrentPage();console.log(Object.keys(page().TelemetryPluginForm.statisticGroupBox));var radioButtons=page().TelemetryPluginForm.statisticGroupBox;radioButtons.disableStatisticRadioButton.checked=true;proceed()};" > qt-installer-script.js
+      # Disable Qt installer from phoning home via hosts file
+      echo "127.0.0.1 iapi.qt.io.herokudns.com" >> /etc/hosts
+      # Install Qt5
+      xvfb-run ./qt-opensource-linux-x64-5.14.0.run --script qt-installer-script.js --verbose
 
   tor:
     source: https://dist.torproject.org/tor-0.4.2.7.tar.gz
