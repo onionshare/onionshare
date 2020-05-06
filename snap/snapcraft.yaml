@@ -47,7 +47,7 @@ parts:
       - Flask
       - Flask-HTTPAuth
       - pycryptodome
-      - PyQt5 == "5.14.0"
+      - PyQt5==5.14.0
       - PyQt5-sip
       - PySocks
       - requests
