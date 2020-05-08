@@ -18,19 +18,20 @@ apps:
     common-id: org.onionshare.OnionShareGui
     command: onionshare-gui
     plugs:
+      - desktop
       - home
-      - opengl
       - network
       - network-bind
-      - pulseaudio
+      - removable-media
   
-  # onionshare:
-  #   common-id: org.onionshare.OnionShare
-  #   command: onionshare
-  #   plugs:
-  #     - home
-  #     - network
-  #     - network-bind
+  onionshare:
+    common-id: org.onionshare.OnionShare
+    command: onionshare
+    plugs:
+      - home
+      - network
+      - network-bind
+      - removable-media
 
 parts:
   onionshare:
@@ -41,17 +42,6 @@ parts:
     python-version: python3
     python-packages:
       - poetry
-      - setuptools
-      - wheel
-      - Click
-      - Flask
-      - Flask-HTTPAuth
-      - pycryptodome
-      - PyQt5==5.14.0
-      - PyQt5-sip
-      - PySocks
-      - requests
-      - stem
     stage-packages:
       - libatk-bridge2.0-0
       - libatspi2.0-0
@@ -63,8 +53,7 @@ parts:
   qt5:
     plugin: nil
     override-pull: |
-      #wget https://download.qt.io/official_releases/qt/5.14/5.14.0/qt-opensource-linux-x64-5.14.0.run
-      wget http://10.51.172.1:8000/qt-opensource-linux-x64-5.14.0.run
+      wget https://download.qt.io/official_releases/qt/5.14/5.14.0/qt-opensource-linux-x64-5.14.0.run
       echo "4379f147c6793ec7e7349d2f9ee7d53b8ab6ea4e4edf8ee0574a75586a6a6e0e *qt-opensource-linux-x64-5.14.0.run" | shasum -a 256 --check
       chmod +x qt-opensource-linux-x64-5.14.0.run
     build-packages:
