@@ -104,4 +104,5 @@ setup(
         ],
     },
     data_files=data_files,
+    include_data_files=True,
 )
