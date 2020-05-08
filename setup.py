@@ -97,7 +97,11 @@ setup(
         "onionshare_gui.tab.mode.receive_mode",
         "onionshare_gui.tab.mode.website_mode",
     ],
-    # include_package_data=True,
-    scripts=["install/scripts/onionshare", "install/scripts/onionshare-gui"],
+    entry_points={
+        "console_scripts": [
+            "onionshare = onionshare:main",
+            "onionshare-gui = onionshare_gui:main",
+        ],
+    },
     data_files=data_files,
 )
