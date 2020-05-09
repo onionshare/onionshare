@@ -34,6 +34,15 @@ $(function(){
       emitMessage(socket);
     });
 
+    // Keep buttons disabled unless changed or not empty
+    $('#username').on('keyup',function() {
+      if ($('#username').val() !== '' && $('#username').val() !== current_username) {
+        $('#update-username').removeAttr('disabled');
+      } else {
+        $('#update-username').attr('disabled', true);
+      }
+    });
+
     // Update username
     $('#update-username').on('click', function() {
       var username = $('#username').val();
