@@ -532,6 +532,8 @@ class Tab(QtWidgets.QWidget):
                 return self.share_mode
             elif self.mode == self.common.gui.MODE_RECEIVE:
                 return self.receive_mode
+            elif self.mode == self.common.gui.MODE_CHAT:
+                return self.chat_mode
             else:
                 return self.website_mode
         else:
