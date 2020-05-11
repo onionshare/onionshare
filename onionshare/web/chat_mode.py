@@ -3,6 +3,7 @@ from flask import (
     request,
     render_template,
     make_response,
+    jsonify,
     flash,
     redirect,
     session,
@@ -55,6 +56,24 @@ class ChatModeWeb:
                     "chat.html",
                     static_url_path=self.web.static_url_path,
                     username=session.get("name"),
+                )
+            )
+            return self.web.add_security_headers(r)
+
+        @self.web.app.route("/update-session-username", methods=["POST"])
+        def update_session_username():
+            history_id = self.cur_history_id
+            data = request.get_json()
+            session["name"] = data.get("username", session.get("name"))
+            self.web.add_request(
+                request.path, {"id": history_id, "status_code": 200},
+            )
+
+            self.web.add_request(self.web.REQUEST_LOAD, request.path)
+            r = make_response(
+                jsonify(
+                    username=session.get("name"),
+                    success=True,
                 )
             )
             return self.web.add_security_headers(r)

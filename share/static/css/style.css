@@ -145,10 +145,7 @@ table.file-list td:last-child {
 .chat-users .editable-username {
   display: flex;
   padding: 1rem;
-}
-
-.chat-users input#username {
-  width: 50%;
+  flex-direction: column;
 }
 
 .chat-users #user-list li {
