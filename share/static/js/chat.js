@@ -35,9 +35,12 @@ $(function(){
     });
 
     // Keep buttons disabled unless changed or not empty
-    $('#username').on('keyup',function() {
+    $('#username').on('keyup',function(event) {
       if ($('#username').val() !== '' && $('#username').val() !== current_username) {
         $('#update-username').removeAttr('disabled');
+        if (event.keyCode == 13) {
+          current_username = updateUsername(socket);
+        }
       } else {
         $('#update-username').attr('disabled', true);
       }
@@ -45,9 +48,7 @@ $(function(){
 
     // Update username
     $('#update-username').on('click', function() {
-      var username = $('#username').val();
-      current_username = username;
-      socket.emit('update_username', {username: username});
+      current_username = updateUsername(socket);
     });
 
     // Show warning of losing data
@@ -77,6 +78,22 @@ var emitMessage = function(socket) {
   $('#new-message').val('');
   $('#chat').scrollTop($('#chat')[0].scrollHeight);
   socket.emit('text', {msg: text});
+}
+
+var updateUsername = function(socket) {
+  var username = $('#username').val();
+  socket.emit('update_username', {username: username});
+  $.ajax({
+    method: 'POST',
+    url: `http://${document.domain}:${location.port}/update-session-username`,
+    contentType: 'application/json',
+    dataType: 'json',
+    data: JSON.stringify({'username': username})
+  }).done(function(response) {
+    console.log(response);
+  });
+  $('#update-username').attr('disabled', true);
+  return username;
 }
 
 /************************************/
