@@ -111,6 +111,13 @@ class ShareMode(Mode):
         self.info_label = QtWidgets.QLabel()
         self.info_label.hide()
 
+        # Clear all files button
+        self.clear_all_button = QtWidgets.QPushButton(strings._("gui_file_selection_clear_all"))
+        self.clear_all_button.setFlat(True)
+        self.clear_all_button.setStyleSheet(self.common.gui.css["share_clear_all_files_button"])
+        self.clear_all_button.clicked.connect(self.clear_all)
+        self.clear_all_button.hide()
+
         # Toggle history
         self.toggle_history = ToggleHistory(
             self.common,
@@ -126,6 +133,7 @@ class ShareMode(Mode):
         top_bar_layout = QtWidgets.QHBoxLayout()
         top_bar_layout.addWidget(self.info_label)
         top_bar_layout.addStretch()
+        top_bar_layout.addWidget(self.clear_all_button)
         top_bar_layout.addWidget(self.toggle_history)
 
         # Primary action layout
@@ -343,6 +351,7 @@ class ShareMode(Mode):
         if self.server_status.file_selection.get_num_files() > 0:
             self.primary_action.show()
             self.info_label.show()
+            self.clear_all_button.show()
 
     def update_primary_action(self):
         self.common.log("ShareMode", "update_primary_action")
@@ -352,6 +361,7 @@ class ShareMode(Mode):
         if file_count > 0:
             self.primary_action.show()
             self.info_label.show()
+            self.clear_all_button.show()
 
             # Update the file count in the info label
             total_size_bytes = 0
@@ -374,6 +384,7 @@ class ShareMode(Mode):
         else:
             self.primary_action.hide()
             self.info_label.hide()
+            self.clear_all_button.hide()
 
     def reset_info_counters(self):
         """
@@ -382,6 +393,15 @@ class ShareMode(Mode):
         self.history.reset()
         self.toggle_history.indicator_count = 0
         self.toggle_history.update_indicator()
+
+    def clear_all(self):
+        """
+        Delete All button clicked
+        """
+        self.file_selection.file_list.clear()
+        self.file_selection.file_list.files_updated.emit()
+
+        self.file_selection.file_list.setCurrentItem(None)
 
     @staticmethod
     def _compute_total_size(filenames):
