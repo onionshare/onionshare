@@ -301,7 +301,7 @@ class WebsiteMode(Mode):
 
     def clear_all(self):
         """
-        Delete All button clicked
+        Clear All button clicked
         """
         self.file_selection.file_list.clear()
         self.file_selection.file_list.files_updated.emit()
