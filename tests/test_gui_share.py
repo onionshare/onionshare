@@ -412,7 +412,6 @@ class TestShare(GuiBaseTest):
 
         self.close_all_tabs()
 
-
     @pytest.mark.gui
     def test_public_mode(self):
         """
