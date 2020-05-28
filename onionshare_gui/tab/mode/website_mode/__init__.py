@@ -199,6 +199,8 @@ class WebsiteMode(Mode):
         # Hide and reset the downloads if we have previously shared
         self.reset_info_counters()
 
+        self.clear_all_button.hide()
+
     def start_server_step2_custom(self):
         """
         Step 2 in starting the server. Zipping up files.
@@ -235,6 +237,8 @@ class WebsiteMode(Mode):
         self.filesize_warning.hide()
         self.history.completed_count = 0
         self.file_selection.file_list.adjustSize()
+
+        self.clear_all_button.show()
 
     def cancel_server_custom(self):
         """
