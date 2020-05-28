@@ -123,8 +123,8 @@
     "error_invalid_private_key": "Denne private nøkkeltypen er ikke støttet",
     "connecting_to_tor": "Kobler til Tor-nettverket",
     "update_available": "Ny OnionShare-versjon tilgjenglig. <a href='{}'>Klikk her</a> for å laste den ned.<br><br>Du bruker {} og nyeste versjon er {}.",
-    "update_error_check_error": "Kunne ikke sjekke etter ny versjon: OnionShare-nettsiden sier at siste versjon er det ugjenkjennelige \"{}\"…",
-    "update_error_invalid_latest_version": "Kunne ikke sjekke etter ny versjon: Kanskje du ikke er koblet til Tor, eller kanskje OnionShare-nettsiden er nede?",
+    "update_error_check_error": "Kunne ikke sjekke etter ny versjon: Kanskje du ikke er tilknyttet Tor, eller OnionShare-nettsiden er nede?",
+    "update_error_invalid_latest_version": "Kunne ikke sjekke etter ny versjon: OnionShare-nettsiden melder at siste versjon er det ugjenkjennelige «{}»…",
     "update_not_available": "Du kjører siste versjon av OnionShare.",
     "gui_tor_connection_ask": "Åpne innstillingene for å ordne opp i tilkoblingen til Tor?",
     "gui_tor_connection_ask_open_settings": "Ja",
@@ -255,5 +255,8 @@
     "gui_new_tab_share_button": "Del filer",
     "gui_new_tab_tooltip": "Åpne en ny fane",
     "gui_new_tab": "Ny fane",
-    "gui_settings_website_label": "Nettsideinnstillinger"
+    "gui_settings_website_label": "Nettsideinnstillinger",
+    "mode_settings_receive_data_dir_browse_button": "Utforsk",
+    "mode_settings_receive_data_dir_label": "Lagre filer i",
+    "gui_new_tab_receive_button": "Motta filer"
 }
