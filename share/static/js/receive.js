@@ -4,6 +4,11 @@ $(function(){
     $('#flashes').append($('<li>').addClass(category).text(message));
   };
 
+  var scriptEls = document.getElementsByTagName( 'script' );
+  var thisScriptEl = scriptEls[scriptEls.length - 1];
+  var scriptPath = thisScriptEl.src;
+  var scriptFolder = scriptPath.substr(0, scriptPath.lastIndexOf( '/' )+1 );
+
   // Intercept submitting the form
   $('#send').submit(function(event){
     event.preventDefault();
@@ -38,7 +43,7 @@ $(function(){
       // and update the status
       if(event.loaded == event.total) {
         $('.cancel', ajax.$upload_div).remove();
-        $('.upload-status', ajax.$upload_div).html('<img src="/static/img/ajax.gif" alt="" /> Waiting for data to finish traversing Tor network ...');
+        $('.upload-status', ajax.$upload_div).html('<img src="' + scriptFolder + '../img/ajax.gif" alt="" /> Waiting for data to finish traversing Tor network ...');
       }
     }, false);
 
