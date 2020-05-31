@@ -297,6 +297,17 @@ class GuiBaseTest(unittest.TestCase):
                 f"http://onionshare:{tab.get_mode().server_status.web.password}@127.0.0.1:{tab.app.port}",
             )
 
+    def have_show_qr_code_button(self, tab):
+        """Test that the Show QR Code URL button is shown and that it loads a QR Code Dialog"""
+        self.assertTrue(tab.get_mode().server_status.show_url_qr_code_button.isVisible())
+        def accept_dialog():
+            window = tab.common.gui.qtapp.activeWindow()
+            if window:
+                window.close()
+
+        QtCore.QTimer.singleShot(500, accept_dialog)
+        tab.get_mode().server_status.show_url_qr_code_button.click()
+
     def server_status_indicator_says_started(self, tab):
         """Test that the Server Status indicator shows we are started"""
         if type(tab.get_mode()) == ReceiveMode:
