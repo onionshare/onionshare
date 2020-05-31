@@ -93,6 +93,10 @@ class MinimumWidthWidget(QtWidgets.QWidget):
 
 
 class Image(qrcode.image.base.BaseImage):
+    """
+    A custom Image class, for use with the QR Code pixmap.
+    """
+
     def __init__(self, border, width, box_size):
         self.border = border
         self.width = width
