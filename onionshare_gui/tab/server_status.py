@@ -24,7 +24,6 @@ from PyQt5 import QtCore, QtWidgets, QtGui
 from onionshare import strings
 
 from ..widgets import Alert
-from ..widgets import Image
 from ..widgets import QRCodeDialog
 
 class ServerStatus(QtWidgets.QWidget):
