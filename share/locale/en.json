@@ -30,7 +30,7 @@
     "gui_copied_hidservauth": "HidServAuth line copied to clipboard",
     "gui_show_url_qr_code": "Show QR code",
     "gui_qr_code_dialog_title": "OnionShare QR Code",
-    "gui_qr_code_description": "Scan this QR code with a QR reader, such as the camera on your phone, in order to share it over an application such as Signal.",
+    "gui_qr_code_description": "Scan this QR code with a QR reader, such as the camera on your phone, in order to more easily share the OnionShare address with someone.",
     "gui_waiting_to_start": "Scheduled to start in {}. Click to cancel.",
     "gui_please_wait": "Starting… Click to cancel.",
     "error_rate_limit": "Someone has made too many wrong attempts to guess your password, so OnionShare has stopped the server. Start sharing again and send the recipient a new address to share.",
