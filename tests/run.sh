@@ -20,7 +20,7 @@ do
 	shift
 done
 
-pytest $PARAMS -vvv ./tests/test_cli*.py
+pytest $PARAMS -vvv ./tests/test_cli*.py || exit 1
 for filename in ./tests/test_gui_*.py; do
-	pytest $PARAMS -vvv --no-qt-log $filename
+	pytest $PARAMS -vvv --no-qt-log $filename || exit 1
 done
