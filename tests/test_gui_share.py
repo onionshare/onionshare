@@ -55,11 +55,11 @@ class TestShare(GuiBaseTest):
         ).item_button.click()
         self.file_selection_widget_has_files(tab, num_files)
 
-    def add_a_file_and_delete_using_clear_all_widget(self, tab):
-        """Test that we can also delete all files by clicking on the Clear All widget"""
+    def add_a_file_and_delete_using_delete_all_widget(self, tab):
+        """Test that we can also delete all files by clicking on the Delete All widget"""
         tab.get_mode().server_status.file_selection.file_list.add_file(self.tmpfiles[0])
         tab.get_mode().server_status.file_selection.file_list.add_file(self.tmpfiles[1])
-        tab.get_mode().clear_all_button.click()
+        tab.get_mode().delete_all_button.click()
         # Should be no files after clearing all
         self.file_selection_widget_has_files(tab, 0)
 
@@ -287,10 +287,10 @@ class TestShare(GuiBaseTest):
         self.individual_file_is_viewable_or_not(tab)
         self.clear_all_history_items(tab, 2)
 
-    def run_all_clear_all_file_selection_button_tests(self, tab):
-        """Test the Clear All File Selection button"""
+    def run_all_delete_all_file_selection_button_tests(self, tab):
+        """Test the Delete All File Selection button"""
         self.run_all_share_mode_setup_tests(tab)
-        self.add_a_file_and_delete_using_clear_all_widget(tab)
+        self.add_a_file_and_delete_using_delete_all_widget(tab)
 
     def run_all_share_mode_individual_file_tests(self, tab):
         """Tests in share mode when viewing an individual file"""
@@ -401,14 +401,14 @@ class TestShare(GuiBaseTest):
         self.close_all_tabs()
 
     @pytest.mark.gui
-    def test_clear_all_file_selection_button(self):
+    def test_delete_all_file_selection_button(self):
         """
-        Test clearing all file items at once
+        Test delete all file items at once
         """
         tab = self.new_share_tab()
 
         self.run_all_common_setup_tests()
-        self.run_all_clear_all_file_selection_button_tests(tab)
+        self.run_all_delete_all_file_selection_button_tests(tab)
 
         self.close_all_tabs()
 
