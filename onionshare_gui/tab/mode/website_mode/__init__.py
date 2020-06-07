@@ -114,12 +114,12 @@ class WebsiteMode(Mode):
         self.info_label = QtWidgets.QLabel()
         self.info_label.hide()
 
-        # Clear all files button
-        self.clear_all_button = QtWidgets.QPushButton(strings._("gui_file_selection_clear_all"))
-        self.clear_all_button.setFlat(True)
-        self.clear_all_button.setStyleSheet(self.common.gui.css["share_clear_all_files_button"])
-        self.clear_all_button.clicked.connect(self.clear_all)
-        self.clear_all_button.hide()
+        # Delete all files button
+        self.delete_all_button = QtWidgets.QPushButton(strings._("gui_file_selection_delete_all"))
+        self.delete_all_button.setFlat(True)
+        self.delete_all_button.setStyleSheet(self.common.gui.css["share_delete_all_files_button"])
+        self.delete_all_button.clicked.connect(self.delete_all)
+        self.delete_all_button.hide()
 
         # Toggle history
         self.toggle_history = ToggleHistory(
@@ -136,7 +136,7 @@ class WebsiteMode(Mode):
         top_bar_layout = QtWidgets.QHBoxLayout()
         top_bar_layout.addWidget(self.info_label)
         top_bar_layout.addStretch()
-        top_bar_layout.addWidget(self.clear_all_button)
+        top_bar_layout.addWidget(self.delete_all_button)
         top_bar_layout.addWidget(self.toggle_history)
 
         # Primary action layout
@@ -199,7 +199,7 @@ class WebsiteMode(Mode):
         # Hide and reset the downloads if we have previously shared
         self.reset_info_counters()
 
-        self.clear_all_button.hide()
+        self.delete_all_button.hide()
 
     def start_server_step2_custom(self):
         """
@@ -238,7 +238,7 @@ class WebsiteMode(Mode):
         self.history.completed_count = 0
         self.file_selection.file_list.adjustSize()
 
-        self.clear_all_button.show()
+        self.delete_all_button.show()
 
     def cancel_server_custom(self):
         """
@@ -260,7 +260,7 @@ class WebsiteMode(Mode):
         if self.server_status.file_selection.get_num_files() > 0:
             self.primary_action.show()
             self.info_label.show()
-            self.clear_all_button.show()
+            self.delete_all_button.show()
 
     def update_primary_action(self):
         self.common.log("WebsiteMode", "update_primary_action")
@@ -270,7 +270,7 @@ class WebsiteMode(Mode):
         if file_count > 0:
             self.primary_action.show()
             self.info_label.show()
-            self.clear_all_button.show()
+            self.delete_all_button.show()
 
             # Update the file count in the info label
             total_size_bytes = 0
@@ -293,7 +293,7 @@ class WebsiteMode(Mode):
         else:
             self.primary_action.hide()
             self.info_label.hide()
-            self.clear_all_button.hide()
+            self.delete_all_button.hide()
 
     def reset_info_counters(self):
         """
@@ -303,9 +303,9 @@ class WebsiteMode(Mode):
         self.toggle_history.indicator_count = 0
         self.toggle_history.update_indicator()
 
-    def clear_all(self):
+    def delete_all(self):
         """
-        Clear All button clicked
+        Delete All button clicked
         """
         self.file_selection.file_list.clear()
         self.file_selection.file_list.files_updated.emit()
