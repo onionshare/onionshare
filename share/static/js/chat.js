@@ -23,6 +23,14 @@ $(function(){
       addMessageToRoom(data, current_username, 'chat');
     });
 
+    // Triggered when disconnected either by server stop or timeout
+    socket.on('disconnect', function(data) {
+      addMessageToRoom({'msg': 'The chat server is disconnected.'}, current_username, 'status');
+    })
+    socket.on('connect_error', function(error) {
+      console.log("error");
+    })
+
     // Trigger new message on enter or click of send message button.
     $('#new-message').on('keypress', function(e) {
       var code = e.keyCode || e.which;
