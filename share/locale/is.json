@@ -115,7 +115,7 @@
     "settings_error_unreadable_cookie_file": "Tengt við Tor-stýringuna, en lykilorðið gæti verið rangt eða að notandinn þinn hafi ekki heimild til að lesa vefkökuskrána.",
     "settings_error_bundled_tor_not_supported": "Sé notuð Tor útgáfan sem er innbyggð í OnionShare, virkar hún ekki í þróunarham á Windows eða macOS.",
     "settings_error_bundled_tor_timeout": "Það tekur of langan tíma að tengjast við Tor. Kannski er ekki tenging við internetið, nú eða að klukka kerfisins sé ekki rétt stillt?",
-    "settings_error_bundled_tor_broken": "OnionShare gat ekki tengst við Tor í bakgrunni:\n{}",
+    "settings_error_bundled_tor_broken": "OnionShare gat ekki tengst við Tor:\n{}",
     "settings_test_success": "Tengt við Tor-stýringuna.\n\nTor útgáfa: {}\nStyður stuttlifandi onion-þjónustur: {}.\nStyður auðkenningu biðlaraforrits: {}.\nStyður næstu-kynslóðar .onion vistföng: {}.",
     "error_tor_protocol_error": "Það kom upp villa í Tor: {}",
     "error_tor_protocol_error_unknown": "Það kom uppóþekkt villa varðandi Tor",
