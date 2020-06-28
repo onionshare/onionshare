@@ -12,8 +12,8 @@ from .gui_base_test import GuiBaseTest
 class TestShare(GuiBaseTest):
     # Shared test methods
 
-    def deleting_all_files_hides_delete_button(self, tab):
-        """Test that clicking on the file item shows the delete button. Test that deleting the only item in the list hides the delete button"""
+    def removing_all_files_hides_remove_button(self, tab):
+        """Test that clicking on the file item shows the remove button. Test that removing the only item in the list hides the remove button"""
         rect = tab.get_mode().server_status.file_selection.file_list.visualItemRect(
             tab.get_mode().server_status.file_selection.file_list.item(0)
         )
@@ -22,12 +22,12 @@ class TestShare(GuiBaseTest):
             QtCore.Qt.LeftButton,
             pos=rect.center(),
         )
-        # Delete button should be visible
+        # Remove button should be visible
         self.assertTrue(
-            tab.get_mode().server_status.file_selection.delete_button.isVisible()
+            tab.get_mode().server_status.file_selection.remove_button.isVisible()
         )
-        # Click delete, delete button should still be visible since we have one more file
-        tab.get_mode().server_status.file_selection.delete_button.click()
+        # Click remove, remove button should still be visible since we have one more file
+        tab.get_mode().server_status.file_selection.remove_button.click()
         rect = tab.get_mode().server_status.file_selection.file_list.visualItemRect(
             tab.get_mode().server_status.file_selection.file_list.item(0)
         )
@@ -37,17 +37,17 @@ class TestShare(GuiBaseTest):
             pos=rect.center(),
         )
         self.assertTrue(
-            tab.get_mode().server_status.file_selection.delete_button.isVisible()
+            tab.get_mode().server_status.file_selection.remove_button.isVisible()
         )
-        tab.get_mode().server_status.file_selection.delete_button.click()
+        tab.get_mode().server_status.file_selection.remove_button.click()
 
-        # No more files, the delete button should be hidden
+        # No more files, the remove button should be hidden
         self.assertFalse(
-            tab.get_mode().server_status.file_selection.delete_button.isVisible()
+            tab.get_mode().server_status.file_selection.remove_button.isVisible()
         )
 
-    def add_a_file_and_delete_using_its_delete_widget(self, tab):
-        """Test that we can also delete a file by clicking on its [X] widget"""
+    def add_a_file_and_remove_using_its_remove_widget(self, tab):
+        """Test that we can also remove a file by clicking on its [X] widget"""
         num_files = tab.get_mode().server_status.file_selection.get_num_files()
         tab.get_mode().server_status.file_selection.file_list.add_file(self.tmpfiles[0])
         tab.get_mode().server_status.file_selection.file_list.item(
@@ -55,11 +55,11 @@ class TestShare(GuiBaseTest):
         ).item_button.click()
         self.file_selection_widget_has_files(tab, num_files)
 
-    def add_a_file_and_delete_using_delete_all_widget(self, tab):
-        """Test that we can also delete all files by clicking on the Delete All widget"""
+    def add_a_file_and_remove_using_remove_all_widget(self, tab):
+        """Test that we can also remove all files by clicking on the Remove All widget"""
         tab.get_mode().server_status.file_selection.file_list.add_file(self.tmpfiles[0])
         tab.get_mode().server_status.file_selection.file_list.add_file(self.tmpfiles[1])
-        tab.get_mode().delete_all_button.click()
+        tab.get_mode().remove_all_button.click()
         # Should be no files after clearing all
         self.file_selection_widget_has_files(tab, 0)
 
@@ -197,7 +197,7 @@ class TestShare(GuiBaseTest):
         """Test that we can cancel a share before it's started up """
         self.server_working_on_start_button_pressed(tab)
         self.server_status_indicator_says_scheduled(tab)
-        self.add_delete_buttons_hidden(tab)
+        self.add_remove_buttons_hidden(tab)
         self.mode_settings_widget_is_hidden(tab)
         self.set_autostart_timer(tab, 10)
         QtTest.QTest.mousePress(
@@ -224,15 +224,15 @@ class TestShare(GuiBaseTest):
         self.history_is_not_visible(tab)
         self.click_toggle_history(tab)
         self.history_is_visible(tab)
-        self.deleting_all_files_hides_delete_button(tab)
-        self.add_a_file_and_delete_using_its_delete_widget(tab)
+        self.removing_all_files_hides_remove_button(tab)
+        self.add_a_file_and_remove_using_its_remove_widget(tab)
         self.file_selection_widget_read_files(tab)
 
     def run_all_share_mode_started_tests(self, tab, startup_time=2000):
         """Tests in share mode after starting a share"""
         self.server_working_on_start_button_pressed(tab)
         self.server_status_indicator_says_starting(tab)
-        self.add_delete_buttons_hidden(tab)
+        self.add_remove_buttons_hidden(tab)
         self.mode_settings_widget_is_hidden(tab)
         self.server_is_started(tab, startup_time)
         self.web_server_is_running(tab)
@@ -287,10 +287,10 @@ class TestShare(GuiBaseTest):
         self.individual_file_is_viewable_or_not(tab)
         self.clear_all_history_items(tab, 2)
 
-    def run_all_delete_all_file_selection_button_tests(self, tab):
-        """Test the Delete All File Selection button"""
+    def run_all_remove_all_file_selection_button_tests(self, tab):
+        """Test the Remove All File Selection button"""
         self.run_all_share_mode_setup_tests(tab)
-        self.add_a_file_and_delete_using_delete_all_widget(tab)
+        self.add_a_file_and_remove_using_remove_all_widget(tab)
 
     def run_all_share_mode_individual_file_tests(self, tab):
         """Tests in share mode when viewing an individual file"""
@@ -401,14 +401,14 @@ class TestShare(GuiBaseTest):
         self.close_all_tabs()
 
     @pytest.mark.gui
-    def test_delete_all_file_selection_button(self):
+    def test_remove_all_file_selection_button(self):
         """
-        Test delete all file items at once
+        Test remove all file items at once
         """
         tab = self.new_share_tab()
 
         self.run_all_common_setup_tests()
-        self.run_all_delete_all_file_selection_button_tests(tab)
+        self.run_all_remove_all_file_selection_button_tests(tab)
 
         self.close_all_tabs()
 
@@ -586,6 +586,7 @@ class TestShare(GuiBaseTest):
         Rate limit should be triggered
         """
         tab = self.new_share_tab()
+
         def accept_dialog():
             window = tab.common.gui.qtapp.activeWindow()
             if window:
@@ -605,6 +606,7 @@ class TestShare(GuiBaseTest):
         Public mode should skip the rate limit
         """
         tab = self.new_share_tab()
+
         def accept_dialog():
             window = tab.common.gui.qtapp.activeWindow()
             if window:

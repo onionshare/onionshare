@@ -64,7 +64,7 @@ class TestWebsite(GuiBaseTest):
         """Tests in website mode after starting a share"""
         self.server_working_on_start_button_pressed(tab)
         self.server_status_indicator_says_starting(tab)
-        self.add_delete_buttons_hidden(tab)
+        self.add_remove_buttons_hidden(tab)
         self.server_is_started(tab, startup_time)
         self.web_server_is_running(tab)
         self.have_a_password(tab)
