@@ -103,7 +103,7 @@ Create a .rpm on Fedora-like distros: `./install/build_rpm.sh`
 
 For openSUSE: There are instructions for building [in the wiki](https://github.com/micahflee/onionshare/wiki/Linux-Distribution-Support#opensuse-leap-150).
 
-For ArchLinux: There is a PKBUILD available [here](https://aur.archlinux.org/packages/onionshare/) that can be used to install OnionShare.
+For ArchLinux: There is a PKBUILD available [here](https://www.archlinux.org/packages/community/any/onionshare/) that can be used to install OnionShare.
 
 If you find that these instructions don't work for your Linux distribution or version, consult the [Linux Distribution Support wiki guide](https://github.com/micahflee/onionshare/wiki/Linux-Distribution-Support), which might contain extra instructions.
 
