@@ -388,13 +388,13 @@ class GuiBaseTest(unittest.TestCase):
             tab.get_mode().server_status.file_selection.get_num_files(), num
         )
 
-    def add_delete_buttons_hidden(self, tab):
-        """Test that the add and delete buttons are hidden when the server starts"""
+    def add_remove_buttons_hidden(self, tab):
+        """Test that the add and remove buttons are hidden when the server starts"""
         self.assertFalse(
             tab.get_mode().server_status.file_selection.add_button.isVisible()
         )
         self.assertFalse(
-            tab.get_mode().server_status.file_selection.delete_button.isVisible()
+            tab.get_mode().server_status.file_selection.remove_button.isVisible()
         )
 
     # Auto-stop timer tests
