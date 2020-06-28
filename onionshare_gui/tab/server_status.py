@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import platform
 import textwrap
 from PyQt5 import QtCore, QtWidgets, QtGui
+from PyQt5.QtCore import Qt
 
 from onionshare import strings
 
@@ -85,6 +86,9 @@ class ServerStatus(QtWidgets.QWidget):
         self.url.setWordWrap(True)
         self.url.setMinimumSize(self.url.sizeHint())
         self.url.setStyleSheet(self.common.gui.css["server_status_url"])
+        self.url.setTextInteractionFlags(
+            Qt.TextSelectableByMouse | Qt.TextSelectableByKeyboard
+        )
 
         self.copy_url_button = QtWidgets.QPushButton(strings._("gui_copy_url"))
         self.copy_url_button.setFlat(True)
@@ -377,7 +381,7 @@ class ServerStatus(QtWidgets.QWidget):
         The server has finished starting.
         """
         self.status = self.STATUS_STARTED
-        self.copy_url()
+        # self.copy_url()
         self.update()
         self.server_started_finished.emit()
 
