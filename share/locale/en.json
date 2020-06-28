@@ -12,6 +12,7 @@
     "gui_add_files": "Add Files",
     "gui_add_folder": "Add Folder",
     "gui_delete": "Delete",
+    "gui_file_selection_delete_all": "Delete All",
     "gui_choose_items": "Choose",
     "gui_share_start_server": "Start sharing",
     "gui_share_stop_server": "Stop sharing",
