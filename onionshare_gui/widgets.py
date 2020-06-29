@@ -18,7 +18,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 from PyQt5 import QtCore, QtWidgets, QtGui
-
+from onionshare import strings
+import qrcode
 
 class Alert(QtWidgets.QMessageBox):
     """
@@ -89,4 +90,65 @@ class MinimumWidthWidget(QtWidgets.QWidget):
     def __init__(self, width):
         super(MinimumWidthWidget, self).__init__()
         self.setMinimumWidth(width)
+
+
+class Image(qrcode.image.base.BaseImage):
+    """
+    A custom Image class, for use with the QR Code pixmap.
+    """
+
+    def __init__(self, border, width, box_size):
+        self.border = border
+        self.width = width
+        self.box_size = box_size
+        size = (width + border * 2) * box_size
+        self._image = QtGui.QImage(
+            size, size, QtGui.QImage.Format_RGB16)
+        self._image.fill(QtCore.Qt.white)
+
+    def pixmap(self):
+        return QtGui.QPixmap.fromImage(self._image)
+
+    def drawrect(self, row, col):
+        painter = QtGui.QPainter(self._image)
+        painter.fillRect(
+            (col + self.border) * self.box_size,
+            (row + self.border) * self.box_size,
+            self.box_size, self.box_size,
+            QtCore.Qt.black)
+
+    def save(self, stream, kind=None):
+        pass
+
+
+class QRCodeDialog(QtWidgets.QDialog):
+    """
+    A dialog showing a QR code.
+    """
+
+    def __init__(self, common, text):
+        super(QRCodeDialog, self).__init__()
+
+        self.common = common
+        self.text = text
+
+        self.common.log("QrCode", "__init__")
+
+        self.qr_label = QtWidgets.QLabel(self)
+        self.qr_label.setPixmap(
+            qrcode.make(self.text, image_factory=Image).pixmap())
+
+        self.qr_label_description = QtWidgets.QLabel(self)
+        self.qr_label_description.setText(strings._("gui_qr_code_description"))
+        self.qr_label_description.setWordWrap(True)
+
+        self.setWindowTitle(strings._("gui_qr_code_dialog_title"))
+        self.setWindowIcon(
+            QtGui.QIcon(self.common.get_resource_path("images/logo.png"))
+        )
+        layout = QtWidgets.QVBoxLayout(self)
+        layout.addWidget(self.qr_label)
+        layout.addWidget(self.qr_label_description)
+
+        self.exec_()
 

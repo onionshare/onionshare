@@ -25,7 +25,7 @@ from PyQt5.QtCore import Qt
 from onionshare import strings
 
 from ..widgets import Alert
-
+from ..widgets import QRCodeDialog
 
 class ServerStatus(QtWidgets.QWidget):
     """
@@ -100,6 +100,14 @@ class ServerStatus(QtWidgets.QWidget):
         self.copy_hidservauth_button = QtWidgets.QPushButton(
             strings._("gui_copy_hidservauth")
         )
+        self.show_url_qr_code_button = QtWidgets.QPushButton(strings._("gui_show_url_qr_code"))
+        self.show_url_qr_code_button.hide()
+        self.show_url_qr_code_button.clicked.connect(self.show_url_qr_code_button_clicked)
+        self.show_url_qr_code_button.setFlat(True)
+        self.show_url_qr_code_button.setStyleSheet(
+            self.common.gui.css["server_status_url_buttons"]
+        )
+
         self.copy_hidservauth_button.setFlat(True)
         self.copy_hidservauth_button.setStyleSheet(
             self.common.gui.css["server_status_url_buttons"]
@@ -107,6 +115,7 @@ class ServerStatus(QtWidgets.QWidget):
         self.copy_hidservauth_button.clicked.connect(self.copy_hidservauth)
         url_buttons_layout = QtWidgets.QHBoxLayout()
         url_buttons_layout.addWidget(self.copy_url_button)
+        url_buttons_layout.addWidget(self.show_url_qr_code_button)
         url_buttons_layout.addWidget(self.copy_hidservauth_button)
         url_buttons_layout.addStretch()
 
@@ -193,6 +202,8 @@ class ServerStatus(QtWidgets.QWidget):
         self.url.setText(self.get_url())
         self.url.show()
         self.copy_url_button.show()
+
+        self.show_url_qr_code_button.show()
 
         if self.settings.get("general", "client_auth"):
             self.copy_hidservauth_button.show()
@@ -359,6 +370,12 @@ class ServerStatus(QtWidgets.QWidget):
             self.cancel_server()
         self.button_clicked.emit()
 
+    def show_url_qr_code_button_clicked(self):
+        """
+        Show a QR code of the onion URL.
+        """
+        self.qr_code_dialog = QRCodeDialog(self.common, self.get_url())
+        
     def start_server(self):
         """
         Start the server.
