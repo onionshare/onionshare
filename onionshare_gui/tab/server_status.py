@@ -27,6 +27,7 @@ from onionshare import strings
 from ..widgets import Alert
 from ..widgets import QRCodeDialog
 
+
 class ServerStatus(QtWidgets.QWidget):
     """
     The server status chunk of the GUI.
@@ -95,14 +96,17 @@ class ServerStatus(QtWidgets.QWidget):
         self.copy_url_button.setStyleSheet(
             self.common.gui.css["server_status_url_buttons"]
         )
-        self.copy_url_button.setMinimumHeight(65)
         self.copy_url_button.clicked.connect(self.copy_url)
         self.copy_hidservauth_button = QtWidgets.QPushButton(
             strings._("gui_copy_hidservauth")
         )
-        self.show_url_qr_code_button = QtWidgets.QPushButton(strings._("gui_show_url_qr_code"))
+        self.show_url_qr_code_button = QtWidgets.QPushButton(
+            strings._("gui_show_url_qr_code")
+        )
         self.show_url_qr_code_button.hide()
-        self.show_url_qr_code_button.clicked.connect(self.show_url_qr_code_button_clicked)
+        self.show_url_qr_code_button.clicked.connect(
+            self.show_url_qr_code_button_clicked
+        )
         self.show_url_qr_code_button.setFlat(True)
         self.show_url_qr_code_button.setStyleSheet(
             self.common.gui.css["server_status_url_buttons"]
@@ -375,7 +379,7 @@ class ServerStatus(QtWidgets.QWidget):
         Show a QR code of the onion URL.
         """
         self.qr_code_dialog = QRCodeDialog(self.common, self.get_url())
-        
+
     def start_server(self):
         """
         Start the server.
