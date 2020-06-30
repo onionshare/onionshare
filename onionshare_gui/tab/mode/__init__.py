@@ -138,7 +138,7 @@ class Mode(QtWidgets.QWidget):
         """
         # If this is a scheduled share, display the countdown til the share starts
         if self.server_status.status == ServerStatus.STATUS_WORKING:
-            if self.server_status.autostart_timer_datetime:
+            if self.settings.get("general", "autostart_timer"):
                 now = QtCore.QDateTime.currentDateTime()
                 if self.server_status.local_only:
                     seconds_remaining = now.secsTo(
@@ -227,13 +227,8 @@ class Mode(QtWidgets.QWidget):
         # Start the onion thread. If this share was scheduled for a future date,
         # the OnionThread will start and exit 'early' to obtain the port, password
         # and onion address, but it will not start the WebThread yet.
-        if self.server_status.autostart_timer_datetime:
+        if self.settings.get("general", "autostart_timer"):
             self.start_onion_thread(obtain_onion_early=True)
-        else:
-            self.start_onion_thread()
-
-        # If scheduling a share, delay starting the real share
-        if self.server_status.autostart_timer_datetime:
             self.common.log("Mode", "start_server", "Starting auto-start timer")
             self.startup_thread = AutoStartTimer(self)
             # Once the timer has finished, start the real share, with a WebThread
@@ -241,6 +236,8 @@ class Mode(QtWidgets.QWidget):
             self.startup_thread.error.connect(self.start_server_error)
             self.startup_thread.canceled = False
             self.startup_thread.start()
+        else:
+            self.start_onion_thread()
 
     def start_onion_thread(self, obtain_onion_early=False):
         self.common.log("Mode", "start_server", "Starting an onion thread")
