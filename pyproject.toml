@@ -43,8 +43,8 @@ pytest-faulthandler = "*"
 pytest-qt = "*"
 six = "*"
 urllib3 = "*"
+setuptools = "*"
 pyinstaller = {version = "*", platform = "darwin"}
-setuptools = {version = "*", platform = "windows"}
 
 [build-system]
 requires = ["poetry>=0.12"]
