@@ -453,7 +453,7 @@ class IndividualFileHistoryItem(HistoryItem):
         else:
             self.total_bytes = data["filesize"]
             self.progress_bar.setMinimum(0)
-            self.progress_bar.setMaximum(data["filesize"])
+            self.progress_bar.setMaximum(data["filesize"] / 1024)
             self.progress_bar.total_bytes = data["filesize"]
 
         # Start at 0
@@ -462,7 +462,7 @@ class IndividualFileHistoryItem(HistoryItem):
     def update(self, downloaded_bytes):
         self.downloaded_bytes = downloaded_bytes
 
-        self.progress_bar.setValue(downloaded_bytes)
+        self.progress_bar.setValue(downloaded_bytes / 1024)
         if (downloaded_bytes / 1024 ) == (self.progress_bar.total_bytes / 1024):
             self.status_code_label.setText("200")
             self.status_code_label.setStyleSheet(
