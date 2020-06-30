@@ -18,6 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import os
+import json
 
 from onionshare import strings
 from onionshare.onion import Onion
@@ -36,6 +37,18 @@ class GuiCommon:
         self.common = common
         self.qtapp = qtapp
         self.local_only = local_only
+
+        # Are we running in a flatpak package?
+        self.is_flatpak = False
+        if os.path.exists("/app/manifest.json"):
+            try:
+                with open("/app/manifest.json") as f:
+                    manifest_data = json.loads(f.read())
+                    if manifest_data["id"] == "org.onionshare.OnionShare":
+                        self.is_flatpak = True
+                        self.common.log("GuiCommon", "__init__", "is_flatpak=True")
+            except:
+                pass
 
         # Load settings
         self.common.load_settings()
