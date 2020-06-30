@@ -17,6 +17,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
+import os
 from PyQt5 import QtCore, QtWidgets, QtGui
 
 from onionshare import strings
@@ -24,7 +25,7 @@ from onionshare.web import Web
 
 from ..history import History, ToggleHistory, ReceiveHistoryItem
 from .. import Mode
-from ....widgets import MinimumWidthWidget
+from ....widgets import MinimumWidthWidget, Alert
 
 
 class ReceiveMode(Mode):
@@ -135,6 +136,12 @@ class ReceiveMode(Mode):
         )
 
         if selected_dir:
+            # If we're running inside a flatpak package, the data dir must be inside ~/OnionShare
+            if self.common.gui.is_flatpak:
+                if not selected_dir.startswith(os.path.expanduser("~/OnionShare")):
+                    Alert(self.common, strings._("gui_receive_flatpak_data_dir"))
+                    break
+
             self.common.log(
                 "ReceiveMode",
                 "data_dir_button_clicked",
