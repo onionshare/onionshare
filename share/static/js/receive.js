@@ -4,6 +4,9 @@ $(function(){
     $('#flashes').append($('<li>').addClass(category).text(message));
   };
 
+  var scriptSrc = document.getElementById('receive-script').src;
+  var staticImgPath = scriptSrc.substr(0, scriptSrc.lastIndexOf( '/' )+1).replace('js', 'img');
+
   // Intercept submitting the form
   $('#send').submit(function(event){
     event.preventDefault();
@@ -38,7 +41,7 @@ $(function(){
       // and update the status
       if(event.loaded == event.total) {
         $('.cancel', ajax.$upload_div).remove();
-        $('.upload-status', ajax.$upload_div).html('<img src="/static/img/ajax.gif" alt="" /> Waiting for data to finish traversing Tor network ...');
+        $('.upload-status', ajax.$upload_div).html('<img src="' + staticImgPath + '/ajax.gif" alt="" /> Waiting for data to finish traversing Tor network ...');
       }
     }, false);
 

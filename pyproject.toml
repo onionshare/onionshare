@@ -16,6 +16,11 @@ PyQt5-sip = "*"
 PySocks = "*"
 requests = "*"
 stem = "*"
+urllib3 = "*"
+Werkzeug = "*"
+watchdog = "*"
+psutil = "*"
+qrcode = "^6.1"
 
 [tool.poetry.dev-dependencies]
 atomicwrites = "*"
