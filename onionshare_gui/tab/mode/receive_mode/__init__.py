@@ -24,7 +24,7 @@ from onionshare.web import Web
 
 from ..history import History, ToggleHistory, ReceiveHistoryItem
 from .. import Mode
-from ....widgets import MinimumWidthWidget
+from ....widgets import MinimumWidthWidget, Alert
 
 
 class ReceiveMode(Mode):
@@ -135,6 +135,11 @@ class ReceiveMode(Mode):
         )
 
         if selected_dir:
+            # If we're running inside a flatpak package, the data dir must be inside ~/OnionShare
+            if self.common.gui.is_flatpak:
+                if not selected_dir.startswith(os.path.expanduser("~/OnionShare")):
+                    Alert(self.common, strings._("gui_receive_flatpak_data_dir"))
+
             self.common.log(
                 "ReceiveMode",
                 "data_dir_button_clicked",

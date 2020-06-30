@@ -22,6 +22,7 @@
     "gui_receive_start_server": "Start Receive Mode",
     "gui_receive_stop_server": "Stop Receive Mode",
     "gui_receive_stop_server_autostop_timer": "Stop Receive Mode ({} remaining)",
+    "gui_receive_flatpak_data_dir": "Because you installed OnionShare using flatpak, you must save files to a folder in ~/OnionShare.",
     "gui_copy_url": "Copy Address",
     "gui_copy_hidservauth": "Copy HidServAuth",
     "gui_canceled": "Canceled",
