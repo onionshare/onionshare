@@ -76,7 +76,10 @@ class ModeSettingsWidget(QtWidgets.QWidget):
         self.autostart_timer_widget.setCurrentSection(
             QtWidgets.QDateTimeEdit.MinuteSection
         )
-        self.autostart_timer_widget.hide()
+        if self.settings.get("general", "autostart_timer"):
+            self.autostart_timer_widget.show()
+        else:
+            self.autostart_timer_widget.hide()
 
         # Autostart timer layout
         autostart_timer_layout = QtWidgets.QHBoxLayout()
@@ -104,7 +107,10 @@ class ModeSettingsWidget(QtWidgets.QWidget):
         self.autostop_timer_widget.setCurrentSection(
             QtWidgets.QDateTimeEdit.MinuteSection
         )
-        self.autostop_timer_widget.hide()
+        if self.settings.get("general", "autostop_timer"):
+            self.autostop_timer_widget.show()
+        else:
+            self.autostop_timer_widget.hide()
 
         # Autostop timer layout
         autostop_timer_layout = QtWidgets.QHBoxLayout()

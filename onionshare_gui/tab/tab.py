@@ -287,7 +287,7 @@ class Tab(QtWidgets.QWidget):
                     strings._("gui_status_indicator_share_stopped")
                 )
             elif self.share_mode.server_status.status == ServerStatus.STATUS_WORKING:
-                if self.share_mode.server_status.autostart_timer_datetime:
+                if self.settings.get("general", "autostart_timer"):
                     self.set_server_status_indicator_working(
                         strings._("gui_status_indicator_share_scheduled")
                     )
@@ -306,9 +306,14 @@ class Tab(QtWidgets.QWidget):
                     strings._("gui_status_indicator_share_stopped")
                 )
             elif self.website_mode.server_status.status == ServerStatus.STATUS_WORKING:
-                self.set_server_status_indicator_working(
-                    strings._("gui_status_indicator_share_working")
-                )
+                if self.website_mode.server_status.autostart_timer_datetime:
+                    self.set_server_status_indicator_working(
+                        strings._("gui_status_indicator_share_scheduled")
+                    )
+                else:
+                    self.set_server_status_indicator_working(
+                        strings._("gui_status_indicator_share_working")
+                    )
             elif self.website_mode.server_status.status == ServerStatus.STATUS_STARTED:
                 self.set_server_status_indicator_started(
                     strings._("gui_status_indicator_share_started")
@@ -320,7 +325,7 @@ class Tab(QtWidgets.QWidget):
                     strings._("gui_status_indicator_receive_stopped")
                 )
             elif self.receive_mode.server_status.status == ServerStatus.STATUS_WORKING:
-                if self.receive_mode.server_status.autostart_timer_datetime:
+                if self.settings.get("general", "autostart_timer"):
                     self.set_server_status_indicator_working(
                         strings._("gui_status_indicator_receive_scheduled")
                     )
