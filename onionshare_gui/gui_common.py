@@ -37,6 +37,9 @@ class GuiCommon:
         self.qtapp = qtapp
         self.local_only = local_only
 
+        # Are we running in a flatpak package?
+        self.is_flatpak = os.path.exists("/.flatpak-info")
+
         # Load settings
         self.common.load_settings()
 
