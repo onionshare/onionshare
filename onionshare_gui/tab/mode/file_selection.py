@@ -338,8 +338,8 @@ class FileSelection(QtWidgets.QVBoxLayout):
         else:
             self.add_button = QtWidgets.QPushButton(strings._("gui_add"))
             self.add_button.clicked.connect(self.add)
-        self.delete_button = QtWidgets.QPushButton(strings._("gui_delete"))
-        self.delete_button.clicked.connect(self.delete)
+        self.remove_button = QtWidgets.QPushButton(strings._("gui_remove"))
+        self.remove_button.clicked.connect(self.delete)
         button_layout = QtWidgets.QHBoxLayout()
         button_layout.addStretch()
         if self.common.platform == "Darwin":
@@ -347,7 +347,7 @@ class FileSelection(QtWidgets.QVBoxLayout):
             button_layout.addWidget(self.add_folder_button)
         else:
             button_layout.addWidget(self.add_button)
-        button_layout.addWidget(self.delete_button)
+        button_layout.addWidget(self.remove_button)
 
         # Add the widgets
         self.addWidget(self.file_list)
@@ -366,7 +366,7 @@ class FileSelection(QtWidgets.QVBoxLayout):
                 self.add_folder_button.hide()
             else:
                 self.add_button.hide()
-            self.delete_button.hide()
+            self.remove_button.hide()
         else:
             if self.common.platform == "Darwin":
                 self.add_files_button.show()
@@ -376,9 +376,9 @@ class FileSelection(QtWidgets.QVBoxLayout):
 
             # Delete button should be hidden if item isn't selected
             if len(self.file_list.selectedItems()) == 0:
-                self.delete_button.hide()
+                self.remove_button.hide()
             else:
-                self.delete_button.show()
+                self.remove_button.show()
 
         # Update the file list
         self.file_list.update()
