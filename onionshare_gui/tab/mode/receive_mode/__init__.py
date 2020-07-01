@@ -140,7 +140,7 @@ class ReceiveMode(Mode):
             if self.common.gui.is_flatpak:
                 if not selected_dir.startswith(os.path.expanduser("~/OnionShare")):
                     Alert(self.common, strings._("gui_receive_flatpak_data_dir"))
-                    break
+                    return
 
             self.common.log(
                 "ReceiveMode",
