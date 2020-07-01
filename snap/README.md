@@ -6,6 +6,7 @@ To build the snap, cd to the `snap` folder and run:
 
 ```sh
 snapcraft
+snap install ./onionshare_*.snap
 ```
 
 See your installed snaps:
@@ -26,3 +27,11 @@ Delete the OnionShare snap:
 ```sh
 snap remove onionshare
 ```
+
+## Making a new release
+
+In `snapcraft.yaml`:
+
+- Update `version`
+- Update the `onionshare` part to use the correct tag
+- Update `Qt5`, `tor`, `libevent`, and `obfs4` dependencies, if necessary
