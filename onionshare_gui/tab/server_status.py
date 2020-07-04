@@ -20,10 +20,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import platform
 import textwrap
 from PyQt5 import QtCore, QtWidgets, QtGui
+from PyQt5.QtCore import Qt
 
 from onionshare import strings
 
 from ..widgets import Alert
+from ..widgets import QRCodeDialog
 
 
 class ServerStatus(QtWidgets.QWidget):
@@ -85,17 +87,31 @@ class ServerStatus(QtWidgets.QWidget):
         self.url.setWordWrap(True)
         self.url.setMinimumSize(self.url.sizeHint())
         self.url.setStyleSheet(self.common.gui.css["server_status_url"])
+        self.url.setTextInteractionFlags(
+            Qt.TextSelectableByMouse | Qt.TextSelectableByKeyboard
+        )
 
         self.copy_url_button = QtWidgets.QPushButton(strings._("gui_copy_url"))
         self.copy_url_button.setFlat(True)
         self.copy_url_button.setStyleSheet(
             self.common.gui.css["server_status_url_buttons"]
         )
-        self.copy_url_button.setMinimumHeight(65)
         self.copy_url_button.clicked.connect(self.copy_url)
         self.copy_hidservauth_button = QtWidgets.QPushButton(
             strings._("gui_copy_hidservauth")
         )
+        self.show_url_qr_code_button = QtWidgets.QPushButton(
+            strings._("gui_show_url_qr_code")
+        )
+        self.show_url_qr_code_button.hide()
+        self.show_url_qr_code_button.clicked.connect(
+            self.show_url_qr_code_button_clicked
+        )
+        self.show_url_qr_code_button.setFlat(True)
+        self.show_url_qr_code_button.setStyleSheet(
+            self.common.gui.css["server_status_url_buttons"]
+        )
+
         self.copy_hidservauth_button.setFlat(True)
         self.copy_hidservauth_button.setStyleSheet(
             self.common.gui.css["server_status_url_buttons"]
@@ -103,6 +119,7 @@ class ServerStatus(QtWidgets.QWidget):
         self.copy_hidservauth_button.clicked.connect(self.copy_hidservauth)
         url_buttons_layout = QtWidgets.QHBoxLayout()
         url_buttons_layout.addWidget(self.copy_url_button)
+        url_buttons_layout.addWidget(self.show_url_qr_code_button)
         url_buttons_layout.addWidget(self.copy_hidservauth_button)
         url_buttons_layout.addStretch()
 
@@ -190,6 +207,8 @@ class ServerStatus(QtWidgets.QWidget):
         self.url.show()
         self.copy_url_button.show()
 
+        self.show_url_qr_code_button.show()
+
         if self.settings.get("general", "client_auth"):
             self.copy_hidservauth_button.show()
         else:
@@ -273,7 +292,7 @@ class ServerStatus(QtWidgets.QWidget):
                     self.common.gui.css["server_status_button_working"]
                 )
                 self.server_button.setEnabled(True)
-                if self.autostart_timer_datetime:
+                if self.settings.get("general", "autostart_timer"):
                     self.server_button.setToolTip(
                         strings._("gui_start_server_autostart_timer_tooltip").format(
                             self.mode_settings_widget.autostart_timer_widget.dateTime().toString(
@@ -283,15 +302,6 @@ class ServerStatus(QtWidgets.QWidget):
                     )
                 else:
                     self.server_button.setText(strings._("gui_please_wait"))
-
-                if self.settings.get("general", "autostart_timer"):
-                    self.server_button.setToolTip(
-                        strings._("gui_start_server_autostart_timer_tooltip").format(
-                            self.mode_settings_widget.autostart_timer_widget.dateTime().toString(
-                                "h:mm AP, MMMM dd, yyyy"
-                            )
-                        )
-                    )
             else:
                 self.server_button.setStyleSheet(
                     self.common.gui.css["server_status_button_working"]
@@ -368,6 +378,12 @@ class ServerStatus(QtWidgets.QWidget):
             self.cancel_server()
         self.button_clicked.emit()
 
+    def show_url_qr_code_button_clicked(self):
+        """
+        Show a QR code of the onion URL.
+        """
+        self.qr_code_dialog = QRCodeDialog(self.common, self.get_url())
+
     def start_server(self):
         """
         Start the server.
@@ -381,7 +397,7 @@ class ServerStatus(QtWidgets.QWidget):
         The server has finished starting.
         """
         self.status = self.STATUS_STARTED
-        self.copy_url()
+        # self.copy_url()
         self.update()
         self.server_started_finished.emit()
 

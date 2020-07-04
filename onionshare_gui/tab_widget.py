@@ -60,6 +60,7 @@ class TabWidget(QtWidgets.QTabWidget):
         # Use a custom tab bar
         tab_bar = TabBar()
         tab_bar.move_new_tab_button.connect(self.move_new_tab_button)
+        tab_bar.currentChanged.connect(self.tab_changed)
         self.setTabBar(tab_bar)
 
         # Set up the tab widget
@@ -107,6 +108,24 @@ class TabWidget(QtWidgets.QTabWidget):
 
         self.new_tab_button.move(pos)
         self.new_tab_button.raise_()
+
+    def tab_changed(self):
+        # Active tab was changed
+        tab_id = self.currentIndex()
+        self.common.log("TabWidget", "tab_changed", f"Tab was changed to {tab_id}")
+        try:
+            mode = self.tabs[tab_id].get_mode()
+            if mode:
+                # Update the server status indicator to reflect that of the current tab
+                self.tabs[tab_id].update_server_status_indicator()
+            else:
+                # If this tab doesn't have a mode set yet, blank the server status indicator
+                self.status_bar.server_status_image_label.clear()
+                self.status_bar.server_status_label.clear()
+        except KeyError:
+            # When all current tabs are closed, index briefly drops to -1 before resetting to 0
+            # which will otherwise trigger a KeyError on tab.get_mode() above.
+            pass
 
     def new_tab_clicked(self):
         # Create a new tab
