@@ -32,6 +32,7 @@ watchdog = "*"
 psutil = "*"
 flask-socketio = "^4.3.0"
 eventlet = "^0.25.2"
+qrcode = "^6.1"
 
 [tool.poetry.dev-dependencies]
 atomicwrites = "*"

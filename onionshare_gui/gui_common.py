@@ -209,6 +209,11 @@ class GuiCommon:
                     color: #cc0000;
                 }""",
             # Share mode and child widget styles
+            "share_delete_all_files_button": """
+                QPushButton {
+                    color: #3f7fcf;
+                }
+                """,
             "share_zip_progess_bar": """
                 QProgressBar {
                     border: 1px solid #4e064f;
