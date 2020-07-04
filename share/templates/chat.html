@@ -11,20 +11,14 @@
         <img class="logo" src="{{ static_url_path }}/img/logo.png" title="OnionShare">
         <h1>OnionShare</h1>
     </header>
+    <noscript>
+      <p>
+        Chat <b>requires JavaScript</b>, so you must set your Tor Browser security
+        level to <b>Safer</b> or <b>Standard</b> to join.
+      </p>
+    </noscript>
 
-    <div>
-      <ul id="flashes" class="flashes">
-        {% with messages = get_flashed_messages(with_categories=true) %}
-          {% if messages %}
-            {% for category, message in messages %}
-              <li class="{{ category }}">{{ message }}</li>
-            {% endfor %}
-          {% endif %}
-        {% endwith %}
-      </ul>
-    </div>
-
-    <div class="chat-container">
+    <div class="chat-container no-js">
       <div class="chat-users">
         <div class="editable-username">
           <input id="username" value="{{ username }}" />

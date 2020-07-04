@@ -187,6 +187,10 @@ table.file-list td:last-child {
   }
 }
 
+.no-js {
+  display: none;
+}
+
 .upload-wrapper {
   align-items: center;
   justify-content: center;
