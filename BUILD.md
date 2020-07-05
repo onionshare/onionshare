@@ -3,6 +3,8 @@
   * [Linux](#linux)
     * [Use newest software](#use-newest-software)
     * [Use package managers](#use-package-managers)
+    * [Flatpak packaging](#flatpak-packaging)
+    * [Snapcraft packaging](#snapcraft-packaging)
   * [macOS](#macos)
   * [Windows](#windows)
     * [Setting up your dev environment](#setting-up-your-dev-environment)
@@ -106,6 +108,48 @@ For openSUSE: There are instructions for building [in the wiki](https://github.c
 For ArchLinux: There is a PKBUILD available [here](https://www.archlinux.org/packages/community/any/onionshare/) that can be used to install OnionShare.
 
 If you find that these instructions don't work for your Linux distribution or version, consult the [Linux Distribution Support wiki guide](https://github.com/micahflee/onionshare/wiki/Linux-Distribution-Support), which might contain extra instructions.
+
+### Flatpak packaging
+
+See: https://github.com/micahflee/org.onionshare.OnionShare
+
+### Snapcraft packaging
+
+This folder contains files to build a [snap package](https://snapcraft.io/). First make sure you install `snap` and `snapcraft` (`snap install snapcraft --classic`).
+
+To build the snap, cd to the `onionshare` folder and run:
+
+```sh
+snapcraft
+snap install --devmode ./onionshare_*.snap
+```
+
+See your installed snaps:
+
+```sh
+snap list
+```
+
+Run the OnionShare snap:
+
+```sh
+/snap/bin/onionshare                # CLI version
+/snap/bin/onionshare.onionshare-gui # GUI version
+```
+
+Delete the OnionShare snap:
+
+```sh
+snap remove onionshare
+```
+
+#### Making a new release
+
+In `snapcraft.yaml`:
+
+- Update `version`
+- Update the `onionshare` part to use the correct tag
+- Update `Qt5`, `tor`, `libevent`, and `obfs4` dependencies, if necessary
 
 ## macOS
 
