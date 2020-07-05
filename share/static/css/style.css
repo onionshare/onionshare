@@ -12,6 +12,13 @@ body {
   font-family: Helvetica, sans-serif;
 }
 
+.d-flex {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
 header {
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   background: #fcfcfc;
@@ -34,14 +41,7 @@ header h1 {
   color: #666666;
 }
 
-header .right {
-  float: right;
-  font-size: .75rem;
-}
-
-header .right ul li {
-  display: inline;
-  margin: 0 0 0 .5rem;
+header .information {
   font-size: 1rem;
 }
 
@@ -98,13 +98,13 @@ ul.breadcrumbs li a:link, ul.breadcrumbs li a:visited {
   border-bottom: 1px solid #666666;
 }
 
-table.file-list {
+.file-list {
   width: 100%;
   margin: 0 auto;
   border-collapse: collapse;
 }
 
-table.file-list th {
+.file-list .heading {
   text-align: left;
   text-transform: uppercase;
   font-weight: normal;
@@ -112,22 +112,59 @@ table.file-list th {
   padding: 0.5rem;
 }
 
-table.file-list tr {
+.file-list div.d-flex {
   border-bottom: 1px solid #e0e0e0;
+  justify-content: flex-start;
 }
 
-table.file-list td {
+.file-list div.d-flex div {
   white-space: nowrap;
-  padding: 0.5rem 10rem 0.5rem 0.8rem;
+  padding: 0.5rem 0.8rem 0.5rem 0.8rem;
 }
 
-table.file-list td img {
+.file-list div.d-flex div img {
   vertical-align: middle;
   margin-right: 0.5rem;
 }
 
-table.file-list td:last-child {
-  width: 100%;
+.file-list div.d-flex div:last-child {
+  padding-right: 0.8rem;
+  flex-basis: 0;
+  flex-grow: 1;
+}
+
+.file-list div.d-flex div:first-child {
+  flex-basis: 0;
+  flex-grow: 2;
+}
+
+@media (max-width: 950px) {
+  .file-list div.d-flex div:last-child {
+    flex-basis: auto;
+    flex-grow: 0;
+  }
+}
+
+@media (max-width: 655px) {
+  .file-list div.d-flex {
+    display: block;
+  }
+  .file-list div.d-flex span {
+    max-width: 100%;
+    word-break: break-all;
+    white-space: normal;
+  }
+  .file-list div.d-flex #size-header {
+    display: none;
+  }
+  .file-list div.d-flex div:last-child {
+    padding-left: 3.5rem;
+    font-size: 0.85rem;
+    padding-top: 0;
+  }
+  header .information {
+    padding: 1rem 0;
+  }
 }
 
 .upload-wrapper {
@@ -204,7 +241,7 @@ ul.flashes {
   margin: 0;
   padding: 0;
   width: 800px;
-  max-width: 500px;
+  max-width: 100%;
   margin: 0 auto;
 }
 
@@ -213,6 +250,7 @@ ul.flashes li {
   padding: 5px;
   list-style: none;
   text-align: center;
+  word-break: break-word;
 }
 
 li.error {
