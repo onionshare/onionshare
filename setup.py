@@ -70,7 +70,7 @@ classifiers = [
 ]
 data_files = [
     ("share/applications", ["install/org.onionshare.OnionShare.desktop"],),
-    ("share/icons/hicolor/scalable/apps", ["install/org.onionshare.OnionShare.svg"],),
+    ("share/icons/hicolor/512x512/apps", ["install/org.onionshare.OnionShare.png"],),
     ("share/metainfo", ["install/org.onionshare.OnionShare.appdata.xml"],),
     ("share/onionshare", file_list("share")),
     ("share/onionshare/images", file_list("share/images")),
