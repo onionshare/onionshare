@@ -1,5 +1,5 @@
 // This script is here for convenience. Minify it and copy it into the
-// qt5 override-build section of snapcraft.yaml
+// qt5 override-build section of snap/snapcraft.yaml
 
 function Controller() {
     installer.installationFinished.connect(proceed)
