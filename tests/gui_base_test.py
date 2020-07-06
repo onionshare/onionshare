@@ -358,6 +358,11 @@ class GuiBaseTest(unittest.TestCase):
         ):
             tab.get_mode().server_status.server_button.click()
         self.assertEqual(tab.get_mode().server_status.status, 0)
+        self.assertFalse(tab.get_mode().server_status.show_url_qr_code_button.isVisible())
+        self.assertFalse(tab.get_mode().server_status.copy_url_button.isVisible())
+        self.assertFalse(tab.get_mode().server_status.url.isVisible())
+        self.assertFalse(tab.get_mode().server_status.url_description.isVisible())
+        self.assertFalse(tab.get_mode().server_status.copy_hidservauth_button.isVisible())
 
     def web_server_is_stopped(self, tab):
         """Test that the web server also stopped"""
