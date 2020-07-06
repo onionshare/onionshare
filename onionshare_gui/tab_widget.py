@@ -18,13 +18,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 from PyQt5 import QtCore, QtWidgets, QtGui
-from watchdog.observers import Observer
 
 from onionshare import strings
 from onionshare.mode_settings import ModeSettings
 
 from .tab import Tab
-from .event_handler import EventHandler
+from .threads import EventHandlerThread
 
 
 class TabWidget(QtWidgets.QTabWidget):
@@ -73,17 +72,16 @@ class TabWidget(QtWidgets.QTabWidget):
         self.move_new_tab_button()
 
         # Watch the events file for changes
-        self.event_handler = EventHandler(common)
-        self.event_handler.new_tab.connect(self.add_tab)
-        self.event_handler.new_share_tab.connect(self.new_share_tab)
-        self.observer = Observer()
-        self.observer.schedule(self.event_handler, self.common.gui.events_dir)
-        self.observer.start()
+        self.event_handler_t = EventHandlerThread(common)
+        self.event_handler_t.new_tab.connect(self.add_tab)
+        self.event_handler_t.new_share_tab.connect(self.new_share_tab)
+        self.event_handler_t.start()
 
     def cleanup(self):
         # Stop the event thread
-        self.observer.stop()
-        self.observer.join()
+        self.event_handler_t.should_quit = True
+        self.event_handler_t.quit()
+        self.event_handler_t.wait(50)
 
         # Clean up each tab
         for index in range(self.count()):

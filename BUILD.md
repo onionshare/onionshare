@@ -32,7 +32,7 @@ cd onionshare
 
 The recommended way to develop OnionShare is to use the latest versions of all dependencies.
 
-First, install `tor` from either the [official Debian repository](https://support.torproject.org/apt/tor-deb-repo/), or from your package manager.
+First, install `tor` and `obfs4proxy` from either the [official Debian repository](https://support.torproject.org/apt/tor-deb-repo/), or from your package manager.
 
 Then download Qt 5.14.0 for Linux:
 
@@ -300,6 +300,7 @@ Before making a release, all of these should be complete:
 
 * `share/version.txt` should have the correct version
 * `pyproject.toml` should have the correct version
+* `install/org.onionshare.OnionShare.appdata.xml` should have the correct version
 * `install/onionshare.nsi` should have the correct version, for the Windows installer
 * `CHANGELOG.md` should be updated to include a list of all major changes since the last release
 * There must be a PGP-signed git tag for the version, e.g. for OnionShare 2.1, the tag must be `v2.1`

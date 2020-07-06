@@ -24,7 +24,6 @@ import platform
 import argparse
 import signal
 import json
-import psutil
 from PyQt5 import QtCore, QtWidgets
 
 from onionshare.common import Common
@@ -64,10 +63,6 @@ def main():
 
     # Display OnionShare banner
     print(f"OnionShare {common.version} | https://onionshare.org/")
-
-    # Allow Ctrl-C to smoothly quit the program instead of throwing an exception
-    # https://stackoverflow.com/questions/42814093/how-to-handle-ctrlc-in-python-app-with-pyqt
-    signal.signal(signal.SIGINT, signal.SIG_DFL)
 
     # Start the Qt app
     global qtapp
@@ -126,27 +121,11 @@ def main():
             sys.exit()
 
     # Is there another onionshare-gui running?
-    existing_pid = None
-    for proc in psutil.process_iter(attrs=["pid", "name", "cmdline"]):
-        if proc.info["pid"] == os.getpid():
-            continue
+    if os.path.exists(common.gui.lock_filename):
+        with open(common.gui.lock_filename, "r") as f:
+            existing_pid = int(f.read())
 
-        if proc.info["name"] == "onionshare-gui" and proc.status() != "zombie":
-            existing_pid = proc.info["pid"]
-            break
-        else:
-            # Dev mode onionshare?
-            if proc.info["cmdline"] and len(proc.info["cmdline"]) >= 2:
-                if (
-                    os.path.basename(proc.info["cmdline"][0]).lower() == "python"
-                    and os.path.basename(proc.info["cmdline"][1]) == "onionshare-gui"
-                    and proc.status() != "zombie"
-                ):
-                    existing_pid = proc.info["pid"]
-                    break
-
-    if existing_pid:
-        print(f"Opening tab in existing OnionShare window (pid {proc.info['pid']})")
+        print(f"Opening tab in existing OnionShare window (pid {existing_pid})")
 
         # Make an event for the existing OnionShare window
         if filenames:
@@ -159,6 +138,20 @@ def main():
             f.write(json.dumps(obj) + "\n")
         return
 
+    else:
+        # Write the lock file
+        with open(common.gui.lock_filename, "w") as f:
+            f.write(f"{os.getpid()}\n")
+
+    # Allow Ctrl-C to smoothly quit the program instead of throwing an exception
+    def signal_handler(s, frame):
+        print("\nCtrl-C pressed, quitting")
+        if os.path.exists(common.gui.lock_filename):
+            os.remove(common.gui.lock_filename)
+        sys.exit(0)
+
+    signal.signal(signal.SIGINT, signal_handler)
+
     # Launch the gui
     main_window = MainWindow(common, filenames)
 
@@ -169,6 +162,7 @@ def main():
     # Clean up when app quits
     def shutdown():
         main_window.cleanup()
+        os.remove(common.gui.lock_filename)
 
     qtapp.aboutToQuit.connect(shutdown)
 
