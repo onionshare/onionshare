@@ -250,11 +250,11 @@ class ReceiveHistoryItemFile(QtWidgets.QWidget):
         if self.common.platform == "Linux" or self.common.platform == "BSD":
             try:
                 # If nautilus is available, open it
-                subprocess.Popen(["nautilus", abs_filename])
+                subprocess.Popen(["xdg-open", self.dir])
             except:
                 Alert(
                     self.common,
-                    strings._("gui_open_folder_error_nautilus").format(abs_filename),
+                    strings._("gui_open_folder_error").format(abs_filename),
                 )
 
         # macOS

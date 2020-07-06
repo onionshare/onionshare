@@ -142,7 +142,9 @@ class SettingsDialog(QtWidgets.QDialog):
             self.tor_geo_ipv6_file_path,
             self.obfs4proxy_file_path,
         ) = self.common.get_tor_paths()
-        if not os.path.isfile(self.obfs4proxy_file_path):
+        if not self.obfs4proxy_file_path or not os.path.isfile(
+            self.obfs4proxy_file_path
+        ):
             self.tor_bridges_use_obfs4_radio = QtWidgets.QRadioButton(
                 strings._("gui_settings_tor_bridges_obfs4_radio_option_no_obfs4proxy")
             )
@@ -163,7 +165,9 @@ class SettingsDialog(QtWidgets.QDialog):
             self.tor_geo_ipv6_file_path,
             self.obfs4proxy_file_path,
         ) = self.common.get_tor_paths()
-        if not os.path.isfile(self.obfs4proxy_file_path):
+        if not self.obfs4proxy_file_path or not os.path.isfile(
+            self.obfs4proxy_file_path
+        ):
             self.tor_bridges_use_meek_lite_azure_radio = QtWidgets.QRadioButton(
                 strings._(
                     "gui_settings_tor_bridges_meek_lite_azure_radio_option_no_obfs4proxy"
@@ -662,8 +666,7 @@ class SettingsDialog(QtWidgets.QDialog):
 
             onion = Onion(self.common, use_tmp_dir=True)
             onion.connect(
-                custom_settings=settings,
-                tor_status_update_func=tor_status_update_func,
+                custom_settings=settings, tor_status_update_func=tor_status_update_func,
             )
 
             # If an exception hasn't been raised yet, the Tor settings work
@@ -750,9 +753,7 @@ class SettingsDialog(QtWidgets.QDialog):
             )
             close_forced_update_thread()
 
-        forced_update_thread = UpdateThread(
-            self.common, self.onion, force=True
-        )
+        forced_update_thread = UpdateThread(self.common, self.onion, force=True)
         forced_update_thread.update_available.connect(update_available)
         forced_update_thread.update_not_available.connect(update_not_available)
         forced_update_thread.update_error.connect(update_error)
@@ -850,7 +851,10 @@ class SettingsDialog(QtWidgets.QDialog):
                         f"Onion done rebooting, connected to Tor: {self.common.gui.onion.connected_to_tor}",
                     )
 
-                    if self.common.gui.onion.is_authenticated() and not tor_con.wasCanceled():
+                    if (
+                        self.common.gui.onion.is_authenticated()
+                        and not tor_con.wasCanceled()
+                    ):
                         self.settings_saved.emit()
                         self.close()
 
@@ -866,7 +870,10 @@ class SettingsDialog(QtWidgets.QDialog):
         Cancel button clicked.
         """
         self.common.log("SettingsDialog", "cancel_clicked")
-        if not self.common.gui.local_only and not self.common.gui.onion.is_authenticated():
+        if (
+            not self.common.gui.local_only
+            and not self.common.gui.onion.is_authenticated()
+        ):
             Alert(
                 self.common,
                 strings._("gui_tor_connection_canceled"),
