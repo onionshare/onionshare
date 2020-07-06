@@ -247,6 +247,13 @@ class ServerStatus(QtWidgets.QWidget):
 
             self.mode_settings_widget.update_ui()
 
+        if self.status == self.STATUS_STOPPED and not self.settings.get("persistent", "enabled"):
+            # Unset any previous onion address or passwords so they don't get re-used.
+            # Persistent mode will still force these through if set.
+            self.settings.set("onion", "password", "")
+            self.settings.set("onion", "private_key", "")
+            self.settings.set("onion", "hidservauth_string", "")
+
         # Button
         if (
             self.mode == self.common.gui.MODE_SHARE

@@ -209,8 +209,11 @@ class ModeSettingsWidget(QtWidgets.QWidget):
             self.tab.tab_id, self.persistent_checkbox.isChecked()
         )
 
-        # If disabling persistence, delete the file from disk
+        # If disabling persistence, delete the file from disk and remove any existing onion address details from settings
         if not self.persistent_checkbox.isChecked():
+            self.settings.set("onion", "password", "")
+            self.settings.set("onion", "private_key", "")
+            self.settings.set("onion", "hidservauth_string", "")
             self.settings.delete()
 
     def public_checkbox_clicked(self):
