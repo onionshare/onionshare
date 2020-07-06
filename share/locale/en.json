@@ -29,7 +29,7 @@
     "gui_copied_url": "OnionShare address copied to clipboard",
     "gui_copied_hidservauth_title": "Copied HidServAuth",
     "gui_copied_hidservauth": "HidServAuth line copied to clipboard",
-    "gui_show_url_qr_code": "Show QR code",
+    "gui_show_url_qr_code": "Show QR Code",
     "gui_qr_code_dialog_title": "OnionShare QR Code",
     "gui_qr_code_description": "Scan this QR code with a QR reader, such as the camera on your phone, in order to more easily share the OnionShare address with someone.",
     "gui_waiting_to_start": "Scheduled to start in {}. Click to cancel.",

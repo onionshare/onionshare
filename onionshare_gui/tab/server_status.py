@@ -243,6 +243,7 @@ class ServerStatus(QtWidgets.QWidget):
             self.url.hide()
             self.copy_url_button.hide()
             self.copy_hidservauth_button.hide()
+            self.show_url_qr_code_button.hide()
 
             self.mode_settings_widget.update_ui()
 
