@@ -69,12 +69,7 @@ class ChatModeWeb:
             )
 
             self.web.add_request(self.web.REQUEST_LOAD, request.path)
-            r = make_response(
-                jsonify(
-                    username=session.get("name"),
-                    success=True,
-                )
-            )
+            r = make_response(jsonify(username=session.get("name"), success=True,))
             return self.web.add_security_headers(r)
 
         @self.web.socketio.on("joined", namespace="/chat")
@@ -86,6 +81,7 @@ class ChatModeWeb:
             emit(
                 "status",
                 {
+                    "username": session.get("name"),
                     "msg": "{} has joined.".format(session.get("name")),
                     "connected_users": self.connected_users,
                     "user": session.get("name"),
@@ -99,7 +95,7 @@ class ChatModeWeb:
             The message is sent to all people in the room."""
             emit(
                 "message",
-                {"msg": "{}: {}".format(session.get("name"), message["msg"])},
+                {"username": session.get("name"), "msg": message["msg"]},
                 room=session.get("room"),
             )
 

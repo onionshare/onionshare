@@ -1,5 +1,5 @@
-$(function(){
-  $(document).ready(function(){
+$(function () {
+  $(document).ready(function () {
     $('.chat-container').removeClass('no-js');
     var socket = io.connect('http://' + document.domain + ':' + location.port + '/chat');
 
@@ -8,43 +8,45 @@ $(function(){
 
     // On browser connect, emit a socket event to be added to 
     // room and assigned random username
-    socket.on('connect', function() {
+    socket.on('connect', function () {
       socket.emit('joined', {});
     });
 
     // Triggered on any status change by any user, such as some
     // user joined, or changed username, or left, etc.
-    socket.on('status', function(data) {
+    socket.on('status', function (data) {
       addMessageToRoom(data, current_username, 'status');
+      console.log(data, current_username);
     });
 
     // Triggered when message is received from a user. Even when sent
     // by self, it get triggered after the server sends back the emit.
-    socket.on('message', function(data) {
+    socket.on('message', function (data) {
       addMessageToRoom(data, current_username, 'chat');
+      console.log(data, current_username);
     });
 
     // Triggered when disconnected either by server stop or timeout
-    socket.on('disconnect', function(data) {
-      addMessageToRoom({'msg': 'The chat server is disconnected.'}, current_username, 'status');
+    socket.on('disconnect', function (data) {
+      addMessageToRoom({ 'msg': 'The chat server is disconnected.' }, current_username, 'status');
     })
-    socket.on('connect_error', function(error) {
+    socket.on('connect_error', function (error) {
       console.log("error");
     })
 
     // Trigger new message on enter or click of send message button.
-    $('#new-message').on('keypress', function(e) {
+    $('#new-message').on('keypress', function (e) {
       var code = e.keyCode || e.which;
       if (code == 13) {
         emitMessage(socket);
       }
     });
-    $('#send-button').on('click', function(e) {
+    $('#send-button').on('click', function (e) {
       emitMessage(socket);
     });
 
     // Keep buttons disabled unless changed or not empty
-    $('#username').on('keyup',function(event) {
+    $('#username').on('keyup', function (event) {
       if ($('#username').val() !== '' && $('#username').val() !== current_username) {
         $('#update-username').removeAttr('disabled');
         if (event.keyCode == 13) {
@@ -56,7 +58,7 @@ $(function(){
     });
 
     // Update username
-    $('#update-username').on('click', function() {
+    $('#update-username').on('click', function () {
       current_username = updateUsername(socket);
     });
 
@@ -69,7 +71,7 @@ $(function(){
   });
 });
 
-var addMessageToRoom = function(data, current_username, messageType) {
+var addMessageToRoom = function (data, current_username, messageType) {
   var scrollDiff = getScrollDiffBefore();
   if (messageType === 'status') {
     addStatusMessage(data.msg);
@@ -77,28 +79,28 @@ var addMessageToRoom = function(data, current_username, messageType) {
       addUserList(data.connected_users, current_username);
     }
   } else if (messageType === 'chat') {
-    addChatMessage(data.msg)
+    addChatMessage(data.username, data.msg)
   }
   scrollBottomMaybe(scrollDiff);
 }
 
-var emitMessage = function(socket) {
+var emitMessage = function (socket) {
   var text = $('#new-message').val();
   $('#new-message').val('');
   $('#chat').scrollTop($('#chat')[0].scrollHeight);
-  socket.emit('text', {msg: text});
+  socket.emit('text', { msg: text });
 }
 
-var updateUsername = function(socket) {
+var updateUsername = function (socket) {
   var username = $('#username').val();
-  socket.emit('update_username', {username: username});
+  socket.emit('update_username', { username: username });
   $.ajax({
     method: 'POST',
     url: `http://${document.domain}:${location.port}/update-session-username`,
     contentType: 'application/json',
     dataType: 'json',
-    data: JSON.stringify({'username': username})
-  }).done(function(response) {
+    data: JSON.stringify({ 'username': username })
+  }).done(function (response) {
     console.log(response);
   });
   $('#update-username').attr('disabled', true);
@@ -109,10 +111,10 @@ var updateUsername = function(socket) {
 /********* Util Functions ***********/
 /************************************/
 
-var createUserListHTML = function(connected_users, current_user) {
+var createUserListHTML = function (connected_users, current_user) {
   var userListHTML = '';
   connected_users.sort();
-  connected_users.forEach(function(username) {
+  connected_users.forEach(function (username) {
     if (username !== current_user) {
       userListHTML += `<li>${sanitizeHTML(username)}</li>`;
     }
@@ -120,11 +122,11 @@ var createUserListHTML = function(connected_users, current_user) {
   return userListHTML;
 }
 
-var getScrollDiffBefore = function() {
+var getScrollDiffBefore = function () {
   return $('#chat').scrollTop() - ($('#chat')[0].scrollHeight - $('#chat')[0].offsetHeight);
 }
 
-var scrollBottomMaybe = function(scrollDiff) {
+var scrollBottomMaybe = function (scrollDiff) {
   // Scrolls to bottom if the user is scrolled at bottom
   // if the user has scrolled upp, it wont scroll at bottom.
   // Note: when a user themselves send a message, it will still
@@ -134,17 +136,17 @@ var scrollBottomMaybe = function(scrollDiff) {
   }
 }
 
-var addStatusMessage = function(message) {
+var addStatusMessage = function (message) {
   $('#chat').append(
     `<p><small><i>${sanitizeHTML(message)}</i></small></p>`
   );
 }
 
-var addChatMessage = function(message) {
-  $('#chat').append(`<p>${sanitizeHTML(message)}</p>`);
+var addChatMessage = function (username, message) {
+  $('#chat').append(`<p><span class="username">${sanitizeHTML(username)}</span><span class="message">${sanitizeHTML(message)}</span></p>`);
 }
 
-var addUserList = function(connected_users, current_username) {
+var addUserList = function (connected_users, current_username) {
   $('#user-list').html(
     createUserListHTML(
       connected_users,
@@ -153,8 +155,8 @@ var addUserList = function(connected_users, current_username) {
   );
 }
 
-var sanitizeHTML = function(str) {
-	var temp = document.createElement('span');
-	temp.textContent = str;
-	return temp.innerHTML;
+var sanitizeHTML = function (str) {
+  var temp = document.createElement('span');
+  temp.textContent = str;
+  return temp.innerHTML;
 };
