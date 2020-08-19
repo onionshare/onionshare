@@ -45,6 +45,7 @@ six = "*"
 urllib3 = "*"
 setuptools = "*"
 pyinstaller = {version = "*", platform = "darwin"}
+black = {version = "^19.10b0", allow-prereleases = true}
 
 [build-system]
 requires = ["poetry>=0.12"]

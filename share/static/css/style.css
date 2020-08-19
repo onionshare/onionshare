@@ -206,6 +206,16 @@ ul.breadcrumbs li a:link, ul.breadcrumbs li a:visited {
   padding: 0 1rem;
 }
 
+.chat-wrapper .username {
+  font-weight: bold;
+  display: block;
+}
+.chat-wrapper .message {
+  font-weight: normal;
+  display: block;
+  margin-bottom: 0.3em;
+}
+
 .chat-wrapper .chat-form {
   display: flex;
 }
