@@ -221,6 +221,16 @@ class Common:
         r = random.SystemRandom()
         return "-".join(r.choice(wordlist) for _ in range(word_count))
 
+    def build_username(self, word_count=2):
+        """
+        Returns a random string made of words from the wordlist, such as "deter-trig".
+        """
+        with open(self.get_resource_path("wordlist.txt")) as f:
+            wordlist = f.read().split()
+
+        r = random.SystemRandom()
+        return "-".join(r.choice(wordlist) for _ in range(word_count))
+
     @staticmethod
     def random_string(num_bytes, output_len=None):
         """

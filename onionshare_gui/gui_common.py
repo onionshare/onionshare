@@ -31,6 +31,7 @@ class GuiCommon:
     MODE_SHARE = "share"
     MODE_RECEIVE = "receive"
     MODE_WEBSITE = "website"
+    MODE_CHAT = "chat"
 
     def __init__(self, common, qtapp, local_only):
         self.common = common
