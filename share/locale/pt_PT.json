@@ -228,7 +228,7 @@
     "hours_first_letter": "h",
     "minutes_first_letter": "m",
     "seconds_first_letter": "s",
-    "incorrect_password": "Senha incorreta",
+    "incorrect_password": "Palavra-passe incorreta",
     "gui_settings_individual_downloads_label": "Desmarque para permitir a transferência de ficheiros individuais",
     "gui_settings_csp_header_disabled_option": "Desativar cabeçalho da Política de Segurança de Conteúdo",
     "mode_settings_autostop_timer_checkbox": "Parar serviço Onion na hora agendada",
