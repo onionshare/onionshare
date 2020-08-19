@@ -87,6 +87,9 @@ def main(cwd=None):
     parser.add_argument(
         "--website", action="store_true", dest="website", help="Publish website"
     )
+    parser.add_argument(
+        "--chat", action="store_true", dest="chat", help="Start chat server"
+    )
     # Tor connection-related args
     parser.add_argument(
         "--local-only",
@@ -196,6 +199,7 @@ def main(cwd=None):
 
     receive = bool(args.receive)
     website = bool(args.website)
+    chat = bool(args.chat)
     local_only = bool(args.local_only)
     connect_timeout = int(args.connect_timeout)
     config_filename = args.config
@@ -214,6 +218,8 @@ def main(cwd=None):
         mode = "receive"
     elif website:
         mode = "website"
+    elif chat:
+        mode = "chat"
     else:
         mode = "share"
 

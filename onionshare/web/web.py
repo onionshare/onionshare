@@ -20,12 +20,14 @@ from flask import (
     __version__ as flask_version,
 )
 from flask_httpauth import HTTPBasicAuth
+from flask_socketio import SocketIO
 
 from .. import strings
 
 from .share_mode import ShareModeWeb
 from .receive_mode import ReceiveModeWeb, ReceiveModeWSGIMiddleware, ReceiveModeRequest
 from .website_mode import WebsiteModeWeb
+from .chat_mode import ChatModeWeb
 
 # Stub out flask's show_server_banner function, to avoiding showing warnings that
 # are not applicable to OnionShare
@@ -134,12 +136,17 @@ class Web:
         self.share_mode = None
         self.receive_mode = None
         self.website_mode = None
+        self.chat_mode = None
         if self.mode == "share":
             self.share_mode = ShareModeWeb(self.common, self)
         elif self.mode == "receive":
             self.receive_mode = ReceiveModeWeb(self.common, self)
         elif self.mode == "website":
             self.website_mode = WebsiteModeWeb(self.common, self)
+        elif self.mode == "chat":
+            self.socketio = SocketIO()
+            self.socketio.init_app(self.app)
+            self.chat_mode = ChatModeWeb(self.common, self)
 
     def get_mode(self):
         if self.mode == "share":
@@ -148,6 +155,8 @@ class Web:
             return self.receive_mode
         elif self.mode == "website":
             return self.website_mode
+        elif self.mode == "chat":
+            return self.chat_mode
         else:
             return None
 
@@ -366,7 +375,10 @@ class Web:
             host = "127.0.0.1"
 
         self.running = True
-        self.app.run(host=host, port=port, threaded=True)
+        if self.mode == "chat":
+            self.socketio.run(self.app, host=host, port=port)
+        else:
+            self.app.run(host=host, port=port, threaded=True)
 
     def stop(self, port):
         """

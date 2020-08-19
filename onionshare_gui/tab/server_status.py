@@ -270,6 +270,8 @@ class ServerStatus(QtWidgets.QWidget):
                     self.server_button.setText(strings._("gui_share_start_server"))
                 elif self.mode == self.common.gui.MODE_WEBSITE:
                     self.server_button.setText(strings._("gui_share_start_server"))
+                elif self.mode == self.common.gui.MODE_CHAT:
+                    self.server_button.setText(strings._("gui_chat_start_server"))
                 else:
                     self.server_button.setText(strings._("gui_receive_start_server"))
                 self.server_button.setToolTip("")
@@ -282,6 +284,8 @@ class ServerStatus(QtWidgets.QWidget):
                     self.server_button.setText(strings._("gui_share_stop_server"))
                 elif self.mode == self.common.gui.MODE_WEBSITE:
                     self.server_button.setText(strings._("gui_share_stop_server"))
+                elif self.mode == self.common.gui.MODE_CHAT:
+                    self.server_button.setText(strings._("gui_chat_stop_server"))
                 else:
                     self.server_button.setText(strings._("gui_receive_stop_server"))
             elif self.status == self.STATUS_WORKING:
