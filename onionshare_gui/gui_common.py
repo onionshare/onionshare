@@ -254,9 +254,14 @@ class GuiCommon:
                     color: #333333;
                 }
                 """,
+            "share_file_selection_drop_here_header_label": """
+                QLabel {
+                    color: #333333;
+                    font-size: 30px;
+                }""",
             "share_file_selection_drop_here_label": """
                 QLabel {
-                    color: #999999;
+                    color: #666666;
                 }""",
             "share_file_selection_drop_count_label": """
                 QLabel {

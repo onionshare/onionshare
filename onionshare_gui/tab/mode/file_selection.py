@@ -25,41 +25,54 @@ from onionshare import strings
 from ...widgets import Alert, AddFileDialog
 
 
-class DropHereLabel(QtWidgets.QLabel):
+class DropHereWidget(QtWidgets.QWidget):
     """
     When there are no files or folders in the FileList yet, display the
     'drop files here' message and graphic.
     """
 
-    def __init__(self, common, parent, image=False):
-        self.parent = parent
-        super(DropHereLabel, self).__init__(parent=parent)
-
+    def __init__(self, common, image_filename, header_text, w, h, parent):
+        super(DropHereWidget, self).__init__(parent)
         self.common = common
-
         self.setAcceptDrops(True)
-        self.setAlignment(QtCore.Qt.AlignCenter)
 
-        if image:
-            self.setPixmap(
-                QtGui.QPixmap.fromImage(
-                    QtGui.QImage(
-                        self.common.get_resource_path("images/logo_transparent.png")
-                    )
-                )
+        self.image_label = QtWidgets.QLabel(parent=self)
+        self.image_label.setPixmap(
+            QtGui.QPixmap.fromImage(
+                QtGui.QImage(self.common.get_resource_path(image_filename))
             )
-        else:
-            self.setText(strings._("gui_drag_and_drop"))
-            self.setStyleSheet(
-                self.common.gui.css["share_file_selection_drop_here_label"]
-            )
+        )
+        self.image_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.image_label.show()
 
+        self.header_label = QtWidgets.QLabel(parent=self)
+        self.header_label.setText(header_text)
+        self.header_label.setStyleSheet(
+            self.common.gui.css["share_file_selection_drop_here_header_label"]
+        )
+        self.header_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.header_label.show()
+
+        self.text_label = QtWidgets.QLabel(parent=self)
+        self.text_label.setText(strings._("gui_drag_and_drop"))
+        self.text_label.setStyleSheet(
+            self.common.gui.css["share_file_selection_drop_here_label"]
+        )
+        self.text_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.text_label.show()
+
+        self.resize(w, h)
         self.hide()
 
     def dragEnterEvent(self, event):
-        self.parent.drop_here_image.hide()
-        self.parent.drop_here_text.hide()
+        self.text_label.hide()
         event.accept()
+
+    def resize(self, w, h):
+        self.setGeometry(0, 0, w, h)
+        self.image_label.setGeometry(0, 0, w, h - 100)
+        self.header_label.setGeometry(0, 340, w, h - 340)
+        self.text_label.setGeometry(0, 410, w, h - 410)
 
 
 class DropCountLabel(QtWidgets.QLabel):
@@ -93,7 +106,7 @@ class FileList(QtWidgets.QListWidget):
     files_dropped = QtCore.pyqtSignal()
     files_updated = QtCore.pyqtSignal()
 
-    def __init__(self, common, parent=None):
+    def __init__(self, common, background_image_filename, header_text, parent=None):
         super(FileList, self).__init__(parent)
 
         self.common = common
@@ -103,8 +116,14 @@ class FileList(QtWidgets.QListWidget):
         self.setSortingEnabled(True)
         self.setMinimumHeight(160)
         self.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
-        self.drop_here_image = DropHereLabel(self.common, self, True)
-        self.drop_here_text = DropHereLabel(self.common, self, False)
+        self.drop_here = DropHereWidget(
+            self.common,
+            background_image_filename,
+            header_text,
+            self.width(),
+            self.height(),
+            self,
+        )
         self.drop_count = DropCountLabel(self.common, self)
         self.resizeEvent(None)
         self.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
@@ -115,11 +134,9 @@ class FileList(QtWidgets.QListWidget):
         """
         # file list should have a background image if empty
         if self.count() == 0:
-            self.drop_here_image.show()
-            self.drop_here_text.show()
+            self.drop_here.show()
         else:
-            self.drop_here_image.hide()
-            self.drop_here_text.hide()
+            self.drop_here.hide()
 
     def server_started(self):
         """
@@ -144,9 +161,7 @@ class FileList(QtWidgets.QListWidget):
         """
         When the widget is resized, resize the drop files image and text.
         """
-        offset = 70
-        self.drop_here_image.setGeometry(0, 0, self.width(), self.height() - offset)
-        self.drop_here_text.setGeometry(0, offset, self.width(), self.height() - offset)
+        self.drop_here.resize(self.width(), self.height())
 
         if self.count() > 0:
             # Add and delete an empty item, to force all items to get redrawn
@@ -313,7 +328,7 @@ class FileSelection(QtWidgets.QVBoxLayout):
     delete the files and folders.
     """
 
-    def __init__(self, common, parent):
+    def __init__(self, common, background_image_filename, header_text, parent):
         super(FileSelection, self).__init__()
 
         self.common = common
@@ -322,7 +337,7 @@ class FileSelection(QtWidgets.QVBoxLayout):
         self.server_on = False
 
         # File list
-        self.file_list = FileList(self.common)
+        self.file_list = FileList(self.common, background_image_filename, header_text)
         self.file_list.itemSelectionChanged.connect(self.update)
         self.file_list.files_dropped.connect(self.update)
         self.file_list.files_updated.connect(self.update)
