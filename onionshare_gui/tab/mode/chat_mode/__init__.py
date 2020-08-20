@@ -47,8 +47,20 @@ class ChatMode(Mode):
         # Create the Web object
         self.web = Web(self.common, True, self.settings, "chat")
 
-        # Header
-        self.header_label.setText(strings._("gui_new_tab_chat_button"))
+        # Chat image
+        self.image_label = QtWidgets.QLabel()
+        self.image_label.setPixmap(
+            QtGui.QPixmap.fromImage(
+                QtGui.QImage(self.common.get_resource_path("images/mode_chat.png"))
+            )
+        )
+        self.image_label.setFixedSize(300, 300)
+        image_layout = QtWidgets.QVBoxLayout()
+        image_layout.addStretch()
+        image_layout.addWidget(self.image_label)
+        image_layout.addStretch()
+        self.image = QtWidgets.QWidget()
+        self.image.setLayout(image_layout)
 
         # Server status
         self.server_status.set_mode("chat")
@@ -59,6 +71,10 @@ class ChatMode(Mode):
         self.server_status.web = self.web
         self.server_status.update()
 
+        # Header
+        header_label = QtWidgets.QLabel(strings._("gui_new_tab_chat_button"))
+        header_label.setStyleSheet(self.common.gui.css["mode_header_label"])
+
         # Top bar
         top_bar_layout = QtWidgets.QHBoxLayout()
         top_bar_layout.addStretch()
@@ -66,17 +82,19 @@ class ChatMode(Mode):
         # Main layout
         self.main_layout = QtWidgets.QVBoxLayout()
         self.main_layout.addLayout(top_bar_layout)
+        self.main_layout.addStretch()
+        self.main_layout.addWidget(header_label)
         self.main_layout.addWidget(self.primary_action)
         self.main_layout.addStretch()
         self.main_layout.addWidget(MinimumWidthWidget(700))
 
         # Column layout
         self.column_layout = QtWidgets.QHBoxLayout()
+        self.column_layout.addWidget(self.image)
         self.column_layout.addLayout(self.main_layout)
 
         # Wrapper layout
         self.wrapper_layout = QtWidgets.QVBoxLayout()
-        self.wrapper_layout.addWidget(self.header_label)
         self.wrapper_layout.addLayout(self.column_layout)
         self.setLayout(self.wrapper_layout)
 

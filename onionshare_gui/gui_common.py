@@ -74,13 +74,8 @@ class GuiCommon:
                 }""",
             "mode_header_label": """
                 QLabel {
-                    color: #ffffff;
-                    background-color: #4e064f;
-                    border: 0;
-                    font-weight: bold;
-                    font-size: 18px;
-                    border-radius: 0;
-                    padding: 10px 0 10px 0;
+                    color: #333333;
+                    font-size: 30px;
                 }""",
             "settings_button": """
                 QPushButton {
@@ -132,7 +127,7 @@ class GuiCommon:
                 QPushButton {
                     background-color: #5fa416;
                     color: #ffffff;
-                    padding: 10px;
+                    padding: 10px 30px 10px 30px;
                     border: 0;
                     border-radius: 5px;
                 }""",
@@ -140,7 +135,7 @@ class GuiCommon:
                 QPushButton {
                     background-color: #4c8211;
                     color: #ffffff;
-                    padding: 10px;
+                    padding: 10px 30px 10px 30px;
                     border: 0;
                     border-radius: 5px;
                     font-style: italic;
@@ -149,7 +144,7 @@ class GuiCommon:
                 QPushButton {
                     background-color: #d0011b;
                     color: #ffffff;
-                    padding: 10px;
+                    padding: 10px 30px 10px 30px;
                     border: 0;
                     border-radius: 5px;
                 }""",

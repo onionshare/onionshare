@@ -40,8 +40,20 @@ class ReceiveMode(Mode):
         # Create the Web object
         self.web = Web(self.common, True, self.settings, "receive")
 
-        # Header
-        self.header_label.setText(strings._("gui_new_tab_receive_button"))
+        # Receive image
+        self.image_label = QtWidgets.QLabel()
+        self.image_label.setPixmap(
+            QtGui.QPixmap.fromImage(
+                QtGui.QImage(self.common.get_resource_path("images/mode_receive.png"))
+            )
+        )
+        self.image_label.setFixedSize(300, 300)
+        image_layout = QtWidgets.QVBoxLayout()
+        image_layout.addStretch()
+        image_layout.addWidget(self.image_label)
+        image_layout.addStretch()
+        self.image = QtWidgets.QWidget()
+        self.image.setLayout(image_layout)
 
         # Settings
         data_dir_label = QtWidgets.QLabel(
@@ -97,6 +109,10 @@ class ReceiveMode(Mode):
             ),
         )
 
+        # Header
+        header_label = QtWidgets.QLabel(strings._("gui_new_tab_receive_button"))
+        header_label.setStyleSheet(self.common.gui.css["mode_header_label"])
+
         # Receive mode warning
         receive_warning = QtWidgets.QLabel(strings._("gui_receive_mode_warning"))
         receive_warning.setMinimumHeight(80)
@@ -110,6 +126,8 @@ class ReceiveMode(Mode):
         # Main layout
         self.main_layout = QtWidgets.QVBoxLayout()
         self.main_layout.addLayout(top_bar_layout)
+        self.main_layout.addStretch()
+        self.main_layout.addWidget(header_label)
         self.main_layout.addWidget(receive_warning)
         self.main_layout.addWidget(self.primary_action)
         self.main_layout.addStretch()
@@ -117,12 +135,12 @@ class ReceiveMode(Mode):
 
         # Column layout
         self.column_layout = QtWidgets.QHBoxLayout()
+        self.column_layout.addWidget(self.image)
         self.column_layout.addLayout(self.main_layout)
         self.column_layout.addWidget(self.history, stretch=1)
 
         # Wrapper layout
         self.wrapper_layout = QtWidgets.QVBoxLayout()
-        self.wrapper_layout.addWidget(self.header_label)
         self.wrapper_layout.addLayout(self.column_layout)
         self.setLayout(self.wrapper_layout)
 
