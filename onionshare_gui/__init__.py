@@ -24,6 +24,8 @@ import platform
 import argparse
 import signal
 import json
+import psutil
+import getpass
 from PyQt5 import QtCore, QtWidgets
 
 from onionshare.common import Common
@@ -125,23 +127,38 @@ def main():
         with open(common.gui.lock_filename, "r") as f:
             existing_pid = int(f.read())
 
-        print(f"Opening tab in existing OnionShare window (pid {existing_pid})")
-
-        # Make an event for the existing OnionShare window
-        if filenames:
-            obj = {"type": "new_share_tab", "filenames": filenames}
+        # Is this process actually still running?
+        still_running = True
+        if not psutil.pid_exists(existing_pid):
+            still_running = False
         else:
-            obj = {"type": "new_tab"}
+            for proc in psutil.process_iter(["pid", "name", "username"]):
+                if proc.pid == existing_pid:
+                    if (
+                        proc.username() != getpass.getuser()
+                        or "onionshare" not in " ".join(proc.cmdline()).lower()
+                    ):
+                        still_running = False
 
-        # Write that event to disk
-        with open(common.gui.events_filename, "a") as f:
-            f.write(json.dumps(obj) + "\n")
-        return
+        if still_running:
+            print(f"Opening tab in existing OnionShare window (pid {existing_pid})")
 
-    else:
-        # Write the lock file
-        with open(common.gui.lock_filename, "w") as f:
-            f.write(f"{os.getpid()}\n")
+            # Make an event for the existing OnionShare window
+            if filenames:
+                obj = {"type": "new_share_tab", "filenames": filenames}
+            else:
+                obj = {"type": "new_tab"}
+
+            # Write that event to disk
+            with open(common.gui.events_filename, "a") as f:
+                f.write(json.dumps(obj) + "\n")
+            return
+        else:
+            os.remove(common.gui.lock_filename)
+
+    # Write the lock file
+    with open(common.gui.lock_filename, "w") as f:
+        f.write(f"{os.getpid()}\n")
 
     # Allow Ctrl-C to smoothly quit the program instead of throwing an exception
     def signal_handler(s, frame):
