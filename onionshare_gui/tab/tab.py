@@ -399,6 +399,25 @@ class Tab(QtWidgets.QWidget):
                 self.set_server_status_indicator_started(
                     strings._("gui_status_indicator_receive_started")
                 )
+        elif self.mode == self.common.gui.MODE_CHAT:
+            # Chat mode
+            if self.chat_mode.server_status.status == ServerStatus.STATUS_STOPPED:
+                self.set_server_status_indicator_stopped(
+                    strings._("gui_status_indicator_receive_stopped")
+                )
+            elif self.chat_mode.server_status.status == ServerStatus.STATUS_WORKING:
+                if self.settings.get("general", "autostart_timer"):
+                    self.set_server_status_indicator_working(
+                        strings._("gui_status_indicator_receive_scheduled")
+                    )
+                else:
+                    self.set_server_status_indicator_working(
+                        strings._("gui_status_indicator_receive_working")
+                    )
+            elif self.chat_mode.server_status.status == ServerStatus.STATUS_STARTED:
+                self.set_server_status_indicator_started(
+                    strings._("gui_status_indicator_receive_started")
+                )
 
     def set_server_status_indicator_stopped(self, label_text):
         self.change_icon.emit(self.tab_id, "images/server_stopped.png")
