@@ -169,6 +169,7 @@ ul.breadcrumbs li a:link, ul.breadcrumbs li a:visited {
 
 .chat-container {
   display: flex;
+  font-family: monospace;
 }
 
 .chat-users {
@@ -177,12 +178,18 @@ ul.breadcrumbs li a:link, ul.breadcrumbs li a:visited {
   border-radius: 2px;
   overflow: auto;
   background: #f2f2f2;
+  margin: 1rem 0 1rem 1rem;
 }
 
 .chat-users .editable-username {
   display: flex;
   padding: 1rem;
   flex-direction: column;
+}
+
+.chat-users .editable-username input {
+  font-family: monospace;
+  font-size: 1em;
 }
 
 .chat-users #user-list li {
@@ -193,8 +200,8 @@ ul.breadcrumbs li a:link, ul.breadcrumbs li a:visited {
   display: flex;
   flex-direction: column;
   flex: 1;
-  margin: 0 1rem;
-  height: calc(100vh - (45px + 2em));
+  margin: 1rem 1rem 0 1rem;
+  height: calc(100vh - (65px + 2em));
 }
 
 .chat-wrapper #chat {
@@ -204,6 +211,12 @@ ul.breadcrumbs li a:link, ul.breadcrumbs li a:visited {
   overflow: auto;
   background: #f2f2f2;
   padding: 0 1rem;
+}
+
+.chat-wrapper .status {
+  font-style: italic;
+  font-size: 0.8em;
+  color: #666666;
 }
 
 .chat-wrapper .username {
@@ -217,11 +230,16 @@ ul.breadcrumbs li a:link, ul.breadcrumbs li a:visited {
 }
 
 .chat-wrapper .chat-form {
-  display: flex;
+  display: block;
+  margin: 0.2rem 1rem 1rem 0;
+  padding: -0.5em;
 }
 
 .chat-wrapper input#new-message {
   height: 100%;
+  width: 100%;
+  font-family: monospace;
+  font-size: 1em;
 }
 
 @media (max-width: 992px) {

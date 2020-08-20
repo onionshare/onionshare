@@ -41,25 +41,14 @@ $(function () {
         emitMessage(socket);
       }
     });
-    $('#send-button').on('click', function (e) {
-      emitMessage(socket);
-    });
 
     // Keep buttons disabled unless changed or not empty
     $('#username').on('keyup', function (event) {
       if ($('#username').val() !== '' && $('#username').val() !== current_username) {
-        $('#update-username').removeAttr('disabled');
         if (event.keyCode == 13) {
           current_username = updateUsername(socket);
         }
-      } else {
-        $('#update-username').attr('disabled', true);
       }
-    });
-
-    // Update username
-    $('#update-username').on('click', function () {
-      current_username = updateUsername(socket);
     });
 
     // Show warning of losing data
@@ -103,7 +92,6 @@ var updateUsername = function (socket) {
   }).done(function (response) {
     console.log(response);
   });
-  $('#update-username').attr('disabled', true);
   return username;
 }
 
@@ -138,7 +126,7 @@ var scrollBottomMaybe = function (scrollDiff) {
 
 var addStatusMessage = function (message) {
   $('#chat').append(
-    `<p><small><i>${sanitizeHTML(message)}</i></small></p>`
+    `<p class="status">${sanitizeHTML(message)}</p>`
   );
 }
 
