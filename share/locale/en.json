@@ -7,7 +7,7 @@
     "close_on_autostop_timer": "Stopped because auto-stop timer ran out",
     "closing_automatically": "Stopped because transfer is complete",
     "large_filesize": "Warning: Sending a large share could take hours",
-    "gui_drag_and_drop": "Drag and drop files and folders\nto start sharing",
+    "gui_drag_and_drop": "Drag and drop files and folders to start sharing",
     "gui_add": "Add",
     "gui_add_files": "Add Files",
     "gui_add_folder": "Add Folder",
