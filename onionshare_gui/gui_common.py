@@ -214,6 +214,21 @@ class GuiCommon:
                 QLabel {
                     color: #cc0000;
                 }""",
+            # New tab
+            "new_tab_button_image": """
+                QLabel {
+                    padding: 30px;
+                }
+                """,
+            "new_tab_button_text": """
+                QLabel {
+                    border: 1px solid #efeff0;
+                    border-radius: 4px;
+                    background-color: #ffffff;
+                    text-align: center;
+                    color: #4e0d4e;
+                }
+                """,
             # Share mode and child widget styles
             "share_delete_all_files_button": """
                 QPushButton {
