@@ -46,7 +46,7 @@ $(function () {
     $('#username').on('keyup', function (event) {
       if ($('#username').val() !== '' && $('#username').val() !== current_username) {
         if (event.keyCode == 13) {
-          current_username = updateUsername(socket);
+          current_username = updateUsername(socket) || current_username;
         }
       }
     });
@@ -82,17 +82,20 @@ var emitMessage = function (socket) {
 
 var updateUsername = function (socket) {
   var username = $('#username').val();
-  socket.emit('update_username', { username: username });
-  $.ajax({
-    method: 'POST',
-    url: `http://${document.domain}:${location.port}/update-session-username`,
-    contentType: 'application/json',
-    dataType: 'json',
-    data: JSON.stringify({ 'username': username })
-  }).done(function (response) {
-    console.log(response);
-  });
-  return username;
+  if (!checkUsernameExists(username)) {
+    socket.emit('update_username', { username: username });
+    $.ajax({
+      method: 'POST',
+      url: `http://${document.domain}:${location.port}/update-session-username`,
+      contentType: 'application/json',
+      dataType: 'json',
+      data: JSON.stringify({ 'username': username })
+    }).done(function (response) {
+      console.log(response);
+    });
+    return username;
+  }
+  return false;
 }
 
 /************************************/
@@ -108,6 +111,18 @@ var createUserListHTML = function (connected_users, current_user) {
     }
   });
   return userListHTML;
+}
+
+var checkUsernameExists = function (username) {
+  $('#username-error').text('');
+  var userMatches = $('#user-list li').filter(function () {
+    return $(this).text() === username;
+  });
+  if (userMatches.length) {
+    $('#username-error').text('User with that username exists!');
+    return true;
+  }
+  return false;
 }
 
 var getScrollDiffBefore = function () {
