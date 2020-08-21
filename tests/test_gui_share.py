@@ -135,11 +135,13 @@ class TestShare(GuiBaseTest):
                     ),
                 )
 
-            tmp_file = tempfile.NamedTemporaryFile("wb")
+            tmp_file = tempfile.NamedTemporaryFile("wb", delete=False)
             tmp_file.write(r.content)
+            tmp_file.close()
 
             with open(tmp_file.name, "r") as f:
                 self.assertEqual("onionshare", f.read())
+            os.remove(tmp_file.name)
 
         QtTest.QTest.qWait(500)
 
