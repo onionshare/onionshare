@@ -150,9 +150,11 @@ Now you should have `dist/OnionShare.pkg`.
 
 ### Setting up your dev environment
 
+These instructions include adding folders to the path in Windows. To do this, go to Start and type "advanced system settings", and open "View advanced system settings" in the Control Panel. Click Environment Variables. Under "System variables" double-click on Path. From there you can add and remove folders that are available in the PATH.
+
 Download Python 3.7.4, 32-bit (x86) from https://www.python.org/downloads/release/python-374/. I downloaded `python-3.7.4.exe`. When installing it, make sure to check the "Add Python 3.7 to PATH" checkbox on the first page of the installer.
 
-Install the Qt 5.13.1 from https://www.qt.io/offline-installers. I downloaded `qt-opensource-windows-x86-5.13.1.exe`. In the installer, you can skip making an account, and all you need `Qt` > `Qt 5.13.1` > `MSVC 2017 32-bit`.
+Install the Qt 5.14.0 from https://www.qt.io/offline-installers. I downloaded `qt-opensource-windows-x86-5.14.0.exe`. In the installer, you can skip making an account, and all you need `Qt` > `Qt 5.14.0` > `MSVC 2017 32-bit`.
 
 Install [poetry](https://python-poetry.org/). Open PowerShell, and run:
 
@@ -160,7 +162,7 @@ Install [poetry](https://python-poetry.org/). Open PowerShell, and run:
 (Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | python
 ```
 
-And add `%USERPROFILE%\.poetry\bin` to your path. Then open a command prompt and cd to the `dangerzone` folder, and install the poetry dependencies:
+Then open a Command Prompt and cd to the `onionshare` folder, and install the poetry dependencies:
 
 ```
 poetry install
@@ -174,8 +176,6 @@ poetry run python dev_scripts\onionshare-gui
 ```
 
 #### If you want to build a .exe
-
-These instructions include adding folders to the path in Windows. To do this, go to Start and type "advanced system settings", and open "View advanced system settings" in the Control Panel. Click Environment Variables. Under "System variables" double-click on Path. From there you can add and remove folders that are available in the PATH.
 
 Download and install 7-Zip from http://www.7-zip.org/download.html. I downloaded `7z1900.exe`.
 
