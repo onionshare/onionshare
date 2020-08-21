@@ -48,8 +48,7 @@ class TabWidget(QtWidgets.QTabWidget):
         # Define the new tab button
         self.new_tab_button = QtWidgets.QPushButton("+", parent=self)
         self.new_tab_button.setFlat(True)
-        self.new_tab_button.setAutoFillBackground(True)
-        self.new_tab_button.setFixedSize(30, 30)
+        self.new_tab_button.setFixedSize(40, 30)
         self.new_tab_button.clicked.connect(self.new_tab_clicked)
         self.new_tab_button.setStyleSheet(
             self.common.gui.css["tab_widget_new_tab_button"]
@@ -66,6 +65,8 @@ class TabWidget(QtWidgets.QTabWidget):
         self.setMovable(True)
         self.setTabsClosable(True)
         self.setUsesScrollButtons(True)
+        self.setDocumentMode(True)
+        self.setStyleSheet(self.common.gui.css["tab_widget"])
 
         self.tabCloseRequested.connect(self.close_tab)
 
@@ -99,7 +100,7 @@ class TabWidget(QtWidgets.QTabWidget):
 
         # If there are so many tabs it scrolls, move the button to the left of the scroll buttons
         if tabs_width > self.width():
-            pos.setX(self.width() - 61)
+            pos.setX(self.width() - 65)
         else:
             # Otherwise move the button to the right of the tabs
             pos.setX(self.tabBar().sizeHint().width())
@@ -151,6 +152,19 @@ class TabWidget(QtWidgets.QTabWidget):
 
         index = self.addTab(tab, strings._("gui_new_tab"))
         self.setCurrentIndex(index)
+
+        # Create a close button
+        def close_tab():
+            self.tabBar().tabCloseRequested.emit(self.indexOf(tab))
+
+        close_button = QtWidgets.QPushButton()
+        close_button.setFlat(True)
+        close_button.setFixedWidth(40)
+        close_button.setIcon(
+            QtGui.QIcon(self.common.get_resource_path("images/close_tab.png"))
+        )
+        close_button.clicked.connect(close_tab)
+        self.tabBar().setTabButton(index, QtWidgets.QTabBar.RightSide, close_button)
 
         tab.init(mode_settings)
         # If it's persistent, set the persistent image in the tab
