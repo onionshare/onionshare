@@ -2,6 +2,7 @@ import pytest
 import os
 import requests
 import shutil
+import sys
 from datetime import datetime, timedelta
 
 from PyQt5 import QtCore, QtTest
@@ -213,6 +214,7 @@ class TestReceive(GuiBaseTest):
         self.close_all_tabs()
 
     @pytest.mark.gui
+    @pytest.mark.skipif(sys.platform == "win32", reason="Windows doesn't have chmod")
     def test_upload_non_writable_dir(self):
         """
         Test uploading files to a non-writable directory
@@ -237,6 +239,7 @@ class TestReceive(GuiBaseTest):
         self.close_all_tabs()
 
     @pytest.mark.gui
+    @pytest.mark.skipif(sys.platform == "win32", reason="Windows doesn't have chmod")
     def test_public_upload_non_writable_dir(self):
         """
         Test uploading files to a non-writable directory in public mode
