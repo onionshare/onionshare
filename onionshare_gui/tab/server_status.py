@@ -129,8 +129,12 @@ class ServerStatus(QtWidgets.QWidget):
         url_layout.addLayout(url_buttons_layout)
 
         # Add the widgets
+        button_layout = QtWidgets.QHBoxLayout()
+        button_layout.addWidget(self.server_button)
+        button_layout.addStretch()
+
         layout = QtWidgets.QVBoxLayout()
-        layout.addWidget(self.server_button)
+        layout.addLayout(button_layout)
         layout.addLayout(url_layout)
         self.setLayout(layout)
 

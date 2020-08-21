@@ -74,13 +74,8 @@ class GuiCommon:
                 }""",
             "mode_header_label": """
                 QLabel {
-                    color: #ffffff;
-                    background-color: #4e064f;
-                    border: 0;
-                    font-weight: bold;
-                    font-size: 18px;
-                    border-radius: 0;
-                    padding: 10px 0 10px 0;
+                    color: #333333;
+                    font-size: 30px;
                 }""",
             "settings_button": """
                 QPushButton {
@@ -132,7 +127,7 @@ class GuiCommon:
                 QPushButton {
                     background-color: #5fa416;
                     color: #ffffff;
-                    padding: 10px;
+                    padding: 10px 30px 10px 30px;
                     border: 0;
                     border-radius: 5px;
                 }""",
@@ -140,7 +135,7 @@ class GuiCommon:
                 QPushButton {
                     background-color: #4c8211;
                     color: #ffffff;
-                    padding: 10px;
+                    padding: 10px 30px 10px 30px;
                     border: 0;
                     border-radius: 5px;
                     font-style: italic;
@@ -149,7 +144,7 @@ class GuiCommon:
                 QPushButton {
                     background-color: #d0011b;
                     color: #ffffff;
-                    padding: 10px;
+                    padding: 10px 30px 10px 30px;
                     border: 0;
                     border-radius: 5px;
                 }""",
@@ -214,6 +209,21 @@ class GuiCommon:
                 QLabel {
                     color: #cc0000;
                 }""",
+            # New tab
+            "new_tab_button_image": """
+                QLabel {
+                    padding: 30px;
+                }
+                """,
+            "new_tab_button_text": """
+                QLabel {
+                    border: 1px solid #efeff0;
+                    border-radius: 4px;
+                    background-color: #ffffff;
+                    text-align: center;
+                    color: #4e0d4e;
+                }
+                """,
             # Share mode and child widget styles
             "share_delete_all_files_button": """
                 QPushButton {
@@ -239,9 +249,14 @@ class GuiCommon:
                     color: #333333;
                 }
                 """,
+            "share_file_selection_drop_here_header_label": """
+                QLabel {
+                    color: #333333;
+                    font-size: 30px;
+                }""",
             "share_file_selection_drop_here_label": """
                 QLabel {
-                    color: #999999;
+                    color: #666666;
                 }""",
             "share_file_selection_drop_count_label": """
                 QLabel {

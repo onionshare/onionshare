@@ -47,9 +47,6 @@ class ShareMode(Mode):
         # Create the Web object
         self.web = Web(self.common, True, self.settings, "share")
 
-        # Header
-        self.header_label.setText(strings._("gui_new_tab_share_button"))
-
         # Settings
         self.autostop_sharing_checkbox = QtWidgets.QCheckBox()
         self.autostop_sharing_checkbox.clicked.connect(
@@ -68,7 +65,12 @@ class ShareMode(Mode):
         )
 
         # File selection
-        self.file_selection = FileSelection(self.common, self)
+        self.file_selection = FileSelection(
+            self.common,
+            "images/mode_share.png",
+            strings._("gui_new_tab_share_button"),
+            self,
+        )
         if self.filenames:
             for filename in self.filenames:
                 self.file_selection.file_list.add_file(filename)
@@ -162,7 +164,6 @@ class ShareMode(Mode):
 
         # Wrapper layout
         self.wrapper_layout = QtWidgets.QVBoxLayout()
-        self.wrapper_layout.addWidget(self.header_label)
         self.wrapper_layout.addLayout(self.column_layout)
         self.setLayout(self.wrapper_layout)
 
