@@ -29,13 +29,6 @@ import zipfile
 
 import pytest
 
-LOG_MSG_REGEX = re.compile(
-    r"""
-    ^\[Jun\ 06\ 2013\ 11:05:00\]
-    \ TestModule\.<function\ TestLog\.test_output\.<locals>\.dummy_func
-    \ at\ 0x[a-f0-9]+>(:\ TEST_MSG)?$""",
-    re.VERBOSE,
-)
 PASSWORD_REGEX = re.compile(r"^([a-z]+)(-[a-z]+)?-([a-z]+)(-[a-z]+)?$")
 
 
@@ -194,7 +187,7 @@ class TestGetResourcePath:
         ) == os.path.join(prefix, "test_filename")
 
     def test_linux(self, common_obj, platform_linux, sys_argv_sys_prefix):
-        prefix = os.path.join(sys.prefix, "share/onionshare")
+        prefix = os.path.join(sys.prefix, "share", "onionshare")
         assert common_obj.get_resource_path(
             os.path.join(prefix, "test_filename")
         ) == os.path.join(prefix, "test_filename")
@@ -207,7 +200,7 @@ class TestGetResourcePath:
 
 
 class TestGetTorPaths:
-    # @pytest.mark.skipif(sys.platform != 'Darwin', reason='requires MacOS') ?
+    @pytest.mark.skipif(sys.platform != "Darwin", reason="requires MacOS")
     def test_get_tor_paths_darwin(
         self, platform_darwin, common_obj, sys_frozen, sys_meipass
     ):
@@ -225,7 +218,7 @@ class TestGetTorPaths:
             obfs4proxy_file_path,
         )
 
-    # @pytest.mark.skipif(sys.platform != 'Linux', reason='requires Linux') ?
+    @pytest.mark.skipif(sys.platform != "Linux", reason="requires Linux")
     def test_get_tor_paths_linux(self, platform_linux, common_obj):
         (
             tor_path,
@@ -244,7 +237,7 @@ class TestGetTorPaths:
             or tor_geo_ipv6_file_path == "/usr/local/share/tor/geoip6"
         )
 
-    # @pytest.mark.skipif(sys.platform != 'Windows', reason='requires Windows') ?
+    @pytest.mark.skipif(sys.platform != "win32", reason="requires Windows")
     def test_get_tor_paths_windows(self, platform_windows, common_obj, sys_frozen):
         base_path = os.path.join(
             os.path.dirname(os.path.dirname(common_obj.get_resource_path(""))), "tor"
@@ -287,36 +280,15 @@ class TestHumanReadableFilesize:
 
 
 class TestLog:
-    @pytest.mark.parametrize(
-        "test_input",
-        (
-            (
-                "[Jun 06 2013 11:05:00]"
-                " TestModule.<function TestLog.test_output.<locals>.dummy_func"
-                " at 0xdeadbeef>"
-            ),
-            (
-                "[Jun 06 2013 11:05:00]"
-                " TestModule.<function TestLog.test_output.<locals>.dummy_func"
-                " at 0xdeadbeef>: TEST_MSG"
-            ),
-        ),
-    )
-    def test_log_msg_regex(self, test_input):
-        assert bool(LOG_MSG_REGEX.match(test_input))
-
     def test_output(self, common_obj, time_strftime):
-        def dummy_func():
-            pass
-
         common_obj.verbose = True
 
         # From: https://stackoverflow.com/questions/1218933
         with io.StringIO() as buf, contextlib.redirect_stdout(buf):
-            common_obj.log("TestModule", dummy_func)
-            common_obj.log("TestModule", dummy_func, "TEST_MSG")
+            common_obj.log("TestModule", "dummy_func")
+            common_obj.log("TestModule", "dummy_func", "TEST_MSG")
             output = buf.getvalue()
 
         line_one, line_two, _ = output.split("\n")
-        assert LOG_MSG_REGEX.match(line_one)
-        assert LOG_MSG_REGEX.match(line_two)
+        assert line_one == "[Jun 06 2013 11:05:00] TestModule.dummy_func"
+        assert line_two == "[Jun 06 2013 11:05:00] TestModule.dummy_func: TEST_MSG"
