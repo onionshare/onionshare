@@ -65,7 +65,7 @@ class DropHereWidget(QtWidgets.QWidget):
         self.hide()
 
     def dragEnterEvent(self, event):
-        self.text_label.hide()
+        self.hide()
         event.accept()
 
     def resize(self, w, h):
@@ -108,10 +108,9 @@ class FileList(QtWidgets.QListWidget):
 
     def __init__(self, common, background_image_filename, header_text, parent=None):
         super(FileList, self).__init__(parent)
-
         self.common = common
-
         self.setAcceptDrops(True)
+
         self.setIconSize(QtCore.QSize(32, 32))
         self.setSortingEnabled(True)
         self.setMinimumHeight(160)
@@ -192,7 +191,7 @@ class FileList(QtWidgets.QListWidget):
 
             size_hint = self.drop_count.sizeHint()
             self.drop_count.setGeometry(
-                self.width() - size_hint.width() - 10,
+                self.width() - size_hint.width() - 30,
                 self.height() - size_hint.height() - 10,
                 size_hint.width(),
                 size_hint.height(),
