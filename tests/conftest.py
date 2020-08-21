@@ -98,9 +98,10 @@ def temp_file_1024_delete(temp_dir):
     The temporary file will be deleted after fixture usage.
     """
 
-    with tempfile.NamedTemporaryFile(dir=temp_dir) as tmp_file:
+    with tempfile.NamedTemporaryFile(dir=temp_dir, delete=False) as tmp_file:
         tmp_file.write(b"*" * 1024)
         tmp_file.flush()
+        tmp_file.close()
         yield tmp_file.name
 
 
