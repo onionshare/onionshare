@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import json
 import os
 import tempfile
+import sys
 
 import pytest
 
@@ -135,16 +136,25 @@ class TestSettings:
         settings_obj.set("socks_port", "NON_INTEGER")
         assert settings_obj._settings["socks_port"] == 9050
 
+    @pytest.mark.skipif(sys.platform != "Darwin", reason="requires Darwin")
     def test_filename_darwin(self, monkeypatch, platform_darwin):
         obj = settings.Settings(common.Common())
         assert obj.filename == os.path.expanduser(
             "~/Library/Application Support/OnionShare-testdata/onionshare.json"
         )
 
+    @pytest.mark.skipif(sys.platform != "Linux", reason="requires Linux")
     def test_filename_linux(self, monkeypatch, platform_linux):
         obj = settings.Settings(common.Common())
         assert obj.filename == os.path.expanduser(
             "~/.config/onionshare-testdata/onionshare.json"
+        )
+
+    @pytest.mark.skipif(sys.platform != "win32", reason="requires Windows")
+    def test_filename_windows(self, monkeypatch, platform_windows):
+        obj = settings.Settings(common.Common())
+        assert obj.filename == os.path.expanduser(
+            "~\\AppData\\Roaming\\OnionShare-testdata\\onionshare.json"
         )
 
     def test_set_custom_bridge(self, settings_obj):
