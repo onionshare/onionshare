@@ -63,7 +63,8 @@ class ChatModeWeb:
         def update_session_username():
             history_id = self.cur_history_id
             data = request.get_json()
-            session["name"] = data.get("username", session.get("name"))
+            if data.get("username", "") not in self.connected_users:
+                session["name"] = data.get("username", session.get("name"))
             self.web.add_request(
                 request.path, {"id": history_id, "status_code": 200},
             )
@@ -104,10 +105,11 @@ class ChatModeWeb:
             """Sent by a client when the user updates their username.
             The message is sent to all people in the room."""
             current_name = session.get("name")
-            session["name"] = message["username"]
-            self.connected_users[
-                self.connected_users.index(current_name)
-            ] = session.get("name")
+            if message["username"] not in self.connected_users:
+                session["name"] = message["username"]
+                self.connected_users[
+                    self.connected_users.index(current_name)
+                ] = session.get("name")
             emit(
                 "status",
                 {

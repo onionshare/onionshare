@@ -192,6 +192,11 @@ ul.breadcrumbs li a:link, ul.breadcrumbs li a:visited {
   font-size: 1em;
 }
 
+.chat-users .editable-username #username-error {
+  color: #c90c0c;
+  margin: 0.5rem;
+}
+
 .chat-users #user-list li {
   margin-bottom: 1em;
 }
