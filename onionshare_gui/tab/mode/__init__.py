@@ -93,12 +93,6 @@ class Mode(QtWidgets.QWidget):
         self.starting_server_early.connect(self.start_server_early)
         self.starting_server_error.connect(self.start_server_error)
 
-        # Header
-        # Note: It's up to the downstream Mode to add this to its layout
-        self.header_label = QtWidgets.QLabel()
-        self.header_label.setStyleSheet(self.common.gui.css["mode_header_label"])
-        self.header_label.setAlignment(QtCore.Qt.AlignHCenter)
-
         # Primary action
         # Note: It's up to the downstream Mode to add this to its layout
         self.primary_action_layout = QtWidgets.QVBoxLayout()

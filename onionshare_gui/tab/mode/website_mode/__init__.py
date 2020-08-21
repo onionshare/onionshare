@@ -49,9 +49,6 @@ class WebsiteMode(Mode):
         # Create the Web object
         self.web = Web(self.common, True, self.settings, "website")
 
-        # Header
-        self.header_label.setText(strings._("gui_new_tab_website_button"))
-
         # Settings
         self.disable_csp_checkbox = QtWidgets.QCheckBox()
         self.disable_csp_checkbox.clicked.connect(self.disable_csp_checkbox_clicked)
@@ -68,7 +65,12 @@ class WebsiteMode(Mode):
         )
 
         # File selection
-        self.file_selection = FileSelection(self.common, self)
+        self.file_selection = FileSelection(
+            self.common,
+            "images/mode_website.png",
+            strings._("gui_new_tab_website_button"),
+            self,
+        )
         if self.filenames:
             for filename in self.filenames:
                 self.file_selection.file_list.add_file(filename)
@@ -162,7 +164,6 @@ class WebsiteMode(Mode):
 
         # Wrapper layout
         self.wrapper_layout = QtWidgets.QVBoxLayout()
-        self.wrapper_layout.addWidget(self.header_label)
         self.wrapper_layout.addLayout(self.column_layout)
         self.setLayout(self.wrapper_layout)
 

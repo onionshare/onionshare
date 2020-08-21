@@ -18,7 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import queue
-from PyQt5 import QtCore, QtWidgets, QtGui
+from PyQt5 import QtCore, QtWidgets, QtGui, QtSvg
 
 from onionshare import strings
 from onionshare.onionshare import OnionShare
@@ -33,6 +33,35 @@ from .mode.chat_mode import ChatMode
 from .server_status import ServerStatus
 
 from ..widgets import Alert
+
+
+class NewTabButton(QtWidgets.QPushButton):
+    def __init__(self, common, image_filename, text):
+        super(NewTabButton, self).__init__()
+        self.common = common
+
+        self.setFixedSize(280, 280)
+
+        # Image
+        self.image_label = QtWidgets.QLabel(parent=self)
+        self.image_label.setPixmap(
+            QtGui.QPixmap.fromImage(
+                QtGui.QImage(self.common.get_resource_path(image_filename))
+            )
+        )
+        self.image_label.setFixedSize(280, 280)
+        self.image_label.setStyleSheet(self.common.gui.css["new_tab_button_image"])
+        self.image_label.setGeometry(0, 0, self.width(), self.height())
+        self.image_label.show()
+
+        # Text
+        self.text_label = QtWidgets.QLabel(text, parent=self)
+        self.text_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.text_label.setStyleSheet(self.common.gui.css["new_tab_button_text"])
+        self.text_label.setGeometry(
+            (self.width() - 200) / 2, self.height() - 40, 200, 30
+        )
+        self.text_label.show()
 
 
 class Tab(QtWidgets.QWidget):
@@ -67,69 +96,55 @@ class Tab(QtWidgets.QWidget):
         # Start the OnionShare app
         self.app = OnionShare(common, self.common.gui.onion, self.common.gui.local_only)
 
-        # Widgets to display on a new tab
-        self.share_button = QtWidgets.QPushButton(strings._("gui_new_tab_share_button"))
-        self.share_button.setStyleSheet(self.common.gui.css["mode_new_tab_button"])
-        share_description = QtWidgets.QLabel(strings._("gui_new_tab_share_description"))
-        share_description.setWordWrap(True)
+        # New tab buttons
+        self.share_button = NewTabButton(
+            self.common,
+            "images/mode_new_tab_share.png",
+            strings._("gui_new_tab_share_button"),
+        )
         self.share_button.clicked.connect(self.share_mode_clicked)
 
-        self.receive_button = QtWidgets.QPushButton(
-            strings._("gui_new_tab_receive_button")
+        self.receive_button = NewTabButton(
+            self.common,
+            "images/mode_new_tab_receive.png",
+            strings._("gui_new_tab_receive_button"),
         )
-        self.receive_button.setStyleSheet(self.common.gui.css["mode_new_tab_button"])
         self.receive_button.clicked.connect(self.receive_mode_clicked)
-        receive_description = QtWidgets.QLabel(
-            strings._("gui_new_tab_receive_description")
-        )
-        receive_description.setWordWrap(True)
 
-        self.website_button = QtWidgets.QPushButton(
-            strings._("gui_new_tab_website_button")
+        self.website_button = NewTabButton(
+            self.common,
+            "images/mode_new_tab_website.png",
+            strings._("gui_new_tab_website_button"),
         )
-        self.website_button.setStyleSheet(self.common.gui.css["mode_new_tab_button"])
         self.website_button.clicked.connect(self.website_mode_clicked)
-        website_description = QtWidgets.QLabel(
-            strings._("gui_new_tab_website_description")
-        )
-        website_description.setWordWrap(True)
 
-        self.chat_button = QtWidgets.QPushButton(
-            strings._("gui_new_tab_chat_button")
+        self.chat_button = NewTabButton(
+            self.common,
+            "images/mode_new_tab_chat.png",
+            strings._("gui_new_tab_chat_button"),
         )
-        self.chat_button.setStyleSheet(self.common.gui.css["mode_new_tab_button"])
         self.chat_button.clicked.connect(self.chat_mode_clicked)
-        chat_description = QtWidgets.QLabel(
-            strings._("gui_new_tab_chat_description")
-        )
-        chat_description.setWordWrap(True)
+
+        new_tab_top_layout = QtWidgets.QHBoxLayout()
+        new_tab_top_layout.addStretch()
+        new_tab_top_layout.addWidget(self.share_button)
+        new_tab_top_layout.addWidget(self.receive_button)
+        new_tab_top_layout.addStretch()
+
+        new_tab_bottom_layout = QtWidgets.QHBoxLayout()
+        new_tab_bottom_layout.addStretch()
+        new_tab_bottom_layout.addWidget(self.website_button)
+        new_tab_bottom_layout.addWidget(self.chat_button)
+        new_tab_bottom_layout.addStretch()
 
         new_tab_layout = QtWidgets.QVBoxLayout()
-        new_tab_layout.addStretch(1)
-        new_tab_layout.addWidget(self.share_button)
-        new_tab_layout.addWidget(share_description)
-        new_tab_layout.addSpacing(50)
-        new_tab_layout.addWidget(self.receive_button)
-        new_tab_layout.addWidget(receive_description)
-        new_tab_layout.addSpacing(50)
-        new_tab_layout.addWidget(self.website_button)
-        new_tab_layout.addWidget(website_description)
-        new_tab_layout.addSpacing(50)
-        new_tab_layout.addWidget(self.chat_button)
-        new_tab_layout.addWidget(chat_description)
-        new_tab_layout.addStretch(3)
-
-        new_tab_inner = QtWidgets.QWidget()
-        new_tab_inner.setFixedWidth(500)
-        new_tab_inner.setLayout(new_tab_layout)
-
-        new_tab_outer_layout = QtWidgets.QHBoxLayout()
-        new_tab_outer_layout.addStretch()
-        new_tab_outer_layout.addWidget(new_tab_inner)
-        new_tab_outer_layout.addStretch()
+        new_tab_layout.addStretch()
+        new_tab_layout.addLayout(new_tab_top_layout)
+        new_tab_layout.addLayout(new_tab_bottom_layout)
+        new_tab_layout.addStretch()
 
         self.new_tab = QtWidgets.QWidget()
-        self.new_tab.setLayout(new_tab_outer_layout)
+        self.new_tab.setLayout(new_tab_layout)
         self.new_tab.show()
 
         # Layout
@@ -313,16 +328,12 @@ class Tab(QtWidgets.QWidget):
         self.chat_mode.start_server_finished.connect(
             self.update_server_status_indicator
         )
-        self.chat_mode.stop_server_finished.connect(
-            self.update_server_status_indicator
-        )
+        self.chat_mode.stop_server_finished.connect(self.update_server_status_indicator)
         self.chat_mode.stop_server_finished.connect(self.stop_server_finished)
         self.chat_mode.start_server_finished.connect(self.clear_message)
         self.chat_mode.server_status.button_clicked.connect(self.clear_message)
         self.chat_mode.server_status.url_copied.connect(self.copy_url)
-        self.chat_mode.server_status.hidservauth_copied.connect(
-            self.copy_hidservauth
-        )
+        self.chat_mode.server_status.hidservauth_copied.connect(self.copy_hidservauth)
 
         self.change_title.emit(self.tab_id, strings._("gui_new_tab_chat_button"))
 
@@ -385,6 +396,25 @@ class Tab(QtWidgets.QWidget):
                         strings._("gui_status_indicator_receive_working")
                     )
             elif self.receive_mode.server_status.status == ServerStatus.STATUS_STARTED:
+                self.set_server_status_indicator_started(
+                    strings._("gui_status_indicator_receive_started")
+                )
+        elif self.mode == self.common.gui.MODE_CHAT:
+            # Chat mode
+            if self.chat_mode.server_status.status == ServerStatus.STATUS_STOPPED:
+                self.set_server_status_indicator_stopped(
+                    strings._("gui_status_indicator_receive_stopped")
+                )
+            elif self.chat_mode.server_status.status == ServerStatus.STATUS_WORKING:
+                if self.settings.get("general", "autostart_timer"):
+                    self.set_server_status_indicator_working(
+                        strings._("gui_status_indicator_receive_scheduled")
+                    )
+                else:
+                    self.set_server_status_indicator_working(
+                        strings._("gui_status_indicator_receive_working")
+                    )
+            elif self.chat_mode.server_status.status == ServerStatus.STATUS_STARTED:
                 self.set_server_status_indicator_started(
                     strings._("gui_status_indicator_receive_started")
                 )
