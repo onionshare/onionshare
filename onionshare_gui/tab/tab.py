@@ -228,7 +228,7 @@ class Tab(QtWidgets.QWidget):
         self.share_mode.server_status.url_copied.connect(self.copy_url)
         self.share_mode.server_status.hidservauth_copied.connect(self.copy_hidservauth)
 
-        self.change_title.emit(self.tab_id, strings._("gui_new_tab_share_button"))
+        self.change_title.emit(self.tab_id, strings._("gui_tab_name_share"))
 
         self.update_server_status_indicator()
         self.timer.start(500)
@@ -265,7 +265,7 @@ class Tab(QtWidgets.QWidget):
             self.copy_hidservauth
         )
 
-        self.change_title.emit(self.tab_id, strings._("gui_new_tab_receive_button"))
+        self.change_title.emit(self.tab_id, strings._("gui_tab_name_receive"))
 
         self.update_server_status_indicator()
         self.timer.start(500)
@@ -302,7 +302,7 @@ class Tab(QtWidgets.QWidget):
             self.copy_hidservauth
         )
 
-        self.change_title.emit(self.tab_id, strings._("gui_new_tab_website_button"))
+        self.change_title.emit(self.tab_id, strings._("gui_tab_name_website"))
 
         self.update_server_status_indicator()
         self.timer.start(500)
@@ -335,7 +335,7 @@ class Tab(QtWidgets.QWidget):
         self.chat_mode.server_status.url_copied.connect(self.copy_url)
         self.chat_mode.server_status.hidservauth_copied.connect(self.copy_hidservauth)
 
-        self.change_title.emit(self.tab_id, strings._("gui_new_tab_chat_button"))
+        self.change_title.emit(self.tab_id, strings._("gui_tab_name_chat"))
 
         self.update_server_status_indicator()
         self.timer.start(500)
