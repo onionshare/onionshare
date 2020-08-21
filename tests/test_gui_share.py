@@ -199,6 +199,7 @@ class TestShare(GuiBaseTest):
         self.add_remove_buttons_hidden(tab)
         self.mode_settings_widget_is_hidden(tab)
         self.set_autostart_timer(tab, 10)
+        QtTest.QTest.qWait(500)
         QtTest.QTest.mousePress(
             tab.get_mode().server_status.server_button, QtCore.Qt.LeftButton
         )
@@ -206,6 +207,7 @@ class TestShare(GuiBaseTest):
         QtTest.QTest.mouseRelease(
             tab.get_mode().server_status.server_button, QtCore.Qt.LeftButton
         )
+        QtTest.QTest.qWait(500)
         self.assertEqual(
             tab.get_mode().server_status.status,
             tab.get_mode().server_status.STATUS_STOPPED,
