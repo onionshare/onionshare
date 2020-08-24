@@ -9,6 +9,7 @@
     * [To make a .exe](#to-make-a-exe)
     * [To build the installer](#to-build-the-installer)
 * [Running tests](#running-tests)
+* [Documentation]
 * [Making releases](#making-releases)
   * [Changelog, version, and signed git tag](#changelog-version-and-signed-git-tag)
   * [Linux release](#linux-release)
@@ -289,6 +290,23 @@ You can also choose to wrap the tests in `xvfb-run` so that a ton of OnionShare 
 ```sh
 xvfb-run poetry run ./tests/run.sh --rungui
 ```
+
+# Documentation
+
+To edit and build the documentation, you'll need these:
+
+```sh
+pip3 install --user sphinx
+```
+
+To test te documentation:
+
+```sh
+cd docs
+make html
+```
+
+Then open `docs/build/html/index.html` in a browser to see it.
 
 # Making releases
 
