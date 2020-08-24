@@ -1,12 +1,7 @@
 How to Use OnionShare
 =====================
 
-.. image:: _static/logo.svg
-   :height: 200px
-   :width: 200px
-
-Getting Started
----------------
+OnionShare is an open source tool that lets you securely and anonymously share files, host websites, and chat with friends using the Tor network.
 
 .. toctree::
    :maxdepth: 2

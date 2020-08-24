@@ -293,20 +293,7 @@ xvfb-run poetry run ./tests/run.sh --rungui
 
 # Documentation
 
-To edit and build the documentation, you'll need these:
-
-```sh
-pip3 install --user sphinx
-```
-
-To test te documentation:
-
-```sh
-cd docs
-make html
-```
-
-Then open `docs/build/html/index.html` in a browser to see it.
+To edit and build the documentation, see the [docs readme](/docs/README.md).
 
 # Making releases
 
