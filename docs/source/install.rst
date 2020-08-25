@@ -8,7 +8,9 @@ Flatpak Instructions
 
 There are various ways to install OnionShare for Linux, but the recommended way is to use the Flatpak package. Flatpak ensures that you'll always use the most latest dependencies and run OnionShare inside of a sandbox.
 
-Make sure you have ``flatpak`` installed and the Flathub repository added by following `these instructions <https://flatpak.org/setup/>`_ for your Linux distribution. Then install OnionShare from Flathub by following `the instructions here <https://flathub.org/apps/details/org.onionshare.OnionShare>`_.
+Make sure you have ``flatpak`` installed and the Flathub repository added by following `these instructions <https://flatpak.org/setup/>`_ for your Linux distribution.
+
+Then install OnionShare from Flathub by following `the instructions here <https://flathub.org/apps/details/org.onionshare.OnionShare>`_.
 
 .. _verifying_sigs:
 
