@@ -110,6 +110,7 @@ setup(
         "onionshare_gui.tab.mode.share_mode",
         "onionshare_gui.tab.mode.receive_mode",
         "onionshare_gui.tab.mode.website_mode",
+        "onionshare_gui.tab.mode.chat_mode",
     ],
     include_package_data=True,
     scripts=["install/scripts/onionshare", "install/scripts/onionshare-gui"],
