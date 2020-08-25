@@ -3,6 +3,8 @@ How to Use OnionShare
 
 OnionShare is an open source tool that lets you securely and anonymously share files, host websites, and chat with friends using the Tor network.
 
+.. image:: _static/screenshots/tabs.png
+
 Getting Started
 ---------------
 
