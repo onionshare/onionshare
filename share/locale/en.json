@@ -25,7 +25,7 @@
     "gui_receive_start_server": "Start Receive Mode",
     "gui_receive_stop_server": "Stop Receive Mode",
     "gui_receive_stop_server_autostop_timer": "Stop Receive Mode ({} remaining)",
-    "gui_receive_flatpak_data_dir": "Because you installed OnionShare using flatpak, you must save files to a folder in ~/OnionShare.",
+    "gui_receive_flatpak_data_dir": "Because you installed OnionShare using Flatpak, you must save files to a folder in ~/OnionShare.",
     "gui_copy_url": "Copy Address",
     "gui_copy_hidservauth": "Copy HidServAuth",
     "gui_canceled": "Canceled",
@@ -214,5 +214,5 @@
     "mode_settings_share_autostop_sharing_checkbox": "Stop sharing after files have been sent (uncheck to allow downloading individual files)",
     "mode_settings_receive_data_dir_label": "Save files to",
     "mode_settings_receive_data_dir_browse_button": "Browse",
-    "mode_settings_website_disable_csp_checkbox": "Disable Content Security Policy header (allows your website to use third-party resources)"
+    "mode_settings_website_disable_csp_checkbox": "Don't send Content Security Policy header (allows your website to use third-party resources)"
 }
