@@ -173,3 +173,37 @@ If you want to obtain debug output from the ``onionshare-gui.exe`` in Windows, y
 Then rebuild the EXE with ``install\build_exe.bat`` (you may need to comment out the ``signtool`` commands in the ``build_exe.bat`` and the ``onionshare.nsi`` files, as per the ``BUILD.md`` instructions).
 
 After this, you can run ``onionshare-gui.exe -v`` from a command prompt to see the debug output.
+
+Contributing Translations
+-------------------------
+
+Most of the OnionShare is translatable. You can help make it easier to use and more familiar and welcoming for people around the globe. The Localization Lab has some `documentation about translating OnionShare <https://wiki.localizationlab.org/index.php/OnionShare>`_.
+
+OnionShare uses Weblate to keep track of translations. You can view the OnionShare project here: https://hosted.weblate.org/projects/onionshare/
+
+To help translate, make a Hosted Weblate account and start contributing to that project.
+
+Suggestions for original English strings
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Sometimes the original English strings could be improved, making them easier to translate into other languages.
+
+If you have suggestions for a better English string, please open a GitHub issue rather than commenting in Weblate. This ensures the upstream developers will definitely see the suggestion, and can potentially modify the string via the usual code review processes.
+
+Status of translations
+^^^^^^^^^^^^^^^^^^^^^^
+Here is the current translation status. If you want start a translation in a language not to be found here, please write us to the mailing list: onionshare-dev@lists.riseup.net
+
+.. image:: https://hosted.weblate.org/widgets/onionshare/-/translations/multi-auto.svg
+
+Translate the .desktop file
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+You can also translate the ``install/onionshare.desktop`` file.
+
+Duplicate the line that begins with ``Comment=``. Add the language code to the new line so it becomes ``Comment[lang]=`` (lang should be your language). You can see what language codes are used for translation by looking at the ``share/locale/*.json`` filenames::
+
+    Comment=Original string
+    Comment[da]=Danish translation of the original string
+
+Do the same for other untranslated lines.

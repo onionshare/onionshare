@@ -24,6 +24,7 @@ Documentation
 
    features
    advanced
+   tor
    help
    security
    develop
