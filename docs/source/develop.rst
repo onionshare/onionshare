@@ -1,6 +1,8 @@
 Developing OnionShare
 =====================
 
+.. _collaborating:
+
 Collaborating
 -------------
 
@@ -32,7 +34,7 @@ That file contains the technical instructions and commands necessary:
 Debugging Tips
 --------------
 
-Verbose Mode
+Verbose mode
 ^^^^^^^^^^^^
 
 When developing, it's convenient to run OnionShare from a terminal and add the ``--verbose`` (or ``-v``) flag to the command. This will print a lot of helpful messages to the terminal such as when certain objects are initialized, when events occur (like buttons clicked, settings saved or reloaded), and other debug information. For example::
@@ -121,7 +123,7 @@ You can add your own debug messages by running the ``Common.log`` method from ``
 
 This can be useful when learning the chain of events that occur when using the application or the value of certain variables before and after they are manipulated.
 
-Local Only
+Local only
 ^^^^^^^^^^
 
 Tor is slow, and it's often convenient to skip starting onion services altogether during development. You can do this with the ``--local-only`` flag. For example::

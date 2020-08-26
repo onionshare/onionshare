@@ -24,5 +24,6 @@ Documentation
 
    features
    advanced
+   help
    security
    develop
