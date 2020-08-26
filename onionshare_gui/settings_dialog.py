@@ -892,7 +892,7 @@ class SettingsDialog(QtWidgets.QDialog):
 
     @staticmethod
     def open_help():
-        help_url = "https://github.com/micahflee/onionshare/wiki"
+        help_url = "https://onionshare.org/"
         QtGui.QDesktopServices.openUrl(QtCore.QUrl(help_url))
 
     def settings_from_fields(self):
