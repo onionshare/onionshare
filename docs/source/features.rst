@@ -1,3 +1,5 @@
+.. _how_it_works:
+
 How OnionShare Works
 ====================
 
