@@ -235,5 +235,19 @@
     "gui_website_mode_no_files": "尚未分享網站",
     "gui_settings_individual_downloads_label": "取消選取以允許下載個別的檔案",
     "history_requests_tooltip": "{}個網頁請求",
-    "gui_settings_website_label": "網站設定"
+    "gui_settings_website_label": "網站設定",
+    "mode_settings_receive_data_dir_browse_button": "瀏覽",
+    "mode_settings_receive_data_dir_label": "儲存檔案至",
+    "mode_settings_public_checkbox": "不要使用密碼",
+    "mode_settings_advanced_toggle_hide": "隱藏進階設定",
+    "gui_close_tab_warning_title": "您確定？",
+    "gui_quit_warning_cancel": "取消",
+    "gui_quit_warning_title": "您確定？",
+    "gui_close_tab_warning_cancel": "取消",
+    "gui_close_tab_warning_close": "關閉",
+    "gui_new_tab_share_description": "選擇要寄送給他人的檔案。接收您傳送檔案的人需要使用Tor 瀏覽器才能下載檔案。",
+    "gui_new_tab_receive_button": "接收檔案",
+    "gui_new_tab": "新分頁",
+    "gui_new_tab_tooltip": "開啟新分頁",
+    "gui_new_tab_share_button": "分享檔案"
 }
