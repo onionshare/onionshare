@@ -13,7 +13,7 @@ You're responsible for securely sharing that URL using a communication channel o
 
 The people who you send the URL to must then copy and paste it into `Tor Browser <https://www.torproject.org/>`_ to access the OnionShare service.
 
-With OnionShare, *your own computer is the web server*. If you run OnionShare on your laptop to send someone files, and then suspends your laptop before the files have been downloaded, the service will not be available until your laptop is unsuspended and connected to the internet again. OnionShare works best when working with people in real-time.
+With OnionShare, *your own computer is the web server*. If you run OnionShare on your laptop to send someone files, and then suspend your laptop before the files have been downloaded, the service will not be available until your laptop is unsuspended and connected to the internet again. OnionShare works best when working with people in real-time.
 
 Because your own computer is the web server, *no third party can access anything that happens in OnionShare*, not even the developers of OnionShare. It's completely private. And because OnionShare is based on Tor onion services too, it also protects your anonymity. See the :doc:`security design </security>` for more information.
 
@@ -119,7 +119,7 @@ After you start the server, copy the OnionShare address and send it to the peopl
 
 People can join the chat room by loading its OnionShare address in Tor Browser. The chat room requires JavasScript, so everyone who wants to participate must set their security level to Standard or Safer instead of Safest.
 
-When someone joins the chat room they get assigned a random name which they can change in the left panel if they want. No chat history will get displayed at all, even if others were already chatting in the room, because the chat history isn't saved anywhere.
+When someone joins the chat room they get assigned a random name. They can change their name by typing a new name in the box in the left panel and pressing enter. No chat history will get displayed at all, even if others were already chatting in the room, because the chat history isn't saved anywhere.
 
 .. image:: _static/screenshots/chat-torbrowser.png
 
