@@ -32,30 +32,11 @@ def file_list(path):
 
 
 version = open("share/version.txt").read().strip()
-description = (
-    """OnionShare lets you securely and anonymously send and receive files. It """
-    """works by starting a web server, making it accessible as a Tor onion """
-    """service, and generating an unguessable web address so others can download """
-    """files from you, or upload files to you. It does _not_ require setting up """
-    """a separate server or using a third party file-sharing service."""
-)
-long_description = (
-    description
-    + "\n\n"
-    + (
-        """If you want to send files to someone, OnionShare hosts them on your own """
-        """computer and uses a Tor onion service to make them temporarily accessible """
-        """over the internet. The receiving user just needs to open the web address """
-        """in Tor Browser to download the files. If you want to receive files, """
-        """OnionShare hosts an anonymous dropbox directly on your computer and uses """
-        """a Tor onion service to make it temporarily accessible over the internet. """
-        """Other users can upload files to you from by loading the web address in """
-        """Tor Browser."""
-    )
-)
+description = "OnionShare is an open source tool that lets you securely and anonymously share files, host websites, and chat with friends using the Tor network."
+
 author = "Micah Lee"
 author_email = "micah@micahflee.com"
-url = "https://github.com/micahflee/onionshare"
+url = "https://onionshare.org"
 license = "GPL v3"
 keywords = "onion, share, onionshare, tor, anonymous, web server"
 classifiers = [
@@ -92,7 +73,6 @@ setup(
     name="onionshare",
     version=version,
     description=description,
-    long_description=long_description,
     author=author,
     author_email=author_email,
     maintainer=author,
