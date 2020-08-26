@@ -1,10 +1,10 @@
 Installation
 ============
 
-.. _flatpak:
+.. _linux:
 
-Flatpak Instructions
---------------------
+Linux Instructions
+------------------
 
 There are various ways to install OnionShare for Linux, but the recommended way is to use the Flatpak package. Flatpak ensures that you'll always use the most latest dependencies and run OnionShare inside of a sandbox.
 
