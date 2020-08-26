@@ -87,7 +87,7 @@
     "connecting_to_tor": "Conectando con la red de Tor",
     "update_available": "Hay una versión nueva de OnionShare. <a href='{}'>Pulse aquí</a> para descargarla.<br><br>Utiliza la versión {}; la más reciente es la {}.",
     "update_error_check_error": "No se pudo buscar actualizaciones: ¿quizás no se ha conectado con Tor o el sitio web de OnionShare está caído?",
-    "update_error_invalid_latest_version": "No se pudo buscar si hay actualizaciones: el sitio web de OnionShare comunica que la versión más reciente es «{}», pero eso es irreconocible.",
+    "update_error_invalid_latest_version": "No se pudo buscar si hay actualizaciones: el sitio web de OnionShare comunica que la versión más reciente es «{}», pero eso es irreconocible…",
     "update_not_available": "Está ejecutando la versión más reciente de OnionShare.",
     "gui_tor_connection_ask": "¿Quiere abrir la configuración para arreglar la conexión con Tor?",
     "gui_tor_connection_ask_open_settings": "Sí",
@@ -271,5 +271,10 @@
     "gui_new_tab_receive_button": "Recibir archivos",
     "gui_new_tab_share_button": "Compartir archivos",
     "gui_new_tab_tooltip": "Abrir una nueva pestaña",
-    "gui_new_tab": "Nueva pestaña"
+    "gui_new_tab": "Nueva pestaña",
+    "gui_new_tab_share_description": "Elige los archivos de tu ordenador para enviarlos a otra persona. La persona o personas a las que quieras enviar los archivos tendrán que usar el Tor Browser para descargarlos de ti.",
+    "mode_settings_website_disable_csp_checkbox": "Deshabilitar el encabezado de la Política de Seguridad de Contenidos (permite que tu sitio web utilice recursos de terceros)",
+    "mode_settings_receive_data_dir_browse_button": "Navegar",
+    "mode_settings_receive_data_dir_label": "Guardar archivos en",
+    "mode_settings_share_autostop_sharing_checkbox": "Dejar de compartir una vez que se hayan enviado los archivos (desmarca para permitir la descarga de archivos individuales)"
 }
