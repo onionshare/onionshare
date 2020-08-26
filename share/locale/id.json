@@ -37,11 +37,11 @@
     "gui_choose_items": "Pilih",
     "gui_share_start_server": "Mulai berbagi",
     "gui_share_stop_server": "Berhenti berbagi",
-    "gui_share_stop_server_autostop_timer": "Berhenti Berbagi ({}d tersisa)",
+    "gui_share_stop_server_autostop_timer": "Berhenti berbagi ({})",
     "gui_share_stop_server_autostop_timer_tooltip": "",
     "gui_receive_start_server": "Mulai Mode Menerima",
     "gui_receive_stop_server": "Menghentikan Mode Menerima",
-    "gui_receive_stop_server_autostop_timer": "Menghentikan Mode Menerima ({} tersisa)",
+    "gui_receive_stop_server_autostop_timer": "Menghentikan Mode Menerima ({}d tersisa)",
     "gui_receive_stop_server_autostop_timer_tooltip": "",
     "gui_copy_url": "Salin Alamat",
     "gui_copy_hidservauth": "Salin HidServAuth",
@@ -185,5 +185,8 @@
     "gui_add_files": "Tambahkan berkas",
     "gui_add_folder": "Tambahkan Folder",
     "gui_settings_onion_label": "Pengaturan Onion",
-    "incorrect_password": "Password salah"
+    "incorrect_password": "Password salah",
+    "gui_waiting_to_start": "Dijadwalkan akan dimulai pada {}. Klik untuk membatalkan.",
+    "gui_start_server_autostart_timer_tooltip": "Timer mulai otomatis berakhir pada {}",
+    "gui_stop_server_autostop_timer_tooltip": "Timer berhenti otomatis berakhir pada {}"
 }
