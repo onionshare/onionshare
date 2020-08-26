@@ -15,3 +15,7 @@
 .wy-nav-content a:hover {
     color: #3091d1;
 }
+
+.wy-nav-content div[role=navigation] {
+    display: none;
+}
