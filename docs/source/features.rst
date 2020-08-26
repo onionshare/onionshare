@@ -227,3 +227,12 @@ Add your user to the ``debian-tor`` group by running this command (replace ``use
     sudo usermod -a -G debian-tor username
 
 Reboot your computer. After it boots up again, open OnionShare. Click the Settings icon. Under "How should OnionShare connect to Tor?" choose "Connect using socket file", and set the socket file to be ``/var/run/tor/control``. Under "Tor authentication options" choose "No authentication, or cookie authentication". Click the "Test Settings" button. If all goes well, you should see successfully connect to Tor.
+
+Using Bridges
+-------------
+
+If your access to the internet is censored, you can configure OnionShare to connect to the Tor network using `Tor bridges <https://2019.www.torproject.org/docs/bridges.html.en>`_. If OnionShare successfully connects to Tor, you don't need to use a bridge.
+
+To configure bridges, open OnionShare settings.
+
+You can use the built-in obfs4 pluggable transports, the built-in meek_lite (Azure) pluggable transports, or custom bridges, which you can obtain from Tor's `BridgeDB <https://bridges.torproject.org/>`_. If you need to use a bridge, you should try the built-in obfs4 ones first.
