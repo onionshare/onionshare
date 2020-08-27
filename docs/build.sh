@@ -5,6 +5,8 @@ LOCALES="ar ca zh_CN zh_TW da nl en fr de el is ga it ja nb fa pl pt_BR pt_PT ro
 
 # Generate English .po files
 make gettext
+rm -rf gettext > /dev/null
+cp -r build/gettext gettext
 
 # Update all .po files for all locales
 for LOCALE in $LOCALES; do
