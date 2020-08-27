@@ -16,7 +16,15 @@ make html
 
 Then open `docs/build/html/index.html` in a browser to see it.
 
-To prepare translations:
+To update all of the translations and build all the html, run:
+
+```sh
+./build.sh
+```
+
+You will end up with the documentation in all supported locales in `docs/localized_html`.
+
+Here's how preparing translations works:
 
 ```sh
 # Generate .po files in build/gettext 
