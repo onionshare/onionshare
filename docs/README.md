@@ -5,7 +5,7 @@ All these commands must be run from the `docs` folder.
 You must have the python dependencies installed to build the docs:
 
 ```sh
-pip3 install --user requirements.txt
+pip3 install --user -r requirements.txt
 ```
 
 To build HTML docs:
