@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright 2018 Micah Lee <micah@micahflee.com> -->
 <component type="desktop-application">
     <id>org.onionshare.OnionShare</id>
     <metadata_license>CC0-1.0</metadata_license>

@@ -3,7 +3,7 @@
 """
 OnionShare | https://onionshare.org/
 
-Copyright (C) 2014-2018 Micah Lee <micah@micahflee.com>
+Copyright (C) 2014-2020 Micah Lee, et al. <micah@micahflee.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -22,16 +22,18 @@ import sys, os, platform
 
 # In macOS, allow both CLI and GUI depending on the filename of the binary
 # being executed
-if platform.system() == 'Darwin':
+if platform.system() == "Darwin":
     # If the binary being executed is called 'onionshare', use CLI
     basename = os.path.basename(sys.argv[0])
-    if basename == 'onionshare':
+    if basename == "onionshare":
         import onionshare
+
         onionshare.main()
 
     # Otherwise, use GUI
     else:
         import onionshare_gui
+
         onionshare_gui.main()
 
 # Unfortunately this trick won't work in Windows because I want to set
@@ -41,4 +43,5 @@ if platform.system() == 'Darwin':
 # https://pyinstaller.readthedocs.io/en/stable/spec-files.html#multipackage-bundles
 else:
     import onionshare_gui
+
     onionshare_gui.main()
