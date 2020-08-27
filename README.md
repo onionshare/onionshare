@@ -2,6 +2,24 @@
 
 # OnionShare
 
-OnionShare is an open source tool that lets you securely and anonymously share files, host websites, and chat with friends using the Tor network. To install OnionShare and to learn how it works and how to use it, check out its website at https://onionshare.org.
+OnionShare is an open source tool that lets you securely and anonymously share files, host websites, and chat with friends using the Tor network.
+
+## Installing OnionShare
+
+You can download OnionShare for Windows and macOS from the [OnionShare website](https://onionshare.org).
+
+For macOS you can also use [Homebrew](https://brew.sh/):
+
+```
+brew cask install onionshare
+```
+
+See [these instructions](https://docs.onionshare.org/en/install.html#install-in-linux-with-flatpak) to install OnionShare in Linux with Flatpak.
+
+## Documentation
+
+To learn how OnionShare works, what its security properties are, how to use it, and how to contribute to the project, check out https://docs.onionshare.org.
+
+---
 
 Test status: [![CircleCI](https://circleci.com/gh/micahflee/onionshare.svg?style=svg)](https://circleci.com/gh/micahflee/onionshare)
