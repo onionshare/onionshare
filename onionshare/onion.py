@@ -669,15 +669,16 @@ class Onion(object):
         Stop a specific onion service
         """
         onion_host = mode_settings.get("general", "service_id")
-        self.common.log("Onion", "stop_onion_service", f"onion host: {onion_host}")
-        try:
-            self.c.remove_ephemeral_hidden_service(
-                mode_settings.get("general", "service_id")
-            )
-        except:
-            self.common.log(
-                "Onion", "stop_onion_service", f"failed to remove {onion_host}"
-            )
+        if onion_host:
+            self.common.log("Onion", "stop_onion_service", f"onion host: {onion_host}")
+            try:
+                self.c.remove_ephemeral_hidden_service(
+                    mode_settings.get("general", "service_id")
+                )
+            except:
+                self.common.log(
+                    "Onion", "stop_onion_service", f"failed to remove {onion_host}"
+                )
 
     def cleanup(self, stop_tor=True):
         """

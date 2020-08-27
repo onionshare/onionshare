@@ -8,6 +8,7 @@ import shutil
 import base64
 import tempfile
 import secrets
+import platform
 
 from PyQt5 import QtCore, QtTest, QtWidgets
 
@@ -86,6 +87,7 @@ class GuiBaseTest(unittest.TestCase):
         self.assertFalse(hasattr(tab, "share_mode"))
         self.assertFalse(hasattr(tab, "receive_mode"))
         self.assertFalse(hasattr(tab, "website_mode"))
+        self.assertFalse(hasattr(tab, "chat_mode"))
 
     def new_share_tab(self):
         tab = self.gui.tabs.widget(0)
@@ -275,9 +277,17 @@ class GuiBaseTest(unittest.TestCase):
 
     def add_button_visible(self, tab):
         """Test that the add button should be visible"""
-        self.assertTrue(
-            tab.get_mode().server_status.file_selection.add_button.isVisible()
-        )
+        if platform.system() == "Darwin":
+            self.assertTrue(
+                tab.get_mode().server_status.file_selection.add_files_button.isVisible()
+            )
+            self.assertTrue(
+                tab.get_mode().server_status.file_selection.add_folder_button.isVisible()
+            )
+        else:
+            self.assertTrue(
+                tab.get_mode().server_status.file_selection.add_button.isVisible()
+            )
 
     def url_description_shown(self, tab):
         """Test that the URL label is showing"""
@@ -299,7 +309,10 @@ class GuiBaseTest(unittest.TestCase):
 
     def have_show_qr_code_button(self, tab):
         """Test that the Show QR Code URL button is shown and that it loads a QR Code Dialog"""
-        self.assertTrue(tab.get_mode().server_status.show_url_qr_code_button.isVisible())
+        self.assertTrue(
+            tab.get_mode().server_status.show_url_qr_code_button.isVisible()
+        )
+
         def accept_dialog():
             window = tab.common.gui.qtapp.activeWindow()
             if window:
@@ -358,11 +371,15 @@ class GuiBaseTest(unittest.TestCase):
         ):
             tab.get_mode().server_status.server_button.click()
         self.assertEqual(tab.get_mode().server_status.status, 0)
-        self.assertFalse(tab.get_mode().server_status.show_url_qr_code_button.isVisible())
+        self.assertFalse(
+            tab.get_mode().server_status.show_url_qr_code_button.isVisible()
+        )
         self.assertFalse(tab.get_mode().server_status.copy_url_button.isVisible())
         self.assertFalse(tab.get_mode().server_status.url.isVisible())
         self.assertFalse(tab.get_mode().server_status.url_description.isVisible())
-        self.assertFalse(tab.get_mode().server_status.copy_hidservauth_button.isVisible())
+        self.assertFalse(
+            tab.get_mode().server_status.copy_hidservauth_button.isVisible()
+        )
 
     def web_server_is_stopped(self, tab):
         """Test that the web server also stopped"""
@@ -406,9 +423,17 @@ class GuiBaseTest(unittest.TestCase):
 
     def add_remove_buttons_hidden(self, tab):
         """Test that the add and remove buttons are hidden when the server starts"""
-        self.assertFalse(
-            tab.get_mode().server_status.file_selection.add_button.isVisible()
-        )
+        if platform.system() == "Darwin":
+            self.assertFalse(
+                tab.get_mode().server_status.file_selection.add_files_button.isVisible()
+            )
+            self.assertFalse(
+                tab.get_mode().server_status.file_selection.add_folder_button.isVisible()
+            )
+        else:
+            self.assertFalse(
+                tab.get_mode().server_status.file_selection.add_button.isVisible()
+            )
         self.assertFalse(
             tab.get_mode().server_status.file_selection.remove_button.isVisible()
         )
