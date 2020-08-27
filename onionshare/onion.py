@@ -181,6 +181,9 @@ class Onion(object):
         # Start out not connected to Tor
         self.connected_to_tor = False
 
+        # Assigned later if we are using stealth mode
+        self.auth_string = None
+
     def connect(
         self,
         custom_settings=None,
@@ -549,7 +552,8 @@ class Onion(object):
         # Do the versions of stem and tor that I'm using support stealth onion services?
         try:
             res = self.c.create_ephemeral_hidden_service(
-                {1: 1}, basic_auth={"onionshare": None}, await_publication=False
+                {1: 1}, basic_auth={"onionshare": None}, await_publication=False,
+                key_type="NEW",key_content="RSA1024"
             )
             tmp_service_id = res.service_id
             self.c.remove_ephemeral_hidden_service(tmp_service_id)
@@ -655,8 +659,8 @@ class Onion(object):
             "onion", "hidservauth_string"
         ):
             auth_cookie = list(res.client_auth.values())[0]
-            auth_string = f"HidServAuth {onion_host} {auth_cookie}"
-            mode_settings.set("onion", "hidservauth_string", auth_string)
+            self.auth_string = f"HidServAuth {onion_host} {auth_cookie}"
+            mode_settings.set("onion", "hidservauth_string", self.auth_string)
 
         return onion_host
 
