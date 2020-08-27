@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-26 21:08-0700\n"
+"POT-Creation-Date: 2020-08-26 21:55-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,11 +31,11 @@ msgid "`Català <../ca/>`_"
 msgstr ""
 
 #: ../../source/index.rst:10
-msgid "`正體中文 (繁體) <../zh_Hant/>`_"
+msgid "`正體中文 (繁體) <../zh_TW/>`_"
 msgstr ""
 
 #: ../../source/index.rst:11
-msgid "`中文 (简体) <../zh_Hans/>`_"
+msgid "`中文 (简体) <../zh_CN/>`_"
 msgstr ""
 
 #: ../../source/index.rst:12
@@ -135,4 +135,10 @@ msgid ""
 "OnionShare is an open source tool that lets you securely and anonymously "
 "share files, host websites, and chat with friends using the Tor network."
 msgstr ""
+
+#~ msgid "`正體中文 (繁體) <../zh_Hant/>`_"
+#~ msgstr ""
+
+#~ msgid "`中文 (简体) <../zh_Hans/>`_"
+#~ msgstr ""
 

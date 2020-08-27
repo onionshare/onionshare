@@ -7,8 +7,8 @@ OnionShare's documentation
     
     - `العربية <../ar/>`_
     - `Català <../ca/>`_
-    - `正體中文 (繁體) <../zh_Hant/>`_
-    - `中文 (简体) <../zh_Hans/>`_
+    - `正體中文 (繁體) <../zh_TW/>`_
+    - `中文 (简体) <../zh_CN/>`_
     - `Dansk <../da/>`_
     - `Nederlands <../nl/>`_
     - `English <../en/>`_
