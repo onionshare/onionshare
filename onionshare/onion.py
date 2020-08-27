@@ -374,7 +374,10 @@ class Onion(object):
                 summary = res_parts[4].split("=")[1]
 
                 # "\033[K" clears the rest of the line
-                print(f"Connecting to the Tor network: {progress}% - {summary}\033[K")
+                print(
+                    f"\rConnecting to the Tor network: {progress}% - {summary}\033[K",
+                    end="",
+                )
 
                 if callable(tor_status_update_func):
                     if not tor_status_update_func(progress, summary):
@@ -552,8 +555,11 @@ class Onion(object):
         # Do the versions of stem and tor that I'm using support stealth onion services?
         try:
             res = self.c.create_ephemeral_hidden_service(
-                {1: 1}, basic_auth={"onionshare": None}, await_publication=False,
-                key_type="NEW",key_content="RSA1024"
+                {1: 1},
+                basic_auth={"onionshare": None},
+                await_publication=False,
+                key_type="NEW",
+                key_content="RSA1024",
             )
             tmp_service_id = res.service_id
             self.c.remove_ephemeral_hidden_service(tmp_service_id)
