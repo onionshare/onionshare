@@ -2,7 +2,7 @@
 """
 OnionShare | https://onionshare.org/
 
-Copyright (C) 2014-2018 Micah Lee <micah@micahflee.com>
+Copyright (C) 2014-2020 Micah Lee, et al. <micah@micahflee.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -17,9 +17,11 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
+
 from PyQt5 import QtCore, QtWidgets, QtGui
 from onionshare import strings
 import qrcode
+
 
 class Alert(QtWidgets.QMessageBox):
     """
@@ -102,8 +104,7 @@ class Image(qrcode.image.base.BaseImage):
         self.width = width
         self.box_size = box_size
         size = (width + border * 2) * box_size
-        self._image = QtGui.QImage(
-            size, size, QtGui.QImage.Format_RGB16)
+        self._image = QtGui.QImage(size, size, QtGui.QImage.Format_RGB16)
         self._image.fill(QtCore.Qt.white)
 
     def pixmap(self):
@@ -114,8 +115,10 @@ class Image(qrcode.image.base.BaseImage):
         painter.fillRect(
             (col + self.border) * self.box_size,
             (row + self.border) * self.box_size,
-            self.box_size, self.box_size,
-            QtCore.Qt.black)
+            self.box_size,
+            self.box_size,
+            QtCore.Qt.black,
+        )
 
     def save(self, stream, kind=None):
         pass
@@ -135,8 +138,7 @@ class QRCodeDialog(QtWidgets.QDialog):
         self.common.log("QrCode", "__init__")
 
         self.qr_label = QtWidgets.QLabel(self)
-        self.qr_label.setPixmap(
-            qrcode.make(self.text, image_factory=Image).pixmap())
+        self.qr_label.setPixmap(qrcode.make(self.text, image_factory=Image).pixmap())
 
         self.qr_label_description = QtWidgets.QLabel(self)
         self.qr_label_description.setText(strings._("gui_qr_code_description"))
