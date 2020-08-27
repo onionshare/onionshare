@@ -83,13 +83,13 @@ class TestShare(GuiBaseTest):
                 ),
             )
 
-        tmp_file = tempfile.NamedTemporaryFile()
-        with open(tmp_file.name, "wb") as f:
-            f.write(r.content)
+        tmp_file = tempfile.NamedTemporaryFile("wb", delete=False)
+        tmp_file.write(r.content)
+        tmp_file.close()
 
-        zip = zipfile.ZipFile(tmp_file.name)
+        z = zipfile.ZipFile(tmp_file.name)
         QtTest.QTest.qWait(50)
-        self.assertEqual("onionshare", zip.read("test.txt").decode("utf-8"))
+        self.assertEqual("onionshare", z.read("test.txt").decode("utf-8"))
 
         QtTest.QTest.qWait(500)
 
@@ -135,12 +135,13 @@ class TestShare(GuiBaseTest):
                     ),
                 )
 
-            tmp_file = tempfile.NamedTemporaryFile()
-            with open(tmp_file.name, "wb") as f:
-                f.write(r.content)
+            tmp_file = tempfile.NamedTemporaryFile("wb", delete=False)
+            tmp_file.write(r.content)
+            tmp_file.close()
 
             with open(tmp_file.name, "r") as f:
                 self.assertEqual("onionshare", f.read())
+            os.remove(tmp_file.name)
 
         QtTest.QTest.qWait(500)
 
@@ -200,6 +201,7 @@ class TestShare(GuiBaseTest):
         self.add_remove_buttons_hidden(tab)
         self.mode_settings_widget_is_hidden(tab)
         self.set_autostart_timer(tab, 10)
+        QtTest.QTest.qWait(500)
         QtTest.QTest.mousePress(
             tab.get_mode().server_status.server_button, QtCore.Qt.LeftButton
         )
@@ -207,7 +209,11 @@ class TestShare(GuiBaseTest):
         QtTest.QTest.mouseRelease(
             tab.get_mode().server_status.server_button, QtCore.Qt.LeftButton
         )
-        self.assertEqual(tab.get_mode().server_status.status, 0)
+        QtTest.QTest.qWait(500)
+        self.assertEqual(
+            tab.get_mode().server_status.status,
+            tab.get_mode().server_status.STATUS_STOPPED,
+        )
         self.server_is_stopped(tab)
         self.web_server_is_stopped(tab)
 

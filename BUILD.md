@@ -115,7 +115,7 @@ Download and install Python 3.7.4 from https://www.python.org/downloads/release/
 
 You may also need to run the command `/Applications/Python\ 3.7/Install\ Certificates.command` to update Python 3.6's internal certificate store. Otherwise, you may find that fetching the Tor Browser .dmg file fails later due to a certificate validation error.
 
-Install Qt 5.13.1 for macOS from https://www.qt.io/offline-installers. I downloaded `qt-opensource-mac-x64-5.13.1.dmg`. In the installer, you can skip making an account, and all you need is `Qt` > `Qt 5.13.1` > `macOS`.
+Install Qt 5.14.0 for macOS from https://www.qt.io/offline-installers. I downloaded `qt-opensource-mac-x64-5.14.0.dmg`. In the installer, you can skip making an account, and all you need is `Qt` > `Qt 5.14.0` > `macOS`.
 
 If you don't have it already, install poetry (`pip3 install --user poetry`). Then install dependencies:
 
@@ -150,9 +150,11 @@ Now you should have `dist/OnionShare.pkg`.
 
 ### Setting up your dev environment
 
+These instructions include adding folders to the path in Windows. To do this, go to Start and type "advanced system settings", and open "View advanced system settings" in the Control Panel. Click Environment Variables. Under "System variables" double-click on Path. From there you can add and remove folders that are available in the PATH.
+
 Download Python 3.7.4, 32-bit (x86) from https://www.python.org/downloads/release/python-374/. I downloaded `python-3.7.4.exe`. When installing it, make sure to check the "Add Python 3.7 to PATH" checkbox on the first page of the installer.
 
-Install the Qt 5.13.1 from https://www.qt.io/offline-installers. I downloaded `qt-opensource-windows-x86-5.13.1.exe`. In the installer, you can skip making an account, and all you need `Qt` > `Qt 5.13.1` > `MSVC 2017 32-bit`.
+Install the Qt 5.14.0 from https://www.qt.io/offline-installers. I downloaded `qt-opensource-windows-x86-5.14.0.exe`. In the installer, you can skip making an account, and all you need `Qt` > `Qt 5.14.0` > `MSVC 2017 32-bit`.
 
 Install [poetry](https://python-poetry.org/). Open PowerShell, and run:
 
@@ -160,7 +162,7 @@ Install [poetry](https://python-poetry.org/). Open PowerShell, and run:
 (Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | python
 ```
 
-And add `%USERPROFILE%\.poetry\bin` to your path. Then open a command prompt and cd to the `dangerzone` folder, and install the poetry dependencies:
+Then open a Command Prompt and cd to the `onionshare` folder, and install the poetry dependencies:
 
 ```
 poetry install
@@ -174,8 +176,6 @@ poetry run python dev_scripts\onionshare-gui
 ```
 
 #### If you want to build a .exe
-
-These instructions include adding folders to the path in Windows. To do this, go to Start and type "advanced system settings", and open "View advanced system settings" in the Control Panel. Click Environment Variables. Under "System variables" double-click on Path. From there you can add and remove folders that are available in the PATH.
 
 Download and install 7-Zip from http://www.7-zip.org/download.html. I downloaded `7z1900.exe`.
 
@@ -264,6 +264,8 @@ This will prompt you to codesign three binaries and execute one unsigned binary.
 
 # Running tests
 
+## Tests in macOS and Linux
+
 OnionShare includes PyTest unit tests. To run tests, you can run `pytest` against the `tests/` directory.
 
 ```sh
@@ -276,18 +278,18 @@ You can run GUI tests like this:
 poetry run ./tests/run.sh --rungui
 ```
 
-If you would like to also run the GUI unit tests in 'tor' mode, start Tor Browser in the background, then run:
-
-```sh
-poetry run ./tests/run.sh --rungui --runtor
-```
-
-Keep in mind that the Tor tests take a lot longer to run than local mode, but they are also more comprehensive.
-
-You can also choose to wrap the tests in `xvfb-run` so that a ton of OnionShare windows don't pop up on your desktop (you may need to install the `xorg-x11-server-Xvfb` package), like this:
+If you're using Linux, you can also choose to wrap the tests in `xvfb-run` so that a ton of OnionShare windows don't pop up on your desktop (you may need to install the `xorg-x11-server-Xvfb` package), like this:
 
 ```sh
 xvfb-run poetry run ./tests/run.sh --rungui
+```
+
+## Tests in Windows
+
+You can run this Windows batch script to run all of the CLI and GUI tests.
+
+```
+poetry run tests\run.bat
 ```
 
 # Making releases

@@ -93,7 +93,10 @@ class TestWeb:
             res = c.get("/download", headers=self._make_auth_headers(web.password))
             res.get_data()
             assert res.status_code == 200
-            assert res.mimetype == "application/zip"
+            assert (
+                res.mimetype == "application/zip"
+                or res.mimetype == "application/x-zip-compressed"
+            )
 
     def test_share_mode_autostop_sharing_on(self, temp_dir, common_obj, temp_file_1024):
         web = web_obj(temp_dir, common_obj, "share", 3)
@@ -106,11 +109,16 @@ class TestWeb:
             res = c.get("/download", headers=self._make_auth_headers(web.password))
             res.get_data()
             assert res.status_code == 200
-            assert res.mimetype == "application/zip"
+            assert (
+                res.mimetype == "application/zip"
+                or res.mimetype == "application/x-zip-compressed"
+            )
 
             assert web.running == False
 
-    def test_share_mode_autostop_sharing_off(self, temp_dir, common_obj, temp_file_1024):
+    def test_share_mode_autostop_sharing_off(
+        self, temp_dir, common_obj, temp_file_1024
+    ):
         web = web_obj(temp_dir, common_obj, "share", 3)
         web.settings.set("share", "autostop_sharing", False)
 
@@ -121,7 +129,10 @@ class TestWeb:
             res = c.get("/download", headers=self._make_auth_headers(web.password))
             res.get_data()
             assert res.status_code == 200
-            assert res.mimetype == "application/zip"
+            assert (
+                res.mimetype == "application/zip"
+                or res.mimetype == "application/x-zip-compressed"
+            )
             assert web.running == True
 
     def test_receive_mode(self, temp_dir, common_obj):
