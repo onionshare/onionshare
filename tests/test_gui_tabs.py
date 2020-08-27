@@ -20,7 +20,7 @@ class TestTabs(GuiBaseTest):
             tab.get_mode().server_status.status,
             tab.get_mode().server_status.STATUS_WORKING,
         )
-        QtTest.QTest.qWait(500)
+        QtTest.QTest.qWait(1000)
         self.assertEqual(
             tab.get_mode().server_status.status,
             tab.get_mode().server_status.STATUS_STARTED,
@@ -138,21 +138,27 @@ class TestTabs(GuiBaseTest):
         self.gui.tabs.widget(1).share_button.click()
         self.assertFalse(self.gui.tabs.widget(1).new_tab.isVisible())
         self.assertTrue(self.gui.tabs.widget(1).share_mode.isVisible())
-        self.assertEqual(self.gui.status_bar.server_status_label.text(), 'Ready to share')
+        self.assertEqual(
+            self.gui.status_bar.server_status_label.text(), "Ready to share"
+        )
 
         # New tab, receive files
         self.gui.tabs.new_tab_button.click()
         self.gui.tabs.widget(2).receive_button.click()
         self.assertFalse(self.gui.tabs.widget(2).new_tab.isVisible())
         self.assertTrue(self.gui.tabs.widget(2).receive_mode.isVisible())
-        self.assertEqual(self.gui.status_bar.server_status_label.text(), 'Ready to receive')
+        self.assertEqual(
+            self.gui.status_bar.server_status_label.text(), "Ready to receive"
+        )
 
         # New tab, publish website
         self.gui.tabs.new_tab_button.click()
         self.gui.tabs.widget(3).website_button.click()
         self.assertFalse(self.gui.tabs.widget(3).new_tab.isVisible())
         self.assertTrue(self.gui.tabs.widget(3).website_mode.isVisible())
-        self.assertEqual(self.gui.status_bar.server_status_label.text(), 'Ready to share')
+        self.assertEqual(
+            self.gui.status_bar.server_status_label.text(), "Ready to share"
+        )
 
         # Close tabs
         self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide).click()

@@ -87,6 +87,7 @@ class GuiBaseTest(unittest.TestCase):
         self.assertFalse(hasattr(tab, "share_mode"))
         self.assertFalse(hasattr(tab, "receive_mode"))
         self.assertFalse(hasattr(tab, "website_mode"))
+        self.assertFalse(hasattr(tab, "chat_mode"))
 
     def new_share_tab(self):
         tab = self.gui.tabs.widget(0)
