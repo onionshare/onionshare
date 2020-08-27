@@ -1,9 +1,16 @@
 Installation
 ============
 
+Install on Windows or macOS
+---------------------------
+
+You can download OnionShare for Windows and macOS from the `OnionShare website <https://onionshare.org/>`_.
+
+For added security, see :ref:`verifying_sigs`.
+
 .. _linux:
 
-Linux Instructions
+Install in Linux with Flatpak
 ------------------
 
 There are various ways to install OnionShare for Linux, but the recommended way is to use the Flatpak package. Flatpak ensures that you'll always use the most latest dependencies and run OnionShare inside of a sandbox.
@@ -14,12 +21,12 @@ Then install OnionShare from Flathub by following `the instructions here <https:
 
 .. _verifying_sigs:
 
-Verifying PGP Signatures
+Verifying PGP signatures
 ------------------------
 
 You can verify that the Windows, macOS, or source package you download is legitimate and hasn't been tampered with by verifying its PGP signature. For Windows and macOS, this step is optional and provides defense in depth: the installers also include their operating system-specific signatures, and you can just rely on those alone if you'd like.
 
-Signing Key
+Signing key
 ^^^^^^^^^^^
 
 Windows, macOS, and source packaged are signed by Micah Lee, the core developer, using his PGP public key with fingerprint ``927F419D7EC82C2F149C1BD1403C2657CD994F73``. You can download Micah's key `from the keys.openpgp.org keyserver <https://keys.openpgp.org/vks/v1/by-fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_.

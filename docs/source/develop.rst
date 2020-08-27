@@ -10,7 +10,7 @@ OnionShare has an open Keybase team that we use to discuss the project, includin
 
 OnionShare also has a `mailing list <https://lists.riseup.net/www/subscribe/onionshare-dev>`_ for developers and and designers to discuss the project.
 
-Contributing Code
+Contributing code
 -----------------
 
 OnionShare source code is in this git repository: https://github.com/micahflee/onionshare
@@ -19,7 +19,7 @@ If you'd like to contribute code to OnionShare, it helps to join the Keybase tea
 
 When you're ready to contribute code, open a pull request in the GitHub repository and one of the project maintainers will review it and possible ask questions, request changes, reject it, or merge it into the project.
 
-Starting Development
+Starting development
 --------------------
 
 OnionShare is developed in Python. To get started, you should close the git repository at https://github.com/micahflee/onionshare/ and then consult the ``BUILD.md`` file.
@@ -31,7 +31,7 @@ That file contains the technical instructions and commands necessary:
 * Building packages
 * Making a release of OnionShare
 
-Debugging Tips
+Debugging tips
 --------------
 
 Verbose mode
@@ -174,7 +174,7 @@ Then rebuild the EXE with ``install\build_exe.bat`` (you may need to comment out
 
 After this, you can run ``onionshare-gui.exe -v`` from a command prompt to see the debug output.
 
-Contributing Translations
+Contributing translations
 -------------------------
 
 Most of the OnionShare is translatable. You can help make it easier to use and more familiar and welcoming for people around the globe. The Localization Lab has some `documentation about translating OnionShare <https://wiki.localizationlab.org/index.php/OnionShare>`_.

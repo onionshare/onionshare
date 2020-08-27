@@ -1,9 +1,9 @@
-Advanced Usage
+Advanced usage
 ==============
 
 .. _save_tabs:
 
-Save Tabs
+Save tabs
 ---------
 
 By default, everything in OnionShare is temporary. As soon as you close an OnionShare tab its address no longer exists and can't be used again. But sometimes you might want an OnionShare service to be persistent. For example, this would be useful if you want to host a website that can keep the same URL even if you reboot your computer.
@@ -18,7 +18,7 @@ If you save a tab, a copy of that tab's onion service secret key will be stored 
 
 .. _disable_passwords:
 
-Disable Passwords
+Disable passwords
 -----------------
 
 By default, all OnionShare services are protected with the username `onionshare` and a randomly-generated password. If someone makes 20 wrong guesses of the password, your onion service is automatically stopped to prevent a brute force attack against the OnionShare service.
@@ -27,7 +27,7 @@ But sometimes you might want your OnionShare service to be accessible to the pub
 
 To disable the password for any tab, just check the "Don't use a password" box before starting the server. Then the server will be public and won't have a password.
 
-Scheduled Times
+Scheduled times
 ---------------
 
 OnionShare supports scheduling exactly when a service should start and stop. Before starting server, click "Show advanced settings" in its tab and then check the boxes next to either "Start onion service at scheduled time", "Stop onion service at scheduled time", or both, and set the desired dates and times.
@@ -42,7 +42,7 @@ If you scheduled a service to start in the future, when you click the start butt
 
 .. image:: _static/screenshots/advanced-schedule-stop-timer.png
 
-Legacy Addresses
+Legacy addresses
 ----------------
 
 OnionShare uses v3 Tor onion services by default. These are modern onion addresses that have 56 characters, for example::

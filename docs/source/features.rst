@@ -1,6 +1,6 @@
 .. _how_it_works:
 
-How OnionShare Works
+How OnionShare works
 ====================
 
 OnionShare works by starting web servers locally on your own computer and making them accessible to other people as `Tor <https://www.torproject.org/>`_ `onion services <https://community.torproject.org/onion-services/>`_.
