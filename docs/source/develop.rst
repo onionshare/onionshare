@@ -19,6 +19,8 @@ If you'd like to contribute code to OnionShare, it helps to join the Keybase tea
 
 When you're ready to contribute code, open a pull request in the GitHub repository and one of the project maintainers will review it and possible ask questions, request changes, reject it, or merge it into the project.
 
+.. _starting_development:
+
 Starting development
 --------------------
 
@@ -42,26 +44,26 @@ When developing, it's convenient to run OnionShare from a terminal and add the `
     $ poetry run ./dev_scripts/onionshare -v test.txt 
     OnionShare 2.3 | https://onionshare.org/
 
-                        @@@@@@@@@                      
+                         @@@@@@@@@                      
                     @@@@@@@@@@@@@@@@@@@                 
-                @@@@@@@@@@@@@@@@@@@@@@@@@              
-            @@@@@@@@@@@@@@@@@@@@@@@@@@@@@            
-                @@@@@@@@@@@@@@@@@@@@@@@@@@@@@           ___        _               
-                @@@@@@         @@@@@@@@@@@@@         / _ \      (_)              
-            @@@@    @               @@@@@@@@@@@       | | | |_ __  _  ___  _ __    
-        @@@@@@@@                   @@@@@@@@@@       | | | | '_ \| |/ _ \| '_ \   
-        @@@@@@@@@@@@                  @@@@@@@@@@      \ \_/ / | | | | (_) | | | |  
-    @@@@@@@@@@@@@@@@                 @@@@@@@@@       \___/|_| |_|_|\___/|_| |_|  
-        @@@@@@@@@                 @@@@@@@@@@@@@@@@    _____ _                     
-        @@@@@@@@@@                  @@@@@@@@@@@@     /  ___| |                    
-        @@@@@@@@@@                   @@@@@@@@       \ `--.| |__   __ _ _ __ ___ 
-        @@@@@@@@@@@               @    @@@@          `--. \ '_ \ / _` | '__/ _ \
+                 @@@@@@@@@@@@@@@@@@@@@@@@@              
+               @@@@@@@@@@@@@@@@@@@@@@@@@@@@@            
+                 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@           ___        _               
+                   @@@@@@         @@@@@@@@@@@@@         / _ \      (_)              
+             @@@@    @               @@@@@@@@@@@       | | | |_ __  _  ___  _ __    
+           @@@@@@@@                   @@@@@@@@@@       | | | | '_ \| |/ _ \| '_ \   
+         @@@@@@@@@@@@                  @@@@@@@@@@      \ \_/ / | | | | (_) | | | |  
+       @@@@@@@@@@@@@@@@                 @@@@@@@@@       \___/|_| |_|_|\___/|_| |_|  
+          @@@@@@@@@                 @@@@@@@@@@@@@@@@    _____ _                     
+          @@@@@@@@@@                  @@@@@@@@@@@@     /  ___| |                    
+           @@@@@@@@@@                   @@@@@@@@       \ `--.| |__   __ _ _ __ ___ 
+           @@@@@@@@@@@               @    @@@@          `--. \ '_ \ / _` | '__/ _ \
             @@@@@@@@@@@@@         @@@@@@               /\__/ / | | | (_| | | |  __/
-            @@@@@@@@@@@@@@@@@@@@@@@@@@@@@             \____/|_| |_|\__,_|_|  \___|
-            @@@@@@@@@@@@@@@@@@@@@@@@@@@@@            
-                @@@@@@@@@@@@@@@@@@@@@@@@@              
+             @@@@@@@@@@@@@@@@@@@@@@@@@@@@@             \____/|_| |_|\__,_|_|  \___|
+               @@@@@@@@@@@@@@@@@@@@@@@@@@@@@            
+                 @@@@@@@@@@@@@@@@@@@@@@@@@              
                     @@@@@@@@@@@@@@@@@@@                 
-                        @@@@@@@@@                      
+                         @@@@@@@@@                      
 
     [Aug 23 2020 22:37:06] Settings.__init__
     [Aug 23 2020 22:37:06] Settings.load
@@ -82,18 +84,7 @@ When developing, it's convenient to run OnionShare from a terminal and add the `
     [Aug 23 2020 22:37:06] Settings.load
     [Aug 23 2020 22:37:06] Settings.load: Trying to load /home/user/.config/onionshare/onionshare.json
     [Aug 23 2020 22:37:06] Onion.connect: tor_data_directory_name=/home/user/.config/onionshare/tmp/tmpig895mfl
-    Connecting to the Tor network: 14% - Handshaking with a relay
-    Connecting to the Tor network: 25% - Asking for networkstatus consensus
-    Connecting to the Tor network: 30% - Loading networkstatus consensus
-    Connecting to the Tor network: 40% - Loading authority key certs
-    Connecting to the Tor network: 45% - Asking for relay descriptors
-    Connecting to the Tor network: 50% - Loading relay descriptors
-    Connecting to the Tor network: 59% - Loading relay descriptors
-    Connecting to the Tor network: 68% - Loading relay descriptors
-    Connecting to the Tor network: 89% - Finishing handshake with a relay to build circuits
-    Connecting to the Tor network: 95% - Establishing a Tor circuit
     Connecting to the Tor network: 100% - Done
-
     [Aug 23 2020 22:37:14] Onion.connect: Connected to tor 0.4.3.6
     [Aug 23 2020 22:37:14] Settings.load
     [Aug 23 2020 22:37:14] Settings.load: Trying to load /home/user/.config/onionshare/onionshare.json
@@ -131,26 +122,26 @@ Tor is slow, and it's often convenient to skip starting onion services altogethe
     $ poetry run ./dev_scripts/onionshare --local-only --receive
     OnionShare 2.3 | https://onionshare.org/
 
-                        @@@@@@@@@                      
+                         @@@@@@@@@                      
                     @@@@@@@@@@@@@@@@@@@                 
-                @@@@@@@@@@@@@@@@@@@@@@@@@              
-            @@@@@@@@@@@@@@@@@@@@@@@@@@@@@            
-                @@@@@@@@@@@@@@@@@@@@@@@@@@@@@           ___        _               
-                @@@@@@         @@@@@@@@@@@@@         / _ \      (_)              
-            @@@@    @               @@@@@@@@@@@       | | | |_ __  _  ___  _ __    
-        @@@@@@@@                   @@@@@@@@@@       | | | | '_ \| |/ _ \| '_ \   
-        @@@@@@@@@@@@                  @@@@@@@@@@      \ \_/ / | | | | (_) | | | |  
-    @@@@@@@@@@@@@@@@                 @@@@@@@@@       \___/|_| |_|_|\___/|_| |_|  
-        @@@@@@@@@                 @@@@@@@@@@@@@@@@    _____ _                     
-        @@@@@@@@@@                  @@@@@@@@@@@@     /  ___| |                    
-        @@@@@@@@@@                   @@@@@@@@       \ `--.| |__   __ _ _ __ ___ 
-        @@@@@@@@@@@               @    @@@@          `--. \ '_ \ / _` | '__/ _ \
+                 @@@@@@@@@@@@@@@@@@@@@@@@@              
+               @@@@@@@@@@@@@@@@@@@@@@@@@@@@@            
+                 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@           ___        _               
+                   @@@@@@         @@@@@@@@@@@@@         / _ \      (_)              
+             @@@@    @               @@@@@@@@@@@       | | | |_ __  _  ___  _ __    
+           @@@@@@@@                   @@@@@@@@@@       | | | | '_ \| |/ _ \| '_ \   
+         @@@@@@@@@@@@                  @@@@@@@@@@      \ \_/ / | | | | (_) | | | |  
+       @@@@@@@@@@@@@@@@                 @@@@@@@@@       \___/|_| |_|_|\___/|_| |_|  
+          @@@@@@@@@                 @@@@@@@@@@@@@@@@    _____ _                     
+          @@@@@@@@@@                  @@@@@@@@@@@@     /  ___| |                    
+           @@@@@@@@@@                   @@@@@@@@       \ `--.| |__   __ _ _ __ ___ 
+           @@@@@@@@@@@               @    @@@@          `--. \ '_ \ / _` | '__/ _ \
             @@@@@@@@@@@@@         @@@@@@               /\__/ / | | | (_| | | |  __/
-            @@@@@@@@@@@@@@@@@@@@@@@@@@@@@             \____/|_| |_|\__,_|_|  \___|
-            @@@@@@@@@@@@@@@@@@@@@@@@@@@@@            
-                @@@@@@@@@@@@@@@@@@@@@@@@@              
+             @@@@@@@@@@@@@@@@@@@@@@@@@@@@@             \____/|_| |_|\__,_|_|  \___|
+               @@@@@@@@@@@@@@@@@@@@@@@@@@@@@            
+                 @@@@@@@@@@@@@@@@@@@@@@@@@              
                     @@@@@@@@@@@@@@@@@@@                 
-                        @@@@@@@@@                      
+                         @@@@@@@@@                      
 
     * Running on http://127.0.0.1:17614/ (Press CTRL+C to quit)
 

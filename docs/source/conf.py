@@ -3,9 +3,7 @@ import sphinx_intl
 
 
 project = "OnionShare"
-author = (
-    copyright
-) = "Micah Lee, et al. Like all software, OnionShare may contain bugs or vulnerabilities."
+author = copyright = "Micah Lee, et al."
 version = release = "2.3"
 
 extensions = ["sphinx_rtd_theme"]

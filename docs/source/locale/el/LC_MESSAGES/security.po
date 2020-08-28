@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-26 20:38-0700\n"
+"POT-Creation-Date: 2020-08-27 20:28-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,11 +28,15 @@ msgid ""
 " works."
 msgstr ""
 
-#: ../../source/security.rst:7
-msgid "What OnionShare protects against"
+#: ../../source/security.rst:6
+msgid "Like all software, OnionShare may contain bugs or vulnerabilities."
 msgstr ""
 
 #: ../../source/security.rst:9
+msgid "What OnionShare protects against"
+msgstr ""
+
+#: ../../source/security.rst:11
 msgid ""
 "**Third parties don't have access to anything that happens in "
 "OnionShare.** When you use OnionShare, you host services directly on your"
@@ -43,7 +47,7 @@ msgid ""
 "service with access to your data."
 msgstr ""
 
-#: ../../source/security.rst:11
+#: ../../source/security.rst:13
 msgid ""
 "**Network eavesdroppers can't spy on anything that happens in OnionShare "
 "in transit.** Because connections between Tor onion services and Tor "
@@ -56,7 +60,7 @@ msgid ""
 " service key."
 msgstr ""
 
-#: ../../source/security.rst:13
+#: ../../source/security.rst:15
 msgid ""
 "**Anonymity of OnionShare users are protected by Tor.** OnionShare and "
 "Tor Browser protect the anonymity of the users. As long as the OnionShare"
@@ -65,7 +69,7 @@ msgid ""
 "identity of the OnionShare user."
 msgstr ""
 
-#: ../../source/security.rst:15
+#: ../../source/security.rst:17
 msgid ""
 "**If an attacker learns about the onion service, they still can't access "
 "anything.** There have been attacks against the Tor network that can "
@@ -79,11 +83,11 @@ msgid ""
 " brute force attacks against the password."
 msgstr ""
 
-#: ../../source/security.rst:18
+#: ../../source/security.rst:20
 msgid "What OnionShare doesn't protect against"
 msgstr ""
 
-#: ../../source/security.rst:20
+#: ../../source/security.rst:22
 msgid ""
 "**Communicating the OnionShare address might not be secure.** The "
 "OnionShare user is responsible for securely communicating the OnionShare "
@@ -97,7 +101,7 @@ msgid ""
 "cases where OnionShare is being used for something that isn't secret."
 msgstr ""
 
-#: ../../source/security.rst:22
+#: ../../source/security.rst:24
 msgid ""
 "**Communicating the OnionShare address might not be anonymous.** While "
 "OnionShare and Tor Browser allow for anonymity, if the user wishes to "

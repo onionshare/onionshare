@@ -1,5 +1,5 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) Micah Lee, et al. Like all software, OnionShare may contain bugs or vulnerabilities.
+# Copyright (C) Micah Lee, et al.
 # This file is distributed under the same license as the OnionShare package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-26 20:38-0700\n"
+"POT-Creation-Date: 2020-08-27 20:28-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -77,25 +77,77 @@ msgid "**Scheduling an OnionShare service to automatically stop can be useful to
 msgstr ""
 
 #: ../../source/advanced.rst:46
-msgid "Legacy addresses"
+msgid "Command line interface"
 msgstr ""
 
 #: ../../source/advanced.rst:48
-msgid "OnionShare uses v3 Tor onion services by default. These are modern onion addresses that have 56 characters, for example::"
+msgid "In addition to its graphical interface, OnionShare has a command line interface."
 msgstr ""
 
-#: ../../source/advanced.rst:52
-msgid "But it still has support for v2 onion addresses, the old type of onion addresses that have 16 characters, for example::"
+#: ../../source/advanced.rst:51
+msgid "Linux"
 msgstr ""
 
-#: ../../source/advanced.rst:56
-msgid "OnionShare calls v2 onion addresses \"legacy addresses\". v3 onion addresses are more secure, and using legacy addresses is not recommended."
+#: ../../source/advanced.rst:53
+msgid "If you installed OnionShare using the Flatpak package, unfortunately the command line interface isn't supported."
+msgstr ""
+
+#: ../../source/advanced.rst:55
+msgid "If you installed OnionShare using an operating system package, you can just run ``onionshare`` from the terminal."
 msgstr ""
 
 #: ../../source/advanced.rst:58
-msgid "To use legacy addresses, before starting a server click \"Show advanced settings\" in its tab and check the \"Use a legacy address (v2 onion service, not recommended)\" box. In legacy mode you can optionally enable Tor client authentication. Once you start a server in legacy mode you cannot remove legacy mode in that tab. Instead you must start a separate service in a separate tab."
+msgid "macOS"
 msgstr ""
 
 #: ../../source/advanced.rst:60
+msgid "Make a symbolic link to the OnionShare command line binary line this::"
+msgstr ""
+
+#: ../../source/advanced.rst:64
+msgid "Now you can run ``onionshare`` from the terminal."
+msgstr ""
+
+#: ../../source/advanced.rst:67
+msgid "Windows"
+msgstr ""
+
+#: ../../source/advanced.rst:69
+msgid "The command line interface isn't supported in Windows."
+msgstr ""
+
+#: ../../source/advanced.rst:71
+msgid "If you really want to use it anyway, you can set up a Windows development environment (see :ref:`starting_development`) and then run this in a command prompt::"
+msgstr ""
+
+#: ../../source/advanced.rst:76
+msgid "Usage"
+msgstr ""
+
+#: ../../source/advanced.rst:78
+msgid "You can see command line documentation by running ``onionshare --help``::"
+msgstr ""
+
+#: ../../source/advanced.rst:134
+msgid "Legacy addresses"
+msgstr ""
+
+#: ../../source/advanced.rst:136
+msgid "OnionShare uses v3 Tor onion services by default. These are modern onion addresses that have 56 characters, for example::"
+msgstr ""
+
+#: ../../source/advanced.rst:140
+msgid "But it still has support for v2 onion addresses, the old type of onion addresses that have 16 characters, for example::"
+msgstr ""
+
+#: ../../source/advanced.rst:144
+msgid "OnionShare calls v2 onion addresses \"legacy addresses\". v3 onion addresses are more secure, and using legacy addresses is not recommended."
+msgstr ""
+
+#: ../../source/advanced.rst:146
+msgid "To use legacy addresses, before starting a server click \"Show advanced settings\" in its tab and check the \"Use a legacy address (v2 onion service, not recommended)\" box. In legacy mode you can optionally enable Tor client authentication. Once you start a server in legacy mode you cannot remove legacy mode in that tab. Instead you must start a separate service in a separate tab."
+msgstr ""
+
+#: ../../source/advanced.rst:148
 msgid "Tor Project plans to `completely deprecate v2 onion services <https://blog.torproject.org/v2-deprecation-timeline>`_ on October 15, 2021, and legacy onion services will soon be removed from OnionShare as well."
 msgstr ""

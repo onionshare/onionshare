@@ -3,6 +3,8 @@ Security design
 
 First read :ref:`how_it_works` to understand the basics of how OnionShare works.
 
+Like all software, OnionShare may contain bugs or vulnerabilities.
+
 What OnionShare protects against
 --------------------------------
 
