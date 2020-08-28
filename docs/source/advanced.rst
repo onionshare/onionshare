@@ -42,6 +42,94 @@ If you scheduled a service to start in the future, when you click the start butt
 
 .. image:: _static/screenshots/advanced-schedule-stop-timer.png
 
+Command line interface
+----------------------
+
+In addition to its graphical interface, OnionShare has a command line interface.
+
+Linux
+^^^^^
+
+If you installed OnionShare using the Flatpak package, unfortunately the command line interface isn't supported.
+
+If you installed OnionShare using an operating system package, you can just run ``onionshare`` from the terminal.
+
+macOS
+^^^^^
+
+Make a symbolic link to the OnionShare command line binary line this::
+
+    ln -s /Applications/OnionShare.app/Contents/MacOS/onionshare /usr/local/bin
+
+Now you can run ``onionshare`` from the terminal.
+
+Windows
+^^^^^^^
+
+The command line interface isn't supported in Windows.
+
+If you really want to use it anyway, you can set up a Windows development environment (see :ref:`starting_development`) and then run this in a command prompt::
+
+    poetry run python dev_scripts\onionshare
+
+Usage
+^^^^^
+
+You can see command line documentation by running ``onionshare --help``::
+
+    $ onionshare --help
+    OnionShare 2.3 | https://onionshare.org/
+    
+                         @@@@@@@@@                      
+                    @@@@@@@@@@@@@@@@@@@                 
+                 @@@@@@@@@@@@@@@@@@@@@@@@@              
+               @@@@@@@@@@@@@@@@@@@@@@@@@@@@@            
+                 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@           ___        _               
+                   @@@@@@         @@@@@@@@@@@@@         / _ \      (_)              
+             @@@@    @               @@@@@@@@@@@       | | | |_ __  _  ___  _ __    
+           @@@@@@@@                   @@@@@@@@@@       | | | | '_ \| |/ _ \| '_ \   
+         @@@@@@@@@@@@                  @@@@@@@@@@      \ \_/ / | | | | (_) | | | |  
+       @@@@@@@@@@@@@@@@                 @@@@@@@@@       \___/|_| |_|_|\___/|_| |_|  
+          @@@@@@@@@                 @@@@@@@@@@@@@@@@    _____ _                     
+          @@@@@@@@@@                  @@@@@@@@@@@@     /  ___| |                    
+           @@@@@@@@@@                   @@@@@@@@       \ `--.| |__   __ _ _ __ ___ 
+           @@@@@@@@@@@               @    @@@@          `--. \ '_ \ / _` | '__/ _ \
+            @@@@@@@@@@@@@         @@@@@@               /\__/ / | | | (_| | | |  __/
+             @@@@@@@@@@@@@@@@@@@@@@@@@@@@@             \____/|_| |_|\__,_|_|  \___|
+               @@@@@@@@@@@@@@@@@@@@@@@@@@@@@            
+                 @@@@@@@@@@@@@@@@@@@@@@@@@              
+                    @@@@@@@@@@@@@@@@@@@                 
+                         @@@@@@@@@                      
+
+    usage: onionshare [-h] [--receive] [--website] [--chat] [--local-only] [--connect-timeout SECONDS] [--config FILENAME] [--persistent FILENAME] [--public]
+                    [--auto-start-timer SECONDS] [--auto-stop-timer SECONDS] [--legacy] [--client-auth] [--autostop-sharing] [--data-dir data_dir] [--disable_csp] [-v]
+                    [filename [filename ...]]
+
+    positional arguments:
+    filename                  List of files or folders to share
+
+    optional arguments:
+    -h, --help                show this help message and exit
+    --receive                 Receive files
+    --website                 Publish website
+    --chat                    Start chat server
+    --local-only              Don't use Tor (only for development)
+    --connect-timeout SECONDS
+                                Give up connecting to Tor after a given amount of seconds (default: 120)
+    --config FILENAME         Filename of custom global settings
+    --persistent FILENAME     Filename of persistent session
+    --public                  Don't use a password
+    --auto-start-timer SECONDS
+                                Start onion service at scheduled time (N seconds from now)
+    --auto-stop-timer SECONDS
+                                Stop onion service at schedule time (N seconds from now)
+    --legacy                  Use legacy address (v2 onion service, not recommended)
+    --client-auth             Use client authorization (requires --legacy)
+    --autostop-sharing        Share files: Stop sharing after files have been sent
+    --data-dir data_dir       Receive files: Save files received to this directory
+    --disable_csp             Publish website: Disable Content Security Policy header (allows your website to use third-party resources)
+    -v, --verbose             Log OnionShare errors to stdout, and web errors to disk
+
 Legacy addresses
 ----------------
 
