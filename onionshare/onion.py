@@ -715,7 +715,7 @@ class Onion(object):
             if self.tor_proc:
                 self.tor_proc.terminate()
                 time.sleep(0.2)
-                if self.tor_proc.poll() == None:
+                if self.tor_proc.poll() is None:
                     self.common.log(
                         "Onion",
                         "cleanup",
@@ -724,7 +724,7 @@ class Onion(object):
                     try:
                         self.tor_proc.kill()
                         time.sleep(0.2)
-                        if self.tor_proc.poll() == None:
+                        if self.tor_proc.poll() is None:
                             self.common.log(
                                 "Onion",
                                 "cleanup",
