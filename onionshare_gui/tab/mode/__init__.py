@@ -97,7 +97,6 @@ class Mode(QtWidgets.QWidget):
         # Note: It's up to the downstream Mode to add this to its layout
         self.primary_action_layout = QtWidgets.QVBoxLayout()
         self.primary_action_layout.addWidget(self.mode_settings_widget)
-        self.primary_action_layout.addWidget(self.server_status)
         self.primary_action = QtWidgets.QWidget()
         self.primary_action.setLayout(self.primary_action_layout)
 

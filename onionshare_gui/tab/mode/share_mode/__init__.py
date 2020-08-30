@@ -165,6 +165,7 @@ class ShareMode(Mode):
         # Wrapper layout
         self.wrapper_layout = QtWidgets.QVBoxLayout()
         self.wrapper_layout.addLayout(self.column_layout)
+        self.wrapper_layout.addWidget(self.server_status)
         self.setLayout(self.wrapper_layout)
 
         # Always start with focus on file selection
