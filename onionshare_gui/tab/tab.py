@@ -36,7 +36,7 @@ from ..widgets import Alert
 
 
 class NewTabButton(QtWidgets.QPushButton):
-    def __init__(self, common, image_filename, text):
+    def __init__(self, common, image_filename, title, text):
         super(NewTabButton, self).__init__()
         self.common = common
 
@@ -49,17 +49,26 @@ class NewTabButton(QtWidgets.QPushButton):
                 QtGui.QImage(self.common.get_resource_path(image_filename))
             )
         )
-        self.image_label.setFixedSize(280, 280)
+        self.image_label.setAlignment(QtCore.Qt.AlignCenter)
         self.image_label.setStyleSheet(self.common.gui.css["new_tab_button_image"])
-        self.image_label.setGeometry(0, 0, self.width(), self.height())
+        self.image_label.setGeometry(0, 0, self.width(), 200)
         self.image_label.show()
+
+        # Title
+        self.title_label = QtWidgets.QLabel(title, parent=self)
+        self.title_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.title_label.setStyleSheet(self.common.gui.css["new_tab_title_text"])
+        self.title_label.setGeometry(
+            (self.width() - 250) / 2, self.height() - 100, 250, 30
+        )
+        self.title_label.show()
 
         # Text
         self.text_label = QtWidgets.QLabel(text, parent=self)
         self.text_label.setAlignment(QtCore.Qt.AlignCenter)
         self.text_label.setStyleSheet(self.common.gui.css["new_tab_button_text"])
         self.text_label.setGeometry(
-            (self.width() - 200) / 2, self.height() - 40, 200, 30
+            (self.width() - 200) / 2, self.height() - 50, 200, 30
         )
         self.text_label.show()
 
@@ -96,11 +105,26 @@ class Tab(QtWidgets.QWidget):
         # Start the OnionShare app
         self.app = OnionShare(common, self.common.gui.onion, self.common.gui.local_only)
 
+        # Onionshare logo
+        self.image_label = QtWidgets.QLabel()
+        self.image_label.setPixmap(
+            QtGui.QPixmap.fromImage(
+                QtGui.QImage(self.common.get_resource_path("images/logo_text.png"))
+            )
+        )
+        self.image_label.setFixedSize(160, 40)
+        image_layout = QtWidgets.QVBoxLayout()
+        image_layout.addWidget(self.image_label)
+        image_layout.addStretch()
+        self.image = QtWidgets.QWidget()
+        self.image.setLayout(image_layout)
+
         # New tab buttons
         self.share_button = NewTabButton(
             self.common,
             "images/mode_new_tab_share.png",
             strings._("gui_new_tab_share_button"),
+            strings._("gui_main_page_share_button"),
         )
         self.share_button.clicked.connect(self.share_mode_clicked)
 
@@ -108,6 +132,7 @@ class Tab(QtWidgets.QWidget):
             self.common,
             "images/mode_new_tab_receive.png",
             strings._("gui_new_tab_receive_button"),
+            strings._("gui_main_page_receive_button"),
         )
         self.receive_button.clicked.connect(self.receive_mode_clicked)
 
@@ -115,6 +140,7 @@ class Tab(QtWidgets.QWidget):
             self.common,
             "images/mode_new_tab_website.png",
             strings._("gui_new_tab_website_button"),
+            strings._("gui_main_page_website_button"),
         )
         self.website_button.clicked.connect(self.website_mode_clicked)
 
@@ -122,6 +148,7 @@ class Tab(QtWidgets.QWidget):
             self.common,
             "images/mode_new_tab_chat.png",
             strings._("gui_new_tab_chat_button"),
+            strings._("gui_main_page_chat_button"),
         )
         self.chat_button.clicked.connect(self.chat_mode_clicked)
 
@@ -143,8 +170,14 @@ class Tab(QtWidgets.QWidget):
         new_tab_layout.addLayout(new_tab_bottom_layout)
         new_tab_layout.addStretch()
 
+        new_tab_img_layout = QtWidgets.QHBoxLayout()
+        new_tab_img_layout.addWidget(self.image)
+        new_tab_img_layout.addStretch(1)
+        new_tab_img_layout.addLayout(new_tab_layout)
+        new_tab_img_layout.addStretch(2)
+
         self.new_tab = QtWidgets.QWidget()
-        self.new_tab.setLayout(new_tab_layout)
+        self.new_tab.setLayout(new_tab_img_layout)
         self.new_tab.show()
 
         # Layout

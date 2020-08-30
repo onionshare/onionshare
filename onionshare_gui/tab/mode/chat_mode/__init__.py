@@ -85,6 +85,7 @@ class ChatMode(Mode):
         self.main_layout.addStretch()
         self.main_layout.addWidget(header_label)
         self.main_layout.addWidget(self.primary_action)
+        self.main_layout.addWidget(self.server_status)
         self.main_layout.addStretch()
         self.main_layout.addWidget(MinimumWidthWidget(700))
 

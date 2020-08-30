@@ -77,8 +77,9 @@ class GuiCommon:
                 }""",
             "mode_header_label": """
                 QLabel {
-                    color: #333333;
-                    font-size: 30px;
+                    color: #4E064F;
+                    font-size: 48px;
+                    margin-bottom: 16px;
                 }""",
             "settings_button": """
                 QPushButton {
@@ -216,6 +217,7 @@ class GuiCommon:
             "new_tab_button_image": """
                 QLabel {
                     padding: 30px;
+                    text-align: center;
                 }
                 """,
             "new_tab_button_text": """
@@ -225,6 +227,13 @@ class GuiCommon:
                     background-color: #ffffff;
                     text-align: center;
                     color: #4e0d4e;
+                }
+                """,
+            "new_tab_title_text": """
+                QLabel {
+                    text-align: center;
+                    color: #333333;
+                    font-size: 28px;
                 }
                 """,
             # Share mode and child widget styles
@@ -254,12 +263,14 @@ class GuiCommon:
                 """,
             "share_file_selection_drop_here_header_label": """
                 QLabel {
-                    color: #333333;
-                    font-size: 30px;
+                    color: #4E064F;
+                    font-size: 48px;
+                    margin-bottom: 72px;
                 }""",
             "share_file_selection_drop_here_label": """
                 QLabel {
                     color: #666666;
+                    margin-bottom: 48px;
                 }""",
             "share_file_selection_drop_count_label": """
                 QLabel {
