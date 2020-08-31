@@ -10,10 +10,27 @@ extensions = ["sphinx_rtd_theme"]
 templates_path = ["_templates"]
 exclude_patterns = []
 
+languages = [
+    ("العربية", "ar"),
+    ("Català", "ca"),
+    ("Dansk", "da"),
+    ("Nederlands", "nl"),
+    ("English", "en"),
+]
+
+versions = [
+    ("2.3", "/")
+]
+
 html_theme = "sphinx_rtd_theme"
 html_logo = "_static/logo.png"
 html_favicon = "_static/favicon.ico"
 html_theme_options = {}
+html_context = {
+    "langs": languages,
+    "versions": versions,
+    "current_version": release
+}
 html_static_path = ["_static"]
 html_css_files = ["custom.css"]
 html_show_sourcelink = False
