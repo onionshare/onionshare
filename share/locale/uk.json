@@ -1,12 +1,12 @@
 {
-    "preparing_files": "Стискання файлів.",
+    "preparing_files": "Стиснення файлів.",
     "not_a_readable_file": "{0:s} - файл що не читається.",
     "no_available_port": "Не вдалося знайти доступний порт для запуску onion служби",
     "other_page_loaded": "Адресу завантажено",
     "close_on_autostop_timer": "Зупинено, бо збіг час таймеру автоспину",
     "closing_automatically": "Зупинено, бо передачу виконано",
     "large_filesize": "Увага: надсилання великого об'єму може тривати години",
-    "gui_drag_and_drop": "Перетягніть файли та теки\nдля поширення",
+    "gui_drag_and_drop": "Перетягніть файли та теки для надсилання",
     "gui_add": "Додати",
     "gui_add_files": "Додати Файли",
     "gui_add_folder": "Додати Теку",
@@ -82,7 +82,7 @@
     "gui_settings_autostart_timer_checkbox": "Використовувати таймер автозапуску",
     "gui_settings_autostart_timer": "Розпочати поширення о:",
     "settings_error_unknown": "Не вдалося підключитися до контролера Tor, оскільки налаштування не мають сенсу.",
-    "settings_error_automatic": "Не вдалося підключитися до контролера Tor.  Чи Tor браузер (доступний з torproject.org) запущений?",
+    "settings_error_automatic": "Не вдалося під'єднатися до контролера Tor. Чи запущено Tor браузер (доступний з torproject.org) у фоні?",
     "settings_error_socket_port": "Не вдалося підключитися до контролера Tor за {}: {}.",
     "settings_error_socket_file": "Не вдалося підключитися до контролера Tor за допомогою сокет файлу {}.",
     "settings_error_auth": "Підключений до {}:{}, але не можливо пройти автентифікацію. Чи це не Tor контролер?",
@@ -103,7 +103,7 @@
     "gui_tor_connection_ask_open_settings": "Так",
     "gui_tor_connection_ask_quit": "Вийти",
     "gui_tor_connection_error_settings": "Спробуйте змінити в параметрах те як OnionShare підключається до мережі Tor.",
-    "gui_tor_connection_canceled": "Не вдалося  підключитися до Tor. \n\nПереконайтеся, що ви підключені до мережі Інтернет, відкрийте OnionShare знову і налаштуйте підключення до Tor.",
+    "gui_tor_connection_canceled": "Не вдалося під'єднатися до Tor. \n\nПереконайтеся, що ви під'єднані до мережі Інтернет, відкрийте OnionShare знову і налаштуйте з'єднання з Tor.",
     "gui_tor_connection_lost": "Відключено від Tor.",
     "gui_server_started_after_autostop_timer": "Таймер автоспину збіг перед початком роботи сервера. Будь ласка, зробіть нове поширення.",
     "gui_server_autostop_timer_expired": "Час автоспину не може бути однаковим або раніше часу автоматичного запуску. Будь ласка, поновіть його, щоб почати поширення.",
@@ -209,5 +209,7 @@
     "gui_close_tab_warning_close": "Закрити",
     "gui_close_tab_warning_title": "Ви впевнені?",
     "gui_new_tab_tooltip": "Відкрити нову вкладку",
-    "gui_new_tab": "Нова вкладка"
+    "gui_new_tab": "Нова вкладка",
+    "gui_file_selection_remove_all": "Вилучити всі",
+    "gui_remove": "Вилучити"
 }
