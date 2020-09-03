@@ -1,7 +1,10 @@
 #!/bin/bash
 
+VERSION=`cat ../share/version.txt`
+
 # Supported locales
-LOCALES="ar ca zh_CN zh_TW da nl en fr de el is ga it ja nb fa pl pt_BR pt_PT ro ru sr@latin es sv te tr uk"
+#LOCALES="ar ca zh_CN zh_TW da nl en fr de el is ga it ja nb fa pl pt_BR pt_PT ro ru sr@latin es sv te tr uk"
+LOCALES="ar ca da nl en"
 
 # Generate English .po files
 make gettext
@@ -14,16 +17,19 @@ for LOCALE in $LOCALES; do
 done
 
 # Build all locales
-rm -rf build/html build/localized_html > /dev/null
-mkdir -p build/localized_html
+rm -rf build/html build/docs > /dev/null
+mkdir -p build/docs/$VERSION
 
 make html
-mv build/html build/localized_html/en
+mv build/html build/docs/$VERSION/en
 
 for LOCALE in $LOCALES; do
     make -e SPHINXOPTS="-D language='$LOCALE'" html
-    mv build/html build/localized_html/$LOCALE
+    mv build/html build/docs/$VERSION/$LOCALE
 done
 
 # Redirect to English by default
-echo '<html><head><meta http-equiv="refresh" content="0; url=en/" /><script>document.location="en/"</script></head></html>' > build/localized_html/index.html
+echo '<html><head><meta http-equiv="refresh" content="0; url=en/" /><script>document.location="en/"</script></head></html>' > build/docs/$VERSION/index.html
+
+# Redirect to latest version
+echo '<html><head><meta http-equiv="refresh" content="0; url='$VERSION'/en/" /><script>document.location="'$VERSION'/en/"</script></head></html>' > build/docs/index.html

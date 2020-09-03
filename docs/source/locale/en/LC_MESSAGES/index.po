@@ -1,6 +1,5 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) Micah Lee, et al. Like all software, OnionShare may contain
-# bugs or vulnerabilities.
+# Copyright (C) Micah Lee, et al.
 # This file is distributed under the same license as the OnionShare package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
 #
@@ -9,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-26 21:55-0700\n"
+"POT-Creation-Date: 2020-09-03 11:46-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,123 +21,9 @@ msgstr ""
 msgid "OnionShare's documentation"
 msgstr ""
 
-#: ../../source/index.rst:8
-msgid "`العربية <../ar/>`_"
-msgstr ""
-
-#: ../../source/index.rst:9
-msgid "`Català <../ca/>`_"
-msgstr ""
-
-#: ../../source/index.rst:10
-msgid "`正體中文 (繁體) <../zh_TW/>`_"
-msgstr ""
-
-#: ../../source/index.rst:11
-msgid "`中文 (简体) <../zh_CN/>`_"
-msgstr ""
-
-#: ../../source/index.rst:12
-msgid "`Dansk <../da/>`_"
-msgstr ""
-
-#: ../../source/index.rst:13
-msgid "`Nederlands <../nl/>`_"
-msgstr ""
-
-#: ../../source/index.rst:14
-msgid "`English <../en/>`_"
-msgstr ""
-
-#: ../../source/index.rst:15
-msgid "`Français <../fr/>`_"
-msgstr ""
-
-#: ../../source/index.rst:16
-msgid "`Deutsch <../de/>`_"
-msgstr ""
-
-#: ../../source/index.rst:17
-msgid "`Ελληνικά <../el/>`_"
-msgstr ""
-
-#: ../../source/index.rst:18
-msgid "`Íslenska <../is/>`_"
-msgstr ""
-
-#: ../../source/index.rst:19
-msgid "`Gaeilge <../ga/>`_"
-msgstr ""
-
-#: ../../source/index.rst:20
-msgid "`Italiano <../it/>`_"
-msgstr ""
-
-#: ../../source/index.rst:21
-msgid "`日本語 <../ja/>`_"
-msgstr ""
-
-#: ../../source/index.rst:22
-msgid "`Norsk Bokmål <../nb/>`_"
-msgstr ""
-
-#: ../../source/index.rst:23
-msgid "`ﻑﺍﺮﺴﯾ <../fa/>`_"
-msgstr ""
-
-#: ../../source/index.rst:24
-msgid "`Polski <../pl/>`_"
-msgstr ""
-
-#: ../../source/index.rst:25
-msgid "`Português (Brasil) <../pt_BR/>`_"
-msgstr ""
-
-#: ../../source/index.rst:26
-msgid "`Português (Portugal) <../pt_PT/>`_"
-msgstr ""
-
-#: ../../source/index.rst:27
-msgid "`Română <../ro/>`_"
-msgstr ""
-
-#: ../../source/index.rst:28
-msgid "`Русский <../ru/>`_"
-msgstr ""
-
-#: ../../source/index.rst:29
-msgid "`Srpska (latinica) <../sr_Latn/>`_"
-msgstr ""
-
-#: ../../source/index.rst:30
-msgid "`Español <../es/>`_"
-msgstr ""
-
-#: ../../source/index.rst:31
-msgid "`Svenska <../sv/>`_"
-msgstr ""
-
-#: ../../source/index.rst:32
-msgid "`తెలుగు <../te/>`_"
-msgstr ""
-
-#: ../../source/index.rst:33
-msgid "`Türkçe <../tr/>`_"
-msgstr ""
-
-#: ../../source/index.rst:34
-msgid "`Українська <../uk/>`_"
-msgstr ""
-
-#: ../../source/index.rst:36
+#: ../../source/index.rst:6
 msgid ""
 "OnionShare is an open source tool that lets you securely and anonymously "
 "share files, host websites, and chat with friends using the Tor network."
 msgstr ""
-
-#~ msgid "`正體中文 (繁體) <../zh_Hant/>`_"
-#~ msgstr ""
-
-#~ msgid "`中文 (简体) <../zh_Hans/>`_"
-#~ msgstr ""
 
