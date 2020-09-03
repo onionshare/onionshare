@@ -8,8 +8,8 @@
     {%- if versions %}
     <dl>
       <dt>{{ _('Versions') }}</dt>
-      {%- for name, url in versions %}
-      <dd><a href="{{ url }}">{{ name }}</a></dd>
+      {%- for name in versions %}
+      <dd><a href="../../{{ name }}">{{ name }}</a></dd>
       {%- endfor %}
     </dl>
     {%- endif %}
