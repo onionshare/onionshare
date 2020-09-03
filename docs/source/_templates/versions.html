@@ -1,0 +1,25 @@
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book">OnionShare</span>
+    v: {{ current_version }}
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    {%- if versions %}
+    <dl>
+      <dt>{{ _('Versions') }}</dt>
+      {%- for name in versions %}
+      <dd><a href="../../{{ name }}">{{ name }}</a></dd>
+      {%- endfor %}
+    </dl>
+    {%- endif %}
+    {%- if langs %}
+    <dl>
+      <dt>{{ _('Languages') }}</dt>
+      {%- for name, code in langs %}
+      <dd><a href="../{{ code }}/">{{ name }}</a></dd>
+      {%- endfor %}
+    </dl>
+    {%- endif %}
+  </div>
+</div>

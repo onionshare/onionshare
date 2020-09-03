@@ -2,7 +2,7 @@
 """
 OnionShare | https://onionshare.org/
 
-Copyright (C) 2014-2018 Micah Lee <micah@micahflee.com>
+Copyright (C) 2014-2020 Micah Lee, et al. <micah@micahflee.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -17,6 +17,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
+
 import time
 import subprocess
 import os
@@ -463,7 +464,7 @@ class IndividualFileHistoryItem(HistoryItem):
         self.downloaded_bytes = downloaded_bytes
 
         self.progress_bar.setValue(downloaded_bytes / 1024)
-        if (downloaded_bytes / 1024 ) == (self.progress_bar.total_bytes / 1024):
+        if (downloaded_bytes / 1024) == (self.progress_bar.total_bytes / 1024):
             self.status_code_label.setText("200")
             self.status_code_label.setStyleSheet(
                 self.common.gui.css["history_individual_file_status_code_label_2xx"]

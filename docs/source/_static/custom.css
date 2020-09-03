@@ -1,0 +1,21 @@
+.wy-nav-top {
+    background-color: #4e0d4e;
+}
+
+.wy-side-nav-search {
+    background-color: #5f0f5f;
+}
+
+.wy-nav-content a:link,
+.wy-nav-content a:visited {
+    color: #2980b9;
+}
+
+.wy-nav-content a:active,
+.wy-nav-content a:hover {
+    color: #3091d1;
+}
+
+.wy-nav-content div[role=navigation] {
+    display: none;
+}
