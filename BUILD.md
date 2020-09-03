@@ -9,6 +9,7 @@
     * [To make a .exe](#to-make-a-exe)
     * [To build the installer](#to-build-the-installer)
 * [Running tests](#running-tests)
+* [Documentation]
 * [Making releases](#making-releases)
   * [Changelog, version, and signed git tag](#changelog-version-and-signed-git-tag)
   * [Linux release](#linux-release)
@@ -292,19 +293,29 @@ You can run this Windows batch script to run all of the CLI and GUI tests.
 poetry run tests\run.bat
 ```
 
+# Documentation
+
+To edit and build the documentation, see the [docs readme](/docs/README.md).
+
 # Making releases
 
 This section documents the release process. Unless you're a core OnionShare developer making a release, you'll probably never need to follow it.
 
-## Changelog, version, and signed git tag
+## Changelog, version, docs, and signed git tag
 
-Before making a release, all of these should be complete:
+Before making a release, you must update the version in these places:
 
 * `share/version.txt` should have the correct version
 * `pyproject.toml` should have the correct version
+* `docs/source/conf.py` should have the correct version
 * `install/org.onionshare.OnionShare.appdata.xml` should have the correct version
 * `install/onionshare.nsi` should have the correct version, for the Windows installer
+
+In addition to that, you must:
+
+* `install/org.onionshare.OnionShare.appdata.xml` should have the correct release date, and links to correct screenshots
 * `CHANGELOG.md` should be updated to include a list of all major changes since the last release
+* Update all of the documentation to cover new features, including taking new screenshots if necessary
 * There must be a PGP-signed git tag for the version, e.g. for OnionShare 2.1, the tag must be `v2.1`
 
 The first step for the Linux, macOS, and Windows releases is the same:
