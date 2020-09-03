@@ -2,7 +2,7 @@
 
 ## 2.3
 
-* Major new feature: Multiple tabs, including better support for persistent services, fasting Tor connections
+* Major new feature: Multiple tabs, including better support for persistent services, faster Tor connections
 * New feature: Chat anonymously mode
 * New feature: All new design
 * New feature: Ability to display QR codes of OnionShare addresses
