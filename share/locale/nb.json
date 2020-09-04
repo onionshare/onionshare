@@ -263,5 +263,10 @@
     "mode_settings_autostart_timer_checkbox": "Start løktjeneste ved planlagt tidspunkt",
     "mode_settings_public_checkbox": "Ikke bruk passord",
     "gui_close_tab_warning_receive_description": "Du mottar filer. Er du sikker på at du vil lukke denne fanen?",
-    "gui_close_tab_warning_share_description": "Du sender filer. Er du sikker på at du vil lukke denne fanen?"
+    "gui_close_tab_warning_share_description": "Du sender filer. Er du sikker på at du vil lukke denne fanen?",
+    "gui_chat_stop_server": "Stopp sludringstjener",
+    "gui_chat_start_server": "Start sludringstjener",
+    "gui_chat_stop_server_autostop_timer": "Stopp sludringstjener ({})",
+    "gui_file_selection_remove_all": "Fjern alle",
+    "gui_remove": "Fjern"
 }
