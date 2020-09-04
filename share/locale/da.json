@@ -268,5 +268,20 @@
     "gui_close_tab_warning_cancel": "Annuller",
     "gui_close_tab_warning_close": "Luk",
     "gui_close_tab_warning_title": "Er du sikker?",
-    "gui_new_tab": "Nyt faneblad"
+    "gui_new_tab": "Nyt faneblad",
+    "gui_tab_name_chat": "Chat",
+    "gui_tab_name_website": "Websted",
+    "gui_tab_name_receive": "Modtag",
+    "gui_tab_name_share": "Del",
+    "gui_new_tab_chat_button": "Chat anonymt",
+    "gui_open_folder_error": "Kunne ikke åbne mappen med xdg-open. Filen er her: {}",
+    "gui_qr_code_description": "Skan QR-koden med en QR-læser såsom kameraet i din telefon for at gøre det lettere at dele OnionShare-adressen med andre.",
+    "gui_qr_code_dialog_title": "QR-kode til OnionShare",
+    "gui_show_url_qr_code": "Vis QR-kode",
+    "gui_receive_flatpak_data_dir": "Da du installerede OnionShare med flatpak, så skal du gemme filer til en mappe i ~/OnionShare.",
+    "gui_chat_stop_server": "Stop chatserver",
+    "gui_chat_start_server": "Start chatserver",
+    "gui_chat_stop_server_autostop_timer": "Stop chatserver ({})",
+    "gui_file_selection_remove_all": "Fjern alle",
+    "gui_remove": "Fjern"
 }

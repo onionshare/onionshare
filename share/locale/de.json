@@ -48,7 +48,7 @@
     "give_this_url_stealth": "Gib dem Empfänger diese URL und die HidServAuth-Zeile:",
     "give_this_url_receive": "Gib diese URL dem Sender:",
     "give_this_url_receive_stealth": "Gib diese URL und die HidServAuth-Zeile an den Sender:",
-    "not_a_readable_file": "{0:s} ist nicht lesbar.",
+    "not_a_readable_file": "{0:s} ist keine lesbare Datei.",
     "no_available_port": "Es konnte kein freier verfügbarer Port gefunden werden, um OnionShare zu starten",
     "close_on_autostop_timer": "Angehalten, da der automatische Timer abgelaufen ist",
     "systray_upload_started_title": "OnionShare Upload wurde gestartet",
@@ -69,7 +69,7 @@
     "gui_settings_tor_bridges_meek_lite_azure_radio_option": "Benutze integrierte „meek_lite (Amazon) pluggable transports“",
     "gui_settings_tor_bridges_meek_lite_azure_radio_option_no_obfs4proxy": "Benutze integrierte „meek_lite (Azure) pluggable transports“ (benötigt obfs4proxy)",
     "gui_settings_tor_bridges_custom_radio_option": "Benutze benutzerdefinierte Bridges",
-    "gui_settings_tor_bridges_custom_label": "Bridges findest du unter  <a href=\"https://bridges.torproject.org/options\">https://bridges.torproject.org</a>",
+    "gui_settings_tor_bridges_custom_label": "Bridges findest du unter <a href=\"https://bridges.torproject.org/options\">https://bridges.torproject.org</a>",
     "gui_settings_autostop_timer_checkbox": "Automatische Stoppuhr verwenden",
     "settings_error_auth": "Mit {}:{} verbinden aber nicht authentifiziert. Eventuell handelt es sich nicht um einen Tor-Controller?",
     "settings_error_missing_password": "Mit dem Tor-Controller verbunden, aber er benötigt ein Passwort zur Authentifizierung.",
@@ -272,5 +272,11 @@
     "gui_new_tab_tooltip": "Einen neuen Reiter öffnen",
     "gui_new_tab": "Neuer Reiter",
     "gui_settings_website_label": "Webseiten-Einstellung",
-    "gui_settings_csp_header_disabled_option": "Content-Security-Policy-Header deaktivieren"
+    "gui_settings_csp_header_disabled_option": "Content-Security-Policy-Header deaktivieren",
+    "gui_tab_name_website": "Webseite",
+    "gui_tab_name_chat": "Chat",
+    "gui_tab_name_receive": "Empfangen",
+    "gui_tab_name_share": "Teilen",
+    "gui_file_selection_remove_all": "Alle entfernen",
+    "gui_remove": "Entfernen"
 }
