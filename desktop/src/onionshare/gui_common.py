@@ -128,12 +128,15 @@ class GuiCommon:
                 """,
             "server_status_url_buttons": """
                 QPushButton {
-                    color: #ffffff;
-                    background-color: #4e064f;
-                    padding: 10px;
-                    border: 0;
-                    border-radius: 5px;
-                    text-decoration: none;
+                    border: 1px solid #d3d3d3;
+                    border-radius: 4px;
+                    background-color: #ffffff;
+                    padding: 8px 16px;
+                    text-align: center;
+                    color: #4e0d4e;
+                }
+                QPushButton:pressed {
+                    background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1,   stop:0 rgba(255, 255, 255, 255), stop:1 rgba(239, 239, 240, 255))
                 }
                 """,
             "server_status_button_stopped": """
