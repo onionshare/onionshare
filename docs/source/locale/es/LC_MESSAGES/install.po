@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-09-03 11:37-0700\n"
-"PO-Revision-Date: 2020-09-14 11:00+0000\n"
-"Last-Translator: emma peel <emma.peel@riseup.net>\n"
+"PO-Revision-Date: 2020-09-14 11:03+0000\n"
+"Last-Translator: Zuhualime Akoochimoya <zakooch@protonmail.ch>\n"
 "Language-Team: none\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -29,12 +29,12 @@ msgstr "Instalar en Windows o macOS"
 #: ../../source/install.rst:7
 msgid "You can download OnionShare for Windows and macOS from the `OnionShare website <https://onionshare.org/>`_."
 msgstr ""
-"Puedes descargar OnionShare para Windows o MacOS desde la página web de "
-"OnionShare <https://onionshare.org/>`__."
+"Puedes descargar OnionShare para Windows o macOS desde la página web de "
+"OnionShare <https://onionshare.org/>`_."
 
 #: ../../source/install.rst:9
 msgid "For added security, see :ref:`verifying_sigs`."
-msgstr "Para mayor seguridad, lee :ref:``verifying_sigs``."
+msgstr "Para mayor seguridad, lee :ref:`verifying_sigs`."
 
 #: ../../source/install.rst:14
 msgid "Install in Linux with Flatpak"
