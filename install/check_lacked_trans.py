@@ -27,7 +27,12 @@ es disused gui_starting_server
 """
 
 
-import fileinput, argparse, re, os, codecs, json, sys
+import argparse
+import re
+import os
+import codecs
+import json
+import sys
 
 
 def arg_parser():
@@ -68,29 +73,53 @@ def main():
     dir = args.onionshare_dir
 
     src = (
-        files_in(dir, "onionshare")
-        + files_in(dir, "onionshare_gui")
-        + files_in(dir, "onionshare_gui/mode")
-        + files_in(dir, "onionshare_gui/mode/share_mode")
-        + files_in(dir, "onionshare_gui/mode/receive_mode")
-        + files_in(dir, "onionshare_gui/mode/website_mode")
+        files_in(dir, "onionshare_gui")
+        + files_in(dir, "onionshare_gui/tab")
+        + files_in(dir, "onionshare_gui/tab/mode")
+        + files_in(dir, "onionshare_gui/tab/mode/chat_mode")
+        + files_in(dir, "onionshare_gui/tab/mode/receive_mode")
+        + files_in(dir, "onionshare_gui/tab/mode/share_mode")
+        + files_in(dir, "onionshare_gui/tab/mode/website_mode")
         + files_in(dir, "install/scripts")
-        + files_in(dir, "tests")
     )
-    pysrc = [p for p in src if p.endswith(".py")]
+    filenames = [p for p in src if p.endswith(".py")]
 
     lang_code = args.lang_code
 
     translate_keys = set()
-    # load translate key from python source
-    for line in fileinput.input(pysrc, openhook=fileinput.hook_encoded("utf-8")):
-        # search `strings._('translate_key')`
-        #        `strings._('translate_key', True)`
-        m = re.findall(r"strings\._\((.*?)\)", line)
-        if m:
-            for match in m:
-                key = match.split(",")[0].strip(""""' """)
-                translate_keys.add(key)
+    for filename in filenames:
+        # load translate key from python source
+        with open(filename) as f:
+            src = f.read()
+
+        # find all the starting strings
+        start_substr = "strings._\("
+        starting_indices = [m.start() for m in re.finditer(start_substr, src)]
+
+        for starting_i in starting_indices:
+            # are we dealing with single quotes or double quotes?
+            quote = None
+            inc = 0
+            while True:
+                quote_i = starting_i + len("strings._(") + inc
+                if src[quote_i] == '"':
+                    quote = '"'
+                    break
+                elif src[quote_i] == "'":
+                    quote = "'"
+                    break
+                else:
+                    inc += 1
+
+            # find the starting quote
+            starting_i = src.find(quote, starting_i)
+            if starting_i:
+                starting_i += 1
+                # find the ending quote
+                ending_i = src.find(quote, starting_i)
+                if ending_i:
+                    key = src[starting_i:ending_i]
+                    translate_keys.add(key)
 
     if args.show_all_keys:
         for k in sorted(translate_keys):
