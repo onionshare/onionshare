@@ -6,31 +6,45 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2020-09-03 11:37-0700\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2020-09-14 21:36+0000\n"
+"Last-Translator: Zuhualime Akoochimoya <zakooch@protonmail.ch>\n"
 "Language-Team: none\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.3-dev\n"
 
 #: ../../source/features.rst:4
 msgid "How OnionShare works"
-msgstr ""
+msgstr "Cómo funciona OnionShare"
 
 #: ../../source/features.rst:6
 msgid "OnionShare works by starting web servers locally on your own computer and making them accessible to other people as `Tor <https://www.torproject.org/>`_ `onion services <https://community.torproject.org/onion-services/>`_."
 msgstr ""
+"OnionShare funciona iniciando servidores web localmente en tu propia "
+"computadora, y haciéndolos accesibles a otras peesonas como `servicios onion "
+"<https://community.torproject.org/onion-services/>`_`Tor <https://www."
+"torproject.org/>`_ ."
 
 #: ../../source/features.rst:8
 msgid "By default, OnionShare web addresses are protected with a random password. A typical OnionShare address might look something like this::"
 msgstr ""
+"Por defecto, las direcciones web OnionShare están protegidas con una "
+"contraseña aleatoria. Una dirección OnionShare típica podría parecerse a "
+"algo como esto:"
 
 #: ../../source/features.rst:12
 msgid "You're responsible for securely sharing that URL using a communication channel of your choice like in an encrypted chat message, or using something less secure like a Twitter or Facebook message, depending on your `threat model <https://ssd.eff.org/en/module/your-security-plan>`_."
 msgstr ""
+"Tu eres responsable por compartir en forma segura ese URL, usando un canal "
+"de comunicación de tu elección, como un mensaje cifrado en una charla, o "
+"usando algo menos seguro, como un mensaje de Twitter o Facebook, dependiendo "
+"de tu `modelo de amenaza <https://ssd.eff.org/en/module/your-security-"
+"plan>`_."
 
 #: ../../source/features.rst:14
 msgid "The people who you send the URL to must then copy and paste it into `Tor Browser <https://www.torproject.org/>`_ to access the OnionShare service."

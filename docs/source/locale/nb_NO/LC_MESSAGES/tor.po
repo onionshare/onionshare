@@ -6,51 +6,70 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2020-09-03 11:37-0700\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2020-09-14 21:36+0000\n"
+"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: none\n"
 "Language: nb_NO\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.3-dev\n"
 
 #: ../../source/tor.rst:2
 msgid "Connecting to Tor"
-msgstr ""
+msgstr "Tilkobling til Tor"
 
 #: ../../source/tor.rst:4
 msgid "There are several options for how OnionShare should connect to Tor. You can change them in Settings, which you can get to by clicking the gear icon in the bottom-right of the window."
 msgstr ""
+"Det er flere måter å få OnionShare til å koble til Tor-nettverket. Du kan "
+"endre dem i «Innstillinger», som du kommer til ved å trykke på "
+"tannhjulsikonet nederst til høyre i vinduet."
 
 #: ../../source/tor.rst:9
 msgid "Use Tor that is bundled with OnionShare"
-msgstr ""
+msgstr "Bruk Tor som det kommer innebygd i OnionShare"
 
 #: ../../source/tor.rst:11
 msgid "This is the default way that OnionShare connects to Tor, and it's also the simplest and most reliable way. For this reason, it's recommended for most users."
 msgstr ""
+"Dette er den forvalgte måten OnionShare kobler til Tor, og det er også den "
+"enkleste og mest pålitelige måten. Derfor er det også anbefalt for de fleste "
+"brukerne."
 
 #: ../../source/tor.rst:13
 msgid "When you open OnionShare, it will launch a Tor process in the background that's configured specifically for OnionShare to use. This Tor process won't interfere with other Tor processes on your computer, so you're free to run Tor Browser or use a system Tor in the background."
 msgstr ""
+"Når du åpner OnionShare, vil det starte en Tor-prosess i bakgrunnen som er "
+"satt opp spesifikt for bruk med OnionShare. Denne Tor-prosessen har ikke "
+"innvirkning på andre Tor-prosesser på datamaskinen din, så du kan kjøre en "
+"Tor-nettleser eller bruke systemets Tor i bakgrunnen."
 
 #: ../../source/tor.rst:16
 msgid "Attempt automatic configuration with Tor Browser"
-msgstr ""
+msgstr "Forsøk automatisk oppsett med Tor-nettleseren"
 
 #: ../../source/tor.rst:18
 msgid "You can configure OnionShare to connect to the Tor that comes with Tor Browser. First, `download Tor Browser <https://www.torproject.org>`_ here if you don't already have it. With this setting selected, you need to keep Tor Browser open in the background while you're using OnionShare."
 msgstr ""
+"Du kan sette opp OnionShare til å koble til Tor som den kommer levert med "
+"Tor-nettleseren. Først `last ned Tor-nettleseren <https://www.torproject.org/"
+"download/languages/>`_ hvis du ikke har den allerede. Med denne "
+"innstillingen må du ha Tor-nettleseren åpen i bakgrunnen mens du bruker "
+"OnionShare."
 
 #: ../../source/tor.rst:21
 msgid "Using a system Tor in Windows"
-msgstr ""
+msgstr "Bruk av systemets Tor i Windows"
 
 #: ../../source/tor.rst:23
 msgid "This is fairly advanced. You'll need to know how edit plaintext files and do stuff as an administrator."
 msgstr ""
+"Dette er ganske avansert. Du må vite hvordan du redigerer filer i klartekst "
+"og gjøre ting som administrator."
 
 #: ../../source/tor.rst:25
 msgid "Download the Tor Windows Expert Bundle, which you can get `from here <https://www.torproject.org/download/tor/>`_. Extract the zip file and copy the extracted folder to ``C:\\Program Files (x86)\\``, and rename the folder to ``tor-win32``, so that inside that folder is the ``Data`` and ``Tor`` folders."
@@ -82,7 +101,7 @@ msgstr ""
 
 #: ../../source/tor.rst:48
 msgid "Using a system Tor in Mac OS X"
-msgstr ""
+msgstr "Bruk av systemets Tor på macOS"
 
 #: ../../source/tor.rst:50
 msgid "First, install `Homebrew <http://brew.sh/>`_ if you don't already have it. Then, install Tor::"
@@ -102,7 +121,7 @@ msgstr ""
 
 #: ../../source/tor.rst:68
 msgid "Using a system Tor in Linux"
-msgstr ""
+msgstr "Bruk av systemets Tor på Linux"
 
 #: ../../source/tor.rst:70
 msgid "First, install the tor package. If you're using Debian, Ubuntu, or a similar Linux distro, I recommend you use Tor Project's `official repository <https://2019.www.torproject.org/docs/debian.html.en>`_. For example, in Ubuntu 20.04::"
@@ -122,7 +141,7 @@ msgstr ""
 
 #: ../../source/tor.rst:87
 msgid "Using Tor bridges"
-msgstr ""
+msgstr "Bruk av Tor-broer"
 
 #: ../../source/tor.rst:89
 msgid "If your access to the internet is censored, you can configure OnionShare to connect to the Tor network using `Tor bridges <https://2019.www.torproject.org/docs/bridges.html.en>`_. If OnionShare successfully connects to Tor, you don't need to use a bridge."
@@ -130,7 +149,7 @@ msgstr ""
 
 #: ../../source/tor.rst:91
 msgid "To configure bridges, open OnionShare settings."
-msgstr ""
+msgstr "For å sette opp broer, åpne OnionShare-innstillingene."
 
 #: ../../source/tor.rst:93
 msgid "You can use the built-in obfs4 pluggable transports, the built-in meek_lite (Azure) pluggable transports, or custom bridges, which you can obtain from Tor's `BridgeDB <https://bridges.torproject.org/>`_. If you need to use a bridge, you should try the built-in obfs4 ones first."
