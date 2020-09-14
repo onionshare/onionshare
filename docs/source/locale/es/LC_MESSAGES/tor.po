@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2020-09-03 11:37-0700\n"
-"PO-Revision-Date: 2020-09-14 14:43+0000\n"
+"PO-Revision-Date: 2020-09-14 21:36+0000\n"
 "Last-Translator: emma peel <emma.peel@riseup.net>\n"
 "Language-Team: none\n"
 "Language: es\n"
@@ -190,16 +190,24 @@ msgstr ""
 
 #: ../../source/tor.rst:87
 msgid "Using Tor bridges"
-msgstr "Usando puentes Tor"
+msgstr "Usar puentes Tor"
 
 #: ../../source/tor.rst:89
 msgid "If your access to the internet is censored, you can configure OnionShare to connect to the Tor network using `Tor bridges <https://2019.www.torproject.org/docs/bridges.html.en>`_. If OnionShare successfully connects to Tor, you don't need to use a bridge."
 msgstr ""
+"Si ru acceso a Internet está censurado, puedes configurar OnionShare para "
+"conectarse a la red Tor usando `puentes Tor <https://2019.www.torproject.org/"
+"docs/bridges.html.en>`_. Si OnionShare se conecta exitosamente a Tor, no "
+"necesitas usar un puente."
 
 #: ../../source/tor.rst:91
 msgid "To configure bridges, open OnionShare settings."
-msgstr ""
+msgstr "Para configurar puentes, abre los ajustes de OnionShare."
 
 #: ../../source/tor.rst:93
 msgid "You can use the built-in obfs4 pluggable transports, the built-in meek_lite (Azure) pluggable transports, or custom bridges, which you can obtain from Tor's `BridgeDB <https://bridges.torproject.org/>`_. If you need to use a bridge, you should try the built-in obfs4 ones first."
 msgstr ""
+"Puedes usar los transportes conectables obfs4 o meek_lite (Azure) "
+"incorporados, o puentes personalizados, los cuales puedes obtener de la `"
+"BridgeDB <https://bridges.torproject.org/>`_ de Tor. Si necesitas usar un "
+"puente, debieras intentar primero con los obfs4 incorporados."

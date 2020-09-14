@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2020-09-03 11:37-0700\n"
-"PO-Revision-Date: 2020-09-14 11:52+0000\n"
-"Last-Translator: emma peel <emma.peel@riseup.net>\n"
+"PO-Revision-Date: 2020-09-14 21:36+0000\n"
+"Last-Translator: Zuhualime Akoochimoya <zakooch@protonmail.ch>\n"
 "Language-Team: none\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -51,7 +51,7 @@ msgstr ""
 #: ../../source/install.rst:18
 msgid "Make sure you have ``flatpak`` installed and the Flathub repository added by following `these instructions <https://flatpak.org/setup/>`_ for your Linux distribution."
 msgstr ""
-"Instala ``flatpak`` y añade el repositorio Flathub  siguiendo `estas "
+"Instala ``flatpak`` y añade el repositorio Flathub siguiendo `estas "
 "instrucciones <https://flatpak.org/setup/>`_ para tu distribución Linux."
 
 #: ../../source/install.rst:20

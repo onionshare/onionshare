@@ -6,52 +6,70 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2020-09-03 11:37-0700\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2020-09-14 21:36+0000\n"
+"Last-Translator: Zuhualime Akoochimoya <zakooch@protonmail.ch>\n"
 "Language-Team: none\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.3-dev\n"
 
 #: ../../source/help.rst:2
 msgid "Getting Help"
-msgstr ""
+msgstr "Obteniendo Ayuda"
 
 #: ../../source/help.rst:4
 msgid "If you need help with OnionShare, please follow the instructions below."
 msgstr ""
+"Si necesitas ayuda con OnionShare, por favor sigue las instrucciones de "
+"abajo."
 
 #: ../../source/help.rst:7
 msgid "Read this website"
-msgstr ""
+msgstr "Lee este sitio web"
 
 #: ../../source/help.rst:9
 msgid "This website is full of instructions on how to use OnionShare. Look through all of the sections first to see if it answers your questions."
 msgstr ""
+"Este sitio web está lleno de instrucciones sobre cómo usar OnionShare. Mira "
+"primero a través de todas las secciones para ver si responde a tus preguntas."
 
 #: ../../source/help.rst:12
 msgid "Check the GitHub issues"
-msgstr ""
+msgstr "Comprueba las cuestiones con GitHub"
 
 #: ../../source/help.rst:14
 msgid "If you can't find a solution in this website, please check the `GitHub issues <https://github.com/micahflee/onionshare/issues>`_. It's possible that someone else has encountered the same problem and has either raised it with the developers, or maybe even posted a solution."
 msgstr ""
+"Si no puedes encontrar una solución en este sitio web, por favor comprueba "
+"las `cuestiones con GitHub <https://github.com/micahflee/onionshare/issues>`"
+"_. Es posible que alguien más se haya encontrado con el mismo problema y lo "
+"haya elevado a los desarrolladores, o incluso también que haya publicado una "
+"solución."
 
 #: ../../source/help.rst:17
 msgid "Submit an issue yourself"
-msgstr ""
+msgstr "Envía una cuestión"
 
 #: ../../source/help.rst:19
 msgid "If you can't find a solution to your problem, or you wish to ask a question or suggest a new feature, please `submit an issue <https://github.com/micahflee/onionshare/issues/new>`_. This requires `creating an GitHub account <https://help.github.com/articles/signing-up-for-a-new-github-account/>`_."
 msgstr ""
+"Si no puedes encontrar una solución a tu problema, o deseas hacer una "
+"pregunta o sugerir una característica nueva, por favor `envía una cusestión "
+"<https://github.com/micahflee/onionshare/issues/new>`_. Esto requiere `crear "
+"una cuenta en GitHub <https://help.github.com/articles/"
+"signing-up-for-a-new-github-account/>`_."
 
 #: ../../source/help.rst:22
 msgid "Join our Keybase team"
-msgstr ""
+msgstr "Únete a nuestro equipo Keybase"
 
 #: ../../source/help.rst:24
 msgid "See :ref:`collaborating` for instructions on how to join our Keybase team that we use to discuss the project."
 msgstr ""
+"Mira :ref:`collaborating` por instrucciones acerca de cómo unirse a nuestro "
+"equipo Keybase, al cual usamos para discutir el proyecto."
