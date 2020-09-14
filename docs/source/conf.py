@@ -11,10 +11,7 @@ templates_path = ["_templates"]
 exclude_patterns = []
 
 languages = [
-    ("العربية", "ar"),
-    ("Català", "ca"),
-    ("Dansk", "da"),
-    ("Nederlands", "nl"),
+    ("Español", "es"),
     ("English", "en"),
 ]
 
