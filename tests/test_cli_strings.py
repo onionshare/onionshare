@@ -25,7 +25,7 @@ class TestLoadStrings:
         """ load_strings() loads English by default """
         common_obj.settings = Settings(common_obj)
         strings.load_strings(common_obj)
-        assert strings._("preparing_files") == "Compressing files."
+        assert strings._("not_a_readable_file") == "{0:s} is not a readable file."
 
     def test_load_strings_loads_other_languages(
         self, common_obj, locale_fr, sys_onionshare_dev_mode
@@ -34,7 +34,7 @@ class TestLoadStrings:
         common_obj.settings = Settings(common_obj)
         common_obj.settings.set("locale", "fr")
         strings.load_strings(common_obj)
-        assert strings._("preparing_files") == "Compression des fichiers."
+        assert strings._("not_a_readable_file") == "{0:s} n’est pas un fichier lisible."
 
     def test_load_invalid_locale(
         self, common_obj, locale_invalid, sys_onionshare_dev_mode
