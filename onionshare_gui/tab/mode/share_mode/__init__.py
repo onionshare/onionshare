@@ -156,6 +156,7 @@ class ShareMode(Mode):
         self.main_layout.addLayout(top_bar_layout)
         self.main_layout.addLayout(self.file_selection)
         self.main_layout.addWidget(self.primary_action)
+        self.main_layout.addWidget(self.server_status)
         self.main_layout.addWidget(MinimumWidthWidget(700))
 
         # Column layout

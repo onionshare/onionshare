@@ -48,11 +48,9 @@ class ReceiveMode(Mode):
                 QtGui.QImage(self.common.get_resource_path("images/mode_receive.png"))
             )
         )
-        self.image_label.setFixedSize(300, 300)
+        self.image_label.setFixedSize(250, 250)
         image_layout = QtWidgets.QVBoxLayout()
-        image_layout.addStretch()
         image_layout.addWidget(self.image_label)
-        image_layout.addStretch()
         self.image = QtWidgets.QWidget()
         self.image.setLayout(image_layout)
 
@@ -126,18 +124,26 @@ class ReceiveMode(Mode):
 
         # Main layout
         self.main_layout = QtWidgets.QVBoxLayout()
-        self.main_layout.addLayout(top_bar_layout)
-        self.main_layout.addStretch()
         self.main_layout.addWidget(header_label)
         self.main_layout.addWidget(receive_warning)
         self.main_layout.addWidget(self.primary_action)
-        self.main_layout.addStretch()
-        self.main_layout.addWidget(MinimumWidthWidget(700))
+        self.main_layout.addWidget(MinimumWidthWidget(525))
+
+        # Row layout
+        content_row = QtWidgets.QHBoxLayout()
+        content_row.addLayout(self.main_layout)
+        content_row.addWidget(self.image)
+        row_layout = QtWidgets.QVBoxLayout()
+        row_layout.addLayout(top_bar_layout)
+        row_layout.addStretch()
+        row_layout.addLayout(content_row)
+        row_layout.addWidget(self.server_status)
+        row_layout.addStretch()
+
 
         # Column layout
         self.column_layout = QtWidgets.QHBoxLayout()
-        self.column_layout.addWidget(self.image)
-        self.column_layout.addLayout(self.main_layout)
+        self.column_layout.addLayout(row_layout)
         self.column_layout.addWidget(self.history, stretch=1)
 
         # Wrapper layout
