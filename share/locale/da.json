@@ -278,7 +278,7 @@
     "gui_qr_code_description": "Skan QR-koden med en QR-læser såsom kameraet i din telefon for at gøre det lettere at dele OnionShare-adressen med andre.",
     "gui_qr_code_dialog_title": "QR-kode til OnionShare",
     "gui_show_url_qr_code": "Vis QR-kode",
-    "gui_receive_flatpak_data_dir": "Da du installerede OnionShare med flatpak, så skal du gemme filer til en mappe i ~/OnionShare.",
+    "gui_receive_flatpak_data_dir": "Da du installerede OnionShare med Flatpak, så skal du gemme filer til en mappe i ~/OnionShare.",
     "gui_chat_stop_server": "Stop chatserver",
     "gui_chat_start_server": "Start chatserver",
     "gui_chat_stop_server_autostop_timer": "Stop chatserver ({})",
