@@ -4,7 +4,7 @@ VERSION=`cat ../share/version.txt`
 
 # Supported locales
 #LOCALES="ar ca zh_CN zh_TW da nl en fr de el is ga it ja nb fa pl pt_BR pt_PT ro ru sr@latin es sv te tr uk"
-LOCALES="ar ca da nl en"
+LOCALES="en es"
 
 # Generate English .po files
 make gettext
