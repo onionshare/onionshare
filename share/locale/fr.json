@@ -286,5 +286,9 @@
     "gui_chat_start_server": "Démarrer le serveur de dialogue en ligne",
     "gui_chat_stop_server_autostop_timer": "Arrêter le serveur de dialogue en ligne ({})",
     "gui_file_selection_remove_all": "Tout supprimer",
-    "gui_remove": "Supprimer"
+    "gui_remove": "Supprimer",
+    "gui_main_page_chat_button": "Lancer le dialogue en ligne",
+    "gui_main_page_website_button": "Lancer l’hébergement",
+    "gui_main_page_receive_button": "Lancer la réception",
+    "gui_main_page_share_button": "Lancer le partage"
 }
