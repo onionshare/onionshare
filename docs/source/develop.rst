@@ -24,7 +24,7 @@ When you're ready to contribute code, open a pull request in the GitHub reposito
 Starting development
 --------------------
 
-OnionShare is developed in Python. To get started, you should close the git repository at https://github.com/micahflee/onionshare/ and then consult the ``BUILD.md`` file.
+OnionShare is developed in Python. To get started, you should clone the git repository at https://github.com/micahflee/onionshare/ and then consult the ``BUILD.md`` file.
 
 That file contains the technical instructions and commands necessary:
 
