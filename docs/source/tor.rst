@@ -44,8 +44,8 @@ You're now running a system Tor in Windows!
 
 Open OnionShare. Click the Settings icon. Under "How should OnionShare connect to Tor?" choose "Connect using control port", and set the control port host to ``127.0.0.1`` and the port to ``9051``. Under "Tor authentication options" choose "Password" and set the password to your password, in my case ``comprised stumble rummage work avenging construct volatile``. Click the "Test Settings" button. If all goes well, you should see successfully connected to tor.
 
-Using a system Tor in Mac OS X
-------------------------------
+Using a system Tor in macOS
+---------------------------
 
 First, install `Homebrew <http://brew.sh/>`_ if you don't already have it. Then, install Tor::
 
