@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-03 11:37-0700\n"
+"POT-Creation-Date: 2020-09-17 09:38-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -124,7 +124,7 @@ msgid ""
 msgstr ""
 
 #: ../../source/tor.rst:48
-msgid "Using a system Tor in Mac OS X"
+msgid "Using a system Tor in macOS"
 msgstr ""
 
 #: ../../source/tor.rst:50
@@ -210,4 +210,7 @@ msgid ""
 "obtain from Tor's `BridgeDB <https://bridges.torproject.org/>`_. If you "
 "need to use a bridge, you should try the built-in obfs4 ones first."
 msgstr ""
+
+#~ msgid "Using a system Tor in Mac OS X"
+#~ msgstr ""
 
