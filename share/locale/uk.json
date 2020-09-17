@@ -70,7 +70,7 @@
     "gui_settings_tor_bridges_obfs4_radio_option_no_obfs4proxy": "Застосовувати вбудовані obfs4 під'єднувані транспорти (вимагає obfs4proxy)",
     "gui_settings_tor_bridges_meek_lite_azure_radio_option": "Застосовувати вбудовані meek_lite (Azure) під'єднувані транспорти",
     "gui_settings_tor_bridges_meek_lite_azure_radio_option_no_obfs4proxy": "Застосовувати вбудовані meek_lite (Azure) під'єднувані транспорти (вимагає obfs4proxy)",
-    "gui_settings_meek_lite_expensive_warning": "Увага: Мости meek_lite заважкі для проєкту Tor. <br> <br>Користуйтеся ними лише якщо не вдається з'єднатися з Tor безпосередньо, через obfs4 транспорти або інші звичайні мости.",
+    "gui_settings_meek_lite_expensive_warning": "Увага: Мости meek_lite заважкі для Tor Project. <br> <br>Користуйтеся ними лише якщо не вдається з'єднатися з Tor безпосередньо, через obfs4 транспорти або інші звичайні мости.",
     "gui_settings_tor_bridges_custom_radio_option": "Застосовувати власні мости",
     "gui_settings_tor_bridges_custom_label": "Ви можете отримати мости з <a href=\"https://bridges.torproject.org/options\">https://bridges.torproject.org</a>",
     "gui_settings_tor_bridges_invalid": "Жоден з доданих мостів не працює.\nДвічі перевірте їх або додайте інші.",
