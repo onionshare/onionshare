@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-03 11:37-0700\n"
+"POT-Creation-Date: 2020-09-17 09:38-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -81,7 +81,7 @@ msgid "Open OnionShare. Click the Settings icon. Under \"How should OnionShare c
 msgstr ""
 
 #: ../../source/tor.rst:48
-msgid "Using a system Tor in Mac OS X"
+msgid "Using a system Tor in macOS"
 msgstr ""
 
 #: ../../source/tor.rst:50

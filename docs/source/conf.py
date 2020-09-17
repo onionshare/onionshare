@@ -13,6 +13,7 @@ exclude_patterns = []
 languages = [
     ("Español", "es"),
     ("English", "en"),
+    ("Українська", "uk"),
 ]
 
 versions = ["2.3"]
