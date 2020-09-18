@@ -6,26 +6,27 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2020-09-17 09:38-0700\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language: uk\n"
+"PO-Revision-Date: 2020-09-18 06:51+0000\n"
+"Last-Translator: ihor_ck <igor_ck@outlook.com>\n"
 "Language-Team: none\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.3-dev\n"
 "Generated-By: Babel 2.8.0\n"
 
 #: ../../source/develop.rst:2
 msgid "Developing OnionShare"
-msgstr ""
+msgstr "Розробка OnionShare"
 
 #: ../../source/develop.rst:7
 msgid "Collaborating"
-msgstr ""
+msgstr "Співпраця"
 
 #: ../../source/develop.rst:9
 msgid ""
@@ -48,13 +49,15 @@ msgstr ""
 
 #: ../../source/develop.rst:14
 msgid "Contributing code"
-msgstr ""
+msgstr "Внесок до кодової бази"
 
 #: ../../source/develop.rst:16
 msgid ""
 "OnionShare source code is in this git repository: "
 "https://github.com/micahflee/onionshare"
 msgstr ""
+"Джерельний код OnionShare знаходиться у цьому сховищі git: https://github."
+"com/micahflee/onionshare"
 
 #: ../../source/develop.rst:18
 msgid ""
@@ -74,7 +77,7 @@ msgstr ""
 
 #: ../../source/develop.rst:25
 msgid "Starting development"
-msgstr ""
+msgstr "Початок розробки"
 
 #: ../../source/develop.rst:27
 msgid ""
@@ -85,11 +88,11 @@ msgstr ""
 
 #: ../../source/develop.rst:29
 msgid "That file contains the technical instructions and commands necessary:"
-msgstr ""
+msgstr "Цей файл містить необхідні технічні настанови та команди:"
 
 #: ../../source/develop.rst:31
 msgid "Install dependencies for your platform"
-msgstr ""
+msgstr "Встановіть залежності для вашої платформи"
 
 #: ../../source/develop.rst:32
 msgid "Run OnionShare from the source tree, without building a package"
@@ -97,19 +100,19 @@ msgstr ""
 
 #: ../../source/develop.rst:33
 msgid "Building packages"
-msgstr ""
+msgstr "Створення пакунків"
 
 #: ../../source/develop.rst:34
 msgid "Making a release of OnionShare"
-msgstr ""
+msgstr "Випуск версії OnionShare"
 
 #: ../../source/develop.rst:37
 msgid "Debugging tips"
-msgstr ""
+msgstr "Поради щодо зневадження"
 
 #: ../../source/develop.rst:40
 msgid "Verbose mode"
-msgstr ""
+msgstr "Детальний режим"
 
 #: ../../source/develop.rst:42
 msgid ""
@@ -135,7 +138,7 @@ msgstr ""
 
 #: ../../source/develop.rst:118
 msgid "Local only"
-msgstr ""
+msgstr "Лише локальні"
 
 #: ../../source/develop.rst:120
 msgid ""
@@ -153,7 +156,7 @@ msgstr ""
 
 #: ../../source/develop.rst:160
 msgid "Debugging in Windows"
-msgstr ""
+msgstr "Зневадження на Windows"
 
 #: ../../source/develop.rst:162
 msgid ""
@@ -177,7 +180,7 @@ msgstr ""
 
 #: ../../source/develop.rst:169
 msgid "Contributing translations"
-msgstr ""
+msgstr "Допомога з перекладами"
 
 #: ../../source/develop.rst:171
 msgid ""
@@ -201,13 +204,15 @@ msgstr ""
 
 #: ../../source/develop.rst:178
 msgid "Suggestions for original English strings"
-msgstr ""
+msgstr "Пропозиції для джерельних рядків англійською"
 
 #: ../../source/develop.rst:180
 msgid ""
 "Sometimes the original English strings could be improved, making them "
 "easier to translate into other languages."
 msgstr ""
+"Іноді джерельні англійські рядки можна вдосконалити, щоб спростити їхній "
+"переклад іншими мовами."
 
 #: ../../source/develop.rst:182
 msgid ""
@@ -216,10 +221,14 @@ msgid ""
 "developers will definitely see the suggestion, and can potentially modify"
 " the string via the usual code review processes."
 msgstr ""
+"Якщо маєте пропозиції щодо поліпшення англійського рядка, відкрийте "
+"пропозицію на GitHub, а не коментуйте на Weblate. Це гарантує, що "
+"розробники, що працюють над проєктом, напевно побачать пропозицію та зможуть "
+"потенційно змінити рядок за допомогою звичайних процесів перегляду коду."
 
 #: ../../source/develop.rst:185
 msgid "Status of translations"
-msgstr ""
+msgstr "Стан перекладів"
 
 #: ../../source/develop.rst:186
 msgid ""
@@ -227,14 +236,17 @@ msgid ""
 "in a language not to be found here, please write us to the mailing list: "
 "onionshare-dev@lists.riseup.net"
 msgstr ""
+"Ось поточний стан перекладу. Якщо ви хочете розпочати переклад мовою, якої "
+"тут немає, будь ласка, напишіть нам до списку розсилки: onionshare-dev@lists."
+"riseup.net"
 
 #: ../../source/develop.rst:191
 msgid "Translate the .desktop file"
-msgstr ""
+msgstr "Перекладіть файл .desktop"
 
 #: ../../source/develop.rst:193
 msgid "You can also translate the ``install/onionshare.desktop`` file."
-msgstr ""
+msgstr "Ви також можете перекласти файл ``install/onionshare.desktop``."
 
 #: ../../source/develop.rst:195
 msgid ""
@@ -246,7 +258,7 @@ msgstr ""
 
 #: ../../source/develop.rst:200
 msgid "Do the same for other untranslated lines."
-msgstr ""
+msgstr "Зробіть те ж саме для інших неперекладених рядків."
 
 #~ msgid ""
 #~ "OnionShare is developed in Python. To"
@@ -255,4 +267,3 @@ msgstr ""
 #~ "https://github.com/micahflee/onionshare/ and then "
 #~ "consult the ``BUILD.md`` file."
 #~ msgstr ""
-
