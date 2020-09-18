@@ -6,23 +6,26 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2020-09-03 11:37-0700\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2020-09-18 06:51+0000\n"
+"Last-Translator: ihor_ck <igor_ck@outlook.com>\n"
 "Language-Team: none\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.3-dev\n"
 
 #: ../../source/advanced.rst:2
 msgid "Advanced usage"
-msgstr ""
+msgstr "Розширене використання"
 
 #: ../../source/advanced.rst:7
 msgid "Save tabs"
-msgstr ""
+msgstr "Збереження вкладок"
 
 #: ../../source/advanced.rst:9
 msgid "By default, everything in OnionShare is temporary. As soon as you close an OnionShare tab its address no longer exists and can't be used again. But sometimes you might want an OnionShare service to be persistent. For example, this would be useful if you want to host a website that can keep the same URL even if you reboot your computer."
@@ -42,7 +45,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:22
 msgid "Disable passwords"
-msgstr ""
+msgstr "Вимкнення паролів"
 
 #: ../../source/advanced.rst:24
 msgid "By default, all OnionShare services are protected with the username `onionshare` and a randomly-generated password. If someone makes 20 wrong guesses of the password, your onion service is automatically stopped to prevent a brute force attack against the OnionShare service."
@@ -58,7 +61,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:31
 msgid "Scheduled times"
-msgstr ""
+msgstr "Запланований час"
 
 #: ../../source/advanced.rst:33
 msgid "OnionShare supports scheduling exactly when a service should start and stop. Before starting server, click \"Show advanced settings\" in its tab and then check the boxes next to either \"Start onion service at scheduled time\", \"Stop onion service at scheduled time\", or both, and set the desired dates and times."
@@ -78,15 +81,15 @@ msgstr ""
 
 #: ../../source/advanced.rst:46
 msgid "Command line interface"
-msgstr ""
+msgstr "Інтерфейс командного рядка"
 
 #: ../../source/advanced.rst:48
 msgid "In addition to its graphical interface, OnionShare has a command line interface."
-msgstr ""
+msgstr "Окрім графічного інтерфейсу, OnionShare має інтерфейс командного рядка."
 
 #: ../../source/advanced.rst:51
 msgid "Linux"
-msgstr ""
+msgstr "Linux"
 
 #: ../../source/advanced.rst:53
 msgid "If you installed OnionShare using the Flatpak package, unfortunately the command line interface isn't supported."
@@ -98,7 +101,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:58
 msgid "macOS"
-msgstr ""
+msgstr "macOS"
 
 #: ../../source/advanced.rst:60
 msgid "Make a symbolic link to the OnionShare command line binary line this::"
@@ -110,7 +113,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:67
 msgid "Windows"
-msgstr ""
+msgstr "Windows"
 
 #: ../../source/advanced.rst:69
 msgid "The command line interface isn't supported in Windows."
@@ -122,15 +125,17 @@ msgstr ""
 
 #: ../../source/advanced.rst:76
 msgid "Usage"
-msgstr ""
+msgstr "Користування"
 
 #: ../../source/advanced.rst:78
 msgid "You can see command line documentation by running ``onionshare --help``::"
 msgstr ""
+"Ви можете переглянути документацію командного рядка, запустивши ``onionshare "
+"--help``::"
 
 #: ../../source/advanced.rst:134
 msgid "Legacy addresses"
-msgstr ""
+msgstr "Застарілі адреси"
 
 #: ../../source/advanced.rst:136
 msgid "OnionShare uses v3 Tor onion services by default. These are modern onion addresses that have 56 characters, for example::"

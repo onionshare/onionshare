@@ -6,22 +6,23 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2020-09-17 09:38-0700\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language: uk\n"
+"PO-Revision-Date: 2020-09-18 06:51+0000\n"
+"Last-Translator: ihor_ck <igor_ck@outlook.com>\n"
 "Language-Team: none\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.3-dev\n"
 "Generated-By: Babel 2.8.0\n"
 
 #: ../../source/tor.rst:2
 msgid "Connecting to Tor"
-msgstr ""
+msgstr "З'єднання з Tor"
 
 #: ../../source/tor.rst:4
 msgid ""
@@ -29,10 +30,13 @@ msgid ""
 "can change them in Settings, which you can get to by clicking the gear "
 "icon in the bottom-right of the window."
 msgstr ""
+"Існує кілька способів з'єднання OnionShare з мережею Tor. Ви можете змінити "
+"їх у параметрах, до яких можна перейти, натиснувши піктограму шестірні внизу "
+"праворуч вікна."
 
 #: ../../source/tor.rst:9
 msgid "Use Tor that is bundled with OnionShare"
-msgstr ""
+msgstr "Використовуйте Tor, який постачається в комплекті з OnionShare"
 
 #: ../../source/tor.rst:11
 msgid ""
@@ -40,6 +44,9 @@ msgid ""
 "the simplest and most reliable way. For this reason, it's recommended for"
 " most users."
 msgstr ""
+"Це типовий і водночас найпростіший та найнадійніший спосіб з'єднання "
+"OnionShare з Tor. З цієї причини рекомендуємо його для більшості "
+"користувачів."
 
 #: ../../source/tor.rst:13
 msgid ""
@@ -48,10 +55,14 @@ msgid ""
 "won't interfere with other Tor processes on your computer, so you're free"
 " to run Tor Browser or use a system Tor in the background."
 msgstr ""
+"Коли ви відкриєте OnionShare, він запустить процес Tor у фоновому режимі, "
+"який спеціально налаштований для використання OnionShare. Цей процес Tor не "
+"заважатиме іншим процесам Tor на вашому комп'ютері, тому ви можете запустити "
+"Tor Browser або використовувати системний Tor у фоновому режимі."
 
 #: ../../source/tor.rst:16
 msgid "Attempt automatic configuration with Tor Browser"
-msgstr ""
+msgstr "Спробуйте автоматичну конфігурацію за допомогою Tor Browser"
 
 #: ../../source/tor.rst:18
 msgid ""
@@ -60,16 +71,23 @@ msgid ""
 " if you don't already have it. With this setting selected, you need to "
 "keep Tor Browser open in the background while you're using OnionShare."
 msgstr ""
+"Ви можете налаштувати OnionShare для під'єднання до Tor, який постачається з "
+"Tor Browser. Спочатку `завантажте Tor Browser <https://www.torproject.org>`_ "
+"звідси, якщо у вас його ще немає. Якщо вибрано цей параметр, вам потрібно "
+"залишати Tor Browser відкритим у фоновому режимі під час користування "
+"OnionShare."
 
 #: ../../source/tor.rst:21
 msgid "Using a system Tor in Windows"
-msgstr ""
+msgstr "Користування системним Tor на Windows"
 
 #: ../../source/tor.rst:23
 msgid ""
 "This is fairly advanced. You'll need to know how edit plaintext files and"
 " do stuff as an administrator."
 msgstr ""
+"Це досить просунуто. Вам потрібно знати, як редагувати файли зі звичайним "
+"текстом та виконувати дії від імені адміністратором."
 
 #: ../../source/tor.rst:25
 msgid ""
@@ -79,6 +97,10 @@ msgid ""
 "the folder to ``tor-win32``, so that inside that folder is the ``Data`` "
 "and ``Tor`` folders."
 msgstr ""
+"Завантажте набір експерта Tor для Windows, який ви можете отримати `звідси "
+"<https://www.torproject.org/download/tor/>`_. Розархівуйте zip-файл і "
+"скопіюйте видобуту теку в ``C:\\Program Files (x86)\\`` і перейменуйте теку "
+"в ``tor-win32``, так що всередині цієї теки будуть теки ``Data`` та ``Tor``."
 
 #: ../../source/tor.rst:27
 msgid ""
@@ -112,7 +134,7 @@ msgstr ""
 
 #: ../../source/tor.rst:43
 msgid "You're now running a system Tor in Windows!"
-msgstr ""
+msgstr "Тепер ви використовуєте системний Tor на Windows!"
 
 #: ../../source/tor.rst:45
 msgid ""
@@ -134,14 +156,16 @@ msgid ""
 "First, install `Homebrew <http://brew.sh/>`_ if you don't already have "
 "it. Then, install Tor::"
 msgstr ""
+"Спочатку встановіть `Homebrew, <http://brew.sh/>`_ якщо у вас його ще немає. "
+"Потім встановіть Tor::"
 
 #: ../../source/tor.rst:54
 msgid "Now configure Tor to allow connections from OnionShare::"
-msgstr ""
+msgstr "Тепер налаштуйте Tor, щоб дозволити з'єднання з OnionShare::"
 
 #: ../../source/tor.rst:61
 msgid "And start the system Tor service::"
-msgstr ""
+msgstr "І запустіть системну Tor-службу::"
 
 #: ../../source/tor.rst:65
 msgid ""
@@ -155,7 +179,7 @@ msgstr ""
 
 #: ../../source/tor.rst:68
 msgid "Using a system Tor in Linux"
-msgstr ""
+msgstr "Користування системним Tor на Linux"
 
 #: ../../source/tor.rst:70
 msgid ""
@@ -191,7 +215,7 @@ msgstr ""
 
 #: ../../source/tor.rst:87
 msgid "Using Tor bridges"
-msgstr ""
+msgstr "Користування мостами Tor"
 
 #: ../../source/tor.rst:89
 msgid ""
@@ -215,4 +239,3 @@ msgstr ""
 
 #~ msgid "Using a system Tor in Mac OS X"
 #~ msgstr ""
-
