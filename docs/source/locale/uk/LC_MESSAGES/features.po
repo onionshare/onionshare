@@ -6,19 +6,22 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2020-09-03 11:37-0700\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2020-09-18 06:51+0000\n"
+"Last-Translator: ihor_ck <igor_ck@outlook.com>\n"
 "Language-Team: none\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.3-dev\n"
 
 #: ../../source/features.rst:4
 msgid "How OnionShare works"
-msgstr ""
+msgstr "Як працює OnionShare"
 
 #: ../../source/features.rst:6
 msgid "OnionShare works by starting web servers locally on your own computer and making them accessible to other people as `Tor <https://www.torproject.org/>`_ `onion services <https://community.torproject.org/onion-services/>`_."
@@ -46,7 +49,7 @@ msgstr ""
 
 #: ../../source/features.rst:21
 msgid "Share Files"
-msgstr ""
+msgstr "Надсилання файлів"
 
 #: ../../source/features.rst:23
 msgid "You can use OnionShare to securely and anonymously send files and folders to people. Just open a share tab, drag in the files and folders you wish to share, and click \"Start sharing\"."
@@ -79,7 +82,7 @@ msgstr ""
 
 #: ../../source/features.rst:46
 msgid "Receive Files"
-msgstr ""
+msgstr "Отримання файлів"
 
 #: ../../source/features.rst:48
 msgid "You can use OnionShare to let people anonymously upload files directly to your computer, essentially turning it into an anonymous dropbox. Open a receive tab, choose where you want files to get downloaded and other settings, and then click \"Start Receive Mode\"."
@@ -107,7 +110,7 @@ msgstr ""
 
 #: ../../source/features.rst:67
 msgid "Use at your own risk"
-msgstr ""
+msgstr "Використовуйте на власний ризик"
 
 #: ../../source/features.rst:69
 msgid "Just like with malicious email attachments, it's possible that someone could try to hack your computer by uploading a malicious file to your OnionShare service. OnionShare does not add any safety mechanisms to protect your system from malicious files, so use at your own risk."
@@ -119,7 +122,7 @@ msgstr ""
 
 #: ../../source/features.rst:74
 msgid "Tips for running a receive service"
-msgstr ""
+msgstr "Поради щодо запуску служби отримання"
 
 #: ../../source/features.rst:76
 msgid "If you want to host your own anonymous dropbox using OnionShare, it's recommended that you do it on a separate, dedicated computer that's always powered on and connected to the internet, and not on the one you use on a regular basis."
@@ -131,7 +134,7 @@ msgstr ""
 
 #: ../../source/features.rst:81
 msgid "Host a Website"
-msgstr ""
+msgstr "Розміщення вебсайту"
 
 #: ../../source/features.rst:83
 msgid "You can use OnionShare to host a static HTML website with just a click. Just open a website tab, drag in the files and folders that make up the static website, and click when you're ready click \"Start sharing\"."
@@ -147,7 +150,7 @@ msgstr ""
 
 #: ../../source/features.rst:96
 msgid "Content Security Policy"
-msgstr ""
+msgstr "Політика безпеки вмісту"
 
 #: ../../source/features.rst:98
 msgid "By default OnionShare will help secure your website by setting a strict `Content Security Police <https://en.wikipedia.org/wiki/Content_Security_Policy>`_ header. However this will prevent third-party content from loading inside the web page."
@@ -159,7 +162,7 @@ msgstr ""
 
 #: ../../source/features.rst:103
 msgid "Tips for running a website service"
-msgstr ""
+msgstr "Поради щодо запуску служби розміщення вебсайту"
 
 #: ../../source/features.rst:105
 msgid "If you want to host a long-term website using OnionShare (that isn't just to quickly show someone something), it's recommended that you do it on a separate, dedicated computer that's always powered on and connected to the internet, and not on the one you use on a regular basis. You should also save the tab (see :ref:`save_tabs`) so that you can resume the website with the same address if you close OnionShare and re-open it later."
@@ -171,7 +174,7 @@ msgstr ""
 
 #: ../../source/features.rst:110
 msgid "Chat Anonymously"
-msgstr ""
+msgstr "Спілкуйтеся таємно"
 
 #: ../../source/features.rst:112
 msgid "You can use OnionShare to set up a completely anonymous, secure chat room that doesn't log anything or leave any traces. Just open a chat tab and click \"Start chat server\"."
@@ -199,7 +202,7 @@ msgstr ""
 
 #: ../../source/features.rst:131
 msgid "How is this useful?"
-msgstr ""
+msgstr "Чим це корисно?"
 
 #: ../../source/features.rst:133
 msgid "If you need to already be using an encrypted messaging app, what's the point of an OnionShare chat room to begin with? It leaves less traces."
@@ -215,7 +218,7 @@ msgstr ""
 
 #: ../../source/features.rst:140
 msgid "How does the encryption work?"
-msgstr ""
+msgstr "Як працює шифрування?"
 
 #: ../../source/features.rst:142
 msgid "Because OnionShare relies on Tor onion services, connections between Tor Browser and OnionShare are all end-to-end encrypted (E2EE). When someone posts a message to an OnionShare chat room, they send it to the server through the E2EE onion connection, which then sends it to all other members of the chat room using WebSockets, through their E2EE onion connections."
