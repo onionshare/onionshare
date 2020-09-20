@@ -283,5 +283,9 @@
     "gui_chat_start_server": "Start chatserver",
     "gui_chat_stop_server_autostop_timer": "Stop chatserver ({})",
     "gui_file_selection_remove_all": "Fjern alle",
-    "gui_remove": "Fjern"
+    "gui_remove": "Fjern",
+    "gui_main_page_share_button": "Begynd at dele",
+    "gui_main_page_receive_button": "Begynd at modtage",
+    "gui_main_page_website_button": "Begynd at være vært",
+    "gui_main_page_chat_button": "Begynd at chatte"
 }
