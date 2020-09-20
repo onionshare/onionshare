@@ -80,13 +80,13 @@ Install the needed dependencies:
 **For Debian-like distros:**
 
 ```
-apt install -y python3-flask python3-stem python3-pyqt5 python3-crypto python3-socks  python-nautilus tor obfs4proxy python3-pytest python3-pytestqt build-essential fakeroot python3-all python3-stdeb dh-python python3-flask-httpauth python3-distutils python3-psutil python3-watchdog
+apt install -y python3-flask python3-stem python3-pyqt5 python3-crypto python3-socks python3-nautilus tor obfs4proxy python3-pytest python3-pytestqt build-essential fakeroot python3-all python3-stdeb dh-python python3-flask-httpauth python3-distutils python3-psutil python3-socketio python3-flask-socketio python3-qrcode
 ```
 
 **For Fedora-like distros:**
 
 ```
-dnf install -y python3-flask python3-flask-httpauth python3-stem python3-qt5 python3-crypto python3-pysocks nautilus-python tor obfs4 python3-pytest rpm-build python3-psutil python3-watchdog
+dnf install -y python3-flask python3-flask-httpauth python3-stem python3-qt5 python3-crypto python3-pysocks nautilus-python tor obfs4 python3-pytest rpm-build python3-psutil python3-socketio python3-flask-socketio python3-qrcode
 ```
 
 After that you can try both the CLI and the GUI version of OnionShare:
