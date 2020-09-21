@@ -5,13 +5,13 @@ All these commands must be run from the `docs` folder.
 You must have the python dependencies installed to build the docs:
 
 ```sh
-pip3 install --user -r requirements.txt
+poetry install
 ```
 
 To build HTML docs:
 
 ```sh
-make html
+poetry run make html
 ```
 
 Then open `docs/build/html/index.html` in a browser to see it.
@@ -19,7 +19,7 @@ Then open `docs/build/html/index.html` in a browser to see it.
 To update all of the translations and build all the html, run:
 
 ```sh
-./build.sh
+poetry run ./build.sh
 ```
 
 You will end up with the documentation in all supported locales in `docs/localized_html`.
