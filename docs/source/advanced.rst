@@ -57,7 +57,7 @@ If you installed OnionShare using an operating system package, you can just run 
 macOS
 ^^^^^
 
-Make a symbolic link to the OnionShare command line binary line this::
+Make a symbolic link to the OnionShare command line binary like this::
 
     ln -s /Applications/OnionShare.app/Contents/MacOS/onionshare /usr/local/bin
 

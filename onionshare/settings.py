@@ -80,7 +80,7 @@ class Settings(object):
             "ga": "Gaeilge",  # Irish
             "it": "Italiano",  # Italian
             "ja": "日本語",  # Japanese
-            "nb": "Norsk Bokmål",  # Norwegian Bokmål
+            "nb_NO": "Norsk Bokmål",  # Norwegian Bokmål
             "fa": "فارسی",  # Persian
             "pl": "Polski",  # Polish
             "pt_BR": "Português (Brasil)",  # Portuguese Brazil
