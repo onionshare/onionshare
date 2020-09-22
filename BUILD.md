@@ -139,13 +139,22 @@ install/build_osx.sh
 
 Now you should have `dist/OnionShare.app`.
 
-#### To codesign and build a pkg for distribution
+#### To codesign and build a DMG for distribution
+
+If you want to build for distribution, you'll need a codesigning certificate, and you'll also need to have [create-dmg](https://github.com/sindresorhus/create-dmg) installed:
+
+```sh
+npm install --global create-dmg
+brew install graphicsmagick imagemagick
+```
+
+And then run:
 
 ```sh
 install/build_osx.sh --release
 ```
 
-Now you should have `dist/OnionShare.pkg`.
+Now you should have `dist/OnionShare $VERSION.dmg`.
 
 ## Windows
 
@@ -193,7 +202,7 @@ Add the following directories (you might want to make sure these are exact on yo
 
 OnionShare uses PyInstaller to turn the python source code into Windows executable `.exe` file. Apparently, malware developers also use PyInstaller, and some anti-virus vendors have included snippets of PyInstaller code in their virus definitions. To avoid this, you have to compile the Windows PyInstaller bootloader yourself instead of using the pre-compiled one that comes with PyInstaller.
 
-(If you don't care about this, you can install PyInstaller with `pip install PyInstaller==3.5`.)
+(If you don't care about this, you can install PyInstaller with `pip install PyInstaller==4.0`.)
 
 Here's how to compile the PyInstaller bootloader:
 
@@ -206,15 +215,13 @@ cd "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\
 vcvars32.bat
 ```
 
-Change to a folder where you keep source code, and clone the PyInstaller git repo and checkout the `v3.5` tag:
+Change to a folder where you keep source code, and clone the PyInstaller git repo and checkout the `v4.0` tag:
 
 ```
 git clone https://github.com/pyinstaller/pyinstaller.git
 cd pyinstaller
-git tag -v v3.5
+git checkout v4.0
 ```
-
-(Note that ideally you would verify the git tag, but the PGP key that has signed the `v3.5` git tag for is not published anywhere, so this isn't possible. See [this issue](https://github.com/pyinstaller/pyinstaller/issues/4430).)
 
 The next step is to compile the bootloader. We should do this all in dangerzone's poetry shell:
 
@@ -243,7 +250,7 @@ Now the next time you use PyInstaller to build OnionShare, the `.exe` file shoul
 
 #### If you want to build the installer
 
-* Go to http://nsis.sourceforge.net/Download and download the latest NSIS. I downloaded `nsis-3.04-setup.exe`.
+* Go to http://nsis.sourceforge.net/Download and download the latest NSIS. I downloaded `nsis-3.06.1-setup.exe`.
 * Add `C:\Program Files (x86)\NSIS` to the path.
 
 #### If you want to sign binaries with Authenticode
@@ -347,30 +354,19 @@ To make a PPA release:
 
 ## macOS release
 
-To make a macOS release, go to macOS build machine:
-
-- Build machine should be running macOS 10.11.6, and must have the Apple-trusted `Developer ID Application: Micah Lee` and `Developer ID Installer: Micah Lee` code-signing certificates installed
+- Build machine should be running macOS 10.13.6, and must have the Apple-trusted `Developer ID Application: Micah Lee` and `Developer ID Installer: Micah Lee` code-signing certificates installed
 - Verify and checkout the git tag for this release
-- Run `./install/build_osx.sh --release`; this will make a codesigned installer package called `dist/OnionShare-$VERSION.pkg`
-- Copy `OnionShare-$VERSION.pkg` to developer machine
-
-Then move back to the developer machine:
-
-- PGP-sign the macOS installer, `gpg -a --detach-sign OnionShare-$VERSION.pkg`
-
-Note that once we support notarizing the macOS installer (see [this issue](https://github.com/micahflee/onionshare/issues/953)), these will be the steps instead:
-
-- Developer machine, running the latest macOS, must have an app-specific Apple ID password saved in the login keychain called `onionshare-notarize`
-- Notarize it: `xcrun altool --notarize-app --primary-bundle-id "com.micahflee.onionshare" -u "micah@micahflee.com" -p "@keychain:onionshare-notarize" --file OnionShare-$VERSION.pkg`
-- Wait for it to get approved, check status with: `xcrun altool --notarization-history 0 -u "micah@micahflee.com" -p "@keychain:onionshare-notarize"`
-- After it's approved, staple the ticket: `xcrun stapler staple OnionShare-$VERSION.pkg`
-- PGP-sign the final, notarized and stapled, `gpg -a --detach-sign OnionShare-$VERSION.pkg`
+- Run `poetry install && poetry run ./install/build_osx.sh --release`; this will make a codesigned installer package called `dist/OnionShare $VERSION.dmg`
+- Notarize it: `xcrun altool --notarize-app --primary-bundle-id "com.micahflee.onionshare" -u "micah@micahflee.com" -p "$APPLEIDPW" --file "OnionShare $VERSION.dmg"`
+- Wait for it to get approved, check status with: `xcrun altool --notarization-history 0 -u "micah@micahflee.com" -p "$APPLEIDPW"`
+- After it's approved, staple the ticket: `xcrun stapler staple "OnionShare $VERSION.dmg"`
+- PGP-sign the final, notarized and stapled, `gpg -a --detach-sign "OnionShare $VERSION.dmg"`
 
 This process ends up with two final files:
 
 ```
-OnionShare-$VERSION.pkg
-OnionShare-$VERSION.pkg.asc
+OnionShare $VERSION.dmg
+OnionShare $VERSION.dmg.asc
 ```
 
 ## Windows release
