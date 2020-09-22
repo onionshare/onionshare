@@ -41,7 +41,7 @@ The hashed password output is displayed after some warnings (which you can ignor
 Now create a new text file at ``C:\Program Files (x86)\tor-win32\torrc`` and put your hashed password output in it, replacing the ``HashedControlPassword`` with the one you just generated::
 
     ControlPort 9051
-    HashedControlPassword (The numbers you generate from the password you pick above)
+    HashedControlPassword (The numbers you generate from the password you picked above)
 
 In your administrator command prompt, install Tor as a service using the appropriate ``torrc`` file you just created (as described in `<https://2019.www.torproject.org/docs/faq.html.en#NTService>`_). Like this::
 
