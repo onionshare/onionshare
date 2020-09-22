@@ -52,7 +52,7 @@ You are now running a system Tor process in Windows!
 Open OnionShare. Under "How should OnionShare connect to Tor?" choose "Connect using control port", and set
 "Control port" to ``127.0.0.1`` and
 "Port" to ``9051``.
-Under "Tor authentication options" choose "Password" and set the password to the control port password password you picked above
+Under "Tor authentication options" choose "Password" and set the password to the control port password you picked above
 Click the "Test Settings" button.
 If all goes well, you should see "Connected to the Tor controller".
 
@@ -74,12 +74,10 @@ And start the system Tor service::
 
     brew services start tor
 
-Open OnionShare and click the "⚙" icon in it. Under "How should OnionShare connect to Tor?" choose "Connect using control port", and set
-"Control port" to ``127.0.0.1`` and
-"Port" to ``9051``.
-
-Under "Tor authentication settings" choose "Password", and set your password.
-(Using 7 words in a sequence like ``comprised stumble rummage work avenging construct volatile`` is a good idea for a password.)
+Open OnionShare and click the "⚙" icon in.
+Under "How should OnionShare connect to Tor?" choose "Connect using socket file", and
+set the socket file to be ``/usr/local/var/run/tor/control.socket``.
+Under "Tor authentication options" choose "No authentication, or cookie authentication".
 Click the "Test Connection to Tor" button.
 
 If all goes well, you should see "Connected to the Tor controller".
