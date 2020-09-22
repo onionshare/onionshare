@@ -53,7 +53,7 @@ Open OnionShare. Under "How should OnionShare connect to Tor?" choose "Connect u
 "Control port" to ``127.0.0.1`` and
 "Port" to ``9051``.
 Under "Tor authentication options" choose "Password" and set the password to the control port password you picked above
-Click the "Test Settings" button.
+Click the "Test Connection to Tor" button.
 If all goes well, you should see "Connected to the Tor controller".
 
 Using the system's Tor in macOS
