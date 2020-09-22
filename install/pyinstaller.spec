@@ -24,7 +24,7 @@ a = Analysis(
         ('../share/static/js/*', 'share/static/js'),
         ('../install/licenses/*', 'licenses')
     ],
-    hiddenimports=[],
+    hiddenimports=["engineio.async_drivers.threading"],
     hookspath=[],
     runtime_hooks=[],
     win_no_prefer_redirects=False,
