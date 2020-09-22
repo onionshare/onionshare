@@ -74,7 +74,7 @@ And start the system Tor service::
 
     brew services start tor
 
-Open OnionShare and click the "⚙" icon in.
+Open OnionShare and click the "⚙" icon in it.
 Under "How should OnionShare connect to Tor?" choose "Connect using socket file", and
 set the socket file to be ``/usr/local/var/run/tor/control.socket``.
 Under "Tor authentication options" choose "No authentication, or cookie authentication".
