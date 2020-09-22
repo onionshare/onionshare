@@ -43,7 +43,7 @@ Now create a new text file at ``C:\Program Files (x86)\tor-win32\torrc`` and put
     ControlPort 9051
     HashedControlPassword (The numbers you generate from the password you pick above)
 
-In your administrator command prompt, install Tor as a service using the appropriate ``torrc`` file you just created (as described in `here <https://2019.www.torproject.org/docs/faq.html.en#NTService>`_). Like this::
+In your administrator command prompt, install Tor as a service using the appropriate ``torrc`` file you just created (as described in `<https://2019.www.torproject.org/docs/faq.html.en#NTService>`_). Like this::
 
     tor.exe --service install -options -f "C:\Program Files (x86)\tor-win32\torrc"
 
