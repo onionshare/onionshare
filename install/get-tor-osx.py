@@ -36,10 +36,10 @@ import requests
 
 
 def main():
-    dmg_url = "https://archive.torproject.org/tor-package-archive/torbrowser/8.5.5/TorBrowser-8.5.5-osx64_en-US.dmg"
-    dmg_filename = "TorBrowser-8.5.5-osx64_en-US.dmg"
+    dmg_url = "https://archive.torproject.org/tor-package-archive/torbrowser/9.5.4/TorBrowser-9.5.4-osx64_en-US.dmg"
+    dmg_filename = "TorBrowser-9.5.4-osx64_en-US.dmg"
     expected_dmg_sha256 = (
-        "9c1b7840bd251a4c52f0c919991e57cafb9178c55e11fa49f83ffacce3c20511"
+        "5cc9ef95db8d99e762822c0bd596d7042fba2728e542732f337368c6b891b3ea"
     )
 
     # Build paths
@@ -107,8 +107,8 @@ def main():
         os.path.join(dist_path, "MacOS", "Tor", "tor.real"),
     )
     shutil.copyfile(
-        os.path.join(dmg_tor_path, "MacOS", "Tor", "libevent-2.1.6.dylib"),
-        os.path.join(dist_path, "MacOS", "Tor", "libevent-2.1.6.dylib"),
+        os.path.join(dmg_tor_path, "MacOS", "Tor", "libevent-2.1.7.dylib"),
+        os.path.join(dist_path, "MacOS", "Tor", "libevent-2.1.7.dylib"),
     )
     os.chmod(os.path.join(dist_path, "MacOS", "Tor", "tor.real"), 0o755)
     # obfs4proxy binary
