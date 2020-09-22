@@ -177,5 +177,15 @@
     "gui_all_modes_transfer_finished_range": "Transferred {} - {}",
     "gui_all_modes_transfer_finished": "Transferred {}",
     "gui_all_modes_transfer_canceled_range": "Canceled {} - {}",
-    "gui_all_modes_transfer_canceled": "Canceled {}"
+    "gui_all_modes_transfer_canceled": "Canceled {}",
+    "settings_error_unknown": "Can't connect to Tor controller because your settings don't make sense.",
+    "settings_error_automatic": "Could not connect to the Tor controller. Is Tor Browser (available from torproject.org) running in the background?",
+    "settings_error_socket_port": "Can't connect to the Tor controller at {}:{}.",
+    "settings_error_socket_file": "Can't connect to the Tor controller using socket file {}.",
+    "settings_error_auth": "Connected to {}:{}, but can't authenticate. Maybe this isn't a Tor controller?",
+    "settings_error_missing_password": "Connected to Tor controller, but it requires a password to authenticate.",
+    "settings_error_unreadable_cookie_file": "Connected to the Tor controller, but password may be wrong, or your user is not permitted to read the cookie file.",
+    "settings_error_bundled_tor_not_supported": "Using the Tor version that comes with OnionShare does not work in developer mode on Windows or macOS.",
+    "settings_error_bundled_tor_timeout": "Taking too long to connect to Tor. Maybe you aren't connected to the Internet, or have an inaccurate system clock?",
+    "settings_error_bundled_tor_broken": "OnionShare could not connect to Tor:\n{}"
 }
