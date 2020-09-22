@@ -27,7 +27,7 @@ This is fairly advanced. You'll need to know how edit plaintext files and do stu
 
 Download the Tor Windows Expert Bundle `from <https://www.torproject.org/download/tor/>`_.
 Extract the ZIP file and copy the extracted folder to ``C:\Program Files (x86)\``
-Rename the folder with ``Data`` and ``Tor`` in it to ``tor-win32``.
+Rename the extracted folder with ``Data`` and ``Tor`` in it to ``tor-win32``.
 
 Make up a control port password.
 (Using 7 words in a sequence like ``comprised stumble rummage work avenging construct volatile`` is a good idea for a password.)
