@@ -77,7 +77,7 @@ And start the system Tor service::
 Open OnionShare and click the "⚙" icon in it.
 Under "How should OnionShare connect to Tor?" choose "Connect using socket file", and
 set the socket file to be ``/usr/local/var/run/tor/control.socket``.
-Under "Tor authentication options" choose "No authentication, or cookie authentication".
+Under "Tor authentication settings" choose "No authentication, or cookie authentication".
 Click the "Test Connection to Tor" button.
 
 If all goes well, you should see "Connected to the Tor controller".
