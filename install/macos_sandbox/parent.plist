@@ -6,6 +6,10 @@
 	<key>com.apple.security.app-sandbox</key>
 	<true/>
 
+	<!-- Required for running PyInstaller python code with hardened runtime -->
+    <key>com.apple.security.cs.allow-unsigned-executable-memory</key>
+    <true/>
+
 	<!-- Both OnionShare and Tor need network server and client -->
 	<key>com.apple.security.network.server</key>
 	<true/>
