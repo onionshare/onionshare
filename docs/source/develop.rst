@@ -6,27 +6,30 @@ Developing OnionShare
 Collaborating
 -------------
 
-OnionShare has an open Keybase team that we use to discuss the project, including asking questions, sharing ideas and designs, and making plans for future development. (It's also an easy way to send end-to-end encrypted direct messages to others in the OnionShare community, like OnionShare addresses.) To use Keybase, you need to download the `Keybase app <https://keybase.io/download>`_, make an account, and `join this team <https://keybase.io/team/onionshare>`_. Within the app, go to Teams, click "Join a Team", and type "onionshare".
+OnionShare has an open Keybase team to discuss the project, ask questions, share ideas and designs, and making plans for future development. (It's also an easy way to send end-to-end encrypted direct messages to others in the OnionShare community, like OnionShare addresses.)
+To use Keybase, download the `Keybase app <https://keybase.io/download>`_, make an account, and `join this team <https://keybase.io/team/onionshare>`_. Within the app, go to "Teams", click "Join a Team", and type "onionshare".
 
 OnionShare also has a `mailing list <https://lists.riseup.net/www/subscribe/onionshare-dev>`_ for developers and and designers to discuss the project.
 
 Contributing code
 -----------------
 
-OnionShare source code is in this git repository: https://github.com/micahflee/onionshare
+OnionShare source code is to be found in this Git repository: https://github.com/micahflee/onionshare
 
-If you'd like to contribute code to OnionShare, it helps to join the Keybase team and ask questions about what you're thinking of working on. You should also review all of the `open issues <https://github.com/micahflee/onionshare/issues>`_ on GitHub to see if there are any that you'd like to develop.
+If you'd like to contribute code to OnionShare, it helps to join the Keybase team and ask questions about what you're thinking of working on.
+You should also review all of the `open issues <https://github.com/micahflee/onionshare/issues>`_ on GitHub to see if there are any you'd like to tackle.
 
-When you're ready to contribute code, open a pull request in the GitHub repository and one of the project maintainers will review it and possible ask questions, request changes, reject it, or merge it into the project.
+When you're ready to contribute code, open a pull request in the GitHub repository and one of the project maintainers will review it and possibly ask questions, request changes, reject it, or merge it into the project.
 
 .. _starting_development:
 
 Starting development
 --------------------
 
-OnionShare is developed in Python. To get started, you should clone the git repository at https://github.com/micahflee/onionshare/ and then consult the ``BUILD.md`` file.
+OnionShare is developed in Python.
+To get started, clone the Git repository at https://github.com/micahflee/onionshare/ and then consult the ``BUILD.md`` file.
 
-That file contains the technical instructions and commands necessary:
+That file contains the necessary technical instructions and commands:
 
 * Install dependencies for your platform
 * Run OnionShare from the source tree, without building a package
@@ -39,7 +42,8 @@ Debugging tips
 Verbose mode
 ^^^^^^^^^^^^
 
-When developing, it's convenient to run OnionShare from a terminal and add the ``--verbose`` (or ``-v``) flag to the command. This will print a lot of helpful messages to the terminal such as when certain objects are initialized, when events occur (like buttons clicked, settings saved or reloaded), and other debug information. For example::
+When developing, it's convenient to run OnionShare from a terminal and add the ``--verbose`` (or ``-v``) flag to the command.
+This prints a lot of helpful messages to the terminal, such as when certain objects are initialized, when events occur (like buttons clicked, settings saved or reloaded), and other debug info. For example::
 
     $ poetry run ./dev_scripts/onionshare -v test.txt 
     OnionShare 2.3 | https://onionshare.org/
@@ -112,12 +116,13 @@ You can add your own debug messages by running the ``Common.log`` method from ``
 
     common.log('OnionShareGui', 'start_server', 'I ran here')
 
-This can be useful when learning the chain of events that occur when using the application or the value of certain variables before and after they are manipulated.
+This can be useful when learning the chain of events that occur when using OnionShare, or the value of certain variables before and after they are manipulated.
 
 Local only
 ^^^^^^^^^^
 
-Tor is slow, and it's often convenient to skip starting onion services altogether during development. You can do this with the ``--local-only`` flag. For example::
+Tor is slow, and it's often convenient to skip starting onion services altogether during development.
+You can do this with the ``--local-only`` flag. For example::
 
     $ poetry run ./dev_scripts/onionshare --local-only --receive
     OnionShare 2.3 | https://onionshare.org/
@@ -147,19 +152,21 @@ Tor is slow, and it's often convenient to skip starting onion services altogethe
 
     Files sent to you appear in this folder: /home/user/OnionShare
 
-    Warning: Receive mode lets people upload files to your computer. Some files can potentially take control of your computer if you open them. Only open things from people you trust, or if you know what you are doing.
+    Warning: Receive mode lets people upload files to your computer.
+    Some files can potentially take control of your computer if you open them.
+    Only open things from people you trust, or if you know what you are doing.
 
     Give this address to the sender:
     http://onionshare:eject-snack@127.0.0.1:17614
 
     Press Ctrl+C to stop the server
 
-In this case, you load the URL ``http://onionshare:eject-snack@127.0.0.1:17614`` in a normal web browser like Firefox, instead of using Tor Browser.
+In this case, you load the URL ``http://onionshare:eject-snack@127.0.0.1:17614`` in a normal web-browser like Firefox, instead of using the Tor Browser.
 
 Debugging in Windows
 ^^^^^^^^^^^^^^^^^^^^
 
-If you want to obtain debug output from the ``onionshare-gui.exe`` in Windows, you will need to edit ``install\pyinstaller.spec`` and change ``console=False`` to ``console=True``.
+If you want to obtain debug output from the ``onionshare-gui.exe`` in Windows, edit ``install\pyinstaller.spec`` and change ``console=False`` to ``console=True``.
 
 Then rebuild the EXE with ``install\build_exe.bat`` (you may need to comment out the ``signtool`` commands in the ``build_exe.bat`` and the ``onionshare.nsi`` files, as per the ``BUILD.md`` instructions).
 
@@ -168,22 +175,22 @@ After this, you can run ``onionshare-gui.exe -v`` from a command prompt to see t
 Contributing translations
 -------------------------
 
-Most of the OnionShare is translatable. You can help make it easier to use and more familiar and welcoming for people around the globe. The Localization Lab has some `documentation about translating OnionShare <https://wiki.localizationlab.org/index.php/OnionShare>`_.
+Help make OnionShare easier to use and more familiar and welcoming for people by translating it on `Hosted Weblate <https://hosted.weblate.org/projects/onionshare/>`_. Always keep the "OnionShare" in latin letters, and use "OnionShare (localname)" if needed.
 
-OnionShare uses Weblate to keep track of translations. You can view the OnionShare project here: https://hosted.weblate.org/projects/onionshare/
-
-To help translate, make a Hosted Weblate account and start contributing to that project.
+To help translate, make a Hosted Weblate account and start contributing.
 
 Suggestions for original English strings
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Sometimes the original English strings could be improved, making them easier to translate into other languages.
+Sometimes the original English strings are wrong, or don't match between the application and the documentation.
 
-If you have suggestions for a better English string, please open a GitHub issue rather than commenting in Weblate. This ensures the upstream developers will definitely see the suggestion, and can potentially modify the string via the usual code review processes.
+File source string improvements by adding @kingu to your Weblate comment, or open a GitHub issue or pull request.
+The latter ensures all upstream developers see the suggestion, and can potentially modify the string via the usual code review processes.
 
 Status of translations
 ^^^^^^^^^^^^^^^^^^^^^^
-Here is the current translation status. If you want start a translation in a language not to be found here, please write us to the mailing list: onionshare-dev@lists.riseup.net
+Here is the current translation status.
+If you want start a translation in a language not yet started, please write to the mailing list: onionshare-dev@lists.riseup.net
 
 .. image:: https://hosted.weblate.org/widgets/onionshare/-/translations/multi-auto.svg
 
@@ -192,7 +199,9 @@ Translate the .desktop file
 
 You can also translate the ``install/onionshare.desktop`` file.
 
-Duplicate the line that begins with ``Comment=``. Add the language code to the new line so it becomes ``Comment[lang]=`` (lang should be your language). You can see what language codes are used for translation by looking at the ``share/locale/*.json`` filenames::
+Duplicate the line that begins with ``Comment=``.
+Add the language code to the new line so it becomes ``Comment[lang]=`` (lang should be your language).
+You can see what language codes are used for translation by looking at the ``share/locale/*.json`` filenames::
 
     Comment=Original string
     Comment[da]=Danish translation of the original string
