@@ -69,7 +69,7 @@
     "gui_settings_tor_bridges_meek_lite_azure_radio_option": "Benutze integrierte „meek_lite (Amazon) pluggable transports“",
     "gui_settings_tor_bridges_meek_lite_azure_radio_option_no_obfs4proxy": "Benutze integrierte „meek_lite (Azure) pluggable transports“ (benötigt obfs4proxy)",
     "gui_settings_tor_bridges_custom_radio_option": "Benutze benutzerdefinierte Bridges",
-    "gui_settings_tor_bridges_custom_label": "Bridges findest du unter <a href=\"https://bridges.torproject.org/options\">https://bridges.torproject.org</a>",
+    "gui_settings_tor_bridges_custom_label": "Bridges findest du unter <a href=\"https://bridges.torproject.org/options?lang=de\">https://bridges.torproject.org</a>",
     "gui_settings_autostop_timer_checkbox": "Automatische Stoppuhr verwenden",
     "settings_error_auth": "Mit {}:{} verbinden aber nicht authentifiziert. Eventuell handelt es sich nicht um einen Tor-Controller?",
     "settings_error_missing_password": "Mit dem Tor-Controller verbunden, aber er benötigt ein Passwort zur Authentifizierung.",

@@ -88,7 +88,7 @@
     "gui_settings_tor_bridges_meek_lite_azure_radio_option_no_obfs4proxy": "Hazır meek_lite (Azure) değiştirilebilir taşıyıcıları kullanılsın (obfs4proxy gerektirir)",
     "gui_settings_meek_lite_expensive_warning": "Uyarı: meek_lit köprülerini çalıştırmak Tor Projesine pahalıya patlıyor.<br><br>Bu köprüleri yalnız Tor ile doğrudan ya da obfs4 ve diğer normal köprüler üzerinden bağlantı kuramıyorsanız kullanın.",
     "gui_settings_tor_bridges_custom_radio_option": "Özel köprüler kullanılsın",
-    "gui_settings_tor_bridges_custom_label": "Köprüleri <a href=\"https://bridges.torproject.org/options\">https://bridges.torproject.org</a> adresinden alabilirsiniz",
+    "gui_settings_tor_bridges_custom_label": "Köprüleri <a href=\"https://bridges.torproject.org/options?lang=tr\">https://bridges.torproject.org</a> adresinden alabilirsiniz",
     "gui_settings_tor_bridges_invalid": "Eklediğiniz köprülerin hiçbiri çalışmıyor.\nİki kez denetleyin ya da başka köprüler ekleyin.",
     "gui_settings_button_save": "Kaydet",
     "gui_settings_button_cancel": "İptal",

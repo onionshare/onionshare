@@ -99,7 +99,7 @@
     "gui_settings_tor_bridges_meek_lite_azure_radio_option_no_obfs4proxy": "Usar transportadores plugáveis meek_lite (Azure) já instalados (requer obfs4proxy)",
     "gui_settings_meek_lite_expensive_warning": "Aviso: as pontes meek_lite são muito custosas para o Projeto Tor.<br><br>Use-as somente se você não conseguir se conectar ao Tor diretamente, via transportadores obfs4 ou outras pontes comuns.",
     "gui_settings_tor_bridges_custom_radio_option": "Usar pontes personalizadas",
-    "gui_settings_tor_bridges_custom_label": "Você pode obter pontes em <a href=\"https://bridges.torproject.org/options\">https://bridges.torproject.org</a>",
+    "gui_settings_tor_bridges_custom_label": "Você pode obter pontes em <a href=\"https://bridges.torproject.org/options?lang=pt_BR\">https://bridges.torproject.org</a>",
     "gui_settings_tor_bridges_invalid": "Nenhuma das ponte adicionadas funciona.\nTente usá-las de novo ou adicione outras.",
     "gui_settings_button_save": "Salvar",
     "gui_settings_button_cancel": "Cancelar",

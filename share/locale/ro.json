@@ -99,7 +99,7 @@
     "gui_settings_tor_bridges_meek_lite_azure_radio_option_no_obfs4proxy": "Folosiți transporturi conectabile meek_lite (Azure) încorporate (necesită obfs4proxy)",
     "gui_settings_meek_lite_expensive_warning": "Avertisment: podurile meek_lite sunt foarte costisitoare pentru rularea Proiectului Tor. <br> <br> Utilizați-le numai dacă nuvă puteți conecta direct la Tor, prin transporturi obfs4 sau alte poduri normale.",
     "gui_settings_tor_bridges_custom_radio_option": "Folosiți poduri personalizate",
-    "gui_settings_tor_bridges_custom_label": "Puteți obține poduri de la <a href=\"https://bridges.torproject.org/options\">https://bridges.torproject.org</a>",
+    "gui_settings_tor_bridges_custom_label": "Puteți obține poduri de la <a href=\"https://bridges.torproject.org/options?lang=ro\">https://bridges.torproject.org</a>",
     "gui_settings_tor_bridges_invalid": "Niciunul din podurile adăugate nu funcționează.\nVerificați-le încă o dată sau adăugați altele.",
     "gui_settings_button_save": "Salvare",
     "gui_settings_button_cancel": "Anulare",

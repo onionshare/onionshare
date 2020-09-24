@@ -111,7 +111,7 @@
     "gui_settings_tor_bridges_meek_lite_azure_radio_option_no_obfs4proxy": "Использовать встроенные транспорты meek_lite (Azure) (необходим obfs4proxy)",
     "gui_settings_meek_lite_expensive_warning": "Внимание: использование \"мостов\" meek_lite очень затратно для Tor Project.<br><br>Используйте их только если не можете подключиться к сети Tor напрямую, через obfs4 транспорты или другие обычные \"мосты\".",
     "gui_settings_tor_bridges_custom_radio_option": "Использовать пользовательские \"мосты\"",
-    "gui_settings_tor_bridges_custom_label": "Получить настройки \"мостов\" можно здесь: <a href=\"https://bridges.torproject.org/options\">https://bridges.torproject.org</a>",
+    "gui_settings_tor_bridges_custom_label": "Получить настройки \"мостов\" можно здесь: <a href=\"https://bridges.torproject.org/options?lang=ru\">https://bridges.torproject.org</a>",
     "gui_settings_tor_bridges_invalid": "Ни один из добавленных вами \"мостов\" не работает.\nПроверьте их снова или добавьте другие.",
     "gui_settings_autostop_timer_checkbox": "Использовать стоп-таймер",
     "gui_settings_autostop_timer": "Остановить отправку в:",
