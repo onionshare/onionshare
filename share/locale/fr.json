@@ -85,7 +85,7 @@
     "gui_settings_authenticate_label": "Paramètres d’authentification de Tor",
     "gui_settings_tor_bridges": "Prise en charge des ponts de Tor",
     "gui_settings_tor_bridges_custom_radio_option": "Utiliser des ponts personnalisés",
-    "gui_settings_tor_bridges_custom_label": "Vous pouvez obtenir des ponts sur <a href=\"https://bridges.torproject.org/options?lang=fr\">https://bridges.torproject.org</a>",
+    "gui_settings_tor_bridges_custom_label": "Vous pouvez obtenir des ponts sur <a href=\"https://bridges.torproject.org/options\">https://bridges.torproject.org</a>",
     "gui_settings_tor_bridges_invalid": "Aucun des ponts que vous avez ajoutés ne fonctionne.\nVérifiez-les de nouveau ou ajoutez-en d’autres.",
     "settings_error_unknown": "Impossible de se connecter au contrôleur Tor, car vos paramètres sont incorrects.",
     "settings_error_automatic": "Impossible de se connecter au contrôleur Tor. Le Navigateur Tor (téléchargeable sur torproject.org) fonctionne-t-il en arrière-plan ?",

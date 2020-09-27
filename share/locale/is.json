@@ -99,7 +99,7 @@
     "gui_settings_tor_bridges_meek_lite_azure_radio_option_no_obfs4proxy": "Nota innbyggðar meek_lite (Azure) 'pluggable transport' tengileiðir (þarfnast obfs4proxy)",
     "gui_settings_meek_lite_expensive_warning": "Aðvörun: Að reka meek_lite brýrnar er kostnaðarsamt fyrir Tor-verkefnið.<br><br>Ekki nota þær nema þér takist ekki að tengjast beint við Tor, með obfs4 tengileið, eða öðrum venjulegum brúm.",
     "gui_settings_tor_bridges_custom_radio_option": "Nota sérsniðnar brýr",
-    "gui_settings_tor_bridges_custom_label": "Þú getur náð í brýr frá <a href=\"https://bridges.torproject.org/options\">https://bridges.torproject.org</a>",
+    "gui_settings_tor_bridges_custom_label": "Þú getur náð í brýr frá <a href=\"https://bridges.torproject.org/options?lang=is\">https://bridges.torproject.org</a>",
     "gui_settings_tor_bridges_invalid": "Engar af brúnum sem þú bættir við virka.\nYfirfarðu þær eða bættu öðrum við.",
     "gui_settings_button_save": "Vista",
     "gui_settings_button_cancel": "Hætta við",

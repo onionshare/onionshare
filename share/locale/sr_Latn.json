@@ -75,7 +75,7 @@
     "gui_settings_tor_bridges_meek_lite_azure_radio_option_no_obfs4proxy": "Koristi ugrađene meek_lite (Azure) dodatne prenose (potreban obfs4proksi)",
     "gui_settings_meek_lite_expensive_warning": "Upozorenje: meek_lite mostovi su vrlo skupi za Tor projekat da ih koristi.<br><br>Koristi ih samo ako ne možeš da se povežeš na Tor direktno, preko obfs4 transporta ili drugih redovnih mostova.",
     "gui_settings_tor_bridges_custom_radio_option": "Koristi prilagođene mostove",
-    "gui_settings_tor_bridges_custom_label": "Mostove možeš dobiti od <a href=\"https://bridges.torproject.org/options\">https://bridges.torproject.org</a>",
+    "gui_settings_tor_bridges_custom_label": "Mostove možeš dobiti od <a href=\"https://bridges.torproject.org/options?lang=sr_Latn\">https://bridges.torproject.org</a>",
     "gui_settings_tor_bridges_invalid": "Nijedan od mostova koje si dodao ne funkcioniše.\nProveri ih ponovo ili dodaj druge.",
     "gui_settings_button_save": "Sačuvaj",
     "gui_settings_button_cancel": "Odustani",

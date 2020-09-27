@@ -100,7 +100,7 @@
     "gui_settings_tor_bridges_meek_lite_azure_radio_option_no_obfs4proxy": "নিজস্ব meek_lite (Azure) প্লাগেবল ট্রান্সপোর্ট ব্যবহার করো (obfs4proxy লাগবে)",
     "gui_settings_meek_lite_expensive_warning": "সতর্কতা: meek_lite ব্রিজ পরিচালনা করা Tor Project-এর জন্য অনেক ব্যয়বহুল।<br><br>এগুলো তখনই ব্যবহার করো যখন Tor-এ সরাসরি কানেক্ট করতে পারছো না, obfs4 ট্রান্সপোর্ট দিয়ে, অথবা অন্যান্য সাধারণ ব্রিজ দিয়ে।",
     "gui_settings_tor_bridges_custom_radio_option": "কাস্টম ব্রিজ ব্যবহার করো",
-    "gui_settings_tor_bridges_custom_label": "ব্রিজ পেতে চাইলে <a href=\"https://bridges.torproject.org/options\">https://bridges.torproject.org</a> দেখুন",
+    "gui_settings_tor_bridges_custom_label": "ব্রিজ পেতে চাইলে <a href=\"https://bridges.torproject.org/options?lang=bn\">https://bridges.torproject.org</a> দেখুন",
     "gui_settings_tor_bridges_invalid": "তোমার দেয়া কোন ব্রিজই কাজ করছে না।\nআরেকবার চেক করে দেখো বা নতুন ব্রিজ দিয়ে চেষ্টা করো।",
     "gui_settings_button_save": "সেভ",
     "gui_settings_button_cancel": "বাতিল",
