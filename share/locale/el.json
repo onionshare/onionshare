@@ -99,7 +99,7 @@
     "gui_settings_tor_bridges_meek_lite_azure_radio_option_no_obfs4proxy": "Να χρησιμοποιηθούν τα ενσωματωμένα meek_lite (Azure) pluggable transports (απαιτείται το obfs4proxy)",
     "gui_settings_meek_lite_expensive_warning": "Προσοχή: Τα meek_lite bridges επιβαρύνουν πολύ το Tor Project στη λειτουργία. <br><br> Χρησιμοποιήστε τα μόνο αν δεν μπορείτε να συνδεθείτε κατ' ευθείαν στο Tor μέσω obfs4 transports ή άλλων κανονικών bridges.",
     "gui_settings_tor_bridges_custom_radio_option": "Χρήση παραμετροποιημένων bridges",
-    "gui_settings_tor_bridges_custom_label": "Αποκτήστε bridges στο <a href=\"https://bridges.torproject.org/options\"> https://bridges.torproject.org</a>",
+    "gui_settings_tor_bridges_custom_label": "Αποκτήστε bridges στο <a href=\"https://bridges.torproject.org/options?lang=el\"> https://bridges.torproject.org</a>",
     "gui_settings_tor_bridges_invalid": "Δεν λειτούργησε κάποιο από τα bridges που προσθέσατε.\nΞαναελέγξτε τα ή προσθέστε άλλα.",
     "gui_settings_button_save": "Αποθήκευση",
     "gui_settings_button_cancel": "Ακύρωση",

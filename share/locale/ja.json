@@ -102,7 +102,7 @@
     "gui_settings_tor_bridges_meek_lite_azure_radio_option_no_obfs4proxy": "組み込みのmeek_lite (Azure) pluggable transportを使用する（obsf4proxy必要）",
     "gui_settings_meek_lite_expensive_warning": "警告：meek_liteブリッジはTor Projectにとって維持費がかさむ<br><br>直接にTorと接続できない場合、あるいはobsf4ブリッジや他のブリッジが使用できない場合のみに使って下さい。",
     "gui_settings_tor_bridges_custom_radio_option": "カスタムブリッジを使用する",
-    "gui_settings_tor_bridges_custom_label": "<a href=\"https://bridges.torproject.org/options\">https://bridges.torproject.org</a>からブリッジを入手できます",
+    "gui_settings_tor_bridges_custom_label": "<a href=\"https://bridges.torproject.org/options?lang=ja\">https://bridges.torproject.org</a>からブリッジを入手できます",
     "gui_settings_tor_bridges_invalid": "全ての追加したブリッジは機能しませんでした。\n再確認して、あるいは他のを追加して下さい。",
     "gui_settings_button_save": "保存",
     "gui_settings_button_cancel": "キャンセル",

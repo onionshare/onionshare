@@ -75,7 +75,7 @@
     "gui_settings_tor_bridges_meek_lite_azure_radio_option_no_obfs4proxy": "Gebruik ingeboude meek_lite (Azure)-inpropbare vervoere (vereis obfs4proxy)",
     "gui_settings_meek_lite_expensive_warning": "Waarskuwing: Die meek_lite-brûe is baie duur vir die Tor-projek om uit te voer.<br><br>Gebruik dit slegs indien u nie direk aan Tor, d.m.v. obfs4-vervoere, of ander normale brûe kan koppel nie.",
     "gui_settings_tor_bridges_custom_radio_option": "Gebruik pasgemaakte brûe",
-    "gui_settings_tor_bridges_custom_label": "U kan brûe vanaf <a href=\"https://bridges.torproject.org/options\">https:bridges.torproject.org</a> verkry",
+    "gui_settings_tor_bridges_custom_label": "U kan brûe vanaf <a href=\"https://bridges.torproject.org/options?lang=af\">https://bridges.torproject.org</a> verkry",
     "gui_settings_tor_bridges_invalid": "Geen van u toegevoegde brûe werk nie.\nGaan dit na of voeg ander toe.",
     "gui_settings_button_save": "Bewaar",
     "gui_settings_button_cancel": "Kanselleer",

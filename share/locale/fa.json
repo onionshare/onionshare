@@ -99,7 +99,7 @@
     "gui_settings_tor_bridges_meek_lite_azure_radio_option_no_obfs4proxy": "استفاده از پلاگبل ترنسپورت meek_lite (Azure) (نیازمند obfs4proxy)",
     "gui_settings_meek_lite_expensive_warning": "هشدار: پل‌های meek_lite برای پروژه Tor بسیار هزینه بر هستند.<br><br> فقط در صورت ناتوانی در اتصال به Tor به صورت مستقیم، از طریق obfs4، یا دیگر پل‌ها از آن استفاده کنید.",
     "gui_settings_tor_bridges_custom_radio_option": "استفاده از پل‌های کاستوم",
-    "gui_settings_tor_bridges_custom_label": "می‌توانید از <a href=\"https://bridges.torproject.org/options\">https://bridges.torproject.org</a> پل دریافت کنید",
+    "gui_settings_tor_bridges_custom_label": "می‌توانید از <a href=\"https://bridges.torproject.org/options?lang=fa\">https://bridges.torproject.org</a> پل دریافت کنید",
     "gui_settings_tor_bridges_invalid": "هیچ کدام از پل‌هایی که شما اضافه کردید کار نمی‌کند.\nآن‌ها را دوباره چک کنید یا پل‌های دیگری اضافه کنید.",
     "gui_settings_button_save": "ذخیره",
     "gui_settings_button_cancel": "لغو",
