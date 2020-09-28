@@ -99,7 +99,7 @@
     "gui_settings_tor_bridges_meek_lite_azure_radio_option_no_obfs4proxy": "Bain úsáid as córais iompair ionphlugáilte ionsuite meek_lite (Azure) (obfs4proxy de dhíth)",
     "gui_settings_meek_lite_expensive_warning": "Rabhadh: Tá sé an-chostasach ar Thionscadal Tor na droichid meek_lite a chur ar fáil.<br><br>Iarraimid ort gan iad a úsáid má tá tú in ann ceangal díreach a bhunú le Tor, nó trí chóras iompair obfs4, nó trí dhroichead eile.",
     "gui_settings_tor_bridges_custom_radio_option": "Úsáid droichid shaincheaptha",
-    "gui_settings_tor_bridges_custom_label": "Is féidir leat droichid a fháil ó <a href=\"https://bridges.torproject.org/options\">https://bridges.torproject.org</a>",
+    "gui_settings_tor_bridges_custom_label": "Is féidir leat droichid a fháil ó <a href=\"https://bridges.torproject.org/options?lang=ga\">https://bridges.torproject.org</a>",
     "gui_settings_tor_bridges_invalid": "Níl aon cheann de na droichid ag obair.\nSeiceáil arís iad, nó bain triail as droichid eile.",
     "gui_settings_button_save": "Sábháil",
     "gui_settings_button_cancel": "Cealaigh",

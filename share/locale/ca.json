@@ -99,7 +99,7 @@
     "gui_settings_tor_bridges_meek_lite_azure_radio_option_no_obfs4proxy": "Fes servir el transport integrat meek_lite (Azure, necessita obfs4proxy)",
     "gui_settings_meek_lite_expensive_warning": "Compte: fer funcionar els ponts meek_lite suposa un cost molt gran per al Tor Project .<br><br>Feu-los servir només si no podeu connectar-vos a Tor directament, a través d'obfs4, o a través de ponts normals.",
     "gui_settings_tor_bridges_custom_radio_option": "Fes servir ponts personalitzats",
-    "gui_settings_tor_bridges_custom_label": "Podeu trobar-ne a <a href=\"https://bridges.torproject.org/options\">https://bridges.torproject.org</a>",
+    "gui_settings_tor_bridges_custom_label": "Podeu trobar-ne a <a href=\"https://bridges.torproject.org/options?lang=ca\">https://bridges.torproject.org</a>",
     "gui_settings_tor_bridges_invalid": "Cap dels ponts que heu afegit funciona.\nComproveu-los o proveu d'afegir-ne de nous.",
     "gui_settings_button_save": "Desa",
     "gui_settings_button_cancel": "Cancel·la",

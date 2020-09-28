@@ -100,7 +100,7 @@
     "gui_settings_tor_bridges_meek_lite_azure_radio_option_no_obfs4proxy": "Använd inbyggda meek_lite (Azure) pluggbara transporter (kräver obfs4proxy)",
     "gui_settings_meek_lite_expensive_warning": "Varning: meek_lite-broarna är mycket kostsamma för att Tor-projektet ska kunna köras.<br><br> Använd dem endast om det inte går att ansluta till Tor direkt, via obfs4-transporter eller andra normala broar.",
     "gui_settings_tor_bridges_custom_radio_option": "Använd anpassade broar",
-    "gui_settings_tor_bridges_custom_label": "Du kan få broar från <a href=\"https://bridges.torproject.org/options\">https://bridges.torproject.org</a>",
+    "gui_settings_tor_bridges_custom_label": "Du kan få broar från <a href=\"https://bridges.torproject.org/options?lang=sv\">https://bridges.torproject.org</a>",
     "gui_settings_tor_bridges_invalid": "Ingen av broarna du lagt till arbete.\nDubbelkolla dem eller lägga till andra.",
     "gui_settings_button_save": "Spara",
     "gui_settings_button_cancel": "Avbryt",

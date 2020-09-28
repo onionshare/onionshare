@@ -88,7 +88,7 @@
     "gui_settings_tor_bridges_meek_lite_azure_radio_option_no_obfs4proxy": "Käytä sisäänrakennettuja meek_lite (Azure)-liitettäviä kuljetuksia (vaatii obfs4proxyn)",
     "gui_settings_meek_lite_expensive_warning": "Varoitus: Meek_lite-sillat ovat Tor-projektille erittäin kalliita. <br><br> Käytä niitä vain, jos et pysty muodostamaan yhteyttä suoraan Toriin, obfs4-kuljetusten tai muiden tavallisten silta-solmujen kautta.",
     "gui_settings_tor_bridges_custom_radio_option": "Käytä mukautettuja silta-solmuja",
-    "gui_settings_tor_bridges_custom_label": "Löydät silta-solmuja osoitteesta <a href=\"https://bridges.torproject.org/options\">https://bridges.torproject.org</a>",
+    "gui_settings_tor_bridges_custom_label": "Löydät silta-solmuja osoitteesta <a href=\"https://bridges.torproject.org/options?lang=fi\">https://bridges.torproject.org</a>",
     "gui_settings_tor_bridges_invalid": "Mikään lisäämistäsi silta-solmuista ei toiminut\nTarkista ne uudelleen tai lisää muita.",
     "gui_settings_button_save": "Tallenna",
     "gui_settings_button_cancel": "Peruuta",

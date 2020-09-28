@@ -10,8 +10,8 @@
     "not_a_readable_file": "{0:s} 不是可读文件。",
     "no_available_port": "找不到可用于开启 onion 服务的端口",
     "other_page_loaded": "地址已加载完成",
-    "close_on_autostop_timer": "已停止，因为定时器计时结束，自动停止",
-    "closing_automatically": "已停止，因为传输已完成",
+    "close_on_autostop_timer": "因为定时器计时结束，已自动停止",
+    "closing_automatically": "传输已完成，已自动停止",
     "timeout_download_still_running": "",
     "large_filesize": "警告：发送大的共享文件可能会花费数小时",
     "systray_menu_exit": "退出",
@@ -99,7 +99,7 @@
     "gui_settings_tor_bridges_meek_lite_azure_radio_option_no_obfs4proxy": "使用内置的 meek_lite (Azure) pluggable transports（需要obfs4proxy）",
     "gui_settings_meek_lite_expensive_warning": "警告：meek_lite 网桥会对 Tor 的运行产生极大负担。<br><br>仅在无法直接连接至 Tor，通过 obfs4 transports 连接，或通过其他网桥连接时使用。",
     "gui_settings_tor_bridges_custom_radio_option": "使用自定义网桥",
-    "gui_settings_tor_bridges_custom_label": "您可以从 <a href=\"https://bridges.torproject.org/options\">https://bridges.torproject.org</a> 获得网桥",
+    "gui_settings_tor_bridges_custom_label": "您可以从 <a href=\"https://bridges.torproject.org/options?lang=zh_CN\">https://bridges.torproject.org</a> 获得网桥",
     "gui_settings_tor_bridges_invalid": "您所添加的网桥均无法工作。\n请再次检查或添加其它网桥。",
     "gui_settings_button_save": "保存",
     "gui_settings_button_cancel": "取消",
@@ -263,5 +263,11 @@
     "gui_new_tab_share_description": "选择计算机上的文件发送给别人。 您要将文件发送给的那些人需要使用Tor浏览器来从您这里下载文件。",
     "gui_new_tab_share_button": "共享文件",
     "gui_new_tab_tooltip": "打开一个新标签",
-    "gui_new_tab": "新建标签"
+    "gui_new_tab": "新建标签",
+    "gui_show_url_qr_code": "显示二维码",
+    "gui_receive_flatpak_data_dir": "因为你用Flatpack安装的OnionShare，你需要把文件储存到在~/OnionShare里的一个文件夹里。",
+    "gui_chat_stop_server": "停止言论服务器",
+    "gui_chat_start_server": "开始言论服务器",
+    "gui_file_selection_remove_all": "删除所有",
+    "gui_remove": "删除"
 }

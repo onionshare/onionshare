@@ -104,7 +104,7 @@
     "gui_settings_tor_bridges_meek_lite_azure_radio_option": "Usare i trasporti integrati meek_lite (Azure) selezionabili",
     "gui_settings_tor_bridges_meek_lite_azure_radio_option_no_obfs4proxy": "Usare i trasporti integrati meek_lite (Azure) selezionabili (richiede obfs4proxy)",
     "gui_settings_meek_lite_expensive_warning": "Attenzione: i bridge meek_lite sono molto pesanti per l'esecuzione del progetto Tor.<br><br>Da usare solo se impossibile connettersi a Tor direttamente, con obfs4, o altri bridge normali.",
-    "gui_settings_tor_bridges_custom_label": "Puoi prendere i bridge da <a href=\"https://bridges.torproject.org/options\">1 https://bridges.torproject.org</a>2",
+    "gui_settings_tor_bridges_custom_label": "Puoi prendere i bridge da <a href=\"https://bridges.torproject.org/options?lang=it\">https://bridges.torproject.org</a>",
     "gui_settings_tor_bridges_invalid": "Nessuno dei bridge che hai aggiunto funzionano\nControllali nuovamente o aggiungine altri.",
     "gui_settings_button_save": "Salva",
     "gui_settings_button_cancel": "Cancella",
