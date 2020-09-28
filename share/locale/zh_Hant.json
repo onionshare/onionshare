@@ -99,7 +99,7 @@
     "gui_settings_tor_bridges_meek_lite_azure_radio_option_no_obfs4proxy": "使月內建的 meek_lite (Azure) pluggable transports (需要 obfs4proxy)",
     "gui_settings_meek_lite_expensive_warning": "警告: The meek_lite bridges are very costly for the Tor Project to run.<br><br>Only use them if unable to connect to Tor directly, via obfs4 transports, or other normal bridges.",
     "gui_settings_tor_bridges_custom_radio_option": "使用自定義的bridges",
-    "gui_settings_tor_bridges_custom_label": "你可以從 <a href=\"https://bridges.torproject.org/options\">https://bridges.torproject.org</a>取得bridges",
+    "gui_settings_tor_bridges_custom_label": "你可以從 <a href=\"https://bridges.torproject.org/options?lang=zh_TW\">https://bridges.torproject.org</a>取得bridges",
     "gui_settings_tor_bridges_invalid": "您新增的bridges無效。\n請再次檢查他們或新增其他的。",
     "gui_settings_button_save": "保存",
     "gui_settings_button_cancel": "取消",

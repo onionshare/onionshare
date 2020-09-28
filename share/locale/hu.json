@@ -99,7 +99,7 @@
     "gui_settings_tor_bridges_meek_lite_azure_radio_option_no_obfs4proxy": "Beépített meek_lite (Azure) pluggable transports használata (obfs4proxy szükséges)",
     "gui_settings_meek_lite_expensive_warning": "Figyelem: A meek_lite hidak fenntartása nagyon költséges a Tor Project számára.<br><br>Csak akkor használd őket, ha nem tudsz közetlenül a Tor-hoz csatlakozni az obfs4 vagy más hidak által.",
     "gui_settings_tor_bridges_custom_radio_option": "Egyéb hidak használata",
-    "gui_settings_tor_bridges_custom_label": "Hidakat innen szerezhetsz: <a href=\"https://bridges.torproject.org/options\">https://bridges.torproject.org</a>",
+    "gui_settings_tor_bridges_custom_label": "Hidakat innen szerezhetsz: <a href=\"https://bridges.torproject.org/options?lang=hu\">https://bridges.torproject.org</a>",
     "gui_settings_tor_bridges_invalid": "Egyetlen híd sem működik.\nEllenőrizd őket, vagy adj hozzá újakat.",
     "gui_settings_button_save": "Mentés",
     "gui_settings_button_cancel": "Mégse",

@@ -100,7 +100,7 @@
     "gui_settings_tor_bridges_meek_lite_azure_radio_option_no_obfs4proxy": "Използвайте вградените meek_lite (Azure) pluggable транспорти (изискват obfs4proxy)",
     "gui_settings_meek_lite_expensive_warning": "Предупреждение: meek_lite мостовета са много скъпи за проекта Тор. <br> <br> Използвайте ги само, ако не можете да се свържете пряко чрез obfs4 транспорти или други нормални мостове с Тор.",
     "gui_settings_tor_bridges_custom_radio_option": "Използвайте персонализирани мостове",
-    "gui_settings_tor_bridges_custom_label": "Може да намерите мостове на <a href=\"https://bridges.torproject.org/options\">https://bridges.torproject.org</a>",
+    "gui_settings_tor_bridges_custom_label": "Може да намерите мостове на <a href=\"https://bridges.torproject.org/options?lang=bg\">https://bridges.torproject.org</a>",
     "gui_settings_tor_bridges_invalid": "Нито един от добавените от Вас мостове работят.\nПроверете ги отново или добавете други.",
     "gui_settings_button_save": "Запазване",
     "gui_settings_button_cancel": "Отказ",

@@ -130,7 +130,7 @@
     "gui_settings_tor_bridges_meek_lite_azure_radio_option_no_obfs4proxy": "Gebruik ingebouwde meek_lite (Azure) pluggable transports (vereist obfs4proxy)",
     "gui_settings_meek_lite_expensive_warning": "Waarschuwing: De meek_lite bridges zijn erg kostbaar voor het Tor Project om uit te voeren. <br><br> Gebruik ze alleen als je niet direct met Tor kan verbinden, via obfs4 transports, of andere normale bridges.",
     "gui_settings_tor_bridges_custom_radio_option": "Gebruik custom bridges",
-    "gui_settings_tor_bridges_custom_label": "Je kan bridges krijgen via <a href=\"https://bridges.torproject.org/options\">1https://bridges.torproject.org</a>2",
+    "gui_settings_tor_bridges_custom_label": "Je kan bridges krijgen via <a href=\"https://bridges.torproject.org/options?lang=nl\">https://bridges.torproject.org</a>",
     "gui_settings_tor_bridges_invalid": "Geen van de bridges die je hebt toegevoegd werken. \nControleer ze of voeg andere toe.",
     "gui_settings_autostop_timer_checkbox": "Gebruik auto-stop timer",
     "error_tor_protocol_error_unknown": "Er was een onbekende fout met Tor",

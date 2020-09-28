@@ -17,7 +17,7 @@
     "gui_share_stop_server": "Zaustavi dijeljenje",
     "gui_share_stop_server_autostop_timer": "Zaustavi dijeljenje ({})",
     "gui_stop_server_autostop_timer_tooltip": "Timer za automatsko zaustavljanje završava pri {}",
-    "gui_start_server_autostart_timer_tooltip": "Timer za automatsko pokretanje završava pri {}",
+    "gui_start_server_autostart_timer_tooltip": "Timer za automatsko pokretanje završava u {}",
     "gui_receive_start_server": "Pokreni modus primanja",
     "gui_receive_stop_server": "Zaustavi modus primanja",
     "gui_receive_stop_server_autostop_timer": "Zaustavi modus primanja ({} preostalo)",
@@ -75,7 +75,7 @@
     "gui_settings_tor_bridges_meek_lite_azure_radio_option_no_obfs4proxy": "Koristi ugrađene meek_lite (Azure) uključive prijenose (potreban je obfs4proksi)",
     "gui_settings_meek_lite_expensive_warning": "Upozorenje: meek_lite mostovi troše velike količine resursa za pokretanje Tor projekta.<br><br>Koristi ih samo ako se ne možeš povezati s Torom direktno putem obfs4 prijenosa ili drugih normalnih mostova.",
     "gui_settings_tor_bridges_custom_radio_option": "Koristi prilagođene mostove",
-    "gui_settings_tor_bridges_custom_label": "Mostove možeš dobiti na <a href=\"https://bridges.torproject.org/options\">https://bridges.torproject.org</a>",
+    "gui_settings_tor_bridges_custom_label": "Mostove možeš dobiti na <a href=\"https://bridges.torproject.org/options?lang=hr\">https://bridges.torproject.org</a>",
     "gui_settings_tor_bridges_invalid": "Nijedan od dodanih mostova ne funkcionira.\nProvjeri ih ili dodaj druge.",
     "gui_settings_button_save": "Spremi",
     "gui_settings_button_cancel": "Odustani",
@@ -224,5 +224,9 @@
     "gui_qr_code_dialog_title": "OnionShare QR-kod",
     "gui_show_url_qr_code": "Prikaži QR-kod",
     "gui_file_selection_remove_all": "Ukloni sve",
-    "gui_remove": "Ukloni"
+    "gui_remove": "Ukloni",
+    "gui_main_page_chat_button": "Pokreni chat",
+    "gui_main_page_website_button": "Pokreni hosting",
+    "gui_main_page_receive_button": "Pokreni primanje",
+    "gui_main_page_share_button": "Pokreni dijeljenje"
 }
