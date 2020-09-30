@@ -32,6 +32,7 @@ flask-socketio = "^4.3.0"
 eventlet = "^0.25.2"
 qrcode = "^6.1"
 psutil = "^5.7.2"
+pywin32 = {version = "^228", platform = "windows"}
 
 [tool.poetry.dev-dependencies]
 atomicwrites = "*"
