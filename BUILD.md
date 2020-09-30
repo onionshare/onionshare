@@ -187,6 +187,8 @@ poetry run python dev_scripts\onionshare-gui
 
 #### If you want to build a .exe
 
+Download and install Microsoft Visual C++ Redistributable Package (x86) from https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads. I downloaded `VC_redist.x86.exe`.
+
 Download and install 7-Zip from http://www.7-zip.org/download.html. I downloaded `7z1900.exe`.
 
 Download and install the standalone [Windows 10 SDK](https://developer.microsoft.com/en-us/windows/downloads/windows-10-sdk). Note that you may not need this if you already have Visual Studio.
