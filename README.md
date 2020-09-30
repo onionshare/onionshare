@@ -1,6 +1,6 @@
 ![OnionShare](/docs/source/_static/logo.png)
 
-# OnionShare
+# what is OnionShare?
 
 OnionShare is an open source tool that lets you securely and anonymously share files, host websites, and chat with friends using the Tor network.
 
