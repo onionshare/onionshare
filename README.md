@@ -10,6 +10,8 @@ You can download OnionShare for Windows and macOS from the [OnionShare website](
 
 For macOS you can also use [Homebrew](https://brew.sh/):
 
+Now the Current Version is OnionShare 2.2
+
 ```
 brew cask install onionshare
 ```
