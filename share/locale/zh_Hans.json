@@ -269,5 +269,6 @@
     "gui_chat_stop_server": "停止言论服务器",
     "gui_chat_start_server": "开始言论服务器",
     "gui_file_selection_remove_all": "删除所有",
-    "gui_remove": "删除"
+    "gui_remove": "删除",
+    "gui_qr_code_dialog_title": "Onionshare 二维码"
 }
