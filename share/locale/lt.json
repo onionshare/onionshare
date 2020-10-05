@@ -204,5 +204,7 @@
     "mode_settings_share_autostop_sharing_checkbox": "",
     "mode_settings_receive_data_dir_label": "",
     "mode_settings_receive_data_dir_browse_button": "",
-    "mode_settings_website_disable_csp_checkbox": ""
+    "mode_settings_website_disable_csp_checkbox": "",
+    "gui_file_selection_remove_all": "Šalinti visus",
+    "gui_remove": "Šalinti"
 }
