@@ -196,7 +196,10 @@ Add the following directories (you might want to make sure these are exact on yo
 * `C:\Program Files (x86)\Windows Kits\10\bin\10.0.18362.0\x86`
 * `C:\Program Files (x86)\Windows Kits\10\Redist\10.0.18362.0\ucrt\DLLs\x86`
 * `C:\Program Files (x86)\7-Zip`
-* `C:\Users\user\AppData\Local\Programs\Python\Python37-32\Lib\site-packages\PyQt5\Qt\bin`
+
+And also for PyQt5, but replace `onionshare-i_zmdpLh-py3.7` with the name of your poetry virtual environment. You can find that by running `poetry env list`.
+
+* `C:\Users\user\AppData\Local\pypoetry\Cache\virtualenvs\onionshare-i_zmdpLh-py3.7\Lib\site-packages\PyQt5\Qt\bin`
 
 #### If you want the .exe to not get falsely flagged as malicious by anti-virus software
 
