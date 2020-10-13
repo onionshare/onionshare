@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>OnionShare</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"> 
+  <link href="{{ static_url_path }}/img/favicon.ico" rel="icon" type="image/x-icon">
+  <link rel="stylesheet" rel="subresource" type="text/css" href="{{ static_url_path }}/css/style.css" media="all">
+  <meta name="onionshare-filename" content="{{ filename }}">
+  <meta name="onionshare-filesize" content="{{ filesize }}">
+</head>
+
+<body>
+
+  <header class="d-flex">
+    <div class="logo-container">
+      <img class="logo" src="{{ static_url_path }}/img/logo.png" title="OnionShare">
+      <h1>OnionShare</h1>
+    </div>
+    <div class="information d-flex">
+      <div>Total size: <strong>{{ filesize_human }}</strong> {% if is_zipped %} (compressed){% endif %}</div>
+      <a class="button" href='/download'>Download Files</a>
+    </div>
+  </header>
+
+  {% if breadcrumbs %}
+      <ul class="breadcrumbs">
+        {% for breadcrumb in breadcrumbs %}<li><a href="{{ breadcrumb[1] }}">{{ breadcrumb[0] }}</a> <span class="sep">&#8227;</span></li>{% endfor %}<li>{{ breadcrumbs_leaf }}</li>
+      </ul>
+    {% endif %}
+
+  <div class="file-list" id="file-list">
+    <div class="d-flex">
+      <div id="filename-header" class="heading">Filename</div>
+      <div id="size-header" class="heading">Size</div>
+    </div>
+    {% for info in dirs %}
+    <div class="d-flex">
+      <div>
+        <img width="30" height="30" title="" alt="" src="{{ static_url_path }}/img/web_folder.png" />
+        <a href="{{ info.basename }}">
+          <span>{{ info.basename }}</span>
+        </a>
+      </div>
+      <div>&mdash;</div>
+    </div>
+    {% endfor %}
+
+    {% for info in files %}
+    <div class="d-flex">
+      <div>
+        <img width="30" height="30" title="" alt="" src="{{ static_url_path }}/img/web_file.png" />
+        {% if download_individual_files %}
+        <a href="{{ info.basename }}">
+          <span>{{ info.basename }}</span>
+        </a>
+        {% else %}
+        <span>{{ info.basename }}</span>
+        {% endif %}
+      </div>
+      <div>{{ info.size_human }}</div>
+    </div>
+    {% endfor %}
+  </div>
+  <script async src="{{ static_url_path }}/js/send.js" charset="utf-8"></script>
+</body>
+
+</html>

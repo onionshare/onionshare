@@ -29,6 +29,25 @@ cd onionshare
 
 ## Linux
 
+OnionShare uses [Briefcase](https://briefcase.readthedocs.io/en/latest/).
+
+Install Briefcase dependencies from your package repositories by following [these instructions](https://docs.beeware.org/en/latest/tutorial/tutorial-0.html#install-dependencies).
+
+Now create and/or activate a virtual environment.
+
+```
+python3 -m venv venv
+. venv/bin/activate
+```
+
+While your virtual environment is active, install briefcase from pip.
+
+```
+pip install briefcase
+```
+
+
+
 ### Use newest software
 
 The recommended way to develop OnionShare is to use the latest versions of all dependencies.

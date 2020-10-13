@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+ <head>
+    <title>OnionShare</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <link href="{{ static_url_path }}/img/favicon.ico" rel="icon" type="image/x-icon">
+    <link rel="stylesheet" rel="subresource" type="text/css" href="{{ static_url_path }}/css/style.css" media="all">
+  </head>
+  <body>
+
+    <header class="clearfix">
+        <img class="logo" src="{{ static_url_path }}/img/logo.png" title="OnionShare">
+        <h1>OnionShare</h1>
+    </header>
+
+    <div class="upload-wrapper">
+      <p><img class="logo" src="{{ static_url_path }}/img/logo_large.png" title="OnionShare"></p>
+
+      <p class="upload-header">Send Files</p>
+      <p class="upload-description">Select the files you want to send, then click "Send Files"...</p>
+
+      <div id="uploads"></div>
+
+      <div>
+        <ul id="flashes" class="flashes">
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                <li class="{{ category }}">{{ message }}</li>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+        </ul>
+      </div>
+
+      <form id="send" method="post" enctype="multipart/form-data" action="/upload">
+         <p><input type="file" id="file-select" name="file[]" multiple /></p>
+         <p><button type="submit" id="send-button" class="button">Send Files</button></p>
+      </form>
+
+    </div>
+    <script src="{{ static_url_path }}/js/jquery-3.5.1.min.js"></script>
+    <script async src="{{ static_url_path }}/js/receive.js" id="receive-script"></script>
+  </body>
+</html>
