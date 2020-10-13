@@ -36,10 +36,10 @@ import requests
 
 
 def main():
-    dmg_url = "https://archive.torproject.org/tor-package-archive/torbrowser/9.5.4/TorBrowser-9.5.4-osx64_en-US.dmg"
-    dmg_filename = "TorBrowser-9.5.4-osx64_en-US.dmg"
+    dmg_url = "https://archive.torproject.org/tor-package-archive/torbrowser/10.0/TorBrowser-10.0-osx64_en-US.dmg"
+    dmg_filename = "TorBrowser-10.0-osx64_en-US.dmg"
     expected_dmg_sha256 = (
-        "5cc9ef95db8d99e762822c0bd596d7042fba2728e542732f337368c6b891b3ea"
+        "4e1ca7068bc29d5e8ffba85ecc8fec36c52ae582faea67bcdf445cd57192fb08"
     )
 
     # Build paths
