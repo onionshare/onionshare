@@ -5,7 +5,7 @@ import shutil
 import sys
 from datetime import datetime, timedelta
 
-from PyQt5 import QtCore, QtTest
+from PySide2 import QtCore, QtTest
 
 from .gui_base_test import GuiBaseTest
 

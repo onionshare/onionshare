@@ -27,7 +27,7 @@ import signal
 import json
 import psutil
 import getpass
-from PyQt5 import QtCore, QtWidgets
+from PySide2 import QtCore, QtWidgets
 
 from onionshare_cli.common import Common
 

@@ -10,7 +10,7 @@ import tempfile
 import secrets
 import platform
 
-from PyQt5 import QtCore, QtTest, QtWidgets
+from PySide2 import QtCore, QtTest, QtWidgets
 
 from onionshare_cli.common import Common
 from onionshare_cli.settings import Settings

@@ -1,7 +1,7 @@
 import pytest
 import os
 
-from PyQt5 import QtCore, QtTest, QtWidgets
+from PySide2 import QtCore, QtTest, QtWidgets
 
 from .gui_base_test import GuiBaseTest
 

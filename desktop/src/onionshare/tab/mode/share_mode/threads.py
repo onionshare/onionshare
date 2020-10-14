@@ -18,7 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-from PyQt5 import QtCore
+from PySide2 import QtCore
 
 
 class CompressThread(QtCore.QThread):
@@ -26,8 +26,8 @@ class CompressThread(QtCore.QThread):
     Compresses files to be shared
     """
 
-    success = QtCore.pyqtSignal()
-    error = QtCore.pyqtSignal(str)
+    success = QtCore.Signal()
+    error = QtCore.Signal(str)
 
     def __init__(self, mode):
         super(CompressThread, self).__init__()

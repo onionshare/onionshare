@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 import os
-from PyQt5 import QtCore, QtWidgets, QtGui
+from PySide2 import QtCore, QtWidgets, QtGui
 
 from onionshare_cli.onion import *
 from onionshare_cli.common import Common
@@ -427,7 +427,7 @@ class ShareMode(Mode):
 
 
 class ZipProgressBar(QtWidgets.QProgressBar):
-    update_processed_size_signal = QtCore.pyqtSignal(int)
+    update_processed_size_signal = QtCore.Signal(int)
 
     def __init__(self, common, total_files_size):
         super(ZipProgressBar, self).__init__()

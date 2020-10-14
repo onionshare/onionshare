@@ -18,7 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-from PyQt5 import QtCore
+from PySide2 import QtCore
 import datetime, time, socket, re, platform
 import socks
 from distutils.version import LooseVersion as Version
@@ -57,10 +57,10 @@ class UpdateChecker(QtCore.QObject):
     Only check at most once per day, unless force is True.
     """
 
-    update_available = QtCore.pyqtSignal(str, str, str)
-    update_not_available = QtCore.pyqtSignal()
-    update_error = QtCore.pyqtSignal()
-    update_invalid_version = QtCore.pyqtSignal(str)
+    update_available = QtCore.Signal(str, str, str)
+    update_not_available = QtCore.Signal()
+    update_error = QtCore.Signal()
+    update_invalid_version = QtCore.Signal(str)
 
     def __init__(self, common, onion):
         super(UpdateChecker, self).__init__()
@@ -183,10 +183,10 @@ class UpdateChecker(QtCore.QObject):
 
 
 class UpdateThread(QtCore.QThread):
-    update_available = QtCore.pyqtSignal(str, str, str)
-    update_not_available = QtCore.pyqtSignal()
-    update_error = QtCore.pyqtSignal()
-    update_invalid_version = QtCore.pyqtSignal(str)
+    update_available = QtCore.Signal(str, str, str)
+    update_not_available = QtCore.Signal()
+    update_error = QtCore.Signal()
+    update_invalid_version = QtCore.Signal(str)
 
     def __init__(self, common, onion, force=False):
         super(UpdateThread, self).__init__()

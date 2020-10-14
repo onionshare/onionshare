@@ -18,7 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-from PyQt5 import QtCore, QtWidgets, QtGui
+from PySide2 import QtCore, QtWidgets, QtGui
 
 from onionshare_cli.mode_settings import ModeSettings
 
@@ -33,7 +33,7 @@ class TabWidget(QtWidgets.QTabWidget):
     A custom tab widget, that has a "+" button for adding new tabs
     """
 
-    bring_to_front = QtCore.pyqtSignal()
+    bring_to_front = QtCore.Signal()
 
     def __init__(self, common, system_tray, status_bar):
         super(TabWidget, self).__init__()
@@ -259,7 +259,7 @@ class TabBar(QtWidgets.QTabBar):
     A custom tab bar
     """
 
-    move_new_tab_button = QtCore.pyqtSignal()
+    move_new_tab_button = QtCore.Signal()
 
     def __init__(self):
         super(TabBar, self).__init__()

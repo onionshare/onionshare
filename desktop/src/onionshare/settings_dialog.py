@@ -18,7 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-from PyQt5 import QtCore, QtWidgets, QtGui
+from PySide2 import QtCore, QtWidgets, QtGui
 import sys
 import platform
 import datetime
@@ -41,7 +41,7 @@ class SettingsDialog(QtWidgets.QDialog):
     Settings dialog.
     """
 
-    settings_saved = QtCore.pyqtSignal()
+    settings_saved = QtCore.Signal()
 
     def __init__(self, common):
         super(SettingsDialog, self).__init__()

@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 import os
-from PyQt5 import QtCore, QtWidgets, QtGui
+from PySide2 import QtCore, QtWidgets, QtGui
 
 from ... import strings
 from ...widgets import Alert, AddFileDialog
@@ -104,8 +104,8 @@ class FileList(QtWidgets.QListWidget):
     The list of files and folders in the GUI.
     """
 
-    files_dropped = QtCore.pyqtSignal()
-    files_updated = QtCore.pyqtSignal()
+    files_dropped = QtCore.Signal()
+    files_updated = QtCore.Signal()
 
     def __init__(self, common, background_image_filename, header_text, parent=None):
         super(FileList, self).__init__(parent)

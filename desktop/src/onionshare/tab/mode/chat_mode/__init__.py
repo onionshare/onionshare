@@ -22,7 +22,7 @@ import os
 import random
 import string
 
-from PyQt5 import QtCore, QtWidgets, QtGui
+from PySide2 import QtCore, QtWidgets, QtGui
 
 from onionshare_cli.onion import *
 from onionshare_cli.common import Common
@@ -39,8 +39,8 @@ class ChatMode(Mode):
     Parts of the main window UI for sharing files.
     """
 
-    success = QtCore.pyqtSignal()
-    error = QtCore.pyqtSignal(str)
+    success = QtCore.Signal()
+    error = QtCore.Signal(str)
 
     def init(self):
         """

@@ -4,7 +4,7 @@ import requests
 import tempfile
 import zipfile
 
-from PyQt5 import QtCore, QtTest
+from PySide2 import QtCore, QtTest
 
 from .gui_base_test import GuiBaseTest
 

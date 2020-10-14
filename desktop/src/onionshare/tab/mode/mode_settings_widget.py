@@ -18,7 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-from PyQt5 import QtCore, QtWidgets
+from PySide2 import QtCore, QtWidgets
 
 from ... import strings
 
@@ -28,7 +28,7 @@ class ModeSettingsWidget(QtWidgets.QWidget):
     All of the common settings for each mode are in this widget
     """
 
-    change_persistent = QtCore.pyqtSignal(int, bool)
+    change_persistent = QtCore.Signal(int, bool)
 
     def __init__(self, common, tab, mode_settings):
         super(ModeSettingsWidget, self).__init__()
