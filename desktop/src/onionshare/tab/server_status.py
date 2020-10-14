@@ -20,8 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import platform
 import textwrap
-from PyQt5 import QtCore, QtWidgets, QtGui
-from PyQt5.QtCore import Qt
+from PySide2 import QtCore, QtWidgets, QtGui
+from PySide2.QtCore import Qt
 
 from .. import strings
 from ..widgets import Alert
@@ -34,13 +34,13 @@ class ServerStatus(QtWidgets.QWidget):
     The server status chunk of the GUI.
     """
 
-    server_started = QtCore.pyqtSignal()
-    server_started_finished = QtCore.pyqtSignal()
-    server_stopped = QtCore.pyqtSignal()
-    server_canceled = QtCore.pyqtSignal()
-    button_clicked = QtCore.pyqtSignal()
-    url_copied = QtCore.pyqtSignal()
-    hidservauth_copied = QtCore.pyqtSignal()
+    server_started = QtCore.Signal()
+    server_started_finished = QtCore.Signal()
+    server_stopped = QtCore.Signal()
+    server_canceled = QtCore.Signal()
+    button_clicked = QtCore.Signal()
+    url_copied = QtCore.Signal()
+    hidservauth_copied = QtCore.Signal()
 
     STATUS_STOPPED = 0
     STATUS_WORKING = 1

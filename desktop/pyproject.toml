@@ -1,6 +1,6 @@
 [tool.briefcase]
 project_name = "OnionShare"
-bundle = "org.onionshare.OnionShare"
+bundle = "org.onionshare"
 version = "2.3.dev1"
 url = "https://onionshare.org"
 license = "GPLv3"
@@ -21,9 +21,8 @@ requires = [
     "flask-socketio",
     "psutil",
     "pycryptodome",
-    "PyQt5==5.14",
-    "PyQt5-sip",
     "PySocks",
+    "pyside2",
     "qrcode",
     "requests",
     "stem",
@@ -35,7 +34,12 @@ requires = []
 
 [tool.briefcase.app.onionshare.linux]
 requires = []
-system_requires = ["tor", "obfs4proxy"]
+system_requires = [
+    "tor",
+    "obfs4proxy",
+    "gcc",
+    "python3-dev",
+]
 
 [tool.briefcase.app.onionshare.windows]
 requires = ["pywin32"]

@@ -8,29 +8,6 @@
 
 If you're using Linux, install `tor` and `obfs4proxy` from either the [official Debian repository](https://support.torproject.org/apt/tor-deb-repo/), or from your package manager.
 
-Then download Qt 5.14.0 for Linux:
-
-```sh
-cd ~/Downloads
-wget https://download.qt.io/official_releases/qt/5.14/5.14.0/qt-opensource-linux-x64-5.14.0.run
-```
-
-If you'd like to check to make sure you have the exact installer I have, here is the sha256 checksum:
-
-```sh
-sha256sum qt-opensource-linux-x64-5.14.0.run
-4379f147c6793ec7e7349d2f9ee7d53b8ab6ea4e4edf8ee0574a75586a6a6e0e  qt-opensource-linux-x64-5.14.0.run
-```
-
-Then make it executable and install Qt:
-
-```sh
-chmod +x qt-opensource-linux-x64-5.14.0.run
-./qt-opensource-linux-x64-5.14.0.run
-```
-
-You have to create a Qt account and login to install Qt. Choose the default installation folder in your home directory. The only component you need is `Qt 5.14.0` > `Desktop gcc 64-bit`.
-
 #### macOS
 
 #### Windows

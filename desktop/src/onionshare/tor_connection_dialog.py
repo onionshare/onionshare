@@ -18,7 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-from PyQt5 import QtCore, QtWidgets, QtGui
+from PySide2 import QtCore, QtWidgets, QtGui
 
 from onionshare_cli.onion import *
 
@@ -32,7 +32,7 @@ class TorConnectionDialog(QtWidgets.QProgressDialog):
     Connecting to Tor dialog.
     """
 
-    open_settings = QtCore.pyqtSignal()
+    open_settings = QtCore.Signal()
 
     def __init__(self, common, custom_settings=False):
         super(TorConnectionDialog, self).__init__(None)
@@ -123,10 +123,10 @@ class TorConnectionDialog(QtWidgets.QProgressDialog):
 
 
 class TorConnectionThread(QtCore.QThread):
-    tor_status_update = QtCore.pyqtSignal(str, str)
-    connected_to_tor = QtCore.pyqtSignal()
-    canceled_connecting_to_tor = QtCore.pyqtSignal()
-    error_connecting_to_tor = QtCore.pyqtSignal(str)
+    tor_status_update = QtCore.Signal(str, str)
+    connected_to_tor = QtCore.Signal()
+    canceled_connecting_to_tor = QtCore.Signal()
+    error_connecting_to_tor = QtCore.Signal(str)
 
     def __init__(self, common, settings, dialog):
         super(TorConnectionThread, self).__init__()

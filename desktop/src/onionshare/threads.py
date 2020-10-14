@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import time
 import json
 import os
-from PyQt5 import QtCore
+from PySide2 import QtCore
 
 from onionshare_cli.onion import (
     TorTooOld,
@@ -44,9 +44,9 @@ class OnionThread(QtCore.QThread):
     Starts the onion service, and waits for it to finish
     """
 
-    success = QtCore.pyqtSignal()
-    success_early = QtCore.pyqtSignal()
-    error = QtCore.pyqtSignal(str)
+    success = QtCore.Signal()
+    success_early = QtCore.Signal()
+    error = QtCore.Signal(str)
 
     def __init__(self, mode):
         super(OnionThread, self).__init__()
@@ -114,8 +114,8 @@ class WebThread(QtCore.QThread):
     Starts the web service
     """
 
-    success = QtCore.pyqtSignal()
-    error = QtCore.pyqtSignal(str)
+    success = QtCore.Signal()
+    error = QtCore.Signal(str)
 
     def __init__(self, mode):
         super(WebThread, self).__init__()
@@ -133,8 +133,8 @@ class AutoStartTimer(QtCore.QThread):
     Waits for a prescribed time before allowing a share to start
     """
 
-    success = QtCore.pyqtSignal()
-    error = QtCore.pyqtSignal(str)
+    success = QtCore.Signal()
+    error = QtCore.Signal(str)
 
     def __init__(self, mode, canceled=False):
         super(AutoStartTimer, self).__init__()
@@ -180,8 +180,8 @@ class EventHandlerThread(QtCore.QThread):
     {"type": "new_share_tab", "filenames": ["file1", "file2"]}
     """
 
-    new_tab = QtCore.pyqtSignal()
-    new_share_tab = QtCore.pyqtSignal(list)
+    new_tab = QtCore.Signal()
+    new_share_tab = QtCore.Signal(list)
 
     def __init__(self, common):
         super(EventHandlerThread, self).__init__()

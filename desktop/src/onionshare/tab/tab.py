@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 import queue
-from PyQt5 import QtCore, QtWidgets, QtGui
+from PySide2 import QtCore, QtWidgets, QtGui
 
 from onionshare_cli.onionshare import OnionShare
 from onionshare_cli.web import Web
@@ -80,9 +80,9 @@ class Tab(QtWidgets.QWidget):
     A GUI tab, you know, sort of like in a web browser
     """
 
-    change_title = QtCore.pyqtSignal(int, str)
-    change_icon = QtCore.pyqtSignal(int, str)
-    change_persistent = QtCore.pyqtSignal(int, bool)
+    change_title = QtCore.Signal(int, str)
+    change_icon = QtCore.Signal(int, str)
+    change_persistent = QtCore.Signal(int, bool)
 
     def __init__(
         self,

@@ -18,7 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-from PyQt5 import QtCore, QtWidgets, QtGui
+from PySide2 import QtCore, QtWidgets, QtGui
 
 from onionshare_cli.common import AutoStopTimer
 
@@ -36,14 +36,14 @@ class Mode(QtWidgets.QWidget):
     The class that all modes inherit from
     """
 
-    start_server_finished = QtCore.pyqtSignal()
-    stop_server_finished = QtCore.pyqtSignal()
-    starting_server_step2 = QtCore.pyqtSignal()
-    starting_server_step3 = QtCore.pyqtSignal()
-    starting_server_error = QtCore.pyqtSignal(str)
-    starting_server_early = QtCore.pyqtSignal()
-    set_server_active = QtCore.pyqtSignal(bool)
-    change_persistent = QtCore.pyqtSignal(int, bool)
+    start_server_finished = QtCore.Signal()
+    stop_server_finished = QtCore.Signal()
+    starting_server_step2 = QtCore.Signal()
+    starting_server_step3 = QtCore.Signal()
+    starting_server_error = QtCore.Signal(str)
+    starting_server_early = QtCore.Signal()
+    set_server_active = QtCore.Signal(bool)
+    change_persistent = QtCore.Signal(int, bool)
 
     def __init__(self, tab):
         super(Mode, self).__init__()
