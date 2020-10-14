@@ -87,7 +87,6 @@ class TestWebsite(GuiBaseTest):
 
     # Tests
 
-    @pytest.mark.gui
     def test_website(self):
         """
         Test website mode
@@ -96,7 +95,6 @@ class TestWebsite(GuiBaseTest):
         self.run_all_website_mode_download_tests(tab)
         self.close_all_tabs()
 
-    @pytest.mark.gui
     def test_csp_enabled(self):
         """
         Test disabling CSP

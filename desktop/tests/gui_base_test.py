@@ -12,16 +12,16 @@ import platform
 
 from PyQt5 import QtCore, QtTest, QtWidgets
 
-from onionshare import strings
-from onionshare.common import Common
-from onionshare.settings import Settings
-from onionshare.onion import Onion
-from onionshare.web import Web
+from onionshare_cli.common import Common
+from onionshare_cli.settings import Settings
+from onionshare_cli.onion import Onion
+from onionshare_cli.web import Web
 
-from onionshare_gui import Application, MainWindow, GuiCommon
-from onionshare_gui.tab.mode.share_mode import ShareMode
-from onionshare_gui.tab.mode.receive_mode import ReceiveMode
-from onionshare_gui.tab.mode.website_mode import WebsiteMode
+from onionshare import Application, MainWindow, GuiCommon
+from onionshare.tab.mode.share_mode import ShareMode
+from onionshare.tab.mode.receive_mode import ReceiveMode
+from onionshare.tab.mode.website_mode import WebsiteMode
+from onionshare import strings
 
 
 class GuiBaseTest(unittest.TestCase):

@@ -171,7 +171,6 @@ class TestReceive(GuiBaseTest):
 
     # Tests
 
-    @pytest.mark.gui
     def test_clear_all_button(self):
         """
         Clear all history items should work
@@ -183,7 +182,6 @@ class TestReceive(GuiBaseTest):
 
         self.close_all_tabs()
 
-    @pytest.mark.gui
     def test_autostop_timer(self):
         """
         Test autostop timer
@@ -201,7 +199,6 @@ class TestReceive(GuiBaseTest):
 
         self.close_all_tabs()
 
-    @pytest.mark.gui
     def test_upload(self):
         """
         Test uploading files
@@ -213,7 +210,6 @@ class TestReceive(GuiBaseTest):
 
         self.close_all_tabs()
 
-    @pytest.mark.gui
     @pytest.mark.skipif(sys.platform == "win32", reason="Windows doesn't have chmod")
     def test_upload_non_writable_dir(self):
         """
@@ -225,7 +221,6 @@ class TestReceive(GuiBaseTest):
 
         self.close_all_tabs()
 
-    @pytest.mark.gui
     def test_public_upload(self):
         """
         Test uploading files in public mode
@@ -238,7 +233,6 @@ class TestReceive(GuiBaseTest):
 
         self.close_all_tabs()
 
-    @pytest.mark.gui
     @pytest.mark.skipif(sys.platform == "win32", reason="Windows doesn't have chmod")
     def test_public_upload_non_writable_dir(self):
         """
