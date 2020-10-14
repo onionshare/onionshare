@@ -103,7 +103,7 @@ class SettingsDialog(QtWidgets.QDialog):
         language_names.sort()
         for language_name in language_names:
             locale = language_names_to_locales[language_name]
-            self.language_combobox.addItem(language_name, QtCore.QVariant(locale))
+            self.language_combobox.addItem(language_name, locale)
         language_layout = QtWidgets.QHBoxLayout()
         language_layout.addWidget(language_label)
         language_layout.addWidget(self.language_combobox)
@@ -460,7 +460,7 @@ class SettingsDialog(QtWidgets.QDialog):
         self._update_autoupdate_timestamp(autoupdate_timestamp)
 
         locale = self.old_settings.get("locale")
-        locale_index = self.language_combobox.findData(QtCore.QVariant(locale))
+        locale_index = self.language_combobox.findData(locale)
         self.language_combobox.setCurrentIndex(locale_index)
 
         connection_type = self.old_settings.get("connection_type")
