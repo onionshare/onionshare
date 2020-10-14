@@ -307,7 +307,6 @@ class TestShare(GuiBaseTest):
 
     # Tests
 
-    @pytest.mark.gui
     def test_autostart_and_autostop_timer_mismatch(self):
         """
         If autostart timer is after autostop timer, a warning should be thrown
@@ -332,7 +331,6 @@ class TestShare(GuiBaseTest):
 
         self.close_all_tabs()
 
-    @pytest.mark.gui
     def test_autostart_timer(self):
         """
         Autostart timer should automatically start
@@ -354,7 +352,6 @@ class TestShare(GuiBaseTest):
 
         self.close_all_tabs()
 
-    @pytest.mark.gui
     def test_autostart_timer_too_short(self):
         """
         Autostart timer should throw a warning if the scheduled time is too soon
@@ -379,7 +376,6 @@ class TestShare(GuiBaseTest):
 
         self.close_all_tabs()
 
-    @pytest.mark.gui
     def test_autostart_timer_cancel(self):
         """
         Test canceling a scheduled share
@@ -394,7 +390,6 @@ class TestShare(GuiBaseTest):
 
         self.close_all_tabs()
 
-    @pytest.mark.gui
     def test_clear_all_history_button(self):
         """
         Test clearing all history items
@@ -407,7 +402,6 @@ class TestShare(GuiBaseTest):
 
         self.close_all_tabs()
 
-    @pytest.mark.gui
     def test_remove_all_file_selection_button(self):
         """
         Test remove all file items at once
@@ -419,7 +413,6 @@ class TestShare(GuiBaseTest):
 
         self.close_all_tabs()
 
-    @pytest.mark.gui
     def test_public_mode(self):
         """
         Public mode shouldn't have a password
@@ -432,7 +425,6 @@ class TestShare(GuiBaseTest):
 
         self.close_all_tabs()
 
-    @pytest.mark.gui
     def test_without_autostop_sharing(self):
         """
         Disable autostop sharing after first download
@@ -445,7 +437,6 @@ class TestShare(GuiBaseTest):
 
         self.close_all_tabs()
 
-    @pytest.mark.gui
     def test_download(self):
         """
         Test downloading in share mode
@@ -457,7 +448,6 @@ class TestShare(GuiBaseTest):
 
         self.close_all_tabs()
 
-    @pytest.mark.gui
     def test_individual_files_without_autostop_sharing(self):
         """
         Test downloading individual files with autostop sharing disabled
@@ -470,7 +460,6 @@ class TestShare(GuiBaseTest):
 
         self.close_all_tabs()
 
-    @pytest.mark.gui
     def test_individual_files(self):
         """
         Test downloading individual files
@@ -482,7 +471,6 @@ class TestShare(GuiBaseTest):
 
         self.close_all_tabs()
 
-    @pytest.mark.gui
     def test_large_download(self):
         """
         Test a large download
@@ -503,7 +491,6 @@ class TestShare(GuiBaseTest):
 
         self.close_all_tabs()
 
-    @pytest.mark.gui
     def test_persistent_password(self):
         """
         Test a large download
@@ -522,7 +509,6 @@ class TestShare(GuiBaseTest):
 
         self.close_all_tabs()
 
-    @pytest.mark.gui
     def test_autostop_timer(self):
         """
         Test the autostop timer
@@ -541,7 +527,6 @@ class TestShare(GuiBaseTest):
 
         self.close_all_tabs()
 
-    @pytest.mark.gui
     def test_autostop_timer_too_short(self):
         """
         Test the autostop timer when the timeout is too short
@@ -566,7 +551,6 @@ class TestShare(GuiBaseTest):
 
         self.close_all_tabs()
 
-    @pytest.mark.gui
     def test_unreadable_file(self):
         """
         Sharing an unreadable file should throw a warning
@@ -587,7 +571,6 @@ class TestShare(GuiBaseTest):
 
         self.close_all_tabs()
 
-    @pytest.mark.gui
     def test_401_triggers_ratelimit(self):
         """
         Rate limit should be triggered
@@ -607,7 +590,6 @@ class TestShare(GuiBaseTest):
 
         self.close_all_tabs()
 
-    @pytest.mark.gui
     def test_401_public_skips_ratelimit(self):
         """
         Public mode should skip the rate limit

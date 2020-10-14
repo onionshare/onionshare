@@ -12,7 +12,7 @@ import tempfile
 
 import pytest
 
-from onionshare import common, web, settings, strings
+from onionshare_cli import common, web, settings
 
 
 # The temporary directory for CLI tests
@@ -20,9 +20,6 @@ test_temp_dir = None
 
 
 def pytest_addoption(parser):
-    parser.addoption(
-        "--rungui", action="store_true", default=False, help="run GUI tests"
-    )
     parser.addoption(
         "--runtor", action="store_true", default=False, help="run tor tests"
     )
@@ -35,13 +32,6 @@ def pytest_collection_modifyitems(config, items):
         for item in items:
             if "tor" in item.keywords:
                 item.add_marker(skip_tor)
-
-    if not config.getoption("--rungui"):
-        # --rungui given in cli: do not skip GUI tests
-        skip_gui = pytest.mark.skip(reason="need --rungui option to run")
-        for item in items:
-            if "gui" in item.keywords:
-                item.add_marker(skip_gui)
 
 
 @pytest.fixture
@@ -205,5 +195,4 @@ def common_obj():
 def settings_obj(sys_onionshare_dev_mode, platform_linux):
     _common = common.Common()
     _common.version = "DUMMY_VERSION_1.2.3"
-    strings.load_strings(_common)
     return settings.Settings(_common)

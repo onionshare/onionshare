@@ -1,4 +1,0 @@
-#!/bin/bash
-
-# Pre-push hook. If you want to test with a different version of firefox, put
-# the path in the CFX_FIREFOX environment variable.

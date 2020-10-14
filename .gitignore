@@ -55,3 +55,4 @@ venv
 
 # other
 .vscode
+onionshare.dist-info
