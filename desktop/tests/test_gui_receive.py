@@ -19,7 +19,7 @@ class TestReceive(GuiBaseTest):
         """Test that we can upload the file"""
 
         # Wait 2 seconds to make sure the filename, based on timestamp, isn't accidentally reused
-        QtTest.QTest.qWait(2000)
+        QtTest.QTest.qWait(2000, self.gui.qtapp)
 
         files = {"file[]": open(file_to_upload, "rb")}
         url = f"http://127.0.0.1:{tab.app.port}/upload"
@@ -46,7 +46,7 @@ class TestReceive(GuiBaseTest):
                     ),
                 )
 
-        QtTest.QTest.qWait(1000)
+        QtTest.QTest.qWait(1000, self.gui.qtapp)
 
         # Make sure the file is within the last 10 seconds worth of fileames
         exists = False
@@ -70,7 +70,7 @@ class TestReceive(GuiBaseTest):
 
     def upload_file_should_fail(self, tab):
         """Test that we can't upload the file when permissions are wrong, and expected content is shown"""
-        QtTest.QTest.qWait(1000)
+        QtTest.QTest.qWait(1000, self.gui.qtapp)
 
         files = {"file[]": open(self.tmpfile_test, "rb")}
         url = f"http://127.0.0.1:{tab.app.port}/upload"

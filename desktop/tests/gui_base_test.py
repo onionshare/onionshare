@@ -82,7 +82,7 @@ class GuiBaseTest(unittest.TestCase):
 
     def verify_new_tab(self, tab):
         # Make sure the new tab widget is showing, and no mode has been started
-        QtTest.QTest.qWait(1000)
+        QtTest.QTest.qWait(1000, self.gui.qtapp)
         self.assertTrue(tab.new_tab.isVisible())
         self.assertFalse(hasattr(tab, "share_mode"))
         self.assertFalse(hasattr(tab, "receive_mode"))
@@ -196,7 +196,7 @@ class GuiBaseTest(unittest.TestCase):
                         "onionshare", tab.get_mode().web.password
                     ),
                 )
-            QtTest.QTest.qWait(2000)
+            QtTest.QTest.qWait(2000, self.gui.qtapp)
 
         if type(tab.get_mode()) == ShareMode:
             # Download files
@@ -210,7 +210,7 @@ class GuiBaseTest(unittest.TestCase):
                         "onionshare", tab.get_mode().web.password
                     ),
                 )
-            QtTest.QTest.qWait(2000)
+            QtTest.QTest.qWait(2000, self.gui.qtapp)
 
         # Indicator should be visible, have a value of "1"
         self.assertTrue(tab.get_mode().toggle_history.indicator_label.isVisible())
@@ -256,7 +256,7 @@ class GuiBaseTest(unittest.TestCase):
 
     def server_is_started(self, tab, startup_time=2000):
         """Test that the server has started"""
-        QtTest.QTest.qWait(startup_time)
+        QtTest.QTest.qWait(startup_time, self.gui.qtapp)
         # Should now be in SERVER_STARTED state
         self.assertEqual(tab.get_mode().server_status.status, 2)
 
@@ -383,7 +383,7 @@ class GuiBaseTest(unittest.TestCase):
 
     def web_server_is_stopped(self, tab):
         """Test that the web server also stopped"""
-        QtTest.QTest.qWait(800)
+        QtTest.QTest.qWait(800, self.gui.qtapp)
 
         try:
             requests.get(f"http://127.0.0.1:{tab.app.port}/")
@@ -455,7 +455,7 @@ class GuiBaseTest(unittest.TestCase):
 
     def server_timed_out(self, tab, wait):
         """Test that the server has timed out after the timer ran out"""
-        QtTest.QTest.qWait(wait)
+        QtTest.QTest.qWait(wait, self.gui.qtapp)
         # We should have timed out now
         self.assertEqual(tab.get_mode().server_status.status, 0)
 
