@@ -87,19 +87,11 @@ class Common:
             tor_geo_ip_file_path = os.path.join(prefix, "share/tor/geoip")
             tor_geo_ipv6_file_path = os.path.join(prefix, "share/tor/geoip6")
         elif self.platform == "Windows":
-            base_path = os.path.join(
-                os.path.dirname(os.path.dirname(self.get_resource_path(""))), "tor"
-            )
-            tor_path = os.path.join(os.path.join(base_path, "Tor"), "tor.exe")
-            obfs4proxy_file_path = os.path.join(
-                os.path.join(base_path, "Tor"), "obfs4proxy.exe"
-            )
-            tor_geo_ip_file_path = os.path.join(
-                os.path.join(os.path.join(base_path, "Data"), "Tor"), "geoip"
-            )
-            tor_geo_ipv6_file_path = os.path.join(
-                os.path.join(os.path.join(base_path, "Data"), "Tor"), "geoip6"
-            )
+            base_path = self.get_resource_path("tor")
+            tor_path = os.path.join(base_path, "Tor", "tor.exe")
+            obfs4proxy_file_path = os.path.join(base_path, "Tor", "obfs4proxy.exe")
+            tor_geo_ip_file_path = os.path.join(base_path, "Data", "Tor", "geoip")
+            tor_geo_ipv6_file_path = os.path.join(base_path, "Data", "Tor", "geoip6")
         elif self.platform == "Darwin":
             base_path = os.path.dirname(
                 os.path.dirname(os.path.dirname(self.get_resource_path("")))
