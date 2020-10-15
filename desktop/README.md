@@ -41,7 +41,7 @@ pip install briefcase
 Run OnionShare from the source tree like this:
 
 ```
-briefcase dev
+briefcase dev -d
 ```
 
 ## Running tests

@@ -107,6 +107,10 @@ class Tab(QtWidgets.QWidget):
         # Start the OnionShare app
         self.app = OnionShare(common, self.common.gui.onion, self.common.gui.local_only)
 
+        # An invisible widget, used for hiding the persistent tab icon
+        self.invisible_widget = QtWidgets.QWidget()
+        self.invisible_widget.setFixedSize(0, 0)
+
         # Onionshare logo
         self.image_label = QtWidgets.QLabel()
         self.image_label.setPixmap(
