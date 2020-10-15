@@ -9,8 +9,32 @@ sys.onionshare_test_mode = True
 import os
 import shutil
 import tempfile
+from datetime import datetime, timedelta
 
 import pytest
+
+from PySide2 import QtTest, QtGui
+
+
+@staticmethod
+def qWait(t, qtapp):
+    end = datetime.now() + timedelta(milliseconds=t)
+    while datetime.now() < end:
+        qtapp.processEvents()
+
+
+# Monkeypatch qWait, because PySide2 doesn't have it
+# https://stackoverflow.com/questions/17960159/qwait-analogue-in-pyside
+QtTest.QTest.qWait = qWait
+
+# Allow importing onionshare_cli from the source tree
+sys.path.insert(
+    0,
+    os.path.join(
+        os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
+        "cli",
+    ),
+)
 
 from onionshare_cli import common, web, settings
 

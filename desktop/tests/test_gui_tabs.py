@@ -20,7 +20,7 @@ class TestTabs(GuiBaseTest):
             tab.get_mode().server_status.status,
             tab.get_mode().server_status.STATUS_WORKING,
         )
-        QtTest.QTest.qWait(1000)
+        QtTest.QTest.qWait(1000, self.gui.qtapp)
         self.assertEqual(
             tab.get_mode().server_status.status,
             tab.get_mode().server_status.STATUS_STARTED,
@@ -51,7 +51,7 @@ class TestTabs(GuiBaseTest):
 
         # Click the persistent checkbox
         tab.get_mode().server_status.mode_settings_widget.persistent_checkbox.click()
-        QtTest.QTest.qWait(100)
+        QtTest.QTest.qWait(100, self.gui.qtapp)
 
         # There should be a persistent settings file now
         self.assertTrue(os.path.exists(tab.settings.filename))
@@ -204,7 +204,7 @@ class TestTabs(GuiBaseTest):
             tab.get_mode().server_status.status,
             tab.get_mode().server_status.STATUS_WORKING,
         )
-        QtTest.QTest.qWait(500)
+        QtTest.QTest.qWait(500, self.gui.qtapp)
         self.assertEqual(
             tab.get_mode().server_status.status,
             tab.get_mode().server_status.STATUS_STARTED,

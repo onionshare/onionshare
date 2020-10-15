@@ -25,7 +25,7 @@ class TestWebsite(GuiBaseTest):
                 ),
             )
 
-        QtTest.QTest.qWait(500)
+        QtTest.QTest.qWait(500, self.gui.qtapp)
         self.assertTrue("This is a test website hosted by OnionShare" in r.text)
 
     def check_csp_header(self, tab):
@@ -41,7 +41,7 @@ class TestWebsite(GuiBaseTest):
                 ),
             )
 
-        QtTest.QTest.qWait(500)
+        QtTest.QTest.qWait(500, self.gui.qtapp)
         if tab.settings.get("website", "disable_csp"):
             self.assertFalse("Content-Security-Policy" in r.headers)
         else:

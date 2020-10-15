@@ -88,10 +88,10 @@ class TestShare(GuiBaseTest):
         tmp_file.close()
 
         z = zipfile.ZipFile(tmp_file.name)
-        QtTest.QTest.qWait(50)
+        QtTest.QTest.qWait(5, self.gui.qtapp)
         self.assertEqual("onionshare", z.read("test.txt").decode("utf-8"))
 
-        QtTest.QTest.qWait(500)
+        QtTest.QTest.qWait(500, self.gui.qtapp)
 
     def individual_file_is_viewable_or_not(self, tab):
         """
@@ -143,7 +143,7 @@ class TestShare(GuiBaseTest):
                 self.assertEqual("onionshare", f.read())
             os.remove(tmp_file.name)
 
-        QtTest.QTest.qWait(500)
+        QtTest.QTest.qWait(500, self.gui.qtapp)
 
     def hit_401(self, tab):
         """Test that the server stops after too many 401s, or doesn't when in public mode"""
@@ -190,7 +190,7 @@ class TestShare(GuiBaseTest):
 
     def scheduled_service_started(self, tab, wait):
         """Test that the server has timed out after the timer ran out"""
-        QtTest.QTest.qWait(wait)
+        QtTest.QTest.qWait(wait, self.gui.qtapp)
         # We should have started now
         self.assertEqual(tab.get_mode().server_status.status, 2)
 
@@ -201,15 +201,15 @@ class TestShare(GuiBaseTest):
         self.add_remove_buttons_hidden(tab)
         self.mode_settings_widget_is_hidden(tab)
         self.set_autostart_timer(tab, 10)
-        QtTest.QTest.qWait(500)
+        QtTest.QTest.qWait(500, self.gui.qtapp)
         QtTest.QTest.mousePress(
             tab.get_mode().server_status.server_button, QtCore.Qt.LeftButton
         )
-        QtTest.QTest.qWait(100)
+        QtTest.QTest.qWait(100, self.gui.qtapp)
         QtTest.QTest.mouseRelease(
             tab.get_mode().server_status.server_button, QtCore.Qt.LeftButton
         )
-        QtTest.QTest.qWait(500)
+        QtTest.QTest.qWait(500, self.gui.qtapp)
         self.assertEqual(
             tab.get_mode().server_status.status,
             tab.get_mode().server_status.STATUS_STOPPED,
@@ -369,7 +369,7 @@ class TestShare(GuiBaseTest):
         self.run_all_share_mode_setup_tests(tab)
         # Set a low timeout
         self.set_autostart_timer(tab, 2)
-        QtTest.QTest.qWait(2200)
+        QtTest.QTest.qWait(2200, self.gui.qtapp)
         QtCore.QTimer.singleShot(200, accept_dialog)
         tab.get_mode().server_status.server_button.click()
         self.assertEqual(tab.get_mode().server_status.status, 0)
@@ -544,7 +544,7 @@ class TestShare(GuiBaseTest):
         self.run_all_share_mode_setup_tests(tab)
         # Set a low timeout
         self.set_timeout(tab, 2)
-        QtTest.QTest.qWait(2100)
+        QtTest.QTest.qWait(2100, self.gui.qtapp)
         QtCore.QTimer.singleShot(2200, accept_dialog)
         tab.get_mode().server_status.server_button.click()
         self.assertEqual(tab.get_mode().server_status.status, 0)
