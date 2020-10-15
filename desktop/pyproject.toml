@@ -22,7 +22,7 @@ requires = [
     "psutil",
     "pycryptodome",
     "PySocks",
-    "pyside2",
+    "pyside2==5.15.1",
     "qrcode",
     "requests",
     "stem",

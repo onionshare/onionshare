@@ -144,6 +144,7 @@ class TabWidget(QtWidgets.QTabWidget):
         self.add_tab(mode_settings)
 
     def add_tab(self, mode_settings=None):
+        self.common.log("TabWidget", "add_tab", f"mode_settings: {mode_settings}")
         tab = Tab(self.common, self.current_tab_id, self.system_tray, self.status_bar)
         tab.change_title.connect(self.change_title)
         tab.change_icon.connect(self.change_icon)
@@ -154,19 +155,6 @@ class TabWidget(QtWidgets.QTabWidget):
 
         index = self.addTab(tab, strings._("gui_new_tab"))
         self.setCurrentIndex(index)
-
-        # Create a close button
-        def close_tab():
-            self.tabBar().tabCloseRequested.emit(self.indexOf(tab))
-
-        close_button = QtWidgets.QPushButton()
-        close_button.setFlat(True)
-        close_button.setFixedWidth(40)
-        close_button.setIcon(
-            QtGui.QIcon(GuiCommon.get_resource_path("images/close_tab.png"))
-        )
-        close_button.clicked.connect(close_tab)
-        self.tabBar().setTabButton(index, QtWidgets.QTabBar.RightSide, close_button)
 
         tab.init(mode_settings)
         # If it's persistent, set the persistent image in the tab
@@ -184,6 +172,11 @@ class TabWidget(QtWidgets.QTabWidget):
         self.setTabIcon(index, QtGui.QIcon(GuiCommon.get_resource_path(icon_path)))
 
     def change_persistent(self, tab_id, is_persistent):
+        self.common.log(
+            "TabWidget",
+            "change_persistent",
+            f"tab_id: {tab_id}, is_persistent: {is_persistent}",
+        )
         index = self.indexOf(self.tabs[tab_id])
         if is_persistent:
             self.tabBar().setTabButton(
@@ -192,10 +185,8 @@ class TabWidget(QtWidgets.QTabWidget):
                 self.tabs[tab_id].persistent_image_label,
             )
         else:
-            invisible_widget = QtWidgets.QWidget()
-            invisible_widget.setFixedSize(0, 0)
             self.tabBar().setTabButton(
-                index, QtWidgets.QTabBar.LeftSide, invisible_widget
+                index, QtWidgets.QTabBar.LeftSide, self.tabs[tab_id].invisible_widget
             )
 
         self.save_persistent_tabs()
