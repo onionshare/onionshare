@@ -324,17 +324,17 @@ class ServerStatus(QtWidgets.QWidget):
             if self.settings.get("general", "autostart_timer"):
                 if self.local_only:
                     self.autostart_timer_datetime = (
-                        self.mode_settings_widget.autostart_timer_widget.dateTime().toPyDateTime()
+                        self.mode_settings_widget.autostart_timer_widget.dateTime().toPython()
                     )
                 else:
                     self.autostart_timer_datetime = (
                         self.mode_settings_widget.autostart_timer_widget.dateTime()
-                        .toPyDateTime()
+                        .toPython()
                         .replace(second=0, microsecond=0)
                     )
                 # If the timer has actually passed already before the user hit Start, refuse to start the server.
                 if (
-                    QtCore.QDateTime.currentDateTime().toPyDateTime()
+                    QtCore.QDateTime.currentDateTime().toPython()
                     > self.autostart_timer_datetime
                 ):
                     can_start = False
@@ -346,18 +346,18 @@ class ServerStatus(QtWidgets.QWidget):
             if self.settings.get("general", "autostop_timer"):
                 if self.local_only:
                     self.autostop_timer_datetime = (
-                        self.mode_settings_widget.autostop_timer_widget.dateTime().toPyDateTime()
+                        self.mode_settings_widget.autostop_timer_widget.dateTime().toPython()
                     )
                 else:
                     # Get the timer chosen, stripped of its seconds. This prevents confusion if the share stops at (say) 37 seconds past the minute chosen
                     self.autostop_timer_datetime = (
                         self.mode_settings_widget.autostop_timer_widget.dateTime()
-                        .toPyDateTime()
+                        .toPython()
                         .replace(second=0, microsecond=0)
                     )
                 # If the timer has actually passed already before the user hit Start, refuse to start the server.
                 if (
-                    QtCore.QDateTime.currentDateTime().toPyDateTime()
+                    QtCore.QDateTime.currentDateTime().toPython()
                     > self.autostop_timer_datetime
                 ):
                     can_start = False
