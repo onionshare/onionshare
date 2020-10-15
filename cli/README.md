@@ -56,7 +56,7 @@ poetry run onionshare-cli
 To run tests:
 
 ```
-poetry run pytest -vvv ./tests
+poetry run pytest -v ./tests
 ```
 
 ### Making a release
