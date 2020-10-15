@@ -91,3 +91,28 @@ xvfb-run ./tests/run.sh
 ```
 
 ## Making a release
+
+First, build a wheel package for OnionShare CLI:
+
+```sh
+cd onionshare/cli
+poetry install
+poetry build
+```
+
+This will make a file like `dist/onionshare_cli-$VERSION-py3-none-any.whl` (except with your specific version number). Move it into `../desktop/linux`:
+
+```
+mkdir -p ../desktop/linux
+mv dist/onionshare_cli-*-py3-none-any.whl ../desktop/linux
+# change back to the desktop directory
+cd ../desktop
+```
+
+Make sure the virtual environment is active, and then run `briefcase create` and `briefcase build`:
+
+```sh
+. venv/bin/activate
+briefcase create
+briefcase build
+```

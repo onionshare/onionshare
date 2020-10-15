@@ -29,17 +29,6 @@ import psutil
 import getpass
 from PySide2 import QtCore, QtWidgets
 
-# Allow importing onionshare_cli from the source tree
-sys.path.insert(
-    0,
-    os.path.join(
-        os.path.dirname(
-            os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-        ),
-        "cli",
-    ),
-)
-
 from onionshare_cli.common import Common
 
 from .gui_common import GuiCommon
