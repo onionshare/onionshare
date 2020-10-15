@@ -13,6 +13,7 @@ description = "OnionShare lets you securely and anonymously send and receive fil
 icon = "src/onionshare/resources/onionshare"
 sources = ['src/onionshare']
 requires = [
+    "./onionshare_cli-2.3.dev1-py3-none-any.whl",
     "Click",
     "eventlet",
     "Flask",
