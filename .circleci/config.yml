@@ -22,13 +22,13 @@ jobs:
       - checkout
 
       - run:
-        name: Install dependencies
-        command: |
-          sudo apt-get update
-          sudo apt-get -y install tor obfs4proxy
-          pip install poetry
-          cd ~/repo/cli
-          poetry install
+          name: Install dependencies
+          command: |
+            sudo apt-get update
+            sudo apt-get -y install tor obfs4proxy
+            pip install poetry
+            cd ~/repo/cli
+            poetry install
 
       - run:
           name: Run tests
@@ -46,13 +46,13 @@ jobs:
       - checkout
 
       - run:
-        name: Install dependencies
-        command: |
-          sudo apt-get update
-          sudo apt-get install -y xvfb tor obfs4proxy gcc python3-dev
-          cd ~/repo/desktop
-          pip install briefcase pytest pytest-briefcase pytest-faulthandler pytest-qt
-          pip install $(python -c 'import toml; print(" ".join(toml.loads(open("pyproject.toml").read())["tool"]["briefcase"]["app"]["onionshare"]["requires"]))')
+          name: Install dependencies
+          command: |
+            sudo apt-get update
+            sudo apt-get install -y xvfb tor obfs4proxy gcc python3-dev
+            cd ~/repo/desktop
+            pip install briefcase pytest pytest-briefcase pytest-faulthandler pytest-qt
+            pip install $(python -c 'import toml; print(" ".join(toml.loads(open("pyproject.toml").read())["tool"]["briefcase"]["app"]["onionshare"]["requires"]))')
 
       - run:
           name: Run tests
