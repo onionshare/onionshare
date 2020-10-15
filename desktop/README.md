@@ -58,7 +58,7 @@ Then run the tests:
 ./tests/run.sh
 ```
 
-If you want to run tests while hiding the GUI, you must have the `xorg-x11-server-Xvfb` package installed, and then:
+If you want to run tests while hiding the GUI, you must have the `xvfb` package installed, and then:
 
 ```sh
 xvfb-run ./tests/run.sh
