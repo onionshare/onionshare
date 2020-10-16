@@ -665,7 +665,7 @@ class SettingsDialog(QtWidgets.QDialog):
             else:
                 tor_status_update_func = None
 
-            onion = Onion(self.common, use_tmp_dir=True)
+            onion = Onion(self.common, use_tmp_dir=True, get_tor_paths=self.common.gui.get_tor_paths)
             onion.connect(
                 custom_settings=settings, tor_status_update_func=tor_status_update_func,
             )

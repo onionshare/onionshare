@@ -25,20 +25,16 @@ Download Python 3.8.6, 32-bit (x86) from https://www.python.org/downloads/releas
 
 Download and install 7-Zip from http://www.7-zip.org/download.html. I downloaded `7z1900.exe`. Add `C:\Program Files (x86)\7-Zip` to your path.
 
-Install dependencies:
-
-```
-pip install requests
-```
-
 Download Tor Browser and extract the binaries by running:
 
 ```
-cd ..\cli
+pip install requests
 python scripts\get-tor-windows.py
 ```
 
 ### Prepare the code
+
+#### All platforms
 
 OnionShare uses [Briefcase](https://briefcase.readthedocs.io/en/latest/).
 
@@ -46,17 +42,21 @@ Install Briefcase dependencies by following [these instructions](https://docs.be
 
 Now create and/or activate a virtual environment.
 
+#### Linux and macOS
+
 ```
 python3 -m venv venv
 . venv/bin/activate
 ```
 
-Or in Windows:
+#### Windows
 
 ```
 python -m venv venv
 venv\Scripts\activate.bat
 ```
+
+#### All platforms
 
 While your virtual environment is active, install briefcase from pip.
 
@@ -92,7 +92,9 @@ xvfb-run ./tests/run.sh
 
 ## Making a release
 
-First, build a wheel package for OnionShare CLI:
+### Linux
+
+Build a wheel package for OnionShare CLI:
 
 ```sh
 cd onionshare/cli
@@ -116,3 +118,30 @@ Make sure the virtual environment is active, and then run `briefcase create` and
 briefcase create
 briefcase build
 ```
+
+### Windows
+
+Build a wheel package for OnionShare CLI (including Tor binaries, from Tor Browser):
+
+```sh
+cd onionshare\cli
+poetry install
+poetry build
+```
+
+This will make a file like `dist\onionshare_cli-$VERSION-py3-none-any.whl` (except with your specific version number). Move it into `..\desktop`:
+
+```
+move dist\onionshare_cli-*-py3-none-any.whl ..\desktop
+cd ..\desktop
+```
+
+Make sure the virtual environment is active, and then run `briefcase create`:
+
+```sh
+venv\Scripts\activate.bat
+briefcase create
+briefcase package
+```
+
+TODO: Codesign
