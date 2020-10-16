@@ -56,8 +56,7 @@ venv
 # other
 .vscode
 onionshare.dist-info
-
-# Tor binaries
-cli/onionshare_cli/resources/tor
+desktop/src/onionshare/resources/tor
+desktop/*.whl
 desktop/linux
 desktop/windows

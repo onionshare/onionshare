@@ -152,7 +152,7 @@ class Onion(object):
     is necessary for status updates to reach the GUI.
     """
 
-    def __init__(self, common, use_tmp_dir=False):
+    def __init__(self, common, use_tmp_dir=False, get_tor_paths=None):
         self.common = common
         self.common.log("Onion", "__init__")
 
@@ -167,12 +167,14 @@ class Onion(object):
             self.bundle_tor_supported = True
 
         # Set the path of the tor binary, for bundled tor
+        if not get_tor_paths:
+            get_tor_paths = self.common.get_tor_paths
         (
             self.tor_path,
             self.tor_geo_ip_file_path,
             self.tor_geo_ipv6_file_path,
             self.obfs4proxy_file_path,
-        ) = self.common.get_tor_paths()
+        ) = get_tor_paths()
 
         # The tor process
         self.tor_proc = None

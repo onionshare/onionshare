@@ -50,7 +50,7 @@ class GuiCommon:
         strings.load_strings(self.common, self.get_resource_path("locale"))
 
         # Start the Onion
-        self.onion = Onion(common)
+        self.onion = Onion(common, get_tor_paths=self.get_tor_paths)
 
         # Lock filename
         self.lock_filename = os.path.join(self.common.build_data_dir(), "lock")
@@ -328,6 +328,44 @@ class GuiCommon:
                     font-style: italic;
                 }""",
         }
+    
+    def get_tor_paths(self):
+        if self.common.platform == "Linux":
+            tor_path = shutil.which("tor")
+            obfs4proxy_file_path = shutil.which("obfs4proxy")
+            prefix = os.path.dirname(os.path.dirname(tor_path))
+            tor_geo_ip_file_path = os.path.join(prefix, "share/tor/geoip")
+            tor_geo_ipv6_file_path = os.path.join(prefix, "share/tor/geoip6")
+        elif self.common.platform == "Windows":
+            base_path = self.get_resource_path("tor")
+            tor_path = os.path.join(base_path, "Tor", "tor.exe")
+            obfs4proxy_file_path = os.path.join(base_path, "Tor", "obfs4proxy.exe")
+            tor_geo_ip_file_path = os.path.join(base_path, "Data", "Tor", "geoip")
+            tor_geo_ipv6_file_path = os.path.join(base_path, "Data", "Tor", "geoip6")
+        elif self.common.platform == "Darwin":
+            base_path = os.path.dirname(
+                os.path.dirname(os.path.dirname(self.get_resource_path("")))
+            )
+            tor_path = os.path.join(base_path, "Resources", "Tor", "tor")
+            tor_geo_ip_file_path = os.path.join(base_path, "Resources", "Tor", "geoip")
+            tor_geo_ipv6_file_path = os.path.join(
+                base_path, "Resources", "Tor", "geoip6"
+            )
+            obfs4proxy_file_path = os.path.join(
+                base_path, "Resources", "Tor", "obfs4proxy"
+            )
+        elif self.common.platform == "BSD":
+            tor_path = "/usr/local/bin/tor"
+            tor_geo_ip_file_path = "/usr/local/share/tor/geoip"
+            tor_geo_ipv6_file_path = "/usr/local/share/tor/geoip6"
+            obfs4proxy_file_path = "/usr/local/bin/obfs4proxy"
+
+        return (
+            tor_path,
+            tor_geo_ip_file_path,
+            tor_geo_ipv6_file_path,
+            obfs4proxy_file_path,
+        )
 
     @staticmethod
     def get_resource_path(filename):
