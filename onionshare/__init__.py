@@ -183,7 +183,7 @@ def main(cwd=None):
         "--autostop-sharing",
         action="store_true",
         dest="autostop_sharing",
-        default=True,
+        default=False,
         help="Share files: Stop sharing after files have been sent",
     )
     # Receive args
