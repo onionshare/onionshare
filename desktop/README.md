@@ -34,7 +34,15 @@ python scripts\get-tor-windows.py
 
 ### Prepare the code
 
-#### All platforms
+In order to work with the desktop app, you'll need to build a wheel of the CLI package first, and copy it into the `desktop` folder:
+
+```sh
+cd ../cli
+poetry install
+poetry build
+cp dist/onionshare_cli-*.whl ../desktop
+cd ../desktop
+```
 
 OnionShare uses [Briefcase](https://briefcase.readthedocs.io/en/latest/).
 
@@ -42,21 +50,16 @@ Install Briefcase dependencies by following [these instructions](https://docs.be
 
 Now create and/or activate a virtual environment.
 
-#### Linux and macOS
-
-```
-python3 -m venv venv
-. venv/bin/activate
-```
-
-#### Windows
-
-```
-python -m venv venv
-venv\Scripts\activate.bat
-```
-
-#### All platforms
+* Linux and macOS
+    ```
+    python3 -m venv venv
+    . venv/bin/activate
+    ```
+* Windows
+    ```
+    python -m venv venv
+    venv\Scripts\activate.bat
+    ```
 
 While your virtual environment is active, install briefcase from pip.
 
