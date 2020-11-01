@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
 import inspect
+import shutil
 
 from . import strings
 from onionshare_cli.onion import Onion
@@ -328,7 +329,7 @@ class GuiCommon:
                     font-style: italic;
                 }""",
         }
-    
+
     def get_tor_paths(self):
         if self.common.platform == "Linux":
             tor_path = shutil.which("tor")
