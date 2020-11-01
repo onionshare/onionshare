@@ -50,6 +50,10 @@ jobs:
           command: |
             sudo apt-get update
             sudo apt-get install -y xvfb tor obfs4proxy gcc python3-dev
+            cd ~/repo/cli
+            poetry install
+            poetry build
+            cp dist/onionshare_cli-*.whl ~/repo/desktop
             cd ~/repo/desktop
             pip install briefcase pytest pytest-briefcase pytest-faulthandler pytest-qt
             pip install $(python -c 'import toml; print(" ".join(toml.loads(open("pyproject.toml").read())["tool"]["briefcase"]["app"]["onionshare"]["requires"]))')
