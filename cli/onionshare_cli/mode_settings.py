@@ -102,7 +102,7 @@ class ModeSettings:
         elif self.common.platform == "Windows":
             # On Windows, os.path.expanduser() needs to use backslash, or else it
             # retains the forward slash, which breaks opening the folder in explorer.
-            return os.path.expanduser("~\OnionShare")
+            return os.path.expanduser("~\\OnionShare")
         else:
             # All other OSes
             return os.path.expanduser("~/OnionShare")
