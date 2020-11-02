@@ -22,11 +22,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # This setup.py file is used for flatpak packaging. For other packaging,
 # OnionShare uses briefcase.
 
-import toml
 import setuptools
 
 with open("../pyproject.toml") as f:
-    version = toml.loads(f.read())["tool"]["briefcase"]["version"]
+    for line in f.readlines():
+        if line.startswith("version = "):
+            version = line.split('"')[1]
+            break
 
 setuptools.setup(
     name="onionshare",
