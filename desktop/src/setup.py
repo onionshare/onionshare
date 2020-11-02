@@ -22,9 +22,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # This setup.py file is used for flatpak packaging. For other packaging,
 # OnionShare uses briefcase.
 
+import os
 import setuptools
 
-with open("../pyproject.toml") as f:
+with open(
+    os.path.join(
+        os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "pyproject.toml"
+    )
+) as f:
     for line in f.readlines():
         if line.startswith("version = "):
             version = line.split('"')[1]
