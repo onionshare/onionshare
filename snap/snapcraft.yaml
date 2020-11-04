@@ -9,7 +9,7 @@ description: |
   require setting up a separate server or using a third party file-sharing service.
 
 grade: devel # must be 'stable' to release into candidate/stable channels
-confinement: devmode # use 'strict' once you have the right plugs and slots
+confinement: strict
 
 apps:
   onionshare:
