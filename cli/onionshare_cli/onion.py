@@ -328,6 +328,10 @@ class Onion(object):
                     f.write(self.settings.get("tor_bridges_use_custom_bridges"))
                     f.write("\nUseBridges 1")
 
+            # Make sure the tor path is accurate
+            if not os.path.exists(self.tor_path):
+                raise BundledTorNotSupported(f"Cannot find tor binary: {self.tor_path}")
+
             # Execute a tor subprocess
             start_ts = time.time()
             if self.common.platform == "Windows":
