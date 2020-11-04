@@ -17,6 +17,20 @@ If you're using Linux, install `tor` and `obfs4proxy` from either the [official 
 
 #### macOS
 
+Download and install Python 3.9.0 from https://www.python.org/downloads/release/python-390/. I downloaded `python-3.9.0-macosx10.9.pkg`. (You may need to also run `/Applications/Python\ 3.9/Install\ Certificates.command`.)
+
+Install some python dependencies:
+
+```sh
+pip3 install --user poetry requests
+```
+
+Download Tor Browser and extract the binaries:
+
+```sh
+./scripts/get-tor-osx.py
+```
+
 #### Windows
 
 These instructions include adding folders to the path in Windows. To do this, go to Start and type "advanced system settings", and open "View advanced system settings" in the Control Panel. Click Environment Variables. Under "System variables" double-click on Path. From there you can add and remove folders that are available in the PATH.
@@ -25,7 +39,7 @@ Download Python 3.8.6, 32-bit (x86) from https://www.python.org/downloads/releas
 
 Download and install 7-Zip from http://www.7-zip.org/download.html. I downloaded `7z1900.exe`. Add `C:\Program Files (x86)\7-Zip` to your path.
 
-Download Tor Browser and extract the binaries by running:
+Download Tor Browser and extract the binaries:
 
 ```
 pip install requests

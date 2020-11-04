@@ -344,17 +344,11 @@ class GuiCommon:
             tor_geo_ip_file_path = os.path.join(base_path, "Data", "Tor", "geoip")
             tor_geo_ipv6_file_path = os.path.join(base_path, "Data", "Tor", "geoip6")
         elif self.common.platform == "Darwin":
-            base_path = os.path.dirname(
-                os.path.dirname(os.path.dirname(self.get_resource_path("")))
-            )
-            tor_path = os.path.join(base_path, "Resources", "Tor", "tor")
-            tor_geo_ip_file_path = os.path.join(base_path, "Resources", "Tor", "geoip")
-            tor_geo_ipv6_file_path = os.path.join(
-                base_path, "Resources", "Tor", "geoip6"
-            )
-            obfs4proxy_file_path = os.path.join(
-                base_path, "Resources", "Tor", "obfs4proxy"
-            )
+            base_path = self.get_resource_path("tor")
+            tor_path = os.path.join(base_path, "tor")
+            obfs4proxy_file_path = os.path.join(base_path, "obfs4proxy.exe")
+            tor_geo_ip_file_path = os.path.join(base_path, "geoip")
+            tor_geo_ipv6_file_path = os.path.join(base_path, "geoip6")
         elif self.common.platform == "BSD":
             tor_path = "/usr/local/bin/tor"
             tor_geo_ip_file_path = "/usr/local/share/tor/geoip"

@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 OnionShare | https://onionshare.org/
@@ -36,10 +37,10 @@ import requests
 
 
 def main():
-    dmg_url = "https://archive.torproject.org/tor-package-archive/torbrowser/10.0/TorBrowser-10.0-osx64_en-US.dmg"
-    dmg_filename = "TorBrowser-10.0-osx64_en-US.dmg"
+    dmg_url = "https://archive.torproject.org/tor-package-archive/torbrowser/10.0.2/TorBrowser-10.0.2-osx64_en-US.dmg"
+    dmg_filename = "TorBrowser-10.0.2-osx64_en-US.dmg"
     expected_dmg_sha256 = (
-        "4e1ca7068bc29d5e8ffba85ecc8fec36c52ae582faea67bcdf445cd57192fb08"
+        "ac8d28f6f8d92e220f72ef7b0cb2bba45d5e0d4b243dc50806e33e08278e7730"
     )
 
     # Build paths
@@ -51,7 +52,9 @@ def main():
         "/Volumes", "Tor Browser", "Tor Browser.app", "Contents"
     )
     dmg_path = os.path.join(working_path, dmg_filename)
-    dist_path = os.path.join(root_path, "dist", "OnionShare.app", "Contents")
+    dist_path = os.path.join(root_path, "src", "onionshare", "resources", "tor")
+    if not os.path.exists(dist_path):
+        os.makedirs(dist_path, exist_ok=True)
 
     # Make sure the working folder exists
     if not os.path.exists(working_path):
@@ -77,46 +80,30 @@ def main():
     # Mount the dmg, copy data to the working path
     subprocess.call(["hdiutil", "attach", dmg_path])
 
-    # Make sure Resources/tor exists before copying files
-    if os.path.exists(os.path.join(dist_path, "Resources", "Tor")):
-        shutil.rmtree(os.path.join(dist_path, "Resources", "Tor"))
-    os.makedirs(os.path.join(dist_path, "Resources", "Tor"))
-    if os.path.exists(os.path.join(dist_path, "MacOS", "Tor")):
-        shutil.rmtree(os.path.join(dist_path, "MacOS", "Tor"))
-    os.makedirs(os.path.join(dist_path, "MacOS", "Tor"))
-
-    # Modify the tor script to adjust the path
-    tor_script = open(
-        os.path.join(dmg_tor_path, "Resources", "TorBrowser", "Tor", "tor"), "r"
-    ).read()
-    tor_script = tor_script.replace("../../../MacOS/Tor", "../../MacOS/Tor")
-    open(os.path.join(dist_path, "Resources", "Tor", "tor"), "w").write(tor_script)
-
     # Copy into dist
     shutil.copyfile(
         os.path.join(dmg_tor_path, "Resources", "TorBrowser", "Tor", "geoip"),
-        os.path.join(dist_path, "Resources", "Tor", "geoip"),
+        os.path.join(dist_path, "geoip"),
     )
     shutil.copyfile(
         os.path.join(dmg_tor_path, "Resources", "TorBrowser", "Tor", "geoip6"),
-        os.path.join(dist_path, "Resources", "Tor", "geoip6"),
+        os.path.join(dist_path, "geoip6"),
     )
-    os.chmod(os.path.join(dist_path, "Resources", "Tor", "tor"), 0o755)
     shutil.copyfile(
         os.path.join(dmg_tor_path, "MacOS", "Tor", "tor.real"),
-        os.path.join(dist_path, "MacOS", "Tor", "tor.real"),
+        os.path.join(dist_path, "tor"),
     )
+    os.chmod(os.path.join(dist_path, "tor"), 0o755)
     shutil.copyfile(
         os.path.join(dmg_tor_path, "MacOS", "Tor", "libevent-2.1.7.dylib"),
-        os.path.join(dist_path, "MacOS", "Tor", "libevent-2.1.7.dylib"),
+        os.path.join(dist_path, "libevent-2.1.7.dylib"),
     )
-    os.chmod(os.path.join(dist_path, "MacOS", "Tor", "tor.real"), 0o755)
     # obfs4proxy binary
     shutil.copyfile(
         os.path.join(dmg_tor_path, "MacOS", "Tor", "PluggableTransports", "obfs4proxy"),
-        os.path.join(dist_path, "Resources", "Tor", "obfs4proxy"),
+        os.path.join(dist_path, "obfs4proxy"),
     )
-    os.chmod(os.path.join(dist_path, "Resources", "Tor", "obfs4proxy"), 0o755)
+    os.chmod(os.path.join(dist_path, "obfs4proxy"), 0o755)
 
     # Eject dmg
     subprocess.call(["diskutil", "eject", "/Volumes/Tor Browser"])

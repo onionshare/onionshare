@@ -77,7 +77,9 @@ class Common:
             os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))),
             "resources",
         )
-        return os.path.join(resources_path, filename)
+        path = os.path.join(resources_path, filename)
+        self.log("Common", "get_resource_path", path)
+        return path
 
     def get_tor_paths(self):
         if self.platform == "Linux":
@@ -93,26 +95,11 @@ class Common:
             tor_geo_ip_file_path = os.path.join(base_path, "Data", "Tor", "geoip")
             tor_geo_ipv6_file_path = os.path.join(base_path, "Data", "Tor", "geoip6")
         elif self.platform == "Darwin":
-            if os.path.basename(sys.argv[0]) == "onionshare-cli":
-                tor_path = shutil.which("tor")
-                obfs4proxy_file_path = shutil.which("obfs4proxy")
-                prefix = os.path.dirname(os.path.dirname(tor_path))
-                tor_geo_ip_file_path = os.path.join(prefix, "share/tor/geoip")
-                tor_geo_ipv6_file_path = os.path.join(prefix, "share/tor/geoip6")
-            else:
-                base_path = os.path.dirname(
-                    os.path.dirname(os.path.dirname(self.get_resource_path("")))
-                )
-                tor_path = os.path.join(base_path, "Resources", "Tor", "tor")
-                tor_geo_ip_file_path = os.path.join(
-                    base_path, "Resources", "Tor", "geoip"
-                )
-                tor_geo_ipv6_file_path = os.path.join(
-                    base_path, "Resources", "Tor", "geoip6"
-                )
-                obfs4proxy_file_path = os.path.join(
-                    base_path, "Resources", "Tor", "obfs4proxy"
-                )
+            tor_path = shutil.which("tor")
+            obfs4proxy_file_path = shutil.which("obfs4proxy")
+            prefix = os.path.dirname(os.path.dirname(tor_path))
+            tor_geo_ip_file_path = os.path.join(prefix, "share/tor/geoip")
+            tor_geo_ipv6_file_path = os.path.join(prefix, "share/tor/geoip6")
         elif self.platform == "BSD":
             tor_path = "/usr/local/bin/tor"
             tor_geo_ip_file_path = "/usr/local/share/tor/geoip"
