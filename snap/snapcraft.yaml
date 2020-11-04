@@ -21,6 +21,8 @@ apps:
       - network
       - network-bind
       - removable-media
+    extensions:
+      - gnome-3-34
   
   cli:
     common-id: org.onionshare.OnionShareCli
@@ -51,58 +53,66 @@ parts:
       - stem
       - urllib3
     stage-packages:
+      - libasound2
+      - libatk1.0-0
+      - libcairo2
+      - libcairo-gobject2
+      - libcups2
       - libdrm2
-      - libfontconfig1
+      - libegl1
       - libfreetype6
+      - libgdk-pixbuf2.0-0
       - libgl1
       - libglvnd0
       - libglx0
-      - libpng16-16
-      - libx11-6
-      - libx11-xcb1
-      - libxau6
-      - libxcb-glx0
-      - libxcb-sync1
-      - libxcb-xkb1
-      - libxcb1
-      - libxdamage1
-      - libxdmcp6
-      - libxext6
-      - libxfixes3
-      - libxkbcommon-x11-0
-      - libxkbcommon0
-      - libegl1
-      - libxcomposite1
-      - libxcursor1
-      - libxi6
-      - libxrandr2
-      - libxrender1
-      - libxtst6
-      - libasound2
-      - libatk1.0-0
-      - libcairo-gobject2
-      - libcairo2
-      - libcups2
       - libgtk-3-0
-      - libgdk-pixbuf2.0-0
       - libharfbuzz0b
       - libicu60
       - libjpeg8
       - liblcms2-2
       - libnspr4
       - libnss3
+      - libodbc1
       - libpango-1.0-0
       - libpangocairo-1.0-0
+      - libpng16-16
+      - libpq5
+      - libpulse-mainloop-glib0
       - librsvg2-2
+      - libspeechd2
       - libwayland-client0
       - libwayland-cursor0
       - libwayland-egl1
       - libwayland-server0
+      - libx11-6
+      - libx11-xcb1
+      - libxau6
+      - libxcb1
+      - libxcb-glx0
+      - libxcb-icccm4
+      - libxcb-image0
+      - libxcb-keysyms1
       - libxcb-render0
+      - libxcb-render-util0
       - libxcb-shm0
+      - libxcb-sync1
       - libxcb-xfixes0
+      - libxcb-xinerama0
+      - libxcb-xkb1
+      - libxcomposite1
+      - libxcursor1
+      - libxdamage1
+      - libxdmcp6
+      - libxext6
+      - libxfixes3
+      - libxi6
+      - libxkbcommon0
+      - libxkbcommon-x11-0
       - libxml2
+      - libxrandr2
+      - libxrender1
       - libxslt1.1
+      - libxtst6
     after: [onionshare-cli, tor, obfs4]
 
   onionshare-cli:
@@ -111,6 +121,16 @@ parts:
     python-version: python3
     python-packages:
       - poetry
+      - Click
+      - Flask
+      - Flask-HTTPAuth
+      - flask-socketio
+      - pycryptodome
+      - PySocks
+      - requests
+      - stem
+      - urllib3
+      - eventlet
     after: [tor, obfs4]
 
   tor:

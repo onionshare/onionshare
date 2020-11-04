@@ -25,15 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import os
 import setuptools
 
-with open(
-    os.path.join(
-        os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "pyproject.toml"
-    )
-) as f:
-    for line in f.readlines():
-        if line.startswith("version = "):
-            version = line.split('"')[1]
-            break
+version = "2.3.dev1"
 
 setuptools.setup(
     name="onionshare-cli",
