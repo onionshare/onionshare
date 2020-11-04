@@ -108,18 +108,12 @@ See: https://github.com/micahflee/org.onionshare.OnionShare
 
 This folder contains files to build a [snap package](https://snapcraft.io/). First make sure you install `snap` and `snapcraft` (`snap install snapcraft --classic`).
 
-To build the snap, run:
+Build and install the snap::
 
 ```sh
 snapcraft
 snap install --devmode ./onionshare_*.snap
-```
-
-See your installed snaps:
-
-```sh
-snap list
-```
+``
 
 Run the OnionShare snap:
 
@@ -128,7 +122,7 @@ Run the OnionShare snap:
 /snap/bin/onionshare.cli # CLI version
 ```
 
-Delete the OnionShare snap:
+Delete the snap:
 
 ```sh
 snap remove onionshare
