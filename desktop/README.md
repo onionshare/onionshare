@@ -95,6 +95,40 @@ xvfb-run ./tests/run.sh
 
 ## Making a release
 
+### Flatpak packaging
+
+See: https://github.com/micahflee/org.onionshare.OnionShare
+
+### Snapcraft packaging
+
+This folder contains files to build a [snap package](https://snapcraft.io/). First make sure you install `snap` and `snapcraft` (`snap install snapcraft --classic`).
+
+To build the snap, cd to the `onionshare` folder and run:
+
+```sh
+snapcraft
+snap install --devmode ./onionshare_*.snap
+```
+
+See your installed snaps:
+
+```sh
+snap list
+```
+
+Run the OnionShare snap:
+
+```sh
+/snap/bin/onionshare                # CLI version
+/snap/bin/onionshare.onionshare-gui # GUI version
+```
+
+Delete the OnionShare snap:
+
+```sh
+snap remove onionshare
+```
+
 ### Linux
 
 Build a wheel package for OnionShare CLI:

@@ -21,6 +21,7 @@ develop-eggs
 MANIFEST
 env
 onionshare-*.tar.gz
+onionshare_*.snap
 
 # Installer logs
 pip-log.txt
