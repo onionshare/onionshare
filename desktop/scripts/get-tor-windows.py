@@ -34,10 +34,10 @@ import requests
 
 
 def main():
-    exe_url = "https://archive.torproject.org/tor-package-archive/torbrowser/10.0/torbrowser-install-10.0_en-US.exe"
-    exe_filename = "torbrowser-install-10.0_en-US.exe"
+    exe_url = "https://archive.torproject.org/tor-package-archive/torbrowser/10.0.2/torbrowser-install-10.0.2_en-US.exe"
+    exe_filename = "torbrowser-install-10.0.2_en-US.exe"
     expected_exe_sha256 = (
-        "3d1a337da0e6eae32071e6de21963ba628a1a0939477bf823aa7df9051215410"
+        "c685c550fc420c39cbe40e453f2201789af5f64e7b024c9339c2a3bd01e61c2d"
     )
     # Build paths
     root_path = os.path.dirname(
@@ -69,22 +69,26 @@ def main():
         sys.exit(-1)
 
     # Extract the bits we need from the exe
-    subprocess.Popen([
-        "7z",
-        "e",
-        "-y",
-        exe_path,
-        "Browser\TorBrowser\Tor",
-        "-o%s" % os.path.join(working_path, "Tor"),
-    ]).wait()
-    subprocess.Popen([
-        "7z",
-        "e",
-        "-y",
-        exe_path,
-        "Browser\TorBrowser\Data\Tor\geoip*",
-        "-o%s" % os.path.join(working_path, "Data"),
-    ]).wait()
+    subprocess.Popen(
+        [
+            "7z",
+            "e",
+            "-y",
+            exe_path,
+            "Browser\TorBrowser\Tor",
+            "-o%s" % os.path.join(working_path, "Tor"),
+        ]
+    ).wait()
+    subprocess.Popen(
+        [
+            "7z",
+            "e",
+            "-y",
+            exe_path,
+            "Browser\TorBrowser\Data\Tor\geoip*",
+            "-o%s" % os.path.join(working_path, "Data"),
+        ]
+    ).wait()
 
     # Copy into the onionshare resources
     if os.path.exists(dist_path):
