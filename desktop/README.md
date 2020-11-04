@@ -95,6 +95,11 @@ xvfb-run ./tests/run.sh
 
 ## Making a release
 
+Before making a release, update the version in these places:
+
+- `pyproject.toml`
+- `src/setup.py`
+
 ### Flatpak packaging
 
 See: https://github.com/micahflee/org.onionshare.OnionShare
@@ -103,7 +108,7 @@ See: https://github.com/micahflee/org.onionshare.OnionShare
 
 This folder contains files to build a [snap package](https://snapcraft.io/). First make sure you install `snap` and `snapcraft` (`snap install snapcraft --classic`).
 
-To build the snap, cd to the `onionshare` folder and run:
+To build the snap, run:
 
 ```sh
 snapcraft
@@ -119,8 +124,8 @@ snap list
 Run the OnionShare snap:
 
 ```sh
-/snap/bin/onionshare                # CLI version
-/snap/bin/onionshare.onionshare-gui # GUI version
+/snap/bin/onionshare     # GUI version
+/snap/bin/onionshare.cli # CLI version
 ```
 
 Delete the OnionShare snap:

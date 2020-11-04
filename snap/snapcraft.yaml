@@ -1,22 +1,20 @@
 name: onionshare
 base: core18
-version: '2.2'
-summary: Securely and anonymously send and receive files, and publish onion sites
+version: '2.3.dev1'
+summary: Securely and anonymously share files, host websites, and chat using Tor
 description: |
-  OnionShare is an open source tool for securely and anonymously sending and
-  receiving files and publishing websites using Tor onion services. It works by
-  starting a web server directly on your computer and making it accessible as
-  an unguessable Tor web address that others can load in Tor Browser. It
-  doesn't require setting up a separate server, using a third party service, or
-  even logging into an account.
+  OnionShare lets you securely and anonymously send and receive files. It works by starting 
+  a web server, making it accessible as a Tor onion service, and generating an unguessable 
+  web address so others can download files from you, or upload files to you. It does _not_ 
+  require setting up a separate server or using a third party file-sharing service.
 
 grade: devel # must be 'stable' to release into candidate/stable channels
 confinement: devmode # use 'strict' once you have the right plugs and slots
 
 apps:
-  onionshare-gui:
-    common-id: org.onionshare.OnionShareGui
-    command: onionshare-gui
+  onionshare:
+    common-id: org.onionshare.OnionShare
+    command: onionshare
     plugs:
       - desktop
       - home
@@ -24,9 +22,9 @@ apps:
       - network-bind
       - removable-media
   
-  onionshare:
-    common-id: org.onionshare.OnionShare
-    command: onionshare
+  cli:
+    common-id: org.onionshare.OnionShareCli
+    command: onionshare-cli
     plugs:
       - home
       - network
@@ -35,39 +33,23 @@ apps:
 
 parts:
   onionshare:
-    source: .
+    source: ./desktop/src
     plugin: python
     python-version: python3
     python-packages:
-      - poetry
-    stage-packages:
-      - libatk-bridge2.0-0
-      - libatspi2.0-0
-      - libgtk-3-0
-    after: [qt5, tor, obfs4]
-  
-  # Install Qt5 pre-compiled binary, because it's much simpler than
-  # building from source
-  qt5:
-    plugin: nil
-    override-pull: |
-      wget https://download.qt.io/official_releases/qt/5.14/5.14.0/qt-opensource-linux-x64-5.14.0.run
-      echo "4379f147c6793ec7e7349d2f9ee7d53b8ab6ea4e4edf8ee0574a75586a6a6e0e *qt-opensource-linux-x64-5.14.0.run" | shasum -a 256 --check
-      chmod +x qt-opensource-linux-x64-5.14.0.run
-    build-packages:
-      - xvfb
-      - libdbus-1-3
-      - libxkbcommon-x11-0
-      - libxkbcommon-x11-dev
-      - libfontconfig1
-    override-build: |
-      # qt-installer-script.js
-      echo "function Controller(){installer.installationFinished.connect(proceed)}function logCurrentPage(){var pageName=page().objectName;var pagePrettyTitle=page().title;console.log('At page: '+pageName+' ('+pagePrettyTitle+')')}function page(){return gui.currentPageWidget()}function proceed(button,delay){gui.clickButton(button||buttons.NextButton,delay)}Controller.prototype.WelcomePageCallback=function(){logCurrentPage();proceed(buttons.NextButton,2000)};Controller.prototype.CredentialsPageCallback=function(){logCurrentPage();proceed()};Controller.prototype.IntroductionPageCallback=function(){logCurrentPage();proceed()};Controller.prototype.TargetDirectoryPageCallback=function(){logCurrentPage();var dir=installer.environmentVariable('SNAPCRAFT_PART_INSTALL')+'/opt/Qt5.14.0';console.log('Installing to '+dir);page().TargetDirectoryLineEdit.setText(dir);proceed()};Controller.prototype.ComponentSelectionPageCallback=function(){logCurrentPage();page().deselectAll();page().selectComponent('qt.qt5.5140.gcc_64');proceed()};Controller.prototype.LicenseAgreementPageCallback=function(){logCurrentPage();page().AcceptLicenseRadioButton.checked=true;gui.clickButton(buttons.NextButton)};Controller.prototype.ReadyForInstallationPageCallback=function(){logCurrentPage();proceed()};Controller.prototype.PerformInstallationPageCallback=function(){logCurrentPage()};Controller.prototype.FinishedPageCallback=function(){logCurrentPage();proceed(buttons.FinishButton)};Controller.prototype.DynamicTelemetryPluginFormCallback=function(){logCurrentPage();console.log(Object.keys(page().TelemetryPluginForm.statisticGroupBox));var radioButtons=page().TelemetryPluginForm.statisticGroupBox;radioButtons.disableStatisticRadioButton.checked=true;proceed()};" > qt-installer-script.js
-      # Disable Qt installer from phoning home via hosts file
-      echo "127.0.0.1 iapi.qt.io.herokudns.com" >> /etc/hosts
-      # Install Qt5
-      rm -rf $SNAPCRAFT_PART_INSTALL/opt/Qt5.14.0
-      xvfb-run ./qt-opensource-linux-x64-5.14.0.run --script qt-installer-script.js --verbose
+      - Click
+      - eventlet
+      - Flask
+      - Flask-HTTPAuth
+      - flask-socketio
+      - psutil
+      - pycryptodome
+      - PySocks
+      - pyside2==5.15.1
+      - qrcode
+      - requests
+      - stem
+      - urllib3
     stage-packages:
       - libdrm2
       - libfontconfig1
@@ -80,38 +62,60 @@ parts:
       - libx11-xcb1
       - libxau6
       - libxcb-glx0
+      - libxcb-sync1
       - libxcb-xkb1
       - libxcb1
+      - libxdamage1
       - libxdmcp6
       - libxext6
+      - libxfixes3
       - libxkbcommon-x11-0
       - libxkbcommon0
       - libegl1
+      - libxcomposite1
+      - libxcursor1
+      - libxi6
+      - libxrandr2
+      - libxrender1
+      - libxtst6
       - libasound2
-      - libbluetooth3
+      - libatk1.0-0
       - libcairo-gobject2
       - libcairo2
       - libcups2
+      - libgtk-3-0
       - libgdk-pixbuf2.0-0
-      - libgtk3.0-cil
-      - libgstreamer-plugins-base1.0-0
-      - libodbc1
+      - libharfbuzz0b
+      - libicu60
+      - libjpeg8
+      - liblcms2-2
+      - libnspr4
+      - libnss3
       - libpango-1.0-0
       - libpangocairo-1.0-0
-      - libpq5
-      - libpulse-mainloop-glib0
-      - libpulse0
-      - libspeechd2
+      - librsvg2-2
       - libwayland-client0
       - libwayland-cursor0
       - libwayland-egl1
+      - libwayland-server0
+      - libxcb-render0
+      - libxcb-shm0
+      - libxcb-xfixes0
       - libxml2
-      - libqt5webengine5
-      - libqt5webenginecore5
+      - libxslt1.1
+    after: [onionshare-cli, tor, obfs4]
+
+  onionshare-cli:
+    source: ./cli
+    plugin: python
+    python-version: python3
+    python-packages:
+      - poetry
+    after: [tor, obfs4]
 
   tor:
-    source: https://dist.torproject.org/tor-0.4.2.7.tar.gz
-    source-checksum: sha256/06a1d835ddf382f6bca40a62e8fb40b71b2f73d56f0d53523c8bd5caf9b3026d
+    source: https://dist.torproject.org/tor-0.4.4.5.tar.gz
+    source-checksum: sha256/a45ca00afe765e3baa839767c9dd6ac9a46dd01720a3a8ff4d86558c12359926
     source-type: tar
     plugin: autotools
     build-packages:
@@ -120,8 +124,8 @@ parts:
     after: [libevent]
   
   libevent:
-    source: https://github.com/libevent/libevent/releases/download/release-2.1.11-stable/libevent-2.1.11-stable.tar.gz
-    source-checksum: sha256/a65bac6202ea8c5609fd5c7e480e6d25de467ea1917c08290c521752f147283d
+    source: https://github.com/libevent/libevent/releases/download/release-2.1.12-stable/libevent-2.1.12-stable.tar.gz
+    source-checksum: sha256/92e6de1be9ec176428fd2367677e61ceffc2ee1cb119035037a27d346b0403bb
     source-type: tar
     plugin: autotools
 

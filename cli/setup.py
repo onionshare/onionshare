@@ -19,16 +19,24 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-# This setup.py file is used for flatpak packaging. For other packaging,
-# OnionShare uses briefcase.
+# snap packaging uses setup.py
+# PyPi publishing, developing, and testing uses poetry
 
 import os
 import setuptools
 
-version = "2.3.dev1"
+with open(
+    os.path.join(
+        os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "pyproject.toml"
+    )
+) as f:
+    for line in f.readlines():
+        if line.startswith("version = "):
+            version = line.split('"')[1]
+            break
 
 setuptools.setup(
-    name="onionshare",
+    name="onionshare-cli",
     version=version,
     description="OnionShare lets you securely and anonymously send and receive files. It works by starting a web server, making it accessible as a Tor onion service, and generating an unguessable web address so others can download files from you, or upload files to you. It does _not_ require setting up a separate server or using a third party file-sharing service.",
     author="Micah Lee",
@@ -49,24 +57,22 @@ setuptools.setup(
         "Environment :: Web Environment",
     ],
     packages=[
-        "onionshare",
-        "onionshare.tab",
-        "onionshare.tab.mode",
-        "onionshare.tab.mode.share_mode",
-        "onionshare.tab.mode.receive_mode",
-        "onionshare.tab.mode.website_mode",
-        "onionshare.tab.mode.chat_mode",
+        "onionshare_cli",
+        "onionshare_cli.web",
     ],
     package_data={
         "onionshare": [
             "resources/*",
-            "resources/images/*",
-            "resources/locale/*",
+            "resources/static/*",
+            "resources/static/css/*",
+            "resources/static/img/*",
+            "resources/static/js/*",
+            "resources/templates/*",
         ]
     },
     entry_points={
         "console_scripts": [
-            "onionshare = onionshare:main",
+            "onionshare-cli = onionshare_cli:main",
         ],
     },
 )
