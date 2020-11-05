@@ -61,3 +61,4 @@ desktop/src/onionshare/resources/tor
 desktop/*.whl
 desktop/linux
 desktop/windows
+desktop/macOS

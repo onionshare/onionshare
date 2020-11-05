@@ -66,16 +66,3 @@ poetry build
 ```
 
 This will create `dist/onionshare_cli-$VERSION-py3-none-any.whl`.
-
-### Making a release
-
-Before making a release, update the version in these places:
-
-- `pyproject.toml`
-- `onionshare_cli/resources/version.txt`
-
-Build and publish to PyPi:
-
-```
-poetry publish --build
-```

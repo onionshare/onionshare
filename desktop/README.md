@@ -17,7 +17,7 @@ If you're using Linux, install `tor` and `obfs4proxy` from either the [official 
 
 #### macOS
 
-Download and install Python 3.9.0 from https://www.python.org/downloads/release/python-390/. I downloaded `python-3.9.0-macosx10.9.pkg`. (You may need to also run `/Applications/Python\ 3.9/Install\ Certificates.command`.)
+Download and install Python 3.8.6 from https://www.python.org/downloads/release/python-386/. I downloaded `python-3.8.6-macosx10.9.pkg`. (You may need to also run `/Applications/Python\ 3.8/Install\ Certificates.command`.)
 
 Install some python dependencies:
 
@@ -106,92 +106,3 @@ If you want to run tests while hiding the GUI, you must have the `xvfb` package 
 ```sh
 xvfb-run ./tests/run.sh
 ```
-
-## Making a release
-
-Before making a release, update the version in these places:
-
-- `pyproject.toml`
-- `src/setup.py`
-
-### Flatpak packaging
-
-See: https://github.com/micahflee/org.onionshare.OnionShare
-
-### Snapcraft packaging
-
-This folder contains files to build a [snap package](https://snapcraft.io/). First make sure you install `snap` and `snapcraft` (`snap install snapcraft --classic`).
-
-Build and install the snap::
-
-```sh
-snapcraft
-snap install --devmode ./onionshare_*.snap
-``
-
-Run the OnionShare snap:
-
-```sh
-/snap/bin/onionshare     # GUI version
-/snap/bin/onionshare.cli # CLI version
-```
-
-Delete the snap:
-
-```sh
-snap remove onionshare
-```
-
-### Linux
-
-Build a wheel package for OnionShare CLI:
-
-```sh
-cd onionshare/cli
-poetry install
-poetry build
-```
-
-This will make a file like `dist/onionshare_cli-$VERSION-py3-none-any.whl` (except with your specific version number). Move it into `../desktop/linux`:
-
-```
-mkdir -p ../desktop/linux
-mv dist/onionshare_cli-*-py3-none-any.whl ../desktop/linux
-# change back to the desktop directory
-cd ../desktop
-```
-
-Make sure the virtual environment is active, and then run `briefcase create` and `briefcase build`:
-
-```sh
-. venv/bin/activate
-briefcase create
-briefcase build
-```
-
-### Windows
-
-Build a wheel package for OnionShare CLI (including Tor binaries, from Tor Browser):
-
-```sh
-cd onionshare\cli
-poetry install
-poetry build
-```
-
-This will make a file like `dist\onionshare_cli-$VERSION-py3-none-any.whl` (except with your specific version number). Move it into `..\desktop`:
-
-```
-move dist\onionshare_cli-*-py3-none-any.whl ..\desktop
-cd ..\desktop
-```
-
-Make sure the virtual environment is active, and then run `briefcase create`:
-
-```sh
-venv\Scripts\activate.bat
-briefcase create
-briefcase package
-```
-
-TODO: Codesign
