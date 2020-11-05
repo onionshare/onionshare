@@ -156,6 +156,23 @@ class TabWidget(QtWidgets.QTabWidget):
         index = self.addTab(tab, strings._("gui_new_tab"))
         self.setCurrentIndex(index)
 
+        # In macOS, manually create a close button because tabs don't seem to have them otherwise
+        if self.common.platform == "Darwin":
+
+            def close_tab():
+                self.tabBar().tabCloseRequested.emit(self.indexOf(tab))
+
+            tab.close_button = QtWidgets.QPushButton()
+            tab.close_button.setFlat(True)
+            tab.close_button.setFixedWidth(40)
+            tab.close_button.setIcon(
+                QtGui.QIcon(GuiCommon.get_resource_path("images/close_tab.png"))
+            )
+            tab.close_button.clicked.connect(close_tab)
+            self.tabBar().setTabButton(
+                index, QtWidgets.QTabBar.RightSide, tab.close_button
+            )
+
         tab.init(mode_settings)
         # If it's persistent, set the persistent image in the tab
         self.change_persistent(tab.tab_id, tab.settings.get("persistent", "enabled"))
