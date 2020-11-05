@@ -145,6 +145,31 @@ Make sure the virtual environment is active, and then run `briefcase create`:
 
 ```sh
 . venv/bin/activate
-briefcase create
-briefcase package -i "Developer ID Application: Micah Lee"
+./install/macos_package.sh
 ```
+
+Now, notarize the release. You must have an app-specific Apple ID password saved in the login keychain called `onionshare-notarize`.
+
+- Notarize it: `xcrun altool --notarize-app --primary-bundle-id "com.micahflee.onionshare" -u "micah@micahflee.com" -p "@keychain:onionshare-notarize" --file macOS/OnionShare-$VERSION.dmg`
+- Wait for it to get approved, check status with: `xcrun altool --notarization-history 0 -u "micah@micahflee.com" -p "@keychain:onionshare-notarize"`
+- After it's approved, staple the ticket: `xcrun stapler staple macOS/OnionShare-$VERSION.dmg`
+
+This will create `macOS/OnionShare-$VERSION.dmg`, signed and notarized.
+
+### Source package
+
+TODO: Write documentation for source package
+
+### Publishing the release
+
+To publish the release:
+
+- Create a new release on GitHub, put the changelog in the description of the release, and upload all six files (the macOS installer, the Windows installer, the source package, and their signatures)
+- Upload the six release files to https://onionshare.org/dist/$VERSION/
+- Copy the six release files into the OnionShare team Keybase filesystem
+- Update the [onionshare-website](https://github.com/micahflee/onionshare-website) repo:
+  - Edit `latest-version.txt` to match the latest version
+  - Update the version number and download links
+  - Deploy to https://onionshare.org/
+- Email the [onionshare-dev](https://lists.riseup.net/www/subscribe/onionshare-dev) mailing list announcing the release
+- Make a PR to [homebrew-cask](https://github.com/homebrew/homebrew-cask) to update the macOS version
