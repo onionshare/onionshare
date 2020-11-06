@@ -126,26 +126,16 @@ _TODO: Codesign_
 
 ### macOS
 
-Build a wheel package for OnionShare CLI (including Tor binaries, from Tor Browser):
-
-```sh
-cd cli
-poetry install
-poetry build
-```
-
-This will make a file like `dist\onionshare_cli-$VERSION-py3-none-any.whl` (except with your specific version number). Move it into `..\desktop`:
-
-```
-cp dist/onionshare_cli-*-py3-none-any.whl ../desktop
-cd ../desktop
-```
-
-Make sure the virtual environment is active, and then run `briefcase create`:
+Make sure your virtual environment is active:
 
 ```sh
 . venv/bin/activate
-./install/macos_package.sh
+```
+
+Run the macOS build script:
+
+```sh
+./package/macos/build.py --with-codesign
 ```
 
 Now, notarize the release. You must have an app-specific Apple ID password saved in the login keychain called `onionshare-notarize`.
