@@ -8,7 +8,9 @@ import glob
 
 root = os.path.dirname(
     os.path.dirname(
-        os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+        os.path.dirname(
+            os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+        )
     )
 )
 
@@ -18,6 +20,8 @@ def run(cmd, cwd=None):
 
 
 def main():
+    print(root)
+    return
     # Parse arguments
     parser = argparse.ArgumentParser()
     parser.add_argument(
