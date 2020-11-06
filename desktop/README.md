@@ -19,7 +19,7 @@ If you're using Linux, install `tor` and `obfs4proxy` from either the [official 
 
 Download and install Python 3.8.6 from https://www.python.org/downloads/release/python-386/. I downloaded `python-3.8.6-macosx10.9.pkg`. (You may need to also run `/Applications/Python\ 3.8/Install\ Certificates.command`.)
 
-Install some python dependencies:
+Install python dependencies:
 
 ```sh
 pip3 install --user poetry requests
@@ -39,10 +39,15 @@ Download Python 3.8.6, 32-bit (x86) from https://www.python.org/downloads/releas
 
 Download and install 7-Zip from http://www.7-zip.org/download.html. I downloaded `7z1900.exe`. Add `C:\Program Files (x86)\7-Zip` to your path.
 
+Install python dependencies:
+
+```
+pip install poetry requests
+```
+
 Download Tor Browser and extract the binaries:
 
 ```
-pip install requests
 python scripts\get-tor-windows.py
 ```
 
