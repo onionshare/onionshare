@@ -36,7 +36,7 @@ def main():
     print("○ Building onionshare-cli")
     run(["poetry", "install"], cli_dir)
     run(["poetry", "build"], cli_dir)
-    whl_filename = glob.glob(f"{cli_dir}/dist/*.whl")[0]
+    whl_filename = glob.glob(os.path.join(cli_dir, "dist", "*.whl"))[0]
     whl_basename = os.path.basename(whl_filename)
     shutil.copyfile(whl_filename, os.path.join(desktop_dir, whl_basename))
 

@@ -99,32 +99,29 @@ briefcase build
 
 ### Windows
 
-Build a wheel package for OnionShare CLI (including Tor binaries, from Tor Browser):
+Set up the development environment described in `README.md`. And install the [Windows 10 SDK](https://developer.microsoft.com/en-us/windows/downloads/windows-10-sdk) and add `C:\Program Files (x86)\Windows Kits\10\bin\10.0.19041.0\x86` to your path.
 
-```sh
-cd cli
-poetry install
-poetry build
-```
-
-This will make a file like `dist\onionshare_cli-$VERSION-py3-none-any.whl` (except with your specific version number). Move it into `..\desktop`:
+Make sure your virtual environment is active:
 
 ```
-move dist\onionshare_cli-*-py3-none-any.whl ..\desktop
-cd ..\desktop
-```
-
-Make sure the virtual environment is active, and then run `briefcase create`:
-
-```sh
 venv\Scripts\activate.bat
-briefcase create
-briefcase package
 ```
 
-_TODO: Codesign_
+Run the Windows build script:
+
+```
+python package\windows\build.py
+```
+
+This will create `windows/OnionShare-$VERSION.msi`, signed.
 
 ### macOS
+
+Set up the development environment described in `README.md`. And install `create-dmg`:
+
+```sh
+brew install create-dmg
+```
 
 Make sure your virtual environment is active:
 
@@ -132,7 +129,7 @@ Make sure your virtual environment is active:
 . venv/bin/activate
 ```
 
-Run the macOS build script (you'll need to `brew install create-dmg` first):
+Run the macOS build script:
 
 ```sh
 ./package/macos/build.py --with-codesign
