@@ -20,8 +20,6 @@ def run(cmd, cwd=None):
 
 
 def main():
-    print(root)
-    return
     # Parse arguments
     parser = argparse.ArgumentParser()
     parser.add_argument(
