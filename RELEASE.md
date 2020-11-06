@@ -132,7 +132,7 @@ Make sure your virtual environment is active:
 . venv/bin/activate
 ```
 
-Run the macOS build script:
+Run the macOS build script (you'll need to `brew install create-dmg` first):
 
 ```sh
 ./package/macos/build.py --with-codesign
@@ -140,11 +140,11 @@ Run the macOS build script:
 
 Now, notarize the release. You must have an app-specific Apple ID password saved in the login keychain called `onionshare-notarize`.
 
-- Notarize it: `xcrun altool --notarize-app --primary-bundle-id "com.micahflee.onionshare" -u "micah@micahflee.com" -p "@keychain:onionshare-notarize" --file macOS/OnionShare-$VERSION.dmg`
+- Notarize it: `xcrun altool --notarize-app --primary-bundle-id "com.micahflee.onionshare" -u "micah@micahflee.com" -p "@keychain:onionshare-notarize" --file macOS/OnionShare.dmg`
 - Wait for it to get approved, check status with: `xcrun altool --notarization-history 0 -u "micah@micahflee.com" -p "@keychain:onionshare-notarize"`
-- After it's approved, staple the ticket: `xcrun stapler staple macOS/OnionShare-$VERSION.dmg`
+- After it's approved, staple the ticket: `xcrun stapler staple macOS/OnionShare.dmg`
 
-This will create `macOS/OnionShare-$VERSION.dmg`, signed and notarized.
+This will create `macOS/OnionShare.dmg`, signed and notarized.
 
 ### Source package
 

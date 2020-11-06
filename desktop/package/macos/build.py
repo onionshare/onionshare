@@ -86,7 +86,43 @@ def main():
         )
         print(f"○ Signed app bundle: {app_path}")
 
-        print("○ TODO: Make a DMG package")
+        if not os.path.exists("/usr/local/bin/create-dmg"):
+            print("○ Error: create-dmg is not installed")
+            return
+
+        print("○ Creating DMG")
+        dmg_path = os.path.join(desktop_dir, "macOS", "OnionShare.dmg")
+        run(
+            [
+                "create-dmg",
+                "--volname",
+                "OnionShare",
+                "--volicon",
+                os.path.join(
+                    desktop_dir, "src", "onionshare", "resources", "onionshare.icns"
+                ),
+                "--window-size",
+                "400",
+                "200",
+                "--icon-size",
+                "100",
+                "--icon",
+                "OnionShare.app",
+                "100",
+                "70",
+                "--hide-extension",
+                "OnionShare.app",
+                "--app-drop-link",
+                "300",
+                "70",
+                dmg_path,
+                app_path,
+                "--identity",
+                identity_name_application,
+            ]
+        )
+
+        print(f"○ Finished building DMG: {dmg_path}")
 
 
 if __name__ == "__main__":
