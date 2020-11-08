@@ -23,6 +23,7 @@ env
 onionshare-*.tar.gz
 onionshare_*.snap
 .flatpak-builder
+OnionShare.flatpak
 
 # Installer logs
 pip-log.txt
