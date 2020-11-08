@@ -234,7 +234,7 @@
     "systray_individual_file_downloaded_message": "Individueel bestand {} bekeken",
     "gui_settings_website_label": "Instellingen voor website",
     "error_cannot_create_data_dir": "Kon geen OnionShare datamap aanmaken: {}",
-    "gui_all_modes_progress_eta": " {0:s}, Verwachte aankomsttijd: {1:s}, %p%",
+    "gui_all_modes_progress_eta": "{0:s}, Verwachte aankomsttijd: {1:s}, %p%",
     "days_first_letter": "d",
     "hours_first_letter": "h",
     "minutes_first_letter": "m",
