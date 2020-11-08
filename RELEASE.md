@@ -75,16 +75,6 @@ If the tag verifies successfully, check it out:
 git checkout v$VERSION
 ```
 
-## PyPi release
-
-The CLI version of OnionShare gets published on PyPi. To make a release:
-
-```sh
-cd cli
-poetry install
-poetry publish --build
-```
-
 ## Linux Flatpak release
 
 You must have `flatpak` and `flatpak-builder` installed, with flathub remote added (`flatpak remote-add --if-not-exists --user flathub https://flathub.org/repo/flathub.flatpakrepo`).
@@ -96,6 +86,14 @@ flatpak-builder build --force-clean --install-deps-from=flathub --install --user
 flatpak run org.onionshare.OnionShare
 ```
 
+Once you confirm it works, create a single-file bundle:
+
+```sh
+flatpak build-bundle ~/.local/share/flatpak/repo OnionShare.flatpak org.onionshare.OnionShare
+```
+
+This will create `OnionShare.flatpak`.
+
 ## Linux Snapcraft release
 
 You must have `snap` and `snapcraft` (`snap install snapcraft --classic`) installed.
@@ -104,7 +102,7 @@ Build and test the snap before publishing:
 
 ```sh
 snapcraft
-snap install --devmode ./onionshare_*.snap
+snap install --devmode ./onionshare_$VERSION_amd64.snap
 ```
 
 Run the OnionShare snap:
@@ -113,6 +111,8 @@ Run the OnionShare snap:
 /snap/bin/onionshare     # GUI version
 /snap/bin/onionshare.cli # CLI version
 ```
+
+This will create `onionshare_$VERSION_amd64.snap`.
 
 ## Linux AppImage release
 
@@ -148,7 +148,7 @@ Run the Windows build script:
 python package\windows\build.py
 ```
 
-This will create `windows/OnionShare-$VERSION.msi`, signed.
+This will create `desktop/windows/OnionShare-$VERSION.msi`, signed.
 
 ### macOS
 
@@ -176,7 +176,7 @@ Now, notarize the release. You must have an app-specific Apple ID password saved
 - Wait for it to get approved, check status with: `xcrun altool --notarization-history 0 -u "micah@micahflee.com" -p "@keychain:onionshare-notarize"`
 - After it's approved, staple the ticket: `xcrun stapler staple macOS/OnionShare.dmg`
 
-This will create `macOS/OnionShare.dmg`, signed and notarized.
+This will create `desktop/macOS/OnionShare.dmg`, signed and notarized.
 
 ### Source package
 
@@ -186,14 +186,48 @@ This will create `dist/onionshare-$VERSION.tar.gz`.
 
 ### Publishing the release
 
-To publish the release:
+After following all of the previous steps, gather these files:
 
-- Create a new release on GitHub, put the changelog in the description of the release, and upload all six files (the macOS installer, the Windows installer, the source package, and their signatures)
-- Upload the six release files to https://onionshare.org/dist/$VERSION/
-- Copy the six release files into the OnionShare team Keybase filesystem
+- `OnionShare.flatpak` (rename it to `OnionShare-$VERSION.flatpak`)
+- `onionshare_$VERSION_amd64.snap`
+- `OnionShare-$VERSION.msi`
+- `OnionShare.dmg` (rename it to `OnionShare-$VERSION.dmg`)
+- `onionshare-$VERSION.tar.gz`
+
+Create a PGP signature for each of these files, e.g:
+
+```sh
+gpg -a --detach-sign OnionShare-$VERSION.flatpak
+gpg -a --detach-sign [... and so on]
+```
+
+Create a release on GitHub:
+
+- Match it to the version tag, put the changelog in description of the release
+- Upload all 10 files (binary and source packages and their `.asc` signatures)
+
+Update onionshare.org:
+
+- Upload all 10 files to https://onionshare.org/dist/$VERSION/
 - Update the [onionshare-website](https://github.com/micahflee/onionshare-website) repo:
   - Edit `latest-version.txt` to match the latest version
   - Update the version number and download links
   - Deploy to https://onionshare.org/
-- Email the [onionshare-dev](https://lists.riseup.net/www/subscribe/onionshare-dev) mailing list announcing the release
+
+Update Homebrew:
+
 - Make a PR to [homebrew-cask](https://github.com/homebrew/homebrew-cask) to update the macOS version
+
+Update onionshare-cli on PyPi:
+
+```sh
+cd cli
+poetry install
+poetry publish --build
+```
+
+Update the community:
+
+- Upload all 10 files to the OnionShare team Keybase filesystem
+- Email the [onionshare-dev](https://lists.riseup.net/www/subscribe/onionshare-dev) mailing list announcing the release
+- Tweet, toot, etc.
