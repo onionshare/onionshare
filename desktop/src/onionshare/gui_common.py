@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import os
 import inspect
 import shutil
+from pkg_resources import resource_filename
 
 from . import strings
 from onionshare_cli.onion import Onion
@@ -367,8 +368,4 @@ class GuiCommon:
         """
         Returns the absolute path of a resource
         """
-        resources_path = os.path.join(
-            os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))),
-            "resources",
-        )
-        return os.path.join(resources_path, filename)
+        return resource_filename("onionshare", os.path.join("resources", filename))

@@ -111,9 +111,11 @@ modules:
         dest: src/github.com/dchest/siphash
   - name: onionshare
     buildsystem: simple
+    ensure-writable:
+      - easy-install.pth
     build-commands:
       - python3 setup.py install --prefix=${FLATPAK_DEST}
-      - install -D -m0644 install/org.onionshare.OnionShare.appdata.xml ${FLATPAK_DEST}/share/metainfo/${FLATPAK_ID}.appdata.xml
+      - install -D -m0644 org.onionshare.OnionShare.appdata.xml ${FLATPAK_DEST}/share/metainfo/${FLATPAK_ID}.appdata.xml
     sources:
       - type: dir
         path: ../desktop/src
@@ -125,39 +127,24 @@ modules:
         sources:
           - type: dir
             path: ../cli
+      - name: python3-click
+        buildsystem: simple
+        build-commands:
+          - pip3 install --exists-action=i --no-index --find-links="file://${PWD}" --prefix=${FLATPAK_DEST}
+            "click"
+        sources:
           - type: file
-            url: https://files.pythonhosted.org/packages/71/bd/ab05ffcbfe74dca704e860312e00c53ef690b1ddcb23be7a4d9ea4f40260/stem-1.8.0.tar.gz
-            sha256: a0b48ea6224e95f22aa34c0bc3415f0eb4667ddeae3dfb5e32a6920c185568c2
-          - type: file
-            url: https://files.pythonhosted.org/packages/45/1e/0c169c6a5381e241ba7404532c16a21d86ab872c9bed8bdcd4c423954103/requests-2.24.0-py2.py3-none-any.whl
-            sha256: fe75cc94a9443b9246fc7049224f75604b113c36acb93f87b80ed42c44cbb898
-          - type: file
-            url: https://files.pythonhosted.org/packages/e1/a8/c1cda654d5da7ba45bc0bd567cd7e2d2508997decfae5191813f31c93b9e/Flask_HTTPAuth-4.1.0-py2.py3-none-any.whl
-            sha256: 29e0288869a213c7387f0323b6bf2c7191584fb1da8aa024d9af118e5cd70de7
-          - type: file
-            url: https://files.pythonhosted.org/packages/3d/97/00741edd49788510b834b60a1a4d0afb2c4942770c11b8e0f6e914371718/python_socketio-4.6.0-py2.py3-none-any.whl
-            sha256: d437f797c44b6efba2f201867cf02b8c96b97dff26d4e4281ac08b45817cd522
-          - type: file
-            url: https://files.pythonhosted.org/packages/ee/ff/48bde5c0f013094d729fe4b0316ba2a24774b3ff1c52d924a8a4cb04078a/six-1.15.0-py2.py3-none-any.whl
-            sha256: 8b74bedcbbbaca38ff6d7491d76f2b06b3592611af620f8426e82dddb04a5ced
-          - type: file
-            url: https://files.pythonhosted.org/packages/ec/d3/3aa0e7213ef72b8585747aa0e271a9523e713813b9a20177ebe1e939deb0/dnspython-1.16.0-py2.py3-none-any.whl
-            sha256: f69c21288a962f4da86e56c4905b49d11aba7938d3d740e80d9e366ee4f1632d
+            url: https://files.pythonhosted.org/packages/d2/3d/fa76db83bf75c4f8d338c2fd15c8d33fdd7ad23a9b5e57eb6c5de26b430e/click-7.1.2-py2.py3-none-any.whl
+            sha256: dacca89f4bfadd5de3d7489b7c8a566eee0d3676333fbb50030263894c38c0dc
+      - name: python3-flask
+        buildsystem: simple
+        build-commands:
+          - pip3 install --exists-action=i --no-index --find-links="file://${PWD}" --prefix=${FLATPAK_DEST}
+            "flask"
+        sources:
           - type: file
             url: https://files.pythonhosted.org/packages/b9/2e/64db92e53b86efccfaea71321f597fa2e1b2bd3853d8ce658568f7a13094/MarkupSafe-1.1.1.tar.gz
             sha256: 29872e92839765e546828bb7754a68c418d927cd064fd4708fab9fe9c8bb116b
-          - type: file
-            url: https://files.pythonhosted.org/packages/56/aa/4ef5aa67a9a62505db124a5cb5262332d1d4153462eb8fd89c9fa41e5d92/urllib3-1.25.11-py2.py3-none-any.whl
-            sha256: f5321fbe4bf3fefa0efd0bfe7fb14e90909eb62a48ccda331726b4319897dd5e
-          - type: file
-            url: https://files.pythonhosted.org/packages/f2/28/2a03252dfb9ebf377f40fba6a7841b47083260bf8bd8e737b0c6952df83f/Flask-1.1.2-py2.py3-none-any.whl
-            sha256: 8a4fdd8936eba2512e9c85df320a37e694c93945b33ef33c89946a340a238557
-          - type: file
-            url: https://files.pythonhosted.org/packages/72/0c/fd07c7674ad6eded937194b84d8453425c36c6ef118536907b0185624d82/greenlet-0.4.17.tar.gz
-            sha256: 41d8835c69a78de718e466dd0e6bfd4b46125f21a67c3ff6d76d8d8059868d6b
-          - type: file
-            url: https://files.pythonhosted.org/packages/e3/85/2ae0512c942664570227a2f9c88b24dd3c0846c5c60cb05b6a2a26979d66/eventlet-0.29.1-py2.py3-none-any.whl
-            sha256: a07b8c8e1f43bc4c44a255baeb066a4edce783dcfacae213bcabb95fdcd02d8c
           - type: file
             url: https://files.pythonhosted.org/packages/d2/3d/fa76db83bf75c4f8d338c2fd15c8d33fdd7ad23a9b5e57eb6c5de26b430e/click-7.1.2-py2.py3-none-any.whl
             sha256: dacca89f4bfadd5de3d7489b7c8a566eee0d3676333fbb50030263894c38c0dc
@@ -165,17 +152,53 @@ modules:
             url: https://files.pythonhosted.org/packages/30/9e/f663a2aa66a09d838042ae1a2c5659828bb9b41ea3a6efa20a20fd92b121/Jinja2-2.11.2-py2.py3-none-any.whl
             sha256: f0a4641d3cf955324a89c04f3d94663aa4d638abe8f733ecd3582848e1c37035
           - type: file
+            url: https://files.pythonhosted.org/packages/76/ae/44b03b253d6fade317f32c24d100b3b35c2239807046a4c953c7b89fa49e/itsdangerous-1.1.0-py2.py3-none-any.whl
+            sha256: b12271b2047cb23eeb98c8b5622e2e5c5e9abd9784a153e9d8ef9cb4dd09d749
+          - type: file
+            url: https://files.pythonhosted.org/packages/f2/28/2a03252dfb9ebf377f40fba6a7841b47083260bf8bd8e737b0c6952df83f/Flask-1.1.2-py2.py3-none-any.whl
+            sha256: 8a4fdd8936eba2512e9c85df320a37e694c93945b33ef33c89946a340a238557
+          - type: file
             url: https://files.pythonhosted.org/packages/cc/94/5f7079a0e00bd6863ef8f1da638721e9da21e5bacee597595b318f71d62e/Werkzeug-1.0.1-py2.py3-none-any.whl
             sha256: 2de2a5db0baeae7b2d2664949077c2ac63fbd16d98da0ff71837f7d1dea3fd43
+      - name: python3-flask-httpauth
+        buildsystem: simple
+        build-commands:
+          - pip3 install --exists-action=i --no-index --find-links="file://${PWD}" --prefix=${FLATPAK_DEST}
+            "flask-httpauth"
+        sources:
           - type: file
-            url: https://files.pythonhosted.org/packages/a2/38/928ddce2273eaa564f6f50de919327bf3a00f091b5baba8dfa9460f3a8a8/idna-2.10-py2.py3-none-any.whl
-            sha256: b97d804b1e9b523befed77c48dacec60e6dcb0b5391d57af6a65a312a90648c0
+            url: https://files.pythonhosted.org/packages/b9/2e/64db92e53b86efccfaea71321f597fa2e1b2bd3853d8ce658568f7a13094/MarkupSafe-1.1.1.tar.gz
+            sha256: 29872e92839765e546828bb7754a68c418d927cd064fd4708fab9fe9c8bb116b
           - type: file
-            url: https://files.pythonhosted.org/packages/8d/59/b4572118e098ac8e46e399a1dd0f2d85403ce8bbaad9ec79373ed6badaf9/PySocks-1.7.1-py3-none-any.whl
-            sha256: 2725bd0a9925919b9b51739eea5f9e2bae91e83288108a9ad338b2e3a4435ee5
+            url: https://files.pythonhosted.org/packages/d2/3d/fa76db83bf75c4f8d338c2fd15c8d33fdd7ad23a9b5e57eb6c5de26b430e/click-7.1.2-py2.py3-none-any.whl
+            sha256: dacca89f4bfadd5de3d7489b7c8a566eee0d3676333fbb50030263894c38c0dc
           - type: file
-            url: https://files.pythonhosted.org/packages/5e/c4/6c4fe722df5343c33226f0b4e0bb042e4dc13483228b4718baf286f86d87/certifi-2020.6.20-py2.py3-none-any.whl
-            sha256: 8fc0819f1f30ba15bdb34cceffb9ef04d99f420f68eb75d901e9560b8749fc41
+            url: https://files.pythonhosted.org/packages/e1/a8/c1cda654d5da7ba45bc0bd567cd7e2d2508997decfae5191813f31c93b9e/Flask_HTTPAuth-4.1.0-py2.py3-none-any.whl
+            sha256: 29e0288869a213c7387f0323b6bf2c7191584fb1da8aa024d9af118e5cd70de7
+          - type: file
+            url: https://files.pythonhosted.org/packages/30/9e/f663a2aa66a09d838042ae1a2c5659828bb9b41ea3a6efa20a20fd92b121/Jinja2-2.11.2-py2.py3-none-any.whl
+            sha256: f0a4641d3cf955324a89c04f3d94663aa4d638abe8f733ecd3582848e1c37035
+          - type: file
+            url: https://files.pythonhosted.org/packages/76/ae/44b03b253d6fade317f32c24d100b3b35c2239807046a4c953c7b89fa49e/itsdangerous-1.1.0-py2.py3-none-any.whl
+            sha256: b12271b2047cb23eeb98c8b5622e2e5c5e9abd9784a153e9d8ef9cb4dd09d749
+          - type: file
+            url: https://files.pythonhosted.org/packages/f2/28/2a03252dfb9ebf377f40fba6a7841b47083260bf8bd8e737b0c6952df83f/Flask-1.1.2-py2.py3-none-any.whl
+            sha256: 8a4fdd8936eba2512e9c85df320a37e694c93945b33ef33c89946a340a238557
+          - type: file
+            url: https://files.pythonhosted.org/packages/cc/94/5f7079a0e00bd6863ef8f1da638721e9da21e5bacee597595b318f71d62e/Werkzeug-1.0.1-py2.py3-none-any.whl
+            sha256: 2de2a5db0baeae7b2d2664949077c2ac63fbd16d98da0ff71837f7d1dea3fd43
+      - name: python3-flask-socketio
+        buildsystem: simple
+        build-commands:
+          - pip3 install --exists-action=i --no-index --find-links="file://${PWD}" --prefix=${FLATPAK_DEST}
+            "flask-socketio"
+        sources:
+          - type: file
+            url: https://files.pythonhosted.org/packages/b9/2e/64db92e53b86efccfaea71321f597fa2e1b2bd3853d8ce658568f7a13094/MarkupSafe-1.1.1.tar.gz
+            sha256: 29872e92839765e546828bb7754a68c418d927cd064fd4708fab9fe9c8bb116b
+          - type: file
+            url: https://files.pythonhosted.org/packages/d2/3d/fa76db83bf75c4f8d338c2fd15c8d33fdd7ad23a9b5e57eb6c5de26b430e/click-7.1.2-py2.py3-none-any.whl
+            sha256: dacca89f4bfadd5de3d7489b7c8a566eee0d3676333fbb50030263894c38c0dc
           - type: file
             url: https://files.pythonhosted.org/packages/8a/fa/ea1df958bd76a4a55b20dd87593839adf893e1fae0095b449fecdf325f21/Flask_SocketIO-4.3.1-py2.py3-none-any.whl
             sha256: 3668675bf7763c5b5f56689d439f07356e89c0a52e0c9e9cd3cc08563c07b252
@@ -183,207 +206,116 @@ modules:
             url: https://files.pythonhosted.org/packages/4a/b0/602e549c6d735eb487f186b35e0b82e61c89459f57d1c24d5c7be6f56d05/python_engineio-3.13.2-py2.py3-none-any.whl
             sha256: cfded18156862f94544a9f8ef37f56727df731c8552d7023f5afee8369be2db6
           - type: file
-            url: https://files.pythonhosted.org/packages/bc/a9/01ffebfb562e4274b6487b4bb1ddec7ca55ec7510b22e4c51f14098443b8/chardet-3.0.4-py2.py3-none-any.whl
-            sha256: fc323ffcaeaed0e0a02bf4d117757b98aed530d9ed4531e3e15460124c106691
-          - type: file
-            url: https://files.pythonhosted.org/packages/4c/2b/eddbfc56076fae8deccca274a5c70a9eb1e0b334da0a33f894a420d0fe93/pycryptodome-3.9.8.tar.gz
-            sha256: 0e24171cf01021bc5dc17d6a9d4f33a048f09d62cc3f62541e95ef104588bda4
+            url: https://files.pythonhosted.org/packages/30/9e/f663a2aa66a09d838042ae1a2c5659828bb9b41ea3a6efa20a20fd92b121/Jinja2-2.11.2-py2.py3-none-any.whl
+            sha256: f0a4641d3cf955324a89c04f3d94663aa4d638abe8f733ecd3582848e1c37035
           - type: file
             url: https://files.pythonhosted.org/packages/76/ae/44b03b253d6fade317f32c24d100b3b35c2239807046a4c953c7b89fa49e/itsdangerous-1.1.0-py2.py3-none-any.whl
             sha256: b12271b2047cb23eeb98c8b5622e2e5c5e9abd9784a153e9d8ef9cb4dd09d749
-      - name: python3-modules
+          - type: file
+            url: https://files.pythonhosted.org/packages/3d/97/00741edd49788510b834b60a1a4d0afb2c4942770c11b8e0f6e914371718/python_socketio-4.6.0-py2.py3-none-any.whl
+            sha256: d437f797c44b6efba2f201867cf02b8c96b97dff26d4e4281ac08b45817cd522
+          - type: file
+            url: https://files.pythonhosted.org/packages/f2/28/2a03252dfb9ebf377f40fba6a7841b47083260bf8bd8e737b0c6952df83f/Flask-1.1.2-py2.py3-none-any.whl
+            sha256: 8a4fdd8936eba2512e9c85df320a37e694c93945b33ef33c89946a340a238557
+          - type: file
+            url: https://files.pythonhosted.org/packages/cc/94/5f7079a0e00bd6863ef8f1da638721e9da21e5bacee597595b318f71d62e/Werkzeug-1.0.1-py2.py3-none-any.whl
+            sha256: 2de2a5db0baeae7b2d2664949077c2ac63fbd16d98da0ff71837f7d1dea3fd43
+          - type: file
+            url: https://files.pythonhosted.org/packages/ee/ff/48bde5c0f013094d729fe4b0316ba2a24774b3ff1c52d924a8a4cb04078a/six-1.15.0-py2.py3-none-any.whl
+            sha256: 8b74bedcbbbaca38ff6d7491d76f2b06b3592611af620f8426e82dddb04a5ced
+      - name: python3-pycryptodome
         buildsystem: simple
-        build-commands: []
-        modules:
-          - name: python3-Click
-            buildsystem: simple
-            build-commands:
-              - pip3 install --exists-action=i --no-index --find-links="file://${PWD}" --prefix=${FLATPAK_DEST}
-                "Click"
-            sources:
-              - type: file
-                url: https://files.pythonhosted.org/packages/d2/3d/fa76db83bf75c4f8d338c2fd15c8d33fdd7ad23a9b5e57eb6c5de26b430e/click-7.1.2-py2.py3-none-any.whl
-                sha256: dacca89f4bfadd5de3d7489b7c8a566eee0d3676333fbb50030263894c38c0dc
-          - name: python3-eventlet
-            buildsystem: simple
-            build-commands:
-              - pip3 install --exists-action=i --no-index --find-links="file://${PWD}" --prefix=${FLATPAK_DEST}
-                "eventlet"
-            sources:
-              - type: file
-                url: https://files.pythonhosted.org/packages/ee/ff/48bde5c0f013094d729fe4b0316ba2a24774b3ff1c52d924a8a4cb04078a/six-1.15.0-py2.py3-none-any.whl
-                sha256: 8b74bedcbbbaca38ff6d7491d76f2b06b3592611af620f8426e82dddb04a5ced
-              - type: file
-                url: https://files.pythonhosted.org/packages/ec/d3/3aa0e7213ef72b8585747aa0e271a9523e713813b9a20177ebe1e939deb0/dnspython-1.16.0-py2.py3-none-any.whl
-                sha256: f69c21288a962f4da86e56c4905b49d11aba7938d3d740e80d9e366ee4f1632d
-              - type: file
-                url: https://files.pythonhosted.org/packages/72/0c/fd07c7674ad6eded937194b84d8453425c36c6ef118536907b0185624d82/greenlet-0.4.17.tar.gz
-                sha256: 41d8835c69a78de718e466dd0e6bfd4b46125f21a67c3ff6d76d8d8059868d6b
-              - type: file
-                url: https://files.pythonhosted.org/packages/e3/85/2ae0512c942664570227a2f9c88b24dd3c0846c5c60cb05b6a2a26979d66/eventlet-0.29.1-py2.py3-none-any.whl
-                sha256: a07b8c8e1f43bc4c44a255baeb066a4edce783dcfacae213bcabb95fdcd02d8c
-          - name: python3-Flask
-            buildsystem: simple
-            build-commands:
-              - pip3 install --exists-action=i --no-index --find-links="file://${PWD}" --prefix=${FLATPAK_DEST}
-                "Flask"
-            sources:
-              - type: file
-                url: https://files.pythonhosted.org/packages/b9/2e/64db92e53b86efccfaea71321f597fa2e1b2bd3853d8ce658568f7a13094/MarkupSafe-1.1.1.tar.gz
-                sha256: 29872e92839765e546828bb7754a68c418d927cd064fd4708fab9fe9c8bb116b
-              - type: file
-                url: https://files.pythonhosted.org/packages/f2/28/2a03252dfb9ebf377f40fba6a7841b47083260bf8bd8e737b0c6952df83f/Flask-1.1.2-py2.py3-none-any.whl
-                sha256: 8a4fdd8936eba2512e9c85df320a37e694c93945b33ef33c89946a340a238557
-              - type: file
-                url: https://files.pythonhosted.org/packages/d2/3d/fa76db83bf75c4f8d338c2fd15c8d33fdd7ad23a9b5e57eb6c5de26b430e/click-7.1.2-py2.py3-none-any.whl
-                sha256: dacca89f4bfadd5de3d7489b7c8a566eee0d3676333fbb50030263894c38c0dc
-              - type: file
-                url: https://files.pythonhosted.org/packages/30/9e/f663a2aa66a09d838042ae1a2c5659828bb9b41ea3a6efa20a20fd92b121/Jinja2-2.11.2-py2.py3-none-any.whl
-                sha256: f0a4641d3cf955324a89c04f3d94663aa4d638abe8f733ecd3582848e1c37035
-              - type: file
-                url: https://files.pythonhosted.org/packages/cc/94/5f7079a0e00bd6863ef8f1da638721e9da21e5bacee597595b318f71d62e/Werkzeug-1.0.1-py2.py3-none-any.whl
-                sha256: 2de2a5db0baeae7b2d2664949077c2ac63fbd16d98da0ff71837f7d1dea3fd43
-              - type: file
-                url: https://files.pythonhosted.org/packages/76/ae/44b03b253d6fade317f32c24d100b3b35c2239807046a4c953c7b89fa49e/itsdangerous-1.1.0-py2.py3-none-any.whl
-                sha256: b12271b2047cb23eeb98c8b5622e2e5c5e9abd9784a153e9d8ef9cb4dd09d749
-          - name: python3-Flask-HTTPAuth
-            buildsystem: simple
-            build-commands:
-              - pip3 install --exists-action=i --no-index --find-links="file://${PWD}" --prefix=${FLATPAK_DEST}
-                "Flask-HTTPAuth"
-            sources:
-              - type: file
-                url: https://files.pythonhosted.org/packages/e1/a8/c1cda654d5da7ba45bc0bd567cd7e2d2508997decfae5191813f31c93b9e/Flask_HTTPAuth-4.1.0-py2.py3-none-any.whl
-                sha256: 29e0288869a213c7387f0323b6bf2c7191584fb1da8aa024d9af118e5cd70de7
-              - type: file
-                url: https://files.pythonhosted.org/packages/b9/2e/64db92e53b86efccfaea71321f597fa2e1b2bd3853d8ce658568f7a13094/MarkupSafe-1.1.1.tar.gz
-                sha256: 29872e92839765e546828bb7754a68c418d927cd064fd4708fab9fe9c8bb116b
-              - type: file
-                url: https://files.pythonhosted.org/packages/f2/28/2a03252dfb9ebf377f40fba6a7841b47083260bf8bd8e737b0c6952df83f/Flask-1.1.2-py2.py3-none-any.whl
-                sha256: 8a4fdd8936eba2512e9c85df320a37e694c93945b33ef33c89946a340a238557
-              - type: file
-                url: https://files.pythonhosted.org/packages/d2/3d/fa76db83bf75c4f8d338c2fd15c8d33fdd7ad23a9b5e57eb6c5de26b430e/click-7.1.2-py2.py3-none-any.whl
-                sha256: dacca89f4bfadd5de3d7489b7c8a566eee0d3676333fbb50030263894c38c0dc
-              - type: file
-                url: https://files.pythonhosted.org/packages/30/9e/f663a2aa66a09d838042ae1a2c5659828bb9b41ea3a6efa20a20fd92b121/Jinja2-2.11.2-py2.py3-none-any.whl
-                sha256: f0a4641d3cf955324a89c04f3d94663aa4d638abe8f733ecd3582848e1c37035
-              - type: file
-                url: https://files.pythonhosted.org/packages/cc/94/5f7079a0e00bd6863ef8f1da638721e9da21e5bacee597595b318f71d62e/Werkzeug-1.0.1-py2.py3-none-any.whl
-                sha256: 2de2a5db0baeae7b2d2664949077c2ac63fbd16d98da0ff71837f7d1dea3fd43
-              - type: file
-                url: https://files.pythonhosted.org/packages/76/ae/44b03b253d6fade317f32c24d100b3b35c2239807046a4c953c7b89fa49e/itsdangerous-1.1.0-py2.py3-none-any.whl
-                sha256: b12271b2047cb23eeb98c8b5622e2e5c5e9abd9784a153e9d8ef9cb4dd09d749
-          - name: python3-flask-socketio
-            buildsystem: simple
-            build-commands:
-              - pip3 install --exists-action=i --no-index --find-links="file://${PWD}" --prefix=${FLATPAK_DEST}
-                "flask-socketio"
-            sources:
-              - type: file
-                url: https://files.pythonhosted.org/packages/3d/97/00741edd49788510b834b60a1a4d0afb2c4942770c11b8e0f6e914371718/python_socketio-4.6.0-py2.py3-none-any.whl
-                sha256: d437f797c44b6efba2f201867cf02b8c96b97dff26d4e4281ac08b45817cd522
-              - type: file
-                url: https://files.pythonhosted.org/packages/ee/ff/48bde5c0f013094d729fe4b0316ba2a24774b3ff1c52d924a8a4cb04078a/six-1.15.0-py2.py3-none-any.whl
-                sha256: 8b74bedcbbbaca38ff6d7491d76f2b06b3592611af620f8426e82dddb04a5ced
-              - type: file
-                url: https://files.pythonhosted.org/packages/b9/2e/64db92e53b86efccfaea71321f597fa2e1b2bd3853d8ce658568f7a13094/MarkupSafe-1.1.1.tar.gz
-                sha256: 29872e92839765e546828bb7754a68c418d927cd064fd4708fab9fe9c8bb116b
-              - type: file
-                url: https://files.pythonhosted.org/packages/f2/28/2a03252dfb9ebf377f40fba6a7841b47083260bf8bd8e737b0c6952df83f/Flask-1.1.2-py2.py3-none-any.whl
-                sha256: 8a4fdd8936eba2512e9c85df320a37e694c93945b33ef33c89946a340a238557
-              - type: file
-                url: https://files.pythonhosted.org/packages/d2/3d/fa76db83bf75c4f8d338c2fd15c8d33fdd7ad23a9b5e57eb6c5de26b430e/click-7.1.2-py2.py3-none-any.whl
-                sha256: dacca89f4bfadd5de3d7489b7c8a566eee0d3676333fbb50030263894c38c0dc
-              - type: file
-                url: https://files.pythonhosted.org/packages/30/9e/f663a2aa66a09d838042ae1a2c5659828bb9b41ea3a6efa20a20fd92b121/Jinja2-2.11.2-py2.py3-none-any.whl
-                sha256: f0a4641d3cf955324a89c04f3d94663aa4d638abe8f733ecd3582848e1c37035
-              - type: file
-                url: https://files.pythonhosted.org/packages/cc/94/5f7079a0e00bd6863ef8f1da638721e9da21e5bacee597595b318f71d62e/Werkzeug-1.0.1-py2.py3-none-any.whl
-                sha256: 2de2a5db0baeae7b2d2664949077c2ac63fbd16d98da0ff71837f7d1dea3fd43
-              - type: file
-                url: https://files.pythonhosted.org/packages/8a/fa/ea1df958bd76a4a55b20dd87593839adf893e1fae0095b449fecdf325f21/Flask_SocketIO-4.3.1-py2.py3-none-any.whl
-                sha256: 3668675bf7763c5b5f56689d439f07356e89c0a52e0c9e9cd3cc08563c07b252
-              - type: file
-                url: https://files.pythonhosted.org/packages/4a/b0/602e549c6d735eb487f186b35e0b82e61c89459f57d1c24d5c7be6f56d05/python_engineio-3.13.2-py2.py3-none-any.whl
-                sha256: cfded18156862f94544a9f8ef37f56727df731c8552d7023f5afee8369be2db6
-              - type: file
-                url: https://files.pythonhosted.org/packages/76/ae/44b03b253d6fade317f32c24d100b3b35c2239807046a4c953c7b89fa49e/itsdangerous-1.1.0-py2.py3-none-any.whl
-                sha256: b12271b2047cb23eeb98c8b5622e2e5c5e9abd9784a153e9d8ef9cb4dd09d749
-          - name: python3-psutil
-            buildsystem: simple
-            build-commands:
-              - pip3 install --exists-action=i --no-index --find-links="file://${PWD}" --prefix=${FLATPAK_DEST}
-                "psutil"
-            sources:
-              - type: file
-                url: https://files.pythonhosted.org/packages/33/e0/82d459af36bda999f82c7ea86c67610591cf5556168f48fd6509e5fa154d/psutil-5.7.3.tar.gz
-                sha256: af73f7bcebdc538eda9cc81d19db1db7bf26f103f91081d780bbacfcb620dee2
-          - name: python3-pycryptodome
-            buildsystem: simple
-            build-commands:
-              - pip3 install --exists-action=i --no-index --find-links="file://${PWD}" --prefix=${FLATPAK_DEST}
-                "pycryptodome"
-            sources:
-              - type: file
-                url: https://files.pythonhosted.org/packages/4c/2b/eddbfc56076fae8deccca274a5c70a9eb1e0b334da0a33f894a420d0fe93/pycryptodome-3.9.8.tar.gz
-                sha256: 0e24171cf01021bc5dc17d6a9d4f33a048f09d62cc3f62541e95ef104588bda4
-          - name: python3-PySocks
-            buildsystem: simple
-            build-commands:
-              - pip3 install --exists-action=i --no-index --find-links="file://${PWD}" --prefix=${FLATPAK_DEST}
-                "PySocks"
-            sources:
-              - type: file
-                url: https://files.pythonhosted.org/packages/8d/59/b4572118e098ac8e46e399a1dd0f2d85403ce8bbaad9ec79373ed6badaf9/PySocks-1.7.1-py3-none-any.whl
-                sha256: 2725bd0a9925919b9b51739eea5f9e2bae91e83288108a9ad338b2e3a4435ee5
-          - name: python3-qrcode
-            buildsystem: simple
-            build-commands:
-              - pip3 install --exists-action=i --no-index --find-links="file://${PWD}" --prefix=${FLATPAK_DEST}
-                "qrcode"
-            sources:
-              - type: file
-                url: https://files.pythonhosted.org/packages/ee/ff/48bde5c0f013094d729fe4b0316ba2a24774b3ff1c52d924a8a4cb04078a/six-1.15.0-py2.py3-none-any.whl
-                sha256: 8b74bedcbbbaca38ff6d7491d76f2b06b3592611af620f8426e82dddb04a5ced
-              - type: file
-                url: https://files.pythonhosted.org/packages/42/87/4a3a77e59ab7493d64da1f69bf1c2e899a4cf81e51b2baa855e8cc8115be/qrcode-6.1-py2.py3-none-any.whl
-                sha256: 3996ee560fc39532910603704c82980ff6d4d5d629f9c3f25f34174ce8606cf5
-          - name: python3-requests
-            buildsystem: simple
-            build-commands:
-              - pip3 install --exists-action=i --no-index --find-links="file://${PWD}" --prefix=${FLATPAK_DEST}
-                "requests"
-            sources:
-              - type: file
-                url: https://files.pythonhosted.org/packages/45/1e/0c169c6a5381e241ba7404532c16a21d86ab872c9bed8bdcd4c423954103/requests-2.24.0-py2.py3-none-any.whl
-                sha256: fe75cc94a9443b9246fc7049224f75604b113c36acb93f87b80ed42c44cbb898
-              - type: file
-                url: https://files.pythonhosted.org/packages/56/aa/4ef5aa67a9a62505db124a5cb5262332d1d4153462eb8fd89c9fa41e5d92/urllib3-1.25.11-py2.py3-none-any.whl
-                sha256: f5321fbe4bf3fefa0efd0bfe7fb14e90909eb62a48ccda331726b4319897dd5e
-              - type: file
-                url: https://files.pythonhosted.org/packages/a2/38/928ddce2273eaa564f6f50de919327bf3a00f091b5baba8dfa9460f3a8a8/idna-2.10-py2.py3-none-any.whl
-                sha256: b97d804b1e9b523befed77c48dacec60e6dcb0b5391d57af6a65a312a90648c0
-              - type: file
-                url: https://files.pythonhosted.org/packages/5e/c4/6c4fe722df5343c33226f0b4e0bb042e4dc13483228b4718baf286f86d87/certifi-2020.6.20-py2.py3-none-any.whl
-                sha256: 8fc0819f1f30ba15bdb34cceffb9ef04d99f420f68eb75d901e9560b8749fc41
-              - type: file
-                url: https://files.pythonhosted.org/packages/bc/a9/01ffebfb562e4274b6487b4bb1ddec7ca55ec7510b22e4c51f14098443b8/chardet-3.0.4-py2.py3-none-any.whl
-                sha256: fc323ffcaeaed0e0a02bf4d117757b98aed530d9ed4531e3e15460124c106691
-          - name: python3-stem
-            buildsystem: simple
-            build-commands:
-              - pip3 install --exists-action=i --no-index --find-links="file://${PWD}" --prefix=${FLATPAK_DEST}
-                "stem"
-            sources:
-              - type: file
-                url: https://files.pythonhosted.org/packages/71/bd/ab05ffcbfe74dca704e860312e00c53ef690b1ddcb23be7a4d9ea4f40260/stem-1.8.0.tar.gz
-                sha256: a0b48ea6224e95f22aa34c0bc3415f0eb4667ddeae3dfb5e32a6920c185568c2
-          - name: python3-urllib3
-            buildsystem: simple
-            build-commands:
-              - pip3 install --exists-action=i --no-index --find-links="file://${PWD}" --prefix=${FLATPAK_DEST}
-                "urllib3"
-            sources:
-              - type: file
-                url: https://files.pythonhosted.org/packages/56/aa/4ef5aa67a9a62505db124a5cb5262332d1d4153462eb8fd89c9fa41e5d92/urllib3-1.25.11-py2.py3-none-any.whl
-                sha256: f5321fbe4bf3fefa0efd0bfe7fb14e90909eb62a48ccda331726b4319897dd5e
+        build-commands:
+          - pip3 install --exists-action=i --no-index --find-links="file://${PWD}" --prefix=${FLATPAK_DEST}
+            "pycryptodome"
+        sources:
+          - type: file
+            url: https://files.pythonhosted.org/packages/c4/3a/5bca2cb1648b171afd6b7d29a11c6bca8b305bb75b7e2d78a0f5c61ff95e/pycryptodome-3.9.9.tar.gz
+            sha256: 910e202a557e1131b1c1b3f17a63914d57aac55cf9fb9b51644962841c3995c4
+      - name: python3-pysocks
+        buildsystem: simple
+        build-commands:
+          - pip3 install --exists-action=i --no-index --find-links="file://${PWD}" --prefix=${FLATPAK_DEST}
+            "pysocks"
+        sources:
+          - type: file
+            url: https://files.pythonhosted.org/packages/8d/59/b4572118e098ac8e46e399a1dd0f2d85403ce8bbaad9ec79373ed6badaf9/PySocks-1.7.1-py3-none-any.whl
+            sha256: 2725bd0a9925919b9b51739eea5f9e2bae91e83288108a9ad338b2e3a4435ee5
+      - name: python3-requests
+        buildsystem: simple
+        build-commands:
+          - pip3 install --exists-action=i --no-index --find-links="file://${PWD}" --prefix=${FLATPAK_DEST}
+            "requests"
+        sources:
+          - type: file
+            url: https://files.pythonhosted.org/packages/56/aa/4ef5aa67a9a62505db124a5cb5262332d1d4153462eb8fd89c9fa41e5d92/urllib3-1.25.11-py2.py3-none-any.whl
+            sha256: f5321fbe4bf3fefa0efd0bfe7fb14e90909eb62a48ccda331726b4319897dd5e
+          - type: file
+            url: https://files.pythonhosted.org/packages/bc/a9/01ffebfb562e4274b6487b4bb1ddec7ca55ec7510b22e4c51f14098443b8/chardet-3.0.4-py2.py3-none-any.whl
+            sha256: fc323ffcaeaed0e0a02bf4d117757b98aed530d9ed4531e3e15460124c106691
+          - type: file
+            url: https://files.pythonhosted.org/packages/5e/c4/6c4fe722df5343c33226f0b4e0bb042e4dc13483228b4718baf286f86d87/certifi-2020.6.20-py2.py3-none-any.whl
+            sha256: 8fc0819f1f30ba15bdb34cceffb9ef04d99f420f68eb75d901e9560b8749fc41
+          - type: file
+            url: https://files.pythonhosted.org/packages/45/1e/0c169c6a5381e241ba7404532c16a21d86ab872c9bed8bdcd4c423954103/requests-2.24.0-py2.py3-none-any.whl
+            sha256: fe75cc94a9443b9246fc7049224f75604b113c36acb93f87b80ed42c44cbb898
+          - type: file
+            url: https://files.pythonhosted.org/packages/a2/38/928ddce2273eaa564f6f50de919327bf3a00f091b5baba8dfa9460f3a8a8/idna-2.10-py2.py3-none-any.whl
+            sha256: b97d804b1e9b523befed77c48dacec60e6dcb0b5391d57af6a65a312a90648c0
+      - name: python3-stem
+        buildsystem: simple
+        build-commands:
+          - pip3 install --exists-action=i --no-index --find-links="file://${PWD}" --prefix=${FLATPAK_DEST}
+            "stem"
+        sources:
+          - type: file
+            url: https://files.pythonhosted.org/packages/71/bd/ab05ffcbfe74dca704e860312e00c53ef690b1ddcb23be7a4d9ea4f40260/stem-1.8.0.tar.gz
+            sha256: a0b48ea6224e95f22aa34c0bc3415f0eb4667ddeae3dfb5e32a6920c185568c2
+      - name: python3-urllib3
+        buildsystem: simple
+        build-commands:
+          - pip3 install --exists-action=i --no-index --find-links="file://${PWD}" --prefix=${FLATPAK_DEST}
+            "urllib3"
+        sources:
+          - type: file
+            url: https://files.pythonhosted.org/packages/56/aa/4ef5aa67a9a62505db124a5cb5262332d1d4153462eb8fd89c9fa41e5d92/urllib3-1.25.11-py2.py3-none-any.whl
+            sha256: f5321fbe4bf3fefa0efd0bfe7fb14e90909eb62a48ccda331726b4319897dd5e
+      - name: python3-eventlet
+        buildsystem: simple
+        build-commands:
+          - pip3 install --exists-action=i --no-index --find-links="file://${PWD}" --prefix=${FLATPAK_DEST}
+            "eventlet"
+        sources:
+          - type: file
+            url: https://files.pythonhosted.org/packages/72/0c/fd07c7674ad6eded937194b84d8453425c36c6ef118536907b0185624d82/greenlet-0.4.17.tar.gz
+            sha256: 41d8835c69a78de718e466dd0e6bfd4b46125f21a67c3ff6d76d8d8059868d6b
+          - type: file
+            url: https://files.pythonhosted.org/packages/e3/85/2ae0512c942664570227a2f9c88b24dd3c0846c5c60cb05b6a2a26979d66/eventlet-0.29.1-py2.py3-none-any.whl
+            sha256: a07b8c8e1f43bc4c44a255baeb066a4edce783dcfacae213bcabb95fdcd02d8c
+          - type: file
+            url: https://files.pythonhosted.org/packages/ec/d3/3aa0e7213ef72b8585747aa0e271a9523e713813b9a20177ebe1e939deb0/dnspython-1.16.0-py2.py3-none-any.whl
+            sha256: f69c21288a962f4da86e56c4905b49d11aba7938d3d740e80d9e366ee4f1632d
+          - type: file
+            url: https://files.pythonhosted.org/packages/ee/ff/48bde5c0f013094d729fe4b0316ba2a24774b3ff1c52d924a8a4cb04078a/six-1.15.0-py2.py3-none-any.whl
+            sha256: 8b74bedcbbbaca38ff6d7491d76f2b06b3592611af620f8426e82dddb04a5ced
+      - name: python3-psutil
+        buildsystem: simple
+        build-commands:
+          - pip3 install --exists-action=i --no-index --find-links="file://${PWD}" --prefix=${FLATPAK_DEST}
+            "psutil"
+        sources:
+          - type: file
+            url: https://files.pythonhosted.org/packages/33/e0/82d459af36bda999f82c7ea86c67610591cf5556168f48fd6509e5fa154d/psutil-5.7.3.tar.gz
+            sha256: af73f7bcebdc538eda9cc81d19db1db7bf26f103f91081d780bbacfcb620dee2
+      - name: python3-qrcode
+        buildsystem: simple
+        build-commands:
+          - pip3 install --exists-action=i --no-index --find-links="file://${PWD}" --prefix=${FLATPAK_DEST}
+            "qrcode"
+        sources:
+          - type: file
+            url: https://files.pythonhosted.org/packages/42/87/4a3a77e59ab7493d64da1f69bf1c2e899a4cf81e51b2baa855e8cc8115be/qrcode-6.1-py2.py3-none-any.whl
+            sha256: 3996ee560fc39532910603704c82980ff6d4d5d629f9c3f25f34174ce8606cf5
+          - type: file
+            url: https://files.pythonhosted.org/packages/ee/ff/48bde5c0f013094d729fe4b0316ba2a24774b3ff1c52d924a8a4cb04078a/six-1.15.0-py2.py3-none-any.whl
+            sha256: 8b74bedcbbbaca38ff6d7491d76f2b06b3592611af620f8426e82dddb04a5ced

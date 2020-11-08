@@ -14,19 +14,9 @@ icon = "src/onionshare/resources/onionshare"
 sources = ['src/onionshare']
 requires = [
     "./onionshare_cli-2.3.dev1-py3-none-any.whl",
-    "Click",
-    "eventlet",
-    "Flask",
-    "Flask-HTTPAuth",
-    "flask-socketio",
     "psutil",
-    "pycryptodome",
-    "PySocks",
     "pyside2==5.15.1",
-    "qrcode",
-    "requests",
-    "stem",
-    "urllib3",
+    "qrcode"
 ]
 
 [tool.briefcase.app.onionshare.macOS]

@@ -17,12 +17,12 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = "^3.6"
-Click = "*"
-Flask = "*"
-Flask-HTTPAuth = "*"
+click = "*"
+flask = "*"
+flask-httpauth = "*"
 flask-socketio = "*"
 pycryptodome = "*"
-PySocks = "*"
+pysocks = "*"
 requests = "*"
 stem = "*"
 urllib3 = "*"
