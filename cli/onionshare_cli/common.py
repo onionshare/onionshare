@@ -74,8 +74,9 @@ class Common:
         """
         Returns the absolute path of a resource
         """
+        self.log("Common", "get_resource_path", f"filename={filename}")
         path = resource_filename("onionshare_cli", os.path.join("resources", filename))
-        self.log("Common", "get_resource_path", path)
+        self.log("Common", "get_resource_path", f"filename={filename}, path={path}")
         return path
 
     def get_tor_paths(self):
