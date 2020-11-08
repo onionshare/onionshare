@@ -31,14 +31,20 @@ pip3 install --user toml
 
 # clone flatpak-build-tools
 git clone https://github.com/flatpak/flatpak-builder-tools.git
-./flatpak-pip-generator $(python3 -c 'import toml; print("\n".join(toml.loads(open("../../onionshare/desktop/pyproject.toml").read())["tool"]["briefcase"]["app"]["onionshare"]["requires"]))' |grep -v "./onionshare_cli" |grep -v -i "pyside2" |tr "\n" " ")
+cd flatpak-builder-tools/pip
 
-# now run it for all of the briefcase dependencies from pyproject.toml
+# get onionshare-cli dependencies
+./flatpak-pip-generator $(python3 -c 'import toml; print("\n".join([x for x in toml.loads(open("../../onionshare/cli/pyproject.toml").read())["tool"]["poetry"]["dependencies"]]))' |grep -v "^python$" |tr "\n" " ")
+mv python3-modules.json onionshare-cli.json
+
+# get onionshare dependencies
 ./flatpak-pip-generator $(python3 -c 'import toml; print("\n".join(toml.loads(open("../../onionshare/desktop/pyproject.toml").read())["tool"]["briefcase"]["app"]["onionshare"]["requires"]))' |grep -v "./onionshare_cli" |grep -v -i "pyside2" |tr "\n" " ")
+mv python3-modules.json onionshare.json
 
 # use something like https://www.json2yaml.com/ to convert to yaml and update the manifest
-# - python3-onionshare-cli.json
-# - python3-packaging.json
+# add all of the modules in both onionshare-cli and onionshare to the submodules of "onionshare"
+# - onionshare-cli.json
+# - onionshare.json
 ```
 
 Update the documentation:

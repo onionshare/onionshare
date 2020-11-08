@@ -29,6 +29,7 @@ import tempfile
 import threading
 import time
 import shutil
+from pkg_resources import resource_filename
 
 from .settings import Settings
 
@@ -73,11 +74,7 @@ class Common:
         """
         Returns the absolute path of a resource
         """
-        resources_path = os.path.join(
-            os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))),
-            "resources",
-        )
-        path = os.path.join(resources_path, filename)
+        path = resource_filename("onionshare_cli", os.path.join("resources", filename))
         self.log("Common", "get_resource_path", path)
         return path
 
