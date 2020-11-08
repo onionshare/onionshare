@@ -38,7 +38,7 @@ class TestBuildPassword:
         ),
     )
     def test_build_password_regex(self, test_input, expected):
-        """ Test that `PASSWORD_REGEX` accounts for the following patterns
+        """Test that `PASSWORD_REGEX` accounts for the following patterns
 
         There are a few hyphenated words in `wordlist.txt`:
             * drop-down
@@ -61,7 +61,7 @@ class TestBuildPassword:
 
 class TestDirSize:
     def test_temp_dir_size(self, common_obj, temp_dir_1024_delete):
-        """ dir_size() should return the total size (in bytes) of all files
+        """dir_size() should return the total size (in bytes) of all files
         in a particular directory.
         """
 
@@ -150,34 +150,6 @@ class TestGetPlatform:
 
     def test_windows(self, platform_windows, common_obj):
         assert common_obj.platform == "Windows"
-
-
-# TODO: double-check these tests
-class TestGetResourcePath:
-    def test_onionshare_dev_mode(self, common_obj, sys_onionshare_dev_mode):
-        prefix = os.path.join(
-            os.path.dirname(
-                os.path.dirname(
-                    os.path.abspath(inspect.getfile(inspect.currentframe()))
-                )
-            ),
-            "share",
-        )
-        assert common_obj.get_resource_path(
-            os.path.join(prefix, "test_filename")
-        ) == os.path.join(prefix, "test_filename")
-
-    def test_linux(self, common_obj, platform_linux, sys_argv_sys_prefix):
-        prefix = os.path.join(sys.prefix, "share", "onionshare")
-        assert common_obj.get_resource_path(
-            os.path.join(prefix, "test_filename")
-        ) == os.path.join(prefix, "test_filename")
-
-    def test_frozen_darwin(self, common_obj, platform_darwin, sys_frozen, sys_meipass):
-        prefix = os.path.join(sys._MEIPASS, "share")
-        assert common_obj.get_resource_path(
-            os.path.join(prefix, "test_filename")
-        ) == os.path.join(prefix, "test_filename")
 
 
 class TestGetTorPaths:
