@@ -39,19 +39,9 @@ parts:
     plugin: python
     python-version: python3
     python-packages:
-      - Click
-      - eventlet
-      - Flask
-      - Flask-HTTPAuth
-      - flask-socketio
       - psutil
-      - pycryptodome
-      - PySocks
       - pyside2==5.15.1
       - qrcode
-      - requests
-      - stem
-      - urllib3
     stage-packages:
       - libasound2
       - libatk1.0-0
@@ -121,12 +111,12 @@ parts:
     python-version: python3
     python-packages:
       - poetry
-      - Click
-      - Flask
-      - Flask-HTTPAuth
+      - click
+      - flask
+      - flask-httpauth
       - flask-socketio
       - pycryptodome
-      - PySocks
+      - pysocks
       - requests
       - stem
       - urllib3
