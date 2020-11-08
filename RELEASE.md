@@ -13,12 +13,45 @@ Before making a release, you must update the version in these places:
 - [ ] `desktop/src/setup.py`
 - [ ] `docs/source/conf.py`
 
+Make sure snapcraft packaging works. In `snap/snapcraft.yaml`:
+
+- [ ] The `tor`, `libevent`, and `obfs4` parts should be updated if necessary
+- [ ] All python packages should be updated to match `cli/pyproject.toml` and `desktop/pyproject.toml`
+- [ ] Test the snap package, ensure it works
+
+Make sure Flatpak packaging works. In `flatpak/org.onionshare.OnionShare.yaml`:
+
+- [ ] Update `tor`, `libevent`, and `obfs4` dependencies, if necessary
+- [ ] Built the latest python dependencies using [this tool](https://github.com/flatpak/flatpak-builder-tools/blob/master/pip/flatpak-pip-generator) (see below)
+- [ ] Test the Flatpak package, ensure it works
+
+```
+# you may need to install toml
+pip3 install --user toml
+
+# clone flatpak-build-tools
+git clone https://github.com/flatpak/flatpak-builder-tools.git
+./flatpak-pip-generator $(python3 -c 'import toml; print("\n".join(toml.loads(open("../../onionshare/desktop/pyproject.toml").read())["tool"]["briefcase"]["app"]["onionshare"]["requires"]))' |grep -v "./onionshare_cli" |grep -v -i "pyside2" |tr "\n" " ")
+
+# now run it for all of the briefcase dependencies from pyproject.toml
+./flatpak-pip-generator $(python3 -c 'import toml; print("\n".join(toml.loads(open("../../onionshare/desktop/pyproject.toml").read())["tool"]["briefcase"]["app"]["onionshare"]["requires"]))' |grep -v "./onionshare_cli" |grep -v -i "pyside2" |tr "\n" " ")
+
+# use something like https://www.json2yaml.com/ to convert to yaml and update the manifest
+# - python3-onionshare-cli.json
+# - python3-packaging.json
+```
+
+Update the documentation:
+
+- [ ] Update all of the documentation in `docs` to cover new features, including taking new screenshots if necessary
+
 You also must edit these files:
 
 - [ ] `desktop/install/org.onionshare.OnionShare.appdata.xml` should have the correct release date, and links to correct screenshots
-- [ ] Update all of the documentation in `docs` to cover new features, including taking new screenshots if necessary.
-- [ ] In `snap/snapcraft.yaml`, the `tor`, `libevent`, and `obfs4` parts should be updated if necessary, and all python packages should be updated to match `cli/pyproject.toml` and `desktop/pyproject.toml`
 - [ ] `CHANGELOG.md` should be updated to include a list of all major changes since the last release
+
+Finally:
+
 - [ ] There must be a PGP-signed git tag for the version, e.g. for OnionShare 2.1, the tag must be `v2.1`
 
 The first step for the Linux, macOS, and Windows releases is the same.
@@ -48,7 +81,14 @@ poetry publish --build
 
 ## Linux Flatpak release
 
-See instructions for the Flatpak release here: https://github.com/micahflee/org.onionshare.OnionShare
+You must have `flatpak` and `flatpak-builder` installed, with flathub remote added (`flatpak remote-add --if-not-exists --user flathub https://flathub.org/repo/flathub.flatpakrepo`).
+
+Build and test the Flatpak package before publishing:
+
+```sh
+flatpak-builder build --force-clean --install-deps-from=flathub --install --user flatpak/org.onionshare.OnionShare.yaml
+flatpak run org.onionshare.OnionShare
+```
 
 ## Linux Snapcraft release
 
@@ -72,29 +112,18 @@ Run the OnionShare snap:
 
 _Note: AppImage packages are currently broken due to [this briefcase bug](https://github.com/beeware/briefcase/issues/504). Until it's fixed, OnionShare for Linux will only be available in Flatpak and Snapcraft._
 
-Build a wheel package for OnionShare CLI:
+Set up the development environment described in `README.md`.
 
-```sh
-cd cli
-poetry install
-poetry build
-```
-
-This will make a file like `dist/onionshare_cli-$VERSION-py3-none-any.whl` (except with your specific version number). Move it into `../desktop/linux`:
-
-```sh
-mkdir -p ../desktop/linux
-mv dist/onionshare_cli-*-py3-none-any.whl ../desktop/linux
-# change back to the desktop directory
-cd ../desktop
-```
-
-Make sure the virtual environment is active, and then run briefcase create and briefcase build:
+Make sure your virtual environment is active:
 
 ```sh
 . venv/bin/activate
-briefcase create
-briefcase build
+```
+
+Run the AppImage build script:
+
+```sh
+./package/linux/build-appimage.py
 ```
 
 ### Windows
@@ -145,7 +174,9 @@ This will create `macOS/OnionShare.dmg`, signed and notarized.
 
 ### Source package
 
-TODO: Write documentation for source package
+To make a source package, run `./build-source.sh $TAG`, where `$TAG` is the the name of the signed git tag, e.g. `v2.1`.
+
+This will create `dist/onionshare-$VERSION.tar.gz`.
 
 ### Publishing the release
 
