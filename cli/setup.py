@@ -53,7 +53,7 @@ setuptools.setup(
         "onionshare_cli.web",
     ],
     package_data={
-        "onionshare": [
+        "onionshare_cli": [
             "resources/*",
             "resources/static/*",
             "resources/static/css/*",
