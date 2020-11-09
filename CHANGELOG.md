@@ -7,7 +7,7 @@
 * New feature: All new design
 * New feature: Ability to display QR codes of OnionShare addresses
 * New feature: Web apps have responsive design and look better on mobile
-* New feature: Flatpak packaging for Linux
+* New feature: Flatpak and Snapcraft packaging for Linux
 * Several bug fixes
 
 ## 2.2
