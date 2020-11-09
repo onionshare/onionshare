@@ -171,5 +171,6 @@
     "days_first_letter": "d",
     "hours_first_letter": "h",
     "minutes_first_letter": "m",
-    "seconds_first_letter": "s"
+    "seconds_first_letter": "s",
+    "incorrect_password": "తప్పు పాస్వర్డ్"
 }

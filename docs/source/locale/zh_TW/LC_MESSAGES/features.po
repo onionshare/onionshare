@@ -3,23 +3,25 @@
 # This file is distributed under the same license as the OnionShare package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2020-09-03 11:37-0700\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2020-10-22 12:26+0000\n"
+"Last-Translator: marklin0913 <marklin0913@protonmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.3.1\n"
 "Generated-By: Babel 2.8.0\n"
 
 #: ../../source/features.rst:4
 msgid "How OnionShare works"
-msgstr ""
+msgstr "OnionShare 如何運作"
 
 #: ../../source/features.rst:6
 msgid ""
@@ -69,7 +71,7 @@ msgstr ""
 
 #: ../../source/features.rst:21
 msgid "Share Files"
-msgstr ""
+msgstr "分享檔案"
 
 #: ../../source/features.rst:23
 msgid ""
@@ -126,7 +128,7 @@ msgstr ""
 
 #: ../../source/features.rst:46
 msgid "Receive Files"
-msgstr ""
+msgstr "接收檔案"
 
 #: ../../source/features.rst:48
 msgid ""
@@ -150,7 +152,7 @@ msgstr ""
 
 #: ../../source/features.rst:58
 msgid "Here is what it looks like for someone sending you files."
-msgstr ""
+msgstr "這就是當有人傳送檔案給你的時候看起來的樣子。"
 
 #: ../../source/features.rst:62
 msgid ""
@@ -171,7 +173,7 @@ msgstr ""
 
 #: ../../source/features.rst:67
 msgid "Use at your own risk"
-msgstr ""
+msgstr "使用風險自負"
 
 #: ../../source/features.rst:69
 msgid ""
@@ -213,7 +215,7 @@ msgstr ""
 
 #: ../../source/features.rst:81
 msgid "Host a Website"
-msgstr ""
+msgstr "架設一個網站"
 
 #: ../../source/features.rst:83
 msgid ""
@@ -241,7 +243,7 @@ msgstr ""
 
 #: ../../source/features.rst:96
 msgid "Content Security Policy"
-msgstr ""
+msgstr "內容安全政策"
 
 #: ../../source/features.rst:98
 msgid ""
@@ -282,7 +284,7 @@ msgstr ""
 
 #: ../../source/features.rst:110
 msgid "Chat Anonymously"
-msgstr ""
+msgstr "匿名的聊天"
 
 #: ../../source/features.rst:112
 msgid ""
@@ -332,7 +334,7 @@ msgstr ""
 
 #: ../../source/features.rst:131
 msgid "How is this useful?"
-msgstr ""
+msgstr "對您來說有用嗎？"
 
 #: ../../source/features.rst:133
 msgid ""
@@ -379,4 +381,3 @@ msgid ""
 "OnionShare doesn't implement any chat encryption on its own. It relies on"
 " the Tor onion service's encryption instead."
 msgstr ""
-
