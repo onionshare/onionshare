@@ -16,7 +16,7 @@ languages = [
     ("Українська", "uk"),
 ]
 
-versions = ["2.3"]
+versions = ["2.3.dev2"]
 
 html_theme = "sphinx_rtd_theme"
 html_logo = "_static/logo.png"
