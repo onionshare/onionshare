@@ -13,7 +13,7 @@ description = "Securely and anonymously share files, host websites, and chat wit
 icon = "src/onionshare/resources/onionshare"
 sources = ['src/onionshare']
 requires = [
-    "./onionshare_cli-2.3.dev1-py3-none-any.whl",
+    "./onionshare_cli-2.3.dev2-py3-none-any.whl",
     "psutil",
     "pyside2==5.15.1",
     "qrcode"
