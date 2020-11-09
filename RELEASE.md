@@ -9,7 +9,7 @@ Before making a release, you must update the version in these places:
 - [ ] `cli/pyproject.toml`
 - [ ] `cli/setup.py`
 - [ ] `cli/onionshare_cli/resources/version.txt`
-- [ ] `desktop/pyproject.toml` (under `version` and the `./onionshare_cli-$VERSION-py3-none-any.whl` dependency)
+- [ ] `desktop/pyproject.toml` (under `version` and **don't forget** the `./onionshare_cli-$VERSION-py3-none-any.whl` dependency)
 - [ ] `desktop/src/setup.py`
 - [ ] `docs/source/conf.py`
 - [ ] `snap/snapcraft.yaml`
