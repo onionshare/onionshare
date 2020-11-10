@@ -50,7 +50,8 @@ $(function () {
     // Keep buttons disabled unless changed or not empty
     $('#username').on('keyup', function (event) {
       if ($('#username').val() !== '' && $('#username').val() !== current_username) {
-        if (event.keyCode == 13) {
+        if (event.keyCode == 13 || event.which == 13) {
+          this.blur();
           current_username = updateUsername(socket) || current_username;
         }
       }
