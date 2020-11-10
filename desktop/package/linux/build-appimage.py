@@ -24,7 +24,7 @@ def main():
     desktop_dir = os.path.join(root, "desktop")
 
     print("○ Clean up from last build")
-    if os.path.exist(os.path.join(cli_dir, "dist")):
+    if os.path.exists(os.path.join(cli_dir, "dist")):
         shutil.rmtree(os.path.join(cli_dir, "dist"))
     if os.path.exists(os.path.join(desktop_dir, "linux")):
         shutil.rmtree(os.path.join(desktop_dir, "linux"))
