@@ -3,33 +3,36 @@
 # This file is distributed under the same license as the OnionShare package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2020-09-03 11:37-0700\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2020-10-22 12:26+0000\n"
+"Last-Translator: marklin0913 <marklin0913@protonmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.3.1\n"
 "Generated-By: Babel 2.8.0\n"
 
 #: ../../source/security.rst:2
 msgid "Security design"
-msgstr ""
+msgstr "安全設計"
 
 #: ../../source/security.rst:4
 msgid ""
 "First read :ref:`how_it_works` to understand the basics of how OnionShare"
 " works."
-msgstr ""
+msgstr "首先閱讀:ref:`how_it_works` 來了解基礎的OnionShare運作原理。"
 
 #: ../../source/security.rst:6
+#, fuzzy
 msgid "Like all software, OnionShare may contain bugs or vulnerabilities."
-msgstr ""
+msgstr "就想所有的應用程式，OnionShare可能有"
 
 #: ../../source/security.rst:9
 msgid "What OnionShare protects against"
@@ -111,4 +114,3 @@ msgid ""
 "where there's no need to protect anonymity, such as co-workers who know "
 "each other sharing work documents."
 msgstr ""
-
