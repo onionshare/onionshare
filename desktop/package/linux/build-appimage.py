@@ -23,16 +23,18 @@ def main():
     cli_dir = os.path.join(root, "cli")
     desktop_dir = os.path.join(root, "desktop")
 
+    print("○ Clean up from last build")
+    if os.path.exist(os.path.join(cli_dir, "dist")):
+        shutil.rmtree(os.path.join(cli_dir, "dist"))
+    if os.path.exists(os.path.join(desktop_dir, "linux")):
+        shutil.rmtree(os.path.join(desktop_dir, "linux"))
+
     print("○ Building onionshare-cli")
     run(["poetry", "install"], cli_dir)
     run(["poetry", "build"], cli_dir)
     whl_filename = glob.glob(os.path.join(cli_dir, "dist", "*.whl"))[0]
     whl_basename = os.path.basename(whl_filename)
     shutil.copyfile(whl_filename, os.path.join(desktop_dir, whl_basename))
-
-    print("○ Clean up from last build")
-    if os.path.exists(os.path.join(desktop_dir, "linux")):
-        shutil.rmtree(os.path.join(desktop_dir, "linux"))
 
     print("○ Create the binary")
     run(["briefcase", "create"], desktop_dir)

@@ -27,6 +27,7 @@ requests = "*"
 stem = "*"
 urllib3 = "*"
 eventlet = "*"
+setuptools = "*"
 
 [tool.poetry.dev-dependencies]
 pytest = "*"

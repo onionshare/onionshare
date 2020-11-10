@@ -23,6 +23,12 @@ def main():
     cli_dir = os.path.join(root, "cli")
     desktop_dir = os.path.join(root, "desktop")
 
+    print("○ Clean up from last build")
+    if os.path.exist(os.path.join(cli_dir, "dist")):
+        shutil.rmtree(os.path.join(cli_dir, "dist"))
+    if os.path.exists(os.path.join(desktop_dir, "windows")):
+        shutil.rmtree(os.path.join(desktop_dir, "windows"))
+
     print("○ Building onionshare-cli")
     run(["poetry", "install"], cli_dir)
     run(["poetry", "build"], cli_dir)
@@ -30,14 +36,10 @@ def main():
     whl_basename = os.path.basename(whl_filename)
     shutil.copyfile(whl_filename, os.path.join(desktop_dir, whl_basename))
 
-    print("○ Clean up from last build")
-    if os.path.exists(os.path.join(desktop_dir, "windows")):
-        shutil.rmtree(os.path.join(desktop_dir, "windows"))
-
     print("○ Create the binary")
     run(["briefcase", "create"], desktop_dir)
     run(["briefcase", "package"], desktop_dir)
-    msi_filename = os.path.join(desktop_dir, "windows", "OnionShare-2.3.dev1.msi")
+    msi_filename = glob.glob(os.path.join(cli_dir, "windows", "OnionShare-*.msi"))[0]
     print(f"○ Created unsigned installer: {msi_filename}")
 
     print(f"○ Signing installer")
