@@ -1,7 +1,12 @@
 $(function () {
   $(document).ready(function () {
     $('.chat-container').removeClass('no-js');
-    var socket = io.connect('http://' + document.domain + ':' + location.port + '/chat');
+    var socket = io.connect(
+      'http://' + document.domain + ':' + location.port + '/chat',
+      {
+        transports: ['websocket']
+      }
+    );
 
     // Store current username received from app context
     var current_username = $('#username').val();
