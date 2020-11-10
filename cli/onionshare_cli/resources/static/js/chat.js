@@ -88,7 +88,6 @@ var emitMessage = function (socket) {
 var updateUsername = function (socket) {
   var username = $('#username').val();
   if (!checkUsernameExists(username)) {
-    socket.emit('update_username', { username: username });
     $.ajax({
       method: 'POST',
       url: `http://${document.domain}:${location.port}/update-session-username`,
@@ -97,6 +96,9 @@ var updateUsername = function (socket) {
       data: JSON.stringify({ 'username': username })
     }).done(function (response) {
       console.log(response);
+      if (response.success && response.username == username) {
+        socket.emit('update_username', { username: username });
+      }
     });
     return username;
   }
