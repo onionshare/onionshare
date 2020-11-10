@@ -66,7 +66,8 @@ class ChatModeWeb:
             )
             session["room"] = self.web.settings.default_settings["chat"]["room"]
             self.web.add_request(
-                request.path, {"id": history_id, "status_code": 200},
+                request.path,
+                {"id": history_id, "status_code": 200},
             )
 
             self.web.add_request(self.web.REQUEST_LOAD, request.path)
@@ -83,14 +84,23 @@ class ChatModeWeb:
         def update_session_username():
             history_id = self.cur_history_id
             data = request.get_json()
-            if data.get("username", "") not in self.connected_users:
+            if (
+                data.get("username", "")
+                and data.get("username", "") not in self.connected_users
+            ):
                 session["name"] = data.get("username", session.get("name"))
             self.web.add_request(
-                request.path, {"id": history_id, "status_code": 200},
+                request.path,
+                {"id": history_id, "status_code": 200},
             )
 
             self.web.add_request(self.web.REQUEST_LOAD, request.path)
-            r = make_response(jsonify(username=session.get("name"), success=True,))
+            r = make_response(
+                jsonify(
+                    username=session.get("name"),
+                    success=True,
+                )
+            )
             return self.web.add_security_headers(r)
 
         @self.web.socketio.on("joined", namespace="/chat")
@@ -125,7 +135,7 @@ class ChatModeWeb:
             """Sent by a client when the user updates their username.
             The message is sent to all people in the room."""
             current_name = session.get("name")
-            if message["username"] not in self.connected_users:
+            if message.get("username", ""):
                 session["name"] = message["username"]
                 self.connected_users[
                     self.connected_users.index(current_name)
