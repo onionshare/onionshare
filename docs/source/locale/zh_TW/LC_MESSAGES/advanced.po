@@ -3,27 +3,29 @@
 # This file is distributed under the same license as the OnionShare package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2020-09-20 11:48-0700\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2020-10-22 12:26+0000\n"
+"Last-Translator: marklin0913 <marklin0913@protonmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.3.1\n"
 "Generated-By: Babel 2.8.0\n"
 
 #: ../../source/advanced.rst:2
 msgid "Advanced usage"
-msgstr ""
+msgstr "進階使用"
 
 #: ../../source/advanced.rst:7
 msgid "Save tabs"
-msgstr ""
+msgstr "儲存分頁"
 
 #: ../../source/advanced.rst:9
 msgid ""
@@ -57,7 +59,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:22
 msgid "Disable passwords"
-msgstr ""
+msgstr "取消密碼"
 
 #: ../../source/advanced.rst:24
 msgid ""
@@ -123,7 +125,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:46
 msgid "Command line interface"
-msgstr ""
+msgstr "命令行介面"
 
 #: ../../source/advanced.rst:48
 msgid ""
@@ -133,23 +135,24 @@ msgstr ""
 
 #: ../../source/advanced.rst:51
 msgid "Linux"
-msgstr ""
+msgstr "Linux"
 
 #: ../../source/advanced.rst:53
+#, fuzzy
 msgid ""
 "If you installed OnionShare using the Flatpak package, unfortunately the "
 "command line interface isn't supported."
-msgstr ""
+msgstr "很抱歉，如果你透過Flatpak安裝OnionShare，"
 
 #: ../../source/advanced.rst:55
 msgid ""
 "If you installed OnionShare using an operating system package, you can "
 "just run ``onionshare`` from the terminal."
-msgstr ""
+msgstr "如果你透過作業系統的安裝包安裝OnionShare，你可以直接在終端機上執行“onionshare”。"
 
 #: ../../source/advanced.rst:58
 msgid "macOS"
-msgstr ""
+msgstr "macOS"
 
 #: ../../source/advanced.rst:60
 msgid "Make a symbolic link to the OnionShare command line binary like this::"
@@ -157,11 +160,11 @@ msgstr ""
 
 #: ../../source/advanced.rst:64
 msgid "Now you can run ``onionshare`` from the terminal."
-msgstr ""
+msgstr "現在你可以在終端機上執行“onionshare”。"
 
 #: ../../source/advanced.rst:67
 msgid "Windows"
-msgstr ""
+msgstr "Windows"
 
 #: ../../source/advanced.rst:69
 msgid "The command line interface isn't supported in Windows."
@@ -176,7 +179,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:76
 msgid "Usage"
-msgstr ""
+msgstr "使用"
 
 #: ../../source/advanced.rst:78
 msgid "You can see command line documentation by running ``onionshare --help``::"
@@ -224,4 +227,3 @@ msgstr ""
 
 #~ msgid "Make a symbolic link to the OnionShare command line binary line this::"
 #~ msgstr ""
-

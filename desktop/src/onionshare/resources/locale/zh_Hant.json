@@ -249,5 +249,20 @@
     "gui_new_tab_receive_button": "接收檔案",
     "gui_new_tab": "新分頁",
     "gui_new_tab_tooltip": "開啟新分頁",
-    "gui_new_tab_share_button": "分享檔案"
+    "gui_new_tab_share_button": "分享檔案",
+    "mode_settings_advanced_toggle_show": "顯示進階設定",
+    "gui_tab_name_chat": "聊天",
+    "gui_tab_name_website": "網站",
+    "gui_tab_name_receive": "接收",
+    "gui_tab_name_share": "分享",
+    "gui_main_page_chat_button": "開始聊天",
+    "gui_main_page_receive_button": "開始接收",
+    "gui_main_page_share_button": "開始分享",
+    "gui_new_tab_website_button": "架設一個網站",
+    "gui_qr_code_dialog_title": "OnionShare QR Code",
+    "gui_show_url_qr_code": "顯示QR Code",
+    "gui_chat_stop_server": "停止聊天伺服器",
+    "gui_chat_start_server": "開啟聊天伺服器",
+    "gui_file_selection_remove_all": "全部移除",
+    "gui_remove": "移除"
 }

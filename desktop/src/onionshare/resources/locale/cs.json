@@ -94,7 +94,7 @@
     "gui_settings_connection_type_test_button": "Test připojení do Tor sítě",
     "gui_settings_socks_label": "SOCKS port",
     "gui_settings_tor_bridges": "Tor bridge podpora",
-    "gui_settings_tor_bridges_no_bridges_radio_option": "Nepoužívat Tor bridge",
+    "gui_settings_tor_bridges_no_bridges_radio_option": "Nepoužívať Tor bridge",
     "gui_settings_tor_bridges_obfs4_radio_option": "Použít vestavěný obfs4 přenos",
     "gui_receive_quit_warning": "Jste v procesu příjímání dat. Jste si opravdu jistí, že chcete OnionShare ukončit?",
     "gui_settings_whats_this": "<a href='{0:s}'>Co je to?</a>",
