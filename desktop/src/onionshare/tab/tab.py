@@ -663,4 +663,6 @@ class Tab(QtWidgets.QWidget):
             return False
 
     def cleanup(self):
+        self.get_mode().web_thread.quit()
+        self.get_mode().web_thread.wait()
         self.app.cleanup()
