@@ -39,7 +39,9 @@ def main():
     print("○ Create the binary")
     run(["briefcase", "create"], desktop_dir)
     run(["briefcase", "package"], desktop_dir)
-    msi_filename = glob.glob(os.path.join(cli_dir, "windows", "OnionShare-*.msi"))[0]
+    msi_filename = glob.glob(os.path.join(desktop_dir, "windows", "OnionShare-*.msi"))[
+        0
+    ]
     print(f"○ Created unsigned installer: {msi_filename}")
 
     print(f"○ Signing installer")
