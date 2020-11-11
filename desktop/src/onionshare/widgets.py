@@ -140,15 +140,9 @@ class QRCodeDialog(QtWidgets.QDialog):
         self.qr_label = QtWidgets.QLabel(self)
         self.qr_label.setPixmap(qrcode.make(self.text, image_factory=Image).pixmap())
 
-        self.qr_label_description = QtWidgets.QLabel(self)
-        self.qr_label_description.setText(strings._("gui_qr_code_description"))
-        self.qr_label_description.setWordWrap(True)
-
         self.setWindowTitle(strings._("gui_qr_code_dialog_title"))
         self.setWindowIcon(QtGui.QIcon(GuiCommon.get_resource_path("images/logo.png")))
         layout = QtWidgets.QVBoxLayout(self)
         layout.addWidget(self.qr_label)
-        layout.addWidget(self.qr_label_description)
 
         self.exec_()
-
