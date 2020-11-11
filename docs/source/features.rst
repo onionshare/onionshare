@@ -1,6 +1,6 @@
 .. _how_it_works:
 
-How OnionShare works
+How OnionShare Works
 ====================
 
 Web servers are started locally on your computer and made accessible to other people as `Tor <https://www.torproject.org/>`_ `onion services <https://community.torproject.org/onion-services/>`_.
@@ -77,7 +77,7 @@ Tips for running a receive service
 
 If you want to host your own anonymous dropbox using OnionShare, it's recommended you do so on a separate, dedicated computer always powered on and connected to the Internet, and not on the one you use on a regular basis.
 
-If you intend to put the OnionShare address on your website or social media profiles, save the tab (see :ref:`save_tabs`) and run it as a public service (see :ref:`disable_passwords`).
+If you intend to put the OnionShare address on your website or social media profiles, save the tab (see :ref:`save_tabs`) and run it as a public service (see :ref:`turn_off_passwords`).
 
 Host a Website
 --------------
@@ -107,7 +107,7 @@ Tips for running a website service
 If you want to host a long-term website using OnionShare (meaning not something to quickly show someone something), it's recommended you do it on a separate, dedicated computer always powered on and connected to the Internet, and not on the one you use on a regular basis.
 Save the tab (see :ref:`save_tabs`) so you can resume the website with the same address if you close OnionShare and re-open it later.
 
-If your website is intended for the public, you should run it as a public service (see :ref:`disable_passwords`).
+If your website is intended for the public, you should run it as a public service (see :ref:`turn_off_passwords`).
 
 Chat Anonymously
 ----------------
