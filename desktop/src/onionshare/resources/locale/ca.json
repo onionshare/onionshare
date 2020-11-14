@@ -85,7 +85,7 @@
     "gui_settings_connection_type_socket_file_option": "Connecta fent servir un fitxer de socket",
     "gui_settings_connection_type_test_button": "Comprova la connexió a Tor",
     "gui_settings_control_port_label": "Port de control",
-    "gui_settings_socket_file_label": "Fitxer de socket",
+    "gui_settings_socket_file_label": "Fitxer de sòcol",
     "gui_settings_socks_label": "Port SOCKS",
     "gui_settings_authenticate_label": "Paràmetres d'autenticació a Tor",
     "gui_settings_authenticate_no_auth_option": "Sense autenticació, o autenticació amb galetes",
