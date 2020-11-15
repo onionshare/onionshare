@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION=`cat ../share/version.txt`
+VERSION=`cat ../cli/onionshare_cli/resources/version.txt`
 
 # Supported locales
 LOCALES="ar ca da de el en es fa fr ga it is ja nb_NO nl pl pt_BR pt_PT ro ru sr@latin sv te tr uk zh_CN zh_TW"
