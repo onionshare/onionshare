@@ -53,7 +53,7 @@ Open OnionShare and click the "⚙" icon in it.
 Under "How should OnionShare connect to Tor?" choose "Connect using control port", and set
 "Control port" to ``127.0.0.1`` and
 "Port" to ``9051``.
-Under "Tor authentication settings" choose "Password" and set the password to the control port password you picked above
+Under "Tor authentication settings" choose "Password" and set the password to the control port password you picked above.
 Click the "Test Connection to Tor" button.
 If all goes well, you should see "Connected to the Tor controller".
 
