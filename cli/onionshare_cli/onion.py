@@ -238,7 +238,7 @@ class Onion(object):
 
             # If there is an existing OnionShare tor process, kill it
             for proc in psutil.process_iter(["pid", "name", "username"]):
-                if proc.username() == getpass.getuser():
+                try:
                     cmdline = proc.cmdline()
                     if (
                         cmdline[0] == self.tor_path
@@ -252,6 +252,9 @@ class Onion(object):
                         )
                         proc.terminate()
                         proc.wait()
+                        break
+                except:
+                    pass
 
             if self.common.platform == "Windows" or self.common.platform == "Darwin":
                 # Windows doesn't support unix sockets, so it must use a network port.
