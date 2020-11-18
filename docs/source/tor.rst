@@ -26,7 +26,7 @@ Using a system ``tor`` in Windows
 This is fairly advanced. You'll need to know how edit plaintext files and do stuff as an administrator.
 
 Download the Tor Windows Expert Bundle `from <https://www.torproject.org/download/tor/>`_.
-Extract the ZIP file and copy the extracted folder to ``C:\Program Files (x86)\``
+Extract the compressed file and copy the extracted folder to ``C:\Program Files (x86)\``
 Rename the extracted folder with ``Data`` and ``Tor`` in it to ``tor-win32``.
 
 Make up a control port password.
@@ -53,14 +53,14 @@ Open OnionShare and click the "⚙" icon in it.
 Under "How should OnionShare connect to Tor?" choose "Connect using control port", and set
 "Control port" to ``127.0.0.1`` and
 "Port" to ``9051``.
-Under "Tor authentication settings" choose "Password" and set the password to the control port password you picked above
+Under "Tor authentication settings" choose "Password" and set the password to the control port password you picked above.
 Click the "Test Connection to Tor" button.
 If all goes well, you should see "Connected to the Tor controller".
 
 Using a system ``tor`` in macOS
 -------------------------------
 
-First, install `Homebrew <https://brew.sh/>`_ if you don't already have it. Then, install Tor::
+First, install `Homebrew <https://brew.sh/>`_ if you don't already have it, and then install Tor::
 
     brew install tor
 
