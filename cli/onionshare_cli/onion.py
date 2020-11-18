@@ -22,7 +22,13 @@ from stem.control import Controller
 from stem import ProtocolError, SocketClosed
 from stem.connection import MissingPassword, UnreadableCookieFile, AuthenticationFailure
 from Crypto.PublicKey import RSA
-import base64, os, sys, tempfile, shutil, urllib, platform, subprocess, time, shlex
+import base64
+import os
+import tempfile
+import subprocess
+import time
+import shlex
+import psutil
 
 from distutils.version import LooseVersion as Version
 from . import common
@@ -158,14 +164,6 @@ class Onion(object):
 
         self.use_tmp_dir = use_tmp_dir
 
-        # Is bundled tor supported?
-        if (
-            self.common.platform == "Windows" or self.common.platform == "Darwin"
-        ) and getattr(sys, "onionshare_dev_mode", False):
-            self.bundle_tor_supported = False
-        else:
-            self.bundle_tor_supported = True
-
         # Set the path of the tor binary, for bundled tor
         if not get_tor_paths:
             get_tor_paths = self.common.get_tor_paths
@@ -218,12 +216,6 @@ class Onion(object):
         self.c = None
 
         if self.settings.get("connection_type") == "bundled":
-            if not self.bundle_tor_supported:
-                raise BundledTorNotSupported(
-                    # strings._("settings_error_bundled_tor_not_supported")
-                    "Using the Tor version that comes with OnionShare does not work in developer mode on Windows or macOS."
-                )
-
             # Create a torrc for this session
             if self.use_tmp_dir:
                 self.tor_data_directory = tempfile.TemporaryDirectory(
