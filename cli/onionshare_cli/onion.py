@@ -243,7 +243,7 @@ class Onion(object):
                     if (
                         cmdline[0] == self.tor_path
                         and cmdline[1] == "-f"
-                        and cmdline[2] == self.torrc
+                        and cmdline[2] == self.tor_torrc
                     ):
                         self.common.log(
                             "Onion",
