@@ -68,4 +68,4 @@ The expected output looks like this::
 
 If you don't see 'Good signature from', there might be a problem with the integrity of the file (malicious or otherwise), and you should not install the package. (The "WARNING:" shown above, is not a problem with the package, it only means you haven't already defined any level of 'trust' of Micah's PGP key.)
 
-If you want to learn more about verifying PGP signatures, guides for `Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ and the `Tor Project <https://support.torproject.org/tbb/how-to-verify-signature/>`_ may be helpful.
+If you want to learn more about verifying PGP signatures, the guides for `Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ and the `Tor Project <https://support.torproject.org/tbb/how-to-verify-signature/>`_ may be helpful.
