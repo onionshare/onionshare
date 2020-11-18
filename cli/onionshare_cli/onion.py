@@ -28,6 +28,7 @@ import tempfile
 import subprocess
 import time
 import shlex
+import getpass
 import psutil
 
 from distutils.version import LooseVersion as Version
@@ -113,13 +114,6 @@ class TorTooOld(Exception):
     """
 
     pass
-
-
-class BundledTorNotSupported(Exception):
-    """
-    This exception is raised if onionshare is set to use the bundled Tor binary,
-    but it's not supported on that platform, or in dev mode.
-    """
 
 
 class BundledTorTimeout(Exception):
@@ -241,6 +235,23 @@ class Onion(object):
             except:
                 raise OSError("OnionShare port not available")
             self.tor_torrc = os.path.join(self.tor_data_directory_name, "torrc")
+
+            # If there is an existing OnionShare tor process, kill it
+            for proc in psutil.process_iter(["pid", "name", "username"]):
+                if proc.username() == getpass.getuser():
+                    cmdline = proc.cmdline()
+                    if (
+                        cmdline[0] == self.tor_path
+                        and cmdline[1] == "-f"
+                        and cmdline[2] == self.torrc
+                    ):
+                        self.common.log(
+                            "Onion",
+                            "connect",
+                            "found a stale tor process, killing it",
+                        )
+                        proc.terminate()
+                        proc.wait()
 
             if self.common.platform == "Windows" or self.common.platform == "Darwin":
                 # Windows doesn't support unix sockets, so it must use a network port.
