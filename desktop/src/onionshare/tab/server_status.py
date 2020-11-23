@@ -185,9 +185,13 @@ class ServerStatus(QtWidgets.QWidget):
             self.url_description.setText(
                 strings._("gui_website_url_description").format(info_image)
             )
-        else:
+        elif self.mode == self.common.gui.MODE_RECEIVE:
             self.url_description.setText(
                 strings._("gui_receive_url_description").format(info_image)
+            )
+        elif self.mode == self.common.gui.MODE_CHAT:
+            self.url_description.setText(
+                strings._("gui_chat_url_description").format(info_image)
             )
 
         # Show a Tool Tip explaining the lifecycle of this URL
