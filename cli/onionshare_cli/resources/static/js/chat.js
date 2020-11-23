@@ -1,7 +1,12 @@
 $(function () {
   $(document).ready(function () {
     $('.chat-container').removeClass('no-js');
-    var socket = io.connect('http://' + document.domain + ':' + location.port + '/chat');
+    var socket = io.connect(
+      'http://' + document.domain + ':' + location.port + '/chat',
+      {
+        transports: ['websocket']
+      }
+    );
 
     // Store current username received from app context
     var current_username = $('#username').val();
@@ -45,7 +50,8 @@ $(function () {
     // Keep buttons disabled unless changed or not empty
     $('#username').on('keyup', function (event) {
       if ($('#username').val() !== '' && $('#username').val() !== current_username) {
-        if (event.keyCode == 13) {
+        if (event.keyCode == 13 || event.which == 13) {
+          this.blur();
           current_username = updateUsername(socket) || current_username;
         }
       }
@@ -83,7 +89,6 @@ var emitMessage = function (socket) {
 var updateUsername = function (socket) {
   var username = $('#username').val();
   if (!checkUsernameExists(username)) {
-    socket.emit('update_username', { username: username });
     $.ajax({
       method: 'POST',
       url: `http://${document.domain}:${location.port}/update-session-username`,
@@ -92,6 +97,9 @@ var updateUsername = function (socket) {
       data: JSON.stringify({ 'username': username })
     }).done(function (response) {
       console.log(response);
+      if (response.success && response.username == username) {
+        socket.emit('update_username', { username: username });
+      }
     });
     return username;
   }
