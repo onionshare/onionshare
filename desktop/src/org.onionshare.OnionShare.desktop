@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=OnionShare
+Exec=onionshare
+Terminal=false
+Type=Application
+Icon=org.onionshare.OnionShare
+Categories=Network;FileTransfer;
+Keywords=tor;anonymity;privacy;onion service;file sharing;file hosting;
+StartupNotify=true
+StartupWMClass=onionshare
