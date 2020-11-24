@@ -116,6 +116,8 @@ modules:
     build-commands:
       - python3 setup.py install --prefix=${FLATPAK_DEST}
       - install -D -m0644 org.onionshare.OnionShare.appdata.xml ${FLATPAK_DEST}/share/metainfo/${FLATPAK_ID}.appdata.xml
+      - install -D -m0644 org.onionshare.OnionShare.svg ${FLATPAK_DEST}/share/icons/hicolor/scalable/apps/org.onionshare.OnionShare.svg
+      - install -D -m0644 org.onionshare.OnionShare.desktop ${FLATPAK_DEST}/share/applications/${FLATPAK_ID}.desktop
     sources:
       - type: dir
         path: ../desktop/src
