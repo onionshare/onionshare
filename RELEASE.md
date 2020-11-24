@@ -106,14 +106,21 @@ snapcraft
 snap install --devmode ./onionshare_$VERSION_amd64.snap
 ```
 
-Run the OnionShare snap:
+This will create `onionshare_$VERSION_amd64.snap`.
+
+Run the OnionShare snap locally:
 
 ```sh
-/snap/bin/onionshare     # GUI version
+/snap/bin/onionshare     # desktop version
 /snap/bin/onionshare.cli # CLI version
 ```
 
-This will create `onionshare_$VERSION_amd64.snap`.
+Upload the to Snapcraft:
+
+```sh
+snapcraft login
+snapcraft upload --release=stable onionshare_$VERSION_amd64.snap
+```
 
 ## Linux AppImage release
 
