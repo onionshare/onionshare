@@ -762,7 +762,7 @@ class Onion(object):
                             num_rend_circuits += 1
 
                     if num_rend_circuits == 0:
-                        print("Tor rendevous circuits have closed" + " " * 20)
+                        print("\rTor rendezvous circuits have closed" + " " * 20)
                         break
 
                     if num_rend_circuits == 1:
