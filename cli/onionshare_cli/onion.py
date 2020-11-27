@@ -767,6 +767,9 @@ class Onion(object):
                         ):
                             rendevouz_circuit_ids.append(c.id)
 
+                    symbols = [c for c in "\\|/-"]
+                    symbols_i = 0
+
                     while True:
                         num_rend_circuits = 0
                         for c in self.c.get_circuits():
@@ -782,9 +785,10 @@ class Onion(object):
                         else:
                             circuits = "circuits"
                         print(
-                            f"\rWaiting for {num_rend_circuits} Tor rendezvous {circuits} to close ... ",
+                            f"\rWaiting for {num_rend_circuits} Tor rendezvous {circuits} to close {symbols[symbols_i]} ",
                             end="",
                         )
+                        symbols_i = (symbols_i + 1) % len(symbols)
                         time.sleep(1)
                 except:
                     pass
