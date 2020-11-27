@@ -252,3 +252,18 @@ class EventHandlerThread(QtCore.QThread):
             if self.should_quit:
                 break
             time.sleep(0.2)
+
+
+class OnionCleanupThread(QtCore.QThread):
+    """
+    Wait for Tor rendezvous circuits to close in a separate thread
+    """
+
+    def __init__(self, common):
+        super(OnionCleanupThread, self).__init__()
+        self.common = common
+        self.common.log("OnionCleanupThread", "__init__")
+
+    def run(self):
+        self.common.log("OnionCleanupThread", "run")
+        self.common.gui.onion.cleanup()

@@ -187,5 +187,7 @@
     "settings_error_unreadable_cookie_file": "Connected to the Tor controller, but password may be wrong, or your user is not permitted to read the cookie file.",
     "settings_error_bundled_tor_not_supported": "Using the Tor version that comes with OnionShare does not work in developer mode on Windows or macOS.",
     "settings_error_bundled_tor_timeout": "Taking too long to connect to Tor. Maybe you aren't connected to the Internet, or have an inaccurate system clock?",
-    "settings_error_bundled_tor_broken": "OnionShare could not connect to Tor:\n{}"
+    "settings_error_bundled_tor_broken": "OnionShare could not connect to Tor:\n{}",
+    "gui_rendezvous_cleanup": "Waiting for Tor rendezvous circuits to close to be sure that the files you shared downloaded successfully.\n\nThis might take a few minutes.",
+    "gui_rendezvous_cleanup_quit_early": "Quit Early"
 }

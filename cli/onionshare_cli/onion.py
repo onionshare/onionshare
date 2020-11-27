@@ -729,7 +729,7 @@ class Onion(object):
                     "Onion", "stop_onion_service", f"failed to remove {onion_host}"
                 )
 
-    def cleanup(self, stop_tor=True):
+    def cleanup(self, stop_tor=True, wait=True):
         """
         Stop onion services that were created earlier. If there's a tor subprocess running, kill it.
         """
@@ -756,42 +756,45 @@ class Onion(object):
         if stop_tor:
             # Stop tor process
             if self.tor_proc:
-                # Wait for Tor rendezvous circuits to close
-                # Catch exceptions to prevent crash on Ctrl-C
-                try:
-                    rendevouz_circuit_ids = []
-                    for c in self.c.get_circuits():
-                        if (
-                            c.purpose == "HS_SERVICE_REND"
-                            and c.rend_query in self.graceful_close_onions
-                        ):
-                            rendevouz_circuit_ids.append(c.id)
-
-                    symbols = [c for c in "\\|/-"]
-                    symbols_i = 0
-
-                    while True:
-                        num_rend_circuits = 0
+                if wait:
+                    # Wait for Tor rendezvous circuits to close
+                    # Catch exceptions to prevent crash on Ctrl-C
+                    try:
+                        rendevouz_circuit_ids = []
                         for c in self.c.get_circuits():
-                            if c.id in rendevouz_circuit_ids:
-                                num_rend_circuits += 1
+                            if (
+                                c.purpose == "HS_SERVICE_REND"
+                                and c.rend_query in self.graceful_close_onions
+                            ):
+                                rendevouz_circuit_ids.append(c.id)
 
-                        if num_rend_circuits == 0:
-                            print("\rTor rendezvous circuits have closed" + " " * 20)
-                            break
+                        symbols = [c for c in "\\|/-"]
+                        symbols_i = 0
 
-                        if num_rend_circuits == 1:
-                            circuits = "circuit"
-                        else:
-                            circuits = "circuits"
-                        print(
-                            f"\rWaiting for {num_rend_circuits} Tor rendezvous {circuits} to close {symbols[symbols_i]} ",
-                            end="",
-                        )
-                        symbols_i = (symbols_i + 1) % len(symbols)
-                        time.sleep(1)
-                except:
-                    pass
+                        while True:
+                            num_rend_circuits = 0
+                            for c in self.c.get_circuits():
+                                if c.id in rendevouz_circuit_ids:
+                                    num_rend_circuits += 1
+
+                            if num_rend_circuits == 0:
+                                print(
+                                    "\rTor rendezvous circuits have closed" + " " * 20
+                                )
+                                break
+
+                            if num_rend_circuits == 1:
+                                circuits = "circuit"
+                            else:
+                                circuits = "circuits"
+                            print(
+                                f"\rWaiting for {num_rend_circuits} Tor rendezvous {circuits} to close {symbols[symbols_i]} ",
+                                end="",
+                            )
+                            symbols_i = (symbols_i + 1) % len(symbols)
+                            time.sleep(1)
+                    except:
+                        pass
 
                 self.tor_proc.terminate()
                 time.sleep(0.2)
