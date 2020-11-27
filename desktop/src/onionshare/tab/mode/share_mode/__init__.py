@@ -173,6 +173,12 @@ class ShareMode(Mode):
         # Always start with focus on file selection
         self.file_selection.setFocus()
 
+    def get_type(self):
+        """
+        Returns the type of mode as a string (e.g. "share", "receive", etc.)
+        """
+        return "share"
+
     def autostop_sharing_checkbox_clicked(self):
         """
         Save autostop sharing setting to the tab settings
