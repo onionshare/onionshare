@@ -663,7 +663,9 @@ class Tab(QtWidgets.QWidget):
             return False
 
     def cleanup(self):
+        self.common.log("Tab", "cleanup", f"tab_id={self.tab_id}")
         if self.get_mode() and self.get_mode().web_thread:
+            self.get_mode().web.stop(self.get_mode().app.port)
             self.get_mode().web_thread.quit()
             self.get_mode().web_thread.wait()
         self.app.cleanup()

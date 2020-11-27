@@ -81,6 +81,8 @@ class TabWidget(QtWidgets.QTabWidget):
         self.event_handler_t.start()
 
     def cleanup(self):
+        self.common.log("TabWidget", "cleanup")
+
         # Stop the event thread
         self.event_handler_t.should_quit = True
         self.event_handler_t.quit()
