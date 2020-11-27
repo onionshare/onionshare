@@ -749,31 +749,36 @@ class Onion(object):
         if stop_tor:
             # Stop tor process
             if self.tor_proc:
-                rendevouz_circuit_ids = []
-                for c in self.c.get_circuits():
-                    if c.purpose == "HS_SERVICE_REND":
-                        rendevouz_circuit_ids.append(c.id)
-                    # print(f"id={c.id} purpose={c.purpose} rend_query={c.rend_query} type={c.type}")
-
-                while True:
-                    num_rend_circuits = 0
+                # Wait for Tor rendezvous circuits to close
+                # Catch exceptions to prevent crash on Ctrl-C
+                try:
+                    rendevouz_circuit_ids = []
                     for c in self.c.get_circuits():
-                        if c.id in rendevouz_circuit_ids:
-                            num_rend_circuits += 1
+                        if c.purpose == "HS_SERVICE_REND":
+                            rendevouz_circuit_ids.append(c.id)
+                        # print(f"id={c.id} purpose={c.purpose} rend_query={c.rend_query} type={c.type}")
 
-                    if num_rend_circuits == 0:
-                        print("\rTor rendezvous circuits have closed" + " " * 20)
-                        break
+                    while True:
+                        num_rend_circuits = 0
+                        for c in self.c.get_circuits():
+                            if c.id in rendevouz_circuit_ids:
+                                num_rend_circuits += 1
 
-                    if num_rend_circuits == 1:
-                        circuits = "circuit"
-                    else:
-                        circuits = "circuits"
-                    print(
-                        f"\rWaiting for {num_rend_circuits} Tor rendezvous {circuits} to close ... ",
-                        end="",
-                    )
-                    time.sleep(1)
+                        if num_rend_circuits == 0:
+                            print("\rTor rendezvous circuits have closed" + " " * 20)
+                            break
+
+                        if num_rend_circuits == 1:
+                            circuits = "circuit"
+                        else:
+                            circuits = "circuits"
+                        print(
+                            f"\rWaiting for {num_rend_circuits} Tor rendezvous {circuits} to close ... ",
+                            end="",
+                        )
+                        time.sleep(1)
+                except:
+                    pass
 
                 self.tor_proc.terminate()
                 time.sleep(0.2)
