@@ -98,7 +98,7 @@ dotenv = ["python-dotenv"]
 
 [[package]]
 name = "flask-httpauth"
-version = "4.1.0"
+version = "4.2.0"
 description = "Basic and Digest HTTP authentication for Flask routes"
 category = "main"
 optional = false
@@ -215,6 +215,17 @@ importlib-metadata = {version = ">=0.12", markers = "python_version < \"3.8\""}
 dev = ["pre-commit", "tox"]
 
 [[package]]
+name = "psutil"
+version = "5.7.3"
+description = "Cross-platform lib for process and system monitoring in Python."
+category = "main"
+optional = false
+python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
+
+[package.extras]
+test = ["ipaddress", "mock", "unittest2", "enum34", "pywin32", "wmi"]
+
+[[package]]
 name = "py"
 version = "1.9.0"
 description = "library with cross-python path, ini-parsing, io, code, log facilities"
@@ -302,7 +313,7 @@ client = ["requests (>=2.21.0)", "websocket-client (>=0.54.0)"]
 
 [[package]]
 name = "requests"
-version = "2.24.0"
+version = "2.25.0"
 description = "Python HTTP for Humans."
 category = "main"
 optional = false
@@ -312,7 +323,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 certifi = ">=2017.4.17"
 chardet = ">=3.0.2,<4"
 idna = ">=2.5,<3"
-urllib3 = ">=1.21.1,<1.25.0 || >1.25.0,<1.25.1 || >1.25.1,<1.26"
+urllib3 = ">=1.21.1,<1.27"
 
 [package.extras]
 security = ["pyOpenSSL (>=0.14)", "cryptography (>=1.3.4)"]
@@ -344,7 +355,7 @@ python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
 
 [[package]]
 name = "urllib3"
-version = "1.25.11"
+version = "1.26.2"
 description = "HTTP library with thread-safe connection pooling, file post, and more."
 category = "main"
 optional = false
@@ -382,7 +393,7 @@ testing = ["pytest (>=3.5,!=3.7.3)", "pytest-checkdocs (>=1.2.3)", "pytest-flake
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.6"
-content-hash = "3947b230139f4b699f40c97e0b90d8c8ab6d3d7ef9093d16d2acb507131e14da"
+content-hash = "38f69a7cfa72b1da17d995e8c33dcceb0568ebfb065439927a5a007f3c8bd873"
 
 [metadata.files]
 atomicwrites = [
@@ -422,8 +433,8 @@ flask = [
     {file = "Flask-1.1.2.tar.gz", hash = "sha256:4efa1ae2d7c9865af48986de8aeb8504bf32c7f3d6fdc9353d34b21f4b127060"},
 ]
 flask-httpauth = [
-    {file = "Flask-HTTPAuth-4.1.0.tar.gz", hash = "sha256:9e028e4375039a49031eb9ecc40be4761f0540476040f6eff329a31dabd4d000"},
-    {file = "Flask_HTTPAuth-4.1.0-py2.py3-none-any.whl", hash = "sha256:29e0288869a213c7387f0323b6bf2c7191584fb1da8aa024d9af118e5cd70de7"},
+    {file = "Flask-HTTPAuth-4.2.0.tar.gz", hash = "sha256:8c7e49e53ce7dc14e66fe39b9334e4b7ceb8d0b99a6ba1c3562bb528ef9da84a"},
+    {file = "Flask_HTTPAuth-4.2.0-py2.py3-none-any.whl", hash = "sha256:3fcedb99a03985915335a38c35bfee6765cbd66d7f46440fa3b42ae94a90fac7"},
 ]
 flask-socketio = [
     {file = "Flask-SocketIO-4.3.1.tar.gz", hash = "sha256:36c1d5765010d1f4e4f05b4cc9c20c289d9dc70698c88d1addd0afcfedc5b062"},
@@ -512,6 +523,19 @@ pluggy = [
     {file = "pluggy-0.13.1-py2.py3-none-any.whl", hash = "sha256:966c145cd83c96502c3c3868f50408687b38434af77734af1e9ca461a4081d2d"},
     {file = "pluggy-0.13.1.tar.gz", hash = "sha256:15b2acde666561e1298d71b523007ed7364de07029219b604cf808bfa1c765b0"},
 ]
+psutil = [
+    {file = "psutil-5.7.3-cp27-none-win32.whl", hash = "sha256:1cd6a0c9fb35ece2ccf2d1dd733c1e165b342604c67454fd56a4c12e0a106787"},
+    {file = "psutil-5.7.3-cp27-none-win_amd64.whl", hash = "sha256:e02c31b2990dcd2431f4524b93491941df39f99619b0d312dfe1d4d530b08b4b"},
+    {file = "psutil-5.7.3-cp35-cp35m-win32.whl", hash = "sha256:56c85120fa173a5d2ad1d15a0c6e0ae62b388bfb956bb036ac231fbdaf9e4c22"},
+    {file = "psutil-5.7.3-cp35-cp35m-win_amd64.whl", hash = "sha256:fa38ac15dbf161ab1e941ff4ce39abd64b53fec5ddf60c23290daed2bc7d1157"},
+    {file = "psutil-5.7.3-cp36-cp36m-win32.whl", hash = "sha256:01bc82813fbc3ea304914581954979e637bcc7084e59ac904d870d6eb8bb2bc7"},
+    {file = "psutil-5.7.3-cp36-cp36m-win_amd64.whl", hash = "sha256:6a3e1fd2800ca45083d976b5478a2402dd62afdfb719b30ca46cd28bb25a2eb4"},
+    {file = "psutil-5.7.3-cp37-cp37m-win32.whl", hash = "sha256:fbcac492cb082fa38d88587d75feb90785d05d7e12d4565cbf1ecc727aff71b7"},
+    {file = "psutil-5.7.3-cp37-cp37m-win_amd64.whl", hash = "sha256:5d9106ff5ec2712e2f659ebbd112967f44e7d33f40ba40530c485cc5904360b8"},
+    {file = "psutil-5.7.3-cp38-cp38-win32.whl", hash = "sha256:ade6af32eb80a536eff162d799e31b7ef92ddcda707c27bbd077238065018df4"},
+    {file = "psutil-5.7.3-cp38-cp38-win_amd64.whl", hash = "sha256:2cb55ef9591b03ef0104bedf67cc4edb38a3edf015cf8cf24007b99cb8497542"},
+    {file = "psutil-5.7.3.tar.gz", hash = "sha256:af73f7bcebdc538eda9cc81d19db1db7bf26f103f91081d780bbacfcb620dee2"},
+]
 py = [
     {file = "py-1.9.0-py2.py3-none-any.whl", hash = "sha256:366389d1db726cd2fcfc79732e75410e5fe4d31db13692115529d34069a043c2"},
     {file = "py-1.9.0.tar.gz", hash = "sha256:9ca6883ce56b4e8da7e79ac18787889fa5206c79dcc67fb065376cd2fe03f342"},
@@ -575,8 +599,8 @@ python-socketio = [
     {file = "python_socketio-4.6.0-py2.py3-none-any.whl", hash = "sha256:d437f797c44b6efba2f201867cf02b8c96b97dff26d4e4281ac08b45817cd522"},
 ]
 requests = [
-    {file = "requests-2.24.0-py2.py3-none-any.whl", hash = "sha256:fe75cc94a9443b9246fc7049224f75604b113c36acb93f87b80ed42c44cbb898"},
-    {file = "requests-2.24.0.tar.gz", hash = "sha256:b3559a131db72c33ee969480840fff4bb6dd111de7dd27c8ee1f820f4f00231b"},
+    {file = "requests-2.25.0-py2.py3-none-any.whl", hash = "sha256:e786fa28d8c9154e6a4de5d46a1d921b8749f8b74e28bde23768e5e16eece998"},
+    {file = "requests-2.25.0.tar.gz", hash = "sha256:7f1a0b932f4a60a1a65caa4263921bb7d9ee911957e0ae4a23a6dd08185ad5f8"},
 ]
 six = [
     {file = "six-1.15.0-py2.py3-none-any.whl", hash = "sha256:8b74bedcbbbaca38ff6d7491d76f2b06b3592611af620f8426e82dddb04a5ced"},
@@ -590,8 +614,8 @@ toml = [
     {file = "toml-0.10.2.tar.gz", hash = "sha256:b3bda1d108d5dd99f4a20d24d9c348e91c4db7ab1b749200bded2f839ccbe68f"},
 ]
 urllib3 = [
-    {file = "urllib3-1.25.11-py2.py3-none-any.whl", hash = "sha256:f5321fbe4bf3fefa0efd0bfe7fb14e90909eb62a48ccda331726b4319897dd5e"},
-    {file = "urllib3-1.25.11.tar.gz", hash = "sha256:8d7eaa5a82a1cac232164990f04874c594c9453ec55eef02eab885aa02fc17a2"},
+    {file = "urllib3-1.26.2-py2.py3-none-any.whl", hash = "sha256:d8ff90d979214d7b4f8ce956e80f4028fc6860e4431f731ea4a8c08f23f99473"},
+    {file = "urllib3-1.26.2.tar.gz", hash = "sha256:19188f96923873c92ccb987120ec4acaa12f0461fa9ce5d3d0772bc965a39e08"},
 ]
 werkzeug = [
     {file = "Werkzeug-1.0.1-py2.py3-none-any.whl", hash = "sha256:2de2a5db0baeae7b2d2664949077c2ac63fbd16d98da0ff71837f7d1dea3fd43"},

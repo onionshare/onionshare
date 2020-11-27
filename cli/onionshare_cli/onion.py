@@ -22,7 +22,14 @@ from stem.control import Controller
 from stem import ProtocolError, SocketClosed
 from stem.connection import MissingPassword, UnreadableCookieFile, AuthenticationFailure
 from Crypto.PublicKey import RSA
-import base64, os, sys, tempfile, shutil, urllib, platform, subprocess, time, shlex
+import base64
+import os
+import tempfile
+import subprocess
+import time
+import shlex
+import getpass
+import psutil
 
 from distutils.version import LooseVersion as Version
 from . import common
@@ -109,13 +116,6 @@ class TorTooOld(Exception):
     pass
 
 
-class BundledTorNotSupported(Exception):
-    """
-    This exception is raised if onionshare is set to use the bundled Tor binary,
-    but it's not supported on that platform, or in dev mode.
-    """
-
-
 class BundledTorTimeout(Exception):
     """
     This exception is raised if onionshare is set to use the bundled Tor binary,
@@ -157,14 +157,6 @@ class Onion(object):
         self.common.log("Onion", "__init__")
 
         self.use_tmp_dir = use_tmp_dir
-
-        # Is bundled tor supported?
-        if (
-            self.common.platform == "Windows" or self.common.platform == "Darwin"
-        ) and getattr(sys, "onionshare_dev_mode", False):
-            self.bundle_tor_supported = False
-        else:
-            self.bundle_tor_supported = True
 
         # Set the path of the tor binary, for bundled tor
         if not get_tor_paths:
@@ -218,12 +210,6 @@ class Onion(object):
         self.c = None
 
         if self.settings.get("connection_type") == "bundled":
-            if not self.bundle_tor_supported:
-                raise BundledTorNotSupported(
-                    # strings._("settings_error_bundled_tor_not_supported")
-                    "Using the Tor version that comes with OnionShare does not work in developer mode on Windows or macOS."
-                )
-
             # Create a torrc for this session
             if self.use_tmp_dir:
                 self.tor_data_directory = tempfile.TemporaryDirectory(
@@ -249,6 +235,26 @@ class Onion(object):
             except:
                 raise OSError("OnionShare port not available")
             self.tor_torrc = os.path.join(self.tor_data_directory_name, "torrc")
+
+            # If there is an existing OnionShare tor process, kill it
+            for proc in psutil.process_iter(["pid", "name", "username"]):
+                try:
+                    cmdline = proc.cmdline()
+                    if (
+                        cmdline[0] == self.tor_path
+                        and cmdline[1] == "-f"
+                        and cmdline[2] == self.tor_torrc
+                    ):
+                        self.common.log(
+                            "Onion",
+                            "connect",
+                            "found a stale tor process, killing it",
+                        )
+                        proc.terminate()
+                        proc.wait()
+                        break
+                except:
+                    pass
 
             if self.common.platform == "Windows" or self.common.platform == "Darwin":
                 # Windows doesn't support unix sockets, so it must use a network port.
