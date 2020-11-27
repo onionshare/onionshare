@@ -285,6 +285,7 @@ class MainWindow(QtWidgets.QMainWindow):
         e.accept()
 
     def cleanup(self):
+        self.common.log("MainWindow", "cleanup")
         self.tabs.cleanup()
         self.common.gui.onion.cleanup()
 
