@@ -173,6 +173,12 @@ class WebsiteMode(Mode):
         # Always start with focus on file selection
         self.file_selection.setFocus()
 
+    def get_type(self):
+        """
+        Returns the type of mode as a string (e.g. "share", "receive", etc.)
+        """
+        return "website"
+
     def disable_csp_checkbox_clicked(self):
         """
         Save disable CSP setting to the tab settings

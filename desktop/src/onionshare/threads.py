@@ -74,7 +74,7 @@ class OnionThread(QtCore.QThread):
         try:
             if self.mode.obtain_onion_early:
                 self.mode.app.start_onion_service(
-                    self.mode.settings, await_publication=False
+                    self.mode.get_type(), self.mode.settings, await_publication=False
                 )
                 # wait for modules in thread to load, preventing a thread-related cx_Freeze crash
                 time.sleep(0.2)
@@ -83,7 +83,7 @@ class OnionThread(QtCore.QThread):
                 self.mode.app.stop_onion_service(self.mode.settings)
             else:
                 self.mode.app.start_onion_service(
-                    self.mode.settings, await_publication=True
+                    self.mode.get_type(), self.mode.settings, await_publication=True
                 )
                 # wait for modules in thread to load, preventing a thread-related cx_Freeze crash
                 time.sleep(0.2)
@@ -174,7 +174,7 @@ class AutoStartTimer(QtCore.QThread):
 
 class EventHandlerThread(QtCore.QThread):
     """
-    To trigger an event, write a JSON line to the events file. When that file changes, 
+    To trigger an event, write a JSON line to the events file. When that file changes,
     each line will be handled as an event. Valid events are:
     {"type": "new_tab"}
     {"type": "new_share_tab", "filenames": ["file1", "file2"]}

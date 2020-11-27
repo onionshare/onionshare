@@ -149,6 +149,12 @@ class ReceiveMode(Mode):
         self.wrapper_layout.addLayout(self.column_layout)
         self.setLayout(self.wrapper_layout)
 
+    def get_type(self):
+        """
+        Returns the type of mode as a string (e.g. "share", "receive", etc.)
+        """
+        return "receive"
+
     def data_dir_button_clicked(self):
         """
         Browse for a new OnionShare data directory, and save to tab settings
