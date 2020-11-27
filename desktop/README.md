@@ -86,10 +86,17 @@ While your virtual environment is active, install briefcase from pip.
 pip install briefcase
 ```
 
-Run OnionShare from the source tree like this:
+Run OnionShare from the source tree like this (`-d` re-installs dependencies, which you'll have to do each time you update the `onionshare-cli` wheel):
 
 ```
 briefcase dev -d
+```
+
+If you want to pass arguments into `onionshare`, such as to use verbose mode:
+
+```
+cd src
+python -c "import onionshare; onionshare.main()" --help
 ```
 
 ## Running tests
