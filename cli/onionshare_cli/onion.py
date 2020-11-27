@@ -188,6 +188,9 @@ class Onion(object):
         # Assigned later if we are using stealth mode
         self.auth_string = None
 
+        # Keep track of onions where it's important to gracefully close to prevent truncated downloads
+        self.graceful_close_onions = []
+
     def connect(
         self,
         custom_settings=None,
@@ -611,7 +614,7 @@ class Onion(object):
         else:
             return False
 
-    def start_onion_service(self, mode_settings, port, await_publication):
+    def start_onion_service(self, mode, mode_settings, port, await_publication):
         """
         Start a onion service on port 80, pointing to the given port, and
         return the onion hostname.
@@ -691,6 +694,10 @@ class Onion(object):
 
         onion_host = res.service_id + ".onion"
 
+        # Gracefully close share mode rendezvous circuits
+        if mode == "share":
+            self.graceful_close_onions.append(res.service_id)
+
         # Save the service_id
         mode_settings.set("general", "service_id", res.service_id)
 
@@ -754,9 +761,11 @@ class Onion(object):
                 try:
                     rendevouz_circuit_ids = []
                     for c in self.c.get_circuits():
-                        if c.purpose == "HS_SERVICE_REND":
+                        if (
+                            c.purpose == "HS_SERVICE_REND"
+                            and c.rend_query in self.graceful_close_onions
+                        ):
                             rendevouz_circuit_ids.append(c.id)
-                        # print(f"id={c.id} purpose={c.purpose} rend_query={c.rend_query} type={c.type}")
 
                     while True:
                         num_rend_circuits = 0
