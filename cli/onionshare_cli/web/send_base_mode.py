@@ -85,7 +85,7 @@ class SendBaseModeWeb:
 
             # If it's a directory, add it recursively
             elif os.path.isdir(filename):
-                self.root_files[basename + "/"] = filename
+                self.root_files[basename] = filename
 
                 for root, _, nested_filenames in os.walk(filename):
                     # Normalize the root path. So if the directory name is "/home/user/Documents/some_folder",
@@ -96,7 +96,7 @@ class SendBaseModeWeb:
                     ).rstrip("/")
 
                     # Add the dir itself
-                    self.files[normalized_root + "/"] = root
+                    self.files[normalized_root] = root
 
                     # Add the files in this dir
                     for nested_filename in nested_filenames:
@@ -117,19 +117,21 @@ class SendBaseModeWeb:
         )
 
         breadcrumbs = [("☗", "/")]
-        parts = path.split("/")[:-1]
+        parts = path.split("/")
+        if parts[-1] == "":
+            parts = parts[:-1]
         for i in range(len(parts)):
-            breadcrumbs.append((parts[i], f"/{'/'.join(parts[0 : i + 1])}/"))
+            breadcrumbs.append((parts[i], f"/{'/'.join(parts[0 : i + 1])}"))
         breadcrumbs_leaf = breadcrumbs.pop()[0]
 
         # If filesystem_path is None, this is the root directory listing
-        files, dirs = self.build_directory_listing(filenames, filesystem_path)
+        files, dirs = self.build_directory_listing(path, filenames, filesystem_path)
         r = self.directory_listing_template(
             path, files, dirs, breadcrumbs, breadcrumbs_leaf
         )
         return self.web.add_security_headers(r)
 
-    def build_directory_listing(self, filenames, filesystem_path):
+    def build_directory_listing(self, path, filenames, filesystem_path):
         files = []
         dirs = []
 
@@ -142,11 +144,20 @@ class SendBaseModeWeb:
             is_dir = os.path.isdir(this_filesystem_path)
 
             if is_dir:
-                dirs.append({"basename": filename})
+                dirs.append(
+                    {"link": os.path.join(f"/{path}", filename), "basename": filename}
+                )
             else:
                 size = os.path.getsize(this_filesystem_path)
                 size_human = self.common.human_readable_filesize(size)
-                files.append({"basename": filename, "size_human": size_human})
+                files.append(
+                    {
+                        "link": os.path.join(f"/{path}", filename),
+                        "basename": filename,
+                        "size_human": size_human,
+                    }
+                )
+
         return files, dirs
 
     def stream_individual_file(self, filesystem_path):
