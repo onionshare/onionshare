@@ -18,9 +18,25 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
+import time
 from PySide2 import QtCore, QtWidgets, QtGui
 
-from onionshare_cli.onion import *
+from onionshare_cli.onion import (
+    BundledTorCanceled,
+    TorErrorInvalidSetting,
+    TorErrorAutomatic,
+    TorErrorSocketPort,
+    TorErrorSocketFile,
+    TorErrorMissingPassword,
+    TorErrorUnreadableCookieFile,
+    TorErrorAuthError,
+    TorErrorProtocolError,
+    BundledTorTimeout,
+    BundledTorBroken,
+    TorTooOldEphemeral,
+    TorTooOldStealth,
+    PortNotAvailable,
+)
 
 from . import strings
 from .gui_common import GuiCommon
@@ -156,9 +172,26 @@ class TorConnectionThread(QtCore.QThread):
             )
             self.canceled_connecting_to_tor.emit()
 
-        except Exception as e:
-            self.common.log("TorConnectionThread", "run", f"caught exception: {e}")
-            self.error_connecting_to_tor.emit(str(e))
+        except (
+            TorErrorInvalidSetting,
+            TorErrorAutomatic,
+            TorErrorSocketPort,
+            TorErrorSocketFile,
+            TorErrorMissingPassword,
+            TorErrorUnreadableCookieFile,
+            TorErrorAuthError,
+            TorErrorProtocolError,
+            BundledTorTimeout,
+            BundledTorBroken,
+            TorTooOldEphemeral,
+            TorTooOldStealth,
+            PortNotAvailable,
+        ) as e:
+            message = self.common.gui.get_translated_tor_error(e)
+            self.common.log(
+                "TorConnectionThread", "run", f"caught exception: {message}"
+            )
+            self.error_connecting_to_tor.emit(message)
 
     def _tor_status_update(self, progress, summary):
         self.tor_status_update.emit(progress, summary)
