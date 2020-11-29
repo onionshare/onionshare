@@ -79,7 +79,7 @@ pip install briefcase
 In order to work with the desktop app, you'll need to build a wheel of the CLI package first, and copy it into the `desktop` folder. You'll need to re-run this script each time you change the CLI code.
 
 ```sh
-./scripts/rebuild-cli.sh
+python scripts/rebuild-cli.py
 ```
 
 ### Running OnionShare from the source code tree
@@ -97,6 +97,8 @@ Once you have the dependencies installed, you can run it using the `dev.sh` scri
 ./scripts/dev.sh -v
 ./scripts/dev.sh -v --local-only
 ```
+
+Windows uses `scripts\dev.bat` instead.
 
 ## Running tests
 
