@@ -53,16 +53,6 @@ python scripts\get-tor-windows.py
 
 ### Prepare the code
 
-In order to work with the desktop app, you'll need to build a wheel of the CLI package first, and copy it into the `desktop` folder:
-
-```sh
-cd ../cli
-poetry install
-poetry build
-cp dist/onionshare_cli-*.whl ../desktop
-cd ../desktop
-```
-
 OnionShare uses [Briefcase](https://briefcase.readthedocs.io/en/latest/).
 
 Install Briefcase dependencies by following [these instructions](https://docs.beeware.org/en/latest/tutorial/tutorial-0.html#install-dependencies).
@@ -84,6 +74,12 @@ While your virtual environment is active, install briefcase from pip.
 
 ```
 pip install briefcase
+```
+
+In order to work with the desktop app, you'll need to build a wheel of the CLI package first, and copy it into the `desktop` folder. You'll need to re-run this script each time you change the CLI code.
+
+```sh
+./scripts/rebuild-cli.sh
 ```
 
 Run OnionShare from the source tree like this:
