@@ -34,6 +34,12 @@ from pkg_resources import resource_filename
 from .settings import Settings
 
 
+class CannotFindTor(Exception):
+    """
+    OnionShare can't find a tor binary
+    """
+
+
 class Common:
     """
     The Common object is shared amongst all parts of OnionShare.
@@ -82,6 +88,8 @@ class Common:
     def get_tor_paths(self):
         if self.platform == "Linux":
             tor_path = shutil.which("tor")
+            if not tor_path:
+                raise CannotFindTor()
             obfs4proxy_file_path = shutil.which("obfs4proxy")
             prefix = os.path.dirname(os.path.dirname(tor_path))
             tor_geo_ip_file_path = os.path.join(prefix, "share/tor/geoip")
@@ -94,6 +102,8 @@ class Common:
             tor_geo_ipv6_file_path = os.path.join(base_path, "Data", "Tor", "geoip6")
         elif self.platform == "Darwin":
             tor_path = shutil.which("tor")
+            if not tor_path:
+                raise CannotFindTor()
             obfs4proxy_file_path = shutil.which("obfs4proxy")
             prefix = os.path.dirname(os.path.dirname(tor_path))
             tor_geo_ip_file_path = os.path.join(prefix, "share/tor/geoip")

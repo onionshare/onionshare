@@ -22,7 +22,7 @@ import os, sys, time, argparse, threading
 from datetime import datetime
 from datetime import timedelta
 
-from .common import Common
+from .common import Common, CannotFindTor
 from .web import Web
 from .onion import *
 from .onionshare import OnionShare
@@ -320,7 +320,15 @@ def main(cwd=None):
     web = Web(common, False, mode_settings, mode)
 
     # Start the Onion object
-    onion = Onion(common, use_tmp_dir=True)
+    try:
+        onion = Onion(common, use_tmp_dir=True)
+    except CannotFindTor:
+        print("You must install tor to use OnionShare from the command line")
+        if common.platform == "Darwin":
+            print("In macOS, you can do this with Homebrew (https://brew.sh):")
+            print("  brew install tor")
+        sys.exit()
+
     try:
         onion.connect(
             custom_settings=False,
