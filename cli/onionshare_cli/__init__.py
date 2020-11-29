@@ -332,7 +332,7 @@ def main(cwd=None):
         print("")
         sys.exit()
     except Exception as e:
-        sys.exit(e.args[0])
+        sys.exit()
 
     # Start the onionshare app
     try:
