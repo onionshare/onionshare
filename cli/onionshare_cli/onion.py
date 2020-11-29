@@ -32,7 +32,6 @@ import getpass
 import psutil
 
 from distutils.version import LooseVersion as Version
-from . import common
 from .settings import Settings
 
 # TODO: Figure out how to localize this for the GUI
@@ -44,15 +43,11 @@ class TorErrorAutomatic(Exception):
     using automatic settings that should work with Tor Browser.
     """
 
-    pass
-
 
 class TorErrorInvalidSetting(Exception):
     """
     This exception is raised if the settings just don't make sense.
     """
-
-    pass
 
 
 class TorErrorSocketPort(Exception):
@@ -60,23 +55,17 @@ class TorErrorSocketPort(Exception):
     OnionShare can't connect to the Tor controller using the supplied address and port.
     """
 
-    pass
-
 
 class TorErrorSocketFile(Exception):
     """
     OnionShare can't connect to the Tor controller using the supplied socket file.
     """
 
-    pass
-
 
 class TorErrorMissingPassword(Exception):
     """
     OnionShare connected to the Tor controller, but it requires a password.
     """
-
-    pass
 
 
 class TorErrorUnreadableCookieFile(Exception):
@@ -85,16 +74,12 @@ class TorErrorUnreadableCookieFile(Exception):
     to access the cookie file.
     """
 
-    pass
-
 
 class TorErrorAuthError(Exception):
     """
     OnionShare connected to the address and port, but can't authenticate. It's possible
     that a Tor controller isn't listening on this port.
     """
-
-    pass
 
 
 class TorErrorProtocolError(Exception):
@@ -103,8 +88,6 @@ class TorErrorProtocolError(Exception):
     isn't acting like a Tor controller (such as in Whonix).
     """
 
-    pass
-
 
 class TorTooOld(Exception):
     """
@@ -112,8 +95,6 @@ class TorTooOld(Exception):
     (like stealth ephemeral onion services) but the version you have installed
     is too old.
     """
-
-    pass
 
 
 class BundledTorTimeout(Exception):
