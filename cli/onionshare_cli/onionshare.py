@@ -21,7 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import os, shutil
 
 from . import common
-from .onion import TorTooOld, TorErrorProtocolError
 from .common import AutoStopTimer
 
 

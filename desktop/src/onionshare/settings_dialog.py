@@ -27,11 +27,31 @@ import os
 
 from onionshare_cli import common
 from onionshare_cli.settings import Settings
-from onionshare_cli.onion import *
+from onionshare_cli.onion import (
+    Onion,
+    TorErrorInvalidSetting,
+    TorErrorAutomatic,
+    TorErrorSocketPort,
+    TorErrorSocketFile,
+    TorErrorMissingPassword,
+    TorErrorUnreadableCookieFile,
+    TorErrorAuthError,
+    TorErrorProtocolError,
+    BundledTorTimeout,
+    BundledTorBroken,
+    TorTooOldEphemeral,
+    TorTooOldStealth,
+    PortNotAvailable,
+)
 
 from . import strings
 from .widgets import Alert
-from .update_checker import *
+from .update_checker import (
+    UpdateCheckerCheckError,
+    UpdateCheckerInvalidLatestVersion,
+    UpdateChecker,
+    UpdateThread,
+)
 from .tor_connection_dialog import TorConnectionDialog
 from .gui_common import GuiCommon
 
@@ -698,10 +718,18 @@ class SettingsDialog(QtWidgets.QDialog):
             TorErrorUnreadableCookieFile,
             TorErrorAuthError,
             TorErrorProtocolError,
-            BundledTorNotSupported,
             BundledTorTimeout,
+            BundledTorBroken,
+            TorTooOldEphemeral,
+            TorTooOldStealth,
+            PortNotAvailable,
         ) as e:
-            Alert(self.common, e.args[0], QtWidgets.QMessageBox.Warning)
+            message = self.common.gui.get_translated_tor_error(e)
+            Alert(
+                self.common,
+                message,
+                QtWidgets.QMessageBox.Warning,
+            )
             if settings.get("connection_type") == "bundled":
                 self.tor_status.hide()
                 self._enable_buttons()
