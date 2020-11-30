@@ -51,7 +51,7 @@ Download Tor Browser and extract the binaries:
 python scripts\get-tor-windows.py
 ```
 
-### Prepare the code
+### Prepare the virtual environment
 
 OnionShare uses [Briefcase](https://briefcase.readthedocs.io/en/latest/).
 
@@ -79,14 +79,26 @@ pip install briefcase
 In order to work with the desktop app, you'll need to build a wheel of the CLI package first, and copy it into the `desktop` folder. You'll need to re-run this script each time you change the CLI code.
 
 ```sh
-./scripts/rebuild-cli.sh
+python scripts/rebuild-cli.py
 ```
 
-Run OnionShare from the source tree like this:
+### Running OnionShare from the source code tree
+
+Inside the virtual environment, run OnionShare like this to install all of the dependencies:
 
 ```
 briefcase dev -d
 ```
+
+Once you have the dependencies installed, you can run it using the `dev.sh` script, which lets you use command line arguments, such as to `--verbose` or `--local-only`:
+
+```
+./scripts/dev.sh --help
+./scripts/dev.sh -v
+./scripts/dev.sh -v --local-only
+```
+
+Windows uses `scripts\dev.bat` instead.
 
 ## Running tests
 
