@@ -142,7 +142,7 @@ class SettingsDialog(QtWidgets.QDialog):
             self.tor_geo_ip_file_path,
             self.tor_geo_ipv6_file_path,
             self.obfs4proxy_file_path,
-        ) = self.common.get_tor_paths()
+        ) = self.common.gui.get_tor_paths()
         if not self.obfs4proxy_file_path or not os.path.isfile(
             self.obfs4proxy_file_path
         ):
@@ -165,7 +165,7 @@ class SettingsDialog(QtWidgets.QDialog):
             self.tor_geo_ip_file_path,
             self.tor_geo_ipv6_file_path,
             self.obfs4proxy_file_path,
-        ) = self.common.get_tor_paths()
+        ) = self.common.gui.get_tor_paths()
         if not self.obfs4proxy_file_path or not os.path.isfile(
             self.obfs4proxy_file_path
         ):
