@@ -132,7 +132,7 @@
     "gui_save_private_key_checkbox": "Nutze eine gleichbleibende Adresse",
     "gui_share_url_description": "<b>Jeder</b> mit dieser OnionShare-Adresse kann deine Dateien mit dem <b>Tor Browser</b> <b>herunterladen</b>: <img src='{}' />",
     "gui_receive_url_description": "<b>Jeder</b> mit dieser OnionShare-Adresse kann mit dem <b>Tor Browser</b> Dateien auf deinen Computer <b>hochladen</b>: <img src='{}' />",
-    "gui_url_label_persistent": "Diese Freigabe wird nicht automatisch stoppen.<br><br>Jede folgende Freigabe wird die Adresse erneut nutzen. (Um Adressen nur einmal zu nutzen, schalte \"Nutze beständige Adressen\" in den Einstellungen aus.)",
+    "gui_url_label_persistent": "Diese Freigabe wird nicht automatisch stoppen.<br><br>Jede folgende Freigabe wird die Adresse erneut nutzen. (Um Adressen nur einmal zu nutzen, schalte „Nutze beständige Adressen“ in den Einstellungen aus.)",
     "gui_url_label_stay_open": "Diese Freigabe wird nicht automatisch stoppen.",
     "gui_url_label_onetime": "Diese Freigabe wird nach dem ersten vollständigen Download stoppen.",
     "gui_status_indicator_share_working": "Starte…",
@@ -185,7 +185,7 @@
     "gui_add_files": "Dateien hinzufügen",
     "gui_add_folder": "Ordner hinzufügen",
     "gui_connect_to_tor_for_onion_settings": "Verbinde dich mit Tor, um die Einstellungen für die Onion-Dienste zu sehen",
-    "gui_url_label_onetime_and_persistent": "Diese Freigabe wird nicht automatisch stoppen. >br><br>Jede nachfolgende Freigabe wird die gleiche Adresse nutzen. (Um jedes Mal eine andere Adresse zu nutzen, schalte \"Nutze eine gleichbleibende Adresse\" in den Einstellungen aus.)",
+    "gui_url_label_onetime_and_persistent": "Diese Freigabe wird nicht automatisch stoppen. >br><br>Jede nachfolgende Freigabe wird die gleiche Adresse nutzen. (Um jedes Mal eine andere Adresse zu nutzen, schalte „Nutze eine gleichbleibende Adresse“ in den Einstellungen aus.)",
     "gui_settings_onion_label": "Adresseinstellungen",
     "error_cannot_create_data_dir": "Der Ordner für die OnionShare-Dateien konnte nicht erstellt werden: {}",
     "receive_mode_data_dir": "Die Dateien, die dir geschickt wurden, findest du in folgendem Ordner: {}",
@@ -290,5 +290,6 @@
     "gui_main_page_share_button": "Freigabe starten",
     "gui_open_folder_error": "Fehler beim Öffnen des Ordners mit xdg-open. Die Datei befindet sich hier: {}",
     "gui_qr_code_description": "Scanne diesen QR-Code mit einem QR-Scanner, wie zB. mit der Kamera deines Smartphones, um die OnionShare-Adresse einfacher mit anderen zu teilen.",
-    "gui_receive_flatpak_data_dir": "Da OnionShare durch Flatpak installiert wurde, müssen Dateien im Verzeichnis ~/OnionShare gespeichert werden."
+    "gui_receive_flatpak_data_dir": "Da OnionShare durch Flatpak installiert wurde, müssen Dateien im Verzeichnis ~/OnionShare gespeichert werden.",
+    "gui_chat_url_description": "<b>Jeder</b>, der diese OnionShare-Adresse hat, kann <b>diesem Chatroom beitreten</b>, indem er den <b>Tor Browser</b> benutzt: <img src='{}' />"
 }
