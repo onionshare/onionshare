@@ -1,0 +1,67 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) Micah Lee, et al.
+# This file is distributed under the same license as the OnionShare package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OnionShare 2.3\n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
+"POT-Creation-Date: 2020-11-15 14:43-0800\n"
+"PO-Revision-Date: 2020-11-24 09:28+0000\n"
+"Last-Translator: Lecwan Munzur <lecwan@riseup.net>\n"
+"Language-Team: none\n"
+"Language: ckb\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.4-dev\n"
+
+#: ../../source/help.rst:2
+msgid "Getting Help"
+msgstr "Alîkarî bixwaze"
+
+#: ../../source/help.rst:5
+msgid "Read This Website"
+msgstr "Vê malperê bixune"
+
+#: ../../source/help.rst:7
+msgid "You will find instructions on how to use OnionShare. Look through all of the sections first to see if anything answers your questions."
+msgstr ""
+"Tu agahî li ver bikar anîna OnionShare peyda bike. Destpêkê li hemû beşan "
+"mêze bike dibe kû bersivên pirsên te bêne dayîn."
+
+#: ../../source/help.rst:10
+msgid "Check the GitHub Issues"
+msgstr "Pirsgirêkên GitHub kontrol bike"
+
+#: ../../source/help.rst:12
+msgid "If it isn't on the website, please check the `GitHub issues <https://github.com/micahflee/onionshare/issues>`_. It's possible someone else has encountered the same problem and either raised it with the developers, or maybe even posted a solution."
+msgstr ""
+"Dema li ser malperê de nîne, ji kerema xwe `GitHub issues <https://github."
+"com/micahflee/onionshare/issues>`_ kontrol bike. Gengaze kesekî din heman "
+"pirsgirêk dîtiye û bi avakar re parve kir an jî bi xwe çareseriya wî parve "
+"kir."
+
+#: ../../source/help.rst:15
+msgid "Submit an Issue Yourself"
+msgstr "Bixwe pirsgirêkekî parve bike"
+
+#: ../../source/help.rst:17
+msgid "If you are unable to find a solution, or wish to ask a question or suggest a new feature, please `submit an issue <https://github.com/micahflee/onionshare/issues/new>`_. This requires `creating a GitHub account <https://help.github.com/articles/signing-up-for-a-new-github-account/>`_."
+msgstr ""
+"Dema tu çareserî nedît an jî dixwazî pirsekî bipirsî an tiştekî nû pêşniyar "
+"bikî, ji kerema xwe `pirsgirêk parve bike <https://github.com/micahflee/"
+"onionshare/issues/new>`_. Ji bo wê pêwîste tu`hesabekî GitHub ava bikî "
+"<https://help.github.com/articles/signing-up-for-a-new-github-account/>`_."
+
+#: ../../source/help.rst:20
+msgid "Join our Keybase Team"
+msgstr "Tevlî tîma me ya Keybase bibe"
+
+#: ../../source/help.rst:22
+msgid "See :ref:`collaborating` on how to join the Keybase team used to discuss the project."
+msgstr ""
+"Mêze bike :ref:`collaborating`tu çawa tevlî tîma Keybase bibî ji bo li ser "
+"proje tevlî nîqaşan bibî."
