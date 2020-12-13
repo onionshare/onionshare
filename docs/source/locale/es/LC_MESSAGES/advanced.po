@@ -8,23 +8,22 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2020-11-15 14:42-0800\n"
-"PO-Revision-Date: 2020-09-22 13:39+0000\n"
+"PO-Revision-Date: 2020-12-04 23:29+0000\n"
 "Last-Translator: Zuhualime Akoochimoya <zakooch@protonmail.ch>\n"
-"Language: es\n"
 "Language-Team: none\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.4-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/advanced.rst:2
-#, fuzzy
 msgid "Advanced Usage"
 msgstr "Uso avanzado"
 
 #: ../../source/advanced.rst:7
-#, fuzzy
 msgid "Save Tabs"
 msgstr "Guardar pestañas"
 
@@ -36,6 +35,11 @@ msgid ""
 "useful if you want to host a website available from the same OnionShare "
 "address even if you reboot your computer."
 msgstr ""
+"En forma predeterminada, todo en OnionShare es temporario. Si cierras una "
+"pestaña OnionShare, su dirección ya no existe, y no puede ser usada de "
+"nuevo. A veces, podrías querer que un servicio OnionShare sea persistente. "
+"Esto es útil si quieres alojar un sitio web que esté disponible desde la "
+"misma dirección OnionShare, aún si reinicias tu computadora."
 
 #: ../../source/advanced.rst:13
 msgid ""
@@ -49,16 +53,15 @@ msgstr ""
 " pin aparece a la izquierda de su estado de servidor."
 
 #: ../../source/advanced.rst:18
-#, fuzzy
 msgid ""
 "When you quit OnionShare and then open it again, your saved tabs will "
 "start opened. You'll have to manually start each service, but when you do"
 " they will start with the same OnionShare address and password."
 msgstr ""
-"Cuando sales de OnionShare y lo vuelves a abrir, tus pestañas guardadas "
-"se iniciarán abiertas. Tendrás que arrancar cada servicio manualmente, "
-"pero cuando lo hagas, se iniciarán con la misma dirección OnionShare, y "
-"con la misma contraseña."
+"Cuando sales de OnionShare y lo vuelves a abrir, tus pestañas guardadas se "
+"iniciarán abiertas. Tendrás que arrancar cada servicio manualmente, pero "
+"cuando lo hagas, se iniciarán con la misma dirección OnionShare, y con la "
+"misma contraseña."
 
 #: ../../source/advanced.rst:21
 msgid ""
@@ -71,7 +74,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:26
 msgid "Turn Off Passwords"
-msgstr ""
+msgstr "Deshabilitar contraseñas"
 
 #: ../../source/advanced.rst:28
 msgid ""
@@ -80,6 +83,11 @@ msgid ""
 "wrong guesses at the password, your onion service is automatically "
 "stopped to prevent a brute force attack against the OnionShare service."
 msgstr ""
+"Por defecto, todos los servicios OnionShare están protegidos con el nombre "
+"de usuario ``onionshare`` y una contraseña generada al azar. Si alguien "
+"intenta adivinarla 20 veces erróneamente, tu servicio onion es detenido en "
+"forma automática para prevenir un ataque por fuerza bruta en contra del "
+"mismo."
 
 #: ../../source/advanced.rst:31
 msgid ""
@@ -90,25 +98,28 @@ msgid ""
 "can force your server to stop just by making 20 wrong guesses of your "
 "password, even if they know the correct password."
 msgstr ""
+"A veces, podrías querer que tu servicio OnionShare sea accesible al público, "
+"por ejemplo si quisieras un servicio OnionShare de recepción para que el "
+"público pueda enviarte archivos segura y anónimamente. En esta caso, es "
+"mejor deshabilitar del todo la contraseña. Si no lo haces, alguien puede "
+"forzar a tu servidor para que se detenga efectuando solo 20 suposiciones "
+"erróneas de tu contraseña, aún si conocen la correcta."
 
 #: ../../source/advanced.rst:35
-#, fuzzy
 msgid ""
 "To turn off the password for any tab, just check the \"Don't use a "
 "password\" box before starting the server. Then the server will be public"
 " and won't have a password."
 msgstr ""
 "Para deshabilitar la contraseña para cualquier pestaña, solo marca la "
-"casilla \"No usar una contraseña\" antes de iniciar el servidor. Entonces"
-" será público y no tendrá contraseña."
+"casilla \"No usar una contraseña\" antes de iniciar el servidor. Entonces "
+"será público y no tendrá contraseña."
 
 #: ../../source/advanced.rst:38
-#, fuzzy
 msgid "Scheduled Times"
 msgstr "Tiempos programados"
 
 #: ../../source/advanced.rst:40
-#, fuzzy
 msgid ""
 "OnionShare supports scheduling exactly when a service should start and "
 "stop. Before starting a server, click \"Show advanced settings\" in its "
@@ -116,26 +127,25 @@ msgid ""
 "scheduled time\", \"Stop onion service at scheduled time\", or both, and "
 "set the respective desired dates and times."
 msgstr ""
-"OnionShare soporta la programación exacta de cuándo un servicio debiera "
-"arrancar y detenerse. Antes de iniciar el servidor, haz clic en \"Mostrar"
-" ajustes avanzados\" en su pestaña, y luego marca las casillas próximas a"
-" \"Iniciar el servicio onion en el tiempo programado\", \"Detener el "
-"servicio onion en el tiempo programado\", o ambas, y establece las fechas"
-" y horas deseadas."
+"OnionShare soporta la programación exacta de cuándo un servicio debería "
+"arrancar y detenerse. Antes de iniciar un servidor, haz clic en \"Mostrar "
+"ajustes avanzados\" en su pestaña, y luego marca las casillas próximas a "
+"\"Iniciar el servicio onion en el tiempo programado\", \"Detener el servicio "
+"onion en el tiempo programado\", o ambas, y establece las fechas y horas "
+"deseadas."
 
 #: ../../source/advanced.rst:43
-#, fuzzy
 msgid ""
 "If you scheduled a service to start in the future, when you click the "
 "\"Start sharing\" button you will see a timer counting down until it "
 "starts. If you scheduled it to stop in the future, after it's started you"
 " will see a timer counting down to when it will stop automatically."
 msgstr ""
-"Si programaste un servicio para arrancar en el futuro, cuando hagas clic "
-"en el botón de inicio verás un temporizador contando regresivamente hasta"
-" el arranque. Si lo hiciste para detenerse en el futuro, luego que sea "
-"arrancado verás un temporizador contando regresivamente hasta el momento "
-"en que se detendrá automáticamente."
+"Si programaste un servicio para arrancar en el futuro, cuando hagas clic en "
+"el botón \"Empezar a compartir\", verás un temporizador contando "
+"regresivamente hasta el arranque. Si lo hiciste para detenerse en el futuro, "
+"luego que sea arrancado verás un temporizador contando regresivamente hasta "
+"el momento en que se detendrá automáticamente."
 
 #: ../../source/advanced.rst:46
 msgid ""
@@ -150,71 +160,71 @@ msgstr ""
 "nada, puedes cancelarlo antes de su inicio programado."
 
 #: ../../source/advanced.rst:51
-#, fuzzy
 msgid ""
 "**Scheduling an OnionShare service to automatically stop can be useful to"
 " limit exposure**, like if you want to share secret documents while "
 "making sure they're not available on the Internet for more than a few "
 "days."
 msgstr ""
-"**Programar un servicio OnionShare para detenerse automáticamente puede "
-"ser útil para limitar la exposición**, como cuando quieres compartir "
-"documentos secretos mientras te aseguras que no estarán disponibles en "
-"Internet por más de unos pocos días."
+"**Programar un servicio OnionShare para detenerse automáticamente puede ser "
+"útil para limitar la exposición**, como cuando quieras compartir documentos "
+"secretos mientras te aseguras que no estarán disponibles en Internet por más "
+"de unos pocos días."
 
 #: ../../source/advanced.rst:56
-#, fuzzy
 msgid "Command-line Interface"
 msgstr "Interfaz de línea de comando"
 
 #: ../../source/advanced.rst:58
-#, fuzzy
 msgid ""
 "In addition to its graphical interface, OnionShare has a command-line "
 "interface."
-msgstr "Además de su interfaz gráfico, OnionShare tiene una de línea de comando."
+msgstr ""
+"Además de su interfaz gráfico, OnionShare tiene una de línea de comando."
 
 #: ../../source/advanced.rst:60
 msgid ""
 "You can install just the command-line version of OnionShare using "
 "``pip3``::"
 msgstr ""
+"Puedes instalar la versión de línea de comando de OnionShare usando "
+"``pip3``::"
 
 #: ../../source/advanced.rst:64
 msgid ""
 "Note that you will also need the ``tor`` package installed. In macOS, "
 "install it with: ``brew install tor``"
 msgstr ""
+"Ten en cuenta que también necesitarás el paquete ``tor`` instalado. En "
+"macOS, instálalo con: ``brew install tor``"
 
 #: ../../source/advanced.rst:66
 msgid "Then run it like this::"
-msgstr ""
+msgstr "Luego, ejecútalo así::"
 
 #: ../../source/advanced.rst:70
-#, fuzzy
 msgid ""
 "If you installed OnionShare using the Linux Snapcraft package, you can "
 "also just run ``onionshare.cli`` to access the command-line interface "
 "version."
 msgstr ""
-"Si instalaste OnionShare usando un paquete del sistema operativo, puedes "
-"ejecutar ``onionshare`` desde una terminal."
+"Si instalaste OnionShare usando el paquete Snapcraft de Linux, también "
+"puedes ejecutar ``onionshare.cli`` para acceder a la versión de interfaz de "
+"línea de comando."
 
 #: ../../source/advanced.rst:73
 msgid "Usage"
 msgstr "Uso"
 
 #: ../../source/advanced.rst:75
-#, fuzzy
 msgid ""
 "You can browse the command-line documentation by running ``onionshare "
 "--help``::"
 msgstr ""
-"Puedes ver la documentación de línea de comando ejecutando ``onionshare "
+"Puedes navegar la documentación de línea de comando ejecutando ``onionshare "
 "--help``::"
 
 #: ../../source/advanced.rst:132
-#, fuzzy
 msgid "Legacy Addresses"
 msgstr "Direcciones antiguas"
 
@@ -227,26 +237,23 @@ msgstr ""
 "onion modernas que tienen 56 caracteres, por ejemplo::"
 
 #: ../../source/advanced.rst:139
-#, fuzzy
 msgid ""
 "OnionShare still has support for v2 onion addresses, the old type of "
 "onion addresses that have 16 characters, for example::"
 msgstr ""
-"Pero aún tiene soporte para direcciones onion v2, el viejo tipo de "
+"OnionShare aún tiene soporte para direcciones onion v2, el viejo tipo de "
 "direcciones onion que tienen 16 caracteres, por ejemplo::"
 
 #: ../../source/advanced.rst:143
-#, fuzzy
 msgid ""
 "OnionShare calls v2 onion addresses \"legacy addresses\", and they are "
 "not recommended, as v3 onion addresses are more secure."
 msgstr ""
-"OnionShare llama a las direcciones onion v2 \"direcciones antiguas\". Las"
-" direcciones onion v3 son más seguras, y usar direcciones antiguas no "
-"está recomendado."
+"OnionShare llama a las direcciones onion v2 \"direcciones antiguas\", las "
+"cuales no están recomendadas, ya que las direcciones onion v3 son más "
+"seguras."
 
 #: ../../source/advanced.rst:145
-#, fuzzy
 msgid ""
 "To use legacy addresses, before starting a server click \"Show advanced "
 "settings\" from its tab and check the \"Use a legacy address (v2 onion "
@@ -256,15 +263,13 @@ msgid ""
 "service in a separate tab."
 msgstr ""
 "Para usar direcciones antiguas, antes de iniciar un servidor haz clic en "
-"\"Mostrar ajustes avanzados\" en su pestaña, y marca la casilla \"Usar "
-"una dirección antigua (servicio onion v2, no recomendado)\". En el modo "
-"antiguo, puedes habilitar opcionalmente la autenticación de cliente Tor. "
-"Una vez que inicias un servidor en modo antiguo no puedes cambiarlo en "
-"esa pestaña. Para cambiarlo debes arrancar un servicio separado en una "
-"pestaña separada."
+"\"Mostrar ajustes avanzados\" en su pestaña, y marca la casilla \"Usar una "
+"dirección antigua (servicio onion v2, no recomendado)\". En el modo antiguo, "
+"puedes habilitar opcionalmente la autenticación de cliente Tor. Una vez que "
+"inicias un servidor en modo antiguo no puedes cambiarlo en esa pestaña. En "
+"vez, debes arrancar un servicio separado en otra pestaña."
 
 #: ../../source/advanced.rst:150
-#, fuzzy
 msgid ""
 "Tor Project plans to `completely deprecate v2 onion services "
 "<https://blog.torproject.org/v2-deprecation-timeline>`_ on October 15, "
@@ -272,9 +277,9 @@ msgid ""
 "then."
 msgstr ""
 "El Tor Project planea `descontinuar completamente los servicios onion v2 "
-"<https://blog.torproject.org/v2-deprecation-timeline>`_ el 15 de octubre "
-"de 2021, y los servicios onion antiguos pronto se removerán de OnionShare"
-" también."
+"<https://blog.torproject.org/v2-deprecation-timeline>`_ el 15 de octubre de "
+"2021, y los servicios onion antiguos serán removidos de OnionShare antes de "
+"esa fecha."
 
 #~ msgid ""
 #~ "By default, everything in OnionShare is"
@@ -394,4 +399,3 @@ msgstr ""
 #~ "desarrollo (mira :ref:`starting_development`), y "
 #~ "luego ejecutar esto en una ventana "
 #~ "de línea de comando::"
-

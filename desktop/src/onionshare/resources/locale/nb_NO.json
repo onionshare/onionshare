@@ -273,14 +273,14 @@
     "gui_close_tab_warning_website_description": "Du deler en nettside akkurat nå. Er du sikker på at du vil lukke denne fanen?",
     "gui_settings_csp_header_disabled_option": "Ikke send hode for innholdssikkerhetspraksis",
     "mode_settings_website_disable_csp_checkbox": "Ikke send hode for innholdssikkerhetspraksis (tillater nettsiden din å bruke tredjepartsressurser)",
-    "mode_settings_legacy_checkbox": "Bruk en gammeldags adresse (v2-løktjeneste, anbefales ikke)",
-    "mode_settings_persistent_checkbox": "Del denne fanen og åpne den automatisk sammen med OnionShare",
+    "mode_settings_legacy_checkbox": "Bruk en gammeldags adresse (v2-onion tjeneste, anbefales ikke)",
+    "mode_settings_persistent_checkbox": "Lagre denne fanen og åpne den automatisk sammen med OnionShare",
     "gui_open_folder_error": "Klarte ikke å åpne mappe med xdg-open. Filen er her: {}",
     "gui_receive_flatpak_data_dir": "Fordi du har installert OnionShare som Flatpak må du lagre filer til en mappe i ~/OnionShare.",
     "mode_settings_share_autostop_sharing_checkbox": "Stopp deling etter at filer er sendt (fravelg for å tillate nedlasting av individuelle filer)",
     "mode_settings_client_auth_checkbox": "Bruk klient-identitetsgodkjennelse",
-    "gui_close_tab_warning_persistent_description": "Denne fanen er vedvarende. Hvis du lukker den vil du miste løk-adressen den bruker. Er du sikker på at du vil lukke den?",
-    "gui_tab_name_chat": "Sludring",
+    "gui_close_tab_warning_persistent_description": "Denne fanen er vedvarende. Hvis du lukker den vil du miste onion-adressen den bruker. Er du sikker på at du vil lukke den?",
+    "gui_tab_name_chat": "Prat",
     "gui_tab_name_website": "Nettside",
     "gui_tab_name_receive": "Motta",
     "gui_tab_name_share": "Del",
@@ -291,5 +291,6 @@
     "gui_main_page_chat_button": "Start sludring",
     "gui_main_page_website_button": "Start vertsjening",
     "gui_main_page_receive_button": "Start mottak",
-    "gui_main_page_share_button": "Start deling"
+    "gui_main_page_share_button": "Start deling",
+    "gui_chat_url_description": "<b>Alle</b> med denne OnionShare-adressen kan <b>ta del i dette sludrerommet</b> ved bruk av <b>Tor-nettleseren</b>: <img src='{}' />"
 }

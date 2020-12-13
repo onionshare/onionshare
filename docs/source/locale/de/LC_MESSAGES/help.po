@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2020-11-15 14:42-0800\n"
-"PO-Revision-Date: 2020-11-08 00:00+0000\n"
-"Last-Translator: mv87 <mv87@dismail.de>\n"
-"Language: de\n"
+"PO-Revision-Date: 2020-11-19 08:28+0000\n"
+"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: de <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.4-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/help.rst:2
@@ -23,46 +24,40 @@ msgid "Getting Help"
 msgstr "Hilfe erhalten"
 
 #: ../../source/help.rst:5
-#, fuzzy
 msgid "Read This Website"
 msgstr "Siehe auf dieser Webseite nach"
 
 #: ../../source/help.rst:7
-#, fuzzy
 msgid ""
 "You will find instructions on how to use OnionShare. Look through all of "
 "the sections first to see if anything answers your questions."
 msgstr ""
-"Auf dieser Webseite finden sich zahlreiche Anleitungen, wie man "
-"OnionShare benutzt. Sieh dort zuerst alle Kapitel durch, ob sie alle "
-"deine Fragen beantworten."
+"Auf dieser Webseite finden sich zahlreiche Anleitungen, wie man OnionShare "
+"benutzt. Sieh dort zuerst alle Kapitel durch, ob sie alle deine Fragen "
+"beantworten."
 
 #: ../../source/help.rst:10
-#, fuzzy
 msgid "Check the GitHub Issues"
 msgstr "Siehe die Problemsektion auf GitHub durch"
 
 #: ../../source/help.rst:12
-#, fuzzy
 msgid ""
 "If it isn't on the website, please check the `GitHub issues "
 "<https://github.com/micahflee/onionshare/issues>`_. It's possible someone"
 " else has encountered the same problem and either raised it with the "
 "developers, or maybe even posted a solution."
 msgstr ""
-"Falls du auf dieser Webseite keine Lösung findest, siehe bitte die "
-"`GitHub issues <https://github.com/micahflee/onionshare/issues>`_ durch. "
-"Möglicherweise ist bereits jemand anderes auf das gleiche Problem "
-"gestoßen und hat es den Entwicklern gemeldet, und vielleicht wurde dort "
-"sogar schon eine Lösung gepostet."
+"Falls du auf dieser Webseite keine Lösung findest, siehe bitte die `GitHub "
+"issues <https://github.com/micahflee/onionshare/issues>`_ durch. "
+"Möglicherweise ist bereits jemand anderes auf das gleiche Problem gestoßen "
+"und hat es den Entwicklern gemeldet, und vielleicht wurde dort sogar schon "
+"eine Lösung gepostet."
 
 #: ../../source/help.rst:15
-#, fuzzy
 msgid "Submit an Issue Yourself"
 msgstr "Selber ein Problem melden"
 
 #: ../../source/help.rst:17
-#, fuzzy
 msgid ""
 "If you are unable to find a solution, or wish to ask a question or "
 "suggest a new feature, please `submit an issue "
@@ -70,20 +65,17 @@ msgid ""
 "`creating a GitHub account <https://help.github.com/articles/signing-up-"
 "for-a-new-github-account/>`_."
 msgstr ""
-"Falls du keine Lösung zu deinem Problem findest, eine Frage stellen "
-"möchtest oder einen Vorschlag für ein Feature hast, `erstelle ein Ticket "
-"auf GitHub <https://github.com/micahflee/onionshare/issues/new>`_. "
-"Hierfür benötigt man`einen GitHub-Account "
-"<https://help.github.com/articles/signing-up-for-a-new-github-"
-"account/>`_."
+"Falls du keine Lösung zu deinem Problem findest, eine Frage stellen möchtest "
+"oder einen Vorschlag für ein Feature hast, `erstelle ein Ticket auf GitHub "
+"<https://github.com/micahflee/onionshare/issues/new>`_. Hierfür benötigt man`"
+"einen GitHub-Account <https://docs.github.com/de/free-pro-team@latest/github/"
+"getting-started-with-github/signing-up-for-a-new-github-account/>`_."
 
 #: ../../source/help.rst:20
-#, fuzzy
 msgid "Join our Keybase Team"
 msgstr "Tritt unserem Keybase-Team bei"
 
 #: ../../source/help.rst:22
-#, fuzzy
 msgid ""
 "See :ref:`collaborating` on how to join the Keybase team used to discuss "
 "the project."
@@ -93,4 +85,3 @@ msgstr ""
 
 #~ msgid "If you need help with OnionShare, please follow the instructions below."
 #~ msgstr "Falls du Hilfe mit OnionShare benötigst, kannst du Folgendes tun."
-
