@@ -260,7 +260,7 @@ class GuiCommon:
                 QLabel {
                     text-align: center;
                     color: #333333;
-                    font-size: 28px;
+                    font-size: 25px;
                 }
                 """,
             # Share mode and child widget styles
