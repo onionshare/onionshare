@@ -53,16 +53,22 @@ class NewTabButton(QtWidgets.QPushButton):
         )
         self.image_label.setAlignment(QtCore.Qt.AlignCenter)
         self.image_label.setStyleSheet(self.common.gui.css["new_tab_button_image"])
-        self.image_label.setGeometry(0, 0, self.width(), 200)
+        self.image_label.setGeometry(0, 0, self.width(), 190)
         self.image_label.show()
 
         # Title
         self.title_label = QtWidgets.QLabel(title, parent=self)
+        self.title_label.setWordWrap(True)
         self.title_label.setAlignment(QtCore.Qt.AlignCenter)
         self.title_label.setStyleSheet(self.common.gui.css["new_tab_title_text"])
-        self.title_label.setGeometry(
-            (self.width() - 250) / 2, self.height() - 100, 250, 30
-        )
+        if self.title_label.sizeHint().width() >= 250:
+            self.title_label.setGeometry(
+                (self.width() - 250) / 2, self.height() - 120, 250, 60
+            )
+        else:
+            self.title_label.setGeometry(
+                (self.width() - 250) / 2, self.height() - 100, 250, 30
+            )
         self.title_label.show()
 
         # Text
