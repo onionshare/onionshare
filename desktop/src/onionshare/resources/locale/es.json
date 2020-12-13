@@ -295,5 +295,6 @@
     "gui_main_page_chat_button": "Empezar a charlar",
     "gui_main_page_website_button": "Empezar a alojar",
     "gui_main_page_receive_button": "Empezar a recibir",
-    "gui_main_page_share_button": "Empezar a compartir"
+    "gui_main_page_share_button": "Empezar a compartir",
+    "gui_chat_url_description": "<b>Cualquiera</b> con esta dirección de OnionShare puede <b>puede unirse a este cuarto de chat</b> usando el <b>Navegador Tor</b>: <img src='{}' />"
 }

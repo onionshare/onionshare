@@ -88,7 +88,7 @@
     "gui_settings_tor_bridges_custom_label": "Vous pouvez obtenir des ponts sur <a href=\"https://bridges.torproject.org/options\">https://bridges.torproject.org</a>",
     "gui_settings_tor_bridges_invalid": "Aucun des ponts que vous avez ajoutés ne fonctionne.\nVérifiez-les de nouveau ou ajoutez-en d’autres.",
     "settings_error_unknown": "Impossible de se connecter au contrôleur Tor, car vos paramètres sont incohérents.",
-    "settings_error_automatic": "Impossible de se connecter au contrôleur Tor. Le Navigateur Tor (téléchargeable sur torproject.org) fonctionne-t-il en arrière-plan ?",
+    "settings_error_automatic": "Impossible de se connecter au contrôleur Tor. Le Navigateur Tor (téléchargeable sur torproject.org/fr) fonctionne-t-il en arrière-plan ?",
     "settings_error_socket_port": "Impossible de se connecter au contrôleur Tor à {}:{}.",
     "settings_error_socket_file": "Impossible de se connecter au contrôleur Tor en utilisant le fichier d’interface de connexion {}.",
     "settings_error_auth": "Connecté à {}:{}, mais il est impossible de s’authentifier. Est-ce bien un contrôleur Tor ?",
@@ -290,5 +290,6 @@
     "gui_main_page_chat_button": "Lancer le dialogue en ligne",
     "gui_main_page_website_button": "Lancer l’hébergement",
     "gui_main_page_receive_button": "Lancer la réception",
-    "gui_main_page_share_button": "Lancer le partage"
+    "gui_main_page_share_button": "Lancer le partage",
+    "gui_chat_url_description": "Cette adresse OnionShare permet à <b>n’importe qui</b> de <b>se joindre à ce salon de discussion</b> avec le <b>Navigateur Tor</b> : <img src='{}' />"
 }
