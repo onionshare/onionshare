@@ -287,5 +287,6 @@
     "gui_main_page_share_button": "Begynd at dele",
     "gui_main_page_receive_button": "Begynd at modtage",
     "gui_main_page_website_button": "Begynd at være vært",
-    "gui_main_page_chat_button": "Begynd at chatte"
+    "gui_main_page_chat_button": "Begynd at chatte",
+    "gui_chat_url_description": "<b>Alle</b> med denne OnionShare-adresse kan <b>deltage i chatrummet</b> med <b>Tor Browser</b>: <img src='{}' />"
 }
