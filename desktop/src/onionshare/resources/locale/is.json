@@ -109,7 +109,7 @@
     "settings_error_unknown": "Gat ekki tengst við Tor-stýringu því engin glóra er í stillingunum þínum.",
     "settings_error_automatic": "Ekki tókst að tengjast Tor-stýringunni. Er Tor-vafrinn (tiltækur á torproject.org) keyrandi í bakgrunni?",
     "settings_error_socket_port": "Gat ekki tengst við Tor-stýringu á {}:{}.",
-    "settings_error_socket_file": "Gat ekki tengst við Tor-stýringu með sökkulskrá á {}:{}.",
+    "settings_error_socket_file": "Gat ekki tengst við Tor-stýringu með sökkulskránni {}.",
     "settings_error_auth": "Tengt við {}:{}, en get ekki auðkennt. Kannski er þetta ekki Tor-stýring?",
     "settings_error_missing_password": "Tengt við Tor-stýringu, en hún krefst lykilorðs fyrir auðkenningu.",
     "settings_error_unreadable_cookie_file": "Tengt við Tor-stýringuna, en lykilorðið gæti verið rangt eða að notandinn þinn hafi ekki heimild til að lesa vefkökuskrána.",
@@ -283,5 +283,6 @@
     "gui_main_page_chat_button": "Hefja spjall",
     "gui_main_page_website_button": "Hefja hýsingu",
     "gui_main_page_receive_button": "Hefja móttöku",
-    "gui_main_page_share_button": "Hefja deilingu"
+    "gui_main_page_share_button": "Hefja deilingu",
+    "gui_chat_url_description": "<b>Hver og einn</b> með þetta OnionShare-vistfang getur <b>tekið þátt í þessari spjallrás</b> í gegnum <b>Tor-vafrann</b>: <img src='{}' />"
 }

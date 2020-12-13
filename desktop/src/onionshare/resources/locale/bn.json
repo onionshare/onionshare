@@ -263,5 +263,9 @@
     "mode_settings_advanced_toggle_hide": "উন্নততর সেটিংস লুকাও",
     "mode_settings_public_checkbox": "পাসওয়ার্ড ব্যবহার করো না",
     "mode_settings_receive_data_dir_browse_button": "অনুসন্ধান করো",
-    "mode_settings_receive_data_dir_label": "ফাইল সংরক্ষণ করো"
+    "mode_settings_receive_data_dir_label": "ফাইল সংরক্ষণ করো",
+    "gui_chat_stop_server": "",
+    "gui_chat_start_server": "",
+    "gui_file_selection_remove_all": "",
+    "gui_remove": ""
 }
