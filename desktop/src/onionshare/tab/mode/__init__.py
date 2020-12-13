@@ -177,8 +177,7 @@ class Mode(QtWidgets.QWidget):
 
                     self.status_bar.clearMessage()
                     if not self.app.autostop_timer_thread.is_alive():
-                        if self.autostop_timer_finished_should_stop_server():
-                            self.server_status.stop_server()
+                        self.autostop_timer_finished_should_stop_server()
 
     def timer_callback_custom(self):
         """
