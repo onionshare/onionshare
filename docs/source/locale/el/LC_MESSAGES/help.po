@@ -3,37 +3,41 @@
 # This file is distributed under the same license as the OnionShare package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2020-11-15 14:43-0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2020-11-28 11:28+0000\n"
+"Last-Translator: george k <norhorn@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.4-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/help.rst:2
 msgid "Getting Help"
-msgstr ""
+msgstr "Λάβετε βοήθεια"
 
 #: ../../source/help.rst:5
 msgid "Read This Website"
-msgstr ""
+msgstr "Διαβάστε την ιστοσελίδα"
 
 #: ../../source/help.rst:7
 msgid ""
 "You will find instructions on how to use OnionShare. Look through all of "
 "the sections first to see if anything answers your questions."
 msgstr ""
+"Θα βρείτε οδηγίες σχετικά με τη χρήση του OnionShare. Ερευνήστε πρώτα όλες "
+"τις ενότητες για να βρείτε σχετικές απαντήσεις."
 
 #: ../../source/help.rst:10
 msgid "Check the GitHub Issues"
-msgstr ""
+msgstr "Ελέγξτε τα ζητήματα στο GitHub"
 
 #: ../../source/help.rst:12
 msgid ""
@@ -42,10 +46,14 @@ msgid ""
 " else has encountered the same problem and either raised it with the "
 "developers, or maybe even posted a solution."
 msgstr ""
+"Εάν δεν υπάρχει στην ιστοσελίδα, παρακαλούμε ελέγξτε στο `GitHub issues "
+"<https://github.com/micahflee/onionshare/issues>`_. Είναι πιθανό και κάποιος "
+"άλλος να αντιμετώπισε το ίδιο πρόβλημα και συνομίλησε με τους "
+"προγραμματιστές ή να δημοσίευσε τη λύση."
 
 #: ../../source/help.rst:15
 msgid "Submit an Issue Yourself"
-msgstr ""
+msgstr "Υποβάλετε ένα ζήτημα"
 
 #: ../../source/help.rst:17
 msgid ""
@@ -55,16 +63,23 @@ msgid ""
 "`creating a GitHub account <https://help.github.com/articles/signing-up-"
 "for-a-new-github-account/>`_."
 msgstr ""
+"Εάν δεν μπορείτε να βρείτε λύση ή επιθυμείτε να υποβάλετε ερώτημα ή πρόταση "
+"νέας λειτουργίας, παρακαλούμε για την `υποβολή ζητήματος <https://github.com/"
+"micahflee/onionshare/issues/new>`_. Απαιτείται η `δημιουργία λογαριασμού "
+"GitHub <https://help.github.com/articles/signing-up-for-a-new-github-account/"
+">`_."
 
 #: ../../source/help.rst:20
 msgid "Join our Keybase Team"
-msgstr ""
+msgstr "Γίνετε μέλος της ομάδας Keybase"
 
 #: ../../source/help.rst:22
 msgid ""
 "See :ref:`collaborating` on how to join the Keybase team used to discuss "
 "the project."
 msgstr ""
+"Δείτε:ref:`collaborating` σχετικά με τον τρόπο συμμετοχής στην ομάδα Keybase "
+"για τη συζήτηση του έργου."
 
 #~ msgid "If you need help with OnionShare, please follow the instructions below."
 #~ msgstr ""
@@ -117,4 +132,3 @@ msgstr ""
 #~ "that we use to discuss the "
 #~ "project."
 #~ msgstr ""
-

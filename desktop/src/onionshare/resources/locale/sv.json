@@ -279,5 +279,6 @@
     "gui_chat_stop_server": "Stoppa chattservern",
     "gui_chat_start_server": "Starta chattservern",
     "gui_file_selection_remove_all": "Ta bort alla",
-    "gui_remove": "Ta bort"
+    "gui_remove": "Ta bort",
+    "gui_main_page_share_button": "Börja dela"
 }

@@ -37,7 +37,7 @@
     "gui_choose_items": "Escolher",
     "gui_share_start_server": "Começar a compartilhar",
     "gui_share_stop_server": "Parar de compartilhar",
-    "gui_share_stop_server_autostop_timer": "Parar de compartilhar daqui a ({})",
+    "gui_share_stop_server_autostop_timer": "Parar de compartilhar em ({})",
     "gui_share_stop_server_autostop_timer_tooltip": "O cronômetro automático termina às",
     "gui_receive_start_server": "Iniciar o Modo de Recepção",
     "gui_receive_stop_server": "Parar o Modo Recepção",
@@ -132,7 +132,7 @@
     "gui_tor_connection_canceled": "Não foi possível conectar ao Tor.\n\nTenha certeza que você está conectado à Internet, então abra OnionShare novamente e configure sua conexão ao Tor.",
     "gui_tor_connection_lost": "Desconectado do Tor.",
     "gui_server_started_after_autostop_timer": "O tempo esgotou antes do servidor iniciar.\nPor favor, crie um novo compartilhamento.",
-    "gui_server_autostop_timer_expired": "O cronômetro já esgotou.\nPor favor, ajuste-o para começar a compartilhar.",
+    "gui_server_autostop_timer_expired": "O cronômetro já esgotou. Por favor, ajuste-o para começar a compartilhar.",
     "share_via_onionshare": "Compartilhar via OnionShare",
     "gui_use_legacy_v2_onions_checkbox": "Usar endereços do tipo antigo",
     "gui_save_private_key_checkbox": "Usar o mesmo endereço",
@@ -157,7 +157,7 @@
     "error_cannot_create_downloads_dir": "Não foi possível a pasta do modo de recepção: {}",
     "receive_mode_downloads_dir": "Os arquivos enviados para você aparecem na seguinte pasta: {}",
     "receive_mode_warning": "Atenção: O modo de recepção permite que as pessoas enviem arquivos para o seu computador. Alguns arquivos podem tomar o controle do seu computador se você abri-los. Apenas abra arquivos enviados por pessoas que você confia, ou se você souber o que está fazendo.",
-    "gui_receive_mode_warning": "O modo de recepção permite que pessoas enviem arquivos para o seu computador.<br><br><b>Alguns arquivos podem tomar o controle do seu computador se você abri-los. Apenas abra arquivos enviados por pessoas em quem você confia, ou se  souber o que está fazendo.</b>",
+    "gui_receive_mode_warning": "O modo de recepção permite que pessoas enviem arquivos para o seu computador.<br><br><b>Alguns arquivos podem tomar o controle do seu computador se você abri-los. Apenas abra arquivos enviados por pessoas em quem você confia, ou se souber o que está fazendo.</b>",
     "receive_mode_upload_starting": "Um upload de tamanho total {} está sendo iniciado",
     "receive_mode_received_file": "Recebido: {}",
     "gui_mode_share_button": "Compartilhar Arquivos",
@@ -230,7 +230,7 @@
     "incorrect_password": "Senha incorreta",
     "gui_settings_individual_downloads_label": "Desmarque para permitir download de arquivos individuais",
     "gui_settings_csp_header_disabled_option": "Desabilitar cabeçalho Política de Segurança de Conteúdo",
-    "gui_website_url_description": "<b>Qualquer um</b> com este endereço OnionShare pode  <b>visitar</b> seu site usando o <b>navegador Tor</b>: <img src='{}' />",
+    "gui_website_url_description": "<b>Qualquer pessoa</b> com este endereço OnionShare pode <b>visitar</b> seu site usando o <b>navegador Tor</b>: <img src='{}' />",
     "gui_mode_website_button": "Publicar Website",
     "gui_website_mode_no_files": "Nenhum website compartilhado ainda",
     "history_requests_tooltip": "{} solicitações da web",
@@ -281,5 +281,6 @@
     "gui_chat_stop_server": "Parar o servidor de conversas",
     "gui_chat_start_server": "Iniciar um servidor de conversas",
     "gui_file_selection_remove_all": "Remover tudo",
-    "gui_remove": "Remover"
+    "gui_remove": "Remover",
+    "gui_tab_name_chat": "Bate-papo"
 }
