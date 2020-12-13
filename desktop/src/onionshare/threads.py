@@ -24,7 +24,6 @@ import os
 from PySide2 import QtCore
 
 from onionshare_cli.onion import (
-    TorTooOld,
     TorErrorInvalidSetting,
     TorErrorAutomatic,
     TorErrorSocketPort,
@@ -34,6 +33,10 @@ from onionshare_cli.onion import (
     TorErrorAuthError,
     TorErrorProtocolError,
     BundledTorTimeout,
+    BundledTorBroken,
+    TorTooOldEphemeral,
+    TorTooOldStealth,
+    PortNotAvailable,
 )
 
 from . import strings
@@ -93,7 +96,6 @@ class OnionThread(QtCore.QThread):
                 self.success.emit()
 
         except (
-            TorTooOld,
             TorErrorInvalidSetting,
             TorErrorAutomatic,
             TorErrorSocketPort,
@@ -103,9 +105,13 @@ class OnionThread(QtCore.QThread):
             TorErrorAuthError,
             TorErrorProtocolError,
             BundledTorTimeout,
-            OSError,
+            BundledTorBroken,
+            TorTooOldEphemeral,
+            TorTooOldStealth,
+            PortNotAvailable,
         ) as e:
-            self.error.emit(e.args[0])
+            message = self.mode.common.gui.get_translated_tor_error(e)
+            self.error.emit(message)
             return
 
 

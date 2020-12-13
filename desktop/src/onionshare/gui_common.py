@@ -24,7 +24,22 @@ import shutil
 from pkg_resources import resource_filename
 
 from . import strings
-from onionshare_cli.onion import Onion
+from onionshare_cli.onion import (
+    Onion,
+    TorErrorInvalidSetting,
+    TorErrorAutomatic,
+    TorErrorSocketPort,
+    TorErrorSocketFile,
+    TorErrorMissingPassword,
+    TorErrorUnreadableCookieFile,
+    TorErrorAuthError,
+    TorErrorProtocolError,
+    BundledTorTimeout,
+    BundledTorBroken,
+    TorTooOldEphemeral,
+    TorTooOldStealth,
+    PortNotAvailable,
+)
 
 
 class GuiCommon:
@@ -245,7 +260,7 @@ class GuiCommon:
                 QLabel {
                     text-align: center;
                     color: #333333;
-                    font-size: 28px;
+                    font-size: 25px;
                 }
                 """,
             # Share mode and child widget styles
@@ -377,3 +392,37 @@ class GuiCommon:
         Returns the absolute path of a resource
         """
         return resource_filename("onionshare", os.path.join("resources", filename))
+
+    @staticmethod
+    def get_translated_tor_error(e):
+        """
+        Takes an exception defined in onion.py and returns a translated error message
+        """
+        if type(e) is TorErrorInvalidSetting:
+            return strings._("settings_error_unknown")
+        elif type(e) is TorErrorAutomatic:
+            return strings._("settings_error_automatic")
+        elif type(e) is TorErrorSocketPort:
+            return strings._("settings_error_socket_port").format(e.args[0], e.args[1])
+        elif type(e) is TorErrorSocketFile:
+            return strings._("settings_error_socket_file").format(e.args[0])
+        elif type(e) is TorErrorMissingPassword:
+            return strings._("settings_error_missing_password")
+        elif type(e) is TorErrorUnreadableCookieFile:
+            return strings._("settings_error_unreadable_cookie_file")
+        elif type(e) is TorErrorAuthError:
+            return strings._("settings_error_auth").format(e.args[0], e.args[1])
+        elif type(e) is TorErrorProtocolError:
+            return strings._("error_tor_protocol_error").format(e.args[0])
+        elif type(e) is BundledTorTimeout:
+            return strings._("settings_error_bundled_tor_timeout")
+        elif type(e) is BundledTorBroken:
+            return strings._("settings_error_bundled_tor_broken").format(e.args[0])
+        elif type(e) is TorTooOldEphemeral:
+            return strings._("error_ephemeral_not_supported")
+        elif type(e) is TorTooOldStealth:
+            return strings._("error_stealth_not_supported")
+        elif type(e) is PortNotAvailable:
+            return strings._("error_port_not_available")
+
+        return None

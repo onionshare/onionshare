@@ -32,10 +32,7 @@ import getpass
 import psutil
 
 from distutils.version import LooseVersion as Version
-from . import common
 from .settings import Settings
-
-# TODO: Figure out how to localize this for the GUI
 
 
 class TorErrorAutomatic(Exception):
@@ -44,15 +41,11 @@ class TorErrorAutomatic(Exception):
     using automatic settings that should work with Tor Browser.
     """
 
-    pass
-
 
 class TorErrorInvalidSetting(Exception):
     """
     This exception is raised if the settings just don't make sense.
     """
-
-    pass
 
 
 class TorErrorSocketPort(Exception):
@@ -60,23 +53,17 @@ class TorErrorSocketPort(Exception):
     OnionShare can't connect to the Tor controller using the supplied address and port.
     """
 
-    pass
-
 
 class TorErrorSocketFile(Exception):
     """
     OnionShare can't connect to the Tor controller using the supplied socket file.
     """
 
-    pass
-
 
 class TorErrorMissingPassword(Exception):
     """
     OnionShare connected to the Tor controller, but it requires a password.
     """
-
-    pass
 
 
 class TorErrorUnreadableCookieFile(Exception):
@@ -85,16 +72,12 @@ class TorErrorUnreadableCookieFile(Exception):
     to access the cookie file.
     """
 
-    pass
-
 
 class TorErrorAuthError(Exception):
     """
     OnionShare connected to the address and port, but can't authenticate. It's possible
     that a Tor controller isn't listening on this port.
     """
-
-    pass
 
 
 class TorErrorProtocolError(Exception):
@@ -103,17 +86,17 @@ class TorErrorProtocolError(Exception):
     isn't acting like a Tor controller (such as in Whonix).
     """
 
-    pass
 
-
-class TorTooOld(Exception):
+class TorTooOldEphemeral(Exception):
     """
-    This exception is raised if onionshare needs to use a feature of Tor or stem
-    (like stealth ephemeral onion services) but the version you have installed
-    is too old.
+    This exception is raised if the version of tor doesn't support ephemeral onion services
     """
 
-    pass
+
+class TorTooOldStealth(Exception):
+    """
+    This exception is raised if the version of tor doesn't support stealth onion services
+    """
 
 
 class BundledTorTimeout(Exception):
@@ -134,6 +117,12 @@ class BundledTorBroken(Exception):
     """
     This exception is raised if onionshare is set to use the bundled Tor binary,
     but the process seems to fail to run.
+    """
+
+
+class PortNotAvailable(Exception):
+    """
+    There are no available ports for OnionShare to use, which really shouldn't ever happen
     """
 
 
@@ -236,7 +225,8 @@ class Onion(object):
             try:
                 self.tor_socks_port = self.common.get_available_port(1000, 65535)
             except:
-                raise OSError("OnionShare port not available")
+                print("OnionShare port not available")
+                raise PortNotAvailable()
             self.tor_torrc = os.path.join(self.tor_data_directory_name, "torrc")
 
             # If there is an existing OnionShare tor process, kill it
@@ -268,7 +258,8 @@ class Onion(object):
                 try:
                     self.tor_control_port = self.common.get_available_port(1000, 65535)
                 except:
-                    raise OSError("OnionShare port not available")
+                    print("OnionShare port not available")
+                    raise PortNotAvailable()
                 self.tor_control_socket = None
             else:
                 # Linux and BSD can use unix sockets
@@ -337,10 +328,6 @@ class Onion(object):
                     f.write(self.settings.get("tor_bridges_use_custom_bridges"))
                     f.write("\nUseBridges 1")
 
-            # Make sure the tor path is accurate
-            if not os.path.exists(self.tor_path):
-                raise BundledTorNotSupported(f"Cannot find tor binary: {self.tor_path}")
-
             # Execute a tor subprocess
             start_ts = time.time()
             if self.common.platform == "Windows":
@@ -375,10 +362,8 @@ class Onion(object):
                     self.c = Controller.from_socket_file(path=self.tor_control_socket)
                     self.c.authenticate()
             except Exception as e:
-                raise BundledTorBroken(
-                    # strings._("settings_error_bundled_tor_broken").format(e.args[0])
-                    "OnionShare could not connect to Tor:\n{}".format(e.args[0])
-                )
+                print("OnionShare could not connect to Tor:\n{}".format(e.args[0]))
+                raise BundledTorBroken(e.args[0])
 
             while True:
                 try:
@@ -425,15 +410,16 @@ class Onion(object):
                     print("")
                     try:
                         self.tor_proc.terminate()
-                        raise BundledTorTimeout(
-                            # strings._("settings_error_bundled_tor_timeout")
+                        print(
                             "Taking too long to connect to Tor. Maybe you aren't connected to the Internet, or have an inaccurate system clock?"
                         )
+                        raise BundledTorTimeout()
                     except FileNotFoundError:
                         pass
 
         elif self.settings.get("connection_type") == "automatic":
             # Automatically try to guess the right way to connect to Tor Browser
+            automatic_error = "Could not connect to the Tor controller. Is Tor Browser (available from torproject.org) running in the background?"
 
             # Try connecting to control port
             found_tor = False
@@ -485,30 +471,25 @@ class Onion(object):
                         )
                     elif self.common.platform == "Windows":
                         # Windows doesn't support unix sockets
-                        raise TorErrorAutomatic(
-                            # strings._("settings_error_automatic")
-                            "Could not connect to the Tor controller. Is Tor Browser (available from torproject.org) running in the background?"
-                        )
+                        print(automatic_error)
+                        raise TorErrorAutomatic()
 
                     self.c = Controller.from_socket_file(path=socket_file_path)
 
                 except:
-                    raise TorErrorAutomatic(
-                        # strings._("settings_error_automatic")
-                        "Could not connect to the Tor controller. Is Tor Browser (available from torproject.org) running in the background?"
-                    )
+                    print(automatic_error)
+                    raise TorErrorAutomatic()
 
             # Try authenticating
             try:
                 self.c.authenticate()
             except:
-                raise TorErrorAutomatic(
-                    # strings._("settings_error_automatic")
-                    "Could not connect to the Tor controller. Is Tor Browser (available from torproject.org) running in the background?"
-                )
+                print(automatic_error)
+                raise TorErrorAutomatic()
 
         else:
             # Use specific settings to connect to tor
+            invalid_settings_error = "Can't connect to Tor controller because your settings don't make sense."
 
             # Try connecting
             try:
@@ -522,27 +503,28 @@ class Onion(object):
                         path=self.settings.get("socket_file_path")
                     )
                 else:
-                    raise TorErrorInvalidSetting(
-                        # strings._("settings_error_unknown")
-                        "Can't connect to Tor controller because your settings don't make sense."
-                    )
+                    print(invalid_settings_error)
+                    raise TorErrorInvalidSetting()
 
             except:
                 if self.settings.get("connection_type") == "control_port":
-                    raise TorErrorSocketPort(
-                        # strings._("settings_error_socket_port")
+                    print(
                         "Can't connect to the Tor controller at {}:{}.".format(
                             self.settings.get("control_port_address"),
                             self.settings.get("control_port_port"),
                         )
                     )
+                    raise TorErrorSocketPort(
+                        self.settings.get("control_port_address"),
+                        self.settings.get("control_port_port"),
+                    )
                 else:
-                    raise TorErrorSocketFile(
-                        # strings._("settings_error_socket_file")
+                    print(
                         "Can't connect to the Tor controller using socket file {}.".format(
                             self.settings.get("socket_file_path")
                         )
                     )
+                    raise TorErrorSocketFile(self.settings.get("socket_file_path"))
 
             # Try authenticating
             try:
@@ -551,28 +533,29 @@ class Onion(object):
                 elif self.settings.get("auth_type") == "password":
                     self.c.authenticate(self.settings.get("auth_password"))
                 else:
-                    raise TorErrorInvalidSetting(
-                        # strings._("settings_error_unknown")
-                        "Can't connect to Tor controller because your settings don't make sense."
-                    )
+                    print(invalid_settings_error)
+                    raise TorErrorInvalidSetting()
 
             except MissingPassword:
-                raise TorErrorMissingPassword(
-                    # strings._("settings_error_missing_password")
+                print(
                     "Connected to Tor controller, but it requires a password to authenticate."
                 )
+                raise TorErrorMissingPassword()
             except UnreadableCookieFile:
-                raise TorErrorUnreadableCookieFile(
-                    # strings._("settings_error_unreadable_cookie_file")
+                print(
                     "Connected to the Tor controller, but password may be wrong, or your user is not permitted to read the cookie file."
                 )
+                raise TorErrorUnreadableCookieFile()
             except AuthenticationFailure:
-                raise TorErrorAuthError(
-                    # strings._("settings_error_auth")
+                print(
                     "Connected to {}:{}, but can't authenticate. Maybe this isn't a Tor controller?".format(
                         self.settings.get("control_port_address"),
                         self.settings.get("control_port_port"),
                     )
+                )
+                raise TorErrorAuthError(
+                    self.settings.get("control_port_address"),
+                    self.settings.get("control_port_port"),
                 )
 
         # If we made it this far, we should be connected to Tor
@@ -628,15 +611,15 @@ class Onion(object):
         self.common.log("Onion", "start_onion_service", f"port={port}")
 
         if not self.supports_ephemeral:
-            raise TorTooOld(
-                # strings._("error_ephemeral_not_supported")
+            print(
                 "Your version of Tor is too old, ephemeral onion services are not supported"
             )
+            raise TorTooOldEphemeral()
         if mode_settings.get("general", "client_auth") and not self.supports_stealth:
-            raise TorTooOld(
-                # strings._("error_stealth_not_supported")
+            print(
                 "Your version of Tor is too old, stealth onion services are not supported"
             )
+            raise TorTooOldStealth()
 
         auth_cookie = None
         if mode_settings.get("general", "client_auth"):
@@ -693,10 +676,8 @@ class Onion(object):
             )
 
         except ProtocolError as e:
-            raise TorErrorProtocolError(
-                # strings._("error_tor_protocol_error")
-                "Tor error: {}".format(e.args[0])
-            )
+            print("Tor error: {}".format(e.args[0]))
+            raise TorErrorProtocolError(e.args[0])
 
         onion_host = res.service_id + ".onion"
 
