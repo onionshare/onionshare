@@ -64,6 +64,10 @@ def main():
     """
     common = Common()
 
+    # Required for macOS Big Sur: https://stackoverflow.com/a/64878899
+    if common.platform == "Darwin":
+        os.environ["QT_MAC_WANTS_LAYER"] = "1"
+
     # Display OnionShare banner
     print(f"OnionShare {common.version} | https://onionshare.org/")
 
