@@ -180,11 +180,11 @@ def main(cwd=None):
     )
     # Share args
     parser.add_argument(
-        "--autostop-sharing",
+        "--no-autostop-sharing",
         action="store_true",
-        dest="autostop_sharing",
-        default=True,
-        help="Share files: Stop sharing after files have been sent",
+        dest="no_autostop_sharing",
+        default=False,
+        help="Share files: Continue sharing after files have been sent (default is to stop sharing)",
     )
     # Receive args
     parser.add_argument(
@@ -233,7 +233,7 @@ def main(cwd=None):
     autostop_timer = int(args.autostop_timer)
     legacy = bool(args.legacy)
     client_auth = bool(args.client_auth)
-    autostop_sharing = bool(args.autostop_sharing)
+    autostop_sharing = not bool(args.no_autostop_sharing)
     data_dir = args.data_dir
     disable_csp = bool(args.disable_csp)
     verbose = bool(args.verbose)
@@ -361,7 +361,7 @@ def main(cwd=None):
                 )
                 sys.exit()
 
-            app.start_onion_service(mode_settings, False, True)
+            app.start_onion_service(mode, mode_settings, False, True)
             url = build_url(mode_settings, app, web)
             schedule = datetime.now() + timedelta(seconds=autostart_timer)
             if mode == "receive":
@@ -397,9 +397,9 @@ def main(cwd=None):
             print("Waiting for the scheduled time before starting...")
             app.onion.cleanup(False)
             time.sleep(autostart_timer)
-            app.start_onion_service(mode_settings)
+            app.start_onion_service(mode, mode_settings)
         else:
-            app.start_onion_service(mode_settings)
+            app.start_onion_service(mode, mode_settings)
     except KeyboardInterrupt:
         print("")
         sys.exit()

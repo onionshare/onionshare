@@ -101,6 +101,12 @@ class ChatMode(Mode):
         self.wrapper_layout.addLayout(self.column_layout)
         self.setLayout(self.wrapper_layout)
 
+    def get_type(self):
+        """
+        Returns the type of mode as a string (e.g. "share", "receive", etc.)
+        """
+        return "chat"
+
     def get_stop_server_autostop_timer_text(self):
         """
         Return the string to put on the stop server button, if there's an auto-stop timer

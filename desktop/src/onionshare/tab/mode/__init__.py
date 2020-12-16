@@ -107,6 +107,12 @@ class Mode(QtWidgets.QWidget):
         """
         pass
 
+    def get_type(self):
+        """
+        Returns the type of mode as a string (e.g. "share", "receive", etc.)
+        """
+        pass
+
     def human_friendly_time(self, secs):
         """
         Returns a human-friendly time delta from given seconds.
