@@ -169,7 +169,7 @@ class SendBaseModeWeb:
         # gzip compress the individual file, if it hasn't already been compressed
         if use_gzip:
             # tempfile.mkstemp automatically opens the file
-            gzip_file_descriptor, gzip_filename = tempfile.mkstemp("wb+")[0]
+            gzip_file_descriptor, gzip_filename = tempfile.mkstemp("wb+")
             # The only way to avoid an eventual "Too many open files" IOError
             # is either to use and close the file descriptor instead of the filename,
             # or to close the file descriptor here and use the filename instead.
