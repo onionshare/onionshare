@@ -71,7 +71,6 @@ class SendBaseModeWeb:
         self.cleanup_filenames = []
         self.cur_history_id = 0
         self.file_info = {"files": [], "dirs": []}
-        self.gzip_individual_files = {}
         self.init()
 
         # Build the file list
@@ -169,16 +168,20 @@ class SendBaseModeWeb:
 
         # gzip compress the individual file, if it hasn't already been compressed
         if use_gzip:
-            if filesystem_path not in self.gzip_individual_files:
-                gzip_filename = tempfile.mkstemp("wb+")[1]
-                self._gzip_compress(filesystem_path, gzip_filename, 6, None)
-                self.gzip_individual_files[filesystem_path] = gzip_filename
+            # tempfile.mkstemp automatically opens the file
+            gzip_file_descriptor, gzip_filename = tempfile.mkstemp("wb+")[0]
+            # The only way to avoid an eventual "Too many open files" IOError
+            # is either to use and close the file descriptor instead of the filename,
+            # or to close the file descriptor here and use the filename instead.
+            # The latter is less involved so it's what I've done for now.
+            os.close(gzip_file_descriptor)
+            self._gzip_compress(filesystem_path, gzip_filename, 6, None)
 
-                # Make sure the gzip file gets cleaned up when onionshare stops
-                self.cleanup_filenames.append(gzip_filename)
+            # Make sure the gzip file gets cleaned up when onionshare stops
+            self.cleanup_filenames.append(gzip_filename)
 
-            file_to_download = self.gzip_individual_files[filesystem_path]
-            filesize = os.path.getsize(self.gzip_individual_files[filesystem_path])
+            file_to_download = gzip_filename
+            filesize = os.path.getsize(gzip_filename)
         else:
             file_to_download = filesystem_path
             filesize = os.path.getsize(filesystem_path)
@@ -252,6 +255,11 @@ class SendBaseModeWeb:
                         )
 
             fp.close()
+            if use_gzip:
+                try:
+                    os.remove(file_to_download)
+                except FileNotFoundError:
+                    pass
 
             if self.common.platform != "Darwin":
                 sys.stdout.write("\n")
