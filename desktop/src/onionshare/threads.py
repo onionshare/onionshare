@@ -77,7 +77,7 @@ class OnionThread(QtCore.QThread):
         try:
             if self.mode.obtain_onion_early:
                 self.mode.app.start_onion_service(
-                    self.mode.settings, await_publication=False
+                    self.mode.get_type(), self.mode.settings, await_publication=False
                 )
                 # wait for modules in thread to load, preventing a thread-related cx_Freeze crash
                 time.sleep(0.2)
@@ -86,7 +86,7 @@ class OnionThread(QtCore.QThread):
                 self.mode.app.stop_onion_service(self.mode.settings)
             else:
                 self.mode.app.start_onion_service(
-                    self.mode.settings, await_publication=True
+                    self.mode.get_type(), self.mode.settings, await_publication=True
                 )
                 # wait for modules in thread to load, preventing a thread-related cx_Freeze crash
                 time.sleep(0.2)
@@ -258,3 +258,18 @@ class EventHandlerThread(QtCore.QThread):
             if self.should_quit:
                 break
             time.sleep(0.2)
+
+
+class OnionCleanupThread(QtCore.QThread):
+    """
+    Wait for Tor rendezvous circuits to close in a separate thread
+    """
+
+    def __init__(self, common):
+        super(OnionCleanupThread, self).__init__()
+        self.common = common
+        self.common.log("OnionCleanupThread", "__init__")
+
+    def run(self):
+        self.common.log("OnionCleanupThread", "run")
+        self.common.gui.onion.cleanup()

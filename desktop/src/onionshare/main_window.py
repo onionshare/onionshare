@@ -30,6 +30,7 @@ from .widgets import Alert
 from .update_checker import UpdateThread
 from .tab_widget import TabWidget
 from .gui_common import GuiCommon
+from .threads import OnionCleanupThread
 
 
 class MainWindow(QtWidgets.QMainWindow):
@@ -285,8 +286,32 @@ class MainWindow(QtWidgets.QMainWindow):
         e.accept()
 
     def cleanup(self):
+        self.common.log("MainWindow", "cleanup")
         self.tabs.cleanup()
-        self.common.gui.onion.cleanup()
+
+        alert = Alert(
+            self.common,
+            strings._("gui_rendezvous_cleanup"),
+            QtWidgets.QMessageBox.Information,
+            buttons=QtWidgets.QMessageBox.NoButton,
+            autostart=False,
+        )
+        quit_early_button = QtWidgets.QPushButton(
+            strings._("gui_rendezvous_cleanup_quit_early")
+        )
+        alert.addButton(quit_early_button, QtWidgets.QMessageBox.RejectRole)
+
+        self.onion_cleanup_thread = OnionCleanupThread(self.common)
+        self.onion_cleanup_thread.finished.connect(alert.accept)
+        self.onion_cleanup_thread.start()
+
+        alert.exec_()
+        if alert.clickedButton() == quit_early_button:
+            self.common.log("MainWindow", "cleanup", "quitting early")
+            if self.onion_cleanup_thread.isRunning():
+                self.onion_cleanup_thread.terminate()
+                self.onion_cleanup_thread.wait()
+            self.common.gui.onion.cleanup(wait=False)
 
         # Wait 1 second for threads to close gracefully, so tests finally pass
         time.sleep(1)
