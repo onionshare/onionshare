@@ -254,5 +254,6 @@
     "gui_tab_name_receive": "Al",
     "gui_tab_name_website": "Web Sitesi",
     "gui_tab_name_chat": "Sohbet",
-    "gui_chat_url_description": "Bu OnionShare adresine sahip olan <b>herkes</b> <b>Tor Browser</b> kullanarak <b>bu sohbet odasına katılabilir</b>: <img src='{}' />"
+    "gui_chat_url_description": "Bu OnionShare adresine sahip olan <b>herkes</b> <b>Tor Browser</b> kullanarak <b>bu sohbet odasına katılabilir</b>: <img src='{}' />",
+    "error_port_not_available": "OnionShare bağlantı noktası kullanılamıyor"
 }

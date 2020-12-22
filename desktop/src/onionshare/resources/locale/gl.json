@@ -187,5 +187,6 @@
     "settings_error_unreadable_cookie_file": "Conectado ó controlador Tor, pero o contrasinal igual está mal, ou o teu usuario non ten permiso para ler o ficheiro de cookie.",
     "settings_error_bundled_tor_not_supported": "A versión Tor que ven con OnionShare non funciona en modo desenvolvedor en Windows ou macOS.",
     "settings_error_bundled_tor_timeout": "Tarda demasiado en conectar a Tor. Igual non tes conexión a Internet, ou o reloxo do sistema está mal axustado?",
-    "settings_error_bundled_tor_broken": "OnionShare non puido conectar a Tor:\n{}"
+    "settings_error_bundled_tor_broken": "OnionShare non puido conectar a Tor:\n{}",
+    "error_port_not_available": "Non está dispoñible o porto OnionShare"
 }
