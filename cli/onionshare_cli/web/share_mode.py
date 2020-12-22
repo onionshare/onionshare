@@ -292,12 +292,8 @@ class ShareModeWeb(SendBaseModeWeb):
                 info["size"] = self.common.dir_size(filename)
                 info["size_human"] = self.common.human_readable_filesize(info["size"])
                 self.file_info["dirs"].append(info)
-        self.file_info["files"] = sorted(
-            self.file_info["files"], key=lambda k: k["basename"]
-        )
-        self.file_info["dirs"] = sorted(
-            self.file_info["dirs"], key=lambda k: k["basename"]
-        )
+        self.file_info["files"].sort(key=lambda k: k["basename"])
+        self.file_info["dirs"].sort(key=lambda k: k["basename"])
 
         # Check if there's only 1 file and no folders
         if len(self.file_info["files"]) == 1 and len(self.file_info["dirs"]) == 0:

@@ -15,7 +15,7 @@ class MyOnion:
 
     @staticmethod
     def start_onion_service(
-        self, mode_settings_obj, await_publication=True, save_scheduled_key=False
+        self, mode, mode_settings_obj, await_publication=True, save_scheduled_key=False
     ):
         return "test_service_id.onion"
 
@@ -40,13 +40,13 @@ class TestOnionShare:
         assert onionshare_obj.local_only is False
 
     def test_start_onion_service(self, onionshare_obj, mode_settings_obj):
-        onionshare_obj.start_onion_service(mode_settings_obj)
+        onionshare_obj.start_onion_service("share", mode_settings_obj)
         assert 17600 <= onionshare_obj.port <= 17650
         assert onionshare_obj.onion_host == "test_service_id.onion"
 
     def test_start_onion_service_local_only(self, onionshare_obj, mode_settings_obj):
         onionshare_obj.local_only = True
-        onionshare_obj.start_onion_service(mode_settings_obj)
+        onionshare_obj.start_onion_service("share", mode_settings_obj)
         assert onionshare_obj.onion_host == "127.0.0.1:{}".format(onionshare_obj.port)
 
     def test_cleanup(self, onionshare_obj, temp_dir_1024, temp_file_1024):

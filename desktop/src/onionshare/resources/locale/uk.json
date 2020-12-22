@@ -229,5 +229,6 @@
     "gui_main_page_chat_button": "Почати спілкуватися в чаті",
     "gui_main_page_website_button": "Почати хостинг",
     "gui_main_page_receive_button": "Почати отримання",
-    "gui_chat_url_description": "<b>Будь-хто</b> за цією адресою OnionShare може <b>приєднатися до цієї бесіди</b> за допомогою <b>Tor Browser</b>: <img src='{}' />"
+    "gui_chat_url_description": "<b>Будь-хто</b> за цією адресою OnionShare може <b>приєднатися до цієї бесіди</b> за допомогою <b>Tor Browser</b>: <img src='{}' />",
+    "error_port_not_available": "Порт OnionShare недоступний"
 }
