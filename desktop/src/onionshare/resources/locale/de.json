@@ -291,5 +291,6 @@
     "gui_open_folder_error": "Fehler beim Öffnen des Ordners mit xdg-open. Die Datei befindet sich hier: {}",
     "gui_qr_code_description": "Scanne diesen QR-Code mit einem QR-Scanner, wie zB. mit der Kamera deines Smartphones, um die OnionShare-Adresse einfacher mit anderen zu teilen.",
     "gui_receive_flatpak_data_dir": "Da OnionShare durch Flatpak installiert wurde, müssen Dateien im Verzeichnis ~/OnionShare gespeichert werden.",
-    "gui_chat_url_description": "<b>Jeder</b>, der diese OnionShare-Adresse hat, kann <b>diesem Chatroom beitreten</b>, indem er den <b>Tor Browser</b> benutzt: <img src='{}' />"
+    "gui_chat_url_description": "<b>Jeder</b>, der diese OnionShare-Adresse hat, kann <b>diesem Chatroom beitreten</b>, indem er den <b>Tor Browser</b> benutzt: <img src='{}' />",
+    "error_port_not_available": "OnionShare-Port nicht verfügbar"
 }

@@ -131,7 +131,7 @@
     "gui_tor_connection_error_settings": "Tente mudar nas configurações a forma como OnionShare se conecta à rede Tor.",
     "gui_tor_connection_canceled": "Não foi possível conectar ao Tor.\n\nTenha certeza que você está conectado à Internet, então abra OnionShare novamente e configure sua conexão ao Tor.",
     "gui_tor_connection_lost": "Desconectado do Tor.",
-    "gui_server_started_after_autostop_timer": "O tempo esgotou antes do servidor iniciar.\nPor favor, crie um novo compartilhamento.",
+    "gui_server_started_after_autostop_timer": "O cronômetro de parada automática acabou antes que o servidor fosse iniciado. Por favor, faça um novo compartilhamento.",
     "gui_server_autostop_timer_expired": "O cronômetro já esgotou. Por favor, ajuste-o para começar a compartilhar.",
     "share_via_onionshare": "Compartilhar via OnionShare",
     "gui_use_legacy_v2_onions_checkbox": "Usar endereços do tipo antigo",
@@ -282,5 +282,7 @@
     "gui_chat_start_server": "Iniciar um servidor de conversas",
     "gui_file_selection_remove_all": "Remover tudo",
     "gui_remove": "Remover",
-    "gui_tab_name_chat": "Bate-papo"
+    "gui_tab_name_chat": "Bate-papo",
+    "error_port_not_available": "Porta OnionShare não disponível",
+    "gui_chat_url_description": "<b>Qualquer um</b> com este endereço OnionShare pode <b>entrar nesta sala de chat</b> usando o <b>Tor Browser</b>: <img src='{}' />"
 }
