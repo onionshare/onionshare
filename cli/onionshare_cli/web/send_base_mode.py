@@ -166,7 +166,7 @@ class SendBaseModeWeb:
         """
         use_gzip = self.should_use_gzip()
 
-        # gzip compress the individual file, if it hasn't already been compressed
+        # gzip compress the individual file
         if use_gzip:
             # tempfile.mkstemp automatically opens the file
             gzip_file_descriptor, gzip_filename = tempfile.mkstemp("wb+")
