@@ -115,7 +115,7 @@ class Web:
         if self.mode == "receive":
             # Use custom WSGI middleware, to modify environ
             self.app.wsgi_app = ReceiveModeWSGIMiddleware(self.app.wsgi_app, self)
-            # Use a custom Request class to track upload progess
+            # Use a custom Request class to track upload progress
             self.app.request_class = ReceiveModeRequest
 
         # Starting in Flask 0.11, render_template_string autoescapes template variables
