@@ -69,6 +69,8 @@ class SendBaseModeWeb:
             {}
         )  # This is only the root files and dirs, as opposed to all of them
         self.cleanup_filenames = []
+        self.gzip_individual_files = {}
+        self.file_last_modified = {}
         self.cur_history_id = 0
         self.file_info = {"files": [], "dirs": []}
         self.init()
@@ -159,6 +161,19 @@ class SendBaseModeWeb:
 
         return files, dirs
 
+    def cleanup_file(self, filesystem_path):
+        """
+        Safely delete a single file and remove it from self.cleanup_filenames
+        """
+        try:
+            os.remove(filesystem_path)
+        except FileNotFoundError:
+            pass
+        try:
+            self.cleanup_filenames.remove(filesystem_path)
+        except KeyError:
+            pass
+
     def stream_individual_file(self, filesystem_path):
         """
         Return a flask response that's streaming the download of an individual file, and gzip
@@ -166,19 +181,33 @@ class SendBaseModeWeb:
         """
         use_gzip = self.should_use_gzip()
 
-        # gzip compress the individual file
         if use_gzip:
-            # tempfile.mkstemp automatically opens the file
-            gzip_file_descriptor, gzip_filename = tempfile.mkstemp("wb+")
-            # The only way to avoid an eventual "Too many open files" IOError
-            # is either to use and close the file descriptor instead of the filename,
-            # or to close the file descriptor here and use the filename instead.
-            # The latter is less involved so it's what I've done for now.
-            os.close(gzip_file_descriptor)
-            self._gzip_compress(filesystem_path, gzip_filename, 6, None)
+            file_mtime = os.path.getmtime(filesystem_path)
+            # If the file has been modified or we haven't read it yet, gzip compress the file
+            if file_mtime != self.file_last_modified.get(filesystem_path):
+                # Delete the cached gzip file if it exists
+                gzip_filename_previous = self.gzip_individual_files.get(filesystem_path)
+                if gzip_filename_previous != None:
+                    self.cleanup_file(gzip_filename_previous)
 
-            # Make sure the gzip file gets cleaned up when onionshare stops
-            self.cleanup_filenames.append(gzip_filename)
+                # tempfile.mkstemp automatically opens the file
+                gzip_file_descriptor, gzip_filename = tempfile.mkstemp("wb+")
+                # The only way to avoid an eventual "Too many open files" IOError
+                # is either to use and close the file descriptor instead of the filename,
+                # or to close the file descriptor here and use the filename instead.
+                # The latter is less involved so it's what I've done for now.
+                os.close(gzip_file_descriptor)
+                self._gzip_compress(filesystem_path, gzip_filename, 6, None)
+                self.gzip_individual_files[filesystem_path] = gzip_filename
+
+                # Make sure the gzip file gets cleaned up when onionshare stops
+                self.cleanup_filenames.append(gzip_filename)
+
+                self.file_last_modified[filesystem_path] = file_mtime
+
+            # If the file hasn't been modified since the last time we read it, use the cached gzip file
+            else:
+                gzip_filename = self.gzip_individual_files[filesystem_path]
 
             file_to_download = gzip_filename
             filesize = os.path.getsize(gzip_filename)
@@ -255,11 +284,6 @@ class SendBaseModeWeb:
                         )
 
             fp.close()
-            if use_gzip:
-                try:
-                    os.remove(file_to_download)
-                except FileNotFoundError:
-                    pass
 
             if self.common.platform != "Darwin":
                 sys.stdout.write("\n")
