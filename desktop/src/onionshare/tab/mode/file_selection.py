@@ -72,8 +72,8 @@ class DropHereWidget(QtWidgets.QWidget):
     def resize(self, w, h):
         self.setGeometry(0, 0, w, h)
         self.image_label.setGeometry(0, 0, w, h - 100)
-        self.header_label.setGeometry(0, 340, w, h - 340)
-        self.text_label.setGeometry(0, 410, w, h - 410)
+        self.header_label.setGeometry(0, 310, w, h - 380)
+        self.text_label.setGeometry(0, 360, w, h - 400)
 
 
 class DropCountLabel(QtWidgets.QLabel):

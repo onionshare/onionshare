@@ -292,12 +292,10 @@ class GuiCommon:
                 QLabel {
                     color: #4E064F;
                     font-size: 48px;
-                    margin-bottom: 72px;
                 }""",
             "share_file_selection_drop_here_label": """
                 QLabel {
                     color: #666666;
-                    margin-bottom: 48px;
                 }""",
             "share_file_selection_drop_count_label": """
                 QLabel {
