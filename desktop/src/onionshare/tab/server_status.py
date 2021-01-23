@@ -93,7 +93,6 @@ class ServerStatus(QtWidgets.QWidget):
         )
 
         self.copy_url_button = QtWidgets.QPushButton(strings._("gui_copy_url"))
-        self.copy_url_button.setFlat(True)
         self.copy_url_button.setStyleSheet(
             self.common.gui.css["server_status_url_buttons"]
         )
@@ -108,12 +107,10 @@ class ServerStatus(QtWidgets.QWidget):
         self.show_url_qr_code_button.clicked.connect(
             self.show_url_qr_code_button_clicked
         )
-        self.show_url_qr_code_button.setFlat(True)
         self.show_url_qr_code_button.setStyleSheet(
             self.common.gui.css["server_status_url_buttons"]
         )
 
-        self.copy_hidservauth_button.setFlat(True)
         self.copy_hidservauth_button.setStyleSheet(
             self.common.gui.css["server_status_url_buttons"]
         )
