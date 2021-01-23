@@ -128,7 +128,7 @@ class Tab(QtWidgets.QWidget):
                 )
             )
         )
-        self.image_label.setFixedSize(160, 40)
+        self.image_label.setFixedSize(180, 40)
         image_layout = QtWidgets.QVBoxLayout()
         image_layout.addWidget(self.image_label)
         image_layout.addStretch()
