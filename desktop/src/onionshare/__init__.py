@@ -27,7 +27,7 @@ import signal
 import json
 import psutil
 import getpass
-from PySide2 import QtCore, QtWidgets
+from PySide2 import QtCore, QtWidgets, QtGui
 
 from onionshare_cli.common import Common
 
@@ -46,6 +46,9 @@ class Application(QtWidgets.QApplication):
         if common.platform == "Linux" or common.platform == "BSD":
             self.setAttribute(QtCore.Qt.AA_X11InitThreads, True)
         QtWidgets.QApplication.__init__(self, sys.argv)
+
+        # Check color mode on starting the app
+        self.color_mode = self.get_color_mode()
         self.installEventFilter(self)
 
     def eventFilter(self, obj, event):
@@ -55,7 +58,20 @@ class Application(QtWidgets.QApplication):
             and event.modifiers() == QtCore.Qt.ControlModifier
         ):
             self.quit()
+
+        # Check if color switched while the app was open
+        if event.type() == QtCore.QEvent.Type.ApplicationPaletteChange:
+            self.color_mode = self.get_color_mode()
         return False
+
+    def is_dark_mode(self):
+        baseColor = QtGui.QPalette().color(QtGui.QPalette.Base)
+        if baseColor.name().lower() == "#ffffff":
+            return False
+        return True
+
+    def get_color_mode(self):
+        return "dark" if self.is_dark_mode() else "light"
 
 
 def main():

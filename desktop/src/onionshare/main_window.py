@@ -113,7 +113,11 @@ class MainWindow(QtWidgets.QMainWindow):
         self.settings_button.setDefault(False)
         self.settings_button.setFixedSize(40, 50)
         self.settings_button.setIcon(
-            QtGui.QIcon(GuiCommon.get_resource_path("images/settings.png"))
+            QtGui.QIcon(
+                GuiCommon.get_resource_path(
+                    "images/{}_settings.png".format(self.common.gui.color_mode)
+                )
+            )
         )
         self.settings_button.clicked.connect(self.open_settings)
         self.settings_button.setStyleSheet(self.common.gui.css["settings_button"])

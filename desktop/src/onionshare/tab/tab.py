@@ -121,7 +121,11 @@ class Tab(QtWidgets.QWidget):
         self.image_label = QtWidgets.QLabel()
         self.image_label.setPixmap(
             QtGui.QPixmap.fromImage(
-                QtGui.QImage(GuiCommon.get_resource_path("images/logo_text.png"))
+                QtGui.QImage(
+                    GuiCommon.get_resource_path(
+                        "images/{}_logo_text.png".format(self.common.gui.color_mode)
+                    )
+                )
             )
         )
         self.image_label.setFixedSize(160, 40)
@@ -134,7 +138,7 @@ class Tab(QtWidgets.QWidget):
         # New tab buttons
         self.share_button = NewTabButton(
             self.common,
-            "images/mode_new_tab_share.png",
+            "images/{}_mode_new_tab_share.png".format(self.common.gui.color_mode),
             strings._("gui_new_tab_share_button"),
             strings._("gui_main_page_share_button"),
         )
@@ -142,7 +146,7 @@ class Tab(QtWidgets.QWidget):
 
         self.receive_button = NewTabButton(
             self.common,
-            "images/mode_new_tab_receive.png",
+            "images/{}_mode_new_tab_receive.png".format(self.common.gui.color_mode),
             strings._("gui_new_tab_receive_button"),
             strings._("gui_main_page_receive_button"),
         )
@@ -150,7 +154,7 @@ class Tab(QtWidgets.QWidget):
 
         self.website_button = NewTabButton(
             self.common,
-            "images/mode_new_tab_website.png",
+            "images/{}_mode_new_tab_website.png".format(self.common.gui.color_mode),
             strings._("gui_new_tab_website_button"),
             strings._("gui_main_page_website_button"),
         )
@@ -158,7 +162,7 @@ class Tab(QtWidgets.QWidget):
 
         self.chat_button = NewTabButton(
             self.common,
-            "images/mode_new_tab_chat.png",
+            "images/{}_mode_new_tab_chat.png".format(self.common.gui.color_mode),
             strings._("gui_new_tab_chat_button"),
             strings._("gui_main_page_chat_button"),
         )
