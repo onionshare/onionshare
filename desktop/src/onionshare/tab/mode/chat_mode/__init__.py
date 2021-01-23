@@ -53,7 +53,11 @@ class ChatMode(Mode):
         self.image_label = QtWidgets.QLabel()
         self.image_label.setPixmap(
             QtGui.QPixmap.fromImage(
-                QtGui.QImage(GuiCommon.get_resource_path("images/mode_chat.png"))
+                QtGui.QImage(
+                    GuiCommon.get_resource_path(
+                        "images/{}_mode_chat.png".format(self.common.gui.color_mode)
+                    )
+                )
             )
         )
         self.image_label.setFixedSize(300, 300)

@@ -69,7 +69,7 @@ class WebsiteMode(Mode):
         # File selection
         self.file_selection = FileSelection(
             self.common,
-            "images/mode_website.png",
+            "images/{}_mode_website.png".format(self.common.gui.color_mode),
             strings._("gui_new_tab_website_button"),
             self,
         )
