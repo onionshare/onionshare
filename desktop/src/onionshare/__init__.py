@@ -58,10 +58,6 @@ class Application(QtWidgets.QApplication):
             and event.modifiers() == QtCore.Qt.ControlModifier
         ):
             self.quit()
-
-        # Check if color switched while the app was open
-        if event.type() == QtCore.QEvent.Type.ApplicationPaletteChange:
-            self.color_mode = self.get_color_mode()
         return False
 
     def is_dark_mode(self):
