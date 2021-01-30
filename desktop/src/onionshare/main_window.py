@@ -289,6 +289,20 @@ class MainWindow(QtWidgets.QMainWindow):
         self.system_tray.hide()
         e.accept()
 
+    def event(self, event):
+        # Check if color mode switched while onionshare was open, if so, ask user to restart
+        if event.type() == QtCore.QEvent.Type.ApplicationPaletteChange:
+            QtCore.QTimer.singleShot(1, self.color_mode_warning)
+            return True
+        return QtWidgets.QMainWindow.event(self, event)
+
+    def color_mode_warning(self):
+        """
+        Open the color mode warning alert.
+        """
+        notice = strings._("gui_color_mode_changed_notice")
+        Alert(self.common, notice, QtWidgets.QMessageBox.Information)
+
     def cleanup(self):
         self.common.log("MainWindow", "cleanup")
         self.tabs.cleanup()

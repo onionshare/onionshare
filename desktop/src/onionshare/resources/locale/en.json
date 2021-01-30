@@ -111,6 +111,7 @@
     "gui_open_folder_error": "Failed to open folder with xdg-open. The file is here: {}",
     "gui_settings_language_label": "Preferred language",
     "gui_settings_language_changed_notice": "Restart OnionShare for the new language to be applied.",
+    "gui_color_mode_changed_notice": "Restart OnionShare for the new color mode to be applied.",
     "systray_menu_exit": "Quit",
     "systray_page_loaded_title": "Page Loaded",
     "systray_page_loaded_message": "OnionShare address loaded",
