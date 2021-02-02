@@ -24,6 +24,8 @@ import tempfile
 import zipfile
 import mimetypes
 from flask import Response, request, render_template, make_response
+from unidecode import unidecode
+from werkzeug.urls import url_quote
 
 from .send_base_mode import SendBaseModeWeb
 
@@ -197,7 +199,11 @@ class ShareModeWeb(SendBaseModeWeb):
             if use_gzip:
                 r.headers.set("Content-Encoding", "gzip")
             r.headers.set("Content-Length", self.filesize)
-            r.headers.set("Content-Disposition", "attachment", filename=basename)
+            filename_dict = {
+                'filename': unidecode(basename),
+                'filename*': "UTF-8''%s" % url_quote(basename)
+            }
+            r.headers.set("Content-Disposition", "inline", **filename_dict)
             r = self.web.add_security_headers(r)
             # guess content type
             (content_type, _) = mimetypes.guess_type(basename, strict=False)
