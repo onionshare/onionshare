@@ -69,7 +69,7 @@ class ShareMode(Mode):
         # File selection
         self.file_selection = FileSelection(
             self.common,
-            "images/mode_share.png",
+            "images/{}_mode_share.png".format(self.common.gui.color_mode),
             strings._("gui_new_tab_share_button"),
             self,
         )

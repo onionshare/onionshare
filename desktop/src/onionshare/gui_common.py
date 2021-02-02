@@ -78,7 +78,19 @@ class GuiCommon:
             os.makedirs(self.events_dir, 0o700, True)
         self.events_filename = os.path.join(self.events_dir, "events")
 
-        self.css = {
+        self.css = self.get_css(qtapp.color_mode)
+        self.color_mode = qtapp.color_mode
+
+    def get_css(self, color_mode):
+        header_color = "#4E064F"  # purple in light
+        title_color = "#333333"  # dark gray color in main window
+        stop_button_color = "#d0011b"  # red button color for stopping server
+        if color_mode == "dark":
+            header_color = "#F2F2F2"
+            title_color = "#F2F2F2"
+            stop_button_color = "#C32F2F"
+
+        return {
             # OnionShareGui styles
             "tab_widget": """
                 QTabBar::tab { width: 170px; height: 30px; }
@@ -96,7 +108,9 @@ class GuiCommon:
                 }""",
             "mode_header_label": """
                 QLabel {
-                    color: #4E064F;
+                    color: """
+            + header_color
+            + """;
                     font-size: 48px;
                     margin-bottom: 16px;
                 }""",
@@ -143,15 +157,8 @@ class GuiCommon:
                 """,
             "server_status_url_buttons": """
                 QPushButton {
-                    border: 1px solid #d3d3d3;
-                    border-radius: 4px;
-                    background-color: #ffffff;
-                    padding: 8px 16px;
+                    padding: 4px 8px;
                     text-align: center;
-                    color: #4e0d4e;
-                }
-                QPushButton:pressed {
-                    background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1,   stop:0 rgba(255, 255, 255, 255), stop:1 rgba(239, 239, 240, 255))
                 }
                 """,
             "server_status_button_stopped": """
@@ -173,7 +180,9 @@ class GuiCommon:
                 }""",
             "server_status_button_started": """
                 QPushButton {
-                    background-color: #d0011b;
+                    background-color: """
+            + stop_button_color
+            + """;
                     color: #ffffff;
                     padding: 10px 30px 10px 30px;
                     border: 0;
@@ -218,14 +227,18 @@ class GuiCommon:
                 }""",
             "downloads_uploads_progress_bar": """
                 QProgressBar {
-                    border: 1px solid #4e064f;
+                    border: 1px solid """
+            + header_color
+            + """;
                     background-color: #ffffff !important;
                     text-align: center;
                     color: #9b9b9b;
                     font-size: 14px;
                 }
                 QProgressBar::chunk {
-                    background-color: #4e064f;
+                    background-color: """
+            + header_color
+            + """;
                     width: 10px;
                 }""",
             "history_individual_file_timestamp_label": """
@@ -259,7 +272,9 @@ class GuiCommon:
             "new_tab_title_text": """
                 QLabel {
                     text-align: center;
-                    color: #333333;
+                    color: """
+            + title_color
+            + """;
                     font-size: 25px;
                 }
                 """,
@@ -271,26 +286,34 @@ class GuiCommon:
                 """,
             "share_zip_progess_bar": """
                 QProgressBar {
-                    border: 1px solid #4e064f;
+                    border: 1px solid """
+            + header_color
+            + """;
                     background-color: #ffffff !important;
                     text-align: center;
                     color: #9b9b9b;
                 }
                 QProgressBar::chunk {
                     border: 0px;
-                    background-color: #4e064f;
+                    background-color: """
+            + header_color
+            + """;
                     width: 10px;
                 }""",
             "share_filesize_warning": """
                 QLabel {
                     padding: 10px 0;
                     font-weight: bold;
-                    color: #333333;
+                    color: """
+            + title_color
+            + """;
                 }
                 """,
             "share_file_selection_drop_here_header_label": """
                 QLabel {
-                    color: #4E064F;
+                    color: """
+            + header_color
+            + """;
                     font-size: 48px;
                 }""",
             "share_file_selection_drop_here_label": """
