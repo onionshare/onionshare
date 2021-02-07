@@ -2,9 +2,9 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<!-- Enable app sandbox -->
+	<!-- Disable app sandbox :( -->
 	<key>com.apple.security.app-sandbox</key>
-	<true/>
+	<false/>
 
 	<!-- Required for running PyInstaller python code with hardened runtime -->
     <key>com.apple.security.cs.allow-unsigned-executable-memory</key>
