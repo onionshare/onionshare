@@ -58,7 +58,7 @@ def main():
     if os.path.exists(os.path.join(desktop_dir, "macOS")):
         shutil.rmtree(os.path.join(desktop_dir, "macOS"))
 
-    print("○ Building onionshare-cli")
+    print("○ Build onionshare-cli")
     run(["poetry", "install"], cli_dir)
     run(["poetry", "build"], cli_dir)
     whl_filename = glob.glob(os.path.join(cli_dir, "dist", "*.whl"))[0]
@@ -68,32 +68,155 @@ def main():
     print("○ Create app bundle")
     run(["briefcase", "create"], desktop_dir)
     app_path = os.path.join(desktop_dir, "macOS", "OnionShare", "OnionShare.app")
+
+    print("○ Delete unused Qt5 frameworks from app bundle")
+    for framework in [
+        "Qt3DAnimation",
+        "Qt3DCore",
+        "Qt3DExtras",
+        "Qt3DInput",
+        "Qt3DLogic",
+        "Qt3DQuick",
+        "Qt3DQuickAnimation",
+        "Qt3DQuickExtras",
+        "Qt3DQuickInput",
+        "Qt3DQuickRender",
+        "Qt3DQuickScene2D",
+        "Qt3DRender",
+        "QtBluetooth",
+        "QtBodymovin",
+        "QtCharts",
+        "QtConcurrent",
+        "QtDataVisualization",
+        "QtDesigner",
+        "QtDesignerComponents",
+        "QtGamepad",
+        "QtHelp",
+        "QtLocation",
+        "QtMultimedia",
+        "QtMultimediaQuick",
+        "QtMultimediaWidgets",
+        "QtNfc",
+        "QtOpenGL",
+        "QtPdf",
+        "QtPdfWidgets",
+        "QtPositioning",
+        "QtPositioningQuick",
+        "QtPurchasing",
+        "QtQuick",
+        "QtQuick3D",
+        "QtQuick3DAssetImport",
+        "QtQuick3DRender",
+        "QtQuick3DRuntimeRender",
+        "QtQuick3DUtils",
+        "QtQuickControls2",
+        "QtQuickParticles",
+        "QtQuickShapes",
+        "QtQuickTemplates2",
+        "QtQuickTest",
+        "QtQuickWidgets",
+        "QtRemoteObjects",
+        "QtRepParser",
+        "QtScript",
+        "QtScriptTools",
+        "QtScxml",
+        "QtSensors",
+        "QtSerialBus",
+        "QtSerialPort",
+        "QtSql",
+        "QtSvg",
+        "QtTest",
+        "QtTextToSpeech",
+        "QtUiPlugin",
+        "QtVirtualKeyboard",
+        "QtWebChannel",
+        "QtWebEngine",
+        "QtWebEngineCore",
+        "QtWebEngineWidgets",
+        "QtWebSockets",
+        "QtWebView",
+        "QtXml",
+        "QtXmlPatterns",
+    ]:
+        shutil.rmtree(
+            os.path.join(
+                app_path,
+                "Contents",
+                "Resources",
+                "app_packages",
+                "PySide2",
+                "Qt",
+                "lib",
+                f"{framework}.framework",
+            )
+        )
+        try:
+            os.remove(
+                os.path.join(
+                    app_path,
+                    "Contents",
+                    "Resources",
+                    "app_packages",
+                    "PySide2",
+                    f"{framework}.abi3.so",
+                )
+            )
+            os.remove(
+                os.path.join(
+                    app_path,
+                    "Contents",
+                    "Resources",
+                    "app_packages",
+                    "PySide2",
+                    f"{framework}.pyi",
+                )
+            )
+        except FileNotFoundError:
+            pass
+    shutil.rmtree(
+        os.path.join(
+            app_path,
+            "Contents",
+            "Resources",
+            "app_packages",
+            "PySide2",
+            "Designer.app",
+        )
+    )
+
     print(f"○ Unsigned app bundle: {app_path}")
 
     if args.with_codesign:
         identity_name_application = "Developer ID Application: Micah Lee (N9B95FDWH4)"
-        entitlements_child_plist_path = os.path.join(
-            desktop_dir, "package", "macos", "ChildEntitlements.plist"
-        )
         entitlements_plist_path = os.path.join(
             desktop_dir, "package", "macos", "Entitlements.plist"
         )
 
-        print("○ Code signing app bundle")
+        print("○ Code sign app bundle")
         for path in itertools.chain(
-            glob.glob(f"{app_path}/Contents/Resources/app_packages/**/*.dylib", recursive=True),
-            glob.glob(f"{app_path}/Contents/Resources/app_packages/**/*.so", recursive=True),
-            glob.glob(f"{app_path}/Contents/Resources/Support/**/*.dylib", recursive=True),
+            glob.glob(
+                f"{app_path}/Contents/Resources/app_packages/**/*.dylib", recursive=True
+            ),
+            glob.glob(
+                f"{app_path}/Contents/Resources/app_packages/**/*.so", recursive=True
+            ),
+            glob.glob(
+                f"{app_path}/Contents/Resources/Support/**/*.dylib", recursive=True
+            ),
             glob.glob(f"{app_path}/Contents/Resources/Support/**/*.so", recursive=True),
-            glob.glob(f"{app_path}/Contents/Resources/app_packages/PySide2/Qt/lib/**/Versions/5/*", recursive=True),
+            glob.glob(
+                f"{app_path}/Contents/Resources/app_packages/PySide2/Qt/lib/**/Versions/5/*",
+                recursive=True,
+            ),
+            [
+                f"{app_path}/Contents/Resources/app_packages/PySide2/pyside2-lupdate",
+                f"{app_path}/Contents/Resources/app_packages/PySide2/rcc",
+                f"{app_path}/Contents/Resources/app_packages/PySide2/uic",
+                f"{app_path}/Contents/Resources/Support/bin/python3",
+                app_path,
+            ],
         ):
             codesign(path, entitlements_plist_path, identity_name_application)
-        # for path in [
-        #     f"{app_path}/Contents/Resources/app/onionshare/resources/tor/libevent-2.1.7.dylib",
-        #     f"{app_path}/Contents/Resources/app/onionshare/resources/tor/obfs4proxy",
-        #     f"{app_path}/Contents/Resources/app/onionshare/resources/tor/tor",
-        # ]:
-        #     codesign(path, entitlements_child_plist_path, identity_name_application)
         codesign(app_path, entitlements_plist_path, identity_name_application)
         print(f"○ Signed app bundle: {app_path}")
 
@@ -101,7 +224,7 @@ def main():
             print("○ Error: create-dmg is not installed")
             return
 
-        print("○ Creating DMG")
+        print("○ Create DMG")
         dmg_path = os.path.join(desktop_dir, "macOS", "OnionShare.dmg")
         run(
             [
