@@ -747,13 +747,13 @@ class Onion(object):
                     # Wait for Tor rendezvous circuits to close
                     # Catch exceptions to prevent crash on Ctrl-C
                     try:
-                        rendevouz_circuit_ids = []
+                        rendezvous_circuit_ids = []
                         for c in self.c.get_circuits():
                             if (
                                 c.purpose == "HS_SERVICE_REND"
                                 and c.rend_query in self.graceful_close_onions
                             ):
-                                rendevouz_circuit_ids.append(c.id)
+                                rendezvous_circuit_ids.append(c.id)
 
                         symbols = [c for c in "\\|/-"]
                         symbols_i = 0
@@ -761,7 +761,7 @@ class Onion(object):
                         while True:
                             num_rend_circuits = 0
                             for c in self.c.get_circuits():
-                                if c.id in rendevouz_circuit_ids:
+                                if c.id in rendezvous_circuit_ids:
                                     num_rend_circuits += 1
 
                             if num_rend_circuits == 0:
