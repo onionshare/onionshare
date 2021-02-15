@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2020-09-03 11:37-0700\n"
-"PO-Revision-Date: 2020-10-24 10:26+0000\n"
+"PO-Revision-Date: 2021-02-05 11:41+0000\n"
 "Last-Translator: Juraj Liso <lisojuraj@gmail.com>\n"
 "Language-Team: none\n"
 "Language: sk\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 4.3.1\n"
+"X-Generator: Weblate 4.5-dev\n"
 
 #: ../../source/install.rst:2
 msgid "Installation"
@@ -87,7 +87,7 @@ msgstr ""
 
 #: ../../source/install.rst:37
 msgid "Signatures"
-msgstr ""
+msgstr "Podpisy"
 
 #: ../../source/install.rst:39
 msgid "You can find the signatures (``.asc`` files), as well as Windows, macOS, and source packages, at https://onionshare.org/dist/ in the folders named for each version of OnionShare. You can also find them on the `GitHub Releases page <https://github.com/micahflee/onionshare/releases>`_."
@@ -95,7 +95,7 @@ msgstr ""
 
 #: ../../source/install.rst:42
 msgid "Verifying"
-msgstr ""
+msgstr "Overovanie"
 
 #: ../../source/install.rst:44
 msgid "Once you have imported Micah's public key into your GnuPG keychain, downloaded the binary, and downloaded the ``.asc`` signature, you can verify the binary for macOS in terminal like this::"

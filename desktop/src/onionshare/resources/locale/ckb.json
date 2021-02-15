@@ -186,5 +186,9 @@
     "settings_error_unreadable_cookie_file": "Bi rêvebirina Tor girêdayî te, lê şîfre rast nîne an jî destûra hesabê te ji xwendina nameya cookie nîne.",
     "settings_error_bundled_tor_not_supported": "Bikaranîna nifşa Tor yê kû bi OnionShare bi hevre tê di moda avasazî de li ser Windows û macOS wê kar neke.",
     "settings_error_bundled_tor_timeout": "Ji bo bi Tor re girê bide gelekî dirêj dike. Gelo tu ne bi înternetê re girêdayî ye an jî demê şîstema te neraste ?",
-    "settings_error_bundled_tor_broken": "OnionShare nedikarî xwe bi Tor girêbide:\n{}"
+    "settings_error_bundled_tor_broken": "OnionShare nedikarî xwe bi Tor girêbide:\n{}",
+    "error_port_not_available": "Port yê OnionShare tune",
+    "gui_rendezvous_cleanup_quit_early": "Zû bigire",
+    "gui_rendezvous_cleanup": "Li bendê ne haya kû Tor rêya hatî bikaranîn dîsa bigire ji bo ekîd bike nameyên te serkeftî hatine şandin.\n\nEw dikare hinek xulekan bidome.",
+    "gui_chat_url_description": "<b> Herkesî</b> bi vê navnîşanê OnionShare dikare<b>tevlî vê rûniştinê bibe</b>bi bikaranîna <b> Tor Browser</b>:<img src='{}'/>"
 }

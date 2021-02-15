@@ -278,5 +278,7 @@
     "mode_settings_receive_data_dir_label": "Salva i file in",
     "mode_settings_share_autostop_sharing_checkbox": "Interrompi la condivisione dopo che i file sono stati inviati (deseleziona per consentire lo scaricamento di singoli file)",
     "mode_settings_legacy_checkbox": "Usa un indirizzo legacy (servizio onion v2, non consigliato)",
-    "mode_settings_public_checkbox": "Non usare una password"
+    "mode_settings_public_checkbox": "Non usare una password",
+    "gui_rendezvous_cleanup_quit_early": "Chiudi in anticipo",
+    "gui_rendezvous_cleanup": "In attesa che i circuiti Tor si chiudano per essere sicuri che i file siano stati trasferiti con successo.\n\nQuesto potrebbe richiedere alcuni minuti."
 }
