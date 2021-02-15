@@ -284,5 +284,8 @@
     "gui_main_page_website_button": "Hefja hýsingu",
     "gui_main_page_receive_button": "Hefja móttöku",
     "gui_main_page_share_button": "Hefja deilingu",
-    "gui_chat_url_description": "<b>Hver og einn</b> með þetta OnionShare-vistfang getur <b>tekið þátt í þessari spjallrás</b> í gegnum <b>Tor-vafrann</b>: <img src='{}' />"
+    "gui_chat_url_description": "<b>Hver og einn</b> með þetta OnionShare-vistfang getur <b>tekið þátt í þessari spjallrás</b> í gegnum <b>Tor-vafrann</b>: <img src='{}' />",
+    "error_port_not_available": "OnionShare-gátt ekki tiltæk",
+    "gui_rendezvous_cleanup_quit_early": "Hætta snemma",
+    "gui_rendezvous_cleanup": "Bíð eftir að Tor-rásir lokist svo öruggt sé að tekist hafi að flytja skrárnar þínar.\n\nÞetta gæti tekið nokkrar mínútur."
 }

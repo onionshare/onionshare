@@ -297,5 +297,7 @@
     "gui_main_page_receive_button": "Empezar a recibir",
     "gui_main_page_share_button": "Empezar a compartir",
     "gui_chat_url_description": "<b>Cualquiera</b> con esta dirección de OnionShare puede <b>puede unirse a este cuarto de chat</b> usando el <b>Navegador Tor</b>: <img src='{}' />",
-    "error_port_not_available": "Puerto OnionShare no disponible"
+    "error_port_not_available": "Puerto OnionShare no disponible",
+    "gui_rendezvous_cleanup_quit_early": "Salir Antes",
+    "gui_rendezvous_cleanup": "Esperando a que los circuitos Tor se cierren para asegurar que tus archivos se hayan transferido exitosamente.\n\nEsto puede llevar unos pocos minutos."
 }

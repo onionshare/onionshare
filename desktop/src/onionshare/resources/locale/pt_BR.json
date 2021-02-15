@@ -284,5 +284,7 @@
     "gui_remove": "Remover",
     "gui_tab_name_chat": "Bate-papo",
     "error_port_not_available": "Porta OnionShare não disponível",
-    "gui_chat_url_description": "<b>Qualquer um</b> com este endereço OnionShare pode <b>entrar nesta sala de chat</b> usando o <b>Tor Browser</b>: <img src='{}' />"
+    "gui_chat_url_description": "<b>Qualquer um</b> com este endereço OnionShare pode <b>entrar nesta sala de chat</b> usando o <b>Tor Browser</b>: <img src='{}' />",
+    "gui_rendezvous_cleanup_quit_early": "Fechar facilmente",
+    "gui_rendezvous_cleanup": "Aguardando o fechamento dos circuitos do Tor para ter certeza de que seus arquivos foram transferidos com sucesso.\n\nIsso pode demorar alguns minutos."
 }

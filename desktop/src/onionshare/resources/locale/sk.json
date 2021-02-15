@@ -177,5 +177,19 @@
     "gui_all_modes_transfer_finished_range": "Prenesené {} - {}",
     "gui_all_modes_transfer_finished": "Prenesené {}",
     "gui_all_modes_transfer_canceled_range": "Zrušené {} - {}",
-    "gui_all_modes_transfer_canceled": "Zrušené {}"
+    "gui_all_modes_transfer_canceled": "Zrušené {}",
+    "error_port_not_available": "Port OnionShare nie je k dispozícii",
+    "gui_rendezvous_cleanup_quit_early": "Ukončiť predčasne",
+    "gui_rendezvous_cleanup": "Čaká sa na zatvorenie obvodov Tor, aby ste sa uistili, že sa súbory úspešne preniesli.\n\nMôže to trvať niekoľko minút.",
+    "settings_error_bundled_tor_broken": "OnionShare sa nemohol pripojiť k Tor:\n{}",
+    "settings_error_bundled_tor_timeout": "Pripojenie k Tor trvá príliš dlho. Možno nie ste pripojení na internet alebo máte nepresné systémové hodiny?",
+    "settings_error_bundled_tor_not_supported": "Použitie verzie Tor, ktorá je dodávaná s OnionShare nefunguje v režime vývojára v systéme Windows alebo macOS.",
+    "settings_error_unreadable_cookie_file": "Pripojené k ovládaču Tor, ale heslo môže byť nesprávne, alebo váš používateľ nemá povolenie na čítanie súboru cookie.",
+    "settings_error_missing_password": "Pripojené k ovládaču Tor, ale je potrebné heslo na autentifikáciu.",
+    "settings_error_auth": "Pripojené k {}:{}, ale nemôže sa autentifikovať. Možno to nie je ovládač Tor?",
+    "settings_error_socket_file": "Nedá sa pripojiť k ovládaču Tor pomocou socket súboru {}.",
+    "settings_error_socket_port": "Nedá sa pripojiť k ovládaču Tor na {}:{}.",
+    "settings_error_automatic": "Nepodarilo sa pripojiť k ovládaču Tor. Je prehliadač Tor (dostupný na torproject.org) spustený na pozadí?",
+    "settings_error_unknown": "Nemôžem sa pripojiť k ovládaču Tor, pretože vaše nastavenia nedávajú zmysel.",
+    "gui_chat_url_description": "<b>Ktokoľvek</b> s touto adresou OnionShare sa môže <b>pripojiť k tejto miestnosti chatu</b> pomocou <b>Tor prehliadača</b>: <img src='{}' />"
 }
