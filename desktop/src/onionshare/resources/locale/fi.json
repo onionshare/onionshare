@@ -232,5 +232,13 @@
     "gui_close_tab_warning_share_description": "Olet lähettämässä tiedostoja. Oletko varma, että haluat sulkea tämän välilehden?",
     "gui_close_tab_warning_persistent_description": "Tämä välilehti on pysyvä. Jos suljet sen, menetät sen käyttämän onion-osoitteen. Oletko varma, että haluat sulkea tämän välilehden?",
     "gui_new_tab_website_description": "Isännöi staattinen HTML-onion-nettisivu tietokoneestasi.",
-    "gui_new_tab_receive_description": "Tee tietokoneestasi online-pudotuslaatikko. Tor-selainta voidaan käyttää tiedostojen lähettämiseen koneellesi."
+    "gui_new_tab_receive_description": "Tee tietokoneestasi online-pudotuslaatikko. Tor-selainta voidaan käyttää tiedostojen lähettämiseen koneellesi.",
+    "gui_main_page_receive_button": "Aloita vastaanottaminen",
+    "gui_main_page_share_button": "Aloita jakaminen",
+    "gui_tab_name_chat": "Keskustelu",
+    "gui_tab_name_website": "Verkkosivu",
+    "gui_tab_name_receive": "Vastaanota",
+    "gui_tab_name_share": "Jaa",
+    "gui_file_selection_remove_all": "Poista kaikki",
+    "gui_remove": "Poista"
 }

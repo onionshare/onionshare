@@ -6,15 +6,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2020-11-15 14:54-0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2021-01-07 15:29+0000\n"
+"Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: none\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.4.1-dev\n"
 
 #: ../../source/develop.rst:2
 msgid "Developing OnionShare"
@@ -118,8 +121,10 @@ msgstr ""
 
 #: ../../source/develop.rst:182
 msgid "Status of Translations"
-msgstr ""
+msgstr "Stanje prijevoda"
 
 #: ../../source/develop.rst:183
 msgid "Here is the current translation status. If you want start a translation in a language not yet started, please write to the mailing list: onionshare-dev@lists.riseup.net"
 msgstr ""
+"Ovo je trenutačno stanje prijevoda. Ako želiš započeti prijevod na jezik "
+"koji još nije započet, pošalji e-mail na: onionshare-dev@lists.riseup.net"
