@@ -11,12 +11,15 @@ templates_path = ["_templates"]
 exclude_patterns = []
 
 languages = [
-    ("Español", "es"),
-    ("English", "en"),
-    ("Українська", "uk"),
+    ("Deutsch", "de"),  # German
+    ("English", "en"),  # English
+    ("Español", "es"),  # Spanish
+    ("Ελληνικά", "el"),  # Greek
+    ("Türkçe", "tr"),  # Turkish
+    ("Українська", "uk"),  # Ukranian
 ]
 
-versions = ["2.3.dev2"]
+versions = ["2.3"]
 
 html_theme = "sphinx_rtd_theme"
 html_logo = "_static/logo.png"
