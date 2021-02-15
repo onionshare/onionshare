@@ -232,5 +232,6 @@
     "gui_chat_url_description": "<b>Будь-хто</b> за цією адресою OnionShare може <b>приєднатися до цієї бесіди</b> за допомогою <b>Tor Browser</b>: <img src='{}' />",
     "error_port_not_available": "Порт OnionShare недоступний",
     "gui_rendezvous_cleanup_quit_early": "Вийти раніше",
-    "gui_rendezvous_cleanup": "Очікування закриття схем Tor, щоб переконатися, що файли успішно передано.\n\nЦе може тривати кілька хвилин."
+    "gui_rendezvous_cleanup": "Очікування закриття схем Tor, щоб переконатися, що файли успішно передано.\n\nЦе може тривати кілька хвилин.",
+    "gui_color_mode_changed_notice": "Перезапустіть OnionShare, щоб застосувати новий колірний режим."
 }
