@@ -278,5 +278,9 @@
     "gui_chat_stop_server": "チャットサーバーを停止",
     "gui_chat_start_server": "チャットサーバーを始動",
     "gui_file_selection_remove_all": "全てを削除",
-    "gui_remove": "削除"
+    "gui_remove": "削除",
+    "error_port_not_available": "OnionShareポートは利用可能ではありません",
+    "gui_rendezvous_cleanup_quit_early": "早めに終了",
+    "gui_rendezvous_cleanup": "ファイルは成功に転送されたか確実にするために、Torサーキットの切断を待機しています。\n\n数分かかります。",
+    "gui_chat_url_description": "このOnionShareアドレスを持つなら、<b>誰でも</b>が<b>Torブラウザ</b>を利用して<b>チャットルームに入れます</b>：<img src='{}' />"
 }

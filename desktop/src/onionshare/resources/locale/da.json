@@ -289,5 +289,7 @@
     "gui_main_page_website_button": "Begynd at være vært",
     "gui_main_page_chat_button": "Begynd at chatte",
     "gui_chat_url_description": "<b>Alle</b> med denne OnionShare-adresse kan <b>deltage i chatrummet</b> med <b>Tor Browser</b>: <img src='{}' />",
-    "error_port_not_available": "OnionShare-port ikke tilgængelig"
+    "error_port_not_available": "OnionShare-port ikke tilgængelig",
+    "gui_rendezvous_cleanup": "Venter på at Tor-kredsløb lukker for at være sikker på, at det lykkedes at overføre dine filer.\n\nDet kan tage noget tid.",
+    "gui_rendezvous_cleanup_quit_early": "Afslut tidligt"
 }
