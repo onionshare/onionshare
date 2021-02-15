@@ -63,32 +63,36 @@ class Settings(object):
         # mapped to the language name, in that language
         self.available_locales = {
             "ar": "العربية",  # Arabic
-            #'bn': 'বাংলা', # Bengali (commented out because not at 90% translation)
+            "bn": "বাংলা",  # Bengali
             "ca": "Català",  # Catalan
             "zh_Hant": "正體中文 (繁體)",  # Traditional Chinese
             "zh_Hans": "中文 (简体)",  # Simplified Chinese
+            "hr": "Hrvatski",  # Croatian
             "da": "Dansk",  # Danish
             "nl": "Nederlands",  # Dutch
             "en": "English",  # English
-            # "fi": "Suomi",  # Finnish (commented out because not at 90% translation)
+            "fi": "Suomi",  # Finnish
             "fr": "Français",  # French
+            "gl": "Galego",  # Galician
             "de": "Deutsch",  # German
             "el": "Ελληνικά",  # Greek
             "is": "Íslenska",  # Icelandic
-            "ga": "Gaeilge",  # Irish
+            # "ga": "Gaeilge",  # Irish
             "it": "Italiano",  # Italian
             "ja": "日本語",  # Japanese
+            "ckb": "Soranî",  # Kurdish (Central)
             "nb_NO": "Norsk Bokmål",  # Norwegian Bokmål
-            "fa": "فارسی",  # Persian
+            # "fa": "فارسی",  # Persian
             "pl": "Polski",  # Polish
             "pt_BR": "Português (Brasil)",  # Portuguese Brazil
             "pt_PT": "Português (Portugal)",  # Portuguese Portugal
-            "ro": "Română",  # Romanian
+            "sk": "Slovenčina",  # Slovak
+            # "ro": "Română",  # Romanian
             "ru": "Русский",  # Russian
-            "sr_Latn": "Srpska (latinica)",  #  Serbian (latin)
+            # "sr_Latn": "Srpska (latinica)",  #  Serbian (latin)
             "es": "Español",  # Spanish
             "sv": "Svenska",  # Swedish
-            "te": "తెలుగు",  # Telugu
+            # "te": "తెలుగు",  # Telugu
             "tr": "Türkçe",  # Turkish
             "uk": "Українська",  # Ukrainian
         }
