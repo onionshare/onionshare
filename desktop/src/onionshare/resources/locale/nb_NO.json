@@ -295,5 +295,6 @@
     "gui_chat_url_description": "<b>Alle</b> med denne OnionShare-adressen kan <b>ta del i dette sludrerommet</b> ved bruk av <b>Tor-nettleseren</b>: <img src='{}' />",
     "error_port_not_available": "OnionShare-port ikke tilgjengelig",
     "gui_rendezvous_cleanup_quit_early": "Avslutt tidlig",
-    "gui_rendezvous_cleanup": "Venter på at Tor-kretsene lukkes for å være sikker på at filene dine er overført.\n\nDette kan ta noen minutter."
+    "gui_rendezvous_cleanup": "Venter på at Tor-kretsene lukkes for å være sikker på at filene dine er overført.\n\nDette kan ta noen minutter.",
+    "gui_color_mode_changed_notice": "Start OnionShare på nytt for å bruke nytt fargemodus."
 }

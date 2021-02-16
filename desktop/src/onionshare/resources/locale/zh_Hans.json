@@ -284,5 +284,6 @@
     "gui_open_folder_error": "用xdg-open打开文件夹失败。文件在这里: {}",
     "gui_chat_url_description": "<b>任何</b>有这个OnionShare地址的人均可 <b>加入这个聊天室</b>，方法是使用<b>Tor浏览器</b>:<img src='{}' />",
     "gui_rendezvous_cleanup_quit_early": "提前退出",
-    "gui_rendezvous_cleanup": "等待Tor电路关闭，以确保文件已成功传输。\n\n这可能需要几分钟。"
+    "gui_rendezvous_cleanup": "等待Tor电路关闭，以确保文件已成功传输。\n\n这可能需要几分钟。",
+    "gui_color_mode_changed_notice": "要使即将应用的新色彩模式生效，请重启 OnionShare.。"
 }
