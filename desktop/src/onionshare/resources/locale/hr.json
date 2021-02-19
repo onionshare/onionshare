@@ -232,5 +232,6 @@
     "gui_chat_url_description": "<b>Svatko</b> s ovom OnionShare adresom može se <b>pridružiti sobi za chat</b> koristeći <b>Tor preglednik</b>: <img src='{}' />",
     "error_port_not_available": "OnionShare priključak nije dostupan",
     "gui_rendezvous_cleanup_quit_early": "Prekini preuranjeno",
-    "gui_rendezvous_cleanup": "Čekanje na zatvarnje Tor lanaca, kako bi se osigurao uspješan prijenos datoteka.\n\nOvo može potrajati nekoliko minuta."
+    "gui_rendezvous_cleanup": "Čekanje na zatvarnje Tor lanaca, kako bi se osigurao uspješan prijenos datoteka.\n\nOvo može potrajati nekoliko minuta.",
+    "gui_color_mode_changed_notice": "Za primjenu novog modusa boja ponovo pokreni OnionShare ."
 }
