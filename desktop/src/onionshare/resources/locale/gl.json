@@ -190,5 +190,6 @@
     "settings_error_bundled_tor_broken": "OnionShare non puido conectar a Tor:\n{}",
     "error_port_not_available": "Non está dispoñible o porto OnionShare",
     "gui_rendezvous_cleanup_quit_early": "Saír axiña",
-    "gui_rendezvous_cleanup": "Agardando a que se pechen tódolos circuitos de Tor para ter certeza de que os ficheiros foron transferidos.\n\nEsto podería tardar un pouco."
+    "gui_rendezvous_cleanup": "Agardando a que se pechen tódolos circuitos de Tor para ter certeza de que os ficheiros foron transferidos.\n\nEsto podería tardar un pouco.",
+    "gui_color_mode_changed_notice": "Reinicia OnionShare para aplicar o novo modo de cor."
 }

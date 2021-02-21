@@ -294,5 +294,6 @@
     "gui_chat_url_description": "<b>Jeder</b>, der diese OnionShare-Adresse hat, kann <b>diesem Chatroom beitreten</b>, indem er den <b>Tor Browser</b> benutzt: <img src='{}' />",
     "error_port_not_available": "OnionShare-Port nicht verfügbar",
     "gui_rendezvous_cleanup": "Warte darauf, dass alle Tor-Verbindungen beendet wurden, um den vollständigen Dateitransfer sicherzustellen.\n\nDies kann einige Minuten dauern.",
-    "gui_rendezvous_cleanup_quit_early": "Vorzeitig beenden"
+    "gui_rendezvous_cleanup_quit_early": "Vorzeitig beenden",
+    "gui_color_mode_changed_notice": "Starte OnionShare neu, damit der neue Farbmodus übernommen wird."
 }
