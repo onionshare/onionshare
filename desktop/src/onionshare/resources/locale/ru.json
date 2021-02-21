@@ -278,5 +278,10 @@
     "gui_chat_stop_server": "Остановить сервер чата",
     "gui_chat_start_server": "Запустить сервер чата",
     "gui_file_selection_remove_all": "Очистить все",
-    "gui_remove": "Очистить"
+    "gui_remove": "Очистить",
+    "error_port_not_available": "Порт OnionShare не доступен",
+    "gui_rendezvous_cleanup_quit_early": "Выйти Раньше",
+    "gui_rendezvous_cleanup": "Ожидается завершение соединений с сетью Tor для подтверждения успешной отправки ваших файлов.\n\nЭто может занять несколько минут.",
+    "gui_color_mode_changed_notice": "Перезапустите OnionShare чтобы изменения цветовой гаммы вступили в силу.",
+    "gui_chat_url_description": "<b>Каждый</b> у кого есть этот адрес OnionShare может  <b>присоединиться к этому чату</b> при помощи <b>Tor Browser</b>: <img src='{}' />"
 }
