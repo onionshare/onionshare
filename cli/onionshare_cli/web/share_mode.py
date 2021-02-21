@@ -200,10 +200,10 @@ class ShareModeWeb(SendBaseModeWeb):
                 r.headers.set("Content-Encoding", "gzip")
             r.headers.set("Content-Length", self.filesize)
             filename_dict = {
-                'filename': unidecode(basename),
-                'filename*': "UTF-8''%s" % url_quote(basename)
+                "filename": unidecode(basename),
+                "filename*": "UTF-8''%s" % url_quote(basename),
             }
-            r.headers.set("Content-Disposition", "inline", **filename_dict)
+            r.headers.set("Content-Disposition", "attachment", **filename_dict)
             r = self.web.add_security_headers(r)
             # guess content type
             (content_type, _) = mimetypes.guess_type(basename, strict=False)
