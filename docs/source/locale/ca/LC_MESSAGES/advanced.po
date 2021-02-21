@@ -1,0 +1,405 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) Micah Lee, et al.
+# This file is distributed under the same license as the OnionShare package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OnionShare 2.3\n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
+"POT-Creation-Date: 2020-11-15 14:42-0800\n"
+"PO-Revision-Date: 2020-11-25 18:28+0000\n"
+"Last-Translator: fadelkon <fadelkon@posteo.net>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: ca\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.4-dev\n"
+"Generated-By: Babel 2.9.0\n"
+
+#: ../../source/advanced.rst:2
+msgid "Advanced Usage"
+msgstr "Ús avançat"
+
+#: ../../source/advanced.rst:7
+msgid "Save Tabs"
+msgstr "Desa les pestanyes"
+
+#: ../../source/advanced.rst:9
+msgid ""
+"Everything in OnionShare is temporary by default. If you close an "
+"OnionShare tab, its address no longer exists and it can't be used again. "
+"Sometimes you might want an OnionShare service to be persistent. This is "
+"useful if you want to host a website available from the same OnionShare "
+"address even if you reboot your computer."
+msgstr ""
+
+#: ../../source/advanced.rst:13
+msgid ""
+"To make any tab persistent, check the \"Save this tab, and automatically "
+"open it when I open OnionShare\" box before starting the server. When a "
+"tab is saved a purple pin icon appears to the left of its server status."
+msgstr ""
+
+#: ../../source/advanced.rst:18
+msgid ""
+"When you quit OnionShare and then open it again, your saved tabs will "
+"start opened. You'll have to manually start each service, but when you do"
+" they will start with the same OnionShare address and password."
+msgstr ""
+
+#: ../../source/advanced.rst:21
+msgid ""
+"If you save a tab, a copy of that tab's onion service secret key will be "
+"stored on your computer with your OnionShare settings."
+msgstr ""
+
+#: ../../source/advanced.rst:26
+msgid "Turn Off Passwords"
+msgstr ""
+
+#: ../../source/advanced.rst:28
+msgid ""
+"By default, all OnionShare services are protected with the username "
+"``onionshare`` and a randomly-generated password. If someone takes 20 "
+"wrong guesses at the password, your onion service is automatically "
+"stopped to prevent a brute force attack against the OnionShare service."
+msgstr ""
+
+#: ../../source/advanced.rst:31
+msgid ""
+"Sometimes you might want your OnionShare service to be accessible to the "
+"public, like if you want to set up an OnionShare receive service so the "
+"public can securely and anonymously send you files. In this case, it's "
+"better to disable the password altogether. If you don't do this, someone "
+"can force your server to stop just by making 20 wrong guesses of your "
+"password, even if they know the correct password."
+msgstr ""
+
+#: ../../source/advanced.rst:35
+msgid ""
+"To turn off the password for any tab, just check the \"Don't use a "
+"password\" box before starting the server. Then the server will be public"
+" and won't have a password."
+msgstr ""
+
+#: ../../source/advanced.rst:38
+msgid "Scheduled Times"
+msgstr ""
+
+#: ../../source/advanced.rst:40
+msgid ""
+"OnionShare supports scheduling exactly when a service should start and "
+"stop. Before starting a server, click \"Show advanced settings\" in its "
+"tab and then check the boxes next to either \"Start onion service at "
+"scheduled time\", \"Stop onion service at scheduled time\", or both, and "
+"set the respective desired dates and times."
+msgstr ""
+
+#: ../../source/advanced.rst:43
+msgid ""
+"If you scheduled a service to start in the future, when you click the "
+"\"Start sharing\" button you will see a timer counting down until it "
+"starts. If you scheduled it to stop in the future, after it's started you"
+" will see a timer counting down to when it will stop automatically."
+msgstr ""
+
+#: ../../source/advanced.rst:46
+msgid ""
+"**Scheduling an OnionShare service to automatically start can be used as "
+"a dead man's switch**, where your service will be made public at a given "
+"time in the future if anything happens to you. If nothing happens to you,"
+" you can cancel the service before it's scheduled to start."
+msgstr ""
+
+#: ../../source/advanced.rst:51
+msgid ""
+"**Scheduling an OnionShare service to automatically stop can be useful to"
+" limit exposure**, like if you want to share secret documents while "
+"making sure they're not available on the Internet for more than a few "
+"days."
+msgstr ""
+
+#: ../../source/advanced.rst:56
+msgid "Command-line Interface"
+msgstr ""
+
+#: ../../source/advanced.rst:58
+msgid ""
+"In addition to its graphical interface, OnionShare has a command-line "
+"interface."
+msgstr ""
+
+#: ../../source/advanced.rst:60
+msgid ""
+"You can install just the command-line version of OnionShare using "
+"``pip3``::"
+msgstr ""
+
+#: ../../source/advanced.rst:64
+msgid ""
+"Note that you will also need the ``tor`` package installed. In macOS, "
+"install it with: ``brew install tor``"
+msgstr ""
+
+#: ../../source/advanced.rst:66
+msgid "Then run it like this::"
+msgstr ""
+
+#: ../../source/advanced.rst:70
+msgid ""
+"If you installed OnionShare using the Linux Snapcraft package, you can "
+"also just run ``onionshare.cli`` to access the command-line interface "
+"version."
+msgstr ""
+
+#: ../../source/advanced.rst:73
+msgid "Usage"
+msgstr ""
+
+#: ../../source/advanced.rst:75
+msgid ""
+"You can browse the command-line documentation by running ``onionshare "
+"--help``::"
+msgstr ""
+
+#: ../../source/advanced.rst:132
+msgid "Legacy Addresses"
+msgstr ""
+
+#: ../../source/advanced.rst:134
+msgid ""
+"OnionShare uses v3 Tor onion services by default. These are modern onion "
+"addresses that have 56 characters, for example::"
+msgstr ""
+
+#: ../../source/advanced.rst:139
+msgid ""
+"OnionShare still has support for v2 onion addresses, the old type of "
+"onion addresses that have 16 characters, for example::"
+msgstr ""
+
+#: ../../source/advanced.rst:143
+msgid ""
+"OnionShare calls v2 onion addresses \"legacy addresses\", and they are "
+"not recommended, as v3 onion addresses are more secure."
+msgstr ""
+
+#: ../../source/advanced.rst:145
+msgid ""
+"To use legacy addresses, before starting a server click \"Show advanced "
+"settings\" from its tab and check the \"Use a legacy address (v2 onion "
+"service, not recommended)\" box. In legacy mode you can optionally turn "
+"on Tor client authentication. Once you start a server in legacy mode you "
+"cannot remove legacy mode in that tab. Instead you must start a separate "
+"service in a separate tab."
+msgstr ""
+
+#: ../../source/advanced.rst:150
+msgid ""
+"Tor Project plans to `completely deprecate v2 onion services "
+"<https://blog.torproject.org/v2-deprecation-timeline>`_ on October 15, "
+"2021, and legacy onion services will be removed from OnionShare before "
+"then."
+msgstr ""
+
+#~ msgid "Make a symbolic link to the OnionShare command line binary line this::"
+#~ msgstr ""
+
+#~ msgid "Advanced usage"
+#~ msgstr ""
+
+#~ msgid "Save tabs"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "By default, everything in OnionShare is"
+#~ " temporary. As soon as you close "
+#~ "an OnionShare tab its address no "
+#~ "longer exists and can't be used "
+#~ "again. But sometimes you might want "
+#~ "an OnionShare service to be persistent."
+#~ " For example, this would be useful"
+#~ " if you want to host a website"
+#~ " that can keep the same URL "
+#~ "even if you reboot your computer."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "When you quit OnionShare and then "
+#~ "open it again, your saved tabs "
+#~ "will start out open. You'll have "
+#~ "to manually start each service, but "
+#~ "when you do they will start with"
+#~ " the same OnionShare address, and "
+#~ "with the same password."
+#~ msgstr ""
+
+#~ msgid "Disable passwords"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "By default, all OnionShare services are"
+#~ " protected with the username `onionshare`"
+#~ " and a randomly-generated password. "
+#~ "If someone makes 20 wrong guesses "
+#~ "of the password, your onion service "
+#~ "is automatically stopped to prevent a"
+#~ " brute force attack against the "
+#~ "OnionShare service."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "But sometimes you might want your "
+#~ "OnionShare service to be accessible to"
+#~ " the public. For example, if you "
+#~ "want to set up an OnionShare "
+#~ "receive service so the public can "
+#~ "securely and anonymously send you files."
+#~ " In this case, it's better to "
+#~ "disable the password altogether. If you"
+#~ " don't do this, someone can force "
+#~ "your server to stop just by making"
+#~ " 20 wrong guesses of your password,"
+#~ " even if they know the correct "
+#~ "password."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "To disable the password for any "
+#~ "tab, just check the \"Don't use a"
+#~ " password\" box before starting the "
+#~ "server. Then the server will be "
+#~ "public and won't have a password."
+#~ msgstr ""
+
+#~ msgid "Scheduled times"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "OnionShare supports scheduling exactly when"
+#~ " a service should start and stop. "
+#~ "Before starting server, click \"Show "
+#~ "advanced settings\" in its tab and "
+#~ "then check the boxes next to "
+#~ "either \"Start onion service at "
+#~ "scheduled time\", \"Stop onion service "
+#~ "at scheduled time\", or both, and "
+#~ "set the desired dates and times."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "If you scheduled a service to "
+#~ "start in the future, when you "
+#~ "click the start button you will "
+#~ "see a timer counting down until it"
+#~ " will start. If you scheduled it "
+#~ "to stop in the future, after it's"
+#~ " started you will see a timer "
+#~ "counting down to when it will stop"
+#~ " automatically."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "**Scheduling an OnionShare service to "
+#~ "automatically stop can be useful to "
+#~ "limit exposure**, like if you want "
+#~ "to share secret documents while making"
+#~ " sure they're not available on the"
+#~ " internet for more than a few "
+#~ "days."
+#~ msgstr ""
+
+#~ msgid "Command line interface"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "In addition to its graphical interface,"
+#~ " OnionShare has a command line "
+#~ "interface."
+#~ msgstr ""
+
+#~ msgid "Linux"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "If you installed OnionShare using the"
+#~ " Flatpak package, unfortunately the command"
+#~ " line interface isn't supported."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "If you installed OnionShare using an "
+#~ "operating system package, you can just"
+#~ " run ``onionshare`` from the terminal."
+#~ msgstr ""
+
+#~ msgid "macOS"
+#~ msgstr ""
+
+#~ msgid "Make a symbolic link to the OnionShare command line binary like this::"
+#~ msgstr ""
+
+#~ msgid "Now you can run ``onionshare`` from the terminal."
+#~ msgstr ""
+
+#~ msgid "Windows"
+#~ msgstr ""
+
+#~ msgid "The command line interface isn't supported in Windows."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "If you really want to use it "
+#~ "anyway, you can set up a Windows"
+#~ " development environment (see "
+#~ ":ref:`starting_development`) and then run this"
+#~ " in a command prompt::"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "You can see command line documentation"
+#~ " by running ``onionshare --help``::"
+#~ msgstr ""
+
+#~ msgid "Legacy addresses"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "But it still has support for v2"
+#~ " onion addresses, the old type of "
+#~ "onion addresses that have 16 characters,"
+#~ " for example::"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "OnionShare calls v2 onion addresses "
+#~ "\"legacy addresses\". v3 onion addresses "
+#~ "are more secure, and using legacy "
+#~ "addresses is not recommended."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "To use legacy addresses, before starting"
+#~ " a server click \"Show advanced "
+#~ "settings\" in its tab and check "
+#~ "the \"Use a legacy address (v2 "
+#~ "onion service, not recommended)\" box. "
+#~ "In legacy mode you can optionally "
+#~ "enable Tor client authentication. Once "
+#~ "you start a server in legacy mode"
+#~ " you cannot remove legacy mode in "
+#~ "that tab. Instead you must start a"
+#~ " separate service in a separate tab."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Tor Project plans to `completely "
+#~ "deprecate v2 onion services "
+#~ "<https://blog.torproject.org/v2-deprecation-timeline>`_ on"
+#~ " October 15, 2021, and legacy onion"
+#~ " services will soon be removed from"
+#~ " OnionShare as well."
+#~ msgstr ""

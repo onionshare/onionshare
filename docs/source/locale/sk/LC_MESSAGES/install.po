@@ -1,0 +1,118 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) Micah Lee, et al.
+# This file is distributed under the same license as the OnionShare package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OnionShare 2.3\n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
+"POT-Creation-Date: 2020-09-03 11:37-0700\n"
+"PO-Revision-Date: 2021-02-05 11:41+0000\n"
+"Last-Translator: Juraj Liso <lisojuraj@gmail.com>\n"
+"Language-Team: none\n"
+"Language: sk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Weblate 4.5-dev\n"
+
+#: ../../source/install.rst:2
+msgid "Installation"
+msgstr "Inštalácia"
+
+#: ../../source/install.rst:5
+msgid "Install on Windows or macOS"
+msgstr "Nainštalujte na Windows alebo macOS"
+
+#: ../../source/install.rst:7
+msgid "You can download OnionShare for Windows and macOS from the `OnionShare website <https://onionshare.org/>`_."
+msgstr ""
+"OnionShare pre Windows a macOS si môžete stiahnuť z `webu OnionShare "
+"<https://onionshare.org/>`_."
+
+#: ../../source/install.rst:9
+msgid "For added security, see :ref:`verifying_sigs`."
+msgstr "Pre väčšie zabezpečenie sa pozrite na :ref:`verifying_sigs`."
+
+#: ../../source/install.rst:14
+msgid "Install in Linux with Flatpak"
+msgstr "Inštalácia v Linuxe s Flatpak"
+
+#: ../../source/install.rst:16
+msgid "There are various ways to install OnionShare for Linux, but the recommended way is to use the Flatpak package. Flatpak ensures that you'll always use the most latest dependencies and run OnionShare inside of a sandbox."
+msgstr ""
+"Existujú rôzne spôsoby, ako nainštalovať OnionShare pre Linux, ale "
+"odporúčaný spôsob je použitie balíka Flatpak. Flatpak zaisťuje, že budete "
+"vždy používať najnovšie závislosti a spustí OnionShare vo vnútri izolovaného "
+"kontajnera."
+
+#: ../../source/install.rst:18
+msgid "Make sure you have ``flatpak`` installed and the Flathub repository added by following `these instructions <https://flatpak.org/setup/>`_ for your Linux distribution."
+msgstr ""
+"Uistite sa, že máte nainštalovaný ``flatpak`` a pridaný repozitár Flathub "
+"podľa `týchto pokynov <https://flatpak.org/setup/>`_ pre distribúciu Linuxu."
+
+#: ../../source/install.rst:20
+msgid "Then install OnionShare from Flathub by following `the instructions here <https://flathub.org/apps/details/org.onionshare.OnionShare>`_."
+msgstr ""
+"Potom nainštalujte OnionShare z Flathubu podľa `pokynov tu <https://flathub."
+"org/apps/details/org.onionshare.OnionShare>`_."
+
+#: ../../source/install.rst:25
+msgid "Verifying PGP signatures"
+msgstr "Overovanie podpisov PGP"
+
+#: ../../source/install.rst:27
+msgid "You can verify that the Windows, macOS, or source package you download is legitimate and hasn't been tampered with by verifying its PGP signature. For Windows and macOS, this step is optional and provides defense in depth: the installers also include their operating system-specific signatures, and you can just rely on those alone if you'd like."
+msgstr ""
+"Môžete overiť, či je prevzatý balík systému Windows, macOS alebo zdrojový "
+"kód legitímny a či zmanipulovaný overením jeho podpisu PGP. Pre Windows a "
+"macOS je tento krok voliteľný a poskytuje obranu do hĺbky: inštalátory tiež "
+"zahŕňajú ich operačný systém-špecifické podpisy, a môžete sa spoľahnúť len "
+"na tie, ak chcete."
+
+#: ../../source/install.rst:30
+msgid "Signing key"
+msgstr "Podpisový kľúč"
+
+#: ../../source/install.rst:32
+msgid "Windows, macOS, and source packaged are signed by Micah Lee, the core developer, using his PGP public key with fingerprint ``927F419D7EC82C2F149C1BD1403C2657CD994F73``. You can download Micah's key `from the keys.openpgp.org keyserver <https://keys.openpgp.org/vks/v1/by-fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
+msgstr ""
+
+#: ../../source/install.rst:34
+msgid "In order to verify signatures, you must have GnuPG installed. For macOS you probably want `GPGTools <https://gpgtools.org/>`_, and for Windows you probably want `Gpg4win <https://www.gpg4win.org/>`_."
+msgstr ""
+
+#: ../../source/install.rst:37
+msgid "Signatures"
+msgstr "Podpisy"
+
+#: ../../source/install.rst:39
+msgid "You can find the signatures (``.asc`` files), as well as Windows, macOS, and source packages, at https://onionshare.org/dist/ in the folders named for each version of OnionShare. You can also find them on the `GitHub Releases page <https://github.com/micahflee/onionshare/releases>`_."
+msgstr ""
+
+#: ../../source/install.rst:42
+msgid "Verifying"
+msgstr "Overovanie"
+
+#: ../../source/install.rst:44
+msgid "Once you have imported Micah's public key into your GnuPG keychain, downloaded the binary, and downloaded the ``.asc`` signature, you can verify the binary for macOS in terminal like this::"
+msgstr ""
+
+#: ../../source/install.rst:48
+msgid "Or for Windows in a command prompt like this::"
+msgstr ""
+
+#: ../../source/install.rst:52
+msgid "An expected output might look like this::"
+msgstr ""
+
+#: ../../source/install.rst:64
+msgid "If you don't see 'Good signature from', then there might be a problem with the integrity of the file (malicious or otherwise), and you perhaps should not install the package. (The WARNING shown above, is not a problem with the package: it only means you have not defined any level of 'trust' regarding Micah's PGP key itself.)"
+msgstr ""
+
+#: ../../source/install.rst:66
+msgid "If you want to learn more about verifying PGP signatures, guides for `Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ and the `Tor Project <https://2019.www.torproject.org/docs/verifying-signatures.html.en>`_ may be helpful."
+msgstr ""

@@ -1,0 +1,147 @@
+name: onionshare
+base: core18
+version: '2.3'
+summary: Securely and anonymously share files, host websites, and chat using Tor
+description: |
+  OnionShare lets you securely and anonymously send and receive files. It works by starting 
+  a web server, making it accessible as a Tor onion service, and generating an unguessable 
+  web address so others can download files from you, or upload files to you. It does _not_ 
+  require setting up a separate server or using a third party file-sharing service.
+
+grade: stable # must be 'stable' to release into candidate/stable channels
+confinement: strict
+
+apps:
+  onionshare:
+    common-id: org.onionshare.OnionShare
+    command: onionshare
+    plugs:
+      - desktop
+      - home
+      - network
+      - network-bind
+      - removable-media
+    extensions:
+      - gnome-3-34
+  
+  cli:
+    common-id: org.onionshare.OnionShareCli
+    command: onionshare-cli
+    plugs:
+      - home
+      - network
+      - network-bind
+      - removable-media
+
+parts:
+  onionshare:
+    source: ./desktop/src
+    plugin: python
+    python-version: python3
+    python-packages:
+      - psutil
+      - pyside2==5.15.1
+      - qrcode
+    stage-packages:
+      - libasound2
+      - libatk1.0-0
+      - libcairo2
+      - libcairo-gobject2
+      - libcups2
+      - libdrm2
+      - libegl1
+      - libfreetype6
+      - libgdk-pixbuf2.0-0
+      - libgl1
+      - libglvnd0
+      - libglx0
+      - libgtk-3-0
+      - libharfbuzz0b
+      - libicu60
+      - libjpeg8
+      - liblcms2-2
+      - libnspr4
+      - libnss3
+      - libodbc1
+      - libpango-1.0-0
+      - libpangocairo-1.0-0
+      - libpng16-16
+      - libpq5
+      - libpulse-mainloop-glib0
+      - librsvg2-2
+      - libspeechd2
+      - libwayland-client0
+      - libwayland-cursor0
+      - libwayland-egl1
+      - libwayland-server0
+      - libx11-6
+      - libx11-xcb1
+      - libxau6
+      - libxcb1
+      - libxcb-glx0
+      - libxcb-icccm4
+      - libxcb-image0
+      - libxcb-keysyms1
+      - libxcb-render0
+      - libxcb-render-util0
+      - libxcb-shm0
+      - libxcb-sync1
+      - libxcb-xfixes0
+      - libxcb-xinerama0
+      - libxcb-xkb1
+      - libxcomposite1
+      - libxcursor1
+      - libxdamage1
+      - libxdmcp6
+      - libxext6
+      - libxfixes3
+      - libxi6
+      - libxkbcommon0
+      - libxkbcommon-x11-0
+      - libxml2
+      - libxrandr2
+      - libxrender1
+      - libxslt1.1
+      - libxtst6
+    after: [onionshare-cli, tor, obfs4]
+
+  onionshare-cli:
+    source: ./cli
+    plugin: python
+    python-version: python3
+    python-packages:
+      - poetry
+      - click
+      - flask
+      - flask-httpauth
+      - flask-socketio
+      - pycryptodome
+      - pysocks
+      - requests
+      - stem
+      - urllib3
+      - eventlet
+    after: [tor, obfs4]
+
+  tor:
+    source: https://dist.torproject.org/tor-0.4.5.6.tar.gz
+    source-checksum: sha256/22cba3794fedd5fa87afc1e512c6ce2c21bc20b4e1c6f8079d832dc1e545e733
+    source-type: tar
+    plugin: autotools
+    build-packages:
+      - libssl-dev
+      - zlib1g-dev
+    after: [libevent]
+  
+  libevent:
+    source: https://github.com/libevent/libevent/releases/download/release-2.1.12-stable/libevent-2.1.12-stable.tar.gz
+    source-checksum: sha256/92e6de1be9ec176428fd2367677e61ceffc2ee1cb119035037a27d346b0403bb
+    source-type: tar
+    plugin: autotools
+
+  obfs4:
+    source: pass
+    plugin: go
+    go-importpath: gitlab.com/yawning/obfs4
+    source: https://gitlab.com/yawning/obfs4
+    source-type: git

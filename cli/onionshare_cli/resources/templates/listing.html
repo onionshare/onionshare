@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>OnionShare</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="{{ static_url_path }}/img/favicon.ico" rel="icon" type="image/x-icon" />
+  <link href="{{ static_url_path }}/css/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
+  <header class="clearfix">
+    <img class="logo" src="{{ static_url_path }}/img/logo.png" title="OnionShare">
+    <h1>OnionShare</h1>
+  </header>
+
+  {% if breadcrumbs %}
+  <ul class="breadcrumbs">
+    {% for breadcrumb in breadcrumbs %}<li><a href="{{ breadcrumb[1] }}">{{ breadcrumb[0] }}</a> <span
+        class="sep">&#8227;</span></li>{% endfor %}<li>{{ breadcrumbs_leaf }}</li>
+  </ul>
+  {% endif %}
+
+  <table class="file-list" id="file-list">
+    <tr>
+      <th id="filename-header">Filename</th>
+      <th id="size-header">Size</th>
+      <th></th>
+    </tr>
+
+    {% for info in dirs %}
+    <tr>
+      <td>
+        <img width="30" height="30" title="" alt="" src="{{ static_url_path }}/img/web_folder.png" />
+        <a href="{{ info.link }}">
+          {{ info.basename }}
+        </a>
+      </td>
+      <td>&mdash;</td>
+    </tr>
+    {% endfor %}
+
+    {% for info in files %}
+    <tr>
+      <td>
+        <img width="30" height="30" title="" alt="" src="{{ static_url_path }}/img/web_file.png" />
+        <a href="{{ info.link }}">
+          {{ info.basename }}
+        </a>
+      </td>
+      <td>{{ info.size_human }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</body>
+
+</html>

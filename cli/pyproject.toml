@@ -1,0 +1,43 @@
+[tool.poetry]
+name = "onionshare_cli"
+version = "2.3"
+description = "OnionShare lets you securely and anonymously send and receive files. It works by starting a web server, making it accessible as a Tor onion service, and generating an unguessable web address so others can download files from you, or upload files to you. It does _not_ require setting up a separate server or using a third party file-sharing service."
+authors = ["Micah Lee <micah@micahflee.com>"]
+license = "GPLv3+"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Framework :: Flask",
+    "Topic :: Communications :: File Sharing",
+    "Topic :: Security :: Cryptography",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Intended Audience :: End Users/Desktop",
+    "Operating System :: OS Independent",
+    "Environment :: Web Environment",
+]
+
+[tool.poetry.dependencies]
+python = "^3.6"
+click = "*"
+flask = "*"
+flask-httpauth = "*"
+flask-socketio = "*"
+psutil = "*"
+pycryptodome = "*"
+pysocks = "*"
+requests = "*"
+stem = "*"
+unidecode = "*"
+urllib3 = "*"
+eventlet = "*"
+setuptools = "*"
+
+[tool.poetry.dev-dependencies]
+pytest = "*"
+setuptools = "*"
+
+[tool.poetry.scripts]
+onionshare-cli = 'onionshare_cli:main'
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"

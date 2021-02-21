@@ -1,0 +1,471 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) Micah Lee, et al.
+# This file is distributed under the same license as the OnionShare package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OnionShare 2.3\n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
+"POT-Creation-Date: 2020-11-15 14:42-0800\n"
+"PO-Revision-Date: 2021-02-21 18:25+0000\n"
+"Last-Translator: Alexander Tarasenko <alexound.login@gmail.com>\n"
+"Language-Team: ru <LL@li.org>\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.5\n"
+"Generated-By: Babel 2.9.0\n"
+
+#: ../../source/develop.rst:2
+msgid "Developing OnionShare"
+msgstr "Разработка OnionShare"
+
+#: ../../source/develop.rst:7
+msgid "Collaborating"
+msgstr "Участие в проекте"
+
+#: ../../source/develop.rst:9
+msgid ""
+"OnionShare has an open Keybase team to discuss the project, ask "
+"questions, share ideas and designs, and making plans for future "
+"development. (It's also an easy way to send end-to-end encrypted direct "
+"messages to others in the OnionShare community, like OnionShare "
+"addresses.) To use Keybase, download the `Keybase app "
+"<https://keybase.io/download>`_, make an account, and `join this team "
+"<https://keybase.io/team/onionshare>`_. Within the app, go to \"Teams\", "
+"click \"Join a Team\", and type \"onionshare\"."
+msgstr ""
+"Существует открытая команда на платформе KeyBase, чтобы обсуждать проект в "
+"целом, задавать вопросы, делиться идеями и планами относительно последующей "
+"разработки OnionShare. (Так же, это лёгкий способ делиться зашифрованными "
+"сквозным шифрованием сообщениями с другими пользователями OnionShare, "
+"например, чтобы делиться адресами OnionShare). Для того, чтобы начать "
+"пользоваться Keybase, нужно загрузить приложение по ссылке `Keybase app "
+"<https://keybase.io/download>`_, создать учётную запись и `присоединиться к "
+"этой команде <https://keybase.io/team/onionshare>`_. Внутри самого "
+"приложения, нужно перейти в раздел \"Teams\", нажать кнопку \"Join a Team\" "
+"и ввести название \"onionshare\"."
+
+#: ../../source/develop.rst:12
+msgid ""
+"OnionShare also has a `mailing list "
+"<https://lists.riseup.net/www/subscribe/onionshare-dev>`_ for developers "
+"and and designers to discuss the project."
+msgstr ""
+"У OnionShare также существует `почтовая рассылка <https://lists.riseup.net/"
+"www/subscribe/onionshare-dev>`_ для разработчиков и дизайнеров."
+
+#: ../../source/develop.rst:15
+msgid "Contributing Code"
+msgstr "Участие в программировании"
+
+#: ../../source/develop.rst:17
+msgid ""
+"OnionShare source code is to be found in this Git repository: "
+"https://github.com/micahflee/onionshare"
+msgstr ""
+"Исходный код OnionShare можно найти в репозитории Git: https://github.com/"
+"micahflee/onionshare"
+
+#: ../../source/develop.rst:19
+msgid ""
+"If you'd like to contribute code to OnionShare, it helps to join the "
+"Keybase team and ask questions about what you're thinking of working on. "
+"You should also review all of the `open issues "
+"<https://github.com/micahflee/onionshare/issues>`_ on GitHub to see if "
+"there are any you'd like to tackle."
+msgstr ""
+"Если Вы хотите написать код для OnionShare, может оказаться полезным "
+"присоединиться к команде OnionShare и задать несколько вопросов относительно "
+"планов своей работы. Так же рекомендуется просмотреть `открытые задачи "
+"<https://github.com/micahflee/onionshare/issues>`_ на GitHub, возможно Вы "
+"сможете решить какую-то из них."
+
+#: ../../source/develop.rst:22
+msgid ""
+"When you're ready to contribute code, open a pull request in the GitHub "
+"repository and one of the project maintainers will review it and possibly"
+" ask questions, request changes, reject it, or merge it into the project."
+msgstr ""
+"Когда Вы будете готовы поделиться кодом, создайте \"pull request\" в "
+"репозитории GitHub, после чего один из сопровождающих проекта просмотрит "
+"изменения, возможно задаст вопросы, попросит об что-то переделать отклонит "
+"или интегрирует Ваш код в проект."
+
+#: ../../source/develop.rst:27
+msgid "Starting Development"
+msgstr "Начало разработки"
+
+#: ../../source/develop.rst:29
+msgid ""
+"OnionShare is developed in Python. To get started, clone the Git "
+"repository at https://github.com/micahflee/onionshare/ and then consult "
+"the ``cli/README.md`` file to learn how to set up your development "
+"environment for the command-line version, and the ``desktop/README.md`` "
+"file to learn how to set up your development environment for the "
+"graphical version."
+msgstr ""
+"OnionShare написан на языке Python. Для начала, нужно склонировать "
+"репозиторий Git расположенный по адресу https://github.com/micahflee/"
+"onionshare/. Файл ``cli/README.md``содержит информацию о том, как настроить "
+"рабочее окружение для разработки консольной версии, файл ``desktop/README."
+"md``, соответственно, о том, что нужно дла разработки версии OnionShare с "
+"графическим интерфейсом."
+
+#: ../../source/develop.rst:32
+msgid ""
+"Those files contain the necessary technical instructions and commands "
+"install dependencies for your platform, and to run OnionShare from the "
+"source tree."
+msgstr ""
+"Эти файлы содержат инструкции и команды установки необходимых библиотек/"
+"зависимостей для платформы, на которой планируется разработка приложения, а "
+"так же рассказывают как запустить OnionShare с использованием файлов "
+"репозитория, без установки."
+
+#: ../../source/develop.rst:35
+msgid "Debugging tips"
+msgstr "Советы по отладке"
+
+#: ../../source/develop.rst:38
+msgid "Verbose mode"
+msgstr "Подробный режим"
+
+#: ../../source/develop.rst:40
+msgid ""
+"When developing, it's convenient to run OnionShare from a terminal and "
+"add the ``--verbose`` (or ``-v``) flag to the command. This prints a lot "
+"of helpful messages to the terminal, such as when certain objects are "
+"initialized, when events occur (like buttons clicked, settings saved or "
+"reloaded), and other debug info. For example::"
+msgstr ""
+"Во время разработки, для удобства рекомендуется запускать OnionShare при "
+"помщи терминала с добавлением флагов ``--verbose`` или ``-v``. В этом случае "
+"выводится много вспомогательных сообщений, например, о том, какие "
+"инициализируются объекты, когда происходит какое-либо событие (нажатие "
+"кнопки, сохраняются или загружаются настройки) и другая отладочная "
+"информация. Например::"
+
+#: ../../source/develop.rst:117
+msgid ""
+"You can add your own debug messages by running the ``Common.log`` method "
+"from ``onionshare/common.py``. For example::"
+msgstr ""
+"Можно добавить собственные отладочные сообщения, если запустить метод "
+"``Common.log`` из ``onionshare/common.py``. Например::"
+
+#: ../../source/develop.rst:121
+msgid ""
+"This can be useful when learning the chain of events that occur when "
+"using OnionShare, or the value of certain variables before and after they"
+" are manipulated."
+msgstr ""
+"Это может быть полезно, например, во время изучения последовательности "
+"событий, происходящей во время использования OnionShare, или чтобы узнать "
+"значение определённых переменных до и после их использования."
+
+#: ../../source/develop.rst:124
+msgid "Local Only"
+msgstr "Только локально"
+
+#: ../../source/develop.rst:126
+msgid ""
+"Tor is slow, and it's often convenient to skip starting onion services "
+"altogether during development. You can do this with the ``--local-only`` "
+"flag. For example::"
+msgstr ""
+"Сеть Tor медленная, и часто может быть удобно полностью пропустить запуск "
+"onion сервисов во время разработки. Это можно сделать с использованием флага "
+"``--local-only``. Например::"
+
+#: ../../source/develop.rst:164
+msgid ""
+"In this case, you load the URL ``http://onionshare:train-"
+"system@127.0.0.1:17635`` in a normal web-browser like Firefox, instead of"
+" using the Tor Browser."
+msgstr ""
+"В таком случае можно использовать URL ``http://onionshare:train-system@127.0."
+"0.1:17635`` в обычном веб-браузере, например, Firefox, вместо использования "
+"Tor Browser."
+
+#: ../../source/develop.rst:167
+msgid "Contributing Translations"
+msgstr "Участие в переводах"
+
+#: ../../source/develop.rst:169
+msgid ""
+"Help make OnionShare easier to use and more familiar and welcoming for "
+"people by translating it on `Hosted Weblate "
+"<https://hosted.weblate.org/projects/onionshare/>`_. Always keep the "
+"\"OnionShare\" in latin letters, and use \"OnionShare (localname)\" if "
+"needed."
+msgstr ""
+"Помогите сделать OnionShare легче для использования, более приветливым и "
+"знакомым для людей при помощи платформы переводов на другие языки `Hosted "
+"Weblate <https://hosted.weblate.org/projects/onionshare/>`_. Всегда "
+"используйте латинские буквы при написании \"OnionShare\" и при необходимости "
+"добавляйте переведённое название в виде \"OnionShare (перевод)\"."
+
+#: ../../source/develop.rst:171
+msgid "To help translate, make a Hosted Weblate account and start contributing."
+msgstr ""
+"Чтобы начать заниматься переводами нужно создать учётную запись на платформе "
+"Hosted Weblated."
+
+#: ../../source/develop.rst:174
+msgid "Suggestions for Original English Strings"
+msgstr "Предложения по исходному английскому тексту"
+
+#: ../../source/develop.rst:176
+msgid ""
+"Sometimes the original English strings are wrong, or don't match between "
+"the application and the documentation."
+msgstr ""
+"Иногда исходный текст на английском языке содержит ошибки, или работа "
+"приложения не совпадает с документацией."
+
+#: ../../source/develop.rst:178
+msgid ""
+"File source string improvements by adding @kingu to your Weblate comment,"
+" or open a GitHub issue or pull request. The latter ensures all upstream "
+"developers see the suggestion, and can potentially modify the string via "
+"the usual code review processes."
+msgstr ""
+"Чтобы прежложить изменения к исходному тексту, добавьте @kingu к своему "
+"комментарию на Weblate. Так же можно создать 'issue' или 'pull request' в "
+"проекте OnionShare на портале GitHub, это гарантирует, что основные "
+"разработчики увидят предложение и, возможно, изменят исходный текст."
+
+#: ../../source/develop.rst:182
+msgid "Status of Translations"
+msgstr "Статус Переводов"
+
+#: ../../source/develop.rst:183
+msgid ""
+"Here is the current translation status. If you want start a translation "
+"in a language not yet started, please write to the mailing list: "
+"onionshare-dev@lists.riseup.net"
+msgstr ""
+"Это текущий статус передов. Если Вы хотите начать делать перевод на языке, "
+"которого пока нет в списке доступных на Weblate, пожлауйста напишите письмо "
+"на этот адрес: onionshare-dev@lists.riseup.net"
+
+#~ msgid ""
+#~ "OnionShare is developed in Python. To"
+#~ " get started, you should close the"
+#~ " git repository at "
+#~ "https://github.com/micahflee/onionshare/ and then "
+#~ "consult the ``BUILD.md`` file."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "OnionShare has an open Keybase team "
+#~ "that we use to discuss the "
+#~ "project, including asking questions, sharing"
+#~ " ideas and designs, and making plans"
+#~ " for future development. (It's also "
+#~ "an easy way to send end-to-"
+#~ "end encrypted direct messages to others"
+#~ " in the OnionShare community, like "
+#~ "OnionShare addresses.) To use Keybase, "
+#~ "you need to download the `Keybase "
+#~ "app <https://keybase.io/download>`_, make an "
+#~ "account, and `join this team "
+#~ "<https://keybase.io/team/onionshare>`_. Within the "
+#~ "app, go to Teams, click \"Join a"
+#~ " Team\", and type \"onionshare\"."
+#~ msgstr ""
+
+#~ msgid "Contributing code"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "OnionShare source code is in this "
+#~ "git repository: https://github.com/micahflee/onionshare"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "If you'd like to contribute code "
+#~ "to OnionShare, it helps to join "
+#~ "the Keybase team and ask questions "
+#~ "about what you're thinking of working"
+#~ " on. You should also review all "
+#~ "of the `open issues "
+#~ "<https://github.com/micahflee/onionshare/issues>`_ on "
+#~ "GitHub to see if there are any "
+#~ "that you'd like to develop."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "When you're ready to contribute code,"
+#~ " open a pull request in the "
+#~ "GitHub repository and one of the "
+#~ "project maintainers will review it and"
+#~ " possible ask questions, request changes,"
+#~ " reject it, or merge it into "
+#~ "the project."
+#~ msgstr ""
+
+#~ msgid "Starting development"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "OnionShare is developed in Python. To"
+#~ " get started, you should clone the"
+#~ " git repository at "
+#~ "https://github.com/micahflee/onionshare/ and then "
+#~ "consult the ``BUILD.md`` file."
+#~ msgstr ""
+
+#~ msgid "That file contains the technical instructions and commands necessary:"
+#~ msgstr ""
+
+#~ msgid "Install dependencies for your platform"
+#~ msgstr ""
+
+#~ msgid "Run OnionShare from the source tree, without building a package"
+#~ msgstr ""
+
+#~ msgid "Building packages"
+#~ msgstr ""
+
+#~ msgid "Making a release of OnionShare"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "When developing, it's convenient to run"
+#~ " OnionShare from a terminal and add"
+#~ " the ``--verbose`` (or ``-v``) flag "
+#~ "to the command. This will print a"
+#~ " lot of helpful messages to the "
+#~ "terminal such as when certain objects"
+#~ " are initialized, when events occur "
+#~ "(like buttons clicked, settings saved or"
+#~ " reloaded), and other debug information."
+#~ " For example::"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "This can be useful when learning "
+#~ "the chain of events that occur "
+#~ "when using the application or the "
+#~ "value of certain variables before and"
+#~ " after they are manipulated."
+#~ msgstr ""
+
+#~ msgid "Local only"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "In this case, you load the URL "
+#~ "``http://onionshare:eject-snack@127.0.0.1:17614`` in "
+#~ "a normal web browser like Firefox, "
+#~ "instead of using Tor Browser."
+#~ msgstr ""
+
+#~ msgid "Debugging in Windows"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "If you want to obtain debug output"
+#~ " from the ``onionshare-gui.exe`` in "
+#~ "Windows, you will need to edit "
+#~ "``install\\pyinstaller.spec`` and change "
+#~ "``console=False`` to ``console=True``."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Then rebuild the EXE with "
+#~ "``install\\build_exe.bat`` (you may need to"
+#~ " comment out the ``signtool`` commands "
+#~ "in the ``build_exe.bat`` and the "
+#~ "``onionshare.nsi`` files, as per the "
+#~ "``BUILD.md`` instructions)."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "After this, you can run ``onionshare-"
+#~ "gui.exe -v`` from a command prompt "
+#~ "to see the debug output."
+#~ msgstr ""
+
+#~ msgid "Contributing translations"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Most of the OnionShare is translatable."
+#~ " You can help make it easier to"
+#~ " use and more familiar and welcoming"
+#~ " for people around the globe. The "
+#~ "Localization Lab has some `documentation "
+#~ "about translating OnionShare "
+#~ "<https://wiki.localizationlab.org/index.php/OnionShare>`_."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "OnionShare uses Weblate to keep track"
+#~ " of translations. You can view the"
+#~ " OnionShare project here: "
+#~ "https://hosted.weblate.org/projects/onionshare/"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "To help translate, make a Hosted "
+#~ "Weblate account and start contributing "
+#~ "to that project."
+#~ msgstr ""
+
+#~ msgid "Suggestions for original English strings"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Sometimes the original English strings "
+#~ "could be improved, making them easier"
+#~ " to translate into other languages."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "If you have suggestions for a "
+#~ "better English string, please open a "
+#~ "GitHub issue rather than commenting in"
+#~ " Weblate. This ensures the upstream "
+#~ "developers will definitely see the "
+#~ "suggestion, and can potentially modify "
+#~ "the string via the usual code "
+#~ "review processes."
+#~ msgstr ""
+
+#~ msgid "Status of translations"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Here is the current translation status."
+#~ " If you want start a translation "
+#~ "in a language not to be found "
+#~ "here, please write us to the "
+#~ "mailing list: onionshare-dev@lists.riseup.net"
+#~ msgstr ""
+
+#~ msgid "Translate the .desktop file"
+#~ msgstr ""
+
+#~ msgid "You can also translate the ``install/onionshare.desktop`` file."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Duplicate the line that begins with "
+#~ "``Comment=``. Add the language code to"
+#~ " the new line so it becomes "
+#~ "``Comment[lang]=`` (lang should be your "
+#~ "language). You can see what language "
+#~ "codes are used for translation by "
+#~ "looking at the ``share/locale/*.json`` "
+#~ "filenames::"
+#~ msgstr ""
+
+#~ msgid "Do the same for other untranslated lines."
+#~ msgstr ""

@@ -1,0 +1,89 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) Micah Lee, et al.
+# This file is distributed under the same license as the OnionShare package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OnionShare 2.3\n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
+"POT-Creation-Date: 2020-11-15 14:42-0800\n"
+"PO-Revision-Date: 2020-11-19 08:28+0000\n"
+"Last-Translator: Yuri Slobodyanyuk <yuri@yurisk.info>\n"
+"Language-Team: ru <LL@li.org>\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.4-dev\n"
+"Generated-By: Babel 2.9.0\n"
+
+#: ../../source/help.rst:2
+msgid "Getting Help"
+msgstr "Получить помощь"
+
+#: ../../source/help.rst:5
+msgid "Read This Website"
+msgstr "Прочитайте этот веб сайт"
+
+#: ../../source/help.rst:7
+msgid ""
+"You will find instructions on how to use OnionShare. Look through all of "
+"the sections first to see if anything answers your questions."
+msgstr ""
+"Данный сайт содержит множество инструкций по использованию OnionShare. "
+"Начните с просмотра всех разделов, возможно Вы найдете ответы на Ваши "
+"вопросы."
+
+#: ../../source/help.rst:10
+msgid "Check the GitHub Issues"
+msgstr "Проверьте на Github отчеты о проблемах"
+
+#: ../../source/help.rst:12
+msgid ""
+"If it isn't on the website, please check the `GitHub issues "
+"<https://github.com/micahflee/onionshare/issues>`_. It's possible someone"
+" else has encountered the same problem and either raised it with the "
+"developers, or maybe even posted a solution."
+msgstr ""
+"Если Вам не удается найти решение на этом веб сайте, пожалуйста, посмотрите "
+"здесь `GitHub issues <https://github.com/micahflee/onionshare/issues>`_. "
+"Возможно кто-то еще столкнулся с такой же проблемой и сообщил об этом "
+"авторам или даже поделился своим решением."
+
+#: ../../source/help.rst:15
+msgid "Submit an Issue Yourself"
+msgstr "Сообщите о проблеме"
+
+#: ../../source/help.rst:17
+msgid ""
+"If you are unable to find a solution, or wish to ask a question or "
+"suggest a new feature, please `submit an issue "
+"<https://github.com/micahflee/onionshare/issues/new>`_. This requires "
+"`creating a GitHub account <https://help.github.com/articles/signing-up-"
+"for-a-new-github-account/>`_."
+msgstr ""
+"Если не находите решение вашей проблемы, а может хотите задать вопрос или "
+"предложить новые возможности, пожалуйста, сделайте это через `submit an "
+"issue <https://github.com/micahflee/onionshare/issues/new>`_. Для этого "
+"потребуется `создание аккаунта на Github <https://help.github.com/articles/"
+"signing-up-for-a-new-github-account/>`_."
+
+#: ../../source/help.rst:20
+msgid "Join our Keybase Team"
+msgstr "Присоединяйтесь к нашей команде Keybase"
+
+#: ../../source/help.rst:22
+msgid ""
+"See :ref:`collaborating` on how to join the Keybase team used to discuss "
+"the project."
+msgstr ""
+"Смотрите :ref: `collaborating` инструкции о том как присоединиться к команде "
+"Keybase в которой мы обсуждаем этот проект."
+
+#~ msgid "If you need help with OnionShare, please follow the instructions below."
+#~ msgstr ""
+#~ "Если Вам нужна помощь с OnionShare, "
+#~ "пожалуйста, следуйте следующим интсрукциям."

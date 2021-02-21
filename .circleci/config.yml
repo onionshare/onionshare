@@ -1,20 +1,20 @@
-# Python CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-python/ for more details
-#
+# To run the tests, CircleCI needs these environment variables:
+# QT_EMAIL - email address for a Qt account
+# QT_PASSWORD - password for a Qt account
+# (Unfortunately you can't install Qt without logging in.)
+
 version: 2
 workflows:
   version: 2
   test:
     jobs:
-      - test-3.5
-      - test-3.6
-      - test-3.7
+      - test-cli
+      - test-gui
 
 jobs:
-  test-3.5: &test-template
+  test-cli:
     docker:
-      - image: circleci/python:3.5.6
+      - image: circleci/python:3.8-buster
 
     working_directory: ~/repo
 
@@ -22,34 +22,45 @@ jobs:
       - checkout
 
       - run:
-          name: install dependencies
+          name: Install dependencies
           command: |
             sudo apt-get update
-            sudo apt-get install -y python3-pip python3-flask python3-stem python3-pyqt5 python3-crypto python3-socks python3-stdeb python3-all python-nautilus xvfb obfs4proxy
-            sudo pip3 install -r install/requirements.txt
-            sudo pip3 install -r install/requirements-tests.txt
-            sudo pip3 install pytest-cov flake8
-
-      # run tests!
-      - run:
-          name: run flake tests
-          command: |
-            # stop the build if there are Python syntax errors or undefined names
-            flake8 . --count --select=E901,E999,F821,F822,F823 --show-source --statistics
-            # exit-zero treats all errors as warnings.  The GitHub editor is 127 chars wide
-            flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+            sudo apt-get -y install tor obfs4proxy
+            pip install poetry
+            cd ~/repo/cli
+            poetry install
 
       - run:
-          name: run tests
+          name: Run tests
           command: |
-            xvfb-run -s "-screen 0 1280x1024x24" pytest --rungui --cov=onionshare --cov=onionshare_gui --cov-report=term-missing -vvv --no-qt-log tests/
-
-  test-3.6:
-    <<: *test-template
+            cd ~/repo/cli
+            poetry run pytest -v ./tests
+    
+  test-gui:
     docker:
-      - image: circleci/python:3.6.6
+      - image: circleci/python:3.8-buster
 
-  test-3.7:
-    <<: *test-template
-    docker:
-      - image: circleci/python:3.7.1
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      - run:
+          name: Install dependencies
+          command: |
+            sudo apt-get update
+            sudo apt-get install -y tor obfs4proxy gcc python3-dev python3-pyside2.qtcore python3-pyside2.qtwidgets python3-pyside2.qtgui
+            sudo apt-get install -y xvfb x11-utils libxkbcommon-x11-0 libxcb-randr0-dev libxcb-xtest0-dev libxcb-xinerama0-dev libxcb-shape0-dev libxcb-xkb-dev libxcb-render-util0 libxcb-icccm4 libxcb-keysyms1 libxcb-image0
+            cd ~/repo/cli
+            poetry install
+            poetry build
+            cp dist/onionshare_cli-*.whl ~/repo/desktop
+            cd ~/repo/desktop
+            pip install briefcase pytest pytest-briefcase pytest-faulthandler pytest-qt pytest-xvfb
+            pip install $(python -c 'import toml; print(" ".join(toml.loads(open("pyproject.toml").read())["tool"]["briefcase"]["app"]["onionshare"]["requires"]))')
+
+      - run:
+          name: Run tests
+          command: |
+            cd ~/repo/desktop
+            ./tests/run.sh
