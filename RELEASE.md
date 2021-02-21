@@ -17,6 +17,19 @@ Before making a release, you must update the version in these places:
 Update the documentation:
 
 - [ ] Update all of the documentation in `docs` to cover new features, including taking new screenshots if necessary
+- [ ] Edit `docs/source/conf.py`, make sure `versions` includes the latest version
+
+Finalize localization:
+
+- [ ] Merge all the translations from weblate
+- [ ] Edit `cli/onionshare_cli/settings.py`, make sure `self.available_locales` lists only locales that are >90% translated
+- [ ] Edit `docs/source/conf.py`, make sure `languages` lists only languages that are >90% translated
+- [ ] Make sure the latest documentation is built and committed:
+  ```
+  cd docs
+  poetry install
+  poetry run ./build.sh
+  ```
 
 You also must edit these files:
 
@@ -140,7 +153,7 @@ Run the AppImage build script:
 ./package/linux/build-appimage.py
 ```
 
-### Windows
+## Windows
 
 Set up the development environment described in `README.md`. And install the [Windows 10 SDK](https://developer.microsoft.com/en-us/windows/downloads/windows-10-sdk) and add `C:\Program Files (x86)\Windows Kits\10\bin\10.0.19041.0\x86` to your path.
 
@@ -158,7 +171,7 @@ python package\windows\build.py
 
 This will create `desktop/windows/OnionShare-$VERSION.msi`, signed.
 
-### macOS
+## macOS
 
 Set up the development environment described in `README.md`. And install `create-dmg`:
 
@@ -186,13 +199,13 @@ Now, notarize the release. You must have an app-specific Apple ID password saved
 
 This will create `desktop/macOS/OnionShare.dmg`, signed and notarized.
 
-### Source package
+## Source package
 
 To make a source package, run `./build-source.sh $TAG`, where `$TAG` is the the name of the signed git tag, e.g. `v2.1`.
 
 This will create `dist/onionshare-$VERSION.tar.gz`.
 
-### Publishing the release
+## Publishing the release
 
 After following all of the previous steps, gather these files:
 
@@ -221,6 +234,10 @@ Update onionshare.org:
   - Edit `latest-version.txt` to match the latest version
   - Update the version number and download links
   - Deploy to https://onionshare.org/
+
+Update docs.onionshare.org:
+
+- Upload everything from `docs/build/docs` to https://docs.onionshare.org/
 
 Update Homebrew:
 

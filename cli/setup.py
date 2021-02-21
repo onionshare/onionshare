@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import os
 import setuptools
 
-version = "2.3.dev2"
+version = "2.3"
 
 setuptools.setup(
     name="onionshare-cli",
