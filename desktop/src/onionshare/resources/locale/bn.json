@@ -284,5 +284,6 @@
     "gui_rendezvous_cleanup_quit_early": "তাড়াতাড়ি বন্ধ করো",
     "gui_main_page_chat_button": "চ্যাটিং শুরু করো",
     "gui_main_page_website_button": "হোস্টিং শুরু করো",
-    "gui_main_page_receive_button": "গ্রহণ শুরু করো"
+    "gui_main_page_receive_button": "গ্রহণ শুরু করো",
+    "gui_color_mode_changed_notice": "নতুন রঙের মোড প্রয়োগ করার জন্য OnionShare পুনরারম্ভ করুন।"
 }
