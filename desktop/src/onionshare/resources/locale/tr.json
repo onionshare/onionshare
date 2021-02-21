@@ -257,5 +257,6 @@
     "gui_chat_url_description": "Bu OnionShare adresine sahip olan <b>herkes</b> <b>Tor Browser</b> kullanarak <b>bu sohbet odasına katılabilir</b>: <img src='{}' />",
     "error_port_not_available": "OnionShare bağlantı noktası kullanılamıyor",
     "gui_rendezvous_cleanup_quit_early": "Erken Çık",
-    "gui_rendezvous_cleanup": "Dosyalarınızın başarıyla aktarıldığından emin olmak için Tor devrelerinin kapanması bekleniyor.\n\nBu, birkaç dakika sürebilir."
+    "gui_rendezvous_cleanup": "Dosyalarınızın başarıyla aktarıldığından emin olmak için Tor devrelerinin kapanması bekleniyor.\n\nBu, birkaç dakika sürebilir.",
+    "gui_color_mode_changed_notice": "Yeni renk modunun uygulanması için OnionShare'i yeniden başlatın."
 }
