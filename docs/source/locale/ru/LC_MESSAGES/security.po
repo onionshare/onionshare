@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2020-12-13 15:48-0800\n"
-"PO-Revision-Date: 2021-02-19 11:50+0000\n"
+"PO-Revision-Date: 2021-02-21 18:25+0000\n"
 "Last-Translator: Alexander Tarasenko <alexound.login@gmail.com>\n"
 "Language-Team: ru <LL@li.org>\n"
 "Language: ru\n"
@@ -21,21 +21,19 @@ msgstr ""
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/security.rst:2
-#, fuzzy
 msgid "Security Design"
-msgstr "Архитектура безопасности"
+msgstr "Обеспечение Безопасности"
 
 #: ../../source/security.rst:4
-#, fuzzy
 msgid "Read :ref:`how_it_works` first to get a handle on how OnionShare works."
 msgstr ""
-"Начните с чтения :ref:`how_it_works` для понимания принципов работы "
-"OnionShare."
+"Прежде всего, прочитайте :ref:`how_it_works` для понимания общих принципов "
+"работы OnionShare."
 
 #: ../../source/security.rst:6
 msgid "Like all software, OnionShare may contain bugs or vulnerabilities."
 msgstr ""
-"Как любое программное обеспечение, OnionShare может содержать ошибки и "
+"Как и любое программное обеспечение, OnionShare может содержать ошибки и "
 "уязвимости."
 
 #: ../../source/security.rst:9
