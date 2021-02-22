@@ -787,7 +787,7 @@ class SettingsDialog(QtWidgets.QDialog):
             )
             close_forced_update_thread()
 
-        forced_update_thread = UpdateThread(self.common, self.onion, force=True)
+        forced_update_thread = UpdateThread(self.common, self.common.gui.onion, force=True)
         forced_update_thread.update_available.connect(update_available)
         forced_update_thread.update_not_available.connect(update_not_available)
         forced_update_thread.update_error.connect(update_error)
