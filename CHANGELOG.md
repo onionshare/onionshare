@@ -1,5 +1,11 @@
 # OnionShare Changelog
 
+## 2.3.1
+
+* Bugfix: Fix chat mode
+* Bugfix: Fix --persistent in onionshare-cli
+* Bugfix: Fix checking for updates in Windows and macOS
+
 ## 2.3
 
 * Major new feature: Multiple tabs, including better support for persistent services, faster Tor connections
