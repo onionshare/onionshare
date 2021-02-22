@@ -1,7 +1,7 @@
 [tool.briefcase]
 project_name = "OnionShare"
 bundle = "org.onionshare"
-version = "2.3"
+version = "2.3.1"
 url = "https://onionshare.org"
 license = "GPLv3"
 author = 'Micah Lee'
@@ -13,7 +13,7 @@ description = "Securely and anonymously share files, host websites, and chat wit
 icon = "src/onionshare/resources/onionshare"
 sources = ['src/onionshare']
 requires = [
-    "./onionshare_cli-2.3-py3-none-any.whl",
+    "./onionshare_cli-2.3.1-py3-none-any.whl",
     "pyside2==5.15.1",
     "qrcode"
 ]
