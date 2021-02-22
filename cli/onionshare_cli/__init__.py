@@ -2,7 +2,7 @@
 """
 OnionShare | https://onionshare.org/
 
-Copyright (C) 2014-2020 Micah Lee, et al. <micah@micahflee.com>
+Copyright (C) 2014-2021 Micah Lee, et al. <micah@micahflee.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -267,6 +267,7 @@ def main(cwd=None):
     if persistent_filename:
         mode_settings = ModeSettings(common, persistent_filename)
         mode_settings.set("persistent", "enabled", True)
+        mode_settings.set("persistent", "mode", mode)
     else:
         mode_settings = ModeSettings(common)
 
@@ -292,7 +293,11 @@ def main(cwd=None):
     if mode == "share" or mode == "website":
         # Unless you passed in a persistent filename, in which case get the filenames from
         # the mode settings
-        if persistent_filename and not mode_settings.just_created:
+        if (
+            persistent_filename
+            and not mode_settings.just_created
+            and len(filenames) != 0
+        ):
             filenames = mode_settings.get(mode, "filenames")
 
         else:
@@ -315,6 +320,10 @@ def main(cwd=None):
                     valid = False
             if not valid:
                 sys.exit()
+
+        # Save the filenames in persistent file
+        if persistent_filename:
+            mode_settings.set(mode, "filenames", filenames)
 
     # Create the Web object
     web = Web(common, False, mode_settings, mode)

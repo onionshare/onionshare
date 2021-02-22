@@ -2,7 +2,7 @@
 """
 OnionShare | https://onionshare.org/
 
-Copyright (C) 2014-2020 Micah Lee, et al. <micah@micahflee.com>
+Copyright (C) 2014-2021 Micah Lee, et al. <micah@micahflee.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -787,7 +787,7 @@ class SettingsDialog(QtWidgets.QDialog):
             )
             close_forced_update_thread()
 
-        forced_update_thread = UpdateThread(self.common, self.onion, force=True)
+        forced_update_thread = UpdateThread(self.common, self.common.gui.onion, force=True)
         forced_update_thread.update_available.connect(update_available)
         forced_update_thread.update_not_available.connect(update_not_available)
         forced_update_thread.update_error.connect(update_error)

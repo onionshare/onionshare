@@ -23,7 +23,6 @@ cleanup:
   - "/go"
   - "/bin/scripts"
 modules:
-  # thanks https://github.com/flathub/org.freecadweb.FreeCAD/blob/master/org.freecadweb.FreeCAD.yaml
   - name: pyside2
     buildsystem: cmake-ninja
     builddir: true
@@ -66,49 +65,50 @@ modules:
     build-options:
       env:
         GOBIN: "/app/bin/"
+        GO111MODULE: "off"
     build-commands:
       - ". /usr/lib/sdk/golang/enable.sh; GOPATH=$PWD go install gitlab.com/yawning/obfs4.git/obfs4proxy"
     sources:
       - type: git
-        url: https://git.torproject.org/pluggable-transports/goptlib
-        commit: 781a46c66d2ddbc3509354ae7f1fccab74cb9927
-        dest: src/git.torproject.org/pluggable-transports/goptlib.git
+        url: https://go.googlesource.com/net
+        commit: 5f55cee0dc0dc168ce29222f077fe7fcd4be72c5
+        dest: src/golang.org/x/net
+      - type: git
+        url: https://go.googlesource.com/crypto
+        commit: 5ea612d1eb830b38bc4e914e37f55311eb58adce
+        dest: src/golang.org/x/crypto
+      - type: git
+        url: https://go.googlesource.com/sys
+        commit: 9a76102bfb4322425a1228caa377974426e82c84
+        dest: src/golang.org/x/sys
+      - type: git
+        url: https://go.googlesource.com/text
+        commit: 8f690f22cf1c026c950adddf3d45258bfd0912f0
+        dest: src/golang.org/x/text
+      - type: git
+        url: https://gitlab.com/yawning/utls
+        commit: 2dd4f38ff9e07464eb2748cc017eac1355e42251
+        dest: src/gitlab.com/yawning/utls.git
       - type: git
         url: https://gitlab.com/yawning/obfs4
-        commit: 2d8f3c8bbfd7a7ca931738a64c2f6e97b7332d9e
+        commit: f638c33f6c6f697498150d5f0dfbf26453759262
         dest: src/gitlab.com/yawning/obfs4.git
       - type: git
         url: https://gitlab.com/yawning/bsaes
         commit: 0a714cd429ec754482b4001e918db30cd2094405
         dest: src/gitlab.com/yawning/bsaes.git
       - type: git
-        url: https://gitlab.com/yawning/utls
-        commit: 2dd4f38ff9e07464eb2748cc017eac1355e42251
-        dest: src/gitlab.com/yawning/utls.git
-      - type: git
-        url: https://go.googlesource.com/sys
-        commit: ddb9806d33aed8dbaac1cd6f1cba58952e87f933
-        dest: src/golang.org/x/sys
-      - type: git
-        url: https://go.googlesource.com/text
-        commit: 23ae387dee1f90d29a23c0e87ee0b46038fbed0e
-        dest: src/golang.org/x/text
-      - type: git
-        url: https://go.googlesource.com/net
-        commit: 4c5254603344ea4a8ae4bed7e296a9588303e14f
-        dest: src/golang.org/x/net
-      - type: git
-        url: https://go.googlesource.com/crypto
-        commit: 75b288015ac94e66e3d6715fb68a9b41bf046ec2
-        dest: src/golang.org/x/crypto
+        url: https://github.com/dchest/siphash
+        commit: a21c2e7914a8fe0db087fa007cbe804967665dfc
+        dest: src/github.com/dchest/siphash
       - type: git
         url: https://github.com/dsnet/compress
         commit: da652975a8eea9fa0735aba8056747a751db0bd3
         dest: src/github.com/dsnet/compress
       - type: git
-        url: https://github.com/dchest/siphash
-        commit: 34f201214d993633bb24f418ba11736ab8b55aa7
-        dest: src/github.com/dchest/siphash
+        url: https://git.torproject.org/pluggable-transports/goptlib
+        commit: 781a46c66d2ddbc3509354ae7f1fccab74cb9927
+        dest: src/git.torproject.org/pluggable-transports/goptlib.git
   - name: onionshare
     buildsystem: simple
     ensure-writable:

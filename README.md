@@ -14,7 +14,7 @@ For macOS you can also use [Homebrew](https://brew.sh/):
 brew cask install onionshare
 ```
 
-See [these instructions](https://docs.onionshare.org/en/install.html#install-in-linux-with-flatpak) to install OnionShare in Linux with Flatpak.
+See [these instructions](https://docs.onionshare.org/2.3/en/install.html#install-in-linux) to install OnionShare in Linux with Flatpak.
 
 ## Documentation
 

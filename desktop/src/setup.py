@@ -3,7 +3,7 @@
 """
 OnionShare | https://onionshare.org/
 
-Copyright (C) 2014-2020 Micah Lee, et al. <micah@micahflee.com>
+Copyright (C) 2014-2021 Micah Lee, et al. <micah@micahflee.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import os
 import setuptools
 
-version = "2.3"
+version = "2.3.1"
 
 setuptools.setup(
     name="onionshare",

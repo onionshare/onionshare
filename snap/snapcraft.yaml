@@ -1,6 +1,6 @@
 name: onionshare
 base: core18
-version: '2.3'
+version: '2.3.1'
 summary: Securely and anonymously share files, host websites, and chat using Tor
 description: |
   OnionShare lets you securely and anonymously send and receive files. It works by starting 
@@ -103,7 +103,7 @@ parts:
       - libxrender1
       - libxslt1.1
       - libxtst6
-    after: [onionshare-cli, tor, obfs4]
+    after: [onionshare-cli]
 
   onionshare-cli:
     source: ./cli
@@ -121,6 +121,9 @@ parts:
       - stem
       - urllib3
       - eventlet
+    stage:
+      - -usr/lib/x86_64-linux-gnu/libcrypto.so.1.1
+      - -usr/share/doc/libssl1.1/changelog.Debian.gz
     after: [tor, obfs4]
 
   tor:
