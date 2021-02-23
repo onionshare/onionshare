@@ -11,19 +11,19 @@ Before making a release, you must update the version in these places:
 - [ ] `cli/onionshare_cli/resources/version.txt`
 - [ ] `desktop/pyproject.toml` (under `version` and **don't forget** the `./onionshare_cli-$VERSION-py3-none-any.whl` dependency)
 - [ ] `desktop/src/setup.py`
-- [ ] `docs/source/conf.py`
+- [ ] `docs/source/conf.py` (`version` at the top, and the `versions` list too)
 - [ ] `snap/snapcraft.yaml`
 
 Update the documentation:
 
 - [ ] Update all of the documentation in `docs` to cover new features, including taking new screenshots if necessary
-- [ ] Edit `docs/source/conf.py`, make sure `versions` includes the latest version
 
 Finalize localization:
 
 - [ ] Merge all the translations from weblate
 - [ ] Edit `cli/onionshare_cli/settings.py`, make sure `self.available_locales` lists only locales that are >90% translated
 - [ ] Edit `docs/source/conf.py`, make sure `languages` lists only languages that are >90% translated
+- [ ] Edit `docs/build.sh` and make sure `LOCALES=` lists the same languages as above, in `docs/source/conf.py`
 - [ ] Make sure the latest documentation is built and committed:
   ```
   cd docs
@@ -41,34 +41,6 @@ Make sure snapcraft packaging works. In `snap/snapcraft.yaml`:
 - [ ] The `tor`, `libevent`, and `obfs4` parts should be updated if necessary
 - [ ] All python packages should be updated to match `cli/pyproject.toml` and `desktop/pyproject.toml`
 - [ ] Test the snap package, ensure it works
-
-Make sure Flatpak packaging works. In `flatpak/org.onionshare.OnionShare.yaml`:
-
-- [ ] Update `tor`, `libevent`, and `obfs4` dependencies, if necessary
-- [ ] Built the latest python dependencies using [this tool](https://github.com/flatpak/flatpak-builder-tools/blob/master/pip/flatpak-pip-generator) (see below)
-- [ ] Test the Flatpak package, ensure it works
-
-```
-# you may need to install toml
-pip3 install --user toml
-
-# clone flatpak-build-tools
-git clone https://github.com/flatpak/flatpak-builder-tools.git
-cd flatpak-builder-tools/pip
-
-# get onionshare-cli dependencies
-./flatpak-pip-generator $(python3 -c 'import toml; print("\n".join([x for x in toml.loads(open("../../onionshare/cli/pyproject.toml").read())["tool"]["poetry"]["dependencies"]]))' |grep -v "^python$" |tr "\n" " ")
-mv python3-modules.json onionshare-cli.json
-
-# get onionshare dependencies
-./flatpak-pip-generator $(python3 -c 'import toml; print("\n".join(toml.loads(open("../../onionshare/desktop/pyproject.toml").read())["tool"]["briefcase"]["app"]["onionshare"]["requires"]))' |grep -v "./onionshare_cli" |grep -v -i "pyside2" |tr "\n" " ")
-mv python3-modules.json onionshare.json
-
-# use something like https://www.json2yaml.com/ to convert to yaml and update the manifest
-# add all of the modules in both onionshare-cli and onionshare to the submodules of "onionshare"
-# - onionshare-cli.json
-# - onionshare.json
-```
 
 Finally:
 
@@ -88,25 +60,6 @@ If the tag verifies successfully, check it out:
 ```sh
 git checkout v$VERSION
 ```
-
-## Linux Flatpak release
-
-You must have `flatpak` and `flatpak-builder` installed, with flathub remote added (`flatpak remote-add --if-not-exists --user flathub https://flathub.org/repo/flathub.flatpakrepo`).
-
-Build and test the Flatpak package before publishing:
-
-```sh
-flatpak-builder build --force-clean --install-deps-from=flathub --install --user flatpak/org.onionshare.OnionShare.yaml
-flatpak run org.onionshare.OnionShare
-```
-
-Once you confirm it works, create a single-file bundle:
-
-```sh
-flatpak build-bundle ~/.local/share/flatpak/repo OnionShare.flatpak org.onionshare.OnionShare
-```
-
-This will create `OnionShare.flatpak`.
 
 ## Linux Snapcraft release
 
@@ -207,9 +160,10 @@ This will create `dist/onionshare-$VERSION.tar.gz`.
 
 ## Publishing the release
 
+### PGP signatures
+
 After following all of the previous steps, gather these files:
 
-- `OnionShare.flatpak` (rename it to `OnionShare-$VERSION.flatpak`)
 - `onionshare_$VERSION_amd64.snap`
 - `OnionShare-$VERSION.msi`
 - `OnionShare.dmg` (rename it to `OnionShare-$VERSION.dmg`)
@@ -222,28 +176,12 @@ gpg -a --detach-sign OnionShare-$VERSION.flatpak
 gpg -a --detach-sign [... and so on]
 ```
 
-Create a release on GitHub:
+### Create a release on GitHub:
 
 - Match it to the version tag, put the changelog in description of the release
-- Upload all 10 files (binary and source packages and their `.asc` signatures)
+- Upload all 8 files (binary and source packages and their `.asc` signatures)
 
-Update onionshare.org:
-
-- Upload all 10 files to https://onionshare.org/dist/$VERSION/
-- Update the [onionshare-website](https://github.com/micahflee/onionshare-website) repo:
-  - Edit `latest-version.txt` to match the latest version
-  - Update the version number and download links
-  - Deploy to https://onionshare.org/
-
-Update docs.onionshare.org:
-
-- Upload everything from `docs/build/docs` to https://docs.onionshare.org/
-
-Update Homebrew:
-
-- Make a PR to [homebrew-cask](https://github.com/homebrew/homebrew-cask) to update the macOS version
-
-Update onionshare-cli on PyPi:
+### Update onionshare-cli on PyPi
 
 ```sh
 cd cli
@@ -251,8 +189,63 @@ poetry install
 poetry publish --build
 ```
 
-Update the community:
+### Update Flathub
+
+After there's a new release tag, make the Flathub package work here: https://github.com/flathub/org.onionshare.OnionShare
+
+You must have `flatpak` and `flatpak-builder` installed, with flathub remote added (`flatpak remote-add --if-not-exists --user flathub https://flathub.org/repo/flathub.flatpakrepo`).
+
+- [ ] Update `tor`, `libevent`, and `obfs4` dependencies, if necessary
+- [ ] Built the latest python dependencies using [this tool](https://github.com/flatpak/flatpak-builder-tools/blob/master/pip/flatpak-pip-generator) (see below)
+- [ ] Test the Flatpak package, ensure it works
+
+```
+# you may need to install toml
+pip3 install --user toml
+
+# clone flatpak-build-tools
+git clone https://github.com/flatpak/flatpak-builder-tools.git
+cd flatpak-builder-tools/pip
+
+# get onionshare-cli dependencies
+./flatpak-pip-generator $(python3 -c 'import toml; print("\n".join([x for x in toml.loads(open("../../onionshare/cli/pyproject.toml").read())["tool"]["poetry"]["dependencies"]]))' |grep -v "^python$" |tr "\n" " ")
+mv python3-modules.json onionshare-cli.json
+
+# get onionshare dependencies
+./flatpak-pip-generator $(python3 -c 'import toml; print("\n".join(toml.loads(open("../../onionshare/desktop/pyproject.toml").read())["tool"]["briefcase"]["app"]["onionshare"]["requires"]))' |grep -v "./onionshare_cli" |grep -v -i "pyside2" |tr "\n" " ")
+mv python3-modules.json onionshare.json
+
+# use something like https://www.json2yaml.com/ to convert to yaml and update the manifest
+# add all of the modules in both onionshare-cli and onionshare to the submodules of "onionshare"
+# - onionshare-cli.json
+# - onionshare.json
+```
+
+Build and test the Flatpak package before publishing:
+
+```sh
+flatpak-builder build --force-clean --install-deps-from=flathub --install --user org.onionshare.OnionShare.yaml
+flatpak run org.onionshare.OnionShare
+```
+
+### Update Homebrew
+
+- Make a PR to [homebrew-cask](https://github.com/homebrew/homebrew-cask) to update the macOS version
+
+### Update onionshare.org
+
+- Upload all 10 files to https://onionshare.org/dist/$VERSION/
+- Update the [onionshare-website](https://github.com/micahflee/onionshare-website) repo:
+  - Edit `latest-version.txt` to match the latest version
+  - Update the version number and download links
+  - Deploy to https://onionshare.org/
+
+### Update docs.onionshare.org
+
+- Upload everything from `docs/build/docs` to https://docs.onionshare.org/
+
+### Update the community
 
 - Upload all 10 files to the OnionShare team Keybase filesystem
 - Email the [onionshare-dev](https://lists.riseup.net/www/subscribe/onionshare-dev) mailing list announcing the release
-- Tweet, toot, etc.
+- Blog, tweet, toot, etc.
