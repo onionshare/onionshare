@@ -27,6 +27,7 @@ from flask import Response, request, render_template, make_response
 
 from .send_base_mode import SendBaseModeWeb
 
+
 class ShareModeWeb(SendBaseModeWeb):
     """
     All of the web logic for share mode
