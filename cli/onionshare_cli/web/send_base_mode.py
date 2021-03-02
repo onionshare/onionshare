@@ -171,17 +171,16 @@ class SendBaseModeWeb:
             pass
         try:
             self.cleanup_filenames.remove(filesystem_path)
-        except KeyError:
+        except ValueError:
             pass
 
-    def stream_individual_file(self, filesystem_path):
+    def latest_version(self, filesystem_path, processed_size_callback=None, force_gzip=False):
         """
-        Return a flask response that's streaming the download of an individual file, and gzip
-        compressing it if the browser supports it.
+        Return a path to the file as it exists on disk now, compressed if the browser
+        supports it (or if `force_gzip`). Cache compressed files until their originals
+        are modified.
         """
-        use_gzip = self.should_use_gzip()
-
-        if use_gzip:
+        if force_gzip or self.should_use_gzip():
             file_mtime = os.path.getmtime(filesystem_path)
             # If the file has been modified or we haven't read it yet, gzip compress the file
             if file_mtime != self.file_last_modified.get(filesystem_path):
@@ -195,9 +194,8 @@ class SendBaseModeWeb:
                 # The only way to avoid an eventual "Too many open files" IOError
                 # is either to use and close the file descriptor instead of the filename,
                 # or to close the file descriptor here and use the filename instead.
-                # The latter is less involved so it's what I've done for now.
                 os.close(gzip_file_descriptor)
-                self._gzip_compress(filesystem_path, gzip_filename, 6, None)
+                self._gzip_compress(filesystem_path, gzip_filename, 6, processed_size_callback)
                 self.gzip_individual_files[filesystem_path] = gzip_filename
 
                 # Make sure the gzip file gets cleaned up when onionshare stops
@@ -210,11 +208,18 @@ class SendBaseModeWeb:
                 gzip_filename = self.gzip_individual_files[filesystem_path]
 
             file_to_download = gzip_filename
-            filesize = os.path.getsize(gzip_filename)
         else:
             file_to_download = filesystem_path
-            filesize = os.path.getsize(filesystem_path)
-
+        
+        return file_to_download
+    
+    def stream_individual_file(self, filesystem_path):
+        """
+        Return a flask response that's streaming the download of an individual file, and gzip
+        compressing it if the browser supports it.
+        """
+        file_to_download = self.latest_version(filesystem_path)
+        filesize = os.path.getsize(file_to_download)
         path = request.path
 
         # Tell GUI the individual file started
@@ -291,7 +296,7 @@ class SendBaseModeWeb:
         basename = os.path.basename(filesystem_path)
 
         r = Response(generate())
-        if use_gzip:
+        if self.should_use_gzip():
             r.headers.set("Content-Encoding", "gzip")
         r.headers.set("Content-Length", filesize)
         r.headers.set("Content-Disposition", "inline", filename=basename)
