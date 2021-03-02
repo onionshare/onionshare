@@ -26,6 +26,7 @@ import mimetypes
 from flask import Response, request, render_template, make_response
 
 from .send_base_mode import SendBaseModeWeb
+from .. import strings
 
 
 class ShareModeWeb(SendBaseModeWeb):
@@ -61,7 +62,10 @@ class ShareModeWeb(SendBaseModeWeb):
                 and self.download_in_progress
             )
             if deny_download:
-                r = make_response(render_template("denied.html"))
+                r = make_response(
+                    render_template("denied.html"),
+                    static_url_path=self.web.static_url_path,
+                )
                 return self.web.add_security_headers(r)
 
             # If download is allowed to continue, serve download page
@@ -84,7 +88,11 @@ class ShareModeWeb(SendBaseModeWeb):
                 and self.download_in_progress
             )
             if deny_download:
-                r = make_response(render_template("denied.html"))
+                r = make_response(
+                    render_template(
+                        "denied.html", static_url_path=self.web.static_url_path
+                    )
+                )
                 return self.web.add_security_headers(r)
 
             # Prepare some variables to use inside generate() function below
@@ -96,12 +104,8 @@ class ShareModeWeb(SendBaseModeWeb):
             # if the http client supports gzip compression, gzip the file first
             # and serve that
             use_gzip = self.should_use_gzip()
-            if use_gzip:
-                file_to_download = self.gzip_filename
-                self.filesize = self.gzip_filesize
-            else:
-                file_to_download = self.download_filename
-                self.filesize = self.download_filesize
+            file_to_download = self.latest_version(self.download_filename)
+            self.filesize = os.path.getsize(file_to_download)
 
             # Tell GUI the download started
             history_id = self.cur_history_id
@@ -304,15 +308,9 @@ class ShareModeWeb(SendBaseModeWeb):
             self.download_filename = self.file_info["files"][0]["filename"]
             self.download_filesize = self.file_info["files"][0]["size"]
 
-            # Compress the file with gzip now, so we don't have to do it on each request
-            self.gzip_filename = tempfile.mkstemp("wb+")[1]
-            self._gzip_compress(
-                self.download_filename, self.gzip_filename, 6, processed_size_callback
-            )
+            # Compress the file with gzip now, and cache the location of the gzipped file
+            self.gzip_filename = self.latest_version(self.download_filename, force_gzip=True)
             self.gzip_filesize = os.path.getsize(self.gzip_filename)
-
-            # Make sure the gzip file gets cleaned up when onionshare stops
-            self.cleanup_filenames.append(self.gzip_filename)
 
             self.is_zipped = False
 
