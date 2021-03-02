@@ -301,7 +301,7 @@ class ShareModeWeb(SendBaseModeWeb):
             self.download_filesize = self.file_info["files"][0]["size"]
 
             # Compress the file with gzip now, and cache the location of the gzipped file
-            self.gzip_filename = self.latest_version(self.download_filename, force_gzip=True)
+            self.gzip_filename = self.latest_version(self.download_filename, processed_size_callback, force_gzip=True)
             self.gzip_filesize = os.path.getsize(self.gzip_filename)
 
             self.is_zipped = False
