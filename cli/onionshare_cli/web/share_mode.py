@@ -26,8 +26,6 @@ import mimetypes
 from flask import Response, request, render_template, make_response
 
 from .send_base_mode import SendBaseModeWeb
-from .. import strings
-
 
 class ShareModeWeb(SendBaseModeWeb):
     """
@@ -62,10 +60,7 @@ class ShareModeWeb(SendBaseModeWeb):
                 and self.download_in_progress
             )
             if deny_download:
-                r = make_response(
-                    render_template("denied.html"),
-                    static_url_path=self.web.static_url_path,
-                )
+                r = make_response(render_template("denied.html"))
                 return self.web.add_security_headers(r)
 
             # If download is allowed to continue, serve download page
@@ -88,11 +83,7 @@ class ShareModeWeb(SendBaseModeWeb):
                 and self.download_in_progress
             )
             if deny_download:
-                r = make_response(
-                    render_template(
-                        "denied.html", static_url_path=self.web.static_url_path
-                    )
-                )
+                r = make_response(render_template("denied.html"))
                 return self.web.add_security_headers(r)
 
             # Prepare some variables to use inside generate() function below
