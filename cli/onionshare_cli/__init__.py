@@ -370,7 +370,7 @@ def main(cwd=None):
                 )
                 sys.exit()
 
-            app.start_onion_service(mode, mode_settings, False, True)
+            app.start_onion_service(mode, mode_settings, False)
             url = build_url(mode_settings, app, web)
             schedule = datetime.now() + timedelta(seconds=autostart_timer)
             if mode == "receive":
@@ -412,7 +412,7 @@ def main(cwd=None):
     except KeyboardInterrupt:
         print("")
         sys.exit()
-    except (TorTooOld, TorErrorProtocolError) as e:
+    except (TorTooOldEphemeral, TorTooOldStealth, TorErrorProtocolError) as e:
         print("")
         print(e.args[0])
         sys.exit()
