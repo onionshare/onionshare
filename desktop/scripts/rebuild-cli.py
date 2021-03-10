@@ -6,7 +6,6 @@ and installs it in the virtual environment.
 
 import inspect
 import os
-import sys
 import glob
 import subprocess
 import shutil

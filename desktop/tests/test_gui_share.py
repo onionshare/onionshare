@@ -1,4 +1,3 @@
-import pytest
 import os
 import requests
 import tempfile

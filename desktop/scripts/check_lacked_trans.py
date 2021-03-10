@@ -105,11 +105,10 @@ def main():
                 if src[quote_i] == '"':
                     quote = '"'
                     break
-                elif src[quote_i] == "'":
+                if src[quote_i] == "'":
                     quote = "'"
                     break
-                else:
-                    inc += 1
+                inc += 1
 
             # find the starting quote
             starting_i = src.find(quote, starting_i)

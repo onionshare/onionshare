@@ -18,11 +18,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-
-# This setup.py file is used for snap and flatpak packaging. For other packaging,
-# OnionShare uses briefcase.
-
-import os
 import setuptools
 
 version = "2.3.1"
