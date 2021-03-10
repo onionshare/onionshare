@@ -1,5 +1,3 @@
-import sphinx_rtd_theme
-import sphinx_intl
 
 
 project = "OnionShare"

@@ -1,10 +1,6 @@
-import pytest
-import os
 import requests
-import shutil
-from datetime import datetime, timedelta
 
-from PySide2 import QtCore, QtTest
+from PySide2 import QtTest
 
 from .gui_base_test import GuiBaseTest
 

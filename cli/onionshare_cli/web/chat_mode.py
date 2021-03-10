@@ -19,15 +19,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 from flask import (
-    Request,
     request,
     render_template,
     make_response,
     jsonify,
-    redirect,
-    session,
-)
-from werkzeug.utils import secure_filename
+    session)
 from flask_socketio import emit, join_room, leave_room
 
 

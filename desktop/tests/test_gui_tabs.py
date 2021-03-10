@@ -1,4 +1,3 @@
-import pytest
 import os
 
 from PySide2 import QtCore, QtTest, QtWidgets

@@ -21,8 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import time
 from PySide2 import QtCore, QtWidgets, QtGui
 
-from onionshare_cli.web import Web
-
 from . import strings
 from .tor_connection_dialog import TorConnectionDialog
 from .settings_dialog import SettingsDialog
