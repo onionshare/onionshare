@@ -312,8 +312,8 @@ class TestRangeRequests:
             with pytest.raises(RequestedRangeNotSatisfiable):
                 parse_range_header(invalid, 500)
 
-    def test_headers(self, common_obj):
-        web = web_obj(common_obj, 'share', 3)
+    def test_headers(self, temp_dir, common_obj):
+        web = web_obj(temp_dir, common_obj, "share", 3)
         web.stay_open = True
         url = '/download'
 
@@ -325,8 +325,8 @@ class TestRangeRequests:
             assert resp.headers.get('Content-Length') is not None
             assert 'Accept-Encoding' in resp.headers['Vary']
 
-    def test_basic(self, common_obj):
-        web = web_obj(common_obj, 'share', 3)
+    def test_basic(self, temp_dir, common_obj):
+        web = web_obj(temp_dir, common_obj, "share", 3)
         web.stay_open = True
         url = '/download'
         with open(web.share_mode.download_filename, 'rb') as f:
@@ -337,8 +337,8 @@ class TestRangeRequests:
             assert resp.status_code == 200
             assert resp.data == contents
 
-    def test_reassemble(self, common_obj):
-        web = web_obj(common_obj, 'share', 3)
+    def test_reassemble(self, temp_dir, common_obj):
+        web = web_obj(temp_dir, common_obj, "share", 3)
         web.stay_open = True
         url = '/download'
         with open(web.share_mode.download_filename, 'rb') as f:
@@ -363,13 +363,13 @@ class TestRangeRequests:
 
             assert bytes_out == contents
 
-    def test_mismatched_etags(self, common_obj):
+    def test_mismatched_etags(self, temp_dir, common_obj):
         '''RFC 7233 Section 3.2
            The "If-Range" header field allows a client to "short-circuit" the second request.
            Informally, its meaning is as follows: if the representation is unchanged, send me the
            part(s) that I am requesting in Range; otherwise, send me the entire representation.
         '''
-        web = web_obj(common_obj, 'share', 3)
+        web = web_obj(temp_dir, common_obj, "share", 3)
         web.stay_open = True
         url = '/download'
         with open(web.share_mode.download_filename, 'rb') as f:
@@ -386,8 +386,8 @@ class TestRangeRequests:
             assert resp.status_code == 200
             assert resp.data == contents
 
-    def test_if_unmodified_since(self, common_obj):
-        web = web_obj(common_obj, 'share', 3)
+    def test_if_unmodified_since(self, temp_dir, common_obj):
+        web = web_obj(temp_dir, common_obj, "share", 3)
         web.stay_open = True
         url = '/download'
 
@@ -401,8 +401,8 @@ class TestRangeRequests:
             resp = client.get(url, headers=headers)
             assert resp.status_code == 304
 
-    def test_firefox_like_behavior(self, common_obj):
-        web = web_obj(common_obj, 'share', 3)
+    def test_firefox_like_behavior(self, temp_dir, common_obj):
+        web = web_obj(temp_dir, common_obj, "share", 3)
         web.stay_open = True
         url = '/download'
 
@@ -429,8 +429,8 @@ class TestRangeRequests:
         return h
 
     @check_unsupported('curl', ['--version'])
-    def test_curl(self, common_obj):
-        web = web_obj(common_obj, 'share', 3)
+    def test_curl(self, temp_dir, common_obj):
+        web = web_obj(temp_dir, common_obj, "share", 3)
         web.stay_open = True
 
         with live_server(web) as url:
@@ -439,8 +439,8 @@ class TestRangeRequests:
             subprocess.check_call(['curl', '--continue-at', '10', url])
 
     @check_unsupported('wget', ['--version'])
-    def test_wget(self, tmpdir, common_obj):
-        web = web_obj(common_obj, 'share', 3)
+    def test_wget(self, temp_dir, tmpdir, common_obj):
+        web = web_obj(temp_dir, common_obj, "share", 3)
         web.stay_open = True
 
         # wget needs a file to exist to continue
@@ -452,8 +452,8 @@ class TestRangeRequests:
 
 
     @check_unsupported('http', ['--version'])
-    def test_httpie(self, common_obj):
-        web = web_obj(common_obj, 'share', 3)
+    def test_httpie(self, temp_dir, common_obj):
+        web = web_obj(temp_dir, common_obj, "share", 3)
         web.stay_open = True
 
         with live_server(web) as url:
