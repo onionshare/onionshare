@@ -313,7 +313,7 @@ class ShareModeWeb(SendBaseModeWeb):
 
                     # tell GUI the progress
                     downloaded_bytes = fp.tell()
-                    percent = (1.0 * downloaded_bytes / self.filesize) * 100
+                    percent = (1.0 * downloaded_bytes / filesize) * 100
                     bytes_left -= read_size
 
                     # only output to stdout if running onionshare in CLI mode, or if using Linux (#203, #304)
