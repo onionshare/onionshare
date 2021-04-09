@@ -286,5 +286,6 @@
     "error_port_not_available": "Porta OnionShare não disponível",
     "gui_chat_url_description": "<b>Qualquer um</b> com este endereço OnionShare pode <b>entrar nesta sala de chat</b> usando o <b>Tor Browser</b>: <img src='{}' />",
     "gui_rendezvous_cleanup_quit_early": "Fechar facilmente",
-    "gui_rendezvous_cleanup": "Aguardando o fechamento dos circuitos do Tor para ter certeza de que seus arquivos foram transferidos com sucesso.\n\nIsso pode demorar alguns minutos."
+    "gui_rendezvous_cleanup": "Aguardando o fechamento dos circuitos do Tor para ter certeza de que seus arquivos foram transferidos com sucesso.\n\nIsso pode demorar alguns minutos.",
+    "gui_color_mode_changed_notice": "Reinicie o OnionShare para que o novo modo de cor seja aplicado."
 }

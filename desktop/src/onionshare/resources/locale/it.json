@@ -70,7 +70,7 @@
     "help_receive": "Ricevi le condivisioni invece di inviarle",
     "gui_settings_stealth_option": "Usa l'autorizzazione client (legacy)",
     "gui_settings_stealth_hidservauth_string": "Avendo salvato la tua chiave privata per il riutilizzo, puoi cliccare per copiare il tuo HidServAuth.",
-    "gui_settings_autoupdate_label": "Controlla se c'è una nuova versione",
+    "gui_settings_autoupdate_label": "Verifica se c'è una nuova versione",
     "gui_settings_autoupdate_option": "Avvisami quando è disponibile una nuova versione",
     "gui_settings_autoupdate_timestamp": "Ultimo controllo: {}",
     "gui_settings_autoupdate_timestamp_never": "Mai",
@@ -213,7 +213,7 @@
     "gui_share_mode_autostop_timer_waiting": "In attesa di finire l'invio",
     "gui_receive_mode_no_files": "Nessun file ricevuto ancora",
     "gui_receive_mode_autostop_timer_waiting": "In attesa di finire la ricezione",
-    "gui_stop_server_autostop_timer_tooltip": "Il timer auto-stop terminerà alle {}",
+    "gui_stop_server_autostop_timer_tooltip": "Il timer di arresto automatico termina alle {}",
     "gui_start_server_autostart_timer_tooltip": "Il timer Auto-start termina alle {}",
     "gui_waiting_to_start": "Programmato per avviarsi in {}. Clicca per annullare.",
     "gui_settings_autostart_timer_checkbox": "Usa il timer a partenza automatica",
@@ -263,7 +263,7 @@
     "gui_quit_warning_description": "La condivisione è attiva in alcune delle tue schede. Uscendo, tutte le tue schede verranno chiuse. Sei sicuro di voler uscire?",
     "gui_quit_warning_title": "Sei sicuro?",
     "gui_close_tab_warning_close": "Chiudi",
-    "gui_close_tab_warning_website_description": "Stai ospitando attivamente un sito web. Sei sicuro di voler chiudere questa scheda?",
+    "gui_close_tab_warning_website_description": "Stai ospitando un sito web. Sei sicuro di voler chiudere questa scheda?",
     "mode_settings_website_disable_csp_checkbox": "Non inviare l'intestazione della Politica sulla Sicurezza dei Contenuti (consente al sito web di utilizzare risorse di terze parti)",
     "mode_settings_receive_data_dir_browse_button": "Naviga",
     "mode_settings_client_auth_checkbox": "Usa l'autorizzazione del client",
@@ -280,5 +280,7 @@
     "mode_settings_legacy_checkbox": "Usa un indirizzo legacy (servizio onion v2, non consigliato)",
     "mode_settings_public_checkbox": "Non usare una password",
     "gui_rendezvous_cleanup_quit_early": "Chiudi in anticipo",
-    "gui_rendezvous_cleanup": "In attesa che i circuiti Tor si chiudano per essere sicuri che i file siano stati trasferiti con successo.\n\nQuesto potrebbe richiedere alcuni minuti."
+    "gui_rendezvous_cleanup": "In attesa che i circuiti Tor si chiudano per assicurarsi che i file siano stati trasferiti con successo.\n\nQuesto potrebbe richiedere alcuni minuti.",
+    "error_port_not_available": "Porta OnionShare non disponibile",
+    "gui_color_mode_changed_notice": "Riavvia OnionShare per applicare la nuova modalità colore."
 }
