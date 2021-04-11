@@ -108,7 +108,7 @@ class ReceiveModeWeb:
                 and not request.upload_error
                 and len(files) > 0
             ):
-                self.send_websocket_notification(f"{len(files)} files uploaded")
+                self.send_webhook_notification(f"{len(files)} files uploaded")
 
             if request.upload_error:
                 self.common.log(
@@ -181,8 +181,8 @@ class ReceiveModeWeb:
                 return self.web.error403()
             return upload(ajax=True)
 
-    def send_websocket_notification(self, data):
-        self.common.log("ReceiveModeWeb", "send_websocket_notification", data)
+    def send_webhook_notification(self, data):
+        self.common.log("ReceiveModeWeb", "send_webhook_notification", data)
         try:
             requests.post(
                 self.web.settings.get("receive", "webhook_url"),
@@ -193,7 +193,7 @@ class ReceiveModeWeb:
         except Exception as e:
             self.common.log(
                 "ReceiveModeWeb",
-                "send_websocket_notification",
+                "send_webhook_notification",
                 f"sending failed: {e}",
             )
 
