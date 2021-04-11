@@ -1,12 +1,10 @@
 import contextlib
-import inspect
 import io
 import os
 import random
 import re
 import socket
 import sys
-import zipfile
 
 import pytest
 

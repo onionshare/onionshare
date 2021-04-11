@@ -23,7 +23,7 @@ import sys
 import tempfile
 import mimetypes
 import gzip
-from flask import Response, request, render_template, make_response
+from flask import Response, request
 from unidecode import unidecode
 from werkzeug.urls import url_quote
 

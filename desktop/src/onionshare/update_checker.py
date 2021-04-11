@@ -19,14 +19,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 from PySide2 import QtCore
-import datetime, time, socket, re, platform
+import datetime, re
 import socks
 from distutils.version import LooseVersion as Version
 
 from onionshare_cli.settings import Settings
-from onionshare_cli.onion import Onion
-
-from . import strings
 
 
 class UpdateCheckerCheckError(Exception):

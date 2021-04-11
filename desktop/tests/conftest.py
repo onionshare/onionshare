@@ -13,7 +13,7 @@ from datetime import datetime, timedelta
 
 import pytest
 
-from PySide2 import QtTest, QtGui
+from PySide2 import QtTest
 
 
 @staticmethod

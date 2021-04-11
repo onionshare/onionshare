@@ -1,0 +1,19 @@
+version = 1
+
+test_patterns = [
+    "desktop/tests/**",
+    "cli/tests/**"
+]
+
+exclude_patterns = [
+    "snap/**",
+    "licenses/**",
+    "flatpak/**"
+]
+
+[[analyzers]]
+name = "python"
+enabled = true
+
+  [analyzers.meta]
+  runtime_version = "3.x.x"

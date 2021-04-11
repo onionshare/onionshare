@@ -29,8 +29,6 @@ import inspect
 import os
 import sys
 import hashlib
-import zipfile
-import io
 import shutil
 import subprocess
 import requests

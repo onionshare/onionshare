@@ -24,8 +24,6 @@ import platform
 import datetime
 import re
 import os
-
-from onionshare_cli import common
 from onionshare_cli.settings import Settings
 from onionshare_cli.onion import (
     Onion,
@@ -47,11 +45,7 @@ from onionshare_cli.onion import (
 from . import strings
 from .widgets import Alert
 from .update_checker import (
-    UpdateCheckerCheckError,
-    UpdateCheckerInvalidLatestVersion,
-    UpdateChecker,
-    UpdateThread,
-)
+    UpdateThread)
 from .tor_connection_dialog import TorConnectionDialog
 from .gui_common import GuiCommon
 
