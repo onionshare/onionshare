@@ -19,13 +19,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import base64
 import hashlib
-import inspect
 import os
 import platform
 import random
 import socket
 import sys
-import tempfile
 import threading
 import time
 import shutil

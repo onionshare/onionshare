@@ -158,14 +158,14 @@ class AutoStartTimer(QtCore.QThread):
         )
         try:
             # Sleep until scheduled time
-            while autostart_timer_datetime_delta > 0 and self.canceled == False:
+            while autostart_timer_datetime_delta > 0 and self.canceled is False:
                 time.sleep(0.1)
                 now = QtCore.QDateTime.currentDateTime()
                 autostart_timer_datetime_delta = now.secsTo(
                     self.mode.server_status.autostart_timer_datetime
                 )
             # Timer has now finished
-            if self.canceled == False:
+            if self.canceled is False:
                 self.mode.server_status.server_button.setText(
                     strings._("gui_please_wait")
                 )

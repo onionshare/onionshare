@@ -1,11 +1,7 @@
-import pytest
 import unittest
-
-import json
 import os
 import requests
 import shutil
-import base64
 import tempfile
 import secrets
 import platform
@@ -13,9 +9,6 @@ import platform
 from PySide2 import QtCore, QtTest, QtWidgets
 
 from onionshare_cli.common import Common
-from onionshare_cli.settings import Settings
-from onionshare_cli.onion import Onion
-from onionshare_cli.web import Web
 
 from onionshare import Application, MainWindow, GuiCommon
 from onionshare.tab.mode.share_mode import ShareMode
