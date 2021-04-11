@@ -283,5 +283,5 @@
     "gui_rendezvous_cleanup_quit_early": "Выйти Раньше",
     "gui_rendezvous_cleanup": "Ожидается завершение соединений с сетью Tor для подтверждения успешной отправки ваших файлов.\n\nЭто может занять несколько минут.",
     "gui_color_mode_changed_notice": "Перезапустите OnionShare чтобы изменения цветовой гаммы вступили в силу.",
-    "gui_chat_url_description": "<b>Каждый</b> у кого есть этот адрес OnionShare может  <b>присоединиться к этому чату</b> при помощи <b>Tor Browser</b>: <img src='{}' />"
+    "gui_chat_url_description": "<b>Каждый</b> у кого есть этот адрес OnionShare может <b>присоединиться к этому чату</b> при помощи <b>Tor Browser</b>: <img src='{}' />"
 }

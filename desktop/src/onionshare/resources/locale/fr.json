@@ -93,7 +93,7 @@
     "settings_error_socket_file": "Impossible de se connecter au contrôleur Tor en utilisant le fichier d’interface de connexion {}.",
     "settings_error_auth": "Connecté à {}:{}, mais il est impossible de s’authentifier. Est-ce bien un contrôleur Tor ?",
     "settings_error_missing_password": "Vous êtes connecté au contrôleur Tor, mais il exige un mot de passe d’authentification.",
-    "settings_error_unreadable_cookie_file": "Connecté au contrôleur Tor, mais le mot de passe est peut-être erroné ou votre utilisateur n’est pas autorisé à lire le fichier témoin.",
+    "settings_error_unreadable_cookie_file": "Vous êtes connecté au contrôleur Tor, mais le mot de passe est peut-être erroné ou votre utilisateur n’est pas autorisé à lire le fichier témoin.",
     "settings_error_bundled_tor_not_supported": "Utiliser la version de Tor intégrée à OnionShare ne fonctionne pas en mode développeur sous Windows ou macOS.",
     "settings_error_bundled_tor_timeout": "La connexion à Tor prend trop de temps. Vous n’êtes peut-être pas connecté à Internet ou votre horloge système est mal réglée.",
     "settings_error_bundled_tor_broken": "OnionShare n’a pas réussi à se connecter à Tor :\n{}",

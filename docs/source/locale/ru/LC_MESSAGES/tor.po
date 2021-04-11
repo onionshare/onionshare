@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2020-12-13 15:48-0800\n"
-"PO-Revision-Date: 2021-02-21 18:25+0000\n"
+"PO-Revision-Date: 2021-03-30 16:26+0000\n"
 "Last-Translator: Alexander Tarasenko <alexound.login@gmail.com>\n"
 "Language-Team: ru <LL@li.org>\n"
 "Language: ru\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.5\n"
+"X-Generator: Weblate 4.6-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/tor.rst:2
@@ -35,13 +35,15 @@ msgstr ""
 
 #: ../../source/tor.rst:9
 msgid "Use the ``tor`` bundled with OnionShare"
-msgstr ""
+msgstr "Использование версии ``tor``, которая поставляется вместе с OnionShare"
 
 #: ../../source/tor.rst:11
 msgid ""
 "This is the default, simplest and most reliable way that OnionShare "
 "connects to Tor. For this reason, it's recommended for most users."
 msgstr ""
+"Это самый простой, надёжный, используемый по-умолчанию способ подключения "
+"OnionShare к сети Tor, рекомендуемый для большиства пользователей."
 
 #: ../../source/tor.rst:14
 msgid ""
@@ -50,10 +52,14 @@ msgid ""
 "with other ``tor`` processes on your computer, so you can use the Tor "
 "Browser or the system ``tor`` on their own."
 msgstr ""
+"При запуске OnionShare также запускается заранее сконфигурированный фоновый "
+"процесс ``tor``. Этот процесс не мешает уже существующим на компьютере "
+"процессам ``tor``, так что возможно параллельное использование, системного "
+"``tor`` или Tor Browser."
 
 #: ../../source/tor.rst:18
 msgid "Attempt auto-configuration with Tor Browser"
-msgstr ""
+msgstr "Попытка автоматической конфигурации при помощи Tor Browser"
 
 #: ../../source/tor.rst:20
 msgid ""
@@ -62,16 +68,24 @@ msgid ""
 "process from the Tor Browser. Keep in mind you need to keep Tor Browser "
 "open in the background while you're using OnionShare for this to work."
 msgstr ""
+"Если на комьютере уже `установлен Tor Browser <https://www.torproject.org>`_ "
+"и Вы не хотите запускать второй параллельный процесс ``tor`` , есть "
+"возможность использовать процесс ``tor`` связанный с Tor Browser. Для этого "
+"нужно, чтобы Tor Browser был запущен в фоновом режиме в течение всего "
+"времени использования OnionShare."
 
 #: ../../source/tor.rst:24
 msgid "Using a system ``tor`` in Windows"
-msgstr ""
+msgstr "Использование системного процесса ``tor`` в ОС Windows"
 
 #: ../../source/tor.rst:26
 msgid ""
 "This is fairly advanced. You'll need to know how edit plaintext files and"
 " do stuff as an administrator."
 msgstr ""
+"Для настройки нужны сравнительно продвинутые навыки, такие как "
+"редактирование конфигурационных файлов и администрирование операционной "
+"системы."
 
 #: ../../source/tor.rst:28
 msgid ""
@@ -80,6 +94,10 @@ msgid ""
 " and copy the extracted folder to ``C:\\Program Files (x86)\\`` Rename "
 "the extracted folder with ``Data`` and ``Tor`` in it to ``tor-win32``."
 msgstr ""
+"Загрузите Tor Windows Expert Bundle `отсюда <https://www.torproject.org/"
+"download/tor/>`_. Распакуйте архив и скопируйте содержимое в директорию ``C:"
+"\\Program Files (x86)\\``. Переименуйте директорию, содержащую ``Data`` и "
+"``Tor`` в ``tor-win32``."
 
 #: ../../source/tor.rst:32
 msgid ""
@@ -89,6 +107,11 @@ msgid ""
 "administrator, and use ``tor.exe --hash-password`` to generate a hash of "
 "your password. For example::"
 msgstr ""
+"Придумайте пароль для порта управления. (Рекомендуется использование "
+"последовательности из 7-ми случаных слов, например: ``comprised stumble "
+"rummage work avenging construct volatile`` .) Теперь запустите консоль "
+"``cmd`` с правами администратора и выполните команду ``tor.exe --hash-"
+"password`` чтобы захешировать придуманный пароль. Например::"
 
 #: ../../source/tor.rst:39
 msgid ""
@@ -96,6 +119,9 @@ msgid ""
 "can ignore). In the case of the above example, it is "
 "``16:00322E903D96DE986058BB9ABDA91E010D7A863768635AC38E213FDBEF``."
 msgstr ""
+"Захешированный пароль будет отображен после нескольких предупреждений ("
+"которые можно проигнорировать). В примере, показанном выше, это "
+"``16:00322E903D96DE986058BB9ABDA91E010D7A863768635AC38E213FDBEF``."
 
 #: ../../source/tor.rst:41
 msgid ""
@@ -103,6 +129,9 @@ msgid ""
 "win32\\torrc`` and put your hashed password output in it, replacing the "
 "``HashedControlPassword`` with the one you just generated::"
 msgstr ""
+"Теперь нужно создать текстовый файл ``C:\\Program Files (x86)\\tor-"
+"win32\\torrc`` и записать туда только что созданный, захешированный пароль, "
+"заменив ``HashedControlPassword``::"
 
 #: ../../source/tor.rst:46
 msgid ""
@@ -111,10 +140,14 @@ msgid ""
 "`<https://2019.www.torproject.org/docs/faq.html.en#NTService>`_). Like "
 "this::"
 msgstr ""
+"В консоли командной строки запущенной с правами адимнистратора установите "
+"``tor`` как сервис в соответствующим ``torrc`` файлом, который был только "
+"что создан. Подробная инструкция находится `здесь <https://2019.www."
+"torproject.org/docs/faq.html.en#NTService>`_. Например::"
 
 #: ../../source/tor.rst:50
 msgid "You are now running a system ``tor`` process in Windows!"
-msgstr ""
+msgstr "Теперь ``tor`` запущен как системный процесс в ОС Windows!"
 
 #: ../../source/tor.rst:52
 msgid ""
@@ -126,24 +159,33 @@ msgid ""
 "Connection to Tor\" button. If all goes well, you should see \"Connected "
 "to the Tor controller\"."
 msgstr ""
+"Теперь нужно запустить OnionShare и нажать на значок \"⚙\" . Под заголовком "
+"\"Как OnionShare следует подключаться к сети Tor?\" выберите \"Использовать "
+"контрольный порт\" и укажите для пункта \"Порт управления\" значение ``127.0."
+"0.1``, для пунтка \"Порт\" значение ``9051``. Под заголовком \"Настройки "
+"аутентификации Tor\" выберете \"Пароль\" и укажите пароль, придуманный в "
+"предыдущем шаге. Нажмите кнопку \"Проверить подключение к сети Tor\". Если "
+"всё прошло хорошо, то появится сообщение \"Подключено к контроллеру Tor\"."
 
 #: ../../source/tor.rst:61
 msgid "Using a system ``tor`` in macOS"
-msgstr ""
+msgstr "Использование системного процесса ``tor`` в macOS"
 
 #: ../../source/tor.rst:63
 msgid ""
 "First, install `Homebrew <https://brew.sh/>`_ if you don't already have "
 "it, and then install Tor::"
 msgstr ""
+"Прежде всего, при необходимости установите `Homebrew <https://brew.sh/>`_ . "
+"Затем установите Tor::"
 
 #: ../../source/tor.rst:67
 msgid "Now configure Tor to allow connections from OnionShare::"
-msgstr ""
+msgstr "Теперь настройте Tor так, чтобы OnionShare мог его использовать::"
 
 #: ../../source/tor.rst:74
 msgid "And start the system Tor service::"
-msgstr ""
+msgstr "И запустите сервис Tor::"
 
 #: ../../source/tor.rst:78
 msgid ""
@@ -153,14 +195,22 @@ msgid ""
 "Under \"Tor authentication settings\" choose \"No authentication, or "
 "cookie authentication\". Click the \"Test Connection to Tor\" button."
 msgstr ""
+"Запустите OnionShare и нажмите на значок \"⚙\". Под заголовком \"Как "
+"OnionShare следует подключаться к сети Tor?\" выберите \"Использовать файл "
+"сокет\" и укажите путь до файла сокета: ``/usr/local/var/run/tor/control."
+"socket``. Под заголовком \"Настройки аутентификации Tor\" выберете \"Без "
+"аутентификации или cookie-аутентификация\". Нажмите кнопку \"Проверить "
+"подключение к сети Tor\"."
 
 #: ../../source/tor.rst:84 ../../source/tor.rst:104
 msgid "If all goes well, you should see \"Connected to the Tor controller\"."
 msgstr ""
+"Если всё прошло хорошо, то появится сообщение \"Подключено к контроллеру "
+"Tor\"."
 
 #: ../../source/tor.rst:87
 msgid "Using a system ``tor`` in Linux"
-msgstr ""
+msgstr "Использование системного ``tor`` в ОС Linux"
 
 #: ../../source/tor.rst:89
 msgid ""
@@ -169,6 +219,9 @@ msgid ""
 "`official repository <https://support.torproject.org/apt/tor-deb-"
 "repo/>`_."
 msgstr ""
+"Прежде всего, установите пакет ``tor``. С такими дистрибутивами, как Debian, "
+"Ubuntu или похожие, рекомендуется использовать `официальный репозиторий "
+"<https://support.torproject.org/apt/tor-deb-repo/>`_ Tor Project."
 
 #: ../../source/tor.rst:91
 msgid ""
@@ -176,12 +229,18 @@ msgid ""
 "case of Debian and Ubuntu, ``debian-tor``) and configure OnionShare to "
 "connect to your system ``tor``'s control socket file."
 msgstr ""
+"Теперь нужно добавить пользователя в группу, которая запускает процессы "
+"``tor`` (в случае дистрибутивов Debian и Ubuntu процесс называется ``debian-"
+"tor``) и настроить подключение OnionShare к системному процессу ``tor`` при "
+"помощи файла сокета."
 
 #: ../../source/tor.rst:93
 msgid ""
 "Add your user to the ``debian-tor`` group by running this command "
 "(replace ``username`` with your actual username)::"
 msgstr ""
+"Добавьте свого пользователя в группу ``debian-tor`` при помощи команды ("
+"измените ``username`` на имя своего пользователя))::"
 
 #: ../../source/tor.rst:97
 msgid ""
@@ -192,10 +251,16 @@ msgid ""
 "\"No authentication, or cookie authentication\". Click the \"Test "
 "Connection to Tor\" button."
 msgstr ""
+"Перезагрузите компьютер. После загрузки операционной системы запустите "
+"OnionShare и нажмите на значок \"⚙\" . Под заголовком \"Как OnionShare "
+"следует подключаться к сети Tor?\" выберите \"Использовать файл сокет\" и "
+"укажите путь до файла сокета: ``/var/run/tor/control``. Под заголовком "
+"\"Настройки аутентификации Tor\" выберете \"Без аутентификации или cookie-"
+"аутентификация\". Нажмите кнопку \"Проверить подключение к сети Tor\"."
 
 #: ../../source/tor.rst:107
 msgid "Using Tor bridges"
-msgstr ""
+msgstr "Использование мостов \"Tor\""
 
 #: ../../source/tor.rst:109
 msgid ""
@@ -204,10 +269,15 @@ msgid ""
 "<https://2019.www.torproject.org/docs/bridges.html.en>`_. If OnionShare "
 "connects to Tor without one, you don't need to use a bridge."
 msgstr ""
+"В случае, если доступ к сети Интернет подвергается цензуре, можно настроить "
+"подключение OnionShare к сети Tor при помощи `мостов Tor` <https://2019.www."
+"torproject.org/docs/bridges.html.en>`_. Использование мостов необязательно в "
+"случае, если OnionShare успешно подключается к сети Tor самостоятельно."
 
 #: ../../source/tor.rst:111
 msgid "To configure bridges, click the \"⚙\" icon in OnionShare."
 msgstr ""
+"Чтобы настроить использование мостов, нажмите на значок \"⚙\" в OnionShare."
 
 #: ../../source/tor.rst:113
 msgid ""
@@ -216,6 +286,11 @@ msgid ""
 "obtain from Tor's `BridgeDB <https://bridges.torproject.org/>`_. If you "
 "need to use a bridge, try the built-in obfs4 ones first."
 msgstr ""
+"Возможно использование встроенных obfs4 или meek_lite(Azure) подключаемых "
+"транспортов или пользовательских мостов, настройки которых можно получить "
+"здесь: `Tor's BridgeDB <https://bridges.torproject.org/>`_. Если "
+"использование мостов необходимо, рекомендуется в первую очередь попробовать "
+"транспорты obfs4."
 
 #~ msgid "Using a system Tor in Mac OS X"
 #~ msgstr ""
