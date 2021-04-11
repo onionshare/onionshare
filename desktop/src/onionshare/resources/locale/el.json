@@ -282,5 +282,6 @@
     "error_port_not_available": "Η θύρα OnionShare δεν είναι διαθέσιμη",
     "gui_rendezvous_cleanup_quit_early": "Πρόωρη έξοδος",
     "gui_rendezvous_cleanup": "Αναμονή για τερματισμό των κυκλωμάτων του Tor για να βεβαιωθείτε ότι τα αρχεία σας έχουν μεταφερθεί με επιτυχία.\n\nΑυτό μπορεί να διαρκέσει λίγα λεπτά.",
-    "gui_chat_url_description": "<b>Οποιοσδήποτε</b> με αυτή τη διεύθυνση του OnionShare μπορεί <b>να συμμετέχει στο chat</b> με χρήση του <b>Tor Browser</b>: <img src='{}' />"
+    "gui_chat_url_description": "<b>Οποιοσδήποτε</b> με αυτή τη διεύθυνση του OnionShare μπορεί <b>να συμμετέχει στο chat</b> με χρήση του <b>Tor Browser</b>: <img src='{}' />",
+    "gui_color_mode_changed_notice": "Επανεκκινήστε το OnionShare για εφαρμοστεί το νέο χρώμα."
 }

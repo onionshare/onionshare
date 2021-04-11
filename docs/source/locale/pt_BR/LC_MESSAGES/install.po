@@ -3,37 +3,42 @@
 # This file is distributed under the same license as the OnionShare package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2020-12-13 15:48-0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2021-02-23 15:50+0000\n"
+"Last-Translator: Elton Viana Gonçalves da Luz <eltongoncalves94@hotmail.com>"
+"\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.5\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/install.rst:2
 msgid "Installation"
-msgstr ""
+msgstr "Instalação"
 
 #: ../../source/install.rst:5
 msgid "Windows or macOS"
-msgstr ""
+msgstr "Windows ou MacOS"
 
 #: ../../source/install.rst:7
 msgid ""
 "You can download OnionShare for Windows and macOS from the `OnionShare "
 "website <https://onionshare.org/>`_."
 msgstr ""
+"Você pode baixar o OnionShare para Windows and macOS `no site do OnionShare "
+"<https://onionshare.org/>`_."
 
 #: ../../source/install.rst:12
 msgid "Install in Linux"
-msgstr ""
+msgstr "Instalar no Linux"
 
 #: ../../source/install.rst:14
 msgid ""
@@ -43,32 +48,44 @@ msgid ""
 "that you'll always use the newest version and run OnionShare inside of a "
 "sandbox."
 msgstr ""
+"Existem várias maneiras de instalar o OnionShare para Linux, mas a forma "
+"recomendada é usar o pacote `Flatpak <https://flatpak.org/>` _ ou `Snap "
+"<https://snapcraft.io/>` _ . Flatpak e Snap garantem que você sempre usará a "
+"versão mais recente e executará o OnionShare dentro de uma sandbox."
 
 #: ../../source/install.rst:17
 msgid ""
 "Snap support is built-in to Ubuntu and Fedora comes with Flatpak support,"
 " but which you use is up to you. Both work in all Linux distributions."
 msgstr ""
+"O suporte a Snap está embutido no Ubuntu e o Fedora vem com suporte a "
+"Flatpak, mas você decide o que usar. Ambos funcionam em todas as "
+"distribuições Linux."
 
 #: ../../source/install.rst:19
 msgid ""
 "**Install OnionShare using Flatpak**: "
 "https://flathub.org/apps/details/org.onionshare.OnionShare"
 msgstr ""
+"**Instalar o OnionShare usando Flatpak**: https://flathub.org/apps/details/"
+"org.onionshare.OnionShare"
 
 #: ../../source/install.rst:21
 msgid "**Install OnionShare using Snap**: https://snapcraft.io/onionshare"
 msgstr ""
+"**Instalar o OnionShare usando o Snap**: https://snapcraft.io/onionshare"
 
 #: ../../source/install.rst:23
 msgid ""
 "You can also download and install PGP-signed ``.flatpak`` or ``.snap`` "
 "packages from https://onionshare.org/dist/ if you prefer."
 msgstr ""
+"Você também pode baixar e instalar pacotes `` .flatpak`` ou `` .snap`` "
+"assinados por PGP em https://onionshare.org/dist/ se preferir."
 
 #: ../../source/install.rst:28
 msgid "Verifying PGP signatures"
-msgstr ""
+msgstr "Verificando as assinaturas PGP"
 
 #: ../../source/install.rst:30
 msgid ""
@@ -78,10 +95,15 @@ msgid ""
 "binaries include operating system-specific signatures, and you can just "
 "rely on those alone if you'd like."
 msgstr ""
+"Você pode verificar se o pacote baixado é legítimo e não foi adulterado "
+"verificando sua assinatura PGP. Para Windows e macOS, esta etapa é opcional "
+"e fornece defesa em profundidade: os binários do OnionShare incluem "
+"assinaturas específicas do sistema operacional e você pode confiar apenas "
+"nelas, se desejar."
 
 #: ../../source/install.rst:34
 msgid "Signing key"
-msgstr ""
+msgstr "Chave de assinatura"
 
 #: ../../source/install.rst:36
 msgid ""
@@ -91,6 +113,11 @@ msgid ""
 "<https://keys.openpgp.org/vks/v1/by-"
 "fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 msgstr ""
+"Os pacotes são assinados por Micah Lee, o desenvolvedor principal, usando "
+"sua chave pública PGP com impressão digital `` "
+"927F419D7EC82C2F149C1BD1403C2657CD994F73``. Você pode baixar a chave de "
+"Micah `do keys.openpgp.org keyserver <https://keys.openpgp.org/vks/v1/"
+"by-fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>` _."
 
 #: ../../source/install.rst:38
 msgid ""
@@ -98,10 +125,14 @@ msgid ""
 "probably want `GPGTools <https://gpgtools.org/>`_, and for Windows you "
 "probably want `Gpg4win <https://www.gpg4win.org/>`_."
 msgstr ""
+"Você deve ter o GnuPG instalado para verificar as assinaturas. Para macOS "
+"você provavelmente utilizaria o `GPGTools <https://gpgtools.org/>` _, e para "
+"Windows você provavelmente utilizaria o `Gpg4win <https://www.gpg4win.org/>` "
+"_."
 
 #: ../../source/install.rst:41
 msgid "Signatures"
-msgstr ""
+msgstr "Assinaturas"
 
 #: ../../source/install.rst:43
 msgid ""
@@ -111,10 +142,15 @@ msgid ""
 "OnionShare. You can also find them on the `GitHub Releases page "
 "<https://github.com/micahflee/onionshare/releases>`_."
 msgstr ""
+"Você pode encontrar as assinaturas (como arquivos `` .asc``), bem como "
+"Windows, macOS, Flatpak, Snap e pacotes de origem, em https://onionshare.org/"
+"dist/ nas pastas nomeadas para cada versão do OnionShare. Você também pode "
+"encontrá-los na página de lançamentos do GitHub <https://github.com/"
+"micahflee/onionshare/releases> `_."
 
 #: ../../source/install.rst:47
 msgid "Verifying"
-msgstr ""
+msgstr "Verificando"
 
 #: ../../source/install.rst:49
 msgid ""
@@ -122,14 +158,17 @@ msgid ""
 "downloaded the binary and and ``.asc`` signature, you can verify the "
 "binary for macOS in a terminal like this::"
 msgstr ""
+"Depois de importar a chave pública de Micah para o seu keychain GnuPG, "
+"baixar o binário e a assinatura `` .asc``, você pode verificar o binário "
+"para macOS em um terminal como este ::"
 
 #: ../../source/install.rst:53
 msgid "Or for Windows, in a command-prompt like this::"
-msgstr ""
+msgstr "Ou para Windows, em um prompt de comando como este ::"
 
 #: ../../source/install.rst:57
 msgid "The expected output looks like this::"
-msgstr ""
+msgstr "O resultado esperado se parece com isso::"
 
 #: ../../source/install.rst:69
 msgid ""
@@ -139,6 +178,11 @@ msgid ""
 " the package, it only means you haven't already defined any level of "
 "'trust' of Micah's PGP key.)"
 msgstr ""
+"Se você não ver 'Boa assinatura de', pode haver um problema com a "
+"integridade do arquivo (malicioso ou outro) e você não deve instalar o "
+"pacote. (O \"AVISO:\" mostrado acima não é um problema com o pacote, "
+"significa apenas que você ainda não definiu nenhum nível de 'confiança' da "
+"chave PGP de Micah.)"
 
 #: ../../source/install.rst:71
 msgid ""
@@ -147,6 +191,10 @@ msgid ""
 " the `Tor Project <https://support.torproject.org/tbb/how-to-verify-"
 "signature/>`_ may be useful."
 msgstr ""
+"Se você quiser aprender mais sobre a verificação de assinaturas PGP, os "
+"guias para `Qubes OS <https://www.qubes-os.org/security/verifying-signatures/"
+">` _ e o `Tor Project <https: // support .torproject.org / tbb / how-to-"
+"verify-signature /> `_ podem ser úteis."
 
 #~ msgid "Install on Windows or macOS"
 #~ msgstr ""
@@ -333,4 +381,3 @@ msgstr ""
 #~ "Project <https://support.torproject.org/tbb/how-to-"
 #~ "verify-signature/>`_ may be helpful."
 #~ msgstr ""
-

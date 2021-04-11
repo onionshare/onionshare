@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2020-12-13 15:48-0800\n"
-"PO-Revision-Date: 2020-11-20 17:28+0000\n"
-"Last-Translator: Localisation Lab <ao@localizationlab.org>\n"
-"Language: fr\n"
+"PO-Revision-Date: 2021-03-10 10:02+0000\n"
+"Last-Translator: AO Localisation Lab <ao@localizationlab.org>\n"
 "Language-Team: none\n"
-"Plural-Forms: nplurals=2; plural=n > 1\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.5.2-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/tor.rst:2
@@ -95,6 +96,10 @@ msgid ""
 " and copy the extracted folder to ``C:\\Program Files (x86)\\`` Rename "
 "the extracted folder with ``Data`` and ``Tor`` in it to ``tor-win32``."
 msgstr ""
+"`Sur <https://www.torproject.org/fr/download/tor/>`_, téléchargez « Windows "
+"Expert Bundle » de Tor `. Extrayez le fichier compressé et copiez le dossier "
+"résultant sur ``C:\\Program Files (x86)\\`` Renommez en ``tor-win32`` le "
+"dossier résultant qui comprend ``Data`` et ``Tor``."
 
 #: ../../source/tor.rst:32
 msgid ""
@@ -140,10 +145,14 @@ msgid ""
 "`<https://2019.www.torproject.org/docs/faq.html.en#NTService>`_). Like "
 "this::"
 msgstr ""
+"Dans votre invite de commande d’administrateur, installez ``tor`` en tant "
+"que service en utilisant le fichier ``torrc`` approprié que vous venez de "
+"créer (comme indiqué dans `<https://2019.www.torproject.org/docs/faq.html."
+"en#NTService>`_). Comme ceci :"
 
 #: ../../source/tor.rst:50
 msgid "You are now running a system ``tor`` process in Windows!"
-msgstr ""
+msgstr "Vous exécutez désormais un processus ``tor``système sur Windows."
 
 #: ../../source/tor.rst:52
 msgid ""
@@ -165,6 +174,8 @@ msgid ""
 "First, install `Homebrew <https://brew.sh/>`_ if you don't already have "
 "it, and then install Tor::"
 msgstr ""
+"Si ce n’est pas déjà fait, installez d’abord `Homebrew <https://brew.sh/>`_, "
+"puis installez Tor :"
 
 #: ../../source/tor.rst:67
 msgid "Now configure Tor to allow connections from OnionShare::"
@@ -174,7 +185,7 @@ msgstr ""
 
 #: ../../source/tor.rst:74
 msgid "And start the system Tor service::"
-msgstr "Et démarrez le service Tor du système ::"
+msgstr "Et démarrez le service Tor du système :"
 
 #: ../../source/tor.rst:78
 msgid ""
@@ -195,10 +206,12 @@ msgstr ""
 #: ../../source/tor.rst:84 ../../source/tor.rst:104
 msgid "If all goes well, you should see \"Connected to the Tor controller\"."
 msgstr ""
+"Si tout se passe bien, vous devriez voir « Vous êtes connecté au contrôleur "
+"Tor »."
 
 #: ../../source/tor.rst:87
 msgid "Using a system ``tor`` in Linux"
-msgstr ""
+msgstr "Utiliser un ``tor`` système dans Linux"
 
 #: ../../source/tor.rst:89
 msgid ""
@@ -494,4 +507,3 @@ msgstr ""
 #~ "if you don't already have it. "
 #~ "Then, install Tor::"
 #~ msgstr ""
-
