@@ -186,15 +186,15 @@ class ShareModeWeb(SendBaseModeWeb):
             use_gzip = self.should_use_gzip()
             if use_gzip:
                 file_to_download = self.gzip_filename
-                filesize = self.gzip_filesize
+                self.filesize = self.gzip_filesize
                 etag = self.gzip_etag
             else:
                 file_to_download = self.download_filename
-                filesize = self.download_filesize
+                self.filesize = self.download_filesize
                 etag = self.download_etag
 
             # for range requests
-            range_, status_code = self.get_range_and_status_code(filesize, etag, self.last_modified)
+            range_, status_code = self.get_range_and_status_code(self.filesize, etag, self.last_modified)
 
             # Tell GUI the download started
             history_id = self.cur_history_id
@@ -210,20 +210,22 @@ class ShareModeWeb(SendBaseModeWeb):
             else:
                 r = Response(
                     self.generate(shutdown_func, range_, file_to_download, request_path,
-                                  history_id, filesize))
+                                  history_id, self.filesize))
 
             if use_gzip:
                 r.headers.set('Content-Encoding', 'gzip')
 
-            r.headers.set('Content-Length', range_[1] - range_[0])
-            r.headers.set('Content-Disposition', 'attachment', filename=basename)
+            r.headers.set('Content-Length', range_[1] - range_[0] + 1)
+            filename_dict = {
+                "filename": unidecode(basename),
+                "filename*": "UTF-8''%s" % url_quote(basename),
+            }
+            r.headers.set('Content-Disposition', 'attachment', **filename_dict)
             r = self.web.add_security_headers(r)
             # guess content type
             (content_type, _) = mimetypes.guess_type(basename, strict=False)
             if content_type is not None:
                 r.headers.set('Content-Type', content_type)
-
-            r.headers.set('Content-Length', range_[1] - range_[0])
             r.headers.set('Accept-Ranges', 'bytes')
             r.headers.set('ETag', etag)
             r.headers.set('Last-Modified', http_date(self.last_modified))
@@ -232,7 +234,7 @@ class ShareModeWeb(SendBaseModeWeb):
 
             if status_code == 206:
                 r.headers.set('Content-Range',
-                              'bytes {}-{}/{}'.format(range_[0], range_[1], filesize))
+                              'bytes {}-{}/{}'.format(range_[0], range_[1], self.filesize))
 
             r.status_code = status_code
 
