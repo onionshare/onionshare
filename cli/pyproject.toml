@@ -24,7 +24,7 @@ flask-socketio = "*"
 psutil = "*"
 pycryptodome = "*"
 pysocks = "*"
-requests = "*"
+requests = {extras = ["socks"], version = "^2.25.1"}
 stem = "*"
 unidecode = "*"
 urllib3 = "*"
