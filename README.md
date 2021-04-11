@@ -11,7 +11,7 @@ You can download OnionShare for Windows and macOS from the [OnionShare website](
 For macOS you can also use [Homebrew](https://brew.sh/):
 
 ```
-brew cask install onionshare
+brew install --cask onionshare
 ```
 
 See [these instructions](https://docs.onionshare.org/2.3/en/install.html#install-in-linux) to install OnionShare in Linux with Flatpak.
