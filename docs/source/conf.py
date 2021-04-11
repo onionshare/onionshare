@@ -15,6 +15,7 @@ languages = [
     ("English", "en"),  # English
     ("Español", "es"),  # Spanish
     ("Ελληνικά", "el"),  # Greek
+    ("Русский", "ru"),  # Ukranian
     ("Türkçe", "tr"),  # Turkish
     ("Українська", "uk"),  # Ukranian
 ]
