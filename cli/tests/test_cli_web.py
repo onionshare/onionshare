@@ -4,6 +4,7 @@ import re
 import zipfile
 import tempfile
 import base64
+from io import BytesIO
 
 import pytest
 from werkzeug.datastructures import Headers
@@ -12,6 +13,21 @@ from onionshare_cli.common import Common
 from onionshare_cli.web import Web
 from onionshare_cli.settings import Settings
 from onionshare_cli.mode_settings import ModeSettings
+import onionshare_cli.web.receive_mode
+
+# Stub requests.post, for receive mode webhook tests
+webhook_url = None
+webhook_data = None
+
+
+def requests_post_stub(url, data, timeout, proxies):
+    global webhook_url, webhook_data
+    webhook_url = url
+    webhook_data = data
+
+
+onionshare_cli.web.receive_mode.requests.post = requests_post_stub
+
 
 DEFAULT_ZW_FILENAME_REGEX = re.compile(r"^onionshare_[a-z2-7]{6}.zip$")
 RANDOM_STR_REGEX = re.compile(r"^[a-z2-7]+$")
@@ -128,6 +144,38 @@ class TestWeb:
             res = c.get("/", headers=self._make_auth_headers(web.password))
             res.get_data()
             assert res.status_code == 200
+
+    def test_receive_mode_webhook(self, temp_dir, common_obj):
+        global webhook_url, webhook_data
+        webhook_url = None
+        webhook_data = None
+
+        web = web_obj(temp_dir, common_obj, "receive")
+        assert web.mode == "receive"
+        web.settings.set("receive", "webhook_url", "http://127.0.0.1:1337/example")
+        web.proxies = None
+        assert (
+            web.settings.get("receive", "webhook_url")
+            == "http://127.0.0.1:1337/example"
+        )
+
+        with web.app.test_client() as c:
+            res = c.get("/", headers=self._make_auth_headers(web.password))
+            res.get_data()
+            assert res.status_code == 200
+
+            res = c.post(
+                "/upload-ajax",
+                buffered=True,
+                content_type="multipart/form-data",
+                data={"file[]": (BytesIO(b"THIS IS A TEST FILE"), "new_york.jpg")},
+                headers=self._make_auth_headers(web.password),
+            )
+            res.get_data()
+            assert res.status_code == 200
+
+            assert webhook_url == "http://127.0.0.1:1337/example"
+            assert webhook_data == "1 file uploaded to OnionShare"
 
     def test_public_mode_on(self, temp_dir, common_obj):
         web = web_obj(temp_dir, common_obj, "receive")
