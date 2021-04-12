@@ -60,6 +60,8 @@ class ReceiveMode(Mode):
         self.image.setLayout(image_layout)
 
         # Settings
+
+        # Data dir
         data_dir_label = QtWidgets.QLabel(
             strings._("mode_settings_receive_data_dir_label")
         )
@@ -74,8 +76,35 @@ class ReceiveMode(Mode):
         data_dir_layout.addWidget(data_dir_label)
         data_dir_layout.addWidget(self.data_dir_lineedit)
         data_dir_layout.addWidget(data_dir_button)
-
         self.mode_settings_widget.mode_specific_layout.addLayout(data_dir_layout)
+
+        # Webhook URL
+        webhook_url = self.settings.get("receive", "webhook_url")
+        self.webhook_url_checkbox = QtWidgets.QCheckBox()
+        self.webhook_url_checkbox.clicked.connect(self.webhook_url_checkbox_clicked)
+        self.webhook_url_checkbox.setText(
+            strings._("mode_settings_receive_webhook_url_checkbox")
+        )
+        self.webhook_url_lineedit = QtWidgets.QLineEdit()
+        self.webhook_url_lineedit.editingFinished.connect(
+            self.webhook_url_editing_finished
+        )
+        self.webhook_url_lineedit.setPlaceholderText(
+            "https://example.com/post-when-file-uploaded"
+        )
+        webhook_url_layout = QtWidgets.QHBoxLayout()
+        webhook_url_layout.addWidget(self.webhook_url_checkbox)
+        webhook_url_layout.addWidget(self.webhook_url_lineedit)
+        if webhook_url is not None and webhook_url != "":
+            self.webhook_url_checkbox.setCheckState(QtCore.Qt.Checked)
+            self.webhook_url_lineedit.setText(
+                self.settings.get("receive", "webhook_url")
+            )
+            self.show_webhook_url()
+        else:
+            self.webhook_url_checkbox.setCheckState(QtCore.Qt.Unchecked)
+            self.hide_webhook_url()
+        self.mode_settings_widget.mode_specific_layout.addLayout(webhook_url_layout)
 
         # Server status
         self.server_status.set_mode("receive")
@@ -183,6 +212,25 @@ class ReceiveMode(Mode):
             self.data_dir_lineedit.setText(selected_dir)
             self.settings.set("receive", "data_dir", selected_dir)
 
+    def webhook_url_checkbox_clicked(self):
+        if self.webhook_url_checkbox.isChecked():
+            if self.settings.get("receive", "webhook_url"):
+                self.webhook_url_lineedit.setText(
+                    self.settings.get("receive", "webhook_url")
+                )
+            self.show_webhook_url()
+        else:
+            self.hide_webhook_url()
+
+    def webhook_url_editing_finished(self):
+        self.settings.set("receive", "webhook_url", self.webhook_url_lineedit.text())
+
+    def hide_webhook_url(self):
+        self.webhook_url_lineedit.hide()
+
+    def show_webhook_url(self):
+        self.webhook_url_lineedit.show()
+
     def get_stop_server_autostop_timer_text(self):
         """
         Return the string to put on the stop server button, if there's an auto-stop timer
@@ -219,6 +267,16 @@ class ReceiveMode(Mode):
 
         # Hide and reset the uploads if we have previously shared
         self.reset_info_counters()
+
+        # Set proxies for webhook URL
+        if self.common.gui.local_only:
+            self.web.proxies = None
+        else:
+            (socks_address, socks_port) = self.common.gui.onion.get_tor_socks_port()
+            self.web.proxies = {
+                "http": f"socks5://{socks_address}:{socks_port}",
+                "https": f"socks5://{socks_address}:{socks_port}",
+            }
 
     def start_server_step2_custom(self):
         """
