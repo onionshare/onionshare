@@ -43,6 +43,10 @@ class Common:
     The Common object is shared amongst all parts of OnionShare.
     """
 
+    C_RESET = "\033[0m"
+    C_LIGHTGRAY = "\033[37m"
+    C_DARKGRAY = "\033[90m"
+
     def __init__(self, verbose=False):
         self.verbose = verbose
 
@@ -68,10 +72,9 @@ class Common:
         """
         if self.verbose:
             timestamp = time.strftime("%b %d %Y %X")
-
-            final_msg = f"[{timestamp}] {module}.{func}"
+            final_msg = f"{self.C_DARKGRAY}[{timestamp}]{self.C_RESET} {self.C_LIGHTGRAY}{module}.{func}{self.C_RESET}"
             if msg:
-                final_msg = f"{final_msg}: {msg}"
+                final_msg = f"{final_msg}{self.C_LIGHTGRAY}: {msg}{self.C_RESET}"
             print(final_msg)
 
     def get_resource_path(self, filename):
