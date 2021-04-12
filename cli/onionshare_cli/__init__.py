@@ -193,6 +193,12 @@ def main(cwd=None):
         default=None,
         help="Receive files: Save files received to this directory",
     )
+    parser.add_argument(
+        "--webhook-url",
+        metavar="webhook_url",
+        default=None,
+        help="Receive files: URL to receive webhook notifications",
+    )
     # Website args
     parser.add_argument(
         "--disable_csp",
@@ -235,6 +241,7 @@ def main(cwd=None):
     client_auth = bool(args.client_auth)
     autostop_sharing = not bool(args.no_autostop_sharing)
     data_dir = args.data_dir
+    webhook_url = args.webhook_url
     disable_csp = bool(args.disable_csp)
     verbose = bool(args.verbose)
 
@@ -283,6 +290,8 @@ def main(cwd=None):
         if mode == "receive":
             if data_dir:
                 mode_settings.set("receive", "data_dir", data_dir)
+            if webhook_url:
+                mode_settings.set("receive", "webhook_url", webhook_url)
         if mode == "website":
             mode_settings.set("website", "disable_csp", disable_csp)
     else:
@@ -354,10 +363,23 @@ def main(cwd=None):
     # Start the onionshare app
     try:
         common.settings.load()
-        if not mode_settings.get("general", "public"):
-            web.generate_password(mode_settings.get("onion", "password"))
-        else:
+
+        if mode_settings.get("general", "public"):
             web.password = None
+        else:
+            web.generate_password(mode_settings.get("onion", "password"))
+
+        # Receive mode needs to know the tor proxy details for webhooks
+        if mode == "receive":
+            if local_only:
+                web.proxies = None
+            else:
+                (socks_address, socks_port) = onion.get_tor_socks_port()
+                web.proxies = {
+                    "http": f"socks5://{socks_address}:{socks_port}",
+                    "https": f"socks5://{socks_address}:{socks_port}",
+                }
+
         app = OnionShare(common, onion, local_only, autostop_timer)
         app.choose_port()
 

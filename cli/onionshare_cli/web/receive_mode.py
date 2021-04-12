@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import os
 import tempfile
 import json
+import requests
 from datetime import datetime
 from flask import Request, request, render_template, make_response, flash, redirect
 from werkzeug.utils import secure_filename
@@ -101,6 +102,18 @@ class ReceiveModeWeb:
                     )
                     print(f"\nReceived: {local_path}")
 
+            # Send webhook if configured
+            if (
+                self.web.settings.get("receive", "webhook_url")
+                and not request.upload_error
+                and len(files) > 0
+            ):
+                if len(files) == 1:
+                    file_msg = "1 file"
+                else:
+                    file_msg = f"{len(files)} files"
+                self.send_webhook_notification(f"{file_msg} uploaded to OnionShare")
+
             if request.upload_error:
                 self.common.log(
                     "ReceiveModeWeb",
@@ -171,6 +184,18 @@ class ReceiveModeWeb:
             if not self.can_upload:
                 return self.web.error403()
             return upload(ajax=True)
+
+    def send_webhook_notification(self, data):
+        self.common.log("ReceiveModeWeb", "send_webhook_notification", data)
+        try:
+            requests.post(
+                self.web.settings.get("receive", "webhook_url"),
+                data=data,
+                timeout=5,
+                proxies=self.web.proxies,
+            )
+        except Exception as e:
+            print(f"Webhook notification failed: {e}")
 
 
 class ReceiveModeWSGIMiddleware(object):
