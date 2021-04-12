@@ -241,5 +241,11 @@ class TestLog:
             output = buf.getvalue()
 
         line_one, line_two, _ = output.split("\n")
-        assert line_one == "[Jun 06 2013 11:05:00] TestModule.dummy_func"
-        assert line_two == "[Jun 06 2013 11:05:00] TestModule.dummy_func: TEST_MSG"
+        assert (
+            "[Jun 06 2013 11:05:00]" in line_one and "TestModule.dummy_func" in line_one
+        )
+        assert (
+            "[Jun 06 2013 11:05:00]" in line_two
+            and "TestModule.dummy_func" in line_two
+            and "TEST_MSG" in line_two
+        )
