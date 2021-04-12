@@ -220,6 +220,7 @@ class ReceiveMode(Mode):
                 )
             self.show_webhook_url()
         else:
+            self.settings.set("receive", "webhook_url", None)
             self.hide_webhook_url()
 
     def webhook_url_editing_finished(self):
