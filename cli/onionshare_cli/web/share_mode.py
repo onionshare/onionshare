@@ -230,6 +230,7 @@ class ShareModeWeb(SendBaseModeWeb):
                 is_zipped=self.is_zipped,
                 static_url_path=self.web.static_url_path,
                 download_individual_files=self.download_individual_files,
+                title=self.web.settings.get("general", "title"),
             )
         )
 
