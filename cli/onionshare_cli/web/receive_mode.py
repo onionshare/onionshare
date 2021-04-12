@@ -108,7 +108,11 @@ class ReceiveModeWeb:
                 and not request.upload_error
                 and len(files) > 0
             ):
-                self.send_webhook_notification(f"{len(files)} files uploaded")
+                if len(files) == 1:
+                    file_msg = "1 file"
+                else:
+                    file_msg = f"{len(files)} files"
+                self.send_webhook_notification(f"{file_msg} uploaded to OnionShare")
 
             if request.upload_error:
                 self.common.log(
@@ -191,11 +195,7 @@ class ReceiveModeWeb:
                 proxies=self.web.proxies,
             )
         except Exception as e:
-            self.common.log(
-                "ReceiveModeWeb",
-                "send_webhook_notification",
-                f"sending failed: {e}",
-            )
+            print(f"Webhook notification failed: {e}")
 
 
 class ReceiveModeWSGIMiddleware(object):
