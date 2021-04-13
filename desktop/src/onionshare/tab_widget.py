@@ -178,7 +178,8 @@ class TabWidget(QtWidgets.QTabWidget):
         tab.init(mode_settings)
 
         # Make sure the title is set
-        tab.get_mode().mode_settings_widget.title_editing_finished()
+        if tab.get_mode():
+            tab.get_mode().mode_settings_widget.title_editing_finished()
 
         # If it's persistent, set the persistent image in the tab
         self.change_persistent(tab.tab_id, tab.settings.get("persistent", "enabled"))

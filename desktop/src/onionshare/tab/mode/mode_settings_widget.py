@@ -171,9 +171,9 @@ class ModeSettingsWidget(QtWidgets.QWidget):
         self.advanced_widget.hide()
 
         layout = QtWidgets.QVBoxLayout()
-        layout.addLayout(self.mode_specific_layout)
         layout.addLayout(title_layout)
         layout.addWidget(self.persistent_checkbox)
+        layout.addLayout(self.mode_specific_layout)
         layout.addWidget(self.public_checkbox)
         layout.addWidget(self.advanced_widget)
         layout.addWidget(self.toggle_advanced_button)
