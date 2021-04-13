@@ -236,11 +236,9 @@ class ModeSettingsWidget(QtWidgets.QWidget):
             elif self.tab_mode == None:
                 pass
         else:
-            self.settings.set("general", "title", self.title_lineedit.text())
-            shortened_title = self.title_lineedit.text()
-            if len(shortened_title) > 11:
-                shortened_title = shortened_title[:10] + "..."
-            self.tab.change_title.emit(self.tab.tab_id, shortened_title)
+            title = self.title_lineedit.text()
+            self.settings.set("general", "title", title)
+            self.tab.change_title.emit(self.tab.tab_id, title)
 
     def persistent_checkbox_clicked(self):
         self.settings.set("persistent", "enabled", self.persistent_checkbox.isChecked())

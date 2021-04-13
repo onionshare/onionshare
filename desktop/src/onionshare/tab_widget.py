@@ -188,8 +188,13 @@ class TabWidget(QtWidgets.QTabWidget):
         self.bring_to_front.emit()
 
     def change_title(self, tab_id, title):
+        shortened_title = title
+        if len(shortened_title) > 11:
+            shortened_title = shortened_title[:10] + "..."
+
         index = self.indexOf(self.tabs[tab_id])
-        self.setTabText(index, title)
+        self.setTabText(index, shortened_title)
+        self.setTabToolTip(index, title)
 
     def change_icon(self, tab_id, icon_path):
         index = self.indexOf(self.tabs[tab_id])
