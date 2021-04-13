@@ -77,6 +77,11 @@ class ShareMode(Mode):
             for filename in self.filenames:
                 self.file_selection.file_list.add_file(filename)
 
+        # Set title placeholder
+        self.mode_settings_widget.title_lineedit.setPlaceholderText(
+            strings._("gui_tab_name_share")
+        )
+
         # Server status
         self.server_status.set_mode("share", self.file_selection)
         self.server_status.server_started.connect(self.file_selection.server_started)

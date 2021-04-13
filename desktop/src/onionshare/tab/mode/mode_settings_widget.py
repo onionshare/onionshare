@@ -39,6 +39,16 @@ class ModeSettingsWidget(QtWidgets.QWidget):
         # Downstream Mode need to fill in this layout with its settings
         self.mode_specific_layout = QtWidgets.QVBoxLayout()
 
+        # Title
+        title_label = QtWidgets.QLabel(strings._("mode_settings_title_label"))
+        self.title_lineedit = QtWidgets.QLineEdit()
+        self.title_lineedit.editingFinished.connect(self.title_editing_finished)
+        if self.settings.get("general", "title"):
+            self.title_lineedit.setText(self.settings.get("general", "title"))
+        title_layout = QtWidgets.QHBoxLayout()
+        title_layout.addWidget(title_label)
+        title_layout.addWidget(self.title_lineedit)
+
         # Persistent
         self.persistent_checkbox = QtWidgets.QCheckBox()
         self.persistent_checkbox.clicked.connect(self.persistent_checkbox_clicked)
@@ -162,6 +172,7 @@ class ModeSettingsWidget(QtWidgets.QWidget):
 
         layout = QtWidgets.QVBoxLayout()
         layout.addLayout(self.mode_specific_layout)
+        layout.addLayout(title_layout)
         layout.addWidget(self.persistent_checkbox)
         layout.addWidget(self.public_checkbox)
         layout.addWidget(self.advanced_widget)
@@ -202,6 +213,34 @@ class ModeSettingsWidget(QtWidgets.QWidget):
                 # If using v3, hide legacy and client auth options
                 self.legacy_checkbox.hide()
                 self.client_auth_checkbox.hide()
+
+    def title_editing_finished(self):
+        if self.title_lineedit.text() == "":
+            self.settings.set("general", "title", None)
+            if self.tab.mode == self.common.gui.MODE_SHARE:
+                self.tab.change_title.emit(
+                    self.tab.tab_id, strings._("gui_tab_name_share")
+                )
+            elif self.tab.mode == self.common.gui.MODE_RECEIVE:
+                self.tab.change_title.emit(
+                    self.tab.tab_id, strings._("gui_tab_name_receive")
+                )
+            elif self.tab.mode == self.common.gui.MODE_WEBSITE:
+                self.tab.change_title.emit(
+                    self.tab.tab_id, strings._("gui_tab_name_website")
+                )
+            elif self.tab.mode == self.common.gui.MODE_CHAT:
+                self.tab.change_title.emit(
+                    self.tab.tab_id, strings._("gui_tab_name_chat")
+                )
+            elif self.tab_mode == None:
+                pass
+        else:
+            self.settings.set("general", "title", self.title_lineedit.text())
+            shortened_title = self.title_lineedit.text()
+            if len(shortened_title) > 11:
+                shortened_title = shortened_title[:10] + "..."
+            self.tab.change_title.emit(self.tab.tab_id, shortened_title)
 
     def persistent_checkbox_clicked(self):
         self.settings.set("persistent", "enabled", self.persistent_checkbox.isChecked())
