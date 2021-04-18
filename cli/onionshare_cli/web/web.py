@@ -360,12 +360,17 @@ class Web:
         # Shutdown the flask service
         try:
             func = request.environ.get("werkzeug.server.shutdown")
-            if func is None:
+            if func is None and self.mode != "chat":
                 raise RuntimeError("Not running with the Werkzeug Server")
             func()
         except:
             pass
+
         self.running = False
+
+        # If chat, shutdown the socket server
+        if self.mode == "chat":
+            self.socketio.stop()
 
     def start(self, port):
         """
