@@ -71,9 +71,10 @@ class SendBaseModeWeb:
             {}
         )  # This is only the root files and dirs, as opposed to all of them
         self.cleanup_filenames = []
+        self.gzip_individual_files = {}
+        self.file_last_modified = {}
         self.cur_history_id = 0
         self.file_info = {"files": [], "dirs": []}
-        self.gzip_individual_files = {}
         self.init()
 
         # Build the file list
@@ -162,29 +163,65 @@ class SendBaseModeWeb:
 
         return files, dirs
 
-    def stream_individual_file(self, filesystem_path):
+    def cleanup_file(self, filesystem_path):
         """
-        Return a flask response that's streaming the download of an individual file, and gzip
-        compressing it if the browser supports it.
+        Safely delete a single file and remove it from self.cleanup_filenames
         """
-        use_gzip = self.should_use_gzip()
+        try:
+            os.remove(filesystem_path)
+        except FileNotFoundError:
+            pass
+        try:
+            self.cleanup_filenames.remove(filesystem_path)
+        except ValueError:
+            pass
 
-        # gzip compress the individual file, if it hasn't already been compressed
-        if use_gzip:
-            if filesystem_path not in self.gzip_individual_files:
-                gzip_filename = tempfile.mkstemp("wb+")[1]
-                self._gzip_compress(filesystem_path, gzip_filename, 6, None)
+    def latest_version(self, filesystem_path, processed_size_callback=None, force_gzip=False):
+        """
+        Return a path to the file as it exists on disk now, compressed if the browser
+        supports it (or if `force_gzip`). Cache compressed files until their originals
+        are modified.
+        """
+        if force_gzip or self.should_use_gzip():
+            file_mtime = os.path.getmtime(filesystem_path)
+            # If the file has been modified or we haven't read it yet, gzip compress the file
+            if file_mtime != self.file_last_modified.get(filesystem_path):
+                # Delete the cached gzip file if it exists
+                gzip_filename_previous = self.gzip_individual_files.get(filesystem_path)
+                if gzip_filename_previous != None:
+                    self.cleanup_file(gzip_filename_previous)
+
+                # tempfile.mkstemp automatically opens the file
+                gzip_file_descriptor, gzip_filename = tempfile.mkstemp("wb+")
+                # The only way to avoid an eventual "Too many open files" IOError
+                # is either to use and close the file descriptor instead of the filename,
+                # or to close the file descriptor here and use the filename instead.
+                os.close(gzip_file_descriptor)
+                self._gzip_compress(filesystem_path, gzip_filename, 6, processed_size_callback)
                 self.gzip_individual_files[filesystem_path] = gzip_filename
 
                 # Make sure the gzip file gets cleaned up when onionshare stops
                 self.cleanup_filenames.append(gzip_filename)
 
-            file_to_download = self.gzip_individual_files[filesystem_path]
-            filesize = os.path.getsize(self.gzip_individual_files[filesystem_path])
+                self.file_last_modified[filesystem_path] = file_mtime
+
+            # If the file hasn't been modified since the last time we read it, use the cached gzip file
+            else:
+                gzip_filename = self.gzip_individual_files[filesystem_path]
+
+            file_to_download = gzip_filename
         else:
             file_to_download = filesystem_path
-            filesize = os.path.getsize(filesystem_path)
-
+        
+        return file_to_download
+    
+    def stream_individual_file(self, filesystem_path):
+        """
+        Return a flask response that's streaming the download of an individual file, and gzip
+        compressing it if the browser supports it.
+        """
+        file_to_download = self.latest_version(filesystem_path)
+        filesize = os.path.getsize(file_to_download)
         path = request.path
 
         # Tell GUI the individual file started
@@ -261,7 +298,7 @@ class SendBaseModeWeb:
         basename = os.path.basename(filesystem_path)
 
         r = Response(generate())
-        if use_gzip:
+        if self.should_use_gzip():
             r.headers.set("Content-Encoding", "gzip")
         r.headers.set("Content-Length", filesize)
         filename_dict = {
