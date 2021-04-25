@@ -165,7 +165,7 @@
     "gui_quit_warning_cancel": "Cancel",
     "mode_settings_advanced_toggle_show": "Show advanced settings",
     "mode_settings_advanced_toggle_hide": "Hide advanced settings",
-    "mode_settings_title_label": "Title",
+    "mode_settings_title_label": "Custom title",
     "mode_settings_persistent_checkbox": "Save this tab, and automatically open it when I open OnionShare",
     "mode_settings_public_checkbox": "Don't use a password",
     "mode_settings_autostart_timer_checkbox": "Start onion service at scheduled time",

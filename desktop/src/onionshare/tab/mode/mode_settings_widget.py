@@ -39,16 +39,6 @@ class ModeSettingsWidget(QtWidgets.QWidget):
         # Downstream Mode need to fill in this layout with its settings
         self.mode_specific_layout = QtWidgets.QVBoxLayout()
 
-        # Title
-        title_label = QtWidgets.QLabel(strings._("mode_settings_title_label"))
-        self.title_lineedit = QtWidgets.QLineEdit()
-        self.title_lineedit.editingFinished.connect(self.title_editing_finished)
-        if self.settings.get("general", "title"):
-            self.title_lineedit.setText(self.settings.get("general", "title"))
-        title_layout = QtWidgets.QHBoxLayout()
-        title_layout.addWidget(title_label)
-        title_layout.addWidget(self.title_lineedit)
-
         # Persistent
         self.persistent_checkbox = QtWidgets.QCheckBox()
         self.persistent_checkbox.clicked.connect(self.persistent_checkbox_clicked)
@@ -66,6 +56,16 @@ class ModeSettingsWidget(QtWidgets.QWidget):
             self.public_checkbox.setCheckState(QtCore.Qt.Checked)
         else:
             self.public_checkbox.setCheckState(QtCore.Qt.Unchecked)
+
+        # Title
+        title_label = QtWidgets.QLabel(strings._("mode_settings_title_label"))
+        self.title_lineedit = QtWidgets.QLineEdit()
+        self.title_lineedit.editingFinished.connect(self.title_editing_finished)
+        if self.settings.get("general", "title"):
+            self.title_lineedit.setText(self.settings.get("general", "title"))
+        title_layout = QtWidgets.QHBoxLayout()
+        title_layout.addWidget(title_label)
+        title_layout.addWidget(self.title_lineedit)
 
         # Whether or not to use an auto-start timer
         self.autostart_timer_checkbox = QtWidgets.QCheckBox()
@@ -162,6 +162,7 @@ class ModeSettingsWidget(QtWidgets.QWidget):
         # Advanced group itself
         advanced_layout = QtWidgets.QVBoxLayout()
         advanced_layout.setContentsMargins(0, 0, 0, 0)
+        advanced_layout.addLayout(title_layout)
         advanced_layout.addLayout(autostart_timer_layout)
         advanced_layout.addLayout(autostop_timer_layout)
         advanced_layout.addWidget(self.legacy_checkbox)
@@ -171,9 +172,8 @@ class ModeSettingsWidget(QtWidgets.QWidget):
         self.advanced_widget.hide()
 
         layout = QtWidgets.QVBoxLayout()
-        layout.addLayout(title_layout)
-        layout.addWidget(self.persistent_checkbox)
         layout.addLayout(self.mode_specific_layout)
+        layout.addWidget(self.persistent_checkbox)
         layout.addWidget(self.public_checkbox)
         layout.addWidget(self.advanced_widget)
         layout.addWidget(self.toggle_advanced_button)
@@ -215,7 +215,8 @@ class ModeSettingsWidget(QtWidgets.QWidget):
                 self.client_auth_checkbox.hide()
 
     def title_editing_finished(self):
-        if self.title_lineedit.text() == "":
+        if self.title_lineedit.text().strip() == "":
+            self.title_lineedit.setText("")
             self.settings.set("general", "title", None)
             if self.tab.mode == self.common.gui.MODE_SHARE:
                 self.tab.change_title.emit(
