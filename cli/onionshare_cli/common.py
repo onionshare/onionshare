@@ -44,8 +44,11 @@ class Common:
     """
 
     C_RESET = "\033[0m"
+    C_BOLD = "\033[01m"
     C_LIGHTGRAY = "\033[37m"
     C_DARKGRAY = "\033[90m"
+    C_LIGHTPURPLE = "\033[95m"
+    C_DARKPURPLE = "\033[35m"
 
     def __init__(self, verbose=False):
         self.verbose = verbose
