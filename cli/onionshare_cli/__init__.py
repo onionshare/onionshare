@@ -376,8 +376,8 @@ def main(cwd=None):
             else:
                 (socks_address, socks_port) = onion.get_tor_socks_port()
                 web.proxies = {
-                    "http": f"socks5://{socks_address}:{socks_port}",
-                    "https": f"socks5://{socks_address}:{socks_port}",
+                    "http": f"socks5h://{socks_address}:{socks_port}",
+                    "https": f"socks5h://{socks_address}:{socks_port}",
                 }
 
         app = OnionShare(common, onion, local_only, autostop_timer)
