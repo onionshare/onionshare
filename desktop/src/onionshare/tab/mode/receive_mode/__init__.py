@@ -275,8 +275,8 @@ class ReceiveMode(Mode):
         else:
             (socks_address, socks_port) = self.common.gui.onion.get_tor_socks_port()
             self.web.proxies = {
-                "http": f"socks5://{socks_address}:{socks_port}",
-                "https": f"socks5://{socks_address}:{socks_port}",
+                "http": f"socks5h://{socks_address}:{socks_port}",
+                "https": f"socks5h://{socks_address}:{socks_port}",
             }
 
     def start_server_step2_custom(self):
