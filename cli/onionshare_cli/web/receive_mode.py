@@ -64,7 +64,10 @@ class ReceiveModeWeb:
             self.web.add_request(self.web.REQUEST_LOAD, request.path)
             r = make_response(
                 render_template(
-                    "receive.html", static_url_path=self.web.static_url_path
+                    "receive.html",
+                    static_url_path=self.web.static_url_path,
+                    disable_text=self.web.settings.get("receive", "disable_text"),
+                    disable_files=self.web.settings.get("receive", "disable_files"),
                 )
             )
             return self.web.add_security_headers(r)
@@ -75,44 +78,88 @@ class ReceiveModeWeb:
             Handle the upload files POST request, though at this point, the files have
             already been uploaded and saved to their correct locations.
             """
-            files = request.files.getlist("file[]")
-            filenames = []
-            for f in files:
-                if f.filename != "":
-                    filename = secure_filename(f.filename)
-                    filenames.append(filename)
-                    local_path = os.path.join(request.receive_mode_dir, filename)
-                    basename = os.path.basename(local_path)
+            text_received = False
+            if not self.web.settings.get("receive", "disable_text"):
+                text_message = request.form.get("text")
+                if text_message:
+                    if text_message.strip() != "":
+                        text_received = True
+                        filename = "message.txt"
+                        local_path = os.path.join(request.receive_mode_dir, filename)
 
-                    # Tell the GUI the receive mode directory for this file
-                    self.web.add_request(
-                        self.web.REQUEST_UPLOAD_SET_DIR,
-                        request.path,
-                        {
-                            "id": request.history_id,
-                            "filename": basename,
-                            "dir": request.receive_mode_dir,
-                        },
-                    )
+                        with open(local_path, "w") as f:
+                            f.write(text_message)
 
-                    self.common.log(
-                        "ReceiveModeWeb",
-                        "define_routes",
-                        f"/upload, uploaded {f.filename}, saving to {local_path}",
-                    )
-                    print(f"\nReceived: {local_path}")
+                        basename = os.path.basename(local_path)
+
+                        # TODO: possibly change this
+                        self.web.add_request(
+                            self.web.REQUEST_UPLOAD_SET_DIR,
+                            request.path,
+                            {
+                                "id": request.history_id,
+                                "filename": basename,
+                                "dir": request.receive_mode_dir,
+                            },
+                        )
+
+                        self.common.log(
+                            "ReceiveModeWeb",
+                            "define_routes",
+                            f"/upload, sent text message, saving to {local_path}",
+                        )
+                        print(f"\nReceived: {local_path}")
+
+            files_received = 0
+            if not self.web.settings.get("receive", "disable_files"):
+                files = request.files.getlist("file[]")
+
+                filenames = []
+                for f in files:
+                    if f.filename != "":
+                        filename = secure_filename(f.filename)
+                        filenames.append(filename)
+                        local_path = os.path.join(request.receive_mode_dir, filename)
+                        basename = os.path.basename(local_path)
+
+                        # Tell the GUI the receive mode directory for this file
+                        self.web.add_request(
+                            self.web.REQUEST_UPLOAD_SET_DIR,
+                            request.path,
+                            {
+                                "id": request.history_id,
+                                "filename": basename,
+                                "dir": request.receive_mode_dir,
+                            },
+                        )
+
+                        self.common.log(
+                            "ReceiveModeWeb",
+                            "define_routes",
+                            f"/upload, uploaded {f.filename}, saving to {local_path}",
+                        )
+                        print(f"\nReceived: {local_path}")
+
+                files_received = len(filenames)
 
             # Send webhook if configured
             if (
-                self.web.settings.get("receive", "webhook_url")
+                self.web.settings.get("receive", "webhook_url") is not None
                 and not request.upload_error
-                and len(files) > 0
+                and (text_received or files_received)
             ):
-                if len(files) == 1:
-                    file_msg = "1 file"
-                else:
-                    file_msg = f"{len(files)} files"
-                self.send_webhook_notification(f"{file_msg} uploaded to OnionShare")
+                msg = ""
+                if files_received > 0:
+                    if files_received == 1:
+                        msg += "1 file"
+                    else:
+                        msg += f"{files_received} files"
+                if text_received:
+                    if msg == "":
+                        msg = "A text message"
+                    else:
+                        msg += " and a text message"
+                self.send_webhook_notification(f"{msg} submitted to OnionShare")
 
             if request.upload_error:
                 self.common.log(
@@ -140,21 +187,27 @@ class ReceiveModeWeb:
             if ajax:
                 info_flashes = []
 
-            if len(filenames) == 0:
-                msg = "No files uploaded"
-                if ajax:
-                    info_flashes.append(msg)
-                else:
-                    flash(msg, "info")
-            else:
-                msg = "Sent "
+            if files_received > 0:
+                files_msg = ""
                 for filename in filenames:
-                    msg += f"{filename}, "
-                msg = msg.rstrip(", ")
-                if ajax:
-                    info_flashes.append(msg)
+                    files_msg += f"{filename}, "
+                files_msg = files_msg.rstrip(", ")
+
+            if text_received:
+                if files_received > 0:
+                    msg = f"Message submitted, uploaded {files_msg}"
                 else:
-                    flash(msg, "info")
+                    msg = "Message submitted"
+            else:
+                if files_received > 0:
+                    msg = f"Uploaded {files_msg}"
+                else:
+                    msg = "Nothing submitted"
+
+            if ajax:
+                info_flashes.append(msg)
+            else:
+                flash(msg, "info")
 
             if self.can_upload:
                 if ajax:

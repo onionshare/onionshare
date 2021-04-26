@@ -199,6 +199,18 @@ def main(cwd=None):
         default=None,
         help="Receive files: URL to receive webhook notifications",
     )
+    parser.add_argument(
+        "--disable-text",
+        action="store_true",
+        dest="disable_text",
+        help="Receive files: Disable receiving text messages",
+    )
+    parser.add_argument(
+        "--disable-files",
+        action="store_true",
+        dest="disable_files",
+        help="Receive files: Disable receiving files",
+    )
     # Website args
     parser.add_argument(
         "--disable_csp",
@@ -242,6 +254,8 @@ def main(cwd=None):
     autostop_sharing = not bool(args.no_autostop_sharing)
     data_dir = args.data_dir
     webhook_url = args.webhook_url
+    disable_text = args.disable_text
+    disable_files = args.disable_files
     disable_csp = bool(args.disable_csp)
     verbose = bool(args.verbose)
 
@@ -292,6 +306,8 @@ def main(cwd=None):
                 mode_settings.set("receive", "data_dir", data_dir)
             if webhook_url:
                 mode_settings.set("receive", "webhook_url", webhook_url)
+            mode_settings.set("receive", "disable_text", disable_text)
+            mode_settings.set("receive", "disable_files", disable_files)
         if mode == "website":
             mode_settings.set("website", "disable_csp", disable_csp)
     else:
@@ -333,6 +349,11 @@ def main(cwd=None):
         # Save the filenames in persistent file
         if persistent_filename:
             mode_settings.set(mode, "filenames", filenames)
+
+    # In receive mode, you must allows either text, files, or both
+    if mode == "receive" and disable_text and disable_files:
+        print(f"You cannot disable both text and files")
+        sys.exit()
 
     # Create the Web object
     web = Web(common, False, mode_settings, mode)
