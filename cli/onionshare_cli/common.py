@@ -62,6 +62,39 @@ class Common:
         with open(self.get_resource_path("version.txt")) as f:
             self.version = f.read().strip()
 
+    def display_banner(self):
+        print(f"OnionShare {self.version} | https://onionshare.org/")
+        print(self.C_DARKPURPLE)
+        print("                   ▄▄█████████▄▄                   ")
+        print("               ▄███████████████████▄               ")
+        print("            ▄█████████████████████████▄            ")
+        print("           █████████████████████████████           ")
+        print("            ▀████████████████████████████▄         ")
+        print("          ▄▄  ▀██████▀▀▀   ▀▀▀█████████████        ")
+        print("        ▄████▄  ▀█▀             ▀███████████       ")
+        print("      ▄████████▄                  ██████████       ")
+        print("    ▄████████████▄                 ██████████      ")
+        print("  ▄████████████████▄                █████████      ")
+        print("      █████████                ▀████████████████▀  ")
+        print("      ██████████                 ▀████████████▀    ")
+        print("       ██████████                  ▀████████▀      ")
+        print("       ███████████▄             ▄█▄  ▀████▀        ")
+        print("        █████████████▄▄▄   ▄▄▄██████▄  ▀▀          ")
+        print("         █████████████████████████████▄            ")
+        print("          ▀█████████████████████████████           ")
+        print("            ▀█████████████████████████             ")
+        print("               ▀███████████████████                ")
+        print("                   ▀▀█████████▀▀                   ")
+        print("")
+        print(self.C_LIGHTPURPLE)
+        print("  ▄██▄                   ███ █                    ")
+        print("  █  █                  █▀   █                    ")
+        print("  █  █      ▀           █▄▄  █                    ")
+        print("  █  █ █▄█▄ █ ▄██▄ █▄█▄  ▀▀█ █▄█▄ ▄██▄ █▄█▄ ▄██▄  ")
+        print("  █  █ █▀ █ █ █  █ █▀ █   ▄█ █▀ █ █  █ █▀   █▄▄▀  ")
+        print("  ▀██▀ █  █ █ ▀██▀ █  █ ███  █  █ ▀█▀█ █    ▀▄▄▄  ")
+        print(self.C_RESET)
+
     def load_settings(self, config=None):
         """
         Loading settings, optionally from a custom config json file.

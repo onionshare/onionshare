@@ -75,13 +75,11 @@ def main():
     The main() function implements all of the logic that the GUI version of onionshare uses.
     """
     common = Common()
+    common.display_banner()
 
     # Required for macOS Big Sur: https://stackoverflow.com/a/64878899
     if common.platform == "Darwin":
         os.environ["QT_MAC_WANTS_LAYER"] = "1"
-
-    # Display OnionShare banner
-    print(f"OnionShare {common.version} | https://onionshare.org/")
 
     # Start the Qt app
     global qtapp
