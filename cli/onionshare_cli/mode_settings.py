@@ -53,6 +53,8 @@ class ModeSettings:
             "receive": {
                 "data_dir": self.build_default_receive_data_dir(),
                 "webhook_url": None,
+                "disable_text": False,
+                "disable_files": False,
             },
             "website": {"disable_csp": False, "filenames": []},
             "chat": {"room": "default"},

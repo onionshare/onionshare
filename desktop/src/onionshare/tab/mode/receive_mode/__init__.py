@@ -78,6 +78,28 @@ class ReceiveMode(Mode):
         data_dir_layout.addWidget(data_dir_button)
         self.mode_settings_widget.mode_specific_layout.addLayout(data_dir_layout)
 
+        # Disable text
+        self.disable_text_checkbox = self.settings.get("receive", "disable_files")
+        self.disable_text_checkbox = QtWidgets.QCheckBox()
+        self.disable_text_checkbox.clicked.connect(self.disable_text_checkbox_clicked)
+        self.disable_text_checkbox.setText(
+            strings._("mode_settings_receive_disable_text_checkbox")
+        )
+        self.mode_settings_widget.mode_specific_layout.addWidget(
+            self.disable_text_checkbox
+        )
+
+        # Disable files
+        self.disable_files_checkbox = self.settings.get("receive", "disable_files")
+        self.disable_files_checkbox = QtWidgets.QCheckBox()
+        self.disable_files_checkbox.clicked.connect(self.disable_files_checkbox_clicked)
+        self.disable_files_checkbox.setText(
+            strings._("mode_settings_receive_disable_files_checkbox")
+        )
+        self.mode_settings_widget.mode_specific_layout.addWidget(
+            self.disable_files_checkbox
+        )
+
         # Webhook URL
         webhook_url = self.settings.get("receive", "webhook_url")
         self.webhook_url_checkbox = QtWidgets.QCheckBox()
@@ -211,6 +233,16 @@ class ReceiveMode(Mode):
             )
             self.data_dir_lineedit.setText(selected_dir)
             self.settings.set("receive", "data_dir", selected_dir)
+
+    def disable_text_checkbox_clicked(self):
+        self.settings.set(
+            "receive", "disable_text", self.disable_text_checkbox.isChecked()
+        )
+
+    def disable_files_checkbox_clicked(self):
+        self.settings.set(
+            "receive", "disable_files", self.disable_files_checkbox.isChecked()
+        )
 
     def webhook_url_checkbox_clicked(self):
         if self.webhook_url_checkbox.isChecked():

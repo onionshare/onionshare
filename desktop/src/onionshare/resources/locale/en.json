@@ -174,6 +174,8 @@
     "mode_settings_share_autostop_sharing_checkbox": "Stop sharing after files have been sent (uncheck to allow downloading individual files)",
     "mode_settings_receive_data_dir_label": "Save files to",
     "mode_settings_receive_data_dir_browse_button": "Browse",
+    "mode_settings_receive_disable_text_checkbox": "Disable submitting text",
+    "mode_settings_receive_disable_files_checkbox": "Disable uploading files",
     "mode_settings_receive_webhook_url_checkbox": "Use notification webhook",
     "mode_settings_website_disable_csp_checkbox": "Don't send Content Security Policy header (allows your website to use third-party resources)",
     "gui_all_modes_transfer_finished_range": "Transferred {} - {}",
