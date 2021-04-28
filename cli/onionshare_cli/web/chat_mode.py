@@ -18,12 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-from flask import (
-    request,
-    render_template,
-    make_response,
-    jsonify,
-    session)
+from flask import request, render_template, make_response, jsonify, session
 from flask_socketio import emit, join_room, leave_room
 
 
@@ -72,6 +67,7 @@ class ChatModeWeb:
                     "chat.html",
                     static_url_path=self.web.static_url_path,
                     username=session.get("name"),
+                    title=self.web.settings.get("general", "title"),
                 )
             )
             return self.web.add_security_headers(r)

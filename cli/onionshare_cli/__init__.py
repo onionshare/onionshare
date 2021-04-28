@@ -144,6 +144,12 @@ def main(cwd=None):
     )
     # General args
     parser.add_argument(
+        "--title",
+        metavar="TITLE",
+        default=None,
+        help="Set a title",
+    )
+    parser.add_argument(
         "--public",
         action="store_true",
         dest="public",
@@ -234,6 +240,7 @@ def main(cwd=None):
     connect_timeout = int(args.connect_timeout)
     config_filename = args.config
     persistent_filename = args.persistent
+    title = args.title
     public = bool(args.public)
     autostart_timer = int(args.autostart_timer)
     autostop_timer = int(args.autostop_timer)
@@ -280,6 +287,7 @@ def main(cwd=None):
 
     if mode_settings.just_created:
         # This means the mode settings were just created, not loaded from disk
+        mode_settings.set("general", "title", title)
         mode_settings.set("general", "public", public)
         mode_settings.set("general", "autostart_timer", autostart_timer)
         mode_settings.set("general", "autostop_timer", autostop_timer)
