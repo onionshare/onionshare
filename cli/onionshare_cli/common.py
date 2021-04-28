@@ -133,13 +133,21 @@ class Common:
             except:
                 # If for some reason we don't have the 'APPDATA' environment variable
                 # (like running tests in Linux while pretending to be in Windows)
-                onionshare_data_dir = os.path.expanduser("~/.config/onionshare")
+                try:
+                    xdg_config_home = os.environ["XDG_CONFIG_HOME"]
+                    onionshare_data_dir = f"{xdg_config_home}/onionshare"
+                except:
+                    onionshare_data_dir = os.path.expanduser("~/.config/onionshare")
         elif self.platform == "Darwin":
             onionshare_data_dir = os.path.expanduser(
                 "~/Library/Application Support/OnionShare"
             )
         else:
-            onionshare_data_dir = os.path.expanduser("~/.config/onionshare")
+            try:
+                xdg_config_home = os.environ["XDG_CONFIG_HOME"]
+                onionshare_data_dir = f"{xdg_config_home}/onionshare"
+            except:
+                onionshare_data_dir = os.path.expanduser("~/.config/onionshare")
 
         # Modify the data dir if running tests
         if getattr(sys, "onionshare_test_mode", False):
