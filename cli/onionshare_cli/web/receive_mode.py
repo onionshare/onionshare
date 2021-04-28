@@ -26,6 +26,17 @@ from datetime import datetime
 from flask import Request, request, render_template, make_response, flash, redirect
 from werkzeug.utils import secure_filename
 
+"""
+Receive mode uses a special flask requests object, ReceiveModeRequest, in
+order to keep track of upload progress. Here's what happens when someone 
+uploads files:
+
+- new ReceiveModeRequest object is created
+- creates a directory based on the timestamp
+- 
+
+"""
+
 
 class ReceiveModeWeb:
     """
@@ -90,17 +101,19 @@ class ReceiveModeWeb:
                         with open(local_path, "w") as f:
                             f.write(text_message)
 
-                        basename = os.path.basename(local_path)
-
-                        # TODO: possibly change this
+                        # Tell the GUI a message has been uploaded
                         self.web.add_request(
-                            self.web.REQUEST_UPLOAD_SET_DIR,
-                            request.path,
+                            self.web.REQUEST_STARTED,
+                            local_path,
                             {
                                 "id": request.history_id,
-                                "filename": basename,
-                                "dir": request.receive_mode_dir,
+                                "content_length": len(text_message),
                             },
+                        )
+                        self.web.add_request(
+                            self.web.REQUEST_UPLOAD_FINISHED,
+                            local_path,
+                            {"id": request.history_id},
                         )
 
                         self.common.log(

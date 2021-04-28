@@ -453,6 +453,12 @@ class Mode(QtWidgets.QWidget):
         """
         pass
 
+    def handle_request_upload_message(self, event):
+        """
+        Handle REQUEST_UPLOAD_MESSAGE event.
+        """
+        pass
+
     def handle_request_upload_set_dir(self, event):
         """
         Handle REQUEST_UPLOAD_SET_DIR event.
