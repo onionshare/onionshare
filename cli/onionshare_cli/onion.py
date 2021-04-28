@@ -559,7 +559,7 @@ class Onion(object):
         self.connected_to_tor = True
 
         # Get the tor version
-        self.tor_version = self.c.get_version().version_str
+        self.tor_version = self.c.get_info('version')
         self.common.log("Onion", "connect", f"Connected to tor {self.tor_version}")
 
         # Do the versions of stem and tor that I'm using support ephemeral onion services?
