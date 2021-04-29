@@ -44,8 +44,13 @@ class Common:
     """
 
     C_RESET = "\033[0m"
+    C_BG_PURPLE = "\033[45m"
+    C_BOLD = "\033[01m"
+    C_WHITE = "\033[97m"
     C_LIGHTGRAY = "\033[37m"
     C_DARKGRAY = "\033[90m"
+    C_LIGHTPURPLE = "\033[95m"
+    C_DARKPURPLE = "\033[35m"
 
     def __init__(self, verbose=False):
         self.verbose = verbose
@@ -58,6 +63,248 @@ class Common:
         # The current version of OnionShare
         with open(self.get_resource_path("version.txt")) as f:
             self.version = f.read().strip()
+
+    def display_banner(self):
+        """
+        Raw ASCII art example:
+        ╭───────────────────────────────────────────╮
+        │    *            ▄▄█████▄▄            *    │
+        │               ▄████▀▀▀████▄     *         │
+        │              ▀▀█▀       ▀██▄              │
+        │      *      ▄█▄          ▀██▄             │
+        │           ▄█████▄         ███        -+-  │
+        │             ███         ▀█████▀           │
+        │             ▀██▄          ▀█▀             │
+        │         *    ▀██▄       ▄█▄▄     *        │
+        │ *             ▀████▄▄▄████▀               │
+        │                 ▀▀█████▀▀                 │
+        │             -+-                     *     │
+        │   ▄▀▄               ▄▀▀ █                 │
+        │   █ █     ▀         ▀▄  █                 │
+        │   █ █ █▀▄ █ ▄▀▄ █▀▄  ▀▄ █▀▄ ▄▀▄ █▄▀ ▄█▄   │
+        │   ▀▄▀ █ █ █ ▀▄▀ █ █ ▄▄▀ █ █ ▀▄█ █   ▀▄▄   │
+        │                                           │
+        │                  v2.3.1                   │
+        │                                           │
+        │          https://onionshare.org/          │
+        ╰───────────────────────────────────────────╯
+        """
+
+        print(
+            self.C_BG_PURPLE
+            + self.C_LIGHTGRAY
+            + "╭───────────────────────────────────────────╮"
+            + self.C_RESET
+        )
+        print(
+            self.C_BG_PURPLE
+            + self.C_LIGHTGRAY
+            + "│"
+            + self.C_LIGHTPURPLE
+            + "    *            "
+            + self.C_WHITE
+            + "▄▄█████▄▄"
+            + self.C_LIGHTPURPLE
+            + "            *    "
+            + self.C_LIGHTGRAY
+            + "│"
+            + self.C_RESET
+        )
+        print(
+            self.C_BG_PURPLE
+            + self.C_LIGHTGRAY
+            + "│"
+            + self.C_WHITE
+            + "               ▄████▀▀▀████▄"
+            + self.C_LIGHTPURPLE
+            + "     *         "
+            + self.C_LIGHTGRAY
+            + "│"
+            + self.C_RESET
+        )
+        print(
+            self.C_BG_PURPLE
+            + self.C_LIGHTGRAY
+            + "│"
+            + self.C_WHITE
+            + "              ▀▀█▀       ▀██▄              "
+            + self.C_LIGHTGRAY
+            + "│"
+            + self.C_RESET
+        )
+        print(
+            self.C_BG_PURPLE
+            + self.C_LIGHTGRAY
+            + "│"
+            + self.C_LIGHTPURPLE
+            + "      *      "
+            + self.C_WHITE
+            + "▄█▄          ▀██▄             "
+            + self.C_LIGHTGRAY
+            + "│"
+            + self.C_RESET
+        )
+        print(
+            self.C_BG_PURPLE
+            + self.C_LIGHTGRAY
+            + "│"
+            + self.C_WHITE
+            + "           ▄█████▄         ███"
+            + self.C_LIGHTPURPLE
+            + "        -+-  "
+            + self.C_LIGHTGRAY
+            + "│"
+            + self.C_RESET
+        )
+        print(
+            self.C_BG_PURPLE
+            + self.C_LIGHTGRAY
+            + "│"
+            + self.C_WHITE
+            + "             ███         ▀█████▀           "
+            + self.C_LIGHTGRAY
+            + "│"
+            + self.C_RESET
+        )
+        print(
+            self.C_BG_PURPLE
+            + self.C_LIGHTGRAY
+            + "│"
+            + self.C_WHITE
+            + "             ▀██▄          ▀█▀             "
+            + self.C_LIGHTGRAY
+            + "│"
+            + self.C_RESET
+        )
+        print(
+            self.C_BG_PURPLE
+            + self.C_LIGHTGRAY
+            + "│"
+            + self.C_LIGHTPURPLE
+            + "         *    "
+            + self.C_WHITE
+            + "▀██▄       ▄█▄▄"
+            + self.C_LIGHTPURPLE
+            + "     *        "
+            + self.C_LIGHTGRAY
+            + "│"
+            + self.C_RESET
+        )
+        print(
+            self.C_BG_PURPLE
+            + self.C_LIGHTGRAY
+            + "│"
+            + self.C_LIGHTPURPLE
+            + " *             "
+            + self.C_WHITE
+            + "▀████▄▄▄████▀               "
+            + self.C_LIGHTGRAY
+            + "│"
+            + self.C_RESET
+        )
+        print(
+            self.C_BG_PURPLE
+            + self.C_LIGHTGRAY
+            + "│"
+            + self.C_WHITE
+            + "                 ▀▀█████▀▀                 "
+            + self.C_LIGHTGRAY
+            + "│"
+            + self.C_RESET
+        )
+        print(
+            self.C_BG_PURPLE
+            + self.C_LIGHTGRAY
+            + "│"
+            + self.C_LIGHTPURPLE
+            + "             -+-                     *     "
+            + self.C_LIGHTGRAY
+            + "│"
+            + self.C_RESET
+        )
+        print(
+            self.C_BG_PURPLE
+            + self.C_LIGHTGRAY
+            + "│"
+            + self.C_WHITE
+            + "   ▄▀▄               ▄▀▀ █                 "
+            + self.C_LIGHTGRAY
+            + "│"
+            + self.C_RESET
+        )
+        print(
+            self.C_BG_PURPLE
+            + self.C_LIGHTGRAY
+            + "│"
+            + self.C_WHITE
+            + "   █ █     ▀         ▀▄  █                 "
+            + self.C_LIGHTGRAY
+            + "│"
+            + self.C_RESET
+        )
+        print(
+            self.C_BG_PURPLE
+            + self.C_LIGHTGRAY
+            + "│"
+            + self.C_WHITE
+            + "   █ █ █▀▄ █ ▄▀▄ █▀▄  ▀▄ █▀▄ ▄▀▄ █▄▀ ▄█▄   "
+            + self.C_LIGHTGRAY
+            + "│"
+            + self.C_RESET
+        )
+        print(
+            self.C_BG_PURPLE
+            + self.C_LIGHTGRAY
+            + "│"
+            + self.C_WHITE
+            + "   ▀▄▀ █ █ █ ▀▄▀ █ █ ▄▄▀ █ █ ▀▄█ █   ▀▄▄   "
+            + self.C_LIGHTGRAY
+            + "│"
+            + self.C_RESET
+        )
+        print(
+            self.C_BG_PURPLE
+            + self.C_LIGHTGRAY
+            + "│                                           │"
+            + self.C_RESET
+        )
+        left_spaces = (43 - len(self.version) - 1) // 2
+        right_spaces = left_spaces
+        if left_spaces + len(self.version) + right_spaces < 43:
+            right_spaces += 1
+        print(
+            self.C_BG_PURPLE
+            + self.C_LIGHTGRAY
+            + "│"
+            + self.C_LIGHTGRAY
+            + f"{' '*left_spaces}v{self.version}{' '*right_spaces}"
+            + self.C_LIGHTGRAY
+            + "│"
+            + self.C_RESET
+        )
+        print(
+            self.C_BG_PURPLE
+            + self.C_LIGHTGRAY
+            + "│                                           │"
+            + self.C_RESET
+        )
+        print(
+            self.C_BG_PURPLE
+            + self.C_LIGHTGRAY
+            + "│"
+            + self.C_LIGHTGRAY
+            + "          https://onionshare.org/          "
+            + self.C_LIGHTGRAY
+            + "│"
+            + self.C_RESET
+        )
+        print(
+            self.C_BG_PURPLE
+            + self.C_LIGHTGRAY
+            + "╰───────────────────────────────────────────╯"
+            + self.C_RESET
+        )
+        print()
 
     def load_settings(self, config=None):
         """
@@ -130,7 +377,7 @@ class Common:
             try:
                 appdata = os.environ["APPDATA"]
                 onionshare_data_dir = f"{appdata}\\OnionShare"
-            except:
+            except Exception:
                 # If for some reason we don't have the 'APPDATA' environment variable
                 # (like running tests in Linux while pretending to be in Windows)
                 try:
@@ -265,7 +512,7 @@ class Common:
                 try:
                     tmpsock.bind(("127.0.0.1", random.randint(min_port, max_port)))
                     break
-                except OSError as e:
+                except OSError:
                     pass
             _, port = tmpsock.getsockname()
         return port
