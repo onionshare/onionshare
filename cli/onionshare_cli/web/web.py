@@ -310,7 +310,7 @@ class Web:
         if not self.settings.get("website", "disable_csp") or self.mode != "website":
             r.headers.set(
                 "Content-Security-Policy",
-                "default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:;",
+                "default-src 'self'; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; img-src 'self' data:;",
             )
         return r
 
