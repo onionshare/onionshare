@@ -43,57 +43,7 @@ def main(cwd=None):
     onionshare uses.
     """
     common = Common()
-
-    # Display OnionShare banner
-    print(f"OnionShare {common.version} | https://onionshare.org/")
-    reset = "\033[0m"
-    purple = "\33[95m"
-    print(purple)
-    print("                     @@@@@@@@@                      ")
-    print("                @@@@@@@@@@@@@@@@@@@                 ")
-    print("             @@@@@@@@@@@@@@@@@@@@@@@@@              ")
-    print("           @@@@@@@@@@@@@@@@@@@@@@@@@@@@@            ")
-    print(
-        "             @@@@@@@@@@@@@@@@@@@@@@@@@@@@@           ___        _               "
-    )
-    print(
-        "               @@@@@@         @@@@@@@@@@@@@         / _ \\      (_)              "
-    )
-    print(
-        "         @@@@    @               @@@@@@@@@@@       | | | |_ __  _  ___  _ __    "
-    )
-    print(
-        "       @@@@@@@@                   @@@@@@@@@@       | | | | '_ \\| |/ _ \\| '_ \\   "
-    )
-    print(
-        "     @@@@@@@@@@@@                  @@@@@@@@@@      \\ \\_/ / | | | | (_) | | | |  "
-    )
-    print(
-        "   @@@@@@@@@@@@@@@@                 @@@@@@@@@       \\___/|_| |_|_|\\___/|_| |_|  "
-    )
-    print(
-        "      @@@@@@@@@                 @@@@@@@@@@@@@@@@    _____ _                     "
-    )
-    print(
-        "      @@@@@@@@@@                  @@@@@@@@@@@@     /  ___| |                    "
-    )
-    print(
-        "       @@@@@@@@@@                   @@@@@@@@       \\ `--.| |__   __ _ _ __ ___ "
-    )
-    print(
-        "       @@@@@@@@@@@               @    @@@@          `--. \\ '_ \\ / _` | '__/ _ \\"
-    )
-    print(
-        "        @@@@@@@@@@@@@         @@@@@@               /\\__/ / | | | (_| | | |  __/"
-    )
-    print(
-        "         @@@@@@@@@@@@@@@@@@@@@@@@@@@@@             \\____/|_| |_|\\__,_|_|  \\___|"
-    )
-    print("           @@@@@@@@@@@@@@@@@@@@@@@@@@@@@            ")
-    print("             @@@@@@@@@@@@@@@@@@@@@@@@@              ")
-    print("                @@@@@@@@@@@@@@@@@@@                 ")
-    print("                     @@@@@@@@@                      ")
-    print(reset)
+    common.display_banner()
 
     # OnionShare CLI in OSX needs to change current working directory (#132)
     if common.platform == "Darwin":
@@ -143,6 +93,12 @@ def main(cwd=None):
         help="Filename of persistent session",
     )
     # General args
+    parser.add_argument(
+        "--title",
+        metavar="TITLE",
+        default=None,
+        help="Set a title",
+    )
     parser.add_argument(
         "--public",
         action="store_true",
@@ -246,6 +202,7 @@ def main(cwd=None):
     connect_timeout = int(args.connect_timeout)
     config_filename = args.config
     persistent_filename = args.persistent
+    title = args.title
     public = bool(args.public)
     autostart_timer = int(args.autostart_timer)
     autostop_timer = int(args.autostop_timer)
@@ -294,6 +251,7 @@ def main(cwd=None):
 
     if mode_settings.just_created:
         # This means the mode settings were just created, not loaded from disk
+        mode_settings.set("general", "title", title)
         mode_settings.set("general", "public", public)
         mode_settings.set("general", "autostart_timer", autostart_timer)
         mode_settings.set("general", "autostop_timer", autostop_timer)

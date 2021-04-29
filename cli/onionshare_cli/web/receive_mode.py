@@ -79,6 +79,7 @@ class ReceiveModeWeb:
                     static_url_path=self.web.static_url_path,
                     disable_text=self.web.settings.get("receive", "disable_text"),
                     disable_files=self.web.settings.get("receive", "disable_files"),
+                    title=self.web.settings.get("general", "title"),
                 )
             )
             return self.web.add_security_headers(r)
@@ -234,6 +235,7 @@ class ReceiveModeWeb:
                             "new_body": render_template(
                                 "thankyou.html",
                                 static_url_path=self.web.static_url_path,
+                                title=self.web.settings.get("general", "title"),
                             )
                         }
                     )
@@ -242,6 +244,7 @@ class ReceiveModeWeb:
                     r = make_response(
                         render_template("thankyou.html"),
                         static_url_path=self.web.static_url_path,
+                        title=self.web.settings.get("general", "title"),
                     )
                     return self.web.add_security_headers(r)
 

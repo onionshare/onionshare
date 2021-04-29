@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>OnionShare</title>
+  <title>{% if title %}{{ title }}{% else %}OnionShare{% endif %}</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="{{ static_url_path }}/img/favicon.ico" rel="icon" type="image/x-icon" />
@@ -14,7 +14,7 @@
   <header class="d-flex">
     <div class="logo-container">
       <img class="logo" src="{{ static_url_path }}/img/logo.png" title="OnionShare">
-      <h1>OnionShare</h1>
+      <h1>{% if title %}{{ title }}{% else %}OnionShare{% endif %}</h1>
     </div>
   </header>
 

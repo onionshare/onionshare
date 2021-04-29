@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>OnionShare</title>
+  <title>{% if title %}{{ title }}{% else %}OnionShare Chat{% endif %}</title>
   <link href="{{ static_url_path }}/img/favicon.ico" rel="icon" type="image/x-icon">
   <link rel="stylesheet" rel="subresource" type="text/css" href="{{ static_url_path }}/css/style.css" media="all">
 </head>
@@ -11,7 +11,7 @@
 
   <header class="clearfix">
     <img class="logo" src="{{ static_url_path }}/img/logo.png" title="OnionShare">
-    <h1>OnionShare</h1>
+    <h1>{% if title %}{{ title }}{% else %}OnionShare Chat{% endif %}</h1>
   </header>
   <noscript>
     <p>
