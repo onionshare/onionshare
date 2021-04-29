@@ -67,31 +67,33 @@ class Common:
     def display_banner(self):
         """
         Raw ASCII art example:
-        ╭──────────────────────────────────────────╮
-        │    *            ▄▄████▄▄            *    │
-        │               ▄████▀▀████▄     *         │
-        │              ▀▀█▀      ▀██▄              │
-        │      *      ▄█▄         ▀██▄             │
-        │           ▄█████▄        ███        -+-  │
-        │             ███        ▀█████▀           │
-        │             ▀██▄         ▀█▀             │
-        │         *    ▀██▄      ▄█▄▄     *        │
-        │ *             ▀████▄▄████▀               │
-        │                 ▀▀████▀▀                 │
-        │             -+-                     *    │
-        │   ▄▀▄               ▄▀▀ █                │
-        │   █ █     ▀         ▀▄  █                │
-        │   █ █ █▀▄ █ ▄▀▄ █▀▄  ▀▄ █▀▄ ▄▀▄ █▄▀ ▄█▄  │
-        │   ▀▄▀ █ █ █ ▀▄▀ █ █ ▄▄▀ █ █ ▀▄█ █   ▀▄▄  │
-        │                                          │
-        │ v2.3.1           https://onionshare.org/ │
-        ╰──────────────────────────────────────────╯
+        ╭───────────────────────────────────────────╮
+        │    *            ▄▄█████▄▄            *    │
+        │               ▄████▀▀▀████▄     *         │
+        │              ▀▀█▀       ▀██▄              │
+        │      *      ▄█▄          ▀██▄             │
+        │           ▄█████▄         ███        -+-  │
+        │             ███         ▀█████▀           │
+        │             ▀██▄          ▀█▀             │
+        │         *    ▀██▄       ▄█▄▄     *        │
+        │ *             ▀████▄▄▄████▀               │
+        │                 ▀▀█████▀▀                 │
+        │             -+-                     *     │
+        │   ▄▀▄               ▄▀▀ █                 │
+        │   █ █     ▀         ▀▄  █                 │
+        │   █ █ █▀▄ █ ▄▀▄ █▀▄  ▀▄ █▀▄ ▄▀▄ █▄▀ ▄█▄   │
+        │   ▀▄▀ █ █ █ ▀▄▀ █ █ ▄▄▀ █ █ ▀▄█ █   ▀▄▄   │
+        │                                           │
+        │                  v2.3.1                   │
+        │                                           │
+        │          https://onionshare.org/          │
+        ╰───────────────────────────────────────────╯
         """
 
         print(
             self.C_BG_PURPLE
             + self.C_LIGHTGRAY
-            + "╭──────────────────────────────────────────╮"
+            + "╭───────────────────────────────────────────╮"
             + self.C_RESET
         )
         print(
@@ -101,7 +103,7 @@ class Common:
             + self.C_LIGHTPURPLE
             + "    *            "
             + self.C_WHITE
-            + "▄▄████▄▄"
+            + "▄▄█████▄▄"
             + self.C_LIGHTPURPLE
             + "            *    "
             + self.C_LIGHTGRAY
@@ -113,7 +115,7 @@ class Common:
             + self.C_LIGHTGRAY
             + "│"
             + self.C_WHITE
-            + "               ▄████▀▀████▄"
+            + "               ▄████▀▀▀████▄"
             + self.C_LIGHTPURPLE
             + "     *         "
             + self.C_LIGHTGRAY
@@ -125,7 +127,7 @@ class Common:
             + self.C_LIGHTGRAY
             + "│"
             + self.C_WHITE
-            + "              ▀▀█▀      ▀██▄              "
+            + "              ▀▀█▀       ▀██▄              "
             + self.C_LIGHTGRAY
             + "│"
             + self.C_RESET
@@ -137,7 +139,7 @@ class Common:
             + self.C_LIGHTPURPLE
             + "      *      "
             + self.C_WHITE
-            + "▄█▄         ▀██▄             "
+            + "▄█▄          ▀██▄             "
             + self.C_LIGHTGRAY
             + "│"
             + self.C_RESET
@@ -147,7 +149,7 @@ class Common:
             + self.C_LIGHTGRAY
             + "│"
             + self.C_WHITE
-            + "           ▄█████▄        ███"
+            + "           ▄█████▄         ███"
             + self.C_LIGHTPURPLE
             + "        -+-  "
             + self.C_LIGHTGRAY
@@ -159,7 +161,7 @@ class Common:
             + self.C_LIGHTGRAY
             + "│"
             + self.C_WHITE
-            + "             ███        ▀█████▀           "
+            + "             ███         ▀█████▀           "
             + self.C_LIGHTGRAY
             + "│"
             + self.C_RESET
@@ -169,7 +171,7 @@ class Common:
             + self.C_LIGHTGRAY
             + "│"
             + self.C_WHITE
-            + "             ▀██▄         ▀█▀             "
+            + "             ▀██▄          ▀█▀             "
             + self.C_LIGHTGRAY
             + "│"
             + self.C_RESET
@@ -181,7 +183,7 @@ class Common:
             + self.C_LIGHTPURPLE
             + "         *    "
             + self.C_WHITE
-            + "▀██▄      ▄█▄▄"
+            + "▀██▄       ▄█▄▄"
             + self.C_LIGHTPURPLE
             + "     *        "
             + self.C_LIGHTGRAY
@@ -195,7 +197,7 @@ class Common:
             + self.C_LIGHTPURPLE
             + " *             "
             + self.C_WHITE
-            + "▀████▄▄████▀               "
+            + "▀████▄▄▄████▀               "
             + self.C_LIGHTGRAY
             + "│"
             + self.C_RESET
@@ -205,7 +207,7 @@ class Common:
             + self.C_LIGHTGRAY
             + "│"
             + self.C_WHITE
-            + "                 ▀▀████▀▀                 "
+            + "                 ▀▀█████▀▀                 "
             + self.C_LIGHTGRAY
             + "│"
             + self.C_RESET
@@ -215,7 +217,7 @@ class Common:
             + self.C_LIGHTGRAY
             + "│"
             + self.C_LIGHTPURPLE
-            + "             -+-                     *    "
+            + "             -+-                     *     "
             + self.C_LIGHTGRAY
             + "│"
             + self.C_RESET
@@ -225,7 +227,7 @@ class Common:
             + self.C_LIGHTGRAY
             + "│"
             + self.C_WHITE
-            + "   ▄▀▄               ▄▀▀ █                "
+            + "   ▄▀▄               ▄▀▀ █                 "
             + self.C_LIGHTGRAY
             + "│"
             + self.C_RESET
@@ -235,7 +237,7 @@ class Common:
             + self.C_LIGHTGRAY
             + "│"
             + self.C_WHITE
-            + "   █ █     ▀         ▀▄  █                "
+            + "   █ █     ▀         ▀▄  █                 "
             + self.C_LIGHTGRAY
             + "│"
             + self.C_RESET
@@ -245,7 +247,7 @@ class Common:
             + self.C_LIGHTGRAY
             + "│"
             + self.C_WHITE
-            + "   █ █ █▀▄ █ ▄▀▄ █▀▄  ▀▄ █▀▄ ▄▀▄ █▄▀ ▄█▄  "
+            + "   █ █ █▀▄ █ ▄▀▄ █▀▄  ▀▄ █▀▄ ▄▀▄ █▄▀ ▄█▄   "
             + self.C_LIGHTGRAY
             + "│"
             + self.C_RESET
@@ -255,7 +257,7 @@ class Common:
             + self.C_LIGHTGRAY
             + "│"
             + self.C_WHITE
-            + "   ▀▄▀ █ █ █ ▀▄▀ █ █ ▄▄▀ █ █ ▀▄█ █   ▀▄▄  "
+            + "   ▀▄▀ █ █ █ ▀▄▀ █ █ ▄▄▀ █ █ ▀▄█ █   ▀▄▄   "
             + self.C_LIGHTGRAY
             + "│"
             + self.C_RESET
@@ -263,7 +265,27 @@ class Common:
         print(
             self.C_BG_PURPLE
             + self.C_LIGHTGRAY
-            + "│                                          │"
+            + "│                                           │"
+            + self.C_RESET
+        )
+        left_spaces = (43 - len(self.version) - 1) // 2
+        right_spaces = left_spaces
+        if left_spaces + len(self.version) + right_spaces < 43:
+            right_spaces += 1
+        print(
+            self.C_BG_PURPLE
+            + self.C_LIGHTGRAY
+            + "│"
+            + self.C_LIGHTGRAY
+            + f"{' '*left_spaces}v{self.version}{' '*right_spaces}"
+            + self.C_LIGHTGRAY
+            + "│"
+            + self.C_RESET
+        )
+        print(
+            self.C_BG_PURPLE
+            + self.C_LIGHTGRAY
+            + "│                                           │"
             + self.C_RESET
         )
         print(
@@ -271,7 +293,7 @@ class Common:
             + self.C_LIGHTGRAY
             + "│"
             + self.C_LIGHTGRAY
-            + f" v{self.version}{' '*(16-len(self.version))}https://onionshare.org/ "
+            + "          https://onionshare.org/          "
             + self.C_LIGHTGRAY
             + "│"
             + self.C_RESET
@@ -279,7 +301,7 @@ class Common:
         print(
             self.C_BG_PURPLE
             + self.C_LIGHTGRAY
-            + "╰──────────────────────────────────────────╯"
+            + "╰───────────────────────────────────────────╯"
             + self.C_RESET
         )
         print()
