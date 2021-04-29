@@ -68,6 +68,11 @@ class ChatMode(Mode):
         self.image = QtWidgets.QWidget()
         self.image.setLayout(image_layout)
 
+        # Set title placeholder
+        self.mode_settings_widget.title_lineedit.setPlaceholderText(
+            strings._("gui_tab_name_chat")
+        )
+
         # Server status
         self.server_status.set_mode("chat")
         self.server_status.server_started_finished.connect(self.update_primary_action)

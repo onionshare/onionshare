@@ -42,6 +42,7 @@ class ModeSettings:
             },
             "persistent": {"mode": None, "enabled": False},
             "general": {
+                "title": None,
                 "public": False,
                 "autostart_timer": False,
                 "autostop_timer": False,

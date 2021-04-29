@@ -60,6 +60,7 @@ class WebsiteModeWeb(SendBaseModeWeb):
                 breadcrumbs=breadcrumbs,
                 breadcrumbs_leaf=breadcrumbs_leaf,
                 static_url_path=self.web.static_url_path,
+                title=self.web.settings.get("general", "title"),
             )
         )
 

@@ -128,6 +128,11 @@ class ReceiveMode(Mode):
             self.hide_webhook_url()
         self.mode_settings_widget.mode_specific_layout.addLayout(webhook_url_layout)
 
+        # Set title placeholder
+        self.mode_settings_widget.title_lineedit.setPlaceholderText(
+            strings._("gui_tab_name_receive")
+        )
+
         # Server status
         self.server_status.set_mode("receive")
         self.server_status.server_started_finished.connect(self.update_primary_action)
