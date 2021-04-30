@@ -42,7 +42,7 @@ RANDOM_STR_REGEX = re.compile(r"^[a-z2-7]+$")
 
 
 def web_obj(temp_dir, common_obj, mode, num_files=0):
-    """ Creates a Web object, in either share mode or receive mode, ready for testing """
+    """Creates a Web object, in either share mode or receive mode, ready for testing"""
     common_obj.settings = Settings(common_obj)
     mode_settings = ModeSettings(common_obj)
     web = Web(common_obj, False, mode_settings, mode)
@@ -100,7 +100,7 @@ class TestWeb:
         web = web_obj(temp_dir, common_obj, "share", 3)
         web.settings.set("share", "autostop_sharing", True)
 
-        assert web.running == True
+        assert web.running is True
 
         with web.app.test_client() as c:
             # Download the first time
@@ -112,7 +112,7 @@ class TestWeb:
                 or res.mimetype == "application/x-zip-compressed"
             )
 
-            assert web.running == False
+            assert web.running is False
 
     def test_share_mode_autostop_sharing_off(
         self, temp_dir, common_obj, temp_file_1024
@@ -120,7 +120,7 @@ class TestWeb:
         web = web_obj(temp_dir, common_obj, "share", 3)
         web.settings.set("share", "autostop_sharing", False)
 
-        assert web.running == True
+        assert web.running is True
 
         with web.app.test_client() as c:
             # Download the first time
@@ -131,7 +131,7 @@ class TestWeb:
                 res.mimetype == "application/zip"
                 or res.mimetype == "application/x-zip-compressed"
             )
-            assert web.running == True
+            assert web.running is True
 
     def test_receive_mode(self, temp_dir, common_obj):
         web = web_obj(temp_dir, common_obj, "receive")
@@ -183,7 +183,7 @@ class TestWeb:
             assert res.status_code == 200
 
             assert webhook_url == "http://127.0.0.1:1337/example"
-            assert webhook_data == "1 file uploaded to OnionShare"
+            assert webhook_data == "1 file submitted to OnionShare"
 
     def test_public_mode_on(self, temp_dir, common_obj):
         web = web_obj(temp_dir, common_obj, "receive")
@@ -192,7 +192,7 @@ class TestWeb:
         with web.app.test_client() as c:
             # Loading / should work without auth
             res = c.get("/")
-            data1 = res.get_data()
+            res.get_data()
             assert res.status_code == 200
 
     def test_public_mode_off(self, temp_dir, common_obj):

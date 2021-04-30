@@ -33,8 +33,6 @@ uploads files:
 
 - new ReceiveModeRequest object is created
 - creates a directory based on the timestamp
-- 
-
 """
 
 
@@ -303,7 +301,7 @@ class ReceiveModeFile(object):
         self.upload_error = False
         try:
             self.f = open(self.filename_in_progress, "wb+")
-        except:
+        except Exception:
             # This will only happen if someone is messing with the data dir while
             # OnionShare is running, but if it does make sure to throw an error
             self.upload_error = True
@@ -351,7 +349,7 @@ class ReceiveModeFile(object):
             bytes_written = self.f.write(b)
             self.onionshare_write_func(self.onionshare_filename, bytes_written)
 
-        except:
+        except Exception:
             self.upload_error = True
 
     def close(self):
@@ -365,7 +363,7 @@ class ReceiveModeFile(object):
                 # Rename the in progress file to the final filename
                 os.rename(self.filename_in_progress, self.filename)
 
-        except:
+        except Exception:
             self.upload_error = True
 
         self.onionshare_close_func(self.onionshare_filename, self.upload_error)
@@ -465,7 +463,7 @@ class ReceiveModeRequest(Request):
                 # Figure out the content length
                 try:
                     self.content_length = int(self.headers["Content-Length"])
-                except:
+                except Exception:
                     self.content_length = 0
 
                 date_str = datetime.now().strftime("%b %d, %I:%M%p")

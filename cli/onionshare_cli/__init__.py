@@ -18,13 +18,22 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-import os, sys, time, argparse, threading
+import os
+import sys
+import time
+import argparse
+import threading
 from datetime import datetime
 from datetime import timedelta
 
 from .common import Common, CannotFindTor
 from .web import Web
-from .onion import *
+from .onion import (
+    TorErrorProtocolError,
+    TorTooOldEphemeral,
+    TorTooOldStealth,
+    Onion,
+)
 from .onionshare import OnionShare
 from .mode_settings import ModeSettings
 
@@ -310,7 +319,7 @@ def main(cwd=None):
 
     # In receive mode, you must allows either text, files, or both
     if mode == "receive" and disable_text and disable_files:
-        print(f"You cannot disable both text and files")
+        print("You cannot disable both text and files")
         sys.exit()
 
     # Create the Web object
@@ -336,7 +345,7 @@ def main(cwd=None):
     except KeyboardInterrupt:
         print("")
         sys.exit()
-    except Exception as e:
+    except Exception:
         sys.exit()
 
     # Start the onionshare app
@@ -380,7 +389,9 @@ def main(cwd=None):
                 )
                 print("")
                 print(
-                    "Warning: Receive mode lets people upload files to your computer. Some files can potentially take control of your computer if you open them. Only open things from people you trust, or if you know what you are doing."
+                    "Warning: Receive mode lets people upload files to your computer. Some files can potentially take "
+                    "control of your computer if you open them. Only open things from people you trust, or if you know "
+                    "what you are doing."
                 )
                 print("")
                 if mode_settings.get("general", "client_auth"):
@@ -474,7 +485,9 @@ def main(cwd=None):
                 )
                 print("")
                 print(
-                    "Warning: Receive mode lets people upload files to your computer. Some files can potentially take control of your computer if you open them. Only open things from people you trust, or if you know what you are doing."
+                    "Warning: Receive mode lets people upload files to your computer. Some files can potentially take "
+                    "control of your computer if you open them. Only open things from people you trust, or if you know "
+                    "what you are doing."
                 )
                 print("")
 

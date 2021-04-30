@@ -41,6 +41,7 @@ from .receive_mode import ReceiveModeWeb, ReceiveModeWSGIMiddleware, ReceiveMode
 from .website_mode import WebsiteModeWeb
 from .chat_mode import ChatModeWeb
 
+
 # Stub out flask's show_server_banner function, to avoiding showing warnings that
 # are not applicable to OnionShare
 def stubbed_show_server_banner(env, debug, app_import_path, eager_loading):
@@ -49,7 +50,7 @@ def stubbed_show_server_banner(env, debug, app_import_path, eager_loading):
 
 try:
     flask.cli.show_server_banner = stubbed_show_server_banner
-except:
+except Exception:
     pass
 
 
@@ -327,7 +328,7 @@ class Web:
 
     def generate_password(self, saved_password=None):
         self.common.log("Web", "generate_password", f"saved_password={saved_password}")
-        if saved_password != None and saved_password != "":
+        if saved_password is not None and saved_password != "":
             self.password = saved_password
             self.common.log(
                 "Web",
@@ -363,7 +364,7 @@ class Web:
             if func is None and self.mode != "chat":
                 raise RuntimeError("Not running with the Werkzeug Server")
             func()
-        except:
+        except Exception:
             pass
 
         self.running = False

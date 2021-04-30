@@ -25,7 +25,12 @@ version = "2.3.1"
 setuptools.setup(
     name="onionshare-cli",
     version=version,
-    description="OnionShare lets you securely and anonymously send and receive files. It works by starting a web server, making it accessible as a Tor onion service, and generating an unguessable web address so others can download files from you, or upload files to you. It does _not_ require setting up a separate server or using a third party file-sharing service.",
+    description=(
+        "OnionShare lets you securely and anonymously send and receive files. It works by starting a web server, "
+        "making it accessible as a Tor onion service, and generating an unguessable web address so others can "
+        "download files from you, or upload files to you. It does _not_ require setting up a separate server or "
+        "using a third party file-sharing service."
+    ),
     author="Micah Lee",
     author_email="micah@micahflee.com",
     maintainer="Micah Lee",

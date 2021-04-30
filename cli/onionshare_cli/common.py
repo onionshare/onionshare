@@ -383,7 +383,7 @@ class Common:
                 try:
                     xdg_config_home = os.environ["XDG_CONFIG_HOME"]
                     onionshare_data_dir = f"{xdg_config_home}/onionshare"
-                except:
+                except Exception:
                     onionshare_data_dir = os.path.expanduser("~/.config/onionshare")
         elif self.platform == "Darwin":
             onionshare_data_dir = os.path.expanduser(
@@ -393,7 +393,7 @@ class Common:
             try:
                 xdg_config_home = os.environ["XDG_CONFIG_HOME"]
                 onionshare_data_dir = f"{xdg_config_home}/onionshare"
-            except:
+            except Exception:
                 onionshare_data_dir = os.path.expanduser("~/.config/onionshare")
 
         # Modify the data dir if running tests

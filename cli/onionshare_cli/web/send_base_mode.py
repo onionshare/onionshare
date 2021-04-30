@@ -242,7 +242,7 @@ class SendBaseModeWeb:
                             },
                         )
                         done = False
-                    except:
+                    except Exception:
                         # Looks like the download was canceled
                         done = True
 

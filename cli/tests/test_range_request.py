@@ -1,7 +1,4 @@
 import pytest
-import subprocess
-
-from tempfile import NamedTemporaryFile
 from werkzeug.exceptions import RequestedRangeNotSatisfiable
 
 from onionshare_cli.web.share_mode import parse_range_header
@@ -9,24 +6,24 @@ from onionshare_cli.web.share_mode import parse_range_header
 
 VALID_RANGES = [
     (None, 500, [(0, 499)]),
-    ('bytes=0', 500, [(0, 499)]),
-    ('bytes=100', 500, [(100, 499)]),
-    ('bytes=100-', 500, [(100, 499)]),  # not in the RFC, but how curl sends
-    ('bytes=0-99', 500, [(0, 99)]),
-    ('bytes=0-599', 500, [(0, 499)]),
-    ('bytes=0-0', 500, [(0, 0)]),
-    ('bytes=-100', 500, [(400, 499)]),
-    ('bytes=0-99,100-199', 500, [(0, 199)]),
-    ('bytes=0-100,100-199', 500, [(0, 199)]),
-    ('bytes=0-99,101-199', 500, [(0, 99), (101, 199)]),
-    ('bytes=0-199,100-299', 500, [(0, 299)]),
-    ('bytes=0-99,200-299', 500, [(0, 99), (200, 299)]),
+    ("bytes=0", 500, [(0, 499)]),
+    ("bytes=100", 500, [(100, 499)]),
+    ("bytes=100-", 500, [(100, 499)]),  # not in the RFC, but how curl sends
+    ("bytes=0-99", 500, [(0, 99)]),
+    ("bytes=0-599", 500, [(0, 499)]),
+    ("bytes=0-0", 500, [(0, 0)]),
+    ("bytes=-100", 500, [(400, 499)]),
+    ("bytes=0-99,100-199", 500, [(0, 199)]),
+    ("bytes=0-100,100-199", 500, [(0, 199)]),
+    ("bytes=0-99,101-199", 500, [(0, 99), (101, 199)]),
+    ("bytes=0-199,100-299", 500, [(0, 299)]),
+    ("bytes=0-99,200-299", 500, [(0, 99), (200, 299)]),
 ]
 
 
 INVALID_RANGES = [
-    'bytes=200-100',
-    'bytes=0-100,300-200',
+    "bytes=200-100",
+    "bytes=0-100,300-200",
 ]
 
 

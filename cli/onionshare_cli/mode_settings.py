@@ -129,7 +129,7 @@ class ModeSettings:
                     self.fill_in_defaults()
                     self.common.log("ModeSettings", "load", f"loaded {self.filename}")
                     return
-            except:
+            except Exception:
                 pass
 
         # If loading settings didn't work, create the settings file

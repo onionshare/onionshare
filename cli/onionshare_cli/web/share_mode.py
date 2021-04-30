@@ -44,7 +44,7 @@ def make_etag(data):
         else:
             break
 
-    hash_value = binascii.hexlify(hasher.digest()).decode('utf-8')
+    hash_value = binascii.hexlify(hasher.digest()).decode("utf-8")
     return '"sha256:{}"'.format(hash_value)
 
 
@@ -53,13 +53,13 @@ def parse_range_header(range_header: str, target_size: int) -> list:
     if range_header is None:
         return [(0, end_index)]
 
-    bytes_ = 'bytes='
+    bytes_ = "bytes="
     if not range_header.startswith(bytes_):
         abort(416)
 
     ranges = []
-    for range_ in range_header[len(bytes_):].split(','):
-        split = range_.split('-')
+    for range_ in range_header[len(bytes_) :].split(","):
+        split = range_.split("-")
         if len(split) == 1:
             try:
                 start = int(split[0])
@@ -194,13 +194,17 @@ class ShareModeWeb(SendBaseModeWeb):
                 etag = self.download_etag
 
             # for range requests
-            range_, status_code = self.get_range_and_status_code(self.filesize, etag, self.last_modified)
+            range_, status_code = self.get_range_and_status_code(
+                self.filesize, etag, self.last_modified
+            )
 
             # Tell GUI the download started
             history_id = self.cur_history_id
             self.cur_history_id += 1
             self.web.add_request(
-                self.web.REQUEST_STARTED, request_path, {"id": history_id, "use_gzip": use_gzip}
+                self.web.REQUEST_STARTED,
+                request_path,
+                {"id": history_id, "use_gzip": use_gzip},
             )
 
             basename = os.path.basename(self.download_filename)
@@ -209,32 +213,41 @@ class ShareModeWeb(SendBaseModeWeb):
                 r = Response()
             else:
                 r = Response(
-                    self.generate(shutdown_func, range_, file_to_download, request_path,
-                                  history_id, self.filesize))
+                    self.generate(
+                        shutdown_func,
+                        range_,
+                        file_to_download,
+                        request_path,
+                        history_id,
+                        self.filesize,
+                    )
+                )
 
             if use_gzip:
-                r.headers.set('Content-Encoding', 'gzip')
+                r.headers.set("Content-Encoding", "gzip")
 
-            r.headers.set('Content-Length', range_[1] - range_[0] + 1)
+            r.headers.set("Content-Length", range_[1] - range_[0] + 1)
             filename_dict = {
                 "filename": unidecode(basename),
                 "filename*": "UTF-8''%s" % url_quote(basename),
             }
-            r.headers.set('Content-Disposition', 'attachment', **filename_dict)
+            r.headers.set("Content-Disposition", "attachment", **filename_dict)
             r = self.web.add_security_headers(r)
             # guess content type
             (content_type, _) = mimetypes.guess_type(basename, strict=False)
             if content_type is not None:
-                r.headers.set('Content-Type', content_type)
-            r.headers.set('Accept-Ranges', 'bytes')
-            r.headers.set('ETag', etag)
-            r.headers.set('Last-Modified', http_date(self.last_modified))
+                r.headers.set("Content-Type", content_type)
+            r.headers.set("Accept-Ranges", "bytes")
+            r.headers.set("ETag", etag)
+            r.headers.set("Last-Modified", http_date(self.last_modified))
             # we need to set this for range requests
-            r.headers.set('Vary', 'Accept-Encoding')
+            r.headers.set("Vary", "Accept-Encoding")
 
             if status_code == 206:
-                r.headers.set('Content-Range',
-                              'bytes {}-{}/{}'.format(range_[0], range_[1], self.filesize))
+                r.headers.set(
+                    "Content-Range",
+                    "bytes {}-{}/{}".format(range_[0], range_[1], self.filesize),
+                )
 
             r.status_code = status_code
 
@@ -244,17 +257,19 @@ class ShareModeWeb(SendBaseModeWeb):
     def get_range_and_status_code(cls, dl_size, etag, last_modified):
         use_default_range = True
         status_code = 200
-        range_header = request.headers.get('Range')
+        range_header = request.headers.get("Range")
 
         # range requests are only allowed for get
-        if request.method == 'GET':
+        if request.method == "GET":
             ranges = parse_range_header(range_header, dl_size)
-            if not (len(ranges) == 1 and ranges[0][0] == 0 and ranges[0][1] == dl_size - 1):
+            if not (
+                len(ranges) == 1 and ranges[0][0] == 0 and ranges[0][1] == dl_size - 1
+            ):
                 use_default_range = False
                 status_code = 206
 
             if range_header:
-                if_range = request.headers.get('If-Range')
+                if_range = request.headers.get("If-Range")
                 if if_range and if_range != etag:
                     use_default_range = True
                     status_code = 200
@@ -266,11 +281,11 @@ class ShareModeWeb(SendBaseModeWeb):
             abort(416)  # We don't support multipart range requests yet
         range_ = ranges[0]
 
-        etag_header = request.headers.get('ETag')
+        etag_header = request.headers.get("ETag")
         if etag_header is not None and etag_header != etag:
             abort(412)
 
-        if_unmod = request.headers.get('If-Unmodified-Since')
+        if_unmod = request.headers.get("If-Unmodified-Since")
         if if_unmod:
             if_date = parse_date(if_unmod)
             if if_date and if_date > last_modified:
@@ -280,10 +295,12 @@ class ShareModeWeb(SendBaseModeWeb):
 
         return range_, status_code
 
-    def generate(self, shutdown_func, range_, file_to_download, path, history_id, filesize):
+    def generate(
+        self, shutdown_func, range_, file_to_download, path, history_id, filesize
+    ):
         # The user hasn't canceled the download
         self.client_cancel = False
-        
+
         # Starting a new download
         if self.web.settings.get("share", "autostop_sharing"):
             self.download_in_progress = True
@@ -326,9 +343,7 @@ class ShareModeWeb(SendBaseModeWeb):
                     ):
                         sys.stdout.write(
                             "\r{0:s}, {1:.2f}%          ".format(
-                                self.common.human_readable_filesize(
-                                    downloaded_bytes
-                                ),
+                                self.common.human_readable_filesize(downloaded_bytes),
                                 percent,
                             )
                         )
@@ -337,10 +352,14 @@ class ShareModeWeb(SendBaseModeWeb):
                     self.web.add_request(
                         self.web.REQUEST_PROGRESS,
                         path,
-                        {"id": history_id, "bytes": downloaded_bytes, 'total_bytes': filesize,},
+                        {
+                            "id": history_id,
+                            "bytes": downloaded_bytes,
+                            "total_bytes": filesize,
+                        },
                     )
                     self.web.done = False
-                except:
+                except Exception:
                     # looks like the download was canceled
                     self.web.done = True
                     canceled = True
@@ -367,9 +386,8 @@ class ShareModeWeb(SendBaseModeWeb):
                 if shutdown_func is None:
                     raise RuntimeError("Not running with the Werkzeug Server")
                 shutdown_func()
-            except:
+            except Exception:
                 pass
-
 
     def directory_listing_template(
         self, path, files, dirs, breadcrumbs, breadcrumbs_leaf
@@ -466,7 +484,7 @@ class ShareModeWeb(SendBaseModeWeb):
         if len(self.file_info["files"]) == 1 and len(self.file_info["dirs"]) == 0:
             self.download_filename = self.file_info["files"][0]["filename"]
             self.download_filesize = self.file_info["files"][0]["size"]
-            with open(self.download_filename, 'rb') as f:
+            with open(self.download_filename, "rb") as f:
                 self.download_etag = make_etag(f)
 
             # Compress the file with gzip now, so we don't have to do it on each request
@@ -475,7 +493,7 @@ class ShareModeWeb(SendBaseModeWeb):
                 self.download_filename, self.gzip_filename, 6, processed_size_callback
             )
             self.gzip_filesize = os.path.getsize(self.gzip_filename)
-            with open(self.gzip_filename, 'rb') as f:
+            with open(self.gzip_filename, "rb") as f:
                 self.gzip_etag = make_etag(f)
 
             # Make sure the gzip file gets cleaned up when onionshare stops
@@ -502,7 +520,7 @@ class ShareModeWeb(SendBaseModeWeb):
 
             self.zip_writer.close()
             self.download_filesize = os.path.getsize(self.download_filename)
-            with open(self.download_filename, 'rb') as f:
+            with open(self.download_filename, "rb") as f:
                 self.download_etag = make_etag(f)
 
             # Make sure the zip file gets cleaned up when onionshare stops
