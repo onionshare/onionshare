@@ -377,7 +377,7 @@ class ReceiveModeRequest(Request):
             # Figure out what files should be saved
             now = datetime.now()
             date_dir = now.strftime("%Y-%m-%d")
-            time_dir = now.strftime("%H.%M.%S")
+            time_dir = now.strftime("%H%M%S")
             self.receive_mode_dir = os.path.join(
                 self.web.settings.get("receive", "data_dir"), date_dir, time_dir
             )
@@ -425,6 +425,9 @@ class ReceiveModeRequest(Request):
                 )
                 self.upload_error = True
 
+            # Figure out the message filename, in case there is a message
+            self.message_filename = f"{self.receive_mode_dir}-message.txt"
+
             # If there's an error so far, finish early
             if self.upload_error:
                 return
@@ -461,18 +464,15 @@ class ReceiveModeRequest(Request):
                     if text_message:
                         if text_message.strip() != "":
                             self.includes_text = True
-                            filename = "message.txt"
-                            local_path = os.path.join(self.receive_mode_dir, filename)
-
-                            with open(local_path, "w") as f:
+                            with open(self.message_filename, "w") as f:
                                 f.write(text_message)
 
                             self.web.common.log(
                                 "ReceiveModeRequest",
                                 "__init__",
-                                f"saved message to {local_path}",
+                                f"saved message to {self.message_filename}",
                             )
-                            print(f"Received: {local_path}")
+                            print(f"\nReceived: {self.message_filename}")
 
                             self.tell_gui_request_started()
 
@@ -491,6 +491,7 @@ class ReceiveModeRequest(Request):
                     "id": self.history_id,
                     "content_length": self.content_length,
                     "includes_text": self.includes_text,
+                    "message_filename": self.message_filename,
                 },
             )
             self.web.receive_mode.uploads_in_progress.append(self.history_id)
