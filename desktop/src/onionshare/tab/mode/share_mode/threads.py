@@ -36,7 +36,7 @@ class CompressThread(QtCore.QThread):
 
     # prepare files to share
     def set_processed_size(self, x):
-        if self.mode._zip_progress_bar != None:
+        if self.mode._zip_progress_bar is not None:
             self.mode._zip_progress_bar.update_processed_size_signal.emit(x)
 
     def run(self):

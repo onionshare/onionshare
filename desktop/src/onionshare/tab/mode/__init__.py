@@ -18,7 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-from PySide2 import QtCore, QtWidgets, QtGui
+from PySide2 import QtCore, QtWidgets
 
 from onionshare_cli.common import AutoStopTimer
 
@@ -379,7 +379,7 @@ class Mode(QtWidgets.QWidget):
         if self.server_status.status != ServerStatus.STATUS_STOPPED:
             try:
                 self.web.stop(self.app.port)
-            except:
+            except Exception:
                 # Probably we had no port to begin with (Onion service didn't start)
                 pass
         self.app.cleanup()

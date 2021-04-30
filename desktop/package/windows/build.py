@@ -211,7 +211,7 @@ def main():
     ]
     print(f"○ Created unsigned installer: {msi_filename}")
 
-    print(f"○ Signing installer")
+    print("○ Signing installer")
     run(
         [
             "signtool.exe",

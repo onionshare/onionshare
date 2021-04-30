@@ -252,7 +252,7 @@ class EventHandlerThread(QtCore.QThread):
                                     "EventHandler", "run", f"invalid event type: {obj}"
                                 )
 
-                    except:
+                    except Exception:
                         pass
 
             if self.should_quit:

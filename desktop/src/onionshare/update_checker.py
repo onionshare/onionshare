@@ -19,7 +19,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 from PySide2 import QtCore
-import datetime, re
+import datetime
+import re
 import socks
 from distutils.version import LooseVersion as Version
 
