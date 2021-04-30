@@ -277,6 +277,12 @@ class ReceiveHistoryItem(HistoryItem):
         self.started = datetime.now()
         self.status = HistoryItem.STATUS_STARTED
 
+        self.common.log(
+            "ReceiveHistoryItem",
+            "__init__",
+            f"id={self.id} content_length={self.content_length}",
+        )
+
         # Label
         self.label = QtWidgets.QLabel(
             strings._("gui_all_modes_transfer_started").format(
@@ -318,6 +324,12 @@ class ReceiveHistoryItem(HistoryItem):
         Using the progress from Web, update the progress bar and file size labels
         for each file
         """
+        # self.common.log(
+        #     "ReceiveHistoryItem",
+        #     "update",
+        #     f"id={self.id} data[action]={data['action']} files={list(self.files)}",
+        # )
+
         if data["action"] == "progress":
             total_uploaded_bytes = 0
             for filename in data["progress"]:

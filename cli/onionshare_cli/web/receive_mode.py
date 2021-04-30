@@ -26,14 +26,25 @@ from datetime import datetime
 from flask import Request, request, render_template, make_response, flash, redirect
 from werkzeug.utils import secure_filename
 
-"""
-Receive mode uses a special flask requests object, ReceiveModeRequest, in
-order to keep track of upload progress. Here's what happens when someone 
-uploads files:
-
-- new ReceiveModeRequest object is created
-- creates a directory based on the timestamp
-"""
+# Receive mode uses a special flask requests object, ReceiveModeRequest, in
+# order to keep track of upload progress. Here's what happens when someone
+# uploads files:
+# - new ReceiveModeRequest object is created
+# - ReceiveModeRequest.__init__
+#   - creates a directory based on the timestamp
+#   - creates empty self.progress = dict, which will map uploaded files to their upload progress
+# - ReceiveModeRequest._get_file_stream
+#   - called for each file that gets upload
+#   - the first time, send REQUEST_STARTED to GUI, and append to self.web.receive_mode.uploads_in_progress
+#   - updates self.progress[self.filename] for the current file
+#   - uses custom ReceiveModeFile to save file to disk
+#   - ReceiveModeRequest.file_write_func called on each write
+#     - Display progress in CLI, and send REQUEST_PROGRESS to GUI
+#   - ReceiveModeRequest.file_close_func called when each file closes
+#     - self.progress[filename]["complete"] = True
+#  - ReceiveModeRequest.close
+#     - send either REQUEST_UPLOAD_CANCELED or REQUEST_UPLOAD_FINISHED to GUI
+#     - remove from self.web.receive_mode.uploads_in_progress
 
 
 class ReceiveModeWeb:
@@ -88,39 +99,7 @@ class ReceiveModeWeb:
             Handle the upload files POST request, though at this point, the files have
             already been uploaded and saved to their correct locations.
             """
-            text_received = False
-            if not self.web.settings.get("receive", "disable_text"):
-                text_message = request.form.get("text")
-                if text_message:
-                    if text_message.strip() != "":
-                        text_received = True
-                        filename = "message.txt"
-                        local_path = os.path.join(request.receive_mode_dir, filename)
-
-                        with open(local_path, "w") as f:
-                            f.write(text_message)
-
-                        # Tell the GUI a message has been uploaded
-                        self.web.add_request(
-                            self.web.REQUEST_STARTED,
-                            local_path,
-                            {
-                                "id": request.history_id,
-                                "content_length": len(text_message),
-                            },
-                        )
-                        self.web.add_request(
-                            self.web.REQUEST_UPLOAD_FINISHED,
-                            local_path,
-                            {"id": request.history_id},
-                        )
-
-                        self.common.log(
-                            "ReceiveModeWeb",
-                            "define_routes",
-                            f"/upload, sent text message, saving to {local_path}",
-                        )
-                        print(f"\nReceived: {local_path}")
+            text_received = request.includes_text
 
             files_received = 0
             if not self.web.settings.get("receive", "disable_files"):
@@ -150,7 +129,7 @@ class ReceiveModeWeb:
                             "define_routes",
                             f"/upload, uploaded {f.filename}, saving to {local_path}",
                         )
-                        print(f"\nReceived: {local_path}")
+                        print(f"Received: {local_path}")
 
                 files_received = len(filenames)
 
@@ -380,8 +359,6 @@ class ReceiveModeRequest(Request):
         self.web = environ["web"]
         self.stop_q = environ["stop_q"]
 
-        self.web.common.log("ReceiveModeRequest", "__init__")
-
         # Prevent running the close() method more than once
         self.closed = False
 
@@ -392,6 +369,8 @@ class ReceiveModeRequest(Request):
                 self.upload_request = True
 
         if self.upload_request:
+            self.web.common.log("ReceiveModeRequest", "__init__")
+
             # No errors yet
             self.upload_error = False
 
@@ -475,6 +454,49 @@ class ReceiveModeRequest(Request):
 
                 self.previous_file = None
 
+                # Is there a text message?
+                self.includes_text = False
+                if not self.web.settings.get("receive", "disable_text"):
+                    text_message = self.form.get("text")
+                    if text_message:
+                        if text_message.strip() != "":
+                            self.includes_text = True
+                            filename = "message.txt"
+                            local_path = os.path.join(self.receive_mode_dir, filename)
+
+                            with open(local_path, "w") as f:
+                                f.write(text_message)
+
+                            self.web.common.log(
+                                "ReceiveModeRequest",
+                                "__init__",
+                                f"saved message to {local_path}",
+                            )
+                            print(f"Received: {local_path}")
+
+                            self.tell_gui_request_started()
+
+    def tell_gui_request_started(self):
+        # Tell the GUI about the request
+        if not self.told_gui_about_request:
+            self.web.common.log(
+                "ReceiveModeRequest",
+                "_get_file_stream",
+                "sending REQUEST_STARTED to GUI",
+            )
+            self.web.add_request(
+                self.web.REQUEST_STARTED,
+                self.path,
+                {
+                    "id": self.history_id,
+                    "content_length": self.content_length,
+                    "includes_text": self.includes_text,
+                },
+            )
+            self.web.receive_mode.uploads_in_progress.append(self.history_id)
+
+            self.told_gui_about_request = True
+
     def _get_file_stream(
         self, total_content_length, content_type, filename=None, content_length=None
     ):
@@ -483,16 +505,7 @@ class ReceiveModeRequest(Request):
         writable stream.
         """
         if self.upload_request:
-            if not self.told_gui_about_request:
-                # Tell the GUI about the request
-                self.web.add_request(
-                    self.web.REQUEST_STARTED,
-                    self.path,
-                    {"id": self.history_id, "content_length": self.content_length},
-                )
-                self.web.receive_mode.uploads_in_progress.append(self.history_id)
-
-                self.told_gui_about_request = True
+            self.tell_gui_request_started()
 
             self.filename = secure_filename(filename)
 
@@ -519,7 +532,8 @@ class ReceiveModeRequest(Request):
             return
         self.closed = True
 
-        self.web.common.log("ReceiveModeRequest", "close")
+        if self.upload_request:
+            self.web.common.log("ReceiveModeRequest", "close")
 
         try:
             if self.told_gui_about_request:
@@ -559,7 +573,11 @@ class ReceiveModeRequest(Request):
             size_str = self.web.common.human_readable_filesize(
                 self.progress[filename]["uploaded_bytes"]
             )
-            print(f"\r=> {size_str} {filename}          ", end="")
+
+            if self.web.common.verbose:
+                print(f"=> {size_str} {filename}")
+            else:
+                print(f"\r=> {size_str} {filename}          ", end="")
 
             # Update the GUI on the upload progress
             if self.told_gui_about_request:
