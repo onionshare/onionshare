@@ -24,7 +24,6 @@ This script downloads a pre-built tor binary to bundle with OnionShare.
 In order to avoid a Mac gnupg dependency, I manually verify the signature
 and hard-code the sha256 hash.
 """
-
 import inspect
 import os
 import sys

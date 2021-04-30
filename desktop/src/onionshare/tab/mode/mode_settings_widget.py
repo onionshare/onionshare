@@ -234,7 +234,7 @@ class ModeSettingsWidget(QtWidgets.QWidget):
                 self.tab.change_title.emit(
                     self.tab.tab_id, strings._("gui_tab_name_chat")
                 )
-            elif self.tab_mode == None:
+            elif self.tab_mode is None:
                 pass
         else:
             title = self.title_lineedit.text()

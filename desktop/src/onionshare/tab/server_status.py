@@ -161,7 +161,7 @@ class ServerStatus(QtWidgets.QWidget):
                     self.url.setText(wrapped_onion_url)
                 else:
                     self.url.setText(self.get_url())
-        except:
+        except Exception:
             pass
 
     def show_url(self):

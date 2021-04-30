@@ -253,7 +253,7 @@ class ReceiveHistoryItemFile(QtWidgets.QWidget):
             try:
                 # If nautilus is available, open it
                 subprocess.Popen(["xdg-open", self.dir])
-            except:
+            except Exception:
                 Alert(
                     self.common,
                     strings._("gui_open_folder_error").format(abs_filename),
