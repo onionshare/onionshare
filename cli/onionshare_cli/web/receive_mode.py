@@ -536,27 +536,35 @@ class ReceiveModeRequest(Request):
         if self.upload_request:
             self.web.common.log("ReceiveModeRequest", "close")
 
-        try:
-            if self.told_gui_about_request:
-                history_id = self.history_id
+            try:
+                if self.told_gui_about_request:
+                    history_id = self.history_id
 
-                if (
-                    not self.web.stop_q.empty()
-                    or not self.progress[self.filename]["complete"]
-                ):
-                    # Inform the GUI that the upload has canceled
-                    self.web.add_request(
-                        self.web.REQUEST_UPLOAD_CANCELED, self.path, {"id": history_id}
-                    )
-                else:
-                    # Inform the GUI that the upload has finished
-                    self.web.add_request(
-                        self.web.REQUEST_UPLOAD_FINISHED, self.path, {"id": history_id}
-                    )
-                self.web.receive_mode.uploads_in_progress.remove(history_id)
+                    if (
+                        not self.web.stop_q.empty()
+                        or not self.progress[self.filename]["complete"]
+                    ):
+                        # Inform the GUI that the upload has canceled
+                        self.web.add_request(
+                            self.web.REQUEST_UPLOAD_CANCELED,
+                            self.path,
+                            {"id": history_id},
+                        )
+                    else:
+                        # Inform the GUI that the upload has finished
+                        self.web.add_request(
+                            self.web.REQUEST_UPLOAD_FINISHED,
+                            self.path,
+                            {"id": history_id},
+                        )
+                    self.web.receive_mode.uploads_in_progress.remove(history_id)
 
-        except AttributeError:
-            pass
+            except AttributeError:
+                pass
+
+            # If no files were written to self.receive_mode_dir, delete it
+            if len(os.listdir(self.receive_mode_dir)) == 0:
+                os.rmdir(self.receive_mode_dir)
 
     def file_write_func(self, filename, length):
         """
