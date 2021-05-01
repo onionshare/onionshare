@@ -308,24 +308,18 @@ class ReceiveHistoryItemMessage(QtWidgets.QWidget):
         """
         self.common.log("ReceiveHistoryItemMessage", "open_message", self.filename)
 
-        # # Linux
-        # if self.common.platform == "Linux" or self.common.platform == "BSD":
-        #     try:
-        #         # If nautilus is available, open it
-        #         subprocess.Popen(["xdg-open", self.dir])
-        #     except Exception:
-        #         Alert(
-        #             self.common,
-        #             strings._("gui_open_folder_error").format(abs_filename),
-        #         )
+        # Linux
+        if self.common.platform == "Linux" or self.common.platform == "BSD":
+            # If nautilus is available, open it
+            subprocess.Popen(["xdg-open", self.filename])
 
-        # # macOS
-        # elif self.common.platform == "Darwin":
-        #     subprocess.call(["open", "-R", abs_filename])
+        # macOS
+        elif self.common.platform == "Darwin":
+            subprocess.call(["open", self.filename])
 
-        # # Windows
-        # elif self.common.platform == "Windows":
-        #     subprocess.Popen(["explorer", f"/select,{abs_filename}"])
+        # Windows
+        elif self.common.platform == "Windows":
+            subprocess.Popen(["notepad", self.filename])
 
 
 class ReceiveHistoryItem(HistoryItem):
