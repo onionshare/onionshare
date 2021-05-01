@@ -78,27 +78,24 @@ class ReceiveMode(Mode):
         data_dir_layout.addWidget(data_dir_button)
         self.mode_settings_widget.mode_specific_layout.addLayout(data_dir_layout)
 
-        # Disable text
+        # Disable text or files
         self.disable_text_checkbox = self.settings.get("receive", "disable_files")
         self.disable_text_checkbox = QtWidgets.QCheckBox()
         self.disable_text_checkbox.clicked.connect(self.disable_text_checkbox_clicked)
         self.disable_text_checkbox.setText(
             strings._("mode_settings_receive_disable_text_checkbox")
         )
-        self.mode_settings_widget.mode_specific_layout.addWidget(
-            self.disable_text_checkbox
-        )
-
-        # Disable files
         self.disable_files_checkbox = self.settings.get("receive", "disable_files")
         self.disable_files_checkbox = QtWidgets.QCheckBox()
         self.disable_files_checkbox.clicked.connect(self.disable_files_checkbox_clicked)
         self.disable_files_checkbox.setText(
             strings._("mode_settings_receive_disable_files_checkbox")
         )
-        self.mode_settings_widget.mode_specific_layout.addWidget(
-            self.disable_files_checkbox
-        )
+        disable_layout = QtWidgets.QHBoxLayout()
+        disable_layout.addWidget(self.disable_text_checkbox)
+        disable_layout.addWidget(self.disable_files_checkbox)
+        disable_layout.addStretch()
+        self.mode_settings_widget.mode_specific_layout.addLayout(disable_layout)
 
         # Webhook URL
         webhook_url = self.settings.get("receive", "webhook_url")
@@ -344,8 +341,11 @@ class ReceiveMode(Mode):
         Handle REQUEST_STARTED event.
         """
         item = ReceiveHistoryItem(
-            self.common, event["data"]["id"], event["data"]["content_length"]
+            self.common,
+            event["data"]["id"],
+            event["data"]["content_length"],
         )
+
         self.history.add(event["data"]["id"], item)
         self.toggle_history.update_indicator(True)
         self.history.in_progress_count += 1
@@ -364,6 +364,12 @@ class ReceiveMode(Mode):
             event["data"]["id"],
             {"action": "progress", "progress": event["data"]["progress"]},
         )
+
+    def handle_request_upload_includes_message(self, event):
+        """
+        Handle REQUEST_UPLOAD_INCLUDES_MESSAGE event.
+        """
+        self.history.includes_message(event["data"]["id"], event["data"]["filename"])
 
     def handle_request_upload_file_renamed(self, event):
         """

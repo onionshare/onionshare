@@ -447,6 +447,12 @@ class Mode(QtWidgets.QWidget):
         """
         pass
 
+    def handle_request_upload_includes_message(self, event):
+        """
+        Handle REQUEST_UPLOAD_INCLUDES_MESSAGE event.
+        """
+        pass
+
     def handle_request_upload_file_renamed(self, event):
         """
         Handle REQUEST_UPLOAD_FILE_RENAMED event.
