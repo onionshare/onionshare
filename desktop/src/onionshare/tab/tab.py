@@ -540,6 +540,9 @@ class Tab(QtWidgets.QWidget):
             elif event["type"] == Web.REQUEST_CANCELED:
                 mode.handle_request_canceled(event)
 
+            elif event["type"] == Web.REQUEST_UPLOAD_INCLUDES_MESSAGE:
+                mode.handle_request_upload_includes_message(event)
+
             elif event["type"] == Web.REQUEST_UPLOAD_FILE_RENAMED:
                 mode.handle_request_upload_file_renamed(event)
 

@@ -268,6 +268,66 @@ class ReceiveHistoryItemFile(QtWidgets.QWidget):
             subprocess.Popen(["explorer", f"/select,{abs_filename}"])
 
 
+class ReceiveHistoryItemMessage(QtWidgets.QWidget):
+    def __init__(
+        self,
+        common,
+    ):
+        super(ReceiveHistoryItemMessage, self).__init__()
+        self.common = common
+        self.filename = None
+
+        # Read message button
+        message_pixmap = QtGui.QPixmap.fromImage(
+            QtGui.QImage(GuiCommon.get_resource_path("images/open_message.png"))
+        )
+        message_icon = QtGui.QIcon(message_pixmap)
+        self.message_button = QtWidgets.QPushButton(
+            strings._("history_receive_read_message_button")
+        )
+        self.message_button.setStyleSheet(self.common.gui.css["receive_message_button"])
+        self.message_button.clicked.connect(self.open_message)
+        self.message_button.setIcon(message_icon)
+        self.message_button.setIconSize(message_pixmap.rect().size())
+
+        # Layouts
+        layout = QtWidgets.QHBoxLayout()
+        layout.addWidget(self.message_button)
+        layout.addStretch()
+        self.setLayout(layout)
+
+        self.hide()
+
+    def set_filename(self, new_filename):
+        self.filename = new_filename
+        self.show()
+
+    def open_message(self):
+        """
+        Open the message in the operating system's default text editor
+        """
+        self.common.log("ReceiveHistoryItemMessage", "open_message", self.filename)
+
+        # # Linux
+        # if self.common.platform == "Linux" or self.common.platform == "BSD":
+        #     try:
+        #         # If nautilus is available, open it
+        #         subprocess.Popen(["xdg-open", self.dir])
+        #     except Exception:
+        #         Alert(
+        #             self.common,
+        #             strings._("gui_open_folder_error").format(abs_filename),
+        #         )
+
+        # # macOS
+        # elif self.common.platform == "Darwin":
+        #     subprocess.call(["open", "-R", abs_filename])
+
+        # # Windows
+        # elif self.common.platform == "Windows":
+        #     subprocess.Popen(["explorer", f"/select,{abs_filename}"])
+
+
 class ReceiveHistoryItem(HistoryItem):
     def __init__(self, common, id, content_length):
         super(ReceiveHistoryItem, self).__init__()
@@ -301,6 +361,9 @@ class ReceiveHistoryItem(HistoryItem):
             self.common.gui.css["downloads_uploads_progress_bar"]
         )
 
+        # The message widget, if a message was included
+        self.message = ReceiveHistoryItemMessage(self.common)
+
         # This layout contains file widgets
         self.files_layout = QtWidgets.QVBoxLayout()
         self.files_layout.setContentsMargins(0, 0, 0, 0)
@@ -311,6 +374,7 @@ class ReceiveHistoryItem(HistoryItem):
         # Layout
         layout = QtWidgets.QVBoxLayout()
         layout.addWidget(self.label)
+        layout.addWidget(self.message)
         layout.addWidget(self.progress_bar)
         layout.addWidget(files_widget)
         layout.addStretch()
@@ -319,17 +383,14 @@ class ReceiveHistoryItem(HistoryItem):
         # We're also making a dictionary of file widgets, to make them easier to access
         self.files = {}
 
+    def includes_message(self, message_filename):
+        self.message.set_filename(message_filename)
+
     def update(self, data):
         """
         Using the progress from Web, update the progress bar and file size labels
         for each file
         """
-        # self.common.log(
-        #     "ReceiveHistoryItem",
-        #     "update",
-        #     f"id={self.id} data[action]={data['action']} files={list(self.files)}",
-        # )
-
         if data["action"] == "progress":
             total_uploaded_bytes = 0
             for filename in data["progress"]:
@@ -572,6 +633,13 @@ class HistoryItemList(QtWidgets.QScrollArea):
         if id in self.items:
             self.items[id].cancel()
 
+    def includes_message(self, id, message_filename):
+        """
+        Show message button for receive mode
+        """
+        if id in self.items:
+            self.items[id].includes_message(message_filename)
+
     def reset(self):
         """
         Reset all items, emptying the list.  Override this method.
@@ -665,7 +733,7 @@ class History(QtWidgets.QWidget):
         """
         Add a new item.
         """
-        self.common.log("History", "add", f"id: {id}, item: {item}")
+        self.common.log("History", "add", f"id: {id}")
 
         # Hide empty, show not empty
         self.empty.hide()
@@ -685,6 +753,12 @@ class History(QtWidgets.QWidget):
         Cancel an item.
         """
         self.item_list.cancel(id)
+
+    def includes_message(self, id, message_filename):
+        """
+        Show the message button
+        """
+        self.item_list.includes_message(id, message_filename)
 
     def reset(self):
         """

@@ -99,7 +99,7 @@ class ReceiveModeWeb:
             Handle the upload files POST request, though at this point, the files have
             already been uploaded and saved to their correct locations.
             """
-            text_received = request.includes_text
+            message_received = request.includes_message
 
             files_received = 0
             if not self.web.settings.get("receive", "disable_files"):
@@ -137,7 +137,7 @@ class ReceiveModeWeb:
             if (
                 self.web.settings.get("receive", "webhook_url") is not None
                 and not request.upload_error
-                and (text_received or files_received)
+                and (message_received or files_received)
             ):
                 msg = ""
                 if files_received > 0:
@@ -145,7 +145,7 @@ class ReceiveModeWeb:
                         msg += "1 file"
                     else:
                         msg += f"{files_received} files"
-                if text_received:
+                if message_received:
                     if msg == "":
                         msg = "A text message"
                     else:
@@ -184,7 +184,7 @@ class ReceiveModeWeb:
                     files_msg += f"{filename}, "
                 files_msg = files_msg.rstrip(", ")
 
-            if text_received:
+            if message_received:
                 if files_received > 0:
                     msg = f"Message submitted, uploaded {files_msg}"
                 else:
@@ -358,6 +358,7 @@ class ReceiveModeRequest(Request):
         super(ReceiveModeRequest, self).__init__(environ, populate_request, shallow)
         self.web = environ["web"]
         self.stop_q = environ["stop_q"]
+        self.filename = None
 
         # Prevent running the close() method more than once
         self.closed = False
@@ -458,12 +459,13 @@ class ReceiveModeRequest(Request):
                 self.previous_file = None
 
                 # Is there a text message?
-                self.includes_text = False
+                self.includes_message = False
                 if not self.web.settings.get("receive", "disable_text"):
                     text_message = self.form.get("text")
                     if text_message:
                         if text_message.strip() != "":
-                            self.includes_text = True
+                            self.includes_message = True
+
                             with open(self.message_filename, "w") as f:
                                 f.write(text_message)
 
@@ -472,16 +474,30 @@ class ReceiveModeRequest(Request):
                                 "__init__",
                                 f"saved message to {self.message_filename}",
                             )
-                            print(f"\nReceived: {self.message_filename}")
+                            print(f"Received: {self.message_filename}")
 
+                            # Tell the GUI about the message
                             self.tell_gui_request_started()
+                            self.web.common.log(
+                                "ReceiveModeRequest",
+                                "__init__",
+                                "sending REQUEST_UPLOAD_INCLUDES_MESSAGE to GUI",
+                            )
+                            self.web.add_request(
+                                self.web.REQUEST_UPLOAD_INCLUDES_MESSAGE,
+                                self.path,
+                                {
+                                    "id": self.history_id,
+                                    "filename": self.message_filename,
+                                },
+                            )
 
     def tell_gui_request_started(self):
         # Tell the GUI about the request
         if not self.told_gui_about_request:
             self.web.common.log(
                 "ReceiveModeRequest",
-                "_get_file_stream",
+                "tell_gui_request_started",
                 "sending REQUEST_STARTED to GUI",
             )
             self.web.add_request(
@@ -490,8 +506,6 @@ class ReceiveModeRequest(Request):
                 {
                     "id": self.history_id,
                     "content_length": self.content_length,
-                    "includes_text": self.includes_text,
-                    "message_filename": self.message_filename,
                 },
             )
             self.web.receive_mode.uploads_in_progress.append(self.history_id)
@@ -536,31 +550,37 @@ class ReceiveModeRequest(Request):
         if self.upload_request:
             self.web.common.log("ReceiveModeRequest", "close")
 
-            try:
-                if self.told_gui_about_request:
-                    history_id = self.history_id
+            if self.told_gui_about_request:
+                history_id = self.history_id
 
-                    if (
-                        not self.web.stop_q.empty()
-                        or not self.progress[self.filename]["complete"]
-                    ):
-                        # Inform the GUI that the upload has canceled
-                        self.web.add_request(
-                            self.web.REQUEST_UPLOAD_CANCELED,
-                            self.path,
-                            {"id": history_id},
-                        )
-                    else:
-                        # Inform the GUI that the upload has finished
-                        self.web.add_request(
-                            self.web.REQUEST_UPLOAD_FINISHED,
-                            self.path,
-                            {"id": history_id},
-                        )
-                    self.web.receive_mode.uploads_in_progress.remove(history_id)
-
-            except AttributeError:
-                pass
+                if not self.web.stop_q.empty() or (
+                    self.filename in self.progress
+                    and not self.progress[self.filename]["complete"]
+                ):
+                    # Inform the GUI that the upload has canceled
+                    self.web.common.log(
+                        "ReceiveModeRequest",
+                        "close",
+                        "sending REQUEST_UPLOAD_CANCELED to GUI",
+                    )
+                    self.web.add_request(
+                        self.web.REQUEST_UPLOAD_CANCELED,
+                        self.path,
+                        {"id": history_id},
+                    )
+                else:
+                    # Inform the GUI that the upload has finished
+                    self.web.common.log(
+                        "ReceiveModeRequest",
+                        "close",
+                        "sending REQUEST_UPLOAD_FINISHED to GUI",
+                    )
+                    self.web.add_request(
+                        self.web.REQUEST_UPLOAD_FINISHED,
+                        self.path,
+                        {"id": history_id},
+                    )
+                self.web.receive_mode.uploads_in_progress.remove(history_id)
 
             # If no files were written to self.receive_mode_dir, delete it
             if len(os.listdir(self.receive_mode_dir)) == 0:
