@@ -30,6 +30,7 @@ unidecode = "*"
 urllib3 = "*"
 eventlet = "*"
 setuptools = "*"
+colorama = "^0.4.4"
 
 [tool.poetry.dev-dependencies]
 pytest = "*"
