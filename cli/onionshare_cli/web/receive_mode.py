@@ -583,8 +583,11 @@ class ReceiveModeRequest(Request):
                 self.web.receive_mode.uploads_in_progress.remove(history_id)
 
             # If no files were written to self.receive_mode_dir, delete it
-            if len(os.listdir(self.receive_mode_dir)) == 0:
-                os.rmdir(self.receive_mode_dir)
+            try:
+                if len(os.listdir(self.receive_mode_dir)) == 0:
+                    os.rmdir(self.receive_mode_dir)
+            except Exception:
+                pass
 
     def file_write_func(self, filename, length):
         """

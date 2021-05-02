@@ -54,9 +54,9 @@ class TestReceive(GuiBaseTest):
         for _ in range(10):
             date_dir = now.strftime("%Y-%m-%d")
             if identical_files_at_once:
-                time_dir = now.strftime("%H.%M.%S-1")
+                time_dir = now.strftime("%H%M%S-1")
             else:
-                time_dir = now.strftime("%H.%M.%S")
+                time_dir = now.strftime("%H%M%S")
             receive_mode_dir = os.path.join(
                 tab.settings.get("receive", "data_dir"), date_dir, time_dir
             )
@@ -115,7 +115,6 @@ class TestReceive(GuiBaseTest):
         self.have_copy_url_button(tab)
         self.have_show_qr_code_button(tab)
         self.server_status_indicator_says_started(tab)
-        self.web_page(tab, "Select the files you want to send, then click")
 
     def run_all_receive_mode_tests(self, tab):
         """Upload files in receive mode and stop the share"""
