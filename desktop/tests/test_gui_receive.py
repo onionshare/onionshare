@@ -48,7 +48,7 @@ class TestReceive(GuiBaseTest):
 
         QtTest.QTest.qWait(1000, self.gui.qtapp)
 
-        # Make sure the file is within the last 10 seconds worth of fileames
+        # Make sure the file is within the last 10 seconds worth of filenames
         exists = False
         now = datetime.now()
         for _ in range(10):
@@ -93,6 +93,47 @@ class TestReceive(GuiBaseTest):
         QtCore.QTimer.singleShot(1000, accept_dialog)
         self.assertTrue("Error uploading, please inform the OnionShare user" in r.text)
 
+    def submit_message(self, tab, message):
+        """Test that we can submit a message"""
+
+        # Wait 2 seconds to make sure the filename, based on timestamp, isn't accidentally reused
+        QtTest.QTest.qWait(2000, self.gui.qtapp)
+
+        url = f"http://127.0.0.1:{tab.app.port}/upload"
+        if tab.settings.get("general", "public"):
+            requests.post(url, data={"text": message})
+        else:
+            requests.post(
+                url,
+                data={"text": message},
+                auth=requests.auth.HTTPBasicAuth(
+                    "onionshare", tab.get_mode().web.password
+                ),
+            )
+
+        QtTest.QTest.qWait(1000, self.gui.qtapp)
+
+        # Make sure the file is within the last 10 seconds worth of filenames
+        exists = False
+        now = datetime.now()
+        for _ in range(10):
+            date_dir = now.strftime("%Y-%m-%d")
+            time_dir = now.strftime("%H%M%S")
+            expected_filename = os.path.join(
+                tab.settings.get("receive", "data_dir"),
+                date_dir,
+                f"{time_dir}-message.txt",
+            )
+            if os.path.exists(expected_filename):
+                with open(expected_filename) as f:
+                    assert f.read() == message
+
+                exists = True
+                break
+            now = now - timedelta(seconds=1)
+
+        self.assertTrue(exists)
+
     def try_without_auth_in_non_public_mode(self, tab):
         r = requests.post(f"http://127.0.0.1:{tab.app.port}/upload")
         self.assertEqual(r.status_code, 401)
@@ -117,7 +158,7 @@ class TestReceive(GuiBaseTest):
         self.server_status_indicator_says_started(tab)
 
     def run_all_receive_mode_tests(self, tab):
-        """Upload files in receive mode and stop the share"""
+        """Submit files and messages in receive mode and stop the share"""
         self.run_all_receive_mode_setup_tests(tab)
         if not tab.settings.get("general", "public"):
             self.try_without_auth_in_non_public_mode(tab)
@@ -130,9 +171,11 @@ class TestReceive(GuiBaseTest):
         self.counter_incremented(tab, 3)
         self.upload_file(tab, self.tmpfile_test2, "test2.txt")
         self.counter_incremented(tab, 4)
+        self.submit_message(tab, "onionshare is an interesting piece of software")
+        self.counter_incremented(tab, 5)
         # Test uploading the same file twice at the same time, and make sure no collisions
         self.upload_file(tab, self.tmpfile_test, "test.txt", True)
-        self.counter_incremented(tab, 6)
+        self.counter_incremented(tab, 7)
         self.history_indicator(tab, "2")
         self.server_is_stopped(tab)
         self.web_server_is_stopped(tab)
