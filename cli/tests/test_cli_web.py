@@ -8,7 +8,7 @@ import zipfile
 import tempfile
 import base64
 import shutil
-import platform
+import sys
 from io import BytesIO
 
 import pytest
@@ -616,7 +616,7 @@ class TestRangeRequests:
         h.add("Authorization", "Basic " + auth)
         return h
 
-    @pytest.mark.skipif(platform.system() == "Windows", reason="skip Windows")
+    @pytest.mark.skipif(sys.platform != "Linux", reason="requires Linux")
     @check_unsupported("curl", ["--version"])
     def test_curl(self, temp_dir, tmpdir, common_obj):
         web = web_obj(temp_dir, common_obj, "share", 3)
@@ -641,7 +641,7 @@ class TestRangeRequests:
                 ]
             )
 
-    @pytest.mark.skipif(platform.system() == "Windows", reason="skip Windows")
+    @pytest.mark.skipif(sys.platform != "Linux", reason="requires Linux")
     @check_unsupported("wget", ["--version"])
     def test_wget(self, temp_dir, tmpdir, common_obj):
         web = web_obj(temp_dir, common_obj, "share", 3)
@@ -665,7 +665,7 @@ class TestRangeRequests:
                 ]
             )
 
-    @pytest.mark.skipif(platform.system() == "Windows", reason="skip Windows")
+    @pytest.mark.skipif(sys.platform != "Linux", reason="requires Linux")
     @check_unsupported("http", ["--version"])
     def test_httpie(self, temp_dir, common_obj):
         web = web_obj(temp_dir, common_obj, "share", 3)
