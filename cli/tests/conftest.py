@@ -54,8 +54,7 @@ def temp_dir_1024(temp_dir):
     return new_temp_dir
 
 
-# pytest > 2.9 only needs @pytest.fixture
-@pytest.yield_fixture
+@pytest.fixture
 def temp_dir_1024_delete(temp_dir):
     """Create a temporary directory that has a single file of a
     particular size (1024 bytes). The temporary directory (including
@@ -78,8 +77,7 @@ def temp_file_1024(temp_dir):
     return tmp_file.name
 
 
-# pytest > 2.9 only needs @pytest.fixture
-@pytest.yield_fixture
+@pytest.fixture
 def temp_file_1024_delete(temp_dir):
     """
     Create a temporary file of a particular size (1024 bytes).
@@ -93,8 +91,7 @@ def temp_file_1024_delete(temp_dir):
         yield tmp_file.name
 
 
-# pytest > 2.9 only needs @pytest.fixture
-@pytest.yield_fixture(scope="session")
+@pytest.fixture(scope="session")
 def custom_zw():
     zw = web.share_mode.ZipWriter(
         common.Common(),
@@ -106,8 +103,7 @@ def custom_zw():
     os.remove(zw.zip_filename)
 
 
-# pytest > 2.9 only needs @pytest.fixture
-@pytest.yield_fixture(scope="session")
+@pytest.fixture(scope="session")
 def default_zw():
     zw = web.share_mode.ZipWriter(common.Common())
     yield zw
