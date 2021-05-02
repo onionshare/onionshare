@@ -131,7 +131,7 @@ class TestGetAvailablePort:
         ((random.randint(1024, 1500), random.randint(1800, 2048)) for _ in range(50)),
     )
     def test_returns_an_open_port(self, common_obj, port_min, port_max):
-        """ get_available_port() should return an open port within the range """
+        """get_available_port() should return an open port within the range"""
 
         port = common_obj.get_available_port(port_min, port_max)
         assert port_min <= port <= port_max
@@ -191,7 +191,9 @@ class TestGetTorPaths:
     @pytest.mark.skipif(sys.platform != "win32", reason="requires Windows")
     def test_get_tor_paths_windows(self, platform_windows, common_obj, sys_frozen):
         base_path = os.path.join(
-            os.path.dirname(os.path.dirname(common_obj.get_resource_path(""))), "tor"
+            os.path.dirname(os.path.dirname(common_obj.get_resource_path(""))),
+            "resources",
+            "tor",
         )
         tor_path = os.path.join(os.path.join(base_path, "Tor"), "tor.exe")
         obfs4proxy_file_path = os.path.join(
