@@ -291,7 +291,7 @@ class Common:
         """
         if self.verbose:
             timestamp = time.strftime("%b %d %Y %X")
-            final_msg = f"{Fore.BLACK + Style.BRIGHT}[{timestamp}]{Style.RESET_ALL} {Fore.WHITE + Style.DIM}{module}.{func}{Style.RESET_ALL}"
+            final_msg = f"{Fore.LIGHTBLACK_EX + Style.DIM}[{timestamp}]{Style.RESET_ALL} {Fore.WHITE + Style.DIM}{module}.{func}{Style.RESET_ALL}"
             if msg:
                 final_msg = (
                     f"{final_msg}{Fore.WHITE + Style.DIM}: {msg}{Style.RESET_ALL}"
