@@ -525,6 +525,7 @@ class ShareModeWeb(SendBaseModeWeb):
 
             # Make sure the zip file gets cleaned up when onionshare stops
             self.web.cleanup_filenames.append(self.zip_writer.zip_filename)
+            self.web.cleanup_filenames.append(self.zip_writer.zip_temp_dir)
 
             self.is_zipped = True
 
@@ -545,8 +546,9 @@ class ZipWriter(object):
         if zip_filename:
             self.zip_filename = zip_filename
         else:
+            self.zip_temp_dir = tempfile.mkdtemp()
             self.zip_filename = (
-                f"{tempfile.mkdtemp()}/onionshare_{self.common.random_string(4, 6)}.zip"
+                f"{self.zip_temp_dir}/onionshare_{self.common.random_string(4, 6)}.zip"
             )
 
         self.z = zipfile.ZipFile(self.zip_filename, "w", allowZip64=True)
