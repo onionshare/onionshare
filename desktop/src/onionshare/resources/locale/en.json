@@ -196,5 +196,6 @@
     "gui_rendezvous_cleanup": "Waiting for Tor circuits to close to be sure your files have successfully transferred.\n\nThis might take a few minutes.",
     "gui_rendezvous_cleanup_quit_early": "Quit Early",
     "error_port_not_available": "OnionShare port not available",
-    "history_receive_read_message_button": "Read Message"
+    "history_receive_read_message_button": "Read Message",
+    "error_tor_protocol_error": "There was an error with Tor: {}"
 }
