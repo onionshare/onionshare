@@ -1,6 +1,6 @@
 name: onionshare
 base: core18
-version: '2.3.1'
+version: '2.3.2'
 summary: Securely and anonymously share files, host websites, and chat using Tor
 description: |
   OnionShare lets you securely and anonymously send and receive files. It works by starting 
@@ -40,7 +40,7 @@ parts:
     python-version: python3
     python-packages:
       - psutil
-      - pyside2==5.15.1
+      - pyside2==5.15.2
       - qrcode
     stage-packages:
       - libasound2
