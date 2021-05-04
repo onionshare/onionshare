@@ -43,25 +43,34 @@ That person then must load the address in Tor Browser. After logging in with the
 
 .. image:: _static/screenshots/share-torbrowser.png
 
-Receive Files
--------------
+Receive Files and Messages
+--------------------------
 
-You can use OnionShare to let people anonymously upload files directly to your computer, essentially turning it into an anonymous dropbox.
-Open a "Receive tab", choose where you want to save the files and other settings, and then click "Start Receive Mode".
+You can use OnionShare to let people anonymously submit files and messages directly to your computer, essentially turning it into an anonymous dropbox.
+Open a receive tab and choose the settings that you want.
 
 .. image:: _static/screenshots/receive.png
 
-This starts the OnionShare service. Anyone loading this address in their Tor Browser will be able to upload files to your computer.
+You can browse for a folder to save messages and files that get submitted.
+
+You can check "Disable submitting text" if want to only allow file uploads, and you can check "Disable uploading files" if you want to only allow submitting text messages, like for an anonymous contact form.
+
+You can check "Use notification webhook" and then choose a webhook URL if you want to be notified when someone submits files or messages to your OnionShare service.
+If you use this feature, OnionShare will make an HTTP POST request to this URL whenever someone submits files or messages.
+For example, if you want to get an encrypted text messaging on the messaging app `Keybase <https://keybase.io/>`_, you can start a conversation with `@webhookbot <https://keybase.io/webhookbot>`_, type ``!webhook create onionshare-alerts``, and it will respond with a URL. Use that as the notification webhook URL.
+If someone uploads a file to your receive mode service, @webhookbot will send you a message on Keybase letting you know as soon as it happens.
+
+When you are ready, click "Start Receive Mode". This starts the OnionShare service. Anyone loading this address in their Tor Browser will be able to submit files and messages which get uploaded to your computer.
 
 .. image:: _static/screenshots/receive-sharing.png
 
 You can also click the down "↓" icon in the top-right corner to show the history and progress of people sending files to you.
 
-Here is what it looks like for someone sending you files.
+Here is what it looks like for someone sending you files and messages.
 
 .. image:: _static/screenshots/receive-torbrowser.png
 
-When someone uploads files to your receive service, by default they get saved to a folder called ``OnionShare`` in the home folder on your computer, automatically organized into separate subfolders based on the time that the files get uploaded.
+When someone submits files or messages to your receive service, by default they get saved to a folder called ``OnionShare`` in the home folder on your computer, automatically organized into separate subfolders based on the time that the files get uploaded.
 
 Setting up an OnionShare receiving service is useful for journalists and others needing to securely accept documents from anonymous sources. When used in this way, OnionShare is sort of like a lightweight, simpler, not quite as secure version of `SecureDrop <https://securedrop.org/>`_, the whistleblower submission system.
 
@@ -72,12 +81,14 @@ Just like with malicious e-mail attachments, it's possible someone could try to 
 
 If you receive an Office document or a PDF through OnionShare, you can convert these documents into PDFs that are safe to open using `Dangerzone <https://dangerzone.rocks/>`_. You can also protect yourself when opening untrusted documents by opening them in `Tails <https://tails.boum.org/>`_ or in a `Qubes <https://qubes-os.org/>`_ disposableVM.
 
+However, it is always safe to open text messages sent through OnionShare.
+
 Tips for running a receive service
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 If you want to host your own anonymous dropbox using OnionShare, it's recommended you do so on a separate, dedicated computer always powered on and connected to the Internet, and not on the one you use on a regular basis.
 
-If you intend to put the OnionShare address on your website or social media profiles, save the tab (see :ref:`save_tabs`) and run it as a public service (see :ref:`turn_off_passwords`).
+If you intend to put the OnionShare address on your website or social media profiles, save the tab (see :ref:`save_tabs`) and run it as a public service (see :ref:`turn_off_passwords`). It's also a good idea to give it a custom title (see :ref:`custom_titles`).
 
 Host a Website
 --------------
