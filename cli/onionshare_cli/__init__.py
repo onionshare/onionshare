@@ -442,7 +442,6 @@ def main(cwd=None):
         print("Compressing files.")
         try:
             web.share_mode.set_file_info(filenames)
-            app.cleanup_filenames += web.share_mode.cleanup_filenames
         except OSError as e:
             print(e.strerror)
             sys.exit(1)
@@ -536,7 +535,7 @@ def main(cwd=None):
         web.stop(app.port)
     finally:
         # Shutdown
-        app.cleanup()
+        web.cleanup()
         onion.cleanup()
 
 

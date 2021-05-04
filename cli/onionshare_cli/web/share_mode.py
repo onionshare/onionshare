@@ -497,7 +497,7 @@ class ShareModeWeb(SendBaseModeWeb):
                 self.gzip_etag = make_etag(f)
 
             # Make sure the gzip file gets cleaned up when onionshare stops
-            self.cleanup_filenames.append(self.gzip_filename)
+            self.web.cleanup_filenames.append(self.gzip_filename)
 
             self.is_zipped = False
 
@@ -524,7 +524,7 @@ class ShareModeWeb(SendBaseModeWeb):
                 self.download_etag = make_etag(f)
 
             # Make sure the zip file gets cleaned up when onionshare stops
-            self.cleanup_filenames.append(self.zip_writer.zip_filename)
+            self.web.cleanup_filenames.append(self.zip_writer.zip_filename)
 
             self.is_zipped = True
 

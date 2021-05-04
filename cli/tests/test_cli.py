@@ -36,7 +36,6 @@ class TestOnionShare:
     def test_init(self, onionshare_obj):
         assert onionshare_obj.hidserv_dir is None
         assert onionshare_obj.onion_host is None
-        assert onionshare_obj.cleanup_filenames == []
         assert onionshare_obj.local_only is False
 
     def test_start_onion_service(self, onionshare_obj, mode_settings_obj):
@@ -48,11 +47,3 @@ class TestOnionShare:
         onionshare_obj.local_only = True
         onionshare_obj.start_onion_service("share", mode_settings_obj)
         assert onionshare_obj.onion_host == "127.0.0.1:{}".format(onionshare_obj.port)
-
-    def test_cleanup(self, onionshare_obj, temp_dir_1024, temp_file_1024):
-        onionshare_obj.cleanup_filenames = [temp_dir_1024, temp_file_1024]
-        onionshare_obj.cleanup()
-
-        assert os.path.exists(temp_dir_1024) is False
-        assert os.path.exists(temp_dir_1024) is False
-        assert onionshare_obj.cleanup_filenames == []
