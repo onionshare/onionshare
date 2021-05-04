@@ -15,10 +15,10 @@ $(function () {
     var formData = new FormData();
 
     // Files
+    var filenames = [];
     var $fileSelect = $('#file-select');
     if ($fileSelect.length > 0) {
       var files = $fileSelect.get(0).files;
-      var filenames = [];
       for (var i = 0; i < files.length; i++) {
         var file = files[i];
         filenames.push(file.name);
