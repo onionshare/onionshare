@@ -276,6 +276,7 @@ class Tab(QtWidgets.QWidget):
         self.share_mode.server_status.button_clicked.connect(self.clear_message)
         self.share_mode.server_status.url_copied.connect(self.copy_url)
         self.share_mode.server_status.hidservauth_copied.connect(self.copy_hidservauth)
+        self.share_mode.server_status.client_auth_v3_copied.connect(self.copy_client_auth_v3)
 
         self.change_title.emit(self.tab_id, strings._("gui_tab_name_share"))
 
@@ -312,6 +313,9 @@ class Tab(QtWidgets.QWidget):
         self.receive_mode.server_status.url_copied.connect(self.copy_url)
         self.receive_mode.server_status.hidservauth_copied.connect(
             self.copy_hidservauth
+        )
+        self.receive_mode.server_status.client_auth_v3_copied.connect(
+            self.copy_client_auth_v3
         )
 
         self.change_title.emit(self.tab_id, strings._("gui_tab_name_receive"))
@@ -350,6 +354,9 @@ class Tab(QtWidgets.QWidget):
         self.website_mode.server_status.hidservauth_copied.connect(
             self.copy_hidservauth
         )
+        self.website_mode.server_status.client_auth_v3_copied.connect(
+            self.copy_client_auth_v3
+        )
 
         self.change_title.emit(self.tab_id, strings._("gui_tab_name_website"))
 
@@ -383,6 +390,7 @@ class Tab(QtWidgets.QWidget):
         self.chat_mode.server_status.button_clicked.connect(self.clear_message)
         self.chat_mode.server_status.url_copied.connect(self.copy_url)
         self.chat_mode.server_status.hidservauth_copied.connect(self.copy_hidservauth)
+        self.chat_mode.server_status.client_auth_v3_copied.connect(self.copy_client_auth_v3)
 
         self.change_title.emit(self.tab_id, strings._("gui_tab_name_chat"))
 
@@ -602,6 +610,16 @@ class Tab(QtWidgets.QWidget):
         self.system_tray.showMessage(
             strings._("gui_copied_hidservauth_title"),
             strings._("gui_copied_hidservauth"),
+        )
+
+    def copy_client_auth_v3(self):
+        """
+        When the v3 onion service ClientAuth private key gets copied to the clipboard, display this in the status bar.
+        """
+        self.common.log("Tab", "copy_client_auth_v3")
+        self.system_tray.showMessage(
+            strings._("gui_copied_client_auth_v3_title"),
+            strings._("gui_copied_client_auth_v3"),
         )
 
     def clear_message(self):

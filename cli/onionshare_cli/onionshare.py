@@ -83,6 +83,9 @@ class OnionShare(object):
         if mode_settings.get("general", "client_auth"):
             self.auth_string = self.onion.auth_string
 
+        if mode_settings.get("general", "client_auth_v3"):
+            self.auth_string_v3 = self.onion.auth_string_v3
+
     def stop_onion_service(self, mode_settings):
         """
         Stop the onion service
