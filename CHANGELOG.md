@@ -1,5 +1,14 @@
 # OnionShare Changelog
 
+## 2.3.2
+
+* New feature: Receive mode supports custom titles
+* New feature: Receive mode supports notification webhooks
+* New feature: Receive mode supports submitting messages as well files
+* New feature: New ASCII art banner and prettier verbose output
+* New feature: Partial support for range requests (pausing and resuming in HTTP)
+* Various bug fixes
+
 ## 2.3.1
 
 * Bugfix: Fix chat mode
