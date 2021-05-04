@@ -30,6 +30,7 @@ unidecode = "*"
 urllib3 = "*"
 eventlet = "*"
 setuptools = "*"
+pynacl = "^1.4.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "*"

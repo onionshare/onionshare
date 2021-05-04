@@ -39,6 +39,7 @@ class ServerStatus(QtWidgets.QWidget):
     button_clicked = QtCore.Signal()
     url_copied = QtCore.Signal()
     hidservauth_copied = QtCore.Signal()
+    client_auth_v3_copied = QtCore.Signal()
 
     STATUS_STOPPED = 0
     STATUS_WORKING = 1
@@ -98,6 +99,9 @@ class ServerStatus(QtWidgets.QWidget):
         self.copy_hidservauth_button = QtWidgets.QPushButton(
             strings._("gui_copy_hidservauth")
         )
+        self.copy_client_auth_v3_button = QtWidgets.QPushButton(
+            strings._("gui_copy_client_auth_v3")
+        )
         self.show_url_qr_code_button = QtWidgets.QPushButton(
             strings._("gui_show_url_qr_code")
         )
@@ -113,10 +117,15 @@ class ServerStatus(QtWidgets.QWidget):
             self.common.gui.css["server_status_url_buttons"]
         )
         self.copy_hidservauth_button.clicked.connect(self.copy_hidservauth)
+        self.copy_client_auth_v3_button.setStyleSheet(
+            self.common.gui.css["server_status_url_buttons"]
+        )
+        self.copy_client_auth_v3_button.clicked.connect(self.copy_client_auth_v3)
         url_buttons_layout = QtWidgets.QHBoxLayout()
         url_buttons_layout.addWidget(self.copy_url_button)
         url_buttons_layout.addWidget(self.show_url_qr_code_button)
         url_buttons_layout.addWidget(self.copy_hidservauth_button)
+        url_buttons_layout.addWidget(self.copy_client_auth_v3_button)
         url_buttons_layout.addStretch()
 
         url_layout = QtWidgets.QVBoxLayout()
@@ -218,6 +227,11 @@ class ServerStatus(QtWidgets.QWidget):
         else:
             self.copy_hidservauth_button.hide()
 
+        if self.settings.get("general", "client_auth_v3"):
+            self.copy_client_auth_v3_button.show()
+        else:
+            self.copy_client_auth_v3_button.hide()
+
     def update(self):
         """
         Update the GUI elements based on the current state.
@@ -247,6 +261,7 @@ class ServerStatus(QtWidgets.QWidget):
             self.url.hide()
             self.copy_url_button.hide()
             self.copy_hidservauth_button.hide()
+            self.copy_client_auth_v3_button.hide()
             self.show_url_qr_code_button.hide()
 
             self.mode_settings_widget.update_ui()
@@ -453,6 +468,15 @@ class ServerStatus(QtWidgets.QWidget):
         clipboard.setText(self.app.auth_string)
 
         self.hidservauth_copied.emit()
+
+    def copy_client_auth_v3(self):
+        """
+        Copy the ClientAuth v3 private key line to the clipboard.
+        """
+        clipboard = self.qtapp.clipboard()
+        clipboard.setText(self.app.auth_string_v3)
+
+        self.client_auth_v3_copied.emit()
 
     def get_url(self):
         """

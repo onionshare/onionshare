@@ -39,6 +39,8 @@ class ModeSettings:
                 "private_key": None,
                 "hidservauth_string": None,
                 "password": None,
+                "client_auth_v3_priv_key": None,
+                "client_auth_v3_pub_key": None,
             },
             "persistent": {"mode": None, "enabled": False},
             "general": {
@@ -48,6 +50,7 @@ class ModeSettings:
                 "autostop_timer": False,
                 "legacy": False,
                 "client_auth": False,
+                "client_auth_v3": False,
                 "service_id": None,
             },
             "share": {"autostop_sharing": True, "filenames": []},
