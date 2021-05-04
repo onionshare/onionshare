@@ -193,5 +193,6 @@
     "settings_error_bundled_tor_broken": "OnionShare could not connect to Tor:\n{}",
     "gui_rendezvous_cleanup": "Waiting for Tor circuits to close to be sure your files have successfully transferred.\n\nThis might take a few minutes.",
     "gui_rendezvous_cleanup_quit_early": "Quit Early",
-    "error_port_not_available": "OnionShare port not available"
+    "error_port_not_available": "OnionShare port not available",
+    "error_tor_protocol_error": "OnionShare experienced a protocol error with Tor:\n{}"
 }
