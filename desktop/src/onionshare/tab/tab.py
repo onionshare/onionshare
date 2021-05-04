@@ -668,7 +668,7 @@ class Tab(QtWidgets.QWidget):
         if self.close_dialog.clickedButton() == self.close_dialog.accept_button:
             self.common.log("Tab", "close_tab", "close, closing tab")
             self.get_mode().stop_server()
-            self.app.cleanup()
+            mode.web.cleanup()
             return True
         # Cancel
         else:
@@ -681,4 +681,4 @@ class Tab(QtWidgets.QWidget):
             self.get_mode().web.stop(self.get_mode().app.port)
             self.get_mode().web_thread.quit()
             self.get_mode().web_thread.wait()
-        self.app.cleanup()
+        self.get_mode().web.cleanup()

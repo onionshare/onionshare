@@ -47,7 +47,7 @@ class CompressThread(QtCore.QThread):
                 self.mode.filenames, processed_size_callback=self.set_processed_size
             )
             self.success.emit()
-            self.mode.app.cleanup_filenames += (
+            self.mode.web.cleanup_filenames += (
                 self.mode.web.share_mode.cleanup_filenames
             )
         except OSError as e:
