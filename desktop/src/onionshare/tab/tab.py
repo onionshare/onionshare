@@ -681,4 +681,4 @@ class Tab(QtWidgets.QWidget):
             self.get_mode().web.stop(self.get_mode().app.port)
             self.get_mode().web_thread.quit()
             self.get_mode().web_thread.wait()
-        self.get_mode().web.cleanup()
+            self.get_mode().web.cleanup()
