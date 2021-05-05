@@ -21,6 +21,7 @@ import logging
 import os
 import queue
 import requests
+import shutil
 from distutils.version import LooseVersion as Version
 
 import flask
@@ -161,6 +162,8 @@ class Web:
             self.socketio = SocketIO()
             self.socketio.init_app(self.app)
             self.chat_mode = ChatModeWeb(self.common, self)
+
+        self.cleanup_filenames = []
 
     def get_mode(self):
         if self.mode == "share":
@@ -423,3 +426,21 @@ class Web:
 
         # Reset any password that was in use
         self.password = None
+
+    def cleanup(self):
+        """
+        Shut everything down and clean up temporary files, etc.
+        """
+        self.common.log("Web", "cleanup")
+
+        # Cleanup files
+        try:
+            for filename in self.cleanup_filenames:
+                if os.path.isfile(filename):
+                    os.remove(filename)
+                elif os.path.isdir(filename):
+                    shutil.rmtree(filename)
+        except Exception:
+            # Don't crash if file is still in use
+            pass
+        self.cleanup_filenames = []
