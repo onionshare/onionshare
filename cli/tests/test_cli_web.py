@@ -51,6 +51,7 @@ def web_obj(temp_dir, common_obj, mode, num_files=0):
     web.generate_password()
     web.running = True
 
+    web.cleanup_filenames == []
     web.app.testing = True
 
     # Share mode
@@ -344,6 +345,16 @@ class TestWeb:
             res = c.get("/", headers=self._make_auth_headers(web.password))
             res.get_data()
             assert res.status_code == 200
+
+    def test_cleanup(self, common_obj, temp_dir_1024, temp_file_1024):
+        web = web_obj(temp_dir_1024, common_obj, "share", 3)
+
+        web.cleanup_filenames = [temp_dir_1024, temp_file_1024]
+        web.cleanup()
+
+        assert os.path.exists(temp_file_1024) is False
+        assert os.path.exists(temp_dir_1024) is False
+        assert web.cleanup_filenames == []
 
     def _make_auth_headers(self, password):
         auth = base64.b64encode(b"onionshare:" + password.encode()).decode()

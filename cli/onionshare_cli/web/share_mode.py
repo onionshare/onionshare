@@ -497,7 +497,7 @@ class ShareModeWeb(SendBaseModeWeb):
                 self.gzip_etag = make_etag(f)
 
             # Make sure the gzip file gets cleaned up when onionshare stops
-            self.cleanup_filenames.append(self.gzip_filename)
+            self.web.cleanup_filenames.append(self.gzip_filename)
 
             self.is_zipped = False
 
@@ -524,7 +524,8 @@ class ShareModeWeb(SendBaseModeWeb):
                 self.download_etag = make_etag(f)
 
             # Make sure the zip file gets cleaned up when onionshare stops
-            self.cleanup_filenames.append(self.zip_writer.zip_filename)
+            self.web.cleanup_filenames.append(self.zip_writer.zip_filename)
+            self.web.cleanup_filenames.append(self.zip_writer.zip_temp_dir)
 
             self.is_zipped = True
 
@@ -545,8 +546,9 @@ class ZipWriter(object):
         if zip_filename:
             self.zip_filename = zip_filename
         else:
+            self.zip_temp_dir = tempfile.mkdtemp()
             self.zip_filename = (
-                f"{tempfile.mkdtemp()}/onionshare_{self.common.random_string(4, 6)}.zip"
+                f"{self.zip_temp_dir}/onionshare_{self.common.random_string(4, 6)}.zip"
             )
 
         self.z = zipfile.ZipFile(self.zip_filename, "w", allowZip64=True)
