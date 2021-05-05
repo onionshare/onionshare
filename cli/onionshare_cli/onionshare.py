@@ -19,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 import os
-import shutil
 from .common import AutoStopTimer
 
 
@@ -89,21 +88,3 @@ class OnionShare(object):
         Stop the onion service
         """
         self.onion.stop_onion_service(mode_settings)
-
-    def cleanup(self):
-        """
-        Shut everything down and clean up temporary files, etc.
-        """
-        self.common.log("OnionShare", "cleanup")
-
-        # Cleanup files
-        try:
-            for filename in self.cleanup_filenames:
-                if os.path.isfile(filename):
-                    os.remove(filename)
-                elif os.path.isdir(filename):
-                    shutil.rmtree(filename)
-        except Exception:
-            # Don't crash if file is still in use
-            pass
-        self.cleanup_filenames = []

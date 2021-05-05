@@ -70,7 +70,6 @@ class SendBaseModeWeb:
         self.root_files = (
             {}
         )  # This is only the root files and dirs, as opposed to all of them
-        self.cleanup_filenames = []
         self.cur_history_id = 0
         self.file_info = {"files": [], "dirs": []}
         self.gzip_individual_files = {}
@@ -177,7 +176,7 @@ class SendBaseModeWeb:
                 self.gzip_individual_files[filesystem_path] = gzip_filename
 
                 # Make sure the gzip file gets cleaned up when onionshare stops
-                self.cleanup_filenames.append(gzip_filename)
+                self.web.cleanup_filenames.append(gzip_filename)
 
             file_to_download = self.gzip_individual_files[filesystem_path]
             filesize = os.path.getsize(self.gzip_individual_files[filesystem_path])
