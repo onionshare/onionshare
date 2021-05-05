@@ -382,7 +382,7 @@ class Mode(QtWidgets.QWidget):
             except Exception:
                 # Probably we had no port to begin with (Onion service didn't start)
                 pass
-        self.app.cleanup()
+        self.web.cleanup()
 
         self.stop_server_custom()
 
