@@ -55,6 +55,15 @@ class SendBaseModeWeb:
         self.define_routes()
         self.init()
 
+    def fix_windows_paths(self, path):
+        """
+        If on Windows, replace backslashes with slashes
+        """
+        if self.common.platform == "Windows":
+            return path.replace("\\", "/")
+
+        return path
+
     def set_file_info(self, filenames, processed_size_callback=None):
         """
         Build a data structure that describes the list of files
@@ -75,34 +84,43 @@ class SendBaseModeWeb:
         self.gzip_individual_files = {}
         self.init()
 
+        # Windows paths use backslashes, but website paths use forward slashes. We have to
+        # make sure we're stripping the correct type of slash
+        if self.common.platform == "Windows":
+            slash = "\\"
+        else:
+            slash = "/"
+
         # Build the file list
         for filename in filenames:
-            basename = os.path.basename(filename.rstrip("/"))
+            basename = os.path.basename(filename.rstrip(slash))
 
             # If it's a filename, add it
             if os.path.isfile(filename):
-                self.files[basename] = filename
-                self.root_files[basename] = filename
+                self.files[self.fix_windows_paths(basename)] = filename
+                self.root_files[self.fix_windows_paths(basename)] = filename
 
             # If it's a directory, add it recursively
             elif os.path.isdir(filename):
-                self.root_files[basename] = filename
+                self.root_files[self.fix_windows_paths(basename)] = filename
 
                 for root, _, nested_filenames in os.walk(filename):
                     # Normalize the root path. So if the directory name is "/home/user/Documents/some_folder",
                     # and it has a nested folder foobar, the root is "/home/user/Documents/some_folder/foobar".
                     # The normalized_root should be "some_folder/foobar"
                     normalized_root = os.path.join(
-                        basename, root[len(filename) :].lstrip("/")
-                    ).rstrip("/")
+                        basename, root[len(filename) :].lstrip(slash)
+                    ).rstrip(slash)
 
                     # Add the dir itself
-                    self.files[normalized_root] = root
+                    self.files[self.fix_windows_paths(normalized_root)] = root
 
                     # Add the files in this dir
                     for nested_filename in nested_filenames:
                         self.files[
-                            os.path.join(normalized_root, nested_filename)
+                            self.fix_windows_paths(
+                                os.path.join(normalized_root, nested_filename)
+                            )
                         ] = os.path.join(root, nested_filename)
 
         self.set_file_info_custom(filenames, processed_size_callback)
