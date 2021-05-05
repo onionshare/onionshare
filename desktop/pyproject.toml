@@ -14,7 +14,7 @@ icon = "src/onionshare/resources/onionshare"
 sources = ['src/onionshare']
 requires = [
     "./onionshare_cli-2.3.2-py3-none-any.whl",
-    "pyside2==5.15.2",
+    "pyside2==5.15.1",
     "qrcode"
 ]
 
