@@ -371,7 +371,7 @@ class GuiBaseTest(unittest.TestCase):
         self.assertFalse(tab.get_mode().server_status.url.isVisible())
         self.assertFalse(tab.get_mode().server_status.url_description.isVisible())
         self.assertFalse(
-            tab.get_mode().server_status.copy_client_auth_v3_button.isVisible()
+            tab.get_mode().server_status.copy_client_auth_button.isVisible()
         )
 
     def web_server_is_stopped(self, tab):
@@ -454,9 +454,9 @@ class GuiBaseTest(unittest.TestCase):
 
     def clientauth_is_visible(self, tab):
         self.assertTrue(
-            tab.get_mode().server_status.copy_client_auth_v3_button.isVisible()
+            tab.get_mode().server_status.copy_client_auth_button.isVisible()
         )
-        tab.get_mode().server_status.copy_client_auth_v3_button.click()
+        tab.get_mode().server_status.copy_client_auth_button.click()
         clipboard = tab.common.gui.qtapp.clipboard()
         self.assertEqual(clipboard.text(), "E2GOT5LTUTP3OAMRCRXO4GSH6VKJEUOXZQUC336SRKAHTTT5OVSA")
 

@@ -130,16 +130,16 @@ class ModeSettingsWidget(QtWidgets.QWidget):
         autostop_timer_layout.addWidget(self.autostop_timer_widget)
 
         # Client auth (v3)
-        self.client_auth_v3_checkbox = QtWidgets.QCheckBox()
-        self.client_auth_v3_checkbox.clicked.connect(self.client_auth_v3_checkbox_clicked)
-        self.client_auth_v3_checkbox.clicked.connect(self.update_ui)
-        self.client_auth_v3_checkbox.setText(
-            strings._("mode_settings_client_auth_v3_checkbox")
+        self.client_auth_checkbox = QtWidgets.QCheckBox()
+        self.client_auth_checkbox.clicked.connect(self.client_auth_checkbox_clicked)
+        self.client_auth_checkbox.clicked.connect(self.update_ui)
+        self.client_auth_checkbox.setText(
+            strings._("mode_settings_client_auth_checkbox")
         )
         if self.settings.get("general", "client_auth"):
-            self.client_auth_v3_checkbox.setCheckState(QtCore.Qt.Checked)
+            self.client_auth_checkbox.setCheckState(QtCore.Qt.Checked)
         else:
-            self.client_auth_v3_checkbox.setCheckState(QtCore.Qt.Unchecked)
+            self.client_auth_checkbox.setCheckState(QtCore.Qt.Unchecked)
 
         # Toggle advanced settings
         self.toggle_advanced_button = QtWidgets.QPushButton()
@@ -155,7 +155,7 @@ class ModeSettingsWidget(QtWidgets.QWidget):
         advanced_layout.addLayout(title_layout)
         advanced_layout.addLayout(autostart_timer_layout)
         advanced_layout.addLayout(autostop_timer_layout)
-        advanced_layout.addWidget(self.client_auth_v3_checkbox)
+        advanced_layout.addWidget(self.client_auth_checkbox)
         self.advanced_widget = QtWidgets.QWidget()
         self.advanced_widget.setLayout(advanced_layout)
         self.advanced_widget.hide()
@@ -242,9 +242,9 @@ class ModeSettingsWidget(QtWidgets.QWidget):
         else:
             self.autostop_timer_widget.hide()
 
-    def client_auth_v3_checkbox_clicked(self):
+    def client_auth_checkbox_clicked(self):
         self.settings.set(
-            "general", "client_auth", self.client_auth_v3_checkbox.isChecked()
+            "general", "client_auth", self.client_auth_checkbox.isChecked()
         )
 
     def toggle_advanced_clicked(self):

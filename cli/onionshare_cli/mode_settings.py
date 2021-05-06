@@ -39,8 +39,8 @@ class ModeSettings:
                 "private_key": None,
                 "hidservauth_string": None,
                 "password": None,
-                "client_auth_v3_priv_key": None,
-                "client_auth_v3_pub_key": None,
+                "client_auth_priv_key": None,
+                "client_auth_pub_key": None,
             },
             "persistent": {"mode": None, "enabled": False},
             "general": {
