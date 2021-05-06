@@ -608,3 +608,19 @@ class TestShare(GuiBaseTest):
         self.hit_401(tab)
 
         self.close_all_tabs()
+
+    def test_client_auth(self):
+        """
+        Test the ClientAuth is received from the backend and that
+        the widget is visible in the UI
+        """
+        tab = self.new_share_tab()
+        tab.get_mode().mode_settings_widget.toggle_advanced_button.click()
+        tab.get_mode().mode_settings_widget.client_auth_v3_checkbox.click()
+
+        self.run_all_common_setup_tests()
+        self.run_all_share_mode_setup_tests(tab)
+        self.run_all_share_mode_started_tests(tab)
+        self.clientauth_is_visible(tab)
+
+        self.close_all_tabs()
