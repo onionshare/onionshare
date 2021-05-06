@@ -695,10 +695,8 @@ class SettingsDialog(QtWidgets.QDialog):
                 strings._("settings_test_success").format(
                     onion.tor_version,
                     onion.supports_ephemeral,
-                    onion.supports_v2_onions,
                     onion.supports_stealth,
                     onion.supports_v3_onions,
-                    onion.supports_stealth_v3,
                 ),
             )
 
