@@ -196,6 +196,7 @@ def main():
             os.path.join(
                 desktop_dir,
                 "windows",
+                "msi",
                 "OnionShare",
                 "src",
                 "app_packages",
