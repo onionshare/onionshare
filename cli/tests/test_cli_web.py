@@ -7,6 +7,8 @@ import time
 import zipfile
 import tempfile
 import base64
+import shutil
+import sys
 from io import BytesIO
 
 import pytest
@@ -42,13 +44,14 @@ RANDOM_STR_REGEX = re.compile(r"^[a-z2-7]+$")
 
 
 def web_obj(temp_dir, common_obj, mode, num_files=0):
-    """ Creates a Web object, in either share mode or receive mode, ready for testing """
+    """Creates a Web object, in either share mode or receive mode, ready for testing"""
     common_obj.settings = Settings(common_obj)
     mode_settings = ModeSettings(common_obj)
     web = Web(common_obj, False, mode_settings, mode)
     web.generate_password()
     web.running = True
 
+    web.cleanup_filenames == []
     web.app.testing = True
 
     # Share mode
@@ -100,7 +103,7 @@ class TestWeb:
         web = web_obj(temp_dir, common_obj, "share", 3)
         web.settings.set("share", "autostop_sharing", True)
 
-        assert web.running == True
+        assert web.running is True
 
         with web.app.test_client() as c:
             # Download the first time
@@ -112,7 +115,7 @@ class TestWeb:
                 or res.mimetype == "application/x-zip-compressed"
             )
 
-            assert web.running == False
+            assert web.running is False
 
     def test_share_mode_autostop_sharing_off(
         self, temp_dir, common_obj, temp_file_1024
@@ -120,7 +123,7 @@ class TestWeb:
         web = web_obj(temp_dir, common_obj, "share", 3)
         web.settings.set("share", "autostop_sharing", False)
 
-        assert web.running == True
+        assert web.running is True
 
         with web.app.test_client() as c:
             # Download the first time
@@ -131,7 +134,7 @@ class TestWeb:
                 res.mimetype == "application/zip"
                 or res.mimetype == "application/x-zip-compressed"
             )
-            assert web.running == True
+            assert web.running is True
 
     def test_receive_mode(self, temp_dir, common_obj):
         web = web_obj(temp_dir, common_obj, "receive")
@@ -183,7 +186,135 @@ class TestWeb:
             assert res.status_code == 200
 
             assert webhook_url == "http://127.0.0.1:1337/example"
-            assert webhook_data == "1 file uploaded to OnionShare"
+            assert webhook_data == "1 file submitted to OnionShare"
+
+    def test_receive_mode_message_no_files(self, temp_dir, common_obj):
+        web = web_obj(temp_dir, common_obj, "receive")
+
+        data_dir = os.path.join(temp_dir, "OnionShare")
+        os.makedirs(data_dir, exist_ok=True)
+
+        web.settings.set("receive", "data_dir", data_dir)
+
+        with web.app.test_client() as c:
+            res = c.post(
+                "/upload-ajax",
+                buffered=True,
+                content_type="multipart/form-data",
+                data={"text": "you know just sending an anonymous message"},
+                headers=self._make_auth_headers(web.password),
+            )
+            content = res.get_data()
+            assert res.status_code == 200
+            assert b"Message submitted" in content
+
+        # ~/OnionShare should have a folder for the date
+        filenames = os.listdir(data_dir)
+        assert len(filenames) == 1
+        data_dir_date = os.path.join(data_dir, filenames[0])
+
+        # The date folder should have a single message txt file, no folders
+        filenames = os.listdir(data_dir_date)
+        assert len(filenames) == 1
+        assert filenames[0].endswith("-message.txt")
+
+        shutil.rmtree(data_dir)
+
+    def test_receive_mode_message_and_files(self, temp_dir, common_obj):
+        web = web_obj(temp_dir, common_obj, "receive")
+
+        data_dir = os.path.join(temp_dir, "OnionShare")
+        os.makedirs(data_dir, exist_ok=True)
+
+        web.settings.set("receive", "data_dir", data_dir)
+
+        with web.app.test_client() as c:
+            res = c.post(
+                "/upload-ajax",
+                buffered=True,
+                content_type="multipart/form-data",
+                data={
+                    "file[]": (BytesIO(b"THIS IS A TEST FILE"), "new_york.jpg"),
+                    "text": "you know just sending an anonymous message",
+                },
+                headers=self._make_auth_headers(web.password),
+            )
+            content = res.get_data()
+            assert res.status_code == 200
+            assert b"Message submitted, uploaded new_york.jpg" in content
+
+        # Date folder should have a time folder with new_york.jpg, and a text message file
+        data_dir_date = os.path.join(data_dir, os.listdir(data_dir)[0])
+        filenames = os.listdir(data_dir_date)
+        assert len(filenames) == 2
+        time_str = filenames[0][0:6]
+        assert time_str in filenames
+        assert f"{time_str}-message.txt" in filenames
+        data_dir_time = os.path.join(data_dir_date, time_str)
+        assert os.path.isdir(data_dir_time)
+        assert os.path.exists(os.path.join(data_dir_time, "new_york.jpg"))
+
+        shutil.rmtree(data_dir)
+
+    def test_receive_mode_files_no_message(self, temp_dir, common_obj):
+        web = web_obj(temp_dir, common_obj, "receive")
+
+        data_dir = os.path.join(temp_dir, "OnionShare")
+        os.makedirs(data_dir, exist_ok=True)
+
+        web.settings.set("receive", "data_dir", data_dir)
+
+        with web.app.test_client() as c:
+            res = c.post(
+                "/upload-ajax",
+                buffered=True,
+                content_type="multipart/form-data",
+                data={"file[]": (BytesIO(b"THIS IS A TEST FILE"), "new_york.jpg")},
+                headers=self._make_auth_headers(web.password),
+            )
+            content = res.get_data()
+            assert res.status_code == 200
+            assert b"Uploaded new_york.jpg" in content
+
+        # Date folder should have just a time folder with new_york.jpg
+        data_dir_date = os.path.join(data_dir, os.listdir(data_dir)[0])
+        filenames = os.listdir(data_dir_date)
+        assert len(filenames) == 1
+        time_str = filenames[0][0:6]
+        assert time_str in filenames
+        assert f"{time_str}-message.txt" not in filenames
+        data_dir_time = os.path.join(data_dir_date, time_str)
+        assert os.path.isdir(data_dir_time)
+        assert os.path.exists(os.path.join(data_dir_time, "new_york.jpg"))
+
+        shutil.rmtree(data_dir)
+
+    def test_receive_mode_no_message_no_files(self, temp_dir, common_obj):
+        web = web_obj(temp_dir, common_obj, "receive")
+
+        data_dir = os.path.join(temp_dir, "OnionShare")
+        os.makedirs(data_dir, exist_ok=True)
+
+        web.settings.set("receive", "data_dir", data_dir)
+
+        with web.app.test_client() as c:
+            res = c.post(
+                "/upload-ajax",
+                buffered=True,
+                content_type="multipart/form-data",
+                data={},
+                headers=self._make_auth_headers(web.password),
+            )
+            content = res.get_data()
+            assert res.status_code == 200
+            assert b"Nothing submitted" in content
+
+        # Date folder should be empty
+        data_dir_date = os.path.join(data_dir, os.listdir(data_dir)[0])
+        filenames = os.listdir(data_dir_date)
+        assert len(filenames) == 0
+
+        shutil.rmtree(data_dir)
 
     def test_public_mode_on(self, temp_dir, common_obj):
         web = web_obj(temp_dir, common_obj, "receive")
@@ -192,7 +323,7 @@ class TestWeb:
         with web.app.test_client() as c:
             # Loading / should work without auth
             res = c.get("/")
-            data1 = res.get_data()
+            res.get_data()
             assert res.status_code == 200
 
     def test_public_mode_off(self, temp_dir, common_obj):
@@ -214,6 +345,16 @@ class TestWeb:
             res = c.get("/", headers=self._make_auth_headers(web.password))
             res.get_data()
             assert res.status_code == 200
+
+    def test_cleanup(self, common_obj, temp_dir_1024, temp_file_1024):
+        web = web_obj(temp_dir_1024, common_obj, "share", 3)
+
+        web.cleanup_filenames = [temp_dir_1024, temp_file_1024]
+        web.cleanup()
+
+        assert os.path.exists(temp_file_1024) is False
+        assert os.path.exists(temp_dir_1024) is False
+        assert web.cleanup_filenames == []
 
     def _make_auth_headers(self, password):
         auth = base64.b64encode(b"onionshare:" + password.encode()).decode()
@@ -486,6 +627,7 @@ class TestRangeRequests:
         h.add("Authorization", "Basic " + auth)
         return h
 
+    @pytest.mark.skipif(sys.platform != "Linux", reason="requires Linux")
     @check_unsupported("curl", ["--version"])
     def test_curl(self, temp_dir, tmpdir, common_obj):
         web = web_obj(temp_dir, common_obj, "share", 3)
@@ -510,6 +652,7 @@ class TestRangeRequests:
                 ]
             )
 
+    @pytest.mark.skipif(sys.platform != "Linux", reason="requires Linux")
     @check_unsupported("wget", ["--version"])
     def test_wget(self, temp_dir, tmpdir, common_obj):
         web = web_obj(temp_dir, common_obj, "share", 3)
@@ -533,6 +676,7 @@ class TestRangeRequests:
                 ]
             )
 
+    @pytest.mark.skipif(sys.platform != "Linux", reason="requires Linux")
     @check_unsupported("http", ["--version"])
     def test_httpie(self, temp_dir, common_obj):
         web = web_obj(temp_dir, common_obj, "share", 3)

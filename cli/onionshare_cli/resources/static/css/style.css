@@ -285,6 +285,13 @@ ul.breadcrumbs li a:link, ul.breadcrumbs li a:visited {
   margin: 0 0 20px 0;
 }
 
+.upload-wrapper textarea {
+  max-width: 95%;
+  width: 600px;
+  height: 150px;
+  padding: 10px;
+}
+
 div#uploads {
   width: 800px;
   max-width: 90%;

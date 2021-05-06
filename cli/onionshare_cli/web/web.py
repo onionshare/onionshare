@@ -21,6 +21,7 @@ import logging
 import os
 import queue
 import requests
+import shutil
 from distutils.version import LooseVersion as Version
 
 import flask
@@ -41,6 +42,7 @@ from .receive_mode import ReceiveModeWeb, ReceiveModeWSGIMiddleware, ReceiveMode
 from .website_mode import WebsiteModeWeb
 from .chat_mode import ChatModeWeb
 
+
 # Stub out flask's show_server_banner function, to avoiding showing warnings that
 # are not applicable to OnionShare
 def stubbed_show_server_banner(env, debug, app_import_path, eager_loading):
@@ -49,7 +51,7 @@ def stubbed_show_server_banner(env, debug, app_import_path, eager_loading):
 
 try:
     flask.cli.show_server_banner = stubbed_show_server_banner
-except:
+except Exception:
     pass
 
 
@@ -63,16 +65,17 @@ class Web:
     REQUEST_PROGRESS = 2
     REQUEST_CANCELED = 3
     REQUEST_RATE_LIMIT = 4
-    REQUEST_UPLOAD_FILE_RENAMED = 5
-    REQUEST_UPLOAD_SET_DIR = 6
-    REQUEST_UPLOAD_FINISHED = 7
-    REQUEST_UPLOAD_CANCELED = 8
-    REQUEST_INDIVIDUAL_FILE_STARTED = 9
-    REQUEST_INDIVIDUAL_FILE_PROGRESS = 10
-    REQUEST_INDIVIDUAL_FILE_CANCELED = 11
-    REQUEST_ERROR_DATA_DIR_CANNOT_CREATE = 12
-    REQUEST_OTHER = 13
-    REQUEST_INVALID_PASSWORD = 14
+    REQUEST_UPLOAD_INCLUDES_MESSAGE = 5
+    REQUEST_UPLOAD_FILE_RENAMED = 6
+    REQUEST_UPLOAD_SET_DIR = 7
+    REQUEST_UPLOAD_FINISHED = 8
+    REQUEST_UPLOAD_CANCELED = 9
+    REQUEST_INDIVIDUAL_FILE_STARTED = 10
+    REQUEST_INDIVIDUAL_FILE_PROGRESS = 11
+    REQUEST_INDIVIDUAL_FILE_CANCELED = 12
+    REQUEST_ERROR_DATA_DIR_CANNOT_CREATE = 13
+    REQUEST_OTHER = 14
+    REQUEST_INVALID_PASSWORD = 15
 
     def __init__(self, common, is_gui, mode_settings, mode="share"):
         self.common = common
@@ -159,6 +162,8 @@ class Web:
             self.socketio = SocketIO()
             self.socketio.init_app(self.app)
             self.chat_mode = ChatModeWeb(self.common, self)
+
+        self.cleanup_filenames = []
 
     def get_mode(self):
         if self.mode == "share":
@@ -327,7 +332,7 @@ class Web:
 
     def generate_password(self, saved_password=None):
         self.common.log("Web", "generate_password", f"saved_password={saved_password}")
-        if saved_password != None and saved_password != "":
+        if saved_password is not None and saved_password != "":
             self.password = saved_password
             self.common.log(
                 "Web",
@@ -363,7 +368,7 @@ class Web:
             if func is None and self.mode != "chat":
                 raise RuntimeError("Not running with the Werkzeug Server")
             func()
-        except:
+        except Exception:
             pass
 
         self.running = False
@@ -421,3 +426,21 @@ class Web:
 
         # Reset any password that was in use
         self.password = None
+
+    def cleanup(self):
+        """
+        Shut everything down and clean up temporary files, etc.
+        """
+        self.common.log("Web", "cleanup")
+
+        # Cleanup files
+        try:
+            for filename in self.cleanup_filenames:
+                if os.path.isfile(filename):
+                    os.remove(filename)
+                elif os.path.isdir(filename):
+                    shutil.rmtree(filename)
+        except Exception:
+            # Don't crash if file is still in use
+            pass
+        self.cleanup_filenames = []

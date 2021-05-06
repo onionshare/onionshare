@@ -22,12 +22,6 @@ import json
 import os
 import locale
 
-try:
-    # We only need pwd module in macOS, and it's not available in Windows
-    import pwd
-except:
-    pass
-
 
 class Settings(object):
     """
@@ -166,13 +160,13 @@ class Settings(object):
                 with open(self.filename, "r") as f:
                     self._settings = json.load(f)
                     self.fill_in_defaults()
-            except:
+            except Exception:
                 pass
 
         # Make sure data_dir exists
         try:
             os.makedirs(self.get("data_dir"), exist_ok=True)
-        except:
+        except Exception:
             pass
 
     def save(self):
@@ -191,7 +185,7 @@ class Settings(object):
         if key == "control_port_port" or key == "socks_port":
             try:
                 val = int(val)
-            except:
+            except Exception:
                 if key == "control_port_port":
                     val = self.default_settings["control_port_port"]
                 elif key == "socks_port":

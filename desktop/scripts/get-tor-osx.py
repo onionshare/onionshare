@@ -24,7 +24,6 @@ This script downloads a pre-built tor binary to bundle with OnionShare.
 In order to avoid a Mac gnupg dependency, I manually verify the signature
 and hard-code the sha256 hash.
 """
-
 import inspect
 import os
 import sys
@@ -35,10 +34,10 @@ import requests
 
 
 def main():
-    dmg_url = "https://archive.torproject.org/tor-package-archive/torbrowser/10.0.10/TorBrowser-10.0.10-osx64_en-US.dmg"
-    dmg_filename = "TorBrowser-10.0.10-osx64_en-US.dmg"
+    dmg_url = "https://archive.torproject.org/tor-package-archive/torbrowser/10.0.16/TorBrowser-10.0.16-osx64_en-US.dmg"
+    dmg_filename = "TorBrowser-10.0.16-osx64_en-US.dmg"
     expected_dmg_sha256 = (
-        "7ed73e94ccdfab76b8d96ddbac7828d3a7c77dd73b54c34e55666f3b6274d12a"
+        "95bf37d642bd05e9ae4337c5ab9706990bbd98cc885e25ee8ae81b07c7653f0a"
     )
 
     # Build paths

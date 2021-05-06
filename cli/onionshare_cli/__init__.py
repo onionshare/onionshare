@@ -18,13 +18,22 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-import os, sys, time, argparse, threading
+import os
+import sys
+import time
+import argparse
+import threading
 from datetime import datetime
 from datetime import timedelta
 
 from .common import Common, CannotFindTor
 from .web import Web
-from .onion import *
+from .onion import (
+    TorErrorProtocolError,
+    TorTooOldEphemeral,
+    TorTooOldStealth,
+    Onion,
+)
 from .onionshare import OnionShare
 from .mode_settings import ModeSettings
 
@@ -148,6 +157,18 @@ def main(cwd=None):
         default=None,
         help="Receive files: URL to receive webhook notifications",
     )
+    parser.add_argument(
+        "--disable-text",
+        action="store_true",
+        dest="disable_text",
+        help="Receive files: Disable receiving text messages",
+    )
+    parser.add_argument(
+        "--disable-files",
+        action="store_true",
+        dest="disable_files",
+        help="Receive files: Disable receiving files",
+    )
     # Website args
     parser.add_argument(
         "--disable_csp",
@@ -191,6 +212,8 @@ def main(cwd=None):
     autostop_sharing = not bool(args.no_autostop_sharing)
     data_dir = args.data_dir
     webhook_url = args.webhook_url
+    disable_text = args.disable_text
+    disable_files = args.disable_files
     disable_csp = bool(args.disable_csp)
     verbose = bool(args.verbose)
 
@@ -234,6 +257,8 @@ def main(cwd=None):
                 mode_settings.set("receive", "data_dir", data_dir)
             if webhook_url:
                 mode_settings.set("receive", "webhook_url", webhook_url)
+            mode_settings.set("receive", "disable_text", disable_text)
+            mode_settings.set("receive", "disable_files", disable_files)
         if mode == "website":
             mode_settings.set("website", "disable_csp", disable_csp)
     else:
@@ -276,6 +301,11 @@ def main(cwd=None):
         if persistent_filename:
             mode_settings.set(mode, "filenames", filenames)
 
+    # In receive mode, you must allows either text, files, or both
+    if mode == "receive" and disable_text and disable_files:
+        print("You cannot disable both text and files")
+        sys.exit()
+
     # Create the Web object
     web = Web(common, False, mode_settings, mode)
 
@@ -299,7 +329,7 @@ def main(cwd=None):
     except KeyboardInterrupt:
         print("")
         sys.exit()
-    except Exception as e:
+    except Exception:
         sys.exit()
 
     # Start the onionshare app
@@ -343,7 +373,9 @@ def main(cwd=None):
                 )
                 print("")
                 print(
-                    "Warning: Receive mode lets people upload files to your computer. Some files can potentially take control of your computer if you open them. Only open things from people you trust, or if you know what you are doing."
+                    "Warning: Receive mode lets people upload files to your computer. Some files can potentially take "
+                    "control of your computer if you open them. Only open things from people you trust, or if you know "
+                    "what you are doing."
                 )
                 print("")
                 if mode_settings.get("general", "client_auth"):
@@ -394,7 +426,6 @@ def main(cwd=None):
         print("Compressing files.")
         try:
             web.share_mode.set_file_info(filenames)
-            app.cleanup_filenames += web.share_mode.cleanup_filenames
         except OSError as e:
             print(e.strerror)
             sys.exit(1)
@@ -437,7 +468,9 @@ def main(cwd=None):
                 )
                 print("")
                 print(
-                    "Warning: Receive mode lets people upload files to your computer. Some files can potentially take control of your computer if you open them. Only open things from people you trust, or if you know what you are doing."
+                    "Warning: Receive mode lets people upload files to your computer. Some files can potentially take "
+                    "control of your computer if you open them. Only open things from people you trust, or if you know "
+                    "what you are doing."
                 )
                 print("")
 
@@ -486,7 +519,7 @@ def main(cwd=None):
         web.stop(app.port)
     finally:
         # Shutdown
-        app.cleanup()
+        web.cleanup()
         onion.cleanup()
 
 

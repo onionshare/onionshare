@@ -14,6 +14,11 @@ Before making a release, you must update the version in these places:
 - [ ] `docs/source/conf.py` (`version` at the top, and the `versions` list too)
 - [ ] `snap/snapcraft.yaml`
 
+Use tor binaries from the latest Tor Browser:
+
+- [ ] `desktop/scripts/get-tor-osx.py`
+- [ ] `desktop/scripts/get-tor-windows.py`
+
 Update the documentation:
 
 - [ ] Update all of the documentation in `docs` to cover new features, including taking new screenshots if necessary
