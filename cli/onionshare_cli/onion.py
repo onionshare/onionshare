@@ -663,14 +663,23 @@ class Onion(object):
             client_auth_v3_pub_key = None
 
         try:
-            res = self.c.create_ephemeral_hidden_service(
-                {80: port},
-                await_publication=await_publication,
-                basic_auth=None,
-                key_type=key_type,
-                key_content=key_content,
-                client_auth_v3=client_auth_v3_pub_key,
-            )
+            if not self.supports_stealth:
+                res = self.c.create_ephemeral_hidden_service(
+                    {80: port},
+                    await_publication=await_publication,
+                    basic_auth=None,
+                    key_type=key_type,
+                    key_content=key_content,
+                )
+            else:
+                res = self.c.create_ephemeral_hidden_service(
+                    {80: port},
+                    await_publication=await_publication,
+                    basic_auth=None,
+                    key_type=key_type,
+                    key_content=key_content,
+                    client_auth_v3=client_auth_v3_pub_key,
+                )
 
         except ProtocolError as e:
             print("Tor error: {}".format(e.args[0]))
