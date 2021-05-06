@@ -129,36 +129,14 @@ class ModeSettingsWidget(QtWidgets.QWidget):
         autostop_timer_layout.addWidget(self.autostop_timer_checkbox)
         autostop_timer_layout.addWidget(self.autostop_timer_widget)
 
-        # Legacy address
-        self.legacy_checkbox = QtWidgets.QCheckBox()
-        self.legacy_checkbox.clicked.connect(self.legacy_checkbox_clicked)
-        self.legacy_checkbox.clicked.connect(self.update_ui)
-        self.legacy_checkbox.setText(strings._("mode_settings_legacy_checkbox"))
-        if self.settings.get("general", "legacy"):
-            self.legacy_checkbox.setCheckState(QtCore.Qt.Checked)
-        else:
-            self.legacy_checkbox.setCheckState(QtCore.Qt.Unchecked)
-
-        # Client auth (v2)
-        self.client_auth_checkbox = QtWidgets.QCheckBox()
-        self.client_auth_checkbox.clicked.connect(self.client_auth_checkbox_clicked)
-        self.client_auth_checkbox.clicked.connect(self.update_ui)
-        self.client_auth_checkbox.setText(
-            strings._("mode_settings_client_auth_checkbox")
-        )
-        if self.settings.get("general", "client_auth"):
-            self.client_auth_checkbox.setCheckState(QtCore.Qt.Checked)
-        else:
-            self.client_auth_checkbox.setCheckState(QtCore.Qt.Unchecked)
-
         # Client auth (v3)
         self.client_auth_v3_checkbox = QtWidgets.QCheckBox()
         self.client_auth_v3_checkbox.clicked.connect(self.client_auth_v3_checkbox_clicked)
         self.client_auth_v3_checkbox.clicked.connect(self.update_ui)
         self.client_auth_v3_checkbox.setText(
-            strings._("mode_settings_client_auth_checkbox")
+            strings._("mode_settings_client_auth_v3_checkbox")
         )
-        if self.settings.get("general", "client_auth_v3"):
+        if self.settings.get("general", "client_auth"):
             self.client_auth_v3_checkbox.setCheckState(QtCore.Qt.Checked)
         else:
             self.client_auth_v3_checkbox.setCheckState(QtCore.Qt.Unchecked)
@@ -177,8 +155,6 @@ class ModeSettingsWidget(QtWidgets.QWidget):
         advanced_layout.addLayout(title_layout)
         advanced_layout.addLayout(autostart_timer_layout)
         advanced_layout.addLayout(autostop_timer_layout)
-        advanced_layout.addWidget(self.legacy_checkbox)
-        advanced_layout.addWidget(self.client_auth_checkbox)
         advanced_layout.addWidget(self.client_auth_v3_checkbox)
         self.advanced_widget = QtWidgets.QWidget()
         self.advanced_widget.setLayout(advanced_layout)
@@ -204,33 +180,6 @@ class ModeSettingsWidget(QtWidgets.QWidget):
             self.toggle_advanced_button.setText(
                 strings._("mode_settings_advanced_toggle_show")
             )
-
-        # v2 client auth is only a legacy option
-        if self.client_auth_checkbox.isChecked():
-            self.legacy_checkbox.setChecked(True)
-            self.legacy_checkbox.setEnabled(False)
-            self.client_auth_v3_checkbox.hide()
-        else:
-            self.legacy_checkbox.setEnabled(True)
-        if self.legacy_checkbox.isChecked():
-            self.client_auth_checkbox.show()
-            self.client_auth_v3_checkbox.hide()
-        else:
-            self.client_auth_checkbox.hide()
-            self.client_auth_v3_checkbox.show()
-
-        # If the server has been started in the past, prevent changing legacy option
-        if self.settings.get("onion", "private_key"):
-            if self.legacy_checkbox.isChecked():
-                # If using legacy, disable legacy and client auth options
-                self.legacy_checkbox.setEnabled(False)
-                self.client_auth_checkbox.setEnabled(False)
-                self.client_auth_v3_checkbox.hide()
-            else:
-                # If using v3, hide legacy and client auth options, show v3 client auth option
-                self.legacy_checkbox.hide()
-                self.client_auth_checkbox.hide()
-                self.client_auth_v3_checkbox.show()
 
     def title_editing_finished(self):
         if self.title_lineedit.text().strip() == "":
@@ -293,17 +242,9 @@ class ModeSettingsWidget(QtWidgets.QWidget):
         else:
             self.autostop_timer_widget.hide()
 
-    def legacy_checkbox_clicked(self):
-        self.settings.set("general", "legacy", self.legacy_checkbox.isChecked())
-
-    def client_auth_checkbox_clicked(self):
-        self.settings.set(
-            "general", "client_auth", self.client_auth_checkbox.isChecked()
-        )
-
     def client_auth_v3_checkbox_clicked(self):
         self.settings.set(
-            "general", "client_auth_v3", self.client_auth_v3_checkbox.isChecked()
+            "general", "client_auth", self.client_auth_v3_checkbox.isChecked()
         )
 
     def toggle_advanced_clicked(self):

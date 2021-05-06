@@ -22,7 +22,6 @@ flask = "*"
 flask-httpauth = "*"
 flask-socketio = "*"
 psutil = "*"
-pycryptodome = "*"
 pysocks = "*"
 requests = {extras = ["socks"], version = "^2.25.1"}
 stem = "*"

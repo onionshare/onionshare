@@ -121,25 +121,11 @@ def main(cwd=None):
         help="Stop onion service at schedule time (N seconds from now)",
     )
     parser.add_argument(
-        "--legacy",
-        action="store_true",
-        dest="legacy",
-        default=False,
-        help="Use legacy address (v2 onion service, not recommended)",
-    )
-    parser.add_argument(
         "--client-auth",
         action="store_true",
         dest="client_auth",
         default=False,
-        help="Use V2 client authorization (requires --legacy)",
-    )
-    parser.add_argument(
-        "--client-auth-v3",
-        action="store_true",
-        dest="client_auth_v3",
-        default=False,
-        help="Use V3 client authorization",
+        help="Use client authorization",
     )
     # Share args
     parser.add_argument(
@@ -201,9 +187,7 @@ def main(cwd=None):
     public = bool(args.public)
     autostart_timer = int(args.autostart_timer)
     autostop_timer = int(args.autostop_timer)
-    legacy = bool(args.legacy)
     client_auth = bool(args.client_auth)
-    client_auth_v3 = bool(args.client_auth_v3)
     autostop_sharing = not bool(args.no_autostop_sharing)
     data_dir = args.data_dir
     webhook_url = args.webhook_url
@@ -221,20 +205,6 @@ def main(cwd=None):
 
     # Verbose mode?
     common.verbose = verbose
-
-    # client_auth can only be set if legacy is also set
-    if client_auth and not legacy:
-        print(
-            "Client authentication (--client-auth) is only supported with legacy onion services (--legacy)"
-        )
-        sys.exit()
-
-    # client_auth_v3 and legacy cannot be both set
-    if client_auth_v3 and legacy:
-        print(
-            "V3 Client authentication (--client-auth-v3) cannot be used with legacy onion services (--legacy)"
-        )
-        sys.exit()
 
     # Re-load settings, if a custom config was passed in
     if config_filename:
@@ -256,9 +226,7 @@ def main(cwd=None):
         mode_settings.set("general", "public", public)
         mode_settings.set("general", "autostart_timer", autostart_timer)
         mode_settings.set("general", "autostop_timer", autostop_timer)
-        mode_settings.set("general", "legacy", legacy)
         mode_settings.set("general", "client_auth", client_auth)
-        mode_settings.set("general", "client_auth_v3", client_auth_v3)
         if mode == "share":
             mode_settings.set("share", "autostop_sharing", autostop_sharing)
         if mode == "receive":
@@ -380,14 +348,9 @@ def main(cwd=None):
                 print("")
                 if mode_settings.get("general", "client_auth"):
                     print(
-                        f"Give this address and HidServAuth line to your sender, and tell them it won't be accessible until: {schedule.strftime('%I:%M:%S%p, %b %d, %y')}"
-                    )
-                    print(app.auth_string)
-                elif mode_settings.get("general", "client_auth_v3"):
-                    print(
                         f"Give this address and ClientAuth line to your sender, and tell them it won't be accessible until: {schedule.strftime('%I:%M:%S%p, %b %d, %y')}"
                     )
-                    print(app.auth_string_v3)
+                    print(f"ClientAuth: {app.auth_string}")
                 else:
                     print(
                         f"Give this address to your sender, and tell them it won't be accessible until: {schedule.strftime('%I:%M:%S%p, %b %d, %y')}"
@@ -395,14 +358,9 @@ def main(cwd=None):
             else:
                 if mode_settings.get("general", "client_auth"):
                     print(
-                        f"Give this address and HidServAuth line to your recipient, and tell them it won't be accessible until: {schedule.strftime('%I:%M:%S%p, %b %d, %y')}"
-                    )
-                    print(app.auth_string)
-                elif mode_settings.get("general", "client_auth_v3"):
-                    print(
                         f"Give this address and ClientAuth line to your recipient, and tell them it won't be accessible until: {schedule.strftime('%I:%M:%S%p, %b %d, %y')}"
                     )
-                    print(app.auth_string_v3)
+                    print(f"ClientAuth: {app.auth_string}")
                 else:
                     print(
                         f"Give this address to your recipient, and tell them it won't be accessible until: {schedule.strftime('%I:%M:%S%p, %b %d, %y')}"
@@ -484,25 +442,17 @@ def main(cwd=None):
                 print("")
 
                 if mode_settings.get("general", "client_auth"):
-                    print("Give this address and HidServAuth to the sender:")
-                    print(url)
-                    print(app.auth_string)
-                elif mode_settings.get("general", "client_auth_v3"):
                     print("Give this address and ClientAuth to the sender:")
                     print(url)
-                    print(app.auth_string_v3)
+                    print(f"ClientAuth: {app.auth_string}")
                 else:
                     print("Give this address to the sender:")
                     print(url)
             else:
                 if mode_settings.get("general", "client_auth"):
-                    print("Give this address and HidServAuth line to the recipient:")
-                    print(url)
-                    print(app.auth_string)
-                elif mode_settings.get("general", "client_auth_v3"):
                     print("Give this address and ClientAuth line to the recipient:")
                     print(url)
-                    print(app.auth_string_v3)
+                    print(f"ClientAuth: {app.auth_string}")
                 else:
                     print("Give this address to the recipient:")
                     print(url)
