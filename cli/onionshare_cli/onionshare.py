@@ -74,6 +74,8 @@ class OnionShare(object):
 
         if self.local_only:
             self.onion_host = f"127.0.0.1:{self.port}"
+            if mode_settings.get("general", "client_auth"):
+                self.auth_string = "E2GOT5LTUTP3OAMRCRXO4GSH6VKJEUOXZQUC336SRKAHTTT5OVSA"
             return
 
         self.onion_host = self.onion.start_onion_service(
