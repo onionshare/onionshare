@@ -29,6 +29,9 @@ import time
 import shutil
 from pkg_resources import resource_filename
 
+import colorama
+from colorama import Fore, Back, Style
+
 from .settings import Settings
 
 
@@ -43,17 +46,10 @@ class Common:
     The Common object is shared amongst all parts of OnionShare.
     """
 
-    C_RESET = "\033[0m"
-    C_BG_PURPLE = "\033[45m"
-    C_BOLD = "\033[01m"
-    C_WHITE = "\033[97m"
-    C_LIGHTGRAY = "\033[37m"
-    C_DARKGRAY = "\033[90m"
-    C_LIGHTPURPLE = "\033[95m"
-    C_DARKPURPLE = "\033[35m"
-
     def __init__(self, verbose=False):
         self.verbose = verbose
+
+        colorama.init(autoreset=True)
 
         # The platform OnionShare is running on
         self.platform = platform.system()
@@ -90,219 +86,195 @@ class Common:
         ╰───────────────────────────────────────────╯
         """
 
+        if self.platform == "Windows":
+            pass
+        else:
+            pass
+
         print(
-            self.C_BG_PURPLE
-            + self.C_LIGHTGRAY
-            + "╭───────────────────────────────────────────╮"
-            + self.C_RESET
+            Back.MAGENTA + Fore.WHITE + "╭───────────────────────────────────────────╮"
         )
         print(
-            self.C_BG_PURPLE
-            + self.C_LIGHTGRAY
+            Back.MAGENTA
+            + Fore.WHITE
             + "│"
-            + self.C_LIGHTPURPLE
+            + Fore.LIGHTMAGENTA_EX
             + "    *            "
-            + self.C_WHITE
+            + Fore.WHITE
             + "▄▄█████▄▄"
-            + self.C_LIGHTPURPLE
+            + Fore.LIGHTMAGENTA_EX
             + "            *    "
-            + self.C_LIGHTGRAY
+            + Fore.WHITE
             + "│"
-            + self.C_RESET
         )
         print(
-            self.C_BG_PURPLE
-            + self.C_LIGHTGRAY
+            Back.MAGENTA
+            + Fore.WHITE
             + "│"
-            + self.C_WHITE
+            + Fore.WHITE
             + "               ▄████▀▀▀████▄"
-            + self.C_LIGHTPURPLE
+            + Fore.LIGHTMAGENTA_EX
             + "     *         "
-            + self.C_LIGHTGRAY
+            + Fore.WHITE
             + "│"
-            + self.C_RESET
         )
         print(
-            self.C_BG_PURPLE
-            + self.C_LIGHTGRAY
+            Back.MAGENTA
+            + Fore.WHITE
             + "│"
-            + self.C_WHITE
+            + Fore.WHITE
             + "              ▀▀█▀       ▀██▄              "
-            + self.C_LIGHTGRAY
+            + Fore.WHITE
             + "│"
-            + self.C_RESET
         )
         print(
-            self.C_BG_PURPLE
-            + self.C_LIGHTGRAY
+            Back.MAGENTA
+            + Fore.WHITE
             + "│"
-            + self.C_LIGHTPURPLE
+            + Fore.LIGHTMAGENTA_EX
             + "      *      "
-            + self.C_WHITE
+            + Fore.WHITE
             + "▄█▄          ▀██▄             "
-            + self.C_LIGHTGRAY
+            + Fore.WHITE
             + "│"
-            + self.C_RESET
         )
         print(
-            self.C_BG_PURPLE
-            + self.C_LIGHTGRAY
+            Back.MAGENTA
+            + Fore.WHITE
             + "│"
-            + self.C_WHITE
+            + Fore.WHITE
             + "           ▄█████▄         ███"
-            + self.C_LIGHTPURPLE
+            + Fore.LIGHTMAGENTA_EX
             + "        -+-  "
-            + self.C_LIGHTGRAY
+            + Fore.WHITE
             + "│"
-            + self.C_RESET
         )
         print(
-            self.C_BG_PURPLE
-            + self.C_LIGHTGRAY
+            Back.MAGENTA
+            + Fore.WHITE
             + "│"
-            + self.C_WHITE
+            + Fore.WHITE
             + "             ███         ▀█████▀           "
-            + self.C_LIGHTGRAY
+            + Fore.WHITE
             + "│"
-            + self.C_RESET
         )
         print(
-            self.C_BG_PURPLE
-            + self.C_LIGHTGRAY
+            Back.MAGENTA
+            + Fore.WHITE
             + "│"
-            + self.C_WHITE
+            + Fore.WHITE
             + "             ▀██▄          ▀█▀             "
-            + self.C_LIGHTGRAY
+            + Fore.WHITE
             + "│"
-            + self.C_RESET
         )
         print(
-            self.C_BG_PURPLE
-            + self.C_LIGHTGRAY
+            Back.MAGENTA
+            + Fore.WHITE
             + "│"
-            + self.C_LIGHTPURPLE
+            + Fore.LIGHTMAGENTA_EX
             + "         *    "
-            + self.C_WHITE
+            + Fore.WHITE
             + "▀██▄       ▄█▄▄"
-            + self.C_LIGHTPURPLE
+            + Fore.LIGHTMAGENTA_EX
             + "     *        "
-            + self.C_LIGHTGRAY
+            + Fore.WHITE
             + "│"
-            + self.C_RESET
         )
         print(
-            self.C_BG_PURPLE
-            + self.C_LIGHTGRAY
+            Back.MAGENTA
+            + Fore.WHITE
             + "│"
-            + self.C_LIGHTPURPLE
+            + Fore.LIGHTMAGENTA_EX
             + " *             "
-            + self.C_WHITE
+            + Fore.WHITE
             + "▀████▄▄▄████▀               "
-            + self.C_LIGHTGRAY
+            + Fore.WHITE
             + "│"
-            + self.C_RESET
         )
         print(
-            self.C_BG_PURPLE
-            + self.C_LIGHTGRAY
+            Back.MAGENTA
+            + Fore.WHITE
             + "│"
-            + self.C_WHITE
+            + Fore.WHITE
             + "                 ▀▀█████▀▀                 "
-            + self.C_LIGHTGRAY
+            + Fore.WHITE
             + "│"
-            + self.C_RESET
         )
         print(
-            self.C_BG_PURPLE
-            + self.C_LIGHTGRAY
+            Back.MAGENTA
+            + Fore.WHITE
             + "│"
-            + self.C_LIGHTPURPLE
+            + Fore.LIGHTMAGENTA_EX
             + "             -+-                     *     "
-            + self.C_LIGHTGRAY
+            + Fore.WHITE
             + "│"
-            + self.C_RESET
         )
         print(
-            self.C_BG_PURPLE
-            + self.C_LIGHTGRAY
+            Back.MAGENTA
+            + Fore.WHITE
             + "│"
-            + self.C_WHITE
+            + Fore.WHITE
             + "   ▄▀▄               ▄▀▀ █                 "
-            + self.C_LIGHTGRAY
+            + Fore.WHITE
             + "│"
-            + self.C_RESET
         )
         print(
-            self.C_BG_PURPLE
-            + self.C_LIGHTGRAY
+            Back.MAGENTA
+            + Fore.WHITE
             + "│"
-            + self.C_WHITE
+            + Fore.WHITE
             + "   █ █     ▀         ▀▄  █                 "
-            + self.C_LIGHTGRAY
+            + Fore.WHITE
             + "│"
-            + self.C_RESET
         )
         print(
-            self.C_BG_PURPLE
-            + self.C_LIGHTGRAY
+            Back.MAGENTA
+            + Fore.WHITE
             + "│"
-            + self.C_WHITE
+            + Fore.WHITE
             + "   █ █ █▀▄ █ ▄▀▄ █▀▄  ▀▄ █▀▄ ▄▀▄ █▄▀ ▄█▄   "
-            + self.C_LIGHTGRAY
+            + Fore.WHITE
             + "│"
-            + self.C_RESET
         )
         print(
-            self.C_BG_PURPLE
-            + self.C_LIGHTGRAY
+            Back.MAGENTA
+            + Fore.WHITE
             + "│"
-            + self.C_WHITE
+            + Fore.WHITE
             + "   ▀▄▀ █ █ █ ▀▄▀ █ █ ▄▄▀ █ █ ▀▄█ █   ▀▄▄   "
-            + self.C_LIGHTGRAY
+            + Fore.WHITE
             + "│"
-            + self.C_RESET
         )
         print(
-            self.C_BG_PURPLE
-            + self.C_LIGHTGRAY
-            + "│                                           │"
-            + self.C_RESET
+            Back.MAGENTA + Fore.WHITE + "│                                           │"
         )
         left_spaces = (43 - len(self.version) - 1) // 2
         right_spaces = left_spaces
         if left_spaces + len(self.version) + right_spaces < 43:
             right_spaces += 1
         print(
-            self.C_BG_PURPLE
-            + self.C_LIGHTGRAY
+            Back.MAGENTA
+            + Fore.WHITE
             + "│"
-            + self.C_LIGHTGRAY
+            + Fore.WHITE
             + f"{' '*left_spaces}v{self.version}{' '*right_spaces}"
-            + self.C_LIGHTGRAY
+            + Fore.WHITE
             + "│"
-            + self.C_RESET
         )
         print(
-            self.C_BG_PURPLE
-            + self.C_LIGHTGRAY
-            + "│                                           │"
-            + self.C_RESET
+            Back.MAGENTA + Fore.WHITE + "│                                           │"
         )
         print(
-            self.C_BG_PURPLE
-            + self.C_LIGHTGRAY
+            Back.MAGENTA
+            + Fore.WHITE
             + "│"
-            + self.C_LIGHTGRAY
+            + Fore.WHITE
             + "          https://onionshare.org/          "
-            + self.C_LIGHTGRAY
+            + Fore.WHITE
             + "│"
-            + self.C_RESET
         )
         print(
-            self.C_BG_PURPLE
-            + self.C_LIGHTGRAY
-            + "╰───────────────────────────────────────────╯"
-            + self.C_RESET
+            Back.MAGENTA + Fore.WHITE + "╰───────────────────────────────────────────╯"
         )
         print()
 
@@ -319,9 +291,11 @@ class Common:
         """
         if self.verbose:
             timestamp = time.strftime("%b %d %Y %X")
-            final_msg = f"{self.C_DARKGRAY}[{timestamp}]{self.C_RESET} {self.C_LIGHTGRAY}{module}.{func}{self.C_RESET}"
+            final_msg = f"{Fore.LIGHTBLACK_EX + Style.DIM}[{timestamp}]{Style.RESET_ALL} {Fore.WHITE + Style.DIM}{module}.{func}{Style.RESET_ALL}"
             if msg:
-                final_msg = f"{final_msg}{self.C_LIGHTGRAY}: {msg}{self.C_RESET}"
+                final_msg = (
+                    f"{final_msg}{Fore.WHITE + Style.DIM}: {msg}{Style.RESET_ALL}"
+                )
             print(final_msg)
 
     def get_resource_path(self, filename):
@@ -383,7 +357,7 @@ class Common:
                 try:
                     xdg_config_home = os.environ["XDG_CONFIG_HOME"]
                     onionshare_data_dir = f"{xdg_config_home}/onionshare"
-                except:
+                except Exception:
                     onionshare_data_dir = os.path.expanduser("~/.config/onionshare")
         elif self.platform == "Darwin":
             onionshare_data_dir = os.path.expanduser(
@@ -393,7 +367,7 @@ class Common:
             try:
                 xdg_config_home = os.environ["XDG_CONFIG_HOME"]
                 onionshare_data_dir = f"{xdg_config_home}/onionshare"
-            except:
+            except Exception:
                 onionshare_data_dir = os.path.expanduser("~/.config/onionshare")
 
         # Modify the data dir if running tests

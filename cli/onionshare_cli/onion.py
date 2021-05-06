@@ -236,7 +236,7 @@ class Onion(object):
             )
             try:
                 self.tor_socks_port = self.common.get_available_port(1000, 65535)
-            except:
+            except Exception:
                 print("OnionShare port not available")
                 raise PortNotAvailable()
             self.tor_torrc = os.path.join(self.tor_data_directory_name, "torrc")
@@ -258,7 +258,7 @@ class Onion(object):
                         proc.terminate()
                         proc.wait()
                         break
-                except:
+                except Exception:
                     pass
 
             if self.common.platform == "Windows" or self.common.platform == "Darwin":
@@ -269,7 +269,7 @@ class Onion(object):
                 torrc_template += "ControlPort {{control_port}}\n"
                 try:
                     self.tor_control_port = self.common.get_available_port(1000, 65535)
-                except:
+                except Exception:
                     print("OnionShare port not available")
                     raise PortNotAvailable()
                 self.tor_control_socket = None
@@ -442,7 +442,7 @@ class Onion(object):
                 try:
                     self.c = Controller.from_port(port=int(env_port))
                     found_tor = True
-                except:
+                except Exception:
                     pass
 
             else:
@@ -452,7 +452,7 @@ class Onion(object):
                     for port in ports:
                         self.c = Controller.from_port(port=port)
                         found_tor = True
-                except:
+                except Exception:
                     pass
 
                 # If this still didn't work, try guessing the default socket file path
@@ -466,7 +466,7 @@ class Onion(object):
 
                         self.c = Controller.from_socket_file(path=socket_file_path)
                         found_tor = True
-                    except:
+                    except Exception:
                         pass
 
             # If connecting to default control ports failed, so let's try
@@ -488,14 +488,14 @@ class Onion(object):
 
                     self.c = Controller.from_socket_file(path=socket_file_path)
 
-                except:
+                except Exception:
                     print(automatic_error)
                     raise TorErrorAutomatic()
 
             # Try authenticating
             try:
                 self.c.authenticate()
-            except:
+            except Exception:
                 print(automatic_error)
                 raise TorErrorAutomatic()
 
@@ -518,7 +518,7 @@ class Onion(object):
                     print(invalid_settings_error)
                     raise TorErrorInvalidSetting()
 
-            except:
+            except Exception:
                 if self.settings.get("connection_type") == "control_port":
                     print(
                         "Can't connect to the Tor controller at {}:{}.".format(
@@ -597,8 +597,8 @@ class Onion(object):
             tmp_service_id = res.service_id
             self.c.remove_ephemeral_hidden_service(tmp_service_id)
             self.supports_stealth = True
-        except:
-            # ephemeral v3 stealth onion services are not supported
+        except Exception:
+            # ephemeral stealth onion services are not supported
             self.supports_stealth = False
 
         # Does this version of Tor support next-gen ('v3') onions?
@@ -716,7 +716,7 @@ class Onion(object):
                 self.c.remove_ephemeral_hidden_service(
                     mode_settings.get("general", "service_id")
                 )
-            except:
+            except Exception:
                 self.common.log(
                     "Onion", "stop_onion_service", f"failed to remove {onion_host}"
                 )
@@ -737,12 +737,12 @@ class Onion(object):
                         "Onion", "cleanup", f"trying to remove onion {onion_host}"
                     )
                     self.c.remove_ephemeral_hidden_service(service_id)
-                except:
+                except Exception:
                     self.common.log(
                         "Onion", "cleanup", f"failed to remove onion {onion_host}"
                     )
                     pass
-        except:
+        except Exception:
             pass
 
         if stop_tor:
@@ -785,7 +785,7 @@ class Onion(object):
                             )
                             symbols_i = (symbols_i + 1) % len(symbols)
                             time.sleep(1)
-                    except:
+                    except Exception:
                         pass
 
                 self.tor_proc.terminate()
@@ -805,7 +805,7 @@ class Onion(object):
                                 "cleanup",
                                 "Tried to kill tor process but it's still running",
                             )
-                    except:
+                    except Exception:
                         self.common.log(
                             "Onion", "cleanup", "Exception while killing tor process"
                         )
@@ -818,7 +818,7 @@ class Onion(object):
                 # Delete the temporary tor data directory
                 if self.use_tmp_dir:
                     self.tor_data_directory.cleanup()
-            except:
+            except Exception:
                 pass
 
     def get_tor_socks_port(self):

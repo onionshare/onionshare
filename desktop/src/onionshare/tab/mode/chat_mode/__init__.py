@@ -18,14 +18,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-import os
-import random
-import string
-
 from PySide2 import QtCore, QtWidgets, QtGui
 
-from onionshare_cli.onion import *
-from onionshare_cli.common import Common
 from onionshare_cli.web import Web
 
 from .. import Mode

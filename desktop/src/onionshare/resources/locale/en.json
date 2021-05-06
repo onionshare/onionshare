@@ -175,6 +175,8 @@
     "mode_settings_share_autostop_sharing_checkbox": "Stop sharing after files have been sent (uncheck to allow downloading individual files)",
     "mode_settings_receive_data_dir_label": "Save files to",
     "mode_settings_receive_data_dir_browse_button": "Browse",
+    "mode_settings_receive_disable_text_checkbox": "Disable submitting text",
+    "mode_settings_receive_disable_files_checkbox": "Disable uploading files",
     "mode_settings_receive_webhook_url_checkbox": "Use notification webhook",
     "mode_settings_website_disable_csp_checkbox": "Don't send Content Security Policy header (allows your website to use third-party resources)",
     "gui_all_modes_transfer_finished_range": "Transferred {} - {}",
@@ -193,5 +195,7 @@
     "settings_error_bundled_tor_broken": "OnionShare could not connect to Tor:\n{}",
     "gui_rendezvous_cleanup": "Waiting for Tor circuits to close to be sure your files have successfully transferred.\n\nThis might take a few minutes.",
     "gui_rendezvous_cleanup_quit_early": "Quit Early",
-    "error_port_not_available": "OnionShare port not available"
+    "error_port_not_available": "OnionShare port not available",
+    "history_receive_read_message_button": "Read Message",
+    "error_tor_protocol_error": "There was an error with Tor: {}"
 }

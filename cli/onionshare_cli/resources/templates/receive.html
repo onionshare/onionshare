@@ -19,8 +19,18 @@
   <div class="upload-wrapper">
     <p><img class="logo" src="{{ static_url_path }}/img/logo_large.png" title="OnionShare"></p>
 
-    <p class="upload-header">Send Files</p>
-    <p class="upload-description">Select the files you want to send, then click "Send Files"...</p>
+    {% if not disable_text and not disable_files %}
+    <p class="upload-header">Submit Files or Messages</p>
+    <p class="upload-description">You can submit files, a message, or both</p>
+    {% endif %}
+    {% if not disable_text and disable_files %}
+    <p class="upload-header">Submit Messages</p>
+    <p class="upload-description">You can submit a message</p>
+    {% endif %}
+    {% if disable_text and not disable_files %}
+    <p class="upload-header">Submit Files</p>
+    <p class="upload-description">You can submit files</p>
+    {% endif %}
 
     <div id="uploads"></div>
 
@@ -37,8 +47,13 @@
     </div>
 
     <form id="send" method="post" enctype="multipart/form-data" action="/upload">
+      {% if not disable_files %}
       <p><input type="file" id="file-select" name="file[]" multiple /></p>
-      <p><button type="submit" id="send-button" class="button">Send Files</button></p>
+      {% endif %}
+      {% if not disable_text %}
+      <p><textarea id="text" name="text" placeholder="Write a message"></textarea></p>
+      {% endif %}
+      <p><button type="submit" id="send-button" class="button">Submit</button></p>
     </form>
 
   </div>

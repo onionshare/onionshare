@@ -353,6 +353,10 @@ class GuiCommon:
                     color: #666666;
                     font-size: 11px;
                 }""",
+            "receive_message_button": """
+                QPushButton {
+                    padding: 5px 10px;
+                }""",
             # Settings dialog
             "settings_version": """
                 QLabel {
