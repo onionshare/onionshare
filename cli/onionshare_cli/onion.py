@@ -606,7 +606,6 @@ class Onion(object):
         # https://trac.torproject.org/projects/tor/ticket/28619
         self.supports_v3_onions = self.tor_version >= Version("0.3.5.7")
 
-
     def is_authenticated(self):
         """
         Returns True if the Tor connection is still working, or False otherwise.
@@ -648,19 +647,19 @@ class Onion(object):
                 )
                 raise TorTooOldStealth()
             else:
-                if key_type == "NEW" or not mode_settings.get("onion", "client_auth_v3_priv_key"):
+                if key_type == "NEW" or not mode_settings.get("onion", "client_auth_priv_key"):
                     # Generate a new key pair for Client Auth on new onions, or if
                     # it's a persistent onion but for some reason we don't them
-                    client_auth_v3_priv_key_raw = nacl.public.PrivateKey.generate()
-                    client_auth_v3_priv_key = self.key_str(client_auth_v3_priv_key_raw)
-                    client_auth_v3_pub_key = self.key_str(client_auth_v3_priv_key_raw.public_key)
+                    client_auth_priv_key_raw = nacl.public.PrivateKey.generate()
+                    client_auth_priv_key = self.key_str(client_auth_priv_key_raw)
+                    client_auth_pub_key = self.key_str(client_auth_priv_key_raw.public_key)
                 else:
                     # These should have been saved in settings from the previous run of a persistent onion
-                    client_auth_v3_priv_key = mode_settings.get("onion", "client_auth_v3_priv_key")
-                    client_auth_v3_pub_key = mode_settings.get("onion", "client_auth_v3_pub_key")
+                    client_auth_priv_key = mode_settings.get("onion", "client_auth_priv_key")
+                    client_auth_pub_key = mode_settings.get("onion", "client_auth_pub_key")
         else:
-            client_auth_v3_priv_key = None
-            client_auth_v3_pub_key = None
+            client_auth_priv_key = None
+            client_auth_pub_key = None
 
         try:
             if not self.supports_stealth:
@@ -678,7 +677,7 @@ class Onion(object):
                     basic_auth=None,
                     key_type=key_type,
                     key_content=key_content,
-                    client_auth_v3=client_auth_v3_pub_key,
+                    client_auth_v3=client_auth_pub_key,
                 )
 
         except ProtocolError as e:
@@ -703,14 +702,14 @@ class Onion(object):
         # same share at a later date), and the private key to the other user for
         # their Tor Browser.
         if mode_settings.get("general", "client_auth"):
-            mode_settings.set("onion", "client_auth_v3_priv_key", client_auth_v3_priv_key)
-            mode_settings.set("onion", "client_auth_v3_pub_key", client_auth_v3_pub_key)
+            mode_settings.set("onion", "client_auth_priv_key", client_auth_priv_key)
+            mode_settings.set("onion", "client_auth_pub_key", client_auth_pub_key)
             # If we were pasting the client auth directly into the filesystem behind a Tor client,
             # it would need to be in the format below. However, let's just set the private key
             # by itself, as this can be pasted directly into Tor Browser, which is likely to
             # be the most common use case.
-            # self.auth_string = f"{onion_host}:x25519:{client_auth_v3_priv_key}"
-            self.auth_string = client_auth_v3_priv_key
+            # self.auth_string = f"{onion_host}:x25519:{client_auth_priv_key}"
+            self.auth_string = client_auth_priv_key
 
         return onion_host
 

@@ -275,7 +275,7 @@ class Tab(QtWidgets.QWidget):
         self.share_mode.start_server_finished.connect(self.clear_message)
         self.share_mode.server_status.button_clicked.connect(self.clear_message)
         self.share_mode.server_status.url_copied.connect(self.copy_url)
-        self.share_mode.server_status.client_auth_v3_copied.connect(self.copy_client_auth_v3)
+        self.share_mode.server_status.client_auth_copied.connect(self.copy_client_auth)
 
         self.change_title.emit(self.tab_id, strings._("gui_tab_name_share"))
 
@@ -310,8 +310,8 @@ class Tab(QtWidgets.QWidget):
         self.receive_mode.start_server_finished.connect(self.clear_message)
         self.receive_mode.server_status.button_clicked.connect(self.clear_message)
         self.receive_mode.server_status.url_copied.connect(self.copy_url)
-        self.receive_mode.server_status.client_auth_v3_copied.connect(
-            self.copy_client_auth_v3
+        self.receive_mode.server_status.client_auth_copied.connect(
+            self.copy_client_auth
         )
 
         self.change_title.emit(self.tab_id, strings._("gui_tab_name_receive"))
@@ -347,8 +347,8 @@ class Tab(QtWidgets.QWidget):
         self.website_mode.start_server_finished.connect(self.clear_message)
         self.website_mode.server_status.button_clicked.connect(self.clear_message)
         self.website_mode.server_status.url_copied.connect(self.copy_url)
-        self.website_mode.server_status.client_auth_v3_copied.connect(
-            self.copy_client_auth_v3
+        self.website_mode.server_status.client_auth_copied.connect(
+            self.copy_client_auth
         )
 
         self.change_title.emit(self.tab_id, strings._("gui_tab_name_website"))
@@ -382,7 +382,7 @@ class Tab(QtWidgets.QWidget):
         self.chat_mode.start_server_finished.connect(self.clear_message)
         self.chat_mode.server_status.button_clicked.connect(self.clear_message)
         self.chat_mode.server_status.url_copied.connect(self.copy_url)
-        self.chat_mode.server_status.client_auth_v3_copied.connect(self.copy_client_auth_v3)
+        self.chat_mode.server_status.client_auth_copied.connect(self.copy_client_auth)
 
         self.change_title.emit(self.tab_id, strings._("gui_tab_name_chat"))
 
@@ -597,14 +597,15 @@ class Tab(QtWidgets.QWidget):
             strings._("gui_copied_url_title"), strings._("gui_copied_url")
         )
 
-    def copy_client_auth_v3(self):
+    def copy_client_auth(self):
         """
-        When the v3 onion service ClientAuth private key gets copied to the clipboard, display this in the status bar.
+        When the onion service's ClientAuth private key gets copied to
+        the clipboard, display this in the status bar.
         """
-        self.common.log("Tab", "copy_client_auth_v3")
+        self.common.log("Tab", "copy_client_auth")
         self.system_tray.showMessage(
-            strings._("gui_copied_client_auth_v3_title"),
-            strings._("gui_copied_client_auth_v3"),
+            strings._("gui_copied_client_auth_title"),
+            strings._("gui_copied_client_auth"),
         )
 
     def clear_message(self):
