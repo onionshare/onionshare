@@ -39,6 +39,12 @@ class ChatModeWeb:
         # This tracks the history id
         self.cur_history_id = 0
 
+        # Whether or not we can send REQUEST_INDIVIDUAL_FILE_STARTED
+        # and maybe other events when requests come in to this mode
+        # Chat mode has no concept of individual file requests that
+        # turn into history widgets in the GUI, so set it to False
+        self.supports_file_requests = False
+
         self.define_routes()
 
     def define_routes(self):
