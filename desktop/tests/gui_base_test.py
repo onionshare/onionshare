@@ -453,6 +453,7 @@ class GuiBaseTest(unittest.TestCase):
         self.assertEqual(tab.get_mode().server_status.status, 0)
 
     def clientauth_is_visible(self, tab):
+        """Test that the ClientAuth button is visible and that the clipboard contains its contents"""
         self.assertTrue(
             tab.get_mode().server_status.copy_client_auth_button.isVisible()
         )
