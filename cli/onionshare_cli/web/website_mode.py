@@ -37,8 +37,8 @@ class WebsiteModeWeb(SendBaseModeWeb):
         The web app routes for sharing a website
         """
 
-        @self.web.app.route("/", defaults={"path": ""}, methods=["GET", "POST"], provide_automatic_options=False)
-        @self.web.app.route("/<path:path>", methods=["GET", "POST"], provide_automatic_options=False)
+        @self.web.app.route("/", defaults={"path": ""}, methods=["GET"], provide_automatic_options=False)
+        @self.web.app.route("/<path:path>", methods=["GET"], provide_automatic_options=False)
         def path_public(path):
             return path_logic(path)
 

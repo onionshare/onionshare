@@ -112,6 +112,6 @@ class TestWebsite(GuiBaseTest):
         self.run_all_website_mode_setup_tests(tab)
         self.run_all_website_mode_started_tests(tab)
         url = f"http://127.0.0.1:{tab.app.port}/"
-        self.hit_405(url, expected_resp="OnionShare: 405 Method Not Allowed", data = {'foo':'bar'}, methods = ["put", "delete", "options"])
+        self.hit_405(url, expected_resp="OnionShare: 405 Method Not Allowed", data = {'foo':'bar'}, methods = ["put", "post", "delete", "options"])
 
         self.close_all_tabs()
