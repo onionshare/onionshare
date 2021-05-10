@@ -8,15 +8,16 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2021-05-03 21:48-0700\n"
-"PO-Revision-Date: 2020-11-17 10:28+0000\n"
+"PO-Revision-Date: 2021-05-07 18:32+0000\n"
 "Last-Translator: Ihor Hordiichuk <igor_ck@outlook.com>\n"
-"Language: uk\n"
 "Language-Team: none\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2\n"
+"Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.7-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/features.rst:4
@@ -174,7 +175,7 @@ msgstr ""
 
 #: ../../source/features.rst:47
 msgid "Receive Files and Messages"
-msgstr ""
+msgstr "Отримання файлів і повідомлень"
 
 #: ../../source/features.rst:49
 msgid ""
@@ -183,10 +184,14 @@ msgid ""
 "anonymous dropbox. Open a receive tab and choose the settings that you "
 "want."
 msgstr ""
+"Ви можете використовувати OnionShare, щоб дозволити людям анонімно надсилати "
+"файли та повідомлення безпосередньо на ваш комп’ютер, по суті, перетворюючи "
+"їх на анонімний буфер. Відкрийте вкладку отримання та виберіть потрібні "
+"налаштування."
 
 #: ../../source/features.rst:54
 msgid "You can browse for a folder to save messages and files that get submitted."
-msgstr ""
+msgstr "Можете вибрати теку для збереження повідомлень і файлів, які надіслано."
 
 #: ../../source/features.rst:56
 msgid ""
@@ -194,6 +199,10 @@ msgid ""
 "uploads, and you can check \"Disable uploading files\" if you want to "
 "only allow submitting text messages, like for an anonymous contact form."
 msgstr ""
+"Можете позначити «Вимкнути надсилання тексту», якщо хочете дозволити лише "
+"завантаження файлів, а також можете позначити «Вимкнути вивантаження файлів»"
+", якщо ви хочете дозволити надсилання лише текстових повідомлень, як для "
+"анонімної контактної форми."
 
 #: ../../source/features.rst:58
 msgid ""
@@ -209,6 +218,18 @@ msgid ""
 "your receive mode service, @webhookbot will send you a message on Keybase"
 " letting you know as soon as it happens."
 msgstr ""
+"Ви можете позначити «Застосовувати мережні обробники сповіщень», а потім "
+"вибрати URL-адресу обробника, якщо хочете отримувати сповіщення, коли хтось "
+"надсилає файли або повідомлення до вашої служби OnionShare. Якщо ви "
+"увімкнете цю функцію, OnionShare робитиме запит HTTP POST на цю URL-адресу, "
+"коли хтось надсилає файли або повідомлення. Наприклад, якщо ви хочете "
+"отримати зашифровані текстові повідомлення в програмі обміну повідомленнями `"
+"Keybase <https://keybase.io/>`_, ви можете почати розмову з `@webhookbot "
+"<https://keybase.io/webhookbot>`_, введіть ``!webhook create onionshare-"
+"alerts``, і він відповідатиме через URL-адресу. Використовуйте її URL-"
+"адресою вебобробника сповіщень. Якщо хтось вивантажить файл до служби режиму "
+"отримання, @webhookbot надішле вам повідомлення на Keybase, яке повідомить "
+"вас, як тільки це станеться."
 
 #: ../../source/features.rst:63
 msgid ""
@@ -217,6 +238,10 @@ msgid ""
 " be able to submit files and messages which get uploaded to your "
 "computer."
 msgstr ""
+"Коли все буде готово, натисніть кнопку «Запустити режим отримання». Це "
+"запустить службу OnionShare. Будь-хто, хто завантажує цю адресу у своєму "
+"браузері Tor, зможе надсилати файли та повідомлення, які завантажуються на "
+"ваш комп'ютер."
 
 #: ../../source/features.rst:67
 msgid ""
@@ -227,9 +252,8 @@ msgstr ""
 "побачити журнал і перебіг надсилання файлів."
 
 #: ../../source/features.rst:69
-#, fuzzy
 msgid "Here is what it looks like for someone sending you files and messages."
-msgstr "Ось як це виглядає для когось, хто надсилає вам файли."
+msgstr "Ось як це виглядає для тих, хто надсилає вам файли та повідомлення."
 
 #: ../../source/features.rst:73
 msgid ""
@@ -238,6 +262,10 @@ msgid ""
 "folder on your computer, automatically organized into separate subfolders"
 " based on the time that the files get uploaded."
 msgstr ""
+"Коли хтось надсилає файли або повідомлення до вашої служби отримання, типово "
+"вони зберігаються до теки ``OnionShare`` у домашній теці на вашому "
+"комп'ютері, автоматично впорядковуються в окремі підтеки залежно від часу "
+"передавання файлів."
 
 #: ../../source/features.rst:75
 msgid ""
@@ -264,10 +292,10 @@ msgid ""
 "OnionShare service. OnionShare does not add any safety mechanisms to "
 "protect your system from malicious files."
 msgstr ""
-"Як і у випадку зі шкідливими вкладеннями електронної пошти, можливо, "
-"хтось спробує зламати ваш комп’ютер, завантаживши шкідливий файл до вашої"
-" служби OnionShare. OnionShare не додає жодних механізмів безпеки, щоб "
-"захистити вашу систему від шкідливих файлів."
+"Як і у випадку зі шкідливими вкладеннями електронної пошти, можливо, хтось "
+"спробує зламати ваш комп’ютер, завантаживши шкідливий файл до вашої служби "
+"OnionShare. Вона не додає жодних механізмів безпеки для захисту вашої "
+"системи від шкідливих файлів."
 
 #: ../../source/features.rst:82
 msgid ""
@@ -288,6 +316,8 @@ msgstr ""
 #: ../../source/features.rst:84
 msgid "However, it is always safe to open text messages sent through OnionShare."
 msgstr ""
+"Однак, відкривати текстові повідомлення, надіслані через OnionShare, завжди "
+"безпечно."
 
 #: ../../source/features.rst:87
 msgid "Tips for running a receive service"
@@ -306,17 +336,16 @@ msgstr ""
 "користуєтеся регулярно."
 
 #: ../../source/features.rst:91
-#, fuzzy
 msgid ""
 "If you intend to put the OnionShare address on your website or social "
 "media profiles, save the tab (see :ref:`save_tabs`) and run it as a "
 "public service (see :ref:`turn_off_passwords`). It's also a good idea to "
 "give it a custom title (see :ref:`custom_titles`)."
 msgstr ""
-"Якщо ви маєте намір рекламувати адресу OnionShare на своєму вебсайті або "
-"в профілях соціальних мереж, вам слід зберегти вкладку (докладніше "
-":ref:`save_tabs`) і запустити її як загальнодоступну службу (докладніше "
-":ref:`turn_off_passwords`)."
+"Якщо ви маєте намір розмістити адресу OnionShare на своєму вебсайті або в "
+"профілях суспільних мереж, вам слід зберегти вкладку (докладніше "
+":ref:`save_tabs`) і запустити її загальнодоступною службою (докладніше "
+":ref:`custom_titles`)."
 
 #: ../../source/features.rst:94
 msgid "Host a Website"
@@ -808,4 +837,3 @@ msgstr ""
 #~ "вашій домашній теці вашого комп'ютера та"
 #~ " автоматично впорядковуються до окремих "
 #~ "підтек за часом завантаження файлів."
-
