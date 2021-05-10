@@ -21,11 +21,13 @@
 
     {% if not disable_text and not disable_files %}
     <p class="upload-header">Submit Files or Messages</p>
-    <p class="upload-description">You can submit files, a message, or both</p>
+    <p class="upload-description">You can submit files, a message, or both.</p>
+    <p class="upload-description">Remember, you are accessing this service anonymously! Provide contact info if you want a response to the message.</p>
     {% endif %}
     {% if not disable_text and disable_files %}
     <p class="upload-header">Submit Messages</p>
-    <p class="upload-description">You can submit a message</p>
+    <p class="upload-description">You can submit a message.</p>
+    <p class="upload-description">Remember, you are accessing this service anonymously! Provide contact info if you want a response to the message.</p>
     {% endif %}
     {% if disable_text and not disable_files %}
     <p class="upload-header">Submit Files</p>
