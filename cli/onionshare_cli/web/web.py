@@ -229,6 +229,20 @@ class Web:
             mode.cur_history_id += 1
             return self.error404(history_id)
 
+        @self.app.errorhandler(405)
+        def method_not_allowed(e):
+            mode = self.get_mode()
+            history_id = mode.cur_history_id
+            mode.cur_history_id += 1
+            return self.error405(history_id)
+
+        @self.app.errorhandler(500)
+        def method_not_allowed(e):
+            mode = self.get_mode()
+            history_id = mode.cur_history_id
+            mode.cur_history_id += 1
+            return self.error500(history_id)
+
         @self.app.route("/<password_candidate>/shutdown")
         def shutdown(password_candidate):
             """
@@ -302,6 +316,19 @@ class Web:
         self.add_request(Web.REQUEST_OTHER, request.path)
         r = make_response(
             render_template("405.html", static_url_path=self.static_url_path), 405
+        )
+        return self.add_security_headers(r)
+
+    def error500(self, history_id):
+        self.add_request(
+            self.REQUEST_INDIVIDUAL_FILE_STARTED,
+            request.path,
+            {"id": history_id, "status_code": 500},
+        )
+
+        self.add_request(Web.REQUEST_OTHER, request.path)
+        r = make_response(
+            render_template("500.html", static_url_path=self.static_url_path), 405
         )
         return self.add_security_headers(r)
 

@@ -208,10 +208,6 @@ class SendBaseModeWeb:
         history_id = self.cur_history_id
         self.cur_history_id += 1
 
-        # Only GET requests are allowed, any other method should fail
-        if request.method != "GET":
-            return self.web.error405(history_id)
-
         self.web.add_request(
             self.web.REQUEST_INDIVIDUAL_FILE_STARTED,
             path,

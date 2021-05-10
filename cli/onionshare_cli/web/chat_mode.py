@@ -46,7 +46,7 @@ class ChatModeWeb:
         The web app routes for chatting
         """
 
-        @self.web.app.route("/")
+        @self.web.app.route("/", methods=["GET"], provide_automatic_options=False)
         def index():
             history_id = self.cur_history_id
             self.cur_history_id += 1

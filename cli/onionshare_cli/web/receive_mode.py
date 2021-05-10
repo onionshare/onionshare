@@ -71,7 +71,7 @@ class ReceiveModeWeb:
         The web app routes for receiving files
         """
 
-        @self.web.app.route("/")
+        @self.web.app.route("/", methods=["GET"], provide_automatic_options=False)
         def index():
             history_id = self.cur_history_id
             self.cur_history_id += 1
@@ -93,7 +93,7 @@ class ReceiveModeWeb:
             )
             return self.web.add_security_headers(r)
 
-        @self.web.app.route("/upload", methods=["POST"])
+        @self.web.app.route("/upload", methods=["POST"], provide_automatic_options=False)
         def upload(ajax=False):
             """
             Handle the upload files POST request, though at this point, the files have
@@ -225,7 +225,7 @@ class ReceiveModeWeb:
                     )
                     return self.web.add_security_headers(r)
 
-        @self.web.app.route("/upload-ajax", methods=["POST"])
+        @self.web.app.route("/upload-ajax", methods=["POST"], provide_automatic_options=False)
         def upload_ajax_public():
             if not self.can_upload:
                 return self.web.error403()
