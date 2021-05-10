@@ -328,7 +328,7 @@ class Web:
 
         self.add_request(Web.REQUEST_OTHER, request.path)
         r = make_response(
-            render_template("500.html", static_url_path=self.static_url_path), 405
+            render_template("500.html", static_url_path=self.static_url_path), 500
         )
         return self.add_security_headers(r)
 
