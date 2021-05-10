@@ -72,7 +72,7 @@ class ChatModeWeb:
             )
             return self.web.add_security_headers(r)
 
-        @self.web.app.route("/update-session-username", methods=["POST"])
+        @self.web.app.route("/update-session-username", methods=["POST"], provide_automatic_options=False)
         def update_session_username():
             history_id = self.cur_history_id
             data = request.get_json()
