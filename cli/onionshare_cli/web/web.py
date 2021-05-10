@@ -152,6 +152,7 @@ class Web:
         self.receive_mode = None
         self.website_mode = None
         self.chat_mode = None
+        self.mode_supports_file_requests = True
         if self.mode == "share":
             self.share_mode = ShareModeWeb(self.common, self)
         elif self.mode == "receive":
@@ -162,6 +163,9 @@ class Web:
             self.socketio = SocketIO()
             self.socketio.init_app(self.app)
             self.chat_mode = ChatModeWeb(self.common, self)
+            # Chat mode has no concept of individual file requests that
+            # turn into history widgets in the GUI
+            self.mode_supports_file_requests = False
 
         self.cleanup_filenames = []
 
@@ -294,11 +298,12 @@ class Web:
         return self.add_security_headers(r)
 
     def error404(self, history_id):
-        self.add_request(
-            self.REQUEST_INDIVIDUAL_FILE_STARTED,
-            request.path,
-            {"id": history_id, "status_code": 404},
-        )
+        if self.mode_supports_file_requests:
+            self.add_request(
+                self.REQUEST_INDIVIDUAL_FILE_STARTED,
+                request.path,
+                {"id": history_id, "status_code": 404},
+            )
 
         self.add_request(Web.REQUEST_OTHER, request.path)
         r = make_response(
@@ -307,11 +312,12 @@ class Web:
         return self.add_security_headers(r)
 
     def error405(self, history_id):
-        self.add_request(
-            self.REQUEST_INDIVIDUAL_FILE_STARTED,
-            request.path,
-            {"id": history_id, "status_code": 405},
-        )
+        if self.mode_supports_file_requests:
+            self.add_request(
+                self.REQUEST_INDIVIDUAL_FILE_STARTED,
+                request.path,
+                {"id": history_id, "status_code": 405},
+            )
 
         self.add_request(Web.REQUEST_OTHER, request.path)
         r = make_response(
@@ -320,11 +326,12 @@ class Web:
         return self.add_security_headers(r)
 
     def error500(self, history_id):
-        self.add_request(
-            self.REQUEST_INDIVIDUAL_FILE_STARTED,
-            request.path,
-            {"id": history_id, "status_code": 500},
-        )
+        if self.mode_supports_file_requests:
+            self.add_request(
+                self.REQUEST_INDIVIDUAL_FILE_STARTED,
+                request.path,
+                {"id": history_id, "status_code": 500},
+            )
 
         self.add_request(Web.REQUEST_OTHER, request.path)
         r = make_response(
