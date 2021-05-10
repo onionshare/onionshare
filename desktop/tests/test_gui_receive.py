@@ -297,8 +297,11 @@ class TestReceive(GuiBaseTest):
 
         self.run_all_common_setup_tests()
         self.run_all_receive_mode_setup_tests(tab)
-        self.run_all_receive_mode_tests(tab)
+        self.upload_file(tab, self.tmpfile_test, "test.txt")
         url = f"http://127.0.0.1:{tab.app.port}/"
         self.hit_405(url, expected_resp="OnionShare: 405 Method Not Allowed", data = {'foo':'bar'}, methods = ["put", "post", "delete", "options"])
 
+        self.server_is_stopped(tab)
+        self.web_server_is_stopped(tab)
+        self.server_status_indicator_says_closed(tab)
         self.close_all_tabs()
