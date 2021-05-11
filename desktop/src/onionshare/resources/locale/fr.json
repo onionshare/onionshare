@@ -291,5 +291,10 @@
     "error_port_not_available": "Le port OnionShare n’est pas accessible",
     "gui_rendezvous_cleanup_quit_early": "Fermer avant",
     "gui_rendezvous_cleanup": "En attente de la fermeture des circuits Tor pour être certain que vos fichiers ont été transférés avec succès.\n\nCela pourrait prendre quelques minutes.",
-    "gui_color_mode_changed_notice": "Redémarrez OnionShare pour que le nouveau mode chromatique soit appliqué."
+    "gui_color_mode_changed_notice": "Redémarrez OnionShare pour que le nouveau mode chromatique soit appliqué.",
+    "history_receive_read_message_button": "Lire le message",
+    "mode_settings_receive_webhook_url_checkbox": "Utiliser un point d’ancrage Web de notification",
+    "mode_settings_receive_disable_files_checkbox": "Désactiver le téléversement de fichiers",
+    "mode_settings_receive_disable_text_checkbox": "Désactiver l’envoi de texte",
+    "mode_settings_title_label": "Titre personnalisé"
 }

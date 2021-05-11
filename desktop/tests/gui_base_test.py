@@ -14,6 +14,7 @@ from onionshare import Application, MainWindow, GuiCommon
 from onionshare.tab.mode.share_mode import ShareMode
 from onionshare.tab.mode.receive_mode import ReceiveMode
 from onionshare.tab.mode.website_mode import WebsiteMode
+from onionshare.tab.mode.chat_mode import ChatMode
 from onionshare import strings
 
 
@@ -130,6 +131,17 @@ class GuiBaseTest(unittest.TestCase):
         # Add files
         for filename in self.tmpfiles:
             tab.website_mode.server_status.file_selection.file_list.add_file(filename)
+
+        return tab
+
+    def new_chat_tab(self):
+        tab = self.gui.tabs.widget(0)
+        self.verify_new_tab(tab)
+
+        # Chat
+        tab.chat_button.click()
+        self.assertFalse(tab.new_tab.isVisible())
+        self.assertTrue(tab.chat_mode.isVisible())
 
         return tab
 
@@ -361,6 +373,7 @@ class GuiBaseTest(unittest.TestCase):
                 and not tab.settings.get("share", "autostop_sharing")
             )
             or (type(tab.get_mode()) == WebsiteMode)
+            or (type(tab.get_mode()) == ChatMode)
         ):
             tab.get_mode().server_status.server_button.click()
         self.assertEqual(tab.get_mode().server_status.status, 0)
