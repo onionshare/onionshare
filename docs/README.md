@@ -48,9 +48,13 @@ GET https://hosted.weblate.org/api/translations/onionshare/translations/hr/
 GET https://hosted.weblate.org/api/translations/onionshare/translations/eo/
 GET https://hosted.weblate.org/api/translations/onionshare/translations/ja/
 <...snip...>
-GET https://hosted.weblate.org/api/translations/onionshare/doc-tor/he/ | error 404
-GET https://hosted.weblate.org/api/translations/onionshare/doc-tor/en/
-GET https://hosted.weblate.org/api/translations/onionshare/doc-tor/cs/ | error 404
+GET https://hosted.weblate.org/api/translations/onionshare/doc-tor/wo/ | error 404
+GET https://hosted.weblate.org/api/translations/onionshare/doc-tor/ar/
+GET https://hosted.weblate.org/api/translations/onionshare/doc-tor/it/
+
+App translations >= 100%
+=======================
+English (en), 100.0%
 
 App translations >= 90%
 =======================
@@ -62,7 +66,6 @@ Chinese (Traditional) (zh_Hant), 95.0%
 Croatian (hr), 95.0%
 Danish (da), 94.5%
 Dutch (nl), 92.6%
-English (en), 100.0%
 French (fr), 98.0%
 Galician (gl), 97.5%
 German (de), 95.0%
@@ -84,16 +87,24 @@ Swedish (sv), 94.5%
 Turkish (tr), 98.0%
 Ukrainian (uk), 98.0%
 
-App translations >= 75%
+App translations >= 80%
 =======================
 Finnish (fi), 88.1%
 
-Docs translations >= 90%
+Docs translations >= 100%
 ========================
 English (en), 100.0%, 100.0%, 100.0%, 100.0%, 100.0%, 100.0%, 100.0%, 100.0%, 100.0%
 Turkish (tr), 100.0%, 100.0%, 100.0%, 100.0%, 100.0%, 100.0%, 100.0%, 100.0%, 100.0%
 Ukrainian (uk), 100.0%, 100.0%, 100.0%, 100.0%, 100.0%, 100.0%, 100.0%, 100.0%, 100.0%
 
-Docs translations >= 75%
+Docs translations >= 90%
 ========================
+
+
+Docs translations >= 80%
+========================
+German (de), 90.6%, 100.0%, 82.1%, 100.0%, 100.0%, 100.0%, 100.0%, 100.0%, 100.0%
+Greek (el), 90.6%, 100.0%, 82.1%, 100.0%, 100.0%, 100.0%, 100.0%, 100.0%, 100.0%
+Russian (ru), 90.6%, 100.0%, 82.1%, 100.0%, 100.0%, 100.0%, 100.0%, 100.0%, 100.0%
+Spanish (es), 90.6%, 100.0%, 82.1%, 100.0%, 100.0%, 100.0%, 100.0%, 100.0%, 100.0%
 ```
