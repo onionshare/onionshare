@@ -238,5 +238,9 @@
     "history_receive_read_message_button": "Читати повідомлення",
     "mode_settings_receive_disable_files_checkbox": "Вимкнути передавання файлів",
     "mode_settings_receive_disable_text_checkbox": "Вимкнути надсилання тексту",
-    "mode_settings_title_label": "Власний заголовок"
+    "mode_settings_title_label": "Власний заголовок",
+    "gui_status_indicator_chat_scheduled": "Заплановано…",
+    "gui_status_indicator_chat_started": "Спілкування",
+    "gui_status_indicator_chat_working": "Початок…",
+    "gui_status_indicator_chat_stopped": "Готовий до спілкування"
 }
