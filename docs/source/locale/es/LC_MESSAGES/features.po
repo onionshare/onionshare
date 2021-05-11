@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2021-05-03 21:48-0700\n"
-"PO-Revision-Date: 2020-12-06 00:29+0000\n"
-"Last-Translator: Zuhualime Akoochimoya <zakooch@protonmail.ch>\n"
-"Language: es\n"
+"PO-Revision-Date: 2021-05-11 05:34+0000\n"
+"Last-Translator: Santiago Sáenz <smezaqs@gmail.com>\n"
 "Language-Team: none\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.7-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/features.rst:4
@@ -180,7 +181,7 @@ msgstr ""
 
 #: ../../source/features.rst:47
 msgid "Receive Files and Messages"
-msgstr ""
+msgstr "Recibe archivos y mensajes"
 
 #: ../../source/features.rst:49
 msgid ""
@@ -189,10 +190,16 @@ msgid ""
 "anonymous dropbox. Open a receive tab and choose the settings that you "
 "want."
 msgstr ""
+"Puedes utilizar OnionShare para permitir que las personas envíen archivos y "
+"mensajes de forma anónima directamente a tu computadora, convirtiéndola "
+"esencialmente en un dropbox anónimo. Abre una pestaña de recibir y elige la "
+"configuración que quieras."
 
 #: ../../source/features.rst:54
 msgid "You can browse for a folder to save messages and files that get submitted."
 msgstr ""
+"Puedes buscar una carpeta donde guardar los mensajes y archivos que son "
+"enviados."
 
 #: ../../source/features.rst:56
 msgid ""
@@ -200,6 +207,10 @@ msgid ""
 "uploads, and you can check \"Disable uploading files\" if you want to "
 "only allow submitting text messages, like for an anonymous contact form."
 msgstr ""
+"Puedes seleccionar \"Deshabilitar el envío de texto\" si solo quieres "
+"permitir la subida de archivos, y puedes seleccionar \"Deshabilitar la "
+"subida de archivos\" si solo quieres permitir el envío de mensajes de texto, "
+"como en un formulario de contacto anónimo."
 
 #: ../../source/features.rst:58
 msgid ""
@@ -215,6 +226,17 @@ msgid ""
 "your receive mode service, @webhookbot will send you a message on Keybase"
 " letting you know as soon as it happens."
 msgstr ""
+"Puedes seleccionar \"Usar webhook de notificaciones\" y luego escoger una "
+"URL de webhook si quieres ser notificado cuando alguien envíe archivos o "
+"mensajes a tu servicio de OnionShare. Si usas esta característica, "
+"OnionShare hará una solicitud HTTP POST a la URL cuando alguien envíe "
+"archivos o mensajes. Por ejemplo, si quieres recibir un mensaje de texto "
+"encriptado en la aplicación de mensajería `Keybase <https://keybase.io/>`_, "
+"puedes comenzar una conversación con `@webhookbot <https://keybase.io/"
+"webhookbot>`_, escribiendo ``!webhook create onionshare-alerts``, y "
+"responderá con una URL. Úsala como la URL para el webhook de notificaciones. "
+"Si alguien sube un archivo a tu servicio en modo de recepción, @webhookbot "
+"te enviará un mensaje en Keybase haciéndote saber tan pronto como suceda."
 
 #: ../../source/features.rst:63
 msgid ""
@@ -223,6 +245,9 @@ msgid ""
 " be able to submit files and messages which get uploaded to your "
 "computer."
 msgstr ""
+"Cuando estés listo, presiona \"Iniciar modo de recepción\". Esto iniciará el "
+"servicio de OnionShare. Cualquiera que cargue está dirección en su navegador "
+"Tor podrá enviar archivos y mensajes que serán enviados a tu computadora."
 
 #: ../../source/features.rst:67
 msgid ""
@@ -234,9 +259,8 @@ msgstr ""
 "enviándote archivos."
 
 #: ../../source/features.rst:69
-#, fuzzy
 msgid "Here is what it looks like for someone sending you files and messages."
-msgstr "He aquí como luce cuando alguien está enviándote archivos."
+msgstr "Así es como se ve para alguien que esté enviándote archivos."
 
 #: ../../source/features.rst:73
 msgid ""
@@ -245,6 +269,10 @@ msgid ""
 "folder on your computer, automatically organized into separate subfolders"
 " based on the time that the files get uploaded."
 msgstr ""
+"Cuando alguien envía archivos o mensajes a tu servicio de recepción, son "
+"guardados de forma predeterminada en una carpeta llamada ``OnionShare`` en "
+"la carpeta home de tu computador, y son organizados de forma automática en "
+"subcarpetas basadas en el momento en el que los archivos fueron subidos."
 
 #: ../../source/features.rst:75
 msgid ""
@@ -296,6 +324,8 @@ msgstr ""
 #: ../../source/features.rst:84
 msgid "However, it is always safe to open text messages sent through OnionShare."
 msgstr ""
+"Sin embargo, siempre es seguro abrir mensajes de texto enviados mediante "
+"OnionShare."
 
 #: ../../source/features.rst:87
 msgid "Tips for running a receive service"
@@ -314,17 +344,16 @@ msgstr ""
 "regularmente."
 
 #: ../../source/features.rst:91
-#, fuzzy
 msgid ""
 "If you intend to put the OnionShare address on your website or social "
 "media profiles, save the tab (see :ref:`save_tabs`) and run it as a "
 "public service (see :ref:`turn_off_passwords`). It's also a good idea to "
 "give it a custom title (see :ref:`custom_titles`)."
 msgstr ""
-"Si tu intención es publicitar la dirección OnionShare en tu sitio web o "
-"tus perfiles de redes sociales, entonces deberías guardar la pestaña "
-"(mira :ref:`save_tabs`) y correrla como servicio público (mira "
-":ref:`turn_off_passwords`)."
+"Si tu intención es publicitar la dirección OnionShare en tu sitio web o tus "
+"perfiles de redes sociales, guarda la pestaña (ver :ref:`save_tabs`) y "
+"córrela como un servicio público (ver :ref:`turn_off_passwords`). También es "
+"una buena idea darle un título personalizado (ver :ref:`custom_titles`)."
 
 #: ../../source/features.rst:94
 msgid "Host a Website"
@@ -832,4 +861,3 @@ msgstr ""
 #~ "organizados en subcarpetas separadas, "
 #~ "basándose en la hora en que los"
 #~ " archivos son subidos."
-
