@@ -15,7 +15,9 @@ async def api(path):
     url = f"https://hosted.weblate.org{path}"
 
     async with httpx.AsyncClient() as client:
-        r = await client.get(url, headers={"Authorization": f"Token {api_token}"})
+        r = await client.get(
+            url, headers={"Authorization": f"Token {api_token}"}, timeout=30.0
+        )
 
     if r.status_code == 200:
         print(f"GET {url}")
@@ -41,12 +43,12 @@ async def get_docs_translation(component, lang_code):
         docs_translations[component][lang_code] = obj["translated_percent"]
 
 
-async def app_percent_output(percent_min, percent_max=100):
+async def app_percent_output(percent_min, percent_max=101):
     out = []
     for lang_code in languages:
         if (
             app_translations[lang_code] >= percent_min
-            and app_translations[lang_code] <= percent_max
+            and app_translations[lang_code] < percent_max
         ):
             out.append(
                 f"{languages[lang_code]} ({lang_code}), {app_translations[lang_code]}%"
@@ -61,7 +63,7 @@ async def app_percent_output(percent_min, percent_max=100):
     print("")
 
 
-async def docs_percent_output(percent_min, percent_max=100):
+async def docs_percent_output(percent_min, exclude=[]):
     out = []
     for lang_code in languages:
         include_language = True
@@ -74,10 +76,7 @@ async def docs_percent_output(percent_min, percent_max=100):
 
             percentages.append(docs_translations[component][lang_code])
 
-            if (
-                docs_translations[component][lang_code] < percent_min
-                or docs_translations[component][lang_code] > percent_max
-            ):
+            if docs_translations[component][lang_code] < percent_min:
                 include_language = False
                 break
 
@@ -86,13 +85,19 @@ async def docs_percent_output(percent_min, percent_max=100):
             percentages = ", ".join(percentages)
             out.append(f"{languages[lang_code]} ({lang_code}), {percentages}")
 
-    out.sort()
+    excluded = []
+    for s in out:
+        if s not in exclude:
+            excluded.append(s)
+
+    excluded.sort()
 
     print(f"Docs translations >= {percent_min}%")
     print("========================")
-    print("\n".join(out))
+    print("\n".join(excluded))
 
     print("")
+    return excluded
 
 
 async def main():
@@ -135,11 +140,13 @@ async def main():
 
     print("")
 
-    await app_percent_output(90)
-    await app_percent_output(75, 90)
+    await app_percent_output(100)
+    await app_percent_output(90, 100)
+    await app_percent_output(80, 90)
 
-    await docs_percent_output(90)
-    await docs_percent_output(75, 90)
+    out100 = await docs_percent_output(100)
+    out90 = await docs_percent_output(90, out100)
+    await docs_percent_output(80, out100 + out90)
 
 
 if __name__ == "__main__":
