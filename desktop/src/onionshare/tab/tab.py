@@ -452,20 +452,20 @@ class Tab(QtWidgets.QWidget):
             # Chat mode
             if self.chat_mode.server_status.status == ServerStatus.STATUS_STOPPED:
                 self.set_server_status_indicator_stopped(
-                    strings._("gui_status_indicator_receive_stopped")
+                    strings._("gui_status_indicator_chat_stopped")
                 )
             elif self.chat_mode.server_status.status == ServerStatus.STATUS_WORKING:
                 if self.settings.get("general", "autostart_timer"):
                     self.set_server_status_indicator_working(
-                        strings._("gui_status_indicator_receive_scheduled")
+                        strings._("gui_status_indicator_chat_scheduled")
                     )
                 else:
                     self.set_server_status_indicator_working(
-                        strings._("gui_status_indicator_receive_working")
+                        strings._("gui_status_indicator_chat_working")
                     )
             elif self.chat_mode.server_status.status == ServerStatus.STATUS_STARTED:
                 self.set_server_status_indicator_started(
-                    strings._("gui_status_indicator_receive_started")
+                    strings._("gui_status_indicator_chat_started")
                 )
 
     def set_server_status_indicator_stopped(self, label_text):

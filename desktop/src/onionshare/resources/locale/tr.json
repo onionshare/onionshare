@@ -102,7 +102,7 @@
     "settings_error_bundled_tor_timeout": "Tor bağlantısının kurulması gecikiyor. İnternet bağlantınız kesik ya da sistem saatiniz hatalı olabilir mi?",
     "settings_error_bundled_tor_broken": "OnionShare, Tor ile bağlantı kuramadı:\n{}",
     "settings_test_success": "Tor denetleyicisi ile bağlantı kuruldu.\n\nTor sürümü: {}\nGeçici onion hizmetleri desteği: {}.\nİstemci kimlik doğrulaması desteği: {}.\nYeni nesil .onion adresleri desteği: {}.",
-    "error_tor_protocol_error": "Tor ile ilgili bir sorun çıktı: {}",
+    "error_tor_protocol_error": "Tor ile ilgili bir hata oluştu: {}",
     "error_tor_protocol_error_unknown": "Tor ile ilgili bilinmeyen bir sorun çıktı",
     "error_invalid_private_key": "Bu özel anahtar türü desteklenmiyor",
     "connecting_to_tor": "Tor ağı ile bağlantı kuruluyor",
@@ -254,5 +254,10 @@
     "error_port_not_available": "OnionShare bağlantı noktası kullanılamıyor",
     "gui_rendezvous_cleanup_quit_early": "Erken Çık",
     "gui_rendezvous_cleanup": "Dosyalarınızın başarıyla aktarıldığından emin olmak için Tor devrelerinin kapanması bekleniyor.\n\nBu, birkaç dakika sürebilir.",
-    "gui_color_mode_changed_notice": "Yeni renk modunun uygulanması için OnionShare'i yeniden başlatın."
+    "gui_color_mode_changed_notice": "Yeni renk modunun uygulanması için OnionShare'i yeniden başlatın.",
+    "history_receive_read_message_button": "Mesajı Oku",
+    "mode_settings_receive_webhook_url_checkbox": "Bildirim web kancası kullan",
+    "mode_settings_receive_disable_files_checkbox": "Dosya yüklemeyi devre dışı bırak",
+    "mode_settings_receive_disable_text_checkbox": "Metin göndermeyi devre dışı bırak",
+    "mode_settings_title_label": "Özel başlık"
 }

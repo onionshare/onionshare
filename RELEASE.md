@@ -14,6 +14,8 @@ Before making a release, you must update the version in these places:
 - [ ] `docs/source/conf.py` (`version` at the top, and the `versions` list too)
 - [ ] `snap/snapcraft.yaml`
 
+If you update flask-socketio, ensure that you also update the [socket.io.min.js](https://github.com/micahflee/onionshare/blob/develop/cli/onionshare_cli/resources/static/js/socket.io.min.js) file to a version that is [supported](https://flask-socketio.readthedocs.io/en/latest/#version-compatibility) by the updated version of flask-socketio.
+
 Use tor binaries from the latest Tor Browser:
 
 - [ ] `desktop/scripts/get-tor-osx.py`

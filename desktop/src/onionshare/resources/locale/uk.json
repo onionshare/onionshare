@@ -88,7 +88,7 @@
     "settings_error_bundled_tor_timeout": "Надто довге з'єднання з Tor. Можливо, відсутнє з'єднання з Інтернетом або у вас неточний системний час?",
     "settings_error_bundled_tor_broken": "OnionShare не вдалося з'єднатися з Tor:\n{}",
     "settings_test_success": "З'єднано з контролером Tor.\n\nВерсія Tor: {}\nПідтримка ephemeral onion services: {}.\nПідтримка автентифікації клієнта: {}.\nПідтримка .onion адрес наступного покоління: {}.",
-    "error_tor_protocol_error": "Сталася помилка з Tor: {}",
+    "error_tor_protocol_error": "Сталася помилка Tor: {}",
     "error_tor_protocol_error_unknown": "Сталася невідома помилка з Tor",
     "connecting_to_tor": "З'єднання з мережею Tor",
     "update_available": "Випущено новий OnionShare. <a href='{}'>Натисніть тут,</a> щоб його отримати.<br><br>Ваша версія {}, а найновіша {}.",
@@ -229,5 +229,10 @@
     "error_port_not_available": "Порт OnionShare недоступний",
     "gui_rendezvous_cleanup_quit_early": "Вийти раніше",
     "gui_rendezvous_cleanup": "Очікування закриття схем Tor, щоб переконатися, що файли успішно передано.\n\nЦе може тривати кілька хвилин.",
-    "gui_color_mode_changed_notice": "Перезапустіть OnionShare, щоб застосувати новий колірний режим."
+    "gui_color_mode_changed_notice": "Перезапустіть OnionShare, щоб застосувати новий колірний режим.",
+    "mode_settings_receive_webhook_url_checkbox": "Застосовувати мережні обробники сповіщень",
+    "history_receive_read_message_button": "Читати повідомлення",
+    "mode_settings_receive_disable_files_checkbox": "Вимкнути передавання файлів",
+    "mode_settings_receive_disable_text_checkbox": "Вимкнути надсилання тексту",
+    "mode_settings_title_label": "Власний заголовок"
 }
