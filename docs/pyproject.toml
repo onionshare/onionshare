@@ -9,6 +9,7 @@ python = "^3.6"
 sphinx = "^3.2.1"
 sphinx-rtd-theme = "^0.5.0"
 sphinx-intl = "^2.0.1"
+httpx = "^0.18.1"
 
 [tool.poetry.dev-dependencies]
 
