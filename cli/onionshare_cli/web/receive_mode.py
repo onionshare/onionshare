@@ -99,113 +99,137 @@ class ReceiveModeWeb:
             Handle the upload files POST request, though at this point, the files have
             already been uploaded and saved to their correct locations.
             """
-            message_received = request.includes_message
-
-            files_received = 0
-            if not self.web.settings.get("receive", "disable_files"):
-                files = request.files.getlist("file[]")
-
-                filenames = []
-                for f in files:
-                    if f.filename != "":
-                        filename = secure_filename(f.filename)
-                        filenames.append(filename)
-                        local_path = os.path.join(request.receive_mode_dir, filename)
-                        basename = os.path.basename(local_path)
-
-                        # Tell the GUI the receive mode directory for this file
-                        self.web.add_request(
-                            self.web.REQUEST_UPLOAD_SET_DIR,
-                            request.path,
-                            {
-                                "id": request.history_id,
-                                "filename": basename,
-                                "dir": request.receive_mode_dir,
-                            },
-                        )
-
-                        self.common.log(
-                            "ReceiveModeWeb",
-                            "define_routes",
-                            f"/upload, uploaded {f.filename}, saving to {local_path}",
-                        )
-                        print(f"Received: {local_path}")
-
-                files_received = len(filenames)
-
-            # Send webhook if configured
-            if (
-                self.web.settings.get("receive", "webhook_url") is not None
-                and not request.upload_error
-                and (message_received or files_received)
-            ):
-                msg = ""
-                if files_received > 0:
-                    if files_received == 1:
-                        msg += "1 file"
-                    else:
-                        msg += f"{files_received} files"
-                if message_received:
-                    if msg == "":
-                        msg = "A text message"
-                    else:
-                        msg += " and a text message"
-                self.send_webhook_notification(f"{msg} submitted to OnionShare")
-
-            if request.upload_error:
-                self.common.log(
-                    "ReceiveModeWeb",
-                    "define_routes",
-                    "/upload, there was an upload error",
-                )
-
-                self.web.add_request(
-                    self.web.REQUEST_ERROR_DATA_DIR_CANNOT_CREATE,
-                    request.path,
-                    {"receive_mode_dir": request.receive_mode_dir},
-                )
-                print(
-                    f"Could not create OnionShare data folder: {request.receive_mode_dir}"
-                )
-
-                msg = "Error uploading, please inform the OnionShare user"
-                if ajax:
-                    return json.dumps({"error_flashes": [msg]})
-                else:
-                    flash(msg, "error")
-                    return redirect("/")
-
-            if ajax:
-                info_flashes = []
-
-            if files_received > 0:
-                files_msg = ""
-                for filename in filenames:
-                    files_msg += f"{filename}, "
-                files_msg = files_msg.rstrip(", ")
-
-            if message_received:
-                if files_received > 0:
-                    msg = f"Message submitted, uploaded {files_msg}"
-                else:
-                    msg = "Message submitted"
-            else:
-                if files_received > 0:
-                    msg = f"Uploaded {files_msg}"
-                else:
-                    msg = "Nothing submitted"
-
-            if ajax:
-                info_flashes.append(msg)
-            else:
-                flash(msg, "info")
-
             if self.can_upload:
+                message_received = request.includes_message
+
+                files_received = 0
+                if not self.web.settings.get("receive", "disable_files"):
+                    files = request.files.getlist("file[]")
+
+                    filenames = []
+                    for f in files:
+                        if f.filename != "":
+                            filename = secure_filename(f.filename)
+                            filenames.append(filename)
+                            local_path = os.path.join(request.receive_mode_dir, filename)
+                            basename = os.path.basename(local_path)
+
+                            # Tell the GUI the receive mode directory for this file
+                            self.web.add_request(
+                                self.web.REQUEST_UPLOAD_SET_DIR,
+                                request.path,
+                                {
+                                    "id": request.history_id,
+                                    "filename": basename,
+                                    "dir": request.receive_mode_dir,
+                                },
+                            )
+
+                            self.common.log(
+                                "ReceiveModeWeb",
+                                "define_routes",
+                                f"/upload, uploaded {f.filename}, saving to {local_path}",
+                            )
+                            print(f"Received: {local_path}")
+
+                    files_received = len(filenames)
+
+                # Send webhook if configured
+                if (
+                    self.web.settings.get("receive", "webhook_url") is not None
+                    and not request.upload_error
+                    and (message_received or files_received)
+                ):
+                    msg = ""
+                    if files_received > 0:
+                        if files_received == 1:
+                            msg += "1 file"
+                        else:
+                            msg += f"{files_received} files"
+                    if message_received:
+                        if msg == "":
+                            msg = "A text message"
+                        else:
+                            msg += " and a text message"
+                    self.send_webhook_notification(f"{msg} submitted to OnionShare")
+
+                if request.upload_error:
+                    self.common.log(
+                        "ReceiveModeWeb",
+                        "define_routes",
+                        "/upload, there was an upload error",
+                    )
+
+                    self.web.add_request(
+                        self.web.REQUEST_ERROR_DATA_DIR_CANNOT_CREATE,
+                        request.path,
+                        {"receive_mode_dir": request.receive_mode_dir},
+                    )
+                    print(
+                        f"Could not create OnionShare data folder: {request.receive_mode_dir}"
+                    )
+
+                    msg = "Error uploading, please inform the OnionShare user"
+                    if ajax:
+                        return json.dumps({"error_flashes": [msg]})
+                    else:
+                        flash(msg, "error")
+                        return redirect("/")
+
                 if ajax:
-                    return json.dumps({"info_flashes": info_flashes})
+                    info_flashes = []
+
+                if files_received > 0:
+                    files_msg = ""
+                    for filename in filenames:
+                        files_msg += f"{filename}, "
+                    files_msg = files_msg.rstrip(", ")
+
+                if message_received:
+                    if files_received > 0:
+                        msg = f"Message submitted, uploaded {files_msg}"
+                    else:
+                        msg = "Message submitted"
                 else:
-                    return redirect("/")
+                    if files_received > 0:
+                        msg = f"Uploaded {files_msg}"
+                    else:
+                        msg = "Nothing submitted"
+
+                if ajax:
+                    info_flashes.append(msg)
+                else:
+                    flash(msg, "info")
+
+                if self.can_upload:
+                    if ajax:
+                        return json.dumps({"info_flashes": info_flashes})
+                    else:
+                        return redirect("/")
+                else:
+                    if ajax:
+                        return json.dumps(
+                            {
+                                "new_body": render_template(
+                                    "thankyou.html",
+                                    static_url_path=self.web.static_url_path,
+                                    title=self.web.settings.get("general", "title"),
+                                )
+                            }
+                        )
+                    else:
+                        # It was the last upload and the timer ran out
+                        r = make_response(
+                            render_template(
+                                "thankyou.html",
+                                static_url_path=self.web.static_url_path,
+                                title=self.web.settings.get("general", "title"),
+                            )
+                        )
+                        return self.web.add_security_headers(r)
             else:
+                # The timer ran out before we could upload again
+                # whilst an existing upload is still in progress
                 if ajax:
                     return json.dumps(
                         {
@@ -217,18 +241,18 @@ class ReceiveModeWeb:
                         }
                     )
                 else:
-                    # It was the last upload and the timer ran out
                     r = make_response(
-                        render_template("thankyou.html"),
-                        static_url_path=self.web.static_url_path,
-                        title=self.web.settings.get("general", "title"),
+                        render_template(
+                            "thankyou.html",
+                            static_url_path=self.web.static_url_path,
+                            title=self.web.settings.get("general", "title"),
+                        )
                     )
                     return self.web.add_security_headers(r)
 
+
         @self.web.app.route("/upload-ajax", methods=["POST"])
         def upload_ajax_public():
-            if not self.can_upload:
-                return self.web.error403()
             return upload(ajax=True)
 
     def send_webhook_notification(self, data):
@@ -366,7 +390,7 @@ class ReceiveModeRequest(Request):
         # Is this a valid upload request?
         self.upload_request = False
         if self.method == "POST":
-            if self.path == "/upload" or self.path == "/upload-ajax":
+            if (self.path == "/upload" or self.path == "/upload-ajax") and self.web.receive_mode.can_upload:
                 self.upload_request = True
 
         if self.upload_request:
