@@ -64,12 +64,13 @@ class Settings(object):
             "da": "Dansk",  # Danish
             "nl": "Nederlands",  # Dutch
             "en": "English",  # English
-            "fi": "Suomi",  # Finnish
+            # "fi": "Suomi",  # Finnish
             "fr": "Français",  # French
             "gl": "Galego",  # Galician
             "de": "Deutsch",  # German
             "el": "Ελληνικά",  # Greek
             "is": "Íslenska",  # Icelandic
+            "id": "Bahasa Indonesia",  # Indonesian
             # "ga": "Gaeilge",  # Irish
             "it": "Italiano",  # Italian
             "ja": "日本語",  # Japanese
@@ -79,10 +80,10 @@ class Settings(object):
             "pl": "Polski",  # Polish
             "pt_BR": "Português (Brasil)",  # Portuguese Brazil
             "pt_PT": "Português (Portugal)",  # Portuguese Portugal
-            "sk": "Slovenčina",  # Slovak
             # "ro": "Română",  # Romanian
             "ru": "Русский",  # Russian
-            # "sr_Latn": "Srpska (latinica)",  #  Serbian (latin)
+            "sr_Latn": "Srpska (latinica)",  # Serbian (latin)
+            "sk": "Slovenčina",  # Slovak
             "es": "Español",  # Spanish
             "sv": "Svenska",  # Swedish
             # "te": "తెలుగు",  # Telugu
