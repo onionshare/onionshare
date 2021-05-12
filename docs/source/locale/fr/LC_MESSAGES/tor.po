@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2020-12-13 15:48-0800\n"
-"PO-Revision-Date: 2021-03-10 10:02+0000\n"
+"PO-Revision-Date: 2021-05-13 14:32+0000\n"
 "Last-Translator: AO Localisation Lab <ao@localizationlab.org>\n"
 "Language-Team: none\n"
 "Language: fr\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.5.2-dev\n"
+"X-Generator: Weblate 4.7-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/tor.rst:2
@@ -180,8 +180,8 @@ msgstr ""
 #: ../../source/tor.rst:67
 msgid "Now configure Tor to allow connections from OnionShare::"
 msgstr ""
-"Maintenant, configurez Tor pour permettre les connexions à partir "
-"d’OnionShare ::"
+"Maintenant, configurez Tor pour autoriser les connexions à partir d’"
+"OnionShare :"
 
 #: ../../source/tor.rst:74
 msgid "And start the system Tor service::"
