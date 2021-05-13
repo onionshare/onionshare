@@ -62,15 +62,12 @@ class ChatModeWeb:
             )
 
             self.web.add_request(self.web.REQUEST_LOAD, request.path)
-            r = make_response(
-                render_template(
-                    "chat.html",
-                    static_url_path=self.web.static_url_path,
-                    username=session.get("name"),
-                    title=self.web.settings.get("general", "title"),
-                )
+            return render_template(
+                "chat.html",
+                static_url_path=self.web.static_url_path,
+                username=session.get("name"),
+                title=self.web.settings.get("general", "title")
             )
-            return self.web.add_security_headers(r)
 
         @self.web.app.route("/update-session-username", methods=["POST"])
         def update_session_username():
@@ -87,13 +84,7 @@ class ChatModeWeb:
             )
 
             self.web.add_request(self.web.REQUEST_LOAD, request.path)
-            r = make_response(
-                jsonify(
-                    username=session.get("name"),
-                    success=True,
-                )
-            )
-            return self.web.add_security_headers(r)
+            return jsonify(username=session.get("name"), success=True)
 
         @self.web.socketio.on("joined", namespace="/chat")
         def joined(message):
