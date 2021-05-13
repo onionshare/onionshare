@@ -222,6 +222,21 @@ class Web:
 
                 return _check_login()
 
+        @self.app.after_request
+        def add_security_headers(r):
+            """
+            Add security headers to a response
+            """
+            for header, value in self.security_headers:
+                r.headers.set(header, value)
+            # Set a CSP header unless in website mode and the user has disabled it
+            if not self.settings.get("website", "disable_csp") or self.mode != "website":
+                r.headers.set(
+                    "Content-Security-Policy",
+                    "default-src 'self'; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; img-src 'self' data:;",
+                )
+            return r
+
         @self.app.errorhandler(404)
         def not_found(e):
             mode = self.get_mode()
@@ -267,17 +282,11 @@ class Web:
                         "Someone has made too many wrong attempts to guess your password, so OnionShare has stopped the server. Start sharing again and send the recipient a new address to share."
                     )
 
-        r = make_response(
-            render_template("401.html", static_url_path=self.static_url_path), 401
-        )
-        return self.add_security_headers(r)
+        return render_template("401.html", static_url_path=self.static_url_path), 401
 
     def error403(self):
         self.add_request(Web.REQUEST_OTHER, request.path)
-        r = make_response(
-            render_template("403.html", static_url_path=self.static_url_path), 403
-        )
-        return self.add_security_headers(r)
+        return render_template("403.html", static_url_path=self.static_url_path), 403
 
     def error404(self, history_id):
         self.add_request(
@@ -287,10 +296,7 @@ class Web:
         )
 
         self.add_request(Web.REQUEST_OTHER, request.path)
-        r = make_response(
-            render_template("404.html", static_url_path=self.static_url_path), 404
-        )
-        return self.add_security_headers(r)
+        return render_template("404.html", static_url_path=self.static_url_path), 404
 
     def error405(self, history_id):
         self.add_request(
@@ -300,24 +306,7 @@ class Web:
         )
 
         self.add_request(Web.REQUEST_OTHER, request.path)
-        r = make_response(
-            render_template("405.html", static_url_path=self.static_url_path), 405
-        )
-        return self.add_security_headers(r)
-
-    def add_security_headers(self, r):
-        """
-        Add security headers to a request
-        """
-        for header, value in self.security_headers:
-            r.headers.set(header, value)
-        # Set a CSP header unless in website mode and the user has disabled it
-        if not self.settings.get("website", "disable_csp") or self.mode != "website":
-            r.headers.set(
-                "Content-Security-Policy",
-                "default-src 'self'; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; img-src 'self' data:;",
-            )
-        return r
+        return render_template("405.html", static_url_path=self.static_url_path), 405
 
     def _safe_select_jinja_autoescape(self, filename):
         if filename is None:
