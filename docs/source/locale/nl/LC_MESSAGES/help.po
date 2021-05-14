@@ -3,37 +3,41 @@
 # This file is distributed under the same license as the OnionShare package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2020-11-15 14:42-0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2021-05-14 19:05+0000\n"
+"Last-Translator: nocturnalfilth <nocturnalfilth@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.7-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/help.rst:2
 msgid "Getting Help"
-msgstr ""
+msgstr "Hulp krijgen"
 
 #: ../../source/help.rst:5
 msgid "Read This Website"
-msgstr ""
+msgstr "Lees deze website"
 
 #: ../../source/help.rst:7
 msgid ""
 "You will find instructions on how to use OnionShare. Look through all of "
 "the sections first to see if anything answers your questions."
 msgstr ""
+"U vindt hier instructies over hoe u OnionShare kunt gebruiken. Kijk eerst "
+"alle secties door om te zien of iets uw vragen beantwoordt."
 
 #: ../../source/help.rst:10
 msgid "Check the GitHub Issues"
-msgstr ""
+msgstr "Controleer de issues op GitHub"
 
 #: ../../source/help.rst:12
 msgid ""
@@ -42,12 +46,17 @@ msgid ""
 " else has encountered the same problem and either raised it with the "
 "developers, or maybe even posted a solution."
 msgstr ""
+"Als het niet op de website staat, kijk dan op de `GitHub issues "
+"<https://github.com/micahflee/onionshare/issues>`_. Het is mogelijk dat "
+"iemand anders hetzelfde probleem heeft ondervonden en het heeft aangekaart "
+"bij de ontwikkelaars, of misschien zelfs een oplossing heeft gepost."
 
 #: ../../source/help.rst:15
 msgid "Submit an Issue Yourself"
-msgstr ""
+msgstr "Dien zelf een probleem in"
 
 #: ../../source/help.rst:17
+#, fuzzy
 msgid ""
 "If you are unable to find a solution, or wish to ask a question or "
 "suggest a new feature, please `submit an issue "
@@ -55,16 +64,23 @@ msgid ""
 "`creating a GitHub account <https://help.github.com/articles/signing-up-"
 "for-a-new-github-account/>`_."
 msgstr ""
+"Als u geen oplossing kunt vinden, of een vraag wilt stellen of een nieuwe "
+"functie wilt voorstellen, kunt u `een issue indienen <https://github.com/"
+"micahflee/onionshare/issues/new>`_. Dit vereist `het aanmaken van een GitHub "
+"account <https://help.github.com/articles/"
+"signing-up-for-a-new-github-account/>`_."
 
 #: ../../source/help.rst:20
 msgid "Join our Keybase Team"
-msgstr ""
+msgstr "Word lid van ons Keybase-team"
 
 #: ../../source/help.rst:22
 msgid ""
 "See :ref:`collaborating` on how to join the Keybase team used to discuss "
 "the project."
 msgstr ""
+"Zie :ref:'samenwerken' over hoe je lid wordt van het Keybase-team dat wordt "
+"gebruikt om het project te bespreken."
 
 #~ msgid "If you need help with OnionShare, please follow the instructions below."
 #~ msgstr ""
@@ -117,4 +133,3 @@ msgstr ""
 #~ "that we use to discuss the "
 #~ "project."
 #~ msgstr ""
-
