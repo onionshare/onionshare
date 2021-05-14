@@ -47,6 +47,27 @@ class TestChat(GuiBaseTest):
         self.assertTrue(jsonResponse["success"])
         self.assertEqual(jsonResponse["username"], "oniontest")
 
+    def change_username_too_long(self, tab):
+        """Test that we can't set our username to something 128 chars or longer"""
+        url = f"http://127.0.0.1:{tab.app.port}/update-session-username"
+        bad_username = "sduBB9yEMkyQpwkMM4A9nUbQwNUbPU2PQuJYN26zCQ4inELpB76J5i5oRUnD3ESVaE9NNE8puAtBj2DiqDaZdVqhV8MonyxSSGHRv87YgM5dzwBYPBxttoQSKZAUkFjo"
+        data = {"username":bad_username}
+        if tab.settings.get("general", "public"):
+            r = requests.post(url, json=data)
+        else:
+            r = requests.post(
+                url,
+                json=data,
+                auth=requests.auth.HTTPBasicAuth(
+                    "onionshare", tab.get_mode().server_status.web.password
+                ),
+            )
+
+        QtTest.QTest.qWait(500, self.gui.qtapp)
+        jsonResponse = r.json()
+        self.assertFalse(jsonResponse["success"])
+        self.assertNotEqual(jsonResponse["username"], bad_username)
+
     def run_all_chat_mode_tests(self, tab):
         """Tests in chat mode after starting a chat"""
         self.server_working_on_start_button_pressed(tab)
@@ -60,6 +81,7 @@ class TestChat(GuiBaseTest):
         self.server_status_indicator_says_started(tab)
         self.view_chat(tab)
         self.change_username(tab)
+        self.change_username_too_long(tab)
         self.server_is_stopped(tab)
         self.web_server_is_stopped(tab)
         self.server_status_indicator_says_closed(tab)
