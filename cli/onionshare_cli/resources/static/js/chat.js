@@ -88,7 +88,7 @@ var emitMessage = function (socket) {
 
 var updateUsername = function (socket) {
   var username = $('#username').val();
-  if (!checkUsernameExists(username) && !checkUsernameLength(username)) {
+  if (!checkUsernameExists(username) && !checkUsernameTooLong(username)) {
     $.ajax({
       method: 'POST',
       url: `http://${document.domain}:${location.port}/update-session-username`,
@@ -133,7 +133,7 @@ var checkUsernameExists = function (username) {
   return false;
 }
 
-var checkUsernameLength = function (username) {
+var checkUsernameTooLong = function (username) {
   $('#username-error').text('');
   if (username.length > 128) {
     $('#username-error').text('Please choose a shorter username.');
