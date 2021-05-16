@@ -18,7 +18,7 @@ classifiers = [
 [tool.poetry.dependencies]
 python = "^3.6"
 click = "*"
-flask = "*"
+flask = "^1.1.4"
 flask-httpauth = "*"
 flask-socketio = "5.0.1"
 psutil = "*"
