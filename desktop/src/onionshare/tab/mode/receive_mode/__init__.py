@@ -182,7 +182,7 @@ class ReceiveMode(Mode):
         self.main_layout = QtWidgets.QVBoxLayout()
         self.main_layout.addWidget(header_label)
         self.main_layout.addWidget(receive_warning)
-        self.main_layout.addWidget(self.primary_action)
+        self.main_layout.addWidget(self.primary_action, stretch=1)
         self.main_layout.addWidget(MinimumWidthWidget(525))
 
         # Row layout
@@ -191,10 +191,8 @@ class ReceiveMode(Mode):
         content_row.addWidget(self.image)
         row_layout = QtWidgets.QVBoxLayout()
         row_layout.addLayout(top_bar_layout)
-        row_layout.addStretch()
-        row_layout.addLayout(content_row)
+        row_layout.addLayout(content_row, stretch=1)
         row_layout.addWidget(self.server_status)
-        row_layout.addStretch()
 
         # Column layout
         self.column_layout = QtWidgets.QHBoxLayout()
