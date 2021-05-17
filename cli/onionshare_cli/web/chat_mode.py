@@ -79,20 +79,33 @@ class ChatModeWeb:
             if (
                 data.get("username", "")
                 and data.get("username", "") not in self.connected_users
+                and len(data.get("username", "")) < 128
             ):
                 session["name"] = data.get("username", session.get("name"))
-            self.web.add_request(
-                request.path,
-                {"id": history_id, "status_code": 200},
-            )
-
-            self.web.add_request(self.web.REQUEST_LOAD, request.path)
-            r = make_response(
-                jsonify(
-                    username=session.get("name"),
-                    success=True,
+                self.web.add_request(
+                    request.path,
+                    {"id": history_id, "status_code": 200},
                 )
-            )
+
+                self.web.add_request(self.web.REQUEST_LOAD, request.path)
+                r = make_response(
+                    jsonify(
+                        username=session.get("name"),
+                        success=True,
+                    )
+                )
+            else:
+                self.web.add_request(
+                    request.path,
+                    {"id": history_id, "status_code": 403},
+                )
+
+                r = make_response(
+                    jsonify(
+                        username=session.get("name"),
+                        success=False,
+                    )
+                )
             return self.web.add_security_headers(r)
 
         @self.web.socketio.on("joined", namespace="/chat")
