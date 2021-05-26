@@ -250,7 +250,7 @@ class Common:
         )
         left_spaces = (43 - len(self.version) - 1) // 2
         right_spaces = left_spaces
-        if left_spaces + len(self.version) + right_spaces < 43:
+        if left_spaces + len(self.version) + 1 + right_spaces < 43:
             right_spaces += 1
         print(
             Back.MAGENTA
