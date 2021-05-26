@@ -29,7 +29,7 @@ from .. import Mode
 from ..file_selection import FileSelection
 from ..history import History, ToggleHistory, ShareHistoryItem
 from .... import strings
-from ....widgets import MinimumWidthWidget
+from ....widgets import MinimumSizeWidget
 from ....gui_common import GuiCommon
 
 
@@ -162,7 +162,7 @@ class ShareMode(Mode):
         self.main_layout.addLayout(self.file_selection)
         self.main_layout.addWidget(self.primary_action, stretch=1)
         self.main_layout.addWidget(self.server_status)
-        self.main_layout.addWidget(MinimumWidthWidget(700))
+        self.main_layout.addWidget(MinimumSizeWidget(700, 0))
 
         # Column layout
         self.column_layout = QtWidgets.QHBoxLayout()

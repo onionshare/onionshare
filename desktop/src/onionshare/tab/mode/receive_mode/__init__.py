@@ -26,7 +26,7 @@ from onionshare_cli.web import Web
 from ..history import History, ToggleHistory, ReceiveHistoryItem
 from .. import Mode
 from .... import strings
-from ....widgets import MinimumWidthWidget, Alert
+from ....widgets import MinimumSizeWidget, Alert
 from ....gui_common import GuiCommon
 
 
@@ -183,7 +183,7 @@ class ReceiveMode(Mode):
         self.main_layout.addWidget(header_label)
         self.main_layout.addWidget(receive_warning)
         self.main_layout.addWidget(self.primary_action, stretch=1)
-        self.main_layout.addWidget(MinimumWidthWidget(525))
+        self.main_layout.addWidget(MinimumSizeWidget(525, 0))
 
         # Row layout
         content_row = QtWidgets.QHBoxLayout()
