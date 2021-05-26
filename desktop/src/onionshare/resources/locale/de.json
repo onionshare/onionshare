@@ -303,6 +303,6 @@
     "mode_settings_title_label": "Benutzerdefinierter Titel",
     "gui_status_indicator_chat_started": "Chatted",
     "gui_status_indicator_chat_scheduled": "Geplant…",
-    "gui_status_indicator_chat_working": "Starte…",
+    "gui_status_indicator_chat_working": "Startet…",
     "gui_status_indicator_chat_stopped": "Bereit zum Chatten"
 }
