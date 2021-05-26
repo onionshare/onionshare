@@ -465,6 +465,20 @@ class GuiBaseTest(unittest.TestCase):
         # We should have timed out now
         self.assertEqual(tab.get_mode().server_status.status, 0)
 
+    def hit_405(self, url, expected_resp, data = {}, methods = [] ):
+        """Test various HTTP methods and the response"""
+        for method in methods:
+            if method == "put":
+                r = requests.put(url, data = data)
+            if method == "post":
+                r = requests.post(url, data = data)
+            if method == "delete":
+                r = requests.delete(url)
+            if method == "options":
+                r = requests.options(url)
+            self.assertTrue(expected_resp in r.text)
+            self.assertFalse('Werkzeug' in r.headers)
+
     # Grouped tests follow from here
 
     def run_all_common_setup_tests(self):
