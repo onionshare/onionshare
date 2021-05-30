@@ -33,7 +33,7 @@ import requests
 
 
 def main():
-    exe_url = "https://www.torproject.org/dist/torbrowser/10.0.16/torbrowser-install-win64-10.0.16_en-US.exe"
+    exe_url = "https://www.torproject.org/dist/torbrowser/10.0.16/torbrowser-install-10.0.16_en-US.exe"
     exe_filename = "torbrowser-install-10.0.16_en-US.exe"
     expected_exe_sha256 = (
         "1f93d756b4aee1b2df7d85c8d58b626b0d38d89c974c0a02f324ff51f5b23ee1"
