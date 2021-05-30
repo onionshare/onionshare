@@ -84,10 +84,16 @@ class GuiCommon:
         header_color = "#4E064F"  # purple in light
         title_color = "#333333"  # dark gray color in main window
         stop_button_color = "#d0011b"  # red button color for stopping server
+        new_tab_button_background = "#ffffff"
+        new_tab_button_border = "#efeff0"
+        new_tab_button_text_color = "#4e0d4e"
         if color_mode == "dark":
             header_color = "#F2F2F2"
             title_color = "#F2F2F2"
             stop_button_color = "#C32F2F"
+            new_tab_button_background = "#5F5F5F"
+            new_tab_button_border = "#878787"
+            new_tab_button_text_color = "#FFFFFF"
 
         return {
             # OnionShareGui styles
@@ -261,11 +267,17 @@ class GuiCommon:
                 """,
             "new_tab_button_text": """
                 QLabel {
-                    border: 1px solid #efeff0;
+                    border: 1px solid """
+            + new_tab_button_border
+            + """;
                     border-radius: 4px;
-                    background-color: #ffffff;
+                    background-color: """
+            + new_tab_button_background
+            + """;
                     text-align: center;
-                    color: #4e0d4e;
+                    color: """
+            + new_tab_button_text_color
+            + """;
                 }
                 """,
             "new_tab_title_text": """
