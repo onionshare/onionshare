@@ -33,7 +33,7 @@
     "gui_show_url_qr_code": "Show QR Code",
     "gui_qr_code_dialog_title": "OnionShare QR Code",
     "gui_waiting_to_start": "Scheduled to start in {}. Click to cancel.",
-    "gui_please_wait": "Starting… Click to cancel.",
+    "gui_please_wait": "Starting…",
     "error_rate_limit": "Someone has made too many wrong attempts to guess your password, so OnionShare has stopped the server. Start sharing again and send the recipient a new address to share.",
     "zip_progress_bar_format": "Compressing: %p%",
     "gui_settings_window_title": "Settings",
