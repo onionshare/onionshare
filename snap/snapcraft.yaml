@@ -23,6 +23,8 @@ apps:
       - removable-media
     extensions:
       - gnome-3-34
+    environment:
+      LANG: C.UTF-8
   
   cli:
     common-id: org.onionshare.OnionShareCli
@@ -32,6 +34,8 @@ apps:
       - network
       - network-bind
       - removable-media
+    environment:
+      LANG: C.UTF-8
 
 parts:
   onionshare:
