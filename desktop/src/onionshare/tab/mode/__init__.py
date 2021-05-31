@@ -175,11 +175,19 @@ class Mode(QtWidgets.QWidget):
 
                     # Update the server button
                     server_button_text = self.get_stop_server_autostop_timer_text()
-                    self.server_status.server_button.setText(
-                        server_button_text.format(
-                            self.human_friendly_time(seconds_remaining)
+                    # Prevent the 'seconds remaining' entering the negative if
+                    # the autostop time has passed but a transfer is still in
+                    # progress.
+                    if seconds_remaining < 0:
+                        self.server_status.server_button.setText(
+                            strings._("gui_waiting_to_stop")
                         )
-                    )
+                    else:
+                        self.server_status.server_button.setText(
+                            server_button_text.format(
+                                self.human_friendly_time(seconds_remaining)
+                            )
+                        )
 
                     self.status_bar.clearMessage()
                     if not self.app.autostop_timer_thread.is_alive():
