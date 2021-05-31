@@ -223,7 +223,7 @@ class Web:
                 return _check_login()
 
         @self.app.after_request
-        def add_security_headers(self, r):
+        def add_security_headers(r):
             """
             Add security headers to a response
             """
