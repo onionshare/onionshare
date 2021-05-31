@@ -8,15 +8,16 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2021-05-03 21:48-0700\n"
-"PO-Revision-Date: 2021-03-30 16:26+0000\n"
+"PO-Revision-Date: 2021-05-11 20:47+0000\n"
 "Last-Translator: Alexander Tarasenko <alexound.login@gmail.com>\n"
-"Language: ru\n"
 "Language-Team: ru <LL@li.org>\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.7-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/advanced.rst:2
@@ -116,7 +117,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:40
 msgid "Custom Titles"
-msgstr ""
+msgstr "Указать заголовок"
 
 #: ../../source/advanced.rst:42
 msgid ""
@@ -124,12 +125,17 @@ msgid ""
 "see the default title for the type of service. For example, the default "
 "title of a chat service is \"OnionShare Chat\"."
 msgstr ""
+"По умолчанию, когда люди открывают страницу OnionShare в браузере Tor, они "
+"видят стандартное название сервиса. Например, стандартный заголовок чата это "
+"\"OnionShare Chat\"."
 
 #: ../../source/advanced.rst:44
 msgid ""
 "If you want to choose a custom title, set the \"Custom title\" setting "
 "before starting a server."
 msgstr ""
+"Если вы хотите указать своё название для сервиса, используйте настройку "
+"\"Custom title\" перед запуском сервиса."
 
 #: ../../source/advanced.rst:47
 msgid "Scheduled Times"
@@ -493,4 +499,3 @@ msgstr ""
 #~ " services will soon be removed from"
 #~ " OnionShare as well."
 #~ msgstr ""
-

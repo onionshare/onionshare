@@ -64,6 +64,10 @@ class ReceiveModeWeb:
         # This tracks the history id
         self.cur_history_id = 0
 
+        # Whether or not we can send REQUEST_INDIVIDUAL_FILE_STARTED
+        # and maybe other events when requests come in to this mode
+        self.supports_file_requests = True
+
         self.define_routes()
 
     def define_routes(self):
@@ -71,7 +75,7 @@ class ReceiveModeWeb:
         The web app routes for receiving files
         """
 
-        @self.web.app.route("/")
+        @self.web.app.route("/", methods=["GET"], provide_automatic_options=False)
         def index():
             history_id = self.cur_history_id
             self.cur_history_id += 1
@@ -90,7 +94,7 @@ class ReceiveModeWeb:
                 title=self.web.settings.get("general", "title")
             )
 
-        @self.web.app.route("/upload", methods=["POST"])
+        @self.web.app.route("/upload", methods=["POST"], provide_automatic_options=False)
         def upload(ajax=False):
             """
             Handle the upload files POST request, though at this point, the files have
@@ -221,7 +225,7 @@ class ReceiveModeWeb:
                         title=self.web.settings.get("general", "title"),
                     )
 
-        @self.web.app.route("/upload-ajax", methods=["POST"])
+        @self.web.app.route("/upload-ajax", methods=["POST"], provide_automatic_options=False)
         def upload_ajax_public():
             if not self.can_upload:
                 return self.web.error403()
