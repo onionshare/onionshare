@@ -256,8 +256,6 @@ class ReceiveModeWeb:
 
         @self.web.app.route("/upload-ajax", methods=["POST"], provide_automatic_options=False)
         def upload_ajax_public():
-            if not self.can_upload:
-                return self.web.error403()
             return upload(ajax=True)
 
     def send_webhook_notification(self, data):
