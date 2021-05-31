@@ -30,7 +30,7 @@ class TestChat(GuiBaseTest):
     def change_username(self, tab):
         """Test that we can change our username"""
         url = f"http://127.0.0.1:{tab.app.port}/update-session-username"
-        data = {"username":"oniontest"}
+        data = {"username": "oniontest"}
         if tab.settings.get("general", "public"):
             r = requests.post(url, json=data)
         else:
@@ -47,7 +47,7 @@ class TestChat(GuiBaseTest):
         self.assertTrue(jsonResponse["success"])
         self.assertEqual(jsonResponse["username"], "oniontest")
 
-    def run_all_chat_mode_tests(self, tab):
+    def run_all_chat_mode_started_tests(self, tab):
         """Tests in chat mode after starting a chat"""
         self.server_working_on_start_button_pressed(tab)
         self.server_status_indicator_says_starting(tab)
@@ -58,8 +58,9 @@ class TestChat(GuiBaseTest):
         self.have_copy_url_button(tab)
         self.have_show_qr_code_button(tab)
         self.server_status_indicator_says_started(tab)
-        self.view_chat(tab)
-        self.change_username(tab)
+
+    def run_all_chat_mode_stopping_tests(self, tab):
+        """Tests stopping a chat"""
         self.server_is_stopped(tab)
         self.web_server_is_stopped(tab)
         self.server_status_indicator_says_closed(tab)
@@ -71,5 +72,27 @@ class TestChat(GuiBaseTest):
         Test chat mode
         """
         tab = self.new_chat_tab()
-        self.run_all_chat_mode_tests(tab)
+        self.run_all_chat_mode_started_tests(tab)
+        self.view_chat(tab)
+        self.change_username(tab)
+        self.run_all_chat_mode_stopping_tests(tab)
+        self.close_all_tabs()
+
+    def test_405_page_returned_for_invalid_methods(self):
+        """
+        Our custom 405 page should return for invalid methods
+        """
+        tab = self.new_chat_tab()
+
+        tab.get_mode().mode_settings_widget.public_checkbox.click()
+
+        self.run_all_chat_mode_started_tests(tab)
+        url = f"http://127.0.0.1:{tab.app.port}/"
+        self.hit_405(
+            url,
+            expected_resp="OnionShare: 405 Method Not Allowed",
+            data={"foo": "bar"},
+            methods=["put", "post", "delete", "options"],
+        )
+        self.run_all_chat_mode_stopping_tests(tab)
         self.close_all_tabs()

@@ -263,5 +263,9 @@
     "mode_settings_receive_webhook_url_checkbox": "Bildirim web kancası kullan",
     "mode_settings_receive_disable_files_checkbox": "Dosya yüklemeyi devre dışı bırak",
     "mode_settings_receive_disable_text_checkbox": "Metin göndermeyi devre dışı bırak",
-    "mode_settings_title_label": "Özel başlık"
+    "mode_settings_title_label": "Özel başlık",
+    "gui_status_indicator_chat_started": "Sohbet ediliyor",
+    "gui_status_indicator_chat_scheduled": "Zamanlandı…",
+    "gui_status_indicator_chat_working": "Başlatılıyor…",
+    "gui_status_indicator_chat_stopped": "Sohbet etmeye hazır"
 }

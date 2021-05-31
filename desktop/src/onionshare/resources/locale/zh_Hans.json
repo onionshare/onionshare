@@ -290,5 +290,9 @@
     "mode_settings_receive_webhook_url_checkbox": "使用通知 webhook",
     "mode_settings_receive_disable_files_checkbox": "禁用上传文件",
     "mode_settings_receive_disable_text_checkbox": "禁用提交文本",
-    "mode_settings_title_label": "自定义标题"
+    "mode_settings_title_label": "自定义标题",
+    "gui_status_indicator_chat_started": "正在聊天",
+    "gui_status_indicator_chat_scheduled": "已安排…",
+    "gui_status_indicator_chat_working": "启动中…",
+    "gui_status_indicator_chat_stopped": "准备好聊天"
 }

@@ -52,6 +52,10 @@ class SendBaseModeWeb:
         # This tracks the history id
         self.cur_history_id = 0
 
+        # Whether or not we can send REQUEST_INDIVIDUAL_FILE_STARTED
+        # and maybe other events when requests come in to this mode
+        self.supports_file_requests = True
+
         self.define_routes()
         self.init()
 
@@ -207,10 +211,6 @@ class SendBaseModeWeb:
         # Tell GUI the individual file started
         history_id = self.cur_history_id
         self.cur_history_id += 1
-
-        # Only GET requests are allowed, any other method should fail
-        if request.method != "GET":
-            return self.web.error405(history_id)
 
         self.web.add_request(
             self.web.REQUEST_INDIVIDUAL_FILE_STARTED,

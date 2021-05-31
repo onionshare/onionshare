@@ -24,7 +24,7 @@ from onionshare_cli.web import Web
 
 from .. import Mode
 from .... import strings
-from ....widgets import MinimumWidthWidget
+from ....widgets import MinimumSizeWidget
 from ....gui_common import GuiCommon
 
 
@@ -82,17 +82,16 @@ class ChatMode(Mode):
 
         # Top bar
         top_bar_layout = QtWidgets.QHBoxLayout()
-        top_bar_layout.addStretch()
+        # Add space at the top, same height as the toggle history bar in other modes
+        top_bar_layout.addWidget(MinimumSizeWidget(0, 30))
 
         # Main layout
         self.main_layout = QtWidgets.QVBoxLayout()
         self.main_layout.addLayout(top_bar_layout)
-        self.main_layout.addStretch()
         self.main_layout.addWidget(header_label)
-        self.main_layout.addWidget(self.primary_action)
+        self.main_layout.addWidget(self.primary_action, stretch=1)
         self.main_layout.addWidget(self.server_status)
-        self.main_layout.addStretch()
-        self.main_layout.addWidget(MinimumWidthWidget(700))
+        self.main_layout.addWidget(MinimumSizeWidget(700, 0))
 
         # Column layout
         self.column_layout = QtWidgets.QHBoxLayout()
