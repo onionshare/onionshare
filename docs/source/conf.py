@@ -7,11 +7,11 @@ templates_path = ["_templates"]
 exclude_patterns = []
 
 languages = [
-    ("Deutsch", "de"),  # German
     ("English", "en"),  # English
-    ("Español", "es"),  # Spanish
+    ("Deutsch", "de"),  # German
     ("Ελληνικά", "el"),  # Greek
-    ("Русский", "ru"),  # Ukranian
+    ("Русский", "ru"),  # Russian
+    ("Español", "es"),  # Spanish
     ("Türkçe", "tr"),  # Turkish
     ("Українська", "uk"),  # Ukranian
 ]

@@ -134,8 +134,8 @@ class ShareModeWeb(SendBaseModeWeb):
         The web app routes for sharing files
         """
 
-        @self.web.app.route("/", defaults={"path": ""})
-        @self.web.app.route("/<path:path>")
+        @self.web.app.route("/", defaults={"path": ""}, methods=["GET"], provide_automatic_options=False)
+        @self.web.app.route("/<path:path>", methods=["GET"], provide_automatic_options=False)
         def index(path):
             """
             Render the template for the onionshare landing page.
@@ -159,7 +159,7 @@ class ShareModeWeb(SendBaseModeWeb):
 
             return self.render_logic(path)
 
-        @self.web.app.route("/download")
+        @self.web.app.route("/download", methods=["GET"], provide_automatic_options=False)
         def download():
             """
             Download the zip file.
