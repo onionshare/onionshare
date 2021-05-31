@@ -39,6 +39,12 @@ class ChatModeWeb:
         # This tracks the history id
         self.cur_history_id = 0
 
+        # Whether or not we can send REQUEST_INDIVIDUAL_FILE_STARTED
+        # and maybe other events when requests come in to this mode
+        # Chat mode has no concept of individual file requests that
+        # turn into history widgets in the GUI, so set it to False
+        self.supports_file_requests = False
+
         self.define_routes()
 
     def define_routes(self):
@@ -46,7 +52,7 @@ class ChatModeWeb:
         The web app routes for chatting
         """
 
-        @self.web.app.route("/")
+        @self.web.app.route("/", methods=["GET"], provide_automatic_options=False)
         def index():
             history_id = self.cur_history_id
             self.cur_history_id += 1
@@ -63,28 +69,48 @@ class ChatModeWeb:
 
             self.web.add_request(self.web.REQUEST_LOAD, request.path)
             return render_template(
-                "chat.html",
-                static_url_path=self.web.static_url_path,
-                username=session.get("name"),
-                title=self.web.settings.get("general", "title")
+                    "chat.html",
+                    static_url_path=self.web.static_url_path,
+                    username=session.get("name"),
+                    title=self.web.settings.get("general", "title"),
+                )
             )
 
-        @self.web.app.route("/update-session-username", methods=["POST"])
+        @self.web.app.route("/update-session-username", methods=["POST"], provide_automatic_options=False)
         def update_session_username():
             history_id = self.cur_history_id
             data = request.get_json()
             if (
                 data.get("username", "")
                 and data.get("username", "") not in self.connected_users
+                and len(data.get("username", "")) < 128
             ):
                 session["name"] = data.get("username", session.get("name"))
-            self.web.add_request(
-                request.path,
-                {"id": history_id, "status_code": 200},
-            )
+                self.web.add_request(
+                    request.path,
+                    {"id": history_id, "status_code": 200},
+                )
 
-            self.web.add_request(self.web.REQUEST_LOAD, request.path)
-            return jsonify(username=session.get("name"), success=True)
+                self.web.add_request(self.web.REQUEST_LOAD, request.path)
+                r = make_response(
+                    jsonify(
+                        username=session.get("name"),
+                        success=True,
+                    )
+                )
+            else:
+                self.web.add_request(
+                    request.path,
+                    {"id": history_id, "status_code": 403},
+                )
+
+                r = make_response(
+                    jsonify(
+                        username=session.get("name"),
+                        success=False,
+                    )
+                )
+            return r
 
         @self.web.socketio.on("joined", namespace="/chat")
         def joined(message):
