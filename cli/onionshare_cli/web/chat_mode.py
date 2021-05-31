@@ -73,7 +73,6 @@ class ChatModeWeb:
                     static_url_path=self.web.static_url_path,
                     username=session.get("name"),
                     title=self.web.settings.get("general", "title"),
-                )
             )
 
         @self.web.app.route("/update-session-username", methods=["POST"], provide_automatic_options=False)
