@@ -223,7 +223,7 @@ class Web:
                 return _check_login()
 
         @self.app.after_request
-        def add_security_headers(r):
+        def add_security_headers(self, r):
             """
             Add security headers to a response
             """
@@ -243,6 +243,20 @@ class Web:
             history_id = mode.cur_history_id
             mode.cur_history_id += 1
             return self.error404(history_id)
+
+        @self.app.errorhandler(405)
+        def method_not_allowed(e):
+            mode = self.get_mode()
+            history_id = mode.cur_history_id
+            mode.cur_history_id += 1
+            return self.error405(history_id)
+
+        @self.app.errorhandler(500)
+        def method_not_allowed(e):
+            mode = self.get_mode()
+            history_id = mode.cur_history_id
+            mode.cur_history_id += 1
+            return self.error500(history_id)
 
         @self.app.route("/<password_candidate>/shutdown")
         def shutdown(password_candidate):
@@ -289,24 +303,40 @@ class Web:
         return render_template("403.html", static_url_path=self.static_url_path), 403
 
     def error404(self, history_id):
-        self.add_request(
-            self.REQUEST_INDIVIDUAL_FILE_STARTED,
-            request.path,
-            {"id": history_id, "status_code": 404},
-        )
+        mode = self.get_mode()
+        if mode.supports_file_requests:
+            self.add_request(
+                self.REQUEST_INDIVIDUAL_FILE_STARTED,
+                request.path,
+                {"id": history_id, "status_code": 404},
+            )
 
         self.add_request(Web.REQUEST_OTHER, request.path)
         return render_template("404.html", static_url_path=self.static_url_path), 404
 
     def error405(self, history_id):
-        self.add_request(
-            self.REQUEST_INDIVIDUAL_FILE_STARTED,
-            request.path,
-            {"id": history_id, "status_code": 405},
-        )
+        mode = self.get_mode()
+        if mode.supports_file_requests:
+            self.add_request(
+                self.REQUEST_INDIVIDUAL_FILE_STARTED,
+                request.path,
+                {"id": history_id, "status_code": 405},
+            )
 
         self.add_request(Web.REQUEST_OTHER, request.path)
         return render_template("405.html", static_url_path=self.static_url_path), 405
+
+    def error500(self, history_id):
+        mode = self.get_mode()
+        if mode.supports_file_requests:
+            self.add_request(
+                self.REQUEST_INDIVIDUAL_FILE_STARTED,
+                request.path,
+                {"id": history_id, "status_code": 500},
+            )
+
+        self.add_request(Web.REQUEST_OTHER, request.path)
+        return render_template("500.html", static_url_path=self.static_url_path), 500
 
     def _safe_select_jinja_autoescape(self, filename):
         if filename is None:
