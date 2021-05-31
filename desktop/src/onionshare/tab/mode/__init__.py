@@ -354,14 +354,6 @@ class Mode(QtWidgets.QWidget):
             self.app.onion.scheduled_key = None
             self.app.onion.scheduled_auth_cookie = None
             self.startup_thread.quit()
-        if self.onion_thread:
-            self.common.log("Mode", "cancel_server: quitting onion thread")
-            self.onion_thread.terminate()
-            self.onion_thread.wait()
-        if self.web_thread:
-            self.common.log("Mode", "cancel_server: quitting web thread")
-            self.web_thread.terminate()
-            self.web_thread.wait()
         self.stop_server()
 
     def cancel_server_custom(self):

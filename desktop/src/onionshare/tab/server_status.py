@@ -379,7 +379,7 @@ class ServerStatus(QtWidgets.QWidget):
                 self.start_server()
         elif self.status == self.STATUS_STARTED:
             self.stop_server()
-        elif self.status == self.STATUS_WORKING:
+        elif self.status == self.STATUS_WORKING and self.settings.get("general", "autostart_timer"):
             self.cancel_server()
         self.button_clicked.emit()
 
