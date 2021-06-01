@@ -14,7 +14,7 @@ Before making a release, you must update the version in these places:
 - [ ] `docs/source/conf.py` (`version` at the top, and the `versions` list too)
 - [ ] `snap/snapcraft.yaml`
 
-If you update flask-socketio, ensure that you also update the [socket.io.min.js](https://github.com/micahflee/onionshare/blob/develop/cli/onionshare_cli/resources/static/js/socket.io.min.js) file to a version that is [supported](https://flask-socketio.readthedocs.io/en/latest/#version-compatibility) by the updated version of flask-socketio.
+If you update `flask-socketio`, ensure that you also update the [socket.io.min.js](https://github.com/micahflee/onionshare/blob/develop/cli/onionshare_cli/resources/static/js/socket.io.min.js) file to a version that is [supported](https://flask-socketio.readthedocs.io/en/latest/#version-compatibility) by the updated version of `flask-socketio`.
 
 Use tor binaries from the latest Tor Browser:
 
@@ -28,6 +28,7 @@ Update the documentation:
 Finalize localization:
 
 - [ ] Merge all the translations from weblate
+- [ ] In `docs` run `poetry run ./check-weblate.py [API_KEY]` to see which translations are >90% in the app and docs
 - [ ] Edit `cli/onionshare_cli/settings.py`, make sure `self.available_locales` lists only locales that are >90% translated
 - [ ] Edit `docs/source/conf.py`, make sure `languages` lists only languages that are >90% translated
 - [ ] Edit `docs/build.sh` and make sure `LOCALES=` lists the same languages as above, in `docs/source/conf.py`
