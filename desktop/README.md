@@ -15,6 +15,8 @@ cd onionshare/desktop
 
 If you're using Linux, install `tor` and `obfs4proxy` from either the [official Debian repository](https://support.torproject.org/apt/tor-deb-repo/), or from your package manager.
 
+In Ubuntu 20.04 you also need the `libxcb-xinerama0` package installed.
+
 #### macOS
 
 Download and install Python 3.8.6 from https://www.python.org/downloads/release/python-386/. I downloaded `python-3.8.6-macosx10.9.pkg`. (You may need to also run `/Applications/Python\ 3.8/Install\ Certificates.command`.)
