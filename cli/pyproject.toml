@@ -18,19 +18,19 @@ classifiers = [
 [tool.poetry.dependencies]
 python = "^3.6"
 click = "*"
-flask = "^1.1.4"
+flask = "1.1.4"
 flask-httpauth = "*"
 flask-socketio = "5.0.1"
 psutil = "*"
 pycryptodome = "*"
 pysocks = "*"
-requests = {extras = ["socks"], version = "^2.25.1"}
+requests = {extras = ["socks"], version = "*"}
 stem = "*"
 unidecode = "*"
 urllib3 = "*"
 eventlet = "*"
 setuptools = "*"
-colorama = "^0.4.4"
+colorama = "*"
 
 [tool.poetry.dev-dependencies]
 pytest = "*"
