@@ -203,6 +203,7 @@ After there's a new release tag, make the Flathub package work here: https://git
 
 You must have `flatpak` and `flatpak-builder` installed, with flathub remote added (`flatpak remote-add --if-not-exists --user flathub https://flathub.org/repo/flathub.flatpakrepo`).
 
+- [ ] Change the tag (for both `onionshare` and `onionshare-cli`) to match the new git tag
 - [ ] Update `tor`, `libevent`, and `obfs4` dependencies, if necessary
 - [ ] Built the latest python dependencies using [this tool](https://github.com/flatpak/flatpak-builder-tools/blob/master/pip/flatpak-pip-generator) (see below)
 - [ ] Test the Flatpak package, ensure it works
@@ -213,20 +214,21 @@ pip3 install --user toml
 
 # clone flatpak-build-tools
 git clone https://github.com/flatpak/flatpak-builder-tools.git
-cd flatpak-builder-tools/pip
 
 # get onionshare-cli dependencies
-./flatpak-pip-generator $(python3 -c 'import toml; print("\n".join([x for x in toml.loads(open("../../onionshare/cli/pyproject.toml").read())["tool"]["poetry"]["dependencies"]]))' |grep -v "^python$" |tr "\n" " ")
-mv python3-modules.json onionshare-cli.json
+cd poetry
+./flatpak-poetry-generator.py ../../onionshare/cli/poetry.lock
+cd ..
 
 # get onionshare dependencies
+cd pip
 ./flatpak-pip-generator $(python3 -c 'import toml; print("\n".join(toml.loads(open("../../onionshare/desktop/pyproject.toml").read())["tool"]["briefcase"]["app"]["onionshare"]["requires"]))' |grep -v "./onionshare_cli" |grep -v -i "pyside2" |tr "\n" " ")
 mv python3-modules.json onionshare.json
 
 # use something like https://www.json2yaml.com/ to convert to yaml and update the manifest
 # add all of the modules in both onionshare-cli and onionshare to the submodules of "onionshare"
-# - onionshare-cli.json
-# - onionshare.json
+# - poetry/generated-poetry-sources.json (onionshare-cli)
+# - pip/python3-modules.json (onionshare)
 ```
 
 Build and test the Flatpak package before publishing:
