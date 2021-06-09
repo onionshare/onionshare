@@ -168,7 +168,7 @@ class UpdateChecker(QtCore.QObject):
             settings.save()
 
             # Do we need to update?
-            update_url = f"https://github.com/micahflee/onionshare/releases/tag/v{latest_version}"
+            update_url = "https://onionshare.org"
             installed_version = self.common.version
             if installed_version < latest_version:
                 self.update_available.emit(
