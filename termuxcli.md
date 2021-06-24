@@ -3,5 +3,7 @@ First install the python package.
 
 Then run the pip install for onionshare-cli
 > $ pip install onionshare-cli
+
 or
+
 > $ pip3 install onionshare-cli
