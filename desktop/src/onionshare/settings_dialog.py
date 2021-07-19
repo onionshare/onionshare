@@ -123,6 +123,20 @@ class SettingsDialog(QtWidgets.QDialog):
         language_layout.addWidget(self.language_combobox)
         language_layout.addStretch()
 
+        #Theme Settings
+        theme_label = QtWidgets.QLabel(strings._("gui_settings_theme_label"))
+        self.theme_combobox = QtWidgets.QComboBox()
+        theme_choices = [
+            strings._("gui_settings_theme_auto"),
+            strings._("gui_settings_theme_light"),
+            strings._("gui_settings_theme_dark")
+        ]
+        self.theme_combobox.addItems(theme_choices)
+        theme_layout = QtWidgets.QHBoxLayout()
+        theme_layout.addWidget(theme_label)
+        theme_layout.addWidget(self.theme_combobox)
+        theme_layout.addStretch()
+
         # Connection type: either automatic, control port, or socket file
 
         # Bundled Tor
@@ -451,6 +465,8 @@ class SettingsDialog(QtWidgets.QDialog):
             layout.addSpacing(20)
         layout.addLayout(language_layout)
         layout.addSpacing(20)
+        layout.addLayout(theme_layout)
+        layout.addSpacing(20)
         layout.addStretch()
         layout.addLayout(buttons_layout)
 
@@ -476,6 +492,9 @@ class SettingsDialog(QtWidgets.QDialog):
         locale = self.old_settings.get("locale")
         locale_index = self.language_combobox.findData(locale)
         self.language_combobox.setCurrentIndex(locale_index)
+
+        theme_choice = self.old_settings.get("theme")
+        self.theme_combobox.setCurrentIndex(theme_choice)
 
         connection_type = self.old_settings.get("connection_type")
         if connection_type == "bundled":
@@ -930,6 +949,10 @@ class SettingsDialog(QtWidgets.QDialog):
         self.common.log("SettingsDialog", "settings_from_fields")
         settings = Settings(self.common)
         settings.load()  # To get the last update timestamp
+
+        # Theme
+        theme_index = self.theme_combobox.currentIndex()
+        settings.set("theme",theme_index)
 
         # Language
         locale_index = self.language_combobox.currentIndex()

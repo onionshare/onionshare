@@ -29,6 +29,7 @@ import getpass
 from PySide2 import QtCore, QtWidgets, QtGui
 
 from onionshare_cli.common import Common
+from onionshare_cli.settings import Settings
 
 from .gui_common import GuiCommon
 from .widgets import Alert
@@ -47,7 +48,8 @@ class Application(QtWidgets.QApplication):
         QtWidgets.QApplication.__init__(self, sys.argv)
 
         # Check color mode on starting the app
-        self.color_mode = self.get_color_mode()
+        # self.color_mode = self.get_color_mode()
+        self.color_mode = self.get_color_mode(common)
         self.installEventFilter(self)
 
     def eventFilter(self, obj, event):
@@ -65,9 +67,20 @@ class Application(QtWidgets.QApplication):
             return False
         return True
 
-    def get_color_mode(self):
-        return "dark" if self.is_dark_mode() else "light"
+    def get_color_mode(self, common):
+        # return "dark" if self.is_dark_mode() else "light"
+        curr_settings = Settings(common)
+        curr_settings.load()
+        current_theme = curr_settings.get("theme")
 
+        if current_theme == 0:
+            return "dark" if self.is_dark_mode() else "light"
+        elif current_theme == 1:
+            return "light"
+        elif current_theme == 2:
+            return "dark"
+        else:
+            return "light"
 
 def main():
     """
