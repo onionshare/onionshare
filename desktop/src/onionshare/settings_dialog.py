@@ -19,6 +19,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 from PySide2 import QtCore, QtWidgets, QtGui
+from PySide2.QtCore import Slot,Qt
+from PySide2.QtGui import QPalette, QColor
 import sys
 import platform
 import datetime
