@@ -98,14 +98,12 @@ class Application(QtWidgets.QApplication):
         curr_settings.load()
         current_theme = curr_settings.get("theme")
 
-        if current_theme == 0:
-            return "dark" if self.is_dark_mode() else "light"
-        elif current_theme == 1:
+        if current_theme == 1:
             return "light"
         elif current_theme == 2:
             return "dark"
         else:
-            return "light"
+            return "dark" if self.is_dark_mode() else "light"
 
 def main():
     """
