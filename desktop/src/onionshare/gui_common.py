@@ -89,7 +89,7 @@ class GuiCommon:
         new_tab_button_text_color = "#4e0d4e"
         if color_mode == "dark":
             header_color = "#F2F2F2"
-            # title_color = "#F2F2F2"
+            title_color = "#F2F2F2"
             stop_button_color = "#C32F2F"
             new_tab_button_background = "#5F5F5F"
             new_tab_button_border = "#878787"

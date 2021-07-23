@@ -28,6 +28,9 @@ import psutil
 import getpass
 from PySide2 import QtCore, QtWidgets, QtGui
 
+from PySide2.QtCore import Slot,Qt
+from PySide2.QtGui import QPalette, QColor
+
 from onionshare_cli.common import Common
 from onionshare_cli.settings import Settings
 
@@ -48,8 +51,12 @@ class Application(QtWidgets.QApplication):
         QtWidgets.QApplication.__init__(self, sys.argv)
 
         # Check color mode on starting the app
-        # self.color_mode = self.get_color_mode()
         self.color_mode = self.get_color_mode(common)
+
+        # Enable Dark Theme
+        if self.color_mode == "dark":
+            self.setDarkMode()
+
         self.installEventFilter(self)
 
     def eventFilter(self, obj, event):
@@ -67,8 +74,26 @@ class Application(QtWidgets.QApplication):
             return False
         return True
 
+    def setDarkMode(self):
+        self.setStyle("Fusion")
+        dark_palette = QPalette()
+        dark_palette.setColor(QPalette.Window, QColor(53, 53, 53))
+        dark_palette.setColor(QPalette.WindowText, Qt.white)
+        dark_palette.setColor(QPalette.Base, QColor(25, 25, 25))
+        dark_palette.setColor(QPalette.AlternateBase, QColor(53, 53, 53))
+        dark_palette.setColor(QPalette.ToolTipBase, Qt.white)
+        dark_palette.setColor(QPalette.ToolTipText, Qt.white)
+        dark_palette.setColor(QPalette.Text, Qt.white)
+        dark_palette.setColor(QPalette.Button, QColor(53, 53, 53))
+        dark_palette.setColor(QPalette.ButtonText, Qt.white)
+        dark_palette.setColor(QPalette.BrightText, Qt.red)
+        dark_palette.setColor(QPalette.Link, QColor(42, 130, 218))
+        dark_palette.setColor(QPalette.Highlight, QColor(42, 130, 218))
+        dark_palette.setColor(QPalette.HighlightedText, Qt.black)
+        self.setPalette(dark_palette)
+        self.setStyleSheet("QToolTip { color: #ffffff; background-color: #2a82da; border: 1px solid white; }")
+
     def get_color_mode(self, common):
-        # return "dark" if self.is_dark_mode() else "light"
         curr_settings = Settings(common)
         curr_settings.load()
         current_theme = curr_settings.get("theme")
