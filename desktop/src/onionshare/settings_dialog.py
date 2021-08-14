@@ -843,6 +843,12 @@ class SettingsDialog(QtWidgets.QDialog):
                     notice = strings._("gui_settings_language_changed_notice")
                 Alert(self.common, notice, QtWidgets.QMessageBox.Information)
 
+
+            # If color mode changed, inform user they need to restart OnionShare
+            if changed(settings, self.old_settings, ["theme"]):
+                notice = strings._("gui_color_mode_changed_notice")
+                Alert(self.common, notice, QtWidgets.QMessageBox.Information)
+
             # Save the new settings
             settings.save()
 
