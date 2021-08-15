@@ -91,6 +91,8 @@ class GuiCommon:
         downloads_uploads_progress_bar_chunk_color = "#4E064F"
         share_zip_progess_bar_border_color = "#4E064F"
         share_zip_progess_bar_chunk_color = "#4E064F"
+        history_background_color = "#ffffff"
+        history_label_color = "#000000"
         if color_mode == "dark":
             header_color = "#F2F2F2"
             title_color = "#F2F2F2"
@@ -99,6 +101,8 @@ class GuiCommon:
             new_tab_button_border = "#878787"
             new_tab_button_text_color = "#FFFFFF"
             share_zip_progess_bar_border_color = "#F2F2F2"
+            history_background_color = "#191919"
+            history_label_color = "#ffffff"
 
         return {
             # OnionShareGui styles
@@ -198,9 +202,17 @@ class GuiCommon:
                     border: 0;
                     border-radius: 5px;
                 }""",
+            "downloads_uploads_not_empty": """
+                QWidget{
+                    background-color: """
+                +   history_background_color
+                +""";
+                }""",
             "downloads_uploads_empty": """
                 QWidget {
-                    background-color: #ffffff;
+                    background-color: """
+                +   history_background_color
+                +""";
                     border: 1px solid #999999;
                 }
                 QWidget QLabel {
@@ -253,7 +265,9 @@ class GuiCommon:
                 }""",
             "history_default_label" : """
                 QLabel {
-                    color: black;
+                    color: """
+            + history_label_color
+            + """;
                 }""",
             "history_individual_file_timestamp_label": """
                 QLabel {
