@@ -148,6 +148,7 @@ class ShareHistoryItem(HistoryItem):
 
             # Change the label
             self.label.setText(self.get_finished_label_text(self.started_dt))
+            self.label.setStyleSheet(self.common.gui.css["history_default_label"])
             self.status = HistoryItem.STATUS_FINISHED
 
         else:
@@ -439,6 +440,7 @@ class ReceiveHistoryItem(HistoryItem):
 
             # Change the label
             self.label.setText(self.get_finished_label_text(self.started))
+            self.label.setStyleSheet(self.common.gui.css["history_default_label"])
 
         elif data["action"] == "canceled":
             # Change the status
@@ -479,6 +481,7 @@ class IndividualFileHistoryItem(HistoryItem):
             self.common.gui.css["history_individual_file_timestamp_label"]
         )
         self.path_label = QtWidgets.QLabel(self.path)
+        self.path_label.setStyleSheet(self.common.gui.css["history_default_label"])
         self.status_code_label = QtWidgets.QLabel()
 
         # Progress bar
