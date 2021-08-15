@@ -714,6 +714,7 @@ class History(QtWidgets.QWidget):
         self.not_empty_layout.addLayout(header_layout)
         self.not_empty_layout.addWidget(self.item_list)
         self.not_empty = QtWidgets.QWidget()
+        self.not_empty.setStyleSheet(self.common.gui.css["downloads_uploads_not_empty"])
         self.not_empty.setLayout(self.not_empty_layout)
 
         # Layout
