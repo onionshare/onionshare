@@ -291,5 +291,15 @@
     "gui_chat_url_description": "<b>Alle</b> med denne OnionShare-adresse kan <b>deltage i chatrummet</b> med <b>Tor Browser</b>: <img src='{}' />",
     "error_port_not_available": "OnionShare-port ikke tilgængelig",
     "gui_rendezvous_cleanup": "Venter på at Tor-kredsløb lukker for at være sikker på, at det lykkedes at overføre dine filer.\n\nDet kan tage noget tid.",
-    "gui_rendezvous_cleanup_quit_early": "Afslut tidligt"
+    "gui_rendezvous_cleanup_quit_early": "Afslut tidligt",
+    "history_receive_read_message_button": "Læs meddelelse",
+    "mode_settings_receive_webhook_url_checkbox": "Brug underretningswebhook",
+    "mode_settings_receive_disable_files_checkbox": "Deaktivér upload af filer",
+    "mode_settings_receive_disable_text_checkbox": "Deaktivér indsendelse af tekst",
+    "mode_settings_title_label": "Tilpasset titel",
+    "gui_color_mode_changed_notice": "Genstart OnionShare for at anvende den nye farvetilstand.",
+    "gui_status_indicator_chat_started": "Chatter",
+    "gui_status_indicator_chat_scheduled": "Planlagt …",
+    "gui_status_indicator_chat_working": "Starter …",
+    "gui_status_indicator_chat_stopped": "Klar til at chatte"
 }
