@@ -651,7 +651,7 @@ class Onion(object):
                 key_content = "RSA1024"
 
         # v3 onions don't yet support basic auth. Our ticket:
-        # https://github.com/micahflee/onionshare/issues/697
+        # https://github.com/onionshare/onionshare/issues/697
         if (
             key_type == "NEW"
             and key_content == "ED25519-V3"

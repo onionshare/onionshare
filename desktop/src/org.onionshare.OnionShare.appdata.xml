@@ -17,7 +17,7 @@
             <caption>Types of services that OnionShare supports</caption>
         </screenshot>
     </screenshots>
-    <url type="bugtracker">https://github.com/micahflee/onionshare/issues/</url>
+    <url type="bugtracker">https://github.com/onionshare/onionshare/issues/</url>
     <url type="help">https://onionshare.org/</url>
     <url type="homepage">https://onionshare.org/</url>
     <developer_name>Micah Lee</developer_name>
