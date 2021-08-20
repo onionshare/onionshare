@@ -180,7 +180,7 @@ After following all of the previous steps, gather these files:
 Create a PGP signature for each of these files, e.g:
 
 ```sh
-gpg -a --detach-sign OnionShare-$VERSION.flatpak
+gpg -a --detach-sign OnionShare-$VERSION.tar.gz
 gpg -a --detach-sign [... and so on]
 ```
 
@@ -241,8 +241,16 @@ flatpak run org.onionshare.OnionShare
 Create a [single-file bundle](https://docs.flatpak.org/en/latest/single-file-bundles.html):
 
 ```sh
-flatpak build-bundle ~/repositories/apps dist/OnionShare-$VERSION.flatpak org.onionshare.OnionShare --runtime-repo=https://flathub.org/repo/flathub.flatpakrepo
+flatpak build-bundle ~/.local/share/flatpak/repo OnionShare-$VERSION.flatpak org.onionshare.OnionShare --runtime-repo=https://flathub.org/repo/flathub.flatpakrepo
 ```
+
+Create a PGP signature for the flatpak single-file bundle:
+
+```sh
+gpg -a --detach-sign OnionShare-$VERSION.flatpak
+```
+
+Upload this `.flatpak` and its sig to the GitHub release as well.
 
 ### Update Homebrew
 
