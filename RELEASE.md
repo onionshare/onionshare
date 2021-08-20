@@ -238,6 +238,12 @@ flatpak-builder build --force-clean --install-deps-from=flathub --install --user
 flatpak run org.onionshare.OnionShare
 ```
 
+Create a [single-file bundle](https://docs.flatpak.org/en/latest/single-file-bundles.html):
+
+```sh
+flatpak build-bundle ~/repositories/apps dist/OnionShare-$VERSION.flatpak org.onionshare.OnionShare --runtime-repo=https://flathub.org/repo/flathub.flatpakrepo
+```
+
 ### Update Homebrew
 
 - Make a PR to [homebrew-cask](https://github.com/homebrew/homebrew-cask) to update the macOS version
