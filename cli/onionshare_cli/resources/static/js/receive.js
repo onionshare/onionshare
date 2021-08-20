@@ -1,24 +1,35 @@
-$(function(){
+$(function () {
   // Add a flash message
-  var flash = function(category, message) {
+  var flash = function (category, message) {
     $('#flashes').append($('<li>').addClass(category).text(message));
   };
 
   var scriptSrc = document.getElementById('receive-script').src;
-  var staticImgPath = scriptSrc.substr(0, scriptSrc.lastIndexOf( '/' )+1).replace('js', 'img');
+  var staticImgPath = scriptSrc.substr(0, scriptSrc.lastIndexOf('/') + 1).replace('js', 'img');
 
   // Intercept submitting the form
-  $('#send').submit(function(event){
+  $('#send').submit(function (event) {
     event.preventDefault();
 
-    // Create form data, and list of filenames
-    var files = $('#file-select').get(0).files;
-    var filenames = [];
+    // Build the form data
     var formData = new FormData();
-    for(var i = 0; i < files.length; i++) {
-      var file = files[i];
-      filenames.push(file.name);
-      formData.append('file[]', file, file.name);
+
+    // Files
+    var filenames = [];
+    var $fileSelect = $('#file-select');
+    if ($fileSelect.length > 0) {
+      var files = $fileSelect.get(0).files;
+      for (var i = 0; i < files.length; i++) {
+        var file = files[i];
+        filenames.push(file.name);
+        formData.append('file[]', file, file.name);
+      }
+    }
+
+    // Text message
+    var $text = $('#text');
+    if ($text.length > 0) {
+      formData.append("text", $text.val())
     }
 
     // Reset the upload form
@@ -28,9 +39,9 @@ $(function(){
     // have access to the the XMLHttpRequest object
     var ajax = new XMLHttpRequest();
 
-    ajax.upload.addEventListener('progress', function(event){
+    ajax.upload.addEventListener('progress', function (event) {
       // Update progress bar for this specific upload
-      if(event.lengthComputable) {
+      if (event.lengthComputable) {
         $('progress', ajax.$upload_div).attr({
           value: event.loaded,
           max: event.total,
@@ -39,13 +50,13 @@ $(function(){
 
       // If it's finished sending all data to the first Tor node, remove cancel button
       // and update the status
-      if(event.loaded == event.total) {
+      if (event.loaded == event.total) {
         $('.cancel', ajax.$upload_div).remove();
         $('.upload-status', ajax.$upload_div).html('<img src="' + staticImgPath + '/ajax.gif" alt="" /> Waiting for data to finish traversing Tor network ...');
       }
     }, false);
 
-    ajax.addEventListener('load', function(event){
+    ajax.addEventListener('load', function (event) {
       // Remove the upload div
       ajax.$upload_div.remove();
 
@@ -54,38 +65,38 @@ $(function(){
         var response = JSON.parse(ajax.response);
 
         // The 'new_body' response replaces the whole HTML document and ends
-        if('new_body' in response) {
+        if ('new_body' in response) {
           $('body').html(response['new_body']);
           return;
         }
 
         // Show error flashes
-        if('error_flashes' in response) {
-          for(var i=0; i<response['error_flashes'].length; i++) {
+        if ('error_flashes' in response) {
+          for (var i = 0; i < response['error_flashes'].length; i++) {
             flash('error', response['error_flashes'][i]);
           }
         }
 
         // Show info flashes
-        if('info_flashes' in response) {
-          for(var i=0; i<response['info_flashes'].length; i++) {
+        if ('info_flashes' in response) {
+          for (var i = 0; i < response['info_flashes'].length; i++) {
             flash('info', response['info_flashes'][i]);
           }
         }
-      } catch(e) {
-        flash('error', 'Invalid response from server: '+data);
+      } catch (e) {
+        flash('error', 'Invalid response from server: ' + data);
       }
     }, false);
 
-    ajax.addEventListener('error', function(event){
-      flash('error', 'Error uploading: '+filenames.join(', '));
+    ajax.addEventListener('error', function (event) {
+      flash('error', 'Error uploading: ' + filenames.join(', '));
 
       // Remove the upload div
       ajax.$upload_div.remove()
     }, false);
 
-    ajax.addEventListener('abort', function(event){
-      flash('error', 'Upload aborted: '+filenames.join(', '));
+    ajax.addEventListener('abort', function (event) {
+      flash('error', 'Upload aborted: ' + filenames.join(', '));
     }, false);
 
     // Make the upload div
@@ -114,7 +125,7 @@ $(function(){
       )
       .append($progress);
 
-    $cancel_button.click(function(){
+    $cancel_button.click(function () {
       // Abort the upload, and remove the upload div
       ajax.abort();
       $upload_div.remove()

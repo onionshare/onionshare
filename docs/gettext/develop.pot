@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: OnionShare 2.3.1\n"
+"Project-Id-Version: OnionShare 2.3.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-22 13:40-0800\n"
+"POT-Creation-Date: 2021-08-20 13:37-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,11 +37,11 @@ msgid "Contributing Code"
 msgstr ""
 
 #: ../../source/develop.rst:17
-msgid "OnionShare source code is to be found in this Git repository: https://github.com/micahflee/onionshare"
+msgid "OnionShare source code is to be found in this Git repository: https://github.com/onionshare/onionshare"
 msgstr ""
 
 #: ../../source/develop.rst:19
-msgid "If you'd like to contribute code to OnionShare, it helps to join the Keybase team and ask questions about what you're thinking of working on. You should also review all of the `open issues <https://github.com/micahflee/onionshare/issues>`_ on GitHub to see if there are any you'd like to tackle."
+msgid "If you'd like to contribute code to OnionShare, it helps to join the Keybase team and ask questions about what you're thinking of working on. You should also review all of the `open issues <https://github.com/onionshare/onionshare/issues>`_ on GitHub to see if there are any you'd like to tackle."
 msgstr ""
 
 #: ../../source/develop.rst:22
@@ -53,7 +53,7 @@ msgid "Starting Development"
 msgstr ""
 
 #: ../../source/develop.rst:29
-msgid "OnionShare is developed in Python. To get started, clone the Git repository at https://github.com/micahflee/onionshare/ and then consult the ``cli/README.md`` file to learn how to set up your development environment for the command-line version, and the ``desktop/README.md`` file to learn how to set up your development environment for the graphical version."
+msgid "OnionShare is developed in Python. To get started, clone the Git repository at https://github.com/onionshare/onionshare/ and then consult the ``cli/README.md`` file to learn how to set up your development environment for the command-line version, and the ``desktop/README.md`` file to learn how to set up your development environment for the graphical version."
 msgstr ""
 
 #: ../../source/develop.rst:32
@@ -72,54 +72,54 @@ msgstr ""
 msgid "When developing, it's convenient to run OnionShare from a terminal and add the ``--verbose`` (or ``-v``) flag to the command. This prints a lot of helpful messages to the terminal, such as when certain objects are initialized, when events occur (like buttons clicked, settings saved or reloaded), and other debug info. For example::"
 msgstr ""
 
-#: ../../source/develop.rst:117
+#: ../../source/develop.rst:121
 msgid "You can add your own debug messages by running the ``Common.log`` method from ``onionshare/common.py``. For example::"
 msgstr ""
 
-#: ../../source/develop.rst:121
+#: ../../source/develop.rst:125
 msgid "This can be useful when learning the chain of events that occur when using OnionShare, or the value of certain variables before and after they are manipulated."
 msgstr ""
 
-#: ../../source/develop.rst:124
+#: ../../source/develop.rst:128
 msgid "Local Only"
 msgstr ""
 
-#: ../../source/develop.rst:126
+#: ../../source/develop.rst:130
 msgid "Tor is slow, and it's often convenient to skip starting onion services altogether during development. You can do this with the ``--local-only`` flag. For example::"
 msgstr ""
 
-#: ../../source/develop.rst:164
+#: ../../source/develop.rst:167
 msgid "In this case, you load the URL ``http://onionshare:train-system@127.0.0.1:17635`` in a normal web-browser like Firefox, instead of using the Tor Browser."
 msgstr ""
 
-#: ../../source/develop.rst:167
+#: ../../source/develop.rst:170
 msgid "Contributing Translations"
 msgstr ""
 
-#: ../../source/develop.rst:169
+#: ../../source/develop.rst:172
 msgid "Help make OnionShare easier to use and more familiar and welcoming for people by translating it on `Hosted Weblate <https://hosted.weblate.org/projects/onionshare/>`_. Always keep the \"OnionShare\" in latin letters, and use \"OnionShare (localname)\" if needed."
 msgstr ""
 
-#: ../../source/develop.rst:171
+#: ../../source/develop.rst:174
 msgid "To help translate, make a Hosted Weblate account and start contributing."
 msgstr ""
 
-#: ../../source/develop.rst:174
+#: ../../source/develop.rst:177
 msgid "Suggestions for Original English Strings"
 msgstr ""
 
-#: ../../source/develop.rst:176
+#: ../../source/develop.rst:179
 msgid "Sometimes the original English strings are wrong, or don't match between the application and the documentation."
 msgstr ""
 
-#: ../../source/develop.rst:178
+#: ../../source/develop.rst:181
 msgid "File source string improvements by adding @kingu to your Weblate comment, or open a GitHub issue or pull request. The latter ensures all upstream developers see the suggestion, and can potentially modify the string via the usual code review processes."
 msgstr ""
 
-#: ../../source/develop.rst:182
+#: ../../source/develop.rst:185
 msgid "Status of Translations"
 msgstr ""
 
-#: ../../source/develop.rst:183
+#: ../../source/develop.rst:186
 msgid "Here is the current translation status. If you want start a translation in a language not yet started, please write to the mailing list: onionshare-dev@lists.riseup.net"
 msgstr ""

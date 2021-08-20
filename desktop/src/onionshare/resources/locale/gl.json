@@ -191,5 +191,15 @@
     "error_port_not_available": "Non está dispoñible o porto OnionShare",
     "gui_rendezvous_cleanup_quit_early": "Saír axiña",
     "gui_rendezvous_cleanup": "Agardando a que se pechen tódolos circuitos de Tor para ter certeza de que os ficheiros foron transferidos.\n\nEsto podería tardar un pouco.",
-    "gui_color_mode_changed_notice": "Reinicia OnionShare para aplicar o novo modo de cor."
+    "gui_color_mode_changed_notice": "Reinicia OnionShare para aplicar o novo modo de cor.",
+    "error_tor_protocol_error": "Hai un erro con Tor: {}",
+    "history_receive_read_message_button": "Ler mensaxe",
+    "mode_settings_receive_disable_files_checkbox": "Desactivar a subida de ficheiros",
+    "mode_settings_receive_disable_text_checkbox": "Desactivar o envío de texto",
+    "mode_settings_title_label": "Título personalizado",
+    "mode_settings_receive_webhook_url_checkbox": "Usar webhook de notificación",
+    "gui_status_indicator_chat_started": "Conversando",
+    "gui_status_indicator_chat_scheduled": "Programado…",
+    "gui_status_indicator_chat_working": "Comezando…",
+    "gui_status_indicator_chat_stopped": "Preparado para conversar"
 }

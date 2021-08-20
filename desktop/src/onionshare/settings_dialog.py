@@ -19,13 +19,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 from PySide2 import QtCore, QtWidgets, QtGui
+from PySide2.QtCore import Slot,Qt
+from PySide2.QtGui import QPalette, QColor
 import sys
 import platform
 import datetime
 import re
 import os
-
-from onionshare_cli import common
 from onionshare_cli.settings import Settings
 from onionshare_cli.onion import (
     Onion,
@@ -47,11 +47,7 @@ from onionshare_cli.onion import (
 from . import strings
 from .widgets import Alert
 from .update_checker import (
-    UpdateCheckerCheckError,
-    UpdateCheckerInvalidLatestVersion,
-    UpdateChecker,
-    UpdateThread,
-)
+    UpdateThread)
 from .tor_connection_dialog import TorConnectionDialog
 from .gui_common import GuiCommon
 
@@ -128,6 +124,20 @@ class SettingsDialog(QtWidgets.QDialog):
         language_layout.addWidget(language_label)
         language_layout.addWidget(self.language_combobox)
         language_layout.addStretch()
+
+        #Theme Settings
+        theme_label = QtWidgets.QLabel(strings._("gui_settings_theme_label"))
+        self.theme_combobox = QtWidgets.QComboBox()
+        theme_choices = [
+            strings._("gui_settings_theme_auto"),
+            strings._("gui_settings_theme_light"),
+            strings._("gui_settings_theme_dark")
+        ]
+        self.theme_combobox.addItems(theme_choices)
+        theme_layout = QtWidgets.QHBoxLayout()
+        theme_layout.addWidget(theme_label)
+        theme_layout.addWidget(self.theme_combobox)
+        theme_layout.addStretch()
 
         # Connection type: either automatic, control port, or socket file
 
@@ -457,6 +467,8 @@ class SettingsDialog(QtWidgets.QDialog):
             layout.addSpacing(20)
         layout.addLayout(language_layout)
         layout.addSpacing(20)
+        layout.addLayout(theme_layout)
+        layout.addSpacing(20)
         layout.addStretch()
         layout.addLayout(buttons_layout)
 
@@ -482,6 +494,9 @@ class SettingsDialog(QtWidgets.QDialog):
         locale = self.old_settings.get("locale")
         locale_index = self.language_combobox.findData(locale)
         self.language_combobox.setCurrentIndex(locale_index)
+
+        theme_choice = self.old_settings.get("theme")
+        self.theme_combobox.setCurrentIndex(theme_choice)
 
         connection_type = self.old_settings.get("connection_type")
         if connection_type == "bundled":
@@ -828,6 +843,12 @@ class SettingsDialog(QtWidgets.QDialog):
                     notice = strings._("gui_settings_language_changed_notice")
                 Alert(self.common, notice, QtWidgets.QMessageBox.Information)
 
+
+            # If color mode changed, inform user they need to restart OnionShare
+            if changed(settings, self.old_settings, ["theme"]):
+                notice = strings._("gui_color_mode_changed_notice")
+                Alert(self.common, notice, QtWidgets.QMessageBox.Information)
+
             # Save the new settings
             settings.save()
 
@@ -936,6 +957,10 @@ class SettingsDialog(QtWidgets.QDialog):
         self.common.log("SettingsDialog", "settings_from_fields")
         settings = Settings(self.common)
         settings.load()  # To get the last update timestamp
+
+        # Theme
+        theme_index = self.theme_combobox.currentIndex()
+        settings.set("theme",theme_index)
 
         # Language
         locale_index = self.language_combobox.currentIndex()

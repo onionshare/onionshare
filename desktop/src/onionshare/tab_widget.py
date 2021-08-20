@@ -176,6 +176,11 @@ class TabWidget(QtWidgets.QTabWidget):
             )
 
         tab.init(mode_settings)
+
+        # Make sure the title is set
+        if tab.get_mode():
+            tab.get_mode().mode_settings_widget.title_editing_finished()
+
         # If it's persistent, set the persistent image in the tab
         self.change_persistent(tab.tab_id, tab.settings.get("persistent", "enabled"))
 
@@ -183,8 +188,13 @@ class TabWidget(QtWidgets.QTabWidget):
         self.bring_to_front.emit()
 
     def change_title(self, tab_id, title):
+        shortened_title = title
+        if len(shortened_title) > 11:
+            shortened_title = shortened_title[:10] + "..."
+
         index = self.indexOf(self.tabs[tab_id])
-        self.setTabText(index, title)
+        self.setTabText(index, shortened_title)
+        self.setTabToolTip(index, title)
 
     def change_icon(self, tab_id, icon_path):
         index = self.indexOf(self.tabs[tab_id])

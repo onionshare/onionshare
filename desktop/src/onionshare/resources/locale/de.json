@@ -5,7 +5,7 @@
     "not_a_file": "{0:s} ist keine gültige Datei.",
     "other_page_loaded": "Daten geladen",
     "closing_automatically": "Gestoppt, da die Übertragung erfolgreich beendet wurde",
-    "large_filesize": "Achtung: Das Senden von großen Dateien kann sehr lange dauern",
+    "large_filesize": "Achtung: Das Senden von großen Dateien kann Stunden dauern",
     "help_local_only": "Tor nicht verwenden (nur für Entwicklung)",
     "help_stay_open": "Den Server weiterlaufen lassen, nachdem die Dateien verschickt wurden",
     "help_verbose": "Schreibe Fehler von OnionShare nach stdout und Webfehler auf die Festplatte",
@@ -295,5 +295,14 @@
     "error_port_not_available": "OnionShare-Port nicht verfügbar",
     "gui_rendezvous_cleanup": "Warte darauf, dass alle Tor-Verbindungen beendet wurden, um den vollständigen Dateitransfer sicherzustellen.\n\nDies kann einige Minuten dauern.",
     "gui_rendezvous_cleanup_quit_early": "Vorzeitig beenden",
-    "gui_color_mode_changed_notice": "Starte OnionShare neu, damit der neue Farbmodus übernommen wird."
+    "gui_color_mode_changed_notice": "OnionShare neustarten um den neuen Farbmodus zu aktivieren.",
+    "history_receive_read_message_button": "Nachricht gelesen",
+    "mode_settings_receive_webhook_url_checkbox": "Benutze Benachrichtigungs-WebHook",
+    "mode_settings_receive_disable_files_checkbox": "Datei-Übermittlung deaktivieren",
+    "mode_settings_receive_disable_text_checkbox": "Text-Übermittlung deaktivieren",
+    "mode_settings_title_label": "Benutzerdefinierter Titel",
+    "gui_status_indicator_chat_started": "Chatted",
+    "gui_status_indicator_chat_scheduled": "Geplant…",
+    "gui_status_indicator_chat_working": "Startet…",
+    "gui_status_indicator_chat_stopped": "Bereit zum Chatten"
 }

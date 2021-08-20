@@ -19,10 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 import os
-import sys
-import tempfile
-import mimetypes
-from flask import Response, request, render_template, make_response
+from flask import render_template, make_response
 
 from .send_base_mode import SendBaseModeWeb
 
@@ -40,8 +37,8 @@ class WebsiteModeWeb(SendBaseModeWeb):
         The web app routes for sharing a website
         """
 
-        @self.web.app.route("/", defaults={"path": ""})
-        @self.web.app.route("/<path:path>")
+        @self.web.app.route("/", defaults={"path": ""}, methods=["GET"], provide_automatic_options=False)
+        @self.web.app.route("/<path:path>", methods=["GET"], provide_automatic_options=False)
         def path_public(path):
             return path_logic(path)
 
@@ -63,6 +60,7 @@ class WebsiteModeWeb(SendBaseModeWeb):
                 breadcrumbs=breadcrumbs,
                 breadcrumbs_leaf=breadcrumbs_leaf,
                 static_url_path=self.web.static_url_path,
+                title=self.web.settings.get("general", "title"),
             )
         )
 

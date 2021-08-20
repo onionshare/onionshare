@@ -1,6 +1,6 @@
 name: onionshare
 base: core18
-version: '2.3.1'
+version: '2.3.3'
 summary: Securely and anonymously share files, host websites, and chat using Tor
 description: |
   OnionShare lets you securely and anonymously send and receive files. It works by starting 
@@ -8,7 +8,7 @@ description: |
   web address so others can download files from you, or upload files to you. It does _not_ 
   require setting up a separate server or using a third party file-sharing service.
 
-grade: stable # must be 'stable' to release into candidate/stable channels
+grade: stable # stable or devel
 confinement: strict
 
 apps:
@@ -23,6 +23,8 @@ apps:
       - removable-media
     extensions:
       - gnome-3-34
+    environment:
+      LANG: C.UTF-8
   
   cli:
     common-id: org.onionshare.OnionShareCli
@@ -32,6 +34,8 @@ apps:
       - network
       - network-bind
       - removable-media
+    environment:
+      LANG: C.UTF-8
 
 parts:
   onionshare:
@@ -40,7 +44,7 @@ parts:
     python-version: python3
     python-packages:
       - psutil
-      - pyside2==5.15.1
+      - pyside2 == 5.15.2
       - qrcode
     stage-packages:
       - libasound2
@@ -114,21 +118,24 @@ parts:
       - click
       - flask
       - flask-httpauth
-      - flask-socketio
+      - flask-socketio == 5.0.1
       - pycryptodome
+      - psutil
       - pysocks
       - requests
       - stem
       - urllib3
       - eventlet
+      - setuptools
+      - colorama
     stage:
       - -usr/lib/x86_64-linux-gnu/libcrypto.so.1.1
       - -usr/share/doc/libssl1.1/changelog.Debian.gz
     after: [tor, obfs4]
 
   tor:
-    source: https://dist.torproject.org/tor-0.4.5.6.tar.gz
-    source-checksum: sha256/22cba3794fedd5fa87afc1e512c6ce2c21bc20b4e1c6f8079d832dc1e545e733
+    source: https://dist.torproject.org/tor-0.4.6.7.tar.gz
+    source-checksum: sha256/ff665ce121b2952110bd98b9c8741b5593bf6c01ac09033ad848ed92c2510f9a
     source-type: tar
     plugin: autotools
     build-packages:

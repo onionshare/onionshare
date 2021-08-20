@@ -93,9 +93,9 @@
     "settings_error_socket_file": "Impossible de se connecter au contrôleur Tor en utilisant le fichier d’interface de connexion {}.",
     "settings_error_auth": "Connecté à {}:{}, mais il est impossible de s’authentifier. Est-ce bien un contrôleur Tor ?",
     "settings_error_missing_password": "Vous êtes connecté au contrôleur Tor, mais il exige un mot de passe d’authentification.",
-    "settings_error_unreadable_cookie_file": "Connecté au contrôleur Tor, mais le mot de passe est peut-être erroné ou votre utilisateur n’est pas autorisé à lire le fichier témoin.",
+    "settings_error_unreadable_cookie_file": "Vous êtes connecté au contrôleur Tor, mais le mot de passe est peut-être erroné ou votre utilisateur n’est pas autorisé à lire le fichier témoin.",
     "settings_error_bundled_tor_not_supported": "Utiliser la version de Tor intégrée à OnionShare ne fonctionne pas en mode développeur sous Windows ou macOS.",
-    "settings_error_bundled_tor_timeout": "La connexion à Tor prend trop de temps. Vous n’êtes peut-être pas connecté à Internet ou votre horloge système est mal réglée.",
+    "settings_error_bundled_tor_timeout": "La connexion à Tor prend trop de temps. Vous n’êtes peut-être pas connecté à Internet ou votre horloge système est-elle mal réglée ?",
     "settings_error_bundled_tor_broken": "OnionShare n’a pas réussi à se connecter à Tor :\n{}",
     "error_tor_protocol_error": "Une erreur est survenue avec Tor : {}",
     "error_tor_protocol_error_unknown": "Une erreur inconnue est survenue avec Tor",
@@ -295,5 +295,14 @@
     "error_port_not_available": "Le port OnionShare n’est pas accessible",
     "gui_rendezvous_cleanup_quit_early": "Fermer avant",
     "gui_rendezvous_cleanup": "En attente de la fermeture des circuits Tor pour être certain que vos fichiers ont été transférés avec succès.\n\nCela pourrait prendre quelques minutes.",
-    "gui_color_mode_changed_notice": "Redémarrez OnionShare pour que le nouveau mode chromatique soit appliqué."
+    "gui_color_mode_changed_notice": "Redémarrez OnionShare pour que le nouveau mode chromatique soit appliqué.",
+    "history_receive_read_message_button": "Lire le message",
+    "mode_settings_receive_webhook_url_checkbox": "Utiliser un point d’ancrage Web de notification",
+    "mode_settings_receive_disable_files_checkbox": "Désactiver le téléversement de fichiers",
+    "mode_settings_receive_disable_text_checkbox": "Désactiver l’envoi de texte",
+    "mode_settings_title_label": "Titre personnalisé",
+    "gui_status_indicator_chat_started": "En conversation",
+    "gui_status_indicator_chat_scheduled": "Planifié…",
+    "gui_status_indicator_chat_working": "Démarrage…",
+    "gui_status_indicator_chat_stopped": "Prêt à dialoguer"
 }

@@ -13,17 +13,17 @@
     <launchable type="desktop-id">org.onionshare.OnionShare.desktop</launchable>
     <screenshots>
         <screenshot type="default">
-            <image>https://raw.githubusercontent.com/micahflee/onionshare/master/docs/source/_static/screenshots/tabs.png</image>
+            <image>https://docs.onionshare.org/2.3.3/en/_images/tabs.png</image>
             <caption>Types of services that OnionShare supports</caption>
         </screenshot>
     </screenshots>
-    <url type="bugtracker">https://github.com/micahflee/onionshare/issues/</url>
+    <url type="bugtracker">https://github.com/onionshare/onionshare/issues/</url>
     <url type="help">https://onionshare.org/</url>
     <url type="homepage">https://onionshare.org/</url>
     <developer_name>Micah Lee</developer_name>
     <update_contact>micah@micahflee.com</update_contact>
     <content_rating type="oars-1.1" />
     <releases>
-        <release type="development" date="2021-02-22" version="2.3.1" />
+        <release type="development" date="2021-08-20" version="2.3.3" />
     </releases>
 </component>

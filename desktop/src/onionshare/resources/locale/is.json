@@ -288,5 +288,15 @@
     "error_port_not_available": "OnionShare-gátt ekki tiltæk",
     "gui_rendezvous_cleanup_quit_early": "Hætta snemma",
     "gui_rendezvous_cleanup": "Bíð eftir að Tor-rásir lokist svo öruggt sé að tekist hafi að flytja skrárnar þínar.\n\nÞetta gæti tekið nokkrar mínútur.",
-    "gui_color_mode_changed_notice": "Endurræstu OnionShare svo nýja litastefið taki gildi."
+    "gui_color_mode_changed_notice": "Endurræstu OnionShare svo nýja litastefið taki gildi.",
+    "history_receive_read_message_button": "Lesa skilaboð",
+    "mode_settings_receive_webhook_url_checkbox": "Nota webhook fyrir tilkynningar",
+    "mode_settings_receive_disable_files_checkbox": "Gera innsendingu skráa óvirka",
+    "mode_settings_receive_disable_text_checkbox": "Gera innsendingu texta óvirka",
+    "mode_settings_title_label": "Sérsniðinn titill",
+    "gui_status_indicator_chat_started": "Spjalla",
+    "gui_status_indicator_chat_scheduled": "Áætlað…",
+    "gui_status_indicator_chat_working": "Ræsi…",
+    "gui_status_indicator_chat_stopped": "Tilbúið í spjall",
+    "gui_please_wait_no_button": "Ræsi…"
 }

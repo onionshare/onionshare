@@ -1,4 +1,3 @@
-import pytest
 import os
 import requests
 import tempfile
@@ -608,4 +607,21 @@ class TestShare(GuiBaseTest):
         self.run_all_share_mode_tests(tab)
         self.hit_401(tab)
 
+        self.close_all_tabs()
+
+    def test_405_page_returned_for_invalid_methods(self):
+        """
+        Our custom 405 page should return for invalid methods
+        """
+        tab = self.new_share_tab()
+
+        tab.get_mode().autostop_sharing_checkbox.click()
+        tab.get_mode().mode_settings_widget.public_checkbox.click()
+
+        self.run_all_common_setup_tests()
+        self.run_all_share_mode_setup_tests(tab)
+        self.run_all_share_mode_started_tests(tab)
+        url = f"http://127.0.0.1:{tab.app.port}/"
+        self.hit_405(url, expected_resp="OnionShare: 405 Method Not Allowed", data = {'foo':'bar'}, methods = ["put", "post", "delete", "options"])
+        self.history_widgets_present(tab)
         self.close_all_tabs()

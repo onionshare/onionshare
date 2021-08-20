@@ -285,5 +285,15 @@
     "gui_chat_url_description": "<b>任何</b>有这个OnionShare地址的人均可 <b>加入这个聊天室</b>，方法是使用<b>Tor浏览器</b>:<img src='{}' />",
     "gui_rendezvous_cleanup_quit_early": "提前退出",
     "gui_rendezvous_cleanup": "等待Tor电路关闭，以确保文件传输成功。\n\n这可能需要几分钟。",
-    "gui_color_mode_changed_notice": "要使即将应用的新色彩模式生效，请重启 OnionShare.。"
+    "gui_color_mode_changed_notice": "要使即将应用的新色彩模式生效，请重启 OnionShare.。",
+    "history_receive_read_message_button": "读取消息",
+    "mode_settings_receive_webhook_url_checkbox": "使用通知 webhook",
+    "mode_settings_receive_disable_files_checkbox": "禁用上传文件",
+    "mode_settings_receive_disable_text_checkbox": "禁用提交文本",
+    "mode_settings_title_label": "自定义标题",
+    "gui_status_indicator_chat_started": "正在聊天",
+    "gui_status_indicator_chat_scheduled": "已安排…",
+    "gui_status_indicator_chat_working": "启动中…",
+    "gui_status_indicator_chat_stopped": "准备好聊天",
+    "gui_please_wait_no_button": "启动中…"
 }

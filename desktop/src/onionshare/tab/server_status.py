@@ -17,8 +17,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-
-import platform
 import textwrap
 from PySide2 import QtCore, QtWidgets, QtGui
 from PySide2.QtCore import Qt
@@ -163,7 +161,7 @@ class ServerStatus(QtWidgets.QWidget):
                     self.url.setText(wrapped_onion_url)
                 else:
                     self.url.setText(self.get_url())
-        except:
+        except Exception:
             pass
 
     def show_url(self):
@@ -308,13 +306,18 @@ class ServerStatus(QtWidgets.QWidget):
                         )
                     )
                 else:
-                    self.server_button.setText(strings._("gui_please_wait"))
+                    if self.common.platform == "Windows":
+                        self.server_button.setText(strings._("gui_please_wait"))
+                    else:
+                        self.server_button.setText(
+                            strings._("gui_please_wait_no_button")
+                        )
             else:
                 self.server_button.setStyleSheet(
                     self.common.gui.css["server_status_button_working"]
                 )
                 self.server_button.setEnabled(False)
-                self.server_button.setText(strings._("gui_please_wait"))
+                self.server_button.setText(strings._("gui_please_wait_no_button"))
 
     def server_button_clicked(self):
         """
@@ -381,7 +384,10 @@ class ServerStatus(QtWidgets.QWidget):
                 self.start_server()
         elif self.status == self.STATUS_STARTED:
             self.stop_server()
-        elif self.status == self.STATUS_WORKING:
+        elif self.status == self.STATUS_WORKING and (
+            self.common.platform == "Windows"
+            or self.settings.get("general", "autostart_timer")
+        ):
             self.cancel_server()
         self.button_clicked.emit()
 

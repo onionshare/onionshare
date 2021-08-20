@@ -18,7 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-from PySide2 import QtCore, QtWidgets, QtGui
+from PySide2 import QtCore, QtWidgets
 
 from onionshare_cli.common import AutoStopTimer
 
@@ -158,9 +158,16 @@ class Mode(QtWidgets.QWidget):
                         )
                     )
                 else:
-                    self.server_status.server_button.setText(
-                        strings._("gui_please_wait")
-                    )
+                    if self.common.platform == "Windows" or self.settings.get(
+                        "general", "autostart_timer"
+                    ):
+                        self.server_status.server_button.setText(
+                            strings._("gui_please_wait")
+                        )
+                    else:
+                        self.server_status.server_button.setText(
+                            strings._("gui_please_wait_no_button")
+                        )
 
         # If the auto-stop timer has stopped, stop the server
         if self.server_status.status == ServerStatus.STATUS_STARTED:
@@ -354,14 +361,19 @@ class Mode(QtWidgets.QWidget):
             self.app.onion.scheduled_key = None
             self.app.onion.scheduled_auth_cookie = None
             self.startup_thread.quit()
-        if self.onion_thread:
-            self.common.log("Mode", "cancel_server: quitting onion thread")
-            self.onion_thread.terminate()
-            self.onion_thread.wait()
-        if self.web_thread:
-            self.common.log("Mode", "cancel_server: quitting web thread")
-            self.web_thread.terminate()
-            self.web_thread.wait()
+
+        # Canceling only works in Windows
+        # https://github.com/onionshare/onionshare/issues/1371
+        if self.common.platform == "Windows":
+            if self.onion_thread:
+                self.common.log("Mode", "cancel_server: quitting onion thread")
+                self.onion_thread.terminate()
+                self.onion_thread.wait()
+            if self.web_thread:
+                self.common.log("Mode", "cancel_server: quitting web thread")
+                self.web_thread.terminate()
+                self.web_thread.wait()
+
         self.stop_server()
 
     def cancel_server_custom(self):
@@ -379,10 +391,10 @@ class Mode(QtWidgets.QWidget):
         if self.server_status.status != ServerStatus.STATUS_STOPPED:
             try:
                 self.web.stop(self.app.port)
-            except:
+            except Exception:
                 # Probably we had no port to begin with (Onion service didn't start)
                 pass
-        self.app.cleanup()
+        self.web.cleanup()
 
         self.stop_server_custom()
 
@@ -447,9 +459,21 @@ class Mode(QtWidgets.QWidget):
         """
         pass
 
+    def handle_request_upload_includes_message(self, event):
+        """
+        Handle REQUEST_UPLOAD_INCLUDES_MESSAGE event.
+        """
+        pass
+
     def handle_request_upload_file_renamed(self, event):
         """
         Handle REQUEST_UPLOAD_FILE_RENAMED event.
+        """
+        pass
+
+    def handle_request_upload_message(self, event):
+        """
+        Handle REQUEST_UPLOAD_MESSAGE event.
         """
         pass
 

@@ -28,11 +28,9 @@ import tempfile
 import subprocess
 import time
 import shlex
-import getpass
 import psutil
 
 from distutils.version import LooseVersion as Version
-from .settings import Settings
 
 
 class TorErrorAutomatic(Exception):
@@ -224,7 +222,7 @@ class Onion(object):
             )
             try:
                 self.tor_socks_port = self.common.get_available_port(1000, 65535)
-            except:
+            except Exception:
                 print("OnionShare port not available")
                 raise PortNotAvailable()
             self.tor_torrc = os.path.join(self.tor_data_directory_name, "torrc")
@@ -246,7 +244,7 @@ class Onion(object):
                         proc.terminate()
                         proc.wait()
                         break
-                except:
+                except Exception:
                     pass
 
             if self.common.platform == "Windows" or self.common.platform == "Darwin":
@@ -257,7 +255,7 @@ class Onion(object):
                 torrc_template += "ControlPort {{control_port}}\n"
                 try:
                     self.tor_control_port = self.common.get_available_port(1000, 65535)
-                except:
+                except Exception:
                     print("OnionShare port not available")
                     raise PortNotAvailable()
                 self.tor_control_socket = None
@@ -430,7 +428,7 @@ class Onion(object):
                 try:
                     self.c = Controller.from_port(port=int(env_port))
                     found_tor = True
-                except:
+                except Exception:
                     pass
 
             else:
@@ -440,7 +438,7 @@ class Onion(object):
                     for port in ports:
                         self.c = Controller.from_port(port=port)
                         found_tor = True
-                except:
+                except Exception:
                     pass
 
                 # If this still didn't work, try guessing the default socket file path
@@ -454,7 +452,7 @@ class Onion(object):
 
                         self.c = Controller.from_socket_file(path=socket_file_path)
                         found_tor = True
-                    except:
+                    except Exception:
                         pass
 
             # If connecting to default control ports failed, so let's try
@@ -476,14 +474,14 @@ class Onion(object):
 
                     self.c = Controller.from_socket_file(path=socket_file_path)
 
-                except:
+                except Exception:
                     print(automatic_error)
                     raise TorErrorAutomatic()
 
             # Try authenticating
             try:
                 self.c.authenticate()
-            except:
+            except Exception:
                 print(automatic_error)
                 raise TorErrorAutomatic()
 
@@ -506,7 +504,7 @@ class Onion(object):
                     print(invalid_settings_error)
                     raise TorErrorInvalidSetting()
 
-            except:
+            except Exception:
                 if self.settings.get("connection_type") == "control_port":
                     print(
                         "Can't connect to the Tor controller at {}:{}.".format(
@@ -518,13 +516,12 @@ class Onion(object):
                         self.settings.get("control_port_address"),
                         self.settings.get("control_port_port"),
                     )
-                else:
-                    print(
-                        "Can't connect to the Tor controller using socket file {}.".format(
-                            self.settings.get("socket_file_path")
-                        )
+                print(
+                    "Can't connect to the Tor controller using socket file {}.".format(
+                        self.settings.get("socket_file_path")
                     )
-                    raise TorErrorSocketFile(self.settings.get("socket_file_path"))
+                )
+                raise TorErrorSocketFile(self.settings.get("socket_file_path"))
 
             # Try authenticating
             try:
@@ -585,7 +582,7 @@ class Onion(object):
             tmp_service_id = res.service_id
             self.c.remove_ephemeral_hidden_service(tmp_service_id)
             self.supports_stealth = True
-        except:
+        except Exception:
             # ephemeral stealth onion services are not supported
             self.supports_stealth = False
 
@@ -654,7 +651,7 @@ class Onion(object):
                 key_content = "RSA1024"
 
         # v3 onions don't yet support basic auth. Our ticket:
-        # https://github.com/micahflee/onionshare/issues/697
+        # https://github.com/onionshare/onionshare/issues/697
         if (
             key_type == "NEW"
             and key_content == "ED25519-V3"
@@ -711,7 +708,7 @@ class Onion(object):
                 self.c.remove_ephemeral_hidden_service(
                     mode_settings.get("general", "service_id")
                 )
-            except:
+            except Exception:
                 self.common.log(
                     "Onion", "stop_onion_service", f"failed to remove {onion_host}"
                 )
@@ -732,12 +729,12 @@ class Onion(object):
                         "Onion", "cleanup", f"trying to remove onion {onion_host}"
                     )
                     self.c.remove_ephemeral_hidden_service(service_id)
-                except:
+                except Exception:
                     self.common.log(
                         "Onion", "cleanup", f"failed to remove onion {onion_host}"
                     )
                     pass
-        except:
+        except Exception:
             pass
 
         if stop_tor:
@@ -747,21 +744,21 @@ class Onion(object):
                     # Wait for Tor rendezvous circuits to close
                     # Catch exceptions to prevent crash on Ctrl-C
                     try:
-                        rendevouz_circuit_ids = []
+                        rendezvous_circuit_ids = []
                         for c in self.c.get_circuits():
                             if (
                                 c.purpose == "HS_SERVICE_REND"
                                 and c.rend_query in self.graceful_close_onions
                             ):
-                                rendevouz_circuit_ids.append(c.id)
+                                rendezvous_circuit_ids.append(c.id)
 
-                        symbols = [c for c in "\\|/-"]
+                        symbols = list("\\|/-")
                         symbols_i = 0
 
                         while True:
                             num_rend_circuits = 0
                             for c in self.c.get_circuits():
-                                if c.id in rendevouz_circuit_ids:
+                                if c.id in rendezvous_circuit_ids:
                                     num_rend_circuits += 1
 
                             if num_rend_circuits == 0:
@@ -780,7 +777,7 @@ class Onion(object):
                             )
                             symbols_i = (symbols_i + 1) % len(symbols)
                             time.sleep(1)
-                    except:
+                    except Exception:
                         pass
 
                 self.tor_proc.terminate()
@@ -800,7 +797,7 @@ class Onion(object):
                                 "cleanup",
                                 "Tried to kill tor process but it's still running",
                             )
-                    except:
+                    except Exception:
                         self.common.log(
                             "Onion", "cleanup", "Exception while killing tor process"
                         )
@@ -813,7 +810,7 @@ class Onion(object):
                 # Delete the temporary tor data directory
                 if self.use_tmp_dir:
                     self.tor_data_directory.cleanup()
-            except:
+            except Exception:
                 pass
 
     def get_tor_socks_port(self):
@@ -837,9 +834,6 @@ class Onion(object):
             # Import the key
             key = RSA.importKey(base64.b64decode(key))
             # Is this a v2 Onion key? (1024 bits) If so, we should keep using it.
-            if key.n.bit_length() == 1024:
-                return True
-            else:
-                return False
-        except:
+            return key.n.bit_length() == 1024
+        except Exception:
             return False

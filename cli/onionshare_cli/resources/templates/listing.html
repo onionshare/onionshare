@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>OnionShare</title>
+  <title>{% if title %}{{ title }}{% else %}OnionShare{% endif %}</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="{{ static_url_path }}/img/favicon.ico" rel="icon" type="image/x-icon" />
@@ -11,9 +11,11 @@
 
 <body>
 
-  <header class="clearfix">
-    <img class="logo" src="{{ static_url_path }}/img/logo.png" title="OnionShare">
-    <h1>OnionShare</h1>
+  <header class="d-flex">
+    <div class="logo-container">
+      <img class="logo" src="{{ static_url_path }}/img/logo.png" title="OnionShare">
+      <h1>{% if title %}{{ title }}{% else %}OnionShare{% endif %}</h1>
+    </div>
   </header>
 
   {% if breadcrumbs %}
@@ -23,37 +25,36 @@
   </ul>
   {% endif %}
 
-  <table class="file-list" id="file-list">
-    <tr>
-      <th id="filename-header">Filename</th>
-      <th id="size-header">Size</th>
-      <th></th>
-    </tr>
+  <div class="file-list" id="file-list">
+    <div class="d-flex">
+      <div id="filename-header" class="heading">Filename</div>
+      <div id="size-header" class="heading">Size</div>
+    </div>
 
     {% for info in dirs %}
-    <tr>
-      <td>
+    <div class="d-flex">
+      <div>
         <img width="30" height="30" title="" alt="" src="{{ static_url_path }}/img/web_folder.png" />
         <a href="{{ info.link }}">
-          {{ info.basename }}
+          <span>{{ info.basename }}</span>
         </a>
-      </td>
-      <td>&mdash;</td>
-    </tr>
+      </div>
+      <div>&mdash;</div>
+    </div>
     {% endfor %}
 
     {% for info in files %}
-    <tr>
-      <td>
+    <div class="d-flex">
+      <div>
         <img width="30" height="30" title="" alt="" src="{{ static_url_path }}/img/web_file.png" />
         <a href="{{ info.link }}">
-          {{ info.basename }}
+          <span>{{ info.basename }}</span>
         </a>
-      </td>
-      <td>{{ info.size_human }}</td>
-    </tr>
+      </div>
+      <div>{{ info.size_human }}</div>
+    </div>
     {% endfor %}
-  </table>
+  </div>
 </body>
 
 </html>

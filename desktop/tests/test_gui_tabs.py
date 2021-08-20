@@ -1,4 +1,3 @@
-import pytest
 import os
 
 from PySide2 import QtCore, QtTest, QtWidgets
@@ -154,7 +153,17 @@ class TestTabs(GuiBaseTest):
             self.gui.status_bar.server_status_label.text(), "Ready to share"
         )
 
+        # New tab, chat mode
+        self.gui.tabs.new_tab_button.click()
+        self.gui.tabs.widget(4).chat_button.click()
+        self.assertFalse(self.gui.tabs.widget(4).new_tab.isVisible())
+        self.assertTrue(self.gui.tabs.widget(4).chat_mode.isVisible())
+        self.assertEqual(
+            self.gui.status_bar.server_status_label.text(), "Ready to chat"
+        )
+
         # Close tabs
+        self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide).click()
         self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide).click()
         self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide).click()
         self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide).click()
@@ -166,7 +175,7 @@ class TestTabs(GuiBaseTest):
         self.close_tab_with_active_server(tab)
 
     def test_08_close_receive_tab_while_server_started_should_warn(self):
-        """Closing a recieve mode tab when the server is running should throw a warning"""
+        """Closing a receive mode tab when the server is running should throw a warning"""
         tab = self.new_receive_tab()
         self.close_tab_with_active_server(tab)
 
@@ -175,22 +184,32 @@ class TestTabs(GuiBaseTest):
         tab = self.new_website_tab_with_files()
         self.close_tab_with_active_server(tab)
 
-    def test_10_close_persistent_share_tab_shows_warning(self):
+    def test_10_close_chat_tab_while_server_started_should_warn(self):
+        """Closing a chat mode tab when the server is running should throw a warning"""
+        tab = self.new_chat_tab()
+        self.close_tab_with_active_server(tab)
+
+    def test_11_close_persistent_share_tab_shows_warning(self):
         """Closing a share mode tab that's persistent should show a warning"""
         tab = self.new_share_tab_with_files()
         self.close_persistent_tab(tab)
 
-    def test_11_close_persistent_receive_tab_shows_warning(self):
+    def test_12_close_persistent_receive_tab_shows_warning(self):
         """Closing a receive mode tab that's persistent should show a warning"""
         tab = self.new_receive_tab()
         self.close_persistent_tab(tab)
 
-    def test_12_close_persistent_website_tab_shows_warning(self):
+    def test_13_close_persistent_website_tab_shows_warning(self):
         """Closing a website mode tab that's persistent should show a warning"""
         tab = self.new_website_tab_with_files()
         self.close_persistent_tab(tab)
 
-    def test_13_quit_with_server_started_should_warn(self):
+    def test_14_close_persistent_chat_tab_shows_warning(self):
+        """Closing a chat mode tab that's persistent should show a warning"""
+        tab = self.new_chat_tab()
+        self.close_persistent_tab(tab)
+
+    def test_15_quit_with_server_started_should_warn(self):
         """Quitting OnionShare with any active servers should show a warning"""
         tab = self.new_share_tab()
 

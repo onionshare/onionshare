@@ -1,10 +1,6 @@
-import pytest
-import os
 import requests
-import shutil
-from datetime import datetime, timedelta
 
-from PySide2 import QtCore, QtTest
+from PySide2 import QtTest
 
 from .gui_base_test import GuiBaseTest
 
@@ -102,4 +98,20 @@ class TestWebsite(GuiBaseTest):
         tab = self.new_website_tab()
         tab.get_mode().disable_csp_checkbox.click()
         self.run_all_website_mode_download_tests(tab)
+        self.close_all_tabs()
+
+    def test_405_page_returned_for_invalid_methods(self):
+        """
+        Our custom 405 page should return for invalid methods
+        """
+        tab = self.new_website_tab()
+
+        tab.get_mode().mode_settings_widget.public_checkbox.click()
+
+        self.run_all_common_setup_tests()
+        self.run_all_website_mode_setup_tests(tab)
+        self.run_all_website_mode_started_tests(tab)
+        url = f"http://127.0.0.1:{tab.app.port}/"
+        self.hit_405(url, expected_resp="OnionShare: 405 Method Not Allowed", data = {'foo':'bar'}, methods = ["put", "post", "delete", "options"])
+
         self.close_all_tabs()

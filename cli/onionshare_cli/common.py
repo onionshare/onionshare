@@ -19,17 +19,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import base64
 import hashlib
-import inspect
 import os
 import platform
 import random
 import socket
 import sys
-import tempfile
 import threading
 import time
 import shutil
 from pkg_resources import resource_filename
+
+import colorama
+from colorama import Fore, Back, Style
 
 from .settings import Settings
 
@@ -48,6 +49,8 @@ class Common:
     def __init__(self, verbose=False):
         self.verbose = verbose
 
+        colorama.init(autoreset=True)
+
         # The platform OnionShare is running on
         self.platform = platform.system()
         if self.platform.endswith("BSD") or self.platform == "DragonFly":
@@ -56,6 +59,224 @@ class Common:
         # The current version of OnionShare
         with open(self.get_resource_path("version.txt")) as f:
             self.version = f.read().strip()
+
+    def display_banner(self):
+        """
+        Raw ASCII art example:
+        ╭───────────────────────────────────────────╮
+        │    *            ▄▄█████▄▄            *    │
+        │               ▄████▀▀▀████▄     *         │
+        │              ▀▀█▀       ▀██▄              │
+        │      *      ▄█▄          ▀██▄             │
+        │           ▄█████▄         ███        -+-  │
+        │             ███         ▀█████▀           │
+        │             ▀██▄          ▀█▀             │
+        │         *    ▀██▄       ▄█▄▄     *        │
+        │ *             ▀████▄▄▄████▀               │
+        │                 ▀▀█████▀▀                 │
+        │             -+-                     *     │
+        │   ▄▀▄               ▄▀▀ █                 │
+        │   █ █     ▀         ▀▄  █                 │
+        │   █ █ █▀▄ █ ▄▀▄ █▀▄  ▀▄ █▀▄ ▄▀▄ █▄▀ ▄█▄   │
+        │   ▀▄▀ █ █ █ ▀▄▀ █ █ ▄▄▀ █ █ ▀▄█ █   ▀▄▄   │
+        │                                           │
+        │                  v2.3.1                   │
+        │                                           │
+        │          https://onionshare.org/          │
+        ╰───────────────────────────────────────────╯
+        """
+
+        if self.platform == "Windows":
+            pass
+        else:
+            pass
+
+        print(
+            Back.MAGENTA + Fore.WHITE + "╭───────────────────────────────────────────╮"
+        )
+        print(
+            Back.MAGENTA
+            + Fore.WHITE
+            + "│"
+            + Fore.LIGHTMAGENTA_EX
+            + "    *            "
+            + Fore.WHITE
+            + "▄▄█████▄▄"
+            + Fore.LIGHTMAGENTA_EX
+            + "            *    "
+            + Fore.WHITE
+            + "│"
+        )
+        print(
+            Back.MAGENTA
+            + Fore.WHITE
+            + "│"
+            + Fore.WHITE
+            + "               ▄████▀▀▀████▄"
+            + Fore.LIGHTMAGENTA_EX
+            + "     *         "
+            + Fore.WHITE
+            + "│"
+        )
+        print(
+            Back.MAGENTA
+            + Fore.WHITE
+            + "│"
+            + Fore.WHITE
+            + "              ▀▀█▀       ▀██▄              "
+            + Fore.WHITE
+            + "│"
+        )
+        print(
+            Back.MAGENTA
+            + Fore.WHITE
+            + "│"
+            + Fore.LIGHTMAGENTA_EX
+            + "      *      "
+            + Fore.WHITE
+            + "▄█▄          ▀██▄             "
+            + Fore.WHITE
+            + "│"
+        )
+        print(
+            Back.MAGENTA
+            + Fore.WHITE
+            + "│"
+            + Fore.WHITE
+            + "           ▄█████▄         ███"
+            + Fore.LIGHTMAGENTA_EX
+            + "        -+-  "
+            + Fore.WHITE
+            + "│"
+        )
+        print(
+            Back.MAGENTA
+            + Fore.WHITE
+            + "│"
+            + Fore.WHITE
+            + "             ███         ▀█████▀           "
+            + Fore.WHITE
+            + "│"
+        )
+        print(
+            Back.MAGENTA
+            + Fore.WHITE
+            + "│"
+            + Fore.WHITE
+            + "             ▀██▄          ▀█▀             "
+            + Fore.WHITE
+            + "│"
+        )
+        print(
+            Back.MAGENTA
+            + Fore.WHITE
+            + "│"
+            + Fore.LIGHTMAGENTA_EX
+            + "         *    "
+            + Fore.WHITE
+            + "▀██▄       ▄█▄▄"
+            + Fore.LIGHTMAGENTA_EX
+            + "     *        "
+            + Fore.WHITE
+            + "│"
+        )
+        print(
+            Back.MAGENTA
+            + Fore.WHITE
+            + "│"
+            + Fore.LIGHTMAGENTA_EX
+            + " *             "
+            + Fore.WHITE
+            + "▀████▄▄▄████▀               "
+            + Fore.WHITE
+            + "│"
+        )
+        print(
+            Back.MAGENTA
+            + Fore.WHITE
+            + "│"
+            + Fore.WHITE
+            + "                 ▀▀█████▀▀                 "
+            + Fore.WHITE
+            + "│"
+        )
+        print(
+            Back.MAGENTA
+            + Fore.WHITE
+            + "│"
+            + Fore.LIGHTMAGENTA_EX
+            + "             -+-                     *     "
+            + Fore.WHITE
+            + "│"
+        )
+        print(
+            Back.MAGENTA
+            + Fore.WHITE
+            + "│"
+            + Fore.WHITE
+            + "   ▄▀▄               ▄▀▀ █                 "
+            + Fore.WHITE
+            + "│"
+        )
+        print(
+            Back.MAGENTA
+            + Fore.WHITE
+            + "│"
+            + Fore.WHITE
+            + "   █ █     ▀         ▀▄  █                 "
+            + Fore.WHITE
+            + "│"
+        )
+        print(
+            Back.MAGENTA
+            + Fore.WHITE
+            + "│"
+            + Fore.WHITE
+            + "   █ █ █▀▄ █ ▄▀▄ █▀▄  ▀▄ █▀▄ ▄▀▄ █▄▀ ▄█▄   "
+            + Fore.WHITE
+            + "│"
+        )
+        print(
+            Back.MAGENTA
+            + Fore.WHITE
+            + "│"
+            + Fore.WHITE
+            + "   ▀▄▀ █ █ █ ▀▄▀ █ █ ▄▄▀ █ █ ▀▄█ █   ▀▄▄   "
+            + Fore.WHITE
+            + "│"
+        )
+        print(
+            Back.MAGENTA + Fore.WHITE + "│                                           │"
+        )
+        left_spaces = (43 - len(self.version) - 1) // 2
+        right_spaces = left_spaces
+        if left_spaces + len(self.version) + 1 + right_spaces < 43:
+            right_spaces += 1
+        print(
+            Back.MAGENTA
+            + Fore.WHITE
+            + "│"
+            + Fore.WHITE
+            + f"{' '*left_spaces}v{self.version}{' '*right_spaces}"
+            + Fore.WHITE
+            + "│"
+        )
+        print(
+            Back.MAGENTA + Fore.WHITE + "│                                           │"
+        )
+        print(
+            Back.MAGENTA
+            + Fore.WHITE
+            + "│"
+            + Fore.WHITE
+            + "          https://onionshare.org/          "
+            + Fore.WHITE
+            + "│"
+        )
+        print(
+            Back.MAGENTA + Fore.WHITE + "╰───────────────────────────────────────────╯"
+        )
+        print()
 
     def load_settings(self, config=None):
         """
@@ -70,10 +291,11 @@ class Common:
         """
         if self.verbose:
             timestamp = time.strftime("%b %d %Y %X")
-
-            final_msg = f"[{timestamp}] {module}.{func}"
+            final_msg = f"{Fore.LIGHTBLACK_EX + Style.DIM}[{timestamp}]{Style.RESET_ALL} {Fore.WHITE + Style.DIM}{module}.{func}{Style.RESET_ALL}"
             if msg:
-                final_msg = f"{final_msg}: {msg}"
+                final_msg = (
+                    f"{final_msg}{Fore.WHITE + Style.DIM}: {msg}{Style.RESET_ALL}"
+                )
             print(final_msg)
 
     def get_resource_path(self, filename):
@@ -129,16 +351,24 @@ class Common:
             try:
                 appdata = os.environ["APPDATA"]
                 onionshare_data_dir = f"{appdata}\\OnionShare"
-            except:
+            except Exception:
                 # If for some reason we don't have the 'APPDATA' environment variable
                 # (like running tests in Linux while pretending to be in Windows)
-                onionshare_data_dir = os.path.expanduser("~/.config/onionshare")
+                try:
+                    xdg_config_home = os.environ["XDG_CONFIG_HOME"]
+                    onionshare_data_dir = f"{xdg_config_home}/onionshare"
+                except Exception:
+                    onionshare_data_dir = os.path.expanduser("~/.config/onionshare")
         elif self.platform == "Darwin":
             onionshare_data_dir = os.path.expanduser(
                 "~/Library/Application Support/OnionShare"
             )
         else:
-            onionshare_data_dir = os.path.expanduser("~/.config/onionshare")
+            try:
+                xdg_config_home = os.environ["XDG_CONFIG_HOME"]
+                onionshare_data_dir = f"{xdg_config_home}/onionshare"
+            except Exception:
+                onionshare_data_dir = os.path.expanduser("~/.config/onionshare")
 
         # Modify the data dir if running tests
         if getattr(sys, "onionshare_test_mode", False):
@@ -256,7 +486,7 @@ class Common:
                 try:
                     tmpsock.bind(("127.0.0.1", random.randint(min_port, max_port)))
                     break
-                except OSError as e:
+                except OSError:
                     pass
             _, port = tmpsock.getsockname()
         return port

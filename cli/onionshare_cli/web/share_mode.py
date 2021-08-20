@@ -18,16 +18,98 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
+import binascii
+import hashlib
 import os
 import sys
 import tempfile
 import zipfile
 import mimetypes
-from flask import Response, request, render_template, make_response
+from datetime import datetime
+from flask import Response, request, render_template, make_response, abort
 from unidecode import unidecode
+from werkzeug.http import parse_date, http_date
 from werkzeug.urls import url_quote
 
 from .send_base_mode import SendBaseModeWeb
+
+
+def make_etag(data):
+    hasher = hashlib.sha256()
+
+    while True:
+        read_bytes = data.read(4096)
+        if read_bytes:
+            hasher.update(read_bytes)
+        else:
+            break
+
+    hash_value = binascii.hexlify(hasher.digest()).decode("utf-8")
+    return '"sha256:{}"'.format(hash_value)
+
+
+def parse_range_header(range_header: str, target_size: int) -> list:
+    end_index = target_size - 1
+    if range_header is None:
+        return [(0, end_index)]
+
+    bytes_ = "bytes="
+    if not range_header.startswith(bytes_):
+        abort(416)
+
+    ranges = []
+    for range_ in range_header[len(bytes_) :].split(","):
+        split = range_.split("-")
+        if len(split) == 1:
+            try:
+                start = int(split[0])
+                end = end_index
+            except ValueError:
+                abort(416)
+        elif len(split) == 2:
+            start, end = split[0], split[1]
+            if not start:
+                # parse ranges of the form "bytes=-100" (i.e., last 100 bytes)
+                end = end_index
+                try:
+                    start = end - int(split[1]) + 1
+                except ValueError:
+                    abort(416)
+            else:
+                # parse ranges of the form "bytes=100-200"
+                try:
+                    start = int(start)
+                    if not end:
+                        end = target_size
+                    else:
+                        end = int(end)
+                except ValueError:
+                    abort(416)
+
+                if end < start:
+                    abort(416)
+
+                end = min(end, end_index)
+        else:
+            abort(416)
+
+        ranges.append((start, end))
+
+    # merge the ranges
+    merged = []
+    ranges = sorted(ranges, key=lambda x: x[0])
+    for range_ in ranges:
+        # initial case
+        if not merged:
+            merged.append(range_)
+        else:
+            # merge ranges that are adjacent or overlapping
+            if range_[0] <= merged[-1][1] + 1:
+                merged[-1] = (merged[-1][0], max(range_[1], merged[-1][1]))
+            else:
+                merged.append(range_)
+
+    return merged
 
 
 class ShareModeWeb(SendBaseModeWeb):
@@ -43,13 +125,17 @@ class ShareModeWeb(SendBaseModeWeb):
             "share", "autostop_sharing"
         )
 
+        self.download_etag = None
+        self.gzip_etag = None
+        self.last_modified = datetime.utcnow()
+
     def define_routes(self):
         """
         The web app routes for sharing files
         """
 
-        @self.web.app.route("/", defaults={"path": ""})
-        @self.web.app.route("/<path:path>")
+        @self.web.app.route("/", defaults={"path": ""}, methods=["GET"], provide_automatic_options=False)
+        @self.web.app.route("/<path:path>", methods=["GET"], provide_automatic_options=False)
         def index(path):
             """
             Render the template for the onionshare landing page.
@@ -74,7 +160,7 @@ class ShareModeWeb(SendBaseModeWeb):
 
             return self.render_logic(path)
 
-        @self.web.app.route("/download")
+        @self.web.app.route("/download", methods=["GET"], provide_automatic_options=False)
         def download():
             """
             Download the zip file.
@@ -92,7 +178,7 @@ class ShareModeWeb(SendBaseModeWeb):
             # Prepare some variables to use inside generate() function below
             # which is outside of the request context
             shutdown_func = request.environ.get("werkzeug.server.shutdown")
-            path = request.path
+            request_path = request.path
 
             # If this is a zipped file, then serve as-is. If it's not zipped, then,
             # if the http client supports gzip compression, gzip the file first
@@ -101,104 +187,46 @@ class ShareModeWeb(SendBaseModeWeb):
             if use_gzip:
                 file_to_download = self.gzip_filename
                 self.filesize = self.gzip_filesize
+                etag = self.gzip_etag
             else:
                 file_to_download = self.download_filename
                 self.filesize = self.download_filesize
+                etag = self.download_etag
+
+            # for range requests
+            range_, status_code = self.get_range_and_status_code(
+                self.filesize, etag, self.last_modified
+            )
 
             # Tell GUI the download started
             history_id = self.cur_history_id
             self.cur_history_id += 1
             self.web.add_request(
-                self.web.REQUEST_STARTED, path, {"id": history_id, "use_gzip": use_gzip}
+                self.web.REQUEST_STARTED,
+                request_path,
+                {"id": history_id, "use_gzip": use_gzip},
             )
 
             basename = os.path.basename(self.download_filename)
 
-            def generate():
-                # Starting a new download
-                if self.web.settings.get("share", "autostop_sharing"):
-                    self.download_in_progress = True
+            if status_code == 304:
+                r = Response()
+            else:
+                r = Response(
+                    self.generate(
+                        shutdown_func,
+                        range_,
+                        file_to_download,
+                        request_path,
+                        history_id,
+                        self.filesize,
+                    )
+                )
 
-                chunk_size = 102400  # 100kb
-
-                fp = open(file_to_download, "rb")
-                self.web.done = False
-                canceled = False
-                while not self.web.done:
-                    # The user has canceled the download, so stop serving the file
-                    if not self.web.stop_q.empty():
-                        self.web.add_request(
-                            self.web.REQUEST_CANCELED, path, {"id": history_id}
-                        )
-                        break
-
-                    chunk = fp.read(chunk_size)
-                    if chunk == b"":
-                        self.web.done = True
-                    else:
-                        try:
-                            yield chunk
-
-                            # tell GUI the progress
-                            downloaded_bytes = fp.tell()
-                            percent = (1.0 * downloaded_bytes / self.filesize) * 100
-
-                            # only output to stdout if running onionshare in CLI mode, or if using Linux (#203, #304)
-                            if (
-                                not self.web.is_gui
-                                or self.common.platform == "Linux"
-                                or self.common.platform == "BSD"
-                            ):
-                                sys.stdout.write(
-                                    "\r{0:s}, {1:.2f}%          ".format(
-                                        self.common.human_readable_filesize(
-                                            downloaded_bytes
-                                        ),
-                                        percent,
-                                    )
-                                )
-                                sys.stdout.flush()
-
-                            self.web.add_request(
-                                self.web.REQUEST_PROGRESS,
-                                path,
-                                {"id": history_id, "bytes": downloaded_bytes},
-                            )
-                            self.web.done = False
-                        except:
-                            # looks like the download was canceled
-                            self.web.done = True
-                            canceled = True
-
-                            # tell the GUI the download has canceled
-                            self.web.add_request(
-                                self.web.REQUEST_CANCELED, path, {"id": history_id}
-                            )
-
-                fp.close()
-
-                if self.common.platform != "Darwin":
-                    sys.stdout.write("\n")
-
-                # Download is finished
-                if self.web.settings.get("share", "autostop_sharing"):
-                    self.download_in_progress = False
-
-                # Close the server, if necessary
-                if self.web.settings.get("share", "autostop_sharing") and not canceled:
-                    print("Stopped because transfer is complete")
-                    self.web.running = False
-                    try:
-                        if shutdown_func is None:
-                            raise RuntimeError("Not running with the Werkzeug Server")
-                        shutdown_func()
-                    except:
-                        pass
-
-            r = Response(generate())
             if use_gzip:
                 r.headers.set("Content-Encoding", "gzip")
-            r.headers.set("Content-Length", self.filesize)
+
+            r.headers.set("Content-Length", range_[1] - range_[0] + 1)
             filename_dict = {
                 "filename": unidecode(basename),
                 "filename*": "UTF-8''%s" % url_quote(basename),
@@ -209,7 +237,157 @@ class ShareModeWeb(SendBaseModeWeb):
             (content_type, _) = mimetypes.guess_type(basename, strict=False)
             if content_type is not None:
                 r.headers.set("Content-Type", content_type)
+            r.headers.set("Accept-Ranges", "bytes")
+            r.headers.set("ETag", etag)
+            r.headers.set("Last-Modified", http_date(self.last_modified))
+            # we need to set this for range requests
+            r.headers.set("Vary", "Accept-Encoding")
+
+            if status_code == 206:
+                r.headers.set(
+                    "Content-Range",
+                    "bytes {}-{}/{}".format(range_[0], range_[1], self.filesize),
+                )
+
+            r.status_code = status_code
+
             return r
+
+    @classmethod
+    def get_range_and_status_code(cls, dl_size, etag, last_modified):
+        use_default_range = True
+        status_code = 200
+        range_header = request.headers.get("Range")
+
+        # range requests are only allowed for get
+        if request.method == "GET":
+            ranges = parse_range_header(range_header, dl_size)
+            if not (
+                len(ranges) == 1 and ranges[0][0] == 0 and ranges[0][1] == dl_size - 1
+            ):
+                use_default_range = False
+                status_code = 206
+
+            if range_header:
+                if_range = request.headers.get("If-Range")
+                if if_range and if_range != etag:
+                    use_default_range = True
+                    status_code = 200
+
+        if use_default_range:
+            ranges = [(0, dl_size - 1)]
+
+        if len(ranges) > 1:
+            abort(416)  # We don't support multipart range requests yet
+        range_ = ranges[0]
+
+        etag_header = request.headers.get("ETag")
+        if etag_header is not None and etag_header != etag:
+            abort(412)
+
+        if_unmod = request.headers.get("If-Unmodified-Since")
+        if if_unmod:
+            if_date = parse_date(if_unmod)
+            if if_date and if_date > last_modified:
+                abort(412)
+            elif range_header is None:
+                status_code = 304
+
+        return range_, status_code
+
+    def generate(
+        self, shutdown_func, range_, file_to_download, path, history_id, filesize
+    ):
+        # The user hasn't canceled the download
+        self.client_cancel = False
+
+        # Starting a new download
+        if self.web.settings.get("share", "autostop_sharing"):
+            self.download_in_progress = True
+
+        start, end = range_
+
+        chunk_size = 102400  # 100kb
+
+        fp = open(file_to_download, "rb")
+        fp.seek(start)
+        self.web.done = False
+        canceled = False
+        bytes_left = end - start + 1
+        while not self.web.done:
+            # The user has canceled the download, so stop serving the file
+            if not self.web.stop_q.empty():
+                self.web.add_request(
+                    self.web.REQUEST_CANCELED, path, {"id": history_id}
+                )
+                break
+
+            read_size = min(chunk_size, bytes_left)
+            chunk = fp.read(read_size)
+            if chunk == b"":
+                self.web.done = True
+            else:
+                try:
+                    yield chunk
+
+                    # tell GUI the progress
+                    downloaded_bytes = fp.tell()
+                    percent = (1.0 * downloaded_bytes / filesize) * 100
+                    bytes_left -= read_size
+
+                    # only output to stdout if running onionshare in CLI mode, or if using Linux (#203, #304)
+                    if (
+                        not self.web.is_gui
+                        or self.common.platform == "Linux"
+                        or self.common.platform == "BSD"
+                    ):
+                        sys.stdout.write(
+                            "\r{0:s}, {1:.2f}%          ".format(
+                                self.common.human_readable_filesize(downloaded_bytes),
+                                percent,
+                            )
+                        )
+                        sys.stdout.flush()
+
+                    self.web.add_request(
+                        self.web.REQUEST_PROGRESS,
+                        path,
+                        {
+                            "id": history_id,
+                            "bytes": downloaded_bytes,
+                            "total_bytes": filesize,
+                        },
+                    )
+                    self.web.done = False
+                except Exception:
+                    # looks like the download was canceled
+                    self.web.done = True
+                    canceled = True
+
+                    # tell the GUI the download has canceled
+                    self.web.add_request(
+                        self.web.REQUEST_CANCELED, path, {"id": history_id}
+                    )
+
+        fp.close()
+
+        if self.common.platform != "Darwin":
+            sys.stdout.write("\n")
+
+        # Download is finished
+        if self.web.settings.get("share", "autostop_sharing"):
+            self.download_in_progress = False
+
+        # Close the server, if necessary
+        if self.web.settings.get("share", "autostop_sharing") and not canceled:
+            print("Stopped because transfer is complete")
+            self.web.running = False
+            try:
+                if shutdown_func is None:
+                    raise RuntimeError("Not running with the Werkzeug Server")
+                shutdown_func()
+            except Exception:
+                pass
 
     def directory_listing_template(
         self, path, files, dirs, breadcrumbs, breadcrumbs_leaf
@@ -230,6 +408,7 @@ class ShareModeWeb(SendBaseModeWeb):
                 is_zipped=self.is_zipped,
                 static_url_path=self.web.static_url_path,
                 download_individual_files=self.download_individual_files,
+                title=self.web.settings.get("general", "title"),
             )
         )
 
@@ -305,6 +484,8 @@ class ShareModeWeb(SendBaseModeWeb):
         if len(self.file_info["files"]) == 1 and len(self.file_info["dirs"]) == 0:
             self.download_filename = self.file_info["files"][0]["filename"]
             self.download_filesize = self.file_info["files"][0]["size"]
+            with open(self.download_filename, "rb") as f:
+                self.download_etag = make_etag(f)
 
             # Compress the file with gzip now, so we don't have to do it on each request
             self.gzip_filename = tempfile.mkstemp("wb+")[1]
@@ -312,9 +493,11 @@ class ShareModeWeb(SendBaseModeWeb):
                 self.download_filename, self.gzip_filename, 6, processed_size_callback
             )
             self.gzip_filesize = os.path.getsize(self.gzip_filename)
+            with open(self.gzip_filename, "rb") as f:
+                self.gzip_etag = make_etag(f)
 
             # Make sure the gzip file gets cleaned up when onionshare stops
-            self.cleanup_filenames.append(self.gzip_filename)
+            self.web.cleanup_filenames.append(self.gzip_filename)
 
             self.is_zipped = False
 
@@ -337,9 +520,12 @@ class ShareModeWeb(SendBaseModeWeb):
 
             self.zip_writer.close()
             self.download_filesize = os.path.getsize(self.download_filename)
+            with open(self.download_filename, "rb") as f:
+                self.download_etag = make_etag(f)
 
             # Make sure the zip file gets cleaned up when onionshare stops
-            self.cleanup_filenames.append(self.zip_writer.zip_filename)
+            self.web.cleanup_filenames.append(self.zip_writer.zip_filename)
+            self.web.cleanup_filenames.append(self.zip_writer.zip_temp_dir)
 
             self.is_zipped = True
 
@@ -360,8 +546,9 @@ class ZipWriter(object):
         if zip_filename:
             self.zip_filename = zip_filename
         else:
+            self.zip_temp_dir = tempfile.mkdtemp()
             self.zip_filename = (
-                f"{tempfile.mkdtemp()}/onionshare_{self.common.random_string(4, 6)}.zip"
+                f"{self.zip_temp_dir}/onionshare_{self.common.random_string(4, 6)}.zip"
             )
 
         self.z = zipfile.ZipFile(self.zip_filename, "w", allowZip64=True)

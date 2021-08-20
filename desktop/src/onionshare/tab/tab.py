@@ -452,20 +452,20 @@ class Tab(QtWidgets.QWidget):
             # Chat mode
             if self.chat_mode.server_status.status == ServerStatus.STATUS_STOPPED:
                 self.set_server_status_indicator_stopped(
-                    strings._("gui_status_indicator_receive_stopped")
+                    strings._("gui_status_indicator_chat_stopped")
                 )
             elif self.chat_mode.server_status.status == ServerStatus.STATUS_WORKING:
                 if self.settings.get("general", "autostart_timer"):
                     self.set_server_status_indicator_working(
-                        strings._("gui_status_indicator_receive_scheduled")
+                        strings._("gui_status_indicator_chat_scheduled")
                     )
                 else:
                     self.set_server_status_indicator_working(
-                        strings._("gui_status_indicator_receive_working")
+                        strings._("gui_status_indicator_chat_working")
                     )
             elif self.chat_mode.server_status.status == ServerStatus.STATUS_STARTED:
                 self.set_server_status_indicator_started(
-                    strings._("gui_status_indicator_receive_started")
+                    strings._("gui_status_indicator_chat_started")
                 )
 
     def set_server_status_indicator_stopped(self, label_text):
@@ -539,6 +539,9 @@ class Tab(QtWidgets.QWidget):
 
             elif event["type"] == Web.REQUEST_CANCELED:
                 mode.handle_request_canceled(event)
+
+            elif event["type"] == Web.REQUEST_UPLOAD_INCLUDES_MESSAGE:
+                mode.handle_request_upload_includes_message(event)
 
             elif event["type"] == Web.REQUEST_UPLOAD_FILE_RENAMED:
                 mode.handle_request_upload_file_renamed(event)
@@ -665,7 +668,7 @@ class Tab(QtWidgets.QWidget):
         if self.close_dialog.clickedButton() == self.close_dialog.accept_button:
             self.common.log("Tab", "close_tab", "close, closing tab")
             self.get_mode().stop_server()
-            self.app.cleanup()
+            self.get_mode().web.cleanup()
             return True
         # Cancel
         else:
@@ -678,4 +681,4 @@ class Tab(QtWidgets.QWidget):
             self.get_mode().web.stop(self.get_mode().app.port)
             self.get_mode().web_thread.quit()
             self.get_mode().web_thread.wait()
-        self.app.cleanup()
+            self.get_mode().web.cleanup()

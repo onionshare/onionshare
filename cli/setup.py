@@ -18,19 +18,19 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-
-# snap and flatpak packaging uses setup.py
-# PyPi publishing, developing, and testing uses poetry
-
-import os
 import setuptools
 
-version = "2.3.1"
+version = "2.3.3"
 
 setuptools.setup(
     name="onionshare-cli",
     version=version,
-    description="OnionShare lets you securely and anonymously send and receive files. It works by starting a web server, making it accessible as a Tor onion service, and generating an unguessable web address so others can download files from you, or upload files to you. It does _not_ require setting up a separate server or using a third party file-sharing service.",
+    description=(
+        "OnionShare lets you securely and anonymously send and receive files. It works by starting a web server, "
+        "making it accessible as a Tor onion service, and generating an unguessable web address so others can "
+        "download files from you, or upload files to you. It does _not_ require setting up a separate server or "
+        "using a third party file-sharing service."
+    ),
     author="Micah Lee",
     author_email="micah@micahflee.com",
     maintainer="Micah Lee",

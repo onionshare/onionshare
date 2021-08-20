@@ -20,14 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import json
 import os
-import platform
 import locale
-
-try:
-    # We only need pwd module in macOS, and it's not available in Windows
-    import pwd
-except:
-    pass
 
 
 class Settings(object):
@@ -71,25 +64,27 @@ class Settings(object):
             "da": "Dansk",  # Danish
             "nl": "Nederlands",  # Dutch
             "en": "English",  # English
-            "fi": "Suomi",  # Finnish
+            # "fi": "Suomi",  # Finnish
             "fr": "Français",  # French
             "gl": "Galego",  # Galician
             "de": "Deutsch",  # German
             "el": "Ελληνικά",  # Greek
             "is": "Íslenska",  # Icelandic
+            "id": "Bahasa Indonesia",  # Indonesian
             # "ga": "Gaeilge",  # Irish
             "it": "Italiano",  # Italian
             "ja": "日本語",  # Japanese
             "ckb": "Soranî",  # Kurdish (Central)
+            "lt": "Lietuvių Kalba",  # Lithuanian
             "nb_NO": "Norsk Bokmål",  # Norwegian Bokmål
             # "fa": "فارسی",  # Persian
             "pl": "Polski",  # Polish
             "pt_BR": "Português (Brasil)",  # Portuguese Brazil
             "pt_PT": "Português (Portugal)",  # Portuguese Portugal
-            "sk": "Slovenčina",  # Slovak
             # "ro": "Română",  # Romanian
             "ru": "Русский",  # Russian
-            # "sr_Latn": "Srpska (latinica)",  #  Serbian (latin)
+            "sr_Latn": "Srpska (latinica)",  # Serbian (latin)
+            "sk": "Slovenčina",  # Slovak
             "es": "Español",  # Spanish
             "sv": "Svenska",  # Swedish
             # "te": "తెలుగు",  # Telugu
@@ -116,6 +111,7 @@ class Settings(object):
             "tor_bridges_use_custom_bridges": "",
             "persistent_tabs": [],
             "locale": None,  # this gets defined in fill_in_defaults()
+            "theme": 0,
         }
         self._settings = {}
         self.fill_in_defaults()
@@ -167,13 +163,13 @@ class Settings(object):
                 with open(self.filename, "r") as f:
                     self._settings = json.load(f)
                     self.fill_in_defaults()
-            except:
+            except Exception:
                 pass
 
         # Make sure data_dir exists
         try:
             os.makedirs(self.get("data_dir"), exist_ok=True)
-        except:
+        except Exception:
             pass
 
     def save(self):
@@ -192,7 +188,7 @@ class Settings(object):
         if key == "control_port_port" or key == "socks_port":
             try:
                 val = int(val)
-            except:
+            except Exception:
                 if key == "control_port_port":
                     val = self.default_settings["control_port_port"]
                 elif key == "socks_port":

@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2020-11-15 14:42-0800\n"
-"PO-Revision-Date: 2020-12-01 17:29+0000\n"
-"Last-Translator: george k <norhorn@gmail.com>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: 2021-05-03 21:48-0700\n"
+"PO-Revision-Date: 2021-05-11 20:47+0000\n"
+"Last-Translator: Mr.Grin <grin-singularity@tutanota.com>\n"
+"Language-Team: el <LL@li.org>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.4-dev\n"
+"X-Generator: Weblate 4.7-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/advanced.rst:2
@@ -35,12 +35,12 @@ msgid ""
 "useful if you want to host a website available from the same OnionShare "
 "address even if you reboot your computer."
 msgstr ""
-"Από προεπιλογή, τα πάντα στο OnionShare είναι προσωρινά. Εάν κλείσετε μια "
-"καρτέλα OnionShare, η διεύθυνσή της δεν θα υπάρχει πλέον και δεν μπορεί να "
-"χρησιμοποιηθεί ξανά. Μερικές φορές ίσως χρειαστείτε μια ποιο μόνιμη υπηρεσία "
-"OnionShare. Είναι χρήσιμο εάν θέλετε να φιλοξενήσετε έναν ιστότοπο που θα "
-"είναι διαθέσιμος στην ίδια διεύθυνση OnionShare ακόμα και αν κάνετε "
-"επανεκκίνηση του υπολογιστή σας."
+"Από προεπιλογή, τα πάντα στο OnionShare είναι προσωρινά. Εάν κλείσετε μια"
+" καρτέλα OnionShare, η διεύθυνσή της δεν θα υπάρχει πλέον και δεν μπορεί "
+"να χρησιμοποιηθεί ξανά. Μερικές φορές ίσως χρειαστείτε μια ποιο μόνιμη "
+"υπηρεσία OnionShare. Είναι χρήσιμο εάν θέλετε να φιλοξενήσετε έναν "
+"ιστότοπο που θα είναι διαθέσιμος στην ίδια διεύθυνση OnionShare ακόμα και"
+" αν κάνετε επανεκκίνηση του υπολογιστή σας."
 
 #: ../../source/advanced.rst:13
 msgid ""
@@ -48,8 +48,8 @@ msgid ""
 "open it when I open OnionShare\" box before starting the server. When a "
 "tab is saved a purple pin icon appears to the left of its server status."
 msgstr ""
-"Για να διατηρήσετε οποιαδήποτε καρτέλα, επιλέξτε το \"Αποθήκευση αυτής της "
-"καρτέλας και αυτόματη έναρξη με το OnionShare\" πριν ξεκινήσετε τον "
+"Για να διατηρήσετε οποιαδήποτε καρτέλα, επιλέξτε το \"Αποθήκευση αυτής "
+"της καρτέλας και αυτόματη έναρξη με το OnionShare\" πριν ξεκινήσετε τον "
 "διακομιστή. Όταν αποθηκεύεται μια καρτέλα, εμφανίζεται ένα μώβ εικονίδιο "
 "καρφίτσωσης στα αριστερά της κατάστασης του διακομιστή."
 
@@ -60,8 +60,8 @@ msgid ""
 " they will start with the same OnionShare address and password."
 msgstr ""
 "Όταν κάνετε έξοδο από το OnionShare και άνοιγμα ξανά, οι αποθηκευμένες "
-"καρτέλες σας θα ξεκινήσουν ανοιχτές. Θα πρέπει να εκκινήσετε χειροκίνητα την "
-"κάθε υπηρεσία, αλλά θα ξεκινήσουν με την ίδια διεύθυνση και κωδικό "
+"καρτέλες σας θα ξεκινήσουν ανοιχτές. Θα πρέπει να εκκινήσετε χειροκίνητα "
+"την κάθε υπηρεσία, αλλά θα ξεκινήσουν με την ίδια διεύθυνση και κωδικό "
 "OnionShare."
 
 #: ../../source/advanced.rst:21
@@ -69,9 +69,9 @@ msgid ""
 "If you save a tab, a copy of that tab's onion service secret key will be "
 "stored on your computer with your OnionShare settings."
 msgstr ""
-"Εάν αποθηκεύσετε μια καρτέλα, ένα αντίγραφο κλειδιού της υπηρεσίας onion της "
-"καρτέλας, θα αποθηκευτεί στον υπολογιστή σύμφωνα με τις ρυθμίσεις του "
-"OnionShare."
+"Εάν αποθηκεύσετε μια καρτέλα, ένα αντίγραφο κλειδιού της υπηρεσίας onion "
+"της καρτέλας, θα αποθηκευτεί στον υπολογιστή σύμφωνα με τις ρυθμίσεις του"
+" OnionShare."
 
 #: ../../source/advanced.rst:26
 msgid "Turn Off Passwords"
@@ -84,10 +84,10 @@ msgid ""
 "wrong guesses at the password, your onion service is automatically "
 "stopped to prevent a brute force attack against the OnionShare service."
 msgstr ""
-"Από προεπιλογή, οι υπηρεσίες OnionShare προστατεύονται με το όνομα χρήστη "
-"``onionshare`` και έναν τυχαίο κωδικό πρόσβασης. Με τη χρήση 20 λανθασμένων "
-"προσπαθειών, η υπηρεσία onion διακόπτεται αυτόματα για να αποφευχθεί μια "
-"επίθεση brute force κατά της υπηρεσίας OnionShare."
+"Από προεπιλογή, οι υπηρεσίες OnionShare προστατεύονται με το όνομα χρήστη"
+" ``onionshare`` και έναν τυχαίο κωδικό πρόσβασης. Με τη χρήση 20 "
+"λανθασμένων προσπαθειών, η υπηρεσία onion διακόπτεται αυτόματα για να "
+"αποφευχθεί μια επίθεση brute force κατά της υπηρεσίας OnionShare."
 
 #: ../../source/advanced.rst:31
 msgid ""
@@ -101,10 +101,10 @@ msgstr ""
 "Μερικές φορές μπορεί να θέλετε η υπηρεσία OnionShare να είναι δημόσια "
 "προσβάσιμη, ή να ρυθμίσετε την υπηρεσία λήψης OnionShare ώστε να μπορεί "
 "κάποιος να σας στέλνει με ασφάλεια και ανώνυμα αρχεία. Σε αυτήν την "
-"περίπτωση, είναι καλύτερα να απενεργοποιήσετε εντελώς τον κωδικό πρόσβασης. "
-"Εάν δεν το κάνετε αυτό, κάποιος μπορεί να αναγκάσει τον διακομιστή σας να "
-"σταματήσει απλά κάνοντας 20 λανθασμένες δοκιμές για τον κωδικό πρόσβασής "
-"σας, ακόμη και αν γνωρίζουν τον σωστό."
+"περίπτωση, είναι καλύτερα να απενεργοποιήσετε εντελώς τον κωδικό "
+"πρόσβασης. Εάν δεν το κάνετε αυτό, κάποιος μπορεί να αναγκάσει τον "
+"διακομιστή σας να σταματήσει απλά κάνοντας 20 λανθασμένες δοκιμές για τον"
+" κωδικό πρόσβασής σας, ακόμη και αν γνωρίζουν τον σωστό."
 
 #: ../../source/advanced.rst:35
 msgid ""
@@ -112,15 +112,38 @@ msgid ""
 "password\" box before starting the server. Then the server will be public"
 " and won't have a password."
 msgstr ""
-"Για απενεργοποίηση των κωδικών πρόσβασης των καρτελών, επιλέξτε το \"Χωρίς "
-"χρήση κωδικού πρόσβασης\" πρίν την έναρξη του διακομιστή. Τότε ο διακομιστής "
-"θα είναι δημόσιος χωρίς κωδικό πρόσβασης."
+"Για απενεργοποίηση των κωδικών πρόσβασης των καρτελών, επιλέξτε το "
+"\"Χωρίς χρήση κωδικού πρόσβασης\" πρίν την έναρξη του διακομιστή. Τότε ο "
+"διακομιστής θα είναι δημόσιος χωρίς κωδικό πρόσβασης."
 
-#: ../../source/advanced.rst:38
+#: ../../source/advanced.rst:40
+msgid "Custom Titles"
+msgstr "Προσαρμοσμένοι Τίτλοι"
+
+#: ../../source/advanced.rst:42
+msgid ""
+"By default, when people load an OnionShare service in Tor Browser they "
+"see the default title for the type of service. For example, the default "
+"title of a chat service is \"OnionShare Chat\"."
+msgstr ""
+"Από προεπιλογή, όταν κάποιος φορτώσει μια υπηρεσία OnionShare στο Tor "
+"Browser, βλέπει τον προεπιλεγμένο τίτλο για τον τύπο της υπηρεσίας. Για "
+"παράδειγμα, ο προεπιλεγμένος τίτλος μιας υπηρεσίας συνομιλίας είναι "
+"\"OnionShare Συνομιλία\"."
+
+#: ../../source/advanced.rst:44
+msgid ""
+"If you want to choose a custom title, set the \"Custom title\" setting "
+"before starting a server."
+msgstr ""
+"Αν θέλετε να επιλέξετε έναν προσαρμοσμένο τίτλο, ορίστε την ρύθμιση "
+"\"Προσαρμοσμένος τίτλος\" πριν εκκινήσετε τον διακομιστή σας."
+
+#: ../../source/advanced.rst:47
 msgid "Scheduled Times"
 msgstr "Προγραμματισμένες ώρες"
 
-#: ../../source/advanced.rst:40
+#: ../../source/advanced.rst:49
 msgid ""
 "OnionShare supports scheduling exactly when a service should start and "
 "stop. Before starting a server, click \"Show advanced settings\" in its "
@@ -130,51 +153,51 @@ msgid ""
 msgstr ""
 "Το OnionShare υποστηρίζει την προγραμματισμένη έναρξη και διακοπή υπηρεσιών "
 "του. Πρίν την έναρξη του διακομιστή, κάντε κλικ στο \"Εμφάνιση προχωρημένων "
-"ρυθμίσεων\" της καρτέλας και επιλέξτε το \"Προγραμματισμένη εκκίνηση\", "
-"\"Προγραμματισμένος τερματισμός\" ή και τα δύο, ρυθμίζοντας ημερομηνία και "
-"ώρα αντίστοιχα."
+"ρυθμίσεων\" της καρτέλας και επιλέξτε την επιλογή \"Προγραμματισμένη "
+"εκκίνηση\", την επιλογή \"Προγραμματισμένος τερματισμός\" ή και τις δύο. "
+"Έπειτα, ρυθμίστε την ημερομηνία και ώρα όπως θέλετε."
 
-#: ../../source/advanced.rst:43
+#: ../../source/advanced.rst:52
 msgid ""
 "If you scheduled a service to start in the future, when you click the "
 "\"Start sharing\" button you will see a timer counting down until it "
 "starts. If you scheduled it to stop in the future, after it's started you"
 " will see a timer counting down to when it will stop automatically."
 msgstr ""
-"Εάν προγραμματίσατε την εκκίνηση της υπηρεσίας, όταν κάνετε κλικ στο κουμπί "
-"\"Εκκίνηση διαμοιρασμού\" θα δείτε την εμφάνιση ενός χρονόμετρου. Εάν "
-"προγραμματίσατε τερματισμό υπηρεσιών, θα δείτε ένα χρονόμετρο με αντίστροφη "
-"μέτρηση έως τη λήξη."
+"Εάν έχετε προγραμματίσει την εκκίνηση της υπηρεσίας, όταν κάνετε κλικ στο "
+"κουμπί \"Εκκίνηση διαμοιρασμού\", τότε θα εμφανιστεί ένα χρονόμετρο. Εάν "
+"έχετε προγραμματίσει τον τερματισμό υπηρεσιών, θα δείτε ένα χρονόμετρο με "
+"αντίστροφη μέτρηση έως τη λήξη."
 
-#: ../../source/advanced.rst:46
+#: ../../source/advanced.rst:55
 msgid ""
 "**Scheduling an OnionShare service to automatically start can be used as "
 "a dead man's switch**, where your service will be made public at a given "
 "time in the future if anything happens to you. If nothing happens to you,"
 " you can cancel the service before it's scheduled to start."
 msgstr ""
-"**Ο προγραμματισμός ενεργοποίησης της υπηρεσίας διαμοιρασμού του OnionShare "
-"μπορεί να χρησιμοποιηθεί σε περίπτωση ανάγκης** όπου θα γίνει δηλαδή η "
-"ενεργοποίηση διαμοιρασμού αρχείων σας σε χρόνο που θα ορίσετε σε περίπτωση "
-"που σας συμβεί κάτι. Εάν δεν σας συμβεί τίποτα μπορείτε να ακυρώσετε την "
-"υπηρεσία πριν αυτή ξεκινήσει."
+"**Ο προγραμματισμός ενεργοποίησης της υπηρεσίας διαμοιρασμού του "
+"OnionShare μπορεί να χρησιμοποιηθεί σε περίπτωση ανάγκης** όπου θα γίνει "
+"δηλαδή η ενεργοποίηση διαμοιρασμού αρχείων σας σε χρόνο που θα ορίσετε σε"
+" περίπτωση που σας συμβεί κάτι. Εάν δεν σας συμβεί τίποτα μπορείτε να "
+"ακυρώσετε την υπηρεσία πριν αυτή ξεκινήσει."
 
-#: ../../source/advanced.rst:51
+#: ../../source/advanced.rst:60
 msgid ""
 "**Scheduling an OnionShare service to automatically stop can be useful to"
 " limit exposure**, like if you want to share secret documents while "
 "making sure they're not available on the Internet for more than a few "
 "days."
 msgstr ""
-"**Η προγραμματισμένη διακοπή της υπηρεσίας διαμοιρασμού OnionShare, είναι "
-"χρήσιμη για τον περιορισμό της έκθεσής σας**, όπως εάν επιθυμείτε τον "
+"**Η προγραμματισμένη διακοπή της υπηρεσίας διαμοιρασμού OnionShare, είναι"
+" χρήσιμη για τον περιορισμό της έκθεσής σας**, όπως εάν επιθυμείτε τον "
 "διαμοιρασμό κρυφών αρχείων στο Διαδίκτυο για συγκεκριμένο χρόνο."
 
-#: ../../source/advanced.rst:56
+#: ../../source/advanced.rst:65
 msgid "Command-line Interface"
 msgstr "Περιβάλλον γραμμής εντολών"
 
-#: ../../source/advanced.rst:58
+#: ../../source/advanced.rst:67
 msgid ""
 "In addition to its graphical interface, OnionShare has a command-line "
 "interface."
@@ -182,7 +205,7 @@ msgstr ""
 "Σε μια εναλλακτική του γραφικού περιβάλοντος, το OnionShare διαθέτει "
 "λειτουργία με γραμμή εντολών."
 
-#: ../../source/advanced.rst:60
+#: ../../source/advanced.rst:69
 msgid ""
 "You can install just the command-line version of OnionShare using "
 "``pip3``::"
@@ -190,45 +213,45 @@ msgstr ""
 "Μπορείτε να εγκαταστήσετε την έκδοση με γραμμή εντολών του OnionShare με "
 "χρήση του ``pip3``::"
 
-#: ../../source/advanced.rst:64
+#: ../../source/advanced.rst:73
 msgid ""
 "Note that you will also need the ``tor`` package installed. In macOS, "
 "install it with: ``brew install tor``"
 msgstr ""
-"Υπενθυμίζεται ότι πάντοτε χρειάζεται η εγκατάσταση των πακέτων του ``tor``. "
-"Σε macOS, εγκαταστήστε το με: ``brew install tor``"
+"Υπενθυμίζεται ότι πάντοτε χρειάζεται η εγκατάσταση των πακέτων του "
+"``tor``. Σε macOS, εγκαταστήστε το με: ``brew install tor``"
 
-#: ../../source/advanced.rst:66
+#: ../../source/advanced.rst:75
 msgid "Then run it like this::"
 msgstr "Και εκτελέστε όπως:"
 
-#: ../../source/advanced.rst:70
+#: ../../source/advanced.rst:79
 msgid ""
 "If you installed OnionShare using the Linux Snapcraft package, you can "
 "also just run ``onionshare.cli`` to access the command-line interface "
 "version."
 msgstr ""
-"Εάν κάνετε εγκατάσταση του OnionShare με χρήση πακέτου του Linux Snapcraft, "
-"εκτελέστε την εντολή ``onionshare.cli`` για πρόσβαση στο περιβάλλον γραμμής "
-"εντολών."
+"Εάν κάνετε εγκατάσταση του OnionShare με χρήση πακέτου του Linux "
+"Snapcraft, εκτελέστε την εντολή ``onionshare.cli`` για πρόσβαση στο "
+"περιβάλλον γραμμής εντολών."
 
-#: ../../source/advanced.rst:73
+#: ../../source/advanced.rst:82
 msgid "Usage"
 msgstr "Χρήση"
 
-#: ../../source/advanced.rst:75
+#: ../../source/advanced.rst:84
 msgid ""
 "You can browse the command-line documentation by running ``onionshare "
 "--help``::"
 msgstr ""
-"Μπορείτε να περιηγηθείτε στην τεκμηρίωση της γραμμής εντολών με ``onionshare "
-"--help``::"
+"Μπορείτε να περιηγηθείτε στην τεκμηρίωση της γραμμής εντολών με "
+"``onionshare --help``::"
 
-#: ../../source/advanced.rst:132
+#: ../../source/advanced.rst:147
 msgid "Legacy Addresses"
 msgstr "Διευθύνσεις παλαιού τύπου"
 
-#: ../../source/advanced.rst:134
+#: ../../source/advanced.rst:149
 msgid ""
 "OnionShare uses v3 Tor onion services by default. These are modern onion "
 "addresses that have 56 characters, for example::"
@@ -236,7 +259,7 @@ msgstr ""
 "Το OnionShare χρησιμοποιεί απο προεπιλογή υπηρεσίες onion Tor v3. Τη "
 "μοντέρνα εκδοχή διευθύνσεων 56 χαρακτήρων, για παράδειγμα::"
 
-#: ../../source/advanced.rst:139
+#: ../../source/advanced.rst:154
 msgid ""
 "OnionShare still has support for v2 onion addresses, the old type of "
 "onion addresses that have 16 characters, for example::"
@@ -244,15 +267,15 @@ msgstr ""
 "Το OnionShare υποστηρίζει ακόμη τις διευθύνσεις onion v2, παλαιού τύπου "
 "διευθύνσεις των 16 χαρακτήρων, για παράδειγμα::"
 
-#: ../../source/advanced.rst:143
+#: ../../source/advanced.rst:158
 msgid ""
 "OnionShare calls v2 onion addresses \"legacy addresses\", and they are "
 "not recommended, as v3 onion addresses are more secure."
 msgstr ""
-"Το OnionShare αποκαλεί τις διευθύνσεις onion v2 \"παλαιές διευθύνσεις\" και "
-"δεν τις προτείνει, καθώς οι διευθύνσεις onion v3 είναι ποιο ασφαλείς."
+"Το OnionShare αποκαλεί τις διευθύνσεις onion v2 \"παλαιές διευθύνσεις\" "
+"και δεν τις προτείνει, καθώς οι διευθύνσεις onion v3 είναι ποιο ασφαλείς."
 
-#: ../../source/advanced.rst:145
+#: ../../source/advanced.rst:160
 msgid ""
 "To use legacy addresses, before starting a server click \"Show advanced "
 "settings\" from its tab and check the \"Use a legacy address (v2 onion "
@@ -261,23 +284,23 @@ msgid ""
 "cannot remove legacy mode in that tab. Instead you must start a separate "
 "service in a separate tab."
 msgstr ""
-"Για χρήση των παλαιών διευθύνσεων, πριν την έναρξη του διακομιστή κάντε κλικ "
-"\"Εμφάνιση προχωρημένων ρυθμίσεων\" από την καρτέλα του και επιλέξτε το "
-"\"Χρήση παλαιών διευθύνσεων (υπηρεσία onion v2, μη προτεινόμενη)\". Σε "
-"παλαιή κατάσταση μπορείτε να ενεργοποιήσετε την αυθεντικοποίηση πελάτη. Μετά "
-"την έναρξη του διακομιστή, δεν μπορείτε να αφαιρέσετε την παλαιά κατάσταση. "
-"Θα πρέπει να εκκινήσετε νέα υπηρεσία σε νέα καρτέλα."
+"Για χρήση των παλαιών διευθύνσεων, πριν την έναρξη του διακομιστή κάντε "
+"κλικ \"Εμφάνιση προχωρημένων ρυθμίσεων\" από την καρτέλα του και επιλέξτε"
+" το \"Χρήση παλαιών διευθύνσεων (υπηρεσία onion v2, μη προτεινόμενη)\". "
+"Σε παλαιή κατάσταση μπορείτε να ενεργοποιήσετε την αυθεντικοποίηση "
+"πελάτη. Μετά την έναρξη του διακομιστή, δεν μπορείτε να αφαιρέσετε την "
+"παλαιά κατάσταση. Θα πρέπει να εκκινήσετε νέα υπηρεσία σε νέα καρτέλα."
 
-#: ../../source/advanced.rst:150
+#: ../../source/advanced.rst:165
 msgid ""
 "Tor Project plans to `completely deprecate v2 onion services "
 "<https://blog.torproject.org/v2-deprecation-timeline>`_ on October 15, "
 "2021, and legacy onion services will be removed from OnionShare before "
 "then."
 msgstr ""
-"Το Tor Project σχεδιάζει την `πλήρη απενεργοποίηση των υπηρεσιών onion v2 "
-"<https://blog.torproject.org/v2-deprecation-timeline>`_ στις 15 Οκτωβρίου "
-"2021 και την αφαίρεση των παλαιών onion υπηρεσιών νωρίτερα."
+"Το Tor Project σχεδιάζει την `πλήρη απενεργοποίηση των υπηρεσιών onion v2"
+" <https://blog.torproject.org/v2-deprecation-timeline>`_ στις 15 "
+"Οκτωβρίου 2021 και την αφαίρεση των παλαιών onion υπηρεσιών νωρίτερα."
 
 #~ msgid "Make a symbolic link to the OnionShare command line binary line this::"
 #~ msgstr ""

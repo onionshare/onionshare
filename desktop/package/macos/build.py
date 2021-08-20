@@ -67,7 +67,7 @@ def main():
 
     print("○ Create app bundle")
     run(["briefcase", "create"], desktop_dir)
-    app_path = os.path.join(desktop_dir, "macOS", "OnionShare", "OnionShare.app")
+    app_path = os.path.join(desktop_dir, "macOS", "app", "OnionShare", "OnionShare.app")
 
     print("○ Delete unused Qt5 frameworks from app bundle")
     for framework in [
@@ -212,7 +212,6 @@ def main():
                 f"{app_path}/Contents/Resources/app_packages/PySide2/pyside2-lupdate",
                 f"{app_path}/Contents/Resources/app_packages/PySide2/rcc",
                 f"{app_path}/Contents/Resources/app_packages/PySide2/uic",
-                f"{app_path}/Contents/Resources/Support/bin/python3",
                 app_path,
             ],
         ):

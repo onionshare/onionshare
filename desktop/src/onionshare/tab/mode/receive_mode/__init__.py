@@ -26,7 +26,7 @@ from onionshare_cli.web import Web
 from ..history import History, ToggleHistory, ReceiveHistoryItem
 from .. import Mode
 from .... import strings
-from ....widgets import MinimumWidthWidget, Alert
+from ....widgets import MinimumSizeWidget, Alert
 from ....gui_common import GuiCommon
 
 
@@ -60,6 +60,8 @@ class ReceiveMode(Mode):
         self.image.setLayout(image_layout)
 
         # Settings
+
+        # Data dir
         data_dir_label = QtWidgets.QLabel(
             strings._("mode_settings_receive_data_dir_label")
         )
@@ -74,8 +76,59 @@ class ReceiveMode(Mode):
         data_dir_layout.addWidget(data_dir_label)
         data_dir_layout.addWidget(self.data_dir_lineedit)
         data_dir_layout.addWidget(data_dir_button)
-
         self.mode_settings_widget.mode_specific_layout.addLayout(data_dir_layout)
+
+        # Disable text or files
+        self.disable_text_checkbox = self.settings.get("receive", "disable_files")
+        self.disable_text_checkbox = QtWidgets.QCheckBox()
+        self.disable_text_checkbox.clicked.connect(self.disable_text_checkbox_clicked)
+        self.disable_text_checkbox.setText(
+            strings._("mode_settings_receive_disable_text_checkbox")
+        )
+        self.disable_files_checkbox = self.settings.get("receive", "disable_files")
+        self.disable_files_checkbox = QtWidgets.QCheckBox()
+        self.disable_files_checkbox.clicked.connect(self.disable_files_checkbox_clicked)
+        self.disable_files_checkbox.setText(
+            strings._("mode_settings_receive_disable_files_checkbox")
+        )
+        disable_layout = QtWidgets.QHBoxLayout()
+        disable_layout.addWidget(self.disable_text_checkbox)
+        disable_layout.addWidget(self.disable_files_checkbox)
+        disable_layout.addStretch()
+        self.mode_settings_widget.mode_specific_layout.addLayout(disable_layout)
+
+        # Webhook URL
+        webhook_url = self.settings.get("receive", "webhook_url")
+        self.webhook_url_checkbox = QtWidgets.QCheckBox()
+        self.webhook_url_checkbox.clicked.connect(self.webhook_url_checkbox_clicked)
+        self.webhook_url_checkbox.setText(
+            strings._("mode_settings_receive_webhook_url_checkbox")
+        )
+        self.webhook_url_lineedit = QtWidgets.QLineEdit()
+        self.webhook_url_lineedit.editingFinished.connect(
+            self.webhook_url_editing_finished
+        )
+        self.webhook_url_lineedit.setPlaceholderText(
+            "https://example.com/post-when-file-uploaded"
+        )
+        webhook_url_layout = QtWidgets.QHBoxLayout()
+        webhook_url_layout.addWidget(self.webhook_url_checkbox)
+        webhook_url_layout.addWidget(self.webhook_url_lineedit)
+        if webhook_url is not None and webhook_url != "":
+            self.webhook_url_checkbox.setCheckState(QtCore.Qt.Checked)
+            self.webhook_url_lineedit.setText(
+                self.settings.get("receive", "webhook_url")
+            )
+            self.show_webhook_url()
+        else:
+            self.webhook_url_checkbox.setCheckState(QtCore.Qt.Unchecked)
+            self.hide_webhook_url()
+        self.mode_settings_widget.mode_specific_layout.addLayout(webhook_url_layout)
+
+        # Set title placeholder
+        self.mode_settings_widget.title_lineedit.setPlaceholderText(
+            strings._("gui_tab_name_receive")
+        )
 
         # Server status
         self.server_status.set_mode("receive")
@@ -129,8 +182,8 @@ class ReceiveMode(Mode):
         self.main_layout = QtWidgets.QVBoxLayout()
         self.main_layout.addWidget(header_label)
         self.main_layout.addWidget(receive_warning)
-        self.main_layout.addWidget(self.primary_action)
-        self.main_layout.addWidget(MinimumWidthWidget(525))
+        self.main_layout.addWidget(self.primary_action, stretch=1)
+        self.main_layout.addWidget(MinimumSizeWidget(525, 0))
 
         # Row layout
         content_row = QtWidgets.QHBoxLayout()
@@ -138,10 +191,8 @@ class ReceiveMode(Mode):
         content_row.addWidget(self.image)
         row_layout = QtWidgets.QVBoxLayout()
         row_layout.addLayout(top_bar_layout)
-        row_layout.addStretch()
-        row_layout.addLayout(content_row)
+        row_layout.addLayout(content_row, stretch=1)
         row_layout.addWidget(self.server_status)
-        row_layout.addStretch()
 
         # Column layout
         self.column_layout = QtWidgets.QHBoxLayout()
@@ -183,6 +234,36 @@ class ReceiveMode(Mode):
             self.data_dir_lineedit.setText(selected_dir)
             self.settings.set("receive", "data_dir", selected_dir)
 
+    def disable_text_checkbox_clicked(self):
+        self.settings.set(
+            "receive", "disable_text", self.disable_text_checkbox.isChecked()
+        )
+
+    def disable_files_checkbox_clicked(self):
+        self.settings.set(
+            "receive", "disable_files", self.disable_files_checkbox.isChecked()
+        )
+
+    def webhook_url_checkbox_clicked(self):
+        if self.webhook_url_checkbox.isChecked():
+            if self.settings.get("receive", "webhook_url"):
+                self.webhook_url_lineedit.setText(
+                    self.settings.get("receive", "webhook_url")
+                )
+            self.show_webhook_url()
+        else:
+            self.settings.set("receive", "webhook_url", None)
+            self.hide_webhook_url()
+
+    def webhook_url_editing_finished(self):
+        self.settings.set("receive", "webhook_url", self.webhook_url_lineedit.text())
+
+    def hide_webhook_url(self):
+        self.webhook_url_lineedit.hide()
+
+    def show_webhook_url(self):
+        self.webhook_url_lineedit.show()
+
     def get_stop_server_autostop_timer_text(self):
         """
         Return the string to put on the stop server button, if there's an auto-stop timer
@@ -220,6 +301,16 @@ class ReceiveMode(Mode):
         # Hide and reset the uploads if we have previously shared
         self.reset_info_counters()
 
+        # Set proxies for webhook URL
+        if self.common.gui.local_only:
+            self.web.proxies = None
+        else:
+            (socks_address, socks_port) = self.common.gui.onion.get_tor_socks_port()
+            self.web.proxies = {
+                "http": f"socks5h://{socks_address}:{socks_port}",
+                "https": f"socks5h://{socks_address}:{socks_port}",
+            }
+
     def start_server_step2_custom(self):
         """
         Step 2 in starting the server.
@@ -248,8 +339,11 @@ class ReceiveMode(Mode):
         Handle REQUEST_STARTED event.
         """
         item = ReceiveHistoryItem(
-            self.common, event["data"]["id"], event["data"]["content_length"]
+            self.common,
+            event["data"]["id"],
+            event["data"]["content_length"],
         )
+
         self.history.add(event["data"]["id"], item)
         self.toggle_history.update_indicator(True)
         self.history.in_progress_count += 1
@@ -268,6 +362,12 @@ class ReceiveMode(Mode):
             event["data"]["id"],
             {"action": "progress", "progress": event["data"]["progress"]},
         )
+
+    def handle_request_upload_includes_message(self, event):
+        """
+        Handle REQUEST_UPLOAD_INCLUDES_MESSAGE event.
+        """
+        self.history.includes_message(event["data"]["id"], event["data"]["filename"])
 
     def handle_request_upload_file_renamed(self, event):
         """

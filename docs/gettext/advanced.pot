@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: OnionShare 2.3.1\n"
+"Project-Id-Version: OnionShare 2.3.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-22 13:40-0800\n"
+"POT-Creation-Date: 2021-08-20 13:23-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -56,78 +56,90 @@ msgstr ""
 msgid "To turn off the password for any tab, just check the \"Don't use a password\" box before starting the server. Then the server will be public and won't have a password."
 msgstr ""
 
-#: ../../source/advanced.rst:38
+#: ../../source/advanced.rst:40
+msgid "Custom Titles"
+msgstr ""
+
+#: ../../source/advanced.rst:42
+msgid "By default, when people load an OnionShare service in Tor Browser they see the default title for the type of service. For example, the default title of a chat service is \"OnionShare Chat\"."
+msgstr ""
+
+#: ../../source/advanced.rst:44
+msgid "If you want to choose a custom title, set the \"Custom title\" setting before starting a server."
+msgstr ""
+
+#: ../../source/advanced.rst:47
 msgid "Scheduled Times"
 msgstr ""
 
-#: ../../source/advanced.rst:40
+#: ../../source/advanced.rst:49
 msgid "OnionShare supports scheduling exactly when a service should start and stop. Before starting a server, click \"Show advanced settings\" in its tab and then check the boxes next to either \"Start onion service at scheduled time\", \"Stop onion service at scheduled time\", or both, and set the respective desired dates and times."
 msgstr ""
 
-#: ../../source/advanced.rst:43
+#: ../../source/advanced.rst:52
 msgid "If you scheduled a service to start in the future, when you click the \"Start sharing\" button you will see a timer counting down until it starts. If you scheduled it to stop in the future, after it's started you will see a timer counting down to when it will stop automatically."
 msgstr ""
 
-#: ../../source/advanced.rst:46
+#: ../../source/advanced.rst:55
 msgid "**Scheduling an OnionShare service to automatically start can be used as a dead man's switch**, where your service will be made public at a given time in the future if anything happens to you. If nothing happens to you, you can cancel the service before it's scheduled to start."
 msgstr ""
 
-#: ../../source/advanced.rst:51
+#: ../../source/advanced.rst:60
 msgid "**Scheduling an OnionShare service to automatically stop can be useful to limit exposure**, like if you want to share secret documents while making sure they're not available on the Internet for more than a few days."
 msgstr ""
 
-#: ../../source/advanced.rst:56
+#: ../../source/advanced.rst:65
 msgid "Command-line Interface"
 msgstr ""
 
-#: ../../source/advanced.rst:58
+#: ../../source/advanced.rst:67
 msgid "In addition to its graphical interface, OnionShare has a command-line interface."
 msgstr ""
 
-#: ../../source/advanced.rst:60
+#: ../../source/advanced.rst:69
 msgid "You can install just the command-line version of OnionShare using ``pip3``::"
 msgstr ""
 
-#: ../../source/advanced.rst:64
+#: ../../source/advanced.rst:73
 msgid "Note that you will also need the ``tor`` package installed. In macOS, install it with: ``brew install tor``"
 msgstr ""
 
-#: ../../source/advanced.rst:66
+#: ../../source/advanced.rst:75
 msgid "Then run it like this::"
 msgstr ""
 
-#: ../../source/advanced.rst:70
+#: ../../source/advanced.rst:79
 msgid "If you installed OnionShare using the Linux Snapcraft package, you can also just run ``onionshare.cli`` to access the command-line interface version."
 msgstr ""
 
-#: ../../source/advanced.rst:73
+#: ../../source/advanced.rst:82
 msgid "Usage"
 msgstr ""
 
-#: ../../source/advanced.rst:75
+#: ../../source/advanced.rst:84
 msgid "You can browse the command-line documentation by running ``onionshare --help``::"
 msgstr ""
 
-#: ../../source/advanced.rst:132
+#: ../../source/advanced.rst:147
 msgid "Legacy Addresses"
 msgstr ""
 
-#: ../../source/advanced.rst:134
+#: ../../source/advanced.rst:149
 msgid "OnionShare uses v3 Tor onion services by default. These are modern onion addresses that have 56 characters, for example::"
 msgstr ""
 
-#: ../../source/advanced.rst:139
+#: ../../source/advanced.rst:154
 msgid "OnionShare still has support for v2 onion addresses, the old type of onion addresses that have 16 characters, for example::"
 msgstr ""
 
-#: ../../source/advanced.rst:143
+#: ../../source/advanced.rst:158
 msgid "OnionShare calls v2 onion addresses \"legacy addresses\", and they are not recommended, as v3 onion addresses are more secure."
 msgstr ""
 
-#: ../../source/advanced.rst:145
+#: ../../source/advanced.rst:160
 msgid "To use legacy addresses, before starting a server click \"Show advanced settings\" from its tab and check the \"Use a legacy address (v2 onion service, not recommended)\" box. In legacy mode you can optionally turn on Tor client authentication. Once you start a server in legacy mode you cannot remove legacy mode in that tab. Instead you must start a separate service in a separate tab."
 msgstr ""
 
-#: ../../source/advanced.rst:150
+#: ../../source/advanced.rst:165
 msgid "Tor Project plans to `completely deprecate v2 onion services <https://blog.torproject.org/v2-deprecation-timeline>`_ on October 15, 2021, and legacy onion services will be removed from OnionShare before then."
 msgstr ""

@@ -42,6 +42,7 @@ class ModeSettings:
             },
             "persistent": {"mode": None, "enabled": False},
             "general": {
+                "title": None,
                 "public": False,
                 "autostart_timer": False,
                 "autostop_timer": False,
@@ -50,7 +51,12 @@ class ModeSettings:
                 "service_id": None,
             },
             "share": {"autostop_sharing": True, "filenames": []},
-            "receive": {"data_dir": self.build_default_receive_data_dir()},
+            "receive": {
+                "data_dir": self.build_default_receive_data_dir(),
+                "webhook_url": None,
+                "disable_text": False,
+                "disable_files": False,
+            },
             "website": {"disable_csp": False, "filenames": []},
             "chat": {"room": "default"},
         }
@@ -123,7 +129,7 @@ class ModeSettings:
                     self.fill_in_defaults()
                     self.common.log("ModeSettings", "load", f"loaded {self.filename}")
                     return
-            except:
+            except Exception:
                 pass
 
         # If loading settings didn't work, create the settings file

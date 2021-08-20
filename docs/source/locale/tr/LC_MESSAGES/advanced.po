@@ -7,25 +7,25 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2020-11-15 14:42-0800\n"
-"PO-Revision-Date: 2021-01-09 15:33+0000\n"
-"Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: 2021-05-03 21:48-0700\n"
+"PO-Revision-Date: 2021-07-15 20:32+0000\n"
+"Last-Translator: Tur <tur+translate@simplelogin.fr>\n"
+"Language-Team: tr <LL@li.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.4.1-dev\n"
+"X-Generator: Weblate 4.7.2-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/advanced.rst:2
 msgid "Advanced Usage"
-msgstr "Gelişmiş Kullanım"
+msgstr "Gelişmiş kullanım"
 
 #: ../../source/advanced.rst:7
 msgid "Save Tabs"
-msgstr "Sekmeleri Kaydedin"
+msgstr "Sekmeleri kaydedin"
 
 #: ../../source/advanced.rst:9
 msgid ""
@@ -35,11 +35,12 @@ msgid ""
 "useful if you want to host a website available from the same OnionShare "
 "address even if you reboot your computer."
 msgstr ""
-"OnionShare'deki her şey öntanımlı olarak geçicidir. Bir OnionShare sekmesini "
-"kapatırsanız, adresi artık mevcut değildir ve tekrar kullanılamaz. Bazen bir "
-"OnionShare hizmetinin kalıcı olmasını isteyebilirsiniz. Bilgisayarınızı "
-"yeniden başlatsanız bile, aynı OnionShare adresinden kullanılabilen bir web "
-"sitesini barındırmak istiyorsanız bu kullanışlıdır."
+"OnionShare'deki her şey öntanımlı olarak geçicidir. Bir OnionShare "
+"sekmesini kapatırsanız, adresi artık mevcut değildir ve tekrar "
+"kullanılamaz. Bazen bir OnionShare hizmetinin kalıcı olmasını "
+"isteyebilirsiniz. Bilgisayarınızı yeniden başlatsanız bile, aynı "
+"OnionShare adresinden kullanılabilen bir web sitesini barındırmak "
+"istiyorsanız bu kullanışlıdır."
 
 #: ../../source/advanced.rst:13
 msgid ""
@@ -47,10 +48,10 @@ msgid ""
 "open it when I open OnionShare\" box before starting the server. When a "
 "tab is saved a purple pin icon appears to the left of its server status."
 msgstr ""
-"Herhangi bir sekmeyi kalıcı hale getirmek için, sunucuyu başlatmadan önce "
-"\"Bu sekmeyi kaydet ve OnionShare'i açtığımda otomatik olarak aç\" kutusunu "
-"işaretleyin. Bir sekme kaydedildiğinde, sunucu durumunun solunda mor bir "
-"iğne simgesi görünür."
+"Herhangi bir sekmeyi kalıcı hale getirmek için, sunucuyu başlatmadan önce"
+" \"Bu sekmeyi kaydet ve OnionShare'i açtığımda otomatik olarak aç\" "
+"kutusunu işaretleyin. Bir sekme kaydedildiğinde, sunucu durumunun solunda"
+" mor bir iğne simgesi görünür."
 
 #: ../../source/advanced.rst:18
 msgid ""
@@ -58,17 +59,18 @@ msgid ""
 "start opened. You'll have to manually start each service, but when you do"
 " they will start with the same OnionShare address and password."
 msgstr ""
-"OnionShare'den çıkıp tekrar açtığınızda, kaydedilmiş sekmeleriniz açılmaya "
-"başlayacaktır. Her hizmeti elle başlatmanız gerekecektir, ancak bunu "
-"yaptığınızda aynı OnionShare adresi ve parolasıyla başlayacaklardır."
+"OnionShare'den çıkıp tekrar açtığınızda, kaydedilmiş sekmeleriniz "
+"açılmaya başlayacaktır. Her hizmeti elle başlatmanız gerekecektir, ancak "
+"bunu yaptığınızda aynı OnionShare adresi ve parolasıyla başlayacaklardır."
 
 #: ../../source/advanced.rst:21
 msgid ""
 "If you save a tab, a copy of that tab's onion service secret key will be "
 "stored on your computer with your OnionShare settings."
 msgstr ""
-"Bir sekmeyi kaydederseniz, bu sekmenin onion hizmeti gizli anahtarının bir "
-"kopyası, OnionShare ayarlarınızla birlikte bilgisayarınızda saklanacaktır."
+"Bir sekmeyi kaydederseniz, bu sekmenin onion hizmeti gizli anahtarının "
+"bir kopyası, OnionShare ayarlarınızla birlikte bilgisayarınızda "
+"saklanacaktır."
 
 #: ../../source/advanced.rst:26
 msgid "Turn Off Passwords"
@@ -81,10 +83,10 @@ msgid ""
 "wrong guesses at the password, your onion service is automatically "
 "stopped to prevent a brute force attack against the OnionShare service."
 msgstr ""
-"Öntanımlı olarak, tüm OnionShare hizmetleri, ``onionshare`` kullanıcı adı ve "
-"rastgele oluşturulan bir parola ile korunur. Birisi parola için 20 yanlış "
-"tahmin yaparsa, OnionShare hizmetine karşı bir kaba kuvvet saldırısını "
-"önlemek için onion hizmetiniz otomatik olarak durdurulur."
+"Öntanımlı olarak, tüm OnionShare hizmetleri, ``onionshare`` kullanıcı adı"
+" ve rastgele oluşturulan bir parola ile korunur. Birisi parola için 20 "
+"yanlış tahmin yaparsa, OnionShare hizmetine karşı bir kaba kuvvet "
+"saldırısını önlemek için onion hizmetiniz otomatik olarak durdurulur."
 
 #: ../../source/advanced.rst:31
 msgid ""
@@ -95,12 +97,12 @@ msgid ""
 "can force your server to stop just by making 20 wrong guesses of your "
 "password, even if they know the correct password."
 msgstr ""
-"Bazen, örneğin bir OnionShare alma hizmeti kurmak istediğinizde, insanların "
-"size güvenli ve anonim olarak dosya gönderebilmesi için OnionShare "
-"hizmetinizin herkes tarafından erişilebilir olmasını isteyebilirsiniz. Bu "
-"durumda parolayı tamamen devre dışı bırakmak daha iyidir. Bunu yapmazsanız, "
-"birisi doğru parolayı bilse bile parolanız hakkında 20 yanlış tahmin yaparak "
-"sunucunuzu durmaya zorlayabilir."
+"Bazen, örneğin bir OnionShare alma hizmeti kurmak istediğinizde, "
+"insanların size güvenli ve anonim olarak dosya gönderebilmesi için "
+"OnionShare hizmetinizin herkes tarafından erişilebilir olmasını "
+"isteyebilirsiniz. Bu durumda parolayı tamamen devre dışı bırakmak daha "
+"iyidir. Bunu yapmazsanız, birisi doğru parolayı bilse bile parolanız "
+"hakkında 20 yanlış tahmin yaparak sunucunuzu durmaya zorlayabilir."
 
 #: ../../source/advanced.rst:35
 msgid ""
@@ -108,15 +110,37 @@ msgid ""
 "password\" box before starting the server. Then the server will be public"
 " and won't have a password."
 msgstr ""
-"Herhangi bir sekmenin parolasını kapatmak için, sunucuyu başlatmadan önce "
-"\"Parola kullanma\" kutusunu işaretlemeniz yeterlidir. Daha sonra sunucu "
-"herkese açık olacak ve bir parolası olmayacaktır."
+"Herhangi bir sekmenin parolasını kapatmak için, sunucuyu başlatmadan önce"
+" \"Parola kullanma\" kutusunu işaretlemeniz yeterlidir. Daha sonra sunucu"
+" herkese açık olacak ve bir parolası olmayacaktır."
 
-#: ../../source/advanced.rst:38
+#: ../../source/advanced.rst:40
+msgid "Custom Titles"
+msgstr "Özel Başlıklar"
+
+#: ../../source/advanced.rst:42
+msgid ""
+"By default, when people load an OnionShare service in Tor Browser they "
+"see the default title for the type of service. For example, the default "
+"title of a chat service is \"OnionShare Chat\"."
+msgstr ""
+"Öntanımlı olarak, insanlar Tor Browser'da bir OnionShare hizmeti "
+"yüklediklerinde, hizmet türü için öntanımlı başlığı görürler. Örneğin, bir "
+"sohbet hizmetinin öntanımlı başlığı \"OnionShare Chat\" 'tir."
+
+#: ../../source/advanced.rst:44
+msgid ""
+"If you want to choose a custom title, set the \"Custom title\" setting "
+"before starting a server."
+msgstr ""
+"Özel bir başlık seçmek istiyorsanız, bir sunucu başlatmadan önce \"Özel "
+"başlık\" ayarını belirleyin."
+
+#: ../../source/advanced.rst:47
 msgid "Scheduled Times"
 msgstr "Zamanlanan Saatler"
 
-#: ../../source/advanced.rst:40
+#: ../../source/advanced.rst:49
 msgid ""
 "OnionShare supports scheduling exactly when a service should start and "
 "stop. Before starting a server, click \"Show advanced settings\" in its "
@@ -124,55 +148,56 @@ msgid ""
 "scheduled time\", \"Stop onion service at scheduled time\", or both, and "
 "set the respective desired dates and times."
 msgstr ""
-"OnionShare, bir hizmetin tam olarak ne zaman başlaması ve durması gerektiği "
-"zamanlamayı destekler. Bir sunucuyu başlatmadan önce, onun sekmesinde "
-"\"Gelişmiş ayarları göster\" düğmesine tıklayın ve ardından \"Onion "
-"hizmetini zamanlanan saatte başlat\", \"Onion hizmetini zamanlanan saatte "
-"durdur\" veya her ikisinin yanındaki kutuları işaretleyin ve istenen "
-"tarihleri ve saatleri ayarlayın."
+"OnionShare, bir hizmetin tam olarak ne zaman başlaması ve durması "
+"gerektiği zamanlamayı destekler. Bir sunucuyu başlatmadan önce, onun "
+"sekmesinde \"Gelişmiş ayarları göster\" düğmesine tıklayın ve ardından "
+"\"Onion hizmetini zamanlanan saatte başlat\", \"Onion hizmetini "
+"zamanlanan saatte durdur\" veya her ikisinin yanındaki kutuları "
+"işaretleyin ve istenen tarihleri ve saatleri ayarlayın."
 
-#: ../../source/advanced.rst:43
+#: ../../source/advanced.rst:52
 msgid ""
 "If you scheduled a service to start in the future, when you click the "
 "\"Start sharing\" button you will see a timer counting down until it "
 "starts. If you scheduled it to stop in the future, after it's started you"
 " will see a timer counting down to when it will stop automatically."
 msgstr ""
-"Bir hizmeti gelecekte başlaması için zamanladıysanız, \"Paylaşmaya başla\" "
-"düğmesine tıkladığınızda, başlayana kadar geri sayım yapan bir zamanlayıcı "
-"göreceksiniz. Gelecekte durması için zamanladıysanız, başladıktan sonra "
-"otomatik olarak duracağı zamana kadar geri sayan bir zamanlayıcı "
-"göreceksiniz."
+"Bir hizmeti gelecekte başlaması için zamanladıysanız, \"Paylaşmaya "
+"başla\" düğmesine tıkladığınızda, başlayana kadar geri sayım yapan bir "
+"zamanlayıcı göreceksiniz. Gelecekte durması için zamanladıysanız, "
+"başladıktan sonra otomatik olarak duracağı zamana kadar geri sayan bir "
+"zamanlayıcı göreceksiniz."
 
-#: ../../source/advanced.rst:46
+#: ../../source/advanced.rst:55
 msgid ""
 "**Scheduling an OnionShare service to automatically start can be used as "
 "a dead man's switch**, where your service will be made public at a given "
 "time in the future if anything happens to you. If nothing happens to you,"
 " you can cancel the service before it's scheduled to start."
 msgstr ""
-"**Bir OnionShare hizmetini otomatik olarak başlayacak şekilde zamanlamak, "
-"ölü adam anahtarı olarak kullanılabilir**, bu şekilde size bir şey olursa, "
-"hizmetiniz gelecekte belirli bir zamanda herkese açık duruma getirilecektir. "
-"Size bir şey olmazsa, hizmetin başlama zamanından önce iptal edebilirsiniz."
+"**Bir OnionShare hizmetini otomatik olarak başlayacak şekilde zamanlamak,"
+" ölü adam anahtarı olarak kullanılabilir**, bu şekilde size bir şey "
+"olursa, hizmetiniz gelecekte belirli bir zamanda herkese açık duruma "
+"getirilecektir. Size bir şey olmazsa, hizmetin başlama zamanından önce "
+"iptal edebilirsiniz."
 
-#: ../../source/advanced.rst:51
+#: ../../source/advanced.rst:60
 msgid ""
 "**Scheduling an OnionShare service to automatically stop can be useful to"
 " limit exposure**, like if you want to share secret documents while "
 "making sure they're not available on the Internet for more than a few "
 "days."
 msgstr ""
-"**Bir OnionShare hizmetini otomatik olarak durdurulacak şekilde zamanlamak, "
-"maruz kalmayı sınırlandırmak için kullanışlı olabilir**, örneğin gizli "
-"belgeleri birkaç günden daha uzun süre internette bulunmadıklarından emin "
-"olacak şekilde paylaşmak isterseniz."
+"**Bir OnionShare hizmetini otomatik olarak durdurulacak şekilde "
+"zamanlamak, maruz kalmayı sınırlandırmak için kullanışlı olabilir**, "
+"örneğin gizli belgeleri birkaç günden daha uzun süre internette "
+"bulunmadıklarından emin olacak şekilde paylaşmak isterseniz."
 
-#: ../../source/advanced.rst:56
+#: ../../source/advanced.rst:65
 msgid "Command-line Interface"
 msgstr "Komut Satırı Arayüzü"
 
-#: ../../source/advanced.rst:58
+#: ../../source/advanced.rst:67
 msgid ""
 "In addition to its graphical interface, OnionShare has a command-line "
 "interface."
@@ -180,7 +205,7 @@ msgstr ""
 "Grafiksel arayüzüne ek olarak, OnionShare bir komut satırı arayüzüne "
 "sahiptir."
 
-#: ../../source/advanced.rst:60
+#: ../../source/advanced.rst:69
 msgid ""
 "You can install just the command-line version of OnionShare using "
 "``pip3``::"
@@ -188,53 +213,53 @@ msgstr ""
 "OnionShare'in yalnızca komut satırı sürümünü ``pip3`` kullanarak "
 "kurabilirsiniz::"
 
-#: ../../source/advanced.rst:64
+#: ../../source/advanced.rst:73
 msgid ""
 "Note that you will also need the ``tor`` package installed. In macOS, "
 "install it with: ``brew install tor``"
 msgstr ""
-"Ayrıca ``tor`` paketinin kurulu olması gerekeceğini unutmayın. macOS için şu "
-"komutla kurun: ``brew install tor``"
+"Ayrıca ``tor`` paketinin kurulu olması gerekeceğini unutmayın. macOS için"
+" şu komutla kurun: ``brew install tor``"
 
-#: ../../source/advanced.rst:66
+#: ../../source/advanced.rst:75
 msgid "Then run it like this::"
 msgstr "Sonra şu şekilde çalıştırın::"
 
-#: ../../source/advanced.rst:70
+#: ../../source/advanced.rst:79
 msgid ""
 "If you installed OnionShare using the Linux Snapcraft package, you can "
 "also just run ``onionshare.cli`` to access the command-line interface "
 "version."
 msgstr ""
-"OnionShare'i Linux Snapcraft paketini kullanarak kurduysanız, komut satırı "
-"arayüzü sürümüne erişmek için ``onionshare.cli`` komutunu "
+"OnionShare'i Linux Snapcraft paketini kullanarak kurduysanız, komut "
+"satırı arayüzü sürümüne erişmek için ``onionshare.cli`` komutunu "
 "çalıştırabilirsiniz."
 
-#: ../../source/advanced.rst:73
+#: ../../source/advanced.rst:82
 msgid "Usage"
 msgstr "Kullanım"
 
-#: ../../source/advanced.rst:75
+#: ../../source/advanced.rst:84
 msgid ""
 "You can browse the command-line documentation by running ``onionshare "
 "--help``::"
 msgstr ""
-"``onionshare --help`` komutunu çalıştırarak komut satırı belgelendirmesine "
-"göz atabilirsiniz::"
+"``onionshare --help`` komutunu çalıştırarak komut satırı "
+"belgelendirmesine göz atabilirsiniz::"
 
-#: ../../source/advanced.rst:132
+#: ../../source/advanced.rst:147
 msgid "Legacy Addresses"
 msgstr "Eski Adresler"
 
-#: ../../source/advanced.rst:134
+#: ../../source/advanced.rst:149
 msgid ""
 "OnionShare uses v3 Tor onion services by default. These are modern onion "
 "addresses that have 56 characters, for example::"
 msgstr ""
-"OnionShare, öntanımlı olarak v3 Tor onion hizmetlerini kullanır. Bunlar, 56 "
-"karakter içeren modern onion adresleridir, örneğin::"
+"OnionShare, öntanımlı olarak v3 Tor onion hizmetlerini kullanır. Bunlar, "
+"56 karakter içeren modern onion adresleridir, örneğin::"
 
-#: ../../source/advanced.rst:139
+#: ../../source/advanced.rst:154
 msgid ""
 "OnionShare still has support for v2 onion addresses, the old type of "
 "onion addresses that have 16 characters, for example::"
@@ -242,15 +267,15 @@ msgstr ""
 "OnionShare, v2 onion adreslerini, yani 16 karakter içeren eski tür onion "
 "adreslerini hala desteklemektedir, örneğin::"
 
-#: ../../source/advanced.rst:143
+#: ../../source/advanced.rst:158
 msgid ""
 "OnionShare calls v2 onion addresses \"legacy addresses\", and they are "
 "not recommended, as v3 onion addresses are more secure."
 msgstr ""
-"OnionShare, v2 onion adreslerini \"eski adresler\" olarak adlandırır ve v3 "
-"onion adresleri daha güvenli olduğu için bunlar tavsiye edilmez."
+"OnionShare, v2 onion adreslerini \"eski adresler\" olarak adlandırır ve "
+"v3 onion adresleri daha güvenli olduğu için bunlar tavsiye edilmez."
 
-#: ../../source/advanced.rst:145
+#: ../../source/advanced.rst:160
 msgid ""
 "To use legacy addresses, before starting a server click \"Show advanced "
 "settings\" from its tab and check the \"Use a legacy address (v2 onion "
@@ -259,14 +284,15 @@ msgid ""
 "cannot remove legacy mode in that tab. Instead you must start a separate "
 "service in a separate tab."
 msgstr ""
-"Eski adresleri kullanmak için, bir sunucuyu başlatmadan önce onun sekmesinde "
-"\"Gelişmiş ayarları göster\" düğmesine tıklayın ve \"Eski bir adres kullan ("
-"v2 onion hizmeti, tavsiye edilmez)\" kutusunu işaretleyin. Eski modda isteğe "
-"bağlı olarak Tor istemci kimlik doğrulamasını açabilirsiniz. Eski modda bir "
-"sunucu başlattığınızda, o sekmede eski modu kaldıramazsınız. Bunun yerine, "
-"ayrı bir sekmede ayrı bir hizmet başlatmalısınız."
+"Eski adresleri kullanmak için, bir sunucuyu başlatmadan önce onun "
+"sekmesinde \"Gelişmiş ayarları göster\" düğmesine tıklayın ve \"Eski bir "
+"adres kullan (v2 onion hizmeti, tavsiye edilmez)\" kutusunu işaretleyin. "
+"Eski modda isteğe bağlı olarak Tor istemci kimlik doğrulamasını "
+"açabilirsiniz. Eski modda bir sunucu başlattığınızda, o sekmede eski modu"
+" kaldıramazsınız. Bunun yerine, ayrı bir sekmede ayrı bir hizmet "
+"başlatmalısınız."
 
-#: ../../source/advanced.rst:150
+#: ../../source/advanced.rst:165
 msgid ""
 "Tor Project plans to `completely deprecate v2 onion services "
 "<https://blog.torproject.org/v2-deprecation-timeline>`_ on October 15, "

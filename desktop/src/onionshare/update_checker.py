@@ -19,14 +19,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 from PySide2 import QtCore
-import datetime, time, socket, re, platform
+import datetime
+import re
 import socks
 from distutils.version import LooseVersion as Version
 
 from onionshare_cli.settings import Settings
-from onionshare_cli.onion import Onion
-
-from . import strings
 
 
 class UpdateCheckerCheckError(Exception):
@@ -170,7 +168,7 @@ class UpdateChecker(QtCore.QObject):
             settings.save()
 
             # Do we need to update?
-            update_url = f"https://github.com/micahflee/onionshare/releases/tag/v{latest_version}"
+            update_url = "https://onionshare.org"
             installed_version = self.common.version
             if installed_version < latest_version:
                 self.update_available.emit(

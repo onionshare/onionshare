@@ -279,11 +279,20 @@
     "gui_receive_flatpak_data_dir": "যেহেতু অনিওনশেয়ার ফ্ল্যাটপ্যাক দিয়ে ইন্সটল করেছো, তাই তোমাকে ~/OnionShare এ ফাইল সংরক্ষণ করতে হবে।",
     "gui_rendezvous_cleanup": "তোমার ফাইলগুলি সফলভাবে স্থানান্তরিত হয়েছে তা নিশ্চিত হয়ে টর সার্কিট বন্ধের অপেক্ষা করা হচ্ছে।\n\nএটি কয়েক মিনিট সময় নিতে পারে।",
     "gui_open_folder_error": "xdg-open দিয়ে ফোল্ডার খুলতে ব্যর্থ হয়েছে। ফাইলটি এখানে: {}",
-    "gui_chat_url_description": "এই পেঁয়াজশেয়ার ঠিকানা দিয়ে <b>যে কেউ</b> <b>টর ব্রাউজার</b>: <img src='{}' /> ব্যবহার করে এই <b>চ্যাট রুমটিতে যোগ দিতে পারে</b>",
+    "gui_chat_url_description": "এই অনিওনশেয়ার ঠিকানা দিয়ে <b>যে কেউ</b> <b>টর ব্রাউজার</b>: <img src='{}' /> ব্যবহার করে এই <b>চ্যাট রুমটিতে যোগ দিতে পারে</b>",
     "error_port_not_available": "অনিয়নশায়ার পোর্ট নেই",
     "gui_rendezvous_cleanup_quit_early": "তাড়াতাড়ি বন্ধ করো",
     "gui_main_page_chat_button": "চ্যাটিং শুরু করো",
     "gui_main_page_website_button": "হোস্টিং শুরু করো",
     "gui_main_page_receive_button": "গ্রহণ শুরু করো",
-    "gui_color_mode_changed_notice": "নতুন রঙের মোড প্রয়োগ করার জন্য OnionShare পুনরারম্ভ করুন।"
+    "gui_color_mode_changed_notice": "নতুন রঙের মোড প্রয়োগ করার জন্য OnionShare পুনরারম্ভ করুন।",
+    "history_receive_read_message_button": "বার্তা পড়ুন",
+    "mode_settings_receive_webhook_url_checkbox": "বিজ্ঞপ্তি ওয়েবহুক ব্যবহার করুন",
+    "mode_settings_receive_disable_files_checkbox": "ফাইল আপলোড করা অক্ষম করুন",
+    "mode_settings_receive_disable_text_checkbox": "পাঠ্য জমা দেওয়া অক্ষম করুন",
+    "mode_settings_title_label": "কাস্টম শিরোনাম",
+    "gui_status_indicator_chat_started": "চ্যাট করছে",
+    "gui_status_indicator_chat_scheduled": "শিডিউল করা হয়েছে…",
+    "gui_status_indicator_chat_working": "শুরু…",
+    "gui_status_indicator_chat_stopped": "চ্যাট করতে প্রস্তুত"
 }

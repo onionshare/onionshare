@@ -1,19 +1,20 @@
 import sys
-
-# Force tests to look for resources in the source code tree
-sys.onionshare_dev_mode = True
-
-# Let OnionShare know the tests are running, to avoid colliding with settings files
-sys.onionshare_test_mode = True
-
 import os
 import shutil
 import tempfile
 from datetime import datetime, timedelta
 
 import pytest
+from PySide2 import QtTest
 
-from PySide2 import QtTest, QtGui
+from onionshare_cli import common, web, settings
+
+
+# Force tests to look for resources in the source code tree
+sys.onionshare_dev_mode = True
+
+# Let OnionShare know the tests are running, to avoid colliding with settings files
+sys.onionshare_test_mode = True
 
 
 @staticmethod
@@ -35,9 +36,6 @@ sys.path.insert(
         "cli",
     ),
 )
-
-from onionshare_cli import common, web, settings
-
 
 # The temporary directory for CLI tests
 test_temp_dir = None
@@ -69,7 +67,7 @@ def temp_dir():
 
 @pytest.fixture
 def temp_dir_1024(temp_dir):
-    """ Create a temporary directory that has a single file of a
+    """Create a temporary directory that has a single file of a
     particular size (1024 bytes).
     """
 
@@ -83,7 +81,7 @@ def temp_dir_1024(temp_dir):
 # pytest > 2.9 only needs @pytest.fixture
 @pytest.yield_fixture
 def temp_dir_1024_delete(temp_dir):
-    """ Create a temporary directory that has a single file of a
+    """Create a temporary directory that has a single file of a
     particular size (1024 bytes). The temporary directory (including
     the file inside) will be deleted after fixture usage.
     """
@@ -97,7 +95,7 @@ def temp_dir_1024_delete(temp_dir):
 
 @pytest.fixture
 def temp_file_1024(temp_dir):
-    """ Create a temporary file of a particular size (1024 bytes). """
+    """Create a temporary file of a particular size (1024 bytes)."""
 
     with tempfile.NamedTemporaryFile(delete=False, dir=temp_dir) as tmp_file:
         tmp_file.write(b"*" * 1024)
@@ -141,7 +139,7 @@ def default_zw():
     tmp_dir = os.path.dirname(zw.zip_filename)
     try:
         shutil.rmtree(tmp_dir, ignore_errors=True)
-    except:
+    except Exception:
         pass
 
 

@@ -23,7 +23,7 @@ import sys
 import tempfile
 import mimetypes
 import gzip
-from flask import Response, request, render_template, make_response
+from flask import Response, request
 from unidecode import unidecode
 from werkzeug.urls import url_quote
 
@@ -52,8 +52,21 @@ class SendBaseModeWeb:
         # This tracks the history id
         self.cur_history_id = 0
 
+        # Whether or not we can send REQUEST_INDIVIDUAL_FILE_STARTED
+        # and maybe other events when requests come in to this mode
+        self.supports_file_requests = True
+
         self.define_routes()
         self.init()
+
+    def fix_windows_paths(self, path):
+        """
+        If on Windows, replace backslashes with slashes
+        """
+        if self.common.platform == "Windows":
+            return path.replace("\\", "/")
+
+        return path
 
     def set_file_info(self, filenames, processed_size_callback=None):
         """
@@ -70,40 +83,48 @@ class SendBaseModeWeb:
         self.root_files = (
             {}
         )  # This is only the root files and dirs, as opposed to all of them
-        self.cleanup_filenames = []
         self.cur_history_id = 0
         self.file_info = {"files": [], "dirs": []}
         self.gzip_individual_files = {}
         self.init()
 
+        # Windows paths use backslashes, but website paths use forward slashes. We have to
+        # make sure we're stripping the correct type of slash
+        if self.common.platform == "Windows":
+            slash = "\\"
+        else:
+            slash = "/"
+
         # Build the file list
         for filename in filenames:
-            basename = os.path.basename(filename.rstrip("/"))
+            basename = os.path.basename(filename.rstrip(slash))
 
             # If it's a filename, add it
             if os.path.isfile(filename):
-                self.files[basename] = filename
-                self.root_files[basename] = filename
+                self.files[self.fix_windows_paths(basename)] = filename
+                self.root_files[self.fix_windows_paths(basename)] = filename
 
             # If it's a directory, add it recursively
             elif os.path.isdir(filename):
-                self.root_files[basename] = filename
+                self.root_files[self.fix_windows_paths(basename)] = filename
 
                 for root, _, nested_filenames in os.walk(filename):
                     # Normalize the root path. So if the directory name is "/home/user/Documents/some_folder",
                     # and it has a nested folder foobar, the root is "/home/user/Documents/some_folder/foobar".
                     # The normalized_root should be "some_folder/foobar"
                     normalized_root = os.path.join(
-                        basename, root[len(filename) :].lstrip("/")
-                    ).rstrip("/")
+                        basename, root[len(filename) :].lstrip(slash)
+                    ).rstrip(slash)
 
                     # Add the dir itself
-                    self.files[normalized_root] = root
+                    self.files[self.fix_windows_paths(normalized_root)] = root
 
                     # Add the files in this dir
                     for nested_filename in nested_filenames:
                         self.files[
-                            os.path.join(normalized_root, nested_filename)
+                            self.fix_windows_paths(
+                                os.path.join(normalized_root, nested_filename)
+                            )
                         ] = os.path.join(root, nested_filename)
 
         self.set_file_info_custom(filenames, processed_size_callback)
@@ -177,7 +198,7 @@ class SendBaseModeWeb:
                 self.gzip_individual_files[filesystem_path] = gzip_filename
 
                 # Make sure the gzip file gets cleaned up when onionshare stops
-                self.cleanup_filenames.append(gzip_filename)
+                self.web.cleanup_filenames.append(gzip_filename)
 
             file_to_download = self.gzip_individual_files[filesystem_path]
             filesize = os.path.getsize(self.gzip_individual_files[filesystem_path])
@@ -190,10 +211,6 @@ class SendBaseModeWeb:
         # Tell GUI the individual file started
         history_id = self.cur_history_id
         self.cur_history_id += 1
-
-        # Only GET requests are allowed, any other method should fail
-        if request.method != "GET":
-            return self.web.error405(history_id)
 
         self.web.add_request(
             self.web.REQUEST_INDIVIDUAL_FILE_STARTED,
@@ -242,7 +259,7 @@ class SendBaseModeWeb:
                             },
                         )
                         done = False
-                    except:
+                    except Exception:
                         # Looks like the download was canceled
                         done = True
 

@@ -18,13 +18,22 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-import os, sys, time, argparse, threading
+import os
+import sys
+import time
+import argparse
+import threading
 from datetime import datetime
 from datetime import timedelta
 
 from .common import Common, CannotFindTor
 from .web import Web
-from .onion import *
+from .onion import (
+    TorErrorProtocolError,
+    TorTooOldEphemeral,
+    TorTooOldStealth,
+    Onion,
+)
 from .onionshare import OnionShare
 from .mode_settings import ModeSettings
 
@@ -43,57 +52,7 @@ def main(cwd=None):
     onionshare uses.
     """
     common = Common()
-
-    # Display OnionShare banner
-    print(f"OnionShare {common.version} | https://onionshare.org/")
-    reset = "\033[0m"
-    purple = "\33[95m"
-    print(purple)
-    print("                     @@@@@@@@@                      ")
-    print("                @@@@@@@@@@@@@@@@@@@                 ")
-    print("             @@@@@@@@@@@@@@@@@@@@@@@@@              ")
-    print("           @@@@@@@@@@@@@@@@@@@@@@@@@@@@@            ")
-    print(
-        "             @@@@@@@@@@@@@@@@@@@@@@@@@@@@@           ___        _               "
-    )
-    print(
-        "               @@@@@@         @@@@@@@@@@@@@         / _ \\      (_)              "
-    )
-    print(
-        "         @@@@    @               @@@@@@@@@@@       | | | |_ __  _  ___  _ __    "
-    )
-    print(
-        "       @@@@@@@@                   @@@@@@@@@@       | | | | '_ \\| |/ _ \\| '_ \\   "
-    )
-    print(
-        "     @@@@@@@@@@@@                  @@@@@@@@@@      \\ \\_/ / | | | | (_) | | | |  "
-    )
-    print(
-        "   @@@@@@@@@@@@@@@@                 @@@@@@@@@       \\___/|_| |_|_|\\___/|_| |_|  "
-    )
-    print(
-        "      @@@@@@@@@                 @@@@@@@@@@@@@@@@    _____ _                     "
-    )
-    print(
-        "      @@@@@@@@@@                  @@@@@@@@@@@@     /  ___| |                    "
-    )
-    print(
-        "       @@@@@@@@@@                   @@@@@@@@       \\ `--.| |__   __ _ _ __ ___ "
-    )
-    print(
-        "       @@@@@@@@@@@               @    @@@@          `--. \\ '_ \\ / _` | '__/ _ \\"
-    )
-    print(
-        "        @@@@@@@@@@@@@         @@@@@@               /\\__/ / | | | (_| | | |  __/"
-    )
-    print(
-        "         @@@@@@@@@@@@@@@@@@@@@@@@@@@@@             \\____/|_| |_|\\__,_|_|  \\___|"
-    )
-    print("           @@@@@@@@@@@@@@@@@@@@@@@@@@@@@            ")
-    print("             @@@@@@@@@@@@@@@@@@@@@@@@@              ")
-    print("                @@@@@@@@@@@@@@@@@@@                 ")
-    print("                     @@@@@@@@@                      ")
-    print(reset)
+    common.display_banner()
 
     # OnionShare CLI in OSX needs to change current working directory (#132)
     if common.platform == "Darwin":
@@ -144,6 +103,12 @@ def main(cwd=None):
     )
     # General args
     parser.add_argument(
+        "--title",
+        metavar="TITLE",
+        default=None,
+        help="Set a title",
+    )
+    parser.add_argument(
         "--public",
         action="store_true",
         dest="public",
@@ -193,6 +158,24 @@ def main(cwd=None):
         default=None,
         help="Receive files: Save files received to this directory",
     )
+    parser.add_argument(
+        "--webhook-url",
+        metavar="webhook_url",
+        default=None,
+        help="Receive files: URL to receive webhook notifications",
+    )
+    parser.add_argument(
+        "--disable-text",
+        action="store_true",
+        dest="disable_text",
+        help="Receive files: Disable receiving text messages",
+    )
+    parser.add_argument(
+        "--disable-files",
+        action="store_true",
+        dest="disable_files",
+        help="Receive files: Disable receiving files",
+    )
     # Website args
     parser.add_argument(
         "--disable_csp",
@@ -228,6 +211,7 @@ def main(cwd=None):
     connect_timeout = int(args.connect_timeout)
     config_filename = args.config
     persistent_filename = args.persistent
+    title = args.title
     public = bool(args.public)
     autostart_timer = int(args.autostart_timer)
     autostop_timer = int(args.autostop_timer)
@@ -235,6 +219,9 @@ def main(cwd=None):
     client_auth = bool(args.client_auth)
     autostop_sharing = not bool(args.no_autostop_sharing)
     data_dir = args.data_dir
+    webhook_url = args.webhook_url
+    disable_text = args.disable_text
+    disable_files = args.disable_files
     disable_csp = bool(args.disable_csp)
     verbose = bool(args.verbose)
 
@@ -273,6 +260,7 @@ def main(cwd=None):
 
     if mode_settings.just_created:
         # This means the mode settings were just created, not loaded from disk
+        mode_settings.set("general", "title", title)
         mode_settings.set("general", "public", public)
         mode_settings.set("general", "autostart_timer", autostart_timer)
         mode_settings.set("general", "autostop_timer", autostop_timer)
@@ -283,6 +271,10 @@ def main(cwd=None):
         if mode == "receive":
             if data_dir:
                 mode_settings.set("receive", "data_dir", data_dir)
+            if webhook_url:
+                mode_settings.set("receive", "webhook_url", webhook_url)
+            mode_settings.set("receive", "disable_text", disable_text)
+            mode_settings.set("receive", "disable_files", disable_files)
         if mode == "website":
             mode_settings.set("website", "disable_csp", disable_csp)
     else:
@@ -325,6 +317,11 @@ def main(cwd=None):
         if persistent_filename:
             mode_settings.set(mode, "filenames", filenames)
 
+    # In receive mode, you must allows either text, files, or both
+    if mode == "receive" and disable_text and disable_files:
+        print("You cannot disable both text and files")
+        sys.exit()
+
     # Create the Web object
     web = Web(common, False, mode_settings, mode)
 
@@ -348,16 +345,29 @@ def main(cwd=None):
     except KeyboardInterrupt:
         print("")
         sys.exit()
-    except Exception as e:
+    except Exception:
         sys.exit()
 
     # Start the onionshare app
     try:
         common.settings.load()
-        if not mode_settings.get("general", "public"):
-            web.generate_password(mode_settings.get("onion", "password"))
-        else:
+
+        if mode_settings.get("general", "public"):
             web.password = None
+        else:
+            web.generate_password(mode_settings.get("onion", "password"))
+
+        # Receive mode needs to know the tor proxy details for webhooks
+        if mode == "receive":
+            if local_only:
+                web.proxies = None
+            else:
+                (socks_address, socks_port) = onion.get_tor_socks_port()
+                web.proxies = {
+                    "http": f"socks5h://{socks_address}:{socks_port}",
+                    "https": f"socks5h://{socks_address}:{socks_port}",
+                }
+
         app = OnionShare(common, onion, local_only, autostop_timer)
         app.choose_port()
 
@@ -370,7 +380,7 @@ def main(cwd=None):
                 )
                 sys.exit()
 
-            app.start_onion_service(mode, mode_settings, False, True)
+            app.start_onion_service(mode, mode_settings, False)
             url = build_url(mode_settings, app, web)
             schedule = datetime.now() + timedelta(seconds=autostart_timer)
             if mode == "receive":
@@ -379,7 +389,9 @@ def main(cwd=None):
                 )
                 print("")
                 print(
-                    "Warning: Receive mode lets people upload files to your computer. Some files can potentially take control of your computer if you open them. Only open things from people you trust, or if you know what you are doing."
+                    "Warning: Receive mode lets people upload files to your computer. Some files can potentially take "
+                    "control of your computer if you open them. Only open things from people you trust, or if you know "
+                    "what you are doing."
                 )
                 print("")
                 if mode_settings.get("general", "client_auth"):
@@ -412,7 +424,7 @@ def main(cwd=None):
     except KeyboardInterrupt:
         print("")
         sys.exit()
-    except (TorTooOld, TorErrorProtocolError) as e:
+    except (TorTooOldEphemeral, TorTooOldStealth, TorErrorProtocolError) as e:
         print("")
         print(e.args[0])
         sys.exit()
@@ -430,7 +442,6 @@ def main(cwd=None):
         print("Compressing files.")
         try:
             web.share_mode.set_file_info(filenames)
-            app.cleanup_filenames += web.share_mode.cleanup_filenames
         except OSError as e:
             print(e.strerror)
             sys.exit(1)
@@ -473,7 +484,9 @@ def main(cwd=None):
                 )
                 print("")
                 print(
-                    "Warning: Receive mode lets people upload files to your computer. Some files can potentially take control of your computer if you open them. Only open things from people you trust, or if you know what you are doing."
+                    "Warning: Receive mode lets people upload files to your computer. Some files can potentially take "
+                    "control of your computer if you open them. Only open things from people you trust, or if you know "
+                    "what you are doing."
                 )
                 print("")
 
@@ -514,8 +527,7 @@ def main(cwd=None):
                             print("Stopped because auto-stop timer ran out")
                             web.stop(app.port)
                             break
-                        else:
-                            web.receive_mode.can_upload = False
+                        web.receive_mode.can_upload = False
             # Allow KeyboardInterrupt exception to be handled with threads
             # https://stackoverflow.com/questions/3788208/python-threading-ignores-keyboardinterrupt-exception
             time.sleep(0.2)
@@ -523,7 +535,7 @@ def main(cwd=None):
         web.stop(app.port)
     finally:
         # Shutdown
-        app.cleanup()
+        web.cleanup()
         onion.cleanup()
 
 

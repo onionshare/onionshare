@@ -1,11 +1,4 @@
 import sys
-
-# Force tests to look for resources in the source code tree
-sys.onionshare_dev_mode = True
-
-# Let OnionShare know the tests are running, to avoid colliding with settings files
-sys.onionshare_test_mode = True
-
 import os
 import shutil
 import tempfile
@@ -14,6 +7,11 @@ import pytest
 
 from onionshare_cli import common, web
 
+# Force tests to look for resources in the source code tree
+sys.onionshare_dev_mode = True
+
+# Let OnionShare know the tests are running, to avoid colliding with settings files
+sys.onionshare_test_mode = True
 
 # The temporary directory for CLI tests
 test_temp_dir = None
@@ -45,7 +43,7 @@ def temp_dir():
 
 @pytest.fixture
 def temp_dir_1024(temp_dir):
-    """ Create a temporary directory that has a single file of a
+    """Create a temporary directory that has a single file of a
     particular size (1024 bytes).
     """
 
@@ -56,10 +54,9 @@ def temp_dir_1024(temp_dir):
     return new_temp_dir
 
 
-# pytest > 2.9 only needs @pytest.fixture
-@pytest.yield_fixture
+@pytest.fixture
 def temp_dir_1024_delete(temp_dir):
-    """ Create a temporary directory that has a single file of a
+    """Create a temporary directory that has a single file of a
     particular size (1024 bytes). The temporary directory (including
     the file inside) will be deleted after fixture usage.
     """
@@ -73,15 +70,14 @@ def temp_dir_1024_delete(temp_dir):
 
 @pytest.fixture
 def temp_file_1024(temp_dir):
-    """ Create a temporary file of a particular size (1024 bytes). """
+    """Create a temporary file of a particular size (1024 bytes)."""
 
     with tempfile.NamedTemporaryFile(delete=False, dir=temp_dir) as tmp_file:
         tmp_file.write(b"*" * 1024)
     return tmp_file.name
 
 
-# pytest > 2.9 only needs @pytest.fixture
-@pytest.yield_fixture
+@pytest.fixture
 def temp_file_1024_delete(temp_dir):
     """
     Create a temporary file of a particular size (1024 bytes).
@@ -95,8 +91,7 @@ def temp_file_1024_delete(temp_dir):
         yield tmp_file.name
 
 
-# pytest > 2.9 only needs @pytest.fixture
-@pytest.yield_fixture(scope="session")
+@pytest.fixture(scope="session")
 def custom_zw():
     zw = web.share_mode.ZipWriter(
         common.Common(),
@@ -108,8 +103,7 @@ def custom_zw():
     os.remove(zw.zip_filename)
 
 
-# pytest > 2.9 only needs @pytest.fixture
-@pytest.yield_fixture(scope="session")
+@pytest.fixture(scope="session")
 def default_zw():
     zw = web.share_mode.ZipWriter(common.Common())
     yield zw
@@ -117,7 +111,7 @@ def default_zw():
     tmp_dir = os.path.dirname(zw.zip_filename)
     try:
         shutil.rmtree(tmp_dir, ignore_errors=True)
-    except:
+    except Exception:
         pass
 
 
@@ -189,10 +183,3 @@ def time_strftime(monkeypatch):
 @pytest.fixture
 def common_obj():
     return common.Common()
-
-
-@pytest.fixture
-def settings_obj(sys_onionshare_dev_mode, platform_linux):
-    _common = common.Common()
-    _common.version = "DUMMY_VERSION_1.2.3"
-    return settings.Settings(_common)

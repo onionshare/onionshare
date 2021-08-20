@@ -1,5 +1,22 @@
 # OnionShare Changelog
 
+## 2.3.3
+
+* New feature: Setting for light or dark theme
+* Updated Tor to 0.4.6.7 for Linux, 0.4.5.10 for Windows and macOS
+* Various bug fixes
+
+## 2.3.2
+
+* New feature: Custom titles can be set for OnionShare's various modes
+* New feature: Receive mode supports notification webhooks
+* New feature: Receive mode supports submitting messages as well as files
+* New feature: New ASCII art banner and prettier verbose output
+* New feature: Partial support for range requests (pausing and resuming in HTTP)
+* Updated Tor to 0.4.5.7
+* Updated built-in obfs4 bridges
+* Various bug fixes
+
 ## 2.3.1
 
 * Bugfix: Fix chat mode

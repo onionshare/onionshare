@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2020-11-15 14:42-0800\n"
-"PO-Revision-Date: 2021-02-19 11:50+0000\n"
+"POT-Creation-Date: 2021-05-03 21:48-0700\n"
+"PO-Revision-Date: 2021-05-11 20:47+0000\n"
 "Last-Translator: Alexander Tarasenko <alexound.login@gmail.com>\n"
 "Language-Team: ru <LL@li.org>\n"
 "Language: ru\n"
@@ -17,16 +17,16 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.5\n"
+"X-Generator: Weblate 4.7-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/advanced.rst:2
 msgid "Advanced Usage"
-msgstr "Расширенное использование"
+msgstr "Расширенные возможности"
 
 #: ../../source/advanced.rst:7
 msgid "Save Tabs"
-msgstr "Постоянные вкладки"
+msgstr "Сохранение вкладок"
 
 #: ../../source/advanced.rst:9
 msgid ""
@@ -36,11 +36,11 @@ msgid ""
 "useful if you want to host a website available from the same OnionShare "
 "address even if you reboot your computer."
 msgstr ""
-"В OnionShare по умолчанию каждый элемент - временный. При закрытии вкладки "
-"её адрес исчезает и не может быть больше использован. Время от времени может "
-"потребоваться сделать тот или иной сервис OnionShare доступным на постоянной "
-"основе, например, разместить сайт у которого будет один и тот же адрес даже "
-"после перезагрузки компьютера."
+"В OnionShare по умолчанию каждый элемент - временный. При закрытии "
+"вкладки её адрес исчезает и не может быть больше использован. Время от "
+"времени может потребоваться сделать тот или иной сервис OnionShare "
+"доступным на постоянной основе, например, разместить сайт у которого "
+"будет один и тот же адрес даже после перезагрузки компьютера."
 
 #: ../../source/advanced.rst:13
 msgid ""
@@ -50,8 +50,8 @@ msgid ""
 msgstr ""
 "Чтобы сделать любую вкладку постоянной, отметье пункт \"Сохранить эту "
 "вкладку, и открывать ее автоматически при открытии OnionShare\" перед "
-"запуском сервера. При сохранении вкладки появится иконка сиреневого цвета с "
-"изображением булавки слева от статуса сервера."
+"запуском сервера. При сохранении вкладки появится иконка сиреневого цвета"
+" с изображением булавки слева от статуса сервера."
 
 #: ../../source/advanced.rst:18
 msgid ""
@@ -59,17 +59,18 @@ msgid ""
 "start opened. You'll have to manually start each service, but when you do"
 " they will start with the same OnionShare address and password."
 msgstr ""
-"Теперь, при завершении работы с OnionShare и повторном запуске, сохранённые "
-"вкладки открываются автоматически. Сервис на каждой вкладке нужно запустить "
-"вручную, но при этом адрес и пароль OnionShare остаются прежние."
+"Теперь, при завершении работы с OnionShare и повторном запуске, "
+"сохранённые вкладки открываются автоматически. Сервис на каждой вкладке "
+"нужно запустить вручную, но при этом адрес и пароль OnionShare остаются "
+"прежние."
 
 #: ../../source/advanced.rst:21
 msgid ""
 "If you save a tab, a copy of that tab's onion service secret key will be "
 "stored on your computer with your OnionShare settings."
 msgstr ""
-"При сохранении вкладки копия ключа \"лукового\" сервиса также будет "
-"сохранена на компьютере вместе с настройками OnionShare."
+"При сохранении вкладки копия ключа onions сервиса также будет сохранена "
+"на компьютере вместе с настройками OnionShare."
 
 #: ../../source/advanced.rst:26
 msgid "Turn Off Passwords"
@@ -82,10 +83,11 @@ msgid ""
 "wrong guesses at the password, your onion service is automatically "
 "stopped to prevent a brute force attack against the OnionShare service."
 msgstr ""
-"По умолчанию, все сервисы OnionShare защищены при помощи имени пользователя "
-"``onionshare`` и произвольно-сгенерированного пароля. Если кто-то делает 20 "
-"попыток доступа с ошибочным паролем, сервис автоматически останавливается, "
-"чтобы предотвратить 'brute-force' атаку на сервис."
+"По умолчанию, все сервисы OnionShare защищены при помощи имени "
+"пользователя ``onionshare`` и произвольно-сгенерированного пароля. При "
+"совершении более 20-ти попыток доступа с неверным паролем, сервис "
+"автоматически останавливается, чтобы предотвратить 'brute-force' атаку на"
+" сервис."
 
 #: ../../source/advanced.rst:31
 msgid ""
@@ -98,7 +100,7 @@ msgid ""
 msgstr ""
 "Иногда может потребоваться сделать сервис OnionShare общедоступным, "
 "например, запустить сервис приёма файлов, чтобы люди могли безопасно и "
-"анонимно присылать свои файлы. В таком случае рекомендуется полностью "
+"анонимно прислать свои файлы. В данном случае рекомендуется полностью "
 "отключить проверку пароля. Если этого не сделать, кто-то может заставить "
 "сервис остановиться, если сделает 20 попыток доступа с неверным паролем, "
 "даже если правильны пароль ему известен."
@@ -109,15 +111,37 @@ msgid ""
 "password\" box before starting the server. Then the server will be public"
 " and won't have a password."
 msgstr ""
-"Чтобы отключить использование пароля для любой вкладки, отметьте пункт \"Не "
-"использовать пароль\" перед запуском сервера. В этом случае сервер "
+"Чтобы отключить использование пароля для любой вкладки, отметьте пункт "
+"\"Не использовать пароль\" перед запуском сервера. В этом случае сервер "
 "становится общедоступным и проверка пароля не осуществляется."
 
-#: ../../source/advanced.rst:38
+#: ../../source/advanced.rst:40
+msgid "Custom Titles"
+msgstr "Указать заголовок"
+
+#: ../../source/advanced.rst:42
+msgid ""
+"By default, when people load an OnionShare service in Tor Browser they "
+"see the default title for the type of service. For example, the default "
+"title of a chat service is \"OnionShare Chat\"."
+msgstr ""
+"По умолчанию, когда люди открывают страницу OnionShare в браузере Tor, они "
+"видят стандартное название сервиса. Например, стандартный заголовок чата это "
+"\"OnionShare Chat\"."
+
+#: ../../source/advanced.rst:44
+msgid ""
+"If you want to choose a custom title, set the \"Custom title\" setting "
+"before starting a server."
+msgstr ""
+"Если вы хотите указать своё название для сервиса, используйте настройку "
+"\"Custom title\" перед запуском сервиса."
+
+#: ../../source/advanced.rst:47
 msgid "Scheduled Times"
 msgstr "Планирование времени"
 
-#: ../../source/advanced.rst:40
+#: ../../source/advanced.rst:49
 msgid ""
 "OnionShare supports scheduling exactly when a service should start and "
 "stop. Before starting a server, click \"Show advanced settings\" in its "
@@ -126,12 +150,13 @@ msgid ""
 "set the respective desired dates and times."
 msgstr ""
 "OnionShare поддерживает возможность точного планирования, когда сервис "
-"должен запуститься или остановиться. Перед запуском сервера, нажмите на его "
-"вкладке кнопку \"Показать дополнительные настройки\", отметьте нужные пункты:"
-" \"Запустить сервис onion в назначенное время\", \"Остановить сервис onion в "
-"назначенное время\", и укажите нужную дату и время для каждого пункта."
+"должен запуститься или остановиться. Перед запуском сервера, нажмите на "
+"его вкладке кнопку \"Показать дополнительные настройки\", отметьте нужные"
+" пункты: \"Запустить сервис onion в назначенное время\", \"Остановить "
+"сервис onion в назначенное время\", и укажите нужную дату и время для "
+"каждого пункта."
 
-#: ../../source/advanced.rst:43
+#: ../../source/advanced.rst:52
 msgid ""
 "If you scheduled a service to start in the future, when you click the "
 "\"Start sharing\" button you will see a timer counting down until it "
@@ -139,11 +164,11 @@ msgid ""
 " will see a timer counting down to when it will stop automatically."
 msgstr ""
 "Если запуск сервиса был запланирован на будущее, то при нажатии кнопки "
-"\"Сделать доступным для скачивания\" появится таймер обратного отсчёта до "
-"запуска сервиса. Если была запланирована остановка сервиса, то после нажатия "
-"кнопки появится таймер обратного отсчёта до отстановки сервиса."
+"\"Сделать доступным для скачивания\" появится таймер обратного отсчёта до"
+" запуска сервиса. Если была запланирована остановка сервиса, то после "
+"нажатия кнопки появится таймер обратного отсчёта до отстановки сервиса."
 
-#: ../../source/advanced.rst:46
+#: ../../source/advanced.rst:55
 msgid ""
 "**Scheduling an OnionShare service to automatically start can be used as "
 "a dead man's switch**, where your service will be made public at a given "
@@ -151,12 +176,12 @@ msgid ""
 " you can cancel the service before it's scheduled to start."
 msgstr ""
 "**Запланированный автоматический запуск сервиса OnionShare может быть "
-"использован как 'переключатель мертвеца'\". ** В этом случае сервис окажется "
-"общедоступен в указанное время, в случае если с отправителем может что-то "
-"случится. Если всё обойдётся, отправитель может остановить таймер до "
-"автоматического запуска."
+"использован как 'переключатель мертвеца'\". ** В этом случае сервис "
+"окажется общедоступен в указанное время, в случае если с отправителем "
+"что-то произойдёт. Если угроза исчезнет, отправитель сможет остановить "
+"таймер до автоматического запуска."
 
-#: ../../source/advanced.rst:51
+#: ../../source/advanced.rst:60
 msgid ""
 "**Scheduling an OnionShare service to automatically stop can be useful to"
 " limit exposure**, like if you want to share secret documents while "
@@ -165,68 +190,69 @@ msgid ""
 msgstr ""
 "**Запланированная автоматическая остановка сервиса OnionShare может быть "
 "использована, чтобы ограничить время огласки\". ** Например может "
-"потребоваться сделать доступными для скачивания тайные документы на "
-"определённый период времени, чтобы они были доступны пользователям в "
-"Интернете всего несколько дней."
+"потребоваться сделать доступными для скачивания секретные документы на "
+"определённый период времени, чтобы они были доступны пользователям в сети"
+" Интернет всего несколько дней."
 
-#: ../../source/advanced.rst:56
+#: ../../source/advanced.rst:65
 msgid "Command-line Interface"
 msgstr "Интерфейс командной строки"
 
-#: ../../source/advanced.rst:58
+#: ../../source/advanced.rst:67
 msgid ""
 "In addition to its graphical interface, OnionShare has a command-line "
 "interface."
 msgstr ""
-"В дополнение к графическому интерфейсу, у OnionShare есть поддержка "
-"использования с командной строки."
+"В дополнение к графическому интерфейсу, у OnionShare присутствует "
+"поддержка интерфейса командной строки."
 
-#: ../../source/advanced.rst:60
+#: ../../source/advanced.rst:69
 msgid ""
 "You can install just the command-line version of OnionShare using "
 "``pip3``::"
 msgstr ""
-"Отдельно установить консольную версию OnionShare можно при помощи ``pip3``::"
+"Отдельно установить консольную версию OnionShare можно при помощи "
+"``pip3``::"
 
-#: ../../source/advanced.rst:64
+#: ../../source/advanced.rst:73
 msgid ""
 "Note that you will also need the ``tor`` package installed. In macOS, "
 "install it with: ``brew install tor``"
 msgstr ""
-"Для работы консольной версии такжне необходима установка пакета ``tor``. Для "
-"установки пакета в операционной системе macOS выполните команду: ``brew "
-"install tor``"
+"Для работы консольной версии также необходимо установить пакет ``tor``. "
+"Для установки пакета в операционной системе macOS выполните команду: "
+"``brew install tor``"
 
-#: ../../source/advanced.rst:66
+#: ../../source/advanced.rst:75
 msgid "Then run it like this::"
 msgstr "Затем произведите запуск следующим образом::"
 
-#: ../../source/advanced.rst:70
+#: ../../source/advanced.rst:79
 msgid ""
 "If you installed OnionShare using the Linux Snapcraft package, you can "
 "also just run ``onionshare.cli`` to access the command-line interface "
 "version."
 msgstr ""
 "Если установка OnionShare была произведена при помощи Linux Snapcraft, "
-"запуск консольной версии возможен при помощи команды: ``onionshare.cli``."
+"запустить консольную версию можно при помощи команды: ``onionshare.cli``."
 
-#: ../../source/advanced.rst:73
+#: ../../source/advanced.rst:82
 msgid "Usage"
 msgstr "Использование"
 
-#: ../../source/advanced.rst:75
+#: ../../source/advanced.rst:84
 msgid ""
 "You can browse the command-line documentation by running ``onionshare "
 "--help``::"
 msgstr ""
-"Чтобы просмотреть документацию консольной версии OnionShare выполните "
+"Чтобы просмотреть документацию консольной версии OnionShare запустите "
 "команду: ``onionshare --help``::"
 
-#: ../../source/advanced.rst:132
+#: ../../source/advanced.rst:147
 msgid "Legacy Addresses"
 msgstr "Устаревшие Адреса"
 
-#: ../../source/advanced.rst:134
+#: ../../source/advanced.rst:149
 msgid ""
 "OnionShare uses v3 Tor onion services by default. These are modern onion "
 "addresses that have 56 characters, for example::"
@@ -234,23 +260,23 @@ msgstr ""
 "OnionShare по умолчанию исользует v3 Tor сервисов onion. Это современные "
 "onion адреса, состоящие из 56 символов например::"
 
-#: ../../source/advanced.rst:139
+#: ../../source/advanced.rst:154
 msgid ""
 "OnionShare still has support for v2 onion addresses, the old type of "
 "onion addresses that have 16 characters, for example::"
 msgstr ""
-"OnionShare всё ещё поддерживает адреса v2 Tor onion сервисов, состоящие из "
-"16 символов, например::"
+"OnionShare всё ещё поддерживает адреса v2 Tor onion сервисов, состоящие "
+"из 16 символов, например::"
 
-#: ../../source/advanced.rst:143
+#: ../../source/advanced.rst:158
 msgid ""
 "OnionShare calls v2 onion addresses \"legacy addresses\", and they are "
 "not recommended, as v3 onion addresses are more secure."
 msgstr ""
-"OnionShare обозначает v2 onion адреса как \"устаревшие\" и не рекомендует их "
-"к использованию, поскольку v3 onion адреса более безопасны."
+"OnionShare обозначает v2 onion адреса как \"устаревшие\" и не рекомендует"
+" их использование, поскольку v3 onion адреса более безопасны."
 
-#: ../../source/advanced.rst:145
+#: ../../source/advanced.rst:160
 msgid ""
 "To use legacy addresses, before starting a server click \"Show advanced "
 "settings\" from its tab and check the \"Use a legacy address (v2 onion "
@@ -259,14 +285,14 @@ msgid ""
 "cannot remove legacy mode in that tab. Instead you must start a separate "
 "service in a separate tab."
 msgstr ""
-"Для использования устаревших адресов, перед запуском сервера на его вкладке "
-"нужно нажать кнопку \"Показать рассширенные настройки\" и отметить пункт "
-"\"Использовать устаревшую версию адресов (версия 2 сервиса Тор, не "
-"рукомендуем)\". В \"устаревшем\" режиме возможно включить аутентификацию "
-"клента Tor. Отключить \"устаревший\" режим сервера для вкладки невозможно, "
-"необходимо перезапустить сервис в новой вкладке."
+"Для использования устаревших адресов, перед запуском сервера на его "
+"вкладке нужно нажать кнопку \"Показать рассширенные настройки\" и "
+"отметить пункт \"Использовать устаревшую версию адресов (версия 2 сервиса"
+" Тор, не рукомендуем)\". В \"устаревшем\" режиме возможно включить "
+"аутентификацию клента Tor. Отключить \"устаревший\" режим сервера для "
+"вкладки невозможно, необходимо перезапустить сервис в новой вкладке."
 
-#: ../../source/advanced.rst:150
+#: ../../source/advanced.rst:165
 msgid ""
 "Tor Project plans to `completely deprecate v2 onion services "
 "<https://blog.torproject.org/v2-deprecation-timeline>`_ on October 15, "
@@ -274,9 +300,9 @@ msgid ""
 "then."
 msgstr ""
 "Tor Project планирует `полностью отказаться от v2 onion сервисов "
-"<https://blog.torproject.org/v2-deprecation-timeline> _ 15-ого Октября 2021. "
-"\"Устаревшие\" сервисы onion будут удалены из OnionShare до наступления этой "
-"даты."
+"<https://blog.torproject.org/v2-deprecation-timeline> `_ 15-ого Октября "
+"2021. \"Устаревшие\" сервисы onion будут удалены из OnionShare до "
+"наступления этой даты."
 
 #~ msgid "Make a symbolic link to the OnionShare command line binary line this::"
 #~ msgstr ""

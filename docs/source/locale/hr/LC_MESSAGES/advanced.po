@@ -6,23 +6,26 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2020-11-15 14:54-0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2021-03-26 13:29+0000\n"
+"Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: none\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.6-dev\n"
 
 #: ../../source/advanced.rst:2
 msgid "Advanced Usage"
-msgstr ""
+msgstr "Napredna upotreba"
 
 #: ../../source/advanced.rst:7
 msgid "Save Tabs"
-msgstr ""
+msgstr "Spremi kartice"
 
 #: ../../source/advanced.rst:9
 msgid "Everything in OnionShare is temporary by default. If you close an OnionShare tab, its address no longer exists and it can't be used again. Sometimes you might want an OnionShare service to be persistent. This is useful if you want to host a website available from the same OnionShare address even if you reboot your computer."
@@ -42,7 +45,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:26
 msgid "Turn Off Passwords"
-msgstr ""
+msgstr "Isključi lozinke"
 
 #: ../../source/advanced.rst:28
 msgid "By default, all OnionShare services are protected with the username ``onionshare`` and a randomly-generated password. If someone takes 20 wrong guesses at the password, your onion service is automatically stopped to prevent a brute force attack against the OnionShare service."
@@ -58,7 +61,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:38
 msgid "Scheduled Times"
-msgstr ""
+msgstr "Planiranje"
 
 #: ../../source/advanced.rst:40
 msgid "OnionShare supports scheduling exactly when a service should start and stop. Before starting a server, click \"Show advanced settings\" in its tab and then check the boxes next to either \"Start onion service at scheduled time\", \"Stop onion service at scheduled time\", or both, and set the respective desired dates and times."
@@ -78,7 +81,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:56
 msgid "Command-line Interface"
-msgstr ""
+msgstr "Sučelje naredbenog retka"
 
 #: ../../source/advanced.rst:58
 msgid "In addition to its graphical interface, OnionShare has a command-line interface."
@@ -102,7 +105,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:73
 msgid "Usage"
-msgstr ""
+msgstr "Upotreba"
 
 #: ../../source/advanced.rst:75
 msgid "You can browse the command-line documentation by running ``onionshare --help``::"
@@ -110,7 +113,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:132
 msgid "Legacy Addresses"
-msgstr ""
+msgstr "Stare adrese"
 
 #: ../../source/advanced.rst:134
 msgid "OnionShare uses v3 Tor onion services by default. These are modern onion addresses that have 56 characters, for example::"

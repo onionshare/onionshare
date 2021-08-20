@@ -229,6 +229,7 @@ ul.breadcrumbs li a:link, ul.breadcrumbs li a:visited {
   display: block;
 }
 .chat-wrapper .message {
+  word-break: break-word;
   font-weight: normal;
   display: block;
   margin-bottom: 0.3em;
@@ -283,6 +284,13 @@ ul.breadcrumbs li a:link, ul.breadcrumbs li a:visited {
 .upload-wrapper .upload-description {
   color: #666666;
   margin: 0 0 20px 0;
+}
+
+.upload-wrapper textarea {
+  max-width: 95%;
+  width: 600px;
+  height: 150px;
+  padding: 10px;
 }
 
 div#uploads {

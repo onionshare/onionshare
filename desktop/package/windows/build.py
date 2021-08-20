@@ -2,7 +2,6 @@
 import os
 import inspect
 import subprocess
-import argparse
 import shutil
 import glob
 
@@ -197,6 +196,7 @@ def main():
             os.path.join(
                 desktop_dir,
                 "windows",
+                "msi",
                 "OnionShare",
                 "src",
                 "app_packages",
@@ -212,7 +212,7 @@ def main():
     ]
     print(f"○ Created unsigned installer: {msi_filename}")
 
-    print(f"○ Signing installer")
+    print("○ Signing installer")
     run(
         [
             "signtool.exe",

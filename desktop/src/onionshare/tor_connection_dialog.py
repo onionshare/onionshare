@@ -166,7 +166,7 @@ class TorConnectionThread(QtCore.QThread):
             else:
                 self.canceled_connecting_to_tor.emit()
 
-        except BundledTorCanceled as e:
+        except BundledTorCanceled:
             self.common.log(
                 "TorConnectionThread", "run", "caught exception: BundledTorCanceled"
             )

@@ -34,6 +34,15 @@ If you don't do this, someone can force your server to stop just by making 20 wr
 
 To turn off the password for any tab, just check the "Don't use a password" box before starting the server. Then the server will be public and won't have a password.
 
+.. _custom_titles:
+
+Custom Titles
+-------------
+
+By default, when people load an OnionShare service in Tor Browser they see the default title for the type of service. For example, the default title of a chat service is "OnionShare Chat".
+
+If you want to choose a custom title, set the "Custom title" setting before starting a server.
+
 Scheduled Times
 ---------------
 
@@ -75,37 +84,37 @@ Usage
 You can browse the command-line documentation by running ``onionshare --help``::
 
     $ onionshare-cli --help
-    OnionShare 2.3 | https://onionshare.org/
-
-                        @@@@@@@@@                      
-                    @@@@@@@@@@@@@@@@@@@                 
-                @@@@@@@@@@@@@@@@@@@@@@@@@              
-              @@@@@@@@@@@@@@@@@@@@@@@@@@@@@            
-                @@@@@@@@@@@@@@@@@@@@@@@@@@@@@           ___        _               
-                  @@@@@@         @@@@@@@@@@@@@         / _ \      (_)              
-            @@@@    @               @@@@@@@@@@@       | | | |_ __  _  ___  _ __    
-          @@@@@@@@                   @@@@@@@@@@       | | | | '_ \| |/ _ \| '_ \   
-        @@@@@@@@@@@@                  @@@@@@@@@@      \ \_/ / | | | | (_) | | | |  
-      @@@@@@@@@@@@@@@@                 @@@@@@@@@       \___/|_| |_|_|\___/|_| |_|  
-          @@@@@@@@@                 @@@@@@@@@@@@@@@@    _____ _                     
-          @@@@@@@@@@                  @@@@@@@@@@@@     /  ___| |                    
-          @@@@@@@@@@                   @@@@@@@@       \ `--.| |__   __ _ _ __ ___ 
-          @@@@@@@@@@@               @    @@@@          `--. \ '_ \ / _` | '__/ _ \
-            @@@@@@@@@@@@@         @@@@@@               /\__/ / | | | (_| | | |  __/
-            @@@@@@@@@@@@@@@@@@@@@@@@@@@@@             \____/|_| |_|\__,_|_|  \___|
-              @@@@@@@@@@@@@@@@@@@@@@@@@@@@@            
-                @@@@@@@@@@@@@@@@@@@@@@@@@              
-                    @@@@@@@@@@@@@@@@@@@                 
-                        @@@@@@@@@                      
-
-    usage: onionshare-cli [-h] [--receive] [--website] [--chat] [--local-only] [--connect-timeout SECONDS] [--config FILENAME] [--persistent FILENAME]
-                          [--public] [--auto-start-timer SECONDS] [--auto-stop-timer SECONDS] [--legacy] [--client-auth] [--autostop-sharing]
-                          [--data-dir data_dir] [--disable_csp] [-v]
-                          [filename [filename ...]]
-
+    ╭───────────────────────────────────────────╮
+    │    *            ▄▄█████▄▄            *    │
+    │               ▄████▀▀▀████▄     *         │
+    │              ▀▀█▀       ▀██▄              │
+    │      *      ▄█▄          ▀██▄             │
+    │           ▄█████▄         ███        -+-  │
+    │             ███         ▀█████▀           │
+    │             ▀██▄          ▀█▀             │
+    │         *    ▀██▄       ▄█▄▄     *        │
+    │ *             ▀████▄▄▄████▀               │
+    │                 ▀▀█████▀▀                 │
+    │             -+-                     *     │
+    │   ▄▀▄               ▄▀▀ █                 │
+    │   █ █     ▀         ▀▄  █                 │
+    │   █ █ █▀▄ █ ▄▀▄ █▀▄  ▀▄ █▀▄ ▄▀▄ █▄▀ ▄█▄   │
+    │   ▀▄▀ █ █ █ ▀▄▀ █ █ ▄▄▀ █ █ ▀▄█ █   ▀▄▄   │
+    │                                           │
+    │                  v2.3.3                   │
+    │                                           │
+    │          https://onionshare.org/          │
+    ╰───────────────────────────────────────────╯
+    
+    usage: onionshare-cli [-h] [--receive] [--website] [--chat] [--local-only] [--connect-timeout SECONDS] [--config FILENAME]
+                          [--persistent FILENAME] [--title TITLE] [--public] [--auto-start-timer SECONDS]
+                          [--auto-stop-timer SECONDS] [--legacy] [--client-auth] [--no-autostop-sharing] [--data-dir data_dir]
+                          [--webhook-url webhook_url] [--disable-text] [--disable-files] [--disable_csp] [-v]
+                          [filename ...]
+    
     positional arguments:
       filename                  List of files or folders to share
-
+    
     optional arguments:
       -h, --help                show this help message and exit
       --receive                 Receive files
@@ -116,6 +125,7 @@ You can browse the command-line documentation by running ``onionshare --help``::
                                 Give up connecting to Tor after a given amount of seconds (default: 120)
       --config FILENAME         Filename of custom global settings
       --persistent FILENAME     Filename of persistent session
+      --title TITLE             Set a title
       --public                  Don't use a password
       --auto-start-timer SECONDS
                                 Start onion service at scheduled time (N seconds from now)
@@ -123,9 +133,14 @@ You can browse the command-line documentation by running ``onionshare --help``::
                                 Stop onion service at schedule time (N seconds from now)
       --legacy                  Use legacy address (v2 onion service, not recommended)
       --client-auth             Use client authorization (requires --legacy)
-      --autostop-sharing        Share files: Stop sharing after files have been sent
+      --no-autostop-sharing     Share files: Continue sharing after files have been sent (default is to stop sharing)
       --data-dir data_dir       Receive files: Save files received to this directory
-      --disable_csp             Publish website: Disable Content Security Policy header (allows your website to use third-party resources)
+      --webhook-url webhook_url
+                                Receive files: URL to receive webhook notifications
+      --disable-text            Receive files: Disable receiving text messages
+      --disable-files           Receive files: Disable receiving files
+      --disable_csp             Publish website: Disable Content Security Policy header (allows your website to use third-party
+                                resources)
       -v, --verbose             Log OnionShare errors to stdout, and web errors to disk
 
 Legacy Addresses

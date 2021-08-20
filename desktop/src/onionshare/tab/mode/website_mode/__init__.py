@@ -19,12 +19,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 import os
-import random
-import string
 
 from PySide2 import QtCore, QtWidgets, QtGui
 
-from onionshare_cli.onion import *
 from onionshare_cli.common import Common
 from onionshare_cli.web import Web
 
@@ -32,7 +29,7 @@ from .. import Mode
 from ..file_selection import FileSelection
 from ..history import History, ToggleHistory
 from .... import strings
-from ....widgets import Alert, MinimumWidthWidget
+from ....widgets import MinimumSizeWidget
 from ....gui_common import GuiCommon
 
 
@@ -76,6 +73,11 @@ class WebsiteMode(Mode):
         if self.filenames:
             for filename in self.filenames:
                 self.file_selection.file_list.add_file(filename)
+
+        # Set title placeholder
+        self.mode_settings_widget.title_lineedit.setPlaceholderText(
+            strings._("gui_tab_name_website")
+        )
 
         # Server status
         self.server_status.set_mode("website", self.file_selection)
@@ -156,9 +158,9 @@ class WebsiteMode(Mode):
         self.main_layout = QtWidgets.QVBoxLayout()
         self.main_layout.addLayout(top_bar_layout)
         self.main_layout.addLayout(self.file_selection)
-        self.main_layout.addWidget(self.primary_action)
+        self.main_layout.addWidget(self.primary_action, stretch=1)
         self.main_layout.addWidget(self.server_status)
-        self.main_layout.addWidget(MinimumWidthWidget(700))
+        self.main_layout.addWidget(MinimumSizeWidget(700, 0))
 
         # Column layout
         self.column_layout = QtWidgets.QHBoxLayout()

@@ -126,7 +126,7 @@
     "settings_error_bundled_tor_timeout": "Подключение к Tor занимает слишком много времени. Возможно, отсутствует подключение к сети Интернет, или у вас неточно настроено системное время?",
     "settings_error_bundled_tor_broken": "Ошибка подключения OnionShare к Tor в фоновом режиме:\n{}",
     "settings_test_success": "Подключено к контроллеру Tor.\n\nВерсия Tor: {}\nПоддержка временных \"луковых\" сервисов: {}.\nПоддержка аутентификации клиента: {}.\nПоддержка адресов .onion следующего поколения: {}.",
-    "error_tor_protocol_error": "Ошибка Tor: {}",
+    "error_tor_protocol_error": "Была обнаружена ошибка Tor: {}",
     "error_tor_protocol_error_unknown": "Неизвестная ошибка Tor",
     "error_invalid_private_key": "Этот приватный ключ не поддерживается",
     "connecting_to_tor": "Подключение к сети Tor",
@@ -283,5 +283,14 @@
     "gui_rendezvous_cleanup_quit_early": "Выйти Раньше",
     "gui_rendezvous_cleanup": "Ожидается завершение соединений с сетью Tor для подтверждения успешной отправки ваших файлов.\n\nЭто может занять несколько минут.",
     "gui_color_mode_changed_notice": "Перезапустите OnionShare чтобы изменения цветовой гаммы вступили в силу.",
-    "gui_chat_url_description": "<b>Каждый</b> у кого есть этот адрес OnionShare может  <b>присоединиться к этому чату</b> при помощи <b>Tor Browser</b>: <img src='{}' />"
+    "gui_chat_url_description": "<b>Каждый</b> у кого есть этот адрес OnionShare может <b>присоединиться к этому чату</b> при помощи <b>Tor Browser</b>: <img src='{}' />",
+    "history_receive_read_message_button": "Прочитать сообщение",
+    "mode_settings_receive_webhook_url_checkbox": "Использовать веб-хук для отправки уведомлений",
+    "mode_settings_receive_disable_files_checkbox": "Запретить передачу файлов",
+    "mode_settings_receive_disable_text_checkbox": "Запретить отправку текста",
+    "mode_settings_title_label": "Собственное название",
+    "gui_status_indicator_chat_started": "Чат активен",
+    "gui_status_indicator_chat_scheduled": "По расписанию…",
+    "gui_status_indicator_chat_working": "Запуск…",
+    "gui_status_indicator_chat_stopped": "Готов начать чат"
 }

@@ -23,7 +23,6 @@ This script downloads a pre-built tor binary to bundle with OnionShare.
 In order to avoid a Windows gnupg dependency, I manually verify the signature
 and hard-code the sha256 hash.
 """
-
 import inspect
 import os
 import sys
@@ -34,10 +33,10 @@ import requests
 
 
 def main():
-    exe_url = "https://archive.torproject.org/tor-package-archive/torbrowser/10.0.10/torbrowser-install-10.0.10_en-US.exe"
-    exe_filename = "torbrowser-install-10.0.10_en-US.exe"
+    exe_url = "https://dist.torproject.org/torbrowser/10.5.5/torbrowser-install-10.5.5_en-US.exe"
+    exe_filename = "torbrowser-install-10.5.5_en-US.exe"
     expected_exe_sha256 = (
-        "6cbd14a7232e4ae7f2718d9b7f377e1a7bb96506da21f1ac6f689a22fc5e53fe"
+        "5a0248f6be61e94467fd6f951eb85d653138dea5a8793de42c6edad1507f1ae7"
     )
     # Build paths
     root_path = os.path.dirname(
@@ -75,7 +74,7 @@ def main():
             "e",
             "-y",
             exe_path,
-            "Browser\TorBrowser\Tor",
+            "Browser\\TorBrowser\\Tor",
             "-o%s" % os.path.join(working_path, "Tor"),
         ]
     ).wait()
@@ -85,7 +84,7 @@ def main():
             "e",
             "-y",
             exe_path,
-            "Browser\TorBrowser\Data\Tor\geoip*",
+            "Browser\\TorBrowser\\Data\\Tor\\geoip*",
             "-o%s" % os.path.join(working_path, "Data"),
         ]
     ).wait()

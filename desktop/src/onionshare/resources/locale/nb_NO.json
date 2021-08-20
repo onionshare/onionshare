@@ -118,7 +118,7 @@
     "settings_error_bundled_tor_timeout": "Det tar for lang tid å koble til Tor. Kanskje du ikke er koblet til Internett, eller har du kanskje en unøyaktig systemklokke?",
     "settings_error_bundled_tor_broken": "OnionShare kunne ikke koble til Tor i bakgrunnen:\n{}",
     "settings_test_success": "Koblet til Tor-kontrolleren.\n\nTor-versjon: {}.\nStøtter flyktige løk-tjenester: {}.\nStøtter klientidentifisering: {}.\nStøtter nestegenerasjons .onion-adresser: {}.",
-    "error_tor_protocol_error": "Feil med Tor: {}",
+    "error_tor_protocol_error": "Det oppsto en feil med Tor: {}",
     "error_tor_protocol_error_unknown": "Ukjent feil med Tor",
     "error_invalid_private_key": "Denne private nøkkeltypen er ikke støttet",
     "connecting_to_tor": "Kobler til Tor-nettverket",
@@ -296,5 +296,10 @@
     "error_port_not_available": "OnionShare-port ikke tilgjengelig",
     "gui_rendezvous_cleanup_quit_early": "Avslutt tidlig",
     "gui_rendezvous_cleanup": "Venter på at Tor-kretsene lukkes for å være sikker på at filene dine er overført.\n\nDette kan ta noen minutter.",
-    "gui_color_mode_changed_notice": "Start OnionShare på nytt for å bruke nytt fargemodus."
+    "gui_color_mode_changed_notice": "Start OnionShare på nytt for å bruke nytt fargemodus.",
+    "history_receive_read_message_button": "Les melding",
+    "mode_settings_receive_webhook_url_checkbox": "Bruk varsling webhook",
+    "mode_settings_receive_disable_files_checkbox": "Deaktiver opplasting av filer",
+    "mode_settings_receive_disable_text_checkbox": "Deaktiver innsending av tekst",
+    "mode_settings_title_label": "Egendefinert tittel"
 }

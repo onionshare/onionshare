@@ -1,11 +1,7 @@
-import pytest
 import unittest
-
-import json
 import os
 import requests
 import shutil
-import base64
 import tempfile
 import secrets
 import platform
@@ -13,14 +9,12 @@ import platform
 from PySide2 import QtCore, QtTest, QtWidgets
 
 from onionshare_cli.common import Common
-from onionshare_cli.settings import Settings
-from onionshare_cli.onion import Onion
-from onionshare_cli.web import Web
 
 from onionshare import Application, MainWindow, GuiCommon
 from onionshare.tab.mode.share_mode import ShareMode
 from onionshare.tab.mode.receive_mode import ReceiveMode
 from onionshare.tab.mode.website_mode import WebsiteMode
+from onionshare.tab.mode.chat_mode import ChatMode
 from onionshare import strings
 
 
@@ -137,6 +131,17 @@ class GuiBaseTest(unittest.TestCase):
         # Add files
         for filename in self.tmpfiles:
             tab.website_mode.server_status.file_selection.file_list.add_file(filename)
+
+        return tab
+
+    def new_chat_tab(self):
+        tab = self.gui.tabs.widget(0)
+        self.verify_new_tab(tab)
+
+        # Chat
+        tab.chat_button.click()
+        self.assertFalse(tab.new_tab.isVisible())
+        self.assertTrue(tab.chat_mode.isVisible())
 
         return tab
 
@@ -368,6 +373,7 @@ class GuiBaseTest(unittest.TestCase):
                 and not tab.settings.get("share", "autostop_sharing")
             )
             or (type(tab.get_mode()) == WebsiteMode)
+            or (type(tab.get_mode()) == ChatMode)
         ):
             tab.get_mode().server_status.server_button.click()
         self.assertEqual(tab.get_mode().server_status.status, 0)
@@ -458,6 +464,20 @@ class GuiBaseTest(unittest.TestCase):
         QtTest.QTest.qWait(wait, self.gui.qtapp)
         # We should have timed out now
         self.assertEqual(tab.get_mode().server_status.status, 0)
+
+    def hit_405(self, url, expected_resp, data = {}, methods = [] ):
+        """Test various HTTP methods and the response"""
+        for method in methods:
+            if method == "put":
+                r = requests.put(url, data = data)
+            if method == "post":
+                r = requests.post(url, data = data)
+            if method == "delete":
+                r = requests.delete(url)
+            if method == "options":
+                r = requests.options(url)
+            self.assertTrue(expected_resp in r.text)
+            self.assertFalse('Werkzeug' in r.headers)
 
     # Grouped tests follow from here
 
