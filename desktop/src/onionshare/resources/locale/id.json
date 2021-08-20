@@ -277,5 +277,9 @@
     "gui_close_tab_warning_persistent_description": "Tab ini persisten. Jika Anda menutup tab ini Anda akan kehilangan alamat onion yang sedang digunakan. Apakah Anda yakin mau menutup tab ini?",
     "gui_chat_url_description": "<b>Siapa saja</b> dengan alamat OnionShare ini dapat <b>bergabung di ruang obrolan ini</b> menggunakan <b>Tor Browser</b>:<img src='{}' />",
     "gui_website_url_description": "<b>Siapa saja</b> dengan alamat OnionShare ini dapat <b>mengunjungi</b> situs web Anda menggunakan <b>Tor Browser</b>:<img src='{}' />",
-    "gui_server_autostart_timer_expired": "Waktu yang dijadwalkan telah terlewati. Silakan sesuaikan waktu untuk memulai berbagi."
+    "gui_server_autostart_timer_expired": "Waktu yang dijadwalkan telah terlewati. Silakan sesuaikan waktu untuk memulai berbagi.",
+    "gui_status_indicator_chat_started": "Mengobrol",
+    "gui_status_indicator_chat_scheduled": "Menjadwalkan…",
+    "gui_status_indicator_chat_working": "Memulai…",
+    "gui_status_indicator_chat_stopped": "Siap untuk mengobrol"
 }
