@@ -191,7 +191,6 @@ class Web:
         self.app.static_url_path = self.static_url_path
         self.app.add_url_rule(
             self.static_url_path + "/<path:filename>",
-            endpoint="onionshare-static",               # This "static" line seems to raise an AssertionError, but it is not used anywhere else in the project
             view_func=self.app.send_static_file,
         )
 
