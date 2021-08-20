@@ -363,7 +363,7 @@ class Mode(QtWidgets.QWidget):
             self.startup_thread.quit()
 
         # Canceling only works in Windows
-        # https://github.com/micahflee/onionshare/issues/1371
+        # https://github.com/onionshare/onionshare/issues/1371
         if self.common.platform == "Windows":
             if self.onion_thread:
                 self.common.log("Mode", "cancel_server: quitting onion thread")

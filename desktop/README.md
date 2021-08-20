@@ -5,7 +5,7 @@
 Start by getting the source code and changing to the `desktop` folder:
 
 ```sh
-git clone https://github.com/micahflee/onionshare.git
+git clone https://github.com/onionshare/onionshare.git
 cd onionshare/desktop
 ```
 
