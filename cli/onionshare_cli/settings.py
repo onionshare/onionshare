@@ -110,6 +110,7 @@ class Settings(object):
             "tor_bridges_use_custom_bridges": "",
             "persistent_tabs": [],
             "locale": None,  # this gets defined in fill_in_defaults()
+            "theme": 0
         }
         self._settings = {}
         self.fill_in_defaults()
