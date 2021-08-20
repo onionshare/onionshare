@@ -134,8 +134,8 @@ parts:
     after: [tor, obfs4]
 
   tor:
-    source: https://dist.torproject.org/tor-0.4.5.8.tar.gz
-    source-checksum: sha256/57ded091e8bcdcebb0013fe7ef4a4439827cb169358c7874fd05fa00d813e227
+    source: https://dist.torproject.org/tor-0.4.6.7.tar.gz
+    source-checksum: sha256/ff665ce121b2952110bd98b9c8741b5593bf6c01ac09033ad848ed92c2510f9a
     source-type: tar
     plugin: autotools
     build-packages:
