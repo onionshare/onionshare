@@ -30,7 +30,7 @@ jobs:
           command: |
             cd ~/repo/cli
             poetry run pytest -v ./tests
-    
+
   test-gui:
     docker:
       - image: circleci/python:3.8-buster

@@ -40,7 +40,7 @@ Verbose mode
 When developing, it's convenient to run OnionShare from a terminal and add the ``--verbose`` (or ``-v``) flag to the command.
 This prints a lot of helpful messages to the terminal, such as when certain objects are initialized, when events occur (like buttons clicked, settings saved or reloaded), and other debug info. For example::
 
-    $ $ poetry run onionshare-cli -v ~/Documents/roms/nes/Q-bert\ \(USA\).nes 
+    $ poetry run onionshare-cli -v ~/Documents/roms/nes/Q-bert\ \(USA\).nes
     ╭───────────────────────────────────────────╮
     │    *            ▄▄█████▄▄            *    │
     │               ▄████▀▀▀████▄     *         │
