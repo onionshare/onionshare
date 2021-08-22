@@ -11,7 +11,7 @@ $(function () {
     // Store current username received from app context
     var current_username = $('#username').val();
 
-    // On browser connect, emit a socket event to be added to 
+    // On browser connect, emit a socket event to be added to
     // room and assigned random username
     socket.on('connect', function () {
       socket.emit('joined', {});
