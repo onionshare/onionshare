@@ -178,7 +178,7 @@ class GuiBaseTest(unittest.TestCase):
         self.assertEqual(tab.get_mode().history.isVisible(), not currently_visible)
 
     def history_indicator(self, tab, indicator_count="1"):
-        """Test that we can make sure the history is toggled off, do an action, and the indiciator works"""
+        """Test that we can make sure the history is toggled off, do an action, and the indicator works"""
         # Make sure history is toggled off
         if tab.get_mode().history.isVisible():
             tab.get_mode().toggle_history.click()

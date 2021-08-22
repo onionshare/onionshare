@@ -163,7 +163,7 @@ This will create `desktop/macOS/OnionShare.dmg`, signed and notarized.
 
 ## Source package
 
-To make a source package, run `./build-source.sh $TAG`, where `$TAG` is the the name of the signed git tag, e.g. `v2.1`.
+To make a source package, run `./build-source.sh $TAG`, where `$TAG` is the name of the signed git tag, e.g. `v2.1`.
 
 This will create `dist/onionshare-$VERSION.tar.gz`.
 
