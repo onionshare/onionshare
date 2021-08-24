@@ -372,6 +372,9 @@ class ReceiveModeRequest(Request):
         if self.method == "POST":
             if self.path == "/upload" or self.path == "/upload-ajax":
                 self.upload_request = True
+                # If using a password, we should abort if there was no Authorization header sent
+                if not self.web.settings.get("general", "public") and not "Authorization" in self.headers:
+                    self.upload_request = False
 
         if self.upload_request:
             self.web.common.log("ReceiveModeRequest", "__init__")

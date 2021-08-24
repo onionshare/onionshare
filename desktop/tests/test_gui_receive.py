@@ -93,25 +93,8 @@ class TestReceive(GuiBaseTest):
         QtCore.QTimer.singleShot(1000, accept_dialog)
         self.assertTrue("Error uploading, please inform the OnionShare user" in r.text)
 
-    def submit_message(self, tab, message):
-        """Test that we can submit a message"""
-
-        # Wait 2 seconds to make sure the filename, based on timestamp, isn't accidentally reused
-        QtTest.QTest.qWait(2000, self.gui.qtapp)
-
-        url = f"http://127.0.0.1:{tab.app.port}/upload"
-        if tab.settings.get("general", "public"):
-            requests.post(url, data={"text": message})
-        else:
-            requests.post(
-                url,
-                data={"text": message},
-                auth=requests.auth.HTTPBasicAuth(
-                    "onionshare", tab.get_mode().web.password
-                ),
-            )
-
-        QtTest.QTest.qWait(1000, self.gui.qtapp)
+    def message_exists(self, tab, message, assertTrue=True):
+        """Assert if a message exists or not. Used by other tests"""
 
         # Make sure the file is within the last 10 seconds worth of filenames
         exists = False
@@ -132,11 +115,43 @@ class TestReceive(GuiBaseTest):
                 break
             now = now - timedelta(seconds=1)
 
-        self.assertTrue(exists)
+        if assertTrue:
+            self.assertTrue(exists)
+        else:
+            self.assertFalse(exists)
+
+    def submit_message(self, tab, message):
+        """Test that we can submit a message"""
+
+        # Wait 2 seconds to make sure the filename, based on timestamp, isn't accidentally reused
+        QtTest.QTest.qWait(2000, self.gui.qtapp)
+
+        url = f"http://127.0.0.1:{tab.app.port}/upload"
+        if tab.settings.get("general", "public"):
+            requests.post(url, data={"text": message})
+        else:
+            requests.post(
+                url,
+                data={"text": message},
+                auth=requests.auth.HTTPBasicAuth(
+                    "onionshare", tab.get_mode().web.password
+                ),
+            )
+
+        QtTest.QTest.qWait(1000, self.gui.qtapp)
+
+        self.message_exists(tab, message, True)
 
     def try_without_auth_in_non_public_mode(self, tab):
-        r = requests.post(f"http://127.0.0.1:{tab.app.port}/upload")
+        message = "I should not exist"
+        r = requests.post(
+            f"http://127.0.0.1:{tab.app.port}/upload",
+            data={"text": message},
+        )
+        QtTest.QTest.qWait(1000, self.gui.qtapp)
+
         self.assertEqual(r.status_code, 401)
+        self.message_exists(tab, message, False)
         r = requests.get(f"http://127.0.0.1:{tab.app.port}/close")
         self.assertEqual(r.status_code, 401)
 
