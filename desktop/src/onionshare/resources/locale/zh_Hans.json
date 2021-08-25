@@ -294,5 +294,10 @@
     "gui_status_indicator_chat_started": "正在聊天",
     "gui_status_indicator_chat_scheduled": "已安排…",
     "gui_status_indicator_chat_working": "启动中…",
-    "gui_status_indicator_chat_stopped": "准备好聊天"
+    "gui_status_indicator_chat_stopped": "准备好聊天",
+    "gui_please_wait_no_button": "启动中…",
+    "gui_settings_theme_dark": "深色",
+    "gui_settings_theme_light": "浅色",
+    "gui_settings_theme_auto": "自动",
+    "gui_settings_theme_label": "主题"
 }
