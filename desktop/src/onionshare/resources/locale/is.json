@@ -293,5 +293,14 @@
     "mode_settings_receive_webhook_url_checkbox": "Nota webhook fyrir tilkynningar",
     "mode_settings_receive_disable_files_checkbox": "Gera innsendingu skráa óvirka",
     "mode_settings_receive_disable_text_checkbox": "Gera innsendingu texta óvirka",
-    "mode_settings_title_label": "Sérsniðinn titill"
+    "mode_settings_title_label": "Sérsniðinn titill",
+    "gui_status_indicator_chat_started": "Spjalla",
+    "gui_status_indicator_chat_scheduled": "Áætlað…",
+    "gui_status_indicator_chat_working": "Ræsi…",
+    "gui_status_indicator_chat_stopped": "Tilbúið í spjall",
+    "gui_please_wait_no_button": "Ræsi…",
+    "gui_settings_theme_dark": "Dökkt",
+    "gui_settings_theme_light": "Ljóst",
+    "gui_settings_theme_auto": "Sjálfvirkt",
+    "gui_settings_theme_label": "Þema"
 }
