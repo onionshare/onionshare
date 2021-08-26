@@ -306,13 +306,18 @@ class ServerStatus(QtWidgets.QWidget):
                         )
                     )
                 else:
-                    self.server_button.setText(strings._("gui_please_wait"))
+                    if self.common.platform == "Windows":
+                        self.server_button.setText(strings._("gui_please_wait"))
+                    else:
+                        self.server_button.setText(
+                            strings._("gui_please_wait_no_button")
+                        )
             else:
                 self.server_button.setStyleSheet(
                     self.common.gui.css["server_status_button_working"]
                 )
                 self.server_button.setEnabled(False)
-                self.server_button.setText(strings._("gui_please_wait"))
+                self.server_button.setText(strings._("gui_please_wait_no_button"))
 
     def server_button_clicked(self):
         """
@@ -379,7 +384,10 @@ class ServerStatus(QtWidgets.QWidget):
                 self.start_server()
         elif self.status == self.STATUS_STARTED:
             self.stop_server()
-        elif self.status == self.STATUS_WORKING:
+        elif self.status == self.STATUS_WORKING and (
+            self.common.platform == "Windows"
+            or self.settings.get("general", "autostart_timer")
+        ):
             self.cancel_server()
         self.button_clicked.emit()
 

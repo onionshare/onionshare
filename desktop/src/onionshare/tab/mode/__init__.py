@@ -158,9 +158,16 @@ class Mode(QtWidgets.QWidget):
                         )
                     )
                 else:
-                    self.server_status.server_button.setText(
-                        strings._("gui_please_wait")
-                    )
+                    if self.common.platform == "Windows" or self.settings.get(
+                        "general", "autostart_timer"
+                    ):
+                        self.server_status.server_button.setText(
+                            strings._("gui_please_wait")
+                        )
+                    else:
+                        self.server_status.server_button.setText(
+                            strings._("gui_please_wait_no_button")
+                        )
 
         # If the auto-stop timer has stopped, stop the server
         if self.server_status.status == ServerStatus.STATUS_STARTED:
@@ -371,14 +378,19 @@ class Mode(QtWidgets.QWidget):
             self.app.onion.scheduled_key = None
             self.app.onion.scheduled_auth_cookie = None
             self.startup_thread.quit()
-        if self.onion_thread:
-            self.common.log("Mode", "cancel_server: quitting onion thread")
-            self.onion_thread.terminate()
-            self.onion_thread.wait()
-        if self.web_thread:
-            self.common.log("Mode", "cancel_server: quitting web thread")
-            self.web_thread.terminate()
-            self.web_thread.wait()
+
+        # Canceling only works in Windows
+        # https://github.com/onionshare/onionshare/issues/1371
+        if self.common.platform == "Windows":
+            if self.onion_thread:
+                self.common.log("Mode", "cancel_server: quitting onion thread")
+                self.onion_thread.terminate()
+                self.onion_thread.wait()
+            if self.web_thread:
+                self.common.log("Mode", "cancel_server: quitting web thread")
+                self.web_thread.terminate()
+                self.web_thread.wait()
+
         self.stop_server()
 
     def cancel_server_custom(self):

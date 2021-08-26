@@ -23,7 +23,7 @@ from PySide2 import QtCore, QtWidgets
 from ... import strings
 
 
-class ModeSettingsWidget(QtWidgets.QWidget):
+class ModeSettingsWidget(QtWidgets.QScrollArea):
     """
     All of the common settings for each mode are in this widget
     """
@@ -166,7 +166,15 @@ class ModeSettingsWidget(QtWidgets.QWidget):
         layout.addWidget(self.public_checkbox)
         layout.addWidget(self.advanced_widget)
         layout.addWidget(self.toggle_advanced_button)
-        self.setLayout(layout)
+        layout.addStretch()
+        main_widget = QtWidgets.QWidget()
+        main_widget.setLayout(layout)
+
+        self.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAsNeeded)
+        self.setWidgetResizable(True)
+        self.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.setWidget(main_widget)
 
         self.update_ui()
 

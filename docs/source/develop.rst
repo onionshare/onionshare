@@ -14,10 +14,10 @@ OnionShare also has a `mailing list <https://lists.riseup.net/www/subscribe/onio
 Contributing Code
 -----------------
 
-OnionShare source code is to be found in this Git repository: https://github.com/micahflee/onionshare
+OnionShare source code is to be found in this Git repository: https://github.com/onionshare/onionshare
 
 If you'd like to contribute code to OnionShare, it helps to join the Keybase team and ask questions about what you're thinking of working on.
-You should also review all of the `open issues <https://github.com/micahflee/onionshare/issues>`_ on GitHub to see if there are any you'd like to tackle.
+You should also review all of the `open issues <https://github.com/onionshare/onionshare/issues>`_ on GitHub to see if there are any you'd like to tackle.
 
 When you're ready to contribute code, open a pull request in the GitHub repository and one of the project maintainers will review it and possibly ask questions, request changes, reject it, or merge it into the project.
 
@@ -27,7 +27,7 @@ Starting Development
 --------------------
 
 OnionShare is developed in Python.
-To get started, clone the Git repository at https://github.com/micahflee/onionshare/ and then consult the ``cli/README.md`` file to learn how to set up your development environment for the command-line version, and the ``desktop/README.md`` file to learn how to set up your development environment for the graphical version.
+To get started, clone the Git repository at https://github.com/onionshare/onionshare/ and then consult the ``cli/README.md`` file to learn how to set up your development environment for the command-line version, and the ``desktop/README.md`` file to learn how to set up your development environment for the graphical version.
 
 Those files contain the necessary technical instructions and commands install dependencies for your platform, and to run OnionShare from the source tree.
 
@@ -58,7 +58,7 @@ This prints a lot of helpful messages to the terminal, such as when certain obje
     │   █ █ █▀▄ █ ▄▀▄ █▀▄  ▀▄ █▀▄ ▄▀▄ █▄▀ ▄█▄   │
     │   ▀▄▀ █ █ █ ▀▄▀ █ █ ▄▄▀ █ █ ▀▄█ █   ▀▄▄   │
     │                                           │
-    │                v2.3.2.dev1                 │
+    │                  v2.3.3                   │
     │                                           │
     │          https://onionshare.org/          │
     ╰───────────────────────────────────────────╯
@@ -148,7 +148,7 @@ You can do this with the ``--local-only`` flag. For example::
     │   █ █ █▀▄ █ ▄▀▄ █▀▄  ▀▄ █▀▄ ▄▀▄ █▄▀ ▄█▄   │
     │   ▀▄▀ █ █ █ ▀▄▀ █ █ ▄▄▀ █ █ ▀▄█ █   ▀▄▄   │
     │                                           │
-    │                v2.3.2.dev1                 │
+    │                  v2.3.3                   │
     │                                           │
     │          https://onionshare.org/          │
     ╰───────────────────────────────────────────╯

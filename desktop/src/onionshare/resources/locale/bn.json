@@ -282,5 +282,14 @@
     "gui_main_page_chat_button": "চ্যাটিং শুরু করো",
     "gui_main_page_website_button": "হোস্টিং শুরু করো",
     "gui_main_page_receive_button": "গ্রহণ শুরু করো",
-    "gui_color_mode_changed_notice": "নতুন রঙের মোড প্রয়োগ করার জন্য OnionShare পুনরারম্ভ করুন।"
+    "gui_color_mode_changed_notice": "নতুন রঙের মোড প্রয়োগ করার জন্য OnionShare পুনরারম্ভ করুন।",
+    "history_receive_read_message_button": "বার্তা পড়ুন",
+    "mode_settings_receive_webhook_url_checkbox": "বিজ্ঞপ্তি ওয়েবহুক ব্যবহার করুন",
+    "mode_settings_receive_disable_files_checkbox": "ফাইল আপলোড করা অক্ষম করুন",
+    "mode_settings_receive_disable_text_checkbox": "পাঠ্য জমা দেওয়া অক্ষম করুন",
+    "mode_settings_title_label": "কাস্টম শিরোনাম",
+    "gui_status_indicator_chat_started": "চ্যাট করছে",
+    "gui_status_indicator_chat_scheduled": "শিডিউল করা হয়েছে…",
+    "gui_status_indicator_chat_working": "শুরু…",
+    "gui_status_indicator_chat_stopped": "চ্যাট করতে প্রস্তুত"
 }

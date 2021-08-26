@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import setuptools
 
-version = "2.3.2"
+version = "2.3.3"
 
 setuptools.setup(
     name="onionshare-cli",

@@ -101,7 +101,7 @@ You can browse the command-line documentation by running ``onionshare --help``::
     │   █ █ █▀▄ █ ▄▀▄ █▀▄  ▀▄ █▀▄ ▄▀▄ █▄▀ ▄█▄   │
     │   ▀▄▀ █ █ █ ▀▄▀ █ █ ▄▄▀ █ █ ▀▄█ █   ▀▄▄   │
     │                                           │
-    │                  v2.3.2                   │
+    │                  v2.3.3                   │
     │                                           │
     │          https://onionshare.org/          │
     ╰───────────────────────────────────────────╯

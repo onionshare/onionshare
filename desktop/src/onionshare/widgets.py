@@ -84,14 +84,15 @@ class AddFileDialog(QtWidgets.QFileDialog):
         QtWidgets.QDialog.accept(self)
 
 
-class MinimumWidthWidget(QtWidgets.QWidget):
+class MinimumSizeWidget(QtWidgets.QWidget):
     """
-    An empty widget with a minimum width, just to force layouts to behave
+    An empty widget with a minimum width and height, just to force layouts to behave
     """
 
-    def __init__(self, width):
-        super(MinimumWidthWidget, self).__init__()
+    def __init__(self, width, height):
+        super(MinimumSizeWidget, self).__init__()
         self.setMinimumWidth(width)
+        self.setMinimumHeight(height)
 
 
 class Image(qrcode.image.base.BaseImage):

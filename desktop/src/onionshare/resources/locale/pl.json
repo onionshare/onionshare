@@ -279,5 +279,8 @@
     "gui_close_tab_warning_share_description": "Jesteś w trakcie wysyłania plików. Czy na pewno chcesz zamknąć tę kartę?",
     "gui_close_tab_warning_persistent_description": "Ta zakładka jest trwała. Jeśli ją zamkniesz, stracisz adres cebulowy, którego używa. Czy na pewno chcesz ją zamknąć?",
     "gui_color_mode_changed_notice": "Uruchom ponownie OnionShare aby zastosować nowy tryb kolorów.",
-    "gui_chat_url_description": "<b>Każdy</b> z tym adresem OnionShare może <b>dołączyć do tego pokoju</b> używając <b>Przeglądarki Tor</b>: <img src='{}' />"
+    "gui_chat_url_description": "<b>Każdy</b> z tym adresem OnionShare może <b>dołączyć do tego pokoju</b> używając <b>Przeglądarki Tor</b>: <img src='{}' />",
+    "mode_settings_receive_disable_files_checkbox": "Wyłącz wysyłanie plików",
+    "gui_status_indicator_chat_scheduled": "Zaplanowane…",
+    "gui_status_indicator_chat_working": "Uruchamianie…"
 }
