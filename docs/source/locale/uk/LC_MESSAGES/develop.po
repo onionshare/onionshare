@@ -7,17 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2020-11-15 14:42-0800\n"
-"PO-Revision-Date: 2021-01-26 22:32+0000\n"
+"POT-Creation-Date: 2021-08-20 13:37-0700\n"
+"PO-Revision-Date: 2021-07-08 02:32+0000\n"
 "Last-Translator: Ihor Hordiichuk <igor_ck@outlook.com>\n"
-"Language-Team: none\n"
 "Language: uk\n"
+"Language-Team: none\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.5-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/develop.rst:2
@@ -39,14 +38,15 @@ msgid ""
 "<https://keybase.io/team/onionshare>`_. Within the app, go to \"Teams\", "
 "click \"Join a Team\", and type \"onionshare\"."
 msgstr ""
-"OnionShare має відкриту команду Keybase для обговорення проєкту, включно з "
-"питаннями, обміном ідеями та побудовою, плануванням подальшого розвитку. (Це "
-"також простий спосіб надсилати захищені наскрізним шифруванням прямі "
-"повідомлення іншим у спільноті OnionShare, як-от адреси OnionShare.) Щоб "
-"використовувати Keybase, потрібно завантажити програму `Keybase app "
-"<https://keybase.io/download>`_, створити обліковий запис та `приєднайтися "
-"до цієї команди <https://keybase.io/team/onionshare>`_. У програмі перейдіть "
-"до «Команди», натисніть «Приєднатися до команди» та введіть «onionshare»."
+"OnionShare має відкриту команду Keybase для обговорення проєкту, включно "
+"з питаннями, обміном ідеями та побудовою, плануванням подальшого "
+"розвитку. (Це також простий спосіб надсилати безпосередні захищені "
+"наскрізним шифруванням повідомлення іншим спільноти OnionShare, наприклад"
+" адреси OnionShare.) Щоб користуватися Keybase, потрібно завантажити "
+"застосунок `Keybase app <https://keybase.io/download>`_, створити "
+"обліковий запис та `приєднайтеся до цієї команди "
+"<https://keybase.io/team/onionshare>`_. У застосунку перейдіть до "
+"«Команди», натисніть «Приєднатися до команди» та введіть «onionshare»."
 
 #: ../../source/develop.rst:12
 msgid ""
@@ -54,34 +54,36 @@ msgid ""
 "<https://lists.riseup.net/www/subscribe/onionshare-dev>`_ for developers "
 "and and designers to discuss the project."
 msgstr ""
-"OnionShare також має `список розсилки "
-"<https://lists.riseup.net/www/subscribe/onionshare-dev>` _ для "
-"розробників та дизайнерів для обговорення проєкту."
+"OnionShare також має `список розсилання "
+"<https://lists.riseup.net/www/subscribe/onionshare-dev>`_ для розробників"
+" та дизайнерів для обговорення проєкту."
 
 #: ../../source/develop.rst:15
 msgid "Contributing Code"
 msgstr "Внесок до кодової бази"
 
 #: ../../source/develop.rst:17
+#, fuzzy
 msgid ""
 "OnionShare source code is to be found in this Git repository: "
-"https://github.com/micahflee/onionshare"
+"https://github.com/onionshare/onionshare"
 msgstr ""
-"Джерельний код OnionShare розміщено в цьому сховищі Git: https://github.com/"
-"micahflee/onionshare"
+"Джерельний код OnionShare розміщено в цьому сховищі Git: "
+"https://github.com/micahflee/onionshare"
 
 #: ../../source/develop.rst:19
+#, fuzzy
 msgid ""
 "If you'd like to contribute code to OnionShare, it helps to join the "
 "Keybase team and ask questions about what you're thinking of working on. "
 "You should also review all of the `open issues "
-"<https://github.com/micahflee/onionshare/issues>`_ on GitHub to see if "
+"<https://github.com/onionshare/onionshare/issues>`_ on GitHub to see if "
 "there are any you'd like to tackle."
 msgstr ""
-"Якщо ви хочете допомогти кодом OnionShare, приєднайтеся до команди Keybase і "
-"запитайте над чим ви думаєте працювати. Ви також повинні переглянути всі `"
-"відкриті запити <https://github.com/micahflee/onionshare/issues>`_ на "
-"GitHub, щоб побачити, чи є такі, які ви хотіли б розв'язати."
+"Якщо ви хочете допомогти кодом OnionShare, приєднайтеся до команди "
+"Keybase і запитайте над чим можна попрацювати. Також варто переглянути "
+"всі `відкриті завдання <https://github.com/micahflee/onionshare/issues>`_"
+" на GitHub, щоб побачити, чи є такі, які б ви хотіли розв'язати."
 
 #: ../../source/develop.rst:22
 msgid ""
@@ -89,9 +91,10 @@ msgid ""
 "repository and one of the project maintainers will review it and possibly"
 " ask questions, request changes, reject it, or merge it into the project."
 msgstr ""
-"Коли ви будете готові внести код, відкрийте запит надсилання до сховища "
-"GitHub і один із супровідників проєкту перегляне його та, можливо, поставить "
-"питання, попросить змінити щось, відхилить його або об’єднає з проєктом."
+"Коли ви будете готові допомогти код, відкрийте «pull request» до "
+"репозиторію GitHub і один із супровідників проєкту перегляне його та, "
+"можливо, поставить питання, попросить змінити щось, відхилить його або "
+"об’єднає з проєктом."
 
 #: ../../source/develop.rst:27
 msgid "Starting Development"
@@ -100,17 +103,12 @@ msgstr "Початок розробки"
 #: ../../source/develop.rst:29
 msgid ""
 "OnionShare is developed in Python. To get started, clone the Git "
-"repository at https://github.com/micahflee/onionshare/ and then consult "
+"repository at https://github.com/onionshare/onionshare/ and then consult "
 "the ``cli/README.md`` file to learn how to set up your development "
 "environment for the command-line version, and the ``desktop/README.md`` "
 "file to learn how to set up your development environment for the "
 "graphical version."
 msgstr ""
-"OnionShare розроблено на Python. Для початку клонуйте сховище Git за адресою "
-"https://github.com/micahflee/onionshare/, а потім зверніться до файлу ``cli/"
-"README.md``, щоб дізнатися, як налаштувати середовище розробки для версії "
-"командного рядка та файл ``desktop/README.md``, щоб дізнатися, як "
-"налаштувати середовище розробки для графічної версії."
 
 #: ../../source/develop.rst:32
 msgid ""
@@ -119,7 +117,8 @@ msgid ""
 "source tree."
 msgstr ""
 "Ці файли містять необхідні технічні вказівки та команди встановлення "
-"залежностей для вашої платформи та запуску OnionShare з джерельного дерева."
+"залежностей для вашої платформи та запуску OnionShare з джерельного "
+"дерева."
 
 #: ../../source/develop.rst:35
 msgid "Debugging tips"
@@ -139,11 +138,12 @@ msgid ""
 msgstr ""
 "Під час розробки зручно запустити OnionShare з термінала та додати до "
 "команди прапор ``--verbose`` (або ``-v``). До термінала виводитиметься "
-"багато корисних повідомлень, наприклад, про ініціалізацію певних об'єктів, "
-"про події (наприклад, натискання кнопок, збереження або перезавантаження "
-"параметрів) та інші подробиці для зневаджування. Наприклад::"
+"багато корисних повідомлень, наприклад, про ініціалізацію певних "
+"об'єктів, про події (наприклад, натискання кнопок, збереження або "
+"перезавантаження параметрів) та інші подробиці для зневаджування. "
+"Наприклад::"
 
-#: ../../source/develop.rst:117
+#: ../../source/develop.rst:121
 msgid ""
 "You can add your own debug messages by running the ``Common.log`` method "
 "from ``onionshare/common.py``. For example::"
@@ -151,21 +151,21 @@ msgstr ""
 "Ви можете додати власні повідомлення про зневадження, запустивши метод "
 "``Common.log`` з ``onionshare/common.py``. Наприклад::"
 
-#: ../../source/develop.rst:121
+#: ../../source/develop.rst:125
 msgid ""
 "This can be useful when learning the chain of events that occur when "
 "using OnionShare, or the value of certain variables before and after they"
 " are manipulated."
 msgstr ""
-"Це може бути корисно для вивчення ланцюжка подій, що відбуваються під час "
-"користування програмою, або значень певних змінних до та після того, як ними "
-"маніпулюють."
+"Це може бути корисно для вивчення ланцюжка подій, що відбуваються під час"
+" користування OnionShare, або значень певних змінних до та після "
+"взаємодії з ними."
 
-#: ../../source/develop.rst:124
+#: ../../source/develop.rst:128
 msgid "Local Only"
 msgstr "Лише локально"
 
-#: ../../source/develop.rst:126
+#: ../../source/develop.rst:130
 msgid ""
 "Tor is slow, and it's often convenient to skip starting onion services "
 "altogether during development. You can do this with the ``--local-only`` "
@@ -175,21 +175,21 @@ msgstr ""
 "початковими службами onion. Ви можете зробити це за допомогою прапора "
 "``--local-only``. Наприклад::"
 
-#: ../../source/develop.rst:164
+#: ../../source/develop.rst:167
 msgid ""
 "In this case, you load the URL ``http://onionshare:train-"
 "system@127.0.0.1:17635`` in a normal web-browser like Firefox, instead of"
 " using the Tor Browser."
 msgstr ""
 "У цьому випадку ви завантажуєте URL-адресу ``http://onionshare:train-"
-"system@127.0.0.1:17635`` у звичайному переглядачі, як-от Firefox, замість "
-"користування Tor Browser."
+"system@127.0.0.1:17635`` у звичайному переглядачі, як-от Firefox, замість"
+" користування Tor Browser."
 
-#: ../../source/develop.rst:167
+#: ../../source/develop.rst:170
 msgid "Contributing Translations"
 msgstr "Допомога з перекладами"
 
-#: ../../source/develop.rst:169
+#: ../../source/develop.rst:172
 msgid ""
 "Help make OnionShare easier to use and more familiar and welcoming for "
 "people by translating it on `Hosted Weblate "
@@ -198,54 +198,55 @@ msgid ""
 "needed."
 msgstr ""
 "Допоможіть зробити OnionShare простішим у користуванні та звичнішим та "
-"приємнішим для людей, переклавши його на `Hosted Weblate <https://hosted."
-"weblate.org/projects/onionshare/>`_. Завжди зберігайте «OnionShare» "
-"латинськими літерами та використовуйте «OnionShare (місцева назва)», якщо це "
-"необхідно."
+"приємнішим для людей, переклавши його на `Hosted Weblate "
+"<https://hosted.weblate.org/projects/onionshare/>`_. Завжди зберігайте "
+"«OnionShare» латинськими літерами та використовуйте «OnionShare (місцева "
+"назва)», якщо це необхідно."
 
-#: ../../source/develop.rst:171
+#: ../../source/develop.rst:174
 msgid "To help translate, make a Hosted Weblate account and start contributing."
 msgstr ""
 "Щоб допомогти перекласти, створіть обліковий запис на Hosted Weblate і "
 "почніть допомагати."
 
-#: ../../source/develop.rst:174
+#: ../../source/develop.rst:177
 msgid "Suggestions for Original English Strings"
 msgstr "Пропозиції для оригінальних рядків англійською"
 
-#: ../../source/develop.rst:176
+#: ../../source/develop.rst:179
 msgid ""
 "Sometimes the original English strings are wrong, or don't match between "
 "the application and the documentation."
 msgstr ""
-"Іноді оригінальні англійські рядки містять помилки або не збігаються між "
-"програмою та документацією."
+"Іноді оригінальні англійські рядки містять помилки або відрізняються у "
+"застосунку та документації."
 
-#: ../../source/develop.rst:178
+#: ../../source/develop.rst:181
 msgid ""
 "File source string improvements by adding @kingu to your Weblate comment,"
 " or open a GitHub issue or pull request. The latter ensures all upstream "
 "developers see the suggestion, and can potentially modify the string via "
 "the usual code review processes."
 msgstr ""
-"Вдоскональте рядок джерела файлу, додавши @kingu до свого коментаря Weblate, "
-"або повідомте про проблему на GitHub або запит на додавання. Останнє "
-"гарантує, що всі основні розробники, бачать пропозицію та можуть потенційно "
-"змінити рядок за допомогою звичайних процесів перегляду коду."
+"Вдоскональте рядок джерела файлу, додавши @kingu до свого коментаря "
+"Weblate, або повідомте про проблему на GitHub, або надішліть запит на "
+"додавання. Останнє гарантує, що всі основні розробники, бачать пропозицію"
+" та, ймовірно, можуть змінити рядок за допомогою звичайних процесів "
+"перегляду коду."
 
-#: ../../source/develop.rst:182
+#: ../../source/develop.rst:185
 msgid "Status of Translations"
 msgstr "Стан перекладів"
 
-#: ../../source/develop.rst:183
+#: ../../source/develop.rst:186
 msgid ""
 "Here is the current translation status. If you want start a translation "
 "in a language not yet started, please write to the mailing list: "
 "onionshare-dev@lists.riseup.net"
 msgstr ""
-"Ось поточний стан перекладу. Якщо ви хочете розпочати переклад мовою, якої "
-"тут немає, будь ласка, напишіть нам до списку розсилки: onionshare-dev@lists."
-"riseup.net"
+"Тут знаходиться поточний стан перекладу. Якщо ви хочете розпочати "
+"переклад відсутньою тут мовою, будь ласка, напишіть нам до списку "
+"розсилання: onionshare-dev@lists.riseup.net"
 
 #~ msgid ""
 #~ "OnionShare is developed in Python. To"
@@ -436,3 +437,26 @@ msgstr ""
 
 #~ msgid "Do the same for other untranslated lines."
 #~ msgstr "Зробіть те ж саме для інших неперекладених рядків."
+
+#~ msgid ""
+#~ "OnionShare is developed in Python. To"
+#~ " get started, clone the Git "
+#~ "repository at https://github.com/micahflee/onionshare/ "
+#~ "and then consult the ``cli/README.md`` "
+#~ "file to learn how to set up "
+#~ "your development environment for the "
+#~ "command-line version, and the "
+#~ "``desktop/README.md`` file to learn how "
+#~ "to set up your development environment"
+#~ " for the graphical version."
+#~ msgstr ""
+#~ "OnionShare розроблено на Python. Для "
+#~ "початку клонуйте сховище Git за адресою"
+#~ " https://github.com/micahflee/onionshare/, а потім "
+#~ "перегляньте файл ``cli/README.md``, щоб "
+#~ "дізнатися, як налаштувати середовище розробки"
+#~ " у командному рядку або файл "
+#~ "``desktop/README.md``, щоб дізнатися, як "
+#~ "налаштувати середовище розробки у версії "
+#~ "з графічним інтерфейсом."
+
