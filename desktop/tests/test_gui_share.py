@@ -507,6 +507,17 @@ class TestShare(GuiBaseTest):
 
         self.close_all_tabs()
 
+        # Now try in public mode
+        tab = self.new_share_tab()
+        tab.get_mode().mode_settings_widget.public_checkbox.click()
+        self.run_all_common_setup_tests()
+        self.run_all_share_mode_setup_tests(tab)
+        self.run_all_share_mode_started_tests(tab)
+        self.clientauth_is_not_visible(tab)
+
+        self.close_all_tabs()
+
+
     def test_405_page_returned_for_invalid_methods(self):
         """
         Our custom 405 page should return for invalid methods
