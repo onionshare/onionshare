@@ -60,7 +60,6 @@
     "gui_receive_quit_warning": "",
     "gui_quit_warning_quit": "종료",
     "gui_quit_warning_dont_quit": "취소",
-    "error_rate_limit": "",
     "zip_progress_bar_format": "",
     "error_stealth_not_supported": "",
     "error_ephemeral_not_supported": "",

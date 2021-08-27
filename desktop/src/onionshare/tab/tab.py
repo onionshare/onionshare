@@ -531,9 +531,6 @@ class Tab(QtWidgets.QWidget):
             elif event["type"] == Web.REQUEST_STARTED:
                 mode.handle_request_started(event)
 
-            elif event["type"] == Web.REQUEST_RATE_LIMIT:
-                mode.handle_request_rate_limit(event)
-
             elif event["type"] == Web.REQUEST_PROGRESS:
                 mode.handle_request_progress(event)
 

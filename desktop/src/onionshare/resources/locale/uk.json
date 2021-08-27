@@ -31,7 +31,6 @@
     "gui_receive_quit_warning": "Відбувається отримання файлів. Ви впевнені, що бажаєте вийти з OnionShare?",
     "gui_quit_warning_quit": "Вийти",
     "gui_quit_warning_dont_quit": "Відміна",
-    "error_rate_limit": "Хтось здійснив забагато невдалих спроб під'єднатися до вашого сервера, тому OnionShare зупинив сервер. Почніть надсилання знову й надішліть одержувачу нову адресу надсилання.",
     "zip_progress_bar_format": "Стиснення: %p%",
     "error_stealth_not_supported": "Для авторизації клієнта, вам потрібні принаймні Tor 0.2.9.1-alpha(або Tor Browser 6.5) і python3-stem 1.5.0.",
     "error_ephemeral_not_supported": "OnionShare потребує принаймні Tor 0.2.7.1 і python3-stem 1.4.0.",

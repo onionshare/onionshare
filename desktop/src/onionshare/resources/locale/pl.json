@@ -59,7 +59,6 @@
     "gui_receive_quit_warning": "Odbierasz teraz pliki. Jesteś pewien, że chcesz wyjść z OnionShare?",
     "gui_quit_warning_quit": "Wyjście",
     "gui_quit_warning_dont_quit": "Anuluj",
-    "error_rate_limit": "Ktoś zbyt często próbował odczytać Twój adres, co może oznaczać, że ktoś próbuje go odgadnąć, zatem OnionShare zatrzymał serwer. Rozpocznij udostępnianie ponownie i wyślij odbiorcy nowy adres aby udostępniać Twoje pliki.",
     "zip_progress_bar_format": "Kompresuję: %p%",
     "error_stealth_not_supported": "Aby skorzystać z autoryzacji klienta wymagana jest wersja programu Tor 0.2.9.1-alpha lub nowsza, bądź Tor Browser w wersji 6.5 lub nowszej oraz python3-stem w wersji 1.5 lub nowszej.",
     "error_ephemeral_not_supported": "OnionShare wymaga programu Tor w wersji 0.2.7.1 lub nowszej oraz python3-stem w wersji 1.4.0 lub nowszej.",

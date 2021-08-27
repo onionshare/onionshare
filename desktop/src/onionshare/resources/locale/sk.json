@@ -32,7 +32,6 @@
     "gui_qr_code_description": "Naskenujte tento QR kód pomocou čítačky QR, napríklad fotoaparátom na telefóne, aby ste mohli jednoduchšie zdieľať adresu OnionShare s niekým.",
     "gui_waiting_to_start": "Naplánované spustenie o {}. Kliknutím zrušíte.",
     "gui_please_wait": "Spúšťa sa... Kliknutím zrušíte.",
-    "error_rate_limit": "Niekto urobil príliš veľa zlých pokusov uhádnuť vaše heslo, takže OnionShare zastavil server. Začnite znova zdieľať a odošlite príjemcovi novú adresu na zdieľanie.",
     "zip_progress_bar_format": "Komprimovanie: %p%",
     "gui_settings_window_title": "Nastavenia",
     "gui_settings_autoupdate_label": "Skontrolovať novú verziu",

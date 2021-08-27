@@ -59,7 +59,6 @@
     "gui_receive_quit_warning": "仍在接收檔案，您確定要結束OnionShare嗎?",
     "gui_quit_warning_quit": "結束",
     "gui_quit_warning_dont_quit": "取消",
-    "error_rate_limit": "有人嘗試猜測您的密碼太多次，因此OnionShare已經停止服務。再次啟動分享並傳送新的地址給接收者以開始分享。",
     "zip_progress_bar_format": "壓縮中: %p%",
     "error_stealth_not_supported": "為了使用客戶端認證, 您至少需要 Tor 0.2.9.1-alpha (或 Tor Browser 6.5) 以及 python3-stem 1.5.0.",
     "error_ephemeral_not_supported": "OnionShare 需要至少 Tor 0.2.7.1 以及 python3-stem 1.4.0.",

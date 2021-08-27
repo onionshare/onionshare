@@ -32,7 +32,6 @@
     "gui_receive_quit_warning": "U is besig om lêers te ontvang. Is u seker u wil OnionShare afsluit?",
     "gui_quit_warning_quit": "Sluit Af",
     "gui_quit_warning_dont_quit": "Kanselleer",
-    "error_rate_limit": "Iemand het te veel verkeerde raaiskote met u wagwoord probeer, daarom het OnionShare die bediener gestaak. Begin weer deel en stuur ’n nuwe adres aan die ontvanger.",
     "zip_progress_bar_format": "Samepersing: %p%",
     "error_stealth_not_supported": "U benodig ten minste Tor 0.2.6.1-alfa (of TorBrowser 6.5) en python3-stem 1.5.0 om kliënt-magtiging te gebruik.",
     "error_ephemeral_not_supported": "OnionShare vereis ten minste Tor 0.2.7.1 en python3-stem 1.4.0.",

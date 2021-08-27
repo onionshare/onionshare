@@ -59,7 +59,6 @@
     "gui_receive_quit_warning": "A fájlok fogadása folyamatban van. Biztosan kilépsz az OnionShare-ből?",
     "gui_quit_warning_quit": "Kilépés",
     "gui_quit_warning_dont_quit": "Mégse",
-    "error_rate_limit": "Valaki túl sokszor próbálta meg beírni a jelszavad, ezért az OnionShare leállította a szervert. Kezdj el újra megosztani és küldj új megosztási címet a fogadó félnek.",
     "zip_progress_bar_format": "Tömörítés: %p%",
     "error_stealth_not_supported": "A kliens-hitelesítés használatához szükséged van legalább ezekre: Tor 0.2.9.1-alpha (vagy Tor Browser 6.5) és python3-stem 1.5.0.",
     "error_ephemeral_not_supported": "Az OnionShare minimális követelményei: Tor 0.2.7.1 és python3-stem 1.4.0.",

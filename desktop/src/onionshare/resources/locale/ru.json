@@ -77,7 +77,6 @@
     "gui_quit_title": "Не так быстро",
     "gui_share_quit_warning": "Идёт процесс отправки файлов. Уверены, что хотите завершить работу OnionShare?",
     "gui_receive_quit_warning": "Идёт процесс получения файлов. Уверены, что хотите завершить работу OnionShare?",
-    "error_rate_limit": "Кто-то совершил слишком много попыток отгадать Ваш пароль, в связи с чем OnionShare остановил сервер. Отправьте Ваши данные повторно и перешлите получателю новый адрес.",
     "zip_progress_bar_format": "Сжатие: %p%",
     "error_stealth_not_supported": "Для использования авторизации клиента необходимы как минимум версии Tor 0.2.9.1-alpha (или Tor Browser 6.5) и библиотеки python3-stem 1.5.0.",
     "error_ephemeral_not_supported": "Для работы OnionShare необходимы как минимум версии Tor 0.2.7.1 и библиотеки python3-stem 1.4.0.",

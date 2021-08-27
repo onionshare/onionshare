@@ -30,7 +30,6 @@
     "gui_copied_url_title": "Dirección OnionShare Copiada",
     "gui_please_wait": "Comenzando… Clic para cancelar.",
     "gui_quit_title": "No tan rápido",
-    "error_rate_limit": "Alguien ha intentado adivinar tu contraseña demasiadas veces, por lo que OnionShare ha detenido al servidor. Inicia la compartición de nuevo y envía una dirección nueva al receptor.",
     "zip_progress_bar_format": "Comprimiendo: %p%",
     "error_stealth_not_supported": "Para utilizar autorización de cliente, necesitas al menos Tor 0.2.9.1-alpha (o Navegador Tor 6.5) y python3-stem 1.5.0.",
     "error_ephemeral_not_supported": "OnionShare necesita por lo menos Tor 0.2.7.1 y python3-stem 1.4.0.",

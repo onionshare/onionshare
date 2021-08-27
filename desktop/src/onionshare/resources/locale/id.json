@@ -59,7 +59,6 @@
     "gui_receive_quit_warning": "Anda sedang dalam proses menerima berkas. Apakah Anda yakin ingin menghentikan OnionShare?",
     "gui_quit_warning_quit": "Keluar",
     "gui_quit_warning_dont_quit": "Batal",
-    "error_rate_limit": "Seseorang berusaha berulang kali untuk menebak kata sandi Anda, jadi OnionShare telah menghentikan server. Mulailah berbagi lagi dan kirim penerima alamat baru untuk dibagikan.",
     "zip_progress_bar_format": "Mengompresi: %p%",
     "error_stealth_not_supported": "Untuk menggunakan otorisasi klien, Anda perlu setidaknya Tor 0.2.9.1-alpha (atau Tor Browser 6.5) dan python3-stem 1.5.0.",
     "error_ephemeral_not_supported": "OnionShare memerlukan setidaknya Tor 0.2.7.1 dan python3-stem 1.4.0.",

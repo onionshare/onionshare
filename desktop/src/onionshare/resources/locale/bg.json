@@ -60,7 +60,6 @@
     "gui_receive_quit_warning": "Намирате се в процес на получаване на файлове. Сигурни ли сте, че искате да спрете OnionShare?",
     "gui_quit_warning_quit": "Изход",
     "gui_quit_warning_dont_quit": "Отказ",
-    "error_rate_limit": "Някой е направил прекалено много грешни опити за адреса Ви, което означава, че може да се опитват да го отгатнат, така че OnionShare спря сървъра. Стартирайте споделянето отново и изпратете нов адрес на получателя за споделяне.",
     "zip_progress_bar_format": "Компресира: %p%",
     "error_stealth_not_supported": "За да използвате ауторизация на клиента Ви трябва поне Tor 0.2.9.1-alpha (или на браузъра 6.5) и python3-stem 1.5.0.",
     "error_ephemeral_not_supported": "OnionShare изисква поне Tor 0.2.7.1 и python3-stem 1.4.0.",

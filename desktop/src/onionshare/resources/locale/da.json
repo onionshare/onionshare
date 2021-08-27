@@ -44,7 +44,6 @@
     "gui_share_quit_warning": "Du er ved at afsende filer. Er du sikker på, at du vil afslutte OnionShare?",
     "gui_quit_warning_quit": "Afslut",
     "gui_quit_warning_dont_quit": "Annuller",
-    "error_rate_limit": "Nogen har forsøgt at gætte din adgangskode for mange gange, så OnionShare har stoppet serveren. Begynd at dele igen og send en ny adresse til modtageren for at dele.",
     "zip_progress_bar_format": "Komprimerer: %p%",
     "error_stealth_not_supported": "For at bruge klientautentifikation skal du have mindst Tor 0.2.9.1-alpha (eller Tor Browser 6.5) og python3-stem 1.5.0.",
     "error_ephemeral_not_supported": "OnionShare kræver mindst både Tor 0.2.7.1 og python3-stem 1.4.0.",

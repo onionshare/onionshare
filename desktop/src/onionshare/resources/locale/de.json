@@ -88,7 +88,6 @@
     "gui_quit_title": "Nicht so schnell",
     "gui_share_quit_warning": "Du versendest gerade Dateien. Bist du sicher, dass du OnionShare beenden willst?",
     "gui_receive_quit_warning": "Du empfängst gerade Dateien. Bist du sicher, dass du OnionShare beenden willst?",
-    "error_rate_limit": "Jemand hat zu viele falsche Versuche gemacht, dein Passwort zu erraten, deswegen hat OnionShare die Freigabe gestoppt. Starte die Freigabe erneut und sende dem Empfänger eine neue OnionShare-Adresse.",
     "zip_progress_bar_format": "Komprimiere: %p%",
     "error_stealth_not_supported": "Um die Client-Authorisierung zu nutzen, benötigst du mindestens Tor 0.2.9.1-alpha (oder Tor Browser 6.5) und python3-stem 1.5.0.",
     "error_ephemeral_not_supported": "OnionShare benötigt mindestens sowohl Tor 0.2.7.1 als auch python3-stem 1.4.0.",

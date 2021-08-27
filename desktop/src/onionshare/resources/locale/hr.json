@@ -32,7 +32,6 @@
     "gui_receive_quit_warning": "Proces primanja datoteka je u tijeku. Zaista želiš zatvoriti OnionShare?",
     "gui_quit_warning_quit": "Izađi",
     "gui_quit_warning_dont_quit": "Odustani",
-    "error_rate_limit": "Netko je prečesto pokušao pogoditi tvoju lozinku, pa je OnionShare zaustavio poslužitelja. Ponovo pokreni dijeljenje i primatelju pošalji novu adresu za dijeljenje.",
     "zip_progress_bar_format": "Komprimiranje: %p %",
     "error_stealth_not_supported": "Za korištenje autorizacije klijenta, potrebni su barem Tor 0.2.9.1-alpha (ili Tor Browser 6.5) i python3-stem 1.5.0.",
     "error_ephemeral_not_supported": "OnionShare zahtijeva barem Tor 0.2.7.1 i python3-stem 1.4.0.",

@@ -59,7 +59,6 @@
     "gui_receive_quit_warning": "Þú ert að taka á móti skrám. Ertu viss um að þú viljir hætta í OnionShare?",
     "gui_quit_warning_quit": "Hætta",
     "gui_quit_warning_dont_quit": "Hætta við",
-    "error_rate_limit": "Einhver hefur gert of margar rangar tilraunir til að giska á lykilorðið þitt, þannig að OnionShare hefur stöðvað þjóninn. Byrjaðu deiling aftur og sendu viðtakandanum nýtt vistfang til deilingar.",
     "zip_progress_bar_format": "Þjappa: %p%",
     "error_stealth_not_supported": "Til að nota biðlaraauðkenningu þarf a.m.k. bæði Tor 0.2.9.1-Alpha (eða Tor Browser 6,5) og python3-stem 1.5.0.",
     "error_ephemeral_not_supported": "OnionShare krefst a.m.k. bæði Tor 0.2.7.1 og python3-stem 1.4.0.",

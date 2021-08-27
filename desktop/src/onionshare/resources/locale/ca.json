@@ -59,7 +59,6 @@
     "gui_receive_quit_warning": "Encara s'estan rebent fitxers. Segur que voleu sortir de l'OnionShare?",
     "gui_quit_warning_quit": "Surt",
     "gui_quit_warning_dont_quit": "Cancel·la",
-    "error_rate_limit": "Algú ha fet massa intents incorrectes intentant endevinar la vostra contrasenya. Per això l'OnionShare ha aturat el servidor. Torneu a començar el procés i envieu una adreça nova al receptor.",
     "zip_progress_bar_format": "S'està comprimint: %p%",
     "error_stealth_not_supported": "Per a fer servir l'autorització de client, necessiteu versions iguals o superiors a Tor 0.2.9.1-alpha (o Tor Browser 6.5) i python3-stem 1.5.0.",
     "error_ephemeral_not_supported": "OnionShare necessita almenys les versions Tor 0.2.7.1 i python3-stem 1.4.0.",
