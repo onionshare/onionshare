@@ -23,28 +23,10 @@ class TestReceive(GuiBaseTest):
 
         files = {"file[]": open(file_to_upload, "rb")}
         url = f"http://127.0.0.1:{tab.app.port}/upload"
-        if tab.settings.get("general", "public"):
+        requests.post(url, files=files)
+        if identical_files_at_once:
+            # Send a duplicate upload to test for collisions
             requests.post(url, files=files)
-            if identical_files_at_once:
-                # Send a duplicate upload to test for collisions
-                requests.post(url, files=files)
-        else:
-            requests.post(
-                url,
-                files=files,
-                auth=requests.auth.HTTPBasicAuth(
-                    "onionshare", tab.get_mode().web.password
-                ),
-            )
-            if identical_files_at_once:
-                # Send a duplicate upload to test for collisions
-                requests.post(
-                    url,
-                    files=files,
-                    auth=requests.auth.HTTPBasicAuth(
-                        "onionshare", tab.get_mode().web.password
-                    ),
-                )
 
         QtTest.QTest.qWait(1000, self.gui.qtapp)
 
@@ -74,16 +56,7 @@ class TestReceive(GuiBaseTest):
 
         files = {"file[]": open(self.tmpfile_test, "rb")}
         url = f"http://127.0.0.1:{tab.app.port}/upload"
-        if tab.settings.get("general", "public"):
-            r = requests.post(url, files=files)
-        else:
-            r = requests.post(
-                url,
-                files=files,
-                auth=requests.auth.HTTPBasicAuth(
-                    "onionshare", tab.get_mode().web.password
-                ),
-            )
+        r = requests.post(url, files=files)
 
         def accept_dialog():
             window = tab.common.gui.qtapp.activeWindow()
@@ -100,16 +73,7 @@ class TestReceive(GuiBaseTest):
         QtTest.QTest.qWait(2000, self.gui.qtapp)
 
         url = f"http://127.0.0.1:{tab.app.port}/upload"
-        if tab.settings.get("general", "public"):
-            requests.post(url, data={"text": message})
-        else:
-            requests.post(
-                url,
-                data={"text": message},
-                auth=requests.auth.HTTPBasicAuth(
-                    "onionshare", tab.get_mode().web.password
-                ),
-            )
+        requests.post(url, data={"text": message})
 
         QtTest.QTest.qWait(1000, self.gui.qtapp)
 
@@ -151,7 +115,6 @@ class TestReceive(GuiBaseTest):
         self.server_status_indicator_says_starting(tab)
         self.server_is_started(tab)
         self.web_server_is_running(tab)
-        self.have_a_password(tab)
         self.url_description_shown(tab)
         self.have_copy_url_button(tab)
         self.have_show_qr_code_button(tab)
