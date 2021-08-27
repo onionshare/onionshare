@@ -60,7 +60,6 @@
     "gui_receive_quit_warning": "আপনি ফাইল গ্রহণের প্রক্রিয়ার মধ্যে আছেন। আপনি কি আসলেই OnionShare বন্ধ করতে চান?",
     "gui_quit_warning_quit": "প্রস্থান করো",
     "gui_quit_warning_dont_quit": "বাতিল",
-    "error_rate_limit": "কেউ একজন অসংখ্যবার তোমার পাসওয়ার্ডটি অনুমান করার ব্যর্থ চেষ্টা করেছে, তাই OnionShare নিরাপত্তার জন্য সার্ভার বন্ধ করে দিয়েছে। তাই, নতুন করে আবার তোমার ফাইল(গুলো)শেয়ার করো এবং প্রাপককে নতুন এড্রেসটি দিন।",
     "zip_progress_bar_format": "কমপ্রেস করছি: %p%",
     "error_stealth_not_supported": "ক্লায়েন্ট অথোরাইজেশন ব্যবহার করার জন্য, তোমার অন্তত Tor 0.2.9.1-alpha (or Tor Browser 6.5) এবং python3-stem 1.5.0 দুটোই থাকতে হবে।",
     "error_ephemeral_not_supported": "OnionShare ব্যবহার করার জন্য Tor 0.2.9.1-alpha (or Tor Browser 6.5) এবং python3-stem 1.5.0 দুটোই থাকতে হবে।",

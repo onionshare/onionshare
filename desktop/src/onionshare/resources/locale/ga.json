@@ -59,7 +59,6 @@
     "gui_receive_quit_warning": "Tá tú le linn roinnt comhad a íoslódáil. An bhfuil tú cinnte gur mhaith leat OnionShare a scor?",
     "gui_quit_warning_quit": "Scoir",
     "gui_quit_warning_dont_quit": "Cealaigh",
-    "error_rate_limit": "Rinne duine éigin an iomarca iarrachtaí míchearta ar d'fhocal faire, agus dá bharr sin stop OnionShare an freastalaí. Tosaigh ag comhroinnt arís agus cuir seoladh nua chuig an bhfaighteoir.",
     "zip_progress_bar_format": "Á chomhbhrú: %p%",
     "error_stealth_not_supported": "Chun údarú cliaint a úsáid, teastaíonn uait Tor 0.2.9.1-alpha (nó Brabhsálaí 6.5) agus python3-stem 1.5.0.",
     "error_ephemeral_not_supported": "Teastaíonn uait ar a laghad Tor 0.2.7.1 agus python3-stem 1.4.0 chun OnionShare a úsáid.",

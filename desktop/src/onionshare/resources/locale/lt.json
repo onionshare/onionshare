@@ -30,7 +30,6 @@
     "gui_copied_hidservauth": "HidServAuth eilutė nukopijuota į iškarpinę",
     "gui_waiting_to_start": "Planuojama pradėti {}. Spustelėkite , jei norite atšaukti.",
     "gui_please_wait": "Pradedama… Spustelėkite norėdami atsisakyti.",
-    "error_rate_limit": "Kažkas padarė per daug klaidingų bandymų atspėti jūsų slaptažodį, todėl „OnionShare“ sustabdė serverį. Vėl pradėkite bendrinti ir nusiųskite gavėjui naują bendrinimo adresą.",
     "zip_progress_bar_format": "Glaudinama: %p%",
     "error_stealth_not_supported": "",
     "error_ephemeral_not_supported": "",

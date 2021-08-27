@@ -59,7 +59,6 @@
     "gui_receive_quit_warning": "شما در پروسه دریافت پرونده هستید. مطمئنید که می‌خواهید از OnionShare خارج شوید؟",
     "gui_quit_warning_quit": "خروج",
     "gui_quit_warning_dont_quit": "لغو",
-    "error_rate_limit": "شخصی تعداد زیادی تلاش ناموفق برای حدس زدن گذرواژه شما داشته است، بنابراین OnionShare کارساز را متوقف کرده است. هم‌رسانی را دوباره آغاز کنید و به گیرنده، یک نشانی جدید برای هم‌رسانی بفرستید.",
     "zip_progress_bar_format": "فشرده سازی: %p%",
     "error_stealth_not_supported": "برای استفاده از احراز هویت کلاینت، شما نیاز به داشتن Tor 0.2.9.1-alpha (یا مرورگر Tor 6.5) و python3-stem 1.5.0 دارید.",
     "error_ephemeral_not_supported": "OnionShare حداقل به Tor 0.2.7.1 و python3-stem 1.4.0 نیاز دارد.",

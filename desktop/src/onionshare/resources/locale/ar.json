@@ -59,7 +59,6 @@
     "gui_receive_quit_warning": "يجري حالبا تلقّي ملفات. أمتأكد أنك تريد إنهاء OnionShare؟",
     "gui_quit_warning_quit": "أنهِ",
     "gui_quit_warning_dont_quit": "ألغِ",
-    "error_rate_limit": "أجرى شخص ما محاولات كثيرة خاطئة لتخمين كلمة السر، لذلك فقد تمّ إيقاف الخادم. عاوِد المُشاركة و أرسل إلى المتلقّي عنوان المشاركة الجديد.",
     "zip_progress_bar_format": "جاري الضغط: %p%",
     "error_stealth_not_supported": "لاستعمال استيثاق العميل تلزمك إصدارة تور ‪0.2.9.1-alpha‬ أو (متصفّح تور 6.5) و python3-stem الإصدارة 1.5.0، أو ما بعدها.",
     "error_ephemeral_not_supported": "يتطلّب OnionShare كلّا من إصدارة تور  0.2.7.1 و الإصدارة 1.4.0 من python3-stem.",

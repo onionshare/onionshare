@@ -59,7 +59,6 @@
     "gui_receive_quit_warning": "Stai ricevendo dei file, vuoi davvero terminare OnionShare?",
     "gui_quit_warning_quit": "Esci",
     "gui_quit_warning_dont_quit": "Annulla",
-    "error_rate_limit": "Qualcuno ha tentato troppe volte di indovinare la tua password, così OnionShare ha fermato il server. Riavvia la condivisione e invia al tuo contatto il nuovo indirizzo per condividere.",
     "error_stealth_not_supported": "Per usare l'opzione \"client auth\" hai bisogno almeno della versione di Tor 0.2.9.1-alpha (o Tor Browser 6.5) con python3-stem 1.5.0.",
     "error_ephemeral_not_supported": "OnionShare richiede almeno Tor 0.2.7.1 e python3-stem 1.4.0.",
     "gui_settings_window_title": "Impostazioni",

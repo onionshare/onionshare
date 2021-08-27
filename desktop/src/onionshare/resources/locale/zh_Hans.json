@@ -59,7 +59,6 @@
     "gui_receive_quit_warning": "您有文件在接收中……确定要退出 OnionShare 吗？",
     "gui_quit_warning_quit": "退出",
     "gui_quit_warning_dont_quit": "取消",
-    "error_rate_limit": "有人发出了过多错误请求来猜测您的地址，因此 OinionShare 已停止服务。请重新开启共享并且向接收人发送新的共享地址。",
     "zip_progress_bar_format": "压缩中：%p%",
     "error_stealth_not_supported": "要使用客户端认证，最低版本要求是：Tor 0.2.9.1-alpha（或 Tor Browser 6.5）和 python3-stem 1.5.0。",
     "error_ephemeral_not_supported": "OnionShare 最低版本要求为 Tor 0.2.7.1 和 python3-stem 1.4.0。",

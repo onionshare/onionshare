@@ -31,7 +31,6 @@
     "gui_qr_code_dialog_title": "Código QR OnionShare",
     "gui_waiting_to_start": "Programado para comezar en {}. Fai clic para cancelar.",
     "gui_please_wait": "Iniciando... Fai click para cancelar.",
-    "error_rate_limit": "Alguén fixo demasiados intentos errados para adiviñar o teu contrasinal, polo que OnionShare detivo o servidor. Comeza a compartir de novo e envía ao destinatario un novo enderezo para compartir.",
     "zip_progress_bar_format": "Comprimindo: %p%",
     "gui_settings_window_title": "Axustes",
     "gui_settings_autoupdate_label": "Comproba se hai nova versión",

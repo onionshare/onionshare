@@ -42,7 +42,6 @@
     "gui_share_quit_warning": "Je bent in het proces van bestanden versturen. Weet je zeker dat je OnionShare af wilt sluiten?",
     "gui_quit_warning_quit": "Afsluiten",
     "gui_quit_warning_dont_quit": "Annuleren",
-    "error_rate_limit": "Iemand heeft teveel incorrecte pogingen gedaan om je wachwoord te raden. Daarom heeft OnionShare de server gestopt. Herstart het delen en stuur de ontvanger een nieuw adres.",
     "zip_progress_bar_format": "Comprimeren: %p%",
     "error_stealth_not_supported": "Om client authorization te gebruiken heb je op zijn minst zowel Tor 0.2.9.1-alpha (of Tor Browser 6.5) en python3-stem 1.5.0 nodig.",
     "error_ephemeral_not_supported": "OnionShare vereist minstens zowel Tor 0.2.7.1 als python3-stem 1.4.0.",

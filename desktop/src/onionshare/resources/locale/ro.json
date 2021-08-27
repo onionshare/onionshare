@@ -59,7 +59,6 @@
     "gui_receive_quit_warning": "Sunteți în proces de primire fișiere. Sigur vreți să închideți OnionShare?",
     "gui_quit_warning_quit": "Închidere",
     "gui_quit_warning_dont_quit": "Anulare",
-    "error_rate_limit": "Cineva a făcut prea multe încercări greșite pentru a ghici parola, astfel încât OnionShare a oprit serverul. Începeți partajarea din nou și trimiteți destinatarului o nouă adresă de partajat.",
     "zip_progress_bar_format": "Compresare: %p%",
     "error_stealth_not_supported": "Pentru a folosi autorizarea clientului, aveți nevoie de versiunile minim Tor 0.2.9.1-alfa (sau Tor Browser 6.5) cât și de python3-stem 1.5.0.",
     "error_ephemeral_not_supported": "OnionShare are nevoie de minim versiunea Tor 0.2.7.1 cât și de Python3-stem 1.4.0.",

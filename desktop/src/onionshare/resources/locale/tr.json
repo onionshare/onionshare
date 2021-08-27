@@ -48,7 +48,6 @@
     "gui_receive_quit_warning": "Dosya alıyorsunuz. OnionShare uygulamasından çıkmak istediğinize emin misiniz?",
     "gui_quit_warning_quit": "Çık",
     "gui_quit_warning_dont_quit": "İptal",
-    "error_rate_limit": "Birisi parolanızı tahmin etmek için çok fazla yanlış girişimde bulundu, bu yüzden OnionShare sunucuyu durdurdu. Paylaşmayı tekrar başlatın ve alıcıya paylaşmanın yeni bir adresini gönderin.",
     "error_stealth_not_supported": "İstemci kimlik doğrulamasını kullanmak için, en az Tor 0.2.9.1-alpha (ya da Tor Browser 6.5) ve python3-stem 1.5.0 sürümleri gereklidir.",
     "error_ephemeral_not_supported": "OnionShare için en az Tor 0.2.7.1 ve python3-stem 1.4.0 sürümleri gereklidir.",
     "gui_settings_window_title": "Ayarlar",

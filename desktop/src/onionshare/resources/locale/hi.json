@@ -46,7 +46,6 @@
     "gui_receive_quit_warning": "आप अभी फाइलों को प्राप्त रहे हैं। क्या आप वाकई OnionShare को बंद करना चाहते हैं?",
     "gui_quit_warning_quit": "छोड़ें",
     "gui_quit_warning_dont_quit": "रद्द करें",
-    "error_rate_limit": "किसी ने आपके पासवर्ड का अंदाज़ा लगाने के लिए कई सारे गलत प्रयास किए हैं, इसीलिए OnionShare ने सर्वर रोक दिया है। साझा पुनः शुरू करें और साझा करने के लिए भेजनेवाले व्यक्ति को एक नया पता साझा करें।",
     "zip_progress_bar_format": "कॉम्प्रेस हो रहा है: %p%",
     "error_stealth_not_supported": "क्लाइंट सत्यापन उपयोग करने के लिए, आपको कम से कम Tor 0.2.9.1-alpha (या Tor Browser 6.5) और python3-stem 1.5.0 दोनों चाहिए।",
     "error_ephemeral_not_supported": "OnionShare को कम से कम Tor 0.2.7.1 और python3-stem 1.4.0 की आवश्यकता है।",

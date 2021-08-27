@@ -59,7 +59,6 @@
     "gui_receive_quit_warning": "Du har ikke fått alle filene enda. Er du sikker på at du ønsker å avslutte OnionShare?",
     "gui_quit_warning_quit": "Avslutt",
     "gui_quit_warning_dont_quit": "Avbryt",
-    "error_rate_limit": "Noen har prøvd å gjette passordet ditt for mange ganger, så OnionShare har derfor stoppet tjeneren. Start deling igjen, og send mottakeren en ny adresse å dele.",
     "zip_progress_bar_format": "Pakker sammen: %p%",
     "error_stealth_not_supported": "For å bruke klientidentitetsbekreftelse, trenger du minst Tor 0.2.9.1-alpha (eller Tor-Browser 6.5) og python3-stem 1.5.0.",
     "error_ephemeral_not_supported": "OnionShare krever minst både Tor 0.2.7.1 og pything3-stem 1.4.0.",

@@ -60,7 +60,6 @@
     "gui_receive_quit_warning": "",
     "gui_quit_warning_quit": "",
     "gui_quit_warning_dont_quit": "",
-    "error_rate_limit": "",
     "zip_progress_bar_format": "",
     "error_stealth_not_supported": "",
     "error_ephemeral_not_supported": "",

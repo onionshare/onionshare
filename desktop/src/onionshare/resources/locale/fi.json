@@ -48,7 +48,6 @@
     "gui_receive_quit_warning": "Olet vastaanottamassa tiedostoja. Haluatko varmasti lopettaa OnionSharen?",
     "gui_quit_warning_quit": "Lopeta",
     "gui_quit_warning_dont_quit": "Peruuta",
-    "error_rate_limit": "Joku on yrittänyt arvata salasanasi väärin liian monta kertaa, joten OnionShare on pysäyttänyt palvelimen. Aloita jakaminen uudelleen ja lähetä vastaanottajalle uusi osoite jatkaaksesi jakamista.",
     "error_stealth_not_supported": "Asiakasvaltuuden käyttämiseen tarvitaan ainakin Tor 0.2.9.1-alpha (tai Tor Browser 6.5) ja python3-stem 1.5.0.",
     "error_ephemeral_not_supported": "OnionSharen käyttö vaatii ainakin Tor 0.2.7.1 ja python3-stem 1.4.0.",
     "gui_settings_window_title": "Asetukset",
