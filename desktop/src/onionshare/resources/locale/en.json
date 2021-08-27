@@ -96,6 +96,7 @@
     "gui_receive_url_description": "<b>Anyone</b> with this OnionShare address and private key can <b>upload</b> files to your computer using the <b>Tor Browser</b>: <img src='{}' />",
     "gui_receive_url_public_description": "<b>Anyone</b> with this OnionShare address can <b>upload</b> files to your computer using the <b>Tor Browser</b>: <img src='{}' />",
     "gui_chat_url_description": "<b>Anyone</b> with this OnionShare address can <b>join this chat room</b> using the <b>Tor Browser</b>: <img src='{}' />",
+    "gui_chat_url_publuc_description": "<b>Anyone</b> with this OnionShare address and private key can <b>join this chat room</b> using the <b>Tor Browser</b>: <img src='{}' />",
     "gui_url_label_persistent": "This share will not auto-stop.<br><br>Every subsequent share reuses the address. (To use one-time addresses, turn off \"Use persistent address\" in the settings.)",
     "gui_url_label_stay_open": "This share will not auto-stop.",
     "gui_url_label_onetime": "This share will stop after first completion.",
