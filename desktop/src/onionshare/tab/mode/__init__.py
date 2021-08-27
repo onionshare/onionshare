@@ -248,15 +248,16 @@ class Mode(QtWidgets.QWidget):
     def start_onion_thread(self, obtain_onion_early=False):
         # If we tried to start with Client Auth and our Tor is too old to support it,
         # bail out early
-        can_start = True
         if (
             not self.server_status.local_only
             and not self.app.onion.supports_stealth
             and not self.settings.get("general", "public")
            ):
-               can_start = False
-
-        if can_start:
+               self.stop_server()
+               self.start_server_error(
+                   strings._("gui_server_doesnt_support_stealth")
+               )
+        else:
             self.common.log("Mode", "start_server", "Starting an onion thread")
             self.obtain_onion_early = obtain_onion_early
             self.onion_thread = OnionThread(self)
@@ -264,12 +265,6 @@ class Mode(QtWidgets.QWidget):
             self.onion_thread.success_early.connect(self.starting_server_early.emit)
             self.onion_thread.error.connect(self.starting_server_error.emit)
             self.onion_thread.start()
-
-        else:
-             self.stop_server()
-             self.start_server_error(
-                 strings._("gui_server_doesnt_support_stealth")
-             )
 
     def start_scheduled_service(self, obtain_onion_early=False):
         # We start a new OnionThread with the saved scheduled key from settings
