@@ -435,6 +435,12 @@ class GuiBaseTest(unittest.TestCase):
         clipboard = tab.common.gui.qtapp.clipboard()
         self.assertEqual(clipboard.text(), "E2GOT5LTUTP3OAMRCRXO4GSH6VKJEUOXZQUC336SRKAHTTT5OVSA")
 
+    def clientauth_is_not_visible(self, tab):
+        """Test that the ClientAuth button is not visible"""
+        self.assertFalse(
+            tab.get_mode().server_status.copy_client_auth_button.isVisible()
+        )
+
     def hit_405(self, url, expected_resp, data = {}, methods = [] ):
         """Test various HTTP methods and the response"""
         for method in methods:
