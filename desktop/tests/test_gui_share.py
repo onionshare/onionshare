@@ -429,23 +429,6 @@ class TestShare(GuiBaseTest):
 
         self.close_all_tabs()
 
-    def test_persistent_mode(self):
-        """
-        Test persistent mode
-        """
-        tab = self.new_share_tab()
-        tab.get_mode().mode_settings_widget.persistent_checkbox.click()
-
-        self.run_all_common_setup_tests()
-        self.run_all_share_mode_setup_tests(tab)
-        self.run_all_share_mode_started_tests(tab)
-        self.run_all_share_mode_download_tests(tab)
-        self.run_all_share_mode_started_tests(tab)
-        self.assertTrue("Every subsequent share reuses the address" in tab.get_mode().server_status.url_description.toolTip().text())
-        self.run_all_share_mode_download_tests(tab)
-
-        self.close_all_tabs()
-
     def test_autostop_timer(self):
         """
         Test the autostop timer
