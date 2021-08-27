@@ -166,7 +166,6 @@
     "mode_settings_autostart_timer_checkbox": "Iniciar o servizo onion na hora programada",
     "mode_settings_autostop_timer_checkbox": "Deter o servizo onion na hora programada",
     "mode_settings_legacy_checkbox": "Usar enderezos antigos (servizo onion v2, non recomendado)",
-    "mode_settings_client_auth_checkbox": "Usar autorización do cliente",
     "mode_settings_share_autostop_sharing_checkbox": "Deixar de compartir unha vez enviado o ficheiro (desmarca para permitir a descarga de ficheiros individuais)",
     "mode_settings_receive_data_dir_label": "Gardar ficheiros en",
     "mode_settings_receive_data_dir_browse_button": "Navegar",

@@ -252,7 +252,7 @@ class Mode(QtWidgets.QWidget):
         if (
             not self.server_status.local_only
             and not self.app.onion.supports_stealth
-            and self.settings.get("general", "client_auth")
+            and not self.settings.get("general", "public")
            ):
                can_start = False
 

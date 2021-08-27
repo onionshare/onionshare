@@ -581,11 +581,6 @@ class Tab(QtWidgets.QWidget):
                         f"{strings._('other_page_loaded')}: {event['path']}"
                     )
 
-            if event["type"] == Web.REQUEST_INVALID_PASSWORD:
-                self.status_bar.showMessage(
-                    f"[#{mode.web.invalid_passwords_count}] {strings._('incorrect_password')}: {event['data']}"
-                )
-
         mode.timer_callback()
 
     def copy_url(self):

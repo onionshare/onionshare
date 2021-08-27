@@ -131,7 +131,6 @@
     "gui_server_started_after_autostop_timer": "Автоматично спиращият таймер спря преди сървърът да стартира.\nМоля направете нов дял.",
     "gui_server_autostop_timer_expired": "Автоматично спиращият таймер спря.\nМоля актуализирайте за да започнете споделяне.",
     "share_via_onionshare": "Споделете го чрез OnionShare",
-    "gui_use_legacy_v2_onions_checkbox": "Използвайте стари адреси",
     "gui_save_private_key_checkbox": "Използвайте постоянни адреси (стари)",
     "gui_share_url_description": "<b>Всеки</b> с този OnionShare адрес може да <b>свали</b> Вашите файлове използвайки <b>Тор браузера</b>: <img src='{}' />",
     "gui_receive_url_description": "<b>Всеки</b> с този OnionShare адрес може да <b>качи</b> файлове на Вашия компютър, използвайки <b>Тор браузера</b>: <img src='{}' />",

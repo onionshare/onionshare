@@ -37,8 +37,6 @@ class ModeSettings:
         self.default_settings = {
             "onion": {
                 "private_key": None,
-                "hidservauth_string": None,
-                "password": None,
                 "client_auth_priv_key": None,
                 "client_auth_pub_key": None,
             },
@@ -48,7 +46,6 @@ class ModeSettings:
                 "public": False,
                 "autostart_timer": False,
                 "autostop_timer": False,
-                "client_auth": False,
                 "service_id": None,
             },
             "share": {"autostop_sharing": True, "filenames": []},

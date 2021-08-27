@@ -640,7 +640,10 @@ class Onion(object):
             debug_message += f", key_content={key_content}"
         self.common.log("Onion", "start_onion_service", debug_message)
 
-        if mode_settings.get("general", "client_auth"):
+        if mode_settings.get("general", "public"):
+            client_auth_priv_key = None
+            client_auth_pub_key = None
+        else:
             if not self.supports_stealth:
                 print(
                     "Your version of Tor is too old, stealth onion services are not supported"
@@ -657,9 +660,6 @@ class Onion(object):
                     # These should have been saved in settings from the previous run of a persistent onion
                     client_auth_priv_key = mode_settings.get("onion", "client_auth_priv_key")
                     client_auth_pub_key = mode_settings.get("onion", "client_auth_pub_key")
-        else:
-            client_auth_priv_key = None
-            client_auth_pub_key = None
 
         try:
             if not self.supports_stealth:
@@ -701,7 +701,7 @@ class Onion(object):
         # because we need to send the public key to ADD_ONION (if we restart this
         # same share at a later date), and the private key to the other user for
         # their Tor Browser.
-        if mode_settings.get("general", "client_auth"):
+        if not mode_settings.get("general", "public"):
             mode_settings.set("onion", "client_auth_priv_key", client_auth_priv_key)
             mode_settings.set("onion", "client_auth_pub_key", client_auth_pub_key)
             # If we were pasting the client auth directly into the filesystem behind a Tor client,

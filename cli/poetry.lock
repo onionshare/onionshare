@@ -125,17 +125,6 @@ dotenv = ["python-dotenv"]
 
 [[package]]
 category = "main"
-description = "Basic and Digest HTTP authentication for Flask routes"
-name = "flask-httpauth"
-optional = false
-python-versions = "*"
-version = "4.4.0"
-
-[package.dependencies]
-Flask = "*"
-
-[[package]]
-category = "main"
 description = "Socket.IO integration for Flask applications"
 name = "flask-socketio"
 optional = false
@@ -404,6 +393,7 @@ version = "1.8.1"
 reference = "de3d03a03c7ee57c74c80e9c63cb88072d833717"
 type = "git"
 url = "https://github.com/onionshare/stem.git"
+
 [[package]]
 category = "dev"
 description = "Python Library for Tom's Obvious, Minimal Language"
@@ -468,7 +458,7 @@ docs = ["sphinx", "jaraco.packaging (>=8.2)", "rst.linker (>=1.9)"]
 testing = ["pytest (>=4.6)", "pytest-checkdocs (>=1.2.3)", "pytest-flake8", "pytest-cov", "pytest-enabler", "jaraco.itertools", "func-timeout", "pytest-black (>=0.3.7)", "pytest-mypy"]
 
 [metadata]
-content-hash = "ff0a546f5801be6b68336dfe7ade607ec2dd8c456fe17938be964f36bbe7d193"
+content-hash = "181891640e59dac730905019444d42ef8e99da0c34c96fb8a616781661bae537"
 python-versions = "^3.6"
 
 [metadata.files]
@@ -558,10 +548,6 @@ eventlet = [
 flask = [
     {file = "Flask-1.1.4-py2.py3-none-any.whl", hash = "sha256:c34f04500f2cbbea882b1acb02002ad6fe6b7ffa64a6164577995657f50aed22"},
     {file = "Flask-1.1.4.tar.gz", hash = "sha256:0fbeb6180d383a9186d0d6ed954e0042ad9f18e0e8de088b2b419d526927d196"},
-]
-flask-httpauth = [
-    {file = "Flask-HTTPAuth-4.4.0.tar.gz", hash = "sha256:bcaaa7a35a3cba0b2eafd4f113b3016bf70eb78087456d96484c3c18928b813a"},
-    {file = "Flask_HTTPAuth-4.4.0-py2.py3-none-any.whl", hash = "sha256:d9131122cdc5709dda63790f6e9b3142d8101447d424b0b95ffd4ee279f49539"},
 ]
 flask-socketio = [
     {file = "Flask-SocketIO-5.0.1.tar.gz", hash = "sha256:5c4319f5214ada20807857dc8fdf3dc7d2afe8d6dd38f5c516c72e2be47d2227"},

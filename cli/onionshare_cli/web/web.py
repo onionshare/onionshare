@@ -34,7 +34,6 @@ from flask import (
     send_file,
     __version__ as flask_version,
 )
-from flask_httpauth import HTTPBasicAuth
 from flask_socketio import SocketIO
 
 from .share_mode import ShareModeWeb
@@ -75,7 +74,6 @@ class Web:
     REQUEST_INDIVIDUAL_FILE_CANCELED = 12
     REQUEST_ERROR_DATA_DIR_CANNOT_CREATE = 13
     REQUEST_OTHER = 14
-    REQUEST_INVALID_PASSWORD = 15
 
     def __init__(self, common, is_gui, mode_settings, mode="share"):
         self.common = common
@@ -92,8 +90,6 @@ class Web:
         )
         self.app.secret_key = self.common.random_string(8)
         self.generate_static_url_path()
-        self.auth = HTTPBasicAuth()
-        self.auth.error_handler(self.error401)
 
         # Verbose mode?
         if self.common.verbose:
@@ -132,9 +128,6 @@ class Web:
         ]
 
         self.q = queue.Queue()
-        self.password = None
-
-        self.reset_invalid_passwords()
 
         self.done = False
 
@@ -199,28 +192,6 @@ class Web:
         Common web app routes between all modes.
         """
 
-        @self.auth.get_password
-        def get_pw(username):
-            if username == "onionshare":
-                return self.password
-            else:
-                return None
-
-        @self.app.before_request
-        def conditional_auth_check():
-            # Allow static files without basic authentication
-            if request.path.startswith(self.static_url_path + "/"):
-                return None
-
-            # If public mode is disabled, require authentication
-            if not self.settings.get("general", "public"):
-
-                @self.auth.login_required
-                def _check_login():
-                    return None
-
-                return _check_login()
-
         @self.app.errorhandler(404)
         def not_found(e):
             mode = self.get_mode()
@@ -259,31 +230,6 @@ class Web:
                 return send_file(
                     f"{self.common.get_resource_path('static')}/img/favicon.ico"
                 )
-
-    def error401(self):
-        auth = request.authorization
-        if auth:
-            if (
-                auth["username"] == "onionshare"
-                and auth["password"] not in self.invalid_passwords
-            ):
-                print(f"Invalid password guess: {auth['password']}")
-                self.add_request(Web.REQUEST_INVALID_PASSWORD, data=auth["password"])
-
-                self.invalid_passwords.append(auth["password"])
-                self.invalid_passwords_count += 1
-
-                if self.invalid_passwords_count == 20:
-                    self.add_request(Web.REQUEST_RATE_LIMIT)
-                    self.force_shutdown()
-                    print(
-                        "Someone has made too many wrong attempts to guess your password, so OnionShare has stopped the server. Start sharing again and send the recipient a new address to share."
-                    )
-
-        r = make_response(
-            render_template("401.html", static_url_path=self.static_url_path), 401
-        )
-        return self.add_security_headers(r)
 
     def error403(self):
         self.add_request(Web.REQUEST_OTHER, request.path)
@@ -362,21 +308,6 @@ class Web:
         """
         self.q.put({"type": request_type, "path": path, "data": data})
 
-    def generate_password(self, saved_password=None):
-        self.common.log("Web", "generate_password", f"saved_password={saved_password}")
-        if saved_password is not None and saved_password != "":
-            self.password = saved_password
-            self.common.log(
-                "Web",
-                "generate_password",
-                f'saved_password sent, so password is: "{self.password}"',
-            )
-        else:
-            self.password = self.common.build_password()
-            self.common.log(
-                "Web", "generate_password", f'built random password: "{self.password}"'
-            )
-
     def verbose_mode(self):
         """
         Turn on verbose mode, which will log flask errors to a file.
@@ -385,10 +316,6 @@ class Web:
         log_handler = logging.FileHandler(flask_log_filename)
         log_handler.setLevel(logging.WARNING)
         self.app.logger.addHandler(log_handler)
-
-    def reset_invalid_passwords(self):
-        self.invalid_passwords_count = 0
-        self.invalid_passwords = []
 
     def force_shutdown(self):
         """
@@ -446,18 +373,9 @@ class Web:
         # To stop flask, load http://shutdown:[shutdown_password]@127.0.0.1/[shutdown_password]/shutdown
         # (We're putting the shutdown_password in the path as well to make routing simpler)
         if self.running:
-            if self.password:
-                requests.get(
-                    f"http://127.0.0.1:{port}/{self.shutdown_password}/shutdown",
-                    auth=requests.auth.HTTPBasicAuth("onionshare", self.password),
-                )
-            else:
-                requests.get(
-                    f"http://127.0.0.1:{port}/{self.shutdown_password}/shutdown"
-                )
-
-        # Reset any password that was in use
-        self.password = None
+            requests.get(
+                f"http://127.0.0.1:{port}/{self.shutdown_password}/shutdown"
+            )
 
     def cleanup(self):
         """
