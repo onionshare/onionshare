@@ -98,12 +98,6 @@ class TestReceive(GuiBaseTest):
 
         self.assertTrue(exists)
 
-    def try_without_auth_in_non_public_mode(self, tab):
-        r = requests.post(f"http://127.0.0.1:{tab.app.port}/upload")
-        self.assertEqual(r.status_code, 401)
-        r = requests.get(f"http://127.0.0.1:{tab.app.port}/close")
-        self.assertEqual(r.status_code, 401)
-
     # 'Grouped' tests follow from here
 
     def run_all_receive_mode_setup_tests(self, tab):
@@ -123,8 +117,6 @@ class TestReceive(GuiBaseTest):
     def run_all_receive_mode_tests(self, tab):
         """Submit files and messages in receive mode and stop the share"""
         self.run_all_receive_mode_setup_tests(tab)
-        if not tab.settings.get("general", "public"):
-            self.try_without_auth_in_non_public_mode(tab)
         self.upload_file(tab, self.tmpfile_test, "test.txt")
         self.history_widgets_present(tab)
         self.counter_incremented(tab, 1)
