@@ -139,6 +139,8 @@ class QRCodeDialog(QtWidgets.QDialog):
 
         self.qr_label_url = QtWidgets.QLabel(self)
         self.qr_label_url.setPixmap(qrcode.make(url, image_factory=Image).pixmap())
+        self.qr_label_url.setScaledContents(True)
+        self.qr_label_url.setFixedSize(350, 350)
         self.qr_label_url_title = QtWidgets.QLabel(self)
         self.qr_label_url_title.setText(strings._("gui_qr_label_url_title"))
         self.qr_label_url_title.setAlignment(QtCore.Qt.AlignCenter)
@@ -157,6 +159,8 @@ class QRCodeDialog(QtWidgets.QDialog):
         if auth_string:
             self.qr_label_auth_string = QtWidgets.QLabel(self)
             self.qr_label_auth_string.setPixmap(qrcode.make(auth_string, image_factory=Image).pixmap())
+            self.qr_label_auth_string.setScaledContents(True)
+            self.qr_label_auth_string.setFixedSize(350, 350)
             self.qr_label_auth_string_title = QtWidgets.QLabel(self)
             self.qr_label_auth_string_title.setText(strings._("gui_qr_label_auth_string_title"))
             self.qr_label_auth_string_title.setAlignment(QtCore.Qt.AlignCenter)
