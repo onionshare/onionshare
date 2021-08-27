@@ -115,8 +115,8 @@ class ServerStatus(QtWidgets.QWidget):
         self.copy_client_auth_button.clicked.connect(self.copy_client_auth)
         url_buttons_layout = QtWidgets.QHBoxLayout()
         url_buttons_layout.addWidget(self.copy_url_button)
-        url_buttons_layout.addWidget(self.show_url_qr_code_button)
         url_buttons_layout.addWidget(self.copy_client_auth_button)
+        url_buttons_layout.addWidget(self.show_url_qr_code_button)
         url_buttons_layout.addStretch()
 
         url_layout = QtWidgets.QVBoxLayout()
@@ -173,21 +173,41 @@ class ServerStatus(QtWidgets.QWidget):
         info_image = GuiCommon.get_resource_path("images/info.png")
 
         if self.mode == self.common.gui.MODE_SHARE:
-            self.url_description.setText(
-                strings._("gui_share_url_description").format(info_image)
-            )
+            if self.settings.get("general", "public"):
+                self.url_description.setText(
+                    strings._("gui_share_url_public_description").format(info_image)
+                )
+            else:
+                self.url_description.setText(
+                    strings._("gui_share_url_description").format(info_image)
+                )
         elif self.mode == self.common.gui.MODE_WEBSITE:
-            self.url_description.setText(
-                strings._("gui_website_url_description").format(info_image)
-            )
+            if self.settings.get("general", "public"):
+                self.url_description.setText(
+                    strings._("gui_website_url_public_description").format(info_image)
+                )
+            else:
+                self.url_description.setText(
+                    strings._("gui_website_url_description").format(info_image)
+                )
         elif self.mode == self.common.gui.MODE_RECEIVE:
-            self.url_description.setText(
-                strings._("gui_receive_url_description").format(info_image)
-            )
+            if self.settings.get("general", "public"):
+                self.url_description.setText(
+                    strings._("gui_receive_url_public_description").format(info_image)
+                )
+            else:
+                self.url_description.setText(
+                    strings._("gui_receive_url_description").format(info_image)
+                )
         elif self.mode == self.common.gui.MODE_CHAT:
-            self.url_description.setText(
-                strings._("gui_chat_url_description").format(info_image)
-            )
+            if self.settings.get("general", "public"):
+                self.url_description.setText(
+                    strings._("gui_chat_url_public_description").format(info_image)
+                )
+            else:
+                self.url_description.setText(
+                    strings._("gui_chat_url_description").format(info_image)
+                )
 
         # Show a Tool Tip explaining the lifecycle of this URL
         if self.settings.get("persistent", "enabled"):
@@ -213,10 +233,10 @@ class ServerStatus(QtWidgets.QWidget):
 
         self.show_url_qr_code_button.show()
 
-        if self.settings.get("general", "client_auth"):
-            self.copy_client_auth_button.show()
-        else:
+        if self.settings.get("general", "public"):
             self.copy_client_auth_button.hide()
+        else:
+            self.copy_client_auth_button.show()
 
     def update(self):
         """
@@ -229,10 +249,6 @@ class ServerStatus(QtWidgets.QWidget):
             # Reload the settings before saving new ones.
             self.common.settings.load()
             self.show_url()
-
-            if not self.settings.get("onion", "password"):
-                self.settings.set("onion", "password", self.web.password)
-                self.settings.save()
 
             if self.settings.get("general", "autostop_timer"):
                 self.server_button.setToolTip(
@@ -466,8 +482,5 @@ class ServerStatus(QtWidgets.QWidget):
         """
         Returns the OnionShare URL.
         """
-        if self.settings.get("general", "public"):
-            url = f"http://{self.app.onion_host}"
-        else:
-            url = f"http://onionshare:{self.web.password}@{self.app.onion_host}"
+        url = f"http://{self.app.onion_host}"
         return url

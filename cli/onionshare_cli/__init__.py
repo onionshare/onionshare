@@ -38,14 +38,6 @@ from .onionshare import OnionShare
 from .mode_settings import ModeSettings
 
 
-def build_url(mode_settings, app, web):
-    # Build the URL
-    if mode_settings.get("general", "public"):
-        return f"http://{app.onion_host}"
-    else:
-        return f"http://onionshare:{web.password}@{app.onion_host}"
-
-
 def main(cwd=None):
     """
     The main() function implements all of the logic that the command-line version of
@@ -113,7 +105,7 @@ def main(cwd=None):
         action="store_true",
         dest="public",
         default=False,
-        help="Don't use a password",
+        help="Don't use a private key",
     )
     parser.add_argument(
         "--auto-start-timer",
@@ -128,13 +120,6 @@ def main(cwd=None):
         dest="autostop_timer",
         default=0,
         help="Stop onion service at schedule time (N seconds from now)",
-    )
-    parser.add_argument(
-        "--client-auth",
-        action="store_true",
-        dest="client_auth",
-        default=False,
-        help="Use client authorization",
     )
     # Share args
     parser.add_argument(
@@ -208,7 +193,6 @@ def main(cwd=None):
     public = bool(args.public)
     autostart_timer = int(args.autostart_timer)
     autostop_timer = int(args.autostop_timer)
-    client_auth = bool(args.client_auth)
     autostop_sharing = not bool(args.no_autostop_sharing)
     data_dir = args.data_dir
     webhook_url = args.webhook_url
@@ -249,7 +233,6 @@ def main(cwd=None):
         mode_settings.set("general", "public", public)
         mode_settings.set("general", "autostart_timer", autostart_timer)
         mode_settings.set("general", "autostop_timer", autostop_timer)
-        mode_settings.set("general", "client_auth", client_auth)
         if mode == "share":
             mode_settings.set("share", "autostop_sharing", autostop_sharing)
         if mode == "receive":
@@ -336,11 +319,6 @@ def main(cwd=None):
     try:
         common.settings.load()
 
-        if mode_settings.get("general", "public"):
-            web.password = None
-        else:
-            web.generate_password(mode_settings.get("onion", "password"))
-
         # Receive mode needs to know the tor proxy details for webhooks
         if mode == "receive":
             if local_only:
@@ -365,7 +343,7 @@ def main(cwd=None):
                 sys.exit()
 
             app.start_onion_service(mode, mode_settings, False)
-            url = build_url(mode_settings, app, web)
+            url = f"http://{app.onion_host}"
             schedule = datetime.now() + timedelta(seconds=autostart_timer)
             if mode == "receive":
                 print(
@@ -378,21 +356,21 @@ def main(cwd=None):
                     "what you are doing."
                 )
                 print("")
-                if mode_settings.get("general", "client_auth"):
+                if not mode_settings.get("general", "public"):
                     print(
-                        f"Give this address and ClientAuth line to your sender, and tell them it won't be accessible until: {schedule.strftime('%I:%M:%S%p, %b %d, %y')}"
+                        f"Give this address and private key to your sender, and tell them it won't be accessible until: {schedule.strftime('%I:%M:%S%p, %b %d, %y')}"
                     )
-                    print(f"ClientAuth: {app.auth_string}")
+                    print(f"Private key: {app.auth_string}")
                 else:
                     print(
                         f"Give this address to your sender, and tell them it won't be accessible until: {schedule.strftime('%I:%M:%S%p, %b %d, %y')}"
                     )
             else:
-                if mode_settings.get("general", "client_auth"):
+                if not mode_settings.get("general", "public"):
                     print(
-                        f"Give this address and ClientAuth line to your recipient, and tell them it won't be accessible until: {schedule.strftime('%I:%M:%S%p, %b %d, %y')}"
+                        f"Give this address and private key to your recipient, and tell them it won't be accessible until: {schedule.strftime('%I:%M:%S%p, %b %d, %y')}"
                     )
-                    print(f"ClientAuth: {app.auth_string}")
+                    print(f"Private key: {app.auth_string}")
                 else:
                     print(
                         f"Give this address to your recipient, and tell them it won't be accessible until: {schedule.strftime('%I:%M:%S%p, %b %d, %y')}"
@@ -410,7 +388,6 @@ def main(cwd=None):
         sys.exit()
     except (TorTooOldEphemeral, TorTooOldStealth, TorErrorProtocolError) as e:
         print("")
-        print(e.args[0])
         sys.exit()
 
     if mode == "website":
@@ -442,21 +419,14 @@ def main(cwd=None):
     t.start()
 
     try:  # Trap Ctrl-C
-        # Wait for web.generate_password() to finish running
         time.sleep(0.2)
 
         # start auto-stop timer thread
         if app.autostop_timer > 0:
             app.autostop_timer_thread.start()
 
-        # Save the web password if we are using a persistent private key
-        if mode_settings.get("persistent", "enabled"):
-            if not mode_settings.get("onion", "password"):
-                mode_settings.set("onion", "password", web.password)
-                # mode_settings.save()
-
         # Build the URL
-        url = build_url(mode_settings, app, web)
+        url = f"http://{app.onion_host}"
 
         print("")
         if autostart_timer > 0:
@@ -474,21 +444,21 @@ def main(cwd=None):
                 )
                 print("")
 
-                if mode_settings.get("general", "client_auth"):
-                    print("Give this address and ClientAuth to the sender:")
-                    print(url)
-                    print(f"ClientAuth: {app.auth_string}")
-                else:
+                if mode_settings.get("general", "public"):
                     print("Give this address to the sender:")
                     print(url)
-            else:
-                if mode_settings.get("general", "client_auth"):
-                    print("Give this address and ClientAuth line to the recipient:")
-                    print(url)
-                    print(f"ClientAuth: {app.auth_string}")
                 else:
+                    print("Give this address and private key to the sender:")
+                    print(url)
+                    print(f"Private key: {app.auth_string}")
+            else:
+                if mode_settings.get("general", "public"):
                     print("Give this address to the recipient:")
                     print(url)
+                else:
+                    print("Give this address and private key to the recipient:")
+                    print(url)
+                    print(f"Private key: {app.auth_string}")
         print("")
         print("Press Ctrl+C to stop the server")
 

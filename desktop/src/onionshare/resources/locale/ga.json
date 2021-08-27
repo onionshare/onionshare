@@ -130,7 +130,6 @@
     "gui_server_started_after_autostop_timer": "Bhí an t-amadóir uathstoptha caite sular thosaigh an freastalaí. Caithfidh tú comhroinnt nua a chruthú.",
     "gui_server_autostop_timer_expired": "Tá an t-amadóir uathstoptha caite cheana. Caithfidh tú é a athshocrú sular féidir leat comhaid a chomhroinnt.",
     "share_via_onionshare": "Comhroinn trí OnionShare",
-    "gui_use_legacy_v2_onions_checkbox": "Úsáid seoltaí sean-nóis",
     "gui_save_private_key_checkbox": "Úsáid seoladh seasmhach",
     "gui_share_url_description": "Tá <b>aon duine</b> a bhfuil an seoladh OnionShare aige/aici in ann do chuid comhad a <b>íoslódáil</b> le <b>Brabhsálaí Tor</b>: <img src='{}' />",
     "gui_receive_url_description": "Tá <b>aon duine</b> a bhfuil an seoladh OnionShare aige/aici in ann comhaid a <b>uaslódáil</b> go dtí do ríomhaire le <b>Brabhsálaí Tor</b>: <img src='{}' />",

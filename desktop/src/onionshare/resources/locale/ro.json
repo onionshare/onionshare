@@ -130,7 +130,6 @@
     "gui_server_started_after_autostop_timer": "Cronometrul de oprire automată a expirat înainte de pornirea serverului. Vă rugăm să faceți o nouă partajare.",
     "gui_server_autostop_timer_expired": "Timpul pentru cronometrul auto-stop a expirat deja. Vă rugăm să îl modificați pentru a începe distribuirea.",
     "share_via_onionshare": "Partajați prin OnionShare",
-    "gui_use_legacy_v2_onions_checkbox": "Folosire adrese moștenite",
     "gui_save_private_key_checkbox": "Folosiți o adresă persistentă",
     "gui_share_url_description": "<b>Oricine</b> are această adresă OnionShare poate <b>descărca</b> fișierele dvs. folosind <b>Tor Browser</b>: <img src='{}' />",
     "gui_receive_url_description": "<b>Oricine</b> are această adresă OnionShare poate <b>încărca</b> fișiere pe computerul dvs. folosind <b>Tor Browser</b>: <img src='{}' />",

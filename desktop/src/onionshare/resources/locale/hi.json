@@ -119,7 +119,6 @@
     "gui_server_autostop_timer_expired": "",
     "share_via_onionshare": "",
     "gui_connect_to_tor_for_onion_settings": "",
-    "gui_use_legacy_v2_onions_checkbox": "",
     "gui_save_private_key_checkbox": "",
     "gui_share_url_description": "",
     "gui_receive_url_description": "",
