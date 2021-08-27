@@ -130,20 +130,43 @@ class QRCodeDialog(QtWidgets.QDialog):
     A dialog showing a QR code.
     """
 
-    def __init__(self, common, text):
+    def __init__(self, common, url, auth_string=None):
         super(QRCodeDialog, self).__init__()
 
         self.common = common
-        self.text = text
 
         self.common.log("QrCode", "__init__")
 
-        self.qr_label = QtWidgets.QLabel(self)
-        self.qr_label.setPixmap(qrcode.make(self.text, image_factory=Image).pixmap())
+        self.qr_label_url = QtWidgets.QLabel(self)
+        self.qr_label_url.setPixmap(qrcode.make(url, image_factory=Image).pixmap())
+        self.qr_label_url_title = QtWidgets.QLabel(self)
+        self.qr_label_url_title.setText(strings._("gui_qr_label_url_title"))
+        self.qr_label_url_title.setAlignment(QtCore.Qt.AlignCenter)
 
         self.setWindowTitle(strings._("gui_qr_code_dialog_title"))
         self.setWindowIcon(QtGui.QIcon(GuiCommon.get_resource_path("images/logo.png")))
-        layout = QtWidgets.QVBoxLayout(self)
-        layout.addWidget(self.qr_label)
+        layout = QtWidgets.QHBoxLayout(self)
+        url_layout = QtWidgets.QVBoxLayout(self)
+        url_layout.addWidget(self.qr_label_url_title)
+        url_layout.addWidget(self.qr_label_url)
+
+        url_code_with_label = QtWidgets.QWidget()
+        url_code_with_label.setLayout(url_layout)
+        layout.addWidget(url_code_with_label)
+
+        if auth_string:
+            self.qr_label_auth_string = QtWidgets.QLabel(self)
+            self.qr_label_auth_string.setPixmap(qrcode.make(auth_string, image_factory=Image).pixmap())
+            self.qr_label_auth_string_title = QtWidgets.QLabel(self)
+            self.qr_label_auth_string_title.setText(strings._("gui_qr_label_auth_string_title"))
+            self.qr_label_auth_string_title.setAlignment(QtCore.Qt.AlignCenter)
+
+            auth_string_layout = QtWidgets.QVBoxLayout(self)
+            auth_string_layout.addWidget(self.qr_label_auth_string_title)
+            auth_string_layout.addWidget(self.qr_label_auth_string)
+
+            auth_string_code_with_label = QtWidgets.QWidget()
+            auth_string_code_with_label.setLayout(auth_string_layout)
+            layout.addWidget(auth_string_code_with_label)
 
         self.exec_()

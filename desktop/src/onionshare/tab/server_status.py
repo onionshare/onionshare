@@ -411,7 +411,11 @@ class ServerStatus(QtWidgets.QWidget):
         """
         Show a QR code of the onion URL.
         """
-        self.qr_code_dialog = QRCodeDialog(self.common, self.get_url())
+        if self.settings.get("general", "public"):
+            self.qr_code_dialog = QRCodeDialog(self.common, self.get_url())
+        else:
+            # Make a QR Code for the ClientAuth too
+            self.qr_code_dialog = QRCodeDialog(self.common, self.get_url(), self.app.auth_string)
 
     def start_server(self):
         """
