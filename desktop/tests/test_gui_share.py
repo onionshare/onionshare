@@ -441,7 +441,7 @@ class TestShare(GuiBaseTest):
         self.run_all_share_mode_started_tests(tab)
         self.run_all_share_mode_download_tests(tab)
         self.run_all_share_mode_started_tests(tab)
-        self.assertTrue("Every subsequent share reuses the address" in tab.get_mode().server_status.url_description.toolTip())
+        self.assertTrue("Every subsequent share reuses the address" in tab.get_mode().server_status.url_description.toolTip().text())
         self.run_all_share_mode_download_tests(tab)
 
         self.close_all_tabs()
