@@ -398,10 +398,10 @@ description = ""
 name = "stem"
 optional = false
 python-versions = "*"
-version = "1.8.0-maint"
+version = "1.8.1"
 
 [package.source]
-reference = "18e3032ef3b69441862a018daff02394607e041a"
+reference = "de3d03a03c7ee57c74c80e9c63cb88072d833717"
 type = "git"
 url = "https://github.com/onionshare/stem.git"
 [[package]]
