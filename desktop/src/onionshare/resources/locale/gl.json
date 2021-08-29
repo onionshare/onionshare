@@ -196,5 +196,10 @@
     "gui_status_indicator_chat_started": "Conversando",
     "gui_status_indicator_chat_scheduled": "Programado…",
     "gui_status_indicator_chat_working": "Comezando…",
-    "gui_status_indicator_chat_stopped": "Preparado para conversar"
+    "gui_status_indicator_chat_stopped": "Preparado para conversar",
+    "gui_settings_theme_dark": "Escuro",
+    "gui_settings_theme_light": "Claro",
+    "gui_settings_theme_auto": "Auto",
+    "gui_settings_theme_label": "Decorado",
+    "gui_please_wait_no_button": "Iniciando…"
 }

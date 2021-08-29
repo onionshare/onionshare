@@ -259,5 +259,10 @@
     "gui_status_indicator_chat_started": "Sohbet ediliyor",
     "gui_status_indicator_chat_scheduled": "Zamanlandı…",
     "gui_status_indicator_chat_working": "Başlatılıyor…",
-    "gui_status_indicator_chat_stopped": "Sohbet etmeye hazır"
+    "gui_status_indicator_chat_stopped": "Sohbet etmeye hazır",
+    "gui_settings_theme_dark": "Koyu",
+    "gui_settings_theme_light": "Açık",
+    "gui_settings_theme_auto": "Otomatik",
+    "gui_settings_theme_label": "Tema",
+    "gui_please_wait_no_button": "Başlatılıyor…"
 }

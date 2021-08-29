@@ -235,5 +235,10 @@
     "gui_status_indicator_chat_scheduled": "Заплановано…",
     "gui_status_indicator_chat_started": "Спілкування",
     "gui_status_indicator_chat_working": "Початок…",
-    "gui_status_indicator_chat_stopped": "Готовий до спілкування"
+    "gui_status_indicator_chat_stopped": "Готовий до спілкування",
+    "gui_settings_theme_dark": "Темна",
+    "gui_settings_theme_light": "Світла",
+    "gui_settings_theme_auto": "Автоматична",
+    "gui_settings_theme_label": "Тема",
+    "gui_please_wait_no_button": "Запускається…"
 }

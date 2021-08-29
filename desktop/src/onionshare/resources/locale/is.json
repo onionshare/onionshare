@@ -290,5 +290,9 @@
     "gui_status_indicator_chat_scheduled": "Áætlað…",
     "gui_status_indicator_chat_working": "Ræsi…",
     "gui_status_indicator_chat_stopped": "Tilbúið í spjall",
-    "gui_please_wait_no_button": "Ræsi…"
+    "gui_please_wait_no_button": "Ræsi…",
+    "gui_settings_theme_dark": "Dökkt",
+    "gui_settings_theme_light": "Ljóst",
+    "gui_settings_theme_auto": "Sjálfvirkt",
+    "gui_settings_theme_label": "Þema"
 }
