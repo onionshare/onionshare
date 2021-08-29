@@ -19,18 +19,17 @@ classifiers = [
 python = "^3.6"
 click = "*"
 flask = "1.1.4"
-flask-httpauth = "*"
 flask-socketio = "5.0.1"
 psutil = "*"
-pycryptodome = "*"
 pysocks = "*"
 requests = {extras = ["socks"], version = "*"}
-stem = "*"
 unidecode = "*"
 urllib3 = "*"
 eventlet = "*"
 setuptools = "*"
+pynacl = "^1.4.0"
 colorama = "*"
+stem = {git = "https://github.com/onionshare/stem.git", rev = "1.8.1"}
 
 [tool.poetry.dev-dependencies]
 pytest = "*"

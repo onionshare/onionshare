@@ -117,7 +117,6 @@ parts:
       - poetry
       - click
       - flask
-      - flask-httpauth
       - flask-socketio == 5.0.1
       - pycryptodome
       - psutil
