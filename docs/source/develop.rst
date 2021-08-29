@@ -63,57 +63,54 @@ This prints a lot of helpful messages to the terminal, such as when certain obje
     │          https://onionshare.org/          │
     ╰───────────────────────────────────────────╯
     
-    [May 10 2021 18:24:02] Settings.__init__
-    [May 10 2021 18:24:02] Settings.load
-    [May 10 2021 18:24:02] Settings.load: Trying to load /home/user/.config/onionshare/onionshare.json
-    [May 10 2021 18:24:02] Common.get_resource_path: filename=wordlist.txt
-    [May 10 2021 18:24:02] Common.get_resource_path: filename=wordlist.txt, path=/home/user/code/onionshare/cli/onionshare_cli/resources/wordlist.txt
-    [May 10 2021 18:24:02] ModeSettings.load: creating /home/user/.config/onionshare/persistent/tattered-handgun-stress.json
-    [May 10 2021 18:24:02] ModeSettings.set: updating tattered-handgun-stress: general.title = None
-    [May 10 2021 18:24:02] ModeSettings.set: updating tattered-handgun-stress: general.public = False
-    [May 10 2021 18:24:02] ModeSettings.set: updating tattered-handgun-stress: general.autostart_timer = 0
-    [May 10 2021 18:24:02] ModeSettings.set: updating tattered-handgun-stress: general.autostop_timer = 0
-    [May 10 2021 18:24:02] ModeSettings.set: updating tattered-handgun-stress: general.legacy = False
-    [May 10 2021 18:24:02] ModeSettings.set: updating tattered-handgun-stress: general.client_auth = False
-    [May 10 2021 18:24:02] ModeSettings.set: updating tattered-handgun-stress: share.autostop_sharing = True
-    [May 10 2021 18:24:02] Web.__init__: is_gui=False, mode=share
-    [May 10 2021 18:24:02] Common.get_resource_path: filename=static
-    [May 10 2021 18:24:02] Common.get_resource_path: filename=static, path=/home/user/code/onionshare/cli/onionshare_cli/resources/static
-    [May 10 2021 18:24:02] Common.get_resource_path: filename=templates
-    [May 10 2021 18:24:02] Common.get_resource_path: filename=templates, path=/home/user/code/onionshare/cli/onionshare_cli/resources/templates
-    [May 10 2021 18:24:02] Web.generate_static_url_path: new static_url_path is /static_4yxrx2mzi5uzkblklpzd46mwke
-    [May 10 2021 18:24:02] ShareModeWeb.init
-    [May 10 2021 18:24:02] Onion.__init__
-    [May 10 2021 18:24:02] Onion.connect
-    [May 10 2021 18:24:02] Settings.__init__
-    [May 10 2021 18:24:02] Settings.load
-    [May 10 2021 18:24:02] Settings.load: Trying to load /home/user/.config/onionshare/onionshare.json
-    [May 10 2021 18:24:02] Onion.connect: tor_data_directory_name=/home/user/.config/onionshare/tmp/tmpw6u0nz8l
-    [May 10 2021 18:24:02] Common.get_resource_path: filename=torrc_template
-    [May 10 2021 18:24:02] Common.get_resource_path: filename=torrc_template, path=/home/user/code/onionshare/cli/onionshare_cli/resources/torrc_template
+    [Aug 28 2021 10:32:39] Settings.__init__
+    [Aug 28 2021 10:32:39] Settings.load
+    [Aug 28 2021 10:32:39] Settings.load: Trying to load /home/user/.config/onionshare/onionshare.json
+    [Aug 28 2021 10:32:39] Common.get_resource_path: filename=wordlist.txt
+    [Aug 28 2021 10:32:39] Common.get_resource_path: filename=wordlist.txt, path=/home/user/git/onionshare/cli/onionshare_cli/resources/wordlist.txt
+    [Aug 28 2021 10:32:39] ModeSettings.load: creating /home/user/.config/onionshare/persistent/dreamy-stiffen-moving.json
+    [Aug 28 2021 10:32:39] ModeSettings.set: updating dreamy-stiffen-moving: general.title = None
+    [Aug 28 2021 10:32:39] ModeSettings.set: updating dreamy-stiffen-moving: general.public = False
+    [Aug 28 2021 10:32:39] ModeSettings.set: updating dreamy-stiffen-moving: general.autostart_timer = 0
+    [Aug 28 2021 10:32:39] ModeSettings.set: updating dreamy-stiffen-moving: general.autostop_timer = 0
+    [Aug 28 2021 10:32:39] ModeSettings.set: updating dreamy-stiffen-moving: share.autostop_sharing = True
+    [Aug 28 2021 10:32:39] Web.__init__: is_gui=False, mode=share
+    [Aug 28 2021 10:32:39] Common.get_resource_path: filename=static
+    [Aug 28 2021 10:32:39] Common.get_resource_path: filename=static, path=/home/user/git/onionshare/cli/onionshare_cli/resources/static
+    [Aug 28 2021 10:32:39] Common.get_resource_path: filename=templates
+    [Aug 28 2021 10:32:39] Common.get_resource_path: filename=templates, path=/home/user/git/onionshare/cli/onionshare_cli/resources/templates
+    [Aug 28 2021 10:32:39] Web.generate_static_url_path: new static_url_path is /static_3tix3w3s5feuzlhii3zwqb2gpq
+    [Aug 28 2021 10:32:39] ShareModeWeb.init
+    [Aug 28 2021 10:32:39] Onion.__init__
+    [Aug 28 2021 10:32:39] Onion.connect
+    [Aug 28 2021 10:32:39] Settings.__init__
+    [Aug 28 2021 10:32:39] Settings.load
+    [Aug 28 2021 10:32:39] Settings.load: Trying to load /home/user/.config/onionshare/onionshare.json
+    [Aug 28 2021 10:32:39] Onion.connect: tor_data_directory_name=/home/user/.config/onionshare/tmp/tmppb7kvf4k
+    [Aug 28 2021 10:32:39] Common.get_resource_path: filename=torrc_template
+    [Aug 28 2021 10:32:39] Common.get_resource_path: filename=torrc_template, path=/home/user/git/onionshare/cli/onionshare_cli/resources/torrc_template
     Connecting to the Tor network: 100% - Done
-    [May 10 2021 18:24:10] Onion.connect: Connected to tor 0.4.5.7
-    [May 10 2021 18:24:10] Settings.load
-    [May 10 2021 18:24:10] Settings.load: Trying to load /home/user/.config/onionshare/onionshare.json
-    [May 10 2021 18:24:10] Web.generate_password: saved_password=None
-    [May 10 2021 18:24:10] Common.get_resource_path: filename=wordlist.txt
-    [May 10 2021 18:24:10] Common.get_resource_path: filename=wordlist.txt, path=/home/user/code/onionshare/cli/onionshare_cli/resources/wordlist.txt
-    [May 10 2021 18:24:10] Web.generate_password: built random password: "tipping-colonize"
-    [May 10 2021 18:24:10] OnionShare.__init__
-    [May 10 2021 18:24:10] OnionShare.start_onion_service
-    [May 10 2021 18:24:10] Onion.start_onion_service: port=17645
-    [May 10 2021 18:24:10] Onion.start_onion_service: key_type=NEW, key_content=ED25519-V3
-    [May 10 2021 18:24:14] ModeSettings.set: updating tattered-handgun-stress: general.service_id = omxjamkys6diqxov7lxru2upromdprxjuq3czdhen6hrshzd4sll2iyd
-    [May 10 2021 18:24:14] ModeSettings.set: updating tattered-handgun-stress: onion.private_key = 6PhomJCjlWicmOyAAe0wnQoEM3vcyHBivrRGDy0hzm900fW5ITDJ6iv2+tluLoueYj81MhmnYeTOHDm8UGOfhg==
+    [Aug 28 2021 10:32:56] Onion.connect: Connected to tor 0.4.6.7
+    [Aug 28 2021 10:32:56] Settings.load
+    [Aug 28 2021 10:32:56] Settings.load: Trying to load /home/user/.config/onionshare/onionshare.json
+    [Aug 28 2021 10:32:56] OnionShare.__init__
+    [Aug 28 2021 10:32:56] OnionShare.start_onion_service
+    [Aug 28 2021 10:32:56] Onion.start_onion_service: port=17609
+    [Aug 28 2021 10:32:56] Onion.start_onion_service: key_type=NEW, key_content=ED25519-V3
+    [Aug 28 2021 10:33:03] ModeSettings.set: updating dreamy-stiffen-moving: general.service_id = sobp4rklarkz34mcog3pqtkb4t5bvyxv3dazvsqmfyhw4imqj446ffqd
+    [Aug 28 2021 10:33:03] ModeSettings.set: updating dreamy-stiffen-moving: onion.private_key = sFiznwaPWJdKmFXumdDLkJGdUUdjI/0TWo+l/QEZiE/XoVogjK9INNoz2Tf8vmpe66ssa85En+5w6F2kKyTstA==
+    [Aug 28 2021 10:33:03] ModeSettings.set: updating dreamy-stiffen-moving: onion.client_auth_priv_key = YL6YIEMZS6J537Y5ZKEA2Z6IIQEWFK2CMGTWK5G3DGGUREHJSJNQ
+    [Aug 28 2021 10:33:03] ModeSettings.set: updating dreamy-stiffen-moving: onion.client_auth_pub_key = 5HUL6RCPQ5VEFDOHCSRAHPFIB74EHVFJO6JJHDP76EDWVRJE2RJQ
     Compressing files.
-    [May 10 2021 18:24:14] ShareModeWeb.init
-    [May 10 2021 18:24:14] ShareModeWeb.set_file_info_custom
-    [May 10 2021 18:24:14] ShareModeWeb.build_zipfile_list
-    [May 10 2021 18:24:14] Web.start: port=17645
-    * Running on http://127.0.0.1:17645/ (Press CTRL+C to quit)
+    [Aug 28 2021 10:33:03] ShareModeWeb.init
+    [Aug 28 2021 10:33:03] ShareModeWeb.set_file_info_custom
+    [Aug 28 2021 10:33:03] ShareModeWeb.build_zipfile_list
+    [Aug 28 2021 10:33:03] Web.start: port=17609
+     * Running on http://127.0.0.1:17609/ (Press CTRL+C to quit)
     
-    Give this address to the recipient:
-    http://onionshare:tipping-colonize@omxjamkys6diqxov7lxru2upromdprxjuq3czdhen6hrshzd4sll2iyd.onion
+    Give this address and private key to the recipient:
+    http://sobp4rklarkz34mcog3pqtkb4t5bvyxv3dazvsqmfyhw4imqj446ffqd.onion
+    Private key: YL6YIEMZS6J537Y5ZKEA2Z6IIQEWFK2CMGTWK5G3DGGUREHJSJNQ
     
     Press Ctrl+C to stop the server
 
@@ -153,18 +150,19 @@ You can do this with the ``--local-only`` flag. For example::
     │          https://onionshare.org/          │
     ╰───────────────────────────────────────────╯
     
-    * Running on http://127.0.0.1:17617/ (Press CTRL+C to quit)
+     * Running on http://127.0.0.1:17621/ (Press CTRL+C to quit)
     
     Files sent to you appear in this folder: /home/user/OnionShare
     
     Warning: Receive mode lets people upload files to your computer. Some files can potentially take control of your computer if you open them. Only open things from people you trust, or if you know what you are doing.
     
-    Give this address to the sender:
-    http://onionshare:ended-blah@127.0.0.1:17617
+    Give this address and private key to the sender:
+    http://127.0.0.1:17621
+    Private key: E2GOT5LTUTP3OAMRCRXO4GSH6VKJEUOXZQUC336SRKAHTTT5OVSA
     
     Press Ctrl+C to stop the server
 
-In this case, you load the URL ``http://onionshare:train-system@127.0.0.1:17635`` in a normal web-browser like Firefox, instead of using the Tor Browser.
+In this case, you load the URL ``http://127.0.0.1:17621`` in a normal web-browser like Firefox, instead of using the Tor Browser. The Private key is not actually needed in local-only mode, so you can ignore it.
 
 Contributing Translations
 -------------------------

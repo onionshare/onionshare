@@ -5,13 +5,19 @@ How OnionShare Works
 
 Web servers are started locally on your computer and made accessible to other people as `Tor <https://www.torproject.org/>`_ `onion services <https://community.torproject.org/onion-services/>`_.
 
-By default, OnionShare web addresses are protected with a random password. A typical OnionShare address might look something like this::
+By default, OnionShare web addresses are protected with a private key (Client Authentication). A typical OnionShare address might look something like this::
 
-    http://onionshare:constrict-purity@by4im3ir5nsvygprmjq74xwplrkdgt44qmeapxawwikxacmr3dqzyjad.onion
+    http://by4im3ir5nsvygprmjq74xwplrkdgt44qmeapxawwikxacmr3dqzyjad.onion
 
-You're responsible for securely sharing that URL using a communication channel of your choice like in an encrypted chat message, or using something less secure like unencrypted e-mail, depending on your `threat model <https://ssd.eff.org/module/your-security-plan>`_.
+And the Private key might look something like this::
+
+    EM6UK3LFM7PFLX63DVZIUQQPW5JV5KO6PB3TP3YNA4OLB3OH7AQA
+
+You're responsible for securely sharing that URL, and the private key, using a communication channel of your choice like in an encrypted chat message, or using something less secure like unencrypted e-mail, depending on your `threat model <https://ssd.eff.org/module/your-security-plan>`_.
 
 The people you send the URL to then copy and paste it into their `Tor Browser <https://www.torproject.org/>`_ to access the OnionShare service.
+
+Tor Browser will then prompt for the private key in an authentication dialog, which the person can also then copy and paste in.
 
 If you run OnionShare on your laptop to send someone files, and then suspend it before the files are sent, the service will not be available until your laptop is unsuspended and on the Internet again. OnionShare works best when working with people in real-time.
 
@@ -39,7 +45,7 @@ When you're ready to share, click the "Start sharing" button. You can always cli
 
 Now that you have a OnionShare, copy the address and send it to the person you want to receive the files. If the files need to stay secure, or the person is otherwise exposed to danger, use an encrypted messaging app.
 
-That person then must load the address in Tor Browser. After logging in with the random password included in the web address, the files can be downloaded directly from your computer by clicking the "Download Files" link in the corner.
+That person then must load the address in Tor Browser. After logging in with the private key, the files can be downloaded directly from your computer by clicking the "Download Files" link in the corner.
 
 .. image:: _static/screenshots/share-torbrowser.png
 
@@ -88,7 +94,7 @@ Tips for running a receive service
 
 If you want to host your own anonymous dropbox using OnionShare, it's recommended you do so on a separate, dedicated computer always powered on and connected to the Internet, and not on the one you use on a regular basis.
 
-If you intend to put the OnionShare address on your website or social media profiles, save the tab (see :ref:`save_tabs`) and run it as a public service (see :ref:`turn_off_passwords`). It's also a good idea to give it a custom title (see :ref:`custom_titles`).
+If you intend to put the OnionShare address on your website or social media profiles, save the tab (see :ref:`save_tabs`) and run it as a public service (see :ref:`turn_off_private_key`). It's also a good idea to give it a custom title (see :ref:`custom_titles`).
 
 Host a Website
 --------------
@@ -118,7 +124,7 @@ Tips for running a website service
 If you want to host a long-term website using OnionShare (meaning not something to quickly show someone something), it's recommended you do it on a separate, dedicated computer always powered on and connected to the Internet, and not on the one you use on a regular basis.
 Save the tab (see :ref:`save_tabs`) so you can resume the website with the same address if you close OnionShare and re-open it later.
 
-If your website is intended for the public, you should run it as a public service (see :ref:`turn_off_passwords`).
+If your website is intended for the public, you should run it as a public service (see :ref:`turn_off_private_key`).
 
 Chat Anonymously
 ----------------
