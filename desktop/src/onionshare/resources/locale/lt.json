@@ -232,5 +232,10 @@
     "gui_rendezvous_cleanup": "Laukiama, kol užsidarys „Tor“ grandinės, kad įsitikintume, jog jūsų failai sėkmingai perkelti.\n\nTai gali užtrukti kelias minutes.",
     "gui_rendezvous_cleanup_quit_early": "Išeiti anksčiau",
     "error_port_not_available": "„OnionShare“ prievadas nepasiekiamas",
-    "gui_chat_url_description": "<b>Kiekvienas</b>, turintis šį „OnionShare“ adresą, gali <b>prisijungti prie šio pokalbių kambario</b> naudodamas <b>„Tor“ naršyklę</b>: <img src='{}' />"
+    "gui_chat_url_description": "<b>Kiekvienas</b>, turintis šį „OnionShare“ adresą, gali <b>prisijungti prie šio pokalbių kambario</b> naudodamas <b>„Tor“ naršyklę</b>: <img src='{}' />",
+    "gui_settings_theme_dark": "Tamsi",
+    "gui_settings_theme_light": "Šviesi",
+    "gui_settings_theme_auto": "Automatinė",
+    "gui_settings_theme_label": "Tema",
+    "gui_please_wait_no_button": "Pradedama…"
 }
