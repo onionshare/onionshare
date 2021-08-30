@@ -191,30 +191,13 @@ class GuiBaseTest(unittest.TestCase):
             # Upload a file
             files = {"file[]": open(self.tmpfiles[0], "rb")}
             url = f"http://127.0.0.1:{tab.app.port}/upload"
-            if tab.settings.get("general", "public"):
-                requests.post(url, files=files)
-            else:
-                requests.post(
-                    url,
-                    files=files,
-                    auth=requests.auth.HTTPBasicAuth(
-                        "onionshare", tab.get_mode().web.password
-                    ),
-                )
+            requests.post(url, files=files)
             QtTest.QTest.qWait(2000, self.gui.qtapp)
 
         if type(tab.get_mode()) == ShareMode:
             # Download files
             url = f"http://127.0.0.1:{tab.app.port}/download"
-            if tab.settings.get("general", "public"):
-                requests.get(url)
-            else:
-                requests.get(
-                    url,
-                    auth=requests.auth.HTTPBasicAuth(
-                        "onionshare", tab.get_mode().web.password
-                    ),
-                )
+            requests.get(url)
             QtTest.QTest.qWait(2000, self.gui.qtapp)
 
         # Indicator should be visible, have a value of "1"
@@ -273,13 +256,6 @@ class GuiBaseTest(unittest.TestCase):
         except requests.exceptions.ConnectionError:
             self.assertTrue(False)
 
-    def have_a_password(self, tab):
-        """Test that we have a valid password"""
-        if not tab.settings.get("general", "public"):
-            self.assertRegex(tab.get_mode().server_status.web.password, r"(\w+)-(\w+)")
-        else:
-            self.assertIsNone(tab.get_mode().server_status.web.password, r"(\w+)-(\w+)")
-
     def add_button_visible(self, tab):
         """Test that the add button should be visible"""
         if platform.system() == "Darwin":
@@ -304,13 +280,7 @@ class GuiBaseTest(unittest.TestCase):
 
         tab.get_mode().server_status.copy_url_button.click()
         clipboard = tab.common.gui.qtapp.clipboard()
-        if tab.settings.get("general", "public"):
-            self.assertEqual(clipboard.text(), f"http://127.0.0.1:{tab.app.port}")
-        else:
-            self.assertEqual(
-                clipboard.text(),
-                f"http://onionshare:{tab.get_mode().server_status.web.password}@127.0.0.1:{tab.app.port}",
-            )
+        self.assertEqual(clipboard.text(), f"http://127.0.0.1:{tab.app.port}")
 
     def have_show_qr_code_button(self, tab):
         """Test that the Show QR Code URL button is shown and that it loads a QR Code Dialog"""
@@ -343,16 +313,7 @@ class GuiBaseTest(unittest.TestCase):
         """Test that the web page contains a string"""
 
         url = f"http://127.0.0.1:{tab.app.port}/"
-        if tab.settings.get("general", "public"):
-            r = requests.get(url)
-        else:
-            r = requests.get(
-                url,
-                auth=requests.auth.HTTPBasicAuth(
-                    "onionshare", tab.get_mode().web.password
-                ),
-            )
-
+        r = requests.get(url)
         self.assertTrue(string in r.text)
 
     def history_widgets_present(self, tab):
@@ -384,7 +345,7 @@ class GuiBaseTest(unittest.TestCase):
         self.assertFalse(tab.get_mode().server_status.url.isVisible())
         self.assertFalse(tab.get_mode().server_status.url_description.isVisible())
         self.assertFalse(
-            tab.get_mode().server_status.copy_hidservauth_button.isVisible()
+            tab.get_mode().server_status.copy_client_auth_button.isVisible()
         )
 
     def web_server_is_stopped(self, tab):
@@ -464,6 +425,21 @@ class GuiBaseTest(unittest.TestCase):
         QtTest.QTest.qWait(wait, self.gui.qtapp)
         # We should have timed out now
         self.assertEqual(tab.get_mode().server_status.status, 0)
+
+    def clientauth_is_visible(self, tab):
+        """Test that the ClientAuth button is visible and that the clipboard contains its contents"""
+        self.assertTrue(
+            tab.get_mode().server_status.copy_client_auth_button.isVisible()
+        )
+        tab.get_mode().server_status.copy_client_auth_button.click()
+        clipboard = tab.common.gui.qtapp.clipboard()
+        self.assertEqual(clipboard.text(), "E2GOT5LTUTP3OAMRCRXO4GSH6VKJEUOXZQUC336SRKAHTTT5OVSA")
+
+    def clientauth_is_not_visible(self, tab):
+        """Test that the ClientAuth button is not visible"""
+        self.assertFalse(
+            tab.get_mode().server_status.copy_client_auth_button.isVisible()
+        )
 
     def hit_405(self, url, expected_resp, data = {}, methods = [] ):
         """Test various HTTP methods and the response"""

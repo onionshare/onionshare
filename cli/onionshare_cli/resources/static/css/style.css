@@ -229,6 +229,7 @@ ul.breadcrumbs li a:link, ul.breadcrumbs li a:visited {
   display: block;
 }
 .chat-wrapper .message {
+  word-break: break-word;
   font-weight: normal;
   display: block;
   margin-bottom: 0.3em;

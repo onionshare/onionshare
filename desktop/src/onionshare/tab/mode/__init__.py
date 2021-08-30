@@ -158,9 +158,16 @@ class Mode(QtWidgets.QWidget):
                         )
                     )
                 else:
-                    self.server_status.server_button.setText(
-                        strings._("gui_please_wait")
-                    )
+                    if self.common.platform == "Windows" or self.settings.get(
+                        "general", "autostart_timer"
+                    ):
+                        self.server_status.server_button.setText(
+                            strings._("gui_please_wait")
+                        )
+                    else:
+                        self.server_status.server_button.setText(
+                            strings._("gui_please_wait_no_button")
+                        )
 
         # If the auto-stop timer has stopped, stop the server
         if self.server_status.status == ServerStatus.STATUS_STARTED:
@@ -239,13 +246,25 @@ class Mode(QtWidgets.QWidget):
             self.start_onion_thread()
 
     def start_onion_thread(self, obtain_onion_early=False):
-        self.common.log("Mode", "start_server", "Starting an onion thread")
-        self.obtain_onion_early = obtain_onion_early
-        self.onion_thread = OnionThread(self)
-        self.onion_thread.success.connect(self.starting_server_step2.emit)
-        self.onion_thread.success_early.connect(self.starting_server_early.emit)
-        self.onion_thread.error.connect(self.starting_server_error.emit)
-        self.onion_thread.start()
+        # If we tried to start with Client Auth and our Tor is too old to support it,
+        # bail out early
+        if (
+            not self.server_status.local_only
+            and not self.app.onion.supports_stealth
+            and not self.settings.get("general", "public")
+           ):
+               self.stop_server()
+               self.start_server_error(
+                   strings._("gui_server_doesnt_support_stealth")
+               )
+        else:
+            self.common.log("Mode", "start_server", "Starting an onion thread")
+            self.obtain_onion_early = obtain_onion_early
+            self.onion_thread = OnionThread(self)
+            self.onion_thread.success.connect(self.starting_server_step2.emit)
+            self.onion_thread.success_early.connect(self.starting_server_early.emit)
+            self.onion_thread.error.connect(self.starting_server_error.emit)
+            self.onion_thread.start()
 
     def start_scheduled_service(self, obtain_onion_early=False):
         # We start a new OnionThread with the saved scheduled key from settings
@@ -354,14 +373,19 @@ class Mode(QtWidgets.QWidget):
             self.app.onion.scheduled_key = None
             self.app.onion.scheduled_auth_cookie = None
             self.startup_thread.quit()
-        if self.onion_thread:
-            self.common.log("Mode", "cancel_server: quitting onion thread")
-            self.onion_thread.terminate()
-            self.onion_thread.wait()
-        if self.web_thread:
-            self.common.log("Mode", "cancel_server: quitting web thread")
-            self.web_thread.terminate()
-            self.web_thread.wait()
+
+        # Canceling only works in Windows
+        # https://github.com/onionshare/onionshare/issues/1371
+        if self.common.platform == "Windows":
+            if self.onion_thread:
+                self.common.log("Mode", "cancel_server: quitting onion thread")
+                self.onion_thread.terminate()
+                self.onion_thread.wait()
+            if self.web_thread:
+                self.common.log("Mode", "cancel_server: quitting web thread")
+                self.web_thread.terminate()
+                self.web_thread.wait()
+
         self.stop_server()
 
     def cancel_server_custom(self):
@@ -425,15 +449,6 @@ class Mode(QtWidgets.QWidget):
         Handle REQUEST_STARTED event.
         """
         pass
-
-    def handle_request_rate_limit(self, event):
-        """
-        Handle REQUEST_RATE_LIMIT event.
-        """
-        self.stop_server()
-        Alert(
-            self.common, strings._("error_rate_limit"), QtWidgets.QMessageBox.Critical
-        )
 
     def handle_request_progress(self, event):
         """

@@ -65,14 +65,9 @@ class OnionThread(QtCore.QThread):
         # Make a new static URL path for each new share
         self.mode.web.generate_static_url_path()
 
-        # Choose port and password early, because we need them to exist in advance for scheduled shares
+        # Choose port early, because we need them to exist in advance for scheduled shares
         if not self.mode.app.port:
             self.mode.app.choose_port()
-        if not self.mode.settings.get("general", "public"):
-            if not self.mode.web.password:
-                self.mode.web.generate_password(
-                    self.mode.settings.get("onion", "password")
-                )
 
         try:
             if self.mode.obtain_onion_early:

@@ -130,7 +130,6 @@ class ChatMode(Mode):
         """
         # Reset web counters
         self.web.chat_mode.cur_history_id = 0
-        self.web.reset_invalid_passwords()
 
     def start_server_step2_custom(self):
         """

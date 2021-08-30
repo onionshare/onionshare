@@ -5,7 +5,7 @@
 Start by getting the source code and changing to the `desktop` folder:
 
 ```sh
-git clone https://github.com/micahflee/onionshare.git
+git clone https://github.com/onionshare/onionshare.git
 cd onionshare/desktop
 ```
 
@@ -14,6 +14,8 @@ cd onionshare/desktop
 #### Linux
 
 If you're using Linux, install `tor` and `obfs4proxy` from either the [official Debian repository](https://support.torproject.org/apt/tor-deb-repo/), or from your package manager.
+
+In Ubuntu 20.04 you also need the `libxcb-xinerama0` package installed.
 
 #### macOS
 

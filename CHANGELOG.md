@@ -1,5 +1,11 @@
 # OnionShare Changelog
 
+## 2.3.3
+
+* New feature: Setting for light or dark theme
+* Updated Tor to 0.4.6.7 for Linux, 0.4.5.10 for Windows and macOS
+* Various bug fixes
+
 ## 2.3.2
 
 * New feature: Custom titles can be set for OnionShare's various modes
