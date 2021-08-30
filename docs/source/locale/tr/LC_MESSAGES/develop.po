@@ -7,16 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2020-11-15 14:42-0800\n"
+"POT-Creation-Date: 2021-08-20 13:37-0700\n"
 "PO-Revision-Date: 2021-01-01 20:29+0000\n"
 "Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: tr\n"
+"Language-Team: tr <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=n != 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.4.1-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/develop.rst:2
@@ -43,10 +42,10 @@ msgstr ""
 "Keybase ekibine sahiptir. (Ayrıca OnionShare adresleri gibi, OnionShare "
 "topluluğundaki diğer kişilere uçtan uca şifrelenmiş doğrudan mesajlar "
 "göndermenin kolay bir yoludur.) Keybase'i kullanmak için `Keybase "
-"uygulamasını <https://keybase.io/download>`_ indirin, bir hesap oluşturun ve "
-"`bu ekibe katılın <https://keybase.io/team/onionshare>`_. Uygulama içinde "
-"\"Teams\" bölümüne gidin, \"Join a Team\" düğmesine tıklayın ve \"onionshare"
-"\" yazın."
+"uygulamasını <https://keybase.io/download>`_ indirin, bir hesap oluşturun"
+" ve `bu ekibe katılın <https://keybase.io/team/onionshare>`_. Uygulama "
+"içinde \"Teams\" bölümüne gidin, \"Join a Team\" düğmesine tıklayın ve "
+"\"onionshare\" yazın."
 
 #: ../../source/develop.rst:12
 msgid ""
@@ -54,35 +53,38 @@ msgid ""
 "<https://lists.riseup.net/www/subscribe/onionshare-dev>`_ for developers "
 "and and designers to discuss the project."
 msgstr ""
-"OnionShare ayrıca geliştiricilerin ve tasarımcıların projeyi tartışmaları "
-"için bir `e-posta listesine <https://lists.riseup.net/www/subscribe/"
-"onionshare-dev>`_ sahiptir."
+"OnionShare ayrıca geliştiricilerin ve tasarımcıların projeyi tartışmaları"
+" için bir `e-posta listesine <https://lists.riseup.net/www/subscribe"
+"/onionshare-dev>`_ sahiptir."
 
 #: ../../source/develop.rst:15
 msgid "Contributing Code"
 msgstr "Kodlara Katkıda Bulunma"
 
 #: ../../source/develop.rst:17
+#, fuzzy
 msgid ""
 "OnionShare source code is to be found in this Git repository: "
-"https://github.com/micahflee/onionshare"
+"https://github.com/onionshare/onionshare"
 msgstr ""
-"OnionShare kaynak kodları şu Git deposunda bulunabilir: https://github.com/"
-"micahflee/onionshare"
+"OnionShare kaynak kodları şu Git deposunda bulunabilir: "
+"https://github.com/micahflee/onionshare"
 
 #: ../../source/develop.rst:19
+#, fuzzy
 msgid ""
 "If you'd like to contribute code to OnionShare, it helps to join the "
 "Keybase team and ask questions about what you're thinking of working on. "
 "You should also review all of the `open issues "
-"<https://github.com/micahflee/onionshare/issues>`_ on GitHub to see if "
+"<https://github.com/onionshare/onionshare/issues>`_ on GitHub to see if "
 "there are any you'd like to tackle."
 msgstr ""
 "OnionShare kodlarına katkıda bulunmak istiyorsanız, Keybase ekibine "
 "katılmanız ve üzerinde çalışmayı düşündüğünüz şeyler hakkında sorular "
 "sormanız yardımcı olacaktır. Ayrıca üzerinde çalışmak isteyebileceğiniz "
 "herhangi bir sorun olup olmadığını görmek için GitHub'daki tüm `açık "
-"sorunları <https://github.com/micahflee/onionshare/issues>`_ incelemelisiniz."
+"sorunları <https://github.com/micahflee/onionshare/issues>`_ "
+"incelemelisiniz."
 
 #: ../../source/develop.rst:22
 msgid ""
@@ -102,17 +104,12 @@ msgstr "Geliştirmeye Başlama"
 #: ../../source/develop.rst:29
 msgid ""
 "OnionShare is developed in Python. To get started, clone the Git "
-"repository at https://github.com/micahflee/onionshare/ and then consult "
+"repository at https://github.com/onionshare/onionshare/ and then consult "
 "the ``cli/README.md`` file to learn how to set up your development "
 "environment for the command-line version, and the ``desktop/README.md`` "
 "file to learn how to set up your development environment for the "
 "graphical version."
 msgstr ""
-"OnionShare, Python ile geliştirilmektedir. Başlamak için https://github.com/"
-"micahflee/onionshare/ adresindeki Git deposunu klonlayın ve ardından komut "
-"satırı sürümü için geliştirme ortamınızı nasıl kuracağınızı öğrenmek için ``"
-"cli/README.md`` dosyasına, grafiksel sürüm için geliştirme ortamınızı nasıl "
-"kuracağınızı öğrenmek için ``desktop/README.md`` dosyasına bakın."
 
 #: ../../source/develop.rst:32
 msgid ""
@@ -121,7 +118,8 @@ msgid ""
 "source tree."
 msgstr ""
 "Bu dosyalar, platformunuz için bağımlılıkları kurmak ve kaynak ağacından "
-"OnionShare'i çalıştırmak için gerekli teknik talimatları ve komutları içerir."
+"OnionShare'i çalıştırmak için gerekli teknik talimatları ve komutları "
+"içerir."
 
 #: ../../source/develop.rst:35
 msgid "Debugging tips"
@@ -140,57 +138,59 @@ msgid ""
 "reloaded), and other debug info. For example::"
 msgstr ""
 "Geliştirme sırasında, OnionShare'i bir terminalden çalıştırmak ve komuta "
-"``--verbose`` (veya ``-v``) seçeneklerini eklemek faydalıdır. Bu, terminale "
-"birçok yararlı mesajlar, örneğin belirli nesneler başlatıldığında, olaylar "
-"gerçekleştiğinde (düğmeler tıklandı, ayarlar kaydedildi veya yeniden "
-"yüklendi gibi) ve diğer hata ayıklama bilgileri yazdırır. Örneğin::"
+"``--verbose`` (veya ``-v``) seçeneklerini eklemek faydalıdır. Bu, "
+"terminale birçok yararlı mesajlar, örneğin belirli nesneler "
+"başlatıldığında, olaylar gerçekleştiğinde (düğmeler tıklandı, ayarlar "
+"kaydedildi veya yeniden yüklendi gibi) ve diğer hata ayıklama bilgileri "
+"yazdırır. Örneğin::"
 
-#: ../../source/develop.rst:117
+#: ../../source/develop.rst:121
 msgid ""
 "You can add your own debug messages by running the ``Common.log`` method "
 "from ``onionshare/common.py``. For example::"
 msgstr ""
-"``onionshare/common.py`` içinden ``Common.log`` yöntemini çalıştırarak kendi "
-"hata ayıklama mesajlarınızı ekleyebilirsiniz. Örneğin::"
+"``onionshare/common.py`` içinden ``Common.log`` yöntemini çalıştırarak "
+"kendi hata ayıklama mesajlarınızı ekleyebilirsiniz. Örneğin::"
 
-#: ../../source/develop.rst:121
+#: ../../source/develop.rst:125
 msgid ""
 "This can be useful when learning the chain of events that occur when "
 "using OnionShare, or the value of certain variables before and after they"
 " are manipulated."
 msgstr ""
-"Bu, OnionShare kullanılırken meydana gelen olaylar zincirini veya belirli "
-"değişkenlerin değiştirilmeden önce ve sonra değerini öğrenirken faydalı "
+"Bu, OnionShare kullanılırken meydana gelen olaylar zincirini veya belirli"
+" değişkenlerin değiştirilmeden önce ve sonra değerini öğrenirken faydalı "
 "olabilir."
 
-#: ../../source/develop.rst:124
+#: ../../source/develop.rst:128
 msgid "Local Only"
 msgstr "Yalnızca Yerel"
 
-#: ../../source/develop.rst:126
+#: ../../source/develop.rst:130
 msgid ""
 "Tor is slow, and it's often convenient to skip starting onion services "
 "altogether during development. You can do this with the ``--local-only`` "
 "flag. For example::"
 msgstr ""
-"Tor yavaştır ve geliştirme sırasında onion hizmetlerini başlatmayı tamamen "
-"atlamak genellikle uygundur. Bunu ``--local-only`` seçeneğiyle "
+"Tor yavaştır ve geliştirme sırasında onion hizmetlerini başlatmayı "
+"tamamen atlamak genellikle uygundur. Bunu ``--local-only`` seçeneğiyle "
 "yapabilirsiniz. Örneğin::"
 
-#: ../../source/develop.rst:164
+#: ../../source/develop.rst:167
 msgid ""
 "In this case, you load the URL ``http://onionshare:train-"
 "system@127.0.0.1:17635`` in a normal web-browser like Firefox, instead of"
 " using the Tor Browser."
 msgstr ""
-"Bu durumda, ``http://onionshare:train-system@127.0.0.1:17635`` URL'sini Tor "
-"Browser kullanmak yerine Firefox gibi normal bir web tarayıcısında açarsınız."
+"Bu durumda, ``http://onionshare:train-system@127.0.0.1:17635`` URL'sini "
+"Tor Browser kullanmak yerine Firefox gibi normal bir web tarayıcısında "
+"açarsınız."
 
-#: ../../source/develop.rst:167
+#: ../../source/develop.rst:170
 msgid "Contributing Translations"
 msgstr "Çevirilere Katkıda Bulunma"
 
-#: ../../source/develop.rst:169
+#: ../../source/develop.rst:172
 msgid ""
 "Help make OnionShare easier to use and more familiar and welcoming for "
 "people by translating it on `Hosted Weblate "
@@ -199,22 +199,22 @@ msgid ""
 "needed."
 msgstr ""
 "`Hosted Weblate <https://hosted.weblate.org/projects/onionshare/>`_ "
-"adresinde OnionShare'i çevirerek daha kolay kullanılmasına ve insanlar için "
-"daha bilindik ve kullanıcı dostu olmasına yardımcı olun. \"OnionShare\" "
-"sözcüğünü her zaman latin harflerinde tutun ve gerekirse \"OnionShare (yerel "
-"adı)\" kullanın."
-
-#: ../../source/develop.rst:171
-msgid "To help translate, make a Hosted Weblate account and start contributing."
-msgstr ""
-"Çeviriye yardımcı olmak için bir Hosted Weblate hesabı oluşturun ve katkıda "
-"bulunmaya başlayın."
+"adresinde OnionShare'i çevirerek daha kolay kullanılmasına ve insanlar "
+"için daha bilindik ve kullanıcı dostu olmasına yardımcı olun. "
+"\"OnionShare\" sözcüğünü her zaman latin harflerinde tutun ve gerekirse "
+"\"OnionShare (yerel adı)\" kullanın."
 
 #: ../../source/develop.rst:174
+msgid "To help translate, make a Hosted Weblate account and start contributing."
+msgstr ""
+"Çeviriye yardımcı olmak için bir Hosted Weblate hesabı oluşturun ve "
+"katkıda bulunmaya başlayın."
+
+#: ../../source/develop.rst:177
 msgid "Suggestions for Original English Strings"
 msgstr "Asıl İngilizce Dizgeler için Öneriler"
 
-#: ../../source/develop.rst:176
+#: ../../source/develop.rst:179
 msgid ""
 "Sometimes the original English strings are wrong, or don't match between "
 "the application and the documentation."
@@ -222,31 +222,32 @@ msgstr ""
 "Bazen asıl İngilizce dizgeler yanlıştır veya uygulama ile belgelendirme "
 "arasında uyumsuzluk vardır."
 
-#: ../../source/develop.rst:178
+#: ../../source/develop.rst:181
 msgid ""
 "File source string improvements by adding @kingu to your Weblate comment,"
 " or open a GitHub issue or pull request. The latter ensures all upstream "
 "developers see the suggestion, and can potentially modify the string via "
 "the usual code review processes."
 msgstr ""
-"Weblate'teki yorumunuza @kingu ekleyerek veya bir GitHub sorunu veya çekme "
-"isteği açarak kaynağı dizgesi için iyileştirmeler önerin. İkinci seçenek, "
-"tüm proje geliştiricilerinin öneriyi görmesini sağlar ve dizge üzerinde "
-"olağan kod inceleme süreçleri aracılığıyla değişiklikler yapabilir."
+"Weblate'teki yorumunuza @kingu ekleyerek veya bir GitHub sorunu veya "
+"çekme isteği açarak kaynağı dizgesi için iyileştirmeler önerin. İkinci "
+"seçenek, tüm proje geliştiricilerinin öneriyi görmesini sağlar ve dizge "
+"üzerinde olağan kod inceleme süreçleri aracılığıyla değişiklikler "
+"yapabilir."
 
-#: ../../source/develop.rst:182
+#: ../../source/develop.rst:185
 msgid "Status of Translations"
 msgstr "Çevirilerin Durumu"
 
-#: ../../source/develop.rst:183
+#: ../../source/develop.rst:186
 msgid ""
 "Here is the current translation status. If you want start a translation "
 "in a language not yet started, please write to the mailing list: "
 "onionshare-dev@lists.riseup.net"
 msgstr ""
-"Şu anki çeviri durumu aşağıdaki gibidir. Henüz başlamamış bir dilde çeviriye "
-"başlamak istiyorsanız lütfen e-posta listesine yazın: onionshare-dev@lists."
-"riseup.net"
+"Şu anki çeviri durumu aşağıdaki gibidir. Henüz başlamamış bir dilde "
+"çeviriye başlamak istiyorsanız lütfen e-posta listesine yazın: "
+"onionshare-dev@lists.riseup.net"
 
 #~ msgid ""
 #~ "OnionShare is developed in Python. To"
@@ -463,3 +464,26 @@ msgstr ""
 
 #~ msgid "Do the same for other untranslated lines."
 #~ msgstr ""
+
+#~ msgid ""
+#~ "OnionShare is developed in Python. To"
+#~ " get started, clone the Git "
+#~ "repository at https://github.com/micahflee/onionshare/ "
+#~ "and then consult the ``cli/README.md`` "
+#~ "file to learn how to set up "
+#~ "your development environment for the "
+#~ "command-line version, and the "
+#~ "``desktop/README.md`` file to learn how "
+#~ "to set up your development environment"
+#~ " for the graphical version."
+#~ msgstr ""
+#~ "OnionShare, Python ile geliştirilmektedir. "
+#~ "Başlamak için https://github.com/micahflee/onionshare/ "
+#~ "adresindeki Git deposunu klonlayın ve "
+#~ "ardından komut satırı sürümü için "
+#~ "geliştirme ortamınızı nasıl kuracağınızı "
+#~ "öğrenmek için ``cli/README.md`` dosyasına, "
+#~ "grafiksel sürüm için geliştirme ortamınızı "
+#~ "nasıl kuracağınızı öğrenmek için "
+#~ "``desktop/README.md`` dosyasına bakın."
+

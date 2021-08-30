@@ -75,6 +75,7 @@ class Settings(object):
             "it": "Italiano",  # Italian
             "ja": "日本語",  # Japanese
             "ckb": "Soranî",  # Kurdish (Central)
+            "lt": "Lietuvių Kalba",  # Lithuanian
             "nb_NO": "Norsk Bokmål",  # Norwegian Bokmål
             # "fa": "فارسی",  # Persian
             "pl": "Polski",  # Polish
@@ -110,6 +111,7 @@ class Settings(object):
             "tor_bridges_use_custom_bridges": "",
             "persistent_tabs": [],
             "locale": None,  # this gets defined in fill_in_defaults()
+            "theme": 0,
         }
         self._settings = {}
         self.fill_in_defaults()

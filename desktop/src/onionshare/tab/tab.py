@@ -275,7 +275,7 @@ class Tab(QtWidgets.QWidget):
         self.share_mode.start_server_finished.connect(self.clear_message)
         self.share_mode.server_status.button_clicked.connect(self.clear_message)
         self.share_mode.server_status.url_copied.connect(self.copy_url)
-        self.share_mode.server_status.hidservauth_copied.connect(self.copy_hidservauth)
+        self.share_mode.server_status.client_auth_copied.connect(self.copy_client_auth)
 
         self.change_title.emit(self.tab_id, strings._("gui_tab_name_share"))
 
@@ -310,8 +310,8 @@ class Tab(QtWidgets.QWidget):
         self.receive_mode.start_server_finished.connect(self.clear_message)
         self.receive_mode.server_status.button_clicked.connect(self.clear_message)
         self.receive_mode.server_status.url_copied.connect(self.copy_url)
-        self.receive_mode.server_status.hidservauth_copied.connect(
-            self.copy_hidservauth
+        self.receive_mode.server_status.client_auth_copied.connect(
+            self.copy_client_auth
         )
 
         self.change_title.emit(self.tab_id, strings._("gui_tab_name_receive"))
@@ -347,8 +347,8 @@ class Tab(QtWidgets.QWidget):
         self.website_mode.start_server_finished.connect(self.clear_message)
         self.website_mode.server_status.button_clicked.connect(self.clear_message)
         self.website_mode.server_status.url_copied.connect(self.copy_url)
-        self.website_mode.server_status.hidservauth_copied.connect(
-            self.copy_hidservauth
+        self.website_mode.server_status.client_auth_copied.connect(
+            self.copy_client_auth
         )
 
         self.change_title.emit(self.tab_id, strings._("gui_tab_name_website"))
@@ -382,7 +382,7 @@ class Tab(QtWidgets.QWidget):
         self.chat_mode.start_server_finished.connect(self.clear_message)
         self.chat_mode.server_status.button_clicked.connect(self.clear_message)
         self.chat_mode.server_status.url_copied.connect(self.copy_url)
-        self.chat_mode.server_status.hidservauth_copied.connect(self.copy_hidservauth)
+        self.chat_mode.server_status.client_auth_copied.connect(self.copy_client_auth)
 
         self.change_title.emit(self.tab_id, strings._("gui_tab_name_chat"))
 
@@ -531,9 +531,6 @@ class Tab(QtWidgets.QWidget):
             elif event["type"] == Web.REQUEST_STARTED:
                 mode.handle_request_started(event)
 
-            elif event["type"] == Web.REQUEST_RATE_LIMIT:
-                mode.handle_request_rate_limit(event)
-
             elif event["type"] == Web.REQUEST_PROGRESS:
                 mode.handle_request_progress(event)
 
@@ -581,11 +578,6 @@ class Tab(QtWidgets.QWidget):
                         f"{strings._('other_page_loaded')}: {event['path']}"
                     )
 
-            if event["type"] == Web.REQUEST_INVALID_PASSWORD:
-                self.status_bar.showMessage(
-                    f"[#{mode.web.invalid_passwords_count}] {strings._('incorrect_password')}: {event['data']}"
-                )
-
         mode.timer_callback()
 
     def copy_url(self):
@@ -597,14 +589,15 @@ class Tab(QtWidgets.QWidget):
             strings._("gui_copied_url_title"), strings._("gui_copied_url")
         )
 
-    def copy_hidservauth(self):
+    def copy_client_auth(self):
         """
-        When the stealth onion service HidServAuth gets copied to the clipboard, display this in the status bar.
+        When the onion service's ClientAuth private key gets copied to
+        the clipboard, display this in the status bar.
         """
-        self.common.log("Tab", "copy_hidservauth")
+        self.common.log("Tab", "copy_client_auth")
         self.system_tray.showMessage(
-            strings._("gui_copied_hidservauth_title"),
-            strings._("gui_copied_hidservauth"),
+            strings._("gui_copied_client_auth_title"),
+            strings._("gui_copied_client_auth"),
         )
 
     def clear_message(self):

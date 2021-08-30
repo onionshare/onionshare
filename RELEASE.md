@@ -14,7 +14,7 @@ Before making a release, you must update the version in these places:
 - [ ] `docs/source/conf.py` (`version` at the top, and the `versions` list too)
 - [ ] `snap/snapcraft.yaml`
 
-If you update flask-socketio, ensure that you also update the [socket.io.min.js](https://github.com/micahflee/onionshare/blob/develop/cli/onionshare_cli/resources/static/js/socket.io.min.js) file to a version that is [supported](https://flask-socketio.readthedocs.io/en/latest/#version-compatibility) by the updated version of flask-socketio.
+If you update `flask-socketio`, ensure that you also update the [socket.io.min.js](https://github.com/micahflee/onionshare/blob/develop/cli/onionshare_cli/resources/static/js/socket.io.min.js) file to a version that is [supported](https://flask-socketio.readthedocs.io/en/latest/#version-compatibility) by the updated version of `flask-socketio`.
 
 Use tor binaries from the latest Tor Browser:
 
@@ -28,6 +28,7 @@ Update the documentation:
 Finalize localization:
 
 - [ ] Merge all the translations from weblate
+- [ ] In `docs` run `poetry run ./check-weblate.py [API_KEY]` to see which translations are >90% in the app and docs
 - [ ] Edit `cli/onionshare_cli/settings.py`, make sure `self.available_locales` lists only locales that are >90% translated
 - [ ] Edit `docs/source/conf.py`, make sure `languages` lists only languages that are >90% translated
 - [ ] Edit `docs/build.sh` and make sure `LOCALES=` lists the same languages as above, in `docs/source/conf.py`
@@ -179,7 +180,7 @@ After following all of the previous steps, gather these files:
 Create a PGP signature for each of these files, e.g:
 
 ```sh
-gpg -a --detach-sign OnionShare-$VERSION.flatpak
+gpg -a --detach-sign OnionShare-$VERSION.tar.gz
 gpg -a --detach-sign [... and so on]
 ```
 
@@ -202,6 +203,7 @@ After there's a new release tag, make the Flathub package work here: https://git
 
 You must have `flatpak` and `flatpak-builder` installed, with flathub remote added (`flatpak remote-add --if-not-exists --user flathub https://flathub.org/repo/flathub.flatpakrepo`).
 
+- [ ] Change the tag (for both `onionshare` and `onionshare-cli`) to match the new git tag
 - [ ] Update `tor`, `libevent`, and `obfs4` dependencies, if necessary
 - [ ] Built the latest python dependencies using [this tool](https://github.com/flatpak/flatpak-builder-tools/blob/master/pip/flatpak-pip-generator) (see below)
 - [ ] Test the Flatpak package, ensure it works
@@ -212,20 +214,21 @@ pip3 install --user toml
 
 # clone flatpak-build-tools
 git clone https://github.com/flatpak/flatpak-builder-tools.git
-cd flatpak-builder-tools/pip
 
 # get onionshare-cli dependencies
-./flatpak-pip-generator $(python3 -c 'import toml; print("\n".join([x for x in toml.loads(open("../../onionshare/cli/pyproject.toml").read())["tool"]["poetry"]["dependencies"]]))' |grep -v "^python$" |tr "\n" " ")
-mv python3-modules.json onionshare-cli.json
+cd poetry
+./flatpak-poetry-generator.py ../../onionshare/cli/poetry.lock
+cd ..
 
 # get onionshare dependencies
+cd pip
 ./flatpak-pip-generator $(python3 -c 'import toml; print("\n".join(toml.loads(open("../../onionshare/desktop/pyproject.toml").read())["tool"]["briefcase"]["app"]["onionshare"]["requires"]))' |grep -v "./onionshare_cli" |grep -v -i "pyside2" |tr "\n" " ")
 mv python3-modules.json onionshare.json
 
 # use something like https://www.json2yaml.com/ to convert to yaml and update the manifest
 # add all of the modules in both onionshare-cli and onionshare to the submodules of "onionshare"
-# - onionshare-cli.json
-# - onionshare.json
+# - poetry/generated-poetry-sources.json (onionshare-cli)
+# - pip/python3-modules.json (onionshare)
 ```
 
 Build and test the Flatpak package before publishing:
@@ -234,6 +237,20 @@ Build and test the Flatpak package before publishing:
 flatpak-builder build --force-clean --install-deps-from=flathub --install --user org.onionshare.OnionShare.yaml
 flatpak run org.onionshare.OnionShare
 ```
+
+Create a [single-file bundle](https://docs.flatpak.org/en/latest/single-file-bundles.html):
+
+```sh
+flatpak build-bundle ~/.local/share/flatpak/repo OnionShare-$VERSION.flatpak org.onionshare.OnionShare --runtime-repo=https://flathub.org/repo/flathub.flatpakrepo
+```
+
+Create a PGP signature for the flatpak single-file bundle:
+
+```sh
+gpg -a --detach-sign OnionShare-$VERSION.flatpak
+```
+
+Upload this `.flatpak` and its sig to the GitHub release as well.
 
 ### Update Homebrew
 
