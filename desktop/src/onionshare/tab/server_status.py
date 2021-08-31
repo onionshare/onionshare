@@ -125,16 +125,6 @@ class ServerStatus(QtWidgets.QWidget):
             strings._("gui_client_auth_instructions")
         )
 
-        # The private key itself
-        self.private_key = QtWidgets.QLabel()
-        self.private_key.setFont(url_font)
-        self.private_key.setWordWrap(True)
-        self.private_key.setMinimumSize(self.private_key.sizeHint())
-        self.private_key.setStyleSheet(self.common.gui.css["server_status_url"])
-        self.private_key.setTextInteractionFlags(
-            Qt.TextSelectableByMouse | Qt.TextSelectableByKeyboard
-        )
-
         # Copy ClientAuth button
         self.copy_client_auth_button = QtWidgets.QPushButton(
             strings._("gui_copy_client_auth")
@@ -176,7 +166,6 @@ class ServerStatus(QtWidgets.QWidget):
 
         client_auth_layout = QtWidgets.QVBoxLayout()
         client_auth_layout.addWidget(self.client_auth_instructions)
-        client_auth_layout.addWidget(self.private_key)
         client_auth_layout.addLayout(client_auth_buttons_layout)
 
         # Add the widgets and URL/ClientAuth layouts
@@ -298,13 +287,10 @@ class ServerStatus(QtWidgets.QWidget):
 
         if self.settings.get("general", "public"):
             self.client_auth_instructions.hide()
-            self.private_key.hide()
             self.copy_client_auth_button.hide()
             self.show_client_auth_qr_code_button.hide()
         else:
             self.client_auth_instructions.show()
-            self.private_key.setText(self.app.auth_string)
-            self.private_key.show()
             self.copy_client_auth_button.show()
             self.show_client_auth_qr_code_button.show()
 
@@ -334,7 +320,6 @@ class ServerStatus(QtWidgets.QWidget):
             self.url.hide()
             self.copy_url_button.hide()
             self.show_url_qr_code_button.hide()
-            self.private_key.hide()
             self.client_auth_instructions.hide()
             self.copy_client_auth_button.hide()
             self.show_client_auth_qr_code_button.hide()
