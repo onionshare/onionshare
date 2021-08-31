@@ -59,9 +59,9 @@ pip install --user onionshare-cli
 
 #### Set path
 
-When you install programs with pip and use the --user flag, it installs them into ~/.local/bin, which isn't in your path by default. To add ~/.local/bin to your path automatically for the next time you reopen the terminal or source your shell configuration file.
+When you install programs with pip and use the --user flag, it installs them into ~/.local/bin, which isn't in your path by default. To add ~/.local/bin to your path automatically for the next time you reopen the terminal or source your shell configuration file, , do the following:
 
-Fist, discover what is your shell:
+First, discover what shell you are using:
 
 ```sh
 echo $SHELL
