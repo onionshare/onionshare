@@ -485,13 +485,21 @@ class ServerStatus(QtWidgets.QWidget):
         """
         Show a QR code of the onion URL.
         """
-        self.qr_code_dialog = QRCodeDialog(self.common, self.get_url())
+        self.qr_code_dialog = QRCodeDialog(
+            self.common,
+            strings._("gui_qr_label_url_title"),
+            self.get_url()
+        )
 
     def show_client_auth_qr_code_button_clicked(self):
         """
         Show a QR code of the private key
         """
-        self.qr_code_dialog = QRCodeDialog(self.common, self.app.auth_string)
+        self.qr_code_dialog = QRCodeDialog(
+            self.common,
+            strings._("gui_qr_label_auth_string_title"),
+            self.app.auth_string
+        )
 
     def start_server(self):
         """
