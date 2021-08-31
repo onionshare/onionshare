@@ -201,15 +201,6 @@ def main(cwd=None):
     disable_csp = bool(args.disable_csp)
     verbose = bool(args.verbose)
 
-    if receive:
-        mode = "receive"
-    elif website:
-        mode = "website"
-    elif chat:
-        mode = "chat"
-    else:
-        mode = "share"
-
     # Verbose mode?
     common.verbose = verbose
 
@@ -223,9 +214,17 @@ def main(cwd=None):
     if persistent_filename:
         mode_settings = ModeSettings(common, persistent_filename)
         mode_settings.set("persistent", "enabled", True)
-        mode_settings.set("persistent", "mode", mode)
     else:
         mode_settings = ModeSettings(common)
+
+    if receive:
+        mode = "receive"
+    elif website:
+        mode = "website"
+    elif chat:
+        mode = "chat"
+    else:
+        mode = "share"
 
     if mode_settings.just_created:
         # This means the mode settings were just created, not loaded from disk
@@ -233,6 +232,8 @@ def main(cwd=None):
         mode_settings.set("general", "public", public)
         mode_settings.set("general", "autostart_timer", autostart_timer)
         mode_settings.set("general", "autostop_timer", autostop_timer)
+        if persistent_filename:
+            mode_settings.set("persistent", "mode", mode)
         if mode == "share":
             mode_settings.set("share", "autostop_sharing", autostop_sharing)
         if mode == "receive":
