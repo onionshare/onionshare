@@ -273,7 +273,7 @@
     "gui_new_tab_tooltip": "Άνοιγμα νέας καρτέλας",
     "gui_new_tab": "Νέα καρτέλα",
     "gui_qr_code_dialog_title": "Κώδικας QR OnionShare",
-    "gui_show_url_qr_code": "Προβολή κώδικα QR",
+    "gui_show_qr_code": "Προβολή κώδικα QR",
     "gui_file_selection_remove_all": "Αφαίρεση όλων",
     "gui_remove": "Αφαίρεση",
     "error_port_not_available": "Η θύρα OnionShare δεν είναι διαθέσιμη",

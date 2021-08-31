@@ -274,7 +274,7 @@
     "gui_new_tab": "Nieuw tabblad",
     "gui_open_folder_error": "Niet gelukt om de map te openen met xdg-open. Het bestand staat hier: {}",
     "gui_qr_code_dialog_title": "OnionShare QR Code",
-    "gui_show_url_qr_code": "Toon QR Code",
+    "gui_show_qr_code": "Toon QR Code",
     "gui_receive_flatpak_data_dir": "Omdat je OnionShare installeerde met Flatpak, moet je bestanden opslaan in een folder in ~/OnionShare.",
     "gui_chat_stop_server": "Stop chat server",
     "gui_chat_start_server": "Start chat server",

@@ -181,7 +181,7 @@
     "incorrect_password": "पासवर्ड गलत है",
     "gui_settings_individual_downloads_label": "विशिष्ट फाइलों के डाउनलोड को मंजूरी देने के लिए अचिन्हित करें",
     "gui_settings_csp_header_disabled_option": "सामग्री सुरक्षा नियम हेडर को अक्षम करें",
-    "gui_show_url_qr_code": "क्यूआर कोड दिखाएं",
+    "gui_show_qr_code": "क्यूआर कोड दिखाएं",
     "gui_chat_stop_server": "चैट सर्वर बंद करें",
     "gui_chat_start_server": "चैट सर्वर शुरू करें",
     "gui_file_selection_remove_all": "सभी हटाएं",

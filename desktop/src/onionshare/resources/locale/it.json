@@ -245,7 +245,7 @@
     "gui_new_tab": "Nuova Scheda",
     "gui_open_folder_error": "Impossibile aprire la cartella con xdg-open. Il file è qui: {}",
     "gui_qr_code_dialog_title": "OnionShare QR Code",
-    "gui_show_url_qr_code": "Mostra QR Code",
+    "gui_show_qr_code": "Mostra QR Code",
     "gui_receive_flatpak_data_dir": "Dato che hai installato OnionShare usando Flatpak, devi salvare i file nella cartella ~/OnionShare.",
     "gui_chat_stop_server": "Arresta il server della chat",
     "gui_file_selection_remove_all": "Rimuovi tutto",

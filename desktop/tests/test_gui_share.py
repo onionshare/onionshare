@@ -182,8 +182,13 @@ class TestShare(GuiBaseTest):
         self.server_is_started(tab, startup_time)
         self.web_server_is_running(tab)
         self.url_description_shown(tab)
+        self.url_instructions_shown(tab)
+        self.url_shown(tab)
         self.have_copy_url_button(tab)
-        self.have_show_qr_code_button(tab)
+        self.have_show_url_qr_code_button(tab)
+        self.private_key_shown(tab)
+        self.client_auth_instructions_shown(tab)
+        self.have_show_client_auth_qr_code_button(tab)
         self.server_status_indicator_says_started(tab)
 
     def run_all_share_mode_download_tests(self, tab):

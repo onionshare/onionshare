@@ -27,7 +27,7 @@
     "gui_canceled": "Cancelado",
     "gui_copied_url_title": "Enderezo de OnionShare copiado",
     "gui_copied_url": "Enderezo OnionShare copiado ó portapapeis",
-    "gui_show_url_qr_code": "Mostrar código QR",
+    "gui_show_qr_code": "Mostrar código QR",
     "gui_qr_code_dialog_title": "Código QR OnionShare",
     "gui_waiting_to_start": "Programado para comezar en {}. Fai clic para cancelar.",
     "gui_please_wait": "Iniciando... Fai click para cancelar.",

@@ -270,7 +270,7 @@
     "gui_chat_stop_server_autostop_timer": "Stöðva spjallþjón ({})",
     "gui_qr_code_dialog_title": "QR-kóði OnionShare",
     "gui_file_selection_remove_all": "Fjarlægja allt",
-    "gui_show_url_qr_code": "Birta QR-kóða",
+    "gui_show_qr_code": "Birta QR-kóða",
     "gui_new_tab_chat_button": "Spjalla nafnlaust",
     "gui_main_page_chat_button": "Hefja spjall",
     "gui_main_page_website_button": "Hefja hýsingu",
