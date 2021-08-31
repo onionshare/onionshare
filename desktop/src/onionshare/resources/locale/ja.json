@@ -266,7 +266,7 @@
     "gui_open_folder_error": "xdg-openでフォルダー開くの失敗。ファイルはここにあります: {}",
     "gui_qr_code_description": "より簡単にOnionShareアドレスを共有するため、スマホのカメラなどのQRリーダーでこのコードをスキャンして下さい。",
     "gui_qr_code_dialog_title": "OnionShareのQRコード",
-    "gui_show_url_qr_code": "QRコードを表示",
+    "gui_show_qr_code": "QRコードを表示",
     "gui_receive_flatpak_data_dir": "FlatpakでOnionShareをインストールしたため、ファイルを~/OnionShareの中のフォルダーに保存しなければなりません。",
     "gui_chat_stop_server": "チャットサーバーを停止",
     "gui_chat_start_server": "チャットサーバーを始動",

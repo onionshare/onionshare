@@ -270,9 +270,38 @@ class GuiBaseTest(unittest.TestCase):
                 tab.get_mode().server_status.file_selection.add_button.isVisible()
             )
 
+    def url_shown(self, tab):
+        """Test that the URL is showing"""
+        self.assertTrue(tab.get_mode().server_status.url.isVisible())
+
     def url_description_shown(self, tab):
         """Test that the URL label is showing"""
         self.assertTrue(tab.get_mode().server_status.url_description.isVisible())
+
+    def url_instructions_shown(self, tab):
+        """Test that the URL instructions for sharing are showing"""
+        self.assertTrue(tab.get_mode().server_status.url_instructions.isVisible())
+
+    def private_key_shown(self, tab):
+        """Test that the Private Key is showing when not in public mode"""
+        if not tab.settings.get("general", "public"):
+            self.assertTrue(tab.get_mode().server_status.private_key.isVisible())
+        else:
+            self.assertFalse(tab.get_mode().server_status.private_key.isVisible())
+
+    def client_auth_instructions_shown(self, tab):
+        """
+        Test that the Private Key instructions for sharing
+        are showing when not in public mode
+        """
+        if not tab.settings.get("general", "public"):
+            self.assertTrue(
+                tab.get_mode().server_status.client_auth_instructions.isVisible()
+            )
+        else:
+            self.assertFalse(
+                tab.get_mode().server_status.client_auth_instructions.isVisible()
+            )
 
     def have_copy_url_button(self, tab):
         """Test that the Copy URL button is shown and that the clipboard is correct"""
@@ -282,7 +311,7 @@ class GuiBaseTest(unittest.TestCase):
         clipboard = tab.common.gui.qtapp.clipboard()
         self.assertEqual(clipboard.text(), f"http://127.0.0.1:{tab.app.port}")
 
-    def have_show_qr_code_button(self, tab):
+    def have_show_url_qr_code_button(self, tab):
         """Test that the Show QR Code URL button is shown and that it loads a QR Code Dialog"""
         self.assertTrue(
             tab.get_mode().server_status.show_url_qr_code_button.isVisible()
@@ -295,6 +324,28 @@ class GuiBaseTest(unittest.TestCase):
 
         QtCore.QTimer.singleShot(500, accept_dialog)
         tab.get_mode().server_status.show_url_qr_code_button.click()
+
+    def have_show_client_auth_qr_code_button(self, tab):
+        """
+        Test that the Show QR Code Client Auth button is shown when
+        not in public mode and that it loads a QR Code Dialog.
+        """
+        if not tab.settings.get("general", "public"):
+            self.assertTrue(
+                tab.get_mode().server_status.show_client_auth_qr_code_button.isVisible()
+            )
+
+            def accept_dialog():
+                window = tab.common.gui.qtapp.activeWindow()
+                if window:
+                    window.close()
+
+            QtCore.QTimer.singleShot(500, accept_dialog)
+            tab.get_mode().server_status.show_client_auth_qr_code_button.click()
+        else:
+            self.assertFalse(
+                tab.get_mode().server_status.show_client_auth_qr_code_button.isVisible()
+            )
 
     def server_status_indicator_says_started(self, tab):
         """Test that the Server Status indicator shows we are started"""
@@ -344,9 +395,15 @@ class GuiBaseTest(unittest.TestCase):
         self.assertFalse(tab.get_mode().server_status.copy_url_button.isVisible())
         self.assertFalse(tab.get_mode().server_status.url.isVisible())
         self.assertFalse(tab.get_mode().server_status.url_description.isVisible())
+        self.assertFalse(tab.get_mode().server_status.url_instructions.isVisible())
+        self.assertFalse(tab.get_mode().server_status.private_key.isVisible())
+        self.assertFalse(
+            tab.get_mode().server_status.client_auth_instructions.isVisible()
+        )
         self.assertFalse(
             tab.get_mode().server_status.copy_client_auth_button.isVisible()
         )
+
 
     def web_server_is_stopped(self, tab):
         """Test that the web server also stopped"""

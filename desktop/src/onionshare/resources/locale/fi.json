@@ -258,7 +258,7 @@
     "gui_chat_url_description": "<b>Kuka tahansa</b> tällä Onionshare-osoitteella voi <b>liittyä tähän keskusteluryhmään</b> käyttämällä <b>Tor-selainta</b>: <img src='{}' />",
     "gui_please_wait_no_button": "Aloitetaan…",
     "gui_qr_code_dialog_title": "OnionSharen QR-koodi",
-    "gui_show_url_qr_code": "Näytä QR-koodi",
+    "gui_show_qr_code": "Näytä QR-koodi",
     "gui_receive_flatpak_data_dir": "Koska asensin OnionSharen käyttämällä Flatpakia, sinun täytyy tallentaa tiedostot kansioon sijainnissa ~/OnionShare.",
     "gui_chat_stop_server": "Pysäytä chat-palvelin",
     "gui_chat_start_server": "Perusta chat-palvelin"

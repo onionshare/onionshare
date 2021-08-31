@@ -233,7 +233,7 @@
     "gui_chat_start_server": "Sohbet sunucusunu başlat",
     "gui_chat_stop_server": "Sohbet sunucusunu durdur",
     "gui_receive_flatpak_data_dir": "OnionShare'i Flatpak kullanarak kurduğunuz için, dosyaları ~/OnionShare içindeki bir klasöre kaydetmelisiniz.",
-    "gui_show_url_qr_code": "QR Kodu Göster",
+    "gui_show_qr_code": "QR Kodu Göster",
     "gui_qr_code_dialog_title": "OnionShare QR Kodu",
     "gui_qr_code_description": "OnionShare adresini bir başkasıyla daha kolay paylaşmak için bu QR kodunu telefonunuzdaki kamera gibi bir QR okuyucuyla tarayın.",
     "gui_open_folder_error": "Klasör xdg-open ile açılamadı. Dosya burada: {}",

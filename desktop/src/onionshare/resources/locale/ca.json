@@ -267,7 +267,7 @@
     "gui_new_tab_share_description": "Trieu els fitxers del vostre ordinador que voleu enviar a algú altre. La persona a qui voleu enviar els fitxers haurà d'usar el navegador Tor per a baixar-los del vostre equip.",
     "gui_qr_code_description": "Escanegeu aquest codi amb un lector de QR, com ara la càmera del telèfon, per a facilitar la compartició de l'adreça de l'OnionShare amb altres.",
     "gui_qr_code_dialog_title": "Codi QR de l'OnionShare",
-    "gui_show_url_qr_code": "Mostra el codi QR",
+    "gui_show_qr_code": "Mostra el codi QR",
     "gui_receive_flatpak_data_dir": "Com que heu instal·lat l'OnionShare amb el Flatpak, heu de desar els fitxers en una carpeta dins ~/OnionShare.",
     "gui_chat_stop_server": "Atura el servidor de xat",
     "gui_chat_start_server": "Inicia el servidor de xat",

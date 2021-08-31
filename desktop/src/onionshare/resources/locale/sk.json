@@ -27,7 +27,7 @@
     "gui_canceled": "Zrušené",
     "gui_copied_url_title": "Skopírovaná OnionShare adresa",
     "gui_copied_url": "OnionShare adresa bola skopírovaná do schránky",
-    "gui_show_url_qr_code": "Zobraziť QR kód",
+    "gui_show_qr_code": "Zobraziť QR kód",
     "gui_qr_code_dialog_title": "OnionShare QR kód",
     "gui_qr_code_description": "Naskenujte tento QR kód pomocou čítačky QR, napríklad fotoaparátom na telefóne, aby ste mohli jednoduchšie zdieľať adresu OnionShare s niekým.",
     "gui_waiting_to_start": "Naplánované spustenie o {}. Kliknutím zrušíte.",
