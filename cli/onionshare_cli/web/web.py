@@ -372,9 +372,18 @@ class Web:
         # To stop flask, load http://shutdown:[shutdown_password]@127.0.0.1/[shutdown_password]/shutdown
         # (We're putting the shutdown_password in the path as well to make routing simpler)
         if self.running:
-            requests.get(
-                f"http://127.0.0.1:{port}/{self.shutdown_password}/shutdown"
-            )
+            try:
+                requests.get(
+                    f"http://127.0.0.1:{port}/{self.shutdown_password}/shutdown"
+                )
+            except requests.exceptions.ConnectionError as e:
+                # The way flask-socketio stops a connection when running using
+                # eventlet is by raising SystemExit to abort all the processes.
+                # Hence the connections are closed and no response is returned
+                # to the above request. So I am just catching the ConnectionError
+                # to check if it was chat mode, in which case it's okay
+                if self.mode != "chat":
+                    raise e
 
     def cleanup(self):
         """
