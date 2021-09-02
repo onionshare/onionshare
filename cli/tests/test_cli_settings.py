@@ -123,7 +123,7 @@ class TestSettings:
             "~/Library/Application Support/OnionShare-testdata/onionshare.json"
         )
 
-    @pytest.mark.skipif(sys.platform != "Linux", reason="requires Linux")
+    @pytest.mark.skipif(sys.platform != "linux", reason="requires Linux")
     def test_filename_linux(self, monkeypatch, platform_linux):
         obj = settings.Settings(common.Common())
         assert obj.filename == os.path.expanduser(
