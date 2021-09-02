@@ -569,7 +569,7 @@ class TestRangeRequests:
             assert resp.status_code == 206
 
 
-    @pytest.mark.skipif(sys.platform != "Linux", reason="requires Linux")
+    @pytest.mark.skipif(sys.platform != "linux", reason="requires Linux")
     @check_unsupported("curl", ["--version"])
     def test_curl(self, temp_dir, tmpdir, common_obj):
         web = web_obj(temp_dir, common_obj, "share", 3)
@@ -591,7 +591,7 @@ class TestRangeRequests:
                 ]
             )
 
-    @pytest.mark.skipif(sys.platform != "Linux", reason="requires Linux")
+    @pytest.mark.skipif(sys.platform != "linux", reason="requires Linux")
     @check_unsupported("wget", ["--version"])
     def test_wget(self, temp_dir, tmpdir, common_obj):
         web = web_obj(temp_dir, common_obj, "share", 3)
