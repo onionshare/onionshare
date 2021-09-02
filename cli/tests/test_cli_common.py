@@ -169,7 +169,7 @@ class TestGetTorPaths:
             obfs4proxy_file_path,
         )
 
-    @pytest.mark.skipif(sys.platform != "Linux", reason="requires Linux")
+    @pytest.mark.skipif(sys.platform != "linux", reason="requires Linux")
     def test_get_tor_paths_linux(self, platform_linux, common_obj):
         (
             tor_path,
