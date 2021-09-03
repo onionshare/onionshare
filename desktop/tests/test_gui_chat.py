@@ -41,6 +41,7 @@ class TestChat(GuiBaseTest):
         self.url_shown(tab)
         self.have_copy_url_button(tab)
         self.have_show_url_qr_code_button(tab)
+        self.private_key_shown(tab)
         self.client_auth_instructions_shown(tab)
         self.have_show_client_auth_qr_code_button(tab)
         self.server_status_indicator_says_started(tab)

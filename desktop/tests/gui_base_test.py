@@ -282,6 +282,13 @@ class GuiBaseTest(unittest.TestCase):
         """Test that the URL instructions for sharing are showing"""
         self.assertTrue(tab.get_mode().server_status.url_instructions.isVisible())
 
+    def private_key_shown(self, tab):
+        """Test that the Private Key is showing when not in public mode"""
+        if not tab.settings.get("general", "public"):
+            self.assertTrue(tab.get_mode().server_status.private_key.isVisible())
+        else:
+            self.assertFalse(tab.get_mode().server_status.private_key.isVisible())
+
     def client_auth_instructions_shown(self, tab):
         """
         Test that the Private Key instructions for sharing
@@ -389,15 +396,14 @@ class GuiBaseTest(unittest.TestCase):
         self.assertFalse(tab.get_mode().server_status.url.isVisible())
         self.assertFalse(tab.get_mode().server_status.url_description.isVisible())
         self.assertFalse(tab.get_mode().server_status.url_instructions.isVisible())
+        self.assertFalse(tab.get_mode().server_status.private_key.isVisible())
         self.assertFalse(
             tab.get_mode().server_status.client_auth_instructions.isVisible()
         )
         self.assertFalse(
             tab.get_mode().server_status.copy_client_auth_button.isVisible()
         )
-        self.assertFalse(
-            tab.get_mode().server_status.show_client_auth_qr_code_button.isVisible()
-        )
+
 
     def web_server_is_stopped(self, tab):
         """Test that the web server also stopped"""
