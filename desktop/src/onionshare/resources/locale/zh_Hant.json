@@ -254,7 +254,7 @@
     "gui_main_page_share_button": "開始分享",
     "gui_new_tab_website_button": "架設一個網站",
     "gui_qr_code_dialog_title": "OnionShare QR Code",
-    "gui_show_url_qr_code": "顯示QR Code",
+    "gui_show_qr_code": "顯示QR Code",
     "gui_chat_stop_server": "停止聊天伺服器",
     "gui_chat_start_server": "開啟聊天伺服器",
     "gui_file_selection_remove_all": "全部移除",

@@ -217,7 +217,7 @@
     "gui_chat_start_server": "Запустити сервер чату",
     "gui_chat_stop_server_autostop_timer": "Зупинити сервер чату ({})",
     "gui_qr_code_dialog_title": "QR-код OnionShare",
-    "gui_show_url_qr_code": "Показати QR-код",
+    "gui_show_qr_code": "Показати QR-код",
     "gui_main_page_share_button": "Поділитися",
     "gui_main_page_chat_button": "Почати спілкуватися в чаті",
     "gui_main_page_website_button": "Почати хостинг",

@@ -267,7 +267,7 @@
     "gui_new_tab_chat_button": "Converse Anónimamente",
     "gui_open_folder_error": "Falhou a abrir a pasta com xdc-open. O ficheiro está aqui: {}",
     "gui_qr_code_dialog_title": "OnionShare Código QR",
-    "gui_show_url_qr_code": "Mostrar código QR",
+    "gui_show_qr_code": "Mostrar código QR",
     "gui_receive_flatpak_data_dir": "Como instalou o OnionShare utilizando Flatpak, deve guardar os ficheiros na pasta ~/OnionShare.",
     "gui_chat_stop_server": "Para servidor de conversa",
     "gui_chat_start_server": "Começar servidor de conversa",

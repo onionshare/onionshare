@@ -205,7 +205,7 @@
     "gui_file_selection_remove_all": "Šalinti visus",
     "gui_remove": "Šalinti",
     "gui_qr_code_dialog_title": "OnionShare QR kodas",
-    "gui_show_url_qr_code": "Rodyti QR kodą",
+    "gui_show_qr_code": "Rodyti QR kodą",
     "gui_open_folder_error": "Nepavyko atverti aplanko naudojant xdg-open. Failas yra čia: {}",
     "gui_chat_stop_server": "Sustabdyti pokalbių serverį",
     "gui_chat_start_server": "Pradėti pokalbių serverį",

@@ -215,7 +215,7 @@
     "gui_tab_name_website": "Web-stranica",
     "gui_tab_name_share": "Dijeli",
     "gui_qr_code_dialog_title": "OnionShare QR-kod",
-    "gui_show_url_qr_code": "Prikaži QR-kod",
+    "gui_show_qr_code": "Prikaži QR-kod",
     "gui_file_selection_remove_all": "Ukloni sve",
     "gui_remove": "Ukloni",
     "gui_main_page_chat_button": "Pokreni razgovor",

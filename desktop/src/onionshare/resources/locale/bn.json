@@ -269,7 +269,7 @@
     "gui_tab_name_receive": "গ্রহণ",
     "gui_tab_name_share": "শেয়ার",
     "gui_qr_code_dialog_title": "অনিওনশেয়ার কিউআর কোড",
-    "gui_show_url_qr_code": "কিউআর কোড দেখাও",
+    "gui_show_qr_code": "কিউআর কোড দেখাও",
     "gui_receive_flatpak_data_dir": "যেহেতু অনিওনশেয়ার ফ্ল্যাটপ্যাক দিয়ে ইন্সটল করেছো, তাই তোমাকে ~/OnionShare এ ফাইল সংরক্ষণ করতে হবে।",
     "gui_rendezvous_cleanup": "তোমার ফাইলগুলি সফলভাবে স্থানান্তরিত হয়েছে তা নিশ্চিত হয়ে টর সার্কিট বন্ধের অপেক্ষা করা হচ্ছে।\n\nএটি কয়েক মিনিট সময় নিতে পারে।",
     "gui_open_folder_error": "xdg-open দিয়ে ফোল্ডার খুলতে ব্যর্থ হয়েছে। ফাইলটি এখানে: {}",
