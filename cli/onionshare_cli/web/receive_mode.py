@@ -86,16 +86,13 @@ class ReceiveModeWeb:
             )
 
             self.web.add_request(self.web.REQUEST_LOAD, request.path)
-            r = make_response(
-                render_template(
-                    "receive.html",
-                    static_url_path=self.web.static_url_path,
-                    disable_text=self.web.settings.get("receive", "disable_text"),
-                    disable_files=self.web.settings.get("receive", "disable_files"),
-                    title=self.web.settings.get("general", "title"),
-                )
+            return render_template(
+                "receive.html",
+                static_url_path=self.web.static_url_path,
+                disable_text=self.web.settings.get("receive", "disable_text"),
+                disable_files=self.web.settings.get("receive", "disable_files"),
+                title=self.web.settings.get("general", "title")
             )
-            return self.web.add_security_headers(r)
 
         @self.web.app.route("/upload", methods=["POST"], provide_automatic_options=False)
         def upload(ajax=False):
@@ -222,12 +219,11 @@ class ReceiveModeWeb:
                     )
                 else:
                     # It was the last upload and the timer ran out
-                    r = make_response(
+                    return make_response(
                         render_template("thankyou.html"),
                         static_url_path=self.web.static_url_path,
                         title=self.web.settings.get("general", "title"),
                     )
-                    return self.web.add_security_headers(r)
 
         @self.web.app.route("/upload-ajax", methods=["POST"], provide_automatic_options=False)
         def upload_ajax_public():
