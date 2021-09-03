@@ -34,6 +34,8 @@
     "gui_qr_code_dialog_title": "OnionShare QR Code",
     "gui_qr_label_url_title": "OnionShare Address",
     "gui_qr_label_auth_string_title": "Private Key",
+    "gui_reveal": "Reveal",
+    "gui_hide": "Hide",
     "gui_waiting_to_start": "Scheduled to start in {}. Click to cancel.",
     "gui_please_wait_no_button": "Starting…",
     "gui_please_wait": "Starting… Click to cancel.",
