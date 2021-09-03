@@ -8,7 +8,7 @@ You can download OnionShare for Windows and macOS from the `OnionShare website <
 
 .. _linux:
 
-Install in Linux
+Linux
 ----------------
 
 There are various ways to install OnionShare for Linux, but the recommended way is to use either the `Flatpak <https://flatpak.org/>`_ or the `Snap <https://snapcraft.io/>`_ package.
@@ -21,6 +21,13 @@ Snap support is built-in to Ubuntu and Fedora comes with Flatpak support, but wh
 **Install OnionShare using Snap**: https://snapcraft.io/onionshare
 
 You can also download and install PGP-signed ``.flatpak`` or ``.snap`` packages from https://onionshare.org/dist/ if you prefer.
+
+.. _pip:
+
+Any OS with pip
+---------------
+
+If you want to install OnionShare just for the command line (onionshare-cli), please see the `README <https://github.com/onionshare/onionshare/blob/develop/cli/README.md>`_ in the Git repository for installation instructions with python package manager pip.
 
 .. _verifying_sigs:
 
