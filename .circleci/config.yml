@@ -1,8 +1,3 @@
-# To run the tests, CircleCI needs these environment variables:
-# QT_EMAIL - email address for a Qt account
-# QT_PASSWORD - password for a Qt account
-# (Unfortunately you can't install Qt without logging in.)
-
 version: 2
 workflows:
   version: 2
