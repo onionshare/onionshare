@@ -149,10 +149,9 @@ class SendBaseModeWeb:
 
         # If filesystem_path is None, this is the root directory listing
         files, dirs = self.build_directory_listing(path, filenames, filesystem_path)
-        r = self.directory_listing_template(
+        return self.directory_listing_template(
             path, files, dirs, breadcrumbs, breadcrumbs_leaf
         )
-        return self.web.add_security_headers(r)
 
     def build_directory_listing(self, path, filenames, filesystem_path):
         files = []
@@ -286,7 +285,6 @@ class SendBaseModeWeb:
             "filename*": "UTF-8''%s" % url_quote(basename),
         }
         r.headers.set("Content-Disposition", "inline", **filename_dict)
-        r = self.web.add_security_headers(r)
         (content_type, _) = mimetypes.guess_type(basename, strict=False)
         if content_type is not None:
             r.headers.set("Content-Type", content_type)

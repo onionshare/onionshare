@@ -149,8 +149,7 @@ class ShareModeWeb(SendBaseModeWeb):
                 and self.download_in_progress
             )
             if deny_download:
-                r = make_response(render_template("denied.html"))
-                return self.web.add_security_headers(r)
+                return render_template("denied.html")
 
             # If download is allowed to continue, serve download page
             if self.should_use_gzip():
@@ -172,8 +171,7 @@ class ShareModeWeb(SendBaseModeWeb):
                 and self.download_in_progress
             )
             if deny_download:
-                r = make_response(render_template("denied.html"))
-                return self.web.add_security_headers(r)
+                return render_template("denied.html")
 
             # Prepare some variables to use inside generate() function below
             # which is outside of the request context
@@ -232,7 +230,6 @@ class ShareModeWeb(SendBaseModeWeb):
                 "filename*": "UTF-8''%s" % url_quote(basename),
             }
             r.headers.set("Content-Disposition", "attachment", **filename_dict)
-            r = self.web.add_security_headers(r)
             # guess content type
             (content_type, _) = mimetypes.guess_type(basename, strict=False)
             if content_type is not None:
