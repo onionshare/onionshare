@@ -257,7 +257,7 @@
     "gui_new_tab_share_button": "共享文件",
     "gui_new_tab_tooltip": "打开一个新标签",
     "gui_new_tab": "新建标签",
-    "gui_show_url_qr_code": "显示二维码",
+    "gui_show_qr_code": "显示二维码",
     "gui_receive_flatpak_data_dir": "因为你用Flatpack安装的OnionShare，你需要把文件储存到在~/OnionShare里的一个文件夹里。",
     "gui_chat_stop_server": "停止言论服务器",
     "gui_chat_start_server": "开始言论服务器",

@@ -230,7 +230,7 @@
     "gui_settings_website_label": "اعدادات الموقع",
     "gui_receive_flatpak_data_dir": "بسبب أنت قد ثبّت OnionShare باستخدام Flatpak، يجب عليك حفظ الملفات داخل مُجلد في المسار ~/OnionShare.",
     "gui_qr_code_dialog_title": "OnionShare رمز الاستجابة السريعة",
-    "gui_show_url_qr_code": "إظهار رمز الاستجابة السريعة",
+    "gui_show_qr_code": "إظهار رمز الاستجابة السريعة",
     "gui_chat_stop_server": "إيقاف خادم الدردشة",
     "gui_chat_start_server": "ابدأ خادم الدردشة",
     "gui_file_selection_remove_all": "إزالة الكُل",

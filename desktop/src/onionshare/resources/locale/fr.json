@@ -272,7 +272,7 @@
     "gui_open_folder_error": "Échec d’ouverture du dossier avec xdg-open. Le fichier est ici : {}",
     "gui_qr_code_description": "Balayez ce code QR avec un lecteur de code QR, tel que l’appareil photo votre appareil, afin de partager plus facilement l’adresse OnionShare avec quelqu’un.",
     "gui_qr_code_dialog_title": "Code QR d’OnionShare",
-    "gui_show_url_qr_code": "Afficher le code QR",
+    "gui_show_qr_code": "Afficher le code QR",
     "gui_receive_flatpak_data_dir": "Comme vous avez installé OnionShare grâce à Flatpak, vous devez enregistrer vos fichiers dans un sous-dossier de ~/OnionShare.",
     "gui_chat_stop_server": "Arrêter le serveur de dialogue en ligne",
     "gui_chat_start_server": "Démarrer le serveur de dialogue en ligne",

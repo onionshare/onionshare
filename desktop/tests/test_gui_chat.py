@@ -37,8 +37,12 @@ class TestChat(GuiBaseTest):
         self.server_is_started(tab, startup_time=500)
         self.web_server_is_running(tab)
         self.url_description_shown(tab)
+        self.url_instructions_shown(tab)
+        self.url_shown(tab)
         self.have_copy_url_button(tab)
-        self.have_show_qr_code_button(tab)
+        self.have_show_url_qr_code_button(tab)
+        self.client_auth_instructions_shown(tab)
+        self.have_show_client_auth_qr_code_button(tab)
         self.server_status_indicator_says_started(tab)
 
     def run_all_chat_mode_stopping_tests(self, tab):

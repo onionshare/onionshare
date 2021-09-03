@@ -266,7 +266,7 @@
     "gui_new_tab": "Ny flik",
     "gui_qr_code_description": "Skanna den här QR-koden med en QR-läsare, till exempel kameran på din telefon, för att lättare kunna dela OnionShare-adressen med någon.",
     "gui_qr_code_dialog_title": "OnionShare QR-kod",
-    "gui_show_url_qr_code": "Visa QR-kod",
+    "gui_show_qr_code": "Visa QR-kod",
     "gui_receive_flatpak_data_dir": "Eftersom du installerade OnionShare med Flatpak måste du spara filer i en mapp i ~/OnionShare.",
     "gui_chat_stop_server": "Stoppa chattservern",
     "gui_chat_start_server": "Starta chattservern",

@@ -27,7 +27,7 @@
     "gui_canceled": "Betal bû",
     "gui_copied_url_title": "Malpera OnionShare kopî bû",
     "gui_copied_url": "Malpera OnionShare lis ser taxtê kopî bû",
-    "gui_show_url_qr_code": "QR kod nîşan bide",
+    "gui_show_qr_code": "QR kod nîşan bide",
     "gui_qr_code_dialog_title": "OnionShare QR kod",
     "gui_waiting_to_start": "Pilankirî ye di {} destpê bike. Bitkîne ji bo betal bike.",
     "gui_please_wait": "Destpê dike...Bitikîne ji bo betal bike.",

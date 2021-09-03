@@ -279,7 +279,7 @@
     "gui_new_tab_chat_button": "Sludre anonymt",
     "gui_qr_code_description": "Skann denne QR-koden med en QR-kodeleser (f.eks. kameraprogrammet på enheten din) for enklere deling av OnionShare-adressen med noen.",
     "gui_qr_code_dialog_title": "OnionShare-QR-kode",
-    "gui_show_url_qr_code": "Vis QR-kode",
+    "gui_show_qr_code": "Vis QR-kode",
     "gui_main_page_chat_button": "Start sludring",
     "gui_main_page_website_button": "Start vertsjening",
     "gui_main_page_receive_button": "Start mottak",

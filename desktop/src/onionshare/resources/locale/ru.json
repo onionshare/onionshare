@@ -266,7 +266,7 @@
     "gui_open_folder_error": "Ошибка при попытке открыть папку с помощью xdg-open. Файл находится здесь: {}",
     "gui_qr_code_description": "Сканируйте этот QR-код считывающим устройством, например камерой Вашего телефона, чтобы было удобнее поделиться ссылкой OnionShare с кем либо.",
     "gui_qr_code_dialog_title": "Код QR OnionShare",
-    "gui_show_url_qr_code": "Показать код QR",
+    "gui_show_qr_code": "Показать код QR",
     "gui_receive_flatpak_data_dir": "Так как Вы установили OnionShare с помощью Flatpak, Вы должны сохранять файлы в папке ~/OnionShare.",
     "gui_chat_stop_server": "Остановить сервер чата",
     "gui_chat_start_server": "Запустить сервер чата",

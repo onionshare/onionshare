@@ -269,7 +269,7 @@
     "gui_open_folder_error": "Kunne ikke åbne mappen med xdg-open. Filen er her: {}",
     "gui_qr_code_description": "Skan QR-koden med en QR-læser såsom kameraet i din telefon for at gøre det lettere at dele OnionShare-adressen med andre.",
     "gui_qr_code_dialog_title": "QR-kode til OnionShare",
-    "gui_show_url_qr_code": "Vis QR-kode",
+    "gui_show_qr_code": "Vis QR-kode",
     "gui_receive_flatpak_data_dir": "Da du installerede OnionShare med Flatpak, så skal du gemme filer til en mappe i ~/OnionShare.",
     "gui_chat_stop_server": "Stop chatserver",
     "gui_chat_start_server": "Start chatserver",
