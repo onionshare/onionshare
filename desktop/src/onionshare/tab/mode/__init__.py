@@ -252,11 +252,9 @@ class Mode(QtWidgets.QWidget):
             not self.server_status.local_only
             and not self.app.onion.supports_stealth
             and not self.settings.get("general", "public")
-           ):
-               self.stop_server()
-               self.start_server_error(
-                   strings._("gui_server_doesnt_support_stealth")
-               )
+        ):
+            self.stop_server()
+            self.start_server_error(strings._("gui_server_doesnt_support_stealth"))
         else:
             self.common.log("Mode", "start_server", "Starting an onion thread")
             self.obtain_onion_early = obtain_onion_early
