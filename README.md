@@ -22,4 +22,4 @@ To learn how OnionShare works, what its security properties are, how to use it, 
 
 ---
 
-Test status: [![CircleCI](https://circleci.com/gh/micahflee/onionshare.svg?style=svg)](https://circleci.com/gh/micahflee/onionshare)
+Test status: [![CircleCI](https://circleci.com/gh/onionshare/onionshare.svg?style=svg)](https://circleci.com/gh/onionshare/onionshare)
