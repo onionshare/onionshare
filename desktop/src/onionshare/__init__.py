@@ -49,6 +49,7 @@ class Application(QtWidgets.QApplication):
         if common.platform == "Linux" or common.platform == "BSD":
             self.setAttribute(QtCore.Qt.AA_X11InitThreads, True)
         QtWidgets.QApplication.__init__(self, sys.argv)
+        self.setStyle("Fusion")
 
         # Check color mode on starting the app
         self.color_mode = self.get_color_mode(common)
@@ -56,6 +57,8 @@ class Application(QtWidgets.QApplication):
         # Enable Dark Theme
         if self.color_mode == "dark":
             self.setDarkMode()
+        else:
+            self.setLightMode()
 
         self.installEventFilter(self)
 
@@ -74,8 +77,29 @@ class Application(QtWidgets.QApplication):
             return False
         return True
 
+    def setLightMode(self):
+        light_palette = QPalette()
+        light_palette.setColor(QPalette.Window, QColor(236, 236, 236))
+        light_palette.setColor(QPalette.WindowText, Qt.black)
+        light_palette.setColor(QPalette.Base, Qt.white)
+        light_palette.setColor(QPalette.AlternateBase, QColor(245, 245, 245))
+        light_palette.setColor(QPalette.ToolTipBase, Qt.white)
+        light_palette.setColor(QPalette.ToolTipText, Qt.black)
+        light_palette.setColor(QPalette.Text, Qt.black)
+        light_palette.setColor(QPalette.Button, QColor(236, 236, 236))
+        light_palette.setColor(QPalette.ButtonText, Qt.black)
+        light_palette.setColor(QPalette.BrightText, Qt.white)
+        light_palette.setColor(QPalette.Link, QColor(0, 104, 218))
+        light_palette.setColor(QPalette.Highlight, QColor(179, 215, 255))
+        light_palette.setColor(QPalette.HighlightedText, Qt.black)
+        light_palette.setColor(QPalette.Light, Qt.white)
+        light_palette.setColor(QPalette.Midlight, QColor(245, 245, 245))
+        light_palette.setColor(QPalette.Dark, QColor(191, 191, 191))
+        light_palette.setColor(QPalette.Mid, QColor(169, 169, 169))
+        light_palette.setColor(QPalette.Shadow, Qt.black)
+        self.setPalette(light_palette)
+
     def setDarkMode(self):
-        self.setStyle("Fusion")
         dark_palette = QPalette()
         dark_palette.setColor(QPalette.Window, QColor(53, 53, 53))
         dark_palette.setColor(QPalette.WindowText, Qt.white)
