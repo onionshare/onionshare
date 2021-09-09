@@ -285,7 +285,25 @@ class GuiBaseTest(unittest.TestCase):
     def private_key_shown(self, tab):
         """Test that the Private Key is showing when not in public mode"""
         if not tab.settings.get("general", "public"):
+            # Both the private key field and the toggle button should be seen
             self.assertTrue(tab.get_mode().server_status.private_key.isVisible())
+            self.assertTrue(tab.get_mode().server_status.client_auth_toggle_button.isVisible())
+            self.assertEqual(tab.get_mode().server_status.client_auth_toggle_button.text(), strings._("gui_reveal"))
+
+            # Test that the key is masked unless Reveal is clicked
+            self.assertEqual(tab.get_mode().server_status.private_key.text(), "*" * len(tab.app.auth_string))
+
+            # Click reveal
+            tab.get_mode().server_status.client_auth_toggle_button.click()
+
+            # The real private key should be revealed
+            self.assertEqual(tab.get_mode().server_status.private_key.text(), tab.app.auth_string)
+            self.assertEqual(tab.get_mode().server_status.client_auth_toggle_button.text(), strings._("gui_hide"))
+
+            # Click hide, key should be masked again
+            tab.get_mode().server_status.client_auth_toggle_button.click()
+            self.assertEqual(tab.get_mode().server_status.private_key.text(), "*" * len(tab.app.auth_string))
+            self.assertEqual(tab.get_mode().server_status.client_auth_toggle_button.text(), strings._("gui_reveal"))
         else:
             self.assertFalse(tab.get_mode().server_status.private_key.isVisible())
 
