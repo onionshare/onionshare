@@ -40,7 +40,7 @@
     <div class="d-flex">
       <div>
         <img width="30" height="30" title="" alt="" src="{{ static_url_path }}/img/web_folder.png" />
-        <a href="{{ info.basename }}">
+        <a href="{{ info.link }}">
           <span>{{ info.basename }}</span>
         </a>
       </div>
@@ -53,7 +53,7 @@
       <div>
         <img width="30" height="30" title="" alt="" src="{{ static_url_path }}/img/web_file.png" />
         {% if download_individual_files %}
-        <a href="{{ info.basename }}">
+        <a href="{{ info.link }}">
           <span>{{ info.basename }}</span>
         </a>
         {% else %}

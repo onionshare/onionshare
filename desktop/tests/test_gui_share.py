@@ -99,7 +99,7 @@ class TestShare(GuiBaseTest):
             self.assertEqual(r.status_code, 404)
             self.download_share(tab)
         else:
-            self.assertTrue('a href="test.txt"' in r.text)
+            self.assertTrue('a href="/test.txt"' in r.text)
             r = requests.get(download_file_url)
 
             tmp_file = tempfile.NamedTemporaryFile("wb", delete=False)

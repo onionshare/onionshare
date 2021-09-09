@@ -425,10 +425,7 @@ class ShareModeWeb(SendBaseModeWeb):
                 # Render directory listing
                 filenames = []
                 for filename in os.listdir(filesystem_path):
-                    if os.path.isdir(os.path.join(filesystem_path, filename)):
-                        filenames.append(filename + "/")
-                    else:
-                        filenames.append(filename)
+                    filenames.append(filename)
                 filenames.sort()
                 return self.directory_listing(filenames, path, filesystem_path)
 
