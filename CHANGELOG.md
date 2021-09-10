@@ -1,5 +1,11 @@
 # OnionShare Changelog
 
+## 2.4
+
+* Major feature: Private keys (v3 onion client authentication) replaces passwords and HTTP basic auth
+* Updated Tor to TODO
+* Various bug fixes
+
 ## 2.3.3
 
 * New feature: Setting for light or dark theme
