@@ -14,7 +14,7 @@ What OnionShare protects against
 
 **Anonymity of OnionShare users are protected by Tor.** OnionShare and Tor Browser protect the anonymity of the users. As long as the OnionShare user anonymously communicates the OnionShare address with the Tor Browser users, the Tor Browser users and eavesdroppers can't learn the identity of the OnionShare user.
 
-**If an attacker learns about the onion service, it still can't access anything.** Prior attacks against the Tor network to enumerate onion services allowed the attacker to discover private .onion addresses. If an attack discovers a private OnionShare address, but not the private key used for Client Authentication, they will be prevented from accessing it (unless the OnionShare user chooses to turn off the private key and make it public - see :ref:`turn_off_private_key`).
+**If an attacker learns about the onion service, it still can't access anything.** Prior attacks against the Tor network to enumerate onion services allowed the attacker to discover private ``.onion`` addresses. If an attack discovers a private OnionShare address, they will also need to guess the private key used for client authentication in order to access it (unless the OnionShare user chooses make their serivce public by turning off the private key -- see :ref:`turn_off_private_key`).
 
 What OnionShare doesn't protect against
 ---------------------------------------
