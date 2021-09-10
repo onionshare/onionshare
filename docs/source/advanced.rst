@@ -57,7 +57,7 @@ If nothing happens to you, you can cancel the service before it's scheduled to s
 
 .. image:: _static/screenshots/advanced-schedule-start-timer.png
 
-**Scheduling an OnionShare service to automatically stop can be useful to limit exposure**, like if you want to share secret documents while making sure they're not available on the Internet for more than a few days.
+**Scheduling an OnionShare service to automatically stop can be useful to limit exposure**, like if you want to share secret documents while making sure they're not available on the internet for more than a few days.
 
 .. image:: _static/screenshots/advanced-schedule-stop-timer.png
 
