@@ -116,14 +116,14 @@ After you add files, you'll see some settings. Make sure you choose the setting 
 Content Security Policy
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-By default OnionShare helps secure your website by setting a strict `Content Security Police <https://en.wikipedia.org/wiki/Content_Security_Policy>`_ header. However, this prevents third-party content from loading inside the web page.
+By default OnionShare helps secure your website by setting a strict `Content Security Policy <https://en.wikipedia.org/wiki/Content_Security_Policy>`_ header. However, this prevents third-party content from loading inside the web page.
 
 If you want to load content from third-party websites, like assets or JavaScript libraries from CDNs, check the "Don't send Content Security Policy header (allows your website to use third-party resources)" box before starting the service.
 
 Tips for running a website service
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-If you want to host a long-term website using OnionShare (meaning not something to quickly show someone something), it's recommended you do it on a separate, dedicated computer always powered on and connected to the Internet, and not on the one you use on a regular basis.
+If you want to host a long-term website using OnionShare (meaning not just to quickly show someone something), it's recommended you do it on a separate, dedicated computer that is always powered on and connected to the Internet, and not on the one you use on a regular basis.
 Save the tab (see :ref:`save_tabs`) so you can resume the website with the same address if you close OnionShare and re-open it later.
 
 If your website is intended for the public, you should run it as a public service (see :ref:`turn_off_private_key`).
@@ -135,8 +135,8 @@ You can use OnionShare to set up a private, secure chat room that doesn't log an
 
 .. image:: _static/screenshots/chat.png
 
-After you start the server, copy the OnionShare address and send it to the people you want in the anonymous chat room.
-If it's important to limit exactly who can join, use an encrypted messaging app to send out the OnionShare address.
+After you start the server, copy the OnionShare address and private key and send them to the people you want in the anonymous chat room.
+If it's important to limit exactly who can join, use an encrypted messaging app to send out the OnionShare address and private key.
 
 .. image:: _static/screenshots/chat-sharing.png
 
@@ -159,7 +159,7 @@ How is this useful?
 
 If you need to already be using an encrypted messaging app, what's the point of an OnionShare chat room to begin with? It leaves less traces.
 
-If you for example send a message to a Signal group, a copy of your message ends up on each device (the devices, and computers if they set up Signal Desktop) of each member of the group. Even if disappearing messages is turned on, it's hard to confirm all copies of the messages are actually deleted from all devices, and from any other places (like notifications databases) they may have been saved to.
+If you for example send a message to a Signal group, a copy of your message ends up on each device (the smartphones, and computers if they set up Signal Desktop) of each member of the group. Even if disappearing messages is turned on, it's hard to confirm all copies of the messages are actually deleted from all devices, and from any other places (like notifications databases) they may have been saved to.
 OnionShare chat rooms don't store any messages anywhere, so the problem is reduced to a minimum.
 
 OnionShare chat rooms can also be useful for people wanting to chat anonymously and securely with someone without needing to create any accounts.
