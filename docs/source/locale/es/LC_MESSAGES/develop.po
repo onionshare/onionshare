@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2021-08-20 13:37-0700\n"
+"POT-Creation-Date: 2021-09-09 19:15-0700\n"
 "PO-Revision-Date: 2020-12-04 23:29+0000\n"
 "Last-Translator: Zuhualime Akoochimoya <zakooch@protonmail.ch>\n"
 "Language: es\n"
@@ -143,7 +143,7 @@ msgstr ""
 "botones cliqueados, ajustes guardados o recargados), y otra información "
 "de depuración. Por ejemplo::"
 
-#: ../../source/develop.rst:121
+#: ../../source/develop.rst:117
 msgid ""
 "You can add your own debug messages by running the ``Common.log`` method "
 "from ``onionshare/common.py``. For example::"
@@ -151,7 +151,7 @@ msgstr ""
 "Puedes agregar tus propios mensajes de depuración ejecutando el método "
 "``Common.log`` desde ``onionshare/common.py``. Por ejemplo:"
 
-#: ../../source/develop.rst:125
+#: ../../source/develop.rst:121
 msgid ""
 "This can be useful when learning the chain of events that occur when "
 "using OnionShare, or the value of certain variables before and after they"
@@ -161,11 +161,11 @@ msgstr ""
 "usas OnionShare, o el valor de ciertas variables antes y después de que "
 "sean manipuladas."
 
-#: ../../source/develop.rst:128
+#: ../../source/develop.rst:124
 msgid "Local Only"
 msgstr "Solo local"
 
-#: ../../source/develop.rst:130
+#: ../../source/develop.rst:126
 msgid ""
 "Tor is slow, and it's often convenient to skip starting onion services "
 "altogether during development. You can do this with the ``--local-only`` "
@@ -175,21 +175,22 @@ msgstr ""
 "onion sin excepción durante el desarrollo. Puedes hacer esto con el "
 "modoficador ``--local-only``. Por ejemplo:"
 
-#: ../../source/develop.rst:167
+#: ../../source/develop.rst:165
+#, fuzzy
 msgid ""
-"In this case, you load the URL ``http://onionshare:train-"
-"system@127.0.0.1:17635`` in a normal web-browser like Firefox, instead of"
-" using the Tor Browser."
+"In this case, you load the URL ``http://127.0.0.1:17641`` in a normal "
+"web-browser like Firefox, instead of using the Tor Browser. The private "
+"key is not actually needed in local-only mode, so you can ignore it."
 msgstr ""
 "En este caso, cargas el URL ``http://onionshare:train-"
 "system@127.0.0.1:17635`` en un navegador web normal como Firefox, en vez "
 "de usar al Navegador Tor."
 
-#: ../../source/develop.rst:170
+#: ../../source/develop.rst:168
 msgid "Contributing Translations"
 msgstr "Contribuyendo traducciones"
 
-#: ../../source/develop.rst:172
+#: ../../source/develop.rst:170
 msgid ""
 "Help make OnionShare easier to use and more familiar and welcoming for "
 "people by translating it on `Hosted Weblate "
@@ -203,17 +204,17 @@ msgstr ""
 "\"OnionShare\" en el alfabeto latino, y usa \"OnionShare (nombre local)\""
 " si fuera necesario."
 
-#: ../../source/develop.rst:174
+#: ../../source/develop.rst:172
 msgid "To help translate, make a Hosted Weblate account and start contributing."
 msgstr ""
 "Para ayudar a traducir, crea una cuenta Hosted Weblate y empieza a "
 "contribuir."
 
-#: ../../source/develop.rst:177
+#: ../../source/develop.rst:175
 msgid "Suggestions for Original English Strings"
 msgstr "Sugerencias para cadenas de caracteres en el original en Inglés"
 
-#: ../../source/develop.rst:179
+#: ../../source/develop.rst:177
 msgid ""
 "Sometimes the original English strings are wrong, or don't match between "
 "the application and the documentation."
@@ -221,7 +222,7 @@ msgstr ""
 "A veces, las cadenas de caracteres en Inglés están equivocadas, o no se "
 "corresponden entre la aplicación y la documentación."
 
-#: ../../source/develop.rst:181
+#: ../../source/develop.rst:179
 msgid ""
 "File source string improvements by adding @kingu to your Weblate comment,"
 " or open a GitHub issue or pull request. The latter ensures all upstream "
@@ -234,11 +235,11 @@ msgstr ""
 "sugerencias, y potencialmente puede modificar la cadena a través de los "
 "procesos usuales de revisión de código."
 
-#: ../../source/develop.rst:185
+#: ../../source/develop.rst:183
 msgid "Status of Translations"
 msgstr "Estado de las traducciones"
 
-#: ../../source/develop.rst:186
+#: ../../source/develop.rst:184
 msgid ""
 "Here is the current translation status. If you want start a translation "
 "in a language not yet started, please write to the mailing list: "

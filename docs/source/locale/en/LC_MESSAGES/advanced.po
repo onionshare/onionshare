@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-03 21:48-0700\n"
+"POT-Creation-Date: 2021-09-09 19:49-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,7 +45,7 @@ msgstr ""
 msgid ""
 "When you quit OnionShare and then open it again, your saved tabs will "
 "start opened. You'll have to manually start each service, but when you do"
-" they will start with the same OnionShare address and password."
+" they will start with the same OnionShare address and private key."
 msgstr ""
 
 #: ../../source/advanced.rst:21
@@ -55,32 +55,35 @@ msgid ""
 msgstr ""
 
 #: ../../source/advanced.rst:26
-msgid "Turn Off Passwords"
+msgid "Turn Off Private Key"
 msgstr ""
 
 #: ../../source/advanced.rst:28
 msgid ""
-"By default, all OnionShare services are protected with the username "
-"``onionshare`` and a randomly-generated password. If someone takes 20 "
-"wrong guesses at the password, your onion service is automatically "
-"stopped to prevent a brute force attack against the OnionShare service."
+"By default, all OnionShare services are protected with a private key, "
+"which Tor calls \"client authentication\"."
 msgstr ""
 
-#: ../../source/advanced.rst:31
+#: ../../source/advanced.rst:30
+msgid ""
+"When browsing to an OnionShare service in Tor Browser, Tor Browser will "
+"prompt for the private key to be entered."
+msgstr ""
+
+#: ../../source/advanced.rst:32
 msgid ""
 "Sometimes you might want your OnionShare service to be accessible to the "
 "public, like if you want to set up an OnionShare receive service so the "
 "public can securely and anonymously send you files. In this case, it's "
-"better to disable the password altogether. If you don't do this, someone "
-"can force your server to stop just by making 20 wrong guesses of your "
-"password, even if they know the correct password."
+"better to disable the private key altogether."
 msgstr ""
 
 #: ../../source/advanced.rst:35
 msgid ""
-"To turn off the password for any tab, just check the \"Don't use a "
-"password\" box before starting the server. Then the server will be public"
-" and won't have a password."
+"To turn off the private key for any tab, check the \"This is a public "
+"OnionShare service (disables private key)\" box before starting the "
+"server. Then the server will be public and won't need a private key to "
+"view in Tor Browser."
 msgstr ""
 
 #: ../../source/advanced.rst:40
@@ -133,91 +136,59 @@ msgstr ""
 msgid ""
 "**Scheduling an OnionShare service to automatically stop can be useful to"
 " limit exposure**, like if you want to share secret documents while "
-"making sure they're not available on the Internet for more than a few "
+"making sure they're not available on the internet for more than a few "
 "days."
 msgstr ""
 
-#: ../../source/advanced.rst:65
+#: ../../source/advanced.rst:67
 msgid "Command-line Interface"
 msgstr ""
 
-#: ../../source/advanced.rst:67
+#: ../../source/advanced.rst:69
 msgid ""
 "In addition to its graphical interface, OnionShare has a command-line "
 "interface."
 msgstr ""
 
-#: ../../source/advanced.rst:69
+#: ../../source/advanced.rst:71
 msgid ""
 "You can install just the command-line version of OnionShare using "
 "``pip3``::"
 msgstr ""
 
-#: ../../source/advanced.rst:73
+#: ../../source/advanced.rst:75
 msgid ""
 "Note that you will also need the ``tor`` package installed. In macOS, "
 "install it with: ``brew install tor``"
 msgstr ""
 
-#: ../../source/advanced.rst:75
+#: ../../source/advanced.rst:77
 msgid "Then run it like this::"
 msgstr ""
 
-#: ../../source/advanced.rst:79
+#: ../../source/advanced.rst:81
+msgid ""
+"For information about installing it on different operating systems, see "
+"the `CLI readme file "
+"<https://github.com/onionshare/onionshare/blob/develop/cli/README.md>`_ "
+"in the git repository."
+msgstr ""
+
+#: ../../source/advanced.rst:83
 msgid ""
 "If you installed OnionShare using the Linux Snapcraft package, you can "
 "also just run ``onionshare.cli`` to access the command-line interface "
 "version."
 msgstr ""
 
-#: ../../source/advanced.rst:82
+#: ../../source/advanced.rst:86
 msgid "Usage"
 msgstr ""
 
-#: ../../source/advanced.rst:84
+#: ../../source/advanced.rst:88
 msgid ""
 "You can browse the command-line documentation by running ``onionshare "
 "--help``::"
-msgstr ""
-
-#: ../../source/advanced.rst:147
-msgid "Legacy Addresses"
-msgstr ""
-
-#: ../../source/advanced.rst:149
-msgid ""
-"OnionShare uses v3 Tor onion services by default. These are modern onion "
-"addresses that have 56 characters, for example::"
-msgstr ""
-
-#: ../../source/advanced.rst:154
-msgid ""
-"OnionShare still has support for v2 onion addresses, the old type of "
-"onion addresses that have 16 characters, for example::"
-msgstr ""
-
-#: ../../source/advanced.rst:158
-msgid ""
-"OnionShare calls v2 onion addresses \"legacy addresses\", and they are "
-"not recommended, as v3 onion addresses are more secure."
-msgstr ""
-
-#: ../../source/advanced.rst:160
-msgid ""
-"To use legacy addresses, before starting a server click \"Show advanced "
-"settings\" from its tab and check the \"Use a legacy address (v2 onion "
-"service, not recommended)\" box. In legacy mode you can optionally turn "
-"on Tor client authentication. Once you start a server in legacy mode you "
-"cannot remove legacy mode in that tab. Instead you must start a separate "
-"service in a separate tab."
-msgstr ""
-
-#: ../../source/advanced.rst:165
-msgid ""
-"Tor Project plans to `completely deprecate v2 onion services "
-"<https://blog.torproject.org/v2-deprecation-timeline>`_ on October 15, "
-"2021, and legacy onion services will be removed from OnionShare before "
-"then."
 msgstr ""
 
 #~ msgid "Make a symbolic link to the OnionShare command line binary line this::"
@@ -417,5 +388,123 @@ msgstr ""
 #~ " October 15, 2021, and legacy onion"
 #~ " services will soon be removed from"
 #~ " OnionShare as well."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "When you quit OnionShare and then "
+#~ "open it again, your saved tabs "
+#~ "will start opened. You'll have to "
+#~ "manually start each service, but when"
+#~ " you do they will start with "
+#~ "the same OnionShare address and "
+#~ "password."
+#~ msgstr ""
+
+#~ msgid "Turn Off Passwords"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "By default, all OnionShare services are"
+#~ " protected with the username ``onionshare``"
+#~ " and a randomly-generated password. "
+#~ "If someone takes 20 wrong guesses "
+#~ "at the password, your onion service "
+#~ "is automatically stopped to prevent a"
+#~ " brute force attack against the "
+#~ "OnionShare service."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Sometimes you might want your OnionShare"
+#~ " service to be accessible to the "
+#~ "public, like if you want to set"
+#~ " up an OnionShare receive service so"
+#~ " the public can securely and "
+#~ "anonymously send you files. In this "
+#~ "case, it's better to disable the "
+#~ "password altogether. If you don't do "
+#~ "this, someone can force your server "
+#~ "to stop just by making 20 wrong"
+#~ " guesses of your password, even if"
+#~ " they know the correct password."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "To turn off the password for any"
+#~ " tab, just check the \"Don't use "
+#~ "a password\" box before starting the "
+#~ "server. Then the server will be "
+#~ "public and won't have a password."
+#~ msgstr ""
+
+#~ msgid "Legacy Addresses"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "OnionShare uses v3 Tor onion services"
+#~ " by default. These are modern onion"
+#~ " addresses that have 56 characters, "
+#~ "for example::"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "OnionShare still has support for v2 "
+#~ "onion addresses, the old type of "
+#~ "onion addresses that have 16 characters,"
+#~ " for example::"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "OnionShare calls v2 onion addresses "
+#~ "\"legacy addresses\", and they are not"
+#~ " recommended, as v3 onion addresses "
+#~ "are more secure."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "To use legacy addresses, before starting"
+#~ " a server click \"Show advanced "
+#~ "settings\" from its tab and check "
+#~ "the \"Use a legacy address (v2 "
+#~ "onion service, not recommended)\" box. "
+#~ "In legacy mode you can optionally "
+#~ "turn on Tor client authentication. Once"
+#~ " you start a server in legacy "
+#~ "mode you cannot remove legacy mode "
+#~ "in that tab. Instead you must "
+#~ "start a separate service in a "
+#~ "separate tab."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Tor Project plans to `completely "
+#~ "deprecate v2 onion services "
+#~ "<https://blog.torproject.org/v2-deprecation-timeline>`_ on"
+#~ " October 15, 2021, and legacy onion"
+#~ " services will be removed from "
+#~ "OnionShare before then."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "By default, all OnionShare services are"
+#~ " protected with a private key, which"
+#~ " Tor calls Client Authentication."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "**Scheduling an OnionShare service to "
+#~ "automatically stop can be useful to "
+#~ "limit exposure**, like if you want "
+#~ "to share secret documents while making"
+#~ " sure they're not available on the"
+#~ " Internet for more than a few "
+#~ "days."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "For more information, see the `CLI "
+#~ "readme file "
+#~ "<https://github.com/onionshare/onionshare/blob/develop/cli/README.md>`_"
+#~ " in the git repository."
 #~ msgstr ""
 

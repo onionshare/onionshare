@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-20 13:37-0700\n"
+"POT-Creation-Date: 2021-09-09 19:15-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -108,42 +108,42 @@ msgid ""
 "reloaded), and other debug info. For example::"
 msgstr ""
 
-#: ../../source/develop.rst:121
+#: ../../source/develop.rst:117
 msgid ""
 "You can add your own debug messages by running the ``Common.log`` method "
 "from ``onionshare/common.py``. For example::"
 msgstr ""
 
-#: ../../source/develop.rst:125
+#: ../../source/develop.rst:121
 msgid ""
 "This can be useful when learning the chain of events that occur when "
 "using OnionShare, or the value of certain variables before and after they"
 " are manipulated."
 msgstr ""
 
-#: ../../source/develop.rst:128
+#: ../../source/develop.rst:124
 msgid "Local Only"
 msgstr ""
 
-#: ../../source/develop.rst:130
+#: ../../source/develop.rst:126
 msgid ""
 "Tor is slow, and it's often convenient to skip starting onion services "
 "altogether during development. You can do this with the ``--local-only`` "
 "flag. For example::"
 msgstr ""
 
-#: ../../source/develop.rst:167
+#: ../../source/develop.rst:165
 msgid ""
-"In this case, you load the URL ``http://onionshare:train-"
-"system@127.0.0.1:17635`` in a normal web-browser like Firefox, instead of"
-" using the Tor Browser."
+"In this case, you load the URL ``http://127.0.0.1:17641`` in a normal "
+"web-browser like Firefox, instead of using the Tor Browser. The private "
+"key is not actually needed in local-only mode, so you can ignore it."
 msgstr ""
 
-#: ../../source/develop.rst:170
+#: ../../source/develop.rst:168
 msgid "Contributing Translations"
 msgstr ""
 
-#: ../../source/develop.rst:172
+#: ../../source/develop.rst:170
 msgid ""
 "Help make OnionShare easier to use and more familiar and welcoming for "
 "people by translating it on `Hosted Weblate "
@@ -152,21 +152,21 @@ msgid ""
 "needed."
 msgstr ""
 
-#: ../../source/develop.rst:174
+#: ../../source/develop.rst:172
 msgid "To help translate, make a Hosted Weblate account and start contributing."
 msgstr ""
 
-#: ../../source/develop.rst:177
+#: ../../source/develop.rst:175
 msgid "Suggestions for Original English Strings"
 msgstr ""
 
-#: ../../source/develop.rst:179
+#: ../../source/develop.rst:177
 msgid ""
 "Sometimes the original English strings are wrong, or don't match between "
 "the application and the documentation."
 msgstr ""
 
-#: ../../source/develop.rst:181
+#: ../../source/develop.rst:179
 msgid ""
 "File source string improvements by adding @kingu to your Weblate comment,"
 " or open a GitHub issue or pull request. The latter ensures all upstream "
@@ -174,11 +174,11 @@ msgid ""
 "the usual code review processes."
 msgstr ""
 
-#: ../../source/develop.rst:185
+#: ../../source/develop.rst:183
 msgid "Status of Translations"
 msgstr ""
 
-#: ../../source/develop.rst:186
+#: ../../source/develop.rst:184
 msgid ""
 "Here is the current translation status. If you want start a translation "
 "in a language not yet started, please write to the mailing list: "
@@ -430,5 +430,21 @@ msgstr ""
 #~ "``desktop/README.md`` file to learn how "
 #~ "to set up your development environment"
 #~ " for the graphical version."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "In this case, you load the URL "
+#~ "``http://onionshare:train-system@127.0.0.1:17635`` in "
+#~ "a normal web-browser like Firefox, "
+#~ "instead of using the Tor Browser."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "In this case, you load the URL "
+#~ "``http://127.0.0.1:17621`` in a normal web-"
+#~ "browser like Firefox, instead of using"
+#~ " the Tor Browser. The Private key "
+#~ "is not actually needed in local-"
+#~ "only mode, so you can ignore it."
 #~ msgstr ""
 
