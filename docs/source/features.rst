@@ -5,19 +5,21 @@ How OnionShare Works
 
 Web servers are started locally on your computer and made accessible to other people as `Tor <https://www.torproject.org/>`_ `onion services <https://community.torproject.org/onion-services/>`_.
 
-By default, OnionShare web addresses are protected with a private key (Client Authentication). A typical OnionShare address might look something like this::
+By default, OnionShare web addresses are protected with a private key.
 
-    http://by4im3ir5nsvygprmjq74xwplrkdgt44qmeapxawwikxacmr3dqzyjad.onion
+OnionShare addresses look something like this::
 
-And the Private key might look something like this::
+    http://oy5oaslxxzwib7fsjaiz5mjeyg3ziwdmiyeotpjw6etxi722pn7pqsyd.onion
 
-    EM6UK3LFM7PFLX63DVZIUQQPW5JV5KO6PB3TP3YNA4OLB3OH7AQA
+And private keys might look something like this::
 
-You're responsible for securely sharing that URL, and the private key, using a communication channel of your choice like in an encrypted chat message, or using something less secure like unencrypted e-mail, depending on your `threat model <https://ssd.eff.org/module/your-security-plan>`_.
+    K3N3N3U3BURJW46HZEZV2LZHBPKEFAGVN6DPC7TY6FHWXT7RLRAQ
 
-The people you send the URL to then copy and paste it into their `Tor Browser <https://www.torproject.org/>`_ to access the OnionShare service.
+You're responsible for securely sharing that URL and private key using a communication channel of your choice like in an encrypted chat message, or using something less secure like unencrypted e-mail, depending on your `threat model <https://ssd.eff.org/module/your-security-plan>`_.
 
-Tor Browser will then prompt for the private key in an authentication dialog, which the person can also then copy and paste in.
+The people you send the URL to then copy and paste it into their `Tor Browser <https://www.torproject.org/>`_ to access the OnionShare service. Tor Browser will then prompt for the private key, which the people can also then copy and paste in.
+
+.. image:: _static/screenshots/private-key.png
 
 If you run OnionShare on your laptop to send someone files, and then suspend it before the files are sent, the service will not be available until your laptop is unsuspended and on the Internet again. OnionShare works best when working with people in real-time.
 
@@ -43,7 +45,7 @@ When you're ready to share, click the "Start sharing" button. You can always cli
 
 .. image:: _static/screenshots/share-sharing.png
 
-Now that you have a OnionShare, copy the address and send it to the person you want to receive the files. If the files need to stay secure, or the person is otherwise exposed to danger, use an encrypted messaging app.
+Now that you have a OnionShare, copy the address and the private key and send it to the person you want to receive the files. If the files need to stay secure, or the person is otherwise exposed to danger, use an encrypted messaging app.
 
 That person then must load the address in Tor Browser. After logging in with the private key, the files can be downloaded directly from your computer by clicking the "Download Files" link in the corner.
 
