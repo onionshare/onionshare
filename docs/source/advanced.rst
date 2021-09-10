@@ -61,6 +61,8 @@ If nothing happens to you, you can cancel the service before it's scheduled to s
 
 .. image:: _static/screenshots/advanced-schedule-stop-timer.png
 
+.. _cli:
+
 Command-line Interface
 ----------------------
 
@@ -75,6 +77,8 @@ Note that you will also need the ``tor`` package installed. In macOS, install it
 Then run it like this::
 
     onionshare-cli --help
+
+For more information, see the `CLI readme file <https://github.com/onionshare/onionshare/blob/develop/cli/README.md>`_ in the git repository.
 
 If you installed OnionShare using the Linux Snapcraft package, you can also just run ``onionshare.cli`` to access the command-line interface version.
 
