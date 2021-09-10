@@ -25,7 +25,7 @@ If you save a tab, a copy of that tab's onion service secret key will be stored 
 Turn Off Private Key
 --------------------
 
-By default, all OnionShare services are protected with a private key, which Tor calls Client Authentication.
+By default, all OnionShare services are protected with a private key, which Tor calls "client authentication".
 
 When browsing to an OnionShare service in Tor Browser, Tor Browser will prompt for the private key to be entered.
 
@@ -105,23 +105,19 @@ You can browse the command-line documentation by running ``onionshare --help``::
     │   █ █ █▀▄ █ ▄▀▄ █▀▄  ▀▄ █▀▄ ▄▀▄ █▄▀ ▄█▄   │
     │   ▀▄▀ █ █ █ ▀▄▀ █ █ ▄▄▀ █ █ ▀▄█ █   ▀▄▄   │
     │                                           │
-    │                  v2.3.3                   │
+    │                   v2.4                    │
     │                                           │
     │          https://onionshare.org/          │
     ╰───────────────────────────────────────────╯
-    
-    usage: onionshare-cli [-h] [--receive] [--website] [--chat] [--local-only]
-                          [--connect-timeout SECONDS] [--config FILENAME]
-                          [--persistent FILENAME] [--title TITLE] [--public]
-                          [--auto-start-timer SECONDS] [--auto-stop-timer SECONDS]
-                          [--no-autostop-sharing] [--data-dir data_dir]
-                          [--webhook-url webhook_url] [--disable-text]
-                          [--disable-files] [--disable_csp] [-v]
-                          [filename [filename ...]]
-    
+
+    usage: onionshare-cli [-h] [--receive] [--website] [--chat] [--local-only] [--connect-timeout SECONDS] [--config FILENAME] [--persistent FILENAME] [--title TITLE] [--public]
+                          [--auto-start-timer SECONDS] [--auto-stop-timer SECONDS] [--no-autostop-sharing] [--data-dir data_dir] [--webhook-url webhook_url] [--disable-text] [--disable-files]
+                          [--disable_csp] [-v]
+                          [filename ...]
+
     positional arguments:
       filename                  List of files or folders to share
-    
+
     optional arguments:
       -h, --help                show this help message and exit
       --receive                 Receive files
@@ -129,29 +125,20 @@ You can browse the command-line documentation by running ``onionshare --help``::
       --chat                    Start chat server
       --local-only              Don't use Tor (only for development)
       --connect-timeout SECONDS
-                                Give up connecting to Tor after a given amount of
-                                seconds (default: 120)
+                                Give up connecting to Tor after a given amount of seconds (default: 120)
       --config FILENAME         Filename of custom global settings
       --persistent FILENAME     Filename of persistent session
       --title TITLE             Set a title
       --public                  Don't use a private key
       --auto-start-timer SECONDS
-                                Start onion service at scheduled time (N seconds
-                                from now)
+                                Start onion service at scheduled time (N seconds from now)
       --auto-stop-timer SECONDS
-                                Stop onion service at schedule time (N seconds
-                                from now)
-      --no-autostop-sharing     Share files: Continue sharing after files have
-                                been sent (default is to stop sharing)
-      --data-dir data_dir       Receive files: Save files received to this
-                                directory
+                                Stop onion service at schedule time (N seconds from now)
+      --no-autostop-sharing     Share files: Continue sharing after files have been sent (default is to stop sharing)
+      --data-dir data_dir       Receive files: Save files received to this directory
       --webhook-url webhook_url
-                                Receive files: URL to receive webhook
-                                notifications
+                                Receive files: URL to receive webhook notifications
       --disable-text            Receive files: Disable receiving text messages
       --disable-files           Receive files: Disable receiving files
-      --disable_csp             Publish website: Disable Content Security Policy
-                                header (allows your website to use third-party
-                                resources)
-      -v, --verbose             Log OnionShare errors to stdout, and web errors to
-                                disk
+      --disable_csp             Publish website: Disable Content Security Policy header (allows your website to use third-party resources)
+      -v, --verbose             Log OnionShare errors to stdout, and web errors to disk
