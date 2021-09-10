@@ -11,6 +11,7 @@ Before making a release, you must update the version in these places:
 - [ ] `cli/onionshare_cli/resources/version.txt`
 - [ ] `desktop/pyproject.toml` (under `version` and **don't forget** the `./onionshare_cli-$VERSION-py3-none-any.whl` dependency)
 - [ ] `desktop/src/setup.py`
+- [ ] `desktop/src/org.onionshare.OnionShare.appdata.xml`
 - [ ] `docs/source/conf.py` (`version` at the top, and the `versions` list too)
 - [ ] `snap/snapcraft.yaml`
 
@@ -41,7 +42,7 @@ Finalize localization:
 
 You also must edit these files:
 
-- [ ] `desktop/src/org.onionshare.OnionShare.appdata.xml` should have the correct version, release date, and links to correct screenshots
+- [ ] `desktop/src/org.onionshare.OnionShare.appdata.xml` should have the correct release date, and links to correct screenshots
 - [ ] `CHANGELOG.md` should be updated to include a list of all major changes since the last release
 
 Make sure snapcraft packaging works. In `snap/snapcraft.yaml`:
