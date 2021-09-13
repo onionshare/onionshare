@@ -128,6 +128,12 @@ parts:
       - pynacl
       - colorama
       - git+https://github.com/onionshare/stem.git@1.8.1
+    stage-packages:
+      - build-essential
+      - libssl-dev
+      - libffi-dev
+      - python3-dev
+      - cargo
     stage:
       - -usr/lib/x86_64-linux-gnu/libcrypto.so.1.1
       - -usr/share/doc/libssl1.1/changelog.Debian.gz
