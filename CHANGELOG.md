@@ -4,6 +4,7 @@
 
 * Major feature: Private keys (v3 onion client authentication) replaces passwords and HTTP basic auth
 * Updated Tor to 0.4.6.7 on all platforms
+* Add support for i386, ARM64, ARMhf to Snapcraft package
 * Various bug fixes
 
 ## 2.3.3
