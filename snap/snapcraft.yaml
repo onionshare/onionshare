@@ -23,8 +23,6 @@ apps:
       - network
       - network-bind
       - removable-media
-    extensions:
-      - gnome-3-34
     environment:
       LANG: C.UTF-8
   
