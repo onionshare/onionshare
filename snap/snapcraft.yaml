@@ -152,7 +152,6 @@ parts:
     plugin: autotools
 
   obfs4:
-    source: pass
     plugin: go
     go-importpath: gitlab.com/yawning/obfs4
     source: https://gitlab.com/yawning/obfs4
