@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2021-09-09 19:15-0700\n"
-"PO-Revision-Date: 2021-01-01 20:29+0000\n"
+"PO-Revision-Date: 2021-09-14 12:35+0000\n"
 "Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
-"Language: tr\n"
 "Language-Team: tr <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
+"Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.9-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/develop.rst:2
@@ -62,16 +63,14 @@ msgid "Contributing Code"
 msgstr "Kodlara Katkıda Bulunma"
 
 #: ../../source/develop.rst:17
-#, fuzzy
 msgid ""
 "OnionShare source code is to be found in this Git repository: "
 "https://github.com/onionshare/onionshare"
 msgstr ""
-"OnionShare kaynak kodları şu Git deposunda bulunabilir: "
-"https://github.com/micahflee/onionshare"
+"OnionShare kaynak kodları şu Git deposunda bulunabilir: https://github.com/"
+"onionshare/onionshare"
 
 #: ../../source/develop.rst:19
-#, fuzzy
 msgid ""
 "If you'd like to contribute code to OnionShare, it helps to join the "
 "Keybase team and ask questions about what you're thinking of working on. "
@@ -83,7 +82,7 @@ msgstr ""
 "katılmanız ve üzerinde çalışmayı düşündüğünüz şeyler hakkında sorular "
 "sormanız yardımcı olacaktır. Ayrıca üzerinde çalışmak isteyebileceğiniz "
 "herhangi bir sorun olup olmadığını görmek için GitHub'daki tüm `açık "
-"sorunları <https://github.com/micahflee/onionshare/issues>`_ "
+"sorunları <https://github.com/onionshare/onionshare/issues>`_ "
 "incelemelisiniz."
 
 #: ../../source/develop.rst:22
@@ -110,6 +109,11 @@ msgid ""
 "file to learn how to set up your development environment for the "
 "graphical version."
 msgstr ""
+"OnionShare Python ile geliştirilmektedir. Başlamak için https://github.com/"
+"onionshare/onionshare/ adresindeki Git deposunu klonlayın ve ardından komut "
+"satırı sürümü için geliştirme ortamınızı nasıl kuracağınızı öğrenmek için ``"
+"cli/README.md`` dosyasına, grafiksel sürüm için geliştirme ortamınızı nasıl "
+"kuracağınızı öğrenmek için ``desktop/README.md`` dosyasına bakın."
 
 #: ../../source/develop.rst:32
 msgid ""
@@ -177,15 +181,14 @@ msgstr ""
 "yapabilirsiniz. Örneğin::"
 
 #: ../../source/develop.rst:165
-#, fuzzy
 msgid ""
 "In this case, you load the URL ``http://127.0.0.1:17641`` in a normal "
 "web-browser like Firefox, instead of using the Tor Browser. The private "
 "key is not actually needed in local-only mode, so you can ignore it."
 msgstr ""
-"Bu durumda, ``http://onionshare:train-system@127.0.0.1:17635`` URL'sini "
-"Tor Browser kullanmak yerine Firefox gibi normal bir web tarayıcısında "
-"açarsınız."
+"Bu durumda, ``http://127.0.0.1:17641`` URL'sini Tor Browser kullanmak yerine "
+"Firefox gibi normal bir web tarayıcısında açarsınız. Yalnızca yerel modda "
+"özel anahtara gerçekten ihtiyaç duyulmaz, bu nedenle onu yok sayabilirsiniz."
 
 #: ../../source/develop.rst:168
 msgid "Contributing Translations"
@@ -487,4 +490,3 @@ msgstr ""
 #~ "grafiksel sürüm için geliştirme ortamınızı "
 #~ "nasıl kuracağınızı öğrenmek için "
 #~ "``desktop/README.md`` dosyasına bakın."
-
