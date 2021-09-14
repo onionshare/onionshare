@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2021-09-09 19:49-0700\n"
-"PO-Revision-Date: 2021-07-15 20:32+0000\n"
-"Last-Translator: Tur <tur+translate@simplelogin.fr>\n"
-"Language: tr\n"
+"PO-Revision-Date: 2021-09-14 12:35+0000\n"
+"Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
 "Language-Team: tr <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
+"Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.9-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/advanced.rst:2
@@ -53,15 +54,14 @@ msgstr ""
 " mor bir iğne simgesi görünür."
 
 #: ../../source/advanced.rst:18
-#, fuzzy
 msgid ""
 "When you quit OnionShare and then open it again, your saved tabs will "
 "start opened. You'll have to manually start each service, but when you do"
 " they will start with the same OnionShare address and private key."
 msgstr ""
-"OnionShare'den çıkıp tekrar açtığınızda, kaydedilmiş sekmeleriniz "
-"açılmaya başlayacaktır. Her hizmeti elle başlatmanız gerekecektir, ancak "
-"bunu yaptığınızda aynı OnionShare adresi ve parolasıyla başlayacaklardır."
+"OnionShare'den çıkıp tekrar açtığınızda, kaydedilmiş sekmeleriniz açılmaya "
+"başlayacaktır. Her hizmeti elle başlatmanız gerekecektir, ancak bunu "
+"yaptığınızda aynı OnionShare adresi ve özel anahtarıyla başlayacaklardır."
 
 #: ../../source/advanced.rst:21
 msgid ""
@@ -74,34 +74,35 @@ msgstr ""
 
 #: ../../source/advanced.rst:26
 msgid "Turn Off Private Key"
-msgstr ""
+msgstr "Özel Anahtarı Kapat"
 
 #: ../../source/advanced.rst:28
 msgid ""
 "By default, all OnionShare services are protected with a private key, "
 "which Tor calls \"client authentication\"."
 msgstr ""
+"Öntanımlı olarak, tüm OnionShare hizmetleri, Tor'un \"istemci kimlik "
+"doğrulaması\" olarak adlandırdığı özel bir anahtarla korunur."
 
 #: ../../source/advanced.rst:30
 msgid ""
 "When browsing to an OnionShare service in Tor Browser, Tor Browser will "
 "prompt for the private key to be entered."
 msgstr ""
+"Tor Browser'da bir OnionShare hizmetine göz atarken, Tor Browser özel "
+"anahtarın girilmesini isteyecektir."
 
 #: ../../source/advanced.rst:32
-#, fuzzy
 msgid ""
 "Sometimes you might want your OnionShare service to be accessible to the "
 "public, like if you want to set up an OnionShare receive service so the "
 "public can securely and anonymously send you files. In this case, it's "
 "better to disable the private key altogether."
 msgstr ""
-"Bazen, örneğin bir OnionShare alma hizmeti kurmak istediğinizde, "
-"insanların size güvenli ve anonim olarak dosya gönderebilmesi için "
-"OnionShare hizmetinizin herkes tarafından erişilebilir olmasını "
-"isteyebilirsiniz. Bu durumda parolayı tamamen devre dışı bırakmak daha "
-"iyidir. Bunu yapmazsanız, birisi doğru parolayı bilse bile parolanız "
-"hakkında 20 yanlış tahmin yaparak sunucunuzu durmaya zorlayabilir."
+"Bazen, örneğin bir OnionShare alma hizmeti kurmak istediğinizde, insanların "
+"size güvenli ve anonim olarak dosya gönderebilmesi için OnionShare "
+"hizmetinizin herkes tarafından erişilebilir olmasını isteyebilirsiniz. Bu "
+"durumda özel anahtarı tamamen devre dışı bırakmak daha iyidir."
 
 #: ../../source/advanced.rst:35
 msgid ""
@@ -110,6 +111,10 @@ msgid ""
 "server. Then the server will be public and won't need a private key to "
 "view in Tor Browser."
 msgstr ""
+"Herhangi bir sekme için özel anahtarı kapatmak için, sunucuyu başlatmadan "
+"önce \"Bu, herkese açık bir OnionShare hizmetidir (özel anahtarı devre dışı "
+"bırakır)\" kutusunu işaretleyin. Ardından sunucu herkese açık olacak ve Tor "
+"Browser'da görüntülemek için özel bir anahtar gerektirmeyecektir."
 
 #: ../../source/advanced.rst:40
 msgid "Custom Titles"
@@ -179,17 +184,16 @@ msgstr ""
 "iptal edebilirsiniz."
 
 #: ../../source/advanced.rst:60
-#, fuzzy
 msgid ""
 "**Scheduling an OnionShare service to automatically stop can be useful to"
 " limit exposure**, like if you want to share secret documents while "
 "making sure they're not available on the internet for more than a few "
 "days."
 msgstr ""
-"**Bir OnionShare hizmetini otomatik olarak durdurulacak şekilde "
-"zamanlamak, maruz kalmayı sınırlandırmak için kullanışlı olabilir**, "
-"örneğin gizli belgeleri birkaç günden daha uzun süre internette "
-"bulunmadıklarından emin olacak şekilde paylaşmak isterseniz."
+"**Bir OnionShare hizmetini otomatik olarak durdurulacak şekilde zamanlamak, "
+"maruz kalmayı sınırlandırmak için kullanışlı olabilir**, örneğin gizli "
+"belgeleri birkaç günden daha uzun süre internette bulunmadıklarından emin "
+"olacak şekilde paylaşmak isterseniz."
 
 #: ../../source/advanced.rst:67
 msgid "Command-line Interface"
@@ -230,6 +234,9 @@ msgid ""
 "<https://github.com/onionshare/onionshare/blob/develop/cli/README.md>`_ "
 "in the git repository."
 msgstr ""
+"Farklı işletim sistemlerine kurmak hakkında bilgi almak için git deposundaki "
+"`komut satırı için benioku dosyasına <https://github.com/onionshare/"
+"onionshare/blob/develop/cli/README.md>`_ bakın."
 
 #: ../../source/advanced.rst:83
 msgid ""
@@ -575,4 +582,3 @@ msgstr ""
 #~ "<https://github.com/onionshare/onionshare/blob/develop/cli/README.md>`_"
 #~ " in the git repository."
 #~ msgstr ""
-
