@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2021-09-09 19:15-0700\n"
-"PO-Revision-Date: 2021-05-07 18:32+0000\n"
+"PO-Revision-Date: 2021-09-14 12:35+0000\n"
 "Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
-"Language: tr\n"
 "Language-Team: tr <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
+"Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.9-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/features.rst:4
@@ -35,15 +36,15 @@ msgstr ""
 
 #: ../../source/features.rst:8
 msgid "By default, OnionShare web addresses are protected with a private key."
-msgstr ""
+msgstr "Öntanımlı olarak, OnionShare web adresleri özel bir anahtarla korunur."
 
 #: ../../source/features.rst:10
 msgid "OnionShare addresses look something like this::"
-msgstr ""
+msgstr "OnionShare adresleri şuna benzer::"
 
 #: ../../source/features.rst:14
 msgid "And private keys might look something like this::"
-msgstr ""
+msgstr "Ve özel anahtarlar şöyle görünebilir::"
 
 #: ../../source/features.rst:18
 msgid ""
@@ -52,9 +53,13 @@ msgid ""
 "or using something less secure like unencrypted email, depending on your "
 "`threat model <https://ssd.eff.org/module/your-security-plan>`_."
 msgstr ""
+"`Tehdit modelinize <https://ssd.eff.org/module/your-security-plan>`_ bağlı "
+"olarak, bu URL'yi ve özel anahtarı, şifreli bir sohbet mesajı gibi "
+"seçtiğiniz bir iletişim kanalını kullanarak veya şifrelenmemiş e-posta gibi "
+"daha az güvenli bir şey kullanarak güvenli bir şekilde paylaşmaktan siz "
+"sorumlusunuz."
 
 #: ../../source/features.rst:20
-#, fuzzy
 msgid ""
 "The people you send the URL to then copy and paste it into their `Tor "
 "Browser <https://www.torproject.org/>`_ to access the OnionShare service."
@@ -62,10 +67,11 @@ msgid ""
 "also then copy and paste in."
 msgstr ""
 "URL'yi gönderdiğiniz kişiler, OnionShare hizmetine erişmek için URL'yi "
-"kopyalayıp `Tor Browser <https://www.torproject.org/>`_ içine yapıştırır."
+"kopyalayıp `Tor Browser <https://www.torproject.org/>`_ içine yapıştırır. "
+"Tor Browser daha sonra kişilerin kopyalayıp yapıştırabilecekleri özel "
+"anahtarı isteyecektir."
 
 #: ../../source/features.rst:24
-#, fuzzy
 msgid ""
 "If you run OnionShare on your laptop to send someone files, and then "
 "suspend it before the files are sent, the service will not be available "
@@ -73,10 +79,10 @@ msgid ""
 "works best when working with people in real-time."
 msgstr ""
 "Birine dosya göndermek için dizüstü bilgisayarınızda OnionShare "
-"çalıştırırsanız ve dosyalar gönderilmeden önce onu askıya alırsanız, "
-"dizüstü bilgisayarınız devam ettirilip tekrar internete bağlanana kadar "
-"hizmet kullanılamayacaktır. OnionShare, insanlarla gerçek zamanlı olarak "
-"çalışırken en iyi şekilde çalışır."
+"çalıştırırsanız ve dosyalar gönderilmeden önce onu askıya alırsanız, dizüstü "
+"bilgisayarınız devam ettirilip tekrar internete bağlanana kadar hizmet "
+"kullanılamayacaktır. OnionShare, insanlarla gerçek zamanlı olarak çalışırken "
+"en iyi şekilde çalışır."
 
 #: ../../source/features.rst:26
 msgid ""
@@ -116,7 +122,6 @@ msgstr ""
 "başlamadan önce istediğiniz ayarı seçtiğinizden emin olun."
 
 #: ../../source/features.rst:39
-#, fuzzy
 msgid ""
 "As soon as someone finishes downloading your files, OnionShare will "
 "automatically stop the server, removing the website from the internet. To"
@@ -125,10 +130,10 @@ msgid ""
 "box."
 msgstr ""
 "Birisi dosyalarınızı indirmeyi bitirir bitirmez, OnionShare sunucuyu "
-"otomatik olarak durduracak ve web sitesini internetten kaldıracaktır. "
-"Birden çok kişinin bunları indirmesine izin vermek için, \"Dosyalar "
-"gönderildikten sonra paylaşmayı durdur (dosyaların tek tek indirilmesine "
-"izin vermek için işareti kaldırın)\" kutusunun işaretini kaldırın."
+"otomatik olarak durduracak ve web sitesini internetten kaldıracaktır. Birden "
+"çok kişinin bunları indirmesine izin vermek için, \"Dosyalar gönderildikten "
+"sonra paylaşmayı durdur (dosyaların tek tek indirilmesine izin vermek için "
+"işareti kaldırın)\" kutusunun işaretini kaldırın."
 
 #: ../../source/features.rst:42
 msgid ""
@@ -154,29 +159,26 @@ msgstr ""
 "sağ üst köşedeki \"↑\" simgesine tıklayabilirsiniz."
 
 #: ../../source/features.rst:48
-#, fuzzy
 msgid ""
 "Now that you have a OnionShare, copy the address and the private key and "
 "send it to the person you want to receive the files. If the files need to"
 " stay secure, or the person is otherwise exposed to danger, use an "
 "encrypted messaging app."
 msgstr ""
-"Artık bir OnionShare'e sahip olduğunuza göre, adresi kopyalayın ve "
-"dosyaları almasını istediğiniz kişiye gönderin. Dosyaların güvende "
-"kalması gerekiyorsa veya kişi başka bir şekilde tehlikeye maruz kalırsa, "
-"şifreli bir mesajlaşma uygulaması kullanın."
+"Artık bir OnionShare'e sahip olduğunuza göre, adresi ve özel anahtarı "
+"kopyalayın ve dosyaları almasını istediğiniz kişiye gönderin. Dosyaların "
+"güvende kalması gerekiyorsa veya kişi başka bir şekilde tehlikeye maruz "
+"kalırsa, şifreli bir mesajlaşma uygulaması kullanın."
 
 #: ../../source/features.rst:50
-#, fuzzy
 msgid ""
 "That person then must load the address in Tor Browser. After logging in "
 "with the private key, the files can be downloaded directly from your "
 "computer by clicking the \"Download Files\" link in the corner."
 msgstr ""
-"Bu kişi daha sonra adresi Tor Browser'da açmalıdır. Web adresinde bulunan"
-" rastgele parola ile oturum açtıktan sonra, köşedeki \"Dosyaları İndir\" "
-"bağlantısına tıklayarak dosyalar doğrudan bilgisayarınızdan "
-"indirilebilir."
+"Bu kişi daha sonra adresi Tor Browser'da açmalıdır. Özel anahtar ile oturum "
+"açtıktan sonra, köşedeki \"Dosyaları İndir\" bağlantısına tıklayarak "
+"dosyalar doğrudan bilgisayarınızdan indirilebilir."
 
 #: ../../source/features.rst:55
 msgid "Receive Files and Messages"
@@ -293,17 +295,16 @@ msgid "Use at your own risk"
 msgstr "Sorumluluk size aittir"
 
 #: ../../source/features.rst:88
-#, fuzzy
 msgid ""
 "Just like with malicious email attachments, it's possible someone could "
 "try to attack your computer by uploading a malicious file to your "
 "OnionShare service. OnionShare does not add any safety mechanisms to "
 "protect your system from malicious files."
 msgstr ""
-"Kötü niyetli e-posta eklerinde olduğu gibi, birisinin OnionShare "
-"hizmetinize kötü amaçlı bir dosya yükleyerek bilgisayarınıza saldırmaya "
-"çalışması mümkündür. OnionShare, sisteminizi kötü amaçlı dosyalardan "
-"korumak için herhangi bir güvenlik mekanizması eklemez."
+"Kötü niyetli e-posta eklerinde olduğu gibi, birisinin OnionShare hizmetinize "
+"kötü amaçlı bir dosya yükleyerek bilgisayarınıza saldırmaya çalışması "
+"mümkündür. OnionShare, sisteminizi kötü amaçlı dosyalardan korumak için "
+"herhangi bir güvenlik mekanizması eklemez."
 
 #: ../../source/features.rst:90
 msgid ""
@@ -332,7 +333,6 @@ msgid "Tips for running a receive service"
 msgstr "Alma hizmeti çalıştırma ipuçları"
 
 #: ../../source/features.rst:97
-#, fuzzy
 msgid ""
 "If you want to host your own anonymous dropbox using OnionShare, it's "
 "recommended you do so on a separate, dedicated computer always powered on"
@@ -341,22 +341,21 @@ msgid ""
 msgstr ""
 "OnionShare kullanarak kendi anonim depolama alanınızı barındırmak "
 "istiyorsanız, bunu düzenli olarak kullandığınız bilgisayarda değil, her "
-"zaman açık ve internete bağlı ayrı, özel bir bilgisayarda yapmanız "
-"tavsiye edilir."
+"zaman açık ve internete bağlı ayrı, özel bir bilgisayarda yapmanız tavsiye "
+"edilir."
 
 #: ../../source/features.rst:99
-#, fuzzy
 msgid ""
 "If you intend to put the OnionShare address on your website or social "
 "media profiles, save the tab (see :ref:`save_tabs`) and run it as a "
 "public service (see :ref:`turn_off_private_key`). It's also a good idea "
 "to give it a custom title (see :ref:`custom_titles`)."
 msgstr ""
-"OnionShare adresini web sitenize veya sosyal medya profillerinize koymayı"
-" düşünüyorsanız, sekmeyi kaydedin (:ref:`save_tabs`bölümüne bakın) ve "
-"herkese açık bir hizmet olarak çalıştırın (:ref:`turn_off_passwords` "
-"bölümüne bakın). Özel bir başlık vermek de iyi bir fikirdir "
-"(:ref:`custom_titles` bölümüne bakın)."
+"OnionShare adresini web sitenize veya sosyal medya profillerinize koymayı "
+"düşünüyorsanız, sekmeyi kaydedin (:ref:`save_tabs`bölümüne bakın) ve herkese "
+"açık bir hizmet olarak çalıştırın (:ref:`turn_off_private_key` bölümüne "
+"bakın). Özel bir başlık vermek de iyi bir fikirdir (:ref:`custom_titles` "
+"bölümüne bakın)."
 
 #: ../../source/features.rst:102
 msgid "Host a Website"
@@ -402,7 +401,6 @@ msgid "Content Security Policy"
 msgstr "İçerik Güvenliği Politikası"
 
 #: ../../source/features.rst:119
-#, fuzzy
 msgid ""
 "By default OnionShare helps secure your website by setting a strict "
 "`Content Security Policy "
@@ -412,8 +410,8 @@ msgid ""
 msgstr ""
 "OnionShare, öntanımlı olarak katı bir `İçerik Güvenliği Politikası "
 "<https://en.wikipedia.org/wiki/Content_Security_Policy>`_ başlığı "
-"ayarlayarak web sitenizin güvenliğini sağlamaya yardımcı olur. Ancak bu, "
-"web sayfasında üçüncü taraf içeriğinin yüklenmesini engeller."
+"ayarlayarak web sitenizin güvenliğini sağlamaya yardımcı olur. Ancak bu, web "
+"sayfasında üçüncü taraf içeriğinin yüklenmesini engeller."
 
 #: ../../source/features.rst:121
 msgid ""
@@ -432,7 +430,6 @@ msgid "Tips for running a website service"
 msgstr "Web sitesi hizmeti çalıştırma ipuçları"
 
 #: ../../source/features.rst:126
-#, fuzzy
 msgid ""
 "If you want to host a long-term website using OnionShare (meaning not "
 "just to quickly show someone something), it's recommended you do it on a "
@@ -441,21 +438,20 @@ msgid ""
 " (see :ref:`save_tabs`) so you can resume the website with the same "
 "address if you close OnionShare and re-open it later."
 msgstr ""
-"OnionShare kullanarak (birine hızlı bir şekilde bir şey göstermek yerine)"
-" uzun vadeli bir web sitesi barındırmak istiyorsanız, bunu düzenli olarak"
-" kullandığınız bilgisayarda değil, her zaman açık ve internete bağlı "
-"ayrı, özel bir bilgisayarda yapmanız tavsiye edilir. OnionShare'i kapatıp"
-" ve daha sonra yeniden açmanız halinde web sitesini aynı adresle devam "
-"ettirebilmek için sekmeyi kaydedin (:ref:`save_tabs` bölümüne bakın)."
+"OnionShare kullanarak (birine hızlı bir şekilde bir şey göstermek yerine) "
+"uzun vadeli bir web sitesi barındırmak istiyorsanız, bunu düzenli olarak "
+"kullandığınız bilgisayarda değil, her zaman açık ve internete bağlı ayrı, "
+"özel bir bilgisayarda yapmanız tavsiye edilir. OnionShare'i kapatıp ve daha "
+"sonra yeniden açmanız halinde web sitesini aynı adresle devam ettirebilmek "
+"için sekmeyi kaydedin (:ref:`save_tabs` bölümüne bakın)."
 
 #: ../../source/features.rst:129
-#, fuzzy
 msgid ""
 "If your website is intended for the public, you should run it as a public"
 " service (see :ref:`turn_off_private_key`)."
 msgstr ""
 "Web siteniz herkesin kullanımına yönelikse, onu herkese açık bir hizmet "
-"olarak çalıştırmalısınız (:ref:`turn_off_passwords` bölümüne bakın)."
+"olarak çalıştırmalısınız (:ref:`turn_off_private_key` bölümüne bakın)."
 
 #: ../../source/features.rst:132
 msgid "Chat Anonymously"
@@ -471,17 +467,16 @@ msgstr ""
 "sunucusu başlat\" düğmesine tıklayın."
 
 #: ../../source/features.rst:138
-#, fuzzy
 msgid ""
 "After you start the server, copy the OnionShare address and private key "
 "and send them to the people you want in the anonymous chat room. If it's "
 "important to limit exactly who can join, use an encrypted messaging app "
 "to send out the OnionShare address and private key."
 msgstr ""
-"Sunucuyu başlattıktan sonra, OnionShare adresini kopyalayın ve anonim "
-"sohbet odasında olmasını istediğiniz kişilere gönderin. Tam olarak "
-"kimlerin katılabileceğini sınırlamak önemliyse, OnionShare adresini "
-"göndermek için şifreli bir mesajlaşma uygulaması kullanın."
+"Sunucuyu başlattıktan sonra, OnionShare adresini ve özel anahtarı kopyalayın "
+"ve anonim sohbet odasında olmasını istediğiniz kişilere gönderin. Tam olarak "
+"kimlerin katılabileceğini sınırlamak önemliyse, OnionShare adresini ve özel "
+"anahtarı göndermek için şifreli bir mesajlaşma uygulaması kullanın."
 
 #: ../../source/features.rst:143
 msgid ""
@@ -551,9 +546,15 @@ msgid ""
 "rooms don't store any messages anywhere, so the problem is reduced to a "
 "minimum."
 msgstr ""
+"Örneğin bir Signal grubuna bir mesaj gönderirseniz, mesajınızın bir kopyası "
+"grubun her bir üyesinin her aygıtında (akıllı telefonlar ve Signal "
+"Masaüstünü kurdularsa bilgisayarlar) bulunur. Kaybolan mesajlar açık olsa "
+"bile, mesajların tüm kopyalarının tüm aygıtlardan ve kaydedilmiş "
+"olabilecekleri diğer yerlerden (bildirim veri tabanları gibi) gerçekten "
+"silindiğini doğrulamak zordur. OnionShare sohbet odaları hiçbir yerde "
+"herhangi bir mesaj saklamaz, bu nedenle sorun en aza indirilir."
 
 #: ../../source/features.rst:165
-#, fuzzy
 msgid ""
 "OnionShare chat rooms can also be useful for people wanting to chat "
 "anonymously and securely with someone without needing to create any "
@@ -563,8 +564,8 @@ msgid ""
 "anonymity."
 msgstr ""
 "OnionShare sohbet odaları, herhangi bir hesap oluşturmaya gerek kalmadan "
-"biriyle anonim ve güvenli bir şekilde sohbet etmek isteyen kişiler için "
-"de kullanışlı olabilir. Örneğin, bir kaynak tek kullanımlık bir e-posta "
+"biriyle anonim ve güvenli bir şekilde sohbet etmek isteyen kişiler için de "
+"kullanışlı olabilir. Örneğin, bir kaynak tek kullanımlık bir e-posta "
 "adresini kullanarak bir gazeteciye OnionShare adresini gönderebilir ve "
 "ardından anonimliklerinden ödün vermeden gazetecinin sohbet odasına "
 "katılmasını bekleyebilir."
@@ -1101,4 +1102,3 @@ msgstr ""
 #~ " OnionShare sohbet odaları mesajları hiçbir"
 #~ " yerde depolamadığından sorun en aza "
 #~ "indirilir."
-
