@@ -11,8 +11,6 @@ description: |
 grade: devel # stable or devel
 confinement: strict
 
-architectures: [amd64, i386, arm64, armhf]
-
 apps:
   onionshare:
     common-id: org.onionshare.OnionShare
