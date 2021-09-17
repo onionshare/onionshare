@@ -301,5 +301,6 @@
     "gui_status_indicator_chat_started": "Chateando",
     "gui_status_indicator_chat_scheduled": "Programado…",
     "gui_status_indicator_chat_working": "Iniciando…",
-    "gui_status_indicator_chat_stopped": "Listo para chatear"
+    "gui_status_indicator_chat_stopped": "Listo para chatear",
+    "gui_reveal": "Revelar"
 }
