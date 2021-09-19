@@ -173,5 +173,7 @@
     "days_first_letter": "d",
     "hours_first_letter": "h",
     "minutes_first_letter": "m",
-    "seconds_first_letter": "s"
+    "seconds_first_letter": "s",
+    "gui_file_selection_remove_all": "Verwyder Als",
+    "gui_remove": "Verwyder"
 }
