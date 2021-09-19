@@ -8,25 +8,25 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2020-11-15 14:42-0800\n"
-"PO-Revision-Date: 2020-09-29 20:55+0000\n"
-"Last-Translator: Atrate <Atrate@protonmail.com>\n"
-"Language: pl\n"
+"PO-Revision-Date: 2021-09-18 20:19+0000\n"
+"Last-Translator: Rafał Godek <p3run@tutanota.com>\n"
 "Language-Team: pl <LL@li.org>\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && "
-"(n%100<10 || n%100>=20) ? 1 : 2\n"
+"Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.9-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/advanced.rst:2
 msgid "Advanced Usage"
-msgstr ""
+msgstr "Użytkowanie Zaawansowane"
 
 #: ../../source/advanced.rst:7
-#, fuzzy
 msgid "Save Tabs"
-msgstr "Zapisz karty"
+msgstr "Zapisywanie Kart"
 
 #: ../../source/advanced.rst:9
 msgid ""
@@ -36,6 +36,11 @@ msgid ""
 "useful if you want to host a website available from the same OnionShare "
 "address even if you reboot your computer."
 msgstr ""
+"Wszystko w OnionShare jest domyślnie tymczasowe. Jeśli zamkniesz kartę "
+"OnionShare, jej adres przestanie istnieć i nie będzie można go ponownie "
+"użyć. Czasami możesz chcieć jednak, aby usługa OnionShare była trwała. Jest "
+"to przydatne, gdy chcesz hostować witrynę internetową dostępną z tego samego "
+"adresu OnionShare, nawet po ponownym uruchomieniu komputera."
 
 #: ../../source/advanced.rst:13
 msgid ""
@@ -43,6 +48,9 @@ msgid ""
 "open it when I open OnionShare\" box before starting the server. When a "
 "tab is saved a purple pin icon appears to the left of its server status."
 msgstr ""
+"Aby zachować kartę, zaznacz pole „Zapisz tę kartę i automatycznie otwieraj "
+"ją, gdy otworzę OnionShare” przed uruchomieniem serwera. Po zapisaniu karty "
+"po lewej stronie statusu serwera pojawi się fioletowa ikona pinezki."
 
 #: ../../source/advanced.rst:18
 msgid ""
@@ -56,6 +64,8 @@ msgid ""
 "If you save a tab, a copy of that tab's onion service secret key will be "
 "stored on your computer with your OnionShare settings."
 msgstr ""
+"Jeśli zapiszesz kartę, kopia tajnego klucza usługi cebulowej tej karty "
+"zostanie zapisana na Twoim komputerze wraz z ustawieniami OnionShare."
 
 #: ../../source/advanced.rst:26
 msgid "Turn Off Passwords"
@@ -88,7 +98,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:38
 msgid "Scheduled Times"
-msgstr ""
+msgstr "Harmonogramy"
 
 #: ../../source/advanced.rst:40
 msgid ""
@@ -98,6 +108,11 @@ msgid ""
 "scheduled time\", \"Stop onion service at scheduled time\", or both, and "
 "set the respective desired dates and times."
 msgstr ""
+"OnionShare umożliwia dokładne planowanie, kiedy usługa powinna zostać "
+"uruchomiona i zatrzymana. Przed uruchomieniem serwera kliknij „Pokaż "
+"ustawienia zaawansowane” na jego karcie, a następnie zaznacz pole „Uruchom "
+"usługę cebulową w zaplanowanym czasie”, „Zatrzymaj usługę cebulową w "
+"zaplanowanym czasie” lub oba, a następnie ustaw odpowiednie daty i czasy."
 
 #: ../../source/advanced.rst:43
 msgid ""
@@ -106,6 +121,11 @@ msgid ""
 "starts. If you scheduled it to stop in the future, after it's started you"
 " will see a timer counting down to when it will stop automatically."
 msgstr ""
+"Jeśli zaplanowałeś uruchomienie usługi w przyszłości, po kliknięciu "
+"przycisku „Rozpocznij udostępnianie” zobaczysz licznik czasu odliczający "
+"czas do rozpoczęcia. Jeśli zaplanowałeś jego zatrzymanie w przyszłości, po "
+"uruchomieniu zobaczysz licznik odliczający czas do automatycznego "
+"zatrzymania."
 
 #: ../../source/advanced.rst:46
 msgid ""
@@ -114,6 +134,10 @@ msgid ""
 "time in the future if anything happens to you. If nothing happens to you,"
 " you can cancel the service before it's scheduled to start."
 msgstr ""
+"**Zaplanowane automatyczne uruchomienie usługi OnionShare może służyć jako "
+"\"dead man's switch\"**, gdzie Twoja usługa zostanie upubliczniona w "
+"określonym czasie w przyszłości, jeśli coś Ci się stanie. Jeśli nic Ci się "
+"nie stanie, możesz anulować usługę przed planowanym rozpoczęciem."
 
 #: ../../source/advanced.rst:51
 msgid ""
@@ -125,29 +149,35 @@ msgstr ""
 
 #: ../../source/advanced.rst:56
 msgid "Command-line Interface"
-msgstr ""
+msgstr "Wiersz Poleceń"
 
 #: ../../source/advanced.rst:58
 msgid ""
 "In addition to its graphical interface, OnionShare has a command-line "
 "interface."
 msgstr ""
+"Oprócz interfejsu graficznego OnionShare posiada również interfejs wiersza "
+"poleceń."
 
 #: ../../source/advanced.rst:60
 msgid ""
 "You can install just the command-line version of OnionShare using "
 "``pip3``::"
 msgstr ""
+"Możesz zainstalować OnionShare tylko w wersji aplikacji wiersza poleceń, "
+"używając ``pip3``::"
 
 #: ../../source/advanced.rst:64
 msgid ""
 "Note that you will also need the ``tor`` package installed. In macOS, "
 "install it with: ``brew install tor``"
 msgstr ""
+"Zauważ, że będziesz także potrzebował zainstalowanego pakietu ``tor``. W "
+"macOS zainstaluj go za pomocą: ``brew install tor``"
 
 #: ../../source/advanced.rst:66
 msgid "Then run it like this::"
-msgstr ""
+msgstr "Następnie uruchom go następująco::"
 
 #: ../../source/advanced.rst:70
 msgid ""
@@ -155,16 +185,21 @@ msgid ""
 "also just run ``onionshare.cli`` to access the command-line interface "
 "version."
 msgstr ""
+"Jeśli zainstalowałeś OnionShare przy użyciu pakietu Linux Snapcraft, możesz "
+"po prostu uruchomić ``onionshare.cli``, aby uzyskać dostęp do wersji "
+"interfejsu wiersza poleceń."
 
 #: ../../source/advanced.rst:73
 msgid "Usage"
-msgstr ""
+msgstr "Użytkowanie"
 
 #: ../../source/advanced.rst:75
 msgid ""
 "You can browse the command-line documentation by running ``onionshare "
 "--help``::"
 msgstr ""
+"Możesz przeglądać dokumentację wiersza poleceń, uruchamiając ``onionshare "
+"--help``::"
 
 #: ../../source/advanced.rst:132
 msgid "Legacy Addresses"
@@ -401,4 +436,3 @@ msgstr ""
 #~ " services will soon be removed from"
 #~ " OnionShare as well."
 #~ msgstr ""
-
