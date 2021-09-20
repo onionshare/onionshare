@@ -65,7 +65,7 @@ Apply the path to your shell file:
 
 ```sh
 printf "PATH=\$PATH:~/.local/bin\n" >> ~/.${SHELL##*/}rc
-source ~/.${SHELL##*/}rc
+. ~/.${SHELL##*/}rc
 ```
 
 #### Usage
