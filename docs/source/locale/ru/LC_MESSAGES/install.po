@@ -8,15 +8,16 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2021-09-09 19:15-0700\n"
-"PO-Revision-Date: 2021-02-26 05:50+0000\n"
+"PO-Revision-Date: 2021-09-23 15:36+0000\n"
 "Last-Translator: Alexander Tarasenko <alexound.login@gmail.com>\n"
-"Language: ru\n"
 "Language-Team: ru <LL@li.org>\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.9-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/install.rst:2
@@ -37,7 +38,7 @@ msgstr ""
 
 #: ../../source/install.rst:12
 msgid "Linux"
-msgstr ""
+msgstr "Linux"
 
 #: ../../source/install.rst:14
 msgid ""
@@ -90,7 +91,7 @@ msgstr ""
 
 #: ../../source/install.rst:28
 msgid "Command-line only"
-msgstr ""
+msgstr "Отдельная установка консольной версии"
 
 #: ../../source/install.rst:30
 msgid ""
@@ -98,6 +99,9 @@ msgid ""
 "operating system using the Python package manager ``pip``. See :ref:`cli`"
 " for more information."
 msgstr ""
+"Консольную версию OnionShare можно установить отдельно на любую операционную "
+"систему при помощи менеджера пакетов Python ``pip``. Больше информации можно "
+"найти по :ref:`cli`."
 
 #: ../../source/install.rst:35
 msgid "Verifying PGP signatures"
@@ -192,7 +196,6 @@ msgid "The expected output looks like this::"
 msgstr "Ожидаемый результат выполнения команды:"
 
 #: ../../source/install.rst:76
-#, fuzzy
 msgid ""
 "If you don't see ``Good signature from``, there might be a problem with "
 "the integrity of the file (malicious or otherwise), and you should not "
@@ -200,12 +203,12 @@ msgid ""
 " the package, it only means you haven't defined a level of \"trust\" of "
 "Micah's PGP key.)"
 msgstr ""
-"Если вывод команды не содержит строку 'Good signature from', возможно "
-"целостностью пакета была нарушена (в результате злонамеренных действий "
-"третьих лиц или по техническим причиниам). В этом случае нельзя "
-"прозводить дальнейщую установку. (Надпись \"WARNING:\" показанная выше не"
-" является проблемой. Она означает, что пока не установлен необходимый "
-"\"уровень доверия\" к публичному ключу PGP Micah.)"
+"Если вывод команды не содержит строку ``Good signature from``, существует "
+"вероятность, что целостность пакета была нарушена (в результате "
+"злонамеренных действий третьих лиц или по техническим причиниам). В таком "
+"случае нельзя прозводить дальнейшую установку. (Надпись \"WARNING:\" "
+"показанная выше не является проблемой. Она только означает, что пока "
+"отсутствует необходимый \"уровень доверия\" к публичному ключу PGP Micah.)"
 
 #: ../../source/install.rst:78
 msgid ""
@@ -410,4 +413,3 @@ msgstr ""
 
 #~ msgid "Command Line Only"
 #~ msgstr ""
-
