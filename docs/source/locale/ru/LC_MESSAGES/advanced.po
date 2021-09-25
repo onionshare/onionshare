@@ -8,15 +8,16 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2021-09-09 19:49-0700\n"
-"PO-Revision-Date: 2021-05-11 20:47+0000\n"
+"PO-Revision-Date: 2021-09-23 15:36+0000\n"
 "Last-Translator: Alexander Tarasenko <alexound.login@gmail.com>\n"
-"Language: ru\n"
 "Language-Team: ru <LL@li.org>\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.9-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/advanced.rst:2
@@ -53,16 +54,14 @@ msgstr ""
 " с изображением булавки слева от статуса сервера."
 
 #: ../../source/advanced.rst:18
-#, fuzzy
 msgid ""
 "When you quit OnionShare and then open it again, your saved tabs will "
 "start opened. You'll have to manually start each service, but when you do"
 " they will start with the same OnionShare address and private key."
 msgstr ""
-"Теперь, при завершении работы с OnionShare и повторном запуске, "
-"сохранённые вкладки открываются автоматически. Сервис на каждой вкладке "
-"нужно запустить вручную, но при этом адрес и пароль OnionShare остаются "
-"прежние."
+"Теперь, после завершения работы с OnionShare и повторном запуске, "
+"сохранённые вкладки откроются автоматически. Сервис на каждой вкладке нужно "
+"запустить вручную, но при этом адрес и пароль OnionShare остаются прежними."
 
 #: ../../source/advanced.rst:21
 msgid ""
@@ -74,34 +73,35 @@ msgstr ""
 
 #: ../../source/advanced.rst:26
 msgid "Turn Off Private Key"
-msgstr ""
+msgstr "Отключить использование Секретного Ключа"
 
 #: ../../source/advanced.rst:28
 msgid ""
 "By default, all OnionShare services are protected with a private key, "
 "which Tor calls \"client authentication\"."
 msgstr ""
+"По-умолчанию все сервисы OnionShare защищены секретным ключом, который в "
+"инфрастуктуре Tor обозначается как \"клиентская аутентификация\"."
 
 #: ../../source/advanced.rst:30
 msgid ""
 "When browsing to an OnionShare service in Tor Browser, Tor Browser will "
 "prompt for the private key to be entered."
 msgstr ""
+"При просмотре сервиса OnionShare в Tor Browser, нужно будет предоставить "
+"секретный ключ."
 
 #: ../../source/advanced.rst:32
-#, fuzzy
 msgid ""
 "Sometimes you might want your OnionShare service to be accessible to the "
 "public, like if you want to set up an OnionShare receive service so the "
 "public can securely and anonymously send you files. In this case, it's "
 "better to disable the private key altogether."
 msgstr ""
-"Иногда может потребоваться сделать сервис OnionShare общедоступным, "
-"например, запустить сервис приёма файлов, чтобы люди могли безопасно и "
-"анонимно прислать свои файлы. В данном случае рекомендуется полностью "
-"отключить проверку пароля. Если этого не сделать, кто-то может заставить "
-"сервис остановиться, если сделает 20 попыток доступа с неверным паролем, "
-"даже если правильны пароль ему известен."
+"Иногда может потребоваться сделать сервис OnionShare общедоступным. "
+"Например, запустить сервис приёма файлов, чтобы люди могли и анонимно и "
+"безопасно прислать свои материалы. В таком случае рекомендуется полностью "
+"отключить использование секретного ключа."
 
 #: ../../source/advanced.rst:35
 msgid ""
@@ -110,6 +110,10 @@ msgid ""
 "server. Then the server will be public and won't need a private key to "
 "view in Tor Browser."
 msgstr ""
+"Чтобы отключить использование секретного ключа для любой вкладке, отметьте "
+"пункт \"Это публичный сервис OnionShare (секретный ключ не используется)\" "
+"перед запуском сервиса. В таком случае не понадобится секретный ключ для "
+"просмотра адреса в Tor Browser."
 
 #: ../../source/advanced.rst:40
 msgid "Custom Titles"
@@ -178,7 +182,6 @@ msgstr ""
 "таймер до автоматического запуска."
 
 #: ../../source/advanced.rst:60
-#, fuzzy
 msgid ""
 "**Scheduling an OnionShare service to automatically stop can be useful to"
 " limit exposure**, like if you want to share secret documents while "
@@ -186,10 +189,10 @@ msgid ""
 "days."
 msgstr ""
 "**Запланированная автоматическая остановка сервиса OnionShare может быть "
-"использована, чтобы ограничить время огласки\". ** Например может "
-"потребоваться сделать доступными для скачивания секретные документы на "
-"определённый период времени, чтобы они были доступны пользователям в сети"
-" Интернет всего несколько дней."
+"использована, чтобы ограничить время доступности сервиса. ** Например можно "
+"сделать доступными для скачивания секретные документы на определённый период "
+"времени, чтобы они были видны пользователям сети Интернет только несколько "
+"дней."
 
 #: ../../source/advanced.rst:67
 msgid "Command-line Interface"
@@ -231,6 +234,9 @@ msgid ""
 "<https://github.com/onionshare/onionshare/blob/develop/cli/README.md>`_ "
 "in the git repository."
 msgstr ""
+"Информацию о том, как произвести установку на другие операционные системы, "
+"можно найти `в readme файле CLI <https://github.com/onionshare/onionshare/"
+"blob/develop/cli/README.md>`_ в репозитории Git."
 
 #: ../../source/advanced.rst:83
 msgid ""
@@ -573,4 +579,3 @@ msgstr ""
 #~ "<https://github.com/onionshare/onionshare/blob/develop/cli/README.md>`_"
 #~ " in the git repository."
 #~ msgstr ""
-
