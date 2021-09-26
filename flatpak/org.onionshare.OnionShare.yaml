@@ -172,33 +172,6 @@ modules:
               - type: file
                 url: https://files.pythonhosted.org/packages/10/27/a33329150147594eff0ea4c33c2036c0eadd933141055be0ff911f7f8d04/Werkzeug-1.0.1.tar.gz
                 sha256: 6c80b1e5ad3665290ea39320b91e1be1e0d5f60652b964a3070216de83d2e47c
-          - name: python3-flask-httpauth
-            buildsystem: simple
-            build-commands:
-              - pip3 install --exists-action=i --no-index --find-links="file://${PWD}" --prefix=${FLATPAK_DEST}
-                "flask-httpauth"
-            sources:
-              - type: file
-                url: https://files.pythonhosted.org/packages/4f/e7/65300e6b32e69768ded990494809106f87da1d436418d5f1367ed3966fd7/Jinja2-2.11.3.tar.gz
-                sha256: a6d58433de0ae800347cab1fa3043cebbabe8baa9d29e668f1c768cb87a333c6
-              - type: file
-                url: https://files.pythonhosted.org/packages/27/6f/be940c8b1f1d69daceeb0032fee6c34d7bd70e3e649ccac0951500b4720e/click-7.1.2.tar.gz
-                sha256: d2b5255c7c6349bc1bd1e59e08cd12acbbd63ce649f2588755783aa94dfb6b1a
-              - type: file
-                url: https://files.pythonhosted.org/packages/2d/6a/e458a74c909899d136aa76cb4d707f0f600fba6ca0d603de681e8fcac91f/Flask-HTTPAuth-4.2.0.tar.gz
-                sha256: 8c7e49e53ce7dc14e66fe39b9334e4b7ceb8d0b99a6ba1c3562bb528ef9da84a
-              - type: file
-                url: https://files.pythonhosted.org/packages/b9/2e/64db92e53b86efccfaea71321f597fa2e1b2bd3853d8ce658568f7a13094/MarkupSafe-1.1.1.tar.gz
-                sha256: 29872e92839765e546828bb7754a68c418d927cd064fd4708fab9fe9c8bb116b
-              - type: file
-                url: https://files.pythonhosted.org/packages/68/1a/f27de07a8a304ad5fa817bbe383d1238ac4396da447fa11ed937039fa04b/itsdangerous-1.1.0.tar.gz
-                sha256: 321b033d07f2a4136d3ec762eac9f16a10ccd60f53c0c91af90217ace7ba1f19
-              - type: file
-                url: https://files.pythonhosted.org/packages/4e/0b/cb02268c90e67545a0e3a37ea1ca3d45de3aca43ceb7dbf1712fb5127d5d/Flask-1.1.2.tar.gz
-                sha256: 4efa1ae2d7c9865af48986de8aeb8504bf32c7f3d6fdc9353d34b21f4b127060
-              - type: file
-                url: https://files.pythonhosted.org/packages/10/27/a33329150147594eff0ea4c33c2036c0eadd933141055be0ff911f7f8d04/Werkzeug-1.0.1.tar.gz
-                sha256: 6c80b1e5ad3665290ea39320b91e1be1e0d5f60652b964a3070216de83d2e47c
           - name: python3-flask-socketio
             buildsystem: simple
             build-commands:

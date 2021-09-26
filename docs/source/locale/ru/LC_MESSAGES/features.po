@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2021-05-03 21:48-0700\n"
-"PO-Revision-Date: 2021-05-11 20:47+0000\n"
+"POT-Creation-Date: 2021-09-09 19:15-0700\n"
+"PO-Revision-Date: 2021-09-25 12:36+0000\n"
 "Last-Translator: Alexander Tarasenko <alexound.login@gmail.com>\n"
 "Language-Team: ru <LL@li.org>\n"
 "Language: ru\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.7-dev\n"
+"X-Generator: Weblate 4.9-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/features.rst:4
@@ -36,49 +36,57 @@ msgstr ""
 "<https://community.torproject.org/onion-services/>`_."
 
 #: ../../source/features.rst:8
-msgid ""
-"By default, OnionShare web addresses are protected with a random "
-"password. A typical OnionShare address might look something like this::"
-msgstr ""
-"По умолчанию, веб адреса OnionShare защищены случайным паролем. Пример "
-"типового адреса OnionShare выглядит так::"
+msgid "By default, OnionShare web addresses are protected with a private key."
+msgstr "По умолчанию, веб-адреса OnionShare защищены секретным ключом."
 
-#: ../../source/features.rst:12
-msgid ""
-"You're responsible for securely sharing that URL using a communication "
-"channel of your choice like in an encrypted chat message, or using "
-"something less secure like unencrypted e-mail, depending on your `threat "
-"model <https://ssd.eff.org/module/your-security-plan>`_."
-msgstr ""
-"Безопасность передачи этого адреса зависит от пользователя OnionShare. "
-"Исходя из `модели угрозы <https://ssd.eff.org/module/your-security-"
-"plan>`_, можно использовать либо приложение для обмена зашифрованными "
-"сообщениями, либо сервис электронной почты без шифрования."
+#: ../../source/features.rst:10
+msgid "OnionShare addresses look something like this::"
+msgstr "Адреса OnionShare выглядят примерно так::"
 
 #: ../../source/features.rst:14
+msgid "And private keys might look something like this::"
+msgstr "А секретные ключи выглядят примерно так::"
+
+#: ../../source/features.rst:18
+msgid ""
+"You're responsible for securely sharing that URL and private key using a "
+"communication channel of your choice like in an encrypted chat message, "
+"or using something less secure like unencrypted email, depending on your "
+"`threat model <https://ssd.eff.org/module/your-security-plan>`_."
+msgstr ""
+"Вы несёте ответственность за безопасную передачу URL и секретного ключа с "
+"использованием различных каналов связи, таких как зашифрованный чат или что-"
+"то менее безопасное, как например незашифрованное сообщение электронной "
+"почты, в зависимости от вашей `модели угрозы <https://ssd.eff.org/module/"
+"your-security-plan>`_."
+
+#: ../../source/features.rst:20
 msgid ""
 "The people you send the URL to then copy and paste it into their `Tor "
 "Browser <https://www.torproject.org/>`_ to access the OnionShare service."
+" Tor Browser will then prompt for the private key, which the people can "
+"also then copy and paste in."
 msgstr ""
-"Чтобы получить доступ к сервисам OnionShare, получатели веб-адреса должны"
-" скопировать и вставить его в адресную строку `Tor Browser "
-"<https://www.torproject.org/>`_."
+"Чтобы получить доступ к сервисам OnionShare, получатели веб-адреса должны "
+"скопировать и вставить его в адресную строку `Tor Browser <https://www."
+"torproject.org/>`_. Tor Browser запросит секретный ключ, который получатели "
+"таже могут скопировать и вставить в соответствующую форму."
 
-#: ../../source/features.rst:16
+#: ../../source/features.rst:24
 msgid ""
 "If you run OnionShare on your laptop to send someone files, and then "
 "suspend it before the files are sent, the service will not be available "
-"until your laptop is unsuspended and on the Internet again. OnionShare "
+"until your laptop is unsuspended and on the internet again. OnionShare "
 "works best when working with people in real-time."
 msgstr ""
-"Если запуск OnionShare производится на ноутбуке и используется для "
-"отправки файлов, то, в случае перехода операционной системы в \"спящий "
-"режим\", сервис OnionShare будет недоступен до тех пор, пока у ноутбука "
-"не будет восстановлено соединение с сетью Internet. Рекомендуется "
-"использовать OnionShare для взаимодействия с другими людьми в режиме "
-"\"реального времени\"."
+"Если OnionShare запускается на ноутбуке и используется для отправки файлов, "
+"то, в случае перехода операционной системы в \"спящий режим\", сервис "
+"OnionShare будет недоступен до тех пор, пока у ноутбука не будет "
+"восстановлено соединение с сетью Internet. Рекомендуется использовать "
+"OnionShare для взаимодействия с другими людьми в режиме \"реального времени\""
+"."
 
-#: ../../source/features.rst:18
+#: ../../source/features.rst:26
 msgid ""
 "Because your own computer is the web server, *no third party can access "
 "anything that happens in OnionShare*, not even the developers of "
@@ -93,11 +101,11 @@ msgstr ""
 "также защищает анонимность пользователя. Дополнительную информацию можно "
 "найти :здесь:`Обеспечение безопасности </security>`."
 
-#: ../../source/features.rst:21
+#: ../../source/features.rst:29
 msgid "Share Files"
 msgstr "Отправка файлов"
 
-#: ../../source/features.rst:23
+#: ../../source/features.rst:31
 msgid ""
 "You can use OnionShare to send files and folders to people securely and "
 "anonymously. Open a share tab, drag in the files and folders you wish to "
@@ -108,7 +116,7 @@ msgstr ""
 "\"перетащить\" в приложение файлы и директории, которые нужно отправить и"
 " нажать кнопку \"Сделать доступным для скачивания\"."
 
-#: ../../source/features.rst:27 ../../source/features.rst:104
+#: ../../source/features.rst:35 ../../source/features.rst:112
 msgid ""
 "After you add files, you'll see some settings. Make sure you choose the "
 "setting you're interested in before you start sharing."
@@ -117,21 +125,21 @@ msgstr ""
 "Убедитесь, что используете только интересующие Вас настройки перед "
 "началом отправки."
 
-#: ../../source/features.rst:31
+#: ../../source/features.rst:39
 msgid ""
 "As soon as someone finishes downloading your files, OnionShare will "
-"automatically stop the server, removing the website from the Internet. To"
+"automatically stop the server, removing the website from the internet. To"
 " allow multiple people to download them, uncheck the \"Stop sharing after"
 " files have been sent (uncheck to allow downloading individual files)\" "
 "box."
 msgstr ""
 "Как только завершится первая загрузка файлов, OnionShare автоматически "
 "остановит сервер и удалит веб-сайт из сети Internet. Чтобы разрешить "
-"нескольким людями загружать Ваши файлы, снимите флажок с настройки "
-"\"Закрыть доступ к файлам после их отправки (отмените чтобы разрешить "
-"скачивание отдельных файлов)\"."
+"нескольким людями загружать Ваши файлы, снимите флажок с настройки \"Закрыть "
+"доступ к файлам после их отправки (отмените чтобы разрешить скачивание "
+"отдельных файлов)\"."
 
-#: ../../source/features.rst:34
+#: ../../source/features.rst:42
 msgid ""
 "Also, if you uncheck this box, people will be able to download the "
 "individual files you share rather than a single compressed version of all"
@@ -140,7 +148,7 @@ msgstr ""
 "Также, если этот флажок снят, люди смогут загружать отдельные файлы из "
 "раздачи, вместо одного большого сжатого архива."
 
-#: ../../source/features.rst:36
+#: ../../source/features.rst:44
 msgid ""
 "When you're ready to share, click the \"Start sharing\" button. You can "
 "always click \"Stop sharing\", or quit OnionShare, immediately taking the"
@@ -153,36 +161,34 @@ msgstr ""
 " отключить сайт. Для просмотра истории раздач и прогресса текущих раздач,"
 " нажмите кнопку \"↑\" в правом верхнем углу приложения."
 
-#: ../../source/features.rst:40
+#: ../../source/features.rst:48
 msgid ""
-"Now that you have a OnionShare, copy the address and send it to the "
-"person you want to receive the files. If the files need to stay secure, "
-"or the person is otherwise exposed to danger, use an encrypted messaging "
-"app."
+"Now that you have a OnionShare, copy the address and the private key and "
+"send it to the person you want to receive the files. If the files need to"
+" stay secure, or the person is otherwise exposed to danger, use an "
+"encrypted messaging app."
 msgstr ""
-"Теперь, когда отображается адрес сервиса OnionShare, его нужно "
-"скопировать и отправить получателю файлов. Если файлы должны оставаться в"
-" безопасности или получатель по той или иной причине находится под "
-"угрозой, для передачи адреса используйте приложение для обмена "
-"зашифроваными сообщениями."
+"Теперь, когда у вас есть адрес сервиса OnionShare, его нужно скопировать и "
+"отправить получателю файлов. Если файлы должны оставаться в безопасности или "
+"получатель по той или иной причине находится под угрозой, для передачи "
+"адреса используйте приложение для обмена зашифроваными сообщениями."
 
-#: ../../source/features.rst:42
+#: ../../source/features.rst:50
 msgid ""
 "That person then must load the address in Tor Browser. After logging in "
-"with the random password included in the web address, the files can be "
-"downloaded directly from your computer by clicking the \"Download Files\""
-" link in the corner."
+"with the private key, the files can be downloaded directly from your "
+"computer by clicking the \"Download Files\" link in the corner."
 msgstr ""
-"Получателю нужно перейти по полученному веб-адресу при помощи Tor "
-"Browser'а. После того, как получатель пройдёт авторизацию при помощи "
-"пароля, включённого в адрес сервиса OnionShare, он сможет загрузить файлы"
-" прямо на свой компьютер, нажав на ссылку \"Загрузить Файлы\"."
+"Полученный веб-адрес получателю нужно ввести в адресную строку Tor Browser. "
+"После того, как получатель пройдёт авторизацию при помощи секретного ключа, "
+"он сможет загрузить файлы прямо на свой компьютер, нажав на ссылку "
+"\"Загрузить Файлы\"."
 
-#: ../../source/features.rst:47
+#: ../../source/features.rst:55
 msgid "Receive Files and Messages"
 msgstr "Получение файлов и сообщений"
 
-#: ../../source/features.rst:49
+#: ../../source/features.rst:57
 msgid ""
 "You can use OnionShare to let people anonymously submit files and "
 "messages directly to your computer, essentially turning it into an "
@@ -190,26 +196,27 @@ msgid ""
 "want."
 msgstr ""
 "Вы можете использовать OnionShare, чтобы дать людям возможность анонимно "
-"отправлять файлы и сообщения прямо на ваш компьютер, по сути превращая его в "
-"анонимный аналог Dropbox. Откройте вкладку \"Получить\" и установите "
-"желаемые настройки."
+"отправлять файлы и сообщения прямо на ваш компьютер, по сути превращая "
+"его в анонимный аналог Dropbox. Откройте вкладку \"Получить\" и "
+"установите желаемые настройки."
 
-#: ../../source/features.rst:54
+#: ../../source/features.rst:62
 msgid "You can browse for a folder to save messages and files that get submitted."
 msgstr ""
-"Вы можете указать папку, куда будут сохраняться полученные файлы и сообщения."
+"Вы можете указать папку, куда будут сохраняться полученные файлы и "
+"сообщения."
 
-#: ../../source/features.rst:56
+#: ../../source/features.rst:64
 msgid ""
 "You can check \"Disable submitting text\" if want to only allow file "
 "uploads, and you can check \"Disable uploading files\" if you want to "
 "only allow submitting text messages, like for an anonymous contact form."
 msgstr ""
-"Вы можете запретить отправку сообщений, если хотите только получить файлы. "
-"Или запретить загрузку файлов, если хотите только отправлять сообщения. "
-"Например, чтобы сделать анонимную форму для связи."
+"Вы можете запретить отправку сообщений, если хотите только получить "
+"файлы. Или запретить загрузку файлов, если хотите только отправлять "
+"сообщения. Например, чтобы сделать анонимную форму для связи."
 
-#: ../../source/features.rst:58
+#: ../../source/features.rst:66
 msgid ""
 "You can check \"Use notification webhook\" and then choose a webhook URL "
 "if you want to be notified when someone submits files or messages to your"
@@ -223,31 +230,32 @@ msgid ""
 "your receive mode service, @webhookbot will send you a message on Keybase"
 " letting you know as soon as it happens."
 msgstr ""
-"Вы можете установить флажок \"Использовать веб-хук для отправки уведомлений\""
-" и затем указать URL веб-хука, чтобы получить уведомление, что кто-то "
-"загружает файлы и отправляет файлы на ваш сервис приёма OnionShare. При "
-"подключени это опции, OnionShare отправит HTTP POST запрос на указанный URL "
-"когда кто-либо загрузит файлы или отправит сообщение. Например, чтобы "
-"получить зашифрованное сообщение в приложении `Keybase <https://keybase.io/>`"
-", нужно начать беседу со строки `@webhookbot <https://keybase.io/webhookbot>`"
-"_, затем ввести ``!webhook create onionshare-alerts``, и в ответ придёт URL. "
-"Используйте этот URL для отправки уведомлений при помощи веб-хука. Когда кто-"
-"либо загрузит файл на ваш сервис приёма OnionShare, @webhookbot отправит "
-"сообщение в приложение Keybase как только это произойдёт."
+"Вы можете установить флажок \"Использовать веб-хук для отправки "
+"уведомлений\" и затем указать URL веб-хука, чтобы получить уведомление, "
+"что кто-то загружает файлы и отправляет файлы на ваш сервис приёма "
+"OnionShare. При подключени это опции, OnionShare отправит HTTP POST "
+"запрос на указанный URL когда кто-либо загрузит файлы или отправит "
+"сообщение. Например, чтобы получить зашифрованное сообщение в приложении "
+"`Keybase <https://keybase.io/>`, нужно начать беседу со строки "
+"`@webhookbot <https://keybase.io/webhookbot>`_, затем ввести ``!webhook "
+"create onionshare-alerts``, и в ответ придёт URL. Используйте этот URL "
+"для отправки уведомлений при помощи веб-хука. Когда кто-либо загрузит "
+"файл на ваш сервис приёма OnionShare, @webhookbot отправит сообщение в "
+"приложение Keybase как только это произойдёт."
 
-#: ../../source/features.rst:63
+#: ../../source/features.rst:71
 msgid ""
 "When you are ready, click \"Start Receive Mode\". This starts the "
 "OnionShare service. Anyone loading this address in their Tor Browser will"
 " be able to submit files and messages which get uploaded to your "
 "computer."
 msgstr ""
-"Когда вы будете готовы, нажмите «Запустить режим получения». Это запустит "
-"службу OnionShare. Любой, кто откроет этот адрес в своём Tor-браузере, "
+"Когда вы будете готовы, нажмите «Запустить режим получения». Это запустит"
+" службу OnionShare. Любой, кто откроет этот адрес в своём Tor-браузере, "
 "сможет отправлять файлы и сообщения, которые будут загружены на ваш "
 "компьютер."
 
-#: ../../source/features.rst:67
+#: ../../source/features.rst:75
 msgid ""
 "You can also click the down \"↓\" icon in the top-right corner to show "
 "the history and progress of people sending files to you."
@@ -255,11 +263,11 @@ msgstr ""
 "Для просмотра истории получения и прогресса текущих загрузок, нажмите "
 "кнопку \"↓\" в правом верхнем углу."
 
-#: ../../source/features.rst:69
+#: ../../source/features.rst:77
 msgid "Here is what it looks like for someone sending you files and messages."
 msgstr "Примерно так выглядит OnionShare когда кто-то вам отправляет файлы."
 
-#: ../../source/features.rst:73
+#: ../../source/features.rst:81
 msgid ""
 "When someone submits files or messages to your receive service, by "
 "default they get saved to a folder called ``OnionShare`` in the home "
@@ -271,7 +279,7 @@ msgstr ""
 "папку ``OnionShare`` в домашнией директории компьютера и автоматически "
 "распределяются в поддиректории в зависимости от времени загрузки."
 
-#: ../../source/features.rst:75
+#: ../../source/features.rst:83
 msgid ""
 "Setting up an OnionShare receiving service is useful for journalists and "
 "others needing to securely accept documents from anonymous sources. When "
@@ -283,23 +291,23 @@ msgstr ""
 "полезным, например, для журналистов, в случае если нужно безопасно "
 "получить документы от анонимного источника."
 
-#: ../../source/features.rst:78
+#: ../../source/features.rst:86
 msgid "Use at your own risk"
 msgstr "Возможные риски"
 
-#: ../../source/features.rst:80
+#: ../../source/features.rst:88
 msgid ""
-"Just like with malicious e-mail attachments, it's possible someone could "
+"Just like with malicious email attachments, it's possible someone could "
 "try to attack your computer by uploading a malicious file to your "
 "OnionShare service. OnionShare does not add any safety mechanisms to "
 "protect your system from malicious files."
 msgstr ""
-"Как и вредоносные приложения к письмам электронной почты, файлы "
-"загружаемые на Ваш компьютер при помощи OnionShare могут быть "
-"использованы для атаки. OnionShare не содержит какого-либо защитного "
-"механизма операционной системы от вредоносных файлов."
+"Как и вредоносные приложения к письмам электронной почты, загружаемые на Ваш "
+"компьютер при помощи OnionShare файлы могут быть использованы для атаки. "
+"OnionShare не содержит какого-либо защитного механизма операционной системы "
+"от вредоносных файлов."
 
-#: ../../source/features.rst:82
+#: ../../source/features.rst:90
 msgid ""
 "If you receive an Office document or a PDF through OnionShare, you can "
 "convert these documents into PDFs that are safe to open using `Dangerzone"
@@ -315,46 +323,46 @@ msgstr ""
 "`Tails <https://tails.boum.org/>`_ или внутри одноразовой виртуальной "
 "машины ОС `Qubes <https://qubes-os.org/>`_."
 
-#: ../../source/features.rst:84
+#: ../../source/features.rst:92
 msgid "However, it is always safe to open text messages sent through OnionShare."
 msgstr ""
 "Тем не менее, открывать сообщения присланные через OnionShare всегда "
 "безопасно."
 
-#: ../../source/features.rst:87
+#: ../../source/features.rst:95
 msgid "Tips for running a receive service"
 msgstr "Советы для использования сервиса приёма файлов"
 
-#: ../../source/features.rst:89
+#: ../../source/features.rst:97
 msgid ""
 "If you want to host your own anonymous dropbox using OnionShare, it's "
 "recommended you do so on a separate, dedicated computer always powered on"
-" and connected to the Internet, and not on the one you use on a regular "
+" and connected to the internet, and not on the one you use on a regular "
 "basis."
 msgstr ""
-"Если нужно разместить свой собственный анонимный почтовый язщик для "
-"приёма документов, рекомендуется сделать это при помощи отдельного "
-"компьютера, постоянно подключённого к сети питания, который не "
-"используется для обычной работы."
+"Если нужно разместить свой собственный анонимный почтовый ящик для приёма "
+"документов, рекомендуется сделать это при помощи отдельного компьютера, "
+"который не используется для обычной работы и постоянно подключён к сети "
+"питания и Интернету."
 
-#: ../../source/features.rst:91
-#, fuzzy
+#: ../../source/features.rst:99
 msgid ""
 "If you intend to put the OnionShare address on your website or social "
 "media profiles, save the tab (see :ref:`save_tabs`) and run it as a "
-"public service (see :ref:`turn_off_passwords`). It's also a good idea to "
-"give it a custom title (see :ref:`custom_titles`)."
+"public service (see :ref:`turn_off_private_key`). It's also a good idea "
+"to give it a custom title (see :ref:`custom_titles`)."
 msgstr ""
-"Если планируется разместить адрес сервиса OnionShare на своём веб-сайте "
-"или в социальных сетях, рекомендуется сохранить вкладку (подробнее "
+"Если планируется разместить адрес сервиса OnionShare на своём веб-сайте или "
+"в социальных сетях, рекомендуется сохранить вкладку (подробнее "
 ":ref:`save_tabs`) и сделать сервис общедоступным (подробнее "
-":ref:`turn_off_passwords`)."
+":ref:`turn_off_private_key`). Также рекомендуется дать ему какое-то название "
+"(подробнее :ref:`custom_titles`)."
 
-#: ../../source/features.rst:94
+#: ../../source/features.rst:102
 msgid "Host a Website"
 msgstr "Размещение Вебсайта"
 
-#: ../../source/features.rst:96
+#: ../../source/features.rst:104
 msgid ""
 "To host a static HTML website with OnionShare, open a website tab, drag "
 "the files and folders that make up the static content there, and click "
@@ -365,7 +373,7 @@ msgstr ""
 "содержимым и, когда всё будет готово, нажать кнопку \"Сделать доступным "
 "для скачивания\"."
 
-#: ../../source/features.rst:100
+#: ../../source/features.rst:108
 msgid ""
 "If you add an ``index.html`` file, it will render when someone loads your"
 " website. You should also include any other HTML files, CSS files, "
@@ -382,7 +390,7 @@ msgstr ""
 "размещения веб-приложений или сайтов, использующих базы данных (например,"
 " WordPress).)"
 
-#: ../../source/features.rst:102
+#: ../../source/features.rst:110
 msgid ""
 "If you don't have an ``index.html`` file, it will show a directory "
 "listing instead, and people loading it can look through the files and "
@@ -392,25 +400,25 @@ msgstr ""
 "отобразится список директорий и файлов, которые можно просмотреть и/или "
 "загрузить."
 
-#: ../../source/features.rst:109
+#: ../../source/features.rst:117
 msgid "Content Security Policy"
 msgstr "Политика безопасности контента"
 
-#: ../../source/features.rst:111
+#: ../../source/features.rst:119
 msgid ""
 "By default OnionShare helps secure your website by setting a strict "
-"`Content Security Police "
+"`Content Security Policy "
 "<https://en.wikipedia.org/wiki/Content_Security_Policy>`_ header. "
 "However, this prevents third-party content from loading inside the web "
 "page."
 msgstr ""
-"По умолчанию OnionShare помогает обезопасить вебсайт пользователя, "
-"устанавливая строгую `Политикаубезопасности контента "
-"<https://en.wikipedia.org/wiki/Content_Security_Policy>`_ . Тем не менее,"
-" это исключает возможность загрузки и использования на веб-странице "
-"контента из сторонних источников."
+"По умолчанию OnionShare помогает защитить веб-сайт пользователя, "
+"устанавливая строгую `Политика безопасности контента <https://en.wikipedia."
+"org/wiki/Content_Security_Policy>`_ . Тем не менее, это исключает "
+"возможность загрузки и использования на веб-странице содержимого из "
+"сторонних источников."
 
-#: ../../source/features.rst:113
+#: ../../source/features.rst:121
 msgid ""
 "If you want to load content from third-party websites, like assets or "
 "JavaScript libraries from CDNs, check the \"Don't send Content Security "
@@ -423,40 +431,39 @@ msgstr ""
 "контента\" перед запуском сервиса. Это позволит вебсайту использовать "
 "сторонние источники содержимого."
 
-#: ../../source/features.rst:116
+#: ../../source/features.rst:124
 msgid "Tips for running a website service"
 msgstr "Советы по использованию сервсиа размещения вебсайтов"
 
-#: ../../source/features.rst:118
+#: ../../source/features.rst:126
 msgid ""
 "If you want to host a long-term website using OnionShare (meaning not "
-"something to quickly show someone something), it's recommended you do it "
-"on a separate, dedicated computer always powered on and connected to the "
-"Internet, and not on the one you use on a regular basis. Save the tab "
-"(see :ref:`save_tabs`) so you can resume the website with the same "
+"just to quickly show someone something), it's recommended you do it on a "
+"separate, dedicated computer that is always powered on and connected to "
+"the internet, and not on the one you use on a regular basis. Save the tab"
+" (see :ref:`save_tabs`) so you can resume the website with the same "
 "address if you close OnionShare and re-open it later."
 msgstr ""
-"Чтобы разместить сайт при помощи OnionShare на длительный срок (то есть, "
-"не для быстрой демонстрации чего-то кому-то), рекомендуется сделать это "
-"при помощи отдельного компьютера, постоянно подключённого к сети питания "
-"и Интернету, который не используется для обычной работы. Также, нужно "
-"сохранить вкладку (подробнее :ref:`save_tabs`), чтобы в дальнейшем можно "
-"было восстановить доступ к вебсайту с тем же самым адресом, в случае "
-"закрытия и повторного запуска OnionShare."
+"Чтобы разместить сайт при помощи OnionShare на длительный срок, "
+"рекомендуется сделать это при помощи отдельного компьютера, который не "
+"используется для обычной работы и постоянно подключён к сети питания и "
+"Интернету. Также, нужно сохранить вкладку (подробнее :ref:`save_tabs`), "
+"чтобы в дальнейшем можно было восстановить доступ к веб-сайту с тем же "
+"адресом, на случай перезапуска OnionShare."
 
-#: ../../source/features.rst:121
+#: ../../source/features.rst:129
 msgid ""
 "If your website is intended for the public, you should run it as a public"
-" service (see :ref:`turn_off_passwords`)."
+" service (see :ref:`turn_off_private_key`)."
 msgstr ""
 "Если планируется сделать сайт общедоступным, рекомендуется отключить "
-"проверку паролей (подробнее :ref:`turn_off_passwords`)."
+"использование секретного ключа (подробнее :ref:`turn_off_private_key`)."
 
-#: ../../source/features.rst:124
+#: ../../source/features.rst:132
 msgid "Chat Anonymously"
 msgstr "Анонимный чат"
 
-#: ../../source/features.rst:126
+#: ../../source/features.rst:134
 msgid ""
 "You can use OnionShare to set up a private, secure chat room that doesn't"
 " log anything. Just open a chat tab and click \"Start chat server\"."
@@ -465,19 +472,19 @@ msgstr ""
 "чата, который не хранит какие-либо логи. Для этого, нужно открыть вкладку"
 " чата и нажать кнопку \"Запустить сервер чата\"."
 
-#: ../../source/features.rst:130
+#: ../../source/features.rst:138
 msgid ""
-"After you start the server, copy the OnionShare address and send it to "
-"the people you want in the anonymous chat room. If it's important to "
-"limit exactly who can join, use an encrypted messaging app to send out "
-"the OnionShare address."
+"After you start the server, copy the OnionShare address and private key "
+"and send them to the people you want in the anonymous chat room. If it's "
+"important to limit exactly who can join, use an encrypted messaging app "
+"to send out the OnionShare address and private key."
 msgstr ""
-"После запуска сервера, нужно скопировать адрес OnionShare и отправить "
-"людям, с которыми планируется анонимная переписка. Если нужно ввести "
-"ограничить круг участников, используйте для рассылки адреса OnionShare "
-"приложение для обмена зашифрованными сообщениями."
+"После запуска сервера, нужно скопировать адрес OnionShare и секретный ключ и "
+"и отправить людям, с которыми планируется анонимная переписка. Если нужно "
+"ограничить круг участников чата, используйте для рассылки адреса и "
+"секретного ключа OnionShare приложение для обмена зашифрованными сообщениями."
 
-#: ../../source/features.rst:135
+#: ../../source/features.rst:143
 msgid ""
 "People can join the chat room by loading its OnionShare address in Tor "
 "Browser. The chat room requires JavasScript, so everyone who wants to "
@@ -489,7 +496,7 @@ msgstr ""
 "предполагаемому участнику необходимо выставить уровень безопасности "
 "\"Обычный\" или \"Высокий\", вместо \"Высший\"."
 
-#: ../../source/features.rst:138
+#: ../../source/features.rst:146
 msgid ""
 "When someone joins the chat room they get assigned a random name. They "
 "can change their name by typing a new name in the box in the left panel "
@@ -502,7 +509,7 @@ msgstr ""
 "сохраняется, это имя нигде не отбражается, даже если в чате уже были "
 "участники."
 
-#: ../../source/features.rst:144
+#: ../../source/features.rst:152
 msgid ""
 "In an OnionShare chat room, everyone is anonymous. Anyone can change "
 "their name to anything, and there is no way to confirm anyone's identity."
@@ -511,7 +518,7 @@ msgstr ""
 "изменить своё имя и нет никакого способа определить/подтвердить личность "
 "такого участника."
 
-#: ../../source/features.rst:147
+#: ../../source/features.rst:155
 msgid ""
 "However, if you create an OnionShare chat room and securely send the "
 "address only to a small group of trusted friends using encrypted "
@@ -523,11 +530,11 @@ msgstr ""
 "сообщений, можно быть достаточно уверенным, что в чате присутствуют "
 "друзья."
 
-#: ../../source/features.rst:150
+#: ../../source/features.rst:158
 msgid "How is this useful?"
 msgstr "Насколько это полезно?"
 
-#: ../../source/features.rst:152
+#: ../../source/features.rst:160
 msgid ""
 "If you need to already be using an encrypted messaging app, what's the "
 "point of an OnionShare chat room to begin with? It leaves less traces."
@@ -535,47 +542,44 @@ msgstr ""
 "Какая может быть польза от чата OnionShare при наличии приложений для "
 "обмена зашифрованными сообщениями? OnionShare оставляет меньше следов."
 
-#: ../../source/features.rst:154
+#: ../../source/features.rst:162
 msgid ""
 "If you for example send a message to a Signal group, a copy of your "
-"message ends up on each device (the devices, and computers if they set up"
-" Signal Desktop) of each member of the group. Even if disappearing "
+"message ends up on each device (the smartphones, and computers if they "
+"set up Signal Desktop) of each member of the group. Even if disappearing "
 "messages is turned on, it's hard to confirm all copies of the messages "
 "are actually deleted from all devices, and from any other places (like "
 "notifications databases) they may have been saved to. OnionShare chat "
 "rooms don't store any messages anywhere, so the problem is reduced to a "
 "minimum."
 msgstr ""
-"Например, если отправить групповое сообщение при помощи мессенджера "
-"Signal, копия сообщения появится на всех устройствах (включая компьютеры,"
-" на которых установлен Signal Desktop) каждого из участников группы. Даже"
-" если включены \"исчезающие сообщения\", достаточно трудно убедиться, что"
-" все копии сообщения были в действительности удалены со всех устройств и "
-"каких-либо других мест (например, центров уведомлений), куда они могли "
-"быть сохранены. OnionShare не хранит какие-либо сообщения, так что "
-"описанная проблема сведена к минимуму."
+"Если, например, вы отправите сообщение в групповой чат мессенджера Signal, "
+"копия вашего сообщения окажется на устройстве каждого из участников ("
+"смартфоны и/или персональные комьютеры). Даже если включен режим \"исчезающих"
+" сообщений\", нельзя быть уверенным в том, что они окажутся удалены со всех "
+"устройств или из других мест (базы данных уведомлений и т.д.) Чаты "
+"OnionShare нигде не хранятся, так что возможные риски сведены к минимуму."
 
-#: ../../source/features.rst:157
+#: ../../source/features.rst:165
 msgid ""
 "OnionShare chat rooms can also be useful for people wanting to chat "
 "anonymously and securely with someone without needing to create any "
 "accounts. For example, a source can send an OnionShare address to a "
-"journalist using a disposable e-mail address, and then wait for the "
+"journalist using a disposable email address, and then wait for the "
 "journalist to join the chat room, all without compromosing their "
 "anonymity."
 msgstr ""
 "OnionShare также может быть полезен для людей, которым нужна анонимная и "
-"безопасная переписка без создания каких-либо учётных записей. Например, с"
-" журналистом может связаться 'источник': прислать адрес OnionShare при "
-"помощи временного адреса электронной почты и затем подождать пока "
-"журналист, присоединится к чату. При таком сценарии источник не "
-"подвергает опасности свою анонимность."
+"безопасная переписка без создания каких-либо учётных записей. Например, с "
+"журналистом может связаться 'источник': прислать адрес OnionShare при помощи "
+"временной электронной почты и затем подождать пока журналист, присоединится "
+"к чату. При таком сценарии источник не подвергает опасности свою анонимность."
 
-#: ../../source/features.rst:161
+#: ../../source/features.rst:169
 msgid "How does the encryption work?"
 msgstr "Как работает шифрование?"
 
-#: ../../source/features.rst:163
+#: ../../source/features.rst:171
 msgid ""
 "Because OnionShare relies on Tor onion services, connections between the "
 "Tor Browser and OnionShare are all end-to-end encrypted (E2EE). When "
@@ -590,7 +594,7 @@ msgstr ""
 "onion соединение. Далее, сообщение рассылается всем участникам чата при "
 "помощи WebSockets, также при использовании E2EE и onion соединений."
 
-#: ../../source/features.rst:165
+#: ../../source/features.rst:173
 msgid ""
 "OnionShare doesn't implement any chat encryption on its own. It relies on"
 " the Tor onion service's encryption instead."
@@ -1023,3 +1027,73 @@ msgstr ""
 #~ "комьютера пользователя. Эта директория "
 #~ "автоматически создаёт поддиректории в "
 #~ "зависимости от времени загрузки."
+
+#~ msgid ""
+#~ "By default, OnionShare web addresses are"
+#~ " protected with a private key (Client"
+#~ " Authentication). A typical OnionShare "
+#~ "address might look something like this::"
+#~ msgstr ""
+#~ "По умолчанию, веб адреса OnionShare "
+#~ "защищены случайным паролем. Пример типового"
+#~ " адреса OnionShare выглядит так::"
+
+#~ msgid "And the Private key might look something like this::"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "You're responsible for securely sharing "
+#~ "that URL, and the private key, "
+#~ "using a communication channel of your"
+#~ " choice like in an encrypted chat "
+#~ "message, or using something less secure"
+#~ " like unencrypted e-mail, depending on "
+#~ "your `threat model <https://ssd.eff.org/module"
+#~ "/your-security-plan>`_."
+#~ msgstr ""
+#~ "Безопасность передачи этого адреса зависит "
+#~ "от пользователя OnionShare. Исходя из "
+#~ "`модели угрозы <https://ssd.eff.org/module/your-"
+#~ "security-plan>`_, можно использовать либо "
+#~ "приложение для обмена зашифрованными "
+#~ "сообщениями, либо сервис электронной почты "
+#~ "без шифрования."
+
+#~ msgid ""
+#~ "Tor Browser will then prompt for "
+#~ "the private key in an authentication "
+#~ "dialog, which the person can also "
+#~ "then copy and paste in."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "If you for example send a message"
+#~ " to a Signal group, a copy of"
+#~ " your message ends up on each "
+#~ "device (the devices, and computers if"
+#~ " they set up Signal Desktop) of "
+#~ "each member of the group. Even if"
+#~ " disappearing messages is turned on, "
+#~ "it's hard to confirm all copies of"
+#~ " the messages are actually deleted "
+#~ "from all devices, and from any "
+#~ "other places (like notifications databases)"
+#~ " they may have been saved to. "
+#~ "OnionShare chat rooms don't store any"
+#~ " messages anywhere, so the problem is"
+#~ " reduced to a minimum."
+#~ msgstr ""
+#~ "Например, если отправить групповое сообщение"
+#~ " при помощи мессенджера Signal, копия "
+#~ "сообщения появится на всех устройствах "
+#~ "(включая компьютеры, на которых установлен "
+#~ "Signal Desktop) каждого из участников "
+#~ "группы. Даже если включены \"исчезающие "
+#~ "сообщения\", достаточно трудно убедиться, что"
+#~ " все копии сообщения были в "
+#~ "действительности удалены со всех устройств "
+#~ "и каких-либо других мест (например, "
+#~ "центров уведомлений), куда они могли "
+#~ "быть сохранены. OnionShare не хранит "
+#~ "какие-либо сообщения, так что описанная "
+#~ "проблема сведена к минимуму."

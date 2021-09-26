@@ -5,15 +5,23 @@ How OnionShare Works
 
 Web servers are started locally on your computer and made accessible to other people as `Tor <https://www.torproject.org/>`_ `onion services <https://community.torproject.org/onion-services/>`_.
 
-By default, OnionShare web addresses are protected with a random password. A typical OnionShare address might look something like this::
+By default, OnionShare web addresses are protected with a private key.
 
-    http://onionshare:constrict-purity@by4im3ir5nsvygprmjq74xwplrkdgt44qmeapxawwikxacmr3dqzyjad.onion
+OnionShare addresses look something like this::
 
-You're responsible for securely sharing that URL using a communication channel of your choice like in an encrypted chat message, or using something less secure like unencrypted e-mail, depending on your `threat model <https://ssd.eff.org/module/your-security-plan>`_.
+    http://oy5oaslxxzwib7fsjaiz5mjeyg3ziwdmiyeotpjw6etxi722pn7pqsyd.onion
 
-The people you send the URL to then copy and paste it into their `Tor Browser <https://www.torproject.org/>`_ to access the OnionShare service.
+And private keys might look something like this::
 
-If you run OnionShare on your laptop to send someone files, and then suspend it before the files are sent, the service will not be available until your laptop is unsuspended and on the Internet again. OnionShare works best when working with people in real-time.
+    K3N3N3U3BURJW46HZEZV2LZHBPKEFAGVN6DPC7TY6FHWXT7RLRAQ
+
+You're responsible for securely sharing that URL and private key using a communication channel of your choice like in an encrypted chat message, or using something less secure like unencrypted email, depending on your `threat model <https://ssd.eff.org/module/your-security-plan>`_.
+
+The people you send the URL to then copy and paste it into their `Tor Browser <https://www.torproject.org/>`_ to access the OnionShare service. Tor Browser will then prompt for the private key, which the people can also then copy and paste in.
+
+.. image:: _static/screenshots/private-key.png
+
+If you run OnionShare on your laptop to send someone files, and then suspend it before the files are sent, the service will not be available until your laptop is unsuspended and on the internet again. OnionShare works best when working with people in real-time.
 
 Because your own computer is the web server, *no third party can access anything that happens in OnionShare*, not even the developers of OnionShare. It's completely private. And because OnionShare is based on Tor onion services too, it also protects your anonymity. See the :doc:`security design </security>` for more info.
 
@@ -28,7 +36,7 @@ After you add files, you'll see some settings. Make sure you choose the setting 
 
 .. image:: _static/screenshots/share-files.png
 
-As soon as someone finishes downloading your files, OnionShare will automatically stop the server, removing the website from the Internet.
+As soon as someone finishes downloading your files, OnionShare will automatically stop the server, removing the website from the internet.
 To allow multiple people to download them, uncheck the "Stop sharing after files have been sent (uncheck to allow downloading individual files)" box.
 
 Also, if you uncheck this box, people will be able to download the individual files you share rather than a single compressed version of all the files.
@@ -37,9 +45,9 @@ When you're ready to share, click the "Start sharing" button. You can always cli
 
 .. image:: _static/screenshots/share-sharing.png
 
-Now that you have a OnionShare, copy the address and send it to the person you want to receive the files. If the files need to stay secure, or the person is otherwise exposed to danger, use an encrypted messaging app.
+Now that you have a OnionShare, copy the address and the private key and send it to the person you want to receive the files. If the files need to stay secure, or the person is otherwise exposed to danger, use an encrypted messaging app.
 
-That person then must load the address in Tor Browser. After logging in with the random password included in the web address, the files can be downloaded directly from your computer by clicking the "Download Files" link in the corner.
+That person then must load the address in Tor Browser. After logging in with the private key, the files can be downloaded directly from your computer by clicking the "Download Files" link in the corner.
 
 .. image:: _static/screenshots/share-torbrowser.png
 
@@ -77,7 +85,7 @@ Setting up an OnionShare receiving service is useful for journalists and others 
 Use at your own risk
 ^^^^^^^^^^^^^^^^^^^^
 
-Just like with malicious e-mail attachments, it's possible someone could try to attack your computer by uploading a malicious file to your OnionShare service. OnionShare does not add any safety mechanisms to protect your system from malicious files.
+Just like with malicious email attachments, it's possible someone could try to attack your computer by uploading a malicious file to your OnionShare service. OnionShare does not add any safety mechanisms to protect your system from malicious files.
 
 If you receive an Office document or a PDF through OnionShare, you can convert these documents into PDFs that are safe to open using `Dangerzone <https://dangerzone.rocks/>`_. You can also protect yourself when opening untrusted documents by opening them in `Tails <https://tails.boum.org/>`_ or in a `Qubes <https://qubes-os.org/>`_ disposableVM.
 
@@ -86,9 +94,9 @@ However, it is always safe to open text messages sent through OnionShare.
 Tips for running a receive service
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-If you want to host your own anonymous dropbox using OnionShare, it's recommended you do so on a separate, dedicated computer always powered on and connected to the Internet, and not on the one you use on a regular basis.
+If you want to host your own anonymous dropbox using OnionShare, it's recommended you do so on a separate, dedicated computer always powered on and connected to the internet, and not on the one you use on a regular basis.
 
-If you intend to put the OnionShare address on your website or social media profiles, save the tab (see :ref:`save_tabs`) and run it as a public service (see :ref:`turn_off_passwords`). It's also a good idea to give it a custom title (see :ref:`custom_titles`).
+If you intend to put the OnionShare address on your website or social media profiles, save the tab (see :ref:`save_tabs`) and run it as a public service (see :ref:`turn_off_private_key`). It's also a good idea to give it a custom title (see :ref:`custom_titles`).
 
 Host a Website
 --------------
@@ -108,17 +116,17 @@ After you add files, you'll see some settings. Make sure you choose the setting 
 Content Security Policy
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-By default OnionShare helps secure your website by setting a strict `Content Security Police <https://en.wikipedia.org/wiki/Content_Security_Policy>`_ header. However, this prevents third-party content from loading inside the web page.
+By default OnionShare helps secure your website by setting a strict `Content Security Policy <https://en.wikipedia.org/wiki/Content_Security_Policy>`_ header. However, this prevents third-party content from loading inside the web page.
 
 If you want to load content from third-party websites, like assets or JavaScript libraries from CDNs, check the "Don't send Content Security Policy header (allows your website to use third-party resources)" box before starting the service.
 
 Tips for running a website service
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-If you want to host a long-term website using OnionShare (meaning not something to quickly show someone something), it's recommended you do it on a separate, dedicated computer always powered on and connected to the Internet, and not on the one you use on a regular basis.
+If you want to host a long-term website using OnionShare (meaning not just to quickly show someone something), it's recommended you do it on a separate, dedicated computer that is always powered on and connected to the internet, and not on the one you use on a regular basis.
 Save the tab (see :ref:`save_tabs`) so you can resume the website with the same address if you close OnionShare and re-open it later.
 
-If your website is intended for the public, you should run it as a public service (see :ref:`turn_off_passwords`).
+If your website is intended for the public, you should run it as a public service (see :ref:`turn_off_private_key`).
 
 Chat Anonymously
 ----------------
@@ -127,8 +135,8 @@ You can use OnionShare to set up a private, secure chat room that doesn't log an
 
 .. image:: _static/screenshots/chat.png
 
-After you start the server, copy the OnionShare address and send it to the people you want in the anonymous chat room.
-If it's important to limit exactly who can join, use an encrypted messaging app to send out the OnionShare address.
+After you start the server, copy the OnionShare address and private key and send them to the people you want in the anonymous chat room.
+If it's important to limit exactly who can join, use an encrypted messaging app to send out the OnionShare address and private key.
 
 .. image:: _static/screenshots/chat-sharing.png
 
@@ -151,11 +159,11 @@ How is this useful?
 
 If you need to already be using an encrypted messaging app, what's the point of an OnionShare chat room to begin with? It leaves less traces.
 
-If you for example send a message to a Signal group, a copy of your message ends up on each device (the devices, and computers if they set up Signal Desktop) of each member of the group. Even if disappearing messages is turned on, it's hard to confirm all copies of the messages are actually deleted from all devices, and from any other places (like notifications databases) they may have been saved to.
+If you for example send a message to a Signal group, a copy of your message ends up on each device (the smartphones, and computers if they set up Signal Desktop) of each member of the group. Even if disappearing messages is turned on, it's hard to confirm all copies of the messages are actually deleted from all devices, and from any other places (like notifications databases) they may have been saved to.
 OnionShare chat rooms don't store any messages anywhere, so the problem is reduced to a minimum.
 
 OnionShare chat rooms can also be useful for people wanting to chat anonymously and securely with someone without needing to create any accounts.
-For example, a source can send an OnionShare address to a journalist using a disposable e-mail address, and then wait for the journalist to join the chat room, all without compromosing their anonymity.
+For example, a source can send an OnionShare address to a journalist using a disposable email address, and then wait for the journalist to join the chat room, all without compromosing their anonymity.
 
 How does the encryption work?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

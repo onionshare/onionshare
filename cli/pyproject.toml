@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "onionshare_cli"
-version = "2.3.3"
+version = "2.4"
 description = "OnionShare lets you securely and anonymously send and receive files. It works by starting a web server, making it accessible as a Tor onion service, and generating an unguessable web address so others can download files from you, or upload files to you. It does _not_ require setting up a separate server or using a third party file-sharing service."
 authors = ["Micah Lee <micah@micahflee.com>"]
 license = "GPLv3+"
@@ -19,18 +19,17 @@ classifiers = [
 python = "^3.6"
 click = "*"
 flask = "1.1.4"
-flask-httpauth = "*"
 flask-socketio = "5.0.1"
 psutil = "*"
-pycryptodome = "*"
 pysocks = "*"
 requests = {extras = ["socks"], version = "*"}
-stem = "*"
 unidecode = "*"
 urllib3 = "*"
 eventlet = "*"
 setuptools = "*"
+pynacl = "^1.4.0"
 colorama = "*"
+stem = {git = "https://github.com/onionshare/stem.git", rev = "1.8.1"}
 
 [tool.poetry.dev-dependencies]
 pytest = "*"

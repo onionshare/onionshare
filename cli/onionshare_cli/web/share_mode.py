@@ -25,7 +25,7 @@ import sys
 import tempfile
 import zipfile
 import mimetypes
-from datetime import datetime
+from datetime import datetime, timezone
 from flask import Response, request, render_template, make_response, abort
 from unidecode import unidecode
 from werkzeug.http import parse_date, http_date
@@ -127,7 +127,7 @@ class ShareModeWeb(SendBaseModeWeb):
 
         self.download_etag = None
         self.gzip_etag = None
-        self.last_modified = datetime.utcnow()
+        self.last_modified = datetime.now(tz=timezone.utc)
 
     def define_routes(self):
         """
@@ -149,8 +149,7 @@ class ShareModeWeb(SendBaseModeWeb):
                 and self.download_in_progress
             )
             if deny_download:
-                r = make_response(render_template("denied.html"))
-                return self.web.add_security_headers(r)
+                return render_template("denied.html")
 
             # If download is allowed to continue, serve download page
             if self.should_use_gzip():
@@ -172,8 +171,7 @@ class ShareModeWeb(SendBaseModeWeb):
                 and self.download_in_progress
             )
             if deny_download:
-                r = make_response(render_template("denied.html"))
-                return self.web.add_security_headers(r)
+                return render_template("denied.html")
 
             # Prepare some variables to use inside generate() function below
             # which is outside of the request context
@@ -232,7 +230,6 @@ class ShareModeWeb(SendBaseModeWeb):
                 "filename*": "UTF-8''%s" % url_quote(basename),
             }
             r.headers.set("Content-Disposition", "attachment", **filename_dict)
-            r = self.web.add_security_headers(r)
             # guess content type
             (content_type, _) = mimetypes.guess_type(basename, strict=False)
             if content_type is not None:
@@ -288,6 +285,8 @@ class ShareModeWeb(SendBaseModeWeb):
         if_unmod = request.headers.get("If-Unmodified-Since")
         if if_unmod:
             if_date = parse_date(if_unmod)
+            if if_date and not if_date.tzinfo:
+                if_date = if_date.replace(tzinfo=timezone.utc) # Compatible with Flask < 2.0.0
             if if_date and if_date > last_modified:
                 abort(412)
             elif range_header is None:
@@ -426,10 +425,7 @@ class ShareModeWeb(SendBaseModeWeb):
                 # Render directory listing
                 filenames = []
                 for filename in os.listdir(filesystem_path):
-                    if os.path.isdir(os.path.join(filesystem_path, filename)):
-                        filenames.append(filename + "/")
-                    else:
-                        filenames.append(filename)
+                    filenames.append(filename)
                 filenames.sort()
                 return self.directory_listing(filenames, path, filesystem_path)
 

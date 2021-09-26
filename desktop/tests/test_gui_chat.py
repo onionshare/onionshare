@@ -11,15 +11,7 @@ class TestChat(GuiBaseTest):
     def view_chat(self, tab):
         """Test that we can view the chat room"""
         url = f"http://127.0.0.1:{tab.app.port}/"
-        if tab.settings.get("general", "public"):
-            r = requests.get(url)
-        else:
-            r = requests.get(
-                url,
-                auth=requests.auth.HTTPBasicAuth(
-                    "onionshare", tab.get_mode().server_status.web.password
-                ),
-            )
+        r = requests.get(url)
 
         QtTest.QTest.qWait(500, self.gui.qtapp)
         self.assertTrue("Chat <b>requires JavaScript</b>" in r.text)
@@ -31,16 +23,7 @@ class TestChat(GuiBaseTest):
         """Test that we can change our username"""
         url = f"http://127.0.0.1:{tab.app.port}/update-session-username"
         data = {"username": "oniontest"}
-        if tab.settings.get("general", "public"):
-            r = requests.post(url, json=data)
-        else:
-            r = requests.post(
-                url,
-                json=data,
-                auth=requests.auth.HTTPBasicAuth(
-                    "onionshare", tab.get_mode().server_status.web.password
-                ),
-            )
+        r = requests.post(url, json=data)
 
         QtTest.QTest.qWait(500, self.gui.qtapp)
         jsonResponse = r.json()
@@ -53,10 +36,14 @@ class TestChat(GuiBaseTest):
         self.server_status_indicator_says_starting(tab)
         self.server_is_started(tab, startup_time=500)
         self.web_server_is_running(tab)
-        self.have_a_password(tab)
         self.url_description_shown(tab)
+        self.url_instructions_shown(tab)
+        self.url_shown(tab)
         self.have_copy_url_button(tab)
-        self.have_show_qr_code_button(tab)
+        self.have_show_url_qr_code_button(tab)
+        self.private_key_shown(tab)
+        self.client_auth_instructions_shown(tab)
+        self.have_show_client_auth_qr_code_button(tab)
         self.server_status_indicator_says_started(tab)
 
     def run_all_chat_mode_stopping_tests(self, tab):

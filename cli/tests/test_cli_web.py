@@ -48,7 +48,6 @@ def web_obj(temp_dir, common_obj, mode, num_files=0):
     common_obj.settings = Settings(common_obj)
     mode_settings = ModeSettings(common_obj)
     web = Web(common_obj, False, mode_settings, mode)
-    web.generate_password()
     web.running = True
 
     web.cleanup_filenames == []
@@ -75,23 +74,13 @@ class TestWeb:
         web = web_obj(temp_dir, common_obj, "share", 3)
         assert web.mode == "share"
         with web.app.test_client() as c:
-            # Load / without auth
+            # Load /
             res = c.get("/")
-            res.get_data()
-            assert res.status_code == 401
-
-            # Load / with invalid auth
-            res = c.get("/", headers=self._make_auth_headers("invalid"))
-            res.get_data()
-            assert res.status_code == 401
-
-            # Load / with valid auth
-            res = c.get("/", headers=self._make_auth_headers(web.password))
             res.get_data()
             assert res.status_code == 200
 
             # Download
-            res = c.get("/download", headers=self._make_auth_headers(web.password))
+            res = c.get("/download")
             res.get_data()
             assert res.status_code == 200
             assert (
@@ -107,7 +96,7 @@ class TestWeb:
 
         with web.app.test_client() as c:
             # Download the first time
-            res = c.get("/download", headers=self._make_auth_headers(web.password))
+            res = c.get("/download")
             res.get_data()
             assert res.status_code == 200
             assert (
@@ -127,7 +116,7 @@ class TestWeb:
 
         with web.app.test_client() as c:
             # Download the first time
-            res = c.get("/download", headers=self._make_auth_headers(web.password))
+            res = c.get("/download")
             res.get_data()
             assert res.status_code == 200
             assert (
@@ -141,18 +130,8 @@ class TestWeb:
         assert web.mode == "receive"
 
         with web.app.test_client() as c:
-            # Load / without auth
-            res = c.get("/")
-            res.get_data()
-            assert res.status_code == 401
-
-            # Load / with invalid auth
-            res = c.get("/", headers=self._make_auth_headers("invalid"))
-            res.get_data()
-            assert res.status_code == 401
-
             # Load / with valid auth
-            res = c.get("/", headers=self._make_auth_headers(web.password))
+            res = c.get("/",)
             res.get_data()
             assert res.status_code == 200
 
@@ -171,7 +150,7 @@ class TestWeb:
         )
 
         with web.app.test_client() as c:
-            res = c.get("/", headers=self._make_auth_headers(web.password))
+            res = c.get("/")
             res.get_data()
             assert res.status_code == 200
 
@@ -180,7 +159,6 @@ class TestWeb:
                 buffered=True,
                 content_type="multipart/form-data",
                 data={"file[]": (BytesIO(b"THIS IS A TEST FILE"), "new_york.jpg")},
-                headers=self._make_auth_headers(web.password),
             )
             res.get_data()
             assert res.status_code == 200
@@ -202,7 +180,6 @@ class TestWeb:
                 buffered=True,
                 content_type="multipart/form-data",
                 data={"text": "you know just sending an anonymous message"},
-                headers=self._make_auth_headers(web.password),
             )
             content = res.get_data()
             assert res.status_code == 200
@@ -237,7 +214,6 @@ class TestWeb:
                     "file[]": (BytesIO(b"THIS IS A TEST FILE"), "new_york.jpg"),
                     "text": "you know just sending an anonymous message",
                 },
-                headers=self._make_auth_headers(web.password),
             )
             content = res.get_data()
             assert res.status_code == 200
@@ -270,7 +246,6 @@ class TestWeb:
                 buffered=True,
                 content_type="multipart/form-data",
                 data={"file[]": (BytesIO(b"THIS IS A TEST FILE"), "new_york.jpg")},
-                headers=self._make_auth_headers(web.password),
             )
             content = res.get_data()
             assert res.status_code == 200
@@ -303,7 +278,6 @@ class TestWeb:
                 buffered=True,
                 content_type="multipart/form-data",
                 data={},
-                headers=self._make_auth_headers(web.password),
             )
             content = res.get_data()
             assert res.status_code == 200
@@ -326,26 +300,6 @@ class TestWeb:
             res.get_data()
             assert res.status_code == 200
 
-    def test_public_mode_off(self, temp_dir, common_obj):
-        web = web_obj(temp_dir, common_obj, "receive")
-        web.settings.set("general", "public", False)
-
-        with web.app.test_client() as c:
-            # Load / without auth
-            res = c.get("/")
-            res.get_data()
-            assert res.status_code == 401
-
-            # But static resources should work without auth
-            res = c.get(f"{web.static_url_path}/css/style.css")
-            res.get_data()
-            assert res.status_code == 200
-
-            # Load / with valid auth
-            res = c.get("/", headers=self._make_auth_headers(web.password))
-            res.get_data()
-            assert res.status_code == 200
-
     def test_cleanup(self, common_obj, temp_dir_1024, temp_file_1024):
         web = web_obj(temp_dir_1024, common_obj, "share", 3)
 
@@ -355,12 +309,6 @@ class TestWeb:
         assert os.path.exists(temp_file_1024) is False
         assert os.path.exists(temp_dir_1024) is False
         assert web.cleanup_filenames == []
-
-    def _make_auth_headers(self, password):
-        auth = base64.b64encode(b"onionshare:" + password.encode()).decode()
-        h = Headers()
-        h.add("Authorization", "Basic " + auth)
-        return h
 
 
 class TestZipWriterDefault:
@@ -450,8 +398,7 @@ def live_server(web):
     proc.start()
 
     url = "http://127.0.0.1:{}".format(port)
-    auth = base64.b64encode(b"onionshare:" + web.password.encode()).decode()
-    req = Request(url, headers={"Authorization": "Basic {}".format(auth)})
+    req = Request(url)
 
     attempts = 20
     while True:
@@ -509,7 +456,7 @@ class TestRangeRequests:
         url = "/download"
 
         with web.app.test_client() as client:
-            resp = client.get(url, headers=self._make_auth_headers(web.password))
+            resp = client.get(url)
             assert resp.headers["ETag"].startswith('"sha256:')
             assert resp.headers["Accept-Ranges"] == "bytes"
             assert resp.headers.get("Last-Modified") is not None
@@ -524,7 +471,7 @@ class TestRangeRequests:
             contents = f.read()
 
         with web.app.test_client() as client:
-            resp = client.get(url, headers=self._make_auth_headers(web.password))
+            resp = client.get(url)
             assert resp.status_code == 200
             assert resp.data == contents
 
@@ -536,7 +483,7 @@ class TestRangeRequests:
             contents = f.read()
 
         with web.app.test_client() as client:
-            headers = self._make_auth_headers(web.password)
+            headers = Headers()
             headers.extend({"Range": "bytes=0-10"})
             resp = client.get(url, headers=headers)
             assert resp.status_code == 206
@@ -572,7 +519,7 @@ class TestRangeRequests:
             contents = f.read()
 
         with web.app.test_client() as client:
-            headers = self._make_auth_headers(web.password)
+            headers = Headers()
             resp = client.get(url, headers=headers)
             assert resp.status_code == 200
 
@@ -587,7 +534,7 @@ class TestRangeRequests:
         url = "/download"
 
         with web.app.test_client() as client:
-            headers = self._make_auth_headers(web.password)
+            headers = Headers()
             resp = client.get(url, headers=headers)
             assert resp.status_code == 200
             last_mod = resp.headers["Last-Modified"]
@@ -602,7 +549,7 @@ class TestRangeRequests:
         url = "/download"
 
         with web.app.test_client() as client:
-            headers = self._make_auth_headers(web.password)
+            headers = Headers()
             resp = client.get(url, headers=headers)
             assert resp.status_code == 200
 
@@ -621,13 +568,8 @@ class TestRangeRequests:
             resp = client.get(url, headers=headers)
             assert resp.status_code == 206
 
-    def _make_auth_headers(self, password):
-        auth = base64.b64encode(b"onionshare:" + password.encode()).decode()
-        h = Headers()
-        h.add("Authorization", "Basic " + auth)
-        return h
 
-    @pytest.mark.skipif(sys.platform != "Linux", reason="requires Linux")
+    @pytest.mark.skipif(sys.platform != "linux", reason="requires Linux")
     @check_unsupported("curl", ["--version"])
     def test_curl(self, temp_dir, tmpdir, common_obj):
         web = web_obj(temp_dir, common_obj, "share", 3)
@@ -638,12 +580,9 @@ class TestRangeRequests:
         with live_server(web) as url:
             # Debugging help from `man curl`, on error 33
             #       33     HTTP range error. The range "command" didn't work.
-            auth_header = self._make_auth_headers(web.password)
             subprocess.check_call(
                 [
                     "curl",
-                    "-H",
-                    str(auth_header).strip(),
                     "--output",
                     str(download),
                     "--continue-at",
@@ -652,7 +591,7 @@ class TestRangeRequests:
                 ]
             )
 
-    @pytest.mark.skipif(sys.platform != "Linux", reason="requires Linux")
+    @pytest.mark.skipif(sys.platform != "linux", reason="requires Linux")
     @check_unsupported("wget", ["--version"])
     def test_wget(self, temp_dir, tmpdir, common_obj):
         web = web_obj(temp_dir, common_obj, "share", 3)
@@ -663,12 +602,9 @@ class TestRangeRequests:
         download.write("x" * 10)
 
         with live_server(web) as url:
-            auth_header = self._make_auth_headers(web.password)
             subprocess.check_call(
                 [
                     "wget",
-                    "--header",
-                    str(auth_header).strip(),
                     "--continue",
                     "-O",
                     str(download),

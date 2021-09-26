@@ -1,6 +1,6 @@
 name: onionshare
 base: core18
-version: '2.3.3'
+version: '2.4'
 summary: Securely and anonymously share files, host websites, and chat using Tor
 description: |
   OnionShare lets you securely and anonymously send and receive files. It works by starting 
@@ -21,8 +21,6 @@ apps:
       - network
       - network-bind
       - removable-media
-    extensions:
-      - gnome-3-34
     environment:
       LANG: C.UTF-8
   
@@ -107,6 +105,7 @@ parts:
       - libxrender1
       - libxslt1.1
       - libxtst6
+      - qtwayland5
     after: [onionshare-cli]
 
   onionshare-cli:
@@ -114,20 +113,25 @@ parts:
     plugin: python
     python-version: python3
     python-packages:
-      - poetry
       - click
       - flask
-      - flask-httpauth
       - flask-socketio == 5.0.1
-      - pycryptodome
       - psutil
       - pysocks
       - requests
-      - stem
+      - unidecode
       - urllib3
       - eventlet
       - setuptools
+      - pynacl
       - colorama
+      - git+https://github.com/onionshare/stem.git@1.8.1
+    stage-packages:
+      - build-essential
+      - libssl-dev
+      - libffi-dev
+      - python3-dev
+      - cargo
     stage:
       - -usr/lib/x86_64-linux-gnu/libcrypto.so.1.1
       - -usr/share/doc/libssl1.1/changelog.Debian.gz
@@ -150,7 +154,6 @@ parts:
     plugin: autotools
 
   obfs4:
-    source: pass
     plugin: go
     go-importpath: gitlab.com/yawning/obfs4
     source: https://gitlab.com/yawning/obfs4

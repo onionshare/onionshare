@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2020-12-13 15:48-0800\n"
-"PO-Revision-Date: 2021-07-08 02:32+0000\n"
+"POT-Creation-Date: 2021-09-09 19:15-0700\n"
+"PO-Revision-Date: 2021-09-11 01:40+0000\n"
 "Last-Translator: Ihor Hordiichuk <igor_ck@outlook.com>\n"
 "Language-Team: none\n"
 "Language: uk\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.8-dev\n"
+"X-Generator: Weblate 4.9-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/install.rst:2
@@ -33,12 +33,12 @@ msgid ""
 "You can download OnionShare for Windows and macOS from the `OnionShare "
 "website <https://onionshare.org/>`_."
 msgstr ""
-"Ви можете завантажити OnionShare для Windows та macOS із вебсайту "
-"`OnionShare website <https://onionshare.org/>`_."
+"Ви можете завантажити OnionShare для Windows та macOS із `вебсайту "
+"OnionShare <https://onionshare.org/>`_."
 
 #: ../../source/install.rst:12
-msgid "Install in Linux"
-msgstr "Встановлення на Linux"
+msgid "Linux"
+msgstr "Linux"
 
 #: ../../source/install.rst:14
 msgid ""
@@ -50,17 +50,17 @@ msgid ""
 msgstr ""
 "Існують різні способи встановлення OnionShare на Linux, але радимо "
 "використовувати пакунок `Flatpak <https://flatpak.org/>`_ або пакунок "
-"Snapcraft `Snap <https://snapcraft.io/>`_. Flatpak і Snapcraft гарантують, "
-"що ви завжди користуватиметеся найновішою версією та запускатимете "
-"OnionShare в пісочниці."
+"Snapcraft `Snap <https://snapcraft.io/>`_. Flatpak і Snapcraft "
+"гарантують, що ви завжди користуватиметеся найновішою версією та "
+"запускатимете OnionShare в пісочниці."
 
 #: ../../source/install.rst:17
 msgid ""
 "Snap support is built-in to Ubuntu and Fedora comes with Flatpak support,"
 " but which you use is up to you. Both work in all Linux distributions."
 msgstr ""
-"Snap вбудовано в Ubuntu, а Flatpak — у Fedora, але ви самі можете обрати чим "
-"користуватися. Вони обоє працюють у всіх дистрибутивах Linux."
+"Snap вбудовано в Ubuntu, а Flatpak — у Fedora, але ви самі можете обрати "
+"чим користуватися. Вони обоє працюють у всіх дистрибутивах Linux."
 
 #: ../../source/install.rst:19
 msgid ""
@@ -73,21 +73,36 @@ msgstr ""
 #: ../../source/install.rst:21
 msgid "**Install OnionShare using Snap**: https://snapcraft.io/onionshare"
 msgstr ""
-"**Встановіть OnionShare за допомогою Snap**: https://snapcraft.io/onionshare"
+"**Встановіть OnionShare за допомогою Snap**: "
+"https://snapcraft.io/onionshare"
 
 #: ../../source/install.rst:23
 msgid ""
 "You can also download and install PGP-signed ``.flatpak`` or ``.snap`` "
 "packages from https://onionshare.org/dist/ if you prefer."
 msgstr ""
-"Ви також можете завантажити та встановити пакунки з PGP-підписом ``.flatpak``"
-" або ``.snap`` з https://onionshare.org/dist/, якщо хочете."
+"Ви також можете завантажити та встановити пакунки з PGP-підписом "
+"``.flatpak`` або ``.snap`` з https://onionshare.org/dist/, якщо хочете."
 
 #: ../../source/install.rst:28
+msgid "Command-line only"
+msgstr "Лише для командного рядка"
+
+#: ../../source/install.rst:30
+msgid ""
+"You can install just the command line version of OnionShare on any "
+"operating system using the Python package manager ``pip``. See :ref:`cli`"
+" for more information."
+msgstr ""
+"Ви можете встановити версію OnionShare для командного рядка на будь-яку "
+"операційну систему за допомогою менеджера пакунків Python ``pip``. "
+"Перегляньте :rref:`cli` для отримання додаткових відомостей."
+
+#: ../../source/install.rst:35
 msgid "Verifying PGP signatures"
 msgstr "Перевірка підписів PGP"
 
-#: ../../source/install.rst:30
+#: ../../source/install.rst:37
 msgid ""
 "You can verify that the package you download is legitimate and hasn't "
 "been tampered with by verifying its PGP signature. For Windows and macOS,"
@@ -101,11 +116,11 @@ msgstr ""
 "OnionShare включають підписи, специфічні для операційної системи, і ви "
 "можете просто покладатися лише на них, якщо хочете."
 
-#: ../../source/install.rst:34
+#: ../../source/install.rst:41
 msgid "Signing key"
 msgstr "Ключ підпису"
 
-#: ../../source/install.rst:36
+#: ../../source/install.rst:43
 msgid ""
 "Packages are signed by Micah Lee, the core developer, using his PGP "
 "public key with fingerprint ``927F419D7EC82C2F149C1BD1403C2657CD994F73``."
@@ -113,12 +128,13 @@ msgid ""
 "<https://keys.openpgp.org/vks/v1/by-"
 "fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 msgstr ""
-"Пакунки підписує основний розробник Micah Lee своїм відкритим ключем PGP з "
-"цифровим відбитком ``927F419D7EC82C2F149C1BD1403C2657CD994F73``. Ключ Micah "
-"можна завантажити `з сервера ключів keys.openpgp.org <https://keys.openpgp."
-"org/vks/v1/by-fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
+"Пакунки підписує основний розробник Micah Lee своїм відкритим ключем PGP "
+"з цифровим відбитком ``927F419D7EC82C2F149C1BD1403C2657CD994F73``. Ключ "
+"Micah можна завантажити `з сервера ключів keys.openpgp.org "
+"<https://keys.openpgp.org/vks/v1/by-"
+"fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 
-#: ../../source/install.rst:38
+#: ../../source/install.rst:45
 msgid ""
 "You must have GnuPG installed to verify signatures. For macOS you "
 "probably want `GPGTools <https://gpgtools.org/>`_, and for Windows you "
@@ -128,11 +144,11 @@ msgstr ""
 " захочете `GPGTools <https://gpgtools.org/>`_, а для Windows ви, "
 "ймовірно, захочете `Gpg4win <https://www.gpg4win.org/>`_."
 
-#: ../../source/install.rst:41
+#: ../../source/install.rst:48
 msgid "Signatures"
 msgstr "Підписи"
 
-#: ../../source/install.rst:43
+#: ../../source/install.rst:50
 msgid ""
 "You can find the signatures (as ``.asc`` files), as well as Windows, "
 "macOS, Flatpak, Snap, and source packages, at "
@@ -140,48 +156,48 @@ msgid ""
 "OnionShare. You can also find them on the `GitHub Releases page "
 "<https://github.com/micahflee/onionshare/releases>`_."
 msgstr ""
-"Ви можете знайти підписи (файли ``.asc``), а також пакунки Windows, macOS, "
-"Flatpak, Snap та джерельні пакунки за адресою https://onionshare.org/dist/ у "
-"теках, названих для кожної версії OnionShare. Ви також можете знайти їх на `"
-"сторінці випусків GitHub <https://github.com/micahflee/onionshare/"
-"releases>`_."
+"Ви можете знайти підписи (файли ``.asc``), а також пакунки Windows, "
+"macOS, Flatpak, Snap та джерельні пакунки за адресою "
+"https://onionshare.org/dist/ у теках, названих для кожної версії "
+"OnionShare. Ви також можете знайти їх на `сторінці випусків GitHub "
+"<https://github.com/micahflee/onionshare/releases>`_."
 
-#: ../../source/install.rst:47
+#: ../../source/install.rst:54
 msgid "Verifying"
 msgstr "Перевірка"
 
-#: ../../source/install.rst:49
+#: ../../source/install.rst:56
 msgid ""
 "Once you have imported Micah's public key into your GnuPG keychain, "
 "downloaded the binary and and ``.asc`` signature, you can verify the "
 "binary for macOS in a terminal like this::"
 msgstr ""
 "Після того, як відкритий ключ Micah імпортовано до вашої збірки ключів "
-"GnuPG, завантажено двійковий файл і завантажено підпис ``.asc``, ви можете "
-"перевірити двійковий файл для macOS в терміналі в такий спосіб::"
+"GnuPG, завантажено двійковий файл і завантажено підпис ``.asc``, ви "
+"можете перевірити двійковий файл для macOS в терміналі в такий спосіб::"
 
-#: ../../source/install.rst:53
+#: ../../source/install.rst:60
 msgid "Or for Windows, in a command-prompt like this::"
 msgstr "Або для Windows у командному рядку у такий спосіб::"
 
-#: ../../source/install.rst:57
+#: ../../source/install.rst:64
 msgid "The expected output looks like this::"
 msgstr "Очікуваний результат може виглядати так::"
 
-#: ../../source/install.rst:69
+#: ../../source/install.rst:76
 msgid ""
-"If you don't see 'Good signature from', there might be a problem with the"
-" integrity of the file (malicious or otherwise), and you should not "
-"install the package. (The \"WARNING:\" shown above, is not a problem with"
-" the package, it only means you haven't already defined any level of "
-"'trust' of Micah's PGP key.)"
+"If you don't see ``Good signature from``, there might be a problem with "
+"the integrity of the file (malicious or otherwise), and you should not "
+"install the package. (The ``WARNING:`` shown above, is not a problem with"
+" the package, it only means you haven't defined a level of \"trust\" of "
+"Micah's PGP key.)"
 msgstr ""
-"Якщо ви не бачите «Good signature from», можливо, проблема з цілісністю "
+"Якщо ви не бачите ``Good signature from``, можливо, проблема з цілісністю "
 "файлу (зловмисна чи інша), і, можливо, вам не слід встановлювати пакунок. ("
-"Вказане раніше «ПОПЕРЕДЖЕННЯ» не є проблемою з пакунком: воно лише означає, "
-"що ви не визначено рівня «довіри» до самого ключа PGP від Micah.)"
+"Вказаний раніше ``WARNING:`` не є проблемою з пакунком. Це лише означає, що "
+"ви не визначено рівня «довіри» до самого ключа PGP від Micah.)"
 
-#: ../../source/install.rst:71
+#: ../../source/install.rst:78
 msgid ""
 "If you want to learn more about verifying PGP signatures, the guides for "
 "`Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ and"
@@ -189,8 +205,8 @@ msgid ""
 "signature/>`_ may be useful."
 msgstr ""
 "Докладніше про перевірку підписів PGP читайте у настановах для `Qubes OS "
-"<https://www.qubes-os.org/security/verifying-signatures/>`_ та `Tor Project "
-"<https://support.torproject.org/tbb/how-to-verify-signature/>`_."
+"<https://www.qubes-os.org/security/verifying-signatures/>`_ та `Tor "
+"Project <https://support.torproject.org/tbb/how-to-verify-signature/>`_."
 
 #~ msgid "For added security, see :ref:`verifying_sigs`."
 #~ msgstr "Для додаткової безпеки перегляньте :ref:`verifying_sigs`."
@@ -267,3 +283,9 @@ msgstr ""
 #~ " keys.openpgp.org keyserver "
 #~ "<https://keys.openpgp.org/vks/v1/by-"
 #~ "fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
+
+#~ msgid "Install in Linux"
+#~ msgstr "Встановлення на Linux"
+
+#~ msgid "Command Line Only"
+#~ msgstr ""

@@ -183,16 +183,15 @@ class ReceiveMode(Mode):
         self.main_layout.addWidget(header_label)
         self.main_layout.addWidget(receive_warning)
         self.main_layout.addWidget(self.primary_action, stretch=1)
-        self.main_layout.addWidget(MinimumSizeWidget(525, 0))
+        self.main_layout.addWidget(self.server_status)
 
         # Row layout
         content_row = QtWidgets.QHBoxLayout()
-        content_row.addLayout(self.main_layout)
+        content_row.addLayout(self.main_layout, stretch=1)
         content_row.addWidget(self.image)
         row_layout = QtWidgets.QVBoxLayout()
         row_layout.addLayout(top_bar_layout)
         row_layout.addLayout(content_row, stretch=1)
-        row_layout.addWidget(self.server_status)
 
         # Column layout
         self.column_layout = QtWidgets.QHBoxLayout()
@@ -296,7 +295,6 @@ class ReceiveMode(Mode):
         """
         # Reset web counters
         self.web.receive_mode.cur_history_id = 0
-        self.web.reset_invalid_passwords()
 
         # Hide and reset the uploads if we have previously shared
         self.reset_info_counters()

@@ -38,7 +38,7 @@ class ServerStatus(QtWidgets.QWidget):
     server_canceled = QtCore.Signal()
     button_clicked = QtCore.Signal()
     url_copied = QtCore.Signal()
-    hidservauth_copied = QtCore.Signal()
+    client_auth_copied = QtCore.Signal()
 
     STATUS_STOPPED = 0
     STATUS_WORKING = 1
@@ -81,6 +81,12 @@ class ServerStatus(QtWidgets.QWidget):
         self.url_description = QtWidgets.QLabel()
         self.url_description.setWordWrap(True)
         self.url_description.setMinimumHeight(50)
+
+        # URL sharing instructions, above the URL and Copy Address/QR Code buttons
+        self.url_instructions = QtWidgets.QLabel()
+        self.url_instructions.setWordWrap(True)
+
+        # The URL label itself
         self.url = QtWidgets.QLabel()
         self.url.setFont(url_font)
         self.url.setWordWrap(True)
@@ -90,16 +96,16 @@ class ServerStatus(QtWidgets.QWidget):
             Qt.TextSelectableByMouse | Qt.TextSelectableByKeyboard
         )
 
+        # Copy Onion Address button
         self.copy_url_button = QtWidgets.QPushButton(strings._("gui_copy_url"))
         self.copy_url_button.setStyleSheet(
             self.common.gui.css["server_status_url_buttons"]
         )
         self.copy_url_button.clicked.connect(self.copy_url)
-        self.copy_hidservauth_button = QtWidgets.QPushButton(
-            strings._("gui_copy_hidservauth")
-        )
+
+        # Onion Address QR code button
         self.show_url_qr_code_button = QtWidgets.QPushButton(
-            strings._("gui_show_url_qr_code")
+            strings._("gui_show_qr_code")
         )
         self.show_url_qr_code_button.hide()
         self.show_url_qr_code_button.clicked.connect(
@@ -109,22 +115,78 @@ class ServerStatus(QtWidgets.QWidget):
             self.common.gui.css["server_status_url_buttons"]
         )
 
-        self.copy_hidservauth_button.setStyleSheet(
+        # Client Auth sharing instructions, above the
+        # Copy Private Key/QR Code buttons
+        self.client_auth_instructions = QtWidgets.QLabel()
+        self.client_auth_instructions.setWordWrap(True)
+        self.client_auth_instructions.setText(strings._("gui_client_auth_instructions"))
+
+        # The private key itself
+        self.private_key = QtWidgets.QLabel()
+        self.private_key.setFont(url_font)
+        self.private_key.setWordWrap(True)
+        self.private_key.setMinimumSize(self.private_key.sizeHint())
+        self.private_key.setStyleSheet(self.common.gui.css["server_status_url"])
+        self.private_key.setTextInteractionFlags(Qt.NoTextInteraction)
+        self.private_key_hidden = True
+
+        # Copy ClientAuth button
+        self.copy_client_auth_button = QtWidgets.QPushButton(
+            strings._("gui_copy_client_auth")
+        )
+        self.copy_client_auth_button.setStyleSheet(
             self.common.gui.css["server_status_url_buttons"]
         )
-        self.copy_hidservauth_button.clicked.connect(self.copy_hidservauth)
+        self.copy_client_auth_button.clicked.connect(self.copy_client_auth)
+
+        # ClientAuth QR code button
+        self.show_client_auth_qr_code_button = QtWidgets.QPushButton(
+            strings._("gui_show_qr_code")
+        )
+        self.show_client_auth_qr_code_button.hide()
+        self.show_client_auth_qr_code_button.clicked.connect(
+            self.show_client_auth_qr_code_button_clicked
+        )
+        self.show_client_auth_qr_code_button.setStyleSheet(
+            self.common.gui.css["server_status_url_buttons"]
+        )
+
+        # ClientAuth reveal/hide toggle button
+        self.client_auth_toggle_button = QtWidgets.QPushButton(strings._("gui_reveal"))
+        self.client_auth_toggle_button.hide()
+        self.client_auth_toggle_button.clicked.connect(
+            self.client_auth_toggle_button_clicked
+        )
+        self.client_auth_toggle_button.setStyleSheet(
+            self.common.gui.css["server_status_url_buttons"]
+        )
+
+        # URL instructions layout
         url_buttons_layout = QtWidgets.QHBoxLayout()
         url_buttons_layout.addWidget(self.copy_url_button)
         url_buttons_layout.addWidget(self.show_url_qr_code_button)
-        url_buttons_layout.addWidget(self.copy_hidservauth_button)
         url_buttons_layout.addStretch()
 
         url_layout = QtWidgets.QVBoxLayout()
         url_layout.addWidget(self.url_description)
+        url_layout.addWidget(self.url_instructions)
         url_layout.addWidget(self.url)
         url_layout.addLayout(url_buttons_layout)
 
-        # Add the widgets
+        # Private key instructions layout
+        client_auth_buttons_layout = QtWidgets.QHBoxLayout()
+        client_auth_buttons_layout.addWidget(self.copy_client_auth_button)
+        client_auth_buttons_layout.addWidget(self.show_client_auth_qr_code_button)
+        client_auth_buttons_layout.addWidget(self.client_auth_toggle_button)
+        client_auth_buttons_layout.addStretch()
+
+        client_auth_layout = QtWidgets.QVBoxLayout()
+        client_auth_layout.addWidget(self.client_auth_instructions)
+        client_auth_layout.addWidget(self.private_key)
+        client_auth_layout.addLayout(client_auth_buttons_layout)
+
+        # Add the widgets and URL/ClientAuth layouts
+        # to the main ServerStatus layout
         button_layout = QtWidgets.QHBoxLayout()
         button_layout.addWidget(self.server_button)
         button_layout.addStretch()
@@ -132,6 +194,7 @@ class ServerStatus(QtWidgets.QWidget):
         layout = QtWidgets.QVBoxLayout()
         layout.addLayout(button_layout)
         layout.addLayout(url_layout)
+        layout.addLayout(client_auth_layout)
         self.setLayout(layout)
 
     def set_mode(self, share_mode, file_selection=None):
@@ -173,21 +236,41 @@ class ServerStatus(QtWidgets.QWidget):
         info_image = GuiCommon.get_resource_path("images/info.png")
 
         if self.mode == self.common.gui.MODE_SHARE:
-            self.url_description.setText(
-                strings._("gui_share_url_description").format(info_image)
-            )
+            if self.settings.get("general", "public"):
+                self.url_description.setText(
+                    strings._("gui_share_url_public_description").format(info_image)
+                )
+            else:
+                self.url_description.setText(
+                    strings._("gui_share_url_description").format(info_image)
+                )
         elif self.mode == self.common.gui.MODE_WEBSITE:
-            self.url_description.setText(
-                strings._("gui_website_url_description").format(info_image)
-            )
+            if self.settings.get("general", "public"):
+                self.url_description.setText(
+                    strings._("gui_website_url_public_description").format(info_image)
+                )
+            else:
+                self.url_description.setText(
+                    strings._("gui_website_url_description").format(info_image)
+                )
         elif self.mode == self.common.gui.MODE_RECEIVE:
-            self.url_description.setText(
-                strings._("gui_receive_url_description").format(info_image)
-            )
+            if self.settings.get("general", "public"):
+                self.url_description.setText(
+                    strings._("gui_receive_url_public_description").format(info_image)
+                )
+            else:
+                self.url_description.setText(
+                    strings._("gui_receive_url_description").format(info_image)
+                )
         elif self.mode == self.common.gui.MODE_CHAT:
-            self.url_description.setText(
-                strings._("gui_chat_url_description").format(info_image)
-            )
+            if self.settings.get("general", "public"):
+                self.url_description.setText(
+                    strings._("gui_chat_url_public_description").format(info_image)
+                )
+            else:
+                self.url_description.setText(
+                    strings._("gui_chat_url_description").format(info_image)
+                )
 
         # Show a Tool Tip explaining the lifecycle of this URL
         if self.settings.get("persistent", "enabled"):
@@ -207,16 +290,35 @@ class ServerStatus(QtWidgets.QWidget):
             else:
                 self.url_description.setToolTip(strings._("gui_url_label_stay_open"))
 
+        if self.settings.get("general", "public"):
+            self.url_instructions.setText(strings._("gui_url_instructions_public_mode"))
+        else:
+            self.url_instructions.setText(strings._("gui_url_instructions"))
+        self.url_instructions.show()
         self.url.setText(self.get_url())
         self.url.show()
         self.copy_url_button.show()
-
         self.show_url_qr_code_button.show()
 
-        if self.settings.get("general", "client_auth"):
-            self.copy_hidservauth_button.show()
+        if self.settings.get("general", "public"):
+            self.client_auth_instructions.hide()
+            self.private_key.hide()
+            self.copy_client_auth_button.hide()
+            self.show_client_auth_qr_code_button.hide()
         else:
-            self.copy_hidservauth_button.hide()
+            self.client_auth_instructions.show()
+            if self.private_key_hidden:
+                self.private_key.setText("*" * len(self.app.auth_string))
+                self.private_key.setTextInteractionFlags(Qt.NoTextInteraction)
+            else:
+                self.private_key.setText(self.app.auth_string)
+                self.private_key.setTextInteractionFlags(
+                    Qt.TextSelectableByMouse | Qt.TextSelectableByKeyboard
+                )
+            self.private_key.show()
+            self.copy_client_auth_button.show()
+            self.show_client_auth_qr_code_button.show()
+            self.client_auth_toggle_button.show()
 
     def update(self):
         """
@@ -230,10 +332,6 @@ class ServerStatus(QtWidgets.QWidget):
             self.common.settings.load()
             self.show_url()
 
-            if not self.settings.get("onion", "password"):
-                self.settings.set("onion", "password", self.web.password)
-                self.settings.save()
-
             if self.settings.get("general", "autostop_timer"):
                 self.server_button.setToolTip(
                     strings._("gui_stop_server_autostop_timer_tooltip").format(
@@ -244,10 +342,15 @@ class ServerStatus(QtWidgets.QWidget):
                 )
         else:
             self.url_description.hide()
+            self.url_instructions.hide()
             self.url.hide()
             self.copy_url_button.hide()
-            self.copy_hidservauth_button.hide()
             self.show_url_qr_code_button.hide()
+            self.private_key.hide()
+            self.client_auth_instructions.hide()
+            self.copy_client_auth_button.hide()
+            self.show_client_auth_qr_code_button.hide()
+            self.client_auth_toggle_button.hide()
 
             self.mode_settings_widget.update_ui()
 
@@ -395,7 +498,32 @@ class ServerStatus(QtWidgets.QWidget):
         """
         Show a QR code of the onion URL.
         """
-        self.qr_code_dialog = QRCodeDialog(self.common, self.get_url())
+        self.qr_code_dialog = QRCodeDialog(
+            self.common, strings._("gui_qr_label_url_title"), self.get_url()
+        )
+
+    def show_client_auth_qr_code_button_clicked(self):
+        """
+        Show a QR code of the private key
+        """
+        self.qr_code_dialog = QRCodeDialog(
+            self.common,
+            strings._("gui_qr_label_auth_string_title"),
+            self.app.auth_string,
+        )
+
+    def client_auth_toggle_button_clicked(self):
+        """
+        ClientAuth reveal/hide toggle button clicked
+        """
+        if self.private_key_hidden:
+            self.private_key_hidden = False
+            self.client_auth_toggle_button.setText(strings._("gui_hide"))
+        else:
+            self.private_key_hidden = True
+            self.client_auth_toggle_button.setText(strings._("gui_reveal"))
+
+        self.show_url()
 
     def start_server(self):
         """
@@ -453,21 +581,18 @@ class ServerStatus(QtWidgets.QWidget):
 
         self.url_copied.emit()
 
-    def copy_hidservauth(self):
+    def copy_client_auth(self):
         """
-        Copy the HidServAuth line to the clipboard.
+        Copy the ClientAuth private key line to the clipboard.
         """
         clipboard = self.qtapp.clipboard()
         clipboard.setText(self.app.auth_string)
 
-        self.hidservauth_copied.emit()
+        self.client_auth_copied.emit()
 
     def get_url(self):
         """
         Returns the OnionShare URL.
         """
-        if self.settings.get("general", "public"):
-            url = f"http://{self.app.onion_host}"
-        else:
-            url = f"http://onionshare:{self.web.password}@{self.app.onion_host}"
+        url = f"http://{self.app.onion_host}"
         return url

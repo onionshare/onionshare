@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2020-12-13 15:48-0800\n"
-"PO-Revision-Date: 2020-12-31 19:29+0000\n"
+"POT-Creation-Date: 2021-09-09 19:15-0700\n"
+"PO-Revision-Date: 2021-09-14 12:35+0000\n"
 "Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
 "Language-Team: tr <LL@li.org>\n"
 "Language: tr\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.4.1-dev\n"
+"X-Generator: Weblate 4.9-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/install.rst:2
@@ -36,8 +36,8 @@ msgstr ""
 "<https://onionshare.org/>`_ indirebilirsiniz."
 
 #: ../../source/install.rst:12
-msgid "Install in Linux"
-msgstr "Linux'te kurulum"
+msgid "Linux"
+msgstr "Linux"
 
 #: ../../source/install.rst:14
 msgid ""
@@ -48,9 +48,10 @@ msgid ""
 "sandbox."
 msgstr ""
 "Linux için OnionShare'i kurmanın çeşitli yolları vardır, ancak tavsiye "
-"edilen yol `Flatpak <https://flatpak.org/>`_ veya `Snap <https://snapcraft."
-"io/>`_ paketini kullanmaktır. Flatpak ve Snap, her zaman en yeni sürümü "
-"kullanmanızı ve OnionShare'i bir sanal alanın içinde çalıştırmanızı sağlar."
+"edilen yol `Flatpak <https://flatpak.org/>`_ veya `Snap "
+"<https://snapcraft.io/>`_ paketini kullanmaktır. Flatpak ve Snap, her "
+"zaman en yeni sürümü kullanmanızı ve OnionShare'i bir sanal alanın içinde"
+" çalıştırmanızı sağlar."
 
 #: ../../source/install.rst:17
 msgid ""
@@ -58,16 +59,16 @@ msgid ""
 " but which you use is up to you. Both work in all Linux distributions."
 msgstr ""
 "Snap desteği Ubuntu'da yerleşiktir ve Fedora Flatpak desteğiyle birlikte "
-"gelmektedir, ancak hangisini kullanacağınız size kalmıştır. Her ikisi de tüm "
-"Linux dağıtımlarında çalışmaktadır."
+"gelmektedir, ancak hangisini kullanacağınız size kalmıştır. Her ikisi de "
+"tüm Linux dağıtımlarında çalışmaktadır."
 
 #: ../../source/install.rst:19
 msgid ""
 "**Install OnionShare using Flatpak**: "
 "https://flathub.org/apps/details/org.onionshare.OnionShare"
 msgstr ""
-"**OnionShare'i Flatpak kullanarak kurun**: https://flathub.org/apps/details/"
-"org.onionshare.OnionShare"
+"**OnionShare'i Flatpak kullanarak kurun**: "
+"https://flathub.org/apps/details/org.onionshare.OnionShare"
 
 #: ../../source/install.rst:21
 msgid "**Install OnionShare using Snap**: https://snapcraft.io/onionshare"
@@ -78,14 +79,28 @@ msgid ""
 "You can also download and install PGP-signed ``.flatpak`` or ``.snap`` "
 "packages from https://onionshare.org/dist/ if you prefer."
 msgstr ""
-"Dilerseniz https://onionshare.org/dist/ adresinden PGP imzalı ``.flatpak`` "
-"veya ``.snap`` paketlerini de indirip kurabilirsiniz."
+"Dilerseniz https://onionshare.org/dist/ adresinden PGP imzalı "
+"``.flatpak`` veya ``.snap`` paketlerini de indirip kurabilirsiniz."
 
 #: ../../source/install.rst:28
+msgid "Command-line only"
+msgstr "Yalnızca komut satırı"
+
+#: ../../source/install.rst:30
+msgid ""
+"You can install just the command line version of OnionShare on any "
+"operating system using the Python package manager ``pip``. See :ref:`cli`"
+" for more information."
+msgstr ""
+"OnionShare'in komut satırı sürümünü herhangi bir işletim sistemine Python "
+"paket yöneticisi ``pip`` kullanarak kurabilirsiniz. Daha fazla bilgi için "
+":ref:`cli` bölümüne bakın."
+
+#: ../../source/install.rst:35
 msgid "Verifying PGP signatures"
 msgstr "PGP imzalarını doğrulama"
 
-#: ../../source/install.rst:30
+#: ../../source/install.rst:37
 msgid ""
 "You can verify that the package you download is legitimate and hasn't "
 "been tampered with by verifying its PGP signature. For Windows and macOS,"
@@ -99,11 +114,11 @@ msgstr ""
 "işletim sistemine özgü imzaları içerir ve isterseniz yalnızca bunlara "
 "güvenebilirsiniz."
 
-#: ../../source/install.rst:34
+#: ../../source/install.rst:41
 msgid "Signing key"
 msgstr "İmzalama anahtarı"
 
-#: ../../source/install.rst:36
+#: ../../source/install.rst:43
 msgid ""
 "Packages are signed by Micah Lee, the core developer, using his PGP "
 "public key with fingerprint ``927F419D7EC82C2F149C1BD1403C2657CD994F73``."
@@ -111,27 +126,27 @@ msgid ""
 "<https://keys.openpgp.org/vks/v1/by-"
 "fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 msgstr ""
-"Paketler, ``927F419D7EC82C2F149C1BD1403C2657CD994F73`` parmak izine sahip "
-"PGP ortak anahtarını kullanarak ana geliştirici Micah Lee tarafından "
-"imzalanmaktadır. Micah'ın anahtarını `keys.openpgp.org anahtar sunucusundan "
-"<https://keys.openpgp.org/vks/v1/by-fingerprint/"
-"927F419D7EC82C2F149C1BD1403C2657CD994F73>`_ indirebilirsiniz."
+"Paketler, ``927F419D7EC82C2F149C1BD1403C2657CD994F73`` parmak izine sahip"
+" PGP ortak anahtarını kullanarak ana geliştirici Micah Lee tarafından "
+"imzalanmaktadır. Micah'ın anahtarını `keys.openpgp.org anahtar "
+"sunucusundan <https://keys.openpgp.org/vks/v1/by-"
+"fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_ indirebilirsiniz."
 
-#: ../../source/install.rst:38
+#: ../../source/install.rst:45
 msgid ""
 "You must have GnuPG installed to verify signatures. For macOS you "
 "probably want `GPGTools <https://gpgtools.org/>`_, and for Windows you "
 "probably want `Gpg4win <https://www.gpg4win.org/>`_."
 msgstr ""
-"İmzaları doğrulamak için GnuPG'nin kurulu olması gerekir. MacOS için `"
-"GPGTools <https://gpgtools.org/>`_, Windows için `Gpg4win <https://www."
-"gpg4win.org/>`_ kullanmak isteyebilirsiniz."
+"İmzaları doğrulamak için GnuPG'nin kurulu olması gerekir. MacOS için "
+"`GPGTools <https://gpgtools.org/>`_, Windows için `Gpg4win "
+"<https://www.gpg4win.org/>`_ kullanmak isteyebilirsiniz."
 
-#: ../../source/install.rst:41
+#: ../../source/install.rst:48
 msgid "Signatures"
 msgstr "İmzalar"
 
-#: ../../source/install.rst:43
+#: ../../source/install.rst:50
 msgid ""
 "You can find the signatures (as ``.asc`` files), as well as Windows, "
 "macOS, Flatpak, Snap, and source packages, at "
@@ -140,16 +155,16 @@ msgid ""
 "<https://github.com/micahflee/onionshare/releases>`_."
 msgstr ""
 "İmzalara (``.asc`` dosyaları) ek olarak Windows, macOS, Flatpak, Snap ve "
-"kaynak paketlerini https://onionshare.org/dist/ adresindeki OnionShare'in "
-"her sürümü için adlandırılan klasörlerin yanı sıra `GitHub Yayınlar "
+"kaynak paketlerini https://onionshare.org/dist/ adresindeki OnionShare'in"
+" her sürümü için adlandırılan klasörlerin yanı sıra `GitHub Yayınlar "
 "sayfasında <https://github.com/micahflee/onionshare/releases>`_ da "
 "bulabilirsiniz."
 
-#: ../../source/install.rst:47
+#: ../../source/install.rst:54
 msgid "Verifying"
 msgstr "Doğrulama"
 
-#: ../../source/install.rst:49
+#: ../../source/install.rst:56
 msgid ""
 "Once you have imported Micah's public key into your GnuPG keychain, "
 "downloaded the binary and and ``.asc`` signature, you can verify the "
@@ -159,39 +174,39 @@ msgstr ""
 "dosyayı ve ``.asc`` imzasını indirdikten sonra, macOS için ikili dosyayı "
 "terminalde aşağıdaki şekilde doğrulayabilirsiniz::"
 
-#: ../../source/install.rst:53
+#: ../../source/install.rst:60
 msgid "Or for Windows, in a command-prompt like this::"
 msgstr "Veya Windows için komut isteminde aşağıdaki gibi::"
 
-#: ../../source/install.rst:57
+#: ../../source/install.rst:64
 msgid "The expected output looks like this::"
 msgstr "Aşağıdakine benzer bir çıktı alınması beklenir::"
 
-#: ../../source/install.rst:69
+#: ../../source/install.rst:76
 msgid ""
-"If you don't see 'Good signature from', there might be a problem with the"
-" integrity of the file (malicious or otherwise), and you should not "
-"install the package. (The \"WARNING:\" shown above, is not a problem with"
-" the package, it only means you haven't already defined any level of "
-"'trust' of Micah's PGP key.)"
+"If you don't see ``Good signature from``, there might be a problem with "
+"the integrity of the file (malicious or otherwise), and you should not "
+"install the package. (The ``WARNING:`` shown above, is not a problem with"
+" the package, it only means you haven't defined a level of \"trust\" of "
+"Micah's PGP key.)"
 msgstr ""
-"'Good signature from' görmüyorsanız dosyanın bütünlüğüyle ilgili bir sorun ("
-"kötü niyetli veya başka türlü) olabilir ve belki de paketi kurmamanız "
-"gerekir. (Yukarıda gösterilen \"WARNING:\" paketle ilgili bir sorun "
-"değildir, yalnızca Micah'ın PGP anahtarıyla ilgili herhangi bir 'güven' "
+"``Good signature from`` görmüyorsanız dosyanın bütünlüğüyle ilgili bir sorun "
+"(kötü niyetli veya başka türlü) olabilir ve belki de paketi kurmamanız "
+"gerekir. (Yukarıda gösterilen ``WARNING:`` paketle ilgili bir sorun "
+"değildir, yalnızca Micah'ın PGP anahtarıyla ilgili herhangi bir \"güven\" "
 "düzeyi tanımlamadığınız anlamına gelir.)"
 
-#: ../../source/install.rst:71
+#: ../../source/install.rst:78
 msgid ""
 "If you want to learn more about verifying PGP signatures, the guides for "
 "`Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ and"
 " the `Tor Project <https://support.torproject.org/tbb/how-to-verify-"
 "signature/>`_ may be useful."
 msgstr ""
-"PGP imzalarının doğrulanması hakkında daha fazla bilgi edinmek istiyorsanız, "
-"`Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ ve `"
-"Tor Projesi <https://2019.www.torproject.org/docs/verifying-signatures.html."
-"en>`_ kılavuzları yardımcı olabilir."
+"PGP imzalarının doğrulanması hakkında daha fazla bilgi edinmek "
+"istiyorsanız, `Qubes OS <https://www.qubes-os.org/security/verifying-"
+"signatures/>`_ ve `Tor Projesi <https://2019.www.torproject.org/docs"
+"/verifying-signatures.html.en>`_ kılavuzları yardımcı olabilir."
 
 #~ msgid "For added security, see :ref:`verifying_sigs`."
 #~ msgstr "Daha fazla güvenlik için :ref:`verifying_sigs` bölümüne bakın."
@@ -293,4 +308,10 @@ msgstr ""
 #~ "a PGP-signed ``.flatpak`` or ``.snap``"
 #~ " packages from https://onionshare.org/dist/ if"
 #~ " you prefer."
+#~ msgstr ""
+
+#~ msgid "Install in Linux"
+#~ msgstr "Linux'te kurulum"
+
+#~ msgid "Command Line Only"
 #~ msgstr ""

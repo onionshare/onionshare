@@ -21,8 +21,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from stem.control import Controller
 from stem import ProtocolError, SocketClosed
 from stem.connection import MissingPassword, UnreadableCookieFile, AuthenticationFailure
-from Crypto.PublicKey import RSA
 import base64
+import nacl.public
 import os
 import tempfile
 import subprocess
@@ -169,6 +169,20 @@ class Onion(object):
 
         # Keep track of onions where it's important to gracefully close to prevent truncated downloads
         self.graceful_close_onions = []
+
+    def key_str(self, key):
+        """
+        Returns a base32 decoded string of a key.
+        """
+        # bytes to base 32
+        key_bytes = bytes(key)
+        key_b32 = base64.b32encode(key_bytes)
+        # strip trailing ====
+        assert key_b32[-4:] == b'===='
+        key_b32 = key_b32[:-4]
+        # change from b'ASDF' to ASDF
+        s = key_b32.decode('utf-8')
+        return s
 
     def connect(
         self,
@@ -570,14 +584,15 @@ class Onion(object):
             callable(list_ephemeral_hidden_services) and self.tor_version >= "0.2.7.1"
         )
 
-        # Do the versions of stem and tor that I'm using support stealth onion services?
+        # Do the versions of stem and tor that I'm using support v3 stealth onion services?
         try:
             res = self.c.create_ephemeral_hidden_service(
                 {1: 1},
-                basic_auth={"onionshare": None},
+                basic_auth=None,
                 await_publication=False,
                 key_type="NEW",
-                key_content="RSA1024",
+                key_content="ED25519-V3",
+                client_auth_v3="E2GOT5LTUTP3OAMRCRXO4GSH6VKJEUOXZQUC336SRKAHTTT5OVSA",
             )
             tmp_service_id = res.service_id
             self.c.remove_ephemeral_hidden_service(tmp_service_id)
@@ -612,65 +627,58 @@ class Onion(object):
                 "Your version of Tor is too old, ephemeral onion services are not supported"
             )
             raise TorTooOldEphemeral()
-        if mode_settings.get("general", "client_auth") and not self.supports_stealth:
-            print(
-                "Your version of Tor is too old, stealth onion services are not supported"
-            )
-            raise TorTooOldStealth()
-
-        auth_cookie = None
-        if mode_settings.get("general", "client_auth"):
-            if mode_settings.get("onion", "hidservauth_string"):
-                auth_cookie = mode_settings.get("onion", "hidservauth_string").split()[
-                    2
-                ]
-            if auth_cookie:
-                basic_auth = {"onionshare": auth_cookie}
-            else:
-                # If we had neither a scheduled auth cookie or a persistent hidservauth string,
-                # set the cookie to 'None', which means Tor will create one for us
-                basic_auth = {"onionshare": None}
-        else:
-            # Not using client auth at all
-            basic_auth = None
 
         if mode_settings.get("onion", "private_key"):
             key_content = mode_settings.get("onion", "private_key")
-            if self.is_v2_key(key_content):
-                key_type = "RSA1024"
-            else:
-                # Assume it was a v3 key. Stem will throw an error if it's something illegible
-                key_type = "ED25519-V3"
+            key_type = "ED25519-V3"
         else:
+            key_content = "ED25519-V3"
             key_type = "NEW"
-            # Work out if we can support v3 onion services, which are preferred
-            if self.supports_v3_onions and not mode_settings.get("general", "legacy"):
-                key_content = "ED25519-V3"
-            else:
-                # fall back to v2 onion services
-                key_content = "RSA1024"
-
-        # v3 onions don't yet support basic auth. Our ticket:
-        # https://github.com/onionshare/onionshare/issues/697
-        if (
-            key_type == "NEW"
-            and key_content == "ED25519-V3"
-            and not mode_settings.get("general", "legacy")
-        ):
-            basic_auth = None
 
         debug_message = f"key_type={key_type}"
         if key_type == "NEW":
             debug_message += f", key_content={key_content}"
         self.common.log("Onion", "start_onion_service", debug_message)
+
+        if mode_settings.get("general", "public"):
+            client_auth_priv_key = None
+            client_auth_pub_key = None
+        else:
+            if not self.supports_stealth:
+                print(
+                    "Your version of Tor is too old, stealth onion services are not supported"
+                )
+                raise TorTooOldStealth()
+            else:
+                if key_type == "NEW" or not mode_settings.get("onion", "client_auth_priv_key"):
+                    # Generate a new key pair for Client Auth on new onions, or if
+                    # it's a persistent onion but for some reason we don't them
+                    client_auth_priv_key_raw = nacl.public.PrivateKey.generate()
+                    client_auth_priv_key = self.key_str(client_auth_priv_key_raw)
+                    client_auth_pub_key = self.key_str(client_auth_priv_key_raw.public_key)
+                else:
+                    # These should have been saved in settings from the previous run of a persistent onion
+                    client_auth_priv_key = mode_settings.get("onion", "client_auth_priv_key")
+                    client_auth_pub_key = mode_settings.get("onion", "client_auth_pub_key")
+
         try:
-            res = self.c.create_ephemeral_hidden_service(
-                {80: port},
-                await_publication=await_publication,
-                basic_auth=basic_auth,
-                key_type=key_type,
-                key_content=key_content,
-            )
+            if not self.supports_stealth:
+                res = self.c.create_ephemeral_hidden_service(
+                    {80: port},
+                    await_publication=await_publication,
+                    basic_auth=None,
+                    key_type=key_type,
+                    key_content=key_content,
+                )
+            else:
+                res = self.c.create_ephemeral_hidden_service(
+                    {80: port},
+                    await_publication=await_publication,
+                    basic_auth=None,
+                    key_type=key_type,
+                    key_content=key_content,
+                    client_auth_v3=client_auth_pub_key,
+                )
 
         except ProtocolError as e:
             print("Tor error: {}".format(e.args[0]))
@@ -688,12 +696,20 @@ class Onion(object):
         # Save the private key and hidservauth string
         if not mode_settings.get("onion", "private_key"):
             mode_settings.set("onion", "private_key", res.private_key)
-        if mode_settings.get("general", "client_auth") and not mode_settings.get(
-            "onion", "hidservauth_string"
-        ):
-            auth_cookie = list(res.client_auth.values())[0]
-            self.auth_string = f"HidServAuth {onion_host} {auth_cookie}"
-            mode_settings.set("onion", "hidservauth_string", self.auth_string)
+
+        # If using V3 onions and Client Auth, save both the private and public key
+        # because we need to send the public key to ADD_ONION (if we restart this
+        # same share at a later date), and the private key to the other user for
+        # their Tor Browser.
+        if not mode_settings.get("general", "public"):
+            mode_settings.set("onion", "client_auth_priv_key", client_auth_priv_key)
+            mode_settings.set("onion", "client_auth_pub_key", client_auth_pub_key)
+            # If we were pasting the client auth directly into the filesystem behind a Tor client,
+            # it would need to be in the format below. However, let's just set the private key
+            # by itself, as this can be pasted directly into Tor Browser, which is likely to
+            # be the most common use case.
+            # self.auth_string = f"{onion_host}:x25519:{client_auth_priv_key}"
+            self.auth_string = client_auth_priv_key
 
         return onion_host
 
@@ -825,15 +841,3 @@ class Onion(object):
             return ("127.0.0.1", 9150)
         else:
             return (self.settings.get("socks_address"), self.settings.get("socks_port"))
-
-    def is_v2_key(self, key):
-        """
-        Helper function for determining if a key is RSA1024 (v2) or not.
-        """
-        try:
-            # Import the key
-            key = RSA.importKey(base64.b64decode(key))
-            # Is this a v2 Onion key? (1024 bits) If so, we should keep using it.
-            return key.n.bit_length() == 1024
-        except Exception:
-            return False

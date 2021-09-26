@@ -16,23 +16,23 @@ When a tab is saved a purple pin icon appears to the left of its server status.
 .. image:: _static/screenshots/advanced-save-tabs.png
 
 When you quit OnionShare and then open it again, your saved tabs will start opened.
-You'll have to manually start each service, but when you do they will start with the same OnionShare address and password.
+You'll have to manually start each service, but when you do they will start with the same OnionShare address and private key.
 
 If you save a tab, a copy of that tab's onion service secret key will be stored on your computer with your OnionShare settings.
 
-.. _turn_off_passwords:
+.. _turn_off_private_key:
 
-Turn Off Passwords
-------------------
+Turn Off Private Key
+--------------------
 
-By default, all OnionShare services are protected with the username ``onionshare`` and a randomly-generated password.
-If someone takes 20 wrong guesses at the password, your onion service is automatically stopped to prevent a brute force attack against the OnionShare service.
+By default, all OnionShare services are protected with a private key, which Tor calls "client authentication".
+
+When browsing to an OnionShare service in Tor Browser, Tor Browser will prompt for the private key to be entered.
 
 Sometimes you might want your OnionShare service to be accessible to the public, like if you want to set up an OnionShare receive service so the public can securely and anonymously send you files.
-In this case, it's better to disable the password altogether.
-If you don't do this, someone can force your server to stop just by making 20 wrong guesses of your password, even if they know the correct password.
+In this case, it's better to disable the private key altogether.
 
-To turn off the password for any tab, just check the "Don't use a password" box before starting the server. Then the server will be public and won't have a password.
+To turn off the private key for any tab, check the "This is a public OnionShare service (disables private key)" box before starting the server. Then the server will be public and won't need a private key to view in Tor Browser.
 
 .. _custom_titles:
 
@@ -57,9 +57,11 @@ If nothing happens to you, you can cancel the service before it's scheduled to s
 
 .. image:: _static/screenshots/advanced-schedule-start-timer.png
 
-**Scheduling an OnionShare service to automatically stop can be useful to limit exposure**, like if you want to share secret documents while making sure they're not available on the Internet for more than a few days.
+**Scheduling an OnionShare service to automatically stop can be useful to limit exposure**, like if you want to share secret documents while making sure they're not available on the internet for more than a few days.
 
 .. image:: _static/screenshots/advanced-schedule-stop-timer.png
+
+.. _cli:
 
 Command-line Interface
 ----------------------
@@ -75,6 +77,8 @@ Note that you will also need the ``tor`` package installed. In macOS, install it
 Then run it like this::
 
     onionshare-cli --help
+
+For information about installing it on different operating systems, see the `CLI readme file <https://github.com/onionshare/onionshare/blob/develop/cli/README.md>`_ in the git repository.
 
 If you installed OnionShare using the Linux Snapcraft package, you can also just run ``onionshare.cli`` to access the command-line interface version.
 
@@ -101,20 +105,19 @@ You can browse the command-line documentation by running ``onionshare --help``::
     │   █ █ █▀▄ █ ▄▀▄ █▀▄  ▀▄ █▀▄ ▄▀▄ █▄▀ ▄█▄   │
     │   ▀▄▀ █ █ █ ▀▄▀ █ █ ▄▄▀ █ █ ▀▄█ █   ▀▄▄   │
     │                                           │
-    │                  v2.3.3                   │
+    │                   v2.4                    │
     │                                           │
     │          https://onionshare.org/          │
     ╰───────────────────────────────────────────╯
-    
-    usage: onionshare-cli [-h] [--receive] [--website] [--chat] [--local-only] [--connect-timeout SECONDS] [--config FILENAME]
-                          [--persistent FILENAME] [--title TITLE] [--public] [--auto-start-timer SECONDS]
-                          [--auto-stop-timer SECONDS] [--legacy] [--client-auth] [--no-autostop-sharing] [--data-dir data_dir]
-                          [--webhook-url webhook_url] [--disable-text] [--disable-files] [--disable_csp] [-v]
+
+    usage: onionshare-cli [-h] [--receive] [--website] [--chat] [--local-only] [--connect-timeout SECONDS] [--config FILENAME] [--persistent FILENAME] [--title TITLE] [--public]
+                          [--auto-start-timer SECONDS] [--auto-stop-timer SECONDS] [--no-autostop-sharing] [--data-dir data_dir] [--webhook-url webhook_url] [--disable-text] [--disable-files]
+                          [--disable_csp] [-v]
                           [filename ...]
-    
+
     positional arguments:
       filename                  List of files or folders to share
-    
+
     optional arguments:
       -h, --help                show this help message and exit
       --receive                 Receive files
@@ -126,40 +129,16 @@ You can browse the command-line documentation by running ``onionshare --help``::
       --config FILENAME         Filename of custom global settings
       --persistent FILENAME     Filename of persistent session
       --title TITLE             Set a title
-      --public                  Don't use a password
+      --public                  Don't use a private key
       --auto-start-timer SECONDS
                                 Start onion service at scheduled time (N seconds from now)
       --auto-stop-timer SECONDS
                                 Stop onion service at schedule time (N seconds from now)
-      --legacy                  Use legacy address (v2 onion service, not recommended)
-      --client-auth             Use client authorization (requires --legacy)
       --no-autostop-sharing     Share files: Continue sharing after files have been sent (default is to stop sharing)
       --data-dir data_dir       Receive files: Save files received to this directory
       --webhook-url webhook_url
                                 Receive files: URL to receive webhook notifications
       --disable-text            Receive files: Disable receiving text messages
       --disable-files           Receive files: Disable receiving files
-      --disable_csp             Publish website: Disable Content Security Policy header (allows your website to use third-party
-                                resources)
+      --disable_csp             Publish website: Disable Content Security Policy header (allows your website to use third-party resources)
       -v, --verbose             Log OnionShare errors to stdout, and web errors to disk
-
-Legacy Addresses
-----------------
-
-OnionShare uses v3 Tor onion services by default.
-These are modern onion addresses that have 56 characters, for example::
-
-    uf3wmtpbstcupvrrsetrtct7qcmnqvdcsxqzxthxbx2y7tidatxye7id.onion
-
-OnionShare still has support for v2 onion addresses, the old type of onion addresses that have 16 characters, for example::
-
-    lc7j6u55vhrh45eq.onion
-
-OnionShare calls v2 onion addresses "legacy addresses", and they are not recommended, as v3 onion addresses are more secure.
-
-To use legacy addresses, before starting a server click "Show advanced settings" from its tab and check the "Use a legacy address (v2 onion service, not recommended)" box.
-In legacy mode you can optionally turn on Tor client authentication.
-Once you start a server in legacy mode you cannot remove legacy mode in that tab.
-Instead you must start a separate service in a separate tab.
-
-Tor Project plans to `completely deprecate v2 onion services <https://blog.torproject.org/v2-deprecation-timeline>`_ on October 15, 2021, and legacy onion services will be removed from OnionShare before then.

@@ -7,15 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2021-08-20 13:37-0700\n"
-"PO-Revision-Date: 2021-01-01 20:29+0000\n"
+"POT-Creation-Date: 2021-09-09 19:15-0700\n"
+"PO-Revision-Date: 2021-09-14 12:35+0000\n"
 "Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
-"Language: tr\n"
 "Language-Team: tr <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
+"Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.9-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/develop.rst:2
@@ -62,16 +63,14 @@ msgid "Contributing Code"
 msgstr "Kodlara Katkıda Bulunma"
 
 #: ../../source/develop.rst:17
-#, fuzzy
 msgid ""
 "OnionShare source code is to be found in this Git repository: "
 "https://github.com/onionshare/onionshare"
 msgstr ""
-"OnionShare kaynak kodları şu Git deposunda bulunabilir: "
-"https://github.com/micahflee/onionshare"
+"OnionShare kaynak kodları şu Git deposunda bulunabilir: https://github.com/"
+"onionshare/onionshare"
 
 #: ../../source/develop.rst:19
-#, fuzzy
 msgid ""
 "If you'd like to contribute code to OnionShare, it helps to join the "
 "Keybase team and ask questions about what you're thinking of working on. "
@@ -83,7 +82,7 @@ msgstr ""
 "katılmanız ve üzerinde çalışmayı düşündüğünüz şeyler hakkında sorular "
 "sormanız yardımcı olacaktır. Ayrıca üzerinde çalışmak isteyebileceğiniz "
 "herhangi bir sorun olup olmadığını görmek için GitHub'daki tüm `açık "
-"sorunları <https://github.com/micahflee/onionshare/issues>`_ "
+"sorunları <https://github.com/onionshare/onionshare/issues>`_ "
 "incelemelisiniz."
 
 #: ../../source/develop.rst:22
@@ -110,6 +109,11 @@ msgid ""
 "file to learn how to set up your development environment for the "
 "graphical version."
 msgstr ""
+"OnionShare Python ile geliştirilmektedir. Başlamak için https://github.com/"
+"onionshare/onionshare/ adresindeki Git deposunu klonlayın ve ardından komut "
+"satırı sürümü için geliştirme ortamınızı nasıl kuracağınızı öğrenmek için ``"
+"cli/README.md`` dosyasına, grafiksel sürüm için geliştirme ortamınızı nasıl "
+"kuracağınızı öğrenmek için ``desktop/README.md`` dosyasına bakın."
 
 #: ../../source/develop.rst:32
 msgid ""
@@ -144,7 +148,7 @@ msgstr ""
 "kaydedildi veya yeniden yüklendi gibi) ve diğer hata ayıklama bilgileri "
 "yazdırır. Örneğin::"
 
-#: ../../source/develop.rst:121
+#: ../../source/develop.rst:117
 msgid ""
 "You can add your own debug messages by running the ``Common.log`` method "
 "from ``onionshare/common.py``. For example::"
@@ -152,7 +156,7 @@ msgstr ""
 "``onionshare/common.py`` içinden ``Common.log`` yöntemini çalıştırarak "
 "kendi hata ayıklama mesajlarınızı ekleyebilirsiniz. Örneğin::"
 
-#: ../../source/develop.rst:125
+#: ../../source/develop.rst:121
 msgid ""
 "This can be useful when learning the chain of events that occur when "
 "using OnionShare, or the value of certain variables before and after they"
@@ -162,11 +166,11 @@ msgstr ""
 " değişkenlerin değiştirilmeden önce ve sonra değerini öğrenirken faydalı "
 "olabilir."
 
-#: ../../source/develop.rst:128
+#: ../../source/develop.rst:124
 msgid "Local Only"
 msgstr "Yalnızca Yerel"
 
-#: ../../source/develop.rst:130
+#: ../../source/develop.rst:126
 msgid ""
 "Tor is slow, and it's often convenient to skip starting onion services "
 "altogether during development. You can do this with the ``--local-only`` "
@@ -176,21 +180,21 @@ msgstr ""
 "tamamen atlamak genellikle uygundur. Bunu ``--local-only`` seçeneğiyle "
 "yapabilirsiniz. Örneğin::"
 
-#: ../../source/develop.rst:167
+#: ../../source/develop.rst:165
 msgid ""
-"In this case, you load the URL ``http://onionshare:train-"
-"system@127.0.0.1:17635`` in a normal web-browser like Firefox, instead of"
-" using the Tor Browser."
+"In this case, you load the URL ``http://127.0.0.1:17641`` in a normal "
+"web-browser like Firefox, instead of using the Tor Browser. The private "
+"key is not actually needed in local-only mode, so you can ignore it."
 msgstr ""
-"Bu durumda, ``http://onionshare:train-system@127.0.0.1:17635`` URL'sini "
-"Tor Browser kullanmak yerine Firefox gibi normal bir web tarayıcısında "
-"açarsınız."
+"Bu durumda, ``http://127.0.0.1:17641`` URL'sini Tor Browser kullanmak yerine "
+"Firefox gibi normal bir web tarayıcısında açarsınız. Yalnızca yerel modda "
+"özel anahtara gerçekten ihtiyaç duyulmaz, bu nedenle onu yok sayabilirsiniz."
 
-#: ../../source/develop.rst:170
+#: ../../source/develop.rst:168
 msgid "Contributing Translations"
 msgstr "Çevirilere Katkıda Bulunma"
 
-#: ../../source/develop.rst:172
+#: ../../source/develop.rst:170
 msgid ""
 "Help make OnionShare easier to use and more familiar and welcoming for "
 "people by translating it on `Hosted Weblate "
@@ -204,17 +208,17 @@ msgstr ""
 "\"OnionShare\" sözcüğünü her zaman latin harflerinde tutun ve gerekirse "
 "\"OnionShare (yerel adı)\" kullanın."
 
-#: ../../source/develop.rst:174
+#: ../../source/develop.rst:172
 msgid "To help translate, make a Hosted Weblate account and start contributing."
 msgstr ""
 "Çeviriye yardımcı olmak için bir Hosted Weblate hesabı oluşturun ve "
 "katkıda bulunmaya başlayın."
 
-#: ../../source/develop.rst:177
+#: ../../source/develop.rst:175
 msgid "Suggestions for Original English Strings"
 msgstr "Asıl İngilizce Dizgeler için Öneriler"
 
-#: ../../source/develop.rst:179
+#: ../../source/develop.rst:177
 msgid ""
 "Sometimes the original English strings are wrong, or don't match between "
 "the application and the documentation."
@@ -222,7 +226,7 @@ msgstr ""
 "Bazen asıl İngilizce dizgeler yanlıştır veya uygulama ile belgelendirme "
 "arasında uyumsuzluk vardır."
 
-#: ../../source/develop.rst:181
+#: ../../source/develop.rst:179
 msgid ""
 "File source string improvements by adding @kingu to your Weblate comment,"
 " or open a GitHub issue or pull request. The latter ensures all upstream "
@@ -235,11 +239,11 @@ msgstr ""
 "üzerinde olağan kod inceleme süreçleri aracılığıyla değişiklikler "
 "yapabilir."
 
-#: ../../source/develop.rst:185
+#: ../../source/develop.rst:183
 msgid "Status of Translations"
 msgstr "Çevirilerin Durumu"
 
-#: ../../source/develop.rst:186
+#: ../../source/develop.rst:184
 msgid ""
 "Here is the current translation status. If you want start a translation "
 "in a language not yet started, please write to the mailing list: "
@@ -486,4 +490,3 @@ msgstr ""
 #~ "grafiksel sürüm için geliştirme ortamınızı "
 #~ "nasıl kuracağınızı öğrenmek için "
 #~ "``desktop/README.md`` dosyasına bakın."
-

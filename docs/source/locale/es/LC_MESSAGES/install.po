@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2020-12-13 15:48-0800\n"
-"PO-Revision-Date: 2020-12-16 00:29+0000\n"
-"Last-Translator: Zuhualime Akoochimoya <zakooch@protonmail.ch>\n"
+"POT-Creation-Date: 2021-09-09 19:15-0700\n"
+"PO-Revision-Date: 2021-09-21 15:39+0000\n"
+"Last-Translator: carlosm2 <carlosm2@riseup.net>\n"
 "Language-Team: none\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.4-dev\n"
+"X-Generator: Weblate 4.9-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/install.rst:2
@@ -36,8 +36,8 @@ msgstr ""
 "`OnionShare <https://onionshare.org/>`_."
 
 #: ../../source/install.rst:12
-msgid "Install in Linux"
-msgstr "Instalar en Linux"
+msgid "Linux"
+msgstr "Linux"
 
 #: ../../source/install.rst:14
 msgid ""
@@ -47,8 +47,8 @@ msgid ""
 "that you'll always use the newest version and run OnionShare inside of a "
 "sandbox."
 msgstr ""
-"Hay varias maneras de instalar OnionShare para Linux, pero la recomendada es "
-"usar el paquete `Flatpak <https://flatpak.org/>`_ o bien `Snapcraft "
+"Hay varias maneras de instalar OnionShare para Linux, pero la recomendada"
+" es usar el paquete `Flatpak <https://flatpak.org/>`_ o bien `Snapcraft "
 "<https://snapcraft.io/>`_. Flatpak y Snap aseguran que siempre usarás la "
 "versión más nueva, y ejecutarás OnionShare dentro de un sandbox."
 
@@ -57,8 +57,8 @@ msgid ""
 "Snap support is built-in to Ubuntu and Fedora comes with Flatpak support,"
 " but which you use is up to you. Both work in all Linux distributions."
 msgstr ""
-"Snap está incorporado en Ubuntu, y Flatpak en Fedora, pero es a tu elección "
-"cuál usar. Ambos funcionan en todas las distribuciones Linux."
+"Snap está incorporado en Ubuntu, y Flatpak en Fedora, pero es a tu "
+"elección cuál usar. Ambos funcionan en todas las distribuciones Linux."
 
 #: ../../source/install.rst:19
 msgid ""
@@ -81,10 +81,21 @@ msgstr ""
 "firmados con PGP desde https://onionshare.org/dist/ si así lo prefieres."
 
 #: ../../source/install.rst:28
+msgid "Command-line only"
+msgstr ""
+
+#: ../../source/install.rst:30
+msgid ""
+"You can install just the command line version of OnionShare on any "
+"operating system using the Python package manager ``pip``. See :ref:`cli`"
+" for more information."
+msgstr ""
+
+#: ../../source/install.rst:35
 msgid "Verifying PGP signatures"
 msgstr "Verificar firmas PGP"
 
-#: ../../source/install.rst:30
+#: ../../source/install.rst:37
 msgid ""
 "You can verify that the package you download is legitimate and hasn't "
 "been tampered with by verifying its PGP signature. For Windows and macOS,"
@@ -98,11 +109,11 @@ msgstr ""
 "OnionShare incluyen firmas específicas del sistema operativo, y puedes "
 "confiar solo en ellas si así lo prefieres."
 
-#: ../../source/install.rst:34
+#: ../../source/install.rst:41
 msgid "Signing key"
 msgstr "Clave de firma"
 
-#: ../../source/install.rst:36
+#: ../../source/install.rst:43
 msgid ""
 "Packages are signed by Micah Lee, the core developer, using his PGP "
 "public key with fingerprint ``927F419D7EC82C2F149C1BD1403C2657CD994F73``."
@@ -117,7 +128,7 @@ msgstr ""
 "<https://keys.openpgp.org/vks/v1/by-"
 "fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 
-#: ../../source/install.rst:38
+#: ../../source/install.rst:45
 msgid ""
 "You must have GnuPG installed to verify signatures. For macOS you "
 "probably want `GPGTools <https://gpgtools.org/>`_, and for Windows you "
@@ -127,11 +138,11 @@ msgstr ""
 "probablemente quieras `GPGTools <https://gpgtools.org/>`_, y para "
 "Windows, `Gpg4win <https://www.gpg4win.org/>`_."
 
-#: ../../source/install.rst:41
+#: ../../source/install.rst:48
 msgid "Signatures"
 msgstr "Firmas"
 
-#: ../../source/install.rst:43
+#: ../../source/install.rst:50
 msgid ""
 "You can find the signatures (as ``.asc`` files), as well as Windows, "
 "macOS, Flatpak, Snap, and source packages, at "
@@ -141,57 +152,58 @@ msgid ""
 msgstr ""
 "Puedes encontrar las firmas (archivos ``.asc``), como así también los "
 "paquetes para Windows, macOS, Flatpak, Snap y el código fuente, en "
-"https://onionshare.org/dist/ en las carpetas nombradas por cada versión de "
-"OnionShare. También puedes encontrarlas en la `página de Lanzamientos de "
-"GitHub <https://github.com/micahflee/onionshare/releases>`_."
+"https://onionshare.org/dist/ en las carpetas nombradas por cada versión "
+"de OnionShare. También puedes encontrarlas en la `página de Lanzamientos "
+"de GitHub <https://github.com/micahflee/onionshare/releases>`_."
 
-#: ../../source/install.rst:47
+#: ../../source/install.rst:54
 msgid "Verifying"
 msgstr "Verificando"
 
-#: ../../source/install.rst:49
+#: ../../source/install.rst:56
 msgid ""
 "Once you have imported Micah's public key into your GnuPG keychain, "
 "downloaded the binary and and ``.asc`` signature, you can verify the "
 "binary for macOS in a terminal like this::"
 msgstr ""
-"Una vez que hayas importado la clave pública de Micah dentro de tu llavero "
-"GnuPG, descargado el ejecutable y la firma ``.asc``, puedes verificar el "
-"ejecutable para macOS en un terminal como sigue::"
+"Una vez que hayas importado la clave pública de Micah dentro de tu "
+"llavero GnuPG, descargado el ejecutable y la firma ``.asc``, puedes "
+"verificar el ejecutable para macOS en un terminal como sigue::"
 
-#: ../../source/install.rst:53
+#: ../../source/install.rst:60
 msgid "Or for Windows, in a command-prompt like this::"
 msgstr "O para Windows en una línea de comando como sigue::"
 
-#: ../../source/install.rst:57
+#: ../../source/install.rst:64
 msgid "The expected output looks like this::"
 msgstr "La salida esperada se parece a esta::"
 
-#: ../../source/install.rst:69
+#: ../../source/install.rst:76
+#, fuzzy
 msgid ""
-"If you don't see 'Good signature from', there might be a problem with the"
-" integrity of the file (malicious or otherwise), and you should not "
-"install the package. (The \"WARNING:\" shown above, is not a problem with"
-" the package, it only means you haven't already defined any level of "
-"'trust' of Micah's PGP key.)"
+"If you don't see ``Good signature from``, there might be a problem with "
+"the integrity of the file (malicious or otherwise), and you should not "
+"install the package. (The ``WARNING:`` shown above, is not a problem with"
+" the package, it only means you haven't defined a level of \"trust\" of "
+"Micah's PGP key.)"
 msgstr ""
-"Si no ves 'Good signature from', entonces podría haber un problema con la "
-"integridad del archivo (malicioso u otra causa), y no deberías instalar el "
-"paquete. (La \"ADVERTENCIA:\" mostrada arriba no es un problema con el "
-"paquete: solamente significa que no has definido ningún nivel de 'confianza' "
-"con respecto a la clave PGP de Micah.)"
+"Si no ves 'Good signature from', entonces podría haber un problema con la"
+" integridad del archivo (malicioso u otra causa), y no deberías instalar "
+"el paquete. (La \"ADVERTENCIA:\" mostrada arriba no es un problema con el"
+" paquete: solamente significa que no has definido ningún nivel de "
+"'confianza' con respecto a la clave PGP de Micah.)"
 
-#: ../../source/install.rst:71
+#: ../../source/install.rst:78
 msgid ""
 "If you want to learn more about verifying PGP signatures, the guides for "
 "`Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ and"
 " the `Tor Project <https://support.torproject.org/tbb/how-to-verify-"
 "signature/>`_ may be useful."
 msgstr ""
-"Si quieres aprender más acerca de la verificación de firmas PGP, las guías "
-"para `Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ y "
-"el `Tor Project <https://support.torproject.org/tbb/how-to-verify-signature/"
-">`_ podrían ser útiles."
+"Si quieres aprender más acerca de la verificación de firmas PGP, las "
+"guías para `Qubes OS <https://www.qubes-os.org/security/verifying-"
+"signatures/>`_ y el `Tor Project <https://support.torproject.org/tbb/how-"
+"to-verify-signature/>`_ podrían ser útiles."
 
 #~ msgid "For added security, see :ref:`verifying_sigs`."
 #~ msgstr "Para mayor seguridad, lee :ref:`verifying_sigs`."
@@ -269,3 +281,9 @@ msgstr ""
 #~ "el servidor de claves keys.openpgp.org "
 #~ "<https://keys.openpgp.org/vks/v1/by-"
 #~ "fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
+
+#~ msgid "Install in Linux"
+#~ msgstr "Instalar en Linux"
+
+#~ msgid "Command Line Only"
+#~ msgstr ""

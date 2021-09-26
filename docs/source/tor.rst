@@ -106,7 +106,7 @@ If all goes well, you should see "Connected to the Tor controller".
 Using Tor bridges
 -----------------
 
-If your access to the Internet is censored, you can configure OnionShare to connect to the Tor network using `Tor bridges <https://2019.www.torproject.org/docs/bridges.html.en>`_. If OnionShare connects to Tor without one, you don't need to use a bridge.
+If your access to the internet is censored, you can configure OnionShare to connect to the Tor network using `Tor bridges <https://2019.www.torproject.org/docs/bridges.html.en>`_. If OnionShare connects to Tor without one, you don't need to use a bridge.
 
 To configure bridges, click the "⚙" icon in OnionShare.
 

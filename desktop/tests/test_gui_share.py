@@ -72,15 +72,7 @@ class TestShare(GuiBaseTest):
     def download_share(self, tab):
         """Test that we can download the share"""
         url = f"http://127.0.0.1:{tab.app.port}/download"
-        if tab.settings.get("general", "public"):
-            r = requests.get(url)
-        else:
-            r = requests.get(
-                url,
-                auth=requests.auth.HTTPBasicAuth(
-                    "onionshare", tab.get_mode().server_status.web.password
-                ),
-            )
+        r = requests.get(url)
 
         tmp_file = tempfile.NamedTemporaryFile("wb", delete=False)
         tmp_file.write(r.content)
@@ -99,40 +91,16 @@ class TestShare(GuiBaseTest):
         """
         url = f"http://127.0.0.1:{tab.app.port}"
         download_file_url = f"http://127.0.0.1:{tab.app.port}/test.txt"
-        if tab.settings.get("general", "public"):
-            r = requests.get(url)
-        else:
-            r = requests.get(
-                url,
-                auth=requests.auth.HTTPBasicAuth(
-                    "onionshare", tab.get_mode().server_status.web.password
-                ),
-            )
+        r = requests.get(url)
 
         if tab.settings.get("share", "autostop_sharing"):
             self.assertFalse('a href="/test.txt"' in r.text)
-            if tab.settings.get("general", "public"):
-                r = requests.get(download_file_url)
-            else:
-                r = requests.get(
-                    download_file_url,
-                    auth=requests.auth.HTTPBasicAuth(
-                        "onionshare", tab.get_mode().server_status.web.password
-                    ),
-                )
+            r = requests.get(download_file_url)
             self.assertEqual(r.status_code, 404)
             self.download_share(tab)
         else:
-            self.assertTrue('a href="test.txt"' in r.text)
-            if tab.settings.get("general", "public"):
-                r = requests.get(download_file_url)
-            else:
-                r = requests.get(
-                    download_file_url,
-                    auth=requests.auth.HTTPBasicAuth(
-                        "onionshare", tab.get_mode().server_status.web.password
-                    ),
-                )
+            self.assertTrue('a href="/test.txt"' in r.text)
+            r = requests.get(download_file_url)
 
             tmp_file = tempfile.NamedTemporaryFile("wb", delete=False)
             tmp_file.write(r.content)
@@ -143,34 +111,6 @@ class TestShare(GuiBaseTest):
             os.remove(tmp_file.name)
 
         QtTest.QTest.qWait(500, self.gui.qtapp)
-
-    def hit_401(self, tab):
-        """Test that the server stops after too many 401s, or doesn't when in public mode"""
-        # In non-public mode, get ready to accept the dialog
-        if not tab.settings.get("general", "public"):
-
-            def accept_dialog():
-                window = tab.common.gui.qtapp.activeWindow()
-                if window:
-                    window.close()
-
-            QtCore.QTimer.singleShot(1000, accept_dialog)
-
-        # Make 20 requests with guessed passwords
-        url = f"http://127.0.0.1:{tab.app.port}/"
-        for _ in range(20):
-            password_guess = self.gui.common.build_password()
-            requests.get(
-                url, auth=requests.auth.HTTPBasicAuth("onionshare", password_guess)
-            )
-
-        # In public mode, we should still be running (no rate-limiting)
-        if tab.settings.get("general", "public"):
-            self.web_server_is_running(tab)
-
-        # In non-public mode, we should be shut down (rate-limiting)
-        else:
-            self.web_server_is_stopped(tab)
 
     def set_autostart_timer(self, tab, timer):
         """Test that the timer can be set"""
@@ -241,10 +181,14 @@ class TestShare(GuiBaseTest):
         self.mode_settings_widget_is_hidden(tab)
         self.server_is_started(tab, startup_time)
         self.web_server_is_running(tab)
-        self.have_a_password(tab)
         self.url_description_shown(tab)
+        self.url_instructions_shown(tab)
+        self.url_shown(tab)
         self.have_copy_url_button(tab)
-        self.have_show_qr_code_button(tab)
+        self.have_show_url_qr_code_button(tab)
+        self.private_key_shown(tab)
+        self.client_auth_instructions_shown(tab)
+        self.have_show_client_auth_qr_code_button(tab)
         self.server_status_indicator_says_started(tab)
 
     def run_all_share_mode_download_tests(self, tab):
@@ -490,24 +434,6 @@ class TestShare(GuiBaseTest):
 
         self.close_all_tabs()
 
-    def test_persistent_password(self):
-        """
-        Test a large download
-        """
-        tab = self.new_share_tab()
-        tab.get_mode().mode_settings_widget.persistent_checkbox.click()
-
-        self.run_all_common_setup_tests()
-        self.run_all_share_mode_setup_tests(tab)
-        self.run_all_share_mode_started_tests(tab)
-        password = tab.get_mode().server_status.web.password
-        self.run_all_share_mode_download_tests(tab)
-        self.run_all_share_mode_started_tests(tab)
-        self.assertEqual(tab.get_mode().server_status.web.password, password)
-        self.run_all_share_mode_download_tests(tab)
-
-        self.close_all_tabs()
-
     def test_autostop_timer(self):
         """
         Test the autostop timer
@@ -570,44 +496,32 @@ class TestShare(GuiBaseTest):
 
         self.close_all_tabs()
 
-    def test_401_triggers_ratelimit(self):
+    def test_client_auth(self):
         """
-        Rate limit should be triggered
+        Test the ClientAuth is received from the backend,
+        that the widget is visible in the UI and that the
+        clipboard contains the ClientAuth string
         """
         tab = self.new_share_tab()
-
-        def accept_dialog():
-            window = tab.common.gui.qtapp.activeWindow()
-            if window:
-                window.close()
-
-        tab.get_mode().autostop_sharing_checkbox.click()
+        tab.get_mode().mode_settings_widget.toggle_advanced_button.click()
 
         self.run_all_common_setup_tests()
-        self.run_all_share_mode_tests(tab)
-        self.hit_401(tab)
+        self.run_all_share_mode_setup_tests(tab)
+        self.run_all_share_mode_started_tests(tab)
+        self.clientauth_is_visible(tab)
 
         self.close_all_tabs()
 
-    def test_401_public_skips_ratelimit(self):
-        """
-        Public mode should skip the rate limit
-        """
+        # Now try in public mode
         tab = self.new_share_tab()
-
-        def accept_dialog():
-            window = tab.common.gui.qtapp.activeWindow()
-            if window:
-                window.close()
-
-        tab.get_mode().autostop_sharing_checkbox.click()
         tab.get_mode().mode_settings_widget.public_checkbox.click()
-
         self.run_all_common_setup_tests()
-        self.run_all_share_mode_tests(tab)
-        self.hit_401(tab)
+        self.run_all_share_mode_setup_tests(tab)
+        self.run_all_share_mode_started_tests(tab)
+        self.clientauth_is_not_visible(tab)
 
         self.close_all_tabs()
+
 
     def test_405_page_returned_for_invalid_methods(self):
         """
@@ -621,6 +535,7 @@ class TestShare(GuiBaseTest):
         self.run_all_common_setup_tests()
         self.run_all_share_mode_setup_tests(tab)
         self.run_all_share_mode_started_tests(tab)
+
         url = f"http://127.0.0.1:{tab.app.port}/"
         self.hit_405(url, expected_resp="OnionShare: 405 Method Not Allowed", data = {'foo':'bar'}, methods = ["put", "post", "delete", "options"])
         self.history_widgets_present(tab)

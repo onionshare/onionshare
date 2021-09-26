@@ -130,20 +130,26 @@ class QRCodeDialog(QtWidgets.QDialog):
     A dialog showing a QR code.
     """
 
-    def __init__(self, common, text):
+    def __init__(self, common, title, text):
         super(QRCodeDialog, self).__init__()
 
         self.common = common
-        self.text = text
 
         self.common.log("QrCode", "__init__")
 
+        self.qr_label_title = QtWidgets.QLabel(self)
+        self.qr_label_title.setText(title)
+        self.qr_label_title.setAlignment(QtCore.Qt.AlignCenter)
+
         self.qr_label = QtWidgets.QLabel(self)
-        self.qr_label.setPixmap(qrcode.make(self.text, image_factory=Image).pixmap())
+        self.qr_label.setPixmap(qrcode.make(text, image_factory=Image).pixmap())
+        self.qr_label.setScaledContents(True)
+        self.qr_label.setFixedSize(350, 350)
 
         self.setWindowTitle(strings._("gui_qr_code_dialog_title"))
         self.setWindowIcon(QtGui.QIcon(GuiCommon.get_resource_path("images/logo.png")))
         layout = QtWidgets.QVBoxLayout(self)
+        layout.addWidget(self.qr_label_title)
         layout.addWidget(self.qr_label)
 
         self.exec_()

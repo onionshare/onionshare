@@ -7,15 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2021-08-20 13:37-0700\n"
-"PO-Revision-Date: 2020-11-17 10:28+0000\n"
-"Last-Translator: mv87 <mv87@dismail.de>\n"
-"Language: de\n"
+"POT-Creation-Date: 2021-09-09 19:15-0700\n"
+"PO-Revision-Date: 2021-09-19 15:37+0000\n"
+"Last-Translator: register718 <register2021@outlook.de>\n"
 "Language-Team: de <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.9-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/develop.rst:2
@@ -63,16 +64,14 @@ msgid "Contributing Code"
 msgstr "Code beitragen"
 
 #: ../../source/develop.rst:17
-#, fuzzy
 msgid ""
 "OnionShare source code is to be found in this Git repository: "
 "https://github.com/onionshare/onionshare"
 msgstr ""
-"OnionShares Quellcode findet sich in diesem git-Repository: "
+"Der OnionShare Quellcode befindet sich in diesem Git-Repository: "
 "https://github.com/micahflee/onionshare"
 
 #: ../../source/develop.rst:19
-#, fuzzy
 msgid ""
 "If you'd like to contribute code to OnionShare, it helps to join the "
 "Keybase team and ask questions about what you're thinking of working on. "
@@ -80,12 +79,11 @@ msgid ""
 "<https://github.com/onionshare/onionshare/issues>`_ on GitHub to see if "
 "there are any you'd like to tackle."
 msgstr ""
-"Wenn du Code zu OnionShare beitragen willst, solltest du dem Keybase-Team"
-" beitreten und dort zur Diskussion stellen, was du gerne beitragen "
-"möchtest. Du solltest auch einen Blick auf alle `offenen Issues "
-"<https://github.com/micahflee/onionshare/issues>`_ auf GitHub werfen, um "
-"zu sehen, ob dort etwas für dich dabei ist, das du in Angriff nehmen "
-"möchtest."
+"Wenn du Code zu OnionShare beitragen willst, solltest du dem Keybase-Team "
+"beitreten und dort zur Diskussion stellen, was du gerne beitragen möchtest. "
+"Du solltest auch einen Blick auf alle `offenen Issues <https://github.com/"
+"micahflee/onionshare/issues>`_ auf GitHub werfen, um zu sehen, ob dort etwas "
+"für dich dabei ist, das du in Angriff nehmen möchtest."
 
 #: ../../source/develop.rst:22
 msgid ""
@@ -111,6 +109,11 @@ msgid ""
 "file to learn how to set up your development environment for the "
 "graphical version."
 msgstr ""
+"OnionShare wurde in Python entwickelt. Zum Starten, laden sie das Git-"
+"Repository von https://github.com/onionshare/onionshare/ herunter und öffnen "
+"die Datei unter 'cli/README.md', um ihre Entwicklungsumgebung für die "
+"Kommandozeilenversion einzurichten., oder die Datei 'desktop/README.md' um "
+"ihre Entwicklungsumgebung für die graphische Version einzurichten."
 
 #: ../../source/develop.rst:32
 msgid ""
@@ -146,7 +149,7 @@ msgstr ""
 "Auffrischen von Einstellungen o.ä.), sowie andere Debug-Informationen. "
 "Zum Beispiel::"
 
-#: ../../source/develop.rst:121
+#: ../../source/develop.rst:117
 msgid ""
 "You can add your own debug messages by running the ``Common.log`` method "
 "from ``onionshare/common.py``. For example::"
@@ -155,7 +158,7 @@ msgstr ""
 "``Common.log``-Methode aus ``onionshare/common.py`` ausführst. Zum "
 "Beispiel::"
 
-#: ../../source/develop.rst:125
+#: ../../source/develop.rst:121
 msgid ""
 "This can be useful when learning the chain of events that occur when "
 "using OnionShare, or the value of certain variables before and after they"
@@ -165,11 +168,11 @@ msgstr ""
 "Anwendung oder den Wert bestimmter Variablen vor oder nach deren Änderung"
 " herausfinden möchtest."
 
-#: ../../source/develop.rst:128
+#: ../../source/develop.rst:124
 msgid "Local Only"
 msgstr "Nur lokal"
 
-#: ../../source/develop.rst:130
+#: ../../source/develop.rst:126
 msgid ""
 "Tor is slow, and it's often convenient to skip starting onion services "
 "altogether during development. You can do this with the ``--local-only`` "
@@ -179,21 +182,22 @@ msgstr ""
 "Dienste zu starten. Dies kannst du mit der ``--local-only``-Flagge tun. "
 "Zum Beispiel::"
 
-#: ../../source/develop.rst:167
+#: ../../source/develop.rst:165
+#, fuzzy
 msgid ""
-"In this case, you load the URL ``http://onionshare:train-"
-"system@127.0.0.1:17635`` in a normal web-browser like Firefox, instead of"
-" using the Tor Browser."
+"In this case, you load the URL ``http://127.0.0.1:17641`` in a normal "
+"web-browser like Firefox, instead of using the Tor Browser. The private "
+"key is not actually needed in local-only mode, so you can ignore it."
 msgstr ""
-"In diesem Fall lädst du die URL ``http://onionshare:eject-"
-"snack@127.0.0.1:17614`` in einem normalen Webbrowser wie Firefox anstelle"
-" des Tor Browsers."
+"In diesem Fall lädst du die URL ``http://127.0.0.1:17614`` in einem normalen "
+"Webbrowser wie Firefox anstelle des Tor Browsers. Der private Schlüssel wird "
+"bei lokalen Betrieb eigentlich nicht benötigt."
 
-#: ../../source/develop.rst:170
+#: ../../source/develop.rst:168
 msgid "Contributing Translations"
 msgstr "Übersetzungen beitragen"
 
-#: ../../source/develop.rst:172
+#: ../../source/develop.rst:170
 msgid ""
 "Help make OnionShare easier to use and more familiar and welcoming for "
 "people by translating it on `Hosted Weblate "
@@ -207,17 +211,17 @@ msgstr ""
 "„OnionShare“ immer in lateinischen Lettern und nutze „OnionShare "
 "(localname)“ bei Bedarf."
 
-#: ../../source/develop.rst:174
+#: ../../source/develop.rst:172
 msgid "To help translate, make a Hosted Weblate account and start contributing."
 msgstr ""
 "Um bei der Übersetzung mitzuhelfen, erstelle dir ein Benutzerkonto für "
 "``Hosted Weblate``, und schon kann es losgehen."
 
-#: ../../source/develop.rst:177
+#: ../../source/develop.rst:175
 msgid "Suggestions for Original English Strings"
 msgstr "Vorschläge für die ursprüngliche englischsprache Zeichenketten („strings“)"
 
-#: ../../source/develop.rst:179
+#: ../../source/develop.rst:177
 msgid ""
 "Sometimes the original English strings are wrong, or don't match between "
 "the application and the documentation."
@@ -225,7 +229,7 @@ msgstr ""
 "Manchmal sind die originalen englischsprachigen Zeichenketten falschen "
 "oder stimmen nicht zwischen Anwendung und dem Handbuch überein."
 
-#: ../../source/develop.rst:181
+#: ../../source/develop.rst:179
 msgid ""
 "File source string improvements by adding @kingu to your Weblate comment,"
 " or open a GitHub issue or pull request. The latter ensures all upstream "
@@ -239,11 +243,11 @@ msgstr ""
 "Zeichenkette gegebenenfalls im Rahmen des üblichen Code-Review-Vorgangs "
 "abändern können."
 
-#: ../../source/develop.rst:185
+#: ../../source/develop.rst:183
 msgid "Status of Translations"
 msgstr "Übersetzungsstatus"
 
-#: ../../source/develop.rst:186
+#: ../../source/develop.rst:184
 msgid ""
 "Here is the current translation status. If you want start a translation "
 "in a language not yet started, please write to the mailing list: "
@@ -480,4 +484,3 @@ msgstr ""
 #~ "der ``desktop/README.md``-Datei nach, wie du"
 #~ " deine Entwicklungsumgebung für die "
 #~ "grafische Version aufsetzt."
-

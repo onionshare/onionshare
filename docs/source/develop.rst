@@ -40,7 +40,7 @@ Verbose mode
 When developing, it's convenient to run OnionShare from a terminal and add the ``--verbose`` (or ``-v``) flag to the command.
 This prints a lot of helpful messages to the terminal, such as when certain objects are initialized, when events occur (like buttons clicked, settings saved or reloaded), and other debug info. For example::
 
-    $ poetry run onionshare-cli -v ~/Documents/roms/nes/Q-bert\ \(USA\).nes 
+    $ $ poetry run onionshare-cli -v ~/Documents/roms/nes/Q-bert\ \(USA\).nes 
     ╭───────────────────────────────────────────╮
     │    *            ▄▄█████▄▄            *    │
     │               ▄████▀▀▀████▄     *         │
@@ -58,65 +58,61 @@ This prints a lot of helpful messages to the terminal, such as when certain obje
     │   █ █ █▀▄ █ ▄▀▄ █▀▄  ▀▄ █▀▄ ▄▀▄ █▄▀ ▄█▄   │
     │   ▀▄▀ █ █ █ ▀▄▀ █ █ ▄▄▀ █ █ ▀▄█ █   ▀▄▄   │
     │                                           │
-    │                  v2.3.3                   │
+    │                   v2.4                    │
     │                                           │
     │          https://onionshare.org/          │
     ╰───────────────────────────────────────────╯
-    
-    [May 10 2021 18:24:02] Settings.__init__
-    [May 10 2021 18:24:02] Settings.load
-    [May 10 2021 18:24:02] Settings.load: Trying to load /home/user/.config/onionshare/onionshare.json
-    [May 10 2021 18:24:02] Common.get_resource_path: filename=wordlist.txt
-    [May 10 2021 18:24:02] Common.get_resource_path: filename=wordlist.txt, path=/home/user/code/onionshare/cli/onionshare_cli/resources/wordlist.txt
-    [May 10 2021 18:24:02] ModeSettings.load: creating /home/user/.config/onionshare/persistent/tattered-handgun-stress.json
-    [May 10 2021 18:24:02] ModeSettings.set: updating tattered-handgun-stress: general.title = None
-    [May 10 2021 18:24:02] ModeSettings.set: updating tattered-handgun-stress: general.public = False
-    [May 10 2021 18:24:02] ModeSettings.set: updating tattered-handgun-stress: general.autostart_timer = 0
-    [May 10 2021 18:24:02] ModeSettings.set: updating tattered-handgun-stress: general.autostop_timer = 0
-    [May 10 2021 18:24:02] ModeSettings.set: updating tattered-handgun-stress: general.legacy = False
-    [May 10 2021 18:24:02] ModeSettings.set: updating tattered-handgun-stress: general.client_auth = False
-    [May 10 2021 18:24:02] ModeSettings.set: updating tattered-handgun-stress: share.autostop_sharing = True
-    [May 10 2021 18:24:02] Web.__init__: is_gui=False, mode=share
-    [May 10 2021 18:24:02] Common.get_resource_path: filename=static
-    [May 10 2021 18:24:02] Common.get_resource_path: filename=static, path=/home/user/code/onionshare/cli/onionshare_cli/resources/static
-    [May 10 2021 18:24:02] Common.get_resource_path: filename=templates
-    [May 10 2021 18:24:02] Common.get_resource_path: filename=templates, path=/home/user/code/onionshare/cli/onionshare_cli/resources/templates
-    [May 10 2021 18:24:02] Web.generate_static_url_path: new static_url_path is /static_4yxrx2mzi5uzkblklpzd46mwke
-    [May 10 2021 18:24:02] ShareModeWeb.init
-    [May 10 2021 18:24:02] Onion.__init__
-    [May 10 2021 18:24:02] Onion.connect
-    [May 10 2021 18:24:02] Settings.__init__
-    [May 10 2021 18:24:02] Settings.load
-    [May 10 2021 18:24:02] Settings.load: Trying to load /home/user/.config/onionshare/onionshare.json
-    [May 10 2021 18:24:02] Onion.connect: tor_data_directory_name=/home/user/.config/onionshare/tmp/tmpw6u0nz8l
-    [May 10 2021 18:24:02] Common.get_resource_path: filename=torrc_template
-    [May 10 2021 18:24:02] Common.get_resource_path: filename=torrc_template, path=/home/user/code/onionshare/cli/onionshare_cli/resources/torrc_template
-    Connecting to the Tor network: 100% - Done
-    [May 10 2021 18:24:10] Onion.connect: Connected to tor 0.4.5.7
-    [May 10 2021 18:24:10] Settings.load
-    [May 10 2021 18:24:10] Settings.load: Trying to load /home/user/.config/onionshare/onionshare.json
-    [May 10 2021 18:24:10] Web.generate_password: saved_password=None
-    [May 10 2021 18:24:10] Common.get_resource_path: filename=wordlist.txt
-    [May 10 2021 18:24:10] Common.get_resource_path: filename=wordlist.txt, path=/home/user/code/onionshare/cli/onionshare_cli/resources/wordlist.txt
-    [May 10 2021 18:24:10] Web.generate_password: built random password: "tipping-colonize"
-    [May 10 2021 18:24:10] OnionShare.__init__
-    [May 10 2021 18:24:10] OnionShare.start_onion_service
-    [May 10 2021 18:24:10] Onion.start_onion_service: port=17645
-    [May 10 2021 18:24:10] Onion.start_onion_service: key_type=NEW, key_content=ED25519-V3
-    [May 10 2021 18:24:14] ModeSettings.set: updating tattered-handgun-stress: general.service_id = omxjamkys6diqxov7lxru2upromdprxjuq3czdhen6hrshzd4sll2iyd
-    [May 10 2021 18:24:14] ModeSettings.set: updating tattered-handgun-stress: onion.private_key = 6PhomJCjlWicmOyAAe0wnQoEM3vcyHBivrRGDy0hzm900fW5ITDJ6iv2+tluLoueYj81MhmnYeTOHDm8UGOfhg==
-    Compressing files.
-    [May 10 2021 18:24:14] ShareModeWeb.init
-    [May 10 2021 18:24:14] ShareModeWeb.set_file_info_custom
-    [May 10 2021 18:24:14] ShareModeWeb.build_zipfile_list
-    [May 10 2021 18:24:14] Web.start: port=17645
-    * Running on http://127.0.0.1:17645/ (Press CTRL+C to quit)
-    
-    Give this address to the recipient:
-    http://onionshare:tipping-colonize@omxjamkys6diqxov7lxru2upromdprxjuq3czdhen6hrshzd4sll2iyd.onion
-    
-    Press Ctrl+C to stop the server
 
+    [Sep 09 2021 19:13:20] Settings.__init__
+    [Sep 09 2021 19:13:20] Settings.load
+    [Sep 09 2021 19:13:20] Settings.load: Trying to load /home/user/.config/onionshare/onionshare.json
+    [Sep 09 2021 19:13:20] Common.get_resource_path: filename=wordlist.txt
+    [Sep 09 2021 19:13:20] Common.get_resource_path: filename=wordlist.txt, path=/home/user/code/onionshare/cli/onionshare_cli/resources/wordlist.txt
+    [Sep 09 2021 19:13:20] ModeSettings.load: creating /home/user/.config/onionshare/persistent/polish-pushpin-hydrated.json
+    [Sep 09 2021 19:13:20] ModeSettings.set: updating polish-pushpin-hydrated: general.title = None
+    [Sep 09 2021 19:13:20] ModeSettings.set: updating polish-pushpin-hydrated: general.public = False
+    [Sep 09 2021 19:13:20] ModeSettings.set: updating polish-pushpin-hydrated: general.autostart_timer = 0
+    [Sep 09 2021 19:13:20] ModeSettings.set: updating polish-pushpin-hydrated: general.autostop_timer = 0
+    [Sep 09 2021 19:13:20] ModeSettings.set: updating polish-pushpin-hydrated: share.autostop_sharing = True
+    [Sep 09 2021 19:13:20] Web.__init__: is_gui=False, mode=share
+    [Sep 09 2021 19:13:20] Common.get_resource_path: filename=static
+    [Sep 09 2021 19:13:20] Common.get_resource_path: filename=static, path=/home/user/code/onionshare/cli/onionshare_cli/resources/static
+    [Sep 09 2021 19:13:20] Common.get_resource_path: filename=templates
+    [Sep 09 2021 19:13:20] Common.get_resource_path: filename=templates, path=/home/user/code/onionshare/cli/onionshare_cli/resources/templates
+    [Sep 09 2021 19:13:20] Web.generate_static_url_path: new static_url_path is /static_gvvq2hplxhs2cekk665kagei6m
+    [Sep 09 2021 19:13:20] ShareModeWeb.init
+    [Sep 09 2021 19:13:20] Onion.__init__
+    [Sep 09 2021 19:13:20] Onion.connect
+    [Sep 09 2021 19:13:20] Settings.__init__
+    [Sep 09 2021 19:13:20] Settings.load
+    [Sep 09 2021 19:13:20] Settings.load: Trying to load /home/user/.config/onionshare/onionshare.json
+    [Sep 09 2021 19:13:20] Onion.connect: tor_data_directory_name=/home/user/.config/onionshare/tmp/tmpf3akiouy
+    [Sep 09 2021 19:13:20] Common.get_resource_path: filename=torrc_template
+    [Sep 09 2021 19:13:20] Common.get_resource_path: filename=torrc_template, path=/home/user/code/onionshare/cli/onionshare_cli/resources/torrc_template
+    Connecting to the Tor network: 100% - Done
+    [Sep 09 2021 19:13:30] Onion.connect: Connected to tor 0.4.6.7
+    [Sep 09 2021 19:13:30] Settings.load
+    [Sep 09 2021 19:13:30] Settings.load: Trying to load /home/user/.config/onionshare/onionshare.json
+    [Sep 09 2021 19:13:30] OnionShare.__init__
+    [Sep 09 2021 19:13:30] OnionShare.start_onion_service
+    [Sep 09 2021 19:13:30] Onion.start_onion_service: port=17616
+    [Sep 09 2021 19:13:30] Onion.start_onion_service: key_type=NEW, key_content=ED25519-V3
+    [Sep 09 2021 19:13:35] ModeSettings.set: updating polish-pushpin-hydrated: general.service_id = vucwsdmjt7szoc6pel3puqoxobiepdsowmqaq7pm7dzhembtzr2capad
+    [Sep 09 2021 19:13:35] ModeSettings.set: updating polish-pushpin-hydrated: onion.private_key = +HfFALM4MtrNh59ibfMtRwDCIpfpWHIcNh3boahqrHh3TkLAyQvzKTm/y53KoYKSh0VU+m9DZY7DtZuCzkHkqQ==
+    [Sep 09 2021 19:13:35] ModeSettings.set: updating polish-pushpin-hydrated: onion.client_auth_priv_key = G24TSNLIJX7YZM6R7P24AIGRU4N56ZFL7ENZVIDIWUEWY66YS3EQ
+    [Sep 09 2021 19:13:35] ModeSettings.set: updating polish-pushpin-hydrated: onion.client_auth_pub_key = GDY2EPXSS7Q3ELQJFIX2VELTVZ3QEYIGWIZ26CEDQKZJ5Y7VKI3A
+    Compressing files.
+    [Sep 09 2021 19:13:35] ShareModeWeb.init
+    [Sep 09 2021 19:13:35] ShareModeWeb.set_file_info_custom
+    [Sep 09 2021 19:13:35] ShareModeWeb.build_zipfile_list
+    [Sep 09 2021 19:13:35] Web.start: port=17616
+    * Running on http://127.0.0.1:17616/ (Press CTRL+C to quit)
+
+    Give this address and private key to the recipient:
+    http://vucwsdmjt7szoc6pel3puqoxobiepdsowmqaq7pm7dzhembtzr2capad.onion
+    Private key: G24TSNLIJX7YZM6R7P24AIGRU4N56ZFL7ENZVIDIWUEWY66YS3EQ
+
+    Press Ctrl+C to stop the server
 
 You can add your own debug messages by running the ``Common.log`` method from ``onionshare/common.py``. For example::
 
@@ -148,23 +144,25 @@ You can do this with the ``--local-only`` flag. For example::
     │   █ █ █▀▄ █ ▄▀▄ █▀▄  ▀▄ █▀▄ ▄▀▄ █▄▀ ▄█▄   │
     │   ▀▄▀ █ █ █ ▀▄▀ █ █ ▄▄▀ █ █ ▀▄█ █   ▀▄▄   │
     │                                           │
-    │                  v2.3.3                   │
+    │                   v2.4                    │
     │                                           │
     │          https://onionshare.org/          │
     ╰───────────────────────────────────────────╯
-    
-    * Running on http://127.0.0.1:17617/ (Press CTRL+C to quit)
-    
+
+    * Running on http://127.0.0.1:17641/ (Press CTRL+C to quit)
+
     Files sent to you appear in this folder: /home/user/OnionShare
-    
+
     Warning: Receive mode lets people upload files to your computer. Some files can potentially take control of your computer if you open them. Only open things from people you trust, or if you know what you are doing.
-    
-    Give this address to the sender:
-    http://onionshare:ended-blah@127.0.0.1:17617
-    
+
+    Give this address and private key to the sender:
+    http://127.0.0.1:17641
+    Private key: E2GOT5LTUTP3OAMRCRXO4GSH6VKJEUOXZQUC336SRKAHTTT5OVSA
+
     Press Ctrl+C to stop the server
 
-In this case, you load the URL ``http://onionshare:train-system@127.0.0.1:17635`` in a normal web-browser like Firefox, instead of using the Tor Browser.
+
+In this case, you load the URL ``http://127.0.0.1:17641`` in a normal web-browser like Firefox, instead of using the Tor Browser. The private key is not actually needed in local-only mode, so you can ignore it.
 
 Contributing Translations
 -------------------------
