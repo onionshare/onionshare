@@ -8,10 +8,13 @@ exclude_patterns = []
 
 languages = [
     ("English", "en"),  # English
-    ("Deutsch", "de"),  # German
-    ("Ελληνικά", "el"),  # Greek
+    ("Finnish", "fi"),  # Finnish
+    ("Polish", "pl"),  # Polish
+    ("Portuguese (Brazil)", "pt_BR"),  # Portuguese (Brazil))
+    # ("Deutsch", "de"),  # German
+    # ("Ελληνικά", "el"),  # Greek
     ("Русский", "ru"),  # Russian
-    ("Español", "es"),  # Spanish
+    # ("Español", "es"),  # Spanish
     ("Türkçe", "tr"),  # Turkish
     ("Українська", "uk"),  # Ukranian
 ]

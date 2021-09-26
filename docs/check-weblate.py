@@ -140,8 +140,8 @@ async def main():
 
     print("")
 
-    await app_percent_output(100)
-    await app_percent_output(90, 100)
+    # await app_percent_output(100)
+    await app_percent_output(90, 101)
     await app_percent_output(80, 90)
 
     out100 = await docs_percent_output(100)
