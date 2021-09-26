@@ -57,36 +57,36 @@ class Settings(object):
         self.available_locales = {
             "ar": "العربية",  # Arabic
             "bn": "বাংলা",  # Bengali
-            "ca": "Català",  # Catalan
-            "zh_Hant": "正體中文 (繁體)",  # Traditional Chinese
+            # "ca": "Català",  # Catalan
+            # "zh_Hant": "正體中文 (繁體)",  # Traditional Chinese
             "zh_Hans": "中文 (简体)",  # Simplified Chinese
-            "hr": "Hrvatski",  # Croatian
-            "da": "Dansk",  # Danish
-            "nl": "Nederlands",  # Dutch
+            # "hr": "Hrvatski",  # Croatian
+            # "da": "Dansk",  # Danish
+            # "nl": "Nederlands",  # Dutch
             "en": "English",  # English
-            # "fi": "Suomi",  # Finnish
-            "fr": "Français",  # French
+            "fi": "Suomi",  # Finnish
+            # "fr": "Français",  # French
             "gl": "Galego",  # Galician
             "de": "Deutsch",  # German
-            "el": "Ελληνικά",  # Greek
+            # "el": "Ελληνικά",  # Greek
             "is": "Íslenska",  # Icelandic
-            "id": "Bahasa Indonesia",  # Indonesian
+            # "id": "Bahasa Indonesia",  # Indonesian
             # "ga": "Gaeilge",  # Irish
-            "it": "Italiano",  # Italian
-            "ja": "日本語",  # Japanese
-            "ckb": "Soranî",  # Kurdish (Central)
+            # "it": "Italiano",  # Italian
+            # "ja": "日本語",  # Japanese
+            # "ckb": "Soranî",  # Kurdish (Central)
             "lt": "Lietuvių Kalba",  # Lithuanian
             "nb_NO": "Norsk Bokmål",  # Norwegian Bokmål
             # "fa": "فارسی",  # Persian
             "pl": "Polski",  # Polish
             "pt_BR": "Português (Brasil)",  # Portuguese Brazil
-            "pt_PT": "Português (Portugal)",  # Portuguese Portugal
+            # "pt_PT": "Português (Portugal)",  # Portuguese Portugal
             # "ro": "Română",  # Romanian
             "ru": "Русский",  # Russian
-            "sr_Latn": "Srpska (latinica)",  # Serbian (latin)
-            "sk": "Slovenčina",  # Slovak
-            "es": "Español",  # Spanish
+            # "sr_Latn": "Srpska (latinica)",  # Serbian (latin)
+            # "sk": "Slovenčina",  # Slovak
             "sv": "Svenska",  # Swedish
+            "es": "Español",  # Spanish
             # "te": "తెలుగు",  # Telugu
             "tr": "Türkçe",  # Turkish
             "uk": "Українська",  # Ukrainian

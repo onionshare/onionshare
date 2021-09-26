@@ -33,10 +33,10 @@ import requests
 
 
 def main():
-    exe_url = "https://dist.torproject.org/torbrowser/11.0a5/torbrowser-install-11.0a5_en-US.exe"
-    exe_filename = "torbrowser-install-11.0a5_en-US.exe"
+    exe_url = "https://dist.torproject.org/torbrowser/11.0a7/torbrowser-install-11.0a7_en-US.exe"
+    exe_filename = "torbrowser-install-11.0a7_en-US.exe"
     expected_exe_sha256 = (
-        "7f820d66b7c368f5a1bb1e88ffe6b90b94e1c077a2fb9ee0cc3fa642876d8113"
+        "8b2013669d88e3ae8fa9bc17a3495eaac9475f79a849354e826e5132811a860b"
     )
     # Build paths
     root_path = os.path.dirname(
