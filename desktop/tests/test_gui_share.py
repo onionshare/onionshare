@@ -425,7 +425,7 @@ class TestShare(GuiBaseTest):
         tab.get_mode().server_status.file_selection.file_list.add_file(
             self.tmpfile_large
         )
-        self.run_all_share_mode_started_tests(tab, startup_time=15000)
+        self.run_all_share_mode_started_tests(tab, startup_time=25000)
         self.assertTrue(tab.get_mode().filesize_warning.isVisible())
         self.download_share(tab)
         self.server_is_stopped(tab)
