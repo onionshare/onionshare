@@ -22,6 +22,7 @@ from PySide2 import QtCore, QtWidgets, QtGui
 
 from onionshare_cli.settings import Settings
 
+from . import strings
 from .gui_common import GuiCommon
 
 
@@ -60,19 +61,30 @@ class AutoConnect(QtWidgets.QWidget):
             self.image.setLayout(image_layout)
 
             # Description and checkbox
-            description_label = QtWidgets.QLabel("Some description about OnionShare and explain autoconnect stuff")
+            description_label = QtWidgets.QLabel(strings._("gui_autoconnect_description"))
             self.enable_autoconnect_checkbox = QtWidgets.QCheckBox() 
             self.enable_autoconnect_checkbox.clicked.connect(self.toggle_auto_connect)
             self.enable_autoconnect_checkbox.setText(
-                "Enable automatically connecting to OnionShare"
+                strings._("gui_enable_autoconnect_checkbox")
             )
+            self.enable_autoconnect_checkbox.setStyleSheet(
+                common.gui.css["enable_autoconnect"]
+            )
+            description_layout = QtWidgets.QVBoxLayout()
+            description_layout.addWidget(description_label)
+            description_layout.addWidget(self.enable_autoconnect_checkbox)
+            description_widget = QtWidgets.QWidget()
+            description_widget.setLayout(description_layout)
 
             # CTA buttons
-            self.connect_button = QtWidgets.QPushButton("Start OnionShare")
+            self.connect_button = QtWidgets.QPushButton(strings._("gui_autoconnect_start"))
             self.connect_button.setStyleSheet(
-                common.gui.css["server_status_button_stopped"]
+                common.gui.css["autoconnect_start_button"]
             )
-            self.configure_button = QtWidgets.QPushButton("Configure")
+            self.configure_button = QtWidgets.QPushButton(strings._("gui_autoconnect_configure"))
+            self.configure_button.setStyleSheet(
+                common.gui.css["autoconnect_configure_button"]
+            )
             cta_layout = QtWidgets.QHBoxLayout()
             cta_layout.addWidget(self.connect_button)
             cta_layout.addWidget(self.configure_button)
@@ -85,8 +97,7 @@ class AutoConnect(QtWidgets.QWidget):
             self.layout.setContentsMargins(0, 0, 0, 0)
             self.layout.addStretch()
             self.layout.addWidget(self.image)
-            self.layout.addWidget(description_label)
-            self.layout.addWidget(self.enable_autoconnect_checkbox)
+            self.layout.addWidget(description_widget)
             self.layout.addStretch()
             self.layout.addWidget(cta_widget)
             self.layout.addStretch()

@@ -147,6 +147,22 @@ class GuiCommon:
                 QStatusBar::item {
                     border: 0px;
                 }""",
+            "autoconnect_start_button": """
+                QPushButton {
+                    background-color: #5fa416;
+                    color: #ffffff;
+                    padding: 10px 30px;
+                    border: 0;
+                    border-radius: 5px;
+                }""",
+            "autoconnect_configure_button": """
+                QPushButton {
+                    padding: 9px 29px;
+                }""",
+            "enable_autoconnect": """
+                QCheckBox {
+                    margin-top: 30px;
+                }""",
             # Common styles between modes and their child widgets
             "mode_settings_toggle_advanced": """
                 QPushButton {
