@@ -44,7 +44,8 @@ def load_strings(common, locale_dir):
     strings = {}
     for s in translations[default_locale]:
         try:
-            strings[s] = translations[current_locale][s]
+            if translations[current_locale][s] != "":
+                strings[s] = translations[current_locale][s]
         except KeyError:
             common.log("GuiCommon", "load_strings", f"Couldn't load locale {current_locale}, falling back to {default_locale}")
             strings[s] = translations[default_locale][s]
