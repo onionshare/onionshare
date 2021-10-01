@@ -103,6 +103,7 @@ class Settings(object):
             "socket_file_path": "/var/run/tor/control",
             "auth_type": "no_auth",
             "auth_password": "",
+            "auto_connect": False,
             "use_autoupdate": True,
             "autoupdate_timestamp": None,
             "no_bridges": True,
