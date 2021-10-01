@@ -3,35 +3,40 @@
 # This file is distributed under the same license as the OnionShare package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2020-12-13 15:48-0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2021-09-30 04:31+0000\n"
+"Last-Translator: SC <lalocas@protonmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: pt_PT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.9-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/security.rst:2
 msgid "Security Design"
-msgstr ""
+msgstr "Segurança"
 
 #: ../../source/security.rst:4
 msgid "Read :ref:`how_it_works` first to get a handle on how OnionShare works."
 msgstr ""
+"Leia :ref:`how_it_works` primeiro para entender como o OnionShare funciona."
 
 #: ../../source/security.rst:6
 msgid "Like all software, OnionShare may contain bugs or vulnerabilities."
 msgstr ""
+"Como todos os programas informáticos, o OnionShare pode conter erros ou "
+"vulnerabilidades."
 
 #: ../../source/security.rst:9
 msgid "What OnionShare protects against"
-msgstr ""
+msgstr "Contra o que o OnionShare protege"
 
 #: ../../source/security.rst:11
 msgid ""
@@ -42,6 +47,12 @@ msgid ""
 "server for that too. This avoids the traditional model of having to trust"
 " the computers of others."
 msgstr ""
+"**Terceiros não tem acesso a nada que acontece no OnionShare.** Usar "
+"OnionShare significa alojar serviços diretamente no seu computador. Ao "
+"ficheiros arquivos com o OnionShare, eles não são carregados para nenhum "
+"servidor. Se criar uma sala de conversas OnionShare, o seu computador atua "
+"como um servidor para esta também. Isso evita o modelo tradicional de ter "
+"que confiar nos computadores de outras pessoas."
 
 #: ../../source/security.rst:13
 msgid ""
@@ -53,6 +64,13 @@ msgid ""
 "Browser with OnionShare's onion service, the traffic is encrypted using "
 "the onion service's private key."
 msgstr ""
+"**Os bisbilhoteiros da rede não podem espionar nada que aconteça no "
+"OnionShare durante o trânsito.** A conexão entre o serviço onion Tor e o Tor "
+"Browser são encriptados de ponta-a-ponta. Isso significa que os invasores da "
+"rede não podem espiar nada, exceto o tráfego encriptado do Tor. Mesmo se um "
+"bisbilhoteiro for um nó de encontro malicioso usado para conectar o Tor "
+"Browser ao serviço onion da OnionShare, o tráfego é encriptado usando a "
+"chave privada do serviço onion."
 
 #: ../../source/security.rst:15
 msgid ""
@@ -62,6 +80,11 @@ msgid ""
 "Browser users, the Tor Browser users and eavesdroppers can't learn the "
 "identity of the OnionShare user."
 msgstr ""
+"**O anonimato dos utilizadores do OnionShare são protegidos pelo Tor.** O "
+"OnionShare e o Tor Browser protegem o anonimato dos utilizadores. Enquanto o "
+"utilizador do OnionShare comunicar anonimamente o endereço do OnionShare com "
+"os utilizadores do Tor Browser, os utilizadores do Tor Browser e os "
+"bisbilhoteiros não podem saber a identidade do utilizador do OnionShare."
 
 #: ../../source/security.rst:17
 msgid ""
@@ -79,7 +102,7 @@ msgstr ""
 
 #: ../../source/security.rst:20
 msgid "What OnionShare doesn't protect against"
-msgstr ""
+msgstr "Contra o que OnionShare não protege"
 
 #: ../../source/security.rst:22
 msgid ""
@@ -241,4 +264,3 @@ msgstr ""
 #~ " share the address. This isn't "
 #~ "necessary unless anonymity is a goal."
 #~ msgstr ""
-
