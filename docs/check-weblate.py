@@ -2,7 +2,6 @@
 import sys
 import httpx
 import asyncio
-import time
 
 
 api_token = None
@@ -63,41 +62,33 @@ async def app_percent_output(percent_min, percent_max=101):
     print("")
 
 
-async def docs_percent_output(percent_min, exclude=[]):
+async def docs_percent_output(percent_min, percent_max=101):
     out = []
     for lang_code in languages:
-        include_language = True
         percentages = []
 
         for component in docs_translations:
-            if lang_code not in docs_translations[component]:
-                include_language = False
-                break
+            if lang_code in docs_translations[component]:
+                percentages.append(docs_translations[component][lang_code])
+            else:
+                percentages.append(0)
 
-            percentages.append(docs_translations[component][lang_code])
+        average_percentage = int(sum(percentages) / len(percentages))
 
-            if docs_translations[component][lang_code] < percent_min:
-                include_language = False
-                break
+        if (
+            average_percentage != 0
+            and average_percentage >= percent_min
+            and average_percentage < percent_max
+        ):
+            out.append(f"{languages[lang_code]} ({lang_code}), {average_percentage}%")
 
-        if include_language:
-            percentages = [f"{p}%" for p in percentages]
-            percentages = ", ".join(percentages)
-            out.append(f"{languages[lang_code]} ({lang_code}), {percentages}")
-
-    excluded = []
-    for s in out:
-        if s not in exclude:
-            excluded.append(s)
-
-    excluded.sort()
+    out.sort()
 
     print(f"Docs translations >= {percent_min}%")
     print("========================")
-    print("\n".join(excluded))
+    print("\n".join(out))
 
     print("")
-    return excluded
 
 
 async def main():
@@ -140,13 +131,13 @@ async def main():
 
     print("")
 
-    # await app_percent_output(100)
     await app_percent_output(90, 101)
-    await app_percent_output(80, 90)
+    await app_percent_output(50, 90)
+    await app_percent_output(0, 50)
 
-    out100 = await docs_percent_output(100)
-    out90 = await docs_percent_output(90, out100)
-    await docs_percent_output(80, out100 + out90)
+    await docs_percent_output(90, 101)
+    await docs_percent_output(50, 90)
+    await docs_percent_output(0, 50)
 
 
 if __name__ == "__main__":
