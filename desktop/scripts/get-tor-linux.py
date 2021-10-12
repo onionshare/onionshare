@@ -46,9 +46,12 @@ def main():
     )
     working_path = os.path.join(root_path, "build", "tor")
     tarball_path = os.path.join(working_path, tarball_filename)
+    dist_path = os.path.join(root_path, "src", "onionshare", "resources", "tor")
 
-    # Make sure the dist path exists
-    dist_path = os.path.join(working_path, "dist")
+    # Make sure dirs exist
+    if not os.path.exists(working_path):
+        os.makedirs(working_path, exist_ok=True)
+
     if not os.path.exists(dist_path):
         os.makedirs(dist_path, exist_ok=True)
 
