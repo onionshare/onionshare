@@ -153,6 +153,7 @@ class Onion(object):
             self.tor_geo_ip_file_path,
             self.tor_geo_ipv6_file_path,
             self.obfs4proxy_file_path,
+            self.snowflake_file_path,
         ) = get_tor_paths()
 
         # The tor process
@@ -178,10 +179,10 @@ class Onion(object):
         key_bytes = bytes(key)
         key_b32 = base64.b32encode(key_bytes)
         # strip trailing ====
-        assert key_b32[-4:] == b'===='
+        assert key_b32[-4:] == b"===="
         key_b32 = key_b32[:-4]
         # change from b'ASDF' to ASDF
-        s = key_b32.decode('utf-8')
+        s = key_b32.decode("utf-8")
         return s
 
     def connect(
@@ -650,16 +651,24 @@ class Onion(object):
                 )
                 raise TorTooOldStealth()
             else:
-                if key_type == "NEW" or not mode_settings.get("onion", "client_auth_priv_key"):
+                if key_type == "NEW" or not mode_settings.get(
+                    "onion", "client_auth_priv_key"
+                ):
                     # Generate a new key pair for Client Auth on new onions, or if
                     # it's a persistent onion but for some reason we don't them
                     client_auth_priv_key_raw = nacl.public.PrivateKey.generate()
                     client_auth_priv_key = self.key_str(client_auth_priv_key_raw)
-                    client_auth_pub_key = self.key_str(client_auth_priv_key_raw.public_key)
+                    client_auth_pub_key = self.key_str(
+                        client_auth_priv_key_raw.public_key
+                    )
                 else:
                     # These should have been saved in settings from the previous run of a persistent onion
-                    client_auth_priv_key = mode_settings.get("onion", "client_auth_priv_key")
-                    client_auth_pub_key = mode_settings.get("onion", "client_auth_pub_key")
+                    client_auth_priv_key = mode_settings.get(
+                        "onion", "client_auth_priv_key"
+                    )
+                    client_auth_pub_key = mode_settings.get(
+                        "onion", "client_auth_pub_key"
+                    )
 
         try:
             if not self.supports_stealth:
