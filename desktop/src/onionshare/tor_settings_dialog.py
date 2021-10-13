@@ -71,73 +71,6 @@ class TorSettingsDialog(QtWidgets.QDialog):
 
         self.system = platform.system()
 
-        # If ONIONSHARE_HIDE_TOR_SETTINGS=1, hide Tor settings in the dialog
-        self.hide_tor_settings = os.environ.get("ONIONSHARE_HIDE_TOR_SETTINGS") == "1"
-
-        # Automatic updates options
-
-        # Autoupdate
-        self.autoupdate_checkbox = QtWidgets.QCheckBox()
-        self.autoupdate_checkbox.setCheckState(QtCore.Qt.Unchecked)
-        self.autoupdate_checkbox.setText(strings._("gui_settings_autoupdate_option"))
-
-        # Last update time
-        self.autoupdate_timestamp = QtWidgets.QLabel()
-
-        # Check for updates button
-        self.check_for_updates_button = QtWidgets.QPushButton(
-            strings._("gui_settings_autoupdate_check_button")
-        )
-        self.check_for_updates_button.clicked.connect(self.check_for_updates)
-        # We can't check for updates if not connected to Tor
-        if not self.common.gui.onion.connected_to_tor:
-            self.check_for_updates_button.setEnabled(False)
-
-        # Autoupdate options layout
-        autoupdate_group_layout = QtWidgets.QVBoxLayout()
-        autoupdate_group_layout.addWidget(self.autoupdate_checkbox)
-        autoupdate_group_layout.addWidget(self.autoupdate_timestamp)
-        autoupdate_group_layout.addWidget(self.check_for_updates_button)
-        autoupdate_group = QtWidgets.QGroupBox(
-            strings._("gui_settings_autoupdate_label")
-        )
-        autoupdate_group.setLayout(autoupdate_group_layout)
-
-        # Autoupdate is only available for Windows and Mac (Linux updates using package manager)
-        if self.system != "Windows" and self.system != "Darwin":
-            autoupdate_group.hide()
-
-        # Language settings
-        language_label = QtWidgets.QLabel(strings._("gui_settings_language_label"))
-        self.language_combobox = QtWidgets.QComboBox()
-        # Populate the dropdown with all of OnionShare's available languages
-        language_names_to_locales = {
-            v: k for k, v in self.common.settings.available_locales.items()
-        }
-        language_names = list(language_names_to_locales)
-        language_names.sort()
-        for language_name in language_names:
-            locale = language_names_to_locales[language_name]
-            self.language_combobox.addItem(language_name, locale)
-        language_layout = QtWidgets.QHBoxLayout()
-        language_layout.addWidget(language_label)
-        language_layout.addWidget(self.language_combobox)
-        language_layout.addStretch()
-
-        # Theme Settings
-        theme_label = QtWidgets.QLabel(strings._("gui_settings_theme_label"))
-        self.theme_combobox = QtWidgets.QComboBox()
-        theme_choices = [
-            strings._("gui_settings_theme_auto"),
-            strings._("gui_settings_theme_light"),
-            strings._("gui_settings_theme_dark"),
-        ]
-        self.theme_combobox.addItems(theme_choices)
-        theme_layout = QtWidgets.QHBoxLayout()
-        theme_layout.addWidget(theme_label)
-        theme_layout.addWidget(self.theme_combobox)
-        theme_layout.addStretch()
-
         # Connection type: either automatic, control port, or socket file
 
         # Bundled Tor
@@ -430,13 +363,7 @@ class TorSettingsDialog(QtWidgets.QDialog):
             strings._("gui_settings_button_cancel")
         )
         self.cancel_button.clicked.connect(self.cancel_clicked)
-        version_label = QtWidgets.QLabel(f"OnionShare {self.common.version}")
-        version_label.setStyleSheet(self.common.gui.css["settings_version"])
-        self.help_button = QtWidgets.QPushButton(strings._("gui_settings_button_help"))
-        self.help_button.clicked.connect(self.help_clicked)
         buttons_layout = QtWidgets.QHBoxLayout()
-        buttons_layout.addWidget(version_label)
-        buttons_layout.addWidget(self.help_button)
         buttons_layout.addStretch()
         buttons_layout.addWidget(self.save_button)
         buttons_layout.addWidget(self.cancel_button)
@@ -447,23 +374,10 @@ class TorSettingsDialog(QtWidgets.QDialog):
         self.tor_status.hide()
 
         # Layout
-        tor_layout = QtWidgets.QVBoxLayout()
-        tor_layout.addWidget(connection_type_radio_group)
-        tor_layout.addLayout(connection_type_layout)
-        tor_layout.addWidget(self.tor_status)
-        tor_layout.addStretch()
-
         layout = QtWidgets.QVBoxLayout()
-        if not self.hide_tor_settings:
-            layout.addLayout(tor_layout)
-            layout.addSpacing(20)
-        layout.addWidget(autoupdate_group)
-        if autoupdate_group.isVisible():
-            layout.addSpacing(20)
-        layout.addLayout(language_layout)
-        layout.addSpacing(20)
-        layout.addLayout(theme_layout)
-        layout.addSpacing(20)
+        layout.addWidget(connection_type_radio_group)
+        layout.addLayout(connection_type_layout)
+        layout.addWidget(self.tor_status)
         layout.addStretch()
         layout.addLayout(buttons_layout)
 
@@ -476,22 +390,6 @@ class TorSettingsDialog(QtWidgets.QDialog):
         # Load settings, and fill them in
         self.old_settings = Settings(self.common)
         self.old_settings.load()
-
-        use_autoupdate = self.old_settings.get("use_autoupdate")
-        if use_autoupdate:
-            self.autoupdate_checkbox.setCheckState(QtCore.Qt.Checked)
-        else:
-            self.autoupdate_checkbox.setCheckState(QtCore.Qt.Unchecked)
-
-        autoupdate_timestamp = self.old_settings.get("autoupdate_timestamp")
-        self._update_autoupdate_timestamp(autoupdate_timestamp)
-
-        locale = self.old_settings.get("locale")
-        locale_index = self.language_combobox.findData(locale)
-        self.language_combobox.setCurrentIndex(locale_index)
-
-        theme_choice = self.old_settings.get("theme")
-        self.theme_combobox.setCurrentIndex(theme_choice)
 
         connection_type = self.old_settings.get("connection_type")
         if connection_type == "bundled":
@@ -563,8 +461,6 @@ class TorSettingsDialog(QtWidgets.QDialog):
         Connection type bundled was toggled. If checked, hide authentication fields.
         """
         self.common.log("TorSettingsDialog", "connection_type_bundled_toggled")
-        if self.hide_tor_settings:
-            return
         if checked:
             self.authenticate_group.hide()
             self.connection_type_socks.hide()
@@ -574,8 +470,6 @@ class TorSettingsDialog(QtWidgets.QDialog):
         """
         'No bridges' option was toggled. If checked, enable other bridge options.
         """
-        if self.hide_tor_settings:
-            return
         if checked:
             self.tor_bridges_use_custom_textbox_options.hide()
 
@@ -583,8 +477,6 @@ class TorSettingsDialog(QtWidgets.QDialog):
         """
         obfs4 bridges option was toggled. If checked, disable custom bridge options.
         """
-        if self.hide_tor_settings:
-            return
         if checked:
             self.tor_bridges_use_custom_textbox_options.hide()
 
@@ -592,8 +484,6 @@ class TorSettingsDialog(QtWidgets.QDialog):
         """
         meek_lite_azure bridges option was toggled. If checked, disable custom bridge options.
         """
-        if self.hide_tor_settings:
-            return
         if checked:
             self.tor_bridges_use_custom_textbox_options.hide()
             # Alert the user about meek's costliness if it looks like they're turning it on
@@ -608,8 +498,6 @@ class TorSettingsDialog(QtWidgets.QDialog):
         """
         Custom bridges option was toggled. If checked, show custom bridge options.
         """
-        if self.hide_tor_settings:
-            return
         if checked:
             self.tor_bridges_use_custom_textbox_options.show()
 
@@ -618,8 +506,6 @@ class TorSettingsDialog(QtWidgets.QDialog):
         Connection type automatic was toggled. If checked, hide authentication fields.
         """
         self.common.log("TorSettingsDialog", "connection_type_automatic_toggled")
-        if self.hide_tor_settings:
-            return
         if checked:
             self.authenticate_group.hide()
             self.connection_type_socks.hide()
@@ -631,8 +517,6 @@ class TorSettingsDialog(QtWidgets.QDialog):
         for Tor control address and port. If unchecked, hide those extra fields.
         """
         self.common.log("TorSettingsDialog", "connection_type_control_port_toggled")
-        if self.hide_tor_settings:
-            return
         if checked:
             self.authenticate_group.show()
             self.connection_type_control_port_extras.show()
@@ -647,8 +531,6 @@ class TorSettingsDialog(QtWidgets.QDialog):
         for socket file. If unchecked, hide those extra fields.
         """
         self.common.log("TorSettingsDialog", "connection_type_socket_file_toggled")
-        if self.hide_tor_settings:
-            return
         if checked:
             self.authenticate_group.show()
             self.connection_type_socket_file_extras.show()
@@ -744,68 +626,6 @@ class TorSettingsDialog(QtWidgets.QDialog):
                 self.tor_status.hide()
                 self._enable_buttons()
 
-    def check_for_updates(self):
-        """
-        Check for Updates button clicked. Manually force an update check.
-        """
-        self.common.log("TorSettingsDialog", "check_for_updates")
-        # Disable buttons
-        self._disable_buttons()
-        self.common.gui.qtapp.processEvents()
-
-        def update_timestamp():
-            # Update the last checked label
-            settings = Settings(self.common)
-            settings.load()
-            autoupdate_timestamp = settings.get("autoupdate_timestamp")
-            self._update_autoupdate_timestamp(autoupdate_timestamp)
-
-        def close_forced_update_thread():
-            forced_update_thread.quit()
-            # Enable buttons
-            self._enable_buttons()
-            # Update timestamp
-            update_timestamp()
-
-        # Check for updates
-        def update_available(update_url, installed_version, latest_version):
-            Alert(
-                self.common,
-                strings._("update_available").format(
-                    update_url, installed_version, latest_version
-                ),
-            )
-            close_forced_update_thread()
-
-        def update_not_available():
-            Alert(self.common, strings._("update_not_available"))
-            close_forced_update_thread()
-
-        def update_error():
-            Alert(
-                self.common,
-                strings._("update_error_check_error"),
-                QtWidgets.QMessageBox.Warning,
-            )
-            close_forced_update_thread()
-
-        def update_invalid_version(latest_version):
-            Alert(
-                self.common,
-                strings._("update_error_invalid_latest_version").format(latest_version),
-                QtWidgets.QMessageBox.Warning,
-            )
-            close_forced_update_thread()
-
-        forced_update_thread = UpdateThread(
-            self.common, self.common.gui.onion, force=True
-        )
-        forced_update_thread.update_available.connect(update_available)
-        forced_update_thread.update_not_available.connect(update_not_available)
-        forced_update_thread.update_error.connect(update_error)
-        forced_update_thread.update_invalid_version.connect(update_invalid_version)
-        forced_update_thread.start()
-
     def save_clicked(self):
         """
         Save button clicked. Save current settings to disk.
@@ -824,27 +644,6 @@ class TorSettingsDialog(QtWidgets.QDialog):
 
         settings = self.settings_from_fields()
         if settings:
-            # If language changed, inform user they need to restart OnionShare
-            if changed(settings, self.old_settings, ["locale"]):
-                # Look up error message in different locale
-                new_locale = settings.get("locale")
-                if (
-                    new_locale in strings.translations
-                    and "gui_settings_language_changed_notice"
-                    in strings.translations[new_locale]
-                ):
-                    notice = strings.translations[new_locale][
-                        "gui_settings_language_changed_notice"
-                    ]
-                else:
-                    notice = strings._("gui_settings_language_changed_notice")
-                Alert(self.common, notice, QtWidgets.QMessageBox.Information)
-
-            # If color mode changed, inform user they need to restart OnionShare
-            if changed(settings, self.old_settings, ["theme"]):
-                notice = strings._("gui_color_mode_changed_notice")
-                Alert(self.common, notice, QtWidgets.QMessageBox.Information)
-
             # Save the new settings
             settings.save()
 
@@ -934,18 +733,6 @@ class TorSettingsDialog(QtWidgets.QDialog):
         else:
             self.close()
 
-    def help_clicked(self):
-        """
-        Help button clicked.
-        """
-        self.common.log("TorSettingsDialog", "help_clicked")
-        TorSettingsDialog.open_help()
-
-    @staticmethod
-    def open_help():
-        help_url = "https://docs.onionshare.org/"
-        QtGui.QDesktopServices.openUrl(QtCore.QUrl(help_url))
-
     def settings_from_fields(self):
         """
         Return a Settings object that's full of values from the settings dialog.
@@ -953,15 +740,6 @@ class TorSettingsDialog(QtWidgets.QDialog):
         self.common.log("TorSettingsDialog", "settings_from_fields")
         settings = Settings(self.common)
         settings.load()  # To get the last update timestamp
-
-        # Theme
-        theme_index = self.theme_combobox.currentIndex()
-        settings.set("theme", theme_index)
-
-        # Language
-        locale_index = self.language_combobox.currentIndex()
-        locale = self.language_combobox.itemData(locale_index)
-        settings.set("locale", locale)
 
         # Tor connection
         if self.connection_type_bundled_radio.isChecked():
@@ -972,11 +750,6 @@ class TorSettingsDialog(QtWidgets.QDialog):
             settings.set("connection_type", "control_port")
         if self.connection_type_socket_file_radio.isChecked():
             settings.set("connection_type", "socket_file")
-
-        if self.autoupdate_checkbox.isChecked():
-            settings.set("use_autoupdate", True)
-        else:
-            settings.set("use_autoupdate", False)
 
         settings.set(
             "control_port_address",
@@ -1071,18 +844,6 @@ class TorSettingsDialog(QtWidgets.QDialog):
                 # Wait 1ms for the event loop to finish, then quit
                 QtCore.QTimer.singleShot(1, self.common.gui.qtapp.quit)
 
-    def _update_autoupdate_timestamp(self, autoupdate_timestamp):
-        self.common.log("TorSettingsDialog", "_update_autoupdate_timestamp")
-
-        if autoupdate_timestamp:
-            dt = datetime.datetime.fromtimestamp(autoupdate_timestamp)
-            last_checked = dt.strftime("%B %d, %Y %H:%M")
-        else:
-            last_checked = strings._("gui_settings_autoupdate_timestamp_never")
-        self.autoupdate_timestamp.setText(
-            strings._("gui_settings_autoupdate_timestamp").format(last_checked)
-        )
-
     def _tor_status_update(self, progress, summary):
         self.tor_status.setText(
             f"<strong>{strings._('connecting_to_tor')}</strong><br>{progress}% {summary}"
@@ -1095,18 +856,12 @@ class TorSettingsDialog(QtWidgets.QDialog):
     def _disable_buttons(self):
         self.common.log("TorSettingsDialog", "_disable_buttons")
 
-        self.check_for_updates_button.setEnabled(False)
         self.connection_type_test_button.setEnabled(False)
         self.save_button.setEnabled(False)
         self.cancel_button.setEnabled(False)
 
     def _enable_buttons(self):
         self.common.log("TorSettingsDialog", "_enable_buttons")
-        # We can't check for updates if we're still not connected to Tor
-        if not self.common.gui.onion.connected_to_tor:
-            self.check_for_updates_button.setEnabled(False)
-        else:
-            self.check_for_updates_button.setEnabled(True)
         self.connection_type_test_button.setEnabled(True)
         self.save_button.setEnabled(True)
         self.cancel_button.setEnabled(True)
