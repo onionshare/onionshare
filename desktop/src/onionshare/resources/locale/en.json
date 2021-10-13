@@ -40,6 +40,7 @@
     "gui_please_wait_no_button": "Starting…",
     "gui_please_wait": "Starting… Click to cancel.",
     "zip_progress_bar_format": "Compressing: %p%",
+    "gui_tor_settings_window_title": "Tor Settings",
     "gui_settings_window_title": "Settings",
     "gui_settings_autoupdate_label": "Check for new version",
     "gui_settings_autoupdate_option": "Notify me when a new version is available",

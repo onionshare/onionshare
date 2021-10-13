@@ -18,11 +18,13 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
+import os
 import time
 from PySide2 import QtCore, QtWidgets, QtGui
 
 from . import strings
 from .tor_connection_dialog import TorConnectionDialog
+from .tor_settings_dialog import TorSettingsDialog
 from .settings_dialog import SettingsDialog
 from .widgets import Alert
 from .update_checker import UpdateThread
@@ -105,6 +107,24 @@ class MainWindow(QtWidgets.QMainWindow):
             server_status_indicator_layout
         )
         self.status_bar.addPermanentWidget(self.status_bar.server_status_indicator)
+
+        # Tor settings button
+        self.tor_settings_button = QtWidgets.QPushButton()
+        self.tor_settings_button.setDefault(False)
+        self.tor_settings_button.setFixedSize(40, 50)
+        self.tor_settings_button.setIcon(
+            QtGui.QIcon(
+                GuiCommon.get_resource_path(
+                    "images/{}_tor_settings.png".format(self.common.gui.color_mode)
+                )
+            )
+        )
+        self.tor_settings_button.clicked.connect(self.open_tor_settings)
+        self.tor_settings_button.setStyleSheet(self.common.gui.css["settings_button"])
+        self.status_bar.addPermanentWidget(self.tor_settings_button)
+
+        if os.environ.get("ONIONSHARE_HIDE_TOR_SETTINGS") == "1":
+            self.tor_settings_button.hide()
 
         # Settings button
         self.settings_button = QtWidgets.QPushButton()
@@ -222,6 +242,15 @@ class MainWindow(QtWidgets.QMainWindow):
 
         # Wait 1ms for the event loop to finish closing the TorConnectionDialog
         QtCore.QTimer.singleShot(1, self.open_settings)
+
+    def open_tor_settings(self):
+        """
+        Open the TorSettingsDialog.
+        """
+        self.common.log("MainWindow", "open_tor_settings")
+        d = TorSettingsDialog(self.common)
+        d.settings_saved.connect(self.settings_have_changed)
+        d.exec_()
 
     def open_settings(self):
         """

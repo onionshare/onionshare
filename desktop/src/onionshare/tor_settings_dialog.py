@@ -51,7 +51,7 @@ from .tor_connection_dialog import TorConnectionDialog
 from .gui_common import GuiCommon
 
 
-class SettingsDialog(QtWidgets.QDialog):
+class TorSettingsDialog(QtWidgets.QDialog):
     """
     Settings dialog.
     """
@@ -59,14 +59,14 @@ class SettingsDialog(QtWidgets.QDialog):
     settings_saved = QtCore.Signal()
 
     def __init__(self, common):
-        super(SettingsDialog, self).__init__()
+        super(TorSettingsDialog, self).__init__()
 
         self.common = common
 
-        self.common.log("SettingsDialog", "__init__")
+        self.common.log("TorSettingsDialog", "__init__")
 
         self.setModal(True)
-        self.setWindowTitle(strings._("gui_settings_window_title"))
+        self.setWindowTitle(strings._("gui_tor_settings_window_title"))
         self.setWindowIcon(QtGui.QIcon(GuiCommon.get_resource_path("images/logo.png")))
 
         self.system = platform.system()
@@ -562,7 +562,7 @@ class SettingsDialog(QtWidgets.QDialog):
         """
         Connection type bundled was toggled. If checked, hide authentication fields.
         """
-        self.common.log("SettingsDialog", "connection_type_bundled_toggled")
+        self.common.log("TorSettingsDialog", "connection_type_bundled_toggled")
         if self.hide_tor_settings:
             return
         if checked:
@@ -617,7 +617,7 @@ class SettingsDialog(QtWidgets.QDialog):
         """
         Connection type automatic was toggled. If checked, hide authentication fields.
         """
-        self.common.log("SettingsDialog", "connection_type_automatic_toggled")
+        self.common.log("TorSettingsDialog", "connection_type_automatic_toggled")
         if self.hide_tor_settings:
             return
         if checked:
@@ -630,7 +630,7 @@ class SettingsDialog(QtWidgets.QDialog):
         Connection type control port was toggled. If checked, show extra fields
         for Tor control address and port. If unchecked, hide those extra fields.
         """
-        self.common.log("SettingsDialog", "connection_type_control_port_toggled")
+        self.common.log("TorSettingsDialog", "connection_type_control_port_toggled")
         if self.hide_tor_settings:
             return
         if checked:
@@ -646,7 +646,7 @@ class SettingsDialog(QtWidgets.QDialog):
         Connection type socket file was toggled. If checked, show extra fields
         for socket file. If unchecked, hide those extra fields.
         """
-        self.common.log("SettingsDialog", "connection_type_socket_file_toggled")
+        self.common.log("TorSettingsDialog", "connection_type_socket_file_toggled")
         if self.hide_tor_settings:
             return
         if checked:
@@ -661,14 +661,14 @@ class SettingsDialog(QtWidgets.QDialog):
         """
         Authentication option no authentication was toggled.
         """
-        self.common.log("SettingsDialog", "authenticate_no_auth_toggled")
+        self.common.log("TorSettingsDialog", "authenticate_no_auth_toggled")
 
     def authenticate_password_toggled(self, checked):
         """
         Authentication option password was toggled. If checked, show extra fields
         for password auth. If unchecked, hide those extra fields.
         """
-        self.common.log("SettingsDialog", "authenticate_password_toggled")
+        self.common.log("TorSettingsDialog", "authenticate_password_toggled")
         if checked:
             self.authenticate_password_extras.show()
         else:
@@ -679,7 +679,7 @@ class SettingsDialog(QtWidgets.QDialog):
         Test Tor Settings button clicked. With the given settings, see if we can
         successfully connect and authenticate to Tor.
         """
-        self.common.log("SettingsDialog", "test_tor_clicked")
+        self.common.log("TorSettingsDialog", "test_tor_clicked")
         settings = self.settings_from_fields()
 
         try:
@@ -748,7 +748,7 @@ class SettingsDialog(QtWidgets.QDialog):
         """
         Check for Updates button clicked. Manually force an update check.
         """
-        self.common.log("SettingsDialog", "check_for_updates")
+        self.common.log("TorSettingsDialog", "check_for_updates")
         # Disable buttons
         self._disable_buttons()
         self.common.gui.qtapp.processEvents()
@@ -810,7 +810,7 @@ class SettingsDialog(QtWidgets.QDialog):
         """
         Save button clicked. Save current settings to disk.
         """
-        self.common.log("SettingsDialog", "save_clicked")
+        self.common.log("TorSettingsDialog", "save_clicked")
 
         def changed(s1, s2, keys):
             """
@@ -854,7 +854,7 @@ class SettingsDialog(QtWidgets.QDialog):
             if not self.common.gui.local_only:
                 if self.common.gui.onion.is_authenticated():
                     self.common.log(
-                        "SettingsDialog", "save_clicked", "Connected to Tor"
+                        "TorSettingsDialog", "save_clicked", "Connected to Tor"
                     )
 
                     if changed(
@@ -880,7 +880,7 @@ class SettingsDialog(QtWidgets.QDialog):
 
                 else:
                     self.common.log(
-                        "SettingsDialog", "save_clicked", "Not connected to Tor"
+                        "TorSettingsDialog", "save_clicked", "Not connected to Tor"
                     )
                     # Tor isn't connected, so try connecting
                     reboot_onion = True
@@ -889,7 +889,7 @@ class SettingsDialog(QtWidgets.QDialog):
                 if reboot_onion:
                     # Reinitialize the Onion object
                     self.common.log(
-                        "SettingsDialog", "save_clicked", "rebooting the Onion"
+                        "TorSettingsDialog", "save_clicked", "rebooting the Onion"
                     )
                     self.common.gui.onion.cleanup()
 
@@ -897,7 +897,7 @@ class SettingsDialog(QtWidgets.QDialog):
                     tor_con.start()
 
                     self.common.log(
-                        "SettingsDialog",
+                        "TorSettingsDialog",
                         "save_clicked",
                         f"Onion done rebooting, connected to Tor: {self.common.gui.onion.connected_to_tor}",
                     )
@@ -920,7 +920,7 @@ class SettingsDialog(QtWidgets.QDialog):
         """
         Cancel button clicked.
         """
-        self.common.log("SettingsDialog", "cancel_clicked")
+        self.common.log("TorSettingsDialog", "cancel_clicked")
         if (
             not self.common.gui.local_only
             and not self.common.gui.onion.is_authenticated()
@@ -938,8 +938,8 @@ class SettingsDialog(QtWidgets.QDialog):
         """
         Help button clicked.
         """
-        self.common.log("SettingsDialog", "help_clicked")
-        SettingsDialog.open_help()
+        self.common.log("TorSettingsDialog", "help_clicked")
+        TorSettingsDialog.open_help()
 
     @staticmethod
     def open_help():
@@ -950,7 +950,7 @@ class SettingsDialog(QtWidgets.QDialog):
         """
         Return a Settings object that's full of values from the settings dialog.
         """
-        self.common.log("SettingsDialog", "settings_from_fields")
+        self.common.log("TorSettingsDialog", "settings_from_fields")
         settings = Settings(self.common)
         settings.load()  # To get the last update timestamp
 
@@ -1057,20 +1057,22 @@ class SettingsDialog(QtWidgets.QDialog):
         return settings
 
     def closeEvent(self, e):
-        self.common.log("SettingsDialog", "closeEvent")
+        self.common.log("TorSettingsDialog", "closeEvent")
 
         # On close, if Tor isn't connected, then quit OnionShare altogether
         if not self.common.gui.local_only:
             if not self.common.gui.onion.is_authenticated():
                 self.common.log(
-                    "SettingsDialog", "closeEvent", "Closing while not connected to Tor"
+                    "TorSettingsDialog",
+                    "closeEvent",
+                    "Closing while not connected to Tor",
                 )
 
                 # Wait 1ms for the event loop to finish, then quit
                 QtCore.QTimer.singleShot(1, self.common.gui.qtapp.quit)
 
     def _update_autoupdate_timestamp(self, autoupdate_timestamp):
-        self.common.log("SettingsDialog", "_update_autoupdate_timestamp")
+        self.common.log("TorSettingsDialog", "_update_autoupdate_timestamp")
 
         if autoupdate_timestamp:
             dt = datetime.datetime.fromtimestamp(autoupdate_timestamp)
@@ -1091,7 +1093,7 @@ class SettingsDialog(QtWidgets.QDialog):
             self._enable_buttons()
 
     def _disable_buttons(self):
-        self.common.log("SettingsDialog", "_disable_buttons")
+        self.common.log("TorSettingsDialog", "_disable_buttons")
 
         self.check_for_updates_button.setEnabled(False)
         self.connection_type_test_button.setEnabled(False)
@@ -1099,7 +1101,7 @@ class SettingsDialog(QtWidgets.QDialog):
         self.cancel_button.setEnabled(False)
 
     def _enable_buttons(self):
-        self.common.log("SettingsDialog", "_enable_buttons")
+        self.common.log("TorSettingsDialog", "_enable_buttons")
         # We can't check for updates if we're still not connected to Tor
         if not self.common.gui.onion.connected_to_tor:
             self.check_for_updates_button.setEnabled(False)
