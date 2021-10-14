@@ -220,7 +220,7 @@ class MainWindow(QtWidgets.QMainWindow):
                     "_tor_connection_canceled",
                     "Settings button clicked",
                 )
-                self.open_settings()
+                self.open_tor_settings()
 
             if a.clickedButton() == quit_button:
                 # Quit
