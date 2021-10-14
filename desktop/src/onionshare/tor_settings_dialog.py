@@ -358,16 +358,10 @@ class TorSettingsDialog(QtWidgets.QDialog):
         buttons_layout.addWidget(self.save_button)
         buttons_layout.addWidget(self.cancel_button)
 
-        # Tor network connection status
-        self.tor_status = QtWidgets.QLabel()
-        self.tor_status.setStyleSheet(self.common.gui.css["settings_tor_status"])
-        self.tor_status.hide()
-
         # Layout
         layout = QtWidgets.QVBoxLayout()
         layout.addWidget(connection_type_radio_group)
         layout.addLayout(connection_type_layout)
-        layout.addWidget(self.tor_status)
         layout.addStretch()
         layout.addLayout(buttons_layout)
 
@@ -547,30 +541,17 @@ class TorSettingsDialog(QtWidgets.QDialog):
         self.common.log("TorSettingsDialog", "test_tor_clicked")
         settings = self.settings_from_fields()
 
-        try:
-            # Show Tor connection status if connection type is bundled tor
-            if settings.get("connection_type") == "bundled":
-                self.tor_status.show()
-                self._disable_buttons()
+        onion = Onion(
+            self.common,
+            use_tmp_dir=True,
+            get_tor_paths=self.common.gui.get_tor_paths,
+        )
 
-                def tor_status_update_func(progress, summary):
-                    self._tor_status_update(progress, summary)
-                    return True
+        tor_con = TorConnectionDialog(self.common, settings, True, onion)
+        tor_con.start()
 
-            else:
-                tor_status_update_func = None
-
-            onion = Onion(
-                self.common,
-                use_tmp_dir=True,
-                get_tor_paths=self.common.gui.get_tor_paths,
-            )
-            onion.connect(
-                custom_settings=settings,
-                tor_status_update_func=tor_status_update_func,
-            )
-
-            # If an exception hasn't been raised yet, the Tor settings work
+        # If Tor settings worked, show results
+        if onion.connected_to_tor:
             Alert(
                 self.common,
                 strings._("settings_test_success").format(
@@ -579,35 +560,11 @@ class TorSettingsDialog(QtWidgets.QDialog):
                     onion.supports_stealth,
                     onion.supports_v3_onions,
                 ),
+                title=strings._("gui_settings_connection_type_test_button"),
             )
 
-            # Clean up
-            onion.cleanup()
-
-        except (
-            TorErrorInvalidSetting,
-            TorErrorAutomatic,
-            TorErrorSocketPort,
-            TorErrorSocketFile,
-            TorErrorMissingPassword,
-            TorErrorUnreadableCookieFile,
-            TorErrorAuthError,
-            TorErrorProtocolError,
-            BundledTorTimeout,
-            BundledTorBroken,
-            TorTooOldEphemeral,
-            TorTooOldStealth,
-            PortNotAvailable,
-        ) as e:
-            message = self.common.gui.get_translated_tor_error(e)
-            Alert(
-                self.common,
-                message,
-                QtWidgets.QMessageBox.Warning,
-            )
-            if settings.get("connection_type") == "bundled":
-                self.tor_status.hide()
-                self._enable_buttons()
+        # Clean up
+        onion.cleanup()
 
     def save_clicked(self):
         """
@@ -748,9 +705,9 @@ class TorSettingsDialog(QtWidgets.QDialog):
         settings.set("socks_address", self.connection_type_socks_address.text())
         settings.set("socks_port", self.connection_type_socks_port.text())
 
-        if self.authenticate_no_auth_radio.isChecked():
+        if self.authenticate_no_auth_checkbox.checkState() == QtCore.Qt.Checked:
             settings.set("auth_type", "no_auth")
-        if self.authenticate_password_radio.isChecked():
+        else:
             settings.set("auth_type", "password")
 
         settings.set("auth_password", self.authenticate_password_extras_password.text())
@@ -826,25 +783,3 @@ class TorSettingsDialog(QtWidgets.QDialog):
 
                 # Wait 1ms for the event loop to finish, then quit
                 QtCore.QTimer.singleShot(1, self.common.gui.qtapp.quit)
-
-    def _tor_status_update(self, progress, summary):
-        self.tor_status.setText(
-            f"<strong>{strings._('connecting_to_tor')}</strong><br>{progress}% {summary}"
-        )
-        self.common.gui.qtapp.processEvents()
-        if "Done" in summary:
-            self.tor_status.hide()
-            self._enable_buttons()
-
-    def _disable_buttons(self):
-        self.common.log("TorSettingsDialog", "_disable_buttons")
-
-        self.connection_type_test_button.setEnabled(False)
-        self.save_button.setEnabled(False)
-        self.cancel_button.setEnabled(False)
-
-    def _enable_buttons(self):
-        self.common.log("TorSettingsDialog", "_enable_buttons")
-        self.connection_type_test_button.setEnabled(True)
-        self.save_button.setEnabled(True)
-        self.cancel_button.setEnabled(True)
