@@ -267,21 +267,11 @@ class TorSettingsDialog(QtWidgets.QDialog):
         self.connection_type_socks.hide()
 
         # Authentication options
-
-        # No authentication
-        self.authenticate_no_auth_radio = QtWidgets.QRadioButton(
+        self.authenticate_no_auth_checkbox = QtWidgets.QCheckBox(
             strings._("gui_settings_authenticate_no_auth_option")
         )
-        self.authenticate_no_auth_radio.toggled.connect(
+        self.authenticate_no_auth_checkbox.toggled.connect(
             self.authenticate_no_auth_toggled
-        )
-
-        # Password
-        self.authenticate_password_radio = QtWidgets.QRadioButton(
-            strings._("gui_settings_authenticate_password_option")
-        )
-        self.authenticate_password_radio.toggled.connect(
-            self.authenticate_password_toggled
         )
 
         authenticate_password_extras_label = QtWidgets.QLabel(
@@ -300,15 +290,18 @@ class TorSettingsDialog(QtWidgets.QDialog):
         self.authenticate_password_extras.setLayout(authenticate_password_extras_layout)
         self.authenticate_password_extras.hide()
 
-        # Authentication options layout
-        authenticate_group_layout = QtWidgets.QVBoxLayout()
-        authenticate_group_layout.addWidget(self.authenticate_no_auth_radio)
-        authenticate_group_layout.addWidget(self.authenticate_password_radio)
-        authenticate_group_layout.addWidget(self.authenticate_password_extras)
-        self.authenticate_group = QtWidgets.QGroupBox(
-            strings._("gui_settings_authenticate_label")
+        # Group for Tor settings
+        tor_settings_layout = QtWidgets.QVBoxLayout()
+        tor_settings_layout.addWidget(self.connection_type_control_port_extras)
+        tor_settings_layout.addWidget(self.connection_type_socket_file_extras)
+        tor_settings_layout.addWidget(self.connection_type_socks)
+        tor_settings_layout.addWidget(self.authenticate_no_auth_checkbox)
+        tor_settings_layout.addWidget(self.authenticate_password_extras)
+        self.tor_settings_group = QtWidgets.QGroupBox(
+            strings._("gui_settings_controller_extras_label")
         )
-        self.authenticate_group.setLayout(authenticate_group_layout)
+        self.tor_settings_group.setLayout(tor_settings_layout)
+        self.tor_settings_group.hide()
 
         # Put the radios into their own group so they are exclusive
         connection_type_radio_group_layout = QtWidgets.QVBoxLayout()
@@ -349,10 +342,7 @@ class TorSettingsDialog(QtWidgets.QDialog):
 
         # Connection type layout
         connection_type_layout = QtWidgets.QVBoxLayout()
-        connection_type_layout.addWidget(self.connection_type_control_port_extras)
-        connection_type_layout.addWidget(self.connection_type_socket_file_extras)
-        connection_type_layout.addWidget(self.connection_type_socks)
-        connection_type_layout.addWidget(self.authenticate_group)
+        connection_type_layout.addWidget(self.tor_settings_group)
         connection_type_layout.addWidget(self.connection_type_bridges_radio_group)
         connection_type_layout.addLayout(connection_type_test_button_layout)
 
@@ -421,9 +411,9 @@ class TorSettingsDialog(QtWidgets.QDialog):
         )
         auth_type = self.old_settings.get("auth_type")
         if auth_type == "no_auth":
-            self.authenticate_no_auth_radio.setChecked(True)
-        elif auth_type == "password":
-            self.authenticate_password_radio.setChecked(True)
+            self.authenticate_no_auth_checkbox.setCheckState(QtCore.Qt.Checked)
+        else:
+            self.authenticate_no_auth_checkbox.setChecked(QtCore.Qt.Unchecked)
         self.authenticate_password_extras_password.setText(
             self.old_settings.get("auth_password")
         )
@@ -458,11 +448,11 @@ class TorSettingsDialog(QtWidgets.QDialog):
 
     def connection_type_bundled_toggled(self, checked):
         """
-        Connection type bundled was toggled. If checked, hide authentication fields.
+        Connection type bundled was toggled
         """
         self.common.log("TorSettingsDialog", "connection_type_bundled_toggled")
         if checked:
-            self.authenticate_group.hide()
+            self.tor_settings_group.hide()
             self.connection_type_socks.hide()
             self.connection_type_bridges_radio_group.show()
 
@@ -507,7 +497,7 @@ class TorSettingsDialog(QtWidgets.QDialog):
         """
         self.common.log("TorSettingsDialog", "connection_type_automatic_toggled")
         if checked:
-            self.authenticate_group.hide()
+            self.tor_settings_group.hide()
             self.connection_type_socks.hide()
             self.connection_type_bridges_radio_group.hide()
 
@@ -518,7 +508,7 @@ class TorSettingsDialog(QtWidgets.QDialog):
         """
         self.common.log("TorSettingsDialog", "connection_type_control_port_toggled")
         if checked:
-            self.authenticate_group.show()
+            self.tor_settings_group.show()
             self.connection_type_control_port_extras.show()
             self.connection_type_socks.show()
             self.connection_type_bridges_radio_group.hide()
@@ -532,7 +522,7 @@ class TorSettingsDialog(QtWidgets.QDialog):
         """
         self.common.log("TorSettingsDialog", "connection_type_socket_file_toggled")
         if checked:
-            self.authenticate_group.show()
+            self.tor_settings_group.show()
             self.connection_type_socket_file_extras.show()
             self.connection_type_socks.show()
             self.connection_type_bridges_radio_group.hide()
@@ -544,17 +534,10 @@ class TorSettingsDialog(QtWidgets.QDialog):
         Authentication option no authentication was toggled.
         """
         self.common.log("TorSettingsDialog", "authenticate_no_auth_toggled")
-
-    def authenticate_password_toggled(self, checked):
-        """
-        Authentication option password was toggled. If checked, show extra fields
-        for password auth. If unchecked, hide those extra fields.
-        """
-        self.common.log("TorSettingsDialog", "authenticate_password_toggled")
         if checked:
-            self.authenticate_password_extras.show()
-        else:
             self.authenticate_password_extras.hide()
+        else:
+            self.authenticate_password_extras.show()
 
     def test_tor_clicked(self):
         """
