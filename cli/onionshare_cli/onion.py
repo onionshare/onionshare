@@ -326,6 +326,11 @@ class Onion(object):
                     ) as o:
                         for line in o:
                             f.write(line)
+                elif self.settings.get("tor_bridges_use_snowflake"):
+                    # Taken from: tor-browser_en-US/Browser/TorBrowser/Data/Tor/torrc-defaults
+                    f.write(
+                        f"ClientTransportPlugin snowflake exec {self.snowflake_file_path} -url https://snowflake-broker.torproject.net.global.prod.fastly.net/ -front cdn.sstatic.net -ice stun:stun.l.google.com:19302,stun:stun.voip.blackberry.com:3478,stun:stun.altar.com.pl:3478,stun:stun.antisip.com:3478,stun:stun.bluesip.net:3478,stun:stun.dus.net:3478,stun:stun.epygi.com:3478,stun:stun.sonetel.com:3478,stun:stun.sonetel.net:3478,stun:stun.stunprotocol.org:3478,stun:stun.uls.co.za:3478,stun:stun.voipgate.com:3478,stun:stun.voys.nl:3478\n"
+                    )
 
                 if self.settings.get("tor_bridges_use_custom_bridges"):
                     if "obfs4" in self.settings.get("tor_bridges_use_custom_bridges"):
