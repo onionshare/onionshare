@@ -312,6 +312,9 @@ class Common:
             # Look in resources first
             base_path = self.get_resource_path("tor")
             if os.path.exists(base_path):
+                self.log(
+                    "Common", "get_tor_paths", f"using tor binaries in {base_path}"
+                )
                 tor_path = os.path.join(base_path, "tor")
                 tor_geo_ip_file_path = os.path.join(base_path, "geoip")
                 tor_geo_ipv6_file_path = os.path.join(base_path, "geoip6")
@@ -319,6 +322,9 @@ class Common:
                 snowflake_file_path = os.path.join(base_path, "snowflake-client")
             else:
                 # Fallback to looking in the path
+                self.log(
+                    "Common", "get_tor_paths", f"using tor binaries in system path"
+                )
                 tor_path = shutil.which("tor")
                 if not tor_path:
                     raise CannotFindTor()

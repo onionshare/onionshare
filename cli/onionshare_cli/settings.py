@@ -108,6 +108,7 @@ class Settings(object):
             "no_bridges": True,
             "tor_bridges_use_obfs4": False,
             "tor_bridges_use_meek_lite_azure": False,
+            "tor_bridges_use_snowflake": False,
             "tor_bridges_use_custom_bridges": "",
             "persistent_tabs": [],
             "locale": None,  # this gets defined in fill_in_defaults()

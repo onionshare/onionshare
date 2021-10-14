@@ -405,7 +405,21 @@ class GuiCommon:
 
     def get_tor_paths(self):
         if self.common.platform == "Linux":
-            return self.common.get_tor_paths()
+            base_path = self.get_resource_path("tor")
+            if os.path.exists(base_path):
+                tor_path = os.path.join(base_path, "tor")
+                tor_geo_ip_file_path = os.path.join(base_path, "geoip")
+                tor_geo_ipv6_file_path = os.path.join(base_path, "geoip6")
+                obfs4proxy_file_path = os.path.join(base_path, "obfs4proxy")
+                snowflake_file_path = os.path.join(base_path, "snowflake-client")
+            else:
+                # Fallback to looking in the path
+                tor_path = shutil.which("tor")
+                obfs4proxy_file_path = shutil.which("obfs4proxy")
+                snowflake_file_path = shutil.which("snowflake-client")
+                prefix = os.path.dirname(os.path.dirname(tor_path))
+                tor_geo_ip_file_path = os.path.join(prefix, "share/tor/geoip")
+                tor_geo_ipv6_file_path = os.path.join(prefix, "share/tor/geoip6")
 
         if self.common.platform == "Windows":
             base_path = self.get_resource_path("tor")
