@@ -331,22 +331,16 @@ class TorSettingsDialog(QtWidgets.QDialog):
         )
         self.connection_type_bridges_radio_group.hide()
 
-        # Test tor settings button
-        self.connection_type_test_button = QtWidgets.QPushButton(
-            strings._("gui_settings_connection_type_test_button")
-        )
-        self.connection_type_test_button.clicked.connect(self.test_tor_clicked)
-        connection_type_test_button_layout = QtWidgets.QHBoxLayout()
-        connection_type_test_button_layout.addWidget(self.connection_type_test_button)
-        connection_type_test_button_layout.addStretch()
-
         # Connection type layout
         connection_type_layout = QtWidgets.QVBoxLayout()
         connection_type_layout.addWidget(self.tor_settings_group)
         connection_type_layout.addWidget(self.connection_type_bridges_radio_group)
-        connection_type_layout.addLayout(connection_type_test_button_layout)
 
         # Buttons
+        self.test_tor_button = QtWidgets.QPushButton(
+            strings._("gui_settings_connection_type_test_button")
+        )
+        self.test_tor_button.clicked.connect(self.test_tor_clicked)
         self.save_button = QtWidgets.QPushButton(strings._("gui_settings_button_save"))
         self.save_button.clicked.connect(self.save_clicked)
         self.cancel_button = QtWidgets.QPushButton(
@@ -354,6 +348,7 @@ class TorSettingsDialog(QtWidgets.QDialog):
         )
         self.cancel_button.clicked.connect(self.cancel_clicked)
         buttons_layout = QtWidgets.QHBoxLayout()
+        buttons_layout.addWidget(self.test_tor_button)
         buttons_layout.addStretch()
         buttons_layout.addWidget(self.save_button)
         buttons_layout.addWidget(self.cancel_button)
