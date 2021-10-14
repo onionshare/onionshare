@@ -392,24 +392,14 @@ class GuiCommon:
                 QPushButton {
                     padding: 5px 10px;
                 }""",
-            # Settings dialog
+            # Settings dialogs
             "settings_version": """
                 QLabel {
                     color: #666666;
                 }""",
-            "settings_tor_status": """
-                QLabel {
-                    background-color: #ffffff;
-                    color: #000000;
-                    padding: 10px;
-                }""",
             "settings_whats_this": """
                 QLabel {
                     font-size: 12px;
-                }""",
-            "settings_connect_to_tor": """
-                QLabel {
-                    font-style: italic;
                 }""",
         }
 
