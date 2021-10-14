@@ -71,6 +71,17 @@ class SettingsDialog(QtWidgets.QDialog):
 
         self.system = platform.system()
 
+        # Header
+        version_label = QtWidgets.QLabel(f"OnionShare {self.common.version}")
+        version_label.setStyleSheet(self.common.gui.css["settings_version"])
+        self.help_button = QtWidgets.QPushButton(strings._("gui_settings_button_help"))
+        self.help_button.clicked.connect(self.help_clicked)
+        header_layout = QtWidgets.QHBoxLayout()
+        header_layout.addStretch()
+        header_layout.addWidget(version_label)
+        header_layout.addWidget(self.help_button)
+        header_layout.addStretch()
+
         # Automatic updates options
 
         # Autoupdate
@@ -142,24 +153,19 @@ class SettingsDialog(QtWidgets.QDialog):
             strings._("gui_settings_button_cancel")
         )
         self.cancel_button.clicked.connect(self.cancel_clicked)
-        version_label = QtWidgets.QLabel(f"OnionShare {self.common.version}")
-        version_label.setStyleSheet(self.common.gui.css["settings_version"])
-        self.help_button = QtWidgets.QPushButton(strings._("gui_settings_button_help"))
-        self.help_button.clicked.connect(self.help_clicked)
         buttons_layout = QtWidgets.QHBoxLayout()
-        buttons_layout.addWidget(version_label)
-        buttons_layout.addWidget(self.help_button)
         buttons_layout.addStretch()
         buttons_layout.addWidget(self.save_button)
         buttons_layout.addWidget(self.cancel_button)
 
         # Layout
         layout = QtWidgets.QVBoxLayout()
+        layout.addLayout(header_layout)
+        layout.addSpacing(20)
         layout.addWidget(autoupdate_group)
         if autoupdate_group.isVisible():
             layout.addSpacing(20)
         layout.addLayout(language_layout)
-        layout.addSpacing(20)
         layout.addLayout(theme_layout)
         layout.addSpacing(20)
         layout.addStretch()

@@ -395,7 +395,7 @@ class GuiCommon:
             # Settings dialogs
             "settings_version": """
                 QLabel {
-                    color: #666666;
+                    font-size: 16px;
                 }""",
             "settings_whats_this": """
                 QLabel {
