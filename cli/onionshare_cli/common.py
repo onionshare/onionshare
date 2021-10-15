@@ -22,6 +22,7 @@ import hashlib
 import os
 import platform
 import random
+import requests
 import socket
 import sys
 import threading
@@ -503,6 +504,74 @@ class Common:
                 if not os.path.islink(fp):
                     total_size += os.path.getsize(fp)
         return total_size
+
+    def censorship_obtain_map(self):
+        """
+        Retrieves the Circumvention map from Tor Project and store it
+        locally for further look-ups if required.
+        """
+        endpoint = "https://bridges.torproject.org/moat/circumvention/map"
+        # @TODO this needs to be using domain fronting to defeat censorship
+        # of the lookup itself.
+        response = requests.get(endpoint)
+        self.censorship_map = response.json()
+        self.log("Common", "censorship_obtain_map", self.censorship_map)
+
+    def censorship_obtain_settings_from_api(self):
+        """
+        Retrieves the Circumvention Settings from Tor Project, which
+        will return recommended settings based on the country code of
+        the requesting IP.
+        """
+        endpoint = "https://bridges.torproject.org/moat/circumvention/settings"
+        # @TODO this needs to be using domain fronting to defeat censorship
+        # of the lookup itself.
+        response = requests.get(endpoint)
+        self.censorship_settings = response.json()
+        self.log(
+            "Common", "censorship_obtain_settings_from_api", self.censorship_settings
+        )
+
+    def censorship_obtain_settings_from_map(self, country):
+        """
+        Retrieves the Circumvention Settings for this country from the
+        circumvention map we have stored locally, rather than from the
+        API endpoint.
+
+        This is for when the user has specified the country themselves
+        rather than requesting auto-detection.
+        """
+        try:
+            # Fetch the map.
+            self.censorship_obtain_map()
+            self.censorship_settings = self.censorship_map[country]
+            self.log(
+                "Common",
+                "censorship_obtain_settings_from_map",
+                f"Settings are {self.censorship_settings}",
+            )
+        except KeyError:
+            self.log(
+                "Common",
+                "censorship_obtain_settings_from_map",
+                "No censorship settings found for this country",
+            )
+            return False
+
+    def censorship_obtain_builtin_bridges(self):
+        """
+        Retrieves the list of built-in bridges from the Tor Project.
+        """
+        endpoint = "https://bridges.torproject.org/moat/circumvention/builtin"
+        # @TODO this needs to be using domain fronting to defeat censorship
+        # of the lookup itself.
+        response = requests.get(endpoint)
+        self.censorship_builtin_bridges = response.json()
+        self.log(
+            "Common",
+            "censorship_obtain_builtin_bridges",
+            self.censorship_builtin_bridges,
+        )
 
 
 class AutoStopTimer(threading.Thread):
