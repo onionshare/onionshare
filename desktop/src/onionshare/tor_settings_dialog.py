@@ -93,12 +93,10 @@ class TorSettingsDialog(QtWidgets.QDialog):
         bridges_label.setWordWrap(True)
 
         # No bridges option radio
-        self.tor_bridges_no_bridges_radio = QtWidgets.QRadioButton(
-            strings._("gui_settings_tor_bridges_no_bridges_radio_option")
+        self.bridge_none_radio = QtWidgets.QRadioButton(
+            strings._("gui_settings_bridge_none_radio_option")
         )
-        self.tor_bridges_no_bridges_radio.toggled.connect(
-            self.tor_bridges_no_bridges_radio_toggled
-        )
+        self.bridge_none_radio.toggled.connect(self.bridge_none_radio_toggled)
 
         (
             self.tor_path,
@@ -110,12 +108,10 @@ class TorSettingsDialog(QtWidgets.QDialog):
 
         # obfs4 option radio
         # if the obfs4proxy binary is missing, we can't use obfs4 transports
-        self.tor_bridges_use_obfs4_radio = QtWidgets.QRadioButton(
-            strings._("gui_settings_tor_bridges_obfs4_radio_option")
+        self.bridge_obfs4_radio = QtWidgets.QRadioButton(
+            strings._("gui_settings_bridge_obfs4_radio_option")
         )
-        self.tor_bridges_use_obfs4_radio.toggled.connect(
-            self.tor_bridges_use_obfs4_radio_toggled
-        )
+        self.bridge_obfs4_radio.toggled.connect(self.bridge_obfs4_radio_toggled)
         if not self.obfs4proxy_file_path or not os.path.isfile(
             self.obfs4proxy_file_path
         ):
@@ -124,15 +120,15 @@ class TorSettingsDialog(QtWidgets.QDialog):
                 "__init__",
                 f"missing binary {self.obfs4proxy_file_path}, hiding obfs4 bridge",
             )
-            self.tor_bridges_use_obfs4_radio.hide()
+            self.bridge_obfs4_radio.hide()
 
         # meek-azure option radio
         # if the obfs4proxy binary is missing, we can't use meek_lite-azure transports
-        self.tor_bridges_use_meek_lite_azure_radio = QtWidgets.QRadioButton(
-            strings._("gui_settings_tor_bridges_meek_lite_azure_radio_option")
+        self.bridge_meek_azure_radio = QtWidgets.QRadioButton(
+            strings._("gui_settings_bridge_meek_azure_radio_option")
         )
-        self.tor_bridges_use_meek_lite_azure_radio.toggled.connect(
-            self.tor_bridges_use_meek_lite_azure_radio_toggled
+        self.bridge_meek_azure_radio.toggled.connect(
+            self.bridge_meek_azure_radio_toggled
         )
         if not self.obfs4proxy_file_path or not os.path.isfile(
             self.obfs4proxy_file_path
@@ -142,89 +138,65 @@ class TorSettingsDialog(QtWidgets.QDialog):
                 "__init__",
                 f"missing binary {self.obfs4proxy_file_path}, hiding meek-azure bridge",
             )
-            self.tor_bridges_use_meek_lite_azure_radio.hide()
+            self.bridge_meek_azure_radio.hide()
 
         # snowflake option radio
         # if the snowflake-client binary is missing, we can't use snowflake transports
-        self.tor_bridges_use_snowflake_radio = QtWidgets.QRadioButton(
-            strings._("gui_settings_tor_bridges_snowflake_radio_option")
+        self.bridge_snowflake_radio = QtWidgets.QRadioButton(
+            strings._("gui_settings_bridge_snowflake_radio_option")
         )
-        self.tor_bridges_use_snowflake_radio.toggled.connect(
-            self.tor_bridges_use_snowflake_radio_toggled
-        )
+        self.bridge_snowflake_radio.toggled.connect(self.bridge_snowflake_radio_toggled)
         if not self.snowflake_file_path or not os.path.isfile(self.snowflake_file_path):
             self.common.log(
                 "TorSettingsDialog",
                 "__init__",
                 f"missing binary {self.snowflake_file_path}, hiding snowflake bridge",
             )
-            self.tor_bridges_use_snowflake_radio.hide()
+            self.bridge_snowflake_radio.hide()
 
         # Request a bridge from torproject.org (moat)
-        # self.tor_bridges_use_moat_radio = QtWidgets.QRadioButton(
-        #     strings._("gui_settings_tor_bridges_moat_radio_option")
-        # )
-        # self.tor_bridges_use_moat_radio.toggled.connect(
-        #     self.tor_bridges_use_moat_radio_toggled
-        # )
-
-        # self.tor_bridges_use_moat_label = QtWidgets.QLabel(
-        #     strings._("gui_settings_tor_bridges_moat_label")
-        # )
-        # self.tor_bridges_use_custom_label.setOpenExternalLinks(True)
-        # self.tor_bridges_use_custom_textbox = QtWidgets.QPlainTextEdit()
-        # self.tor_bridges_use_custom_textbox.setMaximumHeight(200)
-        # self.tor_bridges_use_custom_textbox.setPlaceholderText(
-        #     "[address:port] [identifier]"
-        # )
-
-        # tor_bridges_use_custom_textbox_options_layout = QtWidgets.QVBoxLayout()
-        # tor_bridges_use_custom_textbox_options_layout.addWidget(
-        #     self.tor_bridges_use_custom_label
-        # )
-        # tor_bridges_use_custom_textbox_options_layout.addWidget(
-        #     self.tor_bridges_use_custom_textbox
-        # )
-
-        # self.tor_bridges_use_custom_textbox_options = QtWidgets.QWidget()
-        # self.tor_bridges_use_custom_textbox_options.setLayout(
-        #     tor_bridges_use_custom_textbox_options_layout
-        # )
-        # self.tor_bridges_use_custom_textbox_options.hide()
+        self.bridge_moat_radio = QtWidgets.QRadioButton(
+            strings._("gui_settings_bridge_moat_radio_option")
+        )
+        self.bridge_moat_radio.toggled.connect(self.bridge_moat_radio_toggled)
+        self.bridge_moat_textbox = QtWidgets.QPlainTextEdit()
+        self.bridge_moat_textbox.setMaximumHeight(200)
+        self.bridge_moat_textbox.setEnabled(False)
+        bridge_moat_textbox_options_layout = QtWidgets.QVBoxLayout()
+        bridge_moat_textbox_options_layout.addWidget(self.bridge_moat_textbox)
+        self.bridge_moat_textbox_options = QtWidgets.QWidget()
+        self.bridge_moat_textbox_options.setLayout(bridge_moat_textbox_options_layout)
+        self.bridge_moat_textbox_options.hide()
 
         # Custom bridges radio and textbox
-        self.tor_bridges_use_custom_radio = QtWidgets.QRadioButton(
-            strings._("gui_settings_tor_bridges_custom_radio_option")
+        self.bridge_custom_radio = QtWidgets.QRadioButton(
+            strings._("gui_settings_bridge_custom_radio_option")
         )
-        self.tor_bridges_use_custom_radio.toggled.connect(
-            self.tor_bridges_use_custom_radio_toggled
-        )
-        self.tor_bridges_use_custom_textbox = QtWidgets.QPlainTextEdit()
-        self.tor_bridges_use_custom_textbox.setMaximumHeight(200)
-        self.tor_bridges_use_custom_textbox.setPlaceholderText(
-            "[address:port] [identifier]"
-        )
+        self.bridge_custom_radio.toggled.connect(self.bridge_custom_radio_toggled)
+        self.bridge_custom_textbox = QtWidgets.QPlainTextEdit()
+        self.bridge_custom_textbox.setMaximumHeight(200)
+        self.bridge_custom_textbox.setPlaceholderText("[address:port] [identifier]")
 
-        tor_bridges_use_custom_textbox_options_layout = QtWidgets.QVBoxLayout()
-        tor_bridges_use_custom_textbox_options_layout.addWidget(
-            self.tor_bridges_use_custom_textbox
-        )
+        bridge_custom_textbox_options_layout = QtWidgets.QVBoxLayout()
+        bridge_custom_textbox_options_layout.addWidget(self.bridge_custom_textbox)
 
-        self.tor_bridges_use_custom_textbox_options = QtWidgets.QWidget()
-        self.tor_bridges_use_custom_textbox_options.setLayout(
-            tor_bridges_use_custom_textbox_options_layout
+        self.bridge_custom_textbox_options = QtWidgets.QWidget()
+        self.bridge_custom_textbox_options.setLayout(
+            bridge_custom_textbox_options_layout
         )
-        self.tor_bridges_use_custom_textbox_options.hide()
+        self.bridge_custom_textbox_options.hide()
 
         # Bridges layout/widget
         bridges_layout = QtWidgets.QVBoxLayout()
         bridges_layout.addWidget(bridges_label)
-        bridges_layout.addWidget(self.tor_bridges_no_bridges_radio)
-        bridges_layout.addWidget(self.tor_bridges_use_obfs4_radio)
-        bridges_layout.addWidget(self.tor_bridges_use_meek_lite_azure_radio)
-        bridges_layout.addWidget(self.tor_bridges_use_snowflake_radio)
-        bridges_layout.addWidget(self.tor_bridges_use_custom_radio)
-        bridges_layout.addWidget(self.tor_bridges_use_custom_textbox_options)
+        bridges_layout.addWidget(self.bridge_none_radio)
+        bridges_layout.addWidget(self.bridge_obfs4_radio)
+        bridges_layout.addWidget(self.bridge_meek_azure_radio)
+        bridges_layout.addWidget(self.bridge_snowflake_radio)
+        bridges_layout.addWidget(self.bridge_moat_radio)
+        bridges_layout.addWidget(self.bridge_moat_textbox_options)
+        bridges_layout.addWidget(self.bridge_custom_radio)
+        bridges_layout.addWidget(self.bridge_custom_textbox_options)
 
         self.bridges = QtWidgets.QWidget()
         self.bridges.setLayout(bridges_layout)
@@ -450,36 +422,36 @@ class TorSettingsDialog(QtWidgets.QDialog):
         )
 
         if self.old_settings.get("no_bridges"):
-            self.tor_bridges_no_bridges_radio.setChecked(True)
-            self.tor_bridges_use_obfs4_radio.setChecked(False)
-            self.tor_bridges_use_meek_lite_azure_radio.setChecked(False)
-            self.tor_bridges_use_snowflake_radio.setChecked(False)
-            self.tor_bridges_use_custom_radio.setChecked(False)
+            self.bridge_none_radio.setChecked(True)
+            self.bridge_obfs4_radio.setChecked(False)
+            self.bridge_meek_azure_radio.setChecked(False)
+            self.bridge_snowflake_radio.setChecked(False)
+            self.bridge_custom_radio.setChecked(False)
         else:
-            self.tor_bridges_no_bridges_radio.setChecked(False)
-            self.tor_bridges_use_obfs4_radio.setChecked(
+            self.bridge_none_radio.setChecked(False)
+            self.bridge_obfs4_radio.setChecked(
                 self.old_settings.get("tor_bridges_use_obfs4")
             )
-            self.tor_bridges_use_meek_lite_azure_radio.setChecked(
+            self.bridge_meek_azure_radio.setChecked(
                 self.old_settings.get("tor_bridges_use_meek_lite_azure")
             )
-            self.tor_bridges_use_snowflake_radio.setChecked(
+            self.bridge_snowflake_radio.setChecked(
                 self.old_settings.get("tor_bridges_use_snowflake")
             )
 
-            if self.old_settings.get("tor_bridges_use_custom_bridges"):
-                self.tor_bridges_use_custom_radio.setChecked(True)
+            if self.old_settings.get("bridge_custom_bridges"):
+                self.bridge_custom_radio.setChecked(True)
                 # Remove the 'Bridge' lines at the start of each bridge.
                 # They are added automatically to provide compatibility with
                 # copying/pasting bridges provided from https://bridges.torproject.org
                 new_bridges = []
-                bridges = self.old_settings.get("tor_bridges_use_custom_bridges").split(
+                bridges = self.old_settings.get("bridge_custom_bridges").split(
                     "Bridge "
                 )
                 for bridge in bridges:
                     new_bridges.append(bridge)
                 new_bridges = "".join(new_bridges)
-                self.tor_bridges_use_custom_textbox.setPlainText(new_bridges)
+                self.bridge_custom_textbox.setPlainText(new_bridges)
 
     def connection_type_bundled_toggled(self, checked):
         """
@@ -491,26 +463,30 @@ class TorSettingsDialog(QtWidgets.QDialog):
             self.connection_type_socks.hide()
             self.connection_type_bridges_radio_group.show()
 
-    def tor_bridges_no_bridges_radio_toggled(self, checked):
+    def bridge_none_radio_toggled(self, checked):
         """
         'No bridges' option was toggled. If checked, enable other bridge options.
         """
         if checked:
-            self.tor_bridges_use_custom_textbox_options.hide()
+            self.bridge_custom_textbox_options.hide()
+            self.bridge_moat_textbox_options.hide()
 
-    def tor_bridges_use_obfs4_radio_toggled(self, checked):
+    def bridge_obfs4_radio_toggled(self, checked):
         """
         obfs4 bridges option was toggled. If checked, disable custom bridge options.
         """
         if checked:
-            self.tor_bridges_use_custom_textbox_options.hide()
+            self.bridge_custom_textbox_options.hide()
+            self.bridge_moat_textbox_options.hide()
 
-    def tor_bridges_use_meek_lite_azure_radio_toggled(self, checked):
+    def bridge_meek_azure_radio_toggled(self, checked):
         """
         meek_lite_azure bridges option was toggled. If checked, disable custom bridge options.
         """
         if checked:
-            self.tor_bridges_use_custom_textbox_options.hide()
+            self.bridge_custom_textbox_options.hide()
+            self.bridge_moat_textbox_options.hide()
+
             # Alert the user about meek's costliness if it looks like they're turning it on
             if not self.old_settings.get("tor_bridges_use_meek_lite_azure"):
                 Alert(
@@ -519,19 +495,29 @@ class TorSettingsDialog(QtWidgets.QDialog):
                     QtWidgets.QMessageBox.Warning,
                 )
 
-    def tor_bridges_use_snowflake_radio_toggled(self, checked):
+    def bridge_snowflake_radio_toggled(self, checked):
         """
         snowflake bridges option was toggled. If checked, disable custom bridge options.
         """
         if checked:
-            self.tor_bridges_use_custom_textbox_options.hide()
+            self.bridge_custom_textbox_options.hide()
+            self.bridge_moat_textbox_options.hide()
 
-    def tor_bridges_use_custom_radio_toggled(self, checked):
+    def bridge_moat_radio_toggled(self, checked):
+        """
+        Moat (request bridge) bridges option was toggled. If checked, show moat bridge options.
+        """
+        if checked:
+            self.bridge_custom_textbox_options.hide()
+            self.bridge_moat_textbox_options.show()
+
+    def bridge_custom_radio_toggled(self, checked):
         """
         Custom bridges option was toggled. If checked, show custom bridge options.
         """
         if checked:
-            self.tor_bridges_use_custom_textbox_options.show()
+            self.bridge_custom_textbox_options.show()
+            self.bridge_moat_textbox_options.hide()
 
     def connection_type_automatic_toggled(self, checked):
         """
@@ -659,7 +645,7 @@ class TorSettingsDialog(QtWidgets.QDialog):
                             "no_bridges",
                             "tor_bridges_use_obfs4",
                             "tor_bridges_use_meek_lite_azure",
-                            "tor_bridges_use_custom_bridges",
+                            "bridge_custom_bridges",
                         ],
                     ):
 
@@ -761,31 +747,31 @@ class TorSettingsDialog(QtWidgets.QDialog):
         settings.set("auth_password", self.authenticate_password_extras_password.text())
 
         # Whether we use bridges
-        if self.tor_bridges_no_bridges_radio.isChecked():
+        if self.bridge_none_radio.isChecked():
             settings.set("no_bridges", True)
             settings.set("tor_bridges_use_obfs4", False)
             settings.set("tor_bridges_use_meek_lite_azure", False)
             settings.set("tor_bridges_use_snowflake", False)
-            settings.set("tor_bridges_use_custom_bridges", "")
-        if self.tor_bridges_use_obfs4_radio.isChecked():
+            settings.set("bridge_custom_bridges", "")
+        if self.bridge_obfs4_radio.isChecked():
             settings.set("no_bridges", False)
             settings.set("tor_bridges_use_obfs4", True)
             settings.set("tor_bridges_use_meek_lite_azure", False)
             settings.set("tor_bridges_use_snowflake", False)
-            settings.set("tor_bridges_use_custom_bridges", "")
-        if self.tor_bridges_use_meek_lite_azure_radio.isChecked():
+            settings.set("bridge_custom_bridges", "")
+        if self.bridge_meek_azure_radio.isChecked():
             settings.set("no_bridges", False)
             settings.set("tor_bridges_use_obfs4", False)
             settings.set("tor_bridges_use_meek_lite_azure", True)
             settings.set("tor_bridges_use_snowflake", False)
-            settings.set("tor_bridges_use_custom_bridges", "")
-        if self.tor_bridges_use_snowflake_radio.isChecked():
+            settings.set("bridge_custom_bridges", "")
+        if self.bridge_snowflake_radio.isChecked():
             settings.set("no_bridges", False)
             settings.set("tor_bridges_use_obfs4", False)
             settings.set("tor_bridges_use_meek_lite_azure", False)
             settings.set("tor_bridges_use_snowflake", True)
-            settings.set("tor_bridges_use_custom_bridges", "")
-        if self.tor_bridges_use_custom_radio.isChecked():
+            settings.set("bridge_custom_bridges", "")
+        if self.bridge_custom_radio.isChecked():
             settings.set("no_bridges", False)
             settings.set("tor_bridges_use_obfs4", False)
             settings.set("tor_bridges_use_meek_lite_azure", False)
@@ -795,7 +781,7 @@ class TorSettingsDialog(QtWidgets.QDialog):
             # This makes it easier to copy/paste a set of bridges
             # provided from https://bridges.torproject.org
             new_bridges = []
-            bridges = self.tor_bridges_use_custom_textbox.toPlainText().split("\n")
+            bridges = self.bridge_custom_textbox.toPlainText().split("\n")
             bridges_valid = False
             for bridge in bridges:
                 if bridge != "":
@@ -819,7 +805,7 @@ class TorSettingsDialog(QtWidgets.QDialog):
 
             if bridges_valid:
                 new_bridges = "".join(new_bridges)
-                settings.set("tor_bridges_use_custom_bridges", new_bridges)
+                settings.set("bridge_custom_bridges", new_bridges)
             else:
                 Alert(self.common, strings._("gui_settings_tor_bridges_invalid"))
                 settings.set("no_bridges", True)
