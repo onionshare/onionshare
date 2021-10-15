@@ -68,6 +68,8 @@
     "gui_settings_bridge_snowflake_radio_option": "Use built-in snowflake bridge",
     "gui_settings_meek_lite_expensive_warning": "Warning: The meek-azure bridges are very costly for the Tor Project to run.<br><br>Only use them if unable to connect to Tor directly, via obfs4 transports, or other normal bridges.",
     "gui_settings_bridge_moat_radio_option": "Request a bridge from torproject.org",
+    "gui_settings_bridge_moat_button": "Request a New Bridge...",
+    "gui_settings_bridge_moat_error": "Error requesting a bridge from torproject.org.",
     "gui_settings_bridge_custom_radio_option": "Provide a bridge you learned about from a trusted source",
     "gui_settings_tor_bridges_invalid": "None of the bridges you added work.\nDouble-check them or add others.",
     "gui_settings_button_save": "Save",
