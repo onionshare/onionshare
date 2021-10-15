@@ -71,17 +71,6 @@ class SettingsDialog(QtWidgets.QDialog):
 
         self.system = platform.system()
 
-        # Header
-        version_label = QtWidgets.QLabel(f"OnionShare {self.common.version}")
-        version_label.setStyleSheet(self.common.gui.css["settings_version"])
-        self.help_button = QtWidgets.QPushButton(strings._("gui_settings_button_help"))
-        self.help_button.clicked.connect(self.help_clicked)
-        header_layout = QtWidgets.QHBoxLayout()
-        header_layout.addStretch()
-        header_layout.addWidget(version_label)
-        header_layout.addWidget(self.help_button)
-        header_layout.addStretch()
-
         # Automatic updates options
 
         # Autoupdate
@@ -146,6 +135,14 @@ class SettingsDialog(QtWidgets.QDialog):
         theme_layout.addWidget(self.theme_combobox)
         theme_layout.addStretch()
 
+        # Version and help
+        version_label = QtWidgets.QLabel(
+            strings._("gui_settings_version_label").format(self.common.version)
+        )
+        help_label = QtWidgets.QLabel(strings._("gui_settings_help_label"))
+        help_label.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
+        help_label.setOpenExternalLinks(True)
+
         # Buttons
         self.save_button = QtWidgets.QPushButton(strings._("gui_settings_button_save"))
         self.save_button.clicked.connect(self.save_clicked)
@@ -160,8 +157,6 @@ class SettingsDialog(QtWidgets.QDialog):
 
         # Layout
         layout = QtWidgets.QVBoxLayout()
-        layout.addLayout(header_layout)
-        layout.addSpacing(20)
         layout.addWidget(autoupdate_group)
         if autoupdate_group.isVisible():
             layout.addSpacing(20)
@@ -169,6 +164,9 @@ class SettingsDialog(QtWidgets.QDialog):
         layout.addLayout(theme_layout)
         layout.addSpacing(20)
         layout.addStretch()
+        layout.addWidget(version_label)
+        layout.addWidget(help_label)
+        layout.addSpacing(20)
         layout.addLayout(buttons_layout)
 
         self.setLayout(layout)
