@@ -69,7 +69,6 @@
     "gui_settings_meek_lite_expensive_warning": "Warning: The meek-azure bridges are very costly for the Tor Project to run.<br><br>Only use them if unable to connect to Tor directly, via obfs4 transports, or other normal bridges.",
     "gui_settings_bridge_moat_radio_option": "Request a bridge from torproject.org",
     "gui_settings_bridge_moat_button": "Request a New Bridge...",
-    "gui_settings_bridge_moat_error": "Error requesting a bridge from torproject.org.",
     "gui_settings_bridge_custom_radio_option": "Provide a bridge you learned about from a trusted source",
     "gui_settings_tor_bridges_invalid": "None of the bridges you added work.\nDouble-check them or add others.",
     "gui_settings_button_save": "Save",
@@ -220,5 +219,12 @@
     "gui_rendezvous_cleanup_quit_early": "Quit Early",
     "error_port_not_available": "OnionShare port not available",
     "history_receive_read_message_button": "Read Message",
-    "error_tor_protocol_error": "There was an error with Tor: {}"
+    "error_tor_protocol_error": "There was an error with Tor: {}",
+    "moat_contact_label": "Contacting BridgeDB...",
+    "moat_captcha_label": "Solve the CAPTCHA to request a bridge.",
+    "moat_captcha_placeholder": "Enter the characters from the image",
+    "moat_captcha_submit": "Submit",
+    "moat_captcha_reload": "Reload",
+    "moat_bridgedb_error": "Error contacting BridgeDB.",
+    "moat_captcha_error": "The solution is not correct. Please try again."
 }

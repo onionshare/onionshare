@@ -23,15 +23,14 @@ import sys
 import platform
 import re
 import os
-import requests
 
 from onionshare_cli.settings import Settings
 from onionshare_cli.onion import Onion
 
 from . import strings
 from .widgets import Alert
-from .update_checker import UpdateThread
 from .tor_connection_dialog import TorConnectionDialog
+from .moat_dialog import MoatDialog
 from .gui_common import GuiCommon
 
 
@@ -146,16 +145,16 @@ class TorSettingsDialog(QtWidgets.QDialog):
         self.bridge_moat_button = QtWidgets.QPushButton(
             strings._("gui_settings_bridge_moat_button")
         )
-        self.bridge_moat_button.setMinimumHeight(20)
         self.bridge_moat_button.clicked.connect(self.bridge_moat_button_clicked)
         self.bridge_moat_textbox = QtWidgets.QPlainTextEdit()
-        self.bridge_moat_textbox.setMaximumHeight(200)
+        self.bridge_moat_textbox.setMaximumHeight(100)
         self.bridge_moat_textbox.setEnabled(False)
         self.bridge_moat_textbox.hide()
         bridge_moat_textbox_options_layout = QtWidgets.QVBoxLayout()
         bridge_moat_textbox_options_layout.addWidget(self.bridge_moat_button)
         bridge_moat_textbox_options_layout.addWidget(self.bridge_moat_textbox)
         self.bridge_moat_textbox_options = QtWidgets.QWidget()
+        self.bridge_moat_textbox_options.setMinimumHeight(50)
         self.bridge_moat_textbox_options.setLayout(bridge_moat_textbox_options_layout)
         self.bridge_moat_textbox_options.hide()
 
@@ -508,45 +507,7 @@ class TorSettingsDialog(QtWidgets.QDialog):
         """
         self.common.log("TorSettingsDialog", "bridge_moat_button_clicked")
 
-        def moat_error():
-            Alert(
-                self.common,
-                strings._("gui_settings_bridge_moat_error"),
-                title=strings._("gui_settings_bridge_moat_button"),
-            )
-
-        # TODO: Do all of this using domain fronting
-
-        # Request a bridge
-        r = requests.post(
-            "https://bridges.torproject.org/moat/fetch",
-            headers={"Content-Type": "application/vnd.api+json"},
-            json={
-                "data": [
-                    {
-                        "version": "0.1.0",
-                        "type": "client-transports",
-                        "supported": ["obfs4"],
-                    }
-                ]
-            },
-        )
-        if r.status_code != 200:
-            return moat_error()
-
-        try:
-            moat_res = r.json()
-            if "errors" in moat_res or "data" not in moat_res:
-                return moat_error()
-            if moat_res["type"] != "moat-challenge":
-                return moat_error()
-
-            moat_type = moat_res["type"]
-            moat_transport = moat_res["transport"]
-            moat_image = moat_res["image"]
-            moat_challenge = moat_res["challenge"]
-        except:
-            return moat_error()
+        moat_dialog = MoatDialog(self.common)
 
     def bridge_custom_radio_toggled(self, checked):
         """
