@@ -303,47 +303,38 @@ class Onion(object):
             torrc_template = torrc_template.replace(
                 "{{socks_port}}", str(self.tor_socks_port)
             )
+            torrc_template = torrc_template.replace(
+                "{{obfs4proxy_path}}", str(self.obfs4proxy_file_path)
+            )
+            torrc_template = torrc_template.replace(
+                "{{snowflake_path}}", str(self.snowflake_file_path)
+            )
 
             with open(self.tor_torrc, "w") as f:
                 f.write(torrc_template)
 
                 # Bridge support
                 if self.settings.get("tor_bridges_use_obfs4"):
-                    f.write(
-                        f"ClientTransportPlugin obfs4 exec {self.obfs4proxy_file_path}\n"
-                    )
                     with open(
                         self.common.get_resource_path("torrc_template-obfs4")
                     ) as o:
                         for line in o:
                             f.write(line)
                 elif self.settings.get("tor_bridges_use_meek_lite_azure"):
-                    f.write(
-                        f"ClientTransportPlugin meek_lite exec {self.obfs4proxy_file_path}\n"
-                    )
                     with open(
                         self.common.get_resource_path("torrc_template-meek_lite_azure")
                     ) as o:
                         for line in o:
                             f.write(line)
                 elif self.settings.get("tor_bridges_use_snowflake"):
-                    # Taken from: tor-browser_en-US/Browser/TorBrowser/Data/Tor/torrc-defaults
-                    f.write(
-                        f"ClientTransportPlugin snowflake exec {self.snowflake_file_path} -url https://snowflake-broker.torproject.net.global.prod.fastly.net/ -front cdn.sstatic.net -ice stun:stun.l.google.com:19302,stun:stun.voip.blackberry.com:3478,stun:stun.altar.com.pl:3478,stun:stun.antisip.com:3478,stun:stun.bluesip.net:3478,stun:stun.dus.net:3478,stun:stun.epygi.com:3478,stun:stun.sonetel.com:3478,stun:stun.sonetel.net:3478,stun:stun.stunprotocol.org:3478,stun:stun.uls.co.za:3478,stun:stun.voipgate.com:3478,stun:stun.voys.nl:3478\n"
-                    )
+                    with open(
+                        self.common.get_resource_path("torrc_template-snowflake")
+                    ) as o:
+                        for line in o:
+                            f.write(line)
 
                 if self.settings.get("tor_bridges_use_custom_bridges"):
-                    if "obfs4" in self.settings.get("tor_bridges_use_custom_bridges"):
-                        f.write(
-                            f"ClientTransportPlugin obfs4 exec {self.obfs4proxy_file_path}\n"
-                        )
-                    elif "meek_lite" in self.settings.get(
-                        "tor_bridges_use_custom_bridges"
-                    ):
-                        f.write(
-                            f"ClientTransportPlugin meek_lite exec {self.obfs4proxy_file_path}\n"
-                        )
-                    f.write(self.settings.get("tor_bridges_use_custom_bridges"))
+                    f.write(self.settings.get("tor_bridges_use_custom_bridges") + "\n")
                     f.write("\nUseBridges 1")
 
             # Execute a tor subprocess
