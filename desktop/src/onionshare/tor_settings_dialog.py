@@ -160,6 +160,38 @@ class TorSettingsDialog(QtWidgets.QDialog):
             )
             self.tor_bridges_use_snowflake_radio.hide()
 
+        # Request a bridge from torproject.org (moat)
+        # self.tor_bridges_use_moat_radio = QtWidgets.QRadioButton(
+        #     strings._("gui_settings_tor_bridges_moat_radio_option")
+        # )
+        # self.tor_bridges_use_moat_radio.toggled.connect(
+        #     self.tor_bridges_use_moat_radio_toggled
+        # )
+
+        # self.tor_bridges_use_moat_label = QtWidgets.QLabel(
+        #     strings._("gui_settings_tor_bridges_moat_label")
+        # )
+        # self.tor_bridges_use_custom_label.setOpenExternalLinks(True)
+        # self.tor_bridges_use_custom_textbox = QtWidgets.QPlainTextEdit()
+        # self.tor_bridges_use_custom_textbox.setMaximumHeight(200)
+        # self.tor_bridges_use_custom_textbox.setPlaceholderText(
+        #     "[address:port] [identifier]"
+        # )
+
+        # tor_bridges_use_custom_textbox_options_layout = QtWidgets.QVBoxLayout()
+        # tor_bridges_use_custom_textbox_options_layout.addWidget(
+        #     self.tor_bridges_use_custom_label
+        # )
+        # tor_bridges_use_custom_textbox_options_layout.addWidget(
+        #     self.tor_bridges_use_custom_textbox
+        # )
+
+        # self.tor_bridges_use_custom_textbox_options = QtWidgets.QWidget()
+        # self.tor_bridges_use_custom_textbox_options.setLayout(
+        #     tor_bridges_use_custom_textbox_options_layout
+        # )
+        # self.tor_bridges_use_custom_textbox_options.hide()
+
         # Custom bridges radio and textbox
         self.tor_bridges_use_custom_radio = QtWidgets.QRadioButton(
             strings._("gui_settings_tor_bridges_custom_radio_option")
@@ -167,14 +199,6 @@ class TorSettingsDialog(QtWidgets.QDialog):
         self.tor_bridges_use_custom_radio.toggled.connect(
             self.tor_bridges_use_custom_radio_toggled
         )
-
-        self.tor_bridges_use_custom_label = QtWidgets.QLabel(
-            strings._("gui_settings_tor_bridges_custom_label")
-        )
-        self.tor_bridges_use_custom_label.setTextInteractionFlags(
-            QtCore.Qt.TextBrowserInteraction
-        )
-        self.tor_bridges_use_custom_label.setOpenExternalLinks(True)
         self.tor_bridges_use_custom_textbox = QtWidgets.QPlainTextEdit()
         self.tor_bridges_use_custom_textbox.setMaximumHeight(200)
         self.tor_bridges_use_custom_textbox.setPlaceholderText(
@@ -182,9 +206,6 @@ class TorSettingsDialog(QtWidgets.QDialog):
         )
 
         tor_bridges_use_custom_textbox_options_layout = QtWidgets.QVBoxLayout()
-        tor_bridges_use_custom_textbox_options_layout.addWidget(
-            self.tor_bridges_use_custom_label
-        )
         tor_bridges_use_custom_textbox_options_layout.addWidget(
             self.tor_bridges_use_custom_textbox
         )

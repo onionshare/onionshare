@@ -392,15 +392,6 @@ class GuiCommon:
                 QPushButton {
                     padding: 5px 10px;
                 }""",
-            # Settings dialogs
-            "settings_version": """
-                QLabel {
-                    font-size: 16px;
-                }""",
-            "settings_whats_this": """
-                QLabel {
-                    font-size: 12px;
-                }""",
         }
 
     def get_tor_paths(self):
