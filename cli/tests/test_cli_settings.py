@@ -32,9 +32,10 @@ class TestSettings:
             "no_bridges": True,
             "tor_bridges_use_obfs4": False,
             "tor_bridges_use_meek_lite_azure": False,
+            "tor_bridges_use_snowflake": False,
             "tor_bridges_use_custom_bridges": "",
             "persistent_tabs": [],
-            "theme":0
+            "theme": 0,
         }
         for key in settings_obj._settings:
             # Skip locale, it will not always default to the same thing
