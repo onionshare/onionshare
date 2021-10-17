@@ -148,7 +148,8 @@ class TorSettingsDialog(QtWidgets.QDialog):
         self.bridge_moat_button.clicked.connect(self.bridge_moat_button_clicked)
         self.bridge_moat_textbox = QtWidgets.QPlainTextEdit()
         self.bridge_moat_textbox.setMaximumHeight(100)
-        self.bridge_moat_textbox.setEnabled(False)
+        self.bridge_moat_textbox.setReadOnly(True)
+        self.bridge_moat_textbox.setWordWrapMode(QtGui.QTextOption.NoWrap)
         self.bridge_moat_textbox.hide()
         bridge_moat_textbox_options_layout = QtWidgets.QVBoxLayout()
         bridge_moat_textbox_options_layout.addWidget(self.bridge_moat_button)
@@ -508,6 +509,16 @@ class TorSettingsDialog(QtWidgets.QDialog):
         self.common.log("TorSettingsDialog", "bridge_moat_button_clicked")
 
         moat_dialog = MoatDialog(self.common)
+        moat_dialog.got_bridges.connect(self.bridge_moat_got_bridges)
+        moat_dialog.exec_()
+
+    def bridge_moat_got_bridges(self, bridges):
+        """
+        Got new bridges from moat
+        """
+        self.common.log("TorSettingsDialog", "bridge_moat_got_bridges")
+        self.bridge_moat_textbox.document().setPlainText(bridges)
+        self.bridge_moat_textbox.show()
 
     def bridge_custom_radio_toggled(self, checked):
         """
