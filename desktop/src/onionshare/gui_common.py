@@ -392,6 +392,12 @@ class GuiCommon:
                 QPushButton {
                     padding: 5px 10px;
                 }""",
+            # Moat dialog
+            "moat_error": """
+                QLabel {
+                    color: #990000;
+                }
+                """,
         }
 
     def get_tor_paths(self):
