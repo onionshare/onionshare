@@ -333,9 +333,19 @@ class Onion(object):
                         for line in o:
                             f.write(line)
 
-                if self.settings.get("tor_bridges_use_custom_bridges"):
-                    f.write(self.settings.get("tor_bridges_use_custom_bridges") + "\n")
-                    f.write("\nUseBridges 1")
+                elif self.settings.get("tor_bridges_use_moat"):
+                    for line in self.settings.get("tor_bridges_use_moat_bridges").split(
+                        "\n"
+                    ):
+                        f.write(f"Bridge {line}\n")
+                    f.write("\nUseBridges 1\n")
+
+                elif self.settings.get("tor_bridges_use_custom_bridges"):
+                    for line in self.settings.get(
+                        "tor_bridges_use_custom_bridges"
+                    ).split("\n"):
+                        f.write(f"Bridge {line}\n")
+                    f.write("\nUseBridges 1\n")
 
             # Execute a tor subprocess
             start_ts = time.time()
