@@ -354,6 +354,7 @@ class Onion(object):
                     [self.tor_path, "-f", self.tor_torrc],
                     stdout=subprocess.PIPE,
                     stderr=subprocess.PIPE,
+                    env={"LD_LIBRARY_PATH": os.path.dirname(self.tor_path)},
                 )
 
             # Wait for the tor controller to start
