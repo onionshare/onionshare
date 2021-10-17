@@ -48,7 +48,7 @@ class TorConnectionDialog(QtWidgets.QProgressDialog):
     Connecting to Tor dialog.
     """
 
-    open_settings = QtCore.Signal()
+    open_tor_settings = QtCore.Signal()
     success = QtCore.Signal()
 
     def __init__(
@@ -149,7 +149,7 @@ class TorConnectionDialog(QtWidgets.QProgressDialog):
                 )
 
                 # Open settings
-                self.open_settings.emit()
+                self.open_tor_settings.emit()
 
         QtCore.QTimer.singleShot(1, alert)
 

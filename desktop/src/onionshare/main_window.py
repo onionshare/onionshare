@@ -165,7 +165,7 @@ class MainWindow(QtWidgets.QMainWindow):
         # Start the "Connecting to Tor" dialog, which calls onion.connect()
         tor_con = TorConnectionDialog(self.common)
         tor_con.canceled.connect(self.tor_connection_canceled)
-        tor_con.open_settings.connect(self.tor_connection_open_settings)
+        tor_con.open_tor_settings.connect(self.tor_connection_open_tor_settings)
         if not self.common.gui.local_only:
             tor_con.start()
             self.settings_have_changed()
@@ -234,14 +234,14 @@ class MainWindow(QtWidgets.QMainWindow):
         # Wait 100ms before asking
         QtCore.QTimer.singleShot(100, ask)
 
-    def tor_connection_open_settings(self):
+    def tor_connection_open_tor_settings(self):
         """
-        The TorConnectionDialog wants to open the Settings dialog
+        The TorConnectionDialog wants to open the Tor Settings dialog
         """
-        self.common.log("MainWindow", "tor_connection_open_settings")
+        self.common.log("MainWindow", "tor_connection_open_tor_settings")
 
         # Wait 1ms for the event loop to finish closing the TorConnectionDialog
-        QtCore.QTimer.singleShot(1, self.open_settings)
+        QtCore.QTimer.singleShot(1, self.open_tor_settings)
 
     def open_tor_settings(self):
         """
