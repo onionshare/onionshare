@@ -33,6 +33,8 @@ class TestSettings:
             "tor_bridges_use_obfs4": False,
             "tor_bridges_use_meek_lite_azure": False,
             "tor_bridges_use_snowflake": False,
+            "tor_bridges_use_moat": False,
+            "tor_bridges_use_moat_bridges": "",
             "tor_bridges_use_custom_bridges": "",
             "persistent_tabs": [],
             "theme": 0,
