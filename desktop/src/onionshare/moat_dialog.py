@@ -172,6 +172,7 @@ class MoatDialog(QtWidgets.QDialog):
 
         self.label.setText(strings._("moat_captcha_label"))
         self.captcha.show()
+        self.solution_lineedit.setText("")
         self.solution_lineedit.show()
         self.reload_button.show()
         self.submit_button.show()

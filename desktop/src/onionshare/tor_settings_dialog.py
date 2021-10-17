@@ -775,9 +775,15 @@ class TorSettingsDialog(QtWidgets.QDialog):
                 settings.set("tor_bridges_use_snowflake", False)
 
                 settings.set("tor_bridges_use_moat", True)
+
+                moat_bridges = self.bridge_moat_textbox.toPlainText()
+                if moat_bridges.strip() == "":
+                    Alert(self.common, strings._("gui_settings_moat_bridges_invalid"))
+                    return False
+
                 settings.set(
                     "tor_bridges_use_moat_bridges",
-                    self.bridge_moat_textbox.toPlainText(),
+                    moat_bridges,
                 )
 
                 settings.set("tor_bridges_use_custom_bridges", "")
