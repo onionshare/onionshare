@@ -93,15 +93,21 @@ class AutoConnect(QtWidgets.QWidget):
 
 
             # Layout
-            self.layout = QtWidgets.QVBoxLayout()
-            self.layout.setContentsMargins(0, 0, 0, 0)
+            content_layout = QtWidgets.QVBoxLayout()
+            content_layout.addStretch()
+            content_layout.addWidget(self.image)
+            content_layout.addWidget(description_widget)
+            content_layout.addStretch()
+            content_layout.addWidget(cta_widget)
+            content_layout.addStretch()
+            content_layout.setAlignment(QtCore.Qt.AlignCenter)
+            content_widget = QtWidgets.QWidgets()
+            content_widget.setLayout(content_layout)
+
+            self.layout = QtWidgets.QHBoxLayout()
+            self.layout.addWidget(content_widget)
             self.layout.addStretch()
-            self.layout.addWidget(self.image)
-            self.layout.addWidget(description_widget)
-            self.layout.addStretch()
-            self.layout.addWidget(cta_widget)
-            self.layout.addStretch()
-            self.layout.setAlignment(QtCore.Qt.AlignCenter)
+
             self.setLayout(self.layout)
 
     def toggle_auto_connect(self):
