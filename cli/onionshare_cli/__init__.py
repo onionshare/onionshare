@@ -27,13 +27,9 @@ from datetime import datetime
 from datetime import timedelta
 
 from .common import Common, CannotFindTor
+from .censorship import CensorshipCircumvention
 from .web import Web
-from .onion import (
-    TorErrorProtocolError,
-    TorTooOldEphemeral,
-    TorTooOldStealth,
-    Onion,
-)
+from .onion import TorErrorProtocolError, TorTooOldEphemeral, TorTooOldStealth, Onion
 from .onionshare import OnionShare
 from .mode_settings import ModeSettings
 
@@ -94,12 +90,7 @@ def main(cwd=None):
         help="Filename of persistent session",
     )
     # General args
-    parser.add_argument(
-        "--title",
-        metavar="TITLE",
-        default=None,
-        help="Set a title",
-    )
+    parser.add_argument("--title", metavar="TITLE", default=None, help="Set a title")
     parser.add_argument(
         "--public",
         action="store_true",
@@ -409,7 +400,7 @@ def main(cwd=None):
             sys.exit(1)
 
         # Warn about sending large files over Tor
-        if web.share_mode.download_filesize >= 157286400:  # 150mb
+        if web.share_mode.download_filesize >= 157_286_400:  # 150mb
             print("")
             print("Warning: Sending a large share could take hours")
             print("")

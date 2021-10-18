@@ -314,6 +314,7 @@ class Common:
             if not tor_path:
                 raise CannotFindTor()
             obfs4proxy_file_path = shutil.which("obfs4proxy")
+            meek_client_file_path = shutil.which("meek-client")
             prefix = os.path.dirname(os.path.dirname(tor_path))
             tor_geo_ip_file_path = os.path.join(prefix, "share/tor/geoip")
             tor_geo_ipv6_file_path = os.path.join(prefix, "share/tor/geoip6")
@@ -321,6 +322,7 @@ class Common:
             base_path = self.get_resource_path("tor")
             tor_path = os.path.join(base_path, "Tor", "tor.exe")
             obfs4proxy_file_path = os.path.join(base_path, "Tor", "obfs4proxy.exe")
+            meek_client_file_path = os.path.join(base_path, "Tor", "meek-client.exe")
             tor_geo_ip_file_path = os.path.join(base_path, "Data", "Tor", "geoip")
             tor_geo_ipv6_file_path = os.path.join(base_path, "Data", "Tor", "geoip6")
         elif self.platform == "Darwin":
@@ -328,6 +330,7 @@ class Common:
             if not tor_path:
                 raise CannotFindTor()
             obfs4proxy_file_path = shutil.which("obfs4proxy")
+            meek_client_file_path = shutil.which("meek-client")
             prefix = os.path.dirname(os.path.dirname(tor_path))
             tor_geo_ip_file_path = os.path.join(prefix, "share/tor/geoip")
             tor_geo_ipv6_file_path = os.path.join(prefix, "share/tor/geoip6")
@@ -336,12 +339,14 @@ class Common:
             tor_geo_ip_file_path = "/usr/local/share/tor/geoip"
             tor_geo_ipv6_file_path = "/usr/local/share/tor/geoip6"
             obfs4proxy_file_path = "/usr/local/bin/obfs4proxy"
+            meek_client_file_path = "/usr/local/bin/meek-client"
 
         return (
             tor_path,
             tor_geo_ip_file_path,
             tor_geo_ipv6_file_path,
             obfs4proxy_file_path,
+            meek_client_file_path,
         )
 
     def build_data_dir(self):
@@ -504,74 +509,6 @@ class Common:
                 if not os.path.islink(fp):
                     total_size += os.path.getsize(fp)
         return total_size
-
-    def censorship_obtain_map(self):
-        """
-        Retrieves the Circumvention map from Tor Project and store it
-        locally for further look-ups if required.
-        """
-        endpoint = "https://bridges.torproject.org/moat/circumvention/map"
-        # @TODO this needs to be using domain fronting to defeat censorship
-        # of the lookup itself.
-        response = requests.get(endpoint)
-        self.censorship_map = response.json()
-        self.log("Common", "censorship_obtain_map", self.censorship_map)
-
-    def censorship_obtain_settings_from_api(self):
-        """
-        Retrieves the Circumvention Settings from Tor Project, which
-        will return recommended settings based on the country code of
-        the requesting IP.
-        """
-        endpoint = "https://bridges.torproject.org/moat/circumvention/settings"
-        # @TODO this needs to be using domain fronting to defeat censorship
-        # of the lookup itself.
-        response = requests.get(endpoint)
-        self.censorship_settings = response.json()
-        self.log(
-            "Common", "censorship_obtain_settings_from_api", self.censorship_settings
-        )
-
-    def censorship_obtain_settings_from_map(self, country):
-        """
-        Retrieves the Circumvention Settings for this country from the
-        circumvention map we have stored locally, rather than from the
-        API endpoint.
-
-        This is for when the user has specified the country themselves
-        rather than requesting auto-detection.
-        """
-        try:
-            # Fetch the map.
-            self.censorship_obtain_map()
-            self.censorship_settings = self.censorship_map[country]
-            self.log(
-                "Common",
-                "censorship_obtain_settings_from_map",
-                f"Settings are {self.censorship_settings}",
-            )
-        except KeyError:
-            self.log(
-                "Common",
-                "censorship_obtain_settings_from_map",
-                "No censorship settings found for this country",
-            )
-            return False
-
-    def censorship_obtain_builtin_bridges(self):
-        """
-        Retrieves the list of built-in bridges from the Tor Project.
-        """
-        endpoint = "https://bridges.torproject.org/moat/circumvention/builtin"
-        # @TODO this needs to be using domain fronting to defeat censorship
-        # of the lookup itself.
-        response = requests.get(endpoint)
-        self.censorship_builtin_bridges = response.json()
-        self.log(
-            "Common",
-            "censorship_obtain_builtin_bridges",
-            self.censorship_builtin_bridges,
-        )
 
 
 class AutoStopTimer(threading.Thread):

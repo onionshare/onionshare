@@ -153,6 +153,7 @@ class Onion(object):
             self.tor_geo_ip_file_path,
             self.tor_geo_ipv6_file_path,
             self.obfs4proxy_file_path,
+            self.meek_client_file_path,
         ) = get_tor_paths()
 
         # The tor process
