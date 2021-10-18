@@ -37,6 +37,7 @@ class Alert(QtWidgets.QMessageBox):
         icon=QtWidgets.QMessageBox.NoIcon,
         buttons=QtWidgets.QMessageBox.Ok,
         autostart=True,
+        title="OnionShare",
     ):
         super(Alert, self).__init__(None)
 
@@ -44,7 +45,7 @@ class Alert(QtWidgets.QMessageBox):
 
         self.common.log("Alert", "__init__")
 
-        self.setWindowTitle("OnionShare")
+        self.setWindowTitle(title)
         self.setWindowIcon(QtGui.QIcon(GuiCommon.get_resource_path("images/logo.png")))
         self.setText(message)
         self.setIcon(icon)
