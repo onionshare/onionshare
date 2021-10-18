@@ -48,12 +48,16 @@ class TorConnectionDialog(QtWidgets.QProgressDialog):
     Connecting to Tor dialog.
     """
 
-    open_settings = QtCore.Signal()
+    open_tor_settings = QtCore.Signal()
+    success = QtCore.Signal()
 
-    def __init__(self, common, custom_settings=False):
+    def __init__(
+        self, common, custom_settings=False, testing_settings=False, onion=None
+    ):
         super(TorConnectionDialog, self).__init__(None)
 
         self.common = common
+        self.testing_settings = testing_settings
 
         if custom_settings:
             self.settings = custom_settings
@@ -62,7 +66,15 @@ class TorConnectionDialog(QtWidgets.QProgressDialog):
 
         self.common.log("TorConnectionDialog", "__init__")
 
-        self.setWindowTitle("OnionShare")
+        if self.testing_settings:
+            self.title = strings._("gui_settings_connection_type_test_button")
+            self.onion = onion
+        else:
+            self.title = "OnionShare"
+            self.onion = self.common.gui.onion
+
+        self.setWindowTitle(self.title)
+
         self.setWindowIcon(QtGui.QIcon(GuiCommon.get_resource_path("images/logo.png")))
         self.setModal(True)
         self.setFixedSize(400, 150)
@@ -112,7 +124,7 @@ class TorConnectionDialog(QtWidgets.QProgressDialog):
     def _canceled_connecting_to_tor(self):
         self.common.log("TorConnectionDialog", "_canceled_connecting_to_tor")
         self.active = False
-        self.common.gui.onion.cleanup()
+        self.onion.cleanup()
 
         # Cancel connecting to Tor
         QtCore.QTimer.singleShot(1, self.cancel)
@@ -121,18 +133,25 @@ class TorConnectionDialog(QtWidgets.QProgressDialog):
         self.common.log("TorConnectionDialog", "_error_connecting_to_tor")
         self.active = False
 
-        def alert_and_open_settings():
-            # Display the exception in an alert box
-            Alert(
-                self.common,
-                f"{msg}\n\n{strings._('gui_tor_connection_error_settings')}",
-                QtWidgets.QMessageBox.Warning,
-            )
+        if self.testing_settings:
+            # If testing, just display the error but don't open settings
+            def alert():
+                Alert(self.common, msg, QtWidgets.QMessageBox.Warning, title=self.title)
 
-            # Open settings
-            self.open_settings.emit()
+        else:
+            # If not testing, open settings after displaying the error
+            def alert():
+                Alert(
+                    self.common,
+                    f"{msg}\n\n{strings._('gui_tor_connection_error_settings')}",
+                    QtWidgets.QMessageBox.Warning,
+                    title=self.title,
+                )
 
-        QtCore.QTimer.singleShot(1, alert_and_open_settings)
+                # Open settings
+                self.open_tor_settings.emit()
+
+        QtCore.QTimer.singleShot(1, alert)
 
         # Cancel connecting to Tor
         QtCore.QTimer.singleShot(1, self.cancel)
@@ -146,13 +165,9 @@ class TorConnectionThread(QtCore.QThread):
 
     def __init__(self, common, settings, dialog):
         super(TorConnectionThread, self).__init__()
-
         self.common = common
-
         self.common.log("TorConnectionThread", "__init__")
-
         self.settings = settings
-
         self.dialog = dialog
 
     def run(self):
@@ -160,8 +175,8 @@ class TorConnectionThread(QtCore.QThread):
 
         # Connect to the Onion
         try:
-            self.common.gui.onion.connect(self.settings, False, self._tor_status_update)
-            if self.common.gui.onion.connected_to_tor:
+            self.dialog.onion.connect(self.settings, False, self._tor_status_update)
+            if self.dialog.onion.connected_to_tor:
                 self.connected_to_tor.emit()
             else:
                 self.canceled_connecting_to_tor.emit()
