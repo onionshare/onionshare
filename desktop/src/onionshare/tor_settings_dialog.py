@@ -42,10 +42,11 @@ class TorSettingsDialog(QtWidgets.QDialog):
 
     settings_saved = QtCore.Signal()
 
-    def __init__(self, common):
+    def __init__(self, common, openner=None):
         super(TorSettingsDialog, self).__init__()
 
         self.common = common
+        self.openner = openner
 
         self.common.log("TorSettingsDialog", "__init__")
 
@@ -692,7 +693,7 @@ class TorSettingsDialog(QtWidgets.QDialog):
                 self.settings_saved.emit()
                 self.close()
 
-    def cancel_clicked(self):
+    def cancel_clicked(self, openner):
         """
         Cancel button clicked.
         """
@@ -700,6 +701,7 @@ class TorSettingsDialog(QtWidgets.QDialog):
         if (
             not self.common.gui.local_only
             and not self.common.gui.onion.is_authenticated()
+            and not (self.openner and self.openner == "autoconnect")
         ):
             Alert(
                 self.common,
@@ -831,17 +833,18 @@ class TorSettingsDialog(QtWidgets.QDialog):
 
         return settings
 
-    def closeEvent(self, e):
+    def closeEvent(self, e, openner=None):
         self.common.log("TorSettingsDialog", "closeEvent")
 
         # On close, if Tor isn't connected, then quit OnionShare altogether
-        if not self.common.gui.local_only:
-            if not self.common.gui.onion.is_authenticated():
-                self.common.log(
-                    "TorSettingsDialog",
-                    "closeEvent",
-                    "Closing while not connected to Tor",
-                )
+        if not (self.openner and self.openner == "autoconnect"):
+            if not self.common.gui.local_only:
+                if not self.common.gui.onion.is_authenticated():
+                    self.common.log(
+                        "TorSettingsDialog",
+                        "closeEvent",
+                        "Closing while not connected to Tor",
+                    )
 
-                # Wait 1ms for the event loop to finish, then quit
-                QtCore.QTimer.singleShot(1, self.common.gui.qtapp.quit)
+                    # Wait 1ms for the event loop to finish, then quit
+                    QtCore.QTimer.singleShot(1, self.common.gui.qtapp.quit)
