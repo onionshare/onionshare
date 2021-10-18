@@ -49,12 +49,12 @@ class AutoConnect(QtWidgets.QWidget):
                 QtGui.QPixmap.fromImage(
                     QtGui.QImage(
                         GuiCommon.get_resource_path(
-                            "images/{}_logo_text.png".format(common.gui.color_mode)
+                            "images/{}_logo_text_bg.png".format(common.gui.color_mode)
                         )
                     )
                 )
             )
-            self.image_label.setFixedSize(180, 40)
+            self.image_label.setFixedSize(322, 65)
             image_layout = QtWidgets.QVBoxLayout()
             image_layout.addWidget(self.image_label)
             self.image = QtWidgets.QWidget()
@@ -101,7 +101,7 @@ class AutoConnect(QtWidgets.QWidget):
             content_layout.addWidget(cta_widget)
             content_layout.addStretch()
             content_layout.setAlignment(QtCore.Qt.AlignCenter)
-            content_widget = QtWidgets.QWidgets()
+            content_widget = QtWidgets.QWidget()
             content_widget.setLayout(content_layout)
 
             self.layout = QtWidgets.QHBoxLayout()

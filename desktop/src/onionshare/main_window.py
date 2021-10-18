@@ -165,7 +165,9 @@ class MainWindow(QtWidgets.QMainWindow):
         # Auto connect OnionShare?
         auto_connect = AutoConnect(self.common, self)
         if not auto_connect.auto_connect_enabled:
-            auto_connect.configure_button.clicked.connect(self.open_tor_settings)
+            auto_connect.configure_button.clicked.connect(
+                lambda: self.open_tor_settings("autoconnect")
+            )
             auto_connect.connect_button.clicked.connect(self.start_onionshare)
             self.setCentralWidget(auto_connect)
             self.show()
@@ -259,12 +261,12 @@ class MainWindow(QtWidgets.QMainWindow):
         # Wait 1ms for the event loop to finish closing the TorConnectionDialog
         QtCore.QTimer.singleShot(1, self.open_tor_settings)
 
-    def open_tor_settings(self):
+    def open_tor_settings(self, openner=None):
         """
         Open the TorSettingsDialog.
         """
         self.common.log("MainWindow", "open_tor_settings")
-        d = TorSettingsDialog(self.common)
+        d = TorSettingsDialog(self.common, openner)
         d.settings_saved.connect(self.settings_have_changed)
         d.exec_()
 
