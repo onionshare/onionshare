@@ -28,6 +28,7 @@ from datetime import timedelta
 
 from .common import Common, CannotFindTor
 from .censorship import CensorshipCircumvention
+from .meek import Meek, MeekNotRunning
 from .web import Web
 from .onion import TorErrorProtocolError, TorTooOldEphemeral, TorTooOldStealth, Onion
 from .onionshare import OnionShare
@@ -283,6 +284,18 @@ def main(cwd=None):
 
     # Create the Web object
     web = Web(common, False, mode_settings, mode)
+
+    # Create the Meek object and start the meek client
+    meek = Meek(common)
+    meek.start()
+
+    # Create the CensorshipCircumvention object to make
+    # API calls to Tor over Meek
+    censorship = CensorshipCircumvention(common, meek)
+    # Example: request recommended bridges, pretending to be from China, using
+    # domain fronting.
+    # censorship_recommended_settings = censorship.request_settings(country="cn")
+    # print(censorship_recommended_settings)
 
     # Start the Onion object
     try:
