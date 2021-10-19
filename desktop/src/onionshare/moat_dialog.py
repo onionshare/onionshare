@@ -25,6 +25,7 @@ import base64
 
 from . import strings
 from .gui_common import GuiCommon
+from onionshare_cli.meek import MeekNotRunning
 
 
 class MoatDialog(QtWidgets.QDialog):
@@ -226,6 +227,11 @@ class MoatThread(QtCore.QThread):
 
         # Start Meek so that we can do domain fronting
         self.meek.start()
+
+        # We should only fetch bridges if we can domain front,
+        # but we can override this in local-only mode.
+        if not self.meek.meek_proxies and not self.common.gui.local_only:
+            raise MeekNotRunning()
 
         if self.action == "fetch":
             self.common.log("MoatThread", "run", f"starting fetch")
