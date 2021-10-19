@@ -58,6 +58,11 @@ class MoatDialog(QtWidgets.QDialog):
         self.solution_lineedit.editingFinished.connect(
             self.solution_lineedit_editing_finished
         )
+        self.submit_button = QtWidgets.QPushButton(strings._("moat_captcha_submit"))
+        self.submit_button.clicked.connect(self.submit_clicked)
+        solution_layout = QtWidgets.QHBoxLayout()
+        solution_layout.addWidget(self.solution_lineedit)
+        solution_layout.addWidget(self.submit_button)
 
         # Error label
         self.error_label = QtWidgets.QLabel()
@@ -65,8 +70,6 @@ class MoatDialog(QtWidgets.QDialog):
         self.error_label.hide()
 
         # Buttons
-        self.submit_button = QtWidgets.QPushButton(strings._("moat_captcha_submit"))
-        self.submit_button.clicked.connect(self.submit_clicked)
         self.reload_button = QtWidgets.QPushButton(strings._("moat_captcha_reload"))
         self.reload_button.clicked.connect(self.reload_clicked)
         self.cancel_button = QtWidgets.QPushButton(
@@ -74,7 +77,6 @@ class MoatDialog(QtWidgets.QDialog):
         )
         self.cancel_button.clicked.connect(self.cancel_clicked)
         buttons_layout = QtWidgets.QHBoxLayout()
-        buttons_layout.addWidget(self.submit_button)
         buttons_layout.addStretch()
         buttons_layout.addWidget(self.reload_button)
         buttons_layout.addWidget(self.cancel_button)
@@ -83,7 +85,7 @@ class MoatDialog(QtWidgets.QDialog):
         layout = QtWidgets.QVBoxLayout()
         layout.addWidget(self.label)
         layout.addWidget(self.captcha)
-        layout.addWidget(self.solution_lineedit)
+        layout.addLayout(solution_layout)
         layout.addStretch()
         layout.addWidget(self.error_label)
         layout.addLayout(buttons_layout)
