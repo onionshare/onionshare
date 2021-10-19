@@ -22,6 +22,7 @@ from PySide2 import QtCore, QtWidgets, QtGui
 import requests
 import os
 import base64
+import json
 
 from . import strings
 from .gui_common import GuiCommon
@@ -133,7 +134,11 @@ class MoatDialog(QtWidgets.QDialog):
         self.t_check = MoatThread(
             self.common,
             "check",
-            {"challenge": self.challenge, "solution": self.solution_lineedit.text()},
+            {
+                "transport": self.transport,
+                "challenge": self.challenge,
+                "solution": self.solution_lineedit.text(),
+            },
         )
         self.t_check.bridgedb_error.connect(self.bridgedb_error)
         self.t_check.captcha_error.connect(self.captcha_error)
@@ -164,9 +169,10 @@ class MoatDialog(QtWidgets.QDialog):
 
         self.solution_lineedit.setEnabled(True)
 
-    def captcha_ready(self, image, challenge):
+    def captcha_ready(self, transport, image, challenge):
         self.common.log("MoatDialog", "captcha_ready")
 
+        self.transport = transport
         self.challenge = challenge
 
         # Save captcha image to disk, so we can load it
@@ -208,7 +214,7 @@ class MoatThread(QtCore.QThread):
 
     bridgedb_error = QtCore.Signal()
     captcha_error = QtCore.Signal(str)
-    captcha_ready = QtCore.Signal(str, str)
+    captcha_ready = QtCore.Signal(str, str, str)
     bridges_ready = QtCore.Signal(str)
 
     def __init__(self, common, action, data={}):
@@ -216,7 +222,6 @@ class MoatThread(QtCore.QThread):
         self.common = common
         self.common.log("MoatThread", "__init__", f"action={action}")
 
-        self.transport = "obfs4"
         self.action = action
         self.data = data
 
@@ -235,7 +240,10 @@ class MoatThread(QtCore.QThread):
                         {
                             "version": "0.1.0",
                             "type": "client-transports",
-                            "supported": [self.transport],
+                            "supported": [
+                                "obfs4",
+                                "snowflake",
+                            ],
                         }
                     ]
                 },
@@ -259,17 +267,12 @@ class MoatThread(QtCore.QThread):
                     self.common.log("MoatThread", "run", f"type != moat-challange")
                     self.bridgedb_error.emit()
                     return
-                if moat_res["data"][0]["transport"] != self.transport:
-                    self.common.log(
-                        "MoatThread", "run", f"transport != {self.transport}"
-                    )
-                    self.bridgedb_error.emit()
-                    return
 
+                transport = moat_res["data"][0]["transport"]
                 image = moat_res["data"][0]["image"]
                 challenge = moat_res["data"][0]["challenge"]
 
-                self.captcha_ready.emit(image, challenge)
+                self.captcha_ready.emit(transport, image, challenge)
             except Exception as e:
                 self.common.log("MoatThread", "run", f"hit exception: {e}")
                 self.bridgedb_error.emit()
@@ -288,7 +291,7 @@ class MoatThread(QtCore.QThread):
                             "id": "2",
                             "type": "moat-solution",
                             "version": "0.1.0",
-                            "transport": self.transport,
+                            "transport": self.data["transport"],
                             "challenge": self.data["challenge"],
                             "solution": self.data["solution"],
                             "qrcode": "false",
@@ -303,6 +306,11 @@ class MoatThread(QtCore.QThread):
 
             try:
                 moat_res = r.json()
+                self.common.log(
+                    "MoatThread",
+                    "run",
+                    f"got bridges:\n{json.dumps(moat_res,indent=2)}",
+                )
 
                 if "errors" in moat_res:
                     self.common.log("MoatThread", "run", f"errors={moat_res['errors']}")
