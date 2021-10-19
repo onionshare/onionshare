@@ -809,10 +809,14 @@ class TorSettingsDialog(QtWidgets.QDialog):
                         meek_lite_pattern = re.compile(
                             "(meek_lite)(\s)+([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+:[0-9]+)(\s)+([0-9A-Z]+)(\s)+url=(.+)(\s)+front=(.+)"
                         )
+                        snowflake_pattern = re.compile(
+                            "(snowflake)(\s)+([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+:[0-9]+)(\s)+([0-9A-Z]+)"
+                        )
                         if (
                             ipv4_pattern.match(bridge)
                             or ipv6_pattern.match(bridge)
                             or meek_lite_pattern.match(bridge)
+                            or snowflake_pattern.match(bridge)
                         ):
                             new_bridges.append(bridge)
                             bridges_valid = True
