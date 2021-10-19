@@ -34,12 +34,14 @@ class MoatDialog(QtWidgets.QDialog):
 
     got_bridges = QtCore.Signal(str)
 
-    def __init__(self, common):
+    def __init__(self, common, meek):
         super(MoatDialog, self).__init__()
 
         self.common = common
 
         self.common.log("MoatDialog", "__init__")
+
+        self.meek = meek
 
         self.setModal(True)
         self.setWindowTitle(strings._("gui_settings_bridge_moat_button"))
@@ -108,7 +110,7 @@ class MoatDialog(QtWidgets.QDialog):
         self.submit_button.hide()
 
         # BridgeDB fetch
-        self.t_fetch = MoatThread(self.common, "fetch")
+        self.t_fetch = MoatThread(self.common, self.meek, "fetch")
         self.t_fetch.bridgedb_error.connect(self.bridgedb_error)
         self.t_fetch.captcha_ready.connect(self.captcha_ready)
         self.t_fetch.start()
@@ -130,6 +132,7 @@ class MoatDialog(QtWidgets.QDialog):
         # BridgeDB check
         self.t_check = MoatThread(
             self.common,
+            self.meek,
             "check",
             {"challenge": self.challenge, "solution": self.solution_lineedit.text()},
         )
@@ -209,17 +212,20 @@ class MoatThread(QtCore.QThread):
     captcha_ready = QtCore.Signal(str, str)
     bridges_ready = QtCore.Signal(str)
 
-    def __init__(self, common, action, data={}):
+    def __init__(self, common, meek, action, data={}):
         super(MoatThread, self).__init__()
         self.common = common
         self.common.log("MoatThread", "__init__", f"action={action}")
 
+        self.meek = meek
         self.transport = "obfs4"
         self.action = action
         self.data = data
 
     def run(self):
-        # TODO: Do all of this using domain fronting
+
+        # Start Meek so that we can do domain fronting
+        self.meek.start()
 
         if self.action == "fetch":
             self.common.log("MoatThread", "run", f"starting fetch")
@@ -228,6 +234,7 @@ class MoatThread(QtCore.QThread):
             r = requests.post(
                 "https://bridges.torproject.org/moat/fetch",
                 headers={"Content-Type": "application/vnd.api+json"},
+                proxies=self.meek.meek_proxies,
                 json={
                     "data": [
                         {
@@ -280,6 +287,7 @@ class MoatThread(QtCore.QThread):
             r = requests.post(
                 "https://bridges.torproject.org/moat/check",
                 headers={"Content-Type": "application/vnd.api+json"},
+                proxies=self.meek.meek_proxies,
                 json={
                     "data": [
                         {

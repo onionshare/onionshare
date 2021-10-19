@@ -24,6 +24,7 @@ import platform
 import re
 import os
 
+from onionshare_cli.meek import Meek
 from onionshare_cli.settings import Settings
 from onionshare_cli.onion import Onion
 
@@ -47,6 +48,8 @@ class TorSettingsDialog(QtWidgets.QDialog):
         self.common = common
 
         self.common.log("TorSettingsDialog", "__init__")
+
+        self.meek = Meek(common)
 
         self.setModal(True)
         self.setWindowTitle(strings._("gui_tor_settings_window_title"))
@@ -78,6 +81,7 @@ class TorSettingsDialog(QtWidgets.QDialog):
             self.tor_geo_ipv6_file_path,
             self.obfs4proxy_file_path,
             self.snowflake_file_path,
+            self.meek_client_file_path,
         ) = self.common.gui.get_tor_paths()
 
         bridges_label = QtWidgets.QLabel(strings._("gui_settings_tor_bridges_label"))
@@ -497,7 +501,7 @@ class TorSettingsDialog(QtWidgets.QDialog):
         """
         self.common.log("TorSettingsDialog", "bridge_moat_button_clicked")
 
-        moat_dialog = MoatDialog(self.common)
+        moat_dialog = MoatDialog(self.common, self.meek)
         moat_dialog.got_bridges.connect(self.bridge_moat_got_bridges)
         moat_dialog.exec_()
 
@@ -577,9 +581,7 @@ class TorSettingsDialog(QtWidgets.QDialog):
             return
 
         onion = Onion(
-            self.common,
-            use_tmp_dir=True,
-            get_tor_paths=self.common.gui.get_tor_paths,
+            self.common, use_tmp_dir=True, get_tor_paths=self.common.gui.get_tor_paths
         )
 
         tor_con = TorConnectionDialog(self.common, settings, True, onion)
@@ -781,10 +783,7 @@ class TorSettingsDialog(QtWidgets.QDialog):
                     Alert(self.common, strings._("gui_settings_moat_bridges_invalid"))
                     return False
 
-                settings.set(
-                    "tor_bridges_use_moat_bridges",
-                    moat_bridges,
-                )
+                settings.set("tor_bridges_use_moat_bridges", moat_bridges)
 
                 settings.set("tor_bridges_use_custom_bridges", "")
 

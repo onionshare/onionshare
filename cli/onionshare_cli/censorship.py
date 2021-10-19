@@ -18,77 +18,30 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import requests
-import subprocess
+
+from .meek import MeekNotRunning
 
 
-class CensorshipCircumvention:
+class CensorshipCircumvention(object):
     """
-    The CensorShipCircumvention object contains methods to detect
-    and offer solutions to censorship when connecting to Tor.
+    Connect to the Tor Moat APIs to retrieve censorship
+    circumvention recommendations, over the Meek client.
     """
 
-    def __init__(self, common):
-
+    def __init__(self, common, meek, domain_fronting=True):
+        """
+        Set up the CensorshipCircumvention object to hold
+        common and meek objects.
+        """
         self.common = common
+        self.meek = meek
         self.common.log("CensorshipCircumvention", "__init__")
 
-        get_tor_paths = self.common.get_tor_paths
-        (
-            self.tor_path,
-            self.tor_geo_ip_file_path,
-            self.tor_geo_ipv6_file_path,
-            self.obfs4proxy_file_path,
-            self.meek_client_file_path,
-        ) = get_tor_paths()
+        # Bail out if we requested domain fronting but we can't use meek
+        if domain_fronting and not self.meek.meek_proxies:
+            raise MeekNotRunning()
 
-        meek_url = "https://moat.torproject.org.global.prod.fastly.net/"
-        meek_front = "cdn.sstatic.net"
-        meek_env = {
-            "TOR_PT_MANAGED_TRANSPORT_VER": "1",
-            "TOR_PT_CLIENT_TRANSPORTS": "meek",
-        }
-
-        # @TODO detect the port from the subprocess output
-        meek_address = "127.0.0.1"
-        meek_port = "43533"  # hardcoded for testing
-        self.meek_proxies = {
-            "http": f"socks5h://{meek_address}:{meek_port}",
-            "https": f"socks5h://{meek_address}:{meek_port}",
-        }
-
-        # Start the Meek Client as a subprocess.
-        # This will be used to do domain fronting to the Tor
-        # Moat API endpoints for censorship circumvention as
-        # well as BridgeDB lookups.
-
-        if self.common.platform == "Windows":
-            # In Windows, hide console window when opening tor.exe subprocess
-            startupinfo = subprocess.STARTUPINFO()
-            startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
-            self.meek_proc = subprocess.Popen(
-                [self.meek_client_file_path, "--url", meek_url, "--front", meek_front],
-                stdout=subprocess.PIPE,
-                startupinfo=startupinfo,
-                bufsize=1,
-                env=meek_env,
-                text=True,
-            )
-        else:
-            self.meek_proc = subprocess.Popen(
-                [self.meek_client_file_path, "--url", meek_url, "--front", meek_front],
-                stdout=subprocess.PIPE,
-                bufsize=1,
-                env=meek_env,
-                text=True,
-            )
-
-            # if "CMETHOD meek socks5" in line:
-            #    self.meek_host = (line.split(" ")[3].split(":")[0])
-            #    self.meek_port = (line.split(" ")[3].split(":")[1])
-            #    self.common.log("CensorshipCircumvention", "__init__", f"Meek host is {self.meek_host}")
-            #    self.common.log("CensorshipCircumvention", "__init__", f"Meek port is {self.meek_port}")
-
-    def censorship_obtain_map(self, country=False):
+    def request_map(self, country=False):
         """
         Retrieves the Circumvention map from Tor Project and store it
         locally for further look-ups if required.
@@ -108,7 +61,7 @@ class CensorshipCircumvention:
             endpoint,
             json=data,
             headers={"Content-Type": "application/vnd.api+json"},
-            proxies=self.meek_proxies,
+            proxies=self.meek.meek_proxies,
         )
         if r.status_code != 200:
             self.common.log(
@@ -130,7 +83,7 @@ class CensorshipCircumvention:
 
         return result
 
-    def censorship_obtain_settings(self, country=False, transports=False):
+    def request_settings(self, country=False, transports=False):
         """
         Retrieves the Circumvention Settings from Tor Project, which
         will return recommended settings based on the country code of
@@ -152,7 +105,7 @@ class CensorshipCircumvention:
             endpoint,
             json=data,
             headers={"Content-Type": "application/vnd.api+json"},
-            proxies=self.meek_proxies,
+            proxies=self.meek.meek_proxies,
         )
         if r.status_code != 200:
             self.common.log(
@@ -185,7 +138,7 @@ class CensorshipCircumvention:
 
         return result
 
-    def censorship_obtain_builtin_bridges(self):
+    def request_builtin_bridges(self):
         """
         Retrieves the list of built-in bridges from the Tor Project.
         """
@@ -193,7 +146,7 @@ class CensorshipCircumvention:
         r = requests.post(
             endpoint,
             headers={"Content-Type": "application/vnd.api+json"},
-            proxies=self.meek_proxies,
+            proxies=self.meek.meek_proxies,
         )
         if r.status_code != 200:
             self.common.log(
