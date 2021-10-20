@@ -338,14 +338,16 @@ class Onion(object):
                     for line in self.settings.get("tor_bridges_use_moat_bridges").split(
                         "\n"
                     ):
-                        f.write(f"Bridge {line}\n")
+                        if line.strip() != "":
+                            f.write(f"Bridge {line}\n")
                     f.write("\nUseBridges 1\n")
 
                 elif self.settings.get("tor_bridges_use_custom_bridges"):
                     for line in self.settings.get(
                         "tor_bridges_use_custom_bridges"
                     ).split("\n"):
-                        f.write(f"Bridge {line}\n")
+                        if line.strip() != "":
+                            f.write(f"Bridge {line}\n")
                     f.write("\nUseBridges 1\n")
 
             # Execute a tor subprocess
