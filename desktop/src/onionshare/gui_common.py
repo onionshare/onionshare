@@ -205,14 +205,14 @@ class GuiCommon:
             "downloads_uploads_not_empty": """
                 QWidget{
                     background-color: """
-                +   history_background_color
-                +""";
+            + history_background_color
+            + """;
                 }""",
             "downloads_uploads_empty": """
                 QWidget {
                     background-color: """
-                +   history_background_color
-                +""";
+            + history_background_color
+            + """;
                     border: 1px solid #999999;
                 }
                 QWidget QLabel {
@@ -263,7 +263,7 @@ class GuiCommon:
             + """;
                     width: 10px;
                 }""",
-            "history_default_label" : """
+            "history_default_label": """
                 QLabel {
                     color: """
             + history_label_color
@@ -392,44 +392,44 @@ class GuiCommon:
                 QPushButton {
                     padding: 5px 10px;
                 }""",
-            # Settings dialog
-            "settings_version": """
+            # Moat dialog
+            "moat_error": """
                 QLabel {
-                    color: #666666;
-                }""",
-            "settings_tor_status": """
-                QLabel {
-                    background-color: #ffffff;
-                    color: #000000;
-                    padding: 10px;
-                }""",
-            "settings_whats_this": """
-                QLabel {
-                    font-size: 12px;
-                }""",
-            "settings_connect_to_tor": """
-                QLabel {
-                    font-style: italic;
-                }""",
+                    color: #990000;
+                }
+                """,
         }
 
     def get_tor_paths(self):
         if self.common.platform == "Linux":
-            tor_path = shutil.which("tor")
-            obfs4proxy_file_path = shutil.which("obfs4proxy")
-            prefix = os.path.dirname(os.path.dirname(tor_path))
-            tor_geo_ip_file_path = os.path.join(prefix, "share/tor/geoip")
-            tor_geo_ipv6_file_path = os.path.join(prefix, "share/tor/geoip6")
-        elif self.common.platform == "Windows":
+            base_path = self.get_resource_path("tor")
+            if os.path.exists(base_path):
+                tor_path = os.path.join(base_path, "tor")
+                tor_geo_ip_file_path = os.path.join(base_path, "geoip")
+                tor_geo_ipv6_file_path = os.path.join(base_path, "geoip6")
+                obfs4proxy_file_path = os.path.join(base_path, "obfs4proxy")
+                snowflake_file_path = os.path.join(base_path, "snowflake-client")
+            else:
+                # Fallback to looking in the path
+                tor_path = shutil.which("tor")
+                obfs4proxy_file_path = shutil.which("obfs4proxy")
+                snowflake_file_path = shutil.which("snowflake-client")
+                prefix = os.path.dirname(os.path.dirname(tor_path))
+                tor_geo_ip_file_path = os.path.join(prefix, "share/tor/geoip")
+                tor_geo_ipv6_file_path = os.path.join(prefix, "share/tor/geoip6")
+
+        if self.common.platform == "Windows":
             base_path = self.get_resource_path("tor")
             tor_path = os.path.join(base_path, "Tor", "tor.exe")
             obfs4proxy_file_path = os.path.join(base_path, "Tor", "obfs4proxy.exe")
+            snowflake_file_path = os.path.join(base_path, "Tor", "snowflake-client.exe")
             tor_geo_ip_file_path = os.path.join(base_path, "Data", "Tor", "geoip")
             tor_geo_ipv6_file_path = os.path.join(base_path, "Data", "Tor", "geoip6")
         elif self.common.platform == "Darwin":
             base_path = self.get_resource_path("tor")
             tor_path = os.path.join(base_path, "tor")
             obfs4proxy_file_path = os.path.join(base_path, "obfs4proxy")
+            snowflake_file_path = os.path.join(base_path, "snowflake-client")
             tor_geo_ip_file_path = os.path.join(base_path, "geoip")
             tor_geo_ipv6_file_path = os.path.join(base_path, "geoip6")
         elif self.common.platform == "BSD":
@@ -437,12 +437,14 @@ class GuiCommon:
             tor_geo_ip_file_path = "/usr/local/share/tor/geoip"
             tor_geo_ipv6_file_path = "/usr/local/share/tor/geoip6"
             obfs4proxy_file_path = "/usr/local/bin/obfs4proxy"
+            snowflake_file_path = "/usr/local/bin/snowflake-client"
 
         return (
             tor_path,
             tor_geo_ip_file_path,
             tor_geo_ipv6_file_path,
             obfs4proxy_file_path,
+            snowflake_file_path,
         )
 
     @staticmethod
