@@ -22,6 +22,7 @@ from PySide2 import QtCore, QtWidgets, QtGui
 import requests
 import os
 import base64
+import json
 
 from . import strings
 from .gui_common import GuiCommon
@@ -61,6 +62,11 @@ class MoatDialog(QtWidgets.QDialog):
         self.solution_lineedit.editingFinished.connect(
             self.solution_lineedit_editing_finished
         )
+        self.submit_button = QtWidgets.QPushButton(strings._("moat_captcha_submit"))
+        self.submit_button.clicked.connect(self.submit_clicked)
+        solution_layout = QtWidgets.QHBoxLayout()
+        solution_layout.addWidget(self.solution_lineedit)
+        solution_layout.addWidget(self.submit_button)
 
         # Error label
         self.error_label = QtWidgets.QLabel()
@@ -68,8 +74,6 @@ class MoatDialog(QtWidgets.QDialog):
         self.error_label.hide()
 
         # Buttons
-        self.submit_button = QtWidgets.QPushButton(strings._("moat_captcha_submit"))
-        self.submit_button.clicked.connect(self.submit_clicked)
         self.reload_button = QtWidgets.QPushButton(strings._("moat_captcha_reload"))
         self.reload_button.clicked.connect(self.reload_clicked)
         self.cancel_button = QtWidgets.QPushButton(
@@ -77,7 +81,6 @@ class MoatDialog(QtWidgets.QDialog):
         )
         self.cancel_button.clicked.connect(self.cancel_clicked)
         buttons_layout = QtWidgets.QHBoxLayout()
-        buttons_layout.addWidget(self.submit_button)
         buttons_layout.addStretch()
         buttons_layout.addWidget(self.reload_button)
         buttons_layout.addWidget(self.cancel_button)
@@ -86,7 +89,7 @@ class MoatDialog(QtWidgets.QDialog):
         layout = QtWidgets.QVBoxLayout()
         layout.addWidget(self.label)
         layout.addWidget(self.captcha)
-        layout.addWidget(self.solution_lineedit)
+        layout.addLayout(solution_layout)
         layout.addStretch()
         layout.addWidget(self.error_label)
         layout.addLayout(buttons_layout)
@@ -135,7 +138,11 @@ class MoatDialog(QtWidgets.QDialog):
             self.common,
             self.meek,
             "check",
-            {"challenge": self.challenge, "solution": self.solution_lineedit.text()},
+            {
+                "transport": self.transport,
+                "challenge": self.challenge,
+                "solution": self.solution_lineedit.text(),
+            },
         )
         self.t_check.bridgedb_error.connect(self.bridgedb_error)
         self.t_check.captcha_error.connect(self.captcha_error)
@@ -166,9 +173,10 @@ class MoatDialog(QtWidgets.QDialog):
 
         self.solution_lineedit.setEnabled(True)
 
-    def captcha_ready(self, image, challenge):
+    def captcha_ready(self, transport, image, challenge):
         self.common.log("MoatDialog", "captcha_ready")
 
+        self.transport = transport
         self.challenge = challenge
 
         # Save captcha image to disk, so we can load it
@@ -210,7 +218,7 @@ class MoatThread(QtCore.QThread):
 
     bridgedb_error = QtCore.Signal()
     captcha_error = QtCore.Signal(str)
-    captcha_ready = QtCore.Signal(str, str)
+    captcha_ready = QtCore.Signal(str, str, str)
     bridges_ready = QtCore.Signal(str)
 
     def __init__(self, common, meek, action, data={}):
@@ -231,7 +239,9 @@ class MoatThread(QtCore.QThread):
         # We should only fetch bridges if we can domain front,
         # but we can override this in local-only mode.
         if not self.meek.meek_proxies and not self.common.gui.local_only:
-            raise MeekNotRunning()
+            self.common.log("MoatThread", "run", f"Could not identify meek proxies to make request")
+            self.bridgedb_error.emit()
+            return
 
         if self.action == "fetch":
             self.common.log("MoatThread", "run", f"starting fetch")
@@ -246,7 +256,10 @@ class MoatThread(QtCore.QThread):
                         {
                             "version": "0.1.0",
                             "type": "client-transports",
-                            "supported": [self.transport],
+                            "supported": [
+                                "obfs4",
+                                "snowflake",
+                            ],
                         }
                     ]
                 },
@@ -270,17 +283,12 @@ class MoatThread(QtCore.QThread):
                     self.common.log("MoatThread", "run", f"type != moat-challange")
                     self.bridgedb_error.emit()
                     return
-                if moat_res["data"][0]["transport"] != self.transport:
-                    self.common.log(
-                        "MoatThread", "run", f"transport != {self.transport}"
-                    )
-                    self.bridgedb_error.emit()
-                    return
 
+                transport = moat_res["data"][0]["transport"]
                 image = moat_res["data"][0]["image"]
                 challenge = moat_res["data"][0]["challenge"]
 
-                self.captcha_ready.emit(image, challenge)
+                self.captcha_ready.emit(transport, image, challenge)
             except Exception as e:
                 self.common.log("MoatThread", "run", f"hit exception: {e}")
                 self.bridgedb_error.emit()
@@ -300,7 +308,7 @@ class MoatThread(QtCore.QThread):
                             "id": "2",
                             "type": "moat-solution",
                             "version": "0.1.0",
-                            "transport": self.transport,
+                            "transport": self.data["transport"],
                             "challenge": self.data["challenge"],
                             "solution": self.data["solution"],
                             "qrcode": "false",
@@ -315,6 +323,11 @@ class MoatThread(QtCore.QThread):
 
             try:
                 moat_res = r.json()
+                self.common.log(
+                    "MoatThread",
+                    "run",
+                    f"got bridges:\n{json.dumps(moat_res,indent=2)}",
+                )
 
                 if "errors" in moat_res:
                     self.common.log("MoatThread", "run", f"errors={moat_res['errors']}")
