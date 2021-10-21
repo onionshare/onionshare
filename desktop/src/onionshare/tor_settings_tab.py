@@ -319,15 +319,10 @@ class TorSettingsTab(QtWidgets.QWidget):
         self.test_tor_button.clicked.connect(self.test_tor_clicked)
         self.save_button = QtWidgets.QPushButton(strings._("gui_settings_button_save"))
         self.save_button.clicked.connect(self.save_clicked)
-        self.cancel_button = QtWidgets.QPushButton(
-            strings._("gui_settings_button_cancel")
-        )
-        self.cancel_button.clicked.connect(self.cancel_clicked)
         buttons_layout = QtWidgets.QHBoxLayout()
         buttons_layout.addWidget(self.test_tor_button)
         buttons_layout.addStretch()
         buttons_layout.addWidget(self.save_button)
-        buttons_layout.addWidget(self.cancel_button)
 
         # Layout
         layout = QtWidgets.QVBoxLayout()
@@ -337,7 +332,6 @@ class TorSettingsTab(QtWidgets.QWidget):
         layout.addLayout(buttons_layout)
 
         self.setLayout(layout)
-        self.cancel_button.setFocus()
 
         self.reload_settings()
 
@@ -686,23 +680,27 @@ class TorSettingsTab(QtWidgets.QWidget):
                 self.settings_saved.emit()
                 self.close()
 
-    def cancel_clicked(self):
+    def close_tab(self):
         """
-        Cancel button clicked.
+        Tab is closed
         """
         self.common.log("TorSettingsTab", "cancel_clicked")
-        if (
-            not self.common.gui.local_only
-            and not self.common.gui.onion.is_authenticated()
-        ):
-            Alert(
-                self.common,
-                strings._("gui_tor_connection_canceled"),
-                QtWidgets.QMessageBox.Warning,
-            )
-            sys.exit()
-        else:
-            self.close()
+        return True
+
+        # TODO: Figure out flow for first connecting, when closing settings when not connected
+
+        # if (
+        #     not self.common.gui.local_only
+        #     and not self.common.gui.onion.is_authenticated()
+        # ):
+        #     Alert(
+        #         self.common,
+        #         strings._("gui_tor_connection_canceled"),
+        #         QtWidgets.QMessageBox.Warning,
+        #     )
+        #     sys.exit()
+        # else:
+        #     self.close()
 
     def settings_from_fields(self):
         """

@@ -246,9 +246,7 @@ class MainWindow(QtWidgets.QMainWindow):
         Open the TorSettingsTab
         """
         self.common.log("MainWindow", "open_tor_settings")
-        # d = TorSettingsDialog(self.common)
-        # d.settings_saved.connect(self.settings_have_changed)
-        # d.exec_()
+        self.tabs.open_tor_settings_tab()
 
     def open_settings(self):
         """
@@ -256,9 +254,6 @@ class MainWindow(QtWidgets.QMainWindow):
         """
         self.common.log("MainWindow", "open_settings")
         self.tabs.open_settings_tab()
-        # d = SettingsDialog(self.common)
-        # d.settings_saved.connect(self.settings_have_changed)
-        # d.exec_()
 
     def settings_have_changed(self):
         self.common.log("OnionShareGui", "settings_have_changed")
