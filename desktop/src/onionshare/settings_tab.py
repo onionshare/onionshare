@@ -19,57 +19,34 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 from PySide2 import QtCore, QtWidgets, QtGui
-from PySide2.QtCore import Slot, Qt
-from PySide2.QtGui import QPalette, QColor
 import sys
 import platform
 import datetime
 import re
 import os
 from onionshare_cli.settings import Settings
-from onionshare_cli.onion import (
-    Onion,
-    TorErrorInvalidSetting,
-    TorErrorAutomatic,
-    TorErrorSocketPort,
-    TorErrorSocketFile,
-    TorErrorMissingPassword,
-    TorErrorUnreadableCookieFile,
-    TorErrorAuthError,
-    TorErrorProtocolError,
-    BundledTorTimeout,
-    BundledTorBroken,
-    TorTooOldEphemeral,
-    TorTooOldStealth,
-    PortNotAvailable,
-)
 
 from . import strings
 from .widgets import Alert
 from .update_checker import UpdateThread
-from .tor_connection_dialog import TorConnectionDialog
 from .gui_common import GuiCommon
 
 
-class SettingsDialog(QtWidgets.QDialog):
+class SettingsTab(QtWidgets.QWidget):
     """
     Settings dialog.
     """
 
     settings_saved = QtCore.Signal()
 
-    def __init__(self, common):
-        super(SettingsDialog, self).__init__()
+    def __init__(self, common, tab_id):
+        super(SettingsTab, self).__init__()
 
         self.common = common
-
-        self.common.log("SettingsDialog", "__init__")
-
-        self.setModal(True)
-        self.setWindowTitle(strings._("gui_settings_window_title"))
-        self.setWindowIcon(QtGui.QIcon(GuiCommon.get_resource_path("images/logo.png")))
+        self.common.log("SettingsTab", "__init__")
 
         self.system = platform.system()
+        self.tab_id = tab_id
 
         # Automatic updates options
 
@@ -146,31 +123,26 @@ class SettingsDialog(QtWidgets.QDialog):
         # Buttons
         self.save_button = QtWidgets.QPushButton(strings._("gui_settings_button_save"))
         self.save_button.clicked.connect(self.save_clicked)
-        self.cancel_button = QtWidgets.QPushButton(
-            strings._("gui_settings_button_cancel")
-        )
-        self.cancel_button.clicked.connect(self.cancel_clicked)
         buttons_layout = QtWidgets.QHBoxLayout()
         buttons_layout.addStretch()
         buttons_layout.addWidget(self.save_button)
-        buttons_layout.addWidget(self.cancel_button)
 
         # Layout
         layout = QtWidgets.QVBoxLayout()
+        layout.addStretch()
         layout.addWidget(autoupdate_group)
         if autoupdate_group.isVisible():
             layout.addSpacing(20)
         layout.addLayout(language_layout)
         layout.addLayout(theme_layout)
         layout.addSpacing(20)
-        layout.addStretch()
         layout.addWidget(version_label)
         layout.addWidget(help_label)
         layout.addSpacing(20)
         layout.addLayout(buttons_layout)
+        layout.addStretch()
 
         self.setLayout(layout)
-        self.cancel_button.setFocus()
 
         self.reload_settings()
 
@@ -199,7 +171,7 @@ class SettingsDialog(QtWidgets.QDialog):
         """
         Check for Updates button clicked. Manually force an update check.
         """
-        self.common.log("SettingsDialog", "check_for_updates")
+        self.common.log("SettingsTab", "check_for_updates")
         # Disable buttons
         self._disable_buttons()
         self.common.gui.qtapp.processEvents()
@@ -261,7 +233,7 @@ class SettingsDialog(QtWidgets.QDialog):
         """
         Save button clicked. Save current settings to disk.
         """
-        self.common.log("SettingsDialog", "save_clicked")
+        self.common.log("SettingsTab", "save_clicked")
 
         def changed(s1, s2, keys):
             """
@@ -301,30 +273,12 @@ class SettingsDialog(QtWidgets.QDialog):
             self.settings_saved.emit()
             self.close()
 
-    def cancel_clicked(self):
-        """
-        Cancel button clicked.
-        """
-        self.common.log("SettingsDialog", "cancel_clicked")
-        if (
-            not self.common.gui.local_only
-            and not self.common.gui.onion.is_authenticated()
-        ):
-            Alert(
-                self.common,
-                strings._("gui_tor_connection_canceled"),
-                QtWidgets.QMessageBox.Warning,
-            )
-            sys.exit()
-        else:
-            self.close()
-
     def help_clicked(self):
         """
         Help button clicked.
         """
-        self.common.log("SettingsDialog", "help_clicked")
-        SettingsDialog.open_help()
+        self.common.log("SettingsTab", "help_clicked")
+        SettingsTab.open_help()
 
     @staticmethod
     def open_help():
@@ -335,7 +289,7 @@ class SettingsDialog(QtWidgets.QDialog):
         """
         Return a Settings object that's full of values from the settings dialog.
         """
-        self.common.log("SettingsDialog", "settings_from_fields")
+        self.common.log("SettingsTab", "settings_from_fields")
         settings = Settings(self.common)
         settings.load()  # To get the last update timestamp
 
@@ -351,7 +305,7 @@ class SettingsDialog(QtWidgets.QDialog):
         return settings
 
     def _update_autoupdate_timestamp(self, autoupdate_timestamp):
-        self.common.log("SettingsDialog", "_update_autoupdate_timestamp")
+        self.common.log("SettingsTab", "_update_autoupdate_timestamp")
 
         if autoupdate_timestamp:
             dt = datetime.datetime.fromtimestamp(autoupdate_timestamp)
@@ -363,18 +317,16 @@ class SettingsDialog(QtWidgets.QDialog):
         )
 
     def _disable_buttons(self):
-        self.common.log("SettingsDialog", "_disable_buttons")
+        self.common.log("SettingsTab", "_disable_buttons")
 
         self.check_for_updates_button.setEnabled(False)
         self.save_button.setEnabled(False)
-        self.cancel_button.setEnabled(False)
 
     def _enable_buttons(self):
-        self.common.log("SettingsDialog", "_enable_buttons")
+        self.common.log("SettingsTab", "_enable_buttons")
         # We can't check for updates if we're still not connected to Tor
         if not self.common.gui.onion.connected_to_tor:
             self.check_for_updates_button.setEnabled(False)
         else:
             self.check_for_updates_button.setEnabled(True)
         self.save_button.setEnabled(True)
-        self.cancel_button.setEnabled(True)
