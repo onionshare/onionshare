@@ -29,7 +29,7 @@ from onionshare_cli.onion import Onion
 
 from . import strings
 from .widgets import Alert
-from .tor_connection_dialog import TorConnectionDialog
+from .tor_connection_dialog import TorConnectionDialog, TorConnectionWidget
 from .moat_dialog import MoatDialog
 from .gui_common import GuiCommon
 
@@ -291,6 +291,7 @@ class TorSettingsTab(QtWidgets.QWidget):
         connection_type_radio_group_layout.addWidget(
             self.connection_type_socket_file_radio
         )
+        connection_type_radio_group_layout.addStretch()
         connection_type_radio_group = QtWidgets.QGroupBox(
             strings._("gui_settings_connection_type_label")
         )
@@ -311,6 +312,17 @@ class TorSettingsTab(QtWidgets.QWidget):
         connection_type_layout = QtWidgets.QVBoxLayout()
         connection_type_layout.addWidget(self.tor_settings_group)
         connection_type_layout.addWidget(self.connection_type_bridges_radio_group)
+        connection_type_layout.addStretch()
+
+        # Settings are in columns
+        columns_layout = QtWidgets.QHBoxLayout()
+        columns_layout.addWidget(connection_type_radio_group)
+        columns_layout.addSpacing(20)
+        columns_layout.addLayout(connection_type_layout, stretch=1)
+
+        # Tor connection widget
+        self.tor_con = TorConnectionWidget(self.common)
+        self.tor_con.hide()
 
         # Buttons
         self.test_tor_button = QtWidgets.QPushButton(
@@ -320,16 +332,19 @@ class TorSettingsTab(QtWidgets.QWidget):
         self.save_button = QtWidgets.QPushButton(strings._("gui_settings_button_save"))
         self.save_button.clicked.connect(self.save_clicked)
         buttons_layout = QtWidgets.QHBoxLayout()
-        buttons_layout.addWidget(self.test_tor_button)
         buttons_layout.addStretch()
+        buttons_layout.addWidget(self.test_tor_button)
         buttons_layout.addWidget(self.save_button)
+        buttons_layout.addStretch()
 
         # Layout
         layout = QtWidgets.QVBoxLayout()
-        layout.addWidget(connection_type_radio_group)
-        layout.addLayout(connection_type_layout)
+        layout.addStretch()
+        layout.addLayout(columns_layout)
+        layout.addWidget(self.tor_con)
         layout.addStretch()
         layout.addLayout(buttons_layout)
+        layout.addStretch()
 
         self.setLayout(layout)
 
@@ -566,14 +581,18 @@ class TorSettingsTab(QtWidgets.QWidget):
         if not settings:
             return
 
+        self.test_tor_button.hide()
+
         onion = Onion(
             self.common,
             use_tmp_dir=True,
             get_tor_paths=self.common.gui.get_tor_paths,
         )
 
-        tor_con = TorConnectionDialog(self.common, settings, True, onion)
-        tor_con.start()
+        self.tor_con.show()
+        self.tor_con.success.connect(self.test_tor_button_finished)
+        self.tor_con.fail.connect(self.test_tor_button_finished)
+        self.tor_con.start(settings, True, onion)
 
         # If Tor settings worked, show results
         if onion.connected_to_tor:
@@ -590,6 +609,13 @@ class TorSettingsTab(QtWidgets.QWidget):
 
         # Clean up
         onion.cleanup()
+
+    def test_tor_button_finished(self):
+        """
+        Finished testing tor connection.
+        """
+        self.tor_con.hide()
+        self.test_tor_button.show()
 
     def save_clicked(self):
         """
