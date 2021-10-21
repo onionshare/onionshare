@@ -92,8 +92,9 @@ class TabWidget(QtWidgets.QTabWidget):
 
         # Clean up each tab
         for index in range(self.count()):
-            tab = self.widget(index)
-            tab.cleanup()
+            if not self.is_settings_tab(index):
+                tab = self.widget(index)
+                tab.cleanup()
 
     def move_new_tab_button(self):
         # Find the width of all tabs
@@ -186,7 +187,7 @@ class TabWidget(QtWidgets.QTabWidget):
 
         # See if a settings tab is already open, and if so switch to it
         for index in range(self.count()):
-            if self.is_settings_tab(index):
+            if type(self.tabs[index]) is SettingsTab:
                 self.setCurrentIndex(index)
                 return
 
@@ -199,6 +200,27 @@ class TabWidget(QtWidgets.QTabWidget):
         # In macOS, manually create a close button because tabs don't seem to have them otherwise
         if self.common.platform == "Darwin":
             self.macos_create_close_button(settings_tab, index)
+
+    def open_tor_settings_tab(self):
+        self.common.log("TabWidget", "open_tor_settings_tab")
+
+        # See if a settings tab is already open, and if so switch to it
+        for index in range(self.count()):
+            if type(self.tabs[index]) is TorSettingsTab:
+                self.setCurrentIndex(index)
+                return
+
+        tor_settings_tab = TorSettingsTab(self.common, self.current_tab_id)
+        self.tabs[self.current_tab_id] = tor_settings_tab
+        self.current_tab_id += 1
+        index = self.addTab(
+            tor_settings_tab, strings._("gui_tor_settings_window_title")
+        )
+        self.setCurrentIndex(index)
+
+        # In macOS, manually create a close button because tabs don't seem to have them otherwise
+        if self.common.platform == "Darwin":
+            self.macos_create_close_button(tor_settings_tab, index)
 
     def change_title(self, tab_id, title):
         shortened_title = title
@@ -280,10 +302,11 @@ class TabWidget(QtWidgets.QTabWidget):
         See if there are active servers in any open tabs
         """
         for tab_id in self.tabs:
-            mode = self.tabs[tab_id].get_mode()
-            if mode:
-                if mode.server_status.status != mode.server_status.STATUS_STOPPED:
-                    return True
+            if not self.is_settings_tab(tab_id):
+                mode = self.tabs[tab_id].get_mode()
+                if mode:
+                    if mode.server_status.status != mode.server_status.STATUS_STOPPED:
+                        return True
         return False
 
     def paintEvent(self, event):
