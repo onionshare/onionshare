@@ -37,7 +37,7 @@ class SettingsTab(QtWidgets.QWidget):
     Settings dialog.
     """
 
-    settings_saved = QtCore.Signal()
+    close_this_tab = QtCore.Signal()
 
     def __init__(self, common, tab_id):
         super(SettingsTab, self).__init__()
@@ -94,6 +94,7 @@ class SettingsTab(QtWidgets.QWidget):
             locale = language_names_to_locales[language_name]
             self.language_combobox.addItem(language_name, locale)
         language_layout = QtWidgets.QHBoxLayout()
+        language_layout.addStretch()
         language_layout.addWidget(language_label)
         language_layout.addWidget(self.language_combobox)
         language_layout.addStretch()
@@ -108,6 +109,7 @@ class SettingsTab(QtWidgets.QWidget):
         ]
         self.theme_combobox.addItems(theme_choices)
         theme_layout = QtWidgets.QHBoxLayout()
+        theme_layout.addStretch()
         theme_layout.addWidget(theme_label)
         theme_layout.addWidget(self.theme_combobox)
         theme_layout.addStretch()
@@ -116,7 +118,9 @@ class SettingsTab(QtWidgets.QWidget):
         version_label = QtWidgets.QLabel(
             strings._("gui_settings_version_label").format(self.common.version)
         )
+        version_label.setAlignment(QtCore.Qt.AlignHCenter)
         help_label = QtWidgets.QLabel(strings._("gui_settings_help_label"))
+        help_label.setAlignment(QtCore.Qt.AlignHCenter)
         help_label.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
         help_label.setOpenExternalLinks(True)
 
@@ -126,6 +130,7 @@ class SettingsTab(QtWidgets.QWidget):
         buttons_layout = QtWidgets.QHBoxLayout()
         buttons_layout.addStretch()
         buttons_layout.addWidget(self.save_button)
+        buttons_layout.addStretch()
 
         # Layout
         layout = QtWidgets.QVBoxLayout()
@@ -270,8 +275,7 @@ class SettingsTab(QtWidgets.QWidget):
 
             # Save the new settings
             settings.save()
-            self.settings_saved.emit()
-            self.close()
+            self.close_this_tab.emit()
 
     def help_clicked(self):
         """
