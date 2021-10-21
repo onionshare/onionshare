@@ -26,6 +26,8 @@ from . import strings
 from .tab import Tab
 from .threads import EventHandlerThread
 from .gui_common import GuiCommon
+from .tor_settings_tab import TorSettingsTab
+from .settings_tab import SettingsTab
 
 
 class TabWidget(QtWidgets.QTabWidget):
@@ -116,6 +118,11 @@ class TabWidget(QtWidgets.QTabWidget):
         # Active tab was changed
         tab_id = self.currentIndex()
         self.common.log("TabWidget", "tab_changed", f"Tab was changed to {tab_id}")
+
+        # If it's Settings or Tor Settings, ignore
+        if self.is_settings_tab(tab_id):
+            return
+
         try:
             mode = self.tabs[tab_id].get_mode()
             if mode:
@@ -160,20 +167,7 @@ class TabWidget(QtWidgets.QTabWidget):
 
         # In macOS, manually create a close button because tabs don't seem to have them otherwise
         if self.common.platform == "Darwin":
-
-            def close_tab():
-                self.tabBar().tabCloseRequested.emit(self.indexOf(tab))
-
-            tab.close_button = QtWidgets.QPushButton()
-            tab.close_button.setFlat(True)
-            tab.close_button.setFixedWidth(40)
-            tab.close_button.setIcon(
-                QtGui.QIcon(GuiCommon.get_resource_path("images/close_tab.png"))
-            )
-            tab.close_button.clicked.connect(close_tab)
-            self.tabBar().setTabButton(
-                index, QtWidgets.QTabBar.RightSide, tab.close_button
-            )
+            self.macos_create_close_button(tab, index)
 
         tab.init(mode_settings)
 
@@ -186,6 +180,25 @@ class TabWidget(QtWidgets.QTabWidget):
 
         # Bring the window to front, in case this is being added by an event
         self.bring_to_front.emit()
+
+    def open_settings_tab(self):
+        self.common.log("TabWidget", "open_settings_tab")
+
+        # See if a settings tab is already open, and if so switch to it
+        for index in range(self.count()):
+            if self.is_settings_tab(index):
+                self.setCurrentIndex(index)
+                return
+
+        settings_tab = SettingsTab(self.common, self.current_tab_id)
+        self.tabs[self.current_tab_id] = settings_tab
+        self.current_tab_id += 1
+        index = self.addTab(settings_tab, strings._("gui_settings_window_title"))
+        self.setCurrentIndex(index)
+
+        # In macOS, manually create a close button because tabs don't seem to have them otherwise
+        if self.common.platform == "Darwin":
+            self.macos_create_close_button(settings_tab, index)
 
     def change_title(self, tab_id, title):
         shortened_title = title
@@ -224,9 +237,10 @@ class TabWidget(QtWidgets.QTabWidget):
         # Figure out the order of persistent tabs to save in settings
         persistent_tabs = []
         for index in range(self.count()):
-            tab = self.widget(index)
-            if tab.settings.get("persistent", "enabled"):
-                persistent_tabs.append(tab.settings.id)
+            if not self.is_settings_tab(index):
+                tab = self.widget(index)
+                if tab.settings.get("persistent", "enabled"):
+                    persistent_tabs.append(tab.settings.id)
         # Only save if tabs have actually moved
         if persistent_tabs != self.common.settings.get("persistent_tabs"):
             self.common.settings.set("persistent_tabs", persistent_tabs)
@@ -235,11 +249,8 @@ class TabWidget(QtWidgets.QTabWidget):
     def close_tab(self, index):
         self.common.log("TabWidget", "close_tab", f"{index}")
         tab = self.widget(index)
-        if tab.close_tab():
-            # If the tab is persistent, delete the settings file from disk
-            if tab.settings.get("persistent", "enabled"):
-                tab.settings.delete()
 
+        if self.is_settings_tab(index):
             # Remove the tab
             self.removeTab(index)
             del self.tabs[tab.tab_id]
@@ -248,7 +259,21 @@ class TabWidget(QtWidgets.QTabWidget):
             if self.count() == 0:
                 self.new_tab_clicked()
 
-        self.save_persistent_tabs()
+        else:
+            if tab.close_tab():
+                # If the tab is persistent, delete the settings file from disk
+                if tab.settings.get("persistent", "enabled"):
+                    tab.settings.delete()
+
+                self.save_persistent_tabs()
+
+                # Remove the tab
+                self.removeTab(index)
+                del self.tabs[tab.tab_id]
+
+                # If the last tab is closed, open a new one
+                if self.count() == 0:
+                    self.new_tab_clicked()
 
     def are_tabs_active(self):
         """
@@ -272,6 +297,28 @@ class TabWidget(QtWidgets.QTabWidget):
         # Make sure to move new tab button on each resize
         super(TabWidget, self).resizeEvent(event)
         self.move_new_tab_button()
+
+    def macos_create_close_button(self, tab, index):
+        def close_tab():
+            self.tabBar().tabCloseRequested.emit(self.indexOf(tab))
+
+        close_button = QtWidgets.QPushButton()
+        close_button.setFlat(True)
+        close_button.setFixedWidth(40)
+        close_button.setIcon(
+            QtGui.QIcon(GuiCommon.get_resource_path("images/close_tab.png"))
+        )
+        close_button.clicked.connect(close_tab)
+        self.tabBar().setTabButton(index, QtWidgets.QTabBar.RightSide, tab.close_button)
+
+    def is_settings_tab(self, tab_id):
+        if tab_id not in self.tabs:
+            return True
+
+        return (
+            type(self.tabs[tab_id]) is SettingsTab
+            or type(self.tabs[tab_id]) is TorSettingsTab
+        )
 
 
 class TabBar(QtWidgets.QTabBar):
