@@ -39,7 +39,7 @@ class TorSettingsTab(QtWidgets.QWidget):
     Settings dialog.
     """
 
-    settings_saved = QtCore.Signal()
+    close_this_tab = QtCore.Signal()
 
     def __init__(self, common, tab_id):
         super(TorSettingsTab, self).__init__()
@@ -339,7 +339,6 @@ class TorSettingsTab(QtWidgets.QWidget):
 
         # Layout
         layout = QtWidgets.QVBoxLayout()
-        layout.addStretch()
         layout.addLayout(columns_layout)
         layout.addWidget(self.tor_con)
         layout.addStretch()
@@ -582,6 +581,7 @@ class TorSettingsTab(QtWidgets.QWidget):
             return
 
         self.test_tor_button.hide()
+        self.save_button.hide()
 
         onion = Onion(
             self.common,
@@ -616,6 +616,7 @@ class TorSettingsTab(QtWidgets.QWidget):
         """
         self.tor_con.hide()
         self.test_tor_button.show()
+        self.save_button.show()
 
     def save_clicked(self):
         """
@@ -696,15 +697,12 @@ class TorSettingsTab(QtWidgets.QWidget):
                         self.common.gui.onion.is_authenticated()
                         and not tor_con.wasCanceled()
                     ):
-                        self.settings_saved.emit()
-                        self.close()
+                        self.close_this_tab.emit()
 
                 else:
-                    self.settings_saved.emit()
-                    self.close()
+                    self.close_this_tab.emit()
             else:
-                self.settings_saved.emit()
-                self.close()
+                self.close_this_tab.emit()
 
     def close_tab(self):
         """

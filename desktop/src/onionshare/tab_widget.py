@@ -186,12 +186,13 @@ class TabWidget(QtWidgets.QTabWidget):
         self.common.log("TabWidget", "open_settings_tab")
 
         # See if a settings tab is already open, and if so switch to it
-        for index in range(self.count()):
-            if type(self.tabs[index]) is SettingsTab:
-                self.setCurrentIndex(index)
+        for tab_id in self.tabs:
+            if type(self.tabs[tab_id]) is SettingsTab:
+                self.setCurrentIndex(self.indexOf(self.tabs[tab_id]))
                 return
 
         settings_tab = SettingsTab(self.common, self.current_tab_id)
+        settings_tab.close_this_tab.connect(self.close_settings_tab)
         self.tabs[self.current_tab_id] = settings_tab
         self.current_tab_id += 1
         index = self.addTab(settings_tab, strings._("gui_settings_window_title"))
@@ -205,12 +206,13 @@ class TabWidget(QtWidgets.QTabWidget):
         self.common.log("TabWidget", "open_tor_settings_tab")
 
         # See if a settings tab is already open, and if so switch to it
-        for index in range(self.count()):
-            if type(self.tabs[index]) is TorSettingsTab:
-                self.setCurrentIndex(index)
+        for tab_id in self.tabs:
+            if type(self.tabs[tab_id]) is TorSettingsTab:
+                self.setCurrentIndex(self.indexOf(self.tabs[tab_id]))
                 return
 
         tor_settings_tab = TorSettingsTab(self.common, self.current_tab_id)
+        tor_settings_tab.close_this_tab.connect(self.close_tor_settings_tab)
         self.tabs[self.current_tab_id] = tor_settings_tab
         self.current_tab_id += 1
         index = self.addTab(
@@ -296,6 +298,22 @@ class TabWidget(QtWidgets.QTabWidget):
                 # If the last tab is closed, open a new one
                 if self.count() == 0:
                     self.new_tab_clicked()
+
+    def close_settings_tab(self):
+        self.common.log("TabWidget", "close_settings_tab")
+        for tab_id in self.tabs:
+            if type(self.tabs[tab_id]) is SettingsTab:
+                index = self.indexOf(self.tabs[tab_id])
+                self.close_tab(index)
+                return
+
+    def close_tor_settings_tab(self):
+        self.common.log("TabWidget", "close_tor_settings_tab")
+        for tab_id in self.tabs:
+            if type(self.tabs[tab_id]) is TorSettingsTab:
+                index = self.indexOf(self.tabs[tab_id])
+                self.close_tab(index)
+                return
 
     def are_tabs_active(self):
         """
