@@ -264,6 +264,7 @@ class MoatThread(QtCore.QThread):
                     ]
                 },
             )
+            self.meek.cleanup()
             if r.status_code != 200:
                 self.common.log("MoatThread", "run", f"status_code={r.status_code}")
                 self.bridgedb_error.emit()
@@ -316,6 +317,7 @@ class MoatThread(QtCore.QThread):
                     ]
                 },
             )
+            self.meek.cleanup()
             if r.status_code != 200:
                 self.common.log("MoatThread", "run", f"status_code={r.status_code}")
                 self.bridgedb_error.emit()

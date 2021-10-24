@@ -286,8 +286,8 @@ def main(cwd=None):
     web = Web(common, False, mode_settings, mode)
 
     # Create the Meek object and start the meek client
-    meek = Meek(common)
-    meek.start()
+    # meek = Meek(common)
+    # meek.start()
 
     # Create the CensorshipCircumvention object to make
     # API calls to Tor over Meek
@@ -296,6 +296,8 @@ def main(cwd=None):
     # domain fronting.
     # censorship_recommended_settings = censorship.request_settings(country="cn")
     # print(censorship_recommended_settings)
+    # Clean up the meek subprocess once we're done working with the censorship circumvention API
+    # meek.cleanup()
 
     # Start the Onion object
     try:

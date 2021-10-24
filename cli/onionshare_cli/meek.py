@@ -18,6 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import subprocess
+import time
 from queue import Queue, Empty
 from threading import Thread
 
@@ -86,6 +87,7 @@ class Meek(object):
                     self.meek_front,
                 ],
                 stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
                 startupinfo=startupinfo,
                 bufsize=1,
                 env=self.meek_env,
@@ -101,6 +103,7 @@ class Meek(object):
                     self.meek_front,
                 ],
                 stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
                 bufsize=1,
                 env=self.meek_env,
                 text=True,
@@ -135,6 +138,40 @@ class Meek(object):
         else:
             self.common.log("Meek", "start", "Could not obtain the meek port")
             raise MeekNotRunning()
+
+    def cleanup(self):
+        """
+        Kill any meek subprocesses.
+        """
+        self.common.log("Meek", "cleanup")
+
+        if self.meek_proc:
+            self.meek_proc.terminate()
+            time.sleep(0.2)
+            if self.meek_proc.poll() is None:
+                self.common.log(
+                    "Meek",
+                    "cleanup",
+                    "Tried to terminate meek-client process but it's still running",
+                )
+                try:
+                    self.meek_proc.kill()
+                    time.sleep(0.2)
+                    if self.meek_proc.poll() is None:
+                        self.common.log(
+                            "Meek",
+                            "cleanup",
+                            "Tried to kill meek-client process but it's still running",
+                        )
+                except Exception:
+                    self.common.log(
+                        "Meek", "cleanup", "Exception while killing meek-client process"
+                    )
+            self.meek_proc = None
+
+            # Reset other Meek settings
+            self.meek_proxies = {}
+            self.meek_port = None
 
 
 class MeekNotRunning(Exception):
