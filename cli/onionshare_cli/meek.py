@@ -74,7 +74,7 @@ class Meek(object):
         # Start the Meek Client as a subprocess.
 
         if self.common.platform == "Windows":
-            # In Windows, hide console window when opening tor.exe subprocess
+            # In Windows, hide console window when opening meek-client.exe subprocess
             startupinfo = subprocess.STARTUPINFO()
             startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
             self.meek_proc = subprocess.Popen(
