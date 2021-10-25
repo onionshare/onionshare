@@ -63,6 +63,16 @@ Download Tor Browser and extract the binaries:
 python scripts\get-tor-windows.py
 ```
 
+### Compile dependencies
+
+Install Go. The simplest way to make sure everything works is to install Go by following [these instructions](https://golang.org/doc/install).
+
+Download and compile `meek-client`:
+
+```
+./scripts/build-meek-client.py
+```
+
 ### Prepare the virtual environment
 
 OnionShare uses [Briefcase](https://briefcase.readthedocs.io/en/latest/).
