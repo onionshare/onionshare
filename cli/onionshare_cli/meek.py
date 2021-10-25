@@ -72,6 +72,12 @@ class Meek(object):
                 queue.put(line)
             out.close()
 
+        # Abort early if we can't find the Meek client
+        # common.get_tor_paths() has already checked it's a file
+        # so just abort if it's a NoneType object
+        if self.meek_client_file_path is None:
+            raise MeekNotFound()
+
         # Start the Meek Client as a subprocess.
 
         if self.common.platform == "Windows":
@@ -178,4 +184,9 @@ class MeekNotRunning(Exception):
     """
     We were unable to start Meek or obtain the port
     number it started on, in order to do domain fronting.
+    """
+
+class MeekNotFound(Exception):
+    """
+    We were unable to find the Meek Client binary.
     """
