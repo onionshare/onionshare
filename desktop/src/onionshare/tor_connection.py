@@ -271,20 +271,20 @@ class TorConnectionThread(QtCore.QThread):
     canceled_connecting_to_tor = QtCore.Signal()
     error_connecting_to_tor = QtCore.Signal(str)
 
-    def __init__(self, common, settings, dialog):
+    def __init__(self, common, settings, parent):
         super(TorConnectionThread, self).__init__()
         self.common = common
         self.common.log("TorConnectionThread", "__init__")
         self.settings = settings
-        self.dialog = dialog
+        self.parent = parent
 
     def run(self):
         self.common.log("TorConnectionThread", "run")
 
         # Connect to the Onion
         try:
-            self.dialog.onion.connect(self.settings, False, self._tor_status_update)
-            if self.dialog.onion.connected_to_tor:
+            self.parent.onion.connect(self.settings, False, self._tor_status_update)
+            if self.parent.onion.connected_to_tor:
                 self.connected_to_tor.emit()
             else:
                 self.canceled_connecting_to_tor.emit()
@@ -320,4 +320,4 @@ class TorConnectionThread(QtCore.QThread):
         self.tor_status_update.emit(progress, summary)
 
         # Return False if the dialog was canceled
-        return not self.dialog.wasCanceled()
+        return not self.parent.wasCanceled()
