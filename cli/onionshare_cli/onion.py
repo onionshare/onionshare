@@ -199,8 +199,6 @@ class Onion(object):
             )
             return
 
-        self.common.log("Onion", "connect")
-
         # Either use settings that are passed in, or use them from common
         if custom_settings:
             self.settings = custom_settings
@@ -210,6 +208,12 @@ class Onion(object):
         else:
             self.common.load_settings()
             self.settings = self.common.settings
+
+        self.common.log(
+            "Onion",
+            "connect",
+            f"connection_type={self.settings.get('connection_type')}",
+        )
 
         # The Tor controller
         self.c = None
