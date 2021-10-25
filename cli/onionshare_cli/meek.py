@@ -17,6 +17,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
+import os
 import subprocess
 import time
 from queue import Queue, Empty
@@ -31,7 +32,7 @@ class Meek(object):
     bridges, before connecting to Tor.
     """
 
-    def __init__(self, common):
+    def __init__(self, common, get_tor_paths=None):
         """
         Set up the Meek object
         """
@@ -39,7 +40,9 @@ class Meek(object):
         self.common = common
         self.common.log("Meek", "__init__")
 
-        get_tor_paths = self.common.get_tor_paths
+        # Set the path of the meek binary
+        if not get_tor_paths:
+            get_tor_paths = self.common.get_tor_paths
         (
             self.tor_path,
             self.tor_geo_ip_file_path,
@@ -72,10 +75,12 @@ class Meek(object):
                 queue.put(line)
             out.close()
 
+        self.common.log("Meek", "start", self.meek_client_file_path)
+
         # Abort early if we can't find the Meek client
-        # common.get_tor_paths() has already checked it's a file
-        # so just abort if it's a NoneType object
-        if self.meek_client_file_path is None:
+        if self.meek_client_file_path is None or not os.path.exists(
+            self.meek_client_file_path
+        ):
             raise MeekNotFound()
 
         # Start the Meek Client as a subprocess.
@@ -185,6 +190,7 @@ class MeekNotRunning(Exception):
     We were unable to start Meek or obtain the port
     number it started on, in order to do domain fronting.
     """
+
 
 class MeekNotFound(Exception):
     """
