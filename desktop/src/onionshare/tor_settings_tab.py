@@ -24,6 +24,7 @@ import platform
 import re
 import os
 
+from onionshare_cli.meek import Meek
 from onionshare_cli.settings import Settings
 from onionshare_cli.onion import Onion
 
@@ -45,6 +46,8 @@ class TorSettingsTab(QtWidgets.QWidget):
 
         self.common = common
         self.common.log("TorSettingsTab", "__init__")
+
+        self.meek = Meek(common, get_tor_paths=self.common.gui.get_tor_paths)
 
         self.system = platform.system()
         self.tab_id = tab_id
@@ -73,6 +76,7 @@ class TorSettingsTab(QtWidgets.QWidget):
             self.tor_geo_ipv6_file_path,
             self.obfs4proxy_file_path,
             self.snowflake_file_path,
+            self.meek_client_file_path,
         ) = self.common.gui.get_tor_paths()
 
         bridges_label = QtWidgets.QLabel(strings._("gui_settings_tor_bridges_label"))
@@ -511,7 +515,7 @@ class TorSettingsTab(QtWidgets.QWidget):
         """
         self.common.log("TorSettingsTab", "bridge_moat_button_clicked")
 
-        moat_dialog = MoatDialog(self.common)
+        moat_dialog = MoatDialog(self.common, self.meek)
         moat_dialog.got_bridges.connect(self.bridge_moat_got_bridges)
         moat_dialog.exec_()
 
@@ -808,10 +812,7 @@ class TorSettingsTab(QtWidgets.QWidget):
                     )
                     return False
 
-                settings.set(
-                    "tor_bridges_use_moat_bridges",
-                    moat_bridges,
-                )
+                settings.set("tor_bridges_use_moat_bridges", moat_bridges)
 
                 settings.set("tor_bridges_use_custom_bridges", "")
 
