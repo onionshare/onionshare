@@ -29,7 +29,7 @@ from onionshare_cli.onion import Onion
 
 from . import strings
 from .widgets import Alert
-from .tor_connection_dialog import TorConnectionWidget
+from .tor_connection import TorConnectionWidget
 from .moat_dialog import MoatDialog
 
 
