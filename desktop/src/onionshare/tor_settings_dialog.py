@@ -49,7 +49,7 @@ class TorSettingsDialog(QtWidgets.QDialog):
 
         self.common.log("TorSettingsDialog", "__init__")
 
-        self.meek = Meek(common)
+        self.meek = Meek(common, get_tor_paths=self.common.gui.get_tor_paths)
 
         self.setModal(True)
         self.setWindowTitle(strings._("gui_tor_settings_window_title"))
