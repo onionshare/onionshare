@@ -730,28 +730,6 @@ class TorSettingsTab(QtWidgets.QWidget):
 
         self.tor_con_type = None
 
-    def close_tab(self):
-        """
-        Tab is closed
-        """
-        self.common.log("TorSettingsTab", "cancel_clicked")
-        return True
-
-        # TODO: Figure out flow for first connecting, when closing settings when not connected
-
-        # if (
-        #     not self.common.gui.local_only
-        #     and not self.common.gui.onion.is_authenticated()
-        # ):
-        #     Alert(
-        #         self.common,
-        #         strings._("gui_tor_connection_canceled"),
-        #         QtWidgets.QMessageBox.Warning,
-        #     )
-        #     sys.exit()
-        # else:
-        #     self.close()
-
     def settings_from_fields(self):
         """
         Return a Settings object that's full of values from the settings dialog.
