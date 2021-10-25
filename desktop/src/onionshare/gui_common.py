@@ -392,10 +392,10 @@ class GuiCommon:
                 QPushButton {
                     padding: 5px 10px;
                 }""",
-            # Moat dialog
-            "moat_error": """
+            # Tor Settings dialogs
+            "tor_settings_error": """
                 QLabel {
-                    color: #990000;
+                    color: #FF0000;
                 }
                 """,
         }

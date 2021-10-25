@@ -67,7 +67,7 @@ class MoatDialog(QtWidgets.QDialog):
 
         # Error label
         self.error_label = QtWidgets.QLabel()
-        self.error_label.setStyleSheet(self.common.gui.css["moat_error"])
+        self.error_label.setStyleSheet(self.common.gui.css["tor_settings_error"])
         self.error_label.hide()
 
         # Buttons
