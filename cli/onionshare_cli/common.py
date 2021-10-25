@@ -315,7 +315,7 @@ class Common:
                 raise CannotFindTor()
             obfs4proxy_file_path = shutil.which("obfs4proxy")
             snowflake_file_path = shutil.which("snowflake-client")
-            meek_client_file_path = os.path.join(base_path, "meek-client")
+            meek_client_file_path = shutil.which("meek-client")
             prefix = os.path.dirname(os.path.dirname(tor_path))
             tor_geo_ip_file_path = os.path.join(prefix, "share/tor/geoip")
             tor_geo_ipv6_file_path = os.path.join(prefix, "share/tor/geoip6")
