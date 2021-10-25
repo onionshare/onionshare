@@ -136,8 +136,11 @@ class Meek(object):
                 if "CMETHOD meek socks5" in line:
                     self.meek_host = line.split(" ")[3].split(":")[0]
                     self.meek_port = line.split(" ")[3].split(":")[1]
-                    self.common.log("Meek", "start", f"Meek host is {self.meek_host}")
-                    self.common.log("Meek", "start", f"Meek port is {self.meek_port}")
+                    self.common.log(
+                        "Meek",
+                        "start",
+                        f"Meek running on {self.meek_host}:{self.meek_port}",
+                    )
                     break
 
         if self.meek_port:
