@@ -799,7 +799,10 @@ class TorSettingsTab(QtWidgets.QWidget):
                 settings.set("tor_bridges_use_moat", True)
 
                 moat_bridges = self.bridge_moat_textbox.toPlainText()
-                if moat_bridges.strip() == "":
+                if (
+                    self.connection_type_bundled_radio.isChecked()
+                    and moat_bridges.strip() == ""
+                ):
                     self.error_label.setText(
                         strings._("gui_settings_moat_bridges_invalid")
                     )
