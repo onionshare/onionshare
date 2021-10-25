@@ -19,17 +19,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 from PySide2 import QtCore, QtWidgets, QtGui
-import sys
 import platform
 import datetime
-import re
-import os
 from onionshare_cli.settings import Settings
 
 from . import strings
 from .widgets import Alert
 from .update_checker import UpdateThread
-from .gui_common import GuiCommon
 
 
 class SettingsTab(QtWidgets.QWidget):

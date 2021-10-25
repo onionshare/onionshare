@@ -164,7 +164,7 @@ class TorConnectionWidget(QtWidgets.QWidget):
 
     open_tor_settings = QtCore.Signal()
     success = QtCore.Signal()
-    fail = QtCore.Signal()
+    fail = QtCore.Signal(str)
 
     def __init__(self, common):
         super(TorConnectionWidget, self).__init__(None)
@@ -231,7 +231,7 @@ class TorConnectionWidget(QtWidgets.QWidget):
 
     def cancel_clicked(self):
         self.was_canceled = True
-        self.fail.emit()
+        self.fail.emit("")
 
     def wasCanceled(self):
         return self.was_canceled
@@ -262,27 +262,7 @@ class TorConnectionWidget(QtWidgets.QWidget):
     def _error_connecting_to_tor(self, msg):
         self.common.log("TorConnectionWidget", "_error_connecting_to_tor")
         self.active = False
-
-        if self.testing_settings:
-            # If testing, just display the error but don't open settings
-            def alert():
-                Alert(self.common, msg, QtWidgets.QMessageBox.Warning, title=self.title)
-
-        else:
-            # If not testing, open settings after displaying the error
-            def alert():
-                Alert(
-                    self.common,
-                    f"{msg}\n\n{strings._('gui_tor_connection_error_settings')}",
-                    QtWidgets.QMessageBox.Warning,
-                    title=self.title,
-                )
-
-                # Open settings
-                self.open_tor_settings.emit()
-
-        QtCore.QTimer.singleShot(1, alert)
-        self.fail.emit()
+        self.fail.emit(msg)
 
 
 class TorConnectionThread(QtCore.QThread):

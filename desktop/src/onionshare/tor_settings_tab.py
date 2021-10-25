@@ -29,9 +29,8 @@ from onionshare_cli.onion import Onion
 
 from . import strings
 from .widgets import Alert
-from .tor_connection_dialog import TorConnectionDialog, TorConnectionWidget
+from .tor_connection_dialog import TorConnectionWidget
 from .moat_dialog import MoatDialog
-from .gui_common import GuiCommon
 
 
 class TorSettingsTab(QtWidgets.QWidget):
@@ -319,10 +318,21 @@ class TorSettingsTab(QtWidgets.QWidget):
         columns_layout.addWidget(connection_type_radio_group)
         columns_layout.addSpacing(20)
         columns_layout.addLayout(connection_type_layout, stretch=1)
+        columns_wrapper = QtWidgets.QWidget()
+        columns_wrapper.setFixedHeight(400)
+        columns_wrapper.setLayout(columns_layout)
 
         # Tor connection widget
         self.tor_con = TorConnectionWidget(self.common)
+        self.tor_con.success.connect(self.tor_con_success)
+        self.tor_con.fail.connect(self.tor_con_fail)
         self.tor_con.hide()
+        self.tor_con_type = None
+
+        # Error label
+        self.error_label = QtWidgets.QLabel()
+        self.error_label.setStyleSheet(self.common.gui.css["tor_settings_error"])
+        self.error_label.setWordWrap(True)
 
         # Buttons
         self.test_tor_button = QtWidgets.QPushButton(
@@ -332,18 +342,18 @@ class TorSettingsTab(QtWidgets.QWidget):
         self.save_button = QtWidgets.QPushButton(strings._("gui_settings_button_save"))
         self.save_button.clicked.connect(self.save_clicked)
         buttons_layout = QtWidgets.QHBoxLayout()
-        buttons_layout.addStretch()
+        buttons_layout.addWidget(self.error_label, stretch=1)
+        buttons_layout.addSpacing(20)
         buttons_layout.addWidget(self.test_tor_button)
         buttons_layout.addWidget(self.save_button)
-        buttons_layout.addStretch()
 
         # Layout
         layout = QtWidgets.QVBoxLayout()
-        layout.addLayout(columns_layout)
+        layout.addWidget(columns_wrapper)
+        layout.addStretch()
         layout.addWidget(self.tor_con)
         layout.addStretch()
         layout.addLayout(buttons_layout)
-        layout.addStretch()
 
         self.setLayout(layout)
 
@@ -576,6 +586,9 @@ class TorSettingsTab(QtWidgets.QWidget):
         successfully connect and authenticate to Tor.
         """
         self.common.log("TorSettingsTab", "test_tor_clicked")
+
+        self.error_label.setText("")
+
         settings = self.settings_from_fields()
         if not settings:
             return
@@ -583,46 +596,23 @@ class TorSettingsTab(QtWidgets.QWidget):
         self.test_tor_button.hide()
         self.save_button.hide()
 
-        onion = Onion(
+        self.test_onion = Onion(
             self.common,
             use_tmp_dir=True,
             get_tor_paths=self.common.gui.get_tor_paths,
         )
 
+        self.tor_con_type = "test"
         self.tor_con.show()
-        self.tor_con.success.connect(self.test_tor_button_finished)
-        self.tor_con.fail.connect(self.test_tor_button_finished)
-        self.tor_con.start(settings, True, onion)
-
-        # If Tor settings worked, show results
-        if onion.connected_to_tor:
-            Alert(
-                self.common,
-                strings._("settings_test_success").format(
-                    onion.tor_version,
-                    onion.supports_ephemeral,
-                    onion.supports_stealth,
-                    onion.supports_v3_onions,
-                ),
-                title=strings._("gui_settings_connection_type_test_button"),
-            )
-
-        # Clean up
-        onion.cleanup()
-
-    def test_tor_button_finished(self):
-        """
-        Finished testing tor connection.
-        """
-        self.tor_con.hide()
-        self.test_tor_button.show()
-        self.save_button.show()
+        self.tor_con.start(settings, True, self.test_onion)
 
     def save_clicked(self):
         """
         Save button clicked. Save current settings to disk.
         """
         self.common.log("TorSettingsTab", "save_clicked")
+
+        self.error_label.setText("")
 
         def changed(s1, s2, keys):
             """
@@ -684,25 +674,61 @@ class TorSettingsTab(QtWidgets.QWidget):
                     )
                     self.common.gui.onion.cleanup()
 
-                    tor_con = TorConnectionDialog(self.common, settings)
-                    tor_con.start()
+                    self.test_tor_button.hide()
+                    self.save_button.hide()
 
-                    self.common.log(
-                        "TorSettingsTab",
-                        "save_clicked",
-                        f"Onion done rebooting, connected to Tor: {self.common.gui.onion.connected_to_tor}",
-                    )
-
-                    if (
-                        self.common.gui.onion.is_authenticated()
-                        and not tor_con.wasCanceled()
-                    ):
-                        self.close_this_tab.emit()
-
+                    self.tor_con_type = "save"
+                    self.tor_con.show()
+                    self.tor_con.start(settings)
                 else:
                     self.close_this_tab.emit()
             else:
                 self.close_this_tab.emit()
+
+    def tor_con_success(self):
+        """
+        Finished testing tor connection.
+        """
+        self.tor_con.hide()
+        self.test_tor_button.show()
+        self.save_button.show()
+
+        if self.tor_con_type == "test":
+            Alert(
+                self.common,
+                strings._("settings_test_success").format(
+                    self.test_onion.tor_version,
+                    self.test_onion.supports_ephemeral,
+                    self.test_onion.supports_stealth,
+                    self.test_onion.supports_v3_onions,
+                ),
+                title=strings._("gui_settings_connection_type_test_button"),
+            )
+            self.test_onion.cleanup()
+
+        elif self.tor_con_type == "save":
+            if (
+                self.common.gui.onion.is_authenticated()
+                and not self.tor_con.wasCanceled()
+            ):
+                self.close_this_tab.emit()
+
+        self.tor_con_type = None
+
+    def tor_con_fail(self, msg):
+        """
+        Finished testing tor connection.
+        """
+        self.tor_con.hide()
+        self.test_tor_button.show()
+        self.save_button.show()
+
+        self.error_label.setText(msg)
+
+        if self.tor_con_type == "test":
+            self.test_onion.cleanup()
+
+        self.tor_con_type = None
 
     def close_tab(self):
         """
@@ -796,7 +822,9 @@ class TorSettingsTab(QtWidgets.QWidget):
 
                 moat_bridges = self.bridge_moat_textbox.toPlainText()
                 if moat_bridges.strip() == "":
-                    Alert(self.common, strings._("gui_settings_moat_bridges_invalid"))
+                    self.error_label.setText(
+                        strings._("gui_settings_moat_bridges_invalid")
+                    )
                     return False
 
                 settings.set(
@@ -843,7 +871,9 @@ class TorSettingsTab(QtWidgets.QWidget):
                     new_bridges = "\n".join(new_bridges) + "\n"
                     settings.set("tor_bridges_use_custom_bridges", new_bridges)
                 else:
-                    Alert(self.common, strings._("gui_settings_tor_bridges_invalid"))
+                    self.error_label.setText(
+                        strings._("gui_settings_tor_bridges_invalid")
+                    )
                     return False
         else:
             settings.set("no_bridges", True)
