@@ -26,6 +26,7 @@ import json
 
 from . import strings
 from .gui_common import GuiCommon
+from onionshare_cli.meek import MeekNotFound
 
 
 class MoatDialog(QtWidgets.QDialog):
@@ -35,12 +36,14 @@ class MoatDialog(QtWidgets.QDialog):
 
     got_bridges = QtCore.Signal(str)
 
-    def __init__(self, common):
+    def __init__(self, common, meek):
         super(MoatDialog, self).__init__()
 
         self.common = common
 
         self.common.log("MoatDialog", "__init__")
+
+        self.meek = meek
 
         self.setModal(True)
         self.setWindowTitle(strings._("gui_settings_bridge_moat_button"))
@@ -111,7 +114,7 @@ class MoatDialog(QtWidgets.QDialog):
         self.submit_button.hide()
 
         # BridgeDB fetch
-        self.t_fetch = MoatThread(self.common, "fetch")
+        self.t_fetch = MoatThread(self.common, self.meek, "fetch")
         self.t_fetch.bridgedb_error.connect(self.bridgedb_error)
         self.t_fetch.captcha_ready.connect(self.captcha_ready)
         self.t_fetch.start()
@@ -133,6 +136,7 @@ class MoatDialog(QtWidgets.QDialog):
         # BridgeDB check
         self.t_check = MoatThread(
             self.common,
+            self.meek,
             "check",
             {
                 "transport": self.transport,
@@ -217,16 +221,34 @@ class MoatThread(QtCore.QThread):
     captcha_ready = QtCore.Signal(str, str, str)
     bridges_ready = QtCore.Signal(str)
 
-    def __init__(self, common, action, data={}):
+    def __init__(self, common, meek, action, data={}):
         super(MoatThread, self).__init__()
         self.common = common
         self.common.log("MoatThread", "__init__", f"action={action}")
 
+        self.meek = meek
+        self.transport = "obfs4"
         self.action = action
         self.data = data
 
     def run(self):
-        # TODO: Do all of this using domain fronting
+
+        # Start Meek so that we can do domain fronting
+        try:
+            self.meek.start()
+        except MeekNotFound:
+            self.common.log("MoatThread", "run", f"Could not find the Meek Client")
+            self.bridgedb_error.emit()
+            return
+
+        # We should only fetch bridges if we can domain front,
+        # but we can override this in local-only mode.
+        if not self.meek.meek_proxies and not self.common.gui.local_only:
+            self.common.log(
+                "MoatThread", "run", f"Could not identify meek proxies to make request"
+            )
+            self.bridgedb_error.emit()
+            return
 
         if self.action == "fetch":
             self.common.log("MoatThread", "run", f"starting fetch")
@@ -235,19 +257,20 @@ class MoatThread(QtCore.QThread):
             r = requests.post(
                 "https://bridges.torproject.org/moat/fetch",
                 headers={"Content-Type": "application/vnd.api+json"},
+                proxies=self.meek.meek_proxies,
                 json={
                     "data": [
                         {
                             "version": "0.1.0",
                             "type": "client-transports",
-                            "supported": [
-                                "obfs4",
-                                "snowflake",
-                            ],
+                            "supported": ["obfs4", "snowflake"],
                         }
                     ]
                 },
             )
+
+            self.meek.cleanup()
+
             if r.status_code != 200:
                 self.common.log("MoatThread", "run", f"status_code={r.status_code}")
                 self.bridgedb_error.emit()
@@ -285,6 +308,7 @@ class MoatThread(QtCore.QThread):
             r = requests.post(
                 "https://bridges.torproject.org/moat/check",
                 headers={"Content-Type": "application/vnd.api+json"},
+                proxies=self.meek.meek_proxies,
                 json={
                     "data": [
                         {
@@ -299,6 +323,9 @@ class MoatThread(QtCore.QThread):
                     ]
                 },
             )
+
+            self.meek.cleanup()
+
             if r.status_code != 200:
                 self.common.log("MoatThread", "run", f"status_code={r.status_code}")
                 self.bridgedb_error.emit()
