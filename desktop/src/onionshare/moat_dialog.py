@@ -26,7 +26,7 @@ import json
 
 from . import strings
 from .gui_common import GuiCommon
-from onionshare_cli.meek import MeekNotRunning
+from onionshare_cli.meek import MeekNotFound
 
 
 class MoatDialog(QtWidgets.QDialog):
@@ -234,12 +234,19 @@ class MoatThread(QtCore.QThread):
     def run(self):
 
         # Start Meek so that we can do domain fronting
-        self.meek.start()
+        try:
+            self.meek.start()
+        except MeekNotFound:
+            self.common.log("MoatThread", "run", f"Could not find the Meek Client")
+            self.bridgedb_error.emit()
+            return
 
         # We should only fetch bridges if we can domain front,
         # but we can override this in local-only mode.
         if not self.meek.meek_proxies and not self.common.gui.local_only:
-            self.common.log("MoatThread", "run", f"Could not identify meek proxies to make request")
+            self.common.log(
+                "MoatThread", "run", f"Could not identify meek proxies to make request"
+            )
             self.bridgedb_error.emit()
             return
 
@@ -256,15 +263,14 @@ class MoatThread(QtCore.QThread):
                         {
                             "version": "0.1.0",
                             "type": "client-transports",
-                            "supported": [
-                                "obfs4",
-                                "snowflake",
-                            ],
+                            "supported": ["obfs4", "snowflake"],
                         }
                     ]
                 },
             )
+
             self.meek.cleanup()
+
             if r.status_code != 200:
                 self.common.log("MoatThread", "run", f"status_code={r.status_code}")
                 self.bridgedb_error.emit()
@@ -317,7 +323,9 @@ class MoatThread(QtCore.QThread):
                     ]
                 },
             )
+
             self.meek.cleanup()
+
             if r.status_code != 200:
                 self.common.log("MoatThread", "run", f"status_code={r.status_code}")
                 self.bridgedb_error.emit()
