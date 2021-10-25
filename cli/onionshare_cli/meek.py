@@ -75,8 +75,6 @@ class Meek(object):
                 queue.put(line)
             out.close()
 
-        self.common.log("Meek", "start", self.meek_client_file_path)
-
         # Abort early if we can't find the Meek client
         if self.meek_client_file_path is None or not os.path.exists(
             self.meek_client_file_path
@@ -84,6 +82,7 @@ class Meek(object):
             raise MeekNotFound()
 
         # Start the Meek Client as a subprocess.
+        self.common.log("Meek", "start", "Starting meek client")
 
         if self.common.platform == "Windows":
             # In Windows, hide console window when opening meek-client.exe subprocess
