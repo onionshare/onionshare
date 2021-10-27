@@ -405,57 +405,54 @@ class TorSettingsTab(QtWidgets.QWidget):
             self.old_settings.get("auth_password")
         )
 
-        if self.old_settings.get("no_bridges"):
-            self.bridge_use_checkbox.setCheckState(QtCore.Qt.Unchecked)
-            self.bridge_settings.hide()
-
-        else:
+        if self.old_settings.get("bridges_enabled"):
             self.bridge_use_checkbox.setCheckState(QtCore.Qt.Checked)
             self.bridge_settings.show()
 
-            builtin_obfs4 = self.old_settings.get("tor_bridges_use_obfs4")
-            builtin_meek_azure = self.old_settings.get(
-                "tor_bridges_use_meek_lite_azure"
-            )
-            builtin_snowflake = self.old_settings.get("tor_bridges_use_snowflake")
-
-            if builtin_obfs4 or builtin_meek_azure or builtin_snowflake:
+            bridges_type = self.old_settings.get("bridges_type")
+            if bridges_type == "built-in":
                 self.bridge_builtin_radio.setChecked(True)
                 self.bridge_builtin_dropdown.show()
-                if builtin_obfs4:
+                self.bridge_moat_radio.setChecked(False)
+                self.bridge_moat_textbox_options.hide()
+                self.bridge_custom_radio.setChecked(False)
+                self.bridge_custom_textbox_options.hide()
+
+                bridges_builtin_pt = self.old_settings.get("bridges_builtin_pt")
+                if bridges_builtin_pt == "obfs4":
                     self.bridge_builtin_dropdown.setCurrentText("obfs4")
-                elif builtin_meek_azure:
+                elif bridges_builtin_pt == "meek-azure":
                     self.bridge_builtin_dropdown.setCurrentText("meek-azure")
-                elif builtin_snowflake:
+                else:
                     self.bridge_builtin_dropdown.setCurrentText("snowflake")
 
                 self.bridge_moat_textbox_options.hide()
                 self.bridge_custom_textbox_options.hide()
+
+            elif bridges_type == "moat":
+                self.bridge_builtin_radio.setChecked(False)
+                self.bridge_builtin_dropdown.hide()
+                self.bridge_moat_radio.setChecked(True)
+                self.bridge_moat_textbox_options.show()
+                self.bridge_custom_radio.setChecked(False)
+                self.bridge_custom_textbox_options.hide()
+
             else:
                 self.bridge_builtin_radio.setChecked(False)
                 self.bridge_builtin_dropdown.hide()
+                self.bridge_moat_radio.setChecked(False)
+                self.bridge_moat_textbox_options.hide()
+                self.bridge_custom_radio.setChecked(True)
+                self.bridge_custom_textbox_options.show()
 
-                use_moat = self.old_settings.get("tor_bridges_use_moat")
-                self.bridge_moat_radio.setChecked(use_moat)
-                if use_moat:
-                    self.bridge_builtin_dropdown.hide()
-                    self.bridge_custom_textbox_options.hide()
+            bridges_moat = self.old_settings.get("bridges_moat")
+            self.bridge_moat_textbox.document().setPlainText(bridges_moat)
+            bridges_custom = self.old_settings.get("bridges_custom")
+            self.bridge_custom_textbox.document().setPlainText(bridges_custom)
 
-                moat_bridges = self.old_settings.get("tor_bridges_use_moat_bridges")
-                self.bridge_moat_textbox.document().setPlainText(moat_bridges)
-                if len(moat_bridges.strip()) > 0:
-                    self.bridge_moat_textbox_options.show()
-                else:
-                    self.bridge_moat_textbox_options.hide()
-
-                custom_bridges = self.old_settings.get("tor_bridges_use_custom_bridges")
-                if len(custom_bridges.strip()) != 0:
-                    self.bridge_custom_radio.setChecked(True)
-                    self.bridge_custom_textbox.setPlainText(custom_bridges)
-
-                    self.bridge_builtin_dropdown.hide()
-                    self.bridge_moat_textbox_options.hide()
-                    self.bridge_custom_textbox_options.show()
+        else:
+            self.bridge_use_checkbox.setCheckState(QtCore.Qt.Unchecked)
+            self.bridge_settings.hide()
 
     def connection_type_bundled_toggled(self, checked):
         """
@@ -493,7 +490,7 @@ class TorSettingsTab(QtWidgets.QWidget):
         """
         if selection == "meek-azure":
             # Alert the user about meek's costliness if it looks like they're turning it on
-            if not self.old_settings.get("tor_bridges_use_meek_lite_azure"):
+            if not self.old_settings.get("bridges_builtin_pt") == "meek-azure":
                 Alert(
                     self.common,
                     strings._("gui_settings_meek_lite_expensive_warning"),
@@ -654,10 +651,11 @@ class TorSettingsTab(QtWidgets.QWidget):
                             "socket_file_path",
                             "auth_type",
                             "auth_password",
-                            "no_bridges",
-                            "tor_bridges_use_obfs4",
-                            "tor_bridges_use_meek_lite_azure",
-                            "tor_bridges_use_custom_bridges",
+                            "bridges_enabled",
+                            "bridges_type",
+                            "bridges_builtin_pt",
+                            "bridges_moat",
+                            "bridges_custom",
                         ],
                     ):
 
@@ -775,33 +773,16 @@ class TorSettingsTab(QtWidgets.QWidget):
 
         # Whether we use bridges
         if self.bridge_use_checkbox.checkState() == QtCore.Qt.Checked:
-            settings.set("no_bridges", False)
+            settings.set("bridges_enabled", True)
 
             if self.bridge_builtin_radio.isChecked():
-                selection = self.bridge_builtin_dropdown.currentText()
-                if selection == "obfs4":
-                    settings.set("tor_bridges_use_obfs4", True)
-                    settings.set("tor_bridges_use_meek_lite_azure", False)
-                    settings.set("tor_bridges_use_snowflake", False)
-                elif selection == "meek-azure":
-                    settings.set("tor_bridges_use_obfs4", False)
-                    settings.set("tor_bridges_use_meek_lite_azure", True)
-                    settings.set("tor_bridges_use_snowflake", False)
-                elif selection == "snowflake":
-                    settings.set("tor_bridges_use_obfs4", False)
-                    settings.set("tor_bridges_use_meek_lite_azure", False)
-                    settings.set("tor_bridges_use_snowflake", True)
+                settings.set("bridges_type", "built-in")
 
-                settings.set("tor_bridges_use_moat", False)
-                settings.set("tor_bridges_use_custom_bridges", "")
+                selection = self.bridge_builtin_dropdown.currentText()
+                settings.set("bridges_builtin_pt", selection)
 
             if self.bridge_moat_radio.isChecked():
-                settings.set("tor_bridges_use_obfs4", False)
-                settings.set("tor_bridges_use_meek_lite_azure", False)
-                settings.set("tor_bridges_use_snowflake", False)
-
-                settings.set("tor_bridges_use_moat", True)
-
+                settings.set("bridges_type", "moat")
                 moat_bridges = self.bridge_moat_textbox.toPlainText()
                 if (
                     self.connection_type_bundled_radio.isChecked()
@@ -812,15 +793,11 @@ class TorSettingsTab(QtWidgets.QWidget):
                     )
                     return False
 
-                settings.set("tor_bridges_use_moat_bridges", moat_bridges)
-
-                settings.set("tor_bridges_use_custom_bridges", "")
+                settings.set("bridges_moat", moat_bridges)
+                settings.set("bridges_custom", "")
 
             if self.bridge_custom_radio.isChecked():
-                settings.set("tor_bridges_use_obfs4", False)
-                settings.set("tor_bridges_use_meek_lite_azure", False)
-                settings.set("tor_bridges_use_snowflake", False)
-                settings.set("tor_bridges_use_moat", False)
+                settings.set("bridges_type", "custom")
 
                 new_bridges = []
                 bridges = self.bridge_custom_textbox.toPlainText().split("\n")
@@ -851,14 +828,14 @@ class TorSettingsTab(QtWidgets.QWidget):
 
                 if bridges_valid:
                     new_bridges = "\n".join(new_bridges) + "\n"
-                    settings.set("tor_bridges_use_custom_bridges", new_bridges)
+                    settings.set("bridges_custom", new_bridges)
                 else:
                     self.error_label.setText(
                         strings._("gui_settings_tor_bridges_invalid")
                     )
                     return False
         else:
-            settings.set("no_bridges", True)
+            settings.set("bridges_enabled", False)
 
         return settings
 
