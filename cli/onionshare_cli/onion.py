@@ -424,11 +424,7 @@ class Onion(object):
                 time.sleep(0.2)
 
                 # If using bridges, it might take a bit longer to connect to Tor
-                if (
-                    self.settings.get("tor_bridges_use_custom_bridges")
-                    or self.settings.get("tor_bridges_use_obfs4")
-                    or self.settings.get("tor_bridges_use_meek_lite_azure")
-                ):
+                if self.settings.get("bridges_enabled"):
                     # Only override timeout if a custom timeout has not been passed in
                     if connect_timeout == 120:
                         connect_timeout = 150
