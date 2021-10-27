@@ -311,12 +311,12 @@ class TabWidget(QtWidgets.QTabWidget):
         ):
             self.common.log("TabWidget", "closing a settings tab")
 
+            if type(self.tabs[tab_id]) is TorSettingsTab:
+                self.tor_settings_tab = None
+
             # Remove the tab
             self.removeTab(index)
             del self.tabs[tab.tab_id]
-
-            if type(self.tabs[tab_id]) is TorSettingsTab:
-                self.tor_settings_tab = None
 
             # If the last tab is closed, open a new one
             if self.count() == 0:
