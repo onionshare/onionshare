@@ -141,10 +141,10 @@ class TestSettings:
 
     def test_set_custom_bridge(self, settings_obj):
         settings_obj.set(
-            "tor_bridges_use_custom_bridges",
+            "bridges_custom",
             "Bridge 45.3.20.65:9050 21300AD88890A49C429A6CB9959CFD44490A8F6E",
         )
         assert (
-            settings_obj._settings["tor_bridges_use_custom_bridges"]
+            settings_obj._settings["bridges_custom"]
             == "Bridge 45.3.20.65:9050 21300AD88890A49C429A6CB9959CFD44490A8F6E"
         )
