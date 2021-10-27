@@ -822,7 +822,6 @@ class TorSettingsTab(QtWidgets.QWidget):
                     return False
 
                 settings.set("bridges_moat", moat_bridges)
-                settings.set("bridges_custom", "")
 
             if self.bridge_custom_radio.isChecked():
                 settings.set("bridges_type", "custom")
