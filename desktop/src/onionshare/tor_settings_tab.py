@@ -41,7 +41,7 @@ class TorSettingsTab(QtWidgets.QWidget):
 
     close_this_tab = QtCore.Signal()
 
-    def __init__(self, common, tab_id):
+    def __init__(self, common, tab_id, are_tabs_active):
         super(TorSettingsTab, self).__init__()
 
         self.common = common
@@ -351,16 +351,36 @@ class TorSettingsTab(QtWidgets.QWidget):
         buttons_layout.addWidget(self.test_tor_button)
         buttons_layout.addWidget(self.save_button)
 
-        # Layout
-        layout = QtWidgets.QVBoxLayout()
-        layout.addWidget(columns_wrapper)
-        layout.addStretch()
-        layout.addWidget(self.tor_con)
-        layout.addStretch()
-        layout.addLayout(buttons_layout)
+        # Main layout
+        main_layout = QtWidgets.QVBoxLayout()
+        main_layout.addWidget(columns_wrapper)
+        main_layout.addStretch()
+        main_layout.addWidget(self.tor_con)
+        main_layout.addStretch()
+        main_layout.addLayout(buttons_layout)
+        self.main_widget = QtWidgets.QWidget()
+        self.main_widget.setLayout(main_layout)
 
+        # Tabs are active label
+        active_tabs_label = QtWidgets.QLabel(
+            strings._("gui_settings_stop_active_tabs_label")
+        )
+        active_tabs_label.setAlignment(QtCore.Qt.AlignHCenter)
+
+        # Active tabs layout
+        active_tabs_layout = QtWidgets.QVBoxLayout()
+        active_tabs_layout.addStretch()
+        active_tabs_layout.addWidget(active_tabs_label)
+        active_tabs_layout.addStretch()
+        self.active_tabs_widget = QtWidgets.QWidget()
+        self.active_tabs_widget.setLayout(active_tabs_layout)
+
+        layout = QtWidgets.QVBoxLayout()
+        layout.addWidget(self.main_widget)
+        layout.addWidget(self.active_tabs_widget)
         self.setLayout(layout)
 
+        self.active_tabs_changed(are_tabs_active)
         self.reload_settings()
 
     def reload_settings(self):
@@ -453,6 +473,14 @@ class TorSettingsTab(QtWidgets.QWidget):
         else:
             self.bridge_use_checkbox.setCheckState(QtCore.Qt.Unchecked)
             self.bridge_settings.hide()
+
+    def active_tabs_changed(self, are_tabs_active):
+        if are_tabs_active:
+            self.main_widget.hide()
+            self.active_tabs_widget.show()
+        else:
+            self.main_widget.show()
+            self.active_tabs_widget.hide()
 
     def connection_type_bundled_toggled(self, checked):
         """
