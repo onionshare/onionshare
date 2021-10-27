@@ -50,6 +50,7 @@ class TabWidget(QtWidgets.QTabWidget):
         # tab's index, which changes as tabs are re-arranged.
         self.tabs = {}
         self.current_tab_id = 0  # Each tab has a unique id
+        self.tor_settings_tab = None
 
         # Define the new tab button
         self.new_tab_button = QtWidgets.QPushButton("+", parent=self)
@@ -230,18 +231,20 @@ class TabWidget(QtWidgets.QTabWidget):
                 self.setCurrentIndex(self.indexOf(self.tabs[tab_id]))
                 return
 
-        tor_settings_tab = TorSettingsTab(self.common, self.current_tab_id)
-        tor_settings_tab.close_this_tab.connect(self.close_tor_settings_tab)
-        self.tabs[self.current_tab_id] = tor_settings_tab
+        self.tor_settings_tab = TorSettingsTab(
+            self.common, self.current_tab_id, self.are_tabs_active()
+        )
+        self.tor_settings_tab.close_this_tab.connect(self.close_tor_settings_tab)
+        self.tabs[self.current_tab_id] = self.tor_settings_tab
         self.current_tab_id += 1
         index = self.addTab(
-            tor_settings_tab, strings._("gui_tor_settings_window_title")
+            self.tor_settings_tab, strings._("gui_tor_settings_window_title")
         )
         self.setCurrentIndex(index)
 
         # In macOS, manually create a close button because tabs don't seem to have them otherwise
         if self.common.platform == "Darwin":
-            self.macos_create_close_button(tor_settings_tab, index)
+            self.macos_create_close_button(self.tor_settings_tab, index)
 
     def change_title(self, tab_id, title):
         shortened_title = title
@@ -255,6 +258,11 @@ class TabWidget(QtWidgets.QTabWidget):
     def change_icon(self, tab_id, icon_path):
         index = self.indexOf(self.tabs[tab_id])
         self.setTabIcon(index, QtGui.QIcon(GuiCommon.get_resource_path(icon_path)))
+
+        # The icon changes when the server status changes, so if we have an open
+        # Tor Settings tab, tell it to update
+        if self.tor_settings_tab:
+            self.tor_settings_tab.active_tabs_changed(self.are_tabs_active())
 
     def change_persistent(self, tab_id, is_persistent):
         self.common.log(
@@ -306,6 +314,9 @@ class TabWidget(QtWidgets.QTabWidget):
             # Remove the tab
             self.removeTab(index)
             del self.tabs[tab.tab_id]
+
+            if type(self.tabs[tab_id]) is TorSettingsTab:
+                self.tor_settings_tab = None
 
             # If the last tab is closed, open a new one
             if self.count() == 0:
