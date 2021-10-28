@@ -44,7 +44,7 @@
     "gui_autoconnect_description": "OnionShare relies on the Tor Network, run by thousands of volunteers around the world.",
     "gui_enable_autoconnect_checkbox": "Enable automatically connecting to Tor",
     "gui_autoconnect_start": "Connect to Tor",
-    "gui_autoconnect_configure": "Configure",
+    "gui_autoconnect_configure": "Network Settings",
     "gui_settings_window_title": "Settings",
     "gui_settings_autoupdate_label": "Check for new version",
     "gui_settings_autoupdate_option": "Notify me when a new version is available",

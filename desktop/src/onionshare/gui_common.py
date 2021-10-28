@@ -151,17 +151,23 @@ class GuiCommon:
                 QPushButton {
                     background-color: #5fa416;
                     color: #ffffff;
-                    padding: 10px 30px;
+                    padding: 10px;
                     border: 0;
                     border-radius: 5px;
                 }""",
             "autoconnect_configure_button": """
                 QPushButton {
                     padding: 9px 29px;
+                    color: #3f7fcf;
+                    text-align: left;
                 }""",
             "enable_autoconnect": """
                 QCheckBox {
                     margin-top: 30px;
+                    background: #FCFCFC;
+                    border: 1px solid #DDDBDA;
+                    border-radius: 8px;
+                    padding: 16px;
                 }""",
             # Common styles between modes and their child widgets
             "mode_settings_toggle_advanced": """

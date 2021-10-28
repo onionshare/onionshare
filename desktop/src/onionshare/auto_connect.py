@@ -82,6 +82,7 @@ class AutoConnect(QtWidgets.QWidget):
                 common.gui.css["autoconnect_start_button"]
             )
             self.configure_button = QtWidgets.QPushButton(strings._("gui_autoconnect_configure"))
+            self.configure_button.setFlat(True)
             self.configure_button.setStyleSheet(
                 common.gui.css["autoconnect_configure_button"]
             )
@@ -97,7 +98,6 @@ class AutoConnect(QtWidgets.QWidget):
             content_layout.addStretch()
             content_layout.addWidget(self.image)
             content_layout.addWidget(description_widget)
-            content_layout.addStretch()
             content_layout.addWidget(cta_widget)
             content_layout.addStretch()
             content_layout.setAlignment(QtCore.Qt.AlignCenter)
