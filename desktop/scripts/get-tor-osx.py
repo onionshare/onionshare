@@ -101,6 +101,14 @@ def main():
         os.path.join(dist_path, "obfs4proxy"),
     )
     os.chmod(os.path.join(dist_path, "obfs4proxy"), 0o755)
+    # snowflake-client binary
+    shutil.copyfile(
+        os.path.join(
+            dmg_tor_path, "MacOS", "Tor", "PluggableTransports", "snowflake-client"
+        ),
+        os.path.join(dist_path, "snowflake-client"),
+    )
+    os.chmod(os.path.join(dist_path, "snowflake-client"), 0o755)
 
     # Eject dmg
     subprocess.call(["diskutil", "eject", "/Volumes/Tor Browser"])
