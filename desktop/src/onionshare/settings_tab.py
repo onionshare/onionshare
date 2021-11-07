@@ -73,9 +73,16 @@ class SettingsTab(QtWidgets.QWidget):
         )
         autoupdate_group.setLayout(autoupdate_group_layout)
 
+        autoupdate_layout = QtWidgets.QHBoxLayout()
+        autoupdate_layout.addStretch()
+        autoupdate_layout.addWidget(autoupdate_group)
+        autoupdate_layout.addStretch()
+        autoupdate_widget = QtWidgets.QWidget()
+        autoupdate_widget.setLayout(autoupdate_layout)
+
         # Autoupdate is only available for Windows and Mac (Linux updates using package manager)
         if self.system != "Windows" and self.system != "Darwin":
-            autoupdate_group.hide()
+            autoupdate_widget.hide()
 
         # Language settings
         language_label = QtWidgets.QLabel(strings._("gui_settings_language_label"))
@@ -131,8 +138,8 @@ class SettingsTab(QtWidgets.QWidget):
         # Layout
         layout = QtWidgets.QVBoxLayout()
         layout.addStretch()
-        layout.addWidget(autoupdate_group)
-        if autoupdate_group.isVisible():
+        layout.addWidget(autoupdate_widget)
+        if autoupdate_widget.isVisible():
             layout.addSpacing(20)
         layout.addLayout(language_layout)
         layout.addLayout(theme_layout)
