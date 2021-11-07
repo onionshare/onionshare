@@ -41,12 +41,13 @@ class TorSettingsTab(QtWidgets.QWidget):
 
     close_this_tab = QtCore.Signal()
 
-    def __init__(self, common, tab_id, are_tabs_active):
+    def __init__(self, common, tab_id, are_tabs_active, status_bar):
         super(TorSettingsTab, self).__init__()
 
         self.common = common
         self.common.log("TorSettingsTab", "__init__")
 
+        self.status_bar = status_bar
         self.meek = Meek(common, get_tor_paths=self.common.gui.get_tor_paths)
 
         self.system = platform.system()
@@ -327,7 +328,7 @@ class TorSettingsTab(QtWidgets.QWidget):
         columns_wrapper.setLayout(columns_layout)
 
         # Tor connection widget
-        self.tor_con = TorConnectionWidget(self.common)
+        self.tor_con = TorConnectionWidget(self.common, self.status_bar)
         self.tor_con.success.connect(self.tor_con_success)
         self.tor_con.fail.connect(self.tor_con_fail)
         self.tor_con.hide()
