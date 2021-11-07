@@ -186,10 +186,6 @@ class TabWidget(QtWidgets.QTabWidget):
         index = self.addTab(tab, strings._("gui_new_tab"))
         self.setCurrentIndex(index)
 
-        # In macOS, manually create a close button because tabs don't seem to have them otherwise
-        if self.common.platform == "Darwin":
-            self.macos_create_close_button(tab, index)
-
         tab.init(mode_settings)
 
         # Make sure the title is set
@@ -218,10 +214,6 @@ class TabWidget(QtWidgets.QTabWidget):
         index = self.addTab(settings_tab, strings._("gui_settings_window_title"))
         self.setCurrentIndex(index)
 
-        # In macOS, manually create a close button because tabs don't seem to have them otherwise
-        if self.common.platform == "Darwin":
-            self.macos_create_close_button(settings_tab, index)
-
     def open_tor_settings_tab(self):
         self.common.log("TabWidget", "open_tor_settings_tab")
 
@@ -243,10 +235,6 @@ class TabWidget(QtWidgets.QTabWidget):
             self.tor_settings_tab, strings._("gui_tor_settings_window_title")
         )
         self.setCurrentIndex(index)
-
-        # In macOS, manually create a close button because tabs don't seem to have them otherwise
-        if self.common.platform == "Darwin":
-            self.macos_create_close_button(self.tor_settings_tab, index)
 
     def change_title(self, tab_id, title):
         shortened_title = title
@@ -387,19 +375,6 @@ class TabWidget(QtWidgets.QTabWidget):
         # Make sure to move new tab button on each resize
         super(TabWidget, self).resizeEvent(event)
         self.move_new_tab_button()
-
-    def macos_create_close_button(self, tab, index):
-        def close_tab():
-            self.tabBar().tabCloseRequested.emit(self.indexOf(tab))
-
-        close_button = QtWidgets.QPushButton()
-        close_button.setFlat(True)
-        close_button.setFixedWidth(40)
-        close_button.setIcon(
-            QtGui.QIcon(GuiCommon.get_resource_path("images/close_tab.png"))
-        )
-        close_button.clicked.connect(close_tab)
-        self.tabBar().setTabButton(index, QtWidgets.QTabBar.RightSide, tab.close_button)
 
     def tor_is_connected(self):
         for tab_id in self.tabs:
