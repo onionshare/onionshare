@@ -235,6 +235,8 @@ class TabWidget(QtWidgets.QTabWidget):
             self.common, self.current_tab_id, self.are_tabs_active(), self.status_bar
         )
         self.tor_settings_tab.close_this_tab.connect(self.close_tor_settings_tab)
+        self.tor_settings_tab.tor_is_connected.connect(self.tor_is_connected)
+        self.tor_settings_tab.tor_is_disconnected.connect(self.tor_is_disconnected)
         self.tabs[self.current_tab_id] = self.tor_settings_tab
         self.current_tab_id += 1
         index = self.addTab(
@@ -398,6 +400,26 @@ class TabWidget(QtWidgets.QTabWidget):
         )
         close_button.clicked.connect(close_tab)
         self.tabBar().setTabButton(index, QtWidgets.QTabBar.RightSide, tab.close_button)
+
+    def tor_is_connected(self):
+        for tab_id in self.tabs:
+            if not (
+                type(self.tabs[tab_id]) is SettingsTab
+                or type(self.tabs[tab_id]) is TorSettingsTab
+            ):
+                mode = self.tabs[tab_id].get_mode()
+                if mode:
+                    mode.tor_connection_started()
+
+    def tor_is_disconnected(self):
+        for tab_id in self.tabs:
+            if not (
+                type(self.tabs[tab_id]) is SettingsTab
+                or type(self.tabs[tab_id]) is TorSettingsTab
+            ):
+                mode = self.tabs[tab_id].get_mode()
+                if mode:
+                    mode.tor_connection_stopped()
 
 
 class TabBar(QtWidgets.QTabBar):

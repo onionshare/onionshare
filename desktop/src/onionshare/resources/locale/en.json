@@ -229,5 +229,6 @@
     "moat_captcha_reload": "Reload",
     "moat_bridgedb_error": "Error contacting BridgeDB.",
     "moat_captcha_error": "The solution is not correct. Please try again.",
-    "moat_solution_empty_error": "You must enter the characters from the image"
+    "moat_solution_empty_error": "You must enter the characters from the image",
+    "mode_tor_not_connected_label": "OnionShare is not connected to the Tor network"
 }
