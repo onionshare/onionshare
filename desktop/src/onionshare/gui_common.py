@@ -281,6 +281,11 @@ class GuiCommon:
                 QLabel {
                     color: #cc0000;
                 }""",
+            "tor_not_connected_label": """
+                QLabel {
+                    font-size: 16px;
+                    font-style: italic;
+                }""",
             # New tab
             "new_tab_button_image": """
                 QLabel {

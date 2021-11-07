@@ -40,6 +40,8 @@ class TorSettingsTab(QtWidgets.QWidget):
     """
 
     close_this_tab = QtCore.Signal()
+    tor_is_connected = QtCore.Signal()
+    tor_is_disconnected = QtCore.Signal()
 
     def __init__(self, common, tab_id, are_tabs_active, status_bar):
         super(TorSettingsTab, self).__init__()
@@ -699,6 +701,9 @@ class TorSettingsTab(QtWidgets.QWidget):
 
                 # Do we need to reinitialize Tor?
                 if reboot_onion:
+                    # Tell the tabs that Tor is disconnected
+                    self.tor_is_disconnected.emit()
+
                     # Reinitialize the Onion object
                     self.common.log(
                         "TorSettingsTab", "save_clicked", "rebooting the Onion"
@@ -742,6 +747,9 @@ class TorSettingsTab(QtWidgets.QWidget):
                 self.common.gui.onion.is_authenticated()
                 and not self.tor_con.wasCanceled()
             ):
+                # Tell the tabs that Tor is connected
+                self.tor_is_connected.emit()
+                # Close the tab
                 self.close_this_tab.emit()
 
         self.tor_con_type = None

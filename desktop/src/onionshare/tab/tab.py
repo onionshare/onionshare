@@ -96,7 +96,6 @@ class Tab(QtWidgets.QWidget):
         tab_id,
         system_tray,
         status_bar,
-        mode_settings=None,
         filenames=None,
     ):
         super(Tab, self).__init__()
