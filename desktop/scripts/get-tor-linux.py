@@ -34,10 +34,10 @@ import requests
 
 
 def main():
-    tarball_url = "https://dist.torproject.org/torbrowser/11.0a9/tor-browser-linux64-11.0a9_en-US.tar.xz"
-    tarball_filename = "tor-browser-linux64-11.0a9_en-US.tar.xz"
+    tarball_url = "https://dist.torproject.org/torbrowser/11.0a10/tor-browser-linux64-11.0a10_en-US.tar.xz"
+    tarball_filename = "tor-browser-linux64-11.0a10_en-US.tar.xz"
     expected_tarball_sha256 = (
-        "cba4a2120b4f847d1ade637e41e69bd01b2e70b4a13e41fe8e69d0424fcf7ca7"
+        "5d3e2ebc4fb6a10f44624359bc2a5a151a57e8402cbd8563d15f9b2524374f1f"
     )
 
     # Build paths
