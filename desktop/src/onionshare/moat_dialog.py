@@ -26,7 +26,7 @@ import json
 
 from . import strings
 from .gui_common import GuiCommon
-from onionshare_cli.meek import MeekNotFound
+from onionshare_cli.meek import MeekNotFound, MeekNotRunning
 
 
 class MoatDialog(QtWidgets.QDialog):
@@ -237,7 +237,13 @@ class MoatThread(QtCore.QThread):
         try:
             self.meek.start()
         except MeekNotFound:
-            self.common.log("MoatThread", "run", f"Could not find the Meek Client")
+            self.common.log("MoatThread", "run", f"Could not find meek-client")
+            self.bridgedb_error.emit()
+            return
+        except MeekNotRunning:
+            self.common.log(
+                "MoatThread", "run", f"Ran meek-client, but there was an error"
+            )
             self.bridgedb_error.emit()
             return
 
