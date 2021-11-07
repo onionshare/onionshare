@@ -128,7 +128,10 @@ class Mode(QtWidgets.QWidget):
         self.wrapper_layout.addWidget(self.tor_not_connected_widget)
         self.setLayout(self.wrapper_layout)
 
-        self.tor_connection_init()
+        if self.common.gui.onion.is_authenticated():
+            self.tor_connection_started()
+        else:
+            self.tor_connection_stopped()
 
     def init(self):
         """
@@ -554,15 +557,6 @@ class Mode(QtWidgets.QWidget):
         """
         self.history.cancel(event["data"]["id"])
 
-    def tor_connection_init(self):
-        """
-        Figure out if Tor is connected and display the right widget
-        """
-        if self.common.gui.onion.is_authenticated():
-            self.tor_connection_started()
-        else:
-            self.tor_connection_stopped()
-
     def tor_connection_started(self):
         """
         This is called on every Mode when Tor is connected
@@ -574,5 +568,9 @@ class Mode(QtWidgets.QWidget):
         """
         This is called on every Mode when Tor is disconnected
         """
+        if self.common.gui.local_only:
+            self.tor_connection_started()
+            return
+        
         self.content_widget.hide()
         self.tor_not_connected_widget.show()
