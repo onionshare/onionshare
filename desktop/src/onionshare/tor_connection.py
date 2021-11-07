@@ -117,7 +117,6 @@ class TorConnectionDialog(QtWidgets.QProgressDialog):
     def _connected_to_tor(self):
         self.common.log("TorConnectionDialog", "_connected_to_tor")
         self.active = False
-
         # Close the dialog after connecting
         self.setValue(self.maximum())
 
@@ -166,11 +165,12 @@ class TorConnectionWidget(QtWidgets.QWidget):
     success = QtCore.Signal()
     fail = QtCore.Signal(str)
 
-    def __init__(self, common):
+    def __init__(self, common, status_bar):
         super(TorConnectionWidget, self).__init__(None)
         self.common = common
         self.common.log("TorConnectionWidget", "__init__")
 
+        self.status_bar = status_bar
         self.label = QtWidgets.QLabel(strings._("connecting_to_tor"))
         self.label.setAlignment(QtCore.Qt.AlignHCenter)
 
@@ -245,6 +245,7 @@ class TorConnectionWidget(QtWidgets.QWidget):
     def _connected_to_tor(self):
         self.common.log("TorConnectionWidget", "_connected_to_tor")
         self.active = False
+        self.status_bar.clearMessage()
 
         # Close the dialog after connecting
         self.progress.setValue(self.progress.maximum())

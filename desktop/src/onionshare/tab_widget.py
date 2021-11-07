@@ -232,7 +232,7 @@ class TabWidget(QtWidgets.QTabWidget):
                 return
 
         self.tor_settings_tab = TorSettingsTab(
-            self.common, self.current_tab_id, self.are_tabs_active()
+            self.common, self.current_tab_id, self.are_tabs_active(), self.status_bar
         )
         self.tor_settings_tab.close_this_tab.connect(self.close_tor_settings_tab)
         self.tabs[self.current_tab_id] = self.tor_settings_tab
