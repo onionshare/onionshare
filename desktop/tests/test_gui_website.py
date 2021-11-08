@@ -22,8 +22,10 @@ class TestWebsite(GuiBaseTest):
         QtTest.QTest.qWait(500, self.gui.qtapp)
         if tab.settings.get("website", "disable_csp"):
             self.assertFalse("Content-Security-Policy" in r.headers)
+        elif tab.settings.get("website", "custom_csp"):
+            self.assertEqual(tab.settings.get("website", "custom_csp"), r.headers["Content-Security-Policy"])
         else:
-            self.assertTrue("Content-Security-Policy" in r.headers)
+            self.assertEqual("default-src 'self'; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; img-src 'self' data:;", r.headers["Content-Security-Policy"])
 
     def run_all_website_mode_setup_tests(self, tab):
         """Tests in website mode prior to starting a share"""
@@ -77,12 +79,24 @@ class TestWebsite(GuiBaseTest):
         self.run_all_website_mode_download_tests(tab)
         self.close_all_tabs()
 
-    def test_csp_enabled(self):
+    def test_csp_disabled(self):
         """
         Test disabling CSP
         """
         tab = self.new_website_tab()
         tab.get_mode().disable_csp_checkbox.click()
+        self.assertFalse(tab.get_mode().custom_csp_checkbox.isEnabled())
+        self.run_all_website_mode_download_tests(tab)
+        self.close_all_tabs()
+
+    def test_csp_custom(self):
+        """
+        Test a custom CSP
+        """
+        tab = self.new_website_tab()
+        tab.get_mode().custom_csp_checkbox.click()
+        self.assertFalse(tab.get_mode().disable_csp_checkbox.isEnabled())
+        tab.settings.set("website", "custom_csp", "default-src 'self'")
         self.run_all_website_mode_download_tests(tab)
         self.close_all_tabs()
 
