@@ -160,7 +160,13 @@ def main(cwd=None):
         action="store_true",
         dest="disable_csp",
         default=False,
-        help="Publish website: Disable Content Security Policy header (allows your website to use third-party resources)",
+        help="Publish website: Disable the default Content Security Policy header (allows your website to use third-party resources)",
+    )
+    parser.add_argument(
+        "--custom_csp",
+        metavar="custom_csp",
+        default=None,
+        help="Publish website: Set a custom Content Security Policy header",
     )
     # Other
     parser.add_argument(
@@ -199,6 +205,7 @@ def main(cwd=None):
     disable_text = args.disable_text
     disable_files = args.disable_files
     disable_csp = bool(args.disable_csp)
+    custom_csp = args.custom_csp
     verbose = bool(args.verbose)
 
     # Verbose mode?
@@ -244,7 +251,15 @@ def main(cwd=None):
             mode_settings.set("receive", "disable_text", disable_text)
             mode_settings.set("receive", "disable_files", disable_files)
         if mode == "website":
-            mode_settings.set("website", "disable_csp", disable_csp)
+            if disable_csp and custom_csp:
+                print("You cannot disable the CSP and set a custom one. Either set --disable-csp or --custom-csp but not both.")
+                sys.exit()
+            if disable_csp:
+                mode_settings.set("website", "disable_csp", True)
+                mode_settings.set("website", "custom_csp", None)
+            if custom_csp:
+                mode_settings.set("website", "custom_csp", custom_csp)
+                mode_settings.set("website", "disable_csp", False)
     else:
         # See what the persistent mode was
         mode = mode_settings.get("persistent", "mode")
