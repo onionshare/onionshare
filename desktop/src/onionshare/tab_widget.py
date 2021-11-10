@@ -378,23 +378,23 @@ class TabWidget(QtWidgets.QTabWidget):
 
     def tor_is_connected(self):
         for tab_id in self.tabs:
-            if not (
-                type(self.tabs[tab_id]) is SettingsTab
-                or type(self.tabs[tab_id]) is TorSettingsTab
-            ):
-                mode = self.tabs[tab_id].get_mode()
-                if mode:
-                    mode.tor_connection_started()
+            if type(self.tabs[tab_id]) is SettingsTab:
+                self.tabs[tab_id].tor_is_connected()
+            else:
+                if not type(self.tabs[tab_id]) is TorSettingsTab:
+                    mode = self.tabs[tab_id].get_mode()
+                    if mode:
+                        mode.tor_connection_started()
 
     def tor_is_disconnected(self):
         for tab_id in self.tabs:
-            if not (
-                type(self.tabs[tab_id]) is SettingsTab
-                or type(self.tabs[tab_id]) is TorSettingsTab
-            ):
-                mode = self.tabs[tab_id].get_mode()
-                if mode:
-                    mode.tor_connection_stopped()
+            if type(self.tabs[tab_id]) is SettingsTab:
+                self.tabs[tab_id].tor_is_disconnected()
+            else:
+                if not type(self.tabs[tab_id]) is TorSettingsTab:
+                    mode = self.tabs[tab_id].get_mode()
+                    if mode:
+                        mode.tor_connection_stopped()
 
 
 class TabBar(QtWidgets.QTabBar):

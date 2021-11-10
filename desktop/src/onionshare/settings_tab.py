@@ -154,6 +154,11 @@ class SettingsTab(QtWidgets.QWidget):
 
         self.reload_settings()
 
+        if self.common.gui.onion.connected_to_tor:
+            self.tor_is_connected()
+        else:
+            self.tor_is_disconnected()
+
     def reload_settings(self):
         # Load settings, and fill them in
         self.old_settings = Settings(self.common)
@@ -341,3 +346,9 @@ class SettingsTab(QtWidgets.QWidget):
         else:
             self.check_for_updates_button.setEnabled(True)
         self.save_button.setEnabled(True)
+
+    def tor_is_connected(self):
+        self.check_for_updates_button.show()
+
+    def tor_is_disconnected(self):
+        self.check_for_updates_button.hide()
