@@ -128,7 +128,7 @@ class Mode(QtWidgets.QWidget):
         self.wrapper_layout.addWidget(self.tor_not_connected_widget)
         self.setLayout(self.wrapper_layout)
 
-        if self.common.gui.onion.is_authenticated():
+        if self.common.gui.onion.connected_to_tor:
             self.tor_connection_started()
         else:
             self.tor_connection_stopped()
@@ -571,6 +571,6 @@ class Mode(QtWidgets.QWidget):
         if self.common.gui.local_only:
             self.tor_connection_started()
             return
-        
+
         self.content_widget.hide()
         self.tor_not_connected_widget.show()
