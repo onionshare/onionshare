@@ -38,6 +38,7 @@ def main():
     # Reinstall the new wheel
     subprocess.call(["pip", "uninstall", "onionshare-cli", "-y"])
     subprocess.call(["pip", "install", os.path.join(desktop_path, wheel_basename)])
+    subprocess.call(["pip", "install", "typing-extensions"])
 
 
 if __name__ == "__main__":

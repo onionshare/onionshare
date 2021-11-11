@@ -22,6 +22,7 @@ import hashlib
 import os
 import platform
 import random
+import requests
 import socket
 import sys
 import threading
@@ -313,6 +314,8 @@ class Common:
             if not tor_path:
                 raise CannotFindTor()
             obfs4proxy_file_path = shutil.which("obfs4proxy")
+            snowflake_file_path = shutil.which("snowflake-client")
+            meek_client_file_path = shutil.which("meek-client")
             prefix = os.path.dirname(os.path.dirname(tor_path))
             tor_geo_ip_file_path = os.path.join(prefix, "share/tor/geoip")
             tor_geo_ipv6_file_path = os.path.join(prefix, "share/tor/geoip6")
@@ -320,6 +323,8 @@ class Common:
             base_path = self.get_resource_path("tor")
             tor_path = os.path.join(base_path, "Tor", "tor.exe")
             obfs4proxy_file_path = os.path.join(base_path, "Tor", "obfs4proxy.exe")
+            snowflake_file_path = os.path.join(base_path, "Tor", "snowflake-client.exe")
+            meek_client_file_path = os.path.join(base_path, "Tor", "meek-client.exe")
             tor_geo_ip_file_path = os.path.join(base_path, "Data", "Tor", "geoip")
             tor_geo_ipv6_file_path = os.path.join(base_path, "Data", "Tor", "geoip6")
         elif self.platform == "Darwin":
@@ -327,6 +332,8 @@ class Common:
             if not tor_path:
                 raise CannotFindTor()
             obfs4proxy_file_path = shutil.which("obfs4proxy")
+            snowflake_file_path = shutil.which("snowflake-client")
+            meek_client_file_path = shutil.which("meek-client")
             prefix = os.path.dirname(os.path.dirname(tor_path))
             tor_geo_ip_file_path = os.path.join(prefix, "share/tor/geoip")
             tor_geo_ipv6_file_path = os.path.join(prefix, "share/tor/geoip6")
@@ -335,12 +342,16 @@ class Common:
             tor_geo_ip_file_path = "/usr/local/share/tor/geoip"
             tor_geo_ipv6_file_path = "/usr/local/share/tor/geoip6"
             obfs4proxy_file_path = "/usr/local/bin/obfs4proxy"
+            snowflake_file_path = "/usr/local/bin/snowflake-client"
+            meek_client_file_path = "/usr/local/bin/meek-client"
 
         return (
             tor_path,
             tor_geo_ip_file_path,
             tor_geo_ipv6_file_path,
             obfs4proxy_file_path,
+            snowflake_file_path,
+            meek_client_file_path,
         )
 
     def build_data_dir(self):

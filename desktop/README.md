@@ -13,9 +13,19 @@ cd onionshare/desktop
 
 #### Linux
 
-If you're using Linux, install `tor` and `obfs4proxy` from either the [official Debian repository](https://support.torproject.org/apt/tor-deb-repo/), or from your package manager.
+In Ubuntu 20.04 you need the `libxcb-xinerama0` package installed.
 
-In Ubuntu 20.04 you also need the `libxcb-xinerama0` package installed.
+Install python dependencies:
+
+```sh
+pip3 install --user poetry requests
+```
+
+Download Tor Browser and extract the binaries:
+
+```sh
+./scripts/get-tor-linux.py
+```
 
 #### macOS
 
@@ -51,6 +61,16 @@ Download Tor Browser and extract the binaries:
 
 ```
 python scripts\get-tor-windows.py
+```
+
+### Compile dependencies
+
+Install Go. The simplest way to make sure everything works is to install Go by following [these instructions](https://golang.org/doc/install). (In Windows, make sure to install the 32-bit version of Go, such as `go1.17.3.windows-386.msi`.)
+
+Download and compile `meek-client`:
+
+```
+./scripts/build-meek-client.py
 ```
 
 ### Prepare the virtual environment
