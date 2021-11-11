@@ -93,6 +93,7 @@ class GuiCommon:
         share_zip_progess_bar_chunk_color = "#4E064F"
         history_background_color = "#ffffff"
         history_label_color = "#000000"
+        settings_error_color = "#FF0000"
         if color_mode == "dark":
             header_color = "#F2F2F2"
             title_color = "#F2F2F2"
@@ -103,6 +104,7 @@ class GuiCommon:
             share_zip_progess_bar_border_color = "#F2F2F2"
             history_background_color = "#191919"
             history_label_color = "#ffffff"
+            settings_error_color = "#FF9999"
 
         return {
             # OnionShareGui styles
@@ -281,6 +283,11 @@ class GuiCommon:
                 QLabel {
                     color: #cc0000;
                 }""",
+            "tor_not_connected_label": """
+                QLabel {
+                    font-size: 16px;
+                    font-style: italic;
+                }""",
             # New tab
             "new_tab_button_image": """
                 QLabel {
@@ -392,10 +399,12 @@ class GuiCommon:
                 QPushButton {
                     padding: 5px 10px;
                 }""",
-            # Moat dialog
-            "moat_error": """
+            # Tor Settings dialogs
+            "tor_settings_error": """
                 QLabel {
-                    color: #990000;
+                    color: """
+            + settings_error_color
+            + """;
                 }
                 """,
         }

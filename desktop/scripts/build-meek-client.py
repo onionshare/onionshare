@@ -28,6 +28,7 @@ import shutil
 import os
 import subprocess
 import inspect
+import platform
 
 
 def main():
@@ -46,16 +47,21 @@ def main():
     root_path = os.path.dirname(
         os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
     )
-    dist_path = os.path.join(root_path, "src", "onionshare", "resources", "tor")
+    if platform.system() == "Windows":
+        dist_path = os.path.join(root_path, "src", "onionshare", "resources", "tor", "Tor")
+        bin_filename = "meek-client.exe"
+    else:
+        dist_path = os.path.join(root_path, "src", "onionshare", "resources", "tor")
+        bin_filename = "meek-client"
 
-    bin_path = os.path.expanduser("~/go/bin/meek-client")
+    bin_path = os.path.join(os.path.expanduser("~"), "go", "bin", bin_filename)
     shutil.copyfile(
         os.path.join(bin_path),
-        os.path.join(dist_path, "meek-client"),
+        os.path.join(dist_path, bin_filename),
     )
-    os.chmod(os.path.join(dist_path, "meek-client"), 0o755)
+    os.chmod(os.path.join(dist_path, bin_filename), 0o755)
 
-    print(f"Installed meek-client in {dist_path}")
+    print(f"Installed {bin_filename} in {dist_path}")
 
 
 if __name__ == "__main__":
