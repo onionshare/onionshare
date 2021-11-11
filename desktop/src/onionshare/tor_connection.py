@@ -43,6 +43,7 @@ from .gui_common import GuiCommon
 from .widgets import Alert
 from onionshare_cli.censorship import CensorshipCircumvention
 
+
 class TorConnectionDialog(QtWidgets.QProgressDialog):
     """
     Connecting to Tor dialog.
@@ -269,19 +270,60 @@ class TorConnectionWidget(QtWidgets.QWidget):
         # (e.g possible censorship) by obtaining bridges for the user, do so
         if self.settings.get("censorship_circumvention"):
             # Automatically try to obtain bridges from the Censorship Circumvention API
-            self.common.log("TorConnectionWidget", "_error_connecting_to_tor", "Trying to automatically obtain bridges")
+            self.common.log(
+                "TorConnectionWidget",
+                "_error_connecting_to_tor",
+                "Trying to automatically obtain bridges",
+            )
             self.meek.start()
-            self.censorship_circumvention = CensorshipCircumvention(self.common, self.meek)
-            request_bridges = self.censorship_circumvention.request_settings(country="cn")
+            self.censorship_circumvention = CensorshipCircumvention(
+                self.common, self.meek
+            )
+            request_bridges = self.censorship_circumvention.request_settings(
+                country="tm"
+            )
             if request_bridges:
-                # @TODO there might be several bridges
-                bridges = request_bridges["settings"][0]["bridges"]["bridge_strings"][0]
-                self.common.log("TorConnectionWidget", "_error_connecting_to_tor", f"Obtained bridges: {bridges}")
-                self.settings.set("bridges_enabled", True)
-                self.settings.set("bridges_type", "custom")
-                # @TODO there might be several bridges
-                self.settings.set("bridges_custom", bridges)
-                self.common.log("TorConnectionWidget", "_error_connecting_to_tor", "Starting Tor again")
+                # @TODO there might be several bridge types recommended.
+                # Should we attempt to iterate over each type if one of them fails to connect?
+                # But if so, how to stop it starting 3 separate Tor connection threads?
+                # for bridges in request_bridges["settings"]:
+                bridges = request_bridges["settings"][0]["bridges"]
+                self.common.log(
+                    "TorConnectionWidget",
+                    "_error_connecting_to_tor",
+                    f"Obtained bridges: {bridges}",
+                )
+                bridge_strings = bridges["bridge_strings"]
+                bridge_type = bridges["type"]
+                bridge_source = bridges["source"]
+
+                # If the recommended bridge source is to use the built-in
+                # bridges, set that in our settings, as if the user had
+                # selected the built-in bridges for a specific PT themselves.
+                #
+                # @TODO should we fetch the built-in bridges from
+                # censorship_circumvention.request_builtin_bridges()?
+                #
+                # In fact, the bridge_string returned for a bridge type 'builtin'
+                # is in fact the same bridges we'd get from that other method anyway.
+                if bridge_source == "builtin":
+                    self.settings.set("bridges_type", "built-in")
+                    if bridge_type == "obfs4":
+                        self.settings.set("bridges_builtin_pt", "obfs4")
+                    if bridge_type == "snowflake":
+                        self.settings.set("bridges_builtin_pt", "snowflake")
+                    if bridge_type == "meek":
+                        self.settings.set("bridges_builtin_pt", "meek-azure")
+                else:
+                    self.settings.set("bridges_type", "custom")
+                    # @TODO do we want to to a sanity check on the bridges like custom ones?
+                    self.settings.set("bridges_custom", "\n".join(bridge_strings))
+
+                self.common.log(
+                    "TorConnectionWidget",
+                    "_error_connecting_to_tor",
+                    "Starting Tor again",
+                )
                 self.settings.save()
                 # Now try and connect again
                 self.start()
