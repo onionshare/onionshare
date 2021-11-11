@@ -200,8 +200,6 @@ class Onion(object):
             )
             return
 
-        self.common.log("Onion", "connect")
-
         # Either use settings that are passed in, or use them from common
         if custom_settings:
             self.settings = custom_settings
@@ -211,6 +209,12 @@ class Onion(object):
         else:
             self.common.load_settings()
             self.settings = self.common.settings
+
+        self.common.log(
+            "Onion",
+            "connect",
+            f"connection_type={self.settings.get('connection_type')}",
+        )
 
         # The Tor controller
         self.c = None
@@ -315,40 +319,39 @@ class Onion(object):
                 f.write(torrc_template)
 
                 # Bridge support
-                if self.settings.get("tor_bridges_use_obfs4"):
-                    with open(
-                        self.common.get_resource_path("torrc_template-obfs4")
-                    ) as o:
-                        for line in o:
-                            f.write(line)
-                elif self.settings.get("tor_bridges_use_meek_lite_azure"):
-                    with open(
-                        self.common.get_resource_path("torrc_template-meek_lite_azure")
-                    ) as o:
-                        for line in o:
-                            f.write(line)
-                elif self.settings.get("tor_bridges_use_snowflake"):
-                    with open(
-                        self.common.get_resource_path("torrc_template-snowflake")
-                    ) as o:
-                        for line in o:
-                            f.write(line)
+                if self.settings.get("bridges_enabled"):
+                    if self.settings.get("bridges_type") == "built-in":
+                        if self.settings.get("bridges_builtin_pt") == "obfs4":
+                            with open(
+                                self.common.get_resource_path("torrc_template-obfs4")
+                            ) as o:
+                                f.write(o.read())
+                        elif self.settings.get("bridges_builtin_pt") == "meek-azure":
+                            with open(
+                                self.common.get_resource_path(
+                                    "torrc_template-meek_lite_azure"
+                                )
+                            ) as o:
+                                f.write(o.read())
+                        elif self.settings.get("bridges_builtin_pt") == "snowflake":
+                            with open(
+                                self.common.get_resource_path(
+                                    "torrc_template-snowflake"
+                                )
+                            ) as o:
+                                f.write(o.read())
 
-                elif self.settings.get("tor_bridges_use_moat"):
-                    for line in self.settings.get("tor_bridges_use_moat_bridges").split(
-                        "\n"
-                    ):
-                        if line.strip() != "":
-                            f.write(f"Bridge {line}\n")
-                    f.write("\nUseBridges 1\n")
+                    elif self.settings.get("bridges_type") == "moat":
+                        for line in self.settings.get("bridges_moat").split("\n"):
+                            if line.strip() != "":
+                                f.write(f"Bridge {line}\n")
+                        f.write("\nUseBridges 1\n")
 
-                elif self.settings.get("tor_bridges_use_custom_bridges"):
-                    for line in self.settings.get(
-                        "tor_bridges_use_custom_bridges"
-                    ).split("\n"):
-                        if line.strip() != "":
-                            f.write(f"Bridge {line}\n")
-                    f.write("\nUseBridges 1\n")
+                    elif self.settings.get("bridges_type") == "custom":
+                        for line in self.settings.get("bridges_custom").split("\n"):
+                            if line.strip() != "":
+                                f.write(f"Bridge {line}\n")
+                        f.write("\nUseBridges 1\n")
 
             # Execute a tor subprocess
             start_ts = time.time()
@@ -421,11 +424,7 @@ class Onion(object):
                 time.sleep(0.2)
 
                 # If using bridges, it might take a bit longer to connect to Tor
-                if (
-                    self.settings.get("tor_bridges_use_custom_bridges")
-                    or self.settings.get("tor_bridges_use_obfs4")
-                    or self.settings.get("tor_bridges_use_meek_lite_azure")
-                ):
+                if self.settings.get("bridges_enabled"):
                     # Only override timeout if a custom timeout has not been passed in
                     if connect_timeout == 120:
                         connect_timeout = 150
