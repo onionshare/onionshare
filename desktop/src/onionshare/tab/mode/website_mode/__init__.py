@@ -188,10 +188,8 @@ class WebsiteMode(Mode):
         self.column_layout.addLayout(self.main_layout)
         self.column_layout.addWidget(self.history, stretch=1)
 
-        # Wrapper layout
-        self.wrapper_layout = QtWidgets.QVBoxLayout()
-        self.wrapper_layout.addLayout(self.column_layout)
-        self.setLayout(self.wrapper_layout)
+        # Content layout
+        self.content_layout.addLayout(self.column_layout)
 
         # Always start with focus on file selection
         self.file_selection.setFocus()

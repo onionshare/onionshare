@@ -27,13 +27,10 @@ from datetime import datetime
 from datetime import timedelta
 
 from .common import Common, CannotFindTor
+from .censorship import CensorshipCircumvention
+from .meek import Meek, MeekNotRunning
 from .web import Web
-from .onion import (
-    TorErrorProtocolError,
-    TorTooOldEphemeral,
-    TorTooOldStealth,
-    Onion,
-)
+from .onion import TorErrorProtocolError, TorTooOldEphemeral, TorTooOldStealth, Onion
 from .onionshare import OnionShare
 from .mode_settings import ModeSettings
 
@@ -94,12 +91,7 @@ def main(cwd=None):
         help="Filename of persistent session",
     )
     # General args
-    parser.add_argument(
-        "--title",
-        metavar="TITLE",
-        default=None,
-        help="Set a title",
-    )
+    parser.add_argument("--title", metavar="TITLE", default=None, help="Set a title")
     parser.add_argument(
         "--public",
         action="store_true",
@@ -308,6 +300,20 @@ def main(cwd=None):
     # Create the Web object
     web = Web(common, False, mode_settings, mode)
 
+    # Create the Meek object and start the meek client
+    # meek = Meek(common)
+    # meek.start()
+
+    # Create the CensorshipCircumvention object to make
+    # API calls to Tor over Meek
+    censorship = CensorshipCircumvention(common, meek)
+    # Example: request recommended bridges, pretending to be from China, using
+    # domain fronting.
+    # censorship_recommended_settings = censorship.request_settings(country="cn")
+    # print(censorship_recommended_settings)
+    # Clean up the meek subprocess once we're done working with the censorship circumvention API
+    # meek.cleanup()
+
     # Start the Onion object
     try:
         onion = Onion(common, use_tmp_dir=True)
@@ -424,7 +430,7 @@ def main(cwd=None):
             sys.exit(1)
 
         # Warn about sending large files over Tor
-        if web.share_mode.download_filesize >= 157286400:  # 150mb
+        if web.share_mode.download_filesize >= 157_286_400:  # 150mb
             print("")
             print("Warning: Sending a large share could take hours")
             print("")
