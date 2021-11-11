@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2021-09-09 19:49-0700\n"
-"PO-Revision-Date: 2021-09-18 20:19+0000\n"
-"Last-Translator: Santiago Passafiume <santiagopassafiume@protonmail.com>\n"
+"PO-Revision-Date: 2021-10-08 07:03+0000\n"
+"Last-Translator: Username1234567890 <danarauz@protonmail.com>\n"
 "Language-Team: none\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -54,16 +54,15 @@ msgstr ""
 " pin aparece a la izquierda de su estado de servidor."
 
 #: ../../source/advanced.rst:18
-#, fuzzy
 msgid ""
 "When you quit OnionShare and then open it again, your saved tabs will "
 "start opened. You'll have to manually start each service, but when you do"
 " they will start with the same OnionShare address and private key."
 msgstr ""
-"Cuando sales de OnionShare y lo vuelves a abrir, tus pestañas guardadas "
-"se iniciarán abiertas. Tendrás que arrancar cada servicio manualmente, "
-"pero cuando lo hagas, se iniciarán con la misma dirección OnionShare, y "
-"con la misma contraseña."
+"Cuando sales de OnionShare y lo vuelves a abrir, tus pestañas guardadas se "
+"iniciarán abiertas. Tendrás que arrancar cada servicio manualmente, pero "
+"cuando lo hagas, se iniciarán con la misma dirección OnionShare, y con la "
+"misma llave privada."
 
 #: ../../source/advanced.rst:21
 msgid ""
@@ -76,7 +75,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:26
 msgid "Turn Off Private Key"
-msgstr ""
+msgstr "Desactivar la Llave Privada"
 
 #: ../../source/advanced.rst:28
 msgid ""
@@ -91,21 +90,20 @@ msgid ""
 "When browsing to an OnionShare service in Tor Browser, Tor Browser will "
 "prompt for the private key to be entered."
 msgstr ""
+"Al navegar a un servicio OnionShare en el Navegador Tor, el Navegador Tor "
+"solicitará que se ingrese la llave privada."
 
 #: ../../source/advanced.rst:32
-#, fuzzy
 msgid ""
 "Sometimes you might want your OnionShare service to be accessible to the "
 "public, like if you want to set up an OnionShare receive service so the "
 "public can securely and anonymously send you files. In this case, it's "
 "better to disable the private key altogether."
 msgstr ""
-"A veces, podrías querer que tu servicio OnionShare sea accesible al "
-"público, por ejemplo si quisieras un servicio OnionShare de recepción "
-"para que el público pueda enviarte archivos segura y anónimamente. En "
-"esta caso, es mejor deshabilitar del todo la contraseña. Si no lo haces, "
-"alguien puede forzar a tu servidor para que se detenga efectuando solo 20"
-" suposiciones erróneas de tu contraseña, aún si conocen la correcta."
+"A veces puede que desee que su servicio de OnionShare sea accesible al "
+"público, como si desea configurar un servicio de recepción de OnionShare "
+"para que el público pueda enviarle archivos de forma segura y anónima. En "
+"este caso, es mejor desactivar la clave privada por completo."
 
 #: ../../source/advanced.rst:35
 msgid ""
@@ -114,6 +112,10 @@ msgid ""
 "server. Then the server will be public and won't need a private key to "
 "view in Tor Browser."
 msgstr ""
+"Para desactivar la llave privada en cualquier pestaña, active la casilla de "
+"verificación que indica que se trata de un servicio público de OnionShare ("
+"desactiva la llave privada) antes de iniciar el servidor. Luego el servidor "
+"será público y no necesitará una llave privada para verlo en el Tor Browser."
 
 #: ../../source/advanced.rst:40
 msgid "Custom Titles"
@@ -183,17 +185,16 @@ msgstr ""
 "nada, puedes cancelarlo antes de su inicio programado."
 
 #: ../../source/advanced.rst:60
-#, fuzzy
 msgid ""
 "**Scheduling an OnionShare service to automatically stop can be useful to"
 " limit exposure**, like if you want to share secret documents while "
 "making sure they're not available on the internet for more than a few "
 "days."
 msgstr ""
-"**Programar un servicio OnionShare para detenerse automáticamente puede "
-"ser útil para limitar la exposición**, como cuando quieras compartir "
-"documentos secretos mientras te aseguras que no estarán disponibles en "
-"Internet por más de unos pocos días."
+"**La programación de un servicio de OnionShare para que se detenga "
+"automáticamente puede ser útil para limitar la exposición**, como cuando si "
+"usted deseara compartir documentos secretos mientras se asegura de que no "
+"están disponibles en el Internet por más de unos pocos días."
 
 #: ../../source/advanced.rst:67
 msgid "Command-line Interface"
@@ -232,6 +233,9 @@ msgid ""
 "<https://github.com/onionshare/onionshare/blob/develop/cli/README.md>`_ "
 "in the git repository."
 msgstr ""
+"Para información sobre cómo instalarlo en diferentes sistemas operativos, "
+"consulte el \"archivo leeme CLI <https://github.com/onionshare/onionshare/"
+"blob/develop/cli/README.md>` _ en el repositorio de git."
 
 #: ../../source/advanced.rst:83
 msgid ""
