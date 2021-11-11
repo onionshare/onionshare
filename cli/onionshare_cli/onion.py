@@ -153,6 +153,8 @@ class Onion(object):
             self.tor_geo_ip_file_path,
             self.tor_geo_ipv6_file_path,
             self.obfs4proxy_file_path,
+            self.snowflake_file_path,
+            self.meek_client_file_path,
         ) = get_tor_paths()
 
         # The tor process
@@ -178,10 +180,10 @@ class Onion(object):
         key_bytes = bytes(key)
         key_b32 = base64.b32encode(key_bytes)
         # strip trailing ====
-        assert key_b32[-4:] == b'===='
+        assert key_b32[-4:] == b"===="
         key_b32 = key_b32[:-4]
         # change from b'ASDF' to ASDF
-        s = key_b32.decode('utf-8')
+        s = key_b32.decode("utf-8")
         return s
 
     def connect(
@@ -198,8 +200,6 @@ class Onion(object):
             )
             return
 
-        self.common.log("Onion", "connect")
-
         # Either use settings that are passed in, or use them from common
         if custom_settings:
             self.settings = custom_settings
@@ -209,6 +209,12 @@ class Onion(object):
         else:
             self.common.load_settings()
             self.settings = self.common.settings
+
+        self.common.log(
+            "Onion",
+            "connect",
+            f"connection_type={self.settings.get('connection_type')}",
+        )
 
         # The Tor controller
         self.c = None
@@ -302,43 +308,50 @@ class Onion(object):
             torrc_template = torrc_template.replace(
                 "{{socks_port}}", str(self.tor_socks_port)
             )
+            torrc_template = torrc_template.replace(
+                "{{obfs4proxy_path}}", str(self.obfs4proxy_file_path)
+            )
+            torrc_template = torrc_template.replace(
+                "{{snowflake_path}}", str(self.snowflake_file_path)
+            )
 
             with open(self.tor_torrc, "w") as f:
                 f.write(torrc_template)
 
                 # Bridge support
-                if self.settings.get("tor_bridges_use_obfs4"):
-                    f.write(
-                        f"ClientTransportPlugin obfs4 exec {self.obfs4proxy_file_path}\n"
-                    )
-                    with open(
-                        self.common.get_resource_path("torrc_template-obfs4")
-                    ) as o:
-                        for line in o:
-                            f.write(line)
-                elif self.settings.get("tor_bridges_use_meek_lite_azure"):
-                    f.write(
-                        f"ClientTransportPlugin meek_lite exec {self.obfs4proxy_file_path}\n"
-                    )
-                    with open(
-                        self.common.get_resource_path("torrc_template-meek_lite_azure")
-                    ) as o:
-                        for line in o:
-                            f.write(line)
+                if self.settings.get("bridges_enabled"):
+                    if self.settings.get("bridges_type") == "built-in":
+                        if self.settings.get("bridges_builtin_pt") == "obfs4":
+                            with open(
+                                self.common.get_resource_path("torrc_template-obfs4")
+                            ) as o:
+                                f.write(o.read())
+                        elif self.settings.get("bridges_builtin_pt") == "meek-azure":
+                            with open(
+                                self.common.get_resource_path(
+                                    "torrc_template-meek_lite_azure"
+                                )
+                            ) as o:
+                                f.write(o.read())
+                        elif self.settings.get("bridges_builtin_pt") == "snowflake":
+                            with open(
+                                self.common.get_resource_path(
+                                    "torrc_template-snowflake"
+                                )
+                            ) as o:
+                                f.write(o.read())
 
-                if self.settings.get("tor_bridges_use_custom_bridges"):
-                    if "obfs4" in self.settings.get("tor_bridges_use_custom_bridges"):
-                        f.write(
-                            f"ClientTransportPlugin obfs4 exec {self.obfs4proxy_file_path}\n"
-                        )
-                    elif "meek_lite" in self.settings.get(
-                        "tor_bridges_use_custom_bridges"
-                    ):
-                        f.write(
-                            f"ClientTransportPlugin meek_lite exec {self.obfs4proxy_file_path}\n"
-                        )
-                    f.write(self.settings.get("tor_bridges_use_custom_bridges"))
-                    f.write("\nUseBridges 1")
+                    elif self.settings.get("bridges_type") == "moat":
+                        for line in self.settings.get("bridges_moat").split("\n"):
+                            if line.strip() != "":
+                                f.write(f"Bridge {line}\n")
+                        f.write("\nUseBridges 1\n")
+
+                    elif self.settings.get("bridges_type") == "custom":
+                        for line in self.settings.get("bridges_custom").split("\n"):
+                            if line.strip() != "":
+                                f.write(f"Bridge {line}\n")
+                        f.write("\nUseBridges 1\n")
 
             # Execute a tor subprocess
             start_ts = time.time()
@@ -357,6 +370,7 @@ class Onion(object):
                     [self.tor_path, "-f", self.tor_torrc],
                     stdout=subprocess.PIPE,
                     stderr=subprocess.PIPE,
+                    env={"LD_LIBRARY_PATH": os.path.dirname(self.tor_path)},
                 )
 
             # Wait for the tor controller to start
@@ -410,11 +424,7 @@ class Onion(object):
                 time.sleep(0.2)
 
                 # If using bridges, it might take a bit longer to connect to Tor
-                if (
-                    self.settings.get("tor_bridges_use_custom_bridges")
-                    or self.settings.get("tor_bridges_use_obfs4")
-                    or self.settings.get("tor_bridges_use_meek_lite_azure")
-                ):
+                if self.settings.get("bridges_enabled"):
                     # Only override timeout if a custom timeout has not been passed in
                     if connect_timeout == 120:
                         connect_timeout = 150
@@ -650,16 +660,24 @@ class Onion(object):
                 )
                 raise TorTooOldStealth()
             else:
-                if key_type == "NEW" or not mode_settings.get("onion", "client_auth_priv_key"):
+                if key_type == "NEW" or not mode_settings.get(
+                    "onion", "client_auth_priv_key"
+                ):
                     # Generate a new key pair for Client Auth on new onions, or if
                     # it's a persistent onion but for some reason we don't them
                     client_auth_priv_key_raw = nacl.public.PrivateKey.generate()
                     client_auth_priv_key = self.key_str(client_auth_priv_key_raw)
-                    client_auth_pub_key = self.key_str(client_auth_priv_key_raw.public_key)
+                    client_auth_pub_key = self.key_str(
+                        client_auth_priv_key_raw.public_key
+                    )
                 else:
                     # These should have been saved in settings from the previous run of a persistent onion
-                    client_auth_priv_key = mode_settings.get("onion", "client_auth_priv_key")
-                    client_auth_pub_key = mode_settings.get("onion", "client_auth_pub_key")
+                    client_auth_priv_key = mode_settings.get(
+                        "onion", "client_auth_priv_key"
+                    )
+                    client_auth_pub_key = mode_settings.get(
+                        "onion", "client_auth_pub_key"
+                    )
 
         try:
             if not self.supports_stealth:

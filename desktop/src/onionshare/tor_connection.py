@@ -48,12 +48,16 @@ class TorConnectionDialog(QtWidgets.QProgressDialog):
     Connecting to Tor dialog.
     """
 
-    open_settings = QtCore.Signal()
+    open_tor_settings = QtCore.Signal()
+    success = QtCore.Signal()
 
-    def __init__(self, common, custom_settings=False):
+    def __init__(
+        self, common, custom_settings=False, testing_settings=False, onion=None
+    ):
         super(TorConnectionDialog, self).__init__(None)
 
         self.common = common
+        self.testing_settings = testing_settings
 
         if custom_settings:
             self.settings = custom_settings
@@ -62,7 +66,15 @@ class TorConnectionDialog(QtWidgets.QProgressDialog):
 
         self.common.log("TorConnectionDialog", "__init__")
 
-        self.setWindowTitle("OnionShare")
+        if self.testing_settings:
+            self.title = strings._("gui_settings_connection_type_test_button")
+            self.onion = onion
+        else:
+            self.title = "OnionShare"
+            self.onion = self.common.gui.onion
+
+        self.setWindowTitle(self.title)
+
         self.setWindowIcon(QtGui.QIcon(GuiCommon.get_resource_path("images/logo.png")))
         self.setModal(True)
         self.setFixedSize(400, 150)
@@ -105,14 +117,13 @@ class TorConnectionDialog(QtWidgets.QProgressDialog):
     def _connected_to_tor(self):
         self.common.log("TorConnectionDialog", "_connected_to_tor")
         self.active = False
-
         # Close the dialog after connecting
         self.setValue(self.maximum())
 
     def _canceled_connecting_to_tor(self):
         self.common.log("TorConnectionDialog", "_canceled_connecting_to_tor")
         self.active = False
-        self.common.gui.onion.cleanup()
+        self.onion.cleanup()
 
         # Cancel connecting to Tor
         QtCore.QTimer.singleShot(1, self.cancel)
@@ -121,21 +132,138 @@ class TorConnectionDialog(QtWidgets.QProgressDialog):
         self.common.log("TorConnectionDialog", "_error_connecting_to_tor")
         self.active = False
 
-        def alert_and_open_settings():
-            # Display the exception in an alert box
-            Alert(
-                self.common,
-                f"{msg}\n\n{strings._('gui_tor_connection_error_settings')}",
-                QtWidgets.QMessageBox.Warning,
-            )
+        if self.testing_settings:
+            # If testing, just display the error but don't open settings
+            def alert():
+                Alert(self.common, msg, QtWidgets.QMessageBox.Warning, title=self.title)
 
-            # Open settings
-            self.open_settings.emit()
+        else:
+            # If not testing, open settings after displaying the error
+            def alert():
+                Alert(
+                    self.common,
+                    f"{msg}\n\n{strings._('gui_tor_connection_error_settings')}",
+                    QtWidgets.QMessageBox.Warning,
+                    title=self.title,
+                )
 
-        QtCore.QTimer.singleShot(1, alert_and_open_settings)
+                # Open settings
+                self.open_tor_settings.emit()
+
+        QtCore.QTimer.singleShot(1, alert)
 
         # Cancel connecting to Tor
         QtCore.QTimer.singleShot(1, self.cancel)
+
+
+class TorConnectionWidget(QtWidgets.QWidget):
+    """
+    Connecting to Tor widget, with a progress bar
+    """
+
+    open_tor_settings = QtCore.Signal()
+    success = QtCore.Signal()
+    fail = QtCore.Signal(str)
+
+    def __init__(self, common, status_bar):
+        super(TorConnectionWidget, self).__init__(None)
+        self.common = common
+        self.common.log("TorConnectionWidget", "__init__")
+
+        self.status_bar = status_bar
+        self.label = QtWidgets.QLabel(strings._("connecting_to_tor"))
+        self.label.setAlignment(QtCore.Qt.AlignHCenter)
+
+        self.progress = QtWidgets.QProgressBar()
+        self.progress.setRange(0, 100)
+        self.cancel_button = QtWidgets.QPushButton(
+            strings._("gui_settings_button_cancel")
+        )
+        self.cancel_button.clicked.connect(self.cancel_clicked)
+
+        progress_layout = QtWidgets.QHBoxLayout()
+        progress_layout.addWidget(self.progress)
+        progress_layout.addWidget(self.cancel_button)
+
+        inner_layout = QtWidgets.QVBoxLayout()
+        inner_layout.addWidget(self.label)
+        inner_layout.addLayout(progress_layout)
+
+        layout = QtWidgets.QHBoxLayout()
+        layout.addStretch()
+        layout.addLayout(inner_layout)
+        layout.addStretch()
+        self.setLayout(layout)
+
+        # Start displaying the status at 0
+        self._tor_status_update(0, "")
+
+    def start(self, custom_settings=False, testing_settings=False, onion=None):
+        self.common.log("TorConnectionWidget", "start")
+        self.was_canceled = False
+
+        self.testing_settings = testing_settings
+
+        if custom_settings:
+            self.settings = custom_settings
+        else:
+            self.settings = self.common.settings
+
+        if self.testing_settings:
+            self.onion = onion
+        else:
+            self.onion = self.common.gui.onion
+
+        t = TorConnectionThread(self.common, self.settings, self)
+        t.tor_status_update.connect(self._tor_status_update)
+        t.connected_to_tor.connect(self._connected_to_tor)
+        t.canceled_connecting_to_tor.connect(self._canceled_connecting_to_tor)
+        t.error_connecting_to_tor.connect(self._error_connecting_to_tor)
+        t.start()
+
+        # The main thread needs to remain active, and checking for Qt events,
+        # until the thread is finished. Otherwise it won't be able to handle
+        # accepting signals.
+        self.active = True
+        while self.active:
+            time.sleep(0.1)
+            self.common.gui.qtapp.processEvents()
+
+    def cancel_clicked(self):
+        self.was_canceled = True
+        self.fail.emit("")
+
+    def wasCanceled(self):
+        return self.was_canceled
+
+    def _tor_status_update(self, progress, summary):
+        self.progress.setValue(int(progress))
+        self.label.setText(
+            f"<strong>{strings._('connecting_to_tor')}</strong><br>{summary}"
+        )
+
+    def _connected_to_tor(self):
+        self.common.log("TorConnectionWidget", "_connected_to_tor")
+        self.active = False
+        self.status_bar.clearMessage()
+
+        # Close the dialog after connecting
+        self.progress.setValue(self.progress.maximum())
+
+        self.success.emit()
+
+    def _canceled_connecting_to_tor(self):
+        self.common.log("TorConnectionWidget", "_canceled_connecting_to_tor")
+        self.active = False
+        self.onion.cleanup()
+
+        # Cancel connecting to Tor
+        QtCore.QTimer.singleShot(1, self.cancel_clicked)
+
+    def _error_connecting_to_tor(self, msg):
+        self.common.log("TorConnectionWidget", "_error_connecting_to_tor")
+        self.active = False
+        self.fail.emit(msg)
 
 
 class TorConnectionThread(QtCore.QThread):
@@ -144,24 +272,20 @@ class TorConnectionThread(QtCore.QThread):
     canceled_connecting_to_tor = QtCore.Signal()
     error_connecting_to_tor = QtCore.Signal(str)
 
-    def __init__(self, common, settings, dialog):
+    def __init__(self, common, settings, parent):
         super(TorConnectionThread, self).__init__()
-
         self.common = common
-
         self.common.log("TorConnectionThread", "__init__")
-
         self.settings = settings
-
-        self.dialog = dialog
+        self.parent = parent
 
     def run(self):
         self.common.log("TorConnectionThread", "run")
 
         # Connect to the Onion
         try:
-            self.common.gui.onion.connect(self.settings, False, self._tor_status_update)
-            if self.common.gui.onion.connected_to_tor:
+            self.parent.onion.connect(self.settings, False, self._tor_status_update)
+            if self.parent.onion.connected_to_tor:
                 self.connected_to_tor.emit()
             else:
                 self.canceled_connecting_to_tor.emit()
@@ -197,4 +321,4 @@ class TorConnectionThread(QtCore.QThread):
         self.tor_status_update.emit(progress, summary)
 
         # Return False if the dialog was canceled
-        return not self.dialog.wasCanceled()
+        return not self.parent.wasCanceled()
