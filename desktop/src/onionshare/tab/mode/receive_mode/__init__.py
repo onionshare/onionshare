@@ -198,10 +198,8 @@ class ReceiveMode(Mode):
         self.column_layout.addLayout(row_layout)
         self.column_layout.addWidget(self.history, stretch=1)
 
-        # Wrapper layout
-        self.wrapper_layout = QtWidgets.QVBoxLayout()
-        self.wrapper_layout.addLayout(self.column_layout)
-        self.setLayout(self.wrapper_layout)
+        # Content layout
+        self.content_layout.addLayout(self.column_layout)
 
     def get_type(self):
         """
