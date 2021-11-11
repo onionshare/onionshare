@@ -41,7 +41,7 @@ from onionshare_cli.onion import (
 from . import strings
 from .gui_common import GuiCommon
 from .widgets import Alert
-
+from onionshare_cli.censorship import CensorshipCircumvention
 
 class TorConnectionDialog(QtWidgets.QProgressDialog):
     """
@@ -165,7 +165,7 @@ class TorConnectionWidget(QtWidgets.QWidget):
     success = QtCore.Signal()
     fail = QtCore.Signal(str)
 
-    def __init__(self, common, status_bar):
+    def __init__(self, common, status_bar, meek):
         super(TorConnectionWidget, self).__init__(None)
         self.common = common
         self.common.log("TorConnectionWidget", "__init__")
@@ -180,6 +180,8 @@ class TorConnectionWidget(QtWidgets.QWidget):
             strings._("gui_settings_button_cancel")
         )
         self.cancel_button.clicked.connect(self.cancel_clicked)
+
+        self.meek = meek
 
         progress_layout = QtWidgets.QHBoxLayout()
         progress_layout.addWidget(self.progress)
@@ -263,7 +265,30 @@ class TorConnectionWidget(QtWidgets.QWidget):
     def _error_connecting_to_tor(self, msg):
         self.common.log("TorConnectionWidget", "_error_connecting_to_tor")
         self.active = False
-        self.fail.emit(msg)
+        # If we are allowed to try automatically resolving connection issues
+        # (e.g possible censorship) by obtaining bridges for the user, do so
+        if self.settings.get("censorship_circumvention"):
+            # Automatically try to obtain bridges from the Censorship Circumvention API
+            self.common.log("TorConnectionWidget", "_error_connecting_to_tor", "Trying to automatically obtain bridges")
+            self.meek.start()
+            self.censorship_circumvention = CensorshipCircumvention(self.common, self.meek)
+            request_bridges = self.censorship_circumvention.request_settings(country="cn")
+            if request_bridges:
+                # @TODO there might be several bridges
+                bridges = request_bridges["settings"][0]["bridges"]["bridge_strings"][0]
+                self.common.log("TorConnectionWidget", "_error_connecting_to_tor", f"Obtained bridges: {bridges}")
+                self.settings.set("bridges_enabled", True)
+                self.settings.set("bridges_type", "custom")
+                # @TODO there might be several bridges
+                self.settings.set("bridges_custom", bridges)
+                self.common.log("TorConnectionWidget", "_error_connecting_to_tor", "Starting Tor again")
+                self.settings.save()
+                # Now try and connect again
+                self.start()
+            else:
+                self.fail.emit()
+        else:
+            self.fail.emit()
 
 
 class TorConnectionThread(QtCore.QThread):
