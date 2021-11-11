@@ -93,6 +93,7 @@ class GuiCommon:
         share_zip_progess_bar_chunk_color = "#4E064F"
         history_background_color = "#ffffff"
         history_label_color = "#000000"
+        settings_error_color = "#FF0000"
         if color_mode == "dark":
             header_color = "#F2F2F2"
             title_color = "#F2F2F2"
@@ -103,6 +104,7 @@ class GuiCommon:
             share_zip_progess_bar_border_color = "#F2F2F2"
             history_background_color = "#191919"
             history_label_color = "#ffffff"
+            settings_error_color = "#FF9999"
 
         return {
             # OnionShareGui styles
@@ -205,14 +207,14 @@ class GuiCommon:
             "downloads_uploads_not_empty": """
                 QWidget{
                     background-color: """
-                +   history_background_color
-                +""";
+            + history_background_color
+            + """;
                 }""",
             "downloads_uploads_empty": """
                 QWidget {
                     background-color: """
-                +   history_background_color
-                +""";
+            + history_background_color
+            + """;
                     border: 1px solid #999999;
                 }
                 QWidget QLabel {
@@ -263,7 +265,7 @@ class GuiCommon:
             + """;
                     width: 10px;
                 }""",
-            "history_default_label" : """
+            "history_default_label": """
                 QLabel {
                     color: """
             + history_label_color
@@ -280,6 +282,11 @@ class GuiCommon:
             "history_individual_file_status_code_label_4xx": """
                 QLabel {
                     color: #cc0000;
+                }""",
+            "tor_not_connected_label": """
+                QLabel {
+                    font-size: 16px;
+                    font-style: italic;
                 }""",
             # New tab
             "new_tab_button_image": """
@@ -392,44 +399,50 @@ class GuiCommon:
                 QPushButton {
                     padding: 5px 10px;
                 }""",
-            # Settings dialog
-            "settings_version": """
+            # Tor Settings dialogs
+            "tor_settings_error": """
                 QLabel {
-                    color: #666666;
-                }""",
-            "settings_tor_status": """
-                QLabel {
-                    background-color: #ffffff;
-                    color: #000000;
-                    padding: 10px;
-                }""",
-            "settings_whats_this": """
-                QLabel {
-                    font-size: 12px;
-                }""",
-            "settings_connect_to_tor": """
-                QLabel {
-                    font-style: italic;
-                }""",
+                    color: """
+            + settings_error_color
+            + """;
+                }
+                """,
         }
 
     def get_tor_paths(self):
         if self.common.platform == "Linux":
-            tor_path = shutil.which("tor")
-            obfs4proxy_file_path = shutil.which("obfs4proxy")
-            prefix = os.path.dirname(os.path.dirname(tor_path))
-            tor_geo_ip_file_path = os.path.join(prefix, "share/tor/geoip")
-            tor_geo_ipv6_file_path = os.path.join(prefix, "share/tor/geoip6")
-        elif self.common.platform == "Windows":
+            base_path = self.get_resource_path("tor")
+            if os.path.exists(base_path):
+                tor_path = os.path.join(base_path, "tor")
+                tor_geo_ip_file_path = os.path.join(base_path, "geoip")
+                tor_geo_ipv6_file_path = os.path.join(base_path, "geoip6")
+                obfs4proxy_file_path = os.path.join(base_path, "obfs4proxy")
+                snowflake_file_path = os.path.join(base_path, "snowflake-client")
+                meek_client_file_path = os.path.join(base_path, "meek-client")
+            else:
+                # Fallback to looking in the path
+                tor_path = shutil.which("tor")
+                obfs4proxy_file_path = shutil.which("obfs4proxy")
+                snowflake_file_path = shutil.which("snowflake-client")
+                meek_client_file_path = shutil.which("meek-client")
+                prefix = os.path.dirname(os.path.dirname(tor_path))
+                tor_geo_ip_file_path = os.path.join(prefix, "share/tor/geoip")
+                tor_geo_ipv6_file_path = os.path.join(prefix, "share/tor/geoip6")
+
+        if self.common.platform == "Windows":
             base_path = self.get_resource_path("tor")
             tor_path = os.path.join(base_path, "Tor", "tor.exe")
             obfs4proxy_file_path = os.path.join(base_path, "Tor", "obfs4proxy.exe")
+            snowflake_file_path = os.path.join(base_path, "Tor", "snowflake-client.exe")
+            meek_client_file_path = os.path.join(base_path, "Tor", "meek-client.exe")
             tor_geo_ip_file_path = os.path.join(base_path, "Data", "Tor", "geoip")
             tor_geo_ipv6_file_path = os.path.join(base_path, "Data", "Tor", "geoip6")
         elif self.common.platform == "Darwin":
             base_path = self.get_resource_path("tor")
             tor_path = os.path.join(base_path, "tor")
             obfs4proxy_file_path = os.path.join(base_path, "obfs4proxy")
+            snowflake_file_path = os.path.join(base_path, "snowflake-client")
+            meek_client_file_path = os.path.join(base_path, "meek-client")
             tor_geo_ip_file_path = os.path.join(base_path, "geoip")
             tor_geo_ipv6_file_path = os.path.join(base_path, "geoip6")
         elif self.common.platform == "BSD":
@@ -437,12 +450,16 @@ class GuiCommon:
             tor_geo_ip_file_path = "/usr/local/share/tor/geoip"
             tor_geo_ipv6_file_path = "/usr/local/share/tor/geoip6"
             obfs4proxy_file_path = "/usr/local/bin/obfs4proxy"
+            meek_client_file_path = "/usr/local/bin/meek-client"
+            snowflake_file_path = "/usr/local/bin/snowflake-client"
 
         return (
             tor_path,
             tor_geo_ip_file_path,
             tor_geo_ipv6_file_path,
             obfs4proxy_file_path,
+            snowflake_file_path,
+            meek_client_file_path,
         )
 
     @staticmethod

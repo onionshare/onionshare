@@ -105,10 +105,11 @@ class Settings(object):
             "auth_password": "",
             "use_autoupdate": True,
             "autoupdate_timestamp": None,
-            "no_bridges": True,
-            "tor_bridges_use_obfs4": False,
-            "tor_bridges_use_meek_lite_azure": False,
-            "tor_bridges_use_custom_bridges": "",
+            "bridges_enabled": False,
+            "bridges_type": "built-in",  # "built-in", "moat", or "custom"
+            "bridges_builtin_pt": "obfs4",  # "obfs4", "meek-azure", or "snowflake"
+            "bridges_moat": "",
+            "bridges_custom": "",
             "persistent_tabs": [],
             "locale": None,  # this gets defined in fill_in_defaults()
             "theme": 0,

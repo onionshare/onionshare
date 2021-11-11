@@ -18,12 +18,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
+import os
 import time
 from PySide2 import QtCore, QtWidgets, QtGui
 
 from . import strings
-from .tor_connection_dialog import TorConnectionDialog
-from .settings_dialog import SettingsDialog
+from .tor_connection import TorConnectionDialog
 from .widgets import Alert
 from .update_checker import UpdateThread
 from .tab_widget import TabWidget
@@ -106,6 +106,24 @@ class MainWindow(QtWidgets.QMainWindow):
         )
         self.status_bar.addPermanentWidget(self.status_bar.server_status_indicator)
 
+        # Tor settings button
+        self.tor_settings_button = QtWidgets.QPushButton()
+        self.tor_settings_button.setDefault(False)
+        self.tor_settings_button.setFixedSize(40, 50)
+        self.tor_settings_button.setIcon(
+            QtGui.QIcon(
+                GuiCommon.get_resource_path(
+                    "images/{}_tor_settings.png".format(self.common.gui.color_mode)
+                )
+            )
+        )
+        self.tor_settings_button.clicked.connect(self.open_tor_settings)
+        self.tor_settings_button.setStyleSheet(self.common.gui.css["settings_button"])
+        self.status_bar.addPermanentWidget(self.tor_settings_button)
+
+        if os.environ.get("ONIONSHARE_HIDE_TOR_SETTINGS") == "1":
+            self.tor_settings_button.hide()
+
         # Settings button
         self.settings_button = QtWidgets.QPushButton()
         self.settings_button.setDefault(False)
@@ -145,7 +163,7 @@ class MainWindow(QtWidgets.QMainWindow):
         # Start the "Connecting to Tor" dialog, which calls onion.connect()
         tor_con = TorConnectionDialog(self.common)
         tor_con.canceled.connect(self.tor_connection_canceled)
-        tor_con.open_settings.connect(self.tor_connection_open_settings)
+        tor_con.open_tor_settings.connect(self.tor_connection_open_tor_settings)
         if not self.common.gui.local_only:
             tor_con.start()
             self.settings_have_changed()
@@ -200,7 +218,7 @@ class MainWindow(QtWidgets.QMainWindow):
                     "_tor_connection_canceled",
                     "Settings button clicked",
                 )
-                self.open_settings()
+                self.open_tor_settings()
 
             if a.clickedButton() == quit_button:
                 # Quit
@@ -214,23 +232,28 @@ class MainWindow(QtWidgets.QMainWindow):
         # Wait 100ms before asking
         QtCore.QTimer.singleShot(100, ask)
 
-    def tor_connection_open_settings(self):
+    def tor_connection_open_tor_settings(self):
         """
-        The TorConnectionDialog wants to open the Settings dialog
+        The TorConnectionDialog wants to open the Tor Settings dialog
         """
-        self.common.log("MainWindow", "tor_connection_open_settings")
+        self.common.log("MainWindow", "tor_connection_open_tor_settings")
 
         # Wait 1ms for the event loop to finish closing the TorConnectionDialog
-        QtCore.QTimer.singleShot(1, self.open_settings)
+        QtCore.QTimer.singleShot(1, self.open_tor_settings)
+
+    def open_tor_settings(self):
+        """
+        Open the TorSettingsTab
+        """
+        self.common.log("MainWindow", "open_tor_settings")
+        self.tabs.open_tor_settings_tab()
 
     def open_settings(self):
         """
-        Open the SettingsDialog.
+        Open the SettingsTab
         """
         self.common.log("MainWindow", "open_settings")
-        d = SettingsDialog(self.common)
-        d.settings_saved.connect(self.settings_have_changed)
-        d.exec_()
+        self.tabs.open_settings_tab()
 
     def settings_have_changed(self):
         self.common.log("OnionShareGui", "settings_have_changed")
