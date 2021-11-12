@@ -464,13 +464,7 @@ def main(cwd=None):
                             print("Stopped because auto-stop timer ran out")
                             web.stop(app.port)
                             break
-                    if mode == "website":
-                        # If there were no attempts to visit the website, or all downloads are done, we can stop
-                        if web.website_mode.cur_history_id == 0 or web.done:
-                            print("Stopped because auto-stop timer ran out")
-                            web.stop(app.port)
-                            break
-                    if mode == "receive":
+                    elif mode == "receive":
                         if (
                             web.receive_mode.cur_history_id == 0
                             or not web.receive_mode.uploads_in_progress
@@ -479,7 +473,8 @@ def main(cwd=None):
                             web.stop(app.port)
                             break
                         web.receive_mode.can_upload = False
-                    if mode == "chat":
+                    else:
+                        # website or chat mode
                         print("Stopped because auto-stop timer ran out")
                         web.stop(app.port)
                         break
