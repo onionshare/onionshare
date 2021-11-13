@@ -413,6 +413,9 @@ class GuiCommon:
         if self.common.platform == "Linux":
             base_path = self.get_resource_path("tor")
             if os.path.exists(base_path):
+                self.common.log(
+                    "GuiCommon", "get_tor_paths", "using paths in resources"
+                )
                 tor_path = os.path.join(base_path, "tor")
                 tor_geo_ip_file_path = os.path.join(base_path, "geoip")
                 tor_geo_ipv6_file_path = os.path.join(base_path, "geoip6")
@@ -421,6 +424,7 @@ class GuiCommon:
                 meek_client_file_path = os.path.join(base_path, "meek-client")
             else:
                 # Fallback to looking in the path
+                self.common.log("GuiCommon", "get_tor_paths", "using paths from PATH")
                 tor_path = shutil.which("tor")
                 obfs4proxy_file_path = shutil.which("obfs4proxy")
                 snowflake_file_path = shutil.which("snowflake-client")
