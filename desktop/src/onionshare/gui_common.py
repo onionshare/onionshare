@@ -412,7 +412,7 @@ class GuiCommon:
     def get_tor_paths(self):
         if self.common.platform == "Linux":
             base_path = self.get_resource_path("tor")
-            if os.path.exists(base_path):
+            if base_path:
                 self.common.log(
                     "GuiCommon", "get_tor_paths", "using paths in resources"
                 )
@@ -471,7 +471,10 @@ class GuiCommon:
         """
         Returns the absolute path of a resource
         """
-        return resource_filename("onionshare", os.path.join("resources", filename))
+        try:
+            return resource_filename("onionshare", os.path.join("resources", filename))
+        except KeyError:
+            return None
 
     @staticmethod
     def get_translated_tor_error(e):
