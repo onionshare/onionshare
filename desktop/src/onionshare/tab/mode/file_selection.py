@@ -225,6 +225,14 @@ class FileList(QtWidgets.QListWidget):
         """
         dropEvent for dragging files and directories into the widget.
         """
+        # Drag and drop doesn't work in Flatpak, because of the sandbox
+        if self.common.platform == "Linux" and os.path.exists("/app/manifest.json"):
+            Alert(
+                self.common, strings._("gui_dragdrop_sandbox_flatpak").format(filename)
+            )
+            event.ignore()
+            return
+
         if event.mimeData().hasUrls:
             event.setDropAction(QtCore.Qt.CopyAction)
             event.accept()
@@ -243,13 +251,6 @@ class FileList(QtWidgets.QListWidget):
         """
         Add a file or directory to this widget.
         """
-        # Drag and drop doesn't work in Flatpak, because of the sandbox
-        if self.common.platform == "Linux" and os.path.exists("/app/manifest.json"):
-            Alert(
-                self.common, strings._("gui_dragdrop_sandbox_flatpak").format(filename)
-            )
-            return
-
         filenames = []
         for index in range(self.count()):
             filenames.append(self.item(index).filename)
