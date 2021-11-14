@@ -342,8 +342,20 @@ class FileSelection(QtWidgets.QVBoxLayout):
         self.file_list.files_dropped.connect(self.update)
         self.file_list.files_updated.connect(self.update)
 
-        # Buttons
+        # Sandboxes (for masOS, Flatpak, etc.) need separate add files and folders buttons, in
+        # order to use native file selection dialogs
+
+        # macOS
         if self.common.platform == "Darwin":
+            self.sandbox = True
+        # Flatpack
+        elif self.common.platform == "Linux" and os.path.exists("/app/manifest.json"):
+            self.sandbox = True
+        else:
+            self.sandbox = False
+
+        # Buttons
+        if self.sandbox:
             # The macOS sandbox makes it so the Mac version needs separate add files
             # and folders buttons, in order to use native file selection dialogs
             self.add_files_button = QtWidgets.QPushButton(strings._("gui_add_files"))
@@ -357,7 +369,7 @@ class FileSelection(QtWidgets.QVBoxLayout):
         self.remove_button.clicked.connect(self.delete)
         button_layout = QtWidgets.QHBoxLayout()
         button_layout.addStretch()
-        if self.common.platform == "Darwin":
+        if self.sandbox:
             button_layout.addWidget(self.add_files_button)
             button_layout.addWidget(self.add_folder_button)
         else:
@@ -376,14 +388,14 @@ class FileSelection(QtWidgets.QVBoxLayout):
         """
         # All buttons should be hidden if the server is on
         if self.server_on:
-            if self.common.platform == "Darwin":
+            if self.sandbox:
                 self.add_files_button.hide()
                 self.add_folder_button.hide()
             else:
                 self.add_button.hide()
             self.remove_button.hide()
         else:
-            if self.common.platform == "Darwin":
+            if self.sandbox:
                 self.add_files_button.show()
                 self.add_folder_button.show()
             else:
