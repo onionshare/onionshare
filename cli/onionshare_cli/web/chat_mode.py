@@ -47,6 +47,13 @@ class ChatModeWeb:
 
         self.define_routes()
 
+    def validate_username(self, username):
+        return (
+            username
+            and username not in self.connected_users
+            and len(username) < 128
+        )
+
     def define_routes(self):
         """
         The web app routes for chatting
@@ -78,11 +85,7 @@ class ChatModeWeb:
         def update_session_username():
             history_id = self.cur_history_id
             data = request.get_json()
-            if (
-                data.get("username", "")
-                and data.get("username", "") not in self.connected_users
-                and len(data.get("username", "")) < 128
-            ):
+            if self.validate_username(data.get("username", "")):
                 session["name"] = data.get("username", session.get("name"))
                 self.web.add_request(
                     request.path,
@@ -141,23 +144,28 @@ class ChatModeWeb:
             """Sent by a client when the user updates their username.
             The message is sent to all people in the server."""
             current_name = session.get("name")
-            if message.get("username", ""):
+            if self.validate_username(message.get("username", "")):
                 session["name"] = message["username"]
                 self.connected_users[
                     self.connected_users.index(current_name)
                 ] = session.get("name")
-            emit(
-                "status",
-                {
-                    "msg": "{} has updated their username to: {}".format(
-                        current_name, session.get("name")
-                    ),
-                    "connected_users": self.connected_users,
-                    "old_name": current_name,
-                    "new_name": session.get("name"),
-                },
-                broadcast=True,
-            )
+                emit(
+                    "status",
+                    {
+                        "msg": "{} has updated their username to: {}".format(
+                            current_name, session.get("name")
+                        ),
+                        "connected_users": self.connected_users,
+                        "old_name": current_name,
+                        "new_name": session.get("name"),
+                    },
+                    broadcast=True,
+                )
+            else:
+                emit(
+                    "status",
+                    {"msg": "Failed to update username."},
+                )
 
         @self.web.socketio.on("disconnect", namespace="/chat")
         def disconnect():
