@@ -43,7 +43,11 @@ def load_strings(common, locale_dir):
     current_locale = common.settings.get("locale")
     strings = {}
     for s in translations[default_locale]:
-        if s in translations[current_locale] and translations[current_locale][s] != "":
+        if (
+            current_locale in translations
+            and s in translations[current_locale]
+            and translations[current_locale][s] != ""
+        ):
             strings[s] = translations[current_locale][s]
         else:
             strings[s] = translations[default_locale][s]
