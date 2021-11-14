@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 from flask import request, render_template, make_response, jsonify, session
-from flask_socketio import emit
+from flask_socketio import emit, ConnectionRefusedError
 
 
 class ChatModeWeb:
@@ -117,17 +117,20 @@ class ChatModeWeb:
         def server_connect():
             """Sent by clients when they enter a room.
             A status message is broadcast to all people in the room."""
-            self.connected_users.append(session.get("name"))
-            emit(
-                "status",
-                {
-                    "username": session.get("name"),
-                    "msg": "{} has joined.".format(session.get("name")),
-                    "connected_users": self.connected_users,
-                    "user": session.get("name"),
-                },
-                broadcast=True,
-            )
+            if self.validate_username(session.get("name")):
+                self.connected_users.append(session.get("name"))
+                emit(
+                    "status",
+                    {
+                        "username": session.get("name"),
+                        "msg": "{} has joined.".format(session.get("name")),
+                        "connected_users": self.connected_users,
+                        "user": session.get("name"),
+                    },
+                    broadcast=True,
+                )
+            else:
+                raise ConnectionRefusedError('You are active from another session!')
 
         @self.web.socketio.on("text", namespace="/chat")
         def text(message):
