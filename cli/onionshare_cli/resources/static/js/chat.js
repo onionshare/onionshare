@@ -93,6 +93,8 @@ var updateUsername = function (socket) {
       console.log(response);
       if (response.success && response.username == username) {
         socket.emit('update_username', { username: username });
+      } else {
+        addStatusMessage("Failed to updated username.")
       }
     });
     return username;
