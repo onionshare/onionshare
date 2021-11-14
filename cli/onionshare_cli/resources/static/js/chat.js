@@ -20,7 +20,7 @@ $(function () {
 
     // Triggered when message is received from a user. Even when sent
     // by self, it get triggered after the server sends back the emit.
-    socket.on('message', function (data) {
+    socket.on('chat_message', function (data) {
       addMessageToPanel(data, current_username, 'chat');
       console.log(data, current_username);
     });
