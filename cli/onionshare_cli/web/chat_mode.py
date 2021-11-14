@@ -131,7 +131,7 @@ class ChatModeWeb:
             """Sent by a client when the user entered a new message.
             The message is sent to all people in the server."""
             emit(
-                "message",
+                "chat_message",
                 {"username": session.get("name"), "msg": message["msg"]},
                 broadcast=True,
             )
