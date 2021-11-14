@@ -125,7 +125,7 @@ parts:
       - setuptools
       - pynacl
       - colorama
-      - cepa == 1.8.2
+      - git+https://github.com/onionshare/stem.git@1.8.1
     stage-packages:
       - build-essential
       - libssl-dev
@@ -135,7 +135,7 @@ parts:
     stage:
       - -usr/lib/x86_64-linux-gnu/libcrypto.so.1.1
       - -usr/share/doc/libssl1.1/changelog.Debian.gz
-    after: [tor, obfs4, snowflake-client, meek-client]
+    after: [tor, obfs4, snowflake-client]
 
   tor:
     source: https://dist.torproject.org/tor-0.4.6.8.tar.gz
@@ -166,10 +166,10 @@ parts:
     source-type: git
     source-tag: v2.0.1
 
-  meek-client:
-    plugin: go
-    go-importpath: git.torproject.org/pluggable-transports/meek.git/meek-client
-    go-packages: ["google.golang.org/appengine"]
-    source: https://git.torproject.org/pluggable-transports/meek.git
-    source-type: git
-    source-tag: v0.37.0
+  # meek-client:
+  #   plugin: go
+  #   go-importpath: git.torproject.org/pluggable-transports/meek.git/meek-client
+  #   go-packages: ["google.golang.org/appengine"]
+  #   source: https://git.torproject.org/pluggable-transports/meek.git
+  #   source-type: git
+  #   source-tag: v0.37.0
