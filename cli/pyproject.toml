@@ -29,7 +29,7 @@ eventlet = "*"
 setuptools = "*"
 pynacl = "^1.4.0"
 colorama = "*"
-cepa = "1.8.2"
+cepa = "1.8.3"
 
 [tool.poetry.dev-dependencies]
 pytest = "*"
