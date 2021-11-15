@@ -437,6 +437,12 @@ class Common:
         Returns True if OnionShare is running in a Flatpak sandbox
         """
         return os.environ.get("FLATPAK_ID") == "org.onionshare.OnionShare"
+    
+    def is_snapcraft(self):
+        """
+        Returns True if OnionShare is running in a Flatpak sandbox
+        """
+        return os.environ.get("SNAP_INSTANCE_NAME") == "onionshare"
 
     @staticmethod
     def random_string(num_bytes, output_len=None):
