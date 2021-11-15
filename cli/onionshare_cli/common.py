@@ -432,6 +432,12 @@ class Common:
         r = random.SystemRandom()
         return "-".join(r.choice(wordlist) for _ in range(word_count))
 
+    def is_flatpak(self):
+        """
+        Returns True if OnionShare is running in a Flatpak sandbox
+        """
+        return os.environ.get("FLATPAK_ID") == "org.onionshare.OnionShare"
+
     @staticmethod
     def random_string(num_bytes, output_len=None):
         """
