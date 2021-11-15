@@ -412,7 +412,7 @@ class GuiCommon:
     def get_tor_paths(self):
         if self.common.platform == "Linux":
             base_path = self.get_resource_path("tor")
-            if base_path:
+            if base_path and os.path.isdir(base_path):
                 self.common.log(
                     "GuiCommon", "get_tor_paths", "using paths in resources"
                 )

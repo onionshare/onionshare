@@ -354,6 +354,11 @@ class Onion(object):
                         f.write("\nUseBridges 1\n")
 
             # Execute a tor subprocess
+            self.common.log(
+                "Onion",
+                "connect",
+                f"starting {self.tor_path} subprocess",
+            )
             start_ts = time.time()
             if self.common.platform == "Windows":
                 # In Windows, hide console window when opening tor.exe subprocess
@@ -374,22 +379,29 @@ class Onion(object):
                 )
 
             # Wait for the tor controller to start
+            self.common.log(
+                "Onion",
+                "connect",
+                f"tor pid: {self.tor_proc.pid}",
+            )
             time.sleep(2)
 
             # Connect to the controller
-            try:
-                if (
-                    self.common.platform == "Windows"
-                    or self.common.platform == "Darwin"
-                ):
-                    self.c = Controller.from_port(port=self.tor_control_port)
-                    self.c.authenticate()
-                else:
-                    self.c = Controller.from_socket_file(path=self.tor_control_socket)
-                    self.c.authenticate()
-            except Exception as e:
-                print("OnionShare could not connect to Tor:\n{}".format(e.args[0]))
-                raise BundledTorBroken(e.args[0])
+            self.common.log(
+                "Onion",
+                "connect",
+                "authenticating to tor controller",
+            )
+            # try:
+            if self.common.platform == "Windows" or self.common.platform == "Darwin":
+                self.c = Controller.from_port(port=self.tor_control_port)
+                self.c.authenticate()
+            else:
+                self.c = Controller.from_socket_file(path=self.tor_control_socket)
+                self.c.authenticate()
+            # except Exception as e:
+            #     print("OnionShare could not connect to Tor:\n{}".format(e))
+            #     raise BundledTorBroken(e.args[0])
 
             while True:
                 try:
