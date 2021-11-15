@@ -187,6 +187,7 @@ class FileList(QtWidgets.QListWidget):
         """
         # Drag and drop doesn't work in Flatpak, because of the sandbox
         if self.common.platform == "Linux" and os.path.exists("/app/manifest.json"):
+            Alert(self.common, strings._("gui_dragdrop_sandbox_flatpak").format())
             event.ignore()
             return
 
@@ -242,7 +243,6 @@ class FileList(QtWidgets.QListWidget):
         """
         # Drag and drop doesn't work in Flatpak, because of the sandbox
         if self.common.platform == "Linux" and os.path.exists("/app/manifest.json"):
-            Alert(self.common, strings._("gui_dragdrop_sandbox_flatpak").format())
             event.ignore()
             return
 
