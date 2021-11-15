@@ -29,6 +29,7 @@ import subprocess
 import time
 import shlex
 import psutil
+import traceback
 
 from distutils.version import LooseVersion as Version
 
@@ -371,11 +372,16 @@ class Onion(object):
                     startupinfo=startupinfo,
                 )
             else:
+                if self.common.is_snapcraft():
+                    env = None
+                else:
+                    env = {"LD_LIBRARY_PATH": os.path.dirname(self.tor_path)}
+
                 self.tor_proc = subprocess.Popen(
                     [self.tor_path, "-f", self.tor_torrc],
                     stdout=subprocess.PIPE,
                     stderr=subprocess.PIPE,
-                    env={"LD_LIBRARY_PATH": os.path.dirname(self.tor_path)},
+                    env=env,
                 )
 
             # Wait for the tor controller to start
@@ -392,16 +398,20 @@ class Onion(object):
                 "connect",
                 "authenticating to tor controller",
             )
-            # try:
-            if self.common.platform == "Windows" or self.common.platform == "Darwin":
-                self.c = Controller.from_port(port=self.tor_control_port)
-                self.c.authenticate()
-            else:
-                self.c = Controller.from_socket_file(path=self.tor_control_socket)
-                self.c.authenticate()
-            # except Exception as e:
-            #     print("OnionShare could not connect to Tor:\n{}".format(e))
-            #     raise BundledTorBroken(e.args[0])
+            try:
+                if (
+                    self.common.platform == "Windows"
+                    or self.common.platform == "Darwin"
+                ):
+                    self.c = Controller.from_port(port=self.tor_control_port)
+                    self.c.authenticate()
+                else:
+                    self.c = Controller.from_socket_file(path=self.tor_control_socket)
+                    self.c.authenticate()
+            except Exception as e:
+                print("OnionShare could not connect to Tor:\n{}".format(e.args[0]))
+                print(traceback.format_exc())
+                raise BundledTorBroken(e.args[0])
 
             while True:
                 try:
