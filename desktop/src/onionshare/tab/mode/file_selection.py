@@ -186,7 +186,7 @@ class FileList(QtWidgets.QListWidget):
         dragEnterEvent for dragging files and directories into the widget.
         """
         # Drag and drop doesn't work in Flatpak, because of the sandbox
-        if self.common.platform == "Linux" and os.path.exists("/app/manifest.json"):
+        if self.common.is_flatpak():
             Alert(self.common, strings._("gui_dragdrop_sandbox_flatpak").format())
             event.ignore()
             return
@@ -213,7 +213,7 @@ class FileList(QtWidgets.QListWidget):
         dragLeaveEvent for dragging files and directories into the widget.
         """
         # Drag and drop doesn't work in Flatpak, because of the sandbox
-        if self.common.platform == "Linux" and os.path.exists("/app/manifest.json"):
+        if self.common.is_flatpak():
             event.ignore()
             return
 
@@ -227,7 +227,7 @@ class FileList(QtWidgets.QListWidget):
         dragMoveEvent for dragging files and directories into the widget.
         """
         # Drag and drop doesn't work in Flatpak, because of the sandbox
-        if self.common.platform == "Linux" and os.path.exists("/app/manifest.json"):
+        if self.common.is_flatpak():
             event.ignore()
             return
 
@@ -242,7 +242,7 @@ class FileList(QtWidgets.QListWidget):
         dropEvent for dragging files and directories into the widget.
         """
         # Drag and drop doesn't work in Flatpak, because of the sandbox
-        if self.common.platform == "Linux" and os.path.exists("/app/manifest.json"):
+        if self.common.is_flatpak():
             event.ignore()
             return
 
@@ -365,12 +365,7 @@ class FileSelection(QtWidgets.QVBoxLayout):
 
         # Sandboxes (for masOS, Flatpak, etc.) need separate add files and folders buttons, in
         # order to use native file selection dialogs
-
-        # macOS
-        if self.common.platform == "Darwin":
-            self.sandbox = True
-        # Flatpack
-        elif self.common.platform == "Linux" and os.path.exists("/app/manifest.json"):
+        if self.common.platform == "Darwin" or self.common.is_flatpak():
             self.sandbox = True
         else:
             self.sandbox = False
