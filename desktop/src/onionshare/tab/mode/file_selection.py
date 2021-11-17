@@ -435,6 +435,7 @@ class FileSelection(QtWidgets.QVBoxLayout):
         """
         file_dialog = AddFileDialog(self.common, caption=strings._("gui_choose_items"))
         if file_dialog.exec_() == QtWidgets.QDialog.Accepted:
+            self.common.log("FileSelection", "add", file_dialog.selectedFiles())
             for filename in file_dialog.selectedFiles():
                 self.file_list.add_file(filename)
 
@@ -443,25 +444,34 @@ class FileSelection(QtWidgets.QVBoxLayout):
 
     def add_files(self):
         """
-        Add files button clicked.
+        Add Files button clicked.
         """
         files = QtWidgets.QFileDialog.getOpenFileNames(
             self.parent, caption=strings._("gui_choose_items")
         )
+        self.common.log("FileSelection", "add_files", files)
+
         filenames = files[0]
         for filename in filenames:
             self.file_list.add_file(filename)
 
+        self.file_list.setCurrentItem(None)
+        self.update()
+
     def add_folder(self):
         """
-        Add folder button clicked.
+        Add Folder button clicked.
         """
         filename = QtWidgets.QFileDialog.getExistingDirectory(
             self.parent,
             caption=strings._("gui_choose_items"),
             options=QtWidgets.QFileDialog.ShowDirsOnly,
         )
-        self.file_list.add_file(filename)
+        self.common.log("FileSelection", "add_folder", filename)
+        if filename:
+            self.file_list.add_file(filename)
+            self.file_list.setCurrentItem(None)
+            self.update()
 
     def delete(self):
         """
