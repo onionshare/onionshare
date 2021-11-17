@@ -449,7 +449,7 @@ class Common:
 
     def is_snapcraft(self):
         """
-        Returns True if OnionShare is running in a Flatpak sandbox
+        Returns True if OnionShare is running in a Snapcraft sandbox
         """
         return os.environ.get("SNAP_INSTANCE_NAME") == "onionshare"
 
