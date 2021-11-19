@@ -32,7 +32,7 @@
   {% endif %}
 
   <div class="file-list" id="file-list">
-    <div class="d-flex">
+    <div class="d-flex row">
       <div id="filename-header" class="heading">Filename</div>
       <div id="size-header" class="heading">Size</div>
     </div>
@@ -41,26 +41,26 @@
       <div>
         <img width="30" height="30" title="" alt="" src="{{ static_url_path }}/img/web_folder.png" />
         <a href="{{ info.link }}">
-          <span>{{ info.basename }}</span>
+          <span class="cell-data">{{ info.basename }}</span>
         </a>
       </div>
-      <div>&mdash;</div>
+      <div class="cell-data">&mdash;</div>
     </div>
     {% endfor %}
 
     {% for info in files %}
-    <div class="d-flex">
+    <div class="d-flex row">
       <div>
         <img width="30" height="30" title="" alt="" src="{{ static_url_path }}/img/web_file.png" />
         {% if download_individual_files %}
         <a href="{{ info.link }}">
-          <span>{{ info.basename }}</span>
+          <span class="cell-data">{{ info.basename }}</span>
         </a>
         {% else %}
-        <span>{{ info.basename }}</span>
+        <span class="cell-data">{{ info.basename }}</span>
         {% endif %}
       </div>
-      <div>{{ info.size_human }}</div>
+      <div class="cell-data size">{{ info.size_human }}</div>
     </div>
     {% endfor %}
   </div>
