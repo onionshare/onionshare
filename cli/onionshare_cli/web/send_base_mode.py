@@ -194,7 +194,7 @@ class SendBaseModeWeb:
         if use_gzip:
             if filesystem_path not in self.gzip_individual_files:
                 self.gzip_files.append(
-                    tempfile.TemporaryFile("wb+", dir=self.common.build_tmp_dir())
+                    tempfile.NamedTemporaryFile("wb+", dir=self.common.build_tmp_dir())
                 )
                 gzip_file = self.gzip_files[-1]
                 self._gzip_compress(filesystem_path, gzip_file.name, 6, None)
