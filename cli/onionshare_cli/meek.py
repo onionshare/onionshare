@@ -85,6 +85,10 @@ class Meek(object):
         self.common.log("Meek", "start", "Starting meek client")
 
         if self.common.platform == "Windows":
+            env = os.environ.copy()
+            for key in self.meek_env:
+                env[key] = self.meek_env[key]
+
             # In Windows, hide console window when opening meek-client.exe subprocess
             startupinfo = subprocess.STARTUPINFO()
             startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
@@ -100,7 +104,7 @@ class Meek(object):
                 stderr=subprocess.PIPE,
                 startupinfo=startupinfo,
                 bufsize=1,
-                env=self.meek_env,
+                env=env,
                 text=True,
             )
         else:
@@ -116,7 +120,8 @@ class Meek(object):
                 stderr=subprocess.PIPE,
                 bufsize=1,
                 env=self.meek_env,
-                text=True,
+                # Using universal_newlines instead of text because the snap package using python < 3.7
+                universal_newlines=True,
             )
 
         # Queue up the stdout from the subprocess for polling later
@@ -129,6 +134,7 @@ class Meek(object):
             # read stdout without blocking
             try:
                 line = q.get_nowait()
+                self.common.log("Meek", "start", line.strip())
             except Empty:
                 # no stdout yet?
                 pass
@@ -136,9 +142,16 @@ class Meek(object):
                 if "CMETHOD meek socks5" in line:
                     self.meek_host = line.split(" ")[3].split(":")[0]
                     self.meek_port = line.split(" ")[3].split(":")[1]
-                    self.common.log("Meek", "start", f"Meek host is {self.meek_host}")
-                    self.common.log("Meek", "start", f"Meek port is {self.meek_port}")
+                    self.common.log(
+                        "Meek",
+                        "start",
+                        f"Meek running on {self.meek_host}:{self.meek_port}",
+                    )
                     break
+
+                if "CMETHOD-ERROR" in line:
+                    self.cleanup()
+                    raise MeekNotRunning()
 
         if self.meek_port:
             self.meek_proxies = {
@@ -147,6 +160,7 @@ class Meek(object):
             }
         else:
             self.common.log("Meek", "start", "Could not obtain the meek port")
+            self.cleanup()
             raise MeekNotRunning()
 
     def cleanup(self):

@@ -87,197 +87,206 @@ class Common:
         ╰───────────────────────────────────────────╯
         """
 
-        if self.platform == "Windows":
-            pass
-        else:
-            pass
-
-        print(
-            Back.MAGENTA + Fore.WHITE + "╭───────────────────────────────────────────╮"
-        )
-        print(
-            Back.MAGENTA
-            + Fore.WHITE
-            + "│"
-            + Fore.LIGHTMAGENTA_EX
-            + "    *            "
-            + Fore.WHITE
-            + "▄▄█████▄▄"
-            + Fore.LIGHTMAGENTA_EX
-            + "            *    "
-            + Fore.WHITE
-            + "│"
-        )
-        print(
-            Back.MAGENTA
-            + Fore.WHITE
-            + "│"
-            + Fore.WHITE
-            + "               ▄████▀▀▀████▄"
-            + Fore.LIGHTMAGENTA_EX
-            + "     *         "
-            + Fore.WHITE
-            + "│"
-        )
-        print(
-            Back.MAGENTA
-            + Fore.WHITE
-            + "│"
-            + Fore.WHITE
-            + "              ▀▀█▀       ▀██▄              "
-            + Fore.WHITE
-            + "│"
-        )
-        print(
-            Back.MAGENTA
-            + Fore.WHITE
-            + "│"
-            + Fore.LIGHTMAGENTA_EX
-            + "      *      "
-            + Fore.WHITE
-            + "▄█▄          ▀██▄             "
-            + Fore.WHITE
-            + "│"
-        )
-        print(
-            Back.MAGENTA
-            + Fore.WHITE
-            + "│"
-            + Fore.WHITE
-            + "           ▄█████▄         ███"
-            + Fore.LIGHTMAGENTA_EX
-            + "        -+-  "
-            + Fore.WHITE
-            + "│"
-        )
-        print(
-            Back.MAGENTA
-            + Fore.WHITE
-            + "│"
-            + Fore.WHITE
-            + "             ███         ▀█████▀           "
-            + Fore.WHITE
-            + "│"
-        )
-        print(
-            Back.MAGENTA
-            + Fore.WHITE
-            + "│"
-            + Fore.WHITE
-            + "             ▀██▄          ▀█▀             "
-            + Fore.WHITE
-            + "│"
-        )
-        print(
-            Back.MAGENTA
-            + Fore.WHITE
-            + "│"
-            + Fore.LIGHTMAGENTA_EX
-            + "         *    "
-            + Fore.WHITE
-            + "▀██▄       ▄█▄▄"
-            + Fore.LIGHTMAGENTA_EX
-            + "     *        "
-            + Fore.WHITE
-            + "│"
-        )
-        print(
-            Back.MAGENTA
-            + Fore.WHITE
-            + "│"
-            + Fore.LIGHTMAGENTA_EX
-            + " *             "
-            + Fore.WHITE
-            + "▀████▄▄▄████▀               "
-            + Fore.WHITE
-            + "│"
-        )
-        print(
-            Back.MAGENTA
-            + Fore.WHITE
-            + "│"
-            + Fore.WHITE
-            + "                 ▀▀█████▀▀                 "
-            + Fore.WHITE
-            + "│"
-        )
-        print(
-            Back.MAGENTA
-            + Fore.WHITE
-            + "│"
-            + Fore.LIGHTMAGENTA_EX
-            + "             -+-                     *     "
-            + Fore.WHITE
-            + "│"
-        )
-        print(
-            Back.MAGENTA
-            + Fore.WHITE
-            + "│"
-            + Fore.WHITE
-            + "   ▄▀▄               ▄▀▀ █                 "
-            + Fore.WHITE
-            + "│"
-        )
-        print(
-            Back.MAGENTA
-            + Fore.WHITE
-            + "│"
-            + Fore.WHITE
-            + "   █ █     ▀         ▀▄  █                 "
-            + Fore.WHITE
-            + "│"
-        )
-        print(
-            Back.MAGENTA
-            + Fore.WHITE
-            + "│"
-            + Fore.WHITE
-            + "   █ █ █▀▄ █ ▄▀▄ █▀▄  ▀▄ █▀▄ ▄▀▄ █▄▀ ▄█▄   "
-            + Fore.WHITE
-            + "│"
-        )
-        print(
-            Back.MAGENTA
-            + Fore.WHITE
-            + "│"
-            + Fore.WHITE
-            + "   ▀▄▀ █ █ █ ▀▄▀ █ █ ▄▄▀ █ █ ▀▄█ █   ▀▄▄   "
-            + Fore.WHITE
-            + "│"
-        )
-        print(
-            Back.MAGENTA + Fore.WHITE + "│                                           │"
-        )
-        left_spaces = (43 - len(self.version) - 1) // 2
-        right_spaces = left_spaces
-        if left_spaces + len(self.version) + 1 + right_spaces < 43:
-            right_spaces += 1
-        print(
-            Back.MAGENTA
-            + Fore.WHITE
-            + "│"
-            + Fore.WHITE
-            + f"{' '*left_spaces}v{self.version}{' '*right_spaces}"
-            + Fore.WHITE
-            + "│"
-        )
-        print(
-            Back.MAGENTA + Fore.WHITE + "│                                           │"
-        )
-        print(
-            Back.MAGENTA
-            + Fore.WHITE
-            + "│"
-            + Fore.WHITE
-            + "          https://onionshare.org/          "
-            + Fore.WHITE
-            + "│"
-        )
-        print(
-            Back.MAGENTA + Fore.WHITE + "╰───────────────────────────────────────────╯"
-        )
-        print()
+        try:
+            print(
+                Back.MAGENTA
+                + Fore.WHITE
+                + "╭───────────────────────────────────────────╮"
+            )
+            print(
+                Back.MAGENTA
+                + Fore.WHITE
+                + "│"
+                + Fore.LIGHTMAGENTA_EX
+                + "    *            "
+                + Fore.WHITE
+                + "▄▄█████▄▄"
+                + Fore.LIGHTMAGENTA_EX
+                + "            *    "
+                + Fore.WHITE
+                + "│"
+            )
+            print(
+                Back.MAGENTA
+                + Fore.WHITE
+                + "│"
+                + Fore.WHITE
+                + "               ▄████▀▀▀████▄"
+                + Fore.LIGHTMAGENTA_EX
+                + "     *         "
+                + Fore.WHITE
+                + "│"
+            )
+            print(
+                Back.MAGENTA
+                + Fore.WHITE
+                + "│"
+                + Fore.WHITE
+                + "              ▀▀█▀       ▀██▄              "
+                + Fore.WHITE
+                + "│"
+            )
+            print(
+                Back.MAGENTA
+                + Fore.WHITE
+                + "│"
+                + Fore.LIGHTMAGENTA_EX
+                + "      *      "
+                + Fore.WHITE
+                + "▄█▄          ▀██▄             "
+                + Fore.WHITE
+                + "│"
+            )
+            print(
+                Back.MAGENTA
+                + Fore.WHITE
+                + "│"
+                + Fore.WHITE
+                + "           ▄█████▄         ███"
+                + Fore.LIGHTMAGENTA_EX
+                + "        -+-  "
+                + Fore.WHITE
+                + "│"
+            )
+            print(
+                Back.MAGENTA
+                + Fore.WHITE
+                + "│"
+                + Fore.WHITE
+                + "             ███         ▀█████▀           "
+                + Fore.WHITE
+                + "│"
+            )
+            print(
+                Back.MAGENTA
+                + Fore.WHITE
+                + "│"
+                + Fore.WHITE
+                + "             ▀██▄          ▀█▀             "
+                + Fore.WHITE
+                + "│"
+            )
+            print(
+                Back.MAGENTA
+                + Fore.WHITE
+                + "│"
+                + Fore.LIGHTMAGENTA_EX
+                + "         *    "
+                + Fore.WHITE
+                + "▀██▄       ▄█▄▄"
+                + Fore.LIGHTMAGENTA_EX
+                + "     *        "
+                + Fore.WHITE
+                + "│"
+            )
+            print(
+                Back.MAGENTA
+                + Fore.WHITE
+                + "│"
+                + Fore.LIGHTMAGENTA_EX
+                + " *             "
+                + Fore.WHITE
+                + "▀████▄▄▄████▀               "
+                + Fore.WHITE
+                + "│"
+            )
+            print(
+                Back.MAGENTA
+                + Fore.WHITE
+                + "│"
+                + Fore.WHITE
+                + "                 ▀▀█████▀▀                 "
+                + Fore.WHITE
+                + "│"
+            )
+            print(
+                Back.MAGENTA
+                + Fore.WHITE
+                + "│"
+                + Fore.LIGHTMAGENTA_EX
+                + "             -+-                     *     "
+                + Fore.WHITE
+                + "│"
+            )
+            print(
+                Back.MAGENTA
+                + Fore.WHITE
+                + "│"
+                + Fore.WHITE
+                + "   ▄▀▄               ▄▀▀ █                 "
+                + Fore.WHITE
+                + "│"
+            )
+            print(
+                Back.MAGENTA
+                + Fore.WHITE
+                + "│"
+                + Fore.WHITE
+                + "   █ █     ▀         ▀▄  █                 "
+                + Fore.WHITE
+                + "│"
+            )
+            print(
+                Back.MAGENTA
+                + Fore.WHITE
+                + "│"
+                + Fore.WHITE
+                + "   █ █ █▀▄ █ ▄▀▄ █▀▄  ▀▄ █▀▄ ▄▀▄ █▄▀ ▄█▄   "
+                + Fore.WHITE
+                + "│"
+            )
+            print(
+                Back.MAGENTA
+                + Fore.WHITE
+                + "│"
+                + Fore.WHITE
+                + "   ▀▄▀ █ █ █ ▀▄▀ █ █ ▄▄▀ █ █ ▀▄█ █   ▀▄▄   "
+                + Fore.WHITE
+                + "│"
+            )
+            print(
+                Back.MAGENTA
+                + Fore.WHITE
+                + "│                                           │"
+            )
+            left_spaces = (43 - len(self.version) - 1) // 2
+            right_spaces = left_spaces
+            if left_spaces + len(self.version) + 1 + right_spaces < 43:
+                right_spaces += 1
+            print(
+                Back.MAGENTA
+                + Fore.WHITE
+                + "│"
+                + Fore.WHITE
+                + f"{' '*left_spaces}v{self.version}{' '*right_spaces}"
+                + Fore.WHITE
+                + "│"
+            )
+            print(
+                Back.MAGENTA
+                + Fore.WHITE
+                + "│                                           │"
+            )
+            print(
+                Back.MAGENTA
+                + Fore.WHITE
+                + "│"
+                + Fore.WHITE
+                + "          https://onionshare.org/          "
+                + Fore.WHITE
+                + "│"
+            )
+            print(
+                Back.MAGENTA
+                + Fore.WHITE
+                + "╰───────────────────────────────────────────╯"
+            )
+            print()
+        except:
+            # If anything fails, print a boring banner
+            print(f"OnionShare v{self.version}")
+            print("https://onionshare.org/")
+            print()
 
     def load_settings(self, config=None):
         """
@@ -310,32 +319,15 @@ class Common:
 
     def get_tor_paths(self):
         if self.platform == "Linux":
-            # Look in resources first
-            base_path = self.get_resource_path("tor")
-            if os.path.exists(base_path):
-                self.log(
-                    "Common", "get_tor_paths", f"using tor binaries in {base_path}"
-                )
-                tor_path = os.path.join(base_path, "tor")
-                tor_geo_ip_file_path = os.path.join(base_path, "geoip")
-                tor_geo_ipv6_file_path = os.path.join(base_path, "geoip6")
-                obfs4proxy_file_path = os.path.join(base_path, "obfs4proxy")
-                snowflake_file_path = os.path.join(base_path, "snowflake-client")
-                meek_client_file_path = os.path.join(base_path, "meek-client")
-            else:
-                # Fallback to looking in the path
-                self.log(
-                    "Common", "get_tor_paths", f"using tor binaries in system path"
-                )
-                tor_path = shutil.which("tor")
-                if not tor_path:
-                    raise CannotFindTor()
-                obfs4proxy_file_path = shutil.which("obfs4proxy")
-                snowflake_file_path = shutil.which("snowflake-client")
-                meek_client_file_path = shutil.which("meek-client")
-                prefix = os.path.dirname(os.path.dirname(tor_path))
-                tor_geo_ip_file_path = os.path.join(prefix, "share/tor/geoip")
-                tor_geo_ipv6_file_path = os.path.join(prefix, "share/tor/geoip6")
+            tor_path = shutil.which("tor")
+            if not tor_path:
+                raise CannotFindTor()
+            obfs4proxy_file_path = shutil.which("obfs4proxy")
+            snowflake_file_path = shutil.which("snowflake-client")
+            meek_client_file_path = shutil.which("meek-client")
+            prefix = os.path.dirname(os.path.dirname(tor_path))
+            tor_geo_ip_file_path = os.path.join(prefix, "share/tor/geoip")
+            tor_geo_ipv6_file_path = os.path.join(prefix, "share/tor/geoip6")
         elif self.platform == "Windows":
             base_path = self.get_resource_path("tor")
             tor_path = os.path.join(base_path, "Tor", "tor.exe")
@@ -345,26 +337,15 @@ class Common:
             tor_geo_ip_file_path = os.path.join(base_path, "Data", "Tor", "geoip")
             tor_geo_ipv6_file_path = os.path.join(base_path, "Data", "Tor", "geoip6")
         elif self.platform == "Darwin":
-            # Look in resources first
-            base_path = self.get_resource_path("tor")
-            if os.path.exists(base_path):
-                tor_path = os.path.join(base_path, "tor")
-                tor_geo_ip_file_path = os.path.join(base_path, "geoip")
-                tor_geo_ipv6_file_path = os.path.join(base_path, "geoip6")
-                obfs4proxy_file_path = os.path.join(base_path, "obfs4proxy")
-                meek_client_file_path = os.path.join(base_path, "meek-client")
-                snowflake_file_path = os.path.join(base_path, "snowflake-client")
-            else:
-                # Fallback to looking in the path
-                tor_path = shutil.which("tor")
-                if not tor_path:
-                    raise CannotFindTor()
-                obfs4proxy_file_path = shutil.which("obfs4proxy")
-                snowflake_file_path = shutil.which("snowflake-client")
-                meek_client_file_path = shutil.which("meek-client")
-                prefix = os.path.dirname(os.path.dirname(tor_path))
-                tor_geo_ip_file_path = os.path.join(prefix, "share/tor/geoip")
-                tor_geo_ipv6_file_path = os.path.join(prefix, "share/tor/geoip6")
+            tor_path = shutil.which("tor")
+            if not tor_path:
+                raise CannotFindTor()
+            obfs4proxy_file_path = shutil.which("obfs4proxy")
+            snowflake_file_path = shutil.which("snowflake-client")
+            meek_client_file_path = shutil.which("meek-client")
+            prefix = os.path.dirname(os.path.dirname(tor_path))
+            tor_geo_ip_file_path = os.path.join(prefix, "share/tor/geoip")
+            tor_geo_ipv6_file_path = os.path.join(prefix, "share/tor/geoip6")
         elif self.platform == "BSD":
             tor_path = "/usr/local/bin/tor"
             tor_geo_ip_file_path = "/usr/local/share/tor/geoip"
@@ -459,6 +440,18 @@ class Common:
 
         r = random.SystemRandom()
         return "-".join(r.choice(wordlist) for _ in range(word_count))
+
+    def is_flatpak(self):
+        """
+        Returns True if OnionShare is running in a Flatpak sandbox
+        """
+        return os.environ.get("FLATPAK_ID") == "org.onionshare.OnionShare"
+
+    def is_snapcraft(self):
+        """
+        Returns True if OnionShare is running in a Snapcraft sandbox
+        """
+        return os.environ.get("SNAP_INSTANCE_NAME") == "onionshare"
 
     @staticmethod
     def random_string(num_bytes, output_len=None):

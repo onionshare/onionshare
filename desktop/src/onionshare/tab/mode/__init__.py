@@ -28,7 +28,7 @@ from .mode_settings_widget import ModeSettingsWidget
 from ..server_status import ServerStatus
 from ... import strings
 from ...threads import OnionThread, AutoStartTimer
-from ...widgets import Alert
+from ...widgets import Alert, MinimumSizeWidget
 
 
 class Mode(QtWidgets.QWidget):
@@ -100,6 +100,38 @@ class Mode(QtWidgets.QWidget):
         self.primary_action_layout.addWidget(self.mode_settings_widget)
         self.primary_action = QtWidgets.QWidget()
         self.primary_action.setLayout(self.primary_action_layout)
+
+        # It's up to the downstream Mode to add stuff to self.content_layout
+        # self.content_layout shows the actual content of the mode
+        # self.tor_not_connected_layout is displayed when Tor isn't connected
+        self.content_layout = QtWidgets.QVBoxLayout()
+        self.content_widget = QtWidgets.QWidget()
+        self.content_widget.setLayout(self.content_layout)
+
+        tor_not_connected_label = QtWidgets.QLabel(
+            strings._("mode_tor_not_connected_label")
+        )
+        tor_not_connected_label.setAlignment(QtCore.Qt.AlignHCenter)
+        tor_not_connected_label.setStyleSheet(
+            self.common.gui.css["tor_not_connected_label"]
+        )
+        self.tor_not_connected_layout = QtWidgets.QVBoxLayout()
+        self.tor_not_connected_layout.addStretch()
+        self.tor_not_connected_layout.addWidget(tor_not_connected_label)
+        self.tor_not_connected_layout.addWidget(MinimumSizeWidget(700, 0))
+        self.tor_not_connected_layout.addStretch()
+        self.tor_not_connected_widget = QtWidgets.QWidget()
+        self.tor_not_connected_widget.setLayout(self.tor_not_connected_layout)
+
+        self.wrapper_layout = QtWidgets.QVBoxLayout()
+        self.wrapper_layout.addWidget(self.content_widget)
+        self.wrapper_layout.addWidget(self.tor_not_connected_widget)
+        self.setLayout(self.wrapper_layout)
+
+        if self.common.gui.onion.connected_to_tor:
+            self.tor_connection_started()
+        else:
+            self.tor_connection_stopped()
 
     def init(self):
         """
@@ -524,3 +556,21 @@ class Mode(QtWidgets.QWidget):
         Used in both Share and Website modes, so implemented here.
         """
         self.history.cancel(event["data"]["id"])
+
+    def tor_connection_started(self):
+        """
+        This is called on every Mode when Tor is connected
+        """
+        self.content_widget.show()
+        self.tor_not_connected_widget.hide()
+
+    def tor_connection_stopped(self):
+        """
+        This is called on every Mode when Tor is disconnected
+        """
+        if self.common.gui.local_only:
+            self.tor_connection_started()
+            return
+
+        self.content_widget.hide()
+        self.tor_not_connected_widget.show()

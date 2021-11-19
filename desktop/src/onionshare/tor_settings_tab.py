@@ -30,33 +30,30 @@ from onionshare_cli.onion import Onion
 
 from . import strings
 from .widgets import Alert
-from .tor_connection_dialog import TorConnectionDialog
+from .tor_connection import TorConnectionWidget
 from .moat_dialog import MoatDialog
-from .gui_common import GuiCommon
 
 
-class TorSettingsDialog(QtWidgets.QDialog):
+class TorSettingsTab(QtWidgets.QWidget):
     """
     Settings dialog.
     """
 
-    settings_saved = QtCore.Signal()
+    close_this_tab = QtCore.Signal()
+    tor_is_connected = QtCore.Signal()
+    tor_is_disconnected = QtCore.Signal()
 
-    def __init__(self, common, openner=None):
-        super(TorSettingsDialog, self).__init__()
+    def __init__(self, common, tab_id, are_tabs_active, status_bar):
+        super(TorSettingsTab, self).__init__()
 
         self.common = common
-        self.openner = openner
+        self.common.log("TorSettingsTab", "__init__")
 
-        self.common.log("TorSettingsDialog", "__init__")
-
+        self.status_bar = status_bar
         self.meek = Meek(common, get_tor_paths=self.common.gui.get_tor_paths)
 
-        self.setModal(True)
-        self.setWindowTitle(strings._("gui_tor_settings_window_title"))
-        self.setWindowIcon(QtGui.QIcon(GuiCommon.get_resource_path("images/logo.png")))
-
         self.system = platform.system()
+        self.tab_id = tab_id
 
         # Connection type: either automatic, control port, or socket file
 
@@ -300,6 +297,7 @@ class TorSettingsDialog(QtWidgets.QDialog):
         connection_type_radio_group_layout.addWidget(
             self.connection_type_socket_file_radio
         )
+        connection_type_radio_group_layout.addStretch()
         connection_type_radio_group = QtWidgets.QGroupBox(
             strings._("gui_settings_connection_type_label")
         )
@@ -320,6 +318,28 @@ class TorSettingsDialog(QtWidgets.QDialog):
         connection_type_layout = QtWidgets.QVBoxLayout()
         connection_type_layout.addWidget(self.tor_settings_group)
         connection_type_layout.addWidget(self.connection_type_bridges_radio_group)
+        connection_type_layout.addStretch()
+
+        # Settings are in columns
+        columns_layout = QtWidgets.QHBoxLayout()
+        columns_layout.addWidget(connection_type_radio_group)
+        columns_layout.addSpacing(20)
+        columns_layout.addLayout(connection_type_layout, stretch=1)
+        columns_wrapper = QtWidgets.QWidget()
+        columns_wrapper.setFixedHeight(400)
+        columns_wrapper.setLayout(columns_layout)
+
+        # Tor connection widget
+        self.tor_con = TorConnectionWidget(self.common, self.status_bar)
+        self.tor_con.success.connect(self.tor_con_success)
+        self.tor_con.fail.connect(self.tor_con_fail)
+        self.tor_con.hide()
+        self.tor_con_type = None
+
+        # Error label
+        self.error_label = QtWidgets.QLabel()
+        self.error_label.setStyleSheet(self.common.gui.css["tor_settings_error"])
+        self.error_label.setWordWrap(True)
 
         # Buttons
         self.test_tor_button = QtWidgets.QPushButton(
@@ -328,26 +348,42 @@ class TorSettingsDialog(QtWidgets.QDialog):
         self.test_tor_button.clicked.connect(self.test_tor_clicked)
         self.save_button = QtWidgets.QPushButton(strings._("gui_settings_button_save"))
         self.save_button.clicked.connect(self.save_clicked)
-        self.cancel_button = QtWidgets.QPushButton(
-            strings._("gui_settings_button_cancel")
-        )
-        self.cancel_button.clicked.connect(self.cancel_clicked)
         buttons_layout = QtWidgets.QHBoxLayout()
+        buttons_layout.addWidget(self.error_label, stretch=1)
+        buttons_layout.addSpacing(20)
         buttons_layout.addWidget(self.test_tor_button)
-        buttons_layout.addStretch()
         buttons_layout.addWidget(self.save_button)
-        buttons_layout.addWidget(self.cancel_button)
 
-        # Layout
+        # Main layout
+        main_layout = QtWidgets.QVBoxLayout()
+        main_layout.addWidget(columns_wrapper)
+        main_layout.addStretch()
+        main_layout.addWidget(self.tor_con)
+        main_layout.addStretch()
+        main_layout.addLayout(buttons_layout)
+        self.main_widget = QtWidgets.QWidget()
+        self.main_widget.setLayout(main_layout)
+
+        # Tabs are active label
+        active_tabs_label = QtWidgets.QLabel(
+            strings._("gui_settings_stop_active_tabs_label")
+        )
+        active_tabs_label.setAlignment(QtCore.Qt.AlignHCenter)
+
+        # Active tabs layout
+        active_tabs_layout = QtWidgets.QVBoxLayout()
+        active_tabs_layout.addStretch()
+        active_tabs_layout.addWidget(active_tabs_label)
+        active_tabs_layout.addStretch()
+        self.active_tabs_widget = QtWidgets.QWidget()
+        self.active_tabs_widget.setLayout(active_tabs_layout)
+
         layout = QtWidgets.QVBoxLayout()
-        layout.addWidget(connection_type_radio_group)
-        layout.addLayout(connection_type_layout)
-        layout.addStretch()
-        layout.addLayout(buttons_layout)
-
+        layout.addWidget(self.main_widget)
+        layout.addWidget(self.active_tabs_widget)
         self.setLayout(layout)
-        self.cancel_button.setFocus()
 
+        self.active_tabs_changed(are_tabs_active)
         self.reload_settings()
 
     def reload_settings(self):
@@ -392,63 +428,68 @@ class TorSettingsDialog(QtWidgets.QDialog):
             self.old_settings.get("auth_password")
         )
 
-        if self.old_settings.get("no_bridges"):
-            self.bridge_use_checkbox.setCheckState(QtCore.Qt.Unchecked)
-            self.bridge_settings.hide()
-
-        else:
+        if self.old_settings.get("bridges_enabled"):
             self.bridge_use_checkbox.setCheckState(QtCore.Qt.Checked)
             self.bridge_settings.show()
 
-            builtin_obfs4 = self.old_settings.get("tor_bridges_use_obfs4")
-            builtin_meek_azure = self.old_settings.get(
-                "tor_bridges_use_meek_lite_azure"
-            )
-            builtin_snowflake = self.old_settings.get("tor_bridges_use_snowflake")
-
-            if builtin_obfs4 or builtin_meek_azure or builtin_snowflake:
+            bridges_type = self.old_settings.get("bridges_type")
+            if bridges_type == "built-in":
                 self.bridge_builtin_radio.setChecked(True)
                 self.bridge_builtin_dropdown.show()
-                if builtin_obfs4:
+                self.bridge_moat_radio.setChecked(False)
+                self.bridge_moat_textbox_options.hide()
+                self.bridge_custom_radio.setChecked(False)
+                self.bridge_custom_textbox_options.hide()
+
+                bridges_builtin_pt = self.old_settings.get("bridges_builtin_pt")
+                if bridges_builtin_pt == "obfs4":
                     self.bridge_builtin_dropdown.setCurrentText("obfs4")
-                elif builtin_meek_azure:
+                elif bridges_builtin_pt == "meek-azure":
                     self.bridge_builtin_dropdown.setCurrentText("meek-azure")
-                elif builtin_snowflake:
+                else:
                     self.bridge_builtin_dropdown.setCurrentText("snowflake")
 
                 self.bridge_moat_textbox_options.hide()
                 self.bridge_custom_textbox_options.hide()
+
+            elif bridges_type == "moat":
+                self.bridge_builtin_radio.setChecked(False)
+                self.bridge_builtin_dropdown.hide()
+                self.bridge_moat_radio.setChecked(True)
+                self.bridge_moat_textbox_options.show()
+                self.bridge_custom_radio.setChecked(False)
+                self.bridge_custom_textbox_options.hide()
+
             else:
                 self.bridge_builtin_radio.setChecked(False)
                 self.bridge_builtin_dropdown.hide()
+                self.bridge_moat_radio.setChecked(False)
+                self.bridge_moat_textbox_options.hide()
+                self.bridge_custom_radio.setChecked(True)
+                self.bridge_custom_textbox_options.show()
 
-                use_moat = self.old_settings.get("tor_bridges_use_moat")
-                self.bridge_moat_radio.setChecked(use_moat)
-                if use_moat:
-                    self.bridge_builtin_dropdown.hide()
-                    self.bridge_custom_textbox_options.hide()
+            bridges_moat = self.old_settings.get("bridges_moat")
+            self.bridge_moat_textbox.document().setPlainText(bridges_moat)
+            bridges_custom = self.old_settings.get("bridges_custom")
+            self.bridge_custom_textbox.document().setPlainText(bridges_custom)
 
-                moat_bridges = self.old_settings.get("tor_bridges_use_moat_bridges")
-                self.bridge_moat_textbox.document().setPlainText(moat_bridges)
-                if len(moat_bridges.strip()) > 0:
-                    self.bridge_moat_textbox_options.show()
-                else:
-                    self.bridge_moat_textbox_options.hide()
+        else:
+            self.bridge_use_checkbox.setCheckState(QtCore.Qt.Unchecked)
+            self.bridge_settings.hide()
 
-                custom_bridges = self.old_settings.get("tor_bridges_use_custom_bridges")
-                if len(custom_bridges.strip()) != 0:
-                    self.bridge_custom_radio.setChecked(True)
-                    self.bridge_custom_textbox.setPlainText(custom_bridges)
-
-                    self.bridge_builtin_dropdown.hide()
-                    self.bridge_moat_textbox_options.hide()
-                    self.bridge_custom_textbox_options.show()
+    def active_tabs_changed(self, are_tabs_active):
+        if are_tabs_active:
+            self.main_widget.hide()
+            self.active_tabs_widget.show()
+        else:
+            self.main_widget.show()
+            self.active_tabs_widget.hide()
 
     def connection_type_bundled_toggled(self, checked):
         """
         Connection type bundled was toggled
         """
-        self.common.log("TorSettingsDialog", "connection_type_bundled_toggled")
+        self.common.log("TorSettingsTab", "connection_type_bundled_toggled")
         if checked:
             self.tor_settings_group.hide()
             self.connection_type_socks.hide()
@@ -480,7 +521,7 @@ class TorSettingsDialog(QtWidgets.QDialog):
         """
         if selection == "meek-azure":
             # Alert the user about meek's costliness if it looks like they're turning it on
-            if not self.old_settings.get("tor_bridges_use_meek_lite_azure"):
+            if not self.old_settings.get("bridges_builtin_pt") == "meek-azure":
                 Alert(
                     self.common,
                     strings._("gui_settings_meek_lite_expensive_warning"),
@@ -500,7 +541,7 @@ class TorSettingsDialog(QtWidgets.QDialog):
         """
         Request new bridge button clicked
         """
-        self.common.log("TorSettingsDialog", "bridge_moat_button_clicked")
+        self.common.log("TorSettingsTab", "bridge_moat_button_clicked")
 
         moat_dialog = MoatDialog(self.common, self.meek)
         moat_dialog.got_bridges.connect(self.bridge_moat_got_bridges)
@@ -510,7 +551,7 @@ class TorSettingsDialog(QtWidgets.QDialog):
         """
         Got new bridges from moat
         """
-        self.common.log("TorSettingsDialog", "bridge_moat_got_bridges")
+        self.common.log("TorSettingsTab", "bridge_moat_got_bridges")
         self.bridge_moat_textbox.document().setPlainText(bridges)
         self.bridge_moat_textbox.show()
 
@@ -527,7 +568,7 @@ class TorSettingsDialog(QtWidgets.QDialog):
         """
         Connection type automatic was toggled. If checked, hide authentication fields.
         """
-        self.common.log("TorSettingsDialog", "connection_type_automatic_toggled")
+        self.common.log("TorSettingsTab", "connection_type_automatic_toggled")
         if checked:
             self.tor_settings_group.hide()
             self.connection_type_socks.hide()
@@ -538,7 +579,7 @@ class TorSettingsDialog(QtWidgets.QDialog):
         Connection type control port was toggled. If checked, show extra fields
         for Tor control address and port. If unchecked, hide those extra fields.
         """
-        self.common.log("TorSettingsDialog", "connection_type_control_port_toggled")
+        self.common.log("TorSettingsTab", "connection_type_control_port_toggled")
         if checked:
             self.tor_settings_group.show()
             self.connection_type_control_port_extras.show()
@@ -552,7 +593,7 @@ class TorSettingsDialog(QtWidgets.QDialog):
         Connection type socket file was toggled. If checked, show extra fields
         for socket file. If unchecked, hide those extra fields.
         """
-        self.common.log("TorSettingsDialog", "connection_type_socket_file_toggled")
+        self.common.log("TorSettingsTab", "connection_type_socket_file_toggled")
         if checked:
             self.tor_settings_group.show()
             self.connection_type_socket_file_extras.show()
@@ -565,7 +606,7 @@ class TorSettingsDialog(QtWidgets.QDialog):
         """
         Authentication option no authentication was toggled.
         """
-        self.common.log("TorSettingsDialog", "authenticate_no_auth_toggled")
+        self.common.log("TorSettingsTab", "authenticate_no_auth_toggled")
         if checked:
             self.authenticate_password_extras.hide()
         else:
@@ -576,39 +617,34 @@ class TorSettingsDialog(QtWidgets.QDialog):
         Test Tor Settings button clicked. With the given settings, see if we can
         successfully connect and authenticate to Tor.
         """
-        self.common.log("TorSettingsDialog", "test_tor_clicked")
+        self.common.log("TorSettingsTab", "test_tor_clicked")
+
+        self.error_label.setText("")
+
         settings = self.settings_from_fields()
         if not settings:
             return
 
-        onion = Onion(
-            self.common, use_tmp_dir=True, get_tor_paths=self.common.gui.get_tor_paths
+        self.test_tor_button.hide()
+        self.save_button.hide()
+
+        self.test_onion = Onion(
+            self.common,
+            use_tmp_dir=True,
+            get_tor_paths=self.common.gui.get_tor_paths,
         )
 
-        tor_con = TorConnectionDialog(self.common, settings, True, onion)
-        tor_con.start()
-
-        # If Tor settings worked, show results
-        if onion.connected_to_tor:
-            Alert(
-                self.common,
-                strings._("settings_test_success").format(
-                    onion.tor_version,
-                    onion.supports_ephemeral,
-                    onion.supports_stealth,
-                    onion.supports_v3_onions,
-                ),
-                title=strings._("gui_settings_connection_type_test_button"),
-            )
-
-        # Clean up
-        onion.cleanup()
+        self.tor_con_type = "test"
+        self.tor_con.show()
+        self.tor_con.start(settings, True, self.test_onion)
 
     def save_clicked(self):
         """
         Save button clicked. Save current settings to disk.
         """
-        self.common.log("TorSettingsDialog", "save_clicked")
+        self.common.log("TorSettingsTab", "save_clicked")
+
+        self.error_label.setText("")
 
         def changed(s1, s2, keys):
             """
@@ -631,7 +667,7 @@ class TorSettingsDialog(QtWidgets.QDialog):
             if not self.common.gui.local_only:
                 if self.common.gui.onion.is_authenticated():
                     self.common.log(
-                        "TorSettingsDialog", "save_clicked", "Connected to Tor"
+                        "TorSettingsTab", "save_clicked", "Connected to Tor"
                     )
 
                     if changed(
@@ -646,10 +682,11 @@ class TorSettingsDialog(QtWidgets.QDialog):
                             "socket_file_path",
                             "auth_type",
                             "auth_password",
-                            "no_bridges",
-                            "tor_bridges_use_obfs4",
-                            "tor_bridges_use_meek_lite_azure",
-                            "tor_bridges_use_custom_bridges",
+                            "bridges_enabled",
+                            "bridges_type",
+                            "bridges_builtin_pt",
+                            "bridges_moat",
+                            "bridges_custom",
                         ],
                     ):
 
@@ -657,66 +694,86 @@ class TorSettingsDialog(QtWidgets.QDialog):
 
                 else:
                     self.common.log(
-                        "TorSettingsDialog", "save_clicked", "Not connected to Tor"
+                        "TorSettingsTab", "save_clicked", "Not connected to Tor"
                     )
                     # Tor isn't connected, so try connecting
                     reboot_onion = True
 
                 # Do we need to reinitialize Tor?
                 if reboot_onion:
+                    # Tell the tabs that Tor is disconnected
+                    self.tor_is_disconnected.emit()
+
                     # Reinitialize the Onion object
                     self.common.log(
-                        "TorSettingsDialog", "save_clicked", "rebooting the Onion"
+                        "TorSettingsTab", "save_clicked", "rebooting the Onion"
                     )
                     self.common.gui.onion.cleanup()
 
-                    tor_con = TorConnectionDialog(self.common, settings)
-                    tor_con.start()
+                    self.test_tor_button.hide()
+                    self.save_button.hide()
 
-                    self.common.log(
-                        "TorSettingsDialog",
-                        "save_clicked",
-                        f"Onion done rebooting, connected to Tor: {self.common.gui.onion.connected_to_tor}",
-                    )
-
-                    if (
-                        self.common.gui.onion.is_authenticated()
-                        and not tor_con.wasCanceled()
-                    ):
-                        self.settings_saved.emit()
-                        self.close()
-
+                    self.tor_con_type = "save"
+                    self.tor_con.show()
+                    self.tor_con.start(settings)
                 else:
-                    self.settings_saved.emit()
-                    self.close()
+                    self.close_this_tab.emit()
             else:
-                self.settings_saved.emit()
-                self.close()
+                self.close_this_tab.emit()
 
-    def cancel_clicked(self, openner):
+    def tor_con_success(self):
         """
-        Cancel button clicked.
+        Finished testing tor connection.
         """
-        self.common.log("TorSettingsDialog", "cancel_clicked")
-        if (
-            not self.common.gui.local_only
-            and not self.common.gui.onion.is_authenticated()
-            and not (self.openner and self.openner == "autoconnect")
-        ):
+        self.tor_con.hide()
+        self.test_tor_button.show()
+        self.save_button.show()
+
+        if self.tor_con_type == "test":
             Alert(
                 self.common,
-                strings._("gui_tor_connection_canceled"),
-                QtWidgets.QMessageBox.Warning,
+                strings._("settings_test_success").format(
+                    self.test_onion.tor_version,
+                    self.test_onion.supports_ephemeral,
+                    self.test_onion.supports_stealth,
+                    self.test_onion.supports_v3_onions,
+                ),
+                title=strings._("gui_settings_connection_type_test_button"),
             )
-            sys.exit()
-        else:
-            self.close()
+            self.test_onion.cleanup()
+
+        elif self.tor_con_type == "save":
+            if (
+                self.common.gui.onion.is_authenticated()
+                and not self.tor_con.wasCanceled()
+            ):
+                # Tell the tabs that Tor is connected
+                self.tor_is_connected.emit()
+                # Close the tab
+                self.close_this_tab.emit()
+
+        self.tor_con_type = None
+
+    def tor_con_fail(self, msg):
+        """
+        Finished testing tor connection.
+        """
+        self.tor_con.hide()
+        self.test_tor_button.show()
+        self.save_button.show()
+
+        self.error_label.setText(msg)
+
+        if self.tor_con_type == "test":
+            self.test_onion.cleanup()
+
+        self.tor_con_type = None
 
     def settings_from_fields(self):
         """
         Return a Settings object that's full of values from the settings dialog.
         """
-        self.common.log("TorSettingsDialog", "settings_from_fields")
+        self.common.log("TorSettingsTab", "settings_from_fields")
         settings = Settings(self.common)
         settings.load()  # To get the last update timestamp
 
@@ -753,47 +810,30 @@ class TorSettingsDialog(QtWidgets.QDialog):
 
         # Whether we use bridges
         if self.bridge_use_checkbox.checkState() == QtCore.Qt.Checked:
-            settings.set("no_bridges", False)
+            settings.set("bridges_enabled", True)
 
             if self.bridge_builtin_radio.isChecked():
-                selection = self.bridge_builtin_dropdown.currentText()
-                if selection == "obfs4":
-                    settings.set("tor_bridges_use_obfs4", True)
-                    settings.set("tor_bridges_use_meek_lite_azure", False)
-                    settings.set("tor_bridges_use_snowflake", False)
-                elif selection == "meek-azure":
-                    settings.set("tor_bridges_use_obfs4", False)
-                    settings.set("tor_bridges_use_meek_lite_azure", True)
-                    settings.set("tor_bridges_use_snowflake", False)
-                elif selection == "snowflake":
-                    settings.set("tor_bridges_use_obfs4", False)
-                    settings.set("tor_bridges_use_meek_lite_azure", False)
-                    settings.set("tor_bridges_use_snowflake", True)
+                settings.set("bridges_type", "built-in")
 
-                settings.set("tor_bridges_use_moat", False)
-                settings.set("tor_bridges_use_custom_bridges", "")
+                selection = self.bridge_builtin_dropdown.currentText()
+                settings.set("bridges_builtin_pt", selection)
 
             if self.bridge_moat_radio.isChecked():
-                settings.set("tor_bridges_use_obfs4", False)
-                settings.set("tor_bridges_use_meek_lite_azure", False)
-                settings.set("tor_bridges_use_snowflake", False)
-
-                settings.set("tor_bridges_use_moat", True)
-
+                settings.set("bridges_type", "moat")
                 moat_bridges = self.bridge_moat_textbox.toPlainText()
-                if moat_bridges.strip() == "":
-                    Alert(self.common, strings._("gui_settings_moat_bridges_invalid"))
+                if (
+                    self.connection_type_bundled_radio.isChecked()
+                    and moat_bridges.strip() == ""
+                ):
+                    self.error_label.setText(
+                        strings._("gui_settings_moat_bridges_invalid")
+                    )
                     return False
 
-                settings.set("tor_bridges_use_moat_bridges", moat_bridges)
-
-                settings.set("tor_bridges_use_custom_bridges", "")
+                settings.set("bridges_moat", moat_bridges)
 
             if self.bridge_custom_radio.isChecked():
-                settings.set("tor_bridges_use_obfs4", False)
-                settings.set("tor_bridges_use_meek_lite_azure", False)
-                settings.set("tor_bridges_use_snowflake", False)
-                settings.set("tor_bridges_use_moat", False)
+                settings.set("bridges_type", "custom")
 
                 new_bridges = []
                 bridges = self.bridge_custom_textbox.toPlainText().split("\n")
@@ -824,27 +864,32 @@ class TorSettingsDialog(QtWidgets.QDialog):
 
                 if bridges_valid:
                     new_bridges = "\n".join(new_bridges) + "\n"
-                    settings.set("tor_bridges_use_custom_bridges", new_bridges)
+                    settings.set("bridges_custom", new_bridges)
                 else:
-                    Alert(self.common, strings._("gui_settings_tor_bridges_invalid"))
+                    self.error_label.setText(
+                        strings._("gui_settings_tor_bridges_invalid")
+                    )
                     return False
         else:
-            settings.set("no_bridges", True)
+            settings.set("bridges_enabled", False)
 
         return settings
 
-    def closeEvent(self, e, openner=None):
-        self.common.log("TorSettingsDialog", "closeEvent")
+    def closeEvent(self, e):
+        self.common.log("TorSettingsTab", "closeEvent")
 
         # On close, if Tor isn't connected, then quit OnionShare altogether
-        if not (self.openner and self.openner == "autoconnect"):
-            if not self.common.gui.local_only:
-                if not self.common.gui.onion.is_authenticated():
-                    self.common.log(
-                        "TorSettingsDialog",
-                        "closeEvent",
-                        "Closing while not connected to Tor",
-                    )
+        if not self.common.gui.local_only:
+            if not self.common.gui.onion.is_authenticated():
+                self.common.log(
+                    "TorSettingsTab",
+                    "closeEvent",
+                    "Closing while not connected to Tor",
+                )
 
-                    # Wait 1ms for the event loop to finish, then quit
-                    QtCore.QTimer.singleShot(1, self.common.gui.qtapp.quit)
+                # Wait 1ms for the event loop to finish, then quit
+                QtCore.QTimer.singleShot(1, self.common.gui.qtapp.quit)
+
+    def settings_have_changed(self):
+        # Global settings have changed
+        self.common.log("TorSettingsTab", "settings_have_changed")

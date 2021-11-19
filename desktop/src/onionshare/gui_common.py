@@ -93,6 +93,7 @@ class GuiCommon:
         share_zip_progess_bar_chunk_color = "#4E064F"
         history_background_color = "#ffffff"
         history_label_color = "#000000"
+        settings_error_color = "#FF0000"
         if color_mode == "dark":
             header_color = "#F2F2F2"
             title_color = "#F2F2F2"
@@ -103,6 +104,7 @@ class GuiCommon:
             share_zip_progess_bar_border_color = "#F2F2F2"
             history_background_color = "#191919"
             history_label_color = "#ffffff"
+            settings_error_color = "#FF9999"
 
         return {
             # OnionShareGui styles
@@ -303,6 +305,11 @@ class GuiCommon:
                 QLabel {
                     color: #cc0000;
                 }""",
+            "tor_not_connected_label": """
+                QLabel {
+                    font-size: 16px;
+                    font-style: italic;
+                }""",
             # New tab
             "new_tab_button_image": """
                 QLabel {
@@ -414,10 +421,12 @@ class GuiCommon:
                 QPushButton {
                     padding: 5px 10px;
                 }""",
-            # Moat dialog
-            "moat_error": """
+            # Tor Settings dialogs
+            "tor_settings_error": """
                 QLabel {
-                    color: #990000;
+                    color: """
+            + settings_error_color
+            + """;
                 }
                 """,
         }
@@ -425,7 +434,10 @@ class GuiCommon:
     def get_tor_paths(self):
         if self.common.platform == "Linux":
             base_path = self.get_resource_path("tor")
-            if os.path.exists(base_path):
+            if base_path and os.path.isdir(base_path):
+                self.common.log(
+                    "GuiCommon", "get_tor_paths", "using paths in resources"
+                )
                 tor_path = os.path.join(base_path, "tor")
                 tor_geo_ip_file_path = os.path.join(base_path, "geoip")
                 tor_geo_ipv6_file_path = os.path.join(base_path, "geoip6")
@@ -434,6 +446,7 @@ class GuiCommon:
                 meek_client_file_path = os.path.join(base_path, "meek-client")
             else:
                 # Fallback to looking in the path
+                self.common.log("GuiCommon", "get_tor_paths", "using paths from PATH")
                 tor_path = shutil.which("tor")
                 obfs4proxy_file_path = shutil.which("obfs4proxy")
                 snowflake_file_path = shutil.which("snowflake-client")
@@ -480,7 +493,10 @@ class GuiCommon:
         """
         Returns the absolute path of a resource
         """
-        return resource_filename("onionshare", os.path.join("resources", filename))
+        try:
+            return resource_filename("onionshare", os.path.join("resources", filename))
+        except KeyError:
+            return None
 
     @staticmethod
     def get_translated_tor_error(e):
