@@ -11,29 +11,23 @@ $(function () {
     // Store current username received from app context
     var current_username = $('#username').val();
 
-    // On browser connect, emit a socket event to be added to 
-    // room and assigned random username
-    socket.on('connect', function () {
-      socket.emit('joined', {});
-    });
-
     // Triggered on any status change by any user, such as some
     // user joined, or changed username, or left, etc.
     socket.on('status', function (data) {
-      addMessageToRoom(data, current_username, 'status');
+      addMessageToPanel(data, current_username, 'status');
       console.log(data, current_username);
     });
 
     // Triggered when message is received from a user. Even when sent
     // by self, it get triggered after the server sends back the emit.
-    socket.on('message', function (data) {
-      addMessageToRoom(data, current_username, 'chat');
+    socket.on('chat_message', function (data) {
+      addMessageToPanel(data, current_username, 'chat');
       console.log(data, current_username);
     });
 
     // Triggered when disconnected either by server stop or timeout
     socket.on('disconnect', function (data) {
-      addMessageToRoom({ 'msg': 'The chat server is disconnected.' }, current_username, 'status');
+      addMessageToPanel({ 'msg': 'The chat server is disconnected.' }, current_username, 'status');
     })
     socket.on('connect_error', function (error) {
       console.log("error");
@@ -66,7 +60,7 @@ $(function () {
   });
 });
 
-var addMessageToRoom = function (data, current_username, messageType) {
+var addMessageToPanel = function (data, current_username, messageType) {
   var scrollDiff = getScrollDiffBefore();
   if (messageType === 'status') {
     addStatusMessage(data.msg);
@@ -99,6 +93,8 @@ var updateUsername = function (socket) {
       console.log(response);
       if (response.success && response.username == username) {
         socket.emit('update_username', { username: username });
+      } else {
+        addStatusMessage("Failed to update username.")
       }
     });
     return username;
