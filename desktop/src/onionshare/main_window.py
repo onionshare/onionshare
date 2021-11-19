@@ -23,10 +23,7 @@ import time
 from PySide2 import QtCore, QtWidgets, QtGui
 
 from . import strings
-from .auto_connect import AutoConnect
-from .tor_connection_dialog import TorConnectionDialog
-from .tor_settings_dialog import TorSettingsDialog
-from .settings_dialog import SettingsDialog
+from .tor_connection import TorConnectionDialog
 from .widgets import Alert
 from .update_checker import UpdateThread
 from .tab_widget import TabWidget
@@ -261,23 +258,19 @@ class MainWindow(QtWidgets.QMainWindow):
         # Wait 1ms for the event loop to finish closing the TorConnectionDialog
         QtCore.QTimer.singleShot(1, self.open_tor_settings)
 
-    def open_tor_settings(self, openner=None):
+    def open_tor_settings(self):
         """
-        Open the TorSettingsDialog.
+        Open the TorSettingsTab
         """
         self.common.log("MainWindow", "open_tor_settings")
-        d = TorSettingsDialog(self.common, openner)
-        d.settings_saved.connect(self.settings_have_changed)
-        d.exec_()
+        self.tabs.open_tor_settings_tab()
 
     def open_settings(self):
         """
-        Open the SettingsDialog.
+        Open the SettingsTab
         """
         self.common.log("MainWindow", "open_settings")
-        d = SettingsDialog(self.common)
-        d.settings_saved.connect(self.settings_have_changed)
-        d.exec_()
+        self.tabs.open_settings_tab()
 
     def settings_have_changed(self):
         self.common.log("OnionShareGui", "settings_have_changed")

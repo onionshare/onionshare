@@ -74,11 +74,11 @@ git checkout v$VERSION
 
 You must have `snap` and `snapcraft` (`snap install snapcraft --classic`) installed.
 
-Build and test the snap before publishing:
+Build and test the snap before publishing (note that `--dangerous` lets you install the snap before it's codesigned):
 
 ```sh
 snapcraft
-snap install --devmode ./onionshare_$VERSION_amd64.snap
+snap install --dangerous ./onionshare_$VERSION_amd64.snap
 ```
 
 This will create `onionshare_$VERSION_amd64.snap`.

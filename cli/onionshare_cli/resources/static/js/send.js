@@ -11,7 +11,7 @@ function unhumanize(text) {
   }
 }
 function sortTable(n) {
-  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+  var table, rows, switching, i, x, y, valX, valY, shouldSwitch, dir, switchcount = 0;
   table = document.getElementById("file-list");
   switching = true;
   // Set the sorting direction to ascending:
@@ -21,7 +21,7 @@ function sortTable(n) {
   while (switching) {
     // Start by saying: no switching is done:
     switching = false;
-    rows = table.getElementsByTagName("TR");
+    rows = table.getElementsByClassName("row");
     /* Loop through all table rows (except the
       first, which contains table headers): */
     for (i = 1; i < (rows.length - 1); i++) {
@@ -29,18 +29,22 @@ function sortTable(n) {
       shouldSwitch = false;
       /* Get the two elements you want to compare,
         one from current row and one from the next: */
-      x = rows[i].getElementsByTagName("TD")[n];
-      y = rows[i + 1].getElementsByTagName("TD")[n];
+      x = rows[i].getElementsByClassName("cell-data")[n];
+      y = rows[i + 1].getElementsByClassName("cell-data")[n];
+
+      valX = x.classList.contains("size") ? unhumanize(x.innerHTML.toLowerCase()) : x.innerHTML;
+      valY = y.classList.contains("size") ? unhumanize(y.innerHTML.toLowerCase()) : y.innerHTML;
+
       /* Check if the two rows should switch place,
       based on the direction, asc or desc: */
       if (dir == "asc") {
-          if (unhumanize(x.innerHTML.toLowerCase()) > unhumanize(y.innerHTML.toLowerCase())) {
-            // If so, mark as a switch and break the loop:
-            shouldSwitch= true;
-            break;
-          }
+        if (valX > valY) {
+          // If so, mark as a switch and break the loop:
+          shouldSwitch= true;
+          break;
+        }
       } else if (dir == "desc") {
-        if (unhumanize(x.innerHTML.toLowerCase()) < unhumanize(y.innerHTML.toLowerCase())) {
+        if (valX < valY) {
           // If so, mark as a switch and break the loop:
           shouldSwitch= true;
           break;

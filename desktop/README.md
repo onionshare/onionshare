@@ -65,7 +65,7 @@ python scripts\get-tor-windows.py
 
 ### Compile dependencies
 
-Install Go. The simplest way to make sure everything works is to install Go by following [these instructions](https://golang.org/doc/install).
+Install Go. The simplest way to make sure everything works is to install Go by following [these instructions](https://golang.org/doc/install). (In Windows, make sure to install the 32-bit version of Go, such as `go1.17.3.windows-386.msi`.)
 
 Download and compile `meek-client`:
 

@@ -10,6 +10,7 @@
     "gui_add_files": "Add Files",
     "gui_add_folder": "Add Folder",
     "gui_remove": "Remove",
+    "gui_dragdrop_sandbox_flatpak": "To make the Flatpak sandbox more secure, drag and drop is not supported. Use the Add Files and Add Folder buttons to browse for files instead.",
     "gui_file_selection_remove_all": "Remove All",
     "gui_choose_items": "Choose",
     "gui_share_start_server": "Start sharing",
@@ -75,7 +76,8 @@
     "gui_settings_bridge_custom_radio_option": "Provide a bridge you learned about from a trusted source",
     "gui_settings_bridge_custom_placeholder": "type address:port (one per line)",
     "gui_settings_moat_bridges_invalid": "You have not requested a bridge from torproject.org yet.",
-    "gui_settings_tor_bridges_invalid": "None of the bridges you added work.\nDouble-check them or add others.",
+    "gui_settings_tor_bridges_invalid": "None of the bridges you added work. Double-check them or add others.",
+    "gui_settings_stop_active_tabs_label": "There are services running in some of your tabs.\nYou must stop all services to change your Tor settings.",
     "gui_settings_button_save": "Save",
     "gui_settings_button_cancel": "Cancel",
     "gui_settings_button_help": "Help",
@@ -232,5 +234,6 @@
     "moat_captcha_reload": "Reload",
     "moat_bridgedb_error": "Error contacting BridgeDB.",
     "moat_captcha_error": "The solution is not correct. Please try again.",
-    "moat_solution_empty_error": "You must enter the characters from the image"
+    "moat_solution_empty_error": "You must enter the characters from the image",
+    "mode_tor_not_connected_label": "OnionShare is not connected to the Tor network"
 }

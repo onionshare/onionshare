@@ -26,6 +26,8 @@ from . import strings
 from .tab import Tab
 from .threads import EventHandlerThread
 from .gui_common import GuiCommon
+from .tor_settings_tab import TorSettingsTab
+from .settings_tab import SettingsTab
 
 
 class TabWidget(QtWidgets.QTabWidget):
@@ -43,9 +45,12 @@ class TabWidget(QtWidgets.QTabWidget):
         self.system_tray = system_tray
         self.status_bar = status_bar
 
-        # Keep track of tabs in a dictionary
+        # Keep track of tabs in a dictionary that maps tab_id to tab.
+        # Each tab has a unique, auto-incremented id (tab_id). This is different than the
+        # tab's index, which changes as tabs are re-arranged.
         self.tabs = {}
         self.current_tab_id = 0  # Each tab has a unique id
+        self.tor_settings_tab = None
 
         # Define the new tab button
         self.new_tab_button = QtWidgets.QPushButton("+", parent=self)
@@ -89,9 +94,12 @@ class TabWidget(QtWidgets.QTabWidget):
         self.event_handler_t.wait(50)
 
         # Clean up each tab
-        for index in range(self.count()):
-            tab = self.widget(index)
-            tab.cleanup()
+        for tab_id in self.tabs:
+            if not (
+                type(self.tabs[tab_id]) is SettingsTab
+                or type(self.tabs[tab_id]) is TorSettingsTab
+            ):
+                self.tabs[tab_id].cleanup()
 
     def move_new_tab_button(self):
         # Find the width of all tabs
@@ -114,8 +122,28 @@ class TabWidget(QtWidgets.QTabWidget):
 
     def tab_changed(self):
         # Active tab was changed
-        tab_id = self.currentIndex()
+        tab = self.widget(self.currentIndex())
+        if not tab:
+            self.common.log(
+                "TabWidget",
+                "tab_changed",
+                f"tab at index {self.currentIndex()} does not exist",
+            )
+            return
+
+        tab_id = tab.tab_id
         self.common.log("TabWidget", "tab_changed", f"Tab was changed to {tab_id}")
+
+        # If it's Settings or Tor Settings, ignore
+        if (
+            type(self.tabs[tab_id]) is SettingsTab
+            or type(self.tabs[tab_id]) is TorSettingsTab
+        ):
+            # Blank the server status indicator
+            self.status_bar.server_status_image_label.clear()
+            self.status_bar.server_status_label.clear()
+            return
+
         try:
             mode = self.tabs[tab_id].get_mode()
             if mode:
@@ -158,23 +186,6 @@ class TabWidget(QtWidgets.QTabWidget):
         index = self.addTab(tab, strings._("gui_new_tab"))
         self.setCurrentIndex(index)
 
-        # In macOS, manually create a close button because tabs don't seem to have them otherwise
-        if self.common.platform == "Darwin":
-
-            def close_tab():
-                self.tabBar().tabCloseRequested.emit(self.indexOf(tab))
-
-            tab.close_button = QtWidgets.QPushButton()
-            tab.close_button.setFlat(True)
-            tab.close_button.setFixedWidth(40)
-            tab.close_button.setIcon(
-                QtGui.QIcon(GuiCommon.get_resource_path("images/close_tab.png"))
-            )
-            tab.close_button.clicked.connect(close_tab)
-            self.tabBar().setTabButton(
-                index, QtWidgets.QTabBar.RightSide, tab.close_button
-            )
-
         tab.init(mode_settings)
 
         # Make sure the title is set
@@ -186,6 +197,44 @@ class TabWidget(QtWidgets.QTabWidget):
 
         # Bring the window to front, in case this is being added by an event
         self.bring_to_front.emit()
+
+    def open_settings_tab(self):
+        self.common.log("TabWidget", "open_settings_tab")
+
+        # See if a settings tab is already open, and if so switch to it
+        for tab_id in self.tabs:
+            if type(self.tabs[tab_id]) is SettingsTab:
+                self.setCurrentIndex(self.indexOf(self.tabs[tab_id]))
+                return
+
+        settings_tab = SettingsTab(self.common, self.current_tab_id)
+        settings_tab.close_this_tab.connect(self.close_settings_tab)
+        self.tabs[self.current_tab_id] = settings_tab
+        self.current_tab_id += 1
+        index = self.addTab(settings_tab, strings._("gui_settings_window_title"))
+        self.setCurrentIndex(index)
+
+    def open_tor_settings_tab(self):
+        self.common.log("TabWidget", "open_tor_settings_tab")
+
+        # See if a settings tab is already open, and if so switch to it
+        for tab_id in self.tabs:
+            if type(self.tabs[tab_id]) is TorSettingsTab:
+                self.setCurrentIndex(self.indexOf(self.tabs[tab_id]))
+                return
+
+        self.tor_settings_tab = TorSettingsTab(
+            self.common, self.current_tab_id, self.are_tabs_active(), self.status_bar
+        )
+        self.tor_settings_tab.close_this_tab.connect(self.close_tor_settings_tab)
+        self.tor_settings_tab.tor_is_connected.connect(self.tor_is_connected)
+        self.tor_settings_tab.tor_is_disconnected.connect(self.tor_is_disconnected)
+        self.tabs[self.current_tab_id] = self.tor_settings_tab
+        self.current_tab_id += 1
+        index = self.addTab(
+            self.tor_settings_tab, strings._("gui_tor_settings_window_title")
+        )
+        self.setCurrentIndex(index)
 
     def change_title(self, tab_id, title):
         shortened_title = title
@@ -199,6 +248,11 @@ class TabWidget(QtWidgets.QTabWidget):
     def change_icon(self, tab_id, icon_path):
         index = self.indexOf(self.tabs[tab_id])
         self.setTabIcon(index, QtGui.QIcon(GuiCommon.get_resource_path(icon_path)))
+
+        # The icon changes when the server status changes, so if we have an open
+        # Tor Settings tab, tell it to update
+        if self.tor_settings_tab:
+            self.tor_settings_tab.active_tabs_changed(self.are_tabs_active())
 
     def change_persistent(self, tab_id, is_persistent):
         self.common.log(
@@ -223,10 +277,14 @@ class TabWidget(QtWidgets.QTabWidget):
     def save_persistent_tabs(self):
         # Figure out the order of persistent tabs to save in settings
         persistent_tabs = []
-        for index in range(self.count()):
-            tab = self.widget(index)
-            if tab.settings.get("persistent", "enabled"):
-                persistent_tabs.append(tab.settings.id)
+        for tab_id in self.tabs:
+            if not (
+                type(self.tabs[tab_id]) is SettingsTab
+                or type(self.tabs[tab_id]) is TorSettingsTab
+            ):
+                tab = self.widget(self.indexOf(self.tabs[tab_id]))
+                if tab.settings.get("persistent", "enabled"):
+                    persistent_tabs.append(tab.settings.id)
         # Only save if tabs have actually moved
         if persistent_tabs != self.common.settings.get("persistent_tabs"):
             self.common.settings.set("persistent_tabs", persistent_tabs)
@@ -235,10 +293,16 @@ class TabWidget(QtWidgets.QTabWidget):
     def close_tab(self, index):
         self.common.log("TabWidget", "close_tab", f"{index}")
         tab = self.widget(index)
-        if tab.close_tab():
-            # If the tab is persistent, delete the settings file from disk
-            if tab.settings.get("persistent", "enabled"):
-                tab.settings.delete()
+        tab_id = tab.tab_id
+
+        if (
+            type(self.tabs[tab_id]) is SettingsTab
+            or type(self.tabs[tab_id]) is TorSettingsTab
+        ):
+            self.common.log("TabWidget", "closing a settings tab")
+
+            if type(self.tabs[tab_id]) is TorSettingsTab:
+                self.tor_settings_tab = None
 
             # Remove the tab
             self.removeTab(index)
@@ -248,17 +312,56 @@ class TabWidget(QtWidgets.QTabWidget):
             if self.count() == 0:
                 self.new_tab_clicked()
 
-        self.save_persistent_tabs()
+        else:
+            self.common.log("TabWidget", "closing a service tab")
+            if tab.close_tab():
+                self.common.log("TabWidget", "user is okay with closing the tab")
+
+                # If the tab is persistent, delete the settings file from disk
+                if tab.settings.get("persistent", "enabled"):
+                    tab.settings.delete()
+
+                self.save_persistent_tabs()
+
+                # Remove the tab
+                self.removeTab(index)
+                del self.tabs[tab.tab_id]
+
+                # If the last tab is closed, open a new one
+                if self.count() == 0:
+                    self.new_tab_clicked()
+            else:
+                self.common.log("TabWidget", "user does not want to close the tab")
+
+    def close_settings_tab(self):
+        self.common.log("TabWidget", "close_settings_tab")
+        for tab_id in self.tabs:
+            if type(self.tabs[tab_id]) is SettingsTab:
+                index = self.indexOf(self.tabs[tab_id])
+                self.close_tab(index)
+                return
+
+    def close_tor_settings_tab(self):
+        self.common.log("TabWidget", "close_tor_settings_tab")
+        for tab_id in self.tabs:
+            if type(self.tabs[tab_id]) is TorSettingsTab:
+                index = self.indexOf(self.tabs[tab_id])
+                self.close_tab(index)
+                return
 
     def are_tabs_active(self):
         """
         See if there are active servers in any open tabs
         """
         for tab_id in self.tabs:
-            mode = self.tabs[tab_id].get_mode()
-            if mode:
-                if mode.server_status.status != mode.server_status.STATUS_STOPPED:
-                    return True
+            if not (
+                type(self.tabs[tab_id]) is SettingsTab
+                or type(self.tabs[tab_id]) is TorSettingsTab
+            ):
+                mode = self.tabs[tab_id].get_mode()
+                if mode:
+                    if mode.server_status.status != mode.server_status.STATUS_STOPPED:
+                        return True
         return False
 
     def paintEvent(self, event):
@@ -272,6 +375,26 @@ class TabWidget(QtWidgets.QTabWidget):
         # Make sure to move new tab button on each resize
         super(TabWidget, self).resizeEvent(event)
         self.move_new_tab_button()
+
+    def tor_is_connected(self):
+        for tab_id in self.tabs:
+            if type(self.tabs[tab_id]) is SettingsTab:
+                self.tabs[tab_id].tor_is_connected()
+            else:
+                if not type(self.tabs[tab_id]) is TorSettingsTab:
+                    mode = self.tabs[tab_id].get_mode()
+                    if mode:
+                        mode.tor_connection_started()
+
+    def tor_is_disconnected(self):
+        for tab_id in self.tabs:
+            if type(self.tabs[tab_id]) is SettingsTab:
+                self.tabs[tab_id].tor_is_disconnected()
+            else:
+                if not type(self.tabs[tab_id]) is TorSettingsTab:
+                    mode = self.tabs[tab_id].get_mode()
+                    if mode:
+                        mode.tor_connection_stopped()
 
 
 class TabBar(QtWidgets.QTabBar):
