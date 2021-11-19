@@ -134,8 +134,12 @@ class ShareModeWeb(SendBaseModeWeb):
         The web app routes for sharing files
         """
 
-        @self.web.app.route("/", defaults={"path": ""}, methods=["GET"], provide_automatic_options=False)
-        @self.web.app.route("/<path:path>", methods=["GET"], provide_automatic_options=False)
+        @self.web.app.route(
+            "/", defaults={"path": ""}, methods=["GET"], provide_automatic_options=False
+        )
+        @self.web.app.route(
+            "/<path:path>", methods=["GET"], provide_automatic_options=False
+        )
         def index(path):
             """
             Render the template for the onionshare landing page.
@@ -159,7 +163,9 @@ class ShareModeWeb(SendBaseModeWeb):
 
             return self.render_logic(path)
 
-        @self.web.app.route("/download", methods=["GET"], provide_automatic_options=False)
+        @self.web.app.route(
+            "/download", methods=["GET"], provide_automatic_options=False
+        )
         def download():
             """
             Download the zip file.
@@ -183,7 +189,7 @@ class ShareModeWeb(SendBaseModeWeb):
             # and serve that
             use_gzip = self.should_use_gzip()
             if use_gzip:
-                file_to_download = self.gzip_filename
+                file_to_download = self.gzip_file.name
                 self.filesize = self.gzip_filesize
                 etag = self.gzip_etag
             else:
@@ -286,7 +292,9 @@ class ShareModeWeb(SendBaseModeWeb):
         if if_unmod:
             if_date = parse_date(if_unmod)
             if if_date and not if_date.tzinfo:
-                if_date = if_date.replace(tzinfo=timezone.utc) # Compatible with Flask < 2.0.0
+                if_date = if_date.replace(
+                    tzinfo=timezone.utc
+                )  # Compatible with Flask < 2.0.0
             if if_date and if_date > last_modified:
                 abort(412)
             elif range_header is None:
@@ -484,16 +492,15 @@ class ShareModeWeb(SendBaseModeWeb):
                 self.download_etag = make_etag(f)
 
             # Compress the file with gzip now, so we don't have to do it on each request
-            self.gzip_filename = tempfile.mkstemp("wb+")[1]
-            self._gzip_compress(
-                self.download_filename, self.gzip_filename, 6, processed_size_callback
+            self.gzip_file = tempfile.TemporaryFile(
+                "wb+", dir=self.common.build_tmp_dir()
             )
-            self.gzip_filesize = os.path.getsize(self.gzip_filename)
-            with open(self.gzip_filename, "rb") as f:
+            self._gzip_compress(
+                self.download_filename, self.gzip_file.name, 6, processed_size_callback
+            )
+            self.gzip_filesize = os.path.getsize(self.gzip_file.name)
+            with open(self.gzip_file.name, "rb") as f:
                 self.gzip_etag = make_etag(f)
-
-            # Make sure the gzip file gets cleaned up when onionshare stops
-            self.web.cleanup_filenames.append(self.gzip_filename)
 
             self.is_zipped = False
 
@@ -519,10 +526,6 @@ class ShareModeWeb(SendBaseModeWeb):
             with open(self.download_filename, "rb") as f:
                 self.download_etag = make_etag(f)
 
-            # Make sure the zip file gets cleaned up when onionshare stops
-            self.web.cleanup_filenames.append(self.zip_writer.zip_filename)
-            self.web.cleanup_filenames.append(self.zip_writer.zip_temp_dir)
-
             self.is_zipped = True
 
         return True
@@ -542,10 +545,10 @@ class ZipWriter(object):
         if zip_filename:
             self.zip_filename = zip_filename
         else:
-            self.zip_temp_dir = tempfile.mkdtemp()
-            self.zip_filename = (
-                f"{self.zip_temp_dir}/onionshare_{self.common.random_string(4, 6)}.zip"
+            self.zip_temp_dir = tempfile.TemporaryDirectory(
+                dir=self.common.build_tmp_dir()
             )
+            self.zip_filename = f"{self.zip_temp_dir.name}/onionshare_{self.common.random_string(4, 6)}.zip"
 
         self.z = zipfile.ZipFile(self.zip_filename, "w", allowZip64=True)
         self.processed_size_callback = processed_size_callback
