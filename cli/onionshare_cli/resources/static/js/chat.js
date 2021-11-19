@@ -9,7 +9,7 @@ $(function () {
     );
 
     // Store current username received from app context
-    var current_username = $('#username').val();
+    var current_username = $('#username').val().trim();
 
     // Triggered on any status change by any user, such as some
     // user joined, or changed username, or left, etc.
