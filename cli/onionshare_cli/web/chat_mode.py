@@ -48,6 +48,7 @@ class ChatModeWeb:
         self.define_routes()
 
     def validate_username(self, username):
+        username = username.strip()
         return (
             username
             and username not in self.connected_users
@@ -85,8 +86,9 @@ class ChatModeWeb:
         def update_session_username():
             history_id = self.cur_history_id
             data = request.get_json()
-            if self.validate_username(data.get("username", "")):
-                session["name"] = data.get("username", session.get("name"))
+            username = data.get("username", session.get("name")).strip()
+            if self.validate_username(username):
+                session["name"] = username
                 self.web.add_request(
                     request.path,
                     {"id": history_id, "status_code": 200},
@@ -147,8 +149,9 @@ class ChatModeWeb:
             """Sent by a client when the user updates their username.
             The message is sent to all people in the server."""
             current_name = session.get("name")
-            if self.validate_username(message.get("username", "")):
-                session["name"] = message["username"]
+            new_name = message.get("username", "").strip()
+            if self.validate_username(new_name):
+                session["name"] = new_name
                 self.connected_users[
                     self.connected_users.index(current_name)
                 ] = session.get("name")
