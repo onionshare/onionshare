@@ -38,6 +38,7 @@ from onionshare_cli.onion import (
     TorTooOldEphemeral,
     TorTooOldStealth,
     PortNotAvailable,
+    TorErrorGettingBridges,
 )
 
 
@@ -507,5 +508,7 @@ class GuiCommon:
             return strings._("error_stealth_not_supported")
         elif type(e) is PortNotAvailable:
             return strings._("error_port_not_available")
+        elif type(e) is TorErrorGettingBridges:
+            return strings._("error_getting_bridges")
 
         return None

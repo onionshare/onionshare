@@ -18,6 +18,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
+from .censorship import CensorshipCircumvention
+from .meek import Meek
 from stem.control import Controller
 from stem import ProtocolError, SocketClosed
 from stem.connection import MissingPassword, UnreadableCookieFile, AuthenticationFailure
@@ -122,6 +124,13 @@ class BundledTorBroken(Exception):
 class PortNotAvailable(Exception):
     """
     There are no available ports for OnionShare to use, which really shouldn't ever happen
+    """
+
+
+class TorErrorGettingBridges(Exception):
+    """
+    This exception is raised if onionshare tried to fetch bridges from the Tor
+    CensorshipCircumvention API, but failed to retrieve valid bridges for some reason.
     """
 
 
@@ -258,9 +267,7 @@ class Onion(object):
                         and cmdline[2] == self.tor_torrc
                     ):
                         self.common.log(
-                            "Onion",
-                            "connect",
-                            "found a stale tor process, killing it",
+                            "Onion", "connect", "found a stale tor process, killing it"
                         )
                         proc.terminate()
                         proc.wait()
@@ -321,45 +328,69 @@ class Onion(object):
 
                 # Bridge support
                 if self.settings.get("bridges_enabled"):
+                    f.write("\nUseBridges 1\n")
                     if self.settings.get("bridges_type") == "built-in":
-                        if self.settings.get("bridges_builtin_pt") == "obfs4":
-                            with open(
-                                self.common.get_resource_path("torrc_template-obfs4")
-                            ) as o:
-                                f.write(o.read())
-                        elif self.settings.get("bridges_builtin_pt") == "meek-azure":
-                            with open(
-                                self.common.get_resource_path(
-                                    "torrc_template-meek_lite_azure"
-                                )
-                            ) as o:
-                                f.write(o.read())
-                        elif self.settings.get("bridges_builtin_pt") == "snowflake":
-                            with open(
-                                self.common.get_resource_path(
-                                    "torrc_template-snowflake"
-                                )
-                            ) as o:
-                                f.write(o.read())
+                        # Use the CensorshipCircumvention API to fetch the latest built-in bridges
+                        self.common.log(
+                            "Onion",
+                            "connect",
+                            "Trying to automatically obtain built-in bridges via Meek",
+                        )
+                        meek = Meek(self.common)
+                        meek.start()
+                        self.censorship_circumvention = CensorshipCircumvention(
+                            self.common, meek
+                        )
+                        builtin_bridges = (
+                            self.censorship_circumvention.request_builtin_bridges()
+                        )
+                        meek.cleanup()
+                        if builtin_bridges:
+                            self.common.log(
+                                "Onion",
+                                "connect",
+                                f"Obtained bridges: {builtin_bridges}",
+                            )
+                            if (
+                                self.settings.get("bridges_builtin_pt") == "obfs4"
+                                and "obfs4" in builtin_bridges
+                            ):
+                                for line in builtin_bridges["obfs4"]:
+                                    f.write(f"Bridge {line}\n")
+                            elif (
+                                self.settings.get("bridges_builtin_pt") == "meek-azure"
+                                and "meek" in builtin_bridges
+                            ):
+                                for line in builtin_bridges["meek"]:
+                                    # Meek bridge needs to be defined as "meek_lite", not "meek"
+                                    line = line.replace("meek", "meek_lite")
+                                    f.write(f"Bridge {line}\n")
+                            elif (
+                                self.settings.get("bridges_builtin_pt") == "snowflake"
+                                and "snowflake" in builtin_bridges
+                            ):
+                                for line in builtin_bridges["snowflake"]:
+                                    f.write(f"Bridge {line}\n")
+                        else:
+                            self.common.log(
+                                "Onion",
+                                "connect",
+                                "Error getting built-in bridges via Meek",
+                            )
+                            raise TorErrorGettingBridges()
 
                     elif self.settings.get("bridges_type") == "moat":
                         for line in self.settings.get("bridges_moat").split("\n"):
                             if line.strip() != "":
                                 f.write(f"Bridge {line}\n")
-                        f.write("\nUseBridges 1\n")
 
                     elif self.settings.get("bridges_type") == "custom":
                         for line in self.settings.get("bridges_custom").split("\n"):
                             if line.strip() != "":
                                 f.write(f"Bridge {line}\n")
-                        f.write("\nUseBridges 1\n")
 
             # Execute a tor subprocess
-            self.common.log(
-                "Onion",
-                "connect",
-                f"starting {self.tor_path} subprocess",
-            )
+            self.common.log("Onion", "connect", f"starting {self.tor_path} subprocess")
             start_ts = time.time()
             if self.common.platform == "Windows":
                 # In Windows, hide console window when opening tor.exe subprocess
@@ -385,19 +416,11 @@ class Onion(object):
                 )
 
             # Wait for the tor controller to start
-            self.common.log(
-                "Onion",
-                "connect",
-                f"tor pid: {self.tor_proc.pid}",
-            )
+            self.common.log("Onion", "connect", f"tor pid: {self.tor_proc.pid}")
             time.sleep(2)
 
             # Connect to the controller
-            self.common.log(
-                "Onion",
-                "connect",
-                "authenticating to tor controller",
-            )
+            self.common.log("Onion", "connect", "authenticating to tor controller")
             try:
                 if (
                     self.common.platform == "Windows"
