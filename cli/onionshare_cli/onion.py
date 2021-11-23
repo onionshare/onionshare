@@ -371,6 +371,16 @@ class Onion(object):
                             ):
                                 for line in builtin_bridges["snowflake"]:
                                     f.write(f"Bridge {line}\n")
+                            else:
+                                # Either this is a weird bridge type saved to settings (how?)
+                                # or there were no bridges for this bridge type returned from
+                                # the API.
+                                self.common.log(
+                                    "Onion",
+                                    "connect",
+                                    "Error getting built-in bridges for this bridge type via Meek",
+                                )
+                                raise TorErrorGettingBridges()
                         else:
                             self.common.log(
                                 "Onion",
