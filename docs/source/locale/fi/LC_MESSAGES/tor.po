@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3.2\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2021-09-09 19:16-0700\n"
+"POT-Creation-Date: 2021-11-23 19:33-0800\n"
 "PO-Revision-Date: 2021-08-25 18:33+0000\n"
 "Last-Translator: Kaantaja <ufdbvgoljrjkrkyyub@ianvvn.com>\n"
 "Language: fi\n"
@@ -23,16 +23,17 @@ msgid "Connecting to Tor"
 msgstr "Yhdistetään Toriin"
 
 #: ../../source/tor.rst:4
+#, fuzzy
 msgid ""
-"Pick a way to connect OnionShare to Tor by clicking the \"⚙\" icon in the"
-" bottom right of the OnionShare window to get to its settings."
+"Pick a way to connect OnionShare to Tor by clicking the Tor onion icon in"
+" the bottom right of the OnionShare window to open the Tor Settings tab."
 msgstr ""
 "Valitse, kuinka OnionShare yhdistetään Toriin klikkaamalla \"⚙\" "
 "kuvaketta Onionshare-ikkunan oikeasta alareunasta."
 
 #: ../../source/tor.rst:9
-msgid "Use the ``tor`` bundled with OnionShare"
-msgstr "Käytä ``tor`` Onionsharen kanssa"
+msgid "Use the Tor version built into OnionShare"
+msgstr ""
 
 #: ../../source/tor.rst:11
 msgid ""
@@ -56,10 +57,53 @@ msgstr ""
 "järjestelmän ``tor`` -sovellusta erikseen."
 
 #: ../../source/tor.rst:18
+msgid "Getting Around Censorship"
+msgstr ""
+
+#: ../../source/tor.rst:20
+#, fuzzy
+msgid ""
+"If your access to the internet is censored, you can configure OnionShare "
+"to connect to the Tor network using `Tor bridges <https://tb-"
+"manual.torproject.org/bridges/>`_. If OnionShare connects to Tor without "
+"one, you don't need to use a bridge."
+msgstr ""
+"Jos yhteytesi internetiin on sensuroitu, voit määrittää OnionSharen "
+"yhdistymään Tor-verkkoon käyttämällä `Tor-siltoja "
+"<https://2019.www.torproject.org/docs/bridges.html.en>`_. Jos OnionShare "
+"yhdistää Toriin ilman sellaista, sinun ei tarvitse käyttää siltaa."
+
+#: ../../source/tor.rst:22
+msgid ""
+"To use a bridge, open the Tor Settings tab. You must select \"Use the Tor"
+" version built into OnionShare\" and check the \"Use a bridge\" checkbox."
+msgstr ""
+
+#: ../../source/tor.rst:25
+msgid ""
+"Try using a built-in bridge first. Using `obfs4` or `snowflake` bridges "
+"is recommended over using `meek-azure`."
+msgstr ""
+
+#: ../../source/tor.rst:29
+msgid ""
+"If using a built-in bridge doesn't work, you can request a bridge from "
+"torproject.org. You will have to solve a CAPTCHA in order to request a "
+"bridge. (This makes it more difficult for governments or ISPs to block "
+"access to Tor bridges.)"
+msgstr ""
+
+#: ../../source/tor.rst:33
+msgid ""
+"You also have the option of using a bridge that you learned about from a "
+"trusted source."
+msgstr ""
+
+#: ../../source/tor.rst:36
 msgid "Attempt auto-configuration with Tor Browser"
 msgstr "Yritä automaattista asetusten säätämistä Tor-selaimella"
 
-#: ../../source/tor.rst:20
+#: ../../source/tor.rst:38
 msgid ""
 "If you have `downloaded the Tor Browser <https://www.torproject.org>`_ "
 "and don't want two ``tor`` processes running, you can use the ``tor`` "
@@ -71,11 +115,11 @@ msgstr ""
 "``tor``-prosessia. Muista, että tällöin Tor-selaimen tulee pysyä auki "
 "taustalla, kun käytät OnionSharea."
 
-#: ../../source/tor.rst:24
+#: ../../source/tor.rst:42
 msgid "Using a system ``tor`` in Windows"
 msgstr "Järjestelmän ``tor``-prosessin käyttäminen Windowsissa"
 
-#: ../../source/tor.rst:26
+#: ../../source/tor.rst:44
 msgid ""
 "This is fairly advanced. You'll need to know how edit plaintext files and"
 " do stuff as an administrator."
@@ -83,7 +127,7 @@ msgstr ""
 "Tämä on melko vaativaa. Sinun täytyy tietää kuinka muokata selkokielisiä "
 "tiedostoja ja kuinka tehdä ylläpitojuttuja."
 
-#: ../../source/tor.rst:28
+#: ../../source/tor.rst:46
 msgid ""
 "Download the Tor Windows Expert Bundle `from "
 "<https://www.torproject.org/download/tor/>`_. Extract the compressed file"
@@ -96,7 +140,7 @@ msgstr ""
 "purettu kansio, jonka sisällä ovat myös ``Data``ja `Tor``, muotoon ``tor-"
 "win32``."
 
-#: ../../source/tor.rst:32
+#: ../../source/tor.rst:50
 msgid ""
 "Make up a control port password. (Using 7 words in a sequence like "
 "``comprised stumble rummage work avenging construct volatile`` is a good "
@@ -110,7 +154,7 @@ msgstr ""
 "ylläpitäjänä, ja käytä ``tor.exe --hash-password`` luodaksesi tiivisteen "
 "salasanastasi. Esimerkiksi::"
 
-#: ../../source/tor.rst:39
+#: ../../source/tor.rst:57
 msgid ""
 "The hashed password output is displayed after some warnings (which you "
 "can ignore). In the case of the above example, it is "
@@ -120,7 +164,7 @@ msgstr ""
 "ohittaa). Ylläolevassa esimerkkitapauksessa se on "
 "``16:00322E903D96DE986058BB9ABDA91E010D7A863768635AC38E213FDBEF``."
 
-#: ../../source/tor.rst:41
+#: ../../source/tor.rst:59
 msgid ""
 "Now create a new text file at ``C:\\Program Files (x86)\\tor-"
 "win32\\torrc`` and put your hashed password output in it, replacing the "
@@ -130,7 +174,7 @@ msgstr ""
 "win32\\torrc`` ja liitä hashattu salasanan sisältö tekstitiedostoon, "
 "korvaamalla ``HashedControlPassword`in sillä minkä juuri loit::"
 
-#: ../../source/tor.rst:46
+#: ../../source/tor.rst:64
 msgid ""
 "In your administrator command prompt, install ``tor`` as a service using "
 "the appropriate ``torrc`` file you just created (as described in "
@@ -143,11 +187,11 @@ msgstr ""
 "`<https://2019.www.torproject.org/docs/faq.html.en#NTService>`_). Eli "
 "näin::"
 
-#: ../../source/tor.rst:50
+#: ../../source/tor.rst:68
 msgid "You are now running a system ``tor`` process in Windows!"
 msgstr "Suoritat nyt järjestelmän ``tor``-prosessia Windowsissa!"
 
-#: ../../source/tor.rst:52
+#: ../../source/tor.rst:70
 msgid ""
 "Open OnionShare and click the \"⚙\" icon in it. Under \"How should "
 "OnionShare connect to Tor?\" choose \"Connect using control port\", and "
@@ -165,11 +209,11 @@ msgstr ""
 "valitsit aiemmin. Klikkaa \"Testaa yhteys Toriin\" -nappia. Jos kaikki "
 "menee hyvin, sinun tulisi nähdä \"Yhdistetty Tor-ohjaimeen\"."
 
-#: ../../source/tor.rst:61
+#: ../../source/tor.rst:79
 msgid "Using a system ``tor`` in macOS"
 msgstr "Järjestelmän ``tor``-prosessin käyttö macOS:ssa"
 
-#: ../../source/tor.rst:63
+#: ../../source/tor.rst:81
 msgid ""
 "First, install `Homebrew <https://brew.sh/>`_ if you don't already have "
 "it, and then install Tor::"
@@ -177,15 +221,15 @@ msgstr ""
 "Aluksi, asenna `Homebrew <https://brew.sh/>`_ jos sinulla ei ole vielä "
 "ole sitä, ja asenna sitten Tor::"
 
-#: ../../source/tor.rst:67
+#: ../../source/tor.rst:85
 msgid "Now configure Tor to allow connections from OnionShare::"
 msgstr "Määritä nyt Tor sallimalla yhteydet OnionSharesta::"
 
-#: ../../source/tor.rst:74
+#: ../../source/tor.rst:92
 msgid "And start the system Tor service::"
 msgstr "Ja aloita järjestelmän Tor-palvelu::"
 
-#: ../../source/tor.rst:78
+#: ../../source/tor.rst:96
 msgid ""
 "Open OnionShare and click the \"⚙\" icon in it. Under \"How should "
 "OnionShare connect to Tor?\" choose \"Connect using socket file\", and "
@@ -200,15 +244,15 @@ msgstr ""
 "tunnistautumisasetukset\"-valikon alta valitse \"Ei tunnistautumista, tai"
 " evästetunnistautumista\". Klikkaa \"Testaa yhteys Toriin\" -nappia."
 
-#: ../../source/tor.rst:84 ../../source/tor.rst:104
+#: ../../source/tor.rst:102 ../../source/tor.rst:122
 msgid "If all goes well, you should see \"Connected to the Tor controller\"."
 msgstr "Jos kaikki menee hyvin, sinun tulisi nähdä \"Yhdistetty Tor-ohjaimeen\"."
 
-#: ../../source/tor.rst:87
+#: ../../source/tor.rst:105
 msgid "Using a system ``tor`` in Linux"
 msgstr "Järjestelmän ``tor`` -prosessin käyttö Linuxilla"
 
-#: ../../source/tor.rst:89
+#: ../../source/tor.rst:107
 msgid ""
 "First, install the ``tor`` package. If you're using Debian, Ubuntu, or a "
 "similar Linux distro, It is recommended to use the Tor Project's "
@@ -219,7 +263,7 @@ msgstr ""
 "kaltaista Linux-jakelua, on suositeltua käyttää Tor Projectin virallista "
 "ohjelmavarastoa <https://support.torproject.org/apt/tor-deb-repo/>`_."
 
-#: ../../source/tor.rst:91
+#: ../../source/tor.rst:109
 msgid ""
 "Next, add your user to the group that runs the ``tor`` process (in the "
 "case of Debian and Ubuntu, ``debian-tor``) and configure OnionShare to "
@@ -229,7 +273,7 @@ msgstr ""
 "(Debianin ja Ubuntun tapauksessa, ``debian-tor``) ja määritä OnionShare "
 "yhdistämään järjestelmäsi``tor``in kontrolli-socket-tiedostoon."
 
-#: ../../source/tor.rst:93
+#: ../../source/tor.rst:111
 msgid ""
 "Add your user to the ``debian-tor`` group by running this command "
 "(replace ``username`` with your actual username)::"
@@ -237,7 +281,7 @@ msgstr ""
 "Lisää käyttäjäsi ``debian-tor``-ryhmään suorittamalla tämä komento "
 "(korvaa ``username``omalla oikealla käyttäjänimelläsi)::"
 
-#: ../../source/tor.rst:97
+#: ../../source/tor.rst:115
 msgid ""
 "Reboot your computer. After it boots up again, open OnionShare and click "
 "the \"⚙\" icon in it. Under \"How should OnionShare connect to Tor?\" "
@@ -253,37 +297,31 @@ msgstr ""
 "tunnistautumisasetukset\"-valikon alta valitse \"Ei tunnistautumista, tai"
 " evästetunnistautumista\". Klikkaa \"Testaa yhteys Toriin\" -nappia."
 
-#: ../../source/tor.rst:107
-msgid "Using Tor bridges"
-msgstr "Tor-siltojen käyttäminen"
+#~ msgid "Use the ``tor`` bundled with OnionShare"
+#~ msgstr "Käytä ``tor`` Onionsharen kanssa"
 
-#: ../../source/tor.rst:109
-#, fuzzy
-msgid ""
-"If your access to the internet is censored, you can configure OnionShare "
-"to connect to the Tor network using `Tor bridges "
-"<https://2019.www.torproject.org/docs/bridges.html.en>`_. If OnionShare "
-"connects to Tor without one, you don't need to use a bridge."
-msgstr ""
-"Jos yhteytesi internetiin on sensuroitu, voit määrittää OnionSharen "
-"yhdistymään Tor-verkkoon käyttämällä `Tor-siltoja "
-"<https://2019.www.torproject.org/docs/bridges.html.en>`_. Jos OnionShare "
-"yhdistää Toriin ilman sellaista, sinun ei tarvitse käyttää siltaa."
+#~ msgid "Using Tor bridges"
+#~ msgstr "Tor-siltojen käyttäminen"
 
-#: ../../source/tor.rst:111
-msgid "To configure bridges, click the \"⚙\" icon in OnionShare."
-msgstr "Määrittääksesi sillat klikkaa \"⚙\" kuvaketta OnionSharessa."
+#~ msgid "To configure bridges, click the \"⚙\" icon in OnionShare."
+#~ msgstr "Määrittääksesi sillat klikkaa \"⚙\" kuvaketta OnionSharessa."
 
-#: ../../source/tor.rst:113
-msgid ""
-"You can use the built-in obfs4 pluggable transports, the built-in "
-"meek_lite (Azure) pluggable transports, or custom bridges, which you can "
-"obtain from Tor's `BridgeDB <https://bridges.torproject.org/>`_. If you "
-"need to use a bridge, try the built-in obfs4 ones first."
-msgstr ""
-"Voit käyttää sisäänrakennettua obfs4 plugattavia siirtoja, "
-"sisäänrakennettuja meek_lite (Azure) plugattavia siirtoja tai "
-"räätälöityjä siltoja, jotka sinä voit hankkia Torin `BridgeDB:sta "
-"<https://bridges.torproject.org/>`_. Jos tarvitset siltaa, yritä "
-"sisäänrakennettua obfs4-vaihtoehtoa ensin."
+#~ msgid ""
+#~ "You can use the built-in obfs4 "
+#~ "pluggable transports, the built-in "
+#~ "meek_lite (Azure) pluggable transports, or "
+#~ "custom bridges, which you can obtain "
+#~ "from Tor's `BridgeDB "
+#~ "<https://bridges.torproject.org/>`_. If you need "
+#~ "to use a bridge, try the built-"
+#~ "in obfs4 ones first."
+#~ msgstr ""
+#~ "Voit käyttää sisäänrakennettua obfs4 "
+#~ "plugattavia siirtoja, sisäänrakennettuja meek_lite"
+#~ " (Azure) plugattavia siirtoja tai "
+#~ "räätälöityjä siltoja, jotka sinä voit "
+#~ "hankkia Torin `BridgeDB:sta "
+#~ "<https://bridges.torproject.org/>`_. Jos tarvitset "
+#~ "siltaa, yritä sisäänrakennettua obfs4-vaihtoehtoa"
+#~ " ensin."
 
