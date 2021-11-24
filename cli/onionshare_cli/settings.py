@@ -110,6 +110,7 @@ class Settings(object):
             "bridges_builtin_pt": "obfs4",  # "obfs4", "meek-azure", or "snowflake"
             "bridges_moat": "",
             "bridges_custom": "",
+            "bridges_builtin": {},
             "persistent_tabs": [],
             "locale": None,  # this gets defined in fill_in_defaults()
             "theme": 0,

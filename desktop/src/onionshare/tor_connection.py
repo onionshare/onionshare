@@ -36,7 +36,6 @@ from onionshare_cli.onion import (
     TorTooOldEphemeral,
     TorTooOldStealth,
     PortNotAvailable,
-    TorErrorGettingBridges,
 )
 
 from . import strings
@@ -311,7 +310,6 @@ class TorConnectionThread(QtCore.QThread):
             TorTooOldEphemeral,
             TorTooOldStealth,
             PortNotAvailable,
-            TorErrorGettingBridges,
         ) as e:
             message = self.common.gui.get_translated_tor_error(e)
             self.common.log(

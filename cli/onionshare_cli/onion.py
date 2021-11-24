@@ -26,11 +26,12 @@ from stem.connection import MissingPassword, UnreadableCookieFile, Authenticatio
 import base64
 import nacl.public
 import os
-import tempfile
-import subprocess
-import time
-import shlex
 import psutil
+import requests
+import shlex
+import subprocess
+import tempfile
+import time
 import traceback
 
 from distutils.version import LooseVersion as Version
@@ -124,13 +125,6 @@ class BundledTorBroken(Exception):
 class PortNotAvailable(Exception):
     """
     There are no available ports for OnionShare to use, which really shouldn't ever happen
-    """
-
-
-class TorErrorGettingBridges(Exception):
-    """
-    This exception is raised if onionshare tried to fetch bridges from the Tor
-    CensorshipCircumvention API, but failed to retrieve valid bridges for some reason.
     """
 
 
@@ -324,71 +318,63 @@ class Onion(object):
             )
 
             with open(self.tor_torrc, "w") as f:
+                self.common.log("Onion", "connect", "Writing torrc template file")
                 f.write(torrc_template)
 
                 # Bridge support
                 if self.settings.get("bridges_enabled"):
                     f.write("\nUseBridges 1\n")
                     if self.settings.get("bridges_type") == "built-in":
-                        # Use the CensorshipCircumvention API to fetch the latest built-in bridges
-                        self.common.log(
-                            "Onion",
-                            "connect",
-                            "Trying to automatically obtain built-in bridges via Meek",
-                        )
-                        meek = Meek(self.common)
-                        meek.start()
-                        self.censorship_circumvention = CensorshipCircumvention(
-                            self.common, meek
-                        )
-                        builtin_bridges = (
-                            self.censorship_circumvention.request_builtin_bridges()
-                        )
-                        meek.cleanup()
-                        if builtin_bridges:
-                            self.common.log(
-                                "Onion",
-                                "connect",
-                                f"Obtained bridges: {builtin_bridges}",
-                            )
-                            if (
-                                self.settings.get("bridges_builtin_pt") == "obfs4"
-                                and "obfs4" in builtin_bridges
-                            ):
-                                for line in builtin_bridges["obfs4"]:
-                                    f.write(f"Bridge {line}\n")
-                            elif (
-                                self.settings.get("bridges_builtin_pt") == "meek-azure"
-                                and "meek" in builtin_bridges
-                            ):
-                                for line in builtin_bridges["meek"]:
-                                    # Meek bridge needs to be defined as "meek_lite", not "meek"
-                                    line = line.replace("meek", "meek_lite")
-                                    f.write(f"Bridge {line}\n")
-                            elif (
-                                self.settings.get("bridges_builtin_pt") == "snowflake"
-                                and "snowflake" in builtin_bridges
-                            ):
-                                for line in builtin_bridges["snowflake"]:
-                                    f.write(f"Bridge {line}\n")
-                            else:
-                                # Either this is a weird bridge type saved to settings (how?)
-                                # or there were no bridges for this bridge type returned from
-                                # the API.
+                        use_torrc_bridge_templates = False
+                        builtin_bridge_type = self.settings.get("bridges_builtin_pt")
+                        # Use built-inbridges stored in settings, if they are there already.
+                        # They are probably newer than that of our hardcoded copies.
+                        if self.settings.get("bridges_builtin"):
+                            try:
+                                for line in self.settings.get("bridges_builtin")[
+                                    builtin_bridge_type
+                                ]:
+                                    if line.strip() != "":
+                                        f.write(f"Bridge {line}\n")
                                 self.common.log(
                                     "Onion",
                                     "connect",
-                                    "Error getting built-in bridges for this bridge type via Meek",
+                                    "Wrote in the built-in bridges from OnionShare settings",
                                 )
-                                raise TorErrorGettingBridges()
+                            except KeyError:
+                                # Somehow we had built-in bridges in our settings, but
+                                # not for this bridge type. Fall back to using the hard-
+                                # coded templates.
+                                use_torrc_bridge_templates = True
                         else:
+                            use_torrc_bridge_templates = True
+                        if use_torrc_bridge_templates:
+                            if builtin_bridge_type == "obfs4":
+                                with open(
+                                    self.common.get_resource_path(
+                                        "torrc_template-obfs4"
+                                    )
+                                ) as o:
+                                    f.write(o.read())
+                            elif builtin_bridge_type == "meek-azure":
+                                with open(
+                                    self.common.get_resource_path(
+                                        "torrc_template-meek_lite_azure"
+                                    )
+                                ) as o:
+                                    f.write(o.read())
+                            elif builtin_bridge_type == "snowflake":
+                                with open(
+                                    self.common.get_resource_path(
+                                        "torrc_template-snowflake"
+                                    )
+                                ) as o:
+                                    f.write(o.read())
                             self.common.log(
                                 "Onion",
                                 "connect",
-                                "Error getting built-in bridges via Meek",
+                                "Wrote in the built-in bridges from torrc templates",
                             )
-                            raise TorErrorGettingBridges()
-
                     elif self.settings.get("bridges_type") == "moat":
                         for line in self.settings.get("bridges_moat").split("\n"):
                             if line.strip() != "":
@@ -671,6 +657,14 @@ class Onion(object):
         # https://trac.torproject.org/projects/tor/ticket/28619
         self.supports_v3_onions = self.tor_version >= Version("0.3.5.7")
 
+        # Now that we are connected to Tor, if we are using built-in bridges,
+        # update them with the latest copy available from the Tor API
+        if (
+            self.settings.get("bridges_enabled")
+            and self.settings.get("bridges_type") == "built-in"
+        ):
+            self.update_builtin_bridges()
+
     def is_authenticated(self):
         """
         Returns True if the Tor connection is still working, or False otherwise.
@@ -914,3 +908,96 @@ class Onion(object):
             return ("127.0.0.1", 9150)
         else:
             return (self.settings.get("socks_address"), self.settings.get("socks_port"))
+
+    def update_builtin_bridges(self):
+        """
+        Use the CensorshipCircumvention API to fetch the latest built-in bridges
+        and update them in settings.
+        """
+        got_builtin_bridges = False
+        # Try obtaining bridges over Tor, if we're connected to it.
+        if self.is_authenticated:
+            self.common.log(
+                "Onion",
+                "update_builtin_bridges",
+                "Updating the built-in bridges. Trying over Tor first",
+            )
+            (socks_address, socks_port) = self.get_tor_socks_port()
+            tor_proxies = {
+                "http": f"socks5h://{socks_address}:{socks_port}",
+                "https": f"socks5h://{socks_address}:{socks_port}",
+            }
+            # Request a bridge
+            r = requests.post(
+                "https://bridges.torproject.org/moat/circumvention/builtin",
+                headers={"Content-Type": "application/vnd.api+json"},
+                proxies=tor_proxies,
+            )
+            if r.status_code != 200:
+                self.common.log(
+                    "Onion",
+                    "update_builtin_bridges",
+                    f"Trying over Tor failed: status_code={r.status_code}",
+                )
+
+            try:
+                builtin_bridges = r.json()
+                if "errors" in builtin_bridges:
+                    self.common.log(
+                        "Onion",
+                        "update_builtin_bridges",
+                        f"Trying over Tor failed: errors={builtin_bridges['errors']}",
+                    )
+                else:
+                    got_builtin_bridges = builtin_bridges
+            except Exception as e:
+                self.common.log(
+                    "Onion",
+                    "update_builtin_bridges",
+                    f"Hit exception when trying over Tor: {e}",
+                )
+
+        if not got_builtin_bridges:
+            # Fall back to using Meek, without Tor
+            self.common.log(
+                "Onion",
+                "update_builtin_bridges",
+                "Updating the built-in bridges. Trying via Meek (no Tor)",
+            )
+            meek = Meek(self.common)
+            meek.start()
+            self.censorship_circumvention = CensorshipCircumvention(self.common, meek)
+            got_builtin_bridges = (
+                self.censorship_circumvention.request_builtin_bridges()
+            )
+            meek.cleanup()
+
+        # If we got to this point, we have bridges
+        if got_builtin_bridges:
+            self.common.log(
+                "Onion",
+                "update_builtin_bridges",
+                f"Obtained bridges: {got_builtin_bridges}",
+            )
+            if got_builtin_bridges["meek"]:
+                # Meek bridge needs to be defined as "meek_lite", not "meek",
+                # for it to work with obfs4proxy.
+                # We also refer to this bridge type as 'meek-azure' in our settings.
+                # So first, rename the key in the dict
+                got_builtin_bridges["meek-azure"] = got_builtin_bridges.pop("meek")
+                new_meek_bridges = []
+                # Now replace the values. They also need the url/front params appended
+                for item in got_builtin_bridges["meek-azure"]:
+                    newline = item.replace("meek", "meek_lite")
+                    new_meek_bridges.append(
+                        f"{newline} url=https://meek.azureedge.net/ front=ajax.aspnetcdn.com"
+                    )
+                got_builtin_bridges["meek-azure"] = new_meek_bridges
+            # Save the new settings
+            self.settings.set("bridges_builtin", got_builtin_bridges)
+            self.settings.save()
+        else:
+            self.common.log(
+                "Onion", "update_builtin_bridges", "Error getting built-in bridges"
+            )
+            return False
