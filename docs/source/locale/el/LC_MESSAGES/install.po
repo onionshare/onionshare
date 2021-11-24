@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2021-09-09 19:15-0700\n"
-"PO-Revision-Date: 2021-05-11 20:47+0000\n"
-"Last-Translator: Panagiotis Vasilopoulos <hello@alwayslivid.com>\n"
-"Language: el\n"
+"PO-Revision-Date: 2021-10-10 10:03+0000\n"
+"Last-Translator: george kitsoukakis <norhorn@gmail.com>\n"
 "Language-Team: el <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
+"Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.9-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/install.rst:2
@@ -36,7 +37,7 @@ msgstr ""
 
 #: ../../source/install.rst:12
 msgid "Linux"
-msgstr ""
+msgstr "Linux"
 
 #: ../../source/install.rst:14
 msgid ""
@@ -85,7 +86,7 @@ msgstr ""
 
 #: ../../source/install.rst:28
 msgid "Command-line only"
-msgstr ""
+msgstr "Μόνο γραμμή εντολών"
 
 #: ../../source/install.rst:30
 msgid ""
@@ -93,6 +94,10 @@ msgid ""
 "operating system using the Python package manager ``pip``. See :ref:`cli`"
 " for more information."
 msgstr ""
+"Μπορείτε να εγκαταστήσετε μόνο την έκδοση με τη γραμμή εντολών του "
+"OnionShare σε οποιοδήποτε λειτουργικό σύστημα χρησιμοποιώντας τον "
+"διαχειριστή πακέτων Python ``pip``. Δείτε το :ref:`cli` για περισσότερες "
+"πληροφορίες."
 
 #: ../../source/install.rst:35
 msgid "Verifying PGP signatures"
@@ -183,7 +188,6 @@ msgid "The expected output looks like this::"
 msgstr "Θα πρέπει να δείτε κάτι όπως::"
 
 #: ../../source/install.rst:76
-#, fuzzy
 msgid ""
 "If you don't see ``Good signature from``, there might be a problem with "
 "the integrity of the file (malicious or otherwise), and you should not "
@@ -191,11 +195,11 @@ msgid ""
 " the package, it only means you haven't defined a level of \"trust\" of "
 "Micah's PGP key.)"
 msgstr ""
-"Εάν δεν εμφανιστεί το 'Σωστή υπογραφή από', ενδέχεται να υπάρχει πρόβλημα"
-" με την ακεραιότητα του αρχείου (κακόβουλο ή άλλο) και δεν πρέπει να "
-"εγκαταστήσετε το πακέτο. (Η ''ΠΡΟΕΙΔΟΠΟΙΗΣΗ:'' που φαίνεται παραπάνω, δεν"
-" αποτελεί πρόβλημα με το πακέτο, σημαίνει μόνο ότι δεν έχετε ήδη ορίσει "
-"κανένα επίπεδο 'εμπιστοσύνης' του κλειδιού PGP του Micah.)"
+"Εάν δεν εμφανιστεί το ``Σωστή υπογραφή από``, ενδέχεται να υπάρχει πρόβλημα "
+"με την ακεραιότητα του αρχείου (κακόβουλο ή άλλο) και δεν πρέπει να "
+"εγκαταστήσετε το πακέτο. (Η ``ΠΡΟΕΙΔΟΠΟΙΗΣΗ:`` που φαίνεται παραπάνω, δεν "
+"αποτελεί πρόβλημα με το πακέτο, σημαίνει μόνο ότι δεν έχετε ήδη ορίσει "
+"κανένα επίπεδο \"εμπιστοσύνης\" του κλειδιού PGP του Micah.)"
 
 #: ../../source/install.rst:78
 msgid ""
@@ -330,4 +334,3 @@ msgstr ""
 
 #~ msgid "Command Line Only"
 #~ msgstr ""
-
