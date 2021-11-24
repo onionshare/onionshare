@@ -199,11 +199,18 @@ class Web:
             for header, value in self.security_headers:
                 r.headers.set(header, value)
             # Set a CSP header unless in website mode and the user has disabled it
-            if not self.settings.get("website", "disable_csp") or self.mode != "website":
+            default_csp = "default-src 'self'; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; img-src 'self' data:;"
+            if self.mode != "website" or (not self.settings.get("website", "disable_csp") and not self.settings.get("website", "custom_csp")):
                 r.headers.set(
                     "Content-Security-Policy",
-                    "default-src 'self'; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; img-src 'self' data:;",
+                    default_csp
                 )
+            else:
+                if self.settings.get("website", "custom_csp"):
+                    r.headers.set(
+                        "Content-Security-Policy",
+                        self.settings.get("website", "custom_csp")
+                    )
             return r
 
         @self.app.errorhandler(404)
