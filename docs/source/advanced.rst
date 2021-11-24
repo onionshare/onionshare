@@ -105,14 +105,14 @@ You can browse the command-line documentation by running ``onionshare --help``::
     │   █ █ █▀▄ █ ▄▀▄ █▀▄  ▀▄ █▀▄ ▄▀▄ █▄▀ ▄█▄   │
     │   ▀▄▀ █ █ █ ▀▄▀ █ █ ▄▄▀ █ █ ▀▄█ █   ▀▄▄   │
     │                                           │
-    │                   v2.4                    │
+    │                  v2.4.1                   │
     │                                           │
     │          https://onionshare.org/          │
     ╰───────────────────────────────────────────╯
 
     usage: onionshare-cli [-h] [--receive] [--website] [--chat] [--local-only] [--connect-timeout SECONDS] [--config FILENAME] [--persistent FILENAME] [--title TITLE] [--public]
-                          [--auto-start-timer SECONDS] [--auto-stop-timer SECONDS] [--no-autostop-sharing] [--data-dir data_dir] [--webhook-url webhook_url] [--disable-text] [--disable-files]
-                          [--disable_csp] [-v]
+                          [--auto-start-timer SECONDS] [--auto-stop-timer SECONDS] [--no-autostop-sharing] [--data-dir data_dir] [--webhook-url webhook_url] [--disable-text]
+                          [--disable-files] [--disable_csp] [--custom_csp custom_csp] [-v]
                           [filename ...]
 
     positional arguments:
@@ -140,5 +140,6 @@ You can browse the command-line documentation by running ``onionshare --help``::
                                 Receive files: URL to receive webhook notifications
       --disable-text            Receive files: Disable receiving text messages
       --disable-files           Receive files: Disable receiving files
-      --disable_csp             Publish website: Disable Content Security Policy header (allows your website to use third-party resources)
+      --disable_csp             Publish website: Disable the default Content Security Policy header (allows your website to use third-party resources)
+      --custom_csp custom_csp   Publish website: Set a custom Content Security Policy header
       -v, --verbose             Log OnionShare errors to stdout, and web errors to disk
