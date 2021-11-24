@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2021-09-09 19:16-0700\n"
+"POT-Creation-Date: 2021-11-23 19:33-0800\n"
 "PO-Revision-Date: 2021-09-19 15:37+0000\n"
 "Last-Translator: Rafał Godek <p3run@tutanota.com>\n"
 "Language: pl\n"
@@ -340,22 +340,32 @@ msgid ""
 msgstr ""
 
 #: ../../source/features.rst:121
+#, fuzzy
 msgid ""
 "If you want to load content from third-party websites, like assets or "
-"JavaScript libraries from CDNs, check the \"Don't send Content Security "
-"Policy header (allows your website to use third-party resources)\" box "
-"before starting the service."
+"JavaScript libraries from CDNs, you have two options:"
 msgstr ""
 "Jeśli chcesz załadować zawartość z witryn internetowych stron trzecich, "
 "na przykład zasoby lub biblioteki JavaScript z sieci CDN, przed "
 "uruchomieniem usługi zaznacz pole „Nie wysyłaj nagłówka Content Security "
 "Policy (pozwala Twojej witrynie korzystanie z zasobów innych firm)”."
 
+#: ../../source/features.rst:123
+msgid ""
+"You can disable sending a Content Security Policy header by checking the "
+"\"Don't send Content Security Policy header (allows your website to use "
+"third-party resources)\" box before starting the service."
+msgstr ""
+
 #: ../../source/features.rst:124
+msgid "You can send a custom Content Security Policy header."
+msgstr ""
+
+#: ../../source/features.rst:127
 msgid "Tips for running a website service"
 msgstr "Wskazówki dotyczące prowadzenia serwisu internetowego"
 
-#: ../../source/features.rst:126
+#: ../../source/features.rst:129
 msgid ""
 "If you want to host a long-term website using OnionShare (meaning not "
 "just to quickly show someone something), it's recommended you do it on a "
@@ -365,17 +375,17 @@ msgid ""
 "address if you close OnionShare and re-open it later."
 msgstr ""
 
-#: ../../source/features.rst:129
+#: ../../source/features.rst:132
 msgid ""
 "If your website is intended for the public, you should run it as a public"
 " service (see :ref:`turn_off_private_key`)."
 msgstr ""
 
-#: ../../source/features.rst:132
+#: ../../source/features.rst:135
 msgid "Chat Anonymously"
 msgstr "Czatuj anonimowo"
 
-#: ../../source/features.rst:134
+#: ../../source/features.rst:137
 msgid ""
 "You can use OnionShare to set up a private, secure chat room that doesn't"
 " log anything. Just open a chat tab and click \"Start chat server\"."
@@ -384,7 +394,7 @@ msgstr ""
 "który niczego nie rejestruje. Wystarczy otworzyć zakładkę czatu i kliknąć"
 " „Uruchom serwer czatu”."
 
-#: ../../source/features.rst:138
+#: ../../source/features.rst:141
 msgid ""
 "After you start the server, copy the OnionShare address and private key "
 "and send them to the people you want in the anonymous chat room. If it's "
@@ -392,7 +402,7 @@ msgid ""
 "to send out the OnionShare address and private key."
 msgstr ""
 
-#: ../../source/features.rst:143
+#: ../../source/features.rst:146
 msgid ""
 "People can join the chat room by loading its OnionShare address in Tor "
 "Browser. The chat room requires JavasScript, so everyone who wants to "
@@ -404,7 +414,7 @@ msgstr ""
 "uczestniczyć, musi mieć ustawiony poziom bezpieczeństwa przeglądarki Tor "
 "na „Standardowy” lub „Bezpieczniejszy”, zamiast „Najbezpieczniejszy”."
 
-#: ../../source/features.rst:146
+#: ../../source/features.rst:149
 msgid ""
 "When someone joins the chat room they get assigned a random name. They "
 "can change their name by typing a new name in the box in the left panel "
@@ -416,7 +426,7 @@ msgstr ""
 "↵. Ponieważ historia czatu nie jest nigdzie zapisywana, nie jest w ogóle "
 "wyświetlana, nawet jeśli inni już rozmawiali w tym czacie."
 
-#: ../../source/features.rst:152
+#: ../../source/features.rst:155
 msgid ""
 "In an OnionShare chat room, everyone is anonymous. Anyone can change "
 "their name to anything, and there is no way to confirm anyone's identity."
@@ -424,7 +434,7 @@ msgstr ""
 "W czacie OnionShare wszyscy są anonimowi. Każdy może zmienić swoje imię "
 "na dowolne i nie ma żadnej możliwości potwierdzenia czyjejś tożsamości."
 
-#: ../../source/features.rst:155
+#: ../../source/features.rst:158
 msgid ""
 "However, if you create an OnionShare chat room and securely send the "
 "address only to a small group of trusted friends using encrypted "
@@ -436,11 +446,11 @@ msgstr ""
 "wiadomości, możesz mieć wystarczającą pewność, że osoby dołączające do "
 "pokoju rozmów są Twoimi przyjaciółmi."
 
-#: ../../source/features.rst:158
+#: ../../source/features.rst:161
 msgid "How is this useful?"
 msgstr "Jak to jest przydatne?"
 
-#: ../../source/features.rst:160
+#: ../../source/features.rst:163
 msgid ""
 "If you need to already be using an encrypted messaging app, what's the "
 "point of an OnionShare chat room to begin with? It leaves less traces."
@@ -448,7 +458,7 @@ msgstr ""
 "Jeśli musisz już korzystać z aplikacji do szyfrowania wiadomości, jaki "
 "jest sens używania czatu OnionShare? Pozostawia mniej śladów."
 
-#: ../../source/features.rst:162
+#: ../../source/features.rst:165
 msgid ""
 "If you for example send a message to a Signal group, a copy of your "
 "message ends up on each device (the smartphones, and computers if they "
@@ -460,7 +470,7 @@ msgid ""
 "minimum."
 msgstr ""
 
-#: ../../source/features.rst:165
+#: ../../source/features.rst:168
 msgid ""
 "OnionShare chat rooms can also be useful for people wanting to chat "
 "anonymously and securely with someone without needing to create any "
@@ -470,11 +480,11 @@ msgid ""
 "anonymity."
 msgstr ""
 
-#: ../../source/features.rst:169
+#: ../../source/features.rst:172
 msgid "How does the encryption work?"
 msgstr "Jak działa szyfrowanie?"
 
-#: ../../source/features.rst:171
+#: ../../source/features.rst:174
 msgid ""
 "Because OnionShare relies on Tor onion services, connections between the "
 "Tor Browser and OnionShare are all end-to-end encrypted (E2EE). When "
@@ -490,7 +500,7 @@ msgstr ""
 " wszystkich innych uczestników czatu za pomocą WebSockets, za "
 "pośrednictwem połączeń cebulowych E2EE."
 
-#: ../../source/features.rst:173
+#: ../../source/features.rst:176
 msgid ""
 "OnionShare doesn't implement any chat encryption on its own. It relies on"
 " the Tor onion service's encryption instead."

@@ -7,16 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2021-09-09 19:15-0700\n"
+"POT-Creation-Date: 2021-11-23 19:33-0800\n"
 "PO-Revision-Date: 2021-10-02 12:36+0000\n"
 "Last-Translator: Kaya Zeren <kayazeren@gmail.com>\n"
-"Language-Team: tr <LL@li.org>\n"
 "Language: tr\n"
+"Language-Team: tr <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=n != 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.9-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/tor.rst:2
@@ -24,24 +23,27 @@ msgid "Connecting to Tor"
 msgstr "Tor Bağlantısı Kurmak"
 
 #: ../../source/tor.rst:4
+#, fuzzy
 msgid ""
-"Pick a way to connect OnionShare to Tor by clicking the \"⚙\" icon in the"
-" bottom right of the OnionShare window to get to its settings."
+"Pick a way to connect OnionShare to Tor by clicking the Tor onion icon in"
+" the bottom right of the OnionShare window to open the Tor Settings tab."
 msgstr ""
 "OnionShare penceresinin sağ alt kısmındaki \"⚙\" simgesine tıklayarak "
-"ayarlara gidin ve OnionShare ile Tor bağlantısı kurmanın bir yolunu seçin."
+"ayarlara gidin ve OnionShare ile Tor bağlantısı kurmanın bir yolunu "
+"seçin."
 
 #: ../../source/tor.rst:9
-msgid "Use the ``tor`` bundled with OnionShare"
-msgstr "OnionShare ile birlikte gelen ``tor`` işlemi kullanılsın"
+msgid "Use the Tor version built into OnionShare"
+msgstr ""
 
 #: ../../source/tor.rst:11
 msgid ""
 "This is the default, simplest and most reliable way that OnionShare "
 "connects to Tor. For this reason, it's recommended for most users."
 msgstr ""
-"Bu varsayılan seçenektir, OnionShare ile Tor bağlantısı kurmanın en basit ve "
-"en güvenilir yoludur. Bu nedenle çoğu kullanıcı için bu seçenek önerilir."
+"Bu varsayılan seçenektir, OnionShare ile Tor bağlantısı kurmanın en basit"
+" ve en güvenilir yoludur. Bu nedenle çoğu kullanıcı için bu seçenek "
+"önerilir."
 
 #: ../../source/tor.rst:14
 msgid ""
@@ -50,40 +52,84 @@ msgid ""
 "with other ``tor`` processes on your computer, so you can use the Tor "
 "Browser or the system ``tor`` on their own."
 msgstr ""
-"OnionShare uygulamasını açtığınızda, kendisinin kullanması için arka planda "
-"önceden yapılandırılmış bir ``tor`` işlemi başlatır. Bu bilgisayarınızdaki "
-"diğer ``tor`` işlemlerine müdahale etmez, böylece Tor Browser veya sistemin "
-"``tor`` işlemini kendi başına kullanabilirsiniz."
+"OnionShare uygulamasını açtığınızda, kendisinin kullanması için arka "
+"planda önceden yapılandırılmış bir ``tor`` işlemi başlatır. Bu "
+"bilgisayarınızdaki diğer ``tor`` işlemlerine müdahale etmez, böylece Tor "
+"Browser veya sistemin ``tor`` işlemini kendi başına kullanabilirsiniz."
 
 #: ../../source/tor.rst:18
+msgid "Getting Around Censorship"
+msgstr ""
+
+#: ../../source/tor.rst:20
+#, fuzzy
+msgid ""
+"If your access to the internet is censored, you can configure OnionShare "
+"to connect to the Tor network using `Tor bridges <https://tb-"
+"manual.torproject.org/bridges/>`_. If OnionShare connects to Tor without "
+"one, you don't need to use a bridge."
+msgstr ""
+"İnternet erişiminiz sansürleniyorsa, OnionShare uygulamasını Tor ağına "
+"`Tor köprüleri <https://2019.www.torproject.org/docs/bridges.html.en>`_ "
+"kullanarak bağlanacak şekilde yapılandırabilirsiniz. OnionShare, Tor "
+"köprüsü olmadan bağlanıyorsa köprü kullanmanıza gerek yoktur."
+
+#: ../../source/tor.rst:22
+msgid ""
+"To use a bridge, open the Tor Settings tab. You must select \"Use the Tor"
+" version built into OnionShare\" and check the \"Use a bridge\" checkbox."
+msgstr ""
+
+#: ../../source/tor.rst:25
+msgid ""
+"Try using a built-in bridge first. Using `obfs4` or `snowflake` bridges "
+"is recommended over using `meek-azure`."
+msgstr ""
+
+#: ../../source/tor.rst:29
+msgid ""
+"If using a built-in bridge doesn't work, you can request a bridge from "
+"torproject.org. You will have to solve a CAPTCHA in order to request a "
+"bridge. (This makes it more difficult for governments or ISPs to block "
+"access to Tor bridges.)"
+msgstr ""
+
+#: ../../source/tor.rst:33
+msgid ""
+"You also have the option of using a bridge that you learned about from a "
+"trusted source."
+msgstr ""
+
+#: ../../source/tor.rst:36
 msgid "Attempt auto-configuration with Tor Browser"
 msgstr "Tor Browser ile otomatik yapılandırma denensin"
 
-#: ../../source/tor.rst:20
+#: ../../source/tor.rst:38
 msgid ""
 "If you have `downloaded the Tor Browser <https://www.torproject.org>`_ "
 "and don't want two ``tor`` processes running, you can use the ``tor`` "
 "process from the Tor Browser. Keep in mind you need to keep Tor Browser "
 "open in the background while you're using OnionShare for this to work."
 msgstr ""
-"`Tor Browser indirdiyseniz <https://www.torproject.org>`_ ve iki tane ``tor``"
-" işleminin çalışmasını istemiyorsanız Tor Browser'ın ``tor`` işlemini "
-"kullanabilirsiniz. Bunun çalışması için OnionShare kullanırken arka planda "
-"Tor Browser uygulamasını açık tutmanız gerektiğini unutmayın."
+"`Tor Browser indirdiyseniz <https://www.torproject.org>`_ ve iki tane "
+"``tor`` işleminin çalışmasını istemiyorsanız Tor Browser'ın ``tor`` "
+"işlemini kullanabilirsiniz. Bunun çalışması için OnionShare kullanırken "
+"arka planda Tor Browser uygulamasını açık tutmanız gerektiğini unutmayın."
 
-#: ../../source/tor.rst:24
+#: ../../source/tor.rst:42
 msgid "Using a system ``tor`` in Windows"
 msgstr "Windows üzerinde sistem ``tor` hizmetini kullanmak"
 
-#: ../../source/tor.rst:26
+#: ../../source/tor.rst:44
 msgid ""
 "This is fairly advanced. You'll need to know how edit plaintext files and"
 " do stuff as an administrator."
 msgstr ""
-"Bu seçenek oldukça ileridir. Düz metin dosyalarını nasıl düzenleyeceğinizi "
-"ve yönetici olarak işleri nasıl yapacağınızı bilmeniz gerekir."
+"Bu seçenek oldukça ileridir. Düz metin dosyalarını nasıl "
+"düzenleyeceğinizi ve yönetici olarak işleri nasıl yapacağınızı bilmeniz "
+"gerekir."
 
-#: ../../source/tor.rst:28
+#: ../../source/tor.rst:46
 msgid ""
 "Download the Tor Windows Expert Bundle `from "
 "<https://www.torproject.org/download/tor/>`_. Extract the compressed file"
@@ -91,11 +137,12 @@ msgid ""
 "the extracted folder with ``Data`` and ``Tor`` in it to ``tor-win32``."
 msgstr ""
 "`Buradan <https://www.torproject.org/download/tor/>`_ Tor Windows Uzman "
-"Paketini indirin. Sıkıştırılmış dosyayı ayıklayın ve ayıklanan klasörü ``C:"
-"\\Program Files (x86)\\`` içine taşıyın. ``Data`` ve ``Tor`` klasörlerinin "
-"bulunduğu ayıklanmış klasörü ``tor-win32`` olarak yeniden adlandırın."
+"Paketini indirin. Sıkıştırılmış dosyayı ayıklayın ve ayıklanan klasörü "
+"``C:\\Program Files (x86)\\`` içine taşıyın. ``Data`` ve ``Tor`` "
+"klasörlerinin bulunduğu ayıklanmış klasörü ``tor-win32`` olarak yeniden "
+"adlandırın."
 
-#: ../../source/tor.rst:32
+#: ../../source/tor.rst:50
 msgid ""
 "Make up a control port password. (Using 7 words in a sequence like "
 "``comprised stumble rummage work avenging construct volatile`` is a good "
@@ -103,13 +150,13 @@ msgid ""
 "administrator, and use ``tor.exe --hash-password`` to generate a hash of "
 "your password. For example::"
 msgstr ""
-"Bir denetim kapı numarası parolası oluşturun. (Parola için ``içeren yanılma "
-"araştır çalış intikam oluştur değişken`` gibi 7 sözcükten oluşan bir dizi "
-"kullanmak iyi bir fikir olacaktır). Sonra yönetici olarak bir komut istemi "
-"(``cmd``) açın ve parolanızın karıştırılan kodunu oluşturmak için ``tor.exe "
-"--hash-password`` komutunu kullanın. Örneğin::"
+"Bir denetim kapı numarası parolası oluşturun. (Parola için ``içeren "
+"yanılma araştır çalış intikam oluştur değişken`` gibi 7 sözcükten oluşan "
+"bir dizi kullanmak iyi bir fikir olacaktır). Sonra yönetici olarak bir "
+"komut istemi (``cmd``) açın ve parolanızın karıştırılan kodunu oluşturmak"
+" için ``tor.exe --hash-password`` komutunu kullanın. Örneğin::"
 
-#: ../../source/tor.rst:39
+#: ../../source/tor.rst:57
 msgid ""
 "The hashed password output is displayed after some warnings (which you "
 "can ignore). In the case of the above example, it is "
@@ -120,7 +167,7 @@ msgstr ""
 "``16:00322E903D96DE986058BB9ABDA91E010D7A863768635AC38E213FDBEF`` "
 "olacaktır."
 
-#: ../../source/tor.rst:41
+#: ../../source/tor.rst:59
 msgid ""
 "Now create a new text file at ``C:\\Program Files (x86)\\tor-"
 "win32\\torrc`` and put your hashed password output in it, replacing the "
@@ -131,7 +178,7 @@ msgstr ""
 "oluşturduğunuzla değiştirerek içine parolanızın karıştırılan çıktısını "
 "koyun::"
 
-#: ../../source/tor.rst:46
+#: ../../source/tor.rst:64
 msgid ""
 "In your administrator command prompt, install ``tor`` as a service using "
 "the appropriate ``torrc`` file you just created (as described in "
@@ -144,11 +191,11 @@ msgstr ""
 "`<https://2019.www.torproject.org/docs/faq.html.en#NTService>`_). Bunun "
 "gibi::"
 
-#: ../../source/tor.rst:50
+#: ../../source/tor.rst:68
 msgid "You are now running a system ``tor`` process in Windows!"
 msgstr "Artık Windows üzerinde bir sistem ``tor`` işlemi çalıştırıyorsunuz!"
 
-#: ../../source/tor.rst:52
+#: ../../source/tor.rst:70
 msgid ""
 "Open OnionShare and click the \"⚙\" icon in it. Under \"How should "
 "OnionShare connect to Tor?\" choose \"Connect using control port\", and "
@@ -158,20 +205,21 @@ msgid ""
 "Connection to Tor\" button. If all goes well, you should see \"Connected "
 "to the Tor controller\"."
 msgstr ""
-"OnionShare uygulamasını açın ve \"⚙\" simgesine tıklayın. \"OnionShare ile "
-"Tor bağlantısı nasıl kurulmalı?\" altındaki \"Denetim kapı numarası "
-"kullanarak bağlan\" seçeneğini seçin ve \"Denetim kapı numarası\" değerini "
-"``127.0.0.1`` ve \"Kapı numarası\" değerini ``9051`` olarak ayarlayın. \"Tor "
-"kimlik doğrulama ayarları\" altında \"Parola\" seçeneğini seçin ve parolayı "
-"yukarıda seçtiğiniz denetim kapı noktası parolası olarak ayarlayın. \"Tor "
-"bağlantısını sına\" düğmesine tıklayın. Her şey yolunda giderse, \"Tor "
-"denetleyicisi ile bağlantı kuruldu\" ifadesini göreceksiniz."
+"OnionShare uygulamasını açın ve \"⚙\" simgesine tıklayın. \"OnionShare "
+"ile Tor bağlantısı nasıl kurulmalı?\" altındaki \"Denetim kapı numarası "
+"kullanarak bağlan\" seçeneğini seçin ve \"Denetim kapı numarası\" "
+"değerini ``127.0.0.1`` ve \"Kapı numarası\" değerini ``9051`` olarak "
+"ayarlayın. \"Tor kimlik doğrulama ayarları\" altında \"Parola\" "
+"seçeneğini seçin ve parolayı yukarıda seçtiğiniz denetim kapı noktası "
+"parolası olarak ayarlayın. \"Tor bağlantısını sına\" düğmesine tıklayın. "
+"Her şey yolunda giderse, \"Tor denetleyicisi ile bağlantı kuruldu\" "
+"ifadesini göreceksiniz."
 
-#: ../../source/tor.rst:61
+#: ../../source/tor.rst:79
 msgid "Using a system ``tor`` in macOS"
 msgstr "macOS üzerinde sistem ``tor` işlemini kullanmak"
 
-#: ../../source/tor.rst:63
+#: ../../source/tor.rst:81
 msgid ""
 "First, install `Homebrew <https://brew.sh/>`_ if you don't already have "
 "it, and then install Tor::"
@@ -179,17 +227,17 @@ msgstr ""
 "Henüz kurmadıysanız, önce `Homebrew <https://brew.sh/>`_ ve ardından Tor "
 "kurun::"
 
-#: ../../source/tor.rst:67
+#: ../../source/tor.rst:85
 msgid "Now configure Tor to allow connections from OnionShare::"
 msgstr ""
 "Sonra Tor hizmetini OnionShare uygulamasından gelen bağlantılara izin "
 "verecek şekilde yapılandırın::"
 
-#: ../../source/tor.rst:74
+#: ../../source/tor.rst:92
 msgid "And start the system Tor service::"
 msgstr "Ve sistem Tor hizmetini başlatın::"
 
-#: ../../source/tor.rst:78
+#: ../../source/tor.rst:96
 msgid ""
 "Open OnionShare and click the \"⚙\" icon in it. Under \"How should "
 "OnionShare connect to Tor?\" choose \"Connect using socket file\", and "
@@ -197,46 +245,48 @@ msgid ""
 "Under \"Tor authentication settings\" choose \"No authentication, or "
 "cookie authentication\". Click the \"Test Connection to Tor\" button."
 msgstr ""
-"OnionShare uygulamasını açın ve \"⚙\" simgesine tıklayın. \"OnionShare ile "
-"Tor bağlantısı nasıl kurulmalı?\" altındaki \"Soket dosyası kullanılarak "
-"bağlantı kurulsun\" seçeneğini seçin ve soket dosyasını ``/usr/local/var/run/"
-"tor/control.socket`` olarak ayarlayın. \"Tor kimlik doğrulama ayarları\" "
-"altında \"Kimlik doğrulama yok, veya çerez doğrulaması\" seçeneğini seçin. "
-"\"Tor bağlantısını sına\" düğmesine tıklayın."
+"OnionShare uygulamasını açın ve \"⚙\" simgesine tıklayın. \"OnionShare "
+"ile Tor bağlantısı nasıl kurulmalı?\" altındaki \"Soket dosyası "
+"kullanılarak bağlantı kurulsun\" seçeneğini seçin ve soket dosyasını "
+"``/usr/local/var/run/tor/control.socket`` olarak ayarlayın. \"Tor kimlik "
+"doğrulama ayarları\" altında \"Kimlik doğrulama yok, veya çerez "
+"doğrulaması\" seçeneğini seçin. \"Tor bağlantısını sına\" düğmesine "
+"tıklayın."
 
-#: ../../source/tor.rst:84 ../../source/tor.rst:104
+#: ../../source/tor.rst:102 ../../source/tor.rst:122
 msgid "If all goes well, you should see \"Connected to the Tor controller\"."
 msgstr ""
 "Her şey yolunda giderse, \"Tor denetleyicisi ile bağlantı kuruldu\" "
 "ifadesini göreceksiniz."
 
-#: ../../source/tor.rst:87
+#: ../../source/tor.rst:105
 msgid "Using a system ``tor`` in Linux"
 msgstr "Linux üzerinde sistem ``tor` işlemini kullanmak"
 
-#: ../../source/tor.rst:89
+#: ../../source/tor.rst:107
 msgid ""
 "First, install the ``tor`` package. If you're using Debian, Ubuntu, or a "
 "similar Linux distro, It is recommended to use the Tor Project's "
 "`official repository <https://support.torproject.org/apt/tor-deb-"
 "repo/>`_."
 msgstr ""
-"Önce ``tor`` paketini kurun. Debian, Ubuntu veya benzer bir Linux dağıtımı "
-"kullanıyorsanız, Tor projesinin `resmi deposunu <https://support.torproject."
-"org/apt/tor-deb-repo/>`_ kullanmanız önerilir."
+"Önce ``tor`` paketini kurun. Debian, Ubuntu veya benzer bir Linux "
+"dağıtımı kullanıyorsanız, Tor projesinin `resmi deposunu "
+"<https://support.torproject.org/apt/tor-deb-repo/>`_ kullanmanız "
+"önerilir."
 
-#: ../../source/tor.rst:91
+#: ../../source/tor.rst:109
 msgid ""
 "Next, add your user to the group that runs the ``tor`` process (in the "
 "case of Debian and Ubuntu, ``debian-tor``) and configure OnionShare to "
 "connect to your system ``tor``'s control socket file."
 msgstr ""
-"Ardından, kullanıcınızı ``tor`` işlemini çalıştıran gruba ekleyin (Debian ve "
-"Ubuntu için bu ``debian-tor`` olacak) ve OnionShare uygulamasını "
-"sisteminizin ``tor`` işleminin denetim soketi dosyasına bağlanacak şekilde "
-"yapılandırın."
+"Ardından, kullanıcınızı ``tor`` işlemini çalıştıran gruba ekleyin (Debian"
+" ve Ubuntu için bu ``debian-tor`` olacak) ve OnionShare uygulamasını "
+"sisteminizin ``tor`` işleminin denetim soketi dosyasına bağlanacak "
+"şekilde yapılandırın."
 
-#: ../../source/tor.rst:93
+#: ../../source/tor.rst:111
 msgid ""
 "Add your user to the ``debian-tor`` group by running this command "
 "(replace ``username`` with your actual username)::"
@@ -244,7 +294,7 @@ msgstr ""
 "Bu komutu çalıştırarak kullanıcınızı ``debian-tor`` grubuna ekleyin "
 "(``username`` ifadesini gerçek kullanıcı adınızla değiştirin)::"
 
-#: ../../source/tor.rst:97
+#: ../../source/tor.rst:115
 msgid ""
 "Reboot your computer. After it boots up again, open OnionShare and click "
 "the \"⚙\" icon in it. Under \"How should OnionShare connect to Tor?\" "
@@ -253,47 +303,13 @@ msgid ""
 "\"No authentication, or cookie authentication\". Click the \"Test "
 "Connection to Tor\" button."
 msgstr ""
-"Bilgisayarınızı yeniden başlatın. Yeniden başlatıldıktan sonra OnionShare "
-"uygulamasını açın ve \"⚙\" simgesine tıklayın. \"OnionShare ile Tor "
+"Bilgisayarınızı yeniden başlatın. Yeniden başlatıldıktan sonra OnionShare"
+" uygulamasını açın ve \"⚙\" simgesine tıklayın. \"OnionShare ile Tor "
 "bağlantısı nasıl kurulmalı?\" altındaki \"Soket dosyası kullanılarak "
-"bağlantı kurulsun\" seçeneğini seçin. Soket dosyasını ``/var/run/tor/"
-"control`` olarak ayarlayın. \"Tor kimlik doğrulama ayarları\" altında "
-"\"Kimlik doğrulama yok, veya çerez doğrulaması\" seçeneğini seçin. \"Tor "
-"Bağlantısını Test Et\" düğmesine tıklayın."
-
-#: ../../source/tor.rst:107
-msgid "Using Tor bridges"
-msgstr "Tor köprülerini kullanmak"
-
-#: ../../source/tor.rst:109
-msgid ""
-"If your access to the internet is censored, you can configure OnionShare "
-"to connect to the Tor network using `Tor bridges "
-"<https://2019.www.torproject.org/docs/bridges.html.en>`_. If OnionShare "
-"connects to Tor without one, you don't need to use a bridge."
-msgstr ""
-"İnternet erişiminiz sansürleniyorsa, OnionShare uygulamasını Tor ağına `Tor "
-"köprüleri <https://2019.www.torproject.org/docs/bridges.html.en>`_ "
-"kullanarak bağlanacak şekilde yapılandırabilirsiniz. OnionShare, Tor köprüsü "
-"olmadan bağlanıyorsa köprü kullanmanıza gerek yoktur."
-
-#: ../../source/tor.rst:111
-msgid "To configure bridges, click the \"⚙\" icon in OnionShare."
-msgstr ""
-"Köprüleri yapılandırmak için OnionShare uygulamasındaki \"⚙\" simgesine "
-"tıklayın."
-
-#: ../../source/tor.rst:113
-msgid ""
-"You can use the built-in obfs4 pluggable transports, the built-in "
-"meek_lite (Azure) pluggable transports, or custom bridges, which you can "
-"obtain from Tor's `BridgeDB <https://bridges.torproject.org/>`_. If you "
-"need to use a bridge, try the built-in obfs4 ones first."
-msgstr ""
-"Yerleşik obfs4 değiştirilebilir taşıyıcıları, yerleşik meek_lite (Azure) "
-"değiştirilebilir taşıyıcıları veya Tor `BridgeDB <https://bridges.torproject."
-"org/>`_ adresinden edinebileceğiniz özel köprüleri kullanabilirsiniz. Bir "
-"köprü kullanmanız gerekirse, önce yerleşik obfs4 olanları deneyin."
+"bağlantı kurulsun\" seçeneğini seçin. Soket dosyasını "
+"``/var/run/tor/control`` olarak ayarlayın. \"Tor kimlik doğrulama "
+"ayarları\" altında \"Kimlik doğrulama yok, veya çerez doğrulaması\" "
+"seçeneğini seçin. \"Tor Bağlantısını Test Et\" düğmesine tıklayın."
 
 #~ msgid "Using a system Tor in Mac OS X"
 #~ msgstr ""
@@ -527,3 +543,33 @@ msgstr ""
 #~ "if you don't already have it. "
 #~ "Then, install Tor::"
 #~ msgstr ""
+
+#~ msgid "Use the ``tor`` bundled with OnionShare"
+#~ msgstr "OnionShare ile birlikte gelen ``tor`` işlemi kullanılsın"
+
+#~ msgid "Using Tor bridges"
+#~ msgstr "Tor köprülerini kullanmak"
+
+#~ msgid "To configure bridges, click the \"⚙\" icon in OnionShare."
+#~ msgstr ""
+#~ "Köprüleri yapılandırmak için OnionShare "
+#~ "uygulamasındaki \"⚙\" simgesine tıklayın."
+
+#~ msgid ""
+#~ "You can use the built-in obfs4 "
+#~ "pluggable transports, the built-in "
+#~ "meek_lite (Azure) pluggable transports, or "
+#~ "custom bridges, which you can obtain "
+#~ "from Tor's `BridgeDB "
+#~ "<https://bridges.torproject.org/>`_. If you need "
+#~ "to use a bridge, try the built-"
+#~ "in obfs4 ones first."
+#~ msgstr ""
+#~ "Yerleşik obfs4 değiştirilebilir taşıyıcıları, "
+#~ "yerleşik meek_lite (Azure) değiştirilebilir "
+#~ "taşıyıcıları veya Tor `BridgeDB "
+#~ "<https://bridges.torproject.org/>`_ adresinden "
+#~ "edinebileceğiniz özel köprüleri kullanabilirsiniz."
+#~ " Bir köprü kullanmanız gerekirse, önce "
+#~ "yerleşik obfs4 olanları deneyin."
+

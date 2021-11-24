@@ -15,7 +15,7 @@ async def api(path):
 
     async with httpx.AsyncClient() as client:
         r = await client.get(
-            url, headers={"Authorization": f"Token {api_token}"}, timeout=30.0
+            url, headers={"Authorization": f"Token {api_token}"}, timeout=60
         )
 
     if r.status_code == 200:
@@ -109,7 +109,8 @@ async def main():
         languages[obj["code"]] = obj["language"]
 
     # Get the app translations for each language
-    await asyncio.gather(*[get_app_translation(lang_code) for lang_code in languages])
+    for lang_code in languages:
+        await get_app_translation(lang_code)
 
     # Get the documentation translations for each component for each language
     for component in [
@@ -123,11 +124,8 @@ async def main():
         "doc-sphinx",
         "doc-tor",
     ]:
-        docs_futures = []
         for lang_code in languages:
-            docs_futures.append(get_docs_translation(component, lang_code))
-
-        await asyncio.gather(*docs_futures)
+            await get_docs_translation(component, lang_code)
 
     print("")
 
