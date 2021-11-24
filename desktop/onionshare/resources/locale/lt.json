@@ -252,5 +252,7 @@
     "gui_settings_moat_bridges_invalid": "Dar neprašėte tilto iš torproject.org.",
     "moat_captcha_reload": "Perkrauti",
     "moat_captcha_error": "Neteisingas sprendimas. Bandykite dar kartą.",
-    "gui_dragdrop_sandbox_flatpak": "Kad „Flatpak“ saugi dėžė būtų saugesnė, nuvilkimas ir įdėjimas nepalaikomas. Norėdami pasirinkti failus, naudokite mygtukus „Pridėti failus“ ir „Pridėti aplanką“."
+    "gui_dragdrop_sandbox_flatpak": "Kad „Flatpak“ saugi dėžė būtų saugesnė, nuvilkimas ir įdėjimas nepalaikomas. Norėdami pasirinkti failus, naudokite mygtukus „Pridėti failus“ ir „Pridėti aplanką“.",
+    "gui_close_tab_warning_chat_description": "",
+    "waitress_web_server_error": ""
 }
