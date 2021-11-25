@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2021-11-23 19:33-0800\n"
-"PO-Revision-Date: 2021-10-02 12:36+0000\n"
-"Last-Translator: Kaya Zeren <kayazeren@gmail.com>\n"
-"Language: tr\n"
+"PO-Revision-Date: 2021-11-25 15:52+0000\n"
+"Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
 "Language-Team: tr <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
+"Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.10-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/features.rst:4
@@ -411,16 +412,13 @@ msgstr ""
 "web sayfasında üçüncü taraf içeriğinin yüklenmesini engeller."
 
 #: ../../source/features.rst:121
-#, fuzzy
 msgid ""
 "If you want to load content from third-party websites, like assets or "
 "JavaScript libraries from CDNs, you have two options:"
 msgstr ""
-"İçerik aktarım ağlarından (CDN) varlıklar veya JavaScript kitaplıkları "
-"gibi üçüncü taraf web sitelerinden içerik yüklemek istiyorsanız, hizmeti "
-"başlatmadan önce \"İçerik güvenliği ilkesi başlığı gönderme (web "
-"sitenizin üçüncü taraf kaynaklarını kullanmasına izin verir)\" seçeneğini"
-" işaretleyin."
+"İçerik aktarım ağlarından (CDN) varlıklar veya JavaScript kütüphaneleri gibi "
+"üçüncü taraf web sitelerinden içerik yüklemek istiyorsanız, iki seçeneğiniz "
+"vardır:"
 
 #: ../../source/features.rst:123
 msgid ""
@@ -428,10 +426,14 @@ msgid ""
 "\"Don't send Content Security Policy header (allows your website to use "
 "third-party resources)\" box before starting the service."
 msgstr ""
+"Hizmeti başlatmadan önce \"İçerik güvenliği ilkesi başlığı gönderme (web "
+"sitenizin üçüncü taraf kaynaklarını kullanmasına izin verir)\" kutusunu "
+"işaretleyerek bir İçerik Güvenliği ilkesi başlığı göndermeyi devre dışı "
+"bırakabilirsiniz."
 
 #: ../../source/features.rst:124
 msgid "You can send a custom Content Security Policy header."
-msgstr ""
+msgstr "Özel bir İçerik Güvenliği İlkesi başlığı gönderebilirsiniz."
 
 #: ../../source/features.rst:127
 msgid "Tips for running a website service"
@@ -1113,4 +1115,3 @@ msgstr ""
 #~ " OnionShare sohbet odaları mesajları hiçbir"
 #~ " yerde depolamadığından sorun en aza "
 #~ "indirilir."
-
