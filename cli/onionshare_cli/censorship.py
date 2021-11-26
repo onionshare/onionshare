@@ -25,21 +25,46 @@ from .meek import MeekNotRunning
 class CensorshipCircumvention(object):
     """
     Connect to the Tor Moat APIs to retrieve censorship
-    circumvention recommendations, over the Meek client.
+    circumvention recommendations or the latest bridges.
+
+    We support reaching this API over Tor, or Meek
+    (domain fronting) if Tor is not connected.
     """
 
-    def __init__(self, common, meek, domain_fronting=True):
+    def __init__(self, common, meek=None, onion=None):
         """
         Set up the CensorshipCircumvention object to hold
         common and meek objects.
         """
         self.common = common
-        self.meek = meek
         self.common.log("CensorshipCircumvention", "__init__")
-
-        # Bail out if we requested domain fronting but we can't use meek
-        if domain_fronting and not self.meek.meek_proxies:
-            raise MeekNotRunning()
+        self.api_proxies = {}
+        if meek:
+            self.meek = meek
+            if not self.meek.meek_proxies:
+                raise MeekNotRunning()
+            else:
+                self.common.log(
+                    "CensorshipCircumvention",
+                    "__init__",
+                    "Using Meek with CensorShipCircumvention API",
+                )
+                self.api_proxies = self.meek.meek_proxies
+        if onion:
+            self.onion = onion
+            if not self.onion.is_authenticated:
+                return False
+            else:
+                self.common.log(
+                    "CensorshipCircumvention",
+                    "__init__",
+                    "Using Tor with CensorShipCircumvention API",
+                )
+                (socks_address, socks_port) = self.onion.get_tor_socks_port()
+                self.api_proxies = {
+                    "http": f"socks5h://{socks_address}:{socks_port}",
+                    "https": f"socks5h://{socks_address}:{socks_port}",
+                }
 
     def request_map(self, country=False):
         """
@@ -52,6 +77,8 @@ class CensorshipCircumvention(object):
         Note that this API endpoint doesn't return actual bridges,
         it just returns the recommended bridge type countries.
         """
+        if not self.api_proxies:
+            return False
         endpoint = "https://bridges.torproject.org/moat/circumvention/map"
         data = {}
         if country:
@@ -61,7 +88,7 @@ class CensorshipCircumvention(object):
             endpoint,
             json=data,
             headers={"Content-Type": "application/vnd.api+json"},
-            proxies=self.meek.meek_proxies,
+            proxies=self.api_proxies,
         )
         if r.status_code != 200:
             self.common.log(
@@ -95,6 +122,8 @@ class CensorshipCircumvention(object):
         Optionally, a list of transports can be specified in order to
         return recommended settings for just that transport type.
         """
+        if not self.api_proxies:
+            return False
         endpoint = "https://bridges.torproject.org/moat/circumvention/settings"
         data = {}
         if country:
@@ -105,7 +134,7 @@ class CensorshipCircumvention(object):
             endpoint,
             json=data,
             headers={"Content-Type": "application/vnd.api+json"},
-            proxies=self.meek.meek_proxies,
+            proxies=self.api_proxies,
         )
         if r.status_code != 200:
             self.common.log(
@@ -142,11 +171,13 @@ class CensorshipCircumvention(object):
         """
         Retrieves the list of built-in bridges from the Tor Project.
         """
+        if not self.api_proxies:
+            return False
         endpoint = "https://bridges.torproject.org/moat/circumvention/builtin"
         r = requests.post(
             endpoint,
             headers={"Content-Type": "application/vnd.api+json"},
-            proxies=self.meek.meek_proxies,
+            proxies=self.api_proxies,
         )
         if r.status_code != 200:
             self.common.log(
