@@ -3,37 +3,39 @@
 # This file is distributed under the same license as the OnionShare package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2020-11-15 14:42-0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2021-11-26 18:53+0000\n"
+"Last-Translator: Blax <blacxbloc@protonmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.10-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/help.rst:2
 msgid "Getting Help"
-msgstr ""
+msgstr "获取帮助"
 
 #: ../../source/help.rst:5
 msgid "Read This Website"
-msgstr ""
+msgstr "查阅该网站"
 
 #: ../../source/help.rst:7
 msgid ""
 "You will find instructions on how to use OnionShare. Look through all of "
 "the sections first to see if anything answers your questions."
-msgstr ""
+msgstr "你将找到有关如何使用 OnionShare 的说明。先浏览一下所有的章节，看看是否有能回答你的问题的。"
 
 #: ../../source/help.rst:10
 msgid "Check the GitHub Issues"
-msgstr ""
+msgstr "查看 Github Issues"
 
 #: ../../source/help.rst:12
 msgid ""
@@ -45,7 +47,7 @@ msgstr ""
 
 #: ../../source/help.rst:15
 msgid "Submit an Issue Yourself"
-msgstr ""
+msgstr "亲自提交一个 Issue"
 
 #: ../../source/help.rst:17
 msgid ""
@@ -58,13 +60,13 @@ msgstr ""
 
 #: ../../source/help.rst:20
 msgid "Join our Keybase Team"
-msgstr ""
+msgstr "加入我们的 Keybase Team"
 
 #: ../../source/help.rst:22
 msgid ""
 "See :ref:`collaborating` on how to join the Keybase team used to discuss "
 "the project."
-msgstr ""
+msgstr "请查阅 :ref:`collaborating` 关于如何加入 Keybase team 来讨论这个项目。"
 
 #~ msgid "If you need help with OnionShare, please follow the instructions below."
 #~ msgstr ""
@@ -117,4 +119,3 @@ msgstr ""
 #~ "that we use to discuss the "
 #~ "project."
 #~ msgstr ""
-
