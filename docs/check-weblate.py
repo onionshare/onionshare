@@ -13,6 +13,10 @@ docs_translations = {}
 async def api(path):
     url = f"https://hosted.weblate.org{path}"
 
+    # Wait a bit before each API call, to avoid hammering the server and
+    # getting temporarily blocked
+    await asyncio.sleep(1)
+
     async with httpx.AsyncClient() as client:
         r = await client.get(
             url, headers={"Authorization": f"Token {api_token}"}, timeout=60
