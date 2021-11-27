@@ -27,7 +27,6 @@ import base64
 import nacl.public
 import os
 import psutil
-import requests
 import shlex
 import subprocess
 import tempfile
