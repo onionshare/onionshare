@@ -71,7 +71,7 @@
     "gui_settings_meek_lite_expensive_warning": "Upozorenje: meek-azure mostovi su vrlo skupi za Tor projekat da ih koristi.<br><br>Koristi ih samo ako ne možeš da se povežeš na Tor direktno, preko obfs4 transporta ili drugih redovnih mostova.",
     "gui_settings_tor_bridges_custom_radio_option": "Koristi prilagođene mostove",
     "gui_settings_tor_bridges_custom_label": "Mostove možeš dobiti od <a href=\"https://bridges.torproject.org/options?lang=sr_Latn\">https://bridges.torproject.org</a>",
-    "gui_settings_tor_bridges_invalid": "Nijedan od mostova koje ste dodali ne funkcioniše.\nProverite ih ponovo ili dodajte druge.",
+    "gui_settings_tor_bridges_invalid": "Nijedan od mostova koje ste dodali ne funkcioniše. Proverite ih ponovo ili dodajte druge.",
     "gui_settings_button_save": "Sačuvaj",
     "gui_settings_button_cancel": "Odustani",
     "gui_settings_button_help": "Pomoć",
@@ -257,5 +257,7 @@
     "gui_settings_help_label": "Treba vam pomoć? Pogledajte <a href='https://docs.onionshare.org'>docs.onionshare.org</a>",
     "gui_server_doesnt_support_stealth": "Nažalost, ova Tor verzija ne podržava nevidljivost (autentifikacija klijenta). Pokušajte s novijom verzijom Tor-a ili koristite 'javni' način rada ako ne mora biti privatan.",
     "history_receive_read_message_button": "Pročitaj poruku",
-    "moat_captcha_error": "Rješenje nije ispravno. Molimo pokušajte ponovo."
+    "moat_captcha_error": "Rješenje nije ispravno. Molimo pokušajte ponovo.",
+    "moat_solution_empty_error": "Morate uneti znakove sa slike",
+    "mode_tor_not_connected_label": "OnionShare nije povezan na Tor mrežu"
 }
