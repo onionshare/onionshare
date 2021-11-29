@@ -53,12 +53,14 @@ class TorConnectionDialog(QtWidgets.QProgressDialog):
     success = QtCore.Signal()
 
     def __init__(
-        self, common, custom_settings=False, testing_settings=False, onion=None
+        self, common, meek, custom_settings=False, testing_settings=False, onion=None
     ):
         super(TorConnectionDialog, self).__init__(None)
 
         self.common = common
         self.testing_settings = testing_settings
+
+        self.meek = meek
 
         if custom_settings:
             self.settings = custom_settings
@@ -138,6 +140,30 @@ class TorConnectionDialog(QtWidgets.QProgressDialog):
             def alert():
                 Alert(self.common, msg, QtWidgets.QMessageBox.Warning, title=self.title)
 
+        # If we are allowed to try automatically resolving connection issues
+        # (e.g possible censorship) by obtaining bridges for the user, do so
+        elif self.settings.get("censorship_circumvention"):
+            def alert():
+                return
+
+            # Automatically try to obtain bridges from the Censorship Circumvention API
+            self.common.log(
+                "TorConnectionDialog",
+                "_error_connecting_to_tor",
+                "Trying to automatically obtain bridges",
+            )
+            self.meek.start()
+            self.censorship_circumvention = CensorshipCircumvention(
+                self.common, self.meek
+            )
+            bridge_settings = self.censorship_circumvention.request_settings(
+                country="tm"
+            )
+            self.meek.cleanup()
+
+            if bridge_settings and self.censorship_circumvention.save_settings(self.settings, bridge_settings):
+                # Try and connect again
+                self.start()
         else:
             # If not testing, open settings after displaying the error
             def alert():
@@ -266,6 +292,7 @@ class TorConnectionWidget(QtWidgets.QWidget):
     def _error_connecting_to_tor(self, msg):
         self.common.log("TorConnectionWidget", "_error_connecting_to_tor")
         self.active = False
+
         # If we are allowed to try automatically resolving connection issues
         # (e.g possible censorship) by obtaining bridges for the user, do so
         if self.settings.get("censorship_circumvention"):
@@ -279,50 +306,13 @@ class TorConnectionWidget(QtWidgets.QWidget):
             self.censorship_circumvention = CensorshipCircumvention(
                 self.common, self.meek
             )
-            request_bridges = self.censorship_circumvention.request_settings(
+            bridge_settings = self.censorship_circumvention.request_settings(
                 country="tm"
             )
-            if request_bridges:
-                # @TODO there might be several bridge types recommended.
-                # Should we attempt to iterate over each type if one of them fails to connect?
-                # But if so, how to stop it starting 3 separate Tor connection threads?
-                # for bridges in request_bridges["settings"]:
-                bridges = request_bridges["settings"][0]["bridges"]
-                self.common.log(
-                    "TorConnectionWidget",
-                    "_error_connecting_to_tor",
-                    f"Obtained bridges: {bridges}",
-                )
-                bridge_strings = bridges["bridge_strings"]
-                bridge_type = bridges["type"]
-                bridge_source = bridges["source"]
+            self.meek.cleanup()
 
-                # If the recommended bridge source is to use the built-in
-                # bridges, set that in our settings, as if the user had
-                # selected the built-in bridges for a specific PT themselves.
-                #
-                if bridge_source == "builtin":
-                    self.settings.set("bridges_type", "built-in")
-                    if bridge_type == "obfs4":
-                        self.settings.set("bridges_builtin_pt", "obfs4")
-                    if bridge_type == "snowflake":
-                        self.settings.set("bridges_builtin_pt", "snowflake")
-                    if bridge_type == "meek":
-                        self.settings.set("bridges_builtin_pt", "meek-azure")
-                else:
-                    self.settings.set("bridges_type", "custom")
-                    # Sanity check the bridges provided from the Tor API before saving
-                    bridges_checked = self.common.check_bridges_valid(bridge_strings)
-                    if bridges_checked:
-                        self.settings.set("bridges_custom", "\n".join(bridges_checked))
-
-                self.common.log(
-                    "TorConnectionWidget",
-                    "_error_connecting_to_tor",
-                    "Starting Tor again",
-                )
-                self.settings.save()
-                # Now try and connect again
+            if bridge_settings and self.censorship_circumvention.save_settings(self.settings, bridge_settings):
+                # Try and connect again
                 self.start()
             else:
                 self.fail.emit()

@@ -30,6 +30,7 @@ from .tab_widget import TabWidget
 from .gui_common import GuiCommon
 from .threads import OnionCleanupThread
 
+from onionshare_cli.meek import Meek
 
 class MainWindow(QtWidgets.QMainWindow):
     """
@@ -160,8 +161,11 @@ class MainWindow(QtWidgets.QMainWindow):
         self.setCentralWidget(central_widget)
         self.show()
 
+        # Instantiate Meek, which the TorConnectionDialog may use to resolve
+        # connection issues by automatically obtaining bridges.
+        self.meek = Meek(self.common, get_tor_paths=self.common.gui.get_tor_paths)
         # Start the "Connecting to Tor" dialog, which calls onion.connect()
-        tor_con = TorConnectionDialog(self.common)
+        tor_con = TorConnectionDialog(self.common, self.meek)
         tor_con.canceled.connect(self.tor_connection_canceled)
         tor_con.open_tor_settings.connect(self.tor_connection_open_tor_settings)
         if not self.common.gui.local_only:
