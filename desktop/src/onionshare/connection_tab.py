@@ -36,13 +36,14 @@ class AutoConnectTab(QtWidgets.QWidget):
     close_this_tab = QtCore.Signal()
     tor_is_connected = QtCore.Signal()
     tor_is_disconnected = QtCore.Signal()
-    def __init__(self, common, tab_id, status_bar):
+    def __init__(self, common, tab_id, status_bar, parent=None):
         super(AutoConnectTab, self).__init__()
         self.common = common
         self.common.log("AutoConnectTab", "__init__")
 
         self.status_bar = status_bar
         self.tab_id = tab_id
+        self.parent = parent
 
         # Was auto connected?
         self.curr_settings = Settings(common)
@@ -144,6 +145,9 @@ class AutoConnectTab(QtWidgets.QWidget):
             "auto_connect", self.enable_autoconnect_checkbox.isChecked()
         )
         self.curr_settings.save()
+
+    def open_tor_settings(self):
+        self.parent.open_tor_settings_tab()
 
     def connect_clicked(self):
         """
