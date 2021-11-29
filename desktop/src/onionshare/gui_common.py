@@ -169,7 +169,7 @@ class GuiCommon:
                     background: #FCFCFC;
                     border: 1px solid #DDDBDA;
                     border-radius: 8px;
-                    padding: 16px;
+                    padding: 24px 16px;
                 }""",
             # Common styles between modes and their child widgets
             "mode_settings_toggle_advanced": """
