@@ -155,19 +155,10 @@ class MainWindow(QtWidgets.QMainWindow):
         layout = QtWidgets.QVBoxLayout()
         layout.addWidget(self.tabs)
 
-        self.connected_central_widget = QtWidgets.QWidget()
-        self.connected_central_widget.setLayout(layout)
-        
-
-        # Auto connect OnionShare?
-        auto_connect = AutoConnect(self.common, self)
-        if not auto_connect.auto_connect_enabled:
-            auto_connect.configure_button.clicked.connect(
-                lambda: self.open_tor_settings("autoconnect")
-            )
-            auto_connect.connect_button.clicked.connect(self.start_onionshare)
-            self.setCentralWidget(auto_connect)
-            self.show()
+        central_widget = QtWidgets.QWidget()
+        central_widget.setLayout(layout)
+        self.setCentralWidget(central_widget)
+        self.show()
 
         # Create the close warning dialog -- the dialog widget needs to be in the constructor
         # in order to test it
@@ -182,25 +173,6 @@ class MainWindow(QtWidgets.QMainWindow):
             strings._("gui_quit_warning_cancel"), QtWidgets.QMessageBox.NoRole
         )
         self.close_dialog.setDefaultButton(self.close_dialog.reject_button)
-
-    def start_onionshare(self):
-        """
-        Once the user clicks on connect in the initial screen, start tor connection
-        and show new tab screen
-        """
-        self.setCentralWidget(self.connected_central_widget)
-        self.show()
-
-        # Start the "Connecting to Tor" dialog, which calls onion.connect()
-        tor_con = TorConnectionDialog(self.common)
-        tor_con.canceled.connect(self.tor_connection_canceled)
-        tor_con.open_tor_settings.connect(self.tor_connection_open_tor_settings)
-        if not self.common.gui.local_only:
-            tor_con.start()
-            self.settings_have_changed()
-
-        # After connecting to Tor, check for updates
-        self.check_for_updates()
 
     def tor_connection_canceled(self):
         """

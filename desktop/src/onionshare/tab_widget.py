@@ -28,6 +28,7 @@ from .threads import EventHandlerThread
 from .gui_common import GuiCommon
 from .tor_settings_tab import TorSettingsTab
 from .settings_tab import SettingsTab
+from .connection_tab import AutoConnectTab
 
 
 class TabWidget(QtWidgets.QTabWidget):
@@ -98,6 +99,7 @@ class TabWidget(QtWidgets.QTabWidget):
             if not (
                 type(self.tabs[tab_id]) is SettingsTab
                 or type(self.tabs[tab_id]) is TorSettingsTab
+                or type(self.tabs[tab_id]) is AutoConnectTab
             ):
                 self.tabs[tab_id].cleanup()
 
@@ -138,6 +140,7 @@ class TabWidget(QtWidgets.QTabWidget):
         if (
             type(self.tabs[tab_id]) is SettingsTab
             or type(self.tabs[tab_id]) is TorSettingsTab
+            or type(self.tabs[tab_id]) is AutoConnectTab
         ):
             # Blank the server status indicator
             self.status_bar.server_status_image_label.clear()
@@ -159,8 +162,12 @@ class TabWidget(QtWidgets.QTabWidget):
             pass
 
     def new_tab_clicked(self):
-        # Create a new tab
-        self.add_tab()
+        # if already connected to tor, create a new tab
+        # Else open the initial connection tab
+        if self.common.gui.onion.is_authenticated():
+            self.add_tab()
+        else:
+            self.open_connection_tab()
 
     def load_tab(self, mode_settings_id):
         # Load the tab's mode settings
@@ -197,6 +204,22 @@ class TabWidget(QtWidgets.QTabWidget):
 
         # Bring the window to front, in case this is being added by an event
         self.bring_to_front.emit()
+
+    def open_connection_tab(self):
+        self.common.log("TabWidget", "open_connection_tab")
+
+        # See if a connection tab is already open, and if so switch to it
+        for tab_id in self.tabs:
+            if type(self.tabs[tab_id]) is AutoConnectTab:
+                self.setCurrentIndex(self.indexOf(self.tabs[tab_id]))
+                return
+
+        connection_tab = AutoConnectTab(self.common, self.current_tab_id, self.status_bar)
+        connection_tab.close_this_tab.connect(self.close_connection_tab)
+        self.tabs[self.current_tab_id] = connection_tab
+        self.current_tab_id += 1
+        index = self.addTab(connection_tab, strings._("gui_settings_window_title"))
+        self.setCurrentIndex(index)
 
     def open_settings_tab(self):
         self.common.log("TabWidget", "open_settings_tab")
@@ -281,6 +304,7 @@ class TabWidget(QtWidgets.QTabWidget):
             if not (
                 type(self.tabs[tab_id]) is SettingsTab
                 or type(self.tabs[tab_id]) is TorSettingsTab
+                or type(self.tabs[tab_id]) is AutoConnectTab
             ):
                 tab = self.widget(self.indexOf(self.tabs[tab_id]))
                 if tab.settings.get("persistent", "enabled"):
@@ -298,6 +322,7 @@ class TabWidget(QtWidgets.QTabWidget):
         if (
             type(self.tabs[tab_id]) is SettingsTab
             or type(self.tabs[tab_id]) is TorSettingsTab
+            or type(self.tabs[tab_id]) is AutoConnectTab
         ):
             self.common.log("TabWidget", "closing a settings tab")
 
@@ -333,6 +358,14 @@ class TabWidget(QtWidgets.QTabWidget):
             else:
                 self.common.log("TabWidget", "user does not want to close the tab")
 
+    def close_connection_tab(self):
+        self.common.log("TabWidget", "close_connection_tab")
+        for tab_id in self.tabs:
+            if type(self.tabs[tab_id]) is AutoConnectTab:
+                index = self.indexOf(self.tabs[tab_id])
+                self.close_tab(index)
+                return
+
     def close_settings_tab(self):
         self.common.log("TabWidget", "close_settings_tab")
         for tab_id in self.tabs:
@@ -357,6 +390,7 @@ class TabWidget(QtWidgets.QTabWidget):
             if not (
                 type(self.tabs[tab_id]) is SettingsTab
                 or type(self.tabs[tab_id]) is TorSettingsTab
+                or type(self.tabs[tab_id]) is AutoConnectTab
             ):
                 mode = self.tabs[tab_id].get_mode()
                 if mode:
@@ -381,7 +415,10 @@ class TabWidget(QtWidgets.QTabWidget):
             if type(self.tabs[tab_id]) is SettingsTab:
                 self.tabs[tab_id].tor_is_connected()
             else:
-                if not type(self.tabs[tab_id]) is TorSettingsTab:
+                if not (
+                    type(self.tabs[tab_id]) is TorSettingsTab
+                    or type(self.tabs[tab_id]) is AutoConnectTab
+                ):
                     mode = self.tabs[tab_id].get_mode()
                     if mode:
                         mode.tor_connection_started()
@@ -391,7 +428,10 @@ class TabWidget(QtWidgets.QTabWidget):
             if type(self.tabs[tab_id]) is SettingsTab:
                 self.tabs[tab_id].tor_is_disconnected()
             else:
-                if not type(self.tabs[tab_id]) is TorSettingsTab:
+                if not (
+                    type(self.tabs[tab_id]) is TorSettingsTab
+                    or type(self.tabs[tab_id]) is AutoConnectTab
+                ):
                     mode = self.tabs[tab_id].get_mode()
                     if mode:
                         mode.tor_connection_stopped()

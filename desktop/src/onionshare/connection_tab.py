@@ -24,16 +24,25 @@ from onionshare_cli.settings import Settings
 
 from . import strings
 from .gui_common import GuiCommon
+from .tor_connection import TorConnectionWidget
 
 
-class AutoConnect(QtWidgets.QWidget):
+class AutoConnectTab(QtWidgets.QWidget):
     """
-    GUI window that appears in the very beginning to ask user if
+    Initial Tab that appears in the very beginning to ask user if
     should auto connect.
     """
-    def __init__(self, common, parent=None):
-        super(AutoConnect, self).__init__(parent)
-        common.log("AutoConnect", "__init__")
+
+    close_this_tab = QtCore.Signal()
+    tor_is_connected = QtCore.Signal()
+    tor_is_disconnected = QtCore.Signal()
+    def __init__(self, common, tab_id, status_bar):
+        super(AutoConnectTab, self).__init__()
+        self.common = common
+        self.common.log("AutoConnectTab", "__init__")
+
+        self.status_bar = status_bar
+        self.tab_id = tab_id
 
         # Was auto connected?
         self.curr_settings = Settings(common)
@@ -76,8 +85,20 @@ class AutoConnect(QtWidgets.QWidget):
             description_widget = QtWidgets.QWidget()
             description_widget.setLayout(description_layout)
 
+            # Tor connection widget
+            self.tor_con = TorConnectionWidget(self.common, self.status_bar)
+            self.tor_con.success.connect(self.tor_con_success)
+            self.tor_con.fail.connect(self.tor_con_fail)
+            self.tor_con.hide()
+
+            # Error label
+            self.error_label = QtWidgets.QLabel()
+            self.error_label.setStyleSheet(self.common.gui.css["tor_settings_error"])
+            self.error_label.setWordWrap(True)
+
             # CTA buttons
             self.connect_button = QtWidgets.QPushButton(strings._("gui_autoconnect_start"))
+            self.connect_button.clicked.connect(self.connect_clicked)
             self.connect_button.setStyleSheet(
                 common.gui.css["autoconnect_start_button"]
             )
@@ -98,6 +119,7 @@ class AutoConnect(QtWidgets.QWidget):
             content_layout.addStretch()
             content_layout.addWidget(self.image)
             content_layout.addWidget(description_widget)
+            content_layout.addWidget(self.tor_con)
             content_layout.addWidget(cta_widget)
             content_layout.addStretch()
             content_layout.setAlignment(QtCore.Qt.AlignCenter)
@@ -111,7 +133,52 @@ class AutoConnect(QtWidgets.QWidget):
             self.setLayout(self.layout)
 
     def toggle_auto_connect(self):
+        """
+        Auto connect checkbox clicked
+        """
+        self.common.log("AutoConnectTab", "autoconnect_checkbox_clicked")
         self.curr_settings.set(
             "auto_connect", self.enable_autoconnect_checkbox.isChecked()
         )
         self.curr_settings.save()
+
+    def connect_clicked(self):
+        """
+        Connect button clicked. Try to connect to tor.
+        """
+        self.common.log("AutoConnectTab", "connect_clicked")
+
+        self.error_label.setText("")
+        self.connect_button.hide()
+        self.configure_button.hide()
+
+        if not self.common.gui.local_only:
+            self.tor_con.show()
+            self.tor_con.start(self.curr_settings)
+        else:
+            self.close_this_tab.emit()
+
+    def tor_con_success(self):
+        """
+        Finished testing tor connection.
+        """
+        self.tor_con.hide()
+        self.connect_button.show()
+        self.configure_button.show()
+        if (
+            self.common.gui.onion.is_authenticated()
+            and not self.tor_con.wasCanceled()
+        ):
+            # Tell the tabs that Tor is connected
+            self.tor_is_connected.emit()
+            # Close the tab
+            self.close_this_tab.emit()
+
+    def tor_con_fail(self, msg):
+        """
+        Finished testing tor connection.
+        """
+        self.tor_con.hide()
+        self.connect_button.show()
+        self.configure_button.show()
+        self.error_label.setText(msg)
