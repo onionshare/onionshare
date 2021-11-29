@@ -21,7 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from PySide2 import QtCore, QtWidgets, QtGui
 import sys
 import platform
-import re
 import os
 
 from onionshare_cli.meek import Meek
@@ -856,35 +855,10 @@ class TorSettingsTab(QtWidgets.QWidget):
             if self.bridge_custom_radio.isChecked():
                 settings.set("bridges_type", "custom")
 
-                new_bridges = []
                 bridges = self.bridge_custom_textbox.toPlainText().split("\n")
-                bridges_valid = False
-                for bridge in bridges:
-                    if bridge != "":
-                        # Check the syntax of the custom bridge to make sure it looks legitimate
-                        ipv4_pattern = re.compile(
-                            "(obfs4\s+)?(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]):([0-9]+)(\s+)([A-Z0-9]+)(.+)$"
-                        )
-                        ipv6_pattern = re.compile(
-                            "(obfs4\s+)?\[(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))\]:[0-9]+\s+[A-Z0-9]+(.+)$"
-                        )
-                        meek_lite_pattern = re.compile(
-                            "(meek_lite)(\s)+([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+:[0-9]+)(\s)+([0-9A-Z]+)(\s)+url=(.+)(\s)+front=(.+)"
-                        )
-                        snowflake_pattern = re.compile(
-                            "(snowflake)(\s)+([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+:[0-9]+)(\s)+([0-9A-Z]+)"
-                        )
-                        if (
-                            ipv4_pattern.match(bridge)
-                            or ipv6_pattern.match(bridge)
-                            or meek_lite_pattern.match(bridge)
-                            or snowflake_pattern.match(bridge)
-                        ):
-                            new_bridges.append(bridge)
-                            bridges_valid = True
-
+                bridges_valid = self.common.check_bridges_valid(bridges)
                 if bridges_valid:
-                    new_bridges = "\n".join(new_bridges) + "\n"
+                    new_bridges = "\n".join(bridges_valid) + "\n"
                     settings.set("bridges_custom", new_bridges)
                 else:
                     self.error_label.setText(

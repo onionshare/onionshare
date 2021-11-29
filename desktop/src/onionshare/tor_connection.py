@@ -301,11 +301,6 @@ class TorConnectionWidget(QtWidgets.QWidget):
                 # bridges, set that in our settings, as if the user had
                 # selected the built-in bridges for a specific PT themselves.
                 #
-                # @TODO should we fetch the built-in bridges from
-                # censorship_circumvention.request_builtin_bridges()?
-                #
-                # In fact, the bridge_string returned for a bridge type 'builtin'
-                # is in fact the same bridges we'd get from that other method anyway.
                 if bridge_source == "builtin":
                     self.settings.set("bridges_type", "built-in")
                     if bridge_type == "obfs4":
@@ -316,8 +311,10 @@ class TorConnectionWidget(QtWidgets.QWidget):
                         self.settings.set("bridges_builtin_pt", "meek-azure")
                 else:
                     self.settings.set("bridges_type", "custom")
-                    # @TODO do we want to to a sanity check on the bridges like custom ones?
-                    self.settings.set("bridges_custom", "\n".join(bridge_strings))
+                    # Sanity check the bridges provided from the Tor API before saving
+                    bridges_checked = self.common.check_bridges_valid(bridge_strings)
+                    if bridges_checked:
+                        self.settings.set("bridges_custom", "\n".join(bridges_checked))
 
                 self.common.log(
                     "TorConnectionWidget",
