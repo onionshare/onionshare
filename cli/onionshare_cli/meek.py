@@ -120,7 +120,8 @@ class Meek(object):
                 stderr=subprocess.PIPE,
                 bufsize=1,
                 env=self.meek_env,
-                text=True,
+                # Using universal_newlines instead of text because the snap package using python < 3.7
+                universal_newlines=True,
             )
 
         # Queue up the stdout from the subprocess for polling later

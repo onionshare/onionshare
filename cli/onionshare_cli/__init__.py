@@ -27,8 +27,6 @@ from datetime import datetime
 from datetime import timedelta
 
 from .common import Common, CannotFindTor
-from .censorship import CensorshipCircumvention
-from .meek import Meek, MeekNotRunning
 from .web import Web
 from .onion import TorErrorProtocolError, TorTooOldEphemeral, TorTooOldStealth, Onion
 from .onionshare import OnionShare
@@ -285,20 +283,6 @@ def main(cwd=None):
     # Create the Web object
     web = Web(common, False, mode_settings, mode)
 
-    # Create the Meek object and start the meek client
-    # meek = Meek(common)
-    # meek.start()
-
-    # Create the CensorshipCircumvention object to make
-    # API calls to Tor over Meek
-    censorship = CensorshipCircumvention(common, meek)
-    # Example: request recommended bridges, pretending to be from China, using
-    # domain fronting.
-    # censorship_recommended_settings = censorship.request_settings(country="cn")
-    # print(censorship_recommended_settings)
-    # Clean up the meek subprocess once we're done working with the censorship circumvention API
-    # meek.cleanup()
-
     # Start the Onion object
     try:
         onion = Onion(common, use_tmp_dir=True)
@@ -474,13 +458,13 @@ def main(cwd=None):
             if app.autostop_timer > 0:
                 # if the auto-stop timer was set and has run out, stop the server
                 if not app.autostop_timer_thread.is_alive():
-                    if mode == "share" or (mode == "website"):
+                    if mode == "share":
                         # If there were no attempts to download the share, or all downloads are done, we can stop
                         if web.share_mode.cur_history_id == 0 or web.done:
                             print("Stopped because auto-stop timer ran out")
                             web.stop(app.port)
                             break
-                    if mode == "receive":
+                    elif mode == "receive":
                         if (
                             web.receive_mode.cur_history_id == 0
                             or not web.receive_mode.uploads_in_progress
@@ -489,6 +473,11 @@ def main(cwd=None):
                             web.stop(app.port)
                             break
                         web.receive_mode.can_upload = False
+                    else:
+                        # website or chat mode
+                        print("Stopped because auto-stop timer ran out")
+                        web.stop(app.port)
+                        break
             # Allow KeyboardInterrupt exception to be handled with threads
             # https://stackoverflow.com/questions/3788208/python-threading-ignores-keyboardinterrupt-exception
             time.sleep(0.2)

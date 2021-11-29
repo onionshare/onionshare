@@ -1,6 +1,6 @@
 name: onionshare
 base: core18
-version: '2.4'
+version: '2.4.1'
 summary: Securely and anonymously share files, host websites, and chat using Tor
 description: |
   OnionShare lets you securely and anonymously send and receive files. It works by starting 
@@ -15,6 +15,7 @@ apps:
   onionshare:
     common-id: org.onionshare.OnionShare
     command: onionshare
+    extensions: [ gnome-3-34 ]
     plugs:
       - desktop
       - home
@@ -125,7 +126,7 @@ parts:
       - setuptools
       - pynacl
       - colorama
-      - git+https://github.com/onionshare/stem.git@1.8.1
+      - cepa == 1.8.3
     stage-packages:
       - build-essential
       - libssl-dev
@@ -135,11 +136,11 @@ parts:
     stage:
       - -usr/lib/x86_64-linux-gnu/libcrypto.so.1.1
       - -usr/share/doc/libssl1.1/changelog.Debian.gz
-    after: [tor, obfs4]
+    after: [tor, obfs4, snowflake-client, meek-client]
 
   tor:
-    source: https://dist.torproject.org/tor-0.4.6.7.tar.gz
-    source-checksum: sha256/ff665ce121b2952110bd98b9c8741b5593bf6c01ac09033ad848ed92c2510f9a
+    source: https://dist.torproject.org/tor-0.4.6.8.tar.gz
+    source-checksum: sha256/15ce1a37b4cc175b07761e00acdcfa2c08f0d23d6c3ab9c97c464bd38cc5476a
     source-type: tar
     plugin: autotools
     build-packages:
@@ -158,3 +159,24 @@ parts:
     go-importpath: gitlab.com/yawning/obfs4
     source: https://gitlab.com/yawning/obfs4
     source-type: git
+
+  snowflake-client:
+    plugin: go
+    go-importpath: git.torproject.org/pluggable-transports/snowflake.git/client
+    source: https://git.torproject.org/pluggable-transports/snowflake.git
+    source-type: git
+    source-tag: v2.0.1
+    organize:
+      bin/client: bin/snowflake-client
+
+  meek-client:
+    plugin: go
+    go-channel: stable
+    go-importpath: git.torproject.org/pluggable-transports/meek.git/meek-client
+    # Not sure why I have to do this, but it works
+    override-build: |
+      cd meek-client
+      go build -o /root/parts/meek-client/install/bin ./...
+    source: https://git.torproject.org/pluggable-transports/meek.git
+    source-type: git
+    source-tag: v0.37.0

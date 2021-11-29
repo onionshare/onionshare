@@ -10,6 +10,7 @@
     "gui_add_files": "Add Files",
     "gui_add_folder": "Add Folder",
     "gui_remove": "Remove",
+    "gui_dragdrop_sandbox_flatpak": "To make the Flatpak sandbox more secure, drag and drop is not supported. Use the Add Files and Add Folder buttons to browse for files instead.",
     "gui_file_selection_remove_all": "Remove All",
     "gui_choose_items": "Choose",
     "gui_share_start_server": "Start sharing",

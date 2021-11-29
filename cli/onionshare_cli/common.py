@@ -88,197 +88,206 @@ class Common:
         ╰───────────────────────────────────────────╯
         """
 
-        if self.platform == "Windows":
-            pass
-        else:
-            pass
-
-        print(
-            Back.MAGENTA + Fore.WHITE + "╭───────────────────────────────────────────╮"
-        )
-        print(
-            Back.MAGENTA
-            + Fore.WHITE
-            + "│"
-            + Fore.LIGHTMAGENTA_EX
-            + "    *            "
-            + Fore.WHITE
-            + "▄▄█████▄▄"
-            + Fore.LIGHTMAGENTA_EX
-            + "            *    "
-            + Fore.WHITE
-            + "│"
-        )
-        print(
-            Back.MAGENTA
-            + Fore.WHITE
-            + "│"
-            + Fore.WHITE
-            + "               ▄████▀▀▀████▄"
-            + Fore.LIGHTMAGENTA_EX
-            + "     *         "
-            + Fore.WHITE
-            + "│"
-        )
-        print(
-            Back.MAGENTA
-            + Fore.WHITE
-            + "│"
-            + Fore.WHITE
-            + "              ▀▀█▀       ▀██▄              "
-            + Fore.WHITE
-            + "│"
-        )
-        print(
-            Back.MAGENTA
-            + Fore.WHITE
-            + "│"
-            + Fore.LIGHTMAGENTA_EX
-            + "      *      "
-            + Fore.WHITE
-            + "▄█▄          ▀██▄             "
-            + Fore.WHITE
-            + "│"
-        )
-        print(
-            Back.MAGENTA
-            + Fore.WHITE
-            + "│"
-            + Fore.WHITE
-            + "           ▄█████▄         ███"
-            + Fore.LIGHTMAGENTA_EX
-            + "        -+-  "
-            + Fore.WHITE
-            + "│"
-        )
-        print(
-            Back.MAGENTA
-            + Fore.WHITE
-            + "│"
-            + Fore.WHITE
-            + "             ███         ▀█████▀           "
-            + Fore.WHITE
-            + "│"
-        )
-        print(
-            Back.MAGENTA
-            + Fore.WHITE
-            + "│"
-            + Fore.WHITE
-            + "             ▀██▄          ▀█▀             "
-            + Fore.WHITE
-            + "│"
-        )
-        print(
-            Back.MAGENTA
-            + Fore.WHITE
-            + "│"
-            + Fore.LIGHTMAGENTA_EX
-            + "         *    "
-            + Fore.WHITE
-            + "▀██▄       ▄█▄▄"
-            + Fore.LIGHTMAGENTA_EX
-            + "     *        "
-            + Fore.WHITE
-            + "│"
-        )
-        print(
-            Back.MAGENTA
-            + Fore.WHITE
-            + "│"
-            + Fore.LIGHTMAGENTA_EX
-            + " *             "
-            + Fore.WHITE
-            + "▀████▄▄▄████▀               "
-            + Fore.WHITE
-            + "│"
-        )
-        print(
-            Back.MAGENTA
-            + Fore.WHITE
-            + "│"
-            + Fore.WHITE
-            + "                 ▀▀█████▀▀                 "
-            + Fore.WHITE
-            + "│"
-        )
-        print(
-            Back.MAGENTA
-            + Fore.WHITE
-            + "│"
-            + Fore.LIGHTMAGENTA_EX
-            + "             -+-                     *     "
-            + Fore.WHITE
-            + "│"
-        )
-        print(
-            Back.MAGENTA
-            + Fore.WHITE
-            + "│"
-            + Fore.WHITE
-            + "   ▄▀▄               ▄▀▀ █                 "
-            + Fore.WHITE
-            + "│"
-        )
-        print(
-            Back.MAGENTA
-            + Fore.WHITE
-            + "│"
-            + Fore.WHITE
-            + "   █ █     ▀         ▀▄  █                 "
-            + Fore.WHITE
-            + "│"
-        )
-        print(
-            Back.MAGENTA
-            + Fore.WHITE
-            + "│"
-            + Fore.WHITE
-            + "   █ █ █▀▄ █ ▄▀▄ █▀▄  ▀▄ █▀▄ ▄▀▄ █▄▀ ▄█▄   "
-            + Fore.WHITE
-            + "│"
-        )
-        print(
-            Back.MAGENTA
-            + Fore.WHITE
-            + "│"
-            + Fore.WHITE
-            + "   ▀▄▀ █ █ █ ▀▄▀ █ █ ▄▄▀ █ █ ▀▄█ █   ▀▄▄   "
-            + Fore.WHITE
-            + "│"
-        )
-        print(
-            Back.MAGENTA + Fore.WHITE + "│                                           │"
-        )
-        left_spaces = (43 - len(self.version) - 1) // 2
-        right_spaces = left_spaces
-        if left_spaces + len(self.version) + 1 + right_spaces < 43:
-            right_spaces += 1
-        print(
-            Back.MAGENTA
-            + Fore.WHITE
-            + "│"
-            + Fore.WHITE
-            + f"{' '*left_spaces}v{self.version}{' '*right_spaces}"
-            + Fore.WHITE
-            + "│"
-        )
-        print(
-            Back.MAGENTA + Fore.WHITE + "│                                           │"
-        )
-        print(
-            Back.MAGENTA
-            + Fore.WHITE
-            + "│"
-            + Fore.WHITE
-            + "          https://onionshare.org/          "
-            + Fore.WHITE
-            + "│"
-        )
-        print(
-            Back.MAGENTA + Fore.WHITE + "╰───────────────────────────────────────────╯"
-        )
-        print()
+        try:
+            print(
+                Back.MAGENTA
+                + Fore.WHITE
+                + "╭───────────────────────────────────────────╮"
+            )
+            print(
+                Back.MAGENTA
+                + Fore.WHITE
+                + "│"
+                + Fore.LIGHTMAGENTA_EX
+                + "    *            "
+                + Fore.WHITE
+                + "▄▄█████▄▄"
+                + Fore.LIGHTMAGENTA_EX
+                + "            *    "
+                + Fore.WHITE
+                + "│"
+            )
+            print(
+                Back.MAGENTA
+                + Fore.WHITE
+                + "│"
+                + Fore.WHITE
+                + "               ▄████▀▀▀████▄"
+                + Fore.LIGHTMAGENTA_EX
+                + "     *         "
+                + Fore.WHITE
+                + "│"
+            )
+            print(
+                Back.MAGENTA
+                + Fore.WHITE
+                + "│"
+                + Fore.WHITE
+                + "              ▀▀█▀       ▀██▄              "
+                + Fore.WHITE
+                + "│"
+            )
+            print(
+                Back.MAGENTA
+                + Fore.WHITE
+                + "│"
+                + Fore.LIGHTMAGENTA_EX
+                + "      *      "
+                + Fore.WHITE
+                + "▄█▄          ▀██▄             "
+                + Fore.WHITE
+                + "│"
+            )
+            print(
+                Back.MAGENTA
+                + Fore.WHITE
+                + "│"
+                + Fore.WHITE
+                + "           ▄█████▄         ███"
+                + Fore.LIGHTMAGENTA_EX
+                + "        -+-  "
+                + Fore.WHITE
+                + "│"
+            )
+            print(
+                Back.MAGENTA
+                + Fore.WHITE
+                + "│"
+                + Fore.WHITE
+                + "             ███         ▀█████▀           "
+                + Fore.WHITE
+                + "│"
+            )
+            print(
+                Back.MAGENTA
+                + Fore.WHITE
+                + "│"
+                + Fore.WHITE
+                + "             ▀██▄          ▀█▀             "
+                + Fore.WHITE
+                + "│"
+            )
+            print(
+                Back.MAGENTA
+                + Fore.WHITE
+                + "│"
+                + Fore.LIGHTMAGENTA_EX
+                + "         *    "
+                + Fore.WHITE
+                + "▀██▄       ▄█▄▄"
+                + Fore.LIGHTMAGENTA_EX
+                + "     *        "
+                + Fore.WHITE
+                + "│"
+            )
+            print(
+                Back.MAGENTA
+                + Fore.WHITE
+                + "│"
+                + Fore.LIGHTMAGENTA_EX
+                + " *             "
+                + Fore.WHITE
+                + "▀████▄▄▄████▀               "
+                + Fore.WHITE
+                + "│"
+            )
+            print(
+                Back.MAGENTA
+                + Fore.WHITE
+                + "│"
+                + Fore.WHITE
+                + "                 ▀▀█████▀▀                 "
+                + Fore.WHITE
+                + "│"
+            )
+            print(
+                Back.MAGENTA
+                + Fore.WHITE
+                + "│"
+                + Fore.LIGHTMAGENTA_EX
+                + "             -+-                     *     "
+                + Fore.WHITE
+                + "│"
+            )
+            print(
+                Back.MAGENTA
+                + Fore.WHITE
+                + "│"
+                + Fore.WHITE
+                + "   ▄▀▄               ▄▀▀ █                 "
+                + Fore.WHITE
+                + "│"
+            )
+            print(
+                Back.MAGENTA
+                + Fore.WHITE
+                + "│"
+                + Fore.WHITE
+                + "   █ █     ▀         ▀▄  █                 "
+                + Fore.WHITE
+                + "│"
+            )
+            print(
+                Back.MAGENTA
+                + Fore.WHITE
+                + "│"
+                + Fore.WHITE
+                + "   █ █ █▀▄ █ ▄▀▄ █▀▄  ▀▄ █▀▄ ▄▀▄ █▄▀ ▄█▄   "
+                + Fore.WHITE
+                + "│"
+            )
+            print(
+                Back.MAGENTA
+                + Fore.WHITE
+                + "│"
+                + Fore.WHITE
+                + "   ▀▄▀ █ █ █ ▀▄▀ █ █ ▄▄▀ █ █ ▀▄█ █   ▀▄▄   "
+                + Fore.WHITE
+                + "│"
+            )
+            print(
+                Back.MAGENTA
+                + Fore.WHITE
+                + "│                                           │"
+            )
+            left_spaces = (43 - len(self.version) - 1) // 2
+            right_spaces = left_spaces
+            if left_spaces + len(self.version) + 1 + right_spaces < 43:
+                right_spaces += 1
+            print(
+                Back.MAGENTA
+                + Fore.WHITE
+                + "│"
+                + Fore.WHITE
+                + f"{' '*left_spaces}v{self.version}{' '*right_spaces}"
+                + Fore.WHITE
+                + "│"
+            )
+            print(
+                Back.MAGENTA
+                + Fore.WHITE
+                + "│                                           │"
+            )
+            print(
+                Back.MAGENTA
+                + Fore.WHITE
+                + "│"
+                + Fore.WHITE
+                + "          https://onionshare.org/          "
+                + Fore.WHITE
+                + "│"
+            )
+            print(
+                Back.MAGENTA
+                + Fore.WHITE
+                + "╰───────────────────────────────────────────╯"
+            )
+            print()
+        except:
+            # If anything fails, print a boring banner
+            print(f"OnionShare v{self.version}")
+            print("https://onionshare.org/")
+            print()
 
     def load_settings(self, config=None):
         """
@@ -466,6 +475,19 @@ class Common:
             return valid_bridges
         else:
            return False
+
+    def is_flatpak(self):
+        """
+        Returns True if OnionShare is running in a Flatpak sandbox
+        """
+        return os.environ.get("FLATPAK_ID") == "org.onionshare.OnionShare"
+
+    def is_snapcraft(self):
+        """
+        Returns True if OnionShare is running in a Snapcraft sandbox
+        """
+        return os.environ.get("SNAP_INSTANCE_NAME") == "onionshare"
+
 
     @staticmethod
     def random_string(num_bytes, output_len=None):

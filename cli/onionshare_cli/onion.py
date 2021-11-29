@@ -29,6 +29,7 @@ import subprocess
 import time
 import shlex
 import psutil
+import traceback
 
 from distutils.version import LooseVersion as Version
 
@@ -354,6 +355,11 @@ class Onion(object):
                         f.write("\nUseBridges 1\n")
 
             # Execute a tor subprocess
+            self.common.log(
+                "Onion",
+                "connect",
+                f"starting {self.tor_path} subprocess",
+            )
             start_ts = time.time()
             if self.common.platform == "Windows":
                 # In Windows, hide console window when opening tor.exe subprocess
@@ -366,17 +372,32 @@ class Onion(object):
                     startupinfo=startupinfo,
                 )
             else:
+                if self.common.is_snapcraft():
+                    env = None
+                else:
+                    env = {"LD_LIBRARY_PATH": os.path.dirname(self.tor_path)}
+
                 self.tor_proc = subprocess.Popen(
                     [self.tor_path, "-f", self.tor_torrc],
                     stdout=subprocess.PIPE,
                     stderr=subprocess.PIPE,
-                    env={"LD_LIBRARY_PATH": os.path.dirname(self.tor_path)},
+                    env=env,
                 )
 
             # Wait for the tor controller to start
+            self.common.log(
+                "Onion",
+                "connect",
+                f"tor pid: {self.tor_proc.pid}",
+            )
             time.sleep(2)
 
             # Connect to the controller
+            self.common.log(
+                "Onion",
+                "connect",
+                "authenticating to tor controller",
+            )
             try:
                 if (
                     self.common.platform == "Windows"
@@ -389,6 +410,7 @@ class Onion(object):
                     self.c.authenticate()
             except Exception as e:
                 print("OnionShare could not connect to Tor:\n{}".format(e.args[0]))
+                print(traceback.format_exc())
                 raise BundledTorBroken(e.args[0])
 
             while True:
