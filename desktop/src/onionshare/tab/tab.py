@@ -242,6 +242,8 @@ class Tab(QtWidgets.QWidget):
             elif mode == "website":
                 self.filenames = self.settings.get("website", "filenames")
                 self.website_mode_clicked()
+            elif mode == "chat":
+                self.chat_mode_clicked()
         else:
             # This is a new tab
             self.settings = ModeSettings(self.common)

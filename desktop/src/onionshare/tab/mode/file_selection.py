@@ -185,6 +185,12 @@ class FileList(QtWidgets.QListWidget):
         """
         dragEnterEvent for dragging files and directories into the widget.
         """
+        # Drag and drop doesn't work in Flatpak, because of the sandbox
+        if self.common.is_flatpak():
+            Alert(self.common, strings._("gui_dragdrop_sandbox_flatpak").format())
+            event.ignore()
+            return
+
         if event.mimeData().hasUrls:
             self.setStyleSheet(self.common.gui.css["share_file_list_drag_enter"])
             count = len(event.mimeData().urls())
@@ -206,6 +212,11 @@ class FileList(QtWidgets.QListWidget):
         """
         dragLeaveEvent for dragging files and directories into the widget.
         """
+        # Drag and drop doesn't work in Flatpak, because of the sandbox
+        if self.common.is_flatpak():
+            event.ignore()
+            return
+
         self.setStyleSheet(self.common.gui.css["share_file_list_drag_leave"])
         self.drop_count.hide()
         event.accept()
@@ -215,6 +226,11 @@ class FileList(QtWidgets.QListWidget):
         """
         dragMoveEvent for dragging files and directories into the widget.
         """
+        # Drag and drop doesn't work in Flatpak, because of the sandbox
+        if self.common.is_flatpak():
+            event.ignore()
+            return
+
         if event.mimeData().hasUrls:
             event.setDropAction(QtCore.Qt.CopyAction)
             event.accept()
@@ -225,6 +241,11 @@ class FileList(QtWidgets.QListWidget):
         """
         dropEvent for dragging files and directories into the widget.
         """
+        # Drag and drop doesn't work in Flatpak, because of the sandbox
+        if self.common.is_flatpak():
+            event.ignore()
+            return
+
         if event.mimeData().hasUrls:
             event.setDropAction(QtCore.Qt.CopyAction)
             event.accept()
@@ -342,8 +363,15 @@ class FileSelection(QtWidgets.QVBoxLayout):
         self.file_list.files_dropped.connect(self.update)
         self.file_list.files_updated.connect(self.update)
 
+        # Sandboxes (for masOS, Flatpak, etc.) need separate add files and folders buttons, in
+        # order to use native file selection dialogs
+        if self.common.platform == "Darwin" or self.common.is_flatpak():
+            self.sandbox = True
+        else:
+            self.sandbox = False
+
         # Buttons
-        if self.common.platform == "Darwin":
+        if self.sandbox:
             # The macOS sandbox makes it so the Mac version needs separate add files
             # and folders buttons, in order to use native file selection dialogs
             self.add_files_button = QtWidgets.QPushButton(strings._("gui_add_files"))
@@ -357,7 +385,7 @@ class FileSelection(QtWidgets.QVBoxLayout):
         self.remove_button.clicked.connect(self.delete)
         button_layout = QtWidgets.QHBoxLayout()
         button_layout.addStretch()
-        if self.common.platform == "Darwin":
+        if self.sandbox:
             button_layout.addWidget(self.add_files_button)
             button_layout.addWidget(self.add_folder_button)
         else:
@@ -376,14 +404,14 @@ class FileSelection(QtWidgets.QVBoxLayout):
         """
         # All buttons should be hidden if the server is on
         if self.server_on:
-            if self.common.platform == "Darwin":
+            if self.sandbox:
                 self.add_files_button.hide()
                 self.add_folder_button.hide()
             else:
                 self.add_button.hide()
             self.remove_button.hide()
         else:
-            if self.common.platform == "Darwin":
+            if self.sandbox:
                 self.add_files_button.show()
                 self.add_folder_button.show()
             else:
@@ -407,6 +435,7 @@ class FileSelection(QtWidgets.QVBoxLayout):
         """
         file_dialog = AddFileDialog(self.common, caption=strings._("gui_choose_items"))
         if file_dialog.exec_() == QtWidgets.QDialog.Accepted:
+            self.common.log("FileSelection", "add", file_dialog.selectedFiles())
             for filename in file_dialog.selectedFiles():
                 self.file_list.add_file(filename)
 
@@ -415,25 +444,34 @@ class FileSelection(QtWidgets.QVBoxLayout):
 
     def add_files(self):
         """
-        Add files button clicked.
+        Add Files button clicked.
         """
         files = QtWidgets.QFileDialog.getOpenFileNames(
             self.parent, caption=strings._("gui_choose_items")
         )
+        self.common.log("FileSelection", "add_files", files)
+
         filenames = files[0]
         for filename in filenames:
             self.file_list.add_file(filename)
 
+        self.file_list.setCurrentItem(None)
+        self.update()
+
     def add_folder(self):
         """
-        Add folder button clicked.
+        Add Folder button clicked.
         """
         filename = QtWidgets.QFileDialog.getExistingDirectory(
             self.parent,
             caption=strings._("gui_choose_items"),
             options=QtWidgets.QFileDialog.ShowDirsOnly,
         )
-        self.file_list.add_file(filename)
+        self.common.log("FileSelection", "add_folder", filename)
+        if filename:
+            self.file_list.add_file(filename)
+            self.file_list.setCurrentItem(None)
+            self.update()
 
     def delete(self):
         """
