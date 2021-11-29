@@ -49,90 +49,91 @@ class AutoConnectTab(QtWidgets.QWidget):
         self.curr_settings.load()
         self.auto_connect_enabled = self.curr_settings.get("auto_connect")
 
-        if self.auto_connect_enabled:
-            self.parent().start_onionshare()
-        else:
-            # Onionshare logo
-            self.image_label = QtWidgets.QLabel()
-            self.image_label.setPixmap(
-                QtGui.QPixmap.fromImage(
-                    QtGui.QImage(
-                        GuiCommon.get_resource_path(
-                            "images/{}_logo_text_bg.png".format(common.gui.color_mode)
-                        )
+        # Onionshare logo
+        self.image_label = QtWidgets.QLabel()
+        self.image_label.setPixmap(
+            QtGui.QPixmap.fromImage(
+                QtGui.QImage(
+                    GuiCommon.get_resource_path(
+                        "images/{}_logo_text_bg.png".format(common.gui.color_mode)
                     )
                 )
             )
-            self.image_label.setFixedSize(322, 65)
-            image_layout = QtWidgets.QVBoxLayout()
-            image_layout.addWidget(self.image_label)
-            self.image = QtWidgets.QWidget()
-            self.image.setLayout(image_layout)
+        )
+        self.image_label.setFixedSize(322, 65)
+        image_layout = QtWidgets.QVBoxLayout()
+        image_layout.addWidget(self.image_label)
+        self.image = QtWidgets.QWidget()
+        self.image.setLayout(image_layout)
 
-            # Description and checkbox
-            description_label = QtWidgets.QLabel(strings._("gui_autoconnect_description"))
-            self.enable_autoconnect_checkbox = QtWidgets.QCheckBox() 
-            self.enable_autoconnect_checkbox.clicked.connect(self.toggle_auto_connect)
-            self.enable_autoconnect_checkbox.setText(
-                strings._("gui_enable_autoconnect_checkbox")
-            )
-            self.enable_autoconnect_checkbox.setFixedWidth(400)
-            self.enable_autoconnect_checkbox.setStyleSheet(
-                common.gui.css["enable_autoconnect"]
-            )
-            description_layout = QtWidgets.QVBoxLayout()
-            description_layout.addWidget(description_label)
-            description_layout.addWidget(self.enable_autoconnect_checkbox)
-            description_widget = QtWidgets.QWidget()
-            description_widget.setLayout(description_layout)
+        # Description and checkbox
+        description_label = QtWidgets.QLabel(strings._("gui_autoconnect_description"))
+        self.enable_autoconnect_checkbox = QtWidgets.QCheckBox() 
+        self.enable_autoconnect_checkbox.clicked.connect(self.toggle_auto_connect)
+        self.enable_autoconnect_checkbox.setText(
+            strings._("gui_enable_autoconnect_checkbox")
+        )
+        self.enable_autoconnect_checkbox.setFixedWidth(400)
+        self.enable_autoconnect_checkbox.setStyleSheet(
+            common.gui.css["enable_autoconnect"]
+        )
+        description_layout = QtWidgets.QVBoxLayout()
+        description_layout.addWidget(description_label)
+        description_layout.addWidget(self.enable_autoconnect_checkbox)
+        description_widget = QtWidgets.QWidget()
+        description_widget.setLayout(description_layout)
 
-            # Tor connection widget
-            self.tor_con = TorConnectionWidget(self.common, self.status_bar)
-            self.tor_con.success.connect(self.tor_con_success)
-            self.tor_con.fail.connect(self.tor_con_fail)
-            self.tor_con.hide()
+        # Tor connection widget
+        self.tor_con = TorConnectionWidget(self.common, self.status_bar)
+        self.tor_con.success.connect(self.tor_con_success)
+        self.tor_con.fail.connect(self.tor_con_fail)
+        self.tor_con.hide()
 
-            # Error label
-            self.error_label = QtWidgets.QLabel()
-            self.error_label.setStyleSheet(self.common.gui.css["tor_settings_error"])
-            self.error_label.setWordWrap(True)
+        # Error label
+        self.error_label = QtWidgets.QLabel()
+        self.error_label.setStyleSheet(self.common.gui.css["tor_settings_error"])
+        self.error_label.setWordWrap(True)
 
-            # CTA buttons
-            self.connect_button = QtWidgets.QPushButton(strings._("gui_autoconnect_start"))
-            self.connect_button.clicked.connect(self.connect_clicked)
-            self.connect_button.setFixedWidth(150)
-            self.connect_button.setStyleSheet(
-                common.gui.css["autoconnect_start_button"]
-            )
-            self.configure_button = QtWidgets.QPushButton(strings._("gui_autoconnect_configure"))
-            self.configure_button.setFlat(True)
-            self.configure_button.setStyleSheet(
-                common.gui.css["autoconnect_configure_button"]
-            )
-            cta_layout = QtWidgets.QHBoxLayout()
-            cta_layout.addWidget(self.connect_button)
-            cta_layout.addWidget(self.configure_button)
-            cta_widget = QtWidgets.QWidget()
-            cta_widget.setLayout(cta_layout)
+        # CTA buttons
+        self.connect_button = QtWidgets.QPushButton(strings._("gui_autoconnect_start"))
+        self.connect_button.clicked.connect(self.connect_clicked)
+        self.connect_button.setFixedWidth(150)
+        self.connect_button.setStyleSheet(
+            common.gui.css["autoconnect_start_button"]
+        )
+        self.configure_button = QtWidgets.QPushButton(strings._("gui_autoconnect_configure"))
+        self.configure_button.clicked.connect(self.open_tor_settings)
+        self.configure_button.setFlat(True)
+        self.configure_button.setStyleSheet(
+            common.gui.css["autoconnect_configure_button"]
+        )
+        cta_layout = QtWidgets.QHBoxLayout()
+        cta_layout.addWidget(self.connect_button)
+        cta_layout.addWidget(self.configure_button)
+        cta_widget = QtWidgets.QWidget()
+        cta_widget.setLayout(cta_layout)
 
 
-            # Layout
-            content_layout = QtWidgets.QVBoxLayout()
-            content_layout.addStretch()
-            content_layout.addWidget(self.image)
-            content_layout.addWidget(description_widget)
-            content_layout.addWidget(self.tor_con)
-            content_layout.addWidget(cta_widget)
-            content_layout.addStretch()
-            content_layout.setAlignment(QtCore.Qt.AlignCenter)
-            content_widget = QtWidgets.QWidget()
-            content_widget.setLayout(content_layout)
+        # Layout
+        content_layout = QtWidgets.QVBoxLayout()
+        content_layout.addStretch()
+        content_layout.addWidget(self.image)
+        content_layout.addWidget(description_widget)
+        content_layout.addWidget(self.tor_con)
+        content_layout.addWidget(cta_widget)
+        content_layout.addStretch()
+        content_layout.setAlignment(QtCore.Qt.AlignCenter)
+        content_widget = QtWidgets.QWidget()
+        content_widget.setLayout(content_layout)
 
-            self.layout = QtWidgets.QHBoxLayout()
-            self.layout.addWidget(content_widget)
-            self.layout.addStretch()
+        self.layout = QtWidgets.QHBoxLayout()
+        self.layout.addWidget(content_widget)
+        self.layout.addStretch()
 
-            self.setLayout(self.layout)
+        self.setLayout(self.layout)
+
+        if self.auto_connect_enabled:
+            self.connect_clicked()
 
     def toggle_auto_connect(self):
         """
