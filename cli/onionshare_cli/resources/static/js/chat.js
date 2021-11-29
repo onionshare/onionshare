@@ -82,7 +82,7 @@ var emitMessage = function (socket) {
 
 var updateUsername = function (socket) {
   var username = $('#username').val();
-  if (!checkUsernameExists(username) && !checkUsernameTooLong(username)) {
+  if (!checkUsernameExists(username) && !checkUsernameTooLong(username) && !checkUsernameAscii(username)) {
     $.ajax({
       method: 'POST',
       url: `http://${document.domain}:${location.port}/update-session-username`,
@@ -115,6 +115,16 @@ var createUserListHTML = function (connected_users, current_user) {
     }
   });
   return userListHTML;
+}
+
+var checkUsernameAscii = function (username) {
+  // ASCII characters have code points in the range U+0000-U+007F.
+  $('#username-error').text('');
+  if (!/^[\u0000-\u007f]*$/.test(username)) {
+    $('#username-error').text('Non-ASCII usernames are not supported.');
+    return true;
+  }
+  return false;
 }
 
 var checkUsernameExists = function (username) {

@@ -51,6 +51,7 @@ class ChatModeWeb:
         username = username.strip()
         return (
             username
+            and username.isascii()
             and username not in self.connected_users
             and len(username) < 128
         )
