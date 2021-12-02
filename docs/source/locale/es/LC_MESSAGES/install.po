@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2021-09-09 19:15-0700\n"
-"PO-Revision-Date: 2021-09-21 15:39+0000\n"
-"Last-Translator: carlosm2 <carlosm2@riseup.net>\n"
+"PO-Revision-Date: 2021-10-09 09:04+0000\n"
+"Last-Translator: Zuhualime Akoochimoya <zakooch@protonmail.ch>\n"
 "Language-Team: none\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -82,7 +82,7 @@ msgstr ""
 
 #: ../../source/install.rst:28
 msgid "Command-line only"
-msgstr ""
+msgstr "Solo línea de comandos"
 
 #: ../../source/install.rst:30
 msgid ""
@@ -90,10 +90,13 @@ msgid ""
 "operating system using the Python package manager ``pip``. See :ref:`cli`"
 " for more information."
 msgstr ""
+"Puedes instalar solo la versión de consola de OnionShare en cualquier "
+"sistema operativo usando el gestor de paquetes ``pip`` de Python. Ver "
+":ref:`cli` para más información."
 
 #: ../../source/install.rst:35
 msgid "Verifying PGP signatures"
-msgstr "Verificar firmas PGP"
+msgstr "Verificando firmas PGP"
 
 #: ../../source/install.rst:37
 msgid ""
@@ -179,7 +182,6 @@ msgid "The expected output looks like this::"
 msgstr "La salida esperada se parece a esta::"
 
 #: ../../source/install.rst:76
-#, fuzzy
 msgid ""
 "If you don't see ``Good signature from``, there might be a problem with "
 "the integrity of the file (malicious or otherwise), and you should not "
@@ -187,11 +189,11 @@ msgid ""
 " the package, it only means you haven't defined a level of \"trust\" of "
 "Micah's PGP key.)"
 msgstr ""
-"Si no ves 'Good signature from', entonces podría haber un problema con la"
-" integridad del archivo (malicioso u otra causa), y no deberías instalar "
-"el paquete. (La \"ADVERTENCIA:\" mostrada arriba no es un problema con el"
-" paquete: solamente significa que no has definido ningún nivel de "
-"'confianza' con respecto a la clave PGP de Micah.)"
+"Si no ves 'Good signature from', entonces podría haber un problema con la "
+"integridad del archivo (malicioso u otra causa), y no deberías instalar el "
+"paquete. (La \"ADVERTENCIA:\" mostrada arriba no es un problema con el "
+"paquete: solamente significa que no has definido ningún nivel de 'confianza' "
+"con respecto a la clave PGP de Micah.)"
 
 #: ../../source/install.rst:78
 msgid ""

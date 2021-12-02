@@ -58,7 +58,7 @@ This prints a lot of helpful messages to the terminal, such as when certain obje
     │   █ █ █▀▄ █ ▄▀▄ █▀▄  ▀▄ █▀▄ ▄▀▄ █▄▀ ▄█▄   │
     │   ▀▄▀ █ █ █ ▀▄▀ █ █ ▄▄▀ █ █ ▀▄█ █   ▀▄▄   │
     │                                           │
-    │                   v2.4                    │
+    │                  v2.4.1                   │
     │                                           │
     │          https://onionshare.org/          │
     ╰───────────────────────────────────────────╯
@@ -144,7 +144,7 @@ You can do this with the ``--local-only`` flag. For example::
     │   █ █ █▀▄ █ ▄▀▄ █▀▄  ▀▄ █▀▄ ▄▀▄ █▄▀ ▄█▄   │
     │   ▀▄▀ █ █ █ ▀▄▀ █ █ ▄▄▀ █ █ ▀▄█ █   ▀▄▄   │
     │                                           │
-    │                   v2.4                    │
+    │                  v2.4.1                   │
     │                                           │
     │          https://onionshare.org/          │
     ╰───────────────────────────────────────────╯

@@ -3,33 +3,37 @@
 # This file is distributed under the same license as the OnionShare package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2020-12-13 15:48-0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2021-11-26 18:53+0000\n"
+"Last-Translator: Blax <blacxbloc@protonmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.10-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/install.rst:2
 msgid "Installation"
-msgstr ""
+msgstr "安装"
 
 #: ../../source/install.rst:5
 msgid "Windows or macOS"
-msgstr ""
+msgstr "安装到 Windows 或 macOS"
 
 #: ../../source/install.rst:7
 msgid ""
 "You can download OnionShare for Windows and macOS from the `OnionShare "
 "website <https://onionshare.org/>`_."
 msgstr ""
+"你可以从 `OnionShare website <https://onionshare.org/>` 下载适用于 Windows 和 macOS 的 "
+"OnionShare。"
 
 #: ../../source/install.rst:12
 msgid "Install in Linux"
@@ -43,32 +47,41 @@ msgid ""
 "that you'll always use the newest version and run OnionShare inside of a "
 "sandbox."
 msgstr ""
+"这有几种方式安装适用于 Linux 的 OnionShare，但推荐使用 `Flatpak <https://flatpak.org/>` 或 `"
+"Snap <https://snapcraft.io/>` 的软件包来安装。Flatpak 和 Snap 确保你将总能使用最新版本的 "
+"OnionShare 并在一个沙箱里运行它。"
 
 #: ../../source/install.rst:17
 msgid ""
 "Snap support is built-in to Ubuntu and Fedora comes with Flatpak support,"
 " but which you use is up to you. Both work in all Linux distributions."
 msgstr ""
+"Ubuntu 内建对 Snap 的支持而 Fedora 附带对 Flatpak 的支持，但选择哪一种取决于你。这两种都能在所有的 Linux "
+"发行版上使用。"
 
 #: ../../source/install.rst:19
 msgid ""
 "**Install OnionShare using Flatpak**: "
 "https://flathub.org/apps/details/org.onionshare.OnionShare"
 msgstr ""
+"**使用 Flatpak 安装 OnionShare**: https://flathub.org/apps/details/org.onionshare"
+".OnionShare"
 
 #: ../../source/install.rst:21
 msgid "**Install OnionShare using Snap**: https://snapcraft.io/onionshare"
-msgstr ""
+msgstr "**使用 Snap 安装 OnionShare**: https://snapcraft.io/onionshare"
 
 #: ../../source/install.rst:23
 msgid ""
 "You can also download and install PGP-signed ``.flatpak`` or ``.snap`` "
 "packages from https://onionshare.org/dist/ if you prefer."
 msgstr ""
+"如果你愿意的话，你也可以从 https://onionshare.org/dist/ 下载和安装 PGP 签署过的 ``.flatpak`` 或 ``."
+"snap`` 软件包。"
 
 #: ../../source/install.rst:28
 msgid "Verifying PGP signatures"
-msgstr ""
+msgstr "验证 PGP 签名"
 
 #: ../../source/install.rst:30
 msgid ""
@@ -78,10 +91,12 @@ msgid ""
 "binaries include operating system-specific signatures, and you can just "
 "rely on those alone if you'd like."
 msgstr ""
+"你可以通过验证其 PGP 签名来验证你下载的软件包是可靠且未被篡改过的。对于 Windows 和 macOS 来说，这一步是可选的，并提供更深层次的保护："
+"OnionShare 的二进制文件中包含操作系统特定的数字签名，如果你愿意的话，你可以只依赖这些签名。"
 
 #: ../../source/install.rst:34
 msgid "Signing key"
-msgstr ""
+msgstr "签名密钥"
 
 #: ../../source/install.rst:36
 msgid ""
@@ -91,6 +106,10 @@ msgid ""
 "<https://keys.openpgp.org/vks/v1/by-"
 "fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 msgstr ""
+"软件包由核心开发者 Micah Lee 通过使用他的 PGP 公钥签名，其指纹为 "
+"``927F419D7EC82C2F149C1BD1403C2657CD994F73``。你可以下载 Micah 的公钥 `从 "
+"keys.openpgp.org keyserver <https://keys.openpgp.org/vks/v1/by-fingerprint/"
+"927F419D7EC82C2F149C1BD1403C2657CD994F73>`。"
 
 #: ../../source/install.rst:38
 msgid ""
@@ -98,10 +117,12 @@ msgid ""
 "probably want `GPGTools <https://gpgtools.org/>`_, and for Windows you "
 "probably want `Gpg4win <https://www.gpg4win.org/>`_."
 msgstr ""
+"你必须安装 GnuPG 来验证签名，对于 macOS 你可能想要 `GPGTools <https://gpgtools.org/>`，对于 "
+"Windows 你可能想要 `Gpg4win <https://www.gpg4win.org/>`。"
 
 #: ../../source/install.rst:41
 msgid "Signatures"
-msgstr ""
+msgstr "签名"
 
 #: ../../source/install.rst:43
 msgid ""
@@ -111,10 +132,13 @@ msgid ""
 "OnionShare. You can also find them on the `GitHub Releases page "
 "<https://github.com/micahflee/onionshare/releases>`_."
 msgstr ""
+"你可以在 https://onionshare.org/dist/ 下以 OnionShare 每个版本命名的文件夹中找到这些签名（以 ``.asc`` "
+"文件形式），以及对应 Windows、macOS、Flatpak、Snap 的 OnionShare 安装包和源码包。你也能在 `GitHub "
+"Releases page <https://github.com/micahflee/onionshare/releases>` 上找到它们。"
 
 #: ../../source/install.rst:47
 msgid "Verifying"
-msgstr ""
+msgstr "验证"
 
 #: ../../source/install.rst:49
 msgid ""
@@ -122,14 +146,16 @@ msgid ""
 "downloaded the binary and and ``.asc`` signature, you can verify the "
 "binary for macOS in a terminal like this::"
 msgstr ""
+"只要你导入过 Micah 的公钥到你的 GnuPG 密钥串上，下载好（被 Micah 的密钥签署过的）二进制文件和 ``.asc`` 签名文件，"
+"你就可以在 macOS 的终端中验证这个二进制文件，像这样："
 
 #: ../../source/install.rst:53
 msgid "Or for Windows, in a command-prompt like this::"
-msgstr ""
+msgstr "或是在 Windows 的命令提示符（cmd）中："
 
 #: ../../source/install.rst:57
 msgid "The expected output looks like this::"
-msgstr ""
+msgstr "期望的输出看起来像是这样："
 
 #: ../../source/install.rst:69
 msgid ""
@@ -147,6 +173,9 @@ msgid ""
 " the `Tor Project <https://support.torproject.org/tbb/how-to-verify-"
 "signature/>`_ may be useful."
 msgstr ""
+"如果你想了解更多有关验证 PGP 签名的知识，这几篇指南 `Qubes OS <https://www.qubes-os.org/security/"
+"verifying-signatures/>` 和 `Tor Project <https://support.torproject.org/tbb/"
+"how-to-verify-signature/>` 可能会有帮助。"
 
 #~ msgid "Install on Windows or macOS"
 #~ msgstr ""
@@ -333,4 +362,3 @@ msgstr ""
 #~ "Project <https://support.torproject.org/tbb/how-to-"
 #~ "verify-signature/>`_ may be helpful."
 #~ msgstr ""
-

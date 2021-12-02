@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2021-09-09 19:49-0700\n"
-"PO-Revision-Date: 2021-05-11 20:47+0000\n"
-"Last-Translator: Mr.Grin <grin-singularity@tutanota.com>\n"
-"Language: el\n"
+"PO-Revision-Date: 2021-10-09 09:04+0000\n"
+"Last-Translator: george kitsoukakis <norhorn@gmail.com>\n"
 "Language-Team: el <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
+"Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.9-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/advanced.rst:2
@@ -53,16 +54,15 @@ msgstr ""
 "καρφίτσωσης στα αριστερά της κατάστασης του διακομιστή."
 
 #: ../../source/advanced.rst:18
-#, fuzzy
 msgid ""
 "When you quit OnionShare and then open it again, your saved tabs will "
 "start opened. You'll have to manually start each service, but when you do"
 " they will start with the same OnionShare address and private key."
 msgstr ""
 "Όταν κάνετε έξοδο από το OnionShare και άνοιγμα ξανά, οι αποθηκευμένες "
-"καρτέλες σας θα ξεκινήσουν ανοιχτές. Θα πρέπει να εκκινήσετε χειροκίνητα "
-"την κάθε υπηρεσία, αλλά θα ξεκινήσουν με την ίδια διεύθυνση και κωδικό "
-"OnionShare."
+"καρτέλες σας θα ξεκινήσουν ανοιχτές. Θα πρέπει να εκκινήσετε χειροκίνητα την "
+"κάθε υπηρεσία, αλλά θα ξεκινήσουν με την ίδια διεύθυνση OnionShare και "
+"ιδιωτικό κλειδί."
 
 #: ../../source/advanced.rst:21
 msgid ""
@@ -75,35 +75,35 @@ msgstr ""
 
 #: ../../source/advanced.rst:26
 msgid "Turn Off Private Key"
-msgstr ""
+msgstr "Απενεργοποίηση ιδιωτικού κλειδιού"
 
 #: ../../source/advanced.rst:28
 msgid ""
 "By default, all OnionShare services are protected with a private key, "
 "which Tor calls \"client authentication\"."
 msgstr ""
+"Από προεπιλογή, όλες οι υπηρεσίες OnionShare προστατεύονται με ένα ιδιωτικό "
+"κλειδί, το οποίο ονομάζεται \"πιστοποίηση πελάτη\"."
 
 #: ../../source/advanced.rst:30
 msgid ""
 "When browsing to an OnionShare service in Tor Browser, Tor Browser will "
 "prompt for the private key to be entered."
 msgstr ""
+"Κατά την περιήγηση σε μια υπηρεσία OnionShare με το Tor Browser, θα σας "
+"ζητηθεί να εισαγάγετε το ιδιωτικό κλειδί."
 
 #: ../../source/advanced.rst:32
-#, fuzzy
 msgid ""
 "Sometimes you might want your OnionShare service to be accessible to the "
 "public, like if you want to set up an OnionShare receive service so the "
 "public can securely and anonymously send you files. In this case, it's "
 "better to disable the private key altogether."
 msgstr ""
-"Μερικές φορές μπορεί να θέλετε η υπηρεσία OnionShare να είναι δημόσια "
-"προσβάσιμη, ή να ρυθμίσετε την υπηρεσία λήψης OnionShare ώστε να μπορεί "
-"κάποιος να σας στέλνει με ασφάλεια και ανώνυμα αρχεία. Σε αυτήν την "
-"περίπτωση, είναι καλύτερα να απενεργοποιήσετε εντελώς τον κωδικό "
-"πρόσβασης. Εάν δεν το κάνετε αυτό, κάποιος μπορεί να αναγκάσει τον "
-"διακομιστή σας να σταματήσει απλά κάνοντας 20 λανθασμένες δοκιμές για τον"
-" κωδικό πρόσβασής σας, ακόμη και αν γνωρίζουν τον σωστό."
+"Μερικές φορές μπορεί να θέλετε η υπηρεσία σας OnionShare να είναι δημόσια "
+"προσβάσιμη, ή να μπορεί κάποιος να σας στέλνει με ασφάλεια και ανώνυμα, "
+"αρχεία. Σε αυτήν την περίπτωση, είναι καλύτερα να απενεργοποιήσετε το "
+"ιδιωτικό κλειδί."
 
 #: ../../source/advanced.rst:35
 msgid ""
@@ -112,6 +112,11 @@ msgid ""
 "server. Then the server will be public and won't need a private key to "
 "view in Tor Browser."
 msgstr ""
+"Για να απενεργοποιήσετε το ιδιωτικό κλειδί για οποιαδήποτε καρτέλα, "
+"τσεκάρετε το πλαίσιο \"Δημόσια υπηρεσία OnionShare (απενεργοποιεί το "
+"ιδιωτικό κλειδί)\" πριν από την εκκίνηση του διακομιστή. Τότε ο διακομιστής "
+"θα είναι δημόσιος και δεν θα χρειάζεται ιδιωτικό κλειδί για να τον "
+"εμφανίσετε στο Tor Browser."
 
 #: ../../source/advanced.rst:40
 msgid "Custom Titles"
@@ -181,16 +186,15 @@ msgstr ""
 "ακυρώσετε την υπηρεσία πριν αυτή ξεκινήσει."
 
 #: ../../source/advanced.rst:60
-#, fuzzy
 msgid ""
 "**Scheduling an OnionShare service to automatically stop can be useful to"
 " limit exposure**, like if you want to share secret documents while "
 "making sure they're not available on the internet for more than a few "
 "days."
 msgstr ""
-"**Η προγραμματισμένη διακοπή της υπηρεσίας διαμοιρασμού OnionShare, είναι"
-" χρήσιμη για τον περιορισμό της έκθεσής σας**, όπως εάν επιθυμείτε τον "
-"διαμοιρασμό κρυφών αρχείων στο Διαδίκτυο για συγκεκριμένο χρόνο."
+"**Ο προγραμματισμένος τερματισμός της υπηρεσίας διαμοιρασμού OnionShare, "
+"περιορίζει το χρόνο έκθεσής σας**, όπως εάν επιθυμείτε τον διαμοιρασμό "
+"μυστικών αρχείων στο Διαδίκτυο για συγκεκριμένο χρόνο."
 
 #: ../../source/advanced.rst:67
 msgid "Command-line Interface"
@@ -231,6 +235,9 @@ msgid ""
 "<https://github.com/onionshare/onionshare/blob/develop/cli/README.md>`_ "
 "in the git repository."
 msgstr ""
+"Για πληροφορίες σχετικά με την εγκατάστασή του σε διαφορετικά λειτουργικά "
+"συστήματα, ανατρέξτε στο αρχείο `CLI readme file <https://github.com/"
+"onionshare/onionshare/blob/develop/cli/README.md>`_ στο αποθετήριο git."
 
 #: ../../source/advanced.rst:83
 msgid ""
@@ -578,4 +585,3 @@ msgstr ""
 #~ "<https://github.com/onionshare/onionshare/blob/develop/cli/README.md>`_"
 #~ " in the git repository."
 #~ msgstr ""
-

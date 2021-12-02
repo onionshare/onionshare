@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2021-09-09 19:49-0700\n"
-"PO-Revision-Date: 2021-09-19 15:37+0000\n"
-"Last-Translator: souovan <souovan@protonmail.com>\n"
-"Language: pt_BR\n"
+"PO-Revision-Date: 2021-10-24 21:38+0000\n"
+"Last-Translator: Gabriel Cardoso <g.cardoso@mailfence.com>\n"
 "Language-Team: pt_BR <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=n > 1\n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.9-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/advanced.rst:2
@@ -57,6 +58,10 @@ msgid ""
 "start opened. You'll have to manually start each service, but when you do"
 " they will start with the same OnionShare address and private key."
 msgstr ""
+"Quando você sair do OnionShare e depois entrar novamente, suas abas salvas "
+"começarão a ser abertas. Você terá que iniciar manualmente cada serviço, mas "
+"quando o fizer, eles começarão com o mesmo endereço e chave privada do "
+"OnionShare."
 
 #: ../../source/advanced.rst:21
 msgid ""
@@ -69,19 +74,23 @@ msgstr ""
 
 #: ../../source/advanced.rst:26
 msgid "Turn Off Private Key"
-msgstr ""
+msgstr "Desligar Chave Privada"
 
 #: ../../source/advanced.rst:28
 msgid ""
 "By default, all OnionShare services are protected with a private key, "
 "which Tor calls \"client authentication\"."
 msgstr ""
+"Por padrão, todos os serviços do OnionShare são protegidos com uma chave "
+"privada, que o Tor chama de \"autenticação de cliente\"."
 
 #: ../../source/advanced.rst:30
 msgid ""
 "When browsing to an OnionShare service in Tor Browser, Tor Browser will "
 "prompt for the private key to be entered."
 msgstr ""
+"Ao navegar para um serviço OnionShare no Tor Browser, o Tor Browser irá "
+"solicitar que a chave privada seja inserida."
 
 #: ../../source/advanced.rst:32
 msgid ""
@@ -90,6 +99,10 @@ msgid ""
 "public can securely and anonymously send you files. In this case, it's "
 "better to disable the private key altogether."
 msgstr ""
+"Às vezes você pode querer que seu serviço OnionShare seja acessível ao "
+"público, como quando você quiser configurar um serviço OnionShare para que o "
+"público possa enviar arquivos de forma segura e anônima para você. Neste "
+"caso, é melhor desativar a chave privada por completo."
 
 #: ../../source/advanced.rst:35
 msgid ""
@@ -101,7 +114,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:40
 msgid "Custom Titles"
-msgstr ""
+msgstr "Títulos Personalizados"
 
 #: ../../source/advanced.rst:42
 msgid ""
@@ -167,6 +180,10 @@ msgid ""
 "making sure they're not available on the internet for more than a few "
 "days."
 msgstr ""
+"**Agendar um serviço OnionShare para parar automaticamente pode ser útil "
+"para limitar a exposição**, como quando você quiser compartilhar documentos "
+"secretos enquanto se certifica de que eles não estão disponíveis na internet "
+"por mais de alguns dias."
 
 #: ../../source/advanced.rst:67
 msgid "Command-line Interface"
@@ -207,6 +224,9 @@ msgid ""
 "<https://github.com/onionshare/onionshare/blob/develop/cli/README.md>`_ "
 "in the git repository."
 msgstr ""
+"Para informações sobre como instalá-lo em diferentes sistemas operacionais, "
+"veja o arquivo `CLI readme <https://github.com/onionshare/onionshare/blob/"
+"develop/cli/README.md>`_ no repositório do git."
 
 #: ../../source/advanced.rst:83
 msgid ""
@@ -533,4 +553,3 @@ msgstr ""
 #~ " services will be removed from "
 #~ "OnionShare before then."
 #~ msgstr ""
-
