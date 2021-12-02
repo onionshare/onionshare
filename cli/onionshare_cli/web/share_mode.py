@@ -467,7 +467,7 @@ class ShareModeWeb(SendBaseModeWeb):
                 return self.web.error404(history_id)
 
     def build_zipfile_list(self, filenames, processed_size_callback=None):
-        self.common.log("ShareModeWeb", "build_zipfile_list")
+        self.common.log("ShareModeWeb", "build_zipfile_list", f"filenames={filenames}")
         for filename in filenames:
             info = {
                 "filename": filename,
@@ -492,7 +492,7 @@ class ShareModeWeb(SendBaseModeWeb):
                 self.download_etag = make_etag(f)
 
             # Compress the file with gzip now, so we don't have to do it on each request
-            self.gzip_file = tempfile.TemporaryFile(
+            self.gzip_file = tempfile.NamedTemporaryFile(
                 "wb+", dir=self.common.build_tmp_dir()
             )
             self._gzip_compress(
