@@ -504,10 +504,13 @@ class ShareModeWeb(SendBaseModeWeb):
 
             self.is_zipped = False
 
+            # Cleanup this tempfile
+            self.web.cleanup_tempfiles.append(self.gzip_file)
+
         else:
             # Zip up the files and folders
             self.zip_writer = ZipWriter(
-                self.common, processed_size_callback=processed_size_callback
+                self.common, self.web, processed_size_callback=processed_size_callback
             )
             self.download_filename = self.zip_writer.zip_filename
             for info in self.file_info["files"]:
@@ -538,8 +541,9 @@ class ZipWriter(object):
     filename.
     """
 
-    def __init__(self, common, zip_filename=None, processed_size_callback=None):
+    def __init__(self, common, web, zip_filename=None, processed_size_callback=None):
         self.common = common
+        self.web = web
         self.cancel_compression = False
 
         if zip_filename:
@@ -549,6 +553,9 @@ class ZipWriter(object):
                 dir=self.common.build_tmp_dir()
             )
             self.zip_filename = f"{self.zip_temp_dir.name}/onionshare_{self.common.random_string(4, 6)}.zip"
+
+            # Cleanup this temp dir
+            self.web.cleanup_tempdirs.append(self.zip_temp_dir)
 
         self.z = zipfile.ZipFile(self.zip_filename, "w", allowZip64=True)
         self.processed_size_callback = processed_size_callback

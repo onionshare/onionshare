@@ -155,7 +155,8 @@ class Web:
             self.socketio.init_app(self.app)
             self.chat_mode = ChatModeWeb(self.common, self)
 
-        self.cleanup_filenames = []
+        self.cleanup_tempfiles = []
+        self.cleanup_tempdirs = []
 
     def get_mode(self):
         if self.mode == "share":
@@ -199,7 +200,10 @@ class Web:
             for header, value in self.security_headers:
                 r.headers.set(header, value)
             # Set a CSP header unless in website mode and the user has disabled it
-            if not self.settings.get("website", "disable_csp") or self.mode != "website":
+            if (
+                not self.settings.get("website", "disable_csp")
+                or self.mode != "website"
+            ):
                 r.headers.set(
                     "Content-Security-Policy",
                     "default-src 'self'; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; img-src 'self' data:;",
@@ -380,14 +384,13 @@ class Web:
         """
         self.common.log("Web", "cleanup")
 
-        # Cleanup files
-        try:
-            for filename in self.cleanup_filenames:
-                if os.path.isfile(filename):
-                    os.remove(filename)
-                elif os.path.isdir(filename):
-                    shutil.rmtree(filename)
-        except Exception:
-            # Don't crash if file is still in use
-            pass
-        self.cleanup_filenames = []
+        # Close all of the tempfile.NamedTemporaryFile
+        for file in self.cleanup_tempfiles:
+            file.close()
+
+        # Clean up the tempfile.NamedTemporaryDirectory objects
+        for dir in self.cleanup_tempdirs:
+            dir.cleanup()
+
+        self.cleanup_tempfiles = []
+        self.cleanup_tempdirs = []
