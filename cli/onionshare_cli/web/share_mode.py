@@ -541,7 +541,9 @@ class ZipWriter(object):
     filename.
     """
 
-    def __init__(self, common, web, zip_filename=None, processed_size_callback=None):
+    def __init__(
+        self, common, web=None, zip_filename=None, processed_size_callback=None
+    ):
         self.common = common
         self.web = web
         self.cancel_compression = False
@@ -555,7 +557,8 @@ class ZipWriter(object):
             self.zip_filename = f"{self.zip_temp_dir.name}/onionshare_{self.common.random_string(4, 6)}.zip"
 
             # Cleanup this temp dir
-            self.web.cleanup_tempdirs.append(self.zip_temp_dir)
+            if self.web:
+                self.web.cleanup_tempdirs.append(self.zip_temp_dir)
 
         self.z = zipfile.ZipFile(self.zip_filename, "w", allowZip64=True)
         self.processed_size_callback = processed_size_callback
