@@ -3,23 +3,25 @@
 # This file is distributed under the same license as the OnionShare package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2020-11-15 14:42-0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2021-11-26 18:53+0000\n"
+"Last-Translator: Blax <blacxbloc@protonmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.10-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/features.rst:4
 msgid "How OnionShare Works"
-msgstr ""
+msgstr "OnionShare 如何运作"
 
 #: ../../source/features.rst:6
 msgid ""
@@ -27,6 +29,8 @@ msgid ""
 "other people as `Tor <https://www.torproject.org/>`_ `onion services "
 "<https://community.torproject.org/onion-services/>`_."
 msgstr ""
+"网络服务器在你的计算机上本地启动，并作为`Tor <https://www.torproject.org/>` `onion services "
+"<https://community.torproject.org/onion-services/>` 让其他人访问。"
 
 #: ../../source/features.rst:8
 msgid ""
@@ -64,23 +68,26 @@ msgid ""
 "Tor onion services too, it also protects your anonymity. See the "
 ":doc:`security design </security>` for more info."
 msgstr ""
+"因为你自己的电脑是网络服务器，*任何第三方都不能获知 OnionShare *中发生的任何事情，甚至是 OnionShare "
+"的开发者也不能。它是完全私有的。而 OnionShare 也是基于 Tor Onion service，所以它也保护了你的匿名性。请参阅 :doc:`"
+"security design </security>` 以了解更多信息。"
 
 #: ../../source/features.rst:21
 msgid "Share Files"
-msgstr ""
+msgstr "共享文件"
 
 #: ../../source/features.rst:23
 msgid ""
 "You can use OnionShare to send files and folders to people securely and "
 "anonymously. Open a share tab, drag in the files and folders you wish to "
 "share, and click \"Start sharing\"."
-msgstr ""
+msgstr "你可以使用 OnionShare 来安全且匿名地发送文件和文件夹给别人。打开一个共享标签页，拖入你想共享的文件和文件夹，然后点击“开始共享”。"
 
 #: ../../source/features.rst:27 ../../source/features.rst:93
 msgid ""
 "After you add files, you'll see some settings. Make sure you choose the "
 "setting you're interested in before you start sharing."
-msgstr ""
+msgstr "在你添加了文件后，你会看到一些设定选项。请确保你在开始分享前选中了那些你感兴趣的选项。"
 
 #: ../../source/features.rst:31
 msgid ""
@@ -764,4 +771,3 @@ msgstr ""
 #~ "WebSockets, through their E2EE onion "
 #~ "connections."
 #~ msgstr ""
-

@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2021-09-09 19:15-0700\n"
-"PO-Revision-Date: 2021-05-11 20:47+0000\n"
-"Last-Translator: Panagiotis Vasilopoulos <hello@alwayslivid.com>\n"
-"Language: el\n"
+"PO-Revision-Date: 2021-10-09 09:04+0000\n"
+"Last-Translator: george kitsoukakis <norhorn@gmail.com>\n"
 "Language-Team: el <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
+"Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.9-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/develop.rst:2
@@ -63,16 +64,14 @@ msgid "Contributing Code"
 msgstr "Συνεισφορά κώδικα"
 
 #: ../../source/develop.rst:17
-#, fuzzy
 msgid ""
 "OnionShare source code is to be found in this Git repository: "
 "https://github.com/onionshare/onionshare"
 msgstr ""
-"Ο πηγαίος κώδικας του OnionShare βρίσκεται στο αποθετήριο Git: "
-"https://github.com/micahflee/onionshare"
+"Ο πηγαίος κώδικας του OnionShare βρίσκεται στο αποθετήριο Git: https://github"
+".com/micahflee/onionshare"
 
 #: ../../source/develop.rst:19
-#, fuzzy
 msgid ""
 "If you'd like to contribute code to OnionShare, it helps to join the "
 "Keybase team and ask questions about what you're thinking of working on. "
@@ -80,11 +79,11 @@ msgid ""
 "<https://github.com/onionshare/onionshare/issues>`_ on GitHub to see if "
 "there are any you'd like to tackle."
 msgstr ""
-"Εάν θέλετε να συνεισφέρετε με κώδικα στο OnionShare, θα πρέπει να "
-"εγγραφείτε στην ομάδα του Keybase για την υποβολή σχετικών ερωτήσεων. Θα "
-"πρέπει επίσης να έχετε διαβάσει όλα τα `ανοιχτά ζητήματα "
-"<https://github.com/micahflee/onionshare/issues>`_ στο GitHub για να "
-"δείτε αν υπάρχουν κάποια που θέλετε να συμμετέχετε."
+"Εάν θέλετε να συνεισφέρετε με κώδικα στο OnionShare, θα πρέπει να εγγραφείτε "
+"στην ομάδα του Keybase και να υποβάλετε ερωτήσεις σχετικά με τις ιδέες σας. "
+"Θα πρέπει επίσης να έχετε διαβάσει τα `ανοιχτά ζητήματα <https://github.com/"
+"onionshare/onionshare/issues>`_ στο GitHub για να δείτε αν υπάρχουν κάποια "
+"που θέλετε να συμμετέχετε."
 
 #: ../../source/develop.rst:22
 msgid ""
@@ -110,6 +109,12 @@ msgid ""
 "file to learn how to set up your development environment for the "
 "graphical version."
 msgstr ""
+"Το OnionShare αναπτύσσεται με την Python. Για να ξεκινήσετε, κλωνοποιήστε το "
+"αποθετήριο Git στη διεύθυνση https://github.com/onionshare/onionshare/ και "
+"στη συνέχεια συμβουλευτείτε το αρχείο ``cli/README.md`` για να μάθετε πώς να "
+"ρυθμίσετε το περιβάλλον ανάπτυξής σας, για την έκδοση γραμμής εντολών και το "
+"αρχείο ``desktop/README.md`` για να μάθετε πώς να ρυθμίσετε το περιβάλλον "
+"ανάπτυξής σας για την έκδοση γραφικών."
 
 #: ../../source/develop.rst:32
 msgid ""
@@ -178,15 +183,15 @@ msgstr ""
 "αυτό προσθέτοντας το ``--local-only``. Για παράδειγμα::"
 
 #: ../../source/develop.rst:165
-#, fuzzy
 msgid ""
 "In this case, you load the URL ``http://127.0.0.1:17641`` in a normal "
 "web-browser like Firefox, instead of using the Tor Browser. The private "
 "key is not actually needed in local-only mode, so you can ignore it."
 msgstr ""
-"Σε αυτή την περίπτωση, θα φορτώσει το URL ``http://onionshare:train-"
-"system@127.0.0.1:17635`` σε κανονικό περιηγητή όπως το Firefox αντί του "
-"Tor Browser."
+"Σε αυτή την περίπτωση, θα φορτωθεί η URL ``http://127.0.0.1:17641`` σε "
+"κανονικό περιηγητή όπως το Firefox, αντί του Tor Browser. Το ιδιωτικό κλειδί "
+"δεν χρειάζεται στην κατάσταση τοπικής λειτουργίας, οπότε μπορείτε να το "
+"αγνοήσετε."
 
 #: ../../source/develop.rst:168
 msgid "Contributing Translations"
@@ -487,4 +492,3 @@ msgstr ""
 #~ "περιβάλλοντος γραμμής εντολών και του "
 #~ "αρχείου ``desktop/README.md`` για την έκδοση"
 #~ " γραφικού περιβάλλοντος."
-
