@@ -132,6 +132,11 @@ class AutoConnectTab(QtWidgets.QWidget):
 
         self.setLayout(self.layout)
 
+    def check_autoconnect(self):
+        """
+        After rendering, check if autoconnect was clicked, then start connecting
+        """
+        self.common.log("AutoConnectTab", "autoconnect_checking")
         if self.auto_connect_enabled:
             self.enable_autoconnect_checkbox.setCheckState(QtCore.Qt.Checked)
             self.connect_clicked()

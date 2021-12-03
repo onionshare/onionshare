@@ -409,6 +409,10 @@ class TorSettingsTab(QtWidgets.QWidget):
         self.old_settings = Settings(self.common)
         self.old_settings.load()
 
+        # Check if autoconnect was enabled
+        if self.old_settings.get("auto_connect"):
+            self.autoconnect_checkbox.setCheckState(QtCore.Qt.Checked)
+
         connection_type = self.old_settings.get("connection_type")
         if connection_type == "bundled":
             if self.connection_type_bundled_radio.isEnabled():
