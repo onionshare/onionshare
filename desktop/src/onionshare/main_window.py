@@ -174,6 +174,9 @@ class MainWindow(QtWidgets.QMainWindow):
         )
         self.close_dialog.setDefaultButton(self.close_dialog.reject_button)
 
+        # Check for autoconnect
+        self.tabs.check_autoconnect_tab()
+
     def tor_connection_canceled(self):
         """
         If the user cancels before Tor finishes connecting, ask if they want to

@@ -168,6 +168,10 @@ class TabWidget(QtWidgets.QTabWidget):
             self.add_tab()
         else:
             self.open_connection_tab()
+    
+    def check_autoconnect_tab(self):
+        if type(self.tabs[0]) is AutoConnectTab:
+            self.tabs[0].check_autoconnect()
 
     def load_tab(self, mode_settings_id):
         # Load the tab's mode settings
