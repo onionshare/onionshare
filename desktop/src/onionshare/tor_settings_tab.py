@@ -303,6 +303,24 @@ class TorSettingsTab(QtWidgets.QWidget):
         )
         connection_type_radio_group.setLayout(connection_type_radio_group_layout)
 
+        # Quickstart settings
+        self.autoconnect_checkbox = QtWidgets.QCheckBox(
+            strings._("gui_enable_autoconnect_checkbox")
+        )
+        self.autoconnect_checkbox.toggled.connect(
+            self.autoconnect_toggled
+        )
+        left_column_settings = QtWidgets.QVBoxLayout()
+        connection_type_radio_group.setFixedHeight(300)
+        left_column_settings.addWidget(connection_type_radio_group)
+        left_column_settings.addSpacing(20)
+        left_column_settings.addWidget(self.autoconnect_checkbox)
+        left_column_settings.addStretch()
+        left_column_settings.setContentsMargins(0, 0, 0, 0)
+        left_column_setting_widget = QtWidgets.QWidget()
+        left_column_setting_widget.setLayout(left_column_settings)
+
+
         # The Bridges options are not exclusive (enabling Bridges offers obfs4 or custom bridges)
         connection_type_bridges_radio_group_layout = QtWidgets.QVBoxLayout()
         connection_type_bridges_radio_group_layout.addWidget(self.bridges)
@@ -322,7 +340,7 @@ class TorSettingsTab(QtWidgets.QWidget):
 
         # Settings are in columns
         columns_layout = QtWidgets.QHBoxLayout()
-        columns_layout.addWidget(connection_type_radio_group)
+        columns_layout.addWidget(left_column_setting_widget)
         columns_layout.addSpacing(20)
         columns_layout.addLayout(connection_type_layout, stretch=1)
         columns_wrapper = QtWidgets.QWidget()
@@ -476,6 +494,12 @@ class TorSettingsTab(QtWidgets.QWidget):
         else:
             self.bridge_use_checkbox.setCheckState(QtCore.Qt.Unchecked)
             self.bridge_settings.hide()
+
+    def autoconnect_toggled(self):
+        """
+        Auto connect checkbox clicked
+        """
+        self.common.log("TorSettingsTab", "autoconnect_checkbox_clicked")
 
     def active_tabs_changed(self, are_tabs_active):
         if are_tabs_active:
@@ -776,6 +800,9 @@ class TorSettingsTab(QtWidgets.QWidget):
         self.common.log("TorSettingsTab", "settings_from_fields")
         settings = Settings(self.common)
         settings.load()  # To get the last update timestamp
+
+        # autoconnect
+        settings.set("auto_connect", self.autoconnect_checkbox.isChecked())
 
         # Tor connection
         if self.connection_type_bundled_radio.isChecked():
