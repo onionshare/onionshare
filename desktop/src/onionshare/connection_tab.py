@@ -73,9 +73,6 @@ class AutoConnectTab(QtWidgets.QWidget):
             strings._("gui_enable_autoconnect_checkbox")
         ) 
         self.enable_autoconnect_checkbox.clicked.connect(self.toggle_auto_connect)
-        # self.enable_autoconnect_checkbox.setText(
-        #     strings._("gui_enable_autoconnect_checkbox")
-        # )
         self.enable_autoconnect_checkbox.setFixedWidth(400)
         self.enable_autoconnect_checkbox.setStyleSheet(
             common.gui.css["enable_autoconnect"]
@@ -136,6 +133,7 @@ class AutoConnectTab(QtWidgets.QWidget):
         self.setLayout(self.layout)
 
         if self.auto_connect_enabled:
+            self.enable_autoconnect_checkbox.setCheckState(QtCore.Qt.Checked)
             self.connect_clicked()
 
     def toggle_auto_connect(self):

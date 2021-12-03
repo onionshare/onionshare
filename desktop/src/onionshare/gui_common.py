@@ -541,7 +541,6 @@ class GuiCommon:
 class ToggleCheckbox(QtWidgets.QCheckBox):
     def __init__(self, text):
         super(ToggleCheckbox, self).__init__(text)
-        print(text)
         # Set default parameters
         self.setCursor(QtCore.Qt.PointingHandCursor)
         self.w = 50
