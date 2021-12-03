@@ -23,7 +23,7 @@ from PySide2 import QtCore, QtWidgets, QtGui
 from onionshare_cli.settings import Settings
 
 from . import strings
-from .gui_common import GuiCommon
+from .gui_common import GuiCommon, ToggleCheckbox
 from .tor_connection import TorConnectionWidget
 
 
@@ -69,11 +69,13 @@ class AutoConnectTab(QtWidgets.QWidget):
 
         # Description and checkbox
         description_label = QtWidgets.QLabel(strings._("gui_autoconnect_description"))
-        self.enable_autoconnect_checkbox = QtWidgets.QCheckBox() 
-        self.enable_autoconnect_checkbox.clicked.connect(self.toggle_auto_connect)
-        self.enable_autoconnect_checkbox.setText(
+        self.enable_autoconnect_checkbox = ToggleCheckbox(
             strings._("gui_enable_autoconnect_checkbox")
-        )
+        ) 
+        self.enable_autoconnect_checkbox.clicked.connect(self.toggle_auto_connect)
+        # self.enable_autoconnect_checkbox.setText(
+        #     strings._("gui_enable_autoconnect_checkbox")
+        # )
         self.enable_autoconnect_checkbox.setFixedWidth(400)
         self.enable_autoconnect_checkbox.setStyleSheet(
             common.gui.css["enable_autoconnect"]
