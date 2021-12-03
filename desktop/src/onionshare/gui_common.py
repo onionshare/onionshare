@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import os
 import shutil
 from pkg_resources import resource_filename
+from PySide2 import QtCore, QtWidgets, QtGui
 
 from . import strings
 from onionshare_cli.onion import (
@@ -170,6 +171,10 @@ class GuiCommon:
                     border: 1px solid #DDDBDA;
                     border-radius: 8px;
                     padding: 24px 16px;
+                }
+                QCheckBox::indicator {
+                    width: 0;
+                    height: 0;
                 }""",
             # Common styles between modes and their child widgets
             "mode_settings_toggle_advanced": """
@@ -531,3 +536,45 @@ class GuiCommon:
             return strings._("error_port_not_available")
 
         return None
+
+
+class ToggleCheckbox(QtWidgets.QCheckBox):
+    def __init__(self, text):
+        super(ToggleCheckbox, self).__init__(text)
+        print(text)
+        # Set default parameters
+        self.setCursor(QtCore.Qt.PointingHandCursor)
+        self.w = 50
+        self.h = 24
+        self.bg_color = "#D4D4D4"
+        self.circle_color = "#BDBDBD"
+        self.active_color = "#4E0D4E"
+        self.inactive_color = ""
+
+    def hitButton(self, pos):
+        return self.toggleRect.contains(pos)
+
+    def paintEvent(self, e):
+        painter = QtGui.QPainter(self)
+        painter.setRenderHint(QtGui.QPainter.Antialiasing)
+        painter.setPen(QtCore.Qt.NoPen)
+        opt = QtWidgets.QStyleOptionButton()
+        opt.init(self)
+        self.initStyleOption(opt)
+        s = self.style()
+        s.drawControl(QtWidgets.QStyle.CE_CheckBox, opt, painter, self)
+        
+        rect = QtCore.QRect(s.subElementRect(QtWidgets.QStyle.SE_CheckBoxContents, opt, self))
+        x = rect.width() - rect.x() - self.w + 20  # 20 is the padding between text and toggle
+        y = self.height() / 2 - self.h / 2 + self.y() / 2
+        self.toggleRect = QtCore.QRect(x, y, self.w, self.h)
+        painter.setBrush(QtGui.QColor(self.bg_color))
+        painter.drawRoundedRect(x, y, self.w, self.h, self.h / 2, self.h / 2)
+        if not self.isChecked():
+            painter.setBrush(QtGui.QColor(self.circle_color))
+            painter.drawEllipse(x, y - 3, self.h + 6, self.h + 6)
+        else:
+            painter.setBrush(QtGui.QColor(self.active_color))
+            painter.drawEllipse(x + self.w - (self.h + 6), y - 3, self.h + 6, self.h + 6)
+
+        painter.end()
