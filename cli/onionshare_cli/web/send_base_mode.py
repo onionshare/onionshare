@@ -200,11 +200,11 @@ class SendBaseModeWeb:
                 self._gzip_compress(filesystem_path, gzip_file.name, 6, None)
                 self.gzip_individual_files[filesystem_path] = gzip_file.name
 
+                # Cleanup this temp file
+                self.web.cleanup_tempfiles.append(gzip_file)
+
             file_to_download = self.gzip_individual_files[filesystem_path]
             filesize = os.path.getsize(self.gzip_individual_files[filesystem_path])
-
-            # Cleanup this temp file
-            self.web.cleanup_tempfiles.append(gzip_file)
         else:
             file_to_download = filesystem_path
             filesize = os.path.getsize(filesystem_path)
