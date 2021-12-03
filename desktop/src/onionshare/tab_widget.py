@@ -222,7 +222,7 @@ class TabWidget(QtWidgets.QTabWidget):
         connection_tab.close_this_tab.connect(self.close_connection_tab)
         self.tabs[self.current_tab_id] = connection_tab
         self.current_tab_id += 1
-        index = self.addTab(connection_tab, strings._("gui_settings_window_title"))
+        index = self.addTab(connection_tab, strings._("gui_autoconnect_start"))
         self.setCurrentIndex(index)
 
     def open_settings_tab(self):
