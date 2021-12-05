@@ -70,14 +70,10 @@ class TorConnectionWidget(QtWidgets.QWidget):
         progress_layout.addWidget(self.progress)
         progress_layout.addWidget(self.cancel_button)
 
-        inner_layout = QtWidgets.QVBoxLayout()
-        inner_layout.addWidget(self.label)
-        inner_layout.addLayout(progress_layout)
+        layout = QtWidgets.QVBoxLayout()
+        layout.addWidget(self.label)
+        layout.addLayout(progress_layout)
 
-        layout = QtWidgets.QHBoxLayout()
-        layout.addStretch()
-        layout.addLayout(inner_layout)
-        layout.addStretch()
         self.setLayout(layout)
 
         # Start displaying the status at 0
