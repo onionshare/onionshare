@@ -23,7 +23,6 @@ import time
 from PySide2 import QtCore, QtWidgets, QtGui
 
 from . import strings
-from .tor_connection import TorConnectionDialog
 from .widgets import Alert
 from .update_checker import UpdateThread
 from .tab_widget import TabWidget

@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 import time
-from PySide2 import QtCore, QtWidgets, QtGui
+from PySide2 import QtCore, QtWidgets
 
 from onionshare_cli.onion import (
     BundledTorCanceled,
@@ -39,121 +39,6 @@ from onionshare_cli.onion import (
 )
 
 from . import strings
-from .gui_common import GuiCommon
-from .widgets import Alert
-
-
-class TorConnectionDialog(QtWidgets.QProgressDialog):
-    """
-    Connecting to Tor dialog.
-    """
-
-    open_tor_settings = QtCore.Signal()
-    success = QtCore.Signal()
-
-    def __init__(
-        self, common, custom_settings=False, testing_settings=False, onion=None
-    ):
-        super(TorConnectionDialog, self).__init__(None)
-
-        self.common = common
-        self.testing_settings = testing_settings
-
-        if custom_settings:
-            self.settings = custom_settings
-        else:
-            self.settings = self.common.settings
-
-        self.common.log("TorConnectionDialog", "__init__")
-
-        if self.testing_settings:
-            self.title = strings._("gui_settings_connection_type_test_button")
-            self.onion = onion
-        else:
-            self.title = "OnionShare"
-            self.onion = self.common.gui.onion
-
-        self.setWindowTitle(self.title)
-
-        self.setWindowIcon(QtGui.QIcon(GuiCommon.get_resource_path("images/logo.png")))
-        self.setModal(True)
-        self.setFixedSize(400, 150)
-
-        # Label
-        self.setLabelText(strings._("connecting_to_tor"))
-
-        # Progress bar ticks from 0 to 100
-        self.setRange(0, 100)
-        # Don't show if connection takes less than 100ms (for non-bundled tor)
-        self.setMinimumDuration(100)
-
-        # Start displaying the status at 0
-        self._tor_status_update(0, "")
-
-    def start(self):
-        self.common.log("TorConnectionDialog", "start")
-
-        t = TorConnectionThread(self.common, self.settings, self)
-        t.tor_status_update.connect(self._tor_status_update)
-        t.connected_to_tor.connect(self._connected_to_tor)
-        t.canceled_connecting_to_tor.connect(self._canceled_connecting_to_tor)
-        t.error_connecting_to_tor.connect(self._error_connecting_to_tor)
-        t.start()
-
-        # The main thread needs to remain active, and checking for Qt events,
-        # until the thread is finished. Otherwise it won't be able to handle
-        # accepting signals.
-        self.active = True
-        while self.active:
-            time.sleep(0.1)
-            self.common.gui.qtapp.processEvents()
-
-    def _tor_status_update(self, progress, summary):
-        self.setValue(int(progress))
-        self.setLabelText(
-            f"<strong>{strings._('connecting_to_tor')}</strong><br>{summary}"
-        )
-
-    def _connected_to_tor(self):
-        self.common.log("TorConnectionDialog", "_connected_to_tor")
-        self.active = False
-        # Close the dialog after connecting
-        self.setValue(self.maximum())
-
-    def _canceled_connecting_to_tor(self):
-        self.common.log("TorConnectionDialog", "_canceled_connecting_to_tor")
-        self.active = False
-        self.onion.cleanup()
-
-        # Cancel connecting to Tor
-        QtCore.QTimer.singleShot(1, self.cancel)
-
-    def _error_connecting_to_tor(self, msg):
-        self.common.log("TorConnectionDialog", "_error_connecting_to_tor")
-        self.active = False
-
-        if self.testing_settings:
-            # If testing, just display the error but don't open settings
-            def alert():
-                Alert(self.common, msg, QtWidgets.QMessageBox.Warning, title=self.title)
-
-        else:
-            # If not testing, open settings after displaying the error
-            def alert():
-                Alert(
-                    self.common,
-                    f"{msg}\n\n{strings._('gui_tor_connection_error_settings')}",
-                    QtWidgets.QMessageBox.Warning,
-                    title=self.title,
-                )
-
-                # Open settings
-                self.open_tor_settings.emit()
-
-        QtCore.QTimer.singleShot(1, alert)
-
-        # Cancel connecting to Tor
-        QtCore.QTimer.singleShot(1, self.cancel)
 
 
 class TorConnectionWidget(QtWidgets.QWidget):
