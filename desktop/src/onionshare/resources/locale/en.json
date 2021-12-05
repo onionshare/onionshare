@@ -64,6 +64,7 @@
     "gui_settings_tor_bridges": "Connect using a Tor bridge?",
     "gui_settings_tor_bridges_label": "Bridges help you access the Tor Network in places where Tor is blocked. Depending on where you are, one bridge may work better than another.",
     "gui_settings_bridge_use_checkbox": "Use a bridge",
+    "gui_settings_censorship_circumvention_checkbox": "Attempt to automatically find a bridge based on your country if Tor fails to connect",
     "gui_settings_bridge_radio_builtin": "Select a built-in bridge",
     "gui_settings_bridge_none_radio_option": "Don't use a bridge",
     "gui_settings_meek_lite_expensive_warning": "Warning: The meek-azure bridges are very costly for the Tor Project to run.<br><br>Only use them if unable to connect to Tor directly, via obfs4 transports, or other normal bridges.",
