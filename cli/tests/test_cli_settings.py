@@ -34,6 +34,7 @@ class TestSettings:
             "bridges_builtin_pt": "obfs4",
             "bridges_moat": "",
             "bridges_custom": "",
+            "bridges_builtin": {},
             "persistent_tabs": [],
             "theme": 0,
         }

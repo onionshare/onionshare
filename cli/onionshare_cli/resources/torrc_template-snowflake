@@ -1,3 +1,1 @@
-# Enable built-in snowflake bridge
-Bridge snowflake 192.0.2.3:1 2B280B23E1107BB62ABFC40DDCC8824814F80A72
-UseBridges 1
+Bridge snowflake 0.0.3.0:1 2B280B23E1107BB62ABFC40DDCC8824814F80A72
