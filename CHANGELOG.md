@@ -110,7 +110,7 @@
 ## 1.3
 
 * Major UI redesign, introducing many UX improvements
-* Client-side web interfact redesigned
+* Client-side web interface redesigned
 * New feature: Support for meek_lite pluggable transports (Amazon and Azure) - not yet ready for Windows or macOS, sorry
 * New feature: Support for custom obfs4 and meek_lite bridges (again, meek_lite not available on Windows/macOS yet)
 * New feature: Ability to cancel share before it starts

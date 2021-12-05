@@ -16,7 +16,7 @@ languages = [
     ("Русский", "ru"),  # Russian
     # ("Español", "es"),  # Spanish
     ("Türkçe", "tr"),  # Turkish
-    ("Українська", "uk"),  # Ukranian
+    ("Українська", "uk"),  # Ukrainian
 ]
 
 versions = ["2.3", "2.3.1", "2.3.2", "2.3.3", "2.4", "2.4.1"]
