@@ -198,3 +198,65 @@ class CensorshipCircumvention(object):
             return False
 
         return result
+
+    def save_settings(self, settings, bridge_settings):
+        """
+        Checks the bridges and saves them in settings.
+        """
+        bridges_ok = False
+        self.settings = settings
+
+        # @TODO there might be several bridge types recommended.
+        # Should we attempt to iterate over each type if one of them fails to connect?
+        # But if so, how to stop it starting 3 separate Tor connection threads?
+        # for bridges in request_bridges["settings"]:
+        bridges = bridge_settings["settings"][0]["bridges"]
+        self.common.log(
+            "CensorshipCircumvention",
+            "save_settings",
+            f"Obtained bridges: {bridges}",
+        )
+        bridge_strings = bridges["bridge_strings"]
+        bridge_type = bridges["type"]
+        bridge_source = bridges["source"]
+
+        # If the recommended bridge source is to use the built-in
+        # bridges, set that in our settings, as if the user had
+        # selected the built-in bridges for a specific PT themselves.
+        #
+        if bridge_source == "builtin":
+            self.settings.set("bridges_type", "built-in")
+            if bridge_type == "obfs4":
+                self.settings.set("bridges_builtin_pt", "obfs4")
+            if bridge_type == "snowflake":
+                self.settings.set("bridges_builtin_pt", "snowflake")
+            if bridge_type == "meek":
+                self.settings.set("bridges_builtin_pt", "meek-azure")
+            bridges_ok = True
+        else:
+            # Any other type of bridge we can treat as custom.
+            self.settings.set("bridges_type", "custom")
+
+            # Sanity check the bridges provided from the Tor API before saving
+            bridges_checked = self.common.check_bridges_valid(bridge_strings)
+
+            if bridges_checked:
+                self.settings.set("bridges_custom", "\n".join(bridges_checked))
+                bridges_ok = True
+
+        # If we got any good bridges, save them to settings and return.
+        if bridges_ok:
+            self.common.log(
+                "CensorshipCircumvention",
+                "save_settings",
+                "Saving settings with automatically-obtained bridges",
+            )
+            self.settings.save()
+            return True
+        else:
+            self.common.log(
+                "CensorshipCircumvention",
+                "save_settings",
+                "Could not use any of the obtained bridges.",
+            )
+            return False
