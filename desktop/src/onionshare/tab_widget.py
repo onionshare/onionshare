@@ -168,7 +168,7 @@ class TabWidget(QtWidgets.QTabWidget):
             self.add_tab()
         else:
             self.open_connection_tab()
-    
+
     def check_autoconnect_tab(self):
         if type(self.tabs[0]) is AutoConnectTab:
             self.tabs[0].check_autoconnect()
@@ -218,7 +218,9 @@ class TabWidget(QtWidgets.QTabWidget):
                 self.setCurrentIndex(self.indexOf(self.tabs[tab_id]))
                 return
 
-        connection_tab = AutoConnectTab(self.common, self.current_tab_id, self.status_bar, parent=self)
+        connection_tab = AutoConnectTab(
+            self.common, self.current_tab_id, self.status_bar, parent=self
+        )
         connection_tab.close_this_tab.connect(self.close_connection_tab)
         self.tabs[self.current_tab_id] = connection_tab
         self.current_tab_id += 1

@@ -40,6 +40,7 @@ from onionshare_cli.onion import (
     TorTooOldStealth,
     PortNotAvailable,
 )
+from onionshare_cli.meek import Meek
 
 
 class GuiCommon:
@@ -77,6 +78,9 @@ class GuiCommon:
         if not os.path.exists(self.events_dir):
             os.makedirs(self.events_dir, 0o700, True)
         self.events_filename = os.path.join(self.events_dir, "events")
+
+        # Instantiate Meek, which is used to bypass censorship
+        self.meek = Meek(self.common, get_tor_paths=self.get_tor_paths)
 
         self.css = self.get_css(qtapp.color_mode)
         self.color_mode = qtapp.color_mode
@@ -183,6 +187,11 @@ class GuiCommon:
                 }
                 QComboBox:disabled {
                     color: #666666;
+                }
+                """,
+            "autoconnect_task_label": """
+                QLabel {
+                    font-weight: bold;
                 }
                 """,
             # Common styles between modes and their child widgets

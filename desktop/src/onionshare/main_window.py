@@ -26,10 +26,10 @@ from . import strings
 from .widgets import Alert
 from .update_checker import UpdateThread
 from .tab_widget import TabWidget
+from .settings_tab import SettingsTab
 from .gui_common import GuiCommon
 from .threads import OnionCleanupThread
 
-from onionshare_cli.meek import Meek
 
 class MainWindow(QtWidgets.QMainWindow):
     """
@@ -53,7 +53,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.settings_action = menu.addAction(strings._("gui_settings_window_title"))
         self.settings_action.triggered.connect(self.open_settings)
         self.help_action = menu.addAction(strings._("gui_settings_button_help"))
-        self.help_action.triggered.connect(lambda: SettingsDialog.help_clicked(self))
+        self.help_action.triggered.connect(lambda: SettingsTab.open_help())
         exit_action = menu.addAction(strings._("systray_menu_exit"))
         exit_action.triggered.connect(self.close)
 
@@ -160,23 +160,6 @@ class MainWindow(QtWidgets.QMainWindow):
         self.setCentralWidget(central_widget)
         self.show()
 
-<<<<<<< HEAD
-=======
-        # Instantiate Meek, which the TorConnectionDialog may use to resolve
-        # connection issues by automatically obtaining bridges.
-        self.meek = Meek(self.common, get_tor_paths=self.common.gui.get_tor_paths)
-        # Start the "Connecting to Tor" dialog, which calls onion.connect()
-        tor_con = TorConnectionDialog(self.common, self.meek)
-        tor_con.canceled.connect(self.tor_connection_canceled)
-        tor_con.open_tor_settings.connect(self.tor_connection_open_tor_settings)
-        if not self.common.gui.local_only:
-            tor_con.start()
-            self.settings_have_changed()
-
-        # After connecting to Tor, check for updates
-        self.check_for_updates()
-
->>>>>>> mig5-censorship_automatically_attempt_and_reconnect
         # Create the close warning dialog -- the dialog widget needs to be in the constructor
         # in order to test it
         self.close_dialog = QtWidgets.QMessageBox()
