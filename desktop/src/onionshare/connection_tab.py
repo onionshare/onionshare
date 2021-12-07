@@ -18,6 +18,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
+import json
+import os
 from PySide2 import QtCore, QtWidgets, QtGui
 
 from onionshare_cli.settings import Settings
@@ -57,7 +59,9 @@ class AutoConnectTab(QtWidgets.QWidget):
             QtGui.QPixmap.fromImage(
                 QtGui.QImage(
                     GuiCommon.get_resource_path(
-                        "images/{}_logo_text_bg.png".format(common.gui.color_mode)
+                        os.path.join(
+                            "images", f"{common.gui.color_mode}_logo_text_bg.png"
+                        )
                     )
                 )
             )
@@ -291,7 +295,22 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
         detect_layout.addWidget(self.detect_automatic_radio)
         detect_layout.addWidget(self.detect_manual_radio)
 
-        # World map
+        # Country list
+        locale = self.common.settings.get("locale")
+        if not locale:
+            locale = "en"
+
+        with open(
+            GuiCommon.get_resource_path(os.path.join("countries", f"{locale}.json"))
+        ) as f:
+            countries = json.loads(f.read())
+
+        self.country_combobox = QtWidgets.QComboBox()
+        self.country_combobox.setStyleSheet(
+            common.gui.css["autoconnect_countries_combobox"]
+        )
+        for country_code in countries:
+            self.country_combobox.addItem(countries[country_code], country_code)
 
         # Buttons
         self.connect_button = QtWidgets.QPushButton(
@@ -326,8 +345,11 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
         layout = QtWidgets.QVBoxLayout()
         layout.addWidget(description_label)
         layout.addLayout(detect_layout)
+        layout.addWidget(self.country_combobox)
         layout.addWidget(cta_widget)
         self.setLayout(layout)
+
+        self.detect_automatic_radio.setChecked(True)
 
     def hide_buttons(self):
         self.connect_button.hide()
@@ -338,10 +360,12 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
         self.configure_button.show()
 
     def _detect_automatic_toggled(self):
-        pass
+        self.country_combobox.setEnabled(False)
+        self.country_combobox.hide()
 
     def _detect_manual_toggled(self):
-        pass
+        self.country_combobox.setEnabled(True)
+        self.country_combobox.show()
 
     def _connect_clicked(self):
         self.connect_clicked.emit()
