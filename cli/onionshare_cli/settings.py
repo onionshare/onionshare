@@ -115,7 +115,6 @@ class Settings(object):
             "persistent_tabs": [],
             "locale": None,  # this gets defined in fill_in_defaults()
             "theme": 0,
-            "censorship_circumvention": False,
         }
         self._settings = {}
         self.fill_in_defaults()

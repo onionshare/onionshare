@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import json
 import os
+import random
 from PySide2 import QtCore, QtWidgets, QtGui
 
 from onionshare_cli.settings import Settings
@@ -75,13 +76,15 @@ class AutoConnectTab(QtWidgets.QWidget):
         # First launch widget
         self.first_launch_widget = AutoConnectFirstLaunchWidget(self.common)
         self.first_launch_widget.toggle_auto_connect.connect(self.toggle_auto_connect)
-        self.first_launch_widget.connect_clicked.connect(self.connect_clicked)
+        self.first_launch_widget.connect_clicked.connect(
+            self.first_launch_widget_connect_clicked
+        )
         self.first_launch_widget.open_tor_settings.connect(self.open_tor_settings)
         self.first_launch_widget.show()
 
         # Use bridge widget
         self.use_bridge_widget = AutoConnectUseBridgeWidget(self.common)
-        self.use_bridge_widget.connect_clicked.connect(self.connect_clicked)
+        self.use_bridge_widget.connect_clicked.connect(self.use_bridge_connect_clicked)
         self.use_bridge_widget.back_clicked.connect(self.back_clicked)
         self.use_bridge_widget.open_tor_settings.connect(self.open_tor_settings)
         self.use_bridge_widget.hide()
@@ -119,7 +122,7 @@ class AutoConnectTab(QtWidgets.QWidget):
             self.first_launch_widget.enable_autoconnect_checkbox.setCheckState(
                 QtCore.Qt.Checked
             )
-            self.connect_clicked()
+            self.first_launch_widget_connect_clicked()
 
     def toggle_auto_connect(self):
         """
@@ -135,23 +138,45 @@ class AutoConnectTab(QtWidgets.QWidget):
     def open_tor_settings(self):
         self.parent.open_tor_settings_tab()
 
-    def connect_clicked(self):
+    def first_launch_widget_connect_clicked(self):
         """
-        Connect button clicked. Try to connect to tor.
+        Connect button in first launch widget clicked. Try to connect to tor.
         """
-        self.common.log("AutoConnectTab", "connect_clicked")
-
-        # Hide the buttons
-        if self.first_launch_widget.isVisible():
-            self.first_launch_widget.hide_buttons()
-        elif self.use_bridge_widget.isVisible():
-            self.use_bridge_widget.hide_buttons()
+        self.common.log("AutoConnectTab", "first_launch_widget_connect_clicked")
+        self.first_launch_widget.hide_buttons()
 
         if not self.common.gui.local_only:
             self.tor_con.show()
             self.tor_con.start(self.curr_settings)
         else:
             self.close_this_tab.emit()
+
+    def use_bridge_connect_clicked(self):
+        """
+        Connect button in use bridge widget clicked.
+        """
+        self.common.log(
+            "AutoConnectTab",
+            "use_bridge_connect_clicked",
+            "Trying to automatically obtain bridges",
+        )
+        self.use_bridge_widget.hide_buttons()
+        self.use_bridge_widget.start_autodetecting_location()
+
+        # self.common.gui.meek.start()
+        # self.censorship_circumvention = CensorshipCircumvention(
+        #     self.common, self.common.gui.meek
+        # )
+        # bridge_settings = self.censorship_circumvention.request_settings(country="tm")
+        # self.common.gui.meek.cleanup()
+
+        # if bridge_settings and self.censorship_circumvention.save_settings(
+        #     self.settings, bridge_settings
+        # ):
+        #     # Try and connect again
+        #     self.start()
+        # else:
+        #     self.fail.emit()
 
     def back_clicked(self):
         """
@@ -174,7 +199,7 @@ class AutoConnectTab(QtWidgets.QWidget):
             # Close the tab
             self.close_this_tab.emit()
 
-    def tor_con_fail(self, msg):
+    def tor_con_fail(self):
         """
         Finished testing tor connection.
         """
@@ -312,6 +337,11 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
         for country_code in countries:
             self.country_combobox.addItem(countries[country_code], country_code)
 
+        # Task label
+        self.task_label = QtWidgets.QLabel()
+        self.task_label.setStyleSheet(common.gui.css["enable_autoconnect"])
+        self.task_label.hide()
+
         # Buttons
         self.connect_button = QtWidgets.QPushButton(
             strings._("gui_autoconnect_bridge_start")
@@ -346,6 +376,7 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
         layout.addWidget(description_label)
         layout.addLayout(detect_layout)
         layout.addWidget(self.country_combobox)
+        layout.addWidget(self.task_label)
         layout.addWidget(cta_widget)
         self.setLayout(layout)
 
@@ -353,11 +384,38 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
 
     def hide_buttons(self):
         self.connect_button.hide()
+        self.back_button.hide()
         self.configure_button.hide()
 
     def show_buttons(self):
         self.connect_button.show()
+        self.back_button.show()
         self.configure_button.show()
+
+    def start_autodetecting_location(self):
+        self.detect_automatic_radio.setEnabled(False)
+        self.detect_manual_radio.setEnabled(False)
+
+        self.country_combobox.setEnabled(False)
+        self.country_combobox.show()
+
+        # If we're automatically detecting it, randomly switch up the country
+        # dropdown until we detect the location
+        if self.detect_automatic_radio.isChecked():
+            self.task_label.show()
+            self.task_label.setText(strings._("gui_autoconnect_task_detect_location"))
+
+            self.autodetecting_timer = QtCore.QTimer()
+            self.autodetecting_timer.timeout.connect(self._autodetecting_timer_callback)
+            self.autodetecting_timer.start(200)
+
+    def stop_autodetecting_location(self):
+        self.task_label.hide()
+        self.autodetecting_timer.stop()
+
+    def _autodetecting_timer_callback(self):
+        new_index = random.randrange(0, self.country_combobox.count())
+        self.country_combobox.setCurrentIndex(new_index)
 
     def _detect_automatic_toggled(self):
         self.country_combobox.setEnabled(False)
