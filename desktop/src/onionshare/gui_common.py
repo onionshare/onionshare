@@ -176,6 +176,15 @@ class GuiCommon:
                     width: 0;
                     height: 0;
                 }""",
+            "autoconnect_countries_combobox": """
+                QComboBox {
+                    padding: 10px;
+                    font-size: 16px;
+                }
+                QComboBox:disabled {
+                    color: #666666;
+                }
+                """,
             # Common styles between modes and their child widgets
             "mode_settings_toggle_advanced": """
                 QPushButton {
@@ -562,9 +571,13 @@ class ToggleCheckbox(QtWidgets.QCheckBox):
         self.initStyleOption(opt)
         s = self.style()
         s.drawControl(QtWidgets.QStyle.CE_CheckBox, opt, painter, self)
-        
-        rect = QtCore.QRect(s.subElementRect(QtWidgets.QStyle.SE_CheckBoxContents, opt, self))
-        x = rect.width() - rect.x() - self.w + 20  # 20 is the padding between text and toggle
+
+        rect = QtCore.QRect(
+            s.subElementRect(QtWidgets.QStyle.SE_CheckBoxContents, opt, self)
+        )
+        x = (
+            rect.width() - rect.x() - self.w + 20
+        )  # 20 is the padding between text and toggle
         y = self.height() / 2 - self.h / 2 + self.y() / 2
         self.toggleRect = QtCore.QRect(x, y, self.w, self.h)
         painter.setBrush(QtGui.QColor(self.bg_color))
@@ -574,6 +587,8 @@ class ToggleCheckbox(QtWidgets.QCheckBox):
             painter.drawEllipse(x, y - 3, self.h + 6, self.h + 6)
         else:
             painter.setBrush(QtGui.QColor(self.active_color))
-            painter.drawEllipse(x + self.w - (self.h + 6), y - 3, self.h + 6, self.h + 6)
+            painter.drawEllipse(
+                x + self.w - (self.h + 6), y - 3, self.h + 6, self.h + 6
+            )
 
         painter.end()
