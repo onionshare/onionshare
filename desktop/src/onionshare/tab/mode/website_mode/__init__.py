@@ -49,6 +49,7 @@ class WebsiteMode(Mode):
         self.web = Web(self.common, True, self.settings, "website")
 
         # Settings
+        # Disable CSP option
         self.disable_csp_checkbox = QtWidgets.QCheckBox()
         self.disable_csp_checkbox.clicked.connect(self.disable_csp_checkbox_clicked)
         self.disable_csp_checkbox.setText(
@@ -62,6 +63,26 @@ class WebsiteMode(Mode):
         self.mode_settings_widget.mode_specific_layout.addWidget(
             self.disable_csp_checkbox
         )
+
+        # Custom CSP option
+        self.custom_csp_checkbox = QtWidgets.QCheckBox()
+        self.custom_csp_checkbox.clicked.connect(self.custom_csp_checkbox_clicked)
+        self.custom_csp_checkbox.setText(strings._("mode_settings_website_custom_csp_checkbox"))
+        if self.settings.get("website", "custom_csp") and not self.settings.get("website", "disable_csp"):
+            self.custom_csp_checkbox.setCheckState(QtCore.Qt.Checked)
+        else:
+            self.custom_csp_checkbox.setCheckState(QtCore.Qt.Unchecked)
+        self.custom_csp = QtWidgets.QLineEdit()
+        self.custom_csp.setPlaceholderText(
+            "default-src 'self'; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; img-src 'self' data:;"
+        )
+        self.custom_csp.editingFinished.connect(self.custom_csp_editing_finished)
+
+        custom_csp_layout = QtWidgets.QHBoxLayout()
+        custom_csp_layout.setContentsMargins(0, 0, 0, 0)
+        custom_csp_layout.addWidget(self.custom_csp_checkbox)
+        custom_csp_layout.addWidget(self.custom_csp)
+        self.mode_settings_widget.mode_specific_layout.addLayout(custom_csp_layout)
 
         # File selection
         self.file_selection = FileSelection(
@@ -181,11 +202,42 @@ class WebsiteMode(Mode):
 
     def disable_csp_checkbox_clicked(self):
         """
-        Save disable CSP setting to the tab settings
+        Save disable CSP setting to the tab settings. Uncheck 'custom CSP'
+        setting if disabling CSP altogether.
         """
         self.settings.set(
             "website", "disable_csp", self.disable_csp_checkbox.isChecked()
         )
+        if self.disable_csp_checkbox.isChecked():
+            self.custom_csp_checkbox.setCheckState(QtCore.Qt.Unchecked)
+            self.custom_csp_checkbox.setEnabled(False)
+        else:
+            self.custom_csp_checkbox.setEnabled(True)
+
+    def custom_csp_checkbox_clicked(self):
+        """
+        Uncheck 'disable CSP' setting if custom CSP is used.
+        """
+        if self.custom_csp_checkbox.isChecked():
+            self.disable_csp_checkbox.setCheckState(QtCore.Qt.Unchecked)
+            self.disable_csp_checkbox.setEnabled(False)
+            self.settings.set(
+                "website", "custom_csp", self.custom_csp
+            )
+        else:
+            self.disable_csp_checkbox.setEnabled(True)
+            self.custom_csp.setText("")
+            self.settings.set(
+                "website", "custom_csp", None
+            )
+
+    def custom_csp_editing_finished(self):
+        if self.custom_csp.text().strip() == "":
+            self.custom_csp.setText("")
+            self.settings.set("website", "custom_csp", None)
+        else:
+            custom_csp = self.custom_csp.text()
+            self.settings.set("website", "custom_csp", custom_csp)
 
     def get_stop_server_autostop_timer_text(self):
         """

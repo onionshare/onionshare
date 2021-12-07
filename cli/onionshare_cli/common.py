@@ -28,6 +28,7 @@ import sys
 import threading
 import time
 import shutil
+import re
 from pkg_resources import resource_filename
 
 import colorama
@@ -440,6 +441,40 @@ class Common:
         r = random.SystemRandom()
         return "-".join(r.choice(wordlist) for _ in range(word_count))
 
+    def check_bridges_valid(self, bridges):
+        """
+        Does a regex check against a supplied list of bridges, to make sure they
+        are valid strings depending on the bridge type.
+        """
+        valid_bridges = []
+        self.log("Common", "check_bridges_valid", "Checking bridge syntax")
+        for bridge in bridges:
+            if bridge != "":
+                # Check the syntax of the custom bridge to make sure it looks legitimate
+                ipv4_pattern = re.compile(
+                    "(obfs4\s+)?(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]):([0-9]+)(\s+)([A-Z0-9]+)(.+)$"
+                )
+                ipv6_pattern = re.compile(
+                    "(obfs4\s+)?\[(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))\]:[0-9]+\s+[A-Z0-9]+(.+)$"
+                )
+                meek_lite_pattern = re.compile(
+                    "(meek_lite)(\s)+([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+:[0-9]+)(\s)+([0-9A-Z]+)(\s)+url=(.+)(\s)+front=(.+)"
+                )
+                snowflake_pattern = re.compile(
+                    "(snowflake)(\s)+([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+:[0-9]+)(\s)+([0-9A-Z]+)"
+                )
+                if (
+                    ipv4_pattern.match(bridge)
+                    or ipv6_pattern.match(bridge)
+                    or meek_lite_pattern.match(bridge)
+                    or snowflake_pattern.match(bridge)
+                ):
+                    valid_bridges.append(bridge)
+        if valid_bridges:
+            return valid_bridges
+        else:
+           return False
+
     def is_flatpak(self):
         """
         Returns True if OnionShare is running in a Flatpak sandbox
@@ -451,6 +486,7 @@ class Common:
         Returns True if OnionShare is running in a Snapcraft sandbox
         """
         return os.environ.get("SNAP_INSTANCE_NAME") == "onionshare"
+
 
     @staticmethod
     def random_string(num_bytes, output_len=None):

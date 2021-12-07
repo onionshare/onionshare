@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2020-11-15 14:42-0800\n"
-"PO-Revision-Date: 2021-09-18 20:19+0000\n"
-"Last-Translator: 5IGI0 <5IGI0@protonmail.com>\n"
+"PO-Revision-Date: 2021-10-21 05:01+0000\n"
+"Last-Translator: aezjrareareare <jeromechaland@riseup.net>\n"
 "Language-Team: none\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -25,17 +25,20 @@ msgstr "Obtenir de l'aide"
 
 #: ../../source/help.rst:5
 msgid "Read This Website"
-msgstr ""
+msgstr "Lire ce site Web"
 
 #: ../../source/help.rst:7
 msgid ""
 "You will find instructions on how to use OnionShare. Look through all of "
 "the sections first to see if anything answers your questions."
 msgstr ""
+"Vous trouverez ici des informations sur comment utiliser OnionShare. "
+"Regardez les autres parties d'abord afin de voir si vos questions n'ont pas "
+"déjà été répondues."
 
 #: ../../source/help.rst:10
 msgid "Check the GitHub Issues"
-msgstr ""
+msgstr "Vérifiez les signalement de problèmes sur GitHub (GitHub Issues)"
 
 #: ../../source/help.rst:12
 msgid ""
@@ -47,7 +50,7 @@ msgstr ""
 
 #: ../../source/help.rst:15
 msgid "Submit an Issue Yourself"
-msgstr ""
+msgstr "Signaler un problème"
 
 #: ../../source/help.rst:17
 msgid ""
@@ -60,13 +63,15 @@ msgstr ""
 
 #: ../../source/help.rst:20
 msgid "Join our Keybase Team"
-msgstr ""
+msgstr "Rejoindre notre équipe Keybase"
 
 #: ../../source/help.rst:22
 msgid ""
 "See :ref:`collaborating` on how to join the Keybase team used to discuss "
 "the project."
 msgstr ""
+"Voir :ref:`collaborer` sur comment rejoindre l'équipe Keybase utilisée pour "
+"discuter du projet."
 
 #~ msgid "If you need help with OnionShare, please follow the instructions below."
 #~ msgstr ""
