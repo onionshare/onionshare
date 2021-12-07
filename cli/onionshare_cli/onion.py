@@ -192,7 +192,7 @@ class Onion(object):
         custom_settings=None,
         config=None,
         tor_status_update_func=None,
-        connect_timeout=120,
+        connect_timeout=1,
         local_only=False,
     ):
         if local_only:

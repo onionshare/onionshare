@@ -77,6 +77,9 @@ class AutoConnectTab(QtWidgets.QWidget):
 
         # Use bridge widget
         self.use_bridge_widget = AutoConnectUseBridgeWidget(self.common)
+        self.use_bridge_widget.connect_clicked.connect(self.connect_clicked)
+        self.use_bridge_widget.back_clicked.connect(self.back_clicked)
+        self.use_bridge_widget.open_tor_settings.connect(self.open_tor_settings)
         self.use_bridge_widget.hide()
 
         # Tor connection widget
@@ -134,9 +137,11 @@ class AutoConnectTab(QtWidgets.QWidget):
         """
         self.common.log("AutoConnectTab", "connect_clicked")
 
-        # If we're on first launch, hide the buttons
+        # Hide the buttons
         if self.first_launch_widget.isVisible():
             self.first_launch_widget.hide_buttons()
+        elif self.use_bridge_widget.isVisible():
+            self.use_bridge_widget.hide_buttons()
 
         if not self.common.gui.local_only:
             self.tor_con.show()
@@ -144,12 +149,20 @@ class AutoConnectTab(QtWidgets.QWidget):
         else:
             self.close_this_tab.emit()
 
+    def back_clicked(self):
+        """
+        Switch from use bridge widget back to first launch widget
+        """
+        self.use_bridge_widget.hide()
+        self.first_launch_widget.show()
+
     def tor_con_success(self):
         """
         Finished testing tor connection.
         """
         self.tor_con.hide()
         self.first_launch_widget.show_buttons()
+        self.use_bridge_widget.show_buttons()
 
         if self.common.gui.onion.is_authenticated() and not self.tor_con.wasCanceled():
             # Tell the tabs that Tor is connected
@@ -186,6 +199,7 @@ class AutoConnectFirstLaunchWidget(QtWidgets.QWidget):
 
         # Description and checkbox
         description_label = QtWidgets.QLabel(strings._("gui_autoconnect_description"))
+        description_label.setWordWrap(True)
         self.enable_autoconnect_checkbox = ToggleCheckbox(
             strings._("gui_enable_autoconnect_checkbox")
         )
@@ -248,7 +262,92 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
     If connecting fails, this is the widget that helps the user bypass censorship
     """
 
+    connect_clicked = QtCore.Signal()
+    back_clicked = QtCore.Signal()
+    open_tor_settings = QtCore.Signal()
+
     def __init__(self, common):
         super(AutoConnectUseBridgeWidget, self).__init__()
         self.common = common
         self.common.log("AutoConnectUseBridgeWidget", "__init__")
+
+        # Description
+        description_label = QtWidgets.QLabel(
+            strings._("gui_autoconnect_bridge_description")
+        )
+        description_label.setTextFormat(QtCore.Qt.RichText)
+        description_label.setWordWrap(True)
+
+        # Detection preference
+        self.detect_automatic_radio = QtWidgets.QRadioButton(
+            strings._("gui_autoconnect_bridge_detect_automatic")
+        )
+        self.detect_automatic_radio.toggled.connect(self._detect_automatic_toggled)
+        self.detect_manual_radio = QtWidgets.QRadioButton(
+            strings._("gui_autoconnect_bridge_detect_manual")
+        )
+        self.detect_manual_radio.toggled.connect(self._detect_manual_toggled)
+        detect_layout = QtWidgets.QVBoxLayout()
+        detect_layout.addWidget(self.detect_automatic_radio)
+        detect_layout.addWidget(self.detect_manual_radio)
+
+        # World map
+
+        # Buttons
+        self.connect_button = QtWidgets.QPushButton(
+            strings._("gui_autoconnect_bridge_start")
+        )
+        self.connect_button.clicked.connect(self._connect_clicked)
+        self.connect_button.setFixedWidth(150)
+        self.connect_button.setStyleSheet(common.gui.css["autoconnect_start_button"])
+        self.back_button = QtWidgets.QPushButton(
+            strings._("gui_autoconnect_bridge_back")
+        )
+        self.back_button.clicked.connect(self._back_clicked)
+        self.back_button.setFlat(True)
+        self.back_button.setStyleSheet(common.gui.css["autoconnect_configure_button"])
+        self.configure_button = QtWidgets.QPushButton(
+            strings._("gui_autoconnect_configure")
+        )
+        self.configure_button.clicked.connect(self._open_tor_settings)
+        self.configure_button.setFlat(True)
+        self.configure_button.setStyleSheet(
+            common.gui.css["autoconnect_configure_button"]
+        )
+        cta_layout = QtWidgets.QHBoxLayout()
+        cta_layout.addWidget(self.connect_button)
+        cta_layout.addWidget(self.back_button)
+        cta_layout.addWidget(self.configure_button)
+        cta_layout.addStretch()
+        cta_widget = QtWidgets.QWidget()
+        cta_widget.setLayout(cta_layout)
+
+        # Layout
+        layout = QtWidgets.QVBoxLayout()
+        layout.addWidget(description_label)
+        layout.addLayout(detect_layout)
+        layout.addWidget(cta_widget)
+        self.setLayout(layout)
+
+    def hide_buttons(self):
+        self.connect_button.hide()
+        self.configure_button.hide()
+
+    def show_buttons(self):
+        self.connect_button.show()
+        self.configure_button.show()
+
+    def _detect_automatic_toggled(self):
+        pass
+
+    def _detect_manual_toggled(self):
+        pass
+
+    def _connect_clicked(self):
+        self.connect_clicked.emit()
+
+    def _back_clicked(self):
+        self.back_clicked.emit()
+
+    def _open_tor_settings(self):
+        self.open_tor_settings.emit()
