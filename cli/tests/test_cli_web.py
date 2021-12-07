@@ -50,7 +50,8 @@ def web_obj(temp_dir, common_obj, mode, num_files=0):
     web = Web(common_obj, False, mode_settings, mode)
     web.running = True
 
-    web.cleanup_filenames == []
+    web.cleanup_tempfiles == []
+    web.cleanup_tempdirs == []
     web.app.testing = True
 
     # Share mode
@@ -58,7 +59,9 @@ def web_obj(temp_dir, common_obj, mode, num_files=0):
         # Add files
         files = []
         for _ in range(num_files):
-            with tempfile.NamedTemporaryFile(delete=False, dir=temp_dir) as tmp_file:
+            with tempfile.NamedTemporaryFile(
+                delete=False, dir=temp_dir.name
+            ) as tmp_file:
                 tmp_file.write(b"*" * 1024)
                 files.append(tmp_file.name)
         web.share_mode.set_file_info(files)
@@ -131,7 +134,9 @@ class TestWeb:
 
         with web.app.test_client() as c:
             # Load / with valid auth
-            res = c.get("/",)
+            res = c.get(
+                "/",
+            )
             res.get_data()
             assert res.status_code == 200
 
@@ -169,7 +174,7 @@ class TestWeb:
     def test_receive_mode_message_no_files(self, temp_dir, common_obj):
         web = web_obj(temp_dir, common_obj, "receive")
 
-        data_dir = os.path.join(temp_dir, "OnionShare")
+        data_dir = os.path.join(temp_dir.name, "OnionShare")
         os.makedirs(data_dir, exist_ok=True)
 
         web.settings.set("receive", "data_dir", data_dir)
@@ -200,7 +205,7 @@ class TestWeb:
     def test_receive_mode_message_and_files(self, temp_dir, common_obj):
         web = web_obj(temp_dir, common_obj, "receive")
 
-        data_dir = os.path.join(temp_dir, "OnionShare")
+        data_dir = os.path.join(temp_dir.name, "OnionShare")
         os.makedirs(data_dir, exist_ok=True)
 
         web.settings.set("receive", "data_dir", data_dir)
@@ -235,7 +240,7 @@ class TestWeb:
     def test_receive_mode_files_no_message(self, temp_dir, common_obj):
         web = web_obj(temp_dir, common_obj, "receive")
 
-        data_dir = os.path.join(temp_dir, "OnionShare")
+        data_dir = os.path.join(temp_dir.name, "OnionShare")
         os.makedirs(data_dir, exist_ok=True)
 
         web.settings.set("receive", "data_dir", data_dir)
@@ -267,7 +272,7 @@ class TestWeb:
     def test_receive_mode_no_message_no_files(self, temp_dir, common_obj):
         web = web_obj(temp_dir, common_obj, "receive")
 
-        data_dir = os.path.join(temp_dir, "OnionShare")
+        data_dir = os.path.join(temp_dir.name, "OnionShare")
         os.makedirs(data_dir, exist_ok=True)
 
         web.settings.set("receive", "data_dir", data_dir)
@@ -300,15 +305,21 @@ class TestWeb:
             res.get_data()
             assert res.status_code == 200
 
-    def test_cleanup(self, common_obj, temp_dir_1024, temp_file_1024):
+    def test_cleanup(self, common_obj, temp_dir_1024):
         web = web_obj(temp_dir_1024, common_obj, "share", 3)
 
-        web.cleanup_filenames = [temp_dir_1024, temp_file_1024]
+        temp_file = tempfile.NamedTemporaryFile()
+        temp_dir = tempfile.TemporaryDirectory()
+
+        web.cleanup_tempfiles = [temp_file]
+        web.cleanup_tempdirs = [temp_dir]
         web.cleanup()
 
-        assert os.path.exists(temp_file_1024) is False
-        assert os.path.exists(temp_dir_1024) is False
-        assert web.cleanup_filenames == []
+        assert os.path.exists(temp_file.name) is False
+        assert os.path.exists(temp_dir.name) is False
+
+        assert web.cleanup_tempfiles == []
+        assert web.cleanup_tempdirs == []
 
 
 class TestZipWriterDefault:
@@ -339,8 +350,10 @@ class TestZipWriterDefault:
         assert default_zw.processed_size_callback(None) is None
 
     def test_add_file(self, default_zw, temp_file_1024_delete):
-        default_zw.add_file(temp_file_1024_delete)
-        zipfile_info = default_zw.z.getinfo(os.path.basename(temp_file_1024_delete))
+        default_zw.add_file(temp_file_1024_delete.name)
+        zipfile_info = default_zw.z.getinfo(
+            os.path.basename(temp_file_1024_delete.name)
+        )
 
         assert zipfile_info.compress_type == zipfile.ZIP_DEFLATED
         assert zipfile_info.file_size == 1024
@@ -567,7 +580,6 @@ class TestRangeRequests:
             )
             resp = client.get(url, headers=headers)
             assert resp.status_code == 206
-
 
     @pytest.mark.skipif(sys.platform != "linux", reason="requires Linux")
     @check_unsupported("curl", ["--version"])

@@ -40,9 +40,6 @@ class OnionShare(object):
         self.onion_host = None
         self.port = None
 
-        # files and dirs to delete on shutdown
-        self.cleanup_filenames = []
-
         # do not use tor -- for development
         self.local_only = local_only
 
@@ -75,7 +72,9 @@ class OnionShare(object):
         if self.local_only:
             self.onion_host = f"127.0.0.1:{self.port}"
             if not mode_settings.get("general", "public"):
-                self.auth_string = "E2GOT5LTUTP3OAMRCRXO4GSH6VKJEUOXZQUC336SRKAHTTT5OVSA"
+                self.auth_string = (
+                    "E2GOT5LTUTP3OAMRCRXO4GSH6VKJEUOXZQUC336SRKAHTTT5OVSA"
+                )
             return
 
         self.onion_host = self.onion.start_onion_service(

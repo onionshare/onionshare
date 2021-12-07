@@ -27,7 +27,7 @@ You will end up with the documentation in all supported locales in `docs/localiz
 Here's how preparing translations works:
 
 ```sh
-# Generate .po files in build/gettext 
+# Generate .po files in build/gettext
 make gettext
 
 # Create a new blank German locale in source/locale, based on .po files

@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2020-11-15 14:42-0800\n"
-"PO-Revision-Date: 2021-09-19 15:37+0000\n"
-"Last-Translator: EdwardCage <contact@edwardcage.pro>\n"
+"PO-Revision-Date: 2021-10-23 18:43+0000\n"
+"Last-Translator: aezjrareareare <jeromechaland@riseup.net>\n"
 "Language-Team: none\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -21,11 +21,11 @@ msgstr ""
 
 #: ../../source/advanced.rst:2
 msgid "Advanced Usage"
-msgstr "Usage avancé"
+msgstr "Utilisation Avancée"
 
 #: ../../source/advanced.rst:7
 msgid "Save Tabs"
-msgstr ""
+msgstr "Sauvegarder les onglets"
 
 #: ../../source/advanced.rst:9
 msgid ""
@@ -35,6 +35,11 @@ msgid ""
 "useful if you want to host a website available from the same OnionShare "
 "address even if you reboot your computer."
 msgstr ""
+"Tout dans OnionShare est temporaire par défaut. Si vous fermez un onglet, "
+"son adresse n'existe plus et ne pourra plus être utilisée. Dans certains "
+"cas, vous voudrez qu'un service OnionShare soit persistent. Cela est utile "
+"si vous souhaitez héberger un site web dont l'adresse OnionShare reste "
+"identique même après un redémarrage de votre ordinateur."
 
 #: ../../source/advanced.rst:13
 msgid ""
@@ -42,6 +47,10 @@ msgid ""
 "open it when I open OnionShare\" box before starting the server. When a "
 "tab is saved a purple pin icon appears to the left of its server status."
 msgstr ""
+"Pour rendre un onglet persistant, cocher la case \"Enregistrer cet onglet et "
+"l’ouvrir automatiquement quand j’ouvre OnionShare\" avant de démarrer le "
+"serveur. Quand un onglet est sauvegardé un icône d'épingle violet apparaît à "
+"la gauche du statut du serveur."
 
 #: ../../source/advanced.rst:18
 msgid ""
@@ -55,6 +64,8 @@ msgid ""
 "If you save a tab, a copy of that tab's onion service secret key will be "
 "stored on your computer with your OnionShare settings."
 msgstr ""
+"Si vous sauvegarder un onglet, une copie de la clé secrète de ce service "
+"ognon sera stocké dans votre ordinateur avec vos paramètres OnionShare."
 
 #: ../../source/advanced.rst:26
 msgid "Turn Off Passwords"
@@ -87,7 +98,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:38
 msgid "Scheduled Times"
-msgstr ""
+msgstr "Programmation horaire"
 
 #: ../../source/advanced.rst:40
 msgid ""
@@ -97,6 +108,11 @@ msgid ""
 "scheduled time\", \"Stop onion service at scheduled time\", or both, and "
 "set the respective desired dates and times."
 msgstr ""
+"OnionShare permet de planifier quand un service doit démarrer ou s'arrêter. "
+"Avant de démarrer un serveur, cliquer \"Afficher les paramètres avancés\" "
+"dans l'onglet et cocher une ou les deux cases \"Démarrer un service onion à "
+"une heure prédéterminée\" ou \" Arrêter un service onion à une heure "
+"prédéterminée\", et définissez les dates et heures souhaitées."
 
 #: ../../source/advanced.rst:43
 msgid ""
@@ -105,6 +121,11 @@ msgid ""
 "starts. If you scheduled it to stop in the future, after it's started you"
 " will see a timer counting down to when it will stop automatically."
 msgstr ""
+"Si vous paramétrez un service pour qu'il démarre dans le futur, quand vous "
+"cliquer le bouton \"Commencer le partage\", un compte à rebours s'affichera "
+"jusqu'au démarrage du service. Si vous le paramétrez pour qu'il s'arrête "
+"dans le futur, après son démarrage un compte à rebours jusqu'à son arrêt "
+"automatique s'affichera."
 
 #: ../../source/advanced.rst:46
 msgid ""
@@ -113,6 +134,10 @@ msgid ""
 "time in the future if anything happens to you. If nothing happens to you,"
 " you can cancel the service before it's scheduled to start."
 msgstr ""
+"**Planifier le démarrage automatique d'un service OnionShare peut être "
+"utilisé comme une veille automatique**, le service deviendra public à un "
+"moment choisis dans le futur si quelque chose vous arrive. Si rien ne vous "
+"arrive, vous pouvez annuler le service avant qu'il ne se lance."
 
 #: ../../source/advanced.rst:51
 msgid ""
@@ -124,29 +149,35 @@ msgstr ""
 
 #: ../../source/advanced.rst:56
 msgid "Command-line Interface"
-msgstr ""
+msgstr "Interface en ligne de commande"
 
 #: ../../source/advanced.rst:58
 msgid ""
 "In addition to its graphical interface, OnionShare has a command-line "
 "interface."
 msgstr ""
+"En plus de son interface graphique, OnionShare dispose d'une interface en "
+"ligne de commande."
 
 #: ../../source/advanced.rst:60
 msgid ""
 "You can install just the command-line version of OnionShare using "
 "``pip3``::"
 msgstr ""
+"Vous pouvez installez uniquement la version en ligne de commande "
+"d'OnionShare en utilisant ``pip3``::"
 
 #: ../../source/advanced.rst:64
 msgid ""
 "Note that you will also need the ``tor`` package installed. In macOS, "
 "install it with: ``brew install tor``"
 msgstr ""
+"Notez que vous aurez aussi besoin d'installer le paquet ``tor``. Sur macOS, "
+"installez le avec : ``brew install tor``"
 
 #: ../../source/advanced.rst:66
 msgid "Then run it like this::"
-msgstr ""
+msgstr "Puis lancez le avec ::"
 
 #: ../../source/advanced.rst:70
 msgid ""
@@ -154,16 +185,21 @@ msgid ""
 "also just run ``onionshare.cli`` to access the command-line interface "
 "version."
 msgstr ""
+"Si vous installez OnionShare en utilisant le paquet Linux Snapcraft, vous "
+"pouvez vous contentez de lancer ``onionshare.cli`` pour accéder à "
+"l'interface en ligne de commande."
 
 #: ../../source/advanced.rst:73
 msgid "Usage"
-msgstr ""
+msgstr "Utilisation"
 
 #: ../../source/advanced.rst:75
 msgid ""
 "You can browse the command-line documentation by running ``onionshare "
 "--help``::"
 msgstr ""
+"Vous pouvez consultez la documentation de l'interface en ligne de commande "
+"en lançant ``onionshare --help``::"
 
 #: ../../source/advanced.rst:132
 msgid "Legacy Addresses"

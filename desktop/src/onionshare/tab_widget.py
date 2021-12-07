@@ -345,6 +345,7 @@ class TabWidget(QtWidgets.QTabWidget):
             self.common.log("TabWidget", "closing a service tab")
             if tab.close_tab():
                 self.common.log("TabWidget", "user is okay with closing the tab")
+                tab.cleanup()
 
                 # If the tab is persistent, delete the settings file from disk
                 if tab.settings.get("persistent", "enabled"):
