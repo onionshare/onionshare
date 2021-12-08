@@ -43,7 +43,7 @@ class TorSettingsTab(QtWidgets.QWidget):
     tor_is_connected = QtCore.Signal()
     tor_is_disconnected = QtCore.Signal()
 
-    def __init__(self, common, tab_id, are_tabs_active, status_bar):
+    def __init__(self, common, tab_id, are_tabs_active, status_bar, from_autoconnect=False):
         super(TorSettingsTab, self).__init__()
 
         self.common = common
@@ -54,6 +54,7 @@ class TorSettingsTab(QtWidgets.QWidget):
 
         self.system = platform.system()
         self.tab_id = tab_id
+        self.from_autoconnect = from_autoconnect
 
         # Connection type: either automatic, control port, or socket file
 
@@ -692,7 +693,7 @@ class TorSettingsTab(QtWidgets.QWidget):
             # If Tor isn't connected, or if Tor settings have changed, Reinitialize
             # the Onion object
             reboot_onion = False
-            if not self.common.gui.local_only:
+            if not self.common.gui.local_only and not self.from_autoconnect:
                 if self.common.gui.onion.is_authenticated():
                     self.common.log(
                         "TorSettingsTab", "save_clicked", "Connected to Tor"

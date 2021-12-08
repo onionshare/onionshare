@@ -23,8 +23,8 @@ import time
 from PySide2 import QtCore, QtWidgets, QtGui
 
 from . import strings
-from .tor_connection import TorConnectionDialog
 from .widgets import Alert
+from .connection_tab import AutoConnectTab
 from .update_checker import UpdateThread
 from .tab_widget import TabWidget
 from .gui_common import GuiCommon
@@ -238,7 +238,8 @@ class MainWindow(QtWidgets.QMainWindow):
         Open the TorSettingsTab
         """
         self.common.log("MainWindow", "open_tor_settings")
-        self.tabs.open_tor_settings_tab()
+        from_autoconnect = type(self.tabs.tabs[0]) is AutoConnectTab
+        self.tabs.open_tor_settings_tab(from_autoconnect)
 
     def open_settings(self):
         """

@@ -241,7 +241,7 @@ class TabWidget(QtWidgets.QTabWidget):
         index = self.addTab(settings_tab, strings._("gui_settings_window_title"))
         self.setCurrentIndex(index)
 
-    def open_tor_settings_tab(self):
+    def open_tor_settings_tab(self, from_autoconnect=False):
         self.common.log("TabWidget", "open_tor_settings_tab")
 
         # See if a settings tab is already open, and if so switch to it
@@ -251,7 +251,7 @@ class TabWidget(QtWidgets.QTabWidget):
                 return
 
         self.tor_settings_tab = TorSettingsTab(
-            self.common, self.current_tab_id, self.are_tabs_active(), self.status_bar
+            self.common, self.current_tab_id, self.are_tabs_active(), self.status_bar, from_autoconnect
         )
         self.tor_settings_tab.close_this_tab.connect(self.close_tor_settings_tab)
         self.tor_settings_tab.tor_is_connected.connect(self.tor_is_connected)
