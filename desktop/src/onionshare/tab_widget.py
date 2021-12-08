@@ -220,6 +220,8 @@ class TabWidget(QtWidgets.QTabWidget):
 
         connection_tab = AutoConnectTab(self.common, self.current_tab_id, self.status_bar, parent=self)
         connection_tab.close_this_tab.connect(self.close_connection_tab)
+        connection_tab.tor_is_connected.connect(self.tor_is_connected)
+        connection_tab.tor_is_disconnected.connect(self.tor_is_disconnected)
         self.tabs[self.current_tab_id] = connection_tab
         self.current_tab_id += 1
         index = self.addTab(connection_tab, strings._("gui_autoconnect_start"))

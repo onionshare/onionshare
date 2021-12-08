@@ -147,6 +147,9 @@ class MainWindow(QtWidgets.QMainWindow):
         if len(self.common.settings.get("persistent_tabs")) > 0:
             for mode_settings_id in self.common.settings.get("persistent_tabs"):
                 self.tabs.load_tab(mode_settings_id)
+            # If not connected to tor in beginning, show autoconnect tab
+            if not self.common.gui.onion.connected_to_tor:
+                self.tabs.new_tab_clicked()
         else:
             # Start with opening the first tab
             self.tabs.new_tab_clicked()
