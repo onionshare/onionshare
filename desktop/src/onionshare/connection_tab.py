@@ -152,7 +152,7 @@ class AutoConnectTab(QtWidgets.QWidget):
         self.curr_settings.save()
 
     def open_tor_settings(self):
-        self.parent.open_tor_settings_tab()
+        self.parent.open_tor_settings_tab(from_autoconnect=True)
 
     def connect_clicked(self):
         """
@@ -164,11 +164,8 @@ class AutoConnectTab(QtWidgets.QWidget):
         self.connect_button.hide()
         self.configure_button.hide()
 
-        if not self.common.gui.local_only:
-            self.tor_con.show()
-            self.tor_con.start(self.curr_settings)
-        else:
-            self.close_this_tab.emit()
+        self.tor_con.show()
+        self.tor_con.start(self.curr_settings)
 
     def tor_con_success(self):
         """
