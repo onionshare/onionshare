@@ -162,9 +162,9 @@ class TabWidget(QtWidgets.QTabWidget):
             pass
 
     def new_tab_clicked(self):
-        # if already connected to tor, create a new tab
+        # if already connected to tor or local only, create a new tab
         # Else open the initial connection tab
-        if self.common.gui.onion.is_authenticated():
+        if self.common.gui.local_only or self.common.gui.onion.is_authenticated():
             self.add_tab()
         else:
             self.open_connection_tab()
