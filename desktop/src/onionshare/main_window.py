@@ -241,7 +241,11 @@ class MainWindow(QtWidgets.QMainWindow):
         Open the TorSettingsTab
         """
         self.common.log("MainWindow", "open_tor_settings")
-        from_autoconnect = type(self.tabs.tabs[0]) is AutoConnectTab
+        from_autoconnect = False
+        for tab_id in self.tabs.tabs:
+            if type(self.tabs.tabs[tab_id]) is AutoConnectTab:
+                from_autoconnect = True
+                break
         self.tabs.open_tor_settings_tab(from_autoconnect)
 
     def open_settings(self):
