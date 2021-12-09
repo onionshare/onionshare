@@ -383,6 +383,9 @@ class TabWidget(QtWidgets.QTabWidget):
     def close_tor_settings_tab(self):
         self.common.log("TabWidget", "close_tor_settings_tab")
         for tab_id in self.tabs:
+            if type(self.tabs[tab_id]) is AutoConnectTab:
+                self.tabs[tab_id].reload_settings()
+        for tab_id in self.tabs:
             if type(self.tabs[tab_id]) is TorSettingsTab:
                 index = self.indexOf(self.tabs[tab_id])
                 self.close_tab(index)

@@ -138,7 +138,7 @@ class AutoConnectTab(QtWidgets.QWidget):
         """
         self.common.log("AutoConnectTab", "autoconnect_checking")
         if self.auto_connect_enabled:
-            self.enable_autoconnect_checkbox.setCheckState(QtCore.Qt.Checked)
+            self.enable_autoconnect_checkbox.setChecked(True)
             self.connect_clicked()
 
     def toggle_auto_connect(self):
@@ -191,3 +191,8 @@ class AutoConnectTab(QtWidgets.QWidget):
         self.connect_button.show()
         self.configure_button.show()
         self.error_label.setText(msg)
+
+    def reload_settings(self):
+        self.curr_settings.load()
+        self.auto_connect_enabled = self.curr_settings.get("auto_connect")
+        self.enable_autoconnect_checkbox.setChecked(self.auto_connect_enabled)
