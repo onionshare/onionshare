@@ -337,9 +337,22 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
         for country_code in countries:
             self.country_combobox.addItem(countries[country_code], country_code)
 
+        self.country_combobox.currentIndexChanged.connect(self._country_changed)
+
+        # Country shape
+        self.country_image_label = QtWidgets.QLabel()
+        self.country_image_label.setFixedSize(256, 256)
+        country_image_layout = QtWidgets.QHBoxLayout()
+        country_image_layout.addStretch()
+        country_image_layout.addWidget(self.country_image_label)
+        country_image_layout.addStretch()
+        self.country_image = QtWidgets.QWidget()
+        self.country_image.setLayout(country_image_layout)
+
         # Task label
         self.task_label = QtWidgets.QLabel()
-        self.task_label.setStyleSheet(common.gui.css["enable_autoconnect"])
+        self.task_label.setStyleSheet(common.gui.css["autoconnect_task_label"])
+        self.task_label.setAlignment(QtCore.Qt.AlignCenter)
         self.task_label.hide()
 
         # Buttons
@@ -376,10 +389,12 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
         layout.addWidget(description_label)
         layout.addLayout(detect_layout)
         layout.addWidget(self.country_combobox)
+        layout.addWidget(self.country_image)
         layout.addWidget(self.task_label)
         layout.addWidget(cta_widget)
         self.setLayout(layout)
 
+        self._country_changed()
         self.detect_automatic_radio.setChecked(True)
 
     def hide_buttons(self):
@@ -398,6 +413,7 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
 
         self.country_combobox.setEnabled(False)
         self.country_combobox.show()
+        self.country_image.show()
 
         # If we're automatically detecting it, randomly switch up the country
         # dropdown until we detect the location
@@ -413,6 +429,17 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
         self.task_label.hide()
         self.autodetecting_timer.stop()
 
+    def _country_changed(self, index=None):
+        country_code = str(self.country_combobox.currentData()).lower()
+        path = GuiCommon.get_resource_path(
+            os.path.join(
+                "images",
+                "countries",
+                f"{country_code}-{self.common.gui.color_mode}.png",
+            )
+        )
+        self.country_image_label.setPixmap(QtGui.QPixmap.fromImage(QtGui.QImage(path)))
+
     def _autodetecting_timer_callback(self):
         new_index = random.randrange(0, self.country_combobox.count())
         self.country_combobox.setCurrentIndex(new_index)
@@ -420,10 +447,12 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
     def _detect_automatic_toggled(self):
         self.country_combobox.setEnabled(False)
         self.country_combobox.hide()
+        self.country_image.hide()
 
     def _detect_manual_toggled(self):
         self.country_combobox.setEnabled(True)
         self.country_combobox.show()
+        self.country_image.show()
 
     def _connect_clicked(self):
         self.connect_clicked.emit()
