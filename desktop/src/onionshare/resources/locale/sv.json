@@ -315,5 +315,8 @@
     "gui_qr_label_url_title": "OnionShare-adress",
     "gui_copied_client_auth": "Privat nyckel kopierad till Urklipp",
     "gui_copied_client_auth_title": "Kopierad privat nyckel",
-    "gui_copy_client_auth": "Kopiera den privata nyckeln"
+    "gui_copy_client_auth": "Kopiera den privata nyckeln",
+    "gui_tor_settings_window_title": "Torinställningar",
+    "gui_settings_controller_extras_label": "Torinställningar",
+    "gui_dragdrop_sandbox_flatpak": "För att göra Flatpak mer säkert, är dra och släpp inte tillåtet. Använd Lägg till filer och Lägg till katalog knapparna för att bläddra efter filer istället."
 }
