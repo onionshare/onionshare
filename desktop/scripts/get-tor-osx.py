@@ -32,6 +32,8 @@ import shutil
 import subprocess
 import requests
 
+from bridges import UpdateTorBridges
+
 
 def main():
     dmg_url = "https://dist.torproject.org/torbrowser/11.0a10/TorBrowser-11.0a10-osx64_en-US.dmg"
@@ -112,6 +114,9 @@ def main():
 
     # Eject dmg
     subprocess.call(["diskutil", "eject", "/Volumes/Tor Browser"])
+
+    # Fetch the built-in bridges
+    UpdateTorBridges(root_path)
 
 
 if __name__ == "__main__":

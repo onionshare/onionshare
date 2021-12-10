@@ -31,6 +31,8 @@ import shutil
 import subprocess
 import requests
 
+from bridges import UpdateTorBridges
+
 
 def main():
     exe_url = "https://dist.torproject.org/torbrowser/11.0a10/torbrowser-install-11.0a10_en-US.exe"
@@ -97,6 +99,9 @@ def main():
     shutil.copytree(
         os.path.join(working_path, "Data"), os.path.join(dist_path, "Data", "Tor")
     )
+
+    # Fetch the built-in bridges
+    UpdateTorBridges(root_path)
 
 
 if __name__ == "__main__":
