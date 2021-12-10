@@ -29,6 +29,10 @@ def main():
         with open(os.path.join(repo_dir, "data", locale, "country.json")) as f:
             countries = json.loads(f.read())
 
+        # Remove countries we don't have images for
+        for key in ["JE", "MH", "FM", "MP", "PS", "TV", "UM"]:
+            del countries[key]
+
         with open(
             os.path.join(
                 "src", "onionshare", "resources", "countries", f"{locale}.json"
