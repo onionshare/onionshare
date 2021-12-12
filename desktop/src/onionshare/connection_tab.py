@@ -119,9 +119,7 @@ class AutoConnectTab(QtWidgets.QWidget):
         """
         self.common.log("AutoConnectTab", "autoconnect_checking")
         if self.auto_connect_enabled:
-            self.first_launch_widget.enable_autoconnect_checkbox.setCheckState(
-                QtCore.Qt.Checked
-            )
+            self.first_launch_widget.enable_autoconnect_checkbox.setChecked(True)
             self.first_launch_widget_connect_clicked()
 
     def toggle_auto_connect(self):
@@ -136,7 +134,7 @@ class AutoConnectTab(QtWidgets.QWidget):
         self.curr_settings.save()
 
     def open_tor_settings(self):
-        self.parent.open_tor_settings_tab()
+        self.parent.open_tor_settings_tab(from_autoconnect=True)
 
     def first_launch_widget_connect_clicked(self):
         """
@@ -145,11 +143,8 @@ class AutoConnectTab(QtWidgets.QWidget):
         self.common.log("AutoConnectTab", "first_launch_widget_connect_clicked")
         self.first_launch_widget.hide_buttons()
 
-        if not self.common.gui.local_only:
-            self.tor_con.show()
-            self.tor_con.start(self.curr_settings)
-        else:
-            self.close_this_tab.emit()
+        self.tor_con.show()
+        self.tor_con.start(self.curr_settings)
 
     def use_bridge_connect_clicked(self):
         """
@@ -218,6 +213,13 @@ class AutoConnectTab(QtWidgets.QWidget):
             self.first_launch_widget.show_buttons()
             self.first_launch_widget.hide()
             self.use_bridge_widget.show()
+
+    def reload_settings(self):
+        self.curr_settings.load()
+        self.auto_connect_enabled = self.curr_settings.get("auto_connect")
+        self.first_launch_widget.enable_autoconnect_checkbox.setChecked(
+            self.auto_connect_enabled
+        )
 
 
 class AutoConnectFirstLaunchWidget(QtWidgets.QWidget):

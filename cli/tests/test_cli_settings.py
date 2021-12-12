@@ -37,7 +37,7 @@ class TestSettings:
             "bridges_builtin": {},
             "persistent_tabs": [],
             "theme": 0,
-            "censorship_circumvention": False,
+            "auto_connect": False,
         }
         for key in settings_obj._settings:
             # Skip locale, it will not always default to the same thing

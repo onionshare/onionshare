@@ -24,6 +24,7 @@ from PySide2 import QtCore, QtWidgets, QtGui
 
 from . import strings
 from .widgets import Alert
+from .connection_tab import AutoConnectTab
 from .update_checker import UpdateThread
 from .tab_widget import TabWidget
 from .settings_tab import SettingsTab
@@ -147,6 +148,9 @@ class MainWindow(QtWidgets.QMainWindow):
         if len(self.common.settings.get("persistent_tabs")) > 0:
             for mode_settings_id in self.common.settings.get("persistent_tabs"):
                 self.tabs.load_tab(mode_settings_id)
+            # If not connected to tor in beginning, show autoconnect tab
+            if not self.common.gui.onion.connected_to_tor:
+                self.tabs.new_tab_clicked()
         else:
             # Start with opening the first tab
             self.tabs.new_tab_clicked()
@@ -238,7 +242,12 @@ class MainWindow(QtWidgets.QMainWindow):
         Open the TorSettingsTab
         """
         self.common.log("MainWindow", "open_tor_settings")
-        self.tabs.open_tor_settings_tab()
+        from_autoconnect = False
+        for tab_id in self.tabs.tabs:
+            if type(self.tabs.tabs[tab_id]) is AutoConnectTab:
+                from_autoconnect = True
+                break
+        self.tabs.open_tor_settings_tab(from_autoconnect)
 
     def open_settings(self):
         """
