@@ -161,7 +161,15 @@ class AutoConnectTab(QtWidgets.QWidget):
             "Trying to automatically obtain bridges",
         )
         self.use_bridge_widget.hide_buttons()
-        self.use_bridge_widget.start_autodetecting_location()
+
+        if self.use_bridge_widget.detect_automatic_radio.isChecked():
+            # TODO: In a separate thread, detect the country. When complete, call
+            # self.use_bridge_widget.stop_autodetecting_location() to stop the animation
+            pass
+
+        else:
+            # TODO: Connect using the selected country
+            pass
 
         # self.common.gui.meek.start()
         # self.censorship_circumvention = CensorshipCircumvention(
@@ -408,13 +416,6 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
         self.configure_button.show()
 
     def start_autodetecting_location(self):
-        self.detect_automatic_radio.setEnabled(False)
-        self.detect_manual_radio.setEnabled(False)
-
-        self.country_combobox.setEnabled(False)
-        self.country_combobox.show()
-        self.country_image.show()
-
         # If we're automatically detecting it, randomly switch up the country
         # dropdown until we detect the location
         if self.detect_automatic_radio.isChecked():
@@ -455,6 +456,13 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
         self.country_image.show()
 
     def _connect_clicked(self):
+        self.detect_automatic_radio.setEnabled(False)
+        self.detect_manual_radio.setEnabled(False)
+
+        self.country_combobox.setEnabled(False)
+        self.country_combobox.show()
+        self.country_image.show()
+
         self.connect_clicked.emit()
 
     def _back_clicked(self):
