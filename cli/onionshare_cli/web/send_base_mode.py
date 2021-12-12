@@ -42,9 +42,10 @@ class SendBaseModeWeb:
         self.is_zipped = False
         self.download_filename = None
         self.download_filesize = None
-        self.gzip_filename = None
-        self.gzip_filesize = None
         self.zip_writer = None
+
+        # Store the tempfile objects here, so when they're garbage collected the files are deleted
+        self.gzip_files = []
 
         # If autostop_sharing, only allow one download at a time
         self.download_in_progress = False
@@ -192,12 +193,15 @@ class SendBaseModeWeb:
         # gzip compress the individual file, if it hasn't already been compressed
         if use_gzip:
             if filesystem_path not in self.gzip_individual_files:
-                gzip_filename = tempfile.mkstemp("wb+")[1]
-                self._gzip_compress(filesystem_path, gzip_filename, 6, None)
-                self.gzip_individual_files[filesystem_path] = gzip_filename
+                self.gzip_files.append(
+                    tempfile.NamedTemporaryFile("wb+", dir=self.common.build_tmp_dir())
+                )
+                gzip_file = self.gzip_files[-1]
+                self._gzip_compress(filesystem_path, gzip_file.name, 6, None)
+                self.gzip_individual_files[filesystem_path] = gzip_file.name
 
-                # Make sure the gzip file gets cleaned up when onionshare stops
-                self.web.cleanup_filenames.append(gzip_filename)
+                # Cleanup this temp file
+                self.web.cleanup_tempfiles.append(gzip_file)
 
             file_to_download = self.gzip_individual_files[filesystem_path]
             filesize = os.path.getsize(self.gzip_individual_files[filesystem_path])

@@ -1,18 +1,36 @@
 Connecting to Tor
 =================
 
-Pick a way to connect OnionShare to Tor by clicking the "⚙" icon in the bottom right of the OnionShare window to get to its settings.
+Pick a way to connect OnionShare to Tor by clicking the Tor onion icon in the bottom right of the OnionShare window to open the Tor Settings tab.
 
-.. image:: _static/screenshots/settings.png
+.. image:: _static/screenshots/tor-settings.png
 
-Use the ``tor`` bundled with OnionShare
----------------------------------------
+Use the Tor version built into OnionShare
+-----------------------------------------
 
 This is the default, simplest and most reliable way that OnionShare connects to Tor.
 For this reason, it's recommended for most users.
 
 When you open OnionShare, it launches an already configured ``tor`` process in the background for OnionShare to use.
 It doesn't interfere with other ``tor`` processes on your computer, so you can use the Tor Browser or the system ``tor`` on their own.
+
+Getting Around Censorship
+-------------------------
+
+If your access to the internet is censored, you can configure OnionShare to connect to the Tor network using `Tor bridges <https://tb-manual.torproject.org/bridges/>`_. If OnionShare connects to Tor without one, you don't need to use a bridge.
+
+To use a bridge, open the Tor Settings tab. 
+You must select "Use the Tor version built into OnionShare" and check the "Use a bridge" checkbox.
+
+Try using a built-in bridge first. Using `obfs4` or `snowflake` bridges is recommended over using `meek-azure`.
+
+.. image:: _static/screenshots/tor-settings-bridges.png
+
+If using a built-in bridge doesn't work, you can request a bridge from torproject.org. You will have to solve a CAPTCHA in order to request a bridge. (This makes it more difficult for governments or ISPs to block access to Tor bridges.)
+
+.. image:: _static/screenshots/tor-settings-moat.png
+
+You also have the option of using a bridge that you learned about from a trusted source.
 
 Attempt auto-configuration with Tor Browser
 -------------------------------------------
@@ -102,13 +120,3 @@ Under "Tor authentication settings" choose "No authentication, or cookie authent
 Click the "Test Connection to Tor" button.
 
 If all goes well, you should see "Connected to the Tor controller".
-
-Using Tor bridges
------------------
-
-If your access to the internet is censored, you can configure OnionShare to connect to the Tor network using `Tor bridges <https://2019.www.torproject.org/docs/bridges.html.en>`_. If OnionShare connects to Tor without one, you don't need to use a bridge.
-
-To configure bridges, click the "⚙" icon in OnionShare.
-
-You can use the built-in obfs4 pluggable transports, the built-in meek_lite (Azure) pluggable transports, or custom bridges, which you can obtain from Tor's `BridgeDB <https://bridges.torproject.org/>`_.
-If you need to use a bridge, try the built-in obfs4 ones first.
