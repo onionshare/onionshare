@@ -158,6 +158,8 @@ class AutoConnectTab(QtWidgets.QWidget):
         self.use_bridge_widget.hide_buttons()
 
         if self.use_bridge_widget.detect_automatic_radio.isChecked():
+            self.use_bridge_widget.start_autodetecting_location()
+
             # TODO: In a separate thread, detect the country. When complete, call
             # self.use_bridge_widget.stop_autodetecting_location() to stop the animation
             pass
