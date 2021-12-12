@@ -162,9 +162,9 @@ class TabWidget(QtWidgets.QTabWidget):
             pass
 
     def new_tab_clicked(self):
-        # if already connected to tor, create a new tab
+        # if already connected to tor or local only, create a new tab
         # Else open the initial connection tab
-        if self.common.gui.onion.is_authenticated():
+        if self.common.gui.local_only or self.common.gui.onion.is_authenticated():
             self.add_tab()
         else:
             self.open_connection_tab()
@@ -222,6 +222,8 @@ class TabWidget(QtWidgets.QTabWidget):
             self.common, self.current_tab_id, self.status_bar, parent=self
         )
         connection_tab.close_this_tab.connect(self.close_connection_tab)
+        connection_tab.tor_is_connected.connect(self.tor_is_connected)
+        connection_tab.tor_is_disconnected.connect(self.tor_is_disconnected)
         self.tabs[self.current_tab_id] = connection_tab
         self.current_tab_id += 1
         index = self.addTab(connection_tab, strings._("gui_autoconnect_start"))
@@ -243,7 +245,7 @@ class TabWidget(QtWidgets.QTabWidget):
         index = self.addTab(settings_tab, strings._("gui_settings_window_title"))
         self.setCurrentIndex(index)
 
-    def open_tor_settings_tab(self):
+    def open_tor_settings_tab(self, from_autoconnect=False):
         self.common.log("TabWidget", "open_tor_settings_tab")
 
         # See if a settings tab is already open, and if so switch to it
@@ -253,7 +255,7 @@ class TabWidget(QtWidgets.QTabWidget):
                 return
 
         self.tor_settings_tab = TorSettingsTab(
-            self.common, self.current_tab_id, self.are_tabs_active(), self.status_bar
+            self.common, self.current_tab_id, self.are_tabs_active(), self.status_bar, from_autoconnect
         )
         self.tor_settings_tab.close_this_tab.connect(self.close_tor_settings_tab)
         self.tor_settings_tab.tor_is_connected.connect(self.tor_is_connected)
@@ -383,6 +385,9 @@ class TabWidget(QtWidgets.QTabWidget):
 
     def close_tor_settings_tab(self):
         self.common.log("TabWidget", "close_tor_settings_tab")
+        for tab_id in self.tabs:
+            if type(self.tabs[tab_id]) is AutoConnectTab:
+                self.tabs[tab_id].reload_settings()
         for tab_id in self.tabs:
             if type(self.tabs[tab_id]) is TorSettingsTab:
                 index = self.indexOf(self.tabs[tab_id])
