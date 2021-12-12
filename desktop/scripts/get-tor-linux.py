@@ -31,6 +31,7 @@ import hashlib
 import shutil
 import subprocess
 import requests
+from bridges import UpdateTorBridges
 
 
 def main():
@@ -125,6 +126,9 @@ def main():
     os.chmod(os.path.join(dist_path, "snowflake-client"), 0o755)
 
     print(f"Tor binaries extracted to: {dist_path}")
+
+    # Fetch the built-in bridges
+    UpdateTorBridges(root_path)
 
 
 if __name__ == "__main__":
