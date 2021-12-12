@@ -31,6 +31,7 @@ Finalize localization:
 - [ ] Merge all the translations from weblate
 - [ ] In `docs` run `poetry run ./check-weblate.py [API_KEY]` to see which translations are >90% in the app and docs
 - [ ] Edit `cli/onionshare_cli/settings.py`, make sure `self.available_locales` lists only locales that are >90% translated
+- [ ] From the `desktop` folder in the virtual env, run `./scripts/countries-update-list.py` to make sure the localized country list for censorship circumvention is available in all available languages
 - [ ] Edit `docs/source/conf.py`, make sure `languages` lists only languages that are >90% translated
 - [ ] Edit `docs/build.sh` and make sure `LOCALES=` lists the same languages as above, in `docs/source/conf.py`
 - [ ] Make sure the latest documentation is built and committed:
