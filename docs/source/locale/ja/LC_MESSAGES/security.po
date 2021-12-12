@@ -3,35 +3,37 @@
 # This file is distributed under the same license as the OnionShare package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2020-12-13 15:48-0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2021-12-10 02:52+0000\n"
+"Last-Translator: Taro Tanaka <anon_japan@protonmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.10-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/security.rst:2
 msgid "Security Design"
-msgstr ""
+msgstr "セキュリティー設計"
 
 #: ../../source/security.rst:4
 msgid "Read :ref:`how_it_works` first to get a handle on how OnionShare works."
-msgstr ""
+msgstr "まずはOnionShareの仕組みを理解するには、:ref:`how_it_works`を訪れて下さい。"
 
 #: ../../source/security.rst:6
 msgid "Like all software, OnionShare may contain bugs or vulnerabilities."
-msgstr ""
+msgstr "全てのソフトウェアのように、OnionShareにバグや脆弱性があるかもしれない。"
 
 #: ../../source/security.rst:9
 msgid "What OnionShare protects against"
-msgstr ""
+msgstr "OnionShareが防衛できる脅威"
 
 #: ../../source/security.rst:11
 msgid ""
@@ -42,6 +44,9 @@ msgid ""
 "server for that too. This avoids the traditional model of having to trust"
 " the computers of others."
 msgstr ""
+"**第三者はOnionShare内のデータやプロセスにアクセスできません。** OnionShareでは、全てのサービスは自宅のパソコンから直接にホストさ"
+"れます。OnionShareでファイルを共有するときに、外部サーバーにアップロードされません。OnionShareのチャットルームを作るときにも、自宅のパ"
+"ソコンはサーバー役になります。つまり、第三者のパソコンを信頼するという従来型モデルの必要がありません。"
 
 #: ../../source/security.rst:13
 msgid ""
@@ -53,6 +58,9 @@ msgid ""
 "Browser with OnionShare's onion service, the traffic is encrypted using "
 "the onion service's private key."
 msgstr ""
+"**ネットワーク上の盗聴者がOnionShareで送受信されるデータを傍受できません。** TorオニオンサービスとTorブラウザの間の接続は終端間暗号化"
+"されます。つまり、ネットワーク盗聴者は解読できないTorトラフィックしか傍受できません。たとえ盗聴者は悪用rendezvousノードを使ってTorブラウザ"
+"/OnionShareのオニオンサービス間のトラフィックをルーティングしても、オニオンサービスの秘密鍵で暗号化されるから解読できません。"
 
 #: ../../source/security.rst:15
 msgid ""
@@ -62,6 +70,8 @@ msgid ""
 "Browser users, the Tor Browser users and eavesdroppers can't learn the "
 "identity of the OnionShare user."
 msgstr ""
+"**OnionShareユーザの匿名性はTorに保護されます。** OnionShareとTorブラウザはユーザの匿名性を保護します。OnionShare"
+"ユーザが匿名でTorブラウザのユーザとアドレスを共有する限り、誰もがOnionShareユーザの身元を突き止めることができません。"
 
 #: ../../source/security.rst:17
 msgid ""
@@ -79,7 +89,7 @@ msgstr ""
 
 #: ../../source/security.rst:20
 msgid "What OnionShare doesn't protect against"
-msgstr ""
+msgstr "OnionShareが防衛できない脅威"
 
 #: ../../source/security.rst:22
 msgid ""
@@ -241,4 +251,3 @@ msgstr ""
 #~ " share the address. This isn't "
 #~ "necessary unless anonymity is a goal."
 #~ msgstr ""
-
