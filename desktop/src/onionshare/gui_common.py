@@ -534,7 +534,6 @@ class GuiCommon:
             return strings._("error_stealth_not_supported")
         elif type(e) is PortNotAvailable:
             return strings._("error_port_not_available")
-
         return None
 
 

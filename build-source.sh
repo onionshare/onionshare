@@ -4,7 +4,7 @@
 
 # Usage
 display_usage() {
-	echo "Usage: $0 [tag]"
+  echo "Usage: $0 [tag]"
 }
 
 if [ $# -lt 1 ]
@@ -46,13 +46,13 @@ then
   echo "Tag does not verify"
   exit 1
 fi
-cat ../verify.txt |grep "using RSA key 927F419D7EC82C2F149C1BD1403C2657CD994F73"
+cat ../verify.txt | grep "using RSA key 927F419D7EC82C2F149C1BD1403C2657CD994F73"
 if [ $? -ne 0 ]
 then
   echo "Tag signed with wrong key"
   exit 1
 fi
-cat ../verify.txt |grep "^gpg: Good signature from"
+cat ../verify.txt | grep "^gpg: Good signature from"
 if [ $? -ne 0 ]
 then
   echo "Tag verification missing 'Good signature from'"

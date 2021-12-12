@@ -274,5 +274,7 @@
     "gui_status_indicator_chat_started": "Mengobrol",
     "gui_status_indicator_chat_scheduled": "Menjadwalkan…",
     "gui_status_indicator_chat_working": "Memulai…",
-    "gui_status_indicator_chat_stopped": "Siap untuk mengobrol"
+    "gui_status_indicator_chat_stopped": "Siap untuk mengobrol",
+    "gui_copied_client_auth_title": "Kunci Pribadi Disalin",
+    "gui_copy_client_auth": "Salin Kunci Pribadi"
 }

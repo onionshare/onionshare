@@ -320,15 +320,15 @@ div#uploads .upload .upload-status {
 }
 
 div#uploads .upload input.cancel {
-	color: #d0011b;
+  color: #d0011b;
   border: 0;
   background: none;
   box-shadow: none;
   border-radius: 0px;
-	cursor: pointer;
-	font-family: sans-serif;
-	font-size: 12px;
-	text-decoration: none;
+  cursor: pointer;
+  font-family: sans-serif;
+  font-size: 12px;
+  text-decoration: none;
   display: inline-block;
   float:right;
 }

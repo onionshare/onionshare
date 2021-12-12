@@ -49,7 +49,7 @@ These instructions include adding folders to the path in Windows. To do this, go
 
 Download Python 3.8.6, 32-bit (x86) from https://www.python.org/downloads/release/python-386/. I downloaded `python-3.8.6.exe`. When installing it, make sure to check the "Add Python 3.8 to PATH" checkbox on the first page of the installer.
 
-Download and install 7-Zip from http://www.7-zip.org/download.html. I downloaded `7z1900.exe`. Add `C:\Program Files (x86)\7-Zip` to your path.
+Download and install 7-Zip from https://7-zip.org/download.html. I downloaded `7z1900.exe`. Add `C:\Program Files (x86)\7-Zip` to your path.
 
 Install python dependencies:
 

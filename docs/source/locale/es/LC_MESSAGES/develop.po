@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2021-09-09 19:15-0700\n"
-"PO-Revision-Date: 2020-12-04 23:29+0000\n"
+"PO-Revision-Date: 2021-10-09 09:04+0000\n"
 "Last-Translator: Zuhualime Akoochimoya <zakooch@protonmail.ch>\n"
-"Language: es\n"
 "Language-Team: none\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.9-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/develop.rst:2
@@ -62,16 +63,14 @@ msgid "Contributing Code"
 msgstr "Contribuyendo código"
 
 #: ../../source/develop.rst:17
-#, fuzzy
 msgid ""
 "OnionShare source code is to be found in this Git repository: "
 "https://github.com/onionshare/onionshare"
 msgstr ""
-"El código fuente de OnionShare está en este repositorio git: "
-"https://github.com/micahflee/onionshare"
+"El código fuente de OnionShare está en este repositorio git: https://github."
+"com/onionshare/onionshare"
 
 #: ../../source/develop.rst:19
-#, fuzzy
 msgid ""
 "If you'd like to contribute code to OnionShare, it helps to join the "
 "Keybase team and ask questions about what you're thinking of working on. "
@@ -79,11 +78,11 @@ msgid ""
 "<https://github.com/onionshare/onionshare/issues>`_ on GitHub to see if "
 "there are any you'd like to tackle."
 msgstr ""
-"Si quisieras contribuir código a OnionShare, ayuda unirse al equipo "
-"Keybase y hacer preguntas acerca de en qué estás pensando trabajar. "
-"También deberías revisar todas las `cuestiones abiertas "
-"<https://github.com/micahflee/onionshare/issues>`_ en GitHub para ver si "
-"hay alguna a la cual te gustaría encarar."
+"Si quisieras contribuir código a OnionShare, ayuda unirse al equipo Keybase "
+"y hacer preguntas acerca de en qué estás pensando trabajar. También deberías "
+"revisar todas las `cuestiones abiertas <https://github.com/onionshare/"
+"onionshare/issues>`_ en GitHub para ver si hay alguna a la cual te gustaría "
+"encarar."
 
 #: ../../source/develop.rst:22
 msgid ""
@@ -109,6 +108,11 @@ msgid ""
 "file to learn how to set up your development environment for the "
 "graphical version."
 msgstr ""
+"OnionShare está desarrollado en Python. Para empezar, clona el repositorio "
+"Git en https://github.com/onionshare/onionshare/ y luego consulta el archivo "
+"``cli/README.md`` para aprender cómo configurar tu entorno de desarrollo "
+"para la versión de consola, y el archivo ``desktop/README.md`` para aprender "
+"cómo configurar tu entorno de desarrollo para la versión gráfica."
 
 #: ../../source/develop.rst:32
 msgid ""
@@ -176,15 +180,15 @@ msgstr ""
 "modoficador ``--local-only``. Por ejemplo:"
 
 #: ../../source/develop.rst:165
-#, fuzzy
 msgid ""
 "In this case, you load the URL ``http://127.0.0.1:17641`` in a normal "
 "web-browser like Firefox, instead of using the Tor Browser. The private "
 "key is not actually needed in local-only mode, so you can ignore it."
 msgstr ""
-"En este caso, cargas el URL ``http://onionshare:train-"
-"system@127.0.0.1:17635`` en un navegador web normal como Firefox, en vez "
-"de usar al Navegador Tor."
+"En este caso, cargas el URL ``http://127.0.0.1:17641`` en un navegador web "
+"normal como Firefox, en vez de usar al Navegador Tor. No se precisa "
+"realmente la clave privada en el modo 'solo local', por lo que puedes "
+"ignorarla."
 
 #: ../../source/develop.rst:168
 msgid "Contributing Translations"
@@ -463,4 +467,3 @@ msgstr ""
 #~ " de línea de comando, y el "
 #~ "archivo ``desktop/README.md`` para aprender "
 #~ "cómo hacerlo para la versión gráfica."
-

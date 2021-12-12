@@ -246,7 +246,7 @@ class ShareMode(Mode):
 
     def start_server_step3_custom(self):
         """
-        Step 3 in starting the server. Remove zip progess bar, and display large filesize
+        Step 3 in starting the server. Remove zip progress bar, and display large filesize
         warning, if applicable.
         """
         # Remove zip progress bar
