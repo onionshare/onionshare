@@ -48,7 +48,9 @@ def main():
         os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
     )
     if platform.system() == "Windows":
-        dist_path = os.path.join(root_path, "src", "onionshare", "resources", "tor", "Tor")
+        dist_path = os.path.join(
+            root_path, "src", "onionshare", "resources", "tor", "Tor"
+        )
         bin_filename = "meek-client.exe"
     else:
         dist_path = os.path.join(root_path, "src", "onionshare", "resources", "tor")
