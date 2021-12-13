@@ -21,11 +21,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import json
 import os
 import random
+import time
 from PySide2 import QtCore, QtWidgets, QtGui
 
 from onionshare_cli.settings import Settings
 
 from . import strings
+from .threads import CensorshipCircumventionThread
 from .gui_common import GuiCommon, ToggleCheckbox
 from .tor_connection import TorConnectionWidget
 
@@ -146,6 +148,22 @@ class AutoConnectTab(QtWidgets.QWidget):
         self.tor_con.show()
         self.tor_con.start(self.curr_settings)
 
+    def _got_bridges(self):
+        # Try and connect again
+        self.common.log(
+            "AutoConnectTab",
+            "use_bridge_connect_clicked",
+            "Got bridges. Trying to reconnect to Tor",
+        )
+        self.active = False
+        self.tor_con.show()
+        self.tor_con.start()
+
+    def _got_no_bridges(self):
+        self.active = False
+        self.tor_con.fail.emit()
+        self.open_tor_settings()
+
     def use_bridge_connect_clicked(self):
         """
         Connect button in use bridge widget clicked.
@@ -158,30 +176,18 @@ class AutoConnectTab(QtWidgets.QWidget):
         self.use_bridge_widget.hide_buttons()
 
         if self.use_bridge_widget.detect_automatic_radio.isChecked():
-            self.use_bridge_widget.start_autodetecting_location()
-
-            # TODO: In a separate thread, detect the country. When complete, call
-            # self.use_bridge_widget.stop_autodetecting_location() to stop the animation
-            pass
-
+            country = False
         else:
-            # TODO: Connect using the selected country
-            pass
+            country = self.use_bridge_widget.country_code
 
-        # self.common.gui.meek.start()
-        # self.censorship_circumvention = CensorshipCircumvention(
-        #     self.common, self.common.gui.meek
-        # )
-        # bridge_settings = self.censorship_circumvention.request_settings(country="tm")
-        # self.common.gui.meek.cleanup()
-
-        # if bridge_settings and self.censorship_circumvention.save_settings(
-        #     self.settings, bridge_settings
-        # ):
-        #     # Try and connect again
-        #     self.start()
-        # else:
-        #     self.fail.emit()
+        t = CensorshipCircumventionThread(self.common, self.curr_settings, country)
+        t.got_bridges.connect(self._got_bridges)
+        t.got_no_bridges.connect(self._got_no_bridges)
+        t.start()
+        self.active = True
+        while self.active:
+            time.sleep(0.1)
+            self.common.gui.qtapp.processEvents()
 
     def back_clicked(self):
         """
@@ -419,28 +425,13 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
         self.back_button.show()
         self.configure_button.show()
 
-    def start_autodetecting_location(self):
-        # If we're automatically detecting it, randomly switch up the country
-        # dropdown until we detect the location
-        if self.detect_automatic_radio.isChecked():
-            self.task_label.show()
-            self.task_label.setText(strings._("gui_autoconnect_task_detect_location"))
-
-            self.autodetecting_timer = QtCore.QTimer()
-            self.autodetecting_timer.timeout.connect(self._autodetecting_timer_callback)
-            self.autodetecting_timer.start(200)
-
-    def stop_autodetecting_location(self):
-        self.task_label.hide()
-        self.autodetecting_timer.stop()
-
     def _country_changed(self, index=None):
-        country_code = str(self.country_combobox.currentData()).lower()
+        self.country_code = str(self.country_combobox.currentData()).lower()
         path = GuiCommon.get_resource_path(
             os.path.join(
                 "images",
                 "countries",
-                f"{country_code}-{self.common.gui.color_mode}.png",
+                f"{self.country_code}-{self.common.gui.color_mode}.png",
             )
         )
         self.country_image_label.setPixmap(QtGui.QPixmap.fromImage(QtGui.QImage(path)))

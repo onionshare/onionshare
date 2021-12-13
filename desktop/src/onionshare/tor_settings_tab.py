@@ -42,7 +42,9 @@ class TorSettingsTab(QtWidgets.QWidget):
     tor_is_connected = QtCore.Signal()
     tor_is_disconnected = QtCore.Signal()
 
-    def __init__(self, common, tab_id, are_tabs_active, status_bar, from_autoconnect=False):
+    def __init__(
+        self, common, tab_id, are_tabs_active, status_bar, from_autoconnect=False
+    ):
         super(TorSettingsTab, self).__init__()
 
         self.common = common
@@ -314,9 +316,7 @@ class TorSettingsTab(QtWidgets.QWidget):
         self.autoconnect_checkbox = QtWidgets.QCheckBox(
             strings._("gui_enable_autoconnect_checkbox")
         )
-        self.autoconnect_checkbox.toggled.connect(
-            self.autoconnect_toggled
-        )
+        self.autoconnect_checkbox.toggled.connect(self.autoconnect_toggled)
         left_column_settings = QtWidgets.QVBoxLayout()
         connection_type_radio_group.setFixedHeight(300)
         left_column_settings.addWidget(connection_type_radio_group)
@@ -326,7 +326,6 @@ class TorSettingsTab(QtWidgets.QWidget):
         left_column_settings.setContentsMargins(0, 0, 0, 0)
         left_column_setting_widget = QtWidgets.QWidget()
         left_column_setting_widget.setLayout(left_column_settings)
-
 
         # The Bridges options are not exclusive (enabling Bridges offers obfs4 or custom bridges)
         connection_type_bridges_radio_group_layout = QtWidgets.QVBoxLayout()
@@ -355,7 +354,7 @@ class TorSettingsTab(QtWidgets.QWidget):
         columns_wrapper.setLayout(columns_layout)
 
         # Tor connection widget
-        self.tor_con = TorConnectionWidget(self.common, self.status_bar, self.meek)
+        self.tor_con = TorConnectionWidget(self.common, self.status_bar)
         self.tor_con.success.connect(self.tor_con_success)
         self.tor_con.fail.connect(self.tor_con_fail)
         self.tor_con.hide()

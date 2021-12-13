@@ -39,7 +39,6 @@ from onionshare_cli.onion import (
 )
 
 from . import strings
-from onionshare_cli.censorship import CensorshipCircumvention
 
 
 class TorConnectionWidget(QtWidgets.QWidget):
