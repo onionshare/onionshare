@@ -127,6 +127,11 @@ class CensorshipCircumvention(object):
         endpoint = "https://bridges.torproject.org/moat/circumvention/settings"
         data = {}
         if country:
+            self.common.log(
+                "CensorshipCircumvention",
+                "censorship_obtain_settings",
+                f"Trying to obtain bridges for country={country}",
+            )
             data = {"country": country}
         if transports:
             data.append({"transports": transports})

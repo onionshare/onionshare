@@ -39,6 +39,8 @@ from onionshare_cli.onion import (
     PortNotAvailable,
 )
 
+from onionshare_cli.censorship import CensorshipCircumvention
+
 from . import strings
 
 
@@ -268,3 +270,33 @@ class OnionCleanupThread(QtCore.QThread):
     def run(self):
         self.common.log("OnionCleanupThread", "run")
         self.common.gui.onion.cleanup()
+
+
+class CensorshipCircumventionThread(QtCore.QThread):
+    got_bridges = QtCore.Signal()
+    got_no_bridges = QtCore.Signal()
+
+    def __init__(self, common, settings, country):
+        super(CensorshipCircumventionThread, self).__init__()
+        self.common = common
+        self.common.log("CensorshipCircumventionThread", "__init__")
+        self.settings = settings
+        self.country = country
+
+    def run(self):
+        self.common.log("CensorshipCircumventionThread", "run")
+
+        self.common.gui.meek.start()
+        self.censorship_circumvention = CensorshipCircumvention(
+            self.common, self.common.gui.meek
+        )
+        bridge_settings = self.censorship_circumvention.request_settings(
+            country=self.country
+        )
+
+        if bridge_settings and self.censorship_circumvention.save_settings(
+            self.settings, bridge_settings
+        ):
+            self.got_bridges.emit()
+        else:
+            self.got_no_bridges.emit()
