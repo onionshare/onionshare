@@ -93,12 +93,6 @@ class TorSettingsTab(QtWidgets.QWidget):
         self.bridge_use_checkbox.stateChanged.connect(
             self.bridge_use_checkbox_state_changed
         )
-        self.censorship_circumvention_checkbox = QtWidgets.QCheckBox(
-            strings._("gui_settings_censorship_circumvention_checkbox")
-        )
-        self.censorship_circumvention_checkbox.stateChanged.connect(
-            self.censorship_circumvention_checkbox_state_changed
-        )
 
         # Built-in bridge
         self.bridge_builtin_radio = QtWidgets.QRadioButton(
@@ -172,7 +166,6 @@ class TorSettingsTab(QtWidgets.QWidget):
         bridges_layout = QtWidgets.QVBoxLayout()
         bridges_layout.addWidget(bridges_label)
         bridges_layout.addWidget(self.bridge_use_checkbox)
-        bridges_layout.addWidget(self.censorship_circumvention_checkbox)
         bridges_layout.addWidget(self.bridge_settings)
 
         self.bridges = QtWidgets.QWidget()
@@ -458,7 +451,6 @@ class TorSettingsTab(QtWidgets.QWidget):
 
         if self.old_settings.get("bridges_enabled"):
             self.bridge_use_checkbox.setCheckState(QtCore.Qt.Checked)
-            self.censorship_circumvention_checkbox.setCheckState(QtCore.Qt.Checked)
             self.bridge_settings.show()
 
             bridges_type = self.old_settings.get("bridges_type")
@@ -540,16 +532,6 @@ class TorSettingsTab(QtWidgets.QWidget):
             self.bridge_builtin_dropdown.setCurrentText("obfs4")
         else:
             self.bridge_settings.hide()
-
-    def censorship_circumvention_checkbox_state_changed(self, state):
-        """
-        'Allow censorship circumvention (automatic bridges)' checkbox changed
-        """
-        # Turning on censorship circumvention through the act of
-        # automatic bridge selection, implicitly means enabling
-        # bridges.
-        if state == QtCore.Qt.Checked:
-            self.bridge_use_checkbox.setCheckState(QtCore.Qt.Checked)
 
     def bridge_builtin_radio_toggled(self, checked):
         """
@@ -859,9 +841,6 @@ class TorSettingsTab(QtWidgets.QWidget):
         # Whether we use bridges
         if self.bridge_use_checkbox.checkState() == QtCore.Qt.Checked:
             settings.set("bridges_enabled", True)
-
-            if self.censorship_circumvention_checkbox.checkState() == QtCore.Qt.Checked:
-                settings.set("censorship_circumvention", True)
 
             if self.bridge_builtin_radio.isChecked():
                 settings.set("bridges_type", "built-in")
