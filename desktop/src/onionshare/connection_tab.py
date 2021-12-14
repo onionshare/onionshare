@@ -30,7 +30,7 @@ from . import strings
 from .threads import CensorshipCircumventionThread
 from .gui_common import GuiCommon, ToggleCheckbox
 from .tor_connection import TorConnectionWidget
-
+from .widgets import Alert
 
 class AutoConnectTab(QtWidgets.QWidget):
     """
@@ -164,13 +164,19 @@ class AutoConnectTab(QtWidgets.QWidget):
     def _got_no_bridges(self):
         self.use_bridge_widget.progress.hide()
         self.use_bridge_widget.progress_label.hide()
+        self.active = False
+        self.tor_con.fail.emit()
+
+        Alert(
+            self.common,
+            strings._("gui_autoconnect_circumventing_censorship_no_bridges"),
+            QtWidgets.QMessageBox.Critical,
+        )
         self.common.log(
             "AutoConnectTab",
             "_got_no_bridges",
             "Could not get bridges for this country. Raising TorSettingsTab",
         )
-        self.active = False
-        self.tor_con.fail.emit()
         self.open_tor_settings()
         self.close_this_tab.emit()
 
