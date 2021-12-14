@@ -149,10 +149,12 @@ class AutoConnectTab(QtWidgets.QWidget):
         self.tor_con.start(self.curr_settings)
 
     def _got_bridges(self):
+        self.use_bridge_widget.progress.hide()
+        self.use_bridge_widget.progress_label.hide()
         # Try and connect again
         self.common.log(
             "AutoConnectTab",
-            "use_bridge_connect_clicked",
+            "_got_bridges",
             "Got bridges. Trying to reconnect to Tor",
         )
         self.active = False
@@ -160,9 +162,22 @@ class AutoConnectTab(QtWidgets.QWidget):
         self.tor_con.start()
 
     def _got_no_bridges(self):
+        self.use_bridge_widget.progress.hide()
+        self.use_bridge_widget.progress_label.hide()
+        self.common.log(
+            "AutoConnectTab",
+            "_got_no_bridges",
+            "Could not get bridges for this country. Raising TorSettingsTab",
+        )
         self.active = False
         self.tor_con.fail.emit()
         self.open_tor_settings()
+
+    def _censorship_progress_update(self, progress, summary):
+        self.use_bridge_widget.progress.setValue(int(progress))
+        self.use_bridge_widget.progress_label.setText(
+            f"<strong>{strings._('gui_autoconnect_circumventing_censorship')}</strong><br>{summary}"
+        )
 
     def use_bridge_connect_clicked(self):
         """
@@ -181,9 +196,11 @@ class AutoConnectTab(QtWidgets.QWidget):
             country = self.use_bridge_widget.country_code
 
         t = CensorshipCircumventionThread(self.common, self.curr_settings, country)
+        t.progress_update.connect(self._censorship_progress_update)
         t.got_bridges.connect(self._got_bridges)
         t.got_no_bridges.connect(self._got_no_bridges)
         t.start()
+        self.use_bridge_widget.progress.setValue(0)
         self.active = True
         while self.active:
             time.sleep(0.1)
@@ -394,6 +411,16 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
         self.configure_button.setStyleSheet(
             common.gui.css["autoconnect_configure_button"]
         )
+
+        self.progress = QtWidgets.QProgressBar()
+        self.progress.setRange(0, 100)
+        self.progress_label = QtWidgets.QLabel(
+            strings._("gui_autoconnect_circumventing_censorship")
+        )
+        self.progress_label.setAlignment(QtCore.Qt.AlignHCenter)
+        self.progress.hide()
+        self.progress_label.hide()
+
         cta_layout = QtWidgets.QHBoxLayout()
         cta_layout.addWidget(self.connect_button)
         cta_layout.addWidget(self.back_button)
@@ -410,6 +437,8 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
         layout.addWidget(self.country_image)
         layout.addWidget(self.task_label)
         layout.addWidget(cta_widget)
+        layout.addWidget(self.progress)
+        layout.addWidget(self.progress_label)
         self.setLayout(layout)
 
         self._country_changed()
@@ -419,11 +448,15 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
         self.connect_button.hide()
         self.back_button.hide()
         self.configure_button.hide()
+        self.progress.show()
+        self.progress_label.show()
 
     def show_buttons(self):
         self.connect_button.show()
         self.back_button.show()
         self.configure_button.show()
+        self.progress.hide()
+        self.progress_label.hide()
 
     def _country_changed(self, index=None):
         self.country_code = str(self.country_combobox.currentData()).lower()
@@ -451,9 +484,6 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
         self.detect_manual_radio.setEnabled(False)
 
         self.country_combobox.setEnabled(False)
-        self.country_combobox.show()
-        self.country_image.show()
-
         self.connect_clicked.emit()
 
     def _back_clicked(self):
