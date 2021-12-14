@@ -306,6 +306,7 @@ class CensorshipCircumventionThread(QtCore.QThread):
         bridge_settings = self.censorship_circumvention.request_settings(
             country=self.country
         )
+        self.common.gui.meek.cleanup()
 
         if bridge_settings and self.censorship_circumvention.save_settings(
             self.settings, bridge_settings
