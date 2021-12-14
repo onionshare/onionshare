@@ -436,10 +436,6 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
         )
         self.country_image_label.setPixmap(QtGui.QPixmap.fromImage(QtGui.QImage(path)))
 
-    def _autodetecting_timer_callback(self):
-        new_index = random.randrange(0, self.country_combobox.count())
-        self.country_combobox.setCurrentIndex(new_index)
-
     def _detect_automatic_toggled(self):
         self.country_combobox.setEnabled(False)
         self.country_combobox.hide()
