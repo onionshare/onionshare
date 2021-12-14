@@ -230,6 +230,11 @@ class CensorshipCircumvention(object):
         # selected the built-in bridges for a specific PT themselves.
         #
         if bridge_source == "builtin":
+            self.common.log(
+                "CensorshipCircumvention",
+                "save_settings",
+                "Will be using built-in bridges",
+            )
             self.settings.set("bridges_type", "built-in")
             if bridge_type == "obfs4":
                 self.settings.set("bridges_builtin_pt", "obfs4")
@@ -239,6 +244,11 @@ class CensorshipCircumvention(object):
                 self.settings.set("bridges_builtin_pt", "meek-azure")
             bridges_ok = True
         else:
+            self.common.log(
+                "CensorshipCircumvention",
+                "save_settings",
+                "Will be using custom bridges",
+            )
             # Any other type of bridge we can treat as custom.
             self.settings.set("bridges_type", "custom")
 
