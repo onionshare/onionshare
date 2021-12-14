@@ -159,7 +159,7 @@ class AutoConnectTab(QtWidgets.QWidget):
         )
         self.active = False
         self.tor_con.show()
-        self.tor_con.start()
+        self.tor_con.start(self.curr_settings)
 
     def _got_no_bridges(self):
         self.use_bridge_widget.progress.hide()
