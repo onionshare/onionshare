@@ -47,7 +47,7 @@ class CensorshipCircumvention(object):
                 self.common.log(
                     "CensorshipCircumvention",
                     "__init__",
-                    "Using Meek with CensorShipCircumvention API",
+                    "Using Meek with CensorshipCircumvention API",
                 )
                 self.api_proxies = self.meek.meek_proxies
         if onion:
@@ -58,7 +58,7 @@ class CensorshipCircumvention(object):
                 self.common.log(
                     "CensorshipCircumvention",
                     "__init__",
-                    "Using Tor with CensorShipCircumvention API",
+                    "Using Tor with CensorshipCircumvention API",
                 )
                 (socks_address, socks_port) = self.onion.get_tor_socks_port()
                 self.api_proxies = {
@@ -256,6 +256,7 @@ class CensorshipCircumvention(object):
                 "save_settings",
                 "Saving settings with automatically-obtained bridges",
             )
+            self.settings.set("bridges_enabled", True)
             self.settings.save()
             return True
         else:

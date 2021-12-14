@@ -172,6 +172,7 @@ class AutoConnectTab(QtWidgets.QWidget):
         self.active = False
         self.tor_con.fail.emit()
         self.open_tor_settings()
+        self.close_this_tab.emit()
 
     def _censorship_progress_update(self, progress, summary):
         self.use_bridge_widget.progress.setValue(int(progress))
