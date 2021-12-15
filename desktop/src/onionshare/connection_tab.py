@@ -24,11 +24,15 @@ import random
 import time
 from PySide2 import QtCore, QtWidgets, QtGui
 
+from onionshare_cli.censorship import CensorshipCircumvention
+from onionshare_cli.meek import (
+    MeekNotRunning,
+    MeekNotFound,
+)
 from onionshare_cli.settings import Settings
 
 from . import strings
 from .gui_common import GuiCommon, ToggleCheckbox
-from .threads import CensorshipCircumventionThread
 from .tor_connection import TorConnectionWidget
 from .update_checker import UpdateThread
 from .widgets import Alert
@@ -158,14 +162,12 @@ class AutoConnectTab(QtWidgets.QWidget):
             "_got_bridges",
             "Got bridges. Trying to reconnect to Tor",
         )
-        self.active = False
         self.tor_con.show()
         self.tor_con.start(self.curr_settings)
 
     def _got_no_bridges(self):
         self.use_bridge_widget.progress.hide()
         self.use_bridge_widget.progress_label.hide()
-        self.active = False
         self.tor_con.fail.emit()
 
         Alert(
@@ -203,16 +205,39 @@ class AutoConnectTab(QtWidgets.QWidget):
         else:
             country = self.use_bridge_widget.country_code
 
-        t = CensorshipCircumventionThread(self.common, self.curr_settings, country)
-        t.progress_update.connect(self._censorship_progress_update)
-        t.got_bridges.connect(self._got_bridges)
-        t.got_no_bridges.connect(self._got_no_bridges)
-        t.start()
-        self.use_bridge_widget.progress.setValue(0)
-        self.active = True
-        while self.active:
-            time.sleep(0.1)
-            self.common.gui.qtapp.processEvents()
+        self._censorship_progress_update(
+            50, strings._("gui_autoconnect_circumventing_censorship_starting_meek")
+        )
+        try:
+            self.common.gui.meek.start()
+            self.censorship_circumvention = CensorshipCircumvention(
+                self.common, self.common.gui.meek
+            )
+            self._censorship_progress_update(
+                75, strings._("gui_autoconnect_circumventing_censorship_requesting_bridges")
+            )
+            bridge_settings = self.censorship_circumvention.request_settings(
+                country=country
+            )
+            self.common.gui.meek.cleanup()
+
+            if bridge_settings and self.censorship_circumvention.save_settings(
+                self.curr_settings, bridge_settings
+            ):
+                self._censorship_progress_update(
+                    100, strings._("gui_autoconnect_circumventing_censorship_got_bridges")
+                )
+                self._got_bridges()
+            else:
+                self._censorship_progress_update(
+                    100, strings._("gui_autoconnect_circumventing_censorship_no_bridges")
+                )
+                self._got_no_bridges()
+        except (
+            MeekNotRunning,
+            MeekNotFound,
+        ) as e:
+            self._got_no_bridges()
 
     def back_clicked(self):
         """

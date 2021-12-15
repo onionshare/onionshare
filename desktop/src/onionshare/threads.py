@@ -39,8 +39,6 @@ from onionshare_cli.onion import (
     PortNotAvailable,
 )
 
-from onionshare_cli.censorship import CensorshipCircumvention
-
 from . import strings
 
 
@@ -270,53 +268,3 @@ class OnionCleanupThread(QtCore.QThread):
     def run(self):
         self.common.log("OnionCleanupThread", "run")
         self.common.gui.onion.cleanup()
-
-
-class CensorshipCircumventionThread(QtCore.QThread):
-    progress_update = QtCore.Signal(int, str)
-    got_bridges = QtCore.Signal()
-    got_no_bridges = QtCore.Signal()
-
-    def __init__(self, common, settings, country):
-        super(CensorshipCircumventionThread, self).__init__()
-        self.common = common
-        self.progress_update.emit(
-            25,
-            strings._(
-                "gui_autoconnect_circumventing_censorship_starting_circumvention"
-            ),
-        )
-        self.common.log("CensorshipCircumventionThread", "__init__")
-        self.settings = settings
-        self.country = country
-
-    def run(self):
-        self.common.log("CensorshipCircumventionThread", "run")
-
-        self.progress_update.emit(
-            50, strings._("gui_autoconnect_circumventing_censorship_starting_meek")
-        )
-        self.common.gui.meek.start()
-        self.censorship_circumvention = CensorshipCircumvention(
-            self.common, self.common.gui.meek
-        )
-        self.progress_update.emit(
-            75, strings._("gui_autoconnect_circumventing_censorship_requesting_bridges")
-        )
-        bridge_settings = self.censorship_circumvention.request_settings(
-            country=self.country
-        )
-        self.common.gui.meek.cleanup()
-
-        if bridge_settings and self.censorship_circumvention.save_settings(
-            self.settings, bridge_settings
-        ):
-            self.progress_update.emit(
-                100, strings._("gui_autoconnect_circumventing_censorship_got_bridges")
-            )
-            self.got_bridges.emit()
-        else:
-            self.progress_update.emit(
-                100, strings._("gui_autoconnect_circumventing_censorship_no_bridges")
-            )
-            self.got_no_bridges.emit()
