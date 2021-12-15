@@ -27,9 +27,10 @@ from PySide2 import QtCore, QtWidgets, QtGui
 from onionshare_cli.settings import Settings
 
 from . import strings
-from .threads import CensorshipCircumventionThread
 from .gui_common import GuiCommon, ToggleCheckbox
+from .threads import CensorshipCircumventionThread
 from .tor_connection import TorConnectionWidget
+from .update_checker import UpdateThread
 from .widgets import Alert
 
 class AutoConnectTab(QtWidgets.QWidget):
@@ -220,6 +221,25 @@ class AutoConnectTab(QtWidgets.QWidget):
         self.use_bridge_widget.hide()
         self.first_launch_widget.show()
 
+    def check_for_updates(self):
+        """
+        Check for OnionShare updates in a new thread, if enabled.
+        """
+        if self.common.platform == "Windows" or self.common.platform == "Darwin":
+            if self.common.settings.get("use_autoupdate"):
+
+                def update_available(update_url, installed_version, latest_version):
+                    Alert(
+                        self.common,
+                        strings._("update_available").format(
+                            update_url, installed_version, latest_version
+                        ),
+                    )
+
+                self.update_thread = UpdateThread(self.common, self.common.gui.onion)
+                self.update_thread.update_available.connect(update_available)
+                self.update_thread.start()
+
     def tor_con_success(self):
         """
         Finished testing tor connection.
@@ -231,6 +251,8 @@ class AutoConnectTab(QtWidgets.QWidget):
         if self.common.gui.onion.is_authenticated() and not self.tor_con.wasCanceled():
             # Tell the tabs that Tor is connected
             self.tor_is_connected.emit()
+            # After connecting to Tor, check for updates
+            self.check_for_updates()
             # Close the tab
             self.close_this_tab.emit()
 
