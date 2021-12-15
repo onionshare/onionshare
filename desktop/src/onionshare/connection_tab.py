@@ -77,7 +77,7 @@ class AutoConnectTab(QtWidgets.QWidget):
         self.image.setLayout(image_layout)
 
         # First launch widget
-        self.first_launch_widget = AutoConnectFirstLaunchWidget(self.common)
+        self.first_launch_widget = AutoConnectFirstLaunchWidget(self.common, self.curr_settings)
         self.first_launch_widget.toggle_auto_connect.connect(self.toggle_auto_connect)
         self.first_launch_widget.connect_clicked.connect(
             self.first_launch_widget_connect_clicked
@@ -285,16 +285,21 @@ class AutoConnectFirstLaunchWidget(QtWidgets.QWidget):
     connect_clicked = QtCore.Signal()
     open_tor_settings = QtCore.Signal()
 
-    def __init__(self, common):
+    def __init__(self, common, settings):
         super(AutoConnectFirstLaunchWidget, self).__init__()
         self.common = common
         self.common.log("AutoConnectFirstLaunchWidget", "__init__")
+
+        self.settings = settings
 
         # Description and checkbox
         description_label = QtWidgets.QLabel(strings._("gui_autoconnect_description"))
         description_label.setWordWrap(True)
         self.enable_autoconnect_checkbox = ToggleCheckbox(
             strings._("gui_enable_autoconnect_checkbox")
+        )
+        self.enable_autoconnect_checkbox.setChecked(
+            self.settings.get("auto_connect")
         )
         self.enable_autoconnect_checkbox.clicked.connect(self._toggle_auto_connect)
         self.enable_autoconnect_checkbox.setFixedWidth(400)
