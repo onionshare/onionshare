@@ -443,11 +443,12 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
 
         # Country shape
         self.country_image_label = QtWidgets.QLabel()
-        self.country_image_label.setFixedSize(256, 256)
+        self.country_image_label.setFixedSize(200, 200)
         country_image_layout = QtWidgets.QHBoxLayout()
         country_image_layout.addStretch()
         country_image_layout.addWidget(self.country_image_label)
         country_image_layout.addStretch()
+        country_image_layout.setContentsMargins(0, 0, 0, 0)
         self.country_image = QtWidgets.QWidget()
         self.country_image.setLayout(country_image_layout)
 
@@ -534,7 +535,11 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
                 f"{self.country_code}-{self.common.gui.color_mode}.png",
             )
         )
-        self.country_image_label.setPixmap(QtGui.QPixmap.fromImage(QtGui.QImage(path)))
+        pixmap = QtGui.QPixmap.fromImage(QtGui.QImage(path)).scaled(
+            self.country_image_label.width() - 10,
+            self.country_image_label.height() - 10,
+        )
+        self.country_image_label.setPixmap(pixmap)
 
     def _detect_automatic_toggled(self):
         self.country_combobox.setEnabled(False)
