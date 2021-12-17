@@ -48,7 +48,7 @@ class TorConnectionWidget(QtWidgets.QWidget):
 
     open_tor_settings = QtCore.Signal()
     success = QtCore.Signal()
-    fail = QtCore.Signal()
+    fail = QtCore.Signal(str)
 
     def __init__(self, common, status_bar):
         super(TorConnectionWidget, self).__init__(None)
@@ -112,7 +112,7 @@ class TorConnectionWidget(QtWidgets.QWidget):
 
     def cancel_clicked(self):
         self.was_canceled = True
-        self.fail.emit()
+        self.fail.emit("")
 
     def wasCanceled(self):
         return self.was_canceled
@@ -141,17 +141,17 @@ class TorConnectionWidget(QtWidgets.QWidget):
         # Cancel connecting to Tor
         QtCore.QTimer.singleShot(1, self.cancel_clicked)
 
-    def _error_connecting_to_tor(self):
+    def _error_connecting_to_tor(self, msg):
         self.common.log("TorConnectionWidget", "_error_connecting_to_tor")
         self.active = False
-        self.fail.emit()
+        self.fail.emit(msg)
 
 
 class TorConnectionThread(QtCore.QThread):
     tor_status_update = QtCore.Signal(str, str)
     connected_to_tor = QtCore.Signal()
     canceled_connecting_to_tor = QtCore.Signal()
-    error_connecting_to_tor = QtCore.Signal()
+    error_connecting_to_tor = QtCore.Signal(str)
 
     def __init__(self, common, settings, parent):
         super(TorConnectionThread, self).__init__()
@@ -196,7 +196,7 @@ class TorConnectionThread(QtCore.QThread):
             self.common.log(
                 "TorConnectionThread", "run", f"caught exception: {message}"
             )
-            self.error_connecting_to_tor.emit()
+            self.error_connecting_to_tor.emit(message)
 
     def _tor_status_update(self, progress, summary):
         self.tor_status_update.emit(progress, summary)

@@ -37,6 +37,7 @@ from .tor_connection import TorConnectionWidget
 from .update_checker import UpdateThread
 from .widgets import Alert
 
+
 class AutoConnectTab(QtWidgets.QWidget):
     """
     Initial Tab that appears in the very beginning to ask user if
@@ -81,7 +82,9 @@ class AutoConnectTab(QtWidgets.QWidget):
         self.image.setLayout(image_layout)
 
         # First launch widget
-        self.first_launch_widget = AutoConnectFirstLaunchWidget(self.common, self.curr_settings)
+        self.first_launch_widget = AutoConnectFirstLaunchWidget(
+            self.common, self.curr_settings
+        )
         self.first_launch_widget.toggle_auto_connect.connect(self.toggle_auto_connect)
         self.first_launch_widget.connect_clicked.connect(
             self.first_launch_widget_connect_clicked
@@ -168,7 +171,6 @@ class AutoConnectTab(QtWidgets.QWidget):
     def _got_no_bridges(self):
         self.use_bridge_widget.progress.hide()
         self.use_bridge_widget.progress_label.hide()
-        self.tor_con.fail.emit()
 
         Alert(
             self.common,
@@ -214,7 +216,10 @@ class AutoConnectTab(QtWidgets.QWidget):
                 self.common, self.common.gui.meek
             )
             self._censorship_progress_update(
-                75, strings._("gui_autoconnect_circumventing_censorship_requesting_bridges")
+                75,
+                strings._(
+                    "gui_autoconnect_circumventing_censorship_requesting_bridges"
+                ),
             )
             bridge_settings = self.censorship_circumvention.request_settings(
                 country=country
@@ -225,12 +230,14 @@ class AutoConnectTab(QtWidgets.QWidget):
                 self.curr_settings, bridge_settings
             ):
                 self._censorship_progress_update(
-                    100, strings._("gui_autoconnect_circumventing_censorship_got_bridges")
+                    100,
+                    strings._("gui_autoconnect_circumventing_censorship_got_bridges"),
                 )
                 self._got_bridges()
             else:
                 self._censorship_progress_update(
-                    100, strings._("gui_autoconnect_circumventing_censorship_no_bridges")
+                    100,
+                    strings._("gui_autoconnect_circumventing_censorship_no_bridges"),
                 )
                 self._got_no_bridges()
         except (
@@ -281,7 +288,7 @@ class AutoConnectTab(QtWidgets.QWidget):
             # Close the tab
             self.close_this_tab.emit()
 
-    def tor_con_fail(self):
+    def tor_con_fail(self, msg):
         """
         Finished testing tor connection.
         """
@@ -299,6 +306,9 @@ class AutoConnectTab(QtWidgets.QWidget):
         self.first_launch_widget.enable_autoconnect_checkbox.setChecked(
             self.auto_connect_enabled
         )
+        self.use_bridge_widget.hide()
+        self.first_launch_widget.show_buttons()
+        self.first_launch_widget.show()
 
 
 class AutoConnectFirstLaunchWidget(QtWidgets.QWidget):
@@ -323,9 +333,7 @@ class AutoConnectFirstLaunchWidget(QtWidgets.QWidget):
         self.enable_autoconnect_checkbox = ToggleCheckbox(
             strings._("gui_enable_autoconnect_checkbox")
         )
-        self.enable_autoconnect_checkbox.setChecked(
-            self.settings.get("auto_connect")
-        )
+        self.enable_autoconnect_checkbox.setChecked(self.settings.get("auto_connect"))
         self.enable_autoconnect_checkbox.clicked.connect(self._toggle_auto_connect)
         self.enable_autoconnect_checkbox.setFixedWidth(400)
         self.enable_autoconnect_checkbox.setStyleSheet(
