@@ -18,6 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import logging
+import mimetypes
 import os
 import queue
 import requests
@@ -79,6 +80,16 @@ class Web:
         self.common.log("Web", "__init__", f"is_gui={is_gui}, mode={mode}")
 
         self.settings = mode_settings
+
+        # Flask guesses the MIME type of files from a database on the operating
+        # system.
+        # Some operating systems, or applications that can modify the database
+        # (such as the Windows Registry) can treat .js files as text/plain,
+        # which breaks the chat app due to X-Content-Type-Options: nosniff.
+        #
+        # It's probably #notourbug but we can fix it by forcing the mimetype.
+        # https://github.com/onionshare/onionshare/issues/1443
+        mimetypes.add_type('text/javascript', '.js')
 
         # The flask app
         self.app = Flask(
