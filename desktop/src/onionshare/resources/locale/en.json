@@ -44,7 +44,7 @@
     "gui_tor_settings_window_title": "Tor Settings",
     "gui_autoconnect_description": "OnionShare relies on the Tor Network, run by thousands of volunteers around the world.",
     "gui_enable_autoconnect_checkbox": "Enable automatically connecting to Tor",
-    "gui_autoconnect_bridge_description": "<b>Failed connecting to Tor.</b> This could be because your internet is being censored. You might be able to bypass this censorship by using a bridge.",
+    "gui_autoconnect_bridge_description": "<b>Failed connecting to Tor.</b> This could be because your internet is being censored.<br>You might be able to bypass this censorship by using a bridge.<br><br>Or, you might just need to configure the Tor connection in Network Settings.",
     "gui_autoconnect_bridge_detect_automatic": "Automatically determine my country from my IP address, to bypass country-specific censorship",
     "gui_autoconnect_bridge_detect_manual": "Manually select my country instead",
     "gui_autoconnect_start": "Connect to Tor",

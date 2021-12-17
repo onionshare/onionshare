@@ -255,7 +255,11 @@ class TabWidget(QtWidgets.QTabWidget):
                 return
 
         self.tor_settings_tab = TorSettingsTab(
-            self.common, self.current_tab_id, self.are_tabs_active(), self.status_bar, from_autoconnect
+            self.common,
+            self.current_tab_id,
+            self.are_tabs_active(),
+            self.status_bar,
+            from_autoconnect,
         )
         self.tor_settings_tab.close_this_tab.connect(self.close_tor_settings_tab)
         self.tor_settings_tab.tor_is_connected.connect(self.tor_is_connected)
@@ -385,10 +389,30 @@ class TabWidget(QtWidgets.QTabWidget):
 
     def close_tor_settings_tab(self):
         self.common.log("TabWidget", "close_tor_settings_tab")
-        for tab_id in self.tabs:
+        for tab_id in list(self.tabs):
             if type(self.tabs[tab_id]) is AutoConnectTab:
-                self.tabs[tab_id].reload_settings()
-        for tab_id in self.tabs:
+                # If we are being returned to the AutoConnectTab, but
+                # the user has fixed their Tor settings in the TorSettings
+                # tab, *and* they have enabled autoconnect, then
+                # we should close the AutoConnect Tab.
+                if self.common.gui.onion.is_authenticated():
+                    self.common.log(
+                        "TabWidget",
+                        "close_tor_settings_tab",
+                        "Tor is connected and we can auto-connect, so closing the tab",
+                    )
+                    index = self.indexOf(self.tabs[tab_id])
+                    self.close_tab(index)
+                else:
+                    self.tabs[tab_id].reload_settings()
+                    self.common.log(
+                        "TabWidget",
+                        "close_tor_settings_tab",
+                        "Reloading settings in case they changed in the TorSettingsTab. Not auto-connecting",
+                    )
+                break
+        # List of indices may have changed due to the above, so we loop over it again as another copy
+        for tab_id in list(self.tabs):
             if type(self.tabs[tab_id]) is TorSettingsTab:
                 index = self.indexOf(self.tabs[tab_id])
                 self.close_tab(index)

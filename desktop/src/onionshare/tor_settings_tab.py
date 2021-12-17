@@ -691,7 +691,9 @@ class TorSettingsTab(QtWidgets.QWidget):
             # If Tor isn't connected, or if Tor settings have changed, Reinitialize
             # the Onion object
             reboot_onion = False
-            if not self.common.gui.local_only and not self.from_autoconnect:
+            if not self.common.gui.local_only and not (
+                self.from_autoconnect and not settings.get("auto_connect")
+            ):
                 if self.common.gui.onion.is_authenticated():
                     self.common.log(
                         "TorSettingsTab", "save_clicked", "Connected to Tor"
