@@ -586,7 +586,7 @@ class ToggleCheckbox(QtWidgets.QCheckBox):
         x = (
             rect.width() - rect.x() - self.w + 20
         )  # 20 is the padding between text and toggle
-        y = self.height() / 2 - self.h / 2 + self.y() / 2
+        y = self.height() / 2 - self.h / 2 + 16  # 16 is the padding top for the checkbox
         self.toggleRect = QtCore.QRect(x, y, self.w, self.h)
         painter.setBrush(QtGui.QColor(self.bg_color))
         painter.drawRoundedRect(x, y, self.w, self.h, self.h / 2, self.h / 2)
