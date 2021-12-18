@@ -3,27 +3,29 @@
 # This file is distributed under the same license as the OnionShare package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2020-11-15 14:42-0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2021-12-18 05:52+0000\n"
+"Last-Translator: Taro Tanaka <anon_japan@protonmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.10\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/advanced.rst:2
 msgid "Advanced Usage"
-msgstr ""
+msgstr "先進の使用"
 
 #: ../../source/advanced.rst:7
 msgid "Save Tabs"
-msgstr ""
+msgstr "タブを保存する"
 
 #: ../../source/advanced.rst:9
 msgid ""
@@ -33,6 +35,9 @@ msgid ""
 "useful if you want to host a website available from the same OnionShare "
 "address even if you reboot your computer."
 msgstr ""
+"OnionShareのデフォルト設定では、全ての機能は一時的です。OnionShareタブを閉じると、そのアドレスは消えて再びに使えません。場合によっては"
+"永続的なOnionShareサービスが必要かもしれない。例えばパソコンを再起動しても、永続的なアドレスでOnionShareウェブサイトをホストしたい場合"
+"には役立つでしょう。"
 
 #: ../../source/advanced.rst:13
 msgid ""
@@ -40,6 +45,8 @@ msgid ""
 "open it when I open OnionShare\" box before starting the server. When a "
 "tab is saved a purple pin icon appears to the left of its server status."
 msgstr ""
+"タブを永続的にするのに、サービスを実行する前に「このタブを保存し、OnionShareがスタートアップの時に自動的に開く」というボックスをチェックする。保"
+"存された場合、紫色のピンはタブの左側に表示されます。"
 
 #: ../../source/advanced.rst:18
 msgid ""
@@ -52,7 +59,7 @@ msgstr ""
 msgid ""
 "If you save a tab, a copy of that tab's onion service secret key will be "
 "stored on your computer with your OnionShare settings."
-msgstr ""
+msgstr "タブを保存すると、そのonionサービスの秘密鍵はOnionShare設定と一緒にパソコンに保存されます。"
 
 #: ../../source/advanced.rst:26
 msgid "Turn Off Passwords"
@@ -85,7 +92,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:38
 msgid "Scheduled Times"
-msgstr ""
+msgstr "予定した時間"
 
 #: ../../source/advanced.rst:40
 msgid ""
@@ -401,4 +408,3 @@ msgstr ""
 #~ " services will soon be removed from"
 #~ " OnionShare as well."
 #~ msgstr ""
-
