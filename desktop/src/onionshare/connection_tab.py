@@ -95,7 +95,6 @@ class AutoConnectTab(QtWidgets.QWidget):
         # Use bridge widget
         self.use_bridge_widget = AutoConnectUseBridgeWidget(self.common)
         self.use_bridge_widget.connect_clicked.connect(self.use_bridge_connect_clicked)
-        self.use_bridge_widget.back_clicked.connect(self.back_clicked)
         self.use_bridge_widget.open_tor_settings.connect(self.open_tor_settings)
         self.use_bridge_widget.hide()
 
@@ -169,21 +168,13 @@ class AutoConnectTab(QtWidgets.QWidget):
         self.tor_con.start(self.curr_settings)
 
     def _got_no_bridges(self):
-        self.use_bridge_widget.progress.hide()
-        self.use_bridge_widget.progress_label.hide()
+        # If we got no bridges, try connecting again using built-in obfs4 bridges
+        self.curr_settings.set("bridges_type", "built-in")
+        self.curr_settings.set("bridges_builtin_pt", "obfs4")
+        self.curr_settings.set("bridges_enabled", True)
+        self.curr_settings.save()
 
-        Alert(
-            self.common,
-            strings._("gui_autoconnect_circumventing_censorship_no_bridges"),
-            QtWidgets.QMessageBox.Critical,
-        )
-        self.common.log(
-            "AutoConnectTab",
-            "_got_no_bridges",
-            "Could not get bridges for this country. Raising TorSettingsTab",
-        )
-        self.open_tor_settings()
-        self.close_this_tab.emit()
+        self._got_bridges()
 
     def _censorship_progress_update(self, progress, summary):
         self.use_bridge_widget.progress.setValue(int(progress))
@@ -235,23 +226,12 @@ class AutoConnectTab(QtWidgets.QWidget):
                 )
                 self._got_bridges()
             else:
-                self._censorship_progress_update(
-                    100,
-                    strings._("gui_autoconnect_circumventing_censorship_no_bridges"),
-                )
                 self._got_no_bridges()
         except (
             MeekNotRunning,
             MeekNotFound,
         ) as e:
             self._got_no_bridges()
-
-    def back_clicked(self):
-        """
-        Switch from use bridge widget back to first launch widget
-        """
-        self.use_bridge_widget.hide()
-        self.first_launch_widget.show()
 
     def check_for_updates(self):
         """
@@ -394,7 +374,6 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
     """
 
     connect_clicked = QtCore.Signal()
-    back_clicked = QtCore.Signal()
     open_tor_settings = QtCore.Signal()
 
     def __init__(self, common):
