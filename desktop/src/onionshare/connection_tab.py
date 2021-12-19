@@ -465,12 +465,6 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
         self.connect_button.clicked.connect(self._connect_clicked)
         self.connect_button.setFixedWidth(150)
         self.connect_button.setStyleSheet(common.gui.css["autoconnect_start_button"])
-        self.back_button = QtWidgets.QPushButton(
-            strings._("gui_autoconnect_bridge_back")
-        )
-        self.back_button.clicked.connect(self._back_clicked)
-        self.back_button.setFlat(True)
-        self.back_button.setStyleSheet(common.gui.css["autoconnect_configure_button"])
         self.configure_button = QtWidgets.QPushButton(
             strings._("gui_autoconnect_configure")
         )
@@ -491,7 +485,6 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
 
         cta_layout = QtWidgets.QHBoxLayout()
         cta_layout.addWidget(self.connect_button)
-        cta_layout.addWidget(self.back_button)
         cta_layout.addWidget(self.configure_button)
         cta_layout.addStretch()
         cta_widget = QtWidgets.QWidget()
@@ -514,14 +507,12 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
 
     def hide_buttons(self):
         self.connect_button.hide()
-        self.back_button.hide()
         self.configure_button.hide()
         self.progress.show()
         self.progress_label.show()
 
     def show_buttons(self):
         self.connect_button.show()
-        self.back_button.show()
         self.configure_button.show()
         self.progress.hide()
         self.progress_label.hide()
@@ -557,9 +548,6 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
 
         self.country_combobox.setEnabled(False)
         self.connect_clicked.emit()
-
-    def _back_clicked(self):
-        self.back_clicked.emit()
 
     def _open_tor_settings(self):
         self.open_tor_settings.emit()
