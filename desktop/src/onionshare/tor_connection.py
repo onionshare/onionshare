@@ -113,6 +113,7 @@ class TorConnectionWidget(QtWidgets.QWidget):
     def cancel_clicked(self):
         self.was_canceled = True
         self.fail.emit("")
+        self._reset()
 
     def wasCanceled(self):
         return self.was_canceled
@@ -132,6 +133,7 @@ class TorConnectionWidget(QtWidgets.QWidget):
         self.progress.setValue(self.progress.maximum())
 
         self.success.emit()
+        self._reset()
 
     def _canceled_connecting_to_tor(self):
         self.common.log("TorConnectionWidget", "_canceled_connecting_to_tor")
@@ -140,11 +142,17 @@ class TorConnectionWidget(QtWidgets.QWidget):
 
         # Cancel connecting to Tor
         QtCore.QTimer.singleShot(1, self.cancel_clicked)
+        self._reset()
 
     def _error_connecting_to_tor(self, msg):
         self.common.log("TorConnectionWidget", "_error_connecting_to_tor")
         self.active = False
         self.fail.emit(msg)
+        self._reset()
+
+    def _reset(self):
+        self.label.setText("")
+        self.progress.setValue(0)
 
 
 class TorConnectionThread(QtCore.QThread):
