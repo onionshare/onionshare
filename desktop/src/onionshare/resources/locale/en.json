@@ -56,7 +56,6 @@
     "gui_autoconnect_circumventing_censorship_starting_meek": "Starting Meek for domain-fronting",
     "gui_autoconnect_circumventing_censorship_requesting_bridges": "Requesting bridges from the Tor Censorship Circumvention API",
     "gui_autoconnect_circumventing_censorship_got_bridges": "Got bridges! Trying to reconnect to Tor",
-    "gui_autoconnect_circumventing_censorship_no_bridges": "OnionShare still couldn't connect to Tor, even after trying to find bridges.<br><br>Please try configuring the Tor Network settings manually.",
     "gui_settings_window_title": "Settings",
     "gui_settings_autoupdate_label": "Check for new version",
     "gui_settings_autoupdate_option": "Notify me when a new version is available",
