@@ -24,7 +24,10 @@ import random
 import time
 from PySide2 import QtCore, QtWidgets, QtGui
 
-from onionshare_cli.censorship import CensorshipCircumvention
+from onionshare_cli.censorship import (
+    CensorshipCircumvention,
+    CensorshipCircumventionError,
+)
 from onionshare_cli.meek import (
     MeekNotRunning,
     MeekNotFound,
@@ -95,7 +98,9 @@ class AutoConnectTab(QtWidgets.QWidget):
         # Use bridge widget
         self.use_bridge_widget = AutoConnectUseBridgeWidget(self.common)
         self.use_bridge_widget.connect_clicked.connect(self.use_bridge_connect_clicked)
-        self.use_bridge_widget.try_again_clicked.connect(self.first_launch_widget_connect_clicked)
+        self.use_bridge_widget.try_again_clicked.connect(
+            self.first_launch_widget_connect_clicked
+        )
         self.use_bridge_widget.open_tor_settings.connect(self.open_tor_settings)
         self.use_bridge_widget.hide()
 
@@ -183,6 +188,16 @@ class AutoConnectTab(QtWidgets.QWidget):
             f"<strong>{strings._('gui_autoconnect_circumventing_censorship')}</strong><br>{summary}"
         )
 
+    def network_connection_error(self):
+        """
+        Display an error if there simply seems no network connection.
+        """
+        self.use_bridge_widget.progress.hide()
+        self.use_bridge_widget.progress_label.hide()
+        self.use_bridge_widget.error_label.show()
+        self.use_bridge_widget.show_buttons()
+        self.use_bridge_widget.show()
+
     def use_bridge_connect_clicked(self):
         """
         Connect button in use bridge widget clicked.
@@ -235,6 +250,13 @@ class AutoConnectTab(QtWidgets.QWidget):
             MeekNotFound,
         ) as e:
             self._got_no_bridges()
+        except CensorshipCircumventionError as e:
+            self.common.log(
+                "AutoConnectTab",
+                "use_bridge_connect_clicked",
+                "Request to the Tor Censorship Circumvention API failed. No network connection?",
+            )
+            self.network_connection_error()
 
     def check_for_updates(self):
         """
@@ -288,6 +310,10 @@ class AutoConnectTab(QtWidgets.QWidget):
             self.use_bridge_widget.show_buttons()
 
     def reload_settings(self):
+        """
+        Reload the latest Tor settings, and reset to show the
+        first-launch widget if it had been hidden.
+        """
         self.curr_settings.load()
         self.auto_connect_enabled = self.curr_settings.get("auto_connect")
         self.first_launch_widget.enable_autoconnect_checkbox.setChecked(
@@ -394,7 +420,9 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
             strings._("gui_autoconnect_failed_to_connect_to_tor")
         )
         failed_to_connect_label.setTextFormat(QtCore.Qt.RichText)
-        failed_to_connect_label.setStyleSheet(common.gui.css["autoconnect_failed_to_connect_label"])
+        failed_to_connect_label.setStyleSheet(
+            common.gui.css["autoconnect_failed_to_connect_label"]
+        )
 
         # Description
         description_label = QtWidgets.QLabel(
@@ -475,6 +503,12 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
             common.gui.css["autoconnect_configure_button"]
         )
 
+        # Error label
+        self.error_label = QtWidgets.QLabel(strings._("gui_tor_connection_canceled"))
+        self.error_label.setStyleSheet(self.common.gui.css["tor_settings_error"])
+        self.error_label.setWordWrap(True)
+        self.error_label.hide()
+
         self.progress = QtWidgets.QProgressBar()
         self.progress.setRange(0, 100)
         self.progress_label = QtWidgets.QLabel(
@@ -503,6 +537,7 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
         layout.addWidget(cta_widget)
         layout.addWidget(self.progress)
         layout.addWidget(self.progress_label)
+        layout.addWidget(self.error_label)
         self.setLayout(layout)
 
         self._country_changed()
@@ -512,6 +547,7 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
         self.connect_button.hide()
         self.try_again_button.hide()
         self.configure_button.hide()
+        self.error_label.hide()
 
     def show_buttons(self):
         self.connect_button.show()
