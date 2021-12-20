@@ -9,9 +9,9 @@ Before making a release, you must update the version in these places:
 - [ ] `cli/pyproject.toml`
 - [ ] `cli/setup.py`
 - [ ] `cli/onionshare_cli/resources/version.txt`
-- [ ] `desktop/pyproject.toml` (under `version` and **don't forget** the `./onionshare_cli-$VERSION-py3-none-any.whl` dependency)
-- [ ] `desktop/src/setup.py`
-- [ ] `desktop/src/org.onionshare.OnionShare.appdata.xml`
+- [ ] `desktop/pyproject.toml`
+- [ ] `desktop/setup.py`
+- [ ] `desktop/org.onionshare.OnionShare.appdata.xml`
 - [ ] `docs/source/conf.py` (`version` at the top, and the `versions` list too)
 - [ ] `snap/snapcraft.yaml`
 
@@ -19,6 +19,7 @@ If you update `flask-socketio`, ensure that you also update the [socket.io.min.j
 
 Use tor binaries from the latest Tor Browser:
 
+- [ ] `desktop/scripts/get-tor-linux.py`
 - [ ] `desktop/scripts/get-tor-osx.py`
 - [ ] `desktop/scripts/get-tor-windows.py`
 
@@ -42,7 +43,7 @@ Finalize localization:
 
 You also must edit these files:
 
-- [ ] `desktop/src/org.onionshare.OnionShare.appdata.xml` should have the correct release date, and links to correct screenshots
+- [ ] `desktop/org.onionshare.OnionShare.appdata.xml` should have the correct release date, and links to correct screenshots
 - [ ] `CHANGELOG.md` should be updated to include a list of all major changes since the last release
 
 Make sure snapcraft packaging works. In `snap/snapcraft.yaml`:
@@ -97,38 +98,14 @@ snapcraft login
 snapcraft upload --release=stable onionshare_$VERSION_amd64.snap
 ```
 
-## Linux AppImage release
-
-_Note: AppImage packages are currently broken due to [this briefcase bug](https://github.com/beeware/briefcase/issues/504). Until it's fixed, OnionShare for Linux will only be available in Flatpak and Snapcraft._
-
-Set up the development environment described in `README.md`.
-
-Make sure your virtual environment is active:
-
-```sh
-. venv/bin/activate
-```
-
-Run the AppImage build script:
-
-```sh
-./package/linux/build-appimage.py
-```
-
 ## Windows
 
 Set up the development environment described in `README.md`. And install the [Windows 10 SDK](https://developer.microsoft.com/en-us/windows/downloads/windows-10-sdk) and add `C:\Program Files (x86)\Windows Kits\10\bin\10.0.19041.0\x86` to your path.
 
-Make sure your virtual environment is active:
-
-```
-venv\Scripts\activate.bat
-```
-
 Run the Windows build script:
 
 ```
-python package\windows\build.py
+poetry run python .\package\windows\build.py
 ```
 
 This will create `desktop/windows/OnionShare-$VERSION.msi`, signed.
@@ -141,16 +118,10 @@ Set up the development environment described in `README.md`. And install `create
 brew install create-dmg
 ```
 
-Make sure your virtual environment is active:
-
-```sh
-. venv/bin/activate
-```
-
 Run the macOS build script:
 
 ```sh
-./package/macos/build.py --with-codesign
+poetry run ./package/macos/build.py --with-codesign
 ```
 
 Now, notarize the release. You must have an app-specific Apple ID password saved in the login keychain called `onionshare-notarize`.
