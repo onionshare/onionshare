@@ -194,6 +194,11 @@ class GuiCommon:
                     font-weight: bold;
                 }
                 """,
+            "autoconnect_failed_to_connect_label": """
+                QLabel {
+                    font-size: 18px;
+                    font-weight: bold;
+                }""",
             # Common styles between modes and their child widgets
             "mode_settings_toggle_advanced": """
                 QPushButton {
