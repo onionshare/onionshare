@@ -14,6 +14,9 @@ cx_freeze = {version = "*", platform = "win32"}
 
 [tool.poetry.dev-dependencies]
 black = "*"
+pytest = "*"
+pytest-faulthandler = "*"
+pytest-qt = "*"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
