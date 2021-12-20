@@ -61,6 +61,7 @@ class TestChat(GuiBaseTest):
         tab = self.new_chat_tab()
         self.run_all_chat_mode_started_tests(tab)
         self.view_chat(tab)
+        self.javascript_is_correct_mime_type(tab, "chat.js")
         self.change_username(tab)
         self.run_all_chat_mode_stopping_tests(tab)
         self.close_all_tabs()

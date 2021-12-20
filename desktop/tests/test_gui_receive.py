@@ -122,6 +122,7 @@ class TestReceive(GuiBaseTest):
     def run_all_receive_mode_tests(self, tab):
         """Submit files and messages in receive mode and stop the share"""
         self.run_all_receive_mode_setup_tests(tab)
+        self.javascript_is_correct_mime_type(tab, "receive.js")
         self.upload_file(tab, self.tmpfile_test, "test.txt")
         self.history_widgets_present(tab)
         self.counter_incremented(tab, 1)

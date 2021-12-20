@@ -197,6 +197,7 @@ class TestShare(GuiBaseTest):
             self.tmpfile_test
         )
         self.web_page(tab, "Total size")
+        self.javascript_is_correct_mime_type(tab, "send.js")
         self.download_share(tab)
         self.history_widgets_present(tab)
         self.server_is_stopped(tab)
