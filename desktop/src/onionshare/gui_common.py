@@ -172,6 +172,7 @@ class GuiCommon:
                 QCheckBox {
                     margin-top: 30px;
                     background: #FCFCFC;
+                    color: #000000;
                     border: 1px solid #DDDBDA;
                     border-radius: 8px;
                     padding: 24px 16px;
