@@ -22,6 +22,12 @@ import requests
 from .meek import MeekNotRunning
 
 
+class CensorshipCircumventionError(Exception):
+    """
+    There was a problem connecting to the Tor CensorshipCircumvention API.
+    """
+
+
 class CensorshipCircumvention(object):
     """
     Connect to the Tor Moat APIs to retrieve censorship
@@ -84,31 +90,34 @@ class CensorshipCircumvention(object):
         if country:
             data = {"country": country}
 
-        r = requests.post(
-            endpoint,
-            json=data,
-            headers={"Content-Type": "application/vnd.api+json"},
-            proxies=self.api_proxies,
-        )
-        if r.status_code != 200:
-            self.common.log(
-                "CensorshipCircumvention",
-                "censorship_obtain_map",
-                f"status_code={r.status_code}",
+        try:
+            r = requests.post(
+                endpoint,
+                json=data,
+                headers={"Content-Type": "application/vnd.api+json"},
+                proxies=self.api_proxies,
             )
-            return False
+            if r.status_code != 200:
+                self.common.log(
+                    "CensorshipCircumvention",
+                    "censorship_obtain_map",
+                    f"status_code={r.status_code}",
+                )
+                return False
 
-        result = r.json()
+            result = r.json()
 
-        if "errors" in result:
-            self.common.log(
-                "CensorshipCircumvention",
-                "censorship_obtain_map",
-                f"errors={result['errors']}",
-            )
-            return False
+            if "errors" in result:
+                self.common.log(
+                    "CensorshipCircumvention",
+                    "censorship_obtain_map",
+                    f"errors={result['errors']}",
+                )
+                return False
 
-        return result
+            return result
+        except requests.exceptions.RequestException as e:
+            raise CensorshipCircumventionError(e)
 
     def request_settings(self, country=False, transports=False):
         """
@@ -135,42 +144,45 @@ class CensorshipCircumvention(object):
             data = {"country": country}
         if transports:
             data.append({"transports": transports})
-        r = requests.post(
-            endpoint,
-            json=data,
-            headers={"Content-Type": "application/vnd.api+json"},
-            proxies=self.api_proxies,
-        )
-        if r.status_code != 200:
-            self.common.log(
-                "CensorshipCircumvention",
-                "censorship_obtain_settings",
-                f"status_code={r.status_code}",
+        try:
+            r = requests.post(
+                endpoint,
+                json=data,
+                headers={"Content-Type": "application/vnd.api+json"},
+                proxies=self.api_proxies,
             )
-            return False
+            if r.status_code != 200:
+                self.common.log(
+                    "CensorshipCircumvention",
+                    "censorship_obtain_settings",
+                    f"status_code={r.status_code}",
+                )
+                return False
 
-        result = r.json()
+            result = r.json()
 
-        if "errors" in result:
-            self.common.log(
-                "CensorshipCircumvention",
-                "censorship_obtain_settings",
-                f"errors={result['errors']}",
-            )
-            return False
+            if "errors" in result:
+                self.common.log(
+                    "CensorshipCircumvention",
+                    "censorship_obtain_settings",
+                    f"errors={result['errors']}",
+                )
+                return False
 
-        # There are no settings - perhaps this country doesn't require censorship circumvention?
-        # This is not really an error, so we can just check if False and assume direct Tor
-        # connection will work.
-        if not "settings" in result:
-            self.common.log(
-                "CensorshipCircumvention",
-                "censorship_obtain_settings",
-                "No settings found for this country",
-            )
-            return False
+            # There are no settings - perhaps this country doesn't require censorship circumvention?
+            # This is not really an error, so we can just check if False and assume direct Tor
+            # connection will work.
+            if not "settings" in result:
+                self.common.log(
+                    "CensorshipCircumvention",
+                    "censorship_obtain_settings",
+                    "No settings found for this country",
+                )
+                return False
 
-        return result
+            return result
+        except requests.exceptions.RequestException as e:
+            raise CensorshipCircumventionError(e)
 
     def request_builtin_bridges(self):
         """
@@ -179,30 +191,33 @@ class CensorshipCircumvention(object):
         if not self.api_proxies:
             return False
         endpoint = "https://bridges.torproject.org/moat/circumvention/builtin"
-        r = requests.post(
-            endpoint,
-            headers={"Content-Type": "application/vnd.api+json"},
-            proxies=self.api_proxies,
-        )
-        if r.status_code != 200:
-            self.common.log(
-                "CensorshipCircumvention",
-                "censorship_obtain_builtin_bridges",
-                f"status_code={r.status_code}",
+        try:
+            r = requests.post(
+                endpoint,
+                headers={"Content-Type": "application/vnd.api+json"},
+                proxies=self.api_proxies,
             )
-            return False
+            if r.status_code != 200:
+                self.common.log(
+                    "CensorshipCircumvention",
+                    "censorship_obtain_builtin_bridges",
+                    f"status_code={r.status_code}",
+                )
+                return False
 
-        result = r.json()
+            result = r.json()
 
-        if "errors" in result:
-            self.common.log(
-                "CensorshipCircumvention",
-                "censorship_obtain_builtin_bridges",
-                f"errors={result['errors']}",
-            )
-            return False
+            if "errors" in result:
+                self.common.log(
+                    "CensorshipCircumvention",
+                    "censorship_obtain_builtin_bridges",
+                    f"errors={result['errors']}",
+                )
+                return False
 
-        return result
+            return result
+        except requests.exceptions.RequestException as e:
+            raise CensorshipCircumventionError(e)
 
     def save_settings(self, settings, bridge_settings):
         """
