@@ -46,7 +46,7 @@ def main():
     )
     working_path = os.path.join(root_path, "build", "tor")
     exe_path = os.path.join(working_path, exe_filename)
-    dist_path = os.path.join(root_path, "src", "onionshare", "resources", "tor")
+    dist_path = os.path.join(root_path, "onionshare", "resources", "tor")
 
     # Make sure the working folder exists
     if not os.path.exists(working_path):
