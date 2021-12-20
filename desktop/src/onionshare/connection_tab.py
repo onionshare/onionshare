@@ -192,9 +192,13 @@ class AutoConnectTab(QtWidgets.QWidget):
         """
         Display an error if there simply seems no network connection.
         """
+        self.use_bridge_widget.connection_status_label.setText(
+            strings._("gui_autoconnect_failed_to_connect_to_tor")
+        )
         self.use_bridge_widget.progress.hide()
         self.use_bridge_widget.progress_label.hide()
         self.use_bridge_widget.error_label.show()
+        self.use_bridge_widget.country_combobox.setEnabled(True)
         self.use_bridge_widget.show_buttons()
         self.use_bridge_widget.show()
 
@@ -416,20 +420,20 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
         self.common.log("AutoConnectUseBridgeWidget", "__init__")
 
         # Heading label when we fail to connect to Tor.
-        failed_to_connect_label = QtWidgets.QLabel(
+        self.connection_status_label = QtWidgets.QLabel(
             strings._("gui_autoconnect_failed_to_connect_to_tor")
         )
-        failed_to_connect_label.setTextFormat(QtCore.Qt.RichText)
-        failed_to_connect_label.setStyleSheet(
+        self.connection_status_label.setTextFormat(QtCore.Qt.RichText)
+        self.connection_status_label.setStyleSheet(
             common.gui.css["autoconnect_failed_to_connect_label"]
         )
 
         # Description
-        description_label = QtWidgets.QLabel(
+        self.description_label = QtWidgets.QLabel(
             strings._("gui_autoconnect_bridge_description")
         )
-        description_label.setTextFormat(QtCore.Qt.RichText)
-        description_label.setWordWrap(True)
+        self.description_label.setTextFormat(QtCore.Qt.RichText)
+        self.description_label.setWordWrap(True)
 
         # Detection preference
         self.detect_automatic_radio = QtWidgets.QRadioButton(
@@ -504,7 +508,9 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
         )
 
         # Error label
-        self.error_label = QtWidgets.QLabel(strings._("gui_tor_connection_canceled"))
+        self.error_label = QtWidgets.QLabel(
+            strings._("gui_autoconnect_could_not_connect_to_tor_api")
+        )
         self.error_label.setStyleSheet(self.common.gui.css["tor_settings_error"])
         self.error_label.setWordWrap(True)
         self.error_label.hide()
@@ -528,8 +534,8 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
 
         # Layout
         layout = QtWidgets.QVBoxLayout()
-        layout.addWidget(failed_to_connect_label)
-        layout.addWidget(description_label)
+        layout.addWidget(self.connection_status_label)
+        layout.addWidget(self.description_label)
         layout.addLayout(detect_layout)
         layout.addWidget(self.country_combobox)
         layout.addWidget(self.country_image)
@@ -547,12 +553,18 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
         self.connect_button.hide()
         self.try_again_button.hide()
         self.configure_button.hide()
+        self.description_label.hide()
         self.error_label.hide()
+        self.detect_automatic_radio.hide()
+        self.detect_manual_radio.hide()
 
     def show_buttons(self):
         self.connect_button.show()
         self.try_again_button.show()
+        self.description_label.show()
         self.configure_button.show()
+        self.detect_automatic_radio.show()
+        self.detect_manual_radio.show()
 
     def _country_changed(self, index=None):
         self.country_code = str(self.country_combobox.currentData()).lower()
@@ -580,16 +592,17 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
         self.country_image.show()
 
     def _connect_clicked(self):
-        self.detect_automatic_radio.setEnabled(False)
-        self.detect_manual_radio.setEnabled(False)
-
         self.country_combobox.setEnabled(False)
+        self.hide_buttons()
+        self.connection_status_label.setText(
+            strings._("gui_autoconnect_trying_to_connect_to_tor")
+        )
         self.connect_clicked.emit()
 
     def _try_again_clicked(self):
-        self.detect_automatic_radio.setEnabled(False)
-        self.detect_manual_radio.setEnabled(False)
-
+        self.connection_status_label.setText(
+            strings._("gui_autoconnect_trying_to_connect_to_tor")
+        )
         self.country_combobox.setEnabled(False)
         self.hide_buttons()
         self.try_again_clicked.emit()
