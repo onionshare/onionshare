@@ -95,6 +95,7 @@ class AutoConnectTab(QtWidgets.QWidget):
         # Use bridge widget
         self.use_bridge_widget = AutoConnectUseBridgeWidget(self.common)
         self.use_bridge_widget.connect_clicked.connect(self.use_bridge_connect_clicked)
+        self.use_bridge_widget.try_again_clicked.connect(self.first_launch_widget_connect_clicked)
         self.use_bridge_widget.open_tor_settings.connect(self.open_tor_settings)
         self.use_bridge_widget.hide()
 
@@ -192,6 +193,8 @@ class AutoConnectTab(QtWidgets.QWidget):
             "Trying to automatically obtain bridges",
         )
         self.use_bridge_widget.hide_buttons()
+        self.use_bridge_widget.progress.show()
+        self.use_bridge_widget.progress_label.show()
 
         if self.use_bridge_widget.detect_automatic_radio.isChecked():
             country = False
@@ -259,6 +262,8 @@ class AutoConnectTab(QtWidgets.QWidget):
         self.tor_con.hide()
         self.first_launch_widget.show_buttons()
         self.use_bridge_widget.show_buttons()
+        self.use_bridge_widget.progress.hide()
+        self.use_bridge_widget.progress_label.hide()
 
         if self.common.gui.onion.is_authenticated() and not self.tor_con.wasCanceled():
             # Tell the tabs that Tor is connected
@@ -279,6 +284,8 @@ class AutoConnectTab(QtWidgets.QWidget):
             self.first_launch_widget.show_buttons()
             self.first_launch_widget.hide()
             self.use_bridge_widget.show()
+        else:
+            self.use_bridge_widget.show_buttons()
 
     def reload_settings(self):
         self.curr_settings.load()
@@ -374,12 +381,20 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
     """
 
     connect_clicked = QtCore.Signal()
+    try_again_clicked = QtCore.Signal()
     open_tor_settings = QtCore.Signal()
 
     def __init__(self, common):
         super(AutoConnectUseBridgeWidget, self).__init__()
         self.common = common
         self.common.log("AutoConnectUseBridgeWidget", "__init__")
+
+        # Heading label when we fail to connect to Tor.
+        failed_to_connect_label = QtWidgets.QLabel(
+            strings._("gui_autoconnect_failed_to_connect_to_tor")
+        )
+        failed_to_connect_label.setTextFormat(QtCore.Qt.RichText)
+        failed_to_connect_label.setStyleSheet(common.gui.css["autoconnect_failed_to_connect_label"])
 
         # Description
         description_label = QtWidgets.QLabel(
@@ -444,6 +459,13 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
         self.connect_button.clicked.connect(self._connect_clicked)
         self.connect_button.setFixedWidth(150)
         self.connect_button.setStyleSheet(common.gui.css["autoconnect_start_button"])
+
+        self.try_again_button = QtWidgets.QPushButton(
+            strings._("gui_autoconnect_try_again_without_a_bridge")
+        )
+        self.try_again_button.clicked.connect(self._try_again_clicked)
+        self.try_again_button.setStyleSheet(common.gui.css["autoconnect_start_button"])
+
         self.configure_button = QtWidgets.QPushButton(
             strings._("gui_autoconnect_configure")
         )
@@ -464,6 +486,7 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
 
         cta_layout = QtWidgets.QHBoxLayout()
         cta_layout.addWidget(self.connect_button)
+        cta_layout.addWidget(self.try_again_button)
         cta_layout.addWidget(self.configure_button)
         cta_layout.addStretch()
         cta_widget = QtWidgets.QWidget()
@@ -471,6 +494,7 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
 
         # Layout
         layout = QtWidgets.QVBoxLayout()
+        layout.addWidget(failed_to_connect_label)
         layout.addWidget(description_label)
         layout.addLayout(detect_layout)
         layout.addWidget(self.country_combobox)
@@ -486,15 +510,13 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
 
     def hide_buttons(self):
         self.connect_button.hide()
+        self.try_again_button.hide()
         self.configure_button.hide()
-        self.progress.show()
-        self.progress_label.show()
 
     def show_buttons(self):
         self.connect_button.show()
+        self.try_again_button.show()
         self.configure_button.show()
-        self.progress.hide()
-        self.progress_label.hide()
 
     def _country_changed(self, index=None):
         self.country_code = str(self.country_combobox.currentData()).lower()
@@ -527,6 +549,14 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
 
         self.country_combobox.setEnabled(False)
         self.connect_clicked.emit()
+
+    def _try_again_clicked(self):
+        self.detect_automatic_radio.setEnabled(False)
+        self.detect_manual_radio.setEnabled(False)
+
+        self.country_combobox.setEnabled(False)
+        self.hide_buttons()
+        self.try_again_clicked.emit()
 
     def _open_tor_settings(self):
         self.open_tor_settings.emit()
