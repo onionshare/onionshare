@@ -7,7 +7,7 @@ license = "GPLv3+"
 
 [tool.poetry.dependencies]
 python = ">=3.9,<3.10"
-onionshare_cli = {path = "../cli", develop = false}
+onionshare_cli = {path = "../cli", develop = true}
 PySide2 = "5.15.2"
 qrcode = "*"
 cx_freeze = {version = "*", platform = "win32"}
@@ -24,3 +24,4 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
 onionshare = 'onionshare:main'
+onionshare-cli = 'onionshare_cli:main'
