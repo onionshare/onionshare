@@ -9,7 +9,7 @@ git clone https://github.com/onionshare/onionshare.git
 cd onionshare/desktop
 ```
 
-Make sure you have Python 3 installed. If you're using Windows or macOS, install version 3.10.1 [from python.org](https://www.python.org/downloads/release/python-3101/). For Windows, make sure to install the 32-bit (x86) version, and to check the box to add python to the path on the first page of the installer.
+Make sure you have Python 3 installed. If you're using Windows or macOS, install version 3.9.9 [from python.org](https://www.python.org/downloads/release/python-399/). For Windows, make sure to install the 32-bit (x86) version, and to check the box to add python to the path on the first page of the installer.
 
 Make sure you have [poetry installed](https://python-poetry.org/docs/#installation), and then install the dependencies:
 
@@ -51,7 +51,7 @@ poetry run python scripts\get-tor-windows.py
 
 ### Compile dependencies
 
-Install Go. The simplest way to make sure everything works is to install Go by following [these instructions](https://golang.org/doc/install). (In Windows, make sure to install the 32-bit version of Go, such as `go1.17.3.windows-386.msi`.)
+Install Go. The simplest way to make sure everything works is to install Go by following [these instructions](https://golang.org/doc/install). (In Windows, make sure to install the 32-bit version of Go, such as `go1.17.5.windows-386.msi`.)
 
 Download and compile `meek-client`:
 
