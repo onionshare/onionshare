@@ -89,7 +89,7 @@ class Web:
         #
         # It's probably #notourbug but we can fix it by forcing the mimetype.
         # https://github.com/onionshare/onionshare/issues/1443
-        mimetypes.add_type('text/javascript', '.js')
+        mimetypes.add_type("text/javascript", ".js")
 
         # The flask app
         self.app = Flask(
@@ -162,7 +162,10 @@ class Web:
         elif self.mode == "website":
             self.website_mode = WebsiteModeWeb(self.common, self)
         elif self.mode == "chat":
-            self.socketio = SocketIO()
+            if self.common.verbose:
+                self.socketio = SocketIO(logger=True, engineio_logger=True)
+            else:
+                self.socketio = SocketIO()
             self.socketio.init_app(self.app)
             self.chat_mode = ChatModeWeb(self.common, self)
 
