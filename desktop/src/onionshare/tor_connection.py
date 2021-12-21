@@ -119,6 +119,7 @@ class TorConnectionDialog(QtWidgets.QProgressDialog):
         self.active = False
         # Close the dialog after connecting
         self.setValue(self.maximum())
+        self.success.emit()
 
     def _canceled_connecting_to_tor(self):
         self.common.log("TorConnectionDialog", "_canceled_connecting_to_tor")
