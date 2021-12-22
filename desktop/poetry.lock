@@ -666,7 +666,7 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.9,<3.10"
-content-hash = "279d5af1fc6f163903bd24cf0a3e5bcaae4903be4f717298ff19ef096a530c86"
+content-hash = "a13c1965ecb244469752adb4f03e284c9e7c91fc0247efee74fa902b5e18a9da"
 
 [metadata.files]
 atomicwrites = [
