@@ -114,6 +114,7 @@ include_files = [(os.path.join("..", "LICENSE"), "LICENSE")]
 if platform.system() == "Windows":
     include_msvcr = True
     gui_base = "Win32GUI"
+    exec_icon = os.path.join("onionshare", "resources", "onionshare.ico")
 
 elif platform.system() == "Darwin":
     import PySide2
@@ -121,6 +122,7 @@ elif platform.system() == "Darwin":
 
     include_msvcr = False
     gui_base = None
+    exec_icon = None
     include_files += [
         (
             os.path.join(PySide2.__path__[0], "libpyside2.abi3.5.15.dylib"),
@@ -137,6 +139,7 @@ setup(
     version=version,
     description="Securely and anonymously share files, host websites, and chat with friends using the Tor network",
     options={
+        # build_exe, for Windows and macOS
         "build_exe": {
             "packages": [
                 "cffi",
@@ -197,18 +200,31 @@ setup(
             ],
             "include_files": include_files,
             "include_msvcr": include_msvcr,
-        }
+        },
+        # bdist_mac, making the macOS app bundle
+        "bdist_mac": {
+            "iconfile": os.path.join("onionshare", "resources", "onionshare.icns"),
+            "bundle_name": "OnionShare",
+            "codesign_identity": "Developer ID Application: Micah Lee (N9B95FDWH4)",
+            "codesign_entitlements": os.path.join("package", "Entitlements.plist"),
+            "codesign_deep": True,
+        },
+        # bdist_dmg, packaging the macOS app bundle in a dmg
+        "bdist_dmg": {
+            "volume_label": f"OnionShare-{version}",
+            "applications_shortcut": True,
+        },
     },
     executables=[
         Executable(
             "package/onionshare.py",
             base=gui_base,
-            icon=os.path.join("onionshare", "resources", "onionshare.ico"),
+            icon=exec_icon,
         ),
         Executable(
             "package/onionshare-cli.py",
             base=None,
-            icon=os.path.join("onionshare", "resources", "onionshare.ico"),
+            icon=exec_icon,
         ),
     ],
 )
