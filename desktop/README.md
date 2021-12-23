@@ -70,6 +70,12 @@ poetry run onionshare -v
 poetry run onionshare -v --local-only
 ```
 
+You can also run `onionshare-cli` from the source tree, and it will look for Tor binaries in `desktop/onionshare/resources/tor`.
+
+```sh
+poetry run onionshare-cli --help
+```
+
 ## Running tests
 
 Run the tests:

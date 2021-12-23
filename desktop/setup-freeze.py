@@ -114,7 +114,8 @@ include_files = [(os.path.join("..", "LICENSE"), "LICENSE")]
 
 if platform.system() == "Windows":
     include_msvcr = True
-    gui_base = "Win32GUI"
+    # gui_base = "Win32GUI"
+    gui_base = None
     exec_icon = os.path.join("onionshare", "resources", "onionshare.ico")
 
 elif platform.system() == "Darwin":
@@ -218,11 +219,6 @@ setup(
             "codesign_identity": "Developer ID Application: Micah Lee (N9B95FDWH4)",
             "codesign_entitlements": os.path.join("package", "Entitlements.plist"),
             "codesign_deep": True,
-        },
-        # bdist_dmg, packaging the macOS app bundle in a dmg
-        "bdist_dmg": {
-            "volume_label": f"OnionShare-{version}",
-            "applications_shortcut": True,
         },
     },
     executables=[
