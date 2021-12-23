@@ -19,16 +19,17 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import os
+import sys
 import platform
+import shutil
 import cx_Freeze
 from cx_Freeze import setup, Executable
 
 # There's an obscure cx_Freeze bug that I'm hitting that's preventing the macOS
 # package from getting built. This is some monkeypatching to fix it.
 
-if platform.system() == "Darwin":
+if platform.system() == "Darwin" or platform.system() == "Linux":
     import importlib_metadata
-    import shutil
     import pathlib
     from pathlib import Path
     from tempfile import TemporaryDirectory
@@ -133,6 +134,15 @@ elif platform.system() == "Darwin":
             "libshiboken2.abi3.5.15.dylib",
         ),
     ]
+
+elif platform.system() == "Linux":
+    include_msvcr = False
+    gui_base = None
+    exec_icon = None
+
+    if not shutil.which("patchelf"):
+        print("Install the patchelf package")
+        sys.exit()
 
 setup(
     name="onionshare",
