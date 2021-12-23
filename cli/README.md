@@ -97,11 +97,3 @@ To run tests:
 ```sh
 poetry run pytest -v ./tests
 ```
-
-## Build a wheel package
-
-```sh
-poetry build
-```
-
-This will create `dist/onionshare_cli-$VERSION-py3-none-any.whl`.
