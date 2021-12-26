@@ -57,4 +57,4 @@ jobs:
           name: Run tests
           command: |
             cd ~/repo/desktop
-            poetry run ./tests/run.sh
+            xvfb-run poetry run ./tests/run.sh
