@@ -84,24 +84,42 @@ Install dependencies with poetry:
 
 ```sh
 poetry install
+# or
+make install
 ```
 
 To run from the source tree:
 
 ```sh
 poetry run onionshare-cli
+# or
+make run
 ```
 
 To run tests:
 
 ```sh
 poetry run pytest -v ./tests
+# or
+make test
 ```
 
 ## Build a wheel package
 
 ```sh
 poetry build
+# or
+make build
 ```
 
 This will create `dist/onionshare_cli-$VERSION-py3-none-any.whl`.
+
+## Bonus
+
+To Format the code and the linter
+
+```sh
+make format
+# and/or
+make lint
+```
