@@ -1,29 +1,29 @@
+import base64
 import os
 import random
 import re
+import shutil
 import socket
 import subprocess
+import sys
+import tempfile
 import time
 import zipfile
-import tempfile
-import base64
-import shutil
-import sys
+from contextlib import contextmanager
 from io import BytesIO
+from multiprocessing import Process
+from urllib.request import Request, urlopen
 
 import pytest
-from contextlib import contextmanager
-from multiprocessing import Process
-from urllib.request import urlopen, Request
 from werkzeug.datastructures import Headers
 from werkzeug.exceptions import RequestedRangeNotSatisfiable
 
+import onionshare_cli.web.receive_mode
 from onionshare_cli.common import Common
+from onionshare_cli.mode_settings import ModeSettings
+from onionshare_cli.settings import Settings
 from onionshare_cli.web import Web
 from onionshare_cli.web.share_mode import parse_range_header
-from onionshare_cli.settings import Settings
-from onionshare_cli.mode_settings import ModeSettings
-import onionshare_cli.web.receive_mode
 
 # Stub requests.post, for receive mode webhook tests
 webhook_url = None

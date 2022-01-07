@@ -18,12 +18,13 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
+import json
 import os
 import tempfile
-import json
-import requests
 from datetime import datetime
-from flask import Request, request, render_template, make_response, flash, redirect
+
+import requests
+from flask import Request, flash, make_response, redirect, render_template, request
 from werkzeug.utils import secure_filename
 
 # Receive mode uses a special flask requests object, ReceiveModeRequest, in
@@ -91,10 +92,12 @@ class ReceiveModeWeb:
                 static_url_path=self.web.static_url_path,
                 disable_text=self.web.settings.get("receive", "disable_text"),
                 disable_files=self.web.settings.get("receive", "disable_files"),
-                title=self.web.settings.get("general", "title")
+                title=self.web.settings.get("general", "title"),
             )
 
-        @self.web.app.route("/upload", methods=["POST"], provide_automatic_options=False)
+        @self.web.app.route(
+            "/upload", methods=["POST"], provide_automatic_options=False
+        )
         def upload(ajax=False):
             """
             Handle the upload files POST request, though at this point, the files have
@@ -225,7 +228,9 @@ class ReceiveModeWeb:
                         title=self.web.settings.get("general", "title"),
                     )
 
-        @self.web.app.route("/upload-ajax", methods=["POST"], provide_automatic_options=False)
+        @self.web.app.route(
+            "/upload-ajax", methods=["POST"], provide_automatic_options=False
+        )
         def upload_ajax_public():
             if not self.can_upload:
                 return self.web.error403()

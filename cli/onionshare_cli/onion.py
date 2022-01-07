@@ -18,22 +18,23 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-from .censorship import CensorshipCircumvention
-from .meek import Meek
-from stem.control import Controller
-from stem import ProtocolError, SocketClosed
-from stem.connection import MissingPassword, UnreadableCookieFile, AuthenticationFailure
 import base64
-import nacl.public
 import os
-import psutil
 import shlex
 import subprocess
 import tempfile
 import time
 import traceback
-
 from distutils.version import LooseVersion as Version
+
+import nacl.public
+import psutil
+from stem import ProtocolError, SocketClosed
+from stem.connection import AuthenticationFailure, MissingPassword, UnreadableCookieFile
+from stem.control import Controller
+
+from .censorship import CensorshipCircumvention
+from .meek import Meek
 
 
 class TorErrorAutomatic(Exception):

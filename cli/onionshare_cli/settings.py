@@ -19,8 +19,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 import json
-import os
 import locale
+import os
 
 
 class Settings(object):

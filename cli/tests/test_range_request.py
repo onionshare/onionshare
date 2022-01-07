@@ -3,7 +3,6 @@ from werkzeug.exceptions import RequestedRangeNotSatisfiable
 
 from onionshare_cli.web.share_mode import parse_range_header
 
-
 VALID_RANGES = [
     (None, 500, [(0, 499)]),
     ("bytes=0", 500, [(0, 499)]),

@@ -1,7 +1,7 @@
 import json
 import os
-import tempfile
 import sys
+import tempfile
 
 import pytest
 

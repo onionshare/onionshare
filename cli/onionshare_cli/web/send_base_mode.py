@@ -18,11 +18,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
+import gzip
+import mimetypes
 import os
 import sys
 import tempfile
-import mimetypes
-import gzip
+
 from flask import Response, request
 from unidecode import unidecode
 from werkzeug.urls import url_quote
