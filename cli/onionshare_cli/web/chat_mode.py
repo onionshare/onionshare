@@ -18,7 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-from flask import request, render_template, make_response, jsonify, session
+from flask import jsonify, make_response, render_template, request, session
 from flask_socketio import emit, join_room, leave_room
 
 
@@ -69,13 +69,17 @@ class ChatModeWeb:
 
             self.web.add_request(self.web.REQUEST_LOAD, request.path)
             return render_template(
-                    "chat.html",
-                    static_url_path=self.web.static_url_path,
-                    username=session.get("name"),
-                    title=self.web.settings.get("general", "title"),
+                "chat.html",
+                static_url_path=self.web.static_url_path,
+                username=session.get("name"),
+                title=self.web.settings.get("general", "title"),
             )
 
-        @self.web.app.route("/update-session-username", methods=["POST"], provide_automatic_options=False)
+        @self.web.app.route(
+            "/update-session-username",
+            methods=["POST"],
+            provide_automatic_options=False,
+        )
         def update_session_username():
             history_id = self.cur_history_id
             data = request.get_json()

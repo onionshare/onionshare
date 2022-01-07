@@ -22,16 +22,16 @@ import hashlib
 import os
 import platform
 import random
-import requests
+import shutil
 import socket
 import sys
 import threading
 import time
-import shutil
-from pkg_resources import resource_filename
 
 import colorama
-from colorama import Fore, Back, Style
+import requests
+from colorama import Back, Fore, Style
+from pkg_resources import resource_filename
 
 from .settings import Settings
 

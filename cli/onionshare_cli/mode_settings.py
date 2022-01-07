@@ -17,8 +17,8 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-import os
 import json
+import os
 import platform
 
 if platform.system() == "Darwin":
@@ -55,11 +55,7 @@ class ModeSettings:
                 "disable_text": False,
                 "disable_files": False,
             },
-            "website": {
-                "disable_csp": False,
-                "custom_csp": None,
-                "filenames": []
-            },
+            "website": {"disable_csp": False, "custom_csp": None, "filenames": []},
             "chat": {"room": "default"},
         }
         self._settings = {}

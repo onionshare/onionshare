@@ -18,19 +18,18 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
+import argparse
 import os
 import sys
-import time
-import argparse
 import threading
-from datetime import datetime
-from datetime import timedelta
+import time
+from datetime import datetime, timedelta
 
-from .common import Common, CannotFindTor
-from .web import Web
-from .onion import TorErrorProtocolError, TorTooOldEphemeral, TorTooOldStealth, Onion
-from .onionshare import OnionShare
+from .common import CannotFindTor, Common
 from .mode_settings import ModeSettings
+from .onion import Onion, TorErrorProtocolError, TorTooOldEphemeral, TorTooOldStealth
+from .onionshare import OnionShare
+from .web import Web
 
 
 def main(cwd=None):
@@ -242,7 +241,9 @@ def main(cwd=None):
             mode_settings.set("receive", "disable_files", disable_files)
         if mode == "website":
             if disable_csp and custom_csp:
-                print("You cannot disable the CSP and set a custom one. Either set --disable-csp or --custom-csp but not both.")
+                print(
+                    "You cannot disable the CSP and set a custom one. Either set --disable-csp or --custom-csp but not both."
+                )
                 sys.exit()
             if disable_csp:
                 mode_settings.set("website", "disable_csp", True)

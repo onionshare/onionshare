@@ -21,26 +21,20 @@ import logging
 import mimetypes
 import os
 import queue
-import requests
 import shutil
 from distutils.version import LooseVersion as Version
 
 import flask
-from flask import (
-    Flask,
-    request,
-    render_template,
-    abort,
-    make_response,
-    send_file,
-    __version__ as flask_version,
-)
+import requests
+from flask import Flask
+from flask import __version__ as flask_version
+from flask import abort, make_response, render_template, request, send_file
 from flask_socketio import SocketIO
 
-from .share_mode import ShareModeWeb
-from .receive_mode import ReceiveModeWeb, ReceiveModeWSGIMiddleware, ReceiveModeRequest
-from .website_mode import WebsiteModeWeb
 from .chat_mode import ChatModeWeb
+from .receive_mode import ReceiveModeRequest, ReceiveModeWeb, ReceiveModeWSGIMiddleware
+from .share_mode import ShareModeWeb
+from .website_mode import WebsiteModeWeb
 
 
 # Stub out flask's show_server_banner function, to avoiding showing warnings that
@@ -89,7 +83,7 @@ class Web:
         #
         # It's probably #notourbug but we can fix it by forcing the mimetype.
         # https://github.com/onionshare/onionshare/issues/1443
-        mimetypes.add_type('text/javascript', '.js')
+        mimetypes.add_type("text/javascript", ".js")
 
         # The flask app
         self.app = Flask(
