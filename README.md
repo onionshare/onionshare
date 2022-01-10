@@ -13,6 +13,11 @@ For macOS you can also use [Homebrew](https://brew.sh/):
 ```
 brew install --cask onionshare
 ```
+For macOS users running an M1 chip or higher:
+* Go to your Applcations foler
+* Right click on OnionShare
+* Click get info
+* Check open with Rosetta
 
 See [these instructions](https://docs.onionshare.org/2.3/en/install.html#install-in-linux) to install OnionShare in Linux with Flatpak.
 
