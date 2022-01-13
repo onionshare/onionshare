@@ -522,12 +522,12 @@ def main():
         Id="WixUILicenseRtf",
         Value="..\\package\\license.rtf",
     )
-    # ET.SubElement(
-    #     product_el,
-    #     "WixVariable",
-    #     Id="WixUIDialogBmp",
-    #     Value="..\\package\\dialog.bmp",
-    # )
+    ET.SubElement(
+        product_el,
+        "WixVariable",
+        Id="WixUIDialogBmp",
+        Value="..\\package\\dialog.bmp",
+    )
     ET.SubElement(
         product_el,
         "MajorUpgrade",
