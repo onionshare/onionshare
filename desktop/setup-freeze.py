@@ -114,8 +114,7 @@ include_files = [(os.path.join("..", "LICENSE"), "LICENSE")]
 
 if platform.system() == "Windows":
     include_msvcr = True
-    # gui_base = "Win32GUI"
-    gui_base = None
+    gui_base = "Win32GUI"
     exec_icon = os.path.join("onionshare", "resources", "onionshare.ico")
 
 elif platform.system() == "Darwin":

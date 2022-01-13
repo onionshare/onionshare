@@ -100,15 +100,19 @@ snapcraft upload --release=stable onionshare_$VERSION_amd64.snap
 
 ## Windows
 
-Set up the development environment described in `README.md`. And install the [Windows 10 SDK](https://developer.microsoft.com/en-us/windows/downloads/windows-10-sdk) and add `C:\Program Files (x86)\Windows Kits\10\bin\10.0.19041.0\x86` to your path.
+Set up the development environment described in desktop `README.md`.
+
+- To get `signtool.exe`, install the [Windows 10 SDK](https://developer.microsoft.com/en-us/windows/downloads/windows-10-sdk) and add `C:\Program Files (x86)\Windows Kits\10\bin\10.0.22000.0\x86` to your path.
+- Go to https://dotnet.microsoft.com/download/dotnet-framework and download and install .NET Framework 3.5 SP1 Runtime. I downloaded `dotnetfx35.exe`.
+- Go to https://wixtoolset.org/releases/ and download and install WiX toolset. I downloaded `wix311.exe`. Add `C:\Program Files (x86)\WiX Toolset v3.11\bin` to the path.
 
 Run the Windows build script:
 
 ```
-poetry run python .\package\windows\build.py
+poetry run python .\package\build-windows.py
 ```
 
-This will create `desktop/windows/OnionShare-$VERSION.msi`, signed.
+This will create `desktop/dist/OnionShare-$VERSION.msi`, signed.
 
 ## macOS
 
