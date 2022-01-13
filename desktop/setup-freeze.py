@@ -214,10 +214,7 @@ setup(
         # bdist_mac, making the macOS app bundle
         "bdist_mac": {
             "iconfile": os.path.join("onionshare", "resources", "onionshare.icns"),
-            "bundle_name": "OnionShare",
-            "codesign_identity": "Developer ID Application: Micah Lee (N9B95FDWH4)",
-            "codesign_entitlements": os.path.join("package", "Entitlements.plist"),
-            "codesign_deep": True,
+            "bundle_name": "OnionShare"
         },
     },
     executables=[

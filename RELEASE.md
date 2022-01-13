@@ -121,18 +121,18 @@ Set up the development environment described in `README.md`.
 Then build an executable, make it a macOS app bundle, and package it in a dmg:
 
 ```sh
-poetry run python setup-freeze.py bdist_dmg
+poetry run ./package/build-mac.py
 ```
 
-The will create `build/OnionShare.dmg`.
+The will create `dist/OnionShare-$VERSION.dmg`.
 
 Now, notarize the release. You must have an app-specific Apple ID password saved in the login keychain called `onionshare-notarize`.
 
-- Notarize it: `xcrun altool --notarize-app --primary-bundle-id "com.micahflee.onionshare" -u "micah@micahflee.com" -p "@keychain:onionshare-notarize" --file build/OnionShare.dmg`
+- Notarize it: `xcrun altool --notarize-app --primary-bundle-id "com.micahflee.onionshare" -u "micah@micahflee.com" -p "@keychain:onionshare-notarize" --file dist/OnionShare-$VERSION.dmg`
 - Wait for it to get approved, check status with: `xcrun altool --notarization-history 0 -u "micah@micahflee.com" -p "@keychain:onionshare-notarize"`
-- After it's approved, staple the ticket: `xcrun stapler staple build/OnionShare.dmg`
+- After it's approved, staple the ticket: `xcrun stapler staple dist/OnionShare-$VERSION.dmg`
 
-This will create `desktop/build/OnionShare.dmg`, signed and notarized.
+This will create `desktop/dist/OnionShare-$VERSION.dmg`, signed and notarized.
 
 ## Source package
 
