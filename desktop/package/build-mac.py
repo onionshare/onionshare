@@ -40,7 +40,7 @@ def codesign(path, entitlements, identity):
             str(path),
             "--force",
             "--options",
-            "runtime,library",
+            "runtime",
         ]
     )
 
@@ -124,14 +124,19 @@ def main():
         "QtMultimedia",
         "QtMultimediaQuick",
         "QtMultimediaWidgets",
+        "QtNetwork",
+        "QtNetworkAuth",
         "QtNfc",
         "QtOpenGL",
         "QtPdf",
         "QtPdfWidgets",
         "QtPositioning",
         "QtPositioningQuick",
+        "QtPrintSupport",
         "QtPurchasing",
         "QtQml",
+        "QtQmlModels",
+        "QtQmlWorkerScript",
         "QtQuick",
         "QtQuick3D",
         "QtQuick3DAssetImport",
@@ -229,6 +234,13 @@ def main():
             f"{desktop_dir}/build/OnionShare.app/Contents/MacOS/**/*.so", recursive=True
         ),
         [
+            f"{desktop_dir}/build/OnionShare.app/Contents/MacOS/onionshare",
+            f"{desktop_dir}/build/OnionShare.app/Contents/MacOS/onionshare-cli",
+            f"{desktop_dir}/build/OnionShare.app/Contents/MacOS/lib/PySide2/Qt/lib/QtCore.framework/Versions/5/QtCore",
+            f"{desktop_dir}/build/OnionShare.app/Contents/MacOS/lib/PySide2/Qt/lib/QtDBus.framework/Versions/5/QtDBus",
+            f"{desktop_dir}/build/OnionShare.app/Contents/MacOS/lib/PySide2/Qt/lib/QtGui.framework/Versions/5/QtGui",
+            f"{desktop_dir}/build/OnionShare.app/Contents/MacOS/lib/PySide2/Qt/lib/QtMacExtras.framework/Versions/5/QtMacExtras",
+            f"{desktop_dir}/build/OnionShare.app/Contents/MacOS/lib/PySide2/Qt/lib/QtWidgets.framework/Versions/5/QtWidgets",
             f"{desktop_dir}/build/OnionShare.app/Contents/MacOS/lib/PySide2/pyside2-lupdate",
             f"{desktop_dir}/build/OnionShare.app/Contents/MacOS/lib/PySide2/rcc",
             f"{desktop_dir}/build/OnionShare.app/Contents/MacOS/lib/PySide2/uic",
