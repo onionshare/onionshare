@@ -31,6 +31,8 @@ import shutil
 import subprocess
 import requests
 
+from bridges import UpdateTorBridges
+
 
 def main():
     exe_url = "https://dist.torproject.org/torbrowser/11.0a10/torbrowser-install-11.0a10_en-US.exe"
@@ -44,7 +46,7 @@ def main():
     )
     working_path = os.path.join(root_path, "build", "tor")
     exe_path = os.path.join(working_path, exe_filename)
-    dist_path = os.path.join(root_path, "src", "onionshare", "resources", "tor")
+    dist_path = os.path.join(root_path, "onionshare", "resources", "tor")
 
     # Make sure the working folder exists
     if not os.path.exists(working_path):
@@ -97,6 +99,9 @@ def main():
     shutil.copytree(
         os.path.join(working_path, "Data"), os.path.join(dist_path, "Data", "Tor")
     )
+
+    # Fetch the built-in bridges
+    UpdateTorBridges(root_path)
 
 
 if __name__ == "__main__":

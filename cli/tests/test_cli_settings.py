@@ -34,6 +34,7 @@ class TestSettings:
             "bridges_builtin_pt": "obfs4",
             "bridges_moat": "",
             "bridges_custom": "",
+            "bridges_builtin": {},
             "persistent_tabs": [],
             "theme": 0,
         }
@@ -54,7 +55,7 @@ class TestSettings:
             "socks_port": 9999,
             "use_stealth": True,
         }
-        tmp_file, tmp_file_path = tempfile.mkstemp(dir=temp_dir)
+        tmp_file, tmp_file_path = tempfile.mkstemp(dir=temp_dir.name)
         with open(tmp_file, "w") as f:
             json.dump(custom_settings, f)
         settings_obj.filename = tmp_file_path
@@ -69,7 +70,7 @@ class TestSettings:
 
     def test_save(self, monkeypatch, temp_dir, settings_obj):
         settings_filename = "default_settings.json"
-        new_temp_dir = tempfile.mkdtemp(dir=temp_dir)
+        new_temp_dir = tempfile.mkdtemp(dir=temp_dir.name)
         settings_path = os.path.join(new_temp_dir, settings_filename)
         settings_obj.filename = settings_path
         settings_obj.save()

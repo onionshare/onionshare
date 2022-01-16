@@ -154,7 +154,7 @@ var getScrollDiffBefore = function () {
 
 var scrollBottomMaybe = function (scrollDiff) {
   // Scrolls to bottom if the user is scrolled at bottom
-  // if the user has scrolled upp, it wont scroll at bottom.
+  // if the user has scrolled up, it won't scroll at bottom.
   // Note: when a user themselves send a message, it will still
   // scroll to the bottom even if they had scrolled up before.
   if (scrollDiff > 0) {

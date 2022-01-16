@@ -134,8 +134,12 @@ class ShareModeWeb(SendBaseModeWeb):
         The web app routes for sharing files
         """
 
-        @self.web.app.route("/", defaults={"path": ""}, methods=["GET"], provide_automatic_options=False)
-        @self.web.app.route("/<path:path>", methods=["GET"], provide_automatic_options=False)
+        @self.web.app.route(
+            "/", defaults={"path": ""}, methods=["GET"], provide_automatic_options=False
+        )
+        @self.web.app.route(
+            "/<path:path>", methods=["GET"], provide_automatic_options=False
+        )
         def index(path):
             """
             Render the template for the onionshare landing page.
@@ -159,7 +163,9 @@ class ShareModeWeb(SendBaseModeWeb):
 
             return self.render_logic(path)
 
-        @self.web.app.route("/download", methods=["GET"], provide_automatic_options=False)
+        @self.web.app.route(
+            "/download", methods=["GET"], provide_automatic_options=False
+        )
         def download():
             """
             Download the zip file.
@@ -286,7 +292,9 @@ class ShareModeWeb(SendBaseModeWeb):
         if if_unmod:
             if_date = parse_date(if_unmod)
             if if_date and not if_date.tzinfo:
-                if_date = if_date.replace(tzinfo=timezone.utc) # Compatible with Flask < 2.0.0
+                if_date = if_date.replace(
+                    tzinfo=timezone.utc
+                )  # Compatible with Flask < 2.0.0
             if if_date and if_date > last_modified:
                 abort(412)
             elif range_header is None:
@@ -459,7 +467,7 @@ class ShareModeWeb(SendBaseModeWeb):
                 return self.web.error404(history_id)
 
     def build_zipfile_list(self, filenames, processed_size_callback=None):
-        self.common.log("ShareModeWeb", "build_zipfile_list")
+        self.common.log("ShareModeWeb", "build_zipfile_list", f"filenames={filenames}")
         for filename in filenames:
             info = {
                 "filename": filename,
@@ -484,7 +492,10 @@ class ShareModeWeb(SendBaseModeWeb):
                 self.download_etag = make_etag(f)
 
             # Compress the file with gzip now, so we don't have to do it on each request
-            self.gzip_filename = tempfile.mkstemp("wb+")[1]
+            self.gzip_tmp_dir = tempfile.TemporaryDirectory(
+                dir=self.common.build_tmp_dir()
+            )
+            self.gzip_filename = os.path.join(self.gzip_tmp_dir.name, "file.gz")
             self._gzip_compress(
                 self.download_filename, self.gzip_filename, 6, processed_size_callback
             )
@@ -492,15 +503,15 @@ class ShareModeWeb(SendBaseModeWeb):
             with open(self.gzip_filename, "rb") as f:
                 self.gzip_etag = make_etag(f)
 
-            # Make sure the gzip file gets cleaned up when onionshare stops
-            self.web.cleanup_filenames.append(self.gzip_filename)
-
             self.is_zipped = False
+
+            # Cleanup this tempfile
+            self.web.cleanup_tempdirs.append(self.gzip_tmp_dir)
 
         else:
             # Zip up the files and folders
             self.zip_writer = ZipWriter(
-                self.common, processed_size_callback=processed_size_callback
+                self.common, self.web, processed_size_callback=processed_size_callback
             )
             self.download_filename = self.zip_writer.zip_filename
             for info in self.file_info["files"]:
@@ -519,10 +530,6 @@ class ShareModeWeb(SendBaseModeWeb):
             with open(self.download_filename, "rb") as f:
                 self.download_etag = make_etag(f)
 
-            # Make sure the zip file gets cleaned up when onionshare stops
-            self.web.cleanup_filenames.append(self.zip_writer.zip_filename)
-            self.web.cleanup_filenames.append(self.zip_writer.zip_temp_dir)
-
             self.is_zipped = True
 
         return True
@@ -535,17 +542,24 @@ class ZipWriter(object):
     filename.
     """
 
-    def __init__(self, common, zip_filename=None, processed_size_callback=None):
+    def __init__(
+        self, common, web=None, zip_filename=None, processed_size_callback=None
+    ):
         self.common = common
+        self.web = web
         self.cancel_compression = False
 
         if zip_filename:
             self.zip_filename = zip_filename
         else:
-            self.zip_temp_dir = tempfile.mkdtemp()
-            self.zip_filename = (
-                f"{self.zip_temp_dir}/onionshare_{self.common.random_string(4, 6)}.zip"
+            self.zip_temp_dir = tempfile.TemporaryDirectory(
+                dir=self.common.build_tmp_dir()
             )
+            self.zip_filename = f"{self.zip_temp_dir.name}/onionshare_{self.common.random_string(4, 6)}.zip"
+
+            # Cleanup this temp dir
+            if self.web:
+                self.web.cleanup_tempdirs.append(self.zip_temp_dir)
 
         self.z = zipfile.ZipFile(self.zip_filename, "w", allowZip64=True)
         self.processed_size_callback = processed_size_callback

@@ -118,7 +118,10 @@ Content Security Policy
 
 By default OnionShare helps secure your website by setting a strict `Content Security Policy <https://en.wikipedia.org/wiki/Content_Security_Policy>`_ header. However, this prevents third-party content from loading inside the web page.
 
-If you want to load content from third-party websites, like assets or JavaScript libraries from CDNs, check the "Don't send Content Security Policy header (allows your website to use third-party resources)" box before starting the service.
+If you want to load content from third-party websites, like assets or JavaScript libraries from CDNs, you have two options:
+
+- You can disable sending a Content Security Policy header by checking the "Don't send Content Security Policy header (allows your website to use third-party resources)" box before starting the service.
+- You can send a custom Content Security Policy header.
 
 Tips for running a website service
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

@@ -31,6 +31,7 @@ import hashlib
 import shutil
 import subprocess
 import requests
+from bridges import UpdateTorBridges
 
 
 def main():
@@ -46,7 +47,7 @@ def main():
     )
     working_path = os.path.join(root_path, "build", "tor")
     tarball_path = os.path.join(working_path, tarball_filename)
-    dist_path = os.path.join(root_path, "src", "onionshare", "resources", "tor")
+    dist_path = os.path.join(root_path, "onionshare", "resources", "tor")
 
     # Make sure dirs exist
     if not os.path.exists(working_path):
@@ -125,6 +126,9 @@ def main():
     os.chmod(os.path.join(dist_path, "snowflake-client"), 0o755)
 
     print(f"Tor binaries extracted to: {dist_path}")
+
+    # Fetch the built-in bridges
+    UpdateTorBridges(root_path)
 
 
 if __name__ == "__main__":
