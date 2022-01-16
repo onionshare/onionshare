@@ -163,6 +163,7 @@ class MainWindow(QtWidgets.QMainWindow):
         # Start the "Connecting to Tor" dialog, which calls onion.connect()
         tor_con = TorConnectionDialog(self.common)
         tor_con.canceled.connect(self.tor_connection_canceled)
+        tor_con.success.connect(self.tabs.tor_is_connected)
         tor_con.open_tor_settings.connect(self.tor_connection_open_tor_settings)
         if not self.common.gui.local_only:
             tor_con.start()
