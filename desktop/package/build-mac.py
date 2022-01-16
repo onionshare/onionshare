@@ -253,6 +253,7 @@ def main():
             f"{app_dir}/Contents/Resources/lib/onionshare/resources/tor/obfs4proxy",
             f"{app_dir}/Contents/Resources/lib/onionshare/resources/tor/snowflake-client",
             f"{app_dir}/Contents/Resources/lib/onionshare/resources/tor/tor",
+            f"{app_dir}/Contents/Resources/lib/onionshare/resources/tor/libevent-2.1.7.dylib",
             f"{app_dir}/Contents/MacOS/onionshare",
             f"{app_dir}/Contents/MacOS/onionshare-cli",
             f"{app_dir}",
