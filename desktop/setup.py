@@ -1,36 +1,14 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-OnionShare | https://onionshare.org/
-
-Copyright (C) 2014-2021 Micah Lee, et al. <micah@micahflee.com>
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-"""
 import setuptools
+import os
 
-version = "2.4"
+with open(os.path.join("..", "cli", "onionshare_cli", "resources", "version.txt")) as f:
+    version = f.read().strip()
 
 setuptools.setup(
     name="onionshare",
     version=version,
-    description=(
-        "OnionShare lets you securely and anonymously send and receive files. It works by starting a web "
-        "server, making it accessible as a Tor onion service, and generating an unguessable web address so "
-        "others can download files from you, or upload files to you. It does _not_ require setting up a "
-        "separate server or using a third party file-sharing service."
-    ),
+    description="Securely and anonymously share files, host websites, and chat with friends using the Tor network",
     author="Micah Lee",
     author_email="micah@micahflee.com",
     maintainer="Micah Lee",
