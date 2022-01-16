@@ -59,10 +59,4 @@ venv
 # other
 .vscode
 onionshare.dist-info
-desktop/src/onionshare/resources/tor
-desktop/*.whl
-desktop/linux
-desktop/windows
-desktop/macOS
-# gets added automatically when building for Windows or macOS
-desktop/include
+desktop/onionshare/resources/tor

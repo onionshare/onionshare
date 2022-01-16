@@ -38,7 +38,7 @@ apps:
 
 parts:
   onionshare:
-    source: ./desktop/src
+    source: ./desktop
     plugin: python
     python-version: python3
     python-packages:
