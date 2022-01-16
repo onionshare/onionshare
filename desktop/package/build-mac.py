@@ -14,7 +14,7 @@ root = os.path.dirname(
 
 
 def run(cmd, cwd=None, error_ok=False):
-    print(cmd)
+    print(f"{cmd} # cwd={cwd}")
     subprocess.run(cmd, cwd=cwd, check=True)
 
 
@@ -37,22 +37,23 @@ def codesign(path, entitlements, identity):
             str(entitlements),
             "--timestamp",
             "--deep",
-            str(path),
             "--force",
             "--options",
-            "runtime",
+            "runtime,library",
+            str(path),
         ]
     )
 
 
 def main():
-    desktop_dir = os.path.join(root, "desktop")
+    desktop_dir = f"{root}/desktop"
+    app_dir = f"{desktop_dir}/build/OnionShare.app"
 
     print("○ Clean up from last build")
-    if os.path.exists(os.path.join(desktop_dir, "build")):
-        shutil.rmtree(os.path.join(desktop_dir, "build"))
-    if os.path.exists(os.path.join(desktop_dir, "dist")):
-        shutil.rmtree(os.path.join(desktop_dir, "dist"))
+    if os.path.exists(f"{desktop_dir}/build"):
+        shutil.rmtree(f"{desktop_dir}/build")
+    if os.path.exists(f"{desktop_dir}/dist"):
+        shutil.rmtree(f"{desktop_dir}/dist")
 
     print("○ Building binaries")
     run(
@@ -63,41 +64,9 @@ def main():
         ],
         desktop_dir,
     )
-    before_size = get_size(
-        os.path.join(desktop_dir, "build", "OnionShare.app")
-    )
+    before_size = get_size(f"{app_dir}")
 
-    print("○ Delete unused PySide2 stuff to save space")
-    for dirname in [
-        "PySide2/Designer.app",
-        "PySide2/examples",
-        "PySide2/glue",
-        "PySide2/Qt/qml",
-        "shiboken2/files.dir",
-    ]:
-        shutil.rmtree(
-            os.path.join(
-                desktop_dir,
-                "build",
-                "OnionShare.app",
-                "Contents",
-                "MacOS",
-                "lib",
-                dirname,
-            )
-        )
-    shutil.rmtree(
-        os.path.join(
-            desktop_dir,
-            "build",
-            "OnionShare.app",
-            "Contents",
-            "MacOS",
-            "lib",
-            "shiboken2",
-            "docs",
-        )
-    )
+    print("○ Delete unused Qt Frameworks")
     for framework in [
         "Qt3DAnimation",
         "Qt3DCore",
@@ -173,109 +142,144 @@ def main():
         "QtXmlPatterns",
     ]:
         shutil.rmtree(
-            os.path.join(
-                desktop_dir,
-                "build",
-                "OnionShare.app",
-                "Contents",
-                "MacOS",
-                "lib",
-                "PySide2",
-                "Qt",
-                "lib",
-                f"{framework}.framework",
-            )
+            f"{app_dir}/Contents/MacOS/lib/PySide2/Qt/lib/{framework}.framework"
         )
         try:
             os.remove(
-                os.path.join(
-                    desktop_dir,
-                    "build",
-                    "OnionShare.app",
-                    "Contents",
-                    "MacOS",
-                    "lib",
-                    "PySide2",
-                    f"{framework}.abi3.so",
-                )
+                f"{app_dir}/Contents/MacOS/lib/PySide2/{framework}.abi3.so"
             )
             os.remove(
-                os.path.join(
-                    desktop_dir,
-                    "build",
-                    "OnionShare.app",
-                    "Contents",
-                    "MacOS",
-                    "lib",
-                    "PySide2",
-                    f"{framework}.pyi",
-                )
+                f"{app_dir}/Contents/MacOS/lib/PySide2/{framework}.pyi"
             )
         except FileNotFoundError:
             pass
 
-    after_size = get_size(
-        os.path.join(desktop_dir, "build", "OnionShare.app")
+    print("○ Move files around so Apple will notarize")
+    # https://github.com/marcelotduarte/cx_Freeze/issues/594
+    # https://gist.github.com/TechnicalPirate/259a9c24878fcad948452cb148af2a2c#file-custom_bdist_mac-py-L415
+
+    # Move lib from MacOS into Resources
+    os.rename(
+        f"{app_dir}/Contents/MacOS/lib",
+        f"{app_dir}/Contents/Resources/lib",
     )
+    run(
+        ["ln", "-s", "../Resources/lib"],
+        cwd=f"{app_dir}/Contents/MacOS",
+    )
+
+    # Move frameworks from Resources/lib into Frameworks
+    os.makedirs(f"{app_dir}/Contents/Frameworks", exist_ok=True)
+    for framework_filename in glob.glob(
+        f"{app_dir}/Contents/Resources/lib/PySide2/Qt/lib/Qt*.framework"
+    ):
+        basename = os.path.basename(framework_filename)
+        
+        os.rename(framework_filename, f"{app_dir}/Contents/Frameworks/{basename}")
+        run(
+            ["ln", "-s", f"../../../../../Frameworks/{basename}"],
+            cwd=f"{app_dir}/Contents/Resources/lib/PySide2/Qt/lib",
+        )
+        if os.path.exists(f"{app_dir}/Contents/Frameworks/{basename}/Resources"):
+            os.rename(
+                f"{app_dir}/Contents/Frameworks/{basename}/Resources",
+                f"{app_dir}/Contents/Frameworks/{basename}/Versions/5/Resources"
+            )
+            run(
+                ["ln", "-s", "Versions/5/Resources"],
+                cwd=f"{app_dir}/Contents/Frameworks/{basename}",
+            )
+
+        run(
+            ["ln", "-s", "5", "Current"],
+            cwd=f"{app_dir}/Contents/Frameworks/{basename}/Versions",
+        )
+    
+    # Move Qt plugins
+    os.rename(
+        f"{app_dir}/Contents/Resources/lib/PySide2/Qt/plugins",
+        f"{app_dir}/Contents/Frameworks/plugins",
+    )
+    run(
+        ["ln", "-s", "../../../../Frameworks/plugins"],
+        cwd=f"{app_dir}/Contents/Resources/lib/PySide2/Qt",
+    )
+
+    print("○ Delete more unused PySide2 stuff to save space")
+    for filename in [
+        "PySide2/Designer.app",
+        "PySide2/examples",
+        "PySide2/glue",
+        "PySide2/include",
+        "PySide2/pyside2-lupdate",
+        "PySide2/Qt/qml",
+        "PySide2/libpyside2.abi3.5.15.dylib",
+        "PySide2/Qt/lib/QtRepParser.framework",
+        "PySide2/Qt/lib/QtUiPlugin.framework",
+        "PySide2/Qt/lib/QtWebEngineCore.framework/Helpers",
+        "shiboken2/libshiboken2.abi3.5.15.dylib",
+        "shiboken2/docs",
+        "PySide2/rcc",
+        "PySide2/uic",
+    ]:
+        if os.path.isdir(filename):
+            shutil.rmtree(
+                f"{app_dir}/Contents/Resources/lib/{filename}"
+            )
+        elif os.path.isfile(filename):
+            os.remove(
+                f"{app_dir}/Contents/Resources/lib/{filename}"
+            )
+
+    after_size = get_size(f"{app_dir}")
     freed_bytes = before_size - after_size
     freed_mb = int(freed_bytes / 1024 / 1024)
     print(f"○ Freed {freed_mb} mb")
 
     print("○ Sign app bundle")
     identity_name_application = "Developer ID Application: Micah Lee (N9B95FDWH4)"
-    entitlements_plist_path = os.path.join(desktop_dir, "package", "Entitlements.plist")
+    entitlements_plist_path = f"{desktop_dir}/package/Entitlements.plist"
 
     for path in itertools.chain(
-        glob.glob(
-            f"{desktop_dir}/build/OnionShare.app/Contents/MacOS/**/*.dylib",
-            recursive=True,
-        ),
-        glob.glob(
-            f"{desktop_dir}/build/OnionShare.app/Contents/MacOS/**/*.so", recursive=True
-        ),
+        glob.glob(f"{app_dir}/Contents/Resources/lib/**/*.so", recursive=True),
         [
-            f"{desktop_dir}/build/OnionShare.app/Contents/MacOS/onionshare",
-            f"{desktop_dir}/build/OnionShare.app/Contents/MacOS/onionshare-cli",
-            f"{desktop_dir}/build/OnionShare.app/Contents/MacOS/lib/PySide2/Qt/lib/QtCore.framework/Versions/5/QtCore",
-            f"{desktop_dir}/build/OnionShare.app/Contents/MacOS/lib/PySide2/Qt/lib/QtDBus.framework/Versions/5/QtDBus",
-            f"{desktop_dir}/build/OnionShare.app/Contents/MacOS/lib/PySide2/Qt/lib/QtGui.framework/Versions/5/QtGui",
-            f"{desktop_dir}/build/OnionShare.app/Contents/MacOS/lib/PySide2/Qt/lib/QtMacExtras.framework/Versions/5/QtMacExtras",
-            f"{desktop_dir}/build/OnionShare.app/Contents/MacOS/lib/PySide2/Qt/lib/QtWidgets.framework/Versions/5/QtWidgets",
-            f"{desktop_dir}/build/OnionShare.app/Contents/MacOS/lib/PySide2/pyside2-lupdate",
-            f"{desktop_dir}/build/OnionShare.app/Contents/MacOS/lib/PySide2/rcc",
-            f"{desktop_dir}/build/OnionShare.app/Contents/MacOS/lib/PySide2/uic",
+            f"{app_dir}/Contents/Frameworks/QtCore.framework/Versions/5/QtCore",
+            f"{app_dir}/Contents/Frameworks/QtDBus.framework/Versions/5/QtDBus",
+            f"{app_dir}/Contents/Frameworks/QtGui.framework/Versions/5/QtGui",
+            f"{app_dir}/Contents/Frameworks/QtMacExtras.framework/Versions/5/QtMacExtras",
+            f"{app_dir}/Contents/Frameworks/QtWidgets.framework/Versions/5/QtWidgets",
+            f"{app_dir}/Contents/Resources/lib/Python",
+            f"{app_dir}/Contents/Resources/lib/onionshare/resources/tor/meek-client",
+            f"{app_dir}/Contents/Resources/lib/onionshare/resources/tor/obfs4proxy",
+            f"{app_dir}/Contents/Resources/lib/onionshare/resources/tor/snowflake-client",
+            f"{app_dir}/Contents/Resources/lib/onionshare/resources/tor/tor",
+            f"{app_dir}/Contents/MacOS/onionshare",
+            f"{app_dir}/Contents/MacOS/onionshare-cli",
+            f"{app_dir}",
         ],
     ):
         codesign(path, entitlements_plist_path, identity_name_application)
-    codesign(
-        f"{desktop_dir}/build/OnionShare.app",
-        entitlements_plist_path,
-        identity_name_application,
-    )
-    print(f"○ Signed app bundle: {desktop_dir}/build/OnionShare.app")
+
+    print(f"○ Signed app bundle: {app_dir}")
 
     if not os.path.exists("/usr/local/bin/create-dmg"):
         print("○ Error: create-dmg is not installed")
         return
 
     print("○ Create DMG")
-    version_filename = os.path.join(
-        root, "cli", "onionshare_cli", "resources", "version.txt"
-    )
+    version_filename = f"{root}/cli/onionshare_cli/resources/version.txt"
     with open(version_filename) as f:
         version = f.read().strip()
-    
-    os.makedirs(os.path.join(desktop_dir, "dist"), exist_ok=True)
-    dmg_path = os.path.join(desktop_dir, "dist", f"OnionShare-{version}.dmg")
+
+    os.makedirs(f"{desktop_dir}/dist", exist_ok=True)
+    dmg_path = f"{desktop_dir}/dist/OnionShare-{version}.dmg"
     run(
         [
             "create-dmg",
             "--volname",
             "OnionShare",
             "--volicon",
-            os.path.join(
-                desktop_dir, "onionshare", "resources", "onionshare.icns"
-            ),
+            f"{desktop_dir}/onionshare/resources/onionshare.icns",
             "--window-size",
             "400",
             "200",
@@ -291,13 +295,14 @@ def main():
             "300",
             "70",
             dmg_path,
-            f"{desktop_dir}/build/OnionShare.app",
+            f"{app_dir}",
             "--identity",
             identity_name_application,
         ]
     )
 
     print(f"○ Finished building DMG: {dmg_path}")
+
 
 if __name__ == "__main__":
     main()
