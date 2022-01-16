@@ -59,28 +59,13 @@ pip install --user onionshare-cli
 
 #### Set path
 
-When you install programs with pip and use the --user flag, it installs them into ~/.local/bin, which isn't in your path by default. To add ~/.local/bin to your path automatically for the next time you reopen the terminal or source your shell configuration file, do the following:
+When you install programs with pip and use the `--user` flag, it installs them into *~/.local/bin*, which isn't in your path by default. To add *~/.local/bin* to your path automatically for the next time you reopen the terminal or source your shell configuration file, do the following:
 
-First, discover what shell you are using:
-
-```sh
-echo $SHELL
-```
-
-Then apply the path to your shell file:
-
-bash:
+Apply the path to your shell file:
 
 ```sh
-echo "PATH=\$PATH:~/.local/bin" >> ~/.bashrc
-source ~/.bashrc
-```
-
-zsh:
-
-```sh
-echo "PATH=\$PATH:~/.local/bin" >> ~/.zshrc
-source ~/.zshrc
+printf "PATH=\$PATH:~/.local/bin\n" >> ~/.${SHELL##*/}rc
+. ~/.${SHELL##*/}rc
 ```
 
 #### Usage
@@ -112,11 +97,3 @@ To run tests:
 ```sh
 poetry run pytest -v ./tests
 ```
-
-## Build a wheel package
-
-```sh
-poetry build
-```
-
-This will create `dist/onionshare_cli-$VERSION-py3-none-any.whl`.

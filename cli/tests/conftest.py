@@ -37,7 +37,7 @@ def temp_dir():
     """Creates a persistent temporary directory for the CLI tests to use"""
     global test_temp_dir
     if not test_temp_dir:
-        test_temp_dir = tempfile.mkdtemp()
+        test_temp_dir = tempfile.TemporaryDirectory()
     return test_temp_dir
 
 
@@ -47,10 +47,9 @@ def temp_dir_1024(temp_dir):
     particular size (1024 bytes).
     """
 
-    new_temp_dir = tempfile.mkdtemp(dir=temp_dir)
-    tmp_file, tmp_file_path = tempfile.mkstemp(dir=new_temp_dir)
-    with open(tmp_file, "wb") as f:
-        f.write(b"*" * 1024)
+    new_temp_dir = tempfile.TemporaryDirectory(dir=temp_dir.name)
+    tmp_file = tempfile.NamedTemporaryFile(dir=new_temp_dir.name)
+    tmp_file.write(b"*" * 1024)
     return new_temp_dir
 
 
@@ -61,9 +60,8 @@ def temp_dir_1024_delete(temp_dir):
     the file inside) will be deleted after fixture usage.
     """
 
-    with tempfile.TemporaryDirectory(dir=temp_dir) as new_temp_dir:
-        tmp_file, tmp_file_path = tempfile.mkstemp(dir=new_temp_dir)
-        with open(tmp_file, "wb") as f:
+    with tempfile.TemporaryDirectory(dir=temp_dir.name) as new_temp_dir:
+        with open(os.path.join(new_temp_dir, "file"), "wb") as f:
             f.write(b"*" * 1024)
         yield new_temp_dir
 
@@ -72,9 +70,10 @@ def temp_dir_1024_delete(temp_dir):
 def temp_file_1024(temp_dir):
     """Create a temporary file of a particular size (1024 bytes)."""
 
-    with tempfile.NamedTemporaryFile(delete=False, dir=temp_dir) as tmp_file:
-        tmp_file.write(b"*" * 1024)
-    return tmp_file.name
+    filename = os.path.join(temp_dir.name, "file")
+    with open(filename, "wb") as f:
+        f.write(b"*" * 1024)
+    return filename
 
 
 @pytest.fixture
@@ -84,11 +83,11 @@ def temp_file_1024_delete(temp_dir):
     The temporary file will be deleted after fixture usage.
     """
 
-    with tempfile.NamedTemporaryFile(dir=temp_dir, delete=False) as tmp_file:
+    with tempfile.NamedTemporaryFile(dir=temp_dir.name, delete=False) as tmp_file:
         tmp_file.write(b"*" * 1024)
         tmp_file.flush()
         tmp_file.close()
-        yield tmp_file.name
+        yield tmp_file
 
 
 @pytest.fixture(scope="session")

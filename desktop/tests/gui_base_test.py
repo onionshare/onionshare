@@ -177,8 +177,15 @@ class GuiBaseTest(unittest.TestCase):
         tab.get_mode().toggle_history.click()
         self.assertEqual(tab.get_mode().history.isVisible(), not currently_visible)
 
+    def javascript_is_correct_mime_type(self, tab, file):
+        """Test that the javascript file send.js is fetchable and that its MIME type is correct"""
+        path = f"{tab.get_mode().web.static_url_path}/js/{file}"
+        url = f"http://127.0.0.1:{tab.app.port}/{path}"
+        r = requests.get(url)
+        self.assertTrue(r.headers["Content-Type"].startswith("text/javascript;"))
+
     def history_indicator(self, tab, indicator_count="1"):
-        """Test that we can make sure the history is toggled off, do an action, and the indiciator works"""
+        """Test that we can make sure the history is toggled off, do an action, and the indicator works"""
         # Make sure history is toggled off
         if tab.get_mode().history.isVisible():
             tab.get_mode().toggle_history.click()
