@@ -207,29 +207,27 @@ def main():
 
     print("○ Delete more unused PySide2 stuff to save space")
     for filename in [
-        "PySide2/Designer.app",
-        "PySide2/examples",
-        "PySide2/glue",
-        "PySide2/include",
-        "PySide2/pyside2-lupdate",
-        "PySide2/Qt/qml",
-        "PySide2/libpyside2.abi3.5.15.dylib",
-        "PySide2/Qt/lib/QtRepParser.framework",
-        "PySide2/Qt/lib/QtUiPlugin.framework",
-        "PySide2/Qt/lib/QtWebEngineCore.framework/Helpers",
-        "shiboken2/libshiboken2.abi3.5.15.dylib",
-        "shiboken2/docs",
-        "PySide2/rcc",
-        "PySide2/uic",
+        f"{app_dir}/Contents/Resources/lib/PySide2/Designer.app",
+        f"{app_dir}/Contents/Resources/lib/PySide2/examples",
+        f"{app_dir}/Contents/Resources/lib/PySide2/glue",
+        f"{app_dir}/Contents/Resources/lib/PySide2/include",
+        f"{app_dir}/Contents/Resources/lib/PySide2/pyside2-lupdate",
+        f"{app_dir}/Contents/Resources/lib/PySide2/Qt/qml",
+        f"{app_dir}/Contents/Resources/lib/PySide2/libpyside2.abi3.5.15.dylib",
+        f"{app_dir}/Contents/Resources/lib/PySide2/Qt/lib/QtRepParser.framework",
+        f"{app_dir}/Contents/Resources/lib/PySide2/Qt/lib/QtUiPlugin.framework",
+        f"{app_dir}/Contents/Resources/lib/PySide2/Qt/lib/QtWebEngineCore.framework/Helpers",
+        f"{app_dir}/Contents/Resources/lib/shiboken2/libshiboken2.abi3.5.15.dylib",
+        f"{app_dir}/Contents/Resources/lib/shiboken2/docs",
+        f"{app_dir}/Contents/Resources/lib/PySide2/rcc",
+        f"{app_dir}/Contents/Resources/lib/PySide2/uic",
     ]:
         if os.path.isdir(filename):
-            shutil.rmtree(
-                f"{app_dir}/Contents/Resources/lib/{filename}"
-            )
+            shutil.rmtree(filename)
         elif os.path.isfile(filename):
-            os.remove(
-                f"{app_dir}/Contents/Resources/lib/{filename}"
-            )
+            os.remove(filename)
+        else:
+            print(f"Cannot delete, filename not found: {filename}")
 
     after_size = get_size(f"{app_dir}")
     freed_bytes = before_size - after_size
@@ -242,6 +240,7 @@ def main():
 
     for path in itertools.chain(
         glob.glob(f"{app_dir}/Contents/Resources/lib/**/*.so", recursive=True),
+        glob.glob(f"{app_dir}/Contents/Resources/lib/**/*.dylib", recursive=True),
         [
             f"{app_dir}/Contents/Frameworks/QtCore.framework/Versions/5/QtCore",
             f"{app_dir}/Contents/Frameworks/QtDBus.framework/Versions/5/QtDBus",
