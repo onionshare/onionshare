@@ -50,6 +50,8 @@ jobs:
             sudo apt-get update
             sudo apt-get install -y tor obfs4proxy gcc python3-dev python3-pyside2.qtcore python3-pyside2.qtwidgets python3-pyside2.qtgui
             sudo apt-get install -y xvfb x11-utils libxkbcommon-x11-0 libxcb-randr0-dev libxcb-xtest0-dev libxcb-xinerama0-dev libxcb-shape0-dev libxcb-xkb-dev libxcb-render-util0 libxcb-icccm4 libxcb-keysyms1 libxcb-image0
+            cd ~/repo/cli
+            poetry install
             cd ~/repo/desktop
             poetry install
 
