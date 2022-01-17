@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
+# This file is used to build the Snapcraft and Flatpak packages
 import setuptools
-import os
 
-with open(os.path.join("..", "cli", "onionshare_cli", "resources", "version.txt")) as f:
-    version = f.read().strip()
+# The version must be hard-coded because Snapcraft won't have access to ../cli
+version = "2.5"
 
 setuptools.setup(
     name="onionshare",

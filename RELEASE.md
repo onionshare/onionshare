@@ -9,6 +9,7 @@ Before making a release, you must update the version in these places:
 - [ ] `cli/pyproject.toml`
 - [ ] `cli/onionshare_cli/resources/version.txt`
 - [ ] `desktop/pyproject.toml`
+- [ ] `desktop/setup.py`
 - [ ] `desktop/org.onionshare.OnionShare.appdata.xml`
 - [ ] `docs/source/conf.py` (`version` at the top, and the `versions` list too)
 - [ ] `snap/snapcraft.yaml`
@@ -47,7 +48,7 @@ You also must edit these files:
 Make sure snapcraft packaging works. In `snap/snapcraft.yaml`:
 
 - [ ] The `tor`, `libevent`, and `obfs4` parts should be updated if necessary
-- [ ] All python packages should be updated to match `cli/pyproject.toml` and `desktop/pyproject.toml`
+- [ ] All python packages in the `onionshare` part should be updated to match `desktop/pyproject.toml`
 - [ ] Test the snap package, ensure it works
 
 Finally:
