@@ -35,10 +35,10 @@ from bridges import UpdateTorBridges
 
 
 def main():
-    tarball_url = "https://dist.torproject.org/torbrowser/11.0a10/tor-browser-linux64-11.0a10_en-US.tar.xz"
-    tarball_filename = "tor-browser-linux64-11.0a10_en-US.tar.xz"
+    tarball_url = "https://dist.torproject.org/torbrowser/11.0.4/tor-browser-linux64-11.0.4_en-US.tar.xz"
+    tarball_filename = "tor-browser-linux64-11.0.4_en-US.tar.xz"
     expected_tarball_sha256 = (
-        "5d3e2ebc4fb6a10f44624359bc2a5a151a57e8402cbd8563d15f9b2524374f1f"
+        "05a5fd6d633ca84c33bbd3e2f8ffca2d2fa2105032a430b07d3c0cf062d9e15f"
     )
 
     # Build paths
