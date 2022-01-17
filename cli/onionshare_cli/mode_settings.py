@@ -55,12 +55,8 @@ class ModeSettings:
                 "disable_text": False,
                 "disable_files": False,
             },
-            "website": {
-                "disable_csp": False,
-                "custom_csp": None,
-                "filenames": []
-            },
-            "chat": {"room": "default"},
+            "website": {"disable_csp": False, "custom_csp": None, "filenames": []},
+            "chat": {},
         }
         self._settings = {}
 
