@@ -18,9 +18,11 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
+import os
 import setuptools
 
-version = "2.4"
+with open(os.path.join("onionshare_cli", "resources", "version.txt")) as f:
+    version = f.read().strip()
 
 setuptools.setup(
     name="onionshare-cli",
