@@ -7,10 +7,8 @@ Unless you're a core OnionShare developer making a release, you'll probably neve
 Before making a release, you must update the version in these places:
 
 - [ ] `cli/pyproject.toml`
-- [ ] `cli/setup.py`
 - [ ] `cli/onionshare_cli/resources/version.txt`
 - [ ] `desktop/pyproject.toml`
-- [ ] `desktop/setup.py`
 - [ ] `desktop/org.onionshare.OnionShare.appdata.xml`
 - [ ] `docs/source/conf.py` (`version` at the top, and the `versions` list too)
 - [ ] `snap/snapcraft.yaml`
