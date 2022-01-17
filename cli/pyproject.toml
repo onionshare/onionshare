@@ -27,10 +27,10 @@ unidecode = "*"
 urllib3 = "*"
 eventlet = "*"
 setuptools = "*"
-pynacl = "^1.4.0"
+pynacl = "*"
 colorama = "*"
+gevent-websocket = "*"
 cepa = "1.8.3"
-gevent-websocket = "^0.10.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "*"
