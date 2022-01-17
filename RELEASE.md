@@ -77,10 +77,10 @@ Build and test the snap before publishing (note that `--dangerous` lets you inst
 
 ```sh
 snapcraft
-snap install --dangerous ./onionshare_$VERSION_amd64.snap
+snap install --dangerous ./onionshare_${VERSION}_amd64.snap
 ```
 
-This will create `onionshare_$VERSION_amd64.snap`.
+This will create `onionshare_${VERSION}_amd64.snap`.
 
 Run the OnionShare snap locally:
 
@@ -93,7 +93,7 @@ Upload the to Snapcraft:
 
 ```sh
 snapcraft login
-snapcraft upload --release=stable onionshare_$VERSION_amd64.snap
+snapcraft upload --release=stable onionshare_${VERSION}_amd64.snap
 ```
 
 ## Windows
@@ -144,7 +144,7 @@ This will create `dist/onionshare-$VERSION.tar.gz`.
 
 After following all of the previous steps, gather these files:
 
-- `onionshare_$VERSION_amd64.snap`
+- `onionshare_${VERSION}_amd64.snap`
 - `OnionShare-$VERSION.msi`
 - `OnionShare.dmg` (rename it to `OnionShare-$VERSION.dmg`)
 - `onionshare-$VERSION.tar.gz`
