@@ -1,5 +1,18 @@
 # OnionShare Changelog
 
+## 2.5
+
+* Security fix: Sanitize the path parameter in History item widget to be plain text
+* Security fix: Use microseconds in Receive mode directory creation to avoid potential DoS
+* Security fix: Several hardening improvements for session and username management in Chat mode, to prevent impersonation and other issues
+* Major feature: Obtain bridges from Moat / BridgeDB (over a domain-fronted Meek client)
+* Major feature: Snowflake bridge support
+* New feature: Tor connection settings, as well as general settings, are now Tabs rather than dialogs
+* New feature: User can customize the Content-Security-Policy header in Website mode
+* New feature: Built-in bridges are automatically updated from Tor's API when the user has chosen to use them
+* Switch to using our `stem` fork called `cepa`, which is now published on Pypi so we can build it in releases
+* Various bug fixes
+
 ## 2.4
 
 * Major feature: Private keys (v3 onion client authentication) replaces passwords and HTTP basic auth
