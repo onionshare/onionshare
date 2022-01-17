@@ -481,6 +481,7 @@ class IndividualFileHistoryItem(HistoryItem):
             self.common.gui.css["history_individual_file_timestamp_label"]
         )
         self.path_label = QtWidgets.QLabel(self.path)
+        self.path_label.setTextFormat(QtCore.Qt.PlainText)
         self.path_label.setStyleSheet(self.common.gui.css["history_default_label"])
         self.status_code_label = QtWidgets.QLabel()
 
