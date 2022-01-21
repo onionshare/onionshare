@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-01-17 10:28-0800\n"
-"PO-Revision-Date: 2021-09-13 10:46+0000\n"
+"PO-Revision-Date: 2022-01-20 11:57+0000\n"
 "Last-Translator: Zuhualime Akoochimoya <zakooch@protonmail.ch>\n"
-"Language: es\n"
 "Language-Team: none\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.11-dev\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: ../../source/tor.rst:2
@@ -23,17 +24,17 @@ msgid "Connecting to Tor"
 msgstr "Conectar a Tor"
 
 #: ../../source/tor.rst:4
-#, fuzzy
 msgid ""
 "Pick a way to connect OnionShare to Tor by clicking the Tor onion icon in"
 " the bottom right of the OnionShare window to open the Tor Settings tab."
 msgstr ""
 "Elige una manera de conectar OnionShare a Tor haciendo clic en el ícono "
-"\"⚙\" abajo a la derecha de la ventana OnionShare, para ir a sus ajustes."
+"cebolla de Tor, abajo a la derecha de la ventana OnionShare, para ir a sus "
+"ajustes."
 
 #: ../../source/tor.rst:9
 msgid "Use the Tor version built into OnionShare"
-msgstr ""
+msgstr "Usa la versión de Tor incorporada dentro de OnionShare"
 
 #: ../../source/tor.rst:11
 msgid ""
@@ -58,32 +59,36 @@ msgstr ""
 
 #: ../../source/tor.rst:18
 msgid "Getting Around Censorship"
-msgstr ""
+msgstr "Pasando por alto a la Censura"
 
 #: ../../source/tor.rst:20
-#, fuzzy
 msgid ""
 "If your access to the internet is censored, you can configure OnionShare "
 "to connect to the Tor network using `Tor bridges <https://tb-"
 "manual.torproject.org/bridges/>`_. If OnionShare connects to Tor without "
 "one, you don't need to use a bridge."
 msgstr ""
-"Si tu acceso a Internet está censurado, puedes configurar OnionShare para"
-" conectarse a la red Tor usando `puentes Tor "
-"<https://2019.www.torproject.org/docs/bridges.html.en>`_. Si OnionShare "
-"se conecta exitosamente a Tor, no necesitas usar un puente."
+"Si tu acceso a Internet está censurado, puedes configurar OnionShare para "
+"conectarse a la red Tor usando `puentes Tor <https://tb-manual.torproject."
+"org/bridges/>`_. Si OnionShare se conecta exitosamente a Tor, no necesitas "
+"usar un puente."
 
 #: ../../source/tor.rst:22
 msgid ""
 "To use a bridge, open the Tor Settings tab. You must select \"Use the Tor"
 " version built into OnionShare\" and check the \"Use a bridge\" checkbox."
 msgstr ""
+"Para usar un puente, abre la pestaña de Configuraciones de Tor. Debes "
+"seleccionar \"Usar la versión de Tor incorporada dentro de OnionShare\" y "
+"marcar la casilla \"Usar un puente\"."
 
 #: ../../source/tor.rst:25
 msgid ""
 "Try using a built-in bridge first. Using `obfs4` or `snowflake` bridges "
 "is recommended over using `meek-azure`."
 msgstr ""
+"Primero intenta usar un puente incorporado. Usar puentes `obfs4` o "
+"`snowflake` es recomendado, en vez de usar `meek-azure`."
 
 #: ../../source/tor.rst:29
 msgid ""
@@ -92,12 +97,18 @@ msgid ""
 "bridge. (This makes it more difficult for governments or ISPs to block "
 "access to Tor bridges.)"
 msgstr ""
+"Si usar un puente incorporado no funciona, puedes solicitar un puente de "
+"torproject.org. Tendrás que resolver un CAPTCHA a los efectos de solicitar "
+"un puente. (Esto hace que sea más difícil a los gobiernos o ISPs bloquear el "
+"acceso a los puentes Tor.)"
 
 #: ../../source/tor.rst:33
 msgid ""
 "You also have the option of using a bridge that you learned about from a "
 "trusted source."
 msgstr ""
+"También tienes la opción de usar un puente del que te hayas enterado por una "
+"fuente confiable."
 
 #: ../../source/tor.rst:36
 msgid "Attempt auto-configuration with Tor Browser"
@@ -483,4 +494,3 @@ msgstr ""
 #~ "<https://bridges.torproject.org/>`_ de Tor. Si "
 #~ "necesitas usar un puente, intenta "
 #~ "primero con los obfs4 incorporados."
-
