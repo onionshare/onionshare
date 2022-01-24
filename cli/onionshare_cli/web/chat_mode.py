@@ -2,7 +2,7 @@
 """
 OnionShare | https://onionshare.org/
 
-Copyright (C) 2014-2021 Micah Lee, et al. <micah@micahflee.com>
+Copyright (C) 2014-2022 Micah Lee, et al. <micah@micahflee.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 from flask import request, render_template, make_response, jsonify, session
-from flask_socketio import emit, join_room, leave_room
+from flask_socketio import emit, ConnectionRefusedError
 
 
 class ChatModeWeb:
@@ -33,7 +33,7 @@ class ChatModeWeb:
 
         self.web = web
 
-        # This tracks users in the room
+        # This tracks users in the server
         self.connected_users = []
 
         # This tracks the history id
@@ -46,6 +46,15 @@ class ChatModeWeb:
         self.supports_file_requests = False
 
         self.define_routes()
+
+    def validate_username(self, username):
+        username = username.strip()
+        return (
+            username
+            and username.isascii()
+            and username not in self.connected_users
+            and len(username) < 128
+        )
 
     def define_routes(self):
         """
@@ -61,7 +70,6 @@ class ChatModeWeb:
                 if session.get("name")
                 else self.common.build_username()
             )
-            session["room"] = self.web.settings.default_settings["chat"]["room"]
             self.web.add_request(
                 request.path,
                 {"id": history_id, "status_code": 200},
@@ -79,12 +87,9 @@ class ChatModeWeb:
         def update_session_username():
             history_id = self.cur_history_id
             data = request.get_json()
-            if (
-                data.get("username", "")
-                and data.get("username", "") not in self.connected_users
-                and len(data.get("username", "")) < 128
-            ):
-                session["name"] = data.get("username", session.get("name"))
+            username = data.get("username", session.get("name")).strip()
+            if self.validate_username(username):
+                session["name"] = username
                 self.web.add_request(
                     request.path,
                     {"id": history_id, "status_code": 200},
@@ -111,67 +116,75 @@ class ChatModeWeb:
                 )
             return r
 
-        @self.web.socketio.on("joined", namespace="/chat")
-        def joined(message):
+        @self.web.socketio.on("connect", namespace="/chat")
+        def server_connect():
             """Sent by clients when they enter a room.
             A status message is broadcast to all people in the room."""
-            self.connected_users.append(session.get("name"))
-            join_room(session.get("room"))
-            emit(
-                "status",
-                {
-                    "username": session.get("name"),
-                    "msg": "{} has joined.".format(session.get("name")),
-                    "connected_users": self.connected_users,
-                    "user": session.get("name"),
-                },
-                room=session.get("room"),
-            )
+            if self.validate_username(session.get("name")):
+                self.connected_users.append(session.get("name"))
+                emit(
+                    "status",
+                    {
+                        "username": session.get("name"),
+                        "msg": "{} has joined.".format(session.get("name")),
+                        "connected_users": self.connected_users,
+                        "user": session.get("name"),
+                    },
+                    broadcast=True,
+                )
+            else:
+                raise ConnectionRefusedError('You are active from another session!')
 
         @self.web.socketio.on("text", namespace="/chat")
         def text(message):
             """Sent by a client when the user entered a new message.
-            The message is sent to all people in the room."""
+            The message is sent to all people in the server."""
             emit(
-                "message",
+                "chat_message",
                 {"username": session.get("name"), "msg": message["msg"]},
-                room=session.get("room"),
+                broadcast=True,
             )
 
         @self.web.socketio.on("update_username", namespace="/chat")
         def update_username(message):
             """Sent by a client when the user updates their username.
-            The message is sent to all people in the room."""
+            The message is sent to all people in the server."""
             current_name = session.get("name")
-            if message.get("username", ""):
-                session["name"] = message["username"]
+            new_name = message.get("username", "").strip()
+            if self.validate_username(new_name):
+                session["name"] = new_name
                 self.connected_users[
                     self.connected_users.index(current_name)
                 ] = session.get("name")
-            emit(
-                "status",
-                {
-                    "msg": "{} has updated their username to: {}".format(
-                        current_name, session.get("name")
-                    ),
-                    "connected_users": self.connected_users,
-                    "old_name": current_name,
-                    "new_name": session.get("name"),
-                },
-                room=session.get("room"),
-            )
+                emit(
+                    "status",
+                    {
+                        "msg": "{} has updated their username to: {}".format(
+                            current_name, session.get("name")
+                        ),
+                        "connected_users": self.connected_users,
+                        "old_name": current_name,
+                        "new_name": session.get("name"),
+                    },
+                    broadcast=True,
+                )
+            else:
+                emit(
+                    "status",
+                    {"msg": "Failed to update username."},
+                )
 
         @self.web.socketio.on("disconnect", namespace="/chat")
         def disconnect():
-            """Sent by clients when they disconnect from a room.
-            A status message is broadcast to all people in the room."""
-            self.connected_users.remove(session.get("name"))
-            leave_room(session.get("room"))
+            """Sent by clients when they disconnect.
+            A status message is broadcast to all people in the server."""
+            if session.get("name") in self.connected_users:
+                self.connected_users.remove(session.get("name"))
             emit(
                 "status",
                 {
                     "msg": "{} has left the room.".format(session.get("name")),
                     "connected_users": self.connected_users,
                 },
-                room=session.get("room"),
+                broadcast=True,
             )

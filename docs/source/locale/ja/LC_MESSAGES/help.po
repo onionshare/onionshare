@@ -3,37 +3,39 @@
 # This file is distributed under the same license as the OnionShare package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2020-11-15 14:42-0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2021-12-10 02:52+0000\n"
+"Last-Translator: Taro Tanaka <anon_japan@protonmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.10-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/help.rst:2
 msgid "Getting Help"
-msgstr ""
+msgstr "サポートを受ける方法"
 
 #: ../../source/help.rst:5
 msgid "Read This Website"
-msgstr ""
+msgstr "このサイトを見て回る"
 
 #: ../../source/help.rst:7
 msgid ""
 "You will find instructions on how to use OnionShare. Look through all of "
 "the sections first to see if anything answers your questions."
-msgstr ""
+msgstr "OnionShareの説明書をここにアクセスできます。まずは見て回って、質問に回答する情報があるかどうかを確かめて下さい。"
 
 #: ../../source/help.rst:10
 msgid "Check the GitHub Issues"
-msgstr ""
+msgstr "GitHubのissuesをチェック"
 
 #: ../../source/help.rst:12
 msgid ""
@@ -45,7 +47,7 @@ msgstr ""
 
 #: ../../source/help.rst:15
 msgid "Submit an Issue Yourself"
-msgstr ""
+msgstr "新しいissueを提出する"
 
 #: ../../source/help.rst:17
 msgid ""
@@ -58,13 +60,13 @@ msgstr ""
 
 #: ../../source/help.rst:20
 msgid "Join our Keybase Team"
-msgstr ""
+msgstr "Keybaseチームに参加する"
 
 #: ../../source/help.rst:22
 msgid ""
 "See :ref:`collaborating` on how to join the Keybase team used to discuss "
 "the project."
-msgstr ""
+msgstr "プロジェクトを議論するためのKeybaseチームに参加する方法の詳しくは:ref:`協力`を訪れて下さい。"
 
 #~ msgid "If you need help with OnionShare, please follow the instructions below."
 #~ msgstr ""
@@ -117,4 +119,3 @@ msgstr ""
 #~ "that we use to discuss the "
 #~ "project."
 #~ msgstr ""
-

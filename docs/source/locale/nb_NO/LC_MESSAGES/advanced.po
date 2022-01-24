@@ -7,17 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2020-11-15 14:42-0800\n"
+"POT-Creation-Date: 2022-01-17 10:28-0800\n"
 "PO-Revision-Date: 2020-11-19 08:28+0000\n"
 "Last-Translator: Kurt Eilertsen <kurt@kheds.com>\n"
-"Language-Team: none\n"
 "Language: nb_NO\n"
+"Language-Team: none\n"
+"Plural-Forms: nplurals=2; plural=n != 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.4-dev\n"
-"Generated-By: Babel 2.9.0\n"
+"Generated-By: Babel 2.9.1\n"
 
 #: ../../source/advanced.rst:2
 msgid "Advanced Usage"
@@ -35,11 +34,11 @@ msgid ""
 "useful if you want to host a website available from the same OnionShare "
 "address even if you reboot your computer."
 msgstr ""
-"Alt i OnionShare er midlertidig som forvalg. Hvis du lukker en OnionShare-"
-"fane, blir den borte, og kan ikke brukes igjen. Noen ganger kan det hende du "
-"ønsker at en OnionShare-tjeneste skal vedvare. Dette er nyttig hvis du vil "
-"vertstjene en nettside tilgjengelig fra samme OnionShare, uansett om du "
-"utfører omstart av datamaskinen."
+"Alt i OnionShare er midlertidig som forvalg. Hvis du lukker en "
+"OnionShare-fane, blir den borte, og kan ikke brukes igjen. Noen ganger "
+"kan det hende du ønsker at en OnionShare-tjeneste skal vedvare. Dette er "
+"nyttig hvis du vil vertstjene en nettside tilgjengelig fra samme "
+"OnionShare, uansett om du utfører omstart av datamaskinen."
 
 #: ../../source/advanced.rst:13
 msgid ""
@@ -48,19 +47,20 @@ msgid ""
 "tab is saved a purple pin icon appears to the left of its server status."
 msgstr ""
 "For å gjøre en fane vedvarende, huk av «Lagre denne fanen og åpne den "
-"automatisk sammen med OnionShare»-boksen, før du starter tjeneren. Når en "
-"fane er lagret, vil et lilla stifteikon vises til venstre for dens "
+"automatisk sammen med OnionShare»-boksen, før du starter tjeneren. Når en"
+" fane er lagret, vil et lilla stifteikon vises til venstre for dens "
 "tjenerstatus."
 
 #: ../../source/advanced.rst:18
+#, fuzzy
 msgid ""
 "When you quit OnionShare and then open it again, your saved tabs will "
 "start opened. You'll have to manually start each service, but when you do"
-" they will start with the same OnionShare address and password."
+" they will start with the same OnionShare address and private key."
 msgstr ""
-"Når du avslutter OnionShare og så åpner det igjen, vil dine lagrede faner "
-"starte åpnet. Du må manuelt starte hver tjeneste, men når du gjør det vil de "
-"starte med samme OnionShare-adresse og -passord."
+"Når du avslutter OnionShare og så åpner det igjen, vil dine lagrede faner"
+" starte åpnet. Du må manuelt starte hver tjeneste, men når du gjør det "
+"vil de starte med samme OnionShare-adresse og -passord."
 
 #: ../../source/advanced.rst:21
 msgid ""
@@ -72,51 +72,66 @@ msgstr ""
 "innstillinger."
 
 #: ../../source/advanced.rst:26
-msgid "Turn Off Passwords"
-msgstr "Skru av passord"
+msgid "Turn Off Private Key"
+msgstr ""
 
 #: ../../source/advanced.rst:28
 msgid ""
-"By default, all OnionShare services are protected with the username "
-"``onionshare`` and a randomly-generated password. If someone takes 20 "
-"wrong guesses at the password, your onion service is automatically "
-"stopped to prevent a brute force attack against the OnionShare service."
+"By default, all OnionShare services are protected with a private key, "
+"which Tor calls \"client authentication\"."
 msgstr ""
-"Som forvalg er alle OnionShare-tjenester beskyttet med brukernavnet "
-"`onionshare`, og et tilfeldig generert passord. Hvis noen gjetter passordet "
-"20 ganger, vil din onion-tjeneste automatisk stoppes for å forhindre et "
-"totalsøksangrep mot OnionShare-tjenesten."
 
-#: ../../source/advanced.rst:31
+#: ../../source/advanced.rst:30
+msgid ""
+"When browsing to an OnionShare service in Tor Browser, Tor Browser will "
+"prompt for the private key to be entered."
+msgstr ""
+
+#: ../../source/advanced.rst:32
+#, fuzzy
 msgid ""
 "Sometimes you might want your OnionShare service to be accessible to the "
 "public, like if you want to set up an OnionShare receive service so the "
 "public can securely and anonymously send you files. In this case, it's "
-"better to disable the password altogether. If you don't do this, someone "
-"can force your server to stop just by making 20 wrong guesses of your "
-"password, even if they know the correct password."
+"better to disable the private key altogether."
 msgstr ""
 "Noen ganger kan de hende at du ønsker at OnionShare-tjenesten skal være "
 "tilgjengelig for alle, som når du ønsker å sette opp en OnionShare-"
-"mottakstjeneste slik at hvem som helst anonymt kan sende deg filer. I sådant "
-"fall, er det bedre å skru av passordet helt og holdent. Hvis du ikke gjør "
-"dette, kan noen få tjeneren din til å stoppe ved å skrive inn passordet feil "
-"20 ganger, selv om de kanskje vet det riktige passordet."
+"mottakstjeneste slik at hvem som helst anonymt kan sende deg filer. I "
+"sådant fall, er det bedre å skru av passordet helt og holdent. Hvis du "
+"ikke gjør dette, kan noen få tjeneren din til å stoppe ved å skrive inn "
+"passordet feil 20 ganger, selv om de kanskje vet det riktige passordet."
 
 #: ../../source/advanced.rst:35
 msgid ""
-"To turn off the password for any tab, just check the \"Don't use a "
-"password\" box before starting the server. Then the server will be public"
-" and won't have a password."
+"To turn off the private key for any tab, check the \"This is a public "
+"OnionShare service (disables private key)\" box before starting the "
+"server. Then the server will be public and won't need a private key to "
+"view in Tor Browser."
 msgstr ""
-"For å skru av passordet for en fane, velg «Ikke bruk passord»-boksen før du "
-"starter tjeneren. Den vil så bli offentlig, og vil ikke ha et passord."
 
-#: ../../source/advanced.rst:38
+#: ../../source/advanced.rst:40
+msgid "Custom Titles"
+msgstr ""
+
+#: ../../source/advanced.rst:42
+msgid ""
+"By default, when people load an OnionShare service in Tor Browser they "
+"see the default title for the type of service. For example, the default "
+"title of a chat service is \"OnionShare Chat\"."
+msgstr ""
+
+#: ../../source/advanced.rst:44
+msgid ""
+"If you want to choose a custom title, set the \"Custom title\" setting "
+"before starting a server."
+msgstr ""
+
+#: ../../source/advanced.rst:47
 msgid "Scheduled Times"
 msgstr "Planlagte tider"
 
-#: ../../source/advanced.rst:40
+#: ../../source/advanced.rst:49
 msgid ""
 "OnionShare supports scheduling exactly when a service should start and "
 "stop. Before starting a server, click \"Show advanced settings\" in its "
@@ -124,13 +139,13 @@ msgid ""
 "scheduled time\", \"Stop onion service at scheduled time\", or both, and "
 "set the respective desired dates and times."
 msgstr ""
-"OnionShare støtter planlegging for akkurat når en tjeneste skal starte og "
-"stoppe. Før du starter en tjener, klikk på «Vis avanserte innstillinger» i "
-"dens fane, og klikk så på boksene ved enten «Start løktjeneste ved planlagt "
-"tidspunkt», «stopp løktjeneste ved planlagt tidspunkt», eller begge, og sett "
-"opp tilhørende dato og tider du ønsker at ting skal skje."
+"OnionShare støtter planlegging for akkurat når en tjeneste skal starte og"
+" stoppe. Før du starter en tjener, klikk på «Vis avanserte innstillinger»"
+" i dens fane, og klikk så på boksene ved enten «Start løktjeneste ved "
+"planlagt tidspunkt», «stopp løktjeneste ved planlagt tidspunkt», eller "
+"begge, og sett opp tilhørende dato og tider du ønsker at ting skal skje."
 
-#: ../../source/advanced.rst:43
+#: ../../source/advanced.rst:52
 msgid ""
 "If you scheduled a service to start in the future, when you click the "
 "\"Start sharing\" button you will see a timer counting down until it "
@@ -142,7 +157,7 @@ msgstr ""
 "planlagt stopp i fremtiden, vil du se en nedtelling til den stoppes "
 "automatisk."
 
-#: ../../source/advanced.rst:46
+#: ../../source/advanced.rst:55
 msgid ""
 "**Scheduling an OnionShare service to automatically start can be used as "
 "a dead man's switch**, where your service will be made public at a given "
@@ -151,25 +166,26 @@ msgid ""
 msgstr ""
 "**Planlagt oppstart av en OnionShare-tjeneste kan fungere som en "
 "dødmannsknapp**, der din tjeneste vil bli gjort offentlig på et gitt "
-"tidspunkt i fremtiden hvis noe skjer med deg. Hvis ingenting skjer, kan du "
-"avbryte tjenesten før dens planlagte oppstart."
+"tidspunkt i fremtiden hvis noe skjer med deg. Hvis ingenting skjer, kan "
+"du avbryte tjenesten før dens planlagte oppstart."
 
-#: ../../source/advanced.rst:51
+#: ../../source/advanced.rst:60
+#, fuzzy
 msgid ""
 "**Scheduling an OnionShare service to automatically stop can be useful to"
 " limit exposure**, like if you want to share secret documents while "
-"making sure they're not available on the Internet for more than a few "
+"making sure they're not available on the internet for more than a few "
 "days."
 msgstr ""
 "**Planlagt stopp av en OnionShare-tjeneste er nyttig for å begrense "
-"publisitet**, hvis du ønsker å dele hemmelige dokumenter og ikke vil at de "
-"skal være tilgjengelige i mer enn et par dager."
+"publisitet**, hvis du ønsker å dele hemmelige dokumenter og ikke vil at "
+"de skal være tilgjengelige i mer enn et par dager."
 
-#: ../../source/advanced.rst:56
+#: ../../source/advanced.rst:67
 msgid "Command-line Interface"
 msgstr "Kommandolinjegrensesnitt"
 
-#: ../../source/advanced.rst:58
+#: ../../source/advanced.rst:69
 msgid ""
 "In addition to its graphical interface, OnionShare has a command-line "
 "interface."
@@ -177,7 +193,7 @@ msgstr ""
 "I tillegg til det grafiske grensesnittet, har OnionShare et "
 "kommandolinjegrensesnitt."
 
-#: ../../source/advanced.rst:60
+#: ../../source/advanced.rst:71
 msgid ""
 "You can install just the command-line version of OnionShare using "
 "``pip3``::"
@@ -185,94 +201,47 @@ msgstr ""
 "Du kan installere kun kommandolinjeversjonen av OnionShare ved bruk av "
 "``pip3``::"
 
-#: ../../source/advanced.rst:64
+#: ../../source/advanced.rst:75
 msgid ""
 "Note that you will also need the ``tor`` package installed. In macOS, "
 "install it with: ``brew install tor``"
 msgstr ""
-"Merk at du også trenger ``tor``-pakken. I macOS kan du installere den med : "
-"``brew install tor``"
+"Merk at du også trenger ``tor``-pakken. I macOS kan du installere den med"
+" : ``brew install tor``"
 
-#: ../../source/advanced.rst:66
+#: ../../source/advanced.rst:77
 msgid "Then run it like this::"
 msgstr "Kjør den så slik::"
 
-#: ../../source/advanced.rst:70
+#: ../../source/advanced.rst:81
+msgid ""
+"For information about installing it on different operating systems, see "
+"the `CLI readme file "
+"<https://github.com/onionshare/onionshare/blob/develop/cli/README.md>`_ "
+"in the git repository."
+msgstr ""
+
+#: ../../source/advanced.rst:83
 msgid ""
 "If you installed OnionShare using the Linux Snapcraft package, you can "
 "also just run ``onionshare.cli`` to access the command-line interface "
 "version."
 msgstr ""
-"Hvis du har installer OnionShare ved bruk av Snapcraft-pakken for Linux, kan "
-"du også bare kjøre ``onionshare.cli`` for å få tilgang til versjonen med "
-"kommandolinjegrensesnittet."
+"Hvis du har installer OnionShare ved bruk av Snapcraft-pakken for Linux, "
+"kan du også bare kjøre ``onionshare.cli`` for å få tilgang til versjonen "
+"med kommandolinjegrensesnittet."
 
-#: ../../source/advanced.rst:73
+#: ../../source/advanced.rst:86
 msgid "Usage"
 msgstr "Bruk"
 
-#: ../../source/advanced.rst:75
+#: ../../source/advanced.rst:88
 msgid ""
 "You can browse the command-line documentation by running ``onionshare "
 "--help``::"
 msgstr ""
 "Du kan utforske kommandolinje-dokumentasjonen ved å kjøre ``onionshare "
 "--help``::"
-
-#: ../../source/advanced.rst:132
-msgid "Legacy Addresses"
-msgstr "Gammeldagse adresser"
-
-#: ../../source/advanced.rst:134
-msgid ""
-"OnionShare uses v3 Tor onion services by default. These are modern onion "
-"addresses that have 56 characters, for example::"
-msgstr ""
-"OnionShare bruker v3-løktjeenster fra Tor som forvalg. Disse er moderne "
-"løkadresser med 56 tegn, for eksempel::"
-
-#: ../../source/advanced.rst:139
-msgid ""
-"OnionShare still has support for v2 onion addresses, the old type of "
-"onion addresses that have 16 characters, for example::"
-msgstr ""
-"OnionShare har fremdeles støtte for v2-løkadresser, den gamle typen som kun "
-"har 16 tegn, for eksempel::"
-
-#: ../../source/advanced.rst:143
-msgid ""
-"OnionShare calls v2 onion addresses \"legacy addresses\", and they are "
-"not recommended, as v3 onion addresses are more secure."
-msgstr ""
-"OnionShare kaller v2-løkadresser «gammeldagse adresser», og de anbefales "
-"ikke, siden v3-løkadresser er sikrere."
-
-#: ../../source/advanced.rst:145
-msgid ""
-"To use legacy addresses, before starting a server click \"Show advanced "
-"settings\" from its tab and check the \"Use a legacy address (v2 onion "
-"service, not recommended)\" box. In legacy mode you can optionally turn "
-"on Tor client authentication. Once you start a server in legacy mode you "
-"cannot remove legacy mode in that tab. Instead you must start a separate "
-"service in a separate tab."
-msgstr ""
-"For å bruke gammeldagse adresser klikker du «Vis avanserte innstillinger» "
-"fra en fane før du starter en tjener, og velger «Bruk en gammeldags adresse "
-"(v2-løktjeneste, anbefales ikke)-boksen. I gammeldags modus kan du "
-"alternativt skru på Tor-klientverifisering. Når du starter en tjener i "
-"gammeldags modus, kan du ikke fjerne gammeldags modus for denne fanen. Du må "
-"istedenfor starte en egen tjeneste i en egen fane."
-
-#: ../../source/advanced.rst:150
-msgid ""
-"Tor Project plans to `completely deprecate v2 onion services "
-"<https://blog.torproject.org/v2-deprecation-timeline>`_ on October 15, "
-"2021, and legacy onion services will be removed from OnionShare before "
-"then."
-msgstr ""
-"Tor-prosjektet planlegger å <https://blog.torproject.org/v2-deprecation-"
-"timeline>`_ 15 Oktober, 2021, og gammeldagse løktjeenster vil bli fjernet "
-"fra OnionShare før den tid."
 
 #~ msgid "Make a symbolic link to the OnionShare command line binary line this::"
 #~ msgstr ""
@@ -472,3 +441,112 @@ msgstr ""
 #~ " services will soon be removed from"
 #~ " OnionShare as well."
 #~ msgstr ""
+
+#~ msgid "Turn Off Passwords"
+#~ msgstr "Skru av passord"
+
+#~ msgid ""
+#~ "By default, all OnionShare services are"
+#~ " protected with the username ``onionshare``"
+#~ " and a randomly-generated password. "
+#~ "If someone takes 20 wrong guesses "
+#~ "at the password, your onion service "
+#~ "is automatically stopped to prevent a"
+#~ " brute force attack against the "
+#~ "OnionShare service."
+#~ msgstr ""
+#~ "Som forvalg er alle OnionShare-tjenester"
+#~ " beskyttet med brukernavnet `onionshare`, "
+#~ "og et tilfeldig generert passord. Hvis"
+#~ " noen gjetter passordet 20 ganger, "
+#~ "vil din onion-tjeneste automatisk "
+#~ "stoppes for å forhindre et "
+#~ "totalsøksangrep mot OnionShare-tjenesten."
+
+#~ msgid ""
+#~ "To turn off the password for any"
+#~ " tab, just check the \"Don't use "
+#~ "a password\" box before starting the "
+#~ "server. Then the server will be "
+#~ "public and won't have a password."
+#~ msgstr ""
+#~ "For å skru av passordet for en "
+#~ "fane, velg «Ikke bruk passord»-boksen "
+#~ "før du starter tjeneren. Den vil "
+#~ "så bli offentlig, og vil ikke ha"
+#~ " et passord."
+
+#~ msgid "Legacy Addresses"
+#~ msgstr "Gammeldagse adresser"
+
+#~ msgid ""
+#~ "OnionShare uses v3 Tor onion services"
+#~ " by default. These are modern onion"
+#~ " addresses that have 56 characters, "
+#~ "for example::"
+#~ msgstr ""
+#~ "OnionShare bruker v3-løktjeenster fra Tor "
+#~ "som forvalg. Disse er moderne "
+#~ "løkadresser med 56 tegn, for eksempel::"
+
+#~ msgid ""
+#~ "OnionShare still has support for v2 "
+#~ "onion addresses, the old type of "
+#~ "onion addresses that have 16 characters,"
+#~ " for example::"
+#~ msgstr ""
+#~ "OnionShare har fremdeles støtte for "
+#~ "v2-løkadresser, den gamle typen som kun"
+#~ " har 16 tegn, for eksempel::"
+
+#~ msgid ""
+#~ "OnionShare calls v2 onion addresses "
+#~ "\"legacy addresses\", and they are not"
+#~ " recommended, as v3 onion addresses "
+#~ "are more secure."
+#~ msgstr ""
+#~ "OnionShare kaller v2-løkadresser «gammeldagse "
+#~ "adresser», og de anbefales ikke, siden"
+#~ " v3-løkadresser er sikrere."
+
+#~ msgid ""
+#~ "To use legacy addresses, before starting"
+#~ " a server click \"Show advanced "
+#~ "settings\" from its tab and check "
+#~ "the \"Use a legacy address (v2 "
+#~ "onion service, not recommended)\" box. "
+#~ "In legacy mode you can optionally "
+#~ "turn on Tor client authentication. Once"
+#~ " you start a server in legacy "
+#~ "mode you cannot remove legacy mode "
+#~ "in that tab. Instead you must "
+#~ "start a separate service in a "
+#~ "separate tab."
+#~ msgstr ""
+#~ "For å bruke gammeldagse adresser klikker"
+#~ " du «Vis avanserte innstillinger» fra "
+#~ "en fane før du starter en tjener,"
+#~ " og velger «Bruk en gammeldags "
+#~ "adresse (v2-løktjeneste, anbefales ikke)-boksen. "
+#~ "I gammeldags modus kan du alternativt"
+#~ " skru på Tor-klientverifisering. Når "
+#~ "du starter en tjener i gammeldags "
+#~ "modus, kan du ikke fjerne gammeldags "
+#~ "modus for denne fanen. Du må "
+#~ "istedenfor starte en egen tjeneste i "
+#~ "en egen fane."
+
+#~ msgid ""
+#~ "Tor Project plans to `completely "
+#~ "deprecate v2 onion services "
+#~ "<https://blog.torproject.org/v2-deprecation-timeline>`_ on"
+#~ " October 15, 2021, and legacy onion"
+#~ " services will be removed from "
+#~ "OnionShare before then."
+#~ msgstr ""
+#~ "Tor-prosjektet planlegger å "
+#~ "<https://blog.torproject.org/v2-deprecation-timeline>`_ 15"
+#~ " Oktober, 2021, og gammeldagse løktjeenster"
+#~ " vil bli fjernet fra OnionShare før"
+#~ " den tid."
+

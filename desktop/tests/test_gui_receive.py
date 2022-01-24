@@ -1,3 +1,4 @@
+import glob
 import pytest
 import os
 import requests
@@ -35,17 +36,17 @@ class TestReceive(GuiBaseTest):
         now = datetime.now()
         for _ in range(10):
             date_dir = now.strftime("%Y-%m-%d")
-            if identical_files_at_once:
-                time_dir = now.strftime("%H%M%S-1")
-            else:
-                time_dir = now.strftime("%H%M%S")
+            time_dir = now.strftime("%H%M%S")
             receive_mode_dir = os.path.join(
                 tab.settings.get("receive", "data_dir"), date_dir, time_dir
             )
-            expected_filename = os.path.join(receive_mode_dir, expected_basename)
-            if os.path.exists(expected_filename):
-                exists = True
-                break
+            # The directories have microseconds in the name, so we need
+            # to use globbing against directory names containing the same
+            # second in order to try to find the file.
+            for path in glob.glob(receive_mode_dir + "*"):
+                if os.path.exists(os.path.join(path, expected_basename)):
+                    exists = True
+                    break
             now = now - timedelta(seconds=1)
 
         self.assertTrue(exists)
@@ -83,17 +84,18 @@ class TestReceive(GuiBaseTest):
         for _ in range(10):
             date_dir = now.strftime("%Y-%m-%d")
             time_dir = now.strftime("%H%M%S")
-            expected_filename = os.path.join(
+            expected_estimated_filename = os.path.join(
                 tab.settings.get("receive", "data_dir"),
                 date_dir,
-                f"{time_dir}-message.txt",
+                f"{time_dir}*-message.txt",
             )
-            if os.path.exists(expected_filename):
-                with open(expected_filename) as f:
-                    assert f.read() == message
+            for path in glob.glob(expected_estimated_filename):
+                if os.path.exists(path):
+                    with open(path) as f:
+                        assert f.read() == message
 
-                exists = True
-                break
+                    exists = True
+                    break
             now = now - timedelta(seconds=1)
 
         self.assertTrue(exists)
@@ -122,6 +124,7 @@ class TestReceive(GuiBaseTest):
     def run_all_receive_mode_tests(self, tab):
         """Submit files and messages in receive mode and stop the share"""
         self.run_all_receive_mode_setup_tests(tab)
+        self.javascript_is_correct_mime_type(tab, "receive.js")
         self.upload_file(tab, self.tmpfile_test, "test.txt")
         self.history_widgets_present(tab)
         self.counter_incremented(tab, 1)

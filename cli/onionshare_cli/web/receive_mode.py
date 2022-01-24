@@ -2,7 +2,7 @@
 """
 OnionShare | https://onionshare.org/
 
-Copyright (C) 2014-2021 Micah Lee, et al. <micah@micahflee.com>
+Copyright (C) 2014-2022 Micah Lee, et al. <micah@micahflee.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -378,7 +378,7 @@ class ReceiveModeRequest(Request):
             # Figure out what files should be saved
             now = datetime.now()
             date_dir = now.strftime("%Y-%m-%d")
-            time_dir = now.strftime("%H%M%S")
+            time_dir = now.strftime("%H%M%S%f")
             self.receive_mode_dir = os.path.join(
                 self.web.settings.get("receive", "data_dir"), date_dir, time_dir
             )

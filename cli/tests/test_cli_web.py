@@ -228,7 +228,7 @@ class TestWeb:
         data_dir_date = os.path.join(data_dir, os.listdir(data_dir)[0])
         filenames = os.listdir(data_dir_date)
         assert len(filenames) == 2
-        time_str = filenames[0][0:6]
+        time_str = filenames[0][0:12]
         assert time_str in filenames
         assert f"{time_str}-message.txt" in filenames
         data_dir_time = os.path.join(data_dir_date, time_str)
@@ -260,7 +260,7 @@ class TestWeb:
         data_dir_date = os.path.join(data_dir, os.listdir(data_dir)[0])
         filenames = os.listdir(data_dir_date)
         assert len(filenames) == 1
-        time_str = filenames[0][0:6]
+        time_str = filenames[0][0:12]
         assert time_str in filenames
         assert f"{time_str}-message.txt" not in filenames
         data_dir_time = os.path.join(data_dir_date, time_str)
