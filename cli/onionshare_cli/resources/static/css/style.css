@@ -187,6 +187,10 @@ ul.breadcrumbs li a:link, ul.breadcrumbs li a:visited {
   flex-direction: column;
 }
 
+.chat-users .notification-settings {
+  padding: 1rem;
+}
+
 .chat-users .editable-username input {
   font-family: monospace;
   font-size: 1em;
@@ -230,6 +234,7 @@ ul.breadcrumbs li a:link, ul.breadcrumbs li a:visited {
 }
 .chat-wrapper .message {
   word-break: break-word;
+  white-space: pre-line;
   font-weight: normal;
   display: block;
   margin-bottom: 0.3em;
@@ -241,8 +246,10 @@ ul.breadcrumbs li a:link, ul.breadcrumbs li a:visited {
   padding: -0.5em;
 }
 
-.chat-wrapper input#new-message {
-  height: 100%;
+.chat-wrapper textarea#new-message {
+  display: block;
+  resize: none;
+  max-height: 25vh;
   width: 100%;
   font-family: monospace;
   font-size: 1em;

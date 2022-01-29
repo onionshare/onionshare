@@ -23,6 +23,10 @@ $(function () {
     socket.on('chat_message', function (data) {
       addMessageToPanel(data, current_username, 'chat');
       console.log(data, current_username);
+
+      // Play audio if notification enabled and message not sent by self
+      if($("#notifications-checkbox")[0].checked && data.username != current_username)
+        $("#audio-notification")[0].play();
     });
 
     // Triggered when disconnected either by server stop or timeout
@@ -36,10 +40,19 @@ $(function () {
     // Trigger new message on enter or click of send message button.
     $('#new-message').on('keypress', function (e) {
       var code = e.keyCode || e.which;
-      if (code == 13) {
+      if (code == 13 && !e.shiftKey) { // Prevent sending message if holding shift
+        e.preventDefault(); // Prevents newline after clearing input in emitMessage()
         emitMessage(socket);
       }
     });
+
+    // Refresh height of input textarea
+    var autoheight = function() {
+      $('#new-message')[0].style.height = "auto";
+      $('#new-message')[0].style.height = ($('#new-message')[0].scrollHeight)+"px";
+    }
+    autoheight();
+    $('#new-message').on('input', autoheight);
 
     // Keep buttons disabled unless changed or not empty
     $('#username').on('keyup', function (event) {
@@ -62,13 +75,15 @@ $(function () {
 
 var addMessageToPanel = function (data, current_username, messageType) {
   var scrollDiff = getScrollDiffBefore();
-  if (messageType === 'status') {
-    addStatusMessage(data.msg);
-    if (data.connected_users) {
-      addUserList(data.connected_users, current_username);
-    }
-  } else if (messageType === 'chat') {
-    addChatMessage(data.username, data.msg)
+  switch(messageType) {
+    case 'status':
+      addStatusMessage(data.msg);
+      if (data.connected_users)
+        addUserList(data.connected_users, current_username);
+      break;
+    case 'chat':
+      addChatMessage(data.username, data.msg);
+      break;
   }
   scrollBottomMaybe(scrollDiff);
 }
@@ -169,7 +184,7 @@ var addStatusMessage = function (message) {
 }
 
 var addChatMessage = function (username, message) {
-  $('#chat').append(`<p><span class="username">${sanitizeHTML(username)}</span><span class="message">${sanitizeHTML(message)}</span></p>`);
+  $('#chat').append(`<p><span class="username">${sanitizeHTML(username)}</span><span class="message">${applyTextFormatting(sanitizeHTML(message))}</span></p>`);
 }
 
 var addUserList = function (connected_users, current_username) {
@@ -186,3 +201,16 @@ var sanitizeHTML = function (str) {
   temp.textContent = str;
   return temp.innerHTML;
 };
+
+var applyTextFormatting = function (str) {
+  //Make chat message:
+  //  bold if ** tags used (ex: **test**)
+  //  italic if * tags used (ex: *test*)
+  //  underline if __ tags used (ex: __test__)
+  //  deleted if ~~ tags used (ex: ~~test~~)
+  str=str.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+  str=str.replace(/\*(.+?)\*/g, "<em>$1</em>")
+  str=str.replace(/__(.+?)__/g, "<u>$1</u>")
+  str=str.replace(/~~(.+?)~~/g, "<s>$1</s>")
+  return str;
+}

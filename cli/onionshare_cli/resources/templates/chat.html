@@ -27,6 +27,15 @@
         <input id="username" value="{{ username }}" />
         <p id="username-error"></p>
       </div>
+
+      <form class="notification-settings">
+        <label for="notifications">Notification sound:</label>
+        <input type="checkbox" name="notifications" id="notifications-checkbox" unchecked>
+        <audio id="audio-notification">
+          <source id="audio-notification-source" src="{{ static_url_path }}/ogg/chat_notification_sound.ogg" type="audio/ogg">
+        </audio>
+      </form>
+
       <ul id="user-list">
       </ul>
     </div>
@@ -34,11 +43,12 @@
       <div id="chat"></div>
 
       <div class="chat-form">
-        <input type="text" id="new-message" name="new-message" placeholder="Type your message" />
+        <textarea id="new-message" name="new-message" placeholder="Type your message"></textarea>
       </div>
 
     </div>
   </div>
+
   <script src="{{ static_url_path }}/js/jquery-3.5.1.min.js"></script>
   <script src="{{ static_url_path }}/js/socket.io.min.js"></script>
   <script async src="{{ static_url_path }}/js/chat.js"></script>
