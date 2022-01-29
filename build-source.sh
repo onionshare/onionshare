@@ -2,35 +2,29 @@
 
 # The script builds a source package
 
-# Usage
-display_usage() {
-  echo "Usage: $0 [tag]"
+# The exit function after echo something
+_exit() {
+    echo $1 && exit 1
 }
 
-if [ $# -lt 1 ]
-then
-  display_usage
-  exit 1
-fi
+# This method will check the previous command
+# and exit if it was insuccessfull
+_check_prev(){
+    [ $? -ne 0 ] && _exit $1
+}
+
+# Usage
+[ $# -lt 1 ] && _exit "Usage: $0 [tag]"
 
 # Input validation
 TAG=$1
-
-if [ "${TAG:0:1}" != "v" ]
-then
-  echo "Tag must start with 'v' character"
-  exit 1
-fi
+[ "${TAG:0:1}" != "v" ] && _exit "Tag must start with 'v' character"
 
 VERSION=${TAG:1}
 
 # Make sure tag exists
 git tag | grep "^$TAG\$"
-if [ $? -ne 0 ]
-then
-  echo "Tag does not exist"
-  exit 1
-fi
+_check_prev "Tag does not exist"
 
 # Clone source
 mkdir -p build/source
@@ -41,23 +35,13 @@ cd onionshare
 
 # Verify tag
 git tag -v $TAG 2> ../verify.txt
-if [ $? -ne 0 ]
-then
-  echo "Tag does not verify"
-  exit 1
-fi
+_check_prev "Tag does not exist"
+
 cat ../verify.txt | grep "using RSA key 927F419D7EC82C2F149C1BD1403C2657CD994F73"
-if [ $? -ne 0 ]
-then
-  echo "Tag signed with wrong key"
-  exit 1
-fi
+_check_prev "Tag signed with wrong key"
+
 cat ../verify.txt | grep "^gpg: Good signature from"
-if [ $? -ne 0 ]
-then
-  echo "Tag verification missing 'Good signature from'"
-  exit 1
-fi
+_check_prev "Tag verification missing 'Good signature from'"
 
 # Checkout code
 git checkout $TAG
