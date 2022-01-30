@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>{% if title %}{{ title }}{% else %}OnionShare Chat{% endif %}</title>
+  <title>{% if title %}{{ title }}{% else %}OnionShare Textboard{% endif %}</title>
   <link href="{{ static_url_path }}/img/favicon.ico" rel="icon" type="image/x-icon">
   <link rel="stylesheet" rel="subresource" type="text/css" href="{{ static_url_path }}/css/style.css" media="all">
 </head>
@@ -11,7 +11,7 @@
 
   <header class="clearfix">
     <img class="logo" src="{{ static_url_path }}/img/logo.png" title="OnionShare">
-    <h1>{% if title %}{{ title }}{% else %}OnionShare Chat{% endif %}</h1>
+    <h1>{% if title %}{{ title }}{% else %}OnionShare Textboard{% endif %}</h1>
   </header>
   <noscript>
     <p>
@@ -22,9 +22,36 @@
 
   <div class="textboard-container no-js">
     
-    <div class="textboard-threads-list"></div>
+    <div class="textboard-threads-list">
+      <h3>Current threads:</h3>
+      <div class="textboard-list-wrapper">
+        <a>XXXX</a>
+        <a>YYYY</a>
+      </div>
+    </div>
 
     <div class="threads-wrapper">
+      <div class="thread">
+        <div class="thread-info">
+          <span class="thread-title">Example thread</span>
+          <span>&middot;</span>
+          <span class="thread-time">12:00:00 SOMETMZONE</span>
+          <span>&middot;</span>
+          <span class="thread-id">ID: XXXX</span>
+        </div>
+        <span>This thread is example for how textboard should look.</span>
+      </div>
+      <div class="thread">
+        <div class="thread-info">
+          <span class="thread-title">Example thread #2</span>
+          <span>&middot;</span>
+          <span class="thread-time">15:14:54 SOMETMZONE</span>
+          <span>&middot;</span>
+          <span class="thread-id">ID: YYYY</span>
+        </div>
+        <span class="thread-content">This thread is example for how textboard should look.
+          Previous thread: >>>XXXX</span>
+      </div>
     </div>
 
     <!-- <div class="chat-users">

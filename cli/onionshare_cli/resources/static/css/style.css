@@ -258,6 +258,62 @@ ul.breadcrumbs li a:link, ul.breadcrumbs li a:visited {
   }
 }
 
+.textboard-container {
+  display: flex;
+  font-family: monospace;
+  flex-direction: column;
+}
+
+.textboard-threads-list {
+  display: flex;
+  flex-direction: column;
+  height: 10rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
+  background: #f2f2f2;
+  margin: 1rem;
+  padding: 1rem;
+}
+
+.textboard-threads-list .textboard-list-wrapper {
+  overflow-y: auto;
+}
+
+.threads-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin: 1rem 1rem 0 1rem;
+  /* height: calc(100vh - (65px + 2em)); */
+}
+
+.threads-wrapper .thread {
+  width: 60rem;
+  min-height: 5rem;
+
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
+  /* overflow: auto; */
+  background: #f2f2f2;
+  margin: 1rem 0rem 0rem 5rem;
+  padding: 1rem;
+}
+
+.thread .thread-info {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin-bottom: 0.5rem;
+}
+
+.thread-info .thread-title {
+  font-weight: bold;
+}
+
+.thread .thread-content {
+  white-space: pre-line;
+}
+
 .no-js {
   display: none;
 }
