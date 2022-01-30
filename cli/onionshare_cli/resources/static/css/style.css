@@ -264,19 +264,50 @@ ul.breadcrumbs li a:link, ul.breadcrumbs li a:visited {
   flex-direction: column;
 }
 
-.textboard-threads-list {
+.textboard-info-panel {
   display: flex;
   flex-direction: column;
-  height: 10rem;
+  margin: 1rem;
+}
+
+.textboard-info-panel .textboard-threads-list {
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 2px;
   background: #f2f2f2;
-  margin: 1rem;
+  min-height: 5rem;
   padding: 1rem;
 }
 
-.textboard-threads-list .textboard-list-wrapper {
+.textboard-info-panel .textboard-list-wrapper {
   overflow-y: auto;
+}
+
+.create-thread-link {
+  margin: 1rem auto 0 auto;
+  font-size: x-large;
+}
+
+.textboard-info-panel .create-thread-panel {
+  display: none;
+
+  width: 20rem;
+  margin: 0 auto 0 auto;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: #f2f2f2;
+  border-radius: 2px;
+  padding: 1rem;
+}
+
+.create-thread-panel form {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  gap: 5px;
+}
+
+.create-thread-panel form button {
+  padding: 0.25rem;
+  width: 5rem;
 }
 
 .threads-wrapper {
@@ -284,35 +315,44 @@ ul.breadcrumbs li a:link, ul.breadcrumbs li a:visited {
   flex-direction: column;
   flex: 1;
   margin: 1rem 1rem 0 1rem;
-  /* height: calc(100vh - (65px + 2em)); */
 }
 
-.threads-wrapper .thread {
+/* .threads-wrapper .thread {
   width: 60rem;
   min-height: 5rem;
-
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 2px;
-  /* overflow: auto; */
-  background: #f2f2f2;
   margin: 1rem 0rem 0rem 5rem;
   padding: 1rem;
+} */
+
+.thread-main, .thread-post {
+  width: 60rem;
+  min-height: 5rem;
+  margin: 1rem 0rem 0rem 5rem;
+  padding: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
+  background: #f2f2f2;
 }
 
-.thread .thread-info {
+.post-info {
   display: flex;
   flex-direction: row;
   gap: 10px;
   margin-bottom: 0.5rem;
 }
 
-.thread-info .thread-title {
+.post-info .thread-title {
   font-weight: bold;
 }
 
-.thread .thread-content {
+.thread .post-content {
   white-space: pre-line;
 }
+
+.thread .thread-replies {
+  margin-left: 5rem;
+}
+
 
 .no-js {
   display: none;
