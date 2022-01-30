@@ -41,6 +41,7 @@ from .share_mode import ShareModeWeb
 from .receive_mode import ReceiveModeWeb, ReceiveModeWSGIMiddleware, ReceiveModeRequest
 from .website_mode import WebsiteModeWeb
 from .chat_mode import ChatModeWeb
+from .textboard_mode import TextboardModeWeb
 
 
 # Stub out flask's show_server_banner function, to avoiding showing warnings that
@@ -155,6 +156,7 @@ class Web:
         self.receive_mode = None
         self.website_mode = None
         self.chat_mode = None
+        self.textboard_mode = None
         if self.mode == "share":
             self.share_mode = ShareModeWeb(self.common, self)
         elif self.mode == "receive":
@@ -170,6 +172,8 @@ class Web:
                 self.socketio = SocketIO(async_mode="gevent")
             self.socketio.init_app(self.app)
             self.chat_mode = ChatModeWeb(self.common, self)
+        elif self.mode == "textboard":
+            self.textboard_mode = TextboardModeWeb(self.common, self)
 
         self.cleanup_tempfiles = []
         self.cleanup_tempdirs = []
@@ -183,6 +187,8 @@ class Web:
             return self.website_mode
         elif self.mode == "chat":
             return self.chat_mode
+        elif self.mode == "textboard":
+            return self.textboard
         else:
             return None
 
