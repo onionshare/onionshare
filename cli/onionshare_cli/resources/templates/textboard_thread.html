@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>{% if title %}{{ title }}{% else %}OnionShare Textboard{% endif %}</title>
+  <link href="{{ static_url_path }}/img/favicon.ico" rel="icon" type="image/x-icon">
+  <link rel="stylesheet" rel="subresource" type="text/css" href="{{ static_url_path }}/css/style.css" media="all">
+</head>
+
+<body>
+
+  <header class="clearfix">
+    <img class="logo" src="{{ static_url_path }}/img/logo.png" title="OnionShare">
+    <h1><a href="/">{% if title %}{{ title }}{% else %}OnionShare Textboard{% endif %}</a> Thread {{ thread[0].id }}</h1>
+  </header>
+  <noscript>
+    <p>
+      Chat <b>requires JavaScript</b>, so you must set your Tor Browser security
+      level to <b>Safer</b> or <b>Standard</b> to join.
+    </p>
+  </noscript>
+
+  <div class="textboard-container no-js">
+
+    <div id="reply-panel">
+      <div class="close-reply-panel">
+        <h3>Reply</h3>
+        <button id="close-reply-panel-button">X</button>
+      </div>
+      <form method="post" action="/thread-reply">
+        <label for="reply-content">Reply:</label>
+        <textarea id="reply-content" name="content" placeholder="Content" value="">{% if reply_to %}{{ ">>>"+reply_to }}{% endif %}</textarea>
+        <button>Post</button>
+        <input type="hidden" name="thread-id" value="{{ thread[0].id }}" />
+      </form>
+    </div>
+
+    <div class="threads-wrapper">
+
+      <div class="thread">
+        <div class="thread-main">
+          <div class="post-info">
+            <span class="thread-title">{{ thread[0].title }}</span>
+            <span>&middot;</span>
+            <span class="post-time">{{ thread[0].date }}</span>
+            <span>&middot;</span>
+            <span class="post-id">ID: {{ thread[0].id }}</span>
+            <span>&middot;</span>
+            <a class="post-reply" href="#" data-postid="{{ thread[0].id }}">Reply</a>
+          </div>
+          <span class="post-content">{{ thread[0].content }}</span>
+        </div>
+
+        <div class="thread-replies">
+          {% for post_i in range(1, thread|length) %}
+            <div class="thread-post">
+              <div class="post-info">
+                <span class="post-time">{{ thread[post_i].date }}</span>
+                <span>&middot;</span>
+                <span class="post-id">ID: {{ thread[post_i].id }}</span>
+                <span>&middot;</span>
+                <a class="post-reply" href="#" data-postid="{{ thread[post_i].id }}">Reply</a>
+              </div>
+              <span class="post-content">{{ thread[post_i].content }}</span>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="{{ static_url_path }}/js/jquery-3.5.1.min.js"></script>
+  <script src="{{ static_url_path }}/js/socket.io.min.js"></script>
+  <script async src="{{ static_url_path }}/js/textboard.js"></script>
+</body>
+
+</html>

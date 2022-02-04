@@ -282,30 +282,53 @@ ul.breadcrumbs li a:link, ul.breadcrumbs li a:visited {
   overflow-y: auto;
 }
 
-.create-thread-link {
+#create-thread-link {
   margin: 1rem auto 0 auto;
   font-size: x-large;
 }
 
-.textboard-info-panel .create-thread-panel {
-  display: none;
-
+.textboard-info-panel #create-thread-panel {
   width: 20rem;
-  margin: 0 auto 0 auto;
+  margin: 1rem auto 0 auto;
   border: 1px solid rgba(0, 0, 0, 0.1);
   background: #f2f2f2;
   border-radius: 2px;
   padding: 1rem;
 }
 
-.create-thread-panel form {
+#reply-panel {
+  width: 20rem;
+  position: fixed;
+  margin-top: 1rem;
+  right: 3rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: #f2f2f2;
+  border-radius: 2px;
+  padding: 1rem;
+}
+
+#reply-panel textarea {
+  max-width: 100%;
+}
+
+#reply-panel .close-reply-panel {
+  display: flex;
+  align-items: center;
+}
+
+.close-reply-panel button {
+  position: absolute;
+  right: 1rem;
+}
+
+#create-thread-panel form, #reply-panel form {
   display: flex;
   flex-direction: column;
   padding: 1rem;
   gap: 5px;
 }
 
-.create-thread-panel form button {
+#create-thread-panel form button, #reply-panel form button {
   padding: 0.25rem;
   width: 5rem;
 }

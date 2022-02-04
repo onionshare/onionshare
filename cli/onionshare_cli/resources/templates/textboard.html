@@ -32,39 +32,53 @@
         </div>
       </div>
 
-      <a class="create-thread-link">[Create Thread]</a>
+      <a id="create-thread-link">[Create Thread]</a>
 
-      <div class="create-thread-panel">
+      <div id="create-thread-panel" hidden>
         <h3>Create Thread</h3>
-        <form>
+        <form method="post" action="/create-thread">
           <label for="create-thread-title">Title:</label>
-          <input id="create-thread-title" name="thread-title" placeholder="Title" value="">
+          <input id="create-thread-title" name="title" placeholder="Title" value="">
           <label for="create-thread-content">Content:</label>
-          <textarea id="create-thread-content" placeholder="Content"></textarea>
+          <textarea id="create-thread-content" name="content" placeholder="Content"></textarea>
           <button>Post</button>
         </form>
       </div>
-
     </div>
 
     <div class="threads-wrapper">
 
+      {% for thread in threads %}
       <div class="thread">
         <div class="thread-main">
           <div class="post-info">
-            <span class="thread-title">Example thread</span>
+            <span class="thread-title">{{ thread[0].title }}</span>
             <span>&middot;</span>
-            <span class="post-time">12:00:00 SOMETMZONE</span>
+            <span class="post-time">{{ thread[0].date }}</span>
             <span>&middot;</span>
-            <span class="post-id">ID: XXXX</span>
+            <span class="post-id">ID: {{ thread[0].id }}</span>
             <span>&middot;</span>
-            <a class="post-reply">Reply</a>
+            <a class="post-reply" href="/thread/{{ thread[0].id }}?reply={{ thread[0].id }}">Reply</a>
           </div>
-          <span class="post-content">This thread is example for how textboard should look.</span>
+          <span class="post-content">{{ thread[0].content }}</span>
         </div>
 
-        <div class="thread-replies"></div>
+        <div class="thread-replies">
+          {% for post_i in range(1, thread|length) %}
+            <div class="thread-post">
+              <div class="post-info">
+                <span class="post-time">{{ thread[post_i].date }}</span>
+                <span>&middot;</span>
+                <span class="post-id">ID: {{ thread[post_i].id }}</span>
+                <span>&middot;</span>
+                <a class="post-reply" href="/thread/{{ thread[0].id }}?reply={{ thread[post_i].id }}">Reply</a>
+              </div>
+              <span class="post-content">{{ thread[post_i].content }}</span>
+            </div>
+          {% endfor %}
+        </div>
       </div>
+      {% endfor %}
       
       <div class="thread">
         <div class="thread-main">
@@ -93,28 +107,11 @@
             <span class="post-content">stfu no one cares</span>
           </div>
         </div>
-
       </div>
+
     </div>
-
-    <!-- <div class="chat-users">
-      <div class="editable-username">
-        <label for="username">Your username:</label>
-        <input id="username" value="{{ username }}" />
-        <p id="username-error"></p>
-      </div>
-      <ul id="user-list">
-      </ul>
-    </div>
-    <div class="chat-wrapper">
-      <div id="chat"></div>
-
-      <div class="chat-form">
-        <input type="text" id="new-message" name="new-message" placeholder="Type your message" />
-      </div>
-
-    </div> -->
   </div>
+
   <script src="{{ static_url_path }}/js/jquery-3.5.1.min.js"></script>
   <script src="{{ static_url_path }}/js/socket.io.min.js"></script>
   <script async src="{{ static_url_path }}/js/textboard.js"></script>

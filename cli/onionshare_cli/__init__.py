@@ -127,7 +127,7 @@ def main(cwd=None):
         "--data-dir",
         metavar="data_dir",
         default=None,
-        help="Receive files: Save files received to this directory",
+        help="Receive files, textboard: Save files received to this directory",
     )
     parser.add_argument(
         "--webhook-url",
@@ -256,6 +256,12 @@ def main(cwd=None):
             if custom_csp:
                 mode_settings.set("website", "custom_csp", custom_csp)
                 mode_settings.set("website", "disable_csp", False)
+        if mode == "textboard":
+            if data_dir:
+                mode_settings.set("textboard", "data_dir", data_dir)
+            else:
+                print("For textboard mode, you must set where threads should be saved. Use --data-dir flag.")
+                sys.exit()
     else:
         # See what the persistent mode was
         mode = mode_settings.get("persistent", "mode")
@@ -377,6 +383,27 @@ def main(cwd=None):
                     print(
                         f"Give this address to your sender, and tell them it won't be accessible until: {schedule.strftime('%I:%M:%S%p, %b %d, %y')}"
                     )
+            elif mode == "textboard":
+                print(
+                    f"Textboards posts sent to you appear in this folder: {mode_settings.get('textboard', 'data_dir')}"
+                )
+                print("")
+                print(
+                    "Warning: Textboard mode lets people upload posts and save them as files to your computer. "
+                    "Some posts may be offensive, spam or have links to illegal material. "
+                    "Be cautious, don't click random links and know what you are doing."
+                )
+                print("")
+
+                if not mode_settings.get("general", "public"):
+                    print(
+                        f"Give this address and private key to your users, and tell them it won't be accessible until: {schedule.strftime('%I:%M:%S%p, %b %d, %y')}"
+                    )
+                    print(f"Private key: {app.auth_string}")
+                else:
+                    print(
+                        f"Give this address to your users, and tell them it won't be accessible until: {schedule.strftime('%I:%M:%S%p, %b %d, %y')}"
+                    )
             else:
                 if not mode_settings.get("general", "public"):
                     print(
@@ -461,6 +488,25 @@ def main(cwd=None):
                     print(url)
                 else:
                     print("Give this address and private key to the sender:")
+                    print(url)
+                    print(f"Private key: {app.auth_string}")
+            elif mode == "textboard":
+                print(
+                    f"Textboards posts sent to you appear in this folder: {mode_settings.get('textboard', 'data_dir')}"
+                )
+                print("")
+                print(
+                    "Warning: Textboard mode lets people upload posts and save them as files to your computer. "
+                    "Some posts may be offensive, spam or have links to illegal material. "
+                    "Be cautious, don't click random links and know what you are doing."
+                )
+                print("")
+
+                if mode_settings.get("general", "public"):
+                    print("Give this address to the users:")
+                    print(url)
+                else:
+                    print("Give this address and private key to the users:")
                     print(url)
                     print(f"Private key: {app.auth_string}")
             else:

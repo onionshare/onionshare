@@ -188,7 +188,7 @@ class Web:
         elif self.mode == "chat":
             return self.chat_mode
         elif self.mode == "textboard":
-            return self.textboard
+            return self.textboard_mode
         else:
             return None
 

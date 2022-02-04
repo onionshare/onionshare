@@ -57,7 +57,9 @@ class ModeSettings:
             },
             "website": {"disable_csp": False, "custom_csp": None, "filenames": []},
             "chat": {},
-            "textboard": {},
+            "textboard": {
+                "data_dir": None,
+            },
         }
         self._settings = {}
 
