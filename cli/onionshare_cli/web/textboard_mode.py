@@ -5,9 +5,6 @@ import uuid
 import json
 import os
 
-# TODO: Refresh site more often, reduce cache lifetime
-# TODO: rewrite ThreadPost to include self.textboard_dir on instance
-
 class TextboardModeWeb:
     def __init__(self, common, web):
         self.common = common
@@ -48,12 +45,16 @@ class TextboardModeWeb:
                     static_url_path=self.web.static_url_path,
                     title=self.web.settings.get("general", "title"),
                     threads=self.ThreadPost.load_threads_from_disk(self.textboard_dir),
-            )
+            ), {
+                "Cache-Control": "max-age=60, must-revalidate",
+                "Pragma": "no-cache"
+            }
         
         @self.web.app.route("/create-thread", methods=["POST"], provide_automatic_options=False)
         def create_thread():
             content = request.form.get('content')
-            # when content empty, don't make thread or something
+            if content=="" and content==None:
+                return redirect("/")
             title = request.form.get('title')
             title = "" if title == None else title
             post_date = datetime.now().strftime("%d %b %Y %H:%M:%S") # dd mnth YYYY H:M:S
@@ -66,23 +67,27 @@ class TextboardModeWeb:
             return redirect(f'/thread/{thread_id}')
         
         @self.web.app.route("/thread/<string:thread_id>", methods=["GET"], provide_automatic_options=False)
-        def thread_page(thread_id: str): #TODO: get GET parameter (which thread you replying to)
+        def thread_page(thread_id: str):
             return render_template(
                 "textboard_thread.html",
                 static_url_path=self.web.static_url_path,
                 title=self.web.settings.get("general", "title"),
                 thread=self.ThreadPost.load_thread_by_id(thread_id, self.textboard_dir),
                 reply_to=request.args.get('reply', default = "", type = str),
-            )
+            ), {
+                "Cache-Control": "max-age=60, must-revalidate",
+                "Pragma": "no-cache"
+            }
         
         @self.web.app.route("/thread-reply", methods=["POST"], provide_automatic_options=False)
         def thread_reply():
             content = request.form.get("content")
-            post_date = datetime.now().strftime("%d %b %Y %H:%M:%S")
-            thread_id = request.form.get('thread-id')
+            if content!="" and content!=None:
+                post_date = datetime.now().strftime("%d %b %Y %H:%M:%S")
+                thread_id = request.form.get('thread-id')
 
-            post = self.ThreadPost("reply", content, post_date, self.ThreadPost.get_new_post_id(thread_id, self.textboard_dir))
-            post.save_to_file(thread_id, self.textboard_dir)
+                post = self.ThreadPost("reply", content, post_date, self.ThreadPost.get_new_post_id(thread_id, self.textboard_dir))
+                post.save_to_file(thread_id, self.textboard_dir)
             return redirect(f'/thread/{thread_id}')
 
     class ThreadPost:

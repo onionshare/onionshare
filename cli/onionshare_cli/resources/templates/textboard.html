@@ -27,8 +27,9 @@
       <div class="textboard-threads-list">
         <h3>Current threads:</h3>
         <div class="textboard-list-wrapper">
-          <a>XXXX</a>
-          <a>YYYY</a>
+          {% for thread in threads %}
+          <a href="/thread/{{ thread[0].id }}">{{ thread[0].id }} ({{ thread|length }} posts)</a>
+          {% endfor %}
         </div>
       </div>
 
@@ -79,36 +80,6 @@
         </div>
       </div>
       {% endfor %}
-      
-      <div class="thread">
-        <div class="thread-main">
-          <div class="post-info">
-            <span class="thread-title">Example thread #2</span>
-            <span>&middot;</span>
-            <span class="post-time">15:14:54 SOMETMZONE</span>
-            <span>&middot;</span>
-            <span class="post-id">ID: YYYY</span>
-            <span>&middot;</span>
-            <a class="post-reply">Reply</a>
-          </div>
-          <span class="post-content">This thread is example for how textboard should look.
-            Previous thread: >>>XXXX</span>
-        </div>
-
-        <div class="thread-replies">
-          <div class="thread-post">
-            <div class="post-info">
-              <span class="post-time">15:14:54 SOMETMZONE</span>
-              <span>&middot;</span>
-              <span class="post-id">ID: YYZZ</span>
-              <span>&middot;</span>
-              <a class="post-reply">Reply</a>
-            </div>
-            <span class="post-content">stfu no one cares</span>
-          </div>
-        </div>
-      </div>
-
     </div>
   </div>
 

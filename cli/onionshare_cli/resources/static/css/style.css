@@ -285,6 +285,7 @@ ul.breadcrumbs li a:link, ul.breadcrumbs li a:visited {
 #create-thread-link {
   margin: 1rem auto 0 auto;
   font-size: x-large;
+  cursor: pointer;
 }
 
 .textboard-info-panel #create-thread-panel {
