@@ -49,6 +49,7 @@ class TorConnectionWidget(QtWidgets.QWidget):
     open_tor_settings = QtCore.Signal()
     success = QtCore.Signal()
     fail = QtCore.Signal(str)
+    update_progress = QtCore.Signal(int)
 
     def __init__(self, common, status_bar):
         super(TorConnectionWidget, self).__init__(None)
@@ -120,6 +121,7 @@ class TorConnectionWidget(QtWidgets.QWidget):
 
     def _tor_status_update(self, progress, summary):
         self.progress.setValue(int(progress))
+        self.update_progress.emit(int(progress))
         self.label.setText(
             f"<strong>{strings._('connecting_to_tor')}</strong><br>{summary}"
         )
@@ -131,6 +133,7 @@ class TorConnectionWidget(QtWidgets.QWidget):
 
         # Close the dialog after connecting
         self.progress.setValue(self.progress.maximum())
+        self.update_progress.emit(int(self.progress.maximum()))
 
         self.success.emit()
         self._reset()
@@ -153,6 +156,7 @@ class TorConnectionWidget(QtWidgets.QWidget):
     def _reset(self):
         self.label.setText("")
         self.progress.setValue(0)
+        self.update_progress.emit(0)
 
 
 class TorConnectionThread(QtCore.QThread):

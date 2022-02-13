@@ -38,13 +38,14 @@ class TabWidget(QtWidgets.QTabWidget):
 
     bring_to_front = QtCore.Signal()
 
-    def __init__(self, common, system_tray, status_bar):
+    def __init__(self, common, system_tray, status_bar, window):
         super(TabWidget, self).__init__()
         self.common = common
         self.common.log("TabWidget", "__init__")
 
         self.system_tray = system_tray
         self.status_bar = status_bar
+        self.window = window
 
         # Keep track of tabs in a dictionary that maps tab_id to tab.
         # Each tab has a unique, auto-incremented id (tab_id). This is different than the
@@ -219,7 +220,7 @@ class TabWidget(QtWidgets.QTabWidget):
                 return
 
         connection_tab = AutoConnectTab(
-            self.common, self.current_tab_id, self.status_bar, parent=self
+            self.common, self.current_tab_id, self.status_bar, self.window, parent=self
         )
         connection_tab.close_this_tab.connect(self.close_connection_tab)
         connection_tab.tor_is_connected.connect(self.tor_is_connected)

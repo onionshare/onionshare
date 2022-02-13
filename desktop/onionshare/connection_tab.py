@@ -20,8 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import json
 import os
-import random
-import time
 from PySide2 import QtCore, QtWidgets, QtGui
 
 from onionshare_cli.censorship import (
@@ -51,19 +49,25 @@ class AutoConnectTab(QtWidgets.QWidget):
     tor_is_connected = QtCore.Signal()
     tor_is_disconnected = QtCore.Signal()
 
-    def __init__(self, common, tab_id, status_bar, parent=None):
+    def __init__(self, common, tab_id, status_bar, window, parent=None):
         super(AutoConnectTab, self).__init__()
         self.common = common
         self.common.log("AutoConnectTab", "__init__")
 
         self.status_bar = status_bar
         self.tab_id = tab_id
+        self.window = window
         self.parent = parent
 
         # Was auto connected?
         self.curr_settings = Settings(common)
         self.curr_settings.load()
         self.auto_connect_enabled = self.curr_settings.get("auto_connect")
+
+        # Rocket ship animation images
+        self.anim_stars = AnimStars(self, self.window)
+        self.anim_ship = AnimShip(self, self.window)
+        self.anim_smoke = AnimSmoke(self, self.window)
 
         # Onionshare logo
         self.image_label = QtWidgets.QLabel()
@@ -108,6 +112,9 @@ class AutoConnectTab(QtWidgets.QWidget):
         self.tor_con = TorConnectionWidget(self.common, self.status_bar)
         self.tor_con.success.connect(self.tor_con_success)
         self.tor_con.fail.connect(self.tor_con_fail)
+        self.tor_con.update_progress.connect(self.anim_stars.update)
+        self.tor_con.update_progress.connect(self.anim_ship.update)
+        self.tor_con.update_progress.connect(self.anim_smoke.update)
         self.tor_con.hide()
 
         # Layout
@@ -328,6 +335,102 @@ class AutoConnectTab(QtWidgets.QWidget):
         self.first_launch_widget.show()
 
 
+class Anim(QtWidgets.QLabel):
+    """
+    Rocket ship animation base class
+    """
+
+    force_update = QtCore.Signal(int)
+
+    def __init__(self, parent, window, w, h, filename):
+        super(Anim, self).__init__(parent=parent)
+
+        self.window = window
+        self.window.window_resized.connect(self.update_same_percent)
+
+        self.w = w
+        self.h = h
+        self.percent = 0
+        self.used_percentages = []
+
+        self.setPixmap(
+            QtGui.QPixmap.fromImage(
+                QtGui.QImage(
+                    GuiCommon.get_resource_path(os.path.join("images", filename))
+                )
+            )
+        )
+        self.setFixedSize(self.w, self.h)
+        self.update(0)
+
+        self.force_update.connect(self.update)
+
+    def update_same_percent(self):
+        self.update(self.percent)
+
+    def update(self, percent):
+        self.percent = percent
+        self.move()
+        self.setGeometry(int(self.x), int(self.y), int(self.w), int(self.h))
+
+    def move(self):
+        # Implement in child
+        pass
+
+
+class AnimStars(Anim):
+    """
+    Rocket ship animation part: stars
+    """
+
+    def __init__(self, parent, window):
+        super(AnimStars, self).__init__(
+            parent, window, 780, 629, "tor-connect-stars.png"
+        )
+
+    def move(self):
+        self.x = self.window.width() - self.w
+        self.y = 0
+
+        # Stars don't move until 10%, then move down
+        if self.percent >= 10:
+            self.y += self.percent * 6.6
+
+
+class AnimShip(Anim):
+    """
+    Rocket ship animation part: ship
+    """
+
+    def __init__(self, parent, window):
+        super(AnimShip, self).__init__(parent, window, 239, 545, "tor-connect-ship.png")
+
+    def move(self):
+        self.x = self.window.width() - self.w - 150
+        self.y = self.window.height() - self.h - 40
+        # Ship moves up
+        self.y -= self.percent * 6.6
+
+
+class AnimSmoke(Anim):
+    """
+    Rocket ship animation part: smoke
+    """
+
+    def __init__(self, parent, window):
+        super(AnimSmoke, self).__init__(
+            parent, window, 522, 158, "tor-connect-smoke.png"
+        )
+
+    def move(self):
+        self.x = self.window.width() - self.w
+        self.y = self.window.height() - self.h + 50
+        # Smoke moves up until 50%, then moves down
+        self.y -= self.percent * 6.6
+        if self.percent >= 50:
+            self.y += self.percent * 6.6
+
+
 class AutoConnectFirstLaunchWidget(QtWidgets.QWidget):
     """
     When you first launch OnionShare, this is the widget that is displayed
@@ -346,7 +449,6 @@ class AutoConnectFirstLaunchWidget(QtWidgets.QWidget):
 
         # Description and checkbox
         description_label = QtWidgets.QLabel(strings._("gui_autoconnect_description"))
-        description_label.setWordWrap(True)
         self.enable_autoconnect_checkbox = ToggleCheckbox(
             strings._("gui_enable_autoconnect_checkbox")
         )
