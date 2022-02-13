@@ -50,7 +50,6 @@ def web_obj(temp_dir, common_obj, mode, num_files=0):
     web = Web(common_obj, False, mode_settings, mode)
     web.running = True
 
-    web.cleanup_tempfiles == []
     web.cleanup_tempdirs == []
     web.app.testing = True
 
