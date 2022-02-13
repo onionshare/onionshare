@@ -2,7 +2,7 @@
 """
 OnionShare | https://onionshare.org/
 
-Copyright (C) 2014-2021 Micah Lee, et al. <micah@micahflee.com>
+Copyright (C) 2014-2022 Micah Lee, et al. <micah@micahflee.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -189,7 +189,7 @@ class ShareModeWeb(SendBaseModeWeb):
             # and serve that
             use_gzip = self.should_use_gzip()
             if use_gzip:
-                file_to_download = self.gzip_file.name
+                file_to_download = self.gzip_filename
                 self.filesize = self.gzip_filesize
                 etag = self.gzip_etag
             else:
@@ -492,20 +492,21 @@ class ShareModeWeb(SendBaseModeWeb):
                 self.download_etag = make_etag(f)
 
             # Compress the file with gzip now, so we don't have to do it on each request
-            self.gzip_file = tempfile.NamedTemporaryFile(
-                "wb+", dir=self.common.build_tmp_dir()
+            self.gzip_tmp_dir = tempfile.TemporaryDirectory(
+                dir=self.common.build_tmp_dir()
             )
+            self.gzip_filename = os.path.join(self.gzip_tmp_dir.name, "file.gz")
             self._gzip_compress(
-                self.download_filename, self.gzip_file.name, 6, processed_size_callback
+                self.download_filename, self.gzip_filename, 6, processed_size_callback
             )
-            self.gzip_filesize = os.path.getsize(self.gzip_file.name)
-            with open(self.gzip_file.name, "rb") as f:
+            self.gzip_filesize = os.path.getsize(self.gzip_filename)
+            with open(self.gzip_filename, "rb") as f:
                 self.gzip_etag = make_etag(f)
 
             self.is_zipped = False
 
             # Cleanup this tempfile
-            self.web.cleanup_tempfiles.append(self.gzip_file)
+            self.web.cleanup_tempdirs.append(self.gzip_tmp_dir)
 
         else:
             # Zip up the files and folders

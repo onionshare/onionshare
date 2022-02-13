@@ -2,7 +2,7 @@
 """
 OnionShare | https://onionshare.org/
 
-Copyright (C) 2014-2021 Micah Lee, et al. <micah@micahflee.com>
+Copyright (C) 2014-2022 Micah Lee, et al. <micah@micahflee.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -55,12 +55,8 @@ class ModeSettings:
                 "disable_text": False,
                 "disable_files": False,
             },
-            "website": {
-                "disable_csp": False,
-                "custom_csp": None,
-                "filenames": []
-            },
-            "chat": {"room": "default"},
+            "website": {"disable_csp": False, "custom_csp": None, "filenames": []},
+            "chat": {},
         }
         self._settings = {}
 

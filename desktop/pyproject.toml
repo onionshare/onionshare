@@ -1,41 +1,27 @@
-[tool.briefcase]
-project_name = "OnionShare"
-bundle = "org.onionshare"
-version = "2.4"
-url = "https://onionshare.org"
-license = "GPLv3"
-author = 'Micah Lee'
-author_email = "micah@micahflee.com"
+[tool.poetry]
+name = "onionshare"
+version = "2.5"
+description = "OnionShare lets you securely and anonymously send and receive files. It works by starting a web server, making it accessible as a Tor onion service, and generating an unguessable web address so others can download files from you, or upload files to you. It does _not_ require setting up a separate server or using a third party file-sharing service."
+authors = ["Micah Lee <micah@micahflee.com>"]
+license = "GPLv3+"
 
-[tool.briefcase.app.onionshare]
-formal_name = "OnionShare"
-description = "Securely and anonymously share files, host websites, and chat with friends using the Tor network"
-icon = "src/onionshare/resources/onionshare"
-sources = ['src/onionshare']
-requires = [
-    "./onionshare_cli-2.4-py3-none-any.whl",
-    "pyside2==5.15.1",
-    "qrcode"
-]
+[tool.poetry.dependencies]
+python = ">=3.6,<3.10"
+onionshare_cli = {path = "../cli", develop = true}
+PySide2 = "5.15.2"
+qrcode = "*"
+cx_freeze = "*"
 
-[tool.briefcase.app.onionshare.macOS]
-requires = []
+[tool.poetry.dev-dependencies]
+black = "*"
+pytest = "*"
+pytest-faulthandler = "*"
+pytest-qt = "*"
 
-[tool.briefcase.app.onionshare.linux]
-requires = []
-system_requires = [
-    "tor",
-    "obfs4proxy",
-    "gcc",
-    "python3-dev",
-]
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
 
-[tool.briefcase.app.onionshare.windows]
-requires = ["pywin32"]
-
-# Mobile deployments
-[tool.briefcase.app.onionshare.iOS]
-requires = []
-
-[tool.briefcase.app.onionshare.android]
-requires = []
+[tool.poetry.scripts]
+onionshare = 'onionshare:main'
+onionshare-cli = 'onionshare_cli:main'
