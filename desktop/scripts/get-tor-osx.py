@@ -3,7 +3,7 @@
 """
 OnionShare | https://onionshare.org/
 
-Copyright (C) 2014-2021 Micah Lee, et al. <micah@micahflee.com>
+Copyright (C) 2014-2022 Micah Lee, et al. <micah@micahflee.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -32,12 +32,14 @@ import shutil
 import subprocess
 import requests
 
+from bridges import UpdateTorBridges
+
 
 def main():
-    dmg_url = "https://dist.torproject.org/torbrowser/11.0a10/TorBrowser-11.0a10-osx64_en-US.dmg"
-    dmg_filename = "TorBrowser-11.0a10-osx64_en-US.dmg"
+    dmg_url = "https://dist.torproject.org/torbrowser/11.0.4/TorBrowser-11.0.4-osx64_en-US.dmg"
+    dmg_filename = "TorBrowser-11.0.4-osx64_en-US.dmg"
     expected_dmg_sha256 = (
-        "c6823a28fd28205437564815f93011ff93b7972da2a8ce16919adfc65909e7b9"
+        "309a67c8a82ae266756d7cf5ea00e94d9242e59d55eaff97dcd6201da3c8449c"
     )
 
     # Build paths
@@ -49,7 +51,7 @@ def main():
         "/Volumes", "Tor Browser", "Tor Browser.app", "Contents"
     )
     dmg_path = os.path.join(working_path, dmg_filename)
-    dist_path = os.path.join(root_path, "src", "onionshare", "resources", "tor")
+    dist_path = os.path.join(root_path, "onionshare", "resources", "tor")
     if not os.path.exists(dist_path):
         os.makedirs(dist_path, exist_ok=True)
 
@@ -112,6 +114,9 @@ def main():
 
     # Eject dmg
     subprocess.call(["diskutil", "eject", "/Volumes/Tor Browser"])
+
+    # Fetch the built-in bridges
+    UpdateTorBridges(root_path)
 
 
 if __name__ == "__main__":

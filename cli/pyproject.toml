@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "onionshare_cli"
-version = "2.4"
+version = "2.5"
 description = "OnionShare lets you securely and anonymously send and receive files. It works by starting a web server, making it accessible as a Tor onion service, and generating an unguessable web address so others can download files from you, or upload files to you. It does _not_ require setting up a separate server or using a third party file-sharing service."
 authors = ["Micah Lee <micah@micahflee.com>"]
 license = "GPLv3+"
@@ -27,8 +27,9 @@ unidecode = "*"
 urllib3 = "*"
 eventlet = "*"
 setuptools = "*"
-pynacl = "^1.4.0"
+pynacl = "*"
 colorama = "*"
+gevent-websocket = "*"
 cepa = "1.8.3"
 
 [tool.poetry.dev-dependencies]

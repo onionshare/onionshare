@@ -3,7 +3,7 @@
 """
 OnionShare | https://onionshare.org/
 
-Copyright (C) 2014-2021 Micah Lee, et al. <micah@micahflee.com>
+Copyright (C) 2014-2022 Micah Lee, et al. <micah@micahflee.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -31,13 +31,14 @@ import hashlib
 import shutil
 import subprocess
 import requests
+from bridges import UpdateTorBridges
 
 
 def main():
-    tarball_url = "https://dist.torproject.org/torbrowser/11.0a10/tor-browser-linux64-11.0a10_en-US.tar.xz"
-    tarball_filename = "tor-browser-linux64-11.0a10_en-US.tar.xz"
+    tarball_url = "https://dist.torproject.org/torbrowser/11.0.4/tor-browser-linux64-11.0.4_en-US.tar.xz"
+    tarball_filename = "tor-browser-linux64-11.0.4_en-US.tar.xz"
     expected_tarball_sha256 = (
-        "5d3e2ebc4fb6a10f44624359bc2a5a151a57e8402cbd8563d15f9b2524374f1f"
+        "05a5fd6d633ca84c33bbd3e2f8ffca2d2fa2105032a430b07d3c0cf062d9e15f"
     )
 
     # Build paths
@@ -46,7 +47,7 @@ def main():
     )
     working_path = os.path.join(root_path, "build", "tor")
     tarball_path = os.path.join(working_path, tarball_filename)
-    dist_path = os.path.join(root_path, "src", "onionshare", "resources", "tor")
+    dist_path = os.path.join(root_path, "onionshare", "resources", "tor")
 
     # Make sure dirs exist
     if not os.path.exists(working_path):
@@ -125,6 +126,9 @@ def main():
     os.chmod(os.path.join(dist_path, "snowflake-client"), 0o755)
 
     print(f"Tor binaries extracted to: {dist_path}")
+
+    # Fetch the built-in bridges
+    UpdateTorBridges(root_path)
 
 
 if __name__ == "__main__":

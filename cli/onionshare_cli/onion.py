@@ -2,7 +2,7 @@
 """
 OnionShare | https://onionshare.org/
 
-Copyright (C) 2014-2021 Micah Lee, et al. <micah@micahflee.com>
+Copyright (C) 2014-2022 Micah Lee, et al. <micah@micahflee.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -413,6 +413,10 @@ class Onion(object):
             # Wait for the tor controller to start
             self.common.log("Onion", "connect", f"tor pid: {self.tor_proc.pid}")
             time.sleep(2)
+
+            return_code = self.tor_proc.poll()
+            if return_code != None:
+                self.common.log("Onion", "connect", f"tor process has terminated early: {return_code}")
 
             # Connect to the controller
             self.common.log("Onion", "connect", "authenticating to tor controller")
