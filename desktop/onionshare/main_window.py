@@ -36,6 +36,8 @@ class MainWindow(QtWidgets.QMainWindow):
     MainWindow is the OnionShare main window, which contains the GUI elements, including all open tabs
     """
 
+    window_resized = QtCore.Signal()
+
     def __init__(self, common, filenames):
         super(MainWindow, self).__init__()
 
@@ -140,7 +142,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.status_bar.addPermanentWidget(self.settings_button)
 
         # Tabs
-        self.tabs = TabWidget(self.common, self.system_tray, self.status_bar)
+        self.tabs = TabWidget(self.common, self.system_tray, self.status_bar, self)
         self.tabs.bring_to_front.connect(self.bring_to_front)
 
         # If we have saved persistent tabs, try opening those
@@ -335,3 +337,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         # Wait 1 second for threads to close gracefully, so tests finally pass
         time.sleep(1)
+
+    def resizeEvent(self, event):
+        self.window_resized.emit()
+        return super(MainWindow, self).resizeEvent(event)
