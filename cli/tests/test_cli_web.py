@@ -308,17 +308,13 @@ class TestWeb:
     def test_cleanup(self, common_obj, temp_dir_1024):
         web = web_obj(temp_dir_1024, common_obj, "share", 3)
 
-        temp_file = tempfile.NamedTemporaryFile()
         temp_dir = tempfile.TemporaryDirectory()
 
-        web.cleanup_tempfiles = [temp_file]
         web.cleanup_tempdirs = [temp_dir]
         web.cleanup()
 
-        assert os.path.exists(temp_file.name) is False
         assert os.path.exists(temp_dir.name) is False
 
-        assert web.cleanup_tempfiles == []
         assert web.cleanup_tempdirs == []
 
 

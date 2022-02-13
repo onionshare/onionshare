@@ -171,7 +171,6 @@ class Web:
             self.socketio.init_app(self.app)
             self.chat_mode = ChatModeWeb(self.common, self)
 
-        self.cleanup_tempfiles = []
         self.cleanup_tempdirs = []
 
     def get_mode(self):
@@ -405,13 +404,8 @@ class Web:
         """
         self.common.log("Web", "cleanup")
 
-        # Close all of the tempfile.NamedTemporaryFile
-        for file in self.cleanup_tempfiles:
-            file.close()
-
         # Clean up the tempfile.NamedTemporaryDirectory objects
         for dir in self.cleanup_tempdirs:
             dir.cleanup()
 
-        self.cleanup_tempfiles = []
         self.cleanup_tempdirs = []
