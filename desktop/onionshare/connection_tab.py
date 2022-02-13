@@ -391,7 +391,6 @@ class AnimStars(Anim):
     def move(self):
         self.x = self.window.width() - self.w
         self.y = 0
-
         # Stars don't move until 10%, then move down
         if self.percent >= 10:
             self.y += self.percent * 6.6
@@ -428,7 +427,7 @@ class AnimSmoke(Anim):
         # Smoke moves up until 50%, then moves down
         self.y -= self.percent * 6.6
         if self.percent >= 50:
-            self.y += self.percent * 6.6
+            self.y += self.percent * 6.7
 
 
 class AutoConnectFirstLaunchWidget(QtWidgets.QWidget):
