@@ -1,0 +1,109 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) Micah Lee, et al.
+# This file is distributed under the same license as the OnionShare package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OnionShare 2.5\n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
+"POT-Creation-Date: 2022-01-17 10:28-0800\n"
+"PO-Revision-Date: 2022-02-20 14:56+0000\n"
+"Last-Translator: Moses Ngeth <moses.ch@gmail.com>\n"
+"Language-Team: none\n"
+"Language: km\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.11-dev\n"
+
+#: ../../source/security.rst:2
+msgid "Security Design"
+msgstr "ការរចនាសម្ព័ន្ធសុវត្ថិភាព"
+
+#: ../../source/security.rst:4
+msgid "Read :ref:`how_it_works` first to get a handle on how OnionShare works."
+msgstr ""
+"អាន :ref:`how_it_works` ជាមុនសិន ដើម្បីស្វែងយល់ពីរបៀបដែល OnionShare ដំណើរការ។"
+
+#: ../../source/security.rst:6
+msgid "Like all software, OnionShare may contain bugs or vulnerabilities."
+msgstr "ដូចកម្មវិធីផ្សេងៗទៀតដែរ OnionShare អាចមានកំហុស ឬភាពងាយរងគ្រោះ។"
+
+#: ../../source/security.rst:9
+msgid "What OnionShare protects against"
+msgstr "អ្វីដែលគម្រោង OnionShare ការពារប្រឆាំងជាមួយ"
+
+#: ../../source/security.rst:11
+msgid "**Third parties don't have access to anything that happens in OnionShare.** Using OnionShare means hosting services directly on your computer. When sharing files with OnionShare, they are not uploaded to any server. If you make an OnionShare chat room, your computer acts as a server for that too. This avoids the traditional model of having to trust the computers of others."
+msgstr ""
+"**ភាគីទីបីមិនអាចចូលប្រើអ្វីដែលដំណើរការនៅក្នុង OnionShare បានទេ។** "
+"ការប្រើប្រាស់ OnionShare "
+"មានន័យថាការផ្តល់សេវាបង្ហោះដោយផ្ទាល់នៅលើកុំព្យូទ័ររបស់អ្នក។ "
+"នៅពេលចែករំលែកឯកសារជាមួយ OnionShare "
+"ឯកសារទាំងនោះមិនត្រូវបានផ្ទុកឡើងទៅម៉ាស៊ីនមេណាមួយឡើយ។ "
+"ប្រសិនបើអ្នកបង្កើតបន្ទប់ឈែត OnionShare "
+"កុំព្យូទ័ររបស់អ្នកដើរតួជាម៉ាស៊ីនមេសម្រាប់វាផងដែរ។ "
+"នេះជៀសវាងទម្រង់ជំនាន់មុនដែលទុកចិត្តលើកុំព្យូទ័ររបស់អ្នកដទៃ។"
+
+#: ../../source/security.rst:13
+msgid "**Network eavesdroppers can't spy on anything that happens in OnionShare in transit.** The connection between the Tor onion service and Tor Browser is end-to-end encrypted. This means network attackers can't eavesdrop on anything except encrypted Tor traffic. Even if an eavesdropper is a malicious rendezvous node used to connect the Tor Browser with OnionShare's onion service, the traffic is encrypted using the onion service's private key."
+msgstr ""
+"**អ្នកលួចស្តាប់លើបណ្តាញមិនអាចឈ្លបយកការណ៍លើអ្វីដែលដំណើរការនៅក្នុង OnionShare "
+"ក្នុងពេលសារឆ្លងកាត់នោះទេ។** ការតភ្ជាប់រវាងសេវាកម្ម Tor onion និង Tor Browser "
+"ត្រូវបានអ៊ិនគ្រីបទាំងសងខាង។មានន័យថា "
+"អ្នកវាយប្រហារលើបណ្តាញមិនអាចលួចស្តាប់អ្វីទាំងអស់ លើកលែងតែចរាចរ Tor "
+"ដែលបានអ៊ិនគ្រីប។ "
+"ទោះបីជាអ្នកលួចស្តាប់គឺជាចំណុចណាត់ជួបមានហានិភ័យដែលប្រើដើម្បីភ្ជាប់កម្មវិធី "
+"Tor Browser ជាមួយសេវាកម្មonionរបស់ OnionShare ក៏ដោយ "
+"ចរាចរណ៍ទិន្នន័យត្រូវបានអ៊ិនគ្រីបដោយប្រើកូនសោសម្ងាត់របស់សេវាកម្មonion។"
+
+#: ../../source/security.rst:15
+msgid "**Anonymity of OnionShare users are protected by Tor.** OnionShare and Tor Browser protect the anonymity of the users. As long as the OnionShare user anonymously communicates the OnionShare address with the Tor Browser users, the Tor Browser users and eavesdroppers can't learn the identity of the OnionShare user."
+msgstr ""
+"**អនាមិកភាពនៃអ្នកប្រើប្រាស់ OnionShare ត្រូវបានការពារដោយ Tor.** OnionShare និ"
+"ង Tor Browser ការពារភាពអនាមិករបស់អ្នកប្រើប្រាស់។ ដរាបណាអ្នកប្រើប្រាស់ "
+"OnionShare អនាមិក ទំនាក់ទំនងអាសយដ្ឋាន OnionShare ជាមួយអ្នកប្រើប្រាស់ Tor "
+"Browser អ្នកប្រើប្រាស់ Tor Browser "
+"និងអ្នកលួចស្តាប់មិនអាចរៀនអត្តសញ្ញាណរបស់អ្នកប្រើ OnionShare បានទេ។"
+
+#: ../../source/security.rst:17
+msgid "**If an attacker learns about the onion service, it still can't access anything.** Prior attacks against the Tor network to enumerate onion services allowed the attacker to discover private ``.onion`` addresses. If an attack discovers a private OnionShare address, they will also need to guess the private key used for client authentication in order to access it (unless the OnionShare user chooses make their service public by turning off the private key -- see :ref:`turn_off_private_key`)."
+msgstr ""
+"**ប្រសិនបើអ្នកវាយប្រហាររៀនអំពីសេវាកម្មonion ពួគេនៅតែមិនអាចចូលប្រើអ្វីបានទេ។**"
+" ការវាយប្រហារទុកមុនប្រឆាំងនឹងបណ្តាញ Tor "
+"ដើម្បីទាញយកសេវាកម្មonionដែលបានអនុញ្ញាតឱ្យអ្នកវាយប្រហារស្វែងរកអាសយដ្ឋាន ``."
+"onion`` ឯកជន។ ប្រសិនបើការវាយប្រហាររកឃើញអាសយដ្ឋាន OnionShare ឯកជន "
+"ពួកគេក៏នឹងត្រូវទាយកូនសោសម្ងាត់ដែលប្រើសម្រាប់ការផ្ទៀងផ្ទាត់អ្នកប្រើប្រាស់ "
+"ដើម្បីចូលប្រើវា (លុះត្រាតែអ្នកប្រើប្រាស់ OnionShare "
+"ជ្រើសរើសធ្វើឱ្យសេវាកម្មរបស់ពួកគេជាសាធារណៈដោយការបិទកូនសោសម្ងាត់ -- សូមមើល : "
+"ref:` turn_off_private_key`) ។"
+
+#: ../../source/security.rst:20
+msgid "What OnionShare doesn't protect against"
+msgstr "អ្វីដែល OnionShare មិនការពារ"
+
+#: ../../source/security.rst:22
+msgid "**Communicating the OnionShare address and private key might not be secure.** Communicating the OnionShare address to people is the responsibility of the OnionShare user. If sent insecurely (such as through an email message monitored by an attacker), an eavesdropper can tell that OnionShare is being used. If the eavesdropper loads the address in Tor Browser while the service is still up, they can access it. To avoid this, the address must be communicated securely, via encrypted text message (probably with disappearing messages enabled), encrypted email, or in person. This isn't necessary when using OnionShare for something that isn't secret."
+msgstr ""
+"**ការប្រាស្រ័យទាក់ទងអាសយដ្ឋាន OnionShare "
+"និងកូនសោសម្ងាត់ប្រហែលជាមិនមានសុវត្ថិភាព.** ការទំនាក់ទំនងទៅកាន់អាសយដ្ឋាន "
+"OnionShare ទៅកាន់មនុស្សគឺជាការទទួលខុសត្រូវរបស់អ្នកប្រើប្រាស់ OnionShare ។ "
+"បើសិនការផ្ញើ គ្មានសុវត្ថិភាព (ដូចជាតាម "
+"រយៈសារអ៉ីមែលដែលបានលួចតាមដានដោយអ្នកវាយប្រហារ) អ្នកលួចស្តាប់អាចដឹងថា "
+"OnionShare កំពុងត្រូវបានប្រើប្រាស់ ។ ប្រសិនបើ អ្នកលួចស្តាប់ ផ្ទុកឡើង "
+"អាសយដ្ឋាននៅក្នុង Tor Browser ខណៈពេលដែលសេវានៅតែមានដំណើរការ "
+"ពួកគេអាចចូលប្រើវាបាន។ ដើម្បីជៀសវាងបញ្ហានេះ "
+"អាសយដ្ឋានត្រូវទាក់ទងដោយសុវត្ថិភាពតាមរយៈសារអ៉ីមែលដែលបានអ៊ិនគ្រីប "
+"(ប្រហែលជាមួយនឹងការបើកមុខងារលុបសារ) ឬដោយបុគ្គល។ "
+"នេះមិនមែនជាការចាំបាច់ទេនៅពេលប្រើ OnionShare សម្រាប់អ្វីដែលមិនមែនជាការសម្ងាត់។"
+
+#: ../../source/security.rst:24
+msgid "**Communicating the OnionShare address and private key might not be anonymous.** Extra precautions must be taken to ensure the OnionShare address is communicated anonymously. A new email or chat account, only accessed over Tor, can be used to share the address. This isn't necessary unless anonymity is a goal."
+msgstr ""
+"**ការប្រាស្រ័យទាក់ទងជាមួយអាសយដ្ឋាន OnionShare "
+"និងកូនសោសម្ងាត់អាចមិនបញ្ចេញអត្តសញ្ញាណ។** ការប្រុងប្រយ័ត្នបន្ថែមត្រូវតែធ្វើ "
+"ដើម្បីធានាថាអាសយដ្ឋាន OnionShare ត្រូវបានទាក់ទងដោយអនាមិក។ អ៉ីមែល ឬគណនីឈែតថ្មី"
+" ដែលចូលប្រើបានតែលើ Tor ប៉ុណ្ណោះ អាចត្រូវបានប្រើដើម្បីចែករំលែកអាសយដ្ឋាន។ "
+"វាមិនចាំបាច់ទេ លុះត្រាតែការប្រើប្រាស់របស់យើងមានគោលបំណងជាអនាមិក។"
