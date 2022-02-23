@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-01-17 10:28-0800\n"
-"PO-Revision-Date: 2021-10-09 09:04+0000\n"
+"PO-Revision-Date: 2022-01-31 12:53+0000\n"
 "Last-Translator: Zuhualime Akoochimoya <zakooch@protonmail.ch>\n"
-"Language: es\n"
 "Language-Team: none\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.11-dev\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: ../../source/features.rst:4
@@ -424,16 +425,12 @@ msgstr ""
 "la página web."
 
 #: ../../source/features.rst:121
-#, fuzzy
 msgid ""
 "If you want to load content from third-party websites, like assets or "
 "JavaScript libraries from CDNs, you have two options:"
 msgstr ""
-"Si quieres cargar contenido desde sitios web de terceros, como recursoss "
-"o bibliotecas JavaScript desde CDNs, entonces debes marcar la casilla "
-"\"Deshabilitar el encabezado de Política de Seguridad de Contenido "
-"(permite a tu sitio web usar recursos de terceros)\" antes de iniciar el "
-"servicio."
+"Si quieres cargar contenido desde sitios web de terceros, como bibliotecas "
+"JavaScript o recursos desde CDNs, tienes dos opciones:"
 
 #: ../../source/features.rst:123
 msgid ""
@@ -441,10 +438,16 @@ msgid ""
 "\"Don't send Content Security Policy header (allows your website to use "
 "third-party resources)\" box before starting the service."
 msgstr ""
+"Puedes deshabilitar el envío de un encabezado de Política de Seguridad de "
+"Contenido marcando la casilla \"No enviar encabezado de Política de "
+"Seguridad de Contenido (le permite a tu sitio web usar recursos de terceros)"
+"\" antes de iniciar el servicio."
 
 #: ../../source/features.rst:124
 msgid "You can send a custom Content Security Policy header."
 msgstr ""
+"Puedes enviar un encabezado personalizado de Política de Seguridad de "
+"Contenido."
 
 #: ../../source/features.rst:127
 msgid "Tips for running a website service"
@@ -957,4 +960,3 @@ msgstr ""
 #~ "OnionShare no almacenan ningún mensaje "
 #~ "en ningún lugar, por lo que el "
 #~ "problema se reduce al mínimo."
-
