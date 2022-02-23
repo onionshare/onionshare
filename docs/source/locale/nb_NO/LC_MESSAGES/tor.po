@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-01-17 10:28-0800\n"
-"PO-Revision-Date: 2021-01-10 16:32+0000\n"
+"PO-Revision-Date: 2022-02-14 08:55+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
-"Language: nb_NO\n"
 "Language-Team: none\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
+"Language: nb_NO\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.11-dev\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: ../../source/tor.rst:2
@@ -33,7 +34,7 @@ msgstr ""
 
 #: ../../source/tor.rst:9
 msgid "Use the Tor version built into OnionShare"
-msgstr ""
+msgstr "Bruk den innebygde Tor-versjonen fra OnionShare"
 
 #: ../../source/tor.rst:11
 msgid ""
@@ -58,7 +59,7 @@ msgstr ""
 
 #: ../../source/tor.rst:18
 msgid "Getting Around Censorship"
-msgstr ""
+msgstr "Omgåelse av sensur"
 
 #: ../../source/tor.rst:20
 #, fuzzy
@@ -74,30 +75,42 @@ msgstr ""
 " klarer å koble til uten, trenger du ikke å bruke en bro."
 
 #: ../../source/tor.rst:22
+#, fuzzy
 msgid ""
 "To use a bridge, open the Tor Settings tab. You must select \"Use the Tor"
 " version built into OnionShare\" and check the \"Use a bridge\" checkbox."
 msgstr ""
+"For å bruke en bro må du åpne Tor-innstillingsfanen. Velg «Bruk den "
+"innebygde Tor-versjonen fra OnionShare» og huk av i «Bruk en bro»-boksen."
 
 #: ../../source/tor.rst:25
+#, fuzzy
 msgid ""
 "Try using a built-in bridge first. Using `obfs4` or `snowflake` bridges "
 "is recommended over using `meek-azure`."
 msgstr ""
+"Prøv å bruke en innebygd bro først. `obfs4` eller `snowflake`-broer "
+"anbefales framfor bruk av`meek-azure`."
 
 #: ../../source/tor.rst:29
+#, fuzzy
 msgid ""
 "If using a built-in bridge doesn't work, you can request a bridge from "
 "torproject.org. You will have to solve a CAPTCHA in order to request a "
 "bridge. (This makes it more difficult for governments or ISPs to block "
 "access to Tor bridges.)"
 msgstr ""
+"Hvis det ikke fungerer å bruke en innebygd bro, kan du forespørre en bro fra "
+"torproject.org. Du vil måtte løse CAPTCHA-en for å forespørre en bro. (Dette "
+"gjør det vanskeligere for myndigheter og ISP-er å blokkere tilgang til Tor-"
+"broer.)"
 
 #: ../../source/tor.rst:33
+#, fuzzy
 msgid ""
 "You also have the option of using a bridge that you learned about from a "
 "trusted source."
-msgstr ""
+msgstr "Du kan også bruke en bro du har lært om fra en tiltrodd kilde."
 
 #: ../../source/tor.rst:36
 msgid "Attempt auto-configuration with Tor Browser"
@@ -136,11 +149,10 @@ msgid ""
 " and copy the extracted folder to ``C:\\Program Files (x86)\\`` Rename "
 "the extracted folder with ``Data`` and ``Tor`` in it to ``tor-win32``."
 msgstr ""
-"Last ned ekspertknippet for Tor på Windows `fra "
-"<https://www.torproject.org/download/tor/>`_. Pakk ut de komprimerte "
-"filene og kopier det utpakkede innholdet til ``C:\\Programfiler (x86)\\``"
-" Gi den utpakkede mappen det nye navnet ``Data`` og ``Tor`` inne i den "
-"til ``tor-win32``."
+"Last ned ekspertknippet for Tor på Windows `fra <https://www.torproject.org/"
+"download/tor/>`_. Pakk ut de komprimerte filene og kopier det utpakkede "
+"innholdet til ``C:\\Programfiler (x86)\\`` Gi den den utpakkede mappen med "
+"``Data`` og ``Tor`` i den den nye navnet ``tor-win32``."
 
 #: ../../source/tor.rst:50
 msgid ""
@@ -543,4 +555,3 @@ msgstr ""
 #~ " sin `BridgeDB <https://bridges.torproject.org/>`_. "
 #~ "Hvis du må bruke en bro, prøv "
 #~ "de innebygde obfs4-baserte broene først."
-

@@ -1,0 +1,229 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) Micah Lee, et al.
+# This file is distributed under the same license as the OnionShare package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OnionShare 2.5\n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
+"POT-Creation-Date: 2022-01-17 10:28-0800\n"
+"PO-Revision-Date: 2022-02-23 08:57+0000\n"
+"Last-Translator: Rasy Chum <rasychum@gmail.com>\n"
+"Language-Team: none\n"
+"Language: km\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.11-dev\n"
+
+#: ../../source/tor.rst:2
+msgid "Connecting to Tor"
+msgstr "កំពុងភ្ជាប់ទៅ Tor"
+
+#: ../../source/tor.rst:4
+msgid "Pick a way to connect OnionShare to Tor by clicking the Tor onion icon in the bottom right of the OnionShare window to open the Tor Settings tab."
+msgstr ""
+"ជ្រើសរើសវិធីដើម្បីភ្ជាប់ OnionShare ទៅ Tor ដោយចុចលើរូបតំណាង Tor onion "
+"នៅខាងស្តាំផ្នែកខាងក្រោមនៃ window OnionShare ដើម្បីបើកផ្ទាំងការកំណត់ Tor។"
+
+#: ../../source/tor.rst:9
+msgid "Use the Tor version built into OnionShare"
+msgstr "ប្រើកម្មវិធី Tor ដែលបានដំឡើងរួចក្នុង OnionShare"
+
+#: ../../source/tor.rst:11
+msgid "This is the default, simplest and most reliable way that OnionShare connects to Tor. For this reason, it's recommended for most users."
+msgstr ""
+"នេះគឺជាលំនាំដើម សាមញ្ញបំផុត និងគួរឱ្យទុកចិត្តបំផុតដែល OnionShare ភ្ជាប់ទៅ "
+"Tor ។ ហេតុផលនេះហើយដែលវាត្រូវបានណែនាំសម្រាប់អ្នកប្រើប្រាស់ភាគច្រើន។"
+
+#: ../../source/tor.rst:14
+msgid "When you open OnionShare, it launches an already configured ``tor`` process in the background for OnionShare to use. It doesn't interfere with other ``tor`` processes on your computer, so you can use the Tor Browser or the system ``tor`` on their own."
+msgstr ""
+"នៅពេលអ្នកបើក OnionShare វាចាប់ផ្តើមដំណើរការ ``tor`` "
+"ដែលបានកំណត់រចនាសម្ព័ន្ធរួចហើយនៅខាងក្នុងកម្មវិធីសម្រាប់ OnionShare "
+"ដើម្បីប្រើប្រាស់។ វាមិនជ្រៀតជ្រែកជាមួយដំណើរការ ``tor`` "
+"ផ្សេងទៀតនៅលើកុំព្យូទ័ររបស់អ្នកទេ ដូច្នេះអ្នកអាចប្រើកម្មវិធីរុករក Tor ឬប្រព័ន្"
+"ធ ``tor`` ដោយខ្លួនឯង។"
+
+#: ../../source/tor.rst:18
+msgid "Getting Around Censorship"
+msgstr "ដំណោះស្រាយជុំវិញការរឹតត្បិត"
+
+#: ../../source/tor.rst:20
+msgid "If your access to the internet is censored, you can configure OnionShare to connect to the Tor network using `Tor bridges <https://tb-manual.torproject.org/bridges/>`_. If OnionShare connects to Tor without one, you don't need to use a bridge."
+msgstr ""
+"ប្រសិនបើការចូលប្រើអ៊ីនធឺណិតរបស់អ្នកត្រូវបានរឹតត្បិត "
+"នោះអ្នកអាចកំណត់រចនាសម្ព័ន្ធ OnionShare ដើម្បីភ្ជាប់ទៅបណ្តាញ Tor ដោយប្រើ `Tor "
+"Bridges <https://tb-manual.torproject.org/bridges/>`_ ។ ប្រសិនបើ OnionShare "
+"ភ្ជាប់ទៅ Tor ដោយគ្មាន bridge អ្នកមិនចាំបាច់ប្រើ bridge ទេ។"
+
+#: ../../source/tor.rst:22
+msgid "To use a bridge, open the Tor Settings tab. You must select \"Use the Tor version built into OnionShare\" and check the \"Use a bridge\" checkbox."
+msgstr ""
+"ដើម្បីប្រើ bridge សូមបើកផ្ទាំងការកំណត់ Tor ។ អ្នកត្រូវតែជ្រើសរើស \"ប"
+"្រើកម្មវិធី Tor ដែលបានដំឡើងរួចនៅក្នុង OnionShare\" ហើយធីកប្រអប់ធីក \"ប្រើ "
+"bridge\" ។"
+
+#: ../../source/tor.rst:25
+msgid "Try using a built-in bridge first. Using `obfs4` or `snowflake` bridges is recommended over using `meek-azure`."
+msgstr ""
+"សាកល្បងប្រើ bridge ដែលបានដំឡើងរួចជាមុនសិន។ ការប្រើប្រាស់ bridge 'obfs4' ឬ "
+"'snowflake' ត្រូវបានណែនាំឱ្យប្រើ 'meek-azure' ។"
+
+#: ../../source/tor.rst:29
+msgid "If using a built-in bridge doesn't work, you can request a bridge from torproject.org. You will have to solve a CAPTCHA in order to request a bridge. (This makes it more difficult for governments or ISPs to block access to Tor bridges.)"
+msgstr ""
+"ប្រសិនបើការប្រើប្រាស់ bridge ដែលភ្ជាប់មកជាមួយមិនដំណើរការ អ្នកអាចស្នើសុំ "
+"bridge ពី torproject.org ។ អ្នកនឹងត្រូវដោះស្រាយ CAPTCHA ដើម្បីស្នើសុំ bridge។"
+" (នេះធ្វើឱ្យវាកាន់តែលំបាកសម្រាប់រដ្ឋាភិបាល ឬ ISP "
+"ក្នុងការរាំងខ្ទប់ការចូលទៅកាន់ Tor Bridges ។ )"
+
+#: ../../source/tor.rst:33
+msgid "You also have the option of using a bridge that you learned about from a trusted source."
+msgstr "អ្នកក៏មានជម្រើសក្នុងការប្រើ bridge ដែលអ្នកបានរៀនពីប្រភពដែលទុកចិត្ត។"
+
+#: ../../source/tor.rst:36
+msgid "Attempt auto-configuration with Tor Browser"
+msgstr "ព្យាយាមកំណត់រចនាសម្ព័ន្ធដោយស្វ័យប្រវត្តិជាមួយកម្មវិធីរុករក Tor"
+
+#: ../../source/tor.rst:38
+msgid "If you have `downloaded the Tor Browser <https://www.torproject.org>`_ and don't want two ``tor`` processes running, you can use the ``tor`` process from the Tor Browser. Keep in mind you need to keep Tor Browser open in the background while you're using OnionShare for this to work."
+msgstr ""
+"ប្រសិនបើអ្នកបានទាញយកកម្មវិធីរុករក Tor <https://www.torproject.org>`_ "
+"ហើយមិនចង់ឱ្យដំណើរការ ``tor`` ពីរដំណាលគ្នា អ្នកអាចប្រើដំណើរការ ``tor`` "
+"ពីកម្មវិធីរុករ Tor។ សូមចងចាំថា អ្នកត្រូវរបើកកម្មវិធីរុករក Tor ខាងក្នុង "
+"ខណៈដែលអ្នកកំពុងប្រើ OnionShare ដើម្បីឱ្យវាដំណើរការ។"
+
+#: ../../source/tor.rst:42
+msgid "Using a system ``tor`` in Windows"
+msgstr "ការប្រើប្រាស់ប្រព័ន្ធ ''tor'' នៅក្នុង Windows"
+
+#: ../../source/tor.rst:44
+msgid "This is fairly advanced. You'll need to know how edit plaintext files and do stuff as an administrator."
+msgstr ""
+"នេះគឺកម្រិតខ្ពស់គួរសម។ អ្នកនឹងត្រូវដឹងពីរបៀបកែសម្រួលឯកសារអត្ថបទធម្មតា "
+"និងធ្វើអ្វីៗក្នុងនាមជាអ្នកគ្រប់គ្រង។"
+
+#: ../../source/tor.rst:46
+msgid "Download the Tor Windows Expert Bundle `from <https://www.torproject.org/download/tor/>`_. Extract the compressed file and copy the extracted folder to ``C:\\Program Files (x86)\\`` Rename the extracted folder with ``Data`` and ``Tor`` in it to ``tor-win32``."
+msgstr ""
+"ទាញយក Tor Windows Expert Bundle `ពី <https://www.torproject.org/download/tor/"
+">`_ ។ ពន្លាឯកសារដែលបានបង្ហាប់ ហើយចម្លងថតឯកសារដែលបានស្រង់ចេញទៅកាន់ ``C:"
+"\\Program Files (x86)\\`` ប្តូរឈ្មោះថតឯកសារដែលបានស្រង់ចេញជាមួយ ``Data`` និង "
+"``Tor`` នៅក្នុងវាទៅជា ``tor-win32`` ។"
+
+#: ../../source/tor.rst:50
+msgid "Make up a control port password. (Using 7 words in a sequence like ``comprised stumble rummage work avenging construct volatile`` is a good idea for a password.) Now open a command prompt (``cmd``) as an administrator, and use ``tor.exe --hash-password`` to generate a hash of your password. For example::"
+msgstr ""
+"បង្កើតពាក្យសម្ងាត់ច្រកត្រួតពិនិត្យ។ (ការប្រើ 7 ពាក្យក្នុងលំដាប់មួយដូចជា ``"
+"comprised stumble rummage work avenging construct volatile`` "
+"គឺជាគំនិតដ៏ល្អសម្រាប់ពាក្យសម្ងាត់។) ឥឡូវបើកcommand prompt (``cmd``) ជា "
+"administrator ហើយប្រើ ``tor.exe --hash-password`` ដើម្បីបង្កើត hash "
+"នៃពាក្យសម្ងាត់របស់អ្នក។ ឧទាហរណ៍::"
+
+#: ../../source/tor.rst:57
+msgid "The hashed password output is displayed after some warnings (which you can ignore). In the case of the above example, it is ``16:00322E903D96DE986058BB9ABDA91E010D7A863768635AC38E213FDBEF``."
+msgstr ""
+"លទ្ធផល ​hashed password ដែល​ត្រូវ​បាន​​ប្រើ "
+"​ត្រូវ​បាន​បង្ហាញ​បន្ទាប់​ពី​ការ​ព្រមាន​មួយ​ចំនួន (ដែល​អ្នក​អាច​មិន​អើពើបាន)។"
+" ក្នុងករណីឧទាហរណ៍ខាងលើ វាគឺ "
+"``16:00322E903D96DE986058BB9ABDA91E010D7A863768635AC38E213FDBEF``។"
+
+#: ../../source/tor.rst:59
+msgid "Now create a new text file at ``C:\\Program Files (x86)\\tor-win32\\torrc`` and put your hashed password output in it, replacing the ``HashedControlPassword`` with the one you just generated::"
+msgstr ""
+"ឥឡូវបង្កើតឯកសារថ្មីមួយនៅ ``C:\\Program Files (x86)\\tor-win32\\torrc`` "
+"ហើយដាក់លទ្ធផល hashed password របស់អ្នកនៅក្នុងវា ដោយជំនួស "
+"``HashedControlPassword`` ជាមួយនឹងឯកសារដែលអ្នកទើបតែបង្កើត::"
+
+#: ../../source/tor.rst:64
+msgid "In your administrator command prompt, install ``tor`` as a service using the appropriate ``torrc`` file you just created (as described in `<https://2019.www.torproject.org/docs/faq.html.en#NTService>`_). Like this::"
+msgstr ""
+"នៅក្នុងប្រអប់បញ្ចូលពាក្យបញ្ជារបស់អ្នកគ្រប់គ្រង សូមដំឡើង ``tor`` "
+"ជាសេវាកម្មដោយប្រើឯកសារ ``torrc`` ដែលអ្នកទើបតែបង្កើត (ដូចដែលបានរៀបរាប់នៅក្នុង "
+"`<https://2019.www.torproject.org/docs/faq.html .en#NTService>`_). ដូចនេះ::"
+
+#: ../../source/tor.rst:68
+msgid "You are now running a system ``tor`` process in Windows!"
+msgstr "ឥឡូវនេះ អ្នកកំពុងដំណើរការប្រព័ន្ធ `tor`` នៅក្នុង Windows!"
+
+#: ../../source/tor.rst:70
+msgid "Open OnionShare and click the \"⚙\" icon in it. Under \"How should OnionShare connect to Tor?\" choose \"Connect using control port\", and set \"Control port\" to ``127.0.0.1`` and \"Port\" to ``9051``. Under \"Tor authentication settings\" choose \"Password\" and set the password to the control port password you picked above. Click the \"Test Connection to Tor\" button. If all goes well, you should see \"Connected to the Tor controller\"."
+msgstr ""
+"បើក OnionShare ហើយចុចលើរូបតំណាង \"⚙\" នៅខាងក្នុង។ នៅខាងក្រោម \"តើ OnionShare "
+"គួរភ្ជាប់ទៅ Tor យ៉ាងដូចម្តេច?\" សូមជ្រើសរើស \"ភ្ជាប់ដោយប្រើច្រកត្រួតពិនិត្យ\""
+" ហើយកំណត់ \"ច្រកត្រួតពិនិត្យ\" ទៅ ``127.0.0.1`` និង \"ច្រក\" ទៅ ``9051``។ "
+"នៅខាងក្រោម \"យថាភូតកម្ម Tor\" សូមជ្រើសរើស \"ពាក្យសម្ងាត់\" "
+"ហើយកំណត់ពាក្យសម្ងាត់ទៅច្រកត្រួតពិនិត្យពាក្យសម្ងាត់ដែលអ្នកបានជ្រើសរើសខាងលើ។ "
+"ចុចប៊ូតុង \"សាកល្បងការតភ្ជាប់ទៅ Tor\" ។ ប្រសិនបើអ្វីៗដំណើរការល្អ "
+"អ្នកគួរតែឃើញពាក្យ \"បានភ្ជាប់ទៅកន្លែងបញ្ជា Tor\"។"
+
+#: ../../source/tor.rst:79
+msgid "Using a system ``tor`` in macOS"
+msgstr "ការប្រើប្រាស់ប្រព័ន្ធ ``tor`` នៅក្នុង macOS"
+
+#: ../../source/tor.rst:81
+msgid "First, install `Homebrew <https://brew.sh/>`_ if you don't already have it, and then install Tor::"
+msgstr ""
+"ជាដំបូង សូមដំឡើង `Homebrew <https://brew.sh/>`_ "
+"ប្រសិនបើអ្នកមិនទាន់បានដំឡើងវាទេ ហើយបន្ទាប់មកដំឡើង Tor::"
+
+#: ../../source/tor.rst:85
+msgid "Now configure Tor to allow connections from OnionShare::"
+msgstr ""
+"ឥឡូវនេះ កំណត់រចនាសម្ព័ន្ធ Tor ដើម្បីអនុញ្ញាតឱ្យមានការតភ្ជាប់ពី OnionShare::"
+
+#: ../../source/tor.rst:92
+msgid "And start the system Tor service::"
+msgstr "ហើយចាប់ផ្តើមប្រព័ន្ធសេវាកម្ម Tor::"
+
+#: ../../source/tor.rst:96
+msgid "Open OnionShare and click the \"⚙\" icon in it. Under \"How should OnionShare connect to Tor?\" choose \"Connect using socket file\", and set the socket file to be ``/usr/local/var/run/tor/control.socket``. Under \"Tor authentication settings\" choose \"No authentication, or cookie authentication\". Click the \"Test Connection to Tor\" button."
+msgstr ""
+"បើក OnionShare ហើយចុចលើរូបតំណាង \"⚙\" នៅខាងក្នុង។ នៅក្រោម \"តើ OnionShare "
+"គួរភ្ជាប់ទៅ Tor យ៉ាងដូចម្តេច?\" សូមជ្រើសរើស \"ភ្ជាប់ដោយប្រើ socket file\" "
+"ហើយកំណត់ socket file ទៅជា ``/usr/local/var/run/tor/control.socket``។ នៅក្រោម "
+"\"យថាភូតកម្ម Tor\" សូមជ្រើសរើស \"មិនយកយថាភូតកម្ម ឬ ខូឃីយថាភូតកម្ម\"។ ចុចប៊ូតុ"
+"ង \"សាកល្បងការតភ្ជាប់ទៅ Tor\"។"
+
+#: ../../source/tor.rst:102
+#: ../../source/tor.rst:122
+msgid "If all goes well, you should see \"Connected to the Tor controller\"."
+msgstr ""
+"ប្រសិនបើអ្វីៗដំណើរការល្អ អ្នកគួរតែឃើញពាក្យ \"បានភ្ជាប់ទៅកន្លែងបញ្ជា Tor\"។"
+
+#: ../../source/tor.rst:105
+msgid "Using a system ``tor`` in Linux"
+msgstr "ការប្រើប្រាស់ប្រព័ន្ធ ''tor'' នៅក្នុង Linux"
+
+#: ../../source/tor.rst:107
+msgid "First, install the ``tor`` package. If you're using Debian, Ubuntu, or a similar Linux distro, It is recommended to use the Tor Project's `official repository <https://support.torproject.org/apt/tor-deb-repo/>`_."
+msgstr ""
+"ជាដំបូង ដំឡើងកញ្ចប់ ''tor''។ ប្រសិនបើអ្នកកំពុងប្រើប្រាស់ Debian, Ubuntu ឬ "
+"Linux distro ស្រដៀងគ្នា វាត្រូវបានណែនាំឱ្យប្រើគម្រោង Tor 'កន្លែងផ្លូវការ "
+"<https://support.torproject.org/apt/tor-deb-repo/>'_។"
+
+#: ../../source/tor.rst:109
+msgid "Next, add your user to the group that runs the ``tor`` process (in the case of Debian and Ubuntu, ``debian-tor``) and configure OnionShare to connect to your system ``tor``'s control socket file."
+msgstr ""
+"បន្ទាប់មក បញ្ចូលអ្នកប្រើប្រាស់របស់អ្នកទៅក្រុមដែលដំណើរ ``tor`` (ក្នុងករណី "
+"Debian និង Ubuntu, ``debian-tor``) ហើយកំណត់រចនាសម្ព័ន្ធ OnionShare "
+"ដើម្បីភ្ជាប់ទៅប្រព័ន្ធគ្រប់គ្រង ``tor`` socket file របស់អ្នក។"
+
+#: ../../source/tor.rst:111
+msgid "Add your user to the ``debian-tor`` group by running this command (replace ``username`` with your actual username)::"
+msgstr ""
+"បញ្ចូលអ្នកប្រើប្រាស់របស់អ្នកទៅក្រុម ``debian-tor`` ដោយដំណើរការពាក្យបញ្ជានេះ "
+"(ជំនួស ``username`` ជាមួយនឹងឈ្មោះអ្នកប្រើប្រាស់ពិតប្រាកដរបស់អ្នក)::"
+
+#: ../../source/tor.rst:115
+msgid "Reboot your computer. After it boots up again, open OnionShare and click the \"⚙\" icon in it. Under \"How should OnionShare connect to Tor?\" choose \"Connect using socket file\". Set the socket file to be ``/var/run/tor/control``. Under \"Tor authentication settings\" choose \"No authentication, or cookie authentication\". Click the \"Test Connection to Tor\" button."
+msgstr ""
+"ចាប់ផ្ដើមកុំព្យូទ័ររបស់អ្នកឡើងវិញ។ បន្ទាប់ពីវាចាប់ផ្តើមម្តងទៀត សូមបើក "
+"OnionShare ហើយចុចលើរូបតំណាង \"⚙\" នៅខាងក្នុង។ នៅខាងក្រោម \"តើ OnionShare "
+"គួរភ្ជាប់ទៅ Tor យ៉ាងដូចម្តេច?\" ជ្រើសរើស \"ភ្ជាប់ដោយប្រើ socket file\"។ កំណត់"
+" socket file ទៅជា ``/var/run/tor/control``។ នៅខាងក្រោម \"យថាភូតកម្ម Tor\" "
+"ជ្រើសរើស \"មិនយកយថាភូតកម្ម ឬ ខូឃីយថាភូតកម្ម\"។ ចុចប៊ូតុង \"ស"
+"ាកល្បងការតភ្ជាប់ទៅ Tor\"។"

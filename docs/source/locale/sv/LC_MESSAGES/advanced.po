@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2020-11-15 14:42-0800\n"
-"PO-Revision-Date: 2021-09-19 15:37+0000\n"
-"Last-Translator: Michael Breidenbach <leahc@tutanota.com>\n"
+"PO-Revision-Date: 2022-01-22 09:32+0000\n"
+"Last-Translator: Åke Engelbrektson <eson@svenskasprakfiler.se>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.9-dev\n"
+"X-Generator: Weblate 4.11-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/advanced.rst:2
@@ -58,18 +58,21 @@ msgid ""
 "opened. You'll have to manually start each service, but when you do they "
 "will start with the same OnionShare address and password."
 msgstr ""
+"När du avslutar OnionShare och sedan öppnar det igen öppnas dina sparade "
+"flikar. Du måste starta varje tjänst manuellt, men när du gör det startar de "
+"med samma OnionShare-adress och lösenord."
 
 #: ../../source/advanced.rst:21
 msgid ""
 "If you save a tab, a copy of that tab's onion service secret key will be "
 "stored on your computer with your OnionShare settings."
 msgstr ""
-"Om du sparar en flik sparas en kopia av flikens hemliga nyckel för lök-"
+"Om du sparar en flik sparas en kopia av flikens hemliga nyckel för onion-"
 "tjänsten på din dator tillsammans med dina OnionShare-inställningar."
 
 #: ../../source/advanced.rst:26
 msgid "Turn Off Passwords"
-msgstr ""
+msgstr "Stäng av lösenord"
 
 #: ../../source/advanced.rst:28
 msgid ""
@@ -78,6 +81,10 @@ msgid ""
 "guesses at the password, your onion service is automatically stopped to "
 "prevent a brute force attack against the OnionShare service."
 msgstr ""
+"Som standard skyddas alla OnionShare-tjänster med användarnamnet "
+"''onionshare'' och ett slumpmässigt genererat lösenord. Om någon gissar "
+"felaktigt 20 ggr på lösenordet, stoppas din onion-tjänst automatiskt för att "
+"förhindra en brute force-attack mot OnionShare-tjänsten."
 
 #: ../../source/advanced.rst:31
 msgid ""
@@ -88,6 +95,12 @@ msgid ""
 "force your server to stop just by making 20 wrong guesses of your password, "
 "even if they know the correct password."
 msgstr ""
+"Ibland kanske du vill att din OnionShare-tjänst ska vara tillgänglig för "
+"allmänheten, till exempel om du vill skapa en OnionShare-mottagningstjänst "
+"så att allmänheten säkert och anonymt kan skicka filer till dig. I det här "
+"fallet är det bättre att inaktivera lösenordet helt och hållet. Om du inte "
+"gör detta kan någon tvinga din server att sluta bara genom att göra 20 "
+"felaktiga gissningar av ditt lösenord, även om de känner till rätt lösenord."
 
 #: ../../source/advanced.rst:35
 msgid ""
@@ -95,6 +108,9 @@ msgid ""
 "\" box before starting the server. Then the server will be public and won't "
 "have a password."
 msgstr ""
+"Om du vill stänga av lösenordet för en flik markerar du bara rutan \"Använd "
+"inte ett lösenord\" innan du startar servern. Då kommer servern att vara "
+"offentlig och kommer inte att ha något lösenord."
 
 #: ../../source/advanced.rst:38
 msgid "Scheduled Times"
@@ -111,8 +127,8 @@ msgstr ""
 "OnionShare stöder schemaläggning av exakt när en tjänst ska starta och "
 "sluta. Innan du startar en server klickar du på \"Visa avancerade "
 "inställningar\" på dess flik och kryssar sedan i rutorna bredvid antingen "
-"\"Starta lök-tjänst vid schemalagd tid\", \"Stoppa lök-tjänst vid schemalagd "
-"tid\" eller båda, och ställer in önskade datum och tider."
+"\"Starta onion-tjänst vid schemalagd tid\", \"Stoppa onion-tjänst vid "
+"schemalagd tid\" eller båda, och ställer in önskade datum och tider."
 
 #: ../../source/advanced.rst:43
 msgid ""
@@ -144,6 +160,10 @@ msgid ""
 "limit exposure**, like if you want to share secret documents while making "
 "sure they're not available on the Internet for more than a few days."
 msgstr ""
+"**Att schemalägga en OnionShare-tjänst till att stoppa automatiskt kan vara "
+"användbart för att begränsa exponering**, som om du vill dela hemliga "
+"dokument samtidigt som du ser till att de inte är tillgängliga på Internet i "
+"mer än några dagar."
 
 #: ../../source/advanced.rst:56
 msgid "Command-line Interface"
@@ -197,25 +217,31 @@ msgstr ""
 
 #: ../../source/advanced.rst:132
 msgid "Legacy Addresses"
-msgstr ""
+msgstr "Äldre adresser"
 
 #: ../../source/advanced.rst:134
 msgid ""
 "OnionShare uses v3 Tor onion services by default. These are modern onion "
 "addresses that have 56 characters, for example::"
 msgstr ""
+"OnionShare använder v3 Tor onion-tjänster som standard. Det här är moderna "
+"onion-adresser som har 56 tecken, till exempel::"
 
 #: ../../source/advanced.rst:139
 msgid ""
 "OnionShare still has support for v2 onion addresses, the old type of onion "
 "addresses that have 16 characters, for example::"
 msgstr ""
+"OnionShare har fortfarande stöd för v2-onion-adresser, den gamla typen av "
+"onion-adresser som har 16 tecken, till exempel::"
 
 #: ../../source/advanced.rst:143
 msgid ""
 "OnionShare calls v2 onion addresses \"legacy addresses\", and they are not "
 "recommended, as v3 onion addresses are more secure."
 msgstr ""
+"OnionShare anropar v2-onion-adresser \"äldre adresser\", och de "
+"rekommenderas inte, eftersom v3-onion-adresser är säkrare."
 
 #: ../../source/advanced.rst:145
 msgid ""
@@ -226,6 +252,12 @@ msgid ""
 "remove legacy mode in that tab. Instead you must start a separate service in "
 "a separate tab."
 msgstr ""
+"Om du vill använda äldre adresser klickar du på \"Visa avancerade "
+"inställningar\" från fliken innan du startar en server och markerar rutan "
+"\"Använd en äldre adress (v2-onion-tjänst, rekommenderas inte)\". I äldre "
+"läge kan du eventuellt aktivera Tor-klientautentisering. När du startar en "
+"server i äldre läge kan du inte ta bort äldre läge på den fliken. I stället "
+"måste du starta en separat tjänst på en separat flik."
 
 #: ../../source/advanced.rst:150
 msgid ""
@@ -233,3 +265,6 @@ msgid ""
 "torproject.org/v2-deprecation-timeline>`_ on October 15, 2021, and legacy "
 "onion services will be removed from OnionShare before then."
 msgstr ""
+"Tor Project planerar att \"helt avskriva v2-onion-tjänster <https://blog."
+"torproject.org/v2-deprecation-timeline>\"_ den 15 oktober 2021, och äldre "
+"onion-tjänster kommer att tas bort från OnionShare innan dess."
