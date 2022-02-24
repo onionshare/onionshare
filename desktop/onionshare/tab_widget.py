@@ -26,8 +26,6 @@ from . import strings
 from .tab import Tab
 from .threads import EventHandlerThread
 from .gui_common import GuiCommon
-from .tor_settings_tab import TorSettingsTab
-from .settings_tab import SettingsTab
 from .settings_parent_tab import SettingsParentTab
 from .connection_tab import AutoConnectTab
 
@@ -228,7 +226,7 @@ class TabWidget(QtWidgets.QTabWidget):
         index = self.addTab(connection_tab, strings._("gui_autoconnect_start"))
         self.setCurrentIndex(index)
 
-    def open_settings_tab(self, from_autoconnect=False, active_tab='tor'):
+    def open_settings_tab(self, from_autoconnect=False, active_tab='general'):
         self.common.log("TabWidget", "open_settings_tab")
 
         # See if a settings tab is already open, and if so switch to it
@@ -237,7 +235,13 @@ class TabWidget(QtWidgets.QTabWidget):
                 self.setCurrentIndex(self.indexOf(self.tabs[tab_id]))
                 return
 
-        settings_tab = SettingsParentTab(self.common, self.current_tab_id,active_tab=active_tab, parent=self, from_autoconnect=from_autoconnect)
+        settings_tab = SettingsParentTab(
+            self.common,
+            self.current_tab_id,
+            active_tab=active_tab,
+            parent=self,
+            from_autoconnect=from_autoconnect
+        )
         settings_tab.close_this_tab.connect(self.close_settings_tab)
         self.tor_settings_tab = settings_tab.tor_settings_tab
         self.tor_settings_tab.tor_is_connected.connect(self.tor_is_connected)

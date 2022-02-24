@@ -20,7 +20,7 @@ class SettingsParentTab(QtWidgets.QTabWidget):
     bring_to_front = QtCore.Signal()
     close_this_tab = QtCore.Signal()
 
-    def __init__(self, common, tab_id, parent=None, active_tab='tor', from_autoconnect=False):
+    def __init__(self, common, tab_id, parent=None, active_tab='general', from_autoconnect=False):
         super(SettingsParentTab, self).__init__()
         self.parent = parent
         self.common = common
@@ -29,38 +29,35 @@ class SettingsParentTab(QtWidgets.QTabWidget):
         # Keep track of tabs in a dictionary that maps tab_id to tab.
         # Each tab has a unique, auto-incremented id (tab_id). This is different than the
         # tab's index, which changes as tabs are re-arranged.
-        # self.tabs = {}
+        self.tabs = {
+            'general': 0,
+            'tor': 1,
+        }
         self.tab_id = tab_id
-        # self.current_tab_id = 0  # Each tab has a unique id
-        # self.tor_settings_tab = None
+        self.current_tab_id = self.tabs[active_tab]
 
         # Use a custom tab bar
         tab_bar = TabBar()
         self.setTabBar(tab_bar)
-        settings_tab = SettingsTab(self.common, 0, parent=self)
+        settings_tab = SettingsTab(self.common, self.tabs['general'], parent=self)
         self.tor_settings_tab = TorSettingsTab(
             self.common,
-            1,
+            self.tabs['tor'],
             self.parent.are_tabs_active(),
             self.parent.status_bar,
             parent=self,
             from_autoconnect=from_autoconnect,
         )
+        self.addTab(settings_tab, strings._("gui_general_settings_window_title"))
         self.addTab(
             self.tor_settings_tab, strings._("gui_tor_settings_window_title")
         )
-        self.addTab(settings_tab, strings._("gui_settings_window_title"))
 
         # Set up the tab widget
         self.setMovable(False)
         self.setTabsClosable(False)
         self.setUsesScrollButtons(False)
-        # self.setDocumentMode(True)
-        # self.setStyleSheet(self.common.gui.css["tab_widget"])
-
-        # self.tabCloseRequested.connect(self.close_tab)
-
-        # self.move_new_tab_button()
+        self.setCurrentIndex(self.current_tab_id)
 
 class TabBar(QtWidgets.QTabBar):
     """
