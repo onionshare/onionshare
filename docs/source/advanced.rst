@@ -18,7 +18,7 @@ A purple pin icon appears to the left of its server status to tell you the tab i
 When opening OnionShare, your saved tabs from the prior session will start opened.
 Each service then can be started manually, and will be available on the same OnionShare address and be protected by the same private key.
 
-If you save a tab, a copy of its onion service secret key is stored on your computer with your OnionShare settings.
+If you save a tab, a copy of its onion service secret key is stored on your computer.
 
 .. _turn_off_private_key:
 
@@ -29,7 +29,7 @@ By default, all OnionShare services are protected with a private key, which Tor 
 
 When browsing to an OnionShare service in Tor Browser, Tor Browser will prompt for the private key to be entered.
 
-You can make a OnionShare service accessible to the public. Set up an OnionShare receive service so the public can securely and anonymously send you files.
+You can allow the public to send you files by setting up an OnionShare receive service.
 In this case, it's better to disable the private key altogether.
 
 To turn off the private key for any tab, check the "This is a public OnionShare service (disables private key)" box before starting the server.
