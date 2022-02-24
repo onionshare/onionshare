@@ -253,7 +253,12 @@ class MainWindow(QtWidgets.QMainWindow):
         Open the SettingsTab
         """
         self.common.log("MainWindow", "open_settings")
-        self.tabs.open_settings_tab()
+        from_autoconnect = False
+        for tab_id in self.tabs.tabs:
+            if type(self.tabs.tabs[tab_id]) is AutoConnectTab:
+                from_autoconnect = True
+                break
+        self.tabs.open_settings_tab(from_autoconnect)
 
     def settings_have_changed(self):
         self.common.log("OnionShareGui", "settings_have_changed")

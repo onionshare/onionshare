@@ -28,6 +28,7 @@ from .threads import EventHandlerThread
 from .gui_common import GuiCommon
 from .tor_settings_tab import TorSettingsTab
 from .settings_tab import SettingsTab
+from .settings_parent_tab import SettingsParentTab
 from .connection_tab import AutoConnectTab
 
 
@@ -98,6 +99,7 @@ class TabWidget(QtWidgets.QTabWidget):
         for tab_id in self.tabs:
             if not (
                 type(self.tabs[tab_id]) is SettingsTab
+                or type(self.tabs[tab_id]) is SettingsParentTab
                 or type(self.tabs[tab_id]) is TorSettingsTab
                 or type(self.tabs[tab_id]) is AutoConnectTab
             ):
@@ -139,6 +141,7 @@ class TabWidget(QtWidgets.QTabWidget):
         # If it's Settings or Tor Settings, ignore
         if (
             type(self.tabs[tab_id]) is SettingsTab
+            or type(self.tabs[tab_id]) is SettingsParentTab
             or type(self.tabs[tab_id]) is TorSettingsTab
             or type(self.tabs[tab_id]) is AutoConnectTab
         ):
@@ -238,7 +241,7 @@ class TabWidget(QtWidgets.QTabWidget):
                 self.setCurrentIndex(self.indexOf(self.tabs[tab_id]))
                 return
 
-        settings_tab = SettingsTab(self.common, self.current_tab_id)
+        settings_tab = SettingsParentTab(self.common, self.current_tab_id, parent=self)
         settings_tab.close_this_tab.connect(self.close_settings_tab)
         self.tabs[self.current_tab_id] = settings_tab
         self.current_tab_id += 1
@@ -315,6 +318,7 @@ class TabWidget(QtWidgets.QTabWidget):
         for tab_id in self.tabs:
             if not (
                 type(self.tabs[tab_id]) is SettingsTab
+                or type(self.tabs[tab_id]) is SettingsParentTab
                 or type(self.tabs[tab_id]) is TorSettingsTab
                 or type(self.tabs[tab_id]) is AutoConnectTab
             ):
@@ -333,6 +337,7 @@ class TabWidget(QtWidgets.QTabWidget):
 
         if (
             type(self.tabs[tab_id]) is SettingsTab
+            or type(self.tabs[tab_id]) is SettingsParentTab
             or type(self.tabs[tab_id]) is TorSettingsTab
             or type(self.tabs[tab_id]) is AutoConnectTab
         ):
@@ -425,6 +430,7 @@ class TabWidget(QtWidgets.QTabWidget):
         for tab_id in self.tabs:
             if not (
                 type(self.tabs[tab_id]) is SettingsTab
+                or type(self.tabs[tab_id]) is SettingsParentTab
                 or type(self.tabs[tab_id]) is TorSettingsTab
                 or type(self.tabs[tab_id]) is AutoConnectTab
             ):
