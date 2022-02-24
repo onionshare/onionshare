@@ -37,7 +37,7 @@ class SettingsParentTab(QtWidgets.QTabWidget):
         self.current_tab_id = self.tabs[active_tab]
 
         # Use a custom tab bar
-        tab_bar = TabBar()
+        tab_bar = TabBar(self.common)
         self.setTabBar(tab_bar)
         settings_tab = SettingsTab(self.common, self.tabs['general'], parent=self)
         self.tor_settings_tab = TorSettingsTab(
@@ -66,5 +66,7 @@ class TabBar(QtWidgets.QTabBar):
 
     move_new_tab_button = QtCore.Signal()
 
-    def __init__(self):
+    def __init__(self, common):
         super(TabBar, self).__init__()
+        self.setStyleSheet(common.gui.css['settings_subtab_bar'])
+
