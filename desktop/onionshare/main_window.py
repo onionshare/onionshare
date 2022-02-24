@@ -246,7 +246,7 @@ class MainWindow(QtWidgets.QMainWindow):
             if type(self.tabs.tabs[tab_id]) is AutoConnectTab:
                 from_autoconnect = True
                 break
-        self.tabs.open_tor_settings_tab(from_autoconnect)
+        self.tabs.open_settings_tab(from_autoconnect)
 
     def open_settings(self):
         """
