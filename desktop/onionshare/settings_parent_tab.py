@@ -37,13 +37,14 @@ class SettingsParentTab(QtWidgets.QTabWidget):
         # Use a custom tab bar
         tab_bar = TabBar()
         self.setTabBar(tab_bar)
-        settings_tab = SettingsTab(self.common, 0)
+        settings_tab = SettingsTab(self.common, 0, parent=self)
         self.tor_settings_tab = TorSettingsTab(
             self.common,
             1,
             self.parent.are_tabs_active(),
             self.parent.status_bar,
-            from_autoconnect,
+            parent=self,
+            from_autoconnect=from_autoconnect,
         )
         self.addTab(
             self.tor_settings_tab, strings._("gui_tor_settings_window_title")
