@@ -38,7 +38,7 @@ class SettingsParentTab(QtWidgets.QTabWidget):
         tab_bar = TabBar()
         self.setTabBar(tab_bar)
         settings_tab = SettingsTab(self.common, 0)
-        tor_settings_tab = TorSettingsTab(
+        self.tor_settings_tab = TorSettingsTab(
             self.common,
             1,
             self.parent.are_tabs_active(),
@@ -46,7 +46,7 @@ class SettingsParentTab(QtWidgets.QTabWidget):
             from_autoconnect,
         )
         self.addTab(
-            tor_settings_tab, strings._("gui_tor_settings_window_title")
+            self.tor_settings_tab, strings._("gui_tor_settings_window_title")
         )
         self.addTab(settings_tab, strings._("gui_settings_window_title"))
 
