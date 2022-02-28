@@ -222,13 +222,13 @@ class MainWindow(QtWidgets.QMainWindow):
         """
         Open the TorSettingsTab
         """
-        self._open_settings(active_tab='tor')
+        self._open_settings(active_tab="tor")
 
     def open_settings(self):
         """
         Open the general SettingsTab
         """
-        self._open_settings(active_tab='general')
+        self._open_settings(active_tab="general")
 
     def _open_settings(self, active_tab):
         self.common.log("MainWindow", f"open settings with active tab: {active_tab}")

@@ -43,7 +43,13 @@ class TorSettingsTab(QtWidgets.QWidget):
     tor_is_disconnected = QtCore.Signal()
 
     def __init__(
-        self, common, tab_id, are_tabs_active, status_bar, from_autoconnect=False, parent=None
+        self,
+        common,
+        tab_id,
+        are_tabs_active,
+        status_bar,
+        from_autoconnect=False,
+        parent=None,
     ):
         super(TorSettingsTab, self).__init__()
 

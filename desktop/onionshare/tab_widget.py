@@ -226,7 +226,7 @@ class TabWidget(QtWidgets.QTabWidget):
         index = self.addTab(connection_tab, strings._("gui_autoconnect_start"))
         self.setCurrentIndex(index)
 
-    def open_settings_tab(self, from_autoconnect=False, active_tab='general'):
+    def open_settings_tab(self, from_autoconnect=False, active_tab="general"):
         self.common.log("TabWidget", "open_settings_tab")
 
         # See if a settings tab is already open, and if so switch to it
@@ -240,7 +240,7 @@ class TabWidget(QtWidgets.QTabWidget):
             self.current_tab_id,
             active_tab=active_tab,
             parent=self,
-            from_autoconnect=from_autoconnect
+            from_autoconnect=from_autoconnect,
         )
         settings_tab.close_this_tab.connect(self.close_settings_tab)
         self.tor_settings_tab = settings_tab.tor_settings_tab
