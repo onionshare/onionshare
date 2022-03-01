@@ -31,6 +31,7 @@ pynacl = "*"
 colorama = "*"
 gevent-websocket = "*"
 cepa = "1.8.3"
+markupsafe = "<2.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "*"
