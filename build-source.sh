@@ -65,7 +65,7 @@ git checkout $TAG
 # Delete .git, compress, and PGP sign
 cd ..
 rm -rf onionshare/.git
-tar -cf onionshare-$VERSION.tar.gz onionshare/
+tar -czf onionshare-$VERSION.tar.gz onionshare/
 
 # Move source package to dist
 cd ../..
