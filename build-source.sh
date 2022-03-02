@@ -36,7 +36,7 @@ fi
 mkdir -p build/source
 mkdir -p dist
 cd build/source
-git clone https://github.com/onionshare/onionshare.git
+git clone --single-branch --branch $TAG --depth 1 https://github.com/onionshare/onionshare.git
 cd onionshare
 
 # Verify tag
