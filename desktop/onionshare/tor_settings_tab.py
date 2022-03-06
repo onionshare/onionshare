@@ -43,7 +43,13 @@ class TorSettingsTab(QtWidgets.QWidget):
     tor_is_disconnected = QtCore.Signal()
 
     def __init__(
-        self, common, tab_id, are_tabs_active, status_bar, from_autoconnect=False
+        self,
+        common,
+        tab_id,
+        are_tabs_active,
+        status_bar,
+        from_autoconnect=False,
+        parent=None,
     ):
         super(TorSettingsTab, self).__init__()
 
@@ -55,6 +61,7 @@ class TorSettingsTab(QtWidgets.QWidget):
 
         self.system = platform.system()
         self.tab_id = tab_id
+        self.parent = parent
         self.from_autoconnect = from_autoconnect
 
         # Connection type: either automatic, control port, or socket file
@@ -746,9 +753,9 @@ class TorSettingsTab(QtWidgets.QWidget):
                     self.tor_con.show()
                     self.tor_con.start(settings)
                 else:
-                    self.close_this_tab.emit()
+                    self.parent.close_this_tab.emit()
             else:
-                self.close_this_tab.emit()
+                self.parent.close_this_tab.emit()
 
     def tor_con_success(self):
         """
@@ -779,7 +786,7 @@ class TorSettingsTab(QtWidgets.QWidget):
                 # Tell the tabs that Tor is connected
                 self.tor_is_connected.emit()
                 # Close the tab
-                self.close_this_tab.emit()
+                self.parent.close_this_tab.emit()
 
         self.tor_con_type = None
 

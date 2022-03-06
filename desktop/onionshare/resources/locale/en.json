@@ -60,6 +60,7 @@
     "gui_autoconnect_circumventing_censorship_got_bridges": "Got bridges! Trying to reconnect to Tor",
     "gui_autoconnect_could_not_connect_to_tor_api": "Could not connect to the Tor API. Make sure you are connected to the internet before trying again.",
     "gui_settings_window_title": "Settings",
+    "gui_general_settings_window_title": "General",
     "gui_settings_autoupdate_label": "Check for new version",
     "gui_settings_autoupdate_option": "Notify me when a new version is available",
     "gui_settings_autoupdate_timestamp": "Last checked: {}",
