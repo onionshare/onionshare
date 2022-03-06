@@ -23,10 +23,10 @@ import time
 from PySide2 import QtCore, QtWidgets, QtGui
 
 from . import strings
-from .tor_connection import TorConnectionDialog
 from .widgets import Alert
-from .update_checker import UpdateThread
+from .connection_tab import AutoConnectTab
 from .tab_widget import TabWidget
+from .settings_tab import SettingsTab
 from .gui_common import GuiCommon
 from .threads import OnionCleanupThread
 
@@ -35,6 +35,8 @@ class MainWindow(QtWidgets.QMainWindow):
     """
     MainWindow is the OnionShare main window, which contains the GUI elements, including all open tabs
     """
+
+    window_resized = QtCore.Signal()
 
     def __init__(self, common, filenames):
         super(MainWindow, self).__init__()
@@ -53,7 +55,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.settings_action = menu.addAction(strings._("gui_settings_window_title"))
         self.settings_action.triggered.connect(self.open_settings)
         self.help_action = menu.addAction(strings._("gui_settings_button_help"))
-        self.help_action.triggered.connect(lambda: SettingsDialog.help_clicked(self))
+        self.help_action.triggered.connect(lambda: SettingsTab.open_help())
         exit_action = menu.addAction(strings._("systray_menu_exit"))
         exit_action.triggered.connect(self.close)
 
@@ -106,24 +108,6 @@ class MainWindow(QtWidgets.QMainWindow):
         )
         self.status_bar.addPermanentWidget(self.status_bar.server_status_indicator)
 
-        # Tor settings button
-        self.tor_settings_button = QtWidgets.QPushButton()
-        self.tor_settings_button.setDefault(False)
-        self.tor_settings_button.setFixedSize(40, 50)
-        self.tor_settings_button.setIcon(
-            QtGui.QIcon(
-                GuiCommon.get_resource_path(
-                    "images/{}_tor_settings.png".format(self.common.gui.color_mode)
-                )
-            )
-        )
-        self.tor_settings_button.clicked.connect(self.open_tor_settings)
-        self.tor_settings_button.setStyleSheet(self.common.gui.css["settings_button"])
-        self.status_bar.addPermanentWidget(self.tor_settings_button)
-
-        if os.environ.get("ONIONSHARE_HIDE_TOR_SETTINGS") == "1":
-            self.tor_settings_button.hide()
-
         # Settings button
         self.settings_button = QtWidgets.QPushButton()
         self.settings_button.setDefault(False)
@@ -140,13 +124,16 @@ class MainWindow(QtWidgets.QMainWindow):
         self.status_bar.addPermanentWidget(self.settings_button)
 
         # Tabs
-        self.tabs = TabWidget(self.common, self.system_tray, self.status_bar)
+        self.tabs = TabWidget(self.common, self.system_tray, self.status_bar, self)
         self.tabs.bring_to_front.connect(self.bring_to_front)
 
         # If we have saved persistent tabs, try opening those
         if len(self.common.settings.get("persistent_tabs")) > 0:
             for mode_settings_id in self.common.settings.get("persistent_tabs"):
                 self.tabs.load_tab(mode_settings_id)
+            # If not connected to tor in beginning, show autoconnect tab
+            if not self.common.gui.onion.connected_to_tor:
+                self.tabs.new_tab_clicked()
         else:
             # Start with opening the first tab
             self.tabs.new_tab_clicked()
@@ -159,18 +146,6 @@ class MainWindow(QtWidgets.QMainWindow):
         central_widget.setLayout(layout)
         self.setCentralWidget(central_widget)
         self.show()
-
-        # Start the "Connecting to Tor" dialog, which calls onion.connect()
-        tor_con = TorConnectionDialog(self.common)
-        tor_con.canceled.connect(self.tor_connection_canceled)
-        tor_con.success.connect(self.tabs.tor_is_connected)
-        tor_con.open_tor_settings.connect(self.tor_connection_open_tor_settings)
-        if not self.common.gui.local_only:
-            tor_con.start()
-            self.settings_have_changed()
-
-        # After connecting to Tor, check for updates
-        self.check_for_updates()
 
         # Create the close warning dialog -- the dialog widget needs to be in the constructor
         # in order to test it
@@ -185,6 +160,9 @@ class MainWindow(QtWidgets.QMainWindow):
             strings._("gui_quit_warning_cancel"), QtWidgets.QMessageBox.NoRole
         )
         self.close_dialog.setDefaultButton(self.close_dialog.reject_button)
+
+        # Check for autoconnect
+        self.tabs.check_autoconnect_tab()
 
     def tor_connection_canceled(self):
         """
@@ -246,15 +224,22 @@ class MainWindow(QtWidgets.QMainWindow):
         """
         Open the TorSettingsTab
         """
-        self.common.log("MainWindow", "open_tor_settings")
-        self.tabs.open_tor_settings_tab()
+        self._open_settings(active_tab="tor")
 
     def open_settings(self):
         """
-        Open the SettingsTab
+        Open the general SettingsTab
         """
-        self.common.log("MainWindow", "open_settings")
-        self.tabs.open_settings_tab()
+        self._open_settings(active_tab="general")
+
+    def _open_settings(self, active_tab):
+        self.common.log("MainWindow", f"open settings with active tab: {active_tab}")
+        from_autoconnect = False
+        for tab_id in self.tabs.tabs:
+            if type(self.tabs.tabs[tab_id]) is AutoConnectTab:
+                from_autoconnect = True
+                break
+        self.tabs.open_settings_tab(from_autoconnect, active_tab=active_tab)
 
     def settings_have_changed(self):
         self.common.log("OnionShareGui", "settings_have_changed")
@@ -266,25 +251,6 @@ class MainWindow(QtWidgets.QMainWindow):
         for index in range(self.tabs.count()):
             tab = self.tabs.widget(index)
             tab.settings_have_changed()
-
-    def check_for_updates(self):
-        """
-        Check for updates in a new thread, if enabled.
-        """
-        if self.common.platform == "Windows" or self.common.platform == "Darwin":
-            if self.common.settings.get("use_autoupdate"):
-
-                def update_available(update_url, installed_version, latest_version):
-                    Alert(
-                        self.common,
-                        strings._("update_available").format(
-                            update_url, installed_version, latest_version
-                        ),
-                    )
-
-                self.update_thread = UpdateThread(self.common, self.common.gui.onion)
-                self.update_thread.update_available.connect(update_available)
-                self.update_thread.start()
 
     def bring_to_front(self):
         self.common.log("MainWindow", "bring_to_front")
@@ -355,3 +321,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         # Wait 1 second for threads to close gracefully, so tests finally pass
         time.sleep(1)
+
+    def resizeEvent(self, event):
+        self.window_resized.emit()
+        return super(MainWindow, self).resizeEvent(event)
