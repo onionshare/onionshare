@@ -225,7 +225,7 @@ class AutoConnectTab(QtWidgets.QWidget):
         if self.use_bridge_widget.detect_automatic_radio.isChecked():
             country = False
         else:
-            country = self.use_bridge_widget.country_code
+            country = self.use_bridge_widget.country_combobox.currentData().lower()
 
         self._censorship_progress_update(
             50, strings._("gui_autoconnect_circumventing_censorship_starting_meek")
