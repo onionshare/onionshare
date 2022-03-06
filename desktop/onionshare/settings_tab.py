@@ -33,9 +33,7 @@ class SettingsTab(QtWidgets.QWidget):
     Settings dialog.
     """
 
-    close_this_tab = QtCore.Signal()
-
-    def __init__(self, common, tab_id):
+    def __init__(self, common, tab_id, parent=None):
         super(SettingsTab, self).__init__()
 
         self.common = common
@@ -43,6 +41,7 @@ class SettingsTab(QtWidgets.QWidget):
 
         self.system = platform.system()
         self.tab_id = tab_id
+        self.parent = parent
 
         # Automatic updates options
 
@@ -283,7 +282,7 @@ class SettingsTab(QtWidgets.QWidget):
 
             # Save the new settings
             settings.save()
-            self.close_this_tab.emit()
+            self.parent.close_this_tab.emit()
 
     def help_clicked(self):
         """
