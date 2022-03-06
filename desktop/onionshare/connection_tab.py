@@ -385,7 +385,7 @@ class AnimStars(Anim):
 
     def __init__(self, parent, window):
         super(AnimStars, self).__init__(
-            parent, window, 780, 629, "tor-connect-stars.png"
+            parent, window, 740, 629, "tor-connect-stars.png"
         )
 
     def move(self):
