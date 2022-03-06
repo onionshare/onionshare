@@ -156,7 +156,7 @@ class AutoConnectTab(QtWidgets.QWidget):
         self.curr_settings.save()
 
     def open_tor_settings(self):
-        self.parent.open_tor_settings_tab(from_autoconnect=True)
+        self.parent.open_settings_tab(from_autoconnect=True, active_tab="tor")
 
     def first_launch_widget_connect_clicked(self):
         """

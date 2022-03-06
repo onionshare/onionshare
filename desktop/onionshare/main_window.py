@@ -108,24 +108,6 @@ class MainWindow(QtWidgets.QMainWindow):
         )
         self.status_bar.addPermanentWidget(self.status_bar.server_status_indicator)
 
-        # Tor settings button
-        self.tor_settings_button = QtWidgets.QPushButton()
-        self.tor_settings_button.setDefault(False)
-        self.tor_settings_button.setFixedSize(40, 50)
-        self.tor_settings_button.setIcon(
-            QtGui.QIcon(
-                GuiCommon.get_resource_path(
-                    "images/{}_tor_settings.png".format(self.common.gui.color_mode)
-                )
-            )
-        )
-        self.tor_settings_button.clicked.connect(self.open_tor_settings)
-        self.tor_settings_button.setStyleSheet(self.common.gui.css["settings_button"])
-        self.status_bar.addPermanentWidget(self.tor_settings_button)
-
-        if os.environ.get("ONIONSHARE_HIDE_TOR_SETTINGS") == "1":
-            self.tor_settings_button.hide()
-
         # Settings button
         self.settings_button = QtWidgets.QPushButton()
         self.settings_button.setDefault(False)
@@ -242,20 +224,22 @@ class MainWindow(QtWidgets.QMainWindow):
         """
         Open the TorSettingsTab
         """
-        self.common.log("MainWindow", "open_tor_settings")
+        self._open_settings(active_tab="tor")
+
+    def open_settings(self):
+        """
+        Open the general SettingsTab
+        """
+        self._open_settings(active_tab="general")
+
+    def _open_settings(self, active_tab):
+        self.common.log("MainWindow", f"open settings with active tab: {active_tab}")
         from_autoconnect = False
         for tab_id in self.tabs.tabs:
             if type(self.tabs.tabs[tab_id]) is AutoConnectTab:
                 from_autoconnect = True
                 break
-        self.tabs.open_tor_settings_tab(from_autoconnect)
-
-    def open_settings(self):
-        """
-        Open the SettingsTab
-        """
-        self.common.log("MainWindow", "open_settings")
-        self.tabs.open_settings_tab()
+        self.tabs.open_settings_tab(from_autoconnect, active_tab=active_tab)
 
     def settings_have_changed(self):
         self.common.log("OnionShareGui", "settings_have_changed")

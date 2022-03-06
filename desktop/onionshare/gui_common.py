@@ -121,6 +121,15 @@ class GuiCommon:
                     font-weight: bold;
                     font-size: 20px;
                 }""",
+            "settings_subtab_bar": """
+                QTabBar::tab {
+                    background: transparent;
+                }
+                QTabBar::tab:selected {
+                    border-bottom: 3px solid;
+                    border-color: #4E064F;
+                    padding: 3px
+                }""",
             "mode_new_tab_button": """
                 QPushButton {
                     font-weight: bold;
