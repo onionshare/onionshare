@@ -27,21 +27,25 @@ Turn Off Private Key
 
 By default, all OnionShare services are protected with a private key, which Tor calls "client authentication".
 
-When browsing to an OnionShare service in Tor Browser, Tor Browser will prompt for the private key to be entered.
+The Tor Browser will ask you to enter your private key when you surf to an OnionShare service.
 
-Sometimes you might want your OnionShare service to be accessible to the public, like if you want to set up an OnionShare receive service so the public can securely and anonymously send you files.
+Sometimes you might want your OnionShare service to be accessible to the public,
+like if you want to set up an OnionShare receive service so the public can securely and anonymously send you files.
 In this case, it's better to disable the private key altogether.
 
-To turn off the private key for any tab, check the "This is a public OnionShare service (disables private key)" box before starting the server. Then the server will be public and won't need a private key to view in Tor Browser.
+To turn off the private key for any tab, check the "This is a public OnionShare service (disables private key)" box before starting the server.
+Then the server will be public and won't need a private key to view in Tor Browser.
 
 .. _custom_titles:
 
 Custom Titles
 -------------
 
-By default, when people load an OnionShare service in Tor Browser they see the default title for the type of service. For example, the default title of a chat service is "OnionShare Chat".
+By default, when people load an OnionShare service in the Tor Browser they see the default title for the type of service.
+For example, 
 
-If you want to choose a custom title, set the "Custom title" setting before starting a server.
+If the "Custom title" is not set before starting a server, people see a default title for the type of service used.
+The default title of a chat service is "OnionShare Chat".
 
 Scheduled Times
 ---------------
@@ -78,7 +82,7 @@ Then run it like this::
 
     onionshare-cli --help
 
-For information about installing it on different operating systems, see the `CLI readme file <https://github.com/onionshare/onionshare/blob/develop/cli/README.md>`_ in the git repository.
+More info about installing it on different operating systems is available in the `CLI README file <https://github.com/onionshare/onionshare/blob/develop/cli/README.md>`_ in the Git repository.
 
 If you installed OnionShare using the Linux Snapcraft package, you can also just run ``onionshare.cli`` to access the command-line interface version.
 
