@@ -6,9 +6,9 @@ Advanced Usage
 Save Tabs
 ---------
 
-Everything in OnionShare is temporary by default. Addresses no longer exist and can't be used again when OnionShare tabs are closed.
+Everything in OnionShare is temporary by default. When OnionShare tabs are closed, addresses no longer exist and can't be used again.
 Your OnionShare service can also be persistent.
-If host a website, percistence means it will be available on the same OnionShare address even if you reboot your computer.
+If you host a website, persistence means it will be available on the same OnionShare address even if you reboot your computer.
 
 To make any tab persistent, check the "Save this tab, and automatically open it when I open OnionShare" box before starting your server.
 A purple pin icon appears to the left of its server status to tell you the tab is saved.
@@ -27,21 +27,19 @@ Turn Off Private Key
 
 By default, all OnionShare services are protected with a private key, which Tor calls "client authentication".
 
-The Tor Browser will ask you to enter your private key when you surf to an OnionShare service.
-
-You can allow the public to send you files by setting up an OnionShare receive service.
-In this case, it's better to disable the private key altogether.
+The Tor Browser will ask you to enter your private key when you load an OnionShare service.
+If you want allow the public to use your service, it's better to disable the private key altogether.
 
 To turn off the private key for any tab, check the "This is a public OnionShare service (disables private key)" box before starting the server.
-Then the server will be public and a private key is not needed to view its content in the Tor Browser.
+Then the server will be public and a private key is not needed to load it in the Tor Browser.
 
 .. _custom_titles:
 
 Custom Titles
 -------------
 
-When people load OnionShare services in Tor Browser they see the default title for each type of service.
-For a chat service is "OnionShare Chat".
+When people load OnionShare services in the Tor Browser they see the default title for each type of service.
+For example, the default title for chat services is "OnionShare Chat".
 
 If you edit the "Custom title" setting before starting a server you can change it.
 
