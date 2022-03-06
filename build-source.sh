@@ -36,7 +36,7 @@ fi
 mkdir -p build/source
 mkdir -p dist
 cd build/source
-git clone https://github.com/onionshare/onionshare.git
+git clone --single-branch --branch $TAG --depth 1 https://github.com/onionshare/onionshare.git
 cd onionshare
 
 # Verify tag
@@ -65,7 +65,7 @@ git checkout $TAG
 # Delete .git, compress, and PGP sign
 cd ..
 rm -rf onionshare/.git
-tar -cf onionshare-$VERSION.tar.gz onionshare/
+tar -czf onionshare-$VERSION.tar.gz onionshare/
 
 # Move source package to dist
 cd ../..
