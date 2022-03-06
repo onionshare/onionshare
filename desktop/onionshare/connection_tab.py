@@ -225,7 +225,7 @@ class AutoConnectTab(QtWidgets.QWidget):
         if self.use_bridge_widget.detect_automatic_radio.isChecked():
             country = False
         else:
-            country = self.use_bridge_widget.country_code
+            country = self.use_bridge_widget.country_combobox.currentData().lower()
 
         self._censorship_progress_update(
             50, strings._("gui_autoconnect_circumventing_censorship_starting_meek")
@@ -385,13 +385,12 @@ class AnimStars(Anim):
 
     def __init__(self, parent, window):
         super(AnimStars, self).__init__(
-            parent, window, 780, 629, "tor-connect-stars.png"
+            parent, window, 740, 629, "tor-connect-stars.png"
         )
 
     def move(self):
         self.x = self.window.width() - self.w
         self.y = 0
-
         # Stars don't move until 10%, then move down
         if self.percent >= 10:
             self.y += self.percent * 6.6
@@ -428,7 +427,7 @@ class AnimSmoke(Anim):
         # Smoke moves up until 50%, then moves down
         self.y -= self.percent * 6.6
         if self.percent >= 50:
-            self.y += self.percent * 6.6
+            self.y += self.percent * 6.7
 
 
 class AutoConnectFirstLaunchWidget(QtWidgets.QWidget):
@@ -567,19 +566,6 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
         for country_code in countries:
             self.country_combobox.addItem(countries[country_code], country_code)
 
-        self.country_combobox.currentIndexChanged.connect(self._country_changed)
-
-        # Country shape
-        self.country_image_label = QtWidgets.QLabel()
-        self.country_image_label.setFixedSize(200, 200)
-        country_image_layout = QtWidgets.QHBoxLayout()
-        country_image_layout.addStretch()
-        country_image_layout.addWidget(self.country_image_label)
-        country_image_layout.addStretch()
-        country_image_layout.setContentsMargins(0, 0, 0, 0)
-        self.country_image = QtWidgets.QWidget()
-        self.country_image.setLayout(country_image_layout)
-
         # Task label
         self.task_label = QtWidgets.QLabel()
         self.task_label.setStyleSheet(common.gui.css["autoconnect_task_label"])
@@ -640,7 +626,6 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
         layout.addWidget(self.description_label)
         layout.addLayout(detect_layout)
         layout.addWidget(self.country_combobox)
-        layout.addWidget(self.country_image)
         layout.addWidget(self.task_label)
         layout.addWidget(cta_widget)
         layout.addWidget(self.progress)
@@ -648,7 +633,6 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
         layout.addWidget(self.error_label)
         self.setLayout(layout)
 
-        self._country_changed()
         self.detect_automatic_radio.setChecked(True)
 
     def hide_buttons(self):
@@ -668,30 +652,13 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
         self.detect_automatic_radio.show()
         self.detect_manual_radio.show()
 
-    def _country_changed(self, index=None):
-        self.country_code = str(self.country_combobox.currentData()).lower()
-        path = GuiCommon.get_resource_path(
-            os.path.join(
-                "images",
-                "countries",
-                f"{self.country_code}-{self.common.gui.color_mode}.png",
-            )
-        )
-        pixmap = QtGui.QPixmap.fromImage(QtGui.QImage(path)).scaled(
-            self.country_image_label.width() - 10,
-            self.country_image_label.height() - 10,
-        )
-        self.country_image_label.setPixmap(pixmap)
-
     def _detect_automatic_toggled(self):
         self.country_combobox.setEnabled(False)
         self.country_combobox.hide()
-        self.country_image.hide()
 
     def _detect_manual_toggled(self):
         self.country_combobox.setEnabled(True)
         self.country_combobox.show()
-        self.country_image.show()
 
     def _connect_clicked(self):
         self.country_combobox.setEnabled(False)
@@ -706,6 +673,7 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
             strings._("gui_autoconnect_trying_to_connect_to_tor")
         )
         self.country_combobox.setEnabled(False)
+        self.country_combobox.hide()
         self.hide_buttons()
         self.try_again_clicked.emit()
 
