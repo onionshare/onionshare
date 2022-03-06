@@ -1,0 +1,53 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) Micah Lee, et al.
+# This file is distributed under the same license as the OnionShare package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OnionShare 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-01-17 10:28-0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: gl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../source/help.rst:2
+msgid "Getting Help"
+msgstr ""
+
+#: ../../source/help.rst:5
+msgid "Read This Website"
+msgstr ""
+
+#: ../../source/help.rst:7
+msgid "You will find instructions on how to use OnionShare. Look through all of the sections first to see if anything answers your questions."
+msgstr ""
+
+#: ../../source/help.rst:10
+msgid "Check the GitHub Issues"
+msgstr ""
+
+#: ../../source/help.rst:12
+msgid "If it isn't on the website, please check the `GitHub issues <https://github.com/onionshare/onionshare/issues>`_. It's possible someone else has encountered the same problem and either raised it with the developers, or maybe even posted a solution."
+msgstr ""
+
+#: ../../source/help.rst:15
+msgid "Submit an Issue Yourself"
+msgstr ""
+
+#: ../../source/help.rst:17
+msgid "If you are unable to find a solution, or wish to ask a question or suggest a new feature, please `submit an issue <https://github.com/onionshare/onionshare/issues/new>`_. This requires `creating a GitHub account <https://help.github.com/articles/signing-up-for-a-new-github-account/>`_."
+msgstr ""
+
+#: ../../source/help.rst:20
+msgid "Join our Keybase Team"
+msgstr ""
+
+#: ../../source/help.rst:22
+msgid "See :ref:`collaborating` on how to join the Keybase team used to discuss the project."
+msgstr ""

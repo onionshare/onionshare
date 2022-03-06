@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2020-12-13 15:48-0800\n"
-"PO-Revision-Date: 2022-01-18 19:31+0000\n"
+"PO-Revision-Date: 2022-01-31 12:53+0000\n"
 "Last-Translator: Taro Tanaka <anon_japan@protonmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ja\n"
@@ -27,11 +27,11 @@ msgstr "Torと接続する方法"
 msgid ""
 "Pick a way to connect OnionShare to Tor by clicking the \"⚙\" icon in the"
 " bottom right of the OnionShare window to get to its settings."
-msgstr ""
+msgstr "OnionShareのTorと接続する方法を選択するのに、右下にある \"⚙\"アイコンをクリックして設定画面を開く。"
 
 #: ../../source/tor.rst:9
 msgid "Use the ``tor`` bundled with OnionShare"
-msgstr ""
+msgstr "OnionShareとバンドルされた``tor``を利用"
 
 #: ../../source/tor.rst:11
 msgid ""
@@ -225,7 +225,7 @@ msgstr ""
 
 #: ../../source/tor.rst:107
 msgid "Using Tor bridges"
-msgstr ""
+msgstr "Torブリッジの利用"
 
 #: ../../source/tor.rst:109
 msgid ""
@@ -234,10 +234,13 @@ msgid ""
 "<https://2019.www.torproject.org/docs/bridges.html.en>`_. If OnionShare "
 "connects to Tor without one, you don't need to use a bridge."
 msgstr ""
+"インターネットへのアクセスは検閲される場合、OnionShareを `Torブリッジ <https://2019.www.torproject.org/"
+"docs/bridges.html.en>`_ "
+"を使ってTorネットワークと接続するように設定できます。普通にTorと接続できる場合はブリッジの利用が必要ありません。"
 
 #: ../../source/tor.rst:111
 msgid "To configure bridges, click the \"⚙\" icon in OnionShare."
-msgstr ""
+msgstr "ブリッジを設定するのに、OnionShareに\"⚙\"アイコンをクリックする。"
 
 #: ../../source/tor.rst:113
 msgid ""
@@ -246,6 +249,9 @@ msgid ""
 "obtain from Tor's `BridgeDB <https://bridges.torproject.org/>`_. If you "
 "need to use a bridge, try the built-in obfs4 ones first."
 msgstr ""
+"組み込まれるobfs4 pluggable transports、meek_lite (Azure) pluggable transports、"
+"それともTorの `BridgeDB <https://bridges.torproject.org/>`_ "
+"から入手できるカスタム・ブリッジを利用できます。ブリッジを使う必要がある場合、組み込まれるobfs4を先に使ってみて下さい。"
 
 #~ msgid "Using a system Tor in Mac OS X"
 #~ msgstr ""

@@ -3,27 +3,29 @@
 # This file is distributed under the same license as the OnionShare package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2020-11-15 14:42-0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2022-01-24 11:55+0000\n"
+"Last-Translator: Åke Engelbrektson <eson@svenskasprakfiler.se>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.11-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/develop.rst:2
 msgid "Developing OnionShare"
-msgstr ""
+msgstr "Utveckla OnionShare"
 
 #: ../../source/develop.rst:7
 msgid "Collaborating"
-msgstr ""
+msgstr "Samarbeta"
 
 #: ../../source/develop.rst:9
 msgid ""
@@ -36,6 +38,14 @@ msgid ""
 "<https://keybase.io/team/onionshare>`_. Within the app, go to \"Teams\", "
 "click \"Join a Team\", and type \"onionshare\"."
 msgstr ""
+"OnionShare har en öppen Keybase-grupp för att diskutera projektet, ställa "
+"frågor, dela idéer och mönster och göra planer för framtida utveckling. (Det "
+"är också ett enkelt sätt att skicka slutpunkt-till-slutpunkt-krypterade "
+"direktmeddelanden till andra i OnionShare-communityn, som OnionShare-"
+"adresser.) Om du vill använda Keybase laddar du ned `Keybase-appen "
+"<https://keybase.io/download>`_`, skapar ett konto och går med i den här "
+"gruppen <https://keybase.io/team/onionshare>`_. I appen går du till \"Teams\""
+", klickar på \"Join a Team\" och skriver \"onionshare\"."
 
 #: ../../source/develop.rst:12
 msgid ""
@@ -43,16 +53,20 @@ msgid ""
 "<https://lists.riseup.net/www/subscribe/onionshare-dev>`_ for developers "
 "and and designers to discuss the project."
 msgstr ""
+"OnionShare har också en `e-postlista <https://lists.riseup.net/www/subscribe/"
+"onionshare-dev>`_ för utvecklare och designers att diskutera projektet."
 
 #: ../../source/develop.rst:15
 msgid "Contributing Code"
-msgstr ""
+msgstr "Bidra med kod"
 
 #: ../../source/develop.rst:17
 msgid ""
 "OnionShare source code is to be found in this Git repository: "
 "https://github.com/micahflee/onionshare"
 msgstr ""
+"OnionShare-källkod finns i denna Git-lagringsplats: https://github.com/"
+"micahflee/onionshare"
 
 #: ../../source/develop.rst:19
 msgid ""
@@ -62,6 +76,10 @@ msgid ""
 "<https://github.com/micahflee/onionshare/issues>`_ on GitHub to see if "
 "there are any you'd like to tackle."
 msgstr ""
+"Om du vill bidra med kod till OnionShare hjälper det att gå med i Keybase-"
+"gruppen och ställa frågor om vad du funderar på att arbeta med. Du bör också "
+"granska alla `öppna ärenden <https://github.com/micahflee/onionshare/issues>`"
+"_ på GitHub för att se om det finns några du vill ta itu med."
 
 #: ../../source/develop.rst:22
 msgid ""
@@ -69,10 +87,14 @@ msgid ""
 "repository and one of the project maintainers will review it and possibly"
 " ask questions, request changes, reject it, or merge it into the project."
 msgstr ""
+"När du är redo att bidra med kod öppnar du en pull-begäran i GitHub-"
+"lagringsplatsen och en av projektunderhållarna granskar den och ställer "
+"eventuellt frågor, begär ändringar, avvisar den eller sammanfogar den till "
+"projektet."
 
 #: ../../source/develop.rst:27
 msgid "Starting Development"
-msgstr ""
+msgstr "Starta utveckling"
 
 #: ../../source/develop.rst:29
 msgid ""
@@ -83,6 +105,12 @@ msgid ""
 "file to learn how to set up your development environment for the "
 "graphical version."
 msgstr ""
+"OnionShare är utvecklat i Python. Kom igång genom att klona Git-"
+"lagringsplatsen på https://github.com/micahflee/onionshare/ och sedan läsa "
+"filen ''cli/README.md'' för att lära dig hur du konfigurerar "
+"utvecklingsmiljön för kommandoradsversionen och filen ''desktop/README.md'' "
+"för att lära dig hur du konfigurerar utvecklingsmiljön för den grafiska "
+"versionen."
 
 #: ../../source/develop.rst:32
 msgid ""
@@ -90,14 +118,17 @@ msgid ""
 "install dependencies for your platform, and to run OnionShare from the "
 "source tree."
 msgstr ""
+"Dessa filer innehåller nödvändiga tekniska instruktioner och kommandon "
+"installerar beroenden för din plattform och för att köra OnionShare från "
+"källträdet."
 
 #: ../../source/develop.rst:35
 msgid "Debugging tips"
-msgstr ""
+msgstr "Felsökningstips"
 
 #: ../../source/develop.rst:38
 msgid "Verbose mode"
-msgstr ""
+msgstr "Utförligt läge"
 
 #: ../../source/develop.rst:40
 msgid ""
@@ -107,12 +138,20 @@ msgid ""
 "initialized, when events occur (like buttons clicked, settings saved or "
 "reloaded), and other debug info. For example::"
 msgstr ""
+"När du utvecklar är det bekvämt att köra OnionShare från en terminal och "
+"lägga till flaggan ''--verbose'' (eller ''-v'' ) i kommandot. Detta skriver "
+"ut många användbara meddelanden till terminalen, till exempel när vissa "
+"objekt initieras, när händelser inträffar (som knappar klickade, "
+"inställningar som sparats eller laddats om) och annan "
+"felsökningsinformation. Till exempel::"
 
 #: ../../source/develop.rst:117
 msgid ""
 "You can add your own debug messages by running the ``Common.log`` method "
 "from ``onionshare/common.py``. For example::"
 msgstr ""
+"Du kan lägga till egna felsökningsmeddelanden genom att köra metoden "
+"''Common.log'' från ''onionshare/common.py''. Till exempel::"
 
 #: ../../source/develop.rst:121
 msgid ""
@@ -120,10 +159,13 @@ msgid ""
 "using OnionShare, or the value of certain variables before and after they"
 " are manipulated."
 msgstr ""
+"Detta kan vara användbart när du lär dig kedjan av händelser som inträffar "
+"när du använder OnionShare, eller värdet på vissa variabler före och efter "
+"att de manipulerats."
 
 #: ../../source/develop.rst:124
 msgid "Local Only"
-msgstr ""
+msgstr "Endast lokalt"
 
 #: ../../source/develop.rst:126
 msgid ""
@@ -131,6 +173,9 @@ msgid ""
 "altogether during development. You can do this with the ``--local-only`` "
 "flag. For example::"
 msgstr ""
+"Tor är långsam, och det är ofta bekvämt att hoppa över att starta onion-"
+"tjänster helt och hållet under utvecklingen. Du kan göra detta med flaggan \""
+"--local-only\". Till exempel::"
 
 #: ../../source/develop.rst:164
 msgid ""
@@ -138,10 +183,13 @@ msgid ""
 "system@127.0.0.1:17635`` in a normal web-browser like Firefox, instead of"
 " using the Tor Browser."
 msgstr ""
+"I det här fallet laddar du url:en ''http://onionshare:train-system@127.0.0.1:"
+"17635'' i en vanlig webbläsare som Firefox, istället för att använda Tor "
+"Browser."
 
 #: ../../source/develop.rst:167
 msgid "Contributing Translations"
-msgstr ""
+msgstr "Bidra med översättningar"
 
 #: ../../source/develop.rst:169
 msgid ""
@@ -151,20 +199,29 @@ msgid ""
 "\"OnionShare\" in latin letters, and use \"OnionShare (localname)\" if "
 "needed."
 msgstr ""
+"Hjälp till att göra OnionShare lättare att använda och mer bekant och "
+"välkomnande för människor genom att översätta det på `Hosted Weblate "
+"<https://hosted.weblate.org/projects/onionshare/>`_. Bevara alltid "
+"\"OnionShare\" med latinska bokstäver och använd \"OnionShare (lokalt namn)\""
+" om det behövs."
 
 #: ../../source/develop.rst:171
 msgid "To help translate, make a Hosted Weblate account and start contributing."
 msgstr ""
+"Om du vill hjälpa till att översätta skapar du ett Hosted Weblate-konto och "
+"börjar bidra."
 
 #: ../../source/develop.rst:174
 msgid "Suggestions for Original English Strings"
-msgstr ""
+msgstr "Förslag på engelska originalsträngar"
 
 #: ../../source/develop.rst:176
 msgid ""
 "Sometimes the original English strings are wrong, or don't match between "
 "the application and the documentation."
 msgstr ""
+"Ibland är de ursprungliga engelska strängarna felaktiga eller matchar inte "
+"programmet och dokumentationen."
 
 #: ../../source/develop.rst:178
 msgid ""
@@ -173,10 +230,14 @@ msgid ""
 "developers see the suggestion, and can potentially modify the string via "
 "the usual code review processes."
 msgstr ""
+"Begär förbättringar av källfilsträngen genom att lägga till @kingu i Weblate-"
+"kommentaren eller öppna ett GitHub-ärende eller en pull-begäran. Det senare "
+"säkerställer att alla utvecklare uppströms ser förslaget och kan eventuellt "
+"ändra strängen via de vanliga kodgranskningsprocesserna."
 
 #: ../../source/develop.rst:182
 msgid "Status of Translations"
-msgstr ""
+msgstr "Översättningarnas status"
 
 #: ../../source/develop.rst:183
 msgid ""
@@ -184,6 +245,9 @@ msgid ""
 "in a language not yet started, please write to the mailing list: "
 "onionshare-dev@lists.riseup.net"
 msgstr ""
+"Här är den aktuella översättningsstatusen. Om du vill starta en översättning "
+"på ett språk som ännu inte har startats skriver du till e-postlistan: "
+"onionshare-dev@lists.riseup.net"
 
 #~ msgid ""
 #~ "OnionShare is developed in Python. To"
@@ -400,4 +464,3 @@ msgstr ""
 
 #~ msgid "Do the same for other untranslated lines."
 #~ msgstr ""
-
