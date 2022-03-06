@@ -18,8 +18,8 @@ classifiers = [
 [tool.poetry.dependencies]
 python = "^3.6"
 click = "*"
-flask = "1.1.4"
-flask-socketio = "5.0.1"
+flask = "2.0.3"
+flask-socketio = "5.1.1"
 psutil = "*"
 pysocks = "*"
 requests = {extras = ["socks"], version = "*"}
