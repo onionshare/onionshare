@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-01-17 10:28-0800\n"
-"PO-Revision-Date: 2020-11-20 17:28+0000\n"
+"PO-Revision-Date: 2022-02-14 08:55+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
-"Language: nb_NO\n"
 "Language-Team: none\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
+"Language: nb_NO\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.11-dev\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: ../../source/features.rst:4
@@ -33,19 +34,17 @@ msgstr ""
 "`-løktjenester<https://community.torproject.org/onion-services/>`_."
 
 #: ../../source/features.rst:8
-#, fuzzy
 msgid "By default, OnionShare web addresses are protected with a private key."
 msgstr ""
-"Som forvalg er OnionShare-vevadresser beskyttet med et tilfeldig passord."
-" En typisk OnionShare-adresse ser slik ut:"
+"Som forvalg er OnionShare-vevadresser beskyttet med et en privat nøkkel."
 
 #: ../../source/features.rst:10
 msgid "OnionShare addresses look something like this::"
-msgstr ""
+msgstr "OnionShare-adresser vil se omtrent slik ut::"
 
 #: ../../source/features.rst:14
 msgid "And private keys might look something like this::"
-msgstr ""
+msgstr "Og private nøkler kan se slik ut::"
 
 #: ../../source/features.rst:18
 #, fuzzy
@@ -184,8 +183,9 @@ msgstr ""
 "filer»-lenken i hjørnet."
 
 #: ../../source/features.rst:55
+#, fuzzy
 msgid "Receive Files and Messages"
-msgstr ""
+msgstr "Mottak av filer og meldinger"
 
 #: ../../source/features.rst:57
 msgid ""
@@ -194,19 +194,28 @@ msgid ""
 "anonymous dropbox. Open a receive tab and choose the settings that you "
 "want."
 msgstr ""
+"Du kan bruke OnionShare for å la folk sende filer og meldinger direkte til "
+"datamaskinen din anonymt, noe som gjør det til en anonym postboks. Åpne en "
+"mottaksfane og velg innstillingene du ønsker."
 
 #: ../../source/features.rst:62
+#, fuzzy
 msgid "You can browse for a folder to save messages and files that get submitted."
-msgstr ""
+msgstr "Du kan finne en mappe å lagre meldinger og filer som blir sendt inn."
 
 #: ../../source/features.rst:64
+#, fuzzy
 msgid ""
 "You can check \"Disable submitting text\" if want to only allow file "
 "uploads, and you can check \"Disable uploading files\" if you want to "
 "only allow submitting text messages, like for an anonymous contact form."
 msgstr ""
+"Du kan krysse av «Skru av innsendelse av tekst» hvis du kun vil tillate "
+"filopplastinger, og du kan huke av «Skru av opplasting av filer» hvis du kun "
+"vil tillate innsendelse av tekstmeldinger, som for et anonymt kontaktskjema."
 
 #: ../../source/features.rst:66
+#, fuzzy
 msgid ""
 "You can check \"Use notification webhook\" and then choose a webhook URL "
 "if you want to be notified when someone submits files or messages to your"
@@ -220,14 +229,29 @@ msgid ""
 "your receive mode service, @webhookbot will send you a message on Keybase"
 " letting you know as soon as it happens."
 msgstr ""
+"Du kan huke av «Bruk merknadsvevkrok» og så velge nettadresse for vevkroken "
+"hvis du vil få merknad når noen sender inn filer eller meldinger til din "
+"OnionShare-tjeneste. Hvis du bruker denne funksjonen, vil OnionShare lage en "
+"HTTP POST-forespørsel til denne nettadressen når noen sender inn filer eller "
+"meldinger. For eksempel, hvis du vil ha en kryptert melding i "
+"meldingsprogrammet `Keybase <https://keybase.io/>`_, kan du starte samtalen "
+"med `@webhookbot <https://keybase.io/webhookbot>`_, skrive ``!webhook create "
+"onionshare-alerts``, og den vil svare med en nettadresse. Bruk den som "
+"nettadresse for merknads-vevkrok. Hvis noen laster opp en fil til din "
+"mottaksmodus-tjeneste, vil @webhookbot sende deg en melding på Keybase som "
+"lar deg få vite det så snart det skjer."
 
 #: ../../source/features.rst:71
+#, fuzzy
 msgid ""
 "When you are ready, click \"Start Receive Mode\". This starts the "
 "OnionShare service. Anyone loading this address in their Tor Browser will"
 " be able to submit files and messages which get uploaded to your "
 "computer."
 msgstr ""
+"Når du er klar klikker du «Start mottaksmodus». Dette starter OnionShare-"
+"tjenesten. Alle som laster inn denne adressen i sin Tor-nettleser vil kunne "
+"sende inn filer og meldinger som blir lastet opp til datamaskinen din."
 
 #: ../../source/features.rst:75
 msgid ""
@@ -249,6 +273,10 @@ msgid ""
 "folder on your computer, automatically organized into separate subfolders"
 " based on the time that the files get uploaded."
 msgstr ""
+"Når noen sender inn filer eller meldinger til din mottakstjeneste, vil de "
+"som forvalg bli lagret i ``OnionShare``-mappen i hjemmemappen på din "
+"datamaskin, automatisk organisert i egne undermapper basert på når filene "
+"ble opplastet."
 
 #: ../../source/features.rst:83
 msgid ""
@@ -300,6 +328,8 @@ msgstr ""
 #: ../../source/features.rst:92
 msgid "However, it is always safe to open text messages sent through OnionShare."
 msgstr ""
+"Dog er det alltid trygt å åpne tekstmeldinger som blir sendt gjennom "
+"OnionShare."
 
 #: ../../source/features.rst:95
 msgid "Tips for running a receive service"
@@ -390,26 +420,28 @@ msgstr ""
 "nettsiden."
 
 #: ../../source/features.rst:121
-#, fuzzy
 msgid ""
 "If you want to load content from third-party websites, like assets or "
 "JavaScript libraries from CDNs, you have two options:"
 msgstr ""
 "Hvis du vil laste inn innhold fra tredjeparts nettsteder, som eiendeler "
-"eller JavaScript-biblioteker fra CDN, merker du av i boksen \"Ikke send "
-"innholdssikkerhetspolicyhode (lar nettstedet ditt bruke "
-"tredjepartsressurser)\" før du starter tjenesten."
+"eller JavaScript-biblioteker fra CDN har du to valg:"
 
 #: ../../source/features.rst:123
+#, fuzzy
 msgid ""
 "You can disable sending a Content Security Policy header by checking the "
 "\"Don't send Content Security Policy header (allows your website to use "
 "third-party resources)\" box before starting the service."
 msgstr ""
+"Du kan skru av forsendelse av et sikkerhetspraksis for innhold-hode ved å "
+"huke av «Ikke send sikkerhetspraksis for innhold-hode (lar nettsiden din "
+"bruke tredjepartsressurser)» før du starter tjenesten."
 
 #: ../../source/features.rst:124
+#, fuzzy
 msgid "You can send a custom Content Security Policy header."
-msgstr ""
+msgstr "Du kan sende et egendefinert sikkerhetspraksis for innhold-hode."
 
 #: ../../source/features.rst:127
 msgid "Tips for running a website service"
@@ -535,6 +567,14 @@ msgid ""
 "rooms don't store any messages anywhere, so the problem is reduced to a "
 "minimum."
 msgstr ""
+"Hvis du for eksempel sender en melding til en Signal-gruppe, vil en kopi av "
+"meldingen bli igjen på hver enhet (smarttelefonene, og datamaskinene hvis "
+"vedkommende setter opp Signal-skrivebord) for hver av medlemmene i gruppen. "
+"Selv om forsvinnende meldinger er påskrudd er det vanskelig å bekrefte at "
+"alle kopier av meldingene faktisk er slettet fra alle enheter, og fra alle "
+"andre steder (som merknadsdatabaser) de kan ha blitt lagret i. OnionShare-"
+"sludrerom lagrer ikke meldinger noensteds hen, så problemet er redusert til "
+"et minimum."
 
 #: ../../source/features.rst:168
 #, fuzzy
@@ -1049,4 +1089,3 @@ msgstr ""
 #~ "sludrerom lagrer ingen meldinger noensteds "
 #~ "hen, så problemet er redusert til "
 #~ "et minimum."
-

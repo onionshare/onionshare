@@ -1,0 +1,129 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) Micah Lee, et al.
+# This file is distributed under the same license as the OnionShare package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OnionShare 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-01-17 10:28-0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: ms\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../source/advanced.rst:2
+msgid "Advanced Usage"
+msgstr ""
+
+#: ../../source/advanced.rst:7
+msgid "Save Tabs"
+msgstr ""
+
+#: ../../source/advanced.rst:9
+msgid "Everything in OnionShare is temporary by default. If you close an OnionShare tab, its address no longer exists and it can't be used again. Sometimes you might want an OnionShare service to be persistent. This is useful if you want to host a website available from the same OnionShare address even if you reboot your computer."
+msgstr ""
+
+#: ../../source/advanced.rst:13
+msgid "To make any tab persistent, check the \"Save this tab, and automatically open it when I open OnionShare\" box before starting the server. When a tab is saved a purple pin icon appears to the left of its server status."
+msgstr ""
+
+#: ../../source/advanced.rst:18
+msgid "When you quit OnionShare and then open it again, your saved tabs will start opened. You'll have to manually start each service, but when you do they will start with the same OnionShare address and private key."
+msgstr ""
+
+#: ../../source/advanced.rst:21
+msgid "If you save a tab, a copy of that tab's onion service secret key will be stored on your computer with your OnionShare settings."
+msgstr ""
+
+#: ../../source/advanced.rst:26
+msgid "Turn Off Private Key"
+msgstr ""
+
+#: ../../source/advanced.rst:28
+msgid "By default, all OnionShare services are protected with a private key, which Tor calls \"client authentication\"."
+msgstr ""
+
+#: ../../source/advanced.rst:30
+msgid "When browsing to an OnionShare service in Tor Browser, Tor Browser will prompt for the private key to be entered."
+msgstr ""
+
+#: ../../source/advanced.rst:32
+msgid "Sometimes you might want your OnionShare service to be accessible to the public, like if you want to set up an OnionShare receive service so the public can securely and anonymously send you files. In this case, it's better to disable the private key altogether."
+msgstr ""
+
+#: ../../source/advanced.rst:35
+msgid "To turn off the private key for any tab, check the \"This is a public OnionShare service (disables private key)\" box before starting the server. Then the server will be public and won't need a private key to view in Tor Browser."
+msgstr ""
+
+#: ../../source/advanced.rst:40
+msgid "Custom Titles"
+msgstr ""
+
+#: ../../source/advanced.rst:42
+msgid "By default, when people load an OnionShare service in Tor Browser they see the default title for the type of service. For example, the default title of a chat service is \"OnionShare Chat\"."
+msgstr ""
+
+#: ../../source/advanced.rst:44
+msgid "If you want to choose a custom title, set the \"Custom title\" setting before starting a server."
+msgstr ""
+
+#: ../../source/advanced.rst:47
+msgid "Scheduled Times"
+msgstr ""
+
+#: ../../source/advanced.rst:49
+msgid "OnionShare supports scheduling exactly when a service should start and stop. Before starting a server, click \"Show advanced settings\" in its tab and then check the boxes next to either \"Start onion service at scheduled time\", \"Stop onion service at scheduled time\", or both, and set the respective desired dates and times."
+msgstr ""
+
+#: ../../source/advanced.rst:52
+msgid "If you scheduled a service to start in the future, when you click the \"Start sharing\" button you will see a timer counting down until it starts. If you scheduled it to stop in the future, after it's started you will see a timer counting down to when it will stop automatically."
+msgstr ""
+
+#: ../../source/advanced.rst:55
+msgid "**Scheduling an OnionShare service to automatically start can be used as a dead man's switch**, where your service will be made public at a given time in the future if anything happens to you. If nothing happens to you, you can cancel the service before it's scheduled to start."
+msgstr ""
+
+#: ../../source/advanced.rst:60
+msgid "**Scheduling an OnionShare service to automatically stop can be useful to limit exposure**, like if you want to share secret documents while making sure they're not available on the internet for more than a few days."
+msgstr ""
+
+#: ../../source/advanced.rst:67
+msgid "Command-line Interface"
+msgstr ""
+
+#: ../../source/advanced.rst:69
+msgid "In addition to its graphical interface, OnionShare has a command-line interface."
+msgstr ""
+
+#: ../../source/advanced.rst:71
+msgid "You can install just the command-line version of OnionShare using ``pip3``::"
+msgstr ""
+
+#: ../../source/advanced.rst:75
+msgid "Note that you will also need the ``tor`` package installed. In macOS, install it with: ``brew install tor``"
+msgstr ""
+
+#: ../../source/advanced.rst:77
+msgid "Then run it like this::"
+msgstr ""
+
+#: ../../source/advanced.rst:81
+msgid "For information about installing it on different operating systems, see the `CLI readme file <https://github.com/onionshare/onionshare/blob/develop/cli/README.md>`_ in the git repository."
+msgstr ""
+
+#: ../../source/advanced.rst:83
+msgid "If you installed OnionShare using the Linux Snapcraft package, you can also just run ``onionshare.cli`` to access the command-line interface version."
+msgstr ""
+
+#: ../../source/advanced.rst:86
+msgid "Usage"
+msgstr ""
+
+#: ../../source/advanced.rst:88
+msgid "You can browse the command-line documentation by running ``onionshare --help``::"
+msgstr ""

@@ -1,0 +1,162 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) Micah Lee, et al.
+# This file is distributed under the same license as the OnionShare package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OnionShare 2.5\n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
+"POT-Creation-Date: 2022-01-17 10:28-0800\n"
+"PO-Revision-Date: 2022-02-23 17:08+0000\n"
+"Last-Translator: Rasy Chum <rasychum@gmail.com>\n"
+"Language-Team: none\n"
+"Language: km\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.11-dev\n"
+
+#: ../../source/install.rst:2
+msgid "Installation"
+msgstr "ការដំឡើង"
+
+#: ../../source/install.rst:5
+msgid "Windows or macOS"
+msgstr "Windows ឬ macOS"
+
+#: ../../source/install.rst:7
+msgid "You can download OnionShare for Windows and macOS from the `OnionShare website <https://onionshare.org/>`_."
+msgstr ""
+"អ្នកអាចទាញយក OnionShare សម្រាប់ Windows និង macOS ពីវែបសាយ `OnionShare "
+"<https://onionshare.org/>`_។"
+
+#: ../../source/install.rst:12
+msgid "Linux"
+msgstr "Linux"
+
+#: ../../source/install.rst:14
+msgid "There are various ways to install OnionShare for Linux, but the recommended way is to use either the `Flatpak <https://flatpak.org/>`_ or the `Snap <https://snapcraft.io/>`_ package. Flatpak and Snap ensure that you'll always use the newest version and run OnionShare inside of a sandbox."
+msgstr ""
+"មានវិធីជាច្រើនក្នុងការដំឡើង OnionShare សម្រាប់ Linux "
+"ប៉ុន្តែវិធីត្រូវបានណែនាំគឺត្រូវប្រើកញ្ចប់ `Flatpak <https://flatpak.org/>`_ "
+"ឬកញ្ចប់ `Snap <https://snapcraft.io/>`_ ។ Flatpak និង Snap "
+"ធានាថាអ្នកនឹងប្រើកំណែថ្មីបំផុតជានិច្ច ហើយដំណើរការ OnionShare នៅខាងក្នុង "
+"sandbox។"
+
+#: ../../source/install.rst:17
+msgid "Snap support is built-in to Ubuntu and Fedora comes with Flatpak support, but which you use is up to you. Both work in all Linux distributions."
+msgstr ""
+"ដំណើរការរបស់ Snap ត្រូវបានភ្ជាប់មកជាមួយ Ubuntu ហើយ Fedora "
+"ដែលភ្ជាប់មកជាមួយដំណើរការរបស់ Flatpak ប៉ុន្តែអ្វីដែលអ្នកប្រើគឺអាស្រ័យលើអ្នក។ "
+"ឧបករណ៍ទាំងពីរនេះដំណើរការនៅក្នុងប្រព័ន្ធ​ប្រតិបត្តិការ Linux ទាំងអស់។"
+
+#: ../../source/install.rst:19
+msgid "**Install OnionShare using Flatpak**: https://flathub.org/apps/details/org.onionshare.OnionShare"
+msgstr ""
+"** ដំឡើង OnionShare ដោយប្រើ Flatpak**៖ https://flathub.org/apps/details/org."
+"onionshare.OnionShare"
+
+#: ../../source/install.rst:21
+msgid "**Install OnionShare using Snap**: https://snapcraft.io/onionshare"
+msgstr "** ដំឡើង OnionShare ដោយប្រើ Snap **៖ https://snapcraft.io/onionshare"
+
+#: ../../source/install.rst:23
+msgid "You can also download and install PGP-signed ``.flatpak`` or ``.snap`` packages from https://onionshare.org/dist/ if you prefer."
+msgstr ""
+"អ្នកក៏អាចទាញយក និងដំឡើងកញ្ចប់ ``.flatpak`` ឬ ``.snap`` PGP-signed ពី "
+"https://onionshare.org/dist/ ប្រសិនបើអ្នកចង់។"
+
+#: ../../source/install.rst:28
+msgid "Command-line only"
+msgstr "សម្រាប់តែ Command-line ប៉ុណ្ណោះ"
+
+#: ../../source/install.rst:30
+msgid "You can install just the command line version of OnionShare on any operating system using the Python package manager ``pip``. See :ref:`cli` for more information."
+msgstr ""
+"អ្នកអាចដំឡើងកំណែ command line របស់ OnionShare "
+"នៅលើប្រព័ន្ធប្រតិបត្តិការណាមួយដោយប្រើ Python package manager ``pip``។ "
+"សូមមើល:ref:`cli` សម្រាប់ព័ត៌មានបន្ថែម។"
+
+#: ../../source/install.rst:35
+msgid "Verifying PGP signatures"
+msgstr "ការផ្ទៀងផ្ទាត់ហត្ថលេខា PGP"
+
+#: ../../source/install.rst:37
+msgid "You can verify that the package you download is legitimate and hasn't been tampered with by verifying its PGP signature. For Windows and macOS, this step is optional and provides defense in depth: the OnionShare binaries include operating system-specific signatures, and you can just rely on those alone if you'd like."
+msgstr ""
+"អ្នកអាចផ្ទៀងផ្ទាត់ថា កញ្ចប់ដែលអ្នកទាញយកគឺស្របច្បាប់ "
+"និងមិនត្រូវបានរំខានដោយផ្ទៀងផ្ទាត់ហត្ថលេខា PGP របស់វា។ សម្រាប់ Windows និង "
+"macOS ជំហាននេះគឺជាជម្រើស និងផ្តល់នូវការការពារយ៉ាងស៊ីជម្រៅ៖ OnionShare "
+"binaries រួមបញ្ចូលហត្ថលេខាជាក់លាក់នៃប្រព័ន្ធប្រតិបត្តិការ "
+"ហើយអ្នកអាចពឹងផ្អែកលើវាតែមួយ ប្រសិនបើអ្នកចង់បាន។"
+
+#: ../../source/install.rst:41
+msgid "Signing key"
+msgstr "កូនសោចុះឈ្មោះ"
+
+#: ../../source/install.rst:43
+msgid "Packages are signed by Micah Lee, the core developer, using his PGP public key with fingerprint ``927F419D7EC82C2F149C1BD1403C2657CD994F73``. You can download Micah's key `from the keys.openpgp.org keyserver <https://keys.openpgp.org/vks/v1/by-fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
+msgstr ""
+"កញ្ចប់ត្រូវបានចុះហត្ថលេខាដោយ Micah Lee ដែលជាអ្នកបង្កើតកម្មវិធីស្នូល "
+"ដោយប្រើសោសាធារណៈ PGP របស់គាត់ជាមួយនឹងស្នាមខ្ចៅដៃឌីជីថល "
+"``927F419D7EC82C2F149C1BD1403C2657CD994F73``។ អ្នកអាចទាញយកកូនសោរបស់ Micah ពី "
+"keys.openpgp.org keyserver <https://keys.openpgp.org/vks/v1/by-fingerprint/"
+"927F419D7EC82C2F149C1BD1403C2657CD994F73>`_។"
+
+#: ../../source/install.rst:45
+msgid "You must have GnuPG installed to verify signatures. For macOS you probably want `GPGTools <https://gpgtools.org/>`_, and for Windows you probably want `Gpg4win <https://www.gpg4win.org/>`_."
+msgstr ""
+"អ្នកត្រូវតែដំឡើង GnuPG ដើម្បីផ្ទៀងផ្ទាត់ហត្ថលេខា។ សម្រាប់ macOS អ្នកគួរតែមាន "
+"`GPGTools <https://gpgtools.org/>`_ ហើយសម្រាប់ Windows អ្នកប្រហែលជាចង់បាន `"
+"Gpg4win <https://www.gpg4win.org/>`_។"
+
+#: ../../source/install.rst:48
+msgid "Signatures"
+msgstr "ហត្ថលេខា(ឌីជីថល)"
+
+#: ../../source/install.rst:50
+msgid "You can find the signatures (as ``.asc`` files), as well as Windows, macOS, Flatpak, Snap, and source packages, at https://onionshare.org/dist/ in the folders named for each version of OnionShare. You can also find them on the `GitHub Releases page <https://github.com/micahflee/onionshare/releases>`_."
+msgstr ""
+"អ្នកអាចស្វែងរកហត្ថលេខា (ជាឯកសារ ``.asc``) ក៏ដូចជា Windows, macOS, Flatpak, "
+"Snap និងប្រភពរបស់កញ្ចប់នៅ https://onionshare.org/dist/ "
+"នៅក្នុងថតឯកសារដែលមានឈ្មោះសម្រាប់កំណែនីមួយៗនៃ OnionShare។ "
+"អ្នកក៏អាចស្វែងរកកម្មវិធីទាំងនោះនៅលើ `ទំព័រចេញផ្សាយរបស់ GitHub <https://github"
+".com/micahflee/onionshare/releases>`_។"
+
+#: ../../source/install.rst:54
+msgid "Verifying"
+msgstr "ការផ្ទៀងផ្ទាត់"
+
+#: ../../source/install.rst:56
+msgid "Once you have imported Micah's public key into your GnuPG keychain, downloaded the binary and and ``.asc`` signature, you can verify the binary for macOS in a terminal like this::"
+msgstr ""
+"នៅពេលដែលអ្នកបាននាំចូលកូនសោសាធារណៈរបស់ Micah ទៅក្នុង GnuPG keychain របស់អ្នក "
+"សូមទាញយកប្រព័ន្ធគោលពីរ និងហត្ថលេខា ``.asc`` "
+"អ្នកអាចផ្ទៀងផ្ទាត់ប្រព័ន្ធគោលពីរសម្រាប់ macOS នៅក្នុង terminal ដូចនេះ::"
+
+#: ../../source/install.rst:60
+msgid "Or for Windows, in a command-prompt like this::"
+msgstr "ឬសម្រាប់ Windows នៅក្នុង command-prompt ដូចនេះ::"
+
+#: ../../source/install.rst:64
+msgid "The expected output looks like this::"
+msgstr "លទ្ធផលរំពឹងទុកមើលទៅដូចនេះ::"
+
+#: ../../source/install.rst:76
+msgid "If you don't see ``Good signature from``, there might be a problem with the integrity of the file (malicious or otherwise), and you should not install the package. (The ``WARNING:`` shown above, is not a problem with the package, it only means you haven't defined a level of \"trust\" of Micah's PGP key.)"
+msgstr ""
+"ប្រសិនបើអ្នកមិនឃើញ ``ហត្ថលេខាល្អពី`` ទេ "
+"វាអាចមានបញ្ហាជាមួយនឹងភាពត្រឹមត្រូវនៃឯកសារ (ហានិភ័យ ឬបើមិនដូច្នេះទេ) "
+"ហើយអ្នកមិនគួរដំឡើងកញ្ចប់នោះទេ។ (``ការរំឭក៖`` ការដែលបានបង្ហាញខាងលើ "
+"មិនមែនជាបញ្ហាជាមួយកញ្ចប់នោះទេ វាគ្រាន់តែមានន័យថា អ្នកមិនបានកំណត់កម្រិតនៃ \"ក"
+"ារជឿទុកចិត្ត\" នៃកូនសោ PGP របស់ Micah ទេ។)"
+
+#: ../../source/install.rst:78
+msgid "If you want to learn more about verifying PGP signatures, the guides for `Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ and the `Tor Project <https://support.torproject.org/tbb/how-to-verify-signature/>`_ may be useful."
+msgstr ""
+"ប្រសិនបើអ្នកចង់ឈ្វេងយល់បន្ថែមអំពីការផ្ទៀងផ្ទាត់ហត្ថលេខា PGP "
+"នោះការណែនាំសម្រាប់ `Qubes OS <https://www.qubes-os.org/security/"
+"verifying-signatures/>`_ និង `Tor Project <https://support .torproject.org/"
+"tbb/how-to-verify-signature/>`_ អាចមានប្រយោជន៍។"
