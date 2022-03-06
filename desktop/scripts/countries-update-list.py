@@ -22,9 +22,7 @@ def main():
     available_locales = list(settings.available_locales)
 
     # Make a dictionary that makes a language's ISO 3166-1 to its name in all enabled languages
-    os.makedirs(
-        os.path.join("src", "onionshare", "resources", "countries"), exist_ok=True
-    )
+    os.makedirs(os.path.join("onionshare", "resources", "countries"), exist_ok=True)
     for locale in available_locales:
         with open(os.path.join(repo_dir, "data", locale, "country.json")) as f:
             countries = json.loads(f.read())
@@ -34,9 +32,7 @@ def main():
             del countries[key]
 
         with open(
-            os.path.join(
-                "src", "onionshare", "resources", "countries", f"{locale}.json"
-            ),
+            os.path.join("onionshare", "resources", "countries", f"{locale}.json"),
             "w",
         ) as f:
             f.write(json.dumps(countries))
