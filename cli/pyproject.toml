@@ -16,7 +16,7 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.6"
+python = ">=3.7.0,<4.0"
 click = "*"
 flask = "2.0.3"
 flask-socketio = "5.1.1"
@@ -31,6 +31,7 @@ pynacl = "*"
 colorama = "*"
 gevent-websocket = "*"
 cepa = "1.8.3"
+waitress = "^2.1.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "*"

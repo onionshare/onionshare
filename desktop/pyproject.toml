@@ -6,7 +6,7 @@ authors = ["Micah Lee <micah@micahflee.com>"]
 license = "GPLv3+"
 
 [tool.poetry.dependencies]
-python = ">=3.6.2,<3.10"
+python = ">=3.7.0,<3.10"
 onionshare_cli = {path = "../cli", develop = true}
 PySide2 = "5.15.2"
 qrcode = "*"

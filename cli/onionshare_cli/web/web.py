@@ -36,6 +36,7 @@ from flask import (
     __version__ as flask_version,
 )
 from flask_socketio import SocketIO
+from waitress.server import create_server
 
 from .share_mode import ShareModeWeb
 from .receive_mode import ReceiveModeWeb, ReceiveModeWSGIMiddleware, ReceiveModeRequest
@@ -90,6 +91,8 @@ class Web:
         # It's probably #notourbug but we can fix it by forcing the mimetype.
         # https://github.com/onionshare/onionshare/issues/1443
         mimetypes.add_type("text/javascript", ".js")
+
+        self.waitress = None
 
         # The flask app
         self.app = Flask(
@@ -252,16 +255,6 @@ class Web:
             mode.cur_history_id += 1
             return self.error500(history_id)
 
-        @self.app.route("/<password_candidate>/shutdown")
-        def shutdown(password_candidate):
-            """
-            Stop the flask web server, from the context of an http request.
-            """
-            if password_candidate == self.shutdown_password:
-                self.force_shutdown()
-                return ""
-            abort(404)
-
         if self.mode != "website":
 
             @self.app.route("/favicon.ico")
@@ -330,28 +323,9 @@ class Web:
         log_handler.setLevel(logging.WARNING)
         self.app.logger.addHandler(log_handler)
 
-    def force_shutdown(self):
-        """
-        Stop the flask web server, from the context of the flask app.
-        """
-        # Shutdown the flask service
-        try:
-            func = request.environ.get("werkzeug.server.shutdown")
-            if func is None and self.mode != "chat":
-                raise RuntimeError("Not running with the Werkzeug Server")
-            func()
-        except Exception:
-            pass
-
-        self.running = False
-
-        # If chat, shutdown the socket server
-        if self.mode == "chat":
-            self.socketio.stop()
-
     def start(self, port):
         """
-        Start the flask web server.
+        Start the web server.
         """
         self.common.log("Web", "start", f"port={port}")
 
@@ -372,32 +346,24 @@ class Web:
         if self.mode == "chat":
             self.socketio.run(self.app, host=host, port=port)
         else:
-            self.app.run(host=host, port=port, threaded=True)
+            self.waitress = create_server(self.app, host=host, port=port)
+            self.waitress.run()
 
     def stop(self, port):
         """
-        Stop the flask web server by loading /shutdown.
+        Stop the web server by loading /shutdown.
         """
         self.common.log("Web", "stop", "stopping server")
 
         # Let the mode know that the user stopped the server
         self.stop_q.put(True)
 
-        # To stop flask, load http://shutdown:[shutdown_password]@127.0.0.1/[shutdown_password]/shutdown
-        # (We're putting the shutdown_password in the path as well to make routing simpler)
-        if self.running:
-            try:
-                requests.get(
-                    f"http://127.0.0.1:{port}/{self.shutdown_password}/shutdown"
-                )
-            except requests.exceptions.ConnectionError as e:
-                # The way flask-socketio stops a connection when running using
-                # eventlet is by raising SystemExit to abort all the processes.
-                # Hence the connections are closed and no response is returned
-                # to the above request. So I am just catching the ConnectionError
-                # to check if it was chat mode, in which case it's okay
-                if self.mode != "chat":
-                    raise e
+        # If chat, shutdown the socket server
+        if self.mode == "chat":
+            self.socketio.stop()
+
+        if self.waitress:
+            self.waitress.close()
 
     def cleanup(self):
         """
