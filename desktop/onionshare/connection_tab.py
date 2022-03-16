@@ -577,10 +577,10 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
         self.country_combobox.setStyleSheet(
             common.gui.css["autoconnect_countries_combobox"]
         )
-        self.country_combobox.setIconSize(QtCore.QSize(26, 26))
+        self.country_combobox.setIconSize(QtCore.QSize(26, 20))
         for country_code in countries:
             icon = QtGui.QIcon(
-                GuiCommon.get_resource_path(os.path.join("images", "countries", f"{country_code}.png"))
+                GuiCommon.get_resource_path(os.path.join("images", "countries", f"{country_code.lower()}.png"))
             )
             self.country_combobox.addItem(icon, countries[country_code], country_code)
 
