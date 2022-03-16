@@ -8,7 +8,7 @@ import os
 def main():
     tmp_dir = tempfile.TemporaryDirectory()
     flagsdir = os.path.join(tmp_dir.name, "flagsicon")
-    subprocess.run(["git", "clone", "https://github.com/gosquared/flags.git", flagsdir])
+    subprocess.run(["git", "clone", "https://github.com/lipis/flag-icons.git", flagsdir])
 
     with open(
         os.path.join("onionshare", "resources", "countries", "en.json")
@@ -26,8 +26,9 @@ def main():
     )
 
     for country in countries:
-        if os.path.isfile(os.path.join(flagsdir, "flags", "flags-iso", "flat", "64", f"{country}.png")):
-            src_filename = os.path.join(flagsdir, "flags", "flags-iso", "flat", "64", f"{country}.png")
+        country = country.lower()
+        if os.path.isfile(os.path.join(flagsdir, "flags", "4x3", f"{country}.svg")):
+            src_filename = os.path.join(flagsdir, "flags", "4x3", f"{country}.svg")
             dest_filename = os.path.join(
                 "onionshare",
                 "resources",
@@ -35,7 +36,19 @@ def main():
                 "countries",
                 f"{country}.png",
             )
-            subprocess.run(["cp", src_filename, dest_filename])
+            subprocess.run(
+                [
+                    "convert",
+                    src_filename,
+                    "-background",
+                    "none",
+                    "-density",
+                    "100",
+                    "-resize",
+                    "64x",
+                    dest_filename,
+                ]
+            )
 
 
 if __name__ == "__main__":
