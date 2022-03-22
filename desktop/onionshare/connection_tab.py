@@ -181,6 +181,11 @@ class AutoConnectTab(QtWidgets.QWidget):
         self.tor_con.start(self.curr_settings)
 
     def _got_no_bridges(self):
+        self.common.log(
+            "AutoConnectTab",
+            "_got_no_bridges",
+            "Could not obtain bridges, so falling back to trying built-in obfs4 bridges",
+        )
         # If we got no bridges, try connecting again using built-in obfs4 bridges
         self.curr_settings.set("bridges_type", "built-in")
         self.curr_settings.set("bridges_builtin_pt", "obfs4")
