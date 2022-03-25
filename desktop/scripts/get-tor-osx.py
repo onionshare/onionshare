@@ -36,10 +36,10 @@ from bridges import UpdateTorBridges
 
 
 def main():
-    dmg_url = "https://dist.torproject.org/torbrowser/11.0.4/TorBrowser-11.0.4-osx64_en-US.dmg"
-    dmg_filename = "TorBrowser-11.0.4-osx64_en-US.dmg"
+    dmg_url = "https://dist.torproject.org/torbrowser/11.0.9/TorBrowser-11.0.9-osx64_en-US.dmg"
+    dmg_filename = "TorBrowser-11.0.9-osx64_en-US.dmg"
     expected_dmg_sha256 = (
-        "309a67c8a82ae266756d7cf5ea00e94d9242e59d55eaff97dcd6201da3c8449c"
+        "e34629a178a92983924a5a89c7a988285d2d27f21832413a7f7e33af7871c8d6"
     )
 
     # Build paths
