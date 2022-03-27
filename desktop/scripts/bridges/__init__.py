@@ -52,9 +52,9 @@ class UpdateTorBridges:
             )
             return False
 
-        for bridge_type in ["meek", "obfs4", "snowflake"]:
+        for bridge_type in ["meek-azure", "obfs4", "snowflake"]:
             if result[bridge_type]:
-                if bridge_type == "meek":
+                if bridge_type == "meek-azure":
                     torrc_template_extension = "meek_lite_azure"
                 else:
                     torrc_template_extension = bridge_type
@@ -71,12 +71,4 @@ class UpdateTorBridges:
                     # random order from the API each time, and create noisy git diff.
                     bridges.sort(key=lambda s: s.split()[1])
                     for item in bridges:
-                        if bridge_type == "meek":
-                            # obfs4proxy expects the bridge type to be meek_lite, and the url/front params
-                            # are missing in the Tor API response, so we have to add them in ourselves.
-                            bridge = item.replace("meek", "meek_lite")
-                            f.write(
-                                f"Bridge {bridge} url=https://meek.azureedge.net/ front=ajax.aspnetcdn.com\n"
-                            )
-                        else:
-                            f.write(f"Bridge {item}\n")
+                        f.write(f"Bridge {item}\n")
