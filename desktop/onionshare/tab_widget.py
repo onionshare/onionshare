@@ -55,6 +55,7 @@ class TabWidget(QtWidgets.QTabWidget):
 
         # Define the new tab button
         self.new_tab_button = QtWidgets.QPushButton("+", parent=self)
+        self.new_tab_button.setShortcut(QtCore.Qt.CTRL + QtCore.Qt.Key_T)
         self.new_tab_button.setFlat(True)
         self.new_tab_button.setFixedSize(40, 30)
         self.new_tab_button.clicked.connect(self.new_tab_clicked)
@@ -194,6 +195,10 @@ class TabWidget(QtWidgets.QTabWidget):
 
         index = self.addTab(tab, strings._("gui_new_tab"))
         self.setCurrentIndex(index)
+
+        sequence = QtGui.QKeySequence(QtCore.Qt.CTRL + QtCore.Qt.Key_X)
+        close_shortcut = QtWidgets.QShortcut(sequence, tab)
+        close_shortcut.activated.connect(lambda: self.close_tab(index))
 
         tab.init(mode_settings)
 

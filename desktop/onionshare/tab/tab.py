@@ -38,11 +38,17 @@ from ..widgets import Alert
 
 
 class NewTabButton(QtWidgets.QPushButton):
-    def __init__(self, common, image_filename, title, text):
+    def __init__(self, common, image_filename, title, text, shortcut):
         super(NewTabButton, self).__init__()
         self.common = common
 
         self.setFixedSize(280, 280)
+
+        # Keyboard shortcut, using the first letter of the mode
+        sequence = QtGui.QKeySequence(QtCore.Qt.CTRL + shortcut)
+        self.setShortcut(sequence)
+
+        self.setAccessibleName(title)
 
         # Image
         self.image_label = QtWidgets.QLabel(parent=self)
@@ -140,6 +146,7 @@ class Tab(QtWidgets.QWidget):
             "images/{}_mode_new_tab_share.png".format(self.common.gui.color_mode),
             strings._("gui_new_tab_share_button"),
             strings._("gui_main_page_share_button"),
+            QtCore.Qt.Key_S,
         )
         self.share_button.clicked.connect(self.share_mode_clicked)
 
@@ -148,6 +155,7 @@ class Tab(QtWidgets.QWidget):
             "images/{}_mode_new_tab_receive.png".format(self.common.gui.color_mode),
             strings._("gui_new_tab_receive_button"),
             strings._("gui_main_page_receive_button"),
+            QtCore.Qt.Key_R,
         )
         self.receive_button.clicked.connect(self.receive_mode_clicked)
 
@@ -156,6 +164,7 @@ class Tab(QtWidgets.QWidget):
             "images/{}_mode_new_tab_website.png".format(self.common.gui.color_mode),
             strings._("gui_new_tab_website_button"),
             strings._("gui_main_page_website_button"),
+            QtCore.Qt.Key_W,
         )
         self.website_button.clicked.connect(self.website_mode_clicked)
 
@@ -164,6 +173,7 @@ class Tab(QtWidgets.QWidget):
             "images/{}_mode_new_tab_chat.png".format(self.common.gui.color_mode),
             strings._("gui_new_tab_chat_button"),
             strings._("gui_main_page_chat_button"),
+            QtCore.Qt.Key_C,
         )
         self.chat_button.clicked.connect(self.chat_mode_clicked)
 
