@@ -181,7 +181,9 @@ class AutoConnectTab(QtWidgets.QWidget):
         self.tor_con.start(self.curr_settings)
 
     def _got_no_bridges(self):
-        # If we got no bridges, try connecting again using built-in obfs4 bridges
+        # If we got no bridges, even after trying the default bridges
+        # provided by the Censorship API, try connecting again using
+        # our built-in obfs4 bridges
         self.curr_settings.set("bridges_type", "built-in")
         self.curr_settings.set("bridges_builtin_pt", "obfs4")
         self.curr_settings.set("bridges_enabled", True)
@@ -244,6 +246,16 @@ class AutoConnectTab(QtWidgets.QWidget):
             bridge_settings = self.censorship_circumvention.request_settings(
                 country=country
             )
+
+            if not bridge_settings:
+                # Fall back to trying the default bridges from the API
+                self.common.log(
+                    "AutoConnectTab",
+                    "use_bridge_connect_clicked",
+                    "Falling back to trying default bridges provided by the Censorship Circumvention API",
+                )
+                bridge_settings = self.censorship_circumvention.request_default_bridges()
+
             self.common.gui.meek.cleanup()
 
             if bridge_settings and self.censorship_circumvention.save_settings(
