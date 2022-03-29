@@ -119,6 +119,8 @@ class MainWindow(QtWidgets.QMainWindow):
                 )
             )
         )
+        sequence = QtGui.QKeySequence(QtCore.Qt.CTRL + QtCore.Qt.Key_H)
+        self.settings_button.setShortcut(sequence)
         self.settings_button.setAccessibleName(strings._("gui_settings_window_title"))
         self.settings_button.clicked.connect(self.open_settings)
         self.settings_button.setStyleSheet(self.common.gui.css["settings_button"])
