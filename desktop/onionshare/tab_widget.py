@@ -249,6 +249,9 @@ class TabWidget(QtWidgets.QTabWidget):
             from_autoconnect=from_autoconnect,
         )
         settings_tab.close_this_tab.connect(self.close_settings_tab)
+        sequence = QtGui.QKeySequence(QtCore.Qt.CTRL + QtCore.Qt.Key_X)
+        close_shortcut = QtWidgets.QShortcut(sequence, settings_tab)
+        close_shortcut.activated.connect(self.close_settings_tab)
         self.tor_settings_tab = settings_tab.tor_settings_tab
         self.tor_settings_tab.tor_is_connected.connect(self.tor_is_connected)
         self.tor_settings_tab.tor_is_disconnected.connect(self.tor_is_disconnected)
