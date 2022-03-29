@@ -55,6 +55,8 @@ jobs:
 
       - run:
           name: Run tests
+          environment:
+            QT_DEBUG_PLUGINS: 1
           command: |
             cd ~/repo/desktop
             xvfb-run poetry run pytest -v ./tests/test_gui_*.py
