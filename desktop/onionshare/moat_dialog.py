@@ -236,14 +236,10 @@ class MoatThread(QtCore.QThread):
         # Start Meek so that we can do domain fronting
         try:
             self.meek.start()
-        except MeekNotFound:
-            self.common.log("MoatThread", "run", f"Could not find meek-client")
-            self.bridgedb_error.emit()
-            return
-        except MeekNotRunning:
-            self.common.log(
-                "MoatThread", "run", f"Ran meek-client, but there was an error"
-            )
+        except (
+            MeekNotFound,
+            MeekNotRunning,
+        ):
             self.bridgedb_error.emit()
             return
 

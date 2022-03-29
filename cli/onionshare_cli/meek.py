@@ -69,7 +69,7 @@ class Meek(object):
         if self.meek_client_file_path is None or not os.path.exists(
             self.meek_client_file_path
         ):
-            raise MeekNotFound()
+            raise MeekNotFound(self.common)
 
         # Start the Meek Client as a subprocess.
         self.common.log("Meek", "start", "Starting meek client")
@@ -128,7 +128,7 @@ class Meek(object):
 
             if "CMETHOD-ERROR" in line:
                 self.cleanup()
-                raise MeekNotRunning()
+                raise MeekNotRunning(self.common, line)
                 break
 
         if self.meek_port:
@@ -137,9 +137,8 @@ class Meek(object):
                 "https": f"socks5h://{self.meek_host}:{self.meek_port}",
             }
         else:
-            self.common.log("Meek", "start", "Could not obtain the meek port")
             self.cleanup()
-            raise MeekNotRunning()
+            raise MeekNotRunning(self.common, "Could not obtain the meek port")
 
     def cleanup(self):
         """
@@ -182,8 +181,19 @@ class MeekNotRunning(Exception):
     number it started on, in order to do domain fronting.
     """
 
+    def __init__(self, common, info=None):
+        self.common = common
+        msg = "Meek experienced an error starting up"
+        if info:
+            msg = msg + f": {info}"
+        self.common.log("MeekNotRunning", "__init__", msg)
+
 
 class MeekNotFound(Exception):
     """
     We were unable to find the Meek Client binary.
     """
+
+    def __init__(self, common):
+        self.common = common
+        self.common.log("MeekNotFound", "__init__", "Could not find the meek binary")
