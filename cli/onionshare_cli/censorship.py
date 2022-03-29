@@ -95,7 +95,7 @@ class CensorshipCircumvention(object):
             if r.status_code != 200:
                 self.common.log(
                     "CensorshipCircumvention",
-                    "censorship_obtain_map",
+                    "request_map",
                     f"status_code={r.status_code}",
                 )
                 return False
@@ -105,7 +105,7 @@ class CensorshipCircumvention(object):
             if "errors" in result:
                 self.common.log(
                     "CensorshipCircumvention",
-                    "censorship_obtain_map",
+                    "request_map",
                     f"errors={result['errors']}",
                 )
                 return False
@@ -133,7 +133,7 @@ class CensorshipCircumvention(object):
         if country:
             self.common.log(
                 "CensorshipCircumvention",
-                "censorship_obtain_settings",
+                "request_settings",
                 f"Trying to obtain bridges for country={country}",
             )
             data = {"country": country}
@@ -149,7 +149,7 @@ class CensorshipCircumvention(object):
             if r.status_code != 200:
                 self.common.log(
                     "CensorshipCircumvention",
-                    "censorship_obtain_settings",
+                    "request_settings",
                     f"status_code={r.status_code}",
                 )
                 return False
@@ -159,7 +159,7 @@ class CensorshipCircumvention(object):
             if "errors" in result:
                 self.common.log(
                     "CensorshipCircumvention",
-                    "censorship_obtain_settings",
+                    "request_settings",
                     f"errors={result['errors']}",
                 )
                 return False
@@ -170,7 +170,7 @@ class CensorshipCircumvention(object):
             if not "settings" in result:
                 self.common.log(
                     "CensorshipCircumvention",
-                    "censorship_obtain_settings",
+                    "request_settings",
                     "No settings found for this country",
                 )
                 return False
@@ -195,7 +195,7 @@ class CensorshipCircumvention(object):
             if r.status_code != 200:
                 self.common.log(
                     "CensorshipCircumvention",
-                    "censorship_obtain_builtin_bridges",
+                    "request_builtin_bridges",
                     f"status_code={r.status_code}",
                 )
                 return False
@@ -205,7 +205,7 @@ class CensorshipCircumvention(object):
             if "errors" in result:
                 self.common.log(
                     "CensorshipCircumvention",
-                    "censorship_obtain_builtin_bridges",
+                    "request_builtin_bridges",
                     f"errors={result['errors']}",
                 )
                 return False
@@ -232,42 +232,15 @@ class CensorshipCircumvention(object):
             f"Obtained bridges: {bridges}",
         )
         bridge_strings = bridges["bridge_strings"]
-        bridge_type = bridges["type"]
-        bridge_source = bridges["source"]
 
-        # If the recommended bridge source is to use the built-in
-        # bridges, set that in our settings, as if the user had
-        # selected the built-in bridges for a specific PT themselves.
-        #
-        if bridge_source == "builtin":
-            self.common.log(
-                "CensorshipCircumvention",
-                "save_settings",
-                "Will be using built-in bridges",
-            )
-            self.settings.set("bridges_type", "built-in")
-            if bridge_type == "obfs4":
-                self.settings.set("bridges_builtin_pt", "obfs4")
-            if bridge_type == "snowflake":
-                self.settings.set("bridges_builtin_pt", "snowflake")
-            if bridge_type == "meek":
-                self.settings.set("bridges_builtin_pt", "meek-azure")
+        self.settings.set("bridges_type", "custom")
+
+        # Sanity check the bridges provided from the Tor API before saving
+        bridges_checked = self.common.check_bridges_valid(bridge_strings)
+
+        if bridges_checked:
+            self.settings.set("bridges_custom", "\n".join(bridges_checked))
             bridges_ok = True
-        else:
-            self.common.log(
-                "CensorshipCircumvention",
-                "save_settings",
-                "Will be using custom bridges",
-            )
-            # Any other type of bridge we can treat as custom.
-            self.settings.set("bridges_type", "custom")
-
-            # Sanity check the bridges provided from the Tor API before saving
-            bridges_checked = self.common.check_bridges_valid(bridge_strings)
-
-            if bridges_checked:
-                self.settings.set("bridges_custom", "\n".join(bridges_checked))
-                bridges_ok = True
 
         # If we got any good bridges, save them to settings and return.
         if bridges_ok:
@@ -286,3 +259,42 @@ class CensorshipCircumvention(object):
                 "Could not use any of the obtained bridges.",
             )
             return False
+
+
+    def request_default_bridges(self):
+        """
+        Retrieves the list of default fall-back bridges from the Tor Project.
+
+        These are intended for when no censorship settings were found for a
+        specific country, but maybe there was some connection issue anyway.
+        """
+        if not self.api_proxies:
+            return False
+        endpoint = "https://bridges.torproject.org/moat/circumvention/defaults"
+        try:
+            r = requests.get(
+                endpoint,
+                headers={"Content-Type": "application/vnd.api+json"},
+                proxies=self.api_proxies,
+            )
+            if r.status_code != 200:
+                self.common.log(
+                    "CensorshipCircumvention",
+                    "request_default_bridges",
+                    f"status_code={r.status_code}",
+                )
+                return False
+
+            result = r.json()
+
+            if "errors" in result:
+                self.common.log(
+                    "CensorshipCircumvention",
+                    "request_default_bridges",
+                    f"errors={result['errors']}",
+                )
+                return False
+
+            return result
+        except requests.exceptions.RequestException as e:
+            raise CensorshipCircumventionError(e)
