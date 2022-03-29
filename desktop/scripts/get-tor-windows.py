@@ -35,10 +35,10 @@ from bridges import UpdateTorBridges
 
 
 def main():
-    exe_url = "https://dist.torproject.org/torbrowser/11.0.4/torbrowser-install-11.0.4_en-US.exe"
-    exe_filename = "torbrowser-install-11.0.4_en-US.exe"
+    exe_url = "https://dist.torproject.org/torbrowser/11.0.9/torbrowser-install-11.0.9_en-US.exe"
+    exe_filename = "torbrowser-install-11.0.9_en-US.exe"
     expected_exe_sha256 = (
-        "c7073f58f49a225bcf7668a5630e94f5f5e96fb7bed095feebf3bf8417bd3d07"
+        "e938433028b6ffb5d312db6268b19e419626b071f08209684c8e5b9f3d3df2bc"
     )
     # Build paths
     root_path = os.path.dirname(

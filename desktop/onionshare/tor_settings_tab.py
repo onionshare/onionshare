@@ -21,7 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from PySide2 import QtCore, QtWidgets, QtGui
 import sys
 import platform
-import re
 import os
 
 from onionshare_cli.meek import Meek
@@ -43,7 +42,15 @@ class TorSettingsTab(QtWidgets.QWidget):
     tor_is_connected = QtCore.Signal()
     tor_is_disconnected = QtCore.Signal()
 
-    def __init__(self, common, tab_id, are_tabs_active, status_bar):
+    def __init__(
+        self,
+        common,
+        tab_id,
+        are_tabs_active,
+        status_bar,
+        from_autoconnect=False,
+        parent=None,
+    ):
         super(TorSettingsTab, self).__init__()
 
         self.common = common
@@ -54,6 +61,8 @@ class TorSettingsTab(QtWidgets.QWidget):
 
         self.system = platform.system()
         self.tab_id = tab_id
+        self.parent = parent
+        self.from_autoconnect = from_autoconnect
 
         # Connection type: either automatic, control port, or socket file
 
@@ -303,6 +312,21 @@ class TorSettingsTab(QtWidgets.QWidget):
         )
         connection_type_radio_group.setLayout(connection_type_radio_group_layout)
 
+        # Quickstart settings
+        self.autoconnect_checkbox = QtWidgets.QCheckBox(
+            strings._("gui_enable_autoconnect_checkbox")
+        )
+        self.autoconnect_checkbox.toggled.connect(self.autoconnect_toggled)
+        left_column_settings = QtWidgets.QVBoxLayout()
+        connection_type_radio_group.setFixedHeight(300)
+        left_column_settings.addWidget(connection_type_radio_group)
+        left_column_settings.addSpacing(20)
+        left_column_settings.addWidget(self.autoconnect_checkbox)
+        left_column_settings.addStretch()
+        left_column_settings.setContentsMargins(0, 0, 0, 0)
+        left_column_setting_widget = QtWidgets.QWidget()
+        left_column_setting_widget.setLayout(left_column_settings)
+
         # The Bridges options are not exclusive (enabling Bridges offers obfs4 or custom bridges)
         connection_type_bridges_radio_group_layout = QtWidgets.QVBoxLayout()
         connection_type_bridges_radio_group_layout.addWidget(self.bridges)
@@ -322,7 +346,7 @@ class TorSettingsTab(QtWidgets.QWidget):
 
         # Settings are in columns
         columns_layout = QtWidgets.QHBoxLayout()
-        columns_layout.addWidget(connection_type_radio_group)
+        columns_layout.addWidget(left_column_setting_widget)
         columns_layout.addSpacing(20)
         columns_layout.addLayout(connection_type_layout, stretch=1)
         columns_wrapper = QtWidgets.QWidget()
@@ -390,6 +414,10 @@ class TorSettingsTab(QtWidgets.QWidget):
         # Load settings, and fill them in
         self.old_settings = Settings(self.common)
         self.old_settings.load()
+
+        # Check if autoconnect was enabled
+        if self.old_settings.get("auto_connect"):
+            self.autoconnect_checkbox.setCheckState(QtCore.Qt.Checked)
 
         connection_type = self.old_settings.get("connection_type")
         if connection_type == "bundled":
@@ -476,6 +504,12 @@ class TorSettingsTab(QtWidgets.QWidget):
         else:
             self.bridge_use_checkbox.setCheckState(QtCore.Qt.Unchecked)
             self.bridge_settings.hide()
+
+    def autoconnect_toggled(self):
+        """
+        Auto connect checkbox clicked
+        """
+        self.common.log("TorSettingsTab", "autoconnect_checkbox_clicked")
 
     def active_tabs_changed(self, are_tabs_active):
         if are_tabs_active:
@@ -664,7 +698,9 @@ class TorSettingsTab(QtWidgets.QWidget):
             # If Tor isn't connected, or if Tor settings have changed, Reinitialize
             # the Onion object
             reboot_onion = False
-            if not self.common.gui.local_only:
+            if not self.common.gui.local_only and not (
+                self.from_autoconnect and not settings.get("auto_connect")
+            ):
                 if self.common.gui.onion.is_authenticated():
                     self.common.log(
                         "TorSettingsTab", "save_clicked", "Connected to Tor"
@@ -717,9 +753,9 @@ class TorSettingsTab(QtWidgets.QWidget):
                     self.tor_con.show()
                     self.tor_con.start(settings)
                 else:
-                    self.close_this_tab.emit()
+                    self.parent.close_this_tab.emit()
             else:
-                self.close_this_tab.emit()
+                self.parent.close_this_tab.emit()
 
     def tor_con_success(self):
         """
@@ -750,7 +786,7 @@ class TorSettingsTab(QtWidgets.QWidget):
                 # Tell the tabs that Tor is connected
                 self.tor_is_connected.emit()
                 # Close the tab
-                self.close_this_tab.emit()
+                self.parent.close_this_tab.emit()
 
         self.tor_con_type = None
 
@@ -776,6 +812,9 @@ class TorSettingsTab(QtWidgets.QWidget):
         self.common.log("TorSettingsTab", "settings_from_fields")
         settings = Settings(self.common)
         settings.load()  # To get the last update timestamp
+
+        # autoconnect
+        settings.set("auto_connect", self.autoconnect_checkbox.isChecked())
 
         # Tor connection
         if self.connection_type_bundled_radio.isChecked():
@@ -835,35 +874,10 @@ class TorSettingsTab(QtWidgets.QWidget):
             if self.bridge_custom_radio.isChecked():
                 settings.set("bridges_type", "custom")
 
-                new_bridges = []
                 bridges = self.bridge_custom_textbox.toPlainText().split("\n")
-                bridges_valid = False
-                for bridge in bridges:
-                    if bridge != "":
-                        # Check the syntax of the custom bridge to make sure it looks legitimate
-                        ipv4_pattern = re.compile(
-                            "(obfs4\s+)?(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]):([0-9]+)(\s+)([A-Z0-9]+)(.+)$"
-                        )
-                        ipv6_pattern = re.compile(
-                            "(obfs4\s+)?\[(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))\]:[0-9]+\s+[A-Z0-9]+(.+)$"
-                        )
-                        meek_lite_pattern = re.compile(
-                            "(meek_lite)(\s)+([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+:[0-9]+)(\s)+([0-9A-Z]+)(\s)+url=(.+)(\s)+front=(.+)"
-                        )
-                        snowflake_pattern = re.compile(
-                            "(snowflake)(\s)+([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+:[0-9]+)(\s)+([0-9A-Z]+)"
-                        )
-                        if (
-                            ipv4_pattern.match(bridge)
-                            or ipv6_pattern.match(bridge)
-                            or meek_lite_pattern.match(bridge)
-                            or snowflake_pattern.match(bridge)
-                        ):
-                            new_bridges.append(bridge)
-                            bridges_valid = True
-
+                bridges_valid = self.common.check_bridges_valid(bridges)
                 if bridges_valid:
-                    new_bridges = "\n".join(new_bridges) + "\n"
+                    new_bridges = "\n".join(bridges_valid) + "\n"
                     settings.set("bridges_custom", new_bridges)
                 else:
                     self.error_label.setText(
