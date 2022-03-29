@@ -19,8 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import requests
 
-from .meek import MeekNotRunning
-
 
 class CensorshipCircumventionError(Exception):
     """
@@ -47,15 +45,12 @@ class CensorshipCircumvention(object):
         self.api_proxies = {}
         if meek:
             self.meek = meek
-            if not self.meek.meek_proxies:
-                raise MeekNotRunning()
-            else:
-                self.common.log(
-                    "CensorshipCircumvention",
-                    "__init__",
-                    "Using Meek with CensorshipCircumvention API",
-                )
-                self.api_proxies = self.meek.meek_proxies
+            self.common.log(
+                "CensorshipCircumvention",
+                "__init__",
+                "Using Meek with CensorshipCircumvention API",
+            )
+            self.api_proxies = self.meek.meek_proxies
         if onion:
             self.onion = onion
             if not self.onion.is_authenticated:
