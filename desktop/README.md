@@ -9,13 +9,15 @@ git clone https://github.com/onionshare/onionshare.git
 cd onionshare/desktop
 ```
 
-Make sure you have Python 3 installed. If you're using Windows or macOS, install version 3.9.9 [from python.org](https://www.python.org/downloads/release/python-399/). For Windows, make sure to install the 32-bit (x86) version, and to check the box to add python to the path on the first page of the installer.
+Make sure you have Python 3 installed. If you're using Windows or macOS, install version 3.9.9 [from python.org](https://www.python.org/downloads/release/python-3912/). For Windows, make sure to install the 32-bit (x86) version, and to check the box to add python to the path on the first page of the installer.
 
 Make sure you have [poetry installed](https://python-poetry.org/docs/#installation), and then install the dependencies:
 
 ```sh
 poetry install
 ```
+
+In Windows, you may need to install [Microsoft C++ Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/), making sure to check "Desktop development with C++", before `poetry install` will work properly.
 
 ### Install platform-specific dependencies
 
@@ -57,6 +59,12 @@ Download and compile `meek-client`:
 
 ```sh
 ./scripts/build-meek-client.py
+```
+
+Or in Windows:
+
+```powershell
+python .\scripts\build-meek-client.py
 ```
 
 ### Running OnionShare from the source code tree
