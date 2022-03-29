@@ -954,20 +954,6 @@ class Onion(object):
                 "update_builtin_bridges",
                 f"Obtained bridges: {builtin_bridges}",
             )
-            if builtin_bridges["meek"]:
-                # Meek bridge needs to be defined as "meek_lite", not "meek",
-                # for it to work with obfs4proxy.
-                # We also refer to this bridge type as 'meek-azure' in our settings.
-                # So first, rename the key in the dict
-                builtin_bridges["meek-azure"] = builtin_bridges.pop("meek")
-                new_meek_bridges = []
-                # Now replace the values. They also need the url/front params appended
-                for item in builtin_bridges["meek-azure"]:
-                    newline = item.replace("meek", "meek_lite")
-                    new_meek_bridges.append(
-                        f"{newline} url=https://meek.azureedge.net/ front=ajax.aspnetcdn.com"
-                    )
-                builtin_bridges["meek-azure"] = new_meek_bridges
             # Save the new settings
             self.settings.set("bridges_builtin", builtin_bridges)
             self.settings.save()
