@@ -26,13 +26,25 @@ and hard-code the sha256 hash.
 """
 import shutil
 import os
+import sys
 import subprocess
 import inspect
 import platform
 
 
 def main():
-    if shutil.which("go") is None:
+    # Figure out the architecture and python path
+    if "64 bit" in sys.version:
+        python_arch = "win-amd64"
+    else:
+        python_arch = "win32"
+
+    if os.getlogin() == "circleci" and python_arch == "win32":
+        go_path = "C:\\Program Files (x86)\\Go\\bin\\go"
+    else:
+        go_path = shutil.which("go")
+
+    if go_path is None:
         print("Install go: https://golang.org/doc/install")
         return
 
