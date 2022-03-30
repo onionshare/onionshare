@@ -5,12 +5,10 @@ orbs:
 
 workflows:
   version: 2
-  test:
+  test_and_build:
     jobs:
       - test-cli
       - test-gui
-  build:
-    jobs:
       - build-win32:
           requires:
             - test-cli
