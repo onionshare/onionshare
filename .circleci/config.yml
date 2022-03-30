@@ -132,27 +132,27 @@ jobs:
             msiexec.exe /i "~\Downloads\go1.18.windows-386.msi" /qn
       - run:
           name: Install poetry (32-bit)
-          command: C:\Python39-32bit\python -m pip install poetry
+          command: C:\Python39-32bit\Scripts\pip install poetry
       - run:
           name: Install poetry dependencies
           command: |
             cd ~\project\desktop
-            poetry install
+            C:\Python39-32bit\Scripts\poetry install
       - run:
           name: Get tor
           command: |
             cd ~\project\desktop
-            poetry run python .\scripts\get-tor-windows.py
+            C:\Python39-32bit\Scripts\poetry run python .\scripts\get-tor-windows.py
       - run:
           name: Build meek
           command: |
             cd ~\project\desktop
-            python .\scripts\build-meek-client.py
+            C:\Python39-32bit\python .\scripts\build-meek-client.py
       - run:
           name: Build
           command: |
             cd ~\project\desktop
-            poetry run python .\package\build-windows.py --ci-build
+            C:\Python39-32bit\Scripts\poetry run python .\package\build-windows.py --ci-build
       - run:
           name: Compress
           command: Compress-Archive -LiteralPath ~\project\desktop\build\exe.win32-3.9 -DestinationPath ~\onionshare-win32.zip

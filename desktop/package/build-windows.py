@@ -185,7 +185,7 @@ def main():
     print("> Building binaries")
     run(
         [
-            shutil.which("python"),
+            "python",
             "setup-freeze.py",
             "build",
         ],
