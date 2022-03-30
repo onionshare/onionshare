@@ -11,11 +11,10 @@ workflows:
       - test-gui
   build:
     jobs:
-      - build-win32
-        requires:
-          - test-cli
-          - test-gui
-
+      - build-win32:
+          requires:
+            - test-cli
+            - test-gui
 
 jobs:
   test-cli:
