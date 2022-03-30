@@ -12,7 +12,7 @@ workflows:
       - build-win32:
           requires:
             - test-cli
-            - test-gui
+            # - test-gui
 
 jobs:
   test-cli:
