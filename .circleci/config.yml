@@ -1,10 +1,21 @@
-version: 2
+version: 2.1
+
+orbs:
+  win: circleci/windows@4.0.0
+
 workflows:
   version: 2
   test:
     jobs:
       - test-cli
       - test-gui
+  build:
+    jobs:
+      - build-win32
+        requires:
+          - test-cli
+          - test-gui
+
 
 jobs:
   test-cli:
@@ -34,7 +45,7 @@ jobs:
             poetry run onionshare-cli --local-only --receive --auto-stop-timer 2
             poetry run onionshare-cli --local-only --website ../docs --auto-stop-timer 2
             poetry run onionshare-cli --local-only --chat --auto-stop-timer 2
-    
+
   test-gui:
     docker:
       - image: cimg/python:3.9
@@ -58,3 +69,13 @@ jobs:
           command: |
             cd ~/repo/desktop
             QT_DEBUG_PLUGINS=1 xvfb-run poetry run pytest -v ./tests/test_gui_*.py
+
+  build-win32:
+    executor:
+      name: win/default
+      shell: powershell.exe
+
+    steps:
+      - checkout
+      - run: systeminfo
+      - run: Write-Host 'Hello, Windows'
