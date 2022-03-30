@@ -80,11 +80,18 @@ jobs:
             choco install python --version=3.9.12
             choco install 7zip
             choco install go
+            choco install dotnet3.5
+            choco install wixtoolset
       - run:
           name: Install poetry
           command: (Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | python -
       - run:
           name: Install poetry dependencies
           command: |
-            cd ~\project
+            cd ~\project\desktop
             poetry install
+      - run:
+          name: Build
+          command: |
+            cd ~\project\desktop
+            poetry run python .\package\build-windows.py --ci-build
