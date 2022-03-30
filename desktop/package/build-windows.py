@@ -162,6 +162,18 @@ def wix_build_components_xml(root, data):
 
 
 def main():
+    # Figure out the architecture and python path
+    if "64 bit" in sys.version:
+        python_arch = "win-amd64"
+    else:
+        python_arch = "win32"
+
+    if os.getlogin() == "circleci" and python_arch == "win32":
+        python_path = "C:\\Python-32bit\\python"
+    else:
+        python_path = shutil.which("python")
+
+    # Arguments
     parser = argparse.ArgumentParser(
         formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=48)
     )
@@ -185,17 +197,13 @@ def main():
     print("> Building binaries")
     run(
         [
-            "python",
+            python_path,
             "setup-freeze.py",
             "build",
         ],
         desktop_dir,
     )
 
-    if "64 bit" in sys.version:
-        python_arch = "win-amd64"
-    else:
-        python_arch = "win32"
     build_path = os.path.join(desktop_dir, "build", f"exe.{python_arch}-3.9")
 
     # before_size = get_size(build_path)

@@ -83,7 +83,6 @@ jobs:
           command: |
             choco install python --version=3.9.12
             choco install 7zip
-            choco install go
       - run:
           name: Install poetry
           command: (Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | python -
@@ -123,36 +122,37 @@ jobs:
       - run:
           name: Install chocolately dependencies
           command: |
-            choco install python3 --params "/InstallDir32:C:\Python39-32bit" --version=3.9.12
+            choco install python3 --params "/InstallDir32:C:\Python-32bit" --version=3.9.12
             choco install 7zip
       - run:
           name: Install golang (32-bit)
           command: |
-            Invoke-WebRequest -Uri https://go.dev/dl/go1.18.windows-386.msi -OutFile ~\Downloads\go1.18.windows-386.msi
-            msiexec.exe /i "~\Downloads\go1.18.windows-386.msi" /qn
+            cd ~\Downloads
+            Invoke-WebRequest -Uri https://go.dev/dl/go1.18.windows-386.msi -OutFile go1.18.windows-386.msi
+            msiexec.exe /i go1.18.windows-386.msi /quiet /L*V go-install.log
       - run:
           name: Install poetry (32-bit)
-          command: C:\Python39-32bit\Scripts\pip install poetry
+          command: C:\Python-32bit\Scripts\pip install poetry
       - run:
           name: Install poetry dependencies
           command: |
             cd ~\project\desktop
-            C:\Python39-32bit\Scripts\poetry install
+            C:\Python-32bit\Scripts\poetry install
       - run:
           name: Get tor
           command: |
             cd ~\project\desktop
-            C:\Python39-32bit\Scripts\poetry run python .\scripts\get-tor-windows.py
+            C:\Python-32bit\Scripts\poetry run python .\scripts\get-tor-windows.py
       - run:
           name: Build meek
           command: |
             cd ~\project\desktop
-            C:\Python39-32bit\python .\scripts\build-meek-client.py
+            C:\Python-32bit\python .\scripts\build-meek-client.py
       - run:
           name: Build
           command: |
             cd ~\project\desktop
-            C:\Python39-32bit\Scripts\poetry run python .\package\build-windows.py --ci-build
+            C:\Python-32bit\Scripts\poetry run python .\package\build-windows.py --ci-build
       - run:
           name: Compress
           command: Compress-Archive -LiteralPath ~\project\desktop\build\exe.win32-3.9 -DestinationPath ~\onionshare-win32.zip
