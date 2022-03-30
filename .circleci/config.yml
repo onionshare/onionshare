@@ -126,13 +126,13 @@ jobs:
             choco install python3 --params "/InstallDir32:C:\Python39-32bit" --version=3.9.12
             choco install 7zip
       - run:
-          name: Install 32-bit golang
+          name: Install golang (32-bit)
           command: |
             Invoke-WebRequest -Uri https://go.dev/dl/go1.18.windows-386.msi -OutFile ~\Downloads\go1.18.windows-386.msi
-            Invoke-Command -ComputerName LabMachine2k16 -ScriptBlock{ Start-Process ~\Downloads\go1.18.windows-386.msi -ArgumentList "/quiet" }
+            msiexec.exe /i "~\Downloads\go1.18.windows-386.msi" /qn
       - run:
-          name: Install poetry
-          command: (Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | C:\Python39-32bit\python -
+          name: Install poetry (32-bit)
+          command: C:\Python39-32bit\python -m pip install poetry
       - run:
           name: Install poetry dependencies
           command: |
