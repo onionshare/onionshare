@@ -123,12 +123,16 @@ jobs:
       - run:
           name: Install chocolately dependencies
           command: |
-            choco install python3 --params "/InstallDir32:C:\Python3.9-32bit" --version=3.9.12
+            choco install python3 --params "/InstallDir32:C:\Python39-32bit" --version=3.9.12
             choco install 7zip
-            choco install go
+      - run:
+          name: Install 32-bit golang
+          command: |
+            Invoke-WebRequest -Uri https://go.dev/dl/go1.18.windows-386.msi -OutFile ~\Downloads\go1.18.windows-386.msi
+            Invoke-Command -ComputerName LabMachine2k16 -ScriptBlock{ Start-Process ~\Downloads\go1.18.windows-386.msi -ArgumentList "/quiet" }
       - run:
           name: Install poetry
-          command: (Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | C:\Python3.9-32bit\python -
+          command: (Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | C:\Python39-32bit\python -
       - run:
           name: Install poetry dependencies
           command: |
