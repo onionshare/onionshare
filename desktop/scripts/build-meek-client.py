@@ -50,7 +50,7 @@ def main():
 
     subprocess.run(
         [
-            "go",
+            go_path,
             "install",
             "git.torproject.org/pluggable-transports/meek.git/meek-client@v0.37.0",
         ]

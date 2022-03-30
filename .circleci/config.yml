@@ -152,7 +152,7 @@ jobs:
           name: Build
           command: |
             cd ~\project\desktop
-            C:\Python-32bit\Scripts\poetry run python .\package\build-windows.py --ci-build
+            C:\Python-32bit\Scripts\poetry run python .\setup-freeze.py build
       - run:
           name: Compress
           command: Compress-Archive -LiteralPath ~\project\desktop\build\exe.win32-3.9 -DestinationPath ~\onionshare-win32.zip
