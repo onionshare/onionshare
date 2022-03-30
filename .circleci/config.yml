@@ -80,7 +80,6 @@ jobs:
             choco install python --version=3.9.12
             choco install 7zip
             choco install go
-            choco install dotnet3.5
       - run:
           name: Install poetry
           command: (Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | python -
@@ -106,6 +105,6 @@ jobs:
             poetry run python .\package\build-windows.py --ci-build
       - run:
           name: Compress
-          command: Compress-Archive -LiteralPath ~\project\desktop\build\exe.win-amd64-3.9 -DestinationPath ~\win64-build.zip
+          command: Compress-Archive -LiteralPath ~\project\desktop\build\exe.win-amd64-3.9 -DestinationPath ~\onionshare-win64.zip
       - store_artifacts:
-          path: ~\win64-build.zip
+          path: ~\onionshare-win64.zip
