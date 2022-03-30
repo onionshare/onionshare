@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import os
+import sys
 import inspect
 import subprocess
 import shutil
@@ -74,7 +75,7 @@ def wix_build_data(dirname, dir_prefix, id_, name):
                 id_prefix = id_
 
             # Skip lib/Pyside2/Examples folder
-            if "\\build\\exe.win32-3.9\\lib\\PySide2\\examples" in dirname:
+            if "\\lib\\PySide2\\examples" in dirname:
                 continue
 
             id_value = f"{id_prefix}{basename.capitalize().replace('-', '_')}"
@@ -175,13 +176,13 @@ def main():
 
     desktop_dir = os.path.join(root, "desktop")
 
-    print("○ Clean up from last build")
+    print("> Clean up from last build")
     if os.path.exists(os.path.join(desktop_dir, "build")):
         shutil.rmtree(os.path.join(desktop_dir, "build"))
     if os.path.exists(os.path.join(desktop_dir, "dist")):
         shutil.rmtree(os.path.join(desktop_dir, "dist"))
 
-    print("○ Building binaries")
+    print("> Building binaries")
     run(
         [
             shutil.which("python"),
@@ -190,15 +191,18 @@ def main():
         ],
         desktop_dir,
     )
-    before_size = get_size(os.path.join(desktop_dir, "build", "exe.win32-3.9"))
 
-    print("○ Delete unused PySide2 stuff to save space")
+    if "64 bit" in sys.version:
+        python_arch = "win-amd64"
+    else:
+        python_arch = "win32"
+    build_path = os.path.join(desktop_dir, "build", f"exe.{python_arch}-3.9")
+
+    before_size = get_size(build_path)
+
+    print("> Delete unused PySide2 stuff to save space")
     for dirname in ["examples", "qml"]:
-        shutil.rmtree(
-            os.path.join(
-                desktop_dir, "build", "exe.win32-3.9", "lib", "PySide2", dirname
-            )
-        )
+        shutil.rmtree(os.path.join(build_path, "lib", "PySide2", dirname))
     for filename in [
         "lconvert.exe",
         "linguist.exe",
@@ -425,43 +429,36 @@ def main():
     ]:
         os.remove(
             os.path.join(
-                desktop_dir,
-                "build",
-                "exe.win32-3.9",
+                build_path,
                 "lib",
                 "PySide2",
                 filename.replace("/", "\\"),
             )
         )
 
-    after_size = get_size(os.path.join(desktop_dir, "build", "exe.win32-3.9"))
+    after_size = get_size(build_path)
     freed_bytes = before_size - after_size
     freed_mb = int(freed_bytes / 1024 / 1024)
-    print(f"○ Freed {freed_mb} mb")
+    print(f"> Freed {freed_mb} mb")
 
     if ci_build:
         print("Doing a CI build, skipping code signing and msi packaging")
 
     else:
-        print(f"○ Signing onionshare.exe")
-        sign(os.path.join("build", "exe.win32-3.9", "onionshare.exe"), desktop_dir)
+        print(f"> Signing onionshare.exe")
+        sign(os.path.join(build_path, "onionshare.exe"), desktop_dir)
 
-        print(f"○ Signing onionshare-cli.exe")
-        sign(os.path.join("build", "exe.win32-3.9", "onionshare-cli.exe"), desktop_dir)
+        print(f"> Signing onionshare-cli.exe")
+        sign(os.path.join(build_path, "onionshare-cli.exe"), desktop_dir)
 
-        print(f"○ Build the WiX file")
+        print(f"> Build the WiX file")
         version_filename = os.path.join(
             root, "cli", "onionshare_cli", "resources", "version.txt"
         )
         with open(version_filename) as f:
             version = f.read().strip()
 
-        dist_dir = os.path.join(
-            root,
-            "desktop",
-            "build",
-            "exe.win32-3.9",
-        )
+        dist_dir = os.path.join(root, build_path)
 
         data = {
             "id": "TARGETDIR",
@@ -480,8 +477,7 @@ def main():
 
         data["dirs"][0]["dirs"].append(
             wix_build_data(
-                dist_dir,
-                "exe.win32-3.9",
+                build_path,
                 "INSTALLDIR",
                 "OnionShare",
             )
@@ -574,7 +570,7 @@ def main():
             ET.indent(root_el)
             f.write(ET.tostring(root_el).decode())
 
-        print(f"○ Build the MSI")
+        print(f"> Build the MSI")
         run(
             [shutil.which("candle.exe"), "OnionShare.wxs"],
             os.path.join(desktop_dir, "build"),
@@ -584,7 +580,7 @@ def main():
             os.path.join(desktop_dir, "build"),
         )
 
-        print(f"○ Prepare OnionShare.msi for signing")
+        print(f"> Prepare OnionShare.msi for signing")
         run(
             [
                 shutil.which("insignia.exe"),
@@ -598,7 +594,7 @@ def main():
         final_msi_filename = os.path.join(
             desktop_dir, "dist", f"OnionShare-{version}.msi"
         )
-        print(f"○ Final MSI: {final_msi_filename}")
+        print(f"> Final MSI: {final_msi_filename}")
         os.makedirs(os.path.join(desktop_dir, "dist"), exist_ok=True)
         os.rename(
             os.path.join(desktop_dir, "build", "OnionShare.msi"),
