@@ -9,7 +9,7 @@ workflows:
     jobs:
       - test-cli
       - test-gui
-      - build-win32:
+      - build-win64:
           requires:
             - test-cli
             # - test-gui
@@ -67,12 +67,24 @@ jobs:
             cd ~/repo/desktop
             QT_DEBUG_PLUGINS=1 xvfb-run poetry run pytest -v ./tests/test_gui_*.py
 
-  build-win32:
+  build-win64:
     executor:
       name: win/default
       shell: powershell.exe
 
     steps:
       - checkout
-      - run: systeminfo
-      - run: Write-Host 'Hello, Windows'
+      - run:
+          name: Install chocolately dependencies
+          command: |
+            choco install python --version=3.9.12
+            choco install 7zip
+            choco install go
+      - run:
+          name: Install poetry
+          command: (Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | python -
+      - run:
+          name: Install poetry dependencies
+          command: |
+            cd ~\project
+            poetry install
