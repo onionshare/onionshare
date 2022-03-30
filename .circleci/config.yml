@@ -81,7 +81,6 @@ jobs:
             choco install 7zip
             choco install go
             choco install dotnet3.5
-            choco install wixtoolset
       - run:
           name: Install poetry
           command: (Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | python -
@@ -91,7 +90,22 @@ jobs:
             cd ~\project\desktop
             poetry install
       - run:
+          name: Get tor
+          command: |
+            cd ~\project\desktop
+            poetry run python .\scripts\get-tor-windows.py
+      - run:
+          name: Build meek
+          command: |
+            cd ~\project\desktop
+            python .\scripts\build-meek-client.py
+      - run:
           name: Build
           command: |
             cd ~\project\desktop
             poetry run python .\package\build-windows.py --ci-build
+      - run:
+          name: Compress
+          command: Compress-Archive -LiteralPath ~\project\desktop\build\exe.win-amd64-3.9 -DestinationPath ~\win64-build.zip
+      - store_artifacts:
+          path: ~\win64-build.zip
