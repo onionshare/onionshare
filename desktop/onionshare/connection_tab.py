@@ -551,6 +551,11 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
         self.description_label.setWordWrap(True)
 
         # Detection preference
+        self.use_bridge = True
+        self.no_bridge = QtWidgets.QRadioButton(
+            strings._("gui_autoconnect_no_bridge")
+        )
+        self.no_bridge.toggled.connect(self._toggle_no_bridge)
         self.detect_automatic_radio = QtWidgets.QRadioButton(
             strings._("gui_autoconnect_bridge_detect_automatic")
         )
@@ -560,6 +565,7 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
         )
         self.detect_manual_radio.toggled.connect(self._detect_manual_toggled)
         detect_layout = QtWidgets.QVBoxLayout()
+        detect_layout.addWidget(self.no_bridge)
         detect_layout.addWidget(self.detect_automatic_radio)
         detect_layout.addWidget(self.detect_manual_radio)
 
@@ -592,17 +598,11 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
 
         # Buttons
         self.connect_button = QtWidgets.QPushButton(
-            strings._("gui_autoconnect_bridge_start")
+            strings._("gui_autoconnect_start")
         )
         self.connect_button.clicked.connect(self._connect_clicked)
         self.connect_button.setFixedWidth(150)
         self.connect_button.setStyleSheet(common.gui.css["autoconnect_start_button"])
-
-        self.try_again_button = QtWidgets.QPushButton(
-            strings._("gui_autoconnect_try_again_without_a_bridge")
-        )
-        self.try_again_button.clicked.connect(self._try_again_clicked)
-        self.try_again_button.setStyleSheet(common.gui.css["autoconnect_start_button"])
 
         self.configure_button = QtWidgets.QPushButton(
             strings._("gui_autoconnect_configure")
@@ -632,7 +632,6 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
 
         cta_layout = QtWidgets.QHBoxLayout()
         cta_layout.addWidget(self.connect_button)
-        cta_layout.addWidget(self.try_again_button)
         cta_layout.addWidget(self.configure_button)
         cta_layout.addStretch()
         cta_widget = QtWidgets.QWidget()
@@ -655,20 +654,23 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
 
     def hide_buttons(self):
         self.connect_button.hide()
-        self.try_again_button.hide()
         self.configure_button.hide()
         self.description_label.hide()
         self.error_label.hide()
+        self.no_bridge.hide()
         self.detect_automatic_radio.hide()
         self.detect_manual_radio.hide()
 
     def show_buttons(self):
         self.connect_button.show()
-        self.try_again_button.show()
         self.description_label.show()
         self.configure_button.show()
+        self.no_bridge.show()
         self.detect_automatic_radio.show()
         self.detect_manual_radio.show()
+
+    def _toggle_no_bridge(self):
+        self.use_bridge = not self.use_bridge
 
     def _detect_automatic_toggled(self):
         self.country_combobox.setEnabled(False)
@@ -684,16 +686,11 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
         self.connection_status_label.setText(
             strings._("gui_autoconnect_trying_to_connect_to_tor")
         )
-        self.connect_clicked.emit()
-
-    def _try_again_clicked(self):
-        self.connection_status_label.setText(
-            strings._("gui_autoconnect_trying_to_connect_to_tor")
-        )
-        self.country_combobox.setEnabled(False)
-        self.country_combobox.hide()
-        self.hide_buttons()
-        self.try_again_clicked.emit()
+        print(self.use_bridge)
+        if not self.use_bridge:
+            self.try_again_clicked.emit()
+        else:
+            self.connect_clicked.emit()
 
     def _open_tor_settings(self):
         self.open_tor_settings.emit()
