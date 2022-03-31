@@ -1,0 +1,291 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) Micah Lee, et al.
+# This file is distributed under the same license as the OnionShare package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: OnionShare 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-03-31 16:39+1100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
+
+#: ../../source/connecting.rst:2
+msgid "Getting connected to Tor"
+msgstr ""
+
+#: ../../source/connecting.rst:4
+msgid ""
+"When OnionShare starts, it will present a screen asking you to connect to"
+" the Tor network."
+msgstr ""
+
+#: ../../source/connecting.rst:8
+msgid ""
+"You have several choices. You can click Connect to Tor to begin the "
+"connection process. If there are no problems with your network, including"
+" any attempts to block your access to the Tor network, this should "
+"hopefully work the first time."
+msgstr ""
+
+#: ../../source/connecting.rst:10
+msgid ""
+"If you want to manually configure Bridges or other Tor settings before "
+"you connect, you can click 'Network Settings'."
+msgstr ""
+
+#: ../../source/connecting.rst:13
+msgid "Automatic censorship circumvention"
+msgstr ""
+
+#: ../../source/connecting.rst:15
+msgid ""
+"When OnionShare fails to connect to Tor, it might be because Tor is "
+"censored in your country."
+msgstr ""
+
+#: ../../source/connecting.rst:17
+msgid ""
+"If this occurs, a screen will be displayed that will offer you to either "
+"'Use a Bridge' (automatically choosing one for you), or 'Try Again "
+"without a Bridge'."
+msgstr ""
+
+#: ../../source/connecting.rst:22
+msgid "What 'Use a Bridge' does"
+msgstr ""
+
+#: ../../source/connecting.rst:24
+msgid ""
+"Bridges are a way to connect to the Tor network via intermediate services"
+" that are hopefully not blocked by your network provider (whereas normal "
+"connections might be)."
+msgstr ""
+
+#: ../../source/connecting.rst:26
+msgid ""
+"Clicking 'Use a Bridge' will temporarily use the `Meek "
+"<https://gitlab.torproject.org/legacy/trac/-/wikis/doc/meek/>`_ domain-"
+"fronting proxy to make a non-Tor connection from your computer to the Tor"
+" Project's Censorship Circumvention API. The use of the Meek proxy is to "
+"hide the fact that you are trying to find a way to connect to Tor."
+msgstr ""
+
+#: ../../source/connecting.rst:28
+msgid ""
+"Before clicking 'Use a Bridge', you can choose either 'Automatically "
+"determine my country from my IP address' or 'Manually select my country'."
+msgstr ""
+
+#: ../../source/connecting.rst:30
+msgid ""
+"If you choose the former option, the Censorship Circumvention API will "
+"consider your IP address (yes, your real IP address) to determine what "
+"country you might reside in."
+msgstr ""
+
+#: ../../source/connecting.rst:32
+msgid ""
+"Based on the country information, the API will try to automatically find "
+"bridges that suit your location."
+msgstr ""
+
+#: ../../source/connecting.rst:36
+msgid ""
+"If you choose to manually select a country, OnionShare will still make a "
+"request to the Censorship Circumvention API, but will tell the API the "
+"country code. The API will then try to fetch bridges for that country "
+"that you specified."
+msgstr ""
+
+#: ../../source/connecting.rst:38
+msgid ""
+"If it finds any such bridges, OnionShare will try to reconnect to Tor "
+"using those bridges."
+msgstr ""
+
+#: ../../source/connecting.rst:40
+msgid ""
+"If the API does not find any bridges for your location, OnionShare will "
+"ask the API for 'fallback' options. At the time of writing, this is "
+"likely to be the obfs4 built-in bridges."
+msgstr ""
+
+#: ../../source/connecting.rst:42
+msgid ""
+"OnionShare will also attempt to use the obfs4 built-in bridges if for "
+"some reason it could not connect to the API itself, or the API returned "
+"an error."
+msgstr ""
+
+#: ../../source/connecting.rst:44
+msgid ""
+"It's important to note that the requests to the Censorship Circumvention "
+"API do not go over the Tor Network (because if you could connect to Tor "
+"already, you wouldn't need to connect to the API)."
+msgstr ""
+
+#: ../../source/connecting.rst:46
+msgid ""
+"Even though it is hard for an adversary to discover where the Meek "
+"request is going, this may still be risky for some users. Therefore, it "
+"is an opt-in feature. The use of Meek and non-torified network requests "
+"are limited only to making one or two requests to the Censorship "
+"Circumvention API. Then Meek is stopped, and all further network requests"
+" happen over the Tor network."
+msgstr ""
+
+#: ../../source/connecting.rst:49
+msgid "What 'Try again without a Bridge' does"
+msgstr ""
+
+#: ../../source/connecting.rst:51
+msgid ""
+"Clicking 'Try again without a Bridge' will retry the normal OnionShare "
+"connection attempt to Tor. It won't talk to the Tor Censorship "
+"Circumvention API or use Meek."
+msgstr ""
+
+#: ../../source/connecting.rst:54
+msgid "Connect to Tor automatically"
+msgstr ""
+
+#: ../../source/connecting.rst:56
+msgid ""
+"You can toggle on the switch 'Connect to Tor automatically' before "
+"clicking 'Connect to Tor'. This means that next time OnionShare starts, "
+"it will automatically connect with its Tor connection settings from the "
+"last session, instead of presenting you with the connection options."
+msgstr ""
+
+#: ../../source/connecting.rst:58
+msgid ""
+"If the connection fails, you can still try bridges or reconfigure Tor via"
+" the 'Network Settings'."
+msgstr ""
+
+#~ msgid ""
+#~ "If you want to use Bridges to "
+#~ "connect to Tor, you can click "
+#~ "Network Settings to configure your type"
+#~ " of Tor connection or any bridge "
+#~ "settings. You can read more about "
+#~ "the Tor Settings screen at "
+#~ ":ref:`tor_settings`"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "When OnionShare tries to connect to "
+#~ "Tor, and experiences a problem, it "
+#~ "may be because Tor is censored in"
+#~ " your country."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "If this occurs, a screen will be"
+#~ " displayed that will offer you to "
+#~ "either 'Use a Bridge' (automatically "
+#~ "choosing one for you), or 'Try "
+#~ "Again without a Bridge'. You can "
+#~ "also click 'Network Settings' to "
+#~ "configure other custom bridges or for"
+#~ " other ways to use Tor."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "You can choose either 'Automatically "
+#~ "determine my country from my IP "
+#~ "address' or 'Manually select my "
+#~ "country', before clicking 'Use a "
+#~ "Bridge'."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "If you choose to automatically determine"
+#~ " your country, clicking 'Use a "
+#~ "Bridge' will temporarily use the `Meek"
+#~ " <https://gitlab.torproject.org/legacy/trac/-/wikis/doc/meek/>`_"
+#~ " domain-fronting proxy to make a "
+#~ "non-Tor connection from your computer"
+#~ " to the Tor Project's Censorship "
+#~ "Circumvention API. The use of the "
+#~ "Meek proxy is to defeat any "
+#~ "censorship attempt against your computer's "
+#~ "ability to reach the API itself."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "The Censorship Circumvention API will "
+#~ "consider your IP address (yes, your "
+#~ "real IP address) to determine what "
+#~ "country you might reside in."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "If you choose to manually select a"
+#~ " country, OnionShare will still make "
+#~ "a Meek-driven request to the "
+#~ "Censorship Circumvention API, but will "
+#~ "tell the API the country code. The"
+#~ " API will then try to fetch "
+#~ "bridges for that country that you "
+#~ "specified."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "If the API does not find any "
+#~ "bridges for your location, OnionShare "
+#~ "will ask the API for 'fallback' "
+#~ "options. At the time of writing, "
+#~ "this is likely to be the OBFS4 "
+#~ "built-in bridges."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "It's important to note that the "
+#~ "requests to the Censorship Circumvention "
+#~ "API do not go over the Tor "
+#~ "Network (if you could use Tor "
+#~ "already, you wouldn't need to talk "
+#~ "to the API!). Even though it is"
+#~ " hard for an adversary to discover"
+#~ " where the Meek request is going, "
+#~ "this may still be risky for some"
+#~ " users. Therefore, it is an opt-"
+#~ "in feature. The use of Meek and"
+#~ " non-torified network requests are "
+#~ "limited only to making one or two"
+#~ " requests to the Censorship Circumvention"
+#~ " API. Then Meek is stopped, and "
+#~ "all further network requests happen over"
+#~ " the Tor network."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Clicking 'Try again without a Bridge'"
+#~ " will simply retry the normal "
+#~ "OnionShare connection attempt to Tor. It"
+#~ " won't talk to the Tor Censorship "
+#~ "Circumvention API or use Meek."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "You can toggle on the switch "
+#~ "'Connect to Tor automatically' before "
+#~ "clicking 'Connect to Tor'. This means"
+#~ " that next time OnionShare starts, it"
+#~ " will automatically connect instead of "
+#~ "presenting you with the configuration "
+#~ "options."
+#~ msgstr ""
+
+#~ msgid "If the connection fails, you can still try bridges."
+#~ msgstr ""
+

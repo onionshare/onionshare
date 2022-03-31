@@ -1,7 +1,9 @@
 Connecting to Tor
 =================
 
-Pick a way to connect OnionShare to Tor by clicking the Tor onion icon in the bottom right of the OnionShare window to open the Tor Settings tab.
+.. _tor:
+
+Pick a way to connect OnionShare to Tor by clicking Network Settings from the welcome screen, or the Tor onion icon in the bottom right of the OnionShare window to open the Tor Settings tab.
 
 .. image:: _static/screenshots/tor-settings.png
 
