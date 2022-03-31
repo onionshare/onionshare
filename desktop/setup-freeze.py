@@ -166,6 +166,9 @@ setup(
                 "PySide2.QtWidgets",
             ],
             "excludes": [
+                "package",
+                "screenshots",
+                "scripts",
                 "test",
                 "tkinter",
                 "PySide2.Qt3DAnimation",
