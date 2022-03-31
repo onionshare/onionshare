@@ -24,6 +24,7 @@ import platform
 import shutil
 import cx_Freeze
 from cx_Freeze import setup, Executable
+from setuptools import find_packages
 
 # There's an obscure cx_Freeze bug that I'm hitting that's preventing the macOS
 # package from getting built. This is some monkeypatching to fix it.
@@ -148,6 +149,11 @@ setup(
     name="onionshare",
     version=version,
     description="Securely and anonymously share files, host websites, and chat with friends using the Tor network",
+    packages=find_packages(
+        where=".",
+        include=["onionshare"],
+        exclude=["package", "screenshots", "scripts", "tests"],
+    ),
     options={
         # build_exe, for Windows and macOS
         "build_exe": {
@@ -166,9 +172,6 @@ setup(
                 "PySide2.QtWidgets",
             ],
             "excludes": [
-                "package",
-                "screenshots",
-                "scripts",
                 "test",
                 "tkinter",
                 "PySide2.Qt3DAnimation",
@@ -217,7 +220,7 @@ setup(
         # bdist_mac, making the macOS app bundle
         "bdist_mac": {
             "iconfile": os.path.join("onionshare", "resources", "onionshare.icns"),
-            "bundle_name": "OnionShare"
+            "bundle_name": "OnionShare",
         },
     },
     executables=[
