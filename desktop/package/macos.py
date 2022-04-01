@@ -184,10 +184,13 @@ def cleanup_build():
                 cwd=f"{app_path}/Contents/Frameworks/{basename}",
             )
 
-        run(
-            ["ln", "-s", "5", "Current"],
-            cwd=f"{app_path}/Contents/Frameworks/{basename}/Versions",
-        )
+        try:
+            run(
+                ["ln", "-s", "5", "Current"],
+                cwd=f"{app_path}/Contents/Frameworks/{basename}/Versions",
+            )
+        except:
+            pass
 
     # Move Qt plugins
     os.rename(
