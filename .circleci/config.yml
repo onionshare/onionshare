@@ -209,19 +209,16 @@ jobs:
           path: ~/onionshare-macos.zip
 
   build-snapcraft:
-    machine:
-      image: ubuntu-2004:current
+    docker:
+      - image: snapcore/snapcraft:edge
     working_directory: ~/repo
     steps:
       - checkout
       - run:
-          name: Install snapcraft
-          command: sudo snap install snapcraft --classic
-      - run:
           name: Build the snap
           command: |
-            cd ~/repo
+            cd ~/repo/desktop
             snapcraft
-            mv onionshare-*_amd64.snap onionshare_amd64.snap
+            mv onionshare-*_amd64.snap ~/onionshare_amd64.snap
       - store_artifacts:
-          path: ~/repo/onionshare_amd64.snap
+          path: ~/onionshare_amd64.snap
