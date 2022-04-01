@@ -168,8 +168,8 @@ jobs:
       - checkout
 
   build-snapcraft:
-    docker:
-      - image: ubuntu/20.04
+    machine:
+      image: ubuntu-2004:current
     working_directory: ~/repo
     steps:
       - checkout
