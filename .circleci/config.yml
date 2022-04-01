@@ -215,6 +215,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install snapcraft
+          command: sudo snap install snapcraft --classic
+      - run:
           name: Build the snap
           command: |
             cd ~/repo
