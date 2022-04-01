@@ -217,7 +217,7 @@ jobs:
       - run:
           name: Build the snap
           command: |
-            cd ~/repo/desktop
+            cd ~/repo
             snapcraft
             mv onionshare-*_amd64.snap ~/onionshare_amd64.snap
       - store_artifacts:
