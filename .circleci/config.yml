@@ -79,10 +79,9 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install chocolately dependencies
+          name: Install Python 3.9.12
           command: |
             choco install python --version=3.9.12
-            choco install 7zip
       - run:
           name: Install poetry
           command: (Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | python -
@@ -109,7 +108,7 @@ jobs:
             poetry run python .\package\windows.py cleanup-build
       - run:
           name: Compress
-          command: Compress-Archive -LiteralPath ~\project\desktop\build\exe.win-amd64-3.9 -DestinationPath ~\onionshare-win64.zip
+          command: Compress-Archive -LiteralPath ~\project\desktop\build\exe.win-amd64-3.9\* -DestinationPath ~\onionshare-win64.zip
       - store_artifacts:
           path: ~\onionshare-win64.zip
 
@@ -121,10 +120,9 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install chocolately dependencies
+          name: Install Python 3.9.12 (32-bit)
           command: |
             choco install python3 --params "/InstallDir32:C:\Python-32bit" --version=3.9.12
-            choco install 7zip
       - run:
           name: Install golang (32-bit)
           command: |
@@ -157,6 +155,6 @@ jobs:
             C:\Python-32bit\Scripts\poetry run python .\package\windows.py cleanup-build
       - run:
           name: Compress
-          command: Compress-Archive -LiteralPath ~\project\desktop\build\exe.win32-3.9 -DestinationPath ~\onionshare-win32.zip
+          command: Compress-Archive -LiteralPath ~\project\desktop\build\exe.win32-3.9\* -DestinationPath ~\onionshare-win32.zip
       - store_artifacts:
           path: ~\onionshare-win32.zip
