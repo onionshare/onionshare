@@ -166,6 +166,47 @@ jobs:
       xcode: 12.5.1
     steps:
       - checkout
+      - run:
+          name: Install Homebrew dependencies
+          command: |
+            brew install wget
+            brew install go
+      - run:
+          name: Install Python 3.9.12
+          command: |
+            wget https://www.python.org/ftp/python/3.9.12/python-3.9.12-macos11.pkg -O ~/Downloads/python.pkg
+            sudo installer -pkg ~/Downloads/python.pkg -target /
+      - run:
+          name: Install poetry
+          command: |
+            pip3 install poetry
+            ln -s /Library/Frameworks/Python.framework/Versions/3.9/bin/poetry /usr/local/bin
+      - run:
+          name: Install poetry dependencies
+          command: |
+            cd ~/project/desktop
+            poetry install
+      - run:
+          name: Get tor
+          command: |
+            cd ~/project/desktop
+            poetry run ./scripts/get-tor-osx.py
+      - run:
+          name: Build meek
+          command: |
+            cd ~/project/desktop
+            ./scripts/build-meek-client.py
+      - run:
+          name: Build OnionShare
+          command: |
+            cd ~/project/desktop
+            poetry run python ./setup-freeze.py bdist_mac
+            poetry run python ./package/macos.py cleanup-build
+      - run:
+          name: Compress
+          command: zip -r ~/onionshare-macos.zip ~/project/desktop/build/OnionShare.app
+      - store_artifacts:
+          path: ~/onionshare-macos.zip
 
   build-snapcraft:
     machine:
