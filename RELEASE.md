@@ -106,10 +106,13 @@ Set up the development environment described in desktop `README.md`.
 - Go to https://dotnet.microsoft.com/download/dotnet-framework and download and install .NET Framework 3.5 SP1 Runtime. I downloaded `dotnetfx35.exe`.
 - Go to https://wixtoolset.org/releases/ and download and install WiX toolset. I downloaded `wix311.exe`. Add `C:\Program Files (x86)\WiX Toolset v3.11\bin` to the path.
 
-Run the Windows build script:
+Build the Windows binaries, delete extra files, codesign, and create an MSI package:
 
 ```
-poetry run python .\package\build-windows.py
+poetry run python .\setup-freeze.py build
+poetry run python .\package\windows.py cleanup-build
+poetry run python .\package\windows.py codesign
+poetry run python .\package\windows.py package
 ```
 
 This will create `desktop/dist/OnionShare-$VERSION.msi`, signed.
