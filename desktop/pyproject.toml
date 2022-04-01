@@ -13,6 +13,7 @@ qrcode = "*"
 cx_freeze = "*"
 
 [tool.poetry.dev-dependencies]
+click = "*"
 black = "*"
 pytest = "*"
 pytest-faulthandler = "*"

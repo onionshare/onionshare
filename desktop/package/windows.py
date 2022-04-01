@@ -1,18 +1,39 @@
 #!/usr/bin/env python3
-import os
+from distutils.command.build import build
 import sys
+import os
 import inspect
-import subprocess
+import click
 import shutil
+import subprocess
 import uuid
 import xml.etree.ElementTree as ET
-
 
 root = os.path.dirname(
     os.path.dirname(
         os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
     )
 )
+desktop_dir = os.path.join(root, "desktop")
+
+
+def get_build_path():
+    if "64 bit" in sys.version:
+        python_arch = "win-amd64"
+    else:
+        python_arch = "win32"
+
+    build_path = os.path.join(desktop_dir, "build", f"exe.{python_arch}-3.9")
+    return build_path
+
+
+def get_size(dir):
+    size = 0
+    for path, dirs, files in os.walk(dir):
+        for f in files:
+            fp = os.path.join(path, f)
+            size += os.path.getsize(fp)
+    return size
 
 
 def run(cmd, cwd=None, error_ok=False):
@@ -24,7 +45,7 @@ def run(cmd, cwd=None, error_ok=False):
             raise subprocess.CalledProcessError(e)
 
 
-def sign(filename, cwd=None):
+def sign(filename):
     run(
         [
             shutil.which("signtool"),
@@ -41,18 +62,8 @@ def sign(filename, cwd=None):
             "/tr",
             "http://timestamp.digicert.com",
             filename,
-        ],
-        cwd,
+        ]
     )
-
-
-def get_size(dir):
-    size = 0
-    for path, dirs, files in os.walk(dir):
-        for f in files:
-            fp = os.path.join(path, f)
-            size += os.path.getsize(fp)
-    return size
 
 
 def wix_build_data(dirname, dir_prefix, id_, name):
@@ -160,41 +171,19 @@ def wix_build_components_xml(root, data):
     return component_ids
 
 
+@click.group()
 def main():
-    # Figure out the architecture and python path
-    if "64 bit" in sys.version:
-        python_arch = "win-amd64"
-    else:
-        python_arch = "win32"
+    """
+    Windows build tasks
+    """
 
-    if os.getlogin() == "circleci" and python_arch == "win32":
-        python_path = "C:\\Python-32bit\\python"
-    else:
-        python_path = shutil.which("python")
 
-    desktop_dir = os.path.join(root, "desktop")
-
-    print("> Clean up from last build")
-    if os.path.exists(os.path.join(desktop_dir, "build")):
-        shutil.rmtree(os.path.join(desktop_dir, "build"))
-    if os.path.exists(os.path.join(desktop_dir, "dist")):
-        shutil.rmtree(os.path.join(desktop_dir, "dist"))
-
-    print("> Building binaries")
-    run(
-        [
-            python_path,
-            "setup-freeze.py",
-            "build",
-        ],
-        desktop_dir,
-    )
-
-    build_path = os.path.join(desktop_dir, "build", f"exe.{python_arch}-3.9")
-
+@main.command()
+def cleanup_build():
+    """Delete unused PySide2 stuff to save space"""
+    build_path = get_build_path()
     before_size = get_size(build_path)
 
-    print("> Delete unused PySide2 stuff to save space")
     for dirname in ["examples", "qml"]:
         shutil.rmtree(os.path.join(build_path, "lib", "PySide2", dirname))
     for filename in [
@@ -433,13 +422,41 @@ def main():
     after_size = get_size(build_path)
     freed_bytes = before_size - after_size
     freed_mb = int(freed_bytes / 1024 / 1024)
-    print(f"> Freed {freed_mb} mb")
+    print(f"Freed {freed_mb} mb")
 
-    print(f"> Signing onionshare.exe")
-    sign(os.path.join(build_path, "onionshare.exe"), desktop_dir)
 
-    print(f"> Signing onionshare-cli.exe")
-    sign(os.path.join(build_path, "onionshare-cli.exe"), desktop_dir)
+@main.command()
+@click.argument("build_path")
+def codesign(build_path):
+    """Sign Windows binaries before packaging"""
+    if not os.path.isdir(build_path):
+        click.echo("Invalid build path")
+        return
+
+    click.echo("> Signing onionshare.exe")
+    sign(os.path.join(build_path, "onionshare.exe"))
+
+    click.echo("> Signing onionshare-cli.exe")
+    sign(os.path.join(build_path, "onionshare-cli.exe"))
+
+    click.echo("> Signing meek-client.exe")
+    sign(
+        os.path.join(
+            build_path,
+            "lib",
+            "onionshare",
+            "resources",
+            "tor",
+            "Tor",
+            "meek-client.exe",
+        )
+    )
+
+
+@main.command()
+@click.argument("build_path")
+def package(build_path):
+    """Build the MSI package"""
 
     print(f"> Build the WiX file")
     version_filename = os.path.join(
@@ -447,8 +464,6 @@ def main():
     )
     with open(version_filename) as f:
         version = f.read().strip()
-
-    dist_dir = os.path.join(root, build_path)
 
     data = {
         "id": "TARGETDIR",
@@ -497,9 +512,7 @@ def main():
         Compressed="yes",
         SummaryCodepage="1252",
     )
-    ET.SubElement(
-        product_el, "Media", Id="1", Cabinet="product.cab", EmbedCab="yes"
-    )
+    ET.SubElement(product_el, "Media", Id="1", Cabinet="product.cab", EmbedCab="yes")
     ET.SubElement(
         product_el,
         "Icon",
@@ -543,9 +556,7 @@ def main():
     wix_build_dir_xml(product_el, data)
     component_ids = wix_build_components_xml(product_el, data)
 
-    feature_el = ET.SubElement(
-        product_el, "Feature", Id="DefaultFeature", Level="1"
-    )
+    feature_el = ET.SubElement(product_el, "Feature", Id="DefaultFeature", Level="1")
     for component_id in component_ids:
         ET.SubElement(feature_el, "ComponentRef", Id=component_id)
     ET.SubElement(feature_el, "ComponentRef", Id="ApplicationShortcuts")
@@ -581,9 +592,7 @@ def main():
     )
     sign(os.path.join(desktop_dir, "build", "OnionShare.msi"))
 
-    final_msi_filename = os.path.join(
-        desktop_dir, "dist", f"OnionShare-{version}.msi"
-    )
+    final_msi_filename = os.path.join(desktop_dir, "dist", f"OnionShare-{version}.msi")
     print(f"> Final MSI: {final_msi_filename}")
     os.makedirs(os.path.join(desktop_dir, "dist"), exist_ok=True)
     os.rename(

@@ -102,10 +102,11 @@ jobs:
             cd ~\project\desktop
             python .\scripts\build-meek-client.py
       - run:
-          name: Build
+          name: Build OnionShare
           command: |
             cd ~\project\desktop
-            poetry run python .\package\build-windows.py --ci-build
+            poetry run python .\setup-freeze.py build
+            poetry run python .\package\windows.py cleanup-build
       - run:
           name: Compress
           command: Compress-Archive -LiteralPath ~\project\desktop\build\exe.win-amd64-3.9 -DestinationPath ~\onionshare-win64.zip
@@ -149,10 +150,11 @@ jobs:
             cd ~\project\desktop
             C:\Python-32bit\python .\scripts\build-meek-client.py
       - run:
-          name: Build
+          name: Build OnionShare
           command: |
             cd ~\project\desktop
             C:\Python-32bit\Scripts\poetry run python .\setup-freeze.py build
+            C:\Python-32bit\Scripts\poetry run python .\package\windows.py cleanup-build
       - run:
           name: Compress
           command: Compress-Archive -LiteralPath ~\project\desktop\build\exe.win32-3.9 -DestinationPath ~\onionshare-win32.zip
