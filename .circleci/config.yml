@@ -93,7 +93,7 @@ jobs:
           name: Get tor
           command: |
             cd ~\project\desktop
-            poetry run python .\scripts\get-tor-windows.py
+            poetry run python .\scripts\get-tor.py
       - run:
           name: Build meek
           command: |
@@ -141,7 +141,7 @@ jobs:
           name: Get tor
           command: |
             cd ~\project\desktop
-            C:\Python-32bit\Scripts\poetry run python .\scripts\get-tor-windows.py
+            C:\Python-32bit\Scripts\poetry run python .\scripts\get-tor.py
       - run:
           name: Build meek
           command: |
@@ -190,7 +190,7 @@ jobs:
           name: Get tor
           command: |
             cd ~/project/desktop
-            poetry run ./scripts/get-tor-osx.py
+            poetry run python ./scripts/get-tor.py
       - run:
           name: Build meek
           command: |
