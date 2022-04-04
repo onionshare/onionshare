@@ -223,7 +223,7 @@ jobs:
           name: Install extra snaps without snapd
           command: |
             mkdir ~/tmp
-            install_snap() { cd ~/tmp && snap download $1 && mkdir -p /snap/$1 && unsquashfs -d /snap/$1/current *.snap && rm ~/tmp/* }
+            install_snap () { cd ~/tmp && snap download $1 && mkdir -p /snap/$1 && unsquashfs -d /snap/$1/current *.snap && rm ~/tmp/*; }
             install_snap "core18"
             install_snap "go"
             install_snap "gnome-3-34-1804"
