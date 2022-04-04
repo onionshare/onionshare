@@ -220,6 +220,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install extra snaps
+          command: sudo snap install core18 go/stable go/latest/stable gnome-3-34-1804-sdk/latest/stable
+      - run:
           name: Build the snap
           command: |
             cd ~/repo
