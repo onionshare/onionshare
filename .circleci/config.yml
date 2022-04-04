@@ -221,7 +221,11 @@ jobs:
       - checkout
       - run:
           name: Install extra snaps
-          command: sudo snap install core18 go/stable go/latest/stable gnome-3-34-1804-sdk/latest/stable
+          command: |
+            sudo snap install core18
+            sudo snap install go/stable
+            sudo snap install go/latest/stable
+            sudo snap install gnome-3-34-1804-sdk/latest/stable
       - run:
           name: Build the snap
           command: |
