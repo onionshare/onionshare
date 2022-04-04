@@ -220,12 +220,17 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install extra snaps
+          name: Install extra snaps without snapd
           command: |
-            sudo snap install core18
-            sudo snap install go/stable
-            sudo snap install go/latest/stable
-            sudo snap install gnome-3-34-1804-sdk/latest/stable
+            mkdir ~/tmp && cd ~/tmp
+            # snap install go
+            snap download go
+            mkdir -p /snap/go && unsquashfs -d /snap/go/current go_*.snap
+            rm ~/tmp/*
+            # snap install gnome-3-34-1804-sdk
+            snap download gnome-3-34-1804-sdk
+            mkdir -p /snap/gnome-3-34-1804-sdk && unsquashfs -d /snap/gnome-3-34-1804-sdk/current gnome-3-34-1804-sdk_*.snap
+            rm ~/tmp/*
       - run:
           name: Build the snap
           command: |
