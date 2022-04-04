@@ -12,19 +12,19 @@ workflows:
       - build-win64:
           requires:
             - test-cli
-            # - test-gui
+            - test-gui
       - build-win32:
           requires:
             - test-cli
-            # - test-gui
+            - test-gui
       - build-macos:
           requires:
             - test-cli
-            # - test-gui
-      - build-snapcraft:
-          requires:
-            - test-cli
-            # - test-gui
+            - test-gui
+      # - build-snapcraft:
+      #     requires:
+      #       - test-cli
+      #       - test-gui
 
 jobs:
   test-cli:
@@ -213,26 +213,26 @@ jobs:
       - store_artifacts:
           path: ~/onionshare-app-macos.zip
 
-  build-snapcraft:
-    docker:
-      - image: snapcore/snapcraft:stable
-    working_directory: ~/repo
-    steps:
-      - checkout
-      - run:
-          name: Install extra snaps without snapd
-          command: |
-            mkdir ~/tmp
-            install_snap () { cd ~/tmp && snap download $1 && mkdir -p /snap/$1 && unsquashfs -d /snap/$1/current *.snap && rm ~/tmp/*; }
-            install_snap "core18"
-            install_snap "go"
-            install_snap "gnome-3-34-1804"
-            install_snap "gnome-3-34-1804-sdk"
-      - run:
-          name: Build the snap
-          command: |
-            cd ~/repo
-            snapcraft
-            mv onionshare-*_amd64.snap ~/onionshare_amd64.snap
-      - store_artifacts:
-          path: ~/onionshare_amd64.snap
+  # build-snapcraft:
+  #   docker:
+  #     - image: snapcore/snapcraft:stable
+  #   working_directory: ~/repo
+  #   steps:
+  #     - checkout
+  #     - run:
+  #         name: Install extra snaps without snapd
+  #         command: |
+  #           mkdir ~/tmp
+  #           install_snap () { cd ~/tmp && snap download $1 && mkdir -p /snap/$1 && unsquashfs -d /snap/$1/current *.snap && rm ~/tmp/*; }
+  #           install_snap "core18"
+  #           install_snap "go"
+  #           install_snap "gnome-3-34-1804"
+  #           install_snap "gnome-3-34-1804-sdk"
+  #     - run:
+  #         name: Build the snap
+  #         command: |
+  #           cd ~/repo
+  #           snapcraft
+  #           mv onionshare-*_amd64.snap ~/onionshare_amd64.snap
+  #     - store_artifacts:
+  #         path: ~/onionshare_amd64.snap
