@@ -142,9 +142,14 @@ def cleanup_build():
         shutil.rmtree(
             f"{app_path}/Contents/MacOS/lib/PySide2/Qt/lib/{framework}.framework"
         )
+        print(
+            f"Deleted: {app_path}/Contents/MacOS/lib/PySide2/Qt/lib/{framework}.framework"
+        )
         try:
             os.remove(f"{app_path}/Contents/MacOS/lib/PySide2/{framework}.abi3.so")
             os.remove(f"{app_path}/Contents/MacOS/lib/PySide2/{framework}.pyi")
+            print(f"Deleted: {app_path}/Contents/MacOS/lib/PySide2/{framework}.abi3.so")
+            print(f"Deleted: {app_path}/Contents/MacOS/lib/PySide2/{framework}.pyi")
         except FileNotFoundError:
             pass
 
@@ -219,10 +224,12 @@ def cleanup_build():
         f"{app_path}/Contents/Resources/lib/PySide2/rcc",
         f"{app_path}/Contents/Resources/lib/PySide2/uic",
     ]:
-        if os.path.isdir(filename):
-            shutil.rmtree(filename)
-        elif os.path.isfile(filename):
+        if os.path.isfile(filename) or os.path.islink(filename):
             os.remove(filename)
+            print(f"Deleted: {filename}")
+        elif os.path.isdir(filename):
+            shutil.rmtree(filename)
+            print(f"Deleted: {filename}")
         else:
             print(f"Cannot delete, filename not found: {filename}")
 
