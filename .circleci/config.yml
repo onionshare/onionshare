@@ -215,7 +215,7 @@ jobs:
 
   build-snapcraft:
     docker:
-      - image: snapcore/snapcraft:edge
+      - image: snapcore/snapcraft:stable
     working_directory: ~/repo
     steps:
       - checkout
