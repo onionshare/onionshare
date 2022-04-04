@@ -200,13 +200,18 @@ jobs:
           name: Build OnionShare
           command: |
             cd ~/project/desktop
+            poetry run python ./setup-freeze.py build
             poetry run python ./setup-freeze.py bdist_mac
             poetry run python ./scripts/build-macos.py cleanup-build
       - run:
           name: Compress
-          command: zip -r ~/onionshare-macos.zip ~/project/desktop/build/OnionShare.app
+          command: |
+            zip -r ~/onionshare-macos.zip ~/project/desktop/build/exe.macosx-10.9-x86_64-3.9
+            zip -r ~/onionshare-app-macos.zip ~/project/desktop/build/OnionShare.app
       - store_artifacts:
           path: ~/onionshare-macos.zip
+      - store_artifacts:
+          path: ~/onionshare-app-macos.zip
 
   build-snapcraft:
     docker:
