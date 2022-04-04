@@ -110,9 +110,9 @@ Build the Windows binaries, delete extra files, codesign, and create an MSI pack
 
 ```
 poetry run python .\setup-freeze.py build
-poetry run python .\package\windows.py cleanup-build
-poetry run python .\package\windows.py codesign [build_dir]
-poetry run python .\package\windows.py package [build_dir]
+poetry run python .\scripts\build-windows.py cleanup-build
+poetry run python .\scripts\build-windows.py codesign [build_dir]
+poetry run python .\scripts\build-windows.py package [build_dir]
 ```
 
 This will create `desktop/dist/OnionShare-$VERSION.msi`, signed.
@@ -125,9 +125,9 @@ Then build an executable, make it a macOS app bundle, and package it in a dmg:
 
 ```sh
 poetry run python ./setup-freeze.py bdist_mac
-poetry run python ./package/macos.py cleanup-build
-poetry run python ./package/macos.py codesign [app_path]
-poetry run python ./package/macos.py package [app_path]
+poetry run python ./scripts/build-macos.py cleanup-build
+poetry run python ./scripts/build-macos.py codesign [app_path]
+poetry run python ./scripts/build-macos.py package [app_path]
 ```
 
 The will create `dist/OnionShare-$VERSION.dmg`.
