@@ -104,7 +104,7 @@ jobs:
           command: |
             cd ~\project\desktop
             poetry run python .\setup-freeze.py build
-            poetry run python .\package\windows.py cleanup-build
+            poetry run python .\script\build-windows.py cleanup-build
       - run:
           name: Compress
           command: |
@@ -201,7 +201,7 @@ jobs:
           command: |
             cd ~/project/desktop
             poetry run python ./setup-freeze.py bdist_mac
-            poetry run python ./package/macos.py cleanup-build
+            poetry run python ./install/build-macos.py cleanup-build
       - run:
           name: Compress
           command: zip -r ~/onionshare-macos.zip ~/project/desktop/build/OnionShare.app
