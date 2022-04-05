@@ -52,7 +52,7 @@ def sign(filename):
             "/d",
             "OnionShare",
             "/sha1",
-            "bb1d265ab02272e8fc742f149dcf8751cac63f50",
+            "1a0345732140749bdaa03efe8591b2c2a036884c",
             "/fd",
             "SHA256",
             "/td",
@@ -167,6 +167,150 @@ def wix_build_components_xml(root, data):
         component_ids += wix_build_components_xml(root, subdata)
 
     return component_ids
+
+
+def msi_package(build_path, msi_path, product_update_code):
+    print(f"> Build the WiX file")
+    version_filename = os.path.join(
+        build_path, "lib", "onionshare_cli", "resources", "version.txt"
+    )
+    with open(version_filename) as f:
+        version = f.read().strip()
+
+    data = {
+        "id": "TARGETDIR",
+        "name": "SourceDir",
+        "dirs": [
+            {
+                "id": "ProgramFilesFolder",
+                "dirs": [],
+            },
+            {
+                "id": "ProgramMenuFolder",
+                "dirs": [],
+            },
+        ],
+    }
+
+    data["dirs"][0]["dirs"].append(
+        wix_build_data(
+            build_path,
+            ".",
+            "INSTALLDIR",
+            "OnionShare",
+        )
+    )
+
+    root_el = ET.Element("Wix", xmlns="http://schemas.microsoft.com/wix/2006/wi")
+    product_el = ET.SubElement(
+        root_el,
+        "Product",
+        Name="OnionShare",
+        Manufacturer="Micah Lee, et al.",
+        Id="*",
+        UpgradeCode="$(var.ProductUpgradeCode)",
+        Language="1033",
+        Codepage="1252",
+        Version="$(var.ProductVersion)",
+    )
+    ET.SubElement(
+        product_el,
+        "Package",
+        Id="*",
+        Keywords="Installer",
+        Description="OnionShare $(var.ProductVersion) Installer",
+        Manufacturer="Micah Lee, et al.",
+        InstallerVersion="100",
+        Languages="1033",
+        Compressed="yes",
+        SummaryCodepage="1252",
+    )
+    ET.SubElement(product_el, "Media", Id="1", Cabinet="product.cab", EmbedCab="yes")
+    ET.SubElement(
+        product_el,
+        "Icon",
+        Id="ProductIcon",
+        SourceFile=os.path.join(
+            desktop_dir, "onionshare", "resources", "onionshare.ico"
+        ),
+    )
+    ET.SubElement(product_el, "Property", Id="ARPPRODUCTICON", Value="ProductIcon")
+    ET.SubElement(
+        product_el,
+        "Property",
+        Id="ARPHELPLINK",
+        Value="https://docs.onionshare.org",
+    )
+    ET.SubElement(
+        product_el,
+        "Property",
+        Id="ARPURLINFOABOUT",
+        Value="https://onionshare.org",
+    )
+    ET.SubElement(product_el, "UIRef", Id="WixUI_Minimal")
+    ET.SubElement(product_el, "UIRef", Id="WixUI_ErrorProgressText")
+    ET.SubElement(
+        product_el,
+        "WixVariable",
+        Id="WixUILicenseRtf",
+        Value=os.path.join(desktop_dir, "package", "license.rtf"),
+    )
+    ET.SubElement(
+        product_el,
+        "WixVariable",
+        Id="WixUIDialogBmp",
+        Value=os.path.join(desktop_dir, "package", "dialog.bmp"),
+    )
+    ET.SubElement(
+        product_el,
+        "MajorUpgrade",
+        AllowSameVersionUpgrades="yes",
+        DowngradeErrorMessage="A newer version of [ProductName] is already installed. If you are sure you want to downgrade, remove the existing installation via Programs and Features.",
+    )
+
+    wix_build_dir_xml(product_el, data)
+    component_ids = wix_build_components_xml(product_el, data)
+
+    feature_el = ET.SubElement(product_el, "Feature", Id="DefaultFeature", Level="1")
+    for component_id in component_ids:
+        ET.SubElement(feature_el, "ComponentRef", Id=component_id)
+    ET.SubElement(feature_el, "ComponentRef", Id="ApplicationShortcuts")
+
+    with open(os.path.join(build_path, "OnionShare.wxs"), "w") as f:
+        f.write('<?xml version="1.0" encoding="windows-1252"?>\n')
+        f.write(f'<?define ProductVersion = "{version}"?>\n')
+        f.write(f'<?define ProductUpgradeCode = "{product_update_code}"?>\n')
+
+        ET.indent(root_el)
+        f.write(ET.tostring(root_el).decode())
+
+    print(f"> Build the MSI")
+    run(
+        [shutil.which("candle.exe"), "OnionShare.wxs"],
+        build_path,
+    )
+    run(
+        [shutil.which("light.exe"), "-ext", "WixUIExtension", "OnionShare.wixobj"],
+        build_path,
+    )
+
+    print(f"> Prepare OnionShare.msi for signing")
+    run(
+        [
+            shutil.which("insignia.exe"),
+            "-im",
+            os.path.join(build_path, "OnionShare.msi"),
+        ],
+        error_ok=True,
+    )
+    sign(os.path.join(build_path, "OnionShare.msi"))
+
+    print(f"> Final MSI: {msi_path}")
+    os.makedirs(os.path.join(desktop_dir, "dist"), exist_ok=True)
+    os.rename(
+        os.path.join(build_path, "OnionShare.msi"),
+        msi_path,
+    )
 
 
 @click.group()
@@ -424,23 +568,28 @@ def cleanup_build():
 
 
 @main.command()
-@click.argument("build_path")
-def codesign(build_path):
+@click.argument("win32_path")
+@click.argument("win64_path")
+def codesign(win32_path, win64_path):
     """Sign Windows binaries before packaging"""
-    if not os.path.isdir(build_path):
-        click.echo("Invalid build path")
-        return
+    paths = [win32_path, win64_path]
 
-    click.echo("> Signing onionshare.exe")
-    sign(os.path.join(build_path, "onionshare.exe"))
+    for path in paths:
+        if not os.path.isdir(path):
+            click.echo("Invalid build path")
+            return
 
-    click.echo("> Signing onionshare-cli.exe")
-    sign(os.path.join(build_path, "onionshare-cli.exe"))
+    for path in paths:
+        bin_path = os.path.join(path, "onionshare.exe")
+        click.echo(f"> Signing {bin_path}")
+        sign(bin_path)
 
-    click.echo("> Signing meek-client.exe")
-    sign(
-        os.path.join(
-            build_path,
+        bin_path = os.path.join(path, "onionshare-cli.exe")
+        click.echo(f"> Signing {bin_path}")
+        sign(bin_path)
+
+        bin_path = os.path.join(
+            path,
             "lib",
             "onionshare",
             "resources",
@@ -448,154 +597,30 @@ def codesign(build_path):
             "Tor",
             "meek-client.exe",
         )
-    )
+        click.echo(f"> Signing {bin_path}")
+        sign(bin_path)
 
 
 @main.command()
-@click.argument("build_path")
-def package(build_path):
+@click.argument("win32_path")
+@click.argument("win64_path")
+def package(win32_path, win64_path):
     """Build the MSI package"""
-
-    print(f"> Build the WiX file")
     version_filename = os.path.join(
         root, "cli", "onionshare_cli", "resources", "version.txt"
     )
     with open(version_filename) as f:
         version = f.read().strip()
 
-    data = {
-        "id": "TARGETDIR",
-        "name": "SourceDir",
-        "dirs": [
-            {
-                "id": "ProgramFilesFolder",
-                "dirs": [],
-            },
-            {
-                "id": "ProgramMenuFolder",
-                "dirs": [],
-            },
-        ],
-    }
-
-    data["dirs"][0]["dirs"].append(
-        wix_build_data(
-            build_path,
-            "INSTALLDIR",
-            "OnionShare",
-        )
+    msi_package(
+        win32_path,
+        os.path.join(desktop_dir, "dist", f"OnionShare-win32-{version}.msi"),
+        "12b9695c-965b-4be0-bc33-21274e809576",
     )
-
-    root_el = ET.Element("Wix", xmlns="http://schemas.microsoft.com/wix/2006/wi")
-    product_el = ET.SubElement(
-        root_el,
-        "Product",
-        Name="OnionShare",
-        Manufacturer="Micah Lee, et al.",
-        Id="*",
-        UpgradeCode="$(var.ProductUpgradeCode)",
-        Language="1033",
-        Codepage="1252",
-        Version="$(var.ProductVersion)",
-    )
-    ET.SubElement(
-        product_el,
-        "Package",
-        Id="*",
-        Keywords="Installer",
-        Description="OnionShare $(var.ProductVersion) Installer",
-        Manufacturer="Micah Lee, et al.",
-        InstallerVersion="100",
-        Languages="1033",
-        Compressed="yes",
-        SummaryCodepage="1252",
-    )
-    ET.SubElement(product_el, "Media", Id="1", Cabinet="product.cab", EmbedCab="yes")
-    ET.SubElement(
-        product_el,
-        "Icon",
-        Id="ProductIcon",
-        SourceFile="..\\onionshare\\resources\\onionshare.ico",
-    )
-    ET.SubElement(product_el, "Property", Id="ARPPRODUCTICON", Value="ProductIcon")
-    ET.SubElement(
-        product_el,
-        "Property",
-        Id="ARPHELPLINK",
-        Value="https://docs.onionshare.org",
-    )
-    ET.SubElement(
-        product_el,
-        "Property",
-        Id="ARPURLINFOABOUT",
-        Value="https://onionshare.org",
-    )
-    ET.SubElement(product_el, "UIRef", Id="WixUI_Minimal")
-    ET.SubElement(product_el, "UIRef", Id="WixUI_ErrorProgressText")
-    ET.SubElement(
-        product_el,
-        "WixVariable",
-        Id="WixUILicenseRtf",
-        Value="..\\package\\license.rtf",
-    )
-    ET.SubElement(
-        product_el,
-        "WixVariable",
-        Id="WixUIDialogBmp",
-        Value="..\\package\\dialog.bmp",
-    )
-    ET.SubElement(
-        product_el,
-        "MajorUpgrade",
-        AllowSameVersionUpgrades="yes",
-        DowngradeErrorMessage="A newer version of [ProductName] is already installed. If you are sure you want to downgrade, remove the existing installation via Programs and Features.",
-    )
-
-    wix_build_dir_xml(product_el, data)
-    component_ids = wix_build_components_xml(product_el, data)
-
-    feature_el = ET.SubElement(product_el, "Feature", Id="DefaultFeature", Level="1")
-    for component_id in component_ids:
-        ET.SubElement(feature_el, "ComponentRef", Id=component_id)
-    ET.SubElement(feature_el, "ComponentRef", Id="ApplicationShortcuts")
-
-    with open(os.path.join(root, "desktop", "build", "OnionShare.wxs"), "w") as f:
-        f.write('<?xml version="1.0" encoding="windows-1252"?>\n')
-        f.write(f'<?define ProductVersion = "{version}"?>\n')
-        f.write(
-            '<?define ProductUpgradeCode = "12b9695c-965b-4be0-bc33-21274e809576"?>\n'
-        )
-
-        ET.indent(root_el)
-        f.write(ET.tostring(root_el).decode())
-
-    print(f"> Build the MSI")
-    run(
-        [shutil.which("candle.exe"), "OnionShare.wxs"],
-        os.path.join(desktop_dir, "build"),
-    )
-    run(
-        [shutil.which("light.exe"), "-ext", "WixUIExtension", "OnionShare.wixobj"],
-        os.path.join(desktop_dir, "build"),
-    )
-
-    print(f"> Prepare OnionShare.msi for signing")
-    run(
-        [
-            shutil.which("insignia.exe"),
-            "-im",
-            os.path.join(desktop_dir, "build", "OnionShare.msi"),
-        ],
-        error_ok=True,
-    )
-    sign(os.path.join(desktop_dir, "build", "OnionShare.msi"))
-
-    final_msi_filename = os.path.join(desktop_dir, "dist", f"OnionShare-{version}.msi")
-    print(f"> Final MSI: {final_msi_filename}")
-    os.makedirs(os.path.join(desktop_dir, "dist"), exist_ok=True)
-    os.rename(
-        os.path.join(desktop_dir, "build", "OnionShare.msi"),
-        final_msi_filename,
+    msi_package(
+        win64_path,
+        os.path.join(desktop_dir, "dist", f"OnionShare-win64-{version}.msi"),
+        "ed7f9243-3528-4b4a-b85c-9943982e75eb",
     )
 
 
