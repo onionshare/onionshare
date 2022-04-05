@@ -102,20 +102,35 @@ snapcraft upload --release=stable onionshare_${VERSION}_amd64.snap
 
 Set up the development environment described in desktop `README.md`.
 
-- To get `signtool.exe`, install the [Windows 10 SDK](https://developer.microsoft.com/en-us/windows/downloads/windows-10-sdk) and add `C:\Program Files (x86)\Windows Kits\10\bin\10.0.22000.0\x86` to your path.
+- To get `signtool.exe`, install the [Windows SDK](https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/) and add `C:\Program Files (x86)\Windows Kits\10\bin\10.0.22000.0\x64` to your path.
 - Go to https://dotnet.microsoft.com/download/dotnet-framework and download and install .NET Framework 3.5 SP1 Runtime. I downloaded `dotnetfx35.exe`.
 - Go to https://wixtoolset.org/releases/ and download and install WiX toolset. I downloaded `wix311.exe`. Add `C:\Program Files (x86)\WiX Toolset v3.11\bin` to the path.
 
 Build the Windows binaries, delete extra files, codesign, and create an MSI package:
 
+CircleCI will build the binary and delete extra files, basically running these:
+
 ```
 poetry run python .\setup-freeze.py build
 poetry run python .\scripts\build-windows.py cleanup-build
-poetry run python .\scripts\build-windows.py codesign [build_dir]
-poetry run python .\scripts\build-windows.py package [build_dir]
 ```
 
-This will create `desktop/dist/OnionShare-$VERSION.msi`, signed.
+Find the CircleCI jobs `build-win32` and `build-win64`, switch to the artifacts tab, and download:
+
+- `onionshare-win32.zip`
+- `onionshare-win64.zip`
+
+Extract these files, then run:
+
+```
+poetry run python .\scripts\build-windows.py codesign [onionshare_win32_path] [onionshare_win64_path]
+poetry run python .\scripts\build-windows.py package [onionshare_win32_path] [onionshare_win64_path]
+```
+
+This will create:
+
+- `desktop/dist/OnionShare-win32-$VERSION.msi`
+= `desktop/dist/OnionShare-win64-$VERSION.msi`
 
 ## macOS
 
