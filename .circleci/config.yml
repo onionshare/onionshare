@@ -206,7 +206,7 @@ jobs:
       - run:
           name: Compress
           command: |
-            zip -r ~/onionshare-macos.zip ~/project/desktop/build/exe.macosx-10.9-x86_64-3.9
+            zip -r ~/onionshare-macos.zip ~/project/desktop/build/exe.macosx-10.9-universal2-3.9
             zip -r ~/onionshare-app-macos.zip ~/project/desktop/build/OnionShare.app
       - store_artifacts:
           path: ~/onionshare-macos.zip
