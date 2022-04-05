@@ -80,7 +80,7 @@ jobs:
       - run:
           name: Install Python 3.9.12
           command: |
-            choco install python --version=3.9.12
+            choco install python3 --version=3.9.12
       - run:
           name: Install poetry
           command: (Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | python -
