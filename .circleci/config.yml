@@ -206,12 +206,10 @@ jobs:
       - run:
           name: Compress
           command: |
-            zip -r ~/onionshare-macos.zip ~/project/desktop/build/exe.macosx-10.9-universal2-3.9
-            zip -r ~/onionshare-app-macos.zip ~/project/desktop/build/OnionShare.app
+            cd ~/project/desktop/build
+            zip -r ~/onionshare-macos.zip OnionShare.app
       - store_artifacts:
           path: ~/onionshare-macos.zip
-      - store_artifacts:
-          path: ~/onionshare-app-macos.zip
 
   # build-snapcraft:
   #   docker:
