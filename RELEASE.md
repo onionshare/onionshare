@@ -130,28 +130,47 @@ poetry run python .\scripts\build-windows.py package [onionshare_win32_path] [on
 This will create:
 
 - `desktop/dist/OnionShare-win32-$VERSION.msi`
-= `desktop/dist/OnionShare-win64-$VERSION.msi`
+- `desktop/dist/OnionShare-win64-$VERSION.msi`
 
 ## macOS
 
 Set up the development environment described in `README.md`.
 
-Then build an executable, make it a macOS app bundle, and package it in a dmg:
+Then build an executable, make it a macOS app bundle, and package it in a dmg.
+
+CircleCI will build the binary and delete extra files, basically running these:
 
 ```sh
 poetry run python ./setup-freeze.py bdist_mac
 poetry run python ./scripts/build-macos.py cleanup-build
+```
+
+Find the CircleCI job `build-macos`, switch to the artifacts tab, and download:
+
+- `onionshare-macos.zip`
+
+Extract this file, then run:
+
+```sh
 poetry run python ./scripts/build-macos.py codesign [app_path]
 poetry run python ./scripts/build-macos.py package [app_path]
 ```
 
 The will create `dist/OnionShare-$VERSION.dmg`.
 
-Now, notarize the release. You must have an app-specific Apple ID password saved in the login keychain called `onionshare-notarize`.
+Now, notarize the release.
 
-- Notarize it: `xcrun altool --notarize-app --primary-bundle-id "com.micahflee.onionshare" -u "micah@micahflee.com" -p "@keychain:onionshare-notarize" --file dist/OnionShare-$VERSION.dmg`
-- Wait for it to get approved, check status with: `xcrun altool --notarization-history 0 -u "micah@micahflee.com" -p "@keychain:onionshare-notarize"`
-- After it's approved, staple the ticket: `xcrun stapler staple dist/OnionShare-$VERSION.dmg`
+```sh
+export APPLE_PASSWORD="changeme" # app-specific Apple ID password
+export VERSION=$(cat ../cli/onionshare_cli/resources/version.txt)
+
+# Notarize it
+xcrun altool --notarize-app --primary-bundle-id "com.micahflee.onionshare" -u "micah@micahflee.com" -p "$APPLE_PASSWORD" --file dist/OnionShare-$VERSION.dmg
+# Wait for it to get approved, ceck status with
+xcrun altool --notarization-history 0 -u "micah@micahflee.com" -p "$APPLE_PASSWORD"
+# After it's approved, staple the ticket
+xcrun stapler staple dist/OnionShare-$VERSION.dmg
+```
 
 This will create `desktop/dist/OnionShare-$VERSION.dmg`, signed and notarized.
 
