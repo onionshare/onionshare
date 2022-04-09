@@ -10,6 +10,7 @@
 body {
   margin: 0;
   font-family: Helvetica, sans-serif;
+  background-color: #fafafa;
 }
 
 .d-flex {
@@ -21,15 +22,14 @@ body {
 
 header {
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  background: #fcfcfc;
-  background: -webkit-linear-gradient(top, #fcfcfc 0%, #f2f2f2 100%);
-  padding: 0.8rem;
+  background: #fff;
+  padding: 1rem;
 }
 
 header .logo {
   vertical-align: middle;
-  width: 45px;
-  height: 45px;
+  width: 3rem;
+  height: 3rem;
 }
 
 header h1 {
@@ -37,23 +37,26 @@ header h1 {
   margin: 0 0 0 0.5rem;
   vertical-align: middle;
   font-weight: normal;
-  font-size: 1.5rem;
-  color: #666666;
+  font-size: 1.375rem;
+  color: #333;
+  position: relative;
+  top: .125rem;
 }
 
 header .information {
-  font-size: 1rem;
+  font-size: .875rem;
 }
 
 .button {
   color: #ffffff;
   background-color: #4e064f;
-  padding: 10px;
+  padding: .875rem 1rem;
   border: 0;
-  border-radius: 5px;
+  border-radius: .25rem;
   text-decoration: none;
   margin-left: 1rem;
   cursor: pointer;
+  font-weight: bold;
 }
 
 a.button:visited {
@@ -102,6 +105,9 @@ ul.breadcrumbs li a:link, ul.breadcrumbs li a:visited {
   width: 100%;
   margin: 0 auto;
   border-collapse: collapse;
+  font-size: .875rem;
+  color: #333;
+  background-color: #fff;
 }
 
 .file-list .heading {
@@ -109,7 +115,9 @@ ul.breadcrumbs li a:link, ul.breadcrumbs li a:visited {
   text-transform: uppercase;
   font-weight: normal;
   color: #666666;
-  padding: 0.5rem;
+  padding: 0.75rem;
+  font-size: .75rem;
+  letter-spacing: .0625rem;
 }
 
 .file-list div.d-flex {
@@ -119,16 +127,18 @@ ul.breadcrumbs li a:link, ul.breadcrumbs li a:visited {
 
 .file-list div.d-flex div {
   white-space: nowrap;
-  padding: 0.5rem 0.8rem 0.5rem 0.8rem;
+  padding: .625rem .75rem;
 }
 
 .file-list div.d-flex div img {
   vertical-align: middle;
   margin-right: 0.5rem;
+  width: 1.25rem;
+  height: 1.25rem;
 }
 
 .file-list div.d-flex div:last-child {
-  padding-right: 0.8rem;
+  padding-right: 0.75rem;
   flex-basis: 0;
   flex-grow: 1;
 }
@@ -146,6 +156,12 @@ ul.breadcrumbs li a:link, ul.breadcrumbs li a:visited {
 }
 
 @media (max-width: 655px) {
+  .header {
+    padding: 0 1rem;
+  }
+  .file-list {
+    font-size: .9375rem;
+  }
   .file-list div.d-flex {
     display: block;
   }
@@ -153,17 +169,32 @@ ul.breadcrumbs li a:link, ul.breadcrumbs li a:visited {
     max-width: 100%;
     word-break: break-all;
     white-space: normal;
+    vertical-align: top;
   }
   .file-list div.d-flex #size-header {
     display: none;
   }
   .file-list div.d-flex div:last-child {
-    padding-left: 3.5rem;
-    font-size: 0.85rem;
+    padding-left: 3.75rem;
+    font-size: 0.75rem;
     padding-top: 0;
+    margin-top: -.5rem;
+    color: #666;
   }
+  .d-flex .row div:first-of-type {
+    padding-bottom: 0;
+  }
+}
+
+@media (max-width: 500px) {
   header .information {
-    padding: 1rem 0;
+    width: 100%;
+    align-items: end;
+  }
+
+  .file-list div.d-flex div {
+    white-space: nowrap;
+    padding: .625rem 1rem;
   }
 }
 
