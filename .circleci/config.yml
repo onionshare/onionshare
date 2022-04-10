@@ -90,15 +90,38 @@ jobs:
             cd ~\project\desktop
             poetry install
       - run:
-          name: Get tor
-          command: |
-            cd ~\project\desktop
-            poetry run python .\scripts\get-tor.py
+        name: Download tor (Windows Expert Bundle)
+        command: |
+          mkdir ~\Downloads\tor
+          cd ~\Downloads\tor
+          $URL = "https://www.torproject.org/dist/torbrowser/11.0.10/tor-win32-0.4.6.10.zip"
+          $Filename = "tor-win32-0.4.6.10.zip"
+          $ExpectedHash = "d3f62317507dbe1a1aa74b9e0e03996dbded2143f94409270828f6a8bcdda16a"
+          Invoke-WebRequest -Uri $URL -OutFile $Filename
+          $FileHash = Get-FileHash $Filename
+          if($FileHash.Hash -ne $ExpectedHash) {
+            throw "Invalid hash"
+          }
+          Expand-Archive -LiteralPath tor-win32-0.4.6.10.zip -DestinationPath ~\project\desktop\onionshare\resources\tor
       - run:
-          name: Build meek
+          name: Build obfs4proxy
           command: |
-            cd ~\project\desktop
-            python .\scripts\build-meek-client.py
+            mkdir ~\Downloads\obfs4proxy
+            cd Downloads\obfs4proxy
+            git clone https://gitlab.com/yawning/obfs4
+            cd obfs4
+            go build .\obfs4proxy
+            Move-Item -Path .\obfs4proxy.exe -Destination ~\project\desktop\onionshare\resources\tor\Tor\obfs4proxy.exe
+      - run:
+          name: Build snowflake-client
+          command: |
+            go install git.torproject.org/pluggable-transports/snowflake.git/client@latest
+            Move-Item -Path ~\go\bin\client.exe -Destination ~\project\desktop\onionshare\resources\tor\Tor\snowflake-client.exe
+      - run:
+          name: Build meek-client
+          command: |
+            go install git.torproject.org/pluggable-transports/meek.git/meek-client@v0.37.0
+            Move-Item -Path ~\go\bin\meek-client.exe -Destination ~\project\desktop\onionshare\resources\tor\Tor\meek-client.exe
       - run:
           name: Build OnionShare
           command: |
@@ -138,10 +161,38 @@ jobs:
             cd ~\project\desktop
             C:\Python-32bit\Scripts\poetry install
       - run:
-          name: Get tor
+        name: Download tor (Windows Expert Bundle)
+        command: |
+          mkdir ~\Downloads\tor
+          cd ~\Downloads\tor
+          $URL = "https://www.torproject.org/dist/torbrowser/11.0.10/tor-win32-0.4.6.10.zip"
+          $Filename = "tor-win32-0.4.6.10.zip"
+          $ExpectedHash = "d3f62317507dbe1a1aa74b9e0e03996dbded2143f94409270828f6a8bcdda16a"
+          Invoke-WebRequest -Uri $URL -OutFile $Filename
+          $FileHash = Get-FileHash $Filename
+          if($FileHash.Hash -ne $ExpectedHash) {
+            throw "Invalid hash"
+          }
+          Expand-Archive -LiteralPath tor-win32-0.4.6.10.zip -DestinationPath ~\project\desktop\onionshare\resources\tor
+      - run:
+          name: Build obfs4proxy
           command: |
-            cd ~\project\desktop
-            C:\Python-32bit\Scripts\poetry run python .\scripts\get-tor.py
+            mkdir ~\Downloads\obfs4proxy
+            cd Downloads\obfs4proxy
+            git clone https://gitlab.com/yawning/obfs4
+            cd obfs4
+            "C:\\Program Files (x86)\\Go\\bin\\go" build .\obfs4proxy
+            Move-Item -Path .\obfs4proxy.exe -Destination ~\project\desktop\onionshare\resources\tor\Tor\obfs4proxy.exe
+      - run:
+          name: Build snowflake-client
+          command: |
+            "C:\\Program Files (x86)\\Go\\bin\\go" install git.torproject.org/pluggable-transports/snowflake.git/client@latest
+            Move-Item -Path ~\go\bin\client.exe -Destination ~\project\desktop\onionshare\resources\tor\Tor\snowflake-client.exe
+      - run:
+          name: Build meek-client
+          command: |
+            "C:\\Program Files (x86)\\Go\\bin\\go" install git.torproject.org/pluggable-transports/meek.git/meek-client@v0.37.0
+            Move-Item -Path ~\go\bin\meek-client.exe -Destination ~\project\desktop\onionshare\resources\tor\Tor\meek-client.exe
       - run:
           name: Build meek
           command: |
