@@ -44,6 +44,7 @@ def run(cmd, cwd=None, error_ok=False):
 
 
 def sign(filename):
+    click.echo(f"> Signing {filename}")
     run(
         [
             shutil.which("signtool"),
@@ -580,25 +581,41 @@ def codesign(win32_path, win64_path):
             return
 
     for path in paths:
-        bin_path = os.path.join(path, "onionshare.exe")
-        click.echo(f"> Signing {bin_path}")
-        sign(bin_path)
-
-        bin_path = os.path.join(path, "onionshare-cli.exe")
-        click.echo(f"> Signing {bin_path}")
-        sign(bin_path)
-
-        bin_path = os.path.join(
-            path,
-            "lib",
-            "onionshare",
-            "resources",
-            "tor",
-            "Tor",
-            "meek-client.exe",
+        sign(os.path.join(path, "onionshare.exe"))
+        sign(os.path.join(path, "onionshare-cli.exe"))
+        sign(
+            os.path.join(
+                path,
+                "lib",
+                "onionshare",
+                "resources",
+                "tor",
+                "Tor",
+                "meek-client.exe",
+            )
         )
-        click.echo(f"> Signing {bin_path}")
-        sign(bin_path)
+        sign(
+            os.path.join(
+                path,
+                "lib",
+                "onionshare",
+                "resources",
+                "tor",
+                "Tor",
+                "obfs4proxy.exe",
+            )
+        )
+        sign(
+            os.path.join(
+                path,
+                "lib",
+                "onionshare",
+                "resources",
+                "tor",
+                "Tor",
+                "snowflake-client.exe",
+            )
+        )
 
 
 @main.command()
