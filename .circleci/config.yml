@@ -99,9 +99,7 @@ jobs:
           $ExpectedHash = "d3f62317507dbe1a1aa74b9e0e03996dbded2143f94409270828f6a8bcdda16a"
           Invoke-WebRequest -Uri $URL -OutFile $Filename
           $FileHash = Get-FileHash $Filename
-          if($FileHash.Hash -ne $ExpectedHash) {
-            throw "Invalid hash"
-          }
+          if($FileHash.Hash -ne $ExpectedHash) { throw "Invalid hash" }
           Expand-Archive -LiteralPath tor-win32-0.4.6.10.zip -DestinationPath ~\project\desktop\onionshare\resources\tor
       - run:
           name: Build obfs4proxy
@@ -170,9 +168,7 @@ jobs:
           $ExpectedHash = "d3f62317507dbe1a1aa74b9e0e03996dbded2143f94409270828f6a8bcdda16a"
           Invoke-WebRequest -Uri $URL -OutFile $Filename
           $FileHash = Get-FileHash $Filename
-          if($FileHash.Hash -ne $ExpectedHash) {
-            throw "Invalid hash"
-          }
+          if($FileHash.Hash -ne $ExpectedHash) { throw "Invalid hash" }
           Expand-Archive -LiteralPath tor-win32-0.4.6.10.zip -DestinationPath ~\project\desktop\onionshare\resources\tor
       - run:
           name: Build obfs4proxy
@@ -194,11 +190,6 @@ jobs:
             "C:\\Program Files (x86)\\Go\\bin\\go" install git.torproject.org/pluggable-transports/meek.git/meek-client@v0.37.0
             Move-Item -Path ~\go\bin\meek-client.exe -Destination ~\project\desktop\onionshare\resources\tor\Tor\meek-client.exe
       - run:
-          name: Build meek
-          command: |
-            cd ~\project\desktop
-            C:\Python-32bit\python .\scripts\build-meek-client.py
-      - run:
           name: Build OnionShare
           command: |
             cd ~\project\desktop
@@ -215,6 +206,10 @@ jobs:
   build-macos:
     macos:
       xcode: 12.5.1
+    environment:
+      - INSTALL_X86_64: /Users/distiller/install/x86_64
+      - INSTALL_ARM64: /Users/distiller/install/arm64
+      - INSTALL_UNIVERSAL2: /Users/distiller/install/universal2
     steps:
       - checkout
       - run:
@@ -222,6 +217,141 @@ jobs:
           command: |
             brew install wget
             brew install go
+      - run:
+          name: Make folders for x86_64 and arm64 tor deps
+          command: mkdir -p $INSTALL_X86_64 $INSTALL_ARM64 $INSTALL_UNIVERSAL2
+      - run:
+          name: Build openssl (x86_64 and arm64)
+          command: |
+            # Download and verify
+            cd ~/Downloads
+            URL=https://www.openssl.org/source/openssl-3.0.2.tar.gz
+            FILENAME=openssl-3.0.2.tar.gz
+            EXPECTED_SHA256=98e91ccead4d4756ae3c9cde5e09191a8e586d9f4d50838e7ec09d6411dfdb63
+            wget $URL
+            SHA256=$(shasum -a 256 $FILENAME | cut -d" " -f1)
+            if [ "$SHA256" != "$EXPECTED_SHA256" ]; then echo "Failed" && exit -1; fi
+            tar -xvf $FILENAME
+            rm $FILENAME
+            mv openssl-* openssl-x86_64
+            cp -r openssl-x86_64 openssl-arm64
+            # Build x86_64
+            cd openssl-x86_64
+            export MACOSX_DEPLOYMENT_TARGET=10.9
+            ./Configure darwin64-x86_64-cc shared --prefix=$INSTALL_X86_64
+            make
+            make install
+            # Build arm64
+            cd ../openssl-arm64
+            export MACOSX_DEPLOYMENT_TARGET=10.15
+            ./Configure enable-rc5 zlib darwin64-arm64-cc no-asm --prefix=$INSTALL_ARM64
+            make
+            make install
+      - run:
+          name: Build libevent (x86_64 and arm64)
+          command: |
+            # Download and verify
+            cd ~/Downloads
+            URL=https://github.com/libevent/libevent/releases/download/release-2.1.12-stable/libevent-2.1.12-stable.tar.gz
+            FILENAME=libevent-2.1.12-stable.tar.gz
+            EXPECTED_SHA256=92e6de1be9ec176428fd2367677e61ceffc2ee1cb119035037a27d346b0403bb
+            wget $URL
+            SHA256=$(shasum -a 256 $FILENAME | cut -d" " -f1)
+            if [ "$SHA256" != "$EXPECTED_SHA256" ]; then echo "Failed" && exit -1; fi
+            tar -xvf $FILENAME
+            rm $FILENAME
+            mv libevent-* libevent-x86_64
+            cp -r libevent-x86_64 libevent-arm64
+            # Build x86_64
+            cd libevent-x86_64
+            export CFLAGS="-arch x86_64"
+            ./configure --disable-openssl --prefix=$INSTALL_X86_64
+            make
+            make install
+            # Build arm64
+            cd ../libevent-arm64
+            export CFLAGS="-arch x86_64" # temporarily, change after the fact
+            ./configure --disable-openssl --prefix=$INSTALL_ARM64
+            # Fix the Makefile so it builds for arm64
+            sed -i '' -e 's/host_triplet = x86_64-apple-darwin20.5.0/host_triplet = arm64-apple-darwin20.5.0/g' Makefile
+            sed -i '' -e 's/CFLAGS = -arch x86_64/CFLAGS = -arch arm64/g' Makefile
+            sed -i '' -e 's/host = x86_64-apple-darwin20.5.0/host = arm64-apple-darwin20.5.0/g' Makefile
+            sed -i '' -e 's/host_cpu = x86_64/host_cpu = arm64/g' Makefile
+            make
+            make install
+      - run:
+          name: Build tor (x86_64 and arm64)
+          command: |
+            # Download and verify
+            cd ~/Downloads
+            URL=https://dist.torproject.org/tor-0.4.6.10.tar.gz
+            FILENAME=tor-0.4.6.10.tar.gz
+            EXPECTED_SHA256=94ccd60e04e558f33be73032bc84ea241660f92f58cfb88789bda6893739e31c
+            wget $URL
+            SHA256=$(shasum -a 256 $FILENAME | cut -d" " -f1)
+            if [ "$SHA256" != "$EXPECTED_SHA256" ]; then echo "Failed" && exit -1; fi
+            tar -xvf $FILENAME
+            rm $FILENAME
+            mv tor-* tor-x86_64
+            cp -r tor-x86_64 tor-arm64
+            mkdir -p /Users/distiller/compiled/tor-x86-64 /Users/distiller/compiled/tor-amd64 /Users/distiller/compiled/tor-universal
+            # Build x86_64
+            cd tor-x86_64
+            export CFLAGS="-arch x86_64"
+            ./configure --prefix=$INSTALL_X86_64
+            make
+            make install 
+            # Build arm64
+            cd ../tor-arm64
+            export CFLAGS="-arch arm64"
+            ./configure --host=x86_64-apple-darwin20.5.0 --disable-tool-name-check --prefix=$INSTALL_ARM64
+            make
+            make install
+      - run:
+          name: Make tor universal2 binary
+          command: |
+            cp $INSTALL_ARM64/share/tor/* $INSTALL_UNIVERSAL2
+            lipo -create -output $INSTALL_UNIVERSAL2/libevent-2.1.7.dylib $INSTALL_ARM64/lib/libevent-2.1.7.dylib $INSTALL_X86_64/lib/libevent-2.1.7.dylib
+            lipo -create -output $INSTALL_UNIVERSAL2/tor $INSTALL_ARM64/bin/tor $INSTALL_X86_64/bin/tor
+      - run:
+          name: Build obfs4proxy (universal2)
+          command: |
+            # Get source code
+            mkdir ~/Downloads/obfs4proxy
+            cd ~/Downloads/obfs4proxy
+            git clone https://gitlab.com/yawning/obfs4
+            cd obfs4
+            # Build x86_64 and arm64
+            GOOS=darwin GOARCH=amd64 go build -o obfs4proxy_x86_64 ./obfs4proxy
+            GOOS=darwin GOARCH=arm64 go build -o obfs4proxy_arm64 ./obfs4proxy
+            # Combine them
+            lipo -create -output $INSTALL_UNIVERSAL2/obfs4proxy obfs4proxy_arm64 obfs4proxy_x86_64
+      - run:
+          name: Build snowflake-client (universal2)
+          command: |
+            # Get source code
+            mkdir ~/Downloads/snowflake-client
+            cd ~/Downloads/snowflake-client
+            git clone https://git.torproject.org/pluggable-transports/snowflake.git
+            cd snowflake
+            # Build x86_64 and arm64
+            GOOS=darwin GOARCH=amd64 go build -o snowflake-client_x86_64 ./client
+            GOOS=darwin GOARCH=arm64 go build -o snowflake-client_arm64 ./client
+            # Combine them
+            lipo -create -output $INSTALL_UNIVERSAL2/snowflake-client snowflake-client_arm64 snowflake-client_x86_64
+      - run:
+          name: Build meek-client (universal2)
+          command: |
+            # Get source code
+            mkdir ~/Downloads/meek-client
+            cd ~/Downloads/meek-client
+            git clone https://git.torproject.org/pluggable-transports/meek.git
+            cd meek
+            # Build x86_64 and arm64
+            GOOS=darwin GOARCH=amd64 go build -o meek-client_x86_64 ./meek-client
+            GOOS=darwin GOARCH=arm64 go build -o meel-client_arm64 ./meek-client
+            # Combine them
+            lipo -create -output $INSTALL_UNIVERSAL2/meek-client meek-client_arm64 meek-client_x86_64
       - run:
           name: Install Python 3.9.12
           command: |
@@ -237,16 +367,6 @@ jobs:
           command: |
             cd ~/project/desktop
             poetry install
-      - run:
-          name: Get tor
-          command: |
-            cd ~/project/desktop
-            poetry run python ./scripts/get-tor.py
-      - run:
-          name: Build meek
-          command: |
-            cd ~/project/desktop
-            ./scripts/build-meek-client.py
       - run:
           name: Build OnionShare
           command: |
