@@ -90,17 +90,17 @@ jobs:
             cd ~\project\desktop
             poetry install
       - run:
-        name: Download tor (Windows Expert Bundle)
-        command: |
-          mkdir ~\Downloads\tor
-          cd ~\Downloads\tor
-          $URL = "https://www.torproject.org/dist/torbrowser/11.0.10/tor-win32-0.4.6.10.zip"
-          $Filename = "tor-win32-0.4.6.10.zip"
-          $ExpectedHash = "d3f62317507dbe1a1aa74b9e0e03996dbded2143f94409270828f6a8bcdda16a"
-          Invoke-WebRequest -Uri $URL -OutFile $Filename
-          $FileHash = Get-FileHash $Filename
-          if($FileHash.Hash -ne $ExpectedHash) { throw "Invalid hash" }
-          Expand-Archive -LiteralPath tor-win32-0.4.6.10.zip -DestinationPath ~\project\desktop\onionshare\resources\tor
+          name: Download tor (Windows Expert Bundle)
+          command: |
+            mkdir ~\Downloads\tor
+            cd ~\Downloads\tor
+            $URL = "https://www.torproject.org/dist/torbrowser/11.0.10/tor-win32-0.4.6.10.zip"
+            $Filename = "tor-win32-0.4.6.10.zip"
+            $ExpectedHash = "d3f62317507dbe1a1aa74b9e0e03996dbded2143f94409270828f6a8bcdda16a"
+            Invoke-WebRequest -Uri $URL -OutFile $Filename
+            $FileHash = Get-FileHash $Filename
+            if($FileHash.Hash -ne $ExpectedHash) { throw "Invalid hash" }
+            Expand-Archive -LiteralPath tor-win32-0.4.6.10.zip -DestinationPath ~\project\desktop\onionshare\resources\tor
       - run:
           name: Build obfs4proxy
           command: |
@@ -159,17 +159,17 @@ jobs:
             cd ~\project\desktop
             C:\Python-32bit\Scripts\poetry install
       - run:
-        name: Download tor (Windows Expert Bundle)
-        command: |
-          mkdir ~\Downloads\tor
-          cd ~\Downloads\tor
-          $URL = "https://www.torproject.org/dist/torbrowser/11.0.10/tor-win32-0.4.6.10.zip"
-          $Filename = "tor-win32-0.4.6.10.zip"
-          $ExpectedHash = "d3f62317507dbe1a1aa74b9e0e03996dbded2143f94409270828f6a8bcdda16a"
-          Invoke-WebRequest -Uri $URL -OutFile $Filename
-          $FileHash = Get-FileHash $Filename
-          if($FileHash.Hash -ne $ExpectedHash) { throw "Invalid hash" }
-          Expand-Archive -LiteralPath tor-win32-0.4.6.10.zip -DestinationPath ~\project\desktop\onionshare\resources\tor
+          name: Download tor (Windows Expert Bundle)
+          command: |
+            mkdir ~\Downloads\tor
+            cd ~\Downloads\tor
+            $URL = "https://www.torproject.org/dist/torbrowser/11.0.10/tor-win32-0.4.6.10.zip"
+            $Filename = "tor-win32-0.4.6.10.zip"
+            $ExpectedHash = "d3f62317507dbe1a1aa74b9e0e03996dbded2143f94409270828f6a8bcdda16a"
+            Invoke-WebRequest -Uri $URL -OutFile $Filename
+            $FileHash = Get-FileHash $Filename
+            if($FileHash.Hash -ne $ExpectedHash) { throw "Invalid hash" }
+            Expand-Archive -LiteralPath tor-win32-0.4.6.10.zip -DestinationPath ~\project\desktop\onionshare\resources\tor
       - run:
           name: Build obfs4proxy
           command: |
