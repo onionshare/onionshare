@@ -207,9 +207,9 @@ jobs:
     macos:
       xcode: 12.5.1
     environment:
-      - INSTALL_X86_64: /Users/distiller/install/x86_64
-      - INSTALL_ARM64: /Users/distiller/install/arm64
-      - INSTALL_UNIVERSAL2: /Users/distiller/install/universal2
+      INSTALL_X86_64: /Users/distiller/install/x86_64
+      INSTALL_ARM64: /Users/distiller/install/arm64
+      INSTALL_UNIVERSAL2: /Users/distiller/install/universal2
     steps:
       - checkout
       - run:
@@ -220,33 +220,6 @@ jobs:
       - run:
           name: Make folders for x86_64 and arm64 tor deps
           command: mkdir -p $INSTALL_X86_64 $INSTALL_ARM64 $INSTALL_UNIVERSAL2
-      - run:
-          name: Build openssl (x86_64 and arm64)
-          command: |
-            # Download and verify
-            cd ~/Downloads
-            URL=https://www.openssl.org/source/openssl-3.0.2.tar.gz
-            FILENAME=openssl-3.0.2.tar.gz
-            EXPECTED_SHA256=98e91ccead4d4756ae3c9cde5e09191a8e586d9f4d50838e7ec09d6411dfdb63
-            wget $URL
-            SHA256=$(shasum -a 256 $FILENAME | cut -d" " -f1)
-            if [ "$SHA256" != "$EXPECTED_SHA256" ]; then echo "Failed" && exit -1; fi
-            tar -xvf $FILENAME
-            rm $FILENAME
-            mv openssl-* openssl-x86_64
-            cp -r openssl-x86_64 openssl-arm64
-            # Build x86_64
-            cd openssl-x86_64
-            export MACOSX_DEPLOYMENT_TARGET=10.9
-            ./Configure darwin64-x86_64-cc shared --prefix=$INSTALL_X86_64
-            make
-            make install
-            # Build arm64
-            cd ../openssl-arm64
-            export MACOSX_DEPLOYMENT_TARGET=10.15
-            ./Configure enable-rc5 zlib darwin64-arm64-cc no-asm --prefix=$INSTALL_ARM64
-            make
-            make install
       - run:
           name: Build libevent (x86_64 and arm64)
           command: |
