@@ -21,10 +21,6 @@ workflows:
           requires:
             - test-cli
             - test-gui
-      # - build-snapcraft:
-      #     requires:
-      #       - test-cli
-      #       - test-gui
 
 jobs:
   test-cli:
@@ -89,6 +85,8 @@ jobs:
           command: |
             cd ~\project\desktop
             poetry install
+      - restore_cache:
+          key: download-tor-win32-0.4.6.10
       - run:
           name: Download tor (Windows Expert Bundle)
           command: |
@@ -101,6 +99,10 @@ jobs:
             $FileHash = Get-FileHash $Filename
             if($FileHash.Hash -ne $ExpectedHash) { throw "Invalid hash" }
             Expand-Archive -LiteralPath tor-win32-0.4.6.10.zip -DestinationPath ~\project\desktop\onionshare\resources\tor
+      - save_cache:
+          key: download-tor-win32-0.4.6.10
+          paths:
+            - ~\project\desktop\onionshare\resources\tor
       - run:
           name: Build obfs4proxy
           command: |
@@ -311,27 +313,3 @@ jobs:
             zip -r ~/onionshare-macos.zip OnionShare.app
       - store_artifacts:
           path: ~/onionshare-macos.zip
-
-  # build-snapcraft:
-  #   docker:
-  #     - image: snapcore/snapcraft:stable
-  #   working_directory: ~/repo
-  #   steps:
-  #     - checkout
-  #     - run:
-  #         name: Install extra snaps without snapd
-  #         command: |
-  #           mkdir ~/tmp
-  #           install_snap () { cd ~/tmp && snap download $1 && mkdir -p /snap/$1 && unsquashfs -d /snap/$1/current *.snap && rm ~/tmp/*; }
-  #           install_snap "core18"
-  #           install_snap "go"
-  #           install_snap "gnome-3-34-1804"
-  #           install_snap "gnome-3-34-1804-sdk"
-  #     - run:
-  #         name: Build the snap
-  #         command: |
-  #           cd ~/repo
-  #           snapcraft
-  #           mv onionshare-*_amd64.snap ~/onionshare_amd64.snap
-  #     - store_artifacts:
-  #         path: ~/onionshare_amd64.snap
