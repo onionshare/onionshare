@@ -103,7 +103,7 @@ jobs:
       - save_cache:
           key: download-tor-win32-0.4.6.10
           paths:
-            - ~\project\desktop\onionshare\resources\tor
+            - ~\Downloads\tor\tor-win32
       - run:
           name: Copy tor binary into app
           command: cp ~\Downloads\tor\tor-win32\* ~\project\desktop\onionshare\resources\tor
@@ -201,7 +201,7 @@ jobs:
       - save_cache:
           key: download-tor-win32-0.4.6.10
           paths:
-            - ~\project\desktop\onionshare\resources\tor
+            - ~\Downloads\tor\tor-win32
       - run:
           name: Copy tor binary into app
           command: cp ~\Downloads\tor\tor-win32\* ~\project\desktop\onionshare\resources\tor
@@ -261,21 +261,21 @@ jobs:
     macos:
       xcode: 12.5.1
     environment:
-      BUILD_PREFIX: /Users/distiller/root
+      BINARY_DIR: /Users/distiller/bin
     steps:
       - checkout
-      - run:
-          name: Make BUILD_PREFIX directory
-          command: mkdir $BUILD_PREFIX
       - run:
           name: Install Homebrew dependencies
           command: |
             brew install wget
             brew install go
+      - restore_cache:
+          key: build-libevent-2.1.12-tor-0.4.6.10
       - run:
-          name: Build libevent
+          name: Build libevent and tor
           command: |
-            # Download and verify
+            mkdir -p $BINARY_DIR/tor
+            # Download and verify libevent
             cd ~/Downloads
             URL=https://github.com/libevent/libevent/releases/download/release-2.1.12-stable/libevent-2.1.12-stable.tar.gz
             FILENAME=libevent-2.1.12-stable.tar.gz
@@ -284,15 +284,12 @@ jobs:
             SHA256=$(shasum -a 256 $FILENAME | cut -d" " -f1)
             if [ "$SHA256" != "$EXPECTED_SHA256" ]; then echo "Failed" && exit -1; fi
             tar -xvf $FILENAME
-            # Build
+            # Build libevent
             cd libevent-2.1.12-stable
-            ./configure --disable-openssl --prefix=$BUILD_PREFIX
+            ./configure --disable-openssl --prefix=$BINARY_DIR/tor
             make
             make install
-      - run:
-          name: Build tor
-          command: |
-            # Download and verify
+            # Download and verify tor
             cd ~/Downloads
             URL=https://dist.torproject.org/tor-0.4.6.10.tar.gz
             FILENAME=tor-0.4.6.10.tar.gz
@@ -301,11 +298,17 @@ jobs:
             SHA256=$(shasum -a 256 $FILENAME | cut -d" " -f1)
             if [ "$SHA256" != "$EXPECTED_SHA256" ]; then echo "Failed" && exit -1; fi
             tar -xvf $FILENAME
-            # Build
+            # Build tor
             cd tor-0.4.6.10
-            ./configure --prefix=$BUILD_PREFIX
+            ./configure --prefix=$BINARY_DIR/tor
             make
             make install
+      - save_cache:
+          key: build-libevent-2.1.12-tor-0.4.6.10
+          paths:
+            - /Users/distiller/bin/tor
+      - restore_cache:
+          key: build-macos-obfs4proxy-v0.0.13
       - run:
           name: Build obfs4proxy
           command: |
@@ -314,8 +317,15 @@ jobs:
             cd ~/Downloads/obfs4proxy
             git clone https://gitlab.com/yawning/obfs4
             cd obfs4
+            git checkout obfs4proxy-0.0.13
             # Build
-            go build -o obfs4proxy ./obfs4proxy
+            go build -o $BINARY_DIR/obfs4proxy ./obfs4proxy
+      - save_cache:
+          key: build-macos-obfs4proxy-v0.0.13
+          paths:
+            - /Users/distiller/bin/obfs4proxy
+      - restore_cache:
+          key: build-macos-snowflake-v2.1.0
       - run:
           name: Build snowflake-client
           command: |
@@ -324,8 +334,15 @@ jobs:
             cd ~/Downloads/snowflake-client
             git clone https://git.torproject.org/pluggable-transports/snowflake.git
             cd snowflake
+            git checkout v2.1.0
             # Build
-            go build -o snowflake-client ./client
+            go build -o $BINARY_DIR/snowflake-client ./client
+      - save_cache:
+          key: build-macos-snowflake-v2.1.0
+          paths:
+            - /Users/distiller/bin/snowflake-client
+      - restore_cache:
+          key: build-macos-meek-v0.37.0
       - run:
           name: Build meek-client
           command: |
@@ -334,8 +351,23 @@ jobs:
             cd ~/Downloads/meek-client
             git clone https://git.torproject.org/pluggable-transports/meek.git
             cd meek
+            git checkout v0.37.0
             # Build
-            go build -o meek-client ./meek-client
+            go build -o $BINARY_DIR/meek-client ./meek-client
+      - save_cache:
+          key: build-macos-meek-v0.37.0
+          paths:
+            - /Users/distiller/bin/meek-client
+      - run:
+          name: Copy binaries into app
+          command: |
+            export DEST=~\project\desktop\onionshare\resources\tor
+            cp $BINARY_DIR/tor/bin/tor $DEST
+            cp $BINARY_DIR/tor/lib/libevent-2.1.7.dylib $DEST
+            cp $BINARY_DIR/tor/share/tor/geoip* $DEST
+            cp $BINARY_DIR/obfs4proxy $DEST
+            cp $BINARY_DIR/snowflake-client $DEST
+            cp $BINARY_DIR/meek-client $DEST
       - run:
           name: Install Python 3.9.12
           command: |
