@@ -206,10 +206,10 @@ jobs:
   build-macos:
     macos:
       xcode: 12.5.1
+    environment:
+      BUILD_PREFIX: /Users/distiller/root
     steps:
       - checkout
-      - environment:
-          BUILD_PREFIX: /Users/distiller/root
       - run:
           name: Make BUILD_PREFIX directory
           command: mkdir $BUILD_PREFIX
