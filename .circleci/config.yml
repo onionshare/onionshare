@@ -26,7 +26,6 @@ jobs:
   test-cli:
     docker:
       - image: cimg/python:3.9
-    working_directory: ~/repo
     steps:
       - checkout
       - run:
@@ -34,13 +33,21 @@ jobs:
           command: |
             sudo apt-get update
             sudo apt-get -y install tor obfs4proxy
-            pip install poetry
-            cd ~/repo/cli
+      - restore_cache:
+          key: test-cli-poetry-deps-{{ checksum "~/project/cli/poetry.lock" }}
+      - run:
+          name: Install poetry dependencies
+          command: |
+            cd ~/project/cli
             poetry install
+      - save_cache:
+          key: test-cli-poetry-deps-{{ checksum "~/project/cli/poetry.lock" }}
+          paths:
+            - /home/circleci/.cache/pypoetry/virtualenvs
       - run:
           name: Run tests
           command: |
-            cd ~/repo/cli
+            cd ~/project/cli
             poetry run pytest -v ./tests
             poetry run onionshare-cli --local-only ./tests --auto-stop-timer 2
             poetry run onionshare-cli --local-only --receive --auto-stop-timer 2
@@ -50,7 +57,6 @@ jobs:
   test-gui:
     docker:
       - image: cimg/python:3.9
-    working_directory: ~/repo
     steps:
       - checkout
       - run:
@@ -59,12 +65,21 @@ jobs:
             sudo apt-get update
             sudo apt-get install -y tor obfs4proxy gcc python3-dev python3-pyside2.qtcore python3-pyside2.qtwidgets python3-pyside2.qtgui
             sudo apt-get install -y xvfb x11-utils libxkbcommon-x11-0 libxcb-randr0-dev libxcb-xtest0-dev libxcb-xinerama0-dev libxcb-shape0-dev libxcb-xkb-dev libxcb-render-util0 libxcb-icccm4 libxcb-keysyms1 libxcb-image0
-            cd ~/repo/desktop
+      - restore_cache:
+          key: test-gui-poetry-deps-{{ checksum "~/project/desktop/poetry.lock" }}
+      - run:
+          name: Install poetry dependencies
+          command: |
+            cd ~/project/cli
             poetry install
+      - save_cache:
+          key: test-gui-poetry-deps-{{ checksum "~/project/desktop/poetry.lock" }}
+          paths:
+            - /home/circleci/.cache/pypoetry/virtualenvs
       - run:
           name: Run tests
           command: |
-            cd ~/repo/desktop
+            cd ~/project/desktop
             QT_DEBUG_PLUGINS=1 xvfb-run poetry run pytest -v ./tests/test_gui_*.py
 
   build-win64:
