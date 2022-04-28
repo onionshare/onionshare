@@ -45,6 +45,8 @@ It's important to note that the requests to the Censorship Circumvention API do 
 
 Even though it is hard for an adversary to discover where the Meek request is going, this may still be risky for some users. Therefore, it is an opt-in feature. The use of Meek and non-torified network requests are limited only to making one or two requests to the Censorship Circumvention API. Then Meek is stopped, and all further network requests happen over the Tor network.
 
+If you are uncomfortable with making a request that doesn't go over the Tor network, you can click the Network Settings (or the Settings icon in the bottom right corner, followed by the Tor Settings tab in the screen that appears), and manually configure bridges. After you save any bridge settings, OnionShare will try to reconnect using those bridges.
+
 What 'Try again without a Bridge' does
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
