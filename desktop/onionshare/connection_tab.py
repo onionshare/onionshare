@@ -586,6 +586,14 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
         detect_layout.addWidget(self.no_bridge)
         detect_layout.addWidget(self.detect_automatic_radio)
         detect_layout.addWidget(self.detect_manual_radio)
+        bridge_setting_options = QtWidgets.QGroupBox(
+            strings._("gui_autoconnect_bridge_setting_options")
+        )
+        bridge_setting_options.setLayout(detect_layout)
+        bridge_setting_options.setFlat(True)
+        bridge_setting_options.setStyleSheet(
+            common.gui.css["autoconnect_bridge_setting_options"]
+        )
 
         # Country list
         locale = self.common.settings.get("locale")
@@ -660,7 +668,7 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
         layout.addWidget(self.connection_status_label)
         layout.addWidget(self.connection_error_message)
         layout.addWidget(self.description_label)
-        layout.addLayout(detect_layout)
+        layout.addWidget(bridge_setting_options)
         layout.addWidget(self.country_combobox)
         layout.addWidget(self.task_label)
         layout.addWidget(cta_widget)

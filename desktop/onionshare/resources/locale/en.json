@@ -50,6 +50,7 @@
     "gui_autoconnect_bridge_description": "It's also possible that your internet is being censored. You might be able to bypass this using a bridge.",
     "gui_autoconnect_bridge_detect_automatic": "Automatically determine my country from my IP address for bridge settings",
     "gui_autoconnect_bridge_detect_manual": "Manually select my country for bridge settings",
+    "gui_autoconnect_bridge_setting_options": "Bridge Settings",
     "gui_autoconnect_start": "Connect to Tor",
     "gui_autoconnect_configure": "Network Settings",
     "gui_autoconnect_no_bridge": "Try again without bridge",
