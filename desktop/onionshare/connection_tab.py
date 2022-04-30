@@ -326,11 +326,16 @@ class AutoConnectTab(QtWidgets.QWidget):
         """
         self.tor_con.hide()
 
-        # If we're on first launch, switch to use bridge
+        # If we're on first launch, check if wasCancelled
+        # If cancelled, stay in first launch widget and show buttons
+        # Else, switch to use bridge
         if self.first_launch_widget.isVisible():
-            self.first_launch_widget.show_buttons()
-            self.first_launch_widget.hide()
-            self.use_bridge_widget.show()
+            if self.tor_con.wasCanceled():
+                self.first_launch_widget.show_buttons()
+            else:
+                self.first_launch_widget.show_buttons()
+                self.first_launch_widget.hide()
+                self.use_bridge_widget.show()
         else:
             self.use_bridge_widget.show_buttons()
 
