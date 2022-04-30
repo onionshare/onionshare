@@ -194,6 +194,7 @@ class GuiCommon:
                 QComboBox {
                     padding: 10px;
                     font-size: 16px;
+                    margin-left: 32px;
                 }
                 QComboBox:disabled {
                     color: #666666;
