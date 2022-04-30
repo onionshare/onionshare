@@ -326,6 +326,10 @@ class AutoConnectTab(QtWidgets.QWidget):
         """
         self.tor_con.hide()
 
+        # If there is a message, update the text of the bridge widget
+        if msg:
+            self.use_bridge_widget.connection_error_message.setText(f"{msg}")
+
         # If we're on first launch, check if wasCancelled
         # If cancelled, stay in first launch widget and show buttons
         # Else, switch to use bridge
@@ -548,12 +552,21 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
             common.gui.css["autoconnect_failed_to_connect_label"]
         )
 
+        # Tor connection error message
+        self.connection_error_message = QtWidgets.QLabel(
+            strings._("gui_autoconnect_connection_error_msg")
+        )
+        self.connection_error_message.setTextFormat(QtCore.Qt.RichText)
+        self.connection_error_message.setWordWrap(True)
+        self.connection_error_message.setContentsMargins(0, 0, 0, 10)
+
         # Description
         self.description_label = QtWidgets.QLabel(
             strings._("gui_autoconnect_bridge_description")
         )
         self.description_label.setTextFormat(QtCore.Qt.RichText)
         self.description_label.setWordWrap(True)
+        self.description_label.setContentsMargins(0, 0, 0, 20)
 
         # Detection preference
         self.use_bridge = True
@@ -645,6 +658,7 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
         # Layout
         layout = QtWidgets.QVBoxLayout()
         layout.addWidget(self.connection_status_label)
+        layout.addWidget(self.connection_error_message)
         layout.addWidget(self.description_label)
         layout.addLayout(detect_layout)
         layout.addWidget(self.country_combobox)
@@ -660,6 +674,7 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
     def hide_buttons(self):
         self.connect_button.hide()
         self.configure_button.hide()
+        self.connection_error_message.hide()
         self.description_label.hide()
         self.error_label.hide()
         self.no_bridge.hide()
@@ -668,6 +683,7 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
 
     def show_buttons(self):
         self.connect_button.show()
+        self.connection_error_message.show()
         self.description_label.show()
         self.configure_button.show()
         self.no_bridge.show()
