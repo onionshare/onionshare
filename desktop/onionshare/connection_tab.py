@@ -328,9 +328,9 @@ class AutoConnectTab(QtWidgets.QWidget):
 
         # If there is a message, update the text of the bridge widget
         if msg:
-            self.use_bridge_widget.connection_error_message.setText(f"{msg}")
+            self.use_bridge_widget.connection_error_message.setText(msg)
 
-        # If we're on first launch, check if wasCancelled
+        # If we're on first launch, check if wasCanceled
         # If cancelled, stay in first launch widget and show buttons
         # Else, switch to use bridge
         if self.first_launch_widget.isVisible():
