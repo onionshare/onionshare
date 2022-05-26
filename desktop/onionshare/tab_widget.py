@@ -55,6 +55,7 @@ class TabWidget(QtWidgets.QTabWidget):
 
         # Define the new tab button
         self.new_tab_button = QtWidgets.QPushButton("+", parent=self)
+        self.new_tab_button.setShortcut(QtCore.Qt.CTRL + QtCore.Qt.Key_T)
         self.new_tab_button.setFlat(True)
         self.new_tab_button.setFixedSize(40, 30)
         self.new_tab_button.clicked.connect(self.new_tab_clicked)
@@ -195,6 +196,10 @@ class TabWidget(QtWidgets.QTabWidget):
         index = self.addTab(tab, strings._("gui_new_tab"))
         self.setCurrentIndex(index)
 
+        sequence = QtGui.QKeySequence(QtCore.Qt.CTRL + QtCore.Qt.Key_X)
+        close_shortcut = QtWidgets.QShortcut(sequence, tab)
+        close_shortcut.activated.connect(lambda: self.close_tab(index))
+
         tab.init(mode_settings)
 
         # Make sure the title is set
@@ -244,6 +249,9 @@ class TabWidget(QtWidgets.QTabWidget):
             from_autoconnect=from_autoconnect,
         )
         settings_tab.close_this_tab.connect(self.close_settings_tab)
+        sequence = QtGui.QKeySequence(QtCore.Qt.CTRL + QtCore.Qt.Key_X)
+        close_shortcut = QtWidgets.QShortcut(sequence, settings_tab)
+        close_shortcut.activated.connect(self.close_settings_tab)
         self.tor_settings_tab = settings_tab.tor_settings_tab
         self.tor_settings_tab.tor_is_connected.connect(self.tor_is_connected)
         self.tor_settings_tab.tor_is_disconnected.connect(self.tor_is_disconnected)
