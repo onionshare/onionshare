@@ -8,19 +8,19 @@ workflows:
   test_and_build:
     jobs:
       - test-cli
-      - test-gui
+      #  - test-gui
       - build-win64:
           requires:
             - test-cli
             # - test-gui
-      - build-win32:
-          requires:
-            - test-cli
-            # - test-gui
-      - build-macos:
-          requires:
-            - test-cli
-            # - test-gui
+      # - build-win32:
+      #     requires:
+      #       - test-cli
+      #       # - test-gui
+      # - build-macos:
+      #     requires:
+      #       - test-cli
+      #       # - test-gui
 
 jobs:
   test-cli:
@@ -101,22 +101,22 @@ jobs:
             cd ~\project\desktop
             poetry install
       - restore_cache:
-          key: download-tor-win32-0.4.6.10
+          key: download-tor-win32-0.4.7.7
       - run:
           name: Download tor (Windows Expert Bundle)
           command: |
             mkdir ~\Downloads\tor
             cd ~\Downloads\tor
-            $URL = "https://www.torproject.org/dist/torbrowser/11.0.10/tor-win32-0.4.6.10.zip"
-            $Filename = "tor-win32-0.4.6.10.zip"
-            $ExpectedHash = "d3f62317507dbe1a1aa74b9e0e03996dbded2143f94409270828f6a8bcdda16a"
+            $URL = "https://www.torproject.org/dist/torbrowser/11.0.13/tor-win32-0.4.7.7.zip"
+            $Filename = "tor-win32-0.4.7.7.zip"
+            $ExpectedHash = "6af0088460d61a5e60971aea94562a3bed2fb597da6b8ac77948a5f6424dfa29"
             Invoke-WebRequest -Uri $URL -OutFile $Filename
             $FileHash = Get-FileHash $Filename
             if($FileHash.Hash -ne $ExpectedHash) { throw "Invalid hash" }
             mkdir ~\Downloads\tor\tor-win32
-            Expand-Archive -LiteralPath tor-win32-0.4.6.10.zip -DestinationPath ~\Downloads\tor\tor-win32
+            Expand-Archive -LiteralPath tor-win32-0.4.7.7.zip -DestinationPath ~\Downloads\tor\tor-win32
       - save_cache:
-          key: download-tor-win32-0.4.6.10
+          key: download-tor-win32-0.4.7.7
           paths:
             - ~\Downloads\tor\tor-win32
       - run:
@@ -199,22 +199,22 @@ jobs:
             cd ~\project\desktop
             C:\Python-32bit\Scripts\poetry install
       - restore_cache:
-          key: download-tor-win32-0.4.6.10
+          key: download-tor-win32-0.4.7.7
       - run:
           name: Download tor (Windows Expert Bundle)
           command: |
             mkdir ~\Downloads\tor
             cd ~\Downloads\tor
-            $URL = "https://www.torproject.org/dist/torbrowser/11.0.10/tor-win32-0.4.6.10.zip"
-            $Filename = "tor-win32-0.4.6.10.zip"
-            $ExpectedHash = "d3f62317507dbe1a1aa74b9e0e03996dbded2143f94409270828f6a8bcdda16a"
+            $URL = "https://www.torproject.org/dist/torbrowser/11.0.13/tor-win32-0.4.7.7.zip"
+            $Filename = "tor-win32-0.4.7.7.zip"
+            $ExpectedHash = "6af0088460d61a5e60971aea94562a3bed2fb597da6b8ac77948a5f6424dfa29"
             Invoke-WebRequest -Uri $URL -OutFile $Filename
             $FileHash = Get-FileHash $Filename
             if($FileHash.Hash -ne $ExpectedHash) { throw "Invalid hash" }
             mkdir ~\Downloads\tor\tor-win32
-            Expand-Archive -LiteralPath tor-win32-0.4.6.10.zip -DestinationPath ~\Downloads\tor\tor-win32
+            Expand-Archive -LiteralPath tor-win32-0.4.7.7.zip -DestinationPath ~\Downloads\tor\tor-win32
       - save_cache:
-          key: download-tor-win32-0.4.6.10
+          key: download-tor-win32-0.4.7.7
           paths:
             - ~\Downloads\tor\tor-win32
       - run:
