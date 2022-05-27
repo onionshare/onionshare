@@ -114,25 +114,26 @@ jobs:
             export PATH=/c/msys2/usr/bin:/c/msys2/usr/bin/core_perl:$PATH
             if [[ -d "/c/Users/circleci/build/openssl" ]]; then
               echo "openssl already compiled, skipping"
-            elif
-              # Get source
-              gpg --recv-key 8657ABB260F056B1E5190839D9C4D26D0E604491
-              cd /c/Users/circleci/src
-              git clone https://github.com/openssl/openssl.git
-              cd openssl
-              git tag -v $OPENSSL_TAG
-              if [ $? -ne 0 ]; then
-                echo "openssl tag doesn't verify"
-                exit -1
-              fi
-              git checkout $OPENSSL_TAG
-
-              # Build
-              ./Configure --prefix=/opt/openssl-build --openssldir=/usr/local/ssl '-Wl,-rpath,$(LIBRPATH)' Cygwin-x86_64
-              make -j$(nproc)
-              make install
-              cp -r /opt/openssl-build /c/Users/circleci/build/openssl
+              exit 0
             fi
+
+            # Get source
+            gpg --recv-key 8657ABB260F056B1E5190839D9C4D26D0E604491
+            cd /c/Users/circleci/src
+            git clone https://github.com/openssl/openssl.git
+            cd openssl
+            git tag -v $OPENSSL_TAG
+            if [ $? -ne 0 ]; then
+              echo "openssl tag doesn't verify"
+              exit -1
+            fi
+            git checkout $OPENSSL_TAG
+
+            # Build
+            ./Configure --prefix=/opt/openssl-build --openssldir=/usr/local/ssl '-Wl,-rpath,$(LIBRPATH)' Cygwin-x86_64
+            make -j$(nproc)
+            make install
+            cp -r /opt/openssl-build /c/Users/circleci/build/openssl
       - save_cache:
           key: "build-win64-openssl-3.0.3"
           paths:
