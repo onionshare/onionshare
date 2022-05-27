@@ -9,10 +9,14 @@ workflows:
     jobs:
       - test-cli
       #  - test-gui
-      - build-win64:
+      - build-tor-win64:
           requires:
             - test-cli
-            # - test-gui
+      # - build-win64:
+      #     requires:
+      #       - build-tor-win64
+      #       - test-cli
+      #       # - test-gui
       # - build-win32:
       #     requires:
       #       - test-cli
@@ -82,7 +86,7 @@ jobs:
             cd ~/project/desktop
             QT_DEBUG_PLUGINS=1 xvfb-run poetry run pytest -v ./tests/test_gui_*.py
 
-  build-win64:
+  build-tor-win64:
     executor:
       name: win/default
       shell: bash.exe
@@ -92,30 +96,6 @@ jobs:
       TOR_TAG: "tor-0.4.7.7"
     steps:
       - checkout
-      # # Install python
-      # - run:
-      #     name: Install Python 3.9.12
-      #     command: |
-      #       choco install python3 --version=3.9.12
-
-      # # Install poetry
-      # - run:
-      #     name: Install poetry
-      #     command: (Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | python -
-
-      # # Install poetry dependencies
-      # - restore_cache:
-      #     key: build-win64-desktop-poetry-deps-{{ checksum "C:\Users\circleci\project\desktop\poetry.lock" }}
-      # - run:
-      #     name: Install poetry dependencies
-      #     command: |
-      #       cd C:\Users\circleci\project\desktop
-      #       poetry install
-      # - save_cache:
-      #     key: build-win64-desktop-poetry-deps-{{ checksum "C:\Users\circleci\project\desktop\poetry.lock" }}
-      #     paths:
-      #       - C:\Users\circleci\AppData\Local\pypoetry\Cache\virtualenvs
-
       - run:
           name: Install msys2 and dependencies
           command: |
@@ -127,7 +107,7 @@ jobs:
 
       # Build openssl
       - restore_cache:
-          key: "build-win64-openssl-{{ .Environment.OPENSSL_TAG }}"
+          key: "build-win64-openssl-3.0.3"
       - run:
           name: Build openssl
           command: |
@@ -141,7 +121,7 @@ jobs:
               git clone https://github.com/openssl/openssl.git
               cd openssl
               git tag -v $OPENSSL_TAG
-              if [ $? -eq 0 ]; then
+              if [ $? -ne 0 ]; then
                 echo "openssl tag doesn't verify"
                 exit -1
               fi
@@ -154,7 +134,7 @@ jobs:
               cp -r /opt/openssl-build /c/Users/circleci/build/openssl
             fi
       - save_cache:
-          key: "build-win64-openssl-{{ .Environment.OPENSSL_TAG }}"
+          key: "build-win64-openssl-3.0.3"
           paths:
             - C:\Users\circleci\build\openssl
 
@@ -233,6 +213,40 @@ jobs:
       #       git tag -v $TorTag
       #       if($? -ne $true) { throw "tor tag doesn't verify" }
       #       git checkout $TorTag
+
+  build-win64:
+    executor:
+      name: win/default
+      shell: bash.exe
+    environment:
+      OPENSSL_TAG: "openssl-3.0.3"
+      LIBEVENT_TAG: "release-2.1.12-stable"
+      TOR_TAG: "tor-0.4.7.7"
+    steps:
+      - checkout
+      # # Install python
+      # - run:
+      #     name: Install Python 3.9.12
+      #     command: |
+      #       choco install python3 --version=3.9.12
+
+      # # Install poetry
+      # - run:
+      #     name: Install poetry
+      #     command: (Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | python -
+
+      # # Install poetry dependencies
+      # - restore_cache:
+      #     key: build-win64-desktop-poetry-deps-{{ checksum "C:\Users\circleci\project\desktop\poetry.lock" }}
+      # - run:
+      #     name: Install poetry dependencies
+      #     command: |
+      #       cd C:\Users\circleci\project\desktop
+      #       poetry install
+      # - save_cache:
+      #     key: build-win64-desktop-poetry-deps-{{ checksum "C:\Users\circleci\project\desktop\poetry.lock" }}
+      #     paths:
+      #       - C:\Users\circleci\AppData\Local\pypoetry\Cache\virtualenvs
 
       # - restore_cache:
       #     key: download-tor-win32-0.4.7.7
