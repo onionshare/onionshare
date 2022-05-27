@@ -97,13 +97,19 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install msys2 and dependencies
+          name: Install msys2 and dependencies, create folders, import signing keys
           command: |
             choco install msys2 --params "/NoUpdate /InstallDir:C:\msys2"
             refreshenv
             /c/msys2/usr/bin/pacman -S --needed --noconfirm autoconf automake libtool make clang perl-Pod-Parser
             mkdir /c/Users/circleci/src
             mkdir /c/Users/circleci/build
+            # openssl signing key
+            curl https://keys.openpgp.org/vks/v1/by-fingerprint/8657ABB260F056B1E5190839D9C4D26D0E604491 | gpg --import
+            # libevent signing key
+            curl "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x9e3ac83a27974b84d1b3401db86086848ef8686d" | gpg --import
+            # tor signing key
+            curl https://keys.openpgp.org/vks/v1/by-fingerprint/B74417EDDF22AC9F9E90F49142E86A2A11F48D36 | gpg --import
 
       # Build openssl
       - restore_cache:
@@ -121,7 +127,6 @@ jobs:
             cd /c/Users/circleci/src
             git clone https://github.com/openssl/openssl.git
             cd openssl
-            gpg --recv-key 8657ABB260F056B1E5190839D9C4D26D0E604491
             git tag -v $OPENSSL_TAG
             if [ $? -ne 0 ]; then
               echo "openssl tag doesn't verify"
