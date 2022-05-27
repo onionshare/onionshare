@@ -85,7 +85,7 @@ jobs:
   build-win64:
     executor:
       name: win/default
-      shell: powershell.exe
+      shell: bash.exe
     environment:
       OPENSSL_TAG: "openssl-3.0.3"
       LIBEVENT_TAG: "release-2.1.12-stable"
@@ -121,9 +121,9 @@ jobs:
           command: |
             choco install msys2 --params "/NoUpdate /InstallDir:C:\msys2"
             refreshenv
-            C:\msys2\usr\bin\bash -c "/c/msys2/usr/bin/pacman -S --needed --noconfirm autoconf automake libtool make clang perl-Pod-Parser"
-            mkdir C:\Users\circleci\src
-            mkdir C:\Users\circleci\build
+            /c/msys2/usr/bin/pacman -S --needed --noconfirm autoconf automake libtool make clang perl-Pod-Parser
+            mkdir /c/Users/circleci/src
+            mkdir /c/Users/circleci/build
 
       # Build openssl
       - restore_cache:
@@ -131,72 +131,69 @@ jobs:
       - run:
           name: Build openssl
           command: |
-            if (Test-Path -Path "C:\Users\circleci\build\openssl") {
-              Write-Output "openssl already compiled, skipping"
-            } else {
+            export PATH=/c/msys2/usr/bin:/c/msys2/usr/bin/core_perl:$PATH
+            if [[ -d "/c/Users/circleci/build/openssl" ]]; then
+              echo "openssl already compiled, skipping"
+            elif
               # Get source
               gpg --recv-key 8657ABB260F056B1E5190839D9C4D26D0E604491
-              cd C:\Users\circleci\src
+              cd /c/Users/circleci/src
               git clone https://github.com/openssl/openssl.git
               cd openssl
               git tag -v $OPENSSL_TAG
-              if($? -ne $true) { throw "openssl tag doesn't verify" }
+              if [ $? -eq 0 ]; then
+                echo "openssl tag doesn't verify"
+                exit -1
+              fi
               git checkout $OPENSSL_TAG
 
               # Build
-              $BuildScript = {
-                #!/bin/bash
-                export PATH=/c/msys2/usr/bin:/c/msys2/usr/bin/core_perl:$PATH
-                cd /c/Users/circleci/src/openssl
-                ./Configure --prefix=/opt/openssl-build --openssldir=/usr/local/ssl '-Wl,-rpath,$(LIBRPATH)' Cygwin-x86_64
-                make -j$(nproc)
-                make install
-                cp -r /opt/openssl-build /c/Users/circleci/build/openssl
-              }
-              Set-Content -Path C:\Users\circleci\src\build-openssl.sh -Value $BuildScript.ToString()
-              C:\msys2\usr\bin\bash -c "/c/Users/circleci/src/build-openssl.sh"
-            }
+              ./Configure --prefix=/opt/openssl-build --openssldir=/usr/local/ssl '-Wl,-rpath,$(LIBRPATH)' Cygwin-x86_64
+              make -j$(nproc)
+              make install
+              cp -r /opt/openssl-build /c/Users/circleci/build/openssl
+            fi
       - save_cache:
           key: "build-win64-openssl-{{ .Environment.OPENSSL_TAG }}"
           paths:
             - C:\Users\circleci\build\openssl
 
-      # Build libevent
-      - restore_cache:
-          key: "build-win64-livevent-{{ .Environment.LIBEVENT_TAG }}"
-      - run:
-          name: Build libevent
-          command: |
-            if (Test-Path -Path "C:\Users\circleci\build\openssl") {
-              Write-Output "openssl already compiled, skipping"
-            } else {
-              # Get source
-              gpg --recv-key 9E3AC83A27974B84D1B3401DB86086848EF8686D
-              cd C:\Users\circleci\src
-              git clone https://github.com/libevent/libevent.git
-              cd libevent
-              git tag -v $LIBEVENT_TAG
-              if($? -ne $true) { throw "libevent tag doesn't verify" }
-              git checkout $LIBEVENT_TAG
+      # # Build libevent
+      # - restore_cache:
+      #     key: "build-win64-livevent-{{ .Environment.LIBEVENT_TAG }}"
+      # - run:
+      #     name: Build libevent
+      #     command: |
+      #       if (Test-Path -Path "C:\Users\circleci\build\openssl") {
+      #         Write-Output "openssl already compiled, skipping"
+      #       } else {
+      #         # Get source
+      #         gpg --recv-key 9E3AC83A27974B84D1B3401DB86086848EF8686D
+      #         cd C:\Users\circleci\src
+      #         git clone https://github.com/libevent/libevent.git
+      #         cd libevent
+      #         git tag -v $LIBEVENT_TAG
+      #         if($? -ne $true) { throw "libevent tag doesn't verify" }
+      #         git checkout $LIBEVENT_TAG
 
-              # Build
-              $BuildScript = {
-                #!/bin/bash
-                export PATH=/c/msys2/usr/bin:$PATH
-                cd /c/Users/circleci/src/libevent
-                ./autogen.sh
-                ./configure --prefix=/opt/libevent-build --with-pic
-                make -j$(nproc)
-                make install
-                cp -r /opt/libevent-build /c/Users/circleci/build/libevent
-              }
-              Set-Content -Path C:\Users\circleci\src\build-libevent.sh -Value $BuildScript.ToString()
-              C:\msys2\usr\bin\bash -c "/c/Users/circleci/src/build-libevent.sh"
-            }
-      - save_cache:
-          key: "build-win64-libevent-{{ .Environment.LIBEVENT_TAG }}"
-          paths:
-            - C:\Users\circleci\build\libevent
+      #         # Build
+      #         $BuildScript = {
+      #           #!/bin/bash
+      #           export PATH=/c/msys2/usr/bin:$PATH
+      #           cd /c/Users/circleci/src/libevent
+      #           ./autogen.sh
+      #           ./configure --prefix=/opt/libevent-build --with-pic
+      #           make -j$(nproc)
+      #           make install
+      #           cp -r /opt/libevent-build /c/Users/circleci/build/libevent
+      #         }
+      #         Set-Content -Path C:\Users\circleci\src\build-libevent.sh -Value $BuildScript.ToString()
+      #         C:\msys2\usr\bin\bash -c "/c/Users/circleci/src/build-libevent.sh"
+      #       }
+      # - save_cache:
+      #     key: "build-win64-libevent-{{ .Environment.LIBEVENT_TAG }}"
+      #     paths:
+      #       - C:\Users\circleci\build\libevent
 
       # # Build tor
       # - run:
