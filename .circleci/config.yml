@@ -118,10 +118,10 @@ jobs:
             fi
 
             # Get source
-            gpg --recv-key 8657ABB260F056B1E5190839D9C4D26D0E604491
             cd /c/Users/circleci/src
             git clone https://github.com/openssl/openssl.git
             cd openssl
+            gpg --recv-key 8657ABB260F056B1E5190839D9C4D26D0E604491
             git tag -v $OPENSSL_TAG
             if [ $? -ne 0 ]; then
               echo "openssl tag doesn't verify"
