@@ -5,7 +5,7 @@ orbs:
 
 workflows:
   version: 2
-  test_and_build:
+  ci:
     jobs:
       - test-cli
       #  - test-gui
@@ -88,91 +88,175 @@ jobs:
       shell: powershell.exe
     steps:
       - checkout
+      # # Install python
+      # - run:
+      #     name: Install Python 3.9.12
+      #     command: |
+      #       choco install python3 --version=3.9.12
+
+      # # Install poetry
+      # - run:
+      #     name: Install poetry
+      #     command: (Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | python -
+
+      # # Install poetry dependencies
+      # - restore_cache:
+      #     key: build-win64-desktop-poetry-deps-{{ checksum "C:\Users\circleci\project\desktop\poetry.lock" }}
+      # - run:
+      #     name: Install poetry dependencies
+      #     command: |
+      #       cd C:\Users\circleci\project\desktop
+      #       poetry install
+      # - save_cache:
+      #     key: build-win64-desktop-poetry-deps-{{ checksum "C:\Users\circleci\project\desktop\poetry.lock" }}
+      #     paths:
+      #       - C:\Users\circleci\AppData\Local\pypoetry\Cache\virtualenvs
+
       - run:
-          name: Install Python 3.9.12
+          name: Install msys2 and dependencies
           command: |
-            choco install python3 --version=3.9.12
+            choco install msys2 --params "/NoUpdate /InstallDir:C:\msys2"
+            refreshenv
+            C:\msys2\usr\bin\bash -c "/c/msys2/usr/bin/pacman -S --needed --noconfirm autoconf automake libtool make clang"
+            mkdir C:\Users\circleci\src
+
+      # Build libevent
       - run:
-          name: Install poetry
-          command: (Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | python -
-      - run:
-          name: Install poetry dependencies
+          name: Build libevent
           command: |
-            cd ~\project\desktop
-            poetry install
-      - restore_cache:
-          key: download-tor-win32-0.4.7.7
-      - run:
-          name: Download tor (Windows Expert Bundle)
-          command: |
-            mkdir ~\Downloads\tor
-            cd ~\Downloads\tor
-            $URL = "https://www.torproject.org/dist/torbrowser/11.0.13/tor-win32-0.4.7.7.zip"
-            $Filename = "tor-win32-0.4.7.7.zip"
-            $ExpectedHash = "6af0088460d61a5e60971aea94562a3bed2fb597da6b8ac77948a5f6424dfa29"
-            Invoke-WebRequest -Uri $URL -OutFile $Filename
-            $FileHash = Get-FileHash $Filename
-            if($FileHash.Hash -ne $ExpectedHash) { throw "Invalid hash" }
-            mkdir ~\Downloads\tor\tor-win32
-            Expand-Archive -LiteralPath tor-win32-0.4.7.7.zip -DestinationPath ~\Downloads\tor\tor-win32
-      - save_cache:
-          key: download-tor-win32-0.4.7.7
-          paths:
-            - ~\Downloads\tor\tor-win32
-      - run:
-          name: Copy tor binary into app
-          command: cp ~\Downloads\tor\tor-win32\* ~\project\desktop\onionshare\resources\tor
-      - restore_cache:
-          key: build-win64-obfs4proxy-v0.0.13
-      - run:
-          name: Build obfs4proxy
-          command: |
-            mkdir ~\Downloads\obfs4proxy
-            cd Downloads\obfs4proxy
-            git clone https://gitlab.com/yawning/obfs4
-            cd obfs4
-            git checkout obfs4proxy-0.0.13
-            go build .\obfs4proxy
-            Move-Item -Path .\obfs4proxy.exe -Destination ~\project\desktop\onionshare\resources\tor\Tor\obfs4proxy.exe
-      - save_cache:
-          key: build-win64-obfs4proxy-v0.0.13
-          paths:
-            - ~\project\desktop\onionshare\resources\tor\Tor\obfs4proxy.exe
-      - restore_cache:
-          key: build-win64-snowflake-v2.1.0
-      - run:
-          name: Build snowflake-client
-          command: |
-            go install git.torproject.org/pluggable-transports/snowflake.git/client@v2.1.0
-            Move-Item -Path ~\go\bin\client.exe -Destination ~\project\desktop\onionshare\resources\tor\Tor\snowflake-client.exe
-      - save_cache:
-          key: build-win64-snowflake-v2.1.0
-          paths:
-            - ~\project\desktop\onionshare\resources\tor\Tor\snowflake-client.exe
-      - restore_cache:
-          key: build-win64-meek-v0.37.0
-      - run:
-          name: Build meek-client
-          command: |
-            go install git.torproject.org/pluggable-transports/meek.git/meek-client@v0.37.0
-            Move-Item -Path ~\go\bin\meek-client.exe -Destination ~\project\desktop\onionshare\resources\tor\Tor\meek-client.exe
-      - save_cache:
-          key: build-win64-meek-v0.37.0
-          paths:
-            - ~\project\desktop\onionshare\resources\tor\Tor\meek-client.exe
-      - run:
-          name: Build OnionShare
-          command: |
-            cd ~\project\desktop
-            poetry run python .\setup-freeze.py build
-            poetry run python .\scripts\build-windows.py cleanup-build
-      - run:
-          name: Compress
-          command: |
-            mv ~\project\desktop\build\exe.win-amd64-3.9\ ~\onionshare-win64
-            Compress-Archive -LiteralPath ~\onionshare-win64 -DestinationPath ~\onionshare-win64.zip
-      - store_artifacts:
-          path: ~\onionshare-win64.zip
+            $LibeventTag = "release-2.1.12-stable"
+
+            # Get source
+            gpg --recv-key 9E3AC83A27974B84D1B3401DB86086848EF8686D
+            cd C:\Users\circleci\src
+            git clone https://github.com/libevent/libevent.git
+            cd libevent
+            git tag -v $LibeventTag
+            if($? -ne $true) { throw "libevent tag doesn't verify" }
+            git checkout $LibeventTag
+
+            # Build
+            $BashScript = @"
+            #!/bin/bash
+            export PATH=/c/msys2/usr/bin:$PATH
+            cd /c/Users/circleci/src/libevent
+            ./autogen.sh
+            ./configure --prefix=/opt/libevent-build --with-pic
+            make -j8 install
+            "@
+
+      # # Build tor
+      # - run:
+      #     name: Build tor
+      #     command: |
+      #       $LibeventTag = "release-2.1.12-stable"
+      #       $TorTag = "tor-0.4.7.7"
+
+      #       choco install msys2 --params "/NoUpdate /InstallDir:C:\msys2"
+      #       C:\msys2\usr\bin\bash -c "pacman --sync --noconfirm msys/autoconf"
+      #       C:\msys2\usr\bin\bash -c "pacman --sync --noconfirm msys/automake"
+
+      #       # Get libevent source
+      #       gpg --recv-key 9E3AC83A27974B84D1B3401DB86086848EF8686D
+      #       cd C:\Users\circleci\src
+      #       git clone https://github.com/libevent/libevent.git
+      #       cd libevent
+      #       git tag -v $LibeventTag
+      #       if($? -ne $true) { throw "libevent tag doesn't verify" }
+      #       git checkout $LibeventTag
+
+      #       # Build libevent
+      #       $BashScript = @"
+      #       #!/bin/bash
+      #       export PATH=/c/msys2/usr/bin:$PATH
+      #       cd /c/Users/circleci/src/libevent
+      #       ./autogen.sh
+      #       ./configure --prefix=/opt/libevent-build --with-pic
+      #       make -j8 install
+      #       "@
+
+      #       # Get tor source
+      #       gpg --recv-key B74417EDDF22AC9F9E90F49142E86A2A11F48D36
+      #       cd C:\Users\circleci\src
+      #       git clone https://git.torproject.org/tor.git
+      #       cd tor
+      #       git tag -v $TorTag
+      #       if($? -ne $true) { throw "tor tag doesn't verify" }
+      #       git checkout $TorTag
+
+      # - restore_cache:
+      #     key: download-tor-win32-0.4.7.7
+      # - run:
+      #     name: Download tor (Windows Expert Bundle)
+      #     command: |
+      #       mkdir ~\Downloads\tor
+      #       cd ~\Downloads\tor
+      #       $URL = "https://www.torproject.org/dist/torbrowser/11.0.13/tor-win32-0.4.7.7.zip"
+      #       $Filename = "tor-win32-0.4.7.7.zip"
+      #       $ExpectedHash = "6af0088460d61a5e60971aea94562a3bed2fb597da6b8ac77948a5f6424dfa29"
+      #       Invoke-WebRequest -Uri $URL -OutFile $Filename
+      #       $FileHash = Get-FileHash $Filename
+      #       if($FileHash.Hash -ne $ExpectedHash) { throw "Invalid hash" }
+      #       mkdir ~\Downloads\tor\tor-win32
+      #       Expand-Archive -LiteralPath tor-win32-0.4.7.7.zip -DestinationPath ~\Downloads\tor\tor-win32
+      # - save_cache:
+      #     key: download-tor-win32-0.4.7.7
+      #     paths:
+      #       - ~\Downloads\tor\tor-win32
+      # - run:
+      #     name: Copy tor binary into app
+      #     command: cp ~\Downloads\tor\tor-win32\* ~\project\desktop\onionshare\resources\tor
+      # - restore_cache:
+      #     key: build-win64-obfs4proxy-v0.0.13
+      # - run:
+      #     name: Build obfs4proxy
+      #     command: |
+      #       mkdir ~\Downloads\obfs4proxy
+      #       cd Downloads\obfs4proxy
+      #       git clone https://gitlab.com/yawning/obfs4
+      #       cd obfs4
+      #       git checkout obfs4proxy-0.0.13
+      #       go build .\obfs4proxy
+      #       Move-Item -Path .\obfs4proxy.exe -Destination ~\project\desktop\onionshare\resources\tor\Tor\obfs4proxy.exe
+      # - save_cache:
+      #     key: build-win64-obfs4proxy-v0.0.13
+      #     paths:
+      #       - ~\project\desktop\onionshare\resources\tor\Tor\obfs4proxy.exe
+      # - restore_cache:
+      #     key: build-win64-snowflake-v2.1.0
+      # - run:
+      #     name: Build snowflake-client
+      #     command: |
+      #       go install git.torproject.org/pluggable-transports/snowflake.git/client@v2.1.0
+      #       Move-Item -Path ~\go\bin\client.exe -Destination ~\project\desktop\onionshare\resources\tor\Tor\snowflake-client.exe
+      # - save_cache:
+      #     key: build-win64-snowflake-v2.1.0
+      #     paths:
+      #       - ~\project\desktop\onionshare\resources\tor\Tor\snowflake-client.exe
+      # - restore_cache:
+      #     key: build-win64-meek-v0.37.0
+      # - run:
+      #     name: Build meek-client
+      #     command: |
+      #       go install git.torproject.org/pluggable-transports/meek.git/meek-client@v0.37.0
+      #       Move-Item -Path ~\go\bin\meek-client.exe -Destination ~\project\desktop\onionshare\resources\tor\Tor\meek-client.exe
+      # - save_cache:
+      #     key: build-win64-meek-v0.37.0
+      #     paths:
+      #       - ~\project\desktop\onionshare\resources\tor\Tor\meek-client.exe
+      # - run:
+      #     name: Build OnionShare
+      #     command: |
+      #       cd ~\project\desktop
+      #       poetry run python .\setup-freeze.py build
+      #       poetry run python .\scripts\build-windows.py cleanup-build
+      # - run:
+      #     name: Compress
+      #     command: |
+      #       mv ~\project\desktop\build\exe.win-amd64-3.9\ ~\onionshare-win64
+      #       Compress-Archive -LiteralPath ~\onionshare-win64 -DestinationPath ~\onionshare-win64.zip
+      # - store_artifacts:
+      #     path: ~\onionshare-win64.zip
 
   build-win32:
     executor:
