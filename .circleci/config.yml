@@ -121,7 +121,7 @@ jobs:
           command: |
             choco install msys2 --params "/NoUpdate /InstallDir:C:\msys2"
             refreshenv
-            C:\msys2\usr\bin\bash -c "/c/msys2/usr/bin/pacman -S --needed --noconfirm autoconf automake libtool make clang"
+            C:\msys2\usr\bin\bash -c "/c/msys2/usr/bin/pacman -S --needed --noconfirm autoconf automake libtool make clang perl-Pod-Parser"
             mkdir C:\Users\circleci\src
             mkdir C:\Users\circleci\build
 
@@ -146,7 +146,7 @@ jobs:
               # Build
               $BuildScript = {
                 #!/bin/bash
-                export PATH=/c/msys2/usr/bin:$PATH
+                export PATH=/c/msys2/usr/bin:/c/msys2/usr/bin/core_perl:$PATH
                 cd /c/Users/circleci/src/openssl
                 ./Configure --prefix=/opt/openssl-build --openssldir=/usr/local/ssl '-Wl,-rpath,$(LIBRPATH)' Cygwin-x86_64
                 make -j$(nproc)
