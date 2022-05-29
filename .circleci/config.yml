@@ -9,14 +9,10 @@ workflows:
     jobs:
       - test-cli
       #  - test-gui
-      - build-tor-win64:
+      - build-win64:
           requires:
             - test-cli
-      # - build-win64:
-      #     requires:
-      #       - build-tor-win64
-      #       - test-cli
-      #       # - test-gui
+            # - test-gui
       # - build-win32:
       #     requires:
       #       - test-cli
@@ -86,105 +82,67 @@ jobs:
             cd ~/project/desktop
             QT_DEBUG_PLUGINS=1 xvfb-run poetry run pytest -v ./tests/test_gui_*.py
 
-  build-tor-win64:
+  build-win64:
     executor:
       name: win/default
-      shell: bash.exe
+      shell: powershell.exe
     environment:
       OPENSSL_TAG: "openssl-3.0.3"
       LIBEVENT_TAG: "release-2.1.12-stable"
       TOR_TAG: "tor-0.4.7.7"
     steps:
       - checkout
-      - run:
-          name: Install msys2 and dependencies, create folders, import signing keys
-          command: |
-            choco install msys2 --params "/NoUpdate /InstallDir:C:\msys2"
-            refreshenv
-            /c/msys2/usr/bin/pacman -S --needed --noconfirm autoconf automake libtool make clang perl-Pod-Parser
-            mkdir /c/Users/circleci/src
-            mkdir /c/Users/circleci/build
-            # openssl signing key
-            curl https://keys.openpgp.org/vks/v1/by-fingerprint/8657ABB260F056B1E5190839D9C4D26D0E604491 | gpg --import
-            # libevent signing key
-            curl "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x9e3ac83a27974b84d1b3401db86086848ef8686d" | gpg --import
-            # tor signing key
-            curl https://keys.openpgp.org/vks/v1/by-fingerprint/B74417EDDF22AC9F9E90F49142E86A2A11F48D36 | gpg --import
 
-      # Build openssl
-      - restore_cache:
-          key: "build-win64-openssl-3.0.3"
+      # Install cygwin and required packages
       - run:
-          name: Build openssl
+          name: Install cygwin and required packages
           command: |
-            export PATH=/c/msys2/usr/bin:/c/msys2/usr/bin/core_perl:$PATH
-            if [[ -d "/c/Users/circleci/build/openssl" ]]; then
+            curl -o Downloads\setup-x86_64.exe https://cygwin.com/setup-x86_64.exe
+            .\Downloads\setup-x86_64.exe -q -s https://mirrors.kernel.org/sourceware/cygwin/ -P libssl-devel,git,gcc-core,make,autoconf,automake,libtool,clang,perl
+            mkdir C:\Users\circleci\src
+            mkdir C:\Users\circleci\build
+
+      # Build libevent
+      - restore_cache:
+          key: "build-win64-livevent-2.1.12"
+      - run:
+          name: Build libevent
+          shell: C:\\cygwin64\\bin\\bash.exe --login -eo pipefail
+          command: |
+            if [[ -d "/cygdrive/c/Users/circleci/build/openssl" ]]; then
               echo "openssl already compiled, skipping"
               exit 0
             fi
 
             # Get source
-            cd /c/Users/circleci/src
-            git clone https://github.com/openssl/openssl.git
-            cd openssl
-            git tag -v $OPENSSL_TAG
+            curl "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x9e3ac83a27974b84d1b3401db86086848ef8686d" | gpg --import
+            cd /cygdrive/c/Users/circleci/src
+            git clone https://github.com/libevent/libevent.git
+            cd libevent
+            git tag -v $LIBEVENT_TAG
             if [ $? -ne 0 ]; then
-              echo "openssl tag doesn't verify"
+              echo "libevent tag doesn't verify"
               exit -1
             fi
-            git checkout $OPENSSL_TAG
+            git checkout $LIBEVENT_TAG
 
             # Build
-            ./Configure --prefix=/opt/openssl-build --openssldir=/usr/local/ssl '-Wl,-rpath,$(LIBRPATH)' Cygwin-x86_64
+            ./autogen.sh
+            ./configure --prefix=/opt/libevent-build --with-pic
             make -j$(nproc)
             make install
-            cp -r /opt/openssl-build /c/Users/circleci/build/openssl
+            cp -r /opt/libevent-build /cygdrive/c/Users/circleci/build/libevent
       - save_cache:
-          key: "build-win64-openssl-3.0.3"
+          key: "build-win64-libevent-2.1.12"
           paths:
-            - C:\Users\circleci\build\openssl
-
-      # # Build libevent
-      # - restore_cache:
-      #     key: "build-win64-livevent-{{ .Environment.LIBEVENT_TAG }}"
-      # - run:
-      #     name: Build libevent
-      #     command: |
-      #       if (Test-Path -Path "C:\Users\circleci\build\openssl") {
-      #         Write-Output "openssl already compiled, skipping"
-      #       } else {
-      #         # Get source
-      #         gpg --recv-key 9E3AC83A27974B84D1B3401DB86086848EF8686D
-      #         cd C:\Users\circleci\src
-      #         git clone https://github.com/libevent/libevent.git
-      #         cd libevent
-      #         git tag -v $LIBEVENT_TAG
-      #         if($? -ne $true) { throw "libevent tag doesn't verify" }
-      #         git checkout $LIBEVENT_TAG
-
-      #         # Build
-      #         $BuildScript = {
-      #           #!/bin/bash
-      #           export PATH=/c/msys2/usr/bin:$PATH
-      #           cd /c/Users/circleci/src/libevent
-      #           ./autogen.sh
-      #           ./configure --prefix=/opt/libevent-build --with-pic
-      #           make -j$(nproc)
-      #           make install
-      #           cp -r /opt/libevent-build /c/Users/circleci/build/libevent
-      #         }
-      #         Set-Content -Path C:\Users\circleci\src\build-libevent.sh -Value $BuildScript.ToString()
-      #         C:\msys2\usr\bin\bash -c "/c/Users/circleci/src/build-libevent.sh"
-      #       }
-      # - save_cache:
-      #     key: "build-win64-libevent-{{ .Environment.LIBEVENT_TAG }}"
-      #     paths:
-      #       - C:\Users\circleci\build\libevent
+            - C:\Users\circleci\build\libevent
 
       # # Build tor
       # - run:
       #     name: Build tor
       #     command: |
+      #       # tor signing key
+      #       curl https://keys.openpgp.org/vks/v1/by-fingerprint/B74417EDDF22AC9F9E90F49142E86A2A11F48D36 | gpg --import
       #       $LibeventTag = "release-2.1.12-stable"
       #       $TorTag = "tor-0.4.7.7"
 
@@ -220,16 +178,6 @@ jobs:
       #       if($? -ne $true) { throw "tor tag doesn't verify" }
       #       git checkout $TorTag
 
-  build-win64:
-    executor:
-      name: win/default
-      shell: bash.exe
-    environment:
-      OPENSSL_TAG: "openssl-3.0.3"
-      LIBEVENT_TAG: "release-2.1.12-stable"
-      TOR_TAG: "tor-0.4.7.7"
-    steps:
-      - checkout
       # # Install python
       # - run:
       #     name: Install Python 3.9.12
