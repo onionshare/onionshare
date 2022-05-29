@@ -196,10 +196,10 @@ jobs:
       - run:
           name: Copy tor binaries into project
           command: |
-            New-Item -ItemType Directory -Force -Path C:\Users\circleci\project\desktop\onionshare\resources\tor\Tor\
-            Copy-Item -Path C:\Users\circleci\build\tor\bin\tor.exe -Destination C:\Users\circleci\project\desktop\onionshare\resources\tor\Tor\
-            Copy-Item -Path C:\Users\circleci\build\tor\share\tor\geoip -Destination C:\Users\circleci\project\desktop\onionshare\resources\tor\Tor\
-            Copy-Item -Path C:\Users\circleci\build\tor\share\tor\geoip6 -Destination C:\Users\circleci\project\desktop\onionshare\resources\tor\Tor\
+            New-Item -ItemType Directory -Force -Path C:\Users\circleci\project\desktop\onionshare\resources\tor
+            Copy-Item -Path C:\Users\circleci\build\tor\bin\tor.exe -Destination C:\Users\circleci\project\desktop\onionshare\resources\tor
+            Copy-Item -Path C:\Users\circleci\build\tor\share\tor\geoip -Destination C:\Users\circleci\project\desktop\onionshare\resources\tor
+            Copy-Item -Path C:\Users\circleci\build\tor\share\tor\geoip6 -Destination C:\Users\circleci\project\desktop\onionshare\resources\tor
 
       - restore_cache:
           # NOTE: make sure to change when uprading obfs4proxy
@@ -211,19 +211,20 @@ jobs:
               Write-Output "obfs4proxy already built"
             } else {
               # curl https://keys.openpgp.org/vks/v1/by-fingerprint/9EB1A490C73CC5D44DFB3E47BFBD1C7B8A6EC81A | gpg --import
-              mkdir C:\Users\circleci\src\obfs4proxy
+              New-Item -ItemType Directory -Force -Path C:\Users\circleci\src\obfs4proxy
               cd C:\Users\circleci\src\obfs4proxy
               git clone https://gitlab.com/yawning/obfs4
               cd obfs4
+              # TODO: verify signature
               git checkout obfs4proxy-0.0.13
               go build .\obfs4proxy
-              Move-Item -Path .\obfs4proxy.exe -Destination C:\Users\circleci\project\desktop\onionshare\resources\tor\Tor\obfs4proxy.exe
+              Move-Item -Path .\obfs4proxy.exe -Destination C:\Users\circleci\project\desktop\onionshare\resources\tor\obfs4proxy.exe
             }
       - save_cache:
           # NOTE: make sure to change when uprading obfs4proxy
           key: build-win64-obfs4proxy-v0.0.13-{{ .Environment.CACHE_VERSION }}"
           paths:
-            - C:\Users\circleci\project\desktop\onionshare\resources\tor\Tor\obfs4proxy.exe
+            - C:\Users\circleci\project\desktop\onionshare\resources\tor\obfs4proxy.exe
 
       - restore_cache:
           # NOTE: make sure to change when uprading snowflake
@@ -231,17 +232,23 @@ jobs:
       - run:
           name: Build snowflake-client
           command: |
-            if ((Test-Path -Path C:\Users\circleci\project\desktop\onionshare\resources\tor\Tor\snowflake-client.exe) -eq $True) {
+            if ((Test-Path -Path C:\Users\circleci\project\desktop\onionshare\resources\tor\snowflake-client.exe) -eq $True) {
               Write-Output "snowflake already built"
             } else {
-              go install git.torproject.org/pluggable-transports/snowflake.git/client@v2.1.0
-              Move-Item -Path C:\Users\circleci\go\bin\client.exe -Destination C:\Users\circleci\project\desktop\onionshare\resources\tor\Tor\snowflake-client.exe
+              New-Item -ItemType Directory -Force -Path C:\Users\circleci\src\obfs4proxy
+              cd C:\Users\circleci\src\obfs4proxy
+              git clone https://git.torproject.org/pluggable-transports/snowflake.git
+              cd snowflake
+              # TODO: verify signature
+              git checkout v2.2.0
+              go build .\client
+              Move-Item -Path .\client.exe -Destination C:\Users\circleci\project\desktop\onionshare\resources\tor\snowflake-client.exe
             }
       - save_cache:
           # NOTE: make sure to change when uprading snowflake
           key: build-win64-snowflake-v2.1.0-{{ .Environment.CACHE_VERSION }}"
           paths:
-            - C:\Users\circleci\project\desktop\onionshare\resources\tor\Tor\snowflake-client.exe
+            - C:\Users\circleci\project\desktop\onionshare\resources\tor\snowflake-client.exe
 
       - restore_cache:
           # NOTE: make sure to change when uprading meek
@@ -252,8 +259,14 @@ jobs:
             if ((Test-Path -Path C:\Users\circleci\project\desktop\onionshare\resources\tor\Tor\meek-client.exe) -eq $True) {
               Write-Output "snowflake already built"
             } else {
-              go install git.torproject.org/pluggable-transports/meek.git/meek-client@v0.37.0
-              Move-Item -Path C:\Users\circleci\go\bin\meek-client.exe -Destination ~\project\desktop\onionshare\resources\tor\Tor\meek-client.exe
+              New-Item -ItemType Directory -Force -Path C:\Users\circleci\src\meek
+              cd C:\Users\circleci\src\meek
+              git clone https://git.torproject.org/pluggable-transports/meek.git
+              cd meek
+              # TODO: verify signature
+              git checkout v0.37.0
+              go build .\meek-client
+              Move-Item -Path .\meek-client.exe -Destination C:\Users\circleci\project\desktop\onionshare\resources\tor\meek-client.exe
             }
       - save_cache:
           # NOTE: make sure to change when uprading meek
