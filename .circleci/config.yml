@@ -287,14 +287,14 @@ jobs:
           command: (Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | python -
 
       - restore_cache:
-          key: build-win64-desktop-poetry-deps-{{ checksum "C:\Users\circleci\project\desktop\poetry.lock" }}-{{ .Environment.CACHE_VERSION }}
+          key: build-win64-desktop-poetry-deps-{{ checksum "project/desktop/poetry.lock" }}-{{ .Environment.CACHE_VERSION }}
       - run:
           name: Install poetry dependencies
           command: |
             cd C:\Users\circleci\project\desktop
             poetry install
       - save_cache:
-          key: build-win64-desktop-poetry-deps-{{ checksum "C:\Users\circleci\project\desktop\poetry.lock" }}-{{ .Environment.CACHE_VERSION }}
+          key: build-win64-desktop-poetry-deps-{{ checksum "project/desktop/poetry.lock" }}-{{ .Environment.CACHE_VERSION }}
           paths:
             - C:\Users\circleci\AppData\Local\pypoetry\Cache\virtualenvs
 
@@ -487,14 +487,14 @@ jobs:
           command: C:\Python-32bit\Scripts\pip install poetry
 
       - restore_cache:
-          key: build-win32-desktop-poetry-deps-{{ checksum "C:\Users\circleci\project\desktop\poetry.lock" }}-{{ .Environment.CACHE_VERSION }}
+          key: build-win32-desktop-poetry-deps-{{ checksum "project/desktop/poetry.lock" }}-{{ .Environment.CACHE_VERSION }}
       - run:
           name: Install poetry dependencies
           command: |
             cd ~\project\desktop
             C:\Python-32bit\Scripts\poetry install
       - save_cache:
-          key: build-win32-desktop-poetry-deps-{{ checksum "C:\Users\circleci\project\desktop\poetry.lock" }}-{{ .Environment.CACHE_VERSION }}
+          key: build-win32-desktop-poetry-deps-{{ checksum "project/desktop/poetry.lock" }}-{{ .Environment.CACHE_VERSION }}
           paths:
             - C:\Users\circleci\AppData\Local\pypoetry\Cache\virtualenvs
 
