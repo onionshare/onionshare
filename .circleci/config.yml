@@ -101,9 +101,9 @@ jobs:
           # NOTE: make sure to change when upgrading tor
           key: "build-win64-tor-0.4.7.7"
 
-      # Install cygwin and required packages
+      # Download cygwin
       - run:
-          name: Install cygwin and required packages
+          name: Download cygwin
           command: |
             if (((Test-Path C:\Users\circleci\build\libevent -PathType Container) -and (Test-Path C:\Users\circleci\build\tor -PathType Container)) -eq $true) {
               Write-Output "libevent and tor already compiled, skipping"
@@ -117,15 +117,16 @@ jobs:
               gpg --import C:\Users\circleci\Downloads\pubring.asc
               gpg --verify C:\Users\circleci\Downloads\setup-x86_64.exe.sig C:\Users\circleci\Downloads\setup-x86_64.exe
               if($? -ne $true) { throw "cygwin failed to verify" }
+            }
 
-              Write-Output "installing cygwin and requited packages"
-              C:\Users\circleci\Downloads\setup-x86_64.exe -q -s https://mirrors.kernel.org/sourceware/cygwin/ -P libssl-devel,git,gcc-core,make,autoconf,automake,libtool,gnupg2
-              C:\cygwin64\bin\bash.exe -c "ln -s /usr/bin/gpg2 /usr/bin/gpg"
-              C:\cygwin64\bin\bash.exe -c "gpg --list-keys"
-
-              Write-Output "creating folders"
-              mkdir C:\Users\circleci\src
-              mkdir C:\Users\circleci\build
+      # Install cygwin and required packages
+      - run:
+          name: Install cygwin and required packages
+          command: |
+            if (((Test-Path C:\Users\circleci\build\libevent -PathType Container) -and (Test-Path C:\Users\circleci\build\tor -PathType Container)) -eq $true) {
+              Write-Output "libevent and tor already compiled, skipping"
+            } else {
+              C:\Users\circleci\Downloads\setup-x86_64.exe -q -s https://mirrors.kernel.org/sourceware/cygwin/ -P libssl-devel,git,gcc-core,make,autoconf,automake,libtool,gnupg
             }
 
       # Build libevent
@@ -137,6 +138,9 @@ jobs:
               echo "libevent already compiled, skipping"
               exit 0
             fi
+
+            mkdir -p /cygdrive/c/Users/circleci/src
+            mkdir -p /cygdrive/c/Users/circleci/build
 
             # Get source
             curl "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x9e3ac83a27974b84d1b3401db86086848ef8686d" | gpg --import
