@@ -103,11 +103,6 @@ jobs:
           name: Install cygwin and required packages (for building tor)
           shell: bash.exe --login -eo pipefail
           command: |
-            if [[ -d "/c/Users/circleci/build/tor" ]]; then
-              echo "libevent and tor already compiled, skipping"
-              exit 0
-            fi
-
             curl -o setup-x86_64.exe https://cygwin.com/setup-x86_64.exe
             curl -o setup-x86_64.exe.sig https://cygwin.com/setup-x86_64.exe.sig
             curl -o pubring.asc https://cygwin.com/key/pubring.asc
