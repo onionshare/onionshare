@@ -189,7 +189,6 @@ jobs:
             ./autogen.sh
             ./configure \
               --prefix=/opt/tor-build \
-              --enable-static-libevent \
               --disable-asciidoc
             make -j$(nproc)
             make install
