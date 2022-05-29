@@ -95,9 +95,6 @@ jobs:
       - checkout
 
       - restore_cache:
-          # NOTE: make sure to change when upgrading libevent
-          key: "build-win64-libevent-2.1.12-{{ .Environment.CACHE_VERSION }}"
-      - restore_cache:
           # NOTE: make sure to change when upgrading tor
           key: "build-win64-tor-0.4.7.7-{{ .Environment.CACHE_VERSION }}"
 
@@ -106,11 +103,9 @@ jobs:
           name: Install cygwin and required packages
           shell: bash.exe --login -eo pipefail
           command: |
-            if [[ -d "/c/Users/circleci/build/libevent" ]]; then
-              if [[ -d "/c/Users/circleci/build/tor" ]]; then
-                echo "libevent and tor already compiled, skipping"
-                exit 0
-              fi
+            if [[ -d "/c/Users/circleci/build/tor" ]]; then
+              echo "tor already compiled, skipping"
+              exit 0
             fi
 
             curl -o setup-x86_64.exe https://cygwin.com/setup-x86_64.exe
@@ -126,20 +121,20 @@ jobs:
 
             ./setup-x86_64.exe -q -s https://mirrors.kernel.org/sourceware/cygwin/ -P libssl-devel,git,gcc-core,make,autoconf,automake,libtool,gnupg
 
-      # Build libevent
+      # Build libevent tor
       - run:
-          name: Build libevent
+          name: Build libevent and tor
           shell: C:\\cygwin64\\bin\\bash.exe --login -eo pipefail
           command: |
-            if [[ -d "/cygdrive/c/Users/circleci/build/libevent" ]]; then
-              echo "libevent already compiled, skipping"
+            if [[ -d "/cygdrive/c/Users/circleci/build/tor" ]]; then
+              echo "tor already compiled, skipping"
               exit 0
             fi
 
             mkdir -p /cygdrive/c/Users/circleci/src
-            mkdir -p /cygdrive/c/Users/circleci/build
+            mkdir -p /cygdrive/c/Users/circleci/build/tor
 
-            # Get source
+            # Get libevent source
             curl "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x9e3ac83a27974b84d1b3401db86086848ef8686d" | gpg --import
             cd /cygdrive/c/Users/circleci/src
             git clone https://github.com/libevent/libevent.git
@@ -151,34 +146,15 @@ jobs:
             fi
             git checkout $LIBEVENT_TAG
 
-            # Build
+            # Build libevent
             ./autogen.sh
             ./configure \
               --prefix=/opt/libevent-build \
               --with-pic
             make -j$(nproc)
             make install
-            cp -r /opt/libevent-build /cygdrive/c/Users/circleci/build/libevent
-      - save_cache:
-          # NOTE: make sure to change when upgrading libevent
-          key: "build-win64-libevent-2.1.12-{{ .Environment.CACHE_VERSION }}"
-          paths:
-            - C:\Users\circleci\build\libevent
 
-      # Build tor
-      - run:
-          name: Build tor
-          shell: C:\\cygwin64\\bin\\bash.exe --login -eo pipefail
-          command: |
-            if [[ -d "/cygdrive/c/Users/circleci/build/tor" ]]; then
-              echo "tor already compiled, skipping"
-              exit 0
-            fi
-
-            mkdir -p /cygdrive/c/Users/circleci/src
-            mkdir -p /cygdrive/c/Users/circleci/build
-
-            # Get source
+            # Get tor source
             curl https://keys.openpgp.org/vks/v1/by-fingerprint/B74417EDDF22AC9F9E90F49142E86A2A11F48D36 | gpg --import
             cd /cygdrive/c/Users/circleci/src
             git clone https://git.torproject.org/tor.git
@@ -190,16 +166,15 @@ jobs:
             fi
             git checkout $TOR_TAG
 
-            # Build
+            # Build tor
             ./autogen.sh
             ./configure \
-              --prefix=/opt/tor-build \
+              --prefix=/cygdrive/c/Users/circleci/build/tor \
               --enable-static-libevent \
-              --with-libevent-dir=/cygdrive/c/Users/circleci/build/libevent \
+              --with-libevent-dir=/opt/libevent-build \
               --disable-asciidoc
             make -j$(nproc)
             make install
-            cp -r /opt/tor-build /cygdrive/c/Users/circleci/build/tor
       - save_cache:
           # NOTE: make sure to change when upgrading tor
           key: "build-win64-tor-0.4.7.7-{{ .Environment.CACHE_VERSION }}"
