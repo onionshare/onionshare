@@ -353,7 +353,7 @@ jobs:
           key: build-win32-tor-0.4.7.7-{{ .Environment.CACHE_VERSION }}
       - run:
           name: Build tor
-          shell: C:\\cygwin32\\bin\\bash.exe --login -eo pipefail
+          shell: C:\\cygwin\\bin\\bash.exe --login -eo pipefail
           command: |
             if [[ -d "/cygdrive/c/Users/circleci/build/tor" ]]; then
               echo "tor already compiled, skipping"
