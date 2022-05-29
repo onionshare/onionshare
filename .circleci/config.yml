@@ -207,7 +207,7 @@ jobs:
       - run:
           name: Build obfs4proxy
           command: |
-            if ((Test-Path -Path C:\Users\circleci\project\desktop\onionshare\resources\tor\Tor\obfs4proxy.exe) -eq $True) {
+            if ((Test-Path -Path C:\Users\circleci\project\desktop\onionshare\resources\tor\obfs4proxy.exe) -eq $True) {
               Write-Output "obfs4proxy already built"
             } else {
               # curl https://keys.openpgp.org/vks/v1/by-fingerprint/9EB1A490C73CC5D44DFB3E47BFBD1C7B8A6EC81A | gpg --import
@@ -256,7 +256,7 @@ jobs:
       - run:
           name: Build meek-client
           command: |
-            if ((Test-Path -Path C:\Users\circleci\project\desktop\onionshare\resources\tor\Tor\meek-client.exe) -eq $True) {
+            if ((Test-Path -Path C:\Users\circleci\project\desktop\onionshare\resources\tor\meek-client.exe) -eq $True) {
               Write-Output "snowflake already built"
             } else {
               New-Item -ItemType Directory -Force -Path C:\Users\circleci\src\meek
