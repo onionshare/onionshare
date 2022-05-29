@@ -96,7 +96,7 @@ jobs:
 
       - restore_cache:
           # NOTE: make sure to change when upgrading tor
-          key: "build-win64-tor-0.4.7.7-{{ .Environment.CACHE_VERSION }}"
+          key: build-win64-tor-0.4.7.7-{{ .Environment.CACHE_VERSION }}
 
       - run:
           name: Install cygwin and required packages
@@ -189,7 +189,7 @@ jobs:
             cp -r /opt/tor-build /cygdrive/c/Users/circleci/build/tor
       - save_cache:
           # NOTE: make sure to change when upgrading tor
-          key: "build-win64-tor-0.4.7.7-{{ .Environment.CACHE_VERSION }}"
+          key: build-win64-tor-0.4.7.7-{{ .Environment.CACHE_VERSION }}
           paths:
             - C:\Users\circleci\build\tor
 
@@ -203,7 +203,7 @@ jobs:
 
       - restore_cache:
           # NOTE: make sure to change when upgrading obfs4proxy
-          key: build-win64-obfs4proxy-v0.0.13-{{ .Environment.CACHE_VERSION }}"
+          key: build-win64-obfs4proxy-v0.0.13-{{ .Environment.CACHE_VERSION }}
       - run:
           name: Build obfs4proxy
           command: |
@@ -222,13 +222,13 @@ jobs:
             }
       - save_cache:
           # NOTE: make sure to change when upgrading obfs4proxy
-          key: build-win64-obfs4proxy-v0.0.13-{{ .Environment.CACHE_VERSION }}"
+          key: build-win64-obfs4proxy-v0.0.13-{{ .Environment.CACHE_VERSION }}
           paths:
             - C:\Users\circleci\project\desktop\onionshare\resources\tor\obfs4proxy.exe
 
       - restore_cache:
           # NOTE: make sure to change when upgrading snowflake
-          key: build-win64-snowflake-v2.1.0-{{ .Environment.CACHE_VERSION }}"
+          key: build-win64-snowflake-v2.1.0-{{ .Environment.CACHE_VERSION }}
       - run:
           name: Build snowflake-client
           command: |
@@ -246,13 +246,13 @@ jobs:
             }
       - save_cache:
           # NOTE: make sure to change when upgrading snowflake
-          key: build-win64-snowflake-v2.1.0-{{ .Environment.CACHE_VERSION }}"
+          key: build-win64-snowflake-v2.1.0-{{ .Environment.CACHE_VERSION }}
           paths:
             - C:\Users\circleci\project\desktop\onionshare\resources\tor\snowflake-client.exe
 
       - restore_cache:
           # NOTE: make sure to change when upgrading meek
-          key: build-win64-meek-v0.37.0-{{ .Environment.CACHE_VERSION }}"
+          key: build-win64-meek-v0.37.0-{{ .Environment.CACHE_VERSION }}
       - run:
           name: Build meek-client
           command: |
@@ -270,7 +270,7 @@ jobs:
             }
       - save_cache:
           # NOTE: make sure to change when upgrading meek
-          key: build-win64-meek-v0.37.0-{{ .Environment.CACHE_VERSION }}"
+          key: build-win64-meek-v0.37.0-{{ .Environment.CACHE_VERSION }}
           paths:
             - C:\Users\circleci\project\desktop\onionshare\resources\tor\Tor\meek-client.exe
 
