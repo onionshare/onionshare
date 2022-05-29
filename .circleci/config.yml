@@ -202,7 +202,7 @@ jobs:
             Copy-Item -Path C:\Users\circleci\build\tor\share\tor\geoip6 -Destination C:\Users\circleci\project\desktop\onionshare\resources\tor
 
       - restore_cache:
-          # NOTE: make sure to change when uprading obfs4proxy
+          # NOTE: make sure to change when upgrading obfs4proxy
           key: build-win64-obfs4proxy-v0.0.13-{{ .Environment.CACHE_VERSION }}"
       - run:
           name: Build obfs4proxy
@@ -221,13 +221,13 @@ jobs:
               Move-Item -Path .\obfs4proxy.exe -Destination C:\Users\circleci\project\desktop\onionshare\resources\tor\obfs4proxy.exe
             }
       - save_cache:
-          # NOTE: make sure to change when uprading obfs4proxy
+          # NOTE: make sure to change when upgrading obfs4proxy
           key: build-win64-obfs4proxy-v0.0.13-{{ .Environment.CACHE_VERSION }}"
           paths:
             - C:\Users\circleci\project\desktop\onionshare\resources\tor\obfs4proxy.exe
 
       - restore_cache:
-          # NOTE: make sure to change when uprading snowflake
+          # NOTE: make sure to change when upgrading snowflake
           key: build-win64-snowflake-v2.1.0-{{ .Environment.CACHE_VERSION }}"
       - run:
           name: Build snowflake-client
@@ -245,13 +245,13 @@ jobs:
               Move-Item -Path .\client.exe -Destination C:\Users\circleci\project\desktop\onionshare\resources\tor\snowflake-client.exe
             }
       - save_cache:
-          # NOTE: make sure to change when uprading snowflake
+          # NOTE: make sure to change when upgrading snowflake
           key: build-win64-snowflake-v2.1.0-{{ .Environment.CACHE_VERSION }}"
           paths:
             - C:\Users\circleci\project\desktop\onionshare\resources\tor\snowflake-client.exe
 
       - restore_cache:
-          # NOTE: make sure to change when uprading meek
+          # NOTE: make sure to change when upgrading meek
           key: build-win64-meek-v0.37.0-{{ .Environment.CACHE_VERSION }}"
       - run:
           name: Build meek-client
@@ -269,52 +269,47 @@ jobs:
               Move-Item -Path .\meek-client.exe -Destination C:\Users\circleci\project\desktop\onionshare\resources\tor\meek-client.exe
             }
       - save_cache:
-          # NOTE: make sure to change when uprading meek
+          # NOTE: make sure to change when upgrading meek
           key: build-win64-meek-v0.37.0-{{ .Environment.CACHE_VERSION }}"
           paths:
             - C:\Users\circleci\project\desktop\onionshare\resources\tor\Tor\meek-client.exe
 
-      # # Install python
-      # - run:
-      #     name: Install Python 3.9.12
-      #     command: |
-      #       choco install python3 --version=3.9.12
+      - run:
+          name: Install Python 3.9.12
+          command: |
+            choco install python3 --version=3.9.12
 
-      # # Install poetry
-      # - run:
-      #     name: Install poetry
-      #     command: (Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | python -
+      - run:
+          name: Install poetry
+          command: (Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | python -
 
-      # # Install poetry dependencies
-      # - restore_cache:
-      #     key: build-win64-desktop-poetry-deps-{{ checksum "C:\Users\circleci\project\desktop\poetry.lock" }}-{{ .Environment.CACHE_VERSION }}
-      # - run:
-      #     name: Install poetry dependencies
-      #     command: |
-      #       cd C:\Users\circleci\project\desktop
-      #       poetry install
-      # - save_cache:
-      #     key: build-win64-desktop-poetry-deps-{{ checksum "C:\Users\circleci\project\desktop\poetry.lock" }}-{{ .Environment.CACHE_VERSION }}
-      #     paths:
-      #       - C:\Users\circleci\AppData\Local\pypoetry\Cache\virtualenvs
+      - restore_cache:
+          key: build-win64-desktop-poetry-deps-{{ checksum "C:\Users\circleci\project\desktop\poetry.lock" }}-{{ .Environment.CACHE_VERSION }}
+      - run:
+          name: Install poetry dependencies
+          command: |
+            cd C:\Users\circleci\project\desktop
+            poetry install
+      - save_cache:
+          key: build-win64-desktop-poetry-deps-{{ checksum "C:\Users\circleci\project\desktop\poetry.lock" }}-{{ .Environment.CACHE_VERSION }}
+          paths:
+            - C:\Users\circleci\AppData\Local\pypoetry\Cache\virtualenvs
 
-      # - run:
-      #     name: Copy tor binary into app
-      #     command: cp ~\Downloads\tor\tor-win32\* ~\project\desktop\onionshare\resources\tor
+      - run:
+          name: Build OnionShare
+          command: |
+            cd ~\project\desktop
+            poetry run python .\setup-freeze.py build
+            poetry run python .\scripts\build-windows.py cleanup-build
 
-      # - run:
-      #     name: Build OnionShare
-      #     command: |
-      #       cd ~\project\desktop
-      #       poetry run python .\setup-freeze.py build
-      #       poetry run python .\scripts\build-windows.py cleanup-build
-      # - run:
-      #     name: Compress
-      #     command: |
-      #       mv ~\project\desktop\build\exe.win-amd64-3.9\ ~\onionshare-win64
-      #       Compress-Archive -LiteralPath ~\onionshare-win64 -DestinationPath ~\onionshare-win64.zip
-      # - store_artifacts:
-      #     path: ~\onionshare-win64.zip
+      - run:
+          name: Compress
+          command: |
+            mv ~\project\desktop\build\exe.win-amd64-3.9\ ~\onionshare-win64
+            Compress-Archive -LiteralPath ~\onionshare-win64 -DestinationPath ~\onionshare-win64.zip
+
+      - store_artifacts:
+          path: ~\onionshare-win64.zip
 
   build-win32:
     executor:
