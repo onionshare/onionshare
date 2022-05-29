@@ -97,8 +97,8 @@ jobs:
       - run:
           name: Install cygwin and required packages
           command: |
-            curl -o Downloads\setup-x86_64.exe https://cygwin.com/setup-x86_64.exe
-            .\Downloads\setup-x86_64.exe -q -s https://mirrors.kernel.org/sourceware/cygwin/ -P libssl-devel,git,gcc-core,make,autoconf,automake,libtool,clang,perl
+            Invoke-WebRequest -Uri https://cygwin.com/setup-x86_64.exe -OutFile C:\Users\circleci\Downloads\setup-x86_64.exe
+            C:\Users\circleci\Downloads\setup-x86_64.exe -q -s https://mirrors.kernel.org/sourceware/cygwin/ -P libssl-devel,git,gcc-core,make,autoconf,automake,libtool,clang,perl
             mkdir C:\Users\circleci\src
             mkdir C:\Users\circleci\build
 
