@@ -34,14 +34,14 @@ jobs:
             sudo apt-get update
             sudo apt-get -y install tor obfs4proxy
       - restore_cache:
-          key: test-cli-poetry-deps-{{ checksum "~/project/cli/poetry.lock" }}
+          key: test-cli-poetry-deps-{{ .Environment.CACHE_VERSION }}-{{ checksum "~/project/cli/poetry.lock" }}
       - run:
           name: Install poetry dependencies
           command: |
             cd ~/project/cli
             poetry install
       - save_cache:
-          key: test-cli-poetry-deps-{{ checksum "~/project/cli/poetry.lock" }}
+          key: test-cli-poetry-deps-{{ .Environment.CACHE_VERSION }}-{{ checksum "~/project/cli/poetry.lock" }}
           paths:
             - /home/circleci/.cache/pypoetry/virtualenvs
       - run:
@@ -66,14 +66,14 @@ jobs:
             sudo apt-get install -y tor obfs4proxy gcc python3-dev python3-pyside2.qtcore python3-pyside2.qtwidgets python3-pyside2.qtgui
             sudo apt-get install -y xvfb x11-utils libxkbcommon-x11-0 libxcb-randr0-dev libxcb-xtest0-dev libxcb-xinerama0-dev libxcb-shape0-dev libxcb-xkb-dev libxcb-render-util0 libxcb-icccm4 libxcb-keysyms1 libxcb-image0
       - restore_cache:
-          key: test-desktop-poetry-deps-{{ checksum "~/project/desktop/poetry.lock" }}
+          key: test-desktop-poetry-deps-{{ .Environment.CACHE_VERSION }}-{{ checksum "~/project/desktop/poetry.lock" }}
       - run:
           name: Install poetry dependencies
           command: |
             cd ~/project/desktop
             poetry install
       - save_cache:
-          key: test-desktop-poetry-deps-{{ checksum "~/project/desktop/poetry.lock" }}
+          key: test-desktop-poetry-deps-{{ .Environment.CACHE_VERSION }}-{{ checksum "~/project/desktop/poetry.lock" }}
           paths:
             - /home/circleci/.cache/pypoetry/virtualenvs
       - run:
@@ -96,10 +96,10 @@ jobs:
 
       - restore_cache:
           # NOTE: make sure to change when upgrading libevent
-          key: "build-win64-libevent-2.1.12"
+          key: "build-win64-libevent-2.1.12-{{ .Environment.CACHE_VERSION }}"
       - restore_cache:
           # NOTE: make sure to change when upgrading tor
-          key: "build-win64-tor-0.4.7.7"
+          key: "build-win64-tor-0.4.7.7-{{ .Environment.CACHE_VERSION }}"
 
       # Install cygwin and required packages
       - run:
@@ -161,7 +161,7 @@ jobs:
             cp -r /opt/libevent-build /cygdrive/c/Users/circleci/build/libevent
       - save_cache:
           # NOTE: make sure to change when upgrading libevent
-          key: "build-win64-libevent-2.1.12"
+          key: "build-win64-libevent-2.1.12-{{ .Environment.CACHE_VERSION }}"
           paths:
             - C:\Users\circleci\build\libevent
 
@@ -202,7 +202,7 @@ jobs:
             cp -r /opt/tor-build /cygdrive/c/Users/circleci/build/tor
       - save_cache:
           # NOTE: make sure to change when upgrading tor
-          key: "build-win64-tor-0.4.7.7"
+          key: "build-win64-tor-0.4.7.7-{{ .Environment.CACHE_VERSION }}"
           paths:
             - C:\Users\circleci\build\tor
 
