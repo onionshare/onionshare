@@ -106,8 +106,8 @@ jobs:
           name: Install cygwin and required packages
           shell: bash.exe --login -eo pipefail
           command: |
-            if [[ -d "/cygdrive/c/Users/circleci/build/libevent" ]]; then
-              if [[ -d "/cygdrive/c/Users/circleci/build/tor" ]]; then
+            if [[ -d "/c/Users/circleci/build/libevent" ]]; then
+              if [[ -d "/c/Users/circleci/build/tor" ]]; then
                 echo "libevent and tor already compiled, skipping"
                 exit 0
               fi
@@ -126,21 +126,6 @@ jobs:
 
             ./setup-x86_64.exe -q -s https://mirrors.kernel.org/sourceware/cygwin/ -P libssl-devel,git,gcc-core,make,autoconf,automake,libtool,gnupg
 
-      # Import libevent and tor signing keys
-      - run:
-          name: Import libevent and tor signing keys
-          shell: C:\\cygwin64\\bin\\bash.exe --login -eo pipefail
-          command: |
-            if [[ -d "/cygdrive/c/Users/circleci/build/libevent" ]]; then
-              echo "libevent already compiled, skipping"
-              exit 0
-            fi
-
-            gpg --list-keys
-            curl "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x9e3ac83a27974b84d1b3401db86086848ef8686d" | gpg --import
-            curl https://keys.openpgp.org/vks/v1/by-fingerprint/B74417EDDF22AC9F9E90F49142E86A2A11F48D36 | gpg --import
-            gpg --list-keys
-
       # Build libevent
       - run:
           name: Build libevent
@@ -155,6 +140,7 @@ jobs:
             mkdir -p /cygdrive/c/Users/circleci/build
 
             # Get source
+            curl "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x9e3ac83a27974b84d1b3401db86086848ef8686d" | gpg --import
             cd /cygdrive/c/Users/circleci/src
             git clone https://github.com/libevent/libevent.git
             cd libevent
@@ -182,7 +168,7 @@ jobs:
       #     name: Build tor
       #     command: |
       #       # tor signing key
-
+      #       curl https://keys.openpgp.org/vks/v1/by-fingerprint/B74417EDDF22AC9F9E90F49142E86A2A11F48D36 | gpg --import
       #       $LibeventTag = "release-2.1.12-stable"
       #       $TorTag = "tor-0.4.7.7"
 
