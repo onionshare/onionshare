@@ -153,7 +153,9 @@ jobs:
 
             # Build
             ./autogen.sh
-            ./configure --prefix=/opt/libevent-build --with-pic
+            ./configure \
+              --prefix=/opt/libevent-build \
+              --with-pic
             make -j$(nproc)
             make install
             cp -r /opt/libevent-build /cygdrive/c/Users/circleci/build/libevent
@@ -163,46 +165,45 @@ jobs:
           paths:
             - C:\Users\circleci\build\libevent
 
-      # # Build tor
-      # - run:
-      #     name: Build tor
-      #     command: |
-      #       # tor signing key
-      #       curl https://keys.openpgp.org/vks/v1/by-fingerprint/B74417EDDF22AC9F9E90F49142E86A2A11F48D36 | gpg --import
-      #       $LibeventTag = "release-2.1.12-stable"
-      #       $TorTag = "tor-0.4.7.7"
+      # Build tor
+      - run:
+          name: Build tor
+          shell: C:\\cygwin64\\bin\\bash.exe --login -eo pipefail
+          command: |
+            if [[ -d "/cygdrive/c/Users/circleci/build/tor" ]]; then
+              echo "tor already compiled, skipping"
+              exit 0
+            fi
 
-      #       choco install msys2 --params "/NoUpdate /InstallDir:C:\msys2"
-      #       C:\msys2\usr\bin\bash -c "pacman --sync --noconfirm msys/autoconf"
-      #       C:\msys2\usr\bin\bash -c "pacman --sync --noconfirm msys/automake"
+            mkdir -p /cygdrive/c/Users/circleci/src
+            mkdir -p /cygdrive/c/Users/circleci/build
 
-      #       # Get libevent source
-      #       gpg --recv-key 9E3AC83A27974B84D1B3401DB86086848EF8686D
-      #       cd C:\Users\circleci\src
-      #       git clone https://github.com/libevent/libevent.git
-      #       cd libevent
-      #       git tag -v $LibeventTag
-      #       if($? -ne $true) { throw "libevent tag doesn't verify" }
-      #       git checkout $LibeventTag
+            # Get source
+            curl https://keys.openpgp.org/vks/v1/by-fingerprint/B74417EDDF22AC9F9E90F49142E86A2A11F48D36 | gpg --import
+            cd /cygdrive/c/Users/circleci/src
+            git clone https://git.torproject.org/tor.git
+            cd tor
+            git tag -v $TOR_TAG
+            if [ $? -ne 0 ]; then
+              echo "tor tag doesn't verify"
+              exit -1
+            fi
+            git checkout $TOR_TAG
 
-      #       # Build libevent
-      #       $BashScript = @"
-      #       #!/bin/bash
-      #       export PATH=/c/msys2/usr/bin:$PATH
-      #       cd /c/Users/circleci/src/libevent
-      #       ./autogen.sh
-      #       ./configure --prefix=/opt/libevent-build --with-pic
-      #       make -j8 install
-      #       "@
-
-      #       # Get tor source
-      #       gpg --recv-key B74417EDDF22AC9F9E90F49142E86A2A11F48D36
-      #       cd C:\Users\circleci\src
-      #       git clone https://git.torproject.org/tor.git
-      #       cd tor
-      #       git tag -v $TorTag
-      #       if($? -ne $true) { throw "tor tag doesn't verify" }
-      #       git checkout $TorTag
+            # Build
+            ./configure \
+              --prefix=/opt/tor-build \
+              --enable-static-libevent \
+              --with-libevent-dir=/cygdrive/c/Users/circleci/build/libevent \
+              --disable-asciidoc
+            make -j$(nproc)
+            make install
+            cp -r /opt/tor-build /cygdrive/c/Users/circleci/build/tor
+      - save_cache:
+          # NOTE: make sure to change when upgrading tor
+          key: "build-win64-tor-0.4.7.7"
+          paths:
+            - C:\Users\circleci\build\tor
 
       # # Install python
       # - run:
