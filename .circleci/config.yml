@@ -119,7 +119,8 @@ jobs:
               exit -1
             fi
 
-            ./setup-x86_64.exe -q -s https://mirrors.kernel.org/sourceware/cygwin/ -P libssl-devel,libevent-devel,git,gcc-core,make,autoconf,automake,libtool,gnupg
+            ./setup-x86_64.exe -q -s https://mirrors.kernel.org/sourceware/cygwin/ \
+              -P libssl-devel,libevent-devel,zlib-devel,git,gcc-core,make,autoconf,automake,libtool,gnupg
 
       # # Build libevent
       # - run:
