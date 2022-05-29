@@ -197,9 +197,10 @@ jobs:
 
       - run:
           name: Copy tor binaries into project
-          shell: C:\\cygwin64\\bin\\bash.exe --login -eo pipefail
-          # TODO: update this to actually copy the files
-          command: find /cygdrive/c/Users/circleci/build/tor
+          command: |
+            Copy-Item -Path C:\Useres\circleci\build\tor\bin\tor.exe -Destination C:\Users\circleci\project\desktop\onionshare\resources\tor\Tor\
+            Copy-Item -Path C:\Useres\circleci\build\tor\share\tor\geoip -Destination C:\Users\circleci\project\desktop\onionshare\resources\tor\Tor\
+            Copy-Item -Path C:\Useres\circleci\build\tor\share\tor\geoip6 -Destination C:\Users\circleci\project\desktop\onionshare\resources\tor\Tor\
 
       - restore_cache:
           # NOTE: make sure to change when uprading obfs4proxy
