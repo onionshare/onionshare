@@ -119,6 +119,7 @@ jobs:
               if($? -ne $true) { throw "cygwin failed to verify" }
 
               Write-Output "installing cygwin and requited packages"
+              C:\Users\circleci\Downloads\setup-x86_64.exe -q -s https://mirrors.kernel.org/sourceware/cygwin/
               C:\Users\circleci\Downloads\setup-x86_64.exe -q -s https://mirrors.kernel.org/sourceware/cygwin/ -P libssl-devel,git,gcc-core,make,autoconf,automake,libtool,gnupg
 
               Write-Output "creating folders"
