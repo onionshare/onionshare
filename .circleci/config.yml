@@ -87,39 +87,52 @@ jobs:
       name: win/default
       shell: powershell.exe
     environment:
-      OPENSSL_TAG: "openssl-3.0.3"
+      # NOTE: make sure to change when upgrading libevent
       LIBEVENT_TAG: "release-2.1.12-stable"
+      # NOTE: make sure to change when upgrading tor
       TOR_TAG: "tor-0.4.7.7"
     steps:
       - checkout
+
+      - restore_cache:
+          # NOTE: make sure to change when upgrading libevent
+          key: "build-win64-livevent-2.1.12"
+      - restore_cache:
+          # NOTE: make sure to change when upgrading tor
+          key: "build-win64-tor-0.4.7.7"
 
       # Install cygwin and required packages
       - run:
           name: Install cygwin and required packages
           command: |
-            # Download cygwin installer, signature, and signing key
-            Invoke-WebRequest -Uri https://cygwin.com/setup-x86_64.exe -OutFile C:\Users\circleci\Downloads\setup-x86_64.exe
-            Invoke-WebRequest -Uri https://cygwin.com/setup-x86_64.exe.sig -OutFile C:\Users\circleci\Downloads\setup-x86_64.exe.sig
-            Invoke-WebRequest -Uri https://cygwin.com/key/pubring.asc -OutFile C:\Users\circleci\Downloads\pubring.asc
-            # Verify signature
-            gpg --import C:\Users\circleci\Downloads\pubring.asc
-            gpg --verify C:\Users\circleci\Downloads\setup-x86_64.exe.sig C:\Users\circleci\Downloads\setup-x86_64.exe
-            if($? -ne $true) { throw "cygwin failed to verify" }
-            # Install cygwin and required packaged
-            C:\Users\circleci\Downloads\setup-x86_64.exe -q -s https://mirrors.kernel.org/sourceware/cygwin/ -P libssl-devel,git,gcc-core,make,autoconf,automake,libtool,gnupg
-            # Create folders
-            mkdir C:\Users\circleci\src
-            mkdir C:\Users\circleci\build
+            if (((Test-Path C:\Users\circleci\build\libevent -PathType Container) -and (Test-Path C:\Users\circleci\build\tor -PathType Container)) -eq $true) {
+              Write-Output "libevent and tor already compiled, skipping"
+            } else {
+              Write-Output "downloading cygwin installer, signature, and signing key"
+              Invoke-WebRequest -Uri https://cygwin.com/setup-x86_64.exe -OutFile C:\Users\circleci\Downloads\setup-x86_64.exe
+              Invoke-WebRequest -Uri https://cygwin.com/setup-x86_64.exe.sig -OutFile C:\Users\circleci\Downloads\setup-x86_64.exe.sig
+              Invoke-WebRequest -Uri https://cygwin.com/key/pubring.asc -OutFile C:\Users\circleci\Downloads\pubring.asc
+
+              Write-Output "verifying signature"
+              gpg --import C:\Users\circleci\Downloads\pubring.asc
+              gpg --verify C:\Users\circleci\Downloads\setup-x86_64.exe.sig C:\Users\circleci\Downloads\setup-x86_64.exe
+              if($? -ne $true) { throw "cygwin failed to verify" }
+
+              Write-Output "installing cygwin and requited packages"
+              C:\Users\circleci\Downloads\setup-x86_64.exe -q -s https://mirrors.kernel.org/sourceware/cygwin/ -P libssl-devel,git,gcc-core,make,autoconf,automake,libtool,gnupg
+
+              Write-Output "creating folders"
+              mkdir C:\Users\circleci\src
+              mkdir C:\Users\circleci\build
+            }
 
       # Build libevent
-      - restore_cache:
-          key: "build-win64-livevent-2.1.12"
       - run:
           name: Build libevent
           shell: C:\\cygwin64\\bin\\bash.exe --login -eo pipefail
           command: |
             if [[ -d "/cygdrive/c/Users/circleci/build/openssl" ]]; then
-              echo "openssl already compiled, skipping"
+              echo "libevent already compiled, skipping"
               exit 0
             fi
 
@@ -142,6 +155,7 @@ jobs:
             make install
             cp -r /opt/libevent-build /cygdrive/c/Users/circleci/build/libevent
       - save_cache:
+          # NOTE: make sure to change when upgrading libevent
           key: "build-win64-libevent-2.1.12"
           paths:
             - C:\Users\circleci\build\libevent
