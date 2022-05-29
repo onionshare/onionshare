@@ -336,10 +336,16 @@ class Common:
 
             # If tor.exe isn't there, mayber we're running from the source tree
             if not os.path.exists(tor_path):
+                self.log(
+                    "Common", "get_tor_paths", f"Cannot find tor.exe at {tor_path}"
+                )
                 base_path = os.path.join(os.getcwd(), "onionshare", "resources", "tor")
 
                 tor_path = os.path.join(base_path, "tor.exe")
                 if not os.path.exists(tor_path):
+                    self.log(
+                        "Common", "get_tor_paths", f"Cannot find tor.exe at {tor_path}"
+                    )
                     raise CannotFindTor()
 
             obfs4proxy_file_path = os.path.join(base_path, "tor", "obfs4proxy.exe")
@@ -499,7 +505,7 @@ class Common:
         if valid_bridges:
             return valid_bridges
         else:
-           return False
+            return False
 
     def is_flatpak(self):
         """
@@ -512,7 +518,6 @@ class Common:
         Returns True if OnionShare is running in a Snapcraft sandbox
         """
         return os.environ.get("SNAP_INSTANCE_NAME") == "onionshare"
-
 
     @staticmethod
     def random_string(num_bytes, output_len=None):
