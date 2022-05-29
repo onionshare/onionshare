@@ -66,14 +66,14 @@ jobs:
             sudo apt-get install -y tor obfs4proxy gcc python3-dev python3-pyside2.qtcore python3-pyside2.qtwidgets python3-pyside2.qtgui
             sudo apt-get install -y xvfb x11-utils libxkbcommon-x11-0 libxcb-randr0-dev libxcb-xtest0-dev libxcb-xinerama0-dev libxcb-shape0-dev libxcb-xkb-dev libxcb-render-util0 libxcb-icccm4 libxcb-keysyms1 libxcb-image0
       - restore_cache:
-          key: test-desktop-poetry-deps-{{ .Environment.CACHE_VERSION }}-{{ checksum "~/project/desktop/poetry.lock" }}
+          key: test-desktop-poetry-deps-{{ checksum "~/project/desktop/poetry.lock" }}-{{ .Environment.CACHE_VERSION }}
       - run:
           name: Install poetry dependencies
           command: |
             cd ~/project/desktop
             poetry install
       - save_cache:
-          key: test-desktop-poetry-deps-{{ .Environment.CACHE_VERSION }}-{{ checksum "~/project/desktop/poetry.lock" }}
+          key: test-desktop-poetry-deps-{{ checksum "~/project/desktop/poetry.lock" }}-{{ .Environment.CACHE_VERSION }}
           paths:
             - /home/circleci/.cache/pypoetry/virtualenvs
       - run:
@@ -100,11 +100,11 @@ jobs:
 
       # Install cygwin and required packages
       - run:
-          name: Install cygwin and required packages
+          name: Install cygwin and required packages (for building tor)
           shell: bash.exe --login -eo pipefail
           command: |
             if [[ -d "/c/Users/circleci/build/tor" ]]; then
-              echo "tor already compiled, skipping"
+              echo "libevent and tor already compiled, skipping"
               exit 0
             fi
 
@@ -119,11 +119,50 @@ jobs:
               exit -1
             fi
 
-            ./setup-x86_64.exe -q -s https://mirrors.kernel.org/sourceware/cygwin/ -P libssl-devel,git,gcc-core,make,autoconf,automake,libtool,gnupg
+            ./setup-x86_64.exe -q -s https://mirrors.kernel.org/sourceware/cygwin/ -P libssl-devel,libevent-devel,git,gcc-core,make,autoconf,automake,libtool,gnupg
 
-      # Build libevent tor
+      # # Build libevent
+      # - run:
+      #     name: Build libevent
+      #     shell: C:\\cygwin64\\bin\\bash.exe --login -eo pipefail
+      #     command: |
+      #       if [[ -d "/cygdrive/c/Users/circleci/build/libevent" ]]; then
+      #         echo "libevent already compiled, skipping"
+      #         exit 0
+      #       fi
+
+      #       mkdir -p /cygdrive/c/Users/circleci/src
+      #       mkdir -p /cygdrive/c/Users/circleci/build
+
+      #       # Get source
+      #       curl "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x9e3ac83a27974b84d1b3401db86086848ef8686d" | gpg --import
+      #       cd /cygdrive/c/Users/circleci/src
+      #       git clone https://github.com/libevent/libevent.git
+      #       cd libevent
+      #       git tag -v $LIBEVENT_TAG
+      #       if [ $? -ne 0 ]; then
+      #         echo "libevent tag doesn't verify"
+      #         exit -1
+      #       fi
+      #       git checkout $LIBEVENT_TAG
+
+      #       # Build
+      #       ./autogen.sh
+      #       ./configure \
+      #         --prefix=/opt/libevent-build \
+      #         --with-pic
+      #       make -j$(nproc)
+      #       make install
+      #       cp -r /opt/libevent-build /cygdrive/c/Users/circleci/build/libevent
+      # - save_cache:
+      #     # NOTE: make sure to change when upgrading libevent
+      #     key: "build-win64-libevent-2.1.12-{{ .Environment.CACHE_VERSION }}"
+      #     paths:
+      #       - C:\Users\circleci\build\libevent
+
+      # Build tor
       - run:
-          name: Build libevent and tor
+          name: Build tor
           shell: C:\\cygwin64\\bin\\bash.exe --login -eo pipefail
           command: |
             if [[ -d "/cygdrive/c/Users/circleci/build/tor" ]]; then
@@ -132,29 +171,9 @@ jobs:
             fi
 
             mkdir -p /cygdrive/c/Users/circleci/src
-            mkdir -p /cygdrive/c/Users/circleci/build/tor
+            mkdir -p /cygdrive/c/Users/circleci/build
 
-            # Get libevent source
-            curl "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x9e3ac83a27974b84d1b3401db86086848ef8686d" | gpg --import
-            cd /cygdrive/c/Users/circleci/src
-            git clone https://github.com/libevent/libevent.git
-            cd libevent
-            git tag -v $LIBEVENT_TAG
-            if [ $? -ne 0 ]; then
-              echo "libevent tag doesn't verify"
-              exit -1
-            fi
-            git checkout $LIBEVENT_TAG
-
-            # Build libevent
-            ./autogen.sh
-            ./configure \
-              --prefix=/opt/libevent-build \
-              --with-pic
-            make -j$(nproc)
-            make install
-
-            # Get tor source
+            # Get source
             curl https://keys.openpgp.org/vks/v1/by-fingerprint/B74417EDDF22AC9F9E90F49142E86A2A11F48D36 | gpg --import
             cd /cygdrive/c/Users/circleci/src
             git clone https://git.torproject.org/tor.git
@@ -166,15 +185,15 @@ jobs:
             fi
             git checkout $TOR_TAG
 
-            # Build tor
+            # Build
             ./autogen.sh
             ./configure \
-              --prefix=/cygdrive/c/Users/circleci/build/tor \
+              --prefix=/opt/tor-build \
               --enable-static-libevent \
-              --with-libevent-dir=/opt/libevent-build \
               --disable-asciidoc
             make -j$(nproc)
             make install
+            cp -r /opt/tor-build /cygdrive/c/Users/circleci/build/tor
       - save_cache:
           # NOTE: make sure to change when upgrading tor
           key: "build-win64-tor-0.4.7.7-{{ .Environment.CACHE_VERSION }}"
@@ -194,14 +213,14 @@ jobs:
 
       # # Install poetry dependencies
       # - restore_cache:
-      #     key: build-win64-desktop-poetry-deps-{{ checksum "C:\Users\circleci\project\desktop\poetry.lock" }}
+      #     key: build-win64-desktop-poetry-deps-{{ checksum "C:\Users\circleci\project\desktop\poetry.lock" }}-{{ .Environment.CACHE_VERSION }}
       # - run:
       #     name: Install poetry dependencies
       #     command: |
       #       cd C:\Users\circleci\project\desktop
       #       poetry install
       # - save_cache:
-      #     key: build-win64-desktop-poetry-deps-{{ checksum "C:\Users\circleci\project\desktop\poetry.lock" }}
+      #     key: build-win64-desktop-poetry-deps-{{ checksum "C:\Users\circleci\project\desktop\poetry.lock" }}-{{ .Environment.CACHE_VERSION }}
       #     paths:
       #       - C:\Users\circleci\AppData\Local\pypoetry\Cache\virtualenvs
 
