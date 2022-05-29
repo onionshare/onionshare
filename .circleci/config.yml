@@ -98,15 +98,15 @@ jobs:
           name: Install cygwin and required packages
           command: |
             # Download cygwin installer, signature, and signing key
-            Invoke-WebRequest -Uri https://cygwin.com/setup-x86_64.exe -OutFile .\Downloads\setup-x86_64.exe
-            Invoke-WebRequest -Uri https://cygwin.com/setup-x86_64.exe.sig -OutFile .\Downloads\setup-x86_64.exe.sig
-            Invoke-WebRequest -Uri https://cygwin.com/key/pubring.asc -OutFile .\Downloads\pubring.asc
+            Invoke-WebRequest -Uri https://cygwin.com/setup-x86_64.exe -OutFile C:\Users\circleci\Downloads\setup-x86_64.exe
+            Invoke-WebRequest -Uri https://cygwin.com/setup-x86_64.exe.sig -OutFile C:\Users\circleci\Downloads\setup-x86_64.exe.sig
+            Invoke-WebRequest -Uri https://cygwin.com/key/pubring.asc -OutFile C:\Users\circleci\Downloads\pubring.asc
             # Verify signature
-            gpg --import .\Downloads\pubring.asc
-            gpg --verify .\Downloads\setup-x86_64.exe.sig .\Downloads\setup-x86_64.exe
+            gpg --import C:\Users\circleci\Downloads\pubring.asc
+            gpg --verify C:\Users\circleci\Downloads\setup-x86_64.exe.sig C:\Users\circleci\Downloads\setup-x86_64.exe
             if($? -ne $true) { throw "cygwin failed to verify" }
             # Install cygwin and required packaged
-            .\Downloads\setup-x86_64.exe -q -s https://mirrors.kernel.org/sourceware/cygwin/ -P libssl-devel,git,gcc-core,make,autoconf,automake,libtool,clang,perl
+            C:\Users\circleci\Downloads\setup-x86_64.exe -q -s https://mirrors.kernel.org/sourceware/cygwin/ -P libssl-devel,git,gcc-core,make,autoconf,automake,libtool,gnupg
             # Create folders
             mkdir C:\Users\circleci\src
             mkdir C:\Users\circleci\build
