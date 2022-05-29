@@ -96,7 +96,7 @@ jobs:
 
       - restore_cache:
           # NOTE: make sure to change when upgrading libevent
-          key: "build-win64-livevent-2.1.12"
+          key: "build-win64-libevent-2.1.12"
       - restore_cache:
           # NOTE: make sure to change when upgrading tor
           key: "build-win64-tor-0.4.7.7"
@@ -191,6 +191,7 @@ jobs:
             git checkout $TOR_TAG
 
             # Build
+            ./autogen.sh
             ./configure \
               --prefix=/opt/tor-build \
               --enable-static-libevent \
