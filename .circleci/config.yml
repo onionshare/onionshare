@@ -101,9 +101,9 @@ jobs:
           # NOTE: make sure to change when upgrading tor
           key: "build-win64-tor-0.4.7.7"
 
-      # Download cygwin
+      # Install cygwin and required packages
       - run:
-          name: Download cygwin
+          name: Install cygwin and required packages
           shell: bash.exe --login -eo pipefail
           command: |
             if [[ -d "/cygdrive/c/Users/circleci/build/libevent" ]]; then
@@ -124,29 +124,7 @@ jobs:
               exit -1
             fi
 
-            # if (((Test-Path C:\Users\circleci\build\libevent -PathType Container) -and (Test-Path C:\Users\circleci\build\tor -PathType Container)) -eq $true) {
-            #   Write-Output "libevent and tor already compiled, skipping"
-            # } else {
-            #   Write-Output "downloading cygwin installer, signature, and signing key"
-            #   Invoke-WebRequest -Uri https://cygwin.com/setup-x86_64.exe -OutFile C:\Users\circleci\Downloads\setup-x86_64.exe
-            #   Invoke-WebRequest -Uri https://cygwin.com/setup-x86_64.exe.sig -OutFile C:\Users\circleci\Downloads\setup-x86_64.exe.sig
-            #   Invoke-WebRequest -Uri https://cygwin.com/key/pubring.asc -OutFile C:\Users\circleci\Downloads\pubring.asc
-
-            #   Write-Output "verifying signature"
-            #   gpg --import C:\Users\circleci\Downloads\pubring.asc
-            #   gpg --verify C:\Users\circleci\Downloads\setup-x86_64.exe.sig C:\Users\circleci\Downloads\setup-x86_64.exe
-            #   if($? -ne $true) { throw "cygwin failed to verify" }
-            # }
-
-      # Install cygwin and required packages
-      - run:
-          name: Install cygwin and required packages
-          command: |
-            if (((Test-Path C:\Users\circleci\build\libevent -PathType Container) -and (Test-Path C:\Users\circleci\build\tor -PathType Container)) -eq $true) {
-              Write-Output "libevent and tor already compiled, skipping"
-            } else {
-              C:\Users\circleci\Downloads\setup-x86_64.exe -q -s https://mirrors.kernel.org/sourceware/cygwin/ -P libssl-devel,git,gcc-core,make,autoconf,automake,libtool,gnupg
-            }
+            ./setup-x86_64.exe -q -s https://mirrors.kernel.org/sourceware/cygwin/ -P libssl-devel,git,gcc-core,make,autoconf,automake,libtool,gnupg
 
       # Build libevent
       - run:
