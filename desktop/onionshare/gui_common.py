@@ -194,6 +194,7 @@ class GuiCommon:
                 QComboBox {
                     padding: 10px;
                     font-size: 16px;
+                    margin-left: 32px;
                 }
                 QComboBox:disabled {
                     color: #666666;
@@ -208,6 +209,17 @@ class GuiCommon:
                 QLabel {
                     font-size: 18px;
                     font-weight: bold;
+                }""",
+            "autoconnect_bridge_setting_options": """
+                QGroupBox {
+                    border: 0;
+                    border-color: transparent;
+                    background-color: transparent;
+                    font-weight: bold;
+                    margin-top: 16px;
+                }
+                QGroupBox::title {
+                    subcontrol-origin: margin;
                 }""",
             # Common styles between modes and their child widgets
             "mode_settings_toggle_advanced": """
