@@ -5,16 +5,16 @@ When OnionShare starts, it will present a screen asking you to connect to the To
 
 .. image:: _static/screenshots/autoconnect-welcome-screen.png
 
-You have several choices. You can click Connect to Tor to begin the connection process. If there are no problems with your network, including any attempts to block your access to the Tor network, this should hopefully work the first time.
+You have several choices. You can click "Connect to Tor" to begin the connection process. If there are no problems with your network, including any attempts to block your access to the Tor network, this should hopefully work the first time.
 
-If you want to manually configure Bridges or other Tor settings before you connect, you can click 'Network Settings'.
+If you want to manually configure Bridges or other Tor settings before you connect, you can click "Network Settings".
 
 Automatic censorship circumvention
 ----------------------------------
 
-When OnionShare fails to connect to Tor, it might be because Tor is censored in your country.
+When OnionShare fails to connect to Tor, it might be because Tor is censored in your country, or on your local network.
 
-If this occurs, a screen will be displayed that will offer you to either 'Use a Bridge' (automatically choosing one for you), or 'Try Again without a Bridge'.
+If this occurs, a screen will be displayed that will offer you to either "Use a Bridge" (automatically choosing one for you), or "Try Again without a Bridge".
 
 .. image:: _static/screenshots/autoconnect-failed-to-connect.png
 
