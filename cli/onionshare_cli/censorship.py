@@ -78,6 +78,7 @@ class CensorshipCircumvention(object):
         Note that this API endpoint doesn't return actual bridges,
         it just returns the recommended bridge type countries.
         """
+        self.common.log("CensorshipCircumvention", "request_map", f"country={country}")
         if not self.api_proxies:
             return False
         endpoint = "https://bridges.torproject.org/moat/circumvention/map"
@@ -126,6 +127,11 @@ class CensorshipCircumvention(object):
         Optionally, a list of transports can be specified in order to
         return recommended settings for just that transport type.
         """
+        self.common.log(
+            "CensorshipCircumvention",
+            "request_settings",
+            f"country={country}, transports={transports}",
+        )
         if not self.api_proxies:
             return False
         endpoint = "https://bridges.torproject.org/moat/circumvention/settings"
@@ -155,6 +161,11 @@ class CensorshipCircumvention(object):
                 return False
 
             result = r.json()
+            self.common.log(
+                "CensorshipCircumvention",
+                "request_settings",
+                f"result={result}",
+            )
 
             if "errors" in result:
                 self.common.log(
@@ -167,7 +178,7 @@ class CensorshipCircumvention(object):
             # There are no settings - perhaps this country doesn't require censorship circumvention?
             # This is not really an error, so we can just check if False and assume direct Tor
             # connection will work.
-            if not "settings" in result:
+            if not "settings" in result or result["settings"] is None:
                 self.common.log(
                     "CensorshipCircumvention",
                     "request_settings",
@@ -218,6 +229,12 @@ class CensorshipCircumvention(object):
         """
         Checks the bridges and saves them in settings.
         """
+        self.common.log(
+            "CensorshipCircumvention",
+            "save_settings",
+            f"bridge_settings: {bridge_settings}",
+        )
+
         bridges_ok = False
         self.settings = settings
 
@@ -226,11 +243,6 @@ class CensorshipCircumvention(object):
         # But if so, how to stop it starting 3 separate Tor connection threads?
         # for bridges in request_bridges["settings"]:
         bridges = bridge_settings["settings"][0]["bridges"]
-        self.common.log(
-            "CensorshipCircumvention",
-            "save_settings",
-            f"Obtained bridges: {bridges}",
-        )
         bridge_strings = bridges["bridge_strings"]
 
         self.settings.set("bridges_type", "custom")
@@ -259,7 +271,6 @@ class CensorshipCircumvention(object):
                 "Could not use any of the obtained bridges.",
             )
             return False
-
 
     def request_default_bridges(self):
         """
