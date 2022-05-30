@@ -314,6 +314,11 @@ class TabWidget(QtWidgets.QTabWidget):
             self.common.settings.set("persistent_tabs", persistent_tabs)
             self.common.settings.save()
 
+    def has_no_onionshare_tab(self):
+        # Check if the last tab is closed, or there is only one tab
+        # which is the settings tab
+        return self.count() == 0 or (self.count() == 1 and type(list(self.tabs.values())[0]) is SettingsParentTab)
+
     def close_tab(self, index):
         self.common.log("TabWidget", "close_tab", f"{index}")
         tab = self.widget(index)
@@ -332,8 +337,8 @@ class TabWidget(QtWidgets.QTabWidget):
             self.removeTab(index)
             del self.tabs[tab.tab_id]
 
-            # If the last tab is closed, open a new one
-            if self.count() == 0:
+            # If no onionshare feature tab, open a new main window tab
+            if self.has_no_onionshare_tab():
                 self.new_tab_clicked()
 
         else:
@@ -352,8 +357,8 @@ class TabWidget(QtWidgets.QTabWidget):
                 self.removeTab(index)
                 del self.tabs[tab.tab_id]
 
-                # If the last tab is closed, open a new one
-                if self.count() == 0:
+                # If no onionshare feature tab, open a new main window tab
+                if self.has_no_onionshare_tab():
                     self.new_tab_clicked()
             else:
                 self.common.log("TabWidget", "user does not want to close the tab")
