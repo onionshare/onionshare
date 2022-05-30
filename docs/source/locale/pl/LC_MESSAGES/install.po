@@ -7,18 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2021-09-09 19:16-0700\n"
+"POT-Creation-Date: 2022-03-31 16:26+1100\n"
 "PO-Revision-Date: 2021-10-14 18:35+0000\n"
 "Last-Translator: Rafał Godek <p3run@tutanota.com>\n"
-"Language-Team: pl <LL@li.org>\n"
 "Language: pl\n"
+"Language-Team: pl <LL@li.org>\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && "
+"(n%100<10 || n%100>=20) ? 1 : 2\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.9-dev\n"
-"Generated-By: Babel 2.9.0\n"
+"Generated-By: Babel 2.9.1\n"
 
 #: ../../source/install.rst:2
 msgid "Installation"
@@ -41,12 +40,13 @@ msgid "Linux"
 msgstr "Linux"
 
 #: ../../source/install.rst:14
+#, fuzzy
 msgid ""
 "There are various ways to install OnionShare for Linux, but the "
 "recommended way is to use either the `Flatpak <https://flatpak.org/>`_ or"
-" the `Snap <https://snapcraft.io/>`_ package. Flatpak and Snap ensure "
-"that you'll always use the newest version and run OnionShare inside of a "
-"sandbox."
+" the `Snap <https://snapcraft.io/>`_ package. Flatpak and Snapcraft "
+"ensure that you'll always use the newest version and run OnionShare "
+"inside of a sandbox."
 msgstr ""
 "Istnieją różne sposoby instalacji OnionShare dla systemu Linux, ale "
 "zalecanym sposobem jest użycie pakietu `Flatpak <https://flatpak.org/>`_ "
@@ -55,9 +55,11 @@ msgstr ""
 "piaskownicy."
 
 #: ../../source/install.rst:17
+#, fuzzy
 msgid ""
-"Snap support is built-in to Ubuntu and Fedora comes with Flatpak support,"
-" but which you use is up to you. Both work in all Linux distributions."
+"Snapcraft support is built-in to Ubuntu and Fedora comes with Flatpak "
+"support, but which you use is up to you. Both work in all Linux "
+"distributions."
 msgstr ""
 "Obsługa Snap jest wbudowana w Ubuntu, a Fedora dostarczana jest z "
 "Flatpak, ale to, z którego pakietu korzystasz, zależy od Ciebie. Oba "
@@ -72,7 +74,8 @@ msgstr ""
 "https://flathub.org/apps/details/org.onionshare.OnionShare"
 
 #: ../../source/install.rst:21
-msgid "**Install OnionShare using Snap**: https://snapcraft.io/onionshare"
+#, fuzzy
+msgid "**Install OnionShare using Snapcraft**: https://snapcraft.io/onionshare"
 msgstr ""
 "**Instalacja OnionShare przy użyciu Snap**: "
 "https://snapcraft.io/onionshare"
@@ -90,10 +93,11 @@ msgid "Command-line only"
 msgstr "Wiersz poleceń"
 
 #: ../../source/install.rst:30
+#, fuzzy
 msgid ""
-"You can install just the command line version of OnionShare on any "
-"operating system using the Python package manager ``pip``. See :ref:`cli`"
-" for more information."
+"You can install just the command-line version of OnionShare on any "
+"operating system using the Python package manager ``pip``. :ref:`cli` has"
+" more info."
 msgstr ""
 "Możesz zainstalować tylko wersję wiersza poleceń OnionShare na dowolnym "
 "systemie operacyjnym za pomocą menedżera pakietów Python ``pip``. Zobacz "
@@ -135,7 +139,7 @@ msgstr ""
 "`z serwera kluczy keys.openpgp.org <https://keys.openpgp.org/vks/v1/by-"
 "fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 
-#: ../../source/install.rst:45
+#: ../../source/install.rst:46
 msgid ""
 "You must have GnuPG installed to verify signatures. For macOS you "
 "probably want `GPGTools <https://gpgtools.org/>`_, and for Windows you "
@@ -145,11 +149,11 @@ msgstr ""
 "prawdopodobnie potrzebujesz `GPGTools <https://gpgtools.org/>`_, a dla "
 "Windows `Gpg4win <https://www.gpg4win.org/>`_."
 
-#: ../../source/install.rst:48
+#: ../../source/install.rst:49
 msgid "Signatures"
 msgstr "Sygnatury"
 
-#: ../../source/install.rst:50
+#: ../../source/install.rst:51
 msgid ""
 "You can find the signatures (as ``.asc`` files), as well as Windows, "
 "macOS, Flatpak, Snap, and source packages, at "
@@ -163,11 +167,11 @@ msgstr ""
 "znaleźć na `GitHubie "
 "<https://github.com/micahflee/onionshare/releases>`_."
 
-#: ../../source/install.rst:54
+#: ../../source/install.rst:55
 msgid "Verifying"
 msgstr "Weryfikacja"
 
-#: ../../source/install.rst:56
+#: ../../source/install.rst:57
 msgid ""
 "Once you have imported Micah's public key into your GnuPG keychain, "
 "downloaded the binary and and ``.asc`` signature, you can verify the "
@@ -177,29 +181,30 @@ msgstr ""
 " pliku binarnego i sygnatury ``.asc``, możesz zweryfikować plik binarny "
 "dla macOS w terminalu w następujący sposób:"
 
-#: ../../source/install.rst:60
+#: ../../source/install.rst:61
 msgid "Or for Windows, in a command-prompt like this::"
 msgstr "Lub w wierszu polecenia systemu Windows w następujący sposób::"
 
-#: ../../source/install.rst:64
+#: ../../source/install.rst:65
 msgid "The expected output looks like this::"
 msgstr "Oczekiwany rezultat wygląda następująco::"
 
-#: ../../source/install.rst:76
+#: ../../source/install.rst:77
+#, fuzzy
 msgid ""
 "If you don't see ``Good signature from``, there might be a problem with "
 "the integrity of the file (malicious or otherwise), and you should not "
 "install the package. (The ``WARNING:`` shown above, is not a problem with"
 " the package, it only means you haven't defined a level of \"trust\" of "
-"Micah's PGP key.)"
+"Micah's (the core developer) PGP key.)"
 msgstr ""
 "Jeśli nie widzisz ``Good signature from``, może to oznaczać problem z "
 "integralnością pliku (złośliwy lub inny) i nie powinieneś instalować "
 "pakietu. (Pokazane powyżej ostrzeżenie ``WARNING:`` nie jest problemem z "
-"pakietem, oznacza tylko, że nie zdefiniowałeś poziomu \"zaufania\" klucza "
-"PGP Micah.)"
+"pakietem, oznacza tylko, że nie zdefiniowałeś poziomu \"zaufania\" klucza"
+" PGP Micah.)"
 
-#: ../../source/install.rst:78
+#: ../../source/install.rst:79
 msgid ""
 "If you want to learn more about verifying PGP signatures, the guides for "
 "`Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ and"
@@ -412,3 +417,4 @@ msgstr ""
 #~ " level of 'trust' of Micah's PGP "
 #~ "key.)"
 #~ msgstr ""
+
