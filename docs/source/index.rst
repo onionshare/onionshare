@@ -9,10 +9,9 @@ OnionShare is an open source tool that lets you securely and anonymously share f
    :maxdepth: 2
 
    install
-   connecting
+   tor
    features
    advanced
-   tor
    help
    security
    develop
