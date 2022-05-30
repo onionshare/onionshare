@@ -420,7 +420,7 @@ jobs:
               cd obfs4
               # TODO: verify signature
               git checkout $OBFS4PROXY_TAG
-              "C:\\Program Files (x86)\\Go\\bin\\go" build .\obfs4proxy
+              "C:\Program Files (x86)\Go\bin\go" build .\obfs4proxy
               Move-Item -Path .\obfs4proxy.exe -Destination C:\Users\circleci\project\desktop\onionshare\resources\tor\obfs4proxy.exe
             }
       - save_cache:
@@ -444,7 +444,7 @@ jobs:
               cd snowflake
               # TODO: verify signature
               git checkout $SNOWFLAKE_TAG
-              "C:\\Program Files (x86)\\Go\\bin\\go" build .\client
+              "C:\Program Files (x86)\Go\bin\go" build .\client
               Move-Item -Path .\client.exe -Destination C:\Users\circleci\project\desktop\onionshare\resources\tor\snowflake-client.exe
             }
       - save_cache:
@@ -468,7 +468,7 @@ jobs:
               cd meek
               # TODO: verify signature
               git checkout $MEEK_TAG
-              "C:\\Program Files (x86)\\Go\\bin\\go" build .\meek-client
+              "C:\Program Files (x86)\Go\bin\go" build .\meek-client
               Move-Item -Path .\meek-client.exe -Destination C:\Users\circleci\project\desktop\onionshare\resources\tor\meek-client.exe
             }
       - save_cache:
