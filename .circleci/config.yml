@@ -13,10 +13,10 @@ workflows:
           requires:
             - test-cli
             # - test-gui
-      - build-win32:
-          requires:
-            - test-cli
-            # - test-gui
+      # - build-win32:
+      #     requires:
+      #       - test-cli
+      #       # - test-gui
       # - build-macos:
       #     requires:
       #       - test-cli
@@ -87,13 +87,15 @@ jobs:
       name: win/default
       shell: powershell.exe
     environment:
-      # NOTE: make sure to change when upgrading tor
+      # NOTE: change when upgrading libevent
+      LIBEVENT_TAG: release-2.1.12-stable
+      # NOTE: change when upgrading tor
       TOR_TAG: tor-0.4.7.7
-      # NOTE: make sure to change when upgrading obfs4proxy
+      # NOTE: change when upgrading obfs4proxy
       OBFS4PROXY_TAG: obfs4proxy-0.0.13
-      # NOTE: make sure to change when upgrading snowflake
+      # NOTE: change when upgrading snowflake
       SNOWFLAKE_TAG: v2.2.0
-      # NOTE: make sure to change when upgrading meek
+      # NOTE: change when upgrading meek
       MEEK_TAG: v0.37.0
     steps:
       - checkout
@@ -114,7 +116,7 @@ jobs:
             fi
 
             ./setup-x86_64.exe -q -s https://mirrors.kernel.org/sourceware/cygwin/ \
-              -P libssl-devel,libevent-devel,zlib-devel,git,gcc-core,make,autoconf,automake,libtool,gnupg
+              -P libssl-devel,zlib-devel,git,gcc-core,make,autoconf,automake,libtool,gnupg
 
       # # Build libevent
       # - run:
@@ -150,13 +152,53 @@ jobs:
       #       make install
       #       cp -r /opt/libevent-build /cygdrive/c/Users/circleci/build/libevent
       # - save_cache:
-      #     # NOTE: make sure to change when upgrading libevent
+      #     # NOTE: change when upgrading libevent
       #     key: "build-win64-libevent-2.1.12-{{ .Environment.CACHE_VERSION }}"
       #     paths:
       #       - C:\Users\circleci\build\libevent
 
       - restore_cache:
-          # NOTE: make sure to change when upgrading tor
+          # NOTE: change when upgrading libevent
+          key: build-win64-libevent-2.1.12-stable-{{ .Environment.CACHE_VERSION }}
+      - run:
+          name: Build tor
+          shell: C:\\cygwin64\\bin\\bash.exe --login -eo pipefail
+          command: |
+            if [[ -d "/cygdrive/c/Users/circleci/build/libevent" ]]; then
+              echo "libevent already compiled, skipping"
+              exit 0
+            fi
+
+            mkdir -p /cygdrive/c/Users/circleci/src
+            mkdir -p /cygdrive/c/Users/circleci/build
+
+            # Get source
+            curl "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x9e3ac83a27974b84d1b3401db86086848ef8686d" | gpg --import
+            cd /cygdrive/c/Users/circleci/src
+            git clone https://github.com/libevent/libevent.git
+            cd libevent
+            git tag -v $LIBEVENT_TAG
+            if [ $? -ne 0 ]; then
+              echo "libevent tag doesn't verify"
+              exit -1
+            fi
+            git checkout $LIBEVENT_TAG
+
+            # Build
+            ./autogen.sh
+            ./configure \
+              --prefix=/cygdrive/c/Users/circleci/build/libevent \
+              --with-pic
+            make -j$(nproc)
+            make install
+      - save_cache:
+          # NOTE: change when upgrading libevent
+          key: build-win64-libevent-2.1.12-stable-{{ .Environment.CACHE_VERSION }}
+          paths:
+            - C:\Users\circleci\build\libevent
+
+      - restore_cache:
+          # NOTE: change when upgrading tor
           key: build-win64-tor-0.4.7.7-{{ .Environment.CACHE_VERSION }}
       - run:
           name: Build tor
@@ -186,12 +228,14 @@ jobs:
             ./autogen.sh
             ./configure \
               --prefix=/opt/tor-build \
-              --disable-asciidoc
+              --disable-asciidoc \
+              --enable-static-libevent \
+              --with-libevent-dir=/cygdrive/c/Users/circleci/build/libevent
             make -j$(nproc)
             make install
             cp -r /opt/tor-build /cygdrive/c/Users/circleci/build/tor
       - save_cache:
-          # NOTE: make sure to change when upgrading tor
+          # NOTE: change when upgrading tor
           key: build-win64-tor-0.4.7.7-{{ .Environment.CACHE_VERSION }}
           paths:
             - C:\Users\circleci\build\tor
@@ -205,7 +249,7 @@ jobs:
             Copy-Item -Path C:\Users\circleci\build\tor\share\tor\geoip6 -Destination C:\Users\circleci\project\desktop\onionshare\resources\tor
 
       - restore_cache:
-          # NOTE: make sure to change when upgrading obfs4proxy
+          # NOTE: change when upgrading obfs4proxy
           key: build-win64-obfs4proxy-v0.0.13-{{ .Environment.CACHE_VERSION }}
       - run:
           name: Build obfs4proxy
@@ -224,13 +268,13 @@ jobs:
               Move-Item -Path .\obfs4proxy.exe -Destination C:\Users\circleci\project\desktop\onionshare\resources\tor\obfs4proxy.exe
             }
       - save_cache:
-          # NOTE: make sure to change when upgrading obfs4proxy
+          # NOTE: change when upgrading obfs4proxy
           key: build-win64-obfs4proxy-v0.0.13-{{ .Environment.CACHE_VERSION }}
           paths:
             - C:\Users\circleci\project\desktop\onionshare\resources\tor\obfs4proxy.exe
 
       - restore_cache:
-          # NOTE: make sure to change when upgrading snowflake
+          # NOTE: change when upgrading snowflake
           key: build-win64-snowflake-v2.1.0-{{ .Environment.CACHE_VERSION }}
       - run:
           name: Build snowflake-client
@@ -248,13 +292,13 @@ jobs:
               Move-Item -Path .\client.exe -Destination C:\Users\circleci\project\desktop\onionshare\resources\tor\snowflake-client.exe
             }
       - save_cache:
-          # NOTE: make sure to change when upgrading snowflake
+          # NOTE: change when upgrading snowflake
           key: build-win64-snowflake-v2.1.0-{{ .Environment.CACHE_VERSION }}
           paths:
             - C:\Users\circleci\project\desktop\onionshare\resources\tor\snowflake-client.exe
 
       - restore_cache:
-          # NOTE: make sure to change when upgrading meek
+          # NOTE: change when upgrading meek
           key: build-win64-meek-v0.37.0-{{ .Environment.CACHE_VERSION }}
       - run:
           name: Build meek-client
@@ -272,7 +316,7 @@ jobs:
               Move-Item -Path .\meek-client.exe -Destination C:\Users\circleci\project\desktop\onionshare\resources\tor\meek-client.exe
             }
       - save_cache:
-          # NOTE: make sure to change when upgrading meek
+          # NOTE: change when upgrading meek
           key: build-win64-meek-v0.37.0-{{ .Environment.CACHE_VERSION }}
           paths:
             - C:\Users\circleci\project\desktop\onionshare\resources\tor\Tor\meek-client.exe
@@ -319,13 +363,13 @@ jobs:
       name: win/default
       shell: powershell.exe
     environment:
-      # NOTE: make sure to change when upgrading tor
+      # NOTE: change when upgrading tor
       TOR_TAG: tor-0.4.7.7
-      # NOTE: make sure to change when upgrading obfs4proxy
+      # NOTE: change when upgrading obfs4proxy
       OBFS4PROXY_TAG: obfs4proxy-0.0.13
-      # NOTE: make sure to change when upgrading snowflake
+      # NOTE: change when upgrading snowflake
       SNOWFLAKE_TAG: v2.2.0
-      # NOTE: make sure to change when upgrading meek
+      # NOTE: change when upgrading meek
       MEEK_TAG: v0.37.0
     steps:
       - checkout
@@ -349,7 +393,7 @@ jobs:
               -P libssl-devel,libevent-devel,zlib-devel,git,gcc-core,make,autoconf,automake,libtool,gnupg
 
       - restore_cache:
-          # NOTE: make sure to change when upgrading tor
+          # NOTE: change when upgrading tor
           key: build-win32-tor-0.4.7.7-{{ .Environment.CACHE_VERSION }}
       - run:
           name: Build tor
@@ -384,7 +428,7 @@ jobs:
             make install
             cp -r /opt/tor-build /cygdrive/c/Users/circleci/build/tor
       - save_cache:
-          # NOTE: make sure to change when upgrading tor
+          # NOTE: change when upgrading tor
           key: build-win32-tor-0.4.7.7-{{ .Environment.CACHE_VERSION }}
           paths:
             - C:\Users\circleci\build\tor
@@ -405,7 +449,7 @@ jobs:
             msiexec.exe /i go1.18.windows-386.msi /quiet /L*V go-install.log
 
       - restore_cache:
-          # NOTE: make sure to change when upgrading obfs4proxy
+          # NOTE: change when upgrading obfs4proxy
           key: build-win32-obfs4proxy-v0.0.13-{{ .Environment.CACHE_VERSION }}
       - run:
           name: Build obfs4proxy (32-bit)
@@ -424,13 +468,13 @@ jobs:
               Move-Item -Path .\obfs4proxy.exe -Destination C:\Users\circleci\project\desktop\onionshare\resources\tor\obfs4proxy.exe
             }
       - save_cache:
-          # NOTE: make sure to change when upgrading obfs4proxy
+          # NOTE: change when upgrading obfs4proxy
           key: build-win32-obfs4proxy-v0.0.13-{{ .Environment.CACHE_VERSION }}
           paths:
             - C:\Users\circleci\project\desktop\onionshare\resources\tor\obfs4proxy.exe
 
       - restore_cache:
-          # NOTE: make sure to change when upgrading snowflake
+          # NOTE: change when upgrading snowflake
           key: build-win32-snowflake-v2.1.0-{{ .Environment.CACHE_VERSION }}
       - run:
           name: Build snowflake-client (32-bit)
@@ -448,13 +492,13 @@ jobs:
               Move-Item -Path .\client.exe -Destination C:\Users\circleci\project\desktop\onionshare\resources\tor\snowflake-client.exe
             }
       - save_cache:
-          # NOTE: make sure to change when upgrading snowflake
+          # NOTE: change when upgrading snowflake
           key: build-win32-snowflake-v2.1.0-{{ .Environment.CACHE_VERSION }}
           paths:
             - C:\Users\circleci\project\desktop\onionshare\resources\tor\snowflake-client.exe
 
       - restore_cache:
-          # NOTE: make sure to change when upgrading meek
+          # NOTE: change when upgrading meek
           key: build-win32-meek-v0.37.0-{{ .Environment.CACHE_VERSION }}
       - run:
           name: Build meek-client (32-bit)
@@ -472,7 +516,7 @@ jobs:
               Move-Item -Path .\meek-client.exe -Destination C:\Users\circleci\project\desktop\onionshare\resources\tor\meek-client.exe
             }
       - save_cache:
-          # NOTE: make sure to change when upgrading meek
+          # NOTE: change when upgrading meek
           key: build-win32-meek-v0.37.0-{{ .Environment.CACHE_VERSION }}
           paths:
             - C:\Users\circleci\project\desktop\onionshare\resources\tor\Tor\meek-client.exe
