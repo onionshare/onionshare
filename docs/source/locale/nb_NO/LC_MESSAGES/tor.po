@@ -7,36 +7,36 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2022-01-17 10:28-0800\n"
+"POT-Creation-Date: 2022-03-31 16:26+1100\n"
 "PO-Revision-Date: 2022-02-14 08:55+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
-"Language-Team: none\n"
 "Language: nb_NO\n"
+"Language-Team: none\n"
+"Plural-Forms: nplurals=2; plural=n != 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.11-dev\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: ../../source/tor.rst:2
 msgid "Connecting to Tor"
 msgstr "Tilkobling til Tor"
 
-#: ../../source/tor.rst:4
+#: ../../source/tor.rst:6
 #, fuzzy
 msgid ""
-"Pick a way to connect OnionShare to Tor by clicking the Tor onion icon in"
-" the bottom right of the OnionShare window to open the Tor Settings tab."
+"Pick a way to connect OnionShare to Tor by clicking Network Settings from"
+" the welcome screen, or the Tor onion icon in the bottom right of the "
+"OnionShare window to open the Tor Settings tab."
 msgstr ""
 "Velg en måte å koble OnionShare til Tor ved å klikke på \"⚙\"-ikonet "
 "nederst til høyre i OnionShare-vinduet for å komme til de innstillingene."
 
-#: ../../source/tor.rst:9
+#: ../../source/tor.rst:11
 msgid "Use the Tor version built into OnionShare"
 msgstr "Bruk den innebygde Tor-versjonen fra OnionShare"
 
-#: ../../source/tor.rst:11
+#: ../../source/tor.rst:13
 msgid ""
 "This is the default, simplest and most reliable way that OnionShare "
 "connects to Tor. For this reason, it's recommended for most users."
@@ -45,7 +45,7 @@ msgstr ""
 "den enkleste og mest pålitelige måten. Derfor er det også anbefalt for de"
 " fleste brukerne."
 
-#: ../../source/tor.rst:14
+#: ../../source/tor.rst:16
 msgid ""
 "When you open OnionShare, it launches an already configured ``tor`` "
 "process in the background for OnionShare to use. It doesn't interfere "
@@ -57,11 +57,11 @@ msgstr ""
 "innvirkning på andre ``tor``-prosesser på datamaskinen, så du kan bruke "
 "Tor-nettleseren på systemet, eller ``tor`` på egenhånd."
 
-#: ../../source/tor.rst:18
+#: ../../source/tor.rst:20
 msgid "Getting Around Censorship"
 msgstr "Omgåelse av sensur"
 
-#: ../../source/tor.rst:20
+#: ../../source/tor.rst:22
 #, fuzzy
 msgid ""
 "If your access to the internet is censored, you can configure OnionShare "
@@ -74,7 +74,7 @@ msgstr ""
 "<https://2019.www.torproject.org/docs/bridges.html.en>`_. Hvis OnionShare"
 " klarer å koble til uten, trenger du ikke å bruke en bro."
 
-#: ../../source/tor.rst:22
+#: ../../source/tor.rst:24
 #, fuzzy
 msgid ""
 "To use a bridge, open the Tor Settings tab. You must select \"Use the Tor"
@@ -83,7 +83,7 @@ msgstr ""
 "For å bruke en bro må du åpne Tor-innstillingsfanen. Velg «Bruk den "
 "innebygde Tor-versjonen fra OnionShare» og huk av i «Bruk en bro»-boksen."
 
-#: ../../source/tor.rst:25
+#: ../../source/tor.rst:27
 #, fuzzy
 msgid ""
 "Try using a built-in bridge first. Using `obfs4` or `snowflake` bridges "
@@ -92,7 +92,7 @@ msgstr ""
 "Prøv å bruke en innebygd bro først. `obfs4` eller `snowflake`-broer "
 "anbefales framfor bruk av`meek-azure`."
 
-#: ../../source/tor.rst:29
+#: ../../source/tor.rst:31
 #, fuzzy
 msgid ""
 "If using a built-in bridge doesn't work, you can request a bridge from "
@@ -100,23 +100,23 @@ msgid ""
 "bridge. (This makes it more difficult for governments or ISPs to block "
 "access to Tor bridges.)"
 msgstr ""
-"Hvis det ikke fungerer å bruke en innebygd bro, kan du forespørre en bro fra "
-"torproject.org. Du vil måtte løse CAPTCHA-en for å forespørre en bro. (Dette "
-"gjør det vanskeligere for myndigheter og ISP-er å blokkere tilgang til Tor-"
-"broer.)"
+"Hvis det ikke fungerer å bruke en innebygd bro, kan du forespørre en bro "
+"fra torproject.org. Du vil måtte løse CAPTCHA-en for å forespørre en bro."
+" (Dette gjør det vanskeligere for myndigheter og ISP-er å blokkere "
+"tilgang til Tor-broer.)"
 
-#: ../../source/tor.rst:33
+#: ../../source/tor.rst:35
 #, fuzzy
 msgid ""
 "You also have the option of using a bridge that you learned about from a "
 "trusted source."
 msgstr "Du kan også bruke en bro du har lært om fra en tiltrodd kilde."
 
-#: ../../source/tor.rst:36
+#: ../../source/tor.rst:38
 msgid "Attempt auto-configuration with Tor Browser"
 msgstr "Forsøk automatisk oppsett med Tor-nettleseren"
 
-#: ../../source/tor.rst:38
+#: ../../source/tor.rst:40
 msgid ""
 "If you have `downloaded the Tor Browser <https://www.torproject.org>`_ "
 "and don't want two ``tor`` processes running, you can use the ``tor`` "
@@ -129,11 +129,11 @@ msgstr ""
 "nettleseren. Ha i minne at du må ha Tor-nettleseren åpen i bakgrunnen "
 "mens du bruker OnionShare for at dette skal virke."
 
-#: ../../source/tor.rst:42
+#: ../../source/tor.rst:44
 msgid "Using a system ``tor`` in Windows"
 msgstr "Bruk av systemets Tor i Windows"
 
-#: ../../source/tor.rst:44
+#: ../../source/tor.rst:46
 msgid ""
 "This is fairly advanced. You'll need to know how edit plaintext files and"
 " do stuff as an administrator."
@@ -141,7 +141,7 @@ msgstr ""
 "Dette er ganske avansert. Du må vite hvordan du redigerer filer i "
 "klartekst og gjøre ting som administrator."
 
-#: ../../source/tor.rst:46
+#: ../../source/tor.rst:48
 #, fuzzy
 msgid ""
 "Download the Tor Windows Expert Bundle `from "
@@ -149,12 +149,13 @@ msgid ""
 " and copy the extracted folder to ``C:\\Program Files (x86)\\`` Rename "
 "the extracted folder with ``Data`` and ``Tor`` in it to ``tor-win32``."
 msgstr ""
-"Last ned ekspertknippet for Tor på Windows `fra <https://www.torproject.org/"
-"download/tor/>`_. Pakk ut de komprimerte filene og kopier det utpakkede "
-"innholdet til ``C:\\Programfiler (x86)\\`` Gi den den utpakkede mappen med "
-"``Data`` og ``Tor`` i den den nye navnet ``tor-win32``."
+"Last ned ekspertknippet for Tor på Windows `fra "
+"<https://www.torproject.org/download/tor/>`_. Pakk ut de komprimerte "
+"filene og kopier det utpakkede innholdet til ``C:\\Programfiler (x86)\\``"
+" Gi den den utpakkede mappen med ``Data`` og ``Tor`` i den den nye navnet"
+" ``tor-win32``."
 
-#: ../../source/tor.rst:50
+#: ../../source/tor.rst:52
 msgid ""
 "Make up a control port password. (Using 7 words in a sequence like "
 "``comprised stumble rummage work avenging construct volatile`` is a good "
@@ -168,7 +169,7 @@ msgstr ""
 "administrator og bruke ``tor.exe --hash-password`` for å generere en "
 "sjekksum for ditt passord. For eksempel::"
 
-#: ../../source/tor.rst:57
+#: ../../source/tor.rst:59
 msgid ""
 "The hashed password output is displayed after some warnings (which you "
 "can ignore). In the case of the above example, it is "
@@ -178,7 +179,7 @@ msgstr ""
 " kan se bort fra). For eksmplet ovenfor, er den "
 "``16:00322E903D96DE986058BB9ABDA91E010D7A863768635AC38E213FDBEF``."
 
-#: ../../source/tor.rst:59
+#: ../../source/tor.rst:61
 msgid ""
 "Now create a new text file at ``C:\\Program Files (x86)\\tor-"
 "win32\\torrc`` and put your hashed password output in it, replacing the "
@@ -188,7 +189,7 @@ msgstr ""
 " og sett inn den sjekksummerte utdataen for passordet i den, slik at det "
 "erstatter ``HashedControlPassword`` med det du akkurat genererte::"
 
-#: ../../source/tor.rst:64
+#: ../../source/tor.rst:66
 msgid ""
 "In your administrator command prompt, install ``tor`` as a service using "
 "the appropriate ``torrc`` file you just created (as described in "
@@ -199,11 +200,11 @@ msgstr ""
 "bruke den egnede ``torrc``-filen du akkurat oppretet (som beskrevet i "
 "`<https://2019.www.torproject.org/docs/faq.html.en#NTService>`_). Slik::"
 
-#: ../../source/tor.rst:68
+#: ../../source/tor.rst:70
 msgid "You are now running a system ``tor`` process in Windows!"
 msgstr "Du kjører nå en systembasert``tor``-prosess i Windows!"
 
-#: ../../source/tor.rst:70
+#: ../../source/tor.rst:72
 #, fuzzy
 msgid ""
 "Open OnionShare and click the \"⚙\" icon in it. Under \"How should "
@@ -222,11 +223,11 @@ msgstr ""
 "ovenfor. Klikk på \"Test tilkoblingen til Tor\"-knappen. Hvis alt går "
 "bra, vil du se \"Tilkoblet til Tor-kontrolleren\"."
 
-#: ../../source/tor.rst:79
+#: ../../source/tor.rst:81
 msgid "Using a system ``tor`` in macOS"
 msgstr "Bruk av systemets Tor i macOS"
 
-#: ../../source/tor.rst:81
+#: ../../source/tor.rst:83
 #, fuzzy
 msgid ""
 "First, install `Homebrew <https://brew.sh/>`_ if you don't already have "
@@ -235,15 +236,15 @@ msgstr ""
 "Først må du installere `Homebrew <https://brew.sh/>`_ hvis du ikke "
 "allerede har det, og så installere Tor::"
 
-#: ../../source/tor.rst:85
+#: ../../source/tor.rst:87
 msgid "Now configure Tor to allow connections from OnionShare::"
 msgstr "Sett opp Tor for å tillate tilkoblinger fra OnionShare::"
 
-#: ../../source/tor.rst:92
+#: ../../source/tor.rst:94
 msgid "And start the system Tor service::"
 msgstr "Og start den systembaserte Tor-tjenesten::"
 
-#: ../../source/tor.rst:96
+#: ../../source/tor.rst:98
 msgid ""
 "Open OnionShare and click the \"⚙\" icon in it. Under \"How should "
 "OnionShare connect to Tor?\" choose \"Connect using socket file\", and "
@@ -259,15 +260,15 @@ msgstr ""
 "kakebasert identitetsbekreftelse\". Klikk på \"Test tilkobling til "
 "Tor\"-knappen."
 
-#: ../../source/tor.rst:102 ../../source/tor.rst:122
+#: ../../source/tor.rst:104 ../../source/tor.rst:124
 msgid "If all goes well, you should see \"Connected to the Tor controller\"."
 msgstr "Hvis alt går bra, vil du se «Tilkoblet til Tor-kontrolleren»."
 
-#: ../../source/tor.rst:105
+#: ../../source/tor.rst:107
 msgid "Using a system ``tor`` in Linux"
 msgstr "Bruk av systemets Tor på Linux"
 
-#: ../../source/tor.rst:107
+#: ../../source/tor.rst:109
 msgid ""
 "First, install the ``tor`` package. If you're using Debian, Ubuntu, or a "
 "similar Linux distro, It is recommended to use the Tor Project's "
@@ -279,7 +280,7 @@ msgstr ""
 "`offisielle pakkebrønn <https://support.torproject.org/apt/tor-deb-"
 "repo/>`_."
 
-#: ../../source/tor.rst:109
+#: ../../source/tor.rst:111
 msgid ""
 "Next, add your user to the group that runs the ``tor`` process (in the "
 "case of Debian and Ubuntu, ``debian-tor``) and configure OnionShare to "
@@ -289,7 +290,7 @@ msgstr ""
 "``tor``-prosessen (som for Debian og Ubuntu er ``debian-tor`` og setter "
 "opp OnionShare til å koblet til ditt systems ``tor``-kontrollsocket-fil."
 
-#: ../../source/tor.rst:111
+#: ../../source/tor.rst:113
 msgid ""
 "Add your user to the ``debian-tor`` group by running this command "
 "(replace ``username`` with your actual username)::"
@@ -297,7 +298,7 @@ msgstr ""
 "Legg så til din bruker i ``debian-tor``-gruppen ved å kjøre denne "
 "kommandoen (erstatt ``username`` med ditt faktiske brukernavn)::"
 
-#: ../../source/tor.rst:115
+#: ../../source/tor.rst:117
 msgid ""
 "Reboot your computer. After it boots up again, open OnionShare and click "
 "the \"⚙\" icon in it. Under \"How should OnionShare connect to Tor?\" "
@@ -555,3 +556,4 @@ msgstr ""
 #~ " sin `BridgeDB <https://bridges.torproject.org/>`_. "
 #~ "Hvis du må bruke en bro, prøv "
 #~ "de innebygde obfs4-baserte broene først."
+
