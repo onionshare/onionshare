@@ -118,50 +118,11 @@ jobs:
             ./setup-x86_64.exe -q -s https://mirrors.kernel.org/sourceware/cygwin/ \
               -P libssl-devel,zlib-devel,git,gcc-core,make,autoconf,automake,libtool,gnupg
 
-      # # Build libevent
-      # - run:
-      #     name: Build libevent
-      #     shell: C:\\cygwin64\\bin\\bash.exe --login -eo pipefail
-      #     command: |
-      #       if [[ -d "/cygdrive/c/Users/circleci/build/libevent" ]]; then
-      #         echo "libevent already compiled, skipping"
-      #         exit 0
-      #       fi
-
-      #       mkdir -p /cygdrive/c/Users/circleci/src
-      #       mkdir -p /cygdrive/c/Users/circleci/build
-
-      #       # Get source
-      #       curl "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x9e3ac83a27974b84d1b3401db86086848ef8686d" | gpg --import
-      #       cd /cygdrive/c/Users/circleci/src
-      #       git clone https://github.com/libevent/libevent.git
-      #       cd libevent
-      #       git tag -v $LIBEVENT_TAG
-      #       if [ $? -ne 0 ]; then
-      #         echo "libevent tag doesn't verify"
-      #         exit -1
-      #       fi
-      #       git checkout $LIBEVENT_TAG
-
-      #       # Build
-      #       ./autogen.sh
-      #       ./configure \
-      #         --prefix=/opt/libevent-build \
-      #         --with-pic
-      #       make -j$(nproc)
-      #       make install
-      #       cp -r /opt/libevent-build /cygdrive/c/Users/circleci/build/libevent
-      # - save_cache:
-      #     # NOTE: change when upgrading libevent
-      #     key: "build-win64-libevent-2.1.12-{{ .Environment.CACHE_VERSION }}"
-      #     paths:
-      #       - C:\Users\circleci\build\libevent
-
       - restore_cache:
           # NOTE: change when upgrading libevent
           key: build-win64-libevent-2.1.12-stable-{{ .Environment.CACHE_VERSION }}
       - run:
-          name: Build tor
+          name: Build libevent
           shell: C:\\cygwin64\\bin\\bash.exe --login -eo pipefail
           command: |
             if [[ -d "/cygdrive/c/Users/circleci/build/libevent" ]]; then
@@ -227,13 +188,12 @@ jobs:
             # Build
             ./autogen.sh
             ./configure \
-              --prefix=/opt/tor-build \
+              --prefix=/cygdrive/c/Users/circleci/build/tor \
               --disable-asciidoc \
               --enable-static-libevent \
               --with-libevent-dir=/cygdrive/c/Users/circleci/build/libevent
             make -j$(nproc)
             make install
-            cp -r /opt/tor-build /cygdrive/c/Users/circleci/build/tor
       - save_cache:
           # NOTE: change when upgrading tor
           key: build-win64-tor-0.4.7.7-{{ .Environment.CACHE_VERSION }}
