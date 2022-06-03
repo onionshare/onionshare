@@ -30,6 +30,7 @@ jobs:
     docker:
       - image: cimg/python:3.9
     steps:
+      - checkout
       - run:
           name: Install dependencies
           command: |
@@ -96,7 +97,6 @@ jobs:
       # NOTE: change when upgrading tor
       TOR_TAG: tor-0.4.7.7
     steps:
-      - checkout
       - run:
           name: Install build dependencies
           command: |
