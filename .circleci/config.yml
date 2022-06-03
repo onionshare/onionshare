@@ -124,7 +124,7 @@ jobs:
       - run:
           name: Build openssl
           command: |
-            if [[ -d "~/build/prefix-openssl-x32/bin" ]]; then
+            if [[ -f "/home/circleci/build/prefix-openssl-x32//bin/openssl.exe" ]]; then
               echo "openssl already compiled, skipping"
               exit 0
             fi
@@ -173,7 +173,7 @@ jobs:
       - run:
           name: Build libevent
           command: |
-            if [[ -d "~/build/prefix-libevent-x32/lib" ]]; then
+            if [[ -d "/home/circleci/build/prefix-libevent-x32/lib" ]]; then
               echo "libevent already compiled, skipping"
               exit 0
             fi
@@ -222,7 +222,7 @@ jobs:
       - run:
           name: Build tor
           command: |
-            if [[ -d "~/build/prefix-tor-x32/bin" ]]; then
+            if [[ -f "/home/circleci/build/prefix-tor-x32/bin/tor.exe" ]]; then
               echo "tor already compiled, skipping"
               exit 0
             fi
