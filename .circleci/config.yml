@@ -30,7 +30,6 @@ jobs:
     docker:
       - image: cimg/python:3.9
     steps:
-      - checkout
       - run:
           name: Install dependencies
           command: |
@@ -101,9 +100,11 @@ jobs:
       - run:
           name: Install build dependencies
           command: |
+            # libevent requires newer version of automake than is available in ubuntu focal, so install from jammy instead
+            sudo bash -c 'echo deb http://archive.ubuntu.com/ubuntu/ jammy main restricted >> /etc/apt/sources.list'
             sudo apt-get update
-            sudo apt-get install -y autoconf automake libtool
-            sudo apt-get install -y gcc-mingw-w64-i686 gcc-mingw-w64-x86-64 libz-mingw-w64-dev
+            sudo apt-get install -y -t jammy autoconf automake libtool
+            sudo apt-get install -y -t jammy gcc-mingw-w64-i686 gcc-mingw-w64-x86-64 libz-mingw-w64-dev
 
       - run:
           name: Create folders
