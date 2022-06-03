@@ -93,18 +93,16 @@ jobs:
       # NOTE: change when upgrading openssl
       OPENSSL_VERSION: "3.0.3"
       # NOTE: change when upgrading libevent
-      LIBEVENT_VERSION: "2.1.12-stable"
+      LIBEVENT_TAG: release-2.1.12-stable
       # NOTE: change when upgrading tor
       TOR_TAG: tor-0.4.7.7
     steps:
       - run:
           name: Install build dependencies
           command: |
-            # libevent requires newer version of automake than is available in ubuntu focal, so install from impish instead
-            sudo bash -c 'echo deb http://archive.ubuntu.com/ubuntu/ impish main restricted >> /etc/apt/sources.list'
             sudo apt-get update
-            sudo apt-get install -y -t impish autoconf automake libtool
-            sudo apt-get install -y -t impish gcc-mingw-w64-i686 gcc-mingw-w64-x86-64 libz-mingw-w64-dev
+            sudo apt-get install -y autoconf automake libtool
+            sudo apt-get install -y gcc-mingw-w64-i686 gcc-mingw-w64-x86-64 libz-mingw-w64-dev
 
       - run:
           name: Create folders
@@ -179,26 +177,27 @@ jobs:
               exit 0
             fi
 
-            cd ~/build/dist
-
-            # download
-            wget https://github.com/libevent/libevent/releases/download/release-$LIBEVENT_VERSION/libevent-$LIBEVENT_VERSION.tar.gz
-            echo "92e6de1be9ec176428fd2367677e61ceffc2ee1cb119035037a27d346b0403bb libevent-$LIBEVENT_VERSION.tar.gz" | sha256sum --check --status
+            # git clone
+            curl "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x9e3ac83a27974b84d1b3401db86086848ef8686d" | gpg --import
+            cd ~/build/src
+            git clone https://github.com/libevent/libevent.git
+            cd libevent
+            git tag -v $LIBEVENT_TAG
             if [ $? -ne 0 ]; then
-              echo "libevent checksum failed"
+              echo "libevent tag doesn't verify"
               exit -1
             fi
+            git checkout $LIBEVENT_TAG
 
-            # extract
-            cd ~/build/
-            tar zxfv ~/build/dist/libevent-$LIBEVENT_VERSION.tar.gz -C ~/build/src/
-            mv ~/build/src/libevent-$LIBEVENT_VERSION ~/build/src/libevent-$LIBEVENT_VERSION-x32
-            cp -r ~/build/src/libevent-$LIBEVENT_VERSION-x32 ~/build/src/libevent-$LIBEVENT_VERSION-x64
+            cd ~/build
+            mv ~/build/src/libevent ~/build/src/libevent-x32
+            cp -r ~/build/src/libevent-x32 ~/build/src/libevent-x64
 
             # build 32-bit
             export MINGW=mingw
             export HOST=i686-w64-mingw32
-            cd ~/build/src/libevent-$LIBEVENT_VERSION-x32
+            cd ~/build/src/libevent-x32
+            ./autogen.sh
             ./configure --host=$HOST --prefix=/home/circleci/build/prefix-libevent-x32 --disable-openssl
             make -j$(nproc)
             make install
@@ -206,7 +205,8 @@ jobs:
             # build 64-bit
             export MINGW=mingw64
             export HOST=x86_64-w64-mingw32
-            cd ~/build/src/libevent-$LIBEVENT_VERSION-x64
+            cd ~/build/src/libevent-x64
+            ./autogen.sh
             ./configure --host=$HOST --prefix=/home/circleci/build/prefix-libevent-x64 --disable-openssl
             make -j$(nproc)
             make install
@@ -248,6 +248,7 @@ jobs:
             export MINGW=mingw
             export HOST=i686-w64-mingw32
             cd ~/build/src/tor-x32
+            ./autogen.sh
             ./configure --host=$HOST \
               --disable-asciidoc \
               --disable-zstd \
@@ -265,6 +266,7 @@ jobs:
             # build 64-bit
             export MINGW=mingw64
             export HOST=x86_64-w64-mingw32
+            ./autogen.sh
             cd ~/build/src/tor-x64
             ./configure --host=$HOST \
               --disable-asciidoc \
