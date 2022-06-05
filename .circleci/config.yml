@@ -100,7 +100,7 @@ jobs:
       - run:
           name: Install build dependencies
           command: |
-            sudo bash -c 'echo "deb http://archive.ubuntu.com/ubuntu/ jammy main restricted" >> /etc/apt/sources.list'
+            sudo bash -c 'echo "deb http://archive.ubuntu.com/ubuntu/ jammy main restricted universe" >> /etc/apt/sources.list'
             sudo apt-get update
             sudo apt-get install -t jammy -y build-essential autoconf automake libtool
             sudo apt-get install -t jammy -y gcc-mingw-w64-i686 gcc-mingw-w64-x86-64 libz-mingw-w64-dev
