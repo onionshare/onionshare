@@ -102,7 +102,7 @@ jobs:
           name: Install build dependencies
           command: |
             apt-get update
-            apt-get install -t jammy -y build-essential autoconf automake libtool gcc-mingw-w64-i686 gcc-mingw-w64-x86-64 libz-mingw-w64-dev
+            apt-get install -y build-essential autoconf automake libtool gcc-mingw-w64-i686 gcc-mingw-w64-x86-64 libz-mingw-w64-dev
 
       - run:
           name: Create folders
