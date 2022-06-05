@@ -88,8 +88,8 @@ jobs:
   # Based off of https://github.com/ahf/tor-win32
   build-tor-windows:
     docker:
-      - image: cimg/python:3.9
-    resource_class: large
+      - image: debian/bullseye
+    resource_class: medium+
     environment:
       # NOTE: change when upgrading openssl
       OPENSSL_VERSION: "3.0.3"
@@ -101,10 +101,8 @@ jobs:
       - run:
           name: Install build dependencies
           command: |
-            sudo bash -c 'echo "deb http://archive.ubuntu.com/ubuntu/ jammy main restricted universe" >> /etc/apt/sources.list'
-            sudo apt-get update
-            sudo apt-get install -t jammy -y build-essential autoconf automake libtool
-            sudo apt-get install -t jammy -y gcc-mingw-w64-i686 gcc-mingw-w64-x86-64 libz-mingw-w64-dev
+            apt-get update
+            apt-get install -t jammy -y build-essential autoconf automake libtool gcc-mingw-w64-i686 gcc-mingw-w64-x86-64 libz-mingw-w64-dev
 
       - run:
           name: Create folders
@@ -339,8 +337,8 @@ jobs:
               --with-openssl-dir=/home/circleci/build/prefix-openssl-x32 \
               --disable-tool-name-check \
               --enable-fatal-warnings \
-              --prefix=/home/circleci/build/prefix-tor-x32
-            make -j$(nproc)
+              --prefix=/home/circleci/build/prefix-tor-x32 && \
+            make -j$(nproc) && \
             make install
       - save_cache:
           # NOTE: change when upgrading tor
@@ -376,8 +374,8 @@ jobs:
               --with-openssl-dir=/home/circleci/build/prefix-openssl-x64 \
               --disable-tool-name-check \
               --enable-fatal-warnings \
-              --prefix=/home/circleci/build/prefix-tor-x64
-            make -j$(nproc)
+              --prefix=/home/circleci/build/prefix-tor-x64 && \
+            make -j$(nproc) && \
             make install
       - save_cache:
           # NOTE: change when upgrading tor
