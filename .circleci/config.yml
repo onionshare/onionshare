@@ -100,9 +100,10 @@ jobs:
       - run:
           name: Install build dependencies
           command: |
+            sudo bash -c 'echo "deb http://archive.ubuntu.com/ubuntu/ jammy main restricted" >> /etc/apt/sources.list'
             sudo apt-get update
-            sudo apt-get install -y autoconf automake libtool
-            sudo apt-get install -y gcc-mingw-w64-i686 gcc-mingw-w64-x86-64 libz-mingw-w64-dev
+            sudo apt-get install -t jammy -y build-essential autoconf automake libtool
+            sudo apt-get install -t jammy -y gcc-mingw-w64-i686 gcc-mingw-w64-x86-64 libz-mingw-w64-dev
 
       - run:
           name: Create folders
