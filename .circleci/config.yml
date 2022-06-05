@@ -89,6 +89,7 @@ jobs:
   build-tor-windows:
     docker:
       - image: cimg/python:3.9
+    resource_class: medium+
     environment:
       # NOTE: change when upgrading openssl
       OPENSSL_VERSION: "3.0.3"
