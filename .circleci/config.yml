@@ -454,10 +454,10 @@ jobs:
             - /build/prefix-tor-x64
 
       - persist_to_workspace:
-          root: /
+          root: /build
           paths:
-            - /root/build/prefix-tor-x32
-            - /root/build/prefix-tor-x64
+            - prefix-tor-x32
+            - prefix-tor-x64
 
   build-win64:
     executor:
