@@ -173,7 +173,7 @@ jobs:
 
       - restore_cache:
           # NOTE: change when upgrading tor
-          key: build-tor-windows-download-libevent-2.1.12-stable-{{ .Environment.CACHE_VERSION }}
+          key: build-tor-windows-download-tor-0.4.7.7-{{ .Environment.CACHE_VERSION }}
       - run:
           name: Download tor
           command: |
@@ -195,7 +195,7 @@ jobs:
             git checkout $TOR_TAG
       - save_cache:
           # NOTE: change when upgrading tor
-          key: build-tor-windows-download-libevent-2.1.12-stable-{{ .Environment.CACHE_VERSION }}
+          key: build-tor-windows-download-tor-0.4.7.7-{{ .Environment.CACHE_VERSION }}
           paths:
             - /home/circleci/build/dist/tor
 
