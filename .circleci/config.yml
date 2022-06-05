@@ -107,15 +107,8 @@ jobs:
       - run:
           name: Create folders
           command: |
-            mkdir ~/build
-            mkdir ~/build/src
-            mkdir ~/build/dist
-            mkdir ~/build/prefix-openssl-x32
-            mkdir ~/build/prefix-openssl-x64
-            mkdir ~/build/prefix-libevent-x32
-            mkdir ~/build/prefix-libevent-x64
-            mkdir ~/build/prefix-tor-x32
-            mkdir ~/build/prefix-tor-x64
+            mkdir -p /build
+            mkdir -p /build/{src,dist,prefix-openssl-x32,prefix-openssl-x64,prefix-libevent-x32,prefix-libevent-x64,prefix-tor-x32,prefix-tor-x64}
 
       - restore_cache:
           # NOTE: change when upgrading openssl
@@ -123,12 +116,12 @@ jobs:
       - run:
           name: Download openssl
           command: |
-            if [[ -f "/home/circleci/build/dist/openssl-$OPENSSL_VERSION.tar.gz" ]]; then
+            if [[ -f "/build/dist/openssl-$OPENSSL_VERSION.tar.gz" ]]; then
               echo "openssl already downloaded, skipping"
               exit 0
             fi
 
-            cd ~/build/dist
+            cd /build/dist
 
             # download
             wget https://www.openssl.org/source/openssl-$OPENSSL_VERSION.tar.gz
@@ -141,7 +134,7 @@ jobs:
           # NOTE: change when upgrading openssl
           key: build-tor-windows-download-openssl-3.0.3-{{ .Environment.CACHE_VERSION }}
           paths:
-            - /home/circleci/build/dist/openssl-3.0.3.tar.gz
+            - /build/dist/openssl-3.0.3.tar.gz
 
       - restore_cache:
           # NOTE: change when upgrading libevent
@@ -149,14 +142,14 @@ jobs:
       - run:
           name: Download libevent
           command: |
-            if [[ -d "/home/circleci/build/dist/libevent" ]]; then
+            if [[ -d "/build/dist/libevent" ]]; then
               echo "livevent already downloaded, skipping"
               exit 0
             fi
 
             # git clone
             curl "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x9e3ac83a27974b84d1b3401db86086848ef8686d" | gpg --import
-            cd ~/build/dist
+            cd /build/dist
             git clone https://github.com/libevent/libevent.git
             cd libevent
             git tag -v $LIBEVENT_TAG
@@ -169,7 +162,7 @@ jobs:
           # NOTE: change when upgrading libevent
           key: build-tor-windows-download-libevent-2.1.12-stable-{{ .Environment.CACHE_VERSION }}
           paths:
-            - /home/circleci/build/dist/libevent
+            - /build/dist/libevent
 
       - restore_cache:
           # NOTE: change when upgrading tor
@@ -177,14 +170,14 @@ jobs:
       - run:
           name: Download tor
           command: |
-            if [[ -d "/home/circleci/build/dist/tor" ]]; then
+            if [[ -d "/build/dist/tor" ]]; then
               echo "tor already downloaded, skipping"
               exit 0
             fi
 
             # git clone
             curl https://keys.openpgp.org/vks/v1/by-fingerprint/B74417EDDF22AC9F9E90F49142E86A2A11F48D36 | gpg --import
-            cd ~/build/dist
+            cd /build/dist
             git clone https://git.torproject.org/tor.git
             cd tor
             git tag -v $TOR_TAG
@@ -197,7 +190,7 @@ jobs:
           # NOTE: change when upgrading tor
           key: build-tor-windows-download-tor-0.4.7.7-{{ .Environment.CACHE_VERSION }}
           paths:
-            - /home/circleci/build/dist/tor
+            - /build/dist/tor
 
       - restore_cache:
           # NOTE: change when upgrading openssl
@@ -205,27 +198,27 @@ jobs:
       - run:
           name: Build openssl (32-bit)
           command: |
-            if [[ -f "/home/circleci/build/prefix-openssl-x32/bin/openssl.exe" ]]; then
+            if [[ -f "/build/prefix-openssl-x32/bin/openssl.exe" ]]; then
               echo "openssl (32-bit) already compiled, skipping"
               exit 0
             fi
 
             # extract
-            tar zxfv ~/build/dist/openssl-$OPENSSL_VERSION.tar.gz -C ~/build/src/
-            mv ~/build/src/openssl-$OPENSSL_VERSION ~/build/src/openssl-x32
+            tar zxfv /build/dist/openssl-$OPENSSL_VERSION.tar.gz -C /build/src/
+            mv /build/src/openssl-$OPENSSL_VERSION /build/src/openssl-x32
 
             # build 32-bit
             export MINGW=mingw
             export HOST=i686-w64-mingw32
-            cd ~/build/src/openssl-x32
-            ./Configure $MINGW shared --cross-compile-prefix=$HOST- --prefix=/home/circleci/build/prefix-openssl-x32
+            cd /build/src/openssl-x32
+            ./Configure $MINGW shared --cross-compile-prefix=$HOST- --prefix=/build/prefix-openssl-x32
             make -j$(nproc)
             make install
       - save_cache:
           # NOTE: change when upgrading openssl
           key: build-tor-windows-openssl-x32-3.0.3-{{ .Environment.CACHE_VERSION }}
           paths:
-            - /home/circleci/build/prefix-openssl-x32
+            - /build/prefix-openssl-x32
 
       - restore_cache:
           # NOTE: change when upgrading openssl
@@ -233,27 +226,27 @@ jobs:
       - run:
           name: Build openssl (64-bit)
           command: |
-            if [[ -f "/home/circleci/build/prefix-openssl-x64/bin/openssl.exe" ]]; then
+            if [[ -f "/build/prefix-openssl-x64/bin/openssl.exe" ]]; then
               echo "openssl (64-bit) already compiled, skipping"
               exit 0
             fi
 
             # extract
-            tar zxfv ~/build/dist/openssl-$OPENSSL_VERSION.tar.gz -C ~/build/src/
-            mv ~/build/src/openssl-$OPENSSL_VERSION ~/build/src/openssl-x64
+            tar zxfv /build/dist/openssl-$OPENSSL_VERSION.tar.gz -C /build/src/
+            mv /build/src/openssl-$OPENSSL_VERSION /build/src/openssl-x64
 
             # build 64-bit
             export MINGW=mingw64
             export HOST=x86_64-w64-mingw32
-            cd ~/build/src/openssl-x64
-            ./Configure $MINGW shared --cross-compile-prefix=$HOST- --prefix=/home/circleci/build/prefix-openssl-x64
+            cd /build/src/openssl-x64
+            ./Configure $MINGW shared --cross-compile-prefix=$HOST- --prefix=/build/prefix-openssl-x64
             make -j$(nproc)
             make install
       - save_cache:
           # NOTE: change when upgrading openssl
           key: build-tor-windows-openssl-x64-3.0.3-{{ .Environment.CACHE_VERSION }}
           paths:
-            - /home/circleci/build/prefix-openssl-x64
+            - /build/prefix-openssl-x64
 
       - restore_cache:
           # NOTE: change when upgrading libevent
@@ -261,26 +254,26 @@ jobs:
       - run:
           name: Build libevent (32-bit)
           command: |
-            if [[ -d "/home/circleci/build/prefix-libevent-x32/lib" ]]; then
+            if [[ -d "/build/prefix-libevent-x32/lib" ]]; then
               echo "libevent (32-bit) already compiled, skipping"
               exit 0
             fi
 
-            cp -r ~/build/dist/libevent ~/build/src/libevent-x32
+            cp -r /build/dist/libevent /build/src/libevent-x32
 
             # build 32-bit
             export MINGW=mingw
             export HOST=i686-w64-mingw32
-            cd ~/build/src/libevent-x32
+            cd /build/src/libevent-x32
             ./autogen.sh
-            ./configure --host=$HOST --prefix=/home/circleci/build/prefix-libevent-x32 --disable-openssl
+            ./configure --host=$HOST --prefix=/build/prefix-libevent-x32 --disable-openssl
             make -j$(nproc)
             make install
       - save_cache:
           # NOTE: change when upgrading libevent
           key: build-tor-windows-libevent-x32-2.1.12-stable-{{ .Environment.CACHE_VERSION }}
           paths:
-            - /home/circleci/build/prefix-libevent-x32
+            - /build/prefix-libevent-x32
 
       - restore_cache:
           # NOTE: change when upgrading libevent
@@ -288,26 +281,26 @@ jobs:
       - run:
           name: Build libevent (64-bit)
           command: |
-            if [[ -d "/home/circleci/build/prefix-libevent-x64/lib" ]]; then
+            if [[ -d "/build/prefix-libevent-x64/lib" ]]; then
               echo "libevent (64-bit) already compiled, skipping"
               exit 0
             fi
 
-            cp -r ~/build/dist/libevent ~/build/src/libevent-x64
+            cp -r /build/dist/libevent /build/src/libevent-x64
 
             # build 64-bit
             export MINGW=mingw64
             export HOST=x86_64-w64-mingw32
-            cd ~/build/src/libevent-x64
+            cd /build/src/libevent-x64
             ./autogen.sh
-            ./configure --host=$HOST --prefix=/home/circleci/build/prefix-libevent-x64 --disable-openssl
+            ./configure --host=$HOST --prefix=/build/prefix-libevent-x64 --disable-openssl
             make -j$(nproc)
             make install
       - save_cache:
           # NOTE: change when upgrading libevent
           key: build-tor-windows-libevent-x64-2.1.12-stable-{{ .Environment.CACHE_VERSION }}
           paths:
-            - /home/circleci/build/prefix-libevent-x64
+            - /build/prefix-libevent-x64
 
       - restore_cache:
           # NOTE: change when upgrading tor
@@ -315,36 +308,36 @@ jobs:
       - run:
           name: Build tor (32-bit)
           command: |
-            if [[ -f "/home/circleci/build/prefix-tor-x32/bin/tor.exe" ]]; then
+            if [[ -f "/build/prefix-tor-x32/bin/tor.exe" ]]; then
               echo "tor (32-bit) already compiled, skipping"
               exit 0
             fi
 
-            cp -r ~/build/dist/tor ~/build/src/tor-x32
+            cp -r /build/dist/tor /build/src/tor-x32
 
             # build 32-bit
             export MINGW=mingw
             export HOST=i686-w64-mingw32
-            cd ~/build/src/tor-x32
+            cd /build/src/tor-x32
             ./autogen.sh
             ./configure --host=$HOST \
               --disable-asciidoc \
               --disable-zstd \
               --disable-lzma \
               --enable-static-libevent \
-              --with-libevent-dir=/home/circleci/build/prefix-libevent-x32 \
+              --with-libevent-dir=/build/prefix-libevent-x32 \
               --enable-static-openssl \
-              --with-openssl-dir=/home/circleci/build/prefix-openssl-x32 \
+              --with-openssl-dir=/build/prefix-openssl-x32 \
               --disable-tool-name-check \
               --enable-fatal-warnings \
-              --prefix=/home/circleci/build/prefix-tor-x32 && \
+              --prefix=/build/prefix-tor-x32 && \
             make -j$(nproc) && \
             make install
       - save_cache:
           # NOTE: change when upgrading tor
           key: build-tor-windows-tor-x32-0.4.7.7-{{ .Environment.CACHE_VERSION }}
           paths:
-            - /home/circleci/build/prefix-tor-x32
+            - /build/prefix-tor-x32
 
       - restore_cache:
           # NOTE: change when upgrading tor
@@ -352,39 +345,39 @@ jobs:
       - run:
           name: Build tor (64-bit)
           command: |
-            if [[ -f "/home/circleci/build/prefix-tor-x64/bin/tor.exe" ]]; then
+            if [[ -f "/build/prefix-tor-x64/bin/tor.exe" ]]; then
               echo "tor (64-bit) already compiled, skipping"
               exit 0
             fi
 
-            cp -r ~/build/dist/tor ~/build/src/tor-x64
+            cp -r /build/dist/tor /build/src/tor-x64
 
             # build 64-bit
             export MINGW=mingw64
             export HOST=x86_64-w64-mingw32
             ./autogen.sh
-            cd ~/build/src/tor-x64
+            cd /build/src/tor-x64
             ./configure --host=$HOST \
               --disable-asciidoc \
               --disable-zstd \
               --disable-lzma \
               --enable-static-libevent \
-              --with-libevent-dir=/home/circleci/build/prefix-libevent-x64 \
+              --with-libevent-dir=/build/prefix-libevent-x64 \
               --enable-static-openssl \
-              --with-openssl-dir=/home/circleci/build/prefix-openssl-x64 \
+              --with-openssl-dir=/build/prefix-openssl-x64 \
               --disable-tool-name-check \
               --enable-fatal-warnings \
-              --prefix=/home/circleci/build/prefix-tor-x64 && \
+              --prefix=/build/prefix-tor-x64 && \
             make -j$(nproc) && \
             make install
       - save_cache:
           # NOTE: change when upgrading tor
           key: build-tor-windows-tor-x64-0.4.7.7-{{ .Environment.CACHE_VERSION }}
           paths:
-            - /home/circleci/build/prefix-tor-x64
+            - /build/prefix-tor-x64
 
       - persist_to_workspace:
-          root: ~/build/prefix
+          root: /build/prefix
           paths:
             - prefix-tor-x32
             - prefix-tor-x64
@@ -395,14 +388,14 @@ jobs:
       - run:
           name: Build tor
           command: |
-            if [[ -f "/home/circleci/build/prefix-tor-x32/bin/tor.exe" ]]; then
+            if [[ -f "/build/prefix-tor-x32/bin/tor.exe" ]]; then
               echo "tor already compiled, skipping"
               exit 0
             fi
 
             # git clone
             curl https://keys.openpgp.org/vks/v1/by-fingerprint/B74417EDDF22AC9F9E90F49142E86A2A11F48D36 | gpg --import
-            cd ~/build/src
+            cd /build/src
             git clone https://git.torproject.org/tor.git
             cd tor
             git tag -v $TOR_TAG
@@ -412,26 +405,26 @@ jobs:
             fi
             git checkout $TOR_TAG
 
-            cd ~/build
-            mv ~/build/src/tor ~/build/src/tor-x32
-            cp -r ~/build/src/tor-x32 ~/build/src/tor-x64
+            cd /build
+            mv /build/src/tor /build/src/tor-x32
+            cp -r /build/src/tor-x32 /build/src/tor-x64
 
             # build 32-bit
             export MINGW=mingw
             export HOST=i686-w64-mingw32
-            cd ~/build/src/tor-x32
+            cd /build/src/tor-x32
             ./autogen.sh
             ./configure --host=$HOST \
               --disable-asciidoc \
               --disable-zstd \
               --disable-lzma \
               --enable-static-libevent \
-              --with-libevent-dir=/home/circleci/build/prefix-libevent-x32 \
+              --with-libevent-dir=/build/prefix-libevent-x32 \
               --enable-static-openssl \
-              --with-openssl-dir=/home/circleci/build/prefix-openssl-x32 \
+              --with-openssl-dir=/build/prefix-openssl-x32 \
               --disable-tool-name-check \
               --enable-fatal-warnings \
-              --prefix=/home/circleci/build/prefix-tor-x32
+              --prefix=/build/prefix-tor-x32
             make -j$(nproc)
             make install
 
@@ -439,32 +432,32 @@ jobs:
             export MINGW=mingw64
             export HOST=x86_64-w64-mingw32
             ./autogen.sh
-            cd ~/build/src/tor-x64
+            cd /build/src/tor-x64
             ./configure --host=$HOST \
               --disable-asciidoc \
               --disable-zstd \
               --disable-lzma \
               --enable-static-libevent \
-              --with-libevent-dir=/home/circleci/build/prefix-libevent-x64 \
+              --with-libevent-dir=/build/prefix-libevent-x64 \
               --enable-static-openssl \
-              --with-openssl-dir=/home/circleci/build/prefix-openssl-x64 \
+              --with-openssl-dir=/build/prefix-openssl-x64 \
               --disable-tool-name-check \
               --enable-fatal-warnings \
-              --prefix=/home/circleci/build/prefix-tor-x64
+              --prefix=/build/prefix-tor-x64
             make -j$(nproc)
             make install
       - save_cache:
           # NOTE: change when upgrading tor
           key: build-tor-windows-tor-0.4.7.7-{{ .Environment.CACHE_VERSION }}
           paths:
-            - /home/circleci/build/prefix-tor-x32
-            - /home/circleci/build/prefix-tor-x64
+            - /build/prefix-tor-x32
+            - /build/prefix-tor-x64
 
       - persist_to_workspace:
-          root: ~/build/prefix
+          root: /
           paths:
-            - prefix-tor-x32
-            - prefix-tor-x64
+            - /root/build/prefix-tor-x32
+            - /root/build/prefix-tor-x64
 
   build-win64:
     executor:
