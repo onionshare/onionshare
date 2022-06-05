@@ -245,7 +245,7 @@ jobs:
             # build 64-bit
             export MINGW=mingw64
             export HOST=x86_64-w64-mingw32
-            cd ~/build/src/openssl-$OPENSSL_VERSION-x64
+            cd ~/build/src/openssl-x64
             ./Configure $MINGW shared --cross-compile-prefix=$HOST- --prefix=/home/circleci/build/prefix-openssl-x64
             make -j$(nproc)
             make install
