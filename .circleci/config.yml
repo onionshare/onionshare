@@ -259,7 +259,7 @@ jobs:
           name: Get tor binaries from Tor Browser (32-bit)
           command: |
             cd desktop
-            C:\Python-32bit\Scripts\poetry run python run .\scripts\get-tor.py
+            C:\Python-32bit\Scripts\poetry run python .\scripts\get-tor.py
       - save_cache:
           key: get-tor-{{ checksum "desktop/scripts/get-tor.py" }}-{{ .Environment.CACHE_VERSION }}
           paths:
