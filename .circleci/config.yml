@@ -8,18 +8,15 @@ workflows:
   ci:
     jobs:
       - test-cli
-      #  - test-gui
-      - build-tor-windows:
+      - test-gui
+      - build-win64:
           requires:
             - test-cli
-      # - build-win64:
-      #     requires:
-      #       - test-cli
-      #       # - test-gui
-      # - build-win32:
-      #     requires:
-      #       - test-cli
-      #       # - test-gui
+            # - test-gui
+      - build-win32:
+          requires:
+            - test-cli
+            # - test-gui
       # - build-macos:
       #     requires:
       #       - test-cli
@@ -85,389 +82,11 @@ jobs:
             cd ~/project/desktop
             QT_DEBUG_PLUGINS=1 xvfb-run poetry run pytest -v ./tests/test_gui_*.py
 
-  # Based off of https://github.com/ahf/tor-win32
-  build-tor-windows:
-    docker:
-      - image: debian:bullseye
-    resource_class: medium+
-    environment:
-      # NOTE: change when upgrading openssl
-      OPENSSL_VERSION: "3.0.3"
-      # NOTE: change when upgrading libevent
-      LIBEVENT_TAG: release-2.1.12-stable
-      # NOTE: change when upgrading tor
-      TOR_TAG: tor-0.4.7.7
-    steps:
-      - run:
-          name: Install build dependencies
-          command: |
-            apt-get update
-            apt-get install -y git wget curl build-essential autoconf automake libtool gcc-mingw-w64-i686 gcc-mingw-w64-x86-64 libz-mingw-w64-dev
-
-      - run:
-          name: Create folders
-          command: |
-            mkdir -p /build
-            mkdir -p /build/{src,dist,prefix-openssl-x32,prefix-openssl-x64,prefix-libevent-x32,prefix-libevent-x64,prefix-tor-x32,prefix-tor-x64}
-
-      - restore_cache:
-          # NOTE: change when upgrading openssl
-          key: build-tor-windows-download-openssl-3.0.3-{{ .Environment.CACHE_VERSION }}
-      - run:
-          name: Download openssl
-          command: |
-            if [[ -f "/build/dist/openssl-$OPENSSL_VERSION.tar.gz" ]]; then
-              echo "openssl already downloaded, skipping"
-              exit 0
-            fi
-
-            cd /build/dist
-
-            # download
-            wget https://www.openssl.org/source/openssl-$OPENSSL_VERSION.tar.gz
-            echo "ee0078adcef1de5f003c62c80cc96527721609c6f3bb42b7795df31f8b558c0b openssl-$OPENSSL_VERSION.tar.gz" | sha256sum --check --status
-            if [ $? -ne 0 ]; then
-              echo "openssl checksum failed"
-              exit -1
-            fi
-      - save_cache:
-          # NOTE: change when upgrading openssl
-          key: build-tor-windows-download-openssl-3.0.3-{{ .Environment.CACHE_VERSION }}
-          paths:
-            - /build/dist/openssl-3.0.3.tar.gz
-
-      - restore_cache:
-          # NOTE: change when upgrading libevent
-          key: build-tor-windows-download-libevent-2.1.12-stable-{{ .Environment.CACHE_VERSION }}
-      - run:
-          name: Download libevent
-          command: |
-            if [[ -d "/build/dist/libevent" ]]; then
-              echo "livevent already downloaded, skipping"
-              exit 0
-            fi
-
-            # git clone
-            curl "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x9e3ac83a27974b84d1b3401db86086848ef8686d" | gpg --import
-            cd /build/dist
-            git clone https://github.com/libevent/libevent.git
-            cd libevent
-            git tag -v $LIBEVENT_TAG
-            if [ $? -ne 0 ]; then
-              echo "libevent tag doesn't verify"
-              exit -1
-            fi
-            git checkout $LIBEVENT_TAG
-      - save_cache:
-          # NOTE: change when upgrading libevent
-          key: build-tor-windows-download-libevent-2.1.12-stable-{{ .Environment.CACHE_VERSION }}
-          paths:
-            - /build/dist/libevent
-
-      - restore_cache:
-          # NOTE: change when upgrading tor
-          key: build-tor-windows-download-tor-0.4.7.7-{{ .Environment.CACHE_VERSION }}
-      - run:
-          name: Download tor
-          command: |
-            if [[ -d "/build/dist/tor" ]]; then
-              echo "tor already downloaded, skipping"
-              exit 0
-            fi
-
-            # git clone
-            curl https://keys.openpgp.org/vks/v1/by-fingerprint/B74417EDDF22AC9F9E90F49142E86A2A11F48D36 | gpg --import
-            cd /build/dist
-            git clone https://git.torproject.org/tor.git
-            cd tor
-            git tag -v $TOR_TAG
-            if [ $? -ne 0 ]; then
-              echo "tor tag doesn't verify"
-              exit -1
-            fi
-            git checkout $TOR_TAG
-      - save_cache:
-          # NOTE: change when upgrading tor
-          key: build-tor-windows-download-tor-0.4.7.7-{{ .Environment.CACHE_VERSION }}
-          paths:
-            - /build/dist/tor
-
-      - restore_cache:
-          # NOTE: change when upgrading openssl
-          key: build-tor-windows-openssl-x32-3.0.3-{{ .Environment.CACHE_VERSION }}
-      - run:
-          name: Build openssl (32-bit)
-          command: |
-            if [[ -f "/build/prefix-openssl-x32/bin/openssl.exe" ]]; then
-              echo "openssl (32-bit) already compiled, skipping"
-              exit 0
-            fi
-
-            # extract
-            tar zxfv /build/dist/openssl-$OPENSSL_VERSION.tar.gz -C /build/src/
-            mv /build/src/openssl-$OPENSSL_VERSION /build/src/openssl-x32
-
-            # build 32-bit
-            export MINGW=mingw
-            export HOST=i686-w64-mingw32
-            cd /build/src/openssl-x32
-            ./Configure $MINGW shared --cross-compile-prefix=$HOST- --prefix=/build/prefix-openssl-x32
-            make -j$(nproc)
-            make install
-      - save_cache:
-          # NOTE: change when upgrading openssl
-          key: build-tor-windows-openssl-x32-3.0.3-{{ .Environment.CACHE_VERSION }}
-          paths:
-            - /build/prefix-openssl-x32
-
-      - restore_cache:
-          # NOTE: change when upgrading openssl
-          key: build-tor-windows-openssl-x64-3.0.3-{{ .Environment.CACHE_VERSION }}
-      - run:
-          name: Build openssl (64-bit)
-          command: |
-            if [[ -f "/build/prefix-openssl-x64/bin/openssl.exe" ]]; then
-              echo "openssl (64-bit) already compiled, skipping"
-              exit 0
-            fi
-
-            # extract
-            tar zxfv /build/dist/openssl-$OPENSSL_VERSION.tar.gz -C /build/src/
-            mv /build/src/openssl-$OPENSSL_VERSION /build/src/openssl-x64
-
-            # build 64-bit
-            export MINGW=mingw64
-            export HOST=x86_64-w64-mingw32
-            cd /build/src/openssl-x64
-            ./Configure $MINGW shared --cross-compile-prefix=$HOST- --prefix=/build/prefix-openssl-x64
-            make -j$(nproc)
-            make install
-      - save_cache:
-          # NOTE: change when upgrading openssl
-          key: build-tor-windows-openssl-x64-3.0.3-{{ .Environment.CACHE_VERSION }}
-          paths:
-            - /build/prefix-openssl-x64
-
-      - restore_cache:
-          # NOTE: change when upgrading libevent
-          key: build-tor-windows-libevent-x32-2.1.12-stable-{{ .Environment.CACHE_VERSION }}
-      - run:
-          name: Build libevent (32-bit)
-          command: |
-            if [[ -d "/build/prefix-libevent-x32/lib" ]]; then
-              echo "libevent (32-bit) already compiled, skipping"
-              exit 0
-            fi
-
-            cp -r /build/dist/libevent /build/src/libevent-x32
-
-            # build 32-bit
-            export MINGW=mingw
-            export HOST=i686-w64-mingw32
-            cd /build/src/libevent-x32
-            ./autogen.sh
-            ./configure --host=$HOST --prefix=/build/prefix-libevent-x32 --disable-openssl
-            make -j$(nproc)
-            make install
-      - save_cache:
-          # NOTE: change when upgrading libevent
-          key: build-tor-windows-libevent-x32-2.1.12-stable-{{ .Environment.CACHE_VERSION }}
-          paths:
-            - /build/prefix-libevent-x32
-
-      - restore_cache:
-          # NOTE: change when upgrading libevent
-          key: build-tor-windows-libevent-x64-2.1.12-stable-{{ .Environment.CACHE_VERSION }}
-      - run:
-          name: Build libevent (64-bit)
-          command: |
-            if [[ -d "/build/prefix-libevent-x64/lib" ]]; then
-              echo "libevent (64-bit) already compiled, skipping"
-              exit 0
-            fi
-
-            cp -r /build/dist/libevent /build/src/libevent-x64
-
-            # build 64-bit
-            export MINGW=mingw64
-            export HOST=x86_64-w64-mingw32
-            cd /build/src/libevent-x64
-            ./autogen.sh
-            ./configure --host=$HOST --prefix=/build/prefix-libevent-x64 --disable-openssl
-            make -j$(nproc)
-            make install
-      - save_cache:
-          # NOTE: change when upgrading libevent
-          key: build-tor-windows-libevent-x64-2.1.12-stable-{{ .Environment.CACHE_VERSION }}
-          paths:
-            - /build/prefix-libevent-x64
-
-      - restore_cache:
-          # NOTE: change when upgrading tor
-          key: build-tor-windows-tor-x32-0.4.7.7-{{ .Environment.CACHE_VERSION }}
-      - run:
-          name: Build tor (32-bit)
-          command: |
-            if [[ -f "/build/prefix-tor-x32/bin/tor.exe" ]]; then
-              echo "tor (32-bit) already compiled, skipping"
-              exit 0
-            fi
-
-            cp -r /build/dist/tor /build/src/tor-x32
-
-            # build 32-bit
-            export MINGW=mingw
-            export HOST=i686-w64-mingw32
-            cd /build/src/tor-x32
-            ./autogen.sh
-            ./configure --host=$HOST \
-              --disable-asciidoc \
-              --disable-zstd \
-              --disable-lzma \
-              --enable-static-libevent \
-              --with-libevent-dir=/build/prefix-libevent-x32 \
-              --enable-static-openssl \
-              --with-openssl-dir=/build/prefix-openssl-x32 \
-              --disable-tool-name-check \
-              --enable-fatal-warnings \
-              --prefix=/build/prefix-tor-x32 && \
-            make -j$(nproc) && \
-            make install
-      - save_cache:
-          # NOTE: change when upgrading tor
-          key: build-tor-windows-tor-x32-0.4.7.7-{{ .Environment.CACHE_VERSION }}
-          paths:
-            - /build/prefix-tor-x32
-
-      - restore_cache:
-          # NOTE: change when upgrading tor
-          key: build-tor-windows-tor-x64-0.4.7.7-{{ .Environment.CACHE_VERSION }}
-      - run:
-          name: Build tor (64-bit)
-          command: |
-            if [[ -f "/build/prefix-tor-x64/bin/tor.exe" ]]; then
-              echo "tor (64-bit) already compiled, skipping"
-              exit 0
-            fi
-
-            cp -r /build/dist/tor /build/src/tor-x64
-
-            # build 64-bit
-            export MINGW=mingw64
-            export HOST=x86_64-w64-mingw32
-            ./autogen.sh
-            cd /build/src/tor-x64
-            ./configure --host=$HOST \
-              --disable-asciidoc \
-              --disable-zstd \
-              --disable-lzma \
-              --enable-static-libevent \
-              --with-libevent-dir=/build/prefix-libevent-x64 \
-              --enable-static-openssl \
-              --with-openssl-dir=/build/prefix-openssl-x64 \
-              --disable-tool-name-check \
-              --enable-fatal-warnings \
-              --prefix=/build/prefix-tor-x64 && \
-            make -j$(nproc) && \
-            make install
-      - save_cache:
-          # NOTE: change when upgrading tor
-          key: build-tor-windows-tor-x64-0.4.7.7-{{ .Environment.CACHE_VERSION }}
-          paths:
-            - /build/prefix-tor-x64
-
-      - persist_to_workspace:
-          root: /build/prefix
-          paths:
-            - prefix-tor-x32
-            - prefix-tor-x64
-
-      - restore_cache:
-          # NOTE: change when upgrading tor
-          key: build-tor-windows-tor-0.4.7.7-{{ .Environment.CACHE_VERSION }}
-      - run:
-          name: Build tor
-          command: |
-            if [[ -f "/build/prefix-tor-x32/bin/tor.exe" ]]; then
-              echo "tor already compiled, skipping"
-              exit 0
-            fi
-
-            # git clone
-            curl https://keys.openpgp.org/vks/v1/by-fingerprint/B74417EDDF22AC9F9E90F49142E86A2A11F48D36 | gpg --import
-            cd /build/src
-            git clone https://git.torproject.org/tor.git
-            cd tor
-            git tag -v $TOR_TAG
-            if [ $? -ne 0 ]; then
-              echo "tor tag doesn't verify"
-              exit -1
-            fi
-            git checkout $TOR_TAG
-
-            cd /build
-            mv /build/src/tor /build/src/tor-x32
-            cp -r /build/src/tor-x32 /build/src/tor-x64
-
-            # build 32-bit
-            export MINGW=mingw
-            export HOST=i686-w64-mingw32
-            cd /build/src/tor-x32
-            ./autogen.sh
-            ./configure --host=$HOST \
-              --disable-asciidoc \
-              --disable-zstd \
-              --disable-lzma \
-              --enable-static-libevent \
-              --with-libevent-dir=/build/prefix-libevent-x32 \
-              --enable-static-openssl \
-              --with-openssl-dir=/build/prefix-openssl-x32 \
-              --disable-tool-name-check \
-              --enable-fatal-warnings \
-              --prefix=/build/prefix-tor-x32
-            make -j$(nproc)
-            make install
-
-            # build 64-bit
-            export MINGW=mingw64
-            export HOST=x86_64-w64-mingw32
-            ./autogen.sh
-            cd /build/src/tor-x64
-            ./configure --host=$HOST \
-              --disable-asciidoc \
-              --disable-zstd \
-              --disable-lzma \
-              --enable-static-libevent \
-              --with-libevent-dir=/build/prefix-libevent-x64 \
-              --enable-static-openssl \
-              --with-openssl-dir=/build/prefix-openssl-x64 \
-              --disable-tool-name-check \
-              --enable-fatal-warnings \
-              --prefix=/build/prefix-tor-x64
-            make -j$(nproc)
-            make install
-      - save_cache:
-          # NOTE: change when upgrading tor
-          key: build-tor-windows-tor-0.4.7.7-{{ .Environment.CACHE_VERSION }}
-          paths:
-            - /build/prefix-tor-x32
-            - /build/prefix-tor-x64
-
-      - persist_to_workspace:
-          root: /build
-          paths:
-            - prefix-tor-x32
-            - prefix-tor-x64
-
   build-win64:
     executor:
       name: win/default
       shell: powershell.exe
     environment:
-      # NOTE: change when upgrading libevent
-      LIBEVENT_TAG: release-2.1.12-stable
-      # NOTE: change when upgrading tor
-      TOR_TAG: tor-0.4.7.7
       # NOTE: change when upgrading obfs4proxy
       OBFS4PROXY_TAG: obfs4proxy-0.0.13
       # NOTE: change when upgrading snowflake
@@ -477,115 +96,7 @@ jobs:
     steps:
       - checkout
 
-      - run:
-          name: Install cygwin and required packages
-          shell: bash.exe --login -eo pipefail
-          command: |
-            curl -o setup-x86_64.exe https://cygwin.com/setup-x86_64.exe
-            curl -o setup-x86_64.exe.sig https://cygwin.com/setup-x86_64.exe.sig
-            curl -o pubring.asc https://cygwin.com/key/pubring.asc
-
-            gpg --import pubring.asc
-            gpg --verify setup-x86_64.exe.sig setup-x86_64.exe
-            if [ $? -ne 0 ]; then
-              echo "cygwin signature doesn't verify"
-              exit -1
-            fi
-
-            ./setup-x86_64.exe -q -s https://mirrors.kernel.org/sourceware/cygwin/ \
-              -P libssl-devel,zlib-devel,git,gcc-core,make,autoconf,automake,libtool,gnupg
-
-      - restore_cache:
-          # NOTE: change when upgrading libevent
-          key: build-win64-libevent-2.1.12-stable-{{ .Environment.CACHE_VERSION }}
-      - run:
-          name: Build libevent
-          shell: C:\\cygwin64\\bin\\bash.exe --login -eo pipefail
-          command: |
-            if [[ -d "/cygdrive/c/Users/circleci/build/libevent" ]]; then
-              echo "libevent already compiled, skipping"
-              exit 0
-            fi
-
-            mkdir -p /cygdrive/c/Users/circleci/src
-            mkdir -p /cygdrive/c/Users/circleci/build
-
-            # Get source
-            curl "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x9e3ac83a27974b84d1b3401db86086848ef8686d" | gpg --import
-            cd /cygdrive/c/Users/circleci/src
-            git clone https://github.com/libevent/libevent.git
-            cd libevent
-            git tag -v $LIBEVENT_TAG
-            if [ $? -ne 0 ]; then
-              echo "libevent tag doesn't verify"
-              exit -1
-            fi
-            git checkout $LIBEVENT_TAG
-
-            # Build
-            ./autogen.sh
-            ./configure \
-              --prefix=/cygdrive/c/Users/circleci/build/libevent \
-              --with-pic
-            make -j$(nproc)
-            make install
-      - save_cache:
-          # NOTE: change when upgrading libevent
-          key: build-win64-libevent-2.1.12-stable-{{ .Environment.CACHE_VERSION }}
-          paths:
-            - C:\Users\circleci\build\libevent
-
-      - restore_cache:
-          # NOTE: change when upgrading tor
-          key: build-win64-tor-0.4.7.7-{{ .Environment.CACHE_VERSION }}
-      - run:
-          name: Build tor
-          shell: C:\\cygwin64\\bin\\bash.exe --login -eo pipefail
-          command: |
-            if [[ -d "/cygdrive/c/Users/circleci/build/tor" ]]; then
-              echo "tor already compiled, skipping"
-              exit 0
-            fi
-
-            mkdir -p /cygdrive/c/Users/circleci/src
-            mkdir -p /cygdrive/c/Users/circleci/build
-
-            # Get source
-            curl https://keys.openpgp.org/vks/v1/by-fingerprint/B74417EDDF22AC9F9E90F49142E86A2A11F48D36 | gpg --import
-            cd /cygdrive/c/Users/circleci/src
-            git clone https://git.torproject.org/tor.git
-            cd tor
-            git tag -v $TOR_TAG
-            if [ $? -ne 0 ]; then
-              echo "tor tag doesn't verify"
-              exit -1
-            fi
-            git checkout $TOR_TAG
-
-            # Build
-            ./autogen.sh
-            ./configure \
-              --prefix=/cygdrive/c/Users/circleci/build/tor \
-              --disable-asciidoc \
-              --enable-static-libevent \
-              --with-libevent-dir=/cygdrive/c/Users/circleci/build/libevent
-            make -j$(nproc)
-            make install
-      - save_cache:
-          # NOTE: change when upgrading tor
-          key: build-win64-tor-0.4.7.7-{{ .Environment.CACHE_VERSION }}
-          paths:
-            - C:\Users\circleci\build\tor
-
-      - run:
-          name: Copy tor binaries into project
-          command: |
-            New-Item -ItemType Directory -Force -Path C:\Users\circleci\project\desktop\onionshare\resources\tor
-            Copy-Item -Path C:\Users\circleci\build\tor\bin\tor.exe -Destination C:\Users\circleci\project\desktop\onionshare\resources\tor
-            Copy-Item -Path C:\Users\circleci\build\tor\share\tor\geoip -Destination C:\Users\circleci\project\desktop\onionshare\resources\tor
-            Copy-Item -Path C:\Users\circleci\build\tor\share\tor\geoip6 -Destination C:\Users\circleci\project\desktop\onionshare\resources\tor
-
-      - restore_cache:
+            - restore_cache:
           # NOTE: change when upgrading obfs4proxy
           key: build-win64-obfs4proxy-v0.0.13-{{ .Environment.CACHE_VERSION }}
       - run:
@@ -679,6 +190,18 @@ jobs:
           paths:
             - C:\Users\circleci\AppData\Local\pypoetry\Cache\virtualenvs
 
+      - restore_cache:
+          key: get-tor-{{ checksum "desktop/scripts/get-tor.py" }}-{{ .Environment.CACHE_VERSION }}
+      - run:
+          name: Get tor binaries from Tor Browser (32-bit)
+          command: |
+            cd desktop
+            poetry run .\scripts\get-tor.py
+      - save_cache:
+          key: get-tor-{{ checksum "desktop/scripts/get-tor.py" }}-{{ .Environment.CACHE_VERSION }}
+          paths:
+            - C:\Users\circleci\project\desktop\onionshare\resources\tor\obfs4proxy.exe
+
       - run:
           name: Build OnionShare
           command: |
@@ -700,8 +223,6 @@ jobs:
       name: win/default
       shell: powershell.exe
     environment:
-      # NOTE: change when upgrading tor
-      TOR_TAG: tor-0.4.7.7
       # NOTE: change when upgrading obfs4proxy
       OBFS4PROXY_TAG: obfs4proxy-0.0.13
       # NOTE: change when upgrading snowflake
@@ -710,73 +231,6 @@ jobs:
       MEEK_TAG: v0.37.0
     steps:
       - checkout
-
-      - run:
-          name: Install cygwin (32-bit) and required packages
-          shell: bash.exe --login -eo pipefail
-          command: |
-            curl -o setup-x86.exe https://cygwin.com/setup-x86.exe
-            curl -o setup-x86.exe.sig https://cygwin.com/setup-x86.exe.sig
-            curl -o pubring.asc https://cygwin.com/key/pubring.asc
-
-            gpg --import pubring.asc
-            gpg --verify setup-x86.exe.sig setup-x86.exe
-            if [ $? -ne 0 ]; then
-              echo "cygwin signature doesn't verify"
-              exit -1
-            fi
-
-            ./setup-x86.exe -q -s https://mirrors.kernel.org/sourceware/cygwin/ \
-              -P libssl-devel,libevent-devel,zlib-devel,git,gcc-core,make,autoconf,automake,libtool,gnupg
-
-      - restore_cache:
-          # NOTE: change when upgrading tor
-          key: build-win32-tor-0.4.7.7-{{ .Environment.CACHE_VERSION }}
-      - run:
-          name: Build tor
-          shell: C:\\cygwin\\bin\\bash.exe --login -eo pipefail
-          command: |
-            if [[ -d "/cygdrive/c/Users/circleci/build/tor" ]]; then
-              echo "tor already compiled, skipping"
-              exit 0
-            fi
-
-            mkdir -p /cygdrive/c/Users/circleci/src
-            mkdir -p /cygdrive/c/Users/circleci/build
-
-            # Get source
-            curl https://keys.openpgp.org/vks/v1/by-fingerprint/B74417EDDF22AC9F9E90F49142E86A2A11F48D36 | gpg --import
-            cd /cygdrive/c/Users/circleci/src
-            git clone https://git.torproject.org/tor.git
-            cd tor
-            git tag -v $TOR_TAG
-            if [ $? -ne 0 ]; then
-              echo "tor tag doesn't verify"
-              exit -1
-            fi
-            git checkout $TOR_TAG
-
-            # Build
-            ./autogen.sh
-            ./configure \
-              --prefix=/opt/tor-build \
-              --disable-asciidoc
-            make -j$(nproc)
-            make install
-            cp -r /opt/tor-build /cygdrive/c/Users/circleci/build/tor
-      - save_cache:
-          # NOTE: change when upgrading tor
-          key: build-win32-tor-0.4.7.7-{{ .Environment.CACHE_VERSION }}
-          paths:
-            - C:\Users\circleci\build\tor
-
-      - run:
-          name: Copy tor binaries into project
-          command: |
-            New-Item -ItemType Directory -Force -Path C:\Users\circleci\project\desktop\onionshare\resources\tor
-            Copy-Item -Path C:\Users\circleci\build\tor\bin\tor.exe -Destination C:\Users\circleci\project\desktop\onionshare\resources\tor
-            Copy-Item -Path C:\Users\circleci\build\tor\share\tor\geoip -Destination C:\Users\circleci\project\desktop\onionshare\resources\tor
-            Copy-Item -Path C:\Users\circleci\build\tor\share\tor\geoip6 -Destination C:\Users\circleci\project\desktop\onionshare\resources\tor
 
       - run:
           name: Install golang (32-bit)
@@ -878,6 +332,18 @@ jobs:
           key: build-win32-desktop-poetry-deps-{{ checksum "~/project/desktop/poetry.lock" }}-{{ .Environment.CACHE_VERSION }}
           paths:
             - C:\Users\circleci\AppData\Local\pypoetry\Cache\virtualenvs
+
+      - restore_cache:
+          key: get-tor-{{ checksum "desktop/scripts/get-tor.py" }}-{{ .Environment.CACHE_VERSION }}
+      - run:
+          name: Get tor binaries from Tor Browser (32-bit)
+          command: |
+            cd desktop
+            poetry run .\scripts\get-tor.py
+      - save_cache:
+          key: get-tor-{{ checksum "desktop/scripts/get-tor.py" }}-{{ .Environment.CACHE_VERSION }}
+          paths:
+            - C:\Users\circleci\project\desktop\onionshare\resources\tor\obfs4proxy.exe
 
       - run:
           name: Build OnionShare
