@@ -96,7 +96,7 @@ jobs:
     steps:
       - checkout
 
-            - restore_cache:
+      - restore_cache:
           # NOTE: change when upgrading obfs4proxy
           key: build-win64-obfs4proxy-v0.0.13-{{ .Environment.CACHE_VERSION }}
       - run:
