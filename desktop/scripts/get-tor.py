@@ -2,32 +2,24 @@
 import platform
 import inspect
 import os
+from re import M
 import sys
 import hashlib
 import shutil
 import subprocess
 import requests
 
-# Windows
-exe_url = (
-    "https://dist.torproject.org/torbrowser/11.0.9/torbrowser-install-11.0.9_en-US.exe"
-)
-exe_filename = "torbrowser-install-11.0.9_en-US.exe"
-expected_exe_sha256 = "e938433028b6ffb5d312db6268b19e419626b071f08209684c8e5b9f3d3df2bc"
+torbrowser_version = "11.0.14"
+expected_exe_sha256 = "c14b979c81310ad039985e047dbb5b8058662bb3105b9022f7b9e0d18a29d0d6"
+expected_dmg_sha256 = "558ae5ab188f62feb04c6b2e7f43eae2361e8ec1718e0f4f927801411d911e22"
+expected_txz_sha256 = "b606924fdf8237e697cf95c229189da5875c190875d729769655c7b67aeb9aa6"
 
-# macOS
-dmg_url = (
-    "https://dist.torproject.org/torbrowser/11.0.9/TorBrowser-11.0.9-osx64_en-US.dmg"
-)
-dmg_filename = "TorBrowser-11.0.9-osx64_en-US.dmg"
-expected_dmg_sha256 = "e34629a178a92983924a5a89c7a988285d2d27f21832413a7f7e33af7871c8d6"
-
-# Linux
-tarball_url = "https://dist.torproject.org/torbrowser/11.0.9/tor-browser-linux64-11.0.9_en-US.tar.xz"
-tarball_filename = "tor-browser-linux64-11.0.9_en-US.tar.xz"
-expected_tarball_sha256 = (
-    "baa5ccafb5c68f1c46f9ae983b9b0a0419f66d41e0483ba5aacb3462fa0a8032"
-)
+exe_url = f"https://dist.torproject.org/torbrowser/{torbrowser_version}/torbrowser-install-{torbrowser_version}_en-US.exe"
+exe_filename = f"torbrowser-install-{torbrowser_version}_en-US.exe"
+dmg_url = f"https://dist.torproject.org/torbrowser/{torbrowser_version}/TorBrowser-{torbrowser_version}-osx64_en-US.dmg"
+dmg_filename = f"TorBrowser-{torbrowser_version}-osx64_en-US.dmg"
+tarball_url = f"https://dist.torproject.org/torbrowser/{torbrowser_version}/tor-browser-linux64-{torbrowser_version}_en-US.tar.xz"
+tarball_filename = f"tor-browser-linux64-{torbrowser_version}_en-US.tar.xz"
 
 
 # Common paths
@@ -53,6 +45,7 @@ def get_tor_windows():
         open(exe_path, "wb").write(r.content)
         exe_sha256 = hashlib.sha256(r.content).hexdigest()
     else:
+        print("Already downloaded: {}".format(exe_path))
         exe_data = open(exe_path, "rb").read()
         exe_sha256 = hashlib.sha256(exe_data).hexdigest()
 
@@ -89,10 +82,27 @@ def get_tor_windows():
     if os.path.exists(dist_path):
         shutil.rmtree(dist_path)
     os.makedirs(dist_path)
-    shutil.copytree(os.path.join(working_path, "Tor"), os.path.join(dist_path, "Tor"))
-    shutil.copytree(
-        os.path.join(working_path, "Data"), os.path.join(dist_path, "Data", "Tor")
-    )
+    for filename in [
+        "libcrypto-1_1.dll",
+        "libevent-2-1-7.dll",
+        "libevent_core-2-1-7.dll",
+        "libevent_extra-2-1-7.dll",
+        "libgcc_s_dw2-1.dll",
+        "libssl-1_1.dll",
+        "libssp-0.dll",
+        "libwinpthread-1.dll",
+        "tor.exe",
+        "zlib1.dll",
+    ]:
+        shutil.copyfile(
+            os.path.join(working_path, "Tor", filename),
+            os.path.join(dist_path, filename),
+        )
+    for filename in ["geoip", "geoip6"]:
+        shutil.copyfile(
+            os.path.join(working_path, "Data", filename),
+            os.path.join(dist_path, filename),
+        )
 
     # Fetch the built-in bridges
     update_tor_bridges()
@@ -195,9 +205,9 @@ def get_tor_linux():
         tarball_sha256 = hashlib.sha256(tarball_data).hexdigest()
 
     # Compare the hash
-    if tarball_sha256 != expected_tarball_sha256:
+    if tarball_sha256 != expected_txz_sha256:
         print("ERROR! The sha256 doesn't match:")
-        print("expected: {}".format(expected_tarball_sha256))
+        print("expected: {}".format(expected_txz_sha256))
         print("  actual: {}".format(tarball_sha256))
         sys.exit(-1)
 

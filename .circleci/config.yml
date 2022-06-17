@@ -96,6 +96,39 @@ jobs:
     steps:
       - checkout
 
+      - run:
+          name: Install Python 3.9.12
+          command: |
+            choco install python3 --version=3.9.12
+
+      - run:
+          name: Install poetry
+          command: (Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | python -
+
+      - restore_cache:
+          key: build-win64-desktop-poetry-deps-{{ checksum "~/project/desktop/poetry.lock" }}-{{ .Environment.CACHE_VERSION }}
+      - run:
+          name: Install poetry dependencies
+          command: |
+            cd C:\Users\circleci\project\desktop
+            poetry install
+      - save_cache:
+          key: build-win64-desktop-poetry-deps-{{ checksum "~/project/desktop/poetry.lock" }}-{{ .Environment.CACHE_VERSION }}
+          paths:
+            - C:\Users\circleci\AppData\Local\pypoetry\Cache\virtualenvs
+
+      - restore_cache:
+          key: get-tor-{{ checksum "desktop/scripts/get-tor.py" }}-{{ .Environment.CACHE_VERSION }}
+      - run:
+          name: Get tor binaries from Tor Browser (32-bit)
+          command: |
+            cd desktop
+            poetry run python .\scripts\get-tor.py
+      - save_cache:
+          key: get-tor-{{ checksum "desktop/scripts/get-tor.py" }}-{{ .Environment.CACHE_VERSION }}
+          paths:
+            - C:\Users\circleci\project\desktop\build\tor
+
       - restore_cache:
           # NOTE: change when upgrading obfs4proxy
           key: build-win64-obfs4proxy-v0.0.13-{{ .Environment.CACHE_VERSION }}
@@ -167,40 +200,7 @@ jobs:
           # NOTE: change when upgrading meek
           key: build-win64-meek-v0.37.0-{{ .Environment.CACHE_VERSION }}
           paths:
-            - C:\Users\circleci\project\desktop\onionshare\resources\tor\Tor\meek-client.exe
-
-      - run:
-          name: Install Python 3.9.12
-          command: |
-            choco install python3 --version=3.9.12
-
-      - run:
-          name: Install poetry
-          command: (Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | python -
-
-      - restore_cache:
-          key: build-win64-desktop-poetry-deps-{{ checksum "~/project/desktop/poetry.lock" }}-{{ .Environment.CACHE_VERSION }}
-      - run:
-          name: Install poetry dependencies
-          command: |
-            cd C:\Users\circleci\project\desktop
-            poetry install
-      - save_cache:
-          key: build-win64-desktop-poetry-deps-{{ checksum "~/project/desktop/poetry.lock" }}-{{ .Environment.CACHE_VERSION }}
-          paths:
-            - C:\Users\circleci\AppData\Local\pypoetry\Cache\virtualenvs
-
-      - restore_cache:
-          key: get-tor-{{ checksum "desktop/scripts/get-tor.py" }}-{{ .Environment.CACHE_VERSION }}
-      - run:
-          name: Get tor binaries from Tor Browser (32-bit)
-          command: |
-            cd desktop
-            poetry run .\scripts\get-tor.py
-      - save_cache:
-          key: get-tor-{{ checksum "desktop/scripts/get-tor.py" }}-{{ .Environment.CACHE_VERSION }}
-          paths:
-            - C:\Users\circleci\project\desktop\onionshare\resources\tor\obfs4proxy.exe
+            - C:\Users\circleci\project\desktop\onionshare\resources\tor\meek-client.exe
 
       - run:
           name: Build OnionShare
@@ -231,6 +231,39 @@ jobs:
       MEEK_TAG: v0.37.0
     steps:
       - checkout
+
+      - run:
+          name: Install Python 3.9.12 (32-bit)
+          command: |
+            choco install python3 --params "/InstallDir32:C:\Python-32bit" --version=3.9.12
+
+      - run:
+          name: Install poetry (32-bit)
+          command: C:\Python-32bit\Scripts\pip install poetry
+
+      - restore_cache:
+          key: build-win32-desktop-poetry-deps-{{ checksum "~/project/desktop/poetry.lock" }}-{{ .Environment.CACHE_VERSION }}
+      - run:
+          name: Install poetry dependencies
+          command: |
+            cd ~\project\desktop
+            C:\Python-32bit\Scripts\poetry install
+      - save_cache:
+          key: build-win32-desktop-poetry-deps-{{ checksum "~/project/desktop/poetry.lock" }}-{{ .Environment.CACHE_VERSION }}
+          paths:
+            - C:\Users\circleci\AppData\Local\pypoetry\Cache\virtualenvs
+
+      - restore_cache:
+          key: get-tor-{{ checksum "desktop/scripts/get-tor.py" }}-{{ .Environment.CACHE_VERSION }}
+      - run:
+          name: Get tor binaries from Tor Browser (32-bit)
+          command: |
+            cd desktop
+            C:\Python-32bit\Scripts\poetry run python run .\scripts\get-tor.py
+      - save_cache:
+          key: get-tor-{{ checksum "desktop/scripts/get-tor.py" }}-{{ .Environment.CACHE_VERSION }}
+          paths:
+            - C:\Users\circleci\project\desktop\build\tor
 
       - run:
           name: Install golang (32-bit)
@@ -310,40 +343,7 @@ jobs:
           # NOTE: change when upgrading meek
           key: build-win32-meek-v0.37.0-{{ .Environment.CACHE_VERSION }}
           paths:
-            - C:\Users\circleci\project\desktop\onionshare\resources\tor\Tor\meek-client.exe
-
-      - run:
-          name: Install Python 3.9.12 (32-bit)
-          command: |
-            choco install python3 --params "/InstallDir32:C:\Python-32bit" --version=3.9.12
-
-      - run:
-          name: Install poetry (32-bit)
-          command: C:\Python-32bit\Scripts\pip install poetry
-
-      - restore_cache:
-          key: build-win32-desktop-poetry-deps-{{ checksum "~/project/desktop/poetry.lock" }}-{{ .Environment.CACHE_VERSION }}
-      - run:
-          name: Install poetry dependencies
-          command: |
-            cd ~\project\desktop
-            C:\Python-32bit\Scripts\poetry install
-      - save_cache:
-          key: build-win32-desktop-poetry-deps-{{ checksum "~/project/desktop/poetry.lock" }}-{{ .Environment.CACHE_VERSION }}
-          paths:
-            - C:\Users\circleci\AppData\Local\pypoetry\Cache\virtualenvs
-
-      - restore_cache:
-          key: get-tor-{{ checksum "desktop/scripts/get-tor.py" }}-{{ .Environment.CACHE_VERSION }}
-      - run:
-          name: Get tor binaries from Tor Browser (32-bit)
-          command: |
-            cd desktop
-            poetry run .\scripts\get-tor.py
-      - save_cache:
-          key: get-tor-{{ checksum "desktop/scripts/get-tor.py" }}-{{ .Environment.CACHE_VERSION }}
-          paths:
-            - C:\Users\circleci\project\desktop\onionshare\resources\tor\obfs4proxy.exe
+            - C:\Users\circleci\project\desktop\onionshare\resources\tor\meek-client.exe
 
       - run:
           name: Build OnionShare
