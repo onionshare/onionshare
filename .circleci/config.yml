@@ -325,7 +325,7 @@ jobs:
             pip3 install poetry
             ln -s /Library/Frameworks/Python.framework/Versions/3.9/bin/poetry /usr/local/bin
 
-      - save_cache:
+      - restore_cache:
           key: build-macos-desktop-poetry-deps-{{ checksum "~/project/desktop/poetry.lock" }}-{{ .Environment.CACHE_VERSION }}
       - run:
           name: Install poetry dependencies
