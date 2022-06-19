@@ -94,11 +94,11 @@ jobs:
           command: |
             cd ~\Downloads
             Invoke-WebRequest -Uri https://www.python.org/ftp/python/3.9.13/python-3.9.13-amd64.exe -OutFile python-3.9.13-amd64.exe
-            .\python-3.9.13-amd64.exe /quiet PrependPath=1
+            .\python-3.9.13-amd64.exe /quiet InstallAllUsers=1 TargetDir=C:\Python39 /log Python39-Install.log
 
       - run:
           name: Install poetry
-          command: (Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | python -
+          command: C:\Python39\python -m pip install poetry
 
       - restore_cache:
           key: build-win64-desktop-poetry-deps-{{ checksum "~/project/desktop/poetry.lock" }}-{{ .Environment.CACHE_VERSION }}
@@ -106,7 +106,7 @@ jobs:
           name: Install poetry dependencies
           command: |
             cd C:\Users\circleci\project\desktop
-            poetry install
+            C:\Python39\scripts\poetry install
       - save_cache:
           key: build-win64-desktop-poetry-deps-{{ checksum "~/project/desktop/poetry.lock" }}-{{ .Environment.CACHE_VERSION }}
           paths:
@@ -118,7 +118,7 @@ jobs:
           name: Get tor binaries from Tor Browser (64-bit)
           command: |
             cd desktop
-            poetry run python .\scripts\get-tor.py win64
+            C:\Python39\Scripts\poetry run python .\scripts\get-tor.py win64
       - save_cache:
           key: get-tor-win64-{{ checksum "desktop/scripts/get-tor.py" }}-{{ .Environment.CACHE_VERSION }}
           paths:
@@ -176,8 +176,8 @@ jobs:
           name: Build OnionShare
           command: |
             cd ~\project\desktop
-            poetry run python .\setup-freeze.py build
-            poetry run python .\scripts\build-windows.py cleanup-build
+            C:\Python39\Scripts\poetry run python .\setup-freeze.py build
+            C:\Python39\Scripts\poetry run python .\scripts\build-windows.py cleanup-build
 
       - run:
           name: Compress
@@ -200,11 +200,11 @@ jobs:
           command: |
             cd ~\Downloads
             Invoke-WebRequest -Uri https://www.python.org/ftp/python/3.9.13/python-3.9.13.exe -OutFile python-3.9.13.exe
-            .\python-3.9.13.exe /quiet PrependPath=1
+            .\python-3.9.13-amd64.exe /quiet InstallAllUsers=1 TargetDir=C:\Python39 /log Python39-Install.log
 
       - run:
           name: Install poetry
-          command: (Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | python -
+          command: C:\Python39\python -m pip install poetry
 
       - restore_cache:
           key: build-win32-desktop-poetry-deps-{{ checksum "~/project/desktop/poetry.lock" }}-{{ .Environment.CACHE_VERSION }}
@@ -212,7 +212,7 @@ jobs:
           name: Install poetry dependencies
           command: |
             cd ~\project\desktop
-            poetry install
+            C:\Python39\Scripts\poetry install
       - save_cache:
           key: build-win32-desktop-poetry-deps-{{ checksum "~/project/desktop/poetry.lock" }}-{{ .Environment.CACHE_VERSION }}
           paths:
@@ -224,7 +224,7 @@ jobs:
           name: Get tor binaries from Tor Browser (32-bit)
           command: |
             cd desktop
-            poetry run python .\scripts\get-tor.py win32
+            C:\Python39\Scripts\poetry run python .\scripts\get-tor.py win32
       - save_cache:
           key: get-tor-win32-{{ checksum "desktop/scripts/get-tor.py" }}-{{ .Environment.CACHE_VERSION }}
           paths:
@@ -292,8 +292,8 @@ jobs:
           name: Build OnionShare
           command: |
             cd ~\project\desktop
-            poetry run python .\setup-freeze.py build
-            poetry run python .\scripts\build-windows.py cleanup-build
+            C:\Python39\Scripts\poetry run python .\setup-freeze.py build
+            C:\Python39\Scripts\poetry run python .\scripts\build-windows.py cleanup-build
 
       - run:
           name: Compress
