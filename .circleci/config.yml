@@ -200,7 +200,7 @@ jobs:
           command: |
             cd ~\Downloads
             Invoke-WebRequest -Uri https://www.python.org/ftp/python/3.9.13/python-3.9.13.exe -OutFile python-3.9.13.exe
-            .\python-3.9.13-amd64.exe /quiet InstallAllUsers=1 TargetDir=C:\Python39 /log Python39-Install.log
+            .\python-3.9.13.exe /quiet InstallAllUsers=1 TargetDir=C:\Python39 /log Python39-Install.log
 
       - run:
           name: Install poetry
