@@ -45,10 +45,34 @@ def get_tor_windows(platform):
         win_url = win32_url
         win_filename = win32_filename
         expected_win_sha256 = expected_win32_sha256
+        bin_filenames = [
+            "libcrypto-1_1.dll",
+            "libevent-2-1-7.dll",
+            "libevent_core-2-1-7.dll",
+            "libevent_extra-2-1-7.dll",
+            "libgcc_s_dw2-1.dll",
+            "libssl-1_1.dll",
+            "libssp-0.dll",
+            "libwinpthread-1.dll",
+            "tor.exe",
+            "zlib1.dll",
+        ]
     elif platform == "win64":
         win_url = win64_url
         win_filename = win64_filename
         expected_win_sha256 = expected_win64_sha256
+        bin_filenames = [
+            "libcrypto-1_1-x64.dll",
+            "libevent-2-1-7.dll",
+            "libevent_core-2-1-7.dll",
+            "libevent_extra-2-1-7.dll",
+            "libgcc_s_dw2-1.dll",
+            "libssl-1_1-x64.dll",
+            "libssp-0.dll",
+            "libwinpthread-1.dll",
+            "tor.exe",
+            "zlib1.dll",
+        ]
     else:
         click.echo("invalid platform")
         return
@@ -105,18 +129,7 @@ def get_tor_windows(platform):
     if os.path.exists(dist_path):
         shutil.rmtree(dist_path)
     os.makedirs(dist_path)
-    for filename in [
-        "libcrypto-1_1.dll",
-        "libevent-2-1-7.dll",
-        "libevent_core-2-1-7.dll",
-        "libevent_extra-2-1-7.dll",
-        "libgcc_s_dw2-1.dll",
-        "libssl-1_1.dll",
-        "libssp-0.dll",
-        "libwinpthread-1.dll",
-        "tor.exe",
-        "zlib1.dll",
-    ]:
+    for filename in bin_filenames:
         shutil.copyfile(
             os.path.join(working_path, "Tor", filename),
             os.path.join(dist_path, filename),

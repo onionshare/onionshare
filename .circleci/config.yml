@@ -357,7 +357,7 @@ jobs:
             if [[ -f "~/project/desktop/onionshare/resources/tor/obfs4proxy" ]]; then
               echo "obfs4proxy already built"
             else
-              cd ~/projects/desktop
+              cd ~/project/desktop
               ./scripts/build-pt-obfs4proxy.sh
             fi
       - save_cache:
@@ -373,7 +373,7 @@ jobs:
             if [[ -f "~/project/desktop/onionshare/resources/tor/snowflake-client" ]]; then
               echo "snowflake already built"
             else
-              cd ~/projects/desktop
+              cd ~/project/desktop
               ./scripts/build-pt-snowflake.sh
             fi
       - save_cache:
@@ -389,7 +389,7 @@ jobs:
             if [[ -f "~/project/desktop/onionshare/resources/tor/meek-client" ]]; then
               echo "meek already built"
             else
-              cd ~/projects/desktop
+              cd ~/project/desktop
               ./scripts/build-pt-meek.sh
             fi
       - save_cache:
