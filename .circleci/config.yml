@@ -111,14 +111,14 @@ jobs:
             - C:\Users\circleci\AppData\Local\pypoetry\Cache\virtualenvs
 
       - restore_cache:
-          key: get-tor-{{ checksum "desktop/scripts/get-tor.py" }}-{{ .Environment.CACHE_VERSION }}
+          key: get-tor-win64-{{ checksum "desktop/scripts/get-tor.py" }}-{{ .Environment.CACHE_VERSION }}
       - run:
           name: Get tor binaries from Tor Browser (64-bit)
           command: |
             cd desktop
             poetry run python .\scripts\get-tor.py win64
       - save_cache:
-          key: get-tor-{{ checksum "desktop/scripts/get-tor.py" }}-{{ .Environment.CACHE_VERSION }}
+          key: get-tor-win64-{{ checksum "desktop/scripts/get-tor.py" }}-{{ .Environment.CACHE_VERSION }}
           paths:
             - C:\Users\circleci\project\desktop\build\tor
 
@@ -215,14 +215,14 @@ jobs:
             - C:\Users\circleci\AppData\Local\pypoetry\Cache\virtualenvs
 
       - restore_cache:
-          key: get-tor-{{ checksum "desktop/scripts/get-tor.py" }}-{{ .Environment.CACHE_VERSION }}
+          key: get-tor-win32-{{ checksum "desktop/scripts/get-tor.py" }}-{{ .Environment.CACHE_VERSION }}
       - run:
           name: Get tor binaries from Tor Browser (32-bit)
           command: |
             cd desktop
             C:\Python-32bit\Scripts\poetry run python .\scripts\get-tor.py win32
       - save_cache:
-          key: get-tor-{{ checksum "desktop/scripts/get-tor.py" }}-{{ .Environment.CACHE_VERSION }}
+          key: get-tor-win32-{{ checksum "desktop/scripts/get-tor.py" }}-{{ .Environment.CACHE_VERSION }}
           paths:
             - C:\Users\circleci\project\desktop\build\tor
 
@@ -325,11 +325,77 @@ jobs:
             pip3 install poetry
             ln -s /Library/Frameworks/Python.framework/Versions/3.9/bin/poetry /usr/local/bin
 
+      - save_cache:
+          key: build-macos-desktop-poetry-deps-{{ checksum "~/project/desktop/poetry.lock" }}-{{ .Environment.CACHE_VERSION }}
       - run:
           name: Install poetry dependencies
           command: |
             cd ~/project/desktop
             poetry install
+      - save_cache:
+          key: build-macos-desktop-poetry-deps-{{ checksum "~/project/desktop/poetry.lock" }}-{{ .Environment.CACHE_VERSION }}
+          paths:
+            - /Users/distiller/Library/Caches/pypoetry/virtualenvs
+
+      - restore_cache:
+          key: get-tor-macos-{{ checksum "desktop/scripts/get-tor.py" }}-{{ .Environment.CACHE_VERSION }}
+      - run:
+          name: Get tor binaries from Tor Browser
+          command: |
+            cd desktop
+            poetry run python ./scripts/get-tor.py macos
+      - save_cache:
+          key: get-tor-macos-{{ checksum "desktop/scripts/get-tor.py" }}-{{ .Environment.CACHE_VERSION }}
+          paths:
+            - ~/project/desktop/build/tor
+
+      - restore_cache:
+          key: build-macos-obfs4proxy-{{ checksum "~/project/desktop/scripts/build-pt-obfs4proxy.sh" }}-{{ .Environment.CACHE_VERSION }}
+      - run:
+          name: Build obfs4proxy
+          command: |
+            if [[ -f "~/project/desktop/onionshare/resources/tor/obfs4proxy" ]]; then
+              echo "obfs4proxy already built"
+            else
+              cd ~/projects/desktop
+              ./scripts/build-pt-obfs4proxy.sh
+            fi
+      - save_cache:
+          key: build-macos-obfs4proxy-{{ checksum "~/project/desktop/scripts/build-pt-obfs4proxy.sh" }}-{{ .Environment.CACHE_VERSION }}
+          paths:
+            - ~/project/desktop/onionshare/resources/tor/obfs4proxy
+
+      - restore_cache:
+          key: build-macos-snowflake-{{ checksum "~/project/desktop/scripts/build-pt-snowflake.sh" }}-{{ .Environment.CACHE_VERSION }}
+      - run:
+          name: Build snowflake
+          command: |
+            if [[ -f "~/project/desktop/onionshare/resources/tor/snowflake-client" ]]; then
+              echo "snowflake already built"
+            else
+              cd ~/projects/desktop
+              ./scripts/build-pt-snowflake.sh
+            fi
+      - save_cache:
+          key: build-macos-snowflake-{{ checksum "~/project/desktop/scripts/build-pt-snowflake.sh" }}-{{ .Environment.CACHE_VERSION }}
+          paths:
+            - ~/project/desktop/onionshare/resources/tor/snowflake-client
+
+      - restore_cache:
+          key: build-macos-meek-{{ checksum "~/project/desktop/scripts/build-pt-obfs4proxy.sh" }}-{{ .Environment.CACHE_VERSION }}
+      - run:
+          name: Build meek
+          command: |
+            if [[ -f "~/project/desktop/onionshare/resources/tor/meek-client" ]]; then
+              echo "meek already built"
+            else
+              cd ~/projects/desktop
+              ./scripts/build-pt-meek.sh
+            fi
+      - save_cache:
+          key: build-macos-meek-{{ checksum "~/project/desktop/scripts/build-pt-meek.sh" }}-{{ .Environment.CACHE_VERSION }}
+          paths:
+            - ~/project/desktop/onionshare/resources/tor/meek-client
 
       - run:
           name: Build OnionShare
