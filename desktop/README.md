@@ -31,20 +31,32 @@ poetry install
 
 **Windows users:** Download and install 7-Zip from https://7-zip.org/download.html. [Add](https://medium.com/@kevinmarkvi/how-to-add-executables-to-your-path-in-windows-5ffa4ce61a53) `C:\Program Files (x86)\7-Zip` to your path.
 
-Download Tor Browser and extract the binaries:
+Download Tor Browser and extract the binaries for your platform. The platform must be `win32`, `win64`, `macos`, or `linux64`.
 
 ```sh
-poetry run python ./scripts/get-tor.py
+poetry run python ./scripts/get-tor.py [platform]
 ```
 
 ### Compile dependencies
 
 Install Go. The simplest way to make sure everything works is to install Go by following [these instructions](https://golang.org/doc/install).
 
-Download and compile `meek-client`:
+Compile pluggable transports:
+
+**Windows users, in PowerShell:**
+
+```powershell
+.\scripts\build-pt-obfs4proxy.ps1
+.\scripts\build-pt-snowflake.ps1
+.\scripts\build-pt-meek.ps1
+```
+
+**macOS and Linux users:**
 
 ```sh
-poetry run python ./scripts/build-meek-client.py
+./scripts/build-pt-obfs4proxy.sh
+./scripts/build-pt-snowflake.sh
+./scripts/build-pt-meek.sh
 ```
 
 ### Running OnionShare from the source code tree

@@ -17,10 +17,10 @@ workflows:
           requires:
             - test-cli
             # - test-gui
-      # - build-macos:
-      #     requires:
-      #       - test-cli
-      #       # - test-gui
+      - build-macos:
+          requires:
+            - test-cli
+            # - test-gui
 
 jobs:
   test-cli:
@@ -86,13 +86,6 @@ jobs:
     executor:
       name: win/default
       shell: powershell.exe
-    environment:
-      # NOTE: change when upgrading obfs4proxy
-      OBFS4PROXY_TAG: obfs4proxy-0.0.13
-      # NOTE: change when upgrading snowflake
-      SNOWFLAKE_TAG: v2.2.0
-      # NOTE: change when upgrading meek
-      MEEK_TAG: v0.37.0
     steps:
       - checkout
 
@@ -120,85 +113,60 @@ jobs:
       - restore_cache:
           key: get-tor-{{ checksum "desktop/scripts/get-tor.py" }}-{{ .Environment.CACHE_VERSION }}
       - run:
-          name: Get tor binaries from Tor Browser (32-bit)
+          name: Get tor binaries from Tor Browser (64-bit)
           command: |
             cd desktop
-            poetry run python .\scripts\get-tor.py
+            poetry run python .\scripts\get-tor.py win64
       - save_cache:
           key: get-tor-{{ checksum "desktop/scripts/get-tor.py" }}-{{ .Environment.CACHE_VERSION }}
           paths:
             - C:\Users\circleci\project\desktop\build\tor
 
       - restore_cache:
-          # NOTE: change when upgrading obfs4proxy
-          key: build-win64-obfs4proxy-v0.0.13-{{ .Environment.CACHE_VERSION }}
+          key: build-win64-obfs4proxy-{{ checksum "~/project/desktop/scripts/build-pt-obfs4proxy.ps1" }}-{{ .Environment.CACHE_VERSION }}
       - run:
           name: Build obfs4proxy
           command: |
             if ((Test-Path -Path C:\Users\circleci\project\desktop\onionshare\resources\tor\obfs4proxy.exe) -eq $True) {
               Write-Output "obfs4proxy already built"
             } else {
-              # curl https://keys.openpgp.org/vks/v1/by-fingerprint/9EB1A490C73CC5D44DFB3E47BFBD1C7B8A6EC81A | gpg --import
-              New-Item -ItemType Directory -Force -Path C:\Users\circleci\src\obfs4proxy
-              cd C:\Users\circleci\src\obfs4proxy
-              git clone https://gitlab.com/yawning/obfs4
-              cd obfs4
-              # TODO: verify signature
-              git checkout $OBFS4PROXY_TAG
-              go build .\obfs4proxy
-              Move-Item -Path .\obfs4proxy.exe -Destination C:\Users\circleci\project\desktop\onionshare\resources\tor\obfs4proxy.exe
+              cd C:\Users\circleci\project\desktop
+              .\scripts\build-pt-obfs4proxy.ps1
             }
       - save_cache:
-          # NOTE: change when upgrading obfs4proxy
-          key: build-win64-obfs4proxy-v0.0.13-{{ .Environment.CACHE_VERSION }}
+          key: build-win64-obfs4proxy-{{ checksum "~/project/desktop/scripts/build-pt-obfs4proxy.ps1" }}-{{ .Environment.CACHE_VERSION }}
           paths:
             - C:\Users\circleci\project\desktop\onionshare\resources\tor\obfs4proxy.exe
 
       - restore_cache:
-          # NOTE: change when upgrading snowflake
-          key: build-win64-snowflake-v2.1.0-{{ .Environment.CACHE_VERSION }}
+          key: build-win64-snowflake-{{ checksum "~/project/desktop/scripts/build-pt-snowflake.ps1" }}-{{ .Environment.CACHE_VERSION }}
       - run:
           name: Build snowflake-client
           command: |
             if ((Test-Path -Path C:\Users\circleci\project\desktop\onionshare\resources\tor\snowflake-client.exe) -eq $True) {
               Write-Output "snowflake already built"
             } else {
-              New-Item -ItemType Directory -Force -Path C:\Users\circleci\src\obfs4proxy
-              cd C:\Users\circleci\src\obfs4proxy
-              git clone https://git.torproject.org/pluggable-transports/snowflake.git
-              cd snowflake
-              # TODO: verify signature
-              git checkout $SNOWFLAKE_TAG
-              go build .\client
-              Move-Item -Path .\client.exe -Destination C:\Users\circleci\project\desktop\onionshare\resources\tor\snowflake-client.exe
+              cd C:\Users\circleci\project\desktop
+              .\scripts\build-pt-snowflake.ps1
             }
       - save_cache:
-          # NOTE: change when upgrading snowflake
-          key: build-win64-snowflake-v2.1.0-{{ .Environment.CACHE_VERSION }}
+          key: build-win64-snowflake-{{ checksum "~/project/desktop/scripts/build-pt-snowflake.ps1" }}-{{ .Environment.CACHE_VERSION }}
           paths:
             - C:\Users\circleci\project\desktop\onionshare\resources\tor\snowflake-client.exe
 
       - restore_cache:
-          # NOTE: change when upgrading meek
-          key: build-win64-meek-v0.37.0-{{ .Environment.CACHE_VERSION }}
+          key: build-win64-meek-{{ checksum "~/project/desktop/scripts/build-pt-meek.ps1" }}-{{ .Environment.CACHE_VERSION }}
       - run:
           name: Build meek-client
           command: |
             if ((Test-Path -Path C:\Users\circleci\project\desktop\onionshare\resources\tor\meek-client.exe) -eq $True) {
               Write-Output "snowflake already built"
             } else {
-              New-Item -ItemType Directory -Force -Path C:\Users\circleci\src\meek
-              cd C:\Users\circleci\src\meek
-              git clone https://git.torproject.org/pluggable-transports/meek.git
-              cd meek
-              # TODO: verify signature
-              git checkout $MEEK_TAG
-              go build .\meek-client
-              Move-Item -Path .\meek-client.exe -Destination C:\Users\circleci\project\desktop\onionshare\resources\tor\meek-client.exe
+              cd C:\Users\circleci\project\desktop
+              .\scripts\build-pt-meek.ps1
             }
       - save_cache:
-          # NOTE: change when upgrading meek
-          key: build-win64-meek-v0.37.0-{{ .Environment.CACHE_VERSION }}
+          key: build-win64-meek-{{ checksum "~/project/desktop/scripts/build-pt-meek.ps1" }}-{{ .Environment.CACHE_VERSION }}
           paths:
             - C:\Users\circleci\project\desktop\onionshare\resources\tor\meek-client.exe
 
@@ -222,13 +190,6 @@ jobs:
     executor:
       name: win/default
       shell: powershell.exe
-    environment:
-      # NOTE: change when upgrading obfs4proxy
-      OBFS4PROXY_TAG: obfs4proxy-0.0.13
-      # NOTE: change when upgrading snowflake
-      SNOWFLAKE_TAG: v2.2.0
-      # NOTE: change when upgrading meek
-      MEEK_TAG: v0.37.0
     steps:
       - checkout
 
@@ -259,7 +220,7 @@ jobs:
           name: Get tor binaries from Tor Browser (32-bit)
           command: |
             cd desktop
-            C:\Python-32bit\Scripts\poetry run python .\scripts\get-tor.py
+            C:\Python-32bit\Scripts\poetry run python .\scripts\get-tor.py win32
       - save_cache:
           key: get-tor-{{ checksum "desktop/scripts/get-tor.py" }}-{{ .Environment.CACHE_VERSION }}
           paths:
@@ -273,75 +234,53 @@ jobs:
             msiexec.exe /i go1.18.windows-386.msi /quiet /L*V go-install.log
 
       - restore_cache:
-          # NOTE: change when upgrading obfs4proxy
-          key: build-win32-obfs4proxy-v0.0.13-{{ .Environment.CACHE_VERSION }}
+          key: build-win32-obfs4proxy-{{ checksum "~/project/desktop/scripts/build-pt-obfs4proxy.ps1" }}-{{ .Environment.CACHE_VERSION }}
       - run:
-          name: Build obfs4proxy (32-bit)
+          name: Build obfs4proxy
           command: |
             if ((Test-Path -Path C:\Users\circleci\project\desktop\onionshare\resources\tor\obfs4proxy.exe) -eq $True) {
               Write-Output "obfs4proxy already built"
             } else {
-              # curl https://keys.openpgp.org/vks/v1/by-fingerprint/9EB1A490C73CC5D44DFB3E47BFBD1C7B8A6EC81A | gpg --import
-              New-Item -ItemType Directory -Force -Path C:\Users\circleci\src\obfs4proxy
-              cd C:\Users\circleci\src\obfs4proxy
-              git clone https://gitlab.com/yawning/obfs4
-              cd obfs4
-              # TODO: verify signature
-              git checkout $OBFS4PROXY_TAG
-              & "C:\Program Files (x86)\Go\bin\go" build .\obfs4proxy
-              Move-Item -Path .\obfs4proxy.exe -Destination C:\Users\circleci\project\desktop\onionshare\resources\tor\obfs4proxy.exe
+              $env:PATH = "C:\Program Files (x86)\Go\bin\go;$env:PATH"
+              cd C:\Users\circleci\project\desktop
+              .\scripts\build-pt-obfs4proxy.ps1
             }
       - save_cache:
-          # NOTE: change when upgrading obfs4proxy
-          key: build-win32-obfs4proxy-v0.0.13-{{ .Environment.CACHE_VERSION }}
+          key: build-win32-obfs4proxy-{{ checksum "~/project/desktop/scripts/build-pt-obfs4proxy.ps1" }}-{{ .Environment.CACHE_VERSION }}
           paths:
             - C:\Users\circleci\project\desktop\onionshare\resources\tor\obfs4proxy.exe
 
       - restore_cache:
-          # NOTE: change when upgrading snowflake
-          key: build-win32-snowflake-v2.1.0-{{ .Environment.CACHE_VERSION }}
+          key: build-win32-snowflake-{{ checksum "~/project/desktop/scripts/build-pt-snowflake.ps1" }}-{{ .Environment.CACHE_VERSION }}
       - run:
-          name: Build snowflake-client (32-bit)
+          name: Build snowflake-client
           command: |
             if ((Test-Path -Path C:\Users\circleci\project\desktop\onionshare\resources\tor\snowflake-client.exe) -eq $True) {
               Write-Output "snowflake already built"
             } else {
-              New-Item -ItemType Directory -Force -Path C:\Users\circleci\src\obfs4proxy
-              cd C:\Users\circleci\src\obfs4proxy
-              git clone https://git.torproject.org/pluggable-transports/snowflake.git
-              cd snowflake
-              # TODO: verify signature
-              git checkout $SNOWFLAKE_TAG
-              & "C:\Program Files (x86)\Go\bin\go" build .\client
-              Move-Item -Path .\client.exe -Destination C:\Users\circleci\project\desktop\onionshare\resources\tor\snowflake-client.exe
+              $env:PATH = "C:\Program Files (x86)\Go\bin\go;$env:PATH"
+              cd C:\Users\circleci\project\desktop
+              .\scripts\build-pt-snowflake.ps1
             }
       - save_cache:
-          # NOTE: change when upgrading snowflake
-          key: build-win32-snowflake-v2.1.0-{{ .Environment.CACHE_VERSION }}
+          key: build-win32-snowflake-{{ checksum "~/project/desktop/scripts/build-pt-snowflake.ps1" }}-{{ .Environment.CACHE_VERSION }}
           paths:
             - C:\Users\circleci\project\desktop\onionshare\resources\tor\snowflake-client.exe
 
       - restore_cache:
-          # NOTE: change when upgrading meek
-          key: build-win32-meek-v0.37.0-{{ .Environment.CACHE_VERSION }}
+          key: build-win32-meek-{{ checksum "~/project/desktop/scripts/build-pt-meek.ps1" }}-{{ .Environment.CACHE_VERSION }}
       - run:
-          name: Build meek-client (32-bit)
+          name: Build meek-client
           command: |
             if ((Test-Path -Path C:\Users\circleci\project\desktop\onionshare\resources\tor\meek-client.exe) -eq $True) {
               Write-Output "snowflake already built"
             } else {
-              New-Item -ItemType Directory -Force -Path C:\Users\circleci\src\meek
-              cd C:\Users\circleci\src\meek
-              git clone https://git.torproject.org/pluggable-transports/meek.git
-              cd meek
-              # TODO: verify signature
-              git checkout $MEEK_TAG
-              & "C:\Program Files (x86)\Go\bin\go" build .\meek-client
-              Move-Item -Path .\meek-client.exe -Destination C:\Users\circleci\project\desktop\onionshare\resources\tor\meek-client.exe
+              $env:PATH = "C:\Program Files (x86)\Go\bin\go;$env:PATH"
+              cd C:\Users\circleci\project\desktop
+              .\scripts\build-pt-meek.ps1
             }
       - save_cache:
-          # NOTE: change when upgrading meek
-          key: build-win32-meek-v0.37.0-{{ .Environment.CACHE_VERSION }}
+          key: build-win32-meek-{{ checksum "~/project/desktop/scripts/build-pt-meek.ps1" }}-{{ .Environment.CACHE_VERSION }}
           paths:
             - C:\Users\circleci\project\desktop\onionshare\resources\tor\meek-client.exe
 
@@ -373,120 +312,25 @@ jobs:
           command: |
             brew install wget
             brew install go
-      - restore_cache:
-          key: build-libevent-2.1.12-tor-0.4.6.10
-      - run:
-          name: Build libevent and tor
-          command: |
-            mkdir -p $BINARY_DIR/tor
-            # Download and verify libevent
-            cd ~/Downloads
-            URL=https://github.com/libevent/libevent/releases/download/release-2.1.12-stable/libevent-2.1.12-stable.tar.gz
-            FILENAME=libevent-2.1.12-stable.tar.gz
-            EXPECTED_SHA256=92e6de1be9ec176428fd2367677e61ceffc2ee1cb119035037a27d346b0403bb
-            wget $URL
-            SHA256=$(shasum -a 256 $FILENAME | cut -d" " -f1)
-            if [ "$SHA256" != "$EXPECTED_SHA256" ]; then echo "Failed" && exit -1; fi
-            tar -xvf $FILENAME
-            # Build libevent
-            cd libevent-2.1.12-stable
-            ./configure --disable-openssl --prefix=$BINARY_DIR/tor
-            make
-            make install
-            # Download and verify tor
-            cd ~/Downloads
-            URL=https://dist.torproject.org/tor-0.4.6.10.tar.gz
-            FILENAME=tor-0.4.6.10.tar.gz
-            EXPECTED_SHA256=94ccd60e04e558f33be73032bc84ea241660f92f58cfb88789bda6893739e31c
-            wget $URL
-            SHA256=$(shasum -a 256 $FILENAME | cut -d" " -f1)
-            if [ "$SHA256" != "$EXPECTED_SHA256" ]; then echo "Failed" && exit -1; fi
-            tar -xvf $FILENAME
-            # Build tor
-            cd tor-0.4.6.10
-            ./configure --prefix=$BINARY_DIR/tor
-            make
-            make install
-      - save_cache:
-          key: build-libevent-2.1.12-tor-0.4.6.10
-          paths:
-            - /Users/distiller/bin/tor
-      - restore_cache:
-          key: build-macos-obfs4proxy-v0.0.13
-      - run:
-          name: Build obfs4proxy
-          command: |
-            # Get source code
-            mkdir ~/Downloads/obfs4proxy
-            cd ~/Downloads/obfs4proxy
-            git clone https://gitlab.com/yawning/obfs4
-            cd obfs4
-            git checkout obfs4proxy-0.0.13
-            # Build
-            go build -o $BINARY_DIR/obfs4proxy ./obfs4proxy
-      - save_cache:
-          key: build-macos-obfs4proxy-v0.0.13
-          paths:
-            - /Users/distiller/bin/obfs4proxy
-      - restore_cache:
-          key: build-macos-snowflake-v2.1.0
-      - run:
-          name: Build snowflake-client
-          command: |
-            # Get source code
-            mkdir ~/Downloads/snowflake-client
-            cd ~/Downloads/snowflake-client
-            git clone https://git.torproject.org/pluggable-transports/snowflake.git
-            cd snowflake
-            git checkout v2.1.0
-            # Build
-            go build -o $BINARY_DIR/snowflake-client ./client
-      - save_cache:
-          key: build-macos-snowflake-v2.1.0
-          paths:
-            - /Users/distiller/bin/snowflake-client
-      - restore_cache:
-          key: build-macos-meek-v0.37.0
-      - run:
-          name: Build meek-client
-          command: |
-            # Get source code
-            mkdir ~/Downloads/meek-client
-            cd ~/Downloads/meek-client
-            git clone https://git.torproject.org/pluggable-transports/meek.git
-            cd meek
-            git checkout v0.37.0
-            # Build
-            go build -o $BINARY_DIR/meek-client ./meek-client
-      - save_cache:
-          key: build-macos-meek-v0.37.0
-          paths:
-            - /Users/distiller/bin/meek-client
-      - run:
-          name: Copy binaries into app
-          command: |
-            export DEST=~\project\desktop\onionshare\resources\tor
-            cp $BINARY_DIR/tor/bin/tor $DEST
-            cp $BINARY_DIR/tor/lib/libevent-2.1.7.dylib $DEST
-            cp $BINARY_DIR/tor/share/tor/geoip* $DEST
-            cp $BINARY_DIR/obfs4proxy $DEST
-            cp $BINARY_DIR/snowflake-client $DEST
-            cp $BINARY_DIR/meek-client $DEST
+
       - run:
           name: Install Python 3.9.12
           command: |
             wget https://www.python.org/ftp/python/3.9.12/python-3.9.12-macosx10.9.pkg -O ~/Downloads/python.pkg
             sudo installer -pkg ~/Downloads/python.pkg -target /
+
       - run:
           name: Install poetry
           command: |
             pip3 install poetry
             ln -s /Library/Frameworks/Python.framework/Versions/3.9/bin/poetry /usr/local/bin
+
       - run:
           name: Install poetry dependencies
           command: |
             cd ~/project/desktop
             poetry install
+
       - run:
           name: Build OnionShare
           command: |
@@ -494,10 +338,12 @@ jobs:
             poetry run python ./setup-freeze.py build
             poetry run python ./setup-freeze.py bdist_mac
             poetry run python ./scripts/build-macos.py cleanup-build
+
       - run:
           name: Compress
           command: |
             cd ~/project/desktop/build
             zip -r ~/onionshare-macos.zip OnionShare.app
+
       - store_artifacts:
           path: ~/onionshare-macos.zip
