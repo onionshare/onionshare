@@ -66,7 +66,7 @@ def get_tor_windows(platform):
             "libevent-2-1-7.dll",
             "libevent_core-2-1-7.dll",
             "libevent_extra-2-1-7.dll",
-            "libgcc_s_dw2-1.dll",
+            "libgcc_s_seh-1.dll",
             "libssl-1_1-x64.dll",
             "libssp-0.dll",
             "libwinpthread-1.dll",
