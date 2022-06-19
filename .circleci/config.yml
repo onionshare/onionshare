@@ -17,10 +17,10 @@ workflows:
           requires:
             - test-cli
             # - test-gui
-      # - build-macos:
-      #     requires:
-      #       - test-cli
-      #       # - test-gui
+      - build-macos:
+          requires:
+            - test-cli
+            # - test-gui
 
 jobs:
   test-cli:
@@ -413,7 +413,7 @@ jobs:
           name: Compress
           command: |
             cd ~/project/desktop/build
-            zip -r ~/onionshare-macos.zip OnionShare.app
+            tar -cvfx ~/onionshare-macos.tar.gz OnionShare.app
 
       - store_artifacts:
-          path: ~/onionshare-macos.zip
+          path: ~/onionshare-macos.tar.gz
