@@ -17,10 +17,10 @@ workflows:
           requires:
             - test-cli
             # - test-gui
-      - build-macos:
-          requires:
-            - test-cli
-            # - test-gui
+      # - build-macos:
+      #     requires:
+      #       - test-cli
+      #       # - test-gui
 
 jobs:
   test-cli:
@@ -90,9 +90,11 @@ jobs:
       - checkout
 
       - run:
-          name: Install Python 3.9.12
+          name: Install Python 3.9.13 (64-bit)
           command: |
-            choco install python3 --version=3.9.12
+            cd ~\Downloads
+            Invoke-WebRequest -Uri https://www.python.org/ftp/python/3.9.13/python-3.9.13-amd64.exe -OutFile python-3.9.13-amd64.exe
+            .\python-3.9.13-amd64.exe /quiet PrependPath=1
 
       - run:
           name: Install poetry
@@ -194,13 +196,15 @@ jobs:
       - checkout
 
       - run:
-          name: Install Python 3.9.12 (32-bit)
+          name: Install Python 3.9.13 (32-bit)
           command: |
-            choco install python3 --params "/InstallDir32:C:\Python-32bit" --version=3.9.12
+            cd ~\Downloads
+            Invoke-WebRequest -Uri https://www.python.org/ftp/python/3.9.13/python-3.9.13.exe -OutFile python-3.9.13.exe
+            .\python-3.9.13.exe /quiet PrependPath=1
 
       - run:
-          name: Install poetry (32-bit)
-          command: C:\Python-32bit\Scripts\pip install poetry
+          name: Install poetry
+          command: (Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | python -
 
       - restore_cache:
           key: build-win32-desktop-poetry-deps-{{ checksum "~/project/desktop/poetry.lock" }}-{{ .Environment.CACHE_VERSION }}
@@ -208,7 +212,7 @@ jobs:
           name: Install poetry dependencies
           command: |
             cd ~\project\desktop
-            C:\Python-32bit\Scripts\poetry install
+            poetry install
       - save_cache:
           key: build-win32-desktop-poetry-deps-{{ checksum "~/project/desktop/poetry.lock" }}-{{ .Environment.CACHE_VERSION }}
           paths:
@@ -220,7 +224,7 @@ jobs:
           name: Get tor binaries from Tor Browser (32-bit)
           command: |
             cd desktop
-            C:\Python-32bit\Scripts\poetry run python .\scripts\get-tor.py win32
+            poetry run python .\scripts\get-tor.py win32
       - save_cache:
           key: get-tor-win32-{{ checksum "desktop/scripts/get-tor.py" }}-{{ .Environment.CACHE_VERSION }}
           paths:
@@ -288,8 +292,8 @@ jobs:
           name: Build OnionShare
           command: |
             cd ~\project\desktop
-            C:\Python-32bit\Scripts\poetry run python .\setup-freeze.py build
-            C:\Python-32bit\Scripts\poetry run python .\scripts\build-windows.py cleanup-build
+            poetry run python .\setup-freeze.py build
+            poetry run python .\scripts\build-windows.py cleanup-build
 
       - run:
           name: Compress
@@ -314,9 +318,9 @@ jobs:
             brew install go
 
       - run:
-          name: Install Python 3.9.12
+          name: Install Python 3.9.13
           command: |
-            wget https://www.python.org/ftp/python/3.9.12/python-3.9.12-macosx10.9.pkg -O ~/Downloads/python.pkg
+            wget https://www.python.org/ftp/python/3.9.13/python-3.9.13-macosx10.9.pkg -O ~/Downloads/python.pkg
             sudo installer -pkg ~/Downloads/python.pkg -target /
 
       - run:

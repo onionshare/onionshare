@@ -9,7 +9,7 @@ git clone https://github.com/onionshare/onionshare.git
 cd onionshare/desktop
 ```
 
-Make sure you have Python 3 installed. If you're using Windows or macOS, install version 3.9.12 [from python.org](https://www.python.org/downloads/release/python-3912/). For Windows, make sure to check the box to add python to the path on the first page of the installer.
+Make sure you have Python 3 installed. If you're using Windows or macOS, install version 3.9.13 [from python.org](https://www.python.org/downloads/release/python-3913/). For Windows, make sure to check the box to add python to the path on the first page of the installer.
 
 Make sure you have [poetry](https://python-poetry.org/) installed:
 

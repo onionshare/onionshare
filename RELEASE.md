@@ -16,12 +16,6 @@ Before making a release, you must update the version in these places:
 
 If you update `flask-socketio`, ensure that you also update the [socket.io.min.js](https://github.com/micahflee/onionshare/blob/develop/cli/onionshare_cli/resources/static/js/socket.io.min.js) file to a version that is [supported](https://flask-socketio.readthedocs.io/en/latest/#version-compatibility) by the updated version of `flask-socketio`.
 
-Use tor binaries from the latest Tor Browser:
-
-- [ ] `desktop/scripts/get-tor-linux.py`
-- [ ] `desktop/scripts/get-tor-osx.py`
-- [ ] `desktop/scripts/get-tor-windows.py`
-
 Update the documentation:
 
 - [ ] Update all of the documentation in `docs` to cover new features, including taking new screenshots if necessary
@@ -100,27 +94,18 @@ snapcraft upload --release=stable onionshare_${VERSION}_amd64.snap
 
 ## Windows
 
-Set up the development environment described in desktop `README.md`.
+Set up the packaging environment:
 
-- To get `signtool.exe`, install the [Windows SDK](https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/) and add `C:\Program Files (x86)\Windows Kits\10\bin\10.0.22000.0\x64` to your path.
+- Install the [Windows SDK](https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/) and add `C:\Program Files (x86)\Windows Kits\10\bin\10.0.22000.0\x64` to your path (to get `signtool.exe`).
 - Go to https://dotnet.microsoft.com/download/dotnet-framework and download and install .NET Framework 3.5 SP1 Runtime. I downloaded `dotnetfx35.exe`.
 - Go to https://wixtoolset.org/releases/ and download and install WiX toolset. I downloaded `wix311.exe`. Add `C:\Program Files (x86)\WiX Toolset v3.11\bin` to the path.
 
-Build the Windows binaries, delete extra files, codesign, and create an MSI package:
-
-CircleCI will build the binary and delete extra files, basically running these:
-
-```
-poetry run python .\setup-freeze.py build
-poetry run python .\scripts\build-windows.py cleanup-build
-```
-
-Find the CircleCI jobs `build-win32` and `build-win64`, switch to the artifacts tab, and download:
+CircleCI will build the binaries. Find the CircleCI jobs `build-win32` and `build-win64`, switch to the artifacts tab, and download:
 
 - `onionshare-win32.zip`
 - `onionshare-win64.zip`
 
-Extract these files, then run:
+Extract these files, change to the `desktop` folder, and run:
 
 ```
 poetry run python .\scripts\build-windows.py codesign [onionshare_win32_path] [onionshare_win64_path]
@@ -134,22 +119,11 @@ This will create:
 
 ## macOS
 
-Set up the development environment described in `README.md`.
-
-Then build an executable, make it a macOS app bundle, and package it in a dmg.
-
-CircleCI will build the binary and delete extra files, basically running these:
-
-```sh
-poetry run python ./setup-freeze.py bdist_mac
-poetry run python ./scripts/build-macos.py cleanup-build
-```
-
-Find the CircleCI job `build-macos`, switch to the artifacts tab, and download:
+CircleCI will build the binaries. Find the CircleCI job `build-macos`, switch to the artifacts tab, and download:
 
 - `onionshare-macos.zip`
 
-Extract this file, then run:
+Extract these files, change to the `desktop` folder, and run:
 
 ```sh
 poetry run python ./scripts/build-macos.py codesign [app_path]
