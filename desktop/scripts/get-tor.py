@@ -66,7 +66,7 @@ def get_tor_windows(platform):
         print("Downloading {}".format(win_url))
         r = requests.get(win_url)
         open(win_path, "wb").write(r.content)
-        exe_sha256 = hashlib.sha256(r.content).hexdigest()
+        win_sha256 = hashlib.sha256(r.content).hexdigest()
     else:
         print("Already downloaded: {}".format(win_path))
         win_data = open(win_path, "rb").read()
