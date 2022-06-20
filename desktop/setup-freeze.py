@@ -108,6 +108,10 @@ if platform.system() == "Darwin" or platform.system() == "Linux":
 # Discover the version
 with open(os.path.join("..", "cli", "onionshare_cli", "resources", "version.txt")) as f:
     version = f.read().strip()
+    # change a version like 2.6.dev1 to just 2.6, for cx_Freeze's sake
+    last_digit = version[-1]
+    if version.endswith(f".dev{last_digit}"):
+        version = version[0:-4]
 
 
 # Build
