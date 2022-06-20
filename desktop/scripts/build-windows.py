@@ -177,6 +177,10 @@ def msi_package(build_path, msi_path, product_update_code):
     )
     with open(version_filename) as f:
         version = f.read().strip()
+        # change a version like 2.6.dev1 to just 2.6, for cx_Freeze's sake
+        last_digit = version[-1]
+        if version.endswith(f".dev{last_digit}"):
+            version = version[0:-5]
 
     data = {
         "id": "TARGETDIR",
