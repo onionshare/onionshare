@@ -24,6 +24,6 @@
     <update_contact>micah@micahflee.com</update_contact>
     <content_rating type="oars-1.1" />
     <releases>
-        <release type="development" date="2022-01-17" version="2.5" />
+        <release type="development" date="2022-06-19" version="2.6" />
     </releases>
 </component>

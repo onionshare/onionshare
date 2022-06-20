@@ -1,5 +1,9 @@
 # OnionShare Changelog
 
+## 2.6
+
+* TODO
+
 ## 2.5
 
 * Security fix: Sanitize the path parameter in History item widget to be plain text
