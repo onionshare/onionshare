@@ -95,6 +95,15 @@ jobs:
             cd ~\Downloads
             Invoke-WebRequest -Uri https://www.python.org/ftp/python/3.9.13/python-3.9.13-amd64.exe -OutFile python-3.9.13-amd64.exe
             .\python-3.9.13-amd64.exe /quiet InstallAllUsers=1 TargetDir=C:\Python39
+            while($true) {
+              if ((Test-Path -Path C:\Python39\python.exe) -eq $True) {
+                Write-Output "Python is installed"
+                break
+              } else {
+                Write-Output "Waiting for Python to finish installing ..."
+                Start-Sleep -Seconds 2
+              }
+            }
 
       - run:
           name: Install poetry
@@ -201,6 +210,15 @@ jobs:
             cd ~\Downloads
             Invoke-WebRequest -Uri https://www.python.org/ftp/python/3.9.13/python-3.9.13.exe -OutFile python-3.9.13.exe
             .\python-3.9.13.exe /quiet InstallAllUsers=1 TargetDir=C:\Python39
+            while($true) {
+              if ((Test-Path -Path C:\Python39\python.exe) -eq $True) {
+                Write-Output "Python is installed"
+                break
+              } else {
+                Write-Output "Waiting for Python to finish installing ..."
+                Start-Sleep -Seconds 2
+              }
+            }
 
       - run:
           name: Install poetry
