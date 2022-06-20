@@ -590,7 +590,6 @@ def codesign(win32_path, win64_path):
                 "onionshare",
                 "resources",
                 "tor",
-                "Tor",
                 "meek-client.exe",
             )
         )
@@ -601,7 +600,6 @@ def codesign(win32_path, win64_path):
                 "onionshare",
                 "resources",
                 "tor",
-                "Tor",
                 "obfs4proxy.exe",
             )
         )
@@ -612,7 +610,6 @@ def codesign(win32_path, win64_path):
                 "onionshare",
                 "resources",
                 "tor",
-                "Tor",
                 "snowflake-client.exe",
             )
         )
