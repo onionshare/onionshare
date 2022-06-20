@@ -358,26 +358,26 @@ jobs:
       - run:
           name: Build obfs4proxy
           command: |
-            if [[ -f "~/project/desktop/onionshare/resources/tor/obfs4proxy" ]]; then
+            if [[ -f "/Users/distiller/project/desktop/onionshare/resources/tor/obfs4proxy" ]]; then
               echo "obfs4proxy already built"
             else
-              cd ~/project/desktop
+              cd /Users/distiller/project/desktop
               ./scripts/build-pt-obfs4proxy.sh
             fi
       - save_cache:
           key: build-macos-obfs4proxy-{{ checksum "~/project/desktop/scripts/build-pt-obfs4proxy.sh" }}-{{ .Environment.CACHE_VERSION }}
           paths:
-            - ~/project/desktop/onionshare/resources/tor/obfs4proxy
+            - /Users/distiller/project/desktop/onionshare/resources/tor/obfs4proxy
 
       - restore_cache:
           key: build-macos-snowflake-{{ checksum "~/project/desktop/scripts/build-pt-snowflake.sh" }}-{{ .Environment.CACHE_VERSION }}
       - run:
           name: Build snowflake
           command: |
-            if [[ -f "~/project/desktop/onionshare/resources/tor/snowflake-client" ]]; then
+            if [[ -f "/Users/distiller/project/desktop/onionshare/resources/tor/snowflake-client" ]]; then
               echo "snowflake already built"
             else
-              cd ~/project/desktop
+              cd /Users/distiller/project/desktop
               ./scripts/build-pt-snowflake.sh
             fi
       - save_cache:
@@ -390,10 +390,10 @@ jobs:
       - run:
           name: Build meek
           command: |
-            if [[ -f "~/project/desktop/onionshare/resources/tor/meek-client" ]]; then
+            if [[ -f "/Users/distiller/project/desktop/onionshare/resources/tor/meek-client" ]]; then
               echo "meek already built"
             else
-              cd ~/project/desktop
+              cd /Users/distiller/project/desktop
               ./scripts/build-pt-meek.sh
             fi
       - save_cache:
@@ -413,7 +413,7 @@ jobs:
           name: Compress
           command: |
             cd ~/project/desktop/build
-            tar -cvfx ~/onionshare-macos.tar.gz OnionShare.app
+            tar -czvf ~/onionshare-macos.tar.gz OnionShare.app
 
       - store_artifacts:
           path: ~/onionshare-macos.tar.gz
