@@ -332,13 +332,13 @@ jobs:
       - run:
           name: Install Go 1.18.3
           command: |
-            curl https://go.dev/dl/go1.18.3.darwin-amd64.pkg --output ~/Downloads/go.pkg
+            curl -L https://go.dev/dl/go1.18.3.darwin-amd64.pkg --output ~/Downloads/go.pkg
             sudo installer -pkg ~/Downloads/go.pkg -target /
 
       - run:
           name: Install Python 3.9.13
           command: |
-            curl https://www.python.org/ftp/python/3.9.13/python-3.9.13-macosx10.9.pkg --output ~/Downloads/python.pkg
+            curl -L https://www.python.org/ftp/python/3.9.13/python-3.9.13-macosx10.9.pkg --output ~/Downloads/python.pkg
             sudo installer -pkg ~/Downloads/python.pkg -target /
 
       - run:
