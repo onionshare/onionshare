@@ -109,17 +109,17 @@ jobs:
           name: Install poetry
           command: C:\Python39\python -m pip install poetry
 
-      - restore_cache:
-          key: build-win64-desktop-poetry-deps-{{ checksum "~/project/desktop/poetry.lock" }}-{{ .Environment.CACHE_VERSION }}
+      # - restore_cache:
+      #     key: build-win64-desktop-poetry-deps-{{ checksum "~/project/desktop/poetry.lock" }}-{{ .Environment.CACHE_VERSION }}
       - run:
           name: Install poetry dependencies
           command: |
             cd C:\Users\circleci\project\desktop
             C:\Python39\scripts\poetry install
-      - save_cache:
-          key: build-win64-desktop-poetry-deps-{{ checksum "~/project/desktop/poetry.lock" }}-{{ .Environment.CACHE_VERSION }}
-          paths:
-            - C:\Users\circleci\AppData\Local\pypoetry\Cache\virtualenvs
+      # - save_cache:
+      #     key: build-win64-desktop-poetry-deps-{{ checksum "~/project/desktop/poetry.lock" }}-{{ .Environment.CACHE_VERSION }}
+      #     paths:
+      #       - C:\Users\circleci\AppData\Local\pypoetry\Cache\virtualenvs
 
       - restore_cache:
           key: get-tor-win64-{{ checksum "desktop/scripts/get-tor.py" }}-{{ .Environment.CACHE_VERSION }}
@@ -224,17 +224,17 @@ jobs:
           name: Install poetry
           command: C:\Python39\python -m pip install poetry
 
-      - restore_cache:
-          key: build-win32-desktop-poetry-deps-{{ checksum "~/project/desktop/poetry.lock" }}-{{ .Environment.CACHE_VERSION }}
+      # - restore_cache:
+      #     key: build-win32-desktop-poetry-deps-{{ checksum "~/project/desktop/poetry.lock" }}-{{ .Environment.CACHE_VERSION }}
       - run:
           name: Install poetry dependencies
           command: |
             cd ~\project\desktop
             C:\Python39\Scripts\poetry install
-      - save_cache:
-          key: build-win32-desktop-poetry-deps-{{ checksum "~/project/desktop/poetry.lock" }}-{{ .Environment.CACHE_VERSION }}
-          paths:
-            - C:\Users\circleci\AppData\Local\pypoetry\Cache\virtualenvs
+      # - save_cache:
+      #     key: build-win32-desktop-poetry-deps-{{ checksum "~/project/desktop/poetry.lock" }}-{{ .Environment.CACHE_VERSION }}
+      #     paths:
+      #       - C:\Users\circleci\AppData\Local\pypoetry\Cache\virtualenvs
 
       - restore_cache:
           key: get-tor-win32-{{ checksum "desktop/scripts/get-tor.py" }}-{{ .Environment.CACHE_VERSION }}
