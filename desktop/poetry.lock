@@ -62,7 +62,7 @@ python-versions = "*"
 
 [[package]]
 name = "certifi"
-version = "2022.5.18.1"
+version = "2022.6.15"
 description = "Python package for providing Mozilla's CA Bundle."
 category = "main"
 optional = false
@@ -104,7 +104,7 @@ importlib-metadata = {version = "*", markers = "python_version < \"3.8\""}
 
 [[package]]
 name = "colorama"
-version = "0.4.4"
+version = "0.4.5"
 description = "Cross-platform colored terminal text."
 category = "main"
 optional = false
@@ -112,17 +112,23 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
 name = "cx-freeze"
-version = "6.10"
+version = "6.11.0"
 description = "Create standalone executables from Python scripts"
 category = "main"
 optional = false
 python-versions = ">=3.6"
 
 [package.dependencies]
-cx-logging = {version = ">=3.0", markers = "sys_platform == \"win32\""}
+cx-logging = {version = ">=3.0", markers = "sys_platform == \"win32\" and python_version < \"3.10\""}
 importlib-metadata = {version = ">=4.8.3", markers = "python_version < \"3.10\""}
-lief = {version = ">=0.11.5", markers = "sys_platform == \"win32\" and python_version < \"3.10\""}
+lief = {version = ">=0.11.5", markers = "sys_platform == \"win32\""}
+packaging = ">=21.0"
 patchelf = {version = ">=0.12", markers = "sys_platform == \"linux\""}
+
+[package.extras]
+dev = ["bump2version (>=1.0.1)", "pre-commit (>=2.17.0)", "pylint (>=2.13.0)", "cibuildwheel (==2.6.0)"]
+doc = ["sphinx (==4.5.0)", "sphinx-rtd-theme (==1.0.0)"]
+test = ["nose (==1.3.7)", "pygments (==2.11.2)", "pytest (>=7.0.1)", "pytest-cov (==3.0.0)", "pytest-mock (>=3.6.1)", "pytest-timeout (>=1.4.2)"]
 
 [[package]]
 name = "cx-logging"
@@ -323,7 +329,7 @@ python-versions = "*"
 
 [[package]]
 name = "onionshare-cli"
-version = "2.5"
+version = "2.6"
 description = "OnionShare lets you securely and anonymously send and receive files. It works by starting a web server, making it accessible as a Tor onion service, and generating an unguessable web address so others can download files from you, or upload files to you. It does _not_ require setting up a separate server or using a third party file-sharing service."
 category = "main"
 optional = false
@@ -353,7 +359,7 @@ url = "../cli"
 name = "packaging"
 version = "21.3"
 description = "Core utilities for Python packages"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.6"
 
@@ -452,7 +458,7 @@ tests = ["pytest (>=3.2.1,!=3.3.0)", "hypothesis (>=3.27.0)"]
 name = "pyparsing"
 version = "3.0.7"
 description = "Python parsing module"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.6"
 
@@ -706,7 +712,7 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.6.2,<3.11"
-content-hash = "60276ce053d95d34415d8bee002e2c39f410ad5c97f2d1948e7ddbdc5da9cc56"
+content-hash = "80aa2819ec2d5e4dd5acb42f178c196776e05fb7efa5d1b99e5c2626c2208cd9"
 
 [metadata.files]
 atomicwrites = [
@@ -750,8 +756,8 @@ cepa = [
     {file = "cepa-1.8.3.tar.gz", hash = "sha256:1dc6f0b324d37a2ed2ca274648ece8fd2c96a1d2f440f58c0ca17afd4b5ede7a"},
 ]
 certifi = [
-    {file = "certifi-2022.5.18.1-py3-none-any.whl", hash = "sha256:f1d53542ee8cbedbe2118b5686372fb33c297fcd6379b050cca0ef13a597382a"},
-    {file = "certifi-2022.5.18.1.tar.gz", hash = "sha256:9c5705e395cd70084351dd8ad5c41e65655e08ce46f2ec9cf6c2c08390f71eb7"},
+    {file = "certifi-2022.6.15-py3-none-any.whl", hash = "sha256:fe86415d55e84719d75f8b69414f6438ac3547d2078ab91b67e779ef69378412"},
+    {file = "certifi-2022.6.15.tar.gz", hash = "sha256:84c85a9078b11105f04f3036a9482ae10e4621616db313fe045dd24743a0820d"},
 ]
 cffi = [
     {file = "cffi-1.15.0-cp27-cp27m-macosx_10_9_x86_64.whl", hash = "sha256:c2502a1a03b6312837279c8c1bd3ebedf6c12c4228ddbad40912d671ccc8a962"},
@@ -814,21 +820,35 @@ click = [
     {file = "click-8.0.4.tar.gz", hash = "sha256:8458d7b1287c5fb128c90e23381cf99dcde74beaf6c7ff6384ce84d6fe090adb"},
 ]
 colorama = [
-    {file = "colorama-0.4.4-py2.py3-none-any.whl", hash = "sha256:9f47eda37229f68eee03b24b9748937c7dc3868f906e8ba69fbcbdd3bc5dc3e2"},
-    {file = "colorama-0.4.4.tar.gz", hash = "sha256:5941b2b48a20143d2267e95b1c2a7603ce057ee39fd88e7329b0c292aa16869b"},
+    {file = "colorama-0.4.5-py2.py3-none-any.whl", hash = "sha256:854bf444933e37f5824ae7bfc1e98d5bce2ebe4160d46b5edf346a89358e99da"},
+    {file = "colorama-0.4.5.tar.gz", hash = "sha256:e6c6b4334fc50988a639d9b98aa429a0b57da6e17b9a44f0451f930b6967b7a4"},
 ]
 cx-freeze = [
-    {file = "cx_Freeze-6.10-cp310-cp310-win32.whl", hash = "sha256:770e911f70b48e4f309a47e02aaa7e1f6dc659fd1c486f3eebe5c9e9fe70aec2"},
-    {file = "cx_Freeze-6.10-cp310-cp310-win_amd64.whl", hash = "sha256:8d936a872c124c2e2a40da2e898e4fa0d225a165ab606217f75136c14ee8e673"},
-    {file = "cx_Freeze-6.10-cp36-cp36m-win32.whl", hash = "sha256:2be07ffce2dba23618cf736476df6f9837d9887c85f4f92fb3fbfcd090de041a"},
-    {file = "cx_Freeze-6.10-cp36-cp36m-win_amd64.whl", hash = "sha256:59b4cb77f5c82613efbec03815b952a6fe73d4a1805bb370d57a8a1130a181ca"},
-    {file = "cx_Freeze-6.10-cp37-cp37m-win32.whl", hash = "sha256:f03928cbcf8282e688dc1f9fa421044c24f5b7492a7b0fe7f45d5cc6f24c1ebf"},
-    {file = "cx_Freeze-6.10-cp37-cp37m-win_amd64.whl", hash = "sha256:9c4b491affd10065bcdd20dc0ab5239f787affe6d61857811a937ed266faa213"},
-    {file = "cx_Freeze-6.10-cp38-cp38-win32.whl", hash = "sha256:1438db6d59be86e8483ea2bf2ff2f81374ca63d8a1d3a84706173cc1b98dd46f"},
-    {file = "cx_Freeze-6.10-cp38-cp38-win_amd64.whl", hash = "sha256:ec752333fa2e40347902730662785da0ec4576cec976552784a6f60a7a07b45d"},
-    {file = "cx_Freeze-6.10-cp39-cp39-win32.whl", hash = "sha256:08a537681dcd1bcde9742584e91d86ef001fe798386f2834a904652d5b2a468a"},
-    {file = "cx_Freeze-6.10-cp39-cp39-win_amd64.whl", hash = "sha256:a4d2cb00eec6bc72a419370b5b0b5d0f3adf4d8417eb89228981d470cf4c6af6"},
-    {file = "cx_Freeze-6.10.tar.gz", hash = "sha256:e5b71bf57b9881ac142fbebeae2c8b0d3294b56f6e48ab64032321e3b1a2ba27"},
+    {file = "cx_Freeze-6.11.0-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:0fa63ae171ee34dd644331ad9cba0e1627036a11ef23b0ce8569229e4546762f"},
+    {file = "cx_Freeze-6.11.0-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:8274f4d1c696e6e824f98423b4afa618db4eadecb554d2948c364cb524e46bde"},
+    {file = "cx_Freeze-6.11.0-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:1897bb479e9ad1d5ff339eb2f59009f618e4651e33f1dd695500b36c29045c75"},
+    {file = "cx_Freeze-6.11.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:e9a3f3d7934b93f1a73579f4b19fc7ee37556bee46768e6e8c54ac0d469a8918"},
+    {file = "cx_Freeze-6.11.0-cp310-cp310-win32.whl", hash = "sha256:dfbb70832ecb461798d8d19ca110c1c2f8a622475d22ec49c143a8abf19339b0"},
+    {file = "cx_Freeze-6.11.0-cp310-cp310-win_amd64.whl", hash = "sha256:09ccf1c96354d11f694f1a9f6887b069d40fcf853b1b819d2308747d62efebb7"},
+    {file = "cx_Freeze-6.11.0-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:44cb609f7849176e06fe12bb52459de31a3b68fc1d72279e9b081f18c9276c7a"},
+    {file = "cx_Freeze-6.11.0-cp36-cp36m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:986e666a8473e699f2a4ba689cfa017a4955ed79a56e2093df55af8ca3bff56f"},
+    {file = "cx_Freeze-6.11.0-cp36-cp36m-win32.whl", hash = "sha256:07428f54a17cb6e8a889030a357edb6398c1c90b998564b90399e028f538930b"},
+    {file = "cx_Freeze-6.11.0-cp36-cp36m-win_amd64.whl", hash = "sha256:83bb02fa03e0c52fdb078b064cb1c17cf6c0410bd74e768ade10d1708c324b74"},
+    {file = "cx_Freeze-6.11.0-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:630d0d0d3bcdc69df9af0cc02d84a9ab4f9305bc74513058e30042bfc379dd20"},
+    {file = "cx_Freeze-6.11.0-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:ea2f4f5bea120f88d53ca32a71ccf1b6758dc82ed468f944338ed8535eec550e"},
+    {file = "cx_Freeze-6.11.0-cp37-cp37m-win32.whl", hash = "sha256:70835e9d6475fb9a7f207d74bd0f3be1bd2d59b6cd09941e032ae512e7fdedee"},
+    {file = "cx_Freeze-6.11.0-cp37-cp37m-win_amd64.whl", hash = "sha256:0c141cba6f9e9e9923b1cfbbb0cb44655848bf50c57249d8058fe388c18116f3"},
+    {file = "cx_Freeze-6.11.0-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:04453a2de82f81356be1c183ee0ab2fbf024791451970dbdde4f9f1bf6301b6a"},
+    {file = "cx_Freeze-6.11.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:4324f1abf6e0d0a017e9fabb0f3805acd08f5b3b7eb059395e08e7ff2b6e9b83"},
+    {file = "cx_Freeze-6.11.0-cp38-cp38-win32.whl", hash = "sha256:81cacbc22c0f3be8e3807b9690c73eb682b16e5a2358f6bd213af6bf88402061"},
+    {file = "cx_Freeze-6.11.0-cp38-cp38-win_amd64.whl", hash = "sha256:c2315a1634108fc94398bef3ef63435d53c8ecd1cbcce9e05c4bcca61a833d62"},
+    {file = "cx_Freeze-6.11.0-cp39-cp39-macosx_10_9_universal2.whl", hash = "sha256:f4da77d44b910d4b18fbe95a487ddc081ebe5cd4f35971b496c1fff0420cf495"},
+    {file = "cx_Freeze-6.11.0-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:868837ca628fe9501c317e475f68d04f442f98e6174cb77b7ec413061e3613d7"},
+    {file = "cx_Freeze-6.11.0-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:5b92dda05bd7d5c1a2632de837ea738d73070af6effc035a016ab820ee1ec51a"},
+    {file = "cx_Freeze-6.11.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:920e6ff71b7fe1dd77d7a01b7de04a7856ba4803964ce2acab1962d2212a2746"},
+    {file = "cx_Freeze-6.11.0-cp39-cp39-win32.whl", hash = "sha256:81a6a56b8ad83635a441eb0049cff65993c53fcf7c46f49b4cf31998facb24d6"},
+    {file = "cx_Freeze-6.11.0-cp39-cp39-win_amd64.whl", hash = "sha256:ee81a20340f830182fba3e42b32a0fb1e455324d6d6c3f6c3b3020d619e04c2d"},
+    {file = "cx_Freeze-6.11.0.tar.gz", hash = "sha256:c461fc3a33cbdfc2b6bbdd02cb0ea048d496e9e33067489cae778d929379bee8"},
 ]
 cx-logging = [
     {file = "cx_Logging-3.0-cp36-cp36m-manylinux1_x86_64.whl", hash = "sha256:9fcd297e5c51470521c47eff0f86ba844aeca6be97e13c3e2114ebdf03fa3c96"},
