@@ -119,6 +119,10 @@ This will create:
 
 ## macOS
 
+Set up the packaging environment:
+
+- Install create-dmg: `brew install create-dmg`
+
 CircleCI will build the binaries. Find the CircleCI job `build-macos`, switch to the artifacts tab, and download:
 
 - `onionshare-macos.zip`
