@@ -6,4 +6,4 @@ git clone https://gitlab.com/yawning/obfs4
 cd obfs4
 git checkout $OBFS4PROXY_TAG
 go build .\obfs4proxy
-Move-Item -Path .\obfs4proxy.exe -Destination ..\onionshare\resources\tor\obfs4proxy.exe
+Move-Item -Path .\obfs4proxy.exe -Destination ..\..\..\onionshare\resources\tor\obfs4proxy.exe
