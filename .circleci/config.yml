@@ -12,15 +12,15 @@ workflows:
       - build-win64:
           requires:
             - test-cli
-            # - test-gui
+            - test-gui
       - build-win32:
           requires:
             - test-cli
-            # - test-gui
+            - test-gui
       - build-macos:
           requires:
             - test-cli
-            # - test-gui
+            - test-gui
 
 jobs:
   test-cli:
