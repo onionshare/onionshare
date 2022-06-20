@@ -330,15 +330,15 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install Homebrew dependencies
+          name: Install Go 1.18.3
           command: |
-            brew install wget
-            brew install go
+            curl https://go.dev/dl/go1.18.3.darwin-amd64.pkg --output ~/Downloads/go.pkg
+            sudo installer -pkg ~/Downloads/go.pkg -target /
 
       - run:
           name: Install Python 3.9.13
           command: |
-            wget https://www.python.org/ftp/python/3.9.13/python-3.9.13-macosx10.9.pkg -O ~/Downloads/python.pkg
+            curl https://www.python.org/ftp/python/3.9.13/python-3.9.13-macosx10.9.pkg --output ~/Downloads/python.pkg
             sudo installer -pkg ~/Downloads/python.pkg -target /
 
       - run:
