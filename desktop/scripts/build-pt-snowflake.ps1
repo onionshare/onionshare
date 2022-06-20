@@ -6,4 +6,4 @@ git clone https://git.torproject.org/pluggable-transports/snowflake.git
 cd snowflake
 git checkout $SNOWFLAKE_TAG
 go build .\client
-Move-Item -Path .\client.exe -Destination ..\onionshare\resources\tor\snowflake-client.exe
+Move-Item -Path .\client.exe -Destination ..\..\..\onionshare\resources\tor\snowflake-client.exe
