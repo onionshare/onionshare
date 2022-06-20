@@ -138,7 +138,7 @@ jobs:
       - run:
           name: Build obfs4proxy
           command: |
-            if ((Test-Path -Path C:\Users\circleci\project\desktop\onionshare\resources\tor\obfs4proxy.exe) -eq $True) {
+            if ((Test-Path -Path 'C:\Users\circleci\project\desktop\onionshare\resources\tor\obfs4proxy.exe') -eq $True) {
               Write-Output "obfs4proxy already built"
             } else {
               cd C:\Users\circleci\project\desktop
@@ -154,7 +154,7 @@ jobs:
       - run:
           name: Build snowflake-client
           command: |
-            if ((Test-Path -Path C:\Users\circleci\project\desktop\onionshare\resources\tor\snowflake-client.exe) -eq $True) {
+            if ((Test-Path -Path 'C:\Users\circleci\project\desktop\onionshare\resources\tor\snowflake-client.exe') -eq $True) {
               Write-Output "snowflake already built"
             } else {
               cd C:\Users\circleci\project\desktop
@@ -170,7 +170,7 @@ jobs:
       - run:
           name: Build meek-client
           command: |
-            if ((Test-Path -Path C:\Users\circleci\project\desktop\onionshare\resources\tor\meek-client.exe) -eq $True) {
+            if ((Test-Path -Path 'C:\Users\circleci\project\desktop\onionshare\resources\tor\meek-client.exe') -eq $True) {
               Write-Output "snowflake already built"
             } else {
               cd C:\Users\circleci\project\desktop
