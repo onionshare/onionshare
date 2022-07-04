@@ -28,7 +28,7 @@ import psutil
 import getpass
 from PySide2 import QtCore, QtWidgets, QtGui
 
-from PySide2.QtCore import Slot,Qt
+from PySide2.QtCore import Slot, Qt
 from PySide2.QtGui import QPalette, QColor
 
 from onionshare_cli.common import Common
@@ -51,7 +51,11 @@ class Application(QtWidgets.QApplication):
             self.setDesktopFileName("org.onionshare.OnionShare")
             self.setOrganizationDomain("org.onionshare.OnionShare")
             self.setOrganizationName("OnionShare")
+
         QtWidgets.QApplication.__init__(self, sys.argv)
+
+        if common.platform == "Darwin" or common.platform == "Windows":
+            self.setStyle("Fusion")
 
         # Check color mode on starting the app
         self.color_mode = self.get_color_mode(common)
@@ -117,7 +121,9 @@ class Application(QtWidgets.QApplication):
         dark_palette.setColor(QPalette.Highlight, QColor(42, 130, 218))
         dark_palette.setColor(QPalette.HighlightedText, Qt.black)
         self.setPalette(dark_palette)
-        self.setStyleSheet("QToolTip { color: #ffffff; background-color: #2a82da; border: 1px solid white; }")
+        self.setStyleSheet(
+            "QToolTip { color: #ffffff; background-color: #2a82da; border: 1px solid white; }"
+        )
 
     def get_color_mode(self, common):
         curr_settings = Settings(common)
@@ -130,6 +136,7 @@ class Application(QtWidgets.QApplication):
             return "dark"
         else:
             return "dark" if self.is_dark_mode() else "light"
+
 
 def main():
     """
