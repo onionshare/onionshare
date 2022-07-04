@@ -9,62 +9,54 @@ git clone https://github.com/onionshare/onionshare.git
 cd onionshare/desktop
 ```
 
-Make sure you have Python 3 installed. If you're using Windows or macOS, install version 3.9.9 [from python.org](https://www.python.org/downloads/release/python-3912/). For Windows, make sure to install the 32-bit (x86) version, and to check the box to add python to the path on the first page of the installer.
+Make sure you have Python 3 installed. If you're using Windows or macOS, install version 3.9.13 [from python.org](https://www.python.org/downloads/release/python-3913/). For Windows, make sure to check the box to add python to the path on the first page of the installer.
 
-Make sure you have [poetry installed](https://python-poetry.org/docs/#installation), and then install the dependencies:
+Make sure you have [poetry](https://python-poetry.org/) installed:
+
+```
+pip3 install poetry
+```
+
+And install the poetry dependencies:
 
 ```sh
 poetry install
 ```
 
-In Windows, you may need to install [Microsoft C++ Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/), making sure to check "Desktop development with C++", before `poetry install` will work properly.
+**Windows users:** You may need to install [Microsoft C++ Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/), making sure to check "Desktop development with C++", before `poetry install` will work properly.
 
-### Install platform-specific dependencies
+### Get Tor
 
-#### Linux
+**Linux users:** In Ubuntu 20.04 you need the `libxcb-xinerama0` package installed.
 
-In Ubuntu 20.04 you need the `libxcb-xinerama0` package installed.
+**Windows users:** Download and install 7-Zip from https://7-zip.org/download.html. [Add](https://medium.com/@kevinmarkvi/how-to-add-executables-to-your-path-in-windows-5ffa4ce61a53) `C:\Program Files (x86)\7-Zip` to your path.
 
-Download Tor Browser and extract the binaries:
-
-```sh
-poetry run ./scripts/get-tor-linux.py
-```
-
-#### macOS
-
-Download Tor Browser and extract the binaries:
+Download Tor Browser and extract the binaries for your platform. The platform must be `win32`, `win64`, `macos`, or `linux64`.
 
 ```sh
-poetry run ./scripts/get-tor-osx.py
-```
-
-#### Windows
-
-These instructions include adding folders to the path in Windows. To do this, go to Start and type "advanced system settings", and open "View advanced system settings" in the Control Panel. Click Environment Variables. Under "System variables" double-click on Path. From there you can add and remove folders that are available in the PATH.
-
-Download and install 7-Zip from https://7-zip.org/download.html. I downloaded `7z1900.exe`. Add `C:\Program Files (x86)\7-Zip` to your path.
-
-Download Tor Browser and extract the binaries:
-
-```sh
-poetry run python scripts\get-tor-windows.py
+poetry run python ./scripts/get-tor.py [platform]
 ```
 
 ### Compile dependencies
 
-Install Go. The simplest way to make sure everything works is to install Go by following [these instructions](https://golang.org/doc/install). (In Windows, make sure to install the 32-bit version of Go, such as `go1.17.5.windows-386.msi`.)
+Install Go. The simplest way to make sure everything works is to install Go by following [these instructions](https://golang.org/doc/install).
 
-Download and compile `meek-client`:
+Compile pluggable transports:
 
-```sh
-./scripts/build-meek-client.py
-```
-
-Or in Windows:
+**Windows users, in PowerShell:**
 
 ```powershell
-python .\scripts\build-meek-client.py
+.\scripts\build-pt-obfs4proxy.ps1
+.\scripts\build-pt-snowflake.ps1
+.\scripts\build-pt-meek.ps1
+```
+
+**macOS and Linux users:**
+
+```sh
+./scripts/build-pt-obfs4proxy.sh
+./scripts/build-pt-snowflake.sh
+./scripts/build-pt-meek.sh
 ```
 
 ### Running OnionShare from the source code tree

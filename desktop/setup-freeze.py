@@ -24,6 +24,7 @@ import platform
 import shutil
 import cx_Freeze
 from cx_Freeze import setup, Executable
+from setuptools import find_packages
 
 # There's an obscure cx_Freeze bug that I'm hitting that's preventing the macOS
 # package from getting built. This is some monkeypatching to fix it.
@@ -107,7 +108,10 @@ if platform.system() == "Darwin" or platform.system() == "Linux":
 # Discover the version
 with open(os.path.join("..", "cli", "onionshare_cli", "resources", "version.txt")) as f:
     version = f.read().strip()
-
+    # change a version like 2.6.dev1 to just 2.6, for cx_Freeze's sake
+    last_digit = version[-1]
+    if version.endswith(f".dev{last_digit}"):
+        version = version[0:-5]
 
 # Build
 include_files = [(os.path.join("..", "LICENSE"), "LICENSE")]
@@ -148,6 +152,11 @@ setup(
     name="onionshare",
     version=version,
     description="Securely and anonymously share files, host websites, and chat with friends using the Tor network",
+    packages=find_packages(
+        where=".",
+        include=["onionshare"],
+        exclude=["package", "screenshots", "scripts", "tests"],
+    ),
     options={
         # build_exe, for Windows and macOS
         "build_exe": {
@@ -214,7 +223,7 @@ setup(
         # bdist_mac, making the macOS app bundle
         "bdist_mac": {
             "iconfile": os.path.join("onionshare", "resources", "onionshare.icns"),
-            "bundle_name": "OnionShare"
+            "bundle_name": "OnionShare",
         },
     },
     executables=[

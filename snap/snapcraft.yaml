@@ -1,6 +1,6 @@
 name: onionshare
 base: core18
-version: '2.5'
+version: "2.6"
 summary: Securely and anonymously share files, host websites, and chat using Tor
 description: |
   OnionShare lets you securely and anonymously send and receive files. It works by starting
@@ -15,7 +15,7 @@ apps:
   onionshare:
     common-id: org.onionshare.OnionShare
     command: onionshare
-    extensions: [ gnome-3-34 ]
+    extensions: [gnome-3-34]
     plugs:
       - desktop
       - home
