@@ -48,8 +48,10 @@ class Application(QtWidgets.QApplication):
     def __init__(self, common):
         if common.platform == "Linux" or common.platform == "BSD":
             self.setAttribute(QtCore.Qt.AA_X11InitThreads, True)
+            self.setDesktopFileName("org.onionshare.OnionShare")
+            self.setOrganizationDomain("org.onionshare.OnionShare")
+            self.setOrganizationName("OnionShare")
         QtWidgets.QApplication.__init__(self, sys.argv)
-        self.setStyle("Fusion")
 
         # Check color mode on starting the app
         self.color_mode = self.get_color_mode(common)
