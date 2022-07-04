@@ -46,6 +46,11 @@ Make sure snapcraft packaging works. In `snap/snapcraft.yaml`:
 - [ ] All python packages in the `onionshare` part should be updated to match `desktop/pyproject.toml`
 - [ ] Test the snap package, ensure it works
 
+Update to the latest version of Tor:
+
+- [ ] Edit `desktop/scripts/get-tor.py` to use the latest version of Tor Browser, and the latest sha256 checksums.
+- [ ] Update the version of `meek`, `obfs4proxy`, and `snowflake` in the `desktop/scripts/build-pt-*` scripts, both the bash and PowerShell scripts.
+
 Finally:
 
 - [ ] There must be a PGP-signed git tag for the version, e.g. for OnionShare 2.1, the tag must be `v2.1`
