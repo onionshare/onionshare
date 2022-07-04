@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3.1\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2021-02-22 13:40-0800\n"
-"PO-Revision-Date: 2021-06-27 06:32+0000\n"
+"PO-Revision-Date: 2022-05-27 13:16+0000\n"
 "Last-Translator: Oymate <dhruboadittya96@gmail.com>\n"
 "Language-Team: none\n"
 "Language: bn\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.7.1-dev\n"
+"X-Generator: Weblate 4.13-dev\n"
 
 #: ../../source/security.rst:2
 msgid "Security Design"
@@ -25,10 +25,11 @@ msgstr "নিরাপত্তা নকশা"
 #: ../../source/security.rst:4
 msgid "Read :ref:`how_it_works` first to get a handle on how OnionShare works."
 msgstr ""
+"প্রথমে :ref:`how_it_works`পড়ো, যাতে বুঝতে পারো অনিয়নশেয়ার কিভাবে কাজ করে।"
 
 #: ../../source/security.rst:6
 msgid "Like all software, OnionShare may contain bugs or vulnerabilities."
-msgstr ""
+msgstr "সব সফটওয়্যারের মতোই অনিওনশেয়ারে ত্রুটি বা অনিরাপদ কোড থাকতে পারে।"
 
 #: ../../source/security.rst:9
 msgid "What OnionShare protects against"
@@ -37,6 +38,11 @@ msgstr "অনিয়নশেয়ার কিসের বিরুদ্ধে 
 #: ../../source/security.rst:11
 msgid "**Third parties don't have access to anything that happens in OnionShare.** Using OnionShare means hosting services directly on your computer. When sharing files with OnionShare, they are not uploaded to any server. If you make an OnionShare chat room, your computer acts as a server for that too. This avoids the traditional model of having to trust the computers of others."
 msgstr ""
+"**অনিয়নশেয়ারে যা হয় তৃতীয় কোনো পক্ষের তা জানার ক্ষমতা বা অনুমতি নেই।** "
+"অনিয়নশেয়ার ব্যবহার মানে সরাসরি নিজের কম্পিউটারে উপস্থাপন করা। যখন তুমি "
+"অনিয়নশেয়ার দিয়ে কিছু ভাগ করো তখন তা সার্ভারে পাঠানো হয় না। তুমি অনিয়নশেয়ার "
+"চ্যাট বা অনিয়নশেয়ার বার্তা বানালেও তোমার কম্পিউটার সার্ভার হিসেবে কাজ করে। "
+"এতে সাধারণভাবে ব্যবহৃত অন্য কম্পিউটারের উপর বিশ্বাস এড়ানো যায়।"
 
 #: ../../source/security.rst:13
 msgid "**Network eavesdroppers can't spy on anything that happens in OnionShare in transit.** The connection between the Tor onion service and Tor Browser is end-to-end encrypted. This means network attackers can't eavesdrop on anything except encrypted Tor traffic. Even if an eavesdropper is a malicious rendezvous node used to connect the Tor Browser with OnionShare's onion service, the traffic is encrypted using the onion service's private key."

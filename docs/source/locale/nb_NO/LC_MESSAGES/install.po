@@ -35,9 +35,8 @@ msgstr ""
 "nettsiden <https://onionshare.org/>`_."
 
 #: ../../source/install.rst:12
-#, fuzzy
 msgid "Linux"
-msgstr "Linux"
+msgstr "Linux|GNU"
 
 #: ../../source/install.rst:14
 #, fuzzy

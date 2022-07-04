@@ -98,6 +98,9 @@ msgid ""
 "operating system using the Python package manager ``pip``. :ref:`cli` has"
 " more info."
 msgstr ""
+"Vous pouvez installer uniquement la version en ligne de commande "
+"d'OnionShare sur n'importe quel OS en utilisant le gestionnaire de paquets "
+"\"pip\". Voir :ref:`cli` pour plus de précisions."
 
 #: ../../source/install.rst:35
 msgid "Verifying PGP signatures"
@@ -195,6 +198,11 @@ msgid ""
 " the package, it only means you haven't defined a level of \"trust\" of "
 "Micah's (the core developer) PGP key.)"
 msgstr ""
+"Si vous ne voyez pas ``Good signature from``, il se peut qu'il y ait un "
+"problème avec l'intégrité du fichier (malveillant ou autre chose), et vous "
+"ne devriez pas installer le paquet. (Le ``WARNING:`` affiché au dessus, "
+"n'est pas un problème avec le paquet, cela veut seulement dire que vous "
+"n'avez pas défini le niveau de \"confiance\" de la clé PGP de Micah.)"
 
 #: ../../source/install.rst:79
 msgid ""
