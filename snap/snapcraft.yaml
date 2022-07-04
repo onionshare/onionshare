@@ -12,9 +12,9 @@ grade: stable # stable or devel
 confinement: strict
 
 architectures:
-- build-on: amd64
-- build-on: arm64
-- build-on: armhf
+  - build-on: amd64
+  - build-on: arm64
+  - build-on: armhf
 
 apps:
   onionshare:
@@ -45,7 +45,6 @@ parts:
   onionshare:
     source: ./desktop
     plugin: python
-    python-version: python3
     python-packages:
       - setuptools
       - qrcode
@@ -121,7 +120,6 @@ parts:
   onionshare-cli:
     source: ./cli
     plugin: python
-    python-version: python3
     python-packages:
       - poetry
     stage-packages:
