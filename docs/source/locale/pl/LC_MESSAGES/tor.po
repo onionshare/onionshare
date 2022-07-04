@@ -30,12 +30,12 @@ msgid ""
 " the welcome screen, or the Tor onion icon in the bottom right of the "
 "OnionShare window to open the Tor Settings tab."
 msgstr ""
-"Wybierz sposób połączenia OnionShare z siecią Tor, klikając ikonę „⚙” w "
-"prawym dolnym rogu okna OnionShare, aby przejść do jego ustawień."
+"Wybierz sposób połączenia OnionShare z siecią Tor, klikając ikonę cebuli w "
+"prawym dolnym rogu okna OnionShare, aby przejść do zakładki Ustawień Tor."
 
 #: ../../source/tor.rst:11
 msgid "Use the Tor version built into OnionShare"
-msgstr ""
+msgstr "Użyj wersji Tor wbudowanej w OnionShare"
 
 #: ../../source/tor.rst:13
 msgid ""
@@ -60,7 +60,7 @@ msgstr ""
 
 #: ../../source/tor.rst:20
 msgid "Getting Around Censorship"
-msgstr ""
+msgstr "Obchodzenie cenzury"
 
 #: ../../source/tor.rst:22
 msgid ""
@@ -69,18 +69,26 @@ msgid ""
 "manual.torproject.org/bridges/>`_. If OnionShare connects to Tor without "
 "one, you don't need to use a bridge."
 msgstr ""
+"Jeśli twój dostęp do Internetu jest ocenzurowany, możesz skonfigurować "
+"OnionShare, aby łączyć się z siecią Tor za pomocą `Mostków Tor <https://tb-"
+"manual.torproject.org/bridges/>`_. Jeśli OnionShare łączy się z Torem bez "
+"problemu, nie musisz używać mostka."
 
 #: ../../source/tor.rst:24
 msgid ""
 "To use a bridge, open the Tor Settings tab. You must select \"Use the Tor"
 " version built into OnionShare\" and check the \"Use a bridge\" checkbox."
 msgstr ""
+"Aby użyć mostka, otwórz zakładkę Ustawienia Tor. Musisz wybrać „Użyj wersji "
+"Tora wbudowanej w OnionShare” i zaznacz pole wyboru „Użyj mostka”."
 
 #: ../../source/tor.rst:27
 msgid ""
 "Try using a built-in bridge first. Using `obfs4` or `snowflake` bridges "
 "is recommended over using `meek-azure`."
 msgstr ""
+"Spróbuj najpierw użyć wbudowanego mostka. Korzystanie z mostków `obfs4` lub "
+"`snowflake` jest zalecane zamiast używania `meek-azure`."
 
 #: ../../source/tor.rst:31
 msgid ""
@@ -89,12 +97,18 @@ msgid ""
 "bridge. (This makes it more difficult for governments or ISPs to block "
 "access to Tor bridges.)"
 msgstr ""
+"Jeśli wbudowany mostek nie działa, możesz poprosić o mostek ze strony "
+"torproject.org. Będziesz musiał rozwiązać CAPTCHA, aby poprosić o mostek. ("
+"Utrudnia to rządom lub dostawcom usług internetowych blokowanie dostępu do "
+"mostków Tora.)"
 
 #: ../../source/tor.rst:35
 msgid ""
 "You also have the option of using a bridge that you learned about from a "
 "trusted source."
 msgstr ""
+"Masz również możliwość skorzystania z mostka, o którym dowiedziałeś się z "
+"zaufanego źródła."
 
 #: ../../source/tor.rst:38
 msgid "Attempt auto-configuration with Tor Browser"
@@ -578,4 +592,3 @@ msgstr ""
 #~ "`BridgeDB <https://bridges.torproject.org/>`_ Tora. "
 #~ "Jeśli potrzebujesz użyć mostka, wypróbuj "
 #~ "najpierw wbudowane obfs4."
-

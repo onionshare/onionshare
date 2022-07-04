@@ -3,18 +3,20 @@
 # This file is distributed under the same license as the OnionShare package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2020-11-15 14:42-0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2022-05-24 09:14+0000\n"
+"Last-Translator: Erin McConnell <erinm@riseup.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.13-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/advanced.rst:2
@@ -154,8 +156,9 @@ msgid ""
 msgstr ""
 
 #: ../../source/advanced.rst:73
+#, fuzzy
 msgid "Usage"
-msgstr ""
+msgstr "Gebruik"
 
 #: ../../source/advanced.rst:75
 msgid ""
@@ -401,4 +404,3 @@ msgstr ""
 #~ " services will soon be removed from"
 #~ " OnionShare as well."
 #~ msgstr ""
-
