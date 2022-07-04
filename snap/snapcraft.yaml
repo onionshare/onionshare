@@ -136,8 +136,8 @@ parts:
     after: [tor, obfs4, snowflake-client, meek-client]
 
   tor:
-    source: https://dist.torproject.org/tor-0.4.6.9.tar.gz
-    source-checksum: sha256/c7e93380988ce20b82aa19c06cdb2f10302b72cfebec7c15b5b96bcfc94ca9a9
+    source: https://dist.torproject.org/tor-0.4.7.8.tar.gz
+    source-checksum: sha256/9e9a5c67ad2acdd5f0f8be14ed591fed076b1708abf8344066990a0fa66fe195
     source-type: tar
     plugin: autotools
     build-packages:
@@ -162,7 +162,7 @@ parts:
     go-importpath: git.torproject.org/pluggable-transports/snowflake.git/client
     source: https://git.torproject.org/pluggable-transports/snowflake.git
     source-type: git
-    source-tag: v2.0.1
+    source-tag: v2.2.0
     organize:
       bin/client: bin/snowflake-client
 
