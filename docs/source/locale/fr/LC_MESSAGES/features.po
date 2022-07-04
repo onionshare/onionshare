@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-01-17 10:28-0800\n"
-"PO-Revision-Date: 2021-10-24 21:38+0000\n"
+"PO-Revision-Date: 2022-03-15 19:57+0000\n"
 "Last-Translator: aezjrareareare <jeromechaland@riseup.net>\n"
-"Language: fr\n"
 "Language-Team: none\n"
-"Plural-Forms: nplurals=2; plural=n > 1\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.12-dev\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: ../../source/features.rst:4
@@ -36,14 +37,15 @@ msgstr ""
 #: ../../source/features.rst:8
 msgid "By default, OnionShare web addresses are protected with a private key."
 msgstr ""
+"Par défaut, les adresses Web OnionShare sont protégées avec une clé privée."
 
 #: ../../source/features.rst:10
 msgid "OnionShare addresses look something like this::"
-msgstr ""
+msgstr "Les adresses OnionShare ressemblent à quelque chose comme ça ::"
 
 #: ../../source/features.rst:14
 msgid "And private keys might look something like this::"
-msgstr ""
+msgstr "Et les clés privées ressemblent à quelque chose comme ça ::"
 
 #: ../../source/features.rst:18
 msgid ""
@@ -52,6 +54,12 @@ msgid ""
 "or using something less secure like unencrypted email, depending on your "
 "`threat model <https://ssd.eff.org/module/your-security-plan>`_."
 msgstr ""
+"C'est votre responsabilité de partager de manière sécurisée les URL et les "
+"clé privées. Vous pouvez le faire en utilisant un moyen de communication de "
+"votre choix, par exemple un message dans une conversation chiffrée, ou en "
+"utilisant quelque chose de moins sécurisé comme un courriel non-chiffré, "
+"tout cela dépendant de votre `threat model <https://ssd.eff.org/module/your-"
+"security-plan>`_."
 
 #: ../../source/features.rst:20
 msgid ""
@@ -60,6 +68,10 @@ msgid ""
 " Tor Browser will then prompt for the private key, which the people can "
 "also then copy and paste in."
 msgstr ""
+"Les personnes à qui vous envoyez l'URL peuvent ensuite la copier-coller dans "
+"leur `Navigateur Tor <https://www.torproject.org/>`_ pour accéder au service "
+"OnionShare. Le Navigateur Tor va ensuite demander la clé privée, que les "
+"personnes peuvent aussi copier-coller."
 
 #: ../../source/features.rst:24
 msgid ""
@@ -68,6 +80,11 @@ msgid ""
 "until your laptop is unsuspended and on the internet again. OnionShare "
 "works best when working with people in real-time."
 msgstr ""
+"Si vous utilisez OnionShare sur votre ordinateur portable pour envoyer des "
+"fichiers, et que vous le mettez en veille avant que les fichiers ne soient "
+"transférés, le service ne sera pas disponible tant que votre ordinateur "
+"portable ne sera pas de nouveau actif et connecté à internet. OnionShare "
+"marche mieux quand les personnes travaillent en temps réel."
 
 #: ../../source/features.rst:26
 msgid ""
@@ -115,6 +132,12 @@ msgid ""
 " files have been sent (uncheck to allow downloading individual files)\" "
 "box."
 msgstr ""
+"Dès que quelqu'un à finit de télécharger vos fichiers, OnionShare va "
+"automatiquement arrêter le serveur, retirant le site Web d'internet. Pour "
+"autoriser plusieurs personnes à télécharger les fichiers, vous devez "
+"décocher la boîte \"Cesser le partage une fois que les fichiers ont été "
+"envoyés (décocher afin de permettre le téléchargement de fichiers "
+"individuels)\"."
 
 #: ../../source/features.rst:42
 msgid ""
@@ -147,17 +170,26 @@ msgid ""
 " stay secure, or the person is otherwise exposed to danger, use an "
 "encrypted messaging app."
 msgstr ""
+"Maintenant que vous avez OnionShare, copier l'adresse et la clé privée et "
+"envoyez les à la personne censée recevoir les fichiers. Si les fichiers "
+"doivent restés sécurisés, ou si la personne est exposée au danger, utilisez "
+"une application de messagerie chiffrée."
 
 #: ../../source/features.rst:50
+#, fuzzy
 msgid ""
 "That person then must load the address in Tor Browser. After logging in "
 "with the private key, the files can be downloaded directly from your "
 "computer by clicking the \"Download Files\" link in the corner."
 msgstr ""
+"La personne doit ensuite charger l'adresse dans le Navigateur Tor. Après "
+"s'être connectée avec la clé privée, les fichiers doivent être téléchargées "
+"directement depuis votre ordinateur en cliquant le lien \"Download Files\" "
+"dans le coin."
 
 #: ../../source/features.rst:55
 msgid "Receive Files and Messages"
-msgstr ""
+msgstr "Recevoir les fichiers et les messages"
 
 #: ../../source/features.rst:57
 msgid ""
@@ -166,10 +198,16 @@ msgid ""
 "anonymous dropbox. Open a receive tab and choose the settings that you "
 "want."
 msgstr ""
+"Vous pouvez utiliser OnionChare pour permettre aux personnes de vous envoyer "
+"de manière anonymes des fichiers et des messages directement sur votre "
+"ordinateur, le transformant en une sorte de dropbox anonyme. Ouvrez un "
+"onglet de réception et choisissez les paramètres que vous voulez."
 
 #: ../../source/features.rst:62
 msgid "You can browse for a folder to save messages and files that get submitted."
 msgstr ""
+"Vous pouvez sélectionner un dossier pour sauvegarder les messages et les "
+"fichiers qui vous sont envoyés."
 
 #: ../../source/features.rst:64
 msgid ""
@@ -213,6 +251,8 @@ msgstr ""
 #: ../../source/features.rst:77
 msgid "Here is what it looks like for someone sending you files and messages."
 msgstr ""
+"Voilà à quoi cela ressemble quand quelqu'un vous envoi des fichiers et des "
+"messages."
 
 #: ../../source/features.rst:81
 msgid ""
@@ -221,6 +261,11 @@ msgid ""
 "folder on your computer, automatically organized into separate subfolders"
 " based on the time that the files get uploaded."
 msgstr ""
+"Quand quelqu'un envoi des fichiers ou des messages à votre service de "
+"réception, par défaut ils sont sauvegardés dans un dossier appelé "
+"``OnionShare`` dans le dossier personnel de votre ordinateur, "
+"automatiquement organisés dans des sous-dossiers différents en fonction du "
+"moment où les fichiers ont été envoyés."
 
 #: ../../source/features.rst:83
 msgid ""
@@ -1107,4 +1152,3 @@ msgstr ""
 #~ "to join the chat room, all without"
 #~ " compromosing their anonymity."
 #~ msgstr ""
-
