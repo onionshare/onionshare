@@ -9,18 +9,18 @@ import subprocess
 import requests
 import click
 
-torbrowser_version = "11.0.14"
+torbrowser_version = "11.0.15"
 expected_win32_sha256 = (
-    "c14b979c81310ad039985e047dbb5b8058662bb3105b9022f7b9e0d18a29d0d6"
+    "c2e09fd10f07e4cb8c6050d0b2556af17ec2cc8efaba9abc0db413f7a058e189"
 )
 expected_win64_sha256 = (
-    "ced3de06d089fbbeb8cee309971ac26983aba8eaf948fedce472d40cdd572301"
+    "46b2731ba0e771a477516c0c13a43a7223a767b1a8a0e53506d199f870b2adf3"
 )
 expected_macos_sha256 = (
-    "558ae5ab188f62feb04c6b2e7f43eae2361e8ec1718e0f4f927801411d911e22"
+    "408f46f8680d79b3452d1668e69227e566ffc177f82a02ee7e3480b720e6ad77"
 )
 expected_linux64_sha256 = (
-    "b606924fdf8237e697cf95c229189da5875c190875d729769655c7b67aeb9aa6"
+    "74301bf40527933efa20b4af599a82daede70cf13ce9ed0cf9e5b937e22264bf"
 )
 
 win32_url = f"https://dist.torproject.org/torbrowser/{torbrowser_version}/torbrowser-install-{torbrowser_version}_en-US.exe"
