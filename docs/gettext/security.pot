@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: OnionShare 2.5\n"
+"Project-Id-Version: OnionShare 2.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-31 16:26+1100\n"
+"POT-Creation-Date: 2022-07-04 17:16-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,7 +45,7 @@ msgid "**Anonymity of OnionShare users are protected by Tor.** OnionShare and To
 msgstr ""
 
 #: ../../source/security.rst:28
-msgid "**If an attacker learns about the onion service, it still can't access anything.** Prior attacks against the Tor network to enumerate onion services allowed attackers to discover private ``.onion`` addresses. To access an OnionShare service from its address, the private key used for client authentication must be guessed (unless the service is already made public by turning off the private key -- see :ref:`turn_off_private_key`)."
+msgid "**If an attacker learns about the onion service, they still can't access anything.** Prior attacks against the Tor network to enumerate onion services allowed attackers to discover private ``.onion`` addresses. To access an OnionShare service from its address, the private key used for client authentication must be guessed (unless the service is already made public by turning off the private key -- see :ref:`turn_off_private_key`)."
 msgstr ""
 
 #: ../../source/security.rst:33
