@@ -332,21 +332,27 @@ class Common:
             # In Windows, the Tor binaries are in the onionshare package, not the onionshare_cli package
             base_path = self.get_resource_path("tor")
             base_path = base_path.replace("onionshare_cli", "onionshare")
-            tor_path = os.path.join(base_path, "Tor", "tor.exe")
+            tor_path = os.path.join(base_path, "tor.exe")
 
             # If tor.exe isn't there, mayber we're running from the source tree
             if not os.path.exists(tor_path):
+                self.log(
+                    "Common", "get_tor_paths", f"Cannot find tor.exe at {tor_path}"
+                )
                 base_path = os.path.join(os.getcwd(), "onionshare", "resources", "tor")
 
-                tor_path = os.path.join(base_path, "Tor", "tor.exe")
+                tor_path = os.path.join(base_path, "tor.exe")
                 if not os.path.exists(tor_path):
+                    self.log(
+                        "Common", "get_tor_paths", f"Cannot find tor.exe at {tor_path}"
+                    )
                     raise CannotFindTor()
 
-            obfs4proxy_file_path = os.path.join(base_path, "Tor", "obfs4proxy.exe")
-            snowflake_file_path = os.path.join(base_path, "Tor", "snowflake-client.exe")
-            meek_client_file_path = os.path.join(base_path, "Tor", "meek-client.exe")
-            tor_geo_ip_file_path = os.path.join(base_path, "Data", "Tor", "geoip")
-            tor_geo_ipv6_file_path = os.path.join(base_path, "Data", "Tor", "geoip6")
+            obfs4proxy_file_path = os.path.join(base_path, "obfs4proxy.exe")
+            snowflake_file_path = os.path.join(base_path, "snowflake-client.exe")
+            meek_client_file_path = os.path.join(base_path, "meek-client.exe")
+            tor_geo_ip_file_path = os.path.join(base_path, "geoip")
+            tor_geo_ipv6_file_path = os.path.join(base_path, "geoip6")
 
         elif self.platform == "Darwin":
             # Let's see if we have tor binaries in the onionshare GUI package
@@ -499,7 +505,7 @@ class Common:
         if valid_bridges:
             return valid_bridges
         else:
-           return False
+            return False
 
     def is_flatpak(self):
         """
@@ -512,7 +518,6 @@ class Common:
         Returns True if OnionShare is running in a Snapcraft sandbox
         """
         return os.environ.get("SNAP_INSTANCE_NAME") == "onionshare"
-
 
     @staticmethod
     def random_string(num_bytes, output_len=None):

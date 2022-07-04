@@ -507,12 +507,12 @@ class GuiCommon:
 
         if self.common.platform == "Windows":
             base_path = self.get_resource_path("tor")
-            tor_path = os.path.join(base_path, "Tor", "tor.exe")
-            obfs4proxy_file_path = os.path.join(base_path, "Tor", "obfs4proxy.exe")
-            snowflake_file_path = os.path.join(base_path, "Tor", "snowflake-client.exe")
-            meek_client_file_path = os.path.join(base_path, "Tor", "meek-client.exe")
-            tor_geo_ip_file_path = os.path.join(base_path, "Data", "Tor", "geoip")
-            tor_geo_ipv6_file_path = os.path.join(base_path, "Data", "Tor", "geoip6")
+            tor_path = os.path.join(base_path, "tor.exe")
+            obfs4proxy_file_path = os.path.join(base_path, "obfs4proxy.exe")
+            snowflake_file_path = os.path.join(base_path, "snowflake-client.exe")
+            meek_client_file_path = os.path.join(base_path, "meek-client.exe")
+            tor_geo_ip_file_path = os.path.join(base_path, "geoip")
+            tor_geo_ipv6_file_path = os.path.join(base_path, "geoip6")
         elif self.common.platform == "Darwin":
             base_path = self.get_resource_path("tor")
             tor_path = os.path.join(base_path, "tor")
@@ -613,7 +613,9 @@ class ToggleCheckbox(QtWidgets.QCheckBox):
         x = (
             rect.width() - rect.x() - self.w + 20
         )  # 20 is the padding between text and toggle
-        y = self.height() / 2 - self.h / 2 + 16  # 16 is the padding top for the checkbox
+        y = (
+            self.height() / 2 - self.h / 2 + 16
+        )  # 16 is the padding top for the checkbox
         self.toggleRect = QtCore.QRect(x, y, self.w, self.h)
         painter.setBrush(QtGui.QColor(self.bg_color))
         painter.drawRoundedRect(x, y, self.w, self.h, self.h / 2, self.h / 2)

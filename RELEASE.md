@@ -16,12 +16,6 @@ Before making a release, you must update the version in these places:
 
 If you update `flask-socketio`, ensure that you also update the [socket.io.min.js](https://github.com/micahflee/onionshare/blob/develop/cli/onionshare_cli/resources/static/js/socket.io.min.js) file to a version that is [supported](https://flask-socketio.readthedocs.io/en/latest/#version-compatibility) by the updated version of `flask-socketio`.
 
-Use tor binaries from the latest Tor Browser:
-
-- [ ] `desktop/scripts/get-tor-linux.py`
-- [ ] `desktop/scripts/get-tor-osx.py`
-- [ ] `desktop/scripts/get-tor-windows.py`
-
 Update the documentation:
 
 - [ ] Update all of the documentation in `docs` to cover new features, including taking new screenshots if necessary
@@ -100,37 +94,61 @@ snapcraft upload --release=stable onionshare_${VERSION}_amd64.snap
 
 ## Windows
 
-Set up the development environment described in desktop `README.md`.
+Set up the packaging environment:
 
-- To get `signtool.exe`, install the [Windows 10 SDK](https://developer.microsoft.com/en-us/windows/downloads/windows-10-sdk) and add `C:\Program Files (x86)\Windows Kits\10\bin\10.0.22000.0\x86` to your path.
+- Install the [Windows SDK](https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/) and add `C:\Program Files (x86)\Windows Kits\10\bin\10.0.22000.0\x64` to your path (to get `signtool.exe`).
 - Go to https://dotnet.microsoft.com/download/dotnet-framework and download and install .NET Framework 3.5 SP1 Runtime. I downloaded `dotnetfx35.exe`.
 - Go to https://wixtoolset.org/releases/ and download and install WiX toolset. I downloaded `wix311.exe`. Add `C:\Program Files (x86)\WiX Toolset v3.11\bin` to the path.
 
-Run the Windows build script:
+CircleCI will build the binaries. Find the CircleCI jobs `build-win32` and `build-win64`, switch to the artifacts tab, and download:
+
+- `onionshare-win32.zip`
+- `onionshare-win64.zip`
+
+Extract these files, change to the `desktop` folder, and run:
 
 ```
-poetry run python .\package\build-windows.py
+poetry run python .\scripts\build-windows.py codesign [onionshare_win32_path] [onionshare_win64_path]
+poetry run python .\scripts\build-windows.py package [onionshare_win32_path] [onionshare_win64_path]
 ```
 
-This will create `desktop/dist/OnionShare-$VERSION.msi`, signed.
+This will create:
+
+- `desktop/dist/OnionShare-win32-$VERSION.msi`
+- `desktop/dist/OnionShare-win64-$VERSION.msi`
 
 ## macOS
 
-Set up the development environment described in `README.md`.
+Set up the packaging environment:
 
-Then build an executable, make it a macOS app bundle, and package it in a dmg:
+- Install create-dmg: `brew install create-dmg`
+
+CircleCI will build the binaries. Find the CircleCI job `build-macos`, switch to the artifacts tab, and download:
+
+- `onionshare-macos.zip`
+
+Extract these files, change to the `desktop` folder, and run:
 
 ```sh
-poetry run ./package/build-mac.py
+poetry run python ./scripts/build-macos.py codesign [app_path]
+poetry run python ./scripts/build-macos.py package [app_path]
 ```
 
 The will create `dist/OnionShare-$VERSION.dmg`.
 
-Now, notarize the release. You must have an app-specific Apple ID password saved in the login keychain called `onionshare-notarize`.
+Now, notarize the release.
 
-- Notarize it: `xcrun altool --notarize-app --primary-bundle-id "com.micahflee.onionshare" -u "micah@micahflee.com" -p "@keychain:onionshare-notarize" --file dist/OnionShare-$VERSION.dmg`
-- Wait for it to get approved, check status with: `xcrun altool --notarization-history 0 -u "micah@micahflee.com" -p "@keychain:onionshare-notarize"`
-- After it's approved, staple the ticket: `xcrun stapler staple dist/OnionShare-$VERSION.dmg`
+```sh
+export APPLE_PASSWORD="changeme" # app-specific Apple ID password
+export VERSION=$(cat ../cli/onionshare_cli/resources/version.txt)
+
+# Notarize it
+xcrun altool --notarize-app --primary-bundle-id "com.micahflee.onionshare" -u "micah@micahflee.com" -p "$APPLE_PASSWORD" --file dist/OnionShare-$VERSION.dmg
+# Wait for it to get approved, ceck status with
+xcrun altool --notarization-history 0 -u "micah@micahflee.com" -p "$APPLE_PASSWORD"
+# After it's approved, staple the ticket
+xcrun stapler staple dist/OnionShare-$VERSION.dmg
+```
 
 This will create `desktop/dist/OnionShare-$VERSION.dmg`, signed and notarized.
 
