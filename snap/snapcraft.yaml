@@ -167,8 +167,7 @@ parts:
     source: https://git.torproject.org/pluggable-transports/meek.git
     source-type: git
     source-tag: v0.37.0
-    # # Not sure why I have to do this, but it works
-    # override-build: |
-    #   cd meek-client
-    #   mkdir /root/parts/meek-client/install/bin
-    #   go build -o /root/parts/meek-client/install/bin/meek-client ./...
+    override-build: |
+      cd meek-client
+      mkdir /root/parts/meek-client/install/bin
+      go build -o /root/parts/meek-client/install/bin/meek-client ./...
