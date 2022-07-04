@@ -1,5 +1,5 @@
 name: onionshare
-base: core18
+base: core20
 version: "2.6"
 summary: Securely and anonymously share files, host websites, and chat using Tor
 description: |
@@ -11,11 +11,16 @@ description: |
 grade: stable # stable or devel
 confinement: strict
 
+architectures:
+- build-on: amd64
+- build-on: arm64
+- build-on: armhf
+
 apps:
   onionshare:
     common-id: org.onionshare.OnionShare
     command: onionshare
-    extensions: [gnome-3-34]
+    extensions: [gnome-3-38]
     plugs:
       - desktop
       - home
@@ -43,9 +48,8 @@ parts:
     python-version: python3
     python-packages:
       - setuptools
-      - psutil
       - qrcode
-      - pyside2 == 5.15.2
+      - pyside2 == 5.15.2.1
     # Force using setup.py, prevent using setup-freeze.py or poetry
     override-build: |
       rm setup-freeze.py pyproject.toml poetry.lock || true
