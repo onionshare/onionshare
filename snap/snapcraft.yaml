@@ -151,13 +151,11 @@ parts:
 
   obfs4:
     plugin: go
-    go-importpath: gitlab.com/yawning/obfs4
-    source: https://gitlab.com/yawning/obfs4
+    source: https://gitlab.com/yawning/obfs4.git
     source-type: git
 
   snowflake-client:
     plugin: go
-    go-importpath: git.torproject.org/pluggable-transports/snowflake.git/client
     source: https://git.torproject.org/pluggable-transports/snowflake.git
     source-type: git
     source-tag: v2.2.0
@@ -166,13 +164,11 @@ parts:
 
   meek-client:
     plugin: go
-    go-channel: stable
-    go-importpath: git.torproject.org/pluggable-transports/meek.git/meek-client
-    # Not sure why I have to do this, but it works
-    override-build: |
-      cd meek-client
-      mkdir /root/parts/meek-client/install/bin
-      go build -o /root/parts/meek-client/install/bin/meek-client ./...
     source: https://git.torproject.org/pluggable-transports/meek.git
     source-type: git
     source-tag: v0.37.0
+    # # Not sure why I have to do this, but it works
+    # override-build: |
+    #   cd meek-client
+    #   mkdir /root/parts/meek-client/install/bin
+    #   go build -o /root/parts/meek-client/install/bin/meek-client ./...
