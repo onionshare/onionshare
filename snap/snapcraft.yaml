@@ -46,13 +46,10 @@ parts:
     source: ./desktop
     plugin: python
     python-packages:
-      - setuptools
       - qrcode
       - pyside2 == 5.15.2.1
-    # Force using setup.py, prevent using setup-freeze.py or poetry
     override-build: |
-      rm setup-freeze.py pyproject.toml poetry.lock || true
-      snapcraftctl build
+      python3 setup.py install --prefix $SNAPCRAFT_PART_INSTALL
     stage-packages:
       - libasound2
       - libatk1.0-0
@@ -68,7 +65,7 @@ parts:
       - libglx0
       - libgtk-3-0
       - libharfbuzz0b
-      - libicu60
+      - libicu66
       - libjpeg8
       - liblcms2-2
       - libnspr4
@@ -127,10 +124,12 @@ parts:
       - libssl-dev
       - libffi-dev
       - python3-dev
+      - python3-pip
       - cargo
-    stage:
-      - -usr/lib/x86_64-linux-gnu/libcrypto.so.1.1
-      - -usr/share/doc/libssl1.1/changelog.Debian.gz
+    override-build: |
+      poetry install
+      poetry build
+      pip3 install ./dist/onionshare_cli-*.whl --prefix $SNAPCRAFT_PART_INSTALL
     after: [tor, obfs4, snowflake-client, meek-client]
 
   tor:
@@ -138,6 +137,8 @@ parts:
     source-checksum: sha256/9e9a5c67ad2acdd5f0f8be14ed591fed076b1708abf8344066990a0fa66fe195
     source-type: tar
     plugin: autotools
+    autotools-configure-parameters:
+      - "--with-libevent-dir=/root/parts/libevent/install/usr/local"
     build-packages:
       - libssl-dev
       - zlib1g-dev
