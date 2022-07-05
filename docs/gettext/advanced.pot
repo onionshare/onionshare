@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-04 17:16-0400\n"
+"POT-Creation-Date: 2022-07-05 10:24+1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -122,4 +122,16 @@ msgstr ""
 
 #: ../../source/advanced.rst:91
 msgid "Browse the command-line documentation by running ``onionshare --help``::"
+msgstr ""
+
+#: ../../source/advanced.rst:153
+msgid "Keyboard Shortcuts"
+msgstr ""
+
+#: ../../source/advanced.rst:155
+msgid "The OnionShare desktop application contains some keyboard shortcuts, for convenience and accessibility::"
+msgstr ""
+
+#: ../../source/advanced.rst:160
+msgid "And from the main mode chooser screen::"
 msgstr ""

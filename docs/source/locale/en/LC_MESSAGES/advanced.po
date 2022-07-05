@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-31 16:26+1100\n"
+"POT-Creation-Date: 2022-07-05 10:24+1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -179,6 +179,20 @@ msgstr ""
 
 #: ../../source/advanced.rst:91
 msgid "Browse the command-line documentation by running ``onionshare --help``::"
+msgstr ""
+
+#: ../../source/advanced.rst:153
+msgid "Keyboard Shortcuts"
+msgstr ""
+
+#: ../../source/advanced.rst:155
+msgid ""
+"The OnionShare desktop application contains some keyboard shortcuts, for "
+"convenience and accessibility::"
+msgstr ""
+
+#: ../../source/advanced.rst:160
+msgid "And from the main mode chooser screen::"
 msgstr ""
 
 #~ msgid "Make a symbolic link to the OnionShare command line binary line this::"
@@ -625,5 +639,24 @@ msgstr ""
 #~ "You can browse the command-line "
 #~ "documentation by running ``onionshare "
 #~ "--help``::"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "The OnionShare desktop application contains"
+#~ " some keyboard shortcuts, for convenience"
+#~ " and accessibility."
+#~ msgstr ""
+
+#~ msgid "Ctrl T - New Tab Ctrl X - Closes current tab"
+#~ msgstr ""
+
+#~ msgid "And from the main mode chooser screen:"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Ctrl S - Share mode Ctrl R -"
+#~ " Receive mode Ctrl W - Website "
+#~ "mode Ctrl C - Chat mode Ctrl "
+#~ "H - Settings tab"
 #~ msgstr ""
 
