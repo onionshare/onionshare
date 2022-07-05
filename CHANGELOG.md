@@ -2,7 +2,13 @@
 
 ## 2.6
 
-* TODO
+* Major feature: a new 'Quickstart' screen, which enables toggling on or off an animated automatic connection to Tor. This allows configuring network settings prior to automatic connection.
+* Major feature: Censorship circumvention. Use new features in the upstream Tor API to try to automatically obtain bridges depending on the user's location.
+* New feature: automatically fetch the built-in bridges from the upstream Tor API rather than hardcode them in each release of OnionShare.
+* New feature: keyboard shortcuts to access various modes and menus, and accessibility hints
+* Bug fix: Temporary Directory for serving the OnionShare web pages was broken on Windows
+* Miscellaneous: many dependency updates, web page theming improvements, and packaging automation improvements.
+
 
 ## 2.5
 

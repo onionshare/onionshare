@@ -146,3 +146,21 @@ Browse the command-line documentation by running ``onionshare --help``::
       --disable_csp             Publish website: Disable the default Content Security Policy header (allows your website to use third-party resources)
       --custom_csp custom_csp   Publish website: Set a custom Content Security Policy header
       -v, --verbose             Log OnionShare errors to stdout, and web errors to disk
+
+
+
+Keyboard Shortcuts
+------------------
+
+The OnionShare desktop application contains some keyboard shortcuts, for convenience and accessibility::
+
+    Ctrl T - New Tab
+    Ctrl X - Closes current tab
+
+And from the main mode chooser screen::
+
+    Ctrl S - Share mode
+    Ctrl R - Receive mode
+    Ctrl W - Website mode
+    Ctrl C - Chat mode
+    Ctrl H - Settings tab
