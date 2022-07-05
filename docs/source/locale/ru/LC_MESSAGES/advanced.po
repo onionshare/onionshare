@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2022-03-31 16:26+1100\n"
+"POT-Creation-Date: 2022-07-05 10:24+1000\n"
 "PO-Revision-Date: 2021-09-23 15:36+0000\n"
 "Last-Translator: Alexander Tarasenko <alexound.login@gmail.com>\n"
 "Language: ru\n"
@@ -46,8 +46,8 @@ msgid ""
 msgstr ""
 "Чтобы сделать любую вкладку постоянной, отметьте пункт \"Сохранить эту "
 "вкладку, и открывать ее автоматически при открытии OnionShare\" перед "
-"запуском сервера. При сохранении вкладки появится иконка сиреневого цвета с "
-"изображением булавки слева от статуса сервера."
+"запуском сервера. При сохранении вкладки появится иконка сиреневого цвета"
+" с изображением булавки слева от статуса сервера."
 
 #: ../../source/advanced.rst:18
 msgid ""
@@ -63,8 +63,8 @@ msgid ""
 "If you save a tab, a copy of its onion service secret key is stored on "
 "your computer."
 msgstr ""
-"При сохранении вкладки копия ключа onion-сервиса также будет сохранена на "
-"компьютере вместе с настройками OnionShare."
+"При сохранении вкладки копия ключа onion-сервиса также будет сохранена на"
+" компьютере вместе с настройками OnionShare."
 
 #: ../../source/advanced.rst:26
 msgid "Turn Off Private Key"
@@ -75,8 +75,8 @@ msgid ""
 "By default, all OnionShare services are protected with a private key, "
 "which Tor calls \"client authentication\"."
 msgstr ""
-"По умолчанию все сервисы OnionShare защищены секретным ключом, который на "
-"сленге Tor называется \"клиентская аутентификация\"."
+"По умолчанию все сервисы OnionShare защищены секретным ключом, который на"
+" сленге Tor называется \"клиентская аутентификация\"."
 
 #: ../../source/advanced.rst:30
 msgid ""
@@ -135,10 +135,11 @@ msgid ""
 "set the respective desired dates and times."
 msgstr ""
 "OnionShare поддерживает возможность точного планирования, когда сервис "
-"должен запуститься или остановиться. Перед запуском сервера, нажмите на его "
-"вкладке кнопку \"Показать дополнительные настройки\", отметьте нужные пункты:"
-" \"Запустить onion-сервис в назначенное время\", \"Остановить onion-сервис в "
-"назначенное время\", и укажите нужную дату и время для каждого пункта."
+"должен запуститься или остановиться. Перед запуском сервера, нажмите на "
+"его вкладке кнопку \"Показать дополнительные настройки\", отметьте нужные"
+" пункты: \"Запустить onion-сервис в назначенное время\", \"Остановить "
+"onion-сервис в назначенное время\", и укажите нужную дату и время для "
+"каждого пункта."
 
 #: ../../source/advanced.rst:53
 msgid ""
@@ -233,6 +234,20 @@ msgid "Browse the command-line documentation by running ``onionshare --help``::"
 msgstr ""
 "Чтобы просмотреть документацию консольной версии OnionShare запустите "
 "команду: ``onionshare --help``::"
+
+#: ../../source/advanced.rst:153
+msgid "Keyboard Shortcuts"
+msgstr ""
+
+#: ../../source/advanced.rst:155
+msgid ""
+"The OnionShare desktop application contains some keyboard shortcuts, for "
+"convenience and accessibility::"
+msgstr ""
+
+#: ../../source/advanced.rst:160
+msgid "And from the main mode chooser screen::"
+msgstr ""
 
 #~ msgid "Make a symbolic link to the OnionShare command line binary line this::"
 #~ msgstr ""
@@ -660,4 +675,23 @@ msgstr ""
 #~ "отправителем что-то произойдёт. Если угроза"
 #~ " исчезнет, отправитель сможет остановить "
 #~ "таймер до автоматического запуска."
+
+#~ msgid ""
+#~ "The OnionShare desktop application contains"
+#~ " some keyboard shortcuts, for convenience"
+#~ " and accessibility."
+#~ msgstr ""
+
+#~ msgid "Ctrl T - New Tab Ctrl X - Closes current tab"
+#~ msgstr ""
+
+#~ msgid "And from the main mode chooser screen:"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Ctrl S - Share mode Ctrl R -"
+#~ " Receive mode Ctrl W - Website "
+#~ "mode Ctrl C - Chat mode Ctrl "
+#~ "H - Settings tab"
+#~ msgstr ""
 
