@@ -57,7 +57,7 @@
     "gui_autoconnect_try_again_without_a_bridge": "Try again without bridges",
     "gui_autoconnect_circumventing_censorship": "Resolving connectivity issues…",
     "gui_autoconnect_circumventing_censorship_starting_circumvention": "Circumventing censorship…",
-    "gui_autoconnect_circumventing_censorship_starting_meek": "Establishing Meek bridge for domain-fronting…",
+    "gui_autoconnect_circumventing_censorship_starting_meek": "Establishing meek bridge for domain-fronting…",
     "gui_autoconnect_circumventing_censorship_requesting_bridges": "Requesting bridges from the Tor censorship circumvention API…",
     "gui_autoconnect_circumventing_censorship_got_bridges": "Bridges established. Reconnecting to Tor…",
     "gui_autoconnect_could_not_connect_to_tor_api": "Could not connect to the Tor API. Make sure you are connected to the Internet before trying again.",
