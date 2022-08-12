@@ -42,7 +42,7 @@
     "gui_please_wait": "Starting… Click to cancel.",
     "zip_progress_bar_format": "Compressing: %p%",
     "gui_tor_settings_window_title": "Tor Settings",
-    "gui_autoconnect_description": "OnionShare relies on the Tor Network, run by thousands of volunteers around the world.",
+    "gui_autoconnect_description": "OnionShare relies on the volunteer-operated Tor network.",
     "gui_enable_autoconnect_checkbox": "Auto-connect to Tor",
     "gui_autoconnect_failed_to_connect_to_tor": "Could not connect to Tor",
     "gui_autoconnect_trying_to_connect_to_tor": "Connecting to Tor…",
