@@ -6,12 +6,10 @@ Advanced Usage
 Save Tabs
 ---------
 
-Everything in OnionShare is temporary by default. When OnionShare tabs are closed, addresses no longer exist and can't be used again.
-Your OnionShare service can also be persistent.
-If you host a website, persistence means it will be available on the same OnionShare address even if you reboot your computer.
+Closing OnionShare tabs you host destroys them, preventing reuse.
+Persistently hosted websites are available on the same address even if the computer they are shared from is rebooted.
 
-To make any tab persistent, check the "Save this tab, and automatically open it when I open OnionShare" box before starting your server.
-A purple pin icon appears to the left of its server status to tell you the tab is saved.
+Make any tab persistent by checking the "Always open this tab when OnionShare is started" box before starting your server.
 
 .. image:: _static/screenshots/advanced-save-tabs.png
 
