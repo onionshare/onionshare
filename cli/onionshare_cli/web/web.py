@@ -45,7 +45,7 @@ from .chat_mode import ChatModeWeb
 
 # Stub out flask's show_server_banner function, to avoiding showing warnings that
 # are not applicable to OnionShare
-def stubbed_show_server_banner(env, debug, app_import_path, eager_loading):
+def stubbed_show_server_banner(env, debug, app_import_path=None, eager_loading=None):
     pass
 
 
