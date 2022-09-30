@@ -1,51 +1,36 @@
 name: Build Windows
-run-name: Build win32 and win64 🚀
+run-name: Build win32 and win64
 on:
   push:
     branches:
       - github-actions
 
 jobs:
-  win64:
+  build-win64:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
-      
-      - name: Install Python 3.9.14 (64-bit)
-        shell: pwsh
-        run: |
-          cd ~\Downloads
-          Invoke-WebRequest -Uri https://www.python.org/ftp/python/3.9.14/python-3.9.14-amd64.exe -OutFile python-3.9.14-amd64.exe
-          .\python-3.9.14-amd64.exe /quiet InstallAllUsers=1 TargetDir=C:\Python39
-          while($true) {
-            if ((Test-Path -Path C:\Python39\python.exe) -eq $True) {
-              Write-Output "Python is installed"
-              break
-            } else {
-              Write-Output "Waiting for Python to finish installing ..."
-              Start-Sleep -Seconds 2
-            }
-          }
       
       - uses: actions/cache@v3
         with:
           path: ~\.cache\AppData\Local\pypoetry\Cache\virtualenvs
           key: ${{ runner.os }}-win64-${{ hashFiles('desktop/poetry.lock') }}
 
-      - run:
-          name: Install poetry
-          run: C:\Python39\python -m pip install poetry
+      - name: Install poetry
+        run: C:\hostedtoolcache\windows\Python\3.9.13\x64\python -m pip install poetry
 
-      - run:
-          name: Install poetry dependencies
-          run: cd desktop && C:\Python39\scripts\poetry install
+      - name: Explore
+        shell: pwsh
+        run: |
+          which poetry
+
+      - name: Install poetry dependencies
+        run: cd desktop && poetry install
 
       - uses: actions/cache@v3
         with:
           path: desktop\build\tor
           key: ${{ runner.os }}-win64-${{ hashFiles('desktop/scripts/get-tor.py') }}
       
-      - run:
-          name: Get tor binaries from Tor Browser (64-bit)
-          run: cd desktop && C:\Python39\Scripts\poetry run python .\scripts\get-tor.py win64
-      
+      - name: Get tor binaries from Tor Browser (64-bit)
+        run: cd desktop && poetry run python .\scripts\get-tor.py win64

@@ -1,5 +1,5 @@
 name: Run Tests
-run-name: Run tests 🚀
+run-name: Run tests
 on: [push]
 
 jobs:
