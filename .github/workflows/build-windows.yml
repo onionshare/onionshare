@@ -41,7 +41,7 @@ jobs:
       - name: Build obfs4proxy
         shell: pwsh
         run: |
-          if ((Test-Path -Path 'project\desktop\onionshare\resources\tor\obfs4proxy.exe') -eq $True) {
+          if ((Test-Path -Path 'desktop\onionshare\resources\tor\obfs4proxy.exe') -eq $True) {
             Write-Output "obfs4proxy already built"
           } else {
             cd desktop
@@ -57,7 +57,7 @@ jobs:
       - name: Build snowflake
         shell: pwsh
         run: |
-          if ((Test-Path -Path 'project\desktop\onionshare\resources\tor\snowflake-client.exe') -eq $True) {
+          if ((Test-Path -Path 'desktop\onionshare\resources\tor\snowflake-client.exe') -eq $True) {
             Write-Output "snowflake already built"
           } else {
             cd desktop
@@ -73,7 +73,7 @@ jobs:
       - name: Build meek
         shell: pwsh
         run: |
-          if ((Test-Path -Path 'project\desktop\onionshare\resources\tor\meek-client.exe') -eq $True) {
+          if ((Test-Path -Path 'desktop\onionshare\resources\tor\meek-client.exe') -eq $True) {
             Write-Output "meek already built"
           } else {
             cd desktop
