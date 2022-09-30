@@ -16,10 +16,10 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.6"
+python = "^3.7"
 click = "*"
-flask = "2.0.3"
-flask-socketio = "5.1.1"
+flask = "2.2.2"
+flask-socketio = "5.3.1"
 psutil = "*"
 pysocks = "*"
 requests = {extras = ["socks"], version = "*"}
