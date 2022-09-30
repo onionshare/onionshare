@@ -312,6 +312,7 @@ def update_tor_bridges():
         return False
 
     result = r.json()
+    print(f"Built-in bridges: {result}")
 
     if "errors" in result:
         print(
@@ -320,7 +321,7 @@ def update_tor_bridges():
         return False
 
     for bridge_type in ["meek-azure", "obfs4", "snowflake"]:
-        if result[bridge_type]:
+        if bridge_type in result and result[bridge_type]:
             if bridge_type == "meek-azure":
                 torrc_template_extension = "meek_lite_azure"
             else:
