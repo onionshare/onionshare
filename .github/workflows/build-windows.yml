@@ -1,10 +1,9 @@
 name: Build Windows
 run-name: Build win32 and win64 🚀
 on:
-  workflow_run:
-    workflows: "Run Tests"
-    types:
-      - completed
+  push:
+    branches:
+      - github-actions
 
 jobs:
   win64:
