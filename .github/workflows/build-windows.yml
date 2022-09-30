@@ -47,3 +47,52 @@ jobs:
             cd desktop
             .\scripts\build-pt-obfs4proxy.ps1
           }
+
+      - name: Restore cache - snowflake
+        uses: actions/cache@v3
+        with:
+          path: desktop\onionshare\resources\tor\snowflake-client.exe
+          key: ${{ runner.os }}-win64-snowflake-${{ hashFiles('desktop/scripts/build-pt-snowflake.ps1') }}
+
+      - name: Build snowflake
+        shell: pwsh
+        run: |
+          if ((Test-Path -Path 'project\desktop\onionshare\resources\tor\snowflake-client.exe') -eq $True) {
+            Write-Output "snowflake already built"
+          } else {
+            cd desktop
+            .\scripts\build-pt-snowflake.ps1
+          }
+
+      - name: Restore cache - meek
+        uses: actions/cache@v3
+        with:
+          path: desktop\onionshare\resources\tor\meek-client.exe
+          key: ${{ runner.os }}-win64-meek-${{ hashFiles('desktop/scripts/build-pt-meek.ps1') }}
+
+      - name: Build meek
+        shell: pwsh
+        run: |
+          if ((Test-Path -Path 'project\desktop\onionshare\resources\tor\meek-client.exe') -eq $True) {
+            Write-Output "meek already built"
+          } else {
+            cd desktop
+            .\scripts\build-pt-meek.ps1
+          }
+
+      - name: Build OnionShare
+        run: |
+          cd desktop
+          C:\hostedtoolcache\windows\Python\3.9.13\x64\Scripts\poetry run python .\setup-freeze.py build
+          C:\hostedtoolcache\windows\Python\3.9.13\x64\Scripts\poetry run python .\scripts\build-windows.py cleanup-build
+      
+      - name: Compress
+        shell: pwsh
+        run: |
+          mv desktop\build\exe.win-amd64-3.9\ ~\onionshare-win64
+          Compress-Archive -LiteralPath ~\onionshare-win64 -DestinationPath ~\onionshare-win64.zip
+      
+      - uses: actions/upload-artifact@v3
+        with:
+          name: win64-build
+          path: ~\onionshare-win64.zip
