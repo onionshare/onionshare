@@ -3,7 +3,12 @@ run-name: Build win32, win64, mac (Intel) 🚀
 on:
   push:
     branches:
-      - github-actions
+      - develop
+      - stable
+  pull_request:
+    branches:
+      - develop
+      - stable
 
 jobs:
   build-win64:
@@ -224,16 +229,16 @@ jobs:
       - name: Restore cache - tor
         uses: actions/cache@v3
         with:
-          path: desktop\build\tor
+          path: desktop/build/tor
           key: ${{ runner.os }}-macos-tor-${{ hashFiles('desktop/scripts/get-tor.py') }}
       
       - name: Get tor binaries from Tor Browser
-        run: cd desktop && poetry run python .\scripts\get-tor.py macos
+        run: cd desktop && poetry run python ./scripts/get-tor.py macos
 
       - name: Restore cache - obfs4proxy
         uses: actions/cache@v3
         with:
-          path: desktop\onionshare\resources\tor\obfs4proxy.exe
+          path: desktop/onionshare/resources/tor/obfs4proxy
           key: ${{ runner.os }}-macos-obfs4proxy-${{ hashFiles('desktop/scripts/build-pt-obfs4proxy.sh') }}
 
       - name: Build obfs4proxy
@@ -263,7 +268,7 @@ jobs:
       - name: Restore cache - meek
         uses: actions/cache@v3
         with:
-          path: desktop\onionshare\resources\tor\meek-client
+          path: desktop/onionshare/resources/tor/meek-client
           key: ${{ runner.os }}-macos-meek-${{ hashFiles('desktop/scripts/build-pt-meek.sh') }}
 
       - name: Build meek
@@ -290,4 +295,4 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: mac-build
-          path: ~\onionshare-macos.tar.gz
+          path: ~/onionshare-macos.tar.gz
