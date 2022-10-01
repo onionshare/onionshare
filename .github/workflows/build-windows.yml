@@ -192,12 +192,11 @@ jobs:
           cd desktop
           C:\hostedtoolcache\windows\Python\3.9.13\x86\Scripts\poetry run python .\setup-freeze.py build
           C:\hostedtoolcache\windows\Python\3.9.13\x86\Scripts\poetry run python .\scripts\build-windows.py cleanup-build
-          dir build
       
       - name: Compress
         shell: pwsh
         run: |
-          mv desktop\build\exe.win-win32-3.9\ ~\onionshare-win32
+          mv desktop\build\exe.win32-3.9\ ~\onionshare-win32
           Compress-Archive -LiteralPath ~\onionshare-win32 -DestinationPath ~\onionshare-win32.zip
       
       - uses: actions/upload-artifact@v3
