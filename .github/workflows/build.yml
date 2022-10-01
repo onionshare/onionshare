@@ -270,8 +270,9 @@ jobs:
 
       - name: Build OnionShare
         run: |
+          sed -i "s|\.\./cli|$(pwd)/cli|g" desktop/pyproject.toml
           cd desktop
-          poetry run pip install importlib-metadata
+          poetry install
           poetry run python ./setup-freeze.py build
           poetry run python ./setup-freeze.py bdist_mac
           poetry run python ./scripts/build-macos.py cleanup-build
