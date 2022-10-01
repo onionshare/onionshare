@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-03-31 16:26+1100\n"
-"PO-Revision-Date: 2021-11-25 15:52+0000\n"
-"Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
-"Language: tr\n"
+"PO-Revision-Date: 2022-07-07 19:19+0000\n"
+"Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
 "Language-Team: tr <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
+"Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.13.1-dev\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: ../../source/tor.rst:2
@@ -23,15 +24,14 @@ msgid "Connecting to Tor"
 msgstr "Tor Bağlantısı Kurmak"
 
 #: ../../source/tor.rst:6
-#, fuzzy
 msgid ""
 "Pick a way to connect OnionShare to Tor by clicking Network Settings from"
 " the welcome screen, or the Tor onion icon in the bottom right of the "
 "OnionShare window to open the Tor Settings tab."
 msgstr ""
-"OnionShare penceresinin sağ alt kısmındaki Tor onion simgesine tıklayarak"
-" ayarlara gidin ve OnionShare ile Tor bağlantısı kurmanın bir yolunu "
-"seçin."
+"Karşılama ekranından Ağ Ayarlarına tıklayarak OnionShare'i Tor'a bağlamanın "
+"bir yolunu seçin veya Tor Ayarları sekmesini açmak için OnionShare "
+"penceresinin sağ alt tarafındaki Tor onion simgesine tıklayın."
 
 #: ../../source/tor.rst:11
 msgid "Use the Tor version built into OnionShare"
@@ -583,4 +583,3 @@ msgstr ""
 #~ "edinebileceğiniz özel köprüleri kullanabilirsiniz."
 #~ " Bir köprü kullanmanız gerekirse, önce "
 #~ "yerleşik obfs4 olanları deneyin."
-

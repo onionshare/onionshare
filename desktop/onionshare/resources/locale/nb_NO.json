@@ -288,7 +288,7 @@
     "error_port_not_available": "OnionShare-port ikke tilgjengelig",
     "gui_rendezvous_cleanup_quit_early": "Avslutt tidlig",
     "gui_rendezvous_cleanup": "Venter på at Tor-kretsene lukkes for å være sikker på at filene dine er overført.\n\nDette kan ta noen minutter.",
-    "gui_color_mode_changed_notice": "Start OnionShare på nytt for å bruke nytt fargemodus.",
+    "gui_color_mode_changed_notice": "Start OnionShare for å se de nye fargene.",
     "history_receive_read_message_button": "Les melding",
     "mode_settings_receive_webhook_url_checkbox": "Bruk varsling webhook",
     "mode_settings_receive_disable_files_checkbox": "Deaktiver opplasting av filer",
@@ -338,9 +338,17 @@
     "gui_dragdrop_sandbox_flatpak": "For å gjøre Flatpak-sandkassen sikrere er ikke dra og slipp støttet. Bruk «Legg til filer» og «Legg til mappe»-knappene for å åpne filutforskeren istedenfor.",
     "gui_settings_controller_extras_label": "Tor-innstillinger",
     "gui_settings_bridge_none_radio_option": "Ikke bruk en bro",
-    "gui_settings_tor_bridges_label": "Broer hjelper deg å nå Tor-nettverket på steder der Tor er blokkert. Avhengig av hvor du er kan én bro fungere bedre enn en annen.",
+    "gui_settings_tor_bridges_label": "Broer hjelper trafikken din å nå Tor-nettverket der Tor-tilgang er blokkert. Avhengig av hvor du er kan én bro fungere bedre enn en annen.",
     "gui_settings_moat_bridges_invalid": "Du har ikke forespurt en bro fra torproject.org enda.",
     "moat_captcha_placeholder": "Skriv inn tegnene fra bildet",
     "moat_solution_empty_error": "Du må skrive inn tegnene fra bildet",
-    "mode_settings_website_custom_csp_checkbox": "Send egendefinert innholdssikkerhetspraksishode"
+    "mode_settings_website_custom_csp_checkbox": "Send egendefinert innholdssikkerhetspraksishode",
+    "gui_autoconnect_trying_to_connect_to_tor": "Kobler til Tor…",
+    "gui_autoconnect_bridge_description": "Det kan hende du kan omgå sensur hvis du bruker en bro for å koble til.",
+    "gui_general_settings_window_title": "Generelt",
+    "gui_autoconnect_bridge_setting_options": "Bro-innstillinger",
+    "gui_autoconnect_connection_error_msg": "Forsikre deg om at du er tilkoblet Internett.",
+    "gui_autoconnect_bridge_detect_automatic": "Fastslå IP basert på mitt land for oppsett av broer",
+    "gui_autoconnect_bridge_detect_manual": "Velg mitt land i bro-oppsett manuelt",
+    "gui_autoconnect_start": "Koble til Tor…"
 }
