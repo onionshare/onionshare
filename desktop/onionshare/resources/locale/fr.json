@@ -317,7 +317,7 @@
     "gui_server_doesnt_support_stealth": "Désolé, cette version de Tor ne prend pas en charge l’authentification client. Veuillez essayer avec une version plus récente de Tor ou utilisez le mode « public » si la confidentialité n’est pas nécessaire.",
     "gui_receive_url_public_description": "<b>Quiconque</b> disposant de cette adresse OnionShare peut <b>téléverser</b> des fichiers vers votre ordinateur en utilisant le <b>Navigateur Tor</b> : <img src='{}' />",
     "gui_client_auth_instructions": "Envoyez ensuite la clé privée pour accorder l’accès à votre service OnionShare :",
-    "gui_dragdrop_sandbox_flatpak": "Afin de rendre le bac à sable Flatpak plus sécurisé, le glisser-déposer n’est pas pris en charge. Utilisez plutôt les boutons « Ajouter des fichiers » et « Ajouter des dossiers » pour parcourir vos fichiers.",
+    "gui_dragdrop_sandbox_flatpak": "Afin de rendre le bac à sable Flatpak plus sécurisé, le glisser-déposer n’est pas pris en charge. Utilisez plutôt les boutons « Ajouter des fichiers » et « Ajouter des dossiers » pour sélectionner des fichiers.",
     "moat_solution_empty_error": "Vous devez saisir les caractères présentés par l’image",
     "gui_settings_stop_active_tabs_label": "Des services sont en cours d’exécution dans certains de vos onglets.\nVous devez arrêter tous les services pour changer vos paramètres de Tor.",
     "moat_captcha_label": "Résolvez le CAPTCHA pour demander un pont.",
@@ -341,5 +341,12 @@
     "moat_captcha_reload": "Recharger",
     "moat_bridgedb_error": "Erreur lors du contact de BridgeDB.",
     "moat_captcha_error": "La solution est erronée. Veuillez réessayer.",
-    "mode_tor_not_connected_label": "OnionShare n’est pas connecté au réseau Tor"
+    "mode_tor_not_connected_label": "OnionShare n’est pas connecté au réseau Tor",
+    "gui_autoconnect_description": "OnionShare repose sur le réseau Tor, exploité par des milliers de bénévoles dans le monde entier.",
+    "gui_enable_autoconnect_checkbox": "Se connecter automatiquement à Tor",
+    "gui_autoconnect_failed_to_connect_to_tor": "Échec de connexion à Tor",
+    "gui_autoconnect_trying_to_connect_to_tor": "Tentative de connexion à Tor…",
+    "gui_autoconnect_bridge_detect_automatic": "Pour les paramètres de pont, déterminer automatiquement mon pays à partir de mon adresse IP",
+    "gui_autoconnect_connection_error_msg": "La connexion à Internet fonctionne-t-elle ?",
+    "gui_autoconnect_bridge_description": "Il est aussi possible que votre Internet soit censuré. Vous pourrez peut-être contourner cette situation en utilisant un pont."
 }
