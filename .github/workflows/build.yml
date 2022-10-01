@@ -1,5 +1,5 @@
-name: Build Windows
-run-name: Build win32 and win64 🚀
+name: Build
+run-name: Build win32, win64, mac (Intel) 🚀
 on:
   push:
     branches:
@@ -203,3 +203,91 @@ jobs:
         with:
           name: win32-build
           path: ~\onionshare-win32.zip
+
+  build-mac:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install poetry
+        run: python3 -m pip install poetry
+
+      - name: Restore cache - poetry
+        uses: actions/cache@v3
+        with:
+          path: ~/Library/Caches/pypoetry/virtualenvs
+          key: ${{ runner.os }}-macos-poetry-${{ hashFiles('desktop/poetry.lock') }}
+
+      - name: Install poetry dependencies
+        run: cd desktop && poetry install
+
+      - name: Restore cache - tor
+        uses: actions/cache@v3
+        with:
+          path: desktop\build\tor
+          key: ${{ runner.os }}-macos-tor-${{ hashFiles('desktop/scripts/get-tor.py') }}
+      
+      - name: Get tor binaries from Tor Browser
+        run: cd desktop && poetry run python .\scripts\get-tor.py macos
+
+      - name: Restore cache - obfs4proxy
+        uses: actions/cache@v3
+        with:
+          path: desktop\onionshare\resources\tor\obfs4proxy.exe
+          key: ${{ runner.os }}-macos-obfs4proxy-${{ hashFiles('desktop/scripts/build-pt-obfs4proxy.sh') }}
+
+      - name: Build obfs4proxy
+        run: |
+          if [[ -f "desktop/onionshare/resources/tor/obfs4proxy" ]]; then
+            echo "obfs4proxy already built"
+          else
+            cd desktop
+            ./scripts/build-pt-obfs4proxy.sh
+          fi
+
+      - name: Restore cache - snowflake
+        uses: actions/cache@v3
+        with:
+          path: desktop/onionshare/resources/tor/snowflake-client
+          key: ${{ runner.os }}-macos-snowflake-${{ hashFiles('desktop/scripts/build-pt-snowflake.sh') }}
+
+      - name: Build snowflake
+        run: |
+          if [[ -f "desktop/onionshare/resources/tor/snowflake-client" ]]; then
+            echo "snowflake already built"
+          else
+            cd desktop
+            ./scripts/build-pt-snowflake.sh
+          fi
+
+      - name: Restore cache - meek
+        uses: actions/cache@v3
+        with:
+          path: desktop\onionshare\resources\tor\meek-client
+          key: ${{ runner.os }}-macos-meek-${{ hashFiles('desktop/scripts/build-pt-meek.sh') }}
+
+      - name: Build meek
+        run: |
+          if [[ -f "desktop/onionshare/resources/tor/meek-client" ]]; then
+            echo "meek already built"
+          else
+            cd desktop
+            ./scripts/build-pt-meek.sh
+          fi
+
+      - name: Build OnionShare
+        run: |
+          cd desktop
+          poetry run python ./setup-freeze.py build
+          poetry run python ./setup-freeze.py bdist_mac
+          poetry run python ./scripts/build-macos.py cleanup-build
+      
+      - name: Compress
+        run: |
+          cd ~/project/desktop/build
+          tar -czvf ~/onionshare-macos.tar.gz OnionShare.app
+      
+      - uses: actions/upload-artifact@v3
+        with:
+          name: mac-build
+          path: ~\onionshare-macos.tar.gz
