@@ -283,6 +283,7 @@ jobs:
       - name: Build OnionShare
         run: |
           cd desktop
+          python3 -m pip install importlib-metadata
           poetry run python ./setup-freeze.py build
           poetry run python ./setup-freeze.py bdist_mac
           poetry run python ./scripts/build-macos.py cleanup-build
