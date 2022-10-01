@@ -94,10 +94,16 @@ jobs:
           C:\hostedtoolcache\windows\Python\3.9.13\x64\Scripts\poetry run python .\setup-freeze.py build
           C:\hostedtoolcache\windows\Python\3.9.13\x64\Scripts\poetry run python .\scripts\build-windows.py cleanup-build
 
+      - name: Compress
+        shell: pwsh
+        run: |
+          mv desktop\build\exe.win-amd64-3.9\ ~\onionshare-win64
+          Compress-Archive -LiteralPath ~\onionshare-win64 -DestinationPath ~\onionshare-win64.zip
+
       - uses: actions/upload-artifact@v3
         with:
           name: win64-build
-          path: desktop\build\exe.win-amd64-3.9
+          path: desktop\build\exe.win-amd64-3.9=
 
   build-win32:
     runs-on: windows-latest
@@ -192,10 +198,16 @@ jobs:
           C:\hostedtoolcache\windows\Python\3.9.13\x86\Scripts\poetry run python .\setup-freeze.py build
           C:\hostedtoolcache\windows\Python\3.9.13\x86\Scripts\poetry run python .\scripts\build-windows.py cleanup-build
 
+      - name: Compress
+        shell: pwsh
+        run: |
+          mv desktop\build\exe.win32-3.9\ ~\onionshare-win32
+          Compress-Archive -LiteralPath ~\onionshare-win32 -DestinationPath ~\onionshare-win32.zip
+
       - uses: actions/upload-artifact@v3
         with:
           name: win32-build
-          path: desktop\build\exe.win32-3.9
+          path: ~\onionshare-win32.zip
 
   build-mac:
     runs-on: macos-latest
@@ -277,7 +289,12 @@ jobs:
           poetry run python ./setup-freeze.py bdist_mac
           poetry run python ./scripts/build-macos.py cleanup-build
 
+      - name: Compress
+        run: |
+          cd ~/project/desktop/build
+          tar -czvf ~/onionshare-macos.tar.gz OnionShare.app
+
       - uses: actions/upload-artifact@v3
         with:
           name: mac-build
-          path: OnionShare.app
+          path: ~/onionshare-macos.tar.gz
