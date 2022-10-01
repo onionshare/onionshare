@@ -100,7 +100,7 @@ jobs:
           name: win64-build
           path: ~\onionshare-win64.zip
 
-build-win32:
+  build-win32:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
