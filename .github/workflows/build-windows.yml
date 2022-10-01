@@ -192,6 +192,7 @@ jobs:
           cd desktop
           C:\hostedtoolcache\windows\Python\3.9.13\x86\Scripts\poetry run python .\setup-freeze.py build
           C:\hostedtoolcache\windows\Python\3.9.13\x86\Scripts\poetry run python .\scripts\build-windows.py cleanup-build
+          dir build
       
       - name: Compress
         shell: pwsh
