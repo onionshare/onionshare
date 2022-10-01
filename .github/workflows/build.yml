@@ -282,7 +282,7 @@ jobs:
 
       - name: Build OnionShare
         run: |
-          sed -i "s|\.\./cli|$(pwd)/cli|g" desktop/pyproject.toml
+          sed -i '' "s|\.\./cli|$(pwd)/cli|g" desktop/pyproject.toml
           cd desktop
           poetry install
           poetry run python ./setup-freeze.py build
