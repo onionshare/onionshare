@@ -10,18 +10,21 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
-      
-      - name: Restore cache - poetry
-        uses: actions/cache@v3
-        with:
-          path: ~\.cache\AppData\Local\pypoetry\Cache\virtualenvs
-          key: ${{ runner.os }}-win64-poetry-${{ hashFiles('desktop/poetry.lock') }}
 
       - name: Install poetry
         run: C:\hostedtoolcache\windows\Python\3.9.13\x64\python -m pip install poetry
 
+      - name: Restore cache - poetry
+        uses: actions/cache@v3
+        with:
+          path: ~\AppData\Local\pypoetry\Cache\virtualenvs
+          key: ${{ runner.os }}-win64-poetry-${{ hashFiles('desktop/poetry.lock') }}
+
       - name: Install poetry dependencies
-        run: cd desktop && C:\hostedtoolcache\windows\Python\3.9.13\x64\Scripts\poetry install
+        run: |
+          cd desktop
+          C:\hostedtoolcache\windows\Python\3.9.13\x64\Scripts\poetry install
+          C:\hostedtoolcache\windows\Python\3.9.13\x64\Scripts\poetry env list --full-path
 
       - name: Restore cache - tor
         uses: actions/cache@v3
