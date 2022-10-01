@@ -12,9 +12,9 @@ grade: stable # stable or devel
 confinement: strict
 
 architectures:
-- build-on: amd64
-- build-on: arm64
-- build-on: armhf
+  - build-on: amd64
+  - build-on: arm64
+  - build-on: armhf
 
 apps:
   onionshare:
@@ -45,15 +45,11 @@ parts:
   onionshare:
     source: ./desktop
     plugin: python
-    python-version: python3
     python-packages:
-      - setuptools
       - qrcode
       - pyside2 == 5.15.2.1
-    # Force using setup.py, prevent using setup-freeze.py or poetry
     override-build: |
-      rm setup-freeze.py pyproject.toml poetry.lock || true
-      snapcraftctl build
+      python3 setup.py install --prefix $SNAPCRAFT_PART_INSTALL
     stage-packages:
       - libasound2
       - libatk1.0-0
@@ -69,7 +65,7 @@ parts:
       - libglx0
       - libgtk-3-0
       - libharfbuzz0b
-      - libicu60
+      - libicu66
       - libjpeg8
       - liblcms2-2
       - libnspr4
@@ -121,7 +117,6 @@ parts:
   onionshare-cli:
     source: ./cli
     plugin: python
-    python-version: python3
     python-packages:
       - poetry
     stage-packages:
@@ -129,10 +124,12 @@ parts:
       - libssl-dev
       - libffi-dev
       - python3-dev
+      - python3-pip
       - cargo
-    stage:
-      - -usr/lib/x86_64-linux-gnu/libcrypto.so.1.1
-      - -usr/share/doc/libssl1.1/changelog.Debian.gz
+    override-build: |
+      poetry install
+      poetry build
+      pip3 install ./dist/onionshare_cli-*.whl --prefix $SNAPCRAFT_PART_INSTALL
     after: [tor, obfs4, snowflake-client, meek-client]
 
   tor:
@@ -140,6 +137,8 @@ parts:
     source-checksum: sha256/9e9a5c67ad2acdd5f0f8be14ed591fed076b1708abf8344066990a0fa66fe195
     source-type: tar
     plugin: autotools
+    autotools-configure-parameters:
+      - "--with-libevent-dir=/root/parts/libevent/install/usr/local"
     build-packages:
       - libssl-dev
       - zlib1g-dev
@@ -153,13 +152,11 @@ parts:
 
   obfs4:
     plugin: go
-    go-importpath: gitlab.com/yawning/obfs4
-    source: https://gitlab.com/yawning/obfs4
+    source: https://gitlab.com/yawning/obfs4.git
     source-type: git
 
   snowflake-client:
     plugin: go
-    go-importpath: git.torproject.org/pluggable-transports/snowflake.git/client
     source: https://git.torproject.org/pluggable-transports/snowflake.git
     source-type: git
     source-tag: v2.2.0
@@ -168,13 +165,10 @@ parts:
 
   meek-client:
     plugin: go
-    go-channel: stable
-    go-importpath: git.torproject.org/pluggable-transports/meek.git/meek-client
-    # Not sure why I have to do this, but it works
+    source: https://git.torproject.org/pluggable-transports/meek.git
+    source-type: git
+    source-tag: v0.37.0
     override-build: |
       cd meek-client
       mkdir /root/parts/meek-client/install/bin
       go build -o /root/parts/meek-client/install/bin/meek-client ./...
-    source: https://git.torproject.org/pluggable-transports/meek.git
-    source-type: git
-    source-tag: v0.37.0

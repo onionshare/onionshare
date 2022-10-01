@@ -44,7 +44,12 @@ Make sure snapcraft packaging works. In `snap/snapcraft.yaml`:
 
 - [ ] The `tor`, `libevent`, and `obfs4` parts should be updated if necessary
 - [ ] All python packages in the `onionshare` part should be updated to match `desktop/pyproject.toml`
-- [ ] Test the snap package, ensure it works
+- [ ] With every commit to the `develop` branch, Snapcraft's CI should trigger builds. Make sure the builds all succeeded at https://snapcraft.io/onionshare/builds (you must be logged in), and test them
+
+Update to the latest version of Tor:
+
+- [ ] Edit `desktop/scripts/get-tor.py` to use the latest version of Tor Browser, and the latest sha256 checksums.
+- [ ] Update the version of `meek`, `obfs4proxy`, and `snowflake` in the `desktop/scripts/build-pt-*` scripts, both the bash and PowerShell scripts.
 
 Finally:
 

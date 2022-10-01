@@ -6,12 +6,10 @@ Advanced Usage
 Save Tabs
 ---------
 
-Everything in OnionShare is temporary by default. When OnionShare tabs are closed, addresses no longer exist and can't be used again.
-Your OnionShare service can also be persistent.
-If you host a website, persistence means it will be available on the same OnionShare address even if you reboot your computer.
+Closing OnionShare tabs you host destroys them, preventing reuse.
+Persistently hosted websites are available on the same address even if the computer they are shared from is rebooted.
 
-To make any tab persistent, check the "Save this tab, and automatically open it when I open OnionShare" box before starting your server.
-A purple pin icon appears to the left of its server status to tell you the tab is saved.
+Make any tab persistent by checking the "Always open this tab when OnionShare is started" box before starting your server.
 
 .. image:: _static/screenshots/advanced-save-tabs.png
 
@@ -146,3 +144,21 @@ Browse the command-line documentation by running ``onionshare --help``::
       --disable_csp             Publish website: Disable the default Content Security Policy header (allows your website to use third-party resources)
       --custom_csp custom_csp   Publish website: Set a custom Content Security Policy header
       -v, --verbose             Log OnionShare errors to stdout, and web errors to disk
+
+
+
+Keyboard Shortcuts
+------------------
+
+The OnionShare desktop application contains some keyboard shortcuts, for convenience and accessibility::
+
+    Ctrl T - New Tab
+    Ctrl X - Closes current tab
+
+And from the main mode chooser screen::
+
+    Ctrl S - Share mode
+    Ctrl R - Receive mode
+    Ctrl W - Website mode
+    Ctrl C - Chat mode
+    Ctrl H - Settings tab
