@@ -19,7 +19,7 @@ architectures:
 apps:
   onionshare:
     common-id: org.onionshare.OnionShare
-    command: onionshare
+    command: bin/onionshare
     extensions: [gnome-3-38]
     plugs:
       - desktop
@@ -32,7 +32,7 @@ apps:
 
   cli:
     common-id: org.onionshare.OnionShareCli
-    command: onionshare-cli
+    command: bin/onionshare-cli
     plugs:
       - home
       - network
