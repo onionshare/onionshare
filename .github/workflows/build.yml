@@ -1,5 +1,5 @@
 name: Build
-run-name: Build win32, win64, mac (Intel), snapcraft 🚀
+run-name: Build win32, win64, mac (Intel) 🚀
 on:
   push:
     branches:
