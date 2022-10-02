@@ -25,8 +25,9 @@ Turn Off Private Key
 
 By default, all OnionShare services are protected with a private key, which Tor calls "client authentication".
 
-The Tor Browser will ask you to enter your private key when you load an OnionShare service.
-If you want allow the public to use your service, it's better to disable the private key altogether.
+The Tor Browser will ask you to enter your private key when you want to offer an OnionShare service.
+If you want to allow the public to use your service, it's better to turn off the private key so that people you don't know
+wont have to find your public key.
 
 To turn off the private key for any tab, check the "This is a public OnionShare service (disables private key)" box before starting the server.
 Then the server will be public and a private key is not needed to load it in the Tor Browser.
