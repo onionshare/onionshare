@@ -214,17 +214,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3
     
-      - name: Install Python 3.9.13
+      - name: Install Python 3.9.13 (Intel)
         run: |
-          which python3
           curl -L https://www.python.org/ftp/python/3.9.13/python-3.9.13-macosx10.9.pkg --output ~/Downloads/python.pkg
           sudo installer -pkg ~/Downloads/python.pkg -target /
-          which python3
-          ls -l /Applications
-          ls -l /Applications/Python*
 
       - name: Install poetry
-        run: python3 -m pip install poetry
+        run: |
+          python3 -m pip install poetry
 
       - name: Restore cache - poetry
         uses: actions/cache@v3
@@ -233,7 +230,9 @@ jobs:
           key: ${{ runner.os }}-macos-poetry-${{ hashFiles('desktop/poetry.lock') }}
 
       - name: Install poetry dependencies
-        run: cd desktop && poetry install
+        run: |
+          cd desktop
+          /Library/Frameworks/Python.framework/Versions/3.9/bin/poetry install
 
       - name: Restore cache - tor
         uses: actions/cache@v3
@@ -242,7 +241,9 @@ jobs:
           key: ${{ runner.os }}-macos-tor-${{ hashFiles('desktop/scripts/get-tor.py') }}
       
       - name: Get tor binaries from Tor Browser
-        run: cd desktop && poetry run python ./scripts/get-tor.py macos
+        run: |
+          cd desktop
+          /Library/Frameworks/Python.framework/Versions/3.9/bin/poetry run python ./scripts/get-tor.py macos
 
       - name: Restore cache - obfs4proxy
         uses: actions/cache@v3
@@ -292,9 +293,9 @@ jobs:
       - name: Build OnionShare
         run: |
           cd desktop
-          poetry run python ./setup-freeze.py build
-          poetry run python ./setup-freeze.py bdist_mac
-          poetry run python ./scripts/build-macos.py cleanup-build
+          /Library/Frameworks/Python.framework/Versions/3.9/bin/poetry run python ./setup-freeze.py build
+          /Library/Frameworks/Python.framework/Versions/3.9/bin/poetry run python ./setup-freeze.py bdist_mac
+          /Library/Frameworks/Python.framework/Versions/3.9/bin/poetry run python ./scripts/build-macos.py cleanup-build
 
       - name: Compress
         run: |
