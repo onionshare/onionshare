@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2022-07-05 10:24+1000\n"
+"POT-Creation-Date: 2022-10-02 16:17-0700\n"
 "PO-Revision-Date: 2022-02-14 08:55+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language: nb_NO\n"
 "Language-Team: none\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.9.1\n"
+"Generated-By: Babel 2.10.3\n"
 
 #: ../../source/advanced.rst:2
 msgid "Advanced Usage"
@@ -28,27 +28,18 @@ msgstr "Lagring av faner"
 
 #: ../../source/advanced.rst:9
 msgid ""
-"Everything in OnionShare is temporary by default. When OnionShare tabs "
-"are closed, addresses no longer exist and can't be used again. Your "
-"OnionShare service can also be persistent. If you host a website, "
-"persistence means it will be available on the same OnionShare address "
-"even if you reboot your computer."
+"Closing OnionShare tabs you host destroys them, preventing reuse. "
+"Persistently hosted websites are available on the same address even if "
+"the computer they are shared from is rebooted."
 msgstr ""
 
-#: ../../source/advanced.rst:13
-#, fuzzy
+#: ../../source/advanced.rst:12
 msgid ""
-"To make any tab persistent, check the \"Save this tab, and automatically "
-"open it when I open OnionShare\" box before starting your server. A "
-"purple pin icon appears to the left of its server status to tell you the "
-"tab is saved."
+"Make any tab persistent by checking the \"Always open this tab when "
+"OnionShare is started\" box before starting your server."
 msgstr ""
-"For å gjøre en fane vedvarende, huk av «Lagre denne fanen og åpne den "
-"automatisk sammen med OnionShare»-boksen, før du starter tjeneren. Når en"
-" fane er lagret, vil et lilla stifteikon vises til venstre for dens "
-"tjenerstatus."
 
-#: ../../source/advanced.rst:18
+#: ../../source/advanced.rst:16
 msgid ""
 "When opening OnionShare, your saved tabs from the prior session will "
 "start opened. Each service then can be started manually, and will be "
@@ -56,7 +47,7 @@ msgid ""
 "private key."
 msgstr ""
 
-#: ../../source/advanced.rst:21
+#: ../../source/advanced.rst:19
 #, fuzzy
 msgid ""
 "If you save a tab, a copy of its onion service secret key is stored on "
@@ -66,11 +57,11 @@ msgstr ""
 "løktjenesten lagres på din datamaskin sammen med dine OnionShare-"
 "innstillinger."
 
-#: ../../source/advanced.rst:26
+#: ../../source/advanced.rst:24
 msgid "Turn Off Private Key"
 msgstr "Skru av privat nøkkel"
 
-#: ../../source/advanced.rst:28
+#: ../../source/advanced.rst:26
 msgid ""
 "By default, all OnionShare services are protected with a private key, "
 "which Tor calls \"client authentication\"."
@@ -78,14 +69,14 @@ msgstr ""
 "Som forvalg er alle OnionShare-tjenester beskyttet med en privat nøkkel, "
 "som Tor kaller «klient-identitetsbekreftelse»."
 
-#: ../../source/advanced.rst:30
+#: ../../source/advanced.rst:28
 msgid ""
 "The Tor Browser will ask you to enter your private key when you load an "
 "OnionShare service. If you want allow the public to use your service, "
 "it's better to disable the private key altogether."
 msgstr ""
 
-#: ../../source/advanced.rst:33
+#: ../../source/advanced.rst:31
 #, fuzzy
 msgid ""
 "To turn off the private key for any tab, check the \"This is a public "
@@ -98,12 +89,12 @@ msgstr ""
 "Tjeneren vil da være offentlig, og du trenger ikke en privat nøkkel for å"
 " vise den i Tor-nettleseren."
 
-#: ../../source/advanced.rst:39
+#: ../../source/advanced.rst:37
 #, fuzzy
 msgid "Custom Titles"
 msgstr "Egendefinerte titler"
 
-#: ../../source/advanced.rst:41
+#: ../../source/advanced.rst:39
 #, fuzzy
 msgid ""
 "When people load OnionShare services in the Tor Browser they see the "
@@ -114,7 +105,7 @@ msgstr ""
 "laster inn en OnionShare-tjeneste i Tor-nettleseren. For sludretjenesten "
 "er dette «OnionShare-sludring»."
 
-#: ../../source/advanced.rst:44
+#: ../../source/advanced.rst:42
 #, fuzzy
 msgid ""
 "If you edit the \"Custom title\" setting before starting a server you can"
@@ -123,11 +114,11 @@ msgstr ""
 "Vil du bruke en egendefinert tittel kan du sette «Egendefinert "
 "tittel»-innstillinger før du starter en tjener."
 
-#: ../../source/advanced.rst:47
+#: ../../source/advanced.rst:45
 msgid "Scheduled Times"
 msgstr "Planlagte tider"
 
-#: ../../source/advanced.rst:49
+#: ../../source/advanced.rst:47
 msgid ""
 "OnionShare supports scheduling exactly when a service should start and "
 "stop. Before starting a server, click \"Show advanced settings\" in its "
@@ -141,14 +132,14 @@ msgstr ""
 "planlagt tidspunkt», «stopp løktjeneste ved planlagt tidspunkt», eller "
 "begge, og sett opp tilhørende dato og tider du ønsker at ting skal skje."
 
-#: ../../source/advanced.rst:53
+#: ../../source/advanced.rst:51
 msgid ""
 "Services scheduled to start in the future display a countdown timer when "
 "when the \"Start sharing\" button is clicked. Services scheduled to stop "
 "in the future display a countdown timer when started."
 msgstr ""
 
-#: ../../source/advanced.rst:56
+#: ../../source/advanced.rst:54
 msgid ""
 "**Scheduling an OnionShare service to automatically start can be used as "
 "a dead man's switch**. This means your service is made public at a given "
@@ -156,7 +147,7 @@ msgid ""
 " to you, you can cancel the service before it's scheduled to start."
 msgstr ""
 
-#: ../../source/advanced.rst:62
+#: ../../source/advanced.rst:60
 #, fuzzy
 msgid ""
 "**Scheduling an OnionShare service to automatically stop limits its "
@@ -167,11 +158,11 @@ msgstr ""
 "publisitet**, hvis du ønsker å dele hemmelige dokumenter og ikke vil at "
 "de skal være tilgjengelige i mer enn et par dager."
 
-#: ../../source/advanced.rst:70
+#: ../../source/advanced.rst:68
 msgid "Command-line Interface"
 msgstr "Kommandolinjegrensesnitt"
 
-#: ../../source/advanced.rst:72
+#: ../../source/advanced.rst:70
 msgid ""
 "In addition to its graphical interface, OnionShare has a command-line "
 "interface."
@@ -179,7 +170,7 @@ msgstr ""
 "I tillegg til det grafiske grensesnittet, har OnionShare et "
 "kommandolinjegrensesnitt."
 
-#: ../../source/advanced.rst:74
+#: ../../source/advanced.rst:72
 msgid ""
 "You can install just the command-line version of OnionShare using "
 "``pip3``::"
@@ -187,7 +178,7 @@ msgstr ""
 "Du kan installere kun kommandolinjeversjonen av OnionShare ved bruk av "
 "``pip3``::"
 
-#: ../../source/advanced.rst:78
+#: ../../source/advanced.rst:76
 msgid ""
 "Note that you will also need the ``tor`` package installed. In macOS, "
 "install it with: ``brew install tor``"
@@ -195,11 +186,11 @@ msgstr ""
 "Merk at du også trenger ``tor``-pakken. I macOS kan du installere den med"
 " : ``brew install tor``"
 
-#: ../../source/advanced.rst:80
+#: ../../source/advanced.rst:78
 msgid "Then run it like this::"
 msgstr "Kjør den så slik::"
 
-#: ../../source/advanced.rst:84
+#: ../../source/advanced.rst:82
 #, fuzzy
 msgid ""
 "Info about installing it on different operating systems can be found in "
@@ -212,7 +203,7 @@ msgstr ""
 "<https://github.com/onionshare/onionshare/blob/develop/cli/README.md>`_ i"
 " i Git-kodelageret."
 
-#: ../../source/advanced.rst:86
+#: ../../source/advanced.rst:84
 #, fuzzy
 msgid ""
 "If you installed OnionShare using the Snap package, you can also just run"
@@ -222,28 +213,28 @@ msgstr ""
 "kan du også bare kjøre ``onionshare.cli`` for å få tilgang til versjonen "
 "med kommandolinjegrensesnittet."
 
-#: ../../source/advanced.rst:89
+#: ../../source/advanced.rst:87
 msgid "Usage"
 msgstr "Bruk"
 
-#: ../../source/advanced.rst:91
+#: ../../source/advanced.rst:89
 #, fuzzy
 msgid "Browse the command-line documentation by running ``onionshare --help``::"
 msgstr ""
 "Du kan utforske kommandolinje-dokumentasjonen ved å kjøre ``onionshare "
 "--help``::"
 
-#: ../../source/advanced.rst:153
+#: ../../source/advanced.rst:151
 msgid "Keyboard Shortcuts"
 msgstr ""
 
-#: ../../source/advanced.rst:155
+#: ../../source/advanced.rst:153
 msgid ""
 "The OnionShare desktop application contains some keyboard shortcuts, for "
 "convenience and accessibility::"
 msgstr ""
 
-#: ../../source/advanced.rst:160
+#: ../../source/advanced.rst:158
 msgid "And from the main mode chooser screen::"
 msgstr ""
 
@@ -685,4 +676,33 @@ msgstr ""
 #~ "mode Ctrl C - Chat mode Ctrl "
 #~ "H - Settings tab"
 #~ msgstr ""
+
+#~ msgid ""
+#~ "Everything in OnionShare is temporary by"
+#~ " default. When OnionShare tabs are "
+#~ "closed, addresses no longer exist and"
+#~ " can't be used again. Your OnionShare"
+#~ " service can also be persistent. If"
+#~ " you host a website, persistence "
+#~ "means it will be available on the"
+#~ " same OnionShare address even if you"
+#~ " reboot your computer."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "To make any tab persistent, check "
+#~ "the \"Save this tab, and automatically"
+#~ " open it when I open OnionShare\" "
+#~ "box before starting your server. A "
+#~ "purple pin icon appears to the "
+#~ "left of its server status to tell"
+#~ " you the tab is saved."
+#~ msgstr ""
+#~ "For å gjøre en fane vedvarende, "
+#~ "huk av «Lagre denne fanen og åpne"
+#~ " den automatisk sammen med "
+#~ "OnionShare»-boksen, før du starter tjeneren."
+#~ " Når en fane er lagret, vil et"
+#~ " lilla stifteikon vises til venstre "
+#~ "for dens tjenerstatus."
 
