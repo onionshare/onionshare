@@ -317,7 +317,7 @@
     "gui_copied_client_auth": "Privater Schlüssel in die Zwischenablage kopiert",
     "gui_copied_client_auth_title": "Privater Schlüssel kopiert",
     "gui_copy_client_auth": "Privaten Schlüssel kopieren",
-    "gui_dragdrop_sandbox_flatpak": "Um die Flatpak Sandbox sicherer zu machen, wird Drag und Drop nicht unterstützt. Bitte nutze stattdessen die Buttons \"Dateien hinzufügen\" und \"Ordner hinzufügen\".",
+    "gui_dragdrop_sandbox_flatpak": "Um die Flatpak Sandbox sicherer zu machen, wird Drag und Drop nicht unterstützt. Bitte nutze stattdessen die Buttons \"Dateien hinzufügen\" und \"Ordner hinzufügen\", um Dateien auszuwählen.",
     "gui_tor_settings_window_title": "Tor Einstellungen",
     "gui_settings_controller_extras_label": "Tor Einstellungen",
     "gui_settings_bridge_use_checkbox": "Benutze eine Brigde",
@@ -341,5 +341,16 @@
     "gui_settings_bridge_moat_radio_option": "Verwende eine Bridge von torproject.org",
     "moat_solution_empty_error": "Du musst die Zeichen auf dem Bild eingeben",
     "gui_settings_bridge_custom_radio_option": "Stelle eine Bridge aus einer dir bekannten vertraulichen Quelle bereit",
-    "gui_settings_tor_bridges_label": "Brigdes helfen dir das Tor Netzwerk an Orten zu verwenden, wo es blockiert wird. Je nachdem wo du bist, funktioniert eine Bridge besser als eine andere."
+    "gui_settings_tor_bridges_label": "Brigdes helfen dir das Tor Netzwerk an Orten zu verwenden, wo es blockiert wird. Je nachdem wo du bist, funktioniert eine Bridge besser als eine andere.",
+    "gui_autoconnect_bridge_detect_manual": "Manuelles Auswählen meines Landes für die Bridge-Einstellungen",
+    "gui_autoconnect_description": "OnionShare stützt sich auf das Tor-Netzwerk, das von Tausenden von Freiwilligen auf der ganzen Welt betrieben wird.",
+    "gui_enable_autoconnect_checkbox": "Automatisch mit Tor verbinden",
+    "gui_autoconnect_failed_to_connect_to_tor": "Verbindung zu Tor fehlgeschlagen",
+    "gui_autoconnect_connection_error_msg": "Bist du mit dem Internet verbunden?",
+    "gui_autoconnect_bridge_description": "Es ist auch möglich, dass dein Internet zensiert wird. Vielleicht kannst du dies mit einer Brücke umgehen.",
+    "gui_autoconnect_bridge_detect_automatic": "Automatisches Ermitteln meines Landes anhand meiner IP-Adresse für die Bridge-Einstellungen",
+    "gui_autoconnect_bridge_setting_options": "Bridge-Einstellungen",
+    "gui_autoconnect_start": "Mit Tor verbinden",
+    "gui_autoconnect_configure": "Netzwerkeinstellungen",
+    "gui_autoconnect_no_bridge": "Erneuter Versuch ohne Bridge"
 }

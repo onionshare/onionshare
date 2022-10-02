@@ -333,5 +333,21 @@
     "gui_settings_bridge_custom_placeholder": "address:port লিখো(প্রতি বাক্যে একটা)",
     "mode_tor_not_connected_label": "অনিওনশেয়ার টর নেটওয়ার্কে যুক্ত নয়",
     "moat_captcha_error": "এই সমাধানটা সঠিক নয়। আবার চেষ্টা করো।",
-    "gui_settings_stop_active_tabs_label": "তোমার কিছু ট্যাবৃ এই সেবাগুলো চলছে।\nতোমার টর পছন্দসমূহ পাল্টাতে এই সব সেবাগুলো বন্ধ করতে হবে।"
+    "gui_settings_stop_active_tabs_label": "তোমার কিছু ট্যাবৃ এই সেবাগুলো চলছে।\nতোমার টর পছন্দসমূহ পাল্টাতে এই সব সেবাগুলো বন্ধ করতে হবে।",
+    "gui_autoconnect_description": "হাজারো স্বেচ্ছাসেবী পরিচালিত টর নেটওয়ার্কের উপর অনিওনশেয়ার নির্ভর করে।",
+    "gui_autoconnect_bridge_setting_options": "সেতু পছন্দসমূহ",
+    "gui_autoconnect_configure": "নেটওয়ার্ক পছন্দসমূহ",
+    "gui_autoconnect_no_bridge": "সেতু ছাড়া চেষ্টা করো",
+    "gui_autoconnect_circumventing_censorship_starting_circumvention": "নিষেধাজ্ঞা এড়ানোর প্রক্রিয়া শুরু করা হচ্ছে",
+    "gui_autoconnect_circumventing_censorship": "সংযোগ সমস্যা সমাধানের চেষ্টা করা হচ্ছে",
+    "gui_autoconnect_bridge_detect_manual": "সেতু পছন্দসমূহ থেকে একটি দেশ বেছে নাও",
+    "gui_enable_autoconnect_checkbox": "টর এ স্বয়ংক্রিয়ভাবে সংযুক্ত হচ্ছে",
+    "gui_autoconnect_failed_to_connect_to_tor": "টর এ সংযুক্ত হতে ব্যর্থ",
+    "gui_general_settings_window_title": "সাধারণ",
+    "gui_autoconnect_start": "টর এ সংযুক্ত হও",
+    "gui_autoconnect_connection_error_msg": "তুমি কি ইন্টারনেটে যুক্ত?",
+    "gui_autoconnect_circumventing_censorship_got_bridges": "সেতু পাওয়া গেছে! টর এ পুনঃসংযোগের চেষ্টা করা হচ্ছে",
+    "gui_autoconnect_circumventing_censorship_starting_meek": "ডোমেন-ফ্রন্টিং এর জন্য মিইক শুরু করা হচ্ছে",
+    "gui_autoconnect_trying_to_connect_to_tor": "টর এ সংযোগের চেষ্টা করা হচ্ছে...",
+    "gui_autoconnect_try_again_without_a_bridge": "সেতু ছাড়া চেষ্টা করো"
 }

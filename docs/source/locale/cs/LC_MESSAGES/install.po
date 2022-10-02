@@ -6,31 +6,35 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-01-17 10:28-0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2022-08-10 19:21+0000\n"
+"Last-Translator: Toro <ads.verifications@pm.me>\n"
 "Language-Team: none\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Weblate 4.14-dev\n"
 
 #: ../../source/install.rst:2
 msgid "Installation"
-msgstr ""
+msgstr "Instalace"
 
 #: ../../source/install.rst:5
 msgid "Windows or macOS"
-msgstr ""
+msgstr "Windows nebo macOS"
 
 #: ../../source/install.rst:7
 msgid "You can download OnionShare for Windows and macOS from the `OnionShare website <https://onionshare.org/>`_."
 msgstr ""
+"Aplikaci OnionShare pro Windows a macOS si můžete stáhnout z webu `"
+"OnionShare <https://onionshare.org/>`_."
 
 #: ../../source/install.rst:12
 msgid "Linux"
-msgstr ""
+msgstr "Linux"
 
 #: ../../source/install.rst:14
 msgid "There are various ways to install OnionShare for Linux, but the recommended way is to use either the `Flatpak <https://flatpak.org/>`_ or the `Snap <https://snapcraft.io/>`_ package. Flatpak and Snap ensure that you'll always use the newest version and run OnionShare inside of a sandbox."
@@ -43,6 +47,8 @@ msgstr ""
 #: ../../source/install.rst:19
 msgid "**Install OnionShare using Flatpak**: https://flathub.org/apps/details/org.onionshare.OnionShare"
 msgstr ""
+"**Instalovat OnionShare za pomocí Flatpaku**: https://flathub.org/apps/"
+"details/org.onionshare.OnionShare"
 
 #: ../../source/install.rst:21
 msgid "**Install OnionShare using Snap**: https://snapcraft.io/onionshare"
@@ -51,10 +57,12 @@ msgstr ""
 #: ../../source/install.rst:23
 msgid "You can also download and install PGP-signed ``.flatpak`` or ``.snap`` packages from https://onionshare.org/dist/ if you prefer."
 msgstr ""
+"Pokud dáváte přednost stažení a instalaci PGP-signed balíčků ``.flatpak`` "
+"nebo ``.snap``, můžete si je stáhnout z https://onionshare.org/dist/ ."
 
 #: ../../source/install.rst:28
 msgid "Command-line only"
-msgstr ""
+msgstr "CLI"
 
 #: ../../source/install.rst:30
 msgid "You can install just the command line version of OnionShare on any operating system using the Python package manager ``pip``. See :ref:`cli` for more information."
@@ -62,27 +70,39 @@ msgstr ""
 
 #: ../../source/install.rst:35
 msgid "Verifying PGP signatures"
-msgstr ""
+msgstr "Ověřování podpisů PGP"
 
 #: ../../source/install.rst:37
 msgid "You can verify that the package you download is legitimate and hasn't been tampered with by verifying its PGP signature. For Windows and macOS, this step is optional and provides defense in depth: the OnionShare binaries include operating system-specific signatures, and you can just rely on those alone if you'd like."
 msgstr ""
+"Ověřením podpisu PGP si můžete ověřit, zda je stažený balíček legitimní a "
+"zda s ním nebylo manipulováno. V případě systémů Windows a MacOS je tento "
+"krok nepovinný, avšak přináší hlubší ochranu: binární soubory OnionShare "
+"obsahují podpisy specifické pro operační systém, a pokud chcete, můžete se "
+"spolehnout pouze na ně."
 
 #: ../../source/install.rst:41
 msgid "Signing key"
-msgstr ""
+msgstr "Podpisový klíč"
 
 #: ../../source/install.rst:43
 msgid "Packages are signed by Micah Lee, the core developer, using his PGP public key with fingerprint ``927F419D7EC82C2F149C1BD1403C2657CD994F73``. You can download Micah's key `from the keys.openpgp.org keyserver <https://keys.openpgp.org/vks/v1/by-fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 msgstr ""
+"Balíčky jsou podepsány Micahem Lee, hlavním vývojář, pomocí jeho veřejného "
+"klíče PGP s otiskem ``927F419D7EC82C2F149C1BD1403C2657CD994F73``. Micahův "
+"klíč si můžete stáhnout `z keyserveru keys.openpgp.org <https://keys.openpgp."
+"org/vks/v1/by-fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>>`_."
 
 #: ../../source/install.rst:45
 msgid "You must have GnuPG installed to verify signatures. For macOS you probably want `GPGTools <https://gpgtools.org/>`_, and for Windows you probably want `Gpg4win <https://www.gpg4win.org/>`_."
 msgstr ""
+"Pro ověření podpisů je nutné mít nainstalovaný GnuPG. Pro macOS "
+"pravděpodobně potřebujete `GPGTools <https://gpgtools.org/>`_, pro Windows "
+"pravděpodobně `Gpg4win <https://www.gpg4win.org/>`_."
 
 #: ../../source/install.rst:48
 msgid "Signatures"
-msgstr ""
+msgstr "Podpisy"
 
 #: ../../source/install.rst:50
 msgid "You can find the signatures (as ``.asc`` files), as well as Windows, macOS, Flatpak, Snap, and source packages, at https://onionshare.org/dist/ in the folders named for each version of OnionShare. You can also find them on the `GitHub Releases page <https://github.com/micahflee/onionshare/releases>`_."

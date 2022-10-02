@@ -270,5 +270,7 @@
     "gui_new_tab": "ផ្ទាំងថ្មី",
     "gui_close_tab_warning_close": "បិទ",
     "gui_qr_code_dialog_title": "OnionShare QR Code",
-    "gui_file_selection_remove_all": "ដកចេញទាំងអស់"
+    "gui_file_selection_remove_all": "ដកចេញទាំងអស់",
+    "gui_enable_autoconnect_checkbox": "ភ្ជាប់ទៅ Tor ដោយស្វ័យប្រវត្តិ",
+    "gui_autoconnect_failed_to_connect_to_tor": "បរាជ័យក្នុងការតភ្ជាប់ទៅ Tor"
 }
