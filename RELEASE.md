@@ -42,7 +42,7 @@ You also must edit these files:
 
 Make sure snapcraft packaging works. In `snap/snapcraft.yaml`:
 
-- [ ] The `tor`, `libevent`, and `obfs4` parts should be updated if necessary
+- [ ] The `tor`, `libevent`, `obfs4`, `snowflake-client`, and `meek-client` parts should be updated if necessary
 - [ ] All python packages in the `onionshare` part should be updated to match `desktop/pyproject.toml`
 - [ ] With every commit to the `develop` branch, Snapcraft's CI should trigger builds. Make sure the builds all succeeded at https://snapcraft.io/onionshare/builds (you must be logged in), and test them
 
@@ -101,7 +101,7 @@ snapcraft upload --release=stable onionshare_${VERSION}_amd64.snap
 
 Set up the packaging environment:
 
-- Install the [Windows SDK](https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/) and add `C:\Program Files (x86)\Windows Kits\10\bin\10.0.22000.0\x64` to your path (to get `signtool.exe`).
+- Install the Windows SDK from here: https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/ and add `C:\Program Files (x86)\Microsoft SDKs\ClickOnce\SignTool` to the path (you'll need it for `signtool.exe`)
 - Go to https://dotnet.microsoft.com/download/dotnet-framework and download and install .NET Framework 3.5 SP1 Runtime. I downloaded `dotnetfx35.exe`.
 - Go to https://wixtoolset.org/releases/ and download and install WiX toolset. I downloaded `wix311.exe`. Add `C:\Program Files (x86)\WiX Toolset v3.11\bin` to the path.
 
