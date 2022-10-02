@@ -19,7 +19,7 @@ classifiers = [
 python = "^3.6"
 click = "*"
 flask = "2.0.3"
-flask-socketio = "5.1.1"
+flask-socketio = "5.3.1"
 psutil = "*"
 pysocks = "*"
 requests = {extras = ["socks"], version = "*"}
@@ -30,11 +30,10 @@ setuptools = "*"
 pynacl = "*"
 colorama = "*"
 gevent-websocket = "*"
-cepa = "1.8.3"
+stem = "1.8.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "*"
-setuptools = "*"
 
 [tool.poetry.scripts]
 onionshare-cli = 'onionshare_cli:main'
