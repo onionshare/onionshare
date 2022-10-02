@@ -1,0 +1,51 @@
+name: Run Tests
+run-name: Run tests
+on: [push]
+
+jobs:
+  test-cli:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get -y install tor obfs4proxy
+          pip install --upgrade pip poetry
+      - uses: actions/cache@v3
+        with:
+          path: ~/.cache/pypoetry/virtualenvs
+          key: ${{ runner.os }}-cli-poetry-${{ hashFiles('cli/poetry.lock') }}
+      - run: cd cli && poetry install
+      - run: |
+          cd cli
+          poetry run pytest -v ./tests
+          poetry run onionshare-cli --local-only ./tests --auto-stop-timer 2
+          poetry run onionshare-cli --local-only --receive --auto-stop-timer 2
+          poetry run onionshare-cli --local-only --website ../docs --auto-stop-timer 2
+          poetry run onionshare-cli --local-only --chat --auto-stop-timer 2
+
+  test-desktop:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y tor obfs4proxy gcc python3-dev python3-pyside2.qtcore python3-pyside2.qtwidgets python3-pyside2.qtgui
+          sudo apt-get install -y xvfb x11-utils libxkbcommon-x11-0 libxcb-randr0-dev libxcb-xtest0-dev libxcb-xinerama0-dev libxcb-shape0-dev libxcb-xkb-dev libxcb-render-util0 libxcb-icccm4 libxcb-keysyms1 libxcb-image0
+          pip install --upgrade pip poetry
+      - uses: actions/cache@v3
+        with:
+          path: ~/.cache/pypoetry/virtualenvs
+          key: ${{ runner.os }}-desktop-poetry-${{ hashFiles('desktop/poetry.lock') }}
+      - run: cd desktop && poetry install
+      - run: |
+          cd desktop
+          QT_DEBUG_PLUGINS=1 xvfb-run poetry run pytest -v ./tests/test_gui_*.py

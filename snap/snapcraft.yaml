@@ -19,7 +19,7 @@ architectures:
 apps:
   onionshare:
     common-id: org.onionshare.OnionShare
-    command: onionshare
+    command: bin/onionshare
     extensions: [gnome-3-38]
     plugs:
       - desktop
@@ -32,7 +32,7 @@ apps:
 
   cli:
     common-id: org.onionshare.OnionShareCli
-    command: onionshare-cli
+    command: bin/onionshare-cli
     plugs:
       - home
       - network
@@ -129,12 +129,12 @@ parts:
     override-build: |
       poetry install
       poetry build
-      pip3 install ./dist/onionshare_cli-*.whl --prefix $SNAPCRAFT_PART_INSTALL
+      python3 -m pip install ./dist/onionshare_cli-*.whl --prefix $SNAPCRAFT_PART_INSTALL
     after: [tor, obfs4, snowflake-client, meek-client]
 
   tor:
-    source: https://dist.torproject.org/tor-0.4.7.8.tar.gz
-    source-checksum: sha256/9e9a5c67ad2acdd5f0f8be14ed591fed076b1708abf8344066990a0fa66fe195
+    source: https://dist.torproject.org/tor-0.4.7.9.tar.gz
+    source-checksum: sha256/d39d38598208f4d6201d7edc6ad573b3a898a932a5c68d3074016a9525519b22
     source-type: tar
     plugin: autotools
     autotools-configure-parameters:
@@ -154,6 +154,7 @@ parts:
     plugin: go
     source: https://gitlab.com/yawning/obfs4.git
     source-type: git
+    source-tag: obfs4proxy-0.0.13
 
   snowflake-client:
     plugin: go
@@ -170,5 +171,5 @@ parts:
     source-tag: v0.37.0
     override-build: |
       cd meek-client
-      mkdir /root/parts/meek-client/install/bin
+      mkdir -p /root/parts/meek-client/install/bin
       go build -o /root/parts/meek-client/install/bin/meek-client ./...

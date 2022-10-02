@@ -9,18 +9,18 @@ import subprocess
 import requests
 import click
 
-torbrowser_version = "11.5.1"
+torbrowser_version = "11.5.2"
 expected_win32_sha256 = (
-    "364a13582236a4fb63db4af2b3508fe97eb4e9691463e306c4ba5e9b8a6f2434"
+    "07e721ae76bc7eefe25f20792091009238e9568d500331fc64bdd8796fec8c0f"
 )
 expected_win64_sha256 = (
-    "243d9a20b5af1de4be76bb6414a3feeffc0c928eb9b71ec82e4c4282bf5fc6be"
+    "8237bca22b5fa545de21f84ba8c9270c84442d0fc50a2e626f757d069e4bc7a8"
 )
 expected_macos_sha256 = (
-    "616d719572e4917d1264c622033afb1b4dd98e2553a0d09fd72470c99bad48e5"
+    "b80d3dba83b343fab7a6c8fc08440b2751da1ac12f86fe593da8e74069e4d7f6"
 )
 expected_linux64_sha256 = (
-    "2e0cefa6d4284c71a7816e310d935f9b9b5e4a3a408dc53330a0db0474489e8a"
+    "90cdce3854e9114ee7232aaa74672a2d9f3a40b6fa8ac33971f586ee3a3cf75a"
 )
 
 win32_url = f"https://dist.torproject.org/torbrowser/{torbrowser_version}/torbrowser-install-{torbrowser_version}_en-US.exe"
@@ -196,20 +196,6 @@ def get_tor_macos():
         os.path.join(dmg_tor_path, "MacOS", "Tor", "libevent-2.1.7.dylib"),
         os.path.join(dist_path, "libevent-2.1.7.dylib"),
     )
-    # obfs4proxy binary
-    shutil.copyfile(
-        os.path.join(dmg_tor_path, "MacOS", "Tor", "PluggableTransports", "obfs4proxy"),
-        os.path.join(dist_path, "obfs4proxy"),
-    )
-    os.chmod(os.path.join(dist_path, "obfs4proxy"), 0o755)
-    # snowflake-client binary
-    shutil.copyfile(
-        os.path.join(
-            dmg_tor_path, "MacOS", "Tor", "PluggableTransports", "snowflake-client"
-        ),
-        os.path.join(dist_path, "snowflake-client"),
-    )
-    os.chmod(os.path.join(dist_path, "snowflake-client"), 0o755)
 
     # Eject dmg
     subprocess.call(["diskutil", "eject", "/Volumes/Tor Browser"])
@@ -300,45 +286,46 @@ def update_tor_bridges():
     torrc_template_dir = os.path.join(
         root_path, os.pardir, "cli/onionshare_cli/resources"
     )
-    endpoint = "https://bridges.torproject.org/moat/circumvention/builtin"
-    r = requests.post(
-        endpoint,
-        headers={"Content-Type": "application/vnd.api+json"},
-    )
+
+    r = requests.get("https://gitweb.torproject.org/builders/tor-browser-build.git/plain/projects/tor-browser/Bundle-Data/PTConfigs/bridge_prefs.js")
     if r.status_code != 200:
         print(
             f"There was a problem fetching the latest built-in bridges: status_code={r.status_code}"
         )
         return False
+    
+    # Parse the bridges from this javascript file
+    bridges = {}
+    for line in r.content.decode().split("\n"):
+        if line.startswith('pref("extensions.torlauncher.default_bridge.'):
+            i = line.index('", "') + 4
+            bridge = line[i:].rstrip('");')
 
-    result = r.json()
+            bridge_type = bridge.split()[0]
+            if bridge_type not in bridges:
+                bridges[bridge_type] = []
 
-    if "errors" in result:
-        print(
-            f"There was a problem fetching the latest built-in bridges: errors={result['errors']}"
+            bridges[bridge_type].append(bridge)
+    
+    for bridge_type in bridges:
+        if bridge_type == "meek_lite":
+            torrc_template_extension = "meek_lite_azure"
+        else:
+            torrc_template_extension = bridge_type
+        
+        torrc_template = os.path.join(
+            root_path,
+            torrc_template_dir,
+            f"torrc_template-{torrc_template_extension}",
         )
-        return False
 
-    for bridge_type in ["meek-azure", "obfs4", "snowflake"]:
-        if result[bridge_type]:
-            if bridge_type == "meek-azure":
-                torrc_template_extension = "meek_lite_azure"
-            else:
-                torrc_template_extension = bridge_type
-            torrc_template = os.path.join(
-                root_path,
-                torrc_template_dir,
-                f"torrc_template-{torrc_template_extension}",
-            )
-
-            with open(torrc_template, "w") as f:
-                f.write(f"# Enable built-in {bridge_type} bridge\n")
-                bridges = result[bridge_type]
-                # Sorts the bridges numerically by IP, since they come back in
-                # random order from the API each time, and create noisy git diff.
-                bridges.sort(key=lambda s: s.split()[1])
-                for item in bridges:
-                    f.write(f"Bridge {item}\n")
+        with open(torrc_template, "w") as f:
+            f.write(f"# Enable built-in {bridge_type} bridge\n")
+            # Sorts the bridges numerically by IP, since they come back in
+            # random order from the API each time, and create noisy git diff.
+            bridges[bridge_type].sort(key=lambda s: s.split()[1])
+            for item in bridges[bridge_type]:
+                f.write(f"Bridge {item}\n")
 
 
 @click.command()
