@@ -1,6 +1,6 @@
 name: Run Tests
 run-name: Run tests
-# on: [push]
+on: [push]
 
 jobs:
   test-cli:
