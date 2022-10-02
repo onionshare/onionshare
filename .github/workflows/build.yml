@@ -103,7 +103,7 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: win64-build
-          path: desktop\build\exe.win-amd64-3.9=
+          path: ~\onionshare-win64.zip
 
   build-win32:
     runs-on: windows-latest
