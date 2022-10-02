@@ -7,17 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2022-03-31 16:26+1100\n"
+"POT-Creation-Date: 2022-10-02 16:17-0700\n"
 "PO-Revision-Date: 2022-08-28 18:21+0000\n"
 "Last-Translator: eulalio <eulalio@disroot.org>\n"
-"Language-Team: none\n"
 "Language: es\n"
+"Language-Team: none\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.14.1-dev\n"
-"Generated-By: Babel 2.9.1\n"
+"Generated-By: Babel 2.10.3\n"
 
 #: ../../source/advanced.rst:2
 msgid "Advanced Usage"
@@ -29,31 +28,18 @@ msgstr "Guardar pestañas"
 
 #: ../../source/advanced.rst:9
 msgid ""
-"Everything in OnionShare is temporary by default. When OnionShare tabs "
-"are closed, addresses no longer exist and can't be used again. Your "
-"OnionShare service can also be persistent. If you host a website, "
-"persistence means it will be available on the same OnionShare address "
-"even if you reboot your computer."
+"Closing OnionShare tabs you host destroys them, preventing reuse. "
+"Persistently hosted websites are available on the same address even if "
+"the computer they are shared from is rebooted."
 msgstr ""
-"Todo en OnionShare es temporal por defecto. Cuando se cierran las pestañas "
-"de OnionShare, las direcciones ya no existen y no se pueden volver a usar. "
-"Su servicio OnionShare también puede ser persistente. Si aloja un sitio web, "
-"la persistencia significa que estará disponible en la misma dirección de "
-"OnionShare incluso si reinicia su ordenador."
 
-#: ../../source/advanced.rst:13
+#: ../../source/advanced.rst:12
 msgid ""
-"To make any tab persistent, check the \"Save this tab, and automatically "
-"open it when I open OnionShare\" box before starting your server. A "
-"purple pin icon appears to the left of its server status to tell you the "
-"tab is saved."
+"Make any tab persistent by checking the \"Always open this tab when "
+"OnionShare is started\" box before starting your server."
 msgstr ""
-"Para hacer una pestaña persistente, marca la casilla \"Guardar esta pestaña, "
-"y abrirla automáticamente cuando abra OnionShare\" antes de iniciar el "
-"servidor. Cuando se guarda una pestaña, un ícono púrpura de un pin aparece a "
-"la izquierda del estado de su servidor."
 
-#: ../../source/advanced.rst:18
+#: ../../source/advanced.rst:16
 msgid ""
 "When opening OnionShare, your saved tabs from the prior session will "
 "start opened. Each service then can be started manually, and will be "
@@ -65,19 +51,19 @@ msgstr ""
 "disponible en la misma dirección de OnionShare y protegido por la misma "
 "clave privada."
 
-#: ../../source/advanced.rst:21
+#: ../../source/advanced.rst:19
 msgid ""
 "If you save a tab, a copy of its onion service secret key is stored on "
 "your computer."
 msgstr ""
-"Si guarda una pestaña, se almacenará en su ordeandor una copia de la clave "
-"secreta de onion service."
+"Si guarda una pestaña, se almacenará en su ordeandor una copia de la "
+"clave secreta de onion service."
 
-#: ../../source/advanced.rst:26
+#: ../../source/advanced.rst:24
 msgid "Turn Off Private Key"
 msgstr "Desactivar la Clave Privada"
 
-#: ../../source/advanced.rst:28
+#: ../../source/advanced.rst:26
 msgid ""
 "By default, all OnionShare services are protected with a private key, "
 "which Tor calls \"client authentication\"."
@@ -85,17 +71,17 @@ msgstr ""
 "Por defecto, todos los servicios de OnionShare están protegidos con una "
 "clave privada, que Tor llama \"autenticación de cliente\"."
 
-#: ../../source/advanced.rst:30
+#: ../../source/advanced.rst:28
 msgid ""
 "The Tor Browser will ask you to enter your private key when you load an "
 "OnionShare service. If you want allow the public to use your service, "
 "it's better to disable the private key altogether."
 msgstr ""
 "El navegador Tor le pedirá que ingrese su clave privada cuando cargue un "
-"servicio OnionShare. Si quiere permitir que el público use su servicio, es "
-"mejor deshabilitar la clave privada por completo."
+"servicio OnionShare. Si quiere permitir que el público use su servicio, "
+"es mejor deshabilitar la clave privada por completo."
 
-#: ../../source/advanced.rst:33
+#: ../../source/advanced.rst:31
 msgid ""
 "To turn off the private key for any tab, check the \"This is a public "
 "OnionShare service (disables private key)\" box before starting the "
@@ -103,37 +89,37 @@ msgid ""
 " load it in the Tor Browser."
 msgstr ""
 "Para desactivar la clave privada en cualquier pestaña, marque la casilla "
-"\"Este es un servicio público de OnionShare (deshabilita la clave privada)\" "
-"antes de iniciar el servidor. Entonces el servidor será público y no "
-"necesitará una clave privada para verlo en el Navegador Tor."
+"\"Este es un servicio público de OnionShare (deshabilita la clave "
+"privada)\" antes de iniciar el servidor. Entonces el servidor será "
+"público y no necesitará una clave privada para verlo en el Navegador Tor."
 
-#: ../../source/advanced.rst:39
+#: ../../source/advanced.rst:37
 msgid "Custom Titles"
 msgstr "Títulos Personalizados"
 
-#: ../../source/advanced.rst:41
+#: ../../source/advanced.rst:39
 msgid ""
 "When people load OnionShare services in the Tor Browser they see the "
 "default title for each type of service. For example, the default title "
 "for chat services is \"OnionShare Chat\"."
 msgstr ""
-"Cuando las personas carguen un servicio de OnionShare en el navegador Tor "
-"verán el título predeterminado para cada tipo de servicio. Por ejemplo, el "
-"título predeterminado de un servicio de chat es \"OnionShare Chat\"."
+"Cuando las personas carguen un servicio de OnionShare en el navegador Tor"
+" verán el título predeterminado para cada tipo de servicio. Por ejemplo, "
+"el título predeterminado de un servicio de chat es \"OnionShare Chat\"."
 
-#: ../../source/advanced.rst:44
+#: ../../source/advanced.rst:42
 msgid ""
 "If you edit the \"Custom title\" setting before starting a server you can"
 " change it."
 msgstr ""
-"Si edita la configuración de \"Título personalizado\" antes de iniciar un "
-"servidor, puede cambiarla."
+"Si edita la configuración de \"Título personalizado\" antes de iniciar un"
+" servidor, puede cambiarla."
 
-#: ../../source/advanced.rst:47
+#: ../../source/advanced.rst:45
 msgid "Scheduled Times"
 msgstr "Tiempos programados"
 
-#: ../../source/advanced.rst:49
+#: ../../source/advanced.rst:47
 msgid ""
 "OnionShare supports scheduling exactly when a service should start and "
 "stop. Before starting a server, click \"Show advanced settings\" in its "
@@ -145,53 +131,53 @@ msgstr ""
 "detenerse un servicio. Antes de iniciar un servidor, clic en \"Mostrar "
 "ajustes avanzados\" en su pestaña, y luego se marca la casilla próxima a "
 "\"Iniciar el servicio onion en el tiempo programado\", o \"Detener el "
-"servicio onion en el tiempo programado\", o ambas, y establece las fechas y "
-"horas deseadas."
+"servicio onion en el tiempo programado\", o ambas, y establece las fechas"
+" y horas deseadas."
 
-#: ../../source/advanced.rst:53
+#: ../../source/advanced.rst:51
 msgid ""
 "Services scheduled to start in the future display a countdown timer when "
 "when the \"Start sharing\" button is clicked. Services scheduled to stop "
 "in the future display a countdown timer when started."
 msgstr ""
-"Los servicios programados para iniciar en el futuro muestran un temporizador "
-"de cuenta regresiva al hacer clic en el botón \"Comenzar a compartir\". Los "
-"servicios programados para detenerse en el futuro muestran un temporizador "
-"de cuenta regresiva cuando se inician."
+"Los servicios programados para iniciar en el futuro muestran un "
+"temporizador de cuenta regresiva al hacer clic en el botón \"Comenzar a "
+"compartir\". Los servicios programados para detenerse en el futuro "
+"muestran un temporizador de cuenta regresiva cuando se inician."
 
-#: ../../source/advanced.rst:56
+#: ../../source/advanced.rst:54
 msgid ""
 "**Scheduling an OnionShare service to automatically start can be used as "
 "a dead man's switch**. This means your service is made public at a given "
 "time in the future if you are not there to prevent it. If nothing happens"
 " to you, you can cancel the service before it's scheduled to start."
 msgstr ""
-"**Programar un servicio de OnionShare para que se inicie automáticamente se "
-"puede usar como un dispositivo HM**. Esto significa que tu servicio será "
-"público en un momento dado en el futuro si no lo detiene. Si no pasa nada, "
-"puedes cancelar el servicio antes de que esté empiece."
+"**Programar un servicio de OnionShare para que se inicie automáticamente "
+"se puede usar como un dispositivo HM**. Esto significa que tu servicio "
+"será público en un momento dado en el futuro si no lo detiene. Si no pasa"
+" nada, puedes cancelar el servicio antes de que esté empiece."
 
-#: ../../source/advanced.rst:62
+#: ../../source/advanced.rst:60
 msgid ""
 "**Scheduling an OnionShare service to automatically stop limits its "
 "exposure**. If you want to share secret info or something that will be "
 "outdated, you can do so for selected limited time."
 msgstr ""
 "**Programar un servicio OnionShare para que se detenga automáticamente "
-"limita su exposición**. Si desea compartir información secreta o algo que se "
-"desactualizará, puede hacerlo por un tiempo limitado seleccionado."
+"limita su exposición**. Si desea compartir información secreta o algo que"
+" se desactualizará, puede hacerlo por un tiempo limitado seleccionado."
 
-#: ../../source/advanced.rst:70
+#: ../../source/advanced.rst:68
 msgid "Command-line Interface"
 msgstr "Interfaz de línea de comando"
 
-#: ../../source/advanced.rst:72
+#: ../../source/advanced.rst:70
 msgid ""
 "In addition to its graphical interface, OnionShare has a command-line "
 "interface."
 msgstr "Además de su interfaz gráfico, OnionShare tiene una de línea de comando."
 
-#: ../../source/advanced.rst:74
+#: ../../source/advanced.rst:72
 msgid ""
 "You can install just the command-line version of OnionShare using "
 "``pip3``::"
@@ -199,7 +185,7 @@ msgstr ""
 "Puedes instalar la versión de línea de comando de OnionShare usando "
 "``pip3``::"
 
-#: ../../source/advanced.rst:78
+#: ../../source/advanced.rst:76
 msgid ""
 "Note that you will also need the ``tor`` package installed. In macOS, "
 "install it with: ``brew install tor``"
@@ -207,51 +193,52 @@ msgstr ""
 "Ten en cuenta que también necesitarás el paquete ``tor`` instalado. En "
 "macOS, instálalo con: ``brew install tor``"
 
-#: ../../source/advanced.rst:80
+#: ../../source/advanced.rst:78
 msgid "Then run it like this::"
 msgstr "Luego, ejecútalo así::"
 
-#: ../../source/advanced.rst:84
+#: ../../source/advanced.rst:82
 msgid ""
 "Info about installing it on different operating systems can be found in "
 "the `CLI README file "
 "<https://github.com/onionshare/onionshare/blob/develop/cli/README.md>`_ "
 "in the Git repository."
 msgstr ""
-"Para información sobre cómo instalarlo en diferentes sistemas operativos, "
-"consulte el \"archivo leeme CLI <https://github.com/onionshare/onionshare/"
-"blob/develop/cli/README.md>` _ en el repositorio de Git."
+"Para información sobre cómo instalarlo en diferentes sistemas operativos,"
+" consulte el \"archivo leeme CLI "
+"<https://github.com/onionshare/onionshare/blob/develop/cli/README.md>` _ "
+"en el repositorio de Git."
 
-#: ../../source/advanced.rst:86
+#: ../../source/advanced.rst:84
 msgid ""
 "If you installed OnionShare using the Snap package, you can also just run"
 " ``onionshare.cli`` to access the command-line interface version."
 msgstr ""
 "Si instalaste OnionShare usando el paquete Snap de Linux, también puedes "
-"ejecutar ``onionshare.cli`` para acceder a la versión de interfaz de línea "
-"de comando."
+"ejecutar ``onionshare.cli`` para acceder a la versión de interfaz de "
+"línea de comando."
 
-#: ../../source/advanced.rst:89
+#: ../../source/advanced.rst:87
 msgid "Usage"
 msgstr "Uso"
 
-#: ../../source/advanced.rst:91
+#: ../../source/advanced.rst:89
 msgid "Browse the command-line documentation by running ``onionshare --help``::"
 msgstr ""
 "Navega por la documentación de línea de comando ejecutando ``onionshare "
 "--help``::"
 
-#: ../../source/advanced.rst:153
+#: ../../source/advanced.rst:151
 msgid "Keyboard Shortcuts"
 msgstr ""
 
-#: ../../source/advanced.rst:155
+#: ../../source/advanced.rst:153
 msgid ""
 "The OnionShare desktop application contains some keyboard shortcuts, for "
 "convenience and accessibility::"
 msgstr ""
 
-#: ../../source/advanced.rst:160
+#: ../../source/advanced.rst:158
 msgid "And from the main mode chooser screen::"
 msgstr ""
 
@@ -613,3 +600,44 @@ msgstr ""
 #~ " si te pasa algo. Si no te "
 #~ "pasa nada, puedes cancelarlo antes de"
 #~ " su inicio programado."
+
+#~ msgid ""
+#~ "Everything in OnionShare is temporary by"
+#~ " default. When OnionShare tabs are "
+#~ "closed, addresses no longer exist and"
+#~ " can't be used again. Your OnionShare"
+#~ " service can also be persistent. If"
+#~ " you host a website, persistence "
+#~ "means it will be available on the"
+#~ " same OnionShare address even if you"
+#~ " reboot your computer."
+#~ msgstr ""
+#~ "Todo en OnionShare es temporal por "
+#~ "defecto. Cuando se cierran las pestañas"
+#~ " de OnionShare, las direcciones ya no"
+#~ " existen y no se pueden volver "
+#~ "a usar. Su servicio OnionShare también"
+#~ " puede ser persistente. Si aloja un"
+#~ " sitio web, la persistencia significa "
+#~ "que estará disponible en la misma "
+#~ "dirección de OnionShare incluso si "
+#~ "reinicia su ordenador."
+
+#~ msgid ""
+#~ "To make any tab persistent, check "
+#~ "the \"Save this tab, and automatically"
+#~ " open it when I open OnionShare\" "
+#~ "box before starting your server. A "
+#~ "purple pin icon appears to the "
+#~ "left of its server status to tell"
+#~ " you the tab is saved."
+#~ msgstr ""
+#~ "Para hacer una pestaña persistente, "
+#~ "marca la casilla \"Guardar esta pestaña,"
+#~ " y abrirla automáticamente cuando abra "
+#~ "OnionShare\" antes de iniciar el "
+#~ "servidor. Cuando se guarda una pestaña,"
+#~ " un ícono púrpura de un pin "
+#~ "aparece a la izquierda del estado "
+#~ "de su servidor."
+
