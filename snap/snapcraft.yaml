@@ -1,5 +1,5 @@
 name: onionshare
-base: core20
+base: core22
 version: "2.6"
 summary: Securely and anonymously share files, host websites, and chat using Tor
 description: |
@@ -20,7 +20,7 @@ apps:
   onionshare:
     common-id: org.onionshare.OnionShare
     command: bin/onionshare
-    extensions: [gnome-3-38]
+    extensions: [gnome]
     plugs:
       - desktop
       - home
