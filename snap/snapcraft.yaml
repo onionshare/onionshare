@@ -126,7 +126,9 @@ parts:
       - cargo
     override-build: |
       python3 -m pip install poetry
+      python3 -m pip install setuptools --upgrade
       poetry install
+      poetry run pip install setuptools --upgrade
       poetry build
       python3 -m pip install ./dist/onionshare_cli-*.whl --prefix $SNAPCRAFT_PART_INSTALL
     after: [tor, obfs4, snowflake-client, meek-client]
