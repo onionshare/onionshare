@@ -14,7 +14,9 @@ confinement: strict
 architectures:
   - build-on: amd64
   - build-on: arm64
-  - build-on: armhf
+
+# The gnome extension is only available for amd64 and arm64 (https://snapcraft.io/gnome-42-2204-sdk)
+#   - build-on: armhf
 
 apps:
   onionshare:
@@ -128,6 +130,7 @@ parts:
       python3 -m pip install poetry
       python3 -m poetry install
       python3 -m poetry build
+      python3 -m pip install setuptools
       python3 -m pip install ./dist/onionshare_cli-*.whl --prefix $SNAPCRAFT_PART_INSTALL
     after: [tor, obfs4, snowflake-client, meek-client]
 
