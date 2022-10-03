@@ -152,12 +152,16 @@ parts:
 
   obfs4:
     plugin: go
+    build-snaps:
+      - go
     source: https://gitlab.com/yawning/obfs4.git
     source-type: git
     source-tag: obfs4proxy-0.0.13
 
   snowflake-client:
     plugin: go
+    build-snaps:
+      - go
     source: https://git.torproject.org/pluggable-transports/snowflake.git
     source-type: git
     source-tag: v2.2.0
@@ -166,6 +170,8 @@ parts:
 
   meek-client:
     plugin: go
+    build-snaps:
+      - go
     source: https://git.torproject.org/pluggable-transports/meek.git
     source-type: git
     source-tag: v0.37.0
