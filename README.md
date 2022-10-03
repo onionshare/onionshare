@@ -1,5 +1,7 @@
 ![OnionShare](/docs/source/_static/logo.png)
 
+[![Run Tests](https://github.com/onionshare/onionshare/actions/workflows/tests.yml/badge.svg)](https://github.com/onionshare/onionshare/actions/workflows/tests.yml)
+
 # OnionShare
 
 OnionShare is an open source tool that lets you securely and anonymously share files, host websites, and chat with friends using the Tor network.
@@ -19,7 +21,3 @@ See [these instructions](https://docs.onionshare.org/2.3/en/install.html#install
 ## Documentation
 
 To learn how OnionShare works, what its security properties are, how to use it, and how to contribute to the project, check out https://docs.onionshare.org.
-
----
-
-Test status: [![CircleCI](https://circleci.com/gh/onionshare/onionshare.svg?style=svg)](https://circleci.com/gh/onionshare/onionshare)
