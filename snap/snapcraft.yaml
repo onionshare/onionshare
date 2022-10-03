@@ -126,7 +126,6 @@ parts:
       - cargo
     override-build: |
       python3 -m pip install poetry
-      python3 -m pip install setuptools --upgrade
       poetry install
       poetry run pip install setuptools --upgrade
       poetry build
