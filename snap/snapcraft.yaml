@@ -65,7 +65,6 @@ parts:
       - libglx0
       - libgtk-3-0
       - libharfbuzz0b
-      - libicu66
       - libjpeg8
       - liblcms2-2
       - libnspr4
