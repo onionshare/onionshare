@@ -128,6 +128,7 @@ parts:
       python3 -m pip install poetry
       poetry install
       poetry run pip install setuptools --upgrade
+      poetry run pip install wheel --upgrade
       poetry build
       python3 -m pip install ./dist/onionshare_cli-*.whl --prefix $SNAPCRAFT_PART_INSTALL
     after: [tor, obfs4, snowflake-client, meek-client]
