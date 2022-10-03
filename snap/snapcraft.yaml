@@ -117,8 +117,6 @@ parts:
   onionshare-cli:
     source: ./cli
     plugin: python
-    python-packages:
-      - poetry
     stage-packages:
       - build-essential
       - libssl-dev
@@ -127,6 +125,7 @@ parts:
       - python3-pip
       - cargo
     override-build: |
+      python3 -m pip install poetry
       poetry install
       poetry build
       python3 -m pip install ./dist/onionshare_cli-*.whl --prefix $SNAPCRAFT_PART_INSTALL
