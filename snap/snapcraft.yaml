@@ -123,13 +123,11 @@ parts:
       - libffi-dev
       - python3-dev
       - python3-pip
+      - python3-setuptools
       - cargo
     override-build: |
       python3 -m pip install poetry
       python3 -m poetry install
-      python3 -m poetry run pip install pip --upgrade
-      python3 -m poetry run pip install setuptools --upgrade
-      python3 -m poetry run pip install wheel --upgrade
       python3 -m poetry build
       python3 -m pip install ./dist/onionshare_cli-*.whl --prefix $SNAPCRAFT_PART_INSTALL
     after: [tor, obfs4, snowflake-client, meek-client]
