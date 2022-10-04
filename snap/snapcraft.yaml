@@ -131,9 +131,9 @@ parts:
       - wheel
       - poetry
     override-build: |
-      poetry install
-      poetry build
-      pip install ./dist/onionshare_cli-*.whl --prefix $SNAPCRAFT_PART_INSTALL
+      python3 -m poetry install
+      python3 -m poetry build
+      python3 -m pip install ./dist/onionshare_cli-*.whl --prefix $SNAPCRAFT_PART_INSTALL
     after: [tor, obfs4, snowflake-client, meek-client]
 
   tor:
