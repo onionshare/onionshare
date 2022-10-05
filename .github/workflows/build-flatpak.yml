@@ -17,6 +17,18 @@ jobs:
           sudo apt install -y flatpak flatpak-builder
           flatpak remote-add --if-not-exists --user flathub https://flathub.org/repo/flathub.flatpakrepo
       
+      - name: Restore cache - .flatpak-builder
+        uses: actions/cache@v3
+        with:
+          path: flatpak/.flatpak-builder
+          key: ${{ runner.os }}-flatpak-.flatpak-builder
+
+      - name: Restore cache - build
+        uses: actions/cache@v3
+        with:
+          path: flatpak/build
+          key: ${{ runner.os }}-flatpak-build
+
       - name: Flatpak build
         run: |
           cd flatpak
