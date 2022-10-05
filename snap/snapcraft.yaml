@@ -123,19 +123,19 @@ parts:
       - python3-dev
     python-packages:
       - click
+      - colorama
+      - eventlet
       - flask==2.0.3
       - flask-socketio==5.3.1
+      - gevent-websocket
       - psutil
+      - pynacl
       - pysocks
       - requests[socks]
+      - setuptools==65.4.1
+      - stem==1.8.1
       - unidecode
       - urllib3
-      - eventlet
-      - setuptools
-      - pynacl
-      - colorama
-      - gevent-websocket
-      - stem==1.8.1
     after: [tor, obfs4, snowflake-client, meek-client]
 
   tor:
