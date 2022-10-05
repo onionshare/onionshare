@@ -50,8 +50,6 @@ parts:
     python-packages:
       - qrcode
       - pyside2 == 5.15.2.1
-    override-build: |
-      python3 setup.py install --prefix $SNAPCRAFT_PART_INSTALL
     stage-packages:
       - libasound2
       - libatk1.0-0
@@ -138,8 +136,6 @@ parts:
       - colorama
       - gevent-websocket
       - stem==1.8.1
-    override-build: |
-      python3 setup.py install --prefix $SNAPCRAFT_PART_INSTALL
     after: [tor, obfs4, snowflake-client, meek-client]
 
   tor:
