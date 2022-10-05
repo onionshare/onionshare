@@ -1,0 +1,17 @@
+name: Build
+run-name: Build snap
+on:
+  push:
+    branches:
+      - snap-ci
+
+jobs:
+  build-snap:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install dependencies
+        run: |
+          snap install snapcraft --classic
+      - run:
+          snapcraft
