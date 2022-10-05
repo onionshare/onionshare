@@ -121,21 +121,25 @@ parts:
       - libssl-dev
       - libffi-dev
       - python3-dev
-    python-packages:
-      - click
-      - colorama
-      - eventlet
-      - flask==2.0.3
-      - flask-socketio==5.3.1
-      - gevent-websocket
-      - psutil
-      - pynacl
-      - pysocks
-      - requests[socks]
-      - setuptools==65.4.1
-      - stem==1.8.1
-      - unidecode
-      - urllib3
+    override-build: |
+      # setuptools must be installed before stem
+      python3 -m pip install setuptools --upgrade
+      python3 -m pip install stem==1.8.1
+      # the rest of the dependencies
+      python3 -m pip install click
+      python3 -m pip install colorama
+      python3 -m pip install eventlet
+      python3 -m pip install flask==2.0.3
+      python3 -m pip install flask-socketio==5.3.1
+      python3 -m pip install gevent-websocket
+      python3 -m pip install psutil
+      python3 -m pip install pynacl
+      python3 -m pip install pysocks
+      python3 -m pip install requests[socks]
+      python3 -m pip install unidecode
+      python3 -m pip install urllib3
+      # build
+      python3 setup.py install --prefix $SNAPCRAFT_PART_INSTALL
     after: [tor, obfs4, snowflake-client, meek-client]
 
   tor:
