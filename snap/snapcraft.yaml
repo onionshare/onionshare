@@ -119,28 +119,19 @@ parts:
     source: ./cli
     plugin: python
     build-packages:
-      - make
       - build-essential
       - libssl-dev
-      - zlib1g-dev
-      - libbz2-dev
-      - libreadline-dev
-      - libsqlite3-dev
-      - llvm
-      - libncursesw5-dev
-      - xz-utils
-      - tk-dev
-      - libxml2-dev
-      - libxmlsec1-dev
       - libffi-dev
-      - liblzma-dev
       - python3-dev
       - python3-pip
-      - python3-setuptools
+    stage-packages:
+      - python3-pip
     override-build: |
       pip3 install poetry
       ~/.local/bin/poetry install
       ~/.local/bin/poetry build
+    override-stage: |
+      pip3 install --upgrade setuptools
       pip3 install ./dist/onionshare_cli-*.whl --prefix $SNAPCRAFT_PART_INSTALL
     after: [tor, obfs4, snowflake-client, meek-client]
 
