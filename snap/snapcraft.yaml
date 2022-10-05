@@ -115,7 +115,7 @@ parts:
       - qtwayland5
     after: [onionshare-cli]
 
-onionshare-cli:
+  onionshare-cli:
     source: ./cli
     plugin: python
     build-packages:
