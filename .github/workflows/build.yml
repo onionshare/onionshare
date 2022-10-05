@@ -1,14 +1,14 @@
-# name: Build
-# run-name: Build win32, win64, mac (Intel), snap (amd64) 🚀
-# on:
-#   push:
-#     branches:
-#       - main
-#   pull_request:
-#     branches:
-#       - main
+name: Build
+run-name: Build win32, win64, mac (Intel), snap (amd64) 🚀
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
-# jobs:
+jobs:
 #   build-win64:
 #     runs-on: windows-latest
 #     steps:
