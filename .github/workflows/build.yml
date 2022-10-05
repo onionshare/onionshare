@@ -1,5 +1,5 @@
 name: Build
-run-name: Build win32, win64, mac (Intel) 🚀
+run-name: Build win32, win64, mac (Intel), snap (amd64) 🚀
 on:
   push:
     branches:
@@ -304,3 +304,24 @@ jobs:
         with:
           name: mac-build
           path: ~/onionshare-macos.tar.gz
+
+  build-snap-amd64:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+          sudo lxd init --auto
+          sudo snap install snapcraft --classic
+      
+      - name: Build snap
+        run: |
+          sudo snapcraft
+          VERSION=$(cat cli/onionshare_cli/resources/version.txt)
+          mv onionshare_${VERSION}_amd64.snap ~/onionshare_amd64.snap 
+    
+      - uses: actions/upload-artifact@v3
+        with:
+          name: flatpak-build
+          path: ~/onionshare_amd64.snap
