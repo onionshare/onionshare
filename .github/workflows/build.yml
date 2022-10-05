@@ -331,3 +331,37 @@ jobs:
         with:
           name: flatpak-build
           path: ~/onionshare_amd64.snap
+
+  build-flatpak:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup
+        run: |
+          sudo apt update
+          sudo apt install -y flatpak flatpak-builder
+          flatpak remote-add --if-not-exists --user flathub https://flathub.org/repo/flathub.flatpakrepo
+      
+      - name: Restore cache - .flatpak-builder
+        uses: actions/cache@v3
+        with:
+          path: flatpak/.flatpak-builder
+          key: flatpak-.flatpak-builder
+
+      - name: Restore cache - build
+        uses: actions/cache@v3
+        with:
+          path: flatpak/build
+          key: flatpak-build
+
+      - name: Flatpak build
+        run: |
+          cd flatpak
+          flatpak-builder build --force-clean --install-deps-from=flathub --install --user org.onionshare.OnionShare.yaml
+          flatpak build-bundle ~/.local/share/flatpak/repo ~/OnionShare.flatpak org.onionshare.OnionShare --runtime-repo=https://flathub.org/repo/flathub.flatpakrepo
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: flatpak-build
+          path: ~/OnionShare.flatpak
