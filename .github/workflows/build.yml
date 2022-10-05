@@ -3,12 +3,10 @@ run-name: Build win32, win64, mac (Intel) 🚀
 on:
   push:
     branches:
-      - develop
-      - stable
+      - main
   pull_request:
     branches:
-      - develop
-      - stable
+      - main
 
 jobs:
   build-win64:
