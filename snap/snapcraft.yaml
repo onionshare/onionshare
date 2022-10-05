@@ -130,8 +130,8 @@ parts:
       - python3-setuptools
     override-build: |
       pip3 install poetry
-      poetry install
-      poetry build
+      ~/.local/bin/poetry install
+      ~/.local/bin/poetry build
       pip3 install ./dist/onionshare_cli-*.whl --prefix $SNAPCRAFT_PART_INSTALL
     after: [tor, obfs4, snowflake-client, meek-client]
 
