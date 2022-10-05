@@ -123,16 +123,23 @@ parts:
       - libssl-dev
       - libffi-dev
       - python3-dev
-      - python3-pip
-    stage-packages:
-      - python3-pip
+    python-packages:
+      - click
+      - flask==2.0.3
+      - flask-socketio==5.3.1
+      - psutil
+      - pysocks
+      - requests[socks]
+      - unidecode
+      - urllib3
+      - eventlet
+      - setuptools
+      - pynacl
+      - colorama
+      - gevent-websocket
+      - stem==1.8.1
     override-build: |
-      pip3 install poetry
-      ~/.local/bin/poetry install
-      ~/.local/bin/poetry build
-    override-stage: |
-      pip3 install --upgrade setuptools
-      pip3 install $SNAPCRAFT_PART_BUILD/dist/onionshare_cli-*.whl --prefix $SNAPCRAFT_PART_INSTALL
+      python3 setup.py install --prefix $SNAPCRAFT_PART_INSTALL
     after: [tor, obfs4, snowflake-client, meek-client]
 
   tor:
