@@ -326,7 +326,7 @@ jobs:
 
       - uses: actions/upload-artifact@v3
         with:
-          name: flatpak-build
+          name: snapcraft-build
           path: onionshare_*.snap
 
   build-flatpak:
