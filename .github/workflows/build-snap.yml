@@ -14,4 +14,4 @@ jobs:
         run: |
           sudo snap install snapcraft --classic
       - run:
-          snapcraft
+          sudo snapcraft
