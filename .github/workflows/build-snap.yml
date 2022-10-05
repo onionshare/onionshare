@@ -12,6 +12,6 @@ jobs:
       - uses: actions/checkout@v3
       - name: Install dependencies
         run: |
-          snap install snapcraft --classic
+          sudo snap install snapcraft --classic
       - run:
           snapcraft
