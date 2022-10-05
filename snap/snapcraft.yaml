@@ -132,7 +132,7 @@ parts:
       ~/.local/bin/poetry build
     override-stage: |
       pip3 install --upgrade setuptools
-      pip3 install ./dist/onionshare_cli-*.whl --prefix $SNAPCRAFT_PART_INSTALL
+      pip3 install $SNAPCRAFT_PART_BUILD/dist/onionshare_cli-*.whl --prefix $SNAPCRAFT_PART_INSTALL
     after: [tor, obfs4, snowflake-client, meek-client]
 
   tor:
