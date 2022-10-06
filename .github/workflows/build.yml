@@ -315,29 +315,8 @@ jobs:
           sudo lxd init --auto
           sudo snap install snapcraft --classic
 
-      - name: Restore cache - snapcraft
-        uses: actions/cache@v3
-        with:
-          path: ~/snapcraft-cache
-          key: snapcraft-cache
-
-      - name: Move cache from home to root
-        run: |
-          sudo mkdir -p /root/.cache
-          if [[ -d "~/snapcraft-cache" ]]; then
-            sudo mv ~/snapcraft-cache /root/.cache/snapcraft
-            sudo chown -R root:root /root/.cache/snapcraft
-            echo "moved cache from home to root"
-          fi
-
       - name: Build snap
         run: sudo snapcraft --use-lxd
-
-      - name: Move cache root to home
-        run: |
-          sudo find /root
-          sudo mv /root/.cache/snapcraft ~/snapcraft-cache
-          sudo chown -R $USER:$USER ~/snapcraft-cache
 
       - uses: actions/upload-artifact@v3
         with:
