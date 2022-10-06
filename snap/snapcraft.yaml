@@ -1,5 +1,5 @@
 name: onionshare
-base: core22
+base: core20
 version: "2.6"
 summary: Securely and anonymously share files, host websites, and chat using Tor
 description: |
@@ -14,15 +14,13 @@ confinement: strict
 architectures:
   - build-on: amd64
   - build-on: arm64
-
-# The gnome extension is only available for amd64 and arm64 (https://snapcraft.io/gnome-42-2204-sdk)
-#   - build-on: armhf
+  - build-on: armhf
 
 apps:
   onionshare:
     common-id: org.onionshare.OnionShare
     command: bin/onionshare
-    extensions: [gnome]
+    extensions: [gnome-3-38]
     plugs:
       - desktop
       - home
@@ -50,8 +48,6 @@ parts:
     python-packages:
       - qrcode
       - pyside2 == 5.15.2.1
-    override-build: |
-      python3 setup.py install --prefix $SNAPCRAFT_PART_INSTALL
     stage-packages:
       - libasound2
       - libatk1.0-0
@@ -113,6 +109,8 @@ parts:
       - libxslt1.1
       - libxtst6
       - qtwayland5
+    override-build: |
+      python3 setup.py install --prefix $SNAPCRAFT_PART_INSTALL
     after: [onionshare-cli]
 
   onionshare-cli:
@@ -124,15 +122,12 @@ parts:
       - libffi-dev
       - python3-dev
       - python3-pip
-      - python3-setuptools
-    stage-packages:
-      - python3-pip
-      - python3-setuptools
     override-build: |
-      pip3 install poetry
-      ~/.local/bin/poetry install
-      ~/.local/bin/poetry build
-      pip3 install ./dist/onionshare_cli-*.whl --prefix $SNAPCRAFT_PART_INSTALL
+      python3 -m pip install poetry
+      python3 -m pip install setuptools
+      python3 -m poetry install
+      python3 -m poetry build
+      python3 -m pip install $SNAPCRAFT_PART_BUILD/dist/onionshare_cli-*.whl --prefix $SNAPCRAFT_PART_INSTALL
     after: [tor, obfs4, snowflake-client, meek-client]
 
   tor:
@@ -141,7 +136,8 @@ parts:
     source-type: tar
     plugin: autotools
     autotools-configure-parameters:
-      - "--with-libevent-dir=/build/onionshare/parts/libevent/install/usr/local"
+      # - "--with-libevent-dir=/build/onionshare/parts/libevent/install/usr/local"
+      - "--with-libevent-dir=/root/parts/libevent/install/usr/local"
     build-packages:
       - libssl-dev
       - zlib1g-dev
@@ -156,7 +152,7 @@ parts:
   obfs4:
     plugin: go
     build-snaps:
-      - go
+      - go/latest/stable
     source: https://gitlab.com/yawning/obfs4.git
     source-type: git
     source-tag: obfs4proxy-0.0.13
@@ -164,7 +160,7 @@ parts:
   snowflake-client:
     plugin: go
     build-snaps:
-      - go
+      - go/latest/stable
     source: https://git.torproject.org/pluggable-transports/snowflake.git
     source-type: git
     source-tag: v2.2.0
@@ -174,7 +170,7 @@ parts:
   meek-client:
     plugin: go
     build-snaps:
-      - go
+      - go/latest/stable
     source: https://git.torproject.org/pluggable-transports/meek.git
     source-type: git
     source-tag: v0.37.0
