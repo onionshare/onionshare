@@ -45,6 +45,9 @@ parts:
   onionshare:
     source: ./desktop
     plugin: python
+    build-environment:
+      - PATH: /usr/bin:$PATH
+      - PYTHONPATH: ""
     python-packages:
       - qrcode
       - pyside2 == 5.15.2.1
@@ -116,6 +119,9 @@ parts:
   onionshare-cli:
     source: ./cli
     plugin: python
+    build-environment:
+      - PATH: /usr/bin:$PATH
+      - PYTHONPATH: ""
     build-packages:
       - build-essential
       - libssl-dev
@@ -136,8 +142,10 @@ parts:
     source-type: tar
     plugin: autotools
     autotools-configure-parameters:
-      - "--with-libevent-dir=/build/onionshare/parts/libevent/install/usr/local"
-      # - "--with-libevent-dir=/root/parts/libevent/install/usr/local"
+      # For snapcraft.io CI:
+      # - "--with-libevent-dir=/build/onionshare/parts/libevent/install/usr/local"
+      # For GitHub Actions CI:
+      - "--with-libevent-dir=/root/parts/libevent/install/usr/local"
     build-packages:
       - libssl-dev
       - zlib1g-dev
