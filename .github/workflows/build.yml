@@ -323,10 +323,10 @@ jobs:
 
       - name: Move cache from home to root
         run: |
-          mkdir -p /root/.cache
+          sudo mkdir -p /root/.cache
           if [[ -d "~/snapcraft-cache" ]]; then
-            mv ~/snapcraft-cache /root/.cache/snapcraft
-            chown -R root:root /root/.cache/snapcraft
+            sudo mv ~/snapcraft-cache /root/.cache/snapcraft
+            sudo chown -R root:root /root/.cache/snapcraft
             echo "moved cache from home to root"
           fi
 
@@ -335,8 +335,8 @@ jobs:
 
       - name: Move cache root to home
         run: |
-          mv /root/.cache/snapcraft ~/snapcraft-cache
-          chown -R $USER:$USER ~/snapcraft-cache
+          sudo mv /root/.cache/snapcraft ~/snapcraft-cache
+          sudo chown -R $USER:$USER ~/snapcraft-cache
 
       - uses: actions/upload-artifact@v3
         with:
