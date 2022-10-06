@@ -318,7 +318,7 @@ jobs:
       - name: Restore cache - snapcraft
         uses: actions/cache@v3
         with:
-          path: ~/.cache/snapcraft
+          path: /root/.cache/snapcraft
           key: snapcraft-cache
 
       - name: Build snap
