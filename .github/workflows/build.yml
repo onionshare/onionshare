@@ -335,6 +335,7 @@ jobs:
 
       - name: Move cache root to home
         run: |
+          find /root
           sudo mv /root/.cache/snapcraft ~/snapcraft-cache
           sudo chown -R $USER:$USER ~/snapcraft-cache
 
