@@ -113,6 +113,8 @@ parts:
       - qtwayland5
     override-build: |
       python3 setup.py install --prefix $SNAPCRAFT_PART_INSTALL
+      # fix bug where the shebang is wrong
+      sed -i 's|#!/snap/gnome-42-2204-sdk/current/usr/bin/python3|#!/usr/bin/env python3|g' $SNAPCRAFT_PART_INSTALL/bin/onionshare
     after: [onionshare-cli]
 
   onionshare-cli:
@@ -142,6 +144,8 @@ parts:
       python3 -m pip install urllib3
       # build
       python3 setup.py install --prefix $SNAPCRAFT_PART_INSTALL
+      # fix bug where the shebang is wrong
+      sed -i 's|#!/snap/gnome-42-2204-sdk/current/usr/bin/python3|#!/usr/bin/env python3|g' $SNAPCRAFT_PART_INSTALL/bin/onionshare-cli
     after: [tor, obfs4, snowflake-client, meek-client]
 
   tor:
