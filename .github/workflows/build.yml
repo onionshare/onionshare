@@ -1,5 +1,5 @@
 name: Build
-run-name: Build win32, win64, mac (Intel), snap (amd64) 🚀
+run-name: Build win32, win64, mac (Intel) 🚀
 on:
   push:
     branches:
@@ -305,23 +305,23 @@ jobs:
           name: mac-build
           path: ~/onionshare-macos.tar.gz
 
-  build-snap:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
+  # build-snap:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
 
-      - name: Install dependencies
-        run: |
-          sudo lxd init --auto
-          sudo snap install snapcraft --classic
+  #     - name: Install dependencies
+  #       run: |
+  #         sudo lxd init --auto
+  #         sudo snap install snapcraft --classic
 
-      - name: Build snap
-        run: sudo snapcraft --use-lxd
+  #     - name: Build snap
+  #       run: sudo snapcraft --use-lxd
 
-      - uses: actions/upload-artifact@v3
-        with:
-          name: snapcraft-build
-          path: onionshare_*.snap
+  #     - uses: actions/upload-artifact@v3
+  #       with:
+  #         name: snapcraft-build
+  #         path: onionshare_*.snap
 
   build-flatpak:
     runs-on: ubuntu-latest
