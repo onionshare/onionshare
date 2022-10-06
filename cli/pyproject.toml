@@ -30,7 +30,7 @@ setuptools = "*"
 pynacl = "*"
 colorama = "*"
 gevent-websocket = "*"
-cepa = "1.8.4"
+stem = "1.8.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "*"

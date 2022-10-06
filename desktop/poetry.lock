@@ -44,17 +44,6 @@ jupyter = ["ipython (>=7.8.0)", "tokenize-rt (>=3.2.0)"]
 uvloop = ["uvloop (>=0.15.2)"]
 
 [[package]]
-name = "cepa"
-version = "1.8.4"
-description = "Stem is a Python controller library that allows applications to interact with Tor (https://www.torproject.org/)."
-category = "main"
-optional = false
-python-versions = "*"
-
-[package.dependencies]
-setuptools = ">=65.4.1"
-
-[[package]]
 name = "certifi"
 version = "2022.9.24"
 description = "Python package for providing Mozilla's CA Bundle."
@@ -106,18 +95,24 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
 name = "cx-Freeze"
-version = "6.10"
+version = "6.11.1"
 description = "Create standalone executables from Python scripts"
 category = "main"
 optional = false
 python-versions = ">=3.6"
 
 [package.dependencies]
-cx-logging = {version = ">=3.0", markers = "sys_platform == \"win32\""}
+cx-logging = {version = ">=3.0", markers = "sys_platform == \"win32\" and python_version < \"3.10\""}
 importlib-metadata = {version = ">=4.8.3", markers = "python_version < \"3.10\""}
-lief = {version = ">=0.11.5", markers = "sys_platform == \"win32\" and python_version < \"3.10\""}
+lief = {version = ">=0.11.5", markers = "sys_platform == \"win32\" and python_version <= \"3.10\""}
+packaging = ">=21.0"
 patchelf = {version = ">=0.12", markers = "sys_platform == \"linux\""}
-wheel = ">=0.36.2"
+setuptools = ">=59.0.1,<=60.10.0"
+
+[package.extras]
+dev = ["bump2version (>=1.0.1)", "cibuildwheel (==2.6.1)", "pre-commit (>=2.17.0)", "pylint (>=2.13.0)"]
+doc = ["sphinx (>=5.0.1,<6.0.0)", "sphinx-rtd-theme (==1.0.0)"]
+test = ["nose (==1.3.7)", "pygments (>=2.11.2)", "pytest (>=7.0.1)", "pytest-cov (==3.0.0)", "pytest-mock (>=3.6.1)", "pytest-timeout (>=1.4.2)"]
 
 [[package]]
 name = "cx-Logging"
@@ -319,7 +314,6 @@ python-versions = "^3.7"
 develop = true
 
 [package.dependencies]
-cepa = "1.8.4"
 click = "*"
 colorama = "*"
 eventlet = "*"
@@ -331,6 +325,7 @@ pynacl = "*"
 pysocks = "*"
 requests = {version = "*", extras = ["socks"]}
 setuptools = "*"
+stem = "1.8.1"
 unidecode = "*"
 urllib3 = "*"
 
@@ -342,7 +337,7 @@ url = "../cli"
 name = "packaging"
 version = "21.3"
 description = "Core utilities for Python packages"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.6"
 
@@ -441,7 +436,7 @@ tests = ["hypothesis (>=3.27.0)", "pytest (>=3.2.1,!=3.3.0)"]
 name = "pyparsing"
 version = "3.0.9"
 description = "pyparsing module - Classes and methods to define and execute parsing grammars"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.6.8"
 
@@ -581,15 +576,15 @@ use_chardet_on_py3 = ["chardet (>=3.0.2,<6)"]
 
 [[package]]
 name = "setuptools"
-version = "65.4.1"
+version = "60.10.0"
 description = "Easily download, build, install, upgrade, and uninstall Python packages"
 category = "main"
 optional = false
 python-versions = ">=3.7"
 
 [package.extras]
-docs = ["furo", "jaraco.packaging (>=9)", "jaraco.tidelift (>=1.4)", "pygments-github-lexers (==0.0.5)", "rst.linker (>=1.9)", "sphinx (>=3.5)", "sphinx-favicon", "sphinx-hoverxref (<2)", "sphinx-inline-tabs", "sphinx-notfound-page (==0.8.3)", "sphinx-reredirects", "sphinxcontrib-towncrier"]
-testing = ["build[virtualenv]", "filelock (>=3.4.0)", "flake8 (<5)", "flake8-2020", "ini2toml[lite] (>=0.9)", "jaraco.envs (>=2.2)", "jaraco.path (>=3.2.0)", "mock", "pip (>=19.1)", "pip-run (>=8.8)", "pytest (>=6)", "pytest-black (>=0.3.7)", "pytest-checkdocs (>=2.4)", "pytest-cov", "pytest-enabler (>=1.3)", "pytest-flake8", "pytest-mypy (>=0.9.1)", "pytest-perf", "pytest-xdist", "tomli-w (>=1.0.0)", "virtualenv (>=13.0.0)", "wheel"]
+docs = ["furo", "jaraco.packaging (>=9)", "jaraco.tidelift (>=1.4)", "pygments-github-lexers (==0.0.5)", "rst.linker (>=1.9)", "sphinx", "sphinx-favicon", "sphinx-inline-tabs", "sphinxcontrib-towncrier"]
+testing = ["build[virtualenv]", "filelock (>=3.4.0)", "flake8-2020", "jaraco.envs (>=2.2)", "jaraco.path (>=3.2.0)", "mock", "pip (>=19.1)", "pip-run (>=8.8)", "pytest (>=6)", "pytest-black (>=0.3.7)", "pytest-checkdocs (>=2.4)", "pytest-cov", "pytest-enabler (>=1.0.1)", "pytest-flake8", "pytest-mypy (>=0.9.1)", "pytest-perf", "pytest-xdist", "virtualenv (>=13.0.0)", "wheel"]
 testing-integration = ["build[virtualenv]", "filelock (>=3.4.0)", "jaraco.envs (>=2.2)", "jaraco.path (>=3.2.0)", "pytest", "pytest-enabler", "pytest-xdist", "tomli", "virtualenv (>=13.0.0)", "wheel"]
 
 [[package]]
@@ -607,6 +602,14 @@ description = "Python 2 and 3 compatibility utilities"
 category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*"
+
+[[package]]
+name = "stem"
+version = "1.8.1"
+description = "Stem is a Python controller library that allows applications to interact with Tor (https://www.torproject.org/)."
+category = "main"
+optional = false
+python-versions = "*"
 
 [[package]]
 name = "tomli"
@@ -666,17 +669,6 @@ MarkupSafe = ">=2.1.1"
 
 [package.extras]
 watchdog = ["watchdog"]
-
-[[package]]
-name = "wheel"
-version = "0.37.1"
-description = "A built-package format for Python"
-category = "main"
-optional = false
-python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
-
-[package.extras]
-test = ["pytest (>=3.0.0)", "pytest-cov"]
 
 [[package]]
 name = "zipp"
@@ -759,10 +751,6 @@ black = [
     {file = "black-22.8.0-cp39-cp39-win_amd64.whl", hash = "sha256:bc4d4123830a2d190e9cc42a2e43570f82ace35c3aeb26a512a2102bce5af7ec"},
     {file = "black-22.8.0-py3-none-any.whl", hash = "sha256:d2c21d439b2baf7aa80d6dd4e3659259be64c6f49dfd0f32091063db0e006db4"},
     {file = "black-22.8.0.tar.gz", hash = "sha256:792f7eb540ba9a17e8656538701d3eb1afcb134e3b45b71f20b25c77a8db7e6e"},
-]
-cepa = [
-    {file = "cepa-1.8.4-py3-none-any.whl", hash = "sha256:1cc037b7ac9524a1b607896f870b57cb49cbbd67adfcfac4ab1791f3559cfcd5"},
-    {file = "cepa-1.8.4.tar.gz", hash = "sha256:3fbc701ac3fc89cd7f69bc58a6d0d735b014fa40b61e2c2efd381ed20db58a96"},
 ]
 certifi = [
     {file = "certifi-2022.9.24-py3-none-any.whl", hash = "sha256:90c1a32f1d68f940488354e36370f6cca89f0f106db09518524c88d6ed83f382"},
@@ -847,17 +835,31 @@ colorama = [
     {file = "colorama-0.4.5.tar.gz", hash = "sha256:e6c6b4334fc50988a639d9b98aa429a0b57da6e17b9a44f0451f930b6967b7a4"},
 ]
 cx-Freeze = [
-    {file = "cx_Freeze-6.10-cp310-cp310-win32.whl", hash = "sha256:770e911f70b48e4f309a47e02aaa7e1f6dc659fd1c486f3eebe5c9e9fe70aec2"},
-    {file = "cx_Freeze-6.10-cp310-cp310-win_amd64.whl", hash = "sha256:8d936a872c124c2e2a40da2e898e4fa0d225a165ab606217f75136c14ee8e673"},
-    {file = "cx_Freeze-6.10-cp36-cp36m-win32.whl", hash = "sha256:2be07ffce2dba23618cf736476df6f9837d9887c85f4f92fb3fbfcd090de041a"},
-    {file = "cx_Freeze-6.10-cp36-cp36m-win_amd64.whl", hash = "sha256:59b4cb77f5c82613efbec03815b952a6fe73d4a1805bb370d57a8a1130a181ca"},
-    {file = "cx_Freeze-6.10-cp37-cp37m-win32.whl", hash = "sha256:f03928cbcf8282e688dc1f9fa421044c24f5b7492a7b0fe7f45d5cc6f24c1ebf"},
-    {file = "cx_Freeze-6.10-cp37-cp37m-win_amd64.whl", hash = "sha256:9c4b491affd10065bcdd20dc0ab5239f787affe6d61857811a937ed266faa213"},
-    {file = "cx_Freeze-6.10-cp38-cp38-win32.whl", hash = "sha256:1438db6d59be86e8483ea2bf2ff2f81374ca63d8a1d3a84706173cc1b98dd46f"},
-    {file = "cx_Freeze-6.10-cp38-cp38-win_amd64.whl", hash = "sha256:ec752333fa2e40347902730662785da0ec4576cec976552784a6f60a7a07b45d"},
-    {file = "cx_Freeze-6.10-cp39-cp39-win32.whl", hash = "sha256:08a537681dcd1bcde9742584e91d86ef001fe798386f2834a904652d5b2a468a"},
-    {file = "cx_Freeze-6.10-cp39-cp39-win_amd64.whl", hash = "sha256:a4d2cb00eec6bc72a419370b5b0b5d0f3adf4d8417eb89228981d470cf4c6af6"},
-    {file = "cx_Freeze-6.10.tar.gz", hash = "sha256:e5b71bf57b9881ac142fbebeae2c8b0d3294b56f6e48ab64032321e3b1a2ba27"},
+    {file = "cx_Freeze-6.11.1-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:e372b9e72ac0e2207ee65a9d404e2669da1134dc37f5ace9a2a779099d3aa868"},
+    {file = "cx_Freeze-6.11.1-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:dd293382e1ad270dddf5a2707db5dbb8600a1e0b0c9b0da7af9d61326eb1b325"},
+    {file = "cx_Freeze-6.11.1-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:feec2f36bce042da6a0d92690bc592b0dcec29218adc2278535cd13b28ec3485"},
+    {file = "cx_Freeze-6.11.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:d5aafcc6337856d5921b20f41acdcc8d0fe770388f3a072eb25163f8825f6c5d"},
+    {file = "cx_Freeze-6.11.1-cp310-cp310-win32.whl", hash = "sha256:b99cc0b6d6c1ba51bd9fe11dbfae9aabcf089ba779ea86d83d280e2e40f484e7"},
+    {file = "cx_Freeze-6.11.1-cp310-cp310-win_amd64.whl", hash = "sha256:f0dfe6acf25eb096faba7d4b4b001bcd0f818e372ea1f05d900665b0ad82b0b9"},
+    {file = "cx_Freeze-6.11.1-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:3a68e70dcb27b0720b131a35c5fdd096012fe00119a8e51d935f3fb3cd251c39"},
+    {file = "cx_Freeze-6.11.1-cp36-cp36m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:6f7bde925042d8843af9b6242a1bf3865dbbae088f3183a89a575124ec2e14a4"},
+    {file = "cx_Freeze-6.11.1-cp36-cp36m-win32.whl", hash = "sha256:7698fb82b6f84b3426774b5f3bee770601f26b612306319664a02f1ec5160861"},
+    {file = "cx_Freeze-6.11.1-cp36-cp36m-win_amd64.whl", hash = "sha256:9848c975401b21a98aa896baabfed067c3e981afd5b5b0a8a5eabe5c9f23d3c5"},
+    {file = "cx_Freeze-6.11.1-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:87dcf5ceb78dc6af910c45238128fda2394b7c430d3fa469e87e1efdeeb5d4cc"},
+    {file = "cx_Freeze-6.11.1-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:fb74d8cc1f8c658986acc19ea6875b985a979421f9bb9c310b43cd2ff5d90c44"},
+    {file = "cx_Freeze-6.11.1-cp37-cp37m-win32.whl", hash = "sha256:971c0a8356ef0ee09a3097f9c9d5b52cde6d08d1ef80e997eb4a6e22fe0eff2f"},
+    {file = "cx_Freeze-6.11.1-cp37-cp37m-win_amd64.whl", hash = "sha256:7c1cb44379b2093cbdde77e302a376f29aa61999c73be6e8a559463db84b85c4"},
+    {file = "cx_Freeze-6.11.1-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:bc90d6dbde66e8ddfe6b26f63fb2ea7d6d0e4568205f40660a63b8b200dcabcf"},
+    {file = "cx_Freeze-6.11.1-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:1f56f618a23d86bdcfff22b29ec993117effd32a401060013105517301c0bf32"},
+    {file = "cx_Freeze-6.11.1-cp38-cp38-win32.whl", hash = "sha256:4edfb5d65afb11eb9f0326d40d15445366481585705b3096f2cd090e30a36247"},
+    {file = "cx_Freeze-6.11.1-cp38-cp38-win_amd64.whl", hash = "sha256:cfb5a8032bf424c04814c9426425fa1db4cf8c280da948969eead9f616c0fd92"},
+    {file = "cx_Freeze-6.11.1-cp39-cp39-macosx_10_9_universal2.whl", hash = "sha256:0a3e32980269cfabc2e814978bfdf4382fe3cbc9ac64f9f1bdb1cd2ddf3a40d0"},
+    {file = "cx_Freeze-6.11.1-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:798bb7ca037c3c885efd3eda6756c84c7927c712b730b22a7f256440faa36d38"},
+    {file = "cx_Freeze-6.11.1-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:5aa1759098ca4853200a79138b626a9caa2ccf829d662b28c82ec7e71ea97cde"},
+    {file = "cx_Freeze-6.11.1-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:7962680ae04ee3afda1012026b5394a534e2526b68681d591158b7d8bc733bcf"},
+    {file = "cx_Freeze-6.11.1-cp39-cp39-win32.whl", hash = "sha256:da4f82fe27e71571c0ab9d700b5e6c6c631ae39133d9b6d7157939f1e9f37312"},
+    {file = "cx_Freeze-6.11.1-cp39-cp39-win_amd64.whl", hash = "sha256:aaf399b6ed5d54b7271980ae354605620bedcd52d722f57ad527bd989c56a875"},
+    {file = "cx_Freeze-6.11.1.tar.gz", hash = "sha256:8f3a30c9e3394f290655e346d3b460910656b30ac6347a87499bb5ad365c6e7c"},
 ]
 cx-Logging = [
     {file = "cx_Logging-3.0-cp36-cp36m-manylinux1_x86_64.whl", hash = "sha256:9fcd297e5c51470521c47eff0f86ba844aeca6be97e13c3e2114ebdf03fa3c96"},
@@ -1201,8 +1203,8 @@ requests = [
     {file = "requests-2.28.1.tar.gz", hash = "sha256:7c5599b102feddaa661c826c56ab4fee28bfd17f5abca1ebbe3e7f19d7c97983"},
 ]
 setuptools = [
-    {file = "setuptools-65.4.1-py3-none-any.whl", hash = "sha256:1b6bdc6161661409c5f21508763dc63ab20a9ac2f8ba20029aaaa7fdb9118012"},
-    {file = "setuptools-65.4.1.tar.gz", hash = "sha256:3050e338e5871e70c72983072fe34f6032ae1cdeeeb67338199c2f74e083a80e"},
+    {file = "setuptools-60.10.0-py3-none-any.whl", hash = "sha256:782ef48d58982ddb49920c11a0c5c9c0b02e7d7d1c2ad0aa44e1a1e133051c96"},
+    {file = "setuptools-60.10.0.tar.gz", hash = "sha256:6599055eeb23bfef457d5605d33a4d68804266e6cb430b0fb12417c5efeae36c"},
 ]
 shiboken2 = [
     {file = "shiboken2-5.15.2.1-5.15.2-cp27-cp27m-macosx_10_13_intel.whl", hash = "sha256:f890f5611ab8f48b88cfecb716da2ac55aef99e2923198cefcf781842888ea65"},
@@ -1215,6 +1217,9 @@ shiboken2 = [
 six = [
     {file = "six-1.16.0-py2.py3-none-any.whl", hash = "sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"},
     {file = "six-1.16.0.tar.gz", hash = "sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"},
+]
+stem = [
+    {file = "stem-1.8.1.tar.gz", hash = "sha256:81d43a7c668ba9d7bc1103b2e7a911e9d148294b373d27a59ae8da79ef7a3e2f"},
 ]
 tomli = [
     {file = "tomli-2.0.1-py3-none-any.whl", hash = "sha256:939de3e7a6161af0c887ef91b7d41a53e7c5a1ca976325f429cb46ea9bc30ecc"},
@@ -1261,10 +1266,6 @@ urllib3 = [
 Werkzeug = [
     {file = "Werkzeug-2.2.2-py3-none-any.whl", hash = "sha256:f979ab81f58d7318e064e99c4506445d60135ac5cd2e177a2de0089bfd4c9bd5"},
     {file = "Werkzeug-2.2.2.tar.gz", hash = "sha256:7ea2d48322cc7c0f8b3a215ed73eabd7b5d75d0b50e31ab006286ccff9e00b8f"},
-]
-wheel = [
-    {file = "wheel-0.37.1-py2.py3-none-any.whl", hash = "sha256:4bdcd7d840138086126cd09254dc6195fb4fc6f01c050a1d7236f2630db1d22a"},
-    {file = "wheel-0.37.1.tar.gz", hash = "sha256:e9a504e793efbca1b8e0e9cb979a249cf4a0a7b5b8c9e8b65a5e39d49529c1c4"},
 ]
 zipp = [
     {file = "zipp-3.8.1-py3-none-any.whl", hash = "sha256:47c40d7fe183a6f21403a199b3e4192cca5774656965b0a4988ad2f8feb5f009"},

@@ -1,5 +1,5 @@
 name: onionshare
-base: core22
+base: core20
 version: "2.6"
 summary: Securely and anonymously share files, host websites, and chat using Tor
 description: |
@@ -14,15 +14,13 @@ confinement: strict
 architectures:
   - build-on: amd64
   - build-on: arm64
-
-# The gnome extension is only available for amd64 and arm64 (https://snapcraft.io/gnome-42-2204-sdk)
-#   - build-on: armhf
+  - build-on: armhf
 
 apps:
   onionshare:
     common-id: org.onionshare.OnionShare
     command: bin/onionshare
-    extensions: [gnome]
+    extensions: [gnome-3-38]
     plugs:
       - desktop
       - home
@@ -122,7 +120,6 @@ parts:
       - libffi-dev
       - python3-dev
     python-packages:
-      - cepa==1.8.4
       - click
       - colorama
       - eventlet
@@ -133,7 +130,8 @@ parts:
       - pynacl
       - pysocks
       - requests[socks]
-      - setuptools==65.4.1
+      - setuptools
+      - stem==1.8.1
       - unidecode
       - urllib3
     after: [tor, obfs4, snowflake-client, meek-client]
