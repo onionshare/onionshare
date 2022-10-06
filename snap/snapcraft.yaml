@@ -22,7 +22,7 @@ apps:
   onionshare:
     common-id: org.onionshare.OnionShare
     command: bin/onionshare
-    # extensions: [gnome]
+    extensions: [gnome]
     plugs:
       - desktop
       - home
