@@ -12,9 +12,8 @@ grade: stable # stable or devel
 confinement: strict
 
 architectures:
-  - build-on:
-      - amd64
-      - arm64
+  - build-on: amd64
+  - build-on: arm64
 
 # The gnome extension is only available for amd64 and arm64 (https://snapcraft.io/gnome-42-2204-sdk)
 #   - build-on: armhf
