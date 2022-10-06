@@ -34,7 +34,7 @@ jobs:
         with:
           path: desktop\build\tor
           key: ${{ runner.os }}-win64-tor-${{ hashFiles('desktop/scripts/get-tor.py') }}
-      
+
       - name: Get tor binaries from Tor Browser (64-bit)
         run: cd desktop && C:\hostedtoolcache\windows\Python\3.9.13\x64\Scripts\poetry run python .\scripts\get-tor.py win64
 
@@ -128,7 +128,7 @@ jobs:
         with:
           path: desktop\build\tor
           key: ${{ runner.os }}-win32-tor-${{ hashFiles('desktop/scripts/get-tor.py') }}
-      
+
       - name: Get tor binaries from Tor Browser (32-bit)
         run: cd desktop && C:\hostedtoolcache\windows\Python\3.9.13\x86\Scripts\poetry run python .\scripts\get-tor.py win32
 
@@ -211,7 +211,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
-    
+
       - name: Install Python 3.9.13 (Intel)
         run: |
           curl -L https://www.python.org/ftp/python/3.9.13/python-3.9.13-macosx10.9.pkg --output ~/Downloads/python.pkg
@@ -237,7 +237,7 @@ jobs:
         with:
           path: desktop/build/tor
           key: ${{ runner.os }}-macos-tor-${{ hashFiles('desktop/scripts/get-tor.py') }}
-      
+
       - name: Get tor binaries from Tor Browser
         run: |
           cd desktop
@@ -314,15 +314,29 @@ jobs:
         run: |
           sudo lxd init --auto
           sudo snap install snapcraft --classic
-      
+
       - name: Restore cache - snapcraft
         uses: actions/cache@v3
         with:
-          path: /root/.cache/snapcraft
+          path: ~/snapcraft-cache
           key: snapcraft-cache
+
+      - name: Move cache from home to root
+        run: |
+          mkdir -p /root/.cache
+          if [[ -d "~/snapcraft-cache" ]]; then
+            mv ~/snapcraft-cache /root/.cache/snapcraft
+            chown -R root:root /root/.cache/snapcraft
+            echo "moved cache from home to root"
+          fi
 
       - name: Build snap
         run: sudo snapcraft --use-lxd
+
+      - name: Move cache root to home
+        run: |
+          mv /root/.cache/snapcraft ~/snapcraft-cache
+          chown -R $USER:$USER ~/snapcraft-cache
 
       - uses: actions/upload-artifact@v3
         with:
@@ -333,13 +347,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Setup
         run: |
           sudo apt update
           sudo apt install -y flatpak flatpak-builder
           flatpak remote-add --if-not-exists --user flathub https://flathub.org/repo/flathub.flatpakrepo
-      
+
       - name: Restore cache - .flatpak-builder
         uses: actions/cache@v3
         with:
