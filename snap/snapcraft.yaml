@@ -109,6 +109,8 @@ parts:
       - libxslt1.1
       - libxtst6
       - qtwayland5
+    override-build: |
+      python3 setup.py install --prefix $SNAPCRAFT_PART_INSTALL
     after: [onionshare-cli]
 
   onionshare-cli:
