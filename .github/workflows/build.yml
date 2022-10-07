@@ -344,6 +344,20 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Restore cache - snapcraft
+        uses: actions/cache@v3
+        with:
+          path: ~/snapcraft-cache
+          key: snapcraft-cache-1
+
+      - name: Move cache from home
+        run: |
+          if [[ -d "~/snapcraft-cache" ]]; then
+            sudo mv ~/snapcraft-cache /var/lib/snapd
+            sudo chown -R root:root /var/lib/snapd
+            echo "moved cache from home to root"
+          fi
+
       - name: Install dependencies
         run: |
           sudo lxd init --auto
@@ -351,6 +365,11 @@ jobs:
 
       - name: Build snap
         run: sudo snapcraft --use-lxd
+
+      - name: Move cache to home
+        run: |
+          sudo mv /var/lib/snapd ~/snapcraft-cache
+          sudo chown -R $USER:$USER ~/snapcraft-cache
 
       - uses: actions/upload-artifact@v3
         with:
