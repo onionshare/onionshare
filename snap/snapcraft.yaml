@@ -128,6 +128,8 @@ parts:
       - libffi-dev
       - python3-dev
       - python3-pip
+      - rustc
+      - cargo
     override-build: |
       python3 -m pip install poetry
       python3 -m pip install setuptools
