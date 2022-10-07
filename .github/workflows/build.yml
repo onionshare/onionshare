@@ -358,11 +358,11 @@ jobs:
       - name: measure disk space
         run: |
           sudo ls -l /var
-          for D in $(ls /var); do sudo du -s --apparent-size $D done
+          for D in $(ls /var); do sudo du -s --apparent-size $D; done
           sudo ls -l /var/snap
-          for D in $(ls /var/snap); do sudo du -s --apparent-size $D done
+          for D in $(ls /var/snap); do sudo du -s --apparent-size $D; done
           sudo ls -l /var/cache
-          for D in $(ls /var/cache); do sudo du -s --apparent-size $D done
+          for D in $(ls /var/cache); do sudo du -s --apparent-size $D; done
 
       # - name: Move cache from home
       #   run: |
@@ -379,11 +379,11 @@ jobs:
       - name: measure disk space
         run: |
           sudo ls -l /var
-          for D in $(ls /var); do sudo du -s --apparent-size $D done
+          for D in $(ls /var); do sudo du -s --apparent-size $D; done
           sudo ls -l /var/snap
-          for D in $(ls /var/snap); do sudo du -s --apparent-size $D done
+          for D in $(ls /var/snap); do sudo du -s --apparent-size $D; done
           sudo ls -l /var/cache
-          for D in $(ls /var/cache); do sudo du -s --apparent-size $D done
+          for D in $(ls /var/cache); do sudo du -s --apparent-size $D; done
 
       # - name: Move cache to home
       #   run: |
