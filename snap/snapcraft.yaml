@@ -130,8 +130,11 @@ parts:
       - libxslt1.1
       - libxtst6
       - qtwayland5
+      - python3-pyside2.qtcore
+      - python3-pyside2.qtgui
+      - python3-pyside2.qtwidgets
     override-build: |
-      python3 -m pip install qrcode 'pyside2==5.15.2.1' --prefix $SNAPCRAFT_PART_INSTALL
+      python3 -m pip install qrcode --prefix $SNAPCRAFT_PART_INSTALL
       python3 setup.py install --prefix $SNAPCRAFT_PART_INSTALL
     after: [onionshare-cli]
 
