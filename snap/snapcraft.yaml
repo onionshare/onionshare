@@ -126,8 +126,6 @@ parts:
       - build-essential
       - libssl-dev
       - libffi-dev
-      - python3-dev
-      - python3-pip
     override-build: |
       python3 -m pip install poetry
       python3 -m pip install setuptools
@@ -142,10 +140,7 @@ parts:
     source-type: tar
     plugin: autotools
     autotools-configure-parameters:
-      # For snapcraft.io CI:
-      # - "--with-libevent-dir=/build/onionshare/parts/libevent/install/usr/local"
-      # For GitHub Actions CI:
-      - "--with-libevent-dir=/root/parts/libevent/install/usr/local"
+      - "--with-libevent-dir=$SNAPCRAFT_PROJECT_DIR/parts/libevent/install/usr/local"
     build-packages:
       - libssl-dev
       - zlib1g-dev
