@@ -357,8 +357,14 @@ jobs:
 
       - name: measure disk space
         run: |
-          cd /var
-          ls -l
+          cd /var/snap
+          ls -l *
+          for D in $(ls); do
+            sudo du -s --apparent-size $D
+          done
+
+          cd /var/cache
+          ls -l *
           for D in $(ls); do
             sudo du -s --apparent-size $D
           done
@@ -377,8 +383,14 @@ jobs:
 
       - name: measure disk space
         run: |
-          cd /var
-          ls -l
+          cd /var/snap
+          ls -l *
+          for D in $(ls); do
+            sudo du -s --apparent-size $D
+          done
+
+          cd /var/cache
+          ls -l *
           for D in $(ls); do
             sudo du -s --apparent-size $D
           done
