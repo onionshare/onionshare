@@ -19,7 +19,7 @@ architectures:
 apps:
   onionshare:
     common-id: org.onionshare.OnionShare
-    command: bin/onionshare
+    command: bin/onionshare-launcher
     extensions: [gnome-3-38]
     plugs:
       - desktop
@@ -32,7 +32,7 @@ apps:
 
   cli:
     common-id: org.onionshare.OnionShareCli
-    command: bin/onionshare-cli
+    command: bin/onionshare-cli-launcher
     plugs:
       - home
       - network
@@ -42,6 +42,27 @@ apps:
       LANG: C.UTF-8
 
 parts:
+  # Launcher scripts, in order to set PYTHONPATH
+  launcher:
+    plugin: nil
+    override-build: |
+      mkdir -p $SNAPCRAFT_PART_INSTALL/bin
+      cat > $SNAPCRAFT_PART_INSTALL/bin/onionshare-launcher << EOF
+      #!/bin/sh
+      export PATH=\$SNAP/bin:\$SNAP/usr/bin:\$SNAP/usr/local/bin:\$PATH
+      export PYTHONPATH=\$SNAP/lib/python3.8/site-packages
+      export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:\$SNAP/usr/local/lib
+      onionshare \$@
+      EOF
+      cat > $SNAPCRAFT_PART_INSTALL/bin/onionshare-cli-launcher << EOF
+      #!/bin/sh
+      export PATH=\$SNAP/bin:\$SNAP/usr/bin:\$SNAP/usr/local/bin:\$PATH
+      export PYTHONPATH=\$SNAP/lib/python3.8/site-packages
+      export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:\$SNAP/usr/local/lib
+      onionshare-cli \$@
+      EOF
+      chmod 755 $SNAPCRAFT_PART_INSTALL/bin/onionshare-launcher
+      chmod 755 $SNAPCRAFT_PART_INSTALL/bin/onionshare-cli-launcher
   onionshare:
     source: ./desktop
     plugin: python
