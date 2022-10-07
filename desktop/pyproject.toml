@@ -11,6 +11,7 @@ onionshare_cli = {path = "../cli", develop = true}
 PySide2 = "5.15.2.1"
 qrcode = "*"
 cx_freeze = "*"
+werkzeug = "~2.0.3"
 
 [tool.poetry.dev-dependencies]
 click = "*"
