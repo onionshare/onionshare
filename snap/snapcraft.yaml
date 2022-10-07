@@ -52,21 +52,22 @@ parts:
       #!/bin/sh
       export PATH=\$SNAP/bin:\$SNAP/usr/bin:\$SNAP/usr/local/bin:\$PATH
       export PYTHONPATH=\$SNAP/lib/python3.8/site-packages:\$SNAP/usr/lib/python3/dist-packages
+      export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:\$SNAP/usr/local/lib
       ORIG_IFS=\$IFS
-      LD_BASE=\$(for D in \$LD_LIBRARY_PATH; do echo \$D; done | grep \$SNAP/usr/lib/)
+      LIB_BASE=\$(for D in \$LD_LIBRARY_PATH; do echo \$D; done | grep \$SNAP/usr/lib/)
       IFS=\$ORIGIN_IFS
-      export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:\$SNAP/usr/local/lib:\$LD_BASE/qt5/plugins/imageformats:\$LD_BASE/qt5/plugins/platforms:\$LD_BASE/qt5/plugins/wayland-shell-integration
+      export QT_PLUGIN_PATH=$LIB_BASE/qt5/plugins
       EOF
 
       cat > $SNAPCRAFT_PART_INSTALL/bin/onionshare-launcher << EOF
       #!/bin/sh
-      launcher-setup
+      source launcher-setup
       onionshare \$@
       EOF
 
       cat > $SNAPCRAFT_PART_INSTALL/bin/onionshare-cli-launcher << EOF
       #!/bin/sh
-      launcher-setup
+      source launcher-setup
       onionshare-cli \$@
       EOF
 
