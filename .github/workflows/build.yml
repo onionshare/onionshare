@@ -355,8 +355,12 @@ jobs:
           sudo lxd init --auto
           sudo snap install snapcraft --classic
 
-      - name: cache test
-        run: sudo du -sh --apparent-size /var/lib/snapd
+      - name: measure disk space
+        run: |
+          cd /
+          for D in $(ls); do
+            sudo du -sh --apparent-size $D
+          done
 
       # - name: Move cache from home
       #   run: |
@@ -370,8 +374,12 @@ jobs:
       - name: Build snap
         run: sudo snapcraft --use-lxd
 
-      - name: cache test
-        run: sudo du -sh --apparent-size /var/lib/snapd
+      - name: measure disk space
+        run: |
+          cd /
+          for D in $(ls); do
+            sudo du -sh --apparent-size $D
+          done
 
       # - name: Move cache to home
       #   run: |
