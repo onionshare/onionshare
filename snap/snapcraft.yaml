@@ -56,7 +56,7 @@ parts:
       ORIG_IFS=\$IFS
       LIB_BASE=\$(for D in \$LD_LIBRARY_PATH; do echo \$D; done | grep \$SNAP/usr/lib/)
       IFS=\$ORIGIN_IFS
-      export QT_PLUGIN_PATH=$LIB_BASE/qt5/plugins
+      export QT_PLUGIN_PATH=\$LIB_BASE/qt5/plugins
       EOF
 
       cat > $SNAPCRAFT_PART_INSTALL/bin/onionshare-launcher << EOF
