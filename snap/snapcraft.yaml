@@ -62,13 +62,13 @@ parts:
 
       cat > $SNAPCRAFT_PART_INSTALL/bin/onionshare-launcher << EOF
       #!/bin/sh
-      source \$SNAP/bin/launcher-setup
+      . \$SNAP/bin/launcher-setup
       onionshare \$@
       EOF
 
       cat > $SNAPCRAFT_PART_INSTALL/bin/onionshare-cli-launcher << EOF
       #!/bin/sh
-      source \$SNAP/bin/launcher-setup
+      . \$SNAP/bin/launcher-setup
       onionshare-cli \$@
       EOF
 
