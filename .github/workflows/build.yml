@@ -358,8 +358,8 @@ jobs:
       - name: measure disk space
         run: |
           cd /
-          for D in $(ls); do
-            sudo du -sh --apparent-size $D
+          for D in $(ls | grep -v proc); do
+            sudo du -s --apparent-size $D
           done
 
       # - name: Move cache from home
@@ -377,8 +377,8 @@ jobs:
       - name: measure disk space
         run: |
           cd /
-          for D in $(ls); do
-            sudo du -sh --apparent-size $D
+          for D in $(ls | grep -v proc); do
+            sudo du -s --apparent-size $D
           done
 
       # - name: Move cache to home
