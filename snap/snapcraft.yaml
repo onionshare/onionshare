@@ -54,6 +54,7 @@ parts:
       export PYTHONPATH=\$SNAP/lib/python3.8/site-packages:\$SNAP/usr/lib/python3/dist-packages
       export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:\$SNAP/usr/local/lib
       ORIG_IFS=\$IFS
+      IFS=":"
       LIB_BASE=\$(for D in \$LD_LIBRARY_PATH; do echo \$D; done | grep \$SNAP/usr/lib/)
       IFS=\$ORIGIN_IFS
       export QT_PLUGIN_PATH=\$LIB_BASE/qt5/plugins
