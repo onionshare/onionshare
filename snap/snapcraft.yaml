@@ -140,7 +140,7 @@ parts:
     source-type: tar
     plugin: autotools
     autotools-configure-parameters:
-      - "--with-libevent-dir=$SNAPCRAFT_PROJECT_DIR/parts/libevent/install/usr/local"
+      - "--with-libevent-dir=$SNAPCRAFT_PROJECT_DIR/../parts/libevent/install/usr/local"
     build-packages:
       - libssl-dev
       - zlib1g-dev
