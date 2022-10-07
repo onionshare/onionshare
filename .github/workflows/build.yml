@@ -356,7 +356,7 @@ jobs:
           sudo snap install snapcraft --classic
 
       - name: cache test
-        run: du -sh --apparent-size /var/lib/snapd
+        run: sudo du -sh --apparent-size /var/lib/snapd
 
       # - name: Move cache from home
       #   run: |
@@ -371,7 +371,7 @@ jobs:
         run: sudo snapcraft --use-lxd
 
       - name: cache test
-        run: du -sh --apparent-size /var/lib/snapd
+        run: sudo du -sh --apparent-size /var/lib/snapd
 
       # - name: Move cache to home
       #   run: |
