@@ -47,7 +47,7 @@ parts:
     plugin: python
     build-environment:
       - PATH: /usr/bin:$PATH
-      - PYTHONPATH: "$SNAP/lib/python3.8/site-packages"
+      - PYTHONPATH: "/snap/onionshare/current/lib/python3.8/site-packages"
     python-packages:
       - qrcode
       - pyside2 == 5.15.2.1
@@ -121,7 +121,7 @@ parts:
     plugin: python
     build-environment:
       - PATH: /usr/bin:$PATH
-      - PYTHONPATH: "$SNAP/lib/python3.8/site-packages"
+      - PYTHONPATH: "/snap/onionshare/current/lib/python3.8/site-packages"
     build-packages:
       - build-essential
       - libssl-dev
