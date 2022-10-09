@@ -13,7 +13,7 @@
     <launchable type="desktop-id">org.onionshare.OnionShare.desktop</launchable>
     <screenshots>
         <screenshot type="default">
-            <image>https://raw.githubusercontent.com/onionshare/onionshare/develop/docs/source/_static/screenshots/tabs.png</image>
+            <image>https://raw.githubusercontent.com/onionshare/onionshare/main/docs/source/_static/screenshots/tabs.png</image>
             <caption>Types of services that OnionShare supports</caption>
         </screenshot>
     </screenshots>
