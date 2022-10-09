@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-10-02 16:17-0700\n"
-"PO-Revision-Date: 2022-02-14 08:55+0000\n"
+"PO-Revision-Date: 2022-10-09 21:13+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
-"Language: nb_NO\n"
 "Language-Team: none\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Language: nb_NO\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.14.1\n"
 "Generated-By: Babel 2.10.3\n"
 
 #: ../../source/advanced.rst:2
@@ -32,20 +33,30 @@ msgid ""
 "Persistently hosted websites are available on the same address even if "
 "the computer they are shared from is rebooted."
 msgstr ""
+"Å lukke OnionShare-faner du vertstjener ødelegger dem, noe som forhindrer "
+"grenbruk. Vedvarende nettsider er tilgjengelige på samme adresse selv om "
+"maskinen de deles fra startes på ny."
 
 #: ../../source/advanced.rst:12
+#, fuzzy
 msgid ""
 "Make any tab persistent by checking the \"Always open this tab when "
 "OnionShare is started\" box before starting your server."
 msgstr ""
+"Gjør en fane vedvarende ved å huke av «Alltid åpne denne fanen når "
+"OnionShare startes»-boksen før du starter tjeneren din."
 
 #: ../../source/advanced.rst:16
+#, fuzzy
 msgid ""
 "When opening OnionShare, your saved tabs from the prior session will "
 "start opened. Each service then can be started manually, and will be "
 "available on the same OnionShare address and be protected by the same "
 "private key."
 msgstr ""
+"Når du åpner OnionShare vil fanene dine fra forrige økt fremdeles være der. "
+"Hver tjeneste kan så startes manuelt, tilgjengelig på samme OnionShare-"
+"adresse og beskyttet av samme private nøkkel."
 
 #: ../../source/advanced.rst:19
 #, fuzzy
@@ -70,11 +81,15 @@ msgstr ""
 "som Tor kaller «klient-identitetsbekreftelse»."
 
 #: ../../source/advanced.rst:28
+#, fuzzy
 msgid ""
 "The Tor Browser will ask you to enter your private key when you load an "
 "OnionShare service. If you want allow the public to use your service, "
 "it's better to disable the private key altogether."
 msgstr ""
+"Tor-nettleseren vil spørre deg om å skrive inn din private nøkkel når du "
+"laster inn en OnionShare-tjeneste. Hvis du tillater allmuen å bruke "
+"tjenesten din er det bedre å skru av den private nøkkelen helt og holdent."
 
 #: ../../source/advanced.rst:31
 #, fuzzy
@@ -133,19 +148,28 @@ msgstr ""
 "begge, og sett opp tilhørende dato og tider du ønsker at ting skal skje."
 
 #: ../../source/advanced.rst:51
+#, fuzzy
 msgid ""
 "Services scheduled to start in the future display a countdown timer when "
 "when the \"Start sharing\" button is clicked. Services scheduled to stop "
 "in the future display a countdown timer when started."
 msgstr ""
+"Tjenester planlagt startet i fremtiden viser et nedtellingsur når «Start "
+"deling»-knappen trykkes. Tjenester som er planlagt stoppet i fremtiden viser "
+"et nedtellingsur når de startes."
 
 #: ../../source/advanced.rst:54
+#, fuzzy
 msgid ""
 "**Scheduling an OnionShare service to automatically start can be used as "
 "a dead man's switch**. This means your service is made public at a given "
 "time in the future if you are not there to prevent it. If nothing happens"
 " to you, you can cancel the service before it's scheduled to start."
 msgstr ""
+"**Planlagt oppstart av en OnionShare-tjeneste kan fungere som en "
+"dødmannsknapp**. Dette betyr at tjenesten din gjøres offentlig ved et gitt "
+"tidspunkt i fremtiden hvis du ikke er der for å forhindre det. Hvis "
+"ingenting skjer med deg kan du avbryte tjenesten før planlagt oppstart."
 
 #: ../../source/advanced.rst:60
 #, fuzzy
@@ -226,17 +250,21 @@ msgstr ""
 
 #: ../../source/advanced.rst:151
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Tastatursnarveier"
 
 #: ../../source/advanced.rst:153
+#, fuzzy
 msgid ""
 "The OnionShare desktop application contains some keyboard shortcuts, for "
 "convenience and accessibility::"
 msgstr ""
+"Skrivebordsprogrammet for OnionShare inneholder noen tastatursnarveier, i "
+"beleilighetsøyemed, og for bedret tilgjengelighet::"
 
 #: ../../source/advanced.rst:158
+#, fuzzy
 msgid "And from the main mode chooser screen::"
-msgstr ""
+msgstr "Og fra hovedskjermen for valg av modus::"
 
 #~ msgid "Make a symbolic link to the OnionShare command line binary line this::"
 #~ msgstr ""
@@ -705,4 +733,3 @@ msgstr ""
 #~ " Når en fane er lagret, vil et"
 #~ " lilla stifteikon vises til venstre "
 #~ "for dens tjenerstatus."
-

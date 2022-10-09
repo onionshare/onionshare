@@ -2,9 +2,9 @@
 
 Unless you're a core OnionShare developer making a release, you'll probably never need to follow it.
 
-## Changelog, version, docs, and signed git tag
+## Preparing the release
 
-Before making a release, you must update the version in these places:
+### Update the version in these places
 
 - [ ] `cli/pyproject.toml`
 - [ ] `cli/onionshare_cli/resources/version.txt`
@@ -14,13 +14,18 @@ Before making a release, you must update the version in these places:
 - [ ] `docs/source/conf.py` (`version` at the top, and the `versions` list too)
 - [ ] `snap/snapcraft.yaml`
 
+### You also must edit these files
+
+- [ ] `desktop/org.onionshare.OnionShare.appdata.xml` should have the correct release date, and links to correct screenshots
+- [ ] `CHANGELOG.md` should be updated to include a list of all major changes since the last release
+
 If you update `flask-socketio`, ensure that you also update the [socket.io.min.js](https://github.com/micahflee/onionshare/blob/develop/cli/onionshare_cli/resources/static/js/socket.io.min.js) file to a version that is [supported](https://flask-socketio.readthedocs.io/en/latest/#version-compatibility) by the updated version of `flask-socketio`.
 
-Update the documentation:
+### Update the documentation
 
 - [ ] Update all of the documentation in `docs` to cover new features, including taking new screenshots if necessary
 
-Finalize localization:
+### Finalize localization
 
 - [ ] Merge all the translations from weblate
 - [ ] In `docs` run `poetry run ./check-weblate.py [API_KEY]` to see which translations are >90% in the app and docs
@@ -35,23 +40,58 @@ Finalize localization:
   poetry run ./build.sh
   ```
 
-You also must edit these files:
+### Make sure Snapcraft packaging works
 
-- [ ] `desktop/org.onionshare.OnionShare.appdata.xml` should have the correct release date, and links to correct screenshots
-- [ ] `CHANGELOG.md` should be updated to include a list of all major changes since the last release
-
-Make sure snapcraft packaging works. In `snap/snapcraft.yaml`:
+In `snap/snapcraft.yaml`:
 
 - [ ] The `tor`, `libevent`, `obfs4`, `snowflake-client`, and `meek-client` parts should be updated if necessary
-- [ ] All python packages in the `onionshare` part should be updated to match `desktop/pyproject.toml`
-- [ ] With every commit to the `develop` branch, Snapcraft's CI should trigger builds. Make sure the builds all succeeded at https://snapcraft.io/onionshare/builds (you must be logged in), and test them
+- [ ] In the `onionshare` part, in the `override-pull` section, all of the dependencies in the `requirements.txt` file should match the dependencies listed in `cli/pyproject.toml` and `desktop/pyproject.toml`, with the exception of PySide2
+- [ ] With every commit to the `main` branch, Snapcraft's CI should trigger builds. Make sure the builds all succeeded at https://snapcraft.io/onionshare/builds (you must be logged in), and test them. You can install them with: `snap install onionshare --edge`
 
-Update to the latest version of Tor:
+### Make sure the Flatpak packaging works
+
+In `flatpak/org.onionshare.OnionShare.yaml`:
+
+- [ ] Update `tor`, `libevent`, `obfs4`, `meek-client`, and `snowflake-client` dependencies, if necessary
+- [ ] Built the latest python dependencies using [this tool](https://github.com/flatpak/flatpak-builder-tools/blob/master/pip/flatpak-pip-generator) (see below)
+- [ ] Test the Flatpak package, ensure it works
+
+```
+pip3 install toml requirements-parser
+
+# clone flatpak-build-tools
+git clone https://github.com/flatpak/flatpak-builder-tools.git
+
+# get onionshare-cli dependencies
+cd poetry
+./flatpak-poetry-generator.py ../../onionshare/cli/poetry.lock
+cd ..
+
+# get onionshare dependencies
+cd pip
+./flatpak-pip-generator $(python3 -c 'import toml; print("\n".join(toml.loads(open("../../onionshare/desktop/pyproject.toml").read())["tool"]["poetry"]["dependencies"]))' |grep -vi onionshare_cli |grep -vi python | grep -vi pyside2 | grep -vi cx_freeze |tr "\n" " ")
+cd ..
+
+# convert to yaml
+./flatpak-json2yaml.py -o onionshare-cli.yml poetry/generated-poetry-sources.json
+./flatpak-json2yaml.py -o onionshare.yml pip/python3-qrcode.json
+```
+
+Now, merge `onionshare-cli.yml` and `onionshare.yml` into the Flatpak manifest.
+
+Build and test the Flatpak package before publishing:
+
+```sh
+flatpak-builder build --force-clean --install-deps-from=flathub --install --user org.onionshare.OnionShare.yaml
+flatpak run org.onionshare.OnionShare
+```
+
+### Update to the latest version of Tor
 
 - [ ] Edit `desktop/scripts/get-tor.py` to use the latest version of Tor Browser, and the latest sha256 checksums.
 - [ ] Update the version of `meek`, `obfs4proxy`, and `snowflake` in the `desktop/scripts/build-pt-*` scripts, both the bash and PowerShell scripts.
 
-Finally:
+### Create a signed git tag
 
 - [ ] There must be a PGP-signed git tag for the version, e.g. for OnionShare 2.1, the tag must be `v2.1`
 
@@ -70,34 +110,20 @@ If the tag verifies successfully, check it out:
 git checkout v$VERSION
 ```
 
-## Linux Snapcraft release
+## Making the release
 
-You must have `snap` and `snapcraft` (`snap install snapcraft --classic`) installed.
+### Linux Snapcraft release
 
-Build and test the snap before publishing (note that `--dangerous` lets you install the snap before it's codesigned):
+From https://snapcraft.io/onionshare/releases (you must be logged in), promote the release from latest/edge to latest/beta, then latest/candidate, then latest/stable.
 
-```sh
-snapcraft
-snap install --dangerous ./onionshare_${VERSION}_amd64.snap
-```
+### Linux Flatpak release
 
-This will create `onionshare_${VERSION}_amd64.snap`.
+- [ ] Create a new branch in https://github.com/flathub/org.onionshare.OnionShare for the version
+- [ ] Overwrite the manifest in the flathub repo with the updated version in [flatpak/org.onionshare.OnionShare.yaml](./flatpak/org.onionshare.OnionShare.yaml)
+- [ ] Edit it so that the sources for `onionshare` and `onionshare-cli` are the GitHub repo, with the correct git tag, rather than the local filesystem
+- [ ] Make a PR in the flathub repo, and merge it to make a release
 
-Run the OnionShare snap locally:
-
-```sh
-/snap/bin/onionshare     # desktop version
-/snap/bin/onionshare.cli # CLI version
-```
-
-Upload the to Snapcraft:
-
-```sh
-snapcraft login
-snapcraft upload --release=stable onionshare_${VERSION}_amd64.snap
-```
-
-## Windows
+### Windows release
 
 Set up the packaging environment:
 
@@ -122,7 +148,7 @@ This will create:
 - `desktop/dist/OnionShare-win32-$VERSION.msi`
 - `desktop/dist/OnionShare-win64-$VERSION.msi`
 
-## macOS
+### macOS release
 
 Set up the packaging environment:
 
@@ -157,7 +183,7 @@ xcrun stapler staple dist/OnionShare-$VERSION.dmg
 
 This will create `desktop/dist/OnionShare-$VERSION.dmg`, signed and notarized.
 
-## Source package
+### Source package
 
 To make a source package, run `./build-source.sh $TAG`, where `$TAG` is the name of the signed git tag, e.g. `v2.1`.
 
@@ -170,8 +196,10 @@ This will create `dist/onionshare-$VERSION.tar.gz`.
 After following all of the previous steps, gather these files:
 
 - `onionshare_${VERSION}_amd64.snap`
-- `OnionShare-$VERSION.msi`
-- `OnionShare.dmg` (rename it to `OnionShare-$VERSION.dmg`)
+- `OnionShare.flatpak` (rename to `OnionShare-$VERSION.flatpak`)
+- `OnionShare-win32-$VERSION.msi`
+- `OnionShare-win64-$VERSION.msi`
+- `OnionShare-$VERSION.dmg`
 - `onionshare-$VERSION.tar.gz`
 
 Create a PGP signature for each of these files, e.g:
@@ -193,61 +221,6 @@ cd cli
 poetry install
 poetry publish --build
 ```
-
-### Update Flathub
-
-After there's a new release tag, make the Flathub package work here: https://github.com/flathub/org.onionshare.OnionShare
-
-You must have `flatpak` and `flatpak-builder` installed, with flathub remote added (`flatpak remote-add --if-not-exists --user flathub https://flathub.org/repo/flathub.flatpakrepo`).
-
-- [ ] Change the tag (for both `onionshare` and `onionshare-cli`) to match the new git tag
-- [ ] Update `tor`, `libevent`, `obfs4`, `meek-client`, and `snowflake-client` dependencies, if necessary
-- [ ] Built the latest python dependencies using [this tool](https://github.com/flatpak/flatpak-builder-tools/blob/master/pip/flatpak-pip-generator) (see below)
-- [ ] Test the Flatpak package, ensure it works
-
-```
-pip3 install toml requirements-parser
-
-# clone flatpak-build-tools
-git clone https://github.com/flatpak/flatpak-builder-tools.git
-
-# get onionshare-cli dependencies
-cd poetry
-./flatpak-poetry-generator.py ../../onionshare/cli/poetry.lock
-cd ..
-
-# get onionshare dependencies
-cd pip
-./flatpak-pip-generator $(python3 -c 'import toml; print("\n".join(toml.loads(open("../../onionshare/desktop/pyproject.toml").read())["tool"]["poetry"]["dependencies"]))' |grep -vi onionshare_cli |grep -vi python | grep -vi pyside2 | grep -vi cx_freeze |tr "\n" " ")
-cd ..
-
-# convert to yaml
-./flatpak-json2yaml.py -o onionshare-cli.yml poetry/generated-poetry-sources.json
-./flatpak-json2yaml.py -o onionshare.yml pip/python3-qrcode.json
-```
-
-Now, merge `onionshare-cli.yml` and `onionshare.yml` into the Flatpak config.
-
-Build and test the Flatpak package before publishing:
-
-```sh
-flatpak-builder build --force-clean --install-deps-from=flathub --install --user org.onionshare.OnionShare.yaml
-flatpak run org.onionshare.OnionShare
-```
-
-Create a [single-file bundle](https://docs.flatpak.org/en/latest/single-file-bundles.html):
-
-```sh
-flatpak build-bundle ~/.local/share/flatpak/repo OnionShare-$VERSION.flatpak org.onionshare.OnionShare --runtime-repo=https://flathub.org/repo/flathub.flatpakrepo
-```
-
-Create a PGP signature for the flatpak single-file bundle:
-
-```sh
-gpg -a --detach-sign OnionShare-$VERSION.flatpak
-```
-
-Upload this `.flatpak` and its sig to the GitHub release as well.
 
 ### Update Homebrew
 

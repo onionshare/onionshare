@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-03-31 16:26+1100\n"
-"PO-Revision-Date: 2022-07-15 06:20+0000\n"
+"PO-Revision-Date: 2022-10-09 21:13+0000\n"
 "Last-Translator: george kitsoukakis <norhorn@gmail.com>\n"
 "Language-Team: el <LL@li.org>\n"
 "Language: el\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.14-dev\n"
+"X-Generator: Weblate 4.14.1\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: ../../source/tor.rst:2
@@ -28,6 +28,8 @@ msgid ""
 "When OnionShare starts, it will show you a screen asking you to connect "
 "to the Tor network."
 msgstr ""
+"Κατά την εκκίνηση του OnionShare, θα εμφανιστεί μια οθόνη που θα ζητά να "
+"συνδεθείτε στο δίκτυο Tor."
 
 #: ../../source/tor.rst:8
 msgid ""
@@ -49,16 +51,23 @@ msgid ""
 "your access to the Tor network, this should hopefully work the first "
 "time."
 msgstr ""
+"Μπορείτε να κάνετε κλικ στο «Σύνδεση με το Tor» για να ξεκινήσετε τη "
+"διαδικασία σύνδεσης. Εάν δεν υπάρχουν προβλήματα με το δίκτυό σας, "
+"συμπεριλαμβανομένων τυχόν προσπαθειών αποκλεισμού της πρόσβασής σας στο "
+"δίκτυο Tor, ελπίζουμε ότι θα λειτουργήσει με την πρώτη προσπάθεια."
 
 #: ../../source/tor.rst:13
 msgid ""
 "Or, if you want to manually configure Bridges or other Tor settings "
 "before you connect, you can click \"Network Settings\"."
 msgstr ""
+"Εναλλακτικά, εάν θέλετε να ρυθμίσετε χειροκίνητα τις γέφυρες ή άλλες "
+"ρυθμίσεις του Tor πριν συνδεθείτε, μπορείτε να κάνετε κλικ στο «Ρυθμίσεις "
+"δικτύου»."
 
 #: ../../source/tor.rst:16
 msgid "Automatic censorship circumvention"
-msgstr ""
+msgstr "Αυτόματη παράκαμψη λογοκρισίας"
 
 #: ../../source/tor.rst:18
 msgid ""
@@ -66,22 +75,27 @@ msgid ""
 "might be because Tor is censored in your country or on your local "
 "network."
 msgstr ""
+"Όταν κάνετε κλικ στο «Σύνδεση στο Tor», εάν το OnionShare αποτύχει να "
+"συνδεθεί, μπορεί να οφείλεται στο ότι το Tor έχει λογοκριθεί στη χώρα σας ή "
+"στο τοπικό σας δίκτυο."
 
 #: ../../source/tor.rst:20
 msgid "If this occurs, you will have these choices:"
-msgstr ""
+msgstr "Εάν συμβεί αυτό, έχετε τις εξής επιλογές:"
 
 #: ../../source/tor.rst:22
 msgid "Try again without a bridge"
-msgstr ""
+msgstr "Δοκιμάστε ξανά χωρίς γέφυρα"
 
 #: ../../source/tor.rst:23
 msgid "Automatically determine my country from my IP address for bridge settings"
 msgstr ""
+"Αυτόματος προσδιορισμός της χώρας μου από τη διεύθυνση IP μου για τις "
+"ρυθμίσεις γέφυρας"
 
 #: ../../source/tor.rst:24
 msgid "Manually select my country for bridge settings"
-msgstr ""
+msgstr "Χειροκίνητη επιλογή της χώρας μου για τις ρυθμίσεις γέφυρας"
 
 #: ../../source/tor.rst:28
 msgid ""
@@ -89,6 +103,9 @@ msgid ""
 "retry connecting to Tor like normal, without attempting to bypass "
 "censorship."
 msgstr ""
+"Εάν επιλέξετε το «Δοκιμάστε ξανά χωρίς γέφυρα», το OnionShare θα προσπαθήσει "
+"να συνδεθεί στο Tor όπως συνήθως, χωρίς να προσπαθήσει να παρακάμψει τη "
+"λογοκρισία."
 
 #: ../../source/tor.rst:30
 msgid ""
@@ -104,6 +121,18 @@ msgid ""
 "Censorship Circumvention API. The Meek proxy hides the fact that you are "
 "trying to find a way to connect to Tor."
 msgstr ""
+"Οι άλλες δύο επιλογές θα προσπαθήσουν να παρακάμψουν αυτόματα τη λογοκρισία "
+"χρησιμοποιώντας τις γέφυρες Tor. Εάν ο πάροχος του δικτύου σας εμποδίζει την "
+"πρόσβαση στο δίκτυο Tor, ελπίζουμε να μπορείτε να συνδεθείτε σε μια γέφυρα "
+"Tor, η οποία στη συνέχεια θα σας συνδέσει στο δίκτυο Tor, παρακάμπτοντας τη "
+"λογοκρισία. Και οι δύο αυτές επιλογές χρησιμοποιούν το API Censorship "
+"Circumvention του Tor Project για να σας παρέχουν ρυθμίσεις για τη γέφυρα "
+"που θα λειτουργήσει για εσάς. Το OnionShare θα χρησιμοποιήσει προσωρινά τον "
+"διακομιστή μεσολάβησης «Meek <https://gitlab.torproject.org/legacy/trac/-/"
+"wikis/doc/meek/>»_ για να πραγματοποιήσει μια σύνδεση εκτός Tor από τον "
+"υπολογιστή σας στο Tor's Censorship API παράκαμψης. Ο διακομιστής "
+"μεσολάβησης Meek αποκρύπτει το γεγονός ότι προσπαθείτε να βρείτε έναν τρόπο "
+"να συνδεθείτε στο Tor."
 
 #: ../../source/tor.rst:36
 msgid ""
@@ -113,6 +142,11 @@ msgid ""
 "might reside in. Based on the country information, the API will try to "
 "automatically find bridges that suit your location."
 msgstr ""
+"Εάν επιλέξετε «Αυτόματος προσδιορισμός της χώρας μου από τη διεύθυνση IP μου "
+"για ρυθμίσεις γέφυρας», το Censorship Circumvention API θα εξετάσει τη "
+"διεύθυνση IP σας (ναι, την πραγματική σας διεύθυνση IP) για να καθορίσει σε "
+"ποια χώρα ενδέχεται να βρίσκεστε. Με βάση τις πληροφορίες της χώρας, το API "
+"θα προσπαθήσει να βρει αυτόματα γέφυρες που ταιριάζουν στην τοποθεσία σας."
 
 #: ../../source/tor.rst:41
 msgid ""
@@ -120,10 +154,12 @@ msgid ""
 "Censorship API will find the bridges that suit the country that you "
 "specified."
 msgstr ""
+"Εάν επιλέξετε \"Χειροκίνητη επιλογή της χώρας μου για τις ρυθμίσεις γέφυρας\""
+", το Censorship API θα βρει τις γέφυρες που ταιριάζουν στη χώρα που ορίσατε."
 
 #: ../../source/tor.rst:46
 msgid "How automatic censorship circumvention works"
-msgstr ""
+msgstr "Πώς λειτουργεί η αυτόματη παράκαμψη της λογοκρισίας"
 
 #: ../../source/tor.rst:48
 msgid ""
@@ -132,6 +168,11 @@ msgid ""
 " the API does not find any bridges for your location, OnionShare will ask"
 " the API for \"fallback\" options, and then try to reconnect using those."
 msgstr ""
+"Εάν το Censorship Circumvention API βρει γέφυρες που πιστεύει ότι σας "
+"ταιριάζουν, το OnionShare θα προσπαθήσει να επανασυνδεθεί στο Tor "
+"χρησιμοποιώντας αυτές τις γέφυρες. Εάν το API δε βρει γέφυρες για την "
+"τοποθεσία σας, το OnionShare θα ζητήσει από το API επιλογές «εναλλακτικές» "
+"και θα προσπαθήσει να επανασυνδεθεί χρησιμοποιώντας αυτές."
 
 #: ../../source/tor.rst:50
 msgid ""
@@ -139,6 +180,9 @@ msgid ""
 "itself, or if the API returns an error message, OnionShare will attempt "
 "to use the obfs4 built-in bridges."
 msgstr ""
+"Εάν για κάποιο λόγο το OnionShare αποτύχει να συνδεθεί με το ίδιο το "
+"Censorship API ή εάν το API εμφανίσει μήνυμα σφάλματος, το OnionShare θα "
+"προσπαθήσει να χρησιμοποιήσει τις ενσωματωμένες γέφυρες obfs4."
 
 #: ../../source/tor.rst:52
 msgid ""
@@ -146,6 +190,9 @@ msgid ""
 "API do not go over the Tor network (because if you could connect to Tor "
 "already, you wouldn't need to connect to the API)."
 msgstr ""
+"Είναι σημαντικό να αναφερθεί ότι τα αιτήματα για το Censorship Circumvention "
+"API δεν περνούν από το δίκτυο Tor (γιατί αν μπορούσατε να συνδεθείτε στο Tor "
+"ήδη, δε θα χρειαζόταν να συνδεθείτε στο API)."
 
 #: ../../source/tor.rst:54
 msgid ""
@@ -156,6 +203,13 @@ msgid ""
 "Circumvention API. Then Meek is stopped, and all further network requests"
 " happen over the Tor network."
 msgstr ""
+"Παρόλο που είναι δύσκολο για έναν αντίπαλο να ανακαλύψει πού πηγαίνει το "
+"αίτημα Meek, αυτό μπορεί να εξακολουθεί να είναι επικίνδυνο για ορισμένους "
+"χρήστες. Επομένως, είναι μια δυνατότητα για επιλογή. Η χρήση αιτημάτων Meek "
+"και μη επιβεβαιωμένων αιτημάτων δικτύου περιορίζεται μόνο στην υποβολή ενός "
+"ή δύο αιτημάτων στο Censorship Circumvention API. Στη συνέχεια, το Meek "
+"διακόπτεται και όλα τα περαιτέρω αιτήματα δικτύου πραγματοποιούνται μέσω του "
+"δικτύου Tor."
 
 #: ../../source/tor.rst:56
 msgid ""
@@ -165,10 +219,16 @@ msgid ""
 "that appears), and manually configure bridges. After you save any bridge "
 "settings, OnionShare will try to reconnect using those bridges."
 msgstr ""
+"Εάν δεν αισθάνεστε άνετα με την υποβολή ενός αιτήματος που δεν περνά από το "
+"δίκτυο Tor, μπορείτε να κάνετε κλικ στο «Ρυθμίσεις δικτύου» (ή στο εικονίδιο "
+"«Ρυθμίσεις» στην κάτω δεξιά γωνία και από την καρτέλα «Ρυθμίσεις Tor» που "
+"εμφανίζεται) και μη αυτόματη διαμόρφωση γεφυρών. Αφού αποθηκεύσετε τυχόν "
+"ρυθμίσεις γεφυρών, το OnionShare θα προσπαθήσει να επανασυνδεθεί "
+"χρησιμοποιώντας αυτές τις γέφυρες."
 
 #: ../../source/tor.rst:59
 msgid "Manually configure Tor settings"
-msgstr ""
+msgstr "Χειροκίνητη επιλογή των ρυθμίσεων Tor"
 
 #: ../../source/tor.rst:61
 msgid ""
@@ -177,12 +237,18 @@ msgid ""
 "of the application, and then switch to the Tor Settings tab in the screen"
 " that appears."
 msgstr ""
+"Μπορείτε να μεταβείτε στις ρυθμίσεις του Tor κάνοντας κλικ στις «Ρυθμίσεις "
+"δικτύου» στην οθόνη καλωσορίσματος ή κάνοντας κλικ στο εικονίδιο «⚙» στην "
+"κάτω δεξιά γωνία της εφαρμογής και στη συνέχεια μεταβείτε στην καρτέλα "
+"Ρυθμίσεις Tor στο παράθυρο που εμφανίζεται."
 
 #: ../../source/tor.rst:65
 msgid ""
 "Here are the different ways you can configure OnionShare to connect to "
 "Tor:"
 msgstr ""
+"Δείτε παρακάτω διάφορους τρόπους διαμόρφωσης του OnionShare για σύνδεση στο "
+"Tor:"
 
 #: ../../source/tor.rst:68
 msgid "Use the Tor version built into OnionShare"
@@ -210,17 +276,15 @@ msgstr ""
 
 #: ../../source/tor.rst:76
 msgid "**Using bridges**"
-msgstr ""
+msgstr "**Χρήση γεφυρών**"
 
 #: ../../source/tor.rst:78
-#, fuzzy
 msgid ""
 "To use a bridge, you must select \"Use the Tor version built into "
 "OnionShare\" and check the \"Use a bridge\" checkbox."
 msgstr ""
-"Για χρήση γέφυρας, ανοίξτε την καρτέλα ρυθμίσεων του Tor. Επιλέξτε το "
-"\"Χρήση της έκδοσης Tor με το OnionShare\" και επιλέξτε το \"Χρήση "
-"γέφυρας\"."
+"Για χρήση γέφυρας, επιλέξτε το «Χρησιμοποιήστε την έκδοση του Tor που είναι "
+"ενσωματωμένη στο OnionShare» και επιλέξτε το «Χρήση γέφυρας»."
 
 #: ../../source/tor.rst:80
 msgid ""
@@ -237,10 +301,10 @@ msgid ""
 "bridge. (This makes it more difficult for governments or ISPs to block "
 "access to Tor bridges.)"
 msgstr ""
-"Εάν δεν λειτουργεί η χρήση ενσωματωμένης γέφυρας, μπορείτε να αιτηθείτε "
-"μια γέφυρα από το torproject.org. Θα πρέπει να επιλύσετε το CAPTCHA για "
-"αίτηση της γέφυρας. (Με αυτό τον τρόπο καθίσταται δυσκολότερο για τις "
-"κυβερνήσεις και παρόχους να μπλοκάρουν τις γέφυρες του Tor)."
+"Εάν δε λειτουργεί η χρήση ενσωματωμένης γέφυρας, μπορείτε να αιτηθείτε μια "
+"γέφυρα από το torproject.org. Θα πρέπει να επιλύσετε το CAPTCHA για αίτηση "
+"της γέφυρας. (Με αυτό τον τρόπο καθίσταται δυσκολότερο για τις κυβερνήσεις "
+"και παρόχους να μπλοκάρουν τις γέφυρες του Tor.)"
 
 #: ../../source/tor.rst:88
 msgid ""
@@ -344,7 +408,6 @@ msgid "You are now running a system ``tor`` process in Windows!"
 msgstr "Εκτελείτε πλέον μια υπηρεσία του συστήματος ``tor`` σε Windows!"
 
 #: ../../source/tor.rst:125
-#, fuzzy
 msgid ""
 "Open OnionShare, click the \"⚙\" icon in it, and switch to the Tor "
 "Settings tab. Under \"How should OnionShare connect to Tor?\" choose "
@@ -354,13 +417,13 @@ msgid ""
 " above. Click the \"Test Connection to Tor\" button. If all goes well, "
 "you should see \"Connected to the Tor controller\"."
 msgstr ""
-"Ανοίξτε το OnionShare και κάντε κλικ στο εικονίδιο \"⚙\". Κάτω από το "
-"\"Πώς να συνδέεται το OnionShare με το Tor;'' επιλέξτε το \"Σύνδεση μέσω "
-"πύλης ελέγχου\" και ορίστε τη \"Πύλη ελέγχου\" σε ``127.0.0.1`` και "
-"\"Θύρα\" σε ``9051``. Κάτω από το \"Ρυθμίσεις επαλήθευσης Tor\" επιλέξτε "
-"\"Κωδικός\" και προσθέστε τον κωδικό πρόσβασης που επιλέξατε παραπάνω. "
-"Κάντε κλικ στο κουμπί \"Έλεγχος της σύνδεσης με το Tor\". Εάν όλα είναι "
-"σωστά θα δείτε το μήνυμα \"Εγινε σύνδεση με τον ελεγκτή Tor\"."
+"Ανοίξτε το OnionShare, κάντε κλικ στο εικονίδιο «⚙» και μεταβείτε στην "
+"καρτέλα ρυθμίσεις Tor. Κάτω από το «Πώς να συνδέεται το OnionShare με το "
+"Tor;» επιλέξτε το \"Σύνδεση μέσω θύρας ελέγχου\" και ορίστε τη «Θύρα ελέγχου»"
+" σε «127.0.0.1» και «πόρτα» σε «9051». Κάτω από το «Ρυθμίσεις Tor» επιλέξτε "
+"\"Κωδικός\" και εισαγάγετε τον κωδικό πρόσβασης για τη θύρα ελέγχου. Κάντε "
+"κλικ στο κουμπί «Έλεγχος σύνδεσης με το Tor». Εάν όλα είναι σωστά θα δείτε "
+"το μήνυμα «Έγινε σύνδεση με τον ελεγκτή Tor»."
 
 #: ../../source/tor.rst:134
 msgid "Using a system ``tor`` in macOS"
@@ -383,7 +446,6 @@ msgid "And start the system Tor service::"
 msgstr "Και ξεκινήστε την υπηρεσία του συστήματος Tor::"
 
 #: ../../source/tor.rst:151
-#, fuzzy
 msgid ""
 "Open OnionShare, click the \"⚙\" icon in it, and switch to the Tor "
 "Settings tab. Under \"How should OnionShare connect to Tor?\" choose "
@@ -392,12 +454,11 @@ msgid ""
 "settings\" choose \"No authentication, or cookie authentication\". Click "
 "the \"Test Connection to Tor\" button."
 msgstr ""
-"Ανοίξτε το OnionShare και κάντε κλικ στο εικονίδιο \"⚙\". Κάτω από το "
-"\"Πώς να συνδέεται το OnionShare με το Tor;'' επιλέξτε το \"Σύνδεση μέσω "
-"αρχείου μετάβασης\" και ορίστε το αρχείο "
-"``/usr/local/var/run/tor/control.socket``. Κάτω από το \"Ρυθμίσεις "
-"επαλήθευσης Tor\" επιλέξτε \"Χωρίς επαλήθευση ή επαλήθευση με cookie\". "
-"Κάντε κλικ στο κουμπί \"Έλεγχος σύνδεσης με το Tor\"."
+"Ανοίξτε το OnionShare και κάντε κλικ στο εικονίδιο «⚙». Κάτω από το «Πώς να "
+"συνδέεται το OnionShare με το Tor;» επιλέξτε το «Σύνδεση μέσω αρχείου "
+"μετάβασης» και ορίστε το αρχείο «/usr/local/var/run/tor/control.socket». "
+"Κάτω από το «Ρυθμίσεις Tor» επιλέξτε «Χωρίς επαλήθευση ή επαλήθευση με "
+"cookie». Κάντε κλικ στο κουμπί «Έλεγχος σύνδεσης με το Tor»."
 
 #: ../../source/tor.rst:157 ../../source/tor.rst:177
 msgid "If all goes well, you should see \"Connected to the Tor controller\"."
@@ -441,7 +502,6 @@ msgstr ""
 "(αντικαταστήστε το ``όνομα χρήστη`` με το δικό σας::"
 
 #: ../../source/tor.rst:170
-#, fuzzy
 msgid ""
 "Reboot your computer. After it boots up again, open OnionShare, click the"
 " \"⚙\" icon in it, and switch to the Tor Settings tab. Under \"How should"
@@ -450,12 +510,12 @@ msgid ""
 "authentication settings\" choose \"No authentication, or cookie "
 "authentication\". Click the \"Test Connection to Tor\" button."
 msgstr ""
-"Επανεκκινήστε τον υπολογιστή σας. Ανοίξτε το OnionShare και κάντε κλικ "
-"στο εικονίδιο \"⚙\". Κάτω από το \"Πώς να συνδέεται το OnionShare με το "
-"Tor;\" επιλέξτε \"Σύνδεση μέσω αρχείου μετάβασης\". Ρυθμίστε το αρχείο "
-"στο ``/var/run/tor/control``. Κάτω από τις \"Ρυθμίσεις επαλήθευσης Tor\" "
-"επιλέξτε \"Χωρίς επαλήθευση ή επαλήθευση με cookie\". Κάντε κλικ στο "
-"κουμπί \"Έλεγχος σύνδεσης με το Tor\"."
+"Κάντε επανεκκίνηση τον υπολογιστή σας. Ανοίξτε το OnionShare και κάντε κλικ "
+"στο εικονίδιο «⚙» και μεταβείτε στην καρτέλα ρυθμίσεων Tor. Κάτω από το «Πώς "
+"να συνδέεται το OnionShare με το Tor;» επιλέξτε «Σύνδεση μέσω αρχείου "
+"μετάβασης». Ρυθμίστε το αρχείο στο «/var/run/tor/control». Κάτω από το «"
+"Ρυθμίσεις Tor» επιλέξτε «Χωρίς επαλήθευση ή επαλήθευση με cookie». Κάντε "
+"κλικ στο κουμπί «Έλεγχος σύνδεσης με το Tor»."
 
 #~ msgid "Using a system Tor in Mac OS X"
 #~ msgstr ""
