@@ -42,16 +42,13 @@ apps:
       LANG: C.UTF-8
 
 parts:
-  # Launcher scripts, in order to set PYTHONPATH
   launcher:
     plugin: nil
     override-build: |
       mkdir -p $SNAPCRAFT_PART_INSTALL/bin
-
       cat > $SNAPCRAFT_PART_INSTALL/bin/launcher-setup << EOF
       #!/bin/sh
       export PATH=\$SNAP/bin:\$SNAP/usr/bin:\$SNAP/usr/local/bin:\$PATH
-      export PYTHONPATH=\$SNAP/lib/python3.8/site-packages:\$SNAP/usr/lib/python3/dist-packages
       export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:\$SNAP/usr/local/lib
       ORIG_IFS=\$IFS
       IFS=":"
@@ -59,25 +56,36 @@ parts:
       IFS=\$ORIGIN_IFS
       export QT_PLUGIN_PATH=\$LIB_BASE/qt5/plugins
       EOF
-
       cat > $SNAPCRAFT_PART_INSTALL/bin/onionshare-launcher << EOF
       #!/bin/sh
       . \$SNAP/bin/launcher-setup
       onionshare \$@
       EOF
-
       cat > $SNAPCRAFT_PART_INSTALL/bin/onionshare-cli-launcher << EOF
       #!/bin/sh
       . \$SNAP/bin/launcher-setup
       onionshare-cli \$@
       EOF
-
       chmod 755 $SNAPCRAFT_PART_INSTALL/bin/launcher-setup
       chmod 755 $SNAPCRAFT_PART_INSTALL/bin/onionshare-launcher
       chmod 755 $SNAPCRAFT_PART_INSTALL/bin/onionshare-cli-launcher
+
+  onionshare-cli:
+    source: ./cli
+    plugin: nil
+    after: [tor, obfs4, snowflake-client, meek-client]
+
   onionshare:
     source: ./desktop
     plugin: python
+    build-packages:
+      - build-essential
+      - libssl-dev
+      - libffi-dev
+      - python3-dev
+      - python3-pip
+      - rustc
+      - cargo
     build-environment:
       - PATH: /usr/bin:$PATH
       - PYTHONPATH: ""
@@ -145,32 +153,19 @@ parts:
       - python3-pyside2.qtcore
       - python3-pyside2.qtgui
       - python3-pyside2.qtwidgets
+    override-pull: |
+      snapcraftctl pull
+      sed -i 's|path = "../cli", develop = true|path = "'$(pwd)'/../../onionshare-cli/src"|g' pyproject.toml
+      sed -i 's|PySide2|# PySide2|g' pyproject.toml
     override-build: |
-      python3 -m pip install qrcode --prefix $SNAPCRAFT_PART_INSTALL
-      python3 setup.py install --prefix $SNAPCRAFT_PART_INSTALL
+      python3 -m venv $SNAPCRAFT_PART_INSTALL
+      . $SNAPCRAFT_PART_INSTALL/bin/activate
+      pip install -U pip setuptools wheel
+      pip install -U .
+      deactivate
+      sed -i 's|'$SNAPCRAFT_PART_INSTALL'/bin/python3|/usr/bin/env python3|g' $SNAPCRAFT_PART_INSTALL/bin/onionshare
+      sed -i 's|'$SNAPCRAFT_PART_INSTALL'/bin/python3|/usr/bin/env python3|g' $SNAPCRAFT_PART_INSTALL/bin/onionshare-cli
     after: [onionshare-cli]
-
-  onionshare-cli:
-    source: ./cli
-    plugin: python
-    build-environment:
-      - PATH: /usr/bin:$PATH
-      - PYTHONPATH: ""
-    build-packages:
-      - build-essential
-      - libssl-dev
-      - libffi-dev
-      - python3-dev
-      - python3-pip
-      - rustc
-      - cargo
-    override-build: |
-      python3 -m pip install poetry
-      python3 -m pip install setuptools
-      python3 -m poetry install
-      python3 -m poetry build
-      python3 -m pip install $SNAPCRAFT_PART_BUILD/dist/onionshare_cli-*.whl --prefix $SNAPCRAFT_PART_INSTALL
-    after: [tor, obfs4, snowflake-client, meek-client]
 
   tor:
     source: https://dist.torproject.org/tor-0.4.7.9.tar.gz
