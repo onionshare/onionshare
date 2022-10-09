@@ -47,6 +47,7 @@ setuptools.setup(
     entry_points={
         "console_scripts": [
             "onionshare = onionshare:main",
+            "onionshare-cli = onionshare_cli:main",
         ],
     },
 )
