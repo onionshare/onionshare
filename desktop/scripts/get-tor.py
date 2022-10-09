@@ -295,7 +295,7 @@ def update_tor_bridges():
         print(
             f"There was a problem fetching the latest built-in bridges: status_code={r.status_code}"
         )
-        return False
+        sys.exit(1)
 
     result = r.json()
     print(f"Built-in bridges: {result}")
@@ -304,7 +304,7 @@ def update_tor_bridges():
         print(
             f"There was a problem fetching the latest built-in bridges: errors={result['errors']}"
         )
-        return False
+        sys.exit(1)
 
     for bridge_type in ["meek-azure", "obfs4", "snowflake"]:
         if bridge_type in result and result[bridge_type]:
