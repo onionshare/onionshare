@@ -166,6 +166,15 @@ parts:
       deactivate
       sed -i 's|'$SNAPCRAFT_PART_INSTALL'/bin/python3|/usr/bin/env python3|g' $SNAPCRAFT_PART_INSTALL/bin/onionshare
       sed -i 's|'$SNAPCRAFT_PART_INSTALL'/bin/python3|/usr/bin/env python3|g' $SNAPCRAFT_PART_INSTALL/bin/onionshare-cli
+      # for some reason, snapcraft.io's build system isn't copying onionshare and onionshare_cli folders into install
+      if [[] ! -d "$SNAPCRAFT_PART_INSTALL/lib/python3.8/site-packages/onionshare" ]]; do
+        ls -l .
+        cp -r -n . $SNAPCRAFT_PART_INSTALL/lib/python3.8/site-packages/onionshare
+      fi
+      if [[] ! -d "$SNAPCRAFT_PART_INSTALL/lib/python3.8/site-packages/onionshare_cli" ]]; do
+        ls -l ../../onionshare-cli/build
+        cp -r -n ../../onionshare-cli/build $SNAPCRAFT_PART_INSTALL/lib/python3.8/site-packages/onionshare_cli
+      fi
     after: [onionshare-cli]
 
   tor:
