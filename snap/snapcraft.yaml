@@ -162,19 +162,10 @@ parts:
       python3 -m venv $SNAPCRAFT_PART_INSTALL
       . $SNAPCRAFT_PART_INSTALL/bin/activate
       pip install -U pip setuptools wheel
-      pip install -U .
+      pip install -U . -vvv
       deactivate
       sed -i 's|'$SNAPCRAFT_PART_INSTALL'/bin/python3|/usr/bin/env python3|g' $SNAPCRAFT_PART_INSTALL/bin/onionshare
       sed -i 's|'$SNAPCRAFT_PART_INSTALL'/bin/python3|/usr/bin/env python3|g' $SNAPCRAFT_PART_INSTALL/bin/onionshare-cli
-      # for some reason, snapcraft.io's build system isn't copying onionshare and onionshare_cli folders into install
-      if [[ ! -d "$SNAPCRAFT_PART_INSTALL/lib/python3.8/site-packages/onionshare" ]]; then
-        ls -l .
-        cp -r . $SNAPCRAFT_PART_INSTALL/lib/python3.8/site-packages/onionshare
-      fi
-      if [[ ! -d "$SNAPCRAFT_PART_INSTALL/lib/python3.8/site-packages/onionshare_cli" ]]; then
-        ls -l ../../onionshare-cli/build
-        cp -r ../../onionshare-cli/build $SNAPCRAFT_PART_INSTALL/lib/python3.8/site-packages/onionshare_cli
-      fi
     after: [onionshare-cli]
 
   tor:
