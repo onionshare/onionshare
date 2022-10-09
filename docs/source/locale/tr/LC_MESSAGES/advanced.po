@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-10-02 16:17-0700\n"
-"PO-Revision-Date: 2022-07-07 19:19+0000\n"
+"PO-Revision-Date: 2022-10-03 23:25+0000\n"
 "Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
-"Language: tr\n"
 "Language-Team: tr <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.14.1\n"
 "Generated-By: Babel 2.10.3\n"
 
 #: ../../source/advanced.rst:2
@@ -32,12 +33,18 @@ msgid ""
 "Persistently hosted websites are available on the same address even if "
 "the computer they are shared from is rebooted."
 msgstr ""
+"Barındırdığınız OnionShare sekmelerini kapatmak onları yok ederek yeniden "
+"kullanılmalarını engeller. Kalıcı olarak barındırılan web siteleri, "
+"paylaşıldıkları bilgisayar yeniden başlatılsa bile aynı adreste "
+"kullanılabilir."
 
 #: ../../source/advanced.rst:12
 msgid ""
 "Make any tab persistent by checking the \"Always open this tab when "
 "OnionShare is started\" box before starting your server."
 msgstr ""
+"Sunucunuzu başlatmadan önce \"OnionShare başlatıldığında her zaman bu "
+"sekmeyi aç\" kutusunu işaretleyerek herhangi bir sekmeyi kalıcı hale getirin."
 
 #: ../../source/advanced.rst:16
 msgid ""
@@ -232,17 +239,19 @@ msgstr ""
 
 #: ../../source/advanced.rst:151
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Klavye Kısayolları"
 
 #: ../../source/advanced.rst:153
 msgid ""
 "The OnionShare desktop application contains some keyboard shortcuts, for "
 "convenience and accessibility::"
 msgstr ""
+"OnionShare masaüstü uygulaması, kolaylık ve erişilebilirlik için bazı klavye "
+"kısayolları içerir::"
 
 #: ../../source/advanced.rst:158
 msgid "And from the main mode chooser screen::"
-msgstr ""
+msgstr "Ve ana mod seçici ekranından::"
 
 #~ msgid "Make a symbolic link to the OnionShare command line binary line this::"
 #~ msgstr ""
@@ -711,4 +720,3 @@ msgstr ""
 #~ "Sekmenin kaydedildiğini bildirmek için sunucu"
 #~ " durumunun solunda mor bir iğne "
 #~ "simgesi görünür."
-

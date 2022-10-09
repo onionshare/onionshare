@@ -349,6 +349,18 @@
     "gui_autoconnect_bridge_setting_options": "Bro-innstillinger",
     "gui_autoconnect_connection_error_msg": "Forsikre deg om at du er tilkoblet Internett.",
     "gui_autoconnect_bridge_detect_automatic": "Fastslå IP basert på mitt land for oppsett av broer",
-    "gui_autoconnect_bridge_detect_manual": "Velg mitt land i bro-oppsett manuelt",
-    "gui_autoconnect_start": "Koble til Tor…"
+    "gui_autoconnect_bridge_detect_manual": "Velg landet mitt for broinnstillinger manuelt",
+    "gui_autoconnect_start": "Koble til Tor…",
+    "gui_enable_autoconnect_checkbox": "Koble til Tor automatisk",
+    "gui_autoconnect_circumventing_censorship": "Prøver å løse tilkoblingsproblemer …",
+    "gui_autoconnect_circumventing_censorship_got_bridges": "Broer etablert. Kobler til Tor igjen …",
+    "gui_autoconnect_could_not_connect_to_tor_api": "Kunne ikke koble til Tor-API-et. Sørg for at du er tilkoblet Internett og prøv igjen.",
+    "gui_autoconnect_description": "OnionShare avhenger av det gemenskapsdrevne Tor-nettverket.",
+    "gui_autoconnect_configure": "Nettverksinnstillinger",
+    "gui_autoconnect_no_bridge": "Prøv igjen uten broer",
+    "gui_autoconnect_circumventing_censorship_starting_meek": "Etablerer meek-bro for domenefronting …",
+    "gui_autoconnect_failed_to_connect_to_tor": "Kunne ikke koble til Tor",
+    "gui_autoconnect_try_again_without_a_bridge": "Prøv igjen uten broer",
+    "gui_autoconnect_circumventing_censorship_requesting_bridges": "Forespør broer fra Tor sitt omgåelses-API …",
+    "gui_autoconnect_circumventing_censorship_starting_circumvention": "Omgår sensur …"
 }
