@@ -49,6 +49,7 @@ parts:
       cat > $SNAPCRAFT_PART_INSTALL/bin/launcher-setup << EOF
       #!/bin/sh
       export PATH=\$SNAP/bin:\$SNAP/usr/bin:\$SNAP/usr/local/bin:\$PATH
+      export PYTHONPATH=\$SNAP/lib/python3.8/site-packages:\$SNAP/usr/lib/python3/dist-packages
       export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:\$SNAP/usr/local/lib
       ORIG_IFS=\$IFS
       IFS=":"
