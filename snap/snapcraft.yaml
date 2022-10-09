@@ -77,23 +77,6 @@ parts:
     override-pull: |
       snapcraftctl pull
       rm pyproject.toml poetry.lock
-      cat > requirements.txt << EOF
-      click
-      flask==2.0.3
-      flask-socketio==5.3.1
-      psutil
-      pysocks
-      requests[socks]
-      unidecode
-      urllib3
-      eventlet
-      setuptools
-      pynacl
-      colorama
-      gevent-websocket
-      stem==1.8.1
-      werkzeug==2.0.3
-      EOF
     after: [tor, obfs4, snowflake-client, meek-client]
 
   onionshare:
@@ -178,6 +161,23 @@ parts:
       snapcraftctl pull
       rm pyproject.toml poetry.lock
       cat > requirements.txt << EOF
+      # onionshare_cli
+      click
+      flask==2.0.3
+      flask-socketio==5.3.1
+      psutil
+      pysocks
+      requests[socks]
+      unidecode
+      urllib3
+      eventlet
+      setuptools
+      pynacl
+      colorama
+      gevent-websocket
+      stem==1.8.1
+      werkzeug==2.0.3
+      # onionshare
       qrcode
       EOF
     override-build: |
