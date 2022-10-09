@@ -13,7 +13,7 @@
     <launchable type="desktop-id">org.onionshare.OnionShare.desktop</launchable>
     <screenshots>
         <screenshot type="default">
-            <image>https://raw.githubusercontent.com/onionshare/onionshare/develop/docs/source/_static/screenshots/tabs.png</image>
+            <image>https://raw.githubusercontent.com/onionshare/onionshare/main/docs/source/_static/screenshots/tabs.png</image>
             <caption>Types of services that OnionShare supports</caption>
         </screenshot>
     </screenshots>
@@ -24,6 +24,6 @@
     <update_contact>micah@micahflee.com</update_contact>
     <content_rating type="oars-1.1" />
     <releases>
-        <release type="development" date="2022-07-04" version="2.6" />
+        <release type="development" date="2022-10-09" version="2.6" />
     </releases>
 </component>

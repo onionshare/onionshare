@@ -1,22 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) Micah Lee, et al.
 # This file is distributed under the same license as the OnionShare package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2022-01-17 10:28-0800\n"
+"POT-Creation-Date: 2022-10-09 15:01-0700\n"
 "PO-Revision-Date: 2022-02-26 08:56+0000\n"
 "Last-Translator: Sophat CHY <sophatchy@gmail.com>\n"
-"Language-Team: none\n"
 "Language: km\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Language-Team: none\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.11.1-dev\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.10.3\n"
 
 #: ../../source/advanced.rst:2
 msgid "Advanced Usage"
@@ -27,164 +27,322 @@ msgid "Save Tabs"
 msgstr "រក្សាទុកផ្ទាំង"
 
 #: ../../source/advanced.rst:9
-msgid "Everything in OnionShare is temporary by default. If you close an OnionShare tab, its address no longer exists and it can't be used again. Sometimes you might want an OnionShare service to be persistent. This is useful if you want to host a website available from the same OnionShare address even if you reboot your computer."
+msgid ""
+"Closing OnionShare tabs you host destroys them, preventing reuse. "
+"Persistently hosted websites are available on the same address even if "
+"the computer they are shared from is rebooted."
 msgstr ""
-"តាមលំនាំដើម គ្រប់យ៉ាងនៅក្នុង OnionShare គឺបណ្ដោះអាសន្ន។ ប្រសិនបើអ្នកបិទផ្ទាំ"
-"ង OnionShare មួយ នោះអាសយដ្ឋានរបស់វានឹងលែងមានទៀតហើយ "
-"ហើយវាមិនអាចប្រើបានម្ដងទៀតឡើយ។ នៅពេលខ្លះ អ្នកប្រហែលជាចង់ឱ្យសេវាកម្ម "
-"OnionShare មួយនៅតែមាន។ វាមានប្រយោជន៍ ប្រសិនបើអ្នកចង់បង្ហោះវេបសាយមួយពីអាសយដ្ឋា"
-"ន OnionShare ដូចគ្នា ទោះបីជាអ្នកចាប់ផ្ដើមកុំព្យូទ័ររបស់អ្នកម្ដងទៀតក៏ដោយ។"
 
-#: ../../source/advanced.rst:13
-msgid "To make any tab persistent, check the \"Save this tab, and automatically open it when I open OnionShare\" box before starting the server. When a tab is saved a purple pin icon appears to the left of its server status."
+#: ../../source/advanced.rst:12
+msgid ""
+"Make any tab persistent by checking the \"Always open this tab when "
+"OnionShare is started\" box before starting your server."
 msgstr ""
-"ដើម្បីធ្វើឱ្យផ្ទាំងមួយនៅតែរក្សាជាប់លាប់ សូមធីកប្រអប់ \"រក្សាផ្ទាំងនេះ "
-"និងបើកវាដោយស្វ័យប្រវត្តិនៅពេលខ្ញុំបើក OnionShare\" "
-"នៅមុនពេលចាប់ផ្ដើមម៉ាស៊ីនមេ។ នៅពេលផ្ទាំងមួយត្រូវបានរក្សាទុក "
-"នោះរូបតំណាងពណ៌ស្វាយលេចឡើងនៅខាងឆ្វេងនៃស្ថានភាពម៉ាស៊ីនមេ។"
 
-#: ../../source/advanced.rst:18
-msgid "When you quit OnionShare and then open it again, your saved tabs will start opened. You'll have to manually start each service, but when you do they will start with the same OnionShare address and private key."
+#: ../../source/advanced.rst:16
+msgid ""
+"When opening OnionShare, your saved tabs from the prior session will "
+"start opened. Each service then can be started manually, and will be "
+"available on the same OnionShare address and be protected by the same "
+"private key."
 msgstr ""
-"នៅពេលអ្នកចាកចេញពី OnionShare ហើយបន្ទាប់មកអ្នកបើកវាម្ដងទៀត "
-"នោះផ្ទាំងដែលអ្នកបានរក្សាទុកនឹងចាប់ផ្ដើមបើក។ "
-"អ្នកនឹងត្រូវចាប់ផ្ដើមសេវាកម្មនីមួយៗដោយខ្លួនឯង ប៉ុន្តែនៅពេលអ្នកធ្វើ "
-"នោះវានឹងចាប់ផ្ដើមជាមួយអាសយដ្ឋាន OnionShare និងកូនសោសម្ងាត់ដូចគ្នា។"
 
-#: ../../source/advanced.rst:21
-msgid "If you save a tab, a copy of that tab's onion service secret key will be stored on your computer with your OnionShare settings."
+#: ../../source/advanced.rst:19
+#, fuzzy
+msgid ""
+"If you save a tab, a copy of its onion service secret key is stored on "
+"your computer."
 msgstr ""
 "ប្រសិនបើអ្នករក្សាទុកផ្ទាំងមួយ នោះច្បាប់ចម្លងនៃសោសម្ងាត់នៃសេវាកម្ម onion "
 "របស់ផ្ទាំងនោះនឹងត្រូវបានរក្សាទុកនៅលើកុំព្យូទ័ររបស់អ្នកជាមួយការកំណត់ "
 "OnionShare របស់អ្នក។"
 
-#: ../../source/advanced.rst:26
+#: ../../source/advanced.rst:24
 msgid "Turn Off Private Key"
 msgstr "បិទកូនសោសម្ងាត់"
 
+#: ../../source/advanced.rst:26
+msgid ""
+"By default, all OnionShare services are protected with a private key, "
+"which Tor calls \"client authentication\"."
+msgstr ""
+"តាមលំនាំដើម គ្រប់សេវាកម្ម OnionShare ត្រូវបានការពារជាមួយនឹងកូនសោសម្ងាត់ "
+"ដែល Tor ហៅថា \"យថាភូកម្មរបស់អ្នកប្រើប្រាស់\"។"
+
 #: ../../source/advanced.rst:28
-msgid "By default, all OnionShare services are protected with a private key, which Tor calls \"client authentication\"."
+msgid ""
+"The Tor Browser will ask you to enter your private key when you load an "
+"OnionShare service. If you want allow the public to use your service, "
+"it's better to disable the private key altogether."
 msgstr ""
-"តាមលំនាំដើម គ្រប់សេវាកម្ម OnionShare ត្រូវបានការពារជាមួយនឹងកូនសោសម្ងាត់ ដែល "
-"Tor ហៅថា \"យថាភូកម្មរបស់អ្នកប្រើប្រាស់\"។"
 
-#: ../../source/advanced.rst:30
-msgid "When browsing to an OnionShare service in Tor Browser, Tor Browser will prompt for the private key to be entered."
+#: ../../source/advanced.rst:31
+#, fuzzy
+msgid ""
+"To turn off the private key for any tab, check the \"This is a public "
+"OnionShare service (disables private key)\" box before starting the "
+"server. Then the server will be public and a private key is not needed to"
+" load it in the Tor Browser."
 msgstr ""
-"នៅពេលឆែកមើលសេវាកម្ម OnionShare នៅក្នុងកម្មវិធីរុករក Tor នោះកម្មវិធីរុករក Tor "
-"នឹងទាមទារឱ្យបញ្ចូលកូនសោសម្ងាត់។"
-
-#: ../../source/advanced.rst:32
-msgid "Sometimes you might want your OnionShare service to be accessible to the public, like if you want to set up an OnionShare receive service so the public can securely and anonymously send you files. In this case, it's better to disable the private key altogether."
-msgstr ""
-"នៅពេលខ្លះ អ្នកប្រហែលជាចង់ឱ្យសេវាកម្ម OnionShare "
-"របស់អ្នកអាចចូលប្រើបានជាសាធារណៈ ដូចជាប្រសិនបើអ្នកចង់ដំឡើងសេវាកម្មទទួល "
-"OnionShare ដូច្នេះសាធារណជនអាចផ្ញើឯកសារឱ្យអ្នកដោយសុវត្ថិភាព និងអនាមិក។ "
-"ក្នុងករណីនេះ វាជាការល្អក្នុងការបិទកូនសោសម្ងាត់ទាំងអស់គ្នា។"
-
-#: ../../source/advanced.rst:35
-msgid "To turn off the private key for any tab, check the \"This is a public OnionShare service (disables private key)\" box before starting the server. Then the server will be public and won't need a private key to view in Tor Browser."
-msgstr ""
-"ដើម្បីបិទកូនសោសម្ងាត់នៅលើផ្ទាំងណាមួយ សូមធីកប្រអប់ \"នេះជាសេវាកម្ម OnionShare "
-"សាធារណៈ (បិទកូនសោសម្ងាត់)\" មុននឹងចាប់ផ្ដើមម៉ាស៊ីនមេ។ បន្ទាប់មក "
-"ម៉ាស៊ីនមេនឹងក្លាយជាសាធារណៈ "
+"ដើម្បីបិទកូនសោសម្ងាត់នៅលើផ្ទាំងណាមួយ សូមធីកប្រអប់ \"នេះជាសេវាកម្ម "
+"OnionShare សាធារណៈ (បិទកូនសោសម្ងាត់)\" មុននឹងចាប់ផ្ដើមម៉ាស៊ីនមេ។ "
+"បន្ទាប់មក ម៉ាស៊ីនមេនឹងក្លាយជាសាធារណៈ "
 "ហើយនឹងមិនត្រូវការកូនសោសម្ងាត់ដើម្បីមើលក្នុងកម្មវិធីរុករក Tor នោះទេ។"
 
-#: ../../source/advanced.rst:40
+#: ../../source/advanced.rst:37
 msgid "Custom Titles"
 msgstr "ចំណងជើងផ្ទាល់ខ្លួន"
 
-#: ../../source/advanced.rst:42
-msgid "By default, when people load an OnionShare service in Tor Browser they see the default title for the type of service. For example, the default title of a chat service is \"OnionShare Chat\"."
+#: ../../source/advanced.rst:39
+#, fuzzy
+msgid ""
+"When people load OnionShare services in the Tor Browser they see the "
+"default title for each type of service. For example, the default title "
+"for chat services is \"OnionShare Chat\"."
 msgstr ""
-"តាមលំនាំដើម នៅពេលមនុស្សដំណើរការសេវាកម្ម OnionShare នៅក្នុងកម្មវិធីរុករក Tor "
-"នោះពួកគេនឹងឃើញចំណងជើងលំនាំដើមសម្រាប់ប្រភេទសេវាកម្មនោះ។ ឧទាហរណ៍ "
+"តាមលំនាំដើម នៅពេលមនុស្សដំណើរការសេវាកម្ម OnionShare នៅក្នុងកម្មវិធីរុករក "
+"Tor នោះពួកគេនឹងឃើញចំណងជើងលំនាំដើមសម្រាប់ប្រភេទសេវាកម្មនោះ។ ឧទាហរណ៍ "
 "ចំណងជើងលំនាំដើមនៃសេវាកម្មឈែត គឺ \"OnionShare ឈែត\"។"
 
-#: ../../source/advanced.rst:44
-msgid "If you want to choose a custom title, set the \"Custom title\" setting before starting a server."
+#: ../../source/advanced.rst:42
+#, fuzzy
+msgid ""
+"If you edit the \"Custom title\" setting before starting a server you can"
+" change it."
 msgstr ""
-"ប្រសិនបើអ្នកចង់ជ្រើសរើសចំណងជើងផ្ទាល់ខ្លួន សូមកំណត់ \"ចំណងជើងផ្ទាល់ខ្លួន\" "
-"មុនពេលចាប់ផ្ដើមម៉ាស៊ីនមេ។"
+"ប្រសិនបើអ្នកចង់ជ្រើសរើសចំណងជើងផ្ទាល់ខ្លួន សូមកំណត់ \"ចំណងជើងផ្ទាល់ខ្លួន\""
+" មុនពេលចាប់ផ្ដើមម៉ាស៊ីនមេ។"
 
-#: ../../source/advanced.rst:47
+#: ../../source/advanced.rst:45
 msgid "Scheduled Times"
 msgstr "ពេលវេលាដែលបានកំណត់"
 
-#: ../../source/advanced.rst:49
-msgid "OnionShare supports scheduling exactly when a service should start and stop. Before starting a server, click \"Show advanced settings\" in its tab and then check the boxes next to either \"Start onion service at scheduled time\", \"Stop onion service at scheduled time\", or both, and set the respective desired dates and times."
+#: ../../source/advanced.rst:47
+msgid ""
+"OnionShare supports scheduling exactly when a service should start and "
+"stop. Before starting a server, click \"Show advanced settings\" in its "
+"tab and then check the boxes next to either \"Start onion service at "
+"scheduled time\", \"Stop onion service at scheduled time\", or both, and "
+"set the respective desired dates and times."
 msgstr ""
 "OnionShare គាំទ្រការកំណត់ពេលវេលាជាក់លាក់នៅពេលសេវាកម្មមួយគួរចាប់ផ្ដើម "
 "និងបញ្ចប់។ មុនពេលចាប់ផ្ដើមម៉ាស៊ីនមេ សូមចុច \"បង្ហាញការកំណត់កម្រិតខ្ពស់\" "
-"នៅក្នុងផ្ទាំងរបស់វា ហើយបន្ទាប់មកធីកប្រអប់នៅជាប់នឹង \"ចាប់ផ្ដើមសេវាកម្ម onion "
-"នៅពេលវេលាដែលបានកំណត់\" ឬ \"បញ្ឈប់សេវាកម្ម onion នៅពេលវេលាដែលបានកំណត់\" "
-"ឬទាំងពីរ ហើយកំណត់កាលបរិច្ចេទដែលចង់បាន។"
+"នៅក្នុងផ្ទាំងរបស់វា ហើយបន្ទាប់មកធីកប្រអប់នៅជាប់នឹង \"ចាប់ផ្ដើមសេវាកម្ម "
+"onion នៅពេលវេលាដែលបានកំណត់\" ឬ \"បញ្ឈប់សេវាកម្ម onion "
+"នៅពេលវេលាដែលបានកំណត់\" ឬទាំងពីរ ហើយកំណត់កាលបរិច្ចេទដែលចង់បាន។"
 
-#: ../../source/advanced.rst:52
-msgid "If you scheduled a service to start in the future, when you click the \"Start sharing\" button you will see a timer counting down until it starts. If you scheduled it to stop in the future, after it's started you will see a timer counting down to when it will stop automatically."
+#: ../../source/advanced.rst:51
+msgid ""
+"Services scheduled to start in the future display a countdown timer when "
+"when the \"Start sharing\" button is clicked. Services scheduled to stop "
+"in the future display a countdown timer when started."
 msgstr ""
-"ប្រសិនបើអ្នកបានកំណត់ពេលវេលាឱ្យម៉ាស៊ីនមេមួយចាប់ផ្ដើមនៅពេលអនាគត "
-"នោះនៅពេលអ្នកចុចប៊ូតុង \"ចាប់ផ្ដើមបញ្ជូន\" "
-"អ្នកនឹងឃើញពេលវេលារាប់ថយក្រោយរហូតដល់វាចាប់ផ្ដើម។ "
-"ប្រសិនបើអ្នកបានកំណត់ពេលវេលាឱ្យវាបញ្ឈប់នៅពេលអនាគត នោះបន្ទាប់ពីវាបានចាប់ផ្ដើម "
-"អ្នកនឹងឃើញពេលវេលារាប់ថយក្រោយទៅកាន់ពេលវេលាដែលវានឹងបញ្ឈប់ដោយស្វ័យប្រវត្តិ។"
 
-#: ../../source/advanced.rst:55
-msgid "**Scheduling an OnionShare service to automatically start can be used as a dead man's switch**, where your service will be made public at a given time in the future if anything happens to you. If nothing happens to you, you can cancel the service before it's scheduled to start."
+#: ../../source/advanced.rst:54
+msgid ""
+"**Scheduling an OnionShare service to automatically start can be used as "
+"a dead man's switch**. This means your service is made public at a given "
+"time in the future if you are not there to prevent it. If nothing happens"
+" to you, you can cancel the service before it's scheduled to start."
 msgstr ""
-"**ការកំណត់ពេលវេលានៃសេវាកម្ម OnionShare ដើម្បីចាប់ផ្ដើមដោយស្វ័យប្រវត្តិ "
-"អាចត្រូវបានប្រើដូចជាកុងតាក់ស្វ័យប្រវត្តិដែរ** "
-"ដែលសេវាកម្មរបស់អ្នកនឹងត្រូវបានធ្វើឱ្យជាសាធារណៈនៅពេលវេលាណាមួយនៅពេលអនាគត "
-"ប្រសិនបើមានអ្វីមួយកើតឡើងចំពោះអ្នក។ ប្រសិនបើគ្មានអ្វីកើតឡើងចំពោះអ្នកទេ "
-"នោះអ្នកនឹងអាចបញ្ឈប់សេវាកម្មនោះនៅមុនពេលដែលវាត្រូវបានកំណត់ពេលវេលាឱ្យចាប់ផ្ដើម។"
 
 #: ../../source/advanced.rst:60
-msgid "**Scheduling an OnionShare service to automatically stop can be useful to limit exposure**, like if you want to share secret documents while making sure they're not available on the internet for more than a few days."
+#, fuzzy
+msgid ""
+"**Scheduling an OnionShare service to automatically stop limits its "
+"exposure**. If you want to share secret info or something that will be "
+"outdated, you can do so for selected limited time."
 msgstr ""
 "**ការកំណត់ពេលវេលាឱ្យសេវាកម្ម OnionShare បញ្ឈប់ដោយស្វ័យប្រវត្តិ "
 "អាចមានប្រយោជន៍ក្នុងការកម្រិតនៃការប៉ះពាល់** "
 "ដូចជាប្រសិនបើអ្នកចង់ចែករំលែកឯកសារសម្ងាត់ខណៈដែលត្រូវប្រាកដថា "
 "ពួកវាមិនមាននៅលើអុីនធឺណិតលើសពីពីរបីថ្ងៃ។"
 
-#: ../../source/advanced.rst:67
+#: ../../source/advanced.rst:68
 msgid "Command-line Interface"
 msgstr "ផ្ទៃឃ្លាបញ្ជា"
 
-#: ../../source/advanced.rst:69
-msgid "In addition to its graphical interface, OnionShare has a command-line interface."
+#: ../../source/advanced.rst:70
+msgid ""
+"In addition to its graphical interface, OnionShare has a command-line "
+"interface."
 msgstr "OnionShare មានផ្ទៃឃ្លាបញ្ជាមួយបន្ថែមពីលើផ្ទាំងក្រាហ្វិករបស់វា។"
 
-#: ../../source/advanced.rst:71
-msgid "You can install just the command-line version of OnionShare using ``pip3``::"
+#: ../../source/advanced.rst:72
+msgid ""
+"You can install just the command-line version of OnionShare using "
+"``pip3``::"
 msgstr "អ្នកអាចដំឡើងកំណែឃ្លាបញ្ជានៃ OnionShare ដោយប្រើប្រាស់ ``pip3``::"
 
-#: ../../source/advanced.rst:75
-msgid "Note that you will also need the ``tor`` package installed. In macOS, install it with: ``brew install tor``"
+#: ../../source/advanced.rst:76
+msgid ""
+"Note that you will also need the ``tor`` package installed. In macOS, "
+"install it with: ``brew install tor``"
 msgstr ""
-"ចំណាំថា អ្នកក៏នឹងត្រូវការដំឡើងកញ្ចប់ ``tor``។ នៅក្នុង macOS សូមដំឡើងវាដោយ: ``"
-"brew install tor``"
+"ចំណាំថា អ្នកក៏នឹងត្រូវការដំឡើងកញ្ចប់ ``tor``។ នៅក្នុង macOS "
+"សូមដំឡើងវាដោយ: ``brew install tor``"
 
-#: ../../source/advanced.rst:77
+#: ../../source/advanced.rst:78
 msgid "Then run it like this::"
 msgstr "បន្ទាប់មក ដំណើរការវាដូចនេះ::"
 
-#: ../../source/advanced.rst:81
-msgid "For information about installing it on different operating systems, see the `CLI readme file <https://github.com/onionshare/onionshare/blob/develop/cli/README.md>`_ in the git repository."
+#: ../../source/advanced.rst:82
+#, fuzzy
+msgid ""
+"Info about installing it on different operating systems can be found in "
+"the `CLI README file "
+"<https://github.com/onionshare/onionshare/blob/develop/cli/README.md>`_ "
+"in the Git repository."
 msgstr ""
 "សម្រាប់ព័ត៌មានអំពីការដំឡើងវានៅលើប្រព័ន្ធប្រតិបត្តិការផ្សេងៗទៀត សូមមើល "
-"`អានឯកសារ CLI <https://github.com/onionshare/onionshare/blob/develop/cli/"
-"README.md>`_ នៅក្នុងថតឯកសារ git។"
+"`អានឯកសារ CLI "
+"<https://github.com/onionshare/onionshare/blob/develop/cli/README.md>`_ "
+"នៅក្នុងថតឯកសារ git។"
 
-#: ../../source/advanced.rst:83
-msgid "If you installed OnionShare using the Linux Snapcraft package, you can also just run ``onionshare.cli`` to access the command-line interface version."
+#: ../../source/advanced.rst:84
+#, fuzzy
+msgid ""
+"If you installed OnionShare using the Snap package, you can also just run"
+" ``onionshare.cli`` to access the command-line interface version."
 msgstr ""
 "ប្រសិនបើអ្នកបានដំឡើង Onionshare ដោយប្រើប្រាស់កញ្ចប់ Linux Snapcraft "
-"នោះអ្នកគ្រាន់តែដំណើរការ ``onionshare.cli`` ដើម្បីចូលប្រើកំណែផ្ទៃឃ្លាបញ្ជា។"
+"នោះអ្នកគ្រាន់តែដំណើរការ ``onionshare.cli`` "
+"ដើម្បីចូលប្រើកំណែផ្ទៃឃ្លាបញ្ជា។"
 
-#: ../../source/advanced.rst:86
+#: ../../source/advanced.rst:87
 msgid "Usage"
 msgstr "ការប្រើប្រាស់"
 
-#: ../../source/advanced.rst:88
-msgid "You can browse the command-line documentation by running ``onionshare --help``::"
+#: ../../source/advanced.rst:89
+#, fuzzy
+msgid "Browse the command-line documentation by running ``onionshare --help``::"
 msgstr "អ្នកអាចរកមើលឯកសារឃ្លាបញ្ជាដោយដំណើរការ ``onionshare --help``::"
+
+#: ../../source/advanced.rst:151
+msgid "Keyboard Shortcuts"
+msgstr ""
+
+#: ../../source/advanced.rst:153
+msgid ""
+"The OnionShare desktop application contains some keyboard shortcuts, for "
+"convenience and accessibility::"
+msgstr ""
+
+#: ../../source/advanced.rst:158
+msgid "And from the main mode chooser screen::"
+msgstr ""
+
+#~ msgid ""
+#~ "Everything in OnionShare is temporary by"
+#~ " default. If you close an OnionShare"
+#~ " tab, its address no longer exists"
+#~ " and it can't be used again. "
+#~ "Sometimes you might want an OnionShare"
+#~ " service to be persistent. This is"
+#~ " useful if you want to host a"
+#~ " website available from the same "
+#~ "OnionShare address even if you reboot"
+#~ " your computer."
+#~ msgstr ""
+#~ "តាមលំនាំដើម គ្រប់យ៉ាងនៅក្នុង OnionShare "
+#~ "គឺបណ្ដោះអាសន្ន។ ប្រសិនបើអ្នកបិទផ្ទាំង OnionShare មួយ"
+#~ " នោះអាសយដ្ឋានរបស់វានឹងលែងមានទៀតហើយ "
+#~ "ហើយវាមិនអាចប្រើបានម្ដងទៀតឡើយ។ នៅពេលខ្លះ "
+#~ "អ្នកប្រហែលជាចង់ឱ្យសេវាកម្ម OnionShare មួយនៅតែមាន។ "
+#~ "វាមានប្រយោជន៍ ប្រសិនបើអ្នកចង់បង្ហោះវេបសាយមួយពីអាសយដ្ឋាន "
+#~ "OnionShare ដូចគ្នា "
+#~ "ទោះបីជាអ្នកចាប់ផ្ដើមកុំព្យូទ័ររបស់អ្នកម្ដងទៀតក៏ដោយ។"
+
+#~ msgid ""
+#~ "To make any tab persistent, check "
+#~ "the \"Save this tab, and automatically"
+#~ " open it when I open OnionShare\" "
+#~ "box before starting the server. When "
+#~ "a tab is saved a purple pin "
+#~ "icon appears to the left of its"
+#~ " server status."
+#~ msgstr ""
+#~ "ដើម្បីធ្វើឱ្យផ្ទាំងមួយនៅតែរក្សាជាប់លាប់ សូមធីកប្រអប់ "
+#~ "\"រក្សាផ្ទាំងនេះ និងបើកវាដោយស្វ័យប្រវត្តិនៅពេលខ្ញុំបើក "
+#~ "OnionShare\" នៅមុនពេលចាប់ផ្ដើមម៉ាស៊ីនមេ។ "
+#~ "នៅពេលផ្ទាំងមួយត្រូវបានរក្សាទុក "
+#~ "នោះរូបតំណាងពណ៌ស្វាយលេចឡើងនៅខាងឆ្វេងនៃស្ថានភាពម៉ាស៊ីនមេ។"
+
+#~ msgid ""
+#~ "When you quit OnionShare and then "
+#~ "open it again, your saved tabs "
+#~ "will start opened. You'll have to "
+#~ "manually start each service, but when"
+#~ " you do they will start with "
+#~ "the same OnionShare address and private"
+#~ " key."
+#~ msgstr ""
+#~ "នៅពេលអ្នកចាកចេញពី OnionShare ហើយបន្ទាប់មកអ្នកបើកវាម្ដងទៀត"
+#~ " នោះផ្ទាំងដែលអ្នកបានរក្សាទុកនឹងចាប់ផ្ដើមបើក។ "
+#~ "អ្នកនឹងត្រូវចាប់ផ្ដើមសេវាកម្មនីមួយៗដោយខ្លួនឯង "
+#~ "ប៉ុន្តែនៅពេលអ្នកធ្វើ នោះវានឹងចាប់ផ្ដើមជាមួយអាសយដ្ឋាន "
+#~ "OnionShare និងកូនសោសម្ងាត់ដូចគ្នា។"
+
+#~ msgid ""
+#~ "When browsing to an OnionShare service"
+#~ " in Tor Browser, Tor Browser will "
+#~ "prompt for the private key to be"
+#~ " entered."
+#~ msgstr ""
+#~ "នៅពេលឆែកមើលសេវាកម្ម OnionShare នៅក្នុងកម្មវិធីរុករក "
+#~ "Tor នោះកម្មវិធីរុករក Tor "
+#~ "នឹងទាមទារឱ្យបញ្ចូលកូនសោសម្ងាត់។"
+
+#~ msgid ""
+#~ "Sometimes you might want your OnionShare"
+#~ " service to be accessible to the "
+#~ "public, like if you want to set"
+#~ " up an OnionShare receive service so"
+#~ " the public can securely and "
+#~ "anonymously send you files. In this "
+#~ "case, it's better to disable the "
+#~ "private key altogether."
+#~ msgstr ""
+#~ "នៅពេលខ្លះ អ្នកប្រហែលជាចង់ឱ្យសេវាកម្ម OnionShare "
+#~ "របស់អ្នកអាចចូលប្រើបានជាសាធារណៈ "
+#~ "ដូចជាប្រសិនបើអ្នកចង់ដំឡើងសេវាកម្មទទួល OnionShare "
+#~ "ដូច្នេះសាធារណជនអាចផ្ញើឯកសារឱ្យអ្នកដោយសុវត្ថិភាព និងអនាមិក។ "
+#~ "ក្នុងករណីនេះ វាជាការល្អក្នុងការបិទកូនសោសម្ងាត់ទាំងអស់គ្នា។"
+
+#~ msgid ""
+#~ "If you scheduled a service to "
+#~ "start in the future, when you "
+#~ "click the \"Start sharing\" button you"
+#~ " will see a timer counting down "
+#~ "until it starts. If you scheduled "
+#~ "it to stop in the future, after"
+#~ " it's started you will see a "
+#~ "timer counting down to when it "
+#~ "will stop automatically."
+#~ msgstr ""
+#~ "ប្រសិនបើអ្នកបានកំណត់ពេលវេលាឱ្យម៉ាស៊ីនមេមួយចាប់ផ្ដើមនៅពេលអនាគត "
+#~ "នោះនៅពេលអ្នកចុចប៊ូតុង \"ចាប់ផ្ដើមបញ្ជូន\" "
+#~ "អ្នកនឹងឃើញពេលវេលារាប់ថយក្រោយរហូតដល់វាចាប់ផ្ដើម។ "
+#~ "ប្រសិនបើអ្នកបានកំណត់ពេលវេលាឱ្យវាបញ្ឈប់នៅពេលអនាគត "
+#~ "នោះបន្ទាប់ពីវាបានចាប់ផ្ដើម "
+#~ "អ្នកនឹងឃើញពេលវេលារាប់ថយក្រោយទៅកាន់ពេលវេលាដែលវានឹងបញ្ឈប់ដោយស្វ័យប្រវត្តិ។"
+
+#~ msgid ""
+#~ "**Scheduling an OnionShare service to "
+#~ "automatically start can be used as "
+#~ "a dead man's switch**, where your "
+#~ "service will be made public at a"
+#~ " given time in the future if "
+#~ "anything happens to you. If nothing "
+#~ "happens to you, you can cancel the"
+#~ " service before it's scheduled to "
+#~ "start."
+#~ msgstr ""
+#~ "**ការកំណត់ពេលវេលានៃសេវាកម្ម OnionShare "
+#~ "ដើម្បីចាប់ផ្ដើមដោយស្វ័យប្រវត្តិ "
+#~ "អាចត្រូវបានប្រើដូចជាកុងតាក់ស្វ័យប្រវត្តិដែរ** "
+#~ "ដែលសេវាកម្មរបស់អ្នកនឹងត្រូវបានធ្វើឱ្យជាសាធារណៈនៅពេលវេលាណាមួយនៅពេលអនាគត"
+#~ " ប្រសិនបើមានអ្វីមួយកើតឡើងចំពោះអ្នក។ "
+#~ "ប្រសិនបើគ្មានអ្វីកើតឡើងចំពោះអ្នកទេ "
+#~ "នោះអ្នកនឹងអាចបញ្ឈប់សេវាកម្មនោះនៅមុនពេលដែលវាត្រូវបានកំណត់ពេលវេលាឱ្យចាប់ផ្ដើម។"
+

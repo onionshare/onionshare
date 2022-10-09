@@ -60,13 +60,14 @@ class Settings(object):
             # "ca": "Català",  # Catalan
             # "zh_Hant": "正體中文 (繁體)",  # Traditional Chinese
             "zh_Hans": "中文 (简体)",  # Simplified Chinese
-            # "hr": "Hrvatski",  # Croatian
+            "hr": "Hrvatski",  # Croatian
+            "cs": "čeština",  # Czech
             # "da": "Dansk",  # Danish
             # "nl": "Nederlands",  # Dutch
             "en": "English",  # English
             # "fi": "Suomi",  # Finnish
-            "fr": "Français",  # French
-            "gl": "Galego",  # Galician
+            # "fr": "Français",  # French
+            # "gl": "Galego",  # Galician
             "de": "Deutsch",  # German
             "el": "Ελληνικά",  # Greek
             "is": "Íslenska",  # Icelandic
@@ -79,13 +80,13 @@ class Settings(object):
             # "nb_NO": "Norsk Bokmål",  # Norwegian Bokmål
             # "fa": "فارسی",  # Persian
             # "pl": "Polski",  # Polish
-            "pt_BR": "Português (Brasil)",  # Portuguese Brazil
-            "pt_PT": "Português (Portugal)",  # Portuguese Portugal
+            # "pt_BR": "Português (Brasil)",  # Portuguese Brazil
+            # "pt_PT": "Português (Portugal)",  # Portuguese Portugal
             # "ro": "Română",  # Romanian
-            "ru": "Русский",  # Russian
+            # "ru": "Русский",  # Russian
             # "sr_Latn": "Srpska (latinica)",  # Serbian (latin)
             # "sk": "Slovenčina",  # Slovak
-            # "sv": "Svenska",  # Swedish
+            "sv": "Svenska",  # Swedish
             "es": "Español",  # Spanish
             # "te": "తెలుగు",  # Telugu
             "tr": "Türkçe",  # Turkish
