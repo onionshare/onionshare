@@ -286,46 +286,46 @@ def update_tor_bridges():
     torrc_template_dir = os.path.join(
         root_path, os.pardir, "cli/onionshare_cli/resources"
     )
-
-    r = requests.get("https://gitweb.torproject.org/builders/tor-browser-build.git/plain/projects/tor-browser/Bundle-Data/PTConfigs/bridge_prefs.js")
+    endpoint = "https://bridges.torproject.org/moat/circumvention/builtin"
+    r = requests.post(
+        endpoint,
+        headers={"Content-Type": "application/vnd.api+json"},
+    )
     if r.status_code != 200:
         print(
             f"There was a problem fetching the latest built-in bridges: status_code={r.status_code}"
         )
         return False
-    
-    # Parse the bridges from this javascript file
-    bridges = {}
-    for line in r.content.decode().split("\n"):
-        if line.startswith('pref("extensions.torlauncher.default_bridge.'):
-            i = line.index('", "') + 4
-            bridge = line[i:].rstrip('");')
 
-            bridge_type = bridge.split()[0]
-            if bridge_type not in bridges:
-                bridges[bridge_type] = []
+    result = r.json()
+    print(f"Built-in bridges: {result}")
 
-            bridges[bridge_type].append(bridge)
-    
-    for bridge_type in bridges:
-        if bridge_type == "meek_lite":
-            torrc_template_extension = "meek_lite_azure"
-        else:
-            torrc_template_extension = bridge_type
-        
-        torrc_template = os.path.join(
-            root_path,
-            torrc_template_dir,
-            f"torrc_template-{torrc_template_extension}",
+    if "errors" in result:
+        print(
+            f"There was a problem fetching the latest built-in bridges: errors={result['errors']}"
         )
+        return False
 
-        with open(torrc_template, "w") as f:
-            f.write(f"# Enable built-in {bridge_type} bridge\n")
-            # Sorts the bridges numerically by IP, since they come back in
-            # random order from the API each time, and create noisy git diff.
-            bridges[bridge_type].sort(key=lambda s: s.split()[1])
-            for item in bridges[bridge_type]:
-                f.write(f"Bridge {item}\n")
+    for bridge_type in ["meek-azure", "obfs4", "snowflake"]:
+        if bridge_type in result and result[bridge_type]:
+            if bridge_type == "meek-azure":
+                torrc_template_extension = "meek_lite_azure"
+            else:
+                torrc_template_extension = bridge_type
+            torrc_template = os.path.join(
+                root_path,
+                torrc_template_dir,
+                f"torrc_template-{torrc_template_extension}",
+            )
+
+            with open(torrc_template, "w") as f:
+                f.write(f"# Enable built-in {bridge_type} bridge\n")
+                bridges = result[bridge_type]
+                # Sorts the bridges numerically by IP, since they come back in
+                # random order from the API each time, and create noisy git diff.
+                bridges.sort(key=lambda s: s.split()[1])
+                for item in bridges:
+                    f.write(f"Bridge {item}\n")
 
 
 @click.command()
