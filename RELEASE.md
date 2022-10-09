@@ -201,13 +201,12 @@ After there's a new release tag, make the Flathub package work here: https://git
 You must have `flatpak` and `flatpak-builder` installed, with flathub remote added (`flatpak remote-add --if-not-exists --user flathub https://flathub.org/repo/flathub.flatpakrepo`).
 
 - [ ] Change the tag (for both `onionshare` and `onionshare-cli`) to match the new git tag
-- [ ] Update `tor`, `libevent`, and `obfs4` dependencies, if necessary
+- [ ] Update `tor`, `libevent`, `obfs4`, `meek-client`, and `snowflake-client` dependencies, if necessary
 - [ ] Built the latest python dependencies using [this tool](https://github.com/flatpak/flatpak-builder-tools/blob/master/pip/flatpak-pip-generator) (see below)
 - [ ] Test the Flatpak package, ensure it works
 
 ```
-# you may need to install toml
-pip3 install --user toml
+pip3 install toml requirements-parser
 
 # clone flatpak-build-tools
 git clone https://github.com/flatpak/flatpak-builder-tools.git
@@ -219,14 +218,15 @@ cd ..
 
 # get onionshare dependencies
 cd pip
-./flatpak-pip-generator $(python3 -c 'import toml; print("\n".join(toml.loads(open("../../onionshare/desktop/pyproject.toml").read())["tool"]["briefcase"]["app"]["onionshare"]["requires"]))' |grep -v "./onionshare_cli" |grep -v -i "pyside2" |tr "\n" " ")
-mv python3-modules.json onionshare.json
+./flatpak-pip-generator $(python3 -c 'import toml; print("\n".join(toml.loads(open("../../onionshare/desktop/pyproject.toml").read())["tool"]["poetry"]["dependencies"]))' |grep -vi onionshare_cli |grep -vi python | grep -vi pyside2 | grep -vi cx_freeze |tr "\n" " ")
+cd ..
 
-# use something like https://www.json2yaml.com/ to convert to yaml and update the manifest
-# add all of the modules in both onionshare-cli and onionshare to the submodules of "onionshare"
-# - poetry/generated-poetry-sources.json (onionshare-cli)
-# - pip/python3-modules.json (onionshare)
+# convert to yaml
+./flatpak-json2yaml.py -o onionshare-cli.yml poetry/generated-poetry-sources.json
+./flatpak-json2yaml.py -o onionshare.yml pip/python3-qrcode.json
 ```
+
+Now, merge `onionshare-cli.yml` and `onionshare.yml` into the Flatpak config.
 
 Build and test the Flatpak package before publishing:
 

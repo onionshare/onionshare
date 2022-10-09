@@ -6,11 +6,11 @@ authors = ["Micah Lee <micah@micahflee.com>"]
 license = "GPLv3+"
 
 [tool.poetry.dependencies]
-python = ">=3.6.2,<3.11"
+python = ">=3.7,<3.11"
 onionshare_cli = {path = "../cli", develop = true}
 PySide2 = "5.15.2.1"
 qrcode = "*"
-cx_freeze = "*"
+werkzeug = "~2.0.3"
 
 [tool.poetry.dev-dependencies]
 click = "*"
@@ -18,6 +18,7 @@ black = "*"
 pytest = "*"
 pytest-faulthandler = "*"
 pytest-qt = "*"
+cx_freeze = "*"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

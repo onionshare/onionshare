@@ -39,12 +39,15 @@ setuptools.setup(
         "onionshare": [
             "resources/*",
             "resources/images/*",
+            "resources/images/countries/*",
             "resources/locale/*",
+            "resources/countries/*",
         ]
     },
     entry_points={
         "console_scripts": [
             "onionshare = onionshare:main",
+            "onionshare-cli = onionshare_cli:main",
         ],
     },
 )
