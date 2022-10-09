@@ -74,6 +74,26 @@ parts:
   onionshare-cli:
     source: ./cli
     plugin: nil
+    override-pull: |
+      snapcraftctl pull
+      rm pyproject.toml poetry.lock
+      cat > requirements.txt << EOF
+      click
+      flask==2.0.3
+      flask-socketio==5.3.1
+      psutil
+      pysocks
+      requests[socks]
+      unidecode
+      urllib3
+      eventlet
+      setuptools
+      pynacl
+      colorama
+      gevent-websocket
+      stem==1.8.1
+      werkzeug==2.0.3
+      EOF
     after: [tor, obfs4, snowflake-client, meek-client]
 
   onionshare:
@@ -156,13 +176,16 @@ parts:
       - python3-pyside2.qtwidgets
     override-pull: |
       snapcraftctl pull
-      sed -i 's|path = "../cli", develop = true|path = "'$(pwd)'/../../onionshare-cli/src"|g' pyproject.toml
-      sed -i 's|PySide2|# PySide2|g' pyproject.toml
+      rm pyproject.toml poetry.lock
+      cat > requirements.txt << EOF
+      qrcode
+      EOF
     override-build: |
       python3 -m venv $SNAPCRAFT_PART_INSTALL
       . $SNAPCRAFT_PART_INSTALL/bin/activate
       pip install -U pip setuptools wheel
-      pip install -U . -vvv
+      pip install -U ../../onionshare-cli/src
+      pip install -U .
       deactivate
       sed -i 's|'$SNAPCRAFT_PART_INSTALL'/bin/python3|/usr/bin/env python3|g' $SNAPCRAFT_PART_INSTALL/bin/onionshare
       sed -i 's|'$SNAPCRAFT_PART_INSTALL'/bin/python3|/usr/bin/env python3|g' $SNAPCRAFT_PART_INSTALL/bin/onionshare-cli
