@@ -7,8 +7,8 @@
 * New feature: automatically fetch the built-in bridges from the upstream Tor API rather than hardcode them in each release of OnionShare.
 * New feature: keyboard shortcuts to access various modes and menus, and accessibility hints
 * Bug fix: Temporary Directory for serving the OnionShare web pages was broken on Windows
-* Miscellaneous: many dependency updates, web page theming improvements, and packaging automation improvements.
-
+* Packaging: Packaging is more automated, and Linux Snapcraft releases are available for amd64, arm64, and armhf
+* Miscellaneous: Many dependency updates and web page theming improvements
 
 ## 2.5
 
