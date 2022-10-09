@@ -184,6 +184,7 @@ parts:
       python3 -m venv $SNAPCRAFT_PART_INSTALL
       . $SNAPCRAFT_PART_INSTALL/bin/activate
       pip install -U pip setuptools wheel
+      pip install -U -r requirements.txt
       pip install -U ../../onionshare-cli/src
       pip install -U .
       deactivate
