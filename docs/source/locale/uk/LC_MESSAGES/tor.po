@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-03-31 16:26+1100\n"
-"PO-Revision-Date: 2022-07-05 23:19+0000\n"
+"PO-Revision-Date: 2022-10-03 23:25+0000\n"
 "Last-Translator: Ihor Hordiichuk <igor_ck@outlook.com>\n"
 "Language-Team: none\n"
 "Language: uk\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.13.1-dev\n"
+"X-Generator: Weblate 4.14.1\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: ../../source/tor.rst:2
@@ -29,6 +29,8 @@ msgid ""
 "When OnionShare starts, it will show you a screen asking you to connect "
 "to the Tor network."
 msgstr ""
+"Коли OnionShare запуститься, він покаже вам екран із проханням під'єднатися "
+"до мережі Tor."
 
 #: ../../source/tor.rst:8
 msgid ""
@@ -50,16 +52,21 @@ msgid ""
 "your access to the Tor network, this should hopefully work the first "
 "time."
 msgstr ""
+"Ви можете натиснути кнопку «Під'єднатися до Tor» для початку процесу "
+"з'єднання. Якщо у вас немає проблем з мережею, в тому числі будь-яких спроб "
+"заблокувати доступ до мережі Tor, це повинно спрацювати з першого разу."
 
 #: ../../source/tor.rst:13
 msgid ""
 "Or, if you want to manually configure Bridges or other Tor settings "
 "before you connect, you can click \"Network Settings\"."
 msgstr ""
+"Або, якщо ви хочете вручну налаштувати мости або інші параметри Tor перед "
+"з'єднанням, ви можете натиснути «Налаштування мережі»."
 
 #: ../../source/tor.rst:16
 msgid "Automatic censorship circumvention"
-msgstr ""
+msgstr "Автоматичний обхід цензури"
 
 #: ../../source/tor.rst:18
 msgid ""
@@ -67,22 +74,25 @@ msgid ""
 "might be because Tor is censored in your country or on your local "
 "network."
 msgstr ""
+"Коли ви натискаєте «Під'єднатися до Tor», якщо OnionShare не вдається "
+"під'єднатися, це може бути пов'язано з тим, що Tor цензуровано у вашій "
+"країні або у вашій локальній мережі."
 
 #: ../../source/tor.rst:20
 msgid "If this occurs, you will have these choices:"
-msgstr ""
+msgstr "Якщо це станеться, ви матимете такі варіанти:"
 
 #: ../../source/tor.rst:22
 msgid "Try again without a bridge"
-msgstr ""
+msgstr "Спробувати ще раз без мосту"
 
 #: ../../source/tor.rst:23
 msgid "Automatically determine my country from my IP address for bridge settings"
-msgstr ""
+msgstr "Автоматичне визначення країни за IP-адресою для налаштування мосту"
 
 #: ../../source/tor.rst:24
 msgid "Manually select my country for bridge settings"
-msgstr ""
+msgstr "Вручну вибрати мою країну для налаштувань мосту"
 
 #: ../../source/tor.rst:28
 msgid ""
@@ -90,6 +100,8 @@ msgid ""
 "retry connecting to Tor like normal, without attempting to bypass "
 "censorship."
 msgstr ""
+"Якщо вибрати опцію «Спробувати ще раз без мосту», OnionShare повторить "
+"спробу під'єднатися до Tor як зазвичай, без спроб обійти цензуру."
 
 #: ../../source/tor.rst:30
 msgid ""
@@ -105,6 +117,16 @@ msgid ""
 "Censorship Circumvention API. The Meek proxy hides the fact that you are "
 "trying to find a way to connect to Tor."
 msgstr ""
+"Інші два варіанти намагатимуться автоматично обійти цензуру за допомогою "
+"мостів Tor. Якщо ваш мережевий провайдер блокує доступ до мережі Tor, ви все "
+"ще можете під'єднатися до мосту Tor, який потім з’єднає вас з мережею Tor, "
+"обходячи цензуру. Обидва ці параметри використовують API обходу цензури "
+"проєкту Tor, щоб надати вам параметри мосту, які повинні працювати для вас. "
+"OnionShare тимчасово використовуватиме доменний проксі-сервер `Meek "
+"<https://gitlab.torproject.org/legacy/trac/-/wikis/doc/meek/>`_, щоб "
+"установити з’єднання не через Tor із вашого комп’ютера до API обходу цензури "
+"Tor. Проксі-сервер Meek приховує той факт, що ви намагаєтеся знайти спосіб "
+"під'єднатися до Tor."
 
 #: ../../source/tor.rst:36
 msgid ""
@@ -114,6 +136,11 @@ msgid ""
 "might reside in. Based on the country information, the API will try to "
 "automatically find bridges that suit your location."
 msgstr ""
+"Якщо ви вибрали «Автоматичне визначення країни за IP-адресою для "
+"налаштування мосту», API обходу цензури розглядатиме вашу IP-адресу (так, "
+"справжню IP-адресу), щоб визначити, у якій країні ви можете проживати. На "
+"основі інформації про країну API спробує автоматично знайти мости, які "
+"відповідають вашому розташуванню."
 
 #: ../../source/tor.rst:41
 msgid ""
@@ -121,10 +148,12 @@ msgid ""
 "Censorship API will find the bridges that suit the country that you "
 "specified."
 msgstr ""
+"Якщо ви виберете «Вручну вибрати мою країну для налаштувань мосту», API "
+"обходу цензури знайде мости, які підходять для вказаної вами країни."
 
 #: ../../source/tor.rst:46
 msgid "How automatic censorship circumvention works"
-msgstr ""
+msgstr "Як працює автоматичний обхід цензури"
 
 #: ../../source/tor.rst:48
 msgid ""
@@ -133,6 +162,11 @@ msgid ""
 " the API does not find any bridges for your location, OnionShare will ask"
 " the API for \"fallback\" options, and then try to reconnect using those."
 msgstr ""
+"Якщо API обходу цензури знайде мости, які, він вважатиме підхожими для вас, "
+"OnionShare спробує відновити з'єднання з Tor, використовуючи ці мости. Якщо "
+"API не знайде жодного мосту для вашого місця перебування, OnionShare запитає "
+"API про «запасні» варіанти, а потім спробує відновити з'єднання за допомогою "
+"них."
 
 #: ../../source/tor.rst:50
 msgid ""
@@ -140,6 +174,9 @@ msgid ""
 "itself, or if the API returns an error message, OnionShare will attempt "
 "to use the obfs4 built-in bridges."
 msgstr ""
+"Якщо з якихось причин OnionShare не вдасться під'єднатися до самого API "
+"обходу цензури, або якщо API поверне повідомлення про помилку, OnionShare "
+"спробує використовувати вбудовані мости obfs4."
 
 #: ../../source/tor.rst:52
 msgid ""
@@ -147,6 +184,9 @@ msgid ""
 "API do not go over the Tor network (because if you could connect to Tor "
 "already, you wouldn't need to connect to the API)."
 msgstr ""
+"Важливо зазначити, що запити до API обходу цензури не проходять через мережу "
+"Tor (адже якби ви вже могли під'єднатися до Tor, вам не потрібно було б "
+"під'єднуватися до API)."
 
 #: ../../source/tor.rst:54
 msgid ""
@@ -157,6 +197,11 @@ msgid ""
 "Circumvention API. Then Meek is stopped, and all further network requests"
 " happen over the Tor network."
 msgstr ""
+"Попри те, що зловмиснику важко виявити, куди прямує запит Meek, для деяких "
+"користувачів це може бути ризиковано. Таким чином, це функція під'єднання. "
+"Застосування Meek і мережевих запитів прокладених не через Tor обмежується "
+"лише одним або двома запитами до API обходу цензури. Потім Meek зупиняється, "
+"і всі подальші мережеві запити надходять через мережу Tor."
 
 #: ../../source/tor.rst:56
 msgid ""
@@ -166,10 +211,15 @@ msgid ""
 "that appears), and manually configure bridges. After you save any bridge "
 "settings, OnionShare will try to reconnect using those bridges."
 msgstr ""
+"Якщо вам незручно надсилати запит, який не йде через мережу Tor, ви можете "
+"натиснути «Налаштування мережі» (або піктограму налаштувань у нижньому "
+"правому куті, а потім вкладку «Налаштування Tor» на екрані, що з’явиться) і "
+"налаштувати мости вручну. Після збереження будь-яких налаштувань мосту "
+"OnionShare спробує повторно під'єднатися за допомогою цих мостів."
 
 #: ../../source/tor.rst:59
 msgid "Manually configure Tor settings"
-msgstr ""
+msgstr "Налаштування параметрів Tor вручну"
 
 #: ../../source/tor.rst:61
 msgid ""
@@ -178,12 +228,16 @@ msgid ""
 "of the application, and then switch to the Tor Settings tab in the screen"
 " that appears."
 msgstr ""
+"Ви можете перейти до налаштувань Tor, натиснувши «Налаштування мережі» на "
+"екрані привітання або натиснувши піктограму «⚙» у нижньому правому куті "
+"застосунку, а потім перейшовши на вкладку «Налаштування Tor» на екрані, що "
+"з’явиться."
 
 #: ../../source/tor.rst:65
 msgid ""
 "Here are the different ways you can configure OnionShare to connect to "
 "Tor:"
-msgstr ""
+msgstr "Ось різні способи сконфігурувати OnionShare для під'єднання до Tor:"
 
 #: ../../source/tor.rst:68
 msgid "Use the Tor version built into OnionShare"
@@ -211,17 +265,15 @@ msgstr ""
 
 #: ../../source/tor.rst:76
 msgid "**Using bridges**"
-msgstr ""
+msgstr "**Використання мостів**"
 
 #: ../../source/tor.rst:78
-#, fuzzy
 msgid ""
 "To use a bridge, you must select \"Use the Tor version built into "
 "OnionShare\" and check the \"Use a bridge\" checkbox."
 msgstr ""
-"Щоб використовувати міст, відкрийте вкладку Налаштування Tor. Ви повинні "
-"вибрати «Використовувати версію Tor, вбудовану в OnionShare» і встановити"
-" прапорець «Використовувати міст»."
+"Щоб використовувати міст, потрібно вибрати «Використовувати версію Tor, "
+"вбудовану в OnionShare» і встановіть прапорець «Використовувати міст»."
 
 #: ../../source/tor.rst:80
 msgid ""
@@ -343,7 +395,6 @@ msgid "You are now running a system ``tor`` process in Windows!"
 msgstr "Тепер ви використовуєте системний процес ``tor`` на Windows!"
 
 #: ../../source/tor.rst:125
-#, fuzzy
 msgid ""
 "Open OnionShare, click the \"⚙\" icon in it, and switch to the Tor "
 "Settings tab. Under \"How should OnionShare connect to Tor?\" choose "
@@ -353,13 +404,13 @@ msgid ""
 " above. Click the \"Test Connection to Tor\" button. If all goes well, "
 "you should see \"Connected to the Tor controller\"."
 msgstr ""
-"Відкрийте OnionShare і натисніть на ньому піктограму «⚙». У розділі «Як "
-"OnionShare повинен з'єднуватися з Tor?\" виберіть «Під'єднатися через "
-"порт керування» та встановіть «Порт керування» на ``127.0.0.1`` та «Порт»"
-" на ``9051``. У розділі «Налаштування автентифікації Tor» виберіть "
-"«Пароль» і встановіть пароль для пароля контрольного порту, який ви "
-"вибрали раніше. Натисніть кнопку «Перевірити з'єднання з Tor». Якщо все "
-"добре, ви побачите «З'єднано з контролером Tor»."
+"Відкрийте OnionShare і клацніть в ньому піктограму «⚙» і перейдіть на "
+"вкладку «Налаштування Tor». У розділі «Як OnionShare повинен з'єднуватися з "
+"Tor?» виберіть «Під'єднатися через порт керування» та встановіть «Порт "
+"керування» на ``127.0.0.1`` та «Порт» на ``9051``. У розділі «Налаштування "
+"автентифікації Tor» виберіть «Пароль» і встановіть пароль для пароля "
+"контрольного порту, який ви вибрали раніше. Клацніть на кнопку «Перевірити "
+"з'єднання з Tor». Якщо все добре, ви побачите «З'єднано з контролером Tor»."
 
 #: ../../source/tor.rst:134
 msgid "Using a system ``tor`` in macOS"
@@ -382,7 +433,6 @@ msgid "And start the system Tor service::"
 msgstr "І запустіть системну Tor-службу::"
 
 #: ../../source/tor.rst:151
-#, fuzzy
 msgid ""
 "Open OnionShare, click the \"⚙\" icon in it, and switch to the Tor "
 "Settings tab. Under \"How should OnionShare connect to Tor?\" choose "
@@ -391,12 +441,12 @@ msgid ""
 "settings\" choose \"No authentication, or cookie authentication\". Click "
 "the \"Test Connection to Tor\" button."
 msgstr ""
-"Відкрийте OnionShare. Клацніть піктограму «⚙». У розділі «Як OnionShare "
-"повинен з'єднуватися з Tor?» виберіть «Під'єднуватися через файл сокета» "
-"та встановіть для файлу сокета шлях "
-"``/usr/local/var/run/tor/control.socket``. У розділі «Налаштування "
-"автентифікації Tor» виберіть «Без автентифікації або автентифікація через"
-" cookie». Натисніть кнопку «Перевірити з'єднання з Tor»."
+"Відкрийте OnionShare, клацніть у ньому піктограму «⚙» і перейдіть на вкладку "
+"«Налаштування Tor». У розділі «Як OnionShare повинен з'єднуватися з Tor?» "
+"виберіть «Під'єднуватися через файл сокета» та встановіть для файлу сокета "
+"шлях ``/usr/local/var/run/tor/control.socket``. У розділі «Налаштування "
+"автентифікації Tor» виберіть «Без автентифікації або автентифікація через "
+"cookie». Натисніть кнопку «Перевірити з'єднання з Tor»."
 
 #: ../../source/tor.rst:157 ../../source/tor.rst:177
 msgid "If all goes well, you should see \"Connected to the Tor controller\"."
@@ -436,7 +486,6 @@ msgstr ""
 "(замініть ``username`` вашим іменем користувача)::"
 
 #: ../../source/tor.rst:170
-#, fuzzy
 msgid ""
 "Reboot your computer. After it boots up again, open OnionShare, click the"
 " \"⚙\" icon in it, and switch to the Tor Settings tab. Under \"How should"
@@ -445,12 +494,12 @@ msgid ""
 "authentication settings\" choose \"No authentication, or cookie "
 "authentication\". Click the \"Test Connection to Tor\" button."
 msgstr ""
-"Перезапустіть комп'ютер. Після запуску, відкрийте OnionShare. Клацніть "
-"піктограму «⚙». У розділі «Як OnionShare повинен з'єднуватися з Tor?» "
-"виберіть «Під'єднуватися через файл сокета» та встановіть для файлу "
-"сокета шлях ``/var/run/tor/control``. У розділі «Налаштування "
-"автентифікації Tor» виберіть «Без автентифікації або автентифікація через"
-" cookie». Натисніть кнопку «Перевірити з'єднання з Tor»."
+"Перезапустіть комп'ютер. Після запуску, відкрийте OnionShare, клацніть у "
+"ньому піктограму «⚙» і перейдіть на вкладку «Налаштування Tor». У розділі «"
+"Як OnionShare повинен з'єднуватися з Tor?» виберіть «Під'єднуватися через "
+"файл сокета» та встановіть для файлу сокета шлях ``/var/run/tor/control``. У "
+"розділі «Налаштування автентифікації Tor» виберіть «Без автентифікації або "
+"автентифікація через cookie». Натисніть кнопку «Перевірити з'єднання з Tor»."
 
 #~ msgid "Using a system Tor in Mac OS X"
 #~ msgstr ""
