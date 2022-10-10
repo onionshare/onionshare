@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-10-02 16:17-0700\n"
-"PO-Revision-Date: 2022-07-23 16:22+0000\n"
+"PO-Revision-Date: 2022-10-09 21:13+0000\n"
 "Last-Translator: george kitsoukakis <norhorn@gmail.com>\n"
-"Language: el\n"
 "Language-Team: el <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.14.1\n"
 "Generated-By: Babel 2.10.3\n"
 
 #: ../../source/advanced.rst:2
@@ -32,12 +33,19 @@ msgid ""
 "Persistently hosted websites are available on the same address even if "
 "the computer they are shared from is rebooted."
 msgstr ""
+"Αν κλείσετε τις καρτέλες OnionShare που φιλοξενείτε καταστρέφονται, "
+"αποτρέποντας την επαναχρησιμοποίησή τους. Οι μόνιμα φιλοξενούμενοι ιστότοποι "
+"είναι διαθέσιμοι με την ίδια διεύθυνση, ακόμη και αν γίνει επανεκκίνηση στον "
+"υπολογιστή από όπου γίνεται η κοινή χρήση."
 
 #: ../../source/advanced.rst:12
 msgid ""
 "Make any tab persistent by checking the \"Always open this tab when "
 "OnionShare is started\" box before starting your server."
 msgstr ""
+"Κάντε οποιαδήποτε καρτέλα μόνιμη επιλέγοντας το πλαίσιο «Να ανοίγει πάντα "
+"αυτή η καρτέλα όταν ξεκινά το OnionShare» πριν από την εκκίνηση του "
+"διακομιστή σας."
 
 #: ../../source/advanced.rst:16
 msgid ""
@@ -233,17 +241,19 @@ msgstr "Περιηγηθείτε στην τεκμηρίωση της γραμμ
 
 #: ../../source/advanced.rst:151
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Συντομεύσεις πληκτρολογίου"
 
 #: ../../source/advanced.rst:153
 msgid ""
 "The OnionShare desktop application contains some keyboard shortcuts, for "
 "convenience and accessibility::"
 msgstr ""
+"Η εφαρμογή για υπολογιστή του OnionShare περιέχει ορισμένες συντομεύσεις "
+"πληκτρολογίου, για αμεσότητα και εύκολη πρόσβαση::"
 
 #: ../../source/advanced.rst:158
 msgid "And from the main mode chooser screen::"
-msgstr ""
+msgstr "Και από την κύρια οθόνη επιλογής λειτουργίας::"
 
 #~ msgid "Make a symbolic link to the OnionShare command line binary line this::"
 #~ msgstr ""
@@ -720,4 +730,3 @@ msgstr ""
 #~ "εμφανίζεται ένα μώβ εικονίδιο καρφίτσωσης "
 #~ "στα αριστερά της κατάστασης του "
 #~ "διακομιστή."
-

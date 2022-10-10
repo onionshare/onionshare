@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-03-31 16:26+1100\n"
-"PO-Revision-Date: 2022-07-07 19:19+0000\n"
+"PO-Revision-Date: 2022-10-03 23:25+0000\n"
 "Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
 "Language-Team: tr <LL@li.org>\n"
 "Language: tr\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.13.1-dev\n"
+"X-Generator: Weblate 4.14.1\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: ../../source/tor.rst:2
@@ -28,6 +28,8 @@ msgid ""
 "When OnionShare starts, it will show you a screen asking you to connect "
 "to the Tor network."
 msgstr ""
+"OnionShare başladığında, size Tor ağına bağlanmanızı isteyen bir ekran "
+"gösterecektir."
 
 #: ../../source/tor.rst:8
 msgid ""
@@ -49,16 +51,22 @@ msgid ""
 "your access to the Tor network, this should hopefully work the first "
 "time."
 msgstr ""
+"Bağlantı işlemini başlatmak için \"Tor'a Bağlan\" seçeneğine "
+"tıklayabilirsiniz. Tor ağına erişiminizi engelleme girişimleri de dahil "
+"olmak üzere ağınızla ilgili herhangi bir sorun yoksa, bu işlemin ilk seferde "
+"çalışması umulur."
 
 #: ../../source/tor.rst:13
 msgid ""
 "Or, if you want to manually configure Bridges or other Tor settings "
 "before you connect, you can click \"Network Settings\"."
 msgstr ""
+"Ya da bağlanmadan önce köprüleri veya diğer Tor ayarlarını elle "
+"yapılandırmak istiyorsanız \"Ağ Ayarları\" seçeneğine tıklayabilirsiniz."
 
 #: ../../source/tor.rst:16
 msgid "Automatic censorship circumvention"
-msgstr ""
+msgstr "Otomatik sansür aşılması"
 
 #: ../../source/tor.rst:18
 msgid ""
@@ -66,22 +74,24 @@ msgid ""
 "might be because Tor is censored in your country or on your local "
 "network."
 msgstr ""
+"\"Tor'a Bağlan\" seçeneğine tıkladığınızda, OnionShare bağlanamazsa, bunun "
+"nedeni Tor'un ülkenizde veya yerel ağınızda sansürlenmiş olması olabilir."
 
 #: ../../source/tor.rst:20
 msgid "If this occurs, you will have these choices:"
-msgstr ""
+msgstr "Böyle bir durumda şu seçeneklere sahip olacaksınız:"
 
 #: ../../source/tor.rst:22
 msgid "Try again without a bridge"
-msgstr ""
+msgstr "Köprü olmadan tekrar deneyin"
 
 #: ../../source/tor.rst:23
 msgid "Automatically determine my country from my IP address for bridge settings"
-msgstr ""
+msgstr "Köprü ayarları için IP adresimden ülkemi otomatik olarak belirle"
 
 #: ../../source/tor.rst:24
 msgid "Manually select my country for bridge settings"
-msgstr ""
+msgstr "Köprü ayarları için ülkemi elle seç"
 
 #: ../../source/tor.rst:28
 msgid ""
@@ -89,6 +99,8 @@ msgid ""
 "retry connecting to Tor like normal, without attempting to bypass "
 "censorship."
 msgstr ""
+"\"Köprü olmadan tekrar dene\" seçeneğini seçerseniz, OnionShare sansür "
+"aşmaya çalışmadan Tor'a normal şekilde bağlanmayı tekrar deneyecektir."
 
 #: ../../source/tor.rst:30
 msgid ""
@@ -104,6 +116,15 @@ msgid ""
 "Censorship Circumvention API. The Meek proxy hides the fact that you are "
 "trying to find a way to connect to Tor."
 msgstr ""
+"Diğer iki seçenek Tor köprülerini kullanarak sansürü otomatik olarak aşmaya "
+"çalışacaktır. Ağ sağlayıcınız Tor ağına erişimi engelliyorsa, yine de bir "
+"Tor köprüsüne bağlanabilir ve bu köprü sizi Tor ağına bağlayarak sansürü "
+"aşabilir. Bu seçeneklerin her ikisi de Tor Projesi'nin Sansürü Aşma API'sini "
+"kullanarak size işinize yarayacak köprü ayarlarını sunar. OnionShare geçici "
+"olarak `Meek <https://gitlab.torproject.org/legacy/trac/-/wikis/doc/meek/>`_ "
+"etki alanı ön uçlaması vekilini kullanarak bilgisayarınızdan Tor'un Sansürü "
+"Aşma API'sine Tor dışı bir bağlantı kurar. Meek vekili Tor'a bağlanmak için "
+"bir yol bulmaya çalıştığınız gerçeğini gizler."
 
 #: ../../source/tor.rst:36
 msgid ""
@@ -113,6 +134,11 @@ msgid ""
 "might reside in. Based on the country information, the API will try to "
 "automatically find bridges that suit your location."
 msgstr ""
+"\"Köprü ayarları için IP adresimden ülkemi otomatik olarak belirle\" "
+"seçeneğini belirlerseniz, Sansürü Aşma API'si hangi ülkede bulunuyor "
+"olabileceğinizi belirlemek için IP adresinizi (evet, gerçek IP adresinizi) "
+"dikkate alacaktır. Ülke bilgisine dayanarak, API konumunuza uygun köprüleri "
+"otomatik olarak bulmaya çalışacaktır."
 
 #: ../../source/tor.rst:41
 msgid ""
@@ -120,10 +146,12 @@ msgid ""
 "Censorship API will find the bridges that suit the country that you "
 "specified."
 msgstr ""
+"\"Köprü ayarları için ülkemi elle seç\" seçeneğini seçerseniz, Sansür API'si "
+"belirttiğiniz ülkeye uygun köprüleri bulacaktır."
 
 #: ../../source/tor.rst:46
 msgid "How automatic censorship circumvention works"
-msgstr ""
+msgstr "Otomatik sansür aşma nasıl çalışır"
 
 #: ../../source/tor.rst:48
 msgid ""
@@ -132,6 +160,11 @@ msgid ""
 " the API does not find any bridges for your location, OnionShare will ask"
 " the API for \"fallback\" options, and then try to reconnect using those."
 msgstr ""
+"Sansürü Aşma API'si size uygun olduğunu düşündüğü köprüler bulursa, "
+"OnionShare bu köprüleri kullanarak Tor'a yeniden bağlanmayı deneyecektir. "
+"API konumunuz için herhangi bir köprü bulamazsa, OnionShare API'den \"yedek\""
+" seçenekler isteyecek ve ardından bunları kullanarak yeniden bağlanmayı "
+"deneyecektir."
 
 #: ../../source/tor.rst:50
 msgid ""
@@ -139,6 +172,9 @@ msgid ""
 "itself, or if the API returns an error message, OnionShare will attempt "
 "to use the obfs4 built-in bridges."
 msgstr ""
+"Herhangi bir nedenle OnionShare Sansür API'sine bağlanamazsa veya API bir "
+"hata mesajı döndürürse, OnionShare obfs4 yerleşik köprülerini kullanmaya "
+"çalışacaktır."
 
 #: ../../source/tor.rst:52
 msgid ""
@@ -146,6 +182,9 @@ msgid ""
 "API do not go over the Tor network (because if you could connect to Tor "
 "already, you wouldn't need to connect to the API)."
 msgstr ""
+"Sansürü Aşma API'sine yapılan isteklerin Tor ağı üzerinden gitmediğini "
+"belirtmek önemlidir (çünkü Tor'a zaten bağlanabiliyor olsaydınız, API'ye "
+"bağlanmanıza gerek kalmazdı)."
 
 #: ../../source/tor.rst:54
 msgid ""
@@ -156,6 +195,11 @@ msgid ""
 "Circumvention API. Then Meek is stopped, and all further network requests"
 " happen over the Tor network."
 msgstr ""
+"Bir saldırganın Meek isteğinin nereye gittiğini keşfetmesi zor olsa da, bu "
+"yine de bazı kullanıcılar için riskli olabilir. Bu nedenle, isteğe bağlı bir "
+"özelliktir. Meek ve tor dışı ağ isteklerinin kullanımı yalnızca Sansürü Aşma "
+"API'sine bir veya iki istek yapmakla sınırlıdır. Daha sonra Meek durdurulur "
+"ve diğer tüm ağ istekleri Tor ağı üzerinden gerçekleşir."
 
 #: ../../source/tor.rst:56
 msgid ""
@@ -165,10 +209,15 @@ msgid ""
 "that appears), and manually configure bridges. After you save any bridge "
 "settings, OnionShare will try to reconnect using those bridges."
 msgstr ""
+"Tor ağı üzerinden gitmeyen bir istekte bulunmaktan rahatsızlık duyuyorsanız, "
+"\"Ağ Ayarları\"na (veya sağ alt köşedeki Ayarlar simgesine ve ardından "
+"görüntülenen ekranda Tor Ayarları sekmesine) tıklayabilir ve köprüleri elle "
+"yapılandırabilirsiniz. Köprü ayarlarını kaydettikten sonra OnionShare bu "
+"köprüleri kullanarak yeniden bağlanmayı deneyecektir."
 
 #: ../../source/tor.rst:59
 msgid "Manually configure Tor settings"
-msgstr ""
+msgstr "Tor ayarlarını elle yapılandır"
 
 #: ../../source/tor.rst:61
 msgid ""
@@ -177,12 +226,17 @@ msgid ""
 "of the application, and then switch to the Tor Settings tab in the screen"
 " that appears."
 msgstr ""
+"Karşılama ekranında \"Ağ Ayarları\" seçeneğine veya uygulamanın sağ alt "
+"köşesindeki \"⚙\" simgesine tıklayarak Tor ayarlarına ulaşabilir, ardından "
+"karşınıza çıkan ekranda Tor Ayarları sekmesine geçebilirsiniz."
 
 #: ../../source/tor.rst:65
 msgid ""
 "Here are the different ways you can configure OnionShare to connect to "
 "Tor:"
 msgstr ""
+"OnionShare'i Tor'a bağlanacak şekilde yapılandırmanın farklı yolları "
+"şunlardır:"
 
 #: ../../source/tor.rst:68
 msgid "Use the Tor version built into OnionShare"
@@ -211,17 +265,15 @@ msgstr ""
 
 #: ../../source/tor.rst:76
 msgid "**Using bridges**"
-msgstr ""
+msgstr "**Köprüleri kullanma**"
 
 #: ../../source/tor.rst:78
-#, fuzzy
 msgid ""
 "To use a bridge, you must select \"Use the Tor version built into "
 "OnionShare\" and check the \"Use a bridge\" checkbox."
 msgstr ""
-"Bir köprü kullanmak için Tor Ayarları sekmesini açın. \"OnionShare "
-"üzerindeki Tor sürümü kullanılsın\" seçeneğini seçmeli ve \"Köprü "
-"kullan\" onay kutusunu işaretlemelisiniz."
+"Bir köprü kullanmak için, \"OnionShare üzerindeki Tor sürümü kullanılsın\" "
+"seçeneğini seçmeli ve \"Köprü kullan\" onay kutusunu işaretlemelisiniz."
 
 #: ../../source/tor.rst:80
 msgid ""
@@ -347,7 +399,6 @@ msgid "You are now running a system ``tor`` process in Windows!"
 msgstr "Artık Windows üzerinde bir sistem ``tor`` işlemi çalıştırıyorsunuz!"
 
 #: ../../source/tor.rst:125
-#, fuzzy
 msgid ""
 "Open OnionShare, click the \"⚙\" icon in it, and switch to the Tor "
 "Settings tab. Under \"How should OnionShare connect to Tor?\" choose "
@@ -357,15 +408,14 @@ msgid ""
 " above. Click the \"Test Connection to Tor\" button. If all goes well, "
 "you should see \"Connected to the Tor controller\"."
 msgstr ""
-"OnionShare uygulamasını açın ve \"⚙\" simgesine tıklayın. \"OnionShare "
-"ile Tor bağlantısı nasıl kurulmalı?\" altındaki \"Denetim kapı numarası "
-"kullanarak bağlan\" seçeneğini seçin ve \"Denetim kapı numarası\" "
-"değerini ``127.0.0.1`` ve \"Kapı numarası\" değerini ``9051`` olarak "
-"ayarlayın. \"Tor kimlik doğrulama ayarları\" altında \"Parola\" "
-"seçeneğini seçin ve parolayı yukarıda seçtiğiniz denetim kapı noktası "
-"parolası olarak ayarlayın. \"Tor bağlantısını sına\" düğmesine tıklayın. "
-"Her şey yolunda giderse, \"Tor denetleyicisi ile bağlantı kuruldu\" "
-"ifadesini göreceksiniz."
+"OnionShare'i açın, içindeki \"⚙\" simgesine tıklayın ve Tor Ayarları "
+"sekmesine geçin. \"OnionShare ile Tor bağlantısı nasıl kurulmalı?\" altında "
+"\"Denetim bağlantı noktası kullanılarak bağlanılsın\" seçeneğini seçin ve "
+"\"Denetim bağlantı noktası\"nı ``127.0.0.1`` ve \"bağlantı noktası\"nı "
+"``9051`` olarak ayarlayın. \"Tor kimlik doğrulama ayarları\" altında \"Parola"
+"\"yı seçin ve parolayı yukarıda seçtiğiniz denetim bağlantı noktası parolası "
+"olarak ayarlayın. \"Tor Bağlantısını Test Et\" düğmesine tıklayın. Her şey "
+"yolunda giderse, \"Tor denetleyicisine bağlandı\" yazısını görmelisiniz."
 
 #: ../../source/tor.rst:134
 msgid "Using a system ``tor`` in macOS"
@@ -390,7 +440,6 @@ msgid "And start the system Tor service::"
 msgstr "Ve sistem Tor hizmetini başlatın::"
 
 #: ../../source/tor.rst:151
-#, fuzzy
 msgid ""
 "Open OnionShare, click the \"⚙\" icon in it, and switch to the Tor "
 "Settings tab. Under \"How should OnionShare connect to Tor?\" choose "
@@ -399,13 +448,12 @@ msgid ""
 "settings\" choose \"No authentication, or cookie authentication\". Click "
 "the \"Test Connection to Tor\" button."
 msgstr ""
-"OnionShare uygulamasını açın ve \"⚙\" simgesine tıklayın. \"OnionShare "
-"ile Tor bağlantısı nasıl kurulmalı?\" altındaki \"Soket dosyası "
-"kullanılarak bağlantı kurulsun\" seçeneğini seçin ve soket dosyasını "
-"``/usr/local/var/run/tor/control.socket`` olarak ayarlayın. \"Tor kimlik "
-"doğrulama ayarları\" altında \"Kimlik doğrulama yok, veya çerez "
-"doğrulaması\" seçeneğini seçin. \"Tor bağlantısını sına\" düğmesine "
-"tıklayın."
+"OnionShare'i açın, \"⚙\" simgesine tıklayın ve Tor Ayarları sekmesine geçin. "
+"\"OnionShare ile Tor bağlantısı nasıl kurulmalı?\" altında \"Soket dosyası "
+"kullanılarak bağlantı kurulsun \" seçeneğini seçin ve soket dosyasını ``/usr/"
+"local/var/run/tor/control.socket`` olarak ayarlayın. \"Tor kimlik doğrulama "
+"ayarları\" altında \"Kimlik doğrulama yok veya çerez kimlik doğrulaması\" "
+"seçeneğini seçin. \"Tor Bağlantısını Test Et\" düğmesine tıklayın."
 
 #: ../../source/tor.rst:157 ../../source/tor.rst:177
 msgid "If all goes well, you should see \"Connected to the Tor controller\"."
@@ -449,7 +497,6 @@ msgstr ""
 "(``username`` ifadesini gerçek kullanıcı adınızla değiştirin)::"
 
 #: ../../source/tor.rst:170
-#, fuzzy
 msgid ""
 "Reboot your computer. After it boots up again, open OnionShare, click the"
 " \"⚙\" icon in it, and switch to the Tor Settings tab. Under \"How should"
@@ -458,13 +505,13 @@ msgid ""
 "authentication settings\" choose \"No authentication, or cookie "
 "authentication\". Click the \"Test Connection to Tor\" button."
 msgstr ""
-"Bilgisayarınızı yeniden başlatın. Yeniden başlatıldıktan sonra OnionShare"
-" uygulamasını açın ve \"⚙\" simgesine tıklayın. \"OnionShare ile Tor "
-"bağlantısı nasıl kurulmalı?\" altındaki \"Soket dosyası kullanılarak "
-"bağlantı kurulsun\" seçeneğini seçin. Soket dosyasını "
-"``/var/run/tor/control`` olarak ayarlayın. \"Tor kimlik doğrulama "
-"ayarları\" altında \"Kimlik doğrulama yok, veya çerez doğrulaması\" "
-"seçeneğini seçin. \"Tor Bağlantısını Test Et\" düğmesine tıklayın."
+"Bilgisayarınızı yeniden başlatın. Yeniden başladıktan sonra OnionShare'i "
+"açın, \"⚙\" simgesine tıklayın ve Tor Ayarları sekmesine geçin. \"OnionShare "
+"ile Tor bağlantısı nasıl kurulmalı?\" altında \"Soket dosyası kullanılarak "
+"bağlantı kurulsun \" seçeneğini seçin. Soket dosyasını ``/var/run/tor/"
+"control`` olarak ayarlayın. \"Tor kimlik doğrulama ayarları\" altında "
+"\"Kimlik doğrulama yok veya çerez kimlik doğrulaması\" seçeneğini seçin. "
+"\"Tor Bağlantısını Test Et\" düğmesine tıklayın."
 
 #~ msgid "Using a system Tor in Mac OS X"
 #~ msgstr ""

@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-07-04 17:16-0400\n"
-"PO-Revision-Date: 2022-02-14 08:55+0000\n"
+"PO-Revision-Date: 2022-10-09 21:13+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
-"Language: nb_NO\n"
 "Language-Team: none\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Language: nb_NO\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.14.1\n"
 "Generated-By: Babel 2.10.3\n"
 
 #: ../../source/tor.rst:2
@@ -23,12 +24,16 @@ msgid "Connecting to Tor"
 msgstr "Tilkobling til Tor"
 
 #: ../../source/tor.rst:4
+#, fuzzy
 msgid ""
 "When OnionShare starts, it will show you a screen asking you to connect "
 "to the Tor network."
 msgstr ""
+"Når OnionShare starter vil det vise en velkomstskjerm som spør om du vil "
+"koble til Tor-nettverket."
 
 #: ../../source/tor.rst:8
+#, fuzzy
 msgid ""
 "You can toggle on the switch \"Connect to Tor automatically\" before "
 "clicking \"Connect to Tor\". This means that next time OnionShare starts,"
@@ -37,24 +42,36 @@ msgid ""
 "the connection fails, you can still try bridges or reconfigure Tor via "
 "the \"Network Settings\" button."
 msgstr ""
+"Du kan veksle bryteren «Koble til Tor automatisk» før du klikker «Koble til "
+"Tor». Dette betyr at neste gang OnionShare starter vil det automatisk koble "
+"til med sine Tor-tilkoblingsinnstillinger fra forrige økt istedenfor å gi "
+"deg tilkoblingsvalgene. Hvis tilkoblingen misslykkes kan du fremdeles prøve "
+"broer eller sette opp tor igjen via «Nettverksinnstillinger»-knappen."
 
 #: ../../source/tor.rst:11
+#, fuzzy
 msgid ""
 "You can click \"Connect to Tor\" to begin the connection process. If "
 "there are no problems with your network, including any attempts to block "
 "your access to the Tor network, this should hopefully work the first "
 "time."
 msgstr ""
+"Du kan klikke «Koble til Tor» for å begynne tilkoblingsprosessen. Hvis det "
+"ikke er problemer med nettverket ditt (inkludert forsøk på å blokkere din "
+"tilgang til Tor-nettverket) bør dette fungere."
 
 #: ../../source/tor.rst:13
+#, fuzzy
 msgid ""
 "Or, if you want to manually configure Bridges or other Tor settings "
 "before you connect, you can click \"Network Settings\"."
 msgstr ""
+"Eller, du kan klikke «Nettverksinnstillinger» hvis du vil sette opp Broer "
+"manuelt eller andre Tor-innstillinger før du kobler til."
 
 #: ../../source/tor.rst:16
 msgid "Automatic censorship circumvention"
-msgstr ""
+msgstr "Automatisk omgåelse av sensur"
 
 #: ../../source/tor.rst:18
 msgid ""
@@ -62,22 +79,24 @@ msgid ""
 "might be because Tor is censored in your country or on your local "
 "network."
 msgstr ""
+"Når du klikker «Koble til Tor» og OnionShare ikke klarer å koble til, kan "
+"dette skje fordi Tor er sensurert i ditt land, eller på ditt lokalnettverk."
 
 #: ../../source/tor.rst:20
 msgid "If this occurs, you will have these choices:"
-msgstr ""
+msgstr "Når dette skjer har du disse valgene:"
 
 #: ../../source/tor.rst:22
 msgid "Try again without a bridge"
-msgstr ""
+msgstr "Prøv igjen uten en bro"
 
 #: ../../source/tor.rst:23
 msgid "Automatically determine my country from my IP address for bridge settings"
-msgstr ""
+msgstr "Anta landet mitt fra IP-adressen for broinnstillinger automatisk"
 
 #: ../../source/tor.rst:24
 msgid "Manually select my country for bridge settings"
-msgstr ""
+msgstr "Velg landet mitt for broinnstillinger manuelt"
 
 #: ../../source/tor.rst:28
 msgid ""
@@ -85,8 +104,11 @@ msgid ""
 "retry connecting to Tor like normal, without attempting to bypass "
 "censorship."
 msgstr ""
+"Hvis du velger «Prøv igjen uten en bro»-valget vil OnionShare prøve å koble "
+"til igjen til Tor som normalt, uten å prøve å omgå sensur."
 
 #: ../../source/tor.rst:30
+#, fuzzy
 msgid ""
 "The other two options will attempt to automatically bypass censorship "
 "using Tor bridges. If your network provider is blocking access to the Tor"
@@ -100,8 +122,19 @@ msgid ""
 "Censorship Circumvention API. The Meek proxy hides the fact that you are "
 "trying to find a way to connect to Tor."
 msgstr ""
+"De to andre alternativene forsøker å omgå sensur ved bruk av Tor-broer "
+"automatisk. Hvis nettverkstilbyderen blokkerer tilgang til Tor-nettverket "
+"kan du forhåpentligvis fremdeles koble til en Tor-bro, som så kobler deg til "
+"Tor-nettverket, for å omgå sensuren. Begge disse valgene bruker Tor sitt API "
+"for omgåelse av sensur for å tilby bro-innstillinger som bør fungere for "
+"deg. OnionShare vil midlertidig bruke `Meek <https://gitlab.torproject.org/"
+"legacy/trac/-/wikis/doc/meek/>`_-domenefrontingsmellomtjeneren for å utføre "
+"en tilkobling fra datamaskinen din som ikke kommer fra Tor til Tor sitt API "
+"for omgåelse av sensur. Meek-mellomtjeneren skjuler at du prøver å finne en "
+"måte å koble til Tor."
 
 #: ../../source/tor.rst:36
+#, fuzzy
 msgid ""
 "If you choose \"Automatically determine my country from my IP address for"
 " bridge settings\", the Censorship Circumvention API will consider your "
@@ -109,32 +142,48 @@ msgid ""
 "might reside in. Based on the country information, the API will try to "
 "automatically find bridges that suit your location."
 msgstr ""
+"Hvis du velger «Anta landet mitt fra IP-adressen for broinnstillinger "
+"automatisk» vil API-et for omgåelse av sensur vurdere IP-adressen din (ja, "
+"din faktiske IP-adresse) for å anta hvilket land du befinner deg i. Basert "
+"på landsinfoen kan API-et automatisk finne broer som passer din plassering."
 
 #: ../../source/tor.rst:41
+#, fuzzy
 msgid ""
 "If you choose \"Manually select my country for bridge settings\", the "
 "Censorship API will find the bridges that suit the country that you "
 "specified."
 msgstr ""
+"Hvis du velger «Velg landet mitt for broinnstillinger manuelt», vil API-et "
+"for omgåelse finne broer som passer landet du har angitt."
 
 #: ../../source/tor.rst:46
 msgid "How automatic censorship circumvention works"
-msgstr ""
+msgstr "Hvordan automatisk sensuromgåelse virker"
 
 #: ../../source/tor.rst:48
+#, fuzzy
 msgid ""
 "If the Censorship Circumvention API finds bridges that it believes will "
 "suit you, OnionShare will try to reconnect to Tor using those bridges. If"
 " the API does not find any bridges for your location, OnionShare will ask"
 " the API for \"fallback\" options, and then try to reconnect using those."
 msgstr ""
+"API-et for omgåelse av sensur finner bror det tror vil passe deg, og "
+"OnionShare prøver å koble til Tor igjen ved bruk av disse broene. Hvis API-"
+"et ikke finner noen broer for din plassering vil OnionShare spørre API-et om "
+"«tilbakefalls»-alternativer, og så prøve å koble til igjen ved bruk av disse."
 
 #: ../../source/tor.rst:50
+#, fuzzy
 msgid ""
 "If for some reason OnionShare fails to connect to the Censorship API "
 "itself, or if the API returns an error message, OnionShare will attempt "
 "to use the obfs4 built-in bridges."
 msgstr ""
+"Hvis OnionShare av noen årsak skulle mislykkes i å koble til API-et for "
+"omgåelse av sensur, eller hvis det sender en feilmedling, vil OnionShare "
+"prøve å bruke de innebygde obfs4-broene."
 
 #: ../../source/tor.rst:52
 msgid ""
@@ -142,8 +191,12 @@ msgid ""
 "API do not go over the Tor network (because if you could connect to Tor "
 "already, you wouldn't need to connect to the API)."
 msgstr ""
+"Det er viktig å merke seg at forespørsler til API-et for omgåelse av sensur "
+"ikke går over Tor-nettverket (siden kunne ha koblet til Tor allerede ville "
+"du ikke trengt å koble til API-et)."
 
 #: ../../source/tor.rst:54
+#, fuzzy
 msgid ""
 "Even though it's hard for an adversary to discover where the Meek request"
 " is going, this may still be risky for some users. Therefore, it is an "
@@ -152,8 +205,15 @@ msgid ""
 "Circumvention API. Then Meek is stopped, and all further network requests"
 " happen over the Tor network."
 msgstr ""
+"Selv om det er vanskelig for en angriper å finne ut hvor Meek-forespørselen "
+"går, er dette fremdeles risikabelt for noen brukere. Derfor er det en "
+"funksjon man er reservert mot som forvalg. Bruk av Meek og nettverk utenfor "
+"Tor er begrenset til kun å gjøre én eller to forespørsler til API-et for "
+"omgåelse av sensur. Deretter stoppes Meek, og alle videre "
+"nettverksforespørsler skjer over Tor-nettverket."
 
 #: ../../source/tor.rst:56
+#, fuzzy
 msgid ""
 "If you are uncomfortable with making a request that doesn't go over the "
 "Tor network, you can click \"Network Settings\" (or the Settings icon in "
@@ -161,24 +221,35 @@ msgid ""
 "that appears), and manually configure bridges. After you save any bridge "
 "settings, OnionShare will try to reconnect using those bridges."
 msgstr ""
+"Hvis du ikke er komfortabel med å utføre en forespørsel som ikke sendes over "
+"Tor-nettverket kan du klikke «Nettverksinnstillinger» (eller Innstillings-"
+"ikonet i hjørnet nede til høyre, fulgt av Tor-innstillingsfanen i skjermen "
+"som så vises), og manuelt sette opp broer der. Etter at du lagrer "
+"broinnstillinger vil OnionShare prøve å koble til igjen med disse broene."
 
 #: ../../source/tor.rst:59
 msgid "Manually configure Tor settings"
-msgstr ""
+msgstr "Sett opp Tor-innstillinger manuelt"
 
 #: ../../source/tor.rst:61
+#, fuzzy
 msgid ""
 "You can get to the Tor settings by clicking \"Network Settings\" on the "
 "welcome screen, or by clicking the \"⚙\" icon in the bottom-right corner "
 "of the application, and then switch to the Tor Settings tab in the screen"
 " that appears."
 msgstr ""
+"Du kan komme deg til Tor-innstillingene ved å trykke «Nettverksinnstillinger»"
+" i velkomstskjermen, eller ved å klikke «⚙»-ikonet i nedre høyre hjørne av "
+"programmet, og så bytte til Tor-innstliinger-fanen i skjermen som så vises."
 
 #: ../../source/tor.rst:65
+#, fuzzy
 msgid ""
 "Here are the different ways you can configure OnionShare to connect to "
 "Tor:"
 msgstr ""
+"Det er forskjellige måter å sette opp OnionShare for tilkobling til Tor:"
 
 #: ../../source/tor.rst:68
 msgid "Use the Tor version built into OnionShare"
@@ -207,7 +278,7 @@ msgstr ""
 
 #: ../../source/tor.rst:76
 msgid "**Using bridges**"
-msgstr ""
+msgstr "**Bruk av broer**"
 
 #: ../../source/tor.rst:78
 #, fuzzy
@@ -729,4 +800,3 @@ msgstr ""
 #~ " OnionShare klarer å koble til uten,"
 #~ " trenger du ikke å bruke en "
 #~ "bro."
-

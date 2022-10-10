@@ -8,15 +8,16 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-10-02 16:17-0700\n"
-"PO-Revision-Date: 2022-10-01 22:21+0000\n"
+"PO-Revision-Date: 2022-10-03 23:25+0000\n"
 "Last-Translator: Ihor Hordiichuk <igor_ck@outlook.com>\n"
-"Language: uk\n"
 "Language-Team: none\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.14.1\n"
 "Generated-By: Babel 2.10.3\n"
 
 #: ../../source/advanced.rst:2
@@ -33,12 +34,17 @@ msgid ""
 "Persistently hosted websites are available on the same address even if "
 "the computer they are shared from is rebooted."
 msgstr ""
+"Закриття вкладок OnionShare, які ви розміщуєте, знищує їх, запобігаючи "
+"повторному використанню. Постійно розміщені вебсайти доступні за тією ж "
+"адресою, навіть якщо комп'ютер, з якого вони доступні, перезавантажиться."
 
 #: ../../source/advanced.rst:12
 msgid ""
 "Make any tab persistent by checking the \"Always open this tab when "
 "OnionShare is started\" box before starting your server."
 msgstr ""
+"Зробіть будь-яку вкладку постійною, встановивши прапорець «Завжди відкривати "
+"цю вкладку під час запуску OnionShare» перед запуском сервера."
 
 #: ../../source/advanced.rst:16
 msgid ""
@@ -231,17 +237,19 @@ msgstr ""
 
 #: ../../source/advanced.rst:151
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Комбінації клавіш"
 
 #: ../../source/advanced.rst:153
 msgid ""
 "The OnionShare desktop application contains some keyboard shortcuts, for "
 "convenience and accessibility::"
 msgstr ""
+"Застосунок для комп'ютера OnionShare містить кілька комбінацій клавіш для "
+"зручності та доступності::"
 
 #: ../../source/advanced.rst:158
 msgid "And from the main mode chooser screen::"
-msgstr ""
+msgstr "І з головного екрана вибору режиму::"
 
 #~ msgid ""
 #~ "By default, everything in OnionShare is"
@@ -625,4 +633,3 @@ msgstr ""
 #~ " Коли вкладку збережено, ліворуч від "
 #~ "стану сервера з’явиться фіолетова піктограма"
 #~ " у вигляді шпильки."
-
