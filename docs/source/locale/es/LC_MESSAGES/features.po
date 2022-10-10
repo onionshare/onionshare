@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-01-17 10:28-0800\n"
-"PO-Revision-Date: 2022-01-31 12:53+0000\n"
-"Last-Translator: Zuhualime Akoochimoya <zakooch@protonmail.ch>\n"
+"PO-Revision-Date: 2022-10-10 14:13+0000\n"
+"Last-Translator: Deleted User <noreply+35918@weblate.org>\n"
 "Language-Team: none\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.11-dev\n"
+"X-Generator: Weblate 4.14.1\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: ../../source/features.rst:4
@@ -42,7 +42,7 @@ msgstr ""
 
 #: ../../source/features.rst:10
 msgid "OnionShare addresses look something like this::"
-msgstr "Las direcciones de OnionShare se ven más o menos así::"
+msgstr "Los enlaces de OnionShare son algo así::"
 
 #: ../../source/features.rst:14
 msgid "And private keys might look something like this::"
