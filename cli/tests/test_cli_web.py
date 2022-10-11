@@ -619,7 +619,7 @@ class TestRangeRequests:
                 ]
             )
 
-    @pytest.mark.skipif(sys.platform != "Linux", reason="requires Linux")
+    @pytest.mark.skipif(sys.platform != "linux", reason="requires Linux")
     @check_unsupported("http", ["--version"])
     def test_httpie(self, temp_dir, common_obj):
         web = web_obj(temp_dir, common_obj, "share", 3)
