@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-03-31 16:26+1100\n"
-"PO-Revision-Date: 2022-08-30 10:18+0000\n"
+"PO-Revision-Date: 2022-10-17 12:53+0000\n"
 "Last-Translator: eulalio <eulalio@disroot.org>\n"
 "Language-Team: none\n"
 "Language: es\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.14.1-dev\n"
+"X-Generator: Weblate 4.15-dev\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: ../../source/tor.rst:2
@@ -28,6 +28,8 @@ msgid ""
 "When OnionShare starts, it will show you a screen asking you to connect "
 "to the Tor network."
 msgstr ""
+"Cuando se inicie OnionShare, te mostrará una pantalla que te pedirá que se "
+"conecte a la red Tor."
 
 #: ../../source/tor.rst:8
 msgid ""
@@ -50,16 +52,21 @@ msgid ""
 "your access to the Tor network, this should hopefully work the first "
 "time."
 msgstr ""
+"Puedes pulsar en \"Conectar a Tor\" para comenzar el proceso de conexión. Si "
+"no hay problemas con la red, incluidos los intentos de bloquear tu acceso a "
+"la red Tor, es de esperar que esto funcione a la primera vez."
 
 #: ../../source/tor.rst:13
 msgid ""
 "Or, if you want to manually configure Bridges or other Tor settings "
 "before you connect, you can click \"Network Settings\"."
 msgstr ""
+"O, si deseas configurar manualmente Puentes u otras configuraciones de Tor "
+"antes de conectarte, puedes hacer clic en \"Configuración de red\"."
 
 #: ../../source/tor.rst:16
 msgid "Automatic censorship circumvention"
-msgstr ""
+msgstr "Elusión automática de la censura"
 
 #: ../../source/tor.rst:18
 msgid ""
@@ -67,22 +74,26 @@ msgid ""
 "might be because Tor is censored in your country or on your local "
 "network."
 msgstr ""
+"Cuando haces clic en \"Conectar a Tor\", si OnionShare no se conecta, puede "
+"deberse a que Tor está censurado en tu país o en tu red local."
 
 #: ../../source/tor.rst:20
 msgid "If this occurs, you will have these choices:"
-msgstr ""
+msgstr "De ser así, tienes estas opciones:"
 
 #: ../../source/tor.rst:22
 msgid "Try again without a bridge"
-msgstr ""
+msgstr "Inténtalo de nuevo sin un puente"
 
 #: ../../source/tor.rst:23
 msgid "Automatically determine my country from my IP address for bridge settings"
 msgstr ""
+"Determina automáticamente mi país a partir de mi dirección IP para "
+"configurar el puente"
 
 #: ../../source/tor.rst:24
 msgid "Manually select my country for bridge settings"
-msgstr ""
+msgstr "Selecciona manualmente mi país para la configuración del puente"
 
 #: ../../source/tor.rst:28
 msgid ""
