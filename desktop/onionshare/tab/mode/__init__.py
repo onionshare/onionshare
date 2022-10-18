@@ -563,6 +563,7 @@ class Mode(QtWidgets.QWidget):
         """
         self.content_widget.show()
         self.tor_not_connected_widget.hide()
+        self.primary_action.show()
 
     def tor_connection_stopped(self):
         """
