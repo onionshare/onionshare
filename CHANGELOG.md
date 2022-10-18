@@ -1,5 +1,10 @@
 # OnionShare Changelog
 
+## 2.6.1
+
+* Upgrade Tor, Meek, and obfs4proxy versions
+* Bug fix: Restore the primary_action mode settings in a tab after OnionShare reconnects to Tor
+
 ## 2.6
 
 * Major feature: a new 'Quickstart' screen, which enables toggling on or off an animated automatic connection to Tor. This allows configuring network settings prior to automatic connection.

@@ -1,5 +1,5 @@
 #!/bin/bash
-SNOWFLAKE_TAG=v2.2.0
+SNOWFLAKE_TAG=v2.3.1
 
 mkdir -p ./build/snowflake
 cd ./build/snowflake
