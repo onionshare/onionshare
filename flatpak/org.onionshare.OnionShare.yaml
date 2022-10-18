@@ -45,8 +45,8 @@ modules:
     buildsystem: autotools
     sources:
       - type: archive
-        sha256: d39d38598208f4d6201d7edc6ad573b3a898a932a5c68d3074016a9525519b22
-        url: https://dist.torproject.org/tor-0.4.7.9.tar.gz
+        sha256: 647e56dfa59ea36dab052027fcfc7663905c826c03509363c456900ecd435a5b
+        url: https://dist.torproject.org/tor-0.4.7.10.tar.gz
     modules:
       - name: libevent
         buildsystem: autotools
@@ -80,7 +80,7 @@ modules:
         dest: src/golang.org/x/sys
       - type: git
         url: https://gitlab.com/yawning/obfs4
-        commit: e330d1b7024b4ab04f7d96cc1afc61325744fafc
+        commit: 336a71d6e4cfd2d33e9c57797828007ad74975e9
         dest: src/gitlab.com/yawning/obfs4.git
       - type: git
         url: https://gitlab.com/yawning/utls
@@ -173,7 +173,7 @@ modules:
         dest: src/git.torproject.org/pluggable-transports/goptlib.git
       - type: git
         url: https://git.torproject.org/pluggable-transports/snowflake
-        commit: ead5a960d7fa19dc890ccbfc0765c5ab6629eaa9
+        commit: 36f03dfd4483922b3e7400dedc71df9cf2f30b6b
         dest: src/git.torproject.org/pluggable-transports/snowflake.git
       - type: git
         url: https://github.com/templexxx/xorsimd
