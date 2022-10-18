@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-03-31 16:26+1100\n"
-"PO-Revision-Date: 2022-10-17 12:53+0000\n"
+"PO-Revision-Date: 2022-10-19 10:07+0000\n"
 "Last-Translator: eulalio <eulalio@disroot.org>\n"
 "Language-Team: none\n"
 "Language: es\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.15-dev\n"
+"X-Generator: Weblate 4.14.2-dev\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: ../../source/tor.rst:2
@@ -101,6 +101,8 @@ msgid ""
 "retry connecting to Tor like normal, without attempting to bypass "
 "censorship."
 msgstr ""
+"Si eliges la opción \"Intentar de nuevo sin puente\", OnionShare volverá a "
+"intentar conectarse a Tor como de costumbre, sin intentar eludir la censura."
 
 #: ../../source/tor.rst:30
 msgid ""
@@ -116,6 +118,17 @@ msgid ""
 "Censorship Circumvention API. The Meek proxy hides the fact that you are "
 "trying to find a way to connect to Tor."
 msgstr ""
+"Las otras dos opciones intentarán eludir automáticamente la censura "
+"utilizando los puentes Tor. Si tu proveedor de red está bloqueando el acceso "
+"a la red Tor, es de esperar que aún puedas conectarte a un puente Tor, que "
+"luego te conectará a la red Tor, eludiendo la censura. Ambas opciones "
+"utilizan la API de Elusión de Censura del Proyecto Tor para brindarte "
+"configuración de puente que debería funcionar. OnionShare utilizará "
+"temporalmente el proxy _ domain-fronting `Meek <https://gitlab.torproject."
+"org/legacy/trac/-/wikis/doc/meek/>`_ para hacer una conexión que no sea Tor "
+"desde su ordenador a la API de Elusión de Censura del Proyecto Tor. El proxy "
+"Meek oculta el hecho de que estás tratando de encontrar una forma de "
+"conectarte a Tor."
 
 #: ../../source/tor.rst:36
 msgid ""
@@ -125,6 +138,11 @@ msgid ""
 "might reside in. Based on the country information, the API will try to "
 "automatically find bridges that suit your location."
 msgstr ""
+"Si eliges \"Determinar automáticamente mi país a partir de mi dirección IP "
+"para la configuración del puente\", la API de elusión de la censura "
+"considerará tu dirección IP (sí, tu dirección IP real) para determinar en "
+"qué país podrías residir. Según la información del país, la API intentará "
+"encontrar automáticamente los puentes que se adapten a su ubicación."
 
 #: ../../source/tor.rst:41
 msgid ""
@@ -132,10 +150,13 @@ msgid ""
 "Censorship API will find the bridges that suit the country that you "
 "specified."
 msgstr ""
+"Si eliges \"Seleccionar manualmente mi país para la configuración del "
+"puente\", la API de censura encontrará los puentes que se adapten al país "
+"que concretastes."
 
 #: ../../source/tor.rst:46
 msgid "How automatic censorship circumvention works"
-msgstr ""
+msgstr "Cómo funciona la elusión automática de la censura"
 
 #: ../../source/tor.rst:48
 msgid ""
@@ -144,6 +165,10 @@ msgid ""
 " the API does not find any bridges for your location, OnionShare will ask"
 " the API for \"fallback\" options, and then try to reconnect using those."
 msgstr ""
+"Si la API de Elusión de Censura encuentra puentes que cree que te convienen, "
+"OnionShare intentará volver a conectarse a Tor usando esos puentes. Si la "
+"API no encuentra ningún puente para tu ubicación, OnionShare le pedirá a la "
+"API opciones \"alternativas\" y luego intentará reconectar usándolos."
 
 #: ../../source/tor.rst:50
 msgid ""
@@ -151,6 +176,9 @@ msgid ""
 "itself, or if the API returns an error message, OnionShare will attempt "
 "to use the obfs4 built-in bridges."
 msgstr ""
+"Si por algún motivo, OnionShare no puede conectarse a la API de Censura, o "
+"si la API devuelve un mensaje de error, OnionShare intentará usar los "
+"puentes integrados obfs4."
 
 #: ../../source/tor.rst:52
 msgid ""
@@ -177,10 +205,16 @@ msgid ""
 "that appears), and manually configure bridges. After you save any bridge "
 "settings, OnionShare will try to reconnect using those bridges."
 msgstr ""
+"Si no te sientes cómodo haciendo una solicitud que no pase por la red Tor, "
+"puedes hacer clic en \"Editar/Ajustes/Conexión/Puentes/Añadir un Puente "
+"Nuevo/Añade un Puente Manualmente\" o en la esquina superior derecha (al "
+"lado de la escoba), seguido de la pestaña Ajustes), y configurar puentes "
+"manualmente. Después de guardar cualquier configuración de puente, "
+"OnionShare intentará volver a conectarse usando esos puentes."
 
 #: ../../source/tor.rst:59
 msgid "Manually configure Tor settings"
-msgstr ""
+msgstr "Configuración manual de los ajustes de Tor"
 
 #: ../../source/tor.rst:61
 msgid ""
@@ -189,12 +223,18 @@ msgid ""
 "of the application, and then switch to the Tor Settings tab in the screen"
 " that appears."
 msgstr ""
+"Puedes acceder a la configuración de Tor haciendo clic en \"¿Nuevo en el "
+"navegador Tor? Comencemos\" en la pantalla de bienvenida, o haciendo clic en "
+"el ícono \"⚙\" en la esquina inferior derecha de la aplicación, y luego a "
+"\"cambiar la configuración de red de Tor\"."
 
 #: ../../source/tor.rst:65
 msgid ""
 "Here are the different ways you can configure OnionShare to connect to "
 "Tor:"
 msgstr ""
+"He aquí las diferentes formas en que puedes configurar OnionShare para "
+"conectarte a Tor:"
 
 #: ../../source/tor.rst:68
 msgid "Use the Tor version built into OnionShare"
@@ -223,7 +263,7 @@ msgstr ""
 
 #: ../../source/tor.rst:76
 msgid "**Using bridges**"
-msgstr ""
+msgstr "**Usando puentes**"
 
 #: ../../source/tor.rst:78
 #, fuzzy
@@ -356,7 +396,6 @@ msgid "You are now running a system ``tor`` process in Windows!"
 msgstr "¡Ahora estás ejecutando un proceso ``tor`` de sistema en Windows!"
 
 #: ../../source/tor.rst:125
-#, fuzzy
 msgid ""
 "Open OnionShare, click the \"⚙\" icon in it, and switch to the Tor "
 "Settings tab. Under \"How should OnionShare connect to Tor?\" choose "
@@ -367,12 +406,12 @@ msgid ""
 "you should see \"Connected to the Tor controller\"."
 msgstr ""
 "Abre OnionShare y haz clic en el ícono \"⚙\". Bajo \"¿Cómo debería "
-"conectarse OnionShare a Tor?\", elige \"Conectar usando puerto de "
-"control\", y establece \"Puerto de control\" a ``127.0.0.1`` y \"Puerto\""
-" a ``9051``. Bajo \"Ajustes de autenticación de Tor\", elige "
-"\"Contraseña\", y establécela a la contraseña para el puerto de control "
-"que elegiste arriba. Haz clic en el botón \"Probar Conexión a Tor\". Si "
-"todo va bien, deberías ver \"Conectado al controlador Tor\"."
+"conectarse OnionShare a Tor?\", elige \"Conectar usando puerto de control\", "
+"y establece \"Puerto de control\" a ``127.0.0.1`` y \"Puerto\" a ``9051``. "
+"Bajo \"Ajustes de autenticación de Tor\", elige \"Contraseña\", y "
+"establécela a la contraseña para el puerto de control que elegiste arriba. "
+"Haz clic en el botón \"Probar Conexión a Tor\". Si todo va bien, deberías "
+"ver \"Conectado al controlador Tor\"."
 
 #: ../../source/tor.rst:134
 msgid "Using a system ``tor`` in macOS"
@@ -450,7 +489,6 @@ msgstr ""
 "(reemplaza ``username`` con tu nombre de usuario real)::"
 
 #: ../../source/tor.rst:170
-#, fuzzy
 msgid ""
 "Reboot your computer. After it boots up again, open OnionShare, click the"
 " \"⚙\" icon in it, and switch to the Tor Settings tab. Under \"How should"
@@ -459,12 +497,11 @@ msgid ""
 "authentication settings\" choose \"No authentication, or cookie "
 "authentication\". Click the \"Test Connection to Tor\" button."
 msgstr ""
-"Reinicia tu computadora. Luego del arranque, abre OnionShare y haz clic "
-"en el ícono \"⚙\". Bajo \"¿Cómo debería conectarse OnionShare a Tor?\", "
-"elige \"Conectar usando un archivo socket\". Establécelo a "
-"``/var/run/tor/control``. Bajo \"Ajustes de autenticación de tor\", elige"
-" \"Sin autenticación, o autenticación por cookies\". Haz clic en el botón"
-" \"Probar Conexión a Tor\"."
+"Reinicia tu ordenador. Luego del arranque, abre OnionShare y haz clic en el "
+"ícono \"⚙\". Bajo \"¿Cómo debería conectarse OnionShare a Tor?\", elige "
+"\"Conectar usando un archivo socket\". Establécelo a ``/var/run/tor/control``"
+". Bajo \"Ajustes de autenticación de tor\", elige \"Sin autenticación, o "
+"autenticación por cookies\". Haz clic en el botón \"Probar Conexión a Tor\"."
 
 #~ msgid "Using a system Tor in Mac OS X"
 #~ msgstr "Usando un Tor de sistema en macOS"
