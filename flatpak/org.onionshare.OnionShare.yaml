@@ -91,6 +91,14 @@ modules:
         commit: 0a714cd429ec754482b4001e918db30cd2094405
         dest: src/gitlab.com/yawning/bsaes.git
       - type: git
+        url: https://gitlab.com/yawning/edwards25519-extra
+        commit: def713fd18e464864613d2b55ef41a21df2c9493
+        dest: src/gitlab.com/yawning/edwards25519-extra.git
+      - type: git
+        url: https://github.com/FiloSottile/edwards25519
+        commit: def713fd18e464864613d2b55ef41a21df2c9493
+        dest: src/filippo.io/edwards25519
+      - type: git
         url: https://git.torproject.org/pluggable-transports/goptlib
         commit: 13b7b3552e1eef32e4d8a2a7813f22488f91dc09
         dest: src/git.torproject.org/pluggable-transports/goptlib.git
