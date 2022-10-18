@@ -184,6 +184,10 @@ modules:
         commit: 36f03dfd4483922b3e7400dedc71df9cf2f30b6b
         dest: src/git.torproject.org/pluggable-transports/snowflake.git
       - type: git
+        url: https://github.com/refraction-networking/utls
+        commit: 0b2885c8c0d4467cfe98136748a9d011d0b8fff0
+        dest: src/github.com/refraction-networking/utls
+      - type: git
         url: https://github.com/templexxx/xorsimd
         commit: e2f34adfb57b524164fc712df2fcfd991ed0ccad
         dest: src/github.com/templexxx/xorsimd
