@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-03-31 16:26+1100\n"
-"PO-Revision-Date: 2022-10-19 10:07+0000\n"
+"PO-Revision-Date: 2022-10-20 14:03+0000\n"
 "Last-Translator: eulalio <eulalio@disroot.org>\n"
 "Language-Team: none\n"
 "Language: es\n"
@@ -266,14 +266,12 @@ msgid "**Using bridges**"
 msgstr "**Usando puentes**"
 
 #: ../../source/tor.rst:78
-#, fuzzy
 msgid ""
 "To use a bridge, you must select \"Use the Tor version built into "
 "OnionShare\" and check the \"Use a bridge\" checkbox."
 msgstr ""
-"Para usar un puente, abre la pestaña de Configuraciones de Tor. Debes "
-"seleccionar \"Usar la versión de Tor incorporada dentro de OnionShare\" y"
-" marcar la casilla \"Usar un puente\"."
+"Para usar un puente, debes seleccionar \"Usar la versión de Tor integrada en "
+"OnionShare\" y marcar la casilla de verificación \"Usar un puente\"."
 
 #: ../../source/tor.rst:80
 msgid ""
@@ -434,7 +432,6 @@ msgid "And start the system Tor service::"
 msgstr "E inicia el servicio Tor de sistema::"
 
 #: ../../source/tor.rst:151
-#, fuzzy
 msgid ""
 "Open OnionShare, click the \"⚙\" icon in it, and switch to the Tor "
 "Settings tab. Under \"How should OnionShare connect to Tor?\" choose "
@@ -443,12 +440,12 @@ msgid ""
 "settings\" choose \"No authentication, or cookie authentication\". Click "
 "the \"Test Connection to Tor\" button."
 msgstr ""
-"Abre OnionShare y haz clic en el ícono \"⚙\". Bajo \"¿Cómo debería "
-"conectarse OnionShare a Tor?\", elige \"Conectar usando un archivo "
-"socket\", y establece el mismo a "
-"``/usr/local/var/run/tor/control.socket``. Bajo \"Ajustes de "
-"autenticación de Tor\", elige \"Sin autenticación, o autenticación por "
-"cookies\". Haz clic en el botón \"Probar Conexión a Tor\"."
+"Abre OnionShare, clic en el icono \"⚙\" y ve a la pestaña Configuración de "
+"Tor. En \"¿Cómo debería conectarse OnionShare a Tor?\" pincha en \"Conectar "
+"usando un archivo de socket\" y configura el archivo de socket para que sea "
+"``/usr/local/var/run/tor/control.socket``. En \"Configuración de "
+"autenticación de Tor\", elige \"Sin autenticación o autenticación de "
+"cookies\". Vlic en \"Probar conexión a Tor\"."
 
 #: ../../source/tor.rst:157 ../../source/tor.rst:177
 msgid "If all goes well, you should see \"Connected to the Tor controller\"."
