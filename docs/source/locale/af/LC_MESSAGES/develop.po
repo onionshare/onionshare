@@ -6,43 +6,61 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-01-17 10:28-0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2022-10-21 15:07+0000\n"
+"Last-Translator: Gideon Wentink <gjwentink@gmail.com>\n"
 "Language-Team: none\n"
 "Language: af\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.14.2-dev\n"
 
 #: ../../source/develop.rst:2
 msgid "Developing OnionShare"
-msgstr ""
+msgstr "Ontwikkeling van OnionShare"
 
 #: ../../source/develop.rst:7
 msgid "Collaborating"
-msgstr ""
+msgstr "Samewerking"
 
 #: ../../source/develop.rst:9
 msgid "OnionShare has an open Keybase team to discuss the project, ask questions, share ideas and designs, and making plans for future development. (It's also an easy way to send end-to-end encrypted direct messages to others in the OnionShare community, like OnionShare addresses.) To use Keybase, download the `Keybase app <https://keybase.io/download>`_, make an account, and `join this team <https://keybase.io/team/onionshare>`_. Within the app, go to \"Teams\", click \"Join a Team\", and type \"onionshare\"."
 msgstr ""
+"OnionShare het ’n oop Keybase-span om die projek te bespreek, vrae te vra, "
+"idees en ontwerpe te deel en planne vir verdere ontwikkeling te maak. (Dis "
+"ook ’n maklike manier om ein-tot-ein-geënkripteerde direkte boodskappe na "
+"ander lede in die OnionShare-gemeenskap, soos OnionShare-adresse, te stuur.) "
+"Om Keybase te gebrui, moet u die `Keybase-toep aflaai <https://keybase.io/"
+"download>`_, ’n rekening skep, en by `hierdie span aansluit <https://keybase."
+"io/team/onionshare>`_. In die toep, gaan u na “Spanne”, klik op “Sluit by ’n "
+"span aan” en tik “onionshare”."
 
 #: ../../source/develop.rst:12
 msgid "OnionShare also has a `mailing list <https://lists.riseup.net/www/subscribe/onionshare-dev>`_ for developers and and designers to discuss the project."
 msgstr ""
+"OnionShare het ook ’n `e-poslys <https://lists.riseup.net/www/subscribe/"
+"onionshare-dev>`_ waar ontwikkelaars en ontwerpers die projek kan bespreek."
 
 #: ../../source/develop.rst:15
 msgid "Contributing Code"
-msgstr ""
+msgstr "Om kode by te dra"
 
 #: ../../source/develop.rst:17
 msgid "OnionShare source code is to be found in this Git repository: https://github.com/onionshare/onionshare"
 msgstr ""
+"OnionShare-bronkode kan in hierdie Git-bewaarplek gevind word: https://github"
+".com/onionshare/onionshare"
 
 #: ../../source/develop.rst:19
 msgid "If you'd like to contribute code to OnionShare, it helps to join the Keybase team and ask questions about what you're thinking of working on. You should also review all of the `open issues <https://github.com/onionshare/onionshare/issues>`_ on GitHub to see if there are any you'd like to tackle."
 msgstr ""
+"Indien u kode tot OnionShare wil bydra, help dit om by die Keybase-span aan "
+"te sluit en vrae te vra oor waaraan u dink om te werk. U kan ook al die `oop "
+"probleme <https://github.com/onionshare/onionshare/issues>`_ op GitHub "
+"hersien om te kyk of daar iets is wat u wil aandurf."
 
 #: ../../source/develop.rst:22
 msgid "When you're ready to contribute code, open a pull request in the GitHub repository and one of the project maintainers will review it and possibly ask questions, request changes, reject it, or merge it into the project."
@@ -123,3 +141,6 @@ msgstr ""
 #: ../../source/develop.rst:184
 msgid "Here is the current translation status. If you want start a translation in a language not yet started, please write to the mailing list: onionshare-dev@lists.riseup.net"
 msgstr ""
+"Hier is die huidige vertalingstatus. Indien u ’n vertaling wil begin vir ’n "
+"taal wat nog nie begin is nie, skryf asb. aan die poslys: onionshare-"
+"dev@lists.riseup.net"
