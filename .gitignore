@@ -58,5 +58,6 @@ venv
 
 # other
 .vscode
+.python-version
 onionshare.dist-info
 desktop/onionshare/resources/tor

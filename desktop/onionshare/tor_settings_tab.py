@@ -18,7 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-from PySide2 import QtCore, QtWidgets, QtGui
+from PySide6 import QtCore, QtWidgets, QtGui
 import sys
 import platform
 import os
@@ -579,7 +579,7 @@ class TorSettingsTab(QtWidgets.QWidget):
 
         moat_dialog = MoatDialog(self.common, self.meek)
         moat_dialog.got_bridges.connect(self.bridge_moat_got_bridges)
-        moat_dialog.exec_()
+        moat_dialog.exec()
 
     def bridge_moat_got_bridges(self, bridges):
         """

@@ -18,7 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-from PySide2 import QtCore, QtWidgets, QtGui
+from PySide6 import QtCore, QtWidgets, QtGui
 import qrcode
 
 from . import strings
@@ -52,7 +52,7 @@ class Alert(QtWidgets.QMessageBox):
         self.setStandardButtons(buttons)
 
         if autostart:
-            self.exec_()
+            self.exec()
 
 
 class AddFileDialog(QtWidgets.QFileDialog):
@@ -153,4 +153,4 @@ class QRCodeDialog(QtWidgets.QDialog):
         layout.addWidget(self.qr_label_title)
         layout.addWidget(self.qr_label)
 
-        self.exec_()
+        self.exec()

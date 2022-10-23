@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import time
 import json
 import os
-from PySide2 import QtCore
+from PySide6 import QtCore
 
 from onionshare_cli.onion import (
     TorErrorInvalidSetting,
