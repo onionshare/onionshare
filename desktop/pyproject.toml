@@ -19,6 +19,7 @@ pytest = "*"
 pytest-faulthandler = "*"
 pytest-qt = "*"
 cx_freeze = "*"
+importlib-metadata = "*"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
