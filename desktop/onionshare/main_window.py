@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
 import time
-from PySide2 import QtCore, QtWidgets, QtGui
+from PySide6 import QtCore, QtWidgets, QtGui
 
 from . import strings
 from .widgets import Alert
@@ -119,7 +119,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 )
             )
         )
-        sequence = QtGui.QKeySequence(QtCore.Qt.CTRL + QtCore.Qt.Key_H)
+        sequence = QtGui.QKeySequence(QtCore.Qt.CTRL | QtCore.Qt.Key_H)
         self.settings_button.setShortcut(sequence)
         self.settings_button.setAccessibleName(strings._("gui_settings_window_title"))
         self.settings_button.clicked.connect(self.open_settings)
@@ -191,7 +191,7 @@ class MainWindow(QtWidgets.QMainWindow):
             a.addButton(settings_button, QtWidgets.QMessageBox.AcceptRole)
             a.addButton(quit_button, QtWidgets.QMessageBox.RejectRole)
             a.setDefaultButton(settings_button)
-            a.exec_()
+            a.exec()
 
             if a.clickedButton() == settings_button:
                 # Open settings
@@ -266,7 +266,7 @@ class MainWindow(QtWidgets.QMainWindow):
         if self.tabs.are_tabs_active():
             # Open the warning dialog
             self.common.log("MainWindow", "closeEvent, opening warning dialog")
-            self.close_dialog.exec_()
+            self.close_dialog.exec()
 
             # Close
             if self.close_dialog.clickedButton() == self.close_dialog.accept_button:
@@ -314,7 +314,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.onion_cleanup_thread.finished.connect(alert.accept)
         self.onion_cleanup_thread.start()
 
-        alert.exec_()
+        alert.exec()
         if alert.clickedButton() == quit_early_button:
             self.common.log("MainWindow", "cleanup", "quitting early")
             if self.onion_cleanup_thread.isRunning():

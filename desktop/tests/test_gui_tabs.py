@@ -1,6 +1,6 @@
 import os
 
-from PySide2 import QtCore, QtTest, QtWidgets
+from PySide6 import QtCore, QtTest, QtWidgets
 
 from .gui_base_test import GuiBaseTest
 

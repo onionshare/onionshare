@@ -8,9 +8,9 @@ license = "GPLv3+"
 [tool.poetry.dependencies]
 python = ">=3.7,<3.11"
 onionshare_cli = {path = "../cli", develop = true}
-PySide2 = "5.15.2.1"
 qrcode = "*"
 werkzeug = "~2.0.3"
+pyside6 = "^6.4.0"
 
 [tool.poetry.dev-dependencies]
 click = "*"

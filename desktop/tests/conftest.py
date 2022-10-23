@@ -2,7 +2,7 @@ import sys
 import os
 from datetime import datetime, timedelta
 
-from PySide2 import QtTest
+from PySide6 import QtTest
 
 
 # Force tests to look for resources in the source code tree
@@ -19,7 +19,7 @@ def qWait(t, qtapp):
         qtapp.processEvents()
 
 
-# Monkeypatch qWait, because PySide2 doesn't have it
+# Monkeypatch qWait, although PySide6 has it
 # https://stackoverflow.com/questions/17960159/qwait-analogue-in-pyside
 QtTest.QTest.qWait = qWait
 
