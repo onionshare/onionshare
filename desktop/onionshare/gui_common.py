@@ -602,6 +602,7 @@ class ToggleCheckbox(QtWidgets.QCheckBox):
         painter.setRenderHint(QtGui.QPainter.Antialiasing)
         painter.setPen(QtCore.Qt.NoPen)
         opt = QtWidgets.QStyleOptionButton()
+        opt.initFrom(self)
         self.initStyleOption(opt)
         s = self.style()
         s.drawControl(QtWidgets.QStyle.CE_CheckBox, opt, painter, self)
