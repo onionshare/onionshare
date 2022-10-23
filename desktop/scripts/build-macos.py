@@ -63,7 +63,7 @@ def main():
 
 @main.command()
 def cleanup_build():
-    """Delete unused PySide2 stuff to save space"""
+    """Delete unused PySide6 stuff to save space"""
     app_path = get_app_path()
     before_size = get_size(app_path)
 
@@ -74,24 +74,18 @@ def cleanup_build():
         "QtQuickParticles",
         "QtRemoteObjects",
         "Qt3DInput",
-        "QtPdfWidgets",
-        "QtScriptTools",
         "QtNetworkAuth",
         "QtDataVisualization",
         "QtWebEngineCore",
         "Qt3DQuickRender",
         "Qt3DQuickExtras",
-        "QtQuick3DRender",
         "QtDesigner",
         "QtNfc",
         "QtQuick3DAssetImport",
-        "QtBodymovin",
         "QtWebEngineWidgets",
         "QtQuickWidgets",
         "Qt3DQuickInput",
         "Qt3DQuickScene2D",
-        "QtUiPlugin",
-        "QtPdf",
         "Qt3DRender",
         "QtQuick3DRuntimeRender",
         "QtHelp",
@@ -100,13 +94,10 @@ def cleanup_build():
         "QtWebSockets",
         "QtQuick3DUtils",
         "QtQuickTemplates2",
-        "QtScript",
         "QtPositioningQuick",
         "Qt3DCore",
-        "QtLocation",
         "QtXml",
         "QtSerialPort",
-        "QtWebView",
         "QtQuick",
         "QtScxml",
         "QtQml",
@@ -115,9 +106,7 @@ def cleanup_build():
         "QtMultimedia",
         "QtQmlWorkerScript",
         "QtVirtualKeyboard",
-        "QtPurchasing",
         "QtOpenGL",
-        "QtWebEngine",
         "Qt3DQuick",
         "QtTest",
         "QtPositioning",
@@ -127,7 +116,6 @@ def cleanup_build():
         "QtQuickShapes",
         "QtQuickTest",
         "QtNetwork",
-        "QtXmlPatterns",
         "QtSvg",
         "QtDesignerComponents",
         "QtMultimediaWidgets",
@@ -135,27 +123,58 @@ def cleanup_build():
         "Qt3DQuickAnimation",
         "QtSensors",
         "Qt3DAnimation",
-        "QtRepParser",
-        "QtTextToSpeech",
-        "QtGamepad",
-        "QtSerialBus",
         "QtSql",
-        "QtConcurrent"
+        "QtConcurrent",
+        "QtChartsQml",
+        "QtDataVisualizationQml",
+        "QtLabsAnimation",
+        "QtLabsFolderListModel",
+        "QtLabsQmlModels",
+        "QtLabsSettings",
+        "QtLabsSharedImage",
+        "QtLabsWavefrontMesh",
+        "QtOpenGLWidgets",
+        "QtQmlCore",
+        "QtQmlLocalStorage",
+        "QtQmlXmlListModel",
+        "QtQuick3DAssetUtils",
+        "QtQuick3DEffects",
+        "QtQuick3DGlslParser",
+        "QtQuick3DHelpers",
+        "QtQuick3DIblBaker",
+        "QtQuick3DParticleEffects",
+        "QtQuick3DParticles",
+        "QtQuickControls2Impl",
+        "QtQuickDialogs2",
+        "QtQuickDialogs2QuickImpl",
+        "QtQuickDialogs2Utils",
+        "QtQuickLayouts",
+        "QtQuickTimeline",
+        "QtRemoteObjectsQml",
+        "QtScxmlQml",
+        "QtSensorsQuick",
+        "QtShaderTools",
+        "QtStateMachine",
+        "QtStateMachineQml",
+        "QtSvgWidgets",
+        "QtUiTools",
+        "QtWebEngineQuick",
+        "QtWebEngineQuickDelegatesQml"
     ]:
         shutil.rmtree(
-            f"{app_path}/Contents/MacOS/lib/PySide2/Qt/lib/{framework}.framework"
+            f"{app_path}/Contents/MacOS/lib/PySide6/Qt/lib/{framework}.framework"
         )
         print(
-            f"Deleted: {app_path}/Contents/MacOS/lib/PySide2/Qt/lib/{framework}.framework"
+            f"Deleted: {app_path}/Contents/MacOS/lib/PySide6/Qt/lib/{framework}.framework"
         )
         try:
-            os.remove(f"{app_path}/Contents/MacOS/lib/PySide2/{framework}.abi3.so")
-            print(f"Deleted: {app_path}/Contents/MacOS/lib/PySide2/{framework}.abi3.so")
+            os.remove(f"{app_path}/Contents/MacOS/lib/PySide6/{framework}.abi3.so")
+            print(f"Deleted: {app_path}/Contents/MacOS/lib/PySide6/{framework}.abi3.so")
         except FileNotFoundError:
             pass
         try:
-            os.remove(f"{app_path}/Contents/MacOS/lib/PySide2/{framework}.pyi")
-            print(f"Deleted: {app_path}/Contents/MacOS/lib/PySide2/{framework}.pyi")
+            os.remove(f"{app_path}/Contents/MacOS/lib/PySide6/{framework}.pyi")
+            print(f"Deleted: {app_path}/Contents/MacOS/lib/PySide6/{framework}.pyi")
         except FileNotFoundError:
             pass
 
@@ -176,28 +195,31 @@ def cleanup_build():
     # Move frameworks from Resources/lib into Frameworks
     os.makedirs(f"{app_path}/Contents/Frameworks", exist_ok=True)
     for framework_filename in glob.glob(
-        f"{app_path}/Contents/Resources/lib/PySide2/Qt/lib/Qt*.framework"
+        f"{app_path}/Contents/Resources/lib/PySide6/Qt/lib/Qt*.framework"
     ):
         basename = os.path.basename(framework_filename)
 
         os.rename(framework_filename, f"{app_path}/Contents/Frameworks/{basename}")
         run(
             ["ln", "-s", f"../../../../../Frameworks/{basename}"],
-            cwd=f"{app_path}/Contents/Resources/lib/PySide2/Qt/lib",
+            cwd=f"{app_path}/Contents/Resources/lib/PySide6/Qt/lib",
         )
         if os.path.exists(f"{app_path}/Contents/Frameworks/{basename}/Resources"):
-            os.rename(
-                f"{app_path}/Contents/Frameworks/{basename}/Resources",
-                f"{app_path}/Contents/Frameworks/{basename}/Versions/5/Resources",
-            )
+            if not os.path.exists(f"{app_path}/Contents/Frameworks/{basename}/Versions/A/Resources"):
+                os.rename(
+                    f"{app_path}/Contents/Frameworks/{basename}/Resources",
+                    f"{app_path}/Contents/Frameworks/{basename}/Versions/A/Resources",
+                )
+            else:
+                shutil.rmtree(f"{app_path}/Contents/Frameworks/{basename}/Resources")
             run(
-                ["ln", "-s", "Versions/5/Resources"],
+                ["ln", "-s", "Versions/A/Resources"],
                 cwd=f"{app_path}/Contents/Frameworks/{basename}",
             )
 
         try:
             run(
-                ["ln", "-s", "5", "Current"],
+                ["ln", "-s", "A", "Current"],
                 cwd=f"{app_path}/Contents/Frameworks/{basename}/Versions",
             )
         except:
@@ -205,27 +227,49 @@ def cleanup_build():
 
     # Move Qt plugins
     os.rename(
-        f"{app_path}/Contents/Resources/lib/PySide2/Qt/plugins",
+        f"{app_path}/Contents/Resources/lib/PySide6/Qt/plugins",
         f"{app_path}/Contents/Frameworks/plugins",
     )
     run(
         ["ln", "-s", "../../../../Frameworks/plugins"],
-        cwd=f"{app_path}/Contents/Resources/lib/PySide2/Qt",
+        cwd=f"{app_path}/Contents/Resources/lib/PySide6/Qt",
     )
 
-    print("> Delete more unused PySide2 stuff to save space")
+    print("> Delete more unused PySide6 stuff to save space")
     for filename in [
-        f"{app_path}/Contents/Resources/lib/PySide2/Designer.app",
-        f"{app_path}/Contents/Resources/lib/PySide2/examples",
-        f"{app_path}/Contents/Resources/lib/PySide2/glue",
-        f"{app_path}/Contents/Resources/lib/PySide2/include",
-        f"{app_path}/Contents/Resources/lib/PySide2/pyside2-lupdate",
-        f"{app_path}/Contents/Resources/lib/PySide2/rcc",
-        f"{app_path}/Contents/Resources/lib/PySide2/uic",
-        f"{app_path}/Contents/Resources/lib/PySide2/libpyside2.abi3.5.15.dylib",
-        f"{app_path}/Contents/Resources/lib/PySide2/Qt/qml",
-        f"{app_path}/Contents/Resources/lib/shiboken2/libshiboken2.abi3.5.15.dylib",
-        f"{app_path}/Contents/Resources/lib/shiboken2/docs",
+        f"{app_path}/Contents/Resources/lib/PySide6/Designer.app",
+        f"{app_path}/Contents/Resources/lib/PySide6/examples",
+        f"{app_path}/Contents/Resources/lib/PySide6/glue",
+        f"{app_path}/Contents/Resources/lib/PySide6/include",
+        f"{app_path}/Contents/Resources/lib/PySide6/lupdate",
+        f"{app_path}/Contents/Resources/lib/PySide6/libpyside6.abi3.6.4.dylib",
+        f"{app_path}/Contents/Resources/lib/PySide6/Qt/qml",
+        f"{app_path}/Contents/Resources/lib/shiboken6/libshiboken6.abi3.6.4.dylib",
+        f"{app_path}/Contents/Resources/lib/PySide6/Assistant.app",
+        f"{app_path}/Contents/Resources/lib/PySide6/Linguist.app",
+        f"{app_path}/Contents/Resources/lib/PySide6/libpyside6qml.abi3.6.4.dylib",
+        f"{app_path}/Contents/Resources/lib/PySide6/lrelease",
+        f"{app_path}/Contents/Resources/lib/PySide6/qmlformat",
+        f"{app_path}/Contents/Resources/lib/PySide6/qmllint",
+        f"{app_path}/Contents/Resources/lib/PySide6/qmlls",
+        f"{app_path}/Contents/MacOS/QtBluetooth",
+        f"{app_path}/Contents/MacOS/QtConcurrent",
+        f"{app_path}/Contents/MacOS/QtDesigner",
+        f"{app_path}/Contents/MacOS/QtNetworkAuth",
+        f"{app_path}/Contents/MacOS/QtNfc",
+        f"{app_path}/Contents/MacOS/QtOpenGL",
+        f"{app_path}/Contents/MacOS/QtOpenGLWidgets",
+        f"{app_path}/Contents/MacOS/QtPositioning",
+        f"{app_path}/Contents/MacOS/QtQuick3D",
+        f"{app_path}/Contents/MacOS/QtQuick3DRuntimeRender",
+        f"{app_path}/Contents/MacOS/QtQuick3DUtils",
+        f"{app_path}/Contents/MacOS/QtShaderTools",
+        f"{app_path}/Contents/MacOS/QtStateMachine",
+        f"{app_path}/Contents/MacOS/QtSvgWidgets",
+        f"{app_path}/Contents/MacOS/QtWebChannel",
+        f"{app_path}/Contents/MacOS/QtWebEngineCore",
+        f"{app_path}/Contents/MacOS/QtWebEngineQuick",
+        f"{app_path}/Contents/MacOS/QtXml",
     ]:
         if os.path.isfile(filename) or os.path.islink(filename):
             os.remove(filename)
@@ -250,11 +294,10 @@ def codesign(app_path):
         glob.glob(f"{app_path}/Contents/Resources/lib/**/*.so", recursive=True),
         glob.glob(f"{app_path}/Contents/Resources/lib/**/*.dylib", recursive=True),
         [
-            f"{app_path}/Contents/Frameworks/QtCore.framework/Versions/5/QtCore",
-            f"{app_path}/Contents/Frameworks/QtDBus.framework/Versions/5/QtDBus",
-            f"{app_path}/Contents/Frameworks/QtGui.framework/Versions/5/QtGui",
-            f"{app_path}/Contents/Frameworks/QtMacExtras.framework/Versions/5/QtMacExtras",
-            f"{app_path}/Contents/Frameworks/QtWidgets.framework/Versions/5/QtWidgets",
+            f"{app_path}/Contents/Frameworks/QtCore.framework/Versions/A/QtCore",
+            f"{app_path}/Contents/Frameworks/QtDBus.framework/Versions/A/QtDBus",
+            f"{app_path}/Contents/Frameworks/QtGui.framework/Versions/A/QtGui",
+            f"{app_path}/Contents/Frameworks/QtWidgets.framework/Versions/A/QtWidgets",
             f"{app_path}/Contents/Resources/lib/Python",
             f"{app_path}/Contents/Resources/lib/onionshare/resources/tor/meek-client",
             f"{app_path}/Contents/Resources/lib/onionshare/resources/tor/obfs4proxy",
