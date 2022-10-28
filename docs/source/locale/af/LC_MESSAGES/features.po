@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-01-17 10:28-0800\n"
-"PO-Revision-Date: 2022-10-27 18:06+0000\n"
+"PO-Revision-Date: 2022-10-29 17:01+0000\n"
 "Last-Translator: Gideon Wentink <gjwentink@gmail.com>\n"
 "Language-Team: none\n"
 "Language: af\n"
@@ -53,51 +53,87 @@ msgstr ""
 #: ../../source/features.rst:20
 msgid "The people you send the URL to then copy and paste it into their `Tor Browser <https://www.torproject.org/>`_ to access the OnionShare service. Tor Browser will then prompt for the private key, which the people can also then copy and paste in."
 msgstr ""
+"Die mense aan wie u die bronadres stuur kopieer en plak dit dan in hulle `"
+"Tor Blaaier <https://www.torproject.org/>`_ vir toegang tot die OnionShare-"
+"diens. Tor Blaaier sal dan vir die privaat sleutel vra wat die mense dan ook "
+"kan kopieer en in plak."
 
 #: ../../source/features.rst:24
 msgid "If you run OnionShare on your laptop to send someone files, and then suspend it before the files are sent, the service will not be available until your laptop is unsuspended and on the internet again. OnionShare works best when working with people in real-time."
 msgstr ""
+"Indien u OnionShare op u skootrekenaar gebruik om lêers aan mense te stuur, "
+"en dit dan ophef alvorens die lêers gestuur is, sal die diens onbeskikbaar "
+"wees tot u skootrekenaar nie meer opgehef is nie en aan die internet "
+"gekoppel is. OnionShare werk die beste wanneer intyds met mense gewerk word."
 
 #: ../../source/features.rst:26
 msgid "Because your own computer is the web server, *no third party can access anything that happens in OnionShare*, not even the developers of OnionShare. It's completely private. And because OnionShare is based on Tor onion services too, it also protects your anonymity. See the :doc:`security design </security>` for more info."
 msgstr ""
+"Omdat u eie rekenaar die webbediener is *het geen derdeparty toegang tot "
+"enigiets wat in OnionShare gebeur nie*, selfs nie OnionShare se "
+"ontwikkelaars nie. Dit is heeltemal privaat. En omdat OnionShare op Tor-"
+"oniondienste gebaseer is, beskerm dit ook u anonimiteit. Sien die :doc:`"
+"sekuriteitsontwerp </security>` vir meer inligting."
 
 #: ../../source/features.rst:29
 msgid "Share Files"
-msgstr ""
+msgstr "Deel lêers"
 
 #: ../../source/features.rst:31
 msgid "You can use OnionShare to send files and folders to people securely and anonymously. Open a share tab, drag in the files and folders you wish to share, and click \"Start sharing\"."
 msgstr ""
+"U kan OnionShare gebruik om lêers en vouers privaat en anoniem na mense te "
+"stuur. Open ’n deeloortjie, sleep die lêers in die vouers wat u wil deel en "
+"klik “Begin deel”."
 
 #: ../../source/features.rst:35
 #: ../../source/features.rst:112
 msgid "After you add files, you'll see some settings. Make sure you choose the setting you're interested in before you start sharing."
 msgstr ""
+"Nadat u lêers toegevoeg het sal u instellings te sien kry. Maak seker u kies "
+"die instelling waarin u belangstel voor u begin deel."
 
 #: ../../source/features.rst:39
 msgid "As soon as someone finishes downloading your files, OnionShare will automatically stop the server, removing the website from the internet. To allow multiple people to download them, uncheck the \"Stop sharing after files have been sent (uncheck to allow downloading individual files)\" box."
 msgstr ""
+"Sodra iemand u lêers klaar afgelaai het, sal OnionShare outomaties die "
+"bediener stop en die webwerf van die internet verwyder. Om toe te laat dat "
+"meerdere mense dit kan aflaai, merk die “Hou op deel nadat lêers verstuur is "
+"(merk af om aflaai van individuele lêers toe te staan)” kassie af."
 
 #: ../../source/features.rst:42
 msgid "Also, if you uncheck this box, people will be able to download the individual files you share rather than a single compressed version of all the files."
 msgstr ""
+"Voorts, indien u die kassie afmerk, sal mense die individuele lêers wat u "
+"deel kan aflaai eerder as ’n saamgepersde weergawe van al die lêers."
 
 #: ../../source/features.rst:44
 msgid "When you're ready to share, click the \"Start sharing\" button. You can always click \"Stop sharing\", or quit OnionShare, immediately taking the website down. You can also click the \"↑\" icon in the top-right corner to show the history and progress of people downloading files from you."
 msgstr ""
+"Wanneer u gereed is om te deel kan u op die “Begin deel”-knop klik. U kan "
+"altyd klik op “Stop deling”, of OnionShare afsluit sodat die webwerf "
+"onmiddellik verwyder word. U kan oop die “↑”-ikoon in die regter boonste "
+"hoek klik om die geskiedenis en vordering te toon van mense wat lêers by u "
+"aflaai."
 
 #: ../../source/features.rst:48
 msgid "Now that you have a OnionShare, copy the address and the private key and send it to the person you want to receive the files. If the files need to stay secure, or the person is otherwise exposed to danger, use an encrypted messaging app."
 msgstr ""
+"Noudat u OnionShare het, kan u die adres en die privaat sleutel kopieer en "
+"dit stuur aan die mense wat u wil hê moet die lêers ontvang. Indien die "
+"lêers beveilig moet bly, of die persoon word andersins aan gevaar "
+"blootgestel, kan u ’n geënkripteerde boodskaptoep gebruik."
 
 #: ../../source/features.rst:50
 msgid "That person then must load the address in Tor Browser. After logging in with the private key, the files can be downloaded directly from your computer by clicking the \"Download Files\" link in the corner."
 msgstr ""
+"Daardie persoon moet dan die adres in Tor Blaaier laai. Nadat met die "
+"privaat sleutel aangeteken is, kan die lêers direk vanaf u rekenaar afgelaai "
+"word deur die “Laai lêers af”-knop in die hoek te klik."
 
 #: ../../source/features.rst:55
 msgid "Receive Files and Messages"
-msgstr ""
+msgstr "Ontvang lêers en boodskappe"
 
 #: ../../source/features.rst:57
 msgid "You can use OnionShare to let people anonymously submit files and messages directly to your computer, essentially turning it into an anonymous dropbox. Open a receive tab and choose the settings that you want."
