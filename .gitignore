@@ -61,3 +61,4 @@ venv
 .python-version
 onionshare.dist-info
 desktop/onionshare/resources/tor
+TODO*

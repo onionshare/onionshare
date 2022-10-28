@@ -47,7 +47,6 @@ class Application(QtWidgets.QApplication):
 
     def __init__(self, common):
         if common.platform == "Linux" or common.platform == "BSD":
-            self.setAttribute(QtCore.Qt.AA_X11InitThreads, True)
             self.setDesktopFileName("org.onionshare.OnionShare")
             self.setOrganizationDomain("org.onionshare.OnionShare")
             self.setOrganizationName("OnionShare")
