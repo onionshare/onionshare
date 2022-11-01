@@ -175,5 +175,7 @@
     "minutes_first_letter": "m",
     "seconds_first_letter": "s",
     "gui_file_selection_remove_all": "Verwyder Als",
-    "gui_remove": "Verwyder"
+    "gui_remove": "Verwyder",
+    "gui_chat_stop_server": "Stop kletsbediener",
+    "gui_dragdrop_sandbox_flatpak": "Om die Flatpak-sandput veiliger te maak word sleep-en-los nie gesteun nie. Gebruik eerder die “Voeg lêers toe”- en “Voeg vouer toe”-knoppe om lêers te kies."
 }
