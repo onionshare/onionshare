@@ -23,7 +23,7 @@
     "gui_receive_stop_server_autostop_timer": "Staak Ontvangmodus ({} oorblywend)",
     "gui_copy_url": "Kopieer Adres",
     "gui_canceled": "Gekanselleer",
-    "gui_copied_url_title": "OnionShare-adres Gekopieer",
+    "gui_copied_url_title": "OnionShare-adres gekopieer",
     "gui_copied_url": "OnionShare-adres na knipbord gekopieer",
     "gui_waiting_to_start": "Geskeduleer om oor {} te begin. Klik om te kanselleer.",
     "gui_please_wait": "Begin… Klik om te kanselleer.",
@@ -178,5 +178,6 @@
     "gui_remove": "Verwyder",
     "gui_chat_stop_server": "Stop kletsbediener",
     "gui_dragdrop_sandbox_flatpak": "Om die Flatpak-sandput veiliger te maak word sleep-en-los nie gesteun nie. Gebruik eerder die “Voeg lêers toe”- en “Voeg vouer toe”-knoppe om lêers te kies.",
-    "gui_chat_start_server": "Begin gespreksbediener"
+    "gui_chat_start_server": "Begin kletsbediener",
+    "gui_receive_flatpak_data_dir": "Omdat u OnionShare d.m.v. Flatpak geïnstalleer het, moet u lêers in ’n vouer in ~/OnionShare bewaar."
 }
