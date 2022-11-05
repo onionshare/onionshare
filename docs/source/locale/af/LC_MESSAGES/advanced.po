@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-01-17 10:28-0800\n"
-"PO-Revision-Date: 2022-10-19 10:07+0000\n"
+"PO-Revision-Date: 2022-11-06 19:08+0000\n"
 "Last-Translator: Gideon Wentink <gjwentink@gmail.com>\n"
 "Language-Team: none\n"
 "Language: af\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.14.2-dev\n"
+"X-Generator: Weblate 4.14.2\n"
 
 #: ../../source/advanced.rst:2
 msgid "Advanced Usage"
@@ -66,7 +66,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:40
 msgid "Custom Titles"
-msgstr ""
+msgstr "Pasgemaakte titels"
 
 #: ../../source/advanced.rst:42
 msgid "By default, when people load an OnionShare service in Tor Browser they see the default title for the type of service. For example, the default title of a chat service is \"OnionShare Chat\"."
@@ -78,11 +78,16 @@ msgstr ""
 
 #: ../../source/advanced.rst:47
 msgid "Scheduled Times"
-msgstr ""
+msgstr "Geskeduleerde tye"
 
 #: ../../source/advanced.rst:49
 msgid "OnionShare supports scheduling exactly when a service should start and stop. Before starting a server, click \"Show advanced settings\" in its tab and then check the boxes next to either \"Start onion service at scheduled time\", \"Stop onion service at scheduled time\", or both, and set the respective desired dates and times."
 msgstr ""
+"OnionShare ondersteun skedulering van wanneer ’n diens moet begin en eindig. "
+"Voordat u ’n bediener begin, klik op “Toon gevorderde instellings” in die "
+"oortjie en merk dan die kassies af langs òf “Begin onion-diens op "
+"geskeduleerde tyd”, “Eindig onion-diens op geskeduleerde tyd”, of albei en "
+"stel die onderskeie datums en tye soos verlang."
 
 #: ../../source/advanced.rst:52
 msgid "If you scheduled a service to start in the future, when you click the \"Start sharing\" button you will see a timer counting down until it starts. If you scheduled it to stop in the future, after it's started you will see a timer counting down to when it will stop automatically."
@@ -98,23 +103,27 @@ msgstr ""
 
 #: ../../source/advanced.rst:67
 msgid "Command-line Interface"
-msgstr ""
+msgstr "Bevellynkoppelvlak"
 
 #: ../../source/advanced.rst:69
 msgid "In addition to its graphical interface, OnionShare has a command-line interface."
 msgstr ""
+"Buiten die grafiese koppelvlak het OnionShare ook ’n bevellynkoppelvlak."
 
 #: ../../source/advanced.rst:71
 msgid "You can install just the command-line version of OnionShare using ``pip3``::"
 msgstr ""
+"U kan slegs die bevellyn-weergawe van OnionShare installeer d.m.v. ``pip3``::"
 
 #: ../../source/advanced.rst:75
 msgid "Note that you will also need the ``tor`` package installed. In macOS, install it with: ``brew install tor``"
 msgstr ""
+"Let op dat die ``tor``-pakket ook geïnstalleer moet wees. In macOS kan u dit "
+"installeer met: ``brew install tor``"
 
 #: ../../source/advanced.rst:77
 msgid "Then run it like this::"
-msgstr ""
+msgstr "Loop dit dan soos volg::"
 
 #: ../../source/advanced.rst:81
 msgid "For information about installing it on different operating systems, see the `CLI readme file <https://github.com/onionshare/onionshare/blob/develop/cli/README.md>`_ in the git repository."
@@ -126,7 +135,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:86
 msgid "Usage"
-msgstr ""
+msgstr "Gebruik"
 
 #: ../../source/advanced.rst:88
 msgid "You can browse the command-line documentation by running ``onionshare --help``::"
