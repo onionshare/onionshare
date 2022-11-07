@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-01-17 10:28-0800\n"
-"PO-Revision-Date: 2022-11-07 12:06+0000\n"
+"PO-Revision-Date: 2022-11-08 13:07+0000\n"
 "Last-Translator: Gideon Wentink <gjwentink@gmail.com>\n"
 "Language-Team: none\n"
 "Language: af\n"
@@ -57,6 +57,8 @@ msgstr ""
 #: ../../source/install.rst:23
 msgid "You can also download and install PGP-signed ``.flatpak`` or ``.snap`` packages from https://onionshare.org/dist/ if you prefer."
 msgstr ""
+"U kan ook PGP-ondertekende ``.flatpak`` - of ``.snap``-pakketten aflaai en "
+"installeer vanaf https://onionshare.org/dist/ indien u dit verkies."
 
 #: ../../source/install.rst:28
 msgid "Command-line only"
@@ -68,11 +70,16 @@ msgstr ""
 
 #: ../../source/install.rst:35
 msgid "Verifying PGP signatures"
-msgstr ""
+msgstr "Bevestig PGP-handtekeninge"
 
 #: ../../source/install.rst:37
 msgid "You can verify that the package you download is legitimate and hasn't been tampered with by verifying its PGP signature. For Windows and macOS, this step is optional and provides defense in depth: the OnionShare binaries include operating system-specific signatures, and you can just rely on those alone if you'd like."
 msgstr ""
+"U kan bevestig dat die pakket wat u aflaai legitiem is en dat daar nie mee "
+"gekarring is nie deur die PGP-handtekening te bevestig. Hierdie stap is "
+"opsioneel vir Windows en macOS en bied diepgaande beskerming: die "
+"OnionSharebinêre binaries bevat bedryfstelselspesifieke handtekeninge en u "
+"kan daarop alleen staatmaak indien u sou wou."
 
 #: ../../source/install.rst:41
 msgid "Signing key"
@@ -81,6 +88,11 @@ msgstr "Ondertekeningsleutel"
 #: ../../source/install.rst:43
 msgid "Packages are signed by Micah Lee, the core developer, using his PGP public key with fingerprint ``927F419D7EC82C2F149C1BD1403C2657CD994F73``. You can download Micah's key `from the keys.openpgp.org keyserver <https://keys.openpgp.org/vks/v1/by-fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 msgstr ""
+"Pakkette word deur Micah Lee, die kernontwikkelaar, met sy PGP- publieke "
+"sleutel met vingerafdruk ``927F419D7EC82C2F149C1BD1403C2657CD994F73`` "
+"onderteken. U kan Micah se sleutel aflaai `by die keys.openpgp.org "
+"sleutelbediener <https://keys.openpgp.org/vks/v1/by-fingerprint/"
+"927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 
 #: ../../source/install.rst:45
 msgid "You must have GnuPG installed to verify signatures. For macOS you probably want `GPGTools <https://gpgtools.org/>`_, and for Windows you probably want `Gpg4win <https://www.gpg4win.org/>`_."
