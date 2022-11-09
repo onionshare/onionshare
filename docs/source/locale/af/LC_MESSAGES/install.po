@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-01-17 10:28-0800\n"
-"PO-Revision-Date: 2022-11-08 13:07+0000\n"
+"PO-Revision-Date: 2022-11-10 05:49+0000\n"
 "Last-Translator: Gideon Wentink <gjwentink@gmail.com>\n"
 "Language-Team: none\n"
 "Language: af\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.14.2\n"
+"X-Generator: Weblate 4.15-dev\n"
 
 #: ../../source/install.rst:2
 msgid "Installation"
@@ -97,6 +97,9 @@ msgstr ""
 #: ../../source/install.rst:45
 msgid "You must have GnuPG installed to verify signatures. For macOS you probably want `GPGTools <https://gpgtools.org/>`_, and for Windows you probably want `Gpg4win <https://www.gpg4win.org/>`_."
 msgstr ""
+"GnuPG moet geïnstalleer wees om handtekeninge te bevestig. Vir macOS wil u "
+"waarskynlik `GPGTools <https://gpgtools.org/>`_ hê en vir Windows wil u "
+"waarskynlik `Gpg4win <https://www.gpg4win.org/>`_ hê."
 
 #: ../../source/install.rst:48
 msgid "Signatures"
@@ -105,22 +108,29 @@ msgstr "Handtekeninge"
 #: ../../source/install.rst:50
 msgid "You can find the signatures (as ``.asc`` files), as well as Windows, macOS, Flatpak, Snap, and source packages, at https://onionshare.org/dist/ in the folders named for each version of OnionShare. You can also find them on the `GitHub Releases page <https://github.com/micahflee/onionshare/releases>`_."
 msgstr ""
+"U kan die handtekeninge (as ``.asc``-lêers), asook Windows, macOS, Flatpak, "
+"Snap en bronpakkette, by https://onionshare.org/dist/ kry in die vouers met "
+"die naam van elke weergawe van OnionShare. U kan dit ook op die `GitHub-"
+"vrystellingsblad <https://github.com/micahflee/onionshare/releases>`_ kry."
 
 #: ../../source/install.rst:54
 msgid "Verifying"
-msgstr ""
+msgstr "Bevestig tans"
 
 #: ../../source/install.rst:56
 msgid "Once you have imported Micah's public key into your GnuPG keychain, downloaded the binary and and ``.asc`` signature, you can verify the binary for macOS in a terminal like this::"
 msgstr ""
+"Sodra u Micah se openbare sleutel in u GnuPG-sleutelhouer ingevoer het, en "
+"die binêr en ``.asc``-handtekening afgelaai het, kan u die binêr vir macOS "
+"soos volg in ’n terminaal bevestig::"
 
 #: ../../source/install.rst:60
 msgid "Or for Windows, in a command-prompt like this::"
-msgstr ""
+msgstr "Of vir Windows in ’n bevelpor soos volg::"
 
 #: ../../source/install.rst:64
 msgid "The expected output looks like this::"
-msgstr ""
+msgstr "Die verwagte afvoer lyk soos volg::"
 
 #: ../../source/install.rst:76
 msgid "If you don't see ``Good signature from``, there might be a problem with the integrity of the file (malicious or otherwise), and you should not install the package. (The ``WARNING:`` shown above, is not a problem with the package, it only means you haven't defined a level of \"trust\" of Micah's PGP key.)"
@@ -129,3 +139,7 @@ msgstr ""
 #: ../../source/install.rst:78
 msgid "If you want to learn more about verifying PGP signatures, the guides for `Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ and the `Tor Project <https://support.torproject.org/tbb/how-to-verify-signature/>`_ may be useful."
 msgstr ""
+"Indien u meer wil leer oor hoe om PGP-handtekeninge te bevestig, kan die "
+"handleidings vir `Qubes OS <https://www.qubes-os.org/security/"
+"verifying-signatures/>`_ en die `Tor Project <https://support.torproject.org/"
+"tbb/how-to-verify-signature/>`_ handig wees."
