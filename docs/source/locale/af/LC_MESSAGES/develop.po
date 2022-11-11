@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-01-17 10:28-0800\n"
-"PO-Revision-Date: 2022-11-11 00:19+0000\n"
+"PO-Revision-Date: 2022-11-13 09:49+0000\n"
 "Last-Translator: Gideon Wentink <gjwentink@gmail.com>\n"
 "Language-Team: none\n"
 "Language: af\n"
@@ -111,14 +111,19 @@ msgstr ""
 #: ../../source/develop.rst:117
 msgid "You can add your own debug messages by running the ``Common.log`` method from ``onionshare/common.py``. For example::"
 msgstr ""
+"U kan u eie ontfoutboodskape toevoeg deur die ``Common.log``-metode vanaf ``"
+"onionshare/common.py`` te loop. Byvoorbeeld::"
 
 #: ../../source/develop.rst:121
 msgid "This can be useful when learning the chain of events that occur when using OnionShare, or the value of certain variables before and after they are manipulated."
 msgstr ""
+"Dit kan handig wees wanneer die gebeureketting geleer word wat plaasvind "
+"wanneer OnionShare gebruik word, or die waarde van sekere veranderlikes voor "
+"en nadat dit gemanipuleer is."
 
 #: ../../source/develop.rst:124
 msgid "Local Only"
-msgstr ""
+msgstr "Slegs lokaal"
 
 #: ../../source/develop.rst:126
 msgid "Tor is slow, and it's often convenient to skip starting onion services altogether during development. You can do this with the ``--local-only`` flag. For example::"
@@ -130,10 +135,14 @@ msgstr ""
 #: ../../source/develop.rst:165
 msgid "In this case, you load the URL ``http://127.0.0.1:17641`` in a normal web-browser like Firefox, instead of using the Tor Browser. The private key is not actually needed in local-only mode, so you can ignore it."
 msgstr ""
+"In hierdie geval laai u die bronadres ``http://127.0.0.1:17641`` in ’n "
+"normale webblaaier soos Firefox, eerder as om die Tor Blaaier te gebruik. "
+"Die privaat sleutel word nie eintlik in slegs-lokaal-modus benodig nie en u "
+"kan dit ignoreer."
 
 #: ../../source/develop.rst:168
 msgid "Contributing Translations"
-msgstr ""
+msgstr "Dra vertalings by"
 
 #: ../../source/develop.rst:170
 msgid "Help make OnionShare easier to use and more familiar and welcoming for people by translating it on `Hosted Weblate <https://hosted.weblate.org/projects/onionshare/>`_. Always keep the \"OnionShare\" in latin letters, and use \"OnionShare (localname)\" if needed."
