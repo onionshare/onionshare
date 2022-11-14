@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-01-17 10:28-0800\n"
-"PO-Revision-Date: 2022-11-13 09:49+0000\n"
+"PO-Revision-Date: 2022-11-16 07:48+0000\n"
 "Last-Translator: Gideon Wentink <gjwentink@gmail.com>\n"
 "Language-Team: none\n"
 "Language: af\n"
@@ -147,22 +147,32 @@ msgstr "Dra vertalings by"
 #: ../../source/develop.rst:170
 msgid "Help make OnionShare easier to use and more familiar and welcoming for people by translating it on `Hosted Weblate <https://hosted.weblate.org/projects/onionshare/>`_. Always keep the \"OnionShare\" in latin letters, and use \"OnionShare (localname)\" if needed."
 msgstr ""
+"Help om OnionShare makliker te maak om te gebruik en meer bekend en meer "
+"verwelkomend deur dit te vertaal by `Hosted Weblate <https://hosted.weblate."
+"org/projects/onionshare/>`_. Behou altyd die “OnionShare” in Latynse "
+"letters, en gebruik “OnionShare (inheemse naam)” indien nodig."
 
 #: ../../source/develop.rst:172
 msgid "To help translate, make a Hosted Weblate account and start contributing."
-msgstr ""
+msgstr "Skep ’n Hosted Weblate-rekening om te begin vertaal, en val weg."
 
 #: ../../source/develop.rst:175
 msgid "Suggestions for Original English Strings"
-msgstr ""
+msgstr "Voorstelle vir oorspronklike Engelse stringe"
 
 #: ../../source/develop.rst:177
 msgid "Sometimes the original English strings are wrong, or don't match between the application and the documentation."
 msgstr ""
+"Soms is die oorspronklike Engelse stringe verkeerd, of stem dit nie ooreen "
+"tussen die toepassing en die dokumentasie nie."
 
 #: ../../source/develop.rst:179
 msgid "File source string improvements by adding @kingu to your Weblate comment, or open a GitHub issue or pull request. The latter ensures all upstream developers see the suggestion, and can potentially modify the string via the usual code review processes."
 msgstr ""
+"Bring verbeteringe aan die oorspronklike string aan deur @kingu tot u "
+"Weblate-kommentaar toe te voeg, of open ’n GitHub-kwessie of -trekversoek. "
+"Laasgenoemde verseker dat alle voorgaande ontwikkelaars die voorstelle sien "
+"en die string gedeeltelik kan wysig d.m.v. die gewone kodehersienprosesse."
 
 #: ../../source/develop.rst:183
 msgid "Status of Translations"
