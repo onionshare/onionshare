@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-01-17 10:28-0800\n"
-"PO-Revision-Date: 2022-11-21 18:47+0000\n"
+"PO-Revision-Date: 2022-11-23 18:48+0000\n"
 "Last-Translator: Gideon Wentink <gjwentink@gmail.com>\n"
 "Language-Team: none\n"
 "Language: af\n"
@@ -59,22 +59,34 @@ msgstr ""
 #: ../../source/tor.rst:25
 msgid "Try using a built-in bridge first. Using `obfs4` or `snowflake` bridges is recommended over using `meek-azure`."
 msgstr ""
+"Probeer eers om ’n ingeboude brug te gebruik. Gebruik van `obfs4`- of "
+"`snowflake`-brûe word bo `meek-azure` aanbeveel."
 
 #: ../../source/tor.rst:29
 msgid "If using a built-in bridge doesn't work, you can request a bridge from torproject.org. You will have to solve a CAPTCHA in order to request a bridge. (This makes it more difficult for governments or ISPs to block access to Tor bridges.)"
 msgstr ""
+"Indien gebruik van ’n ingeboude brug nie werk nie, kan u ’n brug by "
+"torproject.org versoek. U sal ’n CAPTCHA moet voltooi om ’n brug te versoek. "
+"(Dit maak dit moeiliker vir regerings of IDV’s om toegang tot Tor-brûe te "
+"versper.)"
 
 #: ../../source/tor.rst:33
 msgid "You also have the option of using a bridge that you learned about from a trusted source."
 msgstr ""
+"U het ook die opsie om ’n brug te gebruik wat u by ’n vertroude bron van "
+"gehoor het."
 
 #: ../../source/tor.rst:36
 msgid "Attempt auto-configuration with Tor Browser"
-msgstr ""
+msgstr "Probeer outo-opstelling met Tor Blaaier"
 
 #: ../../source/tor.rst:38
 msgid "If you have `downloaded the Tor Browser <https://www.torproject.org>`_ and don't want two ``tor`` processes running, you can use the ``tor`` process from the Tor Browser. Keep in mind you need to keep Tor Browser open in the background while you're using OnionShare for this to work."
 msgstr ""
+"Indien u die `Tor Blaaier afgelaai het <https://www.torproject.org>`_ en nie "
+"twee ``tor``-prosesse wil loop nie, kan u die ``tor``-proses van die Tor "
+"Blaaier gebruik. Hou in gedagte dat die Tor Blaaier in die agtergrond oop "
+"moet bly terwyl u OnionShare vir hierdie werk gebruik."
 
 #: ../../source/tor.rst:42
 msgid "Using a system ``tor`` in Windows"
@@ -83,6 +95,8 @@ msgstr ""
 #: ../../source/tor.rst:44
 msgid "This is fairly advanced. You'll need to know how edit plaintext files and do stuff as an administrator."
 msgstr ""
+"Dit is redelik gevorderd. U moet weet hoe om plattekslêers te wysig en take "
+"van ’n administreerder kan uitvoer."
 
 #: ../../source/tor.rst:46
 msgid "Download the Tor Windows Expert Bundle `from <https://www.torproject.org/download/tor/>`_. Extract the compressed file and copy the extracted folder to ``C:\\Program Files (x86)\\`` Rename the extracted folder with ``Data`` and ``Tor`` in it to ``tor-win32``."
