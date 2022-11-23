@@ -315,10 +315,6 @@ class SettingsTab(QtWidgets.QWidget):
 
         return settings
 
-    def settings_have_changed(self):
-        # Global settings have changed
-        self.common.log("SettingsTab", "settings_have_changed")
-
     def _update_autoupdate_timestamp(self, autoupdate_timestamp):
         self.common.log("SettingsTab", "_update_autoupdate_timestamp")
 
