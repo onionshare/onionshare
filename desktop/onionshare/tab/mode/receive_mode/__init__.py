@@ -409,12 +409,6 @@ class ReceiveMode(Mode):
         self.history.in_progress_count -= 1
         self.history.update_in_progress()
 
-    def on_reload_settings(self):
-        """
-        We should be ok to re-enable the 'Start Receive Mode' button now.
-        """
-        self.primary_action.show()
-
     def reset_info_counters(self):
         """
         Set the info counters back to zero.
