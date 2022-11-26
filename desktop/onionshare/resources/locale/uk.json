@@ -294,7 +294,7 @@
     "gui_general_settings_window_title": "Загальні",
     "gui_autoconnect_description": "OnionShare покладається на мережу Tor, роботу якої забезпечують тисячі волонтерів по всьому світу.",
     "gui_autoconnect_could_not_connect_to_tor_api": "Не вдалося під'єднатися до API Tor. Переконайтеся, що ви під'єднані до Інтернету, перш ніж повторювати спробу.",
-    "gui_autoconnect_circumventing_censorship_starting_meek": "Встановлення «лагідного» мосту для фронтингу домену…",
+    "gui_autoconnect_circumventing_censorship_starting_meek": "Встановлення meek мосту для фронтингу домену…",
     "gui_autoconnect_failed_to_connect_to_tor": "Не вдалося під'єднатися до Tor",
     "gui_autoconnect_start": "Під'єднатися до Tor",
     "gui_autoconnect_trying_to_connect_to_tor": "З'єднання з Tor…",
