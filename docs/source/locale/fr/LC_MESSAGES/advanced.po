@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-10-02 16:17-0700\n"
-"PO-Revision-Date: 2022-10-12 06:50+0000\n"
-"Last-Translator: Loic Dachary <loic@dachary.org>\n"
+"PO-Revision-Date: 2022-11-26 18:25+0000\n"
+"Last-Translator: a-side <sebstenza@gmail.com>\n"
 "Language-Team: none\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -38,10 +38,13 @@ msgstr ""
 "la même adresse, même lorsque l'ordinateur qui les hébergent est redémarré."
 
 #: ../../source/advanced.rst:12
+#, fuzzy
 msgid ""
 "Make any tab persistent by checking the \"Always open this tab when "
 "OnionShare is started\" box before starting your server."
 msgstr ""
+"Rendre un onglet persistant en cochant la case \"Toujours ouvrir cet onglet "
+"au démarrage d'OnionShare\" avant de démarrer votre serveur."
 
 #: ../../source/advanced.rst:16
 msgid ""
@@ -50,6 +53,10 @@ msgid ""
 "available on the same OnionShare address and be protected by the same "
 "private key."
 msgstr ""
+"En démarrant OnionShare, vos onglets sauvegardés lors de votre dernière "
+"session seront affichés. Chaque service peut alors être démarré "
+"manuellement, et sera disponible avec la même adresse OnionShare et protégé "
+"par la même clé privée."
 
 #: ../../source/advanced.rst:19
 #, fuzzy
@@ -57,33 +64,45 @@ msgid ""
 "If you save a tab, a copy of its onion service secret key is stored on "
 "your computer."
 msgstr ""
-"Si vous sauvegarder un onglet, une copie de la clé secrète de ce service "
-"ognon sera stocké dans votre ordinateur avec vos paramètres OnionShare."
+"Si vous sauvegardez un onglet, une copie de la clé secrète de ce service "
+"oignon sera stockée dans votre ordinateur."
 
 #: ../../source/advanced.rst:24
 msgid "Turn Off Private Key"
-msgstr ""
+msgstr "Désactiver la Clé Privée"
 
 #: ../../source/advanced.rst:26
+#, fuzzy
 msgid ""
 "By default, all OnionShare services are protected with a private key, "
 "which Tor calls \"client authentication\"."
 msgstr ""
+"Par défaut, tous les services OnionShare sont protégés à l'aide d'une clé "
+"privée, ce que Tor appelle \"authentification client\"."
 
 #: ../../source/advanced.rst:28
+#, fuzzy
 msgid ""
 "The Tor Browser will ask you to enter your private key when you load an "
 "OnionShare service. If you want allow the public to use your service, "
 "it's better to disable the private key altogether."
 msgstr ""
+"Le Navigateur Tor vous demandera d'entrer votre clé privée quand vous "
+"chargerez un service OnionShare. Si vous autorisez le public à utiliser "
+"votre service, il est préférable de désactiver la clé privée."
 
 #: ../../source/advanced.rst:31
+#, fuzzy
 msgid ""
 "To turn off the private key for any tab, check the \"This is a public "
 "OnionShare service (disables private key)\" box before starting the "
 "server. Then the server will be public and a private key is not needed to"
 " load it in the Tor Browser."
 msgstr ""
+"Pour désactiver la clé privée pour chaque onglet, cochez la case \"Ceci est "
+"un service public OnionShare (désactive la clé privée)\" avant de démarrer "
+"le serveur. Le serveur sera alors public et une clé privée ne sera pas "
+"chargée dans le Navigateur Tor."
 
 #: ../../source/advanced.rst:37
 msgid "Custom Titles"
@@ -160,7 +179,7 @@ msgid ""
 "You can install just the command-line version of OnionShare using "
 "``pip3``::"
 msgstr ""
-"Vous pouvez installez uniquement la version en ligne de commande "
+"Vous pouvez installer uniquement la version en ligne de commande "
 "d'OnionShare en utilisant ``pip3``::"
 
 #: ../../source/advanced.rst:76
@@ -173,7 +192,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:78
 msgid "Then run it like this::"
-msgstr "Puis lancez le avec ::"
+msgstr "Puis lancez-le avec ::"
 
 #: ../../source/advanced.rst:82
 msgid ""
@@ -184,13 +203,12 @@ msgid ""
 msgstr ""
 
 #: ../../source/advanced.rst:84
-#, fuzzy
 msgid ""
 "If you installed OnionShare using the Snap package, you can also just run"
 " ``onionshare.cli`` to access the command-line interface version."
 msgstr ""
-"Si vous installez OnionShare en utilisant le paquet Linux Snapcraft, vous"
-" pouvez vous contentez de lancer ``onionshare.cli`` pour accéder à "
+"Si vous installez OnionShare en utilisant le paquet Linux Snapcraft, vous "
+"pouvez vous contenter de lancer ``onionshare.cli`` pour accéder à "
 "l'interface en ligne de commande."
 
 #: ../../source/advanced.rst:87
@@ -198,21 +216,23 @@ msgid "Usage"
 msgstr "Utilisation"
 
 #: ../../source/advanced.rst:89
-#, fuzzy
 msgid "Browse the command-line documentation by running ``onionshare --help``::"
 msgstr ""
-"Vous pouvez consultez la documentation de l'interface en ligne de "
-"commande en lançant ``onionshare --help``::"
+"Vous pouvez consulter la documentation de l'interface en ligne de commande "
+"en lançant ``onionshare --help``::"
 
 #: ../../source/advanced.rst:151
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Raccourcis Clavier"
 
 #: ../../source/advanced.rst:153
+#, fuzzy
 msgid ""
 "The OnionShare desktop application contains some keyboard shortcuts, for "
 "convenience and accessibility::"
 msgstr ""
+"L'application de bureau OnionShare propose des raccourcis clavier pour le "
+"confort d'utilisation et l'accessibilité::"
 
 #: ../../source/advanced.rst:158
 msgid "And from the main mode chooser screen::"
