@@ -32,6 +32,7 @@ colorama = "*"
 gevent-websocket = "*"
 stem = "1.8.1"
 werkzeug = "~2.0.3"
+qrcode = "^7.3.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "*"
