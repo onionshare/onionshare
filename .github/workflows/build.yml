@@ -346,9 +346,9 @@ jobs:
 
       - name: Install dependencies
         run: |
-          sudo apt remove -y ufw
           sudo lxd init --auto
           sudo snap install snapcraft --classic
+          sudo ufw disable
 
       - name: Build snap
         run: sudo snapcraft --use-lxd
