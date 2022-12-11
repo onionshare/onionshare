@@ -45,8 +45,8 @@ modules:
     buildsystem: autotools
     sources:
       - type: archive
-        sha256: 647e56dfa59ea36dab052027fcfc7663905c826c03509363c456900ecd435a5b
-        url: https://dist.torproject.org/tor-0.4.7.10.tar.gz
+        sha256: 3b5d969712c467851bd028f314343ef15a97ea457191e93ffa97310b05b9e395
+        url: https://dist.torproject.org/tor-0.4.7.12.tar.gz
     modules:
       - name: libevent
         buildsystem: autotools
