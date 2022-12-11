@@ -194,8 +194,8 @@ parts:
     after: [onionshare-cli]
 
   tor:
-    source: https://dist.torproject.org/tor-0.4.7.10.tar.gz
-    source-checksum: sha256/647e56dfa59ea36dab052027fcfc7663905c826c03509363c456900ecd435a5b
+    source: https://dist.torproject.org/tor-0.4.7.12.tar.gz
+    source-checksum: sha256/3b5d969712c467851bd028f314343ef15a97ea457191e93ffa97310b05b9e395
     source-type: tar
     plugin: autotools
     autotools-configure-parameters:

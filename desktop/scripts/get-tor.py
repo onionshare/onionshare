@@ -9,28 +9,28 @@ import subprocess
 import requests
 import click
 
-torbrowser_version = "11.5.4"
+torbrowser_version = "12.0"
 expected_win32_sha256 = (
-    "5179df98761d7c52c03cbea41af75148e9164fccc0f5ad89962f05f9cd8c6261"
+    "a9cc0f0af2ce8ca0d7a27d65c7efa37f6419cfc793fa80371e7db73d44b4cc02"
 )
 expected_win64_sha256 = (
-    "cee248528addbba59db355fca4a177746fdafd35e6e87d1b86cca2e8508dc8a7"
+    "f496cc0219c8b73f1f100124d6514bad55f503ff76202747f23620a6677e83c2"
 )
 expected_macos_sha256 = (
-    "de86f4462ee287b89504cf4145f769f7be482e8d6e23241817cdef602b06f6b5"
+    "11c8360187356e6c0837612a320f1a117303fc449602c9fd73f4faf9f9bbcfc9"
 )
 expected_linux64_sha256 = (
-    "db73fc130d1ab0ea6d0d8549d3103e01338e4fdda7cff236176f82b007a37caa"
+    "850ce601d815bac63e4f5937646d2b497173be28b27b30a7526ebb946a459874"
 )
 
-win32_url = f"https://dist.torproject.org/torbrowser/{torbrowser_version}/torbrowser-install-{torbrowser_version}_en-US.exe"
-win32_filename = f"torbrowser-install-{torbrowser_version}_en-US.exe"
-win64_url = f"https://dist.torproject.org/torbrowser/{torbrowser_version}/torbrowser-install-win64-{torbrowser_version}_en-US.exe"
-win64_filename = f"torbrowser-install-win64-{torbrowser_version}_en-US.exe"
-macos_url = f"https://dist.torproject.org/torbrowser/{torbrowser_version}/TorBrowser-{torbrowser_version}-osx64_en-US.dmg"
-macos_filename = f"TorBrowser-{torbrowser_version}-osx64_en-US.dmg"
-linux64_url = f"https://dist.torproject.org/torbrowser/{torbrowser_version}/tor-browser-linux64-{torbrowser_version}_en-US.tar.xz"
-linux64_filename = f"tor-browser-linux64-{torbrowser_version}_en-US.tar.xz"
+win32_filename = f"torbrowser-install-{torbrowser_version}_ALL.exe"
+win32_url = f"https://dist.torproject.org/torbrowser/{torbrowser_version}/{win32_filename}"
+win64_filename = f"torbrowser-install-win64-{torbrowser_version}_ALL.exe"
+win64_url = f"https://dist.torproject.org/torbrowser/{torbrowser_version}/{win64_filename}"
+macos_filename = f"TorBrowser-{torbrowser_version}-osx64_ALL.dmg"
+macos_url = f"https://dist.torproject.org/torbrowser/{torbrowser_version}/{macos_filename}"
+linux64_filename = f"tor-browser-linux64-{torbrowser_version}_ALL.tar.xz"
+linux64_url = f"https://dist.torproject.org/torbrowser/{torbrowser_version}/{linux64_filename}"
 
 
 # Common paths
