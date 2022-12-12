@@ -35,8 +35,8 @@ modules:
       - /bin
     sources:
       - type: archive
-        sha256: 7ff5f1cc4291fffb6d5a3098b3090abe4d415da2adec740b4e901893d95d7137
-        url: https://download.qt.io/official_releases/QtForPython/pyside2/PySide2-5.15.3-src/pyside-setup-opensource-src-5.15.3.tar.xz
+        sha256: f61210ae24e6882d5d0ca0059229e5dc4f35e2bca92dd6caf96c0f41943a8294
+        url: https://download.qt.io/official_releases/QtForPython/pyside2/PySide2-5.15.7-src/pyside-setup-opensource-src-5.15.7.tar.xz
       - type: shell
         commands:
           - mkdir -p /app/include/qt5tmp && cp -R /usr/include/Qt* /app/include/qt5tmp # https://bugreports.qt.io/browse/PYSIDE-787
