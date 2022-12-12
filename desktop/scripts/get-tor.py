@@ -46,32 +46,14 @@ def get_tor_windows(platform):
         win_filename = win32_filename
         expected_win_sha256 = expected_win32_sha256
         bin_filenames = [
-            "libcrypto-1_1.dll",
-            "libevent-2-1-7.dll",
-            "libevent_core-2-1-7.dll",
-            "libevent_extra-2-1-7.dll",
-            "libgcc_s_dw2-1.dll",
-            "libssl-1_1.dll",
-            "libssp-0.dll",
-            "libwinpthread-1.dll",
-            "tor.exe",
-            "zlib1.dll",
+            "tor.exe"
         ]
     elif platform == "win64":
         win_url = win64_url
         win_filename = win64_filename
         expected_win_sha256 = expected_win64_sha256
         bin_filenames = [
-            "libcrypto-1_1-x64.dll",
-            "libevent-2-1-7.dll",
-            "libevent_core-2-1-7.dll",
-            "libevent_extra-2-1-7.dll",
-            "libgcc_s_seh-1.dll",
-            "libssl-1_1-x64.dll",
-            "libssp-0.dll",
-            "libwinpthread-1.dll",
-            "tor.exe",
-            "zlib1.dll",
+            "tor.exe"
         ]
     else:
         click.echo("invalid platform")
