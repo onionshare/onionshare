@@ -41,6 +41,8 @@ modules:
         commands:
           - mkdir -p /app/include/qt5tmp && cp -R /usr/include/Qt* /app/include/qt5tmp # https://bugreports.qt.io/browse/PYSIDE-787
           - sed -i 's|\(--include-paths=\)|\1/app/include/qt5tmp:|' sources/pyside2/cmake/Macros/PySideModules.cmake
+          - sed -i s/'<private\/qaccessiblequickview_p.h>'/'\"private\/qaccessiblequickview_p.h\"'/ /app/include/qt5tmp/QtQuickWidgets/qaccessiblequickwidget.h
+          - mkdir -p /app/include/qt5tmp/QtQuickWidgets/private && cp /app/include/qt5tmp/QtQuick/5.15.7/QtQuick/private/qaccessiblequickview_p.h /app/include/qt5tmp/QtQuickWidgets/private/qaccessiblequickview_p.h
   - name: tor
     buildsystem: autotools
     sources:
