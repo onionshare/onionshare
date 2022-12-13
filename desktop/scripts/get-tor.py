@@ -9,28 +9,28 @@ import subprocess
 import requests
 import click
 
-torbrowser_version = "11.5.2"
+torbrowser_version = "12.0"
 expected_win32_sha256 = (
-    "07e721ae76bc7eefe25f20792091009238e9568d500331fc64bdd8796fec8c0f"
+    "a9cc0f0af2ce8ca0d7a27d65c7efa37f6419cfc793fa80371e7db73d44b4cc02"
 )
 expected_win64_sha256 = (
-    "8237bca22b5fa545de21f84ba8c9270c84442d0fc50a2e626f757d069e4bc7a8"
+    "f496cc0219c8b73f1f100124d6514bad55f503ff76202747f23620a6677e83c2"
 )
 expected_macos_sha256 = (
-    "b80d3dba83b343fab7a6c8fc08440b2751da1ac12f86fe593da8e74069e4d7f6"
+    "11c8360187356e6c0837612a320f1a117303fc449602c9fd73f4faf9f9bbcfc9"
 )
 expected_linux64_sha256 = (
-    "90cdce3854e9114ee7232aaa74672a2d9f3a40b6fa8ac33971f586ee3a3cf75a"
+    "850ce601d815bac63e4f5937646d2b497173be28b27b30a7526ebb946a459874"
 )
 
-win32_url = f"https://dist.torproject.org/torbrowser/{torbrowser_version}/torbrowser-install-{torbrowser_version}_en-US.exe"
-win32_filename = f"torbrowser-install-{torbrowser_version}_en-US.exe"
-win64_url = f"https://dist.torproject.org/torbrowser/{torbrowser_version}/torbrowser-install-win64-{torbrowser_version}_en-US.exe"
-win64_filename = f"torbrowser-install-win64-{torbrowser_version}_en-US.exe"
-macos_url = f"https://dist.torproject.org/torbrowser/{torbrowser_version}/TorBrowser-{torbrowser_version}-osx64_en-US.dmg"
-macos_filename = f"TorBrowser-{torbrowser_version}-osx64_en-US.dmg"
-linux64_url = f"https://dist.torproject.org/torbrowser/{torbrowser_version}/tor-browser-linux64-{torbrowser_version}_en-US.tar.xz"
-linux64_filename = f"tor-browser-linux64-{torbrowser_version}_en-US.tar.xz"
+win32_filename = f"torbrowser-install-{torbrowser_version}_ALL.exe"
+win32_url = f"https://dist.torproject.org/torbrowser/{torbrowser_version}/{win32_filename}"
+win64_filename = f"torbrowser-install-win64-{torbrowser_version}_ALL.exe"
+win64_url = f"https://dist.torproject.org/torbrowser/{torbrowser_version}/{win64_filename}"
+macos_filename = f"TorBrowser-{torbrowser_version}-macos_ALL.dmg"
+macos_url = f"https://dist.torproject.org/torbrowser/{torbrowser_version}/{macos_filename}"
+linux64_filename = f"tor-browser-linux64-{torbrowser_version}_ALL.tar.xz"
+linux64_url = f"https://dist.torproject.org/torbrowser/{torbrowser_version}/{linux64_filename}"
 
 
 # Common paths
@@ -46,32 +46,14 @@ def get_tor_windows(platform):
         win_filename = win32_filename
         expected_win_sha256 = expected_win32_sha256
         bin_filenames = [
-            "libcrypto-1_1.dll",
-            "libevent-2-1-7.dll",
-            "libevent_core-2-1-7.dll",
-            "libevent_extra-2-1-7.dll",
-            "libgcc_s_dw2-1.dll",
-            "libssl-1_1.dll",
-            "libssp-0.dll",
-            "libwinpthread-1.dll",
-            "tor.exe",
-            "zlib1.dll",
+            "tor.exe"
         ]
     elif platform == "win64":
         win_url = win64_url
         win_filename = win64_filename
         expected_win_sha256 = expected_win64_sha256
         bin_filenames = [
-            "libcrypto-1_1-x64.dll",
-            "libevent-2-1-7.dll",
-            "libevent_core-2-1-7.dll",
-            "libevent_extra-2-1-7.dll",
-            "libgcc_s_seh-1.dll",
-            "libssl-1_1-x64.dll",
-            "libssp-0.dll",
-            "libwinpthread-1.dll",
-            "tor.exe",
-            "zlib1.dll",
+            "tor.exe"
         ]
     else:
         click.echo("invalid platform")
