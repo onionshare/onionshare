@@ -348,6 +348,7 @@ jobs:
         run: |
           sudo lxd init --auto
           sudo snap install snapcraft --classic
+          sudo ufw disable
 
       - name: Build snap
         run: sudo snapcraft --use-lxd
