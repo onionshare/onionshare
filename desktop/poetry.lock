@@ -500,7 +500,7 @@ pytest = ">=5.0"
 
 [[package]]
 name = "pytest-qt"
-version = "4.1.0"
+version = "4.2.0"
 description = "pytest support for PyQt and PySide applications"
 category = "dev"
 optional = false
@@ -717,7 +717,7 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.7,<3.11"
-content-hash = "c79d62e2e1778b656fdd238ebf6b8cb40e021e517c4ba350bb8d94fc0016931d"
+content-hash = "074ec9d83cff69188cad191ec42d1ac60a4f3a12beda367e4bb0e95f4d06fcb1"
 
 [metadata.files]
 attrs = [
@@ -1174,8 +1174,8 @@ pytest-faulthandler = [
     {file = "pytest_faulthandler-2.0.1-py2.py3-none-any.whl", hash = "sha256:236430ba962fd1c910d670922be55fe5b25ea9bc3fc6561a0cafbb8759e7504d"},
 ]
 pytest-qt = [
-    {file = "pytest-qt-4.1.0.tar.gz", hash = "sha256:027f3d3f5dd04af0530d846cf50fb858f719f7e87c2e4a1c686abd4e0f72172a"},
-    {file = "pytest_qt-4.1.0-py2.py3-none-any.whl", hash = "sha256:edd08dae3b207405edddfc482d4dda4b848e85a8e6a0e7c36f20bac11ab328de"},
+    {file = "pytest-qt-4.2.0.tar.gz", hash = "sha256:00a17b586dd530b6d7a9399923a40489ca4a9a309719011175f55dc6b5dc8f41"},
+    {file = "pytest_qt-4.2.0-py2.py3-none-any.whl", hash = "sha256:a7659960a1ab2af8fc944655a157ff45d714b80ed7a6af96a4b5bb99ecf40a22"},
 ]
 python-engineio = [
     {file = "python-engineio-4.3.4.tar.gz", hash = "sha256:d8d8b072799c36cadcdcc2b40d2a560ce09797ab3d2d596b2ad519a5e4df19ae"},
