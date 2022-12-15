@@ -34,7 +34,7 @@ stem = "1.8.1"
 werkzeug = "~2.0.3"
 
 [tool.poetry.dev-dependencies]
-pytest = "*"
+pytest = ">=7.2.0"
 
 [tool.poetry.scripts]
 onionshare-cli = 'onionshare_cli:main'
