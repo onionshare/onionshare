@@ -317,16 +317,6 @@ class WebsiteMode(Mode):
         """
         self.primary_action.hide()
 
-    def on_reload_settings(self):
-        """
-        If there were some files listed for sharing, we should be ok to re-enable
-        the 'Start Sharing' button now.
-        """
-        if self.server_status.file_selection.get_num_files() > 0:
-            self.primary_action.show()
-            self.info_label.show()
-            self.remove_all_button.show()
-
     def update_primary_action(self):
         self.common.log("WebsiteMode", "update_primary_action")
 

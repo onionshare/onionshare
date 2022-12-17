@@ -149,11 +149,5 @@ class ChatMode(Mode):
         """
         self.primary_action.hide()
 
-    def on_reload_settings(self):
-        """
-        We should be ok to re-enable the 'Start Receive Mode' button now.
-        """
-        self.primary_action.show()
-
     def update_primary_action(self):
         self.common.log("ChatMode", "update_primary_action")
