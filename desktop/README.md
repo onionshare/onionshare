@@ -31,9 +31,7 @@ poetry install
 
 **Windows users:** Download and install 7-Zip from https://7-zip.org/download.html. [Add](https://medium.com/@kevinmarkvi/how-to-add-executables-to-your-path-in-windows-5ffa4ce61a53) `C:\Program Files (x86)\7-Zip` to your path.
 
-**Apple Silicon users:** Install homebrew following the instructions at https://brew.sh.
-
-Download Tor and extract the binaries for your platform. The platform must be `win32`, `win64`, `macos-x86_64`, `macos-aarch64` or `linux64`.
+Download Tor Browser and extract the binaries for your platform. The platform must be `win32`, `win64`, `macos`, or `linux64`.
 
 ```sh
 poetry run python ./scripts/get-tor.py [platform]

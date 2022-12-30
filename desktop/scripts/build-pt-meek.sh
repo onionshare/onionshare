@@ -1,9 +1,19 @@
 #!/bin/bash
 MEEK_TAG=v0.37.0
 
+OS=$(uname -s)
+
 mkdir -p ./build/meek
 cd ./build/meek
-git clone https://git.torproject.org/pluggable-transports/meek.git
+git clone https://git.torproject.org/pluggable-transports/meek.git || echo "already cloned"
 cd meek
 git checkout $MEEK_TAG
-go build -o ../../../onionshare/resources/tor/meek-client ./meek-client
+
+if [ "$OS" == "Darwin" ]; then
+    go build -o ../../../onionshare/resources/tor/meek-client-arm64 ./meek-client
+    GOOS=darwin GOARCH=amd64 go build -o ../../../onionshare/resources/tor/meek-client-amd64 ./meek-client
+    lipo -create -output ../../../onionshare/resources/tor/meek-client ../../../onionshare/resources/tor/meek-client-arm64 ../../../onionshare/resources/tor/meek-client-amd64
+    rm ../../../onionshare/resources/tor/meek-client-arm64 ../../../onionshare/resources/tor/meek-client-amd64
+else
+    go build -o ../../../onionshare/resources/tor/meek-client ./meek-client
+fi
