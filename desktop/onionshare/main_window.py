@@ -244,17 +244,6 @@ class MainWindow(QtWidgets.QMainWindow):
                 break
         self.tabs.open_settings_tab(from_autoconnect, active_tab=active_tab)
 
-    def settings_have_changed(self):
-        self.common.log("OnionShareGui", "settings_have_changed")
-
-        if self.common.gui.onion.is_authenticated():
-            self.status_bar.clearMessage()
-
-        # Tell each tab that settings have changed
-        for index in range(self.tabs.count()):
-            tab = self.tabs.widget(index)
-            tab.settings_have_changed()
-
     def bring_to_front(self):
         self.common.log("MainWindow", "bring_to_front")
         self.raise_()

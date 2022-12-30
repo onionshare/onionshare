@@ -1,5 +1,5 @@
 #!/bin/bash
-OBFS4PROXY_TAG=obfs4proxy-0.0.13
+OBFS4PROXY_TAG=obfs4proxy-0.0.14
 
 mkdir -p ./build/obfs4proxy
 cd ./build/obfs4proxy

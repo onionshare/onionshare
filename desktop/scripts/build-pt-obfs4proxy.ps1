@@ -1,4 +1,4 @@
-$env:OBFS4PROXY_TAG = 'obfs4proxy-0.0.13'
+$env:OBFS4PROXY_TAG = 'obfs4proxy-0.0.14'
 
 New-Item -ItemType Directory -Force -Path .\build\obfs4proxy
 cd .\build\obfs4proxy

@@ -1,6 +1,6 @@
 name: onionshare
 base: core20
-version: "2.6"
+version: "2.6.1"
 summary: Securely and anonymously share files, host websites, and chat using Tor
 description: |
   OnionShare lets you securely and anonymously send and receive files. It works by starting
@@ -12,6 +12,7 @@ grade: stable # stable or devel
 confinement: strict
 
 architectures:
+  - build-on: i386
   - build-on: amd64
   - build-on: arm64
   - build-on: armhf
@@ -193,8 +194,8 @@ parts:
     after: [onionshare-cli]
 
   tor:
-    source: https://dist.torproject.org/tor-0.4.7.9.tar.gz
-    source-checksum: sha256/d39d38598208f4d6201d7edc6ad573b3a898a932a5c68d3074016a9525519b22
+    source: https://dist.torproject.org/tor-0.4.7.12.tar.gz
+    source-checksum: sha256/3b5d969712c467851bd028f314343ef15a97ea457191e93ffa97310b05b9e395
     source-type: tar
     plugin: autotools
     autotools-configure-parameters:
@@ -216,7 +217,7 @@ parts:
       - go/latest/stable
     source: https://gitlab.com/yawning/obfs4.git
     source-type: git
-    source-tag: obfs4proxy-0.0.13
+    source-tag: obfs4proxy-0.0.14
 
   snowflake-client:
     plugin: go
@@ -224,7 +225,7 @@ parts:
       - go/latest/stable
     source: https://git.torproject.org/pluggable-transports/snowflake.git
     source-type: git
-    source-tag: v2.2.0
+    source-tag: v2.3.1
     organize:
       bin/client: bin/snowflake-client
 
