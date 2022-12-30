@@ -9,18 +9,18 @@ import subprocess
 import requests
 import click
 
-torbrowser_version = "12.0"
+torbrowser_version = "12.0.1"
 expected_win32_sha256 = (
-    "a9cc0f0af2ce8ca0d7a27d65c7efa37f6419cfc793fa80371e7db73d44b4cc02"
+    "8fc7cf992216958b2514c251dc501df3219bb336cb1b1a67b5e4b292d7a3479e"
 )
 expected_win64_sha256 = (
-    "f496cc0219c8b73f1f100124d6514bad55f503ff76202747f23620a6677e83c2"
+    "b69e840f3377cfe10e2751b40d54ec9fa34d1470e8a33bd9f8df8c68451fde68"
 )
 expected_macos_sha256 = (
-    "11c8360187356e6c0837612a320f1a117303fc449602c9fd73f4faf9f9bbcfc9"
+    "b4b52e1e5a2a0c4e1c68cf36dc8054fd1eb826d43f2622b56ef65e0f9f5db845"
 )
 expected_linux64_sha256 = (
-    "850ce601d815bac63e4f5937646d2b497173be28b27b30a7526ebb946a459874"
+    "91a1df75e76d49a2067b537a8d2954af3e900c111fc6805b7b7fccf7503676cf"
 )
 
 win32_filename = f"torbrowser-install-{torbrowser_version}_ALL.exe"
@@ -126,7 +126,7 @@ def get_tor_windows(platform):
     update_tor_bridges()
 
 
-def get_tor_macos_x86_64():
+def get_tor_macos():
     # Build paths
     dmg_tor_path = os.path.join(
         "/Volumes", "Tor Browser", "Tor Browser.app", "Contents"
@@ -184,92 +184,6 @@ def get_tor_macos_x86_64():
 
     # Fetch the built-in bridges
     update_tor_bridges()
-
-
-def get_tor_macos_aarch64():
-    # Versions and shasums
-    torbin_version = "0.4.7.10"
-    libevent_version = "2.1.12"
-    expected_torbin_sha256 = "01abf45e673649f6c0fee07f1fcffcce82b2bdb5f5db0c15a9cdcfda6e5eb187"
-    expected_geoip_sha256 = "7e777efc194ea9788171636085b19875d19397d3249fbb88136534037a3dc38f"
-    expected_geoip6_sha256 = "f11bd1d7546cad00b6db0a1594f3ac1daf9f541004fd7efb5414e068693d6add"
-    expected_libevent_sha256 = "2de95fd8cf8849028f9146f04cbde8cc7399ba0191b65ab92825a9a5e691a464"
-
-    # Build paths
-    dist_path = os.path.join(root_path, "onionshare", "resources", "tor")
-
-    # Make sure homebrew is installed and in path
-    brew_path = shutil.which("brew")
-    if brew_path is None:
-        print("brew not found in path. Homebrew must be installed")
-        sys.exit(-1)
-    brew_prefix = os.path.dirname(os.path.dirname(brew_path))
-
-    # Check that tor is installed, otherwise install it
-    tor_path = os.path.join(brew_prefix, "Cellar", "tor", torbin_version)
-    libevent_path = os.path.join(brew_prefix, "Cellar", "libevent", libevent_version)
-    torbin_path = os.path.join(tor_path, "bin", "tor")
-    if not os.path.exists(torbin_path):
-        print(f"Installing tor v{torbin_version}...")
-        if subprocess.call([os.path.join(brew_path), "install", "tor"]) != 0:
-            print(f"Could not install tor using homebrew")
-            sys.exit(-1)
-    
-    # Compute the hashes
-    torbin_data = open(torbin_path, "rb").read()
-    torbin_sha256 = hashlib.sha256(torbin_data).hexdigest()
-    geoip_data = open(
-        os.path.join(tor_path, "share", "tor", "geoip"),
-        "rb").read()
-    geoip_sha256 = hashlib.sha256(geoip_data).hexdigest()
-    geoip6_data = open(
-        os.path.join(tor_path, "share", "tor", "geoip6"),
-        "rb").read()
-    geoip6_sha256 = hashlib.sha256(geoip6_data).hexdigest()
-    libeventlib_path = os.path.join(libevent_path, "lib", "libevent-2.1.7.dylib")
-    libevent_data = open(libeventlib_path, "rb").read()
-    libevent_sha256 = hashlib.sha256(libevent_data).hexdigest()
-
-    # Compare the hashes
-    if torbin_sha256 != expected_torbin_sha256:
-        print("ERROR! The sha256 doesn't match (tor):")
-        print("expected: {}".format(expected_torbin_sha256))
-        print("  actual: {}".format(torbin_sha256))
-        sys.exit(-1)
-    if geoip_sha256 != expected_geoip_sha256:
-        print("ERROR! The sha256 doesn't match (geoip):")
-        print("expected: {}".format(expected_geoip_sha256))
-        print("  actual: {}".format(geoip_sha256))
-        sys.exit(-1)
-    if geoip6_sha256 != expected_geoip6_sha256:
-        print("ERROR! The sha256 doesn't match (geoip6):")
-        print("expected: {}".format(expected_geoip6_sha256))
-        print("  actual: {}".format(geoip6_sha256))
-        sys.exit(-1)
-    if libevent_sha256 != expected_libevent_sha256:
-        print("ERROR! The sha256 doesn't match (libevent):")
-        print("expected: {}".format(expected_libevent_sha256))
-        print("  actual: {}".format(libevent_sha256))
-        sys.exit(-1)
-    
-    # Copy into dist
-    shutil.copyfile(
-        os.path.join(tor_path, "share", "tor", "geoip"),
-        os.path.join(dist_path, "geoip"),
-    )
-    shutil.copyfile(
-        os.path.join(tor_path, "share", "tor", "geoip6"),
-        os.path.join(dist_path, "geoip6"),
-    )
-    shutil.copyfile(
-        torbin_path,
-        os.path.join(dist_path, "tor"),
-    )
-    os.chmod(os.path.join(dist_path, "tor"), 0o755)
-    shutil.copyfile(
-        libeventlib_path,
-        os.path.join(dist_path, "libevent-2.1.7.dylib"),
-    )
 
 
 def get_tor_linux64():
@@ -402,7 +316,7 @@ def main(platform):
     """
     Download Tor Browser and extract tor binaries
     """
-    valid_platforms = ["win32", "win64", "macos-x86_64", "macos-aarch64", "linux64"]
+    valid_platforms = ["win32", "win64", "macos", "linux64"]
     if platform not in valid_platforms:
         click.echo(f"platform must be one of: {valid_platforms}")
         return
@@ -411,10 +325,8 @@ def main(platform):
         get_tor_windows(platform)
     elif platform == "win64":
         get_tor_windows(platform)
-    elif platform == "macos-x86_64":
-        get_tor_macos_x86_64()
-    elif platform == "macos-aarch64":
-        get_tor_macos_aarch64()
+    elif platform == "macos":
+        get_tor_macos()
     elif platform == "linux64":
         get_tor_linux64()
     else:
