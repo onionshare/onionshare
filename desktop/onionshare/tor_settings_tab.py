@@ -903,7 +903,3 @@ class TorSettingsTab(QtWidgets.QWidget):
 
                 # Wait 1ms for the event loop to finish, then quit
                 QtCore.QTimer.singleShot(1, self.common.gui.qtapp.quit)
-
-    def settings_have_changed(self):
-        # Global settings have changed
-        self.common.log("TorSettingsTab", "settings_have_changed")

@@ -35,18 +35,20 @@ modules:
       - /bin
     sources:
       - type: archive
-        sha256: 7ff5f1cc4291fffb6d5a3098b3090abe4d415da2adec740b4e901893d95d7137
-        url: https://download.qt.io/official_releases/QtForPython/pyside2/PySide2-5.15.3-src/pyside-setup-opensource-src-5.15.3.tar.xz
+        sha256: f61210ae24e6882d5d0ca0059229e5dc4f35e2bca92dd6caf96c0f41943a8294
+        url: https://download.qt.io/official_releases/QtForPython/pyside2/PySide2-5.15.7-src/pyside-setup-opensource-src-5.15.7.tar.xz
       - type: shell
         commands:
           - mkdir -p /app/include/qt5tmp && cp -R /usr/include/Qt* /app/include/qt5tmp # https://bugreports.qt.io/browse/PYSIDE-787
           - sed -i 's|\(--include-paths=\)|\1/app/include/qt5tmp:|' sources/pyside2/cmake/Macros/PySideModules.cmake
+          - sed -i s/'<private\/qaccessiblequickview_p.h>'/'\"private\/qaccessiblequickview_p.h\"'/ /app/include/qt5tmp/QtQuickWidgets/qaccessiblequickwidget.h
+          - mkdir -p /app/include/qt5tmp/QtQuickWidgets/private && cp /app/include/qt5tmp/QtQuick/5.15.7/QtQuick/private/qaccessiblequickview_p.h /app/include/qt5tmp/QtQuickWidgets/private/qaccessiblequickview_p.h
   - name: tor
     buildsystem: autotools
     sources:
       - type: archive
-        sha256: d39d38598208f4d6201d7edc6ad573b3a898a932a5c68d3074016a9525519b22
-        url: https://dist.torproject.org/tor-0.4.7.9.tar.gz
+        sha256: 3b5d969712c467851bd028f314343ef15a97ea457191e93ffa97310b05b9e395
+        url: https://dist.torproject.org/tor-0.4.7.12.tar.gz
     modules:
       - name: libevent
         buildsystem: autotools
@@ -80,7 +82,7 @@ modules:
         dest: src/golang.org/x/sys
       - type: git
         url: https://gitlab.com/yawning/obfs4
-        commit: e330d1b7024b4ab04f7d96cc1afc61325744fafc
+        commit: 336a71d6e4cfd2d33e9c57797828007ad74975e9
         dest: src/gitlab.com/yawning/obfs4.git
       - type: git
         url: https://gitlab.com/yawning/utls
@@ -90,6 +92,14 @@ modules:
         url: https://gitlab.com/yawning/bsaes
         commit: 0a714cd429ec754482b4001e918db30cd2094405
         dest: src/gitlab.com/yawning/bsaes.git
+      - type: git
+        url: https://gitlab.com/yawning/edwards25519-extra
+        commit: def713fd18e464864613d2b55ef41a21df2c9493
+        dest: src/gitlab.com/yawning/edwards25519-extra.git
+      - type: git
+        url: https://github.com/FiloSottile/edwards25519
+        commit: 8c58ed0e35502a485538e4c5ec086070840f3410
+        dest: src/filippo.io/edwards25519
       - type: git
         url: https://git.torproject.org/pluggable-transports/goptlib
         commit: 13b7b3552e1eef32e4d8a2a7813f22488f91dc09
@@ -173,8 +183,12 @@ modules:
         dest: src/git.torproject.org/pluggable-transports/goptlib.git
       - type: git
         url: https://git.torproject.org/pluggable-transports/snowflake
-        commit: ead5a960d7fa19dc890ccbfc0765c5ab6629eaa9
+        commit: 36f03dfd4483922b3e7400dedc71df9cf2f30b6b
         dest: src/git.torproject.org/pluggable-transports/snowflake.git
+      - type: git
+        url: https://github.com/refraction-networking/utls
+        commit: 0b2885c8c0d4467cfe98136748a9d011d0b8fff0
+        dest: src/github.com/refraction-networking/utls
       - type: git
         url: https://github.com/templexxx/xorsimd
         commit: e2f34adfb57b524164fc712df2fcfd991ed0ccad
