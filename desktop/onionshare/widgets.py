@@ -71,10 +71,10 @@ class AddFileDialog(QtWidgets.QFileDialog):
         self.common = common
         self.common.log("AddFileDialog", "__init__")
 
-        self.setOption(self.DontUseNativeDialog, True)
-        self.setOption(self.ReadOnly, True)
-        self.setOption(self.ShowDirsOnly, False)
-        self.setFileMode(self.ExistingFiles)
+        self.setOption(self.Option.DontUseNativeDialog, True)
+        self.setOption(self.Option.ReadOnly, True)
+        self.setOption(self.Option.ShowDirsOnly, False)
+        self.setFileMode(self.FileMode.ExistingFiles)
         tree_view = self.findChild(QtWidgets.QTreeView)
         tree_view.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
         list_view = self.findChild(QtWidgets.QListView, "listView")

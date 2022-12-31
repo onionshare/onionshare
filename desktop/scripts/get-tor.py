@@ -216,12 +216,12 @@ def get_tor_linux64():
         sys.exit(-1)
 
     # Delete extracted tarball, if it's there
-    shutil.rmtree(os.path.join(working_path, "tor-browser_en-US"), ignore_errors=True)
+    shutil.rmtree(os.path.join(working_path, "tor-browser"), ignore_errors=True)
 
     # Extract the tarball
     subprocess.call(["tar", "-xvf", tarball_path], cwd=working_path)
     tarball_tor_path = os.path.join(
-        working_path, "tor-browser_en-US", "Browser", "TorBrowser"
+        working_path, "tor-browser", "Browser", "TorBrowser"
     )
 
     # Copy into dist
