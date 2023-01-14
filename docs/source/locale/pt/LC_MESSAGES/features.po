@@ -6,51 +6,76 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.6\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-10-02 16:17-0700\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2023-01-15 16:48+0000\n"
+"Last-Translator: Marcos Cruz <marcoscory@protonmail.com>\n"
 "Language-Team: none\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.15.1-dev\n"
 
 #: ../../source/features.rst:4
 msgid "How OnionShare Works"
-msgstr ""
+msgstr "Com o OnionShare Funciona"
 
 #: ../../source/features.rst:6
 msgid "Web servers are started locally on your computer and made accessible to other people as `Tor <https://www.torproject.org/>`_ `onion services <https://community.torproject.org/onion-services/>`_."
 msgstr ""
+"Os servidores Web são iniciados localmente em seu computador e "
+"disponibilizados para outras pessoas como `Tor <https://www.torproject.org/>`"
+"_ `onion services <https://community.torproject.org/onion-services/> `_."
 
 #: ../../source/features.rst:8
 msgid "By default, OnionShare web addresses are protected with a private key."
 msgstr ""
+"Por padrão, os endereços Web do OnionShare são protegidos com uma chave "
+"privada."
 
 #: ../../source/features.rst:10
 msgid "OnionShare addresses look something like this::"
-msgstr ""
+msgstr "Os endereços OnionShare são mais ou menos assim::"
 
 #: ../../source/features.rst:14
 msgid "And private keys might look something like this::"
-msgstr ""
+msgstr "E as chaves privadas podem se parecer com isto::"
 
 #: ../../source/features.rst:18
 msgid "You're responsible for securely sharing that URL and private key using a communication channel of your choice like in an encrypted chat message, or using something less secure like unencrypted email, depending on your `threat model <https://ssd.eff.org/module/your-security-plan>`_."
 msgstr ""
+"Você é responsável por compartilhar com segurança esse URL e chave privada "
+"usando um canal de comunicação de sua escolha, como em uma mensagem de bate-"
+"papo criptografada, ou usando algo menos seguro, como e-mail não "
+"criptografado, dependendo do seu `threat model <https://ssd.eff.org/module/"
+"your-security-plan>`_."
 
 #: ../../source/features.rst:20
 msgid "The people you send the URL to then copy and paste it into their `Tor Browser <https://www.torproject.org/>`_ to access the OnionShare service. Tor Browser will then prompt for the private key, which the people can also then copy and paste in."
 msgstr ""
+"As pessoas para as quais você envia o URL copiam e colam no `Navegador Tor "
+"<https://www.torproject.org/>`_ para acessar o serviço OnionShare. O "
+"navegador Tor solicitará a chave privada, que as pessoas também podem copiar "
+"e colar."
 
 #: ../../source/features.rst:24
 msgid "If you run OnionShare on your laptop to send someone files, and then suspend it before the files are sent, the service will not be available until your laptop is unsuspended and on the internet again. OnionShare works best when working with people in real-time."
 msgstr ""
+"Se você executar o OnionShare em seu laptop para enviar arquivos a alguém e, "
+"em seguida, suspendê-lo antes que os arquivos sejam enviados, o serviço não "
+"estará disponível até que seu laptop seja reativado e conectado à Internet "
+"novamente. OnionShare funciona melhor ao trabalhar com pessoas em tempo real."
 
 #: ../../source/features.rst:26
 msgid "Because your own computer is the web server, *no third party can access anything that happens in OnionShare*, not even the developers of OnionShare. It's completely private. And because OnionShare is based on Tor onion services too, it also protects your anonymity. See the :doc:`security design </security>` for more info."
 msgstr ""
+"Como seu próprio computador é o servidor da Web, *nenhum terceiro pode "
+"acessar nada do que acontece no OnionShare*, nem mesmo os desenvolvedores do "
+"OnionShare. É totalmente privado. E como o OnionShare também é baseado nos "
+"serviços TorOnion, ele também protege seu anonimato. Veja o :doc:`security "
+"design </security>` para mais informações."
 
 #: ../../source/features.rst:29
 msgid "Share Files"
