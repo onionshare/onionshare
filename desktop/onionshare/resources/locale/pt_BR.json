@@ -334,5 +334,8 @@
     "moat_bridgedb_error": "Erro ao contactar BridgeDB.",
     "moat_captcha_error": "A solução não está correta. Por favor tente novamente.",
     "moat_solution_empty_error": "Você deve informar os caracteres que aparecem na imagem",
-    "mode_tor_not_connected_label": "OnionShare não está conectado com a rede Tor"
+    "mode_tor_not_connected_label": "OnionShare não está conectado com a rede Tor",
+    "gui_autoconnect_description": "OnionShare depende da rede Tor operada por voluntários.",
+    "gui_enable_autoconnect_checkbox": "Conectar-se automaticamente ao Tor",
+    "gui_autoconnect_failed_to_connect_to_tor": "Não foi possível conectar ao Tor"
 }
