@@ -304,5 +304,15 @@
     "gui_autoconnect_configure": "Verkkoasetukset",
     "gui_general_settings_window_title": "Yleiset",
     "gui_autoconnect_bridge_detect_automatic": "Päättele maani IP-osoitteestani silta-asetuksia varten",
-    "moat_captcha_label": "Ratkaise CAPTCHA pyytääksesi siltaa."
+    "moat_captcha_label": "Ratkaise CAPTCHA pyytääksesi siltaa.",
+    "gui_settings_stop_active_tabs_label": "Joissain välilehdissä on käynnissä palveluja.\nSinun täytyy pysäyttää kaikki palvelut muuttaaksesi Tor-asetuksia.",
+    "moat_bridgedb_error": "Yhteyttä BridgeDB:hen ei voitu muodostaa.",
+    "gui_url_instructions_public_mode": "Lähetä OnionShare-osoite alla:",
+    "gui_url_instructions": "Lähetä ensin alla oleva OnionShare-osoite:",
+    "gui_client_auth_instructions": "Seuraavaksi lähetä yksityinen avain salliaksesi pääsyn OnionShare-palveluusi:",
+    "gui_autoconnect_circumventing_censorship": "Selvitetään yhdistettävyysongelmia…",
+    "gui_autoconnect_bridge_description": "Saatat kyetä yhdistämään siltaa käyttäen, jos internetyhteytesi on sensuroitu.",
+    "mode_settings_website_custom_csp_checkbox": "Lähetä mukautettu Content Security Policy -otsake",
+    "moat_contact_label": "Muodostetaan yhteyttä BridgeDB:hen…",
+    "gui_settings_moat_bridges_invalid": "Et ole vielä pyytänyt siltaa torproject.orgilta."
 }
