@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-01-17 10:28-0800\n"
-"PO-Revision-Date: 2022-08-10 19:21+0000\n"
+"PO-Revision-Date: 2023-01-23 11:49+0000\n"
 "Last-Translator: Toro <ads.verifications@pm.me>\n"
 "Language-Team: none\n"
 "Language: cs\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 4.14-dev\n"
+"X-Generator: Weblate 4.16-dev\n"
 
 #: ../../source/install.rst:2
 msgid "Installation"
@@ -39,26 +39,35 @@ msgstr "Linux"
 #: ../../source/install.rst:14
 msgid "There are various ways to install OnionShare for Linux, but the recommended way is to use either the `Flatpak <https://flatpak.org/>`_ or the `Snap <https://snapcraft.io/>`_ package. Flatpak and Snap ensure that you'll always use the newest version and run OnionShare inside of a sandbox."
 msgstr ""
+"Existuje mnoho cest, jak instalovat OnionShare pro Linux, avšak je "
+"doporučeno využít `Flatpak <https://flatpak.org/>`_ nebo`Snap "
+"<https://snapcraft.io/>`_ balíček."
 
 #: ../../source/install.rst:17
 msgid "Snap support is built-in to Ubuntu and Fedora comes with Flatpak support, but which you use is up to you. Both work in all Linux distributions."
 msgstr ""
+"Snap je vestavěně podporován na Ubuntu, Fedora přichází s podporou Flatpaku. "
+"Který z nich si však vyberete je na vás. Oba fungují na Linuxových "
+"distribucích."
 
 #: ../../source/install.rst:19
 msgid "**Install OnionShare using Flatpak**: https://flathub.org/apps/details/org.onionshare.OnionShare"
 msgstr ""
-"**Instalovat OnionShare za pomocí Flatpaku**: https://flathub.org/apps/"
+"**Instalovat OnionShare za pomoci Flatpaku**: https://flathub.org/apps/"
 "details/org.onionshare.OnionShare"
 
 #: ../../source/install.rst:21
 msgid "**Install OnionShare using Snap**: https://snapcraft.io/onionshare"
 msgstr ""
+"**Instalovat OnionShare za pomoci Snapu**: https://flathub.org/apps/details/"
+"org.onionshare.OnionShare"
 
 #: ../../source/install.rst:23
 msgid "You can also download and install PGP-signed ``.flatpak`` or ``.snap`` packages from https://onionshare.org/dist/ if you prefer."
 msgstr ""
-"Pokud dáváte přednost stažení a instalaci PGP-signed balíčků ``.flatpak`` "
-"nebo ``.snap``, můžete si je stáhnout z https://onionshare.org/dist/ ."
+"Pokud dáváte přednost stažení a instalaci PGP podepsaných balíčků ``."
+"flatpak`` nebo ``.snap``, můžete si je stáhnout z https://onionshare.org/"
+"dist/ ."
 
 #: ../../source/install.rst:28
 msgid "Command-line only"
@@ -67,6 +76,8 @@ msgstr "CLI"
 #: ../../source/install.rst:30
 msgid "You can install just the command line version of OnionShare on any operating system using the Python package manager ``pip``. See :ref:`cli` for more information."
 msgstr ""
+"Můžete nainstalovat CLI (command line verzi) OnionSharu na jakýkoliv "
+"operační systém za pomoci Python package manageru ``pip``. Viz :ref:`cli`."
 
 #: ../../source/install.rst:35
 msgid "Verifying PGP signatures"
@@ -98,7 +109,7 @@ msgid "You must have GnuPG installed to verify signatures. For macOS you probabl
 msgstr ""
 "Pro ověření podpisů je nutné mít nainstalovaný GnuPG. Pro macOS "
 "pravděpodobně potřebujete `GPGTools <https://gpgtools.org/>`_, pro Windows "
-"pravděpodobně `Gpg4win <https://www.gpg4win.org/>`_."
+"pak např. `Gpg4win <https://www.gpg4win.org/>`_."
 
 #: ../../source/install.rst:48
 msgid "Signatures"
@@ -110,7 +121,7 @@ msgstr ""
 
 #: ../../source/install.rst:54
 msgid "Verifying"
-msgstr ""
+msgstr "Ověřování"
 
 #: ../../source/install.rst:56
 msgid "Once you have imported Micah's public key into your GnuPG keychain, downloaded the binary and and ``.asc`` signature, you can verify the binary for macOS in a terminal like this::"
