@@ -207,7 +207,10 @@ jobs:
           name: win32-build
           path: ~\onionshare-win32.zip
 
-  build-mac:
+  # TODO: Someday, build universal2 mac binaries. Right now it's blocked because Github Actions doesn't support
+  # M1 Mac VMs: https://github.com/actions/runner-images/issues/2187
+
+  build-mac-intel:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
@@ -230,7 +233,7 @@ jobs:
       - name: Install poetry dependencies
         run: |
           cd desktop
-          /Library/Frameworks/Python.framework/Versions/3.9/bin/poetry install
+          /Library/Frameworks/Python.framework/Versions/3.11/bin/poetry install
 
       - name: Restore cache - tor
         uses: actions/cache@v3
@@ -241,7 +244,7 @@ jobs:
       - name: Get tor binaries from Tor Browser
         run: |
           cd desktop
-          /Library/Frameworks/Python.framework/Versions/3.9/bin/poetry run python ./scripts/get-tor.py macos
+          /Library/Frameworks/Python.framework/Versions/3.11/bin/poetry run python ./scripts/get-tor.py macos
 
       - name: Restore cache - obfs4proxy
         uses: actions/cache@v3
@@ -291,19 +294,19 @@ jobs:
       - name: Build OnionShare
         run: |
           cd desktop
-          /Library/Frameworks/Python.framework/Versions/3.9/bin/poetry run python ./setup-freeze.py build
-          /Library/Frameworks/Python.framework/Versions/3.9/bin/poetry run python ./setup-freeze.py bdist_mac
-          /Library/Frameworks/Python.framework/Versions/3.9/bin/poetry run python ./scripts/build-macos.py cleanup-build
+          /Library/Frameworks/Python.framework/Versions/3.11/bin/poetry run python ./setup-freeze.py build
+          /Library/Frameworks/Python.framework/Versions/3.11/bin/poetry run python ./setup-freeze.py bdist_mac
+          /Library/Frameworks/Python.framework/Versions/3.11/bin/poetry run python ./scripts/build-macos.py cleanup-build
 
       - name: Compress
         run: |
           cd desktop/build
-          tar -czvf ~/onionshare-macos.tar.gz OnionShare.app
+          tar -czvf ~/onionshare-macos-intel.tar.gz OnionShare.app
 
       - uses: actions/upload-artifact@v3
         with:
           name: mac-build
-          path: ~/onionshare-macos.tar.gz
+          path: ~/onionshare-macos-intel.tar.gz
 
   build-flatpak:
     runs-on: ubuntu-latest
