@@ -14,11 +14,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Observing the VM...
-        run: dir C:\hostedtoolcache\windows\Python\
-
       - name: Install poetry
-        run: C:\hostedtoolcache\windows\Python\3.9.13\x64\python -m pip install poetry
+        run: C:\hostedtoolcache\windows\Python\3.11.1\x64\python -m pip install poetry
 
       - name: Restore cache - poetry
         uses: actions/cache@v3
@@ -29,8 +26,8 @@ jobs:
       - name: Install poetry dependencies
         run: |
           cd desktop
-          C:\hostedtoolcache\windows\Python\3.9.13\x64\Scripts\poetry install
-          C:\hostedtoolcache\windows\Python\3.9.13\x64\Scripts\poetry env list --full-path
+          C:\hostedtoolcache\windows\Python\3.11.1\x64\Scripts\poetry install
+          C:\hostedtoolcache\windows\Python\3.11.1\x64\Scripts\poetry env list --full-path
 
       - name: Restore cache - tor
         uses: actions/cache@v3
@@ -39,7 +36,7 @@ jobs:
           key: ${{ runner.os }}-win64-tor-${{ hashFiles('desktop/scripts/get-tor.py') }}
 
       - name: Get tor binaries from Tor Browser (64-bit)
-        run: cd desktop && C:\hostedtoolcache\windows\Python\3.9.13\x64\Scripts\poetry run python .\scripts\get-tor.py win64
+        run: cd desktop && C:\hostedtoolcache\windows\Python\3.11.1\x64\Scripts\poetry run python .\scripts\get-tor.py win64
 
       - name: Restore cache - obfs4proxy
         uses: actions/cache@v3
@@ -92,13 +89,13 @@ jobs:
       - name: Build OnionShare
         run: |
           cd desktop
-          C:\hostedtoolcache\windows\Python\3.9.13\x64\Scripts\poetry run python .\setup-freeze.py build
-          C:\hostedtoolcache\windows\Python\3.9.13\x64\Scripts\poetry run python .\scripts\build-windows.py cleanup-build
+          C:\hostedtoolcache\windows\Python\3.11.1\x64\Scripts\poetry run python .\setup-freeze.py build
+          C:\hostedtoolcache\windows\Python\3.11.1\x64\Scripts\poetry run python .\scripts\build-windows.py cleanup-build
 
       - name: Compress
         shell: pwsh
         run: |
-          mv desktop\build\exe.win-amd64-3.9\ ~\onionshare-win64
+          mv desktop\build\exe.win-amd64-3.11\ ~\onionshare-win64
           Compress-Archive -LiteralPath ~\onionshare-win64 -DestinationPath ~\onionshare-win64.zip
 
       - uses: actions/upload-artifact@v3
@@ -112,7 +109,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Install poetry
-        run: C:\hostedtoolcache\windows\Python\3.9.13\x86\python -m pip install poetry
+        run: C:\hostedtoolcache\windows\Python\3.11.1\x86\python -m pip install poetry
 
       - name: Restore cache - poetry
         uses: actions/cache@v3
@@ -123,8 +120,8 @@ jobs:
       - name: Install poetry dependencies
         run: |
           cd desktop
-          C:\hostedtoolcache\windows\Python\3.9.13\x86\Scripts\poetry install
-          C:\hostedtoolcache\windows\Python\3.9.13\x86\Scripts\poetry env list --full-path
+          C:\hostedtoolcache\windows\Python\3.11.1\x86\Scripts\poetry install
+          C:\hostedtoolcache\windows\Python\3.11.1\x86\Scripts\poetry env list --full-path
 
       - name: Restore cache - tor
         uses: actions/cache@v3
@@ -133,7 +130,7 @@ jobs:
           key: ${{ runner.os }}-win32-tor-${{ hashFiles('desktop/scripts/get-tor.py') }}
 
       - name: Get tor binaries from Tor Browser (32-bit)
-        run: cd desktop && C:\hostedtoolcache\windows\Python\3.9.13\x86\Scripts\poetry run python .\scripts\get-tor.py win32
+        run: cd desktop && C:\hostedtoolcache\windows\Python\3.11.1\x86\Scripts\poetry run python .\scripts\get-tor.py win32
 
       - name: Install golang (32-bit)
         shell: pwsh
@@ -196,13 +193,13 @@ jobs:
       - name: Build OnionShare
         run: |
           cd desktop
-          C:\hostedtoolcache\windows\Python\3.9.13\x86\Scripts\poetry run python .\setup-freeze.py build
-          C:\hostedtoolcache\windows\Python\3.9.13\x86\Scripts\poetry run python .\scripts\build-windows.py cleanup-build
+          C:\hostedtoolcache\windows\Python\3.11.1\x86\Scripts\poetry run python .\setup-freeze.py build
+          C:\hostedtoolcache\windows\Python\3.11.1\x86\Scripts\poetry run python .\scripts\build-windows.py cleanup-build
 
       - name: Compress
         shell: pwsh
         run: |
-          mv desktop\build\exe.win32-3.9\ ~\onionshare-win32
+          mv desktop\build\exe.win32-3.11\ ~\onionshare-win32
           Compress-Archive -LiteralPath ~\onionshare-win32 -DestinationPath ~\onionshare-win32.zip
 
       - uses: actions/upload-artifact@v3
