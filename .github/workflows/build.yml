@@ -212,9 +212,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install Python 3.9.13 (Intel)
+      - name: Install Python 3.11.1 (universal2)
         run: |
-          curl -L https://www.python.org/ftp/python/3.9.13/python-3.9.13-macosx10.9.pkg --output ~/Downloads/python.pkg
+          curl -L https://www.python.org/ftp/python/3.11.1/python-3.11.1-macos11.pkg --output ~/Downloads/python.pkg
           sudo installer -pkg ~/Downloads/python.pkg -target /
 
       - name: Install poetry
