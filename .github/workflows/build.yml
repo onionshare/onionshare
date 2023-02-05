@@ -233,7 +233,7 @@ jobs:
       - name: Install poetry dependencies
         run: |
           cd desktop
-          /Library/Frameworks/Python.framework/Versions/3.11/bin/poetry install
+          /Library/Frameworks/Python.framework/Versions/3.10/bin/poetry install
 
       - name: Restore cache - tor
         uses: actions/cache@v3
@@ -244,7 +244,7 @@ jobs:
       - name: Get tor binaries from Tor Browser
         run: |
           cd desktop
-          /Library/Frameworks/Python.framework/Versions/3.11/bin/poetry run python ./scripts/get-tor.py macos
+          /Library/Frameworks/Python.framework/Versions/3.10/bin/poetry run python ./scripts/get-tor.py macos
 
       - name: Restore cache - obfs4proxy
         uses: actions/cache@v3
@@ -294,9 +294,9 @@ jobs:
       - name: Build OnionShare
         run: |
           cd desktop
-          /Library/Frameworks/Python.framework/Versions/3.11/bin/poetry run python ./setup-freeze.py build
-          /Library/Frameworks/Python.framework/Versions/3.11/bin/poetry run python ./setup-freeze.py bdist_mac
-          /Library/Frameworks/Python.framework/Versions/3.11/bin/poetry run python ./scripts/build-macos.py cleanup-build
+          /Library/Frameworks/Python.framework/Versions/3.10/bin/poetry run python ./setup-freeze.py build
+          /Library/Frameworks/Python.framework/Versions/3.10/bin/poetry run python ./setup-freeze.py bdist_mac
+          /Library/Frameworks/Python.framework/Versions/3.10/bin/poetry run python ./scripts/build-macos.py cleanup-build
 
       - name: Compress
         run: |
