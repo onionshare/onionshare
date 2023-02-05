@@ -9,28 +9,36 @@ import subprocess
 import requests
 import click
 
-torbrowser_version = "12.0.1"
+torbrowser_version = "12.0.2"
 expected_win32_sha256 = (
-    "8fc7cf992216958b2514c251dc501df3219bb336cb1b1a67b5e4b292d7a3479e"
+    "a94d638a97e168a048ef07bd9323cb043f0e9d22f8e44f1bcba41b32e25afba5"
 )
 expected_win64_sha256 = (
-    "b69e840f3377cfe10e2751b40d54ec9fa34d1470e8a33bd9f8df8c68451fde68"
+    "7f5b78bf7aafe4c94b321199316682922709544f5b897f13b6bdccb0afe9086d"
 )
 expected_macos_sha256 = (
-    "b4b52e1e5a2a0c4e1c68cf36dc8054fd1eb826d43f2622b56ef65e0f9f5db845"
+    "c6968a7041890de6ac344e9163ce0a1c0fb82394a2da9d4e7f77e0bce7a1c952"
 )
 expected_linux64_sha256 = (
-    "91a1df75e76d49a2067b537a8d2954af3e900c111fc6805b7b7fccf7503676cf"
+    "a97dae40fd635ccfc5126d500459b9437528e4a4b35cc589b08d6cc114279678"
 )
 
 win32_filename = f"torbrowser-install-{torbrowser_version}_ALL.exe"
-win32_url = f"https://dist.torproject.org/torbrowser/{torbrowser_version}/{win32_filename}"
+win32_url = (
+    f"https://dist.torproject.org/torbrowser/{torbrowser_version}/{win32_filename}"
+)
 win64_filename = f"torbrowser-install-win64-{torbrowser_version}_ALL.exe"
-win64_url = f"https://dist.torproject.org/torbrowser/{torbrowser_version}/{win64_filename}"
+win64_url = (
+    f"https://dist.torproject.org/torbrowser/{torbrowser_version}/{win64_filename}"
+)
 macos_filename = f"TorBrowser-{torbrowser_version}-macos_ALL.dmg"
-macos_url = f"https://dist.torproject.org/torbrowser/{torbrowser_version}/{macos_filename}"
+macos_url = (
+    f"https://dist.torproject.org/torbrowser/{torbrowser_version}/{macos_filename}"
+)
 linux64_filename = f"tor-browser-linux64-{torbrowser_version}_ALL.tar.xz"
-linux64_url = f"https://dist.torproject.org/torbrowser/{torbrowser_version}/{linux64_filename}"
+linux64_url = (
+    f"https://dist.torproject.org/torbrowser/{torbrowser_version}/{linux64_filename}"
+)
 
 
 # Common paths
@@ -45,16 +53,12 @@ def get_tor_windows(platform):
         win_url = win32_url
         win_filename = win32_filename
         expected_win_sha256 = expected_win32_sha256
-        bin_filenames = [
-            "tor.exe"
-        ]
+        bin_filenames = ["tor.exe"]
     elif platform == "win64":
         win_url = win64_url
         win_filename = win64_filename
         expected_win_sha256 = expected_win64_sha256
-        bin_filenames = [
-            "tor.exe"
-        ]
+        bin_filenames = ["tor.exe"]
     else:
         click.echo("invalid platform")
         return
