@@ -22,7 +22,7 @@ def get_build_path():
         python_arch = "win-amd64"
     else:
         python_arch = "win32"
-    return os.path.join(desktop_dir, "build", f"exe.{python_arch}-3.11")
+    return os.path.join(desktop_dir, "build", f"exe.{python_arch}-3.10")
 
 
 def get_size(dir):
