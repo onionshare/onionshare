@@ -1,5 +1,5 @@
 name: Build
-run-name: Build win32, win64, mac (Intel) 🚀
+run-name: Build win64, mac (Intel) 🚀
 on:
   push:
     branches:
@@ -102,110 +102,6 @@ jobs:
         with:
           name: win64-build
           path: ~\onionshare-win64.zip
-
-  build-win32:
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Install poetry
-        run: C:\hostedtoolcache\windows\Python\3.10.9\x86\python -m pip install poetry
-
-      - name: Restore cache - poetry
-        uses: actions/cache@v3
-        with:
-          path: ~\AppData\Local\pypoetry\Cache\virtualenvs
-          key: ${{ runner.os }}-win32-poetry-${{ hashFiles('desktop/poetry.lock') }}
-
-      - name: Install poetry dependencies
-        run: |
-          cd desktop
-          C:\hostedtoolcache\windows\Python\3.10.9\x86\Scripts\poetry install
-          C:\hostedtoolcache\windows\Python\3.10.9\x86\Scripts\poetry env list --full-path
-
-      - name: Restore cache - tor
-        uses: actions/cache@v3
-        with:
-          path: desktop\build\tor
-          key: ${{ runner.os }}-win32-tor-${{ hashFiles('desktop/scripts/get-tor.py') }}
-
-      - name: Get tor binaries from Tor Browser (32-bit)
-        run: cd desktop && C:\hostedtoolcache\windows\Python\3.10.9\x86\Scripts\poetry run python .\scripts\get-tor.py win32
-
-      - name: Install golang (32-bit)
-        shell: pwsh
-        run: |
-          cd ~\Downloads
-          Invoke-WebRequest -Uri https://go.dev/dl/go1.19.1.windows-386.msi -OutFile go1.19.1.windows-386.msi
-          msiexec.exe /i go1.19.1.windows-386.msi /quiet /L*V go-install.log
-
-      - name: Restore cache - obfs4proxy
-        uses: actions/cache@v3
-        with:
-          path: desktop\onionshare\resources\tor\obfs4proxy.exe
-          key: ${{ runner.os }}-win32-obfs4proxy-${{ hashFiles('desktop/scripts/build-pt-obfs4proxy.ps1') }}
-
-      - name: Build obfs4proxy
-        shell: pwsh
-        run: |
-          if ((Test-Path -Path 'desktop\onionshare\resources\tor\obfs4proxy.exe') -eq $True) {
-            Write-Output "obfs4proxy already built"
-          } else {
-            $env:PATH = "C:\Program Files (x86)\Go\bin\go;$env:PATH"
-            cd desktop
-            .\scripts\build-pt-obfs4proxy.ps1
-          }
-
-      - name: Restore cache - snowflake
-        uses: actions/cache@v3
-        with:
-          path: desktop\onionshare\resources\tor\snowflake-client.exe
-          key: ${{ runner.os }}-win32-snowflake-${{ hashFiles('desktop/scripts/build-pt-snowflake.ps1') }}
-
-      - name: Build snowflake
-        shell: pwsh
-        run: |
-          if ((Test-Path -Path 'desktop\onionshare\resources\tor\snowflake-client.exe') -eq $True) {
-            Write-Output "snowflake already built"
-          } else {
-            $env:PATH = "C:\Program Files (x86)\Go\bin\go;$env:PATH"
-            cd desktop
-            .\scripts\build-pt-snowflake.ps1
-          }
-
-      - name: Restore cache - meek
-        uses: actions/cache@v3
-        with:
-          path: desktop\onionshare\resources\tor\meek-client.exe
-          key: ${{ runner.os }}-win32-meek-${{ hashFiles('desktop/scripts/build-pt-meek.ps1') }}
-
-      - name: Build meek
-        shell: pwsh
-        run: |
-          if ((Test-Path -Path 'desktop\onionshare\resources\tor\meek-client.exe') -eq $True) {
-            Write-Output "meek already built"
-          } else {
-            $env:PATH = "C:\Program Files (x86)\Go\bin\go;$env:PATH"
-            cd desktop
-            .\scripts\build-pt-meek.ps1
-          }
-
-      - name: Build OnionShare
-        run: |
-          cd desktop
-          C:\hostedtoolcache\windows\Python\3.10.9\x86\Scripts\poetry run python .\setup-freeze.py build
-          C:\hostedtoolcache\windows\Python\3.10.9\x86\Scripts\poetry run python .\scripts\build-windows.py cleanup-build
-
-      - name: Compress
-        shell: pwsh
-        run: |
-          mv desktop\build\exe.win32-3.10\ ~\onionshare-win32
-          Compress-Archive -LiteralPath ~\onionshare-win32 -DestinationPath ~\onionshare-win32.zip
-
-      - uses: actions/upload-artifact@v3
-        with:
-          name: win32-build
-          path: ~\onionshare-win32.zip
 
   # TODO: Someday, build universal2 mac binaries. Right now it's blocked because Github Actions doesn't support
   # M1 Mac VMs: https://github.com/actions/runner-images/issues/2187
