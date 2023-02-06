@@ -16,7 +16,7 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = ">=3.8,<3.11"
 click = "*"
 flask = "2.0.3"
 flask-socketio = "5.3.1"

@@ -150,6 +150,31 @@ This will create:
 
 ### macOS release
 
+In order to make a universal2 binary, you must run this one a Mac with Apple Silicon. To keep a clean environment, you can use VM.
+
+Set up the VM like this:
+
+- Install [Homebrew](https://brew.sh/)
+- `brew install create-dmg`
+- Install the latest Python 3.10 from https://www.python.org/downloads/
+- Install ARM64 version of Go from https://go.dev/dl/
+
+```sh
+cd desktop
+python3 -m pip install poetry
+/Library/Frameworks/Python.framework/Versions/3.10/bin/poetry install
+/Library/Frameworks/Python.framework/Versions/3.10/bin/poetry run python ./scripts/get-tor.py macos
+./scripts/build-pt-obfs4proxy.sh
+./scripts/build-pt-snowflake.sh
+./scripts/build-pt-meek.sh
+/Library/Frameworks/Python.framework/Versions/3.10/bin/poetry run python ./setup-freeze.py build
+/Library/Frameworks/Python.framework/Versions/3.10/bin/poetry run python ./setup-freeze.py bdist_mac
+/Library/Frameworks/Python.framework/Versions/3.10/bin/poetry run python ./scripts/build-macos.py cleanup-build
+cd build
+tar -czvf ~/onionshare-macos-universal2.tar.gz OnionShare.app
+```
+
+
 Set up the packaging environment:
 
 - Install create-dmg: `brew install create-dmg`
