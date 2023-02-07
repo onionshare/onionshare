@@ -187,6 +187,15 @@ jobs:
             ./scripts/build-pt-meek.sh
           fi
 
+      - name: Install cx_Freeze/PySide6 build dependencies
+        run: |
+          brew install libiodbc
+          cd ~/Downloads
+          curl -O -L https://github.com/PostgresApp/PostgresApp/releases/download/v2.5.12/Postgres-2.5.12-14.dmg
+          hdiutil attach Postgres-2.5.12-14.dmg
+          cp -r /Volumes/Postgres-2.5.12-14/Postgres.app /Applications/
+          hdiutil detach /Volumes/Postgres-2.5.12-14
+
       - name: Build OnionShare
         run: |
           cd desktop

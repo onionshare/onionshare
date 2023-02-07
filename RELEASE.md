@@ -155,9 +155,10 @@ In order to make a universal2 binary, you must run this one a Mac with Apple Sil
 Set up the VM like this:
 
 - Install [Homebrew](https://brew.sh/)
-- `brew install create-dmg`
+- `brew install create-dmg libiodbc`
 - Install the latest Python 3.10 from https://www.python.org/downloads/
 - Install ARM64 version of Go from https://go.dev/dl/
+- Install "Postgres.app with PostgreSQL 14 (Universal)" from https://postgresapp.com/downloads.html (required for cx_Freeze build step)
 
 ```sh
 cd desktop
