@@ -10,9 +10,6 @@ import requests
 import click
 
 torbrowser_version = "12.0.2"
-expected_win32_sha256 = (
-    "a94d638a97e168a048ef07bd9323cb043f0e9d22f8e44f1bcba41b32e25afba5"
-)
 expected_win64_sha256 = (
     "7f5b78bf7aafe4c94b321199316682922709544f5b897f13b6bdccb0afe9086d"
 )
@@ -23,10 +20,6 @@ expected_linux64_sha256 = (
     "a97dae40fd635ccfc5126d500459b9437528e4a4b35cc589b08d6cc114279678"
 )
 
-win32_filename = f"torbrowser-install-{torbrowser_version}_ALL.exe"
-win32_url = (
-    f"https://dist.torproject.org/torbrowser/{torbrowser_version}/{win32_filename}"
-)
 win64_filename = f"torbrowser-install-win64-{torbrowser_version}_ALL.exe"
 win64_url = (
     f"https://dist.torproject.org/torbrowser/{torbrowser_version}/{win64_filename}"
@@ -49,12 +42,7 @@ working_path = os.path.join(root_path, "build", "tor")
 
 
 def get_tor_windows(platform):
-    if platform == "win32":
-        win_url = win32_url
-        win_filename = win32_filename
-        expected_win_sha256 = expected_win32_sha256
-        bin_filenames = ["tor.exe"]
-    elif platform == "win64":
+    if platform == "win64":
         win_url = win64_url
         win_filename = win64_filename
         expected_win_sha256 = expected_win64_sha256

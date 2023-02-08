@@ -29,9 +29,9 @@ poetry install
 
 **Linux users:** In Ubuntu 20.04 you need the `libxcb-xinerama0` package installed.
 
-**Windows users:** Download and install 7-Zip from https://7-zip.org/download.html. [Add](https://medium.com/@kevinmarkvi/how-to-add-executables-to-your-path-in-windows-5ffa4ce61a53) `C:\Program Files (x86)\7-Zip` to your path.
+**Windows users:** Download and install 7-Zip (x64) from https://7-zip.org/download.html. [Add](https://medium.com/@kevinmarkvi/how-to-add-executables-to-your-path-in-windows-5ffa4ce61a53) `C:\Program Files\7-Zip` to your path.
 
-Download Tor Browser and extract the binaries for your platform. The platform must be `win32`, `win64`, `macos`, or `linux64`.
+Download Tor Browser and extract the binaries for your platform. The platform must be `win64`, `macos`, or `linux64`.
 
 ```sh
 poetry run python ./scripts/get-tor.py [platform]
