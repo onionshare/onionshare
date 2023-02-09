@@ -489,5 +489,5 @@ modules:
                 url: https://files.pythonhosted.org/packages/a2/b8/6a06ff0f13a00fc3c3e7d222a995526cbca26c1ad107691b6b1badbbabf1/wheel-0.38.4.tar.gz
                 sha256: 965f5259b566725405b05e7cf774052044b1ed30119b5d586b2703aafe8719ac
               - type: file
-                url: https://files.pythonhosted.org/packages/dc/f6/e8e302f9942cbebede88b1a0c33d0be3a738c3ac37abae87254d58ffc51c/Cython-0.29.33.tar.gz
-                sha256: 5040764c4a4d2ce964a395da24f0d1ae58144995dab92c6b96f44c3f4d72286a
+                url: https://files.pythonhosted.org/packages/2e/a7/f20fa91d9de799f8e19bacf225bc993b8a53b5fc6f41ffa20d64f0850579/Cython-3.0.0a11.tar.gz
+                sha256: e4672491fb31546b9abb63677f638e738085dc9321398170956ef6fbfc0e1726
