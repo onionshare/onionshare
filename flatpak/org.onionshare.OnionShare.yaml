@@ -363,7 +363,7 @@ modules:
                 exceptiongroup flask flask-socketio gevent gevent-websocket greenlet idna iniconfig
                 itsdangerous jinja2 markupsafe packaging pluggy psutil pycparser pynacl pysocks
                 pytest python-engineio python-socketio requests setuptools six stem tomli unidecode
-                urllib3 werkzeug zope-event zope-interface
+                urllib3 werkzeug zope-event zope-interface setuptools wheel Cython
             sources:
               - type: file
                 url: https://files.pythonhosted.org/packages/fb/6e/6f83bf616d2becdf333a1640f1d463fef3150e2e926b7010cb0f81c95e88/attrs-22.2.0-py3-none-any.whl
@@ -482,18 +482,12 @@ modules:
               - type: file
                 url: https://files.pythonhosted.org/packages/38/6f/fbfb7dde38be7e5644bb342c4c7cdc444cd5e2ffbd70d091263b3858a8cb/zope.interface-5.5.2.tar.gz
                 sha256: bfee1f3ff62143819499e348f5b8a7f3aa0259f9aca5e0ddae7391d059dce671
-            modules:
-              - name: poetry-deps-deps
-                buildsystem: simple
-                build-commands:
-                  - pip3 install --no-index --find-links="file://${PWD}" --prefix=${FLATPAK_DEST} setuptools wheel Cython
-                sources:
-                  - type: file
-                    url: https://files.pythonhosted.org/packages/5f/36/7374297692bb9dbd7569a0f84887c7e5e314c41d5d9518cb76fbb130620d/setuptools-67.2.0.tar.gz
-                    sha256: b440ee5f7e607bb8c9de15259dba2583dd41a38879a7abc1d43a71c59524da48
-                  - type: file
-                    url: https://files.pythonhosted.org/packages/a2/b8/6a06ff0f13a00fc3c3e7d222a995526cbca26c1ad107691b6b1badbbabf1/wheel-0.38.4.tar.gz
-                    sha256: 965f5259b566725405b05e7cf774052044b1ed30119b5d586b2703aafe8719ac
-                  - type: file
-                    url: https://files.pythonhosted.org/packages/dc/f6/e8e302f9942cbebede88b1a0c33d0be3a738c3ac37abae87254d58ffc51c/Cython-0.29.33.tar.gz
-                    sha256: 5040764c4a4d2ce964a395da24f0d1ae58144995dab92c6b96f44c3f4d72286a
+              - type: file
+                url: https://files.pythonhosted.org/packages/5f/36/7374297692bb9dbd7569a0f84887c7e5e314c41d5d9518cb76fbb130620d/setuptools-67.2.0.tar.gz
+                sha256: b440ee5f7e607bb8c9de15259dba2583dd41a38879a7abc1d43a71c59524da48
+              - type: file
+                url: https://files.pythonhosted.org/packages/a2/b8/6a06ff0f13a00fc3c3e7d222a995526cbca26c1ad107691b6b1badbbabf1/wheel-0.38.4.tar.gz
+                sha256: 965f5259b566725405b05e7cf774052044b1ed30119b5d586b2703aafe8719ac
+              - type: file
+                url: https://files.pythonhosted.org/packages/dc/f6/e8e302f9942cbebede88b1a0c33d0be3a738c3ac37abae87254d58ffc51c/Cython-0.29.33.tar.gz
+                sha256: 5040764c4a4d2ce964a395da24f0d1ae58144995dab92c6b96f44c3f4d72286a
