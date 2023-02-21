@@ -6,120 +6,184 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.6\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-10-02 16:17-0700\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2023-02-22 11:39+0000\n"
+"Last-Translator: tictactoe <phandinhminh@protonmail.ch>\n"
 "Language-Team: none\n"
 "Language: vi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.16-dev\n"
 
 #: ../../source/develop.rst:2
 msgid "Developing OnionShare"
-msgstr ""
+msgstr "Việc phát triển OnionShare"
 
 #: ../../source/develop.rst:7
 msgid "Collaborating"
-msgstr ""
+msgstr "Việc cộng tác"
 
 #: ../../source/develop.rst:9
 msgid "OnionShare has an open Keybase team to discuss the project, ask questions, share ideas and designs, and making plans for future development. (It's also an easy way to send end-to-end encrypted direct messages to others in the OnionShare community, like OnionShare addresses.) To use Keybase, download the `Keybase app <https://keybase.io/download>`_, make an account, and `join this team <https://keybase.io/team/onionshare>`_. Within the app, go to \"Teams\", click \"Join a Team\", and type \"onionshare\"."
 msgstr ""
+"OnionShare có một nhóm team Keybase mở để thảo luận về dự án, đặt các câu "
+"hỏi, chia sẻ ý tưởng và thiết kế, cũng như lập kế hoạch phát triển trong "
+"tương lai. (Đây cũng là một cách dễ dàng để gửi tin nhắn trực tiếp được mã "
+"hóa hai đầu end-to-end cho những người khác trong cộng đồng OnionShare, "
+"chẳng hạn như các địa chỉ OnionShare.) Để sử dụng Keybase, hãy tải xuống `"
+"Ứng dụng Keybase <https://keybase.io/download>`_ , tạo một tài khoản, và `"
+"tham gia nhóm team này <https://keybase.io/team/onionshare>`_. Trong ứng "
+"dụng, đi tới \"Nhóm team\", nhấp vào \"Tham gia một nhóm team\", và nhập "
+"\"onionshare\"."
 
 #: ../../source/develop.rst:12
 msgid "OnionShare also has a `mailing list <https://lists.riseup.net/www/subscribe/onionshare-dev>`_ for developers and and designers to discuss the project."
 msgstr ""
+"OnionShare cũng có một `danh sách thư báo <https://lists.riseup.net/www/"
+"subscribe/onionshare-dev>`_ cho các lập trình viên và các nhà thiết kế để "
+"thảo luận dự án."
 
 #: ../../source/develop.rst:15
 msgid "Contributing Code"
-msgstr ""
+msgstr "Việc đóng góp Mã Code"
 
 #: ../../source/develop.rst:17
 msgid "OnionShare source code is to be found in this Git repository: https://github.com/onionshare/onionshare"
 msgstr ""
+"Mã nguồn của OnionShare có thể được tìm thấy trong kho lưu trữ Git này: "
+"https://github.com/onionshare/onionshare"
 
 #: ../../source/develop.rst:19
 msgid "If you'd like to contribute code to OnionShare, it helps to join the Keybase team and ask questions about what you're thinking of working on. You should also review all of the `open issues <https://github.com/onionshare/onionshare/issues>`_ on GitHub to see if there are any you'd like to tackle."
 msgstr ""
+"Nếu bạn muốn đóng góp mã code cho OnionShare, bạn có thể giúp đỡ bằng cách "
+"tham gia nhóm team Keybase và đặt các câu hỏi về những gì bạn đang nghĩ đến "
+"hoặc đang làm. Bạn cũng nên xem lại tất cả `các vấn đề mở <https://github."
+"com/onionshare/onionshare/issues>`_ trên GitHub để xem có vấn đề nào bạn "
+"muốn giải quyết không."
 
 #: ../../source/develop.rst:22
 msgid "When you're ready to contribute code, open a pull request in the GitHub repository and one of the project maintainers will review it and possibly ask questions, request changes, reject it, or merge it into the project."
 msgstr ""
+"Khi bạn đã sẵn sàng đóng góp mã code, hãy mở một yêu cầu kéo trong kho lưu "
+"trữ GitHub và một trong những bảo trì viên dự án sẽ xem xét nó và có thể đặt "
+"các câu hỏi, yêu cầu các thay đổi, từ chối nó, hoặc hợp nhất nó vào dự án."
 
 #: ../../source/develop.rst:27
 msgid "Starting Development"
-msgstr ""
+msgstr "Bắt đầu việc phát triển"
 
 #: ../../source/develop.rst:29
 msgid "OnionShare is developed in Python. To get started, clone the Git repository at https://github.com/onionshare/onionshare/ and then consult the ``cli/README.md`` file to learn how to set up your development environment for the command-line version, and the ``desktop/README.md`` file to learn how to set up your development environment for the graphical version."
 msgstr ""
+"OnionShare được phát triển bằng Python. Để bắt đầu, hãy sao chép clone kho "
+"lưu trữ Git tại https://github.com/onionshare/onionshare/ rồi tham khảo tập "
+"tin ``cli/README.md`` để tìm hiểu cách thiết lập môi trường phát triển của "
+"bạn cho phiên bản dòng lệnh command, và tập tin ``desktop/README.md`` để tìm "
+"hiểu cách thiết lập môi trường phát triển của bạn cho phiên bản đồ họa."
 
 #: ../../source/develop.rst:32
 msgid "Those files contain the necessary technical instructions and commands install dependencies for your platform, and to run OnionShare from the source tree."
 msgstr ""
+"Các tập tin đó chứa các hướng dẫn kỹ thuật cần thiết và các lệnh command cài "
+"đặt phụ thuộc cho nền tảng của bạn, và để chạy OnionShare từ cây nguồn "
+"source tree."
 
 #: ../../source/develop.rst:35
 msgid "Debugging tips"
-msgstr ""
+msgstr "Các mẹo xử lý lỗi bug"
 
 #: ../../source/develop.rst:38
 msgid "Verbose mode"
-msgstr ""
+msgstr "Chế độ dài dòng Verbose"
 
 #: ../../source/develop.rst:40
 msgid "When developing, it's convenient to run OnionShare from a terminal and add the ``--verbose`` (or ``-v``) flag to the command. This prints a lot of helpful messages to the terminal, such as when certain objects are initialized, when events occur (like buttons clicked, settings saved or reloaded), and other debug info. For example::"
 msgstr ""
+"Khi phát triển, sẽ thuận tiện hơn khi chạy OnionShare từ một terminal và "
+"thêm cờ flag ``--verbose`` (hoặc ``-v``) vào lệnh command. Thao tác này sẽ "
+"in ra rất nhiều thông báo hữu ích tới terminal, chẳng hạn như khi một số đối "
+"tượng được khởi tạo, khi các sự kiện xảy ra (như các nút được bấm, cài đặt "
+"được sao lưu hoặc tải lại), và các thông tin xử lý lỗi bug khác. Ví dụ::"
 
 #: ../../source/develop.rst:117
 msgid "You can add your own debug messages by running the ``Common.log`` method from ``onionshare/common.py``. For example::"
 msgstr ""
+"Bạn có thể thêm thông báo gỡ lỗi bug của riêng mình bằng cách chạy phương "
+"thức ``Common.log`` từ ``onionshare/common.py``. Ví dụ::"
 
 #: ../../source/develop.rst:121
 msgid "This can be useful when learning the chain of events that occur when using OnionShare, or the value of certain variables before and after they are manipulated."
 msgstr ""
+"Điều này có thể là hữu ích khi tìm hiểu chuỗi các sự kiện xảy ra khi sử dụng "
+"OnionShare, hoặc giá trị của các biến nhất định trước và sau khi chúng được "
+"thao tác."
 
 #: ../../source/develop.rst:124
 msgid "Local Only"
-msgstr ""
+msgstr "Chỉ mỗi cục bộ"
 
 #: ../../source/develop.rst:126
 msgid "Tor is slow, and it's often convenient to skip starting onion services altogether during development. You can do this with the ``--local-only`` flag. For example::"
 msgstr ""
+"Tor chậm chạp, và thường thuận tiện khi bỏ qua việc bắt đầu các dịch vụ "
+"onion hoàn toàn trong quá trình phát triển. Bạn có thể làm điều này với cờ "
+"flag ``--local-only``. Ví dụ::"
 
 #: ../../source/develop.rst:165
 msgid "In this case, you load the URL ``http://127.0.0.1:17641`` in a normal web-browser like Firefox, instead of using the Tor Browser. The private key is not actually needed in local-only mode, so you can ignore it."
 msgstr ""
+"Trong trường hợp này, bạn tải URL ``http://127.0.0.1:17641`` trong một trình "
+"duyệt web thông thường như Firefox, thay vì sử dụng Trình duyệt Tor Browser. "
+"Khóa key riêng tư không thực sự cần thiết trong chế độ chỉ cục bộ, vì vậy "
+"bạn có thể bỏ qua nó."
 
 #: ../../source/develop.rst:168
 msgid "Contributing Translations"
-msgstr ""
+msgstr "Đóng góp bản dịch"
 
 #: ../../source/develop.rst:170
 msgid "Help make OnionShare easier to use and more familiar and welcoming for people by translating it on `Hosted Weblate <https://hosted.weblate.org/projects/onionshare/>`_. Always keep the \"OnionShare\" in latin letters, and use \"OnionShare (localname)\" if needed."
 msgstr ""
+"Giúp làm cho OnionShare dễ sử dụng hơn, quen thuộc hơn và thân thiện hơn với "
+"mọi người bằng cách phiên dịch nó trên `Hosted Weblate <https://hosted."
+"weblate.org/projects/onionshare/>`_. Luôn luôn giữ \"OnionShare\" bằng chữ "
+"cái La-tinh, và sử dụng \"OnionShare (tên địa phương)\" nếu cần thiết."
 
 #: ../../source/develop.rst:172
 msgid "To help translate, make a Hosted Weblate account and start contributing."
 msgstr ""
+"Để hỗ trợ phiên dịch, hãy tạo một tài khoản Hosted Weblate và bắt đầu đóng "
+"góp."
 
 #: ../../source/develop.rst:175
 msgid "Suggestions for Original English Strings"
-msgstr ""
+msgstr "Các gợi ý cho chuỗi gốc tiếng Anh"
 
 #: ../../source/develop.rst:177
 msgid "Sometimes the original English strings are wrong, or don't match between the application and the documentation."
 msgstr ""
+"Đôi khi các chuỗi gốc tiếng Anh bị sai sót, hoặc không khớp giữa ứng dụng và "
+"tài liệu."
 
 #: ../../source/develop.rst:179
 msgid "File source string improvements by adding @kingu to your Weblate comment, or open a GitHub issue or pull request. The latter ensures all upstream developers see the suggestion, and can potentially modify the string via the usual code review processes."
 msgstr ""
+"Cải thiện chuỗi nguồn tập tin bằng cách thêm @kingu vào nhận xét Weblate của "
+"bạn, hoặc mở một vấn đề GitHub hoặc kéo yêu cầu. Lựa chọn sau đảm bảo tất cả "
+"các lập trình viên ngược dòng upstream có thể nhìn thấy đề xuất, và có khả "
+"năng sửa đổi chuỗi thông qua các quy trình xem xét mã code thông thường."
 
 #: ../../source/develop.rst:183
 msgid "Status of Translations"
-msgstr ""
+msgstr "Tình trạng các bản dịch"
 
 #: ../../source/develop.rst:184
 msgid "Here is the current translation status. If you want start a translation in a language not yet started, please write to the mailing list: onionshare-dev@lists.riseup.net"
 msgstr ""
+"Đây là tình trạng bản dịch hiện tại. Nếu bạn muốn bắt đầu dịch bằng một ngôn "
+"ngữ chưa được bắt đầu, vui lòng viết thư vào danh sách thư báo: onionshare-"
+"dev@lists.riseup.net"
