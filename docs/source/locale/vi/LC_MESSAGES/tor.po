@@ -6,229 +6,372 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.6\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-10-02 16:17-0700\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2023-02-22 11:40+0000\n"
+"Last-Translator: tictactoe <phandinhminh@protonmail.ch>\n"
 "Language-Team: none\n"
 "Language: vi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.16-dev\n"
 
 #: ../../source/tor.rst:2
 msgid "Connecting to Tor"
-msgstr ""
+msgstr "Kết nối tới Tor"
 
 #: ../../source/tor.rst:4
 msgid "When OnionShare starts, it will show you a screen asking you to connect to the Tor network."
 msgstr ""
+"Khi OnionShare khởi chạy, nó sẽ hiển thị cho bạn một màn hình yêu cầu bạn "
+"kết nối tới mạng lưới Tor Network."
 
 #: ../../source/tor.rst:8
 msgid "You can toggle on the switch \"Connect to Tor automatically\" before clicking \"Connect to Tor\". This means that next time OnionShare starts, it will automatically connect with its Tor connection settings from the last session, instead of presenting you with the connection options. If the connection fails, you can still try bridges or reconfigure Tor via the \"Network Settings\" button."
 msgstr ""
+"Bạn có thể bật công tắc \"Tự động kết nối tới Tor\" trước khi nhấp vào \"Kết "
+"nối tới Tor\". Điều này có nghĩa là lần tiếp theo OnionShare khởi chạy, nó "
+"sẽ tự động kết nối với các cài đặt kết nối Tor của nó từ phiên trước, thay "
+"vì hiển thị cho bạn các tùy chọn kết nối. Nếu kết nối thất bại, bạn vẫn có "
+"thể thử cầu Bridge hoặc định cấu hình lại Tor thông qua nút \"Cài đặt mạng\"."
 
 #: ../../source/tor.rst:11
 msgid "You can click \"Connect to Tor\" to begin the connection process. If there are no problems with your network, including any attempts to block your access to the Tor network, this should hopefully work the first time."
 msgstr ""
+"Bạn có thể nhấp vào \"Kết nối tới Tor\" để bắt đầu quá trình kết nối. Nếu "
+"không có vấn đề gì với mạng của bạn, kể cả bất kỳ nỗ lực nào nhằm ngăn chặn "
+"quyền truy cập của bạn tới mạng lưới Tor Network, rất có hy vọng rằng điều "
+"này sẽ hoạt động ngay vào lần đầu tiên."
 
 #: ../../source/tor.rst:13
 msgid "Or, if you want to manually configure Bridges or other Tor settings before you connect, you can click \"Network Settings\"."
 msgstr ""
+"Hoặc, nếu bạn muốn định cấu hình cầu Bridge một cách thủ công hoặc các cài "
+"đặt Tor khác trước khi bạn kết nối, bạn có thể nhấp vào \"Cài đặt mạng\"."
 
 #: ../../source/tor.rst:16
 msgid "Automatic censorship circumvention"
-msgstr ""
+msgstr "Tự động vượt qua kiểm duyệt"
 
 #: ../../source/tor.rst:18
 msgid "When you click \"Connect to Tor\", if OnionShare fails to connect, it might be because Tor is censored in your country or on your local network."
 msgstr ""
+"Khi bạn nhấp vào \"Kết nối tới Tor\", nếu OnionShare thất bại khi kết nối, "
+"nó có thể là do Tor đã bị kiểm duyệt tại quốc gia của bạn hoặc trên mạng "
+"lưới cục bộ của bạn."
 
 #: ../../source/tor.rst:20
 msgid "If this occurs, you will have these choices:"
-msgstr ""
+msgstr "Nếu điều này xảy ra, bạn sẽ có các lựa chọn sau:"
 
 #: ../../source/tor.rst:22
 msgid "Try again without a bridge"
-msgstr ""
+msgstr "Thử lại mà không có cầu Bridge"
 
 #: ../../source/tor.rst:23
 msgid "Automatically determine my country from my IP address for bridge settings"
 msgstr ""
+"Tự động xác định quốc gia của tôi từ địa chỉ IP của tôi cho các cài đặt cầu "
+"Bridge"
 
 #: ../../source/tor.rst:24
 msgid "Manually select my country for bridge settings"
-msgstr ""
+msgstr "Lựa chọn thủ công quốc gia của tôi cho các cài đặt cầu Bridge"
 
 #: ../../source/tor.rst:28
 msgid "If you choose the \"Try again without a bridge\" option, OnionShare will retry connecting to Tor like normal, without attempting to bypass censorship."
 msgstr ""
+"Nếu bạn chọn lựa chọn \"Thử lại mà không có cầu Bridge\", OnionShare sẽ thử "
+"kết nối lại tới Tor như bình thường, không có ý định vượt qua kiểm duyệt."
 
 #: ../../source/tor.rst:30
 msgid "The other two options will attempt to automatically bypass censorship using Tor bridges. If your network provider is blocking access to the Tor network, you can hopefully still connect to a Tor bridge, which will then connect you to the Tor network, circumventing the censorship. Both of these options use the Tor Project's Censorship Circumvention API to provide you with bridge settings that should work for you. OnionShare will temporarily use the `Meek <https://gitlab.torproject.org/legacy/trac/-/wikis/doc/meek/>`_ domain-fronting proxy to make a non-Tor connection from your computer to Tor's Censorship Circumvention API. The Meek proxy hides the fact that you are trying to find a way to connect to Tor."
 msgstr ""
+"Hai tùy chọn còn lại sẽ cố gắng tự động vượt qua kiểm duyệt sử dụng cầu "
+"Bridge Tor. Nếu nhà cung cấp mạng của bạn đang chặn truy cập vào mạng lưới "
+"Tor Network, bạn vẫn có hy vọng có thể kết nối tới một cầu Bridge Tor, cầu "
+"nối này sau đó sẽ kết nối bạn tới mạng lưới Tor Network, vượt qua kiểm "
+"duyệt. Cả hai tùy chọn này đều sử dụng API vượt qua kiểm duyệt của Dự án Tor "
+"Project để cung cấp cho bạn các cài đặt cầu Bridge phù hợp với bạn. "
+"OnionShare sẽ tạm thời sử dụng proxy domain-fronting `Meek <https://gitlab."
+"torproject.org/legacy/trac/-/wikis/doc/meek/>`_ để tạo một kết nối không "
+"phải Tor từ máy tính của bạn tới API vượt qua kiểm duyệt của Tor. Proxy Meek "
+"sẽ ẩn đi sự thật rằng bạn đang cố gắng tìm cách kết nối tới Tor."
 
 #: ../../source/tor.rst:36
 msgid "If you choose \"Automatically determine my country from my IP address for bridge settings\", the Censorship Circumvention API will consider your IP address (yes, your real IP address) to determine what country you might reside in. Based on the country information, the API will try to automatically find bridges that suit your location."
 msgstr ""
+"Nếu bạn chọn \"Tự động xác định quốc gia của tôi từ địa chỉ IP của tôi để "
+"cài đặt cầu Bridge\", API vượt qua kiểm duyệt sẽ xem xét địa chỉ IP của bạn ("
+"đúng, địa chỉ IP thực của bạn) để xác định quốc gia mà bạn có thể đang cư "
+"trú. Dựa trên thông tin quốc gia, API sẽ cố gắng tự động tìm cầu Bridge phù "
+"hợp với vị trí của bạn."
 
 #: ../../source/tor.rst:41
 msgid "If you choose \"Manually select my country for bridge settings\", the Censorship API will find the bridges that suit the country that you specified."
 msgstr ""
+"Nếu bạn chọn \"Chọn quốc gia của tôi theo cách thủ công để cài đặt cầu "
+"Bridge\", API Kiểm duyệt sẽ tìm các cầu nối phù hợp với quốc gia mà bạn đã "
+"chỉ định."
 
 #: ../../source/tor.rst:46
 msgid "How automatic censorship circumvention works"
-msgstr ""
+msgstr "Làm thế nào việc tự động vượt qua kiểm duyệt hoạt động được"
 
 #: ../../source/tor.rst:48
 msgid "If the Censorship Circumvention API finds bridges that it believes will suit you, OnionShare will try to reconnect to Tor using those bridges. If the API does not find any bridges for your location, OnionShare will ask the API for \"fallback\" options, and then try to reconnect using those."
 msgstr ""
+"Nếu API vượt qua kiểm duyệt tìm thấy các cầu Bridge mà nó tin rằng sẽ phù "
+"hợp với bạn, thì OnionShare sẽ cố gắng kết nối lại tới Tor bằng các cầu "
+"Bridge đó. Nếu API không tìm thấy bất kỳ cầu Bridge nào cho vị trí của bạn, "
+"OnionShare sẽ yêu cầu API cung cấp các tùy chọn \"dự phòng\" rồi thử kết nối "
+"lại bằng các tùy chọn đó."
 
 #: ../../source/tor.rst:50
 msgid "If for some reason OnionShare fails to connect to the Censorship API itself, or if the API returns an error message, OnionShare will attempt to use the obfs4 built-in bridges."
 msgstr ""
+"Nếu vì lý do nào đó, OnionShare thất bại khi kết nối với chính API kiểm "
+"duyệt, hoặc nếu API trả về một thông báo lỗi, thì OnionShare sẽ cố gắng sử "
+"dụng các cầu Bridge đã được tích hợp obfs4."
 
 #: ../../source/tor.rst:52
 msgid "It's important to note that the requests to the Censorship Circumvention API do not go over the Tor network (because if you could connect to Tor already, you wouldn't need to connect to the API)."
 msgstr ""
+"Điều quan trọng cần lưu ý là các yêu cầu đối với API vượt qua kiểm duyệt "
+"không đi qua mạng lưới Tor Network (vì nếu bạn đã có thể kết nối tới Tor "
+"rồi, bạn sẽ không cần kết nối tới API)."
 
 #: ../../source/tor.rst:54
 msgid "Even though it's hard for an adversary to discover where the Meek request is going, this may still be risky for some users. Therefore, it is an opt-in feature. The use of Meek and non-torified network requests are limited only to making one or two requests to the Censorship Circumvention API. Then Meek is stopped, and all further network requests happen over the Tor network."
 msgstr ""
+"Mặc dù đối phương khó có thể phát hiện ra việc yêu cầu Meek đang diễn ra ở "
+"đâu, nhưng điều này vẫn có thể gây rủi ro cho một số người dùng. Do đó, nó "
+"là một tính năng opt-in. Việc sử dụng các yêu cầu mạng Meek và không được "
+"Tor hoá (non-torified) chỉ giới hạn ở việc thực hiện một hoặc hai yêu cầu "
+"đối với API vượt qua kiểm duyệt. Sau đó, Meek bị dừng, và tất cả các yêu cầu "
+"mạng tiếp theo sẽ diễn ra trên mạng lưới Tor Network."
 
 #: ../../source/tor.rst:56
 msgid "If you are uncomfortable with making a request that doesn't go over the Tor network, you can click \"Network Settings\" (or the Settings icon in the bottom right corner, followed by the Tor Settings tab in the screen that appears), and manually configure bridges. After you save any bridge settings, OnionShare will try to reconnect using those bridges."
 msgstr ""
+"Nếu bạn cảm thấy không thoải mái với việc đưa ra yêu cầu mà nó không đi qua "
+"mạng lưới Tor Network, bạn có thể nhấp vào \"Cài đặt mạng\" (hoặc biểu tượng "
+"Cài đặt ở góc dưới cùng bên phải, tiếp theo bởi Tab Cài đặt Tor trong màn "
+"hình được xuất hiện), và tự cấu hình thủ công cầu Bridge. Sau khi bạn lưu "
+"bất kỳ cài đặt cầu Bridge nào, OnionShare sẽ thử kết nối lại qua việc sử "
+"dụng các cầu Bridge đó."
 
 #: ../../source/tor.rst:59
 msgid "Manually configure Tor settings"
-msgstr ""
+msgstr "Cài đặt cấu hình Tor thủ công"
 
 #: ../../source/tor.rst:61
 msgid "You can get to the Tor settings by clicking \"Network Settings\" on the welcome screen, or by clicking the \"⚙\" icon in the bottom-right corner of the application, and then switch to the Tor Settings tab in the screen that appears."
 msgstr ""
+"Bạn có thể tiếp cận các cài đặt Tor bằng cách nhấp vào \"Cài đặt mạng\" trên "
+"màn hình chào mừng, hoặc bằng cách nhấp vào biểu tượng \"⚙\" ở góc dưới bên "
+"phải của ứng dụng, và rồi chuyển sang Tab cài đặt Tor trong màn hình mà nó "
+"hiển thị."
 
 #: ../../source/tor.rst:65
 msgid "Here are the different ways you can configure OnionShare to connect to Tor:"
 msgstr ""
+"Đây là các cách khác nhau mà bạn có thể định cấu hình OnionShare để kết nối "
+"tới Tor:"
 
 #: ../../source/tor.rst:68
 msgid "Use the Tor version built into OnionShare"
-msgstr ""
+msgstr "Sử dụng phiên bản Tor được tích hợp vào OnionShare"
 
 #: ../../source/tor.rst:70
 msgid "This is the default, simplest and most reliable way that OnionShare connects to Tor. For this reason, it's recommended for most users."
 msgstr ""
+"Đây là cách mặc định, đơn giản nhất và đáng tin cậy nhất mà OnionShare kết "
+"nối tới Tor. Vì lý do này, nó được khuyến nghị cho hầu hết người dùng."
 
 #: ../../source/tor.rst:73
 msgid "When you open OnionShare, it launches an already configured ``tor`` process in the background for OnionShare to use. It doesn't interfere with other ``tor`` processes on your computer, so you can use the Tor Browser or the system ``tor`` on their own."
 msgstr ""
+"Khi bạn mở OnionShare, nó sẽ khởi chạy quy trình ``tor`` đã được định cấu "
+"hình trong nền để OnionShare sử dụng. Nó không can thiệp vào các quá trình "
+"``tor`` khác trên máy tính của bạn, vì vậy bạn có thể tự mình sử dụng Trình "
+"duyệt Tor Browser hoặc hệ thống ``tor``trên chính chúng."
 
 #: ../../source/tor.rst:76
 msgid "**Using bridges**"
-msgstr ""
+msgstr "**Sử dụng cầu Bridge**"
 
 #: ../../source/tor.rst:78
 msgid "To use a bridge, you must select \"Use the Tor version built into OnionShare\" and check the \"Use a bridge\" checkbox."
 msgstr ""
+"Để sử dụng một cầu Bridge, bạn phải lựa chọn \"Sử dụng phiên bản Tor đã được "
+"tích hợp vào OnionShare\" và kiểm tra hộp tích checkbox \"Sử dụng một cầu "
+"Bridge\"."
 
 #: ../../source/tor.rst:80
 msgid "Try using a built-in bridge first. Using `obfs4` or `snowflake` bridges is recommended over using `meek-azure`."
 msgstr ""
+"Thử sử dụng một cầu Bridge tích hợp sẵn trước tiên. Việc sử dụng các cầu "
+"Bridge `obfs4` hoặc `snowflake` là được khuyên dùng thay vì sử dụng `meek-"
+"azure`."
 
 #: ../../source/tor.rst:84
 msgid "If using a built-in bridge doesn't work, you can request a bridge from torproject.org. You will have to solve a CAPTCHA in order to request a bridge. (This makes it more difficult for governments or ISPs to block access to Tor bridges.)"
 msgstr ""
+"Nếu việc sử dụng một cầu Bridge không hoạt động , bạn có thể yêu cầu một cầu "
+"Bridge từ torproject.org. Bạn sẽ phải giải CAPTCHA để yêu cầu một cầu "
+"Bridge. (Điều này gây khó khăn cho các chính phủ hoặc nhà cung cấp Internet "
+"khi họ chặn truy cập tới các cầu Bridge Tor.)"
 
 #: ../../source/tor.rst:88
 msgid "You also have the option of using a bridge that you learned about from a trusted source."
 msgstr ""
+"Bạn cũng có lựa chọn sử dụng một cầu Bridge mà bạn đã biết được về nó từ một "
+"nguồn đáng tin cậy."
 
 #: ../../source/tor.rst:91
 msgid "Attempt auto-configuration with Tor Browser"
-msgstr ""
+msgstr "Thử tự động cấu hình với Trình duyệt Tor Browser"
 
 #: ../../source/tor.rst:93
 msgid "If you have `downloaded the Tor Browser <https://www.torproject.org>`_ and don't want two ``tor`` processes running, you can use the ``tor`` process from the Tor Browser. Keep in mind you need to keep Tor Browser open in the background while you're using OnionShare for this to work."
 msgstr ""
+"Nếu bạn đã `tải xuống Trình duyệt Tor Browser <https://www.torproject.org>`_ "
+"và không muốn chạy hai tiến trình ``tor``, bạn có thể sử dụng tiến trình "
+"``tor`` từ Trình duyệt Tor Browser. Hãy nhớ rằng bạn cần phải để Trình duyệt "
+"Tor Browser mở ở chế độ nền trong khi bạn đang sử dụng OnionShare để tính "
+"năng này hoạt động."
 
 #: ../../source/tor.rst:97
 msgid "Using a system ``tor`` in Windows"
-msgstr ""
+msgstr "Sử dụng một hệ thống ``tor`` trong Windows"
 
 #: ../../source/tor.rst:99
 msgid "This is fairly advanced. You'll need to know how edit plaintext files and do stuff as an administrator."
 msgstr ""
+"Điều này khá là nâng cao. Bạn sẽ cần phải biết làm thế nào để chỉnh sửa tập "
+"tin toàn văn bản plaintext và làm các việc như một quản trị viên."
 
 #: ../../source/tor.rst:101
 msgid "Download the Tor Windows Expert Bundle `from <https://www.torproject.org/download/tor/>`_. Extract the compressed file and copy the extracted folder to ``C:\\Program Files (x86)\\`` Rename the extracted folder with ``Data`` and ``Tor`` in it to ``tor-win32``."
 msgstr ""
+"Tải xuống gói chuyên gia Tor Windows Expert Bundle `từ <https://www."
+"torproject.org/download/tor/>`_. Giải nén tập tin và sao chép thư mục đã "
+"giải nén tới ``C:\\Program Files (x86)\\`` Đổi tên thư mục đã được giải nén "
+"với ``Data`` và ``Tor`` bên trong nó thành ``tor-win32``."
 
 #: ../../source/tor.rst:105
 msgid "Make up a control port password. (Using 7 words in a sequence like ``comprised stumble rummage work avenging construct volatile`` is a good idea for a password.) Now open a command prompt (``cmd``) as an administrator, and use ``tor.exe --hash-password`` to generate a hash of your password. For example::"
 msgstr ""
+"Tạo mật khẩu cổng điều khiển. (Sử dụng 7 từ theo trình tự như ``bao hàm vấp "
+"ngã lục lọi công việc báo thù cấu trúc dễ bay hơi`` có thể là một ý tưởng "
+"hay cho một mật khẩu.) Bây giờ, hãy mở một lệnh command prompt (``cmd``) với "
+"tư cách quản trị viên, và sử dụng ``tor. exe --hash-password`` để tạo một "
+"hash cho mật khẩu của bạn. Ví dụ::"
 
 #: ../../source/tor.rst:112
 msgid "The hashed password output is displayed after some warnings (which you can ignore). In the case of the above example, it is ``16:00322E903D96DE986058BB9ABDA91E010D7A863768635AC38E213FDBEF``."
 msgstr ""
+"Đầu ra mật khẩu hash được hiển thị sau một số cảnh báo (mà bạn có thể bỏ qua)"
+". Trong trường hợp của ví dụ trên, đó là "
+"``16:00322E903D96DE986058BB9ABDA91E010D7A863768635AC38E213FDBEF``."
 
 #: ../../source/tor.rst:114
 msgid "Now create a new text file at ``C:\\Program Files (x86)\\tor-win32\\torrc`` and put your hashed password output in it, replacing the ``HashedControlPassword`` with the one you just generated::"
 msgstr ""
+"Giờ hãy khởi tạo một tập tin văn bản tại ``C:\\Program Files (x86)\\tor-"
+"win32\\torrc`` và đặt mật khẩu hash của bạn vào trong đó, thay thế "
+"``HashedControlPassword`` bằng cái mà bạn vừa mới tạo::"
 
 #: ../../source/tor.rst:119
 msgid "In your administrator command prompt, install ``tor`` as a service using the appropriate ``torrc`` file you just created (as described in `<https://2019.www.torproject.org/docs/faq.html.en#NTService>`_). Like this::"
 msgstr ""
+"Trong command prompt quản trị viên của bạn, hãy cài đặt ``tor`` như là một "
+"dịch vụ sử dụng tập tin ``torrc``phù hợp bạn vừa mới tạo (như được mô tả "
+"trong `<https://2019.www.torproject.org/docs/faq.html.en#NTService>`_). Như "
+"thế này::"
 
 #: ../../source/tor.rst:123
 msgid "You are now running a system ``tor`` process in Windows!"
-msgstr ""
+msgstr "Bạn hiện đang chạy một quá trình hệ thống ``tor`` trong Windows!"
 
 #: ../../source/tor.rst:125
 msgid "Open OnionShare, click the \"⚙\" icon in it, and switch to the Tor Settings tab. Under \"How should OnionShare connect to Tor?\" choose \"Connect using control port\", and set \"Control port\" to ``127.0.0.1`` and \"Port\" to ``9051``. Under \"Tor authentication settings\" choose \"Password\" and set the password to the control port password you picked above. Click the \"Test Connection to Tor\" button. If all goes well, you should see \"Connected to the Tor controller\"."
 msgstr ""
+"Mở OnionShare, nhấp vào biểu tượng \"⚙\" trong đó, và chuyển sang Tab Cài "
+"đặt Tor. Trong phần \"OnionShare nên kết nối tới Tor như thế nào?\" chọn "
+"\"Kết nối bằng cổng điều khiển\" và đặt \"Cổng điều khiển\" thành ``127.0.0."
+"1`` và \"Cổng\" thành ``9051``. Trong mục \"Cài đặt xác thực Tor\", chọn "
+"\"Mật khẩu\" và đặt mật khẩu thành mật khẩu cổng điều khiển mà bạn đã chọn ở "
+"trên. Nhấp vào nút \"Kiểm tra kết nối tới Tor\". Nếu mọi việc suôn sẻ, bạn "
+"sẽ thấy \"Đã kết nối tới bộ điều khiển Tor\"."
 
 #: ../../source/tor.rst:134
 msgid "Using a system ``tor`` in macOS"
-msgstr ""
+msgstr "Sử dụng một hệ thống ``tor`` trong macOS"
 
 #: ../../source/tor.rst:136
 msgid "First, install `Homebrew <https://brew.sh/>`_ if you don't already have it, and then install Tor::"
 msgstr ""
+"Trước tiên, hãy cài đặt `Homebrew <https://brew.sh/>`_ nếu bạn vẫn chưa có "
+"nó, và rồi cài đặt Tor::"
 
 #: ../../source/tor.rst:140
 msgid "Now configure Tor to allow connections from OnionShare::"
-msgstr ""
+msgstr "Bây giờ hãy định cấu hình Tor để cho phép các kết nối từ OnionShare::"
 
 #: ../../source/tor.rst:147
 msgid "And start the system Tor service::"
-msgstr ""
+msgstr "Và khởi động dịch vụ Tor toàn hệ thống::"
 
 #: ../../source/tor.rst:151
 msgid "Open OnionShare, click the \"⚙\" icon in it, and switch to the Tor Settings tab. Under \"How should OnionShare connect to Tor?\" choose \"Connect using socket file\", and set the socket file to be ``/usr/local/var/run/tor/control.socket``. Under \"Tor authentication settings\" choose \"No authentication, or cookie authentication\". Click the \"Test Connection to Tor\" button."
 msgstr ""
+"Mở OnionShare, nhấp vào biểu tượng \"⚙\" trong đó, và chuyển sang Tab Cài "
+"đặt Tor. Trong phần \"OnionShare nên kết nối tới Tor như thế nào?\" chọn "
+"\"Kết nối bằng tập tin socket\" và đặt tập tin socket thành ``/usr/local/var/"
+"run/tor/control.socket``. Trong mục \"Cài đặt xác thực Tor\" chọn \"Không "
+"xác thực, hoặc cookie xác thực\". Nhấp vào nút \"Test kiểm tra kết nối tới "
+"Tor\"."
 
 #: ../../source/tor.rst:157
 #: ../../source/tor.rst:177
 msgid "If all goes well, you should see \"Connected to the Tor controller\"."
-msgstr ""
+msgstr "Nếu mọi việc suôn sẻ, bạn sẽ thấy \"Đã kết nối tới bộ điều khiển Tor\"."
 
 #: ../../source/tor.rst:160
 msgid "Using a system ``tor`` in Linux"
-msgstr ""
+msgstr "Sử dụng một hệ thống ``tor`` trong Linux"
 
 #: ../../source/tor.rst:162
 msgid "First, install the ``tor`` package. If you're using Debian, Ubuntu, or a similar Linux distro, It is recommended to use the Tor Project's `official repository <https://support.torproject.org/apt/tor-deb-repo/>`_."
 msgstr ""
+"Đầu tiên, cài đặt gói ``tor``. Nếu bạn đang sử dụng Debian, Ubuntu hoặc một "
+"bản phân phối Linux tương tự, Bạn được khuyến cáo nên sử dụng `kho lưu trữ "
+"chính thức của Dự án Tor Project <https://support.torproject.org/apt/"
+"tor-deb-repo/>`_."
 
 #: ../../source/tor.rst:164
 msgid "Next, add your user to the group that runs the ``tor`` process (in the case of Debian and Ubuntu, ``debian-tor``) and configure OnionShare to connect to your system ``tor``'s control socket file."
 msgstr ""
+"Tiếp theo, thêm người dùng của bạn vào nhóm chạy quy trình ``tor`` (trong "
+"trường hợp của Debian và Ubuntu, ``debian-tor``) và định cấu hình OnionShare "
+"để kết nối tới tập tin socket ``tor`` điều khiển hệ thống của bạn."
 
 #: ../../source/tor.rst:166
 msgid "Add your user to the ``debian-tor`` group by running this command (replace ``username`` with your actual username)::"
 msgstr ""
+"Thêm người dùng của bạn vào nhóm ``debian-tor``bằng cách chạy lệnh command "
+"này (thay thế ``username``bằng tên người dùng username thật sự của bạn)::"
 
 #: ../../source/tor.rst:170
 msgid "Reboot your computer. After it boots up again, open OnionShare, click the \"⚙\" icon in it, and switch to the Tor Settings tab. Under \"How should OnionShare connect to Tor?\" choose \"Connect using socket file\". Set the socket file to be ``/var/run/tor/control``. Under \"Tor authentication settings\" choose \"No authentication, or cookie authentication\". Click the \"Test Connection to Tor\" button."
 msgstr ""
+"Khởi động lại máy tính của bạn. Sau khi khởi động lại, hãy mở OnionShare, "
+"nhấp vào biểu tượng \"⚙\" trong đó, và chuyển sang Tab Cài đặt Tor. Trong "
+"phần \"OnionShare nên kết nối với Tor như thế nào?\" chọn \"Kết nối bằng tập "
+"tin socket\". Đặt tập tin socket thành ``/var/run/tor/control``. Trong phần "
+"\"Cài đặt xác thực Tor\" chọn \"Không xác thực, hoặc xác thực cookie\". Nhấp "
+"vào nút \"Test kiểm tra kết nối tới Tor\"."
