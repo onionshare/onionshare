@@ -352,7 +352,7 @@
     "gui_enable_autoconnect_checkbox": "Conectar a Tor automáticamente",
     "gui_autoconnect_failed_to_connect_to_tor": "No se pudo conectar a Tor",
     "gui_autoconnect_trying_to_connect_to_tor": "Intentado conectar con Tor…",
-    "gui_autoconnect_connection_error_msg": "Asegúrate de que estás conectado a Internet.",
+    "gui_autoconnect_connection_error_msg": "Asegúrate de que está conectado a Internet.",
     "gui_autoconnect_bridge_description": "También es posible que tu Internet esté siendo censurado. Es posible que puedas eludir esto usando un puente.",
     "gui_autoconnect_bridge_detect_manual": "Seleccionar manualmente mi país para la configuración del puente",
     "gui_autoconnect_bridge_setting_options": "Configuración del Puente",
