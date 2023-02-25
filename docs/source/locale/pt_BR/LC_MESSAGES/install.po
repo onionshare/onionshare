@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-03-31 16:26+1100\n"
-"PO-Revision-Date: 2021-12-02 14:52+0000\n"
-"Last-Translator: Gabriel Cardoso <g.cardoso@mailfence.com>\n"
-"Language: pt_BR\n"
+"PO-Revision-Date: 2023-02-26 06:39+0000\n"
+"Last-Translator: Felipe Nogueira <contato.fnog@gmail.com>\n"
 "Language-Team: pt_BR <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=n > 1\n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.16-dev\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: ../../source/install.rst:2
@@ -39,7 +40,6 @@ msgid "Linux"
 msgstr "Linux"
 
 #: ../../source/install.rst:14
-#, fuzzy
 msgid ""
 "There are various ways to install OnionShare for Linux, but the "
 "recommended way is to use either the `Flatpak <https://flatpak.org/>`_ or"
@@ -49,9 +49,8 @@ msgid ""
 msgstr ""
 "Existem várias maneiras de instalar o OnionShare para Linux, mas a forma "
 "recomendada é usar o pacote `Flatpak <https://flatpak.org/>` _ ou `Snap "
-"<https://snapcraft.io/>` _ . Flatpak e Snap garantem que você sempre "
-"usará a versão mais recente e executará o OnionShare dentro de uma "
-"sandbox."
+"<https://snapcraft.io/>` _ . Flatpak e Snap garantem que você sempre usará a "
+"versão mais recente e executará o OnionShare dentro de uma sandbox."
 
 #: ../../source/install.rst:17
 #, fuzzy
@@ -402,4 +401,3 @@ msgstr ""
 
 #~ msgid "Install in Linux"
 #~ msgstr "Instalar no Linux"
-
