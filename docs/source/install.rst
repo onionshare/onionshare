@@ -54,7 +54,7 @@ You can also find them on the `GitHub Releases page <https://github.com/micahfle
 Verifying
 ^^^^^^^^^
 
-Once you have imported Micah's public key into your GnuPG keychain, downloaded the binary and and ``.asc`` signature, you can verify the binary for macOS in a terminal like this::
+Once you have imported Micah's public key into your GnuPG keychain, downloaded the binary and ``.asc`` signature, you can verify the binary for macOS in a terminal like this::
 
     gpg --verify OnionShare-2.2.pkg.asc OnionShare-2.2.pkg
 
