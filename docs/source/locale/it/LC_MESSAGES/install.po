@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-03-31 16:26+1100\n"
 "PO-Revision-Date: 2023-02-28 18:46+0000\n"
-"Last-Translator: rc <coluccini.riccardo@gmail.com>\n"
+"Last-Translator: Gabriele <gabboxl0@gmail.com>\n"
 "Language-Team: it <LL@li.org>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
@@ -37,10 +37,9 @@ msgstr ""
 
 #: ../../source/install.rst:12
 msgid "Linux"
-msgstr ""
+msgstr "Linux"
 
 #: ../../source/install.rst:14
-#, fuzzy
 msgid ""
 "There are various ways to install OnionShare for Linux, but the "
 "recommended way is to use either the `Flatpak <https://flatpak.org/>`_ or"
@@ -48,21 +47,21 @@ msgid ""
 "ensure that you'll always use the newest version and run OnionShare "
 "inside of a sandbox."
 msgstr ""
-"Ci sono diversi modi per installare OnionShare su Linux, ma il modo "
-"suggerito è usare o il pacchetto di `Flatpak <https://flatpak.org/>`_ o "
-"quello di `Snapcraft <https://snapcraft.io/>`_ . Flatpak e Snapcraft "
-"garantiscono l'utilizzo della versione più aggiornata e l'avvio di "
-"OnionShare all'interno di una sandbox."
+"Ci sono diversi modi per installare OnionShare su Linux, ma la maniera "
+"consigliata è usare o il pacchetto `Flatpak <https://flatpak.org/>`_ o `Snap "
+"<https://snapcraft.io/>`_ . Flatpak e Snapcraft garantiscono l'utilizzo "
+"della versione più aggiornata e l'avvio di OnionShare all'interno di una "
+"sandbox."
 
 #: ../../source/install.rst:17
-#, fuzzy
 msgid ""
 "Snapcraft support is built-in to Ubuntu and Fedora comes with Flatpak "
 "support, but which you use is up to you. Both work in all Linux "
 "distributions."
 msgstr ""
-"Snapcraft è integrato in Ubuntu e Flatpak è integrato in Fedora, ma quale"
-" scegliere dipende da te. Entrambi funzionano in tutte le distro Linux."
+"Il supporto Snapcraft è integrato in Ubuntu e il supporto Flatpak è "
+"integrato in Fedora, ma quale scegliere dipende da te. Entrambi funzionano "
+"in tutte le distro Linux."
 
 #: ../../source/install.rst:19
 msgid ""
@@ -73,9 +72,9 @@ msgstr ""
 "https://flathub.org/apps/details/org.onionshare.OnionShare"
 
 #: ../../source/install.rst:21
-#, fuzzy
 msgid "**Install OnionShare using Snapcraft**: https://snapcraft.io/onionshare"
-msgstr "**Installa OnionShare usando Snapcraft**: https://snapcraft.io/onionshare"
+msgstr ""
+"**Installa OnionShare usando Snapcraft**: https://snapcraft.io/onionshare"
 
 #: ../../source/install.rst:23
 msgid ""
@@ -87,7 +86,7 @@ msgstr ""
 
 #: ../../source/install.rst:28
 msgid "Command-line only"
-msgstr ""
+msgstr "Solo linea di comando"
 
 #: ../../source/install.rst:30
 msgid ""
