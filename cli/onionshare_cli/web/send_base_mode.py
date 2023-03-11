@@ -169,7 +169,7 @@ class SendBaseModeWeb:
 
             if is_dir:
                 dirs.append(
-                    {"link": os.path.join(f"/{path}", filename), "basename": filename}
+                    {"link": os.path.join(f"/{path}", filename, ""), "basename": filename}
                 )
             else:
                 size = os.path.getsize(this_filesystem_path)
