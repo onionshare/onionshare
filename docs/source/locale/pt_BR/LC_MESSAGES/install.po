@@ -8,15 +8,16 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-03-31 16:26+1100\n"
-"PO-Revision-Date: 2023-03-11 03:53+0000\n"
-"Last-Translator: Eduardo Addad de Oliveira <duduaddad@gmail.com>\n"
+"PO-Revision-Date: 2023-03-31 16:38+0000\n"
+"Last-Translator: Translator51 <Translator51@users.noreply.hosted.weblate.org>"
+"\n"
 "Language-Team: pt_BR <LL@li.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.16.2-dev\n"
+"X-Generator: Weblate 4.17-dev\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: ../../source/install.rst:2
@@ -53,15 +54,14 @@ msgstr ""
 "versão mais recente e executará o OnionShare dentro de uma sandbox."
 
 #: ../../source/install.rst:17
-#, fuzzy
 msgid ""
 "Snapcraft support is built-in to Ubuntu and Fedora comes with Flatpak "
 "support, but which you use is up to you. Both work in all Linux "
 "distributions."
 msgstr ""
-"O suporte a Snap está embutido no Ubuntu e o Fedora vem com suporte a "
-"Flatpak, mas você decide o que usar. Ambos funcionam em todas as "
-"distribuições Linux."
+"O suporte para Snap está integrado no Ubuntu, enquanto que o suporte para "
+"Flatpak está incorporado em Fedora, mas você decide qual usar. Ambos "
+"funcionam em todas as distribuições Linux."
 
 #: ../../source/install.rst:19
 msgid ""
@@ -89,7 +89,6 @@ msgid "Command-line only"
 msgstr "Somente linha de comando"
 
 #: ../../source/install.rst:30
-#, fuzzy
 msgid ""
 "You can install just the command-line version of OnionShare on any "
 "operating system using the Python package manager ``pip``. :ref:`cli` has"
@@ -97,7 +96,7 @@ msgid ""
 msgstr ""
 "Você pode instalar apenas a versão de linha de comando do OnionShare em "
 "qualquer sistema operacional utilizando o gerenciador de pacotes Python "
-"``pip```. Veja :ref:`cli` para mais informações."
+"``pip``. Para mais informações, consulte :ref:`cli`."
 
 #: ../../source/install.rst:35
 msgid "Verifying PGP signatures"
@@ -187,7 +186,6 @@ msgid "The expected output looks like this::"
 msgstr "O resultado esperado se parece com isso::"
 
 #: ../../source/install.rst:77
-#, fuzzy
 msgid ""
 "If you don't see ``Good signature from``, there might be a problem with "
 "the integrity of the file (malicious or otherwise), and you should not "
@@ -195,11 +193,11 @@ msgid ""
 " the package, it only means you haven't defined a level of \"trust\" of "
 "Micah's (the core developer) PGP key.)"
 msgstr ""
-"Se você não ver 'Boa assinatura de', pode haver um problema com a "
+"Se você não ver ``Boa assinatura de``, pode haver um problema com a "
 "integridade do arquivo (malicioso ou outro) e você não deve instalar o "
-"pacote. (O \"AVISO:\" mostrado acima não é um problema com o pacote, "
-"significa apenas que você ainda não definiu nenhum nível de 'confiança' "
-"da chave PGP de Micah.)"
+"pacote. (O ``AVISO:`` mostrado acima não é um problema com o pacote, "
+"significa apenas que você ainda não definiu qualquer nível de \"confiança\" "
+"da chave PGP de Micah (o desenvolvedor principal).)"
 
 #: ../../source/install.rst:79
 msgid ""
