@@ -292,7 +292,7 @@
     "gui_settings_tor_bridges_label": "اگر دسترسی Tor بسته شده باشد، پل‌ها به ورود ترافیک شما به شبکهٔ Tor کمک می‌کنند. بسته به اینکه از کجا متصل می‌شوید، یک پل ممکن است نسبت به پل دیگر بهتر عمل کند.",
     "gui_settings_bridge_none_radio_option": "عدم استفاده از پل‌ها",
     "gui_settings_bridge_custom_radio_option": "ارائه یک پل که از منبعی قابل اعتماد یاد گرفته‌اید",
-    "gui_settings_bridge_custom_placeholder": "بنویسید address:port نشانی:درگاه (یکی در هر خط)",
+    "gui_settings_bridge_custom_placeholder": "بنویسید نشانی:درگاه (یکی در هر خط)",
     "gui_settings_stop_active_tabs_label": "خدماتی بر روی برخی زبانه‌های شما در حال اجرا هستند.\nبرای تغییر تنظیمات Tor باید تمامی خدمات را متوقف کنید.",
     "gui_settings_version_label": "شما در حال استفاده از OnionShar{} هستید",
     "gui_settings_help_label": "احتیاج به کمک دارید؟ <a href='https://docs.onionshare.org'>docs.onionshare.org</a> را ببینید",
