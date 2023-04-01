@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-10-02 16:17-0700\n"
-"PO-Revision-Date: 2023-04-01 12:41+0000\n"
+"PO-Revision-Date: 2023-04-02 13:40+0000\n"
 "Last-Translator: Translator51 <Translator51@users.noreply.hosted.weblate.org>"
 "\n"
 "Language-Team: pt_BR <LL@li.org>\n"
@@ -93,15 +93,14 @@ msgid "Custom Titles"
 msgstr "Títulos Personalizados"
 
 #: ../../source/advanced.rst:39
-#, fuzzy
 msgid ""
 "When people load OnionShare services in the Tor Browser they see the "
 "default title for each type of service. For example, the default title "
 "for chat services is \"OnionShare Chat\"."
 msgstr ""
-"Por padrão, quando as pessoas carregam um serviço OnionShare no Tor "
-"Browser elas vêem o título padrão para o tipo de serviço. Por exemplo, o "
-"título padrão de um serviço de bate-papo é \"OnionShare Chat\"."
+"Por padrão, quando as pessoas carregam serviços OnionShare no Navegador Tor "
+"elas veem o título padrão para cada tipo de serviço. Por exemplo, o título "
+"padrão de serviços de bate-papo é \"OnionShare Chat\"."
 
 #: ../../source/advanced.rst:42
 #, fuzzy
