@@ -92,7 +92,7 @@
     "gui_settings_password_label": "Password",
     "gui_settings_control_port_label": "Porta di controllo",
     "gui_settings_authenticate_no_auth_option": "Nessuna autenticazione, o cookie di autenticazione",
-    "gui_settings_tor_bridges": "Supporto bridge Tor",
+    "gui_settings_tor_bridges": "Connettersi usando un bridge Tor?",
     "gui_settings_tor_bridges_no_bridges_radio_option": "Non usare i bridge",
     "gui_settings_tor_bridges_obfs4_radio_option": "Usa i trasporti collegabili obfs4 integrati",
     "gui_settings_tor_bridges_obfs4_radio_option_no_obfs4proxy": "Usa i trasporti collegabili obfs4 integrati (richiede obfs4proxy)",
@@ -100,7 +100,7 @@
     "gui_settings_tor_bridges_meek_lite_azure_radio_option_no_obfs4proxy": "Usa i trasporti collegabili meek_lite (Azure) integrati (richiede obfs4proxy)",
     "gui_settings_meek_lite_expensive_warning": "Attenzione: i bridge meek_lite sono molto costosi da mantenere per il Progetto Tor.<br><br>Usali solo se è impossibile connettersi a Tor direttamente, con i trasporti obfs4, o con un altro bridge normale.",
     "gui_settings_tor_bridges_custom_label": "Puoi ottenere i bridge da <a href=\"https://bridges.torproject.org/options\"> https://bridges.torproject.org</a>",
-    "gui_settings_tor_bridges_invalid": "Nessuno dei bridge che hai aggiunto funziona.\nControllali nuovamente o aggiungine altri.",
+    "gui_settings_tor_bridges_invalid": "Nessuno dei bridge aggiunti funziona. Controllali nuovamente o aggiungine altri.",
     "gui_settings_button_save": "Salva",
     "gui_settings_button_cancel": "Cancella",
     "gui_settings_button_help": "Aiuto",
@@ -335,6 +335,6 @@
     "gui_autoconnect_bridge_detect_manual": "Seleziona il mio paese manualmente per le impostazioni di bridge",
     "gui_settings_help_label": "Hai bisogno di aiuto? Visita <a href='https://docs.onionshare.org'>docs.onionshare.org</a>",
     "gui_url_instructions_public_mode": "Invia l'indirizzo OnionShare qua sotto:",
-    "gui_client_auth_instructions": "Poi invia la chiave privata per consentire l'accesso al tuo servizio OnionShare.",
+    "gui_client_auth_instructions": "Successivamente, invia la chiave privata per consentire l'accesso al servizio OnionShare:",
     "moat_bridgedb_error": "Impossibile contattare BridgeDB."
 }
