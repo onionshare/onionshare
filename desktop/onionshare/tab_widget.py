@@ -169,8 +169,19 @@ class TabWidget(QtWidgets.QTabWidget):
             self.open_connection_tab()
 
     def check_autoconnect_tab(self):
-        if type(self.tabs[0]) is AutoConnectTab:
-            self.tabs[0].check_autoconnect()
+        tab = self.widget(self.currentIndex())
+        if not tab:
+            self.common.log(
+                "TabWidget",
+                "check_autoconnect",
+                f"tab at index {self.currentIndex()} does not exist",
+            )
+            return
+
+        tab_id = tab.tab_id
+        self.common.log("TabWidget", "check_autoconnect", f"Tab to check autoconnect: {tab_id}")
+        if type(self.tabs[tab_id]) is AutoConnectTab:
+            self.tabs[tab_id].check_autoconnect()
 
     def load_tab(self, mode_settings_id):
         # Load the tab's mode settings
