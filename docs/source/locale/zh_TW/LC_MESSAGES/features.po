@@ -8,18 +8,18 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2020-11-15 14:42-0800\n"
-"PO-Revision-Date: 2020-10-22 12:26+0000\n"
-"Last-Translator: marklin0913 <marklin0913@protonmail.com>\n"
-"Language: zh_TW\n"
+"PO-Revision-Date: 2023-04-13 06:53+0000\n"
+"Last-Translator: jxt <chihsun.tsai@gmail.com>\n"
 "Language-Team: zh_TW <LL@li.org>\n"
-"Plural-Forms: nplurals=1; plural=0\n"
+"Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.17-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/features.rst:4
-#, fuzzy
 msgid "How OnionShare Works"
 msgstr "OnionShare 如何運作"
 
@@ -29,6 +29,9 @@ msgid ""
 "other people as `Tor <https://www.torproject.org/>`_ `onion services "
 "<https://community.torproject.org/onion-services/>`_."
 msgstr ""
+"網頁伺服器在本地電腦上啟動而且就像 `Tor <https://www.torproject.org/>`_ `"
+"洋蔥服務 <https://community.torproject.org/onion-services/>`_ "
+"可能別人來訪問。"
 
 #: ../../source/features.rst:8
 msgid ""
@@ -66,6 +69,10 @@ msgid ""
 "Tor onion services too, it also protects your anonymity. See the "
 ":doc:`security design </security>` for more info."
 msgstr ""
+"因為您的電腦就是網頁伺服器， *沒有第三方可以訪間 OnionShare*，即便 "
+"OnionShare 的開發人員也不行，因此完全私密 。OnionShare 是基於 Tor "
+"洋蔥服務，故也可以保護匿名，請參考 :doc:`security design </security>` "
+"獲取更多資訊。"
 
 #: ../../source/features.rst:21
 msgid "Share Files"
@@ -77,12 +84,14 @@ msgid ""
 "anonymously. Open a share tab, drag in the files and folders you wish to "
 "share, and click \"Start sharing\"."
 msgstr ""
+"可利用 OnionShare 安全又匶名地傳送檔案與資料夾給別人。打開分享標籤分頁，將欲"
+"分享的檔案或資料夾拖曳到此，然後再點擊\"開始分享\"。"
 
 #: ../../source/features.rst:27 ../../source/features.rst:93
 msgid ""
 "After you add files, you'll see some settings. Make sure you choose the "
 "setting you're interested in before you start sharing."
-msgstr ""
+msgstr "添加入檔案後，可以看到某些設定。請確認選擇了所要的設定再開始分享。"
 
 #: ../../source/features.rst:31
 msgid ""
@@ -98,7 +107,8 @@ msgid ""
 "Also, if you uncheck this box, people will be able to download the "
 "individual files you share rather than a single compressed version of all"
 " the files."
-msgstr ""
+msgstr "再者如果取消勾選，別人將可以下載您所分享的個別檔案而不是全部檔案的單一壓縮版"
+"本。"
 
 #: ../../source/features.rst:36
 msgid ""
@@ -107,6 +117,9 @@ msgid ""
 " website down. You can also click the \"↑\" icon in the top-right corner "
 "to show the history and progress of people downloading files from you."
 msgstr ""
+"準備好要分享後，點擊 \"開始分享\" 按鈕，您隨時可按\"停止分享\"或是退出 "
+"OnionShare 網站就會立即關閉。也可以點擊右上角 \"↑\" "
+"圖標來查看您分享給別人的記錄與下載進度。"
 
 #: ../../source/features.rst:40
 msgid ""
@@ -146,7 +159,7 @@ msgstr ""
 msgid ""
 "You can also click the down \"↓\" icon in the top-right corner to show "
 "the history and progress of people sending files to you."
-msgstr ""
+msgstr "也可以點右上角的向下 \"↓\" 圖標 ，以顯示別人向您傳送檔案的記錄與進度。"
 
 #: ../../source/features.rst:60
 msgid "Here is what it looks like for someone sending you files."
@@ -168,6 +181,9 @@ msgid ""
 "quite as secure version of `SecureDrop <https://securedrop.org/>`_, the "
 "whistleblower submission system."
 msgstr ""
+"設定 OnionShare 接收服務對於新聞記者或需要安全接收匿名來源文件很有幫助。 "
+"在這類用途上，OnionShare 像是輕量、簡易但安全性稍弱的 `SecureDrop "
+"<https://securedrop.org/>`_, 揭密吹哨提交系統。"
 
 #: ../../source/features.rst:69
 msgid "Use at your own risk"
@@ -190,10 +206,14 @@ msgid ""
 "<https://tails.boum.org/>`_ or in a `Qubes <https://qubes-os.org/>`_ "
 "disposableVM."
 msgstr ""
+"如果透過 OnionShare 收到 Office 文件或 PDF 檔案，可使用`Dangerzone "
+"<https://dangerzone.rocks/>`_ 來把文件轉換成可安全開啟的 "
+"PDF。為自我保護奇怪文件請透過`Tails <https://tails.boum.org/>`_ 或`Qubes "
+"<https://qubes-os.org/>`_ 可丟棄的虛擬機器來開啟。"
 
 #: ../../source/features.rst:76
 msgid "Tips for running a receive service"
-msgstr ""
+msgstr "運行接收服務的訣竅"
 
 #: ../../source/features.rst:78
 msgid ""
@@ -219,7 +239,9 @@ msgid ""
 "To host a static HTML website with OnionShare, open a website tab, drag "
 "the files and folders that make up the static content there, and click "
 "\"Start sharing\" when you are ready."
-msgstr ""
+msgstr "利用OnionShare 託管靜態 HTML "
+"網站，請打開網站標籤分頁並將靜態內容的檔案與資料夾拖曳到此，"
+"當就緒後就可以按下\"開始分享\"。"
 
 #: ../../source/features.rst:89
 msgid ""
@@ -230,13 +252,17 @@ msgid ""
 "websites that execute code or use databases. So you can't for example use"
 " WordPress.)"
 msgstr ""
+"如果有``index.html`` ，有人載入網站時它就會呈現 ，您也可以加入任何其它的 "
+"HTML files, CSS, JavaScript 與圖片在網站中 (請注意 OnionShare "
+"只支援託管*靜態*網站，它無法託管需執行代碼或使用資料庫，例如不能使用 "
+"WordPress.)"
 
 #: ../../source/features.rst:91
 msgid ""
 "If you don't have an ``index.html`` file, it will show a directory "
 "listing instead, and people loading it can look through the files and "
 "download them."
-msgstr ""
+msgstr "如果沒有``index.html``則會顯示一個目錄，人們可以透過它來看到檔案並下載。"
 
 #: ../../source/features.rst:98
 msgid "Content Security Policy"
@@ -261,7 +287,7 @@ msgstr ""
 
 #: ../../source/features.rst:105
 msgid "Tips for running a website service"
-msgstr ""
+msgstr "運行網站服務的訣竅"
 
 #: ../../source/features.rst:107
 msgid ""
@@ -287,7 +313,8 @@ msgstr "匿名的聊天"
 msgid ""
 "You can use OnionShare to set up a private, secure chat room that doesn't"
 " log anything. Just open a chat tab and click \"Start chat server\"."
-msgstr ""
+msgstr "可利用 OnionShare 來設定私密安全的聊天室，它不會記錄任何資料。請打開 chat "
+"標籤分頁點點\"開始聊天伺服器\"。"
 
 #: ../../source/features.rst:119
 msgid ""
@@ -304,6 +331,8 @@ msgid ""
 "participate must have their Tor Browser security level set to "
 "\"Standard\" or \"Safer\", instead of \"Safest\"."
 msgstr ""
+"別人可以在 Tor 瀏覽器載入 OnionShare 地址以加入聊天室，它需要 JavasScript "
+"因此參與者必須把 Tor 瀏覽器的安全等級設置為\"標準\"或\"更安全\"才行。"
 
 #: ../../source/features.rst:127
 msgid ""
@@ -312,12 +341,15 @@ msgid ""
 "and pressing ↵. Since the chat history isn't saved anywhere, it doesn't "
 "get displayed at all, even if others were already chatting in the room."
 msgstr ""
+"當新人進入聊天室時，系統會隨意給一個名字，"
+"使用者可在左側面板的方框中輪入新名字再按 ↵ "
+"送出。因為聊天記錄不會留存因此無法全部顯示，即便對其它已在聊天室的人也如此。"
 
 #: ../../source/features.rst:133
 msgid ""
 "In an OnionShare chat room, everyone is anonymous. Anyone can change "
 "their name to anything, and there is no way to confirm anyone's identity."
-msgstr ""
+msgstr "OnionShare 聊天室中每個人都是匿名，人人可隨時改名字，沒辦法確認任何人的身份。"
 
 #: ../../source/features.rst:136
 msgid ""
@@ -325,7 +357,8 @@ msgid ""
 "address only to a small group of trusted friends using encrypted "
 "messages, you can be reasonably confident the people joining the chat "
 "room are your friends."
-msgstr ""
+msgstr "如果建一個 OnionShare 聊天室並以加密訊息向一群信任的朋友告知聊天室地址，則可"
+"合理地相信聊天室裏都是朋友。"
 
 #: ../../source/features.rst:139
 msgid "How is this useful?"
@@ -335,7 +368,8 @@ msgstr "對您來說有用嗎？"
 msgid ""
 "If you need to already be using an encrypted messaging app, what's the "
 "point of an OnionShare chat room to begin with? It leaves less traces."
-msgstr ""
+msgstr "如果已經在使用加密的聊天通訊軟體，那麼 OnionShare "
+"聊天室又有什麼特長值得一試呢? 因為它不易追蹤。"
 
 #: ../../source/features.rst:143
 msgid ""
@@ -361,7 +395,7 @@ msgstr ""
 
 #: ../../source/features.rst:150
 msgid "How does the encryption work?"
-msgstr ""
+msgstr "加密如何有效?"
 
 #: ../../source/features.rst:152
 msgid ""
@@ -372,12 +406,15 @@ msgid ""
 "other members of the chat room using WebSockets, through their E2EE onion"
 " connections."
 msgstr ""
+"OnionShare 須靠 Tor 洋蔥服務，兩者之間的連接都是端對端加密 (E2EE)。 當某人在 "
+"OnionShare 聊天室發出訊自時，透過 E2EE 洋蔥連接送到伺服器，洋蔥連接再透過 "
+"WebSockets 以各自的 E2EE洋蔥連接把訊息發給聊天室其它成員。"
 
 #: ../../source/features.rst:154
 msgid ""
 "OnionShare doesn't implement any chat encryption on its own. It relies on"
 " the Tor onion service's encryption instead."
-msgstr ""
+msgstr "OnionShare 自身不會執行聊天加密，必須靠 Tor 洋蔥服務的加密。"
 
 #~ msgid ""
 #~ "OnionShare works by starting web servers"
@@ -763,4 +800,3 @@ msgstr ""
 #~ "WebSockets, through their E2EE onion "
 #~ "connections."
 #~ msgstr ""
-
