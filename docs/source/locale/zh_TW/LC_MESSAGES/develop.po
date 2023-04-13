@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2020-11-15 14:42-0800\n"
-"PO-Revision-Date: 2020-10-12 15:26+0000\n"
-"Last-Translator: marklin0913da248e4cdada422a <marklin0913@protonmail.com>"
-"\n"
-"Language: zh_TW\n"
+"PO-Revision-Date: 2023-04-13 06:53+0000\n"
+"Last-Translator: jxt <chihsun.tsai@gmail.com>\n"
 "Language-Team: zh_TW <LL@li.org>\n"
-"Plural-Forms: nplurals=1; plural=0\n"
+"Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.17-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/develop.rst:2
@@ -74,7 +74,6 @@ msgid ""
 msgstr ""
 
 #: ../../source/develop.rst:27
-#, fuzzy
 msgid "Starting Development"
 msgstr "開始開發"
 
@@ -97,11 +96,11 @@ msgstr ""
 
 #: ../../source/develop.rst:35
 msgid "Debugging tips"
-msgstr ""
+msgstr "除錯訣竅"
 
 #: ../../source/develop.rst:38
 msgid "Verbose mode"
-msgstr ""
+msgstr "冗長模式"
 
 #: ../../source/develop.rst:40
 msgid ""
@@ -127,7 +126,7 @@ msgstr ""
 
 #: ../../source/develop.rst:124
 msgid "Local Only"
-msgstr ""
+msgstr "唯本地使用"
 
 #: ../../source/develop.rst:126
 msgid ""
@@ -144,7 +143,6 @@ msgid ""
 msgstr ""
 
 #: ../../source/develop.rst:167
-#, fuzzy
 msgid "Contributing Translations"
 msgstr "貢獻翻譯"
 
@@ -163,7 +161,7 @@ msgstr ""
 
 #: ../../source/develop.rst:174
 msgid "Suggestions for Original English Strings"
-msgstr ""
+msgstr "對原始英文字串的建議"
 
 #: ../../source/develop.rst:176
 msgid ""
@@ -180,7 +178,6 @@ msgid ""
 msgstr ""
 
 #: ../../source/develop.rst:182
-#, fuzzy
 msgid "Status of Translations"
 msgstr "翻譯狀況"
 
@@ -394,4 +391,3 @@ msgstr ""
 
 #~ msgid "Do the same for other untranslated lines."
 #~ msgstr ""
-
