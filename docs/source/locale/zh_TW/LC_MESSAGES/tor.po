@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2020-12-13 15:48-0800\n"
-"PO-Revision-Date: 2023-04-13 06:53+0000\n"
+"PO-Revision-Date: 2023-04-15 05:52+0000\n"
 "Last-Translator: jxt <chihsun.tsai@gmail.com>\n"
 "Language-Team: zh_TW <LL@li.org>\n"
 "Language: zh_TW\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: ../../source/tor.rst:2
 msgid "Connecting to Tor"
-msgstr "連結Tor中"
+msgstr "連結 Tor 中"
 
 #: ../../source/tor.rst:4
 msgid ""
@@ -67,7 +67,7 @@ msgstr ""
 
 #: ../../source/tor.rst:24
 msgid "Using a system ``tor`` in Windows"
-msgstr "在Windows 使用 ``tor`` 系統"
+msgstr "在 Windows 使用 ``tor`` 系統"
 
 #: ../../source/tor.rst:26
 msgid ""
