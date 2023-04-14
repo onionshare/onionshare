@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2020-12-13 15:48-0800\n"
-"PO-Revision-Date: 2023-04-13 06:53+0000\n"
+"PO-Revision-Date: 2023-04-15 05:52+0000\n"
 "Last-Translator: jxt <chihsun.tsai@gmail.com>\n"
 "Language-Team: zh_TW <LL@li.org>\n"
 "Language: zh_TW\n"
@@ -33,7 +33,7 @@ msgstr "就像所有的應用程式，OnionShare 可能有錯誤或弱點。"
 
 #: ../../source/security.rst:9
 msgid "What OnionShare protects against"
-msgstr "OnionShare 可保護的東西"
+msgstr "OnionShare 保護與防止"
 
 #: ../../source/security.rst:11
 msgid ""
