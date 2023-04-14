@@ -3,27 +3,29 @@
 # This file is distributed under the same license as the OnionShare package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2020-11-15 14:42-0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2023-04-15 05:52+0000\n"
+"Last-Translator: jxt <chihsun.tsai@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.17-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/develop.rst:2
 msgid "Developing OnionShare"
-msgstr ""
+msgstr "开发 OnionShare"
 
 #: ../../source/develop.rst:7
 msgid "Collaborating"
-msgstr ""
+msgstr "协作"
 
 #: ../../source/develop.rst:9
 msgid ""
@@ -36,6 +38,12 @@ msgid ""
 "<https://keybase.io/team/onionshare>`_. Within the app, go to \"Teams\", "
 "click \"Join a Team\", and type \"onionshare\"."
 msgstr ""
+"OnionShare 有一个公开的 Keybase "
+"小组用来讨论专案、提问、分享设计想法与制定未来发展计画。 ("
+"它也方便直接发送端对端加密讯息给 OnionShare 社群成员，一如 OnionShare 地址) "
+"先下载 `Keybase 应用 <https://keybase.io/download>`_, 建立帐户再 `join this "
+"team <https://keybase.io/team/onionshare>`_. 在 Keybase 应用程序里头，到 "
+"\"Teams\", 点击 \"Join a Team\"并输入 \"onionshare\"。"
 
 #: ../../source/develop.rst:12
 msgid ""
@@ -43,10 +51,12 @@ msgid ""
 "<https://lists.riseup.net/www/subscribe/onionshare-dev>`_ for developers "
 "and and designers to discuss the project."
 msgstr ""
+"OnionShare 也有`开发者邮件群组 <https://lists.riseup.net/www/subscribe/"
+"onionshare-dev>`_ 便于讨论项目。"
 
 #: ../../source/develop.rst:15
 msgid "Contributing Code"
-msgstr ""
+msgstr "贡献编码"
 
 #: ../../source/develop.rst:17
 msgid ""
@@ -68,11 +78,12 @@ msgid ""
 "When you're ready to contribute code, open a pull request in the GitHub "
 "repository and one of the project maintainers will review it and possibly"
 " ask questions, request changes, reject it, or merge it into the project."
-msgstr ""
+msgstr "要贡献代码，请在 GitHub "
+"代码存放库提取要求，专案维护人员会检视、提问、要求修改、拒绝或加以合并。"
 
 #: ../../source/develop.rst:27
 msgid "Starting Development"
-msgstr ""
+msgstr "着手开发"
 
 #: ../../source/develop.rst:29
 msgid ""
@@ -89,15 +100,16 @@ msgid ""
 "Those files contain the necessary technical instructions and commands "
 "install dependencies for your platform, and to run OnionShare from the "
 "source tree."
-msgstr ""
+msgstr "这些文件包含必要的技术指示、平台安装命令和依赖包，以便从源码树来执行 "
+"OnionShare。"
 
 #: ../../source/develop.rst:35
 msgid "Debugging tips"
-msgstr ""
+msgstr "侦错诀窍"
 
 #: ../../source/develop.rst:38
 msgid "Verbose mode"
-msgstr ""
+msgstr "冗长模式"
 
 #: ../../source/develop.rst:40
 msgid ""
@@ -107,30 +119,35 @@ msgid ""
 "initialized, when events occur (like buttons clicked, settings saved or "
 "reloaded), and other debug info. For example::"
 msgstr ""
+"开发期间，为便于在终端机执行 OnionShare ，会在命令列加入 ``--verbose`` (or "
+"``-v``) 标记，让端终机视窗列出一些有用的讯息，例如某些物件被初始化、事件发生("
+"如触动按钮、设置被储存或重戴 )、侦错信息等，例如::"
 
 #: ../../source/develop.rst:117
 msgid ""
 "You can add your own debug messages by running the ``Common.log`` method "
 "from ``onionshare/common.py``. For example::"
-msgstr ""
+msgstr "可利用 ``onionshare/common.py`` 将侦错讯息写入``Common.log`` ，例如::"
 
 #: ../../source/develop.rst:121
 msgid ""
 "This can be useful when learning the chain of events that occur when "
 "using OnionShare, or the value of certain variables before and after they"
 " are manipulated."
-msgstr ""
+msgstr "这对学习使用 OnionShare "
+"事件发生链很有帮助，或是了解一些变数值在操纵前后的变化。"
 
 #: ../../source/develop.rst:124
 msgid "Local Only"
-msgstr ""
+msgstr "仅限本地"
 
 #: ../../source/develop.rst:126
 msgid ""
 "Tor is slow, and it's often convenient to skip starting onion services "
 "altogether during development. You can do this with the ``--local-only`` "
 "flag. For example::"
-msgstr ""
+msgstr "Tor 速度慢，方便起见在开发期间常常会过洋葱服务 ，其操作方法为利用``--local-"
+"only`` 标记，例如::"
 
 #: ../../source/develop.rst:164
 msgid ""
@@ -141,7 +158,7 @@ msgstr ""
 
 #: ../../source/develop.rst:167
 msgid "Contributing Translations"
-msgstr ""
+msgstr "贡献翻译"
 
 #: ../../source/develop.rst:169
 msgid ""
@@ -151,20 +168,23 @@ msgid ""
 "\"OnionShare\" in latin letters, and use \"OnionShare (localname)\" if "
 "needed."
 msgstr ""
+"协助 OnionShare 更易使用与亲切，欢迎加入 `Hosted Weblate <https://hosted."
+"weblate.org/projects/onionshare/>`_ 翻译计画。请保持 \"OnionShare\" "
+"原字或使用 \"OnionShare (本地译名)\"格式 。"
 
 #: ../../source/develop.rst:171
 msgid "To help translate, make a Hosted Weblate account and start contributing."
-msgstr ""
+msgstr "协助翻译，注册 Hosted Weblate 帐号即可开始贡献。"
 
 #: ../../source/develop.rst:174
 msgid "Suggestions for Original English Strings"
-msgstr ""
+msgstr "对原始英文字串的建议"
 
 #: ../../source/develop.rst:176
 msgid ""
 "Sometimes the original English strings are wrong, or don't match between "
 "the application and the documentation."
-msgstr ""
+msgstr "有时候原始英文有误或是应用程序与文档不相符。"
 
 #: ../../source/develop.rst:178
 msgid ""
@@ -173,17 +193,21 @@ msgid ""
 "developers see the suggestion, and can potentially modify the string via "
 "the usual code review processes."
 msgstr ""
+"档案原始字串改进可在 Weblate 加评注并呼叫 @kingu，或是在 Github 发起 issue 或"
+"提交要求，后一种方式可让上游开发人员看到建议后可能会在正常检查流程中修改字串"
+"。"
 
 #: ../../source/develop.rst:182
 msgid "Status of Translations"
-msgstr ""
+msgstr "翻译状况"
 
 #: ../../source/develop.rst:183
 msgid ""
 "Here is the current translation status. If you want start a translation "
 "in a language not yet started, please write to the mailing list: "
 "onionshare-dev@lists.riseup.net"
-msgstr ""
+msgstr "这是目前的翻译状况，如果想要新发起一个未列入的语言翻译，请来信到邮件群组:: "
+"onionshare-dev@lists.riseup.net"
 
 #~ msgid ""
 #~ "OnionShare is developed in Python. To"
@@ -400,4 +424,3 @@ msgstr ""
 
 #~ msgid "Do the same for other untranslated lines."
 #~ msgstr ""
-
