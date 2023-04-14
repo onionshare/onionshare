@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2020-11-15 14:42-0800\n"
-"PO-Revision-Date: 2023-04-13 06:53+0000\n"
+"PO-Revision-Date: 2023-04-15 05:52+0000\n"
 "Last-Translator: jxt <chihsun.tsai@gmail.com>\n"
 "Language-Team: zh_TW <LL@li.org>\n"
 "Language: zh_TW\n"
@@ -187,7 +187,7 @@ msgstr ""
 
 #: ../../source/features.rst:69
 msgid "Use at your own risk"
-msgstr "使用風險自負"
+msgstr "使用風除自負"
 
 #: ../../source/features.rst:71
 msgid ""
@@ -209,7 +209,7 @@ msgstr ""
 "如果透過 OnionShare 收到 Office 文件或 PDF 檔案，可使用`Dangerzone "
 "<https://dangerzone.rocks/>`_ 來把文件轉換成可安全開啟的 "
 "PDF。為自我保護奇怪文件請透過`Tails <https://tails.boum.org/>`_ 或`Qubes "
-"<https://qubes-os.org/>`_ 可丟棄的虛擬機器來開啟。"
+"<https://qubes-os.org/>`_ 一次性虛擬機器來開啟。"
 
 #: ../../source/features.rst:76
 msgid "Tips for running a receive service"
@@ -239,7 +239,8 @@ msgid ""
 "To host a static HTML website with OnionShare, open a website tab, drag "
 "the files and folders that make up the static content there, and click "
 "\"Start sharing\" when you are ready."
-msgstr "利用OnionShare 託管靜態 HTML "
+msgstr ""
+"利用 OnionShare 架設靜態 HTML "
 "網站，請打開網站標籤分頁並將靜態內容的檔案與資料夾拖曳到此，"
 "當就緒後就可以按下\"開始分享\"。"
 
@@ -313,8 +314,8 @@ msgstr "匿名的聊天"
 msgid ""
 "You can use OnionShare to set up a private, secure chat room that doesn't"
 " log anything. Just open a chat tab and click \"Start chat server\"."
-msgstr "可利用 OnionShare 來設定私密安全的聊天室，它不會記錄任何資料。請打開 chat "
-"標籤分頁點點\"開始聊天伺服器\"。"
+msgstr "可利用 OnionShare 來設定私密安全的聊天室，它不會記錄任何資料。請打開 "
+"聊天標籤分頁點\"開始聊天伺服器\"。"
 
 #: ../../source/features.rst:119
 msgid ""
@@ -342,8 +343,8 @@ msgid ""
 "get displayed at all, even if others were already chatting in the room."
 msgstr ""
 "當新人進入聊天室時，系統會隨意給一個名字，"
-"使用者可在左側面板的方框中輪入新名字再按 ↵ "
-"送出。因為聊天記錄不會留存因此無法全部顯示，即便對其它已在聊天室的人也如此。"
+"使用者可在左側面板的方框中輪入新名字再按 ↵ 送出。因為聊天記錄不會留存所以根本"
+"不會顯示，即便是其它已在聊天室的人也看不到。"
 
 #: ../../source/features.rst:133
 msgid ""
@@ -368,8 +369,8 @@ msgstr "對您來說有用嗎？"
 msgid ""
 "If you need to already be using an encrypted messaging app, what's the "
 "point of an OnionShare chat room to begin with? It leaves less traces."
-msgstr "如果已經在使用加密的聊天通訊軟體，那麼 OnionShare "
-"聊天室又有什麼特長值得一試呢? 因為它不易追蹤。"
+msgstr "如果已使用加密的聊天通信軟件，OnionShare 聊天室有什麼勝出的特點值得一試呢? "
+"因為它不易查溯。"
 
 #: ../../source/features.rst:143
 msgid ""
@@ -395,7 +396,7 @@ msgstr ""
 
 #: ../../source/features.rst:150
 msgid "How does the encryption work?"
-msgstr "加密如何有效?"
+msgstr "加密如何運作?"
 
 #: ../../source/features.rst:152
 msgid ""
@@ -407,8 +408,8 @@ msgid ""
 " connections."
 msgstr ""
 "OnionShare 須靠 Tor 洋蔥服務，兩者之間的連接都是端對端加密 (E2EE)。 當某人在 "
-"OnionShare 聊天室發出訊自時，透過 E2EE 洋蔥連接送到伺服器，洋蔥連接再透過 "
-"WebSockets 以各自的 E2EE洋蔥連接把訊息發給聊天室其它成員。"
+"OnionShare 聊天室發出訊息時，透過 E2EE 洋蔥連接送到伺服器，洋蔥連接再透過 "
+"WebSockets 用各自的 E2EE 洋蔥連接把訊息發給聊天室其它成員。"
 
 #: ../../source/features.rst:154
 msgid ""
