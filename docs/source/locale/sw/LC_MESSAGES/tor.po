@@ -6,19 +6,21 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-01-17 10:28-0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2023-04-17 12:36+0000\n"
+"Last-Translator: Zaituni Njovu <zaitunimbii@gmail.com>\n"
 "Language-Team: none\n"
 "Language: sw\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
 
 #: ../../source/tor.rst:2
 msgid "Connecting to Tor"
-msgstr ""
+msgstr "Kuunganisha katika Tor"
 
 #: ../../source/tor.rst:4
 msgid "Pick a way to connect OnionShare to Tor by clicking the Tor onion icon in the bottom right of the OnionShare window to open the Tor Settings tab."
@@ -26,15 +28,21 @@ msgstr ""
 
 #: ../../source/tor.rst:9
 msgid "Use the Tor version built into OnionShare"
-msgstr ""
+msgstr "Tumia toleo la Tor yenye OnionShare ndani yake"
 
 #: ../../source/tor.rst:11
 msgid "This is the default, simplest and most reliable way that OnionShare connects to Tor. For this reason, it's recommended for most users."
 msgstr ""
+"Hii ni ya asili, rahisi na njia ya kuaminika zaidi ambayo OnionShare "
+"huunganisha katika Tor. Kwa sababu hii, iInapekendekezwa kwa watumiaji wengi."
 
 #: ../../source/tor.rst:14
 msgid "When you open OnionShare, it launches an already configured ``tor`` process in the background for OnionShare to use. It doesn't interfere with other ``tor`` processes on your computer, so you can use the Tor Browser or the system ``tor`` on their own."
 msgstr ""
+"Ukifungua OnionShare, Huanza mchakato wa ``tor``iliyokwisha sanidiwa tayari "
+"unaoendelea kwa nyuma kwa ajili ya OnionShare kuitumia. Haiingiliani na "
+"mchakato wa ``tor`` nyingine katika kompyuta yako, hivyo unaweza kutumia Tor "
+"Browser au mfumo wa ``tor`` yenyewe."
 
 #: ../../source/tor.rst:18
 msgid "Getting Around Censorship"
@@ -51,54 +59,87 @@ msgstr ""
 #: ../../source/tor.rst:25
 msgid "Try using a built-in bridge first. Using `obfs4` or `snowflake` bridges is recommended over using `meek-azure`."
 msgstr ""
+"Jaribu kutumia bridge iliyoundwa katika mfumo mara ya kwanza. Kwa kutumia "
+"bridge za `obfs4` or `snowflake`imependekezwa kuliko kutumia `meek-azure`."
 
 #: ../../source/tor.rst:29
 msgid "If using a built-in bridge doesn't work, you can request a bridge from torproject.org. You will have to solve a CAPTCHA in order to request a bridge. (This makes it more difficult for governments or ISPs to block access to Tor bridges.)"
 msgstr ""
+"Kama kutumia Bridge iliyoundwa katika mfumo moja kwa moja hakutafaa, unaweza "
+"kuomba bridge kutoka torproject.org. Utahitaji kusuluhisha CAPTCHA ili uweze "
+"kuomba bridge. (Hii huipa ugumu serikali auwatoa huduma za mtandao kuzuia "
+"upatikanaji waTor bridges.)"
 
 #: ../../source/tor.rst:33
 msgid "You also have the option of using a bridge that you learned about from a trusted source."
 msgstr ""
+"YPia una mbadala wa kutumia bridge ambayo umejifunza kuhusu kutoka katika "
+"chanzo cha kuaminika."
 
 #: ../../source/tor.rst:36
 msgid "Attempt auto-configuration with Tor Browser"
-msgstr ""
+msgstr "Fanya usanidi wa mojakwamoja na Tor Browser"
 
 #: ../../source/tor.rst:38
 msgid "If you have `downloaded the Tor Browser <https://www.torproject.org>`_ and don't want two ``tor`` processes running, you can use the ``tor`` process from the Tor Browser. Keep in mind you need to keep Tor Browser open in the background while you're using OnionShare for this to work."
 msgstr ""
+"Kama `umepakua Tor Browser <https://www.torproject.org>`_ na hauhitaji "
+"mchakato wa kuendesha ``tor`` mbili, unaweza kutumia mchakato wa ``tor`` "
+"kutoka katika Tor Browser. Zingatia unahitajika kuweka Tor Browser wazi "
+"ikiwa nyuma wakati unatumia OnionShare kwa kazi hii."
 
 #: ../../source/tor.rst:42
 msgid "Using a system ``tor`` in Windows"
-msgstr ""
+msgstr "Kutumia Mfumo wa ``tor``katika windows"
 
 #: ../../source/tor.rst:44
 msgid "This is fairly advanced. You'll need to know how edit plaintext files and do stuff as an administrator."
 msgstr ""
+"Hii imeboreshwa zaidi. Utahitaji kujifunza namna ya kurekebisha maandishi na "
+"kufanya kiazi kama msimamizi."
 
 #: ../../source/tor.rst:46
 msgid "Download the Tor Windows Expert Bundle `from <https://www.torproject.org/download/tor/>`_. Extract the compressed file and copy the extracted folder to ``C:\\Program Files (x86)\\`` Rename the extracted folder with ``Data`` and ``Tor`` in it to ``tor-win32``."
 msgstr ""
+"Pakua kifurushi cha mtaalamu wa Tor Windows`kutoka <https://www.torproject."
+"org/download/tor/>`_. Toa faili lililofanywa kuwa dogo nakili faili katika "
+"folda ``C:\\Program Files (x86)\\`` Lipe folda hilo jila la ``Data`` "
+"na``Tor`` katika hilo ``tor-win32``."
 
 #: ../../source/tor.rst:50
 msgid "Make up a control port password. (Using 7 words in a sequence like ``comprised stumble rummage work avenging construct volatile`` is a good idea for a password.) Now open a command prompt (``cmd``) as an administrator, and use ``tor.exe --hash-password`` to generate a hash of your password. For example::"
 msgstr ""
+"Tengeneza nenosiri la control port . (Tumia maneno 7 yanayofuatana kama ``"
+"comprised stumble rummage work avenging construct volatile`` ni wazo zuri "
+"kwa ajili ya nenosiri zuri.) Sasa fungua command prompt (``cmd``) kama "
+"msimamizi , na tumia``tor.exe --hash-password`` kutengeneza nenosiri la "
+"jumla. Kwa mfano::"
 
 #: ../../source/tor.rst:57
 msgid "The hashed password output is displayed after some warnings (which you can ignore). In the case of the above example, it is ``16:00322E903D96DE986058BB9ABDA91E010D7A863768635AC38E213FDBEF``."
 msgstr ""
+"Matokeo ya nenosiri yatatokea baada ya tahadhari kadhaa (ambazo unaweza "
+"kuzipuuza). Kwa swala la mfano wa hapo juu, Ni "
+"``16:00322E903D96DE986058BB9ABDA91E010D7A863768635AC38E213FDBEF``."
 
 #: ../../source/tor.rst:59
 msgid "Now create a new text file at ``C:\\Program Files (x86)\\tor-win32\\torrc`` and put your hashed password output in it, replacing the ``HashedControlPassword`` with the one you just generated::"
 msgstr ""
+"Kutengeneza faili jipya katika ``C:\\Program Files (x86)\\tor-win32\\torrc`` "
+"na weka matokeo ya nenosiri lako, Ikibadili ``HashedControlPassword`` kwa "
+"moja iliyotoka kutengenezwa::"
 
 #: ../../source/tor.rst:64
 msgid "In your administrator command prompt, install ``tor`` as a service using the appropriate ``torrc`` file you just created (as described in `<https://2019.www.torproject.org/docs/faq.html.en#NTService>`_). Like this::"
 msgstr ""
+"Kama command prompt ya msimamizi wako, Sanikisha``tor`` kama huduma kwa "
+"kutumia ``torrc``faili sahihi lililotoka kutengenezwa (kama ilivyoelezwa "
+"katika `<https://2019.www.torproject.org/docs/faq.html.en#NTService>`_). "
+"kama hii::"
 
 #: ../../source/tor.rst:68
 msgid "You are now running a system ``tor`` process in Windows!"
-msgstr ""
+msgstr "Sasa unatumia mchakato wa mfuno wa ``tor`` katika Windows!"
 
 #: ../../source/tor.rst:70
 msgid "Open OnionShare and click the \"⚙\" icon in it. Under \"How should OnionShare connect to Tor?\" choose \"Connect using control port\", and set \"Control port\" to ``127.0.0.1`` and \"Port\" to ``9051``. Under \"Tor authentication settings\" choose \"Password\" and set the password to the control port password you picked above. Click the \"Test Connection to Tor\" button. If all goes well, you should see \"Connected to the Tor controller\"."
@@ -106,19 +147,21 @@ msgstr ""
 
 #: ../../source/tor.rst:79
 msgid "Using a system ``tor`` in macOS"
-msgstr ""
+msgstr "Tumia mfumo wa ``tor`` katika macOS"
 
 #: ../../source/tor.rst:81
 msgid "First, install `Homebrew <https://brew.sh/>`_ if you don't already have it, and then install Tor::"
 msgstr ""
+"Kwanza, sanikisha`Homebrew <https://brew.sh/>`_ kama bado hauna, na kisha "
+"sanikisha Tor::"
 
 #: ../../source/tor.rst:85
 msgid "Now configure Tor to allow connections from OnionShare::"
-msgstr ""
+msgstr "Sasa sanidi Tor ili kuruhusu mawasiliano toka OnionShare::"
 
 #: ../../source/tor.rst:92
 msgid "And start the system Tor service::"
-msgstr ""
+msgstr "Anza anza mfuno wa huduma ya Tor:"
 
 #: ../../source/tor.rst:96
 msgid "Open OnionShare and click the \"⚙\" icon in it. Under \"How should OnionShare connect to Tor?\" choose \"Connect using socket file\", and set the socket file to be ``/usr/local/var/run/tor/control.socket``. Under \"Tor authentication settings\" choose \"No authentication, or cookie authentication\". Click the \"Test Connection to Tor\" button."
@@ -128,18 +171,26 @@ msgstr ""
 #: ../../source/tor.rst:122
 msgid "If all goes well, you should see \"Connected to the Tor controller\"."
 msgstr ""
+"Kama vyote vitaenda sawal, unatakiwa kuona \"Connected to the Tor "
+"controller\"."
 
 #: ../../source/tor.rst:105
 msgid "Using a system ``tor`` in Linux"
-msgstr ""
+msgstr "Kutumia``tor`` katika Linux"
 
 #: ../../source/tor.rst:107
 msgid "First, install the ``tor`` package. If you're using Debian, Ubuntu, or a similar Linux distro, It is recommended to use the Tor Project's `official repository <https://support.torproject.org/apt/tor-deb-repo/>`_."
 msgstr ""
+"Kwanza, sanikisha kifurushi cha ``tor``. Kama unatumia Debian, Ubuntu, or a "
+"similar Linux distro, Inashauriwa kutumia Tor Project's `official repository "
+"<https://support.torproject.org/apt/tor-deb-repo/>`_."
 
 #: ../../source/tor.rst:109
 msgid "Next, add your user to the group that runs the ``tor`` process (in the case of Debian and Ubuntu, ``debian-tor``) and configure OnionShare to connect to your system ``tor``'s control socket file."
 msgstr ""
+"Kisha, weka watumiaji wako katika kundi ambalo linaendesha mchakato wa "
+"``tor``(Kwa swala la Debian and Ubuntu, ``debian-tor``) na sanidi OnionShare "
+"ili kuunganishwa katika mfumo wako wa ``tor``'."
 
 #: ../../source/tor.rst:111
 msgid "Add your user to the ``debian-tor`` group by running this command (replace ``username`` with your actual username)::"
