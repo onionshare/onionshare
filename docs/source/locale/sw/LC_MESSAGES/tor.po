@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-01-17 10:28-0800\n"
-"PO-Revision-Date: 2023-04-17 12:36+0000\n"
+"PO-Revision-Date: 2023-04-18 13:52+0000\n"
 "Last-Translator: Zaituni Njovu <zaitunimbii@gmail.com>\n"
 "Language-Team: none\n"
 "Language: sw\n"
@@ -195,6 +195,8 @@ msgstr ""
 #: ../../source/tor.rst:111
 msgid "Add your user to the ``debian-tor`` group by running this command (replace ``username`` with your actual username)::"
 msgstr ""
+"Ongeza watumiaji wako katika kundi ``debian-tor`` kwa kufanya command "
+"(badili``username`` na jina lako halisi)::"
 
 #: ../../source/tor.rst:115
 msgid "Reboot your computer. After it boots up again, open OnionShare and click the \"⚙\" icon in it. Under \"How should OnionShare connect to Tor?\" choose \"Connect using socket file\". Set the socket file to be ``/var/run/tor/control``. Under \"Tor authentication settings\" choose \"No authentication, or cookie authentication\". Click the \"Test Connection to Tor\" button."
