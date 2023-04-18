@@ -6,120 +6,184 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-01-17 10:28-0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2023-04-18 13:52+0000\n"
+"Last-Translator: Zaituni Njovu <zaitunimbii@gmail.com>\n"
 "Language-Team: none\n"
 "Language: sw\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
 
 #: ../../source/develop.rst:2
 msgid "Developing OnionShare"
-msgstr ""
+msgstr "Kutengeneza OnionShare"
 
 #: ../../source/develop.rst:7
 msgid "Collaborating"
-msgstr ""
+msgstr "Kushirikiana"
 
 #: ../../source/develop.rst:9
 msgid "OnionShare has an open Keybase team to discuss the project, ask questions, share ideas and designs, and making plans for future development. (It's also an easy way to send end-to-end encrypted direct messages to others in the OnionShare community, like OnionShare addresses.) To use Keybase, download the `Keybase app <https://keybase.io/download>`_, make an account, and `join this team <https://keybase.io/team/onionshare>`_. Within the app, go to \"Teams\", click \"Join a Team\", and type \"onionshare\"."
 msgstr ""
+"OnionShare hina kikosi kazi cha msingi cha wazi cha kujadili mradi, kuuliza "
+"maswali, kushirikishana mawazo na ubunifu, na kuweka mipango ya maendeleo ya "
+"baadae. (Pia ni njia rahisi ya kutuma ujumbe wa maandishi wa moja kwa moja "
+"uliosimbwa kwa wengine waliopo katika jumuiya ya OnionShare, kama anwani za "
+"OnionShare.) Kutumia Keybase, pakua `Keybase app <https://keybase.io/"
+"download>`_, tengeneza akaunti, kisha `ungana na kikosi hiki<https://keybase."
+"io/team/onionshare>`_. Katika programu nenda katika, \"Teams\", click \"Join "
+"a Team\", kisha andika \"onionshare\"."
 
 #: ../../source/develop.rst:12
 msgid "OnionShare also has a `mailing list <https://lists.riseup.net/www/subscribe/onionshare-dev>`_ for developers and and designers to discuss the project."
 msgstr ""
+"OnionShare pia ina `orodha ya barua pepe <https://lists.riseup.net/www/"
+"subscribe/onionshare-dev>`_ kwa ajili ya watengenezaji na wabunifu kujadili "
+"mradi."
 
 #: ../../source/develop.rst:15
 msgid "Contributing Code"
-msgstr ""
+msgstr "Msimbo wa kuchangia"
 
 #: ../../source/develop.rst:17
 msgid "OnionShare source code is to be found in this Git repository: https://github.com/onionshare/onionshare"
 msgstr ""
+"Maelezo ya msingi ya programu ya OnionShare yanatakiwa kupatikana katika "
+"folda la Git katika mradi: https://github.com/onionshare/onionshare"
 
 #: ../../source/develop.rst:19
 msgid "If you'd like to contribute code to OnionShare, it helps to join the Keybase team and ask questions about what you're thinking of working on. You should also review all of the `open issues <https://github.com/onionshare/onionshare/issues>`_ on GitHub to see if there are any you'd like to tackle."
 msgstr ""
+"Kama utapenda kuchangia maelezo ya msingi ya uundwaji wa OnionShare, "
+"inasaidia kuungana na kikosi cha Keybase na kuuliza maswali kuhusiana nini "
+"unafikiria kukifanyia kazi. Pia unatakiwa kupitia `open issues "
+"<https://github.com/onionshare/onionshare/issues>`_ on GitHub kuona kama "
+"kuna chochote ambacho ungeopenda kukifanyia kazi."
 
 #: ../../source/develop.rst:22
 msgid "When you're ready to contribute code, open a pull request in the GitHub repository and one of the project maintainers will review it and possibly ask questions, request changes, reject it, or merge it into the project."
 msgstr ""
+"Ukiwa tayari kuchangia mawazo ya msingi ya unndwani, fungua mjadala wa "
+"kuwataarifu wengine kuhusiana na mabadiliko unayotaka kufanya katika GitHub "
+"na mmoja katika ya watu wa mradi watayapitia na wanaweza kukuuliza maswali, "
+"kuomba mabadiliko, kuyakataa au kuunganisha katika mradi."
 
 #: ../../source/develop.rst:27
 msgid "Starting Development"
-msgstr ""
+msgstr "Kuanza Maboresho"
 
 #: ../../source/develop.rst:29
 msgid "OnionShare is developed in Python. To get started, clone the Git repository at https://github.com/onionshare/onionshare/ and then consult the ``cli/README.md`` file to learn how to set up your development environment for the command-line version, and the ``desktop/README.md`` file to learn how to set up your development environment for the graphical version."
 msgstr ""
+"OnionShare imetengenezwa katika lugha ya kompyuta ya programu inayotengeneza "
+"programu na tovuti. Ili kuanza, nakilisha Git repository katika "
+"https://github.com/onionshare/onionshare/ kisha omba ushauri kwa faili la``"
+"cli/README.md`` ili kujifunza namna ya kupangilia mazingira yako ya "
+"maboreshokwa toleo la command-line, na faili``desktop/README.md`` kujifunza "
+"namna ya kupangilia mazingira yako ya maboresho katika toleo la picha."
 
 #: ../../source/develop.rst:32
 msgid "Those files contain the necessary technical instructions and commands install dependencies for your platform, and to run OnionShare from the source tree."
 msgstr ""
+"Mafaili yote yaliyo na maelezo ya muhimu ya kiufundi na lugha ya kompyuta "
+"sanikisha yakitegemeana katika utendaji wako, na tumia OnionShare kutoka "
+"kwenye chanzo."
 
 #: ../../source/develop.rst:35
 msgid "Debugging tips"
-msgstr ""
+msgstr "Vidokezo vya utatuzi"
 
 #: ../../source/develop.rst:38
 msgid "Verbose mode"
-msgstr ""
+msgstr "Mfumo wa kupata taarifa zaidi"
 
 #: ../../source/develop.rst:40
 msgid "When developing, it's convenient to run OnionShare from a terminal and add the ``--verbose`` (or ``-v``) flag to the command. This prints a lot of helpful messages to the terminal, such as when certain objects are initialized, when events occur (like buttons clicked, settings saved or reloaded), and other debug info. For example::"
 msgstr ""
+"Wakati wa utenegenezaji, Urahisi wa kutumia OnionShare kutoka katika kifaa "
+"na kuongeza ``--verbose`` (au``-v``) ishara katika utendaji wa lugha ya "
+"kompyuta. Hii hutoa jumbe nyingi zenye msaada katika kifaa unachotumia, kama "
+"vile wakati kifaa fulani kinaanzishwa kutumika, wakati matukio yanatokea ("
+"kama kitufe kiklichobonyezwa, mipangilio iliyohifadhiwa au kurekebishwa), na "
+"taarifa zingine za utatuzi. Kwa mfano::"
 
 #: ../../source/develop.rst:117
 msgid "You can add your own debug messages by running the ``Common.log`` method from ``onionshare/common.py``. For example::"
 msgstr ""
+"Unaweza kuongeza ujumbe wako mwenyewe wa utatuzi kwa kuitumia njia ya``Common"
+".log`` kutoka``onionshare/common.py``. Kwa mfano::"
 
 #: ../../source/develop.rst:121
 msgid "This can be useful when learning the chain of events that occur when using OnionShare, or the value of certain variables before and after they are manipulated."
 msgstr ""
+"Hii inaweza kufaa wakati wa kujifunza mnyororo wa matukioyanayotokjea "
+"unapotumia OnionShare, au thamani ya vitu fulani kabla na baada ya kutumiwa."
 
 #: ../../source/develop.rst:124
 msgid "Local Only"
-msgstr ""
+msgstr "Ndani tu"
 
 #: ../../source/develop.rst:126
 msgid "Tor is slow, and it's often convenient to skip starting onion services altogether during development. You can do this with the ``--local-only`` flag. For example::"
 msgstr ""
+"Tor ipo polepole, na maranyingi ni rahisi kuruka kuanza onion services zote "
+"kwa pamoja wakati zinatengenezwa. Unaweza kufanya hivi ukiwa na ``--local-"
+"only``. Kwa mfano::"
 
 #: ../../source/develop.rst:165
 msgid "In this case, you load the URL ``http://127.0.0.1:17641`` in a normal web-browser like Firefox, instead of using the Tor Browser. The private key is not actually needed in local-only mode, so you can ignore it."
 msgstr ""
+"Kwa jambo hili, tafuta URL ``http://127.0.0.1:17641`` katika kivinjari cha "
+"kawaida kama vile Firefox, badala ya kutumia Tor Browser. Private key "
+"haiitajiki sana katika mfamo wa ndani tu, hivyo unaweza ukaipuuzia."
 
 #: ../../source/develop.rst:168
 msgid "Contributing Translations"
-msgstr ""
+msgstr "Kuchangia utafsiriji"
 
 #: ../../source/develop.rst:170
 msgid "Help make OnionShare easier to use and more familiar and welcoming for people by translating it on `Hosted Weblate <https://hosted.weblate.org/projects/onionshare/>`_. Always keep the \"OnionShare\" in latin letters, and use \"OnionShare (localname)\" if needed."
 msgstr ""
+"Saidia kufanya OnionShare rahisi kutumia na inayojulikana na inayokubalika "
+"na watu kwa kuitafsiri `Hosted Weblate <https://hosted.weblate.org/projects/"
+"onionshare/>`_. Sikizote fanya \"OnionShare\" katika ketika heruzi za "
+"kilatin, na tumia \"OnionShare (localname)\" kama zinahitajika."
 
 #: ../../source/develop.rst:172
 msgid "To help translate, make a Hosted Weblate account and start contributing."
 msgstr ""
+"Kusaidia kutafsiri, tengeneza akaunti katika Hosted Weblate kisha anza kutoa "
+"mchango wako."
 
 #: ../../source/develop.rst:175
 msgid "Suggestions for Original English Strings"
-msgstr ""
+msgstr "Mapendekezo ya maneno ya asili ya kingereza"
 
 #: ../../source/develop.rst:177
 msgid "Sometimes the original English strings are wrong, or don't match between the application and the documentation."
 msgstr ""
+"Wakati mwingine maneno ya asili ya kingereza sio sahihi, au hayaendani na "
+"matumizi na nyaraka."
 
 #: ../../source/develop.rst:179
 msgid "File source string improvements by adding @kingu to your Weblate comment, or open a GitHub issue or pull request. The latter ensures all upstream developers see the suggestion, and can potentially modify the string via the usual code review processes."
 msgstr ""
+"Kuboresha mafaiili kwa kuongeza @kingu katika mapendekezo yako ya Weblate, "
+"au fungua matatizo ya GitHub au ombi la mabadiliko. Baadae itahakikisha "
+"watengenezaji wanaona hayo mapemndekezo yote, na wanaweza kurekebisha maneno "
+"kupitia njia ya kawaida ya kufuatilia mnisingi ya programu."
 
 #: ../../source/develop.rst:183
 msgid "Status of Translations"
-msgstr ""
+msgstr "Hali ya utafsiriji"
 
 #: ../../source/develop.rst:184
 msgid "Here is the current translation status. If you want start a translation in a language not yet started, please write to the mailing list: onionshare-dev@lists.riseup.net"
 msgstr ""
+"Hii ni hali ya utafsiriji kwa sasa. Kama unataka kuanza kuatafsiri katika "
+"lugha ambayo bado haijaanza kutafsiriwa, tFdhLI ndik katika orodha ya Barua "
+"pepe: onionshare-dev@lists.riseup.net"
