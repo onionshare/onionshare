@@ -306,7 +306,7 @@
     "gui_autoconnect_trying_to_connect_to_tor": "連接上 Tor…",
     "gui_autoconnect_connection_error_msg": "確認已連接網際網路。",
     "gui_autoconnect_circumventing_censorship_got_bridges": "已建立橋接，重新連接 Tor…",
-    "gui_autoconnect_circumventing_censorship_starting_meek": "為域名前端建立 meek 橋接…",
+    "gui_autoconnect_circumventing_censorship_starting_meek": "為域前置建立 meek 橋接…",
     "gui_autoconnect_could_not_connect_to_tor_api": "無法連上 Tor API，請確認已連上網際網路後再試一次。",
     "gui_autoconnect_circumventing_censorship_requesting_bridges": "從 Tor 審查規避 API 請求橋接…",
     "gui_settings_bridge_none_radio_option": "不使用橋接",
