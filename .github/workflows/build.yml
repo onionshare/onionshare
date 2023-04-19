@@ -14,6 +14,17 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Install python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Check python path
+        run: which python
+
+      - name: Check python path
+        run: python --version
+
       - name: Install poetry
         run: C:\hostedtoolcache\windows\Python\3.10.9\x64\python -m pip install poetry
 
