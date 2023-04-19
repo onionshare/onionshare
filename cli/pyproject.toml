@@ -40,5 +40,5 @@ pytest = ">=7.2.0"
 onionshare-cli = 'onionshare_cli:main'
 
 [build-system]
-requires = ["poetry>=0.12"]
-build-backend = "poetry.masonry.api"
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

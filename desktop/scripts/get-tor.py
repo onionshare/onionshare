@@ -9,30 +9,10 @@ import subprocess
 import requests
 import click
 
-torbrowser_version = "12.0.2"
-expected_win64_sha256 = (
-    "7f5b78bf7aafe4c94b321199316682922709544f5b897f13b6bdccb0afe9086d"
+torbrowser_version_url = (
+    "https://aus1.torproject.org/torbrowser/update_3/release/downloads.json"
 )
-expected_macos_sha256 = (
-    "c6968a7041890de6ac344e9163ce0a1c0fb82394a2da9d4e7f77e0bce7a1c952"
-)
-expected_linux64_sha256 = (
-    "a97dae40fd635ccfc5126d500459b9437528e4a4b35cc589b08d6cc114279678"
-)
-
-win64_filename = f"torbrowser-install-win64-{torbrowser_version}_ALL.exe"
-win64_url = (
-    f"https://dist.torproject.org/torbrowser/{torbrowser_version}/{win64_filename}"
-)
-macos_filename = f"TorBrowser-{torbrowser_version}-macos_ALL.dmg"
-macos_url = (
-    f"https://dist.torproject.org/torbrowser/{torbrowser_version}/{macos_filename}"
-)
-linux64_filename = f"tor-browser-linux64-{torbrowser_version}_ALL.tar.xz"
-linux64_url = (
-    f"https://dist.torproject.org/torbrowser/{torbrowser_version}/{linux64_filename}"
-)
-
+torbrowser_root_url = "https://dist.torproject.org/torbrowser"
 
 # Common paths
 root_path = os.path.dirname(
@@ -41,15 +21,40 @@ root_path = os.path.dirname(
 working_path = os.path.join(root_path, "build", "tor")
 
 
-def get_tor_windows(platform):
-    if platform == "win64":
-        win_url = win64_url
-        win_filename = win64_filename
-        expected_win_sha256 = expected_win64_sha256
-        bin_filenames = ["tor.exe"]
-    else:
-        click.echo("invalid platform")
-        return
+def get_expected_platform_sha256(platform_filename, torbrowser_version):
+    r = requests.get(
+        f"{torbrowser_root_url}/{torbrowser_version}/sha256sums-signed-build.txt"
+    )
+    for checksum_item in r.content.decode().split("\n"):
+        [checksum, filename] = checksum_item.split()
+        if filename == platform_filename:
+            return checksum
+
+    return None
+
+
+def get_latest_tor_version_urls(platform):
+    r = requests.get(torbrowser_version_url)
+    if r.status_code != 200 or platform not in r.json()["downloads"]:
+        print("Tor browser version url not working")
+        sys.exit(-1)
+
+    torbrowser_version = r.json()["version"]
+    platform_url = r.json()["downloads"][platform]["ALL"]["binary"]
+    platform_filename = platform_url.split("/")[-1]
+    expected_platform_sha256 = get_expected_platform_sha256(
+        platform_filename, torbrowser_version
+    )
+
+    if not expected_platform_sha256:
+        print(f"Expected sha256sum for {platform} not found")
+        sys.exit(-1)
+
+    return platform_url, platform_filename, expected_platform_sha256
+
+
+def get_tor_windows(win_url, win_filename, expected_win_sha256):
+    bin_filenames = ["tor.exe"]
 
     # Build paths
     win_path = os.path.join(working_path, win_filename)
@@ -73,7 +78,7 @@ def get_tor_windows(platform):
     # Compare the hash
     if win_sha256 != expected_win_sha256:
         print("ERROR! The sha256 doesn't match:")
-        print("expected: {}".format(expected_win32_sha256))
+        print("expected: {}".format(expected_win_sha256))
         print("  actual: {}".format(win_sha256))
         sys.exit(-1)
 
@@ -118,7 +123,7 @@ def get_tor_windows(platform):
     update_tor_bridges()
 
 
-def get_tor_macos():
+def get_tor_macos(macos_url, macos_filename, expected_macos_sha256):
     # Build paths
     dmg_tor_path = os.path.join(
         "/Volumes", "Tor Browser", "Tor Browser.app", "Contents"
@@ -178,7 +183,7 @@ def get_tor_macos():
     update_tor_bridges()
 
 
-def get_tor_linux64():
+def get_tor_linux64(linux64_url, linux64_filename, expected_linux64_sha256):
     # Build paths
     tarball_path = os.path.join(working_path, linux64_filename)
     dist_path = os.path.join(root_path, "onionshare", "resources", "tor")
@@ -313,14 +318,21 @@ def main(platform):
         click.echo(f"platform must be one of: {valid_platforms}")
         return
 
+    global platform_url, platform_filename, expected_platform_sha256
+    (
+        platform_url,
+        platform_filename,
+        expected_platform_sha256,
+    ) = get_latest_tor_version_urls(platform)
+
     if platform == "win32":
-        get_tor_windows(platform)
+        get_tor_windows(platform_url, platform_filename, expected_platform_sha256)
     elif platform == "win64":
-        get_tor_windows(platform)
+        get_tor_windows(platform_url, platform_filename, expected_platform_sha256)
     elif platform == "macos":
-        get_tor_macos()
+        get_tor_macos(platform_url, platform_filename, expected_platform_sha256)
     elif platform == "linux64":
-        get_tor_linux64()
+        get_tor_linux64(platform_url, platform_filename, expected_platform_sha256)
     else:
         click.echo("invalid platform")
 
