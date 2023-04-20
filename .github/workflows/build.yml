@@ -26,7 +26,7 @@ jobs:
         run: python --version
 
       - name: Install poetry
-        run: C:\hostedtoolcache\windows\Python\3.10.9\x64\python -m pip install poetry
+        run: C:\hostedtoolcache\windows\Python\3.10.11\x64\python -m pip install poetry
 
       - name: Restore cache - poetry
         uses: actions/cache@v3
@@ -37,8 +37,8 @@ jobs:
       - name: Install poetry dependencies
         run: |
           cd desktop
-          C:\hostedtoolcache\windows\Python\3.10.9\x64\Scripts\poetry install
-          C:\hostedtoolcache\windows\Python\3.10.9\x64\Scripts\poetry env list --full-path
+          C:\hostedtoolcache\windows\Python\3.10.11\x64\Scripts\poetry install
+          C:\hostedtoolcache\windows\Python\3.10.11\x64\Scripts\poetry env list --full-path
 
       - name: Restore cache - tor
         uses: actions/cache@v3
@@ -47,7 +47,7 @@ jobs:
           key: ${{ runner.os }}-win64-tor-${{ hashFiles('desktop/scripts/get-tor.py') }}
 
       - name: Get tor binaries from Tor Browser (64-bit)
-        run: cd desktop && C:\hostedtoolcache\windows\Python\3.10.9\x64\Scripts\poetry run python .\scripts\get-tor.py win64
+        run: cd desktop && C:\hostedtoolcache\windows\Python\3.10.11\x64\Scripts\poetry run python .\scripts\get-tor.py win64
 
       - name: Restore cache - obfs4proxy
         uses: actions/cache@v3
@@ -100,8 +100,8 @@ jobs:
       - name: Build OnionShare
         run: |
           cd desktop
-          C:\hostedtoolcache\windows\Python\3.10.9\x64\Scripts\poetry run python .\setup-freeze.py build
-          C:\hostedtoolcache\windows\Python\3.10.9\x64\Scripts\poetry run python .\scripts\build-windows.py cleanup-build
+          C:\hostedtoolcache\windows\Python\3.10.11\x64\Scripts\poetry run python .\setup-freeze.py build
+          C:\hostedtoolcache\windows\Python\3.10.11\x64\Scripts\poetry run python .\scripts\build-windows.py cleanup-build
 
       - name: Compress
         shell: pwsh
