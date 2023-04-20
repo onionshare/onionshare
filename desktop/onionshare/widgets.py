@@ -101,7 +101,7 @@ class Image(qrcode.image.base.BaseImage):
     A custom Image class, for use with the QR Code pixmap.
     """
 
-    def __init__(self, border, width, box_size):
+    def __init__(self, border, width, box_size, *args, **kwargs):
         self.border = border
         self.width = width
         self.box_size = box_size
