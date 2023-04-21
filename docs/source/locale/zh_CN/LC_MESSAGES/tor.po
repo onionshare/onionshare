@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2020-12-13 15:48-0800\n"
-"PO-Revision-Date: 2023-04-15 05:52+0000\n"
+"PO-Revision-Date: 2023-04-22 01:51+0000\n"
 "Last-Translator: jxt <chihsun.tsai@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: zh_CN\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.17-dev\n"
+"X-Generator: Weblate 4.18-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/tor.rst:2
@@ -46,10 +46,13 @@ msgid ""
 "with other ``tor`` processes on your computer, so you can use the Tor "
 "Browser or the system ``tor`` on their own."
 msgstr ""
+"打开 OnionShare 时会在启动后台已设置好的 ``tor``进程，"
+"这个进程不会介入电脑中其它 tor 进程，所以Tor 浏览器或系统会使用自己的 tor "
+"进程。"
 
 #: ../../source/tor.rst:18
 msgid "Attempt auto-configuration with Tor Browser"
-msgstr ""
+msgstr "图试自定配置 Tor 浏览器"
 
 #: ../../source/tor.rst:20
 msgid ""
@@ -58,16 +61,19 @@ msgid ""
 "process from the Tor Browser. Keep in mind you need to keep Tor Browser "
 "open in the background while you're using OnionShare for this to work."
 msgstr ""
+"如已下载 Tor 浏览器 <https://www.torproject.org>`_ 不想要在系统中运行两个 "
+"``tor`` 进程，可只用 Tor 浏览器的 ``tor`` 进程。但记住在使用 OnionShare 时，"
+"必须打开 Tor 浏览器，OnionShare 才能运作。"
 
 #: ../../source/tor.rst:24
 msgid "Using a system ``tor`` in Windows"
-msgstr ""
+msgstr "在 Windows 使用 ``tor`` 系统"
 
 #: ../../source/tor.rst:26
 msgid ""
 "This is fairly advanced. You'll need to know how edit plaintext files and"
 " do stuff as an administrator."
-msgstr ""
+msgstr "这非常高端，需要会编辑纯文本文件与管理员工作权限。"
 
 #: ../../source/tor.rst:28
 msgid ""
@@ -76,6 +82,9 @@ msgid ""
 " and copy the extracted folder to ``C:\\Program Files (x86)\\`` Rename "
 "the extracted folder with ``Data`` and ``Tor`` in it to ``tor-win32``."
 msgstr ""
+"从 <https://www.torproject.org/download/tor/>`_下载 Tor Windows 专家包 "
+"`，解压缩文件将其文件夹拷贝到``C:\\Program Files (x86)\\``底下， "
+"将原文件夹名称为``Data`` and ``Tor`` 重命名为 ``tor-win32``。"
 
 #: ../../source/tor.rst:32
 msgid ""
@@ -85,6 +94,9 @@ msgid ""
 "administrator, and use ``tor.exe --hash-password`` to generate a hash of "
 "your password. For example::"
 msgstr ""
+"設一个控制端密码 (例如使用7 个连续单字, 像``comprised stumble rummage work "
+"avenging construct volatile``就是个好密码。)以管理员帐户打开命令行 "
+"(``cmd``)，使用``tor.exe --hash-password`` 指令产生密码哈希，例如::"
 
 #: ../../source/tor.rst:39
 msgid ""
@@ -92,6 +104,8 @@ msgid ""
 "can ignore). In the case of the above example, it is "
 "``16:00322E903D96DE986058BB9ABDA91E010D7A863768635AC38E213FDBEF``."
 msgstr ""
+"在一串可忽视的警告之后，会出现哈希密码结果，例如在上述示范中密码为 "
+"``16:00322E903D96DE986058BB9ABDA91E010D7A863768635AC38E213FDBEF``."
 
 #: ../../source/tor.rst:41
 msgid ""
@@ -99,6 +113,8 @@ msgid ""
 "win32\\torrc`` and put your hashed password output in it, replacing the "
 "``HashedControlPassword`` with the one you just generated::"
 msgstr ""
+"在``C:\\Program Files (x86)\\tor-win32\\torrc`` 创建新文本档，"
+"存入新生成的哈希密码並替换文件 ``HashedControlPassword`` ::"
 
 #: ../../source/tor.rst:46
 msgid ""
@@ -107,10 +123,13 @@ msgid ""
 "`<https://2019.www.torproject.org/docs/faq.html.en#NTService>`_). Like "
 "this::"
 msgstr ""
+"在管理员命令行中 ，安装``tor``服务可利用新建的``torrc`` 予以适当指令 "
+"(介绍于`<https://2019.www.torproject.org/docs/faq.html.en#NTService>`_). "
+"像这样::"
 
 #: ../../source/tor.rst:50
 msgid "You are now running a system ``tor`` process in Windows!"
-msgstr ""
+msgstr "现已顺利在 Windows 运行``tor``进程!"
 
 #: ../../source/tor.rst:52
 msgid ""
@@ -125,21 +144,21 @@ msgstr ""
 
 #: ../../source/tor.rst:61
 msgid "Using a system ``tor`` in macOS"
-msgstr ""
+msgstr "macOS 使用 ``tor``系统"
 
 #: ../../source/tor.rst:63
 msgid ""
 "First, install `Homebrew <https://brew.sh/>`_ if you don't already have "
 "it, and then install Tor::"
-msgstr ""
+msgstr "如果没有`Homebrew <https://brew.sh/>`请先安装，再安装 Tor::"
 
 #: ../../source/tor.rst:67
 msgid "Now configure Tor to allow connections from OnionShare::"
-msgstr ""
+msgstr "现在调配 Tor 以便让 OnionShare 可连接:"
 
 #: ../../source/tor.rst:74
 msgid "And start the system Tor service::"
-msgstr ""
+msgstr "启动系统的 Tor 服务::"
 
 #: ../../source/tor.rst:78
 msgid ""
@@ -152,11 +171,11 @@ msgstr ""
 
 #: ../../source/tor.rst:84 ../../source/tor.rst:104
 msgid "If all goes well, you should see \"Connected to the Tor controller\"."
-msgstr ""
+msgstr "如果一切顺利，会出现\"Connected to the Tor controller\"消息。"
 
 #: ../../source/tor.rst:87
 msgid "Using a system ``tor`` in Linux"
-msgstr ""
+msgstr "Linux 使用 ``tor``系统"
 
 #: ../../source/tor.rst:89
 msgid ""
@@ -165,6 +184,9 @@ msgid ""
 "`official repository <https://support.torproject.org/apt/tor-deb-"
 "repo/>`_."
 msgstr ""
+"首先安装 ``tor``包。如果操作系统为 Debian, Ubuntu 或其它相似发行版，建议使用 "
+"Tor Project 官方代码保存库 <https://support.torproject.org/apt/tor-deb-repo/"
+">`_."
 
 #: ../../source/tor.rst:91
 msgid ""
@@ -172,12 +194,15 @@ msgid ""
 "case of Debian and Ubuntu, ``debian-tor``) and configure OnionShare to "
 "connect to your system ``tor``'s control socket file."
 msgstr ""
+"接着将用户加入可运行``tor``进程的群组(Debian/ Ubuntu 则使用 ``debian-tor``)，"
+"设置 OnionShare 连接系统的``tor`` control socket 文档。"
 
 #: ../../source/tor.rst:93
 msgid ""
 "Add your user to the ``debian-tor`` group by running this command "
 "(replace ``username`` with your actual username)::"
-msgstr ""
+msgstr "要将用户加到``debian-tor`` 群组请运行以下命令(请把 ``username`` 改成你的 "
+"username)::"
 
 #: ../../source/tor.rst:97
 msgid ""
