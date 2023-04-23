@@ -9,11 +9,12 @@ import subprocess
 import requests
 import click
 import tempfile
-import johnnycanencrypt as jce
+import gnupg
 
 torbrowser_latest_url = (
     "https://aus1.torproject.org/torbrowser/update_3/release/downloads.json"
 )
+tor_dev_fingerprint = "EF6E286DDA85EA2A4BA7DE684E2C6E8793298290"
 
 # Common paths
 root_path = os.path.dirname(
@@ -35,7 +36,7 @@ def get_latest_tor_version_urls(platform):
     return platform_url, platform_filename, platform_sig_url
 
 
-def get_tor_windows(ks, torkey, win_url, win_filename, expected_win_sig):
+def get_tor_windows(gpg, torkey, win_url, win_filename, expected_win_sig):
     bin_filenames = ["tor.exe"]
 
     # Build paths
@@ -60,8 +61,10 @@ def get_tor_windows(ks, torkey, win_url, win_filename, expected_win_sig):
         open(win_sig_path, "wb").write(r.content)
 
     # Verify the signature
-    if not ks.verify_file_detached(torkey, win_path, win_sig_path):
-        print("ERROR! The .exe file verification with the signature failed!")
+    sig_stream = open(win_sig_path, "rb")
+    verified = gpg.verify_file(sig_stream, win_path)
+    if not verified.valid or verified.pubkey_fingerprint != tor_dev_fingerprint:
+        print("ERROR! The tarball verification with the signature failed!")
         sys.exit(-1)
 
     print("Tor Browser verification successful!")
@@ -107,7 +110,7 @@ def get_tor_windows(ks, torkey, win_url, win_filename, expected_win_sig):
     update_tor_bridges()
 
 
-def get_tor_macos(ks, torkey, macos_url, macos_filename, expected_macos_sig):
+def get_tor_macos(gpg, torkey, macos_url, macos_filename, expected_macos_sig):
     # Build paths
     dmg_tor_path = os.path.join(
         "/Volumes", "Tor Browser", "Tor Browser.app", "Contents"
@@ -135,8 +138,10 @@ def get_tor_macos(ks, torkey, macos_url, macos_filename, expected_macos_sig):
         open(dmg_sig_path, "wb").write(r.content)
 
     # Verify the signature
-    if not ks.verify_file_detached(torkey, dmg_path, dmg_sig_path):
-        print("ERROR! The dmg file verification with the signature failed!")
+    sig_stream = open(dmg_sig_path, "rb")
+    verified = gpg.verify_file(sig_stream, dmg_path)
+    if not verified.valid or verified.pubkey_fingerprint != tor_dev_fingerprint:
+        print("ERROR! The tarball verification with the signature failed!")
         sys.exit(-1)
 
     print("Tor Browser verification successful!")
@@ -170,7 +175,7 @@ def get_tor_macos(ks, torkey, macos_url, macos_filename, expected_macos_sig):
     update_tor_bridges()
 
 
-def get_tor_linux64(ks, torkey, linux64_url, linux64_filename, expected_linux64_sig):
+def get_tor_linux64(gpg, torkey, linux64_url, linux64_filename, expected_linux64_sig):
     # Build paths
     tarball_path = os.path.join(working_path, linux64_filename)
     tarball_sig_path = os.path.join(working_path, f"{linux64_filename}.asc")
@@ -196,7 +201,9 @@ def get_tor_linux64(ks, torkey, linux64_url, linux64_filename, expected_linux64_
         open(tarball_sig_path, "wb").write(r.content)
 
     # Verify signature
-    if not ks.verify_file_detached(torkey, tarball_path, tarball_sig_path):
+    sig_stream = open(tarball_sig_path, "rb")
+    verified = gpg.verify_file(sig_stream, tarball_path)
+    if not verified.valid or verified.pubkey_fingerprint != tor_dev_fingerprint:
         print("ERROR! The tarball verification with the signature failed!")
         sys.exit(-1)
 
@@ -314,18 +321,18 @@ def main(platform):
         expected_platform_sig,
     ) = get_latest_tor_version_urls(platform)
     tmpdir = tempfile.TemporaryDirectory()
-    ks = jce.KeyStore(tmpdir.name)
-    torkey = ks.import_key(os.path.join(root_path, "scripts", "kounek7zrdx745qydx6p59t9mqjpuhdf"))
-    print(f"Tor GPG key: {torkey}")
+    gpg = gnupg.GPG(gnupghome=tmpdir.name)
+    torkey = gpg.import_keys_file(os.path.join(root_path, "scripts", "kounek7zrdx745qydx6p59t9mqjpuhdf"))
+    print(f"Imported Tor GPG key: {torkey.fingerprints}")
 
     if platform == "win32":
-        get_tor_windows(ks, torkey, platform_url, platform_filename, expected_platform_sig)
+        get_tor_windows(gpg, torkey, platform_url, platform_filename, expected_platform_sig)
     elif platform == "win64":
-        get_tor_windows(ks, torkey, platform_url, platform_filename, expected_platform_sig)
+        get_tor_windows(gpg, torkey, platform_url, platform_filename, expected_platform_sig)
     elif platform == "macos":
-        get_tor_macos(ks, torkey, platform_url, platform_filename, expected_platform_sig)
+        get_tor_macos(gpg, torkey, platform_url, platform_filename, expected_platform_sig)
     elif platform == "linux64":
-        get_tor_linux64(ks, torkey, platform_url, platform_filename, expected_platform_sig)
+        get_tor_linux64(gpg, torkey, platform_url, platform_filename, expected_platform_sig)
     else:
         click.echo("invalid platform")
 
