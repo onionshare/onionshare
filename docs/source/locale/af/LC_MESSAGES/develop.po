@@ -6,120 +6,181 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-01-17 10:28-0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2022-11-16 07:48+0000\n"
+"Last-Translator: Gideon Wentink <gjwentink@gmail.com>\n"
 "Language-Team: none\n"
 "Language: af\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.15-dev\n"
 
 #: ../../source/develop.rst:2
 msgid "Developing OnionShare"
-msgstr ""
+msgstr "Ontwikkeling van OnionShare"
 
 #: ../../source/develop.rst:7
 msgid "Collaborating"
-msgstr ""
+msgstr "Samewerking"
 
 #: ../../source/develop.rst:9
 msgid "OnionShare has an open Keybase team to discuss the project, ask questions, share ideas and designs, and making plans for future development. (It's also an easy way to send end-to-end encrypted direct messages to others in the OnionShare community, like OnionShare addresses.) To use Keybase, download the `Keybase app <https://keybase.io/download>`_, make an account, and `join this team <https://keybase.io/team/onionshare>`_. Within the app, go to \"Teams\", click \"Join a Team\", and type \"onionshare\"."
 msgstr ""
+"OnionShare het ’n oop Keybase-span om die projek te bespreek, vrae te vra, "
+"idees en ontwerpe te deel en planne vir verdere ontwikkeling te maak. (Dis "
+"ook ’n maklike manier om ein-tot-ein-geënkripteerde direkte boodskappe na "
+"ander lede in die OnionShare-gemeenskap, soos OnionShare-adresse, te stuur.) "
+"Om Keybase te gebrui, moet u die `Keybase-toep aflaai <https://keybase.io/"
+"download>`_, ’n rekening skep, en by `hierdie span aansluit <https://keybase."
+"io/team/onionshare>`_. In die toep, gaan u na “Spanne”, klik op “Sluit by ’n "
+"span aan” en tik “onionshare”."
 
 #: ../../source/develop.rst:12
 msgid "OnionShare also has a `mailing list <https://lists.riseup.net/www/subscribe/onionshare-dev>`_ for developers and and designers to discuss the project."
 msgstr ""
+"OnionShare het ook ’n `e-poslys <https://lists.riseup.net/www/subscribe/"
+"onionshare-dev>`_ waar ontwikkelaars en ontwerpers die projek kan bespreek."
 
 #: ../../source/develop.rst:15
 msgid "Contributing Code"
-msgstr ""
+msgstr "Om kode by te dra"
 
 #: ../../source/develop.rst:17
 msgid "OnionShare source code is to be found in this Git repository: https://github.com/onionshare/onionshare"
 msgstr ""
+"OnionShare-bronkode kan in hierdie Git-bewaarplek gevind word: https://github"
+".com/onionshare/onionshare"
 
 #: ../../source/develop.rst:19
 msgid "If you'd like to contribute code to OnionShare, it helps to join the Keybase team and ask questions about what you're thinking of working on. You should also review all of the `open issues <https://github.com/onionshare/onionshare/issues>`_ on GitHub to see if there are any you'd like to tackle."
 msgstr ""
+"Indien u kode tot OnionShare wil bydra, help dit om by die Keybase-span aan "
+"te sluit en vrae te vra oor waaraan u dink om te werk. U kan ook al die `oop "
+"probleme <https://github.com/onionshare/onionshare/issues>`_ op GitHub "
+"hersien om te kyk of daar iets is wat u wil aandurf."
 
 #: ../../source/develop.rst:22
 msgid "When you're ready to contribute code, open a pull request in the GitHub repository and one of the project maintainers will review it and possibly ask questions, request changes, reject it, or merge it into the project."
 msgstr ""
+"Wanneer u gereed is om kode by te dra, kan u ’n trekversoek in die GitHub-"
+"bewaarplek open en een van die projek se onderhouers sal dit hersien en "
+"moontlik vrae vra, veranderinge versoek, dit verwerp of dit met die projek "
+"saamsmelt."
 
 #: ../../source/develop.rst:27
 msgid "Starting Development"
-msgstr ""
+msgstr "Begin met ontwikkeling"
 
 #: ../../source/develop.rst:29
 msgid "OnionShare is developed in Python. To get started, clone the Git repository at https://github.com/onionshare/onionshare/ and then consult the ``cli/README.md`` file to learn how to set up your development environment for the command-line version, and the ``desktop/README.md`` file to learn how to set up your development environment for the graphical version."
 msgstr ""
+"OnionShare word in Python ontwikkel. Om te begin kan u die Git-bewaarplek "
+"kloon by https://github.com/onionshare/onionshare/ en dan die ``cli/README."
+"md``-lêer deurwerk om te leer hoe om u ontwikkelingsomgewing op te stel vir "
+"die bevellynweergawe, en ook die ``desktop/README.md``-lêer om te leer hoe "
+"om u ontwikkelingsomgewing vir die grafiese weergawe op te stel."
 
 #: ../../source/develop.rst:32
 msgid "Those files contain the necessary technical instructions and commands install dependencies for your platform, and to run OnionShare from the source tree."
 msgstr ""
+"Daardie lêers bevat die nodige tegniese instruksies en "
+"bevelinstalleerafhanklikhede vir u platform, en om OnionShare vanaf die "
+"bronboom te loop."
 
 #: ../../source/develop.rst:35
 msgid "Debugging tips"
-msgstr ""
+msgstr "Ontfoutwenke"
 
 #: ../../source/develop.rst:38
 msgid "Verbose mode"
-msgstr ""
+msgstr "Verbose-modus"
 
 #: ../../source/develop.rst:40
 msgid "When developing, it's convenient to run OnionShare from a terminal and add the ``--verbose`` (or ``-v``) flag to the command. This prints a lot of helpful messages to the terminal, such as when certain objects are initialized, when events occur (like buttons clicked, settings saved or reloaded), and other debug info. For example::"
 msgstr ""
+"Tydens ontwikkeling is dit gerieflik om OnionShare vanuit ’n terminaal te "
+"loop en die ``--verbose`` (of ``-v``) -vlag tot die bevel toe te voeg. Dit "
+"druk talle hulpvaardige boodskappe na die terminaal, soos wanneer sekere "
+"voorwerpe geïnisialiseer word, wanneer gebeure voorkom (soos knoppe wat "
+"geklik word, instellings wat bewaar of herlaai word), en ander "
+"ontfoutinligting. Byvoorbeeld::"
 
 #: ../../source/develop.rst:117
 msgid "You can add your own debug messages by running the ``Common.log`` method from ``onionshare/common.py``. For example::"
 msgstr ""
+"U kan u eie ontfoutboodskape toevoeg deur die ``Common.log``-metode vanaf ``"
+"onionshare/common.py`` te loop. Byvoorbeeld::"
 
 #: ../../source/develop.rst:121
 msgid "This can be useful when learning the chain of events that occur when using OnionShare, or the value of certain variables before and after they are manipulated."
 msgstr ""
+"Dit kan handig wees wanneer die gebeureketting geleer word wat plaasvind "
+"wanneer OnionShare gebruik word, or die waarde van sekere veranderlikes voor "
+"en nadat dit gemanipuleer is."
 
 #: ../../source/develop.rst:124
 msgid "Local Only"
-msgstr ""
+msgstr "Slegs lokaal"
 
 #: ../../source/develop.rst:126
 msgid "Tor is slow, and it's often convenient to skip starting onion services altogether during development. You can do this with the ``--local-only`` flag. For example::"
 msgstr ""
+"Tor is stadig en dit is dikwels gerieflik om gedurende ontwikkeling onion-"
+"dienste heeltemal te staak. U kan dit doen met die ``--local-only``-vlag. "
+"Byvoorbeeld::"
 
 #: ../../source/develop.rst:165
 msgid "In this case, you load the URL ``http://127.0.0.1:17641`` in a normal web-browser like Firefox, instead of using the Tor Browser. The private key is not actually needed in local-only mode, so you can ignore it."
 msgstr ""
+"In hierdie geval laai u die bronadres ``http://127.0.0.1:17641`` in ’n "
+"normale webblaaier soos Firefox, eerder as om die Tor Blaaier te gebruik. "
+"Die privaat sleutel word nie eintlik in slegs-lokaal-modus benodig nie en u "
+"kan dit ignoreer."
 
 #: ../../source/develop.rst:168
 msgid "Contributing Translations"
-msgstr ""
+msgstr "Dra vertalings by"
 
 #: ../../source/develop.rst:170
 msgid "Help make OnionShare easier to use and more familiar and welcoming for people by translating it on `Hosted Weblate <https://hosted.weblate.org/projects/onionshare/>`_. Always keep the \"OnionShare\" in latin letters, and use \"OnionShare (localname)\" if needed."
 msgstr ""
+"Help om OnionShare makliker te maak om te gebruik en meer bekend en meer "
+"verwelkomend deur dit te vertaal by `Hosted Weblate <https://hosted.weblate."
+"org/projects/onionshare/>`_. Behou altyd die “OnionShare” in Latynse "
+"letters, en gebruik “OnionShare (inheemse naam)” indien nodig."
 
 #: ../../source/develop.rst:172
 msgid "To help translate, make a Hosted Weblate account and start contributing."
-msgstr ""
+msgstr "Skep ’n Hosted Weblate-rekening om te begin vertaal, en val weg."
 
 #: ../../source/develop.rst:175
 msgid "Suggestions for Original English Strings"
-msgstr ""
+msgstr "Voorstelle vir oorspronklike Engelse stringe"
 
 #: ../../source/develop.rst:177
 msgid "Sometimes the original English strings are wrong, or don't match between the application and the documentation."
 msgstr ""
+"Soms is die oorspronklike Engelse stringe verkeerd, of stem dit nie ooreen "
+"tussen die toepassing en die dokumentasie nie."
 
 #: ../../source/develop.rst:179
 msgid "File source string improvements by adding @kingu to your Weblate comment, or open a GitHub issue or pull request. The latter ensures all upstream developers see the suggestion, and can potentially modify the string via the usual code review processes."
 msgstr ""
+"Bring verbeteringe aan die oorspronklike string aan deur @kingu tot u "
+"Weblate-kommentaar toe te voeg, of open ’n GitHub-kwessie of -trekversoek. "
+"Laasgenoemde verseker dat alle voorgaande ontwikkelaars die voorstelle sien "
+"en die string gedeeltelik kan wysig d.m.v. die gewone kodehersienprosesse."
 
 #: ../../source/develop.rst:183
 msgid "Status of Translations"
-msgstr ""
+msgstr "Vertalingstatus"
 
 #: ../../source/develop.rst:184
 msgid "Here is the current translation status. If you want start a translation in a language not yet started, please write to the mailing list: onionshare-dev@lists.riseup.net"
 msgstr ""
+"Hier is die huidige vertalingstatus. Indien u ’n vertaling wil begin vir ’n "
+"taal wat nog nie begin is nie, skryf asb. aan die poslys: onionshare-"
+"dev@lists.riseup.net"

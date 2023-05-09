@@ -6,253 +6,427 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-01-17 10:28-0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2023-04-20 11:51+0000\n"
+"Last-Translator: Zaituni Njovu <zaitunimbii@gmail.com>\n"
 "Language-Team: none\n"
 "Language: sw\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.18-dev\n"
 
 #: ../../source/features.rst:4
 msgid "How OnionShare Works"
-msgstr ""
+msgstr "Namna OnionShare inafanya kazi"
 
 #: ../../source/features.rst:6
 msgid "Web servers are started locally on your computer and made accessible to other people as `Tor <https://www.torproject.org/>`_ `onion services <https://community.torproject.org/onion-services/>`_."
 msgstr ""
+"Seva za tovuti zinaanzaga ndani katika kompyuta yako na kufanya zinapatikana "
+"kwa watu wengine kama `Tor <https://www.torproject.org/>`_ `onion services "
+"<https://community.torproject.org/onion-services/>`_."
 
 #: ../../source/features.rst:8
 msgid "By default, OnionShare web addresses are protected with a private key."
-msgstr ""
+msgstr "Kwa asili yake, anwani za tofuti za OnionShare hulindwa na private key."
 
 #: ../../source/features.rst:10
 msgid "OnionShare addresses look something like this::"
-msgstr ""
+msgstr "Anwani za OnionShare huonekana kama::"
 
 #: ../../source/features.rst:14
 msgid "And private keys might look something like this::"
-msgstr ""
+msgstr "Na private keys zinafanana kama hivi::"
 
 #: ../../source/features.rst:18
 msgid "You're responsible for securely sharing that URL and private key using a communication channel of your choice like in an encrypted chat message, or using something less secure like unencrypted email, depending on your `threat model <https://ssd.eff.org/module/your-security-plan>`_."
 msgstr ""
+"Ni jukumu lako kusambaza URL katika hali ya usalama pamoja na private key "
+"kwa kutumia njia ya mawasiliano uipendayo kama ujumbne wa maandishi "
+"uliosimbwa, au kwa kutumia njia ambayo haina usalama sana kama barua pepe "
+"isiyosimbwa, kwa kutegemea `hali ya tishio <https://ssd.eff.org/module/your-"
+"security-plan>`_."
 
 #: ../../source/features.rst:20
 msgid "The people you send the URL to then copy and paste it into their `Tor Browser <https://www.torproject.org/>`_ to access the OnionShare service. Tor Browser will then prompt for the private key, which the people can also then copy and paste in."
 msgstr ""
+"Watu unaowatumia URL nakili na nakilisha katika`Tor Browser <https://www."
+"torproject.org/>`_ ili kupata huduma ya OnionShare. Tor Browser kisha "
+"itahitaji kwa lazima, ambayo watu pia wanaweza kunakili na kunakilisha."
 
 #: ../../source/features.rst:24
 msgid "If you run OnionShare on your laptop to send someone files, and then suspend it before the files are sent, the service will not be available until your laptop is unsuspended and on the internet again. OnionShare works best when working with people in real-time."
 msgstr ""
+"Kama unatumia OnionShare katika laptop yako kutuma mafaili kwa mtu, na kisha "
+"mtandao ukapotea kabla mafaili hayajatumwa, huduma haitapatikana mpaka pale "
+"laptop yako itakaporudi katika mtandao tena. OnionShare hufanya vizuri sana "
+"inapofanya kazi na watu katikia muda halisi."
 
 #: ../../source/features.rst:26
 msgid "Because your own computer is the web server, *no third party can access anything that happens in OnionShare*, not even the developers of OnionShare. It's completely private. And because OnionShare is based on Tor onion services too, it also protects your anonymity. See the :doc:`security design </security>` for more info."
 msgstr ""
+"Kwasababu kompyuta yako mwenyewe ndio seva ya tovuti, *hakuna mtumiaji "
+"asiyehusika mojakwamoja anaweza kujua chochote kinachoendelkea katika "
+"OnionShare pia hata watengenezaji wa OnionShare. Hii ni faragha halisi. Na "
+"kwasababu OnionShare imejikita katika Tor onion services pia, Pia inalinda "
+"kutojulikana kwako. Angalia`security design </security>` kwa taarifa zaidi."
 
 #: ../../source/features.rst:29
 msgid "Share Files"
-msgstr ""
+msgstr "Sambaza Mafaila"
 
 #: ../../source/features.rst:31
 msgid "You can use OnionShare to send files and folders to people securely and anonymously. Open a share tab, drag in the files and folders you wish to share, and click \"Start sharing\"."
 msgstr ""
+"Unaweza kutumia OnionShare kutuma mafaili na folda kwa watu kwa usalama na "
+"kutojulikana. Fungua kurasa ya kusambaza, vuta katika mafaili faili na folda "
+"ambayo unataka kusambaza, kisha bofya \"Start sharing\"."
 
 #: ../../source/features.rst:35
 #: ../../source/features.rst:112
 msgid "After you add files, you'll see some settings. Make sure you choose the setting you're interested in before you start sharing."
 msgstr ""
+"Baada ya kuongeza mafaili, utatumia baadhi ya mipangilio. Hakikisha "
+"unachagua mpangilio unaoupenda kabla ya kuanza kusambaza."
 
 #: ../../source/features.rst:39
 msgid "As soon as someone finishes downloading your files, OnionShare will automatically stop the server, removing the website from the internet. To allow multiple people to download them, uncheck the \"Stop sharing after files have been sent (uncheck to allow downloading individual files)\" box."
 msgstr ""
+"Mara baada ya kumaliza kupakua mafaili, OnionShare mojakwamoja itasitisha "
+"seva, kuondoa tovuti katika mtandao. Kuruhusu watu wengi kuzipakua, ondoa "
+"ukaguzi \"acha kusambaza baada ya mafaili kutumwa (ondoa ukaguzi kuruhusu "
+"kupakua mafaili binafsi)\" ."
 
 #: ../../source/features.rst:42
 msgid "Also, if you uncheck this box, people will be able to download the individual files you share rather than a single compressed version of all the files."
 msgstr ""
+"Pia, kama hutachagua sanduku hili, watu wataweza kupakua faili mojamoja "
+"uliyosambaza kuliko toleo lililo punguzwa katika mafaili yote."
 
 #: ../../source/features.rst:44
 msgid "When you're ready to share, click the \"Start sharing\" button. You can always click \"Stop sharing\", or quit OnionShare, immediately taking the website down. You can also click the \"↑\" icon in the top-right corner to show the history and progress of people downloading files from you."
 msgstr ""
+"Utakapokuwa tayari kusambaza, bofya kitufe cha \"Start sharing\" . Kwa "
+"kawaida unaweza kubofya \"Stop sharing\", au kutoka OnionShare, maramoja "
+"itafanya tovuti kuwa chini. Pia unaweza kubofya alama ya \"↑\" juu upande wa "
+"kulia kuonyeasha kumbukumbu na maendeleo ya watu wakipakua mafaili toka "
+"kwako."
 
 #: ../../source/features.rst:48
 msgid "Now that you have a OnionShare, copy the address and the private key and send it to the person you want to receive the files. If the files need to stay secure, or the person is otherwise exposed to danger, use an encrypted messaging app."
 msgstr ""
+"Sasa una OnionShare, nakili anwani na private key kisha tuma kwa mtu "
+"unayetaka apokee faili. Kama mafaili yanahitaji kuwa salama, au mtu "
+"amejiweka katika hatari, tumia programu ya ujumbe wa maandishi uliosimbwa."
 
 #: ../../source/features.rst:50
 msgid "That person then must load the address in Tor Browser. After logging in with the private key, the files can be downloaded directly from your computer by clicking the \"Download Files\" link in the corner."
 msgstr ""
+"Mtu anayehitaji anwani toka Tor Browser. Baada ya kuingia kwa kutumia "
+"private key, faili linaweza kupakuliwa mojakwamoja kutoka kwenye kompyuta "
+"kwa kubofya \"Download Files\" katika anwani katika kona."
 
 #: ../../source/features.rst:55
 msgid "Receive Files and Messages"
-msgstr ""
+msgstr "Pokea mafaili na ujumbe wa maandishi"
 
 #: ../../source/features.rst:57
 msgid "You can use OnionShare to let people anonymously submit files and messages directly to your computer, essentially turning it into an anonymous dropbox. Open a receive tab and choose the settings that you want."
 msgstr ""
+"Unaweza kutumia OnionShare kuwezesha watu kuwasilisha mafaili na ujumbe wa "
+"maandishi bila mkujulikanamojakwamoja katika kompyuta yako, na kuipeleka "
+"katika dropbox. Fungua kurasa ya kupokea na chagua mpangilio unaoutaka."
 
 #: ../../source/features.rst:62
 msgid "You can browse for a folder to save messages and files that get submitted."
 msgstr ""
+"Unaweza kuperuzi kwa ajili ya folda ili kuhifadhi ujumbe wa maandishi na "
+"mafaili ambayo yamewasilishwa."
 
 #: ../../source/features.rst:64
 msgid "You can check \"Disable submitting text\" if want to only allow file uploads, and you can check \"Disable uploading files\" if you want to only allow submitting text messages, like for an anonymous contact form."
 msgstr ""
+"Unaweza chagua\"Disable submitting text\" kama unataka kuruhusu kupakia "
+"mafaili tu, na unaweza chagua\"Disable uploading files\" kama unataka "
+"kuruhusu kuwasilisha ujumbe wa maandishi, kama ilivyo ikitoka kwa "
+"mawasiliano yasiyoijulikana."
 
 #: ../../source/features.rst:66
 msgid "You can check \"Use notification webhook\" and then choose a webhook URL if you want to be notified when someone submits files or messages to your OnionShare service. If you use this feature, OnionShare will make an HTTP POST request to this URL whenever someone submits files or messages. For example, if you want to get an encrypted text messaging on the messaging app `Keybase <https://keybase.io/>`_, you can start a conversation with `@webhookbot <https://keybase.io/webhookbot>`_, type ``!webhook create onionshare-alerts``, and it will respond with a URL. Use that as the notification webhook URL. If someone uploads a file to your receive mode service, @webhookbot will send you a message on Keybase letting you know as soon as it happens."
 msgstr ""
+"Unaweza kuchagua \"Use notification webhook\" na kisha chagua webhook "
+"URLkama unataka kupata taarifa kama mtu amewasilisha mafaili au ujumbe wa "
+"maandishi katika huduma za OnionShare. Kama unataka kipengele hiki "
+"OnionShare itafanyamaombi ya HTTP POST katika URLhii kila mtu anapowasilisha "
+"mafaili na ujumbe wa maandishi. Kwa mfano, kama unataka kupata ujumbe wa "
+"maandishi uliosimbwa katika programu tumizi ya ujumbe wa maandishi `Keybase "
+"<https://keybase.io/>`_, unaweza majibizano na `@webhookbot <https://keybase."
+"io/webhookbot>`_, type ``!webhook unda onionshare-alerts``, na itatoa majibu "
+"kupitia URL. Tumia hiyo kama taarifa webhook URL. Kama mtu amepakia faili "
+"katika huduma ya mfumo wako wa kupokea @webhookbot itatuma ujumbe wa "
+"maandishi katika Keybase kukufahamisha mara baada ya kutokea."
 
 #: ../../source/features.rst:71
 msgid "When you are ready, click \"Start Receive Mode\". This starts the OnionShare service. Anyone loading this address in their Tor Browser will be able to submit files and messages which get uploaded to your computer."
 msgstr ""
+"Ukiwa tayari, bofya \"Start Receive Mode\". Hii anza huduma za OnionShare. "
+"Yeyote anayetaka anwani hizi katika Tor Browser zao wataweza kuwasilisha "
+"mafaili na ujumbe wa maandishiambazo zimapakiwa katika kompyuta yako."
 
 #: ../../source/features.rst:75
 msgid "You can also click the down \"↓\" icon in the top-right corner to show the history and progress of people sending files to you."
 msgstr ""
+"Pia unaweza kubofya mshare wa chini \"↓\" kulia kona ya juu kuonyesha "
+"historia na maendeleo ya watu wanaokutumia ujumbe wa maandishi."
 
 #: ../../source/features.rst:77
 msgid "Here is what it looks like for someone sending you files and messages."
 msgstr ""
+"Hivi ndivyo inavyoonekana kwa mtu anapokutumia mafaili na ujumbe wa "
+"maandishi."
 
 #: ../../source/features.rst:81
 msgid "When someone submits files or messages to your receive service, by default they get saved to a folder called ``OnionShare`` in the home folder on your computer, automatically organized into separate subfolders based on the time that the files get uploaded."
 msgstr ""
+"Mtu anapowasilisha mafaili au ujumbe wa maandishi katika huduma yako ya "
+"kupokea, kwa asili yake zinahifadhiwa katika folda linaloitwa ``OnionShare`` "
+"katika folda ukurasa wa nyumbani katika kompyuta yako, mojakwamoja panga "
+"katika mafolda madogo tofauti kulingana na muda ambao faili linasasishwa."
 
 #: ../../source/features.rst:83
 msgid "Setting up an OnionShare receiving service is useful for journalists and others needing to securely accept documents from anonymous sources. When used in this way, OnionShare is sort of like a lightweight, simpler, not quite as secure version of `SecureDrop <https://securedrop.org/>`_, the whistleblower submission system."
 msgstr ""
+"Mpangilio katika OnionShare ya kupokea huduma inafaa sana kwa waandishi wa "
+"habari na mahitaji mengine ya usalama wa kupokea katika vyanzo "
+"visivyojulikana. Unapotumia kwa njia hii, OnionShare ni kama kubwa, rahisi, "
+"sio salama sana kama toleo la`SecureDrop <https://securedrop.org/>`_, the "
+"whistleblower mfumo wa uwasilishaji."
 
 #: ../../source/features.rst:86
 msgid "Use at your own risk"
-msgstr ""
+msgstr "Tumia kwa kujitafutia hatari wewe mwenyewe"
 
 #: ../../source/features.rst:88
 msgid "Just like with malicious email attachments, it's possible someone could try to attack your computer by uploading a malicious file to your OnionShare service. OnionShare does not add any safety mechanisms to protect your system from malicious files."
 msgstr ""
+"Kama ilivyo kwa barua pepe zilizoambatanishwa na vitu visivyo saloama, "
+"Inawezekana mtu anaweza kujaribu kuvamia kompyuta yakokwa kupakia mafaili "
+"yasiyo salama katika huduma zako za OnionShare. Hatahivyo OnionShare "
+"haiongezi namna yoyote ya usalama kulinda mfumo wako na mafaili yasiyo "
+"salama."
 
 #: ../../source/features.rst:90
 msgid "If you receive an Office document or a PDF through OnionShare, you can convert these documents into PDFs that are safe to open using `Dangerzone <https://dangerzone.rocks/>`_. You can also protect yourself when opening untrusted documents by opening them in `Tails <https://tails.boum.org/>`_ or in a `Qubes <https://qubes-os.org/>`_ disposableVM."
 msgstr ""
+"Kama umepokea nyaraka au kama PDF kupitia OnionShare, unaweza kubadili "
+"nyaraka kwenda katika mfumo wa PDFs ambazo ni salama kufungua kwa kutumia`"
+"Dangerzone <https://dangerzone.rocks/>`_. Pia unaweza kujilinda ukiwa "
+"unafungua nyaraka zisizo aminika kwa kuzifungua katika `Tails <https://tails."
+"boum.org/>`_ or in a `Qubes <https://qubes-os.org/>`_ disposableVM."
 
 #: ../../source/features.rst:92
 msgid "However, it is always safe to open text messages sent through OnionShare."
 msgstr ""
+"Hatahivyo, Kwa kawaida ni salama kufungua ujumbe wa maandishi uliotumwa "
+"kupitia OnionShare."
 
 #: ../../source/features.rst:95
 msgid "Tips for running a receive service"
-msgstr ""
+msgstr "Nondoo za kutumia huduma ya kupokea"
 
 #: ../../source/features.rst:97
 msgid "If you want to host your own anonymous dropbox using OnionShare, it's recommended you do so on a separate, dedicated computer always powered on and connected to the internet, and not on the one you use on a regular basis."
 msgstr ""
+"Kama unataka kutunza dropbox yako mwenyewe isiyojulikana kwa kutumia "
+"OnionShare, Inapendekezwa kufanya pekeyake kwa kutengenisha, Kompyuta "
+"iliyokusudiwa kwa kawaida kuwashwa na kuunganishwa katika mtandao, na siyo "
+"ile unayotumia katika matumizi ya kawaida."
 
 #: ../../source/features.rst:99
 msgid "If you intend to put the OnionShare address on your website or social media profiles, save the tab (see :ref:`save_tabs`) and run it as a public service (see :ref:`turn_off_private_key`). It's also a good idea to give it a custom title (see :ref:`custom_titles`)."
 msgstr ""
+"Kama umekusudia kuweka anwani za OnionShare katika tovuti yako au katika "
+"utambulisho wa mitandao ya kijamii, hifadhi ukurasa (see :ref:`save_tabs`) "
+"na uitumie kama huduma ya wazi (see :ref:`turn_off_private_key`). Ni wazo "
+"zuri pia kipa jina lenye sifa zilizokusudiwa (see :ref:`custom_titles`)."
 
 #: ../../source/features.rst:102
 msgid "Host a Website"
-msgstr ""
+msgstr "Simamia tovuti"
 
 #: ../../source/features.rst:104
 msgid "To host a static HTML website with OnionShare, open a website tab, drag the files and folders that make up the static content there, and click \"Start sharing\" when you are ready."
 msgstr ""
+"Kusimamia HTML ya tovuti ya kudumu ukiwa na OnionShare, Fungua kurasa ya "
+"tovuti, vuta mafaili na folda ambayo yanamaudhui ya kudumu, na kisha bofya "
+"\"Start sharing\" utakapokuwa tayari."
 
 #: ../../source/features.rst:108
 msgid "If you add an ``index.html`` file, it will render when someone loads your website. You should also include any other HTML files, CSS files, JavaScript files, and images that make up the website. (Note that OnionShare only supports hosting *static* websites. It can't host websites that execute code or use databases. So you can't for example use WordPress.)"
 msgstr ""
+"Kama utaongeza faili la ``index.html``, itajisambaza wakati mtu anafungua "
+"tovuti yako. Pia unatakiwa kujumuisha mafaili ya HTML mengune yoyote, "
+"mafaili ya CSS, mafaili ya JavaScript, na picha zinazotengeneza tovuti. ("
+"Zingatia OnionShare husaidia tu usimamizi wa tovuti *zisizo badilika* . "
+"Haiwezi kusimamia tovuti inayotumia database. Kwahiyo hutaweza kwa mfano "
+"kutumia WordPress.)"
 
 #: ../../source/features.rst:110
 msgid "If you don't have an ``index.html`` file, it will show a directory listing instead, and people loading it can look through the files and download them."
 msgstr ""
+"Kama hauna faili la``index.html``, Itaonyesha orodha ya saraka badala yake, "
+"na watu wanaotumia wanaweza kuonekana kwa kupitia mafaili na kuyapakua."
 
 #: ../../source/features.rst:117
 msgid "Content Security Policy"
-msgstr ""
+msgstr "Sera ya ulinzi wa maudhui"
 
 #: ../../source/features.rst:119
 msgid "By default OnionShare helps secure your website by setting a strict `Content Security Policy <https://en.wikipedia.org/wiki/Content_Security_Policy>`_ header. However, this prevents third-party content from loading inside the web page."
 msgstr ""
+"Kwa asili yake OnionShare husaidia kulinda tovuti yako kwa kuweka `Sera ya "
+"ulinzi wa maudhui <https://en.wikipedia.org/wiki/Content_Security_Policy>`_ "
+"madhubuti. Hata hivyo, hii huzuia maudhui ya watu wasiohusika mojakwamoja "
+"kuingia katika kurasa za tovuti."
 
 #: ../../source/features.rst:121
 msgid "If you want to load content from third-party websites, like assets or JavaScript libraries from CDNs, you have two options:"
 msgstr ""
+"Kama unataka kupata maudhui ya tovuti zisizo husika mojakwamoja, kama mali "
+"au maktaba za kutoka CDNs, una machaguo mawili:"
 
 #: ../../source/features.rst:123
 msgid "You can disable sending a Content Security Policy header by checking the \"Don't send Content Security Policy header (allows your website to use third-party resources)\" box before starting the service."
 msgstr ""
+"Unaweza kuzuia kutuma taarifa za Sera za Ulinzi wa Maudhui kwa kuchagua "
+"kipengele cha \"Don't send Content Security Policy header (allows your "
+"website to use third-party resources)\" kabla ya kuanza huduma."
 
 #: ../../source/features.rst:124
 msgid "You can send a custom Content Security Policy header."
-msgstr ""
+msgstr "Unaweza kutuma taarifa zaSera ya Ulinzi wa Maudhui iliyoboreshwa."
 
 #: ../../source/features.rst:127
 msgid "Tips for running a website service"
-msgstr ""
+msgstr "Dondoo za kusimamia huduma za tovuti"
 
 #: ../../source/features.rst:129
 msgid "If you want to host a long-term website using OnionShare (meaning not just to quickly show someone something), it's recommended you do it on a separate, dedicated computer that is always powered on and connected to the internet, and not on the one you use on a regular basis. Save the tab (see :ref:`save_tabs`) so you can resume the website with the same address if you close OnionShare and re-open it later."
 msgstr ""
+"Kama unataka kusimamia tovuti ya muda mrefu kwa kutumia OnionShare ("
+"ikimaanisha siyo tu kuonyesha kitu haraka kwa mtu), Inapendekezwa ufanye "
+"hivo tofauti, Kompyuta iliyolengwa ambayo kwa kawaida inawashwa na "
+"kuunganishwa katika mtandao, na siyo katika ile unayotumia katika matumizi "
+"yako ya kawaida.. Hifadhi kjurasa (see :ref:`save_tabs`) ili kuendeleza "
+"tovuti na anwani ileile kama utafunga OnionShare na fungua tena baadae."
 
 #: ../../source/features.rst:132
 msgid "If your website is intended for the public, you should run it as a public service (see :ref:`turn_off_private_key`)."
 msgstr ""
+"Kama tovuti yako imelengwa kwa ajili ya umma, unatakiwa uiendeshe kama "
+"huduma ya wazi kwa umma (Rejea:`turn_off_private_key`)."
 
 #: ../../source/features.rst:135
 msgid "Chat Anonymously"
-msgstr ""
+msgstr "Chat bila kujulikana"
 
 #: ../../source/features.rst:137
 msgid "You can use OnionShare to set up a private, secure chat room that doesn't log anything. Just open a chat tab and click \"Start chat server\"."
 msgstr ""
+"Unaweza kutumia OnionShare kutengeneza alama za kipekee za utambuzi, chata "
+"salama ambazo haitunzi kumbukumbu yoyote. Fungua kurasa ya chat kisha bofya "
+"\"Start chat server\"."
 
 #: ../../source/features.rst:141
 msgid "After you start the server, copy the OnionShare address and private key and send them to the people you want in the anonymous chat room. If it's important to limit exactly who can join, use an encrypted messaging app to send out the OnionShare address and private key."
 msgstr ""
+"Baada ya kuanza kutumia seva, nakili anwani ya OnionShare na private key "
+"kisha watumie watu unaowahitaji katika chat ya kutojulikana. Kama ni lazima "
+"kuweka kikomo cha watakaojiunga, tumia programu tumizi ya ujumbe wa "
+"maandishi uliosimbwa kutuma anwani ya OnionShare address na private key."
 
 #: ../../source/features.rst:146
 msgid "People can join the chat room by loading its OnionShare address in Tor Browser. The chat room requires JavasScript, so everyone who wants to participate must have their Tor Browser security level set to \"Standard\" or \"Safer\", instead of \"Safest\"."
 msgstr ""
+"Watu wanaweza kujiunga na chat kwa kutafuta anwani za OnionShare katika Tor "
+"Browser. Sehemu ya inahitaji JavasScript, Kwahiyo kila anayetaka kushiriki "
+"wanatakiwa kuwa na Tor Browser kiwango cha usalama kikiwa au \"Standard\" "
+"au\"Safer\", badala ya \"Safest\"."
 
 #: ../../source/features.rst:149
 msgid "When someone joins the chat room they get assigned a random name. They can change their name by typing a new name in the box in the left panel and pressing ↵. Since the chat history isn't saved anywhere, it doesn't get displayed at all, even if others were already chatting in the room."
 msgstr ""
+"Mtu akijiunga na sehemu ya chat wanapatiwa majina yasiyo katika mpangilio. "
+"Wanaweza kubadili majina yao kwa kuandika jina jipya katika kisanduku upande "
+"wa kushoto na kubonyeza ↵. Sababu historia ya chat haijahifadhiwa popote, "
+"haitaonekana kabisa, hata kam wengine walikuwa wana chat kabla."
 
 #: ../../source/features.rst:155
 msgid "In an OnionShare chat room, everyone is anonymous. Anyone can change their name to anything, and there is no way to confirm anyone's identity."
 msgstr ""
+"Katika chat za OnionShare, kila mtu hajulikani. Kila mmoja anaweza badili "
+"jina lake kuwa vyovyote, na hakuna namna ya kuthibitisha utambulisho wa mtu "
+"yoyote."
 
 #: ../../source/features.rst:158
 msgid "However, if you create an OnionShare chat room and securely send the address only to a small group of trusted friends using encrypted messages, you can be reasonably confident the people joining the chat room are your friends."
 msgstr ""
+"Hatahivyo, kama umetengeneza chat ya OnionShare na kwa usalama umetuma "
+"anwani kwa kundi dogo la marafiki unaowaamini kwa kutumia ujumbe wa "
+"maandishi uliosimbwa, unaweza kuwa ujasiri wa uhakika kuwa wanaojiunga "
+"katika chat ni marafiki zako."
 
 #: ../../source/features.rst:161
 msgid "How is this useful?"
-msgstr ""
+msgstr "Kwanamna gani inafaa?"
 
 #: ../../source/features.rst:163
 msgid "If you need to already be using an encrypted messaging app, what's the point of an OnionShare chat room to begin with? It leaves less traces."
 msgstr ""
+"Kama umekwisha wahi tumia programu tumizi ya ujumbe wa maandishi uliosimbwa, "
+"nafasi ya maswali ya sababu ya kwanini kuwa na chat ya OnionShare inakuwa "
+"ndogo sana."
 
 #: ../../source/features.rst:165
 msgid "If you for example send a message to a Signal group, a copy of your message ends up on each device (the smartphones, and computers if they set up Signal Desktop) of each member of the group. Even if disappearing messages is turned on, it's hard to confirm all copies of the messages are actually deleted from all devices, and from any other places (like notifications databases) they may have been saved to. OnionShare chat rooms don't store any messages anywhere, so the problem is reduced to a minimum."
 msgstr ""
+"Kwa mfano ukituma ujumbe wa maandishi kwenda katika kundi la Signal, nakala "
+"ya ujumbe wako wa maandishi inaishia katika kila kifaa (simu janja, and "
+"kompyuta hutengeneza Signal ya Desktop) kwa kila mshirika wa kundi. Hata "
+"kama ni ujumbe wa kupotea baada ya kusomwa umewezeshwa, Ni ngumu kuhakiki "
+"kama nakala zote za ujumbe zimefutika katika vifaa wanavyotumia, na katika "
+"sehemu nyingine yoyote, (kama katika database ya taarifa) zinaweza kuwa "
+"zimehifadhiwa. Chat za OnionShare haziifadhi ujumbe wowote mahali popote, "
+"kwahiyo tatizo linakuwa limepungua pakubwa."
 
 #: ../../source/features.rst:168
 msgid "OnionShare chat rooms can also be useful for people wanting to chat anonymously and securely with someone without needing to create any accounts. For example, a source can send an OnionShare address to a journalist using a disposable email address, and then wait for the journalist to join the chat room, all without compromosing their anonymity."
 msgstr ""
+"Chat za OnionShare zinaweza kufaa sana kwa watu kwa watu wanaosubiri chat "
+"bila kujulikana na salama kwa mtu bila ya kuhitaji kutengeneza akaunti. Kwa "
+"mfano, mtu anaweza kutuma anwani ya OnionShare kwa waandishi wa habari kwa "
+"kutumia barua pepe isiyodumu, na kisha kusubiri mwandishi wa habari kujiunga "
+"na chat, wote bila ya kujuana na kujulikana."
 
 #: ../../source/features.rst:172
 msgid "How does the encryption work?"
-msgstr ""
+msgstr "Usimbwaji unafanya kazi kwa namna gani?"
 
 #: ../../source/features.rst:174
 msgid "Because OnionShare relies on Tor onion services, connections between the Tor Browser and OnionShare are all end-to-end encrypted (E2EE). When someone posts a message to an OnionShare chat room, they send it to the server through the E2EE onion connection, which then sends it to all other members of the chat room using WebSockets, through their E2EE onion connections."
 msgstr ""
+"Sababu OnionShare hutegemea Tor onion services, mawasiliano kati ya Tor "
+"Browser na OnionShare yote yamesimbwa kati ya watumiaji wawili tu(E2EE). Mtu "
+"akituma ujumbe wa maandishi katika chati ya OnionShaare, wanatuma katika "
+"seva kupitiamawasiliano ya E2EE onion, ambayo kisha hutuma kwa washirika "
+"wengine wote katika chat kwa kutumia WebSockets, kupitia mawasiliano yao ya "
+"E2EE onion."
 
 #: ../../source/features.rst:176
 msgid "OnionShare doesn't implement any chat encryption on its own. It relies on the Tor onion service's encryption instead."
 msgstr ""
+"OnionShare haifanyi usimbwaji wowote wa chat encryption yenyewe. Badala yake "
+"hutegemea usimbwaji wa Tor onion service's."

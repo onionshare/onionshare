@@ -6,48 +6,63 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-01-17 10:28-0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2023-04-20 11:51+0000\n"
+"Last-Translator: Zaituni Njovu <zaitunimbii@gmail.com>\n"
 "Language-Team: none\n"
 "Language: sw\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.18-dev\n"
 
 #: ../../source/help.rst:2
 msgid "Getting Help"
-msgstr ""
+msgstr "Kupata msaada"
 
 #: ../../source/help.rst:5
 msgid "Read This Website"
-msgstr ""
+msgstr "Soma Tovuti hii"
 
 #: ../../source/help.rst:7
 msgid "You will find instructions on how to use OnionShare. Look through all of the sections first to see if anything answers your questions."
 msgstr ""
+"Utapata maelezo namna ya kutumia OnionShare. Angalia maeneo yote kwanza "
+"kuona kama kuna kinachojibu maswali yako."
 
 #: ../../source/help.rst:10
 msgid "Check the GitHub Issues"
-msgstr ""
+msgstr "Angalia misingi ya GitHub"
 
 #: ../../source/help.rst:12
 msgid "If it isn't on the website, please check the `GitHub issues <https://github.com/onionshare/onionshare/issues>`_. It's possible someone else has encountered the same problem and either raised it with the developers, or maybe even posted a solution."
 msgstr ""
+"Kama ipo katika tovuti tafadhali chagua `GitHub issues <https://github.com/"
+"onionshare/onionshare/issues>`_. kuna uwezekano pia kuna mtu amekutana na "
+"tatizo hilohilo na labda kawajulisha watengenezaji , au pia labda walituma "
+"suluhusho."
 
 #: ../../source/help.rst:15
 msgid "Submit an Issue Yourself"
-msgstr ""
+msgstr "Wasilisha tatizo wewe mwenyewe"
 
 #: ../../source/help.rst:17
 msgid "If you are unable to find a solution, or wish to ask a question or suggest a new feature, please `submit an issue <https://github.com/onionshare/onionshare/issues/new>`_. This requires `creating a GitHub account <https://help.github.com/articles/signing-up-for-a-new-github-account/>`_."
 msgstr ""
+"Kama huwezi kupata suluhisho, au ungependa kuuliza swali au kupendekeza "
+"kipengele kipya, tafadhali`wasilisha swala lako <https://github.com/"
+"onionshare/onionshare/issues/new>`_. Hii inahitaji `kutengeneza akaunti ya "
+"GitHub <https://help.github.com/articles/signing-up-for-a-new-github-account/"
+">`_."
 
 #: ../../source/help.rst:20
 msgid "Join our Keybase Team"
-msgstr ""
+msgstr "Ungana na kikosi chetu cha washirika"
 
 #: ../../source/help.rst:22
 msgid "See :ref:`collaborating` on how to join the Keybase team used to discuss the project."
 msgstr ""
+"Rejea:`Kushirikiana` kuhusu namna ya kuungana na kikosi cha washiriki "
+"waliokuwa wanajadili mradi."
