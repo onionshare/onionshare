@@ -1,0 +1,31 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) Micah Lee, et al.
+# This file is distributed under the same license as the OnionShare package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OnionShare 2.6\n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
+"POT-Creation-Date: 2022-10-02 16:17-0700\n"
+"PO-Revision-Date: 2022-12-07 23:55+0000\n"
+"Last-Translator: Cyndaquissshhh <iversonbriones123@gmail.com>\n"
+"Language-Team: none\n"
+"Language: fil\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1 && n != 2 && n != 3 && (n % 10 == 4 "
+"|| n % 10 == 6 || n % 10 == 9);\n"
+"X-Generator: Weblate 4.15-dev\n"
+
+#: ../../source/index.rst:2
+msgid "OnionShare's documentation"
+msgstr "Dokumentasyon ng OnionShare"
+
+#: ../../source/index.rst:6
+msgid "OnionShare is an open source tool that lets you securely and anonymously share files, host websites, and chat with friends using the Tor network."
+msgstr ""
+"Ang OnionShare ay isang open source na kagamitan para ligtas at anonymous na "
+"magbahagi ng file, magpatakbo ng mga website, at makipag-usap sa mga "
+"kaibigan gamit ang network ng Tor."

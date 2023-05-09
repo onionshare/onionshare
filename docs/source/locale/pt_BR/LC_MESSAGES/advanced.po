@@ -8,14 +8,16 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-10-02 16:17-0700\n"
-"PO-Revision-Date: 2021-12-02 14:52+0000\n"
-"Last-Translator: Venilson Carneiro <venilsoncarneiro@pm.me>\n"
-"Language: pt_BR\n"
+"PO-Revision-Date: 2023-04-02 13:40+0000\n"
+"Last-Translator: Translator51 <Translator51@users.noreply.hosted.weblate.org>"
+"\n"
 "Language-Team: pt_BR <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.17-dev\n"
 "Generated-By: Babel 2.10.3\n"
 
 #: ../../source/advanced.rst:2
@@ -48,14 +50,12 @@ msgid ""
 msgstr ""
 
 #: ../../source/advanced.rst:19
-#, fuzzy
 msgid ""
 "If you save a tab, a copy of its onion service secret key is stored on "
 "your computer."
 msgstr ""
-"Se você salvar uma ama, uma cópia da chave secreta do serviço onion dessa"
-" aba será armazenada no seu computador com as suas configurações "
-"OnionShare."
+"Se você salvar uma aba, uma cópia da chave secreta do serviço onion dessa "
+"aba será armazenada no seu computador com as suas configurações OnionShare."
 
 #: ../../source/advanced.rst:24
 msgid "Turn Off Private Key"
@@ -77,32 +77,30 @@ msgid ""
 msgstr ""
 
 #: ../../source/advanced.rst:31
-#, fuzzy
 msgid ""
 "To turn off the private key for any tab, check the \"This is a public "
 "OnionShare service (disables private key)\" box before starting the "
 "server. Then the server will be public and a private key is not needed to"
 " load it in the Tor Browser."
 msgstr ""
-"Para desligar a chave privada para qualquer aba, marque a caixa \"Este é "
-"um serviço público OnionShare (desativa a chave privada)\" antes de "
-"iniciar o servidor. Então o servidor será público e não precisará de uma "
-"chave privada para visualizar no Tor Browser."
+"Para desligar a chave privada para qualquer aba, marque a caixa \"Este é um "
+"serviço público OnionShare (desativa a chave privada)\" antes de iniciar o "
+"servidor. Então o servidor será público e não precisará de uma chave privada "
+"para visualizar no Navegador Tor."
 
 #: ../../source/advanced.rst:37
 msgid "Custom Titles"
 msgstr "Títulos Personalizados"
 
 #: ../../source/advanced.rst:39
-#, fuzzy
 msgid ""
 "When people load OnionShare services in the Tor Browser they see the "
 "default title for each type of service. For example, the default title "
 "for chat services is \"OnionShare Chat\"."
 msgstr ""
-"Por padrão, quando as pessoas carregam um serviço OnionShare no Tor "
-"Browser elas vêem o título padrão para o tipo de serviço. Por exemplo, o "
-"título padrão de um serviço de bate-papo é \"OnionShare Chat\"."
+"Por padrão, quando as pessoas carregam serviços OnionShare no Navegador Tor "
+"elas veem o título padrão para cada tipo de serviço. Por exemplo, o título "
+"padrão de serviços de bate-papo é \"OnionShare Chat\"."
 
 #: ../../source/advanced.rst:42
 #, fuzzy
@@ -701,4 +699,3 @@ msgstr ""
 #~ " o servidor. Quando uma aba é "
 #~ "salva um alfinete roxo aparece à "
 #~ "esquerda do status de seu servidor."
-

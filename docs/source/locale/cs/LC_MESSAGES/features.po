@@ -6,39 +6,49 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-01-17 10:28-0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2023-01-25 18:49+0000\n"
+"Last-Translator: Toro <ads.verifications@pm.me>\n"
 "Language-Team: none\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Weblate 4.16-dev\n"
 
 #: ../../source/features.rst:4
 msgid "How OnionShare Works"
-msgstr ""
+msgstr "Jak OnionShare funguje"
 
 #: ../../source/features.rst:6
 msgid "Web servers are started locally on your computer and made accessible to other people as `Tor <https://www.torproject.org/>`_ `onion services <https://community.torproject.org/onion-services/>`_."
 msgstr ""
+"Webové servery jsou souštěny lokálně na vašem počítači a jsou zpřístupněny "
+"ostatním lidem jako `Tor <https://www.torproject.org/>`_ `onion services "
+"<https://community.torproject.org/onion-services/>`_."
 
 #: ../../source/features.rst:8
 msgid "By default, OnionShare web addresses are protected with a private key."
 msgstr ""
+"Ve výchozím stavu jsou webové adresy OnionShare chráněny soukromým klíčem."
 
 #: ../../source/features.rst:10
 msgid "OnionShare addresses look something like this::"
-msgstr ""
+msgstr "OnionShare adresy mohou vypadat takto::"
 
 #: ../../source/features.rst:14
 msgid "And private keys might look something like this::"
-msgstr ""
+msgstr "A soukromé klíče například takto::"
 
 #: ../../source/features.rst:18
 msgid "You're responsible for securely sharing that URL and private key using a communication channel of your choice like in an encrypted chat message, or using something less secure like unencrypted email, depending on your `threat model <https://ssd.eff.org/module/your-security-plan>`_."
 msgstr ""
+"Jste zodpovědný za bezpečné sdílení této adresy a soukromého klíče skrze "
+"vámi zvolené komunikační kanály, ať už se jedná o šifrovaný chat, či méně "
+"bezpečné alternativy, kupříkladu email, v závislosti na vašem `threat modelu "
+"<https://ssd.eff.org/module/your-security-plan>`_."
 
 #: ../../source/features.rst:20
 msgid "The people you send the URL to then copy and paste it into their `Tor Browser <https://www.torproject.org/>`_ to access the OnionShare service. Tor Browser will then prompt for the private key, which the people can also then copy and paste in."

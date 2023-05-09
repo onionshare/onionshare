@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-07-04 17:16-0400\n"
-"PO-Revision-Date: 2022-01-20 11:57+0000\n"
-"Last-Translator: albanobattistella <albano_battistella@hotmail.com>\n"
-"Language: it\n"
+"PO-Revision-Date: 2023-02-28 18:46+0000\n"
+"Last-Translator: Gabriele <gabboxl0@gmail.com>\n"
 "Language-Team: it <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.16-rc\n"
 "Generated-By: Babel 2.10.3\n"
 
 #: ../../source/tor.rst:2
@@ -27,6 +28,8 @@ msgid ""
 "When OnionShare starts, it will show you a screen asking you to connect "
 "to the Tor network."
 msgstr ""
+"Quando OnionShare si avvia ti mostrerà una schermata chiedendoti di "
+"connetterti alla rete Tor."
 
 #: ../../source/tor.rst:8
 msgid ""
@@ -45,12 +48,17 @@ msgid ""
 "your access to the Tor network, this should hopefully work the first "
 "time."
 msgstr ""
+"Puoi cliccare \"Connetti a Tor\" per avviare il processo di connessione. Se "
+"non sono presenti problemi con la tua rete, inclusi tentativi di blocco "
+"all'accesso alla rete Tor, dovrebbe funzionare al primo tentativo."
 
 #: ../../source/tor.rst:13
 msgid ""
 "Or, if you want to manually configure Bridges or other Tor settings "
 "before you connect, you can click \"Network Settings\"."
 msgstr ""
+"Oppure se vuoi configurare manualmente i bridge o altre impostazioni Tor "
+"prima della connessione, clicca su \"Impostazioni di rete\"."
 
 #: ../../source/tor.rst:16
 msgid "Automatic censorship circumvention"
@@ -62,22 +70,26 @@ msgid ""
 "might be because Tor is censored in your country or on your local "
 "network."
 msgstr ""
+"Se OnionShare non riesce a connettersi quando clicchi \"Connetti a Tor\", "
+"Tor potrebbe essere censurato nel tuo paese o nella tua rete locale."
 
 #: ../../source/tor.rst:20
 msgid "If this occurs, you will have these choices:"
-msgstr ""
+msgstr "Se ciò accade, hai a disposizione le seguenti scelte:"
 
 #: ../../source/tor.rst:22
 msgid "Try again without a bridge"
-msgstr ""
+msgstr "Riprova senza bridge"
 
 #: ../../source/tor.rst:23
 msgid "Automatically determine my country from my IP address for bridge settings"
 msgstr ""
+"Determina automaticamente il mio paese dal mio indirizzo IP per le "
+"impostazioni di bridge"
 
 #: ../../source/tor.rst:24
 msgid "Manually select my country for bridge settings"
-msgstr ""
+msgstr "Seleziona manualmente il mio paese per le impostazioni di bridge"
 
 #: ../../source/tor.rst:28
 msgid ""
@@ -85,6 +97,8 @@ msgid ""
 "retry connecting to Tor like normal, without attempting to bypass "
 "censorship."
 msgstr ""
+"Se scegli l'opzione \"Riprova senza bridge\", OnionShare riproverà a "
+"connettersi a Tor normalmente senza tentare di aggirare la censura."
 
 #: ../../source/tor.rst:30
 msgid ""
@@ -116,6 +130,9 @@ msgid ""
 "Censorship API will find the bridges that suit the country that you "
 "specified."
 msgstr ""
+"Se scegli \"Seleziona manualmente il mio paese per le impostazioni di "
+"bridge\", la \"Censorship API\" troverà dei bridge che potranno essere "
+"adatti al paese che hai scelto."
 
 #: ../../source/tor.rst:46
 msgid "How automatic censorship circumvention works"
@@ -164,7 +181,7 @@ msgstr ""
 
 #: ../../source/tor.rst:59
 msgid "Manually configure Tor settings"
-msgstr ""
+msgstr "Configura manualmente le impostazioni Tor"
 
 #: ../../source/tor.rst:61
 msgid ""
@@ -207,7 +224,7 @@ msgstr ""
 
 #: ../../source/tor.rst:76
 msgid "**Using bridges**"
-msgstr ""
+msgstr "**Bridge in uso**"
 
 #: ../../source/tor.rst:78
 #, fuzzy
@@ -730,4 +747,3 @@ msgstr ""
 #~ "manual.torproject.org/bridges/>`_. Se OnionShare si"
 #~ " connette a Tor senza uno, non "
 #~ "è necessario utilizzare un bridge."
-

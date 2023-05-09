@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2020-12-13 15:48-0800\n"
-"PO-Revision-Date: 2020-10-12 15:26+0000\n"
-"Last-Translator: marklin0913da248e4cdada422a <marklin0913@protonmail.com>"
-"\n"
-"Language: zh_TW\n"
+"PO-Revision-Date: 2023-04-13 06:53+0000\n"
+"Last-Translator: jxt <chihsun.tsai@gmail.com>\n"
 "Language-Team: zh_TW <LL@li.org>\n"
-"Plural-Forms: nplurals=1; plural=0\n"
+"Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.17-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/install.rst:2
@@ -24,9 +24,8 @@ msgid "Installation"
 msgstr "安裝"
 
 #: ../../source/install.rst:5
-#, fuzzy
 msgid "Windows or macOS"
-msgstr "安裝到Windows或是macOS"
+msgstr "安裝到 Windows 或是 macOS"
 
 #: ../../source/install.rst:7
 msgid ""
@@ -61,6 +60,8 @@ msgid ""
 "**Install OnionShare using Flatpak**: "
 "https://flathub.org/apps/details/org.onionshare.OnionShare"
 msgstr ""
+"**利用 Flatpak 安裝 OnionShare**: https://flathub.org/apps/details/org."
+"onionshare.OnionShare"
 
 #: ../../source/install.rst:21
 msgid "**Install OnionShare using Snap**: https://snapcraft.io/onionshare"
@@ -71,10 +72,12 @@ msgid ""
 "You can also download and install PGP-signed ``.flatpak`` or ``.snap`` "
 "packages from https://onionshare.org/dist/ if you prefer."
 msgstr ""
+"從 https://onionshare.org/dist/ 下載和安裝 PGP-簽署的 ``.flatpak`` 或 ``."
+"snap`` 套件。"
 
 #: ../../source/install.rst:28
 msgid "Verifying PGP signatures"
-msgstr ""
+msgstr "驗證 PGP 簽名"
 
 #: ../../source/install.rst:30
 msgid ""
@@ -84,10 +87,13 @@ msgid ""
 "binaries include operating system-specific signatures, and you can just "
 "rely on those alone if you'd like."
 msgstr ""
+"您可以利用它的PGP 簽名來驗證所下載的套件是否正統沒有遭到竄改。Windows 與 "
+"macOS 底下，這個步驟可跳過，它們提供深度防禦: OnionShare "
+"二進制包含了作業系統特定的簽署可依賴。"
 
 #: ../../source/install.rst:34
 msgid "Signing key"
-msgstr ""
+msgstr "簽署密鑰"
 
 #: ../../source/install.rst:36
 msgid ""
@@ -97,6 +103,10 @@ msgid ""
 "<https://keys.openpgp.org/vks/v1/by-"
 "fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 msgstr ""
+"套件由核心開發人員 Micah Lee 的 PGP 公鑰簽署，其指紋識別碼為 "
+"``927F419D7EC82C2F149C1BD1403C2657CD994F73``。您可從密鑰伺服器 "
+"keys.openpgp.org 下載 Micah 的公鑰<https://keys.openpgp.org/vks/v1/"
+"by-fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 
 #: ../../source/install.rst:38
 msgid ""
@@ -104,10 +114,13 @@ msgid ""
 "probably want `GPGTools <https://gpgtools.org/>`_, and for Windows you "
 "probably want `Gpg4win <https://www.gpg4win.org/>`_."
 msgstr ""
+"必須安裝 GnuPG 才能驗證簽名， macOS 系統可能需要透過 `GPGTools "
+"<https://gpgtools.org/>`_, 而 Windows 則是 `Gpg4win <https://www.gpg4win.org/"
+">`_."
 
 #: ../../source/install.rst:41
 msgid "Signatures"
-msgstr ""
+msgstr "簽名"
 
 #: ../../source/install.rst:43
 msgid ""
@@ -117,6 +130,10 @@ msgid ""
 "OnionShare. You can also find them on the `GitHub Releases page "
 "<https://github.com/micahflee/onionshare/releases>`_."
 msgstr ""
+"找到簽名(像 ``.asc`` 檔案) 以及 Windows, macOS, Flatpak, Snap 和套件 "
+"https://onionshare.org/dist/ 資料夾依 OnionShare 各版本命名。`GitHub "
+"Releases page <https://github.com/micahflee/onionshare/"
+"releases>`_也有這些檔案。"
 
 #: ../../source/install.rst:47
 msgid "Verifying"
@@ -127,15 +144,16 @@ msgid ""
 "Once you have imported Micah's public key into your GnuPG keychain, "
 "downloaded the binary and and ``.asc`` signature, you can verify the "
 "binary for macOS in a terminal like this::"
-msgstr ""
+msgstr "一旦滙入 Micah 公鑰到 GniPG 密鑰鏈，下載二進制的``.asc`` 簽名，macOS "
+"終端機驗證二進的方式如下::"
 
 #: ../../source/install.rst:53
 msgid "Or for Windows, in a command-prompt like this::"
-msgstr ""
+msgstr "或者在 Windows 命令列指像這樣::"
 
 #: ../../source/install.rst:57
 msgid "The expected output looks like this::"
-msgstr ""
+msgstr "預期的結果像這樣::"
 
 #: ../../source/install.rst:69
 msgid ""
@@ -153,6 +171,9 @@ msgid ""
 " the `Tor Project <https://support.torproject.org/tbb/how-to-verify-"
 "signature/>`_ may be useful."
 msgstr ""
+"想多了解 PGP 簽署驗證， `Qubes OS 指南 <https://www.qubes-os.org/security/"
+"verifying-signatures/>`_ 以及 `Tor Project <https://support.torproject.org/"
+"tbb/how-to-verify-signature/>`_ 可參考。"
 
 #~ msgid "For added security, see :ref:`verifying_sigs`."
 #~ msgstr "增加安全性，請看:ref:`verifying_sigs`。"
@@ -333,4 +354,3 @@ msgstr ""
 #~ "Project <https://support.torproject.org/tbb/how-to-"
 #~ "verify-signature/>`_ may be helpful."
 #~ msgstr ""
-

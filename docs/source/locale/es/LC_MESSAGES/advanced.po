@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-10-02 16:17-0700\n"
-"PO-Revision-Date: 2022-08-28 18:21+0000\n"
+"PO-Revision-Date: 2022-10-21 15:07+0000\n"
 "Last-Translator: eulalio <eulalio@disroot.org>\n"
-"Language: es\n"
 "Language-Team: none\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.14.2-dev\n"
 "Generated-By: Babel 2.10.3\n"
 
 #: ../../source/advanced.rst:2
@@ -32,12 +33,19 @@ msgid ""
 "Persistently hosted websites are available on the same address even if "
 "the computer they are shared from is rebooted."
 msgstr ""
+"Al cerrar las pestañas de OnionShare que alojas, se destruyen y se impide su "
+"reutilización. Los sitios web alojados de forma persistente están "
+"disponibles en la misma dirección incluso si se reinicia el ordenador desde "
+"el que se comparten."
 
 #: ../../source/advanced.rst:12
 msgid ""
 "Make any tab persistent by checking the \"Always open this tab when "
 "OnionShare is started\" box before starting your server."
 msgstr ""
+"Se hace cualquier pestaña persistente al cliquear en la casilla \"Abrir "
+"siempre esta pestaña cuando se inicie OnionShare\" antes de iniciar tu "
+"servidor."
 
 #: ../../source/advanced.rst:16
 msgid ""
@@ -230,17 +238,19 @@ msgstr ""
 
 #: ../../source/advanced.rst:151
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Atajos de teclado"
 
 #: ../../source/advanced.rst:153
 msgid ""
 "The OnionShare desktop application contains some keyboard shortcuts, for "
 "convenience and accessibility::"
 msgstr ""
+"La aplicación de escritorio OnionShare contiene algunos atajos de teclado, "
+"para mayor comodidad y accesibilidad::"
 
 #: ../../source/advanced.rst:158
 msgid "And from the main mode chooser screen::"
-msgstr ""
+msgstr "Y desde la pantalla principal del selector de modo::"
 
 #~ msgid ""
 #~ "By default, everything in OnionShare is"
@@ -640,4 +650,3 @@ msgstr ""
 #~ " un ícono púrpura de un pin "
 #~ "aparece a la izquierda del estado "
 #~ "de su servidor."
-
