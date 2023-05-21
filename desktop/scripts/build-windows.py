@@ -324,7 +324,7 @@ def cleanup_build():
     build_path = os.path.join(desktop_dir, "build", "exe.win-amd64-3.10")
     before_size = get_size(build_path)
 
-    for dirname in ["examples", "qml"]:
+    for dirname in ["qml"]:
         shutil.rmtree(os.path.join(build_path, "lib", "PySide6", dirname))
     for dirname in [
         "assetimporters",
