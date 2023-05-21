@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-03-31 16:26+1100\n"
-"PO-Revision-Date: 2022-02-15 13:55+0000\n"
-"Last-Translator: aezjrareareare <jeromechaland@riseup.net>\n"
-"Language: fr\n"
+"PO-Revision-Date: 2023-01-15 16:48+0000\n"
+"Last-Translator: tachyglossues <tachyglossues@gmail.com>\n"
 "Language-Team: none\n"
-"Plural-Forms: nplurals=2; plural=n > 1\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.15.1-dev\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: ../../source/install.rst:2
@@ -39,7 +40,6 @@ msgid "Linux"
 msgstr "Linux"
 
 #: ../../source/install.rst:14
-#, fuzzy
 msgid ""
 "There are various ways to install OnionShare for Linux, but the "
 "recommended way is to use either the `Flatpak <https://flatpak.org/>`_ or"
@@ -47,22 +47,21 @@ msgid ""
 "ensure that you'll always use the newest version and run OnionShare "
 "inside of a sandbox."
 msgstr ""
-"Il y a plusieurs façons d'installer OnionShare sur Linux, mais la méthode"
-" recommendée est le paquet `Flatpak <https://flatpak.org/>`_ ou `Snap "
-"<https://snapcraft.io/>`_. Flatpak et Snap vous assure de toujours avoir "
-"la dernière version d'OnionShare et executé dans un bac à sable "
-"(sandbox)."
+"Il existe plusieurs façons d'installer OnionShare pour Linux, mais la "
+"méthode recommandée est d'utiliser soit le paquet `Flatpak <https://flatpak."
+"org/>`_ soit le paquet `Snap <https://snapcraft.io/>`_. Flatpak et Snapcraft "
+"garantissent que vous utiliserez toujours la version la plus récente et que "
+"vous exécuterez OnionShare à l'intérieur d'un bac à sable."
 
 #: ../../source/install.rst:17
-#, fuzzy
 msgid ""
 "Snapcraft support is built-in to Ubuntu and Fedora comes with Flatpak "
 "support, but which you use is up to you. Both work in all Linux "
 "distributions."
 msgstr ""
-"Snap est supporté de manière native dans Ubuntu et Fedora intègre "
-"Flatpak, mais c'est à vous de décider lequel vous souhaitez utiliser. Les"
-" deux marchent sur toutes les distributions Linux."
+"La prise en charge de Snapcraft est intégrée à Ubuntu et Fedora est fournie "
+"avec la prise en charge de Flatpak, mais c'est à vous de choisir. Les deux "
+"fonctionnent dans toutes les distributions Linux."
 
 #: ../../source/install.rst:19
 msgid ""
@@ -73,11 +72,9 @@ msgstr ""
 "https://flathub.org/apps/details/org.onionshare.OnionShare"
 
 #: ../../source/install.rst:21
-#, fuzzy
 msgid "**Install OnionShare using Snapcraft**: https://snapcraft.io/onionshare"
 msgstr ""
-"**Installer OnionShare en utilisant Snap** : "
-"https://snapcraft.io/onionshare"
+"**Installer OnionShare en utilisant Snap** : https://snapcraft.io/onionshare"
 
 #: ../../source/install.rst:23
 msgid ""
@@ -437,4 +434,3 @@ msgstr ""
 #~ "means you haven't defined a level "
 #~ "of \"trust\" of Micah's PGP key.)"
 #~ msgstr ""
-

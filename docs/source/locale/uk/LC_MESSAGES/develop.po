@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2021-09-09 19:15-0700\n"
-"PO-Revision-Date: 2022-01-21 18:55+0000\n"
+"PO-Revision-Date: 2023-04-23 12:52+0000\n"
 "Last-Translator: Ihor Hordiichuk <igor_ck@outlook.com>\n"
 "Language-Team: none\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.11-dev\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.18-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/develop.rst:2
@@ -126,7 +126,7 @@ msgstr ""
 
 #: ../../source/develop.rst:35
 msgid "Debugging tips"
-msgstr "Поради щодо зневадження"
+msgstr "Поради щодо налагодження"
 
 #: ../../source/develop.rst:38
 msgid "Verbose mode"
@@ -142,17 +142,16 @@ msgid ""
 msgstr ""
 "Під час розробки зручно запустити OnionShare з термінала та додати до "
 "команди прапор ``--verbose`` (або ``-v``). До термінала виводитиметься "
-"багато корисних повідомлень, наприклад, про ініціалізацію певних "
-"об'єктів, про події (наприклад, натискання кнопок, збереження або "
-"перезавантаження параметрів) та інші подробиці для зневаджування. "
-"Наприклад::"
+"багато корисних повідомлень, наприклад, про ініціалізацію певних об'єктів, "
+"про події (наприклад, натискання кнопок, збереження або перезавантаження "
+"параметрів) та інші подробиці для налагодження. Наприклад::"
 
 #: ../../source/develop.rst:117
 msgid ""
 "You can add your own debug messages by running the ``Common.log`` method "
 "from ``onionshare/common.py``. For example::"
 msgstr ""
-"Ви можете додати власні повідомлення про зневадження, запустивши метод "
+"Ви можете додати власні повідомлення про налагодження, запустивши метод "
 "``Common.log`` з ``onionshare/common.py``. Наприклад::"
 
 #: ../../source/develop.rst:121

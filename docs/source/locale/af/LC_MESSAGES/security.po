@@ -6,31 +6,34 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-01-17 10:28-0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2022-10-19 10:07+0000\n"
+"Last-Translator: Gideon Wentink <gjwentink@gmail.com>\n"
 "Language-Team: none\n"
 "Language: af\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.14.2-dev\n"
 
 #: ../../source/security.rst:2
 msgid "Security Design"
-msgstr ""
+msgstr "Beveiligingsontwerp"
 
 #: ../../source/security.rst:4
 msgid "Read :ref:`how_it_works` first to get a handle on how OnionShare works."
 msgstr ""
+"Lees eers :ref: `how_it_works` om ’n idee te kry oor hoe OnionShare werk."
 
 #: ../../source/security.rst:6
 msgid "Like all software, OnionShare may contain bugs or vulnerabilities."
-msgstr ""
+msgstr "Soos alle programmatuur kan OnionShare goggas of kwesbaarhede bevat."
 
 #: ../../source/security.rst:9
 msgid "What OnionShare protects against"
-msgstr ""
+msgstr "Waarteen OnionShare beskerm"
 
 #: ../../source/security.rst:11
 msgid "**Third parties don't have access to anything that happens in OnionShare.** Using OnionShare means hosting services directly on your computer. When sharing files with OnionShare, they are not uploaded to any server. If you make an OnionShare chat room, your computer acts as a server for that too. This avoids the traditional model of having to trust the computers of others."
@@ -39,10 +42,22 @@ msgstr ""
 #: ../../source/security.rst:13
 msgid "**Network eavesdroppers can't spy on anything that happens in OnionShare in transit.** The connection between the Tor onion service and Tor Browser is end-to-end encrypted. This means network attackers can't eavesdrop on anything except encrypted Tor traffic. Even if an eavesdropper is a malicious rendezvous node used to connect the Tor Browser with OnionShare's onion service, the traffic is encrypted using the onion service's private key."
 msgstr ""
+"**Netwerk-afluisteraars kan nie spioeneer op enigiets wat onderweg in "
+"OnionShare gebeur nie.** Die verbinding tussen die Tor-oniondiens en Tor "
+"Browser is eind-tot-eind geënkripteer. Dit beteken dat netwerkaanvallers "
+"niks kan afluister nie behalwe geënkripteerde Tor-verkeer. Selfs as ’n "
+"afluisteraar ’n kwaadwillige rendezvous-knooppunt is wat gebruik word om die "
+"Tor Browser met die oniondiens van OnionShare te verbind, word die verkeer "
+"met die oniondiens se privaat sleutel geënkripteer."
 
 #: ../../source/security.rst:15
 msgid "**Anonymity of OnionShare users are protected by Tor.** OnionShare and Tor Browser protect the anonymity of the users. As long as the OnionShare user anonymously communicates the OnionShare address with the Tor Browser users, the Tor Browser users and eavesdroppers can't learn the identity of the OnionShare user."
 msgstr ""
+"**Anonimiteit van OnionShare-gebruikers word beskerm deur Tor.** OnionShare "
+"en die Tor Browser beskerm die anonimiteit van gebruikers. Solank die "
+"OnionShare-gebruiker die OnionShare-adres anoniem met Tor Browser-gebruikers "
+"kommunikeer, kan Tor Browser-gebruikers en afluisteraars nie die identiteit "
+"van die OnionShare-gebruiker nie agterhaal nie."
 
 #: ../../source/security.rst:17
 msgid "**If an attacker learns about the onion service, it still can't access anything.** Prior attacks against the Tor network to enumerate onion services allowed the attacker to discover private ``.onion`` addresses. If an attack discovers a private OnionShare address, they will also need to guess the private key used for client authentication in order to access it (unless the OnionShare user chooses make their service public by turning off the private key -- see :ref:`turn_off_private_key`)."
@@ -50,7 +65,7 @@ msgstr ""
 
 #: ../../source/security.rst:20
 msgid "What OnionShare doesn't protect against"
-msgstr ""
+msgstr "Waarteen OnionShare nie beskerm nie"
 
 #: ../../source/security.rst:22
 msgid "**Communicating the OnionShare address and private key might not be secure.** Communicating the OnionShare address to people is the responsibility of the OnionShare user. If sent insecurely (such as through an email message monitored by an attacker), an eavesdropper can tell that OnionShare is being used. If the eavesdropper loads the address in Tor Browser while the service is still up, they can access it. To avoid this, the address must be communicated securely, via encrypted text message (probably with disappearing messages enabled), encrypted email, or in person. This isn't necessary when using OnionShare for something that isn't secret."
