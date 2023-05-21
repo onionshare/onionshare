@@ -8,30 +8,13 @@ import shutil
 import subprocess
 import requests
 import click
+import tempfile
+import gnupg
 
-torbrowser_version = "12.0"
-expected_win32_sha256 = (
-    "a9cc0f0af2ce8ca0d7a27d65c7efa37f6419cfc793fa80371e7db73d44b4cc02"
+torbrowser_latest_url = (
+    "https://aus1.torproject.org/torbrowser/update_3/release/downloads.json"
 )
-expected_win64_sha256 = (
-    "f496cc0219c8b73f1f100124d6514bad55f503ff76202747f23620a6677e83c2"
-)
-expected_macos_sha256 = (
-    "11c8360187356e6c0837612a320f1a117303fc449602c9fd73f4faf9f9bbcfc9"
-)
-expected_linux64_sha256 = (
-    "850ce601d815bac63e4f5937646d2b497173be28b27b30a7526ebb946a459874"
-)
-
-win32_filename = f"torbrowser-install-{torbrowser_version}_ALL.exe"
-win32_url = f"https://dist.torproject.org/torbrowser/{torbrowser_version}/{win32_filename}"
-win64_filename = f"torbrowser-install-win64-{torbrowser_version}_ALL.exe"
-win64_url = f"https://dist.torproject.org/torbrowser/{torbrowser_version}/{win64_filename}"
-macos_filename = f"TorBrowser-{torbrowser_version}-macos_ALL.dmg"
-macos_url = f"https://dist.torproject.org/torbrowser/{torbrowser_version}/{macos_filename}"
-linux64_filename = f"tor-browser-linux64-{torbrowser_version}_ALL.tar.xz"
-linux64_url = f"https://dist.torproject.org/torbrowser/{torbrowser_version}/{linux64_filename}"
-
+tor_dev_fingerprint = "EF6E286DDA85EA2A4BA7DE684E2C6E8793298290"
 
 # Common paths
 root_path = os.path.dirname(
@@ -40,27 +23,25 @@ root_path = os.path.dirname(
 working_path = os.path.join(root_path, "build", "tor")
 
 
-def get_tor_windows(platform):
-    if platform == "win32":
-        win_url = win32_url
-        win_filename = win32_filename
-        expected_win_sha256 = expected_win32_sha256
-        bin_filenames = [
-            "tor.exe"
-        ]
-    elif platform == "win64":
-        win_url = win64_url
-        win_filename = win64_filename
-        expected_win_sha256 = expected_win64_sha256
-        bin_filenames = [
-            "tor.exe"
-        ]
-    else:
-        click.echo("invalid platform")
-        return
+def get_latest_tor_version_urls(platform):
+    r = requests.get(torbrowser_latest_url)
+    if r.status_code != 200 or platform not in r.json()["downloads"]:
+        print("Tor browser latest version url not working")
+        sys.exit(-1)
+
+    platform_url = r.json()["downloads"][platform]["ALL"]["binary"]
+    platform_sig_url = r.json()["downloads"][platform]["ALL"]["sig"]
+    platform_filename = platform_url.split("/")[-1]
+
+    return platform_url, platform_filename, platform_sig_url
+
+
+def get_tor_windows(gpg, torkey, win_url, win_filename, expected_win_sig):
+    bin_filenames = ["tor.exe"]
 
     # Build paths
     win_path = os.path.join(working_path, win_filename)
+    win_sig_path = os.path.join(working_path, f"{win_filename}.asc")
     dist_path = os.path.join(root_path, "onionshare", "resources", "tor")
 
     # Make sure the working folder exists
@@ -72,18 +53,21 @@ def get_tor_windows(platform):
         print("Downloading {}".format(win_url))
         r = requests.get(win_url)
         open(win_path, "wb").write(r.content)
-        win_sha256 = hashlib.sha256(r.content).hexdigest()
-    else:
-        print("Already downloaded: {}".format(win_path))
-        win_data = open(win_path, "rb").read()
-        win_sha256 = hashlib.sha256(win_data).hexdigest()
 
-    # Compare the hash
-    if win_sha256 != expected_win_sha256:
-        print("ERROR! The sha256 doesn't match:")
-        print("expected: {}".format(expected_win32_sha256))
-        print("  actual: {}".format(win_sha256))
+    # Make sure Tor Browser signature is downloaded
+    if not os.path.exists(win_sig_path):
+        print("Downloading {}".format(expected_win_sig))
+        r = requests.get(expected_win_sig)
+        open(win_sig_path, "wb").write(r.content)
+
+    # Verify the signature
+    sig_stream = open(win_sig_path, "rb")
+    verified = gpg.verify_file(sig_stream, win_path)
+    if not verified.valid or verified.pubkey_fingerprint != tor_dev_fingerprint:
+        print("ERROR! The tarball verification with the signature failed!")
         sys.exit(-1)
+
+    print("Tor Browser verification successful!")
 
     # Extract the bits we need from the exe
     subprocess.Popen(
@@ -126,12 +110,13 @@ def get_tor_windows(platform):
     update_tor_bridges()
 
 
-def get_tor_macos():
+def get_tor_macos(gpg, torkey, macos_url, macos_filename, expected_macos_sig):
     # Build paths
     dmg_tor_path = os.path.join(
         "/Volumes", "Tor Browser", "Tor Browser.app", "Contents"
     )
     dmg_path = os.path.join(working_path, macos_filename)
+    dmg_sig_path = os.path.join(working_path, f"{macos_filename}.asc")
     dist_path = os.path.join(root_path, "onionshare", "resources", "tor")
     if not os.path.exists(dist_path):
         os.makedirs(dist_path, exist_ok=True)
@@ -145,17 +130,21 @@ def get_tor_macos():
         print("Downloading {}".format(macos_url))
         r = requests.get(macos_url)
         open(dmg_path, "wb").write(r.content)
-        dmg_sha256 = hashlib.sha256(r.content).hexdigest()
-    else:
-        dmg_data = open(dmg_path, "rb").read()
-        dmg_sha256 = hashlib.sha256(dmg_data).hexdigest()
 
-    # Compare the hash
-    if dmg_sha256 != expected_macos_sha256:
-        print("ERROR! The sha256 doesn't match:")
-        print("expected: {}".format(expected_macos_sha256))
-        print("  actual: {}".format(dmg_sha256))
+    # Make sure the signature is downloaded
+    if not os.path.exists(dmg_sig_path):
+        print("Downloading {}".format(expected_macos_sig))
+        r = requests.get(expected_macos_sig)
+        open(dmg_sig_path, "wb").write(r.content)
+
+    # Verify the signature
+    sig_stream = open(dmg_sig_path, "rb")
+    verified = gpg.verify_file(sig_stream, dmg_path)
+    if not verified.valid or verified.pubkey_fingerprint != tor_dev_fingerprint:
+        print("ERROR! The tarball verification with the signature failed!")
         sys.exit(-1)
+
+    print("Tor Browser verification successful!")
 
     # Mount the dmg, copy data to the working path
     subprocess.call(["hdiutil", "attach", dmg_path])
@@ -186,9 +175,10 @@ def get_tor_macos():
     update_tor_bridges()
 
 
-def get_tor_linux64():
+def get_tor_linux64(gpg, torkey, linux64_url, linux64_filename, expected_linux64_sig):
     # Build paths
     tarball_path = os.path.join(working_path, linux64_filename)
+    tarball_sig_path = os.path.join(working_path, f"{linux64_filename}.asc")
     dist_path = os.path.join(root_path, "onionshare", "resources", "tor")
 
     # Make sure dirs exist
@@ -203,25 +193,29 @@ def get_tor_linux64():
         print("Downloading {}".format(linux64_url))
         r = requests.get(linux64_url)
         open(tarball_path, "wb").write(r.content)
-        tarball_sha256 = hashlib.sha256(r.content).hexdigest()
-    else:
-        tarball_data = open(tarball_path, "rb").read()
-        tarball_sha256 = hashlib.sha256(tarball_data).hexdigest()
 
-    # Compare the hash
-    if tarball_sha256 != expected_linux64_sha256:
-        print("ERROR! The sha256 doesn't match:")
-        print("expected: {}".format(expected_linux64_sha256))
-        print("  actual: {}".format(tarball_sha256))
+    # Make sure the signature file is downloaded
+    if not os.path.exists(tarball_sig_path):
+        print("Downloading {}".format(expected_linux64_sig))
+        r = requests.get(expected_linux64_sig)
+        open(tarball_sig_path, "wb").write(r.content)
+
+    # Verify signature
+    sig_stream = open(tarball_sig_path, "rb")
+    verified = gpg.verify_file(sig_stream, tarball_path)
+    if not verified.valid or verified.pubkey_fingerprint != tor_dev_fingerprint:
+        print("ERROR! The tarball verification with the signature failed!")
         sys.exit(-1)
 
+    print("Tor Browser verification successful!")
+
     # Delete extracted tarball, if it's there
-    shutil.rmtree(os.path.join(working_path, "tor-browser_en-US"), ignore_errors=True)
+    shutil.rmtree(os.path.join(working_path, "tor-browser"), ignore_errors=True)
 
     # Extract the tarball
     subprocess.call(["tar", "-xvf", tarball_path], cwd=working_path)
     tarball_tor_path = os.path.join(
-        working_path, "tor-browser_en-US", "Browser", "TorBrowser"
+        working_path, "tor-browser", "Browser", "TorBrowser"
     )
 
     # Copy into dist
@@ -321,16 +315,28 @@ def main(platform):
         click.echo(f"platform must be one of: {valid_platforms}")
         return
 
+    (
+        platform_url,
+        platform_filename,
+        expected_platform_sig,
+    ) = get_latest_tor_version_urls(platform)
+    tmpdir = tempfile.TemporaryDirectory()
+    gpg = gnupg.GPG(gnupghome=tmpdir.name)
+    torkey = gpg.import_keys_file(os.path.join(root_path, "scripts", "kounek7zrdx745qydx6p59t9mqjpuhdf"))
+    print(f"Imported Tor GPG key: {torkey.fingerprints}")
+
     if platform == "win32":
-        get_tor_windows(platform)
+        get_tor_windows(gpg, torkey, platform_url, platform_filename, expected_platform_sig)
     elif platform == "win64":
-        get_tor_windows(platform)
+        get_tor_windows(gpg, torkey, platform_url, platform_filename, expected_platform_sig)
     elif platform == "macos":
-        get_tor_macos()
+        get_tor_macos(gpg, torkey, platform_url, platform_filename, expected_platform_sig)
     elif platform == "linux64":
-        get_tor_linux64()
+        get_tor_linux64(gpg, torkey, platform_url, platform_filename, expected_platform_sig)
     else:
         click.echo("invalid platform")
+
+    tmpdir.cleanup()
 
 
 if __name__ == "__main__":

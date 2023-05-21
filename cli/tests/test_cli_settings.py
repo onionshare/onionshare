@@ -120,7 +120,7 @@ class TestSettings:
         settings_obj.set("socks_port", "NON_INTEGER")
         assert settings_obj._settings["socks_port"] == 9050
 
-    @pytest.mark.skipif(sys.platform != "Darwin", reason="requires Darwin")
+    @pytest.mark.skipif(sys.platform != "darwin", reason="requires Darwin")
     def test_filename_darwin(self, monkeypatch, platform_darwin):
         obj = settings.Settings(common.Common())
         assert obj.filename == os.path.expanduser(

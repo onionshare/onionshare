@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import os
 import shutil
 from pkg_resources import resource_filename
-from PySide2 import QtCore, QtWidgets, QtGui
+from PySide6 import QtCore, QtWidgets, QtGui
 
 from . import strings
 from onionshare_cli.onion import (
@@ -602,7 +602,7 @@ class ToggleCheckbox(QtWidgets.QCheckBox):
         painter.setRenderHint(QtGui.QPainter.Antialiasing)
         painter.setPen(QtCore.Qt.NoPen)
         opt = QtWidgets.QStyleOptionButton()
-        opt.init(self)
+        opt.initFrom(self)
         self.initStyleOption(opt)
         s = self.style()
         s.drawControl(QtWidgets.QStyle.CE_CheckBox, opt, painter, self)
