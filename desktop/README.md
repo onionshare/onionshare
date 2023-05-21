@@ -29,7 +29,9 @@ poetry install
 
 **Linux users:** In Ubuntu you may need the `libxcb-xinerama0` package installed.
 
-**Windows users:** Download and install 7-Zip (x64) from https://7-zip.org/download.html. [Add](https://medium.com/@kevinmarkvi/how-to-add-executables-to-your-path-in-windows-5ffa4ce61a53) `C:\Program Files\7-Zip` to your path.
+**Windows users:** 
+- Download and install 7-Zip (x64) from https://7-zip.org/download.html. [Add](https://medium.com/@kevinmarkvi/how-to-add-executables-togit fethc-your-path-in-windows-5ffa4ce61a53) `C:\Program Files\7-Zip` to your path.
+- Download and install gpg4win from https://gpg4win.org/. Add `C:\Program Files (x86)\GnuPG\bin` to your path too.
 
 Download Tor Browser and extract the binaries for your platform. The platform must be `win64`, `macos`, or `linux64`.
 
