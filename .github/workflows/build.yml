@@ -1,5 +1,5 @@
 name: Build
-run-name: Build win32, win64, mac (Intel) 🚀
+run-name: Build win64, mac (Intel) 🚀
 on:
   push:
     branches:
@@ -14,8 +14,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Install python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10.11'
+
       - name: Install poetry
-        run: C:\hostedtoolcache\windows\Python\3.9.13\x64\python -m pip install poetry
+        run: C:\hostedtoolcache\windows\Python\3.10.11\x64\python -m pip install poetry
 
       - name: Restore cache - poetry
         uses: actions/cache@v3
@@ -26,8 +31,8 @@ jobs:
       - name: Install poetry dependencies
         run: |
           cd desktop
-          C:\hostedtoolcache\windows\Python\3.9.13\x64\Scripts\poetry install
-          C:\hostedtoolcache\windows\Python\3.9.13\x64\Scripts\poetry env list --full-path
+          C:\hostedtoolcache\windows\Python\3.10.11\x64\Scripts\poetry install
+          C:\hostedtoolcache\windows\Python\3.10.11\x64\Scripts\poetry env list --full-path
 
       - name: Restore cache - tor
         uses: actions/cache@v3
@@ -36,7 +41,7 @@ jobs:
           key: ${{ runner.os }}-win64-tor-${{ hashFiles('desktop/scripts/get-tor.py') }}
 
       - name: Get tor binaries from Tor Browser (64-bit)
-        run: cd desktop && C:\hostedtoolcache\windows\Python\3.9.13\x64\Scripts\poetry run python .\scripts\get-tor.py win64
+        run: cd desktop && C:\hostedtoolcache\windows\Python\3.10.11\x64\Scripts\poetry run python .\scripts\get-tor.py win64
 
       - name: Restore cache - obfs4proxy
         uses: actions/cache@v3
@@ -89,13 +94,13 @@ jobs:
       - name: Build OnionShare
         run: |
           cd desktop
-          C:\hostedtoolcache\windows\Python\3.9.13\x64\Scripts\poetry run python .\setup-freeze.py build
-          C:\hostedtoolcache\windows\Python\3.9.13\x64\Scripts\poetry run python .\scripts\build-windows.py cleanup-build
+          C:\hostedtoolcache\windows\Python\3.10.11\x64\Scripts\poetry run python .\setup-freeze.py build
+          C:\hostedtoolcache\windows\Python\3.10.11\x64\Scripts\poetry run python .\scripts\build-windows.py cleanup-build
 
       - name: Compress
         shell: pwsh
         run: |
-          mv desktop\build\exe.win-amd64-3.9\ ~\onionshare-win64
+          mv desktop\build\exe.win-amd64-3.10\ ~\onionshare-win64
           Compress-Archive -LiteralPath ~\onionshare-win64 -DestinationPath ~\onionshare-win64.zip
 
       - uses: actions/upload-artifact@v3
@@ -103,118 +108,17 @@ jobs:
           name: win64-build
           path: ~\onionshare-win64.zip
 
-  build-win32:
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v3
+  # TODO: Someday, build universal2 mac binaries. Right now it's blocked because Github Actions doesn't support
+  # M1 Mac VMs: https://github.com/actions/runner-images/issues/2187
 
-      - name: Install poetry
-        run: C:\hostedtoolcache\windows\Python\3.9.13\x86\python -m pip install poetry
-
-      - name: Restore cache - poetry
-        uses: actions/cache@v3
-        with:
-          path: ~\AppData\Local\pypoetry\Cache\virtualenvs
-          key: ${{ runner.os }}-win32-poetry-${{ hashFiles('desktop/poetry.lock') }}
-
-      - name: Install poetry dependencies
-        run: |
-          cd desktop
-          C:\hostedtoolcache\windows\Python\3.9.13\x86\Scripts\poetry install
-          C:\hostedtoolcache\windows\Python\3.9.13\x86\Scripts\poetry env list --full-path
-
-      - name: Restore cache - tor
-        uses: actions/cache@v3
-        with:
-          path: desktop\build\tor
-          key: ${{ runner.os }}-win32-tor-${{ hashFiles('desktop/scripts/get-tor.py') }}
-
-      - name: Get tor binaries from Tor Browser (32-bit)
-        run: cd desktop && C:\hostedtoolcache\windows\Python\3.9.13\x86\Scripts\poetry run python .\scripts\get-tor.py win32
-
-      - name: Install golang (32-bit)
-        shell: pwsh
-        run: |
-          cd ~\Downloads
-          Invoke-WebRequest -Uri https://go.dev/dl/go1.19.1.windows-386.msi -OutFile go1.19.1.windows-386.msi
-          msiexec.exe /i go1.19.1.windows-386.msi /quiet /L*V go-install.log
-
-      - name: Restore cache - obfs4proxy
-        uses: actions/cache@v3
-        with:
-          path: desktop\onionshare\resources\tor\obfs4proxy.exe
-          key: ${{ runner.os }}-win32-obfs4proxy-${{ hashFiles('desktop/scripts/build-pt-obfs4proxy.ps1') }}
-
-      - name: Build obfs4proxy
-        shell: pwsh
-        run: |
-          if ((Test-Path -Path 'desktop\onionshare\resources\tor\obfs4proxy.exe') -eq $True) {
-            Write-Output "obfs4proxy already built"
-          } else {
-            $env:PATH = "C:\Program Files (x86)\Go\bin\go;$env:PATH"
-            cd desktop
-            .\scripts\build-pt-obfs4proxy.ps1
-          }
-
-      - name: Restore cache - snowflake
-        uses: actions/cache@v3
-        with:
-          path: desktop\onionshare\resources\tor\snowflake-client.exe
-          key: ${{ runner.os }}-win32-snowflake-${{ hashFiles('desktop/scripts/build-pt-snowflake.ps1') }}
-
-      - name: Build snowflake
-        shell: pwsh
-        run: |
-          if ((Test-Path -Path 'desktop\onionshare\resources\tor\snowflake-client.exe') -eq $True) {
-            Write-Output "snowflake already built"
-          } else {
-            $env:PATH = "C:\Program Files (x86)\Go\bin\go;$env:PATH"
-            cd desktop
-            .\scripts\build-pt-snowflake.ps1
-          }
-
-      - name: Restore cache - meek
-        uses: actions/cache@v3
-        with:
-          path: desktop\onionshare\resources\tor\meek-client.exe
-          key: ${{ runner.os }}-win32-meek-${{ hashFiles('desktop/scripts/build-pt-meek.ps1') }}
-
-      - name: Build meek
-        shell: pwsh
-        run: |
-          if ((Test-Path -Path 'desktop\onionshare\resources\tor\meek-client.exe') -eq $True) {
-            Write-Output "meek already built"
-          } else {
-            $env:PATH = "C:\Program Files (x86)\Go\bin\go;$env:PATH"
-            cd desktop
-            .\scripts\build-pt-meek.ps1
-          }
-
-      - name: Build OnionShare
-        run: |
-          cd desktop
-          C:\hostedtoolcache\windows\Python\3.9.13\x86\Scripts\poetry run python .\setup-freeze.py build
-          C:\hostedtoolcache\windows\Python\3.9.13\x86\Scripts\poetry run python .\scripts\build-windows.py cleanup-build
-
-      - name: Compress
-        shell: pwsh
-        run: |
-          mv desktop\build\exe.win32-3.9\ ~\onionshare-win32
-          Compress-Archive -LiteralPath ~\onionshare-win32 -DestinationPath ~\onionshare-win32.zip
-
-      - uses: actions/upload-artifact@v3
-        with:
-          name: win32-build
-          path: ~\onionshare-win32.zip
-
-  build-mac:
+  build-mac-intel:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install Python 3.9.13 (Intel)
+      - name: Install Python 3.10.9 (universal2)
         run: |
-          curl -L https://www.python.org/ftp/python/3.9.13/python-3.9.13-macosx10.9.pkg --output ~/Downloads/python.pkg
+          curl -L https://www.python.org/ftp/python/3.10.9/python-3.10.9-macos11.pkg --output ~/Downloads/python.pkg
           sudo installer -pkg ~/Downloads/python.pkg -target /
 
       - name: Install poetry
@@ -230,7 +134,7 @@ jobs:
       - name: Install poetry dependencies
         run: |
           cd desktop
-          /Library/Frameworks/Python.framework/Versions/3.9/bin/poetry install
+          /Library/Frameworks/Python.framework/Versions/3.10/bin/poetry install
 
       - name: Restore cache - tor
         uses: actions/cache@v3
@@ -241,7 +145,7 @@ jobs:
       - name: Get tor binaries from Tor Browser
         run: |
           cd desktop
-          /Library/Frameworks/Python.framework/Versions/3.9/bin/poetry run python ./scripts/get-tor.py macos
+          /Library/Frameworks/Python.framework/Versions/3.10/bin/poetry run python ./scripts/get-tor.py macos
 
       - name: Restore cache - obfs4proxy
         uses: actions/cache@v3
@@ -288,22 +192,31 @@ jobs:
             ./scripts/build-pt-meek.sh
           fi
 
+      - name: Install cx_Freeze/PySide6 build dependencies
+        run: |
+          brew install libiodbc
+          cd ~/Downloads
+          curl -O -L https://github.com/PostgresApp/PostgresApp/releases/download/v2.5.12/Postgres-2.5.12-14.dmg
+          hdiutil attach Postgres-2.5.12-14.dmg
+          cp -r /Volumes/Postgres-2.5.12-14/Postgres.app /Applications/
+          hdiutil detach /Volumes/Postgres-2.5.12-14
+
       - name: Build OnionShare
         run: |
           cd desktop
-          /Library/Frameworks/Python.framework/Versions/3.9/bin/poetry run python ./setup-freeze.py build
-          /Library/Frameworks/Python.framework/Versions/3.9/bin/poetry run python ./setup-freeze.py bdist_mac
-          /Library/Frameworks/Python.framework/Versions/3.9/bin/poetry run python ./scripts/build-macos.py cleanup-build
+          /Library/Frameworks/Python.framework/Versions/3.10/bin/poetry run python ./setup-freeze.py build
+          /Library/Frameworks/Python.framework/Versions/3.10/bin/poetry run python ./setup-freeze.py bdist_mac
+          /Library/Frameworks/Python.framework/Versions/3.10/bin/poetry run python ./scripts/build-macos.py cleanup-build
 
       - name: Compress
         run: |
           cd desktop/build
-          tar -czvf ~/onionshare-macos.tar.gz OnionShare.app
+          tar -czvf ~/onionshare-macos-intel.tar.gz OnionShare.app
 
       - uses: actions/upload-artifact@v3
         with:
           name: mac-build
-          path: ~/onionshare-macos.tar.gz
+          path: ~/onionshare-macos-intel.tar.gz
 
   build-flatpak:
     runs-on: ubuntu-latest

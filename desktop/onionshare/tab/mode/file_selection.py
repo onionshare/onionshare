@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 import os
-from PySide2 import QtCore, QtWidgets, QtGui
+from PySide6 import QtCore, QtWidgets, QtGui
 
 from ... import strings
 from ...widgets import Alert, AddFileDialog
@@ -434,7 +434,7 @@ class FileSelection(QtWidgets.QVBoxLayout):
         Add button clicked.
         """
         file_dialog = AddFileDialog(self.common, caption=strings._("gui_choose_items"))
-        if file_dialog.exec_() == QtWidgets.QDialog.Accepted:
+        if file_dialog.exec() == QtWidgets.QDialog.Accepted:
             self.common.log("FileSelection", "add", file_dialog.selectedFiles())
             for filename in file_dialog.selectedFiles():
                 self.file_list.add_file(filename)

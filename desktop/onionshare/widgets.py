@@ -18,7 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-from PySide2 import QtCore, QtWidgets, QtGui
+from PySide6 import QtCore, QtWidgets, QtGui
 import qrcode
 
 from . import strings
@@ -52,7 +52,7 @@ class Alert(QtWidgets.QMessageBox):
         self.setStandardButtons(buttons)
 
         if autostart:
-            self.exec_()
+            self.exec()
 
 
 class AddFileDialog(QtWidgets.QFileDialog):
@@ -71,10 +71,10 @@ class AddFileDialog(QtWidgets.QFileDialog):
         self.common = common
         self.common.log("AddFileDialog", "__init__")
 
-        self.setOption(self.DontUseNativeDialog, True)
-        self.setOption(self.ReadOnly, True)
-        self.setOption(self.ShowDirsOnly, False)
-        self.setFileMode(self.ExistingFiles)
+        self.setOption(self.Option.DontUseNativeDialog, True)
+        self.setOption(self.Option.ReadOnly, True)
+        self.setOption(self.Option.ShowDirsOnly, False)
+        self.setFileMode(self.FileMode.ExistingFiles)
         tree_view = self.findChild(QtWidgets.QTreeView)
         tree_view.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
         list_view = self.findChild(QtWidgets.QListView, "listView")
@@ -101,7 +101,7 @@ class Image(qrcode.image.base.BaseImage):
     A custom Image class, for use with the QR Code pixmap.
     """
 
-    def __init__(self, border, width, box_size):
+    def __init__(self, border, width, box_size, *args, **kwargs):
         self.border = border
         self.width = width
         self.box_size = box_size
@@ -153,4 +153,4 @@ class QRCodeDialog(QtWidgets.QDialog):
         layout.addWidget(self.qr_label_title)
         layout.addWidget(self.qr_label)
 
-        self.exec_()
+        self.exec()

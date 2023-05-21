@@ -9,7 +9,7 @@ git clone https://github.com/onionshare/onionshare.git
 cd onionshare/desktop
 ```
 
-Make sure you have Python 3 installed. If you're using Windows or macOS, install version 3.9.13 [from python.org](https://www.python.org/downloads/release/python-3913/). For Windows, make sure to check the box to add python to the path on the first page of the installer.
+Make sure you have Python 3 installed. If you're using Windows or macOS, install the latest version of 3.10 [from python.org](https://www.python.org/downloads/). For Windows, make sure to check the box to add python to the path on the first page of the installer.
 
 Make sure you have [poetry](https://python-poetry.org/) installed:
 
@@ -29,9 +29,9 @@ poetry install
 
 **Linux users:** In Ubuntu 20.04 you need the `libxcb-xinerama0` package installed.
 
-**Windows users:** Download and install 7-Zip from https://7-zip.org/download.html. [Add](https://medium.com/@kevinmarkvi/how-to-add-executables-to-your-path-in-windows-5ffa4ce61a53) `C:\Program Files (x86)\7-Zip` to your path.
+**Windows users:** Download and install 7-Zip (x64) from https://7-zip.org/download.html. [Add](https://medium.com/@kevinmarkvi/how-to-add-executables-to-your-path-in-windows-5ffa4ce61a53) `C:\Program Files\7-Zip` to your path.
 
-Download Tor Browser and extract the binaries for your platform. The platform must be `win32`, `win64`, `macos`, or `linux64`.
+Download Tor Browser and extract the binaries for your platform. The platform must be `win64`, `macos`, or `linux64`.
 
 ```sh
 poetry run python ./scripts/get-tor.py [platform]

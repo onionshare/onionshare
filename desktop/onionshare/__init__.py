@@ -26,10 +26,10 @@ import signal
 import json
 import psutil
 import getpass
-from PySide2 import QtCore, QtWidgets, QtGui
+from PySide6 import QtCore, QtWidgets, QtGui
 
-from PySide2.QtCore import Slot, Qt
-from PySide2.QtGui import QPalette, QColor
+from PySide6.QtCore import Slot, Qt
+from PySide6.QtGui import QPalette, QColor
 
 from onionshare_cli.common import Common
 from onionshare_cli.settings import Settings
@@ -47,7 +47,6 @@ class Application(QtWidgets.QApplication):
 
     def __init__(self, common):
         if common.platform == "Linux" or common.platform == "BSD":
-            self.setAttribute(QtCore.Qt.AA_X11InitThreads, True)
             self.setDesktopFileName("org.onionshare.OnionShare")
             self.setOrganizationDomain("org.onionshare.OnionShare")
             self.setOrganizationName("OnionShare")
@@ -267,4 +266,4 @@ def main():
     qtapp.aboutToQuit.connect(shutdown)
 
     # All done
-    sys.exit(qtapp.exec_())
+    sys.exit(qtapp.exec())

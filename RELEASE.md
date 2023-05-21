@@ -69,12 +69,12 @@ cd ..
 
 # get onionshare dependencies
 cd pip
-./flatpak-pip-generator $(python3 -c 'import toml; print("\n".join(toml.loads(open("../../onionshare/desktop/pyproject.toml").read())["tool"]["poetry"]["dependencies"]))' |grep -vi onionshare_cli |grep -vi python | grep -vi pyside2 | grep -vi cx_freeze |tr "\n" " ")
+./flatpak-pip-generator $(python3 -c 'import toml; print("\n".join(toml.loads(open("../../onionshare/desktop/pyproject.toml").read())["tool"]["poetry"]["dependencies"]))' |grep -vi onionshare_cli |grep -vi python | grep -vi pyside6 | grep -vi cx_freeze |tr "\n" " ")
 cd ..
 
 # convert to yaml
 ./flatpak-json2yaml.py -o onionshare-cli.yml poetry/generated-poetry-sources.json
-./flatpak-json2yaml.py -o onionshare.yml pip/python3-qrcode.json
+./flatpak-json2yaml.py -o onionshare.yml pip/python3-modules.json
 ```
 
 Now, merge `onionshare-cli.yml` and `onionshare.yml` into the Flatpak manifest.
@@ -149,6 +149,32 @@ This will create:
 - `desktop/dist/OnionShare-win64-$VERSION.msi`
 
 ### macOS release
+
+In order to make a universal2 binary, you must run this one a Mac with Apple Silicon. To keep a clean environment, you can use VM.
+
+Set up the VM like this:
+
+- Install [Homebrew](https://brew.sh/)
+- `brew install create-dmg libiodbc`
+- Install the latest Python 3.10 from https://www.python.org/downloads/
+- Install ARM64 version of Go from https://go.dev/dl/
+- Install "Postgres.app with PostgreSQL 14 (Universal)" from https://postgresapp.com/downloads.html (required for cx_Freeze build step)
+
+```sh
+cd desktop
+python3 -m pip install poetry
+/Library/Frameworks/Python.framework/Versions/3.10/bin/poetry install
+/Library/Frameworks/Python.framework/Versions/3.10/bin/poetry run python ./scripts/get-tor.py macos
+./scripts/build-pt-obfs4proxy.sh
+./scripts/build-pt-snowflake.sh
+./scripts/build-pt-meek.sh
+/Library/Frameworks/Python.framework/Versions/3.10/bin/poetry run python ./setup-freeze.py build
+/Library/Frameworks/Python.framework/Versions/3.10/bin/poetry run python ./setup-freeze.py bdist_mac
+/Library/Frameworks/Python.framework/Versions/3.10/bin/poetry run python ./scripts/build-macos.py cleanup-build
+cd build
+tar -czvf ~/onionshare-macos-universal2.tar.gz OnionShare.app
+```
+
 
 Set up the packaging environment:
 

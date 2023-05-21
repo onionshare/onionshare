@@ -1,6 +1,6 @@
 import requests
 
-from PySide2 import QtTest
+from PySide6 import QtTest
 
 from .gui_base_test import GuiBaseTest
 

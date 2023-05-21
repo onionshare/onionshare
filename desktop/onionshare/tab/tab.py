@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 import queue
-from PySide2 import QtCore, QtWidgets, QtGui
+from PySide6 import QtCore, QtWidgets, QtGui
 
 from onionshare_cli.onionshare import OnionShare
 from onionshare_cli.web import Web
@@ -45,7 +45,7 @@ class NewTabButton(QtWidgets.QPushButton):
         self.setFixedSize(280, 280)
 
         # Keyboard shortcut, using the first letter of the mode
-        sequence = QtGui.QKeySequence(QtCore.Qt.CTRL + shortcut)
+        sequence = QtGui.QKeySequence(QtCore.Qt.CTRL | shortcut)
         self.setShortcut(sequence)
 
         self.setAccessibleName(title)
@@ -652,7 +652,7 @@ class Tab(QtWidgets.QWidget):
         # Open the warning dialog
         self.common.log("Tab", "close_tab, opening warning dialog")
         self.close_dialog.setText(dialog_text)
-        self.close_dialog.exec_()
+        self.close_dialog.exec()
 
         # Close
         if self.close_dialog.clickedButton() == self.close_dialog.accept_button:

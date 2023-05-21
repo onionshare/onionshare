@@ -151,7 +151,7 @@ class TestGetPlatform:
 
 
 class TestGetTorPaths:
-    @pytest.mark.skipif(sys.platform != "Darwin", reason="requires MacOS")
+    @pytest.mark.skipif(sys.platform != "darwin", reason="requires MacOS")
     def test_get_tor_paths_darwin(
         self, platform_darwin, common_obj, sys_frozen, sys_meipass
     ):
