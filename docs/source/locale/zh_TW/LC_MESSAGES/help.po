@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2020-11-15 14:42-0800\n"
-"PO-Revision-Date: 2020-10-22 12:26+0000\n"
-"Last-Translator: marklin0913 <marklin0913@protonmail.com>\n"
-"Language: zh_TW\n"
+"PO-Revision-Date: 2023-04-13 06:53+0000\n"
+"Last-Translator: jxt <chihsun.tsai@gmail.com>\n"
 "Language-Team: zh_TW <LL@li.org>\n"
-"Plural-Forms: nplurals=1; plural=0\n"
+"Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.17-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/help.rst:2
@@ -23,21 +24,19 @@ msgid "Getting Help"
 msgstr "取得協助"
 
 #: ../../source/help.rst:5
-#, fuzzy
 msgid "Read This Website"
 msgstr "閱讀這個網站"
 
 #: ../../source/help.rst:7
-#, fuzzy
 msgid ""
 "You will find instructions on how to use OnionShare. Look through all of "
 "the sections first to see if anything answers your questions."
-msgstr "這個網站充滿了所有教你如何使用OnionShare的指示。"
+msgstr "這個網站有教導如何使用 OnionShare "
+"的指示，先看大略看過一遍找找是否能回答您的問題。"
 
 #: ../../source/help.rst:10
-#, fuzzy
 msgid "Check the GitHub Issues"
-msgstr "確認Github的issues"
+msgstr "確認 Github issues"
 
 #: ../../source/help.rst:12
 msgid ""
@@ -49,7 +48,7 @@ msgstr ""
 
 #: ../../source/help.rst:15
 msgid "Submit an Issue Yourself"
-msgstr ""
+msgstr "自己提交 issue"
 
 #: ../../source/help.rst:17
 msgid ""
@@ -62,13 +61,13 @@ msgstr ""
 
 #: ../../source/help.rst:20
 msgid "Join our Keybase Team"
-msgstr ""
+msgstr "加入 Keybase 小組"
 
 #: ../../source/help.rst:22
 msgid ""
 "See :ref:`collaborating` on how to join the Keybase team used to discuss "
 "the project."
-msgstr ""
+msgstr "請見 :ref:`collaborating` 如何加入 Keybase 小組來討論專案。"
 
 #~ msgid "If you need help with OnionShare, please follow the instructions below."
 #~ msgstr "如果您需要關於OnionShare的協助，請跟著以下的指示。"
@@ -107,4 +106,3 @@ msgstr ""
 #~ "that we use to discuss the "
 #~ "project."
 #~ msgstr ""
-

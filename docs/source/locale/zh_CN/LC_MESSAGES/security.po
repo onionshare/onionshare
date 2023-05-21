@@ -3,35 +3,37 @@
 # This file is distributed under the same license as the OnionShare package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2020-12-13 15:48-0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2023-04-15 05:52+0000\n"
+"Last-Translator: jxt <chihsun.tsai@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.17-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/security.rst:2
 msgid "Security Design"
-msgstr ""
+msgstr "安全设计"
 
 #: ../../source/security.rst:4
 msgid "Read :ref:`how_it_works` first to get a handle on how OnionShare works."
-msgstr ""
+msgstr "先阅读:ref:`how_it_works` 来了解基础的 OnionShare 运作原理。"
 
 #: ../../source/security.rst:6
 msgid "Like all software, OnionShare may contain bugs or vulnerabilities."
-msgstr ""
+msgstr "一如所有应用程序，OnionShare 不免有错误或弱点。"
 
 #: ../../source/security.rst:9
 msgid "What OnionShare protects against"
-msgstr ""
+msgstr "OnionShare 可保护的部份"
 
 #: ../../source/security.rst:11
 msgid ""
@@ -53,6 +55,10 @@ msgid ""
 "Browser with OnionShare's onion service, the traffic is encrypted using "
 "the onion service's private key."
 msgstr ""
+"**网路窃听者无法侦察 OnionShare 传输中发生的情况。 ** Tor 洋葱服务与 Tor "
+"浏览器之间为端到端加密连接，所以攻击者除了加密的 Tor 流量外无法窃听任何东西，"
+"即便攻击者利用 Tor 浏览器与 OnionShare "
+"洋葱服务连接的恶意会合节点，其流量也有洋葱服务私钥加密。"
 
 #: ../../source/security.rst:15
 msgid ""
@@ -62,6 +68,9 @@ msgid ""
 "Browser users, the Tor Browser users and eavesdroppers can't learn the "
 "identity of the OnionShare user."
 msgstr ""
+"**Tor 可保护 OnionShare 匿名 。 ** OnionShare 与 Tor 浏览器保护使用者匿名，"
+"只要利用 OnionShare 地址与 Tor 浏览器进行匿名通信，Tor "
+"浏览器与窃听者都无法知道 OnionShare 使用者身份。"
 
 #: ../../source/security.rst:17
 msgid ""
@@ -79,7 +88,7 @@ msgstr ""
 
 #: ../../source/security.rst:20
 msgid "What OnionShare doesn't protect against"
-msgstr ""
+msgstr "OnionShare 不能保护的部份"
 
 #: ../../source/security.rst:22
 msgid ""
@@ -241,4 +250,3 @@ msgstr ""
 #~ " share the address. This isn't "
 #~ "necessary unless anonymity is a goal."
 #~ msgstr ""
-

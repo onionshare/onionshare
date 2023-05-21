@@ -48,7 +48,7 @@
     "gui_downloads": "Nedlastingshistorikk",
     "gui_no_downloads": "Ingen nedlastinger enda.",
     "gui_canceled": "Avbrutt",
-    "gui_copied_url_title": "Kopierte OnionShare-adressen",
+    "gui_copied_url_title": "OnionShare-adresse kopiert",
     "gui_please_wait": "Starter… Klikk for å avbryte.",
     "gui_download_upload_progress_complete": "%p%, {0:s} forløpt.",
     "gui_download_upload_progress_starting": "{0:s}, %p% (regner ut)",

@@ -8,15 +8,16 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-03-31 16:26+1100\n"
-"PO-Revision-Date: 2021-09-23 15:36+0000\n"
-"Last-Translator: Alexander Tarasenko <alexound.login@gmail.com>\n"
-"Language: ru\n"
+"PO-Revision-Date: 2023-03-23 07:37+0000\n"
+"Last-Translator: AHOHNMYC <lqwh2h2cwa@protonmail.com>\n"
 "Language-Team: ru <LL@li.org>\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.16.2-dev\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: ../../source/install.rst:2
@@ -40,7 +41,6 @@ msgid "Linux"
 msgstr "Linux"
 
 #: ../../source/install.rst:14
-#, fuzzy
 msgid ""
 "There are various ways to install OnionShare for Linux, but the "
 "recommended way is to use either the `Flatpak <https://flatpak.org/>`_ or"
@@ -49,24 +49,22 @@ msgid ""
 "inside of a sandbox."
 msgstr ""
 "Существуют разные способы установки OnionShare на Linux. Рекомендуется "
-"использовать такие менеджеры пакетов, как `Flatpak "
-"<https://flatpak.org/>`_ или `Snap <https://snapcraft.io/>`. Их "
-"использование гарантирует, что будет произведена установка самой свежей "
-"версии OnionShare и что его запуск будет производиться \"в песочнице\" (в"
-" специально выделенной (изолированной) среде для безопасного исполнения "
-"компьютерных программ)."
+"использовать такие менеджеры пакетов, как `Flatpak <https://flatpak.org/>`_ "
+"или `Snap <https://snapcraft.io/>`_. Их использование гарантирует, что будет "
+"произведена установка самой свежей версии OnionShare и что его запуск будет "
+"производиться \"в песочнице\" (в специально выделенной (изолированной) среде "
+"для безопасного исполнения компьютерных программ)."
 
 #: ../../source/install.rst:17
-#, fuzzy
 msgid ""
 "Snapcraft support is built-in to Ubuntu and Fedora comes with Flatpak "
 "support, but which you use is up to you. Both work in all Linux "
 "distributions."
 msgstr ""
-"По умолчанию поддержка Snap предусмотрена дистрибутивами Ubuntu, "
-"поддержка Flatpak - дистрибутивами Fedora. Нужно отметить, что "
-"окончательный выбор менеджера пакетов остаётся за пользователем, "
-"поскольку и тот, и другой работают во всех дистрибутивах Linux."
+"По умолчанию поддержка Snap предусмотрена дистрибутивами Ubuntu, поддержка "
+"Flatpak — дистрибутивами Fedora. Нужно отметить, что окончательный выбор "
+"менеджера пакетов остаётся за пользователем, поскольку и тот, и другой "
+"работают во всех дистрибутивах Linux."
 
 #: ../../source/install.rst:19
 msgid ""
@@ -77,11 +75,10 @@ msgstr ""
 "https://flathub.org/apps/details/org.onionshare.OnionShare"
 
 #: ../../source/install.rst:21
-#, fuzzy
 msgid "**Install OnionShare using Snapcraft**: https://snapcraft.io/onionshare"
 msgstr ""
-"**Установка OnionShare с использованием Snap**: "
-"https://snapcraft.io/onionshare"
+"**Установка OnionShare с использованием Snap**: https://snapcraft.io/"
+"onionshare"
 
 #: ../../source/install.rst:23
 msgid ""
@@ -97,15 +94,14 @@ msgid "Command-line only"
 msgstr "Отдельная установка консольной версии"
 
 #: ../../source/install.rst:30
-#, fuzzy
 msgid ""
 "You can install just the command-line version of OnionShare on any "
 "operating system using the Python package manager ``pip``. :ref:`cli` has"
 " more info."
 msgstr ""
-"Консольную версию OnionShare можно установить отдельно на любую "
-"операционную систему при помощи менеджера пакетов Python ``pip``. Больше "
-"информации можно найти по :ref:`cli`."
+"Консольную версию OnionShare можно установить отдельно на любую операционную "
+"систему при помощи менеджера пакетов Python ``pip``. Больше информации можно "
+"найти по :ref:`cli`."
 
 #: ../../source/install.rst:35
 msgid "Verifying PGP signatures"
@@ -200,7 +196,6 @@ msgid "The expected output looks like this::"
 msgstr "Ожидаемый результат выполнения команды:"
 
 #: ../../source/install.rst:77
-#, fuzzy
 msgid ""
 "If you don't see ``Good signature from``, there might be a problem with "
 "the integrity of the file (malicious or otherwise), and you should not "
@@ -208,13 +203,12 @@ msgid ""
 " the package, it only means you haven't defined a level of \"trust\" of "
 "Micah's (the core developer) PGP key.)"
 msgstr ""
-"Если вывод команды не содержит строку ``Good signature from``, существует"
-" вероятность, что целостность пакета была нарушена (в результате "
-"злонамеренных действий третьих лиц или по техническим причиниам). В таком"
-" случае нельзя прозводить дальнейшую установку. (Надпись \"WARNING:\" "
+"Если вывод команды не содержит строку ``Good signature from``, существует "
+"вероятность, что целостность пакета была нарушена (в результате "
+"злонамеренных действий третьих лиц или по техническим причинам). В таком "
+"случае нельзя производить дальнейшую установку. (Надпись \"WARNING:\" "
 "показанная выше не является проблемой. Она только означает, что пока "
-"отсутствует необходимый \"уровень доверия\" к публичному ключу PGP "
-"Micah.)"
+"отсутствует необходимый \"уровень доверия\" к публичному ключу PGP Micah.)"
 
 #: ../../source/install.rst:79
 msgid ""
@@ -419,4 +413,3 @@ msgstr ""
 
 #~ msgid "Command Line Only"
 #~ msgstr ""
-

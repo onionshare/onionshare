@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-10-02 16:17-0700\n"
-"PO-Revision-Date: 2021-10-23 18:43+0000\n"
-"Last-Translator: aezjrareareare <jeromechaland@riseup.net>\n"
-"Language: fr\n"
+"PO-Revision-Date: 2023-03-23 16:50+0000\n"
+"Last-Translator: a-side <sebstenza@gmail.com>\n"
 "Language-Team: none\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.16.2-dev\n"
 "Generated-By: Babel 2.10.3\n"
 
 #: ../../source/advanced.rst:2
@@ -32,12 +33,17 @@ msgid ""
 "Persistently hosted websites are available on the same address even if "
 "the computer they are shared from is rebooted."
 msgstr ""
+"Lorsque les onglets OnionShare que vous hébergez sont fermés, ils sont "
+"détruits. Les sites web hébergés de façon persistante restent disponibles à "
+"la même adresse, même lorsque l'ordinateur qui les hébergent est redémarré."
 
 #: ../../source/advanced.rst:12
 msgid ""
 "Make any tab persistent by checking the \"Always open this tab when "
 "OnionShare is started\" box before starting your server."
 msgstr ""
+"Rendez tout onglet persistant en cochant la case \"Toujours ouvrir cet "
+"onglet au démarrage d'OnionShare\" avant de démarrer votre serveur."
 
 #: ../../source/advanced.rst:16
 msgid ""
@@ -46,25 +52,30 @@ msgid ""
 "available on the same OnionShare address and be protected by the same "
 "private key."
 msgstr ""
+"En démarrant OnionShare, vos onglets sauvegardés lors de votre dernière "
+"session seront affichés. Chaque service peut alors être démarré "
+"manuellement, et sera disponible avec la même adresse OnionShare et protégé "
+"par la même clé privée."
 
 #: ../../source/advanced.rst:19
-#, fuzzy
 msgid ""
 "If you save a tab, a copy of its onion service secret key is stored on "
 "your computer."
 msgstr ""
-"Si vous sauvegarder un onglet, une copie de la clé secrète de ce service "
-"ognon sera stocké dans votre ordinateur avec vos paramètres OnionShare."
+"Si vous enregistrez un onglet, une copie de sa clé secrète de service en "
+"oignon est stockée sur votre ordinateur."
 
 #: ../../source/advanced.rst:24
 msgid "Turn Off Private Key"
-msgstr ""
+msgstr "Désactiver la Clé Privée"
 
 #: ../../source/advanced.rst:26
 msgid ""
 "By default, all OnionShare services are protected with a private key, "
 "which Tor calls \"client authentication\"."
 msgstr ""
+"Par défaut, tous les services OnionShare sont protégés par une clé privée, "
+"que Tor appelle \"authentification du client\"."
 
 #: ../../source/advanced.rst:28
 msgid ""
@@ -72,6 +83,9 @@ msgid ""
 "OnionShare service. If you want allow the public to use your service, "
 "it's better to disable the private key altogether."
 msgstr ""
+"Le navigateur Tor vous demandera d'entrer votre clé privée lorsque vous "
+"chargez un service OnionShare. Si vous voulez permettre au public d'utiliser "
+"votre service, il est préférable de désactiver complètement la clé privée."
 
 #: ../../source/advanced.rst:31
 msgid ""
@@ -80,10 +94,14 @@ msgid ""
 "server. Then the server will be public and a private key is not needed to"
 " load it in the Tor Browser."
 msgstr ""
+"Pour désactiver la clé privée pour chaque onglet, cochez la case \"Ceci est "
+"un service public OnionShare (désactive la clé privée)\" avant de démarrer "
+"le serveur. Le serveur sera alors public et une clé privée ne sera pas "
+"chargée dans le Navigateur Tor."
 
 #: ../../source/advanced.rst:37
 msgid "Custom Titles"
-msgstr ""
+msgstr "Titres personnalisés"
 
 #: ../../source/advanced.rst:39
 msgid ""
@@ -91,12 +109,17 @@ msgid ""
 "default title for each type of service. For example, the default title "
 "for chat services is \"OnionShare Chat\"."
 msgstr ""
+"Lorsque les gens chargent les services OnionShare dans le navigateur Tor, "
+"ils voient le titre par défaut pour chaque type de service. Par exemple, le "
+"titre par défaut pour les services de chat est \"OnionShare Chat\"."
 
 #: ../../source/advanced.rst:42
 msgid ""
 "If you edit the \"Custom title\" setting before starting a server you can"
 " change it."
 msgstr ""
+"Si vous modifiez le paramètre \"Titre personnalisé\" avant de démarrer un "
+"serveur, vous pouvez le modifier."
 
 #: ../../source/advanced.rst:45
 msgid "Scheduled Times"
@@ -123,6 +146,10 @@ msgid ""
 "when the \"Start sharing\" button is clicked. Services scheduled to stop "
 "in the future display a countdown timer when started."
 msgstr ""
+"Les services programmés pour démarrer dans le futur afficheront un compte à "
+"rebours lorsque vous cliquerez sur le bouton \"Démarrer le partage\". Les "
+"services programmés pour s'arrêter à l'avenir afficheront un compte à "
+"rebours lorsqu'ils seront démarrés."
 
 #: ../../source/advanced.rst:54
 msgid ""
@@ -131,6 +158,11 @@ msgid ""
 "time in the future if you are not there to prevent it. If nothing happens"
 " to you, you can cancel the service before it's scheduled to start."
 msgstr ""
+"**Programmer le démarrage automatique d'un service OnionShare peut être "
+"utilisé pour vérifier l'activité d'un utilisateur**. Cela signifie que votre "
+"service est rendu public à un moment donné dans le futur si vous n'êtes pas "
+"là pour l'empêcher. Si rien ne vous arrive, vous pouvez annuler le service "
+"avant qu'il ne soit programmé pour être mis en route."
 
 #: ../../source/advanced.rst:60
 msgid ""
@@ -138,6 +170,10 @@ msgid ""
 "exposure**. If you want to share secret info or something that will be "
 "outdated, you can do so for selected limited time."
 msgstr ""
+"**La programmation de l'arrêt automatique d'un service OnionShare limite son "
+"exposition**. Si vous souhaitez partager des informations secrètes ou "
+"quelque chose qui sera périmé, vous pouvez le faire pour une durée limitée "
+"sélectionnée."
 
 #: ../../source/advanced.rst:68
 msgid "Command-line Interface"
@@ -156,7 +192,7 @@ msgid ""
 "You can install just the command-line version of OnionShare using "
 "``pip3``::"
 msgstr ""
-"Vous pouvez installez uniquement la version en ligne de commande "
+"Vous pouvez installer uniquement la version en ligne de commande "
 "d'OnionShare en utilisant ``pip3``::"
 
 #: ../../source/advanced.rst:76
@@ -169,7 +205,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:78
 msgid "Then run it like this::"
-msgstr "Puis lancez le avec ::"
+msgstr "Puis lancez-le avec ::"
 
 #: ../../source/advanced.rst:82
 msgid ""
@@ -178,15 +214,17 @@ msgid ""
 "<https://github.com/onionshare/onionshare/blob/develop/cli/README.md>`_ "
 "in the Git repository."
 msgstr ""
+"Des informations sur son installation sur différents systèmes d'exploitation "
+"peuvent être trouvées dans le fichier `CLI README <https://github.com/"
+"onionshare/onionshare/blob/develop/cli/README.md>`_ dans le dépôt Git."
 
 #: ../../source/advanced.rst:84
-#, fuzzy
 msgid ""
 "If you installed OnionShare using the Snap package, you can also just run"
 " ``onionshare.cli`` to access the command-line interface version."
 msgstr ""
-"Si vous installez OnionShare en utilisant le paquet Linux Snapcraft, vous"
-" pouvez vous contentez de lancer ``onionshare.cli`` pour accéder à "
+"Si vous installez OnionShare en utilisant le paquet Linux Snapcraft, vous "
+"pouvez vous contenter de lancer ``onionshare.cli`` pour accéder à "
 "l'interface en ligne de commande."
 
 #: ../../source/advanced.rst:87
@@ -194,25 +232,26 @@ msgid "Usage"
 msgstr "Utilisation"
 
 #: ../../source/advanced.rst:89
-#, fuzzy
 msgid "Browse the command-line documentation by running ``onionshare --help``::"
 msgstr ""
-"Vous pouvez consultez la documentation de l'interface en ligne de "
-"commande en lançant ``onionshare --help``::"
+"Vous pouvez consulter la documentation de l'interface en ligne de commande "
+"en lançant ``onionshare --help`` : :"
 
 #: ../../source/advanced.rst:151
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Raccourcis Clavier"
 
 #: ../../source/advanced.rst:153
 msgid ""
 "The OnionShare desktop application contains some keyboard shortcuts, for "
 "convenience and accessibility::"
 msgstr ""
+"L'application de bureau OnionShare contient quelques raccourcis clavier, "
+"pour des raisons de commodité et d'accessibilité : :"
 
 #: ../../source/advanced.rst:158
 msgid "And from the main mode chooser screen::"
-msgstr ""
+msgstr "Et à partir de l'écran principal du sélecteur de mode :"
 
 #~ msgid "Make a symbolic link to the OnionShare command line binary line this::"
 #~ msgstr ""
@@ -690,4 +729,3 @@ msgstr ""
 #~ "serveur. Quand un onglet est sauvegardé"
 #~ " un icône d'épingle violet apparaît à"
 #~ " la gauche du statut du serveur."
-

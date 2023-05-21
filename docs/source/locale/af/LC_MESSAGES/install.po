@@ -6,31 +6,35 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-01-17 10:28-0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2022-11-10 05:49+0000\n"
+"Last-Translator: Gideon Wentink <gjwentink@gmail.com>\n"
 "Language-Team: none\n"
 "Language: af\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.15-dev\n"
 
 #: ../../source/install.rst:2
 msgid "Installation"
-msgstr ""
+msgstr "Installasie"
 
 #: ../../source/install.rst:5
 msgid "Windows or macOS"
-msgstr ""
+msgstr "Windows of macOS"
 
 #: ../../source/install.rst:7
 msgid "You can download OnionShare for Windows and macOS from the `OnionShare website <https://onionshare.org/>`_."
 msgstr ""
+"U kan OnionShare vir Windows of macOS vanaf die `OnionShare-"
+"webwerf<https://onionshare.org/>`_ aflaai."
 
 #: ../../source/install.rst:12
 msgid "Linux"
-msgstr ""
+msgstr "Linux"
 
 #: ../../source/install.rst:14
 msgid "There are various ways to install OnionShare for Linux, but the recommended way is to use either the `Flatpak <https://flatpak.org/>`_ or the `Snap <https://snapcraft.io/>`_ package. Flatpak and Snap ensure that you'll always use the newest version and run OnionShare inside of a sandbox."
@@ -43,6 +47,8 @@ msgstr ""
 #: ../../source/install.rst:19
 msgid "**Install OnionShare using Flatpak**: https://flathub.org/apps/details/org.onionshare.OnionShare"
 msgstr ""
+"**Installeer OnionShare d.m.v. Flatpak**: https://flathub.org/apps/details/"
+"org.onionshare.OnionShare"
 
 #: ../../source/install.rst:21
 msgid "**Install OnionShare using Snap**: https://snapcraft.io/onionshare"
@@ -51,10 +57,12 @@ msgstr ""
 #: ../../source/install.rst:23
 msgid "You can also download and install PGP-signed ``.flatpak`` or ``.snap`` packages from https://onionshare.org/dist/ if you prefer."
 msgstr ""
+"U kan ook PGP-ondertekende ``.flatpak`` - of ``.snap``-pakketten aflaai en "
+"installeer vanaf https://onionshare.org/dist/ indien u dit verkies."
 
 #: ../../source/install.rst:28
 msgid "Command-line only"
-msgstr ""
+msgstr "Slegs bevellyn"
 
 #: ../../source/install.rst:30
 msgid "You can install just the command line version of OnionShare on any operating system using the Python package manager ``pip``. See :ref:`cli` for more information."
@@ -62,47 +70,67 @@ msgstr ""
 
 #: ../../source/install.rst:35
 msgid "Verifying PGP signatures"
-msgstr ""
+msgstr "Bevestig PGP-handtekeninge"
 
 #: ../../source/install.rst:37
 msgid "You can verify that the package you download is legitimate and hasn't been tampered with by verifying its PGP signature. For Windows and macOS, this step is optional and provides defense in depth: the OnionShare binaries include operating system-specific signatures, and you can just rely on those alone if you'd like."
 msgstr ""
+"U kan bevestig dat die pakket wat u aflaai legitiem is en dat daar nie mee "
+"gekarring is nie deur die PGP-handtekening te bevestig. Hierdie stap is "
+"opsioneel vir Windows en macOS en bied diepgaande beskerming: die "
+"OnionSharebinêre binaries bevat bedryfstelselspesifieke handtekeninge en u "
+"kan daarop alleen staatmaak indien u sou wou."
 
 #: ../../source/install.rst:41
 msgid "Signing key"
-msgstr ""
+msgstr "Ondertekeningsleutel"
 
 #: ../../source/install.rst:43
 msgid "Packages are signed by Micah Lee, the core developer, using his PGP public key with fingerprint ``927F419D7EC82C2F149C1BD1403C2657CD994F73``. You can download Micah's key `from the keys.openpgp.org keyserver <https://keys.openpgp.org/vks/v1/by-fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 msgstr ""
+"Pakkette word deur Micah Lee, die kernontwikkelaar, met sy PGP- publieke "
+"sleutel met vingerafdruk ``927F419D7EC82C2F149C1BD1403C2657CD994F73`` "
+"onderteken. U kan Micah se sleutel aflaai `by die keys.openpgp.org "
+"sleutelbediener <https://keys.openpgp.org/vks/v1/by-fingerprint/"
+"927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 
 #: ../../source/install.rst:45
 msgid "You must have GnuPG installed to verify signatures. For macOS you probably want `GPGTools <https://gpgtools.org/>`_, and for Windows you probably want `Gpg4win <https://www.gpg4win.org/>`_."
 msgstr ""
+"GnuPG moet geïnstalleer wees om handtekeninge te bevestig. Vir macOS wil u "
+"waarskynlik `GPGTools <https://gpgtools.org/>`_ hê en vir Windows wil u "
+"waarskynlik `Gpg4win <https://www.gpg4win.org/>`_ hê."
 
 #: ../../source/install.rst:48
 msgid "Signatures"
-msgstr ""
+msgstr "Handtekeninge"
 
 #: ../../source/install.rst:50
 msgid "You can find the signatures (as ``.asc`` files), as well as Windows, macOS, Flatpak, Snap, and source packages, at https://onionshare.org/dist/ in the folders named for each version of OnionShare. You can also find them on the `GitHub Releases page <https://github.com/micahflee/onionshare/releases>`_."
 msgstr ""
+"U kan die handtekeninge (as ``.asc``-lêers), asook Windows, macOS, Flatpak, "
+"Snap en bronpakkette, by https://onionshare.org/dist/ kry in die vouers met "
+"die naam van elke weergawe van OnionShare. U kan dit ook op die `GitHub-"
+"vrystellingsblad <https://github.com/micahflee/onionshare/releases>`_ kry."
 
 #: ../../source/install.rst:54
 msgid "Verifying"
-msgstr ""
+msgstr "Bevestig tans"
 
 #: ../../source/install.rst:56
 msgid "Once you have imported Micah's public key into your GnuPG keychain, downloaded the binary and and ``.asc`` signature, you can verify the binary for macOS in a terminal like this::"
 msgstr ""
+"Sodra u Micah se openbare sleutel in u GnuPG-sleutelhouer ingevoer het, en "
+"die binêr en ``.asc``-handtekening afgelaai het, kan u die binêr vir macOS "
+"soos volg in ’n terminaal bevestig::"
 
 #: ../../source/install.rst:60
 msgid "Or for Windows, in a command-prompt like this::"
-msgstr ""
+msgstr "Of vir Windows in ’n bevelpor soos volg::"
 
 #: ../../source/install.rst:64
 msgid "The expected output looks like this::"
-msgstr ""
+msgstr "Die verwagte afvoer lyk soos volg::"
 
 #: ../../source/install.rst:76
 msgid "If you don't see ``Good signature from``, there might be a problem with the integrity of the file (malicious or otherwise), and you should not install the package. (The ``WARNING:`` shown above, is not a problem with the package, it only means you haven't defined a level of \"trust\" of Micah's PGP key.)"
@@ -111,3 +139,7 @@ msgstr ""
 #: ../../source/install.rst:78
 msgid "If you want to learn more about verifying PGP signatures, the guides for `Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ and the `Tor Project <https://support.torproject.org/tbb/how-to-verify-signature/>`_ may be useful."
 msgstr ""
+"Indien u meer wil leer oor hoe om PGP-handtekeninge te bevestig, kan die "
+"handleidings vir `Qubes OS <https://www.qubes-os.org/security/"
+"verifying-signatures/>`_ en die `Tor Project <https://support.torproject.org/"
+"tbb/how-to-verify-signature/>`_ handig wees."
