@@ -52,12 +52,12 @@ elif platform.system() == "Darwin":
     exec_icon = None
     include_files += [
         (
-            os.path.join(PySide6.__path__[0], "libpyside6.abi3.6.4.dylib"),
-            "libpyside6.abi3.6.4.dylib",
+            os.path.join(PySide6.__path__[0], "libpyside6.abi3.6.5.dylib"),
+            "libpyside6.abi3.6.5.dylib",
         ),
         (
-            os.path.join(shiboken6.__path__[0], "libshiboken6.abi3.6.4.dylib"),
-            "libshiboken6.abi3.6.4.dylib",
+            os.path.join(shiboken6.__path__[0], "libshiboken6.abi3.6.5.dylib"),
+            "libshiboken6.abi3.6.5.dylib",
         ),
     ]
 
