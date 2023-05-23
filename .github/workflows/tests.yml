@@ -54,4 +54,4 @@ jobs:
       - run: cd desktop && poetry install
       - run: |
           cd desktop
-          QT_DEBUG_PLUGINS=1 xvfb-run poetry run pytest -v ./tests/test_gui_*.py
+          QT_QPA_PLATFORM=offscreen QT_DEBUG_PLUGINS=1 xvfb-run poetry run pytest -v ./tests/test_gui_*.py
