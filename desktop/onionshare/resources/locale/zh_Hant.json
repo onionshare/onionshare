@@ -96,7 +96,7 @@
     "gui_settings_tor_bridges_custom_radio_option": "使用自定義的bridges",
     "gui_settings_tor_bridges_custom_label": "你可以從 <a href=\"https://bridges.torproject.org/options?lang=zh_TW\">https://bridges.torproject.org</a>取得bridges",
     "gui_settings_tor_bridges_invalid": "您新增的橋接器無效。請再次檢查或新增其他的橋接器。",
-    "gui_settings_button_save": "保存",
+    "gui_settings_button_save": "儲存",
     "gui_settings_button_cancel": "取消",
     "gui_settings_button_help": "說明",
     "gui_settings_autostop_timer_checkbox": "使用自動停止計時器",
