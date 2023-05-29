@@ -32,7 +32,7 @@ jobs:
           poetry run onionshare-cli --local-only ./tests --auto-stop-timer 2
           poetry run onionshare-cli --local-only --receive --auto-stop-timer 2
           poetry run onionshare-cli --local-only --website ../docs --auto-stop-timer 2
-          poetry run onionshare-cli --local-only --chat --auto-stop-timer 2
+          poetry run onionshare-cli --local-only --chat --auto-stop-timer 5
 
   test-desktop:
     runs-on: ubuntu-latest
