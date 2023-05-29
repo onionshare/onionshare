@@ -364,7 +364,7 @@ modules:
                 greenlet idna importlib-metadata iniconfig itsdangerous jinja2 markupsafe packaging
                 pluggy psutil pycparser pynacl pysocks pytest python-engineio python-socketio
                 requests setuptools six stem tomli unidecode urllib3 waitress werkzeug zipp zope-event
-                zope-interface Cython
+                zope-interface Cython wheel
             sources:
               - type: file
                 url: https://files.pythonhosted.org/packages/b5/82/ce0b6380f35f49d3fe687979a324c342cfa3588380232f3801db9dd62f9e/bidict-0.22.1-py3-none-any.whl
@@ -501,3 +501,6 @@ modules:
               - type: file
                 url: https://files.pythonhosted.org/packages/2e/a7/f20fa91d9de799f8e19bacf225bc993b8a53b5fc6f41ffa20d64f0850579/Cython-3.0.0a11.tar.gz
                 sha256: e4672491fb31546b9abb63677f638e738085dc9321398170956ef6fbfc0e1726
+              - type: file
+                url: https://files.pythonhosted.org/packages/a2/b8/6a06ff0f13a00fc3c3e7d222a995526cbca26c1ad107691b6b1badbbabf1/wheel-0.38.4.tar.gz
+                sha256: 965f5259b566725405b05e7cf774052044b1ed30119b5d586b2703aafe8719ac
