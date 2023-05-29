@@ -4,6 +4,7 @@
 name = "bidict"
 version = "0.22.1"
 description = "The bidirectional mapping library for Python."
+category = "main"
 optional = false
 python-versions = ">=3.7"
 files = [
@@ -19,6 +20,7 @@ test = ["hypothesis", "pytest", "pytest-benchmark[histogram]", "pytest-cov", "py
 [[package]]
 name = "black"
 version = "23.3.0"
+category = "dev"
 description = "The uncompromising code formatter."
 optional = false
 python-versions = ">=3.7"
@@ -69,6 +71,7 @@ uvloop = ["uvloop (>=0.15.2)"]
 name = "blinker"
 version = "1.6.2"
 description = "Fast, simple object-to-object and broadcast signaling"
+category = "main"
 optional = false
 python-versions = ">=3.7"
 files = [
@@ -80,6 +83,7 @@ files = [
 name = "brotli"
 version = "1.0.9"
 description = "Python bindings for the Brotli compression library"
+category = "main"
 optional = false
 python-versions = "*"
 files = [
@@ -171,6 +175,7 @@ files = [
 name = "certifi"
 version = "2023.5.7"
 description = "Python package for providing Mozilla's CA Bundle."
+category = "main"
 optional = false
 python-versions = ">=3.6"
 files = [
@@ -182,6 +187,7 @@ files = [
 name = "cffi"
 version = "1.15.1"
 description = "Foreign Function Interface for Python calling C code."
+category = "main"
 optional = false
 python-versions = "*"
 files = [
@@ -258,6 +264,7 @@ pycparser = "*"
 name = "charset-normalizer"
 version = "3.1.0"
 description = "The Real First Universal Charset Detector. Open, modern and actively maintained alternative to Chardet."
+category = "main"
 optional = false
 python-versions = ">=3.7.0"
 files = [
@@ -342,6 +349,7 @@ files = [
 name = "click"
 version = "8.1.3"
 description = "Composable command line interface toolkit"
+category = "main"
 optional = false
 python-versions = ">=3.7"
 files = [
@@ -356,6 +364,7 @@ colorama = {version = "*", markers = "platform_system == \"Windows\""}
 name = "colorama"
 version = "0.4.6"
 description = "Cross-platform colored terminal text."
+category = "main"
 optional = false
 python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*,!=3.6.*,>=2.7"
 files = [
@@ -367,6 +376,7 @@ files = [
 name = "cx-freeze"
 version = "6.15.0"
 description = "Create standalone executables from Python scripts"
+category = "dev"
 optional = false
 python-versions = ">=3.7.4"
 files = [
@@ -432,6 +442,7 @@ test = ["nose (==1.3.7)", "pygments (==2.15.1)", "pytest (==7.3.1)", "pytest-cov
 name = "cx-logging"
 version = "3.1.0"
 description = "Python and C interfaces for logging"
+category = "dev"
 optional = false
 python-versions = ">=3.7"
 files = [
@@ -462,6 +473,7 @@ files = [
 name = "dnspython"
 version = "2.3.0"
 description = "DNS toolkit"
+category = "main"
 optional = false
 python-versions = ">=3.7,<4.0"
 files = [
@@ -482,6 +494,7 @@ wmi = ["wmi (>=1.5.1,<2.0.0)"]
 name = "eventlet"
 version = "0.33.3"
 description = "Highly concurrent networking library"
+category = "main"
 optional = false
 python-versions = "*"
 files = [
@@ -498,6 +511,7 @@ six = ">=1.10.0"
 name = "exceptiongroup"
 version = "1.1.1"
 description = "Backport of PEP 654 (exception groups)"
+category = "dev"
 optional = false
 python-versions = ">=3.7"
 files = [
@@ -512,6 +526,7 @@ test = ["pytest (>=6)"]
 name = "flask"
 version = "2.3.2"
 description = "A simple framework for building complex web applications."
+category = "main"
 optional = false
 python-versions = ">=3.8"
 files = [
@@ -535,6 +550,7 @@ dotenv = ["python-dotenv"]
 name = "flask-compress"
 version = "1.13"
 description = "Compress responses in your Flask app with gzip, deflate or brotli."
+category = "main"
 optional = false
 python-versions = "*"
 files = [
@@ -550,6 +566,7 @@ flask = "*"
 name = "flask-socketio"
 version = "5.3.4"
 description = "Socket.IO integration for Flask applications"
+category = "main"
 optional = false
 python-versions = ">=3.6"
 files = [
@@ -565,6 +582,7 @@ python-socketio = ">=5.0.2"
 name = "gevent"
 version = "22.10.2"
 description = "Coroutine-based network library"
+category = "main"
 optional = false
 python-versions = ">=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5"
 files = [
@@ -640,6 +658,7 @@ test = ["backports.socketpair", "cffi (>=1.12.2)", "contextvars (==2.4)", "cover
 name = "gevent-websocket"
 version = "0.10.1"
 description = "Websocket handler for the gevent pywsgi server, a Python network library"
+category = "main"
 optional = false
 python-versions = "*"
 files = [
@@ -654,6 +673,7 @@ gevent = "*"
 name = "greenlet"
 version = "2.0.2"
 description = "Lightweight in-process concurrent programming"
+category = "main"
 optional = false
 python-versions = ">=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*"
 files = [
@@ -727,6 +747,7 @@ test = ["objgraph", "psutil"]
 name = "idna"
 version = "3.4"
 description = "Internationalized Domain Names in Applications (IDNA)"
+category = "main"
 optional = false
 python-versions = ">=3.5"
 files = [
@@ -738,6 +759,7 @@ files = [
 name = "importlib-metadata"
 version = "6.6.0"
 description = "Read metadata from Python packages"
+category = "main"
 optional = false
 python-versions = ">=3.7"
 files = [
@@ -757,6 +779,7 @@ testing = ["flake8 (<5)", "flufl.flake8", "importlib-resources (>=1.3)", "packag
 name = "iniconfig"
 version = "2.0.0"
 description = "brain-dead simple config-ini parsing"
+category = "dev"
 optional = false
 python-versions = ">=3.7"
 files = [
@@ -768,6 +791,7 @@ files = [
 name = "itsdangerous"
 version = "2.1.2"
 description = "Safely pass data to untrusted environments and back."
+category = "main"
 optional = false
 python-versions = ">=3.7"
 files = [
@@ -779,6 +803,7 @@ files = [
 name = "jinja2"
 version = "3.1.2"
 description = "A very fast and expressive template engine."
+category = "main"
 optional = false
 python-versions = ">=3.7"
 files = [
@@ -796,6 +821,7 @@ i18n = ["Babel (>=2.7)"]
 name = "lief"
 version = "0.13.1"
 description = "Library to instrument executable formats"
+category = "dev"
 optional = false
 python-versions = ">=3.8"
 files = [
@@ -828,6 +854,7 @@ files = [
 name = "markupsafe"
 version = "2.1.2"
 description = "Safely add untrusted strings to HTML/XML markup."
+category = "main"
 optional = false
 python-versions = ">=3.7"
 files = [
@@ -887,6 +914,7 @@ files = [
 name = "mypy-extensions"
 version = "1.0.0"
 description = "Type system extensions for programs checked with the mypy type checker."
+category = "dev"
 optional = false
 python-versions = ">=3.5"
 files = [
@@ -898,6 +926,7 @@ files = [
 name = "onionshare-cli"
 version = "2.6.1"
 description = "OnionShare lets you securely and anonymously send and receive files. It works by starting a web server, making it accessible as a Tor onion service, and generating an unguessable web address so others can download files from you, or upload files to you. It does _not_ require setting up a separate server or using a third party file-sharing service."
+category = "main"
 optional = false
 python-versions = ">=3.8,<3.12"
 files = []
@@ -930,6 +959,7 @@ url = "../cli"
 name = "packaging"
 version = "23.1"
 description = "Core utilities for Python packages"
+category = "dev"
 optional = false
 python-versions = ">=3.7"
 files = [
@@ -941,6 +971,7 @@ files = [
 name = "patchelf"
 version = "0.17.2.1"
 description = "A small utility to modify the dynamic linker and RPATH of ELF executables."
+category = "dev"
 optional = false
 python-versions = "*"
 files = [
@@ -960,6 +991,7 @@ test = ["importlib-metadata", "pytest"]
 name = "pathspec"
 version = "0.11.1"
 description = "Utility library for gitignore style pattern matching of file paths."
+category = "dev"
 optional = false
 python-versions = ">=3.7"
 files = [
@@ -971,6 +1003,7 @@ files = [
 name = "platformdirs"
 version = "3.5.1"
 description = "A small Python package for determining appropriate platform-specific dirs, e.g. a \"user data dir\"."
+category = "dev"
 optional = false
 python-versions = ">=3.7"
 files = [
@@ -986,6 +1019,7 @@ test = ["appdirs (==1.4.4)", "covdefaults (>=2.3)", "pytest (>=7.3.1)", "pytest-
 name = "pluggy"
 version = "1.0.0"
 description = "plugin and hook calling mechanisms for python"
+category = "dev"
 optional = false
 python-versions = ">=3.6"
 files = [
@@ -1001,6 +1035,7 @@ testing = ["pytest", "pytest-benchmark"]
 name = "psutil"
 version = "5.9.5"
 description = "Cross-platform lib for process and system monitoring in Python."
+category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 files = [
@@ -1027,6 +1062,7 @@ test = ["enum34", "ipaddress", "mock", "pywin32", "wmi"]
 name = "pycparser"
 version = "2.21"
 description = "C parser in Python"
+category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 files = [
@@ -1038,6 +1074,7 @@ files = [
 name = "pynacl"
 version = "1.5.0"
 description = "Python binding to the Networking and Cryptography (NaCl) library"
+category = "main"
 optional = false
 python-versions = ">=3.6"
 files = [
@@ -1064,6 +1101,7 @@ tests = ["hypothesis (>=3.27.0)", "pytest (>=3.2.1,!=3.3.0)"]
 name = "pypng"
 version = "0.20220715.0"
 description = "Pure Python library for saving and loading PNG images"
+category = "main"
 optional = false
 python-versions = "*"
 files = [
@@ -1075,6 +1113,7 @@ files = [
 name = "pyside6"
 version = "6.5.0"
 description = "Python bindings for the Qt cross-platform application and UI framework"
+category = "main"
 optional = false
 python-versions = "<3.12,>=3.7"
 files = [
@@ -1095,6 +1134,7 @@ shiboken6 = "6.5.0"
 name = "pyside6-addons"
 version = "6.5.0"
 description = "Python bindings for the Qt cross-platform application and UI framework (Addons)"
+category = "main"
 optional = false
 python-versions = "<3.12,>=3.7"
 files = [
@@ -1114,6 +1154,7 @@ shiboken6 = "6.5.0"
 name = "pyside6-essentials"
 version = "6.5.0"
 description = "Python bindings for the Qt cross-platform application and UI framework (Essentials)"
+category = "main"
 optional = false
 python-versions = "<3.12,>=3.7"
 files = [
@@ -1132,6 +1173,7 @@ shiboken6 = "6.5.0"
 name = "pysocks"
 version = "1.7.1"
 description = "A Python SOCKS client module. See https://github.com/Anorov/PySocks for more information."
+category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 files = [
@@ -1144,6 +1186,7 @@ files = [
 name = "pytest"
 version = "7.3.1"
 description = "pytest: simple powerful testing with Python"
+category = "dev"
 optional = false
 python-versions = ">=3.7"
 files = [
@@ -1166,6 +1209,7 @@ testing = ["argcomplete", "attrs (>=19.2.0)", "hypothesis (>=3.56)", "mock", "no
 name = "pytest-faulthandler"
 version = "2.0.1"
 description = "py.test plugin that activates the fault handler module for tests (dummy package)"
+category = "dev"
 optional = false
 python-versions = "*"
 files = [
@@ -1180,6 +1224,7 @@ pytest = ">=5.0"
 name = "pytest-qt"
 version = "4.2.0"
 description = "pytest support for PyQt and PySide applications"
+category = "dev"
 optional = false
 python-versions = ">=3.7"
 files = [
@@ -1198,6 +1243,7 @@ doc = ["sphinx", "sphinx-rtd-theme"]
 name = "python-engineio"
 version = "4.4.1"
 description = "Engine.IO server and client for Python"
+category = "main"
 optional = false
 python-versions = ">=3.6"
 files = [
@@ -1213,6 +1259,7 @@ client = ["requests (>=2.21.0)", "websocket-client (>=0.54.0)"]
 name = "python-gnupg"
 version = "0.5.0"
 description = "A wrapper for the Gnu Privacy Guard (GPG or GnuPG)"
+category = "main"
 optional = false
 python-versions = "*"
 files = [
@@ -1224,6 +1271,7 @@ files = [
 name = "python-socketio"
 version = "5.8.0"
 description = "Socket.IO server and client for Python"
+category = "main"
 optional = false
 python-versions = ">=3.6"
 files = [
@@ -1243,6 +1291,7 @@ client = ["requests (>=2.21.0)", "websocket-client (>=0.54.0)"]
 name = "qrcode"
 version = "7.4.2"
 description = "QR Code image generator"
+category = "main"
 optional = false
 python-versions = ">=3.7"
 files = [
@@ -1266,6 +1315,7 @@ test = ["coverage", "pytest"]
 name = "requests"
 version = "2.31.0"
 description = "Python HTTP for Humans."
+category = "main"
 optional = false
 python-versions = ">=3.7"
 files = [
@@ -1288,6 +1338,7 @@ use-chardet-on-py3 = ["chardet (>=3.0.2,<6)"]
 name = "setuptools"
 version = "67.8.0"
 description = "Easily download, build, install, upgrade, and uninstall Python packages"
+category = "main"
 optional = false
 python-versions = ">=3.7"
 files = [
@@ -1304,6 +1355,7 @@ testing-integration = ["build[virtualenv]", "filelock (>=3.4.0)", "jaraco.envs (
 name = "shiboken6"
 version = "6.5.0"
 description = "Python/C++ bindings helper module"
+category = "main"
 optional = false
 python-versions = "<3.12,>=3.7"
 files = [
@@ -1319,6 +1371,7 @@ files = [
 name = "six"
 version = "1.16.0"
 description = "Python 2 and 3 compatibility utilities"
+category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*"
 files = [
@@ -1330,6 +1383,7 @@ files = [
 name = "stem"
 version = "1.8.1"
 description = "Stem is a Python controller library that allows applications to interact with Tor (https://www.torproject.org/)."
+category = "main"
 optional = false
 python-versions = "*"
 files = [
@@ -1340,6 +1394,7 @@ files = [
 name = "tomli"
 version = "2.0.1"
 description = "A lil' TOML parser"
+category = "dev"
 optional = false
 python-versions = ">=3.7"
 files = [
@@ -1351,6 +1406,7 @@ files = [
 name = "typing-extensions"
 version = "4.6.2"
 description = "Backported and Experimental Type Hints for Python 3.7+"
+category = "main"
 optional = false
 python-versions = ">=3.7"
 files = [
@@ -1362,6 +1418,7 @@ files = [
 name = "unidecode"
 version = "1.3.6"
 description = "ASCII transliterations of Unicode text"
+category = "main"
 optional = false
 python-versions = ">=3.5"
 files = [
@@ -1373,6 +1430,7 @@ files = [
 name = "urllib3"
 version = "2.0.2"
 description = "HTTP library with thread-safe connection pooling, file post, and more."
+category = "main"
 optional = false
 python-versions = ">=3.7"
 files = [
@@ -1390,6 +1448,7 @@ zstd = ["zstandard (>=0.18.0)"]
 name = "waitress"
 version = "2.1.2"
 description = "Waitress WSGI server"
+category = "main"
 optional = false
 python-versions = ">=3.7.0"
 files = [
@@ -1405,6 +1464,7 @@ testing = ["coverage (>=5.0)", "pytest", "pytest-cover"]
 name = "werkzeug"
 version = "2.3.4"
 description = "The comprehensive WSGI web application library."
+category = "main"
 optional = false
 python-versions = ">=3.8"
 files = [
@@ -1422,6 +1482,7 @@ watchdog = ["watchdog (>=2.3)"]
 name = "zipp"
 version = "3.15.0"
 description = "Backport of pathlib-compatible object wrapper for zip files"
+category = "main"
 optional = false
 python-versions = ">=3.7"
 files = [
@@ -1437,6 +1498,7 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 name = "zope-event"
 version = "4.6"
 description = "Very basic event publishing system"
+category = "main"
 optional = false
 python-versions = "*"
 files = [
@@ -1455,6 +1517,7 @@ test = ["zope.testrunner"]
 name = "zope-interface"
 version = "6.0"
 description = "Interfaces for Python"
+category = "main"
 optional = false
 python-versions = ">=3.7"
 files = [
