@@ -541,3 +541,30 @@ class TestShare(GuiBaseTest):
         self.hit_405(url, expected_resp="OnionShare: 405 Method Not Allowed", data = {'foo':'bar'}, methods = ["put", "post", "delete", "options"])
         self.history_widgets_present(tab)
         self.close_all_tabs()
+
+
+    def test_1_compression(self):
+        """
+        A file with a compressable mimetype should return a Content-Encoding header
+        with gzip compression enabled.
+        """
+        tab = self.new_share_tab()
+        tab.get_mode().autostop_sharing_checkbox.click()
+
+        self.run_all_common_setup_tests()
+        self.run_all_share_mode_setup_tests(tab)
+        tab.get_mode().mode_settings_widget.public_checkbox.click()
+        tab.get_mode().remove_all_button.click()
+        tab.get_mode().server_status.file_selection.file_list.add_file(
+            self.tmpfile_test_html
+        )
+        self.run_all_share_mode_started_tests(tab)
+        url = f"http://127.0.0.1:{tab.app.port}/test.html"
+        r = requests.get(url)
+        self.assertTrue("Content-Encoding" in r.headers)
+        self.assertEqual("gzip", r.headers["Content-Encoding"])
+
+        self.server_is_stopped(tab)
+        self.web_server_is_stopped(tab)
+        self.server_status_indicator_says_closed(tab)
+        self.close_all_tabs()
