@@ -372,7 +372,7 @@ class Web:
             self.socketio.stop()
 
         if self.waitress:
-            self.waitress.close()
+            self.waitress_custom_shutdown()
 
     def cleanup(self):
         """
@@ -385,3 +385,15 @@ class Web:
             dir.cleanup()
 
         self.cleanup_tempdirs = []
+
+    def waitress_custom_shutdown(self):
+        """Shutdown the Waitress server immediately"""
+        # Code borrowed from https://github.com/Pylons/webtest/blob/4b8a3ebf984185ff4fefb31b4d0cf82682e1fcf7/webtest/http.py#L93-L104
+        self.waitress.was_shutdown = True
+        while self.waitress._map:
+            triggers = list(self.waitress._map.values())
+            for trigger in triggers:
+                trigger.handle_close()
+        self.waitress.maintenance(0)
+        self.waitress.task_dispatcher.shutdown()
+        return True
