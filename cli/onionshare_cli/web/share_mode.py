@@ -29,7 +29,7 @@ from datetime import datetime, timezone
 from flask import Response, request, render_template, make_response, abort
 from unidecode import unidecode
 from werkzeug.http import parse_date, http_date
-from werkzeug.urls import url_quote
+from urllib.parse import quote
 
 from .send_base_mode import SendBaseModeWeb
 
@@ -231,7 +231,7 @@ class ShareModeWeb(SendBaseModeWeb):
             r.headers.set("Content-Length", range_[1] - range_[0] + 1)
             filename_dict = {
                 "filename": unidecode(basename),
-                "filename*": "UTF-8''%s" % url_quote(basename),
+                "filename*": "UTF-8''%s" % quote(basename),
             }
             r.headers.set("Content-Disposition", "attachment", **filename_dict)
             # guess content type

@@ -23,7 +23,7 @@ import os
 import queue
 import requests
 import shutil
-from distutils.version import LooseVersion as Version
+from packaging.version import Version
 from waitress.server import create_server
 
 import flask
@@ -349,7 +349,13 @@ class Web:
         if self.mode == "chat":
             self.socketio.run(self.app, host=host, port=port)
         else:
-            self.waitress = create_server(self.app, host=host, port=port)
+            self.waitress = create_server(
+                self.app,
+                host=host,
+                port=port,
+                clear_untrusted_proxy_headers=True,
+                ident="OnionShare",
+            )
             self.waitress.run()
 
     def stop(self, port):

@@ -25,7 +25,7 @@ import mimetypes
 import gzip
 from flask import Response, request
 from unidecode import unidecode
-from werkzeug.urls import url_quote
+from urllib.parse import quote
 
 
 class SendBaseModeWeb:
@@ -284,7 +284,7 @@ class SendBaseModeWeb:
         r.headers.set("Content-Length", filesize)
         filename_dict = {
             "filename": unidecode(basename),
-            "filename*": "UTF-8''%s" % url_quote(basename),
+            "filename*": "UTF-8''%s" % quote(basename),
         }
         r.headers.set("Content-Disposition", "inline", **filename_dict)
         (content_type, _) = mimetypes.guess_type(basename, strict=False)
