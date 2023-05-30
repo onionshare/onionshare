@@ -543,7 +543,7 @@ class TestShare(GuiBaseTest):
         self.close_all_tabs()
 
 
-    def test_1_compression(self):
+    def test_compression(self):
         """
         A file with a compressable mimetype should return a Content-Encoding header
         with gzip compression enabled.
