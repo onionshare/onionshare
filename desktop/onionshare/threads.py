@@ -39,6 +39,8 @@ from onionshare_cli.onion import (
     PortNotAvailable,
 )
 
+from onionshare_cli.web.web import WaitressException
+
 from . import strings
 
 
@@ -83,7 +85,6 @@ class OnionThread(QtCore.QThread):
                 # wait for modules in thread to load, preventing a thread-related cx_Freeze crash
                 time.sleep(0.2)
                 # start onionshare http service in new thread
-                self.mode.web_thread = WebThread(self.mode)
                 self.mode.web_thread.start()
                 self.success.emit()
 
@@ -122,9 +123,14 @@ class WebThread(QtCore.QThread):
 
     def run(self):
         self.mode.common.log("WebThread", "run")
-        self.mode.web.start(self.mode.app.port)
-        self.success.emit()
-
+        try:
+            self.mode.web.start(self.mode.app.port)
+            self.success.emit()
+        except WaitressException as e:
+            message = self.mode.common.gui.get_translated_web_error(e)
+            self.mode.common.log("WebThread", "run", message)
+            self.error.emit(message)
+            return
 
 class AutoStartTimer(QtCore.QThread):
     """

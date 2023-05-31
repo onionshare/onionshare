@@ -57,6 +57,12 @@ except Exception:
     pass
 
 
+class WaitressException(Exception):
+    """
+    There was a problem starting the waitress web server.
+    """
+
+
 class Web:
     """
     The Web object is the OnionShare web server, powered by flask
@@ -349,14 +355,17 @@ class Web:
         if self.mode == "chat":
             self.socketio.run(self.app, host=host, port=port)
         else:
-            self.waitress = create_server(
-                self.app,
-                host=host,
-                port=port,
-                clear_untrusted_proxy_headers=True,
-                ident="OnionShare",
-            )
-            self.waitress.run()
+            try:
+                self.waitress = create_server(
+                    self.app,
+                    host=host,
+                    port=port,
+                    clear_untrusted_proxy_headers=True,
+                    ident="OnionShare",
+                )
+                self.waitress.run()
+            except Exception as e:
+                raise WaitressException(f"Error starting Waitress: {e}")
 
     def stop(self, port):
         """
@@ -389,7 +398,6 @@ class Web:
     def waitress_custom_shutdown(self):
         """Shutdown the Waitress server immediately"""
         # Code borrowed from https://github.com/Pylons/webtest/blob/4b8a3ebf984185ff4fefb31b4d0cf82682e1fcf7/webtest/http.py#L93-L104
-        self.waitress.was_shutdown = True
         while self.waitress._map:
             triggers = list(self.waitress._map.values())
             for trigger in triggers:
