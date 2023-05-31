@@ -345,16 +345,6 @@ msgstr ""
 #~ "distributions."
 #~ msgstr ""
 
-#~ msgid "**Install OnionShare using Snapcraft**: https://snapcraft.io/onionshare"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "You can also download and install "
-#~ "a PGP-signed ``.flatpak`` or ``.snap``"
-#~ " packages from https://onionshare.org/dist/ if"
-#~ " you prefer."
-#~ msgstr ""
-
 #~ msgid ""
 #~ "You can find the signatures (``.asc``"
 #~ " files), as well as Windows, macOS,"
