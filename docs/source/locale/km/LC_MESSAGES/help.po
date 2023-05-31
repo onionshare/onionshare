@@ -27,7 +27,9 @@ msgid "Read This Website"
 msgstr "អានវេបសាយនេះ"
 
 #: ../../source/help.rst:7
-msgid "You will find instructions on how to use OnionShare. Look through all of the sections first to see if anything answers your questions."
+msgid ""
+"You will find instructions on how to use OnionShare. Look through all of the "
+"sections first to see if anything answers your questions."
 msgstr ""
 "អ្នកនឹងឃើញការណែនាំអំពីរបៀបប្រើ OnionShare។ ស្វែងរកមើលផ្នែកទាំងអស់ជាមុនសិន "
 "ដើម្បីមើលថាតើផ្នែកទាំងនោះឆ្លើយតបនឹងចម្ងល់របស់អ្នកឬទេ។"
@@ -37,32 +39,40 @@ msgid "Check the GitHub Issues"
 msgstr "ពិនិត្យមើលបញ្ហា GitHub"
 
 #: ../../source/help.rst:12
-msgid "If it isn't on the website, please check the `GitHub issues <https://github.com/onionshare/onionshare/issues>`_. It's possible someone else has encountered the same problem and either raised it with the developers, or maybe even posted a solution."
+msgid ""
+"If it isn't on the website, please check the `GitHub issues <https://github."
+"com/onionshare/onionshare/issues>`_. It's possible someone else has "
+"encountered the same problem and either raised it with the developers, or "
+"maybe even posted a solution."
 msgstr ""
-"ប្រសិនបើវាមិនមាននៅលើវេបសាយទេ សូមពិនិត្យមើល `GitHub Issues <https://github."
-"com/onionshare/onionshare/issues>`_។ "
-"វាអាចក្រែងលោនរណាម្នាក់បានជួបប្រទះបញ្ហាដូចគ្នា "
-"ហើយបានលើកឡើង​ពីវាជាមួយអ្នកផលិតកម្មវិធី "
-"ឬប្រហែលជាពួកគេបានបង្ហោះនូវដំណោះស្រាយរួចហើយ។"
+"ប្រសិនបើវាមិនមាននៅលើវេបសាយទេ សូមពិនិត្យមើល `GitHub Issues <https://github.com/"
+"onionshare/onionshare/issues>`_។ វាអាចក្រែងលោនរណាម្នាក់បានជួបប្រទះបញ្ហាដូចគ្នា "
+"ហើយបានលើកឡើង​ពីវាជាមួយអ្នកផលិតកម្មវិធី ឬប្រហែលជាពួកគេបានបង្ហោះនូវដំណោះស្រាយរួចហើយ។"
 
 #: ../../source/help.rst:15
 msgid "Submit an Issue Yourself"
 msgstr "ដាក់ស្នើបញ្ហាដោយខ្លួនឯង"
 
 #: ../../source/help.rst:17
-msgid "If you are unable to find a solution, or wish to ask a question or suggest a new feature, please `submit an issue <https://github.com/onionshare/onionshare/issues/new>`_. This requires `creating a GitHub account <https://help.github.com/articles/signing-up-for-a-new-github-account/>`_."
+msgid ""
+"If you are unable to find a solution, or wish to ask a question or suggest a "
+"new feature, please `submit an issue <https://github.com/onionshare/"
+"onionshare/issues/new>`_. This requires `creating a GitHub account <https://"
+"help.github.com/articles/signing-up-for-a-new-github-account/>`_."
 msgstr ""
-"ប្រសិនបើអ្នកមិនអាចស្វែងរកដំណោះស្រាយ ឬចង់សួរសំណួរ ឬណែនាំមុខងារថ្មី សូម "
-"`ដាក់ស្នើបញ្ហា <https://github.com/onionshare/onionshare/issues/new>`_។ "
-"ការដាក់ស្នើនេះតម្រូវឱ្យ \"បង្កើតគណនី GitHub <https://help.github.com/"
-"articles/signing-up-for-a-new-github-account/>`_។"
+"ប្រសិនបើអ្នកមិនអាចស្វែងរកដំណោះស្រាយ ឬចង់សួរសំណួរ ឬណែនាំមុខងារថ្មី សូម `ដាក់ស្នើបញ្ហា <https://"
+"github.com/onionshare/onionshare/issues/new>`_។ ការដាក់ស្នើនេះតម្រូវឱ្យ "
+"\"បង្កើតគណនី GitHub <https://help.github.com/articles/signing-up-for-a-new-"
+"github-account/>`_។"
 
 #: ../../source/help.rst:20
 msgid "Join our Keybase Team"
 msgstr "ចូលរួមជាមួយ Keybase Team របស់យើង"
 
 #: ../../source/help.rst:22
-msgid "See :ref:`collaborating` on how to join the Keybase team used to discuss the project."
+msgid ""
+"See :ref:`collaborating` on how to join the Keybase team used to discuss the "
+"project."
 msgstr ""
 "សូមមើល:ref:`collaborating` អំពីរបៀបចូលរួមជាមួយ Keybase Team "
 "ដែលប្រើដើម្បីពិភាក្សាអំពីគម្រោងនេះ។"

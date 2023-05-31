@@ -27,7 +27,9 @@ msgid "Read This Website"
 msgstr "이 웹사이트 읽기"
 
 #: ../../source/help.rst:7
-msgid "You will find instructions on how to use OnionShare. Look through all of the sections first to see if anything answers your questions."
+msgid ""
+"You will find instructions on how to use OnionShare. Look through all of the "
+"sections first to see if anything answers your questions."
 msgstr ""
 "OnionShare를 사용하는 방법에 대한 지침을 찾을 수 있습니다. 먼저 모든 섹션을 "
 "살펴보고 질문에 답하는 것이 있는지 확인하십시오."
@@ -37,29 +39,40 @@ msgid "Check the GitHub Issues"
 msgstr "GitHub 이슈 알아보기"
 
 #: ../../source/help.rst:12
-msgid "If it isn't on the website, please check the `GitHub issues <https://github.com/onionshare/onionshare/issues>`_. It's possible someone else has encountered the same problem and either raised it with the developers, or maybe even posted a solution."
+msgid ""
+"If it isn't on the website, please check the `GitHub issues <https://github."
+"com/onionshare/onionshare/issues>`_. It's possible someone else has "
+"encountered the same problem and either raised it with the developers, or "
+"maybe even posted a solution."
 msgstr ""
 "웹사이트에 없으면 `GitHub 문제 <https://github.com/onionshare/onionshare/"
-"issues>`_를 확인하세요. 다른 누군가가 동일한 문제에 직면하여 개발자에게 "
-"문제를 제기했거나 솔루션을 게시했을 수도 있습니다."
+"issues>`_를 확인하세요. 다른 누군가가 동일한 문제에 직면하여 개발자에게 문제"
+"를 제기했거나 솔루션을 게시했을 수도 있습니다."
 
 #: ../../source/help.rst:15
 msgid "Submit an Issue Yourself"
 msgstr "직접 이슈 제출하기"
 
 #: ../../source/help.rst:17
-msgid "If you are unable to find a solution, or wish to ask a question or suggest a new feature, please `submit an issue <https://github.com/onionshare/onionshare/issues/new>`_. This requires `creating a GitHub account <https://help.github.com/articles/signing-up-for-a-new-github-account/>`_."
+msgid ""
+"If you are unable to find a solution, or wish to ask a question or suggest a "
+"new feature, please `submit an issue <https://github.com/onionshare/"
+"onionshare/issues/new>`_. This requires `creating a GitHub account <https://"
+"help.github.com/articles/signing-up-for-a-new-github-account/>`_."
 msgstr ""
-"해결 방법을 찾을 수 없거나, 질문을 하거나 새로운 기능을 제안하려면, 부디`"
-"이슈를 제출해주세요 <https://github.com/onionshare/onionshare/issues/new>`_. "
-"이를 위해서는 `GitHub 계정 생성 <https://help.github.com/articles/"
-"signing-up-for-a-new-github-account/>`_이 필요합니다."
+"해결 방법을 찾을 수 없거나, 질문을 하거나 새로운 기능을 제안하려면, 부디`이슈"
+"를 제출해주세요 <https://github.com/onionshare/onionshare/issues/new>`_. 이"
+"를 위해서는 `GitHub 계정 생성 <https://help.github.com/articles/signing-up-"
+"for-a-new-github-account/>`_이 필요합니다."
 
 #: ../../source/help.rst:20
 msgid "Join our Keybase Team"
 msgstr "Keybase 팀에 합류하세요"
 
 #: ../../source/help.rst:22
-msgid "See :ref:`collaborating` on how to join the Keybase team used to discuss the project."
-msgstr "프로젝트에 대해 논의하는 데 사용된 Keybase 팀에 합류하는 방법에 대해서는 "
-":ref:`공동 작업`을 참조하십시오."
+msgid ""
+"See :ref:`collaborating` on how to join the Keybase team used to discuss the "
+"project."
+msgstr ""
+"프로젝트에 대해 논의하는 데 사용된 Keybase 팀에 합류하는 방법에 대해서는 :"
+"ref:`공동 작업`을 참조하십시오."
