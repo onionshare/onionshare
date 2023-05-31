@@ -41,7 +41,7 @@ from onionshare_cli.onion import (
     PortNotAvailable,
 )
 from onionshare_cli.meek import Meek
-
+from onionshare_cli.web.web import WaitressException
 
 class GuiCommon:
     """
@@ -581,6 +581,13 @@ class GuiCommon:
             return strings._("error_port_not_available")
         return None
 
+    @staticmethod
+    def get_translated_web_error(e):
+        """
+        Takes an exception defined in web.py and returns a translated error message
+        """
+        if type(e) is WaitressException:
+            return strings._("waitress_web_server_error")
 
 class ToggleCheckbox(QtWidgets.QCheckBox):
     def __init__(self, text):

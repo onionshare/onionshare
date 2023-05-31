@@ -27,7 +27,7 @@ from .mode_settings_widget import ModeSettingsWidget
 
 from ..server_status import ServerStatus
 from ... import strings
-from ...threads import OnionThread, AutoStartTimer
+from ...threads import OnionThread, WebThread, AutoStartTimer
 from ...widgets import Alert, MinimumSizeWidget
 
 
@@ -294,6 +294,8 @@ class Mode(QtWidgets.QWidget):
             self.onion_thread.success.connect(self.starting_server_step2.emit)
             self.onion_thread.success_early.connect(self.starting_server_early.emit)
             self.onion_thread.error.connect(self.starting_server_error.emit)
+            self.web_thread = WebThread(self)
+            self.web_thread.error.connect(self.starting_server_error.emit)
             self.onion_thread.start()
 
     def start_scheduled_service(self, obtain_onion_early=False):
