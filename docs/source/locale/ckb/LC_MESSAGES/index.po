@@ -23,7 +23,9 @@ msgid "OnionShare's documentation"
 msgstr "Rêziknameya OnionShare"
 
 #: ../../source/index.rst:6
-msgid "OnionShare is an open source tool that lets you securely and anonymously share files, host websites, and chat with friends using the Tor network."
+msgid ""
+"OnionShare is an open source tool that lets you securely and anonymously "
+"share files, host websites, and chat with friends using the Tor network."
 msgstr ""
 "OnionShare bernameyekî kanî vekirî ye û derfet dide te li ser tora Tor bi "
 "ewle û veşartî nameyan parve bike, malperan rêvebibe û bi hevalan re bikeve "
