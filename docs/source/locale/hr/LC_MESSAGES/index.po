@@ -24,7 +24,9 @@ msgid "OnionShare's documentation"
 msgstr "OnionShare dokumentacija"
 
 #: ../../source/index.rst:6
-msgid "OnionShare is an open source tool that lets you securely and anonymously share files, host websites, and chat with friends using the Tor network."
+msgid ""
+"OnionShare is an open source tool that lets you securely and anonymously "
+"share files, host websites, and chat with friends using the Tor network."
 msgstr ""
 "OnionShare je alat otvorenog koda koji omogućuje sigurno i anonimno "
 "dijeljenje datoteka, hosting za web-stranice te razgovaranje s prijateljima "

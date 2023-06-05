@@ -29,10 +29,11 @@ msgstr "閱讀這個網站"
 
 #: ../../source/help.rst:7
 msgid ""
-"You will find instructions on how to use OnionShare. Look through all of "
-"the sections first to see if anything answers your questions."
-msgstr "這個網站有教導如何使用 OnionShare "
-"的指示，先看大略看過一遍找找是否能回答您的問題。"
+"You will find instructions on how to use OnionShare. Look through all of the "
+"sections first to see if anything answers your questions."
+msgstr ""
+"這個網站有教導如何使用 OnionShare 的指示，先看大略看過一遍找找是否能回答您的"
+"問題。"
 
 #: ../../source/help.rst:10
 msgid "Check the GitHub Issues"
@@ -40,10 +41,10 @@ msgstr "確認 Github issues"
 
 #: ../../source/help.rst:12
 msgid ""
-"If it isn't on the website, please check the `GitHub issues "
-"<https://github.com/micahflee/onionshare/issues>`_. It's possible someone"
-" else has encountered the same problem and either raised it with the "
-"developers, or maybe even posted a solution."
+"If it isn't on the website, please check the `GitHub issues <https://github."
+"com/micahflee/onionshare/issues>`_. It's possible someone else has "
+"encountered the same problem and either raised it with the developers, or "
+"maybe even posted a solution."
 msgstr ""
 
 #: ../../source/help.rst:15
@@ -52,11 +53,10 @@ msgstr "自己提交 issue"
 
 #: ../../source/help.rst:17
 msgid ""
-"If you are unable to find a solution, or wish to ask a question or "
-"suggest a new feature, please `submit an issue "
-"<https://github.com/micahflee/onionshare/issues/new>`_. This requires "
-"`creating a GitHub account <https://help.github.com/articles/signing-up-"
-"for-a-new-github-account/>`_."
+"If you are unable to find a solution, or wish to ask a question or suggest a "
+"new feature, please `submit an issue <https://github.com/micahflee/"
+"onionshare/issues/new>`_. This requires `creating a GitHub account <https://"
+"help.github.com/articles/signing-up-for-a-new-github-account/>`_."
 msgstr ""
 
 #: ../../source/help.rst:20
@@ -65,44 +65,6 @@ msgstr "加入 Keybase 小組"
 
 #: ../../source/help.rst:22
 msgid ""
-"See :ref:`collaborating` on how to join the Keybase team used to discuss "
-"the project."
+"See :ref:`collaborating` on how to join the Keybase team used to discuss the "
+"project."
 msgstr "請見 :ref:`collaborating` 如何加入 Keybase 小組來討論專案。"
-
-#~ msgid "If you need help with OnionShare, please follow the instructions below."
-#~ msgstr "如果您需要關於OnionShare的協助，請跟著以下的指示。"
-
-#~ msgid ""
-#~ "If you can't find a solution in"
-#~ " this website, please check the "
-#~ "`GitHub issues "
-#~ "<https://github.com/micahflee/onionshare/issues>`_. It's "
-#~ "possible that someone else has "
-#~ "encountered the same problem and has "
-#~ "either raised it with the developers,"
-#~ " or maybe even posted a solution."
-#~ msgstr ""
-
-#~ msgid "Submit an issue yourself"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "If you can't find a solution to"
-#~ " your problem, or you wish to "
-#~ "ask a question or suggest a new"
-#~ " feature, please `submit an issue "
-#~ "<https://github.com/micahflee/onionshare/issues/new>`_. This "
-#~ "requires `creating an GitHub account "
-#~ "<https://help.github.com/articles/signing-up-for-a-new-"
-#~ "github-account/>`_."
-#~ msgstr ""
-
-#~ msgid "Join our Keybase team"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "See :ref:`collaborating` for instructions on"
-#~ " how to join our Keybase team "
-#~ "that we use to discuss the "
-#~ "project."
-#~ msgstr ""

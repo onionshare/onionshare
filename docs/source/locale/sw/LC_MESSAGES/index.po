@@ -23,7 +23,9 @@ msgid "OnionShare's documentation"
 msgstr "Uwekaji wa kumbukumbu za OnionShare's"
 
 #: ../../source/index.rst:6
-msgid "OnionShare is an open source tool that lets you securely and anonymously share files, host websites, and chat with friends using the Tor network."
+msgid ""
+"OnionShare is an open source tool that lets you securely and anonymously "
+"share files, host websites, and chat with friends using the Tor network."
 msgstr ""
 "OnionShare ni kifaa kinachopatikana bure ambacho kinakuwezesha kusambaza "
 "mafaili yako kwa usalama na bila kujulikana, tovuti zinazosimamia, na ku "
