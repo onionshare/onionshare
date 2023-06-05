@@ -24,4 +24,3 @@ msgstr ""
 #: ../../source/_templates/versions.html:18
 msgid "Languages"
 msgstr ""
-

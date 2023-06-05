@@ -98,7 +98,7 @@ Using a system ``tor`` in Windows
 
 This is fairly advanced. You'll need to know how edit plaintext files and do stuff as an administrator.
 
-Download the Tor Windows Expert Bundle `from <https://www.torproject.org/download/tor/>`_.
+Download the Tor Windows Expert Bundle `from the Tor website <https://www.torproject.org/download/tor/>`_.
 Extract the compressed file and copy the extracted folder to ``C:\Program Files (x86)\``
 Rename the extracted folder with ``Data`` and ``Tor`` in it to ``tor-win32``.
 
