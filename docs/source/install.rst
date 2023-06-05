@@ -22,6 +22,31 @@ Snapcraft support is built-in to Ubuntu and Fedora comes with Flatpak support, b
 
 You can also download and install PGP-signed ``.flatpak`` or ``.snap`` packages from https://onionshare.org/dist/ if you prefer.
 
+Manual Flatpak Installation
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If you'd like to install OnionShare manually with Flatpak using the PGP-signed `single-file bundle <https://docs.flatpak.org/en/latest/single-file-bundles.html>`_, you can do so like this:
+
+- Install Flatpak by following the instructions at https://flatpak.org/setup/.
+- Add the Flathub repository by running ``flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo``. Even though you won't be downloading OnionShare from Flathub, OnionShare depends on some packages that are only available there.
+- Go to https://onionshare.org/dist/, choose the latest version of OnionShare, and download the ``.flatpak`` and ``.flatpak.asc`` files.
+- Verify the PGP signature of the ``.flatpak`` file. See :ref:`verifying_sigs` for more info.
+- Install the ``.flatpak`` file by running ``flatpak install OnionShare-VERSION.flatpak``. Replace ``VERSION`` with the version number of the file you downloaded.
+
+You can run OnionShare with: `flatpak run org.onionshare.OnionShare`.
+
+Manual Snapcraft Installation
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If you'd like to install OnionShare manually with Snapcraft using the PGP-signed Snapcraft package, you can do so like this:
+
+- Install Snapcraft by following the instructions at https://snapcraft.io/docs/installing-snapd.
+- Go to https://onionshare.org/dist/, choose the latest version of OnionShare, and download the ``.snap`` and ``.snap.asc`` files.
+- Verify the PGP signature of the ``.snap`` file. See :ref:`verifying_sigs` for more info.
+- Install the ``.snap`` file by running ``snap install --dangerous onionshare_VERSION_amd64.snap``. Replace ``VERSION`` with the version number of the file you downloaded. Note that you must use `--dangerous` because the package is not signed by the Snapcraft store, however you did verify its PGP signature, so you know it's legitimate.
+
+You can run OnionShare with: `snap run onionshare`.
+
 .. _pip:
 
 Command-line only
