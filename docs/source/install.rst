@@ -43,7 +43,7 @@ If you'd like to install OnionShare manually with Snapcraft using the PGP-signed
 - Install Snapcraft by following the instructions at https://snapcraft.io/docs/installing-snapd.
 - Go to https://onionshare.org/dist/, choose the latest version of OnionShare, and download the ``.snap`` and ``.snap.asc`` files.
 - Verify the PGP signature of the ``.snap`` file. See :ref:`verifying_sigs` for more info.
-- Install the ``.snap`` file by running ``snap install --dangerous onionshare_VERSION_amd64.snap``. Replace ``VERSION`` with the version number of the file you downloaded. Note that you must use `--dangerous` because the package is not signed by the Snapcraft store, however you did verify it's PGP signature, so you know it's legitimate.
+- Install the ``.snap`` file by running ``snap install --dangerous onionshare_VERSION_amd64.snap``. Replace ``VERSION`` with the version number of the file you downloaded. Note that you must use `--dangerous` because the package is not signed by the Snapcraft store, however you did verify its PGP signature, so you know it's legitimate.
 
 You can run OnionShare with: `snap run onionshare`.
 
