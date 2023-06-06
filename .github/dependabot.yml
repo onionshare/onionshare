@@ -10,3 +10,8 @@ updates:
     directory: "/desktop"
     schedule:
       interval: "weekly"
+
+  - package-ecosystem: "poetry"
+    directory: "/docs"
+    schedule:
+      interval: "weekly"
