@@ -37,7 +37,7 @@ sphinx-intl update -p build/gettext -l de
 make -e SPHINXOPTS="-D language='de'" html
 ```
 
-## Discoving which translations are >90% complete
+## Discovering which translations are >90% complete
 
 Each OnionShare release should only include a language if >90% of the strings have been translated into it. The script `check-weblate.py` script can be used to make a few hundreds weblate API requests to determine this for you automatically. It requires using your weblate API key, which you can find in your [user profile](https://hosted.weblate.org/accounts/profile/#api).
 
