@@ -252,5 +252,6 @@
     "moat_bridgedb_error": "Could not contact BridgeDB.",
     "moat_captcha_error": "Incorrect solution. Please try again.",
     "moat_solution_empty_error": "Enter the characters from the image",
-    "mode_tor_not_connected_label": "OnionShare is not connected to the Tor network"
+    "mode_tor_not_connected_label": "OnionShare is not connected to the Tor network",
+    "waitress_web_server_error": "There was a problem starting the web server"
 }

@@ -23,7 +23,8 @@ import os
 import queue
 import requests
 import shutil
-from distutils.version import LooseVersion as Version
+from packaging.version import Version
+from waitress.server import create_server
 
 import flask
 from flask import (
@@ -35,6 +36,7 @@ from flask import (
     send_file,
     __version__ as flask_version,
 )
+from flask_compress import Compress
 from flask_socketio import SocketIO
 
 from .share_mode import ShareModeWeb
@@ -53,6 +55,12 @@ try:
     flask.cli.show_server_banner = stubbed_show_server_banner
 except Exception:
     pass
+
+
+class WaitressException(Exception):
+    """
+    There was a problem starting the waitress web server.
+    """
 
 
 class Web:
@@ -91,6 +99,8 @@ class Web:
         # https://github.com/onionshare/onionshare/issues/1443
         mimetypes.add_type("text/javascript", ".js")
 
+        self.waitress = None
+
         # The flask app
         self.app = Flask(
             __name__,
@@ -98,6 +108,9 @@ class Web:
             static_url_path=f"/static_{self.common.random_string(16)}",  # randomize static_url_path to avoid making /static unusable
             template_folder=self.common.get_resource_path("templates"),
         )
+        self.compress = Compress()
+        self.compress.init_app(self.app)
+
         self.app.secret_key = self.common.random_string(8)
         self.generate_static_url_path()
 
@@ -251,16 +264,6 @@ class Web:
             mode.cur_history_id += 1
             return self.error500(history_id)
 
-        @self.app.route("/<password_candidate>/shutdown")
-        def shutdown(password_candidate):
-            """
-            Stop the flask web server, from the context of an http request.
-            """
-            if password_candidate == self.shutdown_password:
-                self.force_shutdown()
-                return ""
-            abort(404)
-
         if self.mode != "website":
 
             @self.app.route("/favicon.ico")
@@ -329,25 +332,6 @@ class Web:
         log_handler.setLevel(logging.WARNING)
         self.app.logger.addHandler(log_handler)
 
-    def force_shutdown(self):
-        """
-        Stop the flask web server, from the context of the flask app.
-        """
-        # Shutdown the flask service
-        try:
-            func = request.environ.get("werkzeug.server.shutdown")
-            if func is None and self.mode != "chat":
-                raise RuntimeError("Not running with the Werkzeug Server")
-            func()
-        except Exception:
-            pass
-
-        self.running = False
-
-        # If chat, shutdown the socket server
-        if self.mode == "chat":
-            self.socketio.stop()
-
     def start(self, port):
         """
         Start the flask web server.
@@ -371,7 +355,17 @@ class Web:
         if self.mode == "chat":
             self.socketio.run(self.app, host=host, port=port)
         else:
-            self.app.run(host=host, port=port, threaded=True)
+            try:
+                self.waitress = create_server(
+                    self.app,
+                    host=host,
+                    port=port,
+                    clear_untrusted_proxy_headers=True,
+                    ident="OnionShare",
+                )
+                self.waitress.run()
+            except Exception as e:
+                raise WaitressException(f"Error starting Waitress: {e}")
 
     def stop(self, port):
         """
@@ -382,21 +376,12 @@ class Web:
         # Let the mode know that the user stopped the server
         self.stop_q.put(True)
 
-        # To stop flask, load http://shutdown:[shutdown_password]@127.0.0.1/[shutdown_password]/shutdown
-        # (We're putting the shutdown_password in the path as well to make routing simpler)
-        if self.running:
-            try:
-                requests.get(
-                    f"http://127.0.0.1:{port}/{self.shutdown_password}/shutdown"
-                )
-            except requests.exceptions.ConnectionError as e:
-                # The way flask-socketio stops a connection when running using
-                # eventlet is by raising SystemExit to abort all the processes.
-                # Hence the connections are closed and no response is returned
-                # to the above request. So I am just catching the ConnectionError
-                # to check if it was chat mode, in which case it's okay
-                if self.mode != "chat":
-                    raise e
+        # If in chat mode, shutdown the socket server rather than Waitress.
+        if self.mode == "chat":
+            self.socketio.stop()
+
+        if self.waitress:
+            self.waitress_custom_shutdown()
 
     def cleanup(self):
         """
@@ -409,3 +394,14 @@ class Web:
             dir.cleanup()
 
         self.cleanup_tempdirs = []
+
+    def waitress_custom_shutdown(self):
+        """Shutdown the Waitress server immediately"""
+        # Code borrowed from https://github.com/Pylons/webtest/blob/4b8a3ebf984185ff4fefb31b4d0cf82682e1fcf7/webtest/http.py#L93-L104
+        while self.waitress._map:
+            triggers = list(self.waitress._map.values())
+            for trigger in triggers:
+                trigger.handle_close()
+        self.waitress.maintenance(0)
+        self.waitress.task_dispatcher.shutdown()
+        return True
