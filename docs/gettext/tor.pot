@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: OnionShare 2.6\n"
+"Project-Id-Version: OnionShare 2.6.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-09 15:01-0700\n"
+"POT-Creation-Date: 2023-06-06 13:07+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -161,7 +161,7 @@ msgid "This is fairly advanced. You'll need to know how edit plaintext files and
 msgstr ""
 
 #: ../../source/tor.rst:101
-msgid "Download the Tor Windows Expert Bundle `from <https://www.torproject.org/download/tor/>`_. Extract the compressed file and copy the extracted folder to ``C:\\Program Files (x86)\\`` Rename the extracted folder with ``Data`` and ``Tor`` in it to ``tor-win32``."
+msgid "Download the Tor Windows Expert Bundle `from the Tor website <https://www.torproject.org/download/tor/>`_. Extract the compressed file and copy the extracted folder to ``C:\\Program Files (x86)\\`` Rename the extracted folder with ``Data`` and ``Tor`` in it to ``tor-win32``."
 msgstr ""
 
 #: ../../source/tor.rst:105
