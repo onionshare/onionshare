@@ -31,7 +31,7 @@ setuptools = "*"
 pynacl = "*"
 colorama = "*"
 gevent-websocket = "*"
-stem = "1.8.1"
+stem = "1.8.2"
 waitress = "^2.1.2"
 werkzeug = ">=2.3.4"
 
