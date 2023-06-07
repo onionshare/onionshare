@@ -11,7 +11,7 @@ updates:
     schedule:
       interval: "weekly"
 
-  - package-ecosystem: "poetry"
+  - package-ecosystem: "pip"
     directory: "/docs"
     schedule:
       interval: "weekly"
