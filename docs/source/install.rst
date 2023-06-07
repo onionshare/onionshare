@@ -85,8 +85,6 @@ For Windows::
 
     gpg --verify OnionShare-win64-2.6.msi.asc OnionShare-win64-2.6.msi (Windows 64-bit)
 
-    gpg --verify OnionShare-win32-2.6.msi.asc OnionShare-win32-2.6.msi (Windows 32-bit)
-
 For macOS::
 
     gpg --verify OnionShare-2.6.dmg.asc OnionShare-2.6.dmg
