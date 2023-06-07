@@ -74,7 +74,7 @@ Signatures
 ^^^^^^^^^^
 
 You can find the signatures (as ``.asc`` files), as well as Windows, macOS, Flatpak, Snap, and source packages, at https://onionshare.org/dist/ in the folders named for each version of OnionShare.
-You can also find them on the `GitHub Releases page <https://github.com/micahflee/onionshare/releases>`_.
+You can also find them on the `GitHub Releases page <https://github.com/onionshare/onionshare/releases>`_.
 
 Verifying
 ^^^^^^^^^
