@@ -646,6 +646,8 @@ class Tab(QtWidgets.QWidget):
                     dialog_text = strings._("gui_close_tab_warning_share_description")
                 elif self.mode == self.common.gui.MODE_RECEIVE:
                     dialog_text = strings._("gui_close_tab_warning_receive_description")
+                elif self.mode == self.common.gui.MODE_CHAT:
+                    dialog_text = strings._("gui_close_tab_warning_chat_description")
                 else:
                     dialog_text = strings._("gui_close_tab_warning_website_description")
 
