@@ -6,16 +6,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2022-10-09 15:01-0700\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-06-06 13:07+0200\n"
 "PO-Revision-Date: 2022-01-23 09:55+0000\n"
 "Last-Translator: Åke Engelbrektson <eson@svenskasprakfiler.se>\n"
-"Language: sv\n"
 "Language-Team: sv <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Language: sv\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Generated-By: Babel 2.10.3\n"
 
 #: ../../source/install.rst:2
@@ -83,21 +83,110 @@ msgstr ""
 "Du kan också ladda ner och installera PGP-signerad ''.flatpak'' eller ''."
 "snap'' från https://onionshare.org/dist/ om du föredrar det."
 
+#: ../../source/install.rst:26
+#, fuzzy
+msgid "Manual Flatpak Installation"
+msgstr "Installation"
+
 #: ../../source/install.rst:28
-msgid "Command-line only"
+msgid ""
+"If you'd like to install OnionShare manually with Flatpak using the PGP-"
+"signed `single-file bundle <https://docs.flatpak.org/en/latest/single-file-"
+"bundles.html>`_, you can do so like this:"
 msgstr ""
 
 #: ../../source/install.rst:30
+msgid ""
+"Install Flatpak by following the instructions at https://flatpak.org/setup/."
+msgstr ""
+
+#: ../../source/install.rst:31
+msgid ""
+"Add the Flathub repository by running ``flatpak remote-add --if-not-exists "
+"flathub https://flathub.org/repo/flathub.flatpakrepo``. Even though you "
+"won't be downloading OnionShare from Flathub, OnionShare depends on some "
+"packages that are only available there."
+msgstr ""
+
+#: ../../source/install.rst:32
+msgid ""
+"Go to https://onionshare.org/dist/, choose the latest version of OnionShare, "
+"and download the ``.flatpak`` and ``.flatpak.asc`` files."
+msgstr ""
+
+#: ../../source/install.rst:33
+msgid ""
+"Verify the PGP signature of the ``.flatpak`` file. See :ref:`verifying_sigs` "
+"for more info."
+msgstr ""
+
+#: ../../source/install.rst:34
+msgid ""
+"Install the ``.flatpak`` file by running ``flatpak install OnionShare-"
+"VERSION.flatpak``. Replace ``VERSION`` with the version number of the file "
+"you downloaded."
+msgstr ""
+
+#: ../../source/install.rst:36
+msgid "You can run OnionShare with: `flatpak run org.onionshare.OnionShare`."
+msgstr ""
+
+#: ../../source/install.rst:39
+msgid "Manual Snapcraft Installation"
+msgstr ""
+
+#: ../../source/install.rst:41
+msgid ""
+"If you'd like to install OnionShare manually with Snapcraft using the PGP-"
+"signed Snapcraft package, you can do so like this:"
+msgstr ""
+
+#: ../../source/install.rst:43
+msgid ""
+"Install Snapcraft by following the instructions at https://snapcraft.io/docs/"
+"installing-snapd."
+msgstr ""
+
+#: ../../source/install.rst:44
+msgid ""
+"Go to https://onionshare.org/dist/, choose the latest version of OnionShare, "
+"and download the ``.snap`` and ``.snap.asc`` files."
+msgstr ""
+
+#: ../../source/install.rst:45
+msgid ""
+"Verify the PGP signature of the ``.snap`` file. See :ref:`verifying_sigs` "
+"for more info."
+msgstr ""
+
+#: ../../source/install.rst:46
+msgid ""
+"Install the ``.snap`` file by running ``snap install --dangerous "
+"onionshare_VERSION_amd64.snap``. Replace ``VERSION`` with the version number "
+"of the file you downloaded. Note that you must use `--dangerous` because the "
+"package is not signed by the Snapcraft store, however you did verify its PGP "
+"signature, so you know it's legitimate."
+msgstr ""
+
+#: ../../source/install.rst:48
+msgid "You can run OnionShare with: `snap run onionshare`."
+msgstr ""
+
+#: ../../source/install.rst:53
+msgid "Command-line only"
+msgstr ""
+
+#: ../../source/install.rst:55
 msgid ""
 "You can install just the command-line version of OnionShare on any operating "
 "system using the Python package manager ``pip``. :ref:`cli` has more info."
 msgstr ""
 
-#: ../../source/install.rst:35
+#: ../../source/install.rst:60
 msgid "Verifying PGP signatures"
 msgstr "Verifiera PGP-signaturer"
 
-#: ../../source/install.rst:37
+#: ../../source/install.rst:62
 msgid ""
 "You can verify that the package you download is legitimate and hasn't been "
 "tampered with by verifying its PGP signature. For Windows and macOS, this "
@@ -111,11 +200,11 @@ msgstr ""
 "innehåller operativsystemspecifika signaturer, och du kan bara lita på "
 "enbart dem om du vill."
 
-#: ../../source/install.rst:41
+#: ../../source/install.rst:66
 msgid "Signing key"
 msgstr "Signeringsnyckel"
 
-#: ../../source/install.rst:43
+#: ../../source/install.rst:68
 msgid ""
 "Packages are signed by Micah Lee, the core developer, using his PGP public "
 "key with fingerprint ``927F419D7EC82C2F149C1BD1403C2657CD994F73``. You can "
@@ -129,7 +218,7 @@ msgstr ""
 "'från keys.openpgp.org keyserver <https://keys.openpgp.org/vks/v1/by-"
 "fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>'_."
 
-#: ../../source/install.rst:46
+#: ../../source/install.rst:71
 msgid ""
 "You must have GnuPG installed to verify signatures. For macOS you probably "
 "want `GPGTools <https://gpgtools.org/>`_, and for Windows you probably want "
@@ -139,11 +228,11 @@ msgstr ""
 "du förmodligen ha 'GPGTools <https://gpgtools.org/>'_, och för Windows vill "
 "du förmodligen ha 'Gpg4win <https://www.gpg4win.org/>'_."
 
-#: ../../source/install.rst:49
+#: ../../source/install.rst:74
 msgid "Signatures"
 msgstr "Signaturer"
 
-#: ../../source/install.rst:51
+#: ../../source/install.rst:76
 msgid ""
 "You can find the signatures (as ``.asc`` files), as well as Windows, macOS, "
 "Flatpak, Snap, and source packages, at https://onionshare.org/dist/ in the "
@@ -155,29 +244,30 @@ msgstr ""
 "heter samma som varje version av OnionShare. Du kan också hitta dem på sidan "
 "'GitHub Releases <https://github.com/micahflee/onionshare/releases>'_."
 
-#: ../../source/install.rst:55
+#: ../../source/install.rst:80
 msgid "Verifying"
 msgstr "Verifierar"
 
-#: ../../source/install.rst:57
+#: ../../source/install.rst:82
+#, fuzzy
 msgid ""
 "Once you have imported Micah's public key into your GnuPG keychain, "
-"downloaded the binary and and ``.asc`` signature, you can verify the binary "
-"for macOS in a terminal like this::"
+"downloaded the binary and ``.asc`` signature, you can verify the binary for "
+"macOS in a terminal like this::"
 msgstr ""
 "När du har importerat Micahs offentliga nyckel till din GnuPG-nyckelring, "
 "laddat ner binärfilen och \"'.asc\"-signaturen kan du verifiera binärfilen "
 "för macOS i en terminal så här::"
 
-#: ../../source/install.rst:61
+#: ../../source/install.rst:86
 msgid "Or for Windows, in a command-prompt like this::"
 msgstr "Eller för Windows, i en kommandotolk så här::"
 
-#: ../../source/install.rst:65
+#: ../../source/install.rst:90
 msgid "The expected output looks like this::"
 msgstr "Förväntad utdata ser ut så här::"
 
-#: ../../source/install.rst:77
+#: ../../source/install.rst:102
 msgid ""
 "If you don't see ``Good signature from``, there might be a problem with the "
 "integrity of the file (malicious or otherwise), and you should not install "
@@ -186,7 +276,7 @@ msgid ""
 "(the core developer) PGP key.)"
 msgstr ""
 
-#: ../../source/install.rst:79
+#: ../../source/install.rst:104
 msgid ""
 "If you want to learn more about verifying PGP signatures, the guides for "
 "`Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ and "

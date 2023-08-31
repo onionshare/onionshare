@@ -7,17 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2022-03-31 16:26+1100\n"
-"PO-Revision-Date: 2022-07-05 23:19+0000\n"
+"POT-Creation-Date: 2023-06-06 13:07+0200\n"
+"PO-Revision-Date: 2023-06-07 14:30+0000\n"
 "Last-Translator: Ihor Hordiichuk <igor_ck@outlook.com>\n"
 "Language-Team: none\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.13.1-dev\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.18-dev\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: ../../source/install.rst:2
@@ -84,11 +84,129 @@ msgstr ""
 "Ви також можете завантажити та встановити пакунки з PGP-підписом ``."
 "flatpak`` або ``.snap`` з https://onionshare.org/dist/, якщо хочете."
 
+#: ../../source/install.rst:26
+msgid "Manual Flatpak Installation"
+msgstr "Ручне встановлення Flatpak"
+
 #: ../../source/install.rst:28
+msgid ""
+"If you'd like to install OnionShare manually with Flatpak using the PGP-"
+"signed `single-file bundle <https://docs.flatpak.org/en/latest/single-file-"
+"bundles.html>`_, you can do so like this:"
+msgstr ""
+"Якщо ви хочете встановити OnionShare вручну за допомогою Flatpak, "
+"використовуючи підписаний PGP `однофайловий пакунок <https://docs.flatpak."
+"org/en/latest/single-file-bundles.html>`_, ви можете зробити це так:"
+
+#: ../../source/install.rst:30
+msgid ""
+"Install Flatpak by following the instructions at https://flatpak.org/setup/."
+msgstr ""
+"Установіть Flatpak, дотримуючись інструкцій на сайті https://flatpak.org/"
+"setup/."
+
+#: ../../source/install.rst:31
+msgid ""
+"Add the Flathub repository by running ``flatpak remote-add --if-not-exists "
+"flathub https://flathub.org/repo/flathub.flatpakrepo``. Even though you "
+"won't be downloading OnionShare from Flathub, OnionShare depends on some "
+"packages that are only available there."
+msgstr ""
+"Додайте сховище Flathub, виконавши ``flatpak remote-add --if-not-exists "
+"flathub https://flathub.org/repo/flathub.flatpakrepo``. Навіть якщо ви не "
+"будете завантажувати OnionShare з Flathub, OnionShare залежить від деяких "
+"пакунків, які доступні лише там."
+
+#: ../../source/install.rst:32
+msgid ""
+"Go to https://onionshare.org/dist/, choose the latest version of OnionShare, "
+"and download the ``.flatpak`` and ``.flatpak.asc`` files."
+msgstr ""
+"Перейдіть на https://onionshare.org/dist/, виберіть останню версію "
+"OnionShare і завантажте файли ``.flatpak`` і ``.flatpak.asc``."
+
+#: ../../source/install.rst:33
+msgid ""
+"Verify the PGP signature of the ``.flatpak`` file. See :ref:`verifying_sigs` "
+"for more info."
+msgstr ""
+"Перевірте підпис PGP файлу ``.flatpak``. Перегляньте :ref:`verifying_sigs` "
+"для отримання додаткової інформації."
+
+#: ../../source/install.rst:34
+msgid ""
+"Install the ``.flatpak`` file by running ``flatpak install OnionShare-"
+"VERSION.flatpak``. Replace ``VERSION`` with the version number of the file "
+"you downloaded."
+msgstr ""
+"Встановіть файл ``.flatpak``, запустивши ``flatpak install OnionShare-VERSION"
+".flatpak``. Замініть ``VERSION`` на номер версії файлу, який ви завантажили."
+
+#: ../../source/install.rst:36
+msgid "You can run OnionShare with: `flatpak run org.onionshare.OnionShare`."
+msgstr ""
+"Запустити OnionShare можна за допомогою: `flatpak run org.onionshare."
+"OnionShare`."
+
+#: ../../source/install.rst:39
+msgid "Manual Snapcraft Installation"
+msgstr "Ручне встановлення Snapcraft"
+
+#: ../../source/install.rst:41
+msgid ""
+"If you'd like to install OnionShare manually with Snapcraft using the PGP-"
+"signed Snapcraft package, you can do so like this:"
+msgstr ""
+"Якщо ви хочете встановити OnionShare вручну зі Snapcraft за допомогою "
+"пакунка Snapcraft із підписом PGP, ви можете зробити це так:"
+
+#: ../../source/install.rst:43
+msgid ""
+"Install Snapcraft by following the instructions at https://snapcraft.io/docs/"
+"installing-snapd."
+msgstr ""
+"Встановіть Snapcraft, дотримуючись інструкцій на сайті https://snapcraft.io/"
+"docs/installing-snapd."
+
+#: ../../source/install.rst:44
+msgid ""
+"Go to https://onionshare.org/dist/, choose the latest version of OnionShare, "
+"and download the ``.snap`` and ``.snap.asc`` files."
+msgstr ""
+"Перейдіть на https://onionshare.org/dist/, виберіть найновішу версію "
+"OnionShare і завантажте файли ``.snap`` і ``.snap.asc``."
+
+#: ../../source/install.rst:45
+msgid ""
+"Verify the PGP signature of the ``.snap`` file. See :ref:`verifying_sigs` "
+"for more info."
+msgstr ""
+"Перевірте підпис PGP файлу ``.snap``. Перегляньте :ref:`verifying_sigs` для "
+"отримання додаткової інформації."
+
+#: ../../source/install.rst:46
+msgid ""
+"Install the ``.snap`` file by running ``snap install --dangerous "
+"onionshare_VERSION_amd64.snap``. Replace ``VERSION`` with the version number "
+"of the file you downloaded. Note that you must use `--dangerous` because the "
+"package is not signed by the Snapcraft store, however you did verify its PGP "
+"signature, so you know it's legitimate."
+msgstr ""
+"Встановіть файл ``.snap``, запустивши ``snap install --dangerous "
+"onionshare_VERSION_amd64.snap``. Замініть ``VERSION`` на номер версії файлу, "
+"який ви завантажили. Зауважте, що ви повинні використовувати `--dangerous`, "
+"оскільки пакунок не підписано магазином Snapcraft, проте ви перевірили його "
+"підпис PGP, тому знаєте, що він справжній."
+
+#: ../../source/install.rst:48
+msgid "You can run OnionShare with: `snap run onionshare`."
+msgstr "Запустити OnionShare можна за допомогою: `snap run onionshare`."
+
+#: ../../source/install.rst:53
 msgid "Command-line only"
 msgstr "Лише для командного рядка"
 
-#: ../../source/install.rst:30
+#: ../../source/install.rst:55
 msgid ""
 "You can install just the command-line version of OnionShare on any operating "
 "system using the Python package manager ``pip``. :ref:`cli` has more info."
@@ -97,11 +215,11 @@ msgstr ""
 "операційну систему за допомогою менеджера пакунків Python ``pip``. :ref:"
 "`cli` містить більше подробиць."
 
-#: ../../source/install.rst:35
+#: ../../source/install.rst:60
 msgid "Verifying PGP signatures"
 msgstr "Перевірка підписів PGP"
 
-#: ../../source/install.rst:37
+#: ../../source/install.rst:62
 msgid ""
 "You can verify that the package you download is legitimate and hasn't been "
 "tampered with by verifying its PGP signature. For Windows and macOS, this "
@@ -115,11 +233,11 @@ msgstr ""
 "включають підписи, специфічні для операційної системи, і ви можете просто "
 "покладатися лише на них, якщо хочете."
 
-#: ../../source/install.rst:41
+#: ../../source/install.rst:66
 msgid "Signing key"
 msgstr "Ключ підпису"
 
-#: ../../source/install.rst:43
+#: ../../source/install.rst:68
 msgid ""
 "Packages are signed by Micah Lee, the core developer, using his PGP public "
 "key with fingerprint ``927F419D7EC82C2F149C1BD1403C2657CD994F73``. You can "
@@ -132,7 +250,7 @@ msgstr ""
 "можна завантажити `з сервера ключів keys.openpgp.org <https://keys.openpgp."
 "org/vks/v1/by-fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 
-#: ../../source/install.rst:46
+#: ../../source/install.rst:71
 msgid ""
 "You must have GnuPG installed to verify signatures. For macOS you probably "
 "want `GPGTools <https://gpgtools.org/>`_, and for Windows you probably want "
@@ -142,11 +260,11 @@ msgstr ""
 "захочете `GPGTools <https://gpgtools.org/>`_, а для Windows ви, ймовірно, "
 "захочете `Gpg4win <https://www.gpg4win.org/>`_."
 
-#: ../../source/install.rst:49
+#: ../../source/install.rst:74
 msgid "Signatures"
 msgstr "Підписи"
 
-#: ../../source/install.rst:51
+#: ../../source/install.rst:76
 msgid ""
 "You can find the signatures (as ``.asc`` files), as well as Windows, macOS, "
 "Flatpak, Snap, and source packages, at https://onionshare.org/dist/ in the "
@@ -159,29 +277,29 @@ msgstr ""
 "`сторінці випусків GitHub <https://github.com/micahflee/onionshare/"
 "releases>`_."
 
-#: ../../source/install.rst:55
+#: ../../source/install.rst:80
 msgid "Verifying"
 msgstr "Перевірка"
 
-#: ../../source/install.rst:57
+#: ../../source/install.rst:82
 msgid ""
 "Once you have imported Micah's public key into your GnuPG keychain, "
-"downloaded the binary and and ``.asc`` signature, you can verify the binary "
-"for macOS in a terminal like this::"
+"downloaded the binary and ``.asc`` signature, you can verify the binary for "
+"macOS in a terminal like this::"
 msgstr ""
 "Після того, як відкритий ключ Micah імпортовано до вашої збірки ключів "
 "GnuPG, завантажено двійковий файл і завантажено підпис ``.asc``, ви можете "
 "перевірити двійковий файл для macOS в терміналі в такий спосіб::"
 
-#: ../../source/install.rst:61
+#: ../../source/install.rst:86
 msgid "Or for Windows, in a command-prompt like this::"
 msgstr "Або для Windows у командному рядку у такий спосіб::"
 
-#: ../../source/install.rst:65
+#: ../../source/install.rst:90
 msgid "The expected output looks like this::"
 msgstr "Очікуваний результат може виглядати так::"
 
-#: ../../source/install.rst:77
+#: ../../source/install.rst:102
 msgid ""
 "If you don't see ``Good signature from``, there might be a problem with the "
 "integrity of the file (malicious or otherwise), and you should not install "
@@ -195,7 +313,7 @@ msgstr ""
 "означає, що ви не визначили рівень «довіри» до самого ключа PGP від Micah "
 "(основного розробника).)"
 
-#: ../../source/install.rst:79
+#: ../../source/install.rst:104
 msgid ""
 "If you want to learn more about verifying PGP signatures, the guides for "
 "`Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ and "
@@ -205,3 +323,56 @@ msgstr ""
 "Докладніше про перевірку підписів PGP читайте у настановах для `Qubes OS "
 "<https://www.qubes-os.org/security/verifying-signatures/>`_ та `Tor Project "
 "<https://support.torproject.org/tbb/how-to-verify-signature/>`_."
+
+#~ msgid "For added security, see :ref:`verifying_sigs`."
+#~ msgstr "Для додаткової безпеки перегляньте :ref:`verifying_sigs`."
+
+#~ msgid ""
+#~ "There are various ways to install OnionShare for Linux, but the "
+#~ "recommended way is to use the Flatpak package. Flatpak ensures that "
+#~ "you'll always use the most latest dependencies and run OnionShare inside "
+#~ "of a sandbox."
+#~ msgstr ""
+#~ "Існують різні способи встановлення OnionShare для Linux, але "
+#~ "рекомендованим способом є використання пакунку Flatpak. Flatpak гарантує, "
+#~ "що ви завжди будете користуватися найновішими залежностями та запускати "
+#~ "OnionShare всередині пісочниці."
+
+#~ msgid ""
+#~ "Make sure you have ``flatpak`` installed and the Flathub repository added "
+#~ "by following `these instructions <https://flatpak.org/setup/>`_ for your "
+#~ "Linux distribution."
+#~ msgstr ""
+#~ "Переконайтесь, що у вас встановлено ``flatpak`` та додано сховище "
+#~ "Flathub, дотримуючись `цих настанов <https://flatpak.org/setup/>`_ для "
+#~ "вашого дистрибутива Linux."
+
+#~ msgid ""
+#~ "You can verify that the Windows, macOS, or source package you download is "
+#~ "legitimate and hasn't been tampered with by verifying its PGP signature. "
+#~ "For Windows and macOS, this step is optional and provides defense in "
+#~ "depth: the installers also include their operating system-specific "
+#~ "signatures, and you can just rely on those alone if you'd like."
+#~ msgstr ""
+#~ "Ви можете переконатися, що завантажений пакунок для Windows, macOS або "
+#~ "джерельний пакунок є законним і не підробленим, перевіривши його підпис "
+#~ "PGP. Для Windows та macOS цей крок є необов’язковим, але забезпечує "
+#~ "додатковий захист: встановлювачі також включають свої підписи для "
+#~ "конкретної операційної системи, тож ви можете просто покластись лише на "
+#~ "них, якщо хочете."
+
+#~ msgid ""
+#~ "Windows, macOS, and source packaged are signed by Micah Lee, the core "
+#~ "developer, using his PGP public key with fingerprint "
+#~ "``927F419D7EC82C2F149C1BD1403C2657CD994F73``. You can download Micah's "
+#~ "key `from the keys.openpgp.org keyserver <https://keys.openpgp.org/vks/v1/"
+#~ "by-fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
+#~ msgstr ""
+#~ "Пакунки Windows, macOS та джерельні пакунки підписано основним "
+#~ "розробником Micah Lee його відкритим ключем PGP із цифровим відбитком "
+#~ "`927F419D7EC82C2F149C1BD1403C2657CD994F73``. Ви можете завантажити ключ "
+#~ "Micah з сервера ключів keys.openpgp.org keyserver <https://keys.openpgp."
+#~ "org/vks/v1/by-fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
+
+#~ msgid "Install in Linux"
+#~ msgstr "Встановлення на Linux"

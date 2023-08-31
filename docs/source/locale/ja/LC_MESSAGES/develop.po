@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-10-09 15:01-0700\n"
-"PO-Revision-Date: 2022-10-09 21:13+0000\n"
-"Last-Translator: trace <dev_trace@tuta.io>\n"
-"Language: ja\n"
+"PO-Revision-Date: 2023-06-06 17:06+0000\n"
+"Last-Translator: emma peel <emmapeel@torproject.org>\n"
 "Language-Team: ja <LL@li.org>\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.18-dev\n"
 "Generated-By: Babel 2.10.3\n"
 
 #: ../../source/develop.rst:2
@@ -47,13 +48,14 @@ msgstr ""
 "し、「onionshare」と入力してください。"
 
 #: ../../source/develop.rst:12
+#, fuzzy
 msgid ""
 "OnionShare also has a `mailing list <https://lists.riseup.net/www/subscribe/"
 "onionshare-dev>`_ for developers and and designers to discuss the project."
 msgstr ""
-"また、OnionShareは、開発者やデザイナーがプロジェクトについて議論するための"
-"メーリングリスト<https://lists.riseup.net/www/subscribe/onionshare-dev>`_があ"
-"ります。"
+"また、OnionShareは、開発者やデザイナーがプロジェクトについて議論するためのメ"
+"ーリングリスト<https://lists.riseup.net/www/subscribe/onionshare-"
+"dev>`_があります。"
 
 #: ../../source/develop.rst:15
 msgid "Contributing Code"
