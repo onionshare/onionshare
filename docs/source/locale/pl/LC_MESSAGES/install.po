@@ -7,17 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2022-03-31 16:26+1100\n"
-"PO-Revision-Date: 2022-12-12 06:49+0000\n"
+"POT-Creation-Date: 2023-06-06 13:07+0200\n"
+"PO-Revision-Date: 2023-06-07 14:30+0000\n"
 "Last-Translator: Matthaiks <kitynska@gmail.com>\n"
 "Language-Team: pl <LL@li.org>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.15-dev\n"
+"X-Generator: Weblate 4.18-dev\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: ../../source/install.rst:2
@@ -84,11 +84,130 @@ msgstr ""
 "Jeśli wolisz, możesz również pobrać i zainstalować podpisane przez PGP "
 "pakiety ``.flatpak`` lub ``.snap`` z https://onionshare.org/dist/."
 
+#: ../../source/install.rst:26
+msgid "Manual Flatpak Installation"
+msgstr "Ręczna instalacja Flatpak"
+
 #: ../../source/install.rst:28
+msgid ""
+"If you'd like to install OnionShare manually with Flatpak using the PGP-"
+"signed `single-file bundle <https://docs.flatpak.org/en/latest/single-file-"
+"bundles.html>`_, you can do so like this:"
+msgstr ""
+"Jeśli chcesz ręcznie zainstalować OnionShare z Flatpak, używając podpisanego "
+"PGP `single-file bundle <https://docs.flatpak.org/en/latest/single-file-"
+"bundles.html>`_, możesz to zrobić w ten sposób:"
+
+#: ../../source/install.rst:30
+msgid ""
+"Install Flatpak by following the instructions at https://flatpak.org/setup/."
+msgstr ""
+"Zainstaluj Flatpak, postępując zgodnie z instrukcjami na stronie "
+"https://flatpak.org/setup/."
+
+#: ../../source/install.rst:31
+msgid ""
+"Add the Flathub repository by running ``flatpak remote-add --if-not-exists "
+"flathub https://flathub.org/repo/flathub.flatpakrepo``. Even though you "
+"won't be downloading OnionShare from Flathub, OnionShare depends on some "
+"packages that are only available there."
+msgstr ""
+"Dodaj repozytorium Flathub, uruchamiając ``flatpak remote-add --if-not-"
+"exists flathub https://flathub.org/repo/flathub.flatpakrepo``. Nawet jeśli "
+"nie będziesz pobierać OnionShare z Flathub, OnionShare zależy od niektórych "
+"pakietów, które są dostępne tylko tam."
+
+#: ../../source/install.rst:32
+msgid ""
+"Go to https://onionshare.org/dist/, choose the latest version of OnionShare, "
+"and download the ``.flatpak`` and ``.flatpak.asc`` files."
+msgstr ""
+"Przejdź do https://onionshare.org/dist/, wybierz najnowszą wersję OnionShare "
+"i pobierz pliki ``.flatpak`` i ``.flatpak.asc``."
+
+#: ../../source/install.rst:33
+msgid ""
+"Verify the PGP signature of the ``.flatpak`` file. See :ref:`verifying_sigs` "
+"for more info."
+msgstr ""
+"Sprawdź podpis PGP pliku ``.flatpak``. Zobacz :ref:`verifying_sigs`, aby "
+"uzyskać więcej informacji."
+
+#: ../../source/install.rst:34
+msgid ""
+"Install the ``.flatpak`` file by running ``flatpak install OnionShare-"
+"VERSION.flatpak``. Replace ``VERSION`` with the version number of the file "
+"you downloaded."
+msgstr ""
+"Zainstaluj plik ``.flatpak``, uruchamiając ``flatpak install OnionShare-"
+"VERSION.flatpak``. Zastąp ``VERSION`` numerem wersji pobranego pliku."
+
+#: ../../source/install.rst:36
+msgid "You can run OnionShare with: `flatpak run org.onionshare.OnionShare`."
+msgstr ""
+"Możesz uruchomić OnionShare za pomocą: `flatpak run org.onionshare."
+"OnionShare`."
+
+#: ../../source/install.rst:39
+msgid "Manual Snapcraft Installation"
+msgstr "Ręczna instalacja Snapcraft"
+
+#: ../../source/install.rst:41
+msgid ""
+"If you'd like to install OnionShare manually with Snapcraft using the PGP-"
+"signed Snapcraft package, you can do so like this:"
+msgstr ""
+"Jeśli chcesz ręcznie zainstalować OnionShare za pomocą Snapcraft przy użyciu "
+"pakietu Snapcraft podpisanego przez PGP, możesz to zrobić w następujący "
+"sposób:"
+
+#: ../../source/install.rst:43
+msgid ""
+"Install Snapcraft by following the instructions at https://snapcraft.io/docs/"
+"installing-snapd."
+msgstr ""
+"Zainstaluj Snapcraft, postępując zgodnie z instrukcjami na stronie "
+"https://snapcraft.io/docs/installing-snapd."
+
+#: ../../source/install.rst:44
+msgid ""
+"Go to https://onionshare.org/dist/, choose the latest version of OnionShare, "
+"and download the ``.snap`` and ``.snap.asc`` files."
+msgstr ""
+"Przejdź do https://onionshare.org/dist/, wybierz najnowszą wersję OnionShare "
+"i pobierz pliki ``.snap`` i ``.snap.asc``."
+
+#: ../../source/install.rst:45
+msgid ""
+"Verify the PGP signature of the ``.snap`` file. See :ref:`verifying_sigs` "
+"for more info."
+msgstr ""
+"Sprawdź podpis PGP pliku ``.snap``. Zobacz :ref:`verifying_sigs`, aby "
+"uzyskać więcej informacji."
+
+#: ../../source/install.rst:46
+msgid ""
+"Install the ``.snap`` file by running ``snap install --dangerous "
+"onionshare_VERSION_amd64.snap``. Replace ``VERSION`` with the version number "
+"of the file you downloaded. Note that you must use `--dangerous` because the "
+"package is not signed by the Snapcraft store, however you did verify its PGP "
+"signature, so you know it's legitimate."
+msgstr ""
+"Zainstaluj plik ``.snap``, uruchamiając ``snap install --dangerous "
+"onionshare_VERSION_amd64.snap``. Zastąp ``VERSION`` numerem wersji pobranego "
+"pliku. Pamiętaj, że musisz użyć `--dangerous`, ponieważ pakiet nie jest "
+"podpisany przez sklep Snapcraft, jednak zweryfikowano jego podpis PGP, więc "
+"wiesz, że jest legalny."
+
+#: ../../source/install.rst:48
+msgid "You can run OnionShare with: `snap run onionshare`."
+msgstr "Możesz uruchomić OnionShare za pomocą: `snap run onionsshare`."
+
+#: ../../source/install.rst:53
 msgid "Command-line only"
 msgstr "Wiersz poleceń"
 
-#: ../../source/install.rst:30
+#: ../../source/install.rst:55
 msgid ""
 "You can install just the command-line version of OnionShare on any operating "
 "system using the Python package manager ``pip``. :ref:`cli` has more info."
@@ -97,11 +216,11 @@ msgstr ""
 "systemie operacyjnym za pomocą menedżera pakietów Python ``pip``. Zobacz :"
 "ref:`cli`, aby uzyskać więcej informacji."
 
-#: ../../source/install.rst:35
+#: ../../source/install.rst:60
 msgid "Verifying PGP signatures"
 msgstr "Weryfikacja sygnatur PGP"
 
-#: ../../source/install.rst:37
+#: ../../source/install.rst:62
 msgid ""
 "You can verify that the package you download is legitimate and hasn't been "
 "tampered with by verifying its PGP signature. For Windows and macOS, this "
@@ -115,11 +234,11 @@ msgstr ""
 "zawierają podpisy specyficzne dla systemu operacyjnego i jeśli chcesz, "
 "możesz po prostu na nich polegać."
 
-#: ../../source/install.rst:41
+#: ../../source/install.rst:66
 msgid "Signing key"
 msgstr "Klucz podpisujący"
 
-#: ../../source/install.rst:43
+#: ../../source/install.rst:68
 msgid ""
 "Packages are signed by Micah Lee, the core developer, using his PGP public "
 "key with fingerprint ``927F419D7EC82C2F149C1BD1403C2657CD994F73``. You can "
@@ -133,7 +252,7 @@ msgstr ""
 "serwera kluczy keys.openpgp.org <https://keys.openpgp.org/vks/v1/by-"
 "fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 
-#: ../../source/install.rst:46
+#: ../../source/install.rst:71
 msgid ""
 "You must have GnuPG installed to verify signatures. For macOS you probably "
 "want `GPGTools <https://gpgtools.org/>`_, and for Windows you probably want "
@@ -143,11 +262,11 @@ msgstr ""
 "prawdopodobnie potrzebujesz `GPGTools <https://gpgtools.org/>`_, a dla "
 "Windows `Gpg4win <https://www.gpg4win.org/>`_."
 
-#: ../../source/install.rst:49
+#: ../../source/install.rst:74
 msgid "Signatures"
 msgstr "Sygnatury"
 
-#: ../../source/install.rst:51
+#: ../../source/install.rst:76
 msgid ""
 "You can find the signatures (as ``.asc`` files), as well as Windows, macOS, "
 "Flatpak, Snap, and source packages, at https://onionshare.org/dist/ in the "
@@ -159,29 +278,29 @@ msgstr ""
 "nazwanych od każdej wersji OnionShare. Możesz je również znaleźć na "
 "`GitHubie <https://github.com/micahflee/onionshare/releases>`_."
 
-#: ../../source/install.rst:55
+#: ../../source/install.rst:80
 msgid "Verifying"
 msgstr "Weryfikacja"
 
-#: ../../source/install.rst:57
+#: ../../source/install.rst:82
 msgid ""
 "Once you have imported Micah's public key into your GnuPG keychain, "
-"downloaded the binary and and ``.asc`` signature, you can verify the binary "
-"for macOS in a terminal like this::"
+"downloaded the binary and ``.asc`` signature, you can verify the binary for "
+"macOS in a terminal like this::"
 msgstr ""
 "Po zaimportowaniu klucza publicznego Micah do pęku kluczy GnuPG, pobraniu "
-"pliku binarnego i sygnatury ``.asc``, możesz zweryfikować plik binarny dla "
-"macOS w terminalu w następujący sposób:"
+"pliku binarnego i podpisu ``.asc``, możesz zweryfikować plik binarny dla "
+"systemu macOS w terminalu takim jak ten::"
 
-#: ../../source/install.rst:61
+#: ../../source/install.rst:86
 msgid "Or for Windows, in a command-prompt like this::"
 msgstr "Lub w wierszu polecenia systemu Windows w następujący sposób::"
 
-#: ../../source/install.rst:65
+#: ../../source/install.rst:90
 msgid "The expected output looks like this::"
 msgstr "Oczekiwany rezultat wygląda następująco::"
 
-#: ../../source/install.rst:77
+#: ../../source/install.rst:102
 msgid ""
 "If you don't see ``Good signature from``, there might be a problem with the "
 "integrity of the file (malicious or otherwise), and you should not install "
@@ -194,14 +313,14 @@ msgstr ""
 "(Pokazane powyżej ostrzeżenie ``WARNING:`` nie jest problemem z pakietem, "
 "oznacza tylko, że nie zdefiniowano poziomu \"zaufania\" klucza PGP Micah.)"
 
-#: ../../source/install.rst:79
+#: ../../source/install.rst:104
 msgid ""
 "If you want to learn more about verifying PGP signatures, the guides for "
 "`Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ and "
 "the `Tor Project <https://support.torproject.org/tbb/how-to-verify-signature/"
 ">`_ may be useful."
 msgstr ""
-"Jeśli chcesz dowiedzieć się więcej o weryfikacji podpisów PGP, przewodniki "
-"dla `Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ i "
-"`Tor Project <https://support .torproject.org/tbb/how-to-verify-signature/"
-">`_ mogą okazać się przydatne."
+"Jeśli chcesz dowiedzieć się więcej o weryfikowaniu podpisów PGP, przydatne "
+"mogą być przewodniki dotyczące `Qubes OS <https://www.qubes-os.org/security/"
+"verifying-signatures/>`_ i `Tor Project <https://support.torproject.org/tbb/"
+"how-to-verify-signature/>`_."

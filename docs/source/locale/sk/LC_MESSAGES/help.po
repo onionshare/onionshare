@@ -82,3 +82,67 @@ msgid ""
 msgstr ""
 "Pozri :ref:`collaborating` pre pokyny, ako sa pripojiť k nášmu tímu Keybase, "
 "ktorý používame na diskusiu o projekte."
+
+#: ../../source/help.rst:5
+#, fuzzy
+msgid "Read This Website"
+msgstr "Prečítajte si túto webovú stránku"
+
+#: ../../source/help.rst:7
+#, fuzzy
+msgid ""
+"You will find instructions on how to use OnionShare. Look through all of the "
+"sections first to see if anything answers your questions."
+msgstr ""
+"Táto webová stránka je plná pokynov, ako používať OnionShare. Najprv si "
+"prezrite všetky sekcie a zistite, či odpovedá na vaše otázky."
+
+#: ../../source/help.rst:10
+#, fuzzy
+msgid "Check the GitHub Issues"
+msgstr "Skontrolujte problémy na GitHube"
+
+#: ../../source/help.rst:12
+#, fuzzy
+msgid ""
+"If it isn't on the website, please check the `GitHub issues <https://github."
+"com/onionshare/onionshare/issues>`_. It's possible someone else has "
+"encountered the same problem and either raised it with the developers, or "
+"maybe even posted a solution."
+msgstr ""
+"Ak nenájdete riešenie na tomto webe, pozrite si `Problémy na GitHube "
+"<https://github.com/micahflee/onionshare/issues>` _. Je možné, že sa s "
+"rovnakým problémom stretol niekto iný a buď naň upozornil vývojárov, alebo "
+"dokonca zverejnil riešenie."
+
+#: ../../source/help.rst:15
+#, fuzzy
+msgid "Submit an Issue Yourself"
+msgstr "Odošlite problém sami"
+
+#: ../../source/help.rst:17
+#, fuzzy
+msgid ""
+"If you are unable to find a solution, or wish to ask a question or suggest a "
+"new feature, please `submit an issue <https://github.com/onionshare/"
+"onionshare/issues/new>`_. This requires `creating a GitHub account <https://"
+"help.github.com/articles/signing-up-for-a-new-github-account/>`_."
+msgstr ""
+"Ak nenájdete riešenie svojho problému alebo chcete položiť otázku alebo "
+"navrhnúť novú funkciu, `pošlite problém <https://github.com/micahflee/"
+"onionshare/issues/new>` _. To si vyžaduje `vytvorenie účtu GitHub <https://"
+"help.github.com/articles/signing-up-for-a-new-github-account/>` _."
+
+#: ../../source/help.rst:20
+#, fuzzy
+msgid "Join our Keybase Team"
+msgstr "Pripojte sa k nášmu tímu Keybase"
+
+#: ../../source/help.rst:22
+#, fuzzy
+msgid ""
+"See :ref:`collaborating` on how to join the Keybase team used to discuss the "
+"project."
+msgstr ""
+"Pozri :ref:`collaborating` pre pokyny, ako sa pripojiť k nášmu tímu Keybase, "
+"ktorý používame na diskusiu o projekte."

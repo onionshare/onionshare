@@ -68,3 +68,19 @@ msgid ""
 "See :ref:`collaborating` on how to join the Keybase team used to discuss the "
 "project."
 msgstr "请查阅 :ref:`collaborating` 关于如何加入 Keybase team 来讨论这个项目。"
+
+#: ../../source/help.rst:12
+msgid ""
+"If it isn't on the website, please check the `GitHub issues <https://github."
+"com/onionshare/onionshare/issues>`_. It's possible someone else has "
+"encountered the same problem and either raised it with the developers, or "
+"maybe even posted a solution."
+msgstr ""
+
+#: ../../source/help.rst:17
+msgid ""
+"If you are unable to find a solution, or wish to ask a question or suggest a "
+"new feature, please `submit an issue <https://github.com/onionshare/"
+"onionshare/issues/new>`_. This requires `creating a GitHub account <https://"
+"help.github.com/articles/signing-up-for-a-new-github-account/>`_."
+msgstr ""
