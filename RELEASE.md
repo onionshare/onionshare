@@ -19,7 +19,40 @@ Unless you're a core OnionShare developer making a release, you'll probably neve
 - [ ] `desktop/org.onionshare.OnionShare.appdata.xml` should have the correct release date, and links to correct screenshots
 - [ ] `CHANGELOG.md` should be updated to include a list of all major changes since the last release
 
+### Update dependencies
+
+#### Python dependencies
+
+Check `cli/pyproject.toml` to see if any hard-coded versions should be updated. Then, update the dependencies like this:
+
+```sh
+cd cli
+poetry update
+cd ..
+```
+
 If you update `flask-socketio`, ensure that you also update the [socket.io.min.js](https://github.com/micahflee/onionshare/blob/develop/cli/onionshare_cli/resources/static/js/socket.io.min.js) file to a version that is [supported](https://flask-socketio.readthedocs.io/en/latest/#version-compatibility) by the updated version of `flask-socketio`.
+
+Check `desktop/pyproject.toml` to see if any hard-coded versions should be updated. Then, update the dependencies like this:
+
+```
+cd desktop
+poetry update
+cd ..
+```
+
+Update the docs dependencies like this:
+
+```
+cd docs
+poetry update
+cd ..
+```
+
+#### Tor and pluggable transports
+
+- [ ] Update the version of `meek`, `obfs4proxy`, and `snowflake` in the `desktop/scripts/build-pt-*` scripts, both the bash and PowerShell scripts.
+
 
 ### Update the documentation
 
@@ -85,11 +118,6 @@ Build and test the Flatpak package before publishing:
 flatpak-builder build --force-clean --install-deps-from=flathub --install --user org.onionshare.OnionShare.yaml
 flatpak run org.onionshare.OnionShare
 ```
-
-### Update to the latest version of Tor
-
-- [ ] Edit `desktop/scripts/get-tor.py` to use the latest version of Tor Browser, and the latest sha256 checksums.
-- [ ] Update the version of `meek`, `obfs4proxy`, and `snowflake` in the `desktop/scripts/build-pt-*` scripts, both the bash and PowerShell scripts.
 
 ### Create a signed git tag
 
