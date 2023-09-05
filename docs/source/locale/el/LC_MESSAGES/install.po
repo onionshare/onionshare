@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2023-09-05 11:30-0700\n"
+"POT-Creation-Date: 2023-09-05 11:51-0700\n"
 "PO-Revision-Date: 2023-06-14 17:22+0000\n"
 "Last-Translator: george kitsoukakis <norhorn@gmail.com>\n"
 "Language: el\n"
@@ -298,30 +298,43 @@ msgid "Verifying"
 msgstr "Επιβεβαίωση"
 
 #: ../../source/install.rst:82
+#, fuzzy
 msgid ""
 "Once you have imported Micah's public key into your GnuPG keychain, "
 "downloaded the binary and ``.asc`` signature, you can verify the binary "
-"for macOS in a terminal like this::"
+"in a terminal like this:"
 msgstr ""
 "Με την εισαγωγή του δημόσιου κλειδιού του Micah στο GnuPG keychain, με τη"
 " λήψη του δυαδικού και της υπογραφής ``.asc``, μπορείτε να επιβεβαιώσετε "
 "το δυαδικό σύστημα για macOS σε ένα τερματικό όπως::"
 
-#: ../../source/install.rst:86
-msgid "Or for Windows, in a command-prompt like this::"
-msgstr "Ή για Windows, σε μια γραμμή εντολών όπως::"
+#: ../../source/install.rst:84
+msgid "For Windows::"
+msgstr ""
 
-#: ../../source/install.rst:90
+#: ../../source/install.rst:88
+msgid "For macOS::"
+msgstr ""
+
+#: ../../source/install.rst:92
+#, fuzzy
+msgid "For Linux::"
+msgstr "Linux"
+
+#: ../../source/install.rst:98
+msgid "and for the source file::"
+msgstr ""
+
+#: ../../source/install.rst:102
 msgid "The expected output looks like this::"
 msgstr "Θα πρέπει να δείτε κάτι όπως::"
 
-#: ../../source/install.rst:102
+#: ../../source/install.rst:112
+#, fuzzy
 msgid ""
 "If you don't see ``Good signature from``, there might be a problem with "
 "the integrity of the file (malicious or otherwise), and you should not "
-"install the package. (The ``WARNING:`` shown above, is not a problem with"
-" the package, it only means you haven't defined a level of \"trust\" of "
-"Micah's (the core developer) PGP key.)"
+"install the package."
 msgstr ""
 "Εάν δεν εμφανιστεί το ``Σωστή υπογραφή από``, ενδέχεται να υπάρχει "
 "πρόβλημα με την ακεραιότητα του αρχείου (κακόβουλο ή άλλο) και δεν πρέπει"
@@ -329,7 +342,20 @@ msgstr ""
 "αποτελεί πρόβλημα με το πακέτο, σημαίνει μόνο ότι δεν έχετε ορίσει το "
 "επίπεδο \"εμπιστοσύνης\" του κλειδιού PGP του Micah.)"
 
-#: ../../source/install.rst:104
+#: ../../source/install.rst:114
+#, fuzzy
+msgid ""
+"The ``WARNING:`` shown above, is not a problem with the package, it only "
+"means you haven't defined a level of \"trust\" of Micah's (the core "
+"developer) PGP key."
+msgstr ""
+"Εάν δεν εμφανιστεί το ``Σωστή υπογραφή από``, ενδέχεται να υπάρχει "
+"πρόβλημα με την ακεραιότητα του αρχείου (κακόβουλο ή άλλο) και δεν πρέπει"
+" να το εγκαταστήσετε. (Η ``ΠΡΟΕΙΔΟΠΟΙΗΣΗ:`` που φαίνεται παραπάνω, δεν "
+"αποτελεί πρόβλημα με το πακέτο, σημαίνει μόνο ότι δεν έχετε ορίσει το "
+"επίπεδο \"εμπιστοσύνης\" του κλειδιού PGP του Micah.)"
+
+#: ../../source/install.rst:116
 msgid ""
 "If you want to learn more about verifying PGP signatures, the guides for "
 "`Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ and"
@@ -344,4 +370,7 @@ msgstr ""
 
 #~ msgid "Install in Linux"
 #~ msgstr "Εγκατάσταση σε Linux"
+
+#~ msgid "Or for Windows, in a command-prompt like this::"
+#~ msgstr "Ή για Windows, σε μια γραμμή εντολών όπως::"
 

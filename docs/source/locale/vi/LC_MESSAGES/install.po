@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.6\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2023-09-05 11:30-0700\n"
+"POT-Creation-Date: 2023-09-05 11:51-0700\n"
 "PO-Revision-Date: 2023-07-25 17:04+0000\n"
 "Last-Translator: tictactoe <phandinhminh@protonmail.ch>\n"
 "Language: vi\n"
@@ -290,31 +290,44 @@ msgid "Verifying"
 msgstr "Việc xác minh"
 
 #: ../../source/install.rst:82
+#, fuzzy
 msgid ""
 "Once you have imported Micah's public key into your GnuPG keychain, "
 "downloaded the binary and ``.asc`` signature, you can verify the binary "
-"for macOS in a terminal like this::"
+"in a terminal like this:"
 msgstr ""
 "Một khi bạn đã truy nhập import khóa key công cộng của Micah vào trong "
 "chuỗi khóa keychain GnuPG của bạn, đã tải xuống nhị phân binary và chữ ký"
 " ``.asc``, bạn có thể xác minh file tệp tin nhị phân binary cho macOS "
 "trong một Terminal như sau::"
 
-#: ../../source/install.rst:86
-msgid "Or for Windows, in a command-prompt like this::"
-msgstr "Hoặc đối với Windows, trong một command-prompt như thế này::"
+#: ../../source/install.rst:84
+msgid "For Windows::"
+msgstr ""
 
-#: ../../source/install.rst:90
+#: ../../source/install.rst:88
+msgid "For macOS::"
+msgstr ""
+
+#: ../../source/install.rst:92
+#, fuzzy
+msgid "For Linux::"
+msgstr "Linux"
+
+#: ../../source/install.rst:98
+msgid "and for the source file::"
+msgstr ""
+
+#: ../../source/install.rst:102
 msgid "The expected output looks like this::"
 msgstr "Đầu ra output dự kiến trông như thế này::"
 
-#: ../../source/install.rst:102
+#: ../../source/install.rst:112
+#, fuzzy
 msgid ""
 "If you don't see ``Good signature from``, there might be a problem with "
 "the integrity of the file (malicious or otherwise), and you should not "
-"install the package. (The ``WARNING:`` shown above, is not a problem with"
-" the package, it only means you haven't defined a level of \"trust\" of "
-"Micah's (the core developer) PGP key.)"
+"install the package."
 msgstr ""
 "Nếu bạn không thấy ``Chữ ký tốt từ``, thì có thể có một vấn đề với tính "
 "toàn vẹn của tập tin (độc hại hoặc theo một cách khác) và bạn không nên "
@@ -322,7 +335,20 @@ msgstr ""
 "đối với gói, điều đó chỉ có nghĩa là bạn chưa xác định mức độ \"tin cậy\""
 " của khóa key PGP của Micah (nhà phát triển cốt lõi).)"
 
-#: ../../source/install.rst:104
+#: ../../source/install.rst:114
+#, fuzzy
+msgid ""
+"The ``WARNING:`` shown above, is not a problem with the package, it only "
+"means you haven't defined a level of \"trust\" of Micah's (the core "
+"developer) PGP key."
+msgstr ""
+"Nếu bạn không thấy ``Chữ ký tốt từ``, thì có thể có một vấn đề với tính "
+"toàn vẹn của tập tin (độc hại hoặc theo một cách khác) và bạn không nên "
+"cài đặt gói. (``CẢNH BÁO:`` được hiển thị ở trên, không phải là vấn đề "
+"đối với gói, điều đó chỉ có nghĩa là bạn chưa xác định mức độ \"tin cậy\""
+" của khóa key PGP của Micah (nhà phát triển cốt lõi).)"
+
+#: ../../source/install.rst:116
 msgid ""
 "If you want to learn more about verifying PGP signatures, the guides for "
 "`Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ and"
@@ -333,4 +359,7 @@ msgstr ""
 "dành cho `Qubes OS <https://www.qubes-os.org/security/verifying-"
 "signatures/>`_ và `Dự án Tor Project <https://support.torproject.org/tbb"
 "/how-to-verify-signature/>`_ có thể hữu ích."
+
+#~ msgid "Or for Windows, in a command-prompt like this::"
+#~ msgstr "Hoặc đối với Windows, trong một command-prompt như thế này::"
 

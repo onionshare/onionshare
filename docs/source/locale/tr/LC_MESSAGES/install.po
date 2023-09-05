@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2023-09-05 11:30-0700\n"
+"POT-Creation-Date: 2023-09-05 11:51-0700\n"
 "PO-Revision-Date: 2023-06-10 02:52+0000\n"
 "Last-Translator: Kaya Zeren <kayazeren@gmail.com>\n"
 "Language: tr\n"
@@ -291,30 +291,43 @@ msgid "Verifying"
 msgstr "Doğrulama"
 
 #: ../../source/install.rst:82
+#, fuzzy
 msgid ""
 "Once you have imported Micah's public key into your GnuPG keychain, "
 "downloaded the binary and ``.asc`` signature, you can verify the binary "
-"for macOS in a terminal like this::"
+"in a terminal like this:"
 msgstr ""
 "Micah'ın herkese açık anahtarını GnuPG anahtar zincirinize aktarıp, ikili"
 " dosyayı ve ``.asc`` imzasını indirdikten sonra, macOS için ikili dosyayı"
 " Terminal üzerinde şu şekilde doğrulayabilirsiniz::"
 
-#: ../../source/install.rst:86
-msgid "Or for Windows, in a command-prompt like this::"
-msgstr "Veya Windows için komut isteminde aşağıdaki gibi::"
+#: ../../source/install.rst:84
+msgid "For Windows::"
+msgstr ""
 
-#: ../../source/install.rst:90
+#: ../../source/install.rst:88
+msgid "For macOS::"
+msgstr ""
+
+#: ../../source/install.rst:92
+#, fuzzy
+msgid "For Linux::"
+msgstr "Linux"
+
+#: ../../source/install.rst:98
+msgid "and for the source file::"
+msgstr ""
+
+#: ../../source/install.rst:102
 msgid "The expected output looks like this::"
 msgstr "Aşağıdakine benzer bir çıktı alınması beklenir::"
 
-#: ../../source/install.rst:102
+#: ../../source/install.rst:112
+#, fuzzy
 msgid ""
 "If you don't see ``Good signature from``, there might be a problem with "
 "the integrity of the file (malicious or otherwise), and you should not "
-"install the package. (The ``WARNING:`` shown above, is not a problem with"
-" the package, it only means you haven't defined a level of \"trust\" of "
-"Micah's (the core developer) PGP key.)"
+"install the package."
 msgstr ""
 "``Good signature from`` ifadesini göremiyorsanız, dosyanın bütünlüğüyle "
 "ilgili bir sorun olabilir (kötü niyetli veya başka türlü). Bu durumda "
@@ -322,7 +335,20 @@ msgstr ""
 "bir sorun değildir, yalnızca Micah (ana geliştirici) PGP anahtarının "
 "\"güven\" düzeyini tanımlamadığınız anlamına gelir.)"
 
-#: ../../source/install.rst:104
+#: ../../source/install.rst:114
+#, fuzzy
+msgid ""
+"The ``WARNING:`` shown above, is not a problem with the package, it only "
+"means you haven't defined a level of \"trust\" of Micah's (the core "
+"developer) PGP key."
+msgstr ""
+"``Good signature from`` ifadesini göremiyorsanız, dosyanın bütünlüğüyle "
+"ilgili bir sorun olabilir (kötü niyetli veya başka türlü). Bu durumda "
+"paketi kurmamalısınız. (Yukarıda gösterilen ``UYARI:``, paketle ilgili "
+"bir sorun değildir, yalnızca Micah (ana geliştirici) PGP anahtarının "
+"\"güven\" düzeyini tanımlamadığınız anlamına gelir.)"
+
+#: ../../source/install.rst:116
 msgid ""
 "If you want to learn more about verifying PGP signatures, the guides for "
 "`Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ and"
@@ -333,4 +359,7 @@ msgstr ""
 "OS <https://www.qubes-os.org/security/verifying-signatures/>`_ ve `Tor "
 "Projesi <https://support.torproject.org/tbb/how-to-verify-signature/>`_ "
 "rehberlerine bakabilirsiniz."
+
+#~ msgid "Or for Windows, in a command-prompt like this::"
+#~ msgstr "Veya Windows için komut isteminde aşağıdaki gibi::"
 
