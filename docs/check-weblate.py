@@ -110,7 +110,7 @@ async def main():
     # Get the list of languages in the OnionShare project
     res = await api("/api/projects/onionshare/languages/")
     for obj in res:
-        languages[obj["code"]] = obj["language"]
+        languages[obj["code"]] = obj["name"]
 
     # Get the app translations for each language
     for lang_code in languages:
