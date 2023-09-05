@@ -47,7 +47,7 @@ poetry update
 cd ..
 ```
 
-Update the versions of `meek`, `obfs4proxy`, and `snowflake` in the `desktop/scripts/build-pt-*` scripts, both the bash and PowerShell scripts.
+Update the versions of `meek`, `obfs4proxy`, and `snowflake` in the `desktop/scripts/build-pt-*` scripts, both the bash and PowerShell scripts. You can find the latest versions by looking at the tags in their git repos: [meek](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/meek/-/tags), [obfs4proxy](https://gitlab.com/yawning/obfs4/-/tags), [snowflake](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/tags).
 
 ### Update the documentation
 
