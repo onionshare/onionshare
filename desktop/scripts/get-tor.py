@@ -159,7 +159,7 @@ def get_tor_macos(gpg, torkey, macos_url, macos_filename, expected_macos_sig):
         os.path.join(dist_path, "geoip6"),
     )
     shutil.copyfile(
-        os.path.join(dmg_tor_path, "MacOS", "Tor", "tor.real"),
+        os.path.join(dmg_tor_path, "MacOS", "Tor", "tor"),
         os.path.join(dist_path, "tor"),
     )
     os.chmod(os.path.join(dist_path, "tor"), 0o755)
@@ -322,17 +322,27 @@ def main(platform):
     ) = get_latest_tor_version_urls(platform)
     tmpdir = tempfile.TemporaryDirectory()
     gpg = gnupg.GPG(gnupghome=tmpdir.name)
-    torkey = gpg.import_keys_file(os.path.join(root_path, "scripts", "kounek7zrdx745qydx6p59t9mqjpuhdf"))
+    torkey = gpg.import_keys_file(
+        os.path.join(root_path, "scripts", "kounek7zrdx745qydx6p59t9mqjpuhdf")
+    )
     print(f"Imported Tor GPG key: {torkey.fingerprints}")
 
     if platform == "win32":
-        get_tor_windows(gpg, torkey, platform_url, platform_filename, expected_platform_sig)
+        get_tor_windows(
+            gpg, torkey, platform_url, platform_filename, expected_platform_sig
+        )
     elif platform == "win64":
-        get_tor_windows(gpg, torkey, platform_url, platform_filename, expected_platform_sig)
+        get_tor_windows(
+            gpg, torkey, platform_url, platform_filename, expected_platform_sig
+        )
     elif platform == "macos":
-        get_tor_macos(gpg, torkey, platform_url, platform_filename, expected_platform_sig)
+        get_tor_macos(
+            gpg, torkey, platform_url, platform_filename, expected_platform_sig
+        )
     elif platform == "linux64":
-        get_tor_linux64(gpg, torkey, platform_url, platform_filename, expected_platform_sig)
+        get_tor_linux64(
+            gpg, torkey, platform_url, platform_filename, expected_platform_sig
+        )
     else:
         click.echo("invalid platform")
 

@@ -21,8 +21,6 @@ Unless you're a core OnionShare developer making a release, you'll probably neve
 
 ### Update dependencies
 
-#### Python dependencies
-
 Check `cli/pyproject.toml` to see if any hard-coded versions should be updated. Then, update the dependencies like this:
 
 ```sh
@@ -49,10 +47,7 @@ poetry update
 cd ..
 ```
 
-#### Tor and pluggable transports
-
-- [ ] Update the version of `meek`, `obfs4proxy`, and `snowflake` in the `desktop/scripts/build-pt-*` scripts, both the bash and PowerShell scripts.
-
+Update the versions of `meek`, `obfs4proxy`, and `snowflake` in the `desktop/scripts/build-pt-*` scripts, both the bash and PowerShell scripts.
 
 ### Update the documentation
 
