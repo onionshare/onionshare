@@ -159,7 +159,7 @@ def get_tor_macos(gpg, torkey, macos_url, macos_filename, expected_macos_sig):
         os.path.join(dist_path, "geoip6"),
     )
     shutil.copyfile(
-        os.path.join(dmg_tor_path, "MacOS", "Tor", "tor.real"),
+        os.path.join(dmg_tor_path, "MacOS", "Tor", "tor"),
         os.path.join(dist_path, "tor"),
     )
     os.chmod(os.path.join(dist_path, "tor"), 0o755)

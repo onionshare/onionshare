@@ -146,6 +146,10 @@ setup(
         "bdist_mac": {
             "iconfile": os.path.join("onionshare", "resources", "onionshare.icns"),
             "bundle_name": "OnionShare",
+            "plist_items": [
+                ("CFBundleShortVersionString", version),
+                ("CFBundleVersion", version),
+            ],
         },
     },
     executables=[
