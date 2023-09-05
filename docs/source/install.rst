@@ -79,26 +79,38 @@ You can also find them on the `GitHub Releases page <https://github.com/onionsha
 Verifying
 ^^^^^^^^^
 
-Once you have imported Micah's public key into your GnuPG keychain, downloaded the binary and ``.asc`` signature, you can verify the binary for macOS in a terminal like this::
+Once you have imported Micah's public key into your GnuPG keychain, downloaded the binary and ``.asc`` signature, you can verify the binary in a terminal like this:
 
-    gpg --verify OnionShare-2.2.pkg.asc OnionShare-2.2.pkg
+For Windows::
 
-Or for Windows, in a command-prompt like this::
+    gpg --verify OnionShare-win64-2.6.msi.asc OnionShare-win64-2.6.msi (Windows 64-bit)
 
-    gpg.exe --verify onionshare-2.2-setup.exe.asc onionshare-2.2-setup.exe
+For macOS::
+
+    gpg --verify OnionShare-2.6.dmg.asc OnionShare-2.6.dmg
+
+For Linux::
+
+    gpg --verify OnionShare-2.6.flatpak.asc OnionShare-2.6.flatpak (Flatpak)
+
+    gpg --verify onionshare_2.6_amd64.snap.asc onionshare_2.6_amd64.snap (Snap)
+
+and for the source file::
+
+    gpg --verify onionshare-2.6.tar.gz.asc onionshare-2.6.tar.gz
 
 The expected output looks like this::
 
-    gpg: Signature made Tue 19 Feb 2019 09:25:28 AM AEDT using RSA key ID CD994F73
-    gpg: Good signature from "Micah Lee <micah@micahflee.com>"
-    gpg:                 aka "Micah Lee <micah@firstlook.org>"
-    gpg:                 aka "Micah Lee <micah@freedom.press>"
-    gpg:                 aka "Micah Lee <micah.lee@firstlook.org>"
-    gpg:                 aka "Micah Lee <micah.lee@theintercept.com>"
+    gpg: Signature made Mo 10 Okt 2022 02:27:16 CEST
+    gpg:                using RSA key 927F419D7EC82C2F149C1BD1403C2657CD994F73
+    gpg: Good signature from "Micah Lee <micah@micahflee.com>" [unknown]
+    gpg:                 aka "Micah Lee <micah.lee@firstlook.media>" [unknown]
     gpg: WARNING: This key is not certified with a trusted signature!
     gpg:          There is no indication that the signature belongs to the owner.
     Primary key fingerprint: 927F 419D 7EC8 2C2F 149C  1BD1 403C 2657 CD99 4F73
 
-If you don't see ``Good signature from``, there might be a problem with the integrity of the file (malicious or otherwise), and you should not install the package. (The ``WARNING:`` shown above, is not a problem with the package, it only means you haven't defined a level of "trust" of Micah's (the core developer) PGP key.)
+If you don't see ``Good signature from``, there might be a problem with the integrity of the file (malicious or otherwise), and you should not install the package.
+
+The ``WARNING:`` shown above, is not a problem with the package, it only means you haven't defined a level of "trust" of Micah's (the core developer) PGP key.
 
 If you want to learn more about verifying PGP signatures, the guides for `Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ and the `Tor Project <https://support.torproject.org/tbb/how-to-verify-signature/>`_ may be useful.
