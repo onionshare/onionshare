@@ -55,7 +55,11 @@ Update the versions of `meek`, `obfs4proxy`, and `snowflake` in the `desktop/scr
 
 ### Finalize localization
 
-- [ ] Merge all the translations from weblate
+- [ ] Merge all the translations from weblate:
+      ```
+      git remote add weblate https://hosted.weblate.org/projects/onionshare/translations/
+      git pull weblate main
+      ```
 - [ ] In `docs` run `poetry run ./check-weblate.py [API_KEY]` to see which translations are >90% in the app and docs
 - [ ] Edit `cli/onionshare_cli/settings.py`, make sure `self.available_locales` lists only locales that are >90% translated
 - [ ] From the `desktop` folder in the virtual env, run `./scripts/countries-update-list.py` to make sure the localized country list for censorship circumvention is available in all available languages
