@@ -50,7 +50,8 @@ async def app_percent_output(percent_min, percent_max=101):
     out = []
     for lang_code in languages:
         if (
-            app_translations[lang_code] >= percent_min
+            lang_code in app_translations
+            and app_translations[lang_code] >= percent_min
             and app_translations[lang_code] < percent_max
         ):
             out.append(
