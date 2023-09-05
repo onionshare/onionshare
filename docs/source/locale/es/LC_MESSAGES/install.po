@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2023-09-05 11:30-0700\n"
+"POT-Creation-Date: 2023-09-05 11:51-0700\n"
 "PO-Revision-Date: 2023-06-07 16:33+0000\n"
 "Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
 "Language: es\n"
@@ -282,30 +282,43 @@ msgid "Verifying"
 msgstr "Verificando"
 
 #: ../../source/install.rst:82
+#, fuzzy
 msgid ""
 "Once you have imported Micah's public key into your GnuPG keychain, "
 "downloaded the binary and ``.asc`` signature, you can verify the binary "
-"for macOS in a terminal like this::"
+"in a terminal like this:"
 msgstr ""
 "Una vez que hayas importado la clave pública de Micah en tu llavero "
 "GnuPG, descargado el binario y la firma ``.asc``, puedes verificar el "
 "binario para macOS en un terminal de la siguiente manera::"
 
-#: ../../source/install.rst:86
-msgid "Or for Windows, in a command-prompt like this::"
-msgstr "O para Windows en una línea de comando como sigue::"
+#: ../../source/install.rst:84
+msgid "For Windows::"
+msgstr ""
 
-#: ../../source/install.rst:90
+#: ../../source/install.rst:88
+msgid "For macOS::"
+msgstr ""
+
+#: ../../source/install.rst:92
+#, fuzzy
+msgid "For Linux::"
+msgstr "Linux"
+
+#: ../../source/install.rst:98
+msgid "and for the source file::"
+msgstr ""
+
+#: ../../source/install.rst:102
 msgid "The expected output looks like this::"
 msgstr "La salida esperada se parece a esta::"
 
-#: ../../source/install.rst:102
+#: ../../source/install.rst:112
+#, fuzzy
 msgid ""
 "If you don't see ``Good signature from``, there might be a problem with "
 "the integrity of the file (malicious or otherwise), and you should not "
-"install the package. (The ``WARNING:`` shown above, is not a problem with"
-" the package, it only means you haven't defined a level of \"trust\" of "
-"Micah's (the core developer) PGP key.)"
+"install the package."
 msgstr ""
 "Si no ves ``Good signature from``, puede haber un problema con la "
 "integridad del archivo (malicioso o no), y no deberías instalar el "
@@ -313,7 +326,20 @@ msgstr ""
 "paquete, sólo significa que no has definido un nivel de \"confianza\" de "
 "la clave PGP de Micah (el desarrollador del núcleo))"
 
-#: ../../source/install.rst:104
+#: ../../source/install.rst:114
+#, fuzzy
+msgid ""
+"The ``WARNING:`` shown above, is not a problem with the package, it only "
+"means you haven't defined a level of \"trust\" of Micah's (the core "
+"developer) PGP key."
+msgstr ""
+"Si no ves ``Good signature from``, puede haber un problema con la "
+"integridad del archivo (malicioso o no), y no deberías instalar el "
+"paquete. (El ``WARNING:`` mostrado arriba, no es un problema con el "
+"paquete, sólo significa que no has definido un nivel de \"confianza\" de "
+"la clave PGP de Micah (el desarrollador del núcleo))"
+
+#: ../../source/install.rst:116
 msgid ""
 "If you want to learn more about verifying PGP signatures, the guides for "
 "`Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ and"
@@ -404,4 +430,7 @@ msgstr ""
 
 #~ msgid "Install in Linux"
 #~ msgstr "Instalar en Linux"
+
+#~ msgid "Or for Windows, in a command-prompt like this::"
+#~ msgstr "O para Windows en una línea de comando como sigue::"
 

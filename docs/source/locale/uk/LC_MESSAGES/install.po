@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2023-09-05 11:30-0700\n"
+"POT-Creation-Date: 2023-09-05 11:51-0700\n"
 "PO-Revision-Date: 2023-06-07 14:30+0000\n"
 "Last-Translator: Ihor Hordiichuk <igor_ck@outlook.com>\n"
 "Language: uk\n"
@@ -290,30 +290,43 @@ msgid "Verifying"
 msgstr "Перевірка"
 
 #: ../../source/install.rst:82
+#, fuzzy
 msgid ""
 "Once you have imported Micah's public key into your GnuPG keychain, "
 "downloaded the binary and ``.asc`` signature, you can verify the binary "
-"for macOS in a terminal like this::"
+"in a terminal like this:"
 msgstr ""
 "Після того, як відкритий ключ Micah імпортовано до вашої збірки ключів "
 "GnuPG, завантажено двійковий файл і завантажено підпис ``.asc``, ви "
 "можете перевірити двійковий файл для macOS в терміналі в такий спосіб::"
 
-#: ../../source/install.rst:86
-msgid "Or for Windows, in a command-prompt like this::"
-msgstr "Або для Windows у командному рядку у такий спосіб::"
+#: ../../source/install.rst:84
+msgid "For Windows::"
+msgstr ""
 
-#: ../../source/install.rst:90
+#: ../../source/install.rst:88
+msgid "For macOS::"
+msgstr ""
+
+#: ../../source/install.rst:92
+#, fuzzy
+msgid "For Linux::"
+msgstr "Linux"
+
+#: ../../source/install.rst:98
+msgid "and for the source file::"
+msgstr ""
+
+#: ../../source/install.rst:102
 msgid "The expected output looks like this::"
 msgstr "Очікуваний результат може виглядати так::"
 
-#: ../../source/install.rst:102
+#: ../../source/install.rst:112
+#, fuzzy
 msgid ""
 "If you don't see ``Good signature from``, there might be a problem with "
 "the integrity of the file (malicious or otherwise), and you should not "
-"install the package. (The ``WARNING:`` shown above, is not a problem with"
-" the package, it only means you haven't defined a level of \"trust\" of "
-"Micah's (the core developer) PGP key.)"
+"install the package."
 msgstr ""
 "Якщо ви не бачите ``Good signature from``, можливо, виникла проблема з "
 "цілісністю файлу (зловмисна чи інша), і, можливо, вам не слід "
@@ -321,7 +334,20 @@ msgstr ""
 "пакунком, це лише означає, що ви не визначили рівень «довіри» до самого "
 "ключа PGP від Micah (основного розробника).)"
 
-#: ../../source/install.rst:104
+#: ../../source/install.rst:114
+#, fuzzy
+msgid ""
+"The ``WARNING:`` shown above, is not a problem with the package, it only "
+"means you haven't defined a level of \"trust\" of Micah's (the core "
+"developer) PGP key."
+msgstr ""
+"Якщо ви не бачите ``Good signature from``, можливо, виникла проблема з "
+"цілісністю файлу (зловмисна чи інша), і, можливо, вам не слід "
+"установлювати пакунок. (Вказаний раніше ``WARNING:`` не є проблемою з "
+"пакунком, це лише означає, що ви не визначили рівень «довіри» до самого "
+"ключа PGP від Micah (основного розробника).)"
+
+#: ../../source/install.rst:116
 msgid ""
 "If you want to learn more about verifying PGP signatures, the guides for "
 "`Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ and"
@@ -410,4 +436,7 @@ msgstr ""
 
 #~ msgid "Install in Linux"
 #~ msgstr "Встановлення на Linux"
+
+#~ msgid "Or for Windows, in a command-prompt like this::"
+#~ msgstr "Або для Windows у командному рядку у такий спосіб::"
 
