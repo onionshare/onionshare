@@ -78,7 +78,16 @@ In `snap/snapcraft.yaml`:
 
 - [ ] The `tor`, `libevent`, `obfs4`, `snowflake-client`, and `meek-client` parts should be updated if necessary
 - [ ] In the `onionshare` part, in the `override-pull` section, all of the dependencies in the `requirements.txt` file should match the dependencies listed in `cli/pyproject.toml` and `desktop/pyproject.toml`, with the exception of PySide2
-- [ ] With every commit to the `main` branch, Snapcraft's CI should trigger builds. Make sure the builds all succeeded at https://snapcraft.io/onionshare/builds (you must be logged in), and test them. You can install them with: `snap install onionshare --edge`
+
+To test locally:
+
+- Install snapcraft with: `sudo snap install snapcraft --classic`
+- Build snap with: `snapcraft`
+- Install with: `sudo snap install ./onionshare_${VERSION}_amd64.snap --devmode`
+
+To in the edge branch:
+
+With every commit to the `main` branch, Snapcraft's CI should trigger builds. Make sure the builds all succeeded at https://snapcraft.io/onionshare/builds (you must be logged in), and test them. You can install them with: `snap install onionshare --edge`
 
 ### Make sure the Flatpak packaging works
 
