@@ -1,5 +1,5 @@
 name: Build
-run-name: Build win64, mac (Intel) 🚀
+run-name: Build win64, mac (Intel), Snap, and Flatpak 🚀
 on:
   push:
     branches:
