@@ -155,17 +155,15 @@ parts:
       - libxslt1.1
       - libxtst6
       - qtwayland5
-      - python3-pyside2.qtcore
-      - python3-pyside2.qtgui
-      - python3-pyside2.qtwidgets
     override-pull: |
       snapcraftctl pull
       rm pyproject.toml poetry.lock
       cat > requirements.txt << EOF
       # onionshare_cli
       click
-      flask==2.0.3
-      flask-socketio==5.3.1
+      flask==2.3.2
+      flask-compress==1.13
+      flask-socketio==5.3.4
       psutil
       pysocks
       requests[socks]
@@ -177,11 +175,12 @@ parts:
       colorama
       gevent-websocket
       stem==1.8.1
-      werkzeug==2.3.4
-      flask-compress
       waitress
+      werkzeug==2.3.4
       # onionshare
+      PySide6==6.5.2
       qrcode
+      packaging
       EOF
     override-build: |
       python3 -m venv $SNAPCRAFT_PART_INSTALL
@@ -196,8 +195,8 @@ parts:
     after: [onionshare-cli]
 
   tor:
-    source: https://dist.torproject.org/tor-0.4.7.12.tar.gz
-    source-checksum: sha256/3b5d969712c467851bd028f314343ef15a97ea457191e93ffa97310b05b9e395
+    source: https://dist.torproject.org/tor-0.4.8.5.tar.gz
+    source-checksum: sha256/6957cfd14a29eee7555c52f8387a46f2ce2f5fe7dadf93547f1bc74b1657e119
     source-type: tar
     plugin: autotools
     autotools-configure-parameters:
@@ -227,7 +226,7 @@ parts:
       - go/latest/stable
     source: https://git.torproject.org/pluggable-transports/snowflake.git
     source-type: git
-    source-tag: v2.3.1
+    source-tag: v2.6.0
     organize:
       bin/client: bin/snowflake-client
 
@@ -237,7 +236,7 @@ parts:
       - go/latest/stable
     source: https://git.torproject.org/pluggable-transports/meek.git
     source-type: git
-    source-tag: v0.37.0
+    source-tag: v0.38.0
     override-build: |
       cd meek-client
       mkdir -p /build/onionshare/meek-client/install/bin
