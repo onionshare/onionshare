@@ -1,5 +1,5 @@
 name: onionshare
-base: core20
+base: core22
 version: "2.6.1"
 summary: Securely and anonymously share files, host websites, and chat using Tor
 description: |
@@ -20,8 +20,7 @@ architectures:
 apps:
   onionshare:
     common-id: org.onionshare.OnionShare
-    command: bin/onionshare-launcher
-    extensions: [gnome-3-38]
+    command: bin/onionshare
     plugs:
       - desktop
       - home
@@ -30,10 +29,12 @@ apps:
       - removable-media
     environment:
       LANG: C.UTF-8
+      PATH: $SNAP/bin:$SNAP/usr/bin:$SNAP/usr/local/bin:$PATH
+      LD_LIBRARY_PATH: $LD_LIBRARY_PATH:$SNAP/usr/local/lib
 
   cli:
     common-id: org.onionshare.OnionShareCli
-    command: bin/onionshare-cli-launcher
+    command: bin/onionshare-cli
     plugs:
       - home
       - network
@@ -41,42 +42,15 @@ apps:
       - removable-media
     environment:
       LANG: C.UTF-8
+      PATH: $SNAP/bin:$SNAP/usr/bin:$SNAP/usr/local/bin:$PATH
+      LD_LIBRARY_PATH: $LD_LIBRARY_PATH:$SNAP/usr/local/lib
 
 parts:
-  launcher:
-    plugin: nil
-    override-build: |
-      mkdir -p $SNAPCRAFT_PART_INSTALL/bin
-      cat > $SNAPCRAFT_PART_INSTALL/bin/launcher-setup << EOF
-      #!/bin/sh
-      export PATH=\$SNAP/bin:\$SNAP/usr/bin:\$SNAP/usr/local/bin:\$PATH
-      export PYTHONPATH=\$SNAP/lib/python3.8/site-packages:\$SNAP/usr/lib/python3/dist-packages
-      export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:\$SNAP/usr/local/lib
-      ORIG_IFS=\$IFS
-      IFS=":"
-      LIB_BASE=\$(for D in \$LD_LIBRARY_PATH; do echo \$D; done | grep \$SNAP/usr/lib/)
-      IFS=\$ORIGIN_IFS
-      export QT_PLUGIN_PATH=\$LIB_BASE/qt5/plugins
-      EOF
-      cat > $SNAPCRAFT_PART_INSTALL/bin/onionshare-launcher << EOF
-      #!/bin/sh
-      . \$SNAP/bin/launcher-setup
-      onionshare \$@
-      EOF
-      cat > $SNAPCRAFT_PART_INSTALL/bin/onionshare-cli-launcher << EOF
-      #!/bin/sh
-      . \$SNAP/bin/launcher-setup
-      onionshare-cli \$@
-      EOF
-      chmod 755 $SNAPCRAFT_PART_INSTALL/bin/launcher-setup
-      chmod 755 $SNAPCRAFT_PART_INSTALL/bin/onionshare-launcher
-      chmod 755 $SNAPCRAFT_PART_INSTALL/bin/onionshare-cli-launcher
-
   onionshare-cli:
     source: ./cli
     plugin: nil
     override-pull: |
-      snapcraftctl pull
+      craftctl default
       rm pyproject.toml poetry.lock
     after: [tor, obfs4, snowflake-client, meek-client]
 
@@ -155,8 +129,15 @@ parts:
       - libxslt1.1
       - libxtst6
       - qtwayland5
+      - libgstreamer1.0-0
+      - libgstreamer1.0-dev
+      - libgstreamer-gl1.0-0
+      - libgstreamer-plugins-base1.0-0
+      - libmysqlclient21
+      - libxcb-cursor0
+      - libxkbfile1
     override-pull: |
-      snapcraftctl pull
+      craftctl default
       rm pyproject.toml poetry.lock
       cat > requirements.txt << EOF
       # onionshare_cli
@@ -183,15 +164,15 @@ parts:
       packaging
       EOF
     override-build: |
-      python3 -m venv $SNAPCRAFT_PART_INSTALL
-      . $SNAPCRAFT_PART_INSTALL/bin/activate
+      python3 -m venv $CRAFT_PART_INSTALL
+      . $CRAFT_PART_INSTALL/bin/activate
       pip install -U pip setuptools wheel
       pip install -U -r requirements.txt
       pip install -U ../../onionshare-cli/src
       pip install -U .
       deactivate
-      sed -i 's|'$SNAPCRAFT_PART_INSTALL'/bin/python3|/usr/bin/env python3|g' $SNAPCRAFT_PART_INSTALL/bin/onionshare
-      sed -i 's|'$SNAPCRAFT_PART_INSTALL'/bin/python3|/usr/bin/env python3|g' $SNAPCRAFT_PART_INSTALL/bin/onionshare-cli
+      sed -i 's|'$CRAFT_PART_INSTALL'/bin/python3|/usr/bin/env python3|g' $CRAFT_PART_INSTALL/bin/onionshare
+      sed -i 's|'$CRAFT_PART_INSTALL'/bin/python3|/usr/bin/env python3|g' $CRAFT_PART_INSTALL/bin/onionshare-cli
     after: [onionshare-cli]
 
   tor:
@@ -200,7 +181,7 @@ parts:
     source-type: tar
     plugin: autotools
     autotools-configure-parameters:
-      - "--with-libevent-dir=$SNAPCRAFT_PART_INSTALL/../../libevent/install/usr/local"
+      - "--with-libevent-dir=$CRAFT_PART_INSTALL/../../libevent/install/usr/local"
     build-packages:
       - libssl-dev
       - zlib1g-dev
