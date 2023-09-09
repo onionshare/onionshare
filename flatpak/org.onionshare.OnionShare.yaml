@@ -35,8 +35,8 @@ modules:
             --prefix=${FLATPAK_DEST} "pyside6-essentials" --no-build-isolation
         sources:
           - type: file
-            url: https://files.pythonhosted.org/packages/e5/96/f43cdcb397f8a8cff6991ef8109385cc5ad9b0ad78c6dc2988b3b776fe49/PySide6_Essentials-6.4.2-cp37-abi3-manylinux_2_28_x86_64.whl
-            sha256: 8c3d37cca6e27f6da12b50b20e741d593ccc857bdcdb82d97f8f7c8bfe53639a
+            url: https://files.pythonhosted.org/packages/d0/de/9a089e91c2e0fe4f122218bba4f9dbde46338659f412739bd9db1ed9df4f/PySide6_Essentials-6.5.2-cp37-abi3-manylinux_2_28_x86_64.whl
+            sha256: 1620e82b38714a1570b142c01694d0415a25526517b24620ff9b00c9f76cfca9
         modules:
           - name: shiboken6
             buildsystem: simple
@@ -45,14 +45,14 @@ modules:
                 --prefix=${FLATPAK_DEST} "shiboken6" --no-build-isolation
             sources:
               - type: file
-                url: https://files.pythonhosted.org/packages/24/f6/f1fe9220a616789a1c6b1b73670d8b1dec882ac730a8b534f963b3f26182/shiboken6-6.4.2-cp37-abi3-manylinux_2_28_x86_64.whl
-                sha256: 0616c1a12d1e51e680595b3940b986275c1df952a751416a0730a59e5b90105f
+                url: https://files.pythonhosted.org/packages/55/44/d8c366dd4f069166ab9890acb44d004c5e6122714e44c169273dcbbca897/shiboken6-6.5.2-cp37-abi3-manylinux_2_28_x86_64.whl
+                sha256: 3fbc35ff3c19e7d39433671bfc1be3d7fa9d071bfdd0ffe1c2a4d27acd6cf6a5
   - name: tor
     buildsystem: autotools
     sources:
       - type: archive
-        sha256: d39d38598208f4d6201d7edc6ad573b3a898a932a5c68d3074016a9525519b22
-        url: https://dist.torproject.org/tor-0.4.7.9.tar.gz
+        sha256: 6957cfd14a29eee7555c52f8387a46f2ce2f5fe7dadf93547f1bc74b1657e119
+        url: https://dist.torproject.org/tor-0.4.8.5.tar.gz
     modules:
       - name: libevent
         buildsystem: autotools
@@ -61,242 +61,1105 @@ modules:
             url: https://github.com/libevent/libevent/releases/download/release-2.1.12-stable/libevent-2.1.12-stable.tar.gz
             sha256: 92e6de1be9ec176428fd2367677e61ceffc2ee1cb119035037a27d346b0403bb
   - name: obfs4proxy
-    buildsystem: simple
+    build-commands:
+      - . /usr/lib/sdk/golang/enable.sh; export GOPATH=$PWD; export GO111MODULE=off; go
+        install gitlab.com/yawning/obfs4.git/obfs4.git
     build-options:
       env:
-        GOBIN: "/app/bin/"
-    build-commands:
-      - ". /usr/lib/sdk/golang/enable.sh; export GOPATH=$PWD; export GO111MODULE=off; go install gitlab.com/yawning/obfs4.git/obfs4proxy"
+        GOBIN: /app/bin/
+    buildsystem: simple
     sources:
-      - type: git
-        url: https://go.googlesource.com/net
-        commit: 69e39bad7dc2bbb411fa35755c46020969029fa7
-        dest: src/golang.org/x/net
-      - type: git
-        url: https://go.googlesource.com/crypto
-        commit: ceb1ce70b4faafeeb5b3f23cc83f09b39a4f3f1d
-        dest: src/golang.org/x/crypto
-      - type: git
-        url: https://go.googlesource.com/text
-        commit: 18b340fc7af22495828ffbe71e9f9e22583bc7a9
-        dest: src/golang.org/x/text
-      - type: git
-        url: https://go.googlesource.com/sys
-        commit: faf0a1b62c6b439486fd1d914d8185627b99d387
-        dest: src/golang.org/x/sys
-      - type: git
-        url: https://gitlab.com/yawning/obfs4
-        commit: 336a71d6e4cfd2d33e9c57797828007ad74975e9
-        dest: src/gitlab.com/yawning/obfs4.git
-      - type: git
-        url: https://gitlab.com/yawning/utls
-        commit: f1bcf4b40e4596d0ccd1dbf8f3a9f4922f9759ca
-        dest: src/gitlab.com/yawning/utls.git
-      - type: git
-        url: https://gitlab.com/yawning/bsaes
-        commit: 0a714cd429ec754482b4001e918db30cd2094405
-        dest: src/gitlab.com/yawning/bsaes.git
-      - type: git
-        url: https://gitlab.com/yawning/edwards25519-extra
-        commit: def713fd18e464864613d2b55ef41a21df2c9493
-        dest: src/gitlab.com/yawning/edwards25519-extra.git
-      - type: git
-        url: https://github.com/FiloSottile/edwards25519
-        commit: 8c58ed0e35502a485538e4c5ec086070840f3410
-        dest: src/filippo.io/edwards25519
-      - type: git
-        url: https://git.torproject.org/pluggable-transports/goptlib
-        commit: 13b7b3552e1eef32e4d8a2a7813f22488f91dc09
-        dest: src/git.torproject.org/pluggable-transports/goptlib.git
-      - type: git
-        url: https://github.com/dsnet/compress
-        commit: f66993602bf5da07ef49d35b08e7264ae9fe2b6e
-        dest: src/github.com/dsnet/compress
-      - type: git
-        url: https://github.com/dchest/siphash
-        commit: 991656ee3840f823396c2eb7f4a70d65dac06832
-        dest: src/github.com/dchest/siphash
+      - dest: src/filippo/io/edwards25519
+        tag: v1.0.0-rc.1.0.20210721174708-390f27c3be20
+        type: git
+        url: https://filippo.io/edwards25519.git
+      - dest: src/git/torproject/org/pluggable-transports/goptlib/git
+        tag: v1.0.0
+        type: git
+        url: https://git.torproject.org/pluggable-transports/goptlib.git.git
+      - dest: src/github/com/dchest/siphash
+        tag: v1.2.1
+        type: git
+        url: https://github.com/dchest/siphash.git
+      - dest: src/gitlab/com/yawning/edwards25519-extra/git
+        tag: v0.0.0-20211229043746-2f91fcc9fbdb
+        type: git
+        url: https://gitlab.com/yawning/edwards25519-extra.git.git
+      - dest: src/golang/org/x/crypto
+        tag: v0.0.0-20210711020723-a769d52b0f97
+        type: git
+        url: https://golang.org/x/crypto.git
+      - dest: src/golang/org/x/net
+        tag: v0.0.0-20210226172049-e18ecbb05110
+        type: git
+        url: https://golang.org/x/net.git
+      - dest: src/golang/org/x/sys
+        tag: v0.0.0-20210615035016-665e8c7367d1
+        type: git
+        url: https://golang.org/x/sys.git
+      - dest: src/golang/org/x/term
+        tag: v0.0.0-20201126162022-7de9c90e9dd1
+        type: git
+        url: https://golang.org/x/term.git
+      - dest: src/golang/org/x/text
+        tag: v0.3.3
+        type: git
+        url: https://golang.org/x/text.git
+      - dest: src/golang/org/x/tools
+        tag: v0.0.0-20180917221912-90fa682c2a6e
+        type: git
+        url: https://golang.org/x/tools.git
   - name: meek-client
-    buildsystem: simple
+    build-commands:
+      - . /usr/lib/sdk/golang/enable.sh; export GOPATH=$PWD; export GO111MODULE=off; go
+        install git.torproject.org/pluggable-transports/meek.git/meek.git
     build-options:
       env:
-        GOBIN: "/app/bin/"
-    build-commands:
-      - ". /usr/lib/sdk/golang/enable.sh; export GOPATH=$PWD; export GO111MODULE=off; go install git.torproject.org/pluggable-transports/meek.git/meek-client"
+        GOBIN: /app/bin/
+    buildsystem: simple
     sources:
-      - type: git
-        url: https://go.googlesource.com/net
-        commit: 69e39bad7dc2bbb411fa35755c46020969029fa7
-        dest: src/golang.org/x/net
-      - type: git
-        url: https://go.googlesource.com/crypto
-        commit: ceb1ce70b4faafeeb5b3f23cc83f09b39a4f3f1d
-        dest: src/golang.org/x/crypto
-      - type: git
-        url: https://go.googlesource.com/text
-        commit: 18b340fc7af22495828ffbe71e9f9e22583bc7a9
-        dest: src/golang.org/x/text
-      - type: git
-        url: https://go.googlesource.com/sys
-        commit: faf0a1b62c6b439486fd1d914d8185627b99d387
-        dest: src/golang.org/x/sys
-      - type: git
-        url: https://git.torproject.org/pluggable-transports/goptlib
-        commit: 13b7b3552e1eef32e4d8a2a7813f22488f91dc09
-        dest: src/git.torproject.org/pluggable-transports/goptlib.git
-      - type: git
-        url: https://git.torproject.org/pluggable-transports/meek
-        commit: 6600c52acb7979b08dd0916a7a779dd0e5dde0b0
-        dest: src/git.torproject.org/pluggable-transports/meek.git
-      - type: git
-        url: https://github.com/refraction-networking/utls
-        commit: 0b2885c8c0d4467cfe98136748a9d011d0b8fff0
-        dest: src/github.com/refraction-networking/utls
+      - dest: src/git/torproject/org/pluggable-transports/goptlib/git
+        tag: v1.1.0
+        type: git
+        url: https://git.torproject.org/pluggable-transports/goptlib.git.git
+      - dest: src/github/com/andybalholm/brotli
+        tag: v1.0.4
+        type: git
+        url: https://github.com/andybalholm/brotli.git
+      - dest: src/github/com/klauspost/compress
+        tag: v1.15.9
+        type: git
+        url: https://github.com/klauspost/compress.git
+      - dest: src/github/com/refraction-networking/utls
+        tag: v1.1.5
+        type: git
+        url: https://github.com/refraction-networking/utls.git
+      - dest: src/golang/org/x/crypto
+        tag: v0.0.0-20220829220503-c86fa9a7ed90
+        type: git
+        url: https://golang.org/x/crypto.git
+      - dest: src/golang/org/x/net
+        tag: v0.0.0-20220909164309-bea034e7d591
+        type: git
+        url: https://golang.org/x/net.git
+      - dest: src/golang/org/x/sys
+        tag: v0.0.0-20220728004956-3c1f35247d10
+        type: git
+        url: https://golang.org/x/sys.git
+      - dest: src/golang/org/x/term
+        tag: v0.0.0-20210927222741-03fcf44c2211
+        type: git
+        url: https://golang.org/x/term.git
+      - dest: src/golang/org/x/text
+        tag: v0.3.7
+        type: git
+        url: https://golang.org/x/text.git
+      - dest: src/golang/org/x/tools
+        tag: v0.0.0-20180917221912-90fa682c2a6e
+        type: git
+        url: https://golang.org/x/tools.git
   - name: snowflake-client
-    buildsystem: simple
+    build-commands:
+      - . /usr/lib/sdk/golang/enable.sh; export GOPATH=$PWD; export GO111MODULE=off; go
+        install git.torproject.org/pluggable-transports/snowflake.git/snowflake.git
+      - mv /app/bin/client /app/bin/snowflake-client
     build-options:
       env:
-        GOBIN: "/app/bin/"
-    build-commands:
-      - ". /usr/lib/sdk/golang/enable.sh; export GOPATH=$PWD; export GO111MODULE=off; go install git.torproject.org/pluggable-transports/snowflake.git/client"
-      - "mv /app/bin/client /app/bin/snowflake-client"
+        GOBIN: /app/bin/
+    buildsystem: simple
     sources:
-      - type: git
-        url: https://go.googlesource.com/net
-        commit: 69e39bad7dc2bbb411fa35755c46020969029fa7
-        dest: src/golang.org/x/net
-      - type: git
-        url: https://go.googlesource.com/crypto
-        commit: ceb1ce70b4faafeeb5b3f23cc83f09b39a4f3f1d
-        dest: src/golang.org/x/crypto
-      - type: git
-        url: https://go.googlesource.com/text
-        commit: 18b340fc7af22495828ffbe71e9f9e22583bc7a9
-        dest: src/golang.org/x/text
-      - type: git
-        url: https://go.googlesource.com/sys
-        commit: faf0a1b62c6b439486fd1d914d8185627b99d387
-        dest: src/golang.org/x/sys
-      - type: git
-        url: https://go.googlesource.com/xerrors
-        commit: 5ec99f83aff198f5fbd629d6c8d8eb38a04218ca
-        dest: src/golang.org/x/xerrors
-      - type: git
-        url: https://git.torproject.org/pluggable-transports/goptlib
-        commit: 13b7b3552e1eef32e4d8a2a7813f22488f91dc09
-        dest: src/git.torproject.org/pluggable-transports/goptlib.git
-      - type: git
-        url: https://git.torproject.org/pluggable-transports/snowflake
-        commit: 36f03dfd4483922b3e7400dedc71df9cf2f30b6b
-        dest: src/git.torproject.org/pluggable-transports/snowflake.git
-      - type: git
-        url: https://github.com/refraction-networking/utls
-        commit: 0b2885c8c0d4467cfe98136748a9d011d0b8fff0
-        dest: src/github.com/refraction-networking/utls
-      - type: git
-        url: https://github.com/templexxx/xorsimd
-        commit: e2f34adfb57b524164fc712df2fcfd991ed0ccad
-        dest: src/github.com/templexxx/xorsimd
-      - type: git
-        url: https://github.com/templexxx/cpu
-        commit: 98168dcec14af3f8700bf309afe503bfe936e9f2
-        dest: src/github.com/templexxx/cpu
-      - type: git
-        url: https://github.com/google/uuid
-        commit: 44b5fee7c49cf3bcdf723f106b36d56ef13ccc88
-        dest: src/github.com/google/uuid
-      - type: git
-        url: https://github.com/pion/udp
-        commit: 68c2d469b1ffc77a8addab02c1e45c93b5d0071d
-        dest: src/github.com/pion/udp
-      - type: git
-        url: https://github.com/pion/dtls
-        commit: e4d311c89ca1b77c9fe928e6cbfc508c959a3e73
-        dest: src/github.com/pion/dtls
-      - type: git
-        url: https://github.com/pion/rtp
-        commit: 1bb23f70af626f56c785a0e1615da871f5a03129
-        dest: src/github.com/pion/rtp
-      - type: git
-        url: https://github.com/pion/stun
-        commit: fa0355cc10e886da31cdfffe5c67cc23d345bbdc
-        dest: src/github.com/pion/stun
-      - type: git
-        url: https://github.com/pion/randutil
-        commit: 3e7aefb6fd280d89fca72f1596348f1939525187
-        dest: src/github.com/pion/randutil
-      - type: git
-        url: https://github.com/pion/srtp
-        commit: 1d7627ee3ca0c5f9f3943d6fe92295dc0a2b8e69
-        dest: src/github.com/pion/srtp
-      - type: git
-        url: https://github.com/pion/sctp
-        commit: fd9945b6f0fe8785677b18df7ce3e9ec78f9d451
-        dest: src/github.com/pion/sctp
-      - type: git
-        url: https://github.com/pion/transport
-        commit: 33608e46f9f1fb5af237d9cf0df6126fa1b6b206
-        dest: src/github.com/pion/transport
-      - type: git
-        url: https://github.com/pion/logging
-        commit: b0e968691909fdc8f198d1be221624b74b397fa6
-        dest: src/github.com/pion/logging
-      - type: git
-        url: https://github.com/pion/datachannel
-        commit: 74e13972527c0130d4245897fef9c300a091b14b
-        dest: src/github.com/pion/datachannel
-      - type: git
-        url: https://github.com/pion/interceptor
-        commit: 75c3df4712798c9e6fbec8a41059cc5b2913c032
-        dest: src/github.com/pion/interceptor
-      - type: git
-        url: https://github.com/pion/ice
-        commit: d5db22342061ee429c247141700b1e02e73acf54
-        dest: src/github.com/pion/ice
-      - type: git
-        url: https://github.com/pion/webrtc
-        commit: 635bfd9cad37eff2d2b7004e303ca4d509b8de17
-        dest: src/github.com/pion/webrtc
-      - type: git
-        url: https://github.com/pion/mdns
-        commit: 9db0fe207a1804f909cd53dd8f6cc36311ea65d6
-        dest: src/github.com/pion/mdns
-      - type: git
-        url: https://github.com/pion/turn
-        commit: 72ffd594f7c6104b5680a4fea5651928e3b6ddb4
-        dest: src/github.com/pion/turn
-      - type: git
-        url: https://github.com/pion/rtcp
-        commit: 516927b4081bb24ad1e2778d4627f90529e3105e
-        dest: src/github.com/pion/rtcp
-      - type: git
-        url: https://github.com/pion/sdp
-        commit: 9f8ec15f7bbb128c4625b3c07ab7923831533518
-        dest: src/github.com/pion/sdp
-      - type: git
-        url: https://github.com/tjfoc/gmsm
-        commit: fdaa5ff368db5ce62bb672fc424b23f8923858dc
-        dest: src/github.com/tjfoc/gmsm
-      - type: git
-        url: https://github.com/xtaci/kcp-go
-        commit: bd59cf8a523bbf67e55024a164d419a32de9de39
-        dest: src/github.com/xtaci/kcp-go
-      - type: git
-        url: https://github.com/xtaci/smux
-        commit: "09e2c01560df5aaaed50e48e77547858e2623498"
-        dest: src/github.com/xtaci/smux
-      - type: git
-        url: https://github.com/klauspost/cpuid
-        commit: cffd0d4c86d45f8de353e162651c92fa263e845d
-        dest: src/github.com/klauspost/cpuid
-      - type: git
-        url: https://github.com/klauspost/reedsolomon
-        commit: 0eef97bb02ee165a0d7b42a5989502bfa40f6ba0
-        dest: src/github.com/klauspost/reedsolomon
-      - type: git
-        url: https://github.com/pkg/errors
-        commit: 5dd12d0cfe7f152f80558d591504ce685299311e
-        dest: src/github.com/pkg/errors
+      - dest: src/cloud/google/com/go
+        tag: v0.34.0
+        type: git
+        url: https://cloud.google.com/go.git
+      - dest: src/github/com/BurntSushi/toml
+        tag: v0.3.1
+        type: git
+        url: https://github.com/BurntSushi/toml.git
+      - dest: src/github/com/Knetic/govaluate
+        tag: v3.0.1-0.20171022003610-9aa49832a739+incompatible
+        type: git
+        url: https://github.com/Knetic/govaluate.git
+      - dest: src/github/com/Shopify/sarama
+        tag: v1.19.0
+        type: git
+        url: https://github.com/Shopify/sarama.git
+      - dest: src/github/com/Shopify/toxiproxy
+        tag: v2.1.4+incompatible
+        type: git
+        url: https://github.com/Shopify/toxiproxy.git
+      - dest: src/github/com/VividCortex/gohistogram
+        tag: v1.0.0
+        type: git
+        url: https://github.com/VividCortex/gohistogram.git
+      - dest: src/github/com/afex/hystrix-go
+        tag: v0.0.0-20180502004556-fa1af6a1f4f5
+        type: git
+        url: https://github.com/afex/hystrix-go.git
+      - dest: src/github/com/alecthomas/template
+        tag: v0.0.0-20190718012654-fb15b899a751
+        type: git
+        url: https://github.com/alecthomas/template.git
+      - dest: src/github/com/alecthomas/units
+        tag: v0.0.0-20190924025748-f65c72e2690d
+        type: git
+        url: https://github.com/alecthomas/units.git
+      - dest: src/github/com/apache/thrift
+        tag: v0.13.0
+        type: git
+        url: https://github.com/apache/thrift.git
+      - dest: src/github/com/armon/circbuf
+        tag: v0.0.0-20150827004946-bbbad097214e
+        type: git
+        url: https://github.com/armon/circbuf.git
+      - dest: src/github/com/armon/go-metrics
+        tag: v0.0.0-20180917152333-f0300d1749da
+        type: git
+        url: https://github.com/armon/go-metrics.git
+      - dest: src/github/com/armon/go-radix
+        tag: v0.0.0-20180808171621-7fddfc383310
+        type: git
+        url: https://github.com/armon/go-radix.git
+      - dest: src/github/com/aryann/difflib
+        tag: v0.0.0-20170710044230-e206f873d14a
+        type: git
+        url: https://github.com/aryann/difflib.git
+      - dest: src/github/com/aws/aws-lambda-go
+        tag: v1.13.3
+        type: git
+        url: https://github.com/aws/aws-lambda-go.git
+      - dest: src/github/com/aws/aws-sdk-go
+        tag: v1.27.0
+        type: git
+        url: https://github.com/aws/aws-sdk-go.git
+      - dest: src/github/com/aws/aws-sdk-go-v2
+        tag: v0.18.0
+        type: git
+        url: https://github.com/aws/aws-sdk-go-v2.git
+      - dest: src/github/com/beorn7/perks
+        tag: v1.0.1
+        type: git
+        url: https://github.com/beorn7/perks.git
+      - dest: src/github/com/bgentry/speakeasy
+        tag: v0.1.0
+        type: git
+        url: https://github.com/bgentry/speakeasy.git
+      - dest: src/github/com/casbin/casbin/v2
+        tag: v2.1.2
+        type: git
+        url: https://github.com/casbin/casbin/v2.git
+      - dest: src/github/com/cenkalti/backoff
+        tag: v2.2.1+incompatible
+        type: git
+        url: https://github.com/cenkalti/backoff.git
+      - dest: src/github/com/census-instrumentation/opencensus-proto
+        tag: v0.2.1
+        type: git
+        url: https://github.com/census-instrumentation/opencensus-proto.git
+      - dest: src/github/com/cespare/xxhash/v2
+        tag: v2.1.1
+        type: git
+        url: https://github.com/cespare/xxhash/v2.git
+      - dest: src/github/com/clarkduvall/hyperloglog
+        tag: v0.0.0-20171127014514-a0107a5d8004
+        type: git
+        url: https://github.com/clarkduvall/hyperloglog.git
+      - dest: src/github/com/clbanning/x2j
+        tag: v0.0.0-20191024224557-825249438eec
+        type: git
+        url: https://github.com/clbanning/x2j.git
+      - dest: src/github/com/client9/misspell
+        tag: v0.3.4
+        type: git
+        url: https://github.com/client9/misspell.git
+      - dest: src/github/com/cockroachdb/datadriven
+        tag: v0.0.0-20190809214429-80d97fb3cbaa
+        type: git
+        url: https://github.com/cockroachdb/datadriven.git
+      - dest: src/github/com/codahale/hdrhistogram
+        tag: v0.0.0-20161010025455-3a0bb77429bd
+        type: git
+        url: https://github.com/codahale/hdrhistogram.git
+      - dest: src/github/com/coreos/go-semver
+        tag: v0.2.0
+        type: git
+        url: https://github.com/coreos/go-semver.git
+      - dest: src/github/com/coreos/go-systemd
+        tag: v0.0.0-20180511133405-39ca1b05acc7
+        type: git
+        url: https://github.com/coreos/go-systemd.git
+      - dest: src/github/com/coreos/pkg
+        tag: v0.0.0-20160727233714-3ac0863d7acf
+        type: git
+        url: https://github.com/coreos/pkg.git
+      - dest: src/github/com/cpuguy83/go-md2man/v2
+        tag: v2.0.0-20190314233015-f79a8a8ca69d
+        type: git
+        url: https://github.com/cpuguy83/go-md2man/v2.git
+      - dest: src/github/com/creack/pty
+        tag: v1.1.7
+        type: git
+        url: https://github.com/creack/pty.git
+      - dest: src/github/com/davecgh/go-spew
+        tag: v1.1.1
+        type: git
+        url: https://github.com/davecgh/go-spew.git
+      - dest: src/github/com/dgrijalva/jwt-go
+        tag: v3.2.0+incompatible
+        type: git
+        url: https://github.com/dgrijalva/jwt-go.git
+      - dest: src/github/com/dustin/go-humanize
+        tag: v0.0.0-20171111073723-bb3d318650d4
+        type: git
+        url: https://github.com/dustin/go-humanize.git
+      - dest: src/github/com/eapache/go-resiliency
+        tag: v1.1.0
+        type: git
+        url: https://github.com/eapache/go-resiliency.git
+      - dest: src/github/com/eapache/go-xerial-snappy
+        tag: v0.0.0-20180814174437-776d5712da21
+        type: git
+        url: https://github.com/eapache/go-xerial-snappy.git
+      - dest: src/github/com/eapache/queue
+        tag: v1.1.0
+        type: git
+        url: https://github.com/eapache/queue.git
+      - dest: src/github/com/edsrzf/mmap-go
+        tag: v1.0.0
+        type: git
+        url: https://github.com/edsrzf/mmap-go.git
+      - dest: src/github/com/envoyproxy/go-control-plane
+        tag: v0.9.1-0.20191026205805-5f8ba28d4473
+        type: git
+        url: https://github.com/envoyproxy/go-control-plane.git
+      - dest: src/github/com/envoyproxy/protoc-gen-validate
+        tag: v0.1.0
+        type: git
+        url: https://github.com/envoyproxy/protoc-gen-validate.git
+      - dest: src/github/com/fatih/color
+        tag: v1.7.0
+        type: git
+        url: https://github.com/fatih/color.git
+      - dest: src/github/com/franela/goblin
+        tag: v0.0.0-20200105215937-c9ffbefa60db
+        type: git
+        url: https://github.com/franela/goblin.git
+      - dest: src/github/com/franela/goreq
+        tag: v0.0.0-20171204163338-bcd34c9993f8
+        type: git
+        url: https://github.com/franela/goreq.git
+      - dest: src/github/com/fsnotify/fsnotify
+        tag: v1.4.9
+        type: git
+        url: https://github.com/fsnotify/fsnotify.git
+      - dest: src/github/com/ghodss/yaml
+        tag: v1.0.0
+        type: git
+        url: https://github.com/ghodss/yaml.git
+      - dest: src/github/com/go-kit/kit
+        tag: v0.10.0
+        type: git
+        url: https://github.com/go-kit/kit.git
+      - dest: src/github/com/go-logfmt/logfmt
+        tag: v0.5.0
+        type: git
+        url: https://github.com/go-logfmt/logfmt.git
+      - dest: src/github/com/go-sql-driver/mysql
+        tag: v1.4.0
+        type: git
+        url: https://github.com/go-sql-driver/mysql.git
+      - dest: src/github/com/go-stack/stack
+        tag: v1.8.0
+        type: git
+        url: https://github.com/go-stack/stack.git
+      - dest: src/github/com/go-task/slim-sprig
+        tag: v0.0.0-20210107165309-348f09dbbbc0
+        type: git
+        url: https://github.com/go-task/slim-sprig.git
+      - dest: src/github/com/gogo/googleapis
+        tag: v1.1.0
+        type: git
+        url: https://github.com/gogo/googleapis.git
+      - dest: src/github/com/gogo/protobuf
+        tag: v1.2.1
+        type: git
+        url: https://github.com/gogo/protobuf.git
+      - dest: src/github/com/golang/glog
+        tag: v0.0.0-20160126235308-23def4e6c14b
+        type: git
+        url: https://github.com/golang/glog.git
+      - dest: src/github/com/golang/groupcache
+        tag: v0.0.0-20190702054246-869f871628b6
+        type: git
+        url: https://github.com/golang/groupcache.git
+      - dest: src/github/com/golang/mock
+        tag: v1.1.1
+        type: git
+        url: https://github.com/golang/mock.git
+      - dest: src/github/com/golang/protobuf
+        tag: v1.5.2
+        type: git
+        url: https://github.com/golang/protobuf.git
+      - dest: src/github/com/golang/snappy
+        tag: v0.0.0-20180518054509-2e65f85255db
+        type: git
+        url: https://github.com/golang/snappy.git
+      - dest: src/github/com/google/btree
+        tag: v1.0.0
+        type: git
+        url: https://github.com/google/btree.git
+      - dest: src/github/com/google/go-cmp
+        tag: v0.5.5
+        type: git
+        url: https://github.com/google/go-cmp.git
+      - dest: src/github/com/google/gofuzz
+        tag: v1.0.0
+        type: git
+        url: https://github.com/google/gofuzz.git
+      - dest: src/github/com/google/renameio
+        tag: v0.1.0
+        type: git
+        url: https://github.com/google/renameio.git
+      - dest: src/github/com/google/uuid
+        tag: v1.3.0
+        type: git
+        url: https://github.com/google/uuid.git
+      - dest: src/github/com/gopherjs/gopherjs
+        tag: v0.0.0-20181017120253-0766667cb4d1
+        type: git
+        url: https://github.com/gopherjs/gopherjs.git
+      - dest: src/github/com/gorilla/context
+        tag: v1.1.1
+        type: git
+        url: https://github.com/gorilla/context.git
+      - dest: src/github/com/gorilla/mux
+        tag: v1.7.3
+        type: git
+        url: https://github.com/gorilla/mux.git
+      - dest: src/github/com/gorilla/websocket
+        tag: v1.5.0
+        type: git
+        url: https://github.com/gorilla/websocket.git
+      - dest: src/github/com/grpc-ecosystem/go-grpc-middleware
+        tag: v1.0.1-0.20190118093823-f849b5445de4
+        type: git
+        url: https://github.com/grpc-ecosystem/go-grpc-middleware.git
+      - dest: src/github/com/grpc-ecosystem/go-grpc-prometheus
+        tag: v1.2.0
+        type: git
+        url: https://github.com/grpc-ecosystem/go-grpc-prometheus.git
+      - dest: src/github/com/grpc-ecosystem/grpc-gateway
+        tag: v1.9.5
+        type: git
+        url: https://github.com/grpc-ecosystem/grpc-gateway.git
+      - dest: src/github/com/hashicorp/consul/api
+        tag: v1.3.0
+        type: git
+        url: https://github.com/hashicorp/consul/api.git
+      - dest: src/github/com/hashicorp/consul/sdk
+        tag: v0.3.0
+        type: git
+        url: https://github.com/hashicorp/consul/sdk.git
+      - dest: src/github/com/hashicorp/errwrap
+        tag: v1.0.0
+        type: git
+        url: https://github.com/hashicorp/errwrap.git
+      - dest: src/github/com/hashicorp/go-cleanhttp
+        tag: v0.5.1
+        type: git
+        url: https://github.com/hashicorp/go-cleanhttp.git
+      - dest: src/github/com/hashicorp/go-immutable-radix
+        tag: v1.0.0
+        type: git
+        url: https://github.com/hashicorp/go-immutable-radix.git
+      - dest: src/github/com/hashicorp/go-msgpack
+        tag: v0.5.3
+        type: git
+        url: https://github.com/hashicorp/go-msgpack.git
+      - dest: src/github/com/hashicorp/go-multierror
+        tag: v1.0.0
+        type: git
+        url: https://github.com/hashicorp/go-multierror.git
+      - dest: src/github/com/hashicorp/go-rootcerts
+        tag: v1.0.0
+        type: git
+        url: https://github.com/hashicorp/go-rootcerts.git
+      - dest: src/github/com/hashicorp/go-sockaddr
+        tag: v1.0.0
+        type: git
+        url: https://github.com/hashicorp/go-sockaddr.git
+      - dest: src/github/com/hashicorp/go-syslog
+        tag: v1.0.0
+        type: git
+        url: https://github.com/hashicorp/go-syslog.git
+      - dest: src/github/com/hashicorp/go-uuid
+        tag: v1.0.1
+        type: git
+        url: https://github.com/hashicorp/go-uuid.git
+      - dest: src/github/com/hashicorp/go-version
+        tag: v1.2.0
+        type: git
+        url: https://github.com/hashicorp/go-version.git
+      - dest: src/github/com/hashicorp/go/net
+        tag: v0.0.1
+        type: git
+        url: https://github.com/hashicorp/go.net.git
+      - dest: src/github/com/hashicorp/golang-lru
+        tag: v0.5.1
+        type: git
+        url: https://github.com/hashicorp/golang-lru.git
+      - dest: src/github/com/hashicorp/logutils
+        tag: v1.0.0
+        type: git
+        url: https://github.com/hashicorp/logutils.git
+      - dest: src/github/com/hashicorp/mdns
+        tag: v1.0.0
+        type: git
+        url: https://github.com/hashicorp/mdns.git
+      - dest: src/github/com/hashicorp/memberlist
+        tag: v0.1.3
+        type: git
+        url: https://github.com/hashicorp/memberlist.git
+      - dest: src/github/com/hashicorp/serf
+        tag: v0.8.2
+        type: git
+        url: https://github.com/hashicorp/serf.git
+      - dest: src/github/com/hpcloud/tail
+        tag: v1.0.0
+        type: git
+        url: https://github.com/hpcloud/tail.git
+      - dest: src/github/com/hudl/fargo
+        tag: v1.3.0
+        type: git
+        url: https://github.com/hudl/fargo.git
+      - dest: src/github/com/inconshreveable/mousetrap
+        tag: v1.0.0
+        type: git
+        url: https://github.com/inconshreveable/mousetrap.git
+      - dest: src/github/com/influxdata/influxdb1-client
+        tag: v0.0.0-20191209144304-8bf82d3c094d
+        type: git
+        url: https://github.com/influxdata/influxdb1-client.git
+      - dest: src/github/com/jmespath/go-jmespath
+        tag: v0.0.0-20180206201540-c2b33e8439af
+        type: git
+        url: https://github.com/jmespath/go-jmespath.git
+      - dest: src/github/com/jonboulle/clockwork
+        tag: v0.1.0
+        type: git
+        url: https://github.com/jonboulle/clockwork.git
+      - dest: src/github/com/jpillora/backoff
+        tag: v1.0.0
+        type: git
+        url: https://github.com/jpillora/backoff.git
+      - dest: src/github/com/json-iterator/go
+        tag: v1.1.10
+        type: git
+        url: https://github.com/json-iterator/go.git
+      - dest: src/github/com/jtolds/gls
+        tag: v4.20.0+incompatible
+        type: git
+        url: https://github.com/jtolds/gls.git
+      - dest: src/github/com/julienschmidt/httprouter
+        tag: v1.3.0
+        type: git
+        url: https://github.com/julienschmidt/httprouter.git
+      - dest: src/github/com/kisielk/errcheck
+        tag: v1.1.0
+        type: git
+        url: https://github.com/kisielk/errcheck.git
+      - dest: src/github/com/kisielk/gotool
+        tag: v1.0.0
+        type: git
+        url: https://github.com/kisielk/gotool.git
+      - dest: src/github/com/klauspost/cpuid
+        tag: v1.3.1
+        type: git
+        url: https://github.com/klauspost/cpuid.git
+      - dest: src/github/com/klauspost/reedsolomon
+        tag: v1.9.9
+        type: git
+        url: https://github.com/klauspost/reedsolomon.git
+      - dest: src/github/com/konsorten/go-windows-terminal-sequences
+        tag: v1.0.3
+        type: git
+        url: https://github.com/konsorten/go-windows-terminal-sequences.git
+      - dest: src/github/com/kr/logfmt
+        tag: v0.0.0-20140226030751-b84e30acd515
+        type: git
+        url: https://github.com/kr/logfmt.git
+      - dest: src/github/com/kr/pretty
+        tag: v0.1.0
+        type: git
+        url: https://github.com/kr/pretty.git
+      - dest: src/github/com/kr/pty
+        tag: v1.1.1
+        type: git
+        url: https://github.com/kr/pty.git
+      - dest: src/github/com/kr/text
+        tag: v0.1.0
+        type: git
+        url: https://github.com/kr/text.git
+      - dest: src/github/com/lightstep/lightstep-tracer-common/golang/gogo
+        tag: v0.0.0-20190605223551-bc2310a04743
+        type: git
+        url: https://github.com/lightstep/lightstep-tracer-common/golang/gogo.git
+      - dest: src/github/com/lightstep/lightstep-tracer-go
+        tag: v0.18.1
+        type: git
+        url: https://github.com/lightstep/lightstep-tracer-go.git
+      - dest: src/github/com/lyft/protoc-gen-validate
+        tag: v0.0.13
+        type: git
+        url: https://github.com/lyft/protoc-gen-validate.git
+      - dest: src/github/com/mattn/go-colorable
+        tag: v0.0.9
+        type: git
+        url: https://github.com/mattn/go-colorable.git
+      - dest: src/github/com/mattn/go-isatty
+        tag: v0.0.4
+        type: git
+        url: https://github.com/mattn/go-isatty.git
+      - dest: src/github/com/mattn/go-runewidth
+        tag: v0.0.2
+        type: git
+        url: https://github.com/mattn/go-runewidth.git
+      - dest: src/github/com/matttproud/golang_protobuf_extensions
+        tag: v1.0.1
+        type: git
+        url: https://github.com/matttproud/golang_protobuf_extensions.git
+      - dest: src/github/com/miekg/dns
+        tag: v1.0.14
+        type: git
+        url: https://github.com/miekg/dns.git
+      - dest: src/github/com/mitchellh/cli
+        tag: v1.0.0
+        type: git
+        url: https://github.com/mitchellh/cli.git
+      - dest: src/github/com/mitchellh/go-homedir
+        tag: v1.0.0
+        type: git
+        url: https://github.com/mitchellh/go-homedir.git
+      - dest: src/github/com/mitchellh/go-testing-interface
+        tag: v1.0.0
+        type: git
+        url: https://github.com/mitchellh/go-testing-interface.git
+      - dest: src/github/com/mitchellh/gox
+        tag: v0.4.0
+        type: git
+        url: https://github.com/mitchellh/gox.git
+      - dest: src/github/com/mitchellh/iochan
+        tag: v1.0.0
+        type: git
+        url: https://github.com/mitchellh/iochan.git
+      - dest: src/github/com/mitchellh/mapstructure
+        tag: v1.1.2
+        type: git
+        url: https://github.com/mitchellh/mapstructure.git
+      - dest: src/github/com/mmcloughlin/avo
+        tag: v0.0.0-20200803215136-443f81d77104
+        type: git
+        url: https://github.com/mmcloughlin/avo.git
+      - dest: src/github/com/modern-go/concurrent
+        tag: v0.0.0-20180306012644-bacd9c7ef1dd
+        type: git
+        url: https://github.com/modern-go/concurrent.git
+      - dest: src/github/com/modern-go/reflect2
+        tag: v1.0.1
+        type: git
+        url: https://github.com/modern-go/reflect2.git
+      - dest: src/github/com/mwitkow/go-conntrack
+        tag: v0.0.0-20190716064945-2f068394615f
+        type: git
+        url: https://github.com/mwitkow/go-conntrack.git
+      - dest: src/github/com/nats-io/jwt
+        tag: v0.3.2
+        type: git
+        url: https://github.com/nats-io/jwt.git
+      - dest: src/github/com/nats-io/nats-server/v2
+        tag: v2.1.2
+        type: git
+        url: https://github.com/nats-io/nats-server/v2.git
+      - dest: src/github/com/nats-io/nats/go
+        tag: v1.9.1
+        type: git
+        url: https://github.com/nats-io/nats.go.git
+      - dest: src/github/com/nats-io/nkeys
+        tag: v0.1.3
+        type: git
+        url: https://github.com/nats-io/nkeys.git
+      - dest: src/github/com/nats-io/nuid
+        tag: v1.0.1
+        type: git
+        url: https://github.com/nats-io/nuid.git
+      - dest: src/github/com/nxadm/tail
+        tag: v1.4.8
+        type: git
+        url: https://github.com/nxadm/tail.git
+      - dest: src/github/com/oklog/oklog
+        tag: v0.3.2
+        type: git
+        url: https://github.com/oklog/oklog.git
+      - dest: src/github/com/oklog/run
+        tag: v1.0.0
+        type: git
+        url: https://github.com/oklog/run.git
+      - dest: src/github/com/olekukonko/tablewriter
+        tag: v0.0.0-20170122224234-a0225b3f23b5
+        type: git
+        url: https://github.com/olekukonko/tablewriter.git
+      - dest: src/github/com/onsi/ginkgo
+        tag: v1.16.5
+        type: git
+        url: https://github.com/onsi/ginkgo.git
+      - dest: src/github/com/onsi/gomega
+        tag: v1.17.0
+        type: git
+        url: https://github.com/onsi/gomega.git
+      - dest: src/github/com/op/go-logging
+        tag: v0.0.0-20160315200505-970db520ece7
+        type: git
+        url: https://github.com/op/go-logging.git
+      - dest: src/github/com/opentracing-contrib/go-observer
+        tag: v0.0.0-20170622124052-a52f23424492
+        type: git
+        url: https://github.com/opentracing-contrib/go-observer.git
+      - dest: src/github/com/opentracing/basictracer-go
+        tag: v1.0.0
+        type: git
+        url: https://github.com/opentracing/basictracer-go.git
+      - dest: src/github/com/opentracing/opentracing-go
+        tag: v1.1.0
+        type: git
+        url: https://github.com/opentracing/opentracing-go.git
+      - dest: src/github/com/openzipkin-contrib/zipkin-go-opentracing
+        tag: v0.4.5
+        type: git
+        url: https://github.com/openzipkin-contrib/zipkin-go-opentracing.git
+      - dest: src/github/com/openzipkin/zipkin-go
+        tag: v0.2.2
+        type: git
+        url: https://github.com/openzipkin/zipkin-go.git
+      - dest: src/github/com/pact-foundation/pact-go
+        tag: v1.0.4
+        type: git
+        url: https://github.com/pact-foundation/pact-go.git
+      - dest: src/github/com/pascaldekloe/goe
+        tag: v0.0.0-20180627143212-57f6aae5913c
+        type: git
+        url: https://github.com/pascaldekloe/goe.git
+      - dest: src/github/com/pborman/uuid
+        tag: v1.2.0
+        type: git
+        url: https://github.com/pborman/uuid.git
+      - dest: src/github/com/performancecopilot/speed
+        tag: v3.0.0+incompatible
+        type: git
+        url: https://github.com/performancecopilot/speed.git
+      - dest: src/github/com/pierrec/lz4
+        tag: v2.0.5+incompatible
+        type: git
+        url: https://github.com/pierrec/lz4.git
+      - dest: src/github/com/pion/datachannel
+        tag: v1.5.5
+        type: git
+        url: https://github.com/pion/datachannel.git
+      - dest: src/github/com/pion/dtls/v2
+        tag: v2.2.6
+        type: git
+        url: https://github.com/pion/dtls/v2.git
+      - dest: src/github/com/pion/ice/v2
+        tag: v2.3.1
+        type: git
+        url: https://github.com/pion/ice/v2.git
+      - dest: src/github/com/pion/interceptor
+        tag: v0.1.12
+        type: git
+        url: https://github.com/pion/interceptor.git
+      - dest: src/github/com/pion/logging
+        tag: v0.2.2
+        type: git
+        url: https://github.com/pion/logging.git
+      - dest: src/github/com/pion/mdns
+        tag: v0.0.7
+        type: git
+        url: https://github.com/pion/mdns.git
+      - dest: src/github/com/pion/randutil
+        tag: v0.1.0
+        type: git
+        url: https://github.com/pion/randutil.git
+      - dest: src/github/com/pion/rtcp
+        tag: v1.2.10
+        type: git
+        url: https://github.com/pion/rtcp.git
+      - dest: src/github/com/pion/rtp
+        tag: v1.7.13
+        type: git
+        url: https://github.com/pion/rtp.git
+      - dest: src/github/com/pion/sctp
+        tag: v1.8.6
+        type: git
+        url: https://github.com/pion/sctp.git
+      - dest: src/github/com/pion/sdp/v3
+        tag: v3.0.6
+        type: git
+        url: https://github.com/pion/sdp/v3.git
+      - dest: src/github/com/pion/srtp/v2
+        tag: v2.0.12
+        type: git
+        url: https://github.com/pion/srtp/v2.git
+      - dest: src/github/com/pion/stun
+        tag: v0.4.0
+        type: git
+        url: https://github.com/pion/stun.git
+      - dest: src/github/com/pion/transport
+        tag: v0.14.1
+        type: git
+        url: https://github.com/pion/transport.git
+      - dest: src/github/com/pion/transport/v2
+        tag: v2.0.2
+        type: git
+        url: https://github.com/pion/transport/v2.git
+      - dest: src/github/com/pion/turn/v2
+        tag: v2.1.0
+        type: git
+        url: https://github.com/pion/turn/v2.git
+      - dest: src/github/com/pion/udp/v2
+        tag: v2.0.1
+        type: git
+        url: https://github.com/pion/udp/v2.git
+      - dest: src/github/com/pion/webrtc/v3
+        tag: v3.1.57
+        type: git
+        url: https://github.com/pion/webrtc/v3.git
+      - dest: src/github/com/pkg/errors
+        tag: v0.9.1
+        type: git
+        url: https://github.com/pkg/errors.git
+      - dest: src/github/com/pkg/profile
+        tag: v1.2.1
+        type: git
+        url: https://github.com/pkg/profile.git
+      - dest: src/github/com/pmezard/go-difflib
+        tag: v1.0.0
+        type: git
+        url: https://github.com/pmezard/go-difflib.git
+      - dest: src/github/com/posener/complete
+        tag: v1.1.1
+        type: git
+        url: https://github.com/posener/complete.git
+      - dest: src/github/com/prometheus/client_golang
+        tag: v1.10.0
+        type: git
+        url: https://github.com/prometheus/client_golang.git
+      - dest: src/github/com/prometheus/client_model
+        tag: v0.2.0
+        type: git
+        url: https://github.com/prometheus/client_model.git
+      - dest: src/github/com/prometheus/common
+        tag: v0.18.0
+        type: git
+        url: https://github.com/prometheus/common.git
+      - dest: src/github/com/prometheus/procfs
+        tag: v0.6.0
+        type: git
+        url: https://github.com/prometheus/procfs.git
+      - dest: src/github/com/rcrowley/go-metrics
+        tag: v0.0.0-20181016184325-3113b8401b8a
+        type: git
+        url: https://github.com/rcrowley/go-metrics.git
+      - dest: src/github/com/refraction-networking/utls
+        tag: v1.0.0
+        type: git
+        url: https://github.com/refraction-networking/utls.git
+      - dest: src/github/com/rogpeppe/fastuuid
+        tag: v0.0.0-20150106093220-6724a57986af
+        type: git
+        url: https://github.com/rogpeppe/fastuuid.git
+      - dest: src/github/com/rogpeppe/go-internal
+        tag: v1.3.0
+        type: git
+        url: https://github.com/rogpeppe/go-internal.git
+      - dest: src/github/com/russross/blackfriday/v2
+        tag: v2.0.1
+        type: git
+        url: https://github.com/russross/blackfriday/v2.git
+      - dest: src/github/com/ryanuber/columnize
+        tag: v0.0.0-20160712163229-9b3edd62028f
+        type: git
+        url: https://github.com/ryanuber/columnize.git
+      - dest: src/github/com/samuel/go-zookeeper
+        tag: v0.0.0-20190923202752-2cc03de413da
+        type: git
+        url: https://github.com/samuel/go-zookeeper.git
+      - dest: src/github/com/sclevine/agouti
+        tag: v3.0.0+incompatible
+        type: git
+        url: https://github.com/sclevine/agouti.git
+      - dest: src/github/com/sean-/seed
+        tag: v0.0.0-20170313163322-e2103e2c3529
+        type: git
+        url: https://github.com/sean-/seed.git
+      - dest: src/github/com/shurcooL/sanitized_anchor_name
+        tag: v1.0.0
+        type: git
+        url: https://github.com/shurcooL/sanitized_anchor_name.git
+      - dest: src/github/com/sirupsen/logrus
+        tag: v1.6.0
+        type: git
+        url: https://github.com/sirupsen/logrus.git
+      - dest: src/github/com/smartystreets/assertions
+        tag: v0.0.0-20180927180507-b2de0cb4f26d
+        type: git
+        url: https://github.com/smartystreets/assertions.git
+      - dest: src/github/com/smartystreets/goconvey
+        tag: v1.6.4
+        type: git
+        url: https://github.com/smartystreets/goconvey.git
+      - dest: src/github/com/soheilhy/cmux
+        tag: v0.1.4
+        type: git
+        url: https://github.com/soheilhy/cmux.git
+      - dest: src/github/com/sony/gobreaker
+        tag: v0.4.1
+        type: git
+        url: https://github.com/sony/gobreaker.git
+      - dest: src/github/com/spf13/cobra
+        tag: v0.0.3
+        type: git
+        url: https://github.com/spf13/cobra.git
+      - dest: src/github/com/spf13/pflag
+        tag: v1.0.1
+        type: git
+        url: https://github.com/spf13/pflag.git
+      - dest: src/github/com/streadway/amqp
+        tag: v0.0.0-20190827072141-edfb9018d271
+        type: git
+        url: https://github.com/streadway/amqp.git
+      - dest: src/github/com/streadway/handy
+        tag: v0.0.0-20190108123426-d5acb3125c2a
+        type: git
+        url: https://github.com/streadway/handy.git
+      - dest: src/github/com/stretchr/objx
+        tag: v0.5.0
+        type: git
+        url: https://github.com/stretchr/objx.git
+      - dest: src/github/com/stretchr/testify
+        tag: v1.8.1
+        type: git
+        url: https://github.com/stretchr/testify.git
+      - dest: src/github/com/templexxx/cpu
+        tag: v0.0.7
+        type: git
+        url: https://github.com/templexxx/cpu.git
+      - dest: src/github/com/templexxx/xorsimd
+        tag: v0.4.1
+        type: git
+        url: https://github.com/templexxx/xorsimd.git
+      - dest: src/github/com/tjfoc/gmsm
+        tag: v1.3.2
+        type: git
+        url: https://github.com/tjfoc/gmsm.git
+      - dest: src/github/com/tmc/grpc-websocket-proxy
+        tag: v0.0.0-20170815181823-89b8d40f7ca8
+        type: git
+        url: https://github.com/tmc/grpc-websocket-proxy.git
+      - dest: src/github/com/urfave/cli
+        tag: v1.22.1
+        type: git
+        url: https://github.com/urfave/cli.git
+      - dest: src/github/com/xiang90/probing
+        tag: v0.0.0-20190116061207-43a291ad63a2
+        type: git
+        url: https://github.com/xiang90/probing.git
+      - dest: src/github/com/xtaci/kcp-go/v5
+        tag: v5.6.1
+        type: git
+        url: https://github.com/xtaci/kcp-go/v5.git
+      - dest: src/github/com/xtaci/lossyconn
+        tag: v0.0.0-20190602105132-8df528c0c9ae
+        type: git
+        url: https://github.com/xtaci/lossyconn.git
+      - dest: src/github/com/xtaci/smux
+        tag: v1.5.15
+        type: git
+        url: https://github.com/xtaci/smux.git
+      - dest: src/github/com/yuin/goldmark
+        tag: v1.4.13
+        type: git
+        url: https://github.com/yuin/goldmark.git
+      - dest: src/gitlab/torproject/org/tpo/anti-censorship/geoip
+        tag: v0.0.0-20210928150955-7ce4b3d98d01
+        type: git
+        url: https://gitlab.torproject.org/tpo/anti-censorship/geoip.git
+      - dest: src/gitlab/torproject/org/tpo/anti-censorship/pluggable-transports/goptlib
+        tag: v1.4.0
+        type: git
+        url: https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/goptlib.git
+      - dest: src/go/etcd/io/bbolt
+        tag: v1.3.3
+        type: git
+        url: https://go.etcd.io/bbolt.git
+      - dest: src/go/etcd/io/etcd
+        tag: v0.0.0-20191023171146-3cf2f69b5738
+        type: git
+        url: https://go.etcd.io/etcd.git
+      - dest: src/go/opencensus/io
+        tag: v0.22.2
+        type: git
+        url: https://go.opencensus.io.git
+      - dest: src/go/uber/org/atomic
+        tag: v1.5.0
+        type: git
+        url: https://go.uber.org/atomic.git
+      - dest: src/go/uber/org/multierr
+        tag: v1.3.0
+        type: git
+        url: https://go.uber.org/multierr.git
+      - dest: src/go/uber/org/tools
+        tag: v0.0.0-20190618225709-2cfd321de3ee
+        type: git
+        url: https://go.uber.org/tools.git
+      - dest: src/go/uber/org/zap
+        tag: v1.13.0
+        type: git
+        url: https://go.uber.org/zap.git
+      - dest: src/golang/org/x/arch
+        tag: v0.0.0-20190909030613-46d78d1859ac
+        type: git
+        url: https://golang.org/x/arch.git
+      - dest: src/golang/org/x/crypto
+        tag: v0.6.0
+        type: git
+        url: https://golang.org/x/crypto.git
+      - dest: src/golang/org/x/exp
+        tag: v0.0.0-20190121172915-509febef88a4
+        type: git
+        url: https://golang.org/x/exp.git
+      - dest: src/golang/org/x/lint
+        tag: v0.0.0-20190930215403-16217165b5de
+        type: git
+        url: https://golang.org/x/lint.git
+      - dest: src/golang/org/x/mod
+        tag: v0.6.0-dev.0.20220419223038-86c51ed26bb4
+        type: git
+        url: https://golang.org/x/mod.git
+      - dest: src/golang/org/x/net
+        tag: v0.7.0
+        type: git
+        url: https://golang.org/x/net.git
+      - dest: src/golang/org/x/oauth2
+        tag: v0.0.0-20190226205417-e64efc72b421
+        type: git
+        url: https://golang.org/x/oauth2.git
+      - dest: src/golang/org/x/sync
+        tag: v0.0.0-20220722155255-886fb9371eb4
+        type: git
+        url: https://golang.org/x/sync.git
+      - dest: src/golang/org/x/sys
+        tag: v0.5.0
+        type: git
+        url: https://golang.org/x/sys.git
+      - dest: src/golang/org/x/term
+        tag: v0.5.0
+        type: git
+        url: https://golang.org/x/term.git
+      - dest: src/golang/org/x/text
+        tag: v0.7.0
+        type: git
+        url: https://golang.org/x/text.git
+      - dest: src/golang/org/x/time
+        tag: v0.0.0-20191024005414-555d28b269f0
+        type: git
+        url: https://golang.org/x/time.git
+      - dest: src/golang/org/x/tools
+        tag: v0.1.12
+        type: git
+        url: https://golang.org/x/tools.git
+      - dest: src/golang/org/x/xerrors
+        tag: v0.0.0-20200804184101-5ec99f83aff1
+        type: git
+        url: https://golang.org/x/xerrors.git
+      - dest: src/google/golang/org/api
+        tag: v0.3.1
+        type: git
+        url: https://google.golang.org/api.git
+      - dest: src/google/golang/org/appengine
+        tag: v1.4.0
+        type: git
+        url: https://google.golang.org/appengine.git
+      - dest: src/google/golang/org/genproto
+        tag: v0.0.0-20190819201941-24fa4b261c55
+        type: git
+        url: https://google.golang.org/genproto.git
+      - dest: src/google/golang/org/grpc
+        tag: v1.26.0
+        type: git
+        url: https://google.golang.org/grpc.git
+      - dest: src/google/golang/org/protobuf
+        tag: v1.26.0
+        type: git
+        url: https://google.golang.org/protobuf.git
+      - dest: src/gopkg/in/alecthomas/kingpin/v2
+        tag: v2.2.6
+        type: git
+        url: https://gopkg.in/alecthomas/kingpin.v2.git
+      - dest: src/gopkg/in/check/v1
+        tag: v1.0.0-20190902080502-41f04d3bba15
+        type: git
+        url: https://gopkg.in/check.v1.git
+      - dest: src/gopkg/in/cheggaaa/pb/v1
+        tag: v1.0.25
+        type: git
+        url: https://gopkg.in/cheggaaa/pb.v1.git
+      - dest: src/gopkg/in/errgo/v2
+        tag: v2.1.0
+        type: git
+        url: https://gopkg.in/errgo.v2.git
+      - dest: src/gopkg/in/fsnotify/v1
+        tag: v1.4.7
+        type: git
+        url: https://gopkg.in/fsnotify.v1.git
+      - dest: src/gopkg/in/gcfg/v1
+        tag: v1.2.3
+        type: git
+        url: https://gopkg.in/gcfg.v1.git
+      - dest: src/gopkg/in/resty/v1
+        tag: v1.12.0
+        type: git
+        url: https://gopkg.in/resty.v1.git
+      - dest: src/gopkg/in/tomb/v1
+        tag: v1.0.0-20141024135613-dd632973f1e7
+        type: git
+        url: https://gopkg.in/tomb.v1.git
+      - dest: src/gopkg/in/warnings/v0
+        tag: v0.1.2
+        type: git
+        url: https://gopkg.in/warnings.v0.git
+      - dest: src/gopkg/in/yaml/v2
+        tag: v2.4.0
+        type: git
+        url: https://gopkg.in/yaml.v2.git
+      - dest: src/gopkg/in/yaml/v3
+        tag: v3.0.1
+        type: git
+        url: https://gopkg.in/yaml.v3.git
+      - dest: src/honnef/co/go/tools
+        tag: v0.0.1-2019.2.3
+        type: git
+        url: https://honnef.co/go/tools.git
+      - dest: src/rsc/io/pdf
+        tag: v0.1.1
+        type: git
+        url: https://rsc.io/pdf.git
+      - dest: src/sigs/k8s/io/yaml
+        tag: v1.1.0
+        type: git
+        url: https://sigs.k8s.io/yaml.git
+      - dest: src/sourcegraph/com/sourcegraph/appdash
+        tag: v0.0.0-20190731080439-ebfcffb1b5c0
+        type: git
+        url: https://sourcegraph.com/sourcegraph/appdash.git
   - name: onionshare
     buildsystem: simple
     ensure-writable:

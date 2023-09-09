@@ -93,8 +93,9 @@ With every commit to the `main` branch, Snapcraft's CI should trigger builds. Ma
 
 In `flatpak/org.onionshare.OnionShare.yaml`:
 
-- [ ] Update `tor`, `libevent`, `obfs4`, `meek-client`, and `snowflake-client` dependencies, if necessary
-- [ ] Built the latest python dependencies using [this tool](https://github.com/flatpak/flatpak-builder-tools/blob/master/pip/flatpak-pip-generator) (see below)
+- [ ] Update `tor` and `libevent`
+- [ ] Update `obfs4proxy`, `meek-client`, and `snowflake-client` dependencies, if necessary using [this tool](https://github.com/micahflee/flatpak-builder-tools/tree/fix-go/go)
+- [ ] Update the python dependencies using [this tool](https://github.com/flatpak/flatpak-builder-tools/blob/master/pip/flatpak-pip-generator) (see below)
 - [ ] Test the Flatpak package, ensure it works
 
 ```
