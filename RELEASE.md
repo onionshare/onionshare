@@ -94,38 +94,36 @@ With every commit to the `main` branch, Snapcraft's CI should trigger builds. Ma
 In `flatpak/org.onionshare.OnionShare.yaml`:
 
 - [ ] Update `tor` and `libevent`
-- [ ] Update `obfs4proxy`, `meek-client`, and `snowflake-client` dependencies, if necessary using [this tool](https://github.com/micahflee/flatpak-builder-tools/tree/fix-go/go)
-- [ ] Update the python dependencies using [this tool](https://github.com/flatpak/flatpak-builder-tools/blob/master/pip/flatpak-pip-generator) (see below)
-- [ ] Test the Flatpak package, ensure it works
+- [ ] Update `obfs4proxy`, `meek-client`, and `snowflake-client` dependencies, if necessary using [this tool](https://github.com/micahflee/flatpak-builder-tools/tree/fix-go/go):
+  ```sh
+  cd flatpak-builder-tools/go
 
-```
-pip3 install toml requirements-parser
+  # For each these, incorporate the output into the Flatpak maniest
+  # Make sure to update the version numbers
+  ./flatpak-go-deps.py git.torproject.org/pluggable-transports/meek.git/meek-client@v0.38.0
+  ./flatpak-go-deps.py git.torproject.org/pluggable-transports/snowflake.git/client@v2.6.0
+  ./flatpak-go-deps.py gitlab.com/yawning/obfs4.git/obfs4proxy@obfs4proxy-0.0.14
+  ```
+  Merge the output of each of these commands into the Flatpak manifest.
+- [ ] Update the Python dependencies using [this tool](https://github.com/flatpak/flatpak-builder-tools/blob/master/pip/flatpak-pip-generator) along with `flatpak/poetry-to-requirements.py`:
+  ```sh
+  cd flatpak-build-tools/pip
 
-# clone flatpak-build-tools
-git clone https://github.com/flatpak/flatpak-builder-tools.git
+  # get onionshare-cli dependencies
+  ./flatpak-pip-generator $(../../onionshare/flatpak/poetry-to-requirements.py ../../onionshare/cli/pyproject.toml)
+  ../flatpak-json2yaml.py ./python3-modules.json
+  mv python3-modules.yml onionshare-cli.yaml
 
-# get onionshare-cli dependencies
-cd poetry
-./flatpak-poetry-generator.py ../../onionshare/cli/poetry.lock
-cd ..
-
-# get onionshare dependencies
-cd pip
-./flatpak-pip-generator $(python3 -c 'import toml; print("\n".join(toml.loads(open("../../onionshare/desktop/pyproject.toml").read())["tool"]["poetry"]["dependencies"]))' |grep -vi onionshare_cli |grep -vi python | grep -vi pyside6 | grep -vi cx_freeze |tr "\n" " ")
-cd ..
-
-# convert to yaml
-./flatpak-json2yaml.py -o onionshare-cli.yml poetry/generated-poetry-sources.json
-./flatpak-json2yaml.py -o onionshare.yml pip/python3-modules.json
-```
-
-Now, merge `onionshare-cli.yml` and `onionshare.yml` into the Flatpak manifest.
-
-Build and test the Flatpak package before publishing:
-
-```sh
-flatpak-builder build --force-clean --install-deps-from=flathub --install --user org.onionshare.OnionShare.yaml
-flatpak run org.onionshare.OnionShare
+  # get onionshare dependencies
+  ./flatpak-pip-generator $(../../onionshare/flatpak/poetry-to-requirements.py ../../onionshare/desktop/pyproject.toml | grep -v PySide6)
+  ../flatpak-json2yaml.py ./python3-modules.json
+  mv python3-modules.yml onionshare-desktop.yaml
+  ```
+  Now, merge `onionshare-desktop.yaml` and `onionshare-cli.yaml` into the Flatpak manifest.
+- [ ] Build and test the Flatpak package to ensure it works:
+  ```sh
+  flatpak-builder build --force-clean --install-deps-from=flathub --install --user org.onionshare.OnionShare.yaml
+  flatpak run org.onionshare.OnionShare
 ```
 
 ### Create a signed git tag
