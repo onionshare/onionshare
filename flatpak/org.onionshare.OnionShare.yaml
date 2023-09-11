@@ -302,7 +302,7 @@ modules:
     ensure-writable:
       - easy-install.pth
     build-commands:
-      - cd desktop && python3 setup.py install --prefix=${FLATPAK_DEST}
+      - cd desktop && pip3 install --prefix=${FLATPAK_DEST} .
       - cd desktop && install -D -m0644 org.onionshare.OnionShare.appdata.xml ${FLATPAK_DEST}/share/metainfo/${FLATPAK_ID}.appdata.xml
       - cd desktop && install -D -m0644 org.onionshare.OnionShare.svg ${FLATPAK_DEST}/share/icons/hicolor/scalable/apps/org.onionshare.OnionShare.svg
       - cd desktop && install -D -m0644 org.onionshare.OnionShare.desktop ${FLATPAK_DEST}/share/applications/${FLATPAK_ID}.desktop
@@ -356,7 +356,7 @@ modules:
       - name: onionshare-cli
         buildsystem: simple
         build-commands:
-          - cd cli && python3 setup.py install --prefix=${FLATPAK_DEST}
+          - cd cli && pip3 install --prefix=${FLATPAK_DEST} --no-deps .
         sources:
           - type: dir
             path: ..
