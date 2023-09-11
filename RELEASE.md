@@ -122,7 +122,7 @@ In `flatpak/org.onionshare.OnionShare.yaml`:
   Now, merge `onionshare-desktop.yaml` and `onionshare-cli.yaml` into the Flatpak manifest.
 - [ ] Build and test the Flatpak package to ensure it works:
   ```sh
-  flatpak-builder build --force-clean --install-deps-from=flathub --install --user org.onionshare.OnionShare.yaml
+  flatpak-builder build --force-clean --jobs=$(nproc) --install-deps-from=flathub --install --user org.onionshare.OnionShare.yaml
   flatpak run org.onionshare.OnionShare
 ```
 
