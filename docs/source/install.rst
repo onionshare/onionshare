@@ -68,6 +68,13 @@ To install the binary package, use ``pkg install pyXY-onionshare``, with ``pyXY`
 
     pkg install py39-onionshare
 
+Manual port Installation
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+To install the FreeBSD port, change directory to the `ports tree <https://freebsd.org/ports/>`_ you must have checked out before and run the following::
+
+    make -s -C www/onionshare all install clean
+
 .. _verifying_sigs:
 
 Verifying PGP signatures
