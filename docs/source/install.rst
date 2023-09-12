@@ -61,6 +61,11 @@ FreeBSD
 
 Althought not being officially developed for this platform, OnionShare can also be installed on `FreeBSD <https://freebsd.org/>`_. It's available via its ports collection or as pre-built package. Should you opt to install and use OnionShare on a FreeBSD operating system, please be aware that it's **NOT** officially supported by the OnionShare project.
 
+Though not being offered and officially maintained by the OnionShare developers, the FreeBSD packages and ports do fetch and verifies the source codes from the official OnionShare repository (or its official release packages from `PyPI <https://pypi.org/project/onionshare-cli/>`_). Should you wish to check changes related to this platform, please refer to the following resources:
+
+- https://cgit.freebsd.org/ports/log/www/onionshare
+- https://www.freshports.org/www/onionshare
+
 Binary pkg Installation
 ^^^^^^^^^^^^^^^^^^^^^^^
 
