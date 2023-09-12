@@ -73,6 +73,8 @@ To install the binary package, use ``pkg install pyXY-onionshare``, with ``pyXY`
 
     pkg install py39-onionshare
 
+There's also a **Command-line only** version of OnionShare available as pre-built package. Replace ``py39-onionshare`` by ``py39-onionshare-cli`` if you want to install that version.
+
 For additional information and details about the FreeBSD pre-built packages, please refer to its `official Handbook section about pkg <https://docs.freebsd.org/en/books/handbook/ports/#pkgng-intro>`_.
 
 Manual port Installation
@@ -81,6 +83,8 @@ Manual port Installation
 To install the FreeBSD port, change directory to the `ports collection <https://freebsd.org/ports/>`_ you must have checked out before and run the following::
 
     make -s -C www/onionshare all install clean
+
+The ports collection also offers a dedicated port for the **Command-line only** version of OnionShare. Replace ``www/onionshare`` by ``www/onionshare-cli`` if you want to install that version.
 
 For additional information and details about the FreeBSD ports collection, please refer to its `official Handbook section about ports <https://docs.freebsd.org/en/books/handbook/ports/#ports-using>`_.
 
