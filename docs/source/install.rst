@@ -59,7 +59,7 @@ You can install just the command-line version of OnionShare on any operating sys
 FreeBSD
 -------
 
-Althought not being officially developed for this platform, OnionShare can also be installed on `FreeBSD <https://freebsd.org/>`_. It's available via its ports tree or as pre-built package. Should you opt to install and use OnionShare on a FreeBSD operating system, please be aware that it's **NOT** officially supported by the OnionShare project.
+Althought not being officially developed for this platform, OnionShare can also be installed on `FreeBSD <https://freebsd.org/>`_. It's available via its ports collection or as pre-built package. Should you opt to install and use OnionShare on a FreeBSD operating system, please be aware that it's **NOT** officially supported by the OnionShare project.
 
 Binary pkg Installation
 ^^^^^^^^^^^^^^^^^^^^^^^
@@ -71,7 +71,7 @@ To install the binary package, use ``pkg install pyXY-onionshare``, with ``pyXY`
 Manual port Installation
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-To install the FreeBSD port, change directory to the `ports tree <https://freebsd.org/ports/>`_ you must have checked out before and run the following::
+To install the FreeBSD port, change directory to the `ports collection <https://freebsd.org/ports/>`_ you must have checked out before and run the following::
 
     make -s -C www/onionshare all install clean
 
