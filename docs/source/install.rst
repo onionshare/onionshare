@@ -54,6 +54,13 @@ Command-line only
 
 You can install just the command-line version of OnionShare on any operating system using the Python package manager ``pip``. :ref:`cli` has more info.
 
+.. _freebsd:
+
+FreeBSD
+-------
+
+Althought not being officially developed for this platform, OnionShare can also be installed on `FreeBSD <https://freebsd.org/>`_. It's available via its ports tree or as pre-built package. Should you opt to install and use OnionShare on a FreeBSD operating system, please be aware that it's **NOT** officially supported by the OnionShare project.
+
 .. _verifying_sigs:
 
 Verifying PGP signatures
