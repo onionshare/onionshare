@@ -66,7 +66,7 @@ Though not being offered and officially maintained by the OnionShare developers,
 - https://cgit.freebsd.org/ports/log/www/onionshare
 - https://www.freshports.org/www/onionshare
 
-Binary pkg Installation
+Manual pkg Installation
 ^^^^^^^^^^^^^^^^^^^^^^^
 
 To install the binary package, use ``pkg install pyXY-onionshare``, with ``pyXY`` specifying the version of Python the package was built for. So, in order to install OnionShare for Python 3.9, use::
