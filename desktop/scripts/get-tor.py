@@ -203,6 +203,9 @@ def get_tor_linux64(gpg, torkey, linux64_url, linux64_filename, expected_linux64
     # Verify signature
     sig_stream = open(tarball_sig_path, "rb")
     verified = gpg.verify_file(sig_stream, tarball_path)
+    print(verified)
+    print(verified.valid)
+    print(verified.pubkey_fingerprint)
     if not verified.valid or verified.pubkey_fingerprint != tor_dev_fingerprint:
         print("ERROR! The tarball verification with the signature failed!")
         sys.exit(-1)
@@ -322,9 +325,7 @@ def main(platform):
     ) = get_latest_tor_version_urls(platform)
     tmpdir = tempfile.TemporaryDirectory()
     gpg = gnupg.GPG(gnupghome=tmpdir.name)
-    torkey = gpg.import_keys_file(
-        os.path.join(root_path, "scripts", "kounek7zrdx745qydx6p59t9mqjpuhdf")
-    )
+    torkey = gpg.recv_keys("keys.openpgp.org", tor_dev_fingerprint)
     print(f"Imported Tor GPG key: {torkey.fingerprints}")
 
     if platform == "win32":
