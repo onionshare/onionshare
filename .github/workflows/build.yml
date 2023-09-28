@@ -43,6 +43,12 @@ jobs:
       - name: Get tor binaries from Tor Browser (64-bit)
         run: cd desktop && C:\hostedtoolcache\windows\Python\3.10.11\x64\Scripts\poetry run python .\scripts\get-tor.py win64
 
+      - name: Install the latest version of Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: latest
+      - run: go version
+
       - name: Restore cache - obfs4proxy
         uses: actions/cache@v3
         with:
