@@ -323,7 +323,7 @@ def main(platform):
     tmpdir = tempfile.TemporaryDirectory()
     gpg = gnupg.GPG(gnupghome=tmpdir.name)
     torkey = gpg.import_keys_file(
-        os.path.join(root_path, "scripts", "kounek7zrdx745qydx6p59t9mqjpuhdf")
+        os.path.join(root_path, "scripts", "tor-browser-devs.gpg")
     )
     print(f"Imported Tor GPG key: {torkey.fingerprints}")
 
