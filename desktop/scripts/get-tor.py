@@ -313,7 +313,7 @@ def main(platform):
     """
     Download Tor Browser and extract tor binaries
     """
-    valid_platforms = ["win32", "win64", "macos", "linux64"]
+    valid_platforms = ["win64", "macos", "linux64"]
     if platform not in valid_platforms:
         click.echo(f"platform must be one of: {valid_platforms}")
         return
@@ -328,11 +328,7 @@ def main(platform):
     torkey = gpg.recv_keys("keys.openpgp.org", tor_dev_fingerprint)
     print(f"Imported Tor GPG key: {torkey.fingerprints}")
 
-    if platform == "win32":
-        get_tor_windows(
-            gpg, torkey, platform_url, platform_filename, expected_platform_sig
-        )
-    elif platform == "win64":
+    if platform == "win64":
         get_tor_windows(
             gpg, torkey, platform_url, platform_filename, expected_platform_sig
         )
