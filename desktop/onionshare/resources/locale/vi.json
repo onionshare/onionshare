@@ -1,5 +1,5 @@
 {
-    "not_a_readable_file": "{0:s} không phải là tập tin đọc được.",
+    "not_a_readable_file": "{0:s} không phải là một file tập tin có thể đọc được.",
     "other_page_loaded": "Đã tải địa chỉ",
     "incorrect_password": "Mật khẩu không chính xác",
     "close_on_autostop_timer": "Đã dừng vì đồng hồ đếm giờ tự động dừng đã điểm giờ",
@@ -252,5 +252,7 @@
     "moat_bridgedb_error": "Đã không thể liên hệ BridgeDB.",
     "moat_captcha_error": "Đáp án không chính xác. Xin thử lại.",
     "moat_solution_empty_error": "Nhập các ký tự từ hình ảnh",
-    "mode_tor_not_connected_label": "OnionShare không được kết nối tới mạng lưới Tor Network"
+    "mode_tor_not_connected_label": "OnionShare không được kết nối tới mạng lưới Tor Network",
+    "waitress_web_server_error": "Đã xảy ra một sự cố khi đang khởi động máy chủ web server",
+    "gui_close_tab_warning_chat_description": "Đóng tab đang host một máy chủ trò chuyện chat server đi chứ?"
 }
