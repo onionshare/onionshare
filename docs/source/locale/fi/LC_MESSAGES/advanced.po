@@ -71,11 +71,11 @@ msgstr ""
 "Jos tallennat välilehden, kopio kyseisen välilehden sipulipalvelun "
 "salaisesta avaimesta talletetaan tietokoneellesi OnionShare-asetusten mukana."
 
-#: ../../source/advanced.rst:26
+#: ../../source/advanced.rst:26 ../../source/advanced.rst:24
 msgid "Turn Off Private Key"
 msgstr ""
 
-#: ../../source/advanced.rst:28
+#: ../../source/advanced.rst:28 ../../source/advanced.rst:26
 msgid ""
 "By default, all OnionShare services are protected with a private key, which "
 "Tor calls \"client authentication\"."
@@ -110,7 +110,7 @@ msgid ""
 "Browser."
 msgstr ""
 
-#: ../../source/advanced.rst:40
+#: ../../source/advanced.rst:40 ../../source/advanced.rst:37
 msgid "Custom Titles"
 msgstr "Muokatut otsikot"
 
@@ -132,11 +132,11 @@ msgstr ""
 "Jos haluat valita muokatun otsikon, valitse \"Muokattu otsikko\" -asetus "
 "ennen palvelimen käynnistämistä."
 
-#: ../../source/advanced.rst:47
+#: ../../source/advanced.rst:47 ../../source/advanced.rst:45
 msgid "Scheduled Times"
 msgstr "Ajastetut hetket"
 
-#: ../../source/advanced.rst:49
+#: ../../source/advanced.rst:49 ../../source/advanced.rst:47
 msgid ""
 "OnionShare supports scheduling exactly when a service should start and stop. "
 "Before starting a server, click \"Show advanced settings\" in its tab and "
@@ -186,11 +186,11 @@ msgstr ""
 "asiakirjoja siten, että ne eivät ole saatavilla internetissä muutamaa päivää "
 "pidempään."
 
-#: ../../source/advanced.rst:67
+#: ../../source/advanced.rst:67 ../../source/advanced.rst:68
 msgid "Command-line Interface"
 msgstr "Komentokehotekäyttöliittymä"
 
-#: ../../source/advanced.rst:69
+#: ../../source/advanced.rst:69 ../../source/advanced.rst:70
 msgid ""
 "In addition to its graphical interface, OnionShare has a command-line "
 "interface."
@@ -198,14 +198,14 @@ msgstr ""
 "Graafisen käyttöliittymän lisäksi OnionSharessa on "
 "komentokehotekäyttöliittymä."
 
-#: ../../source/advanced.rst:71
+#: ../../source/advanced.rst:71 ../../source/advanced.rst:72
 msgid ""
 "You can install just the command-line version of OnionShare using ``pip3``::"
 msgstr ""
 "Voit asentaa pelkästään komentokehoteversion OnionSharesta käyttämällä "
 "``pip3``::"
 
-#: ../../source/advanced.rst:75
+#: ../../source/advanced.rst:75 ../../source/advanced.rst:76
 msgid ""
 "Note that you will also need the ``tor`` package installed. In macOS, "
 "install it with: ``brew install tor``"
@@ -213,7 +213,7 @@ msgstr ""
 "Huomioi, että sinulla tulee olla ``tor``-paketti asennettuna. MacOS:ssa "
 "asenna se näin: ``brew install tor``"
 
-#: ../../source/advanced.rst:77
+#: ../../source/advanced.rst:77 ../../source/advanced.rst:78
 msgid "Then run it like this::"
 msgstr "Sen jälkeen aja se näin::"
 
@@ -232,7 +232,7 @@ msgstr ""
 "Jos olet asentanut OnionSharen käyttämällä Linuxin Snapcraft-pakettia, voit "
 "myös ajaa``onionshare.cli`` päästäksesi komentokehotekäyttöliittymään."
 
-#: ../../source/advanced.rst:86
+#: ../../source/advanced.rst:86 ../../source/advanced.rst:87
 msgid "Usage"
 msgstr "Käyttö"
 
@@ -243,3 +243,219 @@ msgid ""
 msgstr ""
 "Voit selata komentokehotteen dokumentaatiota ajamalla komennon ``onionshare "
 "--help``::"
+
+#: ../../source/advanced.rst:9
+msgid ""
+"Closing OnionShare tabs you host destroys them, preventing reuse. "
+"Persistently hosted websites are available on the same address even if the "
+"computer they are shared from is rebooted."
+msgstr ""
+
+#: ../../source/advanced.rst:12
+msgid ""
+"Make any tab persistent by checking the \"Always open this tab when "
+"OnionShare is started\" box before starting your server."
+msgstr ""
+
+#: ../../source/advanced.rst:16
+#, fuzzy
+msgid ""
+"When opening OnionShare, your saved tabs from the prior session will start "
+"opened. Each service then can be started manually, and will be available on "
+"the same OnionShare address and be protected by the same private key."
+msgstr ""
+"Kun suljet OnionSharen ja avaat sen uudelleen, tallentamasi välilehdet "
+"avautuvat uudelleen. Sinun täytyy manuaalisesti käynnistää jokainen palvelu, "
+"mutta näin tehdessäsi ne käynnistyvät samalla OnionShare-osoitteella ja -"
+"salasanalla."
+
+#: ../../source/advanced.rst:19
+#, fuzzy
+msgid ""
+"If you save a tab, a copy of its onion service secret key is stored on your "
+"computer."
+msgstr ""
+"Jos tallennat välilehden, kopio kyseisen välilehden sipulipalvelun "
+"salaisesta avaimesta talletetaan tietokoneellesi OnionShare-asetusten mukana."
+
+#: ../../source/advanced.rst:28
+msgid ""
+"The Tor Browser will ask you to enter your private key when you load an "
+"OnionShare service. If you want allow the public to use your service, it's "
+"better to disable the private key altogether."
+msgstr ""
+
+#: ../../source/advanced.rst:31
+#, fuzzy
+msgid ""
+"To turn off the private key for any tab, check the \"This is a public "
+"OnionShare service (disables private key)\" box before starting the server. "
+"Then the server will be public and a private key is not needed to load it in "
+"the Tor Browser."
+msgstr ""
+"Ottaaksesi salasanan pois päältä välilehdeltä, raksita \"Älä käytä salasanaa"
+"\" ruutu ennen palvelimen käynnistämistä. Sen jälkeen palvelin on julkinen "
+"eikä siinä ole salasanaa."
+
+#: ../../source/advanced.rst:39
+#, fuzzy
+msgid ""
+"When people load OnionShare services in the Tor Browser they see the default "
+"title for each type of service. For example, the default title for chat "
+"services is \"OnionShare Chat\"."
+msgstr ""
+"Oletuksena, kun ihmiset lataavat OnionShare-palvelun Tor-selaimessaan he "
+"näkevät oletuksena kyseisen palvelun nimen. Esimerkiksi, oletusotsikko "
+"keskustelupalvelulle on \"OnionShare Chat\"."
+
+#: ../../source/advanced.rst:42
+#, fuzzy
+msgid ""
+"If you edit the \"Custom title\" setting before starting a server you can "
+"change it."
+msgstr ""
+"Jos haluat valita muokatun otsikon, valitse \"Muokattu otsikko\" -asetus "
+"ennen palvelimen käynnistämistä."
+
+#: ../../source/advanced.rst:51
+msgid ""
+"Services scheduled to start in the future display a countdown timer when "
+"when the \"Start sharing\" button is clicked. Services scheduled to stop in "
+"the future display a countdown timer when started."
+msgstr ""
+
+#: ../../source/advanced.rst:54
+#, fuzzy
+msgid ""
+"**Scheduling an OnionShare service to automatically start can be used as a "
+"dead man's switch**. This means your service is made public at a given time "
+"in the future if you are not there to prevent it. If nothing happens to you, "
+"you can cancel the service before it's scheduled to start."
+msgstr ""
+"**OnionShare-palvelun automaattista ajastusta voi käyttää \"kuolleen miehen "
+"vipuna\"**, eli palvelusi tulee julkiseksi tulevaisuudessa, jos jotain "
+"tapahtuisi sinulle. Jos mitään ei tapahdu, voit peruuttaa palvelun ennen "
+"kuin ajastettu hetki koittaa."
+
+#: ../../source/advanced.rst:60
+#, fuzzy
+msgid ""
+"**Scheduling an OnionShare service to automatically stop limits its "
+"exposure**. If you want to share secret info or something that will be "
+"outdated, you can do so for selected limited time."
+msgstr ""
+"**OnionShare-palvelun ajastaminen automaattisesti voi olla hyödyllistä "
+"rajoittaaksesi paljastumista**, esimerkiksi jos haluat jakaa salaisia "
+"asiakirjoja siten, että ne eivät ole saatavilla internetissä muutamaa päivää "
+"pidempään."
+
+#: ../../source/advanced.rst:82
+msgid ""
+"Info about installing it on different operating systems can be found in the "
+"`CLI README file <https://github.com/onionshare/onionshare/blob/develop/cli/"
+"README.md>`_ in the Git repository."
+msgstr ""
+
+#: ../../source/advanced.rst:84
+#, fuzzy
+msgid ""
+"If you installed OnionShare using the Snap package, you can also just run "
+"``onionshare.cli`` to access the command-line interface version."
+msgstr ""
+"Jos olet asentanut OnionSharen käyttämällä Linuxin Snapcraft-pakettia, voit "
+"myös ajaa``onionshare.cli`` päästäksesi komentokehotekäyttöliittymään."
+
+#: ../../source/advanced.rst:89
+#, fuzzy
+msgid ""
+"Browse the command-line documentation by running ``onionshare --help``::"
+msgstr ""
+"Voit selata komentokehotteen dokumentaatiota ajamalla komennon ``onionshare "
+"--help``::"
+
+#: ../../source/advanced.rst:151
+msgid "Keyboard Shortcuts"
+msgstr ""
+
+#: ../../source/advanced.rst:153
+msgid ""
+"The OnionShare desktop application contains some keyboard shortcuts, for "
+"convenience and accessibility::"
+msgstr ""
+
+#: ../../source/advanced.rst:158
+msgid "And from the main mode chooser screen::"
+msgstr ""
+
+#~ msgid "Turn Off Passwords"
+#~ msgstr "Ota salasanat pois päältä"
+
+#~ msgid ""
+#~ "By default, all OnionShare services are protected with the username "
+#~ "``onionshare`` and a randomly-generated password. If someone takes 20 "
+#~ "wrong guesses at the password, your onion service is automatically "
+#~ "stopped to prevent a brute force attack against the OnionShare service."
+#~ msgstr ""
+#~ "Oletuksena kaikki OnionSharen palvelut on suojattu käyttäjänimellä "
+#~ "``onionshare`` ja satunnaisesti luodulla salasanalla. Jos joku tekee 20 "
+#~ "väärää arvausta salasanan osalta, sinun sipulipalvelusi pysähtyy "
+#~ "automaattisesti estääkseen brute force -hyökkäyksen, joka kohdistuu "
+#~ "OnionSharen palveluita vastaan."
+
+#~ msgid "Legacy Addresses"
+#~ msgstr "Legacy-osoitteet"
+
+#~ msgid ""
+#~ "OnionShare uses v3 Tor onion services by default. These are modern onion "
+#~ "addresses that have 56 characters, for example::"
+#~ msgstr ""
+#~ "OnionShare käyttää oletuksena v3 Tor -onionpalveluita. Nämä ovat "
+#~ "nykyaikaisia osoitteita ja sisältävät 56 merkkiä, esimerkiksi::"
+
+#~ msgid ""
+#~ "OnionShare still has support for v2 onion addresses, the old type of "
+#~ "onion addresses that have 16 characters, for example::"
+#~ msgstr ""
+#~ "OnionShare tukee yhä v2 sipuliosoitteita, vanhantyyppisiä 16-merkkisiä "
+#~ "sipuliosoitteita, esimerkiksi::"
+
+#~ msgid ""
+#~ "OnionShare calls v2 onion addresses \"legacy addresses\", and they are "
+#~ "not recommended, as v3 onion addresses are more secure."
+#~ msgstr ""
+#~ "OnionShare kutsuu v2 sipuliosoitteita \"legacy-osoitteiksi\", ja niitä ei "
+#~ "suositella, koska v3 sipulipalvelut ovat turvallisempia."
+
+#~ msgid ""
+#~ "To use legacy addresses, before starting a server click \"Show advanced "
+#~ "settings\" from its tab and check the \"Use a legacy address (v2 onion "
+#~ "service, not recommended)\" box. In legacy mode you can optionally turn "
+#~ "on Tor client authentication. Once you start a server in legacy mode you "
+#~ "cannot remove legacy mode in that tab. Instead you must start a separate "
+#~ "service in a separate tab."
+#~ msgstr ""
+#~ "Käyttääksesi legacy-osoitteita klikkaa ennen palvelimen käynnistämistä "
+#~ "\"Näytä lisäasetukset\" välilehdestä ja raksita \"Käytä legacy-osoitteita "
+#~ "(v2 sipulipalvelu, ei suositeltu)\" ruutu. Legacy-tilassa voit "
+#~ "valinnaisena ottaa käyttöön asiakasohjelman tunnistautumisen. Kun "
+#~ "käynnistät palvelimen legacy-tilassa et voi poistaa legacy-tilaa "
+#~ "kyseisestä välilehdestä. Sen sijaan sinun tulee avata erillinen palvelu "
+#~ "erillisessä välilehdessä."
+
+#~ msgid ""
+#~ "Tor Project plans to `completely deprecate v2 onion services <https://"
+#~ "blog.torproject.org/v2-deprecation-timeline>`_ on October 15, 2021, and "
+#~ "legacy onion services will be removed from OnionShare before then."
+#~ msgstr ""
+#~ "Tor Project suunnittelee`poistavansa täysin käytöstä v2 sipulipalvelut "
+#~ "<https://blog.torproject.org/v2-deprecation-timeline>`_ 15.10.2021, ja "
+#~ "legacy-sipulipalvelut tullaan poistamaan OnionSharesta sitä ennen."
+
+#~ msgid ""
+#~ "To turn off the password for any tab, just check the \"Don't use a "
+#~ "password\" box before starting the server. Then the server will be public "
+#~ "and won't have a password."
+#~ msgstr ""
+#~ "Ottaaksesi salasanan pois päältä välilehdeltä, raksita \"Älä käytä "
+#~ "salasanaa\" ruutu ennen palvelimen käynnistämistä. Sen jälkeen palvelin "
+#~ "on julkinen eikä siinä ole salasanaa."

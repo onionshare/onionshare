@@ -244,3 +244,7 @@ msgstr ""
 "Oto aktualny stan tłumaczenia. Jeśli chcesz rozpocząć tłumaczenie w języku, "
 "dla którego tłumaczenie jeszcze się nie rozpoczęło, napisz na listę "
 "mailingową: onionshare-dev@lists.riseup.net"
+
+#~ msgid ""
+#~ "That file contains the technical instructions and commands necessary:"
+#~ msgstr "Plik ten zawiera instrukcje techniczne i niezbędne polecenia:"
