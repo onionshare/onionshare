@@ -1,5 +1,5 @@
 name: Build
-run-name: Build win64, mac (Intel) 🚀
+run-name: Build win64, mac (Intel), Snap, and Flatpak 🚀
 on:
   push:
     branches:
@@ -42,6 +42,12 @@ jobs:
 
       - name: Get tor binaries from Tor Browser (64-bit)
         run: cd desktop && C:\hostedtoolcache\windows\Python\3.10.11\x64\Scripts\poetry run python .\scripts\get-tor.py win64
+
+      - name: Install Go >=1.21.1
+        uses: actions/setup-go@v4
+        with:
+          go-version: '>=1.21.1'
+      - run: go version
 
       - name: Restore cache - obfs4proxy
         uses: actions/cache@v3
@@ -196,10 +202,10 @@ jobs:
         run: |
           brew install libiodbc
           cd ~/Downloads
-          curl -O -L https://github.com/PostgresApp/PostgresApp/releases/download/v2.5.12/Postgres-2.5.12-14.dmg
-          hdiutil attach Postgres-2.5.12-14.dmg
-          cp -r /Volumes/Postgres-2.5.12-14/Postgres.app /Applications/
-          hdiutil detach /Volumes/Postgres-2.5.12-14
+          curl -O -L https://github.com/PostgresApp/PostgresApp/releases/download/v2.6.5/Postgres-2.6.5-14.dmg
+          hdiutil attach Postgres-2.6.5-14.dmg
+          cp -r /Volumes/Postgres-2.6.5-14/Postgres.app /Applications/
+          hdiutil detach /Volumes/Postgres-2.6.5-14
 
       - name: Build OnionShare
         run: |

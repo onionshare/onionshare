@@ -80,3 +80,30 @@ msgid ""
 msgstr ""
 "Zie :ref:'samenwerken' over hoe je lid wordt van het Keybase-team dat wordt "
 "gebruikt om het project te bespreken."
+
+#: ../../source/help.rst:12
+#, fuzzy
+msgid ""
+"If it isn't on the website, please check the `GitHub issues <https://github."
+"com/onionshare/onionshare/issues>`_. It's possible someone else has "
+"encountered the same problem and either raised it with the developers, or "
+"maybe even posted a solution."
+msgstr ""
+"Als het niet op de website staat, kijk dan op de `GitHub issues <https://"
+"github.com/micahflee/onionshare/issues>`_. Het is mogelijk dat iemand anders "
+"hetzelfde probleem heeft ondervonden en het heeft aangekaart bij de "
+"ontwikkelaars, of misschien zelfs een oplossing heeft gepost."
+
+#: ../../source/help.rst:17
+#, fuzzy
+msgid ""
+"If you are unable to find a solution, or wish to ask a question or suggest a "
+"new feature, please `submit an issue <https://github.com/onionshare/"
+"onionshare/issues/new>`_. This requires `creating a GitHub account <https://"
+"help.github.com/articles/signing-up-for-a-new-github-account/>`_."
+msgstr ""
+"Als u geen oplossing kunt vinden, of een vraag wilt stellen of een nieuwe "
+"functie wilt voorstellen, kunt u `een issue indienen <https://github.com/"
+"micahflee/onionshare/issues/new>`_. Dit vereist `het aanmaken van een GitHub "
+"account <https://help.github.com/articles/signing-up-for-a-new-github-"
+"account/>`_."

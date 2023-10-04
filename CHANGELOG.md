@@ -2,8 +2,11 @@
 
 ## 2.6.1
 
-* Upgrade Tor, Meek, and obfs4proxy versions
+* Release updates: Automate builds with CI, make just 64-bit Windows release, make both Intel and Apple Silicon macOS releases
+* Upgrade dependencies, including Tor, meek, and snowflake
 * Bug fix: Restore the primary_action mode settings in a tab after OnionShare reconnects to Tor
+* Bug fix: Fix issue with auto-connecting to Tor with persistent tabs open
+* Bug fix: Fix packaging issue where Windows version of OnionShare conflicts with Windows version of Dangerzone
 
 ## 2.6
 

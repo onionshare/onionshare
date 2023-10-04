@@ -9,7 +9,7 @@ git clone https://github.com/onionshare/onionshare.git
 cd onionshare/desktop
 ```
 
-Make sure you have Python 3 installed. If you're using Windows or macOS, install the latest version of 3.10 [from python.org](https://www.python.org/downloads/). For Windows, make sure to check the box to add python to the path on the first page of the installer.
+Make sure you have Python 3 installed. If you're using Windows or macOS, install the latest version of 3.11 [from python.org](https://www.python.org/downloads/). For Windows, make sure to check the box to add python to the path on the first page of the installer.
 
 Make sure you have [poetry](https://python-poetry.org/) installed:
 
@@ -27,7 +27,7 @@ poetry install
 
 ### Get Tor
 
-**Linux users:** In Ubuntu you may need the `libxcb-xinerama0` package installed.
+**Linux users:** You may need the `libxcb-xinerama0` and `libxcb-cursor0` packages installed.
 
 **Windows users:** 
 - Download and install 7-Zip (x64) from https://7-zip.org/download.html. [Add](https://medium.com/@kevinmarkvi/how-to-add-executables-togit fethc-your-path-in-windows-5ffa4ce61a53) `C:\Program Files\7-Zip` to your path.

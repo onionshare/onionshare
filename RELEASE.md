@@ -19,7 +19,35 @@ Unless you're a core OnionShare developer making a release, you'll probably neve
 - [ ] `desktop/org.onionshare.OnionShare.appdata.xml` should have the correct release date, and links to correct screenshots
 - [ ] `CHANGELOG.md` should be updated to include a list of all major changes since the last release
 
+### Update dependencies
+
+Check `cli/pyproject.toml` to see if any hard-coded versions should be updated. Then, update the dependencies like this:
+
+```sh
+cd cli
+poetry update
+cd ..
+```
+
 If you update `flask-socketio`, ensure that you also update the [socket.io.min.js](https://github.com/micahflee/onionshare/blob/develop/cli/onionshare_cli/resources/static/js/socket.io.min.js) file to a version that is [supported](https://flask-socketio.readthedocs.io/en/latest/#version-compatibility) by the updated version of `flask-socketio`.
+
+Check `desktop/pyproject.toml` to see if any hard-coded versions should be updated. Then, update the dependencies like this:
+
+```
+cd desktop
+poetry update
+cd ..
+```
+
+Update the docs dependencies like this:
+
+```
+cd docs
+poetry update
+cd ..
+```
+
+Update the versions of `meek`, `obfs4proxy`, and `snowflake` in the `desktop/scripts/build-pt-*` scripts, both the bash and PowerShell scripts. You can find the latest versions by looking at the tags in their git repos: [meek](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/meek/-/tags), [obfs4proxy](https://gitlab.com/yawning/obfs4/-/tags), [snowflake](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/tags).
 
 ### Update the documentation
 
@@ -27,7 +55,11 @@ If you update `flask-socketio`, ensure that you also update the [socket.io.min.j
 
 ### Finalize localization
 
-- [ ] Merge all the translations from weblate
+- [ ] Merge all the translations from weblate:
+      ```
+      git remote add weblate https://hosted.weblate.org/projects/onionshare/translations/
+      git pull weblate main
+      ```
 - [ ] In `docs` run `poetry run ./check-weblate.py [API_KEY]` to see which translations are >90% in the app and docs
 - [ ] Edit `cli/onionshare_cli/settings.py`, make sure `self.available_locales` lists only locales that are >90% translated
 - [ ] From the `desktop` folder in the virtual env, run `./scripts/countries-update-list.py` to make sure the localized country list for censorship circumvention is available in all available languages
@@ -46,50 +78,53 @@ In `snap/snapcraft.yaml`:
 
 - [ ] The `tor`, `libevent`, `obfs4`, `snowflake-client`, and `meek-client` parts should be updated if necessary
 - [ ] In the `onionshare` part, in the `override-pull` section, all of the dependencies in the `requirements.txt` file should match the dependencies listed in `cli/pyproject.toml` and `desktop/pyproject.toml`, with the exception of PySide2
-- [ ] With every commit to the `main` branch, Snapcraft's CI should trigger builds. Make sure the builds all succeeded at https://snapcraft.io/onionshare/builds (you must be logged in), and test them. You can install them with: `snap install onionshare --edge`
+
+To test locally:
+
+- Install snapcraft with: `sudo snap install snapcraft --classic`
+- Build snap with: `snapcraft`
+- Install with: `sudo snap install ./onionshare_${VERSION}_amd64.snap --devmode`
+
+To in the edge branch:
+
+With every commit to the `main` branch, Snapcraft's CI should trigger builds. Make sure the builds all succeeded at https://snapcraft.io/onionshare/builds (you must be logged in), and test them. You can install them with: `snap install onionshare --edge`
 
 ### Make sure the Flatpak packaging works
 
 In `flatpak/org.onionshare.OnionShare.yaml`:
 
-- [ ] Update `tor`, `libevent`, `obfs4`, `meek-client`, and `snowflake-client` dependencies, if necessary
-- [ ] Built the latest python dependencies using [this tool](https://github.com/flatpak/flatpak-builder-tools/blob/master/pip/flatpak-pip-generator) (see below)
-- [ ] Test the Flatpak package, ensure it works
+- [ ] Update `tor` and `libevent`
+- [ ] Update `obfs4proxy`, `meek-client`, and `snowflake-client` dependencies, if necessary using [this tool](https://github.com/micahflee/flatpak-builder-tools/tree/fix-go/go):
+  ```sh
+  cd flatpak-builder-tools/go
 
+  # For each these, incorporate the output into the Flatpak maniest
+  # Make sure to update the version numbers
+  ./flatpak-go-deps.py git.torproject.org/pluggable-transports/meek.git/meek-client@v0.38.0
+  ./flatpak-go-deps.py git.torproject.org/pluggable-transports/snowflake.git/client@v2.6.0
+  ./flatpak-go-deps.py gitlab.com/yawning/obfs4.git/obfs4proxy@obfs4proxy-0.0.14
+  ```
+  Merge the output of each of these commands into the Flatpak manifest.
+- [ ] Update the Python dependencies using [this tool](https://github.com/flatpak/flatpak-builder-tools/blob/master/pip/flatpak-pip-generator) along with `flatpak/poetry-to-requirements.py`:
+  ```sh
+  cd flatpak-build-tools/pip
+
+  # get onionshare-cli dependencies
+  ./flatpak-pip-generator $(../../onionshare/flatpak/poetry-to-requirements.py ../../onionshare/cli/pyproject.toml)
+  ../flatpak-json2yaml.py ./python3-modules.json
+  mv python3-modules.yml onionshare-cli.yaml
+
+  # get onionshare dependencies
+  ./flatpak-pip-generator $(../../onionshare/flatpak/poetry-to-requirements.py ../../onionshare/desktop/pyproject.toml | grep -v PySide6)
+  ../flatpak-json2yaml.py ./python3-modules.json
+  mv python3-modules.yml onionshare-desktop.yaml
+  ```
+  Now, merge `onionshare-desktop.yaml` and `onionshare-cli.yaml` into the Flatpak manifest.
+- [ ] Build and test the Flatpak package to ensure it works:
+  ```sh
+  flatpak-builder build --force-clean --jobs=$(nproc) --install-deps-from=flathub --install --user flatpak/org.onionshare.OnionShare.yaml
+  flatpak run org.onionshare.OnionShare
 ```
-pip3 install toml requirements-parser
-
-# clone flatpak-build-tools
-git clone https://github.com/flatpak/flatpak-builder-tools.git
-
-# get onionshare-cli dependencies
-cd poetry
-./flatpak-poetry-generator.py ../../onionshare/cli/poetry.lock
-cd ..
-
-# get onionshare dependencies
-cd pip
-./flatpak-pip-generator $(python3 -c 'import toml; print("\n".join(toml.loads(open("../../onionshare/desktop/pyproject.toml").read())["tool"]["poetry"]["dependencies"]))' |grep -vi onionshare_cli |grep -vi python | grep -vi pyside6 | grep -vi cx_freeze |tr "\n" " ")
-cd ..
-
-# convert to yaml
-./flatpak-json2yaml.py -o onionshare-cli.yml poetry/generated-poetry-sources.json
-./flatpak-json2yaml.py -o onionshare.yml pip/python3-modules.json
-```
-
-Now, merge `onionshare-cli.yml` and `onionshare.yml` into the Flatpak manifest.
-
-Build and test the Flatpak package before publishing:
-
-```sh
-flatpak-builder build --force-clean --install-deps-from=flathub --install --user org.onionshare.OnionShare.yaml
-flatpak run org.onionshare.OnionShare
-```
-
-### Update to the latest version of Tor
-
-- [ ] Edit `desktop/scripts/get-tor.py` to use the latest version of Tor Browser, and the latest sha256 checksums.
-- [ ] Update the version of `meek`, `obfs4proxy`, and `snowflake` in the `desktop/scripts/build-pt-*` scripts, both the bash and PowerShell scripts.
 
 ### Create a signed git tag
 
